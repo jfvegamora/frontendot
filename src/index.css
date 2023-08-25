@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
+
 /* Estilos CSS para los inputs de Formulario */
 .label-input{
    --tw-text-opacity: 1;
