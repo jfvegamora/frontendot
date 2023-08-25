@@ -1,9 +1,9 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
 import { toast } from "react-toastify";
 import { RiFileExcel2Line } from "react-icons/ri";
 
-import { Button, IconButton, Tooltip } from "@material-tailwind/react";
+import { IconButton, Tooltip } from "@material-tailwind/react";
 import { useCrud } from "../hooks";
 
 type Props = {
