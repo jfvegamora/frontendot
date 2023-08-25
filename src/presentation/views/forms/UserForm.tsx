@@ -100,14 +100,6 @@ const UserForm: React.FC<IUserFormPrps> = React.memo(
       resolver: yupResolver(schema),
     });
 
-    // useEffect(() => {
-    //   if (data) {
-    //     setValue("nombre", data[EnumGrid.Nombre]);
-    //     setValue("password", "");
-    //     setValue("password2", ""); // Asegúrate de establecer password2 también
-    //     // ... establecer los valores para los otros campos
-    //   }
-    // }, [data, setValue]);
     return (
       <div className="useFormContainer">
         <div className="userFormBtnCloseContainer">
@@ -136,6 +128,14 @@ const UserForm: React.FC<IUserFormPrps> = React.memo(
                 entidad={["/api/cargos/", "02"]}
                 error={!isEditting && errors.cargo}
               />
+              {/* <SelectInputComponent
+                label="TipoInsumos"
+                name="tipos"
+                showRefresh={true}
+                control={control}
+                entidad={["/api/tipos/", "02", "TipoInsumos"]}
+                error={!isEditting && errors.cargo}
+              /> */}
             </div>
 
             <TextInputComponent

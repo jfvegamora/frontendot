@@ -62,17 +62,50 @@ const UsuariosMantenedor: React.FC = () => {
 
   console.log("entities:", entities);
 
+  // const handleApiRequest = async (
+  //   data: IUserInputData,
+  //   isEditting: boolean,
+  //   selectedIds: string
+  // ) => {
+  //   try {
+  //     const transformedData = isEditting
+  //       ? transformUpdateQuery(data, selectedIds)
+  //       : transformInsertQuery(data);
+
+  //     const response = isEditting
+  //       ? await editEntity(transformedData)
+  //       : await createdEntity(transformedData);
+
+  //     handleApiResponse(response, isEditting);
+  //   } catch (error: any) {
+  //     console.log(error);
+  //     toast.error(error);
+  //   }
+  // };
+
   const handleSaveChange = React.useCallback(
     async (data: IUserInputData, isEditting: boolean) => {
+      //   console.log("click");
+      //  const blnKeep = false //estado
+      //   if(!blnKeep){
+      //     const result = window.confirm("¿Quieres continuar Ingresando?");
+      //     if(result){
+      //         // agregar usuario         | handleApiRequest(data,isEditting, selectedIds.toString())
+      //         // limpiar inputs          |
+      //         // blnKeep = true
+      //         // mantener modal abierto  | !closeModal()
+      //     }else{
+      //      //agregar usuario        | handleApiRequest(data,isEditting, selectedIds.toString())
+      //     //cerrar modal            |  closeModal()
+      //     }
+      //   }
       try {
         const transformedData = isEditting
           ? transformUpdateQuery(data, selectedIds.toString())
           : transformInsertQuery(data);
-
         const response = isEditting
           ? await editEntity(transformedData)
           : await createdEntity(transformedData);
-
         handleApiResponse(response, isEditting);
       } catch (error: any) {
         console.log(error);

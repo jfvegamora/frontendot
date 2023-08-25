@@ -6,7 +6,7 @@ import { IconButton, Tooltip } from "@material-tailwind/react";
 import React, { useEffect, useState } from "react";
 import { Controller } from "react-hook-form";
 import { FiRefreshCw } from "react-icons/fi";
-import { useEntityUtils } from "../../hooks";
+import { useCrud, useEntityUtils } from "../../hooks";
 
 interface ISelectInputProps {
   label: string;
@@ -33,13 +33,29 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     setHandleSearch,
     inputName,
   }) => {
-    const [toggle, setToggle] = useState(false);
+    const [refreshToggle, setrefreshToggle] = useState(false);
+    const [entities, setEntities] = useState([]);
     const strUrl = entidad && entidad[0];
-    const { entities, refreshData } = useEntityUtils(strUrl, entidad[1]);
+    const strTableName = entidad[2] ? `_p1=${entidad[2]}` : "";
 
+    const { searchEntityByPrimaryKeys } = useCrud(strUrl);
+
+    const { refreshData } = useEntityUtils(strUrl, entidad[1]);
+
+    console.log("strTableName", strTableName);
     useEffect(() => {
       refreshData();
-    }, [toggle, refreshData]);
+      searchEntityByPrimaryKeys(strTableName, entidad[1])
+        .then((data: any) => {
+          if (data?.name === "AxiosError") {
+            return;
+          } else {
+            console.log("data", data);
+            data && setEntities(data);
+          }
+        })
+        .catch((e) => console.log(e));
+    }, [refreshToggle, refreshData]);
 
     return (
       <div className="flex w-full items-center mb-2 mx-4 mt-select mt-select-dropdown-up ">
@@ -81,7 +97,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
         {showRefresh && (
           <Tooltip content="Refrescar">
             <IconButton
-              onClick={() => setToggle((prev) => !prev)}
+              onClick={() => setrefreshToggle((prev) => !prev)}
               variant="text"
               color="blue-gray"
               className="mx2"
