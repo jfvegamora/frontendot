@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { AiOutlineForward, AiFillDelete } from "react-icons/ai";
 import { IconButton, Tooltip } from "@material-tailwind/react";
 import { SiAddthis } from "react-icons/si";
@@ -38,7 +38,7 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
   }) => {
     const { escritura } = usePermission();
 
-    const renderButton = (
+    const renderButton = useCallback((
       icon: React.ReactNode,
       onClick: () => void,
       tooltip: string
@@ -54,7 +54,7 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
           {icon}
         </IconButton>
       </Tooltip>
-    );
+    ), [escritura]);
 
     return (
       <div className="primaryBtnContainer">
