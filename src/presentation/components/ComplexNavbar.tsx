@@ -22,6 +22,7 @@ import {
   Bars2Icon,
 } from "@heroicons/react/24/outline";
 import { Link, To } from "react-router-dom";
+import { AppStore, useAppSelector } from '../../redux/store';
 
 // profile menu component
 const profileMenuItems = [
@@ -568,6 +569,7 @@ function NavList() {
 export default function ComplexNavbar() {
   const [isNavOpen, setIsNavOpen] = React.useState(false);
   const toggleIsNavOpen = () => setIsNavOpen((cur) => !cur);
+  const userState = useAppSelector((store: AppStore) => store.user);
 
   React.useEffect(() => {
     window.addEventListener(
@@ -586,9 +588,11 @@ export default function ComplexNavbar() {
         >
           Sistema Gestión OT
         </Typography>
+
         <div className="absolute top-2/4 left-2/4 hidden -translate-x-2/4 -translate-y-2/4 lg:block">
           <NavList />
         </div>
+
         <IconButton
           size="sm"
           color="blue-gray"
@@ -598,7 +602,7 @@ export default function ComplexNavbar() {
         >
           <Bars2Icon className="h-6 w-6" />
         </IconButton>
-        <ProfileMenu />
+        {userState.nombre && <ProfileMenu />}
       </div>
       <Collapse open={isNavOpen} className="overflow-scroll">
         <NavList />
