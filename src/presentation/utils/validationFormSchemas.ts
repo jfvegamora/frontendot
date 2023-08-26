@@ -2,6 +2,7 @@ import * as yup from "yup";
 
 const msg = "Requerido";
 
+// Schema USER
 export const validationUserSchema = (isEditting: boolean | undefined) =>
   yup.object().shape({
     nombre: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
@@ -13,14 +14,23 @@ export const validationUserSchema = (isEditting: boolean | undefined) =>
     password2: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
   });
 
+// Schema CARGOS
 export const validationCargosSchema = (isEditting: boolean | undefined) =>
   yup.object().shape({
     nombre: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
   });
 
+// Schema FUNCIONALIDADES
 export const validationFuncionalidadSchema = (
-  isEditting: boolean | undefined
+  isEditting: boolean | undefined,
 ) =>
   yup.object().shape({
     funcionalidad: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
+  });
+
+// Schema LOGIN
+export const validationLoginSchema = () =>
+  yup.object().shape({
+    _p1: yup.string().required(`${msg}`), //NickName
+    _p3: yup.string().required(`${msg}`), //Password
   });

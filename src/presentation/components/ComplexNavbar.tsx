@@ -15,17 +15,13 @@ import {
 import {
   CubeTransparentIcon,
   UserCircleIcon,
-  CodeBracketSquareIcon,
   Square3Stack3DIcon,
   ChevronDownIcon,
-  Cog6ToothIcon,
-  InboxArrowDownIcon,
-  LifebuoyIcon,
   PowerIcon,
   RocketLaunchIcon,
   Bars2Icon,
 } from "@heroicons/react/24/outline";
-import { Link } from "react-router-dom";
+import { Link, To } from "react-router-dom";
 
 // profile menu component
 const profileMenuItems = [
@@ -57,13 +53,12 @@ function ProfileMenu() {
             alt="tania andrew"
             className="border border-blue-500 p-0.5"
             src="https://www.freeiconspng.com/uploads/account-profile-user-icon--icon-search-engine-10.png"
-            //src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
+          //src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
           />
           <ChevronDownIcon
             strokeWidth={2.5}
-            className={`h-3 w-3 transition-transform ${
-              isMenuOpen ? "rotate-180" : ""
-            }`}
+            className={`h-3 w-3 transition-transform ${isMenuOpen ? "rotate-180" : ""
+              }`}
           />
         </Button>
       </MenuHandler>
@@ -74,11 +69,10 @@ function ProfileMenu() {
             <MenuItem
               key={label}
               onClick={closeMenu}
-              className={`flex items-center gap-2 rounded ${
-                isLastItem
-                  ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
-                  : ""
-              }`}
+              className={`flex items-center gap-2 rounded ${isLastItem
+                ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
+                : ""
+                }`}
             >
               {React.createElement(icon, {
                 className: `h-4 w-4 ${isLastItem ? "text-red-500" : ""}`,
@@ -208,18 +202,18 @@ const navListMenuSistema = [
   },
 ];
 
-function mapItems(title, link){
+function mapItems(title: React.Key | null | undefined, link: To) {
   return (
-  <Link to={link} key={title}>
-    <MenuItem>
-      <Typography variant="h6" color="blue-gray" className="mb-1">
-        {title}
-      </Typography>
-      <Typography variant="small" color="gray" className="font-normal">
-        {title}
-      </Typography>
-    </MenuItem>
-  </Link>)
+    <Link to={link} key={title}>
+      <MenuItem>
+        <Typography variant="h6" color="blue-gray" className="mb-1">
+          {title}
+        </Typography>
+        <Typography variant="small" color="gray" className="font-normal">
+          {title}
+        </Typography>
+      </MenuItem>
+    </Link>)
 }
 
 function NavListMenuOT() {
@@ -230,9 +224,9 @@ function NavListMenuOT() {
     onMouseLeave: () => setIsMenuOpen(false),
   };
 
-   const renderItems = navListMenuOT.map(({ title, link }) => (
+  const renderItems = navListMenuOT.map(({ title, link }) => (
     mapItems(title, link)
-   ));
+  ));
 
   return (
     <React.Fragment>
@@ -246,9 +240,8 @@ function NavListMenuOT() {
               <Square3Stack3DIcon className="h-[18px] w-[18px]" /> OT{" "}
               <ChevronDownIcon
                 strokeWidth={2}
-                className={`h-3 w-3 transition-transform ${
-                  isMenuOpen ? "rotate-180" : ""
-                }`}
+                className={`h-3 w-3 transition-transform ${isMenuOpen ? "rotate-180" : ""
+                  }`}
               />
             </MenuItem>
           </Typography>
@@ -289,7 +282,7 @@ function NavListMenuBodega() {
   };
 
   const renderItems = navListMenuBodega.map(({ title, link }) => (
-   mapItems(title, link)
+    mapItems(title, link)
   ));
 
   return (
@@ -304,9 +297,8 @@ function NavListMenuBodega() {
               <Square3Stack3DIcon className="h-[18px] w-[18px]" /> BODEGA{" "}
               <ChevronDownIcon
                 strokeWidth={2}
-                className={`h-3 w-3 transition-transform ${
-                  isMenuOpen ? "rotate-180" : ""
-                }`}
+                className={`h-3 w-3 transition-transform ${isMenuOpen ? "rotate-180" : ""
+                  }`}
               />
             </MenuItem>
           </Typography>
@@ -348,16 +340,16 @@ function NavListMenuProyectos() {
 
   const renderItems = navListMenuProyectos.map(({ title, link }) => (
     mapItems(title, link)
-   ));
-/* 
-   const renderItemsGeneral = navListMenuGeneral.map(({ title, link }) => (
-    mapItems(title, link)
-   ));
- 
-   const renderItemsSistema = navListMenuSistema.map(({ title, link }) => (
-    mapItems(title, link)
-   ));
- */
+  ));
+  /* 
+     const renderItemsGeneral = navListMenuGeneral.map(({ title, link }) => (
+      mapItems(title, link)
+     ));
+   
+     const renderItemsSistema = navListMenuSistema.map(({ title, link }) => (
+      mapItems(title, link)
+     ));
+   */
 
 
   return (
@@ -372,9 +364,8 @@ function NavListMenuProyectos() {
               <Square3Stack3DIcon className="h-[18px] w-[18px]" /> PROYECTOS{" "}
               <ChevronDownIcon
                 strokeWidth={2}
-                className={`h-3 w-3 transition-transform ${
-                  isMenuOpen ? "rotate-180" : ""
-                }`}
+                className={`h-3 w-3 transition-transform ${isMenuOpen ? "rotate-180" : ""
+                  }`}
               />
             </MenuItem>
           </Typography>
@@ -414,9 +405,9 @@ function NavListMenuSistema() {
     onMouseLeave: () => setIsMenuOpen(false),
   };
 
-   const renderItems = navListMenuSistema.map(({ title, link }) => (
+  const renderItems = navListMenuSistema.map(({ title, link }) => (
     mapItems(title, link)
-   ));
+  ));
 
   return (
     <React.Fragment>
@@ -430,9 +421,8 @@ function NavListMenuSistema() {
               <Square3Stack3DIcon className="h-[18px] w-[18px]" /> SISTEMA{" "}
               <ChevronDownIcon
                 strokeWidth={2}
-                className={`h-3 w-3 transition-transform ${
-                  isMenuOpen ? "rotate-180" : ""
-                }`}
+                className={`h-3 w-3 transition-transform ${isMenuOpen ? "rotate-180" : ""
+                  }`}
               />
             </MenuItem>
           </Typography>
@@ -529,22 +519,22 @@ const navListItems = [
     label: "Mantenedor de OT",
     icon: CubeTransparentIcon,
   },
-/*  {
-    label: "Account",
-    icon: UserCircleIcon,
-  },
-  {
-    label: "Blocks",
-    icon: CubeTransparentIcon,
-  },
-  {
-    label: "Docs",
-    icon: CodeBracketSquareIcon,
-  },
-  {
-    label: "Lista de Persona",
-    icon: UserCircleIcon,
-  },*/
+  /*  {
+      label: "Account",
+      icon: UserCircleIcon,
+    },
+    {
+      label: "Blocks",
+      icon: CubeTransparentIcon,
+    },
+    {
+      label: "Docs",
+      icon: CodeBracketSquareIcon,
+    },
+    {
+      label: "Lista de Persona",
+      icon: UserCircleIcon,
+    },*/
 ];
 
 function NavList() {

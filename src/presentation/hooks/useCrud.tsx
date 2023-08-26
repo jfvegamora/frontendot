@@ -11,7 +11,7 @@ const useCrud = (
   editEntity: (entityData: any) => Promise<any | undefined>;
   deleteAllEntity: (id: number[]) => Promise<any | undefined>;
   exportEntity: () => Promise<any | undefined>;
-  searchEntityByPrimaryKeys: (
+  ListEntity: (
     primaryKeys: string,
     query: string
   ) => Promise<any | undefined>;
@@ -48,9 +48,9 @@ const useCrud = (
     }
   };
 
-  const searchEntityByPrimaryKeys = async (
-    primaryKeys: string,
-    query: string
+  const ListEntity = async (
+    primaryKeys: any,
+    query: any
   ): Promise<any | undefined> => {
     // spUsuarios(1,'sand', 0, '', 0, 0);
     console.log("primarykeys", primaryKeys);
@@ -141,7 +141,7 @@ const useCrud = (
   return {
     createdEntity,
     editEntity,
-    searchEntityByPrimaryKeys,
+    ListEntity,
     deleteAllEntity,
     exportEntity,
   };

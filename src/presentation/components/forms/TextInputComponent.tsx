@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Input } from "@material-tailwind/react";
 import React from "react";
@@ -25,7 +26,7 @@ const TextInputComponent: React.FC<ITextInputProps> = ({
 }) => {
   return (
     <div
-      className={`flex items-center mb-2 mx-4 border rounded-xl ${error && "border-red-400"
+      className={`flex items-center mb-4 mx-4 border rounded-xl ${error && "border-red-400"
         }`}
     >
       <Controller
@@ -40,7 +41,7 @@ const TextInputComponent: React.FC<ITextInputProps> = ({
             //  required={true}
             type={type}
             readOnly={onlyRead}
-            className="border-none custom-input py-2 px-3 w-2/3"
+            className=" custom-input py-2 px-3 w-2/3"
           />
         )}
       />

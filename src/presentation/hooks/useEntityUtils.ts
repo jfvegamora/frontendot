@@ -24,10 +24,10 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
   const [onDelete, setDataGrid] = useState<boolean>(false);
 
   const { escritura } = usePermission();
-  const { deleteAllEntity, searchEntityByPrimaryKeys } = useCrud(baseUrl);
+  const { deleteAllEntity, ListEntity } = useCrud(baseUrl);
   // console.log("queryutils", query);
   const refreshData = useCallback(() => {
-    searchEntityByPrimaryKeys("", query)
+    ListEntity("", query)
       .then((data: []) => data && setEntities([...data]))
       .catch((e) => {
         console.log(e);
@@ -94,10 +94,10 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
   const handleSelectedAll = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       setSelectedIds(
-        event.target.checked ? entities.map((entity) => entity[1]) : []
+        event.target.checked ? entities.map((entity) => entity[1]) : [],
       );
     },
-    [entities]
+    [entities],
   );
 
   const handleEntity = (id: number) => {
@@ -111,7 +111,7 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
     setSelectedIds((prevSelectedIds) =>
       prevSelectedIds.includes(id)
         ? prevSelectedIds.filter((selectedId) => selectedId !== id)
-        : [...prevSelectedIds, id]
+        : [...prevSelectedIds, id],
     );
   }, []);
 
@@ -133,7 +133,7 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
         setEntity(null);
       }
     },
-    [entities, escritura]
+    [entities, escritura],
   );
 
   // const handleDelete = async (id: number) => {
@@ -204,7 +204,7 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
         }
       }
     },
-    [selectedIds, escritura]
+    [selectedIds, escritura],
   );
 
   // const handleSelectedAll = useCallback(
@@ -249,28 +249,8 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
   //   [entities, escritura],
   // );
 
-  // const handleEdit = useCallback((data)=>{
-  //     if(escritura){
-  //         const cleanedData = mappedPerson(data)
-  //         console.log('edit', cleanedData)
-  //         editEntity(entity.id, cleanedData)
-  //           .then(()=>{
-  //             setEntities([])
-  //             setDataGrid((prev)=>!prev)
-  //             toast.success('Editado correctamente')
-  //             closeModal()
-  //           })
-  //           .catch((e)=>{
-  //             toast.error('Error al editar')
-  //             console.log(e)
-  //           })
-  //     }else{
-  //         alert('No tienes permiso requerido')
-  //     }
-  // },[closeModal, escritura, entityID])
-
   useEffect(() => {
-    searchEntityByPrimaryKeys("", query)
+    ListEntity("", query)
       .then((data: any) => {
         if (data?.name === "AxiosError") {
           return;
@@ -278,7 +258,7 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
           console.log("data", data);
           data &&
             setEntities((prev) =>
-              prev ? [...prev, ...data] : data && [...data]
+              prev ? [...prev, ...data] : data && [...data],
             );
         }
       })

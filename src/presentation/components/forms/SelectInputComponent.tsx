@@ -38,14 +38,14 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     const strUrl = entidad && entidad[0];
     const strTableName = entidad[2] ? `_p1=${entidad[2]}` : "";
 
-    const { searchEntityByPrimaryKeys } = useCrud(strUrl);
+    const { ListEntity } = useCrud(strUrl);
 
     const { refreshData } = useEntityUtils(strUrl, entidad[1]);
 
     console.log("strTableName", strTableName);
     useEffect(() => {
       refreshData();
-      searchEntityByPrimaryKeys(strTableName, entidad[1])
+      ListEntity(strTableName, entidad[1])
         .then((data: any) => {
           if (data?.name === "AxiosError") {
             return;

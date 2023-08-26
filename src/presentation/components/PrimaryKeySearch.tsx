@@ -32,7 +32,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps<any>> = React.memo(
   ({ setState, primaryKeyInputs, baseUrl, selectUrl }) => {
     const { control, handleSubmit } = useForm<IPrimaryKeyState>();
     const [inputValues, setInputValues] = useState<IPrimaryKeyState>({});
-    const { searchEntityByPrimaryKeys } = useCrud(baseUrl);
+    const { ListEntity } = useCrud(baseUrl);
 
     const handleInputChange = React.useCallback(
       (name: string, value: string) => {
@@ -52,15 +52,15 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps<any>> = React.memo(
       try {
         const params = searchParams
           ? searchParams
-              .split("&")
-              .reduce((obj: Record<string, string>, param) => {
-                const [key, value] = param.split("=");
-                obj[key] = value;
-                return obj;
-              }, {})
+            .split("&")
+            .reduce((obj: Record<string, string>, param) => {
+              const [key, value] = param.split("=");
+              obj[key] = value;
+              return obj;
+            }, {})
           : {};
         console.log("params", params);
-        const response = await searchEntityByPrimaryKeys(searchParams, "01");
+        const response = await ListEntity(searchParams, "01");
         setState(response);
       } catch (error) {
         console.log(error);
@@ -102,75 +102,75 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps<any>> = React.memo(
                   setHandleSearch={handleSearch}
                 />
               ) : // <Select
-              //   {...field}
-              //   onChange={(e: any) => {
-              //     field.onChange(e);
-              //     const selectedValue = e.toString();
-              //     if (selectedValue !== "") {
-              //       handleSearch({ [input.name]: selectedValue });
-              //     }
-              //   }}
-              //   label={input.label}
-              // >
-              //   <Option value={"0"}>{input.label}</Option>{" "}
-              //   {/* Opción vacía */}
-              //   {entities.map((entity, index) => (
-              //     <Option
-              //       key={index}
-              //       value={
-              //         entity[0] !== undefined ? entity[0].toString() : ""
-              //       }
-              //     >
-              //       {entity[1]}
-              //     </Option>
-              //   ))}
-              // </Select>
-              input.type === "radiobuttons" ? (
-                <div>
-                  <label className="primaryKeyLabel">{input.label}</label>
-                  <div className="primaryKeyRadioContainer">
-                    {input.options?.map((entity, index) => (
-                      <div key={index} className="primaryKeybtnRadioContainer">
-                        <input
-                          type="radio"
-                          {...field}
-                          value={entity}
-                          checked={field.value === entity[0].toString()}
-                          onChange={() => {
-                            field.onChange(entity[0].toString());
-                          }}
-                        />
-                        <span className="ml-1">{entity}</span>
-                      </div>
-                    ))}
+                //   {...field}
+                //   onChange={(e: any) => {
+                //     field.onChange(e);
+                //     const selectedValue = e.toString();
+                //     if (selectedValue !== "") {
+                //       handleSearch({ [input.name]: selectedValue });
+                //     }
+                //   }}
+                //   label={input.label}
+                // >
+                //   <Option value={"0"}>{input.label}</Option>{" "}
+                //   {/* Opción vacía */}
+                //   {entities.map((entity, index) => (
+                //     <Option
+                //       key={index}
+                //       value={
+                //         entity[0] !== undefined ? entity[0].toString() : ""
+                //       }
+                //     >
+                //       {entity[1]}
+                //     </Option>
+                //   ))}
+                // </Select>
+                input.type === "radiobuttons" ? (
+                  <div>
+                    <label className="primaryKeyLabel">{input.label}</label>
+                    <div className="primaryKeyRadioContainer">
+                      {input.options?.map((entity, index) => (
+                        <div key={index} className="primaryKeybtnRadioContainer">
+                          <input
+                            type="radio"
+                            {...field}
+                            value={entity}
+                            checked={field.value === entity[0].toString()}
+                            onChange={() => {
+                              field.onChange(entity[0].toString());
+                            }}
+                          />
+                          <span className="ml-1">{entity}</span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              ) : input.type === "date" ? (
-                <div>
-                  <label className="primaryKeyLabel">{input.label}</label>
-                  <input
-                    type="date"
+                ) : input.type === "date" ? (
+                  <div>
+                    <label className="primaryKeyLabel">{input.label}</label>
+                    <input
+                      type="date"
+                      {...field}
+                      value={field.value || ""}
+                      onChange={(e) => {
+                        field.onChange(e.target.value);
+                      }}
+                      onBlur={handleBlur}
+                    />
+                  </div>
+                ) : (
+                  <Input
                     {...field}
-                    value={field.value || ""}
+                    label={input.label}
+                    value={inputValues[input.name] || ""}
                     onChange={(e) => {
-                      field.onChange(e.target.value);
+                      field.onChange(e);
+                      handleInputChange(input.name, e.target.value);
                     }}
+                    onKeyDown={handleKeyDown}
                     onBlur={handleBlur}
                   />
-                </div>
-              ) : (
-                <Input
-                  {...field}
-                  label={input.label}
-                  value={inputValues[input.name] || ""}
-                  onChange={(e) => {
-                    field.onChange(e);
-                    handleInputChange(input.name, e.target.value);
-                  }}
-                  onKeyDown={handleKeyDown}
-                  onBlur={handleBlur}
-                />
-              )}
+                )}
             </div>
           )}
         />
