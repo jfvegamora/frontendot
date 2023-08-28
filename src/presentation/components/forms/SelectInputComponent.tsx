@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
@@ -19,6 +20,7 @@ interface ISelectInputProps {
   inputName?: any;
   error?: any;
   entidad: string[];
+  inputValues?: any;
 }
 
 const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
@@ -32,9 +34,11 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     entidad,
     setHandleSearch,
     inputName,
+    inputValues,
   }) => {
     const [refreshToggle, setrefreshToggle] = useState(false);
     const [entities, setEntities] = useState([]);
+    const [strSelectedName, setStrSelectedName] = useState(data);
     const strUrl = entidad && entidad[0];
     const strTableName = entidad[2] ? `_p1=${entidad[2]}` : "";
 
@@ -42,20 +46,23 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
 
     const { refreshData } = useEntityUtils(strUrl, entidad[1]);
 
-    console.log("strTableName", strTableName);
     useEffect(() => {
       refreshData();
+      if (data) {
+        const name =
+          data && entities.find((entity: any) => entity[0] === data)?.[1];
+        setStrSelectedName(name);
+      }
       ListEntity(strTableName, entidad[1])
         .then((data: any) => {
           if (data?.name === "AxiosError") {
             return;
           } else {
-            console.log("data", data);
             data && setEntities(data);
           }
         })
         .catch((e) => console.log(e));
-    }, [refreshToggle, refreshData]);
+    }, [refreshToggle, refreshData, data]);
 
     return (
       <div className="flex w-full items-center mb-2 mx-4 mt-select mt-select-dropdown-up ">
@@ -63,24 +70,28 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
         <Controller
           name={name}
           control={control}
-          defaultValue={data || ""}
+          defaultValue={strSelectedName}
           render={({ field }) => (
             <select
               {...field}
+              // value={selectedIndex}
               onChange={(e) => {
                 field.onChange(e);
-                console.log("evento", e.target.value);
                 if (setHandleSearch) {
                   const selectedValue = e.target.value.toString();
-                  if (selectedValue !== "") {
-                    console.log("selectedValue", selectedValue),
-                      setHandleSearch({ [inputName]: selectedValue });
+                  const inputValuesToUpdate = {
+                    [inputName]: selectedValue,
+                    _p1: inputValues["_p1"] || "",
+                  };
+
+                  if (setHandleSearch) {
+                    setHandleSearch(inputValuesToUpdate);
                   }
                 }
               }}
               className="custom-input py-2 px-3 w-[80%]"
             >
-              <option value={"0"}>{label}</option>{" "}
+              {!data && <option value={"0"}>{label}</option>}
               {entities &&
                 entities.map((option: any, index) => (
                   <option

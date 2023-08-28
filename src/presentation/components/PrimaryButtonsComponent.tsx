@@ -21,6 +21,7 @@ interface IPrimaryButtonProps {
   showDeleteButton?: boolean;
   showExportButton?: boolean;
   strBaseUrl?: string;
+  params?: never[];
 }
 
 const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
@@ -35,26 +36,26 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
     showDeleteButton,
     strBaseUrl,
     showExportButton,
+    params,
   }) => {
     const { escritura } = usePermission();
 
-    const renderButton = useCallback((
-      icon: React.ReactNode,
-      onClick: () => void,
-      tooltip: string
-    ) => (
-      <Tooltip content={tooltip}>
-        <IconButton
-          variant="text"
-          color="blue-gray"
-          className="primaryBtnIconButton"
-          onClick={onClick}
-          disabled={!escritura}
-        >
-          {icon}
-        </IconButton>
-      </Tooltip>
-    ), [escritura]);
+    const renderButton = useCallback(
+      (icon: React.ReactNode, onClick: () => void, tooltip: string) => (
+        <Tooltip content={tooltip}>
+          <IconButton
+            variant="text"
+            color="blue-gray"
+            className="primaryBtnIconButton"
+            onClick={onClick}
+            disabled={!escritura}
+          >
+            {icon}
+          </IconButton>
+        </Tooltip>
+      ),
+      [escritura]
+    );
 
     return (
       <div className="primaryBtnContainer">
@@ -91,7 +92,9 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
             BUTTON_MESSAGES.refresh
           )}
 
-        {showExportButton && <ExportCSV strBaseUrl={strBaseUrl} />}
+        {showExportButton && (
+          <ExportCSV params={params} strBaseUrl={strBaseUrl} />
+        )}
 
         {showDeleteButton &&
           escritura &&

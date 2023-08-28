@@ -12,8 +12,8 @@ import { useCrud, usePermission } from ".";
 export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
   const baseUrl = entityApiBaseUrl.startsWith("http")
     ? entityApiBaseUrl
-    : `https://mtoopticos.cl${entityApiBaseUrl}`;
-  // `http://127.0.0.1:8000${entityApiBaseUrl}`;
+    : // : `https://mtoopticos.cl${entityApiBaseUrl}`;
+      `http://127.0.0.1:8000${entityApiBaseUrl}`;
   const [entity, setEntity] = useState<any | null>(null);
   const [entities, setEntities] = useState<never[]>([]);
   const [pageSize, setPageSize] = useState(1);
@@ -54,6 +54,7 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
     setSelectedIds([]);
     setPageSize(1);
     setDataGrid((prev) => !prev);
+    //reset()
   };
 
   const handleRefresh = useCallback(() => {
@@ -94,10 +95,10 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
   const handleSelectedAll = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       setSelectedIds(
-        event.target.checked ? entities.map((entity) => entity[1]) : [],
+        event.target.checked ? entities.map((entity) => entity[1]) : []
       );
     },
-    [entities],
+    [entities]
   );
 
   const handleEntity = (id: number) => {
@@ -111,7 +112,7 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
     setSelectedIds((prevSelectedIds) =>
       prevSelectedIds.includes(id)
         ? prevSelectedIds.filter((selectedId) => selectedId !== id)
-        : [...prevSelectedIds, id],
+        : [...prevSelectedIds, id]
     );
   }, []);
 
@@ -133,7 +134,7 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
         setEntity(null);
       }
     },
-    [entities, escritura],
+    [entities, escritura]
   );
 
   // const handleDelete = async (id: number) => {
@@ -204,7 +205,7 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
         }
       }
     },
-    [selectedIds, escritura],
+    [selectedIds, escritura]
   );
 
   // const handleSelectedAll = useCallback(
@@ -258,7 +259,7 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
           console.log("data", data);
           data &&
             setEntities((prev) =>
-              prev ? [...prev, ...data] : data && [...data],
+              prev ? [...prev, ...data] : data && [...data]
             );
         }
       })

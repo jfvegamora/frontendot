@@ -12,12 +12,10 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationUserSchema } from "../../utils/validationFormSchemas";
 import { EnumGrid } from "../mantenedores/UsuariosMantenedor";
-import { ERROR_MESSAGES } from "../../utils";
+// import { ERROR_MESSAGES } from "../../utils";
 
 export interface IUserInputData {
   nombre: string | undefined;
-  password: string | undefined;
-  password2?: string | undefined;
   cargo: string | undefined;
   telefono: number | undefined;
   correo: string | undefined;
@@ -33,11 +31,12 @@ interface OutputData {
 export function transformInsertQuery(
   jsonData: IUserInputData
 ): OutputData | null {
-  if (jsonData.password !== jsonData.password2) {
-    alert(ERROR_MESSAGES.passwordNotMatch);
-  }
+  // if (jsonData.password !== jsonData.password2) {
+  //   alert(ERROR_MESSAGES.passwordNotMatch);
+  // }
+  console.log("click");
 
-  const _p1 = `'${jsonData.nombre}', '', ${jsonData.cargo}, '${
+  const _p1 = `'${jsonData.nombre}', ${jsonData.cargo}, '${
     jsonData.telefono
   }', '${jsonData.correo}', ${jsonData.estado === "Activo" ? 1 : 2}`;
 
@@ -48,17 +47,23 @@ export function transformInsertQuery(
 
   return query;
 }
+
 export function transformUpdateQuery(
   jsonData: IUserInputData,
   primaryKey: string
 ): OutputData | null {
   const fields = [
-    jsonData.nombre && `nombre='${jsonData.nombre}'`,
-    jsonData.telefono && `telefono='${jsonData.telefono}'`,
-    jsonData.correo && `correo='${jsonData.correo}'`,
-    jsonData.estado && `estado=${jsonData.estado === "Activo" ? 1 : 2}`,
-    jsonData.cargo && `cargo=${jsonData.cargo}`,
-    jsonData.password && `password='${jsonData.password}'`,
+    // jsonData.nombre && `nombre='${jsonData.nombre}'`,
+    // jsonData.telefono && `telefono='${jsonData.telefono}'`,
+    // jsonData.correo && `correo='${jsonData.correo}'`,
+    // jsonData.estado && `estado=${jsonData.estado === "Activo" ? 1 : 2}`,
+    // jsonData.cargo && `cargo=${jsonData.cargo}`
+    // jsonData.password && `password='${jsonData.password}'`,
+    `nombre='${jsonData.nombre}'`,
+    `telefono='${jsonData.telefono}'`,
+    `correo='${jsonData.correo}'`,
+    `estado=${jsonData.estado === "Activo" ? 1 : 2}`,
+    `cargo=${jsonData.cargo}`,
   ];
 
   const filteredFields = fields.filter(
@@ -68,8 +73,6 @@ export function transformUpdateQuery(
   if (filteredFields.length === 0) {
     return null;
   }
-
-  // const _p1 = `"${filteredFields.join(",")}"`;
   const _p1 = filteredFields.join(",");
   console.log("_p1", _p1);
   console.log("_p2", primaryKey);
@@ -100,6 +103,17 @@ const UserForm: React.FC<IUserFormPrps> = React.memo(
       resolver: yupResolver(schema),
     });
 
+    // const handleApiResponse = React.useCallback(
+    //   (response: any, isEditting: boolean) => {
+    //     const errorResponse = response?.response?.data.error;
+    //     if (errorResponse) {
+    //       errorResponse === 'IntegrityError'
+    //         ? isEditting
+    //            ? strEntidad
+    //     }
+    //   }
+    // ,[]);
+    console.log("data form", data);
     return (
       <div className="useFormContainer">
         <div className="userFormBtnCloseContainer">
@@ -124,6 +138,7 @@ const UserForm: React.FC<IUserFormPrps> = React.memo(
                 label="Cargo"
                 name="cargo"
                 showRefresh={true}
+                data={data && data[EnumGrid.Cargo_id]}
                 control={control}
                 entidad={["/api/cargos/", "02"]}
                 error={!isEditting && errors.cargo}
@@ -161,7 +176,7 @@ const UserForm: React.FC<IUserFormPrps> = React.memo(
               options={["Activo", "Suspendido"]}
               error={!isEditting && errors.estado}
             />
-            <TextInputComponent
+            {/* <TextInputComponent
               type="password"
               label="Password"
               name="password"
@@ -174,7 +189,7 @@ const UserForm: React.FC<IUserFormPrps> = React.memo(
               name="password2"
               control={control}
               error={!isEditting && errors.password}
-            />
+            /> */}
           </div>
 
           <button type="submit" className="userFormBtnSubmit">

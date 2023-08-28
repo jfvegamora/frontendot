@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
 
-import React from "react";
+import React, { useState } from "react";
 import { useEntityUtils } from "../../hooks";
 import {
   PrimaryButtonsComponent,
@@ -18,6 +18,7 @@ const strQuery = "01";
 
 const CargosMantenedor: React.FC = () => {
   // const { createdEntity, editEntity } = useCrud(strBaseUrl);
+  const [params, setParams] = useState([]);
 
   const {
     //Entities State
@@ -56,6 +57,7 @@ const CargosMantenedor: React.FC = () => {
       <div className="mantenedorHead">
         <PrimaryKeySearch
           baseUrl={strBaseUrl}
+          setParams={setParams}
           setState={setEntities as React.Dispatch<React.SetStateAction<any[]>>}
           primaryKeyInputs={[{ name: "_p1", label: "Cargo", type: "text" }]}
         />
@@ -63,6 +65,8 @@ const CargosMantenedor: React.FC = () => {
         <PrimaryButtonsComponent
           handleAddPerson={openModal}
           handleDeleteSelected={handleDeleteSelected}
+          params={params}
+          strBaseUrl={strBaseUrl}
           showAddButton={true}
           showExportButton={true}
           showDeleteButton={true}

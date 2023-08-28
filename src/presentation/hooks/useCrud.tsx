@@ -10,16 +10,13 @@ const useCrud = (
   createdEntity: (entityData: any) => Promise<any | undefined>;
   editEntity: (entityData: any) => Promise<any | undefined>;
   deleteAllEntity: (id: number[]) => Promise<any | undefined>;
-  exportEntity: () => Promise<any | undefined>;
-  ListEntity: (
-    primaryKeys: string,
-    query: string
-  ) => Promise<any | undefined>;
+  exportEntity: (primaryKey?: string) => Promise<any | undefined>;
+  ListEntity: (primaryKeys: string, query: string) => Promise<any | undefined>;
 } => {
   const baseUrl = apiBaseUrl.startsWith("http")
     ? apiBaseUrl
-    : `https://mtoopticos.cl${apiBaseUrl}`;
-  // `http://127.0.0.1:8000${apiBaseUrl}`;
+    : // : `https://mtoopticos.cl${apiBaseUrl}`;
+      `http://127.0.0.1:8000${apiBaseUrl}`;
   const axiosInstance: AxiosInstance = axios.create({
     baseURL: baseUrl,
     headers: {
@@ -27,9 +24,12 @@ const useCrud = (
     },
   });
 
-  const exportEntity = async (): Promise<void> => {
+  const exportEntity = async (primaryKey?: string): Promise<void> => {
     try {
-      const response = await axiosInstance.get("/excel/?query=01", {
+      const strUrl = primaryKey
+        ? `/excel/?query=01&${primaryKey}`
+        : `/excel/?query=01`;
+      const response = await axiosInstance.get(strUrl, {
         responseType: "blob",
       });
 
@@ -60,7 +60,7 @@ const useCrud = (
       const response = await axiosInstance.get(searchUrl);
       return response.data;
     } catch (error) {
-      console.log(error);
+      return error;
     }
   };
 

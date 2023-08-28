@@ -22,7 +22,7 @@ import {
   Bars2Icon,
 } from "@heroicons/react/24/outline";
 import { Link, To } from "react-router-dom";
-import { AppStore, useAppSelector } from '../../redux/store';
+import { AppStore, useAppSelector } from "../../redux/store";
 
 // profile menu component
 const profileMenuItems = [
@@ -54,12 +54,13 @@ function ProfileMenu() {
             alt="tania andrew"
             className="border border-blue-500 p-0.5"
             src="https://www.freeiconspng.com/uploads/account-profile-user-icon--icon-search-engine-10.png"
-          //src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
+            //src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
           />
           <ChevronDownIcon
             strokeWidth={2.5}
-            className={`h-3 w-3 transition-transform ${isMenuOpen ? "rotate-180" : ""
-              }`}
+            className={`h-3 w-3 transition-transform ${
+              isMenuOpen ? "rotate-180" : ""
+            }`}
           />
         </Button>
       </MenuHandler>
@@ -70,10 +71,11 @@ function ProfileMenu() {
             <MenuItem
               key={label}
               onClick={closeMenu}
-              className={`flex items-center gap-2 rounded ${isLastItem
-                ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
-                : ""
-                }`}
+              className={`flex items-center gap-2 rounded ${
+                isLastItem
+                  ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
+                  : ""
+              }`}
             >
               {React.createElement(icon, {
                 className: `h-4 w-4 ${isLastItem ? "text-red-500" : ""}`,
@@ -214,7 +216,8 @@ function mapItems(title: React.Key | null | undefined, link: To) {
           {title}
         </Typography>
       </MenuItem>
-    </Link>)
+    </Link>
+  );
 }
 
 function NavListMenuOT() {
@@ -225,9 +228,9 @@ function NavListMenuOT() {
     onMouseLeave: () => setIsMenuOpen(false),
   };
 
-  const renderItems = navListMenuOT.map(({ title, link }) => (
+  const renderItems = navListMenuOT.map(({ title, link }) =>
     mapItems(title, link)
-  ));
+  );
 
   return (
     <React.Fragment>
@@ -241,8 +244,9 @@ function NavListMenuOT() {
               <Square3Stack3DIcon className="h-[18px] w-[18px]" /> OT{" "}
               <ChevronDownIcon
                 strokeWidth={2}
-                className={`h-3 w-3 transition-transform ${isMenuOpen ? "rotate-180" : ""
-                  }`}
+                className={`h-3 w-3 transition-transform ${
+                  isMenuOpen ? "rotate-180" : ""
+                }`}
               />
             </MenuItem>
           </Typography>
@@ -282,9 +286,9 @@ function NavListMenuBodega() {
     onMouseLeave: () => setIsMenuOpen(false),
   };
 
-  const renderItems = navListMenuBodega.map(({ title, link }) => (
+  const renderItems = navListMenuBodega.map(({ title, link }) =>
     mapItems(title, link)
-  ));
+  );
 
   return (
     <React.Fragment>
@@ -298,8 +302,9 @@ function NavListMenuBodega() {
               <Square3Stack3DIcon className="h-[18px] w-[18px]" /> BODEGA{" "}
               <ChevronDownIcon
                 strokeWidth={2}
-                className={`h-3 w-3 transition-transform ${isMenuOpen ? "rotate-180" : ""
-                  }`}
+                className={`h-3 w-3 transition-transform ${
+                  isMenuOpen ? "rotate-180" : ""
+                }`}
               />
             </MenuItem>
           </Typography>
@@ -339,9 +344,9 @@ function NavListMenuProyectos() {
     onMouseLeave: () => setIsMenuOpen(false),
   };
 
-  const renderItems = navListMenuProyectos.map(({ title, link }) => (
+  const renderItems = navListMenuProyectos.map(({ title, link }) =>
     mapItems(title, link)
-  ));
+  );
   /* 
      const renderItemsGeneral = navListMenuGeneral.map(({ title, link }) => (
       mapItems(title, link)
@@ -351,7 +356,6 @@ function NavListMenuProyectos() {
       mapItems(title, link)
      ));
    */
-
 
   return (
     <React.Fragment>
@@ -365,8 +369,9 @@ function NavListMenuProyectos() {
               <Square3Stack3DIcon className="h-[18px] w-[18px]" /> PROYECTOS{" "}
               <ChevronDownIcon
                 strokeWidth={2}
-                className={`h-3 w-3 transition-transform ${isMenuOpen ? "rotate-180" : ""
-                  }`}
+                className={`h-3 w-3 transition-transform ${
+                  isMenuOpen ? "rotate-180" : ""
+                }`}
               />
             </MenuItem>
           </Typography>
@@ -406,9 +411,9 @@ function NavListMenuSistema() {
     onMouseLeave: () => setIsMenuOpen(false),
   };
 
-  const renderItems = navListMenuSistema.map(({ title, link }) => (
+  const renderItems = navListMenuSistema.map(({ title, link }) =>
     mapItems(title, link)
-  ));
+  );
 
   return (
     <React.Fragment>
@@ -422,8 +427,9 @@ function NavListMenuSistema() {
               <Square3Stack3DIcon className="h-[18px] w-[18px]" /> SISTEMA{" "}
               <ChevronDownIcon
                 strokeWidth={2}
-                className={`h-3 w-3 transition-transform ${isMenuOpen ? "rotate-180" : ""
-                  }`}
+                className={`h-3 w-3 transition-transform ${
+                  isMenuOpen ? "rotate-180" : ""
+                }`}
               />
             </MenuItem>
           </Typography>
@@ -513,7 +519,6 @@ function NavListMenuSistema() {
   );
 }*/
 
-
 // nav list component
 const navListItems = [
   {
@@ -602,7 +607,7 @@ export default function ComplexNavbar() {
         >
           <Bars2Icon className="h-6 w-6" />
         </IconButton>
-        {userState.nombre && <ProfileMenu />}
+        <ProfileMenu />
       </div>
       <Collapse open={isNavOpen} className="overflow-scroll">
         <NavList />

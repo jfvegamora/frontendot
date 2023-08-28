@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
 import { toast } from "react-toastify";
@@ -8,6 +10,7 @@ import { useCrud } from "../hooks";
 
 type Props = {
   strBaseUrl: any;
+  params?: any[];
 };
 const customStyles = {
   content: {
@@ -20,12 +23,21 @@ const customStyles = {
   },
 };
 
-export const ExportCSV: React.FC<Props> = ({ strBaseUrl }) => {
+export const ExportCSV: React.FC<Props> = ({ strBaseUrl, params }) => {
   const [isModalInsert, setisModalInsert] = useState(false);
   const [exportAll, setExportAll] = useState(false);
   const [exportTable, setExportTable] = useState(false);
 
   const { exportEntity } = useCrud(strBaseUrl);
+
+  const searchParams = Object.entries(params)
+    .map(([key, value]) =>
+      key === "_p1" || value ? `${key}=${encodeURIComponent(value)}` : ""
+    )
+    // .filter((param) => param !== "")
+    .join("&");
+
+  console.log("params desde excel:", searchParams);
 
   const handleExport = (exportAll: boolean) => {
     setisModalInsert(false);
@@ -37,7 +49,7 @@ export const ExportCSV: React.FC<Props> = ({ strBaseUrl }) => {
       setExportTable(true);
     }
   };
-
+  // const primaryKey = "_p1='prueb'&_p2='' "
   useEffect(() => {
     if (exportAll) {
       console.log("peticion descarga tabla completa");
@@ -47,7 +59,7 @@ export const ExportCSV: React.FC<Props> = ({ strBaseUrl }) => {
         })
         .catch((e) => console.log(e));
     } else if (exportTable) {
-      exportEntity()
+      exportEntity(searchParams)
         .then(() => {
           toast("Descargando archvios");
         })

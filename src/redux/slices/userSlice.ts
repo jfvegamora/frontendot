@@ -16,10 +16,9 @@ export const UserKey = "user";
 
 export const userSlice = createSlice({
   name: "UserReducer",
-  initialState,
-  // initialState: localStorage.getItem("user")
-  //   ? JSON.parse(localStorage.getItem("user") as string)
-  //   : initialState,
+  initialState: localStorage.getItem("user")
+    ? JSON.parse(localStorage.getItem("user") as string)
+    : initialState,
   reducers: {
     login: (state, action) => {
       const userData = action.payload[0];
@@ -36,7 +35,7 @@ export const userSlice = createSlice({
       state.estado = userData[7];
       state.permisos = Permisos.ESCRITURA;
 
-      // localStorage.setItem(UserKey, JSON.stringify(state));
+      localStorage.setItem(UserKey, JSON.stringify(state));
     },
     logout: (state) => {
       Object.assign(state, initialState);

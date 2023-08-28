@@ -1,7 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 
 import {
@@ -37,6 +37,8 @@ const strQuery = "01";
 
 const UsuariosMantenedor: React.FC = () => {
   const { createdEntity, editEntity } = useCrud(strBaseUrl);
+  const [params, setParams] = useState([]);
+  const [intLastId, setInLastId] = useState<number | null>(0);
 
   const {
     //entities state
@@ -57,10 +59,12 @@ const UsuariosMantenedor: React.FC = () => {
     handleSelectedAll,
     //primary buttons methods
     handleDeleteSelected,
+    handleRefresh,
+    resetEntities,
   } = useEntityUtils(strBaseUrl, strQuery);
-  // console.log("entity", selectedIds);
+  console.log("entity", entities);
 
-  console.log("entities:", entities);
+  // console.log("params:", params);
 
   // const handleApiRequest = async (
   //   data: IUserInputData,
@@ -85,7 +89,7 @@ const UsuariosMantenedor: React.FC = () => {
 
   const handleSaveChange = React.useCallback(
     async (data: IUserInputData, isEditting: boolean) => {
-      //   console.log("click");
+      console.log("click");
       //  const blnKeep = false //estado
       //   if(!blnKeep){
       //     const result = window.confirm("¿Quieres continuar Ingresando?");
@@ -100,6 +104,7 @@ const UsuariosMantenedor: React.FC = () => {
       //     }
       //   }
       try {
+        console.log("click");
         const transformedData = isEditting
           ? transformUpdateQuery(data, selectedIds.toString())
           : transformInsertQuery(data);
@@ -141,6 +146,24 @@ const UsuariosMantenedor: React.FC = () => {
     [setEntities, setDataGrid]
   );
 
+  useEffect(() => {
+    if (entities.length > 0) {
+      const maxIdElement = entities.reduce((maxElement, currentElement) => {
+        const currentValue = currentElement[1];
+        if (currentValue > maxElement[1]) {
+          return currentElement;
+        }
+        return maxElement;
+      }, entities[0]);
+
+      setInLastId(maxIdElement[1]);
+    } else {
+      setInLastId(null); // O cualquier valor que desees en caso de que la matriz esté vacía
+    }
+  }, [entities]);
+
+  console.log("last id:", intLastId);
+
   return (
     <div className="mantenedorContainer">
       <h1 className="mantenedorH1">Mantenedor de Usuarios</h1>
@@ -149,6 +172,7 @@ const UsuariosMantenedor: React.FC = () => {
         <PrimaryKeySearch
           baseUrl={strBaseUrl}
           selectUrl={strListUrl}
+          setParams={setParams}
           setState={setEntities as React.Dispatch<React.SetStateAction<any[]>>}
           primaryKeyInputs={[
             { name: "_p1", label: "Nombre", type: "text" },
@@ -159,12 +183,14 @@ const UsuariosMantenedor: React.FC = () => {
         <PrimaryButtonsComponent
           handleAddPerson={openModal}
           handleDeleteSelected={handleDeleteSelected}
+          handleRefresh={resetEntities}
+          params={params}
           strBaseUrl={strBaseUrl}
           showAddButton={true}
           showExportButton={true}
           showDeleteButton={true}
           showForwardButton={false}
-          showRefreshButton={false}
+          showRefreshButton={true}
         />
       </div>
 
