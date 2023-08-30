@@ -88,6 +88,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
                     setHandleSearch(inputValuesToUpdate);
                   }
                 }
+                setrefreshToggle((prev) => !prev);
               }}
               className="custom-input py-2 px-3 w-[80%]"
             >

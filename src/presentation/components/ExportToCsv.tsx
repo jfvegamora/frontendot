@@ -57,9 +57,6 @@ export const ExportCSV: React.FC<Props> = ({
       setExportTable(true);
     }
   };
-  console.log("params", params);
-  console.log("params", searchParams);
-  console.log("searchParams", decodeURIComponent(searchParams));
 
   useEffect(() => {
     if (exportAll) {

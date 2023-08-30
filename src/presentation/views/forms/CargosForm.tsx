@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React from "react";
+import React, { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
@@ -81,16 +81,24 @@ const CargosForm: React.FC<ICargosFormProps> = React.memo(
   }) => {
     const schema = validationCargosSchema(isEditting);
     const { editEntity, createdEntity, ListEntity } = useCrud(strBaseUrl);
+    const [blnKeep, setblnKeep] = useState(false);
 
     const {
       control,
       handleSubmit,
       formState: { errors },
+      reset,
     } = useForm({
       resolver: yupResolver(schema),
     });
+
+    const updateNewEntity = React.useCallback(async () => {
+      const newEntityData = await ListEntity(params, "01");
+      setEntities(newEntityData);
+    }, [params, setEntities, ListEntity]);
+
     const handleApiResponse = React.useCallback(
-      async (response: any, isEditting: boolean) => {
+      (response: any, isEditting: boolean) => {
         const errorResponse = response?.response?.data.error;
         if (errorResponse) {
           const errorMessage =
@@ -107,12 +115,28 @@ const CargosForm: React.FC<ICargosFormProps> = React.memo(
               : strEntidad.concat(SUCCESS_MESSAGES.create)
           );
         }
-        closeModal();
-        const newEntity = await ListEntity(params, "01");
-        console.log("newEntity:", newEntity);
-        setEntities(newEntity);
+        if (!blnKeep && !isEditting) {
+          const result = window.confirm("¿Quieres continuar ingresando?");
+          if (result) {
+            console.log("seguir");
+            setblnKeep(true);
+            reset();
+            updateNewEntity();
+          } else {
+            console.log("salir");
+            closeModal();
+            updateNewEntity();
+          }
+        }
+        if (isEditting) {
+          updateNewEntity();
+          closeModal();
+        }
+
+        reset();
+        updateNewEntity();
       },
-      [setEntities, params, closeModal, ListEntity]
+      [closeModal, blnKeep, reset, updateNewEntity]
     );
 
     const handleSaveChange = React.useCallback(

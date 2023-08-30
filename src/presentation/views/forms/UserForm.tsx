@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React from "react";
+import React, { useState } from "react";
 import {
   RadioButtonComponent,
   SelectInputComponent,
@@ -13,6 +13,12 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { validationUserSchema } from "../../utils/validationFormSchemas";
 import { EnumGrid } from "../mantenedores/UsuariosMantenedor";
 // import { ERROR_MESSAGES } from "../../utils";
+import { toast } from "react-toastify";
+import { ERROR_MESSAGES, SUCCESS_MESSAGES } from "../../utils";
+import { useCrud } from "../../hooks";
+
+const strBaseUrl = "/api/usuarios/";
+const strEntidad = "Usuario ";
 
 export interface IUserInputData {
   nombre: string | undefined;
@@ -34,7 +40,6 @@ export function transformInsertQuery(
   // if (jsonData.password !== jsonData.password2) {
   //   alert(ERROR_MESSAGES.passwordNotMatch);
   // }
-  console.log("click");
 
   const _p1 = `'${jsonData.nombre}', ${jsonData.cargo}, '${
     jsonData.telefono
@@ -69,8 +74,6 @@ export function transformUpdateQuery(
     return null;
   }
   const _p1 = filteredFields.join(",");
-  console.log("_p1", _p1);
-  console.log("_p2", primaryKey);
 
   return {
     query: "04",
@@ -84,31 +87,98 @@ interface IUserFormPrps {
   handleChange: SubmitHandler<IUserInputData>;
   data?: any[];
   label: string;
-  isEditting?: boolean;
+  isEditting?: any;
+  selectedIds?: any;
+  setEntities?: any;
+  params?: any;
 }
 
 const UserForm: React.FC<IUserFormPrps> = React.memo(
-  ({ closeModal, handleChange, label, data, isEditting }) => {
+  ({
+    closeModal,
+    setEntities,
+    params,
+    selectedIds,
+    label,
+    data,
+    isEditting,
+  }) => {
     const schema = validationUserSchema(isEditting);
+    const { editEntity, createdEntity, ListEntity } = useCrud(strBaseUrl);
+    const [blnKeep, setblnKeep] = useState(false);
     const {
       control,
       handleSubmit,
       formState: { errors },
+      reset,
     } = useForm({
       resolver: yupResolver(schema),
     });
 
-    // const handleApiResponse = React.useCallback(
-    //   (response: any, isEditting: boolean) => {
-    //     const errorResponse = response?.response?.data.error;
-    //     if (errorResponse) {
-    //       errorResponse === 'IntegrityError'
-    //         ? isEditting
-    //            ? strEntidad
-    //     }
-    //   }
-    // ,[]);
-    console.log("data form", data);
+    const updateNewEntity = React.useCallback(async () => {
+      const newEntityData = await ListEntity(params, "01");
+      setEntities(newEntityData);
+    }, [params, setEntities, ListEntity]);
+
+    const handleApiResponse = React.useCallback(
+      (response: any, isEditting: boolean) => {
+        const errorResponse = response?.response?.data.error;
+        if (errorResponse) {
+          const errorMessage =
+            errorResponse === "IntegrityError"
+              ? isEditting
+                ? strEntidad.concat(ERROR_MESSAGES.edit)
+                : strEntidad.concat(ERROR_MESSAGES.create)
+              : errorResponse;
+          toast.error(errorMessage);
+        } else {
+          toast.success(
+            isEditting
+              ? strEntidad.concat(SUCCESS_MESSAGES.edit)
+              : strEntidad.concat(SUCCESS_MESSAGES.create)
+          );
+        }
+        if (!blnKeep && !isEditting) {
+          const result = window.confirm("¿Quieres continuar ingresando?");
+          if (result) {
+            setblnKeep(true);
+            reset();
+            updateNewEntity();
+          } else {
+            closeModal();
+            updateNewEntity();
+          }
+        }
+        if (isEditting) {
+          updateNewEntity();
+          closeModal();
+        }
+
+        reset();
+        updateNewEntity();
+      },
+      [closeModal, blnKeep, reset, updateNewEntity]
+    );
+
+    const handleSaveChange = React.useCallback(
+      async (data: IUserInputData, isEditting: boolean) => {
+        try {
+          const transformedData = isEditting
+            ? transformUpdateQuery(data, selectedIds.toString())
+            : transformInsertQuery(data);
+
+          const response = isEditting
+            ? await editEntity(transformedData)
+            : await createdEntity(transformedData);
+          handleApiResponse(response, isEditting);
+        } catch (error: any) {
+          console.log("error cargos form:", error);
+          toast.error(error);
+        }
+      },
+      [selectedIds, editEntity, createdEntity, handleApiResponse]
+    );
+
     return (
       <div className="useFormContainer">
         <div className="userFormBtnCloseContainer">
@@ -118,7 +188,10 @@ const UserForm: React.FC<IUserFormPrps> = React.memo(
         </div>
         <h1 className="userFormLabel">{label}</h1>
 
-        <form onSubmit={handleSubmit(handleChange)} className="userFormulario">
+        <form
+          onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))}
+          className="userFormulario"
+        >
           <div className="userFormularioContainer">
             <TextInputComponent
               type="text"

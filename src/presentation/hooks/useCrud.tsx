@@ -18,8 +18,8 @@ const useCrud = (
 } => {
   const baseUrl = apiBaseUrl.startsWith("http")
     ? apiBaseUrl
-    : // : `https://mtoopticos.cl${apiBaseUrl}`;
-      `http://127.0.0.1:8000${apiBaseUrl}`;
+    : `https://mtoopticos.cl${apiBaseUrl}`;
+  // `http://127.0.0.1:8000${apiBaseUrl}`;
   const axiosInstance: AxiosInstance = axios.create({
     baseURL: baseUrl,
     headers: {
@@ -71,7 +71,7 @@ const useCrud = (
   ): Promise<any | undefined> => {
     const searchUrl = `${baseUrl}listado/?query=${query}&${primaryKeys}`;
     try {
-      console.log("searchUrl", searchUrl);
+      // console.log("searchUrl", searchUrl);
       const response = await axiosInstance.get(searchUrl);
       return response.data;
     } catch (error) {

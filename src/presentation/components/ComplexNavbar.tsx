@@ -13,19 +13,14 @@ import {
   IconButton,
 } from "@material-tailwind/react";
 import {
-  CubeTransparentIcon,
   UserCircleIcon,
-  CodeBracketSquareIcon,
   Square3Stack3DIcon,
   ChevronDownIcon,
-  Cog6ToothIcon,
-  InboxArrowDownIcon,
-  LifebuoyIcon,
   PowerIcon,
   RocketLaunchIcon,
   Bars2Icon,
 } from "@heroicons/react/24/outline";
-import { Link } from "react-router-dom";
+import { Link, To } from "react-router-dom";
 
 // profile menu component
 const profileMenuItems = [
@@ -220,20 +215,20 @@ const navListMenuSistema = [
   },
 ];
 
-function mapItems(title, link){
+function mapItems(title: React.Key | null | undefined, link: To) {
   return (
-  <Link to={link} key={title}>
-    <MenuItem>
-      <Typography variant="h6" color="blue-gray" className="mb-1">
-        {title}
-      </Typography>
-      {/*<Typography variant="small" color="gray" className="font-normal">
+    <Link to={link} key={title}>
+      <MenuItem>
+        <Typography variant="h6" color="blue-gray" className="mb-1">
+          {title}
+        </Typography>
+        {/*<Typography variant="small" color="gray" className="font-normal">
         {title}
   </Typography>*/}
-    </MenuItem>
-  </Link>)
+      </MenuItem>
+    </Link>
+  );
 }
-
 
 function NavListMenuOT() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -243,9 +238,9 @@ function NavListMenuOT() {
     onMouseLeave: () => setIsMenuOpen(false),
   };
 
-   const renderItems = navListMenuOT.map(({ title, link }) => (
+  const renderItems = navListMenuOT.map(({ title, link }) =>
     mapItems(title, link)
-   ));
+  );
 
   return (
     <React.Fragment>
@@ -301,9 +296,9 @@ function NavListMenuBodega() {
     onMouseLeave: () => setIsMenuOpen(false),
   };
 
-  const renderItems = navListMenuBodega.map(({ title, link }) => (
-   mapItems(title, link)
-  ));
+  const renderItems = navListMenuBodega.map(({ title, link }) =>
+    mapItems(title, link)
+  );
 
   return (
     <React.Fragment>
@@ -359,10 +354,10 @@ function NavListMenuProyectos() {
     onMouseLeave: () => setIsMenuOpen(false),
   };
 
-  const renderItems = navListMenuProyectos.map(({ title, link }) => (
+  const renderItems = navListMenuProyectos.map(({ title, link }) =>
     mapItems(title, link)
-   ));
-/* 
+  );
+  /* 
    const renderItemsGeneral = navListMenuGeneral.map(({ title, link }) => (
     mapItems(title, link)
    ));
@@ -371,7 +366,6 @@ function NavListMenuProyectos() {
     mapItems(title, link)
    ));
  */
-
 
   return (
     <React.Fragment>
@@ -427,9 +421,9 @@ function NavListMenuSistema() {
     onMouseLeave: () => setIsMenuOpen(false),
   };
 
-   const renderItems = navListMenuSistema.map(({ title, link }) => (
+  const renderItems = navListMenuSistema.map(({ title, link }) =>
     mapItems(title, link)
-   ));
+  );
 
   return (
     <React.Fragment>
@@ -545,28 +539,28 @@ function NavListMenuSistema() {
 */
 
 // nav list component
-const navListItems = [
-  {
-    label: "Mantenedor de OT",
-    icon: CubeTransparentIcon,
-  },
-/*  {
-    label: "Account",
-    icon: UserCircleIcon,
-  },
-  {
-    label: "Blocks",
-    icon: CubeTransparentIcon,
-  },
-  {
-    label: "Docs",
-    icon: CodeBracketSquareIcon,
-  },
-  {
-    label: "Lista de Persona",
-    icon: UserCircleIcon,
-  },*/
-];
+// const navListItems = [
+//   {
+//     label: "Mantenedor de OT",
+//     icon: CubeTransparentIcon,
+//   },
+//   /*  {
+//     label: "Account",
+//     icon: UserCircleIcon,
+//   },
+//   {
+//     label: "Blocks",
+//     icon: CubeTransparentIcon,
+//   },
+//   {
+//     label: "Docs",
+//     icon: CodeBracketSquareIcon,
+//   },
+//   {
+//     label: "Lista de Persona",
+//     icon: UserCircleIcon,
+//   },*/
+// ];
 
 function NavList() {
   return (
@@ -590,7 +584,6 @@ function NavList() {
       <NavListMenuBodega />
       <NavListMenuProyectos />
       <NavListMenuSistema />
-
     </ul>
   );
 }

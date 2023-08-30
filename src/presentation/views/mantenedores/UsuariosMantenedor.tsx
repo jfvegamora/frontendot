@@ -206,6 +206,9 @@ const UsuariosMantenedor: React.FC = () => {
           label={`Crear ${strEntidad}`}
           handleChange={(data) => handleSaveChange(data, false)}
           closeModal={closeModal}
+          selectedIds={selectedIds}
+          setEntities={setEntities}
+          params={params}
           isEditting={false}
         />
       )}
@@ -214,6 +217,9 @@ const UsuariosMantenedor: React.FC = () => {
         <UserForm
           label={`Editar ${strEntidad}`}
           handleChange={(data) => handleSaveChange(data, true)}
+          selectedIds={selectedIds}
+          setEntities={setEntities}
+          params={params}
           data={entity}
           closeModal={closeModal}
           isEditting={true}
