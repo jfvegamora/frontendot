@@ -11,6 +11,7 @@ import { useCrud } from "../hooks";
 type Props = {
   strBaseUrl: any;
   params?: any;
+  strEntidad?: string;
 };
 const customStyles = {
   content: {
@@ -23,20 +24,28 @@ const customStyles = {
   },
 };
 
-export const ExportCSV: React.FC<Props> = ({ strBaseUrl, params }) => {
+export const ExportCSV: React.FC<Props> = ({
+  strBaseUrl,
+  params,
+  strEntidad,
+}) => {
   const [isModalInsert, setisModalInsert] = useState(false);
   const [exportAll, setExportAll] = useState(false);
   const [exportTable, setExportTable] = useState(false);
 
   const { exportEntity } = useCrud(strBaseUrl);
 
-  const searchParams = Object.entries(params)
-    .map(([key, value]) =>
-      key === "_p1" || value
-        ? `${key}=${encodeURIComponent(value as string | number | boolean)}`
-        : ""
-    )
-    .join("&");
+  // const searchParams = Object.entries(params)
+  //   .map(([key, value]) =>
+  //     key === "_p1" || value
+  //       ? `${key}=${encodeURIComponent(value as string | number | boolean)}`
+  //       : ""
+  //   )
+  //   .join("&");
+  const searchParams = params
+    .map((param: string) => decodeURIComponent(param)) // Decodificamos el valor
+    .filter((param: string | string[]) => param.includes("=")) // Filtramos solo los que tienen '='
+    .join("&"); // Unimos los elementos con '&'
 
   const handleExport = (exportAll: boolean) => {
     setisModalInsert(false);
@@ -48,17 +57,20 @@ export const ExportCSV: React.FC<Props> = ({ strBaseUrl, params }) => {
       setExportTable(true);
     }
   };
-  // const primaryKey = "_p1='prueb'&_p2='' "
+  console.log("params", params);
+  console.log("params", searchParams);
+  console.log("searchParams", decodeURIComponent(searchParams));
+
   useEffect(() => {
     if (exportAll) {
       console.log("peticion descarga tabla completa");
-      exportEntity()
+      exportEntity(strEntidad)
         .then(() => {
           toast("Descargando archivo");
         })
         .catch((e) => console.log(e));
     } else if (exportTable) {
-      exportEntity(searchParams)
+      exportEntity(decodeURIComponent(searchParams), strEntidad)
         .then(() => {
           toast("Descargando archvios");
         })

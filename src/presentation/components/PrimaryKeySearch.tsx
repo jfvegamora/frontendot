@@ -58,7 +58,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
         )
         // .filter((param) => param !== "")
         .join("&");
-      // console.log("searchParams", searchParams);
+      console.log("searchParams", searchParams);
       // console.log("data", data);
       // data && setParams(searchParams);
       data && updateParams([searchParams]);

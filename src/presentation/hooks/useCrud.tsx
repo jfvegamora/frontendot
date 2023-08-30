@@ -10,13 +10,16 @@ const useCrud = (
   createdEntity: (entityData: any) => Promise<any | undefined>;
   editEntity: (entityData: any) => Promise<any | undefined>;
   deleteAllEntity: (id: number[]) => Promise<any | undefined>;
-  exportEntity: (primaryKey?: string) => Promise<any | undefined>;
+  exportEntity: (
+    primaryKey?: string,
+    strEntidad?: string
+  ) => Promise<any | undefined>;
   ListEntity: (primaryKeys: any, query: string) => Promise<any | undefined>;
 } => {
   const baseUrl = apiBaseUrl.startsWith("http")
     ? apiBaseUrl
-    : `https://mtoopticos.cl${apiBaseUrl}`;
-  // `http://127.0.0.1:8000${apiBaseUrl}`;
+    : // : `https://mtoopticos.cl${apiBaseUrl}`;
+      `http://127.0.0.1:8000${apiBaseUrl}`;
   const axiosInstance: AxiosInstance = axios.create({
     baseURL: baseUrl,
     headers: {
@@ -24,11 +27,15 @@ const useCrud = (
     },
   });
 
-  const exportEntity = async (primaryKey?: string): Promise<void> => {
+  const exportEntity = async (
+    primaryKey?: string,
+    strEntidad?: string
+  ): Promise<void> => {
     try {
       const strUrl = primaryKey
         ? `/excel/?query=01&${primaryKey}`
         : `/excel/?query=01`;
+
       const response = await axiosInstance.get(strUrl, {
         responseType: "blob",
       });
@@ -36,10 +43,20 @@ const useCrud = (
       const fileURL: string = URL.createObjectURL(
         new Blob([response.data], { type: "application/vnd.ms-excel" })
       );
+      const currentDate = new Date();
+      const formattedDate = currentDate
+        .toLocaleDateString("es-ES", {
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
+        })
+        .split("/")
+        .reverse()
+        .join("-");
 
       const link: HTMLAnchorElement = document.createElement("a");
       link.href = fileURL;
-      link.setAttribute("download", "entidad.xls");
+      link.setAttribute("download", `${strEntidad}_${formattedDate}.xls`);
       document.body.appendChild(link);
       link.click();
       URL.revokeObjectURL(fileURL);
@@ -52,7 +69,6 @@ const useCrud = (
     primaryKeys: any,
     query: any
   ): Promise<any | undefined> => {
-    console.log("primarykeys", primaryKeys);
     const searchUrl = `${baseUrl}listado/?query=${query}&${primaryKeys}`;
     try {
       console.log("searchUrl", searchUrl);

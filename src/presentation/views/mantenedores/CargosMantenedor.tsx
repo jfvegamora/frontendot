@@ -13,6 +13,7 @@ import { table_head_cargos } from "../../utils";
 import CargosForm, { ICargosInputData } from "../forms/CargosForm";
 
 const strEntidad = "Cargo ";
+const strEntidadExcel = "Cargos";
 const strBaseUrl = "/api/cargos/";
 const strQuery = "01";
 
@@ -53,8 +54,6 @@ const CargosMantenedor: React.FC = () => {
     []
   );
 
-  console.log("entities:", entities);
-
   return (
     <div className="mantenedorContainer">
       <h1 className="mantenedorH1">Mantenedor de Cargos</h1>
@@ -73,6 +72,7 @@ const CargosMantenedor: React.FC = () => {
           handleDeleteSelected={handleDeleteSelected}
           handleRefresh={resetEntities}
           params={params}
+          strEntidad={strEntidadExcel}
           strBaseUrl={strBaseUrl}
           showAddButton={true}
           showExportButton={true}
@@ -103,6 +103,9 @@ const CargosMantenedor: React.FC = () => {
           label={`Crear ${strEntidad}`}
           handleChange={(data) => handleSaveChange(data, false)}
           closeModal={closeModal}
+          selectedIds={selectedIds}
+          setEntities={setEntities}
+          params={params}
           isEditting={false}
         />
       )}
@@ -111,7 +114,10 @@ const CargosMantenedor: React.FC = () => {
           label={`Editar ${strEntidad}`}
           handleChange={(data) => handleSaveChange(data, true)}
           closeModal={closeModal}
+          selectedIds={selectedIds}
+          setEntities={setEntities}
           data={entity}
+          params={params}
           isEditting={true}
         />
       )}

@@ -31,6 +31,7 @@ export enum EnumGrid {
   Cargo = 7,
 }
 const strEntidad = "Usuario ";
+const strEntidadExcel = "Usuarios";
 const strBaseUrl = "/api/usuarios/";
 const strListUrl = "/api/cargos/";
 const strQuery = "01";
@@ -150,7 +151,7 @@ const UsuariosMantenedor: React.FC = () => {
     },
     [setEntities, setDataGrid, params]
   );
-  console.log("params:", params);
+
   return (
     <div className="mantenedorContainer">
       <h1 className="mantenedorH1">Mantenedor de Usuarios</h1>
@@ -174,6 +175,7 @@ const UsuariosMantenedor: React.FC = () => {
           handleRefresh={resetEntities}
           handlePageSize={handlePageSize}
           params={params}
+          strEntidad={strEntidadExcel}
           strBaseUrl={strBaseUrl}
           showAddButton={true}
           showExportButton={true}

@@ -23,6 +23,7 @@ interface IPrimaryButtonProps {
   showExportButton?: boolean;
   strBaseUrl?: string;
   params?: never[];
+  strEntidad?: string;
 }
 
 const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
@@ -38,6 +39,7 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
     strBaseUrl,
     showExportButton,
     params,
+    strEntidad,
   }) => {
     const { escritura } = usePermission();
 
@@ -83,7 +85,11 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
           )}
 
         {showExportButton && (
-          <ExportCSV params={params} strBaseUrl={strBaseUrl} />
+          <ExportCSV
+            strEntidad={strEntidad}
+            params={params}
+            strBaseUrl={strBaseUrl}
+          />
         )}
 
         {showDeleteButton &&
