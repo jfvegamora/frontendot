@@ -16,6 +16,8 @@ import AuthGuard from "./presentation/guards/auth_guard";
 //Lazy components
 const Login = lazy(() => import("./presentation/pages/Login"));
 
+const Home = lazy(() => import("./presentation/pages/Home"));
+
 const CargosMantenedor = lazy(
   () => import("./presentation/views/mantenedores/CargosMantenedor")
 );
@@ -59,6 +61,7 @@ function App() {
                     path={PrivateRoutes.FUNCIONALIDADES}
                     element={<FuncionalidadesMantenedor />}
                   />
+                  <Route path={PrivateRoutes.HOME} element={<Home />} />
                 </Route>
                 <Route
                   path="/"

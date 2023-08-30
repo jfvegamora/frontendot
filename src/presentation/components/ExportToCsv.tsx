@@ -10,7 +10,7 @@ import { useCrud } from "../hooks";
 
 type Props = {
   strBaseUrl: any;
-  params?: any[];
+  params?: any;
 };
 const customStyles = {
   content: {
@@ -32,12 +32,11 @@ export const ExportCSV: React.FC<Props> = ({ strBaseUrl, params }) => {
 
   const searchParams = Object.entries(params)
     .map(([key, value]) =>
-      key === "_p1" || value ? `${key}=${encodeURIComponent(value)}` : ""
+      key === "_p1" || value
+        ? `${key}=${encodeURIComponent(value as string | number | boolean)}`
+        : ""
     )
-    // .filter((param) => param !== "")
     .join("&");
-
-  console.log("params desde excel:", searchParams);
 
   const handleExport = (exportAll: boolean) => {
     setisModalInsert(false);
@@ -83,27 +82,25 @@ export const ExportCSV: React.FC<Props> = ({ strBaseUrl, params }) => {
       <Modal
         isOpen={isModalInsert}
         onRequestClose={() => setisModalInsert(false)}
-        contentLabel="Confirmar Exportacion"
+        contentLabel="Confirmar Exportación"
         style={customStyles}
         overlayClassName="overlay"
       >
-        <h2 className="text-2xl font-bold mb4">Confirmar Exportacion</h2>
-        <p className="text-gray-700 mb-4">
-          ¿Deseas exportar todas las Personas o solo la tabla actual?
-        </p>
+        <h2 className="text-2xl font-bold mb4">Confirmar Exportación</h2>
+        <p className="text-gray-700 mb-4">¿Qué desea exportar?</p>
 
         <div className="flex justify-center">
           <button
             onClick={() => handleExport(true)}
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mr-2 rounded"
           >
-            Exportar Todas las personas
+            Exportar todo
           </button>
           <button
             onClick={() => handleExport(false)}
             className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
           >
-            Exportar Tabla Actual
+            Exportar grilla actual
           </button>
           <button
             onClick={() => setisModalInsert(false)}

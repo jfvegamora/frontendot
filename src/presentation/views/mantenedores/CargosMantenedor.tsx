@@ -20,6 +20,10 @@ const CargosMantenedor: React.FC = () => {
   // const { createdEntity, editEntity } = useCrud(strBaseUrl);
   const [params, setParams] = useState([]);
 
+  const updateParams = (newParams: any) => {
+    setParams(newParams);
+  };
+
   const {
     //Entities State
     entities,
@@ -38,6 +42,7 @@ const CargosMantenedor: React.FC = () => {
     handleDeleteSelected,
     handleSelect,
     handleSelectedAll,
+    resetEntities,
   } = useEntityUtils(strBaseUrl, strQuery);
 
   const handleSaveChange = React.useCallback(
@@ -57,20 +62,22 @@ const CargosMantenedor: React.FC = () => {
       <div className="mantenedorHead">
         <PrimaryKeySearch
           baseUrl={strBaseUrl}
+          updateParams={updateParams}
           setParams={setParams}
-          setState={setEntities as React.Dispatch<React.SetStateAction<any[]>>}
+          setEntities={setEntities}
           primaryKeyInputs={[{ name: "_p1", label: "Cargo", type: "text" }]}
         />
 
         <PrimaryButtonsComponent
           handleAddPerson={openModal}
           handleDeleteSelected={handleDeleteSelected}
+          handleRefresh={resetEntities}
           params={params}
           strBaseUrl={strBaseUrl}
           showAddButton={true}
           showExportButton={true}
           showDeleteButton={true}
-          showForwardButton={true}
+          showForwardButton={false}
           showRefreshButton={true}
         />
       </div>

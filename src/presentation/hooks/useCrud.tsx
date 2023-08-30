@@ -11,7 +11,7 @@ const useCrud = (
   editEntity: (entityData: any) => Promise<any | undefined>;
   deleteAllEntity: (id: number[]) => Promise<any | undefined>;
   exportEntity: (primaryKey?: string) => Promise<any | undefined>;
-  ListEntity: (primaryKeys: string, query: string) => Promise<any | undefined>;
+  ListEntity: (primaryKeys: any, query: string) => Promise<any | undefined>;
 } => {
   const baseUrl = apiBaseUrl.startsWith("http")
     ? apiBaseUrl
@@ -52,7 +52,6 @@ const useCrud = (
     primaryKeys: any,
     query: any
   ): Promise<any | undefined> => {
-    // spUsuarios(1,'sand', 0, '', 0, 0);
     console.log("primarykeys", primaryKeys);
     const searchUrl = `${baseUrl}listado/?query=${query}&${primaryKeys}`;
     try {
@@ -84,9 +83,9 @@ const useCrud = (
 
   const deleteAllEntity = async (id: number[]): Promise<void | unknown> => {
     try {
-      const idsDelete = `"${id.join(",")}"`;
+      const idsDelete = `${id.join(",")}`;
       const response = await axiosInstance.delete(
-        `/eliminar/?query=05&_p2=${idsDelete}&`
+        `/eliminar/?query=05&_p1=${idsDelete}&`
       );
       return response.data;
     } catch (error) {

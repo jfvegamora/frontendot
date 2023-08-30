@@ -54,11 +54,6 @@ export function transformUpdateQuery(
 ): OutputData | null {
   const fields = [
     // jsonData.nombre && `nombre='${jsonData.nombre}'`,
-    // jsonData.telefono && `telefono='${jsonData.telefono}'`,
-    // jsonData.correo && `correo='${jsonData.correo}'`,
-    // jsonData.estado && `estado=${jsonData.estado === "Activo" ? 1 : 2}`,
-    // jsonData.cargo && `cargo=${jsonData.cargo}`
-    // jsonData.password && `password='${jsonData.password}'`,
     `nombre='${jsonData.nombre}'`,
     `telefono='${jsonData.telefono}'`,
     `correo='${jsonData.correo}'`,

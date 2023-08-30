@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-floating-promises */
@@ -18,6 +20,7 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
   const [entities, setEntities] = useState<never[]>([]);
   const [pageSize, setPageSize] = useState(1);
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
+  // const [intLastId, setIntLastId] = useState<number | null>(0);
   const [isModalInsert, setisModalInsert] = useState<boolean>(false);
   const [isModalEdit, setIsModalEdit] = useState<boolean>(false);
   const [isEntityProfile, setIsEntityProfile] = useState<boolean>(false);
@@ -45,9 +48,20 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
     setSelectedIds([]);
   }, []);
 
-  const handlePageSize = () => {
-    setPageSize((prev) => prev + 1);
-  };
+  const handlePageSize = useCallback(() => {
+    // console.log("lastidhandle:", intLastId);
+    // const strParams = `_p4=${intLastId}`;
+    // // const strParams = "_p4=${intLastId}";
+    // setPageSize((prev) => prev + 1);
+    // ListEntity(strParams, "01")
+    //   .then((data) => {
+    //     data &&
+    //       setEntities((prev) =>
+    //         prev ? [...prev, ...data] : data && [...data]
+    //       );
+    //   })
+    //   .catch((e) => console.log(e));
+  }, []);
 
   const resetEntities = () => {
     setEntities([]);
@@ -160,6 +174,10 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
   // };
 
   // FACTORIZAR
+  const resetDelete = () => {
+    // console.log("entitiesresetdelete:", entities);
+  };
+
   const handleDeleteSelected = useCallback(
     async (id?: number) => {
       if (escritura) {
@@ -170,27 +188,39 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
               if (id && id > 0) {
                 const response = await deleteAllEntity([id]);
                 const errorDelete = response?.response?.data?.error;
-                console.log("errorDelete", response);
-                console.log("response", errorDelete);
                 if (errorDelete) {
                   toast.error(errorDelete);
                 } else {
+                  setEntities((prev) => {
+                    const filteredEntities = prev.filter(
+                      (entity) => entity[1] !== id
+                    );
+                    console.log("estado filtrado:", filteredEntities);
+                    return filteredEntities;
+                  });
+                  resetDelete();
                   setSelectedIds([]);
-                  setEntities([]);
                   setPageSize(1);
                   setDataGrid((prev) => !prev);
                   toast.success("Eliminados Correctamente");
                 }
               } else {
                 const response = await deleteAllEntity(selectedIds);
+                console.log("state entities:", entities);
                 const errorDelete = response?.response?.data?.error;
-                console.log("errorDelete", response);
-                console.log("response", errorDelete);
+                // const errorDelete = false;
                 if (errorDelete) {
                   toast.error(errorDelete);
                 } else {
+                  setEntities((prev) => {
+                    const filteredEntities = prev.filter(
+                      (entity) => !selectedIds.includes(entity[1])
+                    );
+                    console.log("estado filtrado:", filteredEntities);
+                    return filteredEntities;
+                  });
+                  resetDelete();
                   setSelectedIds([]);
-                  setEntities([]);
                   setPageSize(1);
                   setDataGrid((prev) => !prev);
                   toast.success("Eliminados Correctamente");
@@ -251,7 +281,7 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
   // );
 
   useEffect(() => {
-    ListEntity("", query)
+    ListEntity("_p4=10000", query)
       .then((data: any) => {
         if (data?.name === "AxiosError") {
           return;
@@ -261,12 +291,30 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
             setEntities((prev) =>
               prev ? [...prev, ...data] : data && [...data]
             );
+
+          // const maxIdElement = data.reduce(
+          //   (maxElement: number[], currentElement: any[]) => {
+          //     const currentValue = currentElement[1];
+          //     if (currentValue > maxElement[1]) {
+          //       return currentElement;
+          //     }
+          //     return maxElement;
+          //   },
+          //   data[0]
+          // );
+
+          // setIntLastId((prevId) => {
+          //   return maxIdElement[1];
+          // });
+          // console.log("masID:", maxIdElement[1]);
         }
       })
       .catch((e) => {
         return e;
       });
   }, [pageSize, onDelete]);
+
+  // console.log("lastid", intLastId);
 
   return {
     openModal,

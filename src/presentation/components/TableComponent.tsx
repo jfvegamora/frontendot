@@ -9,7 +9,7 @@ import { BUTTON_MESSAGES } from "../utils";
 
 interface ITableComponentProps<T> {
   tableHead: { cell: JSX.Element | string; key: string; visible: boolean }[];
-  data: T[];
+  data?: T[];
   renderButtons?: (item: any) => React.ReactNode;
   handleSelectChecked?: (id: number) => void;
   handleSelectedCheckedAll?: (
@@ -18,10 +18,11 @@ interface ITableComponentProps<T> {
   toggleEditModal?: (id: number) => void;
   handleDeleteSelected?: (id: number) => void;
   selectedIds?: number[];
-  setSelectedIds?: React.Dispatch<React.SetStateAction<any[]>>;
+  setSelectedIds?: any;
   entidad: string;
   showEditButton: boolean;
   showDeleteButton: boolean;
+  params?: never[];
 }
 
 const inIdPosition = 1;
@@ -36,7 +37,6 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
     toggleEditModal,
     handleDeleteSelected,
     selectedIds,
-    setSelectedIds,
     showEditButton,
     showDeleteButton,
   }) => {
@@ -116,7 +116,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                           variant="text"
                           color="blue-gray"
                           onClick={() => {
-                            setSelectedIds && setSelectedIds([id]);
+                            //setSelectedIds && setSelectedIds([id]);
                             handleDeleteSelected && handleDeleteSelected(id);
                           }}
                         >

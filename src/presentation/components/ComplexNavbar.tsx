@@ -22,7 +22,7 @@ import {
   Bars2Icon,
 } from "@heroicons/react/24/outline";
 import { Link, To } from "react-router-dom";
-import { AppStore, useAppSelector } from "../../redux/store";
+// import { AppStore, useAppSelector } from "../../redux/store";
 
 // profile menu component
 const profileMenuItems = [
@@ -574,7 +574,7 @@ function NavList() {
 export default function ComplexNavbar() {
   const [isNavOpen, setIsNavOpen] = React.useState(false);
   const toggleIsNavOpen = () => setIsNavOpen((cur) => !cur);
-  const userState = useAppSelector((store: AppStore) => store.user);
+  // const userState = useAppSelector((store: AppStore) => store.user);
 
   React.useEffect(() => {
     window.addEventListener(

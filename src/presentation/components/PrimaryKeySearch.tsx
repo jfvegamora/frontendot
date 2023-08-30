@@ -12,9 +12,9 @@ interface IPrimaryKeyState {
   [key: string]: string | number;
 }
 
-interface PrimaryKeySearchProps<T> {
-  setState: React.Dispatch<React.SetStateAction<T[]>>;
-  setParams?: React.Dispatch<React.SetStateAction<never[]>>;
+interface PrimaryKeySearchProps {
+  setEntities: any;
+  setParams?: any;
   primaryKeyInputs: {
     label: string;
     type: string;
@@ -23,14 +23,15 @@ interface PrimaryKeySearchProps<T> {
   }[];
   baseUrl: string;
   selectUrl?: any;
+  updateParams: any;
 }
 
 const MemoizedMagnifyingGlassIcon = React.memo(() => (
   <MagnifyingGlassIcon className="primaryKeyIcon" />
 ));
 
-const PrimaryKeySearch: React.FC<PrimaryKeySearchProps<any>> = React.memo(
-  ({ setState, primaryKeyInputs, baseUrl, selectUrl, setParams }) => {
+const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
+  ({ setEntities, primaryKeyInputs, baseUrl, selectUrl, updateParams }) => {
     const { control, handleSubmit } = useForm<IPrimaryKeyState>();
     const [inputValues, setInputValues] = useState<IPrimaryKeyState>({});
     const { ListEntity } = useCrud(baseUrl);
@@ -57,10 +58,10 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps<any>> = React.memo(
         )
         // .filter((param) => param !== "")
         .join("&");
-
       // console.log("searchParams", searchParams);
       // console.log("data", data);
-      data && setParams(data);
+      // data && setParams(searchParams);
+      data && updateParams([searchParams]);
       try {
         // const params = searchParams
         //   ? searchParams
@@ -73,7 +74,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps<any>> = React.memo(
         //   : {};
         // console.log("params", params);
         const response = await ListEntity(searchParams, "01");
-        setState(response);
+        setEntities(response);
       } catch (error) {
         console.log(error);
         return error;

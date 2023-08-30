@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useCallback } from "react";
 import { AiOutlineForward, AiFillDelete } from "react-icons/ai";
 import { IconButton, Tooltip } from "@material-tailwind/react";
@@ -41,13 +42,13 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
     const { escritura } = usePermission();
 
     const renderButton = useCallback(
-      (icon: React.ReactNode, onClick: () => void, tooltip: string) => (
+      (icon: React.ReactNode, handle: () => void, tooltip: string) => (
         <Tooltip content={tooltip}>
           <IconButton
             variant="text"
             color="blue-gray"
             className="primaryBtnIconButton"
-            onClick={onClick}
+            onClick={handle}
             disabled={!escritura}
           >
             {icon}
@@ -60,17 +61,6 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
     return (
       <div className="primaryBtnContainer">
         {showForwardButton &&
-          // <Tooltip content="Siguiente">
-          //   <IconButton
-          //     variant="text"
-          //     color="blue-gray"
-          //     className="mx-2"
-          //     // className="flex items-center mr-6 gap-3 rounded bg-blue-500"
-          //     onClick={handlePageSize}
-          //   >
-          //     <AiOutlineForward className="h-10 w-10" />
-          //   </IconButton>
-          // </Tooltip>
           renderButton(
             <AiOutlineForward className="primaryBtnIcon" />,
             handlePageSize!,
