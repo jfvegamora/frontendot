@@ -15,14 +15,17 @@ import {
 import {
   CubeTransparentIcon,
   UserCircleIcon,
+  CodeBracketSquareIcon,
   Square3Stack3DIcon,
   ChevronDownIcon,
+  Cog6ToothIcon,
+  InboxArrowDownIcon,
+  LifebuoyIcon,
   PowerIcon,
   RocketLaunchIcon,
   Bars2Icon,
 } from "@heroicons/react/24/outline";
-import { Link, To } from "react-router-dom";
-// import { AppStore, useAppSelector } from "../../redux/store";
+import { Link } from "react-router-dom";
 
 // profile menu component
 const profileMenuItems = [
@@ -130,6 +133,18 @@ const navListMenuBodega = [
     link: "/accesorios",
   },
   {
+    title: "Kardex de Armazones",
+    link: "/kardexarmazones",
+  },
+  {
+    title: "Kardex de Cristales",
+    link: "/kardexcristales",
+  },
+  {
+    title: "Kardex de Accesorios",
+    link: "/kardexaccesorios",
+  },
+  {
     title: "Mantenedor de Almacenes",
     link: "/almacenes",
   },
@@ -205,20 +220,20 @@ const navListMenuSistema = [
   },
 ];
 
-function mapItems(title: React.Key | null | undefined, link: To) {
+function mapItems(title, link){
   return (
-    <Link to={link} key={title}>
-      <MenuItem>
-        <Typography variant="h6" color="blue-gray" className="mb-1">
-          {title}
-        </Typography>
-        <Typography variant="small" color="gray" className="font-normal">
-          {title}
-        </Typography>
-      </MenuItem>
-    </Link>
-  );
+  <Link to={link} key={title}>
+    <MenuItem>
+      <Typography variant="h6" color="blue-gray" className="mb-1">
+        {title}
+      </Typography>
+      {/*<Typography variant="small" color="gray" className="font-normal">
+        {title}
+  </Typography>*/}
+    </MenuItem>
+  </Link>)
 }
+
 
 function NavListMenuOT() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -228,9 +243,9 @@ function NavListMenuOT() {
     onMouseLeave: () => setIsMenuOpen(false),
   };
 
-  const renderItems = navListMenuOT.map(({ title, link }) =>
+   const renderItems = navListMenuOT.map(({ title, link }) => (
     mapItems(title, link)
-  );
+   ));
 
   return (
     <React.Fragment>
@@ -286,9 +301,9 @@ function NavListMenuBodega() {
     onMouseLeave: () => setIsMenuOpen(false),
   };
 
-  const renderItems = navListMenuBodega.map(({ title, link }) =>
-    mapItems(title, link)
-  );
+  const renderItems = navListMenuBodega.map(({ title, link }) => (
+   mapItems(title, link)
+  ));
 
   return (
     <React.Fragment>
@@ -344,18 +359,19 @@ function NavListMenuProyectos() {
     onMouseLeave: () => setIsMenuOpen(false),
   };
 
-  const renderItems = navListMenuProyectos.map(({ title, link }) =>
+  const renderItems = navListMenuProyectos.map(({ title, link }) => (
     mapItems(title, link)
-  );
-  /* 
-     const renderItemsGeneral = navListMenuGeneral.map(({ title, link }) => (
-      mapItems(title, link)
-     ));
-   
-     const renderItemsSistema = navListMenuSistema.map(({ title, link }) => (
-      mapItems(title, link)
-     ));
-   */
+   ));
+/* 
+   const renderItemsGeneral = navListMenuGeneral.map(({ title, link }) => (
+    mapItems(title, link)
+   ));
+ 
+   const renderItemsSistema = navListMenuSistema.map(({ title, link }) => (
+    mapItems(title, link)
+   ));
+ */
+
 
   return (
     <React.Fragment>
@@ -411,9 +427,9 @@ function NavListMenuSistema() {
     onMouseLeave: () => setIsMenuOpen(false),
   };
 
-  const renderItems = navListMenuSistema.map(({ title, link }) =>
+   const renderItems = navListMenuSistema.map(({ title, link }) => (
     mapItems(title, link)
-  );
+   ));
 
   return (
     <React.Fragment>
@@ -461,7 +477,7 @@ function NavListMenuSistema() {
   );
 }
 
-/*function NavListMenu(navListMenu:any, title: string) {
+/*function NavListMenu(title:string) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   const triggers = {
@@ -469,11 +485,19 @@ function NavListMenuSistema() {
     onMouseLeave: () => setIsMenuOpen(false),
   };
 
-   const renderItems = navListMenu.map(({ title, link }) => (
+  let renderItems = []; 
+
+  if(title==="OT") {
+   renderItems = navListMenuOT.map(({ title, link }) => (
     mapItems(title, link)
    ));
-
-  return (
+  }else {
+     renderItems = navListMenuBodega.map(({ title, link }) => (
+      mapItems(title, link)
+     ));
+    }
+ 
+    return (
     <React.Fragment>
       <Menu open={isMenuOpen} handler={setIsMenuOpen}>
         <MenuHandler>
@@ -517,7 +541,8 @@ function NavListMenuSistema() {
       </ul>
     </React.Fragment>
   );
-}*/
+}
+*/
 
 // nav list component
 const navListItems = [
@@ -525,28 +550,28 @@ const navListItems = [
     label: "Mantenedor de OT",
     icon: CubeTransparentIcon,
   },
-  /*  {
-      label: "Account",
-      icon: UserCircleIcon,
-    },
-    {
-      label: "Blocks",
-      icon: CubeTransparentIcon,
-    },
-    {
-      label: "Docs",
-      icon: CodeBracketSquareIcon,
-    },
-    {
-      label: "Lista de Persona",
-      icon: UserCircleIcon,
-    },*/
+/*  {
+    label: "Account",
+    icon: UserCircleIcon,
+  },
+  {
+    label: "Blocks",
+    icon: CubeTransparentIcon,
+  },
+  {
+    label: "Docs",
+    icon: CodeBracketSquareIcon,
+  },
+  {
+    label: "Lista de Persona",
+    icon: UserCircleIcon,
+  },*/
 ];
 
 function NavList() {
   return (
     <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center">
-      {navListItems.map(({ label, icon }, key) => (
+      {/*{navListItems.map(({ label, icon }, key) => (
         <Typography
           key={key}
           as="a"
@@ -560,11 +585,12 @@ function NavList() {
             {label}
           </MenuItem>
         </Typography>
-      ))}
+      ))}*/}
       <NavListMenuOT />
       <NavListMenuBodega />
       <NavListMenuProyectos />
       <NavListMenuSistema />
+
     </ul>
   );
 }
@@ -574,7 +600,6 @@ function NavList() {
 export default function ComplexNavbar() {
   const [isNavOpen, setIsNavOpen] = React.useState(false);
   const toggleIsNavOpen = () => setIsNavOpen((cur) => !cur);
-  // const userState = useAppSelector((store: AppStore) => store.user);
 
   React.useEffect(() => {
     window.addEventListener(
@@ -593,11 +618,9 @@ export default function ComplexNavbar() {
         >
           Sistema Gestión OT
         </Typography>
-
         <div className="absolute top-2/4 left-2/4 hidden -translate-x-2/4 -translate-y-2/4 lg:block">
           <NavList />
         </div>
-
         <IconButton
           size="sm"
           color="blue-gray"
