@@ -13,7 +13,6 @@ interface IRadioButtonProps {
 }
 
 const RadioButtonComponent: React.FC<IRadioButtonProps> = ({
-  label,
   control,
   name,
   options,
@@ -26,7 +25,6 @@ const RadioButtonComponent: React.FC<IRadioButtonProps> = ({
         error && "border border-red-400"
       } `}
     >
-      <label className=" label-input w-[10%]">{label}</label>
       {options.map((option, index) => (
         <div
           className="px-8 py-2 flex w-1/3 text-center justify-between"
@@ -38,18 +36,20 @@ const RadioButtonComponent: React.FC<IRadioButtonProps> = ({
             control={control}
             defaultValue={data ? data : ""}
             render={({ field }) => (
-              <input
-                {...field}
-                type="radio"
-                value={option}
-                defaultChecked={data === option}
-                //  checked={field.value === option}
-                className="mr-2"
-                onChange={(e) => field.onChange(e.target.value)}
-              />
+              <label className=" flex items-center cursor-pointer ml-[-3.6rem]">
+                <input
+                  {...field}
+                  type="radio"
+                  value={option}
+                  defaultChecked={data === option}
+                  //  checked={field.value === option}
+                  className="mr-2"
+                  onChange={(e) => field.onChange(e.target.value)}
+                />
+                <p className="text-xs">{option}</p>
+              </label>
             )}
           />
-          <label className="text-sm">{option}</label>
         </div>
       ))}
       {error && (

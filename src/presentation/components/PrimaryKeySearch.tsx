@@ -20,9 +20,9 @@ interface PrimaryKeySearchProps {
     type: string;
     name: string;
     options?: string[];
+    selectUrl?: any;
   }[];
   baseUrl: string;
-  selectUrl?: any;
   updateParams: any;
 }
 
@@ -31,7 +31,7 @@ const MemoizedMagnifyingGlassIcon = React.memo(() => (
 ));
 
 const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
-  ({ setEntities, primaryKeyInputs, baseUrl, selectUrl, updateParams }) => {
+  ({ setEntities, primaryKeyInputs, baseUrl, updateParams }) => {
     const { control, handleSubmit } = useForm<IPrimaryKeyState>();
     const [inputValues, setInputValues] = useState<IPrimaryKeyState>({});
     const { ListEntity } = useCrud(baseUrl);
@@ -110,36 +110,12 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                   name="_p2"
                   showRefresh={false}
                   control={control}
-                  entidad={[selectUrl, "02"]}
+                  entidad={[input.selectUrl, "02"]}
                   inputName={input.name}
                   inputValues={inputValues}
                   setHandleSearch={handleSearch}
                 />
-              ) : // <select
-              //   {...field}
-              //   onChange={(e: any) => {
-              //     field.onChange(e);
-              //     const selectedValue = e.toString();
-              //     if (selectedValue !== "") {
-              //       handleSearch({ [input.name]: selectedValue });
-              //     }
-              //   }}
-              //   // label={input.label}
-              // >
-              //   <option value={"0"}>{input.label}</option>{" "}
-              //   {/* Opción vacía */}
-              //   {entities.map((entity, index) => (
-              //     <option
-              //       key={index}
-              //       value={
-              //         entity[0] !== undefined ? entity[0].toString() : ""
-              //       }
-              //     >
-              //       {entity[1]}
-              //     </option>
-              //   ))}
-              // </select>
-              input.type === "radiobuttons" ? (
+              ) : input.type === "radiobuttons" ? (
                 <div>
                   <label className="primaryKeyLabel">{input.label}</label>
                   <div className="primaryKeyRadioContainer">

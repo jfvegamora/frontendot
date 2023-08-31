@@ -56,6 +56,12 @@ const CargosMantenedor: React.FC = () => {
           setEntities={setEntities}
           primaryKeyInputs={[
             { name: "_p1", label: "Funcionalidad", type: "text" },
+            // {
+            //   name: "_p2",
+            //   label: "Funcionalidad2",
+            //   type: "select",
+            //   selectUrl: "/api/usuarios/",
+            // },
           ]}
         />
 

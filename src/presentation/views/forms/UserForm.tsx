@@ -13,7 +13,6 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationUserSchema } from "../../utils/validationFormSchemas";
 import { EnumGrid } from "../mantenedores/UsuariosMantenedor";
-// import { ERROR_MESSAGES } from "../../utils";
 import { toast } from "react-toastify";
 import { ERROR_MESSAGES, SUCCESS_MESSAGES } from "../../utils";
 import { useCrud } from "../../hooks";
@@ -109,18 +108,18 @@ const UserForm: React.FC<IUserFormPrps> = React.memo(
       control,
       handleSubmit,
       formState: { errors },
-      reset,
+      setValue,
     } = useForm({
       resolver: yupResolver(schema),
     });
-
-    // const resetTextFields = () => {
-    //   reset({
-    //     nombre: "",
-    //     telefono: 0,
-    //     correo: "",
-    //   });
-    // };
+    const resetTextFields = () => {
+      // reset({
+      //   nombre: "",
+      // });
+      setValue("nombre", "");
+      setValue("telefono", 0);
+      setValue("correo", "");
+    };
 
     const updateNewEntity = React.useCallback(async () => {
       const newEntityData = await ListEntity(params, "01");
@@ -149,7 +148,7 @@ const UserForm: React.FC<IUserFormPrps> = React.memo(
           const result = window.confirm("¿Quieres continuar ingresando?");
           if (result) {
             setblnKeep(true);
-            // resetTextFields();
+            resetTextFields();
             updateNewEntity();
           } else {
             closeModal();
@@ -161,7 +160,7 @@ const UserForm: React.FC<IUserFormPrps> = React.memo(
           closeModal();
         }
 
-        // resetTextFields();
+        resetTextFields();
         updateNewEntity();
       },
       [closeModal, blnKeep, updateNewEntity]
