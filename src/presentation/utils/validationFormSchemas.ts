@@ -27,6 +27,14 @@ export const validationFuncionalidadSchema = (
   yup.object().shape({
     descripcion: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
   });
+export const validationPerfilesSchema = (
+  isEditting: boolean | undefined
+) =>
+  yup.object().shape({
+    cargo: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
+    funcionalidad: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
+    permiso: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
+  });
 
 // Schema LOGIN
 export const validationLoginSchema = () =>

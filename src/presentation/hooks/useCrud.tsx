@@ -18,8 +18,8 @@ const useCrud = (
 } => {
   const baseUrl = apiBaseUrl.startsWith("http")
     ? apiBaseUrl
-    : // : `https://mtoopticos.cl${apiBaseUrl}`;
-      `http://127.0.0.1:8000${apiBaseUrl}`;
+     : `https://mtoopticos.cl${apiBaseUrl}`;
+      //`http://127.0.0.1:8000${apiBaseUrl}`;
   const axiosInstance: AxiosInstance = axios.create({
     baseURL: baseUrl,
     headers: {

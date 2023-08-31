@@ -18,15 +18,19 @@ const Login = lazy(() => import("./presentation/pages/Login"));
 
 const Home = lazy(() => import("./presentation/pages/Home"));
 
+const Navbar = lazy(() => import("./presentation/components/ComplexNavbar"));
+
 const CargosMantenedor = lazy(
   () => import("./presentation/views/mantenedores/CargosMantenedor")
 );
 const UsuariosMantenedor = lazy(
   () => import("./presentation/views/mantenedores/UsuariosMantenedor")
 );
-const Navbar = lazy(() => import("./presentation/components/ComplexNavbar"));
 const FuncionalidadesMantenedor = lazy(
   () => import("./presentation/views/mantenedores/FuncionalidadesMantenedor")
+);
+const PerfilesMantenedor = lazy(
+  () => import("./presentation/views/mantenedores/PerfilesMantenedor")
 );
 // const EmpresasMantenedor = lazy(
 //   () => import("./presentation/views/mantenedores/EmpresasMantenedor")
@@ -59,6 +63,10 @@ function App() {
                   <Route
                     path={PrivateRoutes.FUNCIONALIDADES}
                     element={<FuncionalidadesMantenedor />}
+                  />
+                  <Route
+                    path={PrivateRoutes.PERFILES}
+                    element={<PerfilesMantenedor />}
                   />
                   <Route path={PrivateRoutes.HOME} element={<Home />} />
                 </Route>

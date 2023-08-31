@@ -30,9 +30,19 @@ export const table_head_perfiles = [
     visible: true,
   },
   {
+    cell: "ID_CARGO",
+    key: "id_cargo",
+    visible: false,
+  },
+  {
     cell: "Cargo",
     key: "cargo",
     visible: true,
+  },
+  {
+    cell: "ID_FUNCIONALIDAD",
+    key: "id_funcionalidad",
+    visible: false,
   },
   {
     cell: "Funcionalidad",

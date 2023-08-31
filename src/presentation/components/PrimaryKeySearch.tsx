@@ -54,7 +54,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
       //   .join("&");
       const searchParams = Object.entries(data)
         .map(([key, value]) =>
-          key === "_p1" || value ? `${key}=${encodeURIComponent(value)}` : ""
+          key === "_p1"  || value ? `${key}=${encodeURIComponent(value)}` : ""
         )
         // .filter((param) => param !== "")
         .join("&");
@@ -106,7 +106,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
             <div className="mx-2">
               {input.type === "select" ? (
                 <SelectInputComponent
-                  label="Cargo"
+                  label={input.label}
                   name="_p2"
                   showRefresh={false}
                   control={control}
