@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable react-refresh/only-export-components */
@@ -8,7 +9,7 @@ import {
   SelectInputComponent,
   TextInputComponent,
 } from "../../components";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationUserSchema } from "../../utils/validationFormSchemas";
 import { EnumGrid } from "../mantenedores/UsuariosMantenedor";
@@ -20,7 +21,7 @@ import { useCrud } from "../../hooks";
 const strBaseUrl = "/api/usuarios/";
 const strEntidad = "Usuario ";
 
-export interface IUserInputData {
+export interface InputData {
   nombre: string | undefined;
   cargo: string | undefined;
   telefono: number | undefined;
@@ -34,9 +35,7 @@ interface OutputData {
   _p2?: string;
 }
 
-export function transformInsertQuery(
-  jsonData: IUserInputData
-): OutputData | null {
+export function transformInsertQuery(jsonData: InputData): OutputData | null {
   // if (jsonData.password !== jsonData.password2) {
   //   alert(ERROR_MESSAGES.passwordNotMatch);
   // }
@@ -54,7 +53,7 @@ export function transformInsertQuery(
 }
 
 export function transformUpdateQuery(
-  jsonData: IUserInputData,
+  jsonData: InputData,
   primaryKey: string
 ): OutputData | null {
   const fields = [
@@ -84,7 +83,6 @@ export function transformUpdateQuery(
 
 interface IUserFormPrps {
   closeModal: () => void;
-  handleChange: SubmitHandler<IUserInputData>;
   data?: any[];
   label: string;
   isEditting?: any;
@@ -106,6 +104,7 @@ const UserForm: React.FC<IUserFormPrps> = React.memo(
     const schema = validationUserSchema(isEditting);
     const { editEntity, createdEntity, ListEntity } = useCrud(strBaseUrl);
     const [blnKeep, setblnKeep] = useState(false);
+
     const {
       control,
       handleSubmit,
@@ -114,6 +113,14 @@ const UserForm: React.FC<IUserFormPrps> = React.memo(
     } = useForm({
       resolver: yupResolver(schema),
     });
+
+    // const resetTextFields = () => {
+    //   reset({
+    //     nombre: "",
+    //     telefono: 0,
+    //     correo: "",
+    //   });
+    // };
 
     const updateNewEntity = React.useCallback(async () => {
       const newEntityData = await ListEntity(params, "01");
@@ -142,7 +149,7 @@ const UserForm: React.FC<IUserFormPrps> = React.memo(
           const result = window.confirm("¿Quieres continuar ingresando?");
           if (result) {
             setblnKeep(true);
-            reset();
+            // resetTextFields();
             updateNewEntity();
           } else {
             closeModal();
@@ -154,14 +161,14 @@ const UserForm: React.FC<IUserFormPrps> = React.memo(
           closeModal();
         }
 
-        reset();
+        // resetTextFields();
         updateNewEntity();
       },
-      [closeModal, blnKeep, reset, updateNewEntity]
+      [closeModal, blnKeep, updateNewEntity]
     );
 
     const handleSaveChange = React.useCallback(
-      async (data: IUserInputData, isEditting: boolean) => {
+      async (data: InputData, isEditting: boolean) => {
         try {
           const transformedData = isEditting
             ? transformUpdateQuery(data, selectedIds.toString())

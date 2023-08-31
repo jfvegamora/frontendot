@@ -118,3 +118,27 @@ export const table_head_permisos = [
     visible: true,
   },
 ];
+
+// Para la tabla Cargos
+export const table_head_funcionalidades = [
+  {
+    cell: <input type="checkbox" />,
+    key: "checkbox",
+    visible: true,
+  },
+  {
+    cell: "ID",
+    key: "id",
+    visible: false,
+  },
+  {
+    cell: "Nombre",
+    key: "nombre",
+    visible: true,
+  },
+  {
+    cell: "Opciones",
+    key: "opciones",
+    visible: true,
+  },
+];

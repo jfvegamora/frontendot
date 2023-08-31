@@ -14,8 +14,8 @@ import { useCrud, usePermission } from ".";
 export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
   const baseUrl = entityApiBaseUrl.startsWith("http")
     ? entityApiBaseUrl
-    : `https://mtoopticos.cl${entityApiBaseUrl}`;
-  // `http://127.0.0.1:8000${entityApiBaseUrl}`;
+    : // : `https://mtoopticos.cl${entityApiBaseUrl}`;
+      `http://127.0.0.1:8000${entityApiBaseUrl}`;
   const [entity, setEntity] = useState<any | null>(null);
   const [entities, setEntities] = useState<never[]>([]);
   const [pageSize, setPageSize] = useState(1);

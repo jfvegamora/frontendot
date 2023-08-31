@@ -25,7 +25,7 @@ export const validationFuncionalidadSchema = (
   isEditting: boolean | undefined
 ) =>
   yup.object().shape({
-    funcionalidad: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
+    descripcion: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
   });
 
 // Schema LOGIN

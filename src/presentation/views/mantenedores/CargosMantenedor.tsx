@@ -10,7 +10,7 @@ import {
   TableComponent,
 } from "../../components";
 import { table_head_cargos } from "../../utils";
-import CargosForm, { ICargosInputData } from "../forms/CargosForm";
+import CargosForm from "../forms/CargosForm";
 
 const strEntidad = "Cargo ";
 const strEntidadExcel = "Cargos";
@@ -45,14 +45,6 @@ const CargosMantenedor: React.FC = () => {
     handleSelectedAll,
     resetEntities,
   } = useEntityUtils(strBaseUrl, strQuery);
-
-  const handleSaveChange = React.useCallback(
-    (data: ICargosInputData, isEditting: boolean) => {
-      console.log("data cargos:", data);
-      console.log("data cargos:", isEditting);
-    },
-    []
-  );
 
   return (
     <div className="mantenedorContainer">
@@ -101,7 +93,6 @@ const CargosMantenedor: React.FC = () => {
       {isModalInsert && (
         <CargosForm
           label={`Crear ${strEntidad}`}
-          handleChange={(data) => handleSaveChange(data, false)}
           closeModal={closeModal}
           selectedIds={selectedIds}
           setEntities={setEntities}
@@ -112,7 +103,6 @@ const CargosMantenedor: React.FC = () => {
       {isModalEdit && (
         <CargosForm
           label={`Editar ${strEntidad}`}
-          handleChange={(data) => handleSaveChange(data, true)}
           closeModal={closeModal}
           selectedIds={selectedIds}
           setEntities={setEntities}

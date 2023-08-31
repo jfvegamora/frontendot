@@ -2,24 +2,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState } from "react";
-import { toast } from "react-toastify";
 
 import {
   PrimaryButtonsComponent,
   PrimaryKeySearch,
   TableComponent,
 } from "../../components";
-import { useCrud, useEntityUtils } from "../../hooks";
-import UserForm, {
-  IUserInputData,
-  transformInsertQuery,
-  transformUpdateQuery,
-} from "../forms/UserForm";
-import {
-  ERROR_MESSAGES,
-  SUCCESS_MESSAGES,
-  table_head_usuarios,
-} from "../../utils";
+import { useEntityUtils } from "../../hooks";
+import UserForm from "../forms/UserForm";
+import { table_head_usuarios } from "../../utils";
 
 export enum EnumGrid {
   ID = 1,
@@ -37,7 +28,6 @@ const strListUrl = "/api/cargos/";
 const strQuery = "01";
 
 const UsuariosMantenedor: React.FC = () => {
-  const { createdEntity, editEntity, ListEntity } = useCrud(strBaseUrl);
   const [params, setParams] = useState([]);
 
   const updateParams = (newParams: any) => {
@@ -55,7 +45,6 @@ const UsuariosMantenedor: React.FC = () => {
     toggleEditModal,
     openModal,
     closeModal,
-    setDataGrid,
     //Check methods
     handleSelect,
     selectedIds,
@@ -69,88 +58,6 @@ const UsuariosMantenedor: React.FC = () => {
   // console.log("entities:", entities);
 
   // console.log("params:", params);
-
-  // const handleApiRequest = async (
-  //   data: IUserInputData,
-  //   isEditting: boolean,
-  //   selectedIds: string
-  // ) => {
-  //   try {
-  //     const transformedData = isEditting
-  //       ? transformUpdateQuery(data, selectedIds)
-  //       : transformInsertQuery(data);
-
-  //     const response = isEditting
-  //       ? await editEntity(transformedData)
-  //       : await createdEntity(transformedData);
-
-  //     handleApiResponse(response, isEditting);
-  //   } catch (error: any) {
-  //     console.log(error);
-  //     toast.error(error);
-  //   }
-  // };
-
-  const handleSaveChange = React.useCallback(
-    async (data: IUserInputData, isEditting: boolean) => {
-      //  const blnKeep = false //estado
-      //   if(!blnKeep){
-      //     const result = window.confirm("¿Quieres continuar Ingresando?");
-      //     if(result){
-      //         // agregar usuario         | handleApiRequest(data,isEditting, selectedIds.toString())
-      //         // limpiar inputs          |
-      //         // blnKeep = true
-      //         // mantener modal abierto  | !closeModal()
-      //     }else{
-      //      //agregar usuario        | handleApiRequest(data,isEditting, selectedIds.toString())
-      //     //cerrar modal            |  closeModal()
-      //     }
-      //   }
-      try {
-        // console.log("newData:", data);
-        const transformedData = isEditting
-          ? transformUpdateQuery(data, selectedIds.toString())
-          : transformInsertQuery(data);
-        const response = isEditting
-          ? await editEntity(transformedData)
-          : await createdEntity(transformedData);
-        handleApiResponse(response, isEditting);
-      } catch (error: any) {
-        console.log(error);
-        toast.error(error);
-      }
-    },
-    [selectedIds, editEntity, createdEntity]
-  );
-
-  const handleApiResponse = React.useCallback(
-    async (response: any, isEditting: boolean) => {
-      const errorResponse = response?.response?.data.error;
-      if (errorResponse) {
-        const errorMessage =
-          errorResponse === "IntegrityError"
-            ? isEditting
-              ? strEntidad.concat(ERROR_MESSAGES.delete)
-              : strEntidad.concat(ERROR_MESSAGES.create)
-            : errorResponse;
-        toast.error(errorMessage);
-      } else {
-        toast.success(
-          isEditting
-            ? strEntidad.concat(SUCCESS_MESSAGES.edit)
-            : strEntidad.concat(SUCCESS_MESSAGES.create)
-        );
-      }
-
-      closeModal();
-
-      console.log("params:", params);
-      const newEntity = await ListEntity(params, "01");
-      console.log("newEntity:", newEntity);
-      setEntities(newEntity);
-    },
-    [setEntities, setDataGrid, params]
-  );
 
   return (
     <div className="mantenedorContainer">
@@ -204,7 +111,6 @@ const UsuariosMantenedor: React.FC = () => {
       {isModalInsert && (
         <UserForm
           label={`Crear ${strEntidad}`}
-          handleChange={(data) => handleSaveChange(data, false)}
           closeModal={closeModal}
           selectedIds={selectedIds}
           setEntities={setEntities}
@@ -216,7 +122,6 @@ const UsuariosMantenedor: React.FC = () => {
       {isModalEdit && (
         <UserForm
           label={`Editar ${strEntidad}`}
-          handleChange={(data) => handleSaveChange(data, true)}
           selectedIds={selectedIds}
           setEntities={setEntities}
           params={params}

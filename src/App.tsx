@@ -28,6 +28,9 @@ const Navbar = lazy(() => import("./presentation/components/ComplexNavbar"));
 const FuncionalidadesMantenedor = lazy(
   () => import("./presentation/views/mantenedores/FuncionalidadesMantenedor")
 );
+// const EmpresasMantenedor = lazy(
+//   () => import("./presentation/views/mantenedores/EmpresasMantenedor")
+// );
 
 function App() {
   return (
@@ -41,10 +44,6 @@ function App() {
               <RoutesWithNotFound>
                 <Route path={PublicRoutes.LOGIN} element={<Login />} />
                 <Route element={<AuthGuard privateValidation={true} />}>
-                  <Route
-                    path={PrivateRoutes.PERSONAS}
-                    element={<CargosMantenedor />}
-                  />
                   <Route
                     path={PrivateRoutes.PRIVATE}
                     element={<CargosMantenedor />}

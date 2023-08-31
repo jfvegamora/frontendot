@@ -1,6 +1,4 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
-/* eslint-disable @typescript-eslint/no-empty-function */
-/* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -9,24 +7,24 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import {
   ERROR_MESSAGES,
   SUCCESS_MESSAGES,
-  validationCargosSchema,
+  validationFuncionalidadSchema,
 } from "../../utils";
 import { TextInputComponent } from "../../components";
 import { useCrud } from "../../hooks";
 import { toast } from "react-toastify";
 
-const strBaseUrl = "/api/cargos/";
-const strEntidad = "Cargo ";
+const strBaseUrl = "/api/funcionalidades/";
+const strEntidad = "Funcionalidad ";
 // const strQuery = "01";
 
-export interface ICargosInputData {
-  nombre: string | undefined;
+export interface InputData {
+  descripcion: string | undefined;
 }
-export enum EnumCargosGrid {
+enum EnumGrid {
   id = 1,
-  nombre = 2,
+  descripcion = 2,
 }
-interface ICargosFormProps {
+interface IFormProps {
   closeModal: () => void;
   data?: any[];
   label: string;
@@ -41,23 +39,21 @@ interface OutputData {
   _p1: string;
 }
 
-const transformInsertQuery = (
-  jsonData: ICargosInputData
-): OutputData | null => {
-  const _p1 = `'${jsonData.nombre}'`;
+const transformInsertQuery = (jsonData: InputData): OutputData | null => {
+  const _p1 = `'${jsonData.descripcion}'`;
+
   const query: OutputData = {
     query: "03",
     _p1: _p1,
   };
-  console.log("insert:", query);
   return query;
 };
 
 const transformUpdateQuery = (
-  jsonData: ICargosInputData,
+  jsonData: InputData,
   primaryKey: string
 ): OutputData | null => {
-  const _p1 = `nombre='${jsonData.nombre}'`;
+  const _p1 = `descripcion='${jsonData.descripcion}'`;
 
   const query = {
     query: "04",
@@ -68,7 +64,7 @@ const transformUpdateQuery = (
   return query;
 };
 
-const CargosForm: React.FC<ICargosFormProps> = React.memo(
+const FuncionalidadForm: React.FC<IFormProps> = React.memo(
   ({
     closeModal,
     setEntities,
@@ -78,7 +74,7 @@ const CargosForm: React.FC<ICargosFormProps> = React.memo(
     isEditting,
     selectedIds,
   }) => {
-    const schema = validationCargosSchema(isEditting);
+    const schema = validationFuncionalidadSchema(isEditting);
     const { editEntity, createdEntity, ListEntity } = useCrud(strBaseUrl);
     const [blnKeep, setblnKeep] = useState(false);
 
@@ -139,7 +135,7 @@ const CargosForm: React.FC<ICargosFormProps> = React.memo(
     );
 
     const handleSaveChange = React.useCallback(
-      async (data: ICargosInputData, isEditting: boolean) => {
+      async (data: InputData, isEditting: boolean) => {
         try {
           console.log("isEdditing:", isEditting);
           const transformedData = isEditting
@@ -174,11 +170,11 @@ const CargosForm: React.FC<ICargosFormProps> = React.memo(
           <div className="userFormularioCont">
             <TextInputComponent
               type="text"
-              label="Nombre"
-              name="nombre"
-              data={data && data[EnumCargosGrid.nombre]}
+              label="Descripción"
+              name="descripcion"
+              data={data && data[EnumGrid.descripcion]}
               control={control}
-              error={!isEditting && errors.nombre}
+              error={!isEditting && errors.descripcion}
             />
           </div>
 
@@ -191,4 +187,4 @@ const CargosForm: React.FC<ICargosFormProps> = React.memo(
   }
 );
 
-export default CargosForm;
+export default FuncionalidadForm;
