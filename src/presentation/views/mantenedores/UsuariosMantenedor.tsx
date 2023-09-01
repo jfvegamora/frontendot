@@ -30,8 +30,8 @@ const strQuery = "01";
 const UsuariosMantenedor: React.FC = () => {
   const [params, setParams] = useState([]);
 
-  const updateParams = (newParams: any) => {
-    setParams(newParams);
+  const updateParams = (newParams: Record<string, never>) => {
+    setParams(Object.keys(newParams).map((key) => newParams[key]));
   };
 
   const {
@@ -47,8 +47,8 @@ const UsuariosMantenedor: React.FC = () => {
     closeModal,
     //Check methods
     handleSelect,
-    selectedIds,
-    setSelectedIds,
+    selectedRows,
+    setSelectedRows,
     handleSelectedAll,
     //primary buttons methods
     handleDeleteSelected,
@@ -66,13 +66,16 @@ const UsuariosMantenedor: React.FC = () => {
       <div className="mantenedorHead">
         <PrimaryKeySearch
           baseUrl={strBaseUrl}
-          selectUrl={strListUrl}
-          setParams={setParams}
           updateParams={updateParams}
           setEntities={setEntities}
           primaryKeyInputs={[
             { name: "_p1", label: "Nombre", type: "text" },
-            { name: "_p2", label: "Cargos", type: "select" },
+            {
+              name: "_p2",
+              label: "Cargos",
+              type: "select",
+              selectUrl: "/api/cargos/",
+            },
           ]}
         />
 
@@ -98,8 +101,8 @@ const UsuariosMantenedor: React.FC = () => {
           handleSelectedCheckedAll={handleSelectedAll}
           toggleEditModal={toggleEditModal}
           handleDeleteSelected={handleDeleteSelected}
-          selectedIds={selectedIds}
-          setSelectedIds={setSelectedIds}
+          selectedRows={selectedRows}
+          setSelectedRows={setSelectedRows}
           entidad={strEntidad}
           data={entities}
           tableHead={table_head_usuarios}
@@ -112,7 +115,7 @@ const UsuariosMantenedor: React.FC = () => {
         <UserForm
           label={`Crear ${strEntidad}`}
           closeModal={closeModal}
-          selectedIds={selectedIds}
+          selectedRows={selectedRows}
           setEntities={setEntities}
           params={params}
           isEditting={false}
@@ -122,7 +125,7 @@ const UsuariosMantenedor: React.FC = () => {
       {isModalEdit && (
         <UserForm
           label={`Editar ${strEntidad}`}
-          selectedIds={selectedIds}
+          selectedRows={selectedRows}
           setEntities={setEntities}
           params={params}
           data={entity}

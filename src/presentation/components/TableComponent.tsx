@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { IconButton, Tooltip, Typography } from "@material-tailwind/react";
 import { PencilIcon } from "@heroicons/react/24/solid";
 import { BsFillXSquareFill } from "react-icons/bs";
@@ -17,15 +17,14 @@ interface ITableComponentProps<T> {
   ) => void;
   toggleEditModal?: (id: number) => void;
   handleDeleteSelected?: (id: number) => void;
-  selectedIds?: number[];
-  setSelectedIds?: any;
+  selectedRows?: number[];
+  pkToDelete?: any;
+  setSelectedRows?: any;
   entidad: string;
   showEditButton: boolean;
   showDeleteButton: boolean;
   params?: never[];
 }
-
-const inIdPosition = 1;
 
 const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
   ({
@@ -36,11 +35,23 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
     handleSelectedCheckedAll,
     toggleEditModal,
     handleDeleteSelected,
-    selectedIds,
+    selectedRows,
     showEditButton,
     showDeleteButton,
+    pkToDelete,
   }) => {
     const { escritura } = usePermission();
+    const [rowIds, setRowIds] = useState<number[]>([]);
+    useEffect(() => {
+      if (data) {
+        // Crea un arreglo de IDs de filas basado en la longitud de los datos
+        const newRowIds = Array(data.length)
+          .fill(0)
+          .map((_, index) => index);
+        setRowIds(newRowIds);
+      }
+    }, [data]);
+
     const renderTextCell = (text: string) => (
       <Typography variant="small" color="blue-gray" className="gridText">
         {text || ""}
@@ -49,7 +60,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
 
     const renderCheckboxCell = (id: number) => (
       <input
-        checked={selectedIds && selectedIds.includes(id)}
+        checked={selectedRows && selectedRows.includes(id)}
         onChange={() => handleSelectChecked && handleSelectChecked(id)}
         type="checkbox"
       />
@@ -68,7 +79,10 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                     {column.key === "checkbox" ? (
                       <input
                         type="checkbox"
-                        onChange={handleSelectedCheckedAll}
+                        onChange={(e) =>
+                          handleSelectedCheckedAll &&
+                          handleSelectedCheckedAll(e, rowIds)
+                        }
                       />
                     ) : (
                       renderTextCell(column.cell as string)
@@ -81,16 +95,21 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
         <tbody>
           {data &&
             data.map((rowData: any, rowIndex: number) => {
-              const id = rowData[inIdPosition];
+              // const id = [3, 3];
               return (
                 <tr key={rowIndex}>
-                  {rowData.map((row: any, index: number) => {
-                    const visible = tableHead && tableHead[index].visible;
+                  {rowData.map((row: any, col: number) => {
+                    // console.log("col", col);
+                    const visible = tableHead && tableHead[col].visible;
                     return (
                       visible && (
-                        <td className="gridTableData" key={index}>
-                          {index === 0
-                            ? renderCheckboxCell(id)
+                        <td
+                          className="gridTableData"
+                          key={col}
+                          id={tableHead[col].key}
+                        >
+                          {col === 0
+                            ? renderCheckboxCell(rowIndex)
                             : renderTextCell(row)}
                         </td>
                       )
@@ -103,7 +122,9 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                         <IconButton
                           variant="text"
                           color="blue-gray"
-                          onClick={() => toggleEditModal && toggleEditModal(id)}
+                          onClick={() =>
+                            toggleEditModal && toggleEditModal(rowIndex)
+                          }
                         >
                           <PencilIcon className="gridIcons" />
                         </IconButton>
@@ -116,8 +137,9 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                           variant="text"
                           color="blue-gray"
                           onClick={() => {
-                            //setSelectedIds && setSelectedIds([id]);
-                            handleDeleteSelected && handleDeleteSelected(id);
+                            //setSelectedRows && setSelectedRows([id]);
+                            handleDeleteSelected &&
+                              handleDeleteSelected(rowIndex);
                           }}
                         >
                           <BsFillXSquareFill className="gridIcons" />

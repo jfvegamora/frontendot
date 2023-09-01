@@ -23,7 +23,7 @@ const strEntidad = "Usuario ";
 export interface InputData {
   nombre: string | undefined;
   cargo: string | undefined;
-  telefono: number | undefined;
+  telefono: string | undefined;
   correo: string | undefined;
   estado: string | undefined;
 }
@@ -32,6 +32,7 @@ interface OutputData {
   query: string;
   _p1: string;
   _p2?: string;
+  _p3?: string;
 }
 
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
@@ -77,6 +78,7 @@ export function transformUpdateQuery(
     query: "04",
     _p1,
     _p2: primaryKey,
+    _p3: "",
   };
 }
 
@@ -85,7 +87,7 @@ interface IUserFormPrps {
   data?: any[];
   label: string;
   isEditting?: any;
-  selectedIds?: any;
+  selectedRows?: any;
   setEntities?: any;
   params?: any;
 }
@@ -95,7 +97,7 @@ const UserForm: React.FC<IUserFormPrps> = React.memo(
     closeModal,
     setEntities,
     params,
-    selectedIds,
+    selectedRows,
     label,
     data,
     isEditting,
@@ -117,7 +119,7 @@ const UserForm: React.FC<IUserFormPrps> = React.memo(
       //   nombre: "",
       // });
       setValue("nombre", "");
-      setValue("telefono", 0);
+      setValue("telefono", "");
       setValue("correo", "");
     };
 
@@ -170,7 +172,7 @@ const UserForm: React.FC<IUserFormPrps> = React.memo(
       async (data: InputData, isEditting: boolean) => {
         try {
           const transformedData = isEditting
-            ? transformUpdateQuery(data, selectedIds.toString())
+            ? transformUpdateQuery(data, selectedRows.toString())
             : transformInsertQuery(data);
 
           const response = isEditting
@@ -182,7 +184,7 @@ const UserForm: React.FC<IUserFormPrps> = React.memo(
           toast.error(error);
         }
       },
-      [selectedIds, editEntity, createdEntity, handleApiResponse]
+      [selectedRows, editEntity, createdEntity, handleApiResponse]
     );
 
     return (

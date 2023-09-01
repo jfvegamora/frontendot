@@ -4,10 +4,7 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from "react";
-import {
-  RadioButtonComponent,
-  SelectInputComponent,
-} from "../../components";
+import { RadioButtonComponent, SelectInputComponent } from "../../components";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationPerfilesSchema } from "../../utils/validationFormSchemas";
@@ -38,7 +35,9 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
   //   alert(ERROR_MESSAGES.passwordNotMatch);
   // }
 
-  const _p1 = `'${jsonData.cargo}', ${jsonData.funcionalidad}, '${jsonData.permiso}'`;
+  const _p1 = `${jsonData.cargo}, ${jsonData.funcionalidad}, ${
+    jsonData.permiso === "Lectura" ? 1 : 2
+  }`;
 
   const query: OutputData = {
     query: "03",
@@ -48,12 +47,10 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
   return query;
 }
 
-export function transformUpdateQuery(
-  jsonData: InputData,
-): OutputData | null {
+export function transformUpdateQuery(jsonData: InputData): OutputData | null {
   const fields = [
     // jsonData.nombre && `nombre='${jsonData.nombre}'`,
-    `permiso='${jsonData.permiso}'`,
+    `permiso=${jsonData.permiso === "Lectura" ? 1 : 2}`,
   ];
 
   const filteredFields = fields.filter(
@@ -78,7 +75,7 @@ interface IFormPrps {
   data?: any[];
   label: string;
   isEditting?: any;
-  selectedIds?: any;
+  selectedRows?: any;
   setEntities?: any;
   params?: any;
 }
@@ -88,7 +85,7 @@ const PerfilesForm: React.FC<IFormPrps> = React.memo(
     closeModal,
     setEntities,
     params,
-    selectedIds,
+    selectedRows,
     label,
     data,
     isEditting,
@@ -175,7 +172,7 @@ const PerfilesForm: React.FC<IFormPrps> = React.memo(
           toast.error(error);
         }
       },
-      [selectedIds, editEntity, createdEntity, handleApiResponse]
+      [selectedRows, editEntity, createdEntity, handleApiResponse]
     );
 
     return (
@@ -186,7 +183,7 @@ const PerfilesForm: React.FC<IFormPrps> = React.memo(
           </button>
         </div>
         <h1 className="userFormLabel">{label}</h1>
-        
+
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))}
           className="userFormulario"

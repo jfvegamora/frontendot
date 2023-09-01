@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { IconButton, Input, Tooltip } from "@material-tailwind/react";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
@@ -36,7 +36,8 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
     const [inputValues, setInputValues] = useState<IPrimaryKeyState>({});
     const { ListEntity } = useCrud(baseUrl);
 
-    // console.log("", inputValues);
+    console.log("inputvalues", inputValues);
+
     const handleInputChange = React.useCallback(
       (name: string, value: string) => {
         setInputValues((prev) => ({ ...prev, [name]: value }));
@@ -44,35 +45,28 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
       []
     );
 
+    const handleSelectChange = React.useCallback(
+      (name: string, value: string) => {
+        setInputValues((prev) => ({ ...prev, [name]: value }));
+        updateParams({
+          ...inputValues,
+          [name]: value,
+        });
+      },
+      [inputValues, updateParams]
+    );
+
     const handleSearch = React.useCallback(async (data: IPrimaryKeyState) => {
-      // console.log("click");
-      // const searchParams = Object.entries(data)
-      //   .map(([key, value]) =>
-      //     value ? `${key}=${encodeURIComponent(value)}` : ""
-      //   )
-      //   .filter((param) => param !== "")
-      //   .join("&");
+      console.log("data:", data);
       const searchParams = Object.entries(data)
         .map(([key, value]) =>
-          key === "_p1"  || value ? `${key}=${encodeURIComponent(value)}` : ""
+          key === "_p1" || value ? `${key}=${encodeURIComponent(value)}` : ""
         )
-        // .filter((param) => param !== "")
+        .filter((param) => param !== "")
         .join("&");
       console.log("searchParams", searchParams);
-      // console.log("data", data);
-      // data && setParams(searchParams);
       data && updateParams([searchParams]);
       try {
-        // const params = searchParams
-        //   ? searchParams
-        //       .split("&")
-        //       .reduce((obj: Record<string, string>, param) => {
-        //         const [key, value] = param.split("=");
-        //         obj[key] = value;
-        //         return obj;
-        //       }, {})
-        //   : {};
-        // console.log("params", params);
         const response = await ListEntity(searchParams, "01");
         setEntities(response);
       } catch (error) {
@@ -107,13 +101,14 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
               {input.type === "select" ? (
                 <SelectInputComponent
                   label={input.label}
-                  name="_p2"
+                  name={input.name}
                   showRefresh={false}
                   control={control}
                   entidad={[input.selectUrl, "02"]}
                   inputName={input.name}
                   inputValues={inputValues}
                   setHandleSearch={handleSearch}
+                  handleSelectChange={handleSelectChange}
                 />
               ) : input.type === "radiobuttons" ? (
                 <div>
@@ -166,6 +161,18 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
         />
       ));
     };
+    useEffect(() => {
+      // Crea un objeto con los parámetros de búsqueda
+      const searchParams = {
+        _p1: inputValues._p1 || "",
+        _p2: inputValues._p2 || "",
+        _p3: inputValues._p3 || "",
+        _p4: inputValues._p4 || "",
+      };
+
+      // Llama a la función de actualización de parámetros pasándole el objeto
+      updateParams(searchParams);
+    }, [inputValues]);
 
     return (
       <form className="primaryKeyContainer">

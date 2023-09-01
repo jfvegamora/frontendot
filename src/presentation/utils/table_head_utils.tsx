@@ -32,7 +32,7 @@ export const table_head_perfiles = [
   {
     cell: "ID_CARGO",
     key: "id_cargo",
-    visible: false,
+    visible: true,
   },
   {
     cell: "Cargo",
@@ -42,7 +42,7 @@ export const table_head_perfiles = [
   {
     cell: "ID_FUNCIONALIDAD",
     key: "id_funcionalidad",
-    visible: false,
+    visible: true,
   },
   {
     cell: "Funcionalidad",

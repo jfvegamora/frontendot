@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
@@ -35,17 +36,13 @@ export const ExportCSV: React.FC<Props> = ({
 
   const { exportEntity } = useCrud(strBaseUrl);
 
-  // const searchParams = Object.entries(params)
-  //   .map(([key, value]) =>
-  //     key === "_p1" || value
-  //       ? `${key}=${encodeURIComponent(value as string | number | boolean)}`
-  //       : ""
-  //   )
-  //   .join("&");
-  const searchParams = params
-    .map((param: string) => decodeURIComponent(param)) // Decodificamos el valor
-    .filter((param: string | string[]) => param.includes("=")) // Filtramos solo los que tienen '='
-    .join("&"); // Unimos los elementos con '&'
+  const paramNames = ["_p1", "_p2", "_p3", "_p4"];
+  const queryString = params
+    .map((value: string, index: any) =>
+      value !== "" ? `${paramNames[index]}=${value}` : ""
+    )
+    .filter((param: string) => param !== "")
+    .join("&");
 
   const handleExport = (exportAll: boolean) => {
     setisModalInsert(false);
@@ -67,9 +64,9 @@ export const ExportCSV: React.FC<Props> = ({
         })
         .catch((e) => console.log(e));
     } else if (exportTable) {
-      exportEntity(decodeURIComponent(searchParams), strEntidad)
+      exportEntity(queryString, strEntidad)
         .then(() => {
-          toast("Descargando archvios");
+          toast("Descargando archivos");
         })
         .catch((e) => console.log(e));
     }

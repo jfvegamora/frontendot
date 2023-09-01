@@ -18,8 +18,8 @@ const useCrud = (
 } => {
   const baseUrl = apiBaseUrl.startsWith("http")
     ? apiBaseUrl
-     : `https://mtoopticos.cl${apiBaseUrl}`;
-      //`http://127.0.0.1:8000${apiBaseUrl}`;
+    : // : `https://mtoopticos.cl${apiBaseUrl}`;
+      `http://127.0.0.1:8000${apiBaseUrl}`;
   const axiosInstance: AxiosInstance = axios.create({
     baseURL: baseUrl,
     headers: {
@@ -32,9 +32,11 @@ const useCrud = (
     strEntidad?: string
   ): Promise<void> => {
     try {
+      console.log("primarykeyexcel", primaryKey);
       const strUrl = primaryKey
         ? `/excel/?query=01&${primaryKey}`
         : `/excel/?query=01`;
+      console.log("strurlexcel", strUrl);
 
       const response = await axiosInstance.get(strUrl, {
         responseType: "blob",
@@ -96,14 +98,29 @@ const useCrud = (
       return error;
     }
   };
-
-  const deleteAllEntity = async (id: number[]): Promise<void | unknown> => {
+  const deleteAllEntity = async (pk: any[]): Promise<void | unknown> => {
     try {
-      const idsDelete = `${id.join(",")}`;
-      const response = await axiosInstance.delete(
-        `/eliminar/?query=05&_p1=${idsDelete}&`
-      );
-      return response.data;
+      // _pairsToDelete=[{"cargo":3, "funcionalidad":3}]
+      const a = [{}];
+      const b = [1];
+      console.log("b", typeof b[0]);
+      console.log("a", typeof a[0]);
+
+      if(typeof pk[0] === "number"){
+        // const idsDelete = `${id.join(",")}`;
+        // const response = await axiosInstance.delete(
+        //   `/eliminar/?query=05&_p1=${idsDelete}&`
+        // );
+        // return response.data;
+      }
+
+      if(typeof pk[0] === "object"){
+        //const _pairsToDelete={"pk1":3, "pk2":3}
+        //const _pairsToDelete= pk.map((pktojson)=>{
+        //
+        //})
+      }
+      // console.log("id to delete:", id);
     } catch (error) {
       return error;
     }

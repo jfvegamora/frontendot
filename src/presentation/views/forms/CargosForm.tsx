@@ -31,7 +31,7 @@ interface ICargosFormProps {
   data?: any[];
   label: string;
   isEditting?: any;
-  selectedIds?: any;
+  selectedRows?: any;
   setEntities?: any;
   params?: any;
 }
@@ -76,7 +76,7 @@ const CargosForm: React.FC<ICargosFormProps> = React.memo(
     data,
     label,
     isEditting,
-    selectedIds,
+    selectedRows,
   }) => {
     const schema = validationCargosSchema(isEditting);
     const { editEntity, createdEntity, ListEntity } = useCrud(strBaseUrl);
@@ -143,7 +143,7 @@ const CargosForm: React.FC<ICargosFormProps> = React.memo(
         try {
           console.log("isEdditing:", isEditting);
           const transformedData = isEditting
-            ? transformUpdateQuery(data, selectedIds.toString())
+            ? transformUpdateQuery(data, selectedRows.toString())
             : transformInsertQuery(data);
 
           const response = isEditting
@@ -155,7 +155,7 @@ const CargosForm: React.FC<ICargosFormProps> = React.memo(
           toast.error(error);
         }
       },
-      [selectedIds, editEntity, createdEntity, handleApiResponse]
+      [selectedRows, editEntity, createdEntity, handleApiResponse]
     );
 
     return (

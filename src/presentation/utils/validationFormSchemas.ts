@@ -3,12 +3,13 @@ import * as yup from "yup";
 const msg = "Requerido";
 
 // Schema USER
+
 export const validationUserSchema = (isEditting: boolean | undefined) =>
   yup.object().shape({
     nombre: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
     // password: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
     cargo: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    telefono: yup.number(),
+    telefono: yup.string(),
     correo: yup.string().email(),
     estado: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
     // password2: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
@@ -27,9 +28,7 @@ export const validationFuncionalidadSchema = (
   yup.object().shape({
     descripcion: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
   });
-export const validationPerfilesSchema = (
-  isEditting: boolean | undefined
-) =>
+export const validationPerfilesSchema = (isEditting: boolean | undefined) =>
   yup.object().shape({
     cargo: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
     funcionalidad: !isEditting ? yup.string().required(`${msg}`) : yup.string(),

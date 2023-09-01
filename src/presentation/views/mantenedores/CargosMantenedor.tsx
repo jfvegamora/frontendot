@@ -21,8 +21,8 @@ const CargosMantenedor: React.FC = () => {
   // const { createdEntity, editEntity } = useCrud(strBaseUrl);
   const [params, setParams] = useState([]);
 
-  const updateParams = (newParams: any) => {
-    setParams(newParams);
+  const updateParams = (newParams: Record<string, never>) => {
+    setParams(Object.keys(newParams).map((key) => newParams[key]));
   };
 
   const {
@@ -30,8 +30,8 @@ const CargosMantenedor: React.FC = () => {
     entities,
     entity,
     setEntities,
-    selectedIds,
-    setSelectedIds,
+    selectedRows,
+    setSelectedRows,
     //Modal Methds
     openModal,
     closeModal,
@@ -80,8 +80,8 @@ const CargosMantenedor: React.FC = () => {
           handleSelectedCheckedAll={handleSelectedAll}
           toggleEditModal={toggleEditModal}
           handleDeleteSelected={handleDeleteSelected}
-          selectedIds={selectedIds}
-          setSelectedIds={setSelectedIds}
+          selectedRows={selectedRows}
+          setSelectedRows={setSelectedRows}
           entidad={strEntidad}
           data={entities}
           tableHead={table_head_cargos}
@@ -94,7 +94,7 @@ const CargosMantenedor: React.FC = () => {
         <CargosForm
           label={`Crear ${strEntidad}`}
           closeModal={closeModal}
-          selectedIds={selectedIds}
+          selectedRows={selectedRows}
           setEntities={setEntities}
           params={params}
           isEditting={false}
@@ -104,7 +104,7 @@ const CargosMantenedor: React.FC = () => {
         <CargosForm
           label={`Editar ${strEntidad}`}
           closeModal={closeModal}
-          selectedIds={selectedIds}
+          selectedRows={selectedRows}
           setEntities={setEntities}
           data={entity}
           params={params}

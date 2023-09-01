@@ -14,12 +14,12 @@ import { useCrud, usePermission } from ".";
 export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
   const baseUrl = entityApiBaseUrl.startsWith("http")
     ? entityApiBaseUrl
-     : `https://mtoopticos.cl${entityApiBaseUrl}`;
-     // `http://127.0.0.1:8000${entityApiBaseUrl}`;
+    : //  : `https://mtoopticos.cl${entityApiBaseUrl}`;
+      `http://127.0.0.1:8000${entityApiBaseUrl}`;
   const [entity, setEntity] = useState<any | null>(null);
   const [entities, setEntities] = useState<never[]>([]);
   const [pageSize, setPageSize] = useState(1);
-  const [selectedIds, setSelectedIds] = useState<number[]>([]);
+  const [selectedRows, setSelectedRows] = useState<number[]>([]);
   // const [intLastId, setIntLastId] = useState<number | null>(0);
   const [isModalInsert, setisModalInsert] = useState<boolean>(false);
   const [isModalEdit, setIsModalEdit] = useState<boolean>(false);
@@ -45,7 +45,7 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
     setisModalInsert(false);
     setIsModalEdit(false);
     setIsEntityProfile(false);
-    setSelectedIds([]);
+    setSelectedRows([]);
   }, []);
 
   const handlePageSize = useCallback(() => {
@@ -65,7 +65,7 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
 
   const resetEntities = () => {
     setEntities([]);
-    setSelectedIds([]);
+    setSelectedRows([]);
     setPageSize(1);
     setDataGrid((prev) => !prev);
     //reset()
@@ -79,11 +79,12 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
   }, [pageSize]);
 
   // const handleDeleteSelected = useCallback(() => {
+
   //   async (id?: number) => {
   //     console.log("handledelete");
   //     if (!escritura) return;
 
-  //     const idsToDelete = id ? [id] : selectedIds;
+  //     const idsToDelete = id ? [id] : selectedRows;
 
   //     const result = window.confirm("¿Estás seguro de eliminar?");
   //     if (!result) return;
@@ -104,47 +105,47 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
   //       return error;
   //     }
   //   };
-  // }, [selectedIds, escritura]);
+  // }, [selectedRows, escritura]);
 
+  //Metodo Check aLL
   const handleSelectedAll = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      setSelectedIds(
-        event.target.checked ? entities.map((entity) => entity[1]) : []
-      );
+    (event: React.ChangeEvent<HTMLInputElement>, row?: any) => {
+      setSelectedRows(event.target.checked ? row : []);
     },
     [entities]
   );
 
   const handleEntity = (id: number) => {
-    setSelectedIds([id]);
+    setSelectedRows([id]);
     const selectedEntity = entities.find((entity) => entity[1] === id);
     setEntity(selectedEntity || null);
     setIsEntityProfile((prev) => !prev);
   };
 
-  const handleSelect = useCallback((id: number): void => {
-    setSelectedIds((prevSelectedIds) =>
-      prevSelectedIds.includes(id)
-        ? prevSelectedIds.filter((selectedId) => selectedId !== id)
-        : [...prevSelectedIds, id]
+  //METODO CHECK INDIVIDUAL
+  const handleSelect = useCallback((rowIndex: number): void => {
+    // console.log("id handleselect", id);
+    setSelectedRows((prevSelectedRow) =>
+      prevSelectedRow.includes(rowIndex)
+        ? prevSelectedRow.filter((selectedRow) => selectedRow !== rowIndex)
+        : [...prevSelectedRow, rowIndex]
     );
   }, []);
 
+  //METODO EDITAR DE LA GRILLA
   const toggleEditModal = useCallback(
-    (id: number) => {
+    (rowIndex: number) => {
       if (!escritura) {
         alert("No tienes permisos");
         return;
       }
-
       setIsModalEdit((prev) => !prev);
 
-      if (id) {
-        setSelectedIds([id]);
-        const selectedEntity = entities.find((entity) => entity[1] === id);
-        setEntity(selectedEntity || null);
+      if (rowIndex >= 0) {
+        setSelectedRows([rowIndex]);
+        setEntity(entities[rowIndex]);
       } else {
-        setSelectedIds([]);
+        setSelectedRows([]);
         setEntity(null);
       }
     },
@@ -179,53 +180,54 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
   };
 
   const handleDeleteSelected = useCallback(
-    async (id?: number) => {
+    async (rowIndex?: number) => {
       if (escritura) {
-        if (selectedIds.length >= 1 || (id && id > 0)) {
+        if (selectedRows.length >= 1 || (rowIndex && rowIndex > 0)) {
           const result = window.confirm("¿Estás seguro de eliminar?");
           try {
             if (result) {
-              if (id && id > 0) {
-                const response = await deleteAllEntity([id]);
+              if (rowIndex && rowIndex > 0) {
+                const response = await deleteAllEntity([rowIndex]);
                 const errorDelete = response?.response?.data?.error;
                 if (errorDelete) {
                   toast.error(errorDelete);
                 } else {
                   setEntities((prev) => {
                     const filteredEntities = prev.filter(
-                      (entity) => entity[1] !== id
+                      (entity) => entity[1] !== rowIndex
                     );
                     console.log("estado filtrado:", filteredEntities);
                     return filteredEntities;
                   });
                   resetDelete();
-                  setSelectedIds([]);
-                  setPageSize(1);
-                  setDataGrid((prev) => !prev);
-                  toast.success("Eliminados Correctamente");
-                }
-              } else {
-                const response = await deleteAllEntity(selectedIds);
-                console.log("state entities:", entities);
-                const errorDelete = response?.response?.data?.error;
-                // const errorDelete = false;
-                if (errorDelete) {
-                  toast.error(errorDelete);
-                } else {
-                  setEntities((prev) => {
-                    const filteredEntities = prev.filter(
-                      (entity) => !selectedIds.includes(entity[1])
-                    );
-                    console.log("estado filtrado:", filteredEntities);
-                    return filteredEntities;
-                  });
-                  resetDelete();
-                  setSelectedIds([]);
+                  setSelectedRows([]);
                   setPageSize(1);
                   setDataGrid((prev) => !prev);
                   toast.success("Eliminados Correctamente");
                 }
               }
+              // } else {
+              //   const response = await deleteAllEntity(selectedRows);
+              //   console.log("state entities:", entities);
+              //   const errorDelete = response?.response?.data?.error;
+              //   // const errorDelete = false;
+              //   if (errorDelete) {
+              //     toast.error(errorDelete);
+              //   } else {
+              //     setEntities((prev) => {
+              //       const filteredEntities = prev.filter(
+              //         (entity) => !selectedRows.includes(entity[1])
+              //       );
+              //       console.log("estado filtrado:", filteredEntities);
+              //       return filteredEntities;
+              //     });
+              //     resetDelete();
+              //     setSelectedRows([]);
+              //     setPageSize(1);
+              //     setDataGrid((prev) => !prev);
+              //     toast.success("Eliminados Correctamente");
+              //   }
+              // }
             }
           } catch (error: any) {
             toast.error(error.message);
@@ -235,23 +237,23 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
         }
       }
     },
-    [selectedIds, escritura]
+    [selectedRows, escritura]
   );
 
   // const handleSelectedAll = useCallback(
   //   (event: React.ChangeEvent<HTMLInputElement>) => {
   //     if (event.target.checked) {
   //       const allID = entities.map((entity) => entity[1]);
-  //       setSelectedIds(allID);
+  //       setSelectedRows(allID);
   //     } else {
-  //       setSelectedIds([]);
+  //       setSelectedRows([]);
   //     }
   //   },
   //   [entities],
   // );
 
   // const handleSelect = useCallback((id: number): void => {
-  //   setSelectedIds((prevSelectedIds) => {
+  //   setSelectedRows((prevSelectedIds) => {
   //     if (prevSelectedIds.includes(id)) {
   //       return prevSelectedIds.filter((selectedId) => selectedId !== id);
   //     } else {
@@ -266,7 +268,7 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
   //       setIsModalEdit((prev) => !prev);
   //       if (id) {
   //         setEntityID(id);
-  //         setSelectedIds([id]);
+  //         setSelectedRows([id]);
   //         const selectedEntity = entities.find((entity) => entity[1] === id);
   //         setEntity(selectedEntity || null);
   //       } else {
@@ -328,8 +330,8 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
     handleRefresh,
     toggleEditModal,
     isModalEdit,
-    selectedIds,
-    setSelectedIds,
+    selectedRows,
+    setSelectedRows,
     handleSelectedAll,
     handleSelect,
     handleDeleteSelected,
