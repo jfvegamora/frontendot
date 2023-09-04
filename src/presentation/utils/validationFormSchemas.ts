@@ -2,8 +2,7 @@ import * as yup from "yup";
 
 const msg = "Requerido";
 
-// Schema USER
-
+// Schema USUSARIO
 export const validationUserSchema = (isEditting: boolean | undefined) =>
   yup.object().shape({
     nombre: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
@@ -28,11 +27,24 @@ export const validationFuncionalidadSchema = (
   yup.object().shape({
     descripcion: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
   });
+
+//Schema PERFILES DE CARGOS
 export const validationPerfilesSchema = (isEditting: boolean | undefined) =>
   yup.object().shape({
     cargo: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
     funcionalidad: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
     permiso: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
+  });
+
+// Schema PROVEEDORES
+export const validationProveedoresSchema = (isEditting: boolean | undefined) =>
+  yup.object().shape({
+    rut: yup.string(),
+    nombre: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
+    direccion: yup.string(),
+    telefono: yup.string(),
+    correo: yup.string().email(),
+    sitio_web: yup.string(),
   });
 
 // Schema LOGIN

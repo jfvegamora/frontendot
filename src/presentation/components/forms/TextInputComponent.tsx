@@ -38,13 +38,21 @@ const TextInputComponent: React.FC<ITextInputProps> = ({
         defaultValue={data ? data : ""}
         render={({ field }) => (
           <Input
+            color="orange"
             {...field}
             label={label}
             id={label}
             type={type}
             readOnly={onlyRead}
             ref={inputRef}
-            className=" custom-input py-2 px-3 w-2/3"
+            className="custom-input py-2 px-3 w-2/3"
+            labelProps={{
+              style: {
+                color: "grey", // Establece el color del label
+                fontWeight: "normal", // Establece la negrita del label
+                fontSize: "16px", // Establece el tamaño de fuente del label
+              },
+            }}
           />
         )}
       />

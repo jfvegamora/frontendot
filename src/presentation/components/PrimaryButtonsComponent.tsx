@@ -87,7 +87,7 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
           )}
 
         {showExportButton && (
-          <ExportCSV
+          <ExportCSV 
             strEntidad={strEntidad}
             params={params}
             strBaseUrl={strBaseUrl}

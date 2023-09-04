@@ -20,4 +20,13 @@ export const BUTTON_MESSAGES = {
   delete: "Eliminar ",
 };
 
+export const TITLES = {
+  nuevo: "Nuevo ",
+  nueva: "Nueva ",
+  editar: "Editar ",
+  guardar:"GUARDAR",
+
+  proveedores: "Proveedores",
+}
+
 //COLOCAR ULRS API

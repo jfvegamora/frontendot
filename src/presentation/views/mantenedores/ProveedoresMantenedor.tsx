@@ -1,7 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import {
   PrimaryButtonsComponent,
@@ -9,31 +9,29 @@ import {
   TableComponent,
 } from "../../components";
 import { useEntityUtils } from "../../hooks";
-import UserForm from "../forms/UserForm";
-import { table_head_usuarios } from "../../utils";
+import { table_head_proveedores } from "../../utils";
+import ProveedoresForm from "../forms/ProveedoresForm";
+import { TITLES } from "../../utils/text_utils.ts";
 
 export enum EnumGrid {
   ID = 1,
-  Nombre = 2,
-  Telefono = 3,
-  Correo = 4,
-  Estado = 5,
-  Cargo_id = 6,
-  Cargo = 7,
+  Rut = 2,
+  Nombre = 3,
+  Direccion = 4,
+  Telefono = 5,
+  Correo = 6,
+  Sitio_Web = 7,
 }
-const strEntidad = "Usuario ";
-const strEntidadExcel = "Usuarios";
-const strBaseUrl = "/api/usuarios/";
+const strEntidad = "Proveedor ";
+const strEntidadExcel = "Proveedores";
+const strBaseUrl = "/api/proveedores/";
 const strQuery = "01";
 
-type PrimaryKey = {
-  pk1: number;
-};
-const UsuariosMantenedor: React.FC = () => {
+const ProveedoresMantenedor: React.FC = () => {
   const [params, setParams] = useState([]);
 
-  const updateParams = (newParams: Record<string, never>) => {
-    setParams(Object.keys(newParams).map((key) => newParams[key]));
+  const updateParams = (newParams: any) => {
+    setParams(newParams);
   };
 
   const {
@@ -49,8 +47,8 @@ const UsuariosMantenedor: React.FC = () => {
     closeModal,
     //Check methods
     handleSelect,
-    selectedRows,
-    setSelectedRows,
+    selectedIds,
+    setSelectedIds,
     handleSelectedAll,
     //primary buttons methods
     handleDeleteSelected,
@@ -61,37 +59,19 @@ const UsuariosMantenedor: React.FC = () => {
 
   // console.log("params:", params);
 
-  const pkToDelete: PrimaryKey[] = [];
-
-  useEffect(() => {
-    const newPkToDelete = selectedRows.map((row: number) => ({
-      pk1: entities[row][EnumGrid.ID],
-    }));
-    newPkToDelete.forEach((newPk: { pk1: any }) => {
-      if (!pkToDelete.some((existingPk) => existingPk.pk1 === newPk.pk1)) {
-        pkToDelete.push(newPk);
-      }
-    });
-  }, [selectedRows]);
-
   return (
     <div className="mantenedorContainer">
-      <h1 className="mantenedorH1">Mantenedor de Usuarios</h1>
+      <h1 className="mantenedorH1">{TITLES.proveedores}</h1>
 
-      <div className="mantenedorHead">
+      <div className="mantenedorHead width70">
         <PrimaryKeySearch
           baseUrl={strBaseUrl}
           setParams={setParams}
           updateParams={updateParams}
           setEntities={setEntities}
           primaryKeyInputs={[
-            { name: "_p1", label: "Nombre", type: "text" },
-            {
-              name: "_p2",
-              label: "Cargos",
-              type: "select",
-              selectUrl: "/api/cargos/",
-            },
+            { name: "_p1", label: "RUT", type: "text" },
+            { name: "_p3", label: "Nombre", type: "text" },
           ]}
         />
 
@@ -101,7 +81,6 @@ const UsuariosMantenedor: React.FC = () => {
           handleRefresh={resetEntities}
           handlePageSize={handlePageSize}
           params={params}
-          pkToDelete={pkToDelete}
           strEntidad={strEntidadExcel}
           strBaseUrl={strBaseUrl}
           showAddButton={true}
@@ -112,28 +91,27 @@ const UsuariosMantenedor: React.FC = () => {
         />
       </div>
 
-      <>
+      <div className="width90">
         <TableComponent
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
           toggleEditModal={toggleEditModal}
           handleDeleteSelected={handleDeleteSelected}
-          selectedRows={selectedRows}
-          pkToDelete={pkToDelete}
-          setSelectedRows={setSelectedRows}
+          selectedIds={selectedIds}
+          setSelectedIds={setSelectedIds}
           entidad={strEntidad}
           data={entities}
-          tableHead={table_head_usuarios}
+          tableHead={table_head_proveedores}
           showEditButton={true}
-          showDeleteButton={false}
+          showDeleteButton={true}
         />
-      </>
+      </div>
 
       {isModalInsert && (
-        <UserForm
-          label={`Crear ${strEntidad}`}
+        <ProveedoresForm
+          label={`${TITLES.nuevo} ${strEntidad}`}
           closeModal={closeModal}
-          selectedRows={selectedRows}
+          selectedIds={selectedIds}
           setEntities={setEntities}
           params={params}
           isEditting={false}
@@ -141,9 +119,9 @@ const UsuariosMantenedor: React.FC = () => {
       )}
 
       {isModalEdit && (
-        <UserForm
-          label={`Editar ${strEntidad}`}
-          selectedRows={selectedRows}
+        <ProveedoresForm
+          label={`${TITLES.editar} ${strEntidad}`}
+          selectedIds={selectedIds}
           setEntities={setEntities}
           params={params}
           data={entity}
@@ -155,4 +133,4 @@ const UsuariosMantenedor: React.FC = () => {
   );
 };
 
-export default UsuariosMantenedor;
+export default ProveedoresMantenedor;

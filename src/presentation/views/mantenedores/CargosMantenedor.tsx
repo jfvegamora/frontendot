@@ -70,7 +70,7 @@ const CargosMantenedor: React.FC = () => {
     <div className="mantenedorContainer">
       <h1 className="mantenedorH1">Mantenedor de Cargos</h1>
 
-      <div className="mantenedorHead">
+      <div className="mantenedorHead width70">
         <PrimaryKeySearch
           baseUrl={strBaseUrl}
           updateParams={updateParams}
@@ -79,7 +79,7 @@ const CargosMantenedor: React.FC = () => {
           primaryKeyInputs={[{ name: "_p1", label: "Cargo", type: "text" }]}
         />
 
-        <PrimaryButtonsComponent
+        <PrimaryButtonsComponent 
           handleAddPerson={openModal}
           handleDeleteSelected={handleDeleteSelected}
           handleRefresh={resetEntities}
@@ -95,7 +95,7 @@ const CargosMantenedor: React.FC = () => {
         />
       </div>
 
-      <>
+      <div className="width70">
         <TableComponent
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
@@ -110,7 +110,7 @@ const CargosMantenedor: React.FC = () => {
           showEditButton={true}
           showDeleteButton={false}
         />
-      </>
+      </div>
 
       {isModalInsert && (
         <CargosForm

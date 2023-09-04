@@ -152,3 +152,51 @@ export const table_head_funcionalidades = [
     visible: true,
   },
 ];
+
+export const table_head_proveedores = [
+  {
+    cell: <input type="checkbox"/>,
+    key: "checkbox",
+    visible: true,
+  },
+  {
+    cell: "ID",
+    key: "id",
+    visible: false,
+  },
+  {
+    cell: "RUT",
+    key: "rut",
+    visible: true,
+  },
+  {
+    cell: "Nombre",
+    key: "nombre",
+    visible: true,
+  },
+  {
+    cell: "Dirección",
+    key: "direccion",
+    visible: true,
+  },
+  {
+    cell: "Teléfono",
+    key: "telefono",
+    visible: true,
+  },
+  {
+    cell: "Correo",
+    key: "correo",
+    visible: true,
+  },
+  {
+    cell: "Sitio Web",
+    key: "sitio_web",
+    visible: true,
+  },
+  {
+    cell: "Opciones",
+    key: "opciones",
+    visible: true,
+  },
+];

@@ -9,6 +9,7 @@ const useCrud = (
   apiBaseUrl: string
 ): {
   createdEntity: (entityData: any) => Promise<any | undefined>;
+  verifyUserEmail: (correo: string) => Promise<any | undefined>;
   editEntity: (entityData: any) => Promise<any | undefined>;
   deleteAllEntity: (id: number[]) => Promise<any | undefined>;
   focusFirstInput: (strInputName: string) => void;
@@ -23,6 +24,7 @@ const useCrud = (
     ? apiBaseUrl
     : // : `https://mtoopticos.cl${apiBaseUrl}`;
       `http://127.0.0.1:8000${apiBaseUrl}`;
+
   const axiosInstance: AxiosInstance = axios.create({
     baseURL: baseUrl,
     headers: {
@@ -39,6 +41,19 @@ const useCrud = (
       if (firstInput) {
         (firstInput as HTMLInputElement).focus();
       }
+    }
+  };
+
+  const verifyUserEmail = async (correo: string) => {
+    try {
+      // const result = await axiosInstance.get(`${baseUrl}listado/?query=07&_p1=${correo}`)
+      const result = await axiosInstance.get(
+        `https://mtoopticos.cl/api/usuarios/listado/?query=07&_p1=${correo}`
+      );
+      console.log("result email", result.data);
+      return result.data.length > 0 ? "Correo existe" : "correo no existe";
+    } catch (error) {
+      return error;
     }
   };
 
@@ -189,6 +204,7 @@ const useCrud = (
     exportEntity,
     focusFirstInput,
     firstInputRef,
+    verifyUserEmail,
   };
 };
 

@@ -145,6 +145,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                 </div>
               ) : (
                 <Input
+                  color="orange"
                   {...field}
                   label={input.label}
                   value={inputValues[input.name] || ""}
@@ -154,6 +155,13 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                   }}
                   onKeyDown={handleKeyDown}
                   onBlur={handleBlur}
+                  labelProps={{
+                    style: {
+                      color: "grey", // Establece el color del label
+                      fontWeight: "normal", // Establece la negrita del label
+                      fontSize: "16px", // Establece el tamaño de fuente del label
+                    },
+                  }}
                 />
               )}
             </div>
