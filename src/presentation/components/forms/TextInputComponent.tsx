@@ -26,22 +26,27 @@ const TextInputComponent: React.FC<ITextInputProps> = ({
 }) => {
   return (
     <div
-      className={`flex items-center mb-4 mx-4 border rounded-xl ${error && "border-red-400"
-        }`}
+      className={`flex items-center mb-4 mx-4 border rounded-xl ${error && "border-red-400" }`}
     >
       <Controller
         name={name}
         control={control}
         defaultValue={data ? data : ""}
         render={({ field }) => (
-          <Input
+          <Input color="orange"
             {...field}
             label={label}
             id={label}
             //  required={true}
             type={type}
             readOnly={onlyRead}
-            className=" custom-input py-2 px-3 w-2/3"
+            className="custom-input py-2 px-3 w-2/3"
+            labelProps={{ style: { 
+              color: 'grey', // Establece el color del label
+              fontWeight: 'normal', // Establece la negrita del label
+              fontSize: '16px', // Establece el tamaño de fuente del label
+            }
+           }}
           />
         )}
       />

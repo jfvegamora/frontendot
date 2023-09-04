@@ -54,7 +54,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
       //   .join("&");
       const searchParams = Object.entries(data)
         .map(([key, value]) =>
-          key === "_p1"  || value ? `${key}=${encodeURIComponent(value)}` : ""
+          key === "_p2"  || value ? `${key}=${encodeURIComponent(value)}` : ""
         )
         // .filter((param) => param !== "")
         .join("&");
@@ -149,7 +149,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                   />
                 </div>
               ) : (
-                <Input
+                <Input color="orange"
                   {...field}
                   label={input.label}
                   value={inputValues[input.name] || ""}
@@ -159,7 +159,13 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                   }}
                   onKeyDown={handleKeyDown}
                   onBlur={handleBlur}
-                />
+                  labelProps={{ style: { 
+                    color: 'grey', // Establece el color del label
+                    fontWeight: 'normal', // Establece la negrita del label
+                    fontSize: '16px', // Establece el tamaño de fuente del label
+                  }
+                 }}
+                /> 
               )}
             </div>
           )}

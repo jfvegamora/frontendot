@@ -1,24 +1,33 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
-
 import React, { useState } from "react";
-import { useEntityUtils } from "../../hooks";
+
 import {
   PrimaryButtonsComponent,
   PrimaryKeySearch,
   TableComponent,
 } from "../../components";
-import { table_head_cargos } from "../../utils";
-import CargosForm from "../forms/CargosForm";
+import { useEntityUtils } from "../../hooks";
+import { table_head_proveedores } from "../../utils";
+import ProveedoresForm from "../forms/ProveedoresForm";
+import { TITLES } from "../../utils/text_utils.ts";
 
-const strEntidad = "Cargo ";
-const strEntidadExcel = "Cargos";
-const strBaseUrl = "/api/cargos/";
+export enum EnumGrid {
+  ID = 1,
+  Rut = 2,
+  Nombre = 3,
+  Direccion = 4,
+  Telefono = 5,
+  Correo = 6,
+  Sitio_Web = 7,
+}
+const strEntidad = "Proveedor ";
+const strEntidadExcel = "Proveedores";
+const strBaseUrl = "/api/proveedores/";
 const strQuery = "01";
 
-const CargosMantenedor: React.FC = () => {
-  // const { createdEntity, editEntity } = useCrud(strBaseUrl);
+const ProveedoresMantenedor: React.FC = () => {
   const [params, setParams] = useState([]);
 
   const updateParams = (newParams: any) => {
@@ -26,43 +35,51 @@ const CargosMantenedor: React.FC = () => {
   };
 
   const {
-    //Entities State
+    //entities state
     entities,
-    entity,
     setEntities,
-    selectedIds,
-    setSelectedIds,
-    //Modal Methds
-    openModal,
-    closeModal,
+    entity,
+    //modal methods
     isModalInsert,
     isModalEdit,
     toggleEditModal,
-
-    //Check/Buttons Methods
-    handleDeleteSelected,
+    openModal,
+    closeModal,
+    //Check methods
     handleSelect,
+    selectedIds,
+    setSelectedIds,
     handleSelectedAll,
+    //primary buttons methods
+    handleDeleteSelected,
     resetEntities,
+    handlePageSize,
   } = useEntityUtils(strBaseUrl, strQuery);
+  // console.log("entities:", entities);
+
+  // console.log("params:", params);
 
   return (
     <div className="mantenedorContainer">
-      <h1 className="mantenedorH1">Mantenedor de Cargos</h1>
+      <h1 className="mantenedorH1">{TITLES.proveedores}</h1>
 
       <div className="mantenedorHead width70">
         <PrimaryKeySearch
           baseUrl={strBaseUrl}
-          updateParams={updateParams}
           setParams={setParams}
+          updateParams={updateParams}
           setEntities={setEntities}
-          primaryKeyInputs={[{ name: "_p1", label: "Cargo", type: "text" }]}
+          primaryKeyInputs={[
+            { name: "_p1", label: "RUT", type: "text" },
+            { name: "_p3", label: "Nombre", type: "text" },
+          ]}
         />
 
-        <PrimaryButtonsComponent 
+        <PrimaryButtonsComponent
           handleAddPerson={openModal}
           handleDeleteSelected={handleDeleteSelected}
           handleRefresh={resetEntities}
+          handlePageSize={handlePageSize}
           params={params}
           strEntidad={strEntidadExcel}
           strBaseUrl={strBaseUrl}
@@ -74,7 +91,7 @@ const CargosMantenedor: React.FC = () => {
         />
       </div>
 
-      <div className="width70">
+      <div className="width90">
         <TableComponent
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
@@ -84,15 +101,15 @@ const CargosMantenedor: React.FC = () => {
           setSelectedIds={setSelectedIds}
           entidad={strEntidad}
           data={entities}
-          tableHead={table_head_cargos}
+          tableHead={table_head_proveedores}
           showEditButton={true}
           showDeleteButton={true}
         />
       </div>
 
       {isModalInsert && (
-        <CargosForm
-          label={`Crear ${strEntidad}`}
+        <ProveedoresForm
+          label={`${TITLES.nuevo} ${strEntidad}`}
           closeModal={closeModal}
           selectedIds={selectedIds}
           setEntities={setEntities}
@@ -100,14 +117,15 @@ const CargosMantenedor: React.FC = () => {
           isEditting={false}
         />
       )}
+
       {isModalEdit && (
-        <CargosForm
-          label={`Editar ${strEntidad}`}
-          closeModal={closeModal}
+        <ProveedoresForm
+          label={`${TITLES.editar} ${strEntidad}`}
           selectedIds={selectedIds}
           setEntities={setEntities}
-          data={entity}
           params={params}
+          data={entity}
+          closeModal={closeModal}
           isEditting={true}
         />
       )}
@@ -115,4 +133,4 @@ const CargosMantenedor: React.FC = () => {
   );
 };
 
-export default CargosMantenedor;
+export default ProveedoresMantenedor;

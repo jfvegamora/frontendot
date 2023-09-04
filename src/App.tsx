@@ -32,6 +32,9 @@ const FuncionalidadesMantenedor = lazy(
 const PerfilesMantenedor = lazy(
   () => import("./presentation/views/mantenedores/PerfilesMantenedor")
 );
+const ProveedoresMantenedor = lazy(
+  () => import("./presentation/views/mantenedores/ProveedoresMantenedor")
+);
 // const EmpresasMantenedor = lazy(
 //   () => import("./presentation/views/mantenedores/EmpresasMantenedor")
 // );
@@ -39,7 +42,7 @@ const PerfilesMantenedor = lazy(
 function App() {
   return (
     <div className="App">
-      <Suspense fallback={<>Cargandos.....</>}>
+      <Suspense fallback={<>Cargando.....</>}>
         <Provider store={store}>
           <ThemeProvider>
             <BrowserRouter>
@@ -68,6 +71,11 @@ function App() {
                     path={PrivateRoutes.PERFILES}
                     element={<PerfilesMantenedor />}
                   />
+                  <Route
+                    path={PrivateRoutes.PROVEEDORES}
+                    element={<ProveedoresMantenedor />}
+                  />
+                  
                   <Route path={PrivateRoutes.HOME} element={<Home />} />
                 </Route>
                 <Route

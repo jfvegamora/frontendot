@@ -11,4 +11,5 @@ export const PrivateRoutes = {
   USUARIOS: "usuarios",
   FUNCIONALIDADES: "funcionalidades",
   PERFILES: "perfiles",
+  PROVEEDORES: "proveedores",
 };

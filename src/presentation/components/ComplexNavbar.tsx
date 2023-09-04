@@ -101,30 +101,30 @@ const navListMenuOT = [
     link: "/ot",
   },
   {
-    title: "Mantenedor de Clientes",
+    title: "Clientes",
     link: "/clientes",
   },
   {
-    title: "Mantenedor de Establecimientos",
+    title: "Establecimientos",
     link: "/establecimientos",
   },
   {
-    title: "Mantenedor de Puntos de Venta",
+    title: "Puntos de Venta",
     link: "/puntosventa",
   },
 ];
 
 const navListMenuBodega = [
   {
-    title: "Mantenedor de Armazones",
+    title: "Armazones",
     link: "/armazones",
   },
   {
-    title: "Mantenedor de Cristales",
+    title: "Cristales",
     link: "/cristales",
   },
   {
-    title: "Mantenedor de Accesorios",
+    title: "Accesorios",
     link: "/accesorios",
   },
   {
@@ -140,26 +140,26 @@ const navListMenuBodega = [
     link: "/kardexaccesorios",
   },
   {
-    title: "Mantenedor de Almacenes",
+    title: "Almacenes",
     link: "/almacenes",
   },
   {
-    title: "Mantenedor de Marcas",
+    title: "Marcas",
     link: "/marcas",
   },
   {
-    title: "Mantenedor de Proveedores",
+    title: "Proveedores",
     link: "/proveedores",
   },
 ];
 
 const navListMenuProyectos = [
   {
-    title: "Mantenedor de Mandantes",
+    title: "Mandantes",
     link: "/mandantes",
   },
   {
-    title: "Mantenedor de Proyectos",
+    title: "Proyectos",
     link: "/proyectos",
   },
   {
@@ -171,7 +171,7 @@ const navListMenuProyectos = [
     link: "/proyectogrupos",
   },
   {
-    title: "Parametrización de Direcciones",
+    title: "Parametrización de Despacho",
     link: "/proyectodireccionesdespacho",
   },
   {
@@ -183,34 +183,34 @@ const navListMenuProyectos = [
     link: "/proyectoreportefirma",
   },
   {
-    title: "Mantenedor de Oftalmólogos",
+    title: "Oftalmólogos",
     link: "/oftalmologos",
   },
 ];
 
 const navListMenuSistema = [
   {
-    title: "Mantenedor de Cargos",
+    title: "Cargos",
     link: "/cargos",
   },
   {
-    title: "Mantenedor de Funcionalidades",
+    title: "Funcionalidades",
     link: "/funcionalidades",
   },
   {
-    title: "Mantenedor de Permisos de Usuario",
+    title: "Permisos de Usuario",
     link: "/permisos",
   },
   {
-    title: "Mantenedor de Pefiles",
+    title: "Perfiles de Cargo",
     link: "/perfiles",
   },
   {
-    title: "Mantenedor de Usuarios",
+    title: "Usuarios",
     link: "/usuarios",
   },
   {
-    title: "Mantenedor de Empresas",
+    title: "Empresas",
     link: "/empresas",
   },
 ];
@@ -541,7 +541,7 @@ function NavListMenuSistema() {
 // nav list component
 // const navListItems = [
 //   {
-//     label: "Mantenedor de OT",
+//     label: "OT",
 //     icon: CubeTransparentIcon,
 //   },
 //   /*  {
@@ -602,7 +602,7 @@ export default function ComplexNavbar() {
   }, []);
 
   return (
-    <Navbar className=" mt-2 mx-auto max-w-screen-xl p-2 lg:rounded-full lg:pl-6">
+    <Navbar className=" mt-2 mx-auto max-w-screen-xl p-2 lg:rounded-full lg:pl-6 navBarBorder">
       <div className="relative mx-auto flex items-center text-blue-gray-900">
         <Typography
           as="a"

@@ -66,13 +66,13 @@ const UsuariosMantenedor: React.FC = () => {
       <div className="mantenedorHead">
         <PrimaryKeySearch
           baseUrl={strBaseUrl}
-          selectUrl={strListUrl}
+          
           setParams={setParams}
           updateParams={updateParams}
           setEntities={setEntities}
           primaryKeyInputs={[
             { name: "_p1", label: "Nombre", type: "text" },
-            { name: "_p2", label: "Cargos", type: "select" },
+            { name: "_p2", label: "Cargos", type: "select",selectUrl:"/api/cargos/" },
           ]}
         />
 

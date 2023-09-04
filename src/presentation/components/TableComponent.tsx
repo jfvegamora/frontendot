@@ -96,7 +96,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                       )
                     );
                   })}
-                  <td>
+                  <td className="gridTableData">
                     {/* ===========BOTONES DE TABLA============ */}
                     {showEditButton && escritura && (
                       <Tooltip content={BUTTON_MESSAGES.edit.concat(entidad)}>
