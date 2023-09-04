@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
@@ -14,6 +14,7 @@ import {
 import { TextInputComponent } from "../../components";
 import { useCrud } from "../../hooks";
 import { toast } from "react-toastify";
+import { EnumGrid } from "../mantenedores/CargosMantenedor";
 
 const strBaseUrl = "/api/cargos/";
 const strEntidad = "Cargo ";
@@ -22,10 +23,7 @@ const strEntidad = "Cargo ";
 export interface ICargosInputData {
   nombre: string | undefined;
 }
-export enum EnumCargosGrid {
-  id = 1,
-  nombre = 2,
-}
+
 interface ICargosFormProps {
   closeModal: () => void;
   data?: any[];
@@ -69,27 +67,38 @@ const transformUpdateQuery = (
 };
 
 const CargosForm: React.FC<ICargosFormProps> = React.memo(
-  ({
-    closeModal,
-    setEntities,
-    params,
-    data,
-    label,
-    isEditting,
-    selectedRows,
-  }) => {
+  ({ closeModal, setEntities, params, data, label, isEditting }) => {
     const schema = validationCargosSchema(isEditting);
-    const { editEntity, createdEntity, ListEntity } = useCrud(strBaseUrl);
+    const {
+      editEntity,
+      createdEntity,
+      ListEntity,
+      focusFirstInput,
+      firstInputRef,
+    } = useCrud(strBaseUrl);
     const [blnKeep, setblnKeep] = useState(false);
+    const intId = data && data[EnumGrid.ID];
 
     const {
       control,
       handleSubmit,
       formState: { errors },
-      reset,
+      setValue,
     } = useForm({
       resolver: yupResolver(schema),
     });
+
+    const resetTextFields = React.useCallback(() => {
+      setValue("nombre", "");
+      if (firstInputRef.current) {
+        const firstInput = firstInputRef.current.querySelector(
+          'input[name="nombre"]'
+        );
+        if (firstInput) {
+          firstInput.focus();
+        }
+      }
+    }, [setValue, firstInputRef]);
 
     const updateNewEntity = React.useCallback(async () => {
       const newEntityData = await ListEntity(params, "01");
@@ -119,7 +128,7 @@ const CargosForm: React.FC<ICargosFormProps> = React.memo(
           if (result) {
             console.log("seguir");
             setblnKeep(true);
-            reset();
+            resetTextFields();
             updateNewEntity();
           } else {
             console.log("salir");
@@ -132,10 +141,10 @@ const CargosForm: React.FC<ICargosFormProps> = React.memo(
           closeModal();
         }
 
-        reset();
+        resetTextFields();
         updateNewEntity();
       },
-      [closeModal, blnKeep, reset, updateNewEntity]
+      [closeModal, blnKeep, resetTextFields, updateNewEntity]
     );
 
     const handleSaveChange = React.useCallback(
@@ -143,7 +152,7 @@ const CargosForm: React.FC<ICargosFormProps> = React.memo(
         try {
           console.log("isEdditing:", isEditting);
           const transformedData = isEditting
-            ? transformUpdateQuery(data, selectedRows.toString())
+            ? transformUpdateQuery(data, intId.toString())
             : transformInsertQuery(data);
 
           const response = isEditting
@@ -155,9 +164,11 @@ const CargosForm: React.FC<ICargosFormProps> = React.memo(
           toast.error(error);
         }
       },
-      [selectedRows, editEntity, createdEntity, handleApiResponse]
+      [editEntity, createdEntity, handleApiResponse, intId]
     );
-
+    useEffect(() => {
+      focusFirstInput("nombre");
+    }, [focusFirstInput]);
     return (
       <div className="useFormContainer">
         <div className="userFormBtnCloseContainer">
@@ -176,9 +187,10 @@ const CargosForm: React.FC<ICargosFormProps> = React.memo(
               type="text"
               label="Nombre"
               name="nombre"
-              data={data && data[EnumCargosGrid.nombre]}
+              data={data && data[EnumGrid.nombre]}
               control={control}
               error={!isEditting && errors.nombre}
+              inputRef={firstInputRef}
             />
           </div>
 

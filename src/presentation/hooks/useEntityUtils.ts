@@ -180,32 +180,65 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
   };
 
   const handleDeleteSelected = useCallback(
-    async (rowIndex?: number) => {
+    async (rowData?: any, rowIndex?: number[]) => {
       if (escritura) {
-        if (selectedRows.length >= 1 || (rowIndex && rowIndex > 0)) {
+        if (selectedRows.length >= 1) {
           const result = window.confirm("¿Estás seguro de eliminar?");
           try {
             if (result) {
-              if (rowIndex && rowIndex > 0) {
-                const response = await deleteAllEntity([rowIndex]);
-                const errorDelete = response?.response?.data?.error;
-                if (errorDelete) {
-                  toast.error(errorDelete);
-                } else {
-                  setEntities((prev) => {
-                    const filteredEntities = prev.filter(
-                      (entity) => entity[1] !== rowIndex
-                    );
-                    console.log("estado filtrado:", filteredEntities);
-                    return filteredEntities;
+              console.log("rowData", rowData);
+              const response = await deleteAllEntity([rowData]);
+              const errorDelete = response?.response?.data?.error;
+              if (errorDelete) {
+                toast.error(errorDelete);
+              } else {
+                setEntities((prev) => {
+                  const positionsToRemove = selectedRows; // Arreglo de posiciones que deseas eliminar
+                  console.log("positiontoRemove", positionsToRemove);
+                  const removedEntities = []; // Arreglo para almacenar los elementos eliminados
+
+                  const filteredEntities = prev.filter((entity, index) => {
+                    if (positionsToRemove.includes(index)) {
+                      // Si la posición está en el arreglo de posiciones a eliminar
+                      removedEntities.push(entity); // Agregar el elemento eliminado a removedEntities
+                      return false; // No incluir este elemento en el arreglo filtrado
+                    }
+                    return true; // Incluir este elemento en el arreglo filtrado
                   });
-                  resetDelete();
-                  setSelectedRows([]);
-                  setPageSize(1);
-                  setDataGrid((prev) => !prev);
-                  toast.success("Eliminados Correctamente");
-                }
+
+                  console.log("Elementos eliminados:", removedEntities);
+                  console.log("Estado filtrado:", filteredEntities);
+
+                  return filteredEntities;
+
+                  // if (typeof rowIndex === "number") {
+                  //   const filteredEntities = prev.filter(
+                  //     (entity) => entity[1] !== rowIndex
+                  //   );
+
+                  //   console.log("estado filtrado:", filteredEntities);
+                  //   return filteredEntities;
+                  // }
+
+                  // const filteredEntities = prev.filter(
+                  //   (entity) => entity[]
+                  // )
+
+                  // const filteredEntities = prev.filter(
+                  //   (entity) => entity[1] !== rowIndex
+                  // );
+                  // const sliceEntities = prev.splice(1, 1)[0];
+                  // console.log("filtrado slice:", sliceEntities);
+                  // console.log("estado filtrado:", filteredEntities);
+                  // return filteredEntities;
+                });
+                resetDelete();
+                setSelectedRows([]);
+                setPageSize(1);
+                setDataGrid((prev) => !prev);
+                toast.success("Eliminados Correctamente");
               }
+
               // } else {
               //   const response = await deleteAllEntity(selectedRows);
               //   console.log("state entities:", entities);

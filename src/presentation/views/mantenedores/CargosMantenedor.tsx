@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useEntityUtils } from "../../hooks";
 import {
   PrimaryButtonsComponent,
@@ -16,6 +16,13 @@ const strEntidad = "Cargo ";
 const strEntidadExcel = "Cargos";
 const strBaseUrl = "/api/cargos/";
 const strQuery = "01";
+export enum EnumGrid {
+  ID = 1,
+  nombre = 2,
+}
+type PrimaryKey = {
+  pk1: number;
+};
 
 const CargosMantenedor: React.FC = () => {
   // const { createdEntity, editEntity } = useCrud(strBaseUrl);
@@ -46,6 +53,19 @@ const CargosMantenedor: React.FC = () => {
     resetEntities,
   } = useEntityUtils(strBaseUrl, strQuery);
 
+  const pkToDelete: PrimaryKey[] = [];
+
+  useEffect(() => {
+    const newPkToDelete = selectedRows.map((row) => ({
+      pk1: entities[row][EnumGrid.ID],
+    }));
+    newPkToDelete.forEach((newPk) => {
+      if (!pkToDelete.some((existingPk) => existingPk.pk1 === newPk.pk1)) {
+        pkToDelete.push(newPk);
+      }
+    });
+  }, [selectedRows]);
+
   return (
     <div className="mantenedorContainer">
       <h1 className="mantenedorH1">Mantenedor de Cargos</h1>
@@ -64,6 +84,7 @@ const CargosMantenedor: React.FC = () => {
           handleDeleteSelected={handleDeleteSelected}
           handleRefresh={resetEntities}
           params={params}
+          pkToDelete={pkToDelete}
           strEntidad={strEntidadExcel}
           strBaseUrl={strBaseUrl}
           showAddButton={true}
@@ -83,10 +104,11 @@ const CargosMantenedor: React.FC = () => {
           selectedRows={selectedRows}
           setSelectedRows={setSelectedRows}
           entidad={strEntidad}
+          pkToDelete={pkToDelete}
           data={entities}
           tableHead={table_head_cargos}
           showEditButton={true}
-          showDeleteButton={true}
+          showDeleteButton={false}
         />
       </>
 

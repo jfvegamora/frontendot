@@ -13,6 +13,7 @@ interface ITextInputProps {
   control: any;
   data?: any;
   error?: any;
+  inputRef?: any;
 }
 
 const TextInputComponent: React.FC<ITextInputProps> = ({
@@ -23,11 +24,13 @@ const TextInputComponent: React.FC<ITextInputProps> = ({
   onlyRead,
   data,
   error,
+  inputRef,
 }) => {
   return (
     <div
-      className={`flex items-center mb-4 mx-4 border rounded-xl ${error && "border-red-400"
-        }`}
+      className={`flex items-center mb-4 mx-4 border rounded-xl ${
+        error && "border-red-400"
+      }`}
     >
       <Controller
         name={name}
@@ -38,9 +41,9 @@ const TextInputComponent: React.FC<ITextInputProps> = ({
             {...field}
             label={label}
             id={label}
-            //  required={true}
             type={type}
             readOnly={onlyRead}
+            ref={inputRef}
             className=" custom-input py-2 px-3 w-2/3"
           />
         )}

@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   RadioButtonComponent,
   SelectInputComponent,
@@ -73,7 +73,7 @@ export function transformUpdateQuery(
     return null;
   }
   const _p1 = filteredFields.join(",");
-
+  console.log("primaryKey", primaryKey);
   return {
     query: "04",
     _p1,
@@ -93,19 +93,17 @@ interface IUserFormPrps {
 }
 
 const UserForm: React.FC<IUserFormPrps> = React.memo(
-  ({
-    closeModal,
-    setEntities,
-    params,
-    selectedRows,
-    label,
-    data,
-    isEditting,
-  }) => {
+  ({ closeModal, setEntities, params, label, data, isEditting }) => {
     const schema = validationUserSchema(isEditting);
-    const { editEntity, createdEntity, ListEntity } = useCrud(strBaseUrl);
+    const {
+      editEntity,
+      createdEntity,
+      ListEntity,
+      firstInputRef,
+      focusFirstInput,
+    } = useCrud(strBaseUrl);
     const [blnKeep, setblnKeep] = useState(false);
-
+    const intId = data && data[EnumGrid.ID];
     const {
       control,
       handleSubmit,
@@ -114,14 +112,20 @@ const UserForm: React.FC<IUserFormPrps> = React.memo(
     } = useForm({
       resolver: yupResolver(schema),
     });
-    const resetTextFields = () => {
-      // reset({
-      //   nombre: "",
-      // });
+
+    const resetTextFields = React.useCallback(() => {
       setValue("nombre", "");
       setValue("telefono", "");
       setValue("correo", "");
-    };
+      if (firstInputRef.current) {
+        const firstInput = firstInputRef.current.querySelector(
+          'input[name="nombre"]'
+        );
+        if (firstInput) {
+          firstInput.focus();
+        }
+      }
+    }, [setValue, firstInputRef]);
 
     const updateNewEntity = React.useCallback(async () => {
       const newEntityData = await ListEntity(params, "01");
@@ -172,7 +176,7 @@ const UserForm: React.FC<IUserFormPrps> = React.memo(
       async (data: InputData, isEditting: boolean) => {
         try {
           const transformedData = isEditting
-            ? transformUpdateQuery(data, selectedRows.toString())
+            ? transformUpdateQuery(data, intId.toString())
             : transformInsertQuery(data);
 
           const response = isEditting
@@ -184,8 +188,12 @@ const UserForm: React.FC<IUserFormPrps> = React.memo(
           toast.error(error);
         }
       },
-      [selectedRows, editEntity, createdEntity, handleApiResponse]
+      [editEntity, createdEntity, handleApiResponse, intId]
     );
+
+    useEffect(() => {
+      focusFirstInput("nombre");
+    }, [focusFirstInput]);
 
     return (
       <div className="useFormContainer">
@@ -208,6 +216,7 @@ const UserForm: React.FC<IUserFormPrps> = React.memo(
               data={data && data[EnumGrid.Nombre]}
               control={control}
               error={!isEditting && errors.nombre}
+              inputRef={firstInputRef}
             />
             <div className="w-full">
               <SelectInputComponent

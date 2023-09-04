@@ -74,9 +74,8 @@ const PerfilesMantenedor: React.FC = () => {
         pkToDelete.push(newPk);
       }
     });
+    // console.log("newObject:",Object.keys(pkToDelete[0]).length);
   }, [selectedRows]);
-
-  console.log("newObject:", pkToDelete);
 
   return (
     <div className="mantenedorContainer">
@@ -110,6 +109,7 @@ const PerfilesMantenedor: React.FC = () => {
           handleRefresh={resetEntities}
           handlePageSize={handlePageSize}
           params={params}
+          pkToDelete={pkToDelete}
           strEntidad={strEntidadExcel}
           strBaseUrl={strBaseUrl}
           showAddButton={true}
@@ -133,7 +133,7 @@ const PerfilesMantenedor: React.FC = () => {
           data={entities}
           tableHead={table_head_perfiles}
           showEditButton={true}
-          showDeleteButton={true}
+          showDeleteButton={false}
         />
       </>
 

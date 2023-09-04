@@ -8,7 +8,7 @@ export const table_head_cargos = [
   {
     cell: "ID",
     key: "id",
-    visible: false,
+    visible: true,
   },
   {
     cell: "Nombre",
@@ -66,7 +66,7 @@ export const table_head_usuarios = [
   {
     cell: "ID",
     key: "id",
-    visible: false,
+    visible: true,
   },
   {
     cell: "Nombre",

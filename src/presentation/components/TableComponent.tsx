@@ -137,9 +137,10 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                           variant="text"
                           color="blue-gray"
                           onClick={() => {
-                            //setSelectedRows && setSelectedRows([id]);
-                            handleDeleteSelected &&
-                              handleDeleteSelected(rowIndex);
+                            handleSelectChecked &&
+                              handleSelectChecked(rowIndex);
+                            handleDeleteSelected && pkToDelete;
+                            handleDeleteSelected(pkToDelete);
                           }}
                         >
                           <BsFillXSquareFill className="gridIcons" />

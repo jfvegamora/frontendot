@@ -22,6 +22,7 @@ interface ISelectInputProps {
   error?: any;
   entidad: string[];
   inputValues?: any;
+  inputRef?: any;
 }
 
 const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
@@ -37,6 +38,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     inputName,
     inputValues,
     handleSelectChange,
+    inputRef,
   }) => {
     const [refreshToggle, setrefreshToggle] = useState(false);
     const [entities, setEntities] = useState([]);
@@ -76,6 +78,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
           render={({ field }) => (
             <select
               {...field}
+              ref={inputRef}
               // value={selectedIndex}
               onChange={(e) => {
                 field.onChange(e);
@@ -87,11 +90,6 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
                   const inputValuesToUpdate = {
                     ...inputValues,
                     [name]: selectedValue,
-                    // _p1: inputValues["_p1"] || "",
-                    // _p2: inputValues["_p2"] || "",
-                    // _p3: inputValues["_p3"] || "",
-                    // _p4: inputValues["_p4"] || "",
-                    // _p5: inputValues["_p5"] || "",
                   };
 
                   if (setHandleSearch) {

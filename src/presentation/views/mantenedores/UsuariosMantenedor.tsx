@@ -1,7 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import {
   PrimaryButtonsComponent,
@@ -24,9 +24,11 @@ export enum EnumGrid {
 const strEntidad = "Usuario ";
 const strEntidadExcel = "Usuarios";
 const strBaseUrl = "/api/usuarios/";
-const strListUrl = "/api/cargos/";
 const strQuery = "01";
 
+type PrimaryKey = {
+  pk1: number;
+};
 const UsuariosMantenedor: React.FC = () => {
   const [params, setParams] = useState([]);
 
@@ -59,6 +61,19 @@ const UsuariosMantenedor: React.FC = () => {
 
   // console.log("params:", params);
 
+  const pkToDelete: PrimaryKey[] = [];
+
+  useEffect(() => {
+    const newPkToDelete = selectedRows.map((row: number) => ({
+      pk1: entities[row][EnumGrid.ID],
+    }));
+    newPkToDelete.forEach((newPk: { pk1: any }) => {
+      if (!pkToDelete.some((existingPk) => existingPk.pk1 === newPk.pk1)) {
+        pkToDelete.push(newPk);
+      }
+    });
+  }, [selectedRows]);
+
   return (
     <div className="mantenedorContainer">
       <h1 className="mantenedorH1">Mantenedor de Usuarios</h1>
@@ -85,6 +100,7 @@ const UsuariosMantenedor: React.FC = () => {
           handleRefresh={resetEntities}
           handlePageSize={handlePageSize}
           params={params}
+          pkToDelete={pkToDelete}
           strEntidad={strEntidadExcel}
           strBaseUrl={strBaseUrl}
           showAddButton={true}
@@ -102,12 +118,13 @@ const UsuariosMantenedor: React.FC = () => {
           toggleEditModal={toggleEditModal}
           handleDeleteSelected={handleDeleteSelected}
           selectedRows={selectedRows}
+          pkToDelete={pkToDelete}
           setSelectedRows={setSelectedRows}
           entidad={strEntidad}
           data={entities}
           tableHead={table_head_usuarios}
           showEditButton={true}
-          showDeleteButton={true}
+          showDeleteButton={false}
         />
       </>
 

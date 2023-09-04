@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { RadioButtonComponent, SelectInputComponent } from "../../components";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -91,14 +91,19 @@ const PerfilesForm: React.FC<IFormPrps> = React.memo(
     isEditting,
   }) => {
     const schema = validationPerfilesSchema(isEditting);
-    const { editEntity, createdEntity, ListEntity } = useCrud(strBaseUrl);
+    const {
+      editEntity,
+      createdEntity,
+      ListEntity,
+      focusFirstInput,
+      firstInputRef,
+    } = useCrud(strBaseUrl);
     const [blnKeep, setblnKeep] = useState(false);
 
     const {
       control,
       handleSubmit,
       formState: { errors },
-      reset,
     } = useForm({
       resolver: yupResolver(schema),
     });
@@ -175,6 +180,10 @@ const PerfilesForm: React.FC<IFormPrps> = React.memo(
       [selectedRows, editEntity, createdEntity, handleApiResponse]
     );
 
+    useEffect(() => {
+      focusFirstInput("cargo");
+    }, []);
+
     return (
       <div className="useFormContainer">
         <div className="userFormBtnCloseContainer">
@@ -207,6 +216,7 @@ const PerfilesForm: React.FC<IFormPrps> = React.memo(
                 control={control}
                 entidad={["/api/funcionalidades/", "02"]}
                 error={!isEditting && errors.funcionalidad}
+                inputRef={firstInputRef}
               />
             </div>
 

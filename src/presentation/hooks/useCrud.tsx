@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
+import { useRef } from "react";
 import axios, { AxiosInstance } from "axios";
 
 const useCrud = (
@@ -10,11 +11,13 @@ const useCrud = (
   createdEntity: (entityData: any) => Promise<any | undefined>;
   editEntity: (entityData: any) => Promise<any | undefined>;
   deleteAllEntity: (id: number[]) => Promise<any | undefined>;
+  focusFirstInput: (strInputName: string) => void;
   exportEntity: (
     primaryKey?: string,
     strEntidad?: string
   ) => Promise<any | undefined>;
   ListEntity: (primaryKeys: any, query: string) => Promise<any | undefined>;
+  firstInputRef: any;
 } => {
   const baseUrl = apiBaseUrl.startsWith("http")
     ? apiBaseUrl
@@ -26,6 +29,18 @@ const useCrud = (
       "Content-Type": "application/json",
     },
   });
+  const firstInputRef = useRef<HTMLInputElement | null>(null);
+
+  const focusFirstInput = (strInputName: string) => {
+    if (firstInputRef.current) {
+      const firstInput = firstInputRef.current.querySelector(
+        `input[name=${strInputName}]`
+      );
+      if (firstInput) {
+        (firstInput as HTMLInputElement).focus();
+      }
+    }
+  };
 
   const exportEntity = async (
     primaryKey?: string,
@@ -35,7 +50,7 @@ const useCrud = (
       console.log("primarykeyexcel", primaryKey);
       const strUrl = primaryKey
         ? `/excel/?query=01&${primaryKey}`
-        : `/excel/?query=01`;
+        : "/excel/?query=01";
       console.log("strurlexcel", strUrl);
 
       const response = await axiosInstance.get(strUrl, {
@@ -86,6 +101,7 @@ const useCrud = (
       const response = await axiosInstance.post("/crear/", entityData);
       return response.data;
     } catch (error) {
+      console.log(error);
       return error;
     }
   };
@@ -98,29 +114,24 @@ const useCrud = (
       return error;
     }
   };
+
+  // function contarCampos(arreglo) {
+  //   const numCampos = arreglo.map((item) => Object.keys(item).length);
+  //   return numCampos;
+  // }
+
   const deleteAllEntity = async (pk: any[]): Promise<void | unknown> => {
     try {
-      // _pairsToDelete=[{"cargo":3, "funcionalidad":3}]
-      const a = [{}];
-      const b = [1];
-      console.log("b", typeof b[0]);
-      console.log("a", typeof a[0]);
-
-      if(typeof pk[0] === "number"){
-        // const idsDelete = `${id.join(",")}`;
-        // const response = await axiosInstance.delete(
-        //   `/eliminar/?query=05&_p1=${idsDelete}&`
-        // );
-        // return response.data;
-      }
-
-      if(typeof pk[0] === "object"){
-        //const _pairsToDelete={"pk1":3, "pk2":3}
-        //const _pairsToDelete= pk.map((pktojson)=>{
-        //
-        //})
-      }
-      // console.log("id to delete:", id);
+      const intPk = pk[0].map((item: any) => Object.keys(item).length);
+      const pkQueryParam = encodeURIComponent(JSON.stringify(pk[0]));
+      const valoresPk1Obj1 = pk[0].map((objeto: { pk1: any }) => objeto.pk1);
+      const url =
+        intPk[0] > 1
+          ? `/eliminar/?query=05&_pkToDelete=${pkQueryParam}`
+          : `/eliminar/?query=05&_p1=${valoresPk1Obj1}&`;
+      console.log("url", url);
+      const response = await axiosInstance.delete(url);
+      return response.data;
     } catch (error) {
       return error;
     }
@@ -176,6 +187,8 @@ const useCrud = (
     ListEntity,
     deleteAllEntity,
     exportEntity,
+    focusFirstInput,
+    firstInputRef,
   };
 };
 

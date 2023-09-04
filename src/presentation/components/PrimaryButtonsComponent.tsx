@@ -24,6 +24,7 @@ interface IPrimaryButtonProps {
   strBaseUrl?: string;
   params?: never[];
   strEntidad?: string;
+  pkToDelete?: any;
 }
 
 const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
@@ -40,6 +41,7 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
     showExportButton,
     params,
     strEntidad,
+    pkToDelete,
   }) => {
     const { escritura } = usePermission();
 
@@ -92,13 +94,24 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
           />
         )}
 
-        {showDeleteButton &&
-          escritura &&
-          renderButton(
-            <AiFillDelete className="primaryBtnIcon" />,
-            handleDeleteSelected!,
-            BUTTON_MESSAGES.deleteAll
-          )}
+        {showDeleteButton && escritura && (
+          // renderButton(
+          //   <AiFillDelete className="primaryBtnIcon" />,
+          //   handleDeleteSelected!,
+          //   BUTTON_MESSAGES.deleteAll
+          // )
+          <Tooltip content="Eliminar">
+            <IconButton
+              variant="text"
+              color="blue-gray"
+              className="primaryBtnIconButton"
+              onClick={() => handleDeleteSelected(pkToDelete)}
+              disabled={!escritura}
+            >
+              <AiFillDelete className="primaryBtnIcon" />,
+            </IconButton>
+          </Tooltip>
+        )}
       </div>
     );
   }
