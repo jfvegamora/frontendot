@@ -10,6 +10,7 @@ interface IRadioButtonProps {
   options: string[];
   data?: any;
   error?: any;
+  horizontal?: boolean;
 }
 
 const RadioButtonComponent: React.FC<IRadioButtonProps> = ({
@@ -18,16 +19,23 @@ const RadioButtonComponent: React.FC<IRadioButtonProps> = ({
   options,
   data,
   error,
+  label,
+  horizontal,
 }) => {
   return (
     <div
-      className={`px-6 py-2 w-[90%] mx-auto flex flex-col justify-between rounded-lg  ${
-        error && "border border-red-400"
-      } `}
+      className={`relative px-8 py-4 w-[92%] mt-2 mx-auto border-[0.5px] border-[dodgerblue] flex ${
+        horizontal ? "justify-arround ml-4" : "flex-col justify-between"
+      } rounded-lg ${error && "border border-red-400"}`}
     >
+      <label className="absolute text-sm top-[-10px] left-4  labelForm w-[6rem]">
+        <span className="ml-[20px] text-[16px]">{label}</span>
+      </label>
       {options.map((option, index) => (
         <div
-          className="px-8 py-2 flex w-1/3 text-center justify-between"
+          className={`${
+            horizontal ? "px-20" : "px-[3rem]"
+          } py-2 flex w-1/3 text-center justify-between`}
           key={index}
         >
           <Controller
@@ -43,10 +51,10 @@ const RadioButtonComponent: React.FC<IRadioButtonProps> = ({
                   value={option}
                   defaultChecked={data === option}
                   //  checked={field.value === option}
-                  className="mr-2"
+                  className="mr-2 transform scale-150"
                   onChange={(e) => field.onChange(e.target.value)}
                 />
-                <p className="text-xs">{option}</p>
+                <p className="text-[16px]">{option}</p>
               </label>
             )}
           />

@@ -171,19 +171,35 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
             closeModal();
             updateNewEntity();
           }
+
+          toastSuccess(isEditting);
         }
 
         if (isEditting) {
           updateNewEntity();
           closeModal();
+          toastSuccess(isEditting);
         }
 
         resetTextFields();
         updateNewEntity();
-        toastSuccess(isEditting);
       },
       [closeModal, blnKeep, updateNewEntity, showModal]
     );
+
+    useEffect(() => {
+      const handleKeyDown = (event: KeyboardEvent) => {
+        if (event.key === "Escape") {
+          closeModal();
+        }
+      };
+
+      window.addEventListener("keydown", handleKeyDown);
+
+      return () => {
+        window.removeEventListener("keydown", handleKeyDown);
+      };
+    }, [closeModal]);
 
     const handleSaveChange = React.useCallback(
       async (data: InputData, isEditting: boolean) => {
@@ -205,7 +221,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
 
     useEffect(() => {
       focusFirstInput("nombre");
-    }, [focusFirstInput]);
+    }, []);
 
     return (
       <div className="useFormContainer">
@@ -230,7 +246,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
               error={!isEditting && errors.nombre}
               inputRef={firstInputRef}
             />
-            <div className="w-full">
+            <div className="w-full ">
               <SelectInputComponent
                 label="Cargo"
                 name="cargo"
@@ -239,6 +255,8 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                 control={control}
                 entidad={["/api/cargos/", "02"]}
                 error={!isEditting && errors.cargo}
+                customWidth={"345px"}
+                readOnly={isEditting}
               />
               {/* <SelectInputComponent
                 label="TipoInsumos"
@@ -263,6 +281,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
               name="correo"
               data={data && data[EnumGrid.Correo]}
               control={control}
+              error={!isEditting && errors.correo}
             />
 
             <RadioButtonComponent
@@ -272,6 +291,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
               data={data && data[EnumGrid.Estado]}
               options={["Activo", "Suspendido"]}
               error={!isEditting && errors.estado}
+              // horizontal={true}
             />
             {/* <TextInputComponent
               type="password"

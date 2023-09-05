@@ -149,15 +149,16 @@ const FPerfiles: React.FC<IFormPrps> = React.memo(
             closeModal();
             updateNewEntity();
           }
+          toastSuccess(isEditting);
         }
         if (isEditting) {
           updateNewEntity();
           closeModal();
+          toastSuccess(isEditting);
         }
 
         // resetTextFields();
         updateNewEntity();
-        toastSuccess(isEditting);
       },
       [closeModal, blnKeep, updateNewEntity, showModal]
     );
@@ -185,6 +186,20 @@ const FPerfiles: React.FC<IFormPrps> = React.memo(
       focusFirstInput("cargo");
     }, []);
 
+    useEffect(() => {
+      const handleKeyDown = (event: KeyboardEvent) => {
+        if (event.key === "Escape") {
+          closeModal();
+        }
+      };
+
+      window.addEventListener("keydown", handleKeyDown);
+
+      return () => {
+        window.removeEventListener("keydown", handleKeyDown);
+      };
+    }, [closeModal]);
+
     return (
       <div className="useFormContainer">
         <div className="userFormBtnCloseContainer">
@@ -209,6 +224,7 @@ const FPerfiles: React.FC<IFormPrps> = React.memo(
                 entidad={["/api/cargos/", "02"]}
                 error={!isEditting && errors.cargo}
                 readOnly={isEditting}
+                customWidth={"345px"}
               />
               <SelectInputComponent
                 label="Funcionalidad"
@@ -220,6 +236,7 @@ const FPerfiles: React.FC<IFormPrps> = React.memo(
                 error={!isEditting && errors.funcionalidad}
                 inputRef={firstInputRef}
                 readOnly={isEditting}
+                customWidth={"345px"}
               />
             </div>
 

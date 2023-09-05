@@ -137,24 +137,24 @@ const FCargos: React.FC<ICargosFormProps> = React.memo(
           );
 
           if (result) {
-            console.log("seguir");
             setblnKeep(true);
             resetTextFields();
             updateNewEntity();
           } else {
-            console.log("salir");
             closeModal();
             updateNewEntity();
           }
+
+          toastSuccess(isEditting);
         }
         if (isEditting) {
           updateNewEntity();
           closeModal();
+          toastSuccess(isEditting);
         }
 
         resetTextFields();
         updateNewEntity();
-        toastSuccess(isEditting);
       },
       [closeModal, blnKeep, resetTextFields, updateNewEntity, showModal]
     );
@@ -181,6 +181,20 @@ const FCargos: React.FC<ICargosFormProps> = React.memo(
     useEffect(() => {
       focusFirstInput("nombre");
     }, [focusFirstInput]);
+
+    useEffect(() => {
+      const handleKeyDown = (event: KeyboardEvent) => {
+        if (event.key === "Escape") {
+          closeModal();
+        }
+      };
+
+      window.addEventListener("keydown", handleKeyDown);
+
+      return () => {
+        window.removeEventListener("keydown", handleKeyDown);
+      };
+    }, [closeModal]);
     return (
       <div className="useFormContainer">
         <div className="userFormBtnCloseContainer">

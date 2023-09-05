@@ -36,8 +36,6 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
     const [inputValues, setInputValues] = useState<IPrimaryKeyState>({});
     const { ListEntity } = useCrud(baseUrl);
 
-    console.log("inputvalues", inputValues);
-
     const handleInputChange = React.useCallback(
       (name: string, value: string) => {
         setInputValues((prev) => ({ ...prev, [name]: value }));
@@ -109,6 +107,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                   inputValues={inputValues}
                   setHandleSearch={handleSearch}
                   handleSelectChange={handleSelectChange}
+                  customWidth={"200px"}
                 />
               ) : input.type === "radiobuttons" ? (
                 <div>

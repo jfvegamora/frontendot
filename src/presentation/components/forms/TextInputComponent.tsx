@@ -48,9 +48,9 @@ const TextInputComponent: React.FC<ITextInputProps> = ({
             className="custom-input py-2 px-3 w-2/3"
             labelProps={{
               style: {
-                color: "grey", // Establece el color del label
-                fontWeight: "normal", // Establece la negrita del label
-                fontSize: "16px", // Establece el tamaño de fuente del label
+                color: "grey",
+                fontWeight: "normal",
+                fontSize: "16px",
               },
             }}
           />

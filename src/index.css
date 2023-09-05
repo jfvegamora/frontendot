@@ -27,7 +27,7 @@ body {
 .customModal{
   position: absolute;
   width: 30%;
-  height: 20%;
+  height: 30%;
   text-align: center;
   margin-top: -20px;
   border: 1px solid black;
@@ -50,7 +50,7 @@ margin-bottom: 1rem;
 }
 
 .modalButton{
-  background-color: #4299e1;
+  background-color: #b0bbc4;
 color: #ffffff;
 font-weight: 700;
 padding-top: 0.5rem;
@@ -315,6 +315,10 @@ position: relative;
   --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 
+}
+
+.labelForm{
+  background-color:gainsboro;
 }
 
 .userFormBtnCloseContainer{

@@ -62,7 +62,7 @@ const useCrud = (
     strEntidad?: string
   ): Promise<void> => {
     try {
-      console.log("primarykeyexcel", primaryKey);
+      console.log("strEntidad", strEntidad);
       const strUrl = primaryKey
         ? `/excel/?query=01&${primaryKey}`
         : "/excel/?query=01";

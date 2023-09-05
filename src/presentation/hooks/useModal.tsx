@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-empty-function */
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import Modal from "react-modal";
 
 const customStyles = {
@@ -38,6 +38,20 @@ export function useModal() {
     setIsModalOpen(false);
   }, []);
 
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (isModalOpen && event.key === "Enter") {
+        modalResolve(true);
+        closeModal();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isModalOpen, modalResolve, closeModal]);
   const CustomModal = useCallback(
     () => (
       <Modal
@@ -53,7 +67,7 @@ export function useModal() {
 
         <div className="modalButtonContainer">
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mr-2 rounded"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mr-2 rounded w-[7rem]"
             onClick={() => {
               modalResolve(true);
               closeModal();
@@ -62,7 +76,7 @@ export function useModal() {
             {params[0]}
           </button>
           <button
-            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 mx-2 rounded"
+            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 mx-2 rounded w-[7rem]"
             onClick={() => {
               modalResolve(false);
               closeModal();

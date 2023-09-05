@@ -9,7 +9,9 @@ export const validationUserSchema = (isEditting: boolean | undefined) =>
     // password: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
     cargo: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
     telefono: yup.string(),
-    correo: yup.string().email(),
+    correo: !isEditting
+      ? yup.string().email().required(`${msg}`)
+      : yup.string(),
     estado: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
     // password2: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
   });

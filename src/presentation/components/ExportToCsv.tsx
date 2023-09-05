@@ -58,7 +58,8 @@ export const ExportCSV: React.FC<Props> = ({
 
   useEffect(() => {
     if (exportAll) {
-      exportEntity(strEntidad)
+      console.log("strEntidad", strEntidad);
+      exportEntity("", strEntidad)
         .then(() => {
           toast(EXCEL.download);
         })

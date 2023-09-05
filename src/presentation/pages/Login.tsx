@@ -56,10 +56,10 @@ const Login: React.FC = React.memo(() => {
   return (
     <div className="bg-black-500 w-full h-ful">
       <section className="bg-gray-100 dark:bg-gray-900 h-full mt-[-16%]">
-        <div className="flex flex-col items-center justify-center px-6 py-8 mt-[-20%] mx-auto md:h-screen lg:py-0">
+        <div className="flex flex-col items-center justify-center px-6 py-8  mx-auto md:h-screen lg:py-0">
           <a
             href="#"
-            className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
+            className="flex items-center text-2xl font-semibold text-gray-900 dark:text-white"
           >
             <img
               className="w-8 h-8 mr-2"

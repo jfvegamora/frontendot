@@ -1,17 +1,19 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import {
   ERROR_MESSAGES,
+  MODAL,
   SUCCESS_MESSAGES,
   validationFuncionalidadSchema,
 } from "../../utils";
 import { TextInputComponent } from "../../components";
 import { useCrud } from "../../hooks";
 import { toast } from "react-toastify";
+import { useModal } from "../../hooks/useModal";
 
 const strBaseUrl = "/api/funcionalidades/";
 const strEntidad = "Funcionalidad ";
@@ -65,18 +67,12 @@ const transformUpdateQuery = (
 };
 
 const FFuncionalidad: React.FC<IFormProps> = React.memo(
-  ({
-    closeModal,
-    setEntities,
-    params,
-    data,
-    label,
-    isEditting,
-    selectedRows,
-  }) => {
+  ({ closeModal, setEntities, params, data, label, isEditting }) => {
     const schema = validationFuncionalidadSchema(isEditting);
     const { editEntity, createdEntity, ListEntity } = useCrud(strBaseUrl);
     const [blnKeep, setblnKeep] = useState(false);
+    const { showModal, CustomModal } = useModal();
+    const intId = data && data[EnumGrid.id];
 
     const {
       control,
@@ -92,8 +88,16 @@ const FFuncionalidad: React.FC<IFormProps> = React.memo(
       setEntities(newEntityData);
     }, [params, setEntities, ListEntity]);
 
+    const toastSuccess = (isEditting: boolean) => {
+      toast.success(
+        isEditting
+          ? strEntidad.concat(SUCCESS_MESSAGES.edit)
+          : strEntidad.concat(SUCCESS_MESSAGES.create)
+      );
+    };
+
     const handleApiResponse = React.useCallback(
-      (response: any, isEditting: boolean) => {
+      async (response: any, isEditting: boolean) => {
         const errorResponse = response?.response?.data.error;
         if (errorResponse) {
           const errorMessage =
@@ -103,35 +107,35 @@ const FFuncionalidad: React.FC<IFormProps> = React.memo(
                 : strEntidad.concat(ERROR_MESSAGES.create)
               : errorResponse;
           toast.error(errorMessage);
-        } else {
-          toast.success(
-            isEditting
-              ? strEntidad.concat(SUCCESS_MESSAGES.edit)
-              : strEntidad.concat(SUCCESS_MESSAGES.create)
-          );
         }
-        if (!blnKeep && !isEditting) {
-          const result = window.confirm("¿Quieres continuar ingresando?");
+
+        if (!blnKeep && !isEditting && !errorResponse) {
+          // const result = window.confirm("¿Quieres continuar ingresando?");
+          const result = await showModal(
+            MODAL.keep,
+            MODAL.keepYes,
+            MODAL.kepNo
+          );
           if (result) {
-            console.log("seguir");
             setblnKeep(true);
             reset();
             updateNewEntity();
           } else {
-            console.log("salir");
             closeModal();
             updateNewEntity();
           }
+          toastSuccess(isEditting);
         }
         if (isEditting) {
           updateNewEntity();
           closeModal();
+          toastSuccess(isEditting);
         }
 
         reset();
         updateNewEntity();
       },
-      [closeModal, blnKeep, reset, updateNewEntity]
+      [closeModal, blnKeep, reset, updateNewEntity, showModal]
     );
 
     const handleSaveChange = React.useCallback(
@@ -139,7 +143,7 @@ const FFuncionalidad: React.FC<IFormProps> = React.memo(
         try {
           console.log("isEdditing:", isEditting);
           const transformedData = isEditting
-            ? transformUpdateQuery(data, selectedRows.toString())
+            ? transformUpdateQuery(data, intId.toString())
             : transformInsertQuery(data);
 
           const response = isEditting
@@ -151,8 +155,22 @@ const FFuncionalidad: React.FC<IFormProps> = React.memo(
           toast.error(error);
         }
       },
-      [selectedRows, editEntity, createdEntity, handleApiResponse]
+      [intId, editEntity, createdEntity, handleApiResponse]
     );
+
+    useEffect(() => {
+      const handleKeyDown = (event: KeyboardEvent) => {
+        if (event.key === "Escape") {
+          closeModal();
+        }
+      };
+
+      window.addEventListener("keydown", handleKeyDown);
+
+      return () => {
+        window.removeEventListener("keydown", handleKeyDown);
+      };
+    }, [closeModal]);
 
     return (
       <div className="useFormContainer">
@@ -182,6 +200,7 @@ const FFuncionalidad: React.FC<IFormProps> = React.memo(
             Guardar
           </button>
         </form>
+        <CustomModal />
       </div>
     );
   }
