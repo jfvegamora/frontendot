@@ -7,8 +7,8 @@ type TabComponents = {
 };
 
 const tabComponents: TabComponents = {
-  usuarios: lazy(() => import("../views/mantenedores/UsuariosMantenedor")),
-  cargos: lazy(() => import("../views/mantenedores/CargosMantenedor")),
+  usuarios: lazy(() => import("../views/mantenedores/MUsuarios")),
+  cargos: lazy(() => import("../views/mantenedores/MCargos")),
 };
 
 const tabNames = Object.keys(tabComponents);

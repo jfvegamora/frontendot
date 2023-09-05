@@ -6,5 +6,3 @@ export { default as PrimaryKeySearch } from "./PrimaryKeySearch";
 export { default as TableComponent } from "./TableComponent";
 export * from "./forms";
 export * from "./index";
-export { default as ConfirmationModal } from "./modals/ConfirmationModal";
-export * from "./modals/PersonProfileModal";

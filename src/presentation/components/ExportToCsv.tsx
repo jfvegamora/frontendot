@@ -8,6 +8,7 @@ import { RiFileExcel2Line } from "react-icons/ri";
 
 import { IconButton, Tooltip } from "@material-tailwind/react";
 import { useCrud } from "../hooks";
+import { EXCEL } from "../utils";
 
 type Props = {
   strBaseUrl: any;
@@ -57,16 +58,15 @@ export const ExportCSV: React.FC<Props> = ({
 
   useEffect(() => {
     if (exportAll) {
-      console.log("peticion descarga tabla completa");
       exportEntity(strEntidad)
         .then(() => {
-          toast("Descargando archivo");
+          toast(EXCEL.download);
         })
         .catch((e) => console.log(e));
     } else if (exportTable) {
       exportEntity(queryString, strEntidad)
         .then(() => {
-          toast("Descargando archivos");
+          toast(EXCEL.download);
         })
         .catch((e) => console.log(e));
     }
@@ -88,31 +88,31 @@ export const ExportCSV: React.FC<Props> = ({
       <Modal
         isOpen={isModalInsert}
         onRequestClose={() => setisModalInsert(false)}
-        contentLabel="Confirmar Exportación"
+        contentLabel={EXCEL.title}
         style={customStyles}
         overlayClassName="overlay"
       >
-        <h2 className="text-2xl font-bold mb4">Confirmar Exportación</h2>
-        <p className="text-gray-700 mb-4">¿Qué desea exportar?</p>
+        <h2 className="modalTitle">{EXCEL.title}</h2>
+        <p className="modalSubTitle">{EXCEL.subTitle}</p>
 
         <div className="flex justify-center">
           <button
             onClick={() => handleExport(true)}
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mr-2 rounded"
           >
-            Exportar todo
+            {EXCEL.exportAll}
           </button>
           <button
             onClick={() => handleExport(false)}
             className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
           >
-            Exportar grilla actual
+            {EXCEL.exportUnit}
           </button>
           <button
             onClick={() => setisModalInsert(false)}
             className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 mx-2 rounded"
           >
-            Cancelar
+            {EXCEL.cancel}
           </button>
         </div>
       </Modal>

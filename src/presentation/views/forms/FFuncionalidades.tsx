@@ -1,30 +1,30 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
-/* eslint-disable @typescript-eslint/no-empty-function */
-/* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import {
   ERROR_MESSAGES,
   SUCCESS_MESSAGES,
-  validationCargosSchema,
+  validationFuncionalidadSchema,
 } from "../../utils";
 import { TextInputComponent } from "../../components";
 import { useCrud } from "../../hooks";
 import { toast } from "react-toastify";
-import { EnumGrid } from "../mantenedores/CargosMantenedor";
 
-const strBaseUrl = "/api/cargos/";
-const strEntidad = "Cargo ";
+const strBaseUrl = "/api/funcionalidades/";
+const strEntidad = "Funcionalidad ";
 // const strQuery = "01";
 
-export interface ICargosInputData {
-  nombre: string | undefined;
+export interface InputData {
+  descripcion: string | undefined;
 }
-
-interface ICargosFormProps {
+enum EnumGrid {
+  id = 1,
+  descripcion = 2,
+}
+interface IFormProps {
   closeModal: () => void;
   data?: any[];
   label: string;
@@ -39,23 +39,21 @@ interface OutputData {
   _p1: string;
 }
 
-const transformInsertQuery = (
-  jsonData: ICargosInputData
-): OutputData | null => {
-  const _p1 = `'${jsonData.nombre}'`;
+const transformInsertQuery = (jsonData: InputData): OutputData | null => {
+  const _p1 = `'${jsonData.descripcion}'`;
+
   const query: OutputData = {
     query: "03",
     _p1: _p1,
   };
-  console.log("insert:", query);
   return query;
 };
 
 const transformUpdateQuery = (
-  jsonData: ICargosInputData,
+  jsonData: InputData,
   primaryKey: string
 ): OutputData | null => {
-  const _p1 = `nombre='${jsonData.nombre}'`;
+  const _p1 = `descripcion='${jsonData.descripcion}'`;
 
   const query = {
     query: "04",
@@ -66,39 +64,28 @@ const transformUpdateQuery = (
   return query;
 };
 
-const CargosForm: React.FC<ICargosFormProps> = React.memo(
-  ({ closeModal, setEntities, params, data, label, isEditting }) => {
-    const schema = validationCargosSchema(isEditting);
-    const {
-      editEntity,
-      createdEntity,
-      ListEntity,
-      focusFirstInput,
-      firstInputRef,
-    } = useCrud(strBaseUrl);
+const FFuncionalidad: React.FC<IFormProps> = React.memo(
+  ({
+    closeModal,
+    setEntities,
+    params,
+    data,
+    label,
+    isEditting,
+    selectedRows,
+  }) => {
+    const schema = validationFuncionalidadSchema(isEditting);
+    const { editEntity, createdEntity, ListEntity } = useCrud(strBaseUrl);
     const [blnKeep, setblnKeep] = useState(false);
-    const intId = data && data[EnumGrid.ID];
 
     const {
       control,
       handleSubmit,
       formState: { errors },
-      setValue,
+      reset,
     } = useForm({
       resolver: yupResolver(schema),
     });
-
-    const resetTextFields = React.useCallback(() => {
-      setValue("nombre", "");
-      if (firstInputRef.current) {
-        const firstInput = firstInputRef.current.querySelector(
-          'input[name="nombre"]'
-        );
-        if (firstInput) {
-          firstInput.focus();
-        }
-      }
-    }, [setValue, firstInputRef]);
 
     const updateNewEntity = React.useCallback(async () => {
       const newEntityData = await ListEntity(params, "01");
@@ -128,7 +115,7 @@ const CargosForm: React.FC<ICargosFormProps> = React.memo(
           if (result) {
             console.log("seguir");
             setblnKeep(true);
-            resetTextFields();
+            reset();
             updateNewEntity();
           } else {
             console.log("salir");
@@ -141,18 +128,18 @@ const CargosForm: React.FC<ICargosFormProps> = React.memo(
           closeModal();
         }
 
-        resetTextFields();
+        reset();
         updateNewEntity();
       },
-      [closeModal, blnKeep, resetTextFields, updateNewEntity]
+      [closeModal, blnKeep, reset, updateNewEntity]
     );
 
     const handleSaveChange = React.useCallback(
-      async (data: ICargosInputData, isEditting: boolean) => {
+      async (data: InputData, isEditting: boolean) => {
         try {
           console.log("isEdditing:", isEditting);
           const transformedData = isEditting
-            ? transformUpdateQuery(data, intId.toString())
+            ? transformUpdateQuery(data, selectedRows.toString())
             : transformInsertQuery(data);
 
           const response = isEditting
@@ -164,11 +151,9 @@ const CargosForm: React.FC<ICargosFormProps> = React.memo(
           toast.error(error);
         }
       },
-      [editEntity, createdEntity, handleApiResponse, intId]
+      [selectedRows, editEntity, createdEntity, handleApiResponse]
     );
-    useEffect(() => {
-      focusFirstInput("nombre");
-    }, [focusFirstInput]);
+
     return (
       <div className="useFormContainer">
         <div className="userFormBtnCloseContainer">
@@ -185,12 +170,11 @@ const CargosForm: React.FC<ICargosFormProps> = React.memo(
           <div className="userFormularioCont">
             <TextInputComponent
               type="text"
-              label="Nombre"
-              name="nombre"
-              data={data && data[EnumGrid.nombre]}
+              label="Descripción"
+              name="descripcion"
+              data={data && data[EnumGrid.descripcion]}
               control={control}
-              error={!isEditting && errors.nombre}
-              inputRef={firstInputRef}
+              error={!isEditting && errors.descripcion}
             />
           </div>
 
@@ -203,4 +187,4 @@ const CargosForm: React.FC<ICargosFormProps> = React.memo(
   }
 );
 
-export default CargosForm;
+export default FFuncionalidad;

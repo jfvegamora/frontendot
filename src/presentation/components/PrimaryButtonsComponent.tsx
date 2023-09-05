@@ -5,12 +5,13 @@ import { IconButton, Tooltip } from "@material-tailwind/react";
 import { SiAddthis } from "react-icons/si";
 import { FiRefreshCw } from "react-icons/fi";
 import { usePermission } from "../hooks";
-import { BUTTON_MESSAGES } from "../utils";
+import { BUTTON_MESSAGES, MODAL } from "../utils";
 import { ExportCSV } from "./ExportToCsv";
+import { useModal } from "../hooks/useModal";
 
 interface IPrimaryButtonProps {
   handlePageSize?: () => void;
-  handleDeleteSelected?: () => void;
+  handleDeleteSelected?: (pkToDelete: any) => void;
   escritura?: boolean;
   personsLength?: number;
   handleAddPerson?: () => void;
@@ -44,6 +45,7 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
     pkToDelete,
   }) => {
     const { escritura } = usePermission();
+    const { CustomModal, showModal } = useModal();
 
     const renderButton = useCallback(
       (icon: React.ReactNode, handle: () => void, tooltip: string) => (
@@ -87,30 +89,38 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
           )}
 
         {showExportButton && (
-          <ExportCSV 
+          <ExportCSV
             strEntidad={strEntidad}
             params={params}
             strBaseUrl={strBaseUrl}
           />
         )}
 
-        {showDeleteButton && escritura && (
-          // renderButton(
-          //   <AiFillDelete className="primaryBtnIcon" />,
-          //   handleDeleteSelected!,
-          //   BUTTON_MESSAGES.deleteAll
-          // )
-          <Tooltip content="Eliminar">
-            <IconButton
-              variant="text"
-              color="blue-gray"
-              className="primaryBtnIconButton"
-              onClick={() => handleDeleteSelected(pkToDelete)}
-              disabled={!escritura}
-            >
-              <AiFillDelete className="primaryBtnIcon" />,
-            </IconButton>
-          </Tooltip>
+        {showDeleteButton && escritura && handleDeleteSelected && (
+          <>
+            <Tooltip content="Eliminar">
+              <IconButton
+                variant="text"
+                color="blue-gray"
+                className="primaryBtnIconButton"
+                disabled={!escritura}
+                onClick={() => {
+                  showModal(MODAL.delete, MODAL.deleteYes, MODAL.deleteNo).then(
+                    (result) => {
+                      if (result) {
+                        handleDeleteSelected(pkToDelete);
+                      }
+                    }
+                  );
+                }}
+              >
+                <span style={{ verticalAlign: "0.1em" }}>
+                  <AiFillDelete className="primaryBtnIcon" />
+                </span>
+              </IconButton>
+            </Tooltip>
+            <CustomModal />
+          </>
         )}
       </div>
     );

@@ -24,9 +24,25 @@ export const TITLES = {
   nuevo: "Nuevo ",
   nueva: "Nueva ",
   editar: "Editar ",
-  guardar:"GUARDAR",
+  guardar: "GUARDAR",
 
   proveedores: "Proveedores",
-}
+};
 
-//COLOCAR ULRS API
+export const EXCEL = {
+  title: "Confirmar Exportación",
+  subTitle: "¿Qué desea exportar?",
+  exportAll: "Exportar todo",
+  exportUnit: "Exportar grilla actual",
+  cancel: "Cancelar",
+  download: "Descargando archivo",
+};
+
+export const MODAL = {
+  delete: "¿Estás seguro de eliminar?",
+  deleteYes: "Si",
+  deleteNo: "No",
+  keep: "¿Quieres continuar ingresando?",
+  keepYes: "Si",
+  kepNo: "No",
+};

@@ -3,41 +3,38 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState, useEffect } from "react";
-import { RadioButtonComponent, SelectInputComponent } from "../../components";
+import React, { useState } from "react";
+import { TextInputComponent } from "../../components/index.ts";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { validationPerfilesSchema } from "../../utils/validationFormSchemas";
-import { EnumGrid } from "../mantenedores/PerfilesMantenedor";
-// import { ERROR_MESSAGES } from "../../utils";
+import { validationProveedoresSchema } from "../../utils/validationFormSchemas.ts";
+import { EnumGrid } from "../mantenedores/MProveedores.tsx";
 import { toast } from "react-toastify";
-import { ERROR_MESSAGES, SUCCESS_MESSAGES } from "../../utils";
-import { useCrud } from "../../hooks";
+import { ERROR_MESSAGES, SUCCESS_MESSAGES } from "../../utils/index.ts";
+import { useCrud } from "../../hooks/index.ts";
+import { TITLES } from "../../utils/text_utils.ts";
 
-const strBaseUrl = "/api/perfiles/";
-const strEntidad = "Perfil ";
+const strBaseUrl = "/api/proveedores/";
+const strEntidad = "Proveedor ";
 
 export interface InputData {
-  cargo: string | undefined;
-  funcionalidad: string | undefined;
-  permiso: string | undefined;
+  rut: string | undefined;
+  nombre: string | undefined;
+  direccion: string | undefined;
+  telefono: string | undefined;
+  correo: string | undefined;
+  sitio_web: string | undefined;
 }
 
 interface OutputData {
   query: string;
   _p1: string;
   _p2?: string;
-  _p3?: string;
 }
 
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
-  // if (jsonData.password !== jsonData.password2) {
-  //   alert(ERROR_MESSAGES.passwordNotMatch);
-  // }
-
-  const _p1 = `${jsonData.cargo}, ${jsonData.funcionalidad}, ${
-    jsonData.permiso === "Lectura" ? 1 : 2
-  }`;
+  const _p1 = `'${jsonData.rut}', '${jsonData.nombre}', '${jsonData.direccion}', 
+              '${jsonData.telefono}', '${jsonData.correo}', '${jsonData.sitio_web}'`;
 
   const query: OutputData = {
     query: "03",
@@ -47,10 +44,17 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
   return query;
 }
 
-export function transformUpdateQuery(jsonData: InputData): OutputData | null {
+export function transformUpdateQuery(
+  jsonData: InputData,
+  primaryKey: string
+): OutputData | null {
   const fields = [
-    // jsonData.nombre && `nombre='${jsonData.nombre}'`,
-    `permiso=${jsonData.permiso === "Lectura" ? 1 : 2}`,
+    `rut='${jsonData.rut}'`,
+    `nombre='${jsonData.nombre}'`,
+    `direccion='${jsonData.direccion}'`,
+    `telefono='${jsonData.telefono}'`,
+    `correo='${jsonData.correo}'`,
+    `sitio_web='${jsonData.sitio_web}'`,
   ];
 
   const filteredFields = fields.filter(
@@ -65,8 +69,7 @@ export function transformUpdateQuery(jsonData: InputData): OutputData | null {
   return {
     query: "04",
     _p1,
-    _p2: jsonData.cargo,
-    _p3: jsonData.funcionalidad,
+    _p2: primaryKey,
   };
 }
 
@@ -80,7 +83,7 @@ interface IFormPrps {
   params?: any;
 }
 
-const PerfilesForm: React.FC<IFormPrps> = React.memo(
+const FProveedores: React.FC<IFormPrps> = React.memo(
   ({
     closeModal,
     setEntities,
@@ -90,31 +93,27 @@ const PerfilesForm: React.FC<IFormPrps> = React.memo(
     data,
     isEditting,
   }) => {
-    const schema = validationPerfilesSchema(isEditting);
-    const {
-      editEntity,
-      createdEntity,
-      ListEntity,
-      focusFirstInput,
-      firstInputRef,
-    } = useCrud(strBaseUrl);
+    const schema = validationProveedoresSchema(isEditting);
+    const { editEntity, createdEntity, ListEntity } = useCrud(strBaseUrl);
     const [blnKeep, setblnKeep] = useState(false);
 
     const {
       control,
       handleSubmit,
       formState: { errors },
+      setValue,
     } = useForm({
       resolver: yupResolver(schema),
     });
 
-    // const resetTextFields = () => {
-    //   reset({
-    //     nombre: "",
-    //     telefono: 0,
-    //     correo: "",
-    //   });
-    // };
+    const resetTextFields = () => {
+      setValue("rut", "");
+      setValue("nombre", "");
+      setValue("direccion", "");
+      setValue("telefono", "");
+      setValue("correo", "");
+      setValue("sitio_web", "");
+    };
 
     const updateNewEntity = React.useCallback(async () => {
       const newEntityData = await ListEntity(params, "01");
@@ -143,7 +142,7 @@ const PerfilesForm: React.FC<IFormPrps> = React.memo(
           const result = window.confirm("¿Quieres continuar ingresando?");
           if (result) {
             setblnKeep(true);
-            // resetTextFields();
+            resetTextFields();
             updateNewEntity();
           } else {
             closeModal();
@@ -155,7 +154,7 @@ const PerfilesForm: React.FC<IFormPrps> = React.memo(
           closeModal();
         }
 
-        // resetTextFields();
+        resetTextFields();
         updateNewEntity();
       },
       [closeModal, blnKeep, updateNewEntity]
@@ -165,7 +164,7 @@ const PerfilesForm: React.FC<IFormPrps> = React.memo(
       async (data: InputData, isEditting: boolean) => {
         try {
           const transformedData = isEditting
-            ? transformUpdateQuery(data)
+            ? transformUpdateQuery(data, selectedRows.toString())
             : transformInsertQuery(data);
 
           const response = isEditting
@@ -179,10 +178,6 @@ const PerfilesForm: React.FC<IFormPrps> = React.memo(
       },
       [selectedRows, editEntity, createdEntity, handleApiResponse]
     );
-
-    useEffect(() => {
-      focusFirstInput("cargo");
-    }, []);
 
     return (
       <div className="useFormContainer">
@@ -198,41 +193,55 @@ const PerfilesForm: React.FC<IFormPrps> = React.memo(
           className="userFormulario"
         >
           <div className="userFormularioContainer">
-            <div className="w-full">
-              <SelectInputComponent
-                label="Cargo"
-                name="cargo"
-                showRefresh={true}
-                data={data && data[EnumGrid.cargo_id]}
-                control={control}
-                entidad={["/api/cargos/", "02"]}
-                error={!isEditting && errors.cargo}
-              />
-              <SelectInputComponent
-                label="Funcionalidad"
-                name="funcionalidad"
-                showRefresh={true}
-                data={data && data[EnumGrid.funcionalidad_id]}
-                control={control}
-                entidad={["/api/funcionalidades/", "02"]}
-                error={!isEditting && errors.funcionalidad}
-                inputRef={firstInputRef}
-              />
-            </div>
-
-            <RadioButtonComponent
+            <TextInputComponent
+              type="text"
+              label="RUT"
+              name="rut"
+              data={data && data[EnumGrid.Rut]}
               control={control}
-              label="Permiso"
-              name="permiso"
-              data={data && data[EnumGrid.permiso]}
-              options={["Lectura", "Lectura/Escritura"]}
-              error={!isEditting && errors.permiso}
+              error={!isEditting && errors.rut}
             />
-            {/* <TextInputComponent/> */}
+            <TextInputComponent
+              type="text"
+              label="Nombre"
+              name="nombre"
+              data={data && data[EnumGrid.Nombre]}
+              control={control}
+              error={!isEditting && errors.nombre}
+            />
+            <TextInputComponent
+              type="text"
+              label="Dirección"
+              name="direccion"
+              data={data && data[EnumGrid.Direccion]}
+              control={control}
+            />
+            <TextInputComponent
+              type="text"
+              label="Teléfono"
+              name="telefono"
+              data={data && data[EnumGrid.Telefono]}
+              control={control}
+            />
+            <TextInputComponent
+              type="email"
+              label="Correo"
+              name="correo"
+              data={data && data[EnumGrid.Correo]}
+              control={control}
+            />
+            <TextInputComponent
+              type="text"
+              label="Sitio Web"
+              name="sitio_web"
+              data={data && data[EnumGrid.Sitio_Web]}
+              control={control}
+            />
+            {/*  */}
           </div>
 
           <button type="submit" className="userFormBtnSubmit">
-            Guardar
+            {TITLES.guardar}
           </button>
         </form>
       </div>
@@ -240,4 +249,4 @@ const PerfilesForm: React.FC<IFormPrps> = React.memo(
   }
 );
 
-export default PerfilesForm;
+export default FProveedores;

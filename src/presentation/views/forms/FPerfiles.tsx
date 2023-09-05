@@ -4,28 +4,23 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect } from "react";
-import {
-  RadioButtonComponent,
-  SelectInputComponent,
-  TextInputComponent,
-} from "../../components";
+import { RadioButtonComponent, SelectInputComponent } from "../../components";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { validationUserSchema } from "../../utils/validationFormSchemas";
-import { EnumGrid } from "../mantenedores/UsuariosMantenedor";
+import { validationPerfilesSchema } from "../../utils/validationFormSchemas";
+import { EnumGrid } from "../mantenedores/MPerfiles";
 import { toast } from "react-toastify";
-import { ERROR_MESSAGES, SUCCESS_MESSAGES } from "../../utils";
+import { ERROR_MESSAGES, MODAL, SUCCESS_MESSAGES } from "../../utils";
 import { useCrud } from "../../hooks";
+import { useModal } from "../../hooks/useModal";
 
-const strBaseUrl = "/api/usuarios/";
-const strEntidad = "Usuario ";
+const strBaseUrl = "/api/perfiles/";
+const strEntidad = "Perfil ";
 
 export interface InputData {
-  nombre: string | undefined;
   cargo: string | undefined;
-  telefono: string | undefined;
-  correo: string | undefined;
-  estado: string | undefined;
+  funcionalidad: string | undefined;
+  permiso: string | undefined;
 }
 
 interface OutputData {
@@ -40,9 +35,9 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
   //   alert(ERROR_MESSAGES.passwordNotMatch);
   // }
 
-  const _p1 = `'${jsonData.nombre}', ${jsonData.cargo}, '${
-    jsonData.telefono
-  }', '${jsonData.correo}', ${jsonData.estado === "Activo" ? 1 : 2}`;
+  const _p1 = `${jsonData.cargo}, ${jsonData.funcionalidad}, ${
+    jsonData.permiso === "Lectura" ? 1 : 2
+  }`;
 
   const query: OutputData = {
     query: "03",
@@ -52,17 +47,10 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
   return query;
 }
 
-export function transformUpdateQuery(
-  jsonData: InputData,
-  primaryKey: string
-): OutputData | null {
+export function transformUpdateQuery(jsonData: InputData): OutputData | null {
   const fields = [
     // jsonData.nombre && `nombre='${jsonData.nombre}'`,
-    `nombre='${jsonData.nombre}'`,
-    `telefono='${jsonData.telefono}'`,
-    `correo='${jsonData.correo}'`,
-    `estado=${jsonData.estado === "Activo" ? 1 : 2}`,
-    `cargo=${jsonData.cargo}`,
+    `permiso=${jsonData.permiso === "Lectura" ? 1 : 2}`,
   ];
 
   const filteredFields = fields.filter(
@@ -73,16 +61,16 @@ export function transformUpdateQuery(
     return null;
   }
   const _p1 = filteredFields.join(",");
-  console.log("primaryKey", primaryKey);
+
   return {
     query: "04",
     _p1,
-    _p2: primaryKey,
-    _p3: "",
+    _p2: jsonData.cargo,
+    _p3: jsonData.funcionalidad,
   };
 }
 
-interface IUserFormPrps {
+interface IFormPrps {
   closeModal: () => void;
   data?: any[];
   label: string;
@@ -92,48 +80,50 @@ interface IUserFormPrps {
   params?: any;
 }
 
-const UserForm: React.FC<IUserFormPrps> = React.memo(
+const FPerfiles: React.FC<IFormPrps> = React.memo(
   ({ closeModal, setEntities, params, label, data, isEditting }) => {
-    const schema = validationUserSchema(isEditting);
+    const schema = validationPerfilesSchema(isEditting);
+    const { showModal, CustomModal } = useModal();
     const {
       editEntity,
       createdEntity,
       ListEntity,
-      firstInputRef,
       focusFirstInput,
+      firstInputRef,
     } = useCrud(strBaseUrl);
     const [blnKeep, setblnKeep] = useState(false);
-    const intId = data && data[EnumGrid.ID];
+
     const {
       control,
       handleSubmit,
       formState: { errors },
-      setValue,
     } = useForm({
       resolver: yupResolver(schema),
     });
 
-    const resetTextFields = React.useCallback(() => {
-      setValue("nombre", "");
-      setValue("telefono", "");
-      setValue("correo", "");
-      if (firstInputRef.current) {
-        const firstInput = firstInputRef.current.querySelector(
-          'input[name="nombre"]'
-        );
-        if (firstInput) {
-          firstInput.focus();
-        }
-      }
-    }, [setValue, firstInputRef]);
+    // const resetTextFields = () => {
+    //   reset({
+    //     nombre: "",
+    //     telefono: 0,
+    //     correo: "",
+    //   });
+    // };
 
     const updateNewEntity = React.useCallback(async () => {
       const newEntityData = await ListEntity(params, "01");
       setEntities(newEntityData);
     }, [params, setEntities, ListEntity]);
 
+    const toastSuccess = (isEditting: boolean) => {
+      toast.success(
+        isEditting
+          ? strEntidad.concat(SUCCESS_MESSAGES.edit)
+          : strEntidad.concat(SUCCESS_MESSAGES.create)
+      );
+    };
+
     const handleApiResponse = React.useCallback(
-      (response: any, isEditting: boolean) => {
+      async (response: any, isEditting: boolean) => {
         const errorResponse = response?.response?.data.error;
         if (errorResponse) {
           const errorMessage =
@@ -143,18 +133,17 @@ const UserForm: React.FC<IUserFormPrps> = React.memo(
                 : strEntidad.concat(ERROR_MESSAGES.create)
               : errorResponse;
           toast.error(errorMessage);
-        } else {
-          toast.success(
-            isEditting
-              ? strEntidad.concat(SUCCESS_MESSAGES.edit)
-              : strEntidad.concat(SUCCESS_MESSAGES.create)
-          );
         }
-        if (!blnKeep && !isEditting) {
-          const result = window.confirm("¿Quieres continuar ingresando?");
+        if (!blnKeep && !isEditting && !errorResponse) {
+          // const result = window.confirm("¿Quieres continuar ingresando?");
+          const result = await showModal(
+            MODAL.keep,
+            MODAL.keepYes,
+            MODAL.kepNo
+          );
           if (result) {
             setblnKeep(true);
-            resetTextFields();
+            // resetTextFields();
             updateNewEntity();
           } else {
             closeModal();
@@ -166,17 +155,18 @@ const UserForm: React.FC<IUserFormPrps> = React.memo(
           closeModal();
         }
 
-        resetTextFields();
+        // resetTextFields();
         updateNewEntity();
+        toastSuccess(isEditting);
       },
-      [closeModal, blnKeep, updateNewEntity]
+      [closeModal, blnKeep, updateNewEntity, showModal]
     );
 
     const handleSaveChange = React.useCallback(
       async (data: InputData, isEditting: boolean) => {
         try {
           const transformedData = isEditting
-            ? transformUpdateQuery(data, intId.toString())
+            ? transformUpdateQuery(data)
             : transformInsertQuery(data);
 
           const response = isEditting
@@ -184,16 +174,16 @@ const UserForm: React.FC<IUserFormPrps> = React.memo(
             : await createdEntity(transformedData);
           handleApiResponse(response, isEditting);
         } catch (error: any) {
-          console.log("error cargos form:", error);
+          console.log("error form:", error);
           toast.error(error);
         }
       },
-      [editEntity, createdEntity, handleApiResponse, intId]
+      [editEntity, createdEntity, handleApiResponse]
     );
 
     useEffect(() => {
-      focusFirstInput("nombre");
-    }, [focusFirstInput]);
+      focusFirstInput("cargo");
+    }, []);
 
     return (
       <div className="useFormContainer">
@@ -209,81 +199,49 @@ const UserForm: React.FC<IUserFormPrps> = React.memo(
           className="userFormulario"
         >
           <div className="userFormularioContainer">
-            <TextInputComponent
-              type="text"
-              label="Nombre"
-              name="nombre"
-              data={data && data[EnumGrid.Nombre]}
-              control={control}
-              error={!isEditting && errors.nombre}
-              inputRef={firstInputRef}
-            />
             <div className="w-full">
               <SelectInputComponent
                 label="Cargo"
                 name="cargo"
                 showRefresh={true}
-                data={data && data[EnumGrid.Cargo_id]}
+                data={data && data[EnumGrid.cargo_id]}
                 control={control}
                 entidad={["/api/cargos/", "02"]}
                 error={!isEditting && errors.cargo}
+                readOnly={isEditting}
               />
-              {/* <SelectInputComponent
-                label="TipoInsumos"
-                name="tipos"
+              <SelectInputComponent
+                label="Funcionalidad"
+                name="funcionalidad"
                 showRefresh={true}
+                data={data && data[EnumGrid.funcionalidad_id]}
                 control={control}
-                entidad={["/api/tipos/", "02", "TipoInsumos"]}
-                error={!isEditting && errors.cargo}
-              /> */}
+                entidad={["/api/funcionalidades/", "02"]}
+                error={!isEditting && errors.funcionalidad}
+                inputRef={firstInputRef}
+                readOnly={isEditting}
+              />
             </div>
-
-            <TextInputComponent
-              type="text"
-              label="Teléfono"
-              name="telefono"
-              data={data && data[EnumGrid.Telefono]}
-              control={control}
-            />
-            <TextInputComponent
-              type="email"
-              label="Correo"
-              name="correo"
-              data={data && data[EnumGrid.Correo]}
-              control={control}
-            />
 
             <RadioButtonComponent
               control={control}
-              label="Estado"
-              name="estado"
-              data={data && data[EnumGrid.Estado]}
-              options={["Activo", "Suspendido"]}
-              error={!isEditting && errors.estado}
+              label="Permiso"
+              name="permiso"
+              data={data && data[EnumGrid.permiso]}
+              options={["Lectura", "Lectura/Escritura"]}
+              error={!isEditting && errors.permiso}
             />
-            {/* <TextInputComponent
-              type="password"
-              label="Password"
-              name="password"
-              control={control}
-              error={!isEditting && errors.password}
-            />
-            <TextInputComponent
-              type="password"
-              label="Confirmar Password"
-              name="password2"
-              control={control}
-              error={!isEditting && errors.password}
-            /> */}
+            {/* <TextInputComponent/> */}
           </div>
 
           <button type="submit" className="userFormBtnSubmit">
             Guardar
           </button>
         </form>
+        <CustomModal />
       </div>
     );
   }
 );
 
-export default UserForm;
+export default FPerfiles;

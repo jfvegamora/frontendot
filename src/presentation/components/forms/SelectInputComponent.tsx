@@ -7,6 +7,7 @@ import { IconButton, Tooltip } from "@material-tailwind/react";
 import React, { useEffect, useState } from "react";
 import { Controller } from "react-hook-form";
 import { FiRefreshCw } from "react-icons/fi";
+import { GoTriangleDown } from "react-icons/go";
 import { useCrud, useEntityUtils } from "../../hooks";
 
 interface ISelectInputProps {
@@ -23,6 +24,7 @@ interface ISelectInputProps {
   entidad: string[];
   inputValues?: any;
   inputRef?: any;
+  readOnly?: boolean;
 }
 
 const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
@@ -35,10 +37,10 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     error,
     entidad,
     setHandleSearch,
-    inputName,
     inputValues,
     handleSelectChange,
     inputRef,
+    readOnly,
   }) => {
     const [refreshToggle, setrefreshToggle] = useState(false);
     const [entities, setEntities] = useState([]);
@@ -69,48 +71,56 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     }, [refreshToggle, refreshData, data]);
 
     return (
-      <div className="flex w-full items-center mb-2 mx-4 mt-select mt-select-dropdown-up ">
+      <div className="flex w-full items-center mb-2 mx-4 mt-select mt-select-dropdown-up cursor-pointer ">
         {/* <label className="label-input w-1/3">{label}</label> */}
         <Controller
           name={name}
           control={control}
           defaultValue={strSelectedName}
           render={({ field }) => (
-            <select
-              {...field}
-              ref={inputRef}
-              // value={selectedIndex}
-              onChange={(e) => {
-                field.onChange(e);
-                if (setHandleSearch) {
-                  const selectedValue = e.target.value.toString();
-                  console.log("name", name);
-                  console.log("selectedValue", selectedValue);
-                  handleSelectChange(name, selectedValue);
-                  const inputValuesToUpdate = {
-                    ...inputValues,
-                    [name]: selectedValue,
-                  };
-
+            <>
+              <select
+                {...field}
+                ref={inputRef}
+                disabled={readOnly}
+                // value={selectedIndex}
+                onChange={(e) => {
+                  field.onChange(e);
                   if (setHandleSearch) {
-                    setHandleSearch(inputValuesToUpdate);
+                    const selectedValue = e.target.value.toString();
+                    console.log("name", name);
+                    console.log("selectedValue", selectedValue);
+                    handleSelectChange(name, selectedValue);
+                    const inputValuesToUpdate = {
+                      ...inputValues,
+                      [name]: selectedValue,
+                    };
+
+                    if (setHandleSearch) {
+                      setHandleSearch(inputValuesToUpdate);
+                    }
                   }
-                }
-                setrefreshToggle((prev) => !prev);
-              }}
-              className="custom-input py-2 px-3 w-[80%]"
-            >
-              {!data && <option value={"0"}>{label}</option>}
-              {entities &&
-                entities.map((option: any, index) => (
-                  <option
-                    key={index}
-                    value={option[0] !== undefined ? option[0].toString() : ""}
-                  >
-                    {option[1]}
-                  </option>
-                ))}
-            </select>
+                  setrefreshToggle((prev) => !prev);
+                }}
+                className="custom-input py-2 px-3 w-[85%] cursor-pointer"
+              >
+                {!data && <option value={"0"}>{label}</option>}
+                {entities &&
+                  entities.map((option: any, index) => (
+                    <option
+                      key={index}
+                      value={
+                        option[0] !== undefined ? option[0].toString() : ""
+                      }
+                    >
+                      {option[1]}
+                    </option>
+                  ))}
+              </select>
+              <div className="relative">
+                <GoTriangleDown className="absolute right-3 top-[-10px] w-5 h-5" />
+              </div>
+            </>
           )}
         />
 

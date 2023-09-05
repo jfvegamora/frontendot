@@ -20,20 +20,18 @@ const Home = lazy(() => import("./presentation/pages/Home"));
 
 const Navbar = lazy(() => import("./presentation/components/ComplexNavbar"));
 
-const CargosMantenedor = lazy(
-  () => import("./presentation/views/mantenedores/CargosMantenedor")
+const MCargos = lazy(() => import("./presentation/views/mantenedores/MCargos"));
+const MUsuarios = lazy(
+  () => import("./presentation/views/mantenedores/MUsuarios")
 );
-const UsuariosMantenedor = lazy(
-  () => import("./presentation/views/mantenedores/UsuariosMantenedor")
+const MFuncionalidades = lazy(
+  () => import("./presentation/views/mantenedores/MFuncionalidades")
 );
-const FuncionalidadesMantenedor = lazy(
-  () => import("./presentation/views/mantenedores/FuncionalidadesMantenedor")
+const MPerfiles = lazy(
+  () => import("./presentation/views/mantenedores/MPerfiles")
 );
-const PerfilesMantenedor = lazy(
-  () => import("./presentation/views/mantenedores/PerfilesMantenedor")
-);
-const ProveedoresMantenedor = lazy(
-  () => import("./presentation/views/mantenedores/ProveedoresMantenedor")
+const MProveedores = lazy(
+  () => import("./presentation/views/mantenedores/MProveedores")
 );
 // const EmpresasMantenedor = lazy(
 //   () => import("./presentation/views/mantenedores/EmpresasMantenedor")
@@ -51,31 +49,25 @@ function App() {
               <RoutesWithNotFound>
                 <Route path={PublicRoutes.LOGIN} element={<Login />} />
                 <Route element={<AuthGuard privateValidation={true} />}>
-                  <Route
-                    path={PrivateRoutes.PRIVATE}
-                    element={<CargosMantenedor />}
-                  />
-                  <Route
-                    path={PrivateRoutes.CARGOS}
-                    element={<CargosMantenedor />}
-                  />
+                  <Route path={PrivateRoutes.PRIVATE} element={<MCargos />} />
+                  <Route path={PrivateRoutes.CARGOS} element={<MCargos />} />
                   <Route
                     path={PrivateRoutes.USUARIOS}
-                    element={<UsuariosMantenedor />}
+                    element={<MUsuarios />}
                   />
                   <Route
                     path={PrivateRoutes.FUNCIONALIDADES}
-                    element={<FuncionalidadesMantenedor />}
+                    element={<MFuncionalidades />}
                   />
                   <Route
                     path={PrivateRoutes.PERFILES}
-                    element={<PerfilesMantenedor />}
+                    element={<MPerfiles />}
                   />
                   <Route
                     path={PrivateRoutes.PROVEEDORES}
-                    element={<ProveedoresMantenedor />}
+                    element={<MProveedores />}
                   />
-                  
+
                   <Route path={PrivateRoutes.HOME} element={<Home />} />
                 </Route>
                 <Route

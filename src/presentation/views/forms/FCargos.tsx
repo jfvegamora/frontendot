@@ -1,30 +1,32 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
+/* eslint-disable @typescript-eslint/no-empty-function */
+/* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import {
   ERROR_MESSAGES,
+  MODAL,
   SUCCESS_MESSAGES,
-  validationFuncionalidadSchema,
+  validationCargosSchema,
 } from "../../utils";
 import { TextInputComponent } from "../../components";
 import { useCrud } from "../../hooks";
 import { toast } from "react-toastify";
+import { EnumGrid } from "../mantenedores/MCargos";
+import { useModal } from "../../hooks/useModal";
 
-const strBaseUrl = "/api/funcionalidades/";
-const strEntidad = "Funcionalidad ";
+const strBaseUrl = "/api/cargos/";
+const strEntidad = "Cargo ";
 // const strQuery = "01";
 
-export interface InputData {
-  descripcion: string | undefined;
+export interface ICargosInputData {
+  nombre: string | undefined;
 }
-enum EnumGrid {
-  id = 1,
-  descripcion = 2,
-}
-interface IFormProps {
+
+interface ICargosFormProps {
   closeModal: () => void;
   data?: any[];
   label: string;
@@ -39,21 +41,23 @@ interface OutputData {
   _p1: string;
 }
 
-const transformInsertQuery = (jsonData: InputData): OutputData | null => {
-  const _p1 = `'${jsonData.descripcion}'`;
-
+const transformInsertQuery = (
+  jsonData: ICargosInputData
+): OutputData | null => {
+  const _p1 = `'${jsonData.nombre}'`;
   const query: OutputData = {
     query: "03",
     _p1: _p1,
   };
+  console.log("insert:", query);
   return query;
 };
 
 const transformUpdateQuery = (
-  jsonData: InputData,
+  jsonData: ICargosInputData,
   primaryKey: string
 ): OutputData | null => {
-  const _p1 = `descripcion='${jsonData.descripcion}'`;
+  const _p1 = `nombre='${jsonData.nombre}'`;
 
   const query = {
     query: "04",
@@ -64,36 +68,56 @@ const transformUpdateQuery = (
   return query;
 };
 
-const FuncionalidadForm: React.FC<IFormProps> = React.memo(
-  ({
-    closeModal,
-    setEntities,
-    params,
-    data,
-    label,
-    isEditting,
-    selectedRows,
-  }) => {
-    const schema = validationFuncionalidadSchema(isEditting);
-    const { editEntity, createdEntity, ListEntity } = useCrud(strBaseUrl);
+const FCargos: React.FC<ICargosFormProps> = React.memo(
+  ({ closeModal, setEntities, params, data, label, isEditting }) => {
+    const schema = validationCargosSchema(isEditting);
+    const { showModal, CustomModal } = useModal();
+    const {
+      editEntity,
+      createdEntity,
+      ListEntity,
+      focusFirstInput,
+      firstInputRef,
+    } = useCrud(strBaseUrl);
     const [blnKeep, setblnKeep] = useState(false);
+    const intId = data && data[EnumGrid.ID];
 
     const {
       control,
       handleSubmit,
       formState: { errors },
-      reset,
+      setValue,
     } = useForm({
       resolver: yupResolver(schema),
     });
+
+    const resetTextFields = React.useCallback(() => {
+      setValue("nombre", "");
+      if (firstInputRef.current) {
+        const firstInput = firstInputRef.current.querySelector(
+          'input[name="nombre"]'
+        );
+        if (firstInput) {
+          firstInput.focus();
+        }
+      }
+    }, [setValue, firstInputRef]);
 
     const updateNewEntity = React.useCallback(async () => {
       const newEntityData = await ListEntity(params, "01");
       setEntities(newEntityData);
     }, [params, setEntities, ListEntity]);
 
+    const toastSuccess = (isEditting: boolean) => {
+      toast.success(
+        isEditting
+          ? strEntidad.concat(SUCCESS_MESSAGES.edit)
+          : strEntidad.concat(SUCCESS_MESSAGES.create)
+      );
+    };
+
     const handleApiResponse = React.useCallback(
-      (response: any, isEditting: boolean) => {
+      async (response: any, isEditting: boolean) => {
         const errorResponse = response?.response?.data.error;
         if (errorResponse) {
           const errorMessage =
@@ -103,19 +127,19 @@ const FuncionalidadForm: React.FC<IFormProps> = React.memo(
                 : strEntidad.concat(ERROR_MESSAGES.create)
               : errorResponse;
           toast.error(errorMessage);
-        } else {
-          toast.success(
-            isEditting
-              ? strEntidad.concat(SUCCESS_MESSAGES.edit)
-              : strEntidad.concat(SUCCESS_MESSAGES.create)
-          );
         }
         if (!blnKeep && !isEditting) {
-          const result = window.confirm("¿Quieres continuar ingresando?");
+          // const result = window.confirm("¿Quieres continuar ingresando?");
+          const result = await showModal(
+            MODAL.keep,
+            MODAL.keepYes,
+            MODAL.kepNo
+          );
+
           if (result) {
             console.log("seguir");
             setblnKeep(true);
-            reset();
+            resetTextFields();
             updateNewEntity();
           } else {
             console.log("salir");
@@ -128,18 +152,19 @@ const FuncionalidadForm: React.FC<IFormProps> = React.memo(
           closeModal();
         }
 
-        reset();
+        resetTextFields();
         updateNewEntity();
+        toastSuccess(isEditting);
       },
-      [closeModal, blnKeep, reset, updateNewEntity]
+      [closeModal, blnKeep, resetTextFields, updateNewEntity, showModal]
     );
 
     const handleSaveChange = React.useCallback(
-      async (data: InputData, isEditting: boolean) => {
+      async (data: ICargosInputData, isEditting: boolean) => {
         try {
           console.log("isEdditing:", isEditting);
           const transformedData = isEditting
-            ? transformUpdateQuery(data, selectedRows.toString())
+            ? transformUpdateQuery(data, intId.toString())
             : transformInsertQuery(data);
 
           const response = isEditting
@@ -151,9 +176,11 @@ const FuncionalidadForm: React.FC<IFormProps> = React.memo(
           toast.error(error);
         }
       },
-      [selectedRows, editEntity, createdEntity, handleApiResponse]
+      [editEntity, createdEntity, handleApiResponse, intId]
     );
-
+    useEffect(() => {
+      focusFirstInput("nombre");
+    }, [focusFirstInput]);
     return (
       <div className="useFormContainer">
         <div className="userFormBtnCloseContainer">
@@ -170,21 +197,22 @@ const FuncionalidadForm: React.FC<IFormProps> = React.memo(
           <div className="userFormularioCont">
             <TextInputComponent
               type="text"
-              label="Descripción"
-              name="descripcion"
-              data={data && data[EnumGrid.descripcion]}
+              label="Nombre"
+              name="nombre"
+              data={data && data[EnumGrid.nombre]}
               control={control}
-              error={!isEditting && errors.descripcion}
+              error={!isEditting && errors.nombre}
+              inputRef={firstInputRef}
             />
           </div>
-
           <button type="submit" className="userFormBtnSubmit">
             Guardar
           </button>
         </form>
+        <CustomModal />
       </div>
     );
   }
 );
 
-export default FuncionalidadForm;
+export default FCargos;

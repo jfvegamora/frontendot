@@ -12,9 +12,7 @@ interface ITableComponentProps<T> {
   data?: T[];
   renderButtons?: (item: any) => React.ReactNode;
   handleSelectChecked?: (id: number) => void;
-  handleSelectedCheckedAll?: (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => void;
+  handleSelectedCheckedAll?: (event: any, rowsIds: any) => void;
   toggleEditModal?: (id: number) => void;
   handleDeleteSelected?: (id: number) => void;
   selectedRows?: number[];
@@ -139,8 +137,8 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                           onClick={() => {
                             handleSelectChecked &&
                               handleSelectChecked(rowIndex);
-                            handleDeleteSelected && pkToDelete;
-                            handleDeleteSelected(pkToDelete);
+                            handleDeleteSelected &&
+                              handleDeleteSelected(pkToDelete);
                           }}
                         >
                           <BsFillXSquareFill className="gridIcons" />

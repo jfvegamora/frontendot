@@ -7,7 +7,7 @@ body {
   vertical-align: top;
 }
 
-/* Estilos CSS para los inputs de Formulario */
+/* Estilos CSS para los inputs de Form */
 .label-input{
    --tw-text-opacity: 1;
     color: rgb(97 97 97 / var(--tw-text-opacity));
@@ -24,6 +24,52 @@ body {
   /*color: #c41e6e; /* Color deseado para el título */
 }
 
+.customModal{
+  position: absolute;
+  width: 30%;
+  height: 20%;
+  text-align: center;
+  margin-top: -20px;
+  border: 1px solid black;
+  align-items: center;
+  margin: 0 auto;
+  background-color: white;
+  border-radius: 15px;
+}
+
+.modalTitle{
+  font-size: 1.5rem;
+font-weight: 700;
+margin-bottom: 1rem;
+margin-top: 20px;
+}
+
+.modalSubTitle{
+  color: #4a5568;
+margin-bottom: 1rem;
+}
+
+.modalButton{
+  background-color: #4299e1;
+color: #ffffff;
+font-weight: 700;
+padding-top: 0.5rem;
+padding-bottom: 0.5rem;
+padding-left: 1rem;
+padding-right: 1rem;
+margin-right: 0.5rem;
+border-radius: 0.25rem;
+transition: background-color 0.3s ease-in-out;
+}
+
+.modalButtonContainer{
+  align-items: center;
+  margin: 0 auto;
+  width: 60%;
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
 
 .custom-input{
   --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
@@ -59,7 +105,7 @@ body {
   height: 100%;
   
   background-color: #fff;
-  border-color:orangered;
+  border-color: dodgerblue;
   border-width: 1px;
   border-radius: 20px;
   box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
@@ -82,13 +128,14 @@ body {
   margin-top: 1.25rem ;
 
   background-color: ghostwhite;
-  border-color:orangered;
+  border-color:dodgerblue;
   border-width: 1px;
   border-radius: 10px;
   box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
   padding: 20px;
   margin: 20px;
   width: 70%;
+  margin: 0 auto ;
 
  }
 
@@ -248,11 +295,12 @@ body {
 .width100{width: 100% !important; margin: 0 auto;}
 
 
-/*========CLASSES USERFORM=========*/
+/*========CLASSES FUsuarios=========*/
 .useFormContainer{
   --tw-bg-opacity: 1;
 /*  background-color: rgb(255 255 255 / var(--tw-bg-opacity));*/
 background-color:gainsboro;
+position: relative;
   padding-left: 1rem;
   padding-right: 1rem;
   width: 90%;

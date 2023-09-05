@@ -9,24 +9,27 @@ import {
   TableComponent,
 } from "../../components";
 import { useEntityUtils } from "../../hooks";
-import UserForm from "../forms/PerfilesForm";
-import { table_head_perfiles } from "../../utils";
-import PerfilesForm from "../forms/PerfilesForm";
+import FUsuarios from "../forms/FUsuario";
+import { table_head_usuarios } from "../../utils";
 
 export enum EnumGrid {
-  id = 0,
-  cargo_id = 1,
-  cargo = 2,
-  funcionalidad_id = 3,
-  funcionalidad = 4,
-  permiso = 5,
+  ID = 1,
+  Nombre = 2,
+  Telefono = 3,
+  Correo = 4,
+  Estado = 5,
+  Cargo_id = 6,
+  Cargo = 7,
 }
-const strEntidad = "perfil de cargo ";
-const strEntidadExcel = "Perfil_de_cargos";
-const strBaseUrl = "/api/perfiles/";
+const strEntidad = "Usuario ";
+const strEntidadExcel = "Usuarios";
+const strBaseUrl = "/api/usuarios/";
 const strQuery = "01";
 
-const PerfilesMantenedor: React.FC = () => {
+type PrimaryKey = {
+  pk1: number;
+};
+const MUsuarios: React.FC = () => {
   const [params, setParams] = useState([]);
 
   const updateParams = (newParams: Record<string, never>) => {
@@ -52,53 +55,41 @@ const PerfilesMantenedor: React.FC = () => {
     //primary buttons methods
     handleDeleteSelected,
     resetEntities,
-    handlePageSize,
   } = useEntityUtils(strBaseUrl, strQuery);
   // console.log("entities:", entities);
-  console.log("selectedRows", selectedRows);
 
-  const pkToDelete: never[] = [];
+  // console.log("params:", params);
+
+  const pkToDelete: PrimaryKey[] = [];
 
   useEffect(() => {
-    const newPkToDelete = selectedRows.map((row) => ({
-      pk1: entities[row][EnumGrid.cargo_id],
-      pk2: entities[row][EnumGrid.funcionalidad_id],
+    const newPkToDelete = selectedRows.map((row: number) => ({
+      pk1: entities[row][EnumGrid.ID],
     }));
-    newPkToDelete.forEach((newPk) => {
-      if (
-        !pkToDelete.some(
-          (existingPk) =>
-            existingPk.pk1 === newPk.pk1 && existingPk.pk2 === newPk.pk2
-        )
-      ) {
+    newPkToDelete.forEach((newPk: { pk1: any }) => {
+      if (!pkToDelete.some((existingPk) => existingPk.pk1 === newPk.pk1)) {
         pkToDelete.push(newPk);
       }
     });
-    // console.log("newObject:",Object.keys(pkToDelete[0]).length);
   }, [selectedRows]);
 
   return (
     <div className="mantenedorContainer">
-      <h1 className="mantenedorH1">Mantenedor de Perfiles de Cargo</h1>
+      <h1 className="mantenedorH1">Usuarios</h1>
 
-      <div className="mantenedorHead">
+      <div className="mantenedorHead width70">
         <PrimaryKeySearch
           baseUrl={strBaseUrl}
           setParams={setParams}
           updateParams={updateParams}
           setEntities={setEntities}
           primaryKeyInputs={[
+            { name: "_p1", label: "Nombre", type: "text" },
             {
               name: "_p2",
-              label: "Cargo",
+              label: "Cargos",
               type: "select",
               selectUrl: "/api/cargos/",
-            },
-            {
-              name: "_p3",
-              label: "Funcionalidad",
-              type: "select",
-              selectUrl: "/api/funcionalidades/",
             },
           ]}
         />
@@ -107,7 +98,6 @@ const PerfilesMantenedor: React.FC = () => {
           handleAddPerson={openModal}
           handleDeleteSelected={handleDeleteSelected}
           handleRefresh={resetEntities}
-          handlePageSize={handlePageSize}
           params={params}
           pkToDelete={pkToDelete}
           strEntidad={strEntidadExcel}
@@ -126,19 +116,19 @@ const PerfilesMantenedor: React.FC = () => {
           handleSelectedCheckedAll={handleSelectedAll}
           toggleEditModal={toggleEditModal}
           handleDeleteSelected={handleDeleteSelected}
-          pkToDelete={pkToDelete}
           selectedRows={selectedRows}
+          pkToDelete={pkToDelete}
           setSelectedRows={setSelectedRows}
           entidad={strEntidad}
           data={entities}
-          tableHead={table_head_perfiles}
+          tableHead={table_head_usuarios}
           showEditButton={true}
           showDeleteButton={false}
         />
       </>
 
       {isModalInsert && (
-        <PerfilesForm
+        <FUsuarios
           label={`Crear ${strEntidad}`}
           closeModal={closeModal}
           selectedRows={selectedRows}
@@ -149,7 +139,7 @@ const PerfilesMantenedor: React.FC = () => {
       )}
 
       {isModalEdit && (
-        <PerfilesForm
+        <FUsuarios
           label={`Editar ${strEntidad}`}
           selectedRows={selectedRows}
           setEntities={setEntities}
@@ -163,4 +153,4 @@ const PerfilesMantenedor: React.FC = () => {
   );
 };
 
-export default PerfilesMantenedor;
+export default MUsuarios;

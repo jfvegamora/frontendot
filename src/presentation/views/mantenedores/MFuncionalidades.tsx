@@ -1,30 +1,21 @@
-/* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable react-hooks/exhaustive-deps */
-
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useEntityUtils } from "../../hooks";
 import {
   PrimaryButtonsComponent,
   PrimaryKeySearch,
   TableComponent,
 } from "../../components";
-import { table_head_cargos } from "../../utils";
-import CargosForm from "../forms/CargosForm";
+import { table_head_funcionalidades } from "../../utils";
+import FFuncionalidad from "../forms/FFuncionalidades";
+// import FCargos, { ICargosInputData } from "../forms/FCargos";
 
-const strEntidad = "Cargo ";
-const strEntidadExcel = "Cargos";
-const strBaseUrl = "/api/cargos/";
+const strEntidad = "Funcionalidades ";
+const strEntidadExcel = "Funcionalidades";
+const strBaseUrl = "/api/funcionalidades/";
 const strQuery = "01";
-export enum EnumGrid {
-  ID = 1,
-  nombre = 2,
-}
-type PrimaryKey = {
-  pk1: number;
-};
 
-const CargosMantenedor: React.FC = () => {
+const MCargos: React.FC = () => {
   // const { createdEntity, editEntity } = useCrud(strBaseUrl);
   const [params, setParams] = useState([]);
 
@@ -53,38 +44,32 @@ const CargosMantenedor: React.FC = () => {
     resetEntities,
   } = useEntityUtils(strBaseUrl, strQuery);
 
-  const pkToDelete: PrimaryKey[] = [];
-
-  useEffect(() => {
-    const newPkToDelete = selectedRows.map((row) => ({
-      pk1: entities[row][EnumGrid.ID],
-    }));
-    newPkToDelete.forEach((newPk) => {
-      if (!pkToDelete.some((existingPk) => existingPk.pk1 === newPk.pk1)) {
-        pkToDelete.push(newPk);
-      }
-    });
-  }, [selectedRows]);
-
   return (
     <div className="mantenedorContainer">
-      <h1 className="mantenedorH1">Mantenedor de Cargos</h1>
+      <h1 className="mantenedorH1">Funcionalidades</h1>
 
-      <div className="mantenedorHead width70">
+      <div className="mantenedorHead">
         <PrimaryKeySearch
           baseUrl={strBaseUrl}
           updateParams={updateParams}
           setParams={setParams}
           setEntities={setEntities}
-          primaryKeyInputs={[{ name: "_p1", label: "Cargo", type: "text" }]}
+          primaryKeyInputs={[
+            { name: "_p1", label: "Funcionalidad", type: "text" },
+            // {
+            //   name: "_p2",
+            //   label: "Funcionalidad2",
+            //   type: "select",
+            //   selectUrl: "/api/usuarios/",
+            // },
+          ]}
         />
 
-        <PrimaryButtonsComponent 
+        <PrimaryButtonsComponent
           handleAddPerson={openModal}
           handleDeleteSelected={handleDeleteSelected}
           handleRefresh={resetEntities}
           params={params}
-          pkToDelete={pkToDelete}
           strEntidad={strEntidadExcel}
           strBaseUrl={strBaseUrl}
           showAddButton={true}
@@ -104,16 +89,15 @@ const CargosMantenedor: React.FC = () => {
           selectedRows={selectedRows}
           setSelectedRows={setSelectedRows}
           entidad={strEntidad}
-          pkToDelete={pkToDelete}
           data={entities}
-          tableHead={table_head_cargos}
+          tableHead={table_head_funcionalidades}
           showEditButton={true}
           showDeleteButton={false}
         />
       </div>
 
       {isModalInsert && (
-        <CargosForm
+        <FFuncionalidad
           label={`Crear ${strEntidad}`}
           closeModal={closeModal}
           selectedRows={selectedRows}
@@ -123,7 +107,7 @@ const CargosMantenedor: React.FC = () => {
         />
       )}
       {isModalEdit && (
-        <CargosForm
+        <FFuncionalidad
           label={`Editar ${strEntidad}`}
           closeModal={closeModal}
           selectedRows={selectedRows}
@@ -137,4 +121,4 @@ const CargosMantenedor: React.FC = () => {
   );
 };
 
-export default CargosMantenedor;
+export default MCargos;

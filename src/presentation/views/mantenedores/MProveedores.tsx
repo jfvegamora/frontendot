@@ -1,67 +1,76 @@
+/* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState } from "react";
-import { useEntityUtils } from "../../hooks";
+
 import {
   PrimaryButtonsComponent,
   PrimaryKeySearch,
   TableComponent,
-} from "../../components";
-import { table_head_funcionalidades } from "../../utils";
-import FuncionalidadForm from "../forms/FuncionalidadForm";
-// import CargosForm, { ICargosInputData } from "../forms/CargosForm";
+} from "../../components/index.ts";
+import { useEntityUtils } from "../../hooks/index.ts";
+import { table_head_proveedores } from "../../utils/index.ts";
+import FProveedores from "../forms/FProveedores.tsx";
+import { TITLES } from "../../utils/text_utils.ts";
 
-const strEntidad = "Funcionalidades ";
-const strEntidadExcel = "Funcionalidades";
-const strBaseUrl = "/api/funcionalidades/";
+export enum EnumGrid {
+  ID = 1,
+  Rut = 2,
+  Nombre = 3,
+  Direccion = 4,
+  Telefono = 5,
+  Correo = 6,
+  Sitio_Web = 7,
+}
+const strEntidad = "Proveedor ";
+const strEntidadExcel = "Proveedores";
+const strBaseUrl = "/api/proveedores/";
 const strQuery = "01";
 
-const CargosMantenedor: React.FC = () => {
-  // const { createdEntity, editEntity } = useCrud(strBaseUrl);
+const MProveedores: React.FC = () => {
   const [params, setParams] = useState([]);
 
-  const updateParams = (newParams: Record<string, never>) => {
-    setParams(Object.keys(newParams).map((key) => newParams[key]));
+  const updateParams = (newParams: any) => {
+    setParams(newParams);
   };
 
   const {
-    //Entities State
+    //entities state
     entities,
-    entity,
     setEntities,
-    selectedRows,
-    setSelectedRows,
-    //Modal Methds
-    openModal,
-    closeModal,
+    entity,
+    //modal methods
     isModalInsert,
     isModalEdit,
     toggleEditModal,
-
-    //Check/Buttons Methods
-    handleDeleteSelected,
+    openModal,
+    closeModal,
+    //Check methods
     handleSelect,
+    selectedRows,
+    setSelectedRows,
     handleSelectedAll,
+    //primary buttons methods
+    handleDeleteSelected,
     resetEntities,
   } = useEntityUtils(strBaseUrl, strQuery);
+  // console.log("entities:", entities);
+
+  // console.log("params:", params);
 
   return (
     <div className="mantenedorContainer">
-      <h1 className="mantenedorH1">Mantenedor de Funcionalidades</h1>
+      <h1 className="mantenedorH1">{TITLES.proveedores}</h1>
 
-      <div className="mantenedorHead">
+      <div className="mantenedorHead width70">
         <PrimaryKeySearch
           baseUrl={strBaseUrl}
-          updateParams={updateParams}
           setParams={setParams}
+          updateParams={updateParams}
           setEntities={setEntities}
           primaryKeyInputs={[
-            { name: "_p1", label: "Funcionalidad", type: "text" },
-            // {
-            //   name: "_p2",
-            //   label: "Funcionalidad2",
-            //   type: "select",
-            //   selectUrl: "/api/usuarios/",
-            // },
+            { name: "_p1", label: "RUT", type: "text" },
+            { name: "_p3", label: "Nombre", type: "text" },
           ]}
         />
 
@@ -80,7 +89,7 @@ const CargosMantenedor: React.FC = () => {
         />
       </div>
 
-      <>
+      <div className="width90">
         <TableComponent
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
@@ -90,15 +99,15 @@ const CargosMantenedor: React.FC = () => {
           setSelectedRows={setSelectedRows}
           entidad={strEntidad}
           data={entities}
-          tableHead={table_head_funcionalidades}
+          tableHead={table_head_proveedores}
           showEditButton={true}
           showDeleteButton={true}
         />
-      </>
+      </div>
 
       {isModalInsert && (
-        <FuncionalidadForm
-          label={`Crear ${strEntidad}`}
+        <FProveedores
+          label={`${TITLES.nuevo} ${strEntidad}`}
           closeModal={closeModal}
           selectedRows={selectedRows}
           setEntities={setEntities}
@@ -106,14 +115,15 @@ const CargosMantenedor: React.FC = () => {
           isEditting={false}
         />
       )}
+
       {isModalEdit && (
-        <FuncionalidadForm
-          label={`Editar ${strEntidad}`}
-          closeModal={closeModal}
+        <FProveedores
+          label={`${TITLES.editar} ${strEntidad}`}
           selectedRows={selectedRows}
           setEntities={setEntities}
-          data={entity}
           params={params}
+          data={entity}
+          closeModal={closeModal}
           isEditting={true}
         />
       )}
@@ -121,4 +131,4 @@ const CargosMantenedor: React.FC = () => {
   );
 };
 
-export default CargosMantenedor;
+export default MProveedores;

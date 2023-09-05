@@ -8,7 +8,7 @@ export const table_head_cargos = [
   {
     cell: "ID",
     key: "id",
-    visible: true,
+    visible: false,
   },
   {
     cell: "Nombre",
@@ -16,7 +16,7 @@ export const table_head_cargos = [
     visible: true,
   },
   {
-    cell: "Opciones",
+    cell: "",
     key: "opciones",
     visible: true,
   },
@@ -32,7 +32,7 @@ export const table_head_perfiles = [
   {
     cell: "ID_CARGO",
     key: "id_cargo",
-    visible: true,
+    visible: false,
   },
   {
     cell: "Cargo",
@@ -42,7 +42,7 @@ export const table_head_perfiles = [
   {
     cell: "ID_FUNCIONALIDAD",
     key: "id_funcionalidad",
-    visible: true,
+    visible: false,
   },
   {
     cell: "Funcionalidad",
@@ -52,6 +52,11 @@ export const table_head_perfiles = [
   {
     cell: "Permiso",
     key: "permiso",
+    visible: true,
+  },
+  {
+    cell: "",
+    key: "opciones",
     visible: true,
   },
 ];
@@ -66,7 +71,7 @@ export const table_head_usuarios = [
   {
     cell: "ID",
     key: "id",
-    visible: true,
+    visible: false,
   },
   {
     cell: "Nombre",
@@ -99,7 +104,7 @@ export const table_head_usuarios = [
     visible: true,
   },
   {
-    cell: "Opciones",
+    cell: "",
     key: "opciones",
     visible: true,
   },
@@ -147,7 +152,7 @@ export const table_head_funcionalidades = [
     visible: true,
   },
   {
-    cell: "Opciones",
+    cell: "",
     key: "opciones",
     visible: true,
   },
@@ -155,7 +160,7 @@ export const table_head_funcionalidades = [
 
 export const table_head_proveedores = [
   {
-    cell: <input type="checkbox"/>,
+    cell: <input type="checkbox" />,
     key: "checkbox",
     visible: true,
   },
@@ -195,7 +200,7 @@ export const table_head_proveedores = [
     visible: true,
   },
   {
-    cell: "Opciones",
+    cell: "",
     key: "opciones",
     visible: true,
   },

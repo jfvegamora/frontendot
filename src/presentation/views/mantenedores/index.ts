@@ -1,4 +1,4 @@
-export { default as CargosMantenedor } from "./CargosMantenedor";
-export { default as PermisosMantenedor } from "./PermisosMantenedor";
-export { default as UsuariosMantenedor } from "./UsuariosMantenedor";
+export { default as MCargos } from "./MCargos";
+export { default as MPermisos } from "./MPermisos";
+export { default as MUsuarios } from "./MUsuarios";
 export * from "./index";
