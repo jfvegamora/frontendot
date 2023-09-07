@@ -1,3 +1,6 @@
+/************ MENU OT ************/
+
+/************ MENU BODEGA ************/
 export const table_head_cristales = [
   {
     cell: <input type="checkbox" />,
@@ -96,7 +99,57 @@ export const table_head_cristales = [
   },
 ];
 
-// Para la tabla Cargos
+export const table_head_proveedores = [
+  {
+    cell: <input type="checkbox" />,
+    key: "checkbox",
+    visible: true,
+  },
+  {
+    cell: "ID",
+    key: "id",
+    visible: false,
+  },
+  {
+    cell: "RUT",
+    key: "rut",
+    visible: true,
+  },
+  {
+    cell: "Nombre",
+    key: "nombre",
+    visible: true,
+  },
+  {
+    cell: "Dirección",
+    key: "direccion",
+    visible: true,
+  },
+  {
+    cell: "Teléfono",
+    key: "telefono",
+    visible: true,
+  },
+  {
+    cell: "Correo",
+    key: "correo",
+    visible: true,
+  },
+  {
+    cell: "Sitio Web",
+    key: "sitio_web",
+    visible: true,
+  },
+  {
+    cell: "",
+    key: "opciones",
+    visible: true,
+  },
+];
+
+/************ MENU PROYECTOS ************/
+
+/************ MENU SISTEMA ************/
 export const table_head_cargos = [
   {
     cell: <input type="checkbox" />,
@@ -120,7 +173,6 @@ export const table_head_cargos = [
   },
 ];
 
-// Para la tabla Perfiles
 export const table_head_perfiles = [
   {
     cell: <input type="checkbox" />,
@@ -159,7 +211,6 @@ export const table_head_perfiles = [
   },
 ];
 
-// Para la tabla Usuarios
 export const table_head_usuarios = [
   {
     cell: <input type="checkbox" />,
@@ -208,7 +259,6 @@ export const table_head_usuarios = [
   },
 ];
 
-// Para la tabla Permisos
 export const table_head_permisos = [
   {
     cell: <input type="checkbox" />,
@@ -216,23 +266,37 @@ export const table_head_permisos = [
     visible: true,
   },
   {
-    cell: "Usuario",
+    cell: "ID_USUARIO",
+    key: "id_usuario",
+    visible: false,
+  },
+  {
+    cell: "USUARIO",
     key: "usuario",
     visible: true,
   },
   {
-    cell: "Funcionalidad",
+    cell: "ID_FUNCIONALIDAD",
+    key: "id_funcionalidad",
+    visible: false,
+  },
+  {
+    cell: "FUNCIONALIDAD",
     key: "funcionalidad",
     visible: true,
   },
   {
-    cell: "Permiso",
+    cell: "PERMISO",
     key: "permiso",
+    visible: true,
+  },
+  {
+    cell: "",
+    key: "opciones",
     visible: true,
   },
 ];
 
-// Para la tabla Cargos
 export const table_head_funcionalidades = [
   {
     cell: <input type="checkbox" />,
@@ -256,50 +320,3 @@ export const table_head_funcionalidades = [
   },
 ];
 
-export const table_head_proveedores = [
-  {
-    cell: <input type="checkbox" />,
-    key: "checkbox",
-    visible: true,
-  },
-  {
-    cell: "ID",
-    key: "id",
-    visible: false,
-  },
-  {
-    cell: "RUT",
-    key: "rut",
-    visible: true,
-  },
-  {
-    cell: "Nombre",
-    key: "nombre",
-    visible: true,
-  },
-  {
-    cell: "Dirección",
-    key: "direccion",
-    visible: true,
-  },
-  {
-    cell: "Teléfono",
-    key: "telefono",
-    visible: true,
-  },
-  {
-    cell: "Correo",
-    key: "correo",
-    visible: true,
-  },
-  {
-    cell: "Sitio Web",
-    key: "sitio_web",
-    visible: true,
-  },
-  {
-    cell: "",
-    key: "opciones",
-    visible: true,
-  },
-];

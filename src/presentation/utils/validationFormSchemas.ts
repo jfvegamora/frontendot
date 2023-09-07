@@ -16,7 +16,7 @@ export const validationUserSchema = (isEditting: boolean | undefined) =>
     // password2: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
   });
 
-export const validationResetPasswordSchema = () =>
+  export const validationResetPasswordSchema = () =>
   yup.object().shape({
     password: yup.string().required(`${msg}`),
     confirmPassword: yup.string().required(`${msg}`),
@@ -40,6 +40,14 @@ export const validationFuncionalidadSchema = (
 export const validationPerfilesSchema = (isEditting: boolean | undefined) =>
   yup.object().shape({
     cargo: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
+    funcionalidad: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
+    permiso: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
+  });
+
+//Schema PERMISOS DE USUARIO
+export const validationPermisosSchema = (isEditting: boolean | undefined) =>
+  yup.object().shape({
+    usuario: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
     funcionalidad: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
     permiso: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
   });
