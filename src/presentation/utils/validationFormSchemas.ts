@@ -2,7 +2,39 @@ import * as yup from "yup";
 
 const msg = "Requerido";
 
-// Schema USUSARIO
+/*************** O T ***************/
+
+
+/*************** B O D E G A ***************/
+// Schema PROVEEDORES
+export const validationProveedoresSchema = (isEditting: boolean | undefined) =>
+  yup.object().shape({
+    rut: yup.string(),
+    nombre: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
+    direccion: yup.string(),
+    telefono: yup.string(),
+    correo: yup.string().email(),
+    sitio_web: yup.string(),
+  });
+
+
+/*************** P R O Y E C T O S ***************/
+
+
+  /*************** S I S T E M A ***************/
+// Schema CARGOS
+export const validationCargosSchema = (isEditting: boolean | undefined) =>
+  yup.object().shape({
+    nombre: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
+  });
+
+// Schema FUNCIONALIDADES
+export const validationFuncionalidadSchema = (isEditting: boolean | undefined) =>
+  yup.object().shape({
+    descripcion: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
+  });
+
+// Schema USUSARIOS
 export const validationUserSchema = (isEditting: boolean | undefined) =>
   yup.object().shape({
     nombre: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
@@ -14,26 +46,6 @@ export const validationUserSchema = (isEditting: boolean | undefined) =>
       : yup.string(),
     estado: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
     // password2: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-  });
-
-  export const validationResetPasswordSchema = () =>
-  yup.object().shape({
-    password: yup.string().required(`${msg}`),
-    confirmPassword: yup.string().required(`${msg}`),
-  });
-
-// Schema CARGOS
-export const validationCargosSchema = (isEditting: boolean | undefined) =>
-  yup.object().shape({
-    nombre: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-  });
-
-// Schema FUNCIONALIDADES
-export const validationFuncionalidadSchema = (
-  isEditting: boolean | undefined
-) =>
-  yup.object().shape({
-    descripcion: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
   });
 
 //Schema PERFILES DE CARGOS
@@ -52,15 +64,11 @@ export const validationPermisosSchema = (isEditting: boolean | undefined) =>
     permiso: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
   });
 
-// Schema PROVEEDORES
-export const validationProveedoresSchema = (isEditting: boolean | undefined) =>
+/*************** L O G I N ***************/
+export const validationResetPasswordSchema = () =>
   yup.object().shape({
-    rut: yup.string(),
-    nombre: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    direccion: yup.string(),
-    telefono: yup.string(),
-    correo: yup.string().email(),
-    sitio_web: yup.string(),
+    password: yup.string().required(`${msg}`),
+    confirmPassword: yup.string().required(`${msg}`),
   });
 
 // Schema LOGIN

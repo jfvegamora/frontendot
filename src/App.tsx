@@ -85,28 +85,15 @@ function App() {
                   />
                   <Route path={PrivateRoutes.HOME} element={<Home />} />
 
-                  <Route path={PrivateRoutes.CARGOS} element={<MCargos />} />
-                  <Route
-                    path={PrivateRoutes.USUARIOS}
-                    element={<MUsuarios />}
-                  />
-                  <Route
-                    path={PrivateRoutes.FUNCIONALIDADES}
-                    element={<MFuncionalidades />}
-                  />
-                  <Route
-                    path={PrivateRoutes.PERFILES}
-                    element={<MPerfiles />}
-                  />
-                  <Route
-                    path={PrivateRoutes.PERMISOS}
-                    element={<MPermisos />}
-                  />
-                  <Route
-                    path={PrivateRoutes.PROVEEDORES}
-                    element={<MProveedores />}
-                  />
-                  {/* <Route path={PrivateRoutes.CRISTALES} element={<MCristales />} />  */}
+         
+
+                <Route path={PrivateRoutes.CARGOS} element={<MCargos />} />
+                <Route path={PrivateRoutes.USUARIOS} element={<MUsuarios />} />
+                <Route path={PrivateRoutes.FUNCIONALIDADES} element={<MFuncionalidades />} />
+                <Route path={PrivateRoutes.PERFILES} element={<MPerfiles />} />
+                <Route path={PrivateRoutes.PERMISOS} element={<MPermisos />} />
+                <Route path={PrivateRoutes.PROVEEDORES} element={<MProveedores />} />
+                {/* <Route path={PrivateRoutes.CRISTALES} element={<MCristales />} />  */}
                 </Route>
               </RoutesWithNotFound>
             </BrowserRouter>
