@@ -66,7 +66,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
 
     return (
       <table className="gridContainer">
-        <thead>
+        <thead className="gridTop">
           <tr>
             {tableHead &&
               tableHead.map((column, index) => {
@@ -90,7 +90,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
               })}
           </tr>
         </thead>
-        <tbody>
+        <tbody className="gridData">
           {data &&
             data.map((rowData: any, rowIndex: number) => {
               // const id = [3, 3];

@@ -9,7 +9,7 @@ import {
   TableComponent,
 } from "../../components";
 import { useEntityUtils } from "../../hooks";
-import { table_head_perfiles } from "../../utils";
+import { TITLES, table_head_perfiles } from "../../utils";
 import FPerfiles from "../forms/FPerfiles";
 
 export enum EnumGrid {
@@ -140,7 +140,7 @@ const MPerfiles: React.FC = () => {
 
       {isModalInsert && (
         <FPerfiles
-          label={`Crear ${strEntidad}`}
+          label={`${TITLES.nuevo} ${strEntidad}`}
           closeModal={closeModal}
           selectedRows={selectedRows}
           setEntities={setEntities}
@@ -151,7 +151,7 @@ const MPerfiles: React.FC = () => {
 
       {isModalEdit && (
         <FPerfiles
-          label={`Editar ${strEntidad}`}
+          label={`${TITLES.editar} ${strEntidad}`}
           selectedRows={selectedRows}
           setEntities={setEntities}
           params={params}

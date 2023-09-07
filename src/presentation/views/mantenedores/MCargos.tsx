@@ -9,7 +9,7 @@ import {
   PrimaryKeySearch,
   TableComponent,
 } from "../../components";
-import { table_head_cargos } from "../../utils";
+import { TITLES, table_head_cargos } from "../../utils";
 import FCargos from "../forms/FCargos";
 
 const strEntidad = "Cargo ";
@@ -95,7 +95,7 @@ const MCargos: React.FC = () => {
         />
       </div>
 
-      <div className="width70">
+      <div className="width70" style={{ overflowX: 'auto', maxHeight: '400px' }}>
         <TableComponent
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
@@ -114,7 +114,7 @@ const MCargos: React.FC = () => {
 
       {isModalInsert && (
         <FCargos
-          label={`Crear ${strEntidad}`}
+          label={`${TITLES.nuevo} ${strEntidad}`}
           closeModal={closeModal}
           selectedRows={selectedRows}
           setEntities={setEntities}
@@ -122,9 +122,10 @@ const MCargos: React.FC = () => {
           isEditting={false}
         />
       )}
+
       {isModalEdit && (
         <FCargos
-          label={`Editar ${strEntidad}`}
+          label={`${TITLES.editar} ${strEntidad}`}
           closeModal={closeModal}
           selectedRows={selectedRows}
           setEntities={setEntities}

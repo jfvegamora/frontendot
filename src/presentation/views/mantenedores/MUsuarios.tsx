@@ -10,7 +10,7 @@ import {
 } from "../../components";
 import { useEntityUtils } from "../../hooks";
 import FUsuarios from "../forms/FUsuario";
-import { table_head_usuarios } from "../../utils";
+import { TITLES, table_head_usuarios } from "../../utils";
 
 export enum EnumGrid {
   ID = 1,
@@ -110,7 +110,7 @@ const MUsuarios: React.FC = () => {
         />
       </div>
 
-      <>
+      <div className="scroll">
         <TableComponent
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
@@ -125,11 +125,11 @@ const MUsuarios: React.FC = () => {
           showEditButton={true}
           showDeleteButton={false}
         />
-      </>
+      </div>
 
       {isModalInsert && (
         <FUsuarios
-          label={`Crear ${strEntidad}`}
+          label={`${TITLES.nuevo} ${strEntidad}`}
           closeModal={closeModal}
           selectedRows={selectedRows}
           setEntities={setEntities}
@@ -140,7 +140,7 @@ const MUsuarios: React.FC = () => {
 
       {isModalEdit && (
         <FUsuarios
-          label={`Editar ${strEntidad}`}
+          label={`${TITLES.editar} ${strEntidad}`}
           selectedRows={selectedRows}
           setEntities={setEntities}
           params={params}

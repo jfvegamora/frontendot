@@ -20,7 +20,10 @@ const Home = lazy(() => import("./presentation/pages/Home"));
 
 const Navbar = lazy(() => import("./presentation/components/ComplexNavbar"));
 
+const ResetPassword = lazy(() => import("./presentation/pages/ResetPassword"));
+
 const MCargos = lazy(() => import("./presentation/views/mantenedores/MCargos"));
+
 const MUsuarios = lazy(
   () => import("./presentation/views/mantenedores/MUsuarios")
 );
@@ -33,6 +36,11 @@ const MPerfiles = lazy(
 const MProveedores = lazy(
   () => import("./presentation/views/mantenedores/MProveedores")
 );
+
+const MCristales = lazy(
+  () => import("./presentation/views/mantenedores/MCristales")
+);
+
 // const EmpresasMantenedor = lazy(
 //   () => import("./presentation/views/mantenedores/EmpresasMantenedor")
 // );
@@ -66,6 +74,14 @@ function App() {
                   <Route
                     path={PrivateRoutes.PROVEEDORES}
                     element={<MProveedores />}
+                  />
+                  <Route
+                    path={PrivateRoutes.CRISTALES}
+                    element={<MCristales />}
+                  />
+                  <Route
+                    path={PrivateRoutes.ResetPassword}
+                    element={<ResetPassword />}
                   />
 
                   <Route path={PrivateRoutes.HOME} element={<Home />} />

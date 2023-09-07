@@ -12,4 +12,6 @@ export const PrivateRoutes = {
   FUNCIONALIDADES: "funcionalidades",
   PERFILES: "perfiles",
   PROVEEDORES: "proveedores",
+  CRISTALES: "cristales",
+  ResetPassword: "ResetPassword/:token",
 };

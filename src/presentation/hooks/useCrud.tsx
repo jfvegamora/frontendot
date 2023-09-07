@@ -22,8 +22,8 @@ const useCrud = (
 } => {
   const baseUrl = apiBaseUrl.startsWith("http")
     ? apiBaseUrl
-    : `https://mtoopticos.cl${apiBaseUrl}`;
-  // `http://127.0.0.1:8000${apiBaseUrl}`;
+    : // : `https://mtoopticos.cl${apiBaseUrl}`;
+      `http://127.0.0.1:8000${apiBaseUrl}`;
 
   const axiosInstance: AxiosInstance = axios.create({
     baseURL: baseUrl,
@@ -62,7 +62,7 @@ const useCrud = (
     strEntidad?: string
   ): Promise<void> => {
     try {
-      console.log("strEntidad", strEntidad);
+      console.log("primaryKey", primaryKey);
       const strUrl = primaryKey
         ? `/excel/?query=01&${primaryKey}`
         : "/excel/?query=01";

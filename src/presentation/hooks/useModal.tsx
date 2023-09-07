@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-empty-function */
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback } from "react";
 import Modal from "react-modal";
 
 const customStyles = {
@@ -35,23 +35,31 @@ export function useModal() {
     []
   );
   const closeModal = useCallback(() => {
-    setIsModalOpen(false);
+    console.log("close");
+    setIsModalOpen((prevIsModalOpen) => {
+      if (prevIsModalOpen) {
+        console.log("isModalOpen", prevIsModalOpen);
+        return false;
+      }
+      return prevIsModalOpen;
+    });
   }, []);
 
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (isModalOpen && event.key === "Enter") {
-        modalResolve(true);
-        closeModal();
-      }
-    };
+  // useEffect(() => {
+  //   const handleKeyDown = (event: KeyboardEvent) => {
+  //     if (isModalOpen && event.key === "Enter") {
+  //       // Ejecuta la lógica aquí (por ejemplo, cierra el modal y resuelve la promesa)
+  //       closeModal();
+  //       modalResolve(true);
+  //     }
+  //   };
 
-    document.addEventListener("keydown", handleKeyDown);
+  //   document.addEventListener("keydown", handleKeyDown);
 
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [isModalOpen, modalResolve, closeModal]);
+  //   return () => {
+  //     document.removeEventListener("keydown", handleKeyDown);
+  //   };
+  // }, [isModalOpen, modalResolve, closeModal]);
   const CustomModal = useCallback(
     () => (
       <Modal
@@ -69,8 +77,8 @@ export function useModal() {
           <button
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mr-2 rounded w-[7rem]"
             onClick={() => {
-              modalResolve(true);
               closeModal();
+              modalResolve(true);
             }}
           >
             {params[0]}
@@ -78,8 +86,8 @@ export function useModal() {
           <button
             className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 mx-2 rounded w-[7rem]"
             onClick={() => {
-              modalResolve(false);
               closeModal();
+              modalResolve(false);
             }}
           >
             {params[1]}

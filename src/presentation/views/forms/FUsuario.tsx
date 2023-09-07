@@ -154,10 +154,10 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                 : strEntidad.concat(ERROR_MESSAGES.create)
               : errorResponse;
           toast.error(errorMessage);
+          return;
         }
 
         if (!blnKeep && !isEditting && !errorResponse) {
-          // const result = window.confirm("¿Quieres continuar ingresando?");
           const result = await showModal(
             MODAL.keep,
             MODAL.keepYes,
@@ -201,6 +201,38 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
       };
     }, [closeModal]);
 
+    // const handleSaveChange = React.useCallback(
+    //   async (data: InputData, isEditting: boolean) => {
+    //     try {
+    //       let transformedData = null;
+
+    //       if (isEditting) {
+    //         transformedData = transformUpdateQuery(data, intId.toString());
+    //       } else {
+    //         transformedData = transformInsertQuery(data);
+    //       }
+
+    //       const isDataValid =
+    //         transformedData &&
+    //         (!isEditting || intId) && // Requiere intId si está editando
+    //         data.nombre && // Agregar otras condiciones para los campos requeridos
+    //         data.cargo; // Agregar otras condiciones para los campos requeridos
+
+    //       if (isDataValid) {
+    //         const response = isEditting
+    //           ? await editEntity(transformedData)
+    //           : await createdEntity(transformedData);
+    //         handleApiResponse(response, isEditting);
+    //       } else {
+    //         toast.error("Por favor, complete todos los campos requeridos.");
+    //       }
+    //     } catch (error: any) {
+    //       toast.error(error);
+    //     }
+    //   },
+    //   [editEntity, createdEntity, handleApiResponse, intId]
+    // );
+
     const handleSaveChange = React.useCallback(
       async (data: InputData, isEditting: boolean) => {
         try {
@@ -234,6 +266,12 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
 
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))}
+          // onSubmit={(e) => {
+          //   e.preventDefault();
+          //   if (!isModalOpen) {
+          //     handleSubmit((data) => handleSaveChange(data, isEditting))(e);
+          //   }
+          // }}
           className="userFormulario"
         >
           <div className="userFormularioContainer">
@@ -256,7 +294,6 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                 entidad={["/api/cargos/", "02"]}
                 error={!isEditting && errors.cargo}
                 customWidth={"345px"}
-                readOnly={isEditting}
               />
               {/* <SelectInputComponent
                 label="TipoInsumos"
@@ -282,6 +319,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
               data={data && data[EnumGrid.Correo]}
               control={control}
               error={!isEditting && errors.correo}
+              onlyRead={isEditting}
             />
 
             <RadioButtonComponent
@@ -293,20 +331,6 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
               error={!isEditting && errors.estado}
               // horizontal={true}
             />
-            {/* <TextInputComponent
-              type="password"
-              label="Password"
-              name="password"
-              control={control}
-              error={!isEditting && errors.password}
-            />
-            <TextInputComponent
-              type="password"
-              label="Confirmar Password"
-              name="password2"
-              control={control}
-              error={!isEditting && errors.password}
-            /> */}
           </div>
 
           <button type="submit" className="userFormBtnSubmit">

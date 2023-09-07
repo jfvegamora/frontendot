@@ -1,20 +1,28 @@
+/* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect } from "react";
 import { useEntityUtils } from "../../hooks";
 import {
   PrimaryButtonsComponent,
   PrimaryKeySearch,
   TableComponent,
 } from "../../components";
-import { table_head_funcionalidades } from "../../utils";
+import { TITLES, table_head_funcionalidades } from "../../utils";
 import FFuncionalidad from "../forms/FFuncionalidades";
 // import FCargos, { ICargosInputData } from "../forms/FCargos";
 
-const strEntidad = "Funcionalidades ";
+const strEntidad = "Funcionalidad ";
 const strEntidadExcel = "Funcionalidades";
 const strBaseUrl = "/api/funcionalidades/";
 const strQuery = "01";
-
+export enum EnumGrid {
+  ID = 1,
+  nombre = 2,
+}
+type PrimaryKey = {
+  pk1: number;
+};
 const MCargos: React.FC = () => {
   // const { createdEntity, editEntity } = useCrud(strBaseUrl);
   const [params, setParams] = useState([]);
@@ -44,6 +52,19 @@ const MCargos: React.FC = () => {
     resetEntities,
   } = useEntityUtils(strBaseUrl, strQuery);
 
+  const pkToDelete: PrimaryKey[] = [];
+
+  useEffect(() => {
+    const newPkToDelete = selectedRows.map((row) => ({
+      pk1: entities[row][EnumGrid.ID],
+    }));
+    newPkToDelete.forEach((newPk) => {
+      if (!pkToDelete.some((existingPk) => existingPk.pk1 === newPk.pk1)) {
+        pkToDelete.push(newPk);
+      }
+    });
+  }, [selectedRows]);
+
   return (
     <div className="mantenedorContainer">
       <h1 className="mantenedorH1">Funcionalidades</h1>
@@ -70,6 +91,7 @@ const MCargos: React.FC = () => {
           handleDeleteSelected={handleDeleteSelected}
           handleRefresh={resetEntities}
           params={params}
+          pkToDelete={pkToDelete}
           strEntidad={strEntidadExcel}
           strBaseUrl={strBaseUrl}
           showAddButton={true}
@@ -88,6 +110,7 @@ const MCargos: React.FC = () => {
           handleDeleteSelected={handleDeleteSelected}
           selectedRows={selectedRows}
           setSelectedRows={setSelectedRows}
+          pkToDelete={pkToDelete}
           entidad={strEntidad}
           data={entities}
           tableHead={table_head_funcionalidades}
@@ -98,7 +121,7 @@ const MCargos: React.FC = () => {
 
       {isModalInsert && (
         <FFuncionalidad
-          label={`Crear ${strEntidad}`}
+          label={`${TITLES.nueva} ${strEntidad}`}
           closeModal={closeModal}
           selectedRows={selectedRows}
           setEntities={setEntities}
@@ -108,7 +131,7 @@ const MCargos: React.FC = () => {
       )}
       {isModalEdit && (
         <FFuncionalidad
-          label={`Editar ${strEntidad}`}
+          label={`${TITLES.editar} ${strEntidad}`}
           closeModal={closeModal}
           selectedRows={selectedRows}
           setEntities={setEntities}

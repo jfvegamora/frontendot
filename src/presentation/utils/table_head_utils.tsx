@@ -1,3 +1,101 @@
+export const table_head_cristales = [
+  {
+    cell: <input type="checkbox" />,
+    key: "checkbox",
+    visible: true,
+  },
+  {
+    cell: "Codigo",
+    key: "Codigo",
+    visible: true,
+  },
+  {
+    cell: "Marca_ID",
+    key: "Marca_id",
+    visible: true,
+  },
+  {
+    cell: "Marca",
+    key: "Marca",
+    visible: true,
+  },
+  {
+    cell: "PROVEEDOR",
+    key: "Proveedor",
+    visible: true,
+  },
+  {
+    cell: "DISEÑO_ID",
+    key: "Diseño_id",
+    visible: true,
+  },
+  {
+    cell: "Diseño",
+    key: "Diseño",
+    visible: true,
+  },
+  {
+    cell: "Indice_id",
+    key: "Indice_id",
+    visible: true,
+  },
+  {
+    cell: "Material_id",
+    key: "Material_id",
+    visible: true,
+  },
+  {
+    cell: "Material",
+    key: "Material",
+    visible: true,
+  },
+  {
+    cell: "Color_id",
+    key: "Color_id",
+    visible: true,
+  },
+  {
+    cell: "Color",
+    key: "Color_id",
+    visible: true,
+  },
+  {
+    cell: "Tratamiento_id",
+    key: "Tratamiento_id",
+    visible: true,
+  },
+  {
+    cell: "Tratamiento",
+    key: "Tratamiento",
+    visible: true,
+  },
+  {
+    cell: "ESF",
+    key: "ESF",
+    visible: true,
+  },
+  {
+    cell: "CIL",
+    key: "CIL",
+    visible: true,
+  },
+  {
+    cell: "Diametro",
+    key: "Diametro",
+    visible: true,
+  },
+  {
+    cell: "Stock_Minimo",
+    key: "Stock_Minimo",
+    visible: true,
+  },
+  {
+    cell: "",
+    key: "opciones",
+    visible: true,
+  },
+];
+
 // Para la tabla Cargos
 export const table_head_cargos = [
   {

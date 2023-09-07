@@ -36,14 +36,37 @@ export const ExportCSV: React.FC<Props> = ({
   const [exportTable, setExportTable] = useState(false);
 
   const { exportEntity } = useCrud(strBaseUrl);
+  let queryString = "";
 
-  const paramNames = ["_p1", "_p2", "_p3", "_p4"];
-  const queryString = params
-    .map((value: string, index: any) =>
-      value !== "" ? `${paramNames[index]}=${value}` : ""
-    )
-    .filter((param: string) => param !== "")
-    .join("&");
+  // console.log("params", params);
+
+  // if (params) {
+  //   const paramNames = ["_p1", "_p2", "_p3", "_p4"];
+  //   queryString = params
+  //     .map((value: string, index: any) =>
+  //       value !== "" ? `${paramNames[index]}=${value}` : ""
+  //     )
+  //     .filter((param: string) => param !== "")
+  //     .join("&");
+
+  //   console.log("queryString", queryString);
+  // }
+  if (params) {
+    const paramNames = ["_p1", "_p2", "_p3", "_p4"];
+    queryString = params
+      .map((value: string | string[], index: number) => {
+        const paramName = paramNames[index];
+        if (value.includes(`${paramName}=`)) {
+          // El valor ya contiene el nombre del parámetro, no lo agregamos nuevamente.
+          return value;
+        }
+        return value !== "" ? `${paramName}=${value}` : "";
+      })
+      .filter((param: string) => param !== "")
+      .join("&");
+
+    // console.log("queryString", queryString);
+  }
 
   const handleExport = (exportAll: boolean) => {
     setisModalInsert(false);
@@ -58,7 +81,7 @@ export const ExportCSV: React.FC<Props> = ({
 
   useEffect(() => {
     if (exportAll) {
-      console.log("strEntidad", strEntidad);
+      // console.log("strEntidad", strEntidad);
       exportEntity("", strEntidad)
         .then(() => {
           toast(EXCEL.download);
