@@ -146,14 +146,15 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
     const handleApiResponse = React.useCallback(
       async (response: any, isEditting: boolean) => {
         const errorResponse = response?.response?.data.error;
-        if (errorResponse) {
+        console.log("response", response);
+        if (errorResponse || response.code === "ERR_BAD_RESPONSE") {
           const errorMessage =
             errorResponse === "IntegrityError"
               ? isEditting
                 ? strEntidad.concat(ERROR_MESSAGES.edit)
                 : strEntidad.concat(ERROR_MESSAGES.create)
               : errorResponse;
-          toast.error(errorMessage);
+          toast.error(errorMessage ? errorMessage : response.code);
           return;
         }
 
