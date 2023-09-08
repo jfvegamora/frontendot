@@ -22,28 +22,42 @@ const Navbar = lazy(() => import("./presentation/components/ComplexNavbar"));
 
 const ResetPassword = lazy(() => import("./presentation/pages/ResetPassword"));
 
-const MCargos = lazy(() => import("./presentation/views/mantenedores/MCargos"));
+const pathMant = "./presentation/views/mantenedores/";
 
-const MUsuarios = lazy(
-  () => import("./presentation/views/mantenedores/MUsuarios")
-);
-const MFuncionalidades = lazy(
-  () => import("./presentation/views/mantenedores/MFuncionalidades")
-);
-const MPerfiles = lazy(
-  () => import("./presentation/views/mantenedores/MPerfiles")
-);
-const MProveedores = lazy(
-  () => import("./presentation/views/mantenedores/MProveedores")
-);
+// MENU OT
+//const MOT = lazy(() => import(pathMant + "MOT"));
+//const MClientes = lazy(() => import(pathMant + "MClientes"));
+//const MEstablecimientos = lazy(() => import(pathMant + "MEstablecimientos"));
+//const MPuntosVenta = lazy(() => import(pathMant + "MPuntosVenta"));
 
-const MCristales = lazy(
-  () => import("./presentation/views/mantenedores/MCristales")
-);
+// MENU BODEGA
+// const MArmazones = lazy(() => import(pathMant + "MArmazones"));
+// const MArmazonesKardex = lazy(() => import(pathMant + "MArmazonesKardex"));
+// const MCristales = lazy(() => import(pathMant + "MCristales"));
+// const MCristalesKardex = lazy(() => import(pathMant + "MCristalesKardex"));
+// const MAccesorios = lazy(() => import(pathMant + "MAccesorios"));
+// const MAccesoriosKardex = lazy(() => import(pathMant + "MAccesoriosKardex"));
+// const MAlmacenes = lazy(() => import(pathMant + "MAlmacenes"));
+// const MMarcas = lazy(() => import(pathMant + "MMarcas"));
+const MProveedores = lazy(() => import(pathMant + "MProveedores"));
 
-// const EmpresasMantenedor = lazy(
-//   () => import("./presentation/views/mantenedores/EmpresasMantenedor")
-// );
+// MENU PROYECTOS
+// const MMandantes = lazy(() => import(pathMant + "MMandantes"));
+// const MProyectos = lazy(() => import(pathMant + "MProyectos"));
+// const MParamArmazones = lazy(() => import(pathMant + "MParamArmazones"));
+// const MParamGrupos = lazy(() => import(pathMant + "MParamGrupos"));
+// const MParamDirecciones = lazy(() => import(pathMant + "MParamDirecciones"));
+// const MReporteAtencion = lazy(() => import(pathMant + "MReporteAtencion"));
+// const MReporteFirmas = lazy(() => import(pathMant + "MReporteFirmas"));
+// const MOftalmologos = lazy(() => import(pathMant + "MOftalmologos"));
+
+// MENU SISTEMA
+const MFuncionalidades = lazy(() => import(pathMant + "MFuncionalidades"));
+const MCargos = lazy(() => import(pathMant + "MCargos"));
+const MUsuarios = lazy(() => import(pathMant + "MUsuarios"));
+const MPerfiles = lazy(() => import(pathMant + "MPerfiles"));
+const MPermisos = lazy(() => import(pathMant + "MPermisos"));
+//const MEmpresas = lazy(() => import(pathMant + "/MEmpresas"));
 
 function App() {
   return (
@@ -55,41 +69,20 @@ function App() {
               <ToastContainer />
               <Navbar />
               <RoutesWithNotFound>
+              <Route element={<AuthGuard privateValidation={true} />}>
                 <Route path={PublicRoutes.LOGIN} element={<Login />} />
-                <Route element={<AuthGuard privateValidation={true} />}>
-                  <Route path={PrivateRoutes.PRIVATE} element={<MCargos />} />
-                  <Route path={PrivateRoutes.CARGOS} element={<MCargos />} />
-                  <Route
-                    path={PrivateRoutes.USUARIOS}
-                    element={<MUsuarios />}
-                  />
-                  <Route
-                    path={PrivateRoutes.FUNCIONALIDADES}
-                    element={<MFuncionalidades />}
-                  />
-                  <Route
-                    path={PrivateRoutes.PERFILES}
-                    element={<MPerfiles />}
-                  />
-                  <Route
-                    path={PrivateRoutes.PROVEEDORES}
-                    element={<MProveedores />}
-                  />
-                  <Route
-                    path={PrivateRoutes.CRISTALES}
-                    element={<MCristales />}
-                  />
-                  <Route
-                    path={PrivateRoutes.ResetPassword}
-                    element={<ResetPassword />}
-                  />
+                <Route path="/" element={<Navigate to={PublicRoutes.LOGIN} />} />
+                <Route path={PrivateRoutes.ResetPassword} element={<ResetPassword />} />
+                <Route path={PrivateRoutes.HOME} element={<Home />} />
 
-                  <Route path={PrivateRoutes.HOME} element={<Home />} />
+                <Route path={PrivateRoutes.CARGOS} element={<MCargos />} />
+                <Route path={PrivateRoutes.USUARIOS} element={<MUsuarios />} />
+                <Route path={PrivateRoutes.FUNCIONALIDADES} element={<MFuncionalidades />} />
+                <Route path={PrivateRoutes.PERFILES} element={<MPerfiles />} />
+                <Route path={PrivateRoutes.PERMISOS} element={<MPermisos />} />
+                <Route path={PrivateRoutes.PROVEEDORES} element={<MProveedores />} />
+                {/* <Route path={PrivateRoutes.CRISTALES} element={<MCristales />} />  */}
                 </Route>
-                <Route
-                  path="/"
-                  element={<Navigate to={PublicRoutes.LOGIN} />}
-                />
               </RoutesWithNotFound>
             </BrowserRouter>
           </ThemeProvider>
