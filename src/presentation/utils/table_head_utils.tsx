@@ -271,7 +271,7 @@ export const table_head_permisos = [
     visible: false,
   },
   {
-    cell: "USUARIO",
+    cell: "Usuario",
     key: "usuario",
     visible: true,
   },
@@ -281,7 +281,7 @@ export const table_head_permisos = [
     visible: false,
   },
   {
-    cell: "FUNCIONALIDAD",
+    cell: "Funcionalidad",
     key: "funcionalidad",
     visible: true,
   },

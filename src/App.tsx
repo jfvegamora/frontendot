@@ -75,6 +75,8 @@ function App() {
                 <Route path={PrivateRoutes.ResetPassword} element={<ResetPassword />} />
                 <Route path={PrivateRoutes.HOME} element={<Home />} />
 
+                //
+
                 <Route path={PrivateRoutes.CARGOS} element={<MCargos />} />
                 <Route path={PrivateRoutes.USUARIOS} element={<MUsuarios />} />
                 <Route path={PrivateRoutes.FUNCIONALIDADES} element={<MFuncionalidades />} />

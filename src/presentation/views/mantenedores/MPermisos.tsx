@@ -9,7 +9,7 @@ import {
   TableComponent,
 } from "../../components";
 import { useEntityUtils } from "../../hooks";
-import { TITLES, table_head_permisos as table_head_permisos } from "../../utils";
+import { TITLES, table_head_permisos } from "../../utils";
 import FPermisos from "../forms/FPermisos";
 
 export enum EnumGrid {
@@ -20,11 +20,11 @@ export enum EnumGrid {
   funcionalidad = 4,
   permiso = 5,
 }
-
 const strEntidad = "Permiso de Usuario ";
 const strEntidadExcel = "Permisos_de_usuario";
 const strBaseUrl = "/api/permisos/";
 const strQuery = "01";
+
 type PrimaryKey = {
   pk1: number;
   pk2: number;
@@ -58,7 +58,7 @@ const MPermisos: React.FC = () => {
     resetEntities,
   } = useEntityUtils(strBaseUrl, strQuery);
   // console.log("entities:", entities);
-  console.log("selectedRows", selectedRows);
+  // console.log("selectedRows", selectedRows);
 
   const pkToDelete: PrimaryKey[] = [];
 
