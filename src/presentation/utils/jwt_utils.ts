@@ -8,6 +8,7 @@ export const decodeToken = (token: string) => {
     const decodedToken = jwt.verify(token, secretKey);
     return decodedToken;
   } catch (error: any) {
+    console.log(error);
     return "token no valido";
   }
 };

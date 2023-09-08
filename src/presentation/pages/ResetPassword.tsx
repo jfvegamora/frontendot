@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
-import jwt from "jsonwebtoken";
 
 import { TextInputComponent } from "../components";
 import { validationResetPasswordSchema } from "../utils";
@@ -29,16 +28,15 @@ const ResetPassword: React.FC = () => {
     if (password !== confirmPassword)
       return toast.error("Contraseñas no coinciden");
 
-    if (!token) return;
-    const response = decodeToken(token);
+    // const response = decodeToken(token);
 
-    console.log("response", response);
+    // console.log("response", response);
   };
 
   return (
     <div className="useFormContainer mt-8">
       <h1>Nueva Contraseña</h1>
-      <h1>TOKEN:{token}</h1>
+
       <form
         onSubmit={handleSubmit((data) => handleChange(data))}
         className="userFormulario"
