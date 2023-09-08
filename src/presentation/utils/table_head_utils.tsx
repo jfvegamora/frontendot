@@ -95,7 +95,6 @@ export const table_head_cristales = [
     visible: true,
   },
 ];
-
 // Para la tabla Cargos
 export const table_head_cargos = [
   {
@@ -216,9 +215,19 @@ export const table_head_permisos = [
     visible: true,
   },
   {
-    cell: "Usuario",
+    cell: "ID_USUARIO",
+    key: "id_usuario",
+    visible: false,
+  },
+  {
+    cell: "USUARIO",
     key: "usuario",
     visible: true,
+  },
+  {
+    cell: "ID_FUNCIONALIDAD",
+    key: "id_funcionalidad",
+    visible: false,
   },
   {
     cell: "Funcionalidad",
@@ -228,6 +237,11 @@ export const table_head_permisos = [
   {
     cell: "Permiso",
     key: "permiso",
+    visible: true,
+  },
+  {
+    cell: "",
+    key: "opciones",
     visible: true,
   },
 ];
