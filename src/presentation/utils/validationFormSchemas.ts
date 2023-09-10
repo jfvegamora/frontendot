@@ -4,7 +4,6 @@ const msg = "Requerido";
 
 /*************** O T ***************/
 
-
 /*************** B O D E G A ***************/
 // Schema PROVEEDORES
 export const validationProveedoresSchema = (isEditting: boolean | undefined) =>
@@ -17,11 +16,9 @@ export const validationProveedoresSchema = (isEditting: boolean | undefined) =>
     sitio_web: yup.string(),
   });
 
-
 /*************** P R O Y E C T O S ***************/
 
-
-  /*************** S I S T E M A ***************/
+/*************** S I S T E M A ***************/
 // Schema CARGOS
 export const validationCargosSchema = (isEditting: boolean | undefined) =>
   yup.object().shape({
@@ -29,7 +26,9 @@ export const validationCargosSchema = (isEditting: boolean | undefined) =>
   });
 
 // Schema FUNCIONALIDADES
-export const validationFuncionalidadSchema = (isEditting: boolean | undefined) =>
+export const validationFuncionalidadSchema = (
+  isEditting: boolean | undefined
+) =>
   yup.object().shape({
     descripcion: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
   });
@@ -69,6 +68,11 @@ export const validationResetPasswordSchema = () =>
   yup.object().shape({
     password: yup.string().required(`${msg}`),
     confirmPassword: yup.string().required(`${msg}`),
+  });
+
+export const validationForgotPasswordSchema = () =>
+  yup.object().shape({
+    correo: yup.string().required(`${msg}`),
   });
 
 // Schema LOGIN

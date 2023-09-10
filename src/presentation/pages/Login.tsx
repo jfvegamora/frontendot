@@ -1,14 +1,16 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 import React from "react";
-import { TextInputComponent } from "../components";
-import { validationLoginSchema } from "../utils";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useCrud } from "../hooks";
-import { useAppDispatch } from "../../redux/store";
-import { login } from "../../redux/slices/userSlice";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+
+import { validationLoginSchema } from "../utils";
+import { TextInputComponent } from "../components";
+import { useAppDispatch } from "../../redux/store";
+import { useCrud } from "../hooks";
+import { login } from "../../redux/slices/userSlice";
+import { PublicRoutes } from "../../interfaces/Routes_interface";
 
 interface LoginFormValues {
   _p1: string;
@@ -97,6 +99,7 @@ const Login: React.FC = React.memo(() => {
                 <button type="submit" className="userFormBtnSubmit">
                   Sign in
                 </button>
+                <Link to="/forgotpassword">Recupera Contraseña</Link>
               </form>
             </div>
           </div>

@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Navigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
@@ -9,6 +10,7 @@ import { TextInputComponent } from "../components";
 import { validationResetPasswordSchema } from "../utils";
 import jwt_decode from "jwt-decode";
 import { useCrud } from "../hooks";
+import { PublicRoutes } from "../../interfaces";
 
 interface InputData {
   password: string | undefined;
@@ -52,17 +54,16 @@ const ResetPassword: React.FC = () => {
       };
       const response = await editEntity(updatePassword);
       toast.success("Nueva contraseña creada correctamente");
+      <Navigate replace to={PublicRoutes.LOGIN} />;
       console.log(response);
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      toast.error(error);
     }
-
-    console.log("decodedToken", decodedToken);
   };
 
   return (
     <div className="useFormContainer mt-8">
-      <h1>Nueva Contraseña</h1>
+      <h1 className="mantenedorH1">Nueva Contraseña</h1>
 
       <form
         onSubmit={handleSubmit((data) => handleChange(data))}

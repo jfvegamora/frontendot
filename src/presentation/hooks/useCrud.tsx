@@ -10,6 +10,7 @@ const useCrud = (
 ): {
   createdEntity: (entityData: any) => Promise<any | undefined>;
   verifyUserEmail: (correo: string) => Promise<any | undefined>;
+  forgotPassword: (correo: string) => Promise<any | undefined>;
   editEntity: (entityData: any) => Promise<any | undefined>;
   deleteAllEntity: (id: number[]) => Promise<any | undefined>;
   focusFirstInput: (strInputName: string) => void;
@@ -22,8 +23,8 @@ const useCrud = (
 } => {
   const baseUrl = apiBaseUrl.startsWith("http")
     ? apiBaseUrl
-    // : `https://mtoopticos.cl${apiBaseUrl}`;
-  :`http://127.0.0.1:8000${apiBaseUrl}`;
+    : `https://mtoopticos.cl${apiBaseUrl}`;
+  // :`http://127.0.0.1:8000${apiBaseUrl}`;
 
   const axiosInstance: AxiosInstance = axios.create({
     baseURL: baseUrl,
@@ -48,10 +49,22 @@ const useCrud = (
     try {
       // const result = await axiosInstance.get(`${baseUrl}listado/?query=07&_p1=${correo}`)
       const result = await axiosInstance.get(
-        `https://mtoopticos.cl/api/usuarios/listado/?query=07&_p1=${correo}`
+        `${baseUrl}listado/?query=07&_p1=${correo}`
       );
-      console.log("result email", result.data);
-      return result.data.length > 0 ? "Correo existe" : "correo no existe";
+      return result.data.length > 0 ? "Correo existe" : "Correo no existe";
+    } catch (error) {
+      return error;
+    }
+  };
+
+  const forgotPassword = async (correo: string) => {
+    try {
+      const body = {
+        query: "07",
+        _p1: correo,
+      };
+      const response = await axiosInstance.post("/forwardpassword/", body);
+      return response.data;
     } catch (error) {
       return error;
     }
@@ -152,50 +165,6 @@ const useCrud = (
     }
   };
 
-  // const listEntity = async (
-  //   query: string,
-  //   params: {
-  //     _p1?: string;
-  //     _p2?: number;
-  //     _p3?: string;
-  //     _p4?: number;
-  //   } = {}
-  // ): Promise<void | unknown> => {
-  //   try {
-  //     console.log("params:", params);
-  //     const _p1 = params._p1;
-  //     const { _p2 = 0, _p3 = "", _p4 = 0 } = params;
-
-  //     console.log("_p2:", _p2);
-  //     console.log("_p1:", _p1);
-
-  //     const endpoint = `/listado/?query=${query}&_p1=${_p1}&_p2=${_p2}&_p3=${_p3}&_p4=${_p4}`;
-  //     console.log("endpoint", endpoint);
-  //     const response = await axiosInstance.get(endpoint);
-  //     return response.data;
-  //   } catch (error) {
-  //     return error;
-  //   }
-  // };
-
-  // const listEntity = async (
-  //   query: string,
-  //   _p1 = "",
-  //   _p2 = 0,
-  //   _p3 = "",
-  //   _p4 = 0
-  // ): Promise<void | unknown> => {
-  //   try {
-  //     console.log("_p1:", _p1);
-  //
-  //     const endpoint = `/listado/?query=${query}&_p1=${_p1}&_p2=${_p2}&_p3=${_p3}&_p4=${_p4}`;
-  //     const response = await axiosInstance.get(endpoint);
-  //     return response.data;
-  //   } catch (error) {
-  //     return error;
-  //   }
-  // };
-
   return {
     createdEntity,
     editEntity,
@@ -205,6 +174,7 @@ const useCrud = (
     focusFirstInput,
     firstInputRef,
     verifyUserEmail,
+    forgotPassword,
   };
 };
 
