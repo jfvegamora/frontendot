@@ -25,7 +25,7 @@ const strBaseUrl = "/api/usuarios/";
 const ResetPassword: React.FC = () => {
   const { token } = useParams<{ token: string }>();
   const schema = validationResetPasswordSchema();
-  const { editEntity } = useCrud(strBaseUrl);
+  const { changePassword } = useCrud(strBaseUrl);
 
   const {
     control,
@@ -52,7 +52,7 @@ const ResetPassword: React.FC = () => {
         _p2: decodedToken?.id.toString(),
         _p3: "",
       };
-      const response = await editEntity(updatePassword);
+      const response = await changePassword(updatePassword);
       toast.success("Nueva contraseña creada correctamente");
       <Navigate replace to={PublicRoutes.LOGIN} />;
       console.log(response);

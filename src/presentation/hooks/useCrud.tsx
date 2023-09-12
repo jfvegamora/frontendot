@@ -14,6 +14,7 @@ const useCrud = (
   editEntity: (entityData: any) => Promise<any | undefined>;
   deleteAllEntity: (id: number[]) => Promise<any | undefined>;
   focusFirstInput: (strInputName: string) => void;
+  changePassword: (updatepassword:any) => Promise<any | undefined>;
   exportEntity: (
     primaryKey?: string,
     strEntidad?: string
@@ -69,6 +70,15 @@ const useCrud = (
       return error;
     }
   };
+
+  const changePassword = async(updatepassword:any) => {
+    try{
+      const response = await axiosInstance.post("/changepasswrod/", updatepassword);
+      return response.data;
+    }catch (error){
+      return error;
+    }
+  }
 
   const exportEntity = async (
     primaryKey?: string,
@@ -175,6 +185,7 @@ const useCrud = (
     firstInputRef,
     verifyUserEmail,
     forgotPassword,
+    changePassword
   };
 };
 

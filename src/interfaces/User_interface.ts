@@ -21,5 +21,5 @@ export interface IUser {
   telefono: string;
   correo: string;
   estado: number;
-  permisos: DataStructure;
+  permisos: Permisos;
 }

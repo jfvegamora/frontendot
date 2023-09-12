@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { IUser, Permisos, DataStructure } from "../../interfaces";
+import { IUser, Permisos } from "../../interfaces";
 
 const initialState: IUser = {
   id: 0,
@@ -9,7 +9,7 @@ const initialState: IUser = {
   telefono: "",
   correo: "",
   estado: 0,
-  permisos: DataStructure,
+  permisos: Permisos.ESCRITURA,
 };
 
 export const UserKey = "user";
