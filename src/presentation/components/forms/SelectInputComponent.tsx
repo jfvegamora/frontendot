@@ -26,6 +26,7 @@ interface ISelectInputProps {
   inputRef?: any;
   readOnly?: boolean;
   customWidth?: any;
+  setState?:any;
 }
 
 // const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
@@ -207,6 +208,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     inputValues,
     handleSelectChange,
     readOnly,
+    setState
   }) => {
     const [refreshToggle, setrefreshToggle] = useState(false);
     const [entities, setEntities] = useState([]);
@@ -238,19 +240,33 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     }, [refreshToggle, refreshData, data]);
 
     return (
-      <div className="flex min-w-[60px] w-full items-center mb-2 mx-4 mt-select mt-select-dropdown-up cursor-pointer ">
+      // <div className="flex min-w-[60px] w-full items-center mb-2 mx-4 mt-select mt-select-dropdown-up cursor-pointer ">
+      <div className="flex min-w-[100%]w-full items-center mb-2 mx-4 mt-select mt-select-dropdown-up cursor-pointer ">
         {/* <label className="label-input w-1/3">{label}</label> */}
         <Controller
           name={name}
           control={control}
           defaultValue={strSelectedName}
           render={({ field }) => (
-            <>
+            <div className="flex-col">
+              <label
+                htmlFor={label}
+                style={{
+                  color          : "grey",
+                  fontWeight     : "normal",
+                  fontSize       : "16px",
+                  backgroundColor: "transparent",
+                }}
+              >
+              {label}
+              </label>
+
               <select
                 {...field}
                 ref={inputRef}
                 disabled={readOnly}
                 onChange={(e) => {
+                  setState && setState(e.target.value)
                   field.onChange(e);
                   if (setHandleSearch) {
                     const selectedValue = e.target.value.toString();
@@ -270,7 +286,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
                 }}
                 className="custom-input py-2 px-3 w-[85%] cursor-pointer z-0"
               >
-                {!data && <option value={"0"}>{label}</option>}
+                {!data && <option value={"0"}></option>}
                 {entities &&
                   entities.map((option: any, index) => (
                     <option
@@ -302,9 +318,9 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
                   }}
                 />
               </div> */}
-            </>
-          )}
-        />
+            </div> // flex-col
+          )} // render
+        /> {/* Controller  */}
 
         {showRefresh && (
           <Tooltip content="Refrescar">

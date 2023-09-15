@@ -117,11 +117,12 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
   };
 
   const handleDeleteSelected = useCallback(
-    async (rowData?: any) => {
+    async (rowData?: any, comilla?:string) => {
       if (escritura) {
         if (selectedRows.length >= 1) {
           try {
-            const response = await deleteAllEntity([rowData]);
+            console.log('comilla', comilla)
+            const response = await deleteAllEntity([rowData, comilla]);
             const errorDelete = response?.response?.data?.error;
             if (errorDelete) {
               toast.error(errorDelete);

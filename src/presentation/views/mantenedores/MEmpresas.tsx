@@ -9,28 +9,31 @@ import {
   TableComponent,
 } from "../../components";
 import { useEntityUtils } from "../../hooks";
-import FProveedores from "../forms/FProveedores";
+import FEmpresas from "../forms/FEmpresas";
 import { TITLES, table_head_empresas } from "../../utils";
  
 export enum EnumGrid {
-  ID        = 1,
-  Rut       = 2,
-  Nombre    = 3,
-  Direccion = 4,
-  Telefono  = 5,
-  Correo    = 6,
-  Sitio_Web = 7,
+  id            = 1,
+  rut           = 2,
+  nombre        = 3,
+  razon_social  = 4,
+  giro          = 5,
+  direccion     = 6,
+  telefono      = 7,
+  correo        = 8,
+  sitio_web     = 9,
+  nombre_logo   = 10,
 }
-const strEntidad      = "Proveedor ";
-const strEntidadExcel = "Proveedores";
-const strBaseUrl      = "/api/proveedores/";
+const strEntidad      = "Empresa ";
+const strEntidadExcel = "Empresas";
+const strBaseUrl      = "/api/empresas/";
 const strQuery        = "01";
 
 type PrimaryKey = {
   pk1: number;
 };
 
-const MProveedores: React.FC = () => {
+const MEmpresas: React.FC = () => {
   const [params, setParams] = useState([]);
 
   const updateParams = (newParams: Record<string, never>) => {
@@ -65,7 +68,7 @@ const MProveedores: React.FC = () => {
 
   useEffect(() => {
     const newPkToDelete = selectedRows.map((row: number) => ({
-      pk1: entities[row][EnumGrid.ID],
+      pk1: entities[row][EnumGrid.id],
     }));
     newPkToDelete.forEach((newPk: { pk1: any }) => {
       if (!pkToDelete.some((existingPk) => existingPk.pk1 === newPk.pk1)) {
@@ -76,7 +79,7 @@ const MProveedores: React.FC = () => {
 
   return (
     <div className="mantenedorContainer">
-      <h1 className="mantenedorH1">Proveedores</h1>
+      <h1 className="mantenedorH1">Empresas</h1>
 
       <div className="mantenedorHead width70">
         <PrimaryKeySearch
@@ -123,7 +126,7 @@ const MProveedores: React.FC = () => {
       </div>
 
       {isModalInsert && (
-        <FProveedores
+        <FEmpresas
           label       ={`${TITLES.nuevo} ${strEntidad}`}
           closeModal  ={closeModal}
           selectedRows={selectedRows}
@@ -134,7 +137,7 @@ const MProveedores: React.FC = () => {
       )}
 
       {isModalEdit && (
-        <FProveedores
+        <FEmpresas
           label       ={`${TITLES.editar} ${strEntidad}`}
           selectedRows={selectedRows}
           setEntities ={setEntities}
@@ -148,4 +151,4 @@ const MProveedores: React.FC = () => {
   );
 };
 
-export default MProveedores;
+export default MEmpresas;

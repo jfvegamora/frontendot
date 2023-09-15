@@ -4,46 +4,48 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect } from "react";
-import { TextInputComponent } from "../../components";
+import {
+  SelectInputComponent,
+  TextInputComponent,
+} from "../../components";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { validationEmpresasSchema } from "../../utils/validationFormSchemas";
-import { EnumGrid } from "../mantenedores/MProveedores";
+import { validationPuntosVentaSchema } from "../../utils/validationFormSchemas";
+import { EnumGrid } from "../mantenedores/MPuntosVenta";
 import { toast } from "react-toastify";
 import { ERROR_MESSAGES, MODAL, SUCCESS_MESSAGES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 
-const strBaseUrl = "/api/proveedores/";
-const strEntidad = "Proveedor ";
+const strBaseUrl = "/api/puntosventa/";
+const strEntidad = "Punto de Venta ";
 
 export interface InputData {
-  nombre:    string | undefined;
-  rut:       string | undefined;
-  direccion: string | undefined;
-  telefono:  string | undefined;
-  correo:    string | undefined;
-  sitio_web: string | undefined;
+  descripcion: string | undefined;
+  tipo       : string | undefined;
+  direccion  : string | undefined;
+  almacen    : string | undefined;
+  encargado  : string | undefined;
+  telefono   : string | undefined;
 }
 
 interface OutputData {
-  query : string;
-    _p1 : string;
-    _p2?: string;
+  query: string;
+  _p1: string;
+  _p2?: string;
 }
 
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
-  const _p1 = 
-    `'${jsonData.nombre}', 
-      ${jsonData.rut}, 
-      ${jsonData.direccion}, 
-     '${jsonData.telefono}', 
-     '${jsonData.correo}', 
-     '${jsonData.sitio_web}'`;
+  const _p1 =` ${jsonData.tipo}, 
+              '${jsonData.descripcion}', 
+              '${jsonData.direccion}', 
+              '${jsonData.telefono}', 
+               ${jsonData.encargado}, 
+               ${jsonData.almacen}`;
 
   const query: OutputData = {
     query: "03",
-      _p1: _p1,
+    _p1: _p1,
   };
 
   return query;
@@ -54,13 +56,13 @@ export function transformUpdateQuery(
   primaryKey: string
 ): OutputData | null {
   const fields = [
-    `rut       ='${jsonData.rut}'`,
-    `nombre    ='${jsonData.nombre}'`,
-    `direccion ='${jsonData.direccion}'`,
-    `telefono  ='${jsonData.telefono}'`,
-    `correo    ='${jsonData.correo}'`,
-    `sitio_web ='${jsonData.sitio_web}'`,
-  ];
+    `tipo       = ${jsonData.tipo}`, 
+    `descripcion='${jsonData.descripcion}'`, 
+    `direccion  ='${jsonData.direccion}'`, 
+    `telefono   ='${jsonData.telefono}'`, 
+    `encargado  = ${jsonData.encargado}`, 
+    `almacen    = ${jsonData.almacen}`,
+    ];
 
   const filteredFields = fields.filter(
     (field) => field !== null && field !== ""
@@ -70,7 +72,8 @@ export function transformUpdateQuery(
     return null;
   }
   const _p1 = filteredFields.join(",");
-//  console.log("primaryKey", primaryKey);
+  console.log("_p1", _p1); 
+  console.log("primaryKey", primaryKey);
   return {
     query: "04",
     _p1,
@@ -88,9 +91,9 @@ interface IUserFormPrps {
   params?      : any;
 }
 
-const FProveedores: React.FC<IUserFormPrps> = React.memo(
+const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
   ({ closeModal, setEntities, params, label, data, isEditting }) => {
-    const schema = validationEmpresasSchema(isEditting);
+    const schema = validationPuntosVentaSchema(isEditting);
     const { showModal, CustomModal } = useModal();
 
     const {
@@ -101,7 +104,7 @@ const FProveedores: React.FC<IUserFormPrps> = React.memo(
       focusFirstInput,
     } = useCrud(strBaseUrl);
     const [blnKeep, setblnKeep] = useState(false);
-    const intId = data && data[EnumGrid.ID];
+    const intId = data && data[EnumGrid.id];
     const {
       control,
       handleSubmit,
@@ -112,14 +115,12 @@ const FProveedores: React.FC<IUserFormPrps> = React.memo(
     });
 
     const resetTextFields = React.useCallback(() => {
-      setValue("rut"      , "");
-      setValue("nombre"   , "");
-      setValue("telefono" , "");
-      setValue("nombre"   , "");
-      setValue("sitio_web", "");
+      setValue("descripcion", "");
+      setValue("direccion"  , "");
+      setValue("telefono"   , "");
       if (firstInputRef.current) {
         const firstInput = firstInputRef.current.querySelector(
-          'input[name="rut"]'
+          'input[name="descripcion"]'
         );
         if (firstInput) {
           firstInput.focus();
@@ -143,14 +144,15 @@ const FProveedores: React.FC<IUserFormPrps> = React.memo(
     const handleApiResponse = React.useCallback(
       async (response: any, isEditting: boolean) => {
         const errorResponse = response?.response?.data.error;
-        if (errorResponse) {
+        console.log("response", response);
+        if (errorResponse || response.code === "ERR_BAD_RESPONSE") {
           const errorMessage =
             errorResponse === "IntegrityError"
               ? isEditting
                 ? strEntidad.concat(ERROR_MESSAGES.edit)
                 : strEntidad.concat(ERROR_MESSAGES.create)
               : errorResponse;
-          toast.error(errorMessage);
+          toast.error(errorMessage ? errorMessage : response.code);
           return;
         }
 
@@ -198,7 +200,6 @@ const FProveedores: React.FC<IUserFormPrps> = React.memo(
       };
     }, [closeModal]);
 
-
     const handleSaveChange = React.useCallback(
       async (data: InputData, isEditting: boolean) => {
         try {
@@ -218,7 +219,7 @@ const FProveedores: React.FC<IUserFormPrps> = React.memo(
     );
 
     useEffect(() => {
-      focusFirstInput("nombre");
+      focusFirstInput("descripcion");
     }, []);
 
     return (
@@ -242,56 +243,70 @@ const FProveedores: React.FC<IUserFormPrps> = React.memo(
         >
           <div className="userFormularioContainer">
             <TextInputComponent
-              type="text"
-              label="RUT"
-              name="rut"
-              data={data && data[EnumGrid.Rut]}
-              control={control}
-              error={!isEditting && errors.rut}
-              inputRef={firstInputRef}
-            />
-            <TextInputComponent
-              type="text"
-              label="Nombre"
-              name="nombre"
-              data={data && data[EnumGrid.Nombre]}
-              control={control}
-              error={!isEditting && errors.nombre}
-              inputRef={firstInputRef}
+              type    = "text"
+              label   = "Descripción"
+              name    = "descripcion"
+              data    = {data && data[EnumGrid.descripcion]}
+              control = {control}
+              error   = {!isEditting && errors.descripcion}
+              inputRef= {firstInputRef}
             />
             <div className="w-full ">
+              <SelectInputComponent
+                label       = "Tipo"
+                name        = "tipo"
+                showRefresh = {true}
+                data        = {data && data[EnumGrid.tipo_id]}
+                control     = {control}
+                entidad     = {["/api/tipos/", "02", "PuntosVentaTipos"]}
+                error       = {!isEditting && errors.tipo}
+                customWidth = {"345px"}
+              />
             </div>
 
             <TextInputComponent
-              type="text"
-              label="Dirección"
-              name="direccion"
-              data={data && data[EnumGrid.Direccion]}
-              control={control}
+              type    = "text"
+              label   = "Dirección"
+              name    = "direccion"
+              data    = {data && data[EnumGrid.direccion]}
+              control = {control}
             />
+
+            <div className="w-full ">
+              <SelectInputComponent
+                label       = "Almacén"
+                name        = "almacen"
+                showRefresh = {true}
+                data        = {data && data[EnumGrid.almacen_id]}
+                control     = {control}
+                entidad     = {["/api/almacenes/", "02"]}
+                error       = {!isEditting && errors.almacen}
+                customWidth = {"345px"}
+              />
+            </div>
+
+            <div className="w-full ">
+              <SelectInputComponent
+                label       = "Encargado"
+                name        = "encargado"
+                showRefresh = {true}
+                data        = {data && data[EnumGrid.encargado_id]}
+                control     = {control}
+                entidad     = {["/api/usuarios/", "02"]}
+                error       = {!isEditting && errors.encargado}
+                customWidth = {"345px"}
+              />
+            </div>
+
             <TextInputComponent
-              type="text"
-              label="Teléfono"
-              name="telefono"
-              data={data && data[EnumGrid.Telefono]}
-              control={control}
+              type    = "text"
+              label   = "Teléfono"
+              name    = "telefono"
+              data    = {data && data[EnumGrid.telefono]}
+              control = {control}
+              error   = {!isEditting && errors.telefono}
             />
-            <TextInputComponent
-              type="email"
-              label="Correo"
-              name="correo"
-              data={data && data[EnumGrid.Correo]}
-              control={control}
-              error={!isEditting && errors.correo}
-            />
-            <TextInputComponent
-              type="text"
-              label="Sitio Web"
-              name="sitio_web"
-              data={data && data[EnumGrid.Sitio_Web]}
-              control={control}
-              error={!isEditting && errors.sitio_web}
-            />
+
           </div>
 
           <button type="submit" className="userFormBtnSubmit">
@@ -305,4 +320,4 @@ const FProveedores: React.FC<IUserFormPrps> = React.memo(
   }
 );
 
-export default FProveedores;
+export default FPuntosVenta;

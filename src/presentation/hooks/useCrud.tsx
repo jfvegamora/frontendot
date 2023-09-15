@@ -11,14 +11,16 @@ const useCrud = (
   createdEntity: (entityData: any) => Promise<any | undefined>;
   verifyUserEmail: (correo: string) => Promise<any | undefined>;
   editEntity: (entityData: any) => Promise<any | undefined>;
-  deleteAllEntity: (id: number[]) => Promise<any | undefined>;
+  deleteAllEntity: (id: number[], comilla?:string) => Promise<any | undefined>;
   focusFirstInput: (strInputName: string) => void;
+  focusSecondInput:(strInputName: string) => void;
   exportEntity: (
     primaryKey?: string,
     strEntidad?: string
   ) => Promise<any | undefined>;
   ListEntity: (primaryKeys: any, query: string) => Promise<any | undefined>;
   firstInputRef: any;
+  secondInputRef:any;
 } => {
   const baseUrl = apiBaseUrl.startsWith("http")
     ? apiBaseUrl
@@ -32,8 +34,10 @@ const useCrud = (
     },
   });
   const firstInputRef = useRef<HTMLInputElement | null>(null);
+  const secondInputRef = useRef<HTMLInputElement | null>(null);
 
   const focusFirstInput = (strInputName: string) => {
+    
     if (firstInputRef.current) {
       const firstInput = firstInputRef.current.querySelector(
         `input[name=${strInputName}]`
@@ -41,8 +45,20 @@ const useCrud = (
       if (firstInput) {
         (firstInput as HTMLInputElement).focus();
       }
+
     }
   };
+
+  const focusSecondInput = (strInputName:string)=> {
+    if(secondInputRef.current){
+      const secondInput = secondInputRef.current.querySelector(
+        `input[name=${strInputName}]`
+      );
+      if(secondInput){
+        (secondInput as HTMLInputElement).focus();
+      }
+    }
+  }
 
   const verifyUserEmail = async (correo: string) => {
     try {
@@ -93,7 +109,7 @@ const useCrud = (
       link.click();
       URL.revokeObjectURL(fileURL);
     } catch (error) {
-      throw new Error("Error al descargar Exceñ");
+      throw new Error("Error al descargar Excel");
     }
   };
 
@@ -137,14 +153,41 @@ const useCrud = (
 
   const deleteAllEntity = async (pk: any[]): Promise<void | unknown> => {
     try {
+      
       const intPk = pk[0].map((item: any) => Object.keys(item).length);
       const pkQueryParam = encodeURIComponent(JSON.stringify(pk[0]));
-      const valoresPk1Obj1 = pk[0].map((objeto: { pk1: any }) => objeto.pk1);
+      const valoresPk1Obj1 = pk[0].map((objeto: { pk1: any }) =>`${objeto.pk1}`);
+      //console.log('valoresPk1Obj1',valoresPk1Obj1)
+      
+      // const boolean2 = pk[1] ? true :false 
+      // console.log('intPk',intPk[0])
+      
       const url =
-        intPk[0] > 1
-          ? `/eliminar/?query=05&_pkToDelete=${pkQueryParam}`
+        intPk[0] > 1 || pk[1] //Si viene más de una pk o bien la pk es VARCHAR
+          ? `/eliminar/?query=05&_pkToDelete=${pkQueryParam}&`
           : `/eliminar/?query=05&_p1=${valoresPk1Obj1}&`;
+
+      // const pktodelete = pk[1] 
+      //                 ? `/eliminar/?query=05&_p1=\"${valoresPk1Obj1}\"&`
+      //                 : `/eliminar/?query=05&_p1=${valoresPk1Obj1}&`;
+
+      // const pktodeletePair =  pk[1] 
+      //                 ?  `/eliminar/?query=05&_p1=${"'"+pkQueryParam+"'"}&`      
+      //                 : `/eliminar/?query=05&_p1=${pkQueryParam}&`;
+      
+      // const url =
+      //   intPk[0] > 1
+      //     ? pktodeletePair
+      //     : pktodelete
+
+
+
+          // : `/eliminar/?query=05&_p1=${`${pk[1]}`+valoresPk1Obj1+`${pk[1]}`}&`;
+
+
+          
       console.log("url", url);
+      // console.log('comilla', comilla)
       const response = await axiosInstance.delete(url);
       return response.data;
     } catch (error) {
@@ -205,6 +248,8 @@ const useCrud = (
     focusFirstInput,
     firstInputRef,
     verifyUserEmail,
+    focusSecondInput,
+    secondInputRef
   };
 };
 

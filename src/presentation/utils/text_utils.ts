@@ -46,3 +46,21 @@ export const MODAL = {
   keepYes: "Si",
   kepNo: "No",
 };
+
+export const SEXO = {
+  masculino: "Masculino",
+  femenino : "Femenino",
+  no_aplica: "No aplica",
+};
+
+export const TIPO_CLIENTE = {
+  todos       : "Todos",
+  beneficiario: "Beneficiario",
+  particular  : "Particular",
+  optica      : "Óptica",
+};
+
+export const MOTIVO_KARDEX = {
+  entrada: "Entrada",
+  salida : "Salida",
+};

@@ -22,6 +22,7 @@ interface IPrimaryButtonProps {
   showRefreshButton?: boolean;
   showDeleteButton?: boolean;
   showExportButton?: boolean;
+  comilla?:boolean;
   strBaseUrl?: string;
   params?: never[];
   strEntidad?: string;
@@ -43,6 +44,7 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
     params,
     strEntidad,
     pkToDelete,
+    comilla
   }) => {
     const { escritura } = usePermission();
     const { CustomModal, showModal } = useModal();
@@ -108,7 +110,10 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
                   showModal(MODAL.delete, MODAL.deleteYes, MODAL.deleteNo).then(
                     (result) => {
                       if (result) {
-                        handleDeleteSelected(pkToDelete);
+                        console.log('comilla', comilla)
+                        comilla
+                           ? handleDeleteSelected(pkToDelete, comilla)
+                           : handleDeleteSelected(pkToDelete);
                       }
                     }
                   );

@@ -26,30 +26,30 @@ const pathMant = "./presentation/views/mantenedores/";
 
 // MENU OT
 //const MOT = lazy(() => import(pathMant + "MOT"));
-//const MClientes = lazy(() => import(pathMant + "MClientes"));
-//const MEstablecimientos = lazy(() => import(pathMant + "MEstablecimientos"));
-//const MPuntosVenta = lazy(() => import(pathMant + "MPuntosVenta"));
+const MClientes = lazy(() => import(pathMant + "MClientes"));
+const MEstablecimientos = lazy(() => import(pathMant + "MEstablecimientos"));
+const MPuntosVenta = lazy(() => import(pathMant + "MPuntosVenta"));
 
 // MENU BODEGA
-// const MArmazones = lazy(() => import(pathMant + "MArmazones"));
+ const MArmazones = lazy(() => import(pathMant + "MArmazones"));
 // const MArmazonesKardex = lazy(() => import(pathMant + "MArmazonesKardex"));
-// const MCristales = lazy(() => import(pathMant + "MCristales"));
-// const MCristalesKardex = lazy(() => import(pathMant + "MCristalesKardex"));
-// const MAccesorios = lazy(() => import(pathMant + "MAccesorios"));
+const MCristales = lazy(() => import(pathMant + "MCristales"));
+const MCristalesKardex = lazy(() => import(pathMant + "MCristalesKardex"));
+ const MAccesorios = lazy(() => import(pathMant + "MAccesorios"));
 // const MAccesoriosKardex = lazy(() => import(pathMant + "MAccesoriosKardex"));
-// const MAlmacenes = lazy(() => import(pathMant + "MAlmacenes"));
-// const MMarcas = lazy(() => import(pathMant + "MMarcas"));
+const MAlmacenes = lazy(() => import(pathMant + "MAlmacenes"));
+const MMarcas = lazy(() => import(pathMant + "MMarcas"));
 const MProveedores = lazy(() => import(pathMant + "MProveedores"));
 
 // MENU PROYECTOS
-// const MMandantes = lazy(() => import(pathMant + "MMandantes"));
+const MMandantes = lazy(() => import(pathMant + "MMandantes"));
 // const MProyectos = lazy(() => import(pathMant + "MProyectos"));
 // const MParamArmazones = lazy(() => import(pathMant + "MParamArmazones"));
 // const MParamGrupos = lazy(() => import(pathMant + "MParamGrupos"));
 // const MParamDirecciones = lazy(() => import(pathMant + "MParamDirecciones"));
 // const MReporteAtencion = lazy(() => import(pathMant + "MReporteAtencion"));
 // const MReporteFirmas = lazy(() => import(pathMant + "MReporteFirmas"));
-// const MOftalmologos = lazy(() => import(pathMant + "MOftalmologos"));
+const MOftalmologos = lazy(() => import(pathMant + "MOftalmologos"));
 
 // MENU SISTEMA
 const MFuncionalidades = lazy(() => import(pathMant + "MFuncionalidades"));
@@ -57,7 +57,7 @@ const MCargos = lazy(() => import(pathMant + "MCargos"));
 const MUsuarios = lazy(() => import(pathMant + "MUsuarios"));
 const MPerfiles = lazy(() => import(pathMant + "MPerfiles"));
 const MPermisos = lazy(() => import(pathMant + "MPermisos"));
-//const MEmpresas = lazy(() => import(pathMant + "/MEmpresas"));
+const MEmpresas = lazy(() => import(pathMant + "MEmpresas"));
 
 function App() {
   return (
@@ -75,14 +75,27 @@ function App() {
                 <Route path={PrivateRoutes.ResetPassword} element={<ResetPassword />} />
                 <Route path={PrivateRoutes.HOME} element={<Home />} />
 
-                //
+                <Route path={PrivateRoutes.CLIENTES} element={<MClientes />} />
+                <Route path={PrivateRoutes.ESTABLECIMIENTOS} element={<MEstablecimientos />} />
+                <Route path={PrivateRoutes.PUNTOS_VENTA} element={<MPuntosVenta />} />
+
+                <Route path={PrivateRoutes.ACCESORIOS} element={<MAccesorios />} />
+                <Route path={PrivateRoutes.ARMAZONES} element={<MArmazones />} />
+                <Route path={PrivateRoutes.CRISTALES} element={<MCristales />} />
+                <Route path={PrivateRoutes.CRISTALES_KARDEX} element={<MCristalesKardex />} />
+                <Route path={PrivateRoutes.PROVEEDORES} element={<MProveedores />} />
+                <Route path={PrivateRoutes.ALMACENES} element={<MAlmacenes />} />
+                <Route path={PrivateRoutes.MARCAS} element={<MMarcas />} />
+
+                <Route path={PrivateRoutes.MANDANTES} element={<MMandantes />} />
+                <Route path={PrivateRoutes.OFTALMOLOGOS} element={<MOftalmologos />} />
 
                 <Route path={PrivateRoutes.CARGOS} element={<MCargos />} />
                 <Route path={PrivateRoutes.USUARIOS} element={<MUsuarios />} />
                 <Route path={PrivateRoutes.FUNCIONALIDADES} element={<MFuncionalidades />} />
                 <Route path={PrivateRoutes.PERFILES} element={<MPerfiles />} />
                 <Route path={PrivateRoutes.PERMISOS} element={<MPermisos />} />
-                <Route path={PrivateRoutes.PROVEEDORES} element={<MProveedores />} />
+                <Route path={PrivateRoutes.EMPRESAS} element={<MEmpresas />} />
                 {/* <Route path={PrivateRoutes.CRISTALES} element={<MCristales />} />  */}
                 </Route>
               </RoutesWithNotFound>

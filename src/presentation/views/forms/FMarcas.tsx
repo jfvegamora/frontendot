@@ -5,35 +5,30 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect } from "react";
 import {
-  RadioButtonComponent,
   SelectInputComponent,
   TextInputComponent,
 } from "../../components";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { validationUserSchema } from "../../utils/validationFormSchemas";
-import { EnumGrid } from "../mantenedores/MUsuarios";
+import { validationMarcasSchema } from "../../utils/validationFormSchemas";
+import { EnumGrid } from "../mantenedores/MMarcas";
 import { toast } from "react-toastify";
 import { ERROR_MESSAGES, MODAL, SUCCESS_MESSAGES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 
-const strBaseUrl = "/api/usuarios/";
-const strEntidad = "Usuario ";
+const strBaseUrl = "/api/marcas/";
+const strEntidad = "Marca ";
 
 export interface InputData {
-  nombre: string | undefined;
-  cargo: string | undefined;
-  telefono: string | undefined;
-  correo: string | undefined;
-  estado: string | undefined;
+  nombre   : string | undefined;
+  proveedor: string | undefined;
 }
 
 interface OutputData {
   query: string;
   _p1: string;
   _p2?: string;
-  _p3?: string;
 }
 
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
@@ -41,9 +36,7 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
   //   alert(ERROR_MESSAGES.passwordNotMatch);
   // }
 
-  const _p1 = `'${jsonData.nombre}', ${jsonData.cargo}, '${
-    jsonData.telefono
-  }', '${jsonData.correo}', ${jsonData.estado === "Activo" ? 1 : 2}`;
+  const _p1 = `'${jsonData.nombre}', ${jsonData.proveedor}`;
 
   const query: OutputData = {
     query: "03",
@@ -59,11 +52,8 @@ export function transformUpdateQuery(
 ): OutputData | null {
   const fields = [
     // jsonData.nombre && `nombre='${jsonData.nombre}'`,
-    `nombre='${jsonData.nombre}'`,
-    `telefono='${jsonData.telefono}'`,
-    `correo='${jsonData.correo}'`,
-    `estado=${jsonData.estado === "Activo" ? 1 : 2}`,
-    `cargo=${jsonData.cargo}`,
+    `nombre   ='${jsonData.nombre}'`,
+    `proveedor=${jsonData.proveedor}`,
   ];
 
   const filteredFields = fields.filter(
@@ -79,7 +69,6 @@ export function transformUpdateQuery(
     query: "04",
     _p1,
     _p2: primaryKey,
-    _p3: "",
   };
 }
 
@@ -93,9 +82,9 @@ interface IUserFormPrps {
   params?: any;
 }
 
-const FUsuarios: React.FC<IUserFormPrps> = React.memo(
+const FMarcas: React.FC<IUserFormPrps> = React.memo(
   ({ closeModal, setEntities, params, label, data, isEditting }) => {
-    const schema = validationUserSchema(isEditting);
+    const schema = validationMarcasSchema(isEditting);
     const { showModal, CustomModal } = useModal();
 
     const {
@@ -106,7 +95,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
       focusFirstInput,
     } = useCrud(strBaseUrl);
     const [blnKeep, setblnKeep] = useState(false);
-    const intId = data && data[EnumGrid.ID];
+    const intId = data && data[EnumGrid.id];
     const {
       control,
       handleSubmit,
@@ -118,8 +107,6 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
 
     const resetTextFields = React.useCallback(() => {
       setValue("nombre", "");
-      setValue("telefono", "");
-      setValue("correo", "");
       if (firstInputRef.current) {
         const firstInput = firstInputRef.current.querySelector(
           'input[name="nombre"]'
@@ -202,38 +189,6 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
       };
     }, [closeModal]);
 
-    // const handleSaveChange = React.useCallback(
-    //   async (data: InputData, isEditting: boolean) => {
-    //     try {
-    //       let transformedData = null;
-
-    //       if (isEditting) {
-    //         transformedData = transformUpdateQuery(data, intId.toString());
-    //       } else {
-    //         transformedData = transformInsertQuery(data);
-    //       }
-
-    //       const isDataValid =
-    //         transformedData &&
-    //         (!isEditting || intId) && // Requiere intId si está editando
-    //         data.nombre && // Agregar otras condiciones para los campos requeridos
-    //         data.cargo; // Agregar otras condiciones para los campos requeridos
-
-    //       if (isDataValid) {
-    //         const response = isEditting
-    //           ? await editEntity(transformedData)
-    //           : await createdEntity(transformedData);
-    //         handleApiResponse(response, isEditting);
-    //       } else {
-    //         toast.error("Por favor, complete todos los campos requeridos.");
-    //       }
-    //     } catch (error: any) {
-    //       toast.error(error);
-    //     }
-    //   },
-    //   [editEntity, createdEntity, handleApiResponse, intId]
-    // );
-
     const handleSaveChange = React.useCallback(
       async (data: InputData, isEditting: boolean) => {
         try {
@@ -280,58 +235,24 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
               type="text"
               label="Nombre"
               name="nombre"
-              data={data && data[EnumGrid.Nombre]}
+              data={data && data[EnumGrid.nombre]}
               control={control}
               error={!isEditting && errors.nombre}
               inputRef={firstInputRef}
             />
             <div className="w-full ">
               <SelectInputComponent
-                label="Cargo"
-                name="cargo"
+                label="Proveedor"
+                name="proveedor"
                 showRefresh={true}
-                data={data && data[EnumGrid.Cargo_id]}
+                data={data && data[EnumGrid.proveedor_id]}
                 control={control}
-                entidad={["/api/cargos/", "02"]}
-                error={!isEditting && errors.cargo}
+                entidad={["/api/proveedores/", "02"]}
+                error={!isEditting && errors.proveedor}
                 customWidth={"345px"}
               />
-              {/* <SelectInputComponent
-                label="TipoInsumos"
-                name="tipos"
-                showRefresh={true}
-                control={control}
-                entidad={["/api/tipos/", "02", "TipoInsumos"]}
-                error={!isEditting && errors.cargo}
-              /> */}
             </div>
 
-            <TextInputComponent
-              type="text"
-              label="Teléfono"
-              name="telefono"
-              data={data && data[EnumGrid.Telefono]}
-              control={control}
-            />
-            <TextInputComponent
-              type="email"
-              label="Correo"
-              name="correo"
-              data={data && data[EnumGrid.Correo]}
-              control={control}
-              error={!isEditting && errors.correo}
-              onlyRead={isEditting}
-            />
-
-            <RadioButtonComponent
-              control={control}
-              label="Estado"
-              name="estado"
-              data={data && data[EnumGrid.Estado]}
-              options={["Activo", "Suspendido"]}
-              error={!isEditting && errors.estado}
-              // horizontal={true}
-            />
           </div>
 
           <button type="submit" className="userFormBtnSubmit">
@@ -345,4 +266,4 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
   }
 );
 
-export default FUsuarios;
+export default FMarcas;
