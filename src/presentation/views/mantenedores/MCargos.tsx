@@ -16,6 +16,8 @@ const strEntidad = "Cargo ";
 const strEntidadExcel = "Cargos";
 const strBaseUrl = "/api/cargos/";
 const strQuery = "01";
+const idMenu  = 22;
+
 export enum EnumGrid {
   ID = 1,
   nombre = 2,
@@ -92,6 +94,7 @@ const MCargos: React.FC = () => {
           showDeleteButton={true}
           showForwardButton={false}
           showRefreshButton={true}
+          idMenu={idMenu}
         />
       </div>
 
@@ -109,6 +112,7 @@ const MCargos: React.FC = () => {
           tableHead={table_head_cargos}
           showEditButton={true}
           showDeleteButton={false}
+          idMenu={idMenu}
         />
       </div>
 

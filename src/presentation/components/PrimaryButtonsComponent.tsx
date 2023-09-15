@@ -26,6 +26,7 @@ interface IPrimaryButtonProps {
   params?: never[];
   strEntidad?: string;
   pkToDelete?: any;
+  idMenu: number;
 }
 
 const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
@@ -43,8 +44,9 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
     params,
     strEntidad,
     pkToDelete,
+    idMenu
   }) => {
-    const { escritura } = usePermission();
+    const { escritura_lectura } = usePermission(idMenu);
     const { CustomModal, showModal } = useModal();
 
     const renderButton = useCallback(
@@ -55,13 +57,14 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
             color="blue-gray"
             className="primaryBtnIconButton"
             onClick={handle}
-            disabled={!escritura}
+            // disabled={!escritura_lectura}
           >
+            
             {icon}
           </IconButton>
         </Tooltip>
       ),
-      [escritura]
+      [escritura_lectura]
     );
 
     return (
@@ -74,7 +77,7 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
           )}
 
         {showAddButton &&
-          escritura &&
+          escritura_lectura &&
           renderButton(
             <SiAddthis className="primaryBtnIcon" />,
             handleAddPerson!,
@@ -96,14 +99,14 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
           />
         )}
 
-        {showDeleteButton && escritura && handleDeleteSelected && (
+        {showDeleteButton && escritura_lectura && handleDeleteSelected && (
           <>
             <Tooltip content="Eliminar">
               <IconButton
                 variant="text"
                 color="blue-gray"
                 className="primaryBtnIconButton"
-                disabled={!escritura}
+                disabled={!escritura_lectura}
                 onClick={() => {
                   showModal(MODAL.delete, MODAL.deleteYes, MODAL.deleteNo).then(
                     (result) => {

@@ -3,10 +3,13 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 import { TextInputComponent } from "../components";
 import { validationForgotPasswordSchema } from "../utils";
 import { useCrud } from "../hooks";
+import { Link } from "react-router-dom";
+
 
 interface InputData {
   correo: string;
@@ -17,6 +20,7 @@ const strBaseUrl = "/api/usuarios/";
 const ResetPassword: React.FC = () => {
   const schema = validationForgotPasswordSchema();
   const { verifyUserEmail, forgotPassword } = useCrud(strBaseUrl);
+  const navigate = useNavigate();
 
   const {
     control,
@@ -33,6 +37,7 @@ const ResetPassword: React.FC = () => {
       const result = await forgotPassword(data.correo);
       console.log("result", result);
       toast.success("Correo enviado");
+      navigate("/login");
     } catch (error: any) {
       toast.error(error);
     }
@@ -56,6 +61,8 @@ const ResetPassword: React.FC = () => {
         <button type="submit" className="userFormBtnSubmit">
           Guardar
         </button>
+        
+      <Link replace to="/login">Login</Link>
       </form>
     </div>
   );

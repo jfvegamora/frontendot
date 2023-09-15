@@ -1,19 +1,20 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 import React from "react";
-import { useParams, Navigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
+import jwt_decode from "jwt-decode";
+import bcrypt from 'bcryptjs-react';
 
 import { TextInputComponent } from "../components";
 import { validationResetPasswordSchema } from "../utils";
-import jwt_decode from "jwt-decode";
 import { useCrud } from "../hooks";
-import { PublicRoutes } from "../../interfaces";
+
 
 interface InputData {
-  password: string | undefined;
+  password: string ;
   confirmPassword: string | undefined;
 }
 
@@ -25,7 +26,8 @@ const strBaseUrl = "/api/usuarios/";
 const ResetPassword: React.FC = () => {
   const { token } = useParams<{ token: string }>();
   const schema = validationResetPasswordSchema();
-  const { changePassword } = useCrud(strBaseUrl);
+  const { editEntity } = useCrud(strBaseUrl);
+  const navigate = useNavigate();
 
   const {
     control,
@@ -41,20 +43,22 @@ const ResetPassword: React.FC = () => {
 
     if (!token) return toast.error("redirigiendo a login");
 
+
     const tokenOriginal = token.replace(/@@@/g, ".");
     let decodedToken: DecodedToken | null = null;
-
+    const hashPassword = bcrypt.hashSync(password, 10)
+    
     try {
       decodedToken = jwt_decode(tokenOriginal);
       const updatePassword = {
         query: "04",
-        _p1: `password='${password}'`,
+        _p1: `password='${hashPassword}'`,
         _p2: decodedToken?.id.toString(),
         _p3: "",
       };
-      const response = await changePassword(updatePassword);
+      const response = await editEntity(updatePassword);
       toast.success("Nueva contraseña creada correctamente");
-      <Navigate replace to={PublicRoutes.LOGIN} />;
+      navigate("/login")
       console.log(response);
     } catch (error: any) {
       toast.error(error);

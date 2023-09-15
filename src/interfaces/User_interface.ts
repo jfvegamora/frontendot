@@ -1,17 +1,14 @@
-export enum Permisos {
-  LECTURA = "lectura",
-  ESCRITURA = "escritura",
+export enum PermisoTipo {
+  LECTURA = "1",
+  ESCRITURA_LECTURA = "2",
+  
 }
 
-interface Item {
-  id: string;
-  name: string;
-  field1: string;
-  field2: string;
-  field3: string;
+export interface IPermiso{
+  id_opcion: number;
+  opcion_nombre:string;
+  permiso_tipo:PermisoTipo;
 }
-
-export type DataStructure = Item[];
 
 export interface IUser {
   id: number;
@@ -21,5 +18,5 @@ export interface IUser {
   telefono: string;
   correo: string;
   estado: number;
-  permisos: Permisos;
+  permisos: {[key:string]: IPermiso[]}
 }

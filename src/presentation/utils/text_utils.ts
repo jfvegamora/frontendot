@@ -46,3 +46,13 @@ export const MODAL = {
   keepYes: "Si",
   kepNo: "No",
 };
+
+
+export const LOGIN = {
+  loginSuccess: "Sesion Iniciada correctamente",
+  loginError: "Credenciales Incorrectas",
+  resetPasswordSuccess: "Nueva Contraseña creada correctamente",
+  resetPasswordError: "Contraseñas no coinciden",
+  forgotPasswordSuccess: "Correo enviado correctamente",
+  forgotPasswordError: "Correo no existe"
+}

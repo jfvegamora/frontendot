@@ -25,6 +25,7 @@ const strEntidad      = "Proveedor ";
 const strEntidadExcel = "Proveedores";
 const strBaseUrl      = "/api/proveedores/";
 const strQuery        = "01";
+const idMenu          = 13;
 
 type PrimaryKey = {
   pk1: number;
@@ -103,6 +104,7 @@ const MProveedores: React.FC = () => {
           showDeleteButton    ={true}
           showForwardButton   ={false}
           showRefreshButton   ={true}
+          idMenu              ={idMenu}
         />
       </div>
 
@@ -119,6 +121,7 @@ const MProveedores: React.FC = () => {
           tableHead               ={table_head_proveedores}
           showEditButton          ={true}
           showDeleteButton        ={false}
+          idMenu                  ={idMenu}
         />
       </div>
 

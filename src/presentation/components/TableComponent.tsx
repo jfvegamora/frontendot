@@ -22,6 +22,7 @@ interface ITableComponentProps<T> {
   showEditButton: boolean;
   showDeleteButton: boolean;
   params?: never[];
+  idMenu: number;
 }
 
 const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
@@ -37,9 +38,11 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
     showEditButton,
     showDeleteButton,
     pkToDelete,
+    idMenu,
   }) => {
-    const { escritura } = usePermission();
+    const { escritura_lectura, lectura} = usePermission(idMenu);
     const [rowIds, setRowIds] = useState<number[]>([]);
+   
     useEffect(() => {
       if (data) {
         // Crea un arreglo de IDs de filas basado en la longitud de los datos
@@ -71,7 +74,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
             {tableHead &&
               tableHead.map((column, index) => {
                 const isVisible =
-                  column.visible && (column.key !== "checkbox" || escritura);
+                  column.visible && (column.key !== "checkbox" || escritura_lectura || lectura);
                 return isVisible ? (
                   <th key={index} className="gridHead">
                     {column.key === "checkbox" ? (
@@ -115,7 +118,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                   })}
                   <td className="gridTableData">
                     {/* ===========BOTONES DE TABLA============ */}
-                    {showEditButton && escritura && (
+                    {showEditButton && escritura_lectura && (
                       <Tooltip content={BUTTON_MESSAGES.edit.concat(entidad)}>
                         <IconButton
                           variant="text"
@@ -129,7 +132,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                       </Tooltip>
                     )}
 
-                    {escritura && showDeleteButton && (
+                    {escritura_lectura && showDeleteButton && (
                       <Tooltip content={BUTTON_MESSAGES.delete.concat(entidad)}>
                         <IconButton
                           variant="text"

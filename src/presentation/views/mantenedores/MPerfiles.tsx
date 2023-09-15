@@ -24,6 +24,7 @@ const strEntidad = "perfil de cargo ";
 const strEntidadExcel = "Perfil_de_cargos";
 const strBaseUrl = "/api/perfiles/";
 const strQuery = "01";
+const idMenu   = 25;
 type PrimaryKey = {
   pk1: number;
   pk2: number;
@@ -118,6 +119,7 @@ const MPerfiles: React.FC = () => {
           showDeleteButton={true}
           showForwardButton={false}
           showRefreshButton={true}
+          idMenu={idMenu}
         />
       </div>
 
@@ -135,6 +137,7 @@ const MPerfiles: React.FC = () => {
           tableHead={table_head_perfiles}
           showEditButton={true}
           showDeleteButton={false}
+          idMenu={idMenu}
         />
       </div>
 

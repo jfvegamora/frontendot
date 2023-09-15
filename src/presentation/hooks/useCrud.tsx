@@ -15,6 +15,7 @@ const useCrud = (
   deleteAllEntity: (id: number[]) => Promise<any | undefined>;
   focusFirstInput: (strInputName: string) => void;
   changePassword: (updatepassword:any) => Promise<any | undefined>;
+  loginEntity: (data:any) => Promise<any | undefined>;
   exportEntity: (
     primaryKey?: string,
     strEntidad?: string
@@ -33,6 +34,26 @@ const useCrud = (
       "Content-Type": "application/json",
     },
   });
+
+  const loginEntity = async(data: { _p1: any; _p3: any; }) =>{
+    try {
+        if(!data) return "Faltan Credenciales"
+
+        const {_p1, _p3} = data;
+        
+        const query = {
+          correo   : _p1,
+          password : _p3
+        }
+
+        const response = await axiosInstance.post('/login/', query)
+        return response.data        
+    } catch (error) {
+      return error
+    }
+  }
+
+
   const firstInputRef = useRef<HTMLInputElement | null>(null);
 
   const focusFirstInput = (strInputName: string) => {
@@ -185,7 +206,8 @@ const useCrud = (
     firstInputRef,
     verifyUserEmail,
     forgotPassword,
-    changePassword
+    changePassword,
+    loginEntity
   };
 };
 

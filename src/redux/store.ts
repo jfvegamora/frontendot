@@ -1,19 +1,19 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { useSelector } from "react-redux";
 import { TypedUseSelectorHook, useDispatch } from "react-redux";
-import { userReducer } from "./slices";
+import { userReducer, funcionaliddadesReducer } from "./slices";
 import { IUser } from "../interfaces";
+import { IFuncionalidad } from "./slices/funcionalidadesSlice";
 
 export interface AppStore {
-  user: IUser;
-  //AÑADIR TIPADO DE OTROS ESTADOS
+  user: IUser | null;
+  funcionalidades: IFuncionalidad  | null ;
 }
 
 export const store = configureStore<AppStore>({
   reducer: {
-    // user: usersReducer
-    // listBox: listBoxSlice,
     user: userReducer,
+    funcionalidades: funcionaliddadesReducer
   },
 });
 
@@ -23,3 +23,4 @@ export type AppDispatch = typeof store.dispatch;
 //HOOKS
 export const useAppDispatch: () => AppDispatch = useDispatch;
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
+

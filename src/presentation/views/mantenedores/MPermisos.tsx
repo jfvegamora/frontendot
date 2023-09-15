@@ -24,6 +24,7 @@ const strEntidad = "Permiso de Usuario ";
 const strEntidadExcel = "Permisos_de_usuario";
 const strBaseUrl = "/api/permisos/";
 const strQuery = "01";
+const idMenu   = 26;
 
 type PrimaryKey = {
   pk1: number;
@@ -119,6 +120,8 @@ const MPermisos: React.FC = () => {
           showDeleteButton={true}
           showForwardButton={false}
           showRefreshButton={true}
+          idMenu={idMenu}
+
         />
       </div>
 
@@ -136,6 +139,7 @@ const MPermisos: React.FC = () => {
           tableHead={table_head_permisos}
           showEditButton={true}
           showDeleteButton={false}
+          idMenu={idMenu}
         />
       </div>
 

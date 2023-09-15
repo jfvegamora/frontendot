@@ -47,6 +47,16 @@ export const validationUserSchema = (isEditting: boolean | undefined) =>
     // password2: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
   });
 
+export const validationProfileUserSchema = () => 
+  yup.object().shape({
+    nombre: yup.string().required(`${msg}`),
+    correo: yup.string().required(`${msg}`),
+    telefono: yup.string().required(`${msg}`),
+    password: yup.string().required(`${msg}`),
+    newPassword: yup.string().required(`${msg}`),
+    confirmNewPassword: yup.string().required(`${msg}`),
+  })
+
 //Schema PERFILES DE CARGOS
 export const validationPerfilesSchema = (isEditting: boolean | undefined) =>
   yup.object().shape({

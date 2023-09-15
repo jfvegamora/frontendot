@@ -1,4 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Navbar,
   Collapse,
@@ -12,6 +16,7 @@ import {
   Card,
   IconButton,
 } from "@material-tailwind/react";
+import {toast} from 'react-toastify'
 import {
   UserCircleIcon,
   Square3Stack3DIcon,
@@ -20,23 +25,29 @@ import {
   RocketLaunchIcon,
   Bars2Icon,
 } from "@heroicons/react/24/outline";
-import { Link, To } from "react-router-dom";
+import { AppStore, useAppDispatch, useAppSelector } from "../../redux/store";
+import { logout } from "../../redux/slices/userSlice";
 
 // profile menu component
 const profileMenuItems = [
   {
     label: "Mi Perfil",
     icon: UserCircleIcon,
+    action: "/profile"
   },
   {
     label: "Cerrar Sesión",
     icon: PowerIcon,
+    action: () => {}
   },
 ];
 
 function ProfileMenu() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const closeMenu = () => setIsMenuOpen(false);
+  
 
   return (
     <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
@@ -63,12 +74,25 @@ function ProfileMenu() {
         </Button>
       </MenuHandler>
       <MenuList className="p-1">
-        {profileMenuItems.map(({ label, icon }, key) => {
+        {profileMenuItems.map(({ label, icon, action }, key) => {
           const isLastItem = key === profileMenuItems.length - 1;
           return (
             <MenuItem
               key={label}
-              onClick={closeMenu}
+              onClick={ ()=>{
+                if (typeof action === 'string') {
+                  console.log('action:', action)
+                  return navigate(action)
+                }
+                if (typeof action === 'function') {
+                  toast.success('Sesion cerrada')
+                  dispatch(logout())
+                  navigate('/login')
+                 
+                }
+                closeMenu();
+              }
+              }
               className={`flex items-center gap-2 rounded ${
                 isLastItem
                   ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
@@ -99,18 +123,22 @@ const navListMenuOT = [
   {
     title: "Órdenes de Trabajo",
     link: "/ot",
+    id:1
   },
   {
     title: "Clientes",
     link: "/clientes",
+    id:2
   },
   {
     title: "Establecimientos",
     link: "/establecimientos",
+    id:3
   },
   {
     title: "Puntos de Venta",
     link: "/puntosventa",
+    id:4
   },
 ];
 
@@ -118,38 +146,47 @@ const navListMenuBodega = [
   {
     title: "Armazones",
     link: "/armazones",
+    id:5
   },
   {
     title: "Cristales",
     link: "/cristales",
+    id:7
   },
   {
     title: "Accesorios",
     link: "/accesorios",
+    id:9
   },
   {
     title: "Kardex de Armazones",
     link: "/kardexarmazones",
+    id:6
   },
   {
     title: "Kardex de Cristales",
     link: "/kardexcristales",
+    id:8
   },
   {
     title: "Kardex de Accesorios",
     link: "/kardexaccesorios",
+    id:10
   },
   {
     title: "Almacenes",
     link: "/almacenes",
+    id:11
   },
   {
     title: "Marcas",
     link: "/marcas",
+    id:12
   },
   {
     title: "Proveedores",
     link: "/proveedores",
+    id:13
   },
 ];
 
@@ -157,34 +194,42 @@ const navListMenuProyectos = [
   {
     title: "Mandantes",
     link: "/mandantes",
+    id:14
   },
   {
     title: "Proyectos",
     link: "/proyectos",
+    id:15
   },
   {
     title: "Parametrización de Armazones",
     link: "/proyectocatalogoarmazones",
+    id:16
   },
   {
     title: "Parametrización de Grupos",
     link: "/proyectogrupos",
+    id:17
   },
   {
     title: "Parametrización de Despacho",
     link: "/proyectodireccionesdespacho",
+    id:18
   },
   {
     title: "Reporte de Atención",
     link: "/proyectoreporteatencion",
+    id:19
   },
   {
     title: "Reporte de Firmas",
     link: "/proyectoreportefirma",
+    id:20
   },
   {
     title: "Oftalmólogos",
     link: "/oftalmologos",
+    id:21
   },
 ];
 
@@ -192,55 +237,90 @@ const navListMenuSistema = [
   {
     title: "Cargos",
     link: "/cargos",
+    id: 22
   },
   {
     title: "Funcionalidades",
     link: "/funcionalidades",
+    id: 23
   },
   {
     title: "Permisos de Usuario",
     link: "/permisos",
+    id:26
   },
   {
     title: "Perfiles de Cargo",
     link: "/perfiles",
+    id:25
   },
   {
     title: "Usuarios",
     link: "/usuarios",
+    id:24
   },
   {
     title: "Empresas",
     link: "/empresas",
+    id:27
   },
 ];
 
-function mapItems(title: React.Key | null | undefined, link: To) {
-  return (
-    <Link to={link} key={title}>
-      <MenuItem>
-        <Typography variant="h6" color="blue-gray" className="mb-1">
-          {title}
-        </Typography>
-        {/*<Typography variant="small" color="gray" className="font-normal">
-        {title}
-  </Typography>*/}
-      </MenuItem>
-    </Link>
-  );
-}
+// function mapItems(title: React.Key | null | undefined, link: To) {
+//   return (
+//     <Link to={link} key={title}>
+//       <MenuItem>
+//         <Typography variant="h6" color="blue-gray" className="mb-1">
+//           {title}
+//         </Typography>
+//         {/*<Typography variant="small" color="gray" className="font-normal">
+//         {title}
+//   </Typography>*/}
+//       </MenuItem>
+//     </Link>
+//   );
+// }
 
-function NavListMenuOT() {
+function NavListMenuOT({userPermission}:{userPermission:number[]}) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const navigate = useNavigate();
 
   const triggers = {
     onMouseEnter: () => setIsMenuOpen(true),
     onMouseLeave: () => setIsMenuOpen(false),
   };
 
-  const renderItems = navListMenuOT.map(({ title, link }) =>
-    mapItems(title, link)
-  );
+  const renderItems = navListMenuOT.map(({ title, link , id}) => {
+    const hasPermission = userPermission.includes(id)
+    return (
+      <MenuItem
+        key={id}
+        className={`flex items-center gap-2 rounded ${
+          hasPermission ? "" : "text-gray-400 cursor-not-allowed"
+        }`}
+        onClick={() => {
+          if (hasPermission) {
+            navigate(link);
+          }
+        }}
+      >
+        {/* {React.createElement(icon, {
+        className: `h-4 w-4 ${hasPermission ? "" : "text-gray-400"}`,
+        strokeWidth: 2,
+      })} */}
+        <Typography
+          as="span"
+          variant="small"
+          className={`font-normal ${
+            hasPermission ? "" : "text-gray-400"
+          }`}
+        >
+          {title}
+        </Typography>
+      
+      </MenuItem>
+    )
+});
 
   return (
     <React.Fragment>
@@ -288,17 +368,46 @@ function NavListMenuOT() {
   );
 }
 
-function NavListMenuBodega() {
+function NavListMenuBodega({userPermission}:{userPermission:number[]}) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const navigate = useNavigate();
 
   const triggers = {
     onMouseEnter: () => setIsMenuOpen(true),
     onMouseLeave: () => setIsMenuOpen(false),
   };
 
-  const renderItems = navListMenuBodega.map(({ title, link }) =>
-    mapItems(title, link)
-  );
+  const renderItems = navListMenuBodega.map(({ title, link , id}) => {
+    const hasPermission = userPermission.includes(id)
+    return (
+      <MenuItem
+        key={id}
+        className={`flex items-center gap-2 rounded ${
+          hasPermission ? "" : "text-gray-400 cursor-not-allowed"
+        }`}
+        onClick={() => {
+          if (hasPermission) {
+            navigate(link);
+          }
+        }}
+      >
+        {/* {React.createElement(icon, {
+        className: `h-4 w-4 ${hasPermission ? "" : "text-gray-400"}`,
+        strokeWidth: 2,
+      })} */}
+        <Typography
+          as="span"
+          variant="small"
+          className={`font-normal ${
+            hasPermission ? "" : "text-gray-400"
+          }`}
+        >
+          {title}
+        </Typography>
+      
+      </MenuItem>
+    )
+});
 
   return (
     <React.Fragment>
@@ -346,26 +455,46 @@ function NavListMenuBodega() {
   );
 }
 
-function NavListMenuProyectos() {
+function NavListMenuProyectos({userPermission}:{userPermission:number[]}) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const navigate = useNavigate();
 
   const triggers = {
     onMouseEnter: () => setIsMenuOpen(true),
     onMouseLeave: () => setIsMenuOpen(false),
   };
 
-  const renderItems = navListMenuProyectos.map(({ title, link }) =>
-    mapItems(title, link)
-  );
-  /* 
-   const renderItemsGeneral = navListMenuGeneral.map(({ title, link }) => (
-    mapItems(title, link)
-   ));
- 
-   const renderItemsSistema = navListMenuSistema.map(({ title, link }) => (
-    mapItems(title, link)
-   ));
- */
+  const renderItems = navListMenuProyectos.map(({ title, link , id}) => {
+    const hasPermission = userPermission.includes(id)
+    return (
+      <MenuItem
+        key={id}
+        className={`flex items-center gap-2 rounded ${
+          hasPermission ? "" : "text-gray-400 cursor-not-allowed"
+        }`}
+        onClick={() => {
+          if (hasPermission) {
+            navigate(link);
+          }
+        }}
+      >
+        {/* {React.createElement(icon, {
+        className: `h-4 w-4 ${hasPermission ? "" : "text-gray-400"}`,
+        strokeWidth: 2,
+      })} */}
+        <Typography
+          as="span"
+          variant="small"
+          className={`font-normal ${
+            hasPermission ? "" : "text-gray-400"
+          }`}
+        >
+          {title}
+        </Typography>
+      
+      </MenuItem>
+    )
+});
 
   return (
     <React.Fragment>
@@ -413,17 +542,46 @@ function NavListMenuProyectos() {
   );
 }
 
-function NavListMenuSistema() {
+function NavListMenuSistema({userPermission}:{userPermission:number[]}) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const navigate = useNavigate();
 
   const triggers = {
     onMouseEnter: () => setIsMenuOpen(true),
     onMouseLeave: () => setIsMenuOpen(false),
   };
 
-  const renderItems = navListMenuSistema.map(({ title, link }) =>
-    mapItems(title, link)
-  );
+  const renderItems = navListMenuSistema.map(({ title, link , id}) => {
+      const hasPermission = userPermission.includes(id)
+      return (
+        <MenuItem
+          key={id}
+          className={`flex items-center gap-2 rounded ${
+            hasPermission ? "" : "text-gray-400 cursor-not-allowed"
+          }`}
+          onClick={() => {
+            if (hasPermission) {
+              navigate(link);
+            }
+          }}
+        >
+          {/* {React.createElement(icon, {
+          className: `h-4 w-4 ${hasPermission ? "" : "text-gray-400"}`,
+          strokeWidth: 2,
+        })} */}
+          <Typography
+            as="span"
+            variant="small"
+            className={`font-normal ${
+              hasPermission ? "" : "text-gray-400"
+            }`}
+          >
+            {title}
+          </Typography>
+        
+        </MenuItem>
+      )
+  });
 
   return (
     <React.Fragment>
@@ -562,36 +720,63 @@ function NavListMenuSistema() {
 //   },*/
 // ];
 
+// interface PermissionProps {
+//   userPermissions: any[]; // Supongo que los IDs de permisos son números
+//   requiredPermissions: number[]; // Supongo que los IDs de permisos requeridos son números
+//   children: ReactNode; // El contenido a renderizar si el usuario tiene permisos
+// }
+
+// function Permission({userPermissions, requiredPermissions, children}:PermissionProps){
+//   console.log('userpermission', userPermissions)
+//   console.log('requiredPermissions',requiredPermissions)
+//   const hasRequiredPermission = requiredPermissions.some((permission: any) =>{
+//     console.log('permission', permission)
+//     return userPermissions.includes(permission)
+
+//   }
+
+//   );
+  
+//   const content = hasRequiredPermission ? (
+//     children
+//   ) : (
+//     <div className="text-gray-400 cursor-not-allowed">
+//       {children}
+//     </div>
+//   )
+
+//   return <>{content}</>
+// }
+
 function NavList() {
+  const [ userPermission, setUserPermission] = React.useState<number[]>([])
+  const userState = useAppSelector((store: AppStore) => store.user);
+
+  React.useEffect(()=>{
+    const permisosKey = userState?.permisos ? Object.keys(userState.permisos) : [];
+    const numbersPermission = permisosKey.map((str) => parseInt(str, 10));
+    setUserPermission(numbersPermission)
+  },[userState])
+
   return (
     <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center">
-      {/*{navListItems.map(({ label, icon }, key) => (
-        <Typography
-          key={key}
-          as="a"
-          href="#"
-          variant="small"
-          color="blue-gray"
-          className="font-normal"
-        >
-          <MenuItem className="flex items-center gap-2 lg:rounded-full">
-            {React.createElement(icon, { className: "h-[18px] w-[18px]" })}{" "}
-            {label}
-          </MenuItem>
-        </Typography>
-      ))}*/}
-      <NavListMenuOT />
-      <NavListMenuBodega />
-      <NavListMenuProyectos />
-      <NavListMenuSistema />
+      <NavListMenuOT  userPermission={userPermission}/>
+      <NavListMenuBodega  userPermission={userPermission}/>
+      <NavListMenuProyectos userPermission={userPermission}/>
+      <NavListMenuSistema userPermission={userPermission} />
+ 
     </ul>
   );
 }
-/*
-      <NavListMenu navListMenu={navListMenuOT} title= "OT" />
-*/
+
+
+
+
+
 export default function ComplexNavbar() {
   const [isNavOpen, setIsNavOpen] = React.useState(false);
+  const userState = useAppSelector((store: AppStore) => store.user);
+
   const toggleIsNavOpen = () => setIsNavOpen((cur) => !cur);
 
   React.useEffect(() => {
@@ -599,35 +784,43 @@ export default function ComplexNavbar() {
       "resize",
       () => window.innerWidth >= 960 && setIsNavOpen(false)
     );
+    // const userPermission = userState?.permisos.map((permiso)=>permiso)
   }, []);
-
+  
+  
+  
+  
   return (
-    <Navbar className=" mt-2 mx-auto max-w-screen-xl p-2 lg:rounded-full lg:pl-6 navBarBorder">
-      <div className="relative mx-auto flex items-center text-blue-gray-900">
-        <Typography
-          as="a"
-          href="#"
-          className="mr-4 ml-2 cursor-pointer py-1.5 font-medium"
-        >
-          Sistema Gestión OT
-        </Typography>
-        <div className="absolute top-2/4 left-2/4 hidden -translate-x-2/4 -translate-y-2/4 lg:block">
-          <NavList />
+    <>
+    {userState?.nombre && (
+      <Navbar className=" mt-2 mx-auto max-w-screen-xl p-2 lg:rounded-full lg:pl-6 navBarBorder">
+        <div className="relative mx-auto flex items-center text-blue-gray-900">
+          <Typography
+            as="a"
+            href="#"
+            className="mr-4 ml-2 cursor-pointer py-1.5 font-medium"
+          >
+            Sistema Gestión OT
+          </Typography>
+          <div className="absolute top-2/4 left-2/4 hidden -translate-x-2/4 -translate-y-2/4 lg:block">
+            <NavList />
+          </div>
+          <IconButton
+            size="sm"
+            color="blue-gray"
+            variant="text"
+            onClick={toggleIsNavOpen}
+            className="ml-auto mr-2 lg:hidden"
+          >
+            <Bars2Icon className="h-6 w-6" />
+          </IconButton>
+          <ProfileMenu />
         </div>
-        <IconButton
-          size="sm"
-          color="blue-gray"
-          variant="text"
-          onClick={toggleIsNavOpen}
-          className="ml-auto mr-2 lg:hidden"
-        >
-          <Bars2Icon className="h-6 w-6" />
-        </IconButton>
-        <ProfileMenu />
-      </div>
-      <Collapse open={isNavOpen} className="overflow-scroll">
-        <NavList />
-      </Collapse>
-    </Navbar>
+        <Collapse open={isNavOpen} className="overflow-scroll">
+          <NavList />
+        </Collapse>
+      </Navbar>
+    )}    
+    </>
   );
 }

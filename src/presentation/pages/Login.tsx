@@ -2,29 +2,35 @@
 import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { toast } from "react-toastify";
 import { useNavigate, Link } from "react-router-dom";
-import bcrypt from "bcrypt";
+import jwtDecode from "jwt-decode";
 
-import { validationLoginSchema } from "../utils";
+
+import { LOGIN, validationLoginSchema } from "../utils";
 import { TextInputComponent } from "../components";
 import { useAppDispatch } from "../../redux/store";
 import { useCrud } from "../hooks";
 import { login } from "../../redux/slices/userSlice";
+import { IUser } from "../../interfaces";
+import { fetchFuncionalidades } from "../../redux/slices/funcionalidadesSlice";
+import useCustomToast from "../hooks/useCustomToast";
+// import ToastNotification from "../components/ToastNotification";
 
 interface LoginFormValues {
   _p1: string;
   _p3: string;
 }
 
+
 const Login: React.FC = React.memo(() => {
   const strBaseUrl = "/api/usuarios/";
-  const strQuery = "06";
+  // const strQuery = "06";
   const schema = validationLoginSchema();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const {show} = useCustomToast();
 
-  const { ListEntity } = useCrud(strBaseUrl);
+  const { loginEntity } = useCrud(strBaseUrl);
 
   const {
     control,
@@ -33,33 +39,27 @@ const Login: React.FC = React.memo(() => {
   } = useForm({
     resolver: yupResolver(schema),
   });
+
+
   const handleChange: SubmitHandler<LoginFormValues> = (data) => {
-    // const { _p1, _p3 } = data;
-
     try {
-      // const hashpassword = bcrypt.hash(data._p3, 12);
-      // console.log("hashpassword", hashpassword);
-      //transformamos data en formato _p1=carlitos&_p3=carlos123
-      const queryString = Object.entries(data)
-        .map(([key, value]) => `${key}=${value}`)
-        .join("&");
-
-      console.log("data", data);
-      //llamamos a la api
-      ListEntity(queryString, strQuery)
+      loginEntity(data)
         .then((user) => {
-          console.log("usuario", user.length);
-          if (user.length === 0) return toast.error("Credenciales incorrectas");
-
-          dispatch(login(user));
-          toast.success("Sesion Iniciada");
+          if (user.length === 0) return show({message:LOGIN.loginError, type:"error"});
+          const response:IUser = jwtDecode(user[0])
+          dispatch(login(response));
+          dispatch(fetchFuncionalidades())
+          // toast.success("Sesion Iniciada");
+          show({message:LOGIN.loginSuccess, type:"success"})
           navigate("/usuarios");
         })
-        .catch((e) => toast.error(e));
-    } catch (error) {
-      console.log(error);
+        .catch((_e) => show({message:LOGIN.loginError, type:"error"}));
+    } catch (error:any) {
+      show({message:LOGIN.loginError, type:"error"})
     }
   };
+
+
   return (
     <div className="bg-black-500 w-full h-ful">
       <section className="bg-gray-100 dark:bg-gray-900 h-full mt-[-16%]">

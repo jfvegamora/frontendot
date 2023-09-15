@@ -21,10 +21,11 @@ export enum EnumGrid {
   Cargo_id = 6,
   Cargo = 7,
 }
-const strEntidad = "Usuario ";
+const strEntidad      = "Usuario ";
 const strEntidadExcel = "Usuarios";
-const strBaseUrl = "/api/usuarios/";
-const strQuery = "01";
+const strBaseUrl      = "/api/usuarios/";
+const strQuery        = "01";
+const idMenu          = 24
 
 type PrimaryKey = {
   pk1: number;
@@ -95,18 +96,19 @@ const MUsuarios: React.FC = () => {
         />
 
         <PrimaryButtonsComponent
-          handleAddPerson={openModal}
-          handleDeleteSelected={handleDeleteSelected}
-          handleRefresh={resetEntities}
-          params={params}
-          pkToDelete={pkToDelete}
-          strEntidad={strEntidadExcel}
-          strBaseUrl={strBaseUrl}
-          showAddButton={true}
-          showExportButton={true}
-          showDeleteButton={true}
-          showForwardButton={false}
-          showRefreshButton={true}
+          handleAddPerson        ={openModal}
+          handleDeleteSelected   ={handleDeleteSelected}
+          handleRefresh          ={resetEntities}
+          params                 ={params}
+          pkToDelete             ={pkToDelete}
+          strEntidad             ={strEntidadExcel}
+          strBaseUrl             ={strBaseUrl}
+          showAddButton          ={true}
+          showExportButton       ={true}
+          showDeleteButton       ={true}
+          showForwardButton      ={false}
+          showRefreshButton      ={true}
+          idMenu                 ={idMenu}
         />
       </div>
 
@@ -124,6 +126,7 @@ const MUsuarios: React.FC = () => {
           tableHead={table_head_usuarios}
           showEditButton={true}
           showDeleteButton={false}
+          idMenu={idMenu}
         />
       </div>
 

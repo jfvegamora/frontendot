@@ -1,30 +1,28 @@
-import { Suspense, lazy } from "react";
+import { Suspense, lazy, useEffect } from "react";
 
 import "./App.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Route, Navigate } from "react-router-dom";
+import { Route, Navigate, useNavigate } from "react-router-dom";
 
-import { Provider } from "react-redux";
-import { ThemeProvider } from "@material-tailwind/react";
-import { store } from "./redux/store";
-import { BrowserRouter } from "react-router-dom";
+
+import { AppStore, useAppSelector } from "./redux/store";
 import { RoutesWithNotFound } from "./presentation/utils";
-import { PrivateRoutes, PublicRoutes } from "./interfaces";
-import AuthGuard from "./presentation/guards/auth_guard";
+import {PublicRoutes, privateRoutes } from "./interfaces";
+import AuthGuard, { hasRequiredPermissions } from "./presentation/guards/auth_guard";
 
 //Lazy components
 const Login = lazy(() => import("./presentation/pages/Login"));
 
-const Home = lazy(() => import("./presentation/pages/Home"));
+// const Home = lazy(() => import("./presentation/pages/Home"));
 
 const Navbar = lazy(() => import("./presentation/components/ComplexNavbar"));
 
 const ResetPassword = lazy(() => import("./presentation/pages/ResetPassword"));
 
-const ForgotPassword = lazy(
-  () => import("./presentation/pages/ForgotPassword")
-);
+const ForgotPassword = lazy(() => import("./presentation/pages/ForgotPassword"));
+
+const ProfileUser = lazy(()=> import("./presentation/pages/ProfileUser"))
 
 // const pathMant = "./presentation/views/mantenedores/";
 
@@ -43,10 +41,6 @@ const ForgotPassword = lazy(
 // const MAccesoriosKardex = lazy(() => import(pathMant + "MAccesoriosKardex"));
 // const MAlmacenes = lazy(() => import(pathMant + "MAlmacenes"));
 // const MMarcas = lazy(() => import(pathMant + "MMarcas"));
-const MProveedores = lazy(
-  /* @vite-ignore */ () =>
-    import("./presentation/views/mantenedores/MProveedores")
-);
 
 // MENU PROYECTOS
 // const MMandantes = lazy(() => import(pathMant + "MMandantes"));
@@ -58,32 +52,36 @@ const MProveedores = lazy(
 // const MReporteFirmas = lazy(() => import(pathMant + "MReporteFirmas"));
 // const MOftalmologos = lazy(() => import(pathMant + "MOftalmologos"));
 
-// MENU SISTEMA
-const MFuncionalidades = lazy(
-  () => import("./presentation/views/mantenedores/MFuncionalidades")
-);
-const MCargos = lazy(() => import("./presentation/views/mantenedores/MCargos"));
-const MUsuarios = lazy(
-  () => import("./presentation/views/mantenedores/MUsuarios")
-);
-const MPerfiles = lazy(
-  () => import("./presentation/views/mantenedores/MPerfiles")
-);
-const MPermisos = lazy(
-  () => import("./presentation/views/mantenedores/MPermisos")
-);
-//const MEmpresas = lazy(() => import(pathMant + "/MEmpresas"));
+
+
 
 function App() {
+  const userState = useAppSelector((store: AppStore) => store.user);
+  const navigate = useNavigate()
+
+  const permisosID = userState && Object.keys(userState?.permisos)
+
+  const redirectToLogin = () => {
+      navigate(`/login`)
+      return null;
+  }
+
+  useEffect(() => {
+    privateRoutes.forEach((route) => {
+      if (
+        permisosID && !hasRequiredPermissions(route.id, permisosID)
+      ) {
+        redirectToLogin();
+      }
+    });
+  }, []);
   return (
     <div className="App">
       <Suspense fallback={<>Cargando.....</>}>
-        <Provider store={store}>
-          <ThemeProvider>
-            <BrowserRouter>
               <ToastContainer />
               <Navbar />
               <RoutesWithNotFound>
+                <Route path={PublicRoutes.LOGIN} element={<Login />} />
                 <Route
                   path={PublicRoutes.RESETPASSWORD}
                   element={<ResetPassword />}
@@ -92,23 +90,54 @@ function App() {
                   path={PublicRoutes.FORGOTPASSWORD}
                   element={<ForgotPassword />}
                 />
-                <Route element={<AuthGuard privateValidation={true} />}>
-                  <Route path={PublicRoutes.LOGIN} element={<Login />} />
+                <Route
+                  path={PublicRoutes.PROFILE}
+                  element={<ProfileUser />}
+                />
                   <Route
                     path="/"
                     element={<Navigate to={PublicRoutes.LOGIN} />}
                   />
-                  <Route path={PrivateRoutes.HOME} element={<Home />} />
+                <Route element={<AuthGuard privateValidation={true} />}>
+                  {privateRoutes.map((route)=>(
+                    <Route
+                      key={route.path}
+                      path={route.path}
+                      element={
+                        permisosID && hasRequiredPermissions(route.id, permisosID)
+                         ? <route.component/>
+                         : null
+                      }     
+                    />
+                  ))}
+                </Route>
+              </RoutesWithNotFound>
+      </Suspense>
+    </div>
+  );
+}
+
+export default App;
+
+
+
+
+
+  {/* <Route path={PrivateRoutes.HOME} element={<Home />} />
 
                   <Route path={PrivateRoutes.CARGOS} element={<MCargos />} />
                   <Route
                     path={PrivateRoutes.USUARIOS}
                     element={<MUsuarios />}
                   />
+
                   <Route
                     path={PrivateRoutes.FUNCIONALIDADES}
                     element={<MFuncionalidades />}
                   />
+
+
+
                   <Route
                     path={PrivateRoutes.PERFILES}
                     element={<MPerfiles />}
@@ -117,19 +146,13 @@ function App() {
                     path={PrivateRoutes.PERMISOS}
                     element={<MPermisos />}
                   />
+
                   <Route
                     path={PrivateRoutes.PROVEEDORES}
                     element={<MProveedores />}
                   />
+                  <Route
+                    path={PrivateRoutes.PROFILE}
+                    element={<ProfileUser />}
+                  /> */}
                   {/* <Route path={PrivateRoutes.CRISTALES} element={<MCristales />} />  */}
-                </Route>
-              </RoutesWithNotFound>
-            </BrowserRouter>
-          </ThemeProvider>
-        </Provider>
-      </Suspense>
-    </div>
-  );
-}
-
-export default App;

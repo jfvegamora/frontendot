@@ -9,7 +9,7 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { toast } from "react-toastify";
 
-import { useCrud, usePermission } from ".";
+import { useCrud } from ".";
 import { useModal } from "./useModal";
 
 export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
@@ -27,7 +27,7 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
   const [isEntityProfile, setIsEntityProfile] = useState<boolean>(false);
   const [onDelete, setDataGrid] = useState<boolean>(false);
 
-  const { escritura } = usePermission();
+
   const { showModal } = useModal();
   const { deleteAllEntity, ListEntity } = useCrud(baseUrl);
 
@@ -94,10 +94,6 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
   //METODO EDITAR DE LA GRILLA
   const toggleEditModal = useCallback(
     (rowIndex: number) => {
-      if (!escritura) {
-        alert("No tienes permisos");
-        return;
-      }
       setIsModalEdit((prev) => !prev);
 
       if (rowIndex >= 0) {
@@ -108,7 +104,7 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
         setEntity(null);
       }
     },
-    [entities, escritura]
+    [entities]
   );
 
   // FACTORIZAR
@@ -118,7 +114,6 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
 
   const handleDeleteSelected = useCallback(
     async (rowData?: any) => {
-      if (escritura) {
         if (selectedRows.length >= 1) {
           try {
             const response = await deleteAllEntity([rowData]);
@@ -152,9 +147,8 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
             return error;
           }
         }
-      }
     },
-    [selectedRows, escritura, showModal]
+    [selectedRows, showModal]
   );
 
   useEffect(() => {
