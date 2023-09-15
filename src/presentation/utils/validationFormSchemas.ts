@@ -41,7 +41,6 @@ export const validationPuntosVentaSchema = (isEditting: boolean | undefined) =>
     telefono   : yup.string(),
   });
 
-
 /*************** B O D E G A ***************/
 // Schema ACCESORIOS
 export const validationAccesoriosSchema = (isEditting: boolean | undefined) =>
@@ -148,7 +147,6 @@ export const validationProveedoresSchema = (isEditting: boolean | undefined) =>
     sitio_web : yup.string(),
   });
 
-
 /*************** P R O Y E C T O S ***************/
 // Schema MANDANTES
 export const validationMandantesSchema = (isEditting: boolean | undefined) =>
@@ -171,8 +169,7 @@ export const validationOftalmologosSchema = (isEditting: boolean | undefined) =>
     valor_consulta: !isEditting ? yup.number().required(`${msg}`) : yup.number(),
   });
 
-
-  /*************** S I S T E M A ***************/
+/*************** S I S T E M A ***************/
 // Schema CARGOS
 export const validationCargosSchema = (isEditting: boolean | undefined) =>
   yup.object().shape({
@@ -180,7 +177,9 @@ export const validationCargosSchema = (isEditting: boolean | undefined) =>
   });
 
 // Schema FUNCIONALIDADES
-export const validationFuncionalidadSchema = (isEditting: boolean | undefined) =>
+export const validationFuncionalidadSchema = (
+  isEditting: boolean | undefined
+) =>
   yup.object().shape({
     descripcion: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
   });
@@ -232,6 +231,11 @@ export const validationResetPasswordSchema = () =>
   yup.object().shape({
     password        : yup.string().required(`${msg}`),
     confirmPassword : yup.string().required(`${msg}`),
+  });
+
+export const validationForgotPasswordSchema = () =>
+  yup.object().shape({
+    correo: yup.string().required(`${msg}`),
   });
 
 // Schema LOGIN

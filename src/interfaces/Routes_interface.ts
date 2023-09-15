@@ -1,12 +1,14 @@
 export const PublicRoutes = {
   LOGIN: "login",
+  RESETPASSWORD: "resetpassword/:token",
+  FORGOTPASSWORD: "forgotpassword",
   // LOGOUT: "logout",
 };
 
 export const PrivateRoutes = {
   HOME: "home",
   PRIVATE: "private",
-  
+
   //MENU OT
   OT:                 "ot",
   CLIENTES:           "clientes",
@@ -35,13 +37,10 @@ export const PrivateRoutes = {
   OFTALMOLOGOS:           "oftalmologos",
 
   //MENU SISTEMA
-  CARGOS:           "cargos",
-  FUNCIONALIDADES:  "funcionalidades",
-  USUARIOS:         "usuarios",
-  PERFILES:         "perfiles",
-  PERMISOS:         "permisos",
-  EMPRESAS:         "empresas",
-
-  //LOGIN
-  ResetPassword: "ResetPassword/:token",
+  CARGOS: "cargos",
+  FUNCIONALIDADES: "funcionalidades",
+  USUARIOS: "usuarios",
+  PERFILES: "perfiles",
+  PERMISOS: "permisos",
+  EMPRESAS: "empresas",
 };

@@ -3,6 +3,16 @@ export enum Permisos {
   ESCRITURA = "escritura",
 }
 
+interface Item {
+  id: string;
+  name: string;
+  field1: string;
+  field2: string;
+  field3: string;
+}
+
+export type DataStructure = Item[];
+
 export interface IUser {
   id: number;
   nombre: string;

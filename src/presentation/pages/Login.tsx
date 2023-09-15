@@ -1,14 +1,16 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 import React from "react";
-import { TextInputComponent } from "../components";
-import { validationLoginSchema } from "../utils";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useCrud } from "../hooks";
-import { useAppDispatch } from "../../redux/store";
-import { login } from "../../redux/slices/userSlice";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import bcrypt from "bcrypt";
+
+import { validationLoginSchema } from "../utils";
+import { TextInputComponent } from "../components";
+import { useAppDispatch } from "../../redux/store";
+import { useCrud } from "../hooks";
+import { login } from "../../redux/slices/userSlice";
 
 interface LoginFormValues {
   _p1: string;
@@ -32,12 +34,17 @@ const Login: React.FC = React.memo(() => {
     resolver: yupResolver(schema),
   });
   const handleChange: SubmitHandler<LoginFormValues> = (data) => {
+    // const { _p1, _p3 } = data;
+
     try {
+      // const hashpassword = bcrypt.hash(data._p3, 12);
+      // console.log("hashpassword", hashpassword);
       //transformamos data en formato _p1=carlitos&_p3=carlos123
       const queryString = Object.entries(data)
         .map(([key, value]) => `${key}=${value}`)
         .join("&");
 
+      console.log("data", data);
       //llamamos a la api
       ListEntity(queryString, strQuery)
         .then((user) => {
@@ -97,6 +104,7 @@ const Login: React.FC = React.memo(() => {
                 <button type="submit" className="userFormBtnSubmit">
                   Sign in
                 </button>
+                <Link to="/forgotpassword">Recupera Contraseña</Link>
               </form>
             </div>
           </div>

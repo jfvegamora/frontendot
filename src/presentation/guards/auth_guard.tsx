@@ -1,6 +1,6 @@
 import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import { PrivateRoutes, PublicRoutes } from "../../interfaces";
+import { PublicRoutes } from "../../interfaces";
 import { AppStore, useAppSelector } from "../../redux/store";
 
 interface Props {
@@ -8,9 +8,7 @@ interface Props {
 }
 
 const PrivateValidationFragment = <Outlet />;
-const PublicValidationFragment = (
-  <Navigate replace to={PrivateRoutes.PERSONAS} />
-);
+const PublicValidationFragment = <Navigate replace to={PublicRoutes.LOGIN} />;
 
 export const AuthGuard: React.FC<Props> = ({ privateValidation }) => {
   const userState = useAppSelector((store: AppStore) => store.user);
