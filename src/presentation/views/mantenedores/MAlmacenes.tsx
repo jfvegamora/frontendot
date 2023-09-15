@@ -9,29 +9,25 @@ import {
   TableComponent,
 } from "../../components";
 import { useEntityUtils } from "../../hooks";
-import FProveedores from "../forms/FProveedores";
-import { TITLES, table_head_empresas } from "../../utils";
- 
+import FAlmacenes from "../forms/FAlmacenes";
+import { TITLES, table_head_almacenes } from "../../utils";
+
 export enum EnumGrid {
-  ID        = 1,
-  Rut       = 2,
-  Nombre    = 3,
-  Direccion = 4,
-  Telefono  = 5,
-  Correo    = 6,
-  Sitio_Web = 7,
+id              = 1,
+descripcion     = 2,
+tipo_almacen_id = 3,
+tipo_almacen    = 4,
 }
-const strEntidad      = "Proveedor ";
-const strEntidadExcel = "Proveedores";
-const strBaseUrl      = "/api/proveedores/";
-const strQuery        = "01";
-const idMenu          = 13;
+
+const strEntidad = "Almacén ";
+const strEntidadExcel = "Almacenes";
+const strBaseUrl = "/api/almacenes/";
+const strQuery = "01";
 
 type PrimaryKey = {
   pk1: number;
 };
-
-const MProveedores: React.FC = () => {
+const MAlmacenes: React.FC = () => {
   const [params, setParams] = useState([]);
 
   const updateParams = (newParams: Record<string, never>) => {
@@ -66,7 +62,7 @@ const MProveedores: React.FC = () => {
 
   useEffect(() => {
     const newPkToDelete = selectedRows.map((row: number) => ({
-      pk1: entities[row][EnumGrid.ID],
+      pk1: entities[row][EnumGrid.id],
     }));
     newPkToDelete.forEach((newPk: { pk1: any }) => {
       if (!pkToDelete.some((existingPk) => existingPk.pk1 === newPk.pk1)) {
@@ -77,7 +73,7 @@ const MProveedores: React.FC = () => {
 
   return (
     <div className="mantenedorContainer">
-      <h1 className="mantenedorH1">Proveedores</h1>
+      <h1 className="mantenedorH1">Almacenes</h1>
 
       <div className="mantenedorHead width70">
         <PrimaryKeySearch
@@ -86,8 +82,13 @@ const MProveedores: React.FC = () => {
           updateParams    ={updateParams}
           setEntities     ={setEntities}
           primaryKeyInputs={[
-            { name: "_p1", label: "RUT"   , type: "text" },
-            { name: "_p3", label: "Nombre", type: "text" },
+            { name: "_p1", label: "Descripción", type: "text" },
+            // {
+            //   name: "_p2",
+            //   label: "Tipo",
+            //   type: "select",
+            //   selectUrl: "/api/almacenestipos/",
+            // },
           ]}
         />
 
@@ -104,29 +105,29 @@ const MProveedores: React.FC = () => {
           showDeleteButton    ={true}
           showForwardButton   ={false}
           showRefreshButton   ={true}
-          idMenu              ={idMenu}
+          comilla             ={false}
         />
       </div>
 
-      <div className="width90 scroll">
+      <div className="scroll">
         <TableComponent
           handleSelectChecked     ={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
           toggleEditModal         ={toggleEditModal}
           handleDeleteSelected    ={handleDeleteSelected}
           selectedRows            ={selectedRows}
+          pkToDelete              ={pkToDelete}
           setSelectedRows         ={setSelectedRows}
           entidad                 ={strEntidad}
           data                    ={entities}
-          tableHead               ={table_head_empresas}
+          tableHead               ={table_head_almacenes}
           showEditButton          ={true}
           showDeleteButton        ={false}
-          idMenu                  ={idMenu}
         />
       </div>
 
       {isModalInsert && (
-        <FProveedores
+        <FAlmacenes
           label       ={`${TITLES.nuevo} ${strEntidad}`}
           closeModal  ={closeModal}
           selectedRows={selectedRows}
@@ -137,7 +138,7 @@ const MProveedores: React.FC = () => {
       )}
 
       {isModalEdit && (
-        <FProveedores
+        <FAlmacenes
           label       ={`${TITLES.editar} ${strEntidad}`}
           selectedRows={selectedRows}
           setEntities ={setEntities}
@@ -151,4 +152,4 @@ const MProveedores: React.FC = () => {
   );
 };
 
-export default MProveedores;
+export default MAlmacenes;

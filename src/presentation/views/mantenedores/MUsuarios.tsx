@@ -9,17 +9,17 @@ import {
   TableComponent,
 } from "../../components";
 import { useEntityUtils } from "../../hooks";
-import FUsuarios from "../forms/FUsuario";
+import FUsuarios from "../forms/FUsuarios";
 import { TITLES, table_head_usuarios } from "../../utils";
 
 export enum EnumGrid {
-  ID = 1,
-  Nombre = 2,
-  Telefono = 3,
-  Correo = 4,
-  Estado = 5,
-  Cargo_id = 6,
-  Cargo = 7,
+  id        = 1,
+  nombre    = 2,
+  telefono  = 3,
+  correo    = 4,
+  estado    = 5,
+  cargo_id  = 6,
+  cargo     = 7,
 }
 const strEntidad      = "Usuario ";
 const strEntidadExcel = "Usuarios";
@@ -63,9 +63,10 @@ const MUsuarios: React.FC = () => {
 
   const pkToDelete: PrimaryKey[] = [];
 
+  console.log('pktodelete', pkToDelete)
   useEffect(() => {
     const newPkToDelete = selectedRows.map((row: number) => ({
-      pk1: entities[row][EnumGrid.ID],
+      pk1: entities[row][EnumGrid.id],
     }));
     newPkToDelete.forEach((newPk: { pk1: any }) => {
       if (!pkToDelete.some((existingPk) => existingPk.pk1 === newPk.pk1)) {
@@ -80,17 +81,17 @@ const MUsuarios: React.FC = () => {
 
       <div className="mantenedorHead width70">
         <PrimaryKeySearch
-          baseUrl={strBaseUrl}
-          setParams={setParams}
-          updateParams={updateParams}
-          setEntities={setEntities}
+          baseUrl         ={strBaseUrl}
+          setParams       ={setParams}
+          updateParams    ={updateParams}
+          setEntities     ={setEntities}
           primaryKeyInputs={[
             { name: "_p1", label: "Nombre", type: "text" },
             {
-              name: "_p2",
-              label: "Cargos",
-              type: "select",
-              selectUrl: "/api/cargos/",
+              name      : "_p2",
+              label     : "Cargos",
+              type      : "select",
+              selectUrl : "/api/cargos/",
             },
           ]}
         />
@@ -114,7 +115,7 @@ const MUsuarios: React.FC = () => {
 
       <div className="scroll">
         <TableComponent
-          handleSelectChecked={handleSelect}
+          handleSelectChecked     ={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
           toggleEditModal={toggleEditModal}
           handleDeleteSelected={handleDeleteSelected}
@@ -132,24 +133,24 @@ const MUsuarios: React.FC = () => {
 
       {isModalInsert && (
         <FUsuarios
-          label={`${TITLES.nuevo} ${strEntidad}`}
-          closeModal={closeModal}
+          label       ={`${TITLES.nuevo} ${strEntidad}`}
+          closeModal  ={closeModal}
           selectedRows={selectedRows}
-          setEntities={setEntities}
-          params={params}
-          isEditting={false}
+          setEntities ={setEntities}
+          params      ={params}
+          isEditting  ={false}
         />
       )}
 
       {isModalEdit && (
         <FUsuarios
-          label={`${TITLES.editar} ${strEntidad}`}
+          label       ={`${TITLES.editar} ${strEntidad}`}
           selectedRows={selectedRows}
-          setEntities={setEntities}
-          params={params}
-          data={entity}
-          closeModal={closeModal}
-          isEditting={true}
+          setEntities ={setEntities}
+          params      ={params}
+          data        ={entity}
+          closeModal  ={closeModal}
+          isEditting  ={true}
         />
       )}
     </div>

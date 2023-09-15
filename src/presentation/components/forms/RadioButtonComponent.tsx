@@ -11,6 +11,7 @@ interface IRadioButtonProps {
   data?: any;
   error?: any;
   horizontal?: boolean;
+  inputRef?: any;
 }
 
 const RadioButtonComponent: React.FC<IRadioButtonProps> = ({
@@ -21,7 +22,9 @@ const RadioButtonComponent: React.FC<IRadioButtonProps> = ({
   error,
   label,
   horizontal,
+  inputRef,
 }) => {
+  
   return (
     <div
       className={`relative px-8 py-4 w-[92%] mt-2 mx-auto border-[0.5px] border-[dodgerblue] flex ${
@@ -53,7 +56,8 @@ const RadioButtonComponent: React.FC<IRadioButtonProps> = ({
                   //  checked={field.value === option}
                   className="mr-2 transform scale-150"
                   onChange={(e) => field.onChange(e.target.value)}
-                />
+                  ref       ={inputRef}
+                  />
                 <p className="text-[16px]">{option}</p>
               </label>
             )}

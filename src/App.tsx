@@ -28,16 +28,16 @@ const ProfileUser = lazy(()=> import("./presentation/pages/ProfileUser"))
 
 // MENU OT
 //const MOT = lazy(() => import(pathMant + "MOT"));
-//const MClientes = lazy(() => import(pathMant + "MClientes"));
-//const MEstablecimientos = lazy(() => import(pathMant + "MEstablecimientos"));
-//const MPuntosVenta = lazy(() => import(pathMant + "MPuntosVenta"));
+// const MClientes = lazy(() => import("./presentation/views/mantenedores/MClientes"));
+// const MEstablecimientos = lazy(() => import("./presentation/views/mantenedores/MEstablecimientos"));
+// const MPuntosVenta = lazy(() => import(pathMant + "MPuntosVenta"));
 
 // MENU BODEGA
-// const MArmazones = lazy(() => import(pathMant + "MArmazones"));
+//  const MArmazones = lazy(() => import(pathMant + "MArmazones"));
 // const MArmazonesKardex = lazy(() => import(pathMant + "MArmazonesKardex"));
 // const MCristales = lazy(() => import(pathMant + "MCristales"));
 // const MCristalesKardex = lazy(() => import(pathMant + "MCristalesKardex"));
-// const MAccesorios = lazy(() => import(pathMant + "MAccesorios"));
+//  const MAccesorios = lazy(() => import(pathMant + "MAccesorios"));
 // const MAccesoriosKardex = lazy(() => import(pathMant + "MAccesoriosKardex"));
 // const MAlmacenes = lazy(() => import(pathMant + "MAlmacenes"));
 // const MMarcas = lazy(() => import(pathMant + "MMarcas"));

@@ -9,28 +9,25 @@ import {
   TableComponent,
 } from "../../components";
 import { useEntityUtils } from "../../hooks";
-import { TITLES, table_head_perfiles } from "../../utils";
-import FPerfiles from "../forms/FPerfiles";
+import FMarcas from "../forms/FMarcas";
+import { TITLES, table_head_marcas } from "../../utils";
 
 export enum EnumGrid {
-  id = 0,
-  cargo_id = 1,
-  cargo = 2,
-  funcionalidad_id = 3,
-  funcionalidad = 4,
-  permiso = 5,
+  id           = 1,
+  nombre       = 2,
+  proveedor_id = 3,
+  proveedor    = 4,
 }
-const strEntidad = "perfil de cargo ";
-const strEntidadExcel = "Perfil_de_cargos";
-const strBaseUrl = "/api/perfiles/";
-const strQuery = "01";
-const idMenu   = 25;
+
+const strEntidad      = "Marca ";
+const strEntidadExcel = "Marcas";
+const strBaseUrl      = "/api/marcas/";
+const strQuery        = "01";
+
 type PrimaryKey = {
   pk1: number;
-  pk2: number;
 };
-
-const MPerfiles: React.FC = () => {
+const MMarcas: React.FC = () => {
   const [params, setParams] = useState([]);
 
   const updateParams = (newParams: Record<string, never>) => {
@@ -58,22 +55,18 @@ const MPerfiles: React.FC = () => {
     resetEntities,
   } = useEntityUtils(strBaseUrl, strQuery);
   // console.log("entities:", entities);
-  console.log("selectedRows", selectedRows);
+
+  // console.log("params:", params);
 
   const pkToDelete: PrimaryKey[] = [];
 
+  console.log('pktodelete', pkToDelete)
   useEffect(() => {
-    const newPkToDelete = selectedRows.map((row) => ({
-      pk1: entities[row][EnumGrid.cargo_id],
-      pk2: entities[row][EnumGrid.funcionalidad_id],
+    const newPkToDelete = selectedRows.map((row: number) => ({
+      pk1: entities[row][EnumGrid.id],
     }));
-    newPkToDelete.forEach((newPk) => {
-      if (
-        !pkToDelete.some(
-          (existingPk) =>
-            existingPk.pk1 === newPk.pk1 && existingPk.pk2 === newPk.pk2
-        )
-      ) {
+    newPkToDelete.forEach((newPk: { pk1: any }) => {
+      if (!pkToDelete.some((existingPk) => existingPk.pk1 === newPk.pk1)) {
         pkToDelete.push(newPk);
       }
     });
@@ -81,7 +74,7 @@ const MPerfiles: React.FC = () => {
 
   return (
     <div className="mantenedorContainer">
-      <h1 className="mantenedorH1">Perfiles de Cargo</h1>
+      <h1 className="mantenedorH1">Marcas</h1>
 
       <div className="mantenedorHead width70">
         <PrimaryKeySearch
@@ -90,17 +83,12 @@ const MPerfiles: React.FC = () => {
           updateParams={updateParams}
           setEntities={setEntities}
           primaryKeyInputs={[
+            { name: "_p1", label: "Nombre", type: "text" },
             {
               name: "_p2",
-              label: "Cargo",
+              label: "Proveedor",
               type: "select",
-              selectUrl: "/api/cargos/",
-            },
-            {
-              name: "_p3",
-              label: "Funcionalidad",
-              type: "select",
-              selectUrl: "/api/funcionalidades/",
+              selectUrl: "/api/proveedores/",
             },
           ]}
         />
@@ -114,34 +102,33 @@ const MPerfiles: React.FC = () => {
           strEntidad={strEntidadExcel}
           strBaseUrl={strBaseUrl}
           showAddButton={true}
+          comilla={false}
           showExportButton={true}
           showDeleteButton={true}
           showForwardButton={false}
           showRefreshButton={true}
-          idMenu={idMenu}
         />
       </div>
 
-      <div className="width70">
+      <div className="scroll width70">
         <TableComponent
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
           toggleEditModal={toggleEditModal}
           handleDeleteSelected={handleDeleteSelected}
-          pkToDelete={pkToDelete}
           selectedRows={selectedRows}
+          pkToDelete={pkToDelete}
           setSelectedRows={setSelectedRows}
           entidad={strEntidad}
           data={entities}
-          tableHead={table_head_perfiles}
+          tableHead={table_head_marcas}
           showEditButton={true}
           showDeleteButton={false}
-          idMenu={idMenu}
         />
       </div>
 
       {isModalInsert && (
-        <FPerfiles
+        <FMarcas
           label={`${TITLES.nuevo} ${strEntidad}`}
           closeModal={closeModal}
           selectedRows={selectedRows}
@@ -152,7 +139,7 @@ const MPerfiles: React.FC = () => {
       )}
 
       {isModalEdit && (
-        <FPerfiles
+        <FMarcas
           label={`${TITLES.editar} ${strEntidad}`}
           selectedRows={selectedRows}
           setEntities={setEntities}
@@ -166,4 +153,4 @@ const MPerfiles: React.FC = () => {
   );
 };
 
-export default MPerfiles;
+export default MMarcas;

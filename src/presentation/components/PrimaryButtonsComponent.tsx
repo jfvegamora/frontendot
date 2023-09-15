@@ -11,7 +11,7 @@ import { useModal } from "../hooks/useModal";
 
 interface IPrimaryButtonProps {
   handlePageSize?: () => void;
-  handleDeleteSelected?: (pkToDelete: any) => void;
+  handleDeleteSelected?: (pkToDelete: any, comilla?:any) => void;
   escritura?: boolean;
   personsLength?: number;
   handleAddPerson?: () => void;
@@ -22,6 +22,7 @@ interface IPrimaryButtonProps {
   showRefreshButton?: boolean;
   showDeleteButton?: boolean;
   showExportButton?: boolean;
+  comilla?:boolean;
   strBaseUrl?: string;
   params?: never[];
   strEntidad?: string;
@@ -44,6 +45,7 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
     params,
     strEntidad,
     pkToDelete,
+    comilla,
     idMenu
   }) => {
     const { escritura_lectura } = usePermission(idMenu);
@@ -111,7 +113,10 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
                   showModal(MODAL.delete, MODAL.deleteYes, MODAL.deleteNo).then(
                     (result) => {
                       if (result) {
-                        handleDeleteSelected(pkToDelete);
+                        console.log('comilla', comilla)
+                        comilla
+                           ? handleDeleteSelected(pkToDelete, comilla)
+                           : handleDeleteSelected(pkToDelete);
                       }
                     }
                   );

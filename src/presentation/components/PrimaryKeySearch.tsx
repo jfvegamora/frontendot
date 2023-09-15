@@ -21,6 +21,7 @@ interface PrimaryKeySearchProps {
     name: string;
     options?: string[];
     selectUrl?: any;
+    values?:any;
   }[];
   baseUrl: string;
   updateParams: any;
@@ -56,6 +57,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
 
     const handleSearch = React.useCallback(async (data: IPrimaryKeyState) => {
       console.log("data:", data);
+
       const searchParams = Object.entries(data)
         .map(([key, value]) =>
           key === "_p1" || value ? `${key}=${encodeURIComponent(value)}` : ""
@@ -110,7 +112,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                   customWidth={"200px"}
                 />
               ) : input.type === "radiobuttons" ? (
-                <div>
+                <div className="relative px-8 py-4 w-[92%] mt-2 mx-auto border-[0.5px] border-[dodgerblue] flex">
                   <label className="primaryKeyLabel">{input.label}</label>
                   <div className="primaryKeyRadioContainer">
                     {input.options?.map((entity, index) => (
@@ -118,10 +120,12 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                         <input
                           type="radio"
                           {...field}
-                          value={entity}
-                          checked={field.value === entity[0].toString()}
-                          onChange={() => {
-                            field.onChange(entity[0].toString());
+                          value={input.values[entity]}
+                          // value={entity}
+                          // checked={field.value === entity[0].toString()}
+                          onChange={(e) => {
+                            console.log('evento', e.target)
+                            field.onChange(e.target.value);
                           }}
                         />
                         <span className="ml-1">{entity}</span>
@@ -129,6 +133,26 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                     ))}
                   </div>
                 </div>
+              // ) : input.type === "radiobuttons" ? (
+              //   <div className="relative px-8 py-4 w-[92%] mt-2 mx-auto border-[0.5px] border-[dodgerblue] flex">
+              //     <label className="primaryKeyLabel">{input.label}</label>
+              //     <div className="primaryKeyRadioContainer">
+              //       {input.options?.map((entity, index) => (
+              //         <div key={index} className="primaryKeybtnRadioContainer">
+              //           <input
+              //             type="radio"
+              //             {...field}
+              //             value={entity}
+              //             checked={field.value === entity[0].toString()}
+              //             onChange={() => {
+              //               field.onChange(entity[0].toString());
+              //             }}
+              //           />
+              //           <span className="ml-1">{entity}</span>
+              //         </div>
+              //       ))}
+              //     </div>
+              //   </div>
               ) : input.type === "date" ? (
                 <div>
                   <label className="primaryKeyLabel">{input.label}</label>

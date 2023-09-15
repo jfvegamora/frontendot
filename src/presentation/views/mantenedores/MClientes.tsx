@@ -9,29 +9,44 @@ import {
   TableComponent,
 } from "../../components";
 import { useEntityUtils } from "../../hooks";
-import FProveedores from "../forms/FProveedores";
-import { TITLES, table_head_empresas } from "../../utils";
- 
+import FClientes from "../forms/FClientes";
+import { TITLES, table_head_clientes, TIPO_CLIENTE } from "../../utils";
+
 export enum EnumGrid {
-  ID        = 1,
-  Rut       = 2,
-  Nombre    = 3,
-  Direccion = 4,
-  Telefono  = 5,
-  Correo    = 6,
-  Sitio_Web = 7,
+  rut                = 1,
+  nombre             = 2,
+  tipo               = 3,
+  sexo               = 4,
+  fecha_nacimiento   = 5,
+  direccion          = 6,
+  region_id          = 7,
+  region             = 8,
+  provincia_id       = 9,
+  provincia          = 10,
+  comuna_id          = 11,
+  comuna             = 12,
+  telefono           = 13,
+  correo             = 14,
+  establecimiento_id = 15,
+  establecimiento    = 16,
 }
-const strEntidad      = "Proveedor ";
-const strEntidadExcel = "Proveedores";
-const strBaseUrl      = "/api/proveedores/";
+
+export enum OptionValues {
+  Todos = 0,
+  Beneficiario = 1,
+  Particular= 2,
+  Óptica=3
+}
+
+const strEntidad      = "Cliente ";
+const strEntidadExcel = "Clientes";
+const strBaseUrl      = "/api/clientes/";
 const strQuery        = "01";
-const idMenu          = 13;
 
 type PrimaryKey = {
-  pk1: number;
+  pk1: string;
 };
-
-const MProveedores: React.FC = () => {
+const MClientes: React.FC = () => {
   const [params, setParams] = useState([]);
 
   const updateParams = (newParams: Record<string, never>) => {
@@ -60,13 +75,16 @@ const MProveedores: React.FC = () => {
   } = useEntityUtils(strBaseUrl, strQuery);
   // console.log("entities:", entities);
 
-  // console.log("params:", params);
-
+  
   const pkToDelete: PrimaryKey[] = [];
+  // console.log("pkToDelete1: ", pkToDelete);
+
+
+
 
   useEffect(() => {
     const newPkToDelete = selectedRows.map((row: number) => ({
-      pk1: entities[row][EnumGrid.ID],
+      pk1: entities[row][EnumGrid.rut],
     }));
     newPkToDelete.forEach((newPk: { pk1: any }) => {
       if (!pkToDelete.some((existingPk) => existingPk.pk1 === newPk.pk1)) {
@@ -77,18 +95,24 @@ const MProveedores: React.FC = () => {
 
   return (
     <div className="mantenedorContainer">
-      <h1 className="mantenedorH1">Proveedores</h1>
+      <h1 className="mantenedorH1">Clientes</h1>
 
-      <div className="mantenedorHead width70">
+      <div className="mantenedorHead width80">
         <PrimaryKeySearch
           baseUrl         ={strBaseUrl}
           setParams       ={setParams}
           updateParams    ={updateParams}
           setEntities     ={setEntities}
           primaryKeyInputs={[
-            { name: "_p1", label: "RUT"   , type: "text" },
-            { name: "_p3", label: "Nombre", type: "text" },
-          ]}
+            { name: "_p1", label: "RUT", type: "text" },
+            { name: "_p2", label: "Nombre", type: "text", values:OptionValues},
+            { name: "_p3", 
+                label  : "Tipo", 
+                type   : "radiobuttons", 
+                options: [TIPO_CLIENTE.todos, TIPO_CLIENTE.beneficiario, TIPO_CLIENTE.particular, TIPO_CLIENTE.optica],
+                values : OptionValues      
+            },
+              ]}
         />
 
         <PrimaryButtonsComponent
@@ -104,51 +128,51 @@ const MProveedores: React.FC = () => {
           showDeleteButton    ={true}
           showForwardButton   ={false}
           showRefreshButton   ={true}
-          idMenu              ={idMenu}
+          comilla             ={true}
         />
       </div>
 
-      <div className="width90 scroll">
+      <div className="scroll">
         <TableComponent
           handleSelectChecked     ={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
           toggleEditModal         ={toggleEditModal}
           handleDeleteSelected    ={handleDeleteSelected}
           selectedRows            ={selectedRows}
+          pkToDelete              ={pkToDelete}
           setSelectedRows         ={setSelectedRows}
           entidad                 ={strEntidad}
           data                    ={entities}
-          tableHead               ={table_head_empresas}
+          tableHead               ={table_head_clientes}
           showEditButton          ={true}
           showDeleteButton        ={false}
-          idMenu                  ={idMenu}
         />
       </div>
 
       {isModalInsert && (
-        <FProveedores
-          label       ={`${TITLES.nuevo} ${strEntidad}`}
-          closeModal  ={closeModal}
+        <FClientes
+          label={`${TITLES.nuevo} ${strEntidad}`}
+          closeModal={closeModal}
           selectedRows={selectedRows}
-          setEntities ={setEntities}
-          params      ={params}
-          isEditting  ={false}
+          setEntities={setEntities}
+          params={params}
+          isEditting={false}
         />
       )}
 
       {isModalEdit && (
-        <FProveedores
-          label       ={`${TITLES.editar} ${strEntidad}`}
+        <FClientes
+          label={`${TITLES.editar} ${strEntidad}`}
           selectedRows={selectedRows}
-          setEntities ={setEntities}
-          params      ={params}
-          data        ={entity}
-          closeModal  ={closeModal}
-          isEditting  ={true}
+          setEntities={setEntities}
+          params={params}
+          data={entity}
+          closeModal={closeModal}
+          isEditting={true}
         />
       )}
     </div>
   );
 };
 
-export default MProveedores;
+export default MClientes
