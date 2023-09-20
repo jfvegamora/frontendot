@@ -57,6 +57,7 @@ const strEntidad      = "Cristal Kardex ";
 const strEntidadExcel = "Cristales_Kardex";
 const strBaseUrl      = "/api/cristaleskardex/";
 const strQuery        = "01";
+const idMenu          = 8;
 
 type PrimaryKey = {
   pk1: string; //cristal
@@ -124,9 +125,11 @@ const MCristalesKardex: React.FC = () => {
           setEntities     ={setEntities}
           primaryKeyInputs={[
             { name: "_p1", label: "Código", type: "number" },
-            { name: "_pAlmacen", label: "Almacen", type: "select", selectUrl: "/api/almacenes/"},
-            { name: "_pMarca", label: "Marca", type: "select", selectUrl: "/api/marcas/"},
-            { name: "_pProveedor", label: "Proveedor", type: "select", selectUrl: "/api/proveedores/"},
+            { name: "_p2", label: "Desde", type: "date" },
+            { name: "_p3", label: "Hasta", type: "date" },
+            // { name: "_pAlmacen", label: "Almacen", type: "select", selectUrl: "/api/almacenes/"},
+            // { name: "_pMarca", label: "Marca", type: "select", selectUrl: "/api/marcas/"},
+            // { name: "_pProveedor", label: "Proveedor", type: "select", selectUrl: "/api/proveedores/"},
             // { name: "_pDiseno", label: "Diseño", type: "select", selectUrl: "/api//"},
             // { name: "_pIndice", label: "Indice", type: "select", selectUrl: "/api//"},
             // { name: "_pMaterial", label: "Material", type: "select", selectUrl: "/api//"},
@@ -152,6 +155,7 @@ const MCristalesKardex: React.FC = () => {
           showForwardButton   ={false}
           showRefreshButton   ={true}
           comilla             ={true}
+          idMenu              ={idMenu}
         />
       </div>
 
@@ -169,6 +173,7 @@ const MCristalesKardex: React.FC = () => {
           tableHead               ={table_head_cristaleskardex}
           showEditButton          ={true}
           showDeleteButton        ={false}
+          idMenu                  ={idMenu}
         />
       </div>
 
