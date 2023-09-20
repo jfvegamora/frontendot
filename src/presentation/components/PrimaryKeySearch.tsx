@@ -21,7 +21,8 @@ interface PrimaryKeySearchProps {
     name: string;
     options?: string[];
     selectUrl?: any;
-    values?:any;
+    values?: any;
+    tipos?: string;
   }[];
   baseUrl: string;
   updateParams: any;
@@ -56,7 +57,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
     );
 
     const handleSearch = React.useCallback(async (data: IPrimaryKeyState) => {
-      console.log("data:", data);
+      // console.log("data:", data);
 
       const searchParams = Object.entries(data)
         .map(([key, value]) =>
@@ -88,110 +89,116 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
     const handleBlur = React.useCallback(() => {
       handleSubmit(handleSearch)();
     }, []);
+    // console.log(primaryKeyInputs.length);
 
     const renderInputs = () => {
-      return primaryKeyInputs.map((input, index) => (
-        <Controller
-          key={index}
-          name={input.name}
-          control={control}
-          defaultValue=""
-          render={({ field }) => (
-            <div className="mx-2">
-              {input.type === "select" ? (
-                <SelectInputComponent
-                  label={input.label}
-                  name={input.name}
-                  showRefresh={false}
-                  control={control}
-                  entidad={[input.selectUrl, "02"]}
-                  inputName={input.name}
-                  inputValues={inputValues}
-                  setHandleSearch={handleSearch}
-                  handleSelectChange={handleSelectChange}
-                  customWidth={"200px"}
-                />
-              ) : input.type === "radiobuttons" ? (
-                <div className="relative px-8 py-4 w-[92%] mt-2 mx-auto border-[0.5px] border-[dodgerblue] flex">
-                  <label className="primaryKeyLabel">{input.label}</label>
-                  <div className="primaryKeyRadioContainer">
-                    {input.options?.map((entity, index) => (
-                      <div key={index} className="primaryKeybtnRadioContainer">
-                        <input
-                          type="radio"
-                          {...field}
-                          value={input.values[entity]}
-                          // value={entity}
-                          // checked={field.value === entity[0].toString()}
-                          onChange={(e) => {
-                            console.log('evento', e.target)
-                            field.onChange(e.target.value);
-                          }}
-                        />
-                        <span className="ml-1">{entity}</span>
+      const inputGroups = [];
+      for (let i = 0; i < primaryKeyInputs.length; i += 6) {
+        inputGroups.push(primaryKeyInputs.slice(i, i + 6));
+      }
+
+      return inputGroups.map((group, groupIndex) => (
+        <div
+          key={groupIndex}
+          className={
+            primaryKeyInputs.length > 5 ? `flex flex-wrap mb-4` : "flex mb-4"
+          }
+        >
+          {group.map((input, inputIndex) => (
+            <Controller
+              key={inputIndex}
+              name={input.name}
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <div className="mx-2 mb-4">
+                  {input.type === "select" ? (
+                    <div className={`w-[15rem]`}>
+                      <SelectInputComponent
+                        label={input.label}
+                        name={input.name}
+                        showRefresh={false}
+                        control={control}
+                        entidad={
+                          input.tipos
+                            ? [input.selectUrl, "02", input.tipos]
+                            : [input.selectUrl, "02"]
+                        }
+                        inputName={input.name}
+                        inputValues={inputValues}
+                        setHandleSearch={handleSearch}
+                        handleSelectChange={handleSelectChange}
+                        customWidth={"200px"}
+                      />
+                    </div>
+                  ) : input.type === "radiobuttons" ? (
+                    <div className="relative px-8 py-4 w-[92%] mt-2 mx-auto border-[0.5px] border-[dodgerblue] rounded-md flex">
+                      <label className="absolute text-sm top-[-10px] left-4 bg-[ghostwhite] w-[6rem]">
+                        <span className="ml-[20px] text-[16px]">
+                          {input.label}
+                        </span>
+                      </label>
+                      <div className="primaryKeyRadioContainer">
+                        {input.options?.map((entity, index) => (
+                          <div
+                            key={index}
+                            className="primaryKeybtnRadioContainer"
+                          >
+                            <input
+                              type="radio"
+                              {...field}
+                              value={input.values[entity]}
+                              onChange={(e) => {
+                                field.onChange(e.target.value);
+                              }}
+                            />
+                            <span className="ml-1">{entity}</span>
+                          </div>
+                        ))}
                       </div>
-                    ))}
-                  </div>
+                    </div>
+                  ) : input.type === "date" ? (
+                    <div>
+                      <label className="primaryKeyLabel">{input.label}</label>
+                      <input
+                        type="date"
+                        {...field}
+                        value={field.value || ""}
+                        onChange={(e) => {
+                          field.onChange(e.target.value);
+                        }}
+                        onBlur={handleBlur}
+                      />
+                    </div>
+                  ) : (
+                    <Input
+                      color="orange"
+                      {...field}
+                      label={input.label}
+                      value={inputValues[input.name] || ""}
+                      onChange={(e) => {
+                        field.onChange(e);
+                        handleInputChange(input.name, e.target.value);
+                      }}
+                      onKeyDown={handleKeyDown}
+                      onBlur={handleBlur}
+                      labelProps={{
+                        style: {
+                          color: "grey",
+                          fontWeight: "normal",
+                          fontSize: "16px",
+                        },
+                      }}
+                    />
+                  )}
                 </div>
-              // ) : input.type === "radiobuttons" ? (
-              //   <div className="relative px-8 py-4 w-[92%] mt-2 mx-auto border-[0.5px] border-[dodgerblue] flex">
-              //     <label className="primaryKeyLabel">{input.label}</label>
-              //     <div className="primaryKeyRadioContainer">
-              //       {input.options?.map((entity, index) => (
-              //         <div key={index} className="primaryKeybtnRadioContainer">
-              //           <input
-              //             type="radio"
-              //             {...field}
-              //             value={entity}
-              //             checked={field.value === entity[0].toString()}
-              //             onChange={() => {
-              //               field.onChange(entity[0].toString());
-              //             }}
-              //           />
-              //           <span className="ml-1">{entity}</span>
-              //         </div>
-              //       ))}
-              //     </div>
-              //   </div>
-              ) : input.type === "date" ? (
-                <div>
-                  <label className="primaryKeyLabel">{input.label}</label>
-                  <input
-                    type="date"
-                    {...field}
-                    value={field.value || ""}
-                    onChange={(e) => {
-                      field.onChange(e.target.value);
-                    }}
-                    onBlur={handleBlur}
-                  />
-                </div>
-              ) : (
-                <Input
-                  color="orange"
-                  {...field}
-                  label={input.label}
-                  value={inputValues[input.name] || ""}
-                  onChange={(e) => {
-                    field.onChange(e);
-                    handleInputChange(input.name, e.target.value);
-                  }}
-                  onKeyDown={handleKeyDown}
-                  onBlur={handleBlur}
-                  labelProps={{
-                    style: {
-                      color: "grey", // Establece el color del label
-                      fontWeight: "normal", // Establece la negrita del label
-                      fontSize: "16px", // Establece el tamaño de fuente del label
-                    },
-                  }}
-                />
               )}
-            </div>
-          )}
-        />
+            />
+          ))}
+        </div>
       ));
     };
+
     useEffect(() => {
       // Crea un objeto con los parámetros de búsqueda
       const searchParams = {
@@ -199,6 +206,8 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
         _p2: inputValues._p2 || "",
         _p3: inputValues._p3 || "",
         _p4: inputValues._p4 || "",
+        _pMarca: inputValues._pMarca || "",
+        _pProveedor: inputValues._pProveedor || "",
       };
 
       // Llama a la función de actualización de parámetros pasándole el objeto

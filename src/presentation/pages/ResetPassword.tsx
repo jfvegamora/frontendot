@@ -6,15 +6,14 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
 import jwt_decode from "jwt-decode";
-import bcrypt from 'bcryptjs-react';
+import bcrypt from "bcryptjs-react";
 
 import { TextInputComponent } from "../components";
 import { validationResetPasswordSchema } from "../utils";
 import { useCrud } from "../hooks";
 
-
 interface InputData {
-  password: string ;
+  password: string;
   confirmPassword: string | undefined;
 }
 
@@ -43,11 +42,10 @@ const ResetPassword: React.FC = () => {
 
     if (!token) return toast.error("redirigiendo a login");
 
-
     const tokenOriginal = token.replace(/@@@/g, ".");
     let decodedToken: DecodedToken | null = null;
-    const hashPassword = bcrypt.hashSync(password, 10)
-    
+    const hashPassword = bcrypt.hashSync(password, 10);
+
     try {
       decodedToken = jwt_decode(tokenOriginal);
       const updatePassword = {
@@ -56,10 +54,9 @@ const ResetPassword: React.FC = () => {
         _p2: decodedToken?.id.toString(),
         _p3: "",
       };
-      const response = await editEntity(updatePassword);
+      await editEntity(updatePassword);
       toast.success("Nueva contraseña creada correctamente");
-      navigate("/login")
-      console.log(response);
+      navigate("/login");
     } catch (error: any) {
       toast.error(error);
     }

@@ -5,7 +5,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigate, Link } from "react-router-dom";
 import jwtDecode from "jwt-decode";
 
-
 import { LOGIN, validationLoginSchema } from "../utils";
 import { TextInputComponent } from "../components";
 import { useAppDispatch } from "../../redux/store";
@@ -21,14 +20,13 @@ interface LoginFormValues {
   _p3: string;
 }
 
-
 const Login: React.FC = React.memo(() => {
   const strBaseUrl = "/api/usuarios/";
   // const strQuery = "06";
   const schema = validationLoginSchema();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const {show} = useCustomToast();
+  const { show } = useCustomToast();
 
   const { loginEntity } = useCrud(strBaseUrl);
 
@@ -40,30 +38,29 @@ const Login: React.FC = React.memo(() => {
     resolver: yupResolver(schema),
   });
 
-
   const handleChange: SubmitHandler<LoginFormValues> = (data) => {
     try {
       loginEntity(data)
         .then((user) => {
-          if (user.length === 0) return show({message:LOGIN.loginError, type:"error"});
-          const response:IUser = jwtDecode(user[0])
+          if (user.length === 0)
+            return show({ message: LOGIN.loginError, type: "error" });
+          const response: IUser = jwtDecode(user[0]);
           dispatch(login(response));
-          dispatch(fetchFuncionalidades())
+          dispatch(fetchFuncionalidades());
           // toast.success("Sesion Iniciada");
-          show({message:LOGIN.loginSuccess, type:"success"})
+          show({ message: LOGIN.loginSuccess, type: "success" });
           navigate("/usuarios");
         })
-        .catch((_e) => show({message:LOGIN.loginError, type:"error"}));
-    } catch (error:any) {
-      show({message:LOGIN.loginError, type:"error"})
+        .catch((_e) => show({ message: LOGIN.loginError, type: "error" }));
+    } catch (error: any) {
+      show({ message: LOGIN.loginError, type: "error" });
     }
   };
 
-
   return (
-    <div className="bg-black-500 w-full h-ful">
-      <section className="bg-gray-100 dark:bg-gray-900 h-full mt-[-16%]">
-        <div className="flex flex-col items-center justify-center px-6 py-8  mx-auto md:h-screen lg:py-0">
+    <div className="bg-black-500 w-full h-full">
+      <section className="bg-gray-100 dark:bg-gray-900 h-full mt-[-2v6%]">
+        <div className="flex flex-col items-center justify-centerlg:py-0">
           <a
             href="#"
             className="flex items-center text-2xl font-semibold text-gray-900 dark:text-white"

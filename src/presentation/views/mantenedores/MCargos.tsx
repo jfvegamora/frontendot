@@ -16,7 +16,7 @@ const strEntidad = "Cargo ";
 const strEntidadExcel = "Cargos";
 const strBaseUrl = "/api/cargos/";
 const strQuery = "01";
-const idMenu  = 22;
+const idMenu = 22;
 
 export enum EnumGrid {
   ID = 1,
@@ -66,6 +66,42 @@ const MCargos: React.FC = () => {
         pkToDelete.push(newPk);
       }
     });
+
+    // const ws = new WebSocket("ws://mtoopticos.cl/ws/orden_de_trabajo/");
+    // const wss = new WebSocket("wss://mtoopticos.cl/ws/orden_de_trabajo/");
+    // console.log("ws", ws);
+    // console.log("wss", wss);
+    //  const ws = new WebSocket('ws://tu_dominio/ws/orden_de_trabajo/');
+
+    // Se ejecuta cuando se establece la conexión
+    // ws.onopen = () => {
+    // console.log("Conexión establecida");
+    // };
+    //   // Puedes enviar mensajes al servidor una vez que la conexión está establecida
+    //   const message = {
+    //     type: "connect",
+    //     // ...otros datos que desees enviar...
+    //   };
+
+    //   ws.send(JSON.stringify(message));
+    // };
+
+    // Se ejecuta cuando se recibe un mensaje del servidor
+    // ws.onmessage = (event) => {
+    //   const message = JSON.parse(event.data);
+    //   console.log("Mensaje recibido del servidor:", message);
+    //   // Procesa el mensaje recibido
+    // };
+
+    // Se ejecuta cuando se cierra la conexión
+    // // ws.onclose = () => {
+    //   console.log("Conexión cerrada");
+    // };
+
+    // // Importante: cerrar la conexión al desmontar el componente
+    // return () => {
+    //   ws.close();
+    // };
   }, [selectedRows]);
 
   return (
@@ -98,7 +134,10 @@ const MCargos: React.FC = () => {
         />
       </div>
 
-      <div className="width70" style={{ overflowX: 'auto', maxHeight: '400px' }}>
+      <div
+        className="width70"
+        style={{ overflowX: "auto", maxHeight: "400px" }}
+      >
         <TableComponent
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}

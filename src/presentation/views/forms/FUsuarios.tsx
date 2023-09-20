@@ -14,9 +14,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { validationUsusariosSchema } from "../../utils/validationFormSchemas";
 import { EnumGrid } from "../mantenedores/MUsuarios";
 import { toast } from "react-toastify";
-import { ERROR_MESSAGES, MODAL, SUCCESS_MESSAGES } from "../../utils";
+import { ERROR_MESSAGES, MODAL, SUCCESS_MESSAGES, TITLES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
+import useCustomToast from "../../hooks/useCustomToast";
 
 const strBaseUrl = "/api/usuarios/";
 const strEntidad = "Usuario ";
@@ -41,8 +42,7 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
   //   alert(ERROR_MESSAGES.passwordNotMatch);
   // }
 
-  const _p1 = 
-  ` '${jsonData.nombre}', 
+  const _p1 = ` '${jsonData.nombre}', 
      ${jsonData.cargo}, 
     '${jsonData.telefono}', 
     '${jsonData.correo}', 
@@ -57,7 +57,7 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
 }
 
 export function transformUpdateQuery(
-  jsonData  : InputData,
+  jsonData: InputData,
   primaryKey: string
 ): OutputData | null {
   const fields = [
@@ -78,28 +78,31 @@ export function transformUpdateQuery(
   }
   const _p1 = filteredFields.join(",");
   console.log("primaryKey", primaryKey);
-  return {
+  const query = {
     query: "04",
-    _p1,
+    _p1: encodeURIComponent(_p1).replace(/%20/g, "+"),
     _p2: primaryKey,
     _p3: "",
   };
+  console.log("query", query);
+  return query;
 }
 
 interface IUserFormPrps {
   closeModal: () => void;
-  data?        : any[];
-  label        : string;
-  isEditting?  : any;
+  data?: any[];
+  label: string;
+  isEditting?: any;
   selectedRows?: any;
-  setEntities? : any;
-  params?      : any;
+  setEntities?: any;
+  params?: any;
 }
 
 const FUsuarios: React.FC<IUserFormPrps> = React.memo(
   ({ closeModal, setEntities, params, label, data, isEditting }) => {
     const schema = validationUsusariosSchema(isEditting);
     const { showModal, CustomModal } = useModal();
+    const { show } = useCustomToast();
 
     const {
       editEntity,
@@ -108,7 +111,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
       firstInputRef,
       focusFirstInput,
       secondInputRef,
-      focusSecondInput
+      focusSecondInput,
     } = useCrud(strBaseUrl);
     const [blnKeep, setblnKeep] = useState(false);
     const intId = data && data[EnumGrid.id];
@@ -122,9 +125,9 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
     });
 
     const resetTextFields = React.useCallback(() => {
-      setValue("nombre"   , "");
-      setValue("telefono" , "");
-      setValue("correo"   , "");
+      setValue("nombre", "");
+      setValue("telefono", "");
+      setValue("correo", "");
       if (firstInputRef.current) {
         const firstInput = firstInputRef.current.querySelector(
           'input[name="nombre"]'
@@ -241,6 +244,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
 
     const handleSaveChange = React.useCallback(
       async (data: InputData, isEditting: boolean) => {
+        console.log(data);
         try {
           const transformedData = isEditting
             ? transformUpdateQuery(data, intId.toString())
@@ -257,13 +261,28 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
       [editEntity, createdEntity, handleApiResponse, intId]
     );
 
+    const handlePermisos = React.useCallback(async () => {
+      try {
+        console.log("click");
+        const intUserId = data && data[EnumGrid.id];
+        const primaryKey = `_p1=${intUserId}`;
+        const query = "99";
+
+        const response = await ListEntity(primaryKey, query);
+
+        response[0][0] === "OK"
+          ? show({ message: TITLES.permisos, type: "success" })
+          : show({ message: TITLES.permisosError, type: "error" });
+      } catch (error: any) {
+        console.log(error);
+        show({ message: error, type: "error" });
+      }
+    }, []);
     // useEffect(() => {
     //   focusFirstInput("nombre");
     // }, []);
     useEffect(() => {
-      isEditting
-         ? focusSecondInput("nombre")
-         : focusFirstInput("cargo")
+      isEditting ? focusSecondInput("nombre") : focusFirstInput("cargo");
     }, []);
 
     return (
@@ -286,28 +305,26 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
           className="userFormulario"
         >
           <div className="userFormularioContainer">
-            
             <TextInputComponent
-              type    ="text"
-              label   ="Nombre"
-              name    ="nombre"
-              data    ={data && data[EnumGrid.nombre]}
-              control ={control}
-              error   ={!isEditting && errors.nombre}
+              type="text"
+              label="Nombre"
+              name="nombre"
+              data={data && data[EnumGrid.nombre]}
+              control={control}
+              error={!isEditting && errors.nombre}
               inputRef={firstInputRef}
-      
             />
             <div className="w-full ">
               <SelectInputComponent
-                label       ="Cargo"
-                name        ="cargo"
-                showRefresh ={true}
-                data        ={data && data[EnumGrid.cargo_id]}
-                control     ={control}
-                entidad     ={["/api/cargos/", "02"]}
-                error       ={!isEditting && errors.cargo}
-                customWidth ={"345px"}
-                inputRef    = {secondInputRef}    
+                label="Cargo"
+                name="cargo"
+                showRefresh={true}
+                data={data && data[EnumGrid.cargo_id]}
+                control={control}
+                entidad={["/api/cargos/", "02"]}
+                error={!isEditting && errors.cargo}
+                customWidth={"345px"}
+                inputRef={secondInputRef}
               />
               {/* <SelectInputComponent
                 label="TipoInsumos"
@@ -320,32 +337,43 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
             </div>
 
             <TextInputComponent
-              type    ="text"
-              label   ="Teléfono"
-              name    ="telefono"
-              data    ={data && data[EnumGrid.telefono]}
-              control ={control}
+              type="text"
+              label="Teléfono"
+              name="telefono"
+              data={data && data[EnumGrid.telefono]}
+              control={control}
             />
             <TextInputComponent
-              type    ="email"
-              label   ="Correo"
-              name    ="correo"
-              data    ={data && data[EnumGrid.correo]}
-              control ={control}
-              error   ={!isEditting && errors.correo}
+              type="email"
+              label="Correo"
+              name="correo"
+              data={data && data[EnumGrid.correo]}
+              control={control}
+              error={!isEditting && errors.correo}
               onlyRead={isEditting}
             />
 
             <RadioButtonComponent
-              control ={control}
-              label   ="Estado"
-              name    ="estado"
-              data    ={data && data[EnumGrid.estado]}
-              options ={["Activo", "Suspendido"]}
-              error   ={!isEditting && errors.estado}
+              control={control}
+              label="Estado"
+              name="estado"
+              data={data && data[EnumGrid.estado]}
+              options={["Activo", "Suspendido"]}
+              error={!isEditting && errors.estado}
               // horizontal={true}
             />
           </div>
+          {isEditting && (
+            <div className="w-1/2">
+              <button
+                type="button"
+                onClick={handlePermisos}
+                className="userFormBtnSubmit"
+              >
+                Copiar Permisos
+              </button>
+            </div>
+          )}
 
           <button type="submit" className="userFormBtnSubmit">
             Guardar

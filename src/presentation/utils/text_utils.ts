@@ -27,6 +27,8 @@ export const TITLES = {
   guardar: "GUARDAR",
 
   proveedores: "Proveedores",
+  permisos: "Permisos copiados correctamente",
+  permisosError: "Usuario ya cuenta con permisos",
 };
 
 export const EXCEL = {
@@ -47,29 +49,28 @@ export const MODAL = {
   kepNo: "No",
 };
 
-
 export const LOGIN = {
   loginSuccess: "Sesion Iniciada correctamente",
   loginError: "Credenciales Incorrectas",
   resetPasswordSuccess: "Nueva Contraseña creada correctamente",
   resetPasswordError: "Contraseñas no coinciden",
   forgotPasswordSuccess: "Correo enviado correctamente",
-  forgotPasswordError: "Correo no existe"
-}
+  forgotPasswordError: "Correo no existe",
+};
 export const SEXO = {
   masculino: "Masculino",
-  femenino : "Femenino",
+  femenino: "Femenino",
   no_aplica: "No aplica",
 };
 
 export const TIPO_CLIENTE = {
-  todos       : "Todos",
+  todos: "Todos",
   beneficiario: "Beneficiario",
-  particular  : "Particular",
-  optica      : "Óptica",
+  particular: "Particular",
+  optica: "Óptica",
 };
 
 export const MOTIVO_KARDEX = {
   entrada: "Entrada",
-  salida : "Salida",
+  salida: "Salida",
 };

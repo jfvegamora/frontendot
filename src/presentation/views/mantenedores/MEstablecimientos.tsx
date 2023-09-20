@@ -13,22 +13,23 @@ import FEstablecimientos from "../forms/FEstablecimientos";
 import { TITLES, table_head_establecimientos } from "../../utils";
 
 export enum EnumGrid {
-  id          = 1,
-  nombre      = 2,
+  id = 1,
+  nombre = 2,
   mandante_id = 3,
-  mandante    = 4,
-  region_id   = 5,
-  region      = 6,
-  provincia_id= 7,
-  provincia   = 8,
-  comuna_id   = 9,
-  comuna      = 10
+  mandante = 4,
+  region_id = 5,
+  region = 6,
+  provincia_id = 7,
+  provincia = 8,
+  comuna_id = 9,
+  comuna = 10,
 }
 
-const strEntidad      = "Establecimiento ";
+const strEntidad = "Establecimiento ";
 const strEntidadExcel = "Establecimientos";
-const strBaseUrl      = "/api/establecimientos/";
-const strQuery        = "01";
+const strBaseUrl = "/api/establecimientos/";
+const strQuery = "01";
+const idMenu = 3;
 
 type PrimaryKey = {
   pk1: string;
@@ -85,75 +86,77 @@ const MEstablecimientos: React.FC = () => {
 
       <div className="mantenedorHead width70">
         <PrimaryKeySearch
-          baseUrl         ={strBaseUrl}
-          setParams       ={setParams}
-          updateParams    ={updateParams}
-          setEntities     ={setEntities}
+          baseUrl={strBaseUrl}
+          setParams={setParams}
+          updateParams={updateParams}
+          setEntities={setEntities}
           primaryKeyInputs={[
             { name: "_p1", label: "Establecmiento", type: "text" },
             {
-              name      : "_p2",
-              label     : "Mandante",
-              type      : "select",
-              selectUrl : "/api/mandantes/",
+              name: "_p2",
+              label: "Mandante",
+              type: "select",
+              selectUrl: "/api/mandantes/",
             },
           ]}
         />
 
         <PrimaryButtonsComponent
-          handleAddPerson     ={openModal}
+          handleAddPerson={openModal}
           handleDeleteSelected={handleDeleteSelected}
-          handleRefresh       ={resetEntities}
-          params              ={params}
-          pkToDelete          ={pkToDelete}
-          strEntidad          ={strEntidadExcel}
-          strBaseUrl          ={strBaseUrl}
-          showAddButton       ={true}
-          showExportButton    ={true}
-          showDeleteButton    ={true}
-          showForwardButton   ={false}
-          showRefreshButton   ={true}
-          comilla             ={false}
+          handleRefresh={resetEntities}
+          params={params}
+          pkToDelete={pkToDelete}
+          strEntidad={strEntidadExcel}
+          strBaseUrl={strBaseUrl}
+          showAddButton={true}
+          showExportButton={true}
+          showDeleteButton={true}
+          showForwardButton={false}
+          showRefreshButton={true}
+          comilla={false}
+          idMenu={idMenu}
         />
       </div>
 
       <div className="scroll">
         <TableComponent
-          handleSelectChecked     ={handleSelect}
+          handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
-          toggleEditModal         ={toggleEditModal}
-          handleDeleteSelected    ={handleDeleteSelected}
-          selectedRows            ={selectedRows}
-          pkToDelete              ={pkToDelete}
-          setSelectedRows         ={setSelectedRows}
-          entidad                 ={strEntidad}
-          data                    ={entities}
-          tableHead               ={table_head_establecimientos}
-          showEditButton          ={true}
-          showDeleteButton        ={false}
+          toggleEditModal={toggleEditModal}
+          handleDeleteSelected={handleDeleteSelected}
+          selectedRows={selectedRows}
+          pkToDelete={pkToDelete}
+          setSelectedRows={setSelectedRows}
+          entidad={strEntidad}
+          data={entities}
+          tableHead={table_head_establecimientos}
+          showEditButton={true}
+          showDeleteButton={false}
+          idMenu={idMenu}
         />
       </div>
 
       {isModalInsert && (
         <FEstablecimientos
-          label       ={`${TITLES.nuevo} ${strEntidad}`}
-          closeModal  ={closeModal}
+          label={`${TITLES.nuevo} ${strEntidad}`}
+          closeModal={closeModal}
           selectedRows={selectedRows}
-          setEntities ={setEntities}
-          params      ={params}
-          isEditting  ={false}
+          setEntities={setEntities}
+          params={params}
+          isEditting={false}
         />
       )}
 
       {isModalEdit && (
         <FEstablecimientos
-          label       ={`${TITLES.editar} ${strEntidad}`}
+          label={`${TITLES.editar} ${strEntidad}`}
           selectedRows={selectedRows}
-          setEntities ={setEntities}
-          params      ={params}
-          data        ={entity}
-          closeModal  ={closeModal}
-          isEditting  ={true}
+          setEntities={setEntities}
+          params={params}
+          data={entity}
+          closeModal={closeModal}
+          isEditting={true}
         />
       )}
     </div>

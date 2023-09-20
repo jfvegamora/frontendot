@@ -13,31 +13,32 @@ import FCristales from "../forms/FCristales";
 import { TITLES, table_head_cristales } from "../../utils";
 
 export enum EnumGrid {
-  codigo        = 1,
-  marca_id      = 2,
-  marca         = 3,
-  proveedor_id  = 4,
-  proveedor     = 5,
-  diseno_id     = 6,
-  diseno        = 7,
-  indice_id     = 8,
-  indice        = 9,
-  material_id   = 10,
-  material      = 11,
-  color_id      = 12,
-  color         = 13,
-  tratamiento_id= 14,
-  tratamiento   = 15,
-  diametro      = 16,
-  esferico      = 17,
-  cilindrico    = 18,
-  stock_minimo  = 19,
+  codigo = 1,
+  marca_id = 2,
+  marca = 3,
+  proveedor_id = 4,
+  proveedor = 5,
+  diseno_id = 6,
+  diseno = 7,
+  indice_id = 8,
+  indice = 9,
+  material_id = 10,
+  material = 11,
+  color_id = 12,
+  color = 13,
+  tratamiento_id = 14,
+  tratamiento = 15,
+  diametro = 16,
+  esferico = 17,
+  cilindrico = 18,
+  stock_minimo = 19,
 }
 
-const strEntidad      = "Cristal ";
+const strEntidad = "Cristal ";
 const strEntidadExcel = "Cristales";
-const strBaseUrl      = "/api/cristales/";
-const strQuery        = "01";
+const strBaseUrl = "/api/cristales/";
+const strQuery = "01";
+const idMenu = 7;
 
 type PrimaryKey = {
   pk1: number;
@@ -91,16 +92,26 @@ const MCristales: React.FC = () => {
     <div className="mantenedorContainer">
       <h1 className="mantenedorH1">Cristales</h1>
 
-      <div className="mantenedorHead width70">
+      <div className="mantenedorHead width90">
         <PrimaryKeySearch
-          baseUrl         ={strBaseUrl}
-          setParams       ={setParams}
-          updateParams    ={updateParams}
-          setEntities     ={setEntities}
+          baseUrl={strBaseUrl}
+          setParams={setParams}
+          updateParams={updateParams}
+          setEntities={setEntities}
           primaryKeyInputs={[
             { name: "_p1", label: "Código", type: "number" },
-            { name: "_pMarca", label: "Marca", type: "select", selectUrl: "/api/marcas/"},
-            { name: "_pProveedor", label: "Proveedor", type: "select", selectUrl: "/api/proveedores/"},
+            {
+              name: "_pMarca",
+              label: "Marca",
+              type: "select",
+              selectUrl: "/api/marcas/",
+            },
+            {
+              name: "_pProveedor",
+              label: "Proveedor",
+              type: "select",
+              selectUrl: "/api/proveedores/",
+            },
             // { name: "_pDiseno", label: "Diseño", type: "select", selectUrl: "/api//"},
             // { name: "_pIndice", label: "Indice", type: "select", selectUrl: "/api//"},
             // { name: "_pMaterial", label: "Material", type: "select", selectUrl: "/api//"},
@@ -113,59 +124,61 @@ const MCristales: React.FC = () => {
         />
 
         <PrimaryButtonsComponent
-          handleAddPerson     ={openModal}
+          handleAddPerson={openModal}
           handleDeleteSelected={handleDeleteSelected}
-          handleRefresh       ={resetEntities}
-          params              ={params}
-          pkToDelete          ={pkToDelete}
-          strEntidad          ={strEntidadExcel}
-          strBaseUrl          ={strBaseUrl}
-          showAddButton       ={true}
-          showExportButton    ={true}
-          showDeleteButton    ={true}
-          showForwardButton   ={false}
-          showRefreshButton   ={true}
-          comilla             ={false}
+          handleRefresh={resetEntities}
+          params={params}
+          pkToDelete={pkToDelete}
+          strEntidad={strEntidadExcel}
+          strBaseUrl={strBaseUrl}
+          showAddButton={true}
+          showExportButton={true}
+          showDeleteButton={true}
+          showForwardButton={false}
+          showRefreshButton={true}
+          comilla={false}
+          idMenu={idMenu}
         />
       </div>
 
       <div className="scroll">
         <TableComponent
-          handleSelectChecked     ={handleSelect}
+          handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
-          toggleEditModal         ={toggleEditModal}
-          handleDeleteSelected    ={handleDeleteSelected}
-          selectedRows            ={selectedRows}
-          pkToDelete              ={pkToDelete}
-          setSelectedRows         ={setSelectedRows}
-          entidad                 ={strEntidad}
-          data                    ={entities}
-          tableHead               ={table_head_cristales}
-          showEditButton          ={true}
-          showDeleteButton        ={false}
+          toggleEditModal={toggleEditModal}
+          handleDeleteSelected={handleDeleteSelected}
+          selectedRows={selectedRows}
+          pkToDelete={pkToDelete}
+          setSelectedRows={setSelectedRows}
+          entidad={strEntidad}
+          data={entities}
+          tableHead={table_head_cristales}
+          showEditButton={true}
+          showDeleteButton={false}
+          idMenu={idMenu}
         />
       </div>
 
       {isModalInsert && (
         <FCristales
-          label       ={`${TITLES.nuevo} ${strEntidad}`}
-          closeModal  ={closeModal}
+          label={`${TITLES.nuevo} ${strEntidad}`}
+          closeModal={closeModal}
           selectedRows={selectedRows}
-          setEntities ={setEntities}
-          params      ={params}
-          isEditting  ={false}
+          setEntities={setEntities}
+          params={params}
+          isEditting={false}
         />
       )}
 
       {isModalEdit && (
         <FCristales
-          label       ={`${TITLES.editar} ${strEntidad}`}
+          label={`${TITLES.editar} ${strEntidad}`}
           selectedRows={selectedRows}
-          setEntities ={setEntities}
-          params      ={params}
-          data        ={entity}
-          closeModal  ={closeModal}
-          isEditting  ={true}
+          setEntities={setEntities}
+          params={params}
+          data={entity}
+          closeModal={closeModal}
+          isEditting={true}
         />
       )}
     </div>

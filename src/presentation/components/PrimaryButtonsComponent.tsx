@@ -11,7 +11,7 @@ import { useModal } from "../hooks/useModal";
 
 interface IPrimaryButtonProps {
   handlePageSize?: () => void;
-  handleDeleteSelected?: (pkToDelete: any, comilla?:any) => void;
+  handleDeleteSelected?: (pkToDelete: any, comilla?: any) => void;
   escritura?: boolean;
   personsLength?: number;
   handleAddPerson?: () => void;
@@ -22,7 +22,7 @@ interface IPrimaryButtonProps {
   showRefreshButton?: boolean;
   showDeleteButton?: boolean;
   showExportButton?: boolean;
-  comilla?:boolean;
+  comilla?: boolean;
   strBaseUrl?: string;
   params?: never[];
   strEntidad?: string;
@@ -46,7 +46,7 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
     strEntidad,
     pkToDelete,
     comilla,
-    idMenu
+    idMenu,
   }) => {
     const { escritura_lectura } = usePermission(idMenu);
     const { CustomModal, showModal } = useModal();
@@ -61,14 +61,13 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
             onClick={handle}
             // disabled={!escritura_lectura}
           >
-            
             {icon}
           </IconButton>
         </Tooltip>
       ),
       [escritura_lectura]
     );
-
+    // console.log("params", params);
     return (
       <div className="primaryBtnContainer">
         {showForwardButton &&
@@ -113,10 +112,10 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
                   showModal(MODAL.delete, MODAL.deleteYes, MODAL.deleteNo).then(
                     (result) => {
                       if (result) {
-                        console.log('comilla', comilla)
+                        console.log("comilla", comilla);
                         comilla
-                           ? handleDeleteSelected(pkToDelete, comilla)
-                           : handleDeleteSelected(pkToDelete);
+                          ? handleDeleteSelected(pkToDelete, comilla)
+                          : handleDeleteSelected(pkToDelete);
                       }
                     }
                   );

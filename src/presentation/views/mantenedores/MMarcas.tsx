@@ -13,16 +13,17 @@ import FMarcas from "../forms/FMarcas";
 import { TITLES, table_head_marcas } from "../../utils";
 
 export enum EnumGrid {
-  id           = 1,
-  nombre       = 2,
+  id = 1,
+  nombre = 2,
   proveedor_id = 3,
-  proveedor    = 4,
+  proveedor = 4,
 }
 
-const strEntidad      = "Marca ";
+const strEntidad = "Marca ";
 const strEntidadExcel = "Marcas";
-const strBaseUrl      = "/api/marcas/";
-const strQuery        = "01";
+const strBaseUrl = "/api/marcas/";
+const strQuery = "01";
+const idMenu = 12;
 
 type PrimaryKey = {
   pk1: number;
@@ -60,7 +61,7 @@ const MMarcas: React.FC = () => {
 
   const pkToDelete: PrimaryKey[] = [];
 
-  console.log('pktodelete', pkToDelete)
+  console.log("pktodelete", pkToDelete);
   useEffect(() => {
     const newPkToDelete = selectedRows.map((row: number) => ({
       pk1: entities[row][EnumGrid.id],
@@ -107,6 +108,7 @@ const MMarcas: React.FC = () => {
           showDeleteButton={true}
           showForwardButton={false}
           showRefreshButton={true}
+          idMenu={idMenu}
         />
       </div>
 
@@ -124,6 +126,7 @@ const MMarcas: React.FC = () => {
           tableHead={table_head_marcas}
           showEditButton={true}
           showDeleteButton={false}
+          idMenu={idMenu}
         />
       </div>
 

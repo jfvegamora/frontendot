@@ -13,35 +13,36 @@ import FClientes from "../forms/FClientes";
 import { TITLES, table_head_clientes, TIPO_CLIENTE } from "../../utils";
 
 export enum EnumGrid {
-  rut                = 1,
-  nombre             = 2,
-  tipo               = 3,
-  sexo               = 4,
-  fecha_nacimiento   = 5,
-  direccion          = 6,
-  region_id          = 7,
-  region             = 8,
-  provincia_id       = 9,
-  provincia          = 10,
-  comuna_id          = 11,
-  comuna             = 12,
-  telefono           = 13,
-  correo             = 14,
+  rut = 1,
+  nombre = 2,
+  tipo = 3,
+  sexo = 4,
+  fecha_nacimiento = 5,
+  direccion = 6,
+  region_id = 7,
+  region = 8,
+  provincia_id = 9,
+  provincia = 10,
+  comuna_id = 11,
+  comuna = 12,
+  telefono = 13,
+  correo = 14,
   establecimiento_id = 15,
-  establecimiento    = 16,
+  establecimiento = 16,
 }
 
 export enum OptionValues {
   Todos = 0,
   Beneficiario = 1,
-  Particular= 2,
-  Óptica=3
+  Particular = 2,
+  Óptica = 3,
 }
 
-const strEntidad      = "Cliente ";
+const strEntidad = "Cliente ";
 const strEntidadExcel = "Clientes";
-const strBaseUrl      = "/api/clientes/";
-const strQuery        = "01";
+const strBaseUrl = "/api/clientes/";
+const strQuery = "01";
+const idMenu = 2;
 
 type PrimaryKey = {
   pk1: string;
@@ -75,12 +76,8 @@ const MClientes: React.FC = () => {
   } = useEntityUtils(strBaseUrl, strQuery);
   // console.log("entities:", entities);
 
-  
   const pkToDelete: PrimaryKey[] = [];
   // console.log("pkToDelete1: ", pkToDelete);
-
-
-
 
   useEffect(() => {
     const newPkToDelete = selectedRows.map((row: number) => ({
@@ -99,53 +96,66 @@ const MClientes: React.FC = () => {
 
       <div className="mantenedorHead width80">
         <PrimaryKeySearch
-          baseUrl         ={strBaseUrl}
-          setParams       ={setParams}
-          updateParams    ={updateParams}
-          setEntities     ={setEntities}
+          baseUrl={strBaseUrl}
+          setParams={setParams}
+          updateParams={updateParams}
+          setEntities={setEntities}
           primaryKeyInputs={[
             { name: "_p1", label: "RUT", type: "text" },
-            { name: "_p2", label: "Nombre", type: "text", values:OptionValues},
-            { name: "_p3", 
-                label  : "Tipo", 
-                type   : "radiobuttons", 
-                options: [TIPO_CLIENTE.todos, TIPO_CLIENTE.beneficiario, TIPO_CLIENTE.particular, TIPO_CLIENTE.optica],
-                values : OptionValues      
+            {
+              name: "_p2",
+              label: "Nombre",
+              type: "text",
+              values: OptionValues,
             },
-              ]}
+            {
+              name: "_p3",
+              label: "Tipo",
+              type: "radiobuttons",
+              options: [
+                TIPO_CLIENTE.todos,
+                TIPO_CLIENTE.beneficiario,
+                TIPO_CLIENTE.particular,
+                TIPO_CLIENTE.optica,
+              ],
+              values: OptionValues,
+            },
+          ]}
         />
 
         <PrimaryButtonsComponent
-          handleAddPerson     ={openModal}
+          handleAddPerson={openModal}
           handleDeleteSelected={handleDeleteSelected}
-          handleRefresh       ={resetEntities}
-          params              ={params}
-          pkToDelete          ={pkToDelete}
-          strEntidad          ={strEntidadExcel}
-          strBaseUrl          ={strBaseUrl}
-          showAddButton       ={true}
-          showExportButton    ={true}
-          showDeleteButton    ={true}
-          showForwardButton   ={false}
-          showRefreshButton   ={true}
-          comilla             ={true}
+          handleRefresh={resetEntities}
+          params={params}
+          pkToDelete={pkToDelete}
+          strEntidad={strEntidadExcel}
+          strBaseUrl={strBaseUrl}
+          showAddButton={true}
+          showExportButton={true}
+          showDeleteButton={true}
+          showForwardButton={false}
+          showRefreshButton={true}
+          comilla={true}
+          idMenu={idMenu}
         />
       </div>
 
       <div className="scroll">
         <TableComponent
-          handleSelectChecked     ={handleSelect}
+          handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
-          toggleEditModal         ={toggleEditModal}
-          handleDeleteSelected    ={handleDeleteSelected}
-          selectedRows            ={selectedRows}
-          pkToDelete              ={pkToDelete}
-          setSelectedRows         ={setSelectedRows}
-          entidad                 ={strEntidad}
-          data                    ={entities}
-          tableHead               ={table_head_clientes}
-          showEditButton          ={true}
-          showDeleteButton        ={false}
+          toggleEditModal={toggleEditModal}
+          handleDeleteSelected={handleDeleteSelected}
+          selectedRows={selectedRows}
+          pkToDelete={pkToDelete}
+          setSelectedRows={setSelectedRows}
+          entidad={strEntidad}
+          data={entities}
+          tableHead={table_head_clientes}
+          showEditButton={true}
+          showDeleteButton={false}
+          idMenu={idMenu}
         />
       </div>
 
@@ -175,4 +185,4 @@ const MClientes: React.FC = () => {
   );
 };
 
-export default MClientes
+export default MClientes;

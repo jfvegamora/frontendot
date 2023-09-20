@@ -13,16 +13,17 @@ import FAlmacenes from "../forms/FAlmacenes";
 import { TITLES, table_head_almacenes } from "../../utils";
 
 export enum EnumGrid {
-id              = 1,
-descripcion     = 2,
-tipo_almacen_id = 3,
-tipo_almacen    = 4,
+  id = 1,
+  descripcion = 2,
+  tipo_almacen_id = 3,
+  tipo_almacen = 4,
 }
 
 const strEntidad = "Almacén ";
 const strEntidadExcel = "Almacenes";
 const strBaseUrl = "/api/almacenes/";
 const strQuery = "01";
+const idMenu = 11;
 
 type PrimaryKey = {
   pk1: number;
@@ -77,10 +78,10 @@ const MAlmacenes: React.FC = () => {
 
       <div className="mantenedorHead width70">
         <PrimaryKeySearch
-          baseUrl         ={strBaseUrl}
-          setParams       ={setParams}
-          updateParams    ={updateParams}
-          setEntities     ={setEntities}
+          baseUrl={strBaseUrl}
+          setParams={setParams}
+          updateParams={updateParams}
+          setEntities={setEntities}
           primaryKeyInputs={[
             { name: "_p1", label: "Descripción", type: "text" },
             // {
@@ -93,59 +94,61 @@ const MAlmacenes: React.FC = () => {
         />
 
         <PrimaryButtonsComponent
-          handleAddPerson     ={openModal}
+          handleAddPerson={openModal}
           handleDeleteSelected={handleDeleteSelected}
-          handleRefresh       ={resetEntities}
-          params              ={params}
-          pkToDelete          ={pkToDelete}
-          strEntidad          ={strEntidadExcel}
-          strBaseUrl          ={strBaseUrl}
-          showAddButton       ={true}
-          showExportButton    ={true}
-          showDeleteButton    ={true}
-          showForwardButton   ={false}
-          showRefreshButton   ={true}
-          comilla             ={false}
+          handleRefresh={resetEntities}
+          params={params}
+          pkToDelete={pkToDelete}
+          strEntidad={strEntidadExcel}
+          strBaseUrl={strBaseUrl}
+          showAddButton={true}
+          showExportButton={true}
+          showDeleteButton={true}
+          showForwardButton={false}
+          showRefreshButton={true}
+          comilla={false}
+          idMenu={idMenu}
         />
       </div>
 
       <div className="scroll">
         <TableComponent
-          handleSelectChecked     ={handleSelect}
+          handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
-          toggleEditModal         ={toggleEditModal}
-          handleDeleteSelected    ={handleDeleteSelected}
-          selectedRows            ={selectedRows}
-          pkToDelete              ={pkToDelete}
-          setSelectedRows         ={setSelectedRows}
-          entidad                 ={strEntidad}
-          data                    ={entities}
-          tableHead               ={table_head_almacenes}
-          showEditButton          ={true}
-          showDeleteButton        ={false}
+          toggleEditModal={toggleEditModal}
+          handleDeleteSelected={handleDeleteSelected}
+          selectedRows={selectedRows}
+          pkToDelete={pkToDelete}
+          setSelectedRows={setSelectedRows}
+          entidad={strEntidad}
+          data={entities}
+          tableHead={table_head_almacenes}
+          showEditButton={true}
+          showDeleteButton={false}
+          idMenu={idMenu}
         />
       </div>
 
       {isModalInsert && (
         <FAlmacenes
-          label       ={`${TITLES.nuevo} ${strEntidad}`}
-          closeModal  ={closeModal}
+          label={`${TITLES.nuevo} ${strEntidad}`}
+          closeModal={closeModal}
           selectedRows={selectedRows}
-          setEntities ={setEntities}
-          params      ={params}
-          isEditting  ={false}
+          setEntities={setEntities}
+          params={params}
+          isEditting={false}
         />
       )}
 
       {isModalEdit && (
         <FAlmacenes
-          label       ={`${TITLES.editar} ${strEntidad}`}
+          label={`${TITLES.editar} ${strEntidad}`}
           selectedRows={selectedRows}
-          setEntities ={setEntities}
-          params      ={params}
-          data        ={entity}
-          closeModal  ={closeModal}
-          isEditting  ={true}
+          setEntities={setEntities}
+          params={params}
+          data={entity}
+          closeModal={closeModal}
+          isEditting={true}
         />
       )}
     </div>
