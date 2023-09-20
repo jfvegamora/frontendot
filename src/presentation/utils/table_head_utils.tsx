@@ -478,12 +478,12 @@ export const table_head_cristaleskardex = [
   {
     cell: "Cristal",
     key: "cristal",
-    visible: true,
+    visible: false,
   },
   {
     cell: "Descripción",
     key: "descripcion",
-    visible: true,
+    visible: false,
   },
   {
     cell: "Almacén ID",
@@ -498,7 +498,7 @@ export const table_head_cristaleskardex = [
   {
     cell: "E/S",
     key: "es",
-    visible: true,
+    visible: false,
   },
   {
     cell: "Motivo ID",
@@ -561,9 +561,24 @@ export const table_head_cristaleskardex = [
     visible: true,
   },
   {
+    cell: "Usuario ID",
+    key: "usuario_id",
+    visible: false,
+  },
+  {
+    cell: "Usuario",
+    key: "usuario",
+    visible: false,
+  },
+  {
+    cell: "Fecha Mov",
+    key: "fecha_mov",
+    visible: false,
+  },
+  {
     cell: "",
     key: "opciones",
-    visible: true,
+    visible: false,
   },
 ];
 

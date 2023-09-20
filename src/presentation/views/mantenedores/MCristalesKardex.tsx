@@ -10,6 +10,7 @@ import {
 } from "../../components";
 import { useEntityUtils } from "../../hooks";
 import FCristalesKardexIN from "../forms/FCristalesKardexIN";
+import FCristalesKardexOUT from "../forms/FCristalesKardexOUT";
 import { TITLES, table_head_cristaleskardex } from "../../utils";
 
 export enum EnumGrid {
@@ -33,27 +34,8 @@ export enum EnumGrid {
   observaciones = 18,
 }
 
-// export enum EnumGrid {
-//   fecha                 =1,
-//   cristal               =2,
-//   descripcion           =3,
-//   almacen_id            =4,
-//   almacen               =5,
-//   es                    =6,
-//   motivo_id             =7,
-//   motivo                =8,
-//   cantidad              =9,
-//   valor_neto            =10,
-//   proveedor_id          =11,
-//   proveedor             =12,
-//   numero_factura        =13,
-//   ot                    =14,
-//   almacen_relacionado_id=15,
-//   almacen_relacionado   =16,
-//   observaciones         =17,
-//   }
 
-const strEntidad = "Cristal Kardex ";
+const strEntidad = "Kardex de Cristal ";
 const strEntidadExcel = "Cristales_Kardex";
 const strBaseUrl      = "/api/cristaleskardex/";
 const strQuery        = "01";
@@ -165,22 +147,6 @@ const MCristalesKardex: React.FC = () => {
           idMenu              ={idMenu}
         />
       </div>
-      <PrimaryButtonsComponent
-        handleAddPerson={openModal}
-        handleDeleteSelected={handleDeleteSelected}
-        handleRefresh={resetEntities}
-        params={params}
-        pkToDelete={pkToDelete}
-        strEntidad={strEntidadExcel}
-        strBaseUrl={strBaseUrl}
-        showAddButton={true}
-        showExportButton={true}
-        showDeleteButton={true}
-        showForwardButton={false}
-        showRefreshButton={true}
-        comilla={true}
-        idMenu={idMenu}
-      />
 
       <div className="scroll">
         <TableComponent
@@ -194,15 +160,15 @@ const MCristalesKardex: React.FC = () => {
           entidad                 ={strEntidad}
           data                    ={entities}
           tableHead               ={table_head_cristaleskardex}
-          showEditButton          ={true}
+          showEditButton          ={false}
           showDeleteButton        ={false}
           idMenu                  ={idMenu}
         />
       </div>
 
       {isModalInsert && (
-        <FCristalesKardexIN
-          label={`${TITLES.nuevo} ${strEntidad}`}
+        <FCristalesKardexOUT
+          label={`${TITLES.egreso} ${strEntidad}`}
           closeModal={closeModal}
           selectedRows={selectedRows}
           setEntities={setEntities}

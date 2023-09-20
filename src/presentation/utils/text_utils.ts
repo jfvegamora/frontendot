@@ -25,6 +25,8 @@ export const TITLES = {
   nueva: "Nueva ",
   editar: "Editar ",
   guardar: "GUARDAR",
+  ingreso: "Ingreso de ",
+  egreso: "Egreso de ",
 
   proveedores: "Proveedores",
   permisos: "Permisos copiados correctamente",

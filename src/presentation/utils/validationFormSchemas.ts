@@ -72,50 +72,48 @@ export const validationCristalesSchema = (isEditting: boolean | undefined) =>
     stock_minimo: !isEditting ? yup.number().required(`${msg}`) : yup.number(),
   });
 
-// Schema CRISTALES KARDEX
+// Schema INGRESO CRISTALES KARDEX
 export const validationCristalesKardexINSchema = (
   isEditting: boolean | undefined
 ) =>
   yup.object().shape({
     cristal: !isEditting ? yup.number().required(`${msg}`) : yup.number(),
+    // descripcion: yup.string(),
     fecha: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    descripcion: yup.string(),
-    almacen: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    es: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
+    // es: yup.number(),
     motivo: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    entradas: !isEditting ? yup.number().required(`${msg}`) : yup.number(),
-    salidas: !isEditting ? yup.number().required(`${msg}`) : yup.number(),
+    cantidad: !isEditting ? yup.number().required(`${msg}`) : yup.number(),
+    almacen: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
     numero_factura: yup.number(),
     proveedor: yup.string(),
     valor_neto: yup.number(),
-    ot: yup.number(),
-    almacen_relacionado: !isEditting
-      ? yup.string().required(`${msg}`)
-      : yup.string(),
+    // ot: yup.number(),
+    // almacen_relacionado: !isEditting  ? yup.string().required(`${msg}`) : yup.string(),
     observaciones: yup.string(),
+    usuario: yup.number(),
+    fecha_mov: yup.string(),
   });
 
-export const validationCristalesKardexSchema = (
+// Schema EGRESO CRISTALES KARDEX
+export const validationCristalesKardexOUTSchema = (
   isEditting: boolean | undefined
 ) =>
   yup.object().shape({
     cristal: !isEditting ? yup.number().required(`${msg}`) : yup.number(),
+    // descripcion: yup.string(),
     fecha: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    descripcion: yup.string(),
-    almacen: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    es: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
+    // es: yup.number(),
     motivo: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    entradas: !isEditting ? yup.number().required(`${msg}`) : yup.number(),
     cantidad: !isEditting ? yup.number().required(`${msg}`) : yup.number(),
-    salidas: !isEditting ? yup.number().required(`${msg}`) : yup.number(),
-    numero_factura: yup.number(),
-    proveedor: yup.string(),
-    valor_neto: yup.number(),
-    ot: yup.number(),
-    almacen_relacionado: !isEditting
-      ? yup.string().required(`${msg}`)
-      : yup.string(),
+    almacen: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
+    // numero_factura: yup.number(),
+    // proveedor: yup.string(),
+    // valor_neto: yup.number(),
+    // ot: yup.number(),
+    almacen_relacionado: !isEditting  ? yup.string().required(`${msg}`) : yup.string(),
     observaciones: yup.string(),
+    usuario: yup.number(),
+    fecha_mov: yup.string(),
   });
 
 // Schema ARMAZONES

@@ -84,12 +84,13 @@ const MAlmacenes: React.FC = () => {
           setEntities={setEntities}
           primaryKeyInputs={[
             { name: "_p1", label: "Descripción", type: "text" },
-            // {
-            //   name: "_p2",
-            //   label: "Tipo",
-            //   type: "select",
-            //   selectUrl: "/api/almacenestipos/",
-            // },
+            {
+              name      : "_p2",
+              label     : "Tipo",
+              type      : "select",
+              selectUrl : "/api/tipos/",
+              tipos     : "AlmacenesTipos"
+            },
           ]}
         />
 

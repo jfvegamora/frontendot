@@ -106,12 +106,12 @@ const MCristales: React.FC = () => {
               type: "select",
               selectUrl: "/api/marcas/",
             },
-            {
-              name: "_pProveedor",
-              label: "Proveedor",
-              type: "select",
-              selectUrl: "/api/proveedores/",
-            },
+            // {
+            //   name: "_pProveedor",
+            //   label: "Proveedor",
+            //   type: "select",
+            //   selectUrl: "/api/proveedores/",
+            // },
             // { name: "_pDiseno", label: "Diseño", type: "select", selectUrl: "/api//"},
             // { name: "_pIndice", label: "Indice", type: "select", selectUrl: "/api//"},
             // { name: "_pMaterial", label: "Material", type: "select", selectUrl: "/api//"},

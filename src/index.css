@@ -133,6 +133,8 @@ select::-ms-expand {
   --tw-text-opacity: 1;
   color: rgb(97 97 97 / var(--tw-text-opacity));
   background-color: #ffffff;
+
+  height: 3rem;
 }
 
 .custom-input.error {
@@ -412,7 +414,11 @@ select::-ms-expand {
     var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
-.useFormContainer3 {
+.useFormContainer30rem {
+  max-width: 30rem;
+  left: 35%;
+}
+.useFormContainer50rem {
   max-width: 50rem;
   left: 20%;
 }
@@ -472,6 +478,11 @@ select::-ms-expand {
 .input {
   flex-grow: 1; /* Hace que los elementos se ajusten automáticamente */
   margin-right: 20px; /* Espacio entre los elementos */
+}
+
+/* Aplica la alineación a todos los input de tipo number */
+input[type="number"] {
+  text-align: right;
 }
 
 .flex-col {
