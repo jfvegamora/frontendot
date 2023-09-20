@@ -19,6 +19,7 @@ import {
 } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
+import { AppStore, useAppSelector } from "../../../redux/store";
 import useCustomToast from "../../hooks/useCustomToast";
 
 const strBaseUrl = "/api/cristaleskardex/";
@@ -142,6 +143,7 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
   ({ closeModal, setEntities, params, label, data, isEditting }) => {
     const schema = validationCristalesKardexOUTSchema(isEditting);
     const { showModal, CustomModal } = useModal();
+    const userState = useAppSelector((store: AppStore) => store.user);
     const { show } = useCustomToast();
 
     const {
@@ -262,7 +264,7 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
         try {
           const transformedData = isEditting
             ? transformUpdateQuery(data)
-            : transformInsertQuery(data, useState?.id);
+            : transformInsertQuery(data, userState?.id);
 
           const response = isEditting
             ? await editEntity(transformedData)
