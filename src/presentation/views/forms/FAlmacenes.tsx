@@ -4,25 +4,22 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect } from "react";
-import {
-  SelectInputComponent,
-  TextInputComponent,
-} from "../../components";
+import { SelectInputComponent, TextInputComponent } from "../../components";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationAlmacenesSchema } from "../../utils/validationFormSchemas";
 import { EnumGrid } from "../mantenedores/MAlmacenes";
-import { toast } from "react-toastify";
 import { ERROR_MESSAGES, MODAL, SUCCESS_MESSAGES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
+import useCustomToast from "../../hooks/useCustomToast";
 
 const strBaseUrl = "/api/almacenes/";
 const strEntidad = "Almacén ";
 
 export interface InputData {
   descripcion: string | undefined;
-  tipo       : string | undefined;
+  tipo: string | undefined;
 }
 
 interface OutputData {
@@ -32,7 +29,7 @@ interface OutputData {
 }
 
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
-  const _p1 =`'${jsonData.descripcion}', 
+  const _p1 = `'${jsonData.descripcion}', 
                ${jsonData.tipo}`;
 
   const query: OutputData = {
@@ -48,9 +45,9 @@ export function transformUpdateQuery(
   primaryKey: string
 ): OutputData | null {
   const fields = [
-    `descripcion='${jsonData.descripcion}'`, 
-    `tipo       = ${jsonData.tipo}`, 
-    ];
+    `descripcion='${jsonData.descripcion}'`,
+    `tipo       = ${jsonData.tipo}`,
+  ];
 
   const filteredFields = fields.filter(
     (field) => field !== null && field !== ""
@@ -60,7 +57,7 @@ export function transformUpdateQuery(
     return null;
   }
   const _p1 = filteredFields.join(",");
-  console.log("_p1", _p1); 
+  console.log("_p1", _p1);
   console.log("primaryKey", primaryKey);
   return {
     query: "04",
@@ -71,18 +68,19 @@ export function transformUpdateQuery(
 
 interface IUserFormPrps {
   closeModal: () => void;
-  data?        : any[];
-  label        : string;
-  isEditting?  : any;
+  data?: any[];
+  label: string;
+  isEditting?: any;
   selectedRows?: any;
-  setEntities? : any;
-  params?      : any;
+  setEntities?: any;
+  params?: any;
 }
 
 const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
   ({ closeModal, setEntities, params, label, data, isEditting }) => {
     const schema = validationAlmacenesSchema(isEditting);
     const { showModal, CustomModal } = useModal();
+    const { show } = useCustomToast();
 
     const {
       editEntity,
@@ -120,11 +118,12 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
     }, [params, setEntities, ListEntity]);
 
     const toastSuccess = (isEditting: boolean) => {
-      toast.success(
-        isEditting
+      show({
+        message: isEditting
           ? strEntidad.concat(SUCCESS_MESSAGES.edit)
-          : strEntidad.concat(SUCCESS_MESSAGES.create)
-      );
+          : strEntidad.concat(SUCCESS_MESSAGES.create),
+        type: "success",
+      });
     };
 
     const handleApiResponse = React.useCallback(
@@ -138,7 +137,10 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
                 ? strEntidad.concat(ERROR_MESSAGES.edit)
                 : strEntidad.concat(ERROR_MESSAGES.create)
               : errorResponse;
-          toast.error(errorMessage ? errorMessage : response.code);
+          show({
+            message: errorMessage ? errorMessage : response.code,
+            type: "error",
+          });
           return;
         }
 
@@ -198,7 +200,10 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
             : await createdEntity(transformedData);
           handleApiResponse(response, isEditting);
         } catch (error: any) {
-          toast.error(error);
+          show({
+            message: error,
+            type: "error",
+          });
         }
       },
       [editEntity, createdEntity, handleApiResponse, intId]
@@ -229,27 +234,26 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
         >
           <div className="userFormularioContainer">
             <TextInputComponent
-              type    = "text"
-              label   = "Descripción"
-              name    = "descripcion"
-              data    = {data && data[EnumGrid.descripcion]}
-              control = {control}
-              error   = {!isEditting && errors.descripcion}
-              inputRef= {firstInputRef}
+              type="text"
+              label="Descripción"
+              name="descripcion"
+              data={data && data[EnumGrid.descripcion]}
+              control={control}
+              error={!isEditting && errors.descripcion}
+              inputRef={firstInputRef}
             />
             <div className="w-full ">
               <SelectInputComponent
-                label       = "Tipo"
-                name        = "tipo"
-                showRefresh = {true}
-                data        = {data && data[EnumGrid.tipo_almacen_id]}
-                control     = {control}
-                entidad     = {["/api/tipos/", "02", "AlmacenesTipos"]}
-                error       = {!isEditting && errors.tipo}
-                customWidth = {"345px"}
+                label="Tipo"
+                name="tipo"
+                showRefresh={true}
+                data={data && data[EnumGrid.tipo_almacen_id]}
+                control={control}
+                entidad={["/api/tipos/", "02", "AlmacenesTipos"]}
+                error={!isEditting && errors.tipo}
+                customWidth={"345px"}
               />
             </div>
-
           </div>
 
           <button type="submit" className="userFormBtnSubmit">

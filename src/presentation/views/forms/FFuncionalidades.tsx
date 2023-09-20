@@ -12,8 +12,8 @@ import {
 } from "../../utils";
 import { TextInputComponent } from "../../components";
 import { useCrud } from "../../hooks";
-import { toast } from "react-toastify";
 import { useModal } from "../../hooks/useModal";
+import useCustomToast from "../../hooks/useCustomToast";
 
 const strBaseUrl = "/api/funcionalidades/";
 const strEntidad = "Funcionalidad ";
@@ -71,6 +71,7 @@ const FFuncionalidad: React.FC<IFormProps> = React.memo(
     const schema = validationFuncionalidadSchema(isEditting);
     const { editEntity, createdEntity, ListEntity } = useCrud(strBaseUrl);
     const [blnKeep, setblnKeep] = useState(false);
+    const { show } = useCustomToast();
     const { showModal, CustomModal } = useModal();
     const intId = data && data[EnumGrid.id];
 
@@ -89,11 +90,12 @@ const FFuncionalidad: React.FC<IFormProps> = React.memo(
     }, [params, setEntities, ListEntity]);
 
     const toastSuccess = (isEditting: boolean) => {
-      toast.success(
-        isEditting
+      show({
+        message: isEditting
           ? strEntidad.concat(SUCCESS_MESSAGES.edit)
-          : strEntidad.concat(SUCCESS_MESSAGES.create)
-      );
+          : strEntidad.concat(SUCCESS_MESSAGES.create),
+        type: "success",
+      });
     };
 
     const handleApiResponse = React.useCallback(
@@ -106,7 +108,10 @@ const FFuncionalidad: React.FC<IFormProps> = React.memo(
                 ? strEntidad.concat(ERROR_MESSAGES.edit)
                 : strEntidad.concat(ERROR_MESSAGES.create)
               : errorResponse;
-          toast.error(errorMessage);
+          show({
+            message: errorMessage ? errorMessage : response.code,
+            type: "error",
+          });
         }
 
         if (!blnKeep && !isEditting && !errorResponse) {
@@ -152,7 +157,10 @@ const FFuncionalidad: React.FC<IFormProps> = React.memo(
           handleApiResponse(response, isEditting);
         } catch (error: any) {
           console.log("error cargos form:", error);
-          toast.error(error);
+          show({
+            message: error,
+            type: "error",
+          });
         }
       },
       [intId, editEntity, createdEntity, handleApiResponse]

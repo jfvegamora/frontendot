@@ -9,35 +9,34 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationEmpresasSchema } from "../../utils/validationFormSchemas";
 import { EnumGrid } from "../mantenedores/MEmpresas";
-import { toast } from "react-toastify";
 import { ERROR_MESSAGES, MODAL, SUCCESS_MESSAGES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
+import useCustomToast from "../../hooks/useCustomToast";
 
 const strBaseUrl = "/api/empresas/";
 const strEntidad = "Empresas ";
 
 export interface InputData {
-  rut:          string | undefined;
-  nombre:       string | undefined;
+  rut: string | undefined;
+  nombre: string | undefined;
   razon_social: string | undefined;
-  giro:         string | undefined;
-  direccion:    string | undefined;
-  telefono:     string | undefined;
-  correo:       string | undefined;
-  sitio_web:    string | undefined;
-  nombre_logo:  string | undefined;
+  giro: string | undefined;
+  direccion: string | undefined;
+  telefono: string | undefined;
+  correo: string | undefined;
+  sitio_web: string | undefined;
+  nombre_logo: string | undefined;
 }
 
 interface OutputData {
-  query : string;
-    _p1 : string;
-    _p2?: string;
+  query: string;
+  _p1: string;
+  _p2?: string;
 }
 
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
-  const _p1 = 
-    ` '${jsonData.rut}', 
+  const _p1 = ` '${jsonData.rut}', 
       '${jsonData.nombre}', 
       '${jsonData.razon_social}', 
       '${jsonData.giro}', 
@@ -49,7 +48,7 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
 
   const query: OutputData = {
     query: "03",
-      _p1: _p1,
+    _p1: _p1,
   };
 
   return query;
@@ -79,7 +78,7 @@ export function transformUpdateQuery(
     return null;
   }
   const _p1 = filteredFields.join(",");
-//  console.log("primaryKey", primaryKey);
+  //  console.log("primaryKey", primaryKey);
   return {
     query: "04",
     _p1,
@@ -89,18 +88,20 @@ export function transformUpdateQuery(
 
 interface IUserFormPrps {
   closeModal: () => void;
-  data?        : any[];
-  label        : string;
-  isEditting?  : any;
+  data?: any[];
+  label: string;
+  isEditting?: any;
   selectedRows?: any;
-  setEntities? : any;
-  params?      : any;
+  setEntities?: any;
+  params?: any;
 }
 
 const FEmpresas: React.FC<IUserFormPrps> = React.memo(
   ({ closeModal, setEntities, params, label, data, isEditting }) => {
     const schema = validationEmpresasSchema(isEditting);
     const { showModal, CustomModal } = useModal();
+
+    const { show } = useCustomToast();
 
     const {
       editEntity,
@@ -121,19 +122,18 @@ const FEmpresas: React.FC<IUserFormPrps> = React.memo(
     });
 
     const resetTextFields = React.useCallback(() => {
-      setValue("rut"          , "");
-      setValue("nombre"       , "");
-      setValue("razon_social" , "");
-      setValue("giro"         , "");
-      setValue("direccion"    , "");
-      setValue("telefono"     , "");
-      setValue("correo"       , "");
-      setValue("sitio_web"    , "");
-      setValue("nombre_logo"  , "");
+      setValue("rut", "");
+      setValue("nombre", "");
+      setValue("razon_social", "");
+      setValue("giro", "");
+      setValue("direccion", "");
+      setValue("telefono", "");
+      setValue("correo", "");
+      setValue("sitio_web", "");
+      setValue("nombre_logo", "");
       if (firstInputRef.current) {
-        const firstInput = firstInputRef.current.querySelector(
-          'input[name="rut"]'
-        );
+        const firstInput =
+          firstInputRef.current.querySelector('input[name="rut"]');
         if (firstInput) {
           firstInput.focus();
         }
@@ -146,11 +146,12 @@ const FEmpresas: React.FC<IUserFormPrps> = React.memo(
     }, [params, setEntities, ListEntity]);
 
     const toastSuccess = (isEditting: boolean) => {
-      toast.success(
-        isEditting
+      show({
+        message: isEditting
           ? strEntidad.concat(SUCCESS_MESSAGES.edit)
-          : strEntidad.concat(SUCCESS_MESSAGES.create)
-      );
+          : strEntidad.concat(SUCCESS_MESSAGES.create),
+        type: "success",
+      });
     };
 
     const handleApiResponse = React.useCallback(
@@ -163,7 +164,10 @@ const FEmpresas: React.FC<IUserFormPrps> = React.memo(
                 ? strEntidad.concat(ERROR_MESSAGES.edit)
                 : strEntidad.concat(ERROR_MESSAGES.create)
               : errorResponse;
-          toast.error(errorMessage);
+          show({
+            message: errorMessage ? errorMessage : response.code,
+            type: "error",
+          });
           return;
         }
 
@@ -211,7 +215,6 @@ const FEmpresas: React.FC<IUserFormPrps> = React.memo(
       };
     }, [closeModal]);
 
-
     const handleSaveChange = React.useCallback(
       async (data: InputData, isEditting: boolean) => {
         try {
@@ -224,7 +227,10 @@ const FEmpresas: React.FC<IUserFormPrps> = React.memo(
             : await createdEntity(transformedData);
           handleApiResponse(response, isEditting);
         } catch (error: any) {
-          toast.error(error);
+          show({
+            message: error,
+            type: "error",
+          });
         }
       },
       [editEntity, createdEntity, handleApiResponse, intId]
@@ -272,8 +278,7 @@ const FEmpresas: React.FC<IUserFormPrps> = React.memo(
               error={!isEditting && errors.nombre}
               inputRef={firstInputRef}
             />
-            <div className="w-full ">
-            </div>
+            <div className="w-full "></div>
             <TextInputComponent
               type="text"
               label="Razón Social"

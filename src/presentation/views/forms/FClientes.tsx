@@ -13,7 +13,6 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationClientesSchema } from "../../utils/validationFormSchemas";
 import { EnumGrid } from "../mantenedores/MClientes";
-import { toast } from "react-toastify";
 import {
   ERROR_MESSAGES,
   MODAL,
@@ -24,6 +23,7 @@ import {
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import RegProComponent from "../../components/forms/RegProComponent";
+import useCustomToast from "../../hooks/useCustomToast";
 
 const strBaseUrl = "/api/clientes/";
 const strEntidad = "Cliente ";
@@ -150,6 +150,8 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
     const schema = validationClientesSchema(isEditting);
     const { showModal, CustomModal } = useModal();
 
+    const { show } = useCustomToast();
+
     const {
       editEntity,
       createdEntity,
@@ -193,11 +195,12 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
     }, [params, setEntities, ListEntity]);
 
     const toastSuccess = (isEditting: boolean) => {
-      toast.success(
-        isEditting
+      show({
+        message: isEditting
           ? strEntidad.concat(SUCCESS_MESSAGES.edit)
-          : strEntidad.concat(SUCCESS_MESSAGES.create)
-      );
+          : strEntidad.concat(SUCCESS_MESSAGES.create),
+        type: "success",
+      });
     };
 
     const handleApiResponse = React.useCallback(
@@ -211,7 +214,10 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
                 ? strEntidad.concat(ERROR_MESSAGES.edit)
                 : strEntidad.concat(ERROR_MESSAGES.create)
               : errorResponse;
-          toast.error(errorMessage ? errorMessage : response.code);
+          show({
+            message: errorMessage ? errorMessage : response.code,
+            type: "error",
+          });
           return;
         }
 
@@ -271,7 +277,10 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
             : await createdEntity(transformedData);
           handleApiResponse(response, isEditting);
         } catch (error: any) {
-          toast.error(error);
+          show({
+            message: error,
+            type: "error",
+          });
         }
       },
       [editEntity, createdEntity, handleApiResponse, intId]

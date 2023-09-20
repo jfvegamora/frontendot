@@ -13,7 +13,6 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationUsusariosSchema } from "../../utils/validationFormSchemas";
 import { EnumGrid } from "../mantenedores/MUsuarios";
-import { toast } from "react-toastify";
 import { ERROR_MESSAGES, MODAL, SUCCESS_MESSAGES, TITLES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
@@ -144,11 +143,12 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
     }, [params, setEntities, ListEntity]);
 
     const toastSuccess = (isEditting: boolean) => {
-      toast.success(
-        isEditting
+      show({
+        message: isEditting
           ? strEntidad.concat(SUCCESS_MESSAGES.edit)
-          : strEntidad.concat(SUCCESS_MESSAGES.create)
-      );
+          : strEntidad.concat(SUCCESS_MESSAGES.create),
+        type: "success",
+      });
     };
 
     const handleApiResponse = React.useCallback(
@@ -162,7 +162,11 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                 ? strEntidad.concat(ERROR_MESSAGES.edit)
                 : strEntidad.concat(ERROR_MESSAGES.create)
               : errorResponse;
-          toast.error(errorMessage ? errorMessage : response.code);
+          show({
+            message: errorMessage ? errorMessage : response.code,
+            type: "error",
+          });
+
           return;
         }
 
@@ -255,7 +259,10 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
             : await createdEntity(transformedData);
           handleApiResponse(response, isEditting);
         } catch (error: any) {
-          toast.error(error);
+          show({
+            message: error,
+            type: "error",
+          });
         }
       },
       [editEntity, createdEntity, handleApiResponse, intId]
@@ -263,9 +270,9 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
 
     const handlePermisos = React.useCallback(async () => {
       try {
-        console.log("click");
+        // console.log("click");
         const intUserId = data && data[EnumGrid.id];
-        const primaryKey = `_p1=${intUserId}`;
+        const primaryKey = `_id=${intUserId}`;
         const query = "99";
 
         const response = await ListEntity(primaryKey, query);

@@ -4,29 +4,26 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect } from "react";
-import {
-  SelectInputComponent,
-  TextInputComponent,
-} from "../../components";
+import { SelectInputComponent, TextInputComponent } from "../../components";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationPuntosVentaSchema } from "../../utils/validationFormSchemas";
 import { EnumGrid } from "../mantenedores/MPuntosVenta";
-import { toast } from "react-toastify";
 import { ERROR_MESSAGES, MODAL, SUCCESS_MESSAGES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
+import useCustomToast from "../../hooks/useCustomToast";
 
 const strBaseUrl = "/api/puntosventa/";
 const strEntidad = "Punto de Venta ";
 
 export interface InputData {
   descripcion: string | undefined;
-  tipo       : string | undefined;
-  direccion  : string | undefined;
-  almacen    : string | undefined;
-  encargado  : string | undefined;
-  telefono   : string | undefined;
+  tipo: string | undefined;
+  direccion: string | undefined;
+  almacen: string | undefined;
+  encargado: string | undefined;
+  telefono: string | undefined;
 }
 
 interface OutputData {
@@ -36,7 +33,7 @@ interface OutputData {
 }
 
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
-  const _p1 =` ${jsonData.tipo}, 
+  const _p1 = ` ${jsonData.tipo}, 
               '${jsonData.descripcion}', 
               '${jsonData.direccion}', 
               '${jsonData.telefono}', 
@@ -56,13 +53,13 @@ export function transformUpdateQuery(
   primaryKey: string
 ): OutputData | null {
   const fields = [
-    `tipo       = ${jsonData.tipo}`, 
-    `descripcion='${jsonData.descripcion}'`, 
-    `direccion  ='${jsonData.direccion}'`, 
-    `telefono   ='${jsonData.telefono}'`, 
-    `encargado  = ${jsonData.encargado}`, 
+    `tipo       = ${jsonData.tipo}`,
+    `descripcion='${jsonData.descripcion}'`,
+    `direccion  ='${jsonData.direccion}'`,
+    `telefono   ='${jsonData.telefono}'`,
+    `encargado  = ${jsonData.encargado}`,
     `almacen    = ${jsonData.almacen}`,
-    ];
+  ];
 
   const filteredFields = fields.filter(
     (field) => field !== null && field !== ""
@@ -72,7 +69,7 @@ export function transformUpdateQuery(
     return null;
   }
   const _p1 = filteredFields.join(",");
-  console.log("_p1", _p1); 
+  console.log("_p1", _p1);
   console.log("primaryKey", primaryKey);
   return {
     query: "04",
@@ -83,18 +80,19 @@ export function transformUpdateQuery(
 
 interface IUserFormPrps {
   closeModal: () => void;
-  data?        : any[];
-  label        : string;
-  isEditting?  : any;
+  data?: any[];
+  label: string;
+  isEditting?: any;
   selectedRows?: any;
-  setEntities? : any;
-  params?      : any;
+  setEntities?: any;
+  params?: any;
 }
 
 const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
   ({ closeModal, setEntities, params, label, data, isEditting }) => {
     const schema = validationPuntosVentaSchema(isEditting);
     const { showModal, CustomModal } = useModal();
+    const { show } = useCustomToast();
 
     const {
       editEntity,
@@ -116,8 +114,8 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
 
     const resetTextFields = React.useCallback(() => {
       setValue("descripcion", "");
-      setValue("direccion"  , "");
-      setValue("telefono"   , "");
+      setValue("direccion", "");
+      setValue("telefono", "");
       if (firstInputRef.current) {
         const firstInput = firstInputRef.current.querySelector(
           'input[name="descripcion"]'
@@ -134,11 +132,12 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
     }, [params, setEntities, ListEntity]);
 
     const toastSuccess = (isEditting: boolean) => {
-      toast.success(
-        isEditting
+      show({
+        message: isEditting
           ? strEntidad.concat(SUCCESS_MESSAGES.edit)
-          : strEntidad.concat(SUCCESS_MESSAGES.create)
-      );
+          : strEntidad.concat(SUCCESS_MESSAGES.create),
+        type: "success",
+      });
     };
 
     const handleApiResponse = React.useCallback(
@@ -152,7 +151,10 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
                 ? strEntidad.concat(ERROR_MESSAGES.edit)
                 : strEntidad.concat(ERROR_MESSAGES.create)
               : errorResponse;
-          toast.error(errorMessage ? errorMessage : response.code);
+          show({
+            message: errorMessage ? errorMessage : response.code,
+            type: "error",
+          });
           return;
         }
 
@@ -212,7 +214,10 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
             : await createdEntity(transformedData);
           handleApiResponse(response, isEditting);
         } catch (error: any) {
-          toast.error(error);
+          show({
+            message: error,
+            type: "error",
+          });
         }
       },
       [editEntity, createdEntity, handleApiResponse, intId]
@@ -243,70 +248,69 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
         >
           <div className="userFormularioContainer">
             <TextInputComponent
-              type    = "text"
-              label   = "Descripción"
-              name    = "descripcion"
-              data    = {data && data[EnumGrid.descripcion]}
-              control = {control}
-              error   = {!isEditting && errors.descripcion}
-              inputRef= {firstInputRef}
+              type="text"
+              label="Descripción"
+              name="descripcion"
+              data={data && data[EnumGrid.descripcion]}
+              control={control}
+              error={!isEditting && errors.descripcion}
+              inputRef={firstInputRef}
             />
             <div className="w-full ">
               <SelectInputComponent
-                label       = "Tipo"
-                name        = "tipo"
-                showRefresh = {true}
-                data        = {data && data[EnumGrid.tipo_id]}
-                control     = {control}
-                entidad     = {["/api/tipos/", "02", "PuntosVentaTipos"]}
-                error       = {!isEditting && errors.tipo}
-                customWidth = {"345px"}
+                label="Tipo"
+                name="tipo"
+                showRefresh={true}
+                data={data && data[EnumGrid.tipo_id]}
+                control={control}
+                entidad={["/api/tipos/", "02", "PuntosVentaTipos"]}
+                error={!isEditting && errors.tipo}
+                customWidth={"345px"}
               />
             </div>
 
             <TextInputComponent
-              type    = "text"
-              label   = "Dirección"
-              name    = "direccion"
-              data    = {data && data[EnumGrid.direccion]}
-              control = {control}
+              type="text"
+              label="Dirección"
+              name="direccion"
+              data={data && data[EnumGrid.direccion]}
+              control={control}
             />
 
             <div className="w-full ">
               <SelectInputComponent
-                label       = "Almacén"
-                name        = "almacen"
-                showRefresh = {true}
-                data        = {data && data[EnumGrid.almacen_id]}
-                control     = {control}
-                entidad     = {["/api/almacenes/", "02"]}
-                error       = {!isEditting && errors.almacen}
-                customWidth = {"345px"}
+                label="Almacén"
+                name="almacen"
+                showRefresh={true}
+                data={data && data[EnumGrid.almacen_id]}
+                control={control}
+                entidad={["/api/almacenes/", "02"]}
+                error={!isEditting && errors.almacen}
+                customWidth={"345px"}
               />
             </div>
 
             <div className="w-full ">
               <SelectInputComponent
-                label       = "Encargado"
-                name        = "encargado"
-                showRefresh = {true}
-                data        = {data && data[EnumGrid.encargado_id]}
-                control     = {control}
-                entidad     = {["/api/usuarios/", "02"]}
-                error       = {!isEditting && errors.encargado}
-                customWidth = {"345px"}
+                label="Encargado"
+                name="encargado"
+                showRefresh={true}
+                data={data && data[EnumGrid.encargado_id]}
+                control={control}
+                entidad={["/api/usuarios/", "02"]}
+                error={!isEditting && errors.encargado}
+                customWidth={"345px"}
               />
             </div>
 
             <TextInputComponent
-              type    = "text"
-              label   = "Teléfono"
-              name    = "telefono"
-              data    = {data && data[EnumGrid.telefono]}
-              control = {control}
-              error   = {!isEditting && errors.telefono}
+              type="text"
+              label="Teléfono"
+              name="telefono"
+              data={data && data[EnumGrid.telefono]}
+              control={control}
+              error={!isEditting && errors.telefono}
             />
-
           </div>
 
           <button type="submit" className="userFormBtnSubmit">

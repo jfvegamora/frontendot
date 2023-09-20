@@ -52,7 +52,23 @@ export const ExportCSV: React.FC<Props> = ({
   //   console.log("queryString", queryString);
   // }
   if (params) {
-    const paramNames = ["_p1", "_p2", "_p3", "_p4", "_pMarca", "_pProveedor"];
+    const paramNames = [
+      "_p1",
+      "_p2",
+      "_p3",
+      "_p4",
+      "_pMarca",
+      "_pProveedor",
+      "_pDiseño",
+      "_pIndice",
+      "_pMaterial",
+      "_pColor",
+      "_pTratamiento",
+      "_pDiametro",
+      "_pEsferico",
+      "_pCilindrico",
+      "_id",
+    ];
     queryString = params
       .map((value: string | string[], index: number) => {
         const paramName = paramNames[index];

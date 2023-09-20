@@ -55,9 +55,9 @@ export enum EnumGrid {
 
 const strEntidad = "Cristal Kardex ";
 const strEntidadExcel = "Cristales_Kardex";
-const strBaseUrl      = "/api/cristaleskardex/";
-const strQuery        = "01";
-const idMenu          = 8;
+const strBaseUrl = "/api/cristaleskardex/";
+const strQuery = "01";
+const idMenu = 8;
 
 type PrimaryKey = {
   pk1: string; //cristal
@@ -149,54 +149,40 @@ const MCristalesKardex: React.FC = () => {
         />
 
         <PrimaryButtonsComponent
-          handleAddPerson     ={openModal}
+          handleAddPerson={openModal}
           handleDeleteSelected={handleDeleteSelected}
-          handleRefresh       ={resetEntities}
-          params              ={params}
-          pkToDelete          ={pkToDelete}
-          strEntidad          ={strEntidadExcel}
-          strBaseUrl          ={strBaseUrl}
-          showAddButton       ={true}
-          showExportButton    ={true}
-          showDeleteButton    ={true}
-          showForwardButton   ={false}
-          showRefreshButton   ={true}
-          comilla             ={true}
-          idMenu              ={idMenu}
+          toggleEditModal={toggleEditModal}
+          handleRefresh={resetEntities}
+          params={params}
+          pkToDelete={pkToDelete}
+          strEntidad={strEntidadExcel}
+          strBaseUrl={strBaseUrl}
+          showAddButton={true}
+          showExportButton={true}
+          showDeleteButton={true}
+          showForwardButton={false}
+          showRefreshButton={true}
+          comilla={true}
+          idMenu={idMenu}
+          bln_egreso={true}
         />
       </div>
-      <PrimaryButtonsComponent
-        handleAddPerson={openModal}
-        handleDeleteSelected={handleDeleteSelected}
-        handleRefresh={resetEntities}
-        params={params}
-        pkToDelete={pkToDelete}
-        strEntidad={strEntidadExcel}
-        strBaseUrl={strBaseUrl}
-        showAddButton={true}
-        showExportButton={true}
-        showDeleteButton={true}
-        showForwardButton={false}
-        showRefreshButton={true}
-        comilla={true}
-        idMenu={idMenu}
-      />
 
       <div className="scroll">
         <TableComponent
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
-          toggleEditModal         ={toggleEditModal}
-          handleDeleteSelected    ={handleDeleteSelected}
-          selectedRows            ={selectedRows}
-          pkToDelete              ={pkToDelete}
-          setSelectedRows         ={setSelectedRows}
-          entidad                 ={strEntidad}
-          data                    ={entities}
-          tableHead               ={table_head_cristaleskardex}
-          showEditButton          ={true}
-          showDeleteButton        ={false}
-          idMenu                  ={idMenu}
+          toggleEditModal={toggleEditModal}
+          handleDeleteSelected={handleDeleteSelected}
+          selectedRows={selectedRows}
+          pkToDelete={pkToDelete}
+          setSelectedRows={setSelectedRows}
+          entidad={strEntidad}
+          data={entities}
+          tableHead={table_head_cristaleskardex}
+          showEditButton={true}
+          showDeleteButton={false}
+          idMenu={idMenu}
         />
       </div>
 

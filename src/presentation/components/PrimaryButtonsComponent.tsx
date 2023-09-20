@@ -8,10 +8,15 @@ import { usePermission } from "../hooks";
 import { BUTTON_MESSAGES, MODAL } from "../utils";
 import { ExportCSV } from "./ExportToCsv";
 import { useModal } from "../hooks/useModal";
+import { CgInsertAfterR, CgInsertBeforeR } from "react-icons/cg";
+
+//CgInsertAfterR
+//CgInsertBeforeR
 
 interface IPrimaryButtonProps {
   handlePageSize?: () => void;
   handleDeleteSelected?: (pkToDelete: any, comilla?: any) => void;
+  toggleEditModal?: () => void;
   escritura?: boolean;
   personsLength?: number;
   handleAddPerson?: () => void;
@@ -28,6 +33,7 @@ interface IPrimaryButtonProps {
   strEntidad?: string;
   pkToDelete?: any;
   idMenu: number;
+  bln_egreso?: boolean;
 }
 
 const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
@@ -36,6 +42,7 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
     handlePageSize,
     handleAddPerson,
     handleRefresh,
+    toggleEditModal,
     showForwardButton,
     showAddButton,
     showRefreshButton,
@@ -47,6 +54,7 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
     pkToDelete,
     comilla,
     idMenu,
+    bln_egreso,
   }) => {
     const { escritura_lectura } = usePermission(idMenu);
     const { CustomModal, showModal } = useModal();
@@ -77,13 +85,60 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
             BUTTON_MESSAGES.next
           )}
 
-        {showAddButton &&
+        {bln_egreso === true ? (
+          <>
+            {showAddButton && escritura_lectura && (
+              <>
+                {renderButton(
+                  <CgInsertBeforeR className="primaryBtnIcon" />,
+                  handleAddPerson!,
+                  BUTTON_MESSAGES.bln_ingreso
+                )}
+                {renderButton(
+                  <CgInsertAfterR className="primaryBtnIcon" />,
+                  toggleEditModal!,
+                  BUTTON_MESSAGES.bln_egreso
+                )}
+              </>
+            )}
+          </>
+        ) : (
+          <>
+            {showAddButton && escritura_lectura && (
+              <>
+                {renderButton(
+                  <SiAddthis className="primaryBtnIcon" />,
+                  handleAddPerson!,
+                  BUTTON_MESSAGES.add
+                )}
+              </>
+            )}
+          </>
+        )}
+
+        {/* {showAddButton &&
           escritura_lectura &&
           renderButton(
             <SiAddthis className="primaryBtnIcon" />,
             handleAddPerson!,
             BUTTON_MESSAGES.add
           )}
+
+
+        {showAddButton &&
+          escritura_lectura &&
+          renderButton(
+            <CgInsertBeforeR className="primaryBtnIcon" />,
+            handleAddPerson!,
+            BUTTON_MESSAGES.add
+          )}
+        {showAddButton &&
+          escritura_lectura &&
+          renderButton(
+            <CgInsertAfterR className="primaryBtnIcon" />,
+            handleAddPerson!,
+            BUTTON_MESSAGES.add
+          )} */}
 
         {showRefreshButton &&
           renderButton(

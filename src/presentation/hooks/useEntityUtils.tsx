@@ -27,7 +27,6 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
   const [isEntityProfile, setIsEntityProfile] = useState<boolean>(false);
   const [onDelete, setDataGrid] = useState<boolean>(false);
 
-
   const { showModal } = useModal();
   const { deleteAllEntity, ListEntity } = useCrud(baseUrl);
 
@@ -93,15 +92,13 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
 
   //METODO EDITAR DE LA GRILLA
   const toggleEditModal = useCallback(
-    (rowIndex: number) => {
+    (rowIndex?: number) => {
       setIsModalEdit((prev) => !prev);
 
-      if (rowIndex >= 0) {
-        setSelectedRows([rowIndex]);
-        setEntity(entities[rowIndex]);
-      } else {
-        setSelectedRows([]);
-        setEntity(null);
+      if (rowIndex !== undefined) {
+        rowIndex >= 0
+          ? (setSelectedRows([rowIndex]), setEntity(entities[rowIndex]))
+          : (setSelectedRows([]), setEntity(null));
       }
     },
     [entities]
@@ -113,41 +110,41 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
   };
 
   const handleDeleteSelected = useCallback(
-    async (rowData?: any, comilla?:string) => {
-        if (selectedRows.length >= 1) {
-          try {
-            console.log('comilla', comilla)
-            const response = await deleteAllEntity([rowData, comilla]);
-            const errorDelete = response?.response?.data?.error;
-            if (errorDelete) {
-              toast.error(errorDelete);
-            } else {
-              setEntities((prev) => {
-                const positionsToRemove = selectedRows;
-                console.log("positiontoRemove", positionsToRemove);
-                const removedEntities = [];
+    async (rowData?: any, comilla?: string) => {
+      if (selectedRows.length >= 1) {
+        try {
+          console.log("comilla", comilla);
+          const response = await deleteAllEntity([rowData, comilla]);
+          const errorDelete = response?.response?.data?.error;
+          if (errorDelete) {
+            toast.error(errorDelete);
+          } else {
+            setEntities((prev) => {
+              const positionsToRemove = selectedRows;
+              console.log("positiontoRemove", positionsToRemove);
+              const removedEntities = [];
 
-                const filteredEntities = prev.filter((entity, index) => {
-                  if (positionsToRemove.includes(index)) {
-                    removedEntities.push(entity);
-                    return false;
-                  }
-                  return true;
-                });
-                return filteredEntities;
+              const filteredEntities = prev.filter((entity, index) => {
+                if (positionsToRemove.includes(index)) {
+                  removedEntities.push(entity);
+                  return false;
+                }
+                return true;
               });
-              resetDelete();
-              setSelectedRows([]);
-              setPageSize(1);
-              setDataGrid((prev) => !prev);
-              toast.success("Eliminados Correctamente");
-            }
-          } catch (error: any) {
-            toast.error(error.message);
-            console.log(error);
-            return error;
+              return filteredEntities;
+            });
+            resetDelete();
+            setSelectedRows([]);
+            setPageSize(1);
+            setDataGrid((prev) => !prev);
+            toast.success("Eliminados Correctamente");
           }
+        } catch (error: any) {
+          toast.error(error.message);
+          console.log(error);
+          return error;
         }
+      }
     },
     [selectedRows, showModal]
   );

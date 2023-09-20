@@ -90,12 +90,13 @@ const MPuntosVenta: React.FC = () => {
           setEntities={setEntities}
           primaryKeyInputs={[
             { name: "_p1", label: "Descripción", type: "text" },
-            // {
-            //   name: "_p2",
-            //   label: "Tipo",
-            //   type: "select",
-            //   selectUrl: "/api/puntosventatipos/",
-            // },
+            {
+              name: "_p2",
+              label: "Tipo",
+              type: "select",
+              selectUrl: "/api/tipos/",
+              tipos: "PuntosVentaTipos",
+            },
           ]}
         />
 

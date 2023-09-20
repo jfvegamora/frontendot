@@ -67,40 +67,16 @@ const MCargos: React.FC = () => {
       }
     });
 
-    // const ws = new WebSocket("ws://mtoopticos.cl/ws/orden_de_trabajo/");
-    // const wss = new WebSocket("wss://mtoopticos.cl/ws/orden_de_trabajo/");
-    // console.log("ws", ws);
-    // console.log("wss", wss);
-    //  const ws = new WebSocket('ws://tu_dominio/ws/orden_de_trabajo/');
+    // const eventSource = new EventSource("https://mtoopticos.cl/sse/");
 
-    // Se ejecuta cuando se establece la conexión
-    // ws.onopen = () => {
-    // console.log("Conexión establecida");
-    // };
-    //   // Puedes enviar mensajes al servidor una vez que la conexión está establecida
-    //   const message = {
-    //     type: "connect",
-    //     // ...otros datos que desees enviar...
-    //   };
-
-    //   ws.send(JSON.stringify(message));
+    // eventSource.onmessage = (event) => {
+    //   const sseDataElement = document.getElementById("sse-data");
+    //   sseDataElement.innerText = `Mensaje del servidor: ${event.data}`;
     // };
 
-    // Se ejecuta cuando se recibe un mensaje del servidor
-    // ws.onmessage = (event) => {
-    //   const message = JSON.parse(event.data);
-    //   console.log("Mensaje recibido del servidor:", message);
-    //   // Procesa el mensaje recibido
-    // };
-
-    // Se ejecuta cuando se cierra la conexión
-    // // ws.onclose = () => {
-    //   console.log("Conexión cerrada");
-    // };
-
-    // // Importante: cerrar la conexión al desmontar el componente
-    // return () => {
-    //   ws.close();
+    // eventSource.onerror = (error) => {
+    //   console.error("Error en la conexión SSE", error);
+    //   eventSource.close();
     // };
   }, [selectedRows]);
 

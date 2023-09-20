@@ -9,10 +9,10 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationPermisosSchema } from "../../utils/validationFormSchemas";
 import { EnumGrid } from "../mantenedores/MPermisos";
-import { toast } from "react-toastify";
 import { ERROR_MESSAGES, MODAL, SUCCESS_MESSAGES, TITLES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
+import useCustomToast from "../../hooks/useCustomToast";
 
 const strBaseUrl = "/api/permisos/";
 const strEntidad = "Perfil ";
@@ -48,9 +48,7 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
 }
 
 export function transformUpdateQuery(jsonData: InputData): OutputData | null {
-  const fields = [
-    `permiso=${jsonData.permiso === "Lectura" ? 1 : 2}`,
-  ];
+  const fields = [`permiso=${jsonData.permiso === "Lectura" ? 1 : 2}`];
 
   const filteredFields = fields.filter(
     (field) => field !== null && field !== ""
@@ -83,6 +81,8 @@ const FPermisos: React.FC<IFormPrps> = React.memo(
   ({ closeModal, setEntities, params, label, data, isEditting }) => {
     const schema = validationPermisosSchema(isEditting);
     const { showModal, CustomModal } = useModal();
+    const { show } = useCustomToast();
+
     const {
       editEntity,
       createdEntity,
@@ -114,11 +114,12 @@ const FPermisos: React.FC<IFormPrps> = React.memo(
     }, [params, setEntities, ListEntity]);
 
     const toastSuccess = (isEditting: boolean) => {
-      toast.success(
-        isEditting
+      show({
+        message: isEditting
           ? strEntidad.concat(SUCCESS_MESSAGES.edit)
-          : strEntidad.concat(SUCCESS_MESSAGES.create)
-      );
+          : strEntidad.concat(SUCCESS_MESSAGES.create),
+        type: "success",
+      });
     };
 
     const handleApiResponse = React.useCallback(
@@ -131,7 +132,10 @@ const FPermisos: React.FC<IFormPrps> = React.memo(
                 ? strEntidad.concat(ERROR_MESSAGES.edit)
                 : strEntidad.concat(ERROR_MESSAGES.create)
               : errorResponse;
-          toast.error(errorMessage);
+          show({
+            message: errorMessage ? errorMessage : response.code,
+            type: "error",
+          });
         }
         if (!blnKeep && !isEditting && !errorResponse) {
           // const result = window.confirm("¿Quieres continuar ingresando?");
@@ -175,7 +179,10 @@ const FPermisos: React.FC<IFormPrps> = React.memo(
           handleApiResponse(response, isEditting);
         } catch (error: any) {
           console.log("error form:", error);
-          toast.error(error);
+          show({
+            message: error,
+            type: "error",
+          });
         }
       },
       [editEntity, createdEntity, handleApiResponse]
@@ -198,7 +205,7 @@ const FPermisos: React.FC<IFormPrps> = React.memo(
         window.removeEventListener("keydown", handleKeyDown);
       };
     }, [closeModal]);
-    console.log('data',data)
+    console.log("data", data);
     return (
       <div className="useFormContainer">
         <div className="userFormBtnCloseContainer">
