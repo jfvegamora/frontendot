@@ -4,24 +4,21 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect } from "react";
-import {
-  SelectInputComponent,
-  TextInputComponent,
-} from "../../components";
+import { SelectInputComponent, TextInputComponent } from "../../components";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationMarcasSchema } from "../../utils/validationFormSchemas";
 import { EnumGrid } from "../mantenedores/MMarcas";
-import { toast } from "react-toastify";
 import { ERROR_MESSAGES, MODAL, SUCCESS_MESSAGES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
+import useCustomToast from "../../hooks/useCustomToast";
 
 const strBaseUrl = "/api/marcas/";
 const strEntidad = "Marca ";
 
 export interface InputData {
-  nombre   : string | undefined;
+  nombre: string | undefined;
   proveedor: string | undefined;
 }
 
@@ -86,6 +83,7 @@ const FMarcas: React.FC<IUserFormPrps> = React.memo(
   ({ closeModal, setEntities, params, label, data, isEditting }) => {
     const schema = validationMarcasSchema(isEditting);
     const { showModal, CustomModal } = useModal();
+    const { show } = useCustomToast();
 
     const {
       editEntity,
@@ -123,11 +121,12 @@ const FMarcas: React.FC<IUserFormPrps> = React.memo(
     }, [params, setEntities, ListEntity]);
 
     const toastSuccess = (isEditting: boolean) => {
-      toast.success(
-        isEditting
+      show({
+        message: isEditting
           ? strEntidad.concat(SUCCESS_MESSAGES.edit)
-          : strEntidad.concat(SUCCESS_MESSAGES.create)
-      );
+          : strEntidad.concat(SUCCESS_MESSAGES.create),
+        type: "success",
+      });
     };
 
     const handleApiResponse = React.useCallback(
@@ -141,7 +140,10 @@ const FMarcas: React.FC<IUserFormPrps> = React.memo(
                 ? strEntidad.concat(ERROR_MESSAGES.edit)
                 : strEntidad.concat(ERROR_MESSAGES.create)
               : errorResponse;
-          toast.error(errorMessage ? errorMessage : response.code);
+          show({
+            message: errorMessage ? errorMessage : response.code,
+            type: "error",
+          });
           return;
         }
 
@@ -201,7 +203,10 @@ const FMarcas: React.FC<IUserFormPrps> = React.memo(
             : await createdEntity(transformedData);
           handleApiResponse(response, isEditting);
         } catch (error: any) {
-          toast.error(error);
+          show({
+            message: error,
+            type: "error",
+          });
         }
       },
       [editEntity, createdEntity, handleApiResponse, intId]
@@ -252,7 +257,6 @@ const FMarcas: React.FC<IUserFormPrps> = React.memo(
                 customWidth={"345px"}
               />
             </div>
-
           </div>
 
           <button type="submit" className="userFormBtnSubmit">

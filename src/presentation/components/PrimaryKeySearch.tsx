@@ -57,7 +57,15 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
     );
 
     const handleSearch = React.useCallback(async (data: IPrimaryKeyState) => {
-      // console.log("data:", data);
+      if ("_pCilindrico" in data || "_pEsferico" in data) {
+        console.log("si contiene");
+        data = {
+          ...data,
+          _pCilindrico: data._pCilindrico.replace(/[,]/g, "."),
+          _pEsferico: data._pEsferico.replace(/[,]/g, "."),
+        };
+      }
+      console.log("data:", data);
 
       const searchParams = Object.entries(data)
         .map(([key, value]) =>
@@ -65,7 +73,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
         )
         .filter((param) => param !== "")
         .join("&");
-      console.log("searchParams", searchParams);
+      // console.log("searchParams", searchParams);
       data && updateParams([searchParams]);
       try {
         const response = await ListEntity(searchParams, "01");
@@ -101,7 +109,9 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
         <div
           key={groupIndex}
           className={
-            primaryKeyInputs.length > 5 ? `flex flex-wrap mb-4` : "flex mb-4"
+            primaryKeyInputs.length > 5
+              ? `grid grid-rows-3 w-[40vw] grid-cols-2 `
+              : "flex mb-4"
           }
         >
           {group.map((input, inputIndex) => (
@@ -171,25 +181,28 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                       />
                     </div>
                   ) : (
-                    <Input
-                      color="orange"
-                      {...field}
-                      label={input.label}
-                      value={inputValues[input.name] || ""}
-                      onChange={(e) => {
-                        field.onChange(e);
-                        handleInputChange(input.name, e.target.value);
-                      }}
-                      onKeyDown={handleKeyDown}
-                      onBlur={handleBlur}
-                      labelProps={{
-                        style: {
-                          color: "grey",
-                          fontWeight: "normal",
-                          fontSize: "16px",
-                        },
-                      }}
-                    />
+                    <div className="w-full">
+                      <Input
+                        color="orange"
+                        className=""
+                        {...field}
+                        label={input.label}
+                        value={inputValues[input.name] || ""}
+                        onChange={(e) => {
+                          field.onChange(e);
+                          handleInputChange(input.name, e.target.value);
+                        }}
+                        onKeyDown={handleKeyDown}
+                        onBlur={handleBlur}
+                        labelProps={{
+                          style: {
+                            color: "grey",
+                            fontWeight: "normal",
+                            fontSize: "16px",
+                          },
+                        }}
+                      />
+                    </div>
                   )}
                 </div>
               )}
@@ -208,6 +221,15 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
         _p4: inputValues._p4 || "",
         _pMarca: inputValues._pMarca || "",
         _pProveedor: inputValues._pProveedor || "",
+        _pDiseño: inputValues._pDiseño || "",
+        _pIndice: inputValues._pIndice || "",
+        _pMaterial: inputValues._pMaterial || "",
+        _pColor: inputValues._pColor || "",
+        _pTratamiento: inputValues._pTratamiento || "",
+        _pDiametro: inputValues._pDiametro || "",
+        _pEsferico: inputValues._pEsferico || "",
+        _pCilindrico: inputValues._pCilindrico || "",
+        _id: inputValues._id || "",
       };
 
       // Llama a la función de actualización de parámetros pasándole el objeto

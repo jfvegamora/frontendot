@@ -4,45 +4,41 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect } from "react";
-import {
-  SelectInputComponent,
-  TextInputComponent,
-} from "../../components";
+import { SelectInputComponent, TextInputComponent } from "../../components";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationCristalesSchema } from "../../utils/validationFormSchemas";
 import { EnumGrid } from "../mantenedores/MCristales";
-import { toast } from "react-toastify";
 import { ERROR_MESSAGES, MODAL, SUCCESS_MESSAGES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
+import useCustomToast from "../../hooks/useCustomToast";
 
 const strBaseUrl = "/api/cristales/";
 const strEntidad = "Cristal ";
 
 export interface InputData {
-  codigo      : number | undefined;
-  marca       : string | undefined;
-  diseno      : string | undefined;
-  indice      : string | undefined;
-  material    : string | undefined;
-  color       : string | undefined;
-  tratamiento : string | undefined;
-  diametro    : number | undefined;
-  esferico    : number | undefined;
-  cilindrico  : number | undefined;
+  codigo: number | undefined;
+  marca: string | undefined;
+  diseno: string | undefined;
+  indice: string | undefined;
+  material: string | undefined;
+  color: string | undefined;
+  tratamiento: string | undefined;
+  diametro: number | undefined;
+  esferico: number | undefined;
+  cilindrico: number | undefined;
   stock_minimo: number | undefined;
 }
 
 interface OutputData {
   query: string;
-  _p1  : string;
-  _p2? : string;
+  _p1: string;
+  _p2?: string;
 }
 
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
-  const _p1 = 
-  ` ${jsonData.codigo}, 
+  const _p1 = ` ${jsonData.codigo}, 
     ${jsonData.marca}, 
     ${jsonData.diseno}, 
     ${jsonData.indice}, 
@@ -63,7 +59,7 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
 }
 
 export function transformUpdateQuery(
-  jsonData  : InputData,
+  jsonData: InputData,
   primaryKey: string
 ): OutputData | null {
   const fields = [
@@ -76,7 +72,7 @@ export function transformUpdateQuery(
     `diametro     = ${jsonData.diametro}`,
     `esferico     = ${jsonData.esferico}`,
     `cilindrico   = ${jsonData.cilindrico}`,
-    `stock_minimo = ${jsonData.stock_minimo}`
+    `stock_minimo = ${jsonData.stock_minimo}`,
   ];
 
   const filteredFields = fields.filter(
@@ -97,18 +93,19 @@ export function transformUpdateQuery(
 
 interface IUserFormPrps {
   closeModal: () => void;
-  data?        : any[];
-  label        : string;
-  isEditting?  : any;
+  data?: any[];
+  label: string;
+  isEditting?: any;
   selectedRows?: any;
-  setEntities? : any;
-  params?      : any;
+  setEntities?: any;
+  params?: any;
 }
 
 const FCristales: React.FC<IUserFormPrps> = React.memo(
   ({ closeModal, setEntities, params, label, data, isEditting }) => {
     const schema = validationCristalesSchema(isEditting);
     const { showModal, CustomModal } = useModal();
+    const { show } = useCustomToast();
 
     const {
       editEntity,
@@ -117,7 +114,7 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
       firstInputRef,
       focusFirstInput,
       secondInputRef,
-      focusSecondInput
+      focusSecondInput,
     } = useCrud(strBaseUrl);
     const [blnKeep, setblnKeep] = useState(false);
     const intId = data && data[EnumGrid.codigo];
@@ -131,10 +128,10 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
     });
 
     const resetTextFields = React.useCallback(() => {
-      setValue("codigo"      , 0);
-      setValue("diametro"    , 0);
-      setValue("esferico"    , 0);
-      setValue("cilindrico"  , 0);
+      setValue("codigo", 0);
+      setValue("diametro", 0);
+      setValue("esferico", 0);
+      setValue("cilindrico", 0);
       setValue("stock_minimo", 0);
       if (firstInputRef.current) {
         const firstInput = firstInputRef.current.querySelector(
@@ -152,11 +149,12 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
     }, [params, setEntities, ListEntity]);
 
     const toastSuccess = (isEditting: boolean) => {
-      toast.success(
-        isEditting
+      show({
+        message: isEditting
           ? strEntidad.concat(SUCCESS_MESSAGES.edit)
-          : strEntidad.concat(SUCCESS_MESSAGES.create)
-      );
+          : strEntidad.concat(SUCCESS_MESSAGES.create),
+        type: "success",
+      });
     };
 
     const handleApiResponse = React.useCallback(
@@ -170,7 +168,10 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                 ? strEntidad.concat(ERROR_MESSAGES.edit)
                 : strEntidad.concat(ERROR_MESSAGES.create)
               : errorResponse;
-          toast.error(errorMessage ? errorMessage : response.code);
+          show({
+            message: errorMessage ? errorMessage : response.code,
+            type: "error",
+          });
           return;
         }
 
@@ -230,7 +231,10 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
             : await createdEntity(transformedData);
           handleApiResponse(response, isEditting);
         } catch (error: any) {
-          toast.error(error);
+          show({
+            message: error,
+            type: "error",
+          });
         }
       },
       [editEntity, createdEntity, handleApiResponse, intId]
@@ -240,9 +244,7 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
     //   focusFirstInput("codigo");
     // }, []);
     useEffect(() => {
-      isEditting
-         ? focusSecondInput("codigo")
-         : focusFirstInput("marca")
+      isEditting ? focusSecondInput("codigo") : focusFirstInput("marca");
     }, []);
 
     return (
@@ -255,115 +257,117 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
         <h1 className="userFormLabel">{label}</h1>
 
         <form
-          onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
+          onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))}
+          className="userFormulario"
+        >
           <div className="userFormularioContainer">
-              <TextInputComponent
-                type    ="number"
-                label   ="Código"
-                name    ="codigo"
-                data    ={data && data[EnumGrid.codigo]}
-                control ={control}
-                error   ={!isEditting && errors.codigo}
-                inputRef={firstInputRef}
-                onlyRead={isEditting}
+            <TextInputComponent
+              type="number"
+              label="Código"
+              name="codigo"
+              data={data && data[EnumGrid.codigo]}
+              control={control}
+              error={!isEditting && errors.codigo}
+              inputRef={firstInputRef}
+              onlyRead={isEditting}
+            />
+            <SelectInputComponent
+              label="Marca"
+              name="marca"
+              showRefresh={true}
+              data={data && data[EnumGrid.marca_id]}
+              control={control}
+              entidad={["/api/marcas/", "02"]}
+              error={!isEditting && errors.marca}
+              customWidth={""}
+              inputRef={secondInputRef}
+            />
+            <SelectInputComponent
+              label="Diseño"
+              name="diseno"
+              showRefresh={true}
+              data={data && data[EnumGrid.diseno_id]}
+              control={control}
+              entidad={["/api/tipos/", "02", "CristalesDisenos"]}
+              error={!isEditting && errors.diseno}
+            />
+            <div className="w-full ">
+              <SelectInputComponent
+                label="Índice"
+                name="indice"
+                showRefresh={true}
+                data={data && data[EnumGrid.indice_id]}
+                control={control}
+                entidad={["/api/tipos/", "02", "CristalesIndices"]}
+                error={!isEditting && errors.indice}
+                customWidth={""}
               />
               <SelectInputComponent
-                label       ="Marca"
-                name        ="marca"
-                showRefresh ={true}
-                data        ={data && data[EnumGrid.marca_id]}
-                control     ={control}
-                entidad     ={["/api/marcas/", "02"]}
-                error       ={!isEditting && errors.marca}
-                customWidth ={""}
-                inputRef    = {secondInputRef}    
+                label="Material"
+                name="material"
+                showRefresh={true}
+                data={data && data[EnumGrid.material_id]}
+                control={control}
+                entidad={["/api/tipos/", "02", "CristalesMateriales"]}
+                error={!isEditting && errors.material}
               />
               <SelectInputComponent
-                label       ="Diseño"
-                name        ="diseno"
-                showRefresh ={true}
-                data        ={data && data[EnumGrid.diseno_id]}
-                control     ={control}
-                entidad     ={["/api/tipos/", "02", "CristalesDisenos"]}
-                error       ={!isEditting && errors.diseno}
+                label="Color"
+                name="color"
+                showRefresh={true}
+                data={data && data[EnumGrid.color_id]}
+                control={control}
+                entidad={["/api/tipos/", "02", "CristalesColores"]}
+                error={!isEditting && errors.color}
+                customWidth={""}
               />
-              <div className="w-full ">
-                <SelectInputComponent
-                    label       ="Índice"
-                    name        ="indice"
-                    showRefresh ={true}
-                    data        = {data && data[EnumGrid.indice_id]}
-                    control     ={control}
-                    entidad     ={["/api/tipos/", "02", "CristalesIndices"]}
-                    error       ={!isEditting && errors.indice}
-                    customWidth = {""}
-                  />
-                  <SelectInputComponent
-                    label       ="Material"
-                    name        ="material"
-                    showRefresh ={true}
-                    data        = {data && data[EnumGrid.material_id]}
-                    control     ={control}
-                    entidad     ={["/api/tipos/", "02", "CristalesMateriales"]}
-                    error       ={!isEditting && errors.material}
-                  />
-                  <SelectInputComponent
-                    label       ="Color"
-                    name        ="color"
-                    showRefresh ={true}
-                    data        = {data && data[EnumGrid.color_id]}
-                    control     ={control}
-                    entidad     ={["/api/tipos/", "02", "CristalesColores"]}
-                    error       ={!isEditting && errors.color}
-                    customWidth = {""}
-                  />
-                  <SelectInputComponent
-                    label       ="Tratamiento"
-                    name        ="tratamiento"
-                    showRefresh ={true}
-                    data        = {data && data[EnumGrid.tratamiento_id]}
-                    control     ={control}
-                    entidad     ={["/api/tipos/", "02", "CristalesTratamientos"]}
-                    error       ={!isEditting && errors.tratamiento}
-                    customWidth = {""}
-                  />
-              </div>
-              <div className="input-container">
-                <TextInputComponent 
-                  type    ="number"
-                  label   ="Diámetro"
-                  name    ="diametro"
-                  data    ={data && data[EnumGrid.diametro]}
-                  control ={control}
-                  error   ={!isEditting && errors.diametro}
-                  className="input"
-                  />
-                <TextInputComponent
-                  type    ="number"
-                  label   ="Esférico"
-                  name    ="esferico"
-                  data    ={data && data[EnumGrid.esferico]}
-                  control ={control}
-                  error   ={!isEditting && errors.esferico}
-                  className="input"
-                />
-                <TextInputComponent
-                  type    ="number"
-                  label   ="Cilíndrico"
-                  name    ="cilindrico"
-                  data    ={data && data[EnumGrid.cilindrico]}
-                  control ={control}
-                  error   ={!isEditting && errors.cilindrico}
-                  className="input"
-                />
-              </div>
+              <SelectInputComponent
+                label="Tratamiento"
+                name="tratamiento"
+                showRefresh={true}
+                data={data && data[EnumGrid.tratamiento_id]}
+                control={control}
+                entidad={["/api/tipos/", "02", "CristalesTratamientos"]}
+                error={!isEditting && errors.tratamiento}
+                customWidth={""}
+              />
+            </div>
+            <div className="input-container">
               <TextInputComponent
-              type    ="number"
-              label   ="Stock Mínimo"
-              name    ="stock_minimo"
-              data    ={data && data[EnumGrid.stock_minimo]}
-              control ={control}
-              error   ={!isEditting && errors.stock_minimo}
+                type="number"
+                label="Diámetro"
+                name="diametro"
+                data={data && data[EnumGrid.diametro]}
+                control={control}
+                error={!isEditting && errors.diametro}
+                className="input"
+              />
+              <TextInputComponent
+                type="number"
+                label="Esférico"
+                name="esferico"
+                data={data && data[EnumGrid.esferico]}
+                control={control}
+                error={!isEditting && errors.esferico}
+                className="input"
+              />
+              <TextInputComponent
+                type="number"
+                label="Cilíndrico"
+                name="cilindrico"
+                data={data && data[EnumGrid.cilindrico]}
+                control={control}
+                error={!isEditting && errors.cilindrico}
+                className="input"
+              />
+            </div>
+            <TextInputComponent
+              type="number"
+              label="Stock Mínimo"
+              name="stock_minimo"
+              data={data && data[EnumGrid.stock_minimo]}
+              control={control}
+              error={!isEditting && errors.stock_minimo}
             />
           </div>
 

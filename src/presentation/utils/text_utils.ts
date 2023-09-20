@@ -18,6 +18,8 @@ export const BUTTON_MESSAGES = {
   deleteAll: "Eliminar Seleccionados ",
   edit: "Editar ",
   delete: "Eliminar ",
+  bln_ingreso: "Ingreso",
+  bln_egreso: "Egreso",
 };
 
 export const TITLES = {

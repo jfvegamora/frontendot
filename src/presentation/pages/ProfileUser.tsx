@@ -125,7 +125,7 @@ const ProfileUser: React.FC = () => {
         <div className="w-full">
           <TextInputComponent
             type="password"
-            label="Contraseña Actual"
+            label="Contraseña actual"
             name="password"
             control={control}
             error={errors.password}
@@ -135,14 +135,14 @@ const ProfileUser: React.FC = () => {
         <div className="flex">
           <TextInputComponent
             type="password"
-            label="Nueva Contraseña"
+            label="Nueva contraseña"
             name="newPassword"
             control={control}
             error={errors.newPassword}
           />
           <TextInputComponent
             type="password"
-            label=" Confirmar nueva password"
+            label=" Confirmar nueva contraseña"
             name="confirmNewPassword"
             control={control}
             error={errors.confirmNewPassword}

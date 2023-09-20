@@ -9,11 +9,11 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationEstablecimientosSchema } from "../../utils/validationFormSchemas";
 import { EnumGrid } from "../mantenedores/MEstablecimientos";
-import { toast } from "react-toastify";
 import { ERROR_MESSAGES, MODAL, SUCCESS_MESSAGES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import RegProComponent from "../../components/forms/RegProComponent";
+import useCustomToast from "../../hooks/useCustomToast";
 
 const strBaseUrl = "/api/establecimientos/";
 const strEntidad = "Establecimiento ";
@@ -87,6 +87,8 @@ const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
     const schema = validationEstablecimientosSchema(isEditting);
     const { showModal, CustomModal } = useModal();
 
+    const { show } = useCustomToast();
+
     const {
       editEntity,
       createdEntity,
@@ -123,11 +125,12 @@ const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
     }, [params, setEntities, ListEntity]);
 
     const toastSuccess = (isEditting: boolean) => {
-      toast.success(
-        isEditting
+      show({
+        message: isEditting
           ? strEntidad.concat(SUCCESS_MESSAGES.edit)
-          : strEntidad.concat(SUCCESS_MESSAGES.create)
-      );
+          : strEntidad.concat(SUCCESS_MESSAGES.create),
+        type: "success",
+      });
     };
 
     const handleApiResponse = React.useCallback(
@@ -140,7 +143,10 @@ const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
                 ? strEntidad.concat(ERROR_MESSAGES.edit)
                 : strEntidad.concat(ERROR_MESSAGES.create)
               : errorResponse;
-          toast.error(errorMessage ? errorMessage : response.code);
+          show({
+            message: errorMessage ? errorMessage : response.code,
+            type: "error",
+          });
           return;
         }
 
@@ -200,7 +206,10 @@ const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
             : await createdEntity(transformedData);
           handleApiResponse(response, isEditting);
         } catch (error: any) {
-          toast.error(error);
+          show({
+            message: error,
+            type: "error",
+          });
         }
       },
       [editEntity, createdEntity, handleApiResponse, intId]

@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -16,7 +15,7 @@ import {
   Card,
   IconButton,
 } from "@material-tailwind/react";
-import {toast} from 'react-toastify'
+import { toast } from "react-toastify";
 import {
   UserCircleIcon,
   Square3Stack3DIcon,
@@ -29,25 +28,26 @@ import { AppStore, useAppDispatch, useAppSelector } from "../../redux/store";
 import { logout } from "../../redux/slices/userSlice";
 
 // profile menu component
-const profileMenuItems = [
-  {
-    label: "Mi Perfil",
-    icon: UserCircleIcon,
-    action: "/profile"
-  },
-  {
-    label: "Cerrar Sesión",
-    icon: PowerIcon,
-    action: () => {}
-  },
-];
 
 function ProfileMenu() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const closeMenu = () => setIsMenuOpen(false);
-  
+  const userState = useAppSelector((store: AppStore) => store.user);
+
+  const profileMenuItems = [
+    {
+      label: `Mi Perfil (${userState && userState.nombre})`,
+      icon: UserCircleIcon,
+      action: "/profile",
+    },
+    {
+      label: "Cerrar Sesión",
+      icon: PowerIcon,
+      action: () => {},
+    },
+  ];
 
   return (
     <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
@@ -79,20 +79,18 @@ function ProfileMenu() {
           return (
             <MenuItem
               key={label}
-              onClick={ ()=>{
-                if (typeof action === 'string') {
-                  console.log('action:', action)
-                  return navigate(action)
+              onClick={() => {
+                if (typeof action === "string") {
+                  console.log("action:", action);
+                  return navigate(action);
                 }
-                if (typeof action === 'function') {
-                  toast.success('Sesion cerrada')
-                  dispatch(logout())
-                  navigate('/login')
-                 
+                if (typeof action === "function") {
+                  toast.success("Sesion cerrada");
+                  dispatch(logout());
+                  navigate("/login");
                 }
                 closeMenu();
-              }
-              }
+              }}
               className={`flex items-center gap-2 rounded ${
                 isLastItem
                   ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
@@ -123,22 +121,22 @@ const navListMenuOT = [
   {
     title: "Órdenes de Trabajo",
     link: "/ot",
-    id:1
+    id: 1,
   },
   {
     title: "Clientes",
     link: "/clientes",
-    id:2
+    id: 2,
   },
   {
     title: "Establecimientos",
     link: "/establecimientos",
-    id:3
+    id: 3,
   },
   {
     title: "Puntos de Venta",
     link: "/puntosventa",
-    id:4
+    id: 4,
   },
 ];
 
@@ -146,47 +144,47 @@ const navListMenuBodega = [
   {
     title: "Armazones",
     link: "/armazones",
-    id:5
+    id: 5,
   },
   {
     title: "Cristales",
     link: "/cristales",
-    id:7
+    id: 7,
   },
   {
     title: "Accesorios",
     link: "/accesorios",
-    id:9
+    id: 9,
   },
   {
     title: "Kardex de Armazones",
     link: "/kardexarmazones",
-    id:6
+    id: 6,
   },
   {
     title: "Kardex de Cristales",
     link: "/kardexcristales",
-    id:8
+    id: 8,
   },
   {
     title: "Kardex de Accesorios",
     link: "/kardexaccesorios",
-    id:10
+    id: 10,
   },
   {
     title: "Almacenes",
     link: "/almacenes",
-    id:11
+    id: 11,
   },
   {
     title: "Marcas",
     link: "/marcas",
-    id:12
+    id: 12,
   },
   {
     title: "Proveedores",
     link: "/proveedores",
-    id:13
+    id: 13,
   },
 ];
 
@@ -194,42 +192,42 @@ const navListMenuProyectos = [
   {
     title: "Mandantes",
     link: "/mandantes",
-    id:14
+    id: 14,
   },
   {
     title: "Proyectos",
     link: "/proyectos",
-    id:15
+    id: 15,
   },
   {
     title: "Parametrización de Armazones",
     link: "/proyectocatalogoarmazones",
-    id:16
+    id: 16,
   },
   {
     title: "Parametrización de Grupos",
     link: "/proyectogrupos",
-    id:17
+    id: 17,
   },
   {
     title: "Parametrización de Despacho",
     link: "/proyectodireccionesdespacho",
-    id:18
+    id: 18,
   },
   {
     title: "Reporte de Atención",
     link: "/proyectoreporteatencion",
-    id:19
+    id: 19,
   },
   {
     title: "Reporte de Firmas",
     link: "/proyectoreportefirma",
-    id:20
+    id: 20,
   },
   {
     title: "Oftalmólogos",
     link: "/oftalmologos",
-    id:21
+    id: 21,
   },
 ];
 
@@ -237,32 +235,32 @@ const navListMenuSistema = [
   {
     title: "Cargos",
     link: "/cargos",
-    id: 22
+    id: 22,
   },
   {
     title: "Funcionalidades",
     link: "/funcionalidades",
-    id: 23
+    id: 23,
   },
   {
     title: "Permisos de Usuario",
     link: "/permisos",
-    id:26
+    id: 26,
   },
   {
     title: "Perfiles de Cargo",
     link: "/perfiles",
-    id:25
+    id: 25,
   },
   {
     title: "Usuarios",
     link: "/usuarios",
-    id:24
+    id: 24,
   },
   {
     title: "Empresas",
     link: "/empresas",
-    id:27
+    id: 27,
   },
 ];
 
@@ -281,7 +279,7 @@ const navListMenuSistema = [
 //   );
 // }
 
-function NavListMenuOT({userPermission}:{userPermission:number[]}) {
+function NavListMenuOT({ userPermission }: { userPermission: number[] }) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const navigate = useNavigate();
 
@@ -290,8 +288,8 @@ function NavListMenuOT({userPermission}:{userPermission:number[]}) {
     onMouseLeave: () => setIsMenuOpen(false),
   };
 
-  const renderItems = navListMenuOT.map(({ title, link , id}) => {
-    const hasPermission = userPermission.includes(id)
+  const renderItems = navListMenuOT.map(({ title, link, id }) => {
+    const hasPermission = userPermission.includes(id);
     return (
       <MenuItem
         key={id}
@@ -311,16 +309,13 @@ function NavListMenuOT({userPermission}:{userPermission:number[]}) {
         <Typography
           as="span"
           variant="small"
-          className={`font-normal ${
-            hasPermission ? "" : "text-gray-400"
-          }`}
+          className={`font-normal ${hasPermission ? "" : "text-gray-400"}`}
         >
           {title}
         </Typography>
-      
       </MenuItem>
-    )
-});
+    );
+  });
 
   return (
     <React.Fragment>
@@ -368,7 +363,7 @@ function NavListMenuOT({userPermission}:{userPermission:number[]}) {
   );
 }
 
-function NavListMenuBodega({userPermission}:{userPermission:number[]}) {
+function NavListMenuBodega({ userPermission }: { userPermission: number[] }) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const navigate = useNavigate();
 
@@ -377,8 +372,8 @@ function NavListMenuBodega({userPermission}:{userPermission:number[]}) {
     onMouseLeave: () => setIsMenuOpen(false),
   };
 
-  const renderItems = navListMenuBodega.map(({ title, link , id}) => {
-    const hasPermission = userPermission.includes(id)
+  const renderItems = navListMenuBodega.map(({ title, link, id }) => {
+    const hasPermission = userPermission.includes(id);
     return (
       <MenuItem
         key={id}
@@ -398,16 +393,13 @@ function NavListMenuBodega({userPermission}:{userPermission:number[]}) {
         <Typography
           as="span"
           variant="small"
-          className={`font-normal ${
-            hasPermission ? "" : "text-gray-400"
-          }`}
+          className={`font-normal ${hasPermission ? "" : "text-gray-400"}`}
         >
           {title}
         </Typography>
-      
       </MenuItem>
-    )
-});
+    );
+  });
 
   return (
     <React.Fragment>
@@ -455,7 +447,11 @@ function NavListMenuBodega({userPermission}:{userPermission:number[]}) {
   );
 }
 
-function NavListMenuProyectos({userPermission}:{userPermission:number[]}) {
+function NavListMenuProyectos({
+  userPermission,
+}: {
+  userPermission: number[];
+}) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const navigate = useNavigate();
 
@@ -464,8 +460,8 @@ function NavListMenuProyectos({userPermission}:{userPermission:number[]}) {
     onMouseLeave: () => setIsMenuOpen(false),
   };
 
-  const renderItems = navListMenuProyectos.map(({ title, link , id}) => {
-    const hasPermission = userPermission.includes(id)
+  const renderItems = navListMenuProyectos.map(({ title, link, id }) => {
+    const hasPermission = userPermission.includes(id);
     return (
       <MenuItem
         key={id}
@@ -485,16 +481,13 @@ function NavListMenuProyectos({userPermission}:{userPermission:number[]}) {
         <Typography
           as="span"
           variant="small"
-          className={`font-normal ${
-            hasPermission ? "" : "text-gray-400"
-          }`}
+          className={`font-normal ${hasPermission ? "" : "text-gray-400"}`}
         >
           {title}
         </Typography>
-      
       </MenuItem>
-    )
-});
+    );
+  });
 
   return (
     <React.Fragment>
@@ -542,7 +535,7 @@ function NavListMenuProyectos({userPermission}:{userPermission:number[]}) {
   );
 }
 
-function NavListMenuSistema({userPermission}:{userPermission:number[]}) {
+function NavListMenuSistema({ userPermission }: { userPermission: number[] }) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const navigate = useNavigate();
 
@@ -551,36 +544,33 @@ function NavListMenuSistema({userPermission}:{userPermission:number[]}) {
     onMouseLeave: () => setIsMenuOpen(false),
   };
 
-  const renderItems = navListMenuSistema.map(({ title, link , id}) => {
-      const hasPermission = userPermission.includes(id)
-      return (
-        <MenuItem
-          key={id}
-          className={`flex items-center gap-2 rounded ${
-            hasPermission ? "" : "text-gray-400 cursor-not-allowed"
-          }`}
-          onClick={() => {
-            if (hasPermission) {
-              navigate(link);
-            }
-          }}
-        >
-          {/* {React.createElement(icon, {
+  const renderItems = navListMenuSistema.map(({ title, link, id }) => {
+    const hasPermission = userPermission.includes(id);
+    return (
+      <MenuItem
+        key={id}
+        className={`flex items-center gap-2 rounded ${
+          hasPermission ? "" : "text-gray-400 cursor-not-allowed"
+        }`}
+        onClick={() => {
+          if (hasPermission) {
+            navigate(link);
+          }
+        }}
+      >
+        {/* {React.createElement(icon, {
           className: `h-4 w-4 ${hasPermission ? "" : "text-gray-400"}`,
           strokeWidth: 2,
         })} */}
-          <Typography
-            as="span"
-            variant="small"
-            className={`font-normal ${
-              hasPermission ? "" : "text-gray-400"
-            }`}
-          >
-            {title}
-          </Typography>
-        
-        </MenuItem>
-      )
+        <Typography
+          as="span"
+          variant="small"
+          className={`font-normal ${hasPermission ? "" : "text-gray-400"}`}
+        >
+          {title}
+        </Typography>
+      </MenuItem>
+    );
   });
 
   return (
@@ -736,7 +726,7 @@ function NavListMenuSistema({userPermission}:{userPermission:number[]}) {
 //   }
 
 //   );
-  
+
 //   const content = hasRequiredPermission ? (
 //     children
 //   ) : (
@@ -749,29 +739,26 @@ function NavListMenuSistema({userPermission}:{userPermission:number[]}) {
 // }
 
 function NavList() {
-  const [ userPermission, setUserPermission] = React.useState<number[]>([])
+  const [userPermission, setUserPermission] = React.useState<number[]>([]);
   const userState = useAppSelector((store: AppStore) => store.user);
 
-  React.useEffect(()=>{
-    const permisosKey = userState?.permisos ? Object.keys(userState.permisos) : [];
+  React.useEffect(() => {
+    const permisosKey = userState?.permisos
+      ? Object.keys(userState.permisos)
+      : [];
     const numbersPermission = permisosKey.map((str) => parseInt(str, 10));
-    setUserPermission(numbersPermission)
-  },[userState])
+    setUserPermission(numbersPermission);
+  }, [userState]);
 
   return (
     <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center">
-      <NavListMenuOT  userPermission={userPermission}/>
-      <NavListMenuBodega  userPermission={userPermission}/>
-      <NavListMenuProyectos userPermission={userPermission}/>
+      <NavListMenuOT userPermission={userPermission} />
+      <NavListMenuBodega userPermission={userPermission} />
+      <NavListMenuProyectos userPermission={userPermission} />
       <NavListMenuSistema userPermission={userPermission} />
- 
     </ul>
   );
 }
-
-
-
-
 
 export default function ComplexNavbar() {
   const [isNavOpen, setIsNavOpen] = React.useState(false);
@@ -786,41 +773,38 @@ export default function ComplexNavbar() {
     );
     // const userPermission = userState?.permisos.map((permiso)=>permiso)
   }, []);
-  
-  
-  
-  
+
   return (
     <>
-    {userState?.nombre && (
-      <Navbar className=" mt-2 mx-auto max-w-screen-xl p-2 lg:rounded-full lg:pl-6 navBarBorder">
-        <div className="relative mx-auto flex items-center text-blue-gray-900">
-          <Typography
-            as="a"
-            href="#"
-            className="mr-4 ml-2 cursor-pointer py-1.5 font-medium"
-          >
-            Sistema Gestión OT
-          </Typography>
-          <div className="absolute top-2/4 left-2/4 hidden -translate-x-2/4 -translate-y-2/4 lg:block">
-            <NavList />
+      {userState?.nombre && (
+        <Navbar className=" mt-2 mx-auto max-w-screen-xl p-2 lg:rounded-full lg:pl-6 navBarBorder">
+          <div className="relative mx-auto flex items-center text-blue-gray-900">
+            <Typography
+              as="a"
+              href="#"
+              className="mr-4 ml-2 cursor-pointer py-1.5 font-medium"
+            >
+              Sistema Gestión OT
+            </Typography>
+            <div className="absolute top-2/4 left-2/4 hidden -translate-x-2/4 -translate-y-2/4 lg:block">
+              <NavList />
+            </div>
+            <IconButton
+              size="sm"
+              color="blue-gray"
+              variant="text"
+              onClick={toggleIsNavOpen}
+              className="ml-auto mr-2 lg:hidden"
+            >
+              <Bars2Icon className="h-6 w-6" />
+            </IconButton>
+            <ProfileMenu />
           </div>
-          <IconButton
-            size="sm"
-            color="blue-gray"
-            variant="text"
-            onClick={toggleIsNavOpen}
-            className="ml-auto mr-2 lg:hidden"
-          >
-            <Bars2Icon className="h-6 w-6" />
-          </IconButton>
-          <ProfileMenu />
-        </div>
-        <Collapse open={isNavOpen} className="overflow-scroll">
-          <NavList />
-        </Collapse>
-      </Navbar>
-    )}    
+          <Collapse open={isNavOpen} className="overflow-scroll">
+            <NavList />
+          </Collapse>
+        </Navbar>
+      )}
     </>
   );
 }

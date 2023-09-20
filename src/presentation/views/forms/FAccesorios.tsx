@@ -4,27 +4,24 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect } from "react";
-import {
-  SelectInputComponent,
-  TextInputComponent,
-} from "../../components";
+import { SelectInputComponent, TextInputComponent } from "../../components";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationAccesoriosSchema } from "../../utils/validationFormSchemas";
 import { EnumGrid } from "../mantenedores/MAccesorios";
-import { toast } from "react-toastify";
 import { ERROR_MESSAGES, MODAL, SUCCESS_MESSAGES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
+import useCustomToast from "../../hooks/useCustomToast";
 
 const strBaseUrl = "/api/accesorios/";
 const strEntidad = "Accesorio ";
 
 export interface InputData {
-  codigo      : string | undefined;
-  descripcion : string | undefined;
-  proveedor   : string | undefined;
-  precio_neto : number | undefined;
+  codigo: string | undefined;
+  descripcion: string | undefined;
+  proveedor: string | undefined;
+  precio_neto: number | undefined;
   stock_minimo: number | undefined;
 }
 
@@ -80,18 +77,19 @@ export function transformUpdateQuery(
 
 interface IUserFormPrps {
   closeModal: () => void;
-  data?         : any[];
-  label         : string;
-  isEditting?   : any;
-  selectedRows? : any;
-  setEntities?  : any;
-  params?       : any;
+  data?: any[];
+  label: string;
+  isEditting?: any;
+  selectedRows?: any;
+  setEntities?: any;
+  params?: any;
 }
 
 const FUsuarios: React.FC<IUserFormPrps> = React.memo(
   ({ closeModal, setEntities, params, label, data, isEditting }) => {
     const schema = validationAccesoriosSchema(isEditting);
     const { showModal, CustomModal } = useModal();
+    const { show } = useCustomToast();
 
     const {
       editEntity,
@@ -100,7 +98,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
       firstInputRef,
       focusFirstInput,
       secondInputRef,
-      focusSecondInput
+      focusSecondInput,
     } = useCrud(strBaseUrl);
     const [blnKeep, setblnKeep] = useState(false);
     const intId = data && data[EnumGrid.codigo];
@@ -114,10 +112,10 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
     });
 
     const resetTextFields = React.useCallback(() => {
-      setValue("codigo"       , "");
-      setValue("descripcion"  , "");
-      setValue("precio_neto"  , 0);
-      setValue("stock_minimo" , 0);
+      setValue("codigo", "");
+      setValue("descripcion", "");
+      setValue("precio_neto", 0);
+      setValue("stock_minimo", 0);
       if (firstInputRef.current) {
         const firstInput = firstInputRef.current.querySelector(
           'input[name="codigo"]'
@@ -134,11 +132,12 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
     }, [params, setEntities, ListEntity]);
 
     const toastSuccess = (isEditting: boolean) => {
-      toast.success(
-        isEditting
+      show({
+        message: isEditting
           ? strEntidad.concat(SUCCESS_MESSAGES.edit)
-          : strEntidad.concat(SUCCESS_MESSAGES.create)
-      );
+          : strEntidad.concat(SUCCESS_MESSAGES.create),
+        type: "success",
+      });
     };
 
     const handleApiResponse = React.useCallback(
@@ -152,7 +151,10 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                 ? strEntidad.concat(ERROR_MESSAGES.edit)
                 : strEntidad.concat(ERROR_MESSAGES.create)
               : errorResponse;
-          toast.error(errorMessage ? errorMessage : response.code);
+          show({
+            message: errorMessage ? errorMessage : response.code,
+            type: "error",
+          });
           return;
         }
 
@@ -212,16 +214,17 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
             : await createdEntity(transformedData);
           handleApiResponse(response, isEditting);
         } catch (error: any) {
-          toast.error(error);
+          show({
+            message: error,
+            type: "error",
+          });
         }
       },
       [editEntity, createdEntity, handleApiResponse, intId]
     );
 
     useEffect(() => {
-      isEditting
-         ? focusSecondInput("descripcion")
-         : focusFirstInput("codigo")
+      isEditting ? focusSecondInput("descripcion") : focusFirstInput("codigo");
     }, []);
 
     return (
@@ -262,7 +265,6 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
               control={control}
               error={!isEditting && errors.descripcion}
               inputRef={secondInputRef}
-                  
             />
             <div className="w-full ">
               <SelectInputComponent

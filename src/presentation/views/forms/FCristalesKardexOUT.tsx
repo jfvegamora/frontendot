@@ -12,7 +12,6 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationCristalesKardexOUTSchema } from "../../utils/validationFormSchemas";
 import { EnumGrid } from "../mantenedores/MCristalesKardex";
-import { toast } from "react-toastify";
 import {
   ERROR_MESSAGES,
   MODAL,
@@ -20,7 +19,7 @@ import {
 } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
-import { AppStore, useAppSelector } from "../../../redux/store";
+import useCustomToast from "../../hooks/useCustomToast";
 
 const strBaseUrl = "/api/cristaleskardex/";
 const strEntidad = "Kardex de Cristal ";
@@ -143,7 +142,7 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
   ({ closeModal, setEntities, params, label, data, isEditting }) => {
     const schema = validationCristalesKardexOUTSchema(isEditting);
     const { showModal, CustomModal } = useModal();
-    const userState = useAppSelector((store: AppStore) => store.user);
+    const { show } = useCustomToast();
 
     const {
       editEntity,
@@ -188,11 +187,12 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
     }, [params, setEntities, ListEntity]);
 
     const toastSuccess = (isEditting: boolean) => {
-      toast.success(
-        isEditting
+      show({
+        message: isEditting
           ? strEntidad.concat(SUCCESS_MESSAGES.edit)
-          : strEntidad.concat(SUCCESS_MESSAGES.create)
-      );
+          : strEntidad.concat(SUCCESS_MESSAGES.create),
+        type: "success",
+      });
     };
 
     const handleApiResponse = React.useCallback(
@@ -206,7 +206,10 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
                 ? strEntidad.concat(ERROR_MESSAGES.edit)
                 : strEntidad.concat(ERROR_MESSAGES.create)
               : errorResponse;
-          toast.error(errorMessage ? errorMessage : response.code);
+          show({
+            message: errorMessage ? errorMessage : response.code,
+            type: "error",
+          });
           return;
         }
 
@@ -259,14 +262,17 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
         try {
           const transformedData = isEditting
             ? transformUpdateQuery(data)
-            : transformInsertQuery(data, userState?.id);
+            : transformInsertQuery(data, useState?.id);
 
           const response = isEditting
             ? await editEntity(transformedData)
             : await createdEntity(transformedData);
           handleApiResponse(response, isEditting);
         } catch (error: any) {
-          toast.error(error);
+          show({
+            message: error,
+            type: "error",
+          });
         }
       },
       [editEntity, createdEntity, handleApiResponse]

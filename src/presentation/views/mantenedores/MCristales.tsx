@@ -92,53 +92,109 @@ const MCristales: React.FC = () => {
     <div className="mantenedorContainer">
       <h1 className="mantenedorH1">Cristales</h1>
 
-      <div className="mantenedorHead width90">
-        <PrimaryKeySearch
-          baseUrl={strBaseUrl}
-          setParams={setParams}
-          updateParams={updateParams}
-          setEntities={setEntities}
-          primaryKeyInputs={[
-            { name: "_p1", label: "Código", type: "number" },
-            {
-              name: "_pMarca",
-              label: "Marca",
-              type: "select",
-              selectUrl: "/api/marcas/",
-            },
-            // {
-            //   name: "_pProveedor",
-            //   label: "Proveedor",
-            //   type: "select",
-            //   selectUrl: "/api/proveedores/",
-            // },
-            // { name: "_pDiseno", label: "Diseño", type: "select", selectUrl: "/api//"},
-            // { name: "_pIndice", label: "Indice", type: "select", selectUrl: "/api//"},
-            // { name: "_pMaterial", label: "Material", type: "select", selectUrl: "/api//"},
-            // { name: "_pColor", label: "Color", type: "select", selectUrl: "/api//"},
-            // { name: "_pTratamiento", label: "Tratamiento", type: "select", selectUrl: "/api//"},
-            // { name: "_pDiametro", label: "Diámetro", type: "number" },
-            // { name: "_pEsferico", label: "Esférico", type: "number" },
-            // { name: "_pCilindrico", label: "Cilíndrico", type: "number" },
-          ]}
-        />
+      <div className="mantenedorHeadFlex width100">
+        <div className="w-[300rem]">
+          <PrimaryKeySearch
+            baseUrl={strBaseUrl}
+            setParams={setParams}
+            updateParams={updateParams}
+            setEntities={setEntities}
+            primaryKeyInputs={[
+              {
+                name: "_pMarca",
+                label: "Marca",
+                type: "select",
+                selectUrl: "/api/marcas/",
+              },
+              {
+                name: "_pProveedor",
+                label: "Proveedor",
+                type: "select",
+                selectUrl: "/api/proveedores/",
+              },
+              {
+                name: "_pDiseno",
+                label: "Diseño",
+                type: "select",
+                selectUrl: "/api/tipos/",
+                tipos: "CristalesDisenos",
+              },
+              // {
+              //   name      : "_p3",
+              //   label     : "Tipo Insumos",
+              //   type      : "select",
+              //   selectUrl : "/api/tipos/",
+              //   tipos     : "TipoInsumos"
+              // },
+              {
+                name: "_pMaterial",
+                label: "Material",
+                type: "select",
+                selectUrl: "/api/tipos/",
+                tipos: "CristalesMateriales",
+              },
+              {
+                name: "_pColor",
+                label: "Color",
+                type: "select",
+                selectUrl: "/api/tipos/",
+                tipos: "CristalesColores",
+              },
+              {
+                name: "_pTratamiento",
+                label: "Tratamiento",
+                type: "select",
+                selectUrl: "/api/tipos/",
+                tipos: "CristalesTratamientos",
+              },
+              {
+                name: "_pIndice",
+                label: "Indice",
+                type: "select",
+                selectUrl: "/api/tipos/",
+                tipos: "CristalesIndices",
+              },
+              {
+                name: "_pTratamiento",
+                label: "Tratamiento",
+                type: "select",
+                selectUrl: "/api/tipos/",
+                tipos: "CristalesTratamientos",
+              },
+              { name: "_p1", label: "Código", type: "number" },
+              { name: "_pDiametro", label: "Diametro", type: "number" },
+              { name: "_pEsferico", label: "Esferico", type: "number" },
+              { name: "_pCilindrico", label: "Cilindrico", type: "number" },
 
-        <PrimaryButtonsComponent
-          handleAddPerson={openModal}
-          handleDeleteSelected={handleDeleteSelected}
-          handleRefresh={resetEntities}
-          params={params}
-          pkToDelete={pkToDelete}
-          strEntidad={strEntidadExcel}
-          strBaseUrl={strBaseUrl}
-          showAddButton={true}
-          showExportButton={true}
-          showDeleteButton={true}
-          showForwardButton={false}
-          showRefreshButton={true}
-          comilla={false}
-          idMenu={idMenu}
-        />
+              // { name: "_pDiseno", label: "Diseño", type: "select", selectUrl: "/api//"},
+              // { name: "_pIndice", label: "Indice", type: "select", selectUrl: "/api//"},
+              // { name: "_pMaterial", label: "Material", type: "select", selectUrl: "/api//"},
+              // { name: "_pColor", label: "Color", type: "select", selectUrl: "/api//"},
+              // { name: "_pTratamiento", label: "Tratamiento", type: "select", selectUrl: "/api//"},
+              // { name: "_pDiametro", label: "Diámetro", type: "number" },
+              // { name: "_pEsferico", label: "Esférico", type: "number" },
+              // { name: "_pCilindrico", label: "Cilíndrico", type: "number" },
+            ]}
+          />
+        </div>
+        <div className="w-full">
+          <PrimaryButtonsComponent
+            handleAddPerson={openModal}
+            handleDeleteSelected={handleDeleteSelected}
+            handleRefresh={resetEntities}
+            params={params}
+            pkToDelete={pkToDelete}
+            strEntidad={strEntidadExcel}
+            strBaseUrl={strBaseUrl}
+            showAddButton={true}
+            showExportButton={true}
+            showDeleteButton={true}
+            showForwardButton={false}
+            showRefreshButton={true}
+            comilla={false}
+            idMenu={idMenu}
+          />
+        </div>
       </div>
 
       <div className="scroll">

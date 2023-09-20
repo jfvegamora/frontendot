@@ -271,12 +271,15 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
           defaultValue={strSelectedName}
           render={({ field }) => (
             <div className="custom-select">
-              <label
-                htmlFor={label}
-                className="absolute top-[-1%] left-[3%] text-sm"
-              >
-                {label}
-              </label>
+              <div className=" top-[-18%] left-3.5 absolute w-1/2 z-10">
+                <label
+                  htmlFor={label}
+                  // className="absolute top-[-1%] left-[3%] text-sm"
+                  className="text-[11px] text-gray-600 top-0 relative"
+                >
+                  {label}
+                </label>
+              </div>
 
               <select
                 {...field}
@@ -303,7 +306,11 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
                 }}
                 className="custom-input py-2 px-3 w-[85%] cursor-pointer z-0"
               >
-                {!data && <option value={"0"}>{label}</option>}
+                {!data && (
+                  <option value={"0"} className="text-sm">
+                    {label}
+                  </option>
+                )}
                 {entities &&
                   entities.map((option: any, index) => (
                     <option

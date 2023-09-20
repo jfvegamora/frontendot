@@ -4,29 +4,27 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect } from "react";
-import {
-  TextInputComponent,
-} from "../../components";
+import { TextInputComponent } from "../../components";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationMandantesSchema } from "../../utils/validationFormSchemas";
 import { EnumGrid } from "../mantenedores/MMandantes";
-import { toast } from "react-toastify";
 import { ERROR_MESSAGES, MODAL, SUCCESS_MESSAGES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import RegProComponent from "../../components/forms/RegProComponent";
+import useCustomToast from "../../hooks/useCustomToast";
 
 const strBaseUrl = "/api/mandantes/";
 const strEntidad = "Mandante ";
 
 export interface InputData {
-  codigo   : string | undefined;
-  rut      : string | undefined;
-  nombre   : string | undefined;
-  region   : string | undefined;
+  codigo: string | undefined;
+  rut: string | undefined;
+  nombre: string | undefined;
+  region: string | undefined;
   provincia: string | undefined;
-  comuna   : string | undefined;
+  comuna: string | undefined;
 }
 
 interface OutputData {
@@ -38,18 +36,18 @@ interface OutputData {
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
   const _p1 = `'${jsonData.codigo}','${jsonData.rut}','${jsonData.nombre}','${jsonData.comuna}'`;
 
-  console.log('p1', _p1)
+  console.log("p1", _p1);
   const query: OutputData = {
     query: "03",
     _p1: _p1,
   };
-  
-  console.log('queryy', query)
+
+  console.log("queryy", query);
   return query;
 }
 
 export function transformUpdateQuery(
-  jsonData  : InputData,
+  jsonData: InputData,
   primaryKey: string
 ): OutputData | null {
   const fields = [
@@ -71,24 +69,25 @@ export function transformUpdateQuery(
   return {
     query: "04",
     _p1,
-    _p2:` '${primaryKey}'`,
+    _p2: ` '${primaryKey}'`,
   };
 }
 
 interface IUserFormPrps {
   closeModal: () => void;
-  data?        : any[];
-  label        : string;
-  isEditting?  : any;
+  data?: any[];
+  label: string;
+  isEditting?: any;
   selectedRows?: any;
-  setEntities? : any;
-  params?      : any;
+  setEntities?: any;
+  params?: any;
 }
 
 const FMandantes: React.FC<IUserFormPrps> = React.memo(
   ({ closeModal, setEntities, params, label, data, isEditting }) => {
     const schema = validationMandantesSchema(isEditting);
     const { showModal, CustomModal } = useModal();
+    const { show } = useCustomToast();
 
     const {
       editEntity,
@@ -110,7 +109,7 @@ const FMandantes: React.FC<IUserFormPrps> = React.memo(
 
     const resetTextFields = React.useCallback(() => {
       setValue("codigo", "");
-      setValue("rut"   , "");
+      setValue("rut", "");
       setValue("nombre", "");
       if (firstInputRef.current) {
         const firstInput = firstInputRef.current.querySelector(
@@ -128,11 +127,12 @@ const FMandantes: React.FC<IUserFormPrps> = React.memo(
     }, [params, setEntities, ListEntity]);
 
     const toastSuccess = (isEditting: boolean) => {
-      toast.success(
-        isEditting
+      show({
+        message: isEditting
           ? strEntidad.concat(SUCCESS_MESSAGES.edit)
-          : strEntidad.concat(SUCCESS_MESSAGES.create)
-      );
+          : strEntidad.concat(SUCCESS_MESSAGES.create),
+        type: "success",
+      });
     };
 
     const handleApiResponse = React.useCallback(
@@ -145,7 +145,10 @@ const FMandantes: React.FC<IUserFormPrps> = React.memo(
                 ? strEntidad.concat(ERROR_MESSAGES.edit)
                 : strEntidad.concat(ERROR_MESSAGES.create)
               : errorResponse;
-          toast.error(errorMessage ? errorMessage : response.code);
+          show({
+            message: errorMessage ? errorMessage : response.code,
+            type: "error",
+          });
           return;
         }
 
@@ -205,7 +208,10 @@ const FMandantes: React.FC<IUserFormPrps> = React.memo(
             : await createdEntity(transformedData);
           handleApiResponse(response, isEditting);
         } catch (error: any) {
-          toast.error(error);
+          show({
+            message: error,
+            type: "error",
+          });
         }
       },
       [editEntity, createdEntity, handleApiResponse, intId]
@@ -235,70 +241,40 @@ const FMandantes: React.FC<IUserFormPrps> = React.memo(
           className="userFormulario"
         >
           <div className="userFormularioContainer">
-          <TextInputComponent
-              type    ="text"
-              label   ="Código"
-              name    ="codigo"
-              data    ={data && data[EnumGrid.codigo]}
-              control ={control}
-              error   ={!isEditting && errors.codigo}
+            <TextInputComponent
+              type="text"
+              label="Código"
+              name="codigo"
+              data={data && data[EnumGrid.codigo]}
+              control={control}
+              error={!isEditting && errors.codigo}
               inputRef={firstInputRef}
               onlyRead={isEditting}
             />
             <TextInputComponent
-              type    ="text"
-              label   ="RUT"
-              name    ="rut"
-              data    ={data && data[EnumGrid.rut]}
-              control ={control}
-              error   ={!isEditting && errors.rut}
+              type="text"
+              label="RUT"
+              name="rut"
+              data={data && data[EnumGrid.rut]}
+              control={control}
+              error={!isEditting && errors.rut}
             />
             <TextInputComponent
-              type    ="text"
-              label   ="Nombre"
-              name    ="nombre"
-              data    ={data && data[EnumGrid.nombre]}
-              control ={control}
-              error   ={!isEditting && errors.nombre}
+              type="text"
+              label="Nombre"
+              name="nombre"
+              data={data && data[EnumGrid.nombre]}
+              control={control}
+              error={!isEditting && errors.nombre}
             />
             <div className="w-full ">
-            {/* <SelectInputComponent
-                label       ="Región"
-                name        ="region"
-                showRefresh ={true}
-                data        ={data && data[EnumGrid.region]}
-                control     ={control}
-                entidad     ={["/api/regiones/", "02"]}
-                error       ={!isEditting && errors.region}
-                customWidth ={"345px"}
+              <RegProComponent
+                control={control}
+                EnumGrid={EnumGrid}
+                isEditting={isEditting}
+                errors={errors}
+                data={data && data}
               />
-              <SelectInputComponent
-                label       ="Provincia"
-                name        ="provincia"
-                showRefresh ={true}
-                data        ={data && data[EnumGrid.provincia]}
-                control     ={control}
-                entidad     ={["/api/provincias/", "02"]}
-                error       ={!isEditting && errors.provincia}
-                customWidth ={"345px"}
-              />
-              <SelectInputComponent
-                label       ="Comuna"
-                name        ="comuna"
-                showRefresh ={true}
-                data        ={data && data[EnumGrid.comuna]}
-                control     ={control}
-                entidad     ={["/api/comunas/", "02"]}
-                error       ={!isEditting && errors.comuna}
-                customWidth ={"345px"}
-              /> */}
-
-            <RegProComponent
-             control={control}
-             EnumGrid={EnumGrid}
-             isEditting={isEditting}
-             errors={errors}            
-            />  
             </div>
           </div>
 

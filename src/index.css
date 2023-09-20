@@ -37,6 +37,7 @@ select {
   background-image: none;
   cursor: pointer;
 }
+
 /* Remove IE arrow */
 select::-ms-expand {
   display: none;
@@ -83,7 +84,7 @@ select::-ms-expand {
   margin: 0 auto;
   background-color: white;
   border-radius: 15px;
-  z-index: 2;
+  z-index: 20;
   padding-bottom: 20px;
 }
 
@@ -179,6 +180,21 @@ select::-ms-expand {
 
 .mantenedorHead {
   display: flex;
+  margin-top: 1.25rem;
+
+  background-color: ghostwhite;
+  border-color: dodgerblue;
+  border-width: 1px;
+  border-radius: 10px;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  margin: 20px;
+  width: 70%;
+  margin: 0 auto;
+}
+.mantenedorHeadFlex {
+  display: flex;
+  flex-direction: column;
   margin-top: 1.25rem;
 
   background-color: ghostwhite;
@@ -404,7 +420,7 @@ select::-ms-expand {
   position: absolute;
   top: 11%;
   left: 35%;
-  z-index: 2;
+  z-index: 10;
   border-radius: 0.5rem;
   --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.5),
     0 4px 6px -4px rgb(0 0 0 / 0.5);
