@@ -80,7 +80,6 @@ export const PrivateRoutes = {
   EMPRESAS              : "empresas",
 };
 
-
 export const privateRoutes = [
 
   //MENU OT
@@ -216,6 +215,37 @@ export const privateRoutes = [
   },
 
 
+  //MENU DE BODEGA
+  {
+    id: "5",
+    path: PrivateRoutes.ARMAZONES,
+    component: MArmazones,
+    requiredPermissions: ["view_armazones"],
+  },
+  {
+    id: "7",
+    path: PrivateRoutes.CRISTALES,
+    component: MCristales,
+    requiredPermissions: ["view_cristales"],
+  },
+  {
+    id: "8",
+    path: PrivateRoutes.CRISTALES_KARDEX,
+    component: MCristalesKardex,
+    requiredPermissions: ["view_cristales_kardex"],
+  },
+  {
+    id: "9",
+    path: PrivateRoutes.ACCESORIOS,
+    component: MAccesorios,
+    requiredPermissions: ["view_cristales_kardex"],
+  },
+  {
+    id: "11",
+    path: PrivateRoutes.ALMACENES,
+    component: MAlmacenes,
+    requiredPermissions: ["view_cristales_kardex"],
+  },
   //MENU DE SISTEMA
   {
     id                  : "22",
@@ -253,4 +283,4 @@ export const privateRoutes = [
     component           : MEmpresas,
     requiredPermissions : ['view_' + PrivateRoutes.EMPRESAS]
   },
-]
+];

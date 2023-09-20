@@ -13,19 +13,19 @@ import FUsuarios from "../forms/FUsuarios";
 import { TITLES, table_head_usuarios } from "../../utils";
 
 export enum EnumGrid {
-  id        = 1,
-  nombre    = 2,
-  telefono  = 3,
-  correo    = 4,
-  estado    = 5,
-  cargo_id  = 6,
-  cargo     = 7,
+  id = 1,
+  nombre = 2,
+  telefono = 3,
+  correo = 4,
+  estado = 5,
+  cargo_id = 6,
+  cargo = 7,
 }
-const strEntidad      = "Usuario ";
+const strEntidad = "Usuario ";
 const strEntidadExcel = "Usuarios";
-const strBaseUrl      = "/api/usuarios/";
-const strQuery        = "01";
-const idMenu          = 24
+const strBaseUrl = "/api/usuarios/";
+const strQuery = "01";
+const idMenu = 24;
 
 type PrimaryKey = {
   pk1: number;
@@ -63,7 +63,7 @@ const MUsuarios: React.FC = () => {
 
   const pkToDelete: PrimaryKey[] = [];
 
-  console.log('pktodelete', pkToDelete)
+  // console.log('pktodelete', pkToDelete)
   useEffect(() => {
     const newPkToDelete = selectedRows.map((row: number) => ({
       pk1: entities[row][EnumGrid.id],
@@ -81,41 +81,48 @@ const MUsuarios: React.FC = () => {
 
       <div className="mantenedorHead width70">
         <PrimaryKeySearch
-          baseUrl         ={strBaseUrl}
-          setParams       ={setParams}
-          updateParams    ={updateParams}
-          setEntities     ={setEntities}
+          baseUrl={strBaseUrl}
+          setParams={setParams}
+          updateParams={updateParams}
+          setEntities={setEntities}
           primaryKeyInputs={[
             { name: "_p1", label: "Nombre", type: "text" },
             {
-              name      : "_p2",
-              label     : "Cargos",
-              type      : "select",
-              selectUrl : "/api/cargos/",
+              name: "_p2",
+              label: "Cargos",
+              type: "select",
+              selectUrl: "/api/cargos/",
             },
+            // {
+            //   name      : "_p3",
+            //   label     : "Tipo Insumos",
+            //   type      : "select",
+            //   selectUrl : "/api/tipos/",
+            //   tipos     : "TipoInsumos"
+            // },
           ]}
         />
 
         <PrimaryButtonsComponent
-          handleAddPerson        ={openModal}
-          handleDeleteSelected   ={handleDeleteSelected}
-          handleRefresh          ={resetEntities}
-          params                 ={params}
-          pkToDelete             ={pkToDelete}
-          strEntidad             ={strEntidadExcel}
-          strBaseUrl             ={strBaseUrl}
-          showAddButton          ={true}
-          showExportButton       ={true}
-          showDeleteButton       ={true}
-          showForwardButton      ={false}
-          showRefreshButton      ={true}
-          idMenu                 ={idMenu}
+          handleAddPerson={openModal}
+          handleDeleteSelected={handleDeleteSelected}
+          handleRefresh={resetEntities}
+          params={params}
+          pkToDelete={pkToDelete}
+          strEntidad={strEntidadExcel}
+          strBaseUrl={strBaseUrl}
+          showAddButton={true}
+          showExportButton={true}
+          showDeleteButton={true}
+          showForwardButton={false}
+          showRefreshButton={true}
+          idMenu={idMenu}
         />
       </div>
 
       <div className="scroll">
         <TableComponent
-          handleSelectChecked     ={handleSelect}
+          handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
           toggleEditModal={toggleEditModal}
           handleDeleteSelected={handleDeleteSelected}
@@ -133,24 +140,24 @@ const MUsuarios: React.FC = () => {
 
       {isModalInsert && (
         <FUsuarios
-          label       ={`${TITLES.nuevo} ${strEntidad}`}
-          closeModal  ={closeModal}
+          label={`${TITLES.nuevo} ${strEntidad}`}
+          closeModal={closeModal}
           selectedRows={selectedRows}
-          setEntities ={setEntities}
-          params      ={params}
-          isEditting  ={false}
+          setEntities={setEntities}
+          params={params}
+          isEditting={false}
         />
       )}
 
       {isModalEdit && (
         <FUsuarios
-          label       ={`${TITLES.editar} ${strEntidad}`}
+          label={`${TITLES.editar} ${strEntidad}`}
           selectedRows={selectedRows}
-          setEntities ={setEntities}
-          params      ={params}
-          data        ={entity}
-          closeModal  ={closeModal}
-          isEditting  ={true}
+          setEntities={setEntities}
+          params={params}
+          data={entity}
+          closeModal={closeModal}
+          isEditting={true}
         />
       )}
     </div>

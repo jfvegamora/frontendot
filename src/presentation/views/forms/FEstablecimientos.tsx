@@ -4,10 +4,7 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect } from "react";
-import {
-  SelectInputComponent,
-  TextInputComponent,
-} from "../../components";
+import { SelectInputComponent, TextInputComponent } from "../../components";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationEstablecimientosSchema } from "../../utils/validationFormSchemas";
@@ -22,11 +19,11 @@ const strBaseUrl = "/api/establecimientos/";
 const strEntidad = "Establecimiento ";
 
 export interface InputData {
-  nombre   : string | undefined;
-  mandante : string | undefined;
-  region   : string | undefined;
+  nombre: string | undefined;
+  mandante: string | undefined;
+  region: string | undefined;
   provincia: string | undefined;
-  comuna   : string | undefined;
+  comuna: string | undefined;
 }
 
 interface OutputData {
@@ -38,18 +35,18 @@ interface OutputData {
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
   const _p1 = `'${jsonData.nombre}', ${jsonData.comuna}, ${jsonData.mandante}`;
 
-  console.log('p1:', _p1)
+  console.log("p1:", _p1);
   const query: OutputData = {
     query: "03",
     _p1: _p1,
   };
-  
-  console.log('queryy', query)
+
+  console.log("queryy", query);
   return query;
 }
 
 export function transformUpdateQuery(
-  jsonData  : InputData,
+  jsonData: InputData,
   primaryKey: string
 ): OutputData | null {
   const fields = [
@@ -71,18 +68,18 @@ export function transformUpdateQuery(
   return {
     query: "04",
     _p1,
-    _p2:` '${primaryKey}'`,
+    _p2: ` '${primaryKey}'`,
   };
 }
 
 interface IUserFormPrps {
   closeModal: () => void;
-  data?        : any[];
-  label        : string;
-  isEditting?  : any;
+  data?: any[];
+  label: string;
+  isEditting?: any;
   selectedRows?: any;
-  setEntities? : any;
-  params?      : any;
+  setEntities?: any;
+  params?: any;
 }
 
 const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
@@ -223,37 +220,40 @@ const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
         <h1 className="userFormLabel">{label}</h1>
 
         <form
-          onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
+          onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))}
+          className="userFormulario"
+        >
           <div className="userFormularioContainer">
             <div className="w-full ">
               <TextInputComponent
-                  type    ="text"
-                  label   ="Nombre"
-                  name    ="nombre"
-                  data    ={data && data[EnumGrid.nombre]}
-                  control ={control}
-                  error   ={!isEditting && errors.nombre}
-                  inputRef={firstInputRef}
-                  />
-                <SelectInputComponent
-                  label       ="Mandante"
-                  name        ="mandante"
-                  showRefresh ={true}
-                  data        ={data && data[EnumGrid.mandante_id]}
-                  control     ={control}
-                  entidad     ={["/api/mandantes/", "02"]}
-                  error       ={!isEditting && errors.mandante}
-                  customWidth ={"345px"}
-                />
+                type="text"
+                label="Nombre"
+                name="nombre"
+                data={data && data[EnumGrid.nombre]}
+                control={control}
+                error={!isEditting && errors.nombre}
+                inputRef={firstInputRef}
+              />
+
+              <SelectInputComponent
+                label="Mandante"
+                name="mandante"
+                showRefresh={true}
+                data={data && data[EnumGrid.mandante_id]}
+                control={control}
+                entidad={["/api/mandantes/", "02"]}
+                error={!isEditting && errors.mandante}
+                customWidth={"345px"}
+              />
             </div>
-            <div className="w-full ">
-              <RegProComponent
+
+            <RegProComponent
               control={control}
               EnumGrid={EnumGrid}
               isEditting={isEditting}
-              errors={errors}            
-            />  
-            </div>
+              errors={errors}
+              data={data && data}
+            />
           </div>
 
           <button type="submit" className="userFormBtnSubmit">

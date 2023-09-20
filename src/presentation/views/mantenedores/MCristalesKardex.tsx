@@ -13,24 +13,24 @@ import FCristalesKardexIN from "../forms/FCristalesKardexIN";
 import { TITLES, table_head_cristaleskardex } from "../../utils";
 
 export enum EnumGrid {
-fecha                 =1,
-cristal               =2,
-descripcion           =3,
-almacen_id            =4,
-almacen               =5,
-es                    =6,
-motivo_id             =7,
-motivo                =8,
-entradas              =9,
-salidas               =10,
-valor_neto            =11,
-proveedor_id          =12,
-proveedor             =13,
-numero_factura        =14,
-ot                    =15,
-almacen_relacionado_id=16,
-almacen_relacionado   =17,
-observaciones         =18,
+  fecha = 1,
+  cristal = 2,
+  descripcion = 3,
+  almacen_id = 4,
+  almacen = 5,
+  es = 6,
+  motivo_id = 7,
+  motivo = 8,
+  entradas = 9,
+  salidas = 10,
+  valor_neto = 11,
+  proveedor_id = 12,
+  proveedor = 13,
+  numero_factura = 14,
+  ot = 15,
+  almacen_relacionado_id = 16,
+  almacen_relacionado = 17,
+  observaciones = 18,
 }
 
 // export enum EnumGrid {
@@ -52,8 +52,8 @@ observaciones         =18,
 //   almacen_relacionado   =16,
 //   observaciones         =17,
 //   }
-  
-const strEntidad      = "Cristal Kardex ";
+
+const strEntidad = "Cristal Kardex ";
 const strEntidadExcel = "Cristales_Kardex";
 const strBaseUrl      = "/api/cristaleskardex/";
 const strQuery        = "01";
@@ -117,12 +117,12 @@ const MCristalesKardex: React.FC = () => {
     <div className="mantenedorContainer">
       <h1 className="mantenedorH1">Kardex de Cristales</h1>
 
-      <div className="mantenedorHead width70">
+      <div className="mantenedorHead width100 flex flex-col">
         <PrimaryKeySearch
-          baseUrl         ={strBaseUrl}
-          setParams       ={setParams}
-          updateParams    ={updateParams}
-          setEntities     ={setEntities}
+          baseUrl={strBaseUrl}
+          setParams={setParams}
+          updateParams={updateParams}
+          setEntities={setEntities}
           primaryKeyInputs={[
             { name: "_p1", label: "Código", type: "number" },
             { name: "_p2", label: "Desde", type: "date" },
@@ -138,6 +138,13 @@ const MCristalesKardex: React.FC = () => {
             // { name: "_pDiametro", label: "Diámetro", type: "number" },
             // { name: "_pEsferico", label: "Esférico", type: "number" },
             // { name: "_pCilindrico", label: "Cilíndrico", type: "number" },
+            // {
+            //   name      : "_p3",
+            //   label     : "Tipo Insumos",
+            //   type      : "select",
+            //   selectUrl : "/api/tipos/",
+            //   tipos     : "TipoInsumos"
+            // },
           ]}
         />
 
@@ -158,10 +165,26 @@ const MCristalesKardex: React.FC = () => {
           idMenu              ={idMenu}
         />
       </div>
+      <PrimaryButtonsComponent
+        handleAddPerson={openModal}
+        handleDeleteSelected={handleDeleteSelected}
+        handleRefresh={resetEntities}
+        params={params}
+        pkToDelete={pkToDelete}
+        strEntidad={strEntidadExcel}
+        strBaseUrl={strBaseUrl}
+        showAddButton={true}
+        showExportButton={true}
+        showDeleteButton={true}
+        showForwardButton={false}
+        showRefreshButton={true}
+        comilla={true}
+        idMenu={idMenu}
+      />
 
       <div className="scroll">
         <TableComponent
-          handleSelectChecked     ={handleSelect}
+          handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
           toggleEditModal         ={toggleEditModal}
           handleDeleteSelected    ={handleDeleteSelected}
@@ -179,24 +202,24 @@ const MCristalesKardex: React.FC = () => {
 
       {isModalInsert && (
         <FCristalesKardexIN
-          label       ={`${TITLES.nuevo} ${strEntidad}`}
-          closeModal  ={closeModal}
+          label={`${TITLES.nuevo} ${strEntidad}`}
+          closeModal={closeModal}
           selectedRows={selectedRows}
-          setEntities ={setEntities}
-          params      ={params}
-          isEditting  ={false}
+          setEntities={setEntities}
+          params={params}
+          isEditting={false}
         />
       )}
 
       {isModalEdit && (
         <FCristalesKardexIN
-          label       ={`${TITLES.editar} ${strEntidad}`}
+          label={`${TITLES.editar} ${strEntidad}`}
           selectedRows={selectedRows}
-          setEntities ={setEntities}
-          params      ={params}
-          data        ={entity}
-          closeModal  ={closeModal}
-          isEditting  ={true}
+          setEntities={setEntities}
+          params={params}
+          data={entity}
+          closeModal={closeModal}
+          isEditting={true}
         />
       )}
     </div>

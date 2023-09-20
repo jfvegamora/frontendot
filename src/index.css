@@ -2,24 +2,69 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  transition: all 0.3s ease;
+}
+
 body {
-  background-color:gainsboro;
+  background-color: gainsboro;
   vertical-align: top;
   overflow: hidden;
 }
 
 /* Estilos CSS para los inputs de Form */
-.label-input{
-   --tw-text-opacity: 1;
-    color: rgb(97 97 97 / var(--tw-text-opacity));
-    font-size: 0.875rem;
-    line-height: 1.25rem;
-    font-weight: 700;
-    text-align: center;
-    cursor: pointer;
+.label-input {
+  --tw-text-opacity: 1;
+  color: rgb(97 97 97 / var(--tw-text-opacity));
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 700;
+  text-align: center;
+  cursor: pointer;
 }
 
-
+select {
+  /* Reset Select */
+  appearance: none;
+  outline: 10px red;
+  border: 0;
+  box-shadow: none;
+  /* Personalize */
+  flex: 1;
+  padding: 0 1em;
+  color: #fff;
+  background-color: var(--darkgray);
+  background-image: none;
+  cursor: pointer;
+}
+/* Remove IE arrow */
+select::-ms-expand {
+  display: none;
+}
+/* Custom Select wrapper */
+.custom-select {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 2.7em;
+  border-radius: 0.25em;
+  overflow: hidden;
+}
+/* Arrow */
+.custom-select::after {
+  content: "\25BC";
+  position: absolute;
+  top: -7px;
+  right: 0;
+  padding: 1em;
+  background-color: white;
+  transition: 0.25s all ease;
+  pointer-events: none;
+}
+/* Transition */
+.custom-select:hover::after {
+  color: #f39c12;
+}
 
 /* Modificar el título del input */
 .custom-input label::before {
@@ -27,7 +72,7 @@ body {
   /*color: #c41e6e; /* Color deseado para el título */
 }
 
-.customModal{
+.customModal {
   position: absolute;
   width: 30%;
   height: auto;
@@ -42,32 +87,32 @@ body {
   padding-bottom: 20px;
 }
 
-.modalTitle{
+.modalTitle {
   font-size: 1.5rem;
-font-weight: 700;
-margin-bottom: 1rem;
-margin-top: 20px;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  margin-top: 20px;
 }
 
-.modalSubTitle{
+.modalSubTitle {
   color: #4a5568;
-margin-bottom: 1rem;
+  margin-bottom: 1rem;
 }
 
-.modalButton{
+.modalButton {
   background-color: #b0bbc4;
-color: #ffffff;
-font-weight: 700;
-padding-top: 0.5rem;
-padding-bottom: 0.5rem;
-padding-left: 1rem;
-padding-right: 1rem;
-margin-right: 0.5rem;
-border-radius: 0.25rem;
-transition: background-color 0.3s ease-in-out;
+  color: #ffffff;
+  font-weight: 700;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  margin-right: 0.5rem;
+  border-radius: 0.25rem;
+  transition: background-color 0.3s ease-in-out;
 }
 
-.modalButtonContainer{
+.modalButtonContainer {
   align-items: center;
   margin: 0 auto;
   width: 60%;
@@ -76,16 +121,18 @@ transition: background-color 0.3s ease-in-out;
   margin-top: 20px;
 }
 
-.custom-input{
+.custom-input {
   --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
-  --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
-    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-    appearance: none;
-   
-    border-radius: 0.25rem/* 4px */;
-    --tw-text-opacity: 1;
-    color: rgb(97 97 97 / var(--tw-text-opacity));
-    background-color:#FFFFFF;
+  --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color),
+    0 1px 2px -1px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+    var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  appearance: none;
+
+  border-radius: 0.25rem /* 4px */;
+  --tw-text-opacity: 1;
+  color: rgb(97 97 97 / var(--tw-text-opacity));
+  background-color: #ffffff;
 }
 
 .custom-input.error {
@@ -93,22 +140,22 @@ transition: background-color 0.3s ease-in-out;
   border-color: red; /* Cambia el color del borde para el error */
 }
 
-.navBarBorder{
+.navBarBorder {
   position: fixed;
-  top: 0; 
-  left: 0; 
-  right: 0; 
-  background-color:ghostwhite ;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: ghostwhite;
   border-width: 1px;
   box-shadow: 0 6px 8px rgba(0, 0, 0, 0.5);
-  border-color:orangered;
+  border-color: orangered;
 }
 
 /*========CLASSES MANTENEDOR=======*/
-.mantenedorContainer{
+.mantenedorContainer {
   width: 95%;
   height: 100%;
-  
+
   background-color: #fff;
   border-color: dodgerblue;
   border-width: 1px;
@@ -119,7 +166,7 @@ transition: background-color 0.3s ease-in-out;
   margin-top: 35px;
 }
 
-.mantenedorH1{
+.mantenedorH1 {
   text-align: center;
   margin-top: 1.5rem;
   font-weight: 500;
@@ -128,25 +175,24 @@ transition: background-color 0.3s ease-in-out;
   padding-bottom: 20px;
 }
 
-.mantenedorHead{
+.mantenedorHead {
   display: flex;
-  margin-top: 1.25rem ;
+  margin-top: 1.25rem;
 
   background-color: ghostwhite;
-  border-color:dodgerblue;
+  border-color: dodgerblue;
   border-width: 1px;
   border-radius: 10px;
   box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
   padding: 20px;
   margin: 20px;
   width: 70%;
-  margin: 0 auto ;
-
- }
+  margin: 0 auto;
+}
 
 /* Estilos para la grilla y elementos de la lista */
 .tableContainer {
-  background-color: #FFFFFF; /* Fondo de la grilla */
+  background-color: #ffffff; /* Fondo de la grilla */
   border-radius: 10px; /* Esquinas redondeadas */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
   overflow: hidden; /* Para ocultar sombra en los bordes superiores */
@@ -155,7 +201,7 @@ transition: background-color 0.3s ease-in-out;
 
 /* Estilo para filas alternadas en la grilla */
 .tableRow:nth-child(even) {
-  background-color: #F9F9F9; /* Fondo de fila alternada */
+  background-color: #f9f9f9; /* Fondo de fila alternada */
 }
 
 /* Estilo para el texto en la grilla */
@@ -164,47 +210,47 @@ transition: background-color 0.3s ease-in-out;
 }
 
 /*========CLASSES PRIMARYKEYSEARCH=======*/
-.primaryKeyContainer{
+.primaryKeyContainer {
   display: flex;
   width: 90%;
   margin-left: 2.5rem;
   margin-right: 2.5rem;
 }
 
-.primaryKeyLabel{
+.primaryKeyLabel {
   display: block;
   font-weight: 500;
   margin-bottom: 0.25rem;
 }
 
-.primaryKeyInputsContainer{
+.primaryKeyInputsContainer {
   margin-left: 0.5rem;
   margin-right: 0.5rem;
 }
 
-.primaryKeyRadioContianer{
+.primaryKeyRadioContianer {
   display: flex;
   --tw-space-x-reverse: 0;
-    margin-right: calc(0.5rem/* 8px */ * var(--tw-space-x-reverse));
-    margin-left: calc(0.5rem/* 8px */ * calc(1 - var(--tw-space-x-reverse)));
+  margin-right: calc(0.5rem /* 8px */ * var(--tw-space-x-reverse));
+  margin-left: calc(0.5rem /* 8px */ * calc(1 - var(--tw-space-x-reverse)));
 }
 
-.primaryKeybtnRadioContainer{
+.primaryKeybtnRadioContainer {
   display: flex;
   align-items: center;
 }
 
-.primaryKeyIconButton{
+.primaryKeyIconButton {
   color: orangered;
 }
 
-.primaryKeyIcon{
+.primaryKeyIcon {
   width: 1.5rem;
   height: 1.5rem;
 }
 
 /*========CLASSES PRIMARYBUTTONS=======*/
-.primaryBtnContainer{
+.primaryBtnContainer {
   display: flex;
   width: 100%;
   justify-content: flex-end;
@@ -212,18 +258,18 @@ transition: background-color 0.3s ease-in-out;
   padding-right: 1rem;
 }
 
-.primaryBtnIconButton{
+.primaryBtnIconButton {
   margin-left: 0.5rem;
   margin-right: 0.5rem;
 }
 
-.primaryBtnIcon{  
+.primaryBtnIcon {
   height: 2.5rem;
-  width: 2.5rem;  
+  width: 2.5rem;
 }
 
 /*========CLASSES TABLECOMPONENT=======*/
-.gridContainer{
+.gridContainer {
   border-width: 1px;
   border-left-width: 2px;
   border-right-width: 2px;
@@ -237,47 +283,49 @@ transition: background-color 0.3s ease-in-out;
   padding-right: 0.5rem;
   text-align: center;
 
-  background-color: #FFFFFF; 
-  border-radius: 10px; 
-  box-shadow: 0 2px 4px rgba(255, 69, 0, 0.8); 
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(255, 69, 0, 0.8);
   max-height: 100vh;
   overflow: auto;
   position: relative;
-  
 }
 
-.scroll{
+.scroll {
   max-height: 500px;
   overflow: auto;
 }
 
-.gridHead{
+.gridHead {
   border-top-width: 1px;
   border-bottom-width: 1px;
   --tw-border-opacity: 1;
   border-color: rgb(207 216 220 / var(--tw-border-opacity));
   /*background-color: rgb(236 239 241 / 1);*/
-  background-color:darkorange;
+  background-color: darkorange;
   padding: 1rem;
   border-width: 1px;
 }
-.gridTop{
+.gridTop {
   position: sticky;
-   top: 0; /* La parte superior del encabezado se fija en la parte superior del contenedor */
+  top: 0; /* La parte superior del encabezado se fija en la parte superior del contenedor */
   z-index: 1;
 }
 
 /* Estilos CSS para el checkbox en la tabla */
-.gridHead input[type="checkbox"], .gridTableData input[type="checkbox"]{
-  width: 20px;   height: 20px; 
-  margin: 0;   padding: 0;
+.gridHead input[type="checkbox"],
+.gridTableData input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  padding: 0;
 }
 
-.gridHead p{
-  font-weight:bold;
+.gridHead p {
+  font-weight: bold;
 }
 
-.gridText{
+.gridText {
   font-size: 1rem;
   line-height: 1.25rem;
   line-height: 1;
@@ -288,7 +336,7 @@ transition: background-color 0.3s ease-in-out;
   overflow: hidden; /* Oculta el contenido que se desborde */
 }
 
-.gridTableData{
+.gridTableData {
   border-bottom-width: 2px;
   padding-left: 1rem;
   padding-right: 1rem;
@@ -296,20 +344,36 @@ transition: background-color 0.3s ease-in-out;
   padding-bottom: 0.5rem;*/
 }
 
-
-.gridIcons{
+.gridIcons {
   height: 1.3rem;
   width: 1.3rem;
 }
 
 /*Ancho del frame para div de keyInputs y div de la grilla. */
-.width50{width: 50% !important; margin: 0 auto;}
-.width60{width: 60% !important; margin: 0 auto;}
-.width70{width: 70% !important; margin: 0 auto;}
-.width80{width: 80% !important; margin: 0 auto;}
-.width90{width: 90% !important; margin: 0 auto;}
-.width100{width: 100% !important; margin: 0 auto;}
-
+.width50 {
+  width: 50% !important;
+  margin: 0 auto;
+}
+.width60 {
+  width: 60% !important;
+  margin: 0 auto;
+}
+.width70 {
+  width: 70% !important;
+  margin: 0 auto;
+}
+.width80 {
+  width: 80% !important;
+  margin: 0 auto;
+}
+.width90 {
+  width: 90% !important;
+  margin: 0 auto;
+}
+.width100 {
+  width: 100% !important;
+  margin: 0 auto;
+}
 
 /*========CLASSES FUsuarios=========*/
 .userFormularioRow {
@@ -320,13 +384,15 @@ transition: background-color 0.3s ease-in-out;
   margin-bottom: 10px; /* Espacio entre filas */
 }
 
-.short-number TextInputComponent{width: 100px;}
+.short-number TextInputComponent {
+  width: 100px;
+}
 
-.useFormContainer{
+.useFormContainer {
   --tw-bg-opacity: 1;
-/*  background-color: rgb(255 255 255 / var(--tw-bg-opacity));*/
-background-color:gainsboro;
-position: relative;
+  /*  background-color: rgb(255 255 255 / var(--tw-bg-opacity));*/
+  background-color: gainsboro;
+  position: relative;
   padding-left: 1rem;
   padding-right: 1rem;
   width: 90%;
@@ -338,35 +404,37 @@ position: relative;
   left: 35%;
   z-index: 2;
   border-radius: 0.5rem;
-  --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.5), 0 4px 6px -4px rgb(0 0 0 / 0.5);
-  --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-
+  --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.5),
+    0 4px 6px -4px rgb(0 0 0 / 0.5);
+  --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color),
+    0 4px 6px -4px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+    var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
-.useFormContainer3{
+.useFormContainer3 {
   max-width: 50rem;
   left: 20%;
 }
 
-.labelForm{
-  background-color:gainsboro;
+.labelForm {
+  background-color: gainsboro;
 }
 
-.userFormBtnCloseContainer{
+.userFormBtnCloseContainer {
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
 }
 
-.userFormBtnClose{
+.userFormBtnClose {
   --tw-text-opacity: 1;
   /*  color: rgb(244 67 54 / var(--tw-text-opacity));*/
-  color:orangered;
-    font-size:30px;
-  }
+  color: orangered;
+  font-size: 30px;
+}
 
-.userFormLabel{
+.userFormLabel {
   text-align: center;
   font-size: 1.25rem;
   line-height: 1.75rem;
@@ -374,20 +442,20 @@ position: relative;
   margin-bottom: 1rem;
 }
 
-.userFormulario{
+.userFormulario {
   --tw-space-y-reverse: 0;
-  margin-top: calc(1rem/* 16px */ * calc(1 - var(--tw-space-y-reverse)));
-  margin-bottom: calc(1rem/* 16px */ * var(--tw-space-y-reverse));
+  margin-top: calc(1rem /* 16px */ * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(1rem /* 16px */ * var(--tw-space-y-reverse));
 }
 
-.userFormularioContainer{
+.userFormularioContainer {
   width: 100%;
   margin-top: 1rem;
   display: flex;
-  flex-direction:column;
+  flex-direction: column;
   --tw-space-y-reverse: 0;
-  margin-top: calc(1rem/* 16px */ * calc(1 - var(--tw-space-y-reverse)));
-  margin-bottom: calc(1rem/* 16px */ * var(--tw-space-y-reverse));
+  margin-top: calc(1rem /* 16px */ * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(1rem /* 16px */ * var(--tw-space-y-reverse));
 }
 
 .userFormularioContainer .input {
@@ -406,54 +474,60 @@ position: relative;
   margin-right: 20px; /* Espacio entre los elementos */
 }
 
-.flex-col{width: 100%;}
-.flex-col div{min-width:auto !important;} /*ancho del Input para datos pequeños*/
-.flex-col input{background-color: white !important; }
-.flex-col label{font-size: 16px; } /*color del label del input*/
+.flex-col {
+  width: 100%;
+}
+.flex-col div {
+  min-width: auto !important;
+} /*ancho del Input para datos pequeños*/
+.flex-col input {
+  background-color: white !important;
+}
+.flex-col label {
+  font-size: 16px;
+} /*color del label del input*/
 
-
-
-.userFormBtnSubmit{
+.userFormBtnSubmit {
   width: 100%;
   --tw-bg-opacity: 1;
-    background-color: rgb(251 140 0 / var(--tw-bg-opacity));
-    --tw-text-opacity: 1;
-    color: rgb(255 255 255 / var(--tw-text-opacity));
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    border-radius: 0.25rem;
-    margin-top: 20px;
-    margin-bottom: 20px;;
+  background-color: rgb(251 140 0 / var(--tw-bg-opacity));
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  border-radius: 0.25rem;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 /* Estilos CSS para el modal */
 .modal-content {
-    position: absolute;
-    top: 65%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-  }
-  
-  /* Estilos CSS para el fondo del modal */
-  .modal-overlay {
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 9999; /* Asegura que el fondo esté por encima de otros elementos */
-  }
-  
-  .custom-draggable {
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 20px;
-  }
+  position: absolute;
+  top: 65%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
 
-  /* Estilos para WebKit (Safari, Chrome) */
+/* Estilos CSS para el fondo del modal */
+.modal-overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999; /* Asegura que el fondo esté por encima de otros elementos */
+}
+
+.custom-draggable {
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+/* Estilos para WebKit (Safari, Chrome) */
 ::-webkit-scrollbar {
   width: 8px; /* Ancho del scrollbar vertical */
   height: 8px; /* Alto del scrollbar horizontal */

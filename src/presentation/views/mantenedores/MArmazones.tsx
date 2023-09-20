@@ -13,28 +13,29 @@ import FArmazones from "../forms/FArmazones";
 import { TITLES, table_head_armazones } from "../../utils";
 
 export enum EnumGrid {
-  codigo              = 1,
-  armazon_tipo_id     = 2,
-  armazon_tipo        = 3,
-  marca_id            = 4,
-  marca               = 5,
-  modelo              = 6,
-  color               = 7,
+  codigo = 1,
+  armazon_tipo_id = 2,
+  armazon_tipo = 3,
+  marca_id = 4,
+  marca = 5,
+  modelo = 6,
+  color = 7,
   armazon_material_id = 8,
-  armazon_material    = 9,
-  aro                 = 10,
-  puente              = 11,
-  diagonal            = 12,
-  brazo               = 13,
-  armazon_uso_id      = 14,
-  armazon_uso         = 15,
-  stock_minimo        = 16,
+  armazon_material = 9,
+  aro = 10,
+  puente = 11,
+  diagonal = 12,
+  brazo = 13,
+  armazon_uso_id = 14,
+  armazon_uso = 15,
+  stock_minimo = 16,
 }
 
-const strEntidad      = "Armazón ";
+const strEntidad = "Armazón ";
 const strEntidadExcel = "Armazones";
-const strBaseUrl      = "/api/armazones/";
-const strQuery        = "01";
+const strBaseUrl = "/api/armazones/";
+const strQuery = "01";
+const idMenu = 5;
 
 type PrimaryKey = {
   pk1: number;
@@ -68,10 +69,9 @@ const MArmazones: React.FC = () => {
   } = useEntityUtils(strBaseUrl, strQuery);
   // console.log("entities:", entities);
 
-  
   const pkToDelete: PrimaryKey[] = [];
   // console.log("pkToDelete:", pkToDelete);
-  
+
   useEffect(() => {
     const newPkToDelete = selectedRows.map((row: number) => ({
       pk1: entities[row][EnumGrid.codigo],
@@ -87,7 +87,7 @@ const MArmazones: React.FC = () => {
     <div className="mantenedorContainer">
       <h1 className="mantenedorH1">Armazones</h1>
 
-      <div className="mantenedorHead width70">
+      <div className="mantenedorHead width80">
         <PrimaryKeySearch
           baseUrl={strBaseUrl}
           setParams={setParams}
@@ -119,6 +119,7 @@ const MArmazones: React.FC = () => {
           showDeleteButton={true}
           showForwardButton={false}
           showRefreshButton={true}
+          idMenu={idMenu}
         />
       </div>
 
@@ -136,6 +137,7 @@ const MArmazones: React.FC = () => {
           tableHead={table_head_armazones}
           showEditButton={true}
           showDeleteButton={false}
+          idMenu={idMenu}
         />
       </div>
 
@@ -165,4 +167,4 @@ const MArmazones: React.FC = () => {
   );
 };
 
-export default MArmazones
+export default MArmazones;

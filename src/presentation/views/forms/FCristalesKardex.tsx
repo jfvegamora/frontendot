@@ -14,7 +14,12 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { validationCristalesKardexSchema } from "../../utils/validationFormSchemas";
 import { EnumGrid } from "../mantenedores/MCristalesKardex";
 import { toast } from "react-toastify";
-import { ERROR_MESSAGES, MODAL, SUCCESS_MESSAGES, MOTIVO_KARDEX } from "../../utils";
+import {
+  ERROR_MESSAGES,
+  MODAL,
+  SUCCESS_MESSAGES,
+  MOTIVO_KARDEX,
+} from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 
@@ -22,35 +27,40 @@ const strBaseUrl = "/api/cristaleskardex/";
 const strEntidad = "Kardex de Cristal ";
 
 export interface InputData {
-  cristal               : number | undefined;
-  fecha                 : string | undefined;
-  descripcion           : string | undefined;
-  almacen               : string | undefined;
-  es                    : string | undefined;
-  motivo                : string | undefined;
-  cantidad              : number | undefined;
-  valor_neto            : number | undefined;
-  proveedor             : string | undefined;
-  numero_factura        : number | undefined;
-  ot                    : number | undefined;
-  almacen_relacionado   : string | undefined;
-  observaciones         : string | undefined;
+  cristal: number | undefined;
+  fecha: string | undefined;
+  descripcion: string | undefined;
+  almacen: string | undefined;
+  es: string | undefined;
+  motivo: string | undefined;
+  cantidad: number | undefined;
+  valor_neto: number | undefined;
+  proveedor: string | undefined;
+  numero_factura: number | undefined;
+  ot: number | undefined;
+  almacen_relacionado: string | undefined;
+  observaciones: string | undefined;
 }
 
 interface OutputData {
   query: string;
-  _p1  : string;
-  _p2? : number;
-  _p3? : string;
+  _p1: string;
+  _p2?: number;
+  _p3?: string;
 }
 
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
-  const date = new Date()
-  const _p1 = 
-  `'${jsonData.fecha +" "+ date.toLocaleTimeString()}', 
+  const date = new Date();
+  const _p1 = `'${jsonData.fecha + " " + date.toLocaleTimeString()}', 
     ${jsonData.cristal}, 
     ${jsonData.almacen}, 
-    ${jsonData.es === MOTIVO_KARDEX.entrada ? 1 : jsonData.es === MOTIVO_KARDEX.salida  ? 2 : 0}, 
+    ${
+      jsonData.es === MOTIVO_KARDEX.entrada
+        ? 1
+        : jsonData.es === MOTIVO_KARDEX.salida
+        ? 2
+        : 0
+    }, 
     ${jsonData.motivo}, 
     ${jsonData.cantidad}, 
     ${jsonData.valor_neto}, 
@@ -60,24 +70,28 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
     ${jsonData.almacen_relacionado},
    '${jsonData.observaciones}'`;
 
-   const query: OutputData = {
-     query: "03",
-     _p1: _p1,
-    };
-    console.log('p1', query)
-    
+  const query: OutputData = {
+    query: "03",
+    _p1: _p1,
+  };
+  console.log("p1", query);
+
   return query;
 }
 
 export function transformUpdateQuery(
-  jsonData  : InputData,
+  jsonData: InputData
   // ,primaryKey: string
 ): OutputData | null {
-
   const fields = [
     `almacen            = ${jsonData.almacen}`,
-    `es                 = ${jsonData.es === MOTIVO_KARDEX.entrada ? 1 
-                          : jsonData.es === MOTIVO_KARDEX.salida  ? 2 : 0}`,
+    `es                 = ${
+      jsonData.es === MOTIVO_KARDEX.entrada
+        ? 1
+        : jsonData.es === MOTIVO_KARDEX.salida
+        ? 2
+        : 0
+    }`,
     `motivo             = ${jsonData.motivo}`,
     `cantidad           = ${jsonData.cantidad}`,
     `valor_neto         = ${jsonData.valor_neto}`,
@@ -107,12 +121,12 @@ export function transformUpdateQuery(
 
 interface IUserFormPrps {
   closeModal: () => void;
-  data?        : any[];
-  label        : string;
-  isEditting?  : any;
+  data?: any[];
+  label: string;
+  isEditting?: any;
   selectedRows?: any;
-  setEntities? : any;
-  params?      : any;
+  setEntities?: any;
+  params?: any;
 }
 
 const FCristalesKardex: React.FC<IUserFormPrps> = React.memo(
@@ -127,7 +141,7 @@ const FCristalesKardex: React.FC<IUserFormPrps> = React.memo(
       firstInputRef,
       focusFirstInput,
       secondInputRef,
-      focusSecondInput
+      focusSecondInput,
     } = useCrud(strBaseUrl);
     const [blnKeep, setblnKeep] = useState(false);
     // const intId = data && data[EnumGrid.cristal];
@@ -141,14 +155,14 @@ const FCristalesKardex: React.FC<IUserFormPrps> = React.memo(
     });
 
     const resetTextFields = React.useCallback(() => {
-      setValue("cristal"        , 0);
-      setValue("fecha"          , "undefined");
-      setValue("descripcion"    , "");
-      setValue("cantidad"       , 0);
-      setValue("numero_factura" , 0);
-      setValue("valor_neto"     , 0);
-      setValue("ot"             , 0);
-      setValue("observaciones"  , "");
+      setValue("cristal", 0);
+      setValue("fecha", "undefined");
+      setValue("descripcion", "");
+      setValue("cantidad", 0);
+      setValue("numero_factura", 0);
+      setValue("valor_neto", 0);
+      setValue("ot", 0);
+      setValue("observaciones", "");
 
       if (firstInputRef.current) {
         const firstInput = firstInputRef.current.querySelector(
@@ -254,12 +268,8 @@ const FCristalesKardex: React.FC<IUserFormPrps> = React.memo(
     //   focusFirstInput("codigo");
     // }, []);
     useEffect(() => {
-      isEditting
-         ? focusSecondInput("es")
-         : focusFirstInput("cristal")
+      isEditting ? focusSecondInput("es") : focusFirstInput("cristal");
     }, []);
-
-
 
     return (
       <div className="useFormContainer useFormContainer3">
@@ -271,134 +281,136 @@ const FCristalesKardex: React.FC<IUserFormPrps> = React.memo(
         <h1 className="userFormLabel">{label}</h1>
 
         <form
-          onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
+          onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))}
+          className="userFormulario"
+        >
           <div className="userFormularioContainer">
             <div className="input-container">
               <TextInputComponent
-                type    ="number"
-                label   ="Cristal"
-                name    ="cristal"
-                data    ={data && data[EnumGrid.cristal]}
-                control ={control}
-                error   ={!isEditting && errors.cristal}
+                type="number"
+                label="Cristal"
+                name="cristal"
+                data={data && data[EnumGrid.cristal]}
+                control={control}
+                error={!isEditting && errors.cristal}
                 inputRef={firstInputRef}
                 onlyRead={isEditting}
               />
               <TextInputComponent
-                type    ={isEditting ? "datetime" : "date"}
-                label   ="Fecha"
-                name    ="fecha"
-                data    ={data && data[EnumGrid.fecha]}
-                control ={control}
-                error   ={!isEditting && errors.fecha}
+                type={isEditting ? "datetime" : "date"}
+                label="Fecha"
+                name="fecha"
+                data={data && data[EnumGrid.fecha]}
+                control={control}
+                error={!isEditting && errors.fecha}
                 onlyRead={isEditting}
               />
-          </div>
-          <div className="input-container">
-              <TextInputComponent
-                type    ="text"
-                label   ="Descripcion"
-                name    ="descripcion"
-                data    ={data && data[EnumGrid.descripcion]}
-                control ={control}
-                onlyRead={isEditting}
-              />
+            </div>
             <div className="input-container">
-              <RadioButtonComponent
-                control   ={control}
-                label     ="Tipo de Motivo"
-                name      ="es"
-                data      ={data && data[EnumGrid.es]}
-                options   ={[MOTIVO_KARDEX.entrada, MOTIVO_KARDEX.salida]}
-                error     ={!isEditting && errors.es}
-                horizontal={false}
-                inputRef    ={secondInputRef}    
+              <TextInputComponent
+                type="text"
+                label="Descripcion"
+                name="descripcion"
+                data={data && data[EnumGrid.descripcion]}
+                control={control}
+                onlyRead={isEditting}
               />
-          </div>
-              <SelectInputComponent
-                label       ="Motivo"
-                name        ="motivo"
-                showRefresh ={true}
-                data        ={data && data[EnumGrid.motivo_id]}
-                control     ={control}
-                entidad     ={["/api/tipos/", "02", "KardexMotivos"]}
-                error       ={!isEditting && errors.motivo}
-              />
-                <SelectInputComponent
-                  label       ="Almacén"
-                  name        ="almacen"
-                  showRefresh ={true}
-                  data        ={data && data[EnumGrid.almacen_id]}
-                  control     ={control}
-                  entidad     ={["/api/almacenes/", "02"]}
-                  error       ={!isEditting && errors.almacen}
-                />
-          </div>
-          <div className="input-container">
-                <TextInputComponent 
-                  type    ="number"
-                  label   ="Factura"
-                  name    ="numero_factura"
-                  data    ={data && data[EnumGrid.numero_factura]}
-                  control ={control}
-                  error   ={!isEditting && errors.numero_factura}
-                  className="input"
-                  />
-                <SelectInputComponent
-                    label       ="Provedor"
-                    name        ="proveedor"
-                    showRefresh ={true}
-                    data        = {data && data[EnumGrid.proveedor_id]}
-                    control     ={control}
-                    entidad     ={["/api/proveedores/", "02"]}
-                    error       ={!isEditting && errors.proveedor}
-                    customWidth ={""}
-                  />
-                <TextInputComponent
-                  type    ="number"
-                  label   ="$ Neto Unitario"
-                  name    ="valor_neto"
-                  data    ={data && data[EnumGrid.valor_neto]}
-                  control ={control}
-                  error   ={!isEditting && errors.valor_neto}
-                  className="input"
-                />
-                <TextInputComponent
-                  type    ="number"
-                  label   ="Cantidad"
-                  name    ="cantidad"
-                  data    ={data && data[EnumGrid.cantidad]}
-                  control ={control}
-                  error   ={!isEditting && errors.cantidad}
-                />
-          </div>
-          <div className="input-container">
-              <SelectInputComponent
-                label       ="Almacén Destino"
-                name        ="almacen_relacionado"
-                showRefresh ={true}
-                data        ={data && data[EnumGrid.almacen_relacionado_id]}
-                control     ={control}
-                entidad     ={["/api/almacenes/", "02"]}
-                error       ={!isEditting && errors.almacen_relacionado}
-              />
-                <TextInputComponent
-                  type    ="number"
-                  label   ="OT"
-                  name    ="ot"
-                  data    ={data && data[EnumGrid.ot]}
-                  control ={control}
-                  error   ={!isEditting && errors.ot}
-                />
-                <TextInputComponent
-                  type    ="text"
-                  label   ="Observaciones"
-                  name    ="observaciones"
-                  data    ={data && data[EnumGrid.observaciones]}
-                  control ={control}
-                  error   ={!isEditting && errors.observaciones}
+              <div className="input-container">
+                <RadioButtonComponent
+                  control={control}
+                  label="Tipo de Motivo"
+                  name="es"
+                  data={data && data[EnumGrid.es]}
+                  options={[MOTIVO_KARDEX.entrada, MOTIVO_KARDEX.salida]}
+                  error={!isEditting && errors.es}
+                  horizontal={false}
+                  inputRef={secondInputRef}
                 />
               </div>
+              <SelectInputComponent
+                label="Motivo"
+                name="motivo"
+                showRefresh={true}
+                data={data && data[EnumGrid.motivo_id]}
+                control={control}
+                entidad={["/api/tipos/", "02", "KardexMotivos"]}
+                error={!isEditting && errors.motivo}
+              />
+              <SelectInputComponent
+                label="Almacén"
+                name="almacen"
+                showRefresh={true}
+                data={data && data[EnumGrid.almacen_id]}
+                control={control}
+                entidad={["/api/almacenes/", "02"]}
+                error={!isEditting && errors.almacen}
+              />
+            </div>
+            <div className="input-container">
+              <TextInputComponent
+                type="number"
+                label="Factura"
+                name="numero_factura"
+                data={data && data[EnumGrid.numero_factura]}
+                control={control}
+                error={!isEditting && errors.numero_factura}
+                className="input"
+              />
+              <SelectInputComponent
+                label="Provedor"
+                name="proveedor"
+                showRefresh={true}
+                data={data && data[EnumGrid.proveedor_id]}
+                control={control}
+                entidad={["/api/proveedores/", "02"]}
+                error={!isEditting && errors.proveedor}
+                customWidth={""}
+              />
+              <TextInputComponent
+                type="number"
+                label="$ Neto Unitario"
+                name="valor_neto"
+                data={data && data[EnumGrid.valor_neto]}
+                control={control}
+                error={!isEditting && errors.valor_neto}
+                className="input"
+              />
+              <TextInputComponent
+                type="number"
+                label="Cantidad"
+                name="cantidad"
+                data={data && data[EnumGrid.almacen_id]}
+                control={control}
+                error={!isEditting && errors.cantidad}
+              />
+            </div>
+            <div className="input-container">
+              <SelectInputComponent
+                label="Almacén Destino"
+                name="almacen_relacionado"
+                showRefresh={true}
+                data={data && data[EnumGrid.almacen_relacionado_id]}
+                control={control}
+                entidad={["/api/almacenes/", "02"]}
+                error={!isEditting && errors.almacen_relacionado}
+              />
+              <TextInputComponent
+                type="number"
+                label="OT"
+                name="ot"
+                data={data && data[EnumGrid.ot]}
+                control={control}
+                error={!isEditting && errors.ot}
+              />
+              <TextInputComponent
+                type="text"
+                label="Observaciones"
+                name="observaciones"
+                data={data && data[EnumGrid.observaciones]}
+                control={control}
+                error={!isEditting && errors.observaciones}
+              />
+            </div>
           </div>
 
           <button type="submit" className="userFormBtnSubmit">

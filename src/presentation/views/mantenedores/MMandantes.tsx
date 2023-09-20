@@ -13,21 +13,22 @@ import FMandantes from "../forms/FMandantes";
 import { TITLES, table_head_mandantes } from "../../utils";
 
 export enum EnumGrid {
-  codigo      = 1,
-  rut         = 2,
-  nombre      = 3,
-  region_id   = 4,
-  region      = 5,
-  provincia_id= 6,
-  provincia   = 7,
-  comuna_id   = 8,
-  comuna      = 9
+  codigo = 1,
+  rut = 2,
+  nombre = 3,
+  region_id = 4,
+  region = 5,
+  provincia_id = 6,
+  provincia = 7,
+  comuna_id = 8,
+  comuna = 9,
 }
 
-const strEntidad      = "Mandante ";
+const strEntidad = "Mandante ";
 const strEntidadExcel = "Mandantes";
-const strBaseUrl      = "/api/mandantes/";
-const strQuery        = "01";
+const strBaseUrl = "/api/mandantes/";
+const strQuery = "01";
+const idMenu = 14;
 
 type PrimaryKey = {
   pk1: string;
@@ -84,10 +85,10 @@ const MMandantes: React.FC = () => {
 
       <div className="mantenedorHead width70">
         <PrimaryKeySearch
-          baseUrl         ={strBaseUrl}
-          setParams       ={setParams}
-          updateParams    ={updateParams}
-          setEntities     ={setEntities}
+          baseUrl={strBaseUrl}
+          setParams={setParams}
+          updateParams={updateParams}
+          setEntities={setEntities}
           primaryKeyInputs={[
             { name: "_p1", label: "Código", type: "text" },
             { name: "_p2", label: "Nombre", type: "text" },
@@ -95,59 +96,61 @@ const MMandantes: React.FC = () => {
         />
 
         <PrimaryButtonsComponent
-          handleAddPerson     ={openModal}
+          handleAddPerson={openModal}
           handleDeleteSelected={handleDeleteSelected}
-          handleRefresh       ={resetEntities}
-          params              ={params}
-          pkToDelete          ={pkToDelete}
-          strEntidad          ={strEntidadExcel}
-          strBaseUrl          ={strBaseUrl}
-          showAddButton       ={true}
-          showExportButton    ={true}
-          showDeleteButton    ={true}
-          showForwardButton   ={false}
-          showRefreshButton   ={true}
-          comilla             ={true}
+          handleRefresh={resetEntities}
+          params={params}
+          pkToDelete={pkToDelete}
+          strEntidad={strEntidadExcel}
+          strBaseUrl={strBaseUrl}
+          showAddButton={true}
+          showExportButton={true}
+          showDeleteButton={true}
+          showForwardButton={false}
+          showRefreshButton={true}
+          comilla={true}
+          idMenu={idMenu}
         />
       </div>
 
       <div className="scroll">
         <TableComponent
-          handleSelectChecked     ={handleSelect}
+          handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
-          toggleEditModal         ={toggleEditModal}
-          handleDeleteSelected    ={handleDeleteSelected}
-          selectedRows            ={selectedRows}
-          pkToDelete              ={pkToDelete}
-          setSelectedRows         ={setSelectedRows}
-          entidad                 ={strEntidad}
-          data                    ={entities}
-          tableHead               ={table_head_mandantes}
-          showEditButton          ={true}
-          showDeleteButton        ={false}
+          toggleEditModal={toggleEditModal}
+          handleDeleteSelected={handleDeleteSelected}
+          selectedRows={selectedRows}
+          pkToDelete={pkToDelete}
+          setSelectedRows={setSelectedRows}
+          entidad={strEntidad}
+          data={entities}
+          tableHead={table_head_mandantes}
+          showEditButton={true}
+          showDeleteButton={false}
+          idMenu={idMenu}
         />
       </div>
 
       {isModalInsert && (
         <FMandantes
-          label       ={`${TITLES.nuevo} ${strEntidad}`}
-          closeModal  ={closeModal}
+          label={`${TITLES.nuevo} ${strEntidad}`}
+          closeModal={closeModal}
           selectedRows={selectedRows}
-          setEntities ={setEntities}
-          params      ={params}
-          isEditting  ={false}
+          setEntities={setEntities}
+          params={params}
+          isEditting={false}
         />
       )}
 
       {isModalEdit && (
         <FMandantes
-          label       ={`${TITLES.editar} ${strEntidad}`}
+          label={`${TITLES.editar} ${strEntidad}`}
           selectedRows={selectedRows}
-          setEntities ={setEntities}
-          params      ={params}
-          data        ={entity}
-          closeModal  ={closeModal}
-          isEditting  ={true}
+          setEntities={setEntities}
+          params={params}
+          data={entity}
+          closeModal={closeModal}
+          isEditting={true}
         />
       )}
     </div>

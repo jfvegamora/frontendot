@@ -7,16 +7,15 @@ interface Props {
   privateValidation: boolean;
 }
 
-
 export const hasRequiredPermissions = (
   routeId: string,
   userPermissions: string[]
 ) => {
   if (!routeId) return true;
 
-  return userPermissions.includes(routeId);
+  const result = userPermissions.includes(routeId);
+  return result;
 };
-
 
 const AuthGuard: React.FC<Props> = ({ privateValidation }) => {
   const userState = useAppSelector((store: AppStore) => store.user);
@@ -26,7 +25,9 @@ const AuthGuard: React.FC<Props> = ({ privateValidation }) => {
     navigate(`/${PublicRoutes.FORGOTPASSWORD}`);
   }
 
-  const permisosIds = userState?.permisos ? Object.keys(userState.permisos) : [];
+  const permisosIds = userState?.permisos
+    ? Object.keys(userState.permisos)
+    : [];
 
   if (privateValidation) {
     const currentRoute = privateRoutes.find(
@@ -34,10 +35,7 @@ const AuthGuard: React.FC<Props> = ({ privateValidation }) => {
     );
 
     if (currentRoute && currentRoute.id) {
-      const hasAccess = hasRequiredPermissions(
-        currentRoute.id,
-        permisosIds
-      );
+      const hasAccess = hasRequiredPermissions(currentRoute.id, permisosIds);
 
       if (!hasAccess) {
         navigate(`/${PublicRoutes.FORGOTPASSWORD}`);
@@ -49,16 +47,6 @@ const AuthGuard: React.FC<Props> = ({ privateValidation }) => {
 };
 
 export default AuthGuard;
-
-
-
-
-
-
-
-
-
-
 
 // const PrivateValidationFragment = <Outlet />;
 // const PublicValidationFragment = <Navigate replace to={PublicRoutes.LOGIN} />;

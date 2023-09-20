@@ -4,7 +4,7 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect } from "react";
-import {TextInputComponent } from "../../components";
+import { TextInputComponent } from "../../components";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationOftalmologosSchema } from "../../utils/validationFormSchemas";
@@ -18,10 +18,10 @@ const strBaseUrl = "/api/oftalmologos/";
 const strEntidad = "Oftalmólogo ";
 
 export interface InputData {
-  rut           : string | undefined;
-  nombre        : string | undefined;
-  telefono      : string | undefined;
-  correo        : string | undefined;
+  rut: string | undefined;
+  nombre: string | undefined;
+  telefono: string | undefined;
+  correo: string | undefined;
   valor_consulta: number | undefined;
 }
 
@@ -33,8 +33,7 @@ interface OutputData {
 }
 
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
-  const _p1 = 
-  ` '${jsonData.rut}', 
+  const _p1 = ` '${jsonData.rut}', 
     '${jsonData.nombre}', 
     '${jsonData.telefono}', 
     '${jsonData.correo}', 
@@ -49,7 +48,7 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
 }
 
 export function transformUpdateQuery(
-  jsonData  : InputData,
+  jsonData: InputData,
   primaryKey: string
 ): OutputData | null {
   const fields = [
@@ -79,12 +78,12 @@ export function transformUpdateQuery(
 
 interface IUserFormPrps {
   closeModal: () => void;
-  data?        : any[];
-  label        : string;
-  isEditting?  : any;
+  data?: any[];
+  label: string;
+  isEditting?: any;
   selectedRows?: any;
-  setEntities? : any;
-  params?      : any;
+  setEntities?: any;
+  params?: any;
 }
 
 const FOftalmologos: React.FC<IUserFormPrps> = React.memo(
@@ -111,15 +110,15 @@ const FOftalmologos: React.FC<IUserFormPrps> = React.memo(
     });
 
     const resetTextFields = React.useCallback(() => {
-      setValue("rut"            , "");
-      setValue("nombre"         , "");
-      setValue("telefono"       , "");
-      setValue("correo"         , "");
-      setValue("valor_consulta" , "");
+      setValue("rut", "");
+      setValue("nombre", "");
+      setValue("telefono", "");
+      setValue("correo", "");
+      setValue("valor_consulta", 0);
+
       if (firstInputRef.current) {
-        const firstInput = firstInputRef.current.querySelector(
-          'input[name="rut"]'
-        );
+        const firstInput =
+          firstInputRef.current.querySelector('input[name="rut"]');
         if (firstInput) {
           firstInput.focus();
         }
@@ -240,49 +239,48 @@ const FOftalmologos: React.FC<IUserFormPrps> = React.memo(
           className="userFormulario"
         >
           <div className="userFormularioContainer">
-          <TextInputComponent
-              type    ="text"
-              label   ="RUT"
-              name    ="rut"
-              data    ={data && data[EnumGrid.rut]}
-              control ={control}
-              error   ={!isEditting && errors.rut}
+            <TextInputComponent
+              type="text"
+              label="RUT"
+              name="rut"
+              data={data && data[EnumGrid.rut]}
+              control={control}
+              error={!isEditting && errors.rut}
               inputRef={firstInputRef}
             />
             <TextInputComponent
-              type    ="text"
-              label   ="Nombre"
-              name    ="nombre"
-              data    ={data && data[EnumGrid.nombre]}
-              control ={control}
-              error   ={!isEditting && errors.nombre}
+              type="text"
+              label="Nombre"
+              name="nombre"
+              data={data && data[EnumGrid.nombre]}
+              control={control}
+              error={!isEditting && errors.nombre}
             />
             <div className="w-full "> </div>
 
             <TextInputComponent
-              type    ="text"
-              label   ="Teléfono"
-              name    ="telefono"
-              data    ={data && data[EnumGrid.telefono]}
-              control ={control}
+              type="text"
+              label="Teléfono"
+              name="telefono"
+              data={data && data[EnumGrid.telefono]}
+              control={control}
             />
             <TextInputComponent
-              type    ="email"
-              label   ="Correo"
-              name    ="correo"
-              data    ={data && data[EnumGrid.correo]}
-              control ={control}
+              type="email"
+              label="Correo"
+              name="correo"
+              data={data && data[EnumGrid.correo]}
+              control={control}
               // onlyRead={isEditting}
             />
             <TextInputComponent
-              type    ="number"
-              label   ="Valor Consulta"
-              name    ="valor_consulta"
-              data    ={data && data[EnumGrid.valor_consulta]}
-              control ={control}
-              error   ={!isEditting && errors.valor_consulta}
+              type="number"
+              label="Valor Consulta"
+              name="valor_consulta"
+              data={data && data[EnumGrid.valor_consulta]}
+              control={control}
+              error={!isEditting && errors.valor_consulta}
             />
-
           </div>
 
           <button type="submit" className="userFormBtnSubmit">

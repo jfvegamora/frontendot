@@ -4,10 +4,7 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect } from "react";
-import {
-  SelectInputComponent,
-  TextInputComponent,
-} from "../../components";
+import { SelectInputComponent, TextInputComponent } from "../../components";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationArmazonesSchema } from "../../utils/validationFormSchemas";
@@ -21,18 +18,18 @@ const strBaseUrl = "/api/armazones/";
 const strEntidad = "Armazón ";
 
 export interface InputData {
-  codigo        : number | undefined,
-  tipo          : string | undefined,
-  material      : string | undefined,
-  marca         : string | undefined,
-  modelo        : string | undefined,
-  color         : string | undefined,
-  aro           : number | undefined,
-  puente        : number | undefined,
-  diagonal      : number | undefined,
-  brazo         : number | undefined,
-  uso           : string | undefined,
-  stock_minimo  : number | undefined,
+  codigo: number | undefined;
+  tipo: string | undefined;
+  material: string | undefined;
+  marca: string | undefined;
+  modelo: string | undefined;
+  color: string | undefined;
+  aro: number | undefined;
+  puente: number | undefined;
+  diagonal: number | undefined;
+  brazo: number | undefined;
+  uso: string | undefined;
+  stock_minimo: number | undefined;
 }
 
 interface OutputData {
@@ -69,18 +66,18 @@ export function transformUpdateQuery(
   primaryKey: number
 ): OutputData | null {
   const fields = [
-    `tipo         =  ${jsonData.tipo}`, 
-    `marca        =  ${jsonData.marca}`, 
-    `modelo       = '${jsonData.modelo}'`, 
-    `color        = '${jsonData.color}'`, 
-    `material     =  ${jsonData.material}`, 
-    `aro          =  ${jsonData.aro}`, 
-    `puente       =  ${jsonData.puente}`, 
-    `diagonal     =  ${jsonData.diagonal}`, 
-    `brazo        =  ${jsonData.brazo}`, 
-    `uso          =  ${jsonData.uso}`, 
+    `tipo         =  ${jsonData.tipo}`,
+    `marca        =  ${jsonData.marca}`,
+    `modelo       = '${jsonData.modelo}'`,
+    `color        = '${jsonData.color}'`,
+    `material     =  ${jsonData.material}`,
+    `aro          =  ${jsonData.aro}`,
+    `puente       =  ${jsonData.puente}`,
+    `diagonal     =  ${jsonData.diagonal}`,
+    `brazo        =  ${jsonData.brazo}`,
+    `uso          =  ${jsonData.uso}`,
     `stock_minimo =  ${jsonData.stock_minimo}`,
-];
+  ];
 
   const filteredFields = fields.filter(
     (field) => field !== null && field !== ""
@@ -100,12 +97,12 @@ export function transformUpdateQuery(
 
 interface IUserFormPrps {
   closeModal: () => void;
-  data?         : any[];
-  label         : string;
-  isEditting?   : any;
-  selectedRows? : any;
-  setEntities?  : any;
-  params?       : any;
+  data?: any[];
+  label: string;
+  isEditting?: any;
+  selectedRows?: any;
+  setEntities?: any;
+  params?: any;
 }
 
 const FArmazones: React.FC<IUserFormPrps> = React.memo(
@@ -120,7 +117,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
       firstInputRef,
       focusFirstInput,
       secondInputRef,
-      focusSecondInput
+      focusSecondInput,
     } = useCrud(strBaseUrl);
     const [blnKeep, setblnKeep] = useState(false);
     const intId = data && data[EnumGrid.codigo];
@@ -134,15 +131,15 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
     });
 
     const resetTextFields = React.useCallback(() => {
-      setValue("codigo"      , 0);
-      setValue("modelo"      , "");
-      setValue("color"       , "");
-      setValue("aro"         , 0);
-      setValue("puente"      , 0);
-      setValue("diagonal"    , 0);
-      setValue("brazo"       , 0);
+      setValue("codigo", 0);
+      setValue("modelo", "");
+      setValue("color", "");
+      setValue("aro", 0);
+      setValue("puente", 0);
+      setValue("diagonal", 0);
+      setValue("brazo", 0);
       setValue("stock_minimo", 0);
-  
+
       if (firstInputRef.current) {
         const firstInput = firstInputRef.current.querySelector(
           'input[name="codigo"]'
@@ -244,14 +241,11 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
     );
 
     useEffect(() => {
-      isEditting
-         ? focusSecondInput("tipo")
-         : focusFirstInput("codigo")
+      isEditting ? focusSecondInput("tipo") : focusFirstInput("codigo");
     }, []);
 
     return (
       <div className="useFormContainer useFormContainer3">
-
         <div className="userFormBtnCloseContainer">
           <button onClick={closeModal} className="userFormBtnClose">
             X
@@ -272,110 +266,118 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
           <div className="userFormularioContainer">
             <div className="userFormularioRow">
               <TextInputComponent
-                type      = "number"
-                label     = "Código"
-                name      = "codigo"
-                data      = {data && data[EnumGrid.codigo]}
-                control   = {control}
-                error     = {!isEditting && errors.codigo}
-                inputRef  = {firstInputRef}
-                onlyRead  = {isEditting}
+                type="number"
+                label="Código"
+                name="codigo"
+                data={data && data[EnumGrid.codigo]}
+                control={control}
+                error={!isEditting && errors.codigo}
+                inputRef={firstInputRef}
+                onlyRead={isEditting}
               />
-            <SelectInputComponent
-                label       = "Tipo"
-                name        = "tipo"
-                showRefresh = {true}
-                data        = {data && data[EnumGrid.armazon_tipo_id]}
-                control     = {control}
-                entidad     = {["/api/tipos/", "02", "ArmazonesTipos"]}
-                error       = {!isEditting && errors.tipo}
-                customWidth = {"345px"}
-                inputRef    = {secondInputRef}    
+              <div className="w-[37%]">
+                <SelectInputComponent
+                  label="Tipo"
+                  name="tipo"
+                  showRefresh={true}
+                  data={data && data[EnumGrid.armazon_tipo_id]}
+                  control={control}
+                  entidad={["/api/tipos/", "02", "ArmazonesTipos"]}
+                  error={!isEditting && errors.tipo}
+                  customWidth={"345px"}
+                  inputRef={secondInputRef}
                 />
-            <SelectInputComponent
-                label       = "Material"
-                name        = "material"
-                showRefresh = {true}
-                data        = {data && data[EnumGrid.armazon_material_id]}
-                control     = {control}
-                entidad     = {["/api/tipos/", "02", "ArmazonesMaterial"]}
-                error       = {!isEditting && errors.material}
-                customWidth = {"345px"}
-              />
+              </div>
+              <div className="w-[37%]">
+                <SelectInputComponent
+                  label="Material"
+                  name="material"
+                  showRefresh={true}
+                  data={data && data[EnumGrid.armazon_material_id]}
+                  control={control}
+                  entidad={["/api/tipos/", "02", "ArmazonesMaterial"]}
+                  error={!isEditting && errors.material}
+                  customWidth={"345px"}
+                />
+              </div>
             </div>
             <div className="userFormularioRow">
-              <SelectInputComponent
-                label       = "Marca"
-                name        = "marca"
-                showRefresh = {true}
-                data        = {data && data[EnumGrid.marca_id]}
-                control     = {control}
-                entidad     = {["/api/marcas/", "02"]}
-                error       = {!isEditting && errors.marca}
-                customWidth = {"345px"}
+              <div className="w-[37%]">
+                <SelectInputComponent
+                  label="Marca"
+                  name="marca"
+                  showRefresh={true}
+                  data={data && data[EnumGrid.marca_id]}
+                  control={control}
+                  entidad={["/api/marcas/", "02"]}
+                  error={!isEditting && errors.marca}
+                  customWidth={"345px"}
+                />
+              </div>
+              <TextInputComponent
+                type="text"
+                label="Modelo"
+                name="modelo"
+                data={data && data[EnumGrid.modelo]}
+                control={control}
+                error={!isEditting && errors.modelo}
               />
               <TextInputComponent
-                type    = "text"
-                label   = "Modelo"
-                name    = "modelo"
-                data    = {data && data[EnumGrid.modelo]}
-                control = {control}
-                error   = {!isEditting && errors.modelo}
-              />
-              <TextInputComponent
-                type    = "text"
-                label   = "Color"
-                name    = "color"
-                data    = {data && data[EnumGrid.color]}
-                control = {control}
-                error   = {!isEditting && errors.color}
-              />
-            </div>
-            <div className="userFormularioRow">
-              <TextInputComponent
-                type    = "number"
-                label   = "Aro"
-                name    = "aro"
-                data    = {data && data[EnumGrid.aro]}
-                control = {control}
-                error   = {!isEditting && errors.aro}
-              />
-              <TextInputComponent
-                type    = "number"
-                label   = "Puente"
-                name    = "puente"
-                data    = {data && data[EnumGrid.puente]}
-                control = {control}
-                error   = {!isEditting && errors.puente}
-              />
-              <TextInputComponent
-                type    = "number"
-                label   = "Brazo"
-                name    = "brazo"
-                data    = {data && data[EnumGrid.brazo]}
-                control = {control}
-                error   = {!isEditting && errors.brazo}
+                type="text"
+                label="Color"
+                name="color"
+                data={data && data[EnumGrid.color]}
+                control={control}
+                error={!isEditting && errors.color}
               />
             </div>
             <div className="userFormularioRow">
               <TextInputComponent
-                type    = "number"
-                label   = "Diagonal"
-                name    = "diagonal"
-                data    = {data && data[EnumGrid.diagonal]}
-                control = {control}
-                error   = {!isEditting && errors.diagonal}
+                type="number"
+                label="Aro"
+                name="aro"
+                data={data && data[EnumGrid.aro]}
+                control={control}
+                error={!isEditting && errors.aro}
               />
-            <SelectInputComponent
-                label       = "Uso"
-                name        = "uso"
-                showRefresh = {true}
-                data        = {data && data[EnumGrid.armazon_uso_id]}
-                control     = {control}
-                entidad     = {["/api/tipos/", "02", "ArmazonesUsos"]}
-                error       = {!isEditting && errors.uso}
-                customWidth = {"345px"}
+              <TextInputComponent
+                type="number"
+                label="Puente"
+                name="puente"
+                data={data && data[EnumGrid.puente]}
+                control={control}
+                error={!isEditting && errors.puente}
               />
+              <TextInputComponent
+                type="number"
+                label="Brazo"
+                name="brazo"
+                data={data && data[EnumGrid.brazo]}
+                control={control}
+                error={!isEditting && errors.brazo}
+              />
+            </div>
+            <div className="userFormularioRow">
+              <TextInputComponent
+                type="number"
+                label="Diagonal"
+                name="diagonal"
+                data={data && data[EnumGrid.diagonal]}
+                control={control}
+                error={!isEditting && errors.diagonal}
+              />
+              <div className="w-[37%]">
+                <SelectInputComponent
+                  label="Uso"
+                  name="uso"
+                  showRefresh={true}
+                  data={data && data[EnumGrid.armazon_uso_id]}
+                  control={control}
+                  entidad={["/api/tipos/", "02", "ArmazonesUsos"]}
+                  error={!isEditting && errors.uso}
+                  customWidth={"345px"}
+                />
+              </div>
               <TextInputComponent
                 type="number"
                 label="Stock Mínimo"

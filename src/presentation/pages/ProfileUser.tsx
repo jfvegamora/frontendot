@@ -1,118 +1,159 @@
-import { yupResolver } from '@hookform/resolvers/yup';
-import React from 'react'
+import { yupResolver } from "@hookform/resolvers/yup";
+import React from "react";
 import { useForm } from "react-hook-form";
-import { validationProfileUserSchema } from '../utils';
-import { SelectInputComponent, TextInputComponent } from '../components';
-
-
+import { validationProfileUserSchema } from "../utils";
+import { SelectInputComponent, TextInputComponent } from "../components";
 
 import bcrypt from "bcryptjs-react";
-import { AppStore, useAppSelector } from '../../redux/store';
-import { useNavigate } from 'react-router-dom';
+import { AppStore, useAppSelector } from "../../redux/store";
+import { useNavigate } from "react-router-dom";
+import { useCrud } from "../hooks";
 
-
-const ProfileUser:React.FC = () => {
+const ProfileUser: React.FC = () => {
   const userState = useAppSelector((store: AppStore) => store.user);
-  const navigate = useNavigate()
-  
-  const schema = validationProfileUserSchema()
-    const {
-        control,
-        handleSubmit,
-        formState: { errors },
-      } = useForm({
-        resolver: yupResolver(schema),
+  const navigate = useNavigate();
+  const { loginEntity, editEntity } = useCrud("/api/usuarios/");
+
+  const schema = validationProfileUserSchema();
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  const handleChange = async (data: {
+    nombre: string;
+    correo: string;
+    telefono: string;
+    password: string;
+    newPassword: string;
+    confirmNewPassword: string;
+  }) => {
+    try {
+      if (data.newPassword !== data.confirmNewPassword) {
+        return alert("password deben coincidir");
+      }
+      const result = await loginEntity({
+        _p1: data.correo,
+        _p3: data.password,
       });
 
-    const handleChange = (data: { nombre: string; correo: string; telefono: string; password: string; newPassword: string; confirmNewPassword: string; }) => {
-        console.log('data', data)
-        const hash = bcrypt.hashSync(data.newPassword, 10)
+      if (!result[0]) return alert("Contraseña actual incorrecta");
 
-        console.log('pass hash', hash)
+      const hash = bcrypt.hashSync(data.newPassword, 10);
+
+      const fields = [
+        `nombre   ='${data.nombre}'`,
+        `telefono ='${data.telefono}'`,
+        `correo   ='${data.correo}'`,
+        `password ='${hash}'`,
+      ];
+
+      const _p1 = fields.join(",");
+      const updatePassword = {
+        query: "04",
+        _p1,
+        _p2: userState?.id.toString(),
+        _p3: "",
+      };
+
+      console.log(updatePassword);
+      const resultPasswordChange = await editEntity(updatePassword);
+      alert("contraseña cambiada correctamente");
+      console.log(resultPasswordChange);
+      console.log(fields);
+    } catch (error) {
+      console.log(error);
+      throw error;
     }
-    React.useEffect(()=>{
-      console.log(userState?.nombre)
-      if(!userState?.nombre){
-        return navigate("/login")
-      }
-    },[])
+  };
 
-    return (
-    <div className='useFormContainer'>
-        <h1>Perfil de Usuario</h1>
+  React.useEffect(() => {
+    if (!userState?.nombre) {
+      return navigate("/login");
+    }
+  }, []);
+  console.log(userState);
 
-        <form onSubmit={handleSubmit((data)=>handleChange(data))}>
-            <div className='flex w-1/2'>
-                <TextInputComponent
-                type='text'
-                label="Nombre"
-                name="nombre"
-                control={control}
-                error={errors.nombre}
-                />
-                <TextInputComponent
-                type='mail'
-                label="Correo"
-                name="correo"
-                control={control}
-                error={errors.correo}
-                />
-            </div>
+  return (
+    <div className="useFormContainer mt-4">
+      <h1 className="userFormLabel">Perfil de Usuario</h1>
 
-            <div className="flex w-1/2">
-            <SelectInputComponent
-                label="Cargo"
-                name="cargo"
-                showRefresh={false}
-                // data={data && data[EnumGrid.Cargo_id]}
-                control={control}
-                entidad={["/api/cargos/", "02"]}
-                // readOnly={true}
-                customWidth={"345px"}
-              />
+      <form onSubmit={handleSubmit((data) => handleChange(data))}>
+        <div className="w-full">
+          <TextInputComponent
+            type="text"
+            label="Nombre"
+            name="nombre"
+            data={userState && userState.nombre}
+            control={control}
+            error={errors.nombre}
+          />
+        </div>
+        <TextInputComponent
+          type="mail"
+          label="Correo"
+          name="correo"
+          control={control}
+          data={userState && userState.correo}
+          error={errors.correo}
+        />
 
-            <TextInputComponent
-                type='text'
-                label="Telefono"
-                name="telefono"
-                control={control}
-                error={errors.telefono}
-                />
-            </div>
+        <div className="w-full">
+          <SelectInputComponent
+            label="Cargo"
+            name="cargo"
+            showRefresh={false}
+            data={userState && userState.cargo}
+            control={control}
+            entidad={["/api/cargos/", "02"]}
+            readOnly={true}
+            customWidth={"345px"}
+          />
+        </div>
 
-            <div className="flex w-1/2">
-            <TextInputComponent
-                type='password'
-                label="Contraseña Actual"
-                name="password"
-                control={control}
-                error={errors.password}
-                />
-            </div>
+        <TextInputComponent
+          type="text"
+          label="Telefono"
+          name="telefono"
+          control={control}
+          data={userState && userState.telefono}
+          error={errors.telefono}
+        />
+        <div className="w-full">
+          <TextInputComponent
+            type="password"
+            label="Contraseña Actual"
+            name="password"
+            control={control}
+            error={errors.password}
+          />
+        </div>
 
-
-            <div className="flex">
-            <TextInputComponent
-                type='password'
-                label="Nueva Contraseña"
-                name="newPassword"
-                control={control}
-                error={errors.newPassword}
-                />
-                <TextInputComponent
-                type='password'
-                label="Password"
-                name="confirmNewPassword"
-                control={control}
-                error={errors.confirmNewPassword}
-                />
-            </div>
-            <button type="submit" className="userFormBtnSubmit">
-            Guardar
-          </button>
-        </form>
+        <div className="flex">
+          <TextInputComponent
+            type="password"
+            label="Nueva Contraseña"
+            name="newPassword"
+            control={control}
+            error={errors.newPassword}
+          />
+          <TextInputComponent
+            type="password"
+            label=" Confirmar nueva password"
+            name="confirmNewPassword"
+            control={control}
+            error={errors.confirmNewPassword}
+          />
+        </div>
+        <button type="submit" className="userFormBtnSubmit">
+          Guardar
+        </button>
+      </form>
     </div>
-  )
-}
+  );
+};
 
-export default ProfileUser
+export default ProfileUser;

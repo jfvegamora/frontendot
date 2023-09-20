@@ -26,7 +26,7 @@ interface ISelectInputProps {
   inputRef?: any;
   readOnly?: boolean;
   customWidth?: any;
-  setState?:any;
+  setState?: any;
 }
 
 // const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
@@ -46,6 +46,7 @@ interface ISelectInputProps {
 //   }) => {
 //     const [refreshToggle, setrefreshToggle] = useState(false);
 //     const [entities, setEntities] = useState([]);
+//     const [strSelectedName, setStrSelectedName] = useState(data);
 //     const strUrl = entidad && entidad[0];
 //     const strTableName = entidad[2] ? `_p1=${entidad[2]}` : "";
 //     const inputRef = useRef(null);
@@ -63,43 +64,45 @@ interface ISelectInputProps {
 //     });
 
 //     useEffect(() => {
-//       const fetchData = async () => {
-//         try {
-//           const dataResponse = await ListEntity(strTableName, entidad[1]);
-//           if (dataResponse?.name === "AxiosError") {
+//       refreshData();
+//       if (data) {
+//         const name =
+//           data && entities.find((entity: any) => entity[0] === data)?.[1];
+//         setStrSelectedName(name);
+//       }
+//       ListEntity(strTableName, entidad[1])
+//         .then((data: any) => {
+//           if (data?.name === "AxiosError") {
 //             return;
-//           }
-//           setEntities(dataResponse);
-//           refreshData();
-//           if (data !== null && data !== undefined) {
-//             const entityName = dataResponse.find(
-//               (entity: any) => entity[0] === data
-//             )?.[1];
-//             if (entityName) {
-//               setSelectedOption({
-//                 value: data,
-//                 label: entityName,
-//               });
-//             } else {
-//               setSelectedOption({
-//                 value: data,
-//                 label: "Nombre no encontrado",
-//               });
-//             }
 //           } else {
-//             setSelectedOption({
-//               value: "",
-//               label: "Seleccionar",
-//             });
+//             data && setEntities(data);
 //           }
-//         } catch (error) {
-//           console.log(error);
-//         }
-//       };
-
-//       fetchData();
+//         })
+//         .catch((e) => console.log(e));
 //     }, [refreshToggle, refreshData, data]);
-//     console.log("selectedOption", selectedOption);
+
+//     const handleChange = (e: any) => {
+//       // console.log("e", e);
+
+//       const selectedValue = e.toString();
+
+//       // console.log("selectedValue", selectedValue);
+
+//       if (setHandleSearch) {
+//         handleSelectChange(name, selectedValue);
+//         const inputValuesToUpdate = {
+//           ...inputValues,
+//           [name]: selectedValue,
+//         };
+
+//         // console.log("inputvaluestoupdate", inputValuesToUpdate);
+//         if (setHandleSearch) {
+//           setHandleSearch(inputValuesToUpdate);
+//         }
+//         setrefreshToggle((prev) => !prev);
+//       }
+//     };
+//     // console.log("selectedOption", selectedOption);
 
 //     return (
 //       <div className="flex min-w-[60px] w-full items-center mb-2 mx-4 mt-select mt-select-dropdown-up cursor-pointer ">
@@ -107,19 +110,20 @@ interface ISelectInputProps {
 //         <Controller
 //           name={name}
 //           control={control}
+//           defaultValue={strSelectedName}
 //           render={({ field }) => (
 //             <>
-//               <Select
+//               {/* <Select
 //                 {...field}
-//                 placeholder={label}
-//                 styles={{
-//                   control: (provided) => ({
-//                     ...provided,
-//                     width: customWidth,
-//                   }),
-//                 }}
+//                 placeholder={'kk'}
+//                 // style={{
+//                 //   control: (provided: any) => ({
+//                 //     ...provided,
+//                 //     width: customWidth,
+//                 //   }),
+//                 // }}
 //                 ref={inputRef}
-//                 isDisabled={readOnly}
+//                 disabled={readOnly}
 //                 options={[
 //                   {
 //                     value: "0",
@@ -130,8 +134,8 @@ interface ISelectInputProps {
 //                     label: option[1],
 //                   })),
 //                 ]}
-//                 value={selectedOption}
-//                 formatOptionLabel={(option) => (
+//                 value={''}
+//                 formatOptionLabel={(option: { label: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined; value: any; }) => (
 //                   <div>
 //                     {option.label}
 //                     {option.value === field.value && (
@@ -165,7 +169,24 @@ interface ISelectInputProps {
 //                   }
 //                   setrefreshToggle((prev) => !prev);
 //                 }}
-//               />
+//               /> */}
+
+//               <Select
+//                 {...field}
+//                 label={label}
+//                 name={name}
+//                 ref={inputRef}
+//                 onChange={(e) => {
+//                   handleChange(e);
+//                 }}
+//               >
+//                 {entities &&
+//                   entities.map((entidad: any, index) => (
+//                     <Option value={entidad[0].toString()} key={index}>
+//                       {entidad[1]}
+//                     </Option>
+//                   ))}
+//               </Select>
 //             </>
 //           )}
 //         />
@@ -208,7 +229,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     inputValues,
     handleSelectChange,
     readOnly,
-    setState
+    setState,
   }) => {
     const [refreshToggle, setrefreshToggle] = useState(false);
     const [entities, setEntities] = useState([]);
@@ -226,6 +247,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
       if (data) {
         const name =
           data && entities.find((entity: any) => entity[0] === data)?.[1];
+        console.log("name", entities);
         setStrSelectedName(name);
       }
       ListEntity(strTableName, entidad[1])
@@ -248,17 +270,12 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
           control={control}
           defaultValue={strSelectedName}
           render={({ field }) => (
-            <div className="flex-col">
+            <div className="custom-select">
               <label
                 htmlFor={label}
-                style={{
-                  color          : "grey",
-                  fontWeight     : "normal",
-                  fontSize       : "16px",
-                  backgroundColor: "transparent",
-                }}
+                className="absolute top-[-1%] left-[3%] text-sm"
               >
-              {label}
+                {label}
               </label>
 
               <select
@@ -266,7 +283,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
                 ref={inputRef}
                 disabled={readOnly}
                 onChange={(e) => {
-                  setState && setState(e.target.value)
+                  setState && setState(e.target.value);
                   field.onChange(e);
                   if (setHandleSearch) {
                     const selectedValue = e.target.value.toString();
@@ -286,7 +303,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
                 }}
                 className="custom-input py-2 px-3 w-[85%] cursor-pointer z-0"
               >
-                {!data && <option value={"0"}></option>}
+                {!data && <option value={"0"}>{label}</option>}
                 {entities &&
                   entities.map((option: any, index) => (
                     <option
@@ -320,8 +337,8 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
               </div> */}
             </div> // flex-col
           )} // render
-        /> {/* Controller  */}
-
+        />
+        {/* Controller  */}
         {showRefresh && (
           <Tooltip content="Refrescar">
             <IconButton
@@ -334,7 +351,6 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
             </IconButton>
           </Tooltip>
         )}
-
         {error && (
           <p className="text-xs text-red-500 absolute right-20">
             {error.message}

@@ -13,18 +13,19 @@ import FAccesorios from "../forms/FAccesorios";
 import { TITLES, table_head_accesorios } from "../../utils";
 
 export enum EnumGrid {
-  codigo        = 1,
-  descripcion   = 2,
-  proveedor_id  = 3,
-  proveedor     = 4,
-  precio_neto   = 5,
-  stock_minimo  = 6,
+  codigo = 1,
+  descripcion = 2,
+  proveedor_id = 3,
+  proveedor = 4,
+  precio_neto = 5,
+  stock_minimo = 6,
 }
 
-const strEntidad      = "Accesorio ";
+const strEntidad = "Accesorio ";
 const strEntidadExcel = "Accesorios";
-const strBaseUrl      = "/api/accesorios/";
-const strQuery        = "01";
+const strBaseUrl = "/api/accesorios/";
+const strQuery = "01";
+const idMenu = 9;
 
 type PrimaryKey = {
   pk1: number;
@@ -58,10 +59,9 @@ const MAccesorios: React.FC = () => {
   } = useEntityUtils(strBaseUrl, strQuery);
   // console.log("entities:", entities);
 
-  
   const pkToDelete: PrimaryKey[] = [];
   console.log("pkToDelete:", pkToDelete);
-  
+
   useEffect(() => {
     const newPkToDelete = selectedRows.map((row: number) => ({
       pk1: entities[row][EnumGrid.codigo],
@@ -109,6 +109,7 @@ const MAccesorios: React.FC = () => {
           showDeleteButton={true}
           showForwardButton={false}
           showRefreshButton={true}
+          idMenu={idMenu}
         />
       </div>
 
@@ -126,6 +127,7 @@ const MAccesorios: React.FC = () => {
           tableHead={table_head_accesorios}
           showEditButton={true}
           showDeleteButton={false}
+          idMenu={idMenu}
         />
       </div>
 
@@ -155,4 +157,4 @@ const MAccesorios: React.FC = () => {
   );
 };
 
-export default MAccesorios
+export default MAccesorios;
