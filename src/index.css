@@ -398,8 +398,12 @@ select::-ms-expand {
   display: flex;
   flex-direction: row;
   width: calc(100% - 10px); /* Ajusta el ancho de los elementos individuales */
-  margin-right: 10px; /* Espacio entre elementos */
-  margin-bottom: 10px; /* Espacio entre filas */
+  margin-right: 10px; 
+}
+
+.w-full{  
+  margin-bottom: 5px; 
+  margin-top:5px;
 }
 
 .short-number TextInputComponent {
@@ -434,9 +438,17 @@ select::-ms-expand {
   max-width: 30rem;
   left: 35%;
 }
+.useFormContainer40rem {
+  max-width: 40rem;
+  left: 30%;
+}
 .useFormContainer50rem {
   max-width: 50rem;
   left: 20%;
+}
+.useFormContainer60rem {
+  max-width: 60rem;
+  left: 15%;
 }
 
 .labelForm {
@@ -499,7 +511,14 @@ select::-ms-expand {
 /* Aplica la alineación a todos los input de tipo number */
 input[type="number"] {
   text-align: right;
+  font-size:medium;
 }
+
+input[type="text"] {
+  text-align: left;
+  font-size:medium;
+}
+
 
 .flex-col {
   width: 100%;

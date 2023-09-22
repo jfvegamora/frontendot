@@ -7,56 +7,52 @@ import React, { useState, useEffect } from "react";
 import { SelectInputComponent, TextInputComponent } from "../../components";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { validationAccesoriosSchema } from "../../utils/validationFormSchemas";
-import { EnumGrid } from "../mantenedores/MAccesorios";
+import { validationProyectoDireccionesSchema } from "../../utils/validationFormSchemas";
+import { EnumGrid } from "../mantenedores/MProyectosDirecciones";
 import { ERROR_MESSAGES, MODAL, SUCCESS_MESSAGES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
 
-const strBaseUrl = "/api/accesorios/";
-const strEntidad = "Accesorio ";
+const strBaseUrl = "/api/proyectodireccionesdespacho/";
+const strEntidad = "Parametrización de Dirección de Despacho ";
 
 export interface InputData {
-  codigo: string | undefined;
-  descripcion: string | undefined;
-  marca: string | undefined;
-  precio_neto: number | undefined;
-  stock_minimo: number | undefined;
+  proyecto        : string | undefined;
+  titulo          : string | undefined;
+  establecimiento : string | undefined;
+  lugar           : string | undefined;
+  direccion       : string | undefined;
+  telefono        : string | undefined;
+  observaciones   : string | undefined;
 }
 
 interface OutputData {
   query: string;
   _p1: string;
   _p2?: string;
-  _p3?: number;
+  _p3?: string;
 }
 
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
-  const _p1 = ` ${jsonData.codigo}, 
-               '${jsonData.descripcion}', 
-                ${jsonData.marca}, 
-                ${jsonData.precio_neto}, 
-                ${jsonData.stock_minimo}`;
+  // (proyecto, establecimiento, lugar, direccion, telefono, observaciones)
+  const _p1 = `'${jsonData.proyecto}', ${jsonData.establecimiento}, '${jsonData.lugar}', 
+               '${jsonData.direccion}', '${jsonData.telefono}', '${jsonData.observaciones}'`;
 
   const query: OutputData = {
     query: "03",
     _p1: _p1,
   };
-
+console.log("query: ", query);
   return query;
 }
 
-export function transformUpdateQuery(
-  jsonData: InputData,
-  primaryKey: string
-): OutputData | null {
+export function transformUpdateQuery(jsonData: InputData): OutputData | null {
   const fields = [
-    `codigo       = ${jsonData.codigo}`,
-    `descripcion  ='${jsonData.descripcion}'`,
-    `marca        = ${jsonData.marca}`,
-    `precio_neto  = ${jsonData.precio_neto}`,
-    `stock_minimo = ${jsonData.stock_minimo}`,
+    `lugar        = '${jsonData.lugar}'`,
+    `direccion    = '${jsonData.direccion}'`,
+    `telefono     = '${jsonData.telefono}'`,
+    `observaciones= '${jsonData.observaciones}'`,
   ];
 
   const filteredFields = fields.filter(
@@ -67,11 +63,12 @@ export function transformUpdateQuery(
     return null;
   }
   const _p1 = filteredFields.join(",");
-  console.log("primaryKey", primaryKey);
+  
   return {
     query: "04",
     _p1,
-    _p2: primaryKey,
+    _p2: jsonData.proyecto,
+    _p3: jsonData.establecimiento,
   };
 }
 
@@ -85,9 +82,9 @@ interface IUserFormPrps {
   params?: any;
 }
 
-const FUsuarios: React.FC<IUserFormPrps> = React.memo(
+const FProyectosDirecciones: React.FC<IUserFormPrps> = React.memo(
   ({ closeModal, setEntities, params, label, data, isEditting }) => {
-    const schema = validationAccesoriosSchema(isEditting);
+    const schema = validationProyectoDireccionesSchema(isEditting);
     const { showModal, CustomModal } = useModal();
     const { show } = useCustomToast();
 
@@ -97,11 +94,9 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
       ListEntity,
       firstInputRef,
       focusFirstInput,
-      secondInputRef,
-      focusSecondInput,
     } = useCrud(strBaseUrl);
     const [blnKeep, setblnKeep] = useState(false);
-    const intId = data && data[EnumGrid.codigo];
+
     const {
       control,
       handleSubmit,
@@ -112,13 +107,13 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
     });
 
     const resetTextFields = React.useCallback(() => {
-      setValue("codigo", "");
-      setValue("descripcion", "");
-      setValue("precio_neto", 0);
-      setValue("stock_minimo", 0);
-      if (firstInputRef.current) {
+      setValue("lugar", "");
+      setValue("direccion", "");
+      setValue("telefono", "");
+      setValue("observaciones", "");
+          if (firstInputRef.current) {
         const firstInput = firstInputRef.current.querySelector(
-          'input[name="codigo"]'
+          'input[name="proyecto"]'
         );
         if (firstInput) {
           firstInput.focus();
@@ -206,7 +201,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
       async (data: InputData, isEditting: boolean) => {
         try {
           const transformedData = isEditting
-            ? transformUpdateQuery(data, intId.toString())
+            ? transformUpdateQuery(data)
             : transformInsertQuery(data);
 
           const response = isEditting
@@ -220,15 +215,15 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
           });
         }
       },
-      [editEntity, createdEntity, handleApiResponse, intId]
+      [editEntity, createdEntity, handleApiResponse]
     );
 
     useEffect(() => {
-      isEditting ? focusSecondInput("descripcion") : focusFirstInput("codigo");
+      focusFirstInput("proyecto");
     }, []);
 
     return (
-      <div className="useFormContainer">
+      <div className="useFormContainer useFormContainer60rem">
         <div className="userFormBtnCloseContainer">
           <button onClick={closeModal} className="userFormBtnClose">
             X
@@ -247,54 +242,78 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
           className="userFormulario"
         >
           <div className="userFormularioContainer">
-            <TextInputComponent
-              type="text"
-              label="Código"
-              name="codigo"
-              data={data && data[EnumGrid.codigo]}
-              control={control}
-              error={!isEditting && errors.codigo}
-              inputRef={firstInputRef}
-              onlyRead={isEditting}
-            />
-            <TextInputComponent
-              type="text"
-              label="Descripción"
-              name="descripcion"
-              data={data && data[EnumGrid.descripcion]}
-              control={control}
-              error={!isEditting && errors.descripcion}
-              inputRef={secondInputRef}
-            />
+          <div className="input-container">
             <div className="w-full ">
-              <SelectInputComponent
-                label="Marca"
-                name="marca"
-                showRefresh={true}
-                data={data && data[EnumGrid.marca_id]}
+                <SelectInputComponent
+                  label="Proyecto"
+                  name="proyecto"
+                  showRefresh={true}
+                  data={data && data[EnumGrid.proyecto]}
+                  control={control}
+                  entidad={["/api/proyectos/", "02"]}
+                  error={!isEditting && errors.proyecto}
+                  inputRef={firstInputRef}
+                  readOnly={isEditting}
+                  />
+            </div>
+            <div className="w-full ">
+            <SelectInputComponent
+                  label="Establecimiento"
+                  name="establecimiento"
+                  showRefresh={true}
+                  data={data && data[EnumGrid.establecimiento_id]}
+                  control={control}
+                  entidad={["/api/establecimientos/", "02"]}
+                  error={!isEditting && errors.establecimiento}
+                  readOnly={isEditting}
+                  />
+            </div>
+          </div>
+          <div className="input-container">
+            <div className="w-full ">
+              <TextInputComponent
+                type="text"
+                label="Lugar"
+                name="lugar"
+                data={data && data[EnumGrid.lugar]}
                 control={control}
-                entidad={["/api/marcas/", "02"]}
-                error={!isEditting && errors.marca}
-                customWidth={"345px"}
+                error={!isEditting && errors.lugar}
               />
             </div>
+            <div className="w-full ">
+              <TextInputComponent
+                  type="text"
+                  label="Dirección"
+                  name="direccion"
+                  data={data && data[EnumGrid.direccion]}
+                  control={control}
+                  error={!isEditting && errors.direccion}
+                />
+            </div>
+            <div className="w-full ">
+              <TextInputComponent
+                  type="text"
+                  label="Teléfono"
+                  name="telefono"
+                  data={data && data[EnumGrid.telefono]}
+                  control={control}
+                  error={!isEditting && errors.telefono}
+                />
+            </div>
+          </div>
 
-            <TextInputComponent
-              type="number"
-              label="Precio Neto"
-              name="precio_neto"
-              data={data && data[EnumGrid.precio_neto]}
-              control={control}
-              error={!isEditting && errors.precio_neto}
-            />
-            <TextInputComponent
-              type="number"
-              label="Stock Mínimo"
-              name="stock_minimo"
-              data={data && data[EnumGrid.stock_minimo]}
-              control={control}
-              error={!isEditting && errors.stock_minimo}
-            />
+          <div className="input-container">
+            <div className="w-full ">
+              <TextInputComponent
+                type="text"
+                label="Observaciones"
+                name="observaciones"
+                data={data && data[EnumGrid.observaciones]}
+                control={control}
+                error={!isEditting && errors.observaciones}
+              />
+            </div>
+          </div>
           </div>
 
           <button type="submit" className="userFormBtnSubmit">
@@ -308,4 +327,4 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
   }
 );
 
-export default FUsuarios;
+export default FProyectosDirecciones;

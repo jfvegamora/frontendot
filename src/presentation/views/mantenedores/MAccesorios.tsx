@@ -13,12 +13,14 @@ import FAccesorios from "../forms/FAccesorios";
 import { TITLES, table_head_accesorios } from "../../utils";
 
 export enum EnumGrid {
-  codigo = 1,
-  descripcion = 2,
-  proveedor_id = 3,
-  proveedor = 4,
-  precio_neto = 5,
-  stock_minimo = 6,
+  codigo       = 1,
+  descripcion  = 2,
+  marca_id     = 3,
+  marca        = 4,
+  proveedor_id = 5,
+  proveedor    = 6,
+  precio_neto  = 7,
+  stock_minimo = 8,
 }
 
 const strEntidad = "Accesorio ";
@@ -88,9 +90,9 @@ const MAccesorios: React.FC = () => {
             { name: "_p2", label: "Descripción", type: "text" },
             {
               name: "_p3",
-              label: "Proveedor",
+              label: "Marca",
               type: "select",
-              selectUrl: "/api/proveedores/",
+              selectUrl: "/api/marcas/",
             },
           ]}
         />

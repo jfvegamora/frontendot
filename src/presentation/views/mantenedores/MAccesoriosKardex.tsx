@@ -9,8 +9,8 @@ import {
   TableComponent, 
 } from "../../components";
 import { useEntityUtils } from "../../hooks";
-import FCristalesKardexIN from "../forms/FCristalesKardexIN";
-import FCristalesKardexOUT from "../forms/FCristalesKardexOUT";
+import FAccesoriosKardexIN from "../forms/FAccesoriosKardexIN";
+import FAccesoriosKardexOUT from "../forms/FAccesoriosKardexOUT";
 import { TITLES, table_head_kardex } from "../../utils";
 
 export enum EnumGrid {
@@ -35,17 +35,17 @@ export enum EnumGrid {
 }
 
 
-const strEntidad = "Kardex de Cristal ";
-const strEntidadExcel = "Cristales_Kardex";
-const strBaseUrl = "/api/cristaleskardex/";
+const strEntidad = "Kardex de Accesorios ";
+const strEntidadExcel = "Accesorios_Kardex";
+const strBaseUrl = "/api/accesorioskardex/";
 const strQuery = "01";
-const idMenu = 8;
+const idMenu = 10;
 
 type PrimaryKey = {
-  pk1: string; //cristal
+  pk1: string; //accesorio
   pk2: string; //fecha
 };
-const MCristalesKardex: React.FC = () => {
+const MAccesoriosKardex: React.FC = () => {
   const [params, setParams] = useState([]);
 
   const updateParams = (newParams: Record<string, never>) => {
@@ -97,7 +97,7 @@ const MCristalesKardex: React.FC = () => {
 
   return (
     <div className="mantenedorContainer">
-      <h1 className="mantenedorH1">Kardex de Cristales</h1>
+      <h1 className="mantenedorH1">Kardex de Accesorios</h1>
 
       <div className="mantenedorHead width100 flex flex-col">
         <PrimaryKeySearch
@@ -152,7 +152,7 @@ const MCristalesKardex: React.FC = () => {
 
 
       {isModalInsert && (
-        <FCristalesKardexIN
+        <FAccesoriosKardexIN
           label={`${TITLES.ingreso} ${strEntidad}`}
           selectedRows={selectedRows}
           setEntities={setEntities}
@@ -164,7 +164,7 @@ const MCristalesKardex: React.FC = () => {
       )}
 
       {isModalEdit && (
-        <FCristalesKardexOUT
+        <FAccesoriosKardexOUT
           label={`${TITLES.egreso} ${strEntidad}`}
           closeModal={closeModal}
           selectedRows={selectedRows}
@@ -177,4 +177,4 @@ const MCristalesKardex: React.FC = () => {
   );
 };
 
-export default MCristalesKardex;
+export default MAccesoriosKardex;

@@ -270,10 +270,9 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
           //     handleSubmit((data) => handleSaveChange(data, isEditting))(e);
           //   }
           // }}
-          className="userFormulario"
-        >
+          className="userFormulario">
           <div className="userFormularioContainer">
-            <div className="userFormularioRow">
+            <div className="w-full">
               <TextInputComponent
                 type="number"
                 label="Código"
@@ -284,34 +283,33 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                 inputRef={firstInputRef}
                 onlyRead={isEditting}
               />
-              <div className="w-[37%]">
-                <SelectInputComponent
-                  label="Tipo"
-                  name="tipo"
-                  showRefresh={true}
-                  data={data && data[EnumGrid.armazon_tipo_id]}
-                  control={control}
-                  entidad={["/api/tipos/", "02", "ArmazonesTipos"]}
-                  error={!isEditting && errors.tipo}
-                  customWidth={"345px"}
-                  inputRef={secondInputRef}
-                />
-              </div>
-              <div className="w-[37%]">
-                <SelectInputComponent
-                  label="Material"
-                  name="material"
-                  showRefresh={true}
-                  data={data && data[EnumGrid.armazon_material_id]}
-                  control={control}
-                  entidad={["/api/tipos/", "02", "ArmazonesMaterial"]}
-                  error={!isEditting && errors.material}
-                  customWidth={"345px"}
-                />
-              </div>
             </div>
-            <div className="userFormularioRow">
-              <div className="w-[37%]">
+            <div className="w-full">
+              <SelectInputComponent
+                label="Tipo"
+                name="tipo"
+                showRefresh={true}
+                data={data && data[EnumGrid.armazon_tipo_id]}
+                control={control}
+                entidad={["/api/tipos/", "02", "ArmazonesTipos"]}
+                error={!isEditting && errors.tipo}
+                // customWidth={"345px"}
+                inputRef={secondInputRef}
+              />
+            </div>
+            <div className="w-full">
+              <SelectInputComponent
+                label="Material"
+                name="material"
+                showRefresh={true}
+                data={data && data[EnumGrid.armazon_material_id]}
+                control={control}
+                entidad={["/api/tipos/", "02", "ArmazonesMaterial"]}
+                error={!isEditting && errors.material}
+                // customWidth={"345px"}
+              />
+            </div>
+            <div className="w-full">
                 <SelectInputComponent
                   label="Marca"
                   name="marca"
@@ -320,9 +318,10 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                   control={control}
                   entidad={["/api/marcas/", "02"]}
                   error={!isEditting && errors.marca}
-                  customWidth={"345px"}
+                  // customWidth={"345px"}
                 />
-              </div>
+            </div>
+            <div className="userFormularioRow">
               <TextInputComponent
                 type="text"
                 label="Modelo"
@@ -365,8 +364,6 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                 control={control}
                 error={!isEditting && errors.brazo}
               />
-            </div>
-            <div className="userFormularioRow">
               <TextInputComponent
                 type="number"
                 label="Diagonal"
@@ -375,7 +372,8 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                 control={control}
                 error={!isEditting && errors.diagonal}
               />
-              <div className="w-[37%]">
+            </div>
+            <div className="userFormularioRow">
                 <SelectInputComponent
                   label="Uso"
                   name="uso"
@@ -384,17 +382,16 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                   control={control}
                   entidad={["/api/tipos/", "02", "ArmazonesUsos"]}
                   error={!isEditting && errors.uso}
-                  customWidth={"345px"}
+                  // customWidth={"345px"}
                 />
-              </div>
-              <TextInputComponent
-                type="number"
-                label="Stock Mínimo"
-                name="stock_minimo"
-                data={data && data[EnumGrid.stock_minimo]}
-                control={control}
-                error={!isEditting && errors.stock_minimo}
-              />
+                <TextInputComponent
+                  type="number"
+                  label="Stock Mínimo"
+                  name="stock_minimo"
+                  data={data && data[EnumGrid.stock_minimo]}
+                  control={control}
+                  error={!isEditting && errors.stock_minimo}
+                />
             </div>
           </div>
 

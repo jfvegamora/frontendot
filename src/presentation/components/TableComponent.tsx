@@ -55,7 +55,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
 
     const renderTextCell = (text: string) => (
       <Typography variant="small" color="blue-gray" className="gridText">
-        {text || ""}
+        {text}
       </Typography>
     );
 

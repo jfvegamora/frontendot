@@ -6,11 +6,11 @@ const MEstablecimientos     = lazy(()=>import("../presentation/views/mantenedore
 const MPuntosVenta          = lazy(()=>import("../presentation/views/mantenedores/MPuntosVenta"));
 
 const MArmazones            = lazy(()=>import("../presentation/views/mantenedores/MArmazones"));
-// const MArmazonesKardex      = lazy(()=>import("../presentation/views/mantenedores/MArmazonesKardex"));
+const MArmazonesKardex      = lazy(()=>import("../presentation/views/mantenedores/MArmazonesKardex"));
 const MCristales            = lazy(()=>import("../presentation/views/mantenedores/MCristales"));
 const MCristalesKardex      = lazy(()=>import("../presentation/views/mantenedores/MCristalesKardex"));
 const MAccesorios           = lazy(()=>import("../presentation/views/mantenedores/MAccesorios"));
-// const MAccesoriosKardex     = lazy(()=>import("../presentation/views/mantenedores/MAccesoriosKardex"));
+const MAccesoriosKardex     = lazy(()=>import("../presentation/views/mantenedores/MAccesoriosKardex"));
 const MAlmacenes            = lazy(()=>import("../presentation/views/mantenedores/MAlmacenes"));
 const MMarcas               = lazy(()=>import("../presentation/views/mantenedores/MMarcas"));
 const MProveedores          = lazy(() =>import("../presentation/views/mantenedores/MProveedores"));
@@ -18,10 +18,10 @@ const MProveedores          = lazy(() =>import("../presentation/views/mantenedor
 const MMandantes            = lazy(()=>import("../presentation/views/mantenedores/MMandantes"));
 // const MProyectos            = lazy(()=>import("../presentation/views/mantenedores/MProyectos"));
 // const MProyectosArmazones   = lazy(()=>import("../presentation/views/mantenedores/MProyectosArmazones"));
-// const MProyectosGrupos      = lazy(()=>import("../presentation/views/mantenedores/MProyectosGrupos"));
-// const MProyectosDirecciones = lazy(()=>import("../presentation/views/mantenedores/MProyectosDirecciones"));
-// const MProyectosAtenciones  = lazy(()=>import("../presentation/views/mantenedores/MProyectosAtenciones"));
-// const MProyectosFirmas      = lazy(()=>import("../presentation/views/mantenedores/MProyectosFirmas"));
+const MProyectosGrupos      = lazy(()=>import("../presentation/views/mantenedores/MProyectosGrupos"));
+const MProyectosDirecciones = lazy(()=>import("../presentation/views/mantenedores/MProyectosDirecciones"));
+const MProyectosAtenciones  = lazy(()=>import("../presentation/views/mantenedores/MProyectosAtenciones"));
+const MProyectosFirmas      = lazy(()=>import("../presentation/views/mantenedores/MProyectosFirmas"));
 const MOftalmologos         = lazy(()=>import("../presentation/views/mantenedores/MOftalmologos"));
 
 const MCargos               = lazy(()=>import("../presentation/views/mantenedores/MCargos"));
@@ -64,11 +64,11 @@ export const PrivateRoutes = {
   //PROYECTOS
   MANDANTES             : "mandantes",
   PROYECTOS             : "proyectos",
-  PROYECTOS_ARMAZONES   : "proyectos_armazones",
-  PROYECTOS_GRUPOS      : "proyectos_grupos",
-  PROYECTOS_DIRECCIONES : "proyectos_direcciones",
-  REPORTE_ATENCION      : "reporte_atencion",
-  REPORTE_FIRMAS        : "reporte_firmas",
+  PROYECTOS_ARMAZONES   : "proyectoarmazones",
+  PROYECTOS_GRUPOS      : "proyectogrupos",
+  PROYECTOS_DIRECCIONES : "proyectodireccionesdespacho",
+  REPORTE_ATENCION      : "proyectoreporteatencion",
+  REPORTE_FIRMAS        : "proyectoreportefirma",
   OFTALMOLOGOS          : "oftalmologos",
 
   //MENU SISTEMA
@@ -115,12 +115,12 @@ export const privateRoutes = [
     component           : MArmazones,
     requiredPermissions : ['view_' + PrivateRoutes.ARMAZONES]
   },
-  // {
-  //   id                  : "6",
-  //   path                : PrivateRoutes.ARMAZONES_KARDEX,
-  //   component           : MArmazonesKardex,
-  //   requiredPermissions : ['view_' + PrivateRoutes.ARMAZONES_KARDEX]
-  // },
+  {
+    id                  : "6",
+    path                : PrivateRoutes.ARMAZONES_KARDEX,
+    component           : MArmazonesKardex,
+    requiredPermissions : ['view_' + PrivateRoutes.ARMAZONES_KARDEX]
+  },
   {
     id                  : "7",
     path                : PrivateRoutes.CRISTALES,
@@ -139,12 +139,12 @@ export const privateRoutes = [
     component           : MAccesorios,
     requiredPermissions : ['view_' + PrivateRoutes.ACCESORIOS]
   },
-  // {
-  //   id                  : "10",
-  //   path                : PrivateRoutes.ACCESORIOS_KARDEX,
-  //   component           : MAccesoriosKardex,
-  //   requiredPermissions : ['view_' + PrivateRoutes.ACCESORIOS_KARDEX]
-  // },
+  {
+    id                  : "10",
+    path                : PrivateRoutes.ACCESORIOS_KARDEX,
+    component           : MAccesoriosKardex,
+    requiredPermissions : ['view_' + PrivateRoutes.ACCESORIOS_KARDEX]
+  },
   {
     id                  : "11",
     path                : PrivateRoutes.ALMACENES,
@@ -183,30 +183,30 @@ export const privateRoutes = [
   //   component           : MProyectosArmazones,
   //   requiredPermissions : ['view_' + PrivateRoutes.PROYECTOS_ARMAZONES]
   // },
-  // {
-  //   id                  : "17",
-  //   path                : PrivateRoutes.PROYECTOS_GRUPOS,
-  //   component           : MProyectosGrupos,
-  //   requiredPermissions : ['view_' + PrivateRoutes.PROYECTOS_GRUPOS]
-  // },
-  // {
-  //   id                  : "18",
-  //   path                : PrivateRoutes.PROYECTOS_DIRECCIONES,
-  //   component           : MProyectosDirecciones,
-  //   requiredPermissions : ['view_' + PrivateRoutes.PROYECTOS_DIRECCIONES]
-  // },
-  // {
-  //   id                  : "19",
-  //   path                : PrivateRoutes.REPORTE_ATENCION,
-  //   component           : MProyectosAtenciones,
-  //   requiredPermissions : ['view_' + PrivateRoutes.REPORTE_ATENCION]
-  // },
-  // {
-  //   id                  : "20",
-  //   path                : PrivateRoutes.REPORTE_FIRMAS,
-  //   component           : MProyectosFirmas,
-  //   requiredPermissions : ['view_' + PrivateRoutes.REPORTE_FIRMAS]
-  // },
+  {
+    id                  : "17",
+    path                : PrivateRoutes.PROYECTOS_GRUPOS,
+    component           : MProyectosGrupos,
+    requiredPermissions : ['view_' + PrivateRoutes.PROYECTOS_GRUPOS]
+  },
+  {
+    id                  : "18",
+    path                : PrivateRoutes.PROYECTOS_DIRECCIONES,
+    component           : MProyectosDirecciones,
+    requiredPermissions : ['view_' + PrivateRoutes.PROYECTOS_DIRECCIONES]
+  },
+  {
+    id                  : "19",
+    path                : PrivateRoutes.REPORTE_ATENCION,
+    component           : MProyectosAtenciones,
+    requiredPermissions : ['view_' + PrivateRoutes.REPORTE_ATENCION]
+  },
+  {
+    id                  : "20",
+    path                : PrivateRoutes.REPORTE_FIRMAS,
+    component           : MProyectosFirmas,
+    requiredPermissions : ['view_' + PrivateRoutes.REPORTE_FIRMAS]
+  },
   {
     id                  : "21",
     path                : PrivateRoutes.OFTALMOLOGOS,

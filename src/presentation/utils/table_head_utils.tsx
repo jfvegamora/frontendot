@@ -237,9 +237,19 @@ export const table_head_accesorios = [
     visible: true,
   },
   {
+    cell: "Marca Id",
+    key: "marca_id",
+    visible: false,
+  },
+  {
+    cell: "Marca",
+    key: "marca",
+    visible: true,
+  },
+  {
     cell: "Proveedor Id",
     key: "proveedor_id",
-    visible: true,
+    visible: false,
   },
   {
     cell: "Proveedor",
@@ -453,6 +463,21 @@ export const table_head_cristales = [
     visible: true,
   },
   {
+    cell: "Ingresos",
+    key: "ingresos",
+    visible: true,
+  },
+  {
+    cell: "Egresos",
+    key: "egresos",
+    visible: true,
+  },
+  {
+    cell: "Stock Actual",
+    key: "stock_actual",
+    visible: true,
+  },
+  {
     cell: "Stock Mínimo",
     key: "stock_minimo",
     visible: true,
@@ -464,7 +489,7 @@ export const table_head_cristales = [
   },
 ];
 
-export const table_head_cristaleskardex = [
+export const table_head_kardex = [
   {
     cell: <input type="checkbox" />,
     key: "checkbox",
@@ -476,8 +501,8 @@ export const table_head_cristaleskardex = [
     visible: true,
   },
   {
-    cell: "Cristal",
-    key: "cristal",
+    cell: "Código Insumo",
+    key: "insumo_id",
     visible: false,
   },
   {
@@ -731,6 +756,359 @@ export const table_head_oftalmologos = [
   {
     cell: "Valor Consulta",
     key: "valor_consulta",
+    visible: true,
+  },
+  {
+    cell: "",
+    key: "opciones",
+    visible: true,
+  },
+];
+export const table_head_proyectos_grupos = [
+  {
+    cell: <input type="checkbox" />,
+    key: "checkbox",
+    visible: true,
+  },
+  {
+    cell: "Proyecto ID",
+    key: "proyecto",
+    visible: true,
+  },
+  {
+    cell: "Proyecto",
+    key: "titulo",
+    visible: true,
+  },
+  {
+    cell: "Licitación",
+    key: "licitacion",
+    visible: true,
+  },
+  {
+    cell: "Grupo ID",
+    key: "cod_grupo",
+    visible: true,
+  },
+  {
+    cell: "Descripción",
+    key: "descripcion",
+    visible: true,
+  },
+  {
+    cell: "Marca ID",
+    key: "marca_id",
+    visible: false,
+  },
+  {
+    cell: "Marca",
+    key: "marca",
+    visible: true,
+  },
+  {
+    cell: "Diseño ID",
+    key: "diseno_id",
+    visible: false,
+  },
+  {
+    cell: "Diseño",
+    key: "diseno",
+    visible: true,
+  },
+  {
+    cell: "Índice ID",
+    key: "indice_id",
+    visible: false,
+  },
+  {
+    cell: "Índice",
+    key: "indice",
+    visible: true,
+  },
+  {
+    cell: "Material ID",
+    key: "material_id",
+    visible: false,
+  },
+  {
+    cell: "Material",
+    key: "material",
+    visible: true,
+  },
+  {
+    cell: "Color_id",
+    key: "color_id",
+    visible: false,
+  },
+  {
+    cell: "Color",
+    key: "color",
+    visible: true,
+  },
+  {
+    cell: "Tratamiento ID",
+    key: "tratamiento_id",
+    visible: false,
+  },
+  {
+    cell: "Tratamiento",
+    key: "tratamiento",
+    visible: true,
+  },
+  {
+    cell: "ESF desde",
+    key: "esferico_desde",
+    visible: true,
+  },
+  {
+    cell: "CIL desde",
+    key: "cilindrico_desde",
+    visible: true,
+  },
+  {
+    cell: "ESF hasta",
+    key: "esferico_hasta",
+    visible: true,
+  },
+  {
+    cell: "CIL hasta",
+    key: "cilindrico_hasta",
+    visible: true,
+  },
+  {
+    cell: "$ Venta Neto",
+    key: "precio_venta_neto",
+    visible: true,
+  }, 	
+  {
+    cell: "Observaciones",
+    key: "observaciones",
+    visible: true,
+  },
+  {
+  cell: "",
+  key: "opciones",
+  visible: true,
+  },
+];
+export const table_head_proyectos_direcciones = [
+  {
+    cell: <input type="checkbox" />,
+    key: "checkbox",
+    visible: true,
+  },
+  {
+    cell: "Proyecto ID",
+    key: "proyecto",
+    visible: true,
+  },
+  {
+    cell: "Proyecto",
+    key: "titulo",
+    visible: true,
+  },
+  {
+    cell: "Licitación",
+    key: "licitacion",
+    visible: true,
+  },
+  {
+    cell: "Establecimiento ID",
+    key: "establecimiento_id",
+    visible: false,
+  },
+  {
+    cell: "Establecimiento",
+    key: "establecimiento",
+    visible: true,
+  },
+  {
+    cell: "Lugar",
+    key: "lugar",
+    visible: true,
+  },
+  {
+    cell: "Dirección",
+    key: "direccion",
+    visible: true,
+  },
+  {
+    cell: "Teléfono",
+    key: "telefono",
+    visible: true,
+  },
+  {
+    cell: "Observaciones",
+    key: "observaciones",
+    visible: true,
+  },
+  {
+    cell: "",
+    key: "opciones",
+    visible: true,
+  },
+];
+export const table_head_proyectos_atenciones = [
+  {
+    cell: <input type="checkbox" />,
+    key: "checkbox",
+    visible: true,
+  },
+  {
+    cell: "Proyecto ID",
+    key: "proyecto",
+    visible: false,
+  },
+  {
+    cell: "Proyecto",
+    key: "titulo",
+    visible: true,
+  },
+  {
+    cell: "Licitación",
+    key: "licitacion",
+    visible: true,
+  },
+  {
+    cell: "Folio Reporte",
+    key: "folio_reporte",
+    visible: true,
+  },
+  {
+    cell: "Desde",
+    key: "fecha_desde",
+    visible: true,
+  },
+  {
+    cell: "Hasta",
+    key: "fecha_hasta",
+    visible: true,
+  },
+  {
+    cell: "Cantidad Lentes",
+    key: "cantidad_lentes",
+    visible: true,
+  },
+  {
+    cell: "Total Atenciones",
+    key: "total_atenciones",
+    visible: true,
+  },
+  {
+    cell: "Orden Compra Mandante",
+    key: "orden_compra_mandante",
+    visible: true,
+  },
+  {
+    cell: "Fecha VB",
+    key: "fecha_vb",
+    visible: true,
+  },
+  {
+    cell: "Factura",
+    key: "factura",
+    visible: true,
+  },
+  {
+    cell: "Fecha Factura",
+    key: "fecha_factura",
+    visible: true,
+  },
+  {
+    cell: "Total Factura",
+    key: "total_factura",
+    visible: true,
+  },
+  {
+    cell: "Nota Credito",
+    key: "nota_credito",
+    visible: true,
+  },
+  {
+    cell: "Fecha NCredito",
+    key: "fecha_ncredito",
+    visible: true,
+  },
+  {
+    cell: "Total NCredito",
+    key: "total_ncredito",
+    visible: true,
+  },
+  {
+    cell: "Nota Debito",
+    key: "nota_debito",
+    visible: true,
+  },
+  {
+    cell: "Fecha NDebito",
+    key: "fecha_ndebito",
+    visible: true,
+  },
+  {
+    cell: "Total NDebito",
+    key: "total_ndebito",
+    visible: true,
+  },
+  {
+    cell: "Guia Despacho",
+    key: "guia_despacho",
+    visible: true,
+  },
+  {
+    cell: "Fecha Guia Despacho",
+    key: "fecha_guia_despacho",
+    visible: true,
+  },
+  {
+    cell: "Observaciones",
+    key: "observaciones",
+    visible: true,
+  },
+  {
+    cell: "",
+    key: "opciones",
+    visible: true,
+  },
+];
+export const table_head_proyectos_firmas = [
+  {
+    cell: <input type="checkbox" />,
+    key: "checkbox",
+    visible: true,
+  },
+  {
+    cell: "Proyecto ID",
+    key: "proyecto",
+    visible: false,
+  },
+  {
+    cell: "Proyecto",
+    key: "titulo",
+    visible: true,
+  },
+  {
+    cell: "Licitación",
+    key: "licitacion",
+    visible: true,
+  },
+  {
+    cell: "Folio Reporte",
+    key: "folio_reporte",
+    visible: true,
+  },
+  {
+    cell: "Desde",
+    key: "fecha_desde",
+    visible: true,
+  },
+  {
+    cell: "Hasta",
+    key: "fecha_hasta",
+    visible: true,
+  },
+  {
+    cell: "Observaciones",
+    key: "observaciones",
     visible: true,
   },
   {

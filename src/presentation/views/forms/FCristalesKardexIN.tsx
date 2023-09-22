@@ -7,10 +7,11 @@ import React, { useState, useEffect } from "react";
 import {
   SelectInputComponent,
   TextInputComponent,
+  DateInputComponent,
 } from "../../components";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { validationCristalesKardexINSchema } from "../../utils/validationFormSchemas";
+import { validationKardexINSchema } from "../../utils/validationFormSchemas";
 import { EnumGrid } from "../mantenedores/MCristalesKardex";
 import {
   ERROR_MESSAGES,
@@ -26,8 +27,8 @@ const strBaseUrl = "/api/cristaleskardex/";
 const strEntidad = "Kardex de Cristal ";
 
 export interface InputData {
-  cristal             : number | undefined;
-  // descripcion         : string | undefined;
+  insumo             : number | undefined;
+  descripcion         : string | undefined;
   fecha               : string | undefined;
   // es                  : string | undefined;
   motivo              : string | undefined;
@@ -65,7 +66,7 @@ export function transformInsertQuery(jsonData: InputData, userId?:number): Outpu
   (fecha, cristal, almacen, es, motivo, cantidad, valor_neto, proveedor, 
     numero_factura, OT, almacen_relacionado, observaciones, usuario, fecha_mov)*/
     const _p1 = `'${jsonData.fecha + " " + fechaActual.toLocaleTimeString()}', 
-    ${jsonData.cristal}, 
+    ${jsonData.insumo}, 
     ${jsonData.almacen}, 
     ${1}, 
     ${jsonData.motivo},
@@ -142,7 +143,7 @@ interface IUserFormPrps {
 
 const FCristalesKardexIN: React.FC<IUserFormPrps> = React.memo(
   ({ closeModal, setEntities, params, label, data, isEditting }) => {
-    const schema = validationCristalesKardexINSchema(isEditting);
+    const schema = validationKardexINSchema(isEditting);
     const { showModal, CustomModal } = useModal();
     const userState = useAppSelector((store: AppStore) => store.user);
     const { show } = useCustomToast();
@@ -167,7 +168,7 @@ const FCristalesKardexIN: React.FC<IUserFormPrps> = React.memo(
     });
 
     const resetTextFields = React.useCallback(() => {
-      setValue("cristal", 0);
+      setValue("insumo", 0);
       setValue("fecha", "undefined");
       // setValue("descripcion", "");
       setValue("cantidad", 0);
@@ -177,8 +178,8 @@ const FCristalesKardexIN: React.FC<IUserFormPrps> = React.memo(
 
       if (firstInputRef.current) {
         const firstInput = firstInputRef.current.querySelector(
-          'input[name="cristal"]'
-        );
+          'input[name="insumo"]'
+        );s
         if (firstInput) {
           firstInput.focus();
         }
@@ -287,11 +288,11 @@ const FCristalesKardexIN: React.FC<IUserFormPrps> = React.memo(
     //   focusFirstInput("codigo");
     // }, []);
     useEffect(() => {
-      isEditting ? focusSecondInput("es") : focusFirstInput("cristal");
+      isEditting ? focusSecondInput("es") : focusFirstInput("insumo");
     }, []);
 
     return (
-      <div className="useFormContainer useFormContainer30rem">
+      <div className="useFormContainer useFormContainer40rem">
         <div className="userFormBtnCloseContainer">
           <button onClick={closeModal} className="userFormBtnClose">
             X
@@ -305,11 +306,11 @@ const FCristalesKardexIN: React.FC<IUserFormPrps> = React.memo(
             <div className="w-full">
               <TextInputComponent
                 type="number"
-                label="Cristal"
-                name="cristal"
-                data={data && data[EnumGrid.cristal]}
+                label="Código Cristal"
+                name="insumo"
+                data={data && data[EnumGrid.insumo]}
                 control={control}
-                error={!isEditting && errors.cristal}
+                error={!isEditting && errors.insumo}
                 inputRef={firstInputRef}
                 onlyRead={isEditting}
               />
@@ -324,8 +325,19 @@ const FCristalesKardexIN: React.FC<IUserFormPrps> = React.memo(
                 error={!isEditting && errors.fecha}
                 onlyRead={isEditting}
               />
+            </div> 
             </div>
-            </div>
+            {/* <div className="w-full">
+              <TextInputComponent
+                type="text"
+                label="Descripcion"
+                name="decripcion"
+                data={data && data[EnumGrid.descripcion]}
+                control={control}
+                error={!isEditting && errors.descripcion}
+                onlyRead={isEditting}
+              />
+            </div> */}
             <div className="input-container">
               <div className="w-full">
               <SelectInputComponent
