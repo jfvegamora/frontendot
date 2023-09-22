@@ -66,6 +66,9 @@ const MCargos: React.FC = () => {
         pkToDelete.push(newPk);
       }
     });
+    fetch("https://mtoopticos.cl/sse/").then((response) =>
+      console.log("Estado de la solicitud:", response.status)
+    );
 
     // const eventSource = new EventSource("https://mtoopticos.cl/sse/");
 

@@ -159,7 +159,7 @@ const useCrud = (
   ): Promise<any | undefined> => {
     const searchUrl = `${baseUrl}listado/?query=${query}&${primaryKeys}`;
     try {
-      console.log("searchUrl", searchUrl);
+      // console.log("searchUrl", searchUrl);
       const response = await axiosInstance.get(searchUrl);
       return response.data;
     } catch (error) {
@@ -198,17 +198,30 @@ const useCrud = (
       const valoresPk1Obj1 = pk[0].map(
         (objeto: { pk1: any }) => `${objeto.pk1}`
       );
-      //console.log('valoresPk1Obj1',valoresPk1Obj1)
-
+      console.log('valoresPk1Obj1',valoresPk1Obj1)
+      console.log('typeof:',!isNaN(parseInt(valoresPk1Obj1[0])))
+      
       // const boolean2 = pk[1] ? true :false
       // console.log('intPk',intPk[0])
 
       const url =
-        intPk[0] > 1 || pk[1] //Si viene más de una pk o bien la pk es VARCHAR
-          ? `/eliminar/?query=05&_pkToDelete=${pkQueryParam}&`
-          : `/eliminar/?query=05&_p1=${valoresPk1Obj1}&`;
+        intPk[0] > 1 || pk[1] 
+          ? `/eliminar/?query=05&_pkToDelete=${pkQueryParam}`
+          :  !isNaN(parseInt(valoresPk1Obj1[0])) && /^\d+$/.test(valoresPk1Obj1[0])
+               ? (`/eliminar/?query=05&_p1=${valoresPk1Obj1}`)
+               : (`/eliminar/?query=05&_p3='${valoresPk1Obj1}'`)
+      
+      // const url =
+      //   intPk[0] > 1 || pk[1] 
+      //     ? `/eliminar/?query=05&_pkToDelete=${pkQueryParam}&`
+      //     : `/eliminar/?query=05&_p1=${valoresPk1Obj1}&`;
 
-      // const pktodelete = pk[1]
+      
+      
+      
+      
+      
+          // const pktodelete = pk[1]
       //                 ? `/eliminar/?query=05&_p1=\"${valoresPk1Obj1}\"&`
       //                 : `/eliminar/?query=05&_p1=${valoresPk1Obj1}&`;
 
@@ -223,7 +236,7 @@ const useCrud = (
 
       // : `/eliminar/?query=05&_p1=${`${pk[1]}`+valoresPk1Obj1+`${pk[1]}`}&`;
 
-      console.log("url", url);
+      console.log("url", decodeURIComponent(url));
       // console.log('comilla', comilla)
       const response = await axiosInstance.delete(url);
       return response.data;

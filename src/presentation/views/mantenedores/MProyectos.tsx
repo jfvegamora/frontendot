@@ -9,44 +9,56 @@ import {
   TableComponent,
 } from "../../components";
 import { useEntityUtils } from "../../hooks";
-import FCristalesKardexIN from "../forms/FCristalesKardexIN";
-import FCristalesKardexOUT from "../forms/FCristalesKardexOUT";
-import { TITLES, table_head_cristaleskardex } from "../../utils";
+import { TITLES, table_head_proyectos } from "../../utils";
+import FProyectos from "../forms/FProyectos";
 
 export enum EnumGrid {
-  fecha = 1,
-  cristal = 2,
-  descripcion = 3,
-  almacen_id = 4,
-  almacen = 5,
-  es = 6,
-  motivo_id = 7,
-  motivo = 8,
-  entradas = 9,
-  salidas = 10,
-  valor_neto = 11,
-  proveedor_id = 12,
-  proveedor = 13,
-  numero_factura = 14,
-  ot = 15,
-  almacen_relacionado_id = 16,
-  almacen_relacionado = 17,
-  observaciones = 18,
+  CODIGO = 1,
+  CODIGO_LICITACION = 2,
+  TITULO = 3,
+  ESTADO = 4,
+  EMPRESA_ID = 5,
+  EMPRESA = 6,
+  MANDANTE_ID = 7,
+  MANDANTE = 8,
+  UNIDAD_COMPRA = 9,
+  FECHA_ADJUDICACION = 10,
+  FECHA_INICIO = 11,
+  FECHA_TERMINO = 12,
+  CANTIDAD_REQUERIDA = 13,
+  PRESUPUESTO = 14,
+  DIAS_DE_ENTREGA = 15,
+  EJECUTIVO_ID = 16,
+  EJECUTIVO = 17,
+  CONTACTO_ADMINISTRADOR_NOMBRE = 18,
+  CONTACTO_ADMINISTRADOR_CORREO = 19,
+  CONTACTO_ADMINISTRADOR_TELEFONO = 20,
+  REFERENTE_TECNICO_NOMBRE = 21,
+  REFERENTE_TECNICO_CORREO = 22,
+  REFERENTE_TECNICO_TELEFONO = 23,
+  CONTACTO_CONTABILIDAD_NOMBRE = 24,
+  CONTACTO_CONTABILIDAD_CORREO = 25,
+  CONTACTO_CONTABILIDAD_TELEFON = 26,
+  CONTACTO_FINANZAS_NOMBRE = 27,
+  CONTACTO_FINANZAS_CORREO = 28,
+  CONTACTO_FINANZAS_TELEFONO = 29,
+  PUNTO_VENTA_ID = 30,
+  PUNTO_VENTA = 31,
+  OFTALMOLOGO_ID = 32,
+  OFTALMOLOGO = 33,
+  OBSERVACIONES = 34,
 }
-
-const strEntidad = "Kardex de Cristal ";
-const strEntidadExcel = "Cristales_Kardex";
-const strBaseUrl = "/api/cristaleskardex/";
+const strEntidad = "Proyecto ";
+const strEntidadExcel = "Proyectos";
+const strBaseUrl = "/api/proyectos/";
 const strQuery = "01";
-const idMenu = 8;
+const idMenu = 15;
 
 type PrimaryKey = {
-  pk1: string; //cristal
-  pk2: string; //fecha
+  pk1: number;
 };
-const MCristalesKardex: React.FC = () => {
+const MProyectos: React.FC = () => {
   const [params, setParams] = useState([]);
-  const [kardexDescription, setKardexDescription] = useState("");
 
   const updateParams = (newParams: Record<string, never>) => {
     setParams(Object.keys(newParams).map((key) => newParams[key]));
@@ -78,58 +90,45 @@ const MCristalesKardex: React.FC = () => {
 
   const pkToDelete: PrimaryKey[] = [];
 
+  // console.log('pktodelete', pkToDelete)
   useEffect(() => {
-    const newPkToDelete = selectedRows.map((row) => ({
-      pk1: entities[row][EnumGrid.cristal],
-      pk2: entities[row][EnumGrid.fecha],
+    const newPkToDelete = selectedRows.map((row: number) => ({
+      pk1: entities[row][EnumGrid.CODIGO],
     }));
-    newPkToDelete.forEach((newPk) => {
-      if (
-        !pkToDelete.some(
-          (existingPk) =>
-            existingPk.pk1 === newPk.pk1 && existingPk.pk2 === newPk.pk2
-        )
-      ) {
+    newPkToDelete.forEach((newPk: { pk1: any }) => {
+      if (!pkToDelete.some((existingPk) => existingPk.pk1 === newPk.pk1)) {
         pkToDelete.push(newPk);
       }
     });
+    // console.log('pktoDelete', pkToDelete)
   }, [selectedRows]);
-
-  useEffect(() => {
-    if (entities) {
-      setKardexDescription(entities[0]);
-      // console.log("kardexDescription", kardexDescription);
-    }
-  }, [entities]);
-
-  // console.log("entities", kardexDescription);
-  // console.log("data kardex:", entities && entities[0]);
+//   console.log('entities', entities)
   return (
     <div className="mantenedorContainer">
-      <h1 className="mantenedorH1">Kardex de Cristales</h1>
+      <h1 className="mantenedorH1">Proyectos</h1>
 
-      <div className="mantenedorHead width100 flex flex-col">
+      <div className="mantenedorHead width90">
         <PrimaryKeySearch
           baseUrl={strBaseUrl}
-          description={kardexDescription}
           setParams={setParams}
           updateParams={updateParams}
           setEntities={setEntities}
           primaryKeyInputs={[
-            { name: "_p1", label: "Código", type: "number" },
-            { name: "_p2", label: "Desde", type: "date" },
-            { name: "_p3", label: "Hasta", type: "date" },
-            // { name: "_pAlmacen", label: "Almacen", type: "select", selectUrl: "/api/almacenes/"},
-            // { name: "_pMarca", label: "Marca", type: "select", selectUrl: "/api/marcas/"},
-            // { name: "_pProveedor", label: "Proveedor", type: "select", selectUrl: "/api/proveedores/"},
-            // { name: "_pDiseno", label: "Diseño", type: "select", selectUrl: "/api//"},
-            // { name: "_pIndice", label: "Indice", type: "select", selectUrl: "/api//"},
-            // { name: "_pMaterial", label: "Material", type: "select", selectUrl: "/api//"},
-            // { name: "_pColor", label: "Color", type: "select", selectUrl: "/api//"},
-            // { name: "_pTratamiento", label: "Tratamiento", type: "select", selectUrl: "/api//"},
-            // { name: "_pDiametro", label: "Diámetro", type: "number" },
-            // { name: "_pEsferico", label: "Esférico", type: "number" },
-            // { name: "_pCilindrico", label: "Cilíndrico", type: "number" },
+            {
+              name: "_p1",
+              label: "Mandante",
+              type: "select",
+              selectUrl: "/api/mandantes/",
+            },
+            {
+              name: "_p2",
+              label: "Titulo",
+              type: "select",
+              selectUrl: "/api/proyectos/",
+            },
+            { name: "_p3", label: "Codigo Proyecto", type: "text" },
+            { name: "_p4", label: "Codigo Licitacion", type: "text" },
+
             // {
             //   name      : "_p3",
             //   label     : "Tipo Insumos",
@@ -143,7 +142,6 @@ const MCristalesKardex: React.FC = () => {
         <PrimaryButtonsComponent
           handleAddPerson={openModal}
           handleDeleteSelected={handleDeleteSelected}
-          toggleEditModal={toggleEditModal}
           handleRefresh={resetEntities}
           params={params}
           pkToDelete={pkToDelete}
@@ -154,9 +152,7 @@ const MCristalesKardex: React.FC = () => {
           showDeleteButton={true}
           showForwardButton={false}
           showRefreshButton={true}
-          comilla={true}
           idMenu={idMenu}
-          bln_egreso={true}
         />
       </div>
 
@@ -171,16 +167,16 @@ const MCristalesKardex: React.FC = () => {
           setSelectedRows={setSelectedRows}
           entidad={strEntidad}
           data={entities}
-          tableHead={table_head_cristaleskardex}
-          showEditButton={false}
+          tableHead={table_head_proyectos}
+          showEditButton={true}
           showDeleteButton={false}
           idMenu={idMenu}
         />
       </div>
 
       {isModalInsert && (
-        <FCristalesKardexOUT
-          label={`${TITLES.egreso} ${strEntidad}`}
+        <FProyectos
+          label={`${TITLES.nuevo} ${strEntidad}`}
           closeModal={closeModal}
           selectedRows={selectedRows}
           setEntities={setEntities}
@@ -190,7 +186,7 @@ const MCristalesKardex: React.FC = () => {
       )}
 
       {isModalEdit && (
-        <FCristalesKardexIN
+        <FProyectos
           label={`${TITLES.editar} ${strEntidad}`}
           selectedRows={selectedRows}
           setEntities={setEntities}
@@ -204,4 +200,4 @@ const MCristalesKardex: React.FC = () => {
   );
 };
 
-export default MCristalesKardex;
+export default MProyectos;

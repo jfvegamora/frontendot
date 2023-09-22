@@ -136,6 +136,7 @@ select::-ms-expand {
   background-color: #ffffff;
 
   height: 3rem;
+  white-space: pre-wrap;
 }
 
 .custom-input.error {
@@ -437,6 +438,10 @@ select::-ms-expand {
 .useFormContainer50rem {
   max-width: 50rem;
   left: 20%;
+}
+.useFormContainer70rem {
+  max-width: 90vw;
+  left: 5%;
 }
 
 .labelForm {

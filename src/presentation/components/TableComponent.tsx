@@ -6,9 +6,11 @@ import { BsFillXSquareFill } from "react-icons/bs";
 
 import { usePermission } from "../hooks";
 import { BUTTON_MESSAGES } from "../utils";
+import ExportToPDF from "./ExportToPDF";
+import { ExportCSV } from "./ExportToCsv";
 
 interface ITableComponentProps<T> {
-  tableHead: { cell: JSX.Element | string; key: string; visible: boolean }[];
+  tableHead: { cell: JSX.Element | string; key: string; visible: boolean; width:string; alignment:string }[];
   data?: T[];
   renderButtons?: (item: any) => React.ReactNode;
   handleSelectChecked?: (id: number) => void;
@@ -53,8 +55,8 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
       }
     }, [data]);
 
-    const renderTextCell = (text: string) => (
-      <Typography variant="small" color="blue-gray" className="gridText">
+    const renderTextCell = (text: string,alignment?:string) => (
+      <Typography variant="small" color="blue-gray" className={`gridText ${alignment}`}>
         {text || ""}
       </Typography>
     );
@@ -76,7 +78,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                 const isVisible =
                   column.visible && (column.key !== "checkbox" || escritura_lectura || lectura);
                 return isVisible ? (
-                  <th key={index} className="gridHead">
+                  <th key={index} className={`gridHead ${column.width || 'w-auto'}`}>
                     {column.key === "checkbox" ? (
                       <input
                         type="checkbox"
@@ -86,7 +88,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                         }
                       />
                     ) : (
-                      renderTextCell(column.cell as string)
+                      renderTextCell(column.cell as string, column.alignment)
                     )}
                   </th>
                 ) : null;
@@ -148,6 +150,9 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                         </IconButton>
                       </Tooltip>
                     )}
+
+                    <ExportToPDF/>
+                    
                   </td>
                 </tr>
               );

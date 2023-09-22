@@ -3,15 +3,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
-import { toast } from "react-toastify";
 import { RiFileExcel2Line } from "react-icons/ri";
 
 import { IconButton, Tooltip } from "@material-tailwind/react";
 import { useCrud } from "../hooks";
 import { EXCEL } from "../utils";
+import useCustomToast from "../hooks/useCustomToast";
 
 type Props = {
-  strBaseUrl: any;
+  strBaseUrl?: any;
   params?: any;
   strEntidad?: string;
 };
@@ -34,6 +34,7 @@ export const ExportCSV: React.FC<Props> = ({
   const [isModalInsert, setisModalInsert] = useState(false);
   const [exportAll, setExportAll] = useState(false);
   const [exportTable, setExportTable] = useState(false);
+  const { show } = useCustomToast();
 
   const { exportEntity } = useCrud(strBaseUrl);
   let queryString = "";
@@ -100,13 +101,19 @@ export const ExportCSV: React.FC<Props> = ({
       // console.log("strEntidad", strEntidad);
       exportEntity("", strEntidad)
         .then(() => {
-          toast(EXCEL.download);
+          show({
+            message: EXCEL.download,
+            type: "success",
+          });
         })
         .catch((e) => console.log(e));
     } else if (exportTable) {
       exportEntity(queryString, strEntidad)
         .then(() => {
-          toast(EXCEL.download);
+          show({
+            message: EXCEL.download,
+            type: "success",
+          });
         })
         .catch((e) => console.log(e));
     }

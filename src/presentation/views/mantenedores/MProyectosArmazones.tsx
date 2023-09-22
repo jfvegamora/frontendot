@@ -9,44 +9,46 @@ import {
   TableComponent,
 } from "../../components";
 import { useEntityUtils } from "../../hooks";
-import FCristalesKardexIN from "../forms/FCristalesKardexIN";
-import FCristalesKardexOUT from "../forms/FCristalesKardexOUT";
-import { TITLES, table_head_cristaleskardex } from "../../utils";
+import { TITLES, table_head_parametrizacion_cargo_armazones} from "../../utils";
+import FProyectosArmazones from "../forms/FProyectosArmazones";
+
 
 export enum EnumGrid {
-  fecha = 1,
-  cristal = 2,
-  descripcion = 3,
-  almacen_id = 4,
-  almacen = 5,
-  es = 6,
-  motivo_id = 7,
-  motivo = 8,
-  entradas = 9,
-  salidas = 10,
-  valor_neto = 11,
-  proveedor_id = 12,
-  proveedor = 13,
-  numero_factura = 14,
-  ot = 15,
-  almacen_relacionado_id = 16,
-  almacen_relacionado = 17,
-  observaciones = 18,
+  codigo_proyecto      = 1,
+  titulo_proyecto      = 2,
+  codigo_licitacion    = 3,
+  codigo_armazon       = 4,
+  proveedor_id         = 5,
+  proveedor            = 6,
+  tipo_id              = 7,
+  tipo                 = 8,
+  marca_id             = 9,
+  marca                = 10,
+  modelo               = 11,
+  color                = 12,
+  material_id          = 13,
+  material             = 14,
+  aro                  = 15,
+  puente               = 16,
+  diagonal             = 17,
+  brazo                = 18,
+  uso_id               = 19,
+  uso                  = 20,
+  estado               = 21
 }
-
-const strEntidad = "Kardex de Cristal ";
-const strEntidadExcel = "Cristales_Kardex";
-const strBaseUrl = "/api/cristaleskardex/";
+const strEntidad = "Parametrizacion de Armazon ";
+const strEntidadExcel = "Parametrizacion_de_armazones";
+const strBaseUrl = "/api/proyectoscatalogo/";
 const strQuery = "01";
-const idMenu = 8;
+const idMenu   = 16;
 
 type PrimaryKey = {
-  pk1: string; //cristal
-  pk2: string; //fecha
+  pk1: string;
+  pk2: string;
 };
-const MCristalesKardex: React.FC = () => {
+
+const MProyectosArmazones: React.FC = () => {
   const [params, setParams] = useState([]);
-  const [kardexDescription, setKardexDescription] = useState("");
 
   const updateParams = (newParams: Record<string, never>) => {
     setParams(Object.keys(newParams).map((key) => newParams[key]));
@@ -73,15 +75,14 @@ const MCristalesKardex: React.FC = () => {
     resetEntities,
   } = useEntityUtils(strBaseUrl, strQuery);
   // console.log("entities:", entities);
-
-  // console.log("params:", params);
+  // console.log("selectedRows", selectedRows);
 
   const pkToDelete: PrimaryKey[] = [];
 
   useEffect(() => {
     const newPkToDelete = selectedRows.map((row) => ({
-      pk1: entities[row][EnumGrid.cristal],
-      pk2: entities[row][EnumGrid.fecha],
+      pk1: entities[row][EnumGrid.codigo_proyecto],
+      pk2: `${entities[row][EnumGrid.codigo_armazon]}`,
     }));
     newPkToDelete.forEach((newPk) => {
       if (
@@ -93,57 +94,34 @@ const MCristalesKardex: React.FC = () => {
         pkToDelete.push(newPk);
       }
     });
+    // console.log("newObject:",Object.keys(pkToDelete[0]).length);
   }, [selectedRows]);
 
-  useEffect(() => {
-    if (entities) {
-      setKardexDescription(entities[0]);
-      // console.log("kardexDescription", kardexDescription);
-    }
-  }, [entities]);
-
-  // console.log("entities", kardexDescription);
-  // console.log("data kardex:", entities && entities[0]);
   return (
     <div className="mantenedorContainer">
-      <h1 className="mantenedorH1">Kardex de Cristales</h1>
+      <h1 className="mantenedorH1">Parametrizacion de Armazones</h1>
 
-      <div className="mantenedorHead width100 flex flex-col">
+      <div className="mantenedorHead width80">
         <PrimaryKeySearch
           baseUrl={strBaseUrl}
-          description={kardexDescription}
           setParams={setParams}
           updateParams={updateParams}
           setEntities={setEntities}
           primaryKeyInputs={[
-            { name: "_p1", label: "Código", type: "number" },
-            { name: "_p2", label: "Desde", type: "date" },
-            { name: "_p3", label: "Hasta", type: "date" },
-            // { name: "_pAlmacen", label: "Almacen", type: "select", selectUrl: "/api/almacenes/"},
-            // { name: "_pMarca", label: "Marca", type: "select", selectUrl: "/api/marcas/"},
-            // { name: "_pProveedor", label: "Proveedor", type: "select", selectUrl: "/api/proveedores/"},
-            // { name: "_pDiseno", label: "Diseño", type: "select", selectUrl: "/api//"},
-            // { name: "_pIndice", label: "Indice", type: "select", selectUrl: "/api//"},
-            // { name: "_pMaterial", label: "Material", type: "select", selectUrl: "/api//"},
-            // { name: "_pColor", label: "Color", type: "select", selectUrl: "/api//"},
-            // { name: "_pTratamiento", label: "Tratamiento", type: "select", selectUrl: "/api//"},
-            // { name: "_pDiametro", label: "Diámetro", type: "number" },
-            // { name: "_pEsferico", label: "Esférico", type: "number" },
-            // { name: "_pCilindrico", label: "Cilíndrico", type: "number" },
-            // {
-            //   name      : "_p3",
-            //   label     : "Tipo Insumos",
-            //   type      : "select",
-            //   selectUrl : "/api/tipos/",
-            //   tipos     : "TipoInsumos"
-            // },
+            {
+              name: "_p1",
+              label: "Proyecto",
+              type: "select",
+              selectUrl: "/api/proyectos/",
+            },
+            { name: "_p2", label: "Código Proyecto", type: "text" },
+            { name: "_p3", label: "Código Licitacion", type: "text" },
           ]}
         />
 
         <PrimaryButtonsComponent
           handleAddPerson={openModal}
           handleDeleteSelected={handleDeleteSelected}
-          toggleEditModal={toggleEditModal}
           handleRefresh={resetEntities}
           params={params}
           pkToDelete={pkToDelete}
@@ -154,33 +132,33 @@ const MCristalesKardex: React.FC = () => {
           showDeleteButton={true}
           showForwardButton={false}
           showRefreshButton={true}
-          comilla={true}
           idMenu={idMenu}
-          bln_egreso={true}
+
         />
       </div>
 
-      <div className="scroll">
+      <div className="width90 scroll">
         <TableComponent
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
           toggleEditModal={toggleEditModal}
           handleDeleteSelected={handleDeleteSelected}
-          selectedRows={selectedRows}
           pkToDelete={pkToDelete}
+          selectedRows={selectedRows}
           setSelectedRows={setSelectedRows}
           entidad={strEntidad}
           data={entities}
-          tableHead={table_head_cristaleskardex}
-          showEditButton={false}
+          tableHead={table_head_parametrizacion_cargo_armazones}
+          showEditButton={true}
           showDeleteButton={false}
           idMenu={idMenu}
         />
       </div>
+   
 
       {isModalInsert && (
-        <FCristalesKardexOUT
-          label={`${TITLES.egreso} ${strEntidad}`}
+        <FProyectosArmazones
+          label={`${TITLES.nuevo} ${strEntidad}`}
           closeModal={closeModal}
           selectedRows={selectedRows}
           setEntities={setEntities}
@@ -190,7 +168,7 @@ const MCristalesKardex: React.FC = () => {
       )}
 
       {isModalEdit && (
-        <FCristalesKardexIN
+        <FProyectosArmazones
           label={`${TITLES.editar} ${strEntidad}`}
           selectedRows={selectedRows}
           setEntities={setEntities}
@@ -204,4 +182,4 @@ const MCristalesKardex: React.FC = () => {
   );
 };
 
-export default MCristalesKardex;
+export default MProyectosArmazones;

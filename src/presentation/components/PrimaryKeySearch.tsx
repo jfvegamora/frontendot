@@ -26,6 +26,7 @@ interface PrimaryKeySearchProps {
   }[];
   baseUrl: string;
   updateParams: any;
+  description?: any;
 }
 
 const MemoizedMagnifyingGlassIcon = React.memo(() => (
@@ -33,11 +34,22 @@ const MemoizedMagnifyingGlassIcon = React.memo(() => (
 ));
 
 const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
-  ({ setEntities, primaryKeyInputs, baseUrl, updateParams }) => {
+  ({ setEntities, primaryKeyInputs, baseUrl, updateParams, description }) => {
     const { control, handleSubmit } = useForm<IPrimaryKeyState>();
     const [inputValues, setInputValues] = useState<IPrimaryKeyState>({});
+    const [cristalDescritpion, setCristalDescription] = useState(
+      description || ""
+    );
     const { ListEntity } = useCrud(baseUrl);
-
+    console.log("cristalDescritpion", cristalDescritpion[3]);
+    
+    useEffect(() => {
+      // Actualiza el estado interno cuando la prop description cambia
+      setCristalDescription(description || '');
+    }, [description]);
+    
+    
+    
     const handleInputChange = React.useCallback(
       (name: string, value: string) => {
         setInputValues((prev) => ({ ...prev, [name]: value }));
@@ -56,7 +68,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
       [inputValues, updateParams]
     );
 
-    const handleSearch = React.useCallback(async (data: IPrimaryKeyState) => {
+    const handleSearch = React.useCallback(async (data: any) => {
       if ("_pCilindrico" in data || "_pEsferico" in data) {
         console.log("si contiene");
         data = {
@@ -65,10 +77,9 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
           _pEsferico: data._pEsferico.replace(/[,]/g, "."),
         };
       }
-      console.log("data:", data);
 
       const searchParams = Object.entries(data)
-        .map(([key, value]) =>
+        .map(([key, value]: any) =>
           key === "_p1" || value ? `${key}=${encodeURIComponent(value)}` : ""
         )
         .filter((param) => param !== "")
@@ -213,7 +224,6 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
     };
 
     useEffect(() => {
-      // Crea un objeto con los parámetros de búsqueda
       const searchParams = {
         _p1: inputValues._p1 || "",
         _p2: inputValues._p2 || "",
@@ -232,7 +242,6 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
         _id: inputValues._id || "",
       };
 
-      // Llama a la función de actualización de parámetros pasándole el objeto
       updateParams(searchParams);
     }, [inputValues]);
 
@@ -249,6 +258,14 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
             <MemoizedMagnifyingGlassIcon />
           </IconButton>
         </Tooltip>
+        {description && (
+          <input
+            className="mx-8 w-[45rem]"
+            readOnly={true}
+            type="text"
+            defaultValue={cristalDescritpion && cristalDescritpion[3]}
+          />
+        )}
       </form>
     );
   }

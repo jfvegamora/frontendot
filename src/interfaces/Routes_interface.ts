@@ -16,8 +16,8 @@ const MMarcas               = lazy(()=>import("../presentation/views/mantenedore
 const MProveedores          = lazy(() =>import("../presentation/views/mantenedores/MProveedores"));
 
 const MMandantes            = lazy(()=>import("../presentation/views/mantenedores/MMandantes"));
-// const MProyectos            = lazy(()=>import("../presentation/views/mantenedores/MProyectos"));
-// const MProyectosArmazones   = lazy(()=>import("../presentation/views/mantenedores/MProyectosArmazones"));
+const MProyectos            = lazy(()=>import("../presentation/views/mantenedores/MProyectos"));
+const MProyectosArmazones   = lazy(()=>import("../presentation/views/mantenedores/MProyectosArmazones"));
 // const MProyectosGrupos      = lazy(()=>import("../presentation/views/mantenedores/MProyectosGrupos"));
 // const MProyectosDirecciones = lazy(()=>import("../presentation/views/mantenedores/MProyectosDirecciones"));
 // const MProyectosAtenciones  = lazy(()=>import("../presentation/views/mantenedores/MProyectosAtenciones"));
@@ -171,18 +171,18 @@ export const privateRoutes = [
     component           : MMandantes,
     requiredPermissions : ['view_' + PrivateRoutes.MANDANTES]
   },
-  // {
-  //   id                  : "15",
-  //   path                : PrivateRoutes.PROYECTOS,
-  //   component           : MProyectos,
-  //   requiredPermissions : ['view_' + PrivateRoutes.PROYECTOS]
-  // },
-  // {
-  //   id                  : "16",
-  //   path                : PrivateRoutes.PROYECTOS_ARMAZONES,
-  //   component           : MProyectosArmazones,
-  //   requiredPermissions : ['view_' + PrivateRoutes.PROYECTOS_ARMAZONES]
-  // },
+  {
+    id                  : "15",
+    path                : PrivateRoutes.PROYECTOS,
+    component           : MProyectos,
+    requiredPermissions : ['view_' + PrivateRoutes.PROYECTOS]
+  },
+  {
+    id                  : "16",
+    path                : PrivateRoutes.PROYECTOS_ARMAZONES,
+    component           : MProyectosArmazones,
+    requiredPermissions : ['view_' + PrivateRoutes.PROYECTOS_ARMAZONES]
+  },
   // {
   //   id                  : "17",
   //   path                : PrivateRoutes.PROYECTOS_GRUPOS,

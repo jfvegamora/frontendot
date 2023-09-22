@@ -170,8 +170,53 @@ export const validationMandantesSchema = (isEditting: boolean | undefined) =>
     provincia: yup.string(),
     comuna: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
   });
+export const validationProyectosSchema = (isEditting: boolean | undefined) =>
+  yup.object().shape({
+    empresa_adjudicada: !isEditting ? yup.number().required(`${msg}`) : yup.number(),
+    mandante: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
+    ejecutivo_proyecto: !isEditting ? yup.number().required(`${msg}`) : yup.number(),
+    codigo_proyecto: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
+    codigo_licitacion: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
+    titulo_proyecto: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
+    estado: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
+    unidad_compra: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
+    fecha_adjudicacion: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
+    fecha_inicio: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
+    fecha_termino: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
+    dias_entrega: !isEditting ? yup.number().required(`${msg}`) : yup.number(),
+    oftalmologo: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
+    presupuesto: !isEditting ? yup.number().required(`${msg}`) : yup.number(),
+    cantidad_atendida: yup.number().nullable(),
+    total_facturado: yup.number().nullable(),
+    cantidad_disponible: yup.number().nullable(),
+    saldo_disponible: yup.number().nullable(),
+    avance: yup.number().nullable(),
+    cantidad_requerida: !isEditting ? yup.number().required(`${msg}`) : yup.number(),
+    administrador_nombre: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
+    administrador_telefono: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
+    administrador_correo: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
+    contabilidad_nombre: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
+    contabilidad_telefono: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
+    contabilidad_correo: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
+    referente_nombre: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
+    referente_telefono: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
+    referente_correo: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
+    finanzas_nombre: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
+    finanzas_telefono: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
+    finanzas_correo: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
+    observaciones: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
+    // punto_venta: !isEditting ? yup.number().required(`${msg}`) : yup.number(),
+  });
+ 
+export const validationParametrizacionArmazones = (isEditting: boolean | undefined) =>
+  yup.object().shape({
+    proyecto: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
+    codigo_armazon: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
+    estado: !isEditting
+      ? yup.string().required(`${msg}`)
+      : yup.string(),
+});
 
-// Schema OFTALMÓLOGOS
 export const validationOftalmologosSchema = (isEditting: boolean | undefined) =>
   yup.object().shape({
     rut: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
