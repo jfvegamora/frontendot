@@ -21,8 +21,8 @@ const DateInputComponent:React.FC<DateInputProps> = ({
     data
 }) => {
   return (
-    <div className="flex items-center mb-2">
-        <label  className="text-gray-700 text-sm font-bold w-1/3 text-center">{label}</label>
+    <div className="flex items-center mb-2 ">
+        {/* <label  className="text-gray-700 text-sm font-bold w-1/3 text-center">{label}</label> */}
         <Controller
            name={name}
            control={control}

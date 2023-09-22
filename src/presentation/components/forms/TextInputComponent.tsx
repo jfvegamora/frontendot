@@ -31,7 +31,7 @@ const TextInputComponent: React.FC<ITextInputProps> = ({
 }) => {
   return (
 <div
-  className={`${"flex  items-center mb-4 mx-4  rounded-xl "} ${
+  className={`${"flex items-center mb-4 mx-4  relative rounded-xl "} ${
     error && "border-red-400"
   }`}
 >
@@ -40,7 +40,18 @@ const TextInputComponent: React.FC<ITextInputProps> = ({
     control={control}
     defaultValue={data ? data : ""}
     render={({ field }) => (
-      <div className="flex flex-col w-full"> {/* Utiliza flex para permitir el flujo de contenido */}
+      <div className="flex flex-col  w-full"> {/* Utiliza flex para permitir el flujo de contenido */}
+        {/* <label
+          htmlFor={label}
+          style={{
+            color          : "grey",
+            fontWeight     : "normal",
+            fontSize       : "16px",
+            backgroundColor: "transparent",
+          }}
+        >
+          {label}
+        </label> */}
         <Input
           {...field}
           label     ={label}
@@ -56,7 +67,7 @@ const TextInputComponent: React.FC<ITextInputProps> = ({
     )}
   />
   {error && (
-    <p className="text-xs text-red-500 absolute right-20">
+    <p className="text-xs text-red-500 absolute top-0 left-0">
       {error.message}
     </p>
   )}

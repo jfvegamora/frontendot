@@ -11,7 +11,7 @@ import {
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationKardexOUTSchema } from "../../utils/validationFormSchemas";
-import { EnumGrid } from "../mantenedores/MCristalesKardex";
+import { EnumGrid } from "../mantenedores/MAccesoriosKardex";
 import {
   ERROR_MESSAGES,
   MODAL,
@@ -22,8 +22,8 @@ import { useModal } from "../../hooks/useModal";
 import { AppStore, useAppSelector } from "../../../redux/store";
 import useCustomToast from "../../hooks/useCustomToast";
 
-const strBaseUrl = "/api/cristaleskardex/";
-const strEntidad = "Kardex de Cristal ";
+const strBaseUrl = "/api/accesorioskardex/";
+const strEntidad = "Kardex de Accesorio ";
 
 export interface InputData {
   insumo             : number | undefined;
@@ -60,8 +60,8 @@ export function transformInsertQuery(jsonData: InputData, userId?:number): Outpu
   const dateHora = new Date().toLocaleTimeString();
   // console.log('DATETIME: ',fechaFormateada + " " +dateHora)
 
-  /*INSERT INTO CristalesKardex 
-  (fecha, cristal, almacen, es, motivo, cantidad, valor_neto, proveedor, 
+  /*INSERT INTO 
+  (fecha, accesorio, almacen, es, motivo, cantidad, valor_neto, proveedor, 
     numero_factura, OT, almacen_relacionado, observaciones, usuario, fecha_mov)*/
   const _p1 = `'${jsonData.fecha + " " + fechaActual.toLocaleTimeString()}', 
     ${jsonData.insumo}, 
@@ -139,7 +139,7 @@ interface IUserFormPrps {
   params?: any;
 }
 
-const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
+const FAccesoriosKardexOUT: React.FC<IUserFormPrps> = React.memo(
   ({ closeModal, setEntities, params, label, data, isEditting }) => {
     const schema = validationKardexOUTSchema(isEditting);
     const { showModal, CustomModal } = useModal();
@@ -302,7 +302,7 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
             <div className="w-full">
               <TextInputComponent
                 type="number"
-                label="Código Cristal"
+                label="Código Accesorio"
                 name="insumo"
                 data={data && data[EnumGrid.insumo]}
                 control={control}
@@ -396,4 +396,4 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
   }
 );
 
-export default FCristalesKardexOUT;
+export default FAccesoriosKardexOUT;

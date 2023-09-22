@@ -11,7 +11,7 @@ import {
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationKardexOUTSchema } from "../../utils/validationFormSchemas";
-import { EnumGrid } from "../mantenedores/MCristalesKardex";
+import { EnumGrid } from "../mantenedores/MArmazonesKardex";
 import {
   ERROR_MESSAGES,
   MODAL,
@@ -22,8 +22,8 @@ import { useModal } from "../../hooks/useModal";
 import { AppStore, useAppSelector } from "../../../redux/store";
 import useCustomToast from "../../hooks/useCustomToast";
 
-const strBaseUrl = "/api/cristaleskardex/";
-const strEntidad = "Kardex de Cristal ";
+const strBaseUrl = "/api/armazoneskardex/";
+const strEntidad = "Kardex de Armazón ";
 
 export interface InputData {
   insumo             : number | undefined;
@@ -139,7 +139,7 @@ interface IUserFormPrps {
   params?: any;
 }
 
-const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
+const FArmazonesKardexOUT: React.FC<IUserFormPrps> = React.memo(
   ({ closeModal, setEntities, params, label, data, isEditting }) => {
     const schema = validationKardexOUTSchema(isEditting);
     const { showModal, CustomModal } = useModal();
@@ -302,7 +302,7 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
             <div className="w-full">
               <TextInputComponent
                 type="number"
-                label="Código Cristal"
+                label="Código Armazón"
                 name="insumo"
                 data={data && data[EnumGrid.insumo]}
                 control={control}
@@ -396,4 +396,4 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
   }
 );
 
-export default FCristalesKardexOUT;
+export default FArmazonesKardexOUT;

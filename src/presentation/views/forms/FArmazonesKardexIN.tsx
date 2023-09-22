@@ -7,11 +7,12 @@ import React, { useState, useEffect } from "react";
 import {
   SelectInputComponent,
   TextInputComponent,
+  DateInputComponent,
 } from "../../components";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { validationKardexOUTSchema } from "../../utils/validationFormSchemas";
-import { EnumGrid } from "../mantenedores/MCristalesKardex";
+import { validationKardexINSchema } from "../../utils/validationFormSchemas";
+import { EnumGrid } from "../mantenedores/MArmazonesKardex";
 import {
   ERROR_MESSAGES,
   MODAL,
@@ -22,22 +23,22 @@ import { useModal } from "../../hooks/useModal";
 import { AppStore, useAppSelector } from "../../../redux/store";
 import useCustomToast from "../../hooks/useCustomToast";
 
-const strBaseUrl = "/api/cristaleskardex/";
+const strBaseUrl = "/api/armazoneskardex/";
 const strEntidad = "Kardex de Cristal ";
 
 export interface InputData {
   insumo             : number | undefined;
-  // descripcion         : string | undefined;
+  descripcion         : string | undefined;
   fecha               : string | undefined;
   // es                  : string | undefined;
   motivo              : string | undefined;
   cantidad            : number | undefined;
   almacen             : string | undefined;
-  // numero_factura      : number | undefined;
-  // proveedor           : string | undefined;
-  // valor_neto          : number | undefined;
+  numero_factura      : number | undefined;
+  proveedor           : string | undefined;
+  valor_neto          : number | undefined;
   // ot                  : number | undefined;
-  almacen_relacionado : string | undefined;
+  // almacen_relacionado : string | undefined;
   observaciones       : string | undefined;
   usuario             : number | undefined;
   fecha_mov           : string | undefined;
@@ -58,31 +59,32 @@ export function transformInsertQuery(jsonData: InputData, userId?:number): Outpu
 
   const fechaFormateada = `${year}/${month}/${day}`;
   const dateHora = new Date().toLocaleTimeString();
-  // console.log('DATETIME: ',fechaFormateada + " " +dateHora)
+  console.log('DATETIME: ',fechaFormateada + " " +dateHora)
+
 
   /*INSERT INTO CristalesKardex 
   (fecha, cristal, almacen, es, motivo, cantidad, valor_neto, proveedor, 
     numero_factura, OT, almacen_relacionado, observaciones, usuario, fecha_mov)*/
-  const _p1 = `'${jsonData.fecha + " " + fechaActual.toLocaleTimeString()}', 
+    const _p1 = `'${jsonData.fecha + " " + fechaActual.toLocaleTimeString()}', 
     ${jsonData.insumo}, 
     ${jsonData.almacen}, 
-    ${2}, 
+    ${1}, 
     ${jsonData.motivo},
     ${jsonData.cantidad}, 
+    ${jsonData.valor_neto}, 
+    ${jsonData.proveedor}, 
+    ${jsonData.numero_factura}, 
     ${'0'}, 
     ${'0'}, 
-    ${'0'}, 
-    ${'0'}, 
-    ${jsonData.almacen_relacionado}, 
    '${jsonData.observaciones}',
     ${userId}, 
-   '${fechaFormateada + " " + dateHora}'`;
+   '${fechaFormateada + " " +dateHora}'`;
 
   const query: OutputData = {
     query: "03",
     _p1: _p1,
   };
-  console.log("query INSERT ", query);
+  console.log("p1", query);
 
   return query;
 }
@@ -139,9 +141,9 @@ interface IUserFormPrps {
   params?: any;
 }
 
-const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
+const FArmazonesKardexIN: React.FC<IUserFormPrps> = React.memo(
   ({ closeModal, setEntities, params, label, data, isEditting }) => {
-    const schema = validationKardexOUTSchema(isEditting);
+    const schema = validationKardexINSchema(isEditting);
     const { showModal, CustomModal } = useModal();
     const userState = useAppSelector((store: AppStore) => store.user);
     const { show } = useCustomToast();
@@ -170,8 +172,9 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
       setValue("fecha", "undefined");
       // setValue("descripcion", "");
       setValue("cantidad", 0);
+      setValue("numero_factura", 0);
+      setValue("valor_neto", 0);
       setValue("observaciones", "");
-      setValue("almacen_relacionado", "0");
 
       if (firstInputRef.current) {
         const firstInput = firstInputRef.current.querySelector(
@@ -212,6 +215,7 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
             message: errorMessage ? errorMessage : response.code,
             type: "error",
           });
+
           return;
         }
 
@@ -288,7 +292,7 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
     }, []);
 
     return (
-      <div className="useFormContainer useFormContainer30rem">
+      <div className="useFormContainer useFormContainer40rem">
         <div className="userFormBtnCloseContainer">
           <button onClick={closeModal} className="userFormBtnClose">
             X
@@ -302,7 +306,7 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
             <div className="w-full">
               <TextInputComponent
                 type="number"
-                label="Código Cristal"
+                label="Código Armazón"
                 name="insumo"
                 data={data && data[EnumGrid.insumo]}
                 control={control}
@@ -321,8 +325,19 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
                 error={!isEditting && errors.fecha}
                 onlyRead={isEditting}
               />
+            </div> 
             </div>
-            </div>
+            {/* <div className="w-full">
+              <TextInputComponent
+                type="text"
+                label="Descripcion"
+                name="decripcion"
+                data={data && data[EnumGrid.descripcion]}
+                control={control}
+                error={!isEditting && errors.descripcion}
+                onlyRead={isEditting}
+              />
+            </div> */}
             <div className="input-container">
               <div className="w-full">
               <SelectInputComponent
@@ -331,7 +346,7 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
                     showRefresh={true}
                     data={data && data[EnumGrid.motivo_id]}
                     control={control}
-                    entidad={["/api/kardexmotivos/", "02"]}
+                    entidad={["/api/kardexmotivos/", "01"]}
                     error={!isEditting && errors.motivo}
                     // customWidth={"345px"}
                   />
@@ -341,7 +356,7 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
                 type="number"
                 label="Cantidad"
                 name="cantidad"
-                data={data && data[EnumGrid.salidas]}
+                data={data && data[EnumGrid.entradas]}
                 control={control}
                 error={!isEditting && errors.cantidad}
               />
@@ -359,17 +374,40 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
                 error={!isEditting && errors.almacen}
               />
               </div>
+              <div className="w-full">
+              <TextInputComponent
+                type="number"
+                label="Factura"
+                name="numero_factura"
+                data={data && data[EnumGrid.numero_factura]}
+                control={control}
+                error={!isEditting && errors.numero_factura}
+                className="input"
+              />
+              </div>
             </div>
             <div className="input-container">
             <div className="w-full">
-            <SelectInputComponent
-                label="Almacén Traspaso"
-                name="almacen_relacionado"
+              <SelectInputComponent
+                label="Provedor"
+                name="proveedor"
                 showRefresh={true}
-                data={data && data[EnumGrid.almacen_relacionado_id]}
+                data={data && data[EnumGrid.proveedor_id]}
                 control={control}
-                entidad={["/api/almacenes/", "02"]}
-                error={!isEditting && errors.almacen_relacionado}
+                entidad={["/api/proveedores/", "02"]}
+                error={!isEditting && errors.proveedor}
+                customWidth={""}
+              />
+            </div>
+              <div className="w-full">
+              <TextInputComponent
+                type="number"
+                label="$ Neto Unitario"
+                name="valor_neto"
+                data={data && data[EnumGrid.valor_neto]}
+                control={control}
+                error={!isEditting && errors.valor_neto}
+                className="input"
               />
             </div>
             </div>
@@ -396,4 +434,4 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
   }
 );
 
-export default FCristalesKardexOUT;
+export default FArmazonesKardexIN;

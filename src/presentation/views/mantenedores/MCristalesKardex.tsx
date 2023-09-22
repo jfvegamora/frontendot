@@ -6,16 +6,16 @@ import React, { useState, useEffect } from "react";
 import {
   PrimaryButtonsComponent,
   PrimaryKeySearch,
-  TableComponent,
+  TableComponent, 
 } from "../../components";
 import { useEntityUtils } from "../../hooks";
 import FCristalesKardexIN from "../forms/FCristalesKardexIN";
 import FCristalesKardexOUT from "../forms/FCristalesKardexOUT";
-import { TITLES, table_head_cristaleskardex } from "../../utils";
+import { TITLES, table_head_kardex } from "../../utils";
 
 export enum EnumGrid {
   fecha = 1,
-  cristal = 2,
+  insumo = 2,
   descripcion = 3,
   almacen_id = 4,
   almacen = 5,
@@ -80,7 +80,7 @@ const MCristalesKardex: React.FC = () => {
 
   useEffect(() => {
     const newPkToDelete = selectedRows.map((row) => ({
-      pk1: entities[row][EnumGrid.cristal],
+      pk1: entities[row][EnumGrid.insumo],
       pk2: entities[row][EnumGrid.fecha],
     }));
     newPkToDelete.forEach((newPk) => {
@@ -119,24 +119,6 @@ const MCristalesKardex: React.FC = () => {
             { name: "_p1", label: "Código", type: "number" },
             { name: "_p2", label: "Desde", type: "date" },
             { name: "_p3", label: "Hasta", type: "date" },
-            // { name: "_pAlmacen", label: "Almacen", type: "select", selectUrl: "/api/almacenes/"},
-            // { name: "_pMarca", label: "Marca", type: "select", selectUrl: "/api/marcas/"},
-            // { name: "_pProveedor", label: "Proveedor", type: "select", selectUrl: "/api/proveedores/"},
-            // { name: "_pDiseno", label: "Diseño", type: "select", selectUrl: "/api//"},
-            // { name: "_pIndice", label: "Indice", type: "select", selectUrl: "/api//"},
-            // { name: "_pMaterial", label: "Material", type: "select", selectUrl: "/api//"},
-            // { name: "_pColor", label: "Color", type: "select", selectUrl: "/api//"},
-            // { name: "_pTratamiento", label: "Tratamiento", type: "select", selectUrl: "/api//"},
-            // { name: "_pDiametro", label: "Diámetro", type: "number" },
-            // { name: "_pEsferico", label: "Esférico", type: "number" },
-            // { name: "_pCilindrico", label: "Cilíndrico", type: "number" },
-            // {
-            //   name      : "_p3",
-            //   label     : "Tipo Insumos",
-            //   type      : "select",
-            //   selectUrl : "/api/tipos/",
-            //   tipos     : "TipoInsumos"
-            // },
           ]}
         />
 
@@ -162,23 +144,36 @@ const MCristalesKardex: React.FC = () => {
 
       <div className="scroll">
         <TableComponent
-          handleSelectChecked={handleSelect}
+          handleSelectChecked     ={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
-          toggleEditModal={toggleEditModal}
-          handleDeleteSelected={handleDeleteSelected}
-          selectedRows={selectedRows}
-          pkToDelete={pkToDelete}
-          setSelectedRows={setSelectedRows}
-          entidad={strEntidad}
-          data={entities}
-          tableHead={table_head_cristaleskardex}
-          showEditButton={false}
-          showDeleteButton={false}
-          idMenu={idMenu}
+          toggleEditModal         ={toggleEditModal}
+          handleDeleteSelected    ={handleDeleteSelected}
+          selectedRows            ={selectedRows}
+          pkToDelete              ={pkToDelete}
+          setSelectedRows         ={setSelectedRows}
+          entidad                 ={strEntidad}
+          data                    ={entities}
+          tableHead               ={table_head_kardex}
+          showEditButton          ={false}
+          showDeleteButton        ={false}
+          idMenu                  ={idMenu}
         />
       </div>
 
+
       {isModalInsert && (
+        <FCristalesKardexIN
+          label={`${TITLES.ingreso} ${strEntidad}`}
+          selectedRows={selectedRows}
+          setEntities={setEntities}
+          params={params}
+          data={entity}
+          closeModal={closeModal}
+          isEditting={false}
+        />
+      )}
+
+      {isModalEdit && (
         <FCristalesKardexOUT
           label={`${TITLES.egreso} ${strEntidad}`}
           closeModal={closeModal}
@@ -186,18 +181,6 @@ const MCristalesKardex: React.FC = () => {
           setEntities={setEntities}
           params={params}
           isEditting={false}
-        />
-      )}
-
-      {isModalEdit && (
-        <FCristalesKardexIN
-          label={`${TITLES.editar} ${strEntidad}`}
-          selectedRows={selectedRows}
-          setEntities={setEntities}
-          params={params}
-          data={entity}
-          closeModal={closeModal}
-          isEditting={true}
         />
       )}
     </div>

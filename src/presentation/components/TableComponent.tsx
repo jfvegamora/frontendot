@@ -10,7 +10,7 @@ import ExportToPDF from "./ExportToPDF";
 import { ExportCSV } from "./ExportToCsv";
 
 interface ITableComponentProps<T> {
-  tableHead: { cell: JSX.Element | string; key: string; visible: boolean; width:string; alignment:string }[];
+  tableHead: { cell: JSX.Element | string; key: string; visible: boolean; width?:string; alignment?:string }[];
   data?: T[];
   renderButtons?: (item: any) => React.ReactNode;
   handleSelectChecked?: (id: number) => void;
@@ -55,9 +55,9 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
       }
     }, [data]);
 
-    const renderTextCell = (text: string,alignment?:string) => (
-      <Typography variant="small" color="blue-gray" className={`gridText ${alignment}`}>
-        {text || ""}
+    const renderTextCell = (text: string) => (
+      <Typography variant="small" color="blue-gray" className="gridText">
+        {text}
       </Typography>
     );
 

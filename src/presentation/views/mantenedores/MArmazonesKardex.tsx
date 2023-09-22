@@ -6,33 +6,46 @@ import React, { useState, useEffect } from "react";
 import {
   PrimaryButtonsComponent,
   PrimaryKeySearch,
-  TableComponent,
+  TableComponent, 
 } from "../../components";
 import { useEntityUtils } from "../../hooks";
-import FAccesorios from "../forms/FAccesorios";
-import { TITLES, table_head_accesorios } from "../../utils";
+import FArmazonesKardexIN from "../forms/FArmazonesKardexIN";
+import FArmazonesKardexOUT from "../forms/FArmazonesKardexOUT";
+import { TITLES, table_head_kardex } from "../../utils";
 
 export enum EnumGrid {
-  codigo       = 1,
-  descripcion  = 2,
-  marca_id     = 3,
-  marca        = 4,
-  proveedor_id = 5,
-  proveedor    = 6,
-  precio_neto  = 7,
-  stock_minimo = 8,
+  fecha = 1,
+  insumo = 2,
+  descripcion = 3,
+  almacen_id = 4,
+  almacen = 5,
+  es = 6,
+  motivo_id = 7,
+  motivo = 8,
+  entradas = 9,
+  salidas = 10,
+  valor_neto = 11,
+  proveedor_id = 12,
+  proveedor = 13,
+  numero_factura = 14,
+  ot = 15,
+  almacen_relacionado_id = 16,
+  almacen_relacionado = 17,
+  observaciones = 18,
 }
 
-const strEntidad = "Accesorio ";
-const strEntidadExcel = "Accesorios";
-const strBaseUrl = "/api/accesorios/";
+
+const strEntidad = "Kardex de Armazón ";
+const strEntidadExcel = "Armazones_Kardex";
+const strBaseUrl = "/api/armazoneskardex/";
 const strQuery = "01";
-const idMenu = 9;
+const idMenu = 6;
 
 type PrimaryKey = {
-  pk1: number;
+  pk1: string; //armazon
+  pk2: string; //fecha
 };
-const MAccesorios: React.FC = () => {
+const MArmazonesKardex: React.FC = () => {
   const [params, setParams] = useState([]);
 
   const updateParams = (newParams: Record<string, never>) => {
@@ -61,15 +74,22 @@ const MAccesorios: React.FC = () => {
   } = useEntityUtils(strBaseUrl, strQuery);
   // console.log("entities:", entities);
 
+  // console.log("params:", params);
+
   const pkToDelete: PrimaryKey[] = [];
-  console.log("pkToDelete:", pkToDelete);
 
   useEffect(() => {
-    const newPkToDelete = selectedRows.map((row: number) => ({
-      pk1: entities[row][EnumGrid.codigo],
+    const newPkToDelete = selectedRows.map((row) => ({
+      pk1: entities[row][EnumGrid.insumo],
+      pk2: entities[row][EnumGrid.fecha],
     }));
-    newPkToDelete.forEach((newPk: { pk1: any }) => {
-      if (!pkToDelete.some((existingPk) => existingPk.pk1 === newPk.pk1)) {
+    newPkToDelete.forEach((newPk) => {
+      if (
+        !pkToDelete.some(
+          (existingPk) =>
+            existingPk.pk1 === newPk.pk1 && existingPk.pk2 === newPk.pk2
+        )
+      ) {
         pkToDelete.push(newPk);
       }
     });
@@ -77,32 +97,27 @@ const MAccesorios: React.FC = () => {
 
   return (
     <div className="mantenedorContainer">
-      <h1 className="mantenedorH1">Accesorios</h1>
+      <h1 className="mantenedorH1">Kardex de Armazones</h1>
 
-      <div className="mantenedorHead width80">
+      <div className="mantenedorHead width100 flex flex-col">
         <PrimaryKeySearch
           baseUrl={strBaseUrl}
           setParams={setParams}
           updateParams={updateParams}
           setEntities={setEntities}
           primaryKeyInputs={[
-            { name: "_p1", label: "Código", type: "text" },
-            { name: "_p2", label: "Descripción", type: "text" },
-            {
-              name: "_p3",
-              label: "Marca",
-              type: "select",
-              selectUrl: "/api/marcas/",
-            },
+            { name: "_p1", label: "Código", type: "number" },
+            { name: "_p2", label: "Desde", type: "date" },
+            { name: "_p3", label: "Hasta", type: "date" },
           ]}
         />
 
         <PrimaryButtonsComponent
           handleAddPerson={openModal}
           handleDeleteSelected={handleDeleteSelected}
+          toggleEditModal={toggleEditModal}
           handleRefresh={resetEntities}
           params={params}
-          comilla={false}
           pkToDelete={pkToDelete}
           strEntidad={strEntidadExcel}
           strBaseUrl={strBaseUrl}
@@ -111,7 +126,9 @@ const MAccesorios: React.FC = () => {
           showDeleteButton={true}
           showForwardButton={false}
           showRefreshButton={true}
+          comilla={true}
           idMenu={idMenu}
+          bln_egreso={true}
         />
       </div>
 
@@ -119,23 +136,36 @@ const MAccesorios: React.FC = () => {
         <TableComponent
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
-          toggleEditModal={toggleEditModal}
-          handleDeleteSelected={handleDeleteSelected}
-          selectedRows={selectedRows}
-          pkToDelete={pkToDelete}
-          setSelectedRows={setSelectedRows}
-          entidad={strEntidad}
-          data={entities}
-          tableHead={table_head_accesorios}
-          showEditButton={true}
-          showDeleteButton={false}
-          idMenu={idMenu}
+          toggleEditModal         ={toggleEditModal}
+          handleDeleteSelected    ={handleDeleteSelected}
+          selectedRows            ={selectedRows}
+          pkToDelete              ={pkToDelete}
+          setSelectedRows         ={setSelectedRows}
+          entidad                 ={strEntidad}
+          data                    ={entities}
+          tableHead               ={table_head_kardex}
+          showEditButton          ={false}
+          showDeleteButton        ={false}
+          idMenu                  ={idMenu}
         />
       </div>
 
+
       {isModalInsert && (
-        <FAccesorios
-          label={`${TITLES.nuevo} ${strEntidad}`}
+        <FArmazonesKardexIN
+          label={`${TITLES.ingreso} ${strEntidad}`}
+          selectedRows={selectedRows}
+          setEntities={setEntities}
+          params={params}
+          data={entity}
+          closeModal={closeModal}
+          isEditting={false}
+        />
+      )}
+
+      {isModalEdit && (
+        <FArmazonesKardexOUT
+          label={`${TITLES.egreso} ${strEntidad}`}
           closeModal={closeModal}
           selectedRows={selectedRows}
           setEntities={setEntities}
@@ -143,20 +173,8 @@ const MAccesorios: React.FC = () => {
           isEditting={false}
         />
       )}
-
-      {isModalEdit && (
-        <FAccesorios
-          label={`${TITLES.editar} ${strEntidad}`}
-          selectedRows={selectedRows}
-          setEntities={setEntities}
-          params={params}
-          data={entity}
-          closeModal={closeModal}
-          isEditting={true}
-        />
-      )}
     </div>
   );
 };
 
-export default MAccesorios;
+export default MArmazonesKardex;
