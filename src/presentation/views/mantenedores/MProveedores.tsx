@@ -10,7 +10,7 @@ import {
 } from "../../components";
 import { useEntityUtils } from "../../hooks";
 import FProveedores from "../forms/FProveedores";
-import { TITLES, table_head_empresas } from "../../utils";
+import { TITLES, table_head_proveedores } from "../../utils";
  
 export enum EnumGrid {
   ID        = 1,
@@ -118,7 +118,7 @@ const MProveedores: React.FC = () => {
           setSelectedRows         ={setSelectedRows}
           entidad                 ={strEntidad}
           data                    ={entities}
-          tableHead               ={table_head_empresas}
+          tableHead               ={table_head_proveedores}
           showEditButton          ={true}
           showDeleteButton        ={false}
           idMenu                  ={idMenu}
@@ -127,7 +127,7 @@ const MProveedores: React.FC = () => {
 
       {isModalInsert && (
         <FProveedores
-          label       ={`${TITLES.nuevo} ${strEntidad}`}
+          label       ={`${TITLES.ingreso} ${strEntidad}`}
           closeModal  ={closeModal}
           selectedRows={selectedRows}
           setEntities ={setEntities}
@@ -138,7 +138,7 @@ const MProveedores: React.FC = () => {
 
       {isModalEdit && (
         <FProveedores
-          label       ={`${TITLES.editar} ${strEntidad}`}
+          label       ={`${TITLES.edicion} ${strEntidad}`}
           selectedRows={selectedRows}
           setEntities ={setEntities}
           params      ={params}

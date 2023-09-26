@@ -31,7 +31,10 @@ export enum EnumGrid {
   diametro = 16,
   esferico = 17,
   cilindrico = 18,
-  stock_minimo = 19,
+  tot_ingresos=19,
+  tot_egresos=20,
+  stock_actual=21,
+  stock_minimo = 22,
 }
 
 const strEntidad = "Cristal ";
@@ -197,7 +200,7 @@ const MCristales: React.FC = () => {
         </div>
       </div>
 
-      <div className="scroll">
+      <div className="width100 scroll">
         <TableComponent
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
@@ -217,7 +220,7 @@ const MCristales: React.FC = () => {
 
       {isModalInsert && (
         <FCristales
-          label={`${TITLES.nuevo} ${strEntidad}`}
+          label={`${TITLES.ingreso} ${strEntidad}`}
           closeModal={closeModal}
           selectedRows={selectedRows}
           setEntities={setEntities}
@@ -228,7 +231,7 @@ const MCristales: React.FC = () => {
 
       {isModalEdit && (
         <FCristales
-          label={`${TITLES.editar} ${strEntidad}`}
+          label={`${TITLES.edicion} ${strEntidad}`}
           selectedRows={selectedRows}
           setEntities={setEntities}
           params={params}

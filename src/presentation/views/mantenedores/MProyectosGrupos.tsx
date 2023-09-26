@@ -104,7 +104,7 @@ const MProyectosGrupos: React.FC = () => {
       <div className="mantenedorContainer">
         <h1 className="mantenedorH1">Parametrización de Grupos</h1>
   
-        <div className="mantenedorHead width70">
+        <div className="mantenedorHead width90">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
             setParams={setParams}
@@ -139,7 +139,7 @@ const MProyectosGrupos: React.FC = () => {
           />
         </div>
   
-        <div className="width90 scroll">
+        <div className="width100 scroll">
           <TableComponent
             handleSelectChecked={handleSelect}
             handleSelectedCheckedAll={handleSelectedAll}
@@ -159,7 +159,7 @@ const MProyectosGrupos: React.FC = () => {
   
         {isModalInsert && (
           <FProyectosGrupos
-            label={`${TITLES.nueva} ${strEntidad}`}
+            label={`${TITLES.ingreso} ${strEntidad}`}
             closeModal={closeModal}
             selectedRows={selectedRows}
             setEntities={setEntities}
@@ -170,7 +170,7 @@ const MProyectosGrupos: React.FC = () => {
   
         {isModalEdit && (
           <FProyectosGrupos
-            label={`${TITLES.editar} ${strEntidad}`}
+            label={`${TITLES.edicion} ${strEntidad}`}
             selectedRows={selectedRows}
             setEntities={setEntities}
             params={params}

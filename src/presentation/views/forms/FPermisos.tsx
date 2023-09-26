@@ -79,7 +79,7 @@ interface IFormPrps {
 
 const FPermisos: React.FC<IFormPrps> = React.memo(
   ({ closeModal, setEntities, params, label, data, isEditting }) => {
-    const schema = validationPermisosSchema(isEditting);
+    const schema = validationPermisosSchema();
     const { showModal, CustomModal } = useModal();
     const { show } = useCustomToast();
 
@@ -99,14 +99,6 @@ const FPermisos: React.FC<IFormPrps> = React.memo(
     } = useForm({
       resolver: yupResolver(schema),
     });
-
-    // const resetTextFields = () => {
-    //   reset({
-    //     nombre: "",
-    //     telefono: 0,
-    //     correo: "",
-    //   });
-    // };
 
     const updateNewEntity = React.useCallback(async () => {
       const newEntityData = await ListEntity(params, "01");
@@ -228,7 +220,7 @@ const FPermisos: React.FC<IFormPrps> = React.memo(
                 data={data && data[EnumGrid.usuario_id]}
                 control={control}
                 entidad={["/api/usuarios/", "02"]}
-                error={!isEditting && errors.usuario}
+                error={errors.usuario}
                 readOnly={isEditting}
                 customWidth={"345px"}
               />
@@ -239,7 +231,7 @@ const FPermisos: React.FC<IFormPrps> = React.memo(
                 data={data && data[EnumGrid.funcionalidad_id]}
                 control={control}
                 entidad={["/api/funcionalidades/", "02"]}
-                error={!isEditting && errors.funcionalidad}
+                error={errors.funcionalidad}
                 inputRef={firstInputRef}
                 readOnly={isEditting}
                 customWidth={"345px"}
@@ -252,7 +244,7 @@ const FPermisos: React.FC<IFormPrps> = React.memo(
               name="permiso"
               data={data && data[EnumGrid.permiso]}
               options={["Lectura", "Lectura/Escritura"]}
-              error={!isEditting && errors.permiso}
+              error={errors.permiso}
             />
             {/* <TextInputComponent/> */}
           </div>

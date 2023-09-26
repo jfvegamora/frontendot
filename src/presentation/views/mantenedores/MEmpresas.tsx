@@ -130,7 +130,7 @@ const MEmpresas: React.FC = () => {
 
       {isModalInsert && (
         <FEmpresas
-          label={`${TITLES.nuevo} ${strEntidad}`}
+          label={`${TITLES.ingreso} ${strEntidad}`}
           closeModal={closeModal}
           selectedRows={selectedRows}
           setEntities={setEntities}
@@ -141,7 +141,7 @@ const MEmpresas: React.FC = () => {
 
       {isModalEdit && (
         <FEmpresas
-          label={`${TITLES.editar} ${strEntidad}`}
+          label={`${TITLES.edicion} ${strEntidad}`}
           selectedRows={selectedRows}
           setEntities={setEntities}
           params={params}

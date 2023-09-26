@@ -359,7 +359,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
           </Tooltip>
         )}
         {error && (
-          <p className="text-xs text-red-500 absolute right-20">
+          <p className="text-xs text-red-500 relative top-0 left-0">
             {error.message}
           </p>
         )}

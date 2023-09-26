@@ -10,7 +10,7 @@ interface IExportToPdf{
   strBaseUrl?:string
 }
 
-const ExportToPDF:React.FC<IExportToPdf> = ({
+export const ExportToPDF:React.FC<IExportToPdf> = ({
   proyecto_codigo,
   establecimiento_id,
   strBaseUrl
@@ -71,19 +71,18 @@ const ExportToPDF:React.FC<IExportToPdf> = ({
       doc.save('etiqueta_despacho.pdf');
     };
 
-  return (
-    <>
-        <Tooltip content="Exportar a PDF">
-            <IconButton
-              variant='text'
-              color='blue-gray'
-              onClick={handleGeneratePdf}
-            >
-                <GrDocumentPdf className="w-8 h-8" />
-            </IconButton>
-        </Tooltip>
-    </>
-  )
-}
+    return (
+          <>
+              <Tooltip content="Exportar a PDF">
+                  <IconButton
+                    variant='text'
+                    color='blue-gray'
+                    onClick={handleGeneratePdf}
+                  >
+                      <GrDocumentPdf className="w-8 h-8" />
+                  </IconButton>
+              </Tooltip>
+          </>
+        )
+};
 
-export default ExportToPDF

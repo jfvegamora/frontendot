@@ -201,7 +201,7 @@ const navListMenuProyectos = [
   },
   {
     title: "Parametrización de Armazones",
-    link: "/proyectos_armazones",
+    link: "/proyectoarmazones",
     id: 16,
   },
   {

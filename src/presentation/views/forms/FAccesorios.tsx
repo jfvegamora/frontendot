@@ -18,11 +18,11 @@ const strBaseUrl = "/api/accesorios/";
 const strEntidad = "Accesorio ";
 
 export interface InputData {
-  codigo: string | undefined;
-  descripcion: string | undefined;
-  marca: string | undefined;
-  precio_neto: number | undefined;
-  stock_minimo: number | undefined;
+  codigo      : string | undefined;
+  descripcion : string | undefined;
+  marca       : string | undefined;
+  precio_neto : string | undefined;
+  stock_minimo: string | undefined;
 }
 
 interface OutputData {
@@ -87,7 +87,7 @@ interface IUserFormPrps {
 
 const FUsuarios: React.FC<IUserFormPrps> = React.memo(
   ({ closeModal, setEntities, params, label, data, isEditting }) => {
-    const schema = validationAccesoriosSchema(isEditting);
+    const schema = validationAccesoriosSchema();
     const { showModal, CustomModal } = useModal();
     const { show } = useCustomToast();
 
@@ -114,8 +114,8 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
     const resetTextFields = React.useCallback(() => {
       setValue("codigo", "");
       setValue("descripcion", "");
-      setValue("precio_neto", 0);
-      setValue("stock_minimo", 0);
+      setValue("precio_neto", "");
+      setValue("stock_minimo", "");
       if (firstInputRef.current) {
         const firstInput = firstInputRef.current.querySelector(
           'input[name="codigo"]'
@@ -253,7 +253,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
               name="codigo"
               data={data && data[EnumGrid.codigo]}
               control={control}
-              error={!isEditting && errors.codigo}
+              error={errors.codigo}
               inputRef={firstInputRef}
               onlyRead={isEditting}
             />
@@ -263,7 +263,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
               name="descripcion"
               data={data && data[EnumGrid.descripcion]}
               control={control}
-              error={!isEditting && errors.descripcion}
+              error={errors.descripcion}
               inputRef={secondInputRef}
             />
             <div className="w-full ">
@@ -274,8 +274,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                 data={data && data[EnumGrid.marca_id]}
                 control={control}
                 entidad={["/api/marcas/", "02"]}
-                error={!isEditting && errors.marca}
-                customWidth={"345px"}
+                error={errors.marca}
               />
             </div>
 
@@ -285,7 +284,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
               name="precio_neto"
               data={data && data[EnumGrid.precio_neto]}
               control={control}
-              error={!isEditting && errors.precio_neto}
+              error={errors.precio_neto}
             />
             <TextInputComponent
               type="number"
@@ -293,7 +292,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
               name="stock_minimo"
               data={data && data[EnumGrid.stock_minimo]}
               control={control}
-              error={!isEditting && errors.stock_minimo}
+              error={errors.stock_minimo}
             />
           </div>
 

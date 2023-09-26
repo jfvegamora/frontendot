@@ -22,11 +22,11 @@ const strBaseUrl = "/api/usuarios/";
 const strEntidad = "Usuario ";
 
 export interface InputData {
-  nombre: string | undefined;
-  cargo: string | undefined;
+  nombre  : string | undefined;
+  cargo   : string | undefined;
   telefono: string | undefined;
-  correo: string | undefined;
-  estado: string | undefined;
+  correo  : string | undefined;
+  estado  : string | undefined;
 }
 
 interface OutputData {
@@ -37,9 +37,6 @@ interface OutputData {
 }
 
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
-  // if (jsonData.password !== jsonData.password2) {
-  //   alert(ERROR_MESSAGES.passwordNotMatch);
-  // }
 
   const _p1 = ` '${jsonData.nombre}', 
      ${jsonData.cargo}, 
@@ -60,7 +57,6 @@ export function transformUpdateQuery(
   primaryKey: string
 ): OutputData | null {
   const fields = [
-    // jsonData.nombre && `nombre='${jsonData.nombre}'`,
     `nombre   ='${jsonData.nombre}'`,
     `telefono ='${jsonData.telefono}'`,
     `correo   ='${jsonData.correo}'`,
@@ -99,7 +95,7 @@ interface IUserFormPrps {
 
 const FUsuarios: React.FC<IUserFormPrps> = React.memo(
   ({ closeModal, setEntities, params, label, data, isEditting }) => {
-    const schema = validationUsusariosSchema(isEditting);
+    const schema = validationUsusariosSchema();
     const { showModal, CustomModal } = useModal();
     const { show } = useCustomToast();
 
@@ -214,38 +210,6 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
       };
     }, [closeModal]);
 
-    // const handleSaveChange = React.useCallback(
-    //   async (data: InputData, isEditting: boolean) => {
-    //     try {
-    //       let transformedData = null;
-
-    //       if (isEditting) {
-    //         transformedData = transformUpdateQuery(data, intId.toString());
-    //       } else {
-    //         transformedData = transformInsertQuery(data);
-    //       }
-
-    //       const isDataValid =
-    //         transformedData &&
-    //         (!isEditting || intId) && // Requiere intId si está editando
-    //         data.nombre && // Agregar otras condiciones para los campos requeridos
-    //         data.cargo; // Agregar otras condiciones para los campos requeridos
-
-    //       if (isDataValid) {
-    //         const response = isEditting
-    //           ? await editEntity(transformedData)
-    //           : await createdEntity(transformedData);
-    //         handleApiResponse(response, isEditting);
-    //       } else {
-    //         toast.error("Por favor, complete todos los campos requeridos.");
-    //       }
-    //     } catch (error: any) {
-    //       toast.error(error);
-    //     }
-    //   },
-    //   [editEntity, createdEntity, handleApiResponse, intId]
-    // );
-
     const handleSaveChange = React.useCallback(
       async (data: InputData, isEditting: boolean) => {
         console.log(data);
@@ -285,9 +249,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
         show({ message: error, type: "error" });
       }
     }, []);
-    // useEffect(() => {
-    //   focusFirstInput("nombre");
-    // }, []);
+
     useEffect(() => {
       isEditting ? focusSecondInput("nombre") : focusFirstInput("cargo");
     }, []);
@@ -303,14 +265,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
 
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))}
-          // onSubmit={(e) => {
-          //   e.preventDefault();
-          //   if (!isModalOpen) {
-          //     handleSubmit((data) => handleSaveChange(data, isEditting))(e);
-          //   }
-          // }}
-          className="userFormulario"
-        >
+          className="userFormulario">
           <div className="userFormularioContainer">
             <TextInputComponent
               type="text"
@@ -318,7 +273,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
               name="nombre"
               data={data && data[EnumGrid.nombre]}
               control={control}
-              error={!isEditting && errors.nombre}
+              error={errors.nombre}
               inputRef={firstInputRef}
             />
             <div className="w-full ">
@@ -329,18 +284,10 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                 data={data && data[EnumGrid.cargo_id]}
                 control={control}
                 entidad={["/api/cargos/", "02"]}
-                error={!isEditting && errors.cargo}
+                error={errors.cargo}
                 customWidth={"345px"}
                 inputRef={secondInputRef}
               />
-              {/* <SelectInputComponent
-                label="TipoInsumos"
-                name="tipos"
-                showRefresh={true}
-                control={control}
-                entidad={["/api/tipos/", "02", "TipoInsumos"]}
-                error={!isEditting && errors.cargo}
-              /> */}
             </div>
 
             <TextInputComponent
@@ -356,7 +303,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
               name="correo"
               data={data && data[EnumGrid.correo]}
               control={control}
-              error={!isEditting && errors.correo}
+              error={errors.correo}
               onlyRead={isEditting}
             />
 
@@ -366,7 +313,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
               name="estado"
               data={data && data[EnumGrid.estado]}
               options={["Activo", "Suspendido"]}
-              error={!isEditting && errors.estado}
+              error={errors.estado}
               // horizontal={true}
             />
           </div>

@@ -140,7 +140,7 @@ const MUsuarios: React.FC = () => {
 
       {isModalInsert && (
         <FUsuarios
-          label={`${TITLES.nuevo} ${strEntidad}`}
+          label={`${TITLES.ingreso} ${strEntidad}`}
           closeModal={closeModal}
           selectedRows={selectedRows}
           setEntities={setEntities}
@@ -151,7 +151,7 @@ const MUsuarios: React.FC = () => {
 
       {isModalEdit && (
         <FUsuarios
-          label={`${TITLES.editar} ${strEntidad}`}
+          label={`${TITLES.edicion} ${strEntidad}`}
           selectedRows={selectedRows}
           setEntities={setEntities}
           params={params}

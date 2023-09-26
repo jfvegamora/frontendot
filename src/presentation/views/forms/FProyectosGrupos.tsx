@@ -116,6 +116,7 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
       ListEntity,
       firstInputRef,
       focusFirstInput,
+      focusSecondInput,
     } = useCrud(strBaseUrl);
     const [blnKeep, setblnKeep] = useState(false);
 
@@ -247,7 +248,7 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
     );
 
     useEffect(() => {
-      focusFirstInput("cristal");
+      isEditting ? focusSecondInput("cristal") : focusFirstInput("proyecto");
     }, []);
 
     const handleCristalesDescription = async (data: any) => {
@@ -279,8 +280,7 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
         <h1 className="userFormLabel">{label}</h1>
 
         <form
-          onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))}
-          className="userFormulario">
+          onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
 
           <div className="input-container">
@@ -292,7 +292,7 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                   data={data && data[EnumGrid.proyecto]}
                   control={control}
                   entidad={["/api/proyectos/", "02"]}
-                  error={!isEditting && errors.proyecto}
+                  error={errors.proyecto}
                   readOnly={isEditting}
                   inputRef={firstInputRef}
                   />
@@ -304,7 +304,7 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                   name="cod_grupo"
                   data={data && data[EnumGrid.cod_grupo]}
                   control={control}
-                  error={!isEditting && errors.cod_grupo}
+                  error={errors.cod_grupo}
                   onlyRead={isEditting}
                   />
             </div>
@@ -319,7 +319,8 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                 // data={data && data[EnumGrid.]}
                 control={control}
                 handleChange={handleCristalesDescription}
-                error={!isEditting && errors.cristal}
+                error={errors.cristal}
+                inputRef={focusSecondInput}
                 />
             </div>
             <div className="w-full ">
@@ -329,8 +330,8 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                 name="data_cristal"
                 // data={data && idCristal}
                 control={control}
-                error={!isEditting && errors.data_cristal}
-                onlyRead={true}
+                error={errors.data_cristal}
+                onlyRead={isEditting}
                 />
             </div>
           </div>
@@ -344,7 +345,7 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                 name="descripcion"
                 data={data && data[EnumGrid.descripcion]}
                 control={control}
-                error={!isEditting && errors.descripcion}
+                error={errors.descripcion}
               />
             </div>
           </div>
@@ -368,7 +369,7 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                 name="cilindrico_desde"
                 data={data && data[EnumGrid.cilindrico_desde]}
                 control={control}
-                error={!isEditting && errors.cilindrico_desde}
+                error={errors.cilindrico_desde}
               />
             </div>
             <div className="w-full ">
@@ -378,7 +379,7 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                 name="esferico_hasta"
                 data={data && data[EnumGrid.esferico_hasta]}
                 control={control}
-                error={!isEditting && errors.esferico_hasta}
+                error={errors.esferico_hasta}
               />
             </div>
             <div className="w-full ">
@@ -388,7 +389,7 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                 name="cilindrico_hasta"
                 data={data && data[EnumGrid.cilindrico_hasta]}
                 control={control}
-                error={!isEditting && errors.cilindrico_hasta}
+                error={errors.cilindrico_hasta}
               />
             </div>
             <div className="w-full ">
@@ -398,7 +399,7 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                 name="precio_venta_neto"
                 data={data && data[EnumGrid.precio_venta_neto]}
                 control={control}
-                // error={!isEditting && errors.precio_venta_neto}
+                error={errors.precio_venta_neto}
               />
             </div>
           </div>
@@ -411,7 +412,7 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                 name="observaciones"
                 data={data && data[EnumGrid.observaciones]}
                 control={control}
-                error={!isEditting && errors.observaciones}
+                error={errors.observaciones}
               />
             </div>
           </div>

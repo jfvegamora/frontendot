@@ -87,7 +87,7 @@ const MCargos: React.FC = () => {
     <div className="mantenedorContainer">
       <h1 className="mantenedorH1">Cargos</h1>
 
-      <div className="mantenedorHead width70">
+      <div className="mantenedorHead width50">
         <PrimaryKeySearch
           baseUrl={strBaseUrl}
           updateParams={updateParams}
@@ -113,10 +113,7 @@ const MCargos: React.FC = () => {
         />
       </div>
 
-      <div
-        className="width70"
-        style={{ overflowX: "auto", maxHeight: "400px" }}
-      >
+      <div className="width50 scroll">
         <TableComponent
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
@@ -136,7 +133,7 @@ const MCargos: React.FC = () => {
 
       {isModalInsert && (
         <FCargos
-          label={`${TITLES.nuevo} ${strEntidad}`}
+          label={`${TITLES.ingreso} ${strEntidad}`}
           closeModal={closeModal}
           selectedRows={selectedRows}
           setEntities={setEntities}
@@ -147,7 +144,7 @@ const MCargos: React.FC = () => {
 
       {isModalEdit && (
         <FCargos
-          label={`${TITLES.editar} ${strEntidad}`}
+          label={`${TITLES.edicion} ${strEntidad}`}
           closeModal={closeModal}
           selectedRows={selectedRows}
           setEntities={setEntities}

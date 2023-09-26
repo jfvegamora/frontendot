@@ -18,11 +18,11 @@ const strBaseUrl = "/api/oftalmologos/";
 const strEntidad = "Oftalmólogo ";
 
 export interface InputData {
-  rut: string | undefined;
-  nombre: string | undefined;
-  telefono: string | undefined;
-  correo: string | undefined;
-  valor_consulta: number | undefined;
+  rut           : string | undefined;
+  nombre        : string | undefined;
+  telefono      : string | undefined;
+  correo        : string | undefined;
+  valor_consulta: string | undefined;
 }
 
 interface OutputData {
@@ -88,7 +88,7 @@ interface IUserFormPrps {
 
 const FOftalmologos: React.FC<IUserFormPrps> = React.memo(
   ({ closeModal, setEntities, params, label, data, isEditting }) => {
-    const schema = validationOftalmologosSchema(isEditting);
+    const schema = validationOftalmologosSchema();
     const { showModal, CustomModal } = useModal();
     const { show } = useCustomToast();
 
@@ -115,7 +115,7 @@ const FOftalmologos: React.FC<IUserFormPrps> = React.memo(
       setValue("nombre", "");
       setValue("telefono", "");
       setValue("correo", "");
-      setValue("valor_consulta", 0);
+      setValue("valor_consulta", "");
 
       if (firstInputRef.current) {
         const firstInput =
@@ -237,15 +237,7 @@ const FOftalmologos: React.FC<IUserFormPrps> = React.memo(
         <h1 className="userFormLabel">{label}</h1>
 
         <form
-          onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))}
-          // onSubmit={(e) => {
-          //   e.preventDefault();
-          //   if (!isModalOpen) {
-          //     handleSubmit((data) => handleSaveChange(data, isEditting))(e);
-          //   }
-          // }}
-          className="userFormulario"
-        >
+          onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
             <TextInputComponent
               type="text"
@@ -253,7 +245,7 @@ const FOftalmologos: React.FC<IUserFormPrps> = React.memo(
               name="rut"
               data={data && data[EnumGrid.rut]}
               control={control}
-              error={!isEditting && errors.rut}
+              error={errors.rut}
               inputRef={firstInputRef}
             />
             <TextInputComponent
@@ -262,7 +254,7 @@ const FOftalmologos: React.FC<IUserFormPrps> = React.memo(
               name="nombre"
               data={data && data[EnumGrid.nombre]}
               control={control}
-              error={!isEditting && errors.nombre}
+              error={errors.nombre}
             />
             <div className="w-full "> </div>
 
@@ -287,7 +279,7 @@ const FOftalmologos: React.FC<IUserFormPrps> = React.memo(
               name="valor_consulta"
               data={data && data[EnumGrid.valor_consulta]}
               control={control}
-              error={!isEditting && errors.valor_consulta}
+              error={errors.valor_consulta}
             />
           </div>
 

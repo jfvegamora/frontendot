@@ -71,7 +71,7 @@ const MCargos: React.FC = () => {
     <div className="mantenedorContainer">
       <h1 className="mantenedorH1">Funcionalidades</h1>
 
-      <div className="mantenedorHead">
+      <div className="mantenedorHead width50">
         <PrimaryKeySearch
           baseUrl={strBaseUrl}
           updateParams={updateParams}
@@ -105,7 +105,7 @@ const MCargos: React.FC = () => {
         />
       </div>
 
-      <div className="width70">
+      <div className="width50 scroll">
         <TableComponent
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
@@ -125,7 +125,7 @@ const MCargos: React.FC = () => {
 
       {isModalInsert && (
         <FFuncionalidad
-          label={`${TITLES.nueva} ${strEntidad}`}
+          label={`${TITLES.ingreso} ${strEntidad}`}
           closeModal={closeModal}
           selectedRows={selectedRows}
           setEntities={setEntities}
@@ -135,7 +135,7 @@ const MCargos: React.FC = () => {
       )}
       {isModalEdit && (
         <FFuncionalidad
-          label={`${TITLES.editar} ${strEntidad}`}
+          label={`${TITLES.edicion} ${strEntidad}`}
           closeModal={closeModal}
           selectedRows={selectedRows}
           setEntities={setEntities}

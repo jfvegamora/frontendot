@@ -29,8 +29,8 @@ export const TITLES = {
   guardar: "GUARDAR",
   ingreso: "Ingreso de ",
   egreso: "Egreso de ",
+  edicion: "Edición de ",
 
-  proveedores: "Proveedores",
   permisos: "Permisos copiados correctamente",
   permisosError: "Usuario ya cuenta con permisos",
 };

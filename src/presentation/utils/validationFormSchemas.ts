@@ -4,215 +4,209 @@ const msg = "Requerido";
 
 /*************** O T ***************/
 // Schema CLIENTES
-export const validationClientesSchema = (isEditting: boolean | undefined) =>
+export const validationClientesSchema = () =>
   yup.object().shape({
-    rut: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    nombre: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    tipo: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    sexo: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
+    rut             : yup.string().required(`${msg}`),
+    nombre          : yup.string().required(`${msg}`),
+    tipo            : yup.string().required(`${msg}`),
+    sexo            : yup.string().required(`${msg}`),
     fecha_nacimiento: yup.string(),
-    direccion: yup.string(),
-    region: yup.string(),
-    provincia: yup.string(),
-    comuna: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    telefono: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    correo: yup.string(),
-    establecimiento: !isEditting
-      ? yup.string().required(`${msg}`)
-      : yup.string(),
+    direccion       : yup.string(),
+    region          : yup.string(),
+    provincia       : yup.string(),
+    comuna          : yup.string().required(`${msg}`),
+    telefono        : yup.string().required(`${msg}`),
+    correo          : yup.string(),
+    establecimiento : yup.string().required(`${msg}`),
   });
 
 // Schema ESTABLECIMIENTOS
-export const validationEstablecimientosSchema = (
-  isEditting: boolean | undefined
-) =>
+export const validationEstablecimientosSchema = () =>
   yup.object().shape({
-    nombre: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    mandante: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    region: yup.string(),
+    nombre   : yup.string().required(`${msg}`),
+    mandante : yup.string().required(`${msg}`),
+    region   : yup.string(),
     provincia: yup.string(),
-    comuna: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
+    comuna   : yup.string().required(`${msg}`),
   });
 
 // Schema PUNTOS DE VENTA
-export const validationPuntosVentaSchema = (isEditting: boolean | undefined) =>
+export const validationPuntosVentaSchema = () =>
   yup.object().shape({
-    descripcion: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    tipo: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    direccion: yup.string(),
-    almacen: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    encargado: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    telefono: yup.string(),
+    descripcion: yup.string().required(`${msg}`),
+    tipo       : yup.string().required(`${msg}`),
+    direccion  : yup.string(),
+    telefono   : yup.string(),
+    almacen    : yup.string().required(`${msg}`),
+    encargado  : yup.string().required(`${msg}`),
   });
 
 /*************** B O D E G A ***************/
-// Schema ACCESORIOS
-export const validationAccesoriosSchema = (isEditting: boolean | undefined) =>
+// Schema ARMAZONES
+export const validationArmazonesSchema = () =>
   yup.object().shape({
-    codigo: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    descripcion: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    marca: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    precio_neto: !isEditting ? yup.number().required(`${msg}`) : yup.number(),
-    stock_minimo: !isEditting ? yup.number().required(`${msg}`) : yup.number(),
+    codigo      : yup.string().required(`${msg}`),
+    tipo        : yup.string().required(`${msg}`),
+    material    : yup.string().required(`${msg}`),
+    marca       : yup.string().required(`${msg}`),
+    modelo      : yup.string().required(`${msg}`),
+    color       : yup.string().required(`${msg}`),
+    aro         : yup.string().required(`${msg}`),
+    puente      : yup.string().required(`${msg}`),
+    diagonal    : yup.string().required(`${msg}`),
+    brazo       : yup.string().required(`${msg}`),
+    uso         : yup.string().required(`${msg}`),
+    stock_minimo: yup.string().required(`${msg}`),
+  });
+
+// Schema ACCESORIOS
+export const validationAccesoriosSchema = () =>
+  yup.object().shape({
+    codigo      : yup.string().required(`${msg}`),
+    descripcion : yup.string().required(`${msg}`),
+    marca       : yup.string().required(`${msg}`),
+    precio_neto : yup.string().required(`${msg}`),
+    stock_minimo: yup.string().required(`${msg}`),
   });
 
 // Schema CRISTALES
-export const validationCristalesSchema = (isEditting: boolean | undefined) =>
+export const validationCristalesSchema = () =>
   yup.object().shape({
-    codigo: !isEditting ? yup.number().required(`${msg}`) : yup.number(),
-    marca: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    diseno: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    indice: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    material: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    color: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    tratamiento: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    diametro: !isEditting ? yup.number().required(`${msg}`) : yup.number(),
-    esferico: !isEditting ? yup.number().required(`${msg}`) : yup.number(),
-    cilindrico: !isEditting ? yup.number().required(`${msg}`) : yup.number(),
-    stock_minimo: !isEditting ? yup.number().required(`${msg}`) : yup.number(),
+    codigo      : yup.string().required(`${msg}`),
+    marca       : yup.string().required(`${msg}`),
+    diseno      : yup.string().required(`${msg}`),
+    indice      : yup.string().required(`${msg}`),
+    material    : yup.string().required(`${msg}`),
+    color       : yup.string().required(`${msg}`),
+    tratamiento : yup.string().required(`${msg}`),
+    diametro    : yup.string().required(`${msg}`),
+    esferico    : yup.string().required(`${msg}`),
+    cilindrico  : yup.string().required(`${msg}`),
+    stock_minimo: yup.string().required(`${msg}`),
   });
 
 // Schema INGRESO INSUMOS KARDEX (CRISTALES-ARMAZONES-ACCESORIOS)
-export const validationKardexINSchema = (
-  isEditting: boolean | undefined
-) =>
+export const validationKardexINSchema = () =>
   yup.object().shape({
-    insumo: !isEditting ? yup.number().required(`${msg}`) : yup.number(),
-    descripcion: yup.string(),
-    fecha: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
+    insumo             : yup.string().required(`${msg}`),
+    descripcion        : yup.string(),
+    fecha              : yup.string().required(`${msg}`),
+    almacen            : yup.string().required(`${msg}`),
     // es: yup.number(),
-    motivo: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    cantidad: !isEditting ? yup.number().required(`${msg}`) : yup.number(),
-    almacen: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    numero_factura: yup.number(),
-    proveedor: yup.string(),
-    valor_neto: yup.number(),
+    motivo             : yup.string().required(`${msg}`),
+    cantidad           : yup.string().required(`${msg}`),
+    valor_neto         : yup.string(),
+    numero_factura     : yup.string(),
+    proveedor          : yup.string().default("0").nullable(),
     // ot: yup.number(),
-    // almacen_relacionado: !isEditting  ? yup.string().required(`${msg}`) : yup.string(),
-    observaciones: yup.string(),
-    usuario: yup.number(),
-    fecha_mov: yup.string(),
+    // almacen_relacionado: yup.string().required(`${msg}`),
+    observaciones      : yup.string(),
+    usuario            : yup.string(),
+    fecha_mov          : yup.string(),
   });
 
 // Schema EGRESO INSUMOS KARDEX (CRISTALES-ARMAZONES-ACCESORIOS)
-export const validationKardexOUTSchema = (isEditting: boolean | undefined) =>
+export const validationKardexOUTSchema = () =>
   yup.object().shape({
-    insumo: !isEditting ? yup.number().required(`${msg}`) : yup.number(),
-    // descripcion: yup.string(),
-    fecha: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
+    insumo             : yup.string().required(`${msg}`),
+    descripcion        : yup.string(),
+    fecha              : yup.string().required(`${msg}`),
+    almacen            : yup.string().required(`${msg}`),
     // es: yup.number(),
-    motivo: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    cantidad: !isEditting ? yup.number().required(`${msg}`) : yup.number(),
-    almacen: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
+    motivo             : yup.string().required(`${msg}`),
+    cantidad           : yup.string().required(`${msg}`),
     // numero_factura: yup.number(),
     // proveedor: yup.string(),
     // valor_neto: yup.number(),
     // ot: yup.number(),
-    almacen_relacionado: !isEditting  ? yup.string().required(`${msg}`) : yup.string(),
-    observaciones: yup.string(),
-    usuario: yup.number(),
-    fecha_mov: yup.string(),
-  });
-
-// Schema ARMAZONES
-export const validationArmazonesSchema = (isEditting: boolean | undefined) =>
-  // "codigo","armazon_tipo_id","amazon_tipo","marca_id","marca","modelo","color", "armazon_material_id",
-  // "armazon_material", "aro", "puente", "diagonal", "brazo", "armazon_uso_id", "armazon_uso", "stock_minimo",
-  yup.object().shape({
-    codigo: !isEditting ? yup.number().required(`${msg}`) : yup.number(),
-    tipo: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    material: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    marca: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    modelo: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    color: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    aro: !isEditting ? yup.number().required(`${msg}`) : yup.number(),
-    puente: !isEditting ? yup.number().required(`${msg}`) : yup.number(),
-    diagonal: !isEditting ? yup.number().required(`${msg}`) : yup.number(),
-    brazo: !isEditting ? yup.number().required(`${msg}`) : yup.number(),
-    uso: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    stock_minimo: !isEditting ? yup.number().required(`${msg}`) : yup.number(),
+    almacen_relacionado: yup.string().default("0").nullable(),
+    observaciones      : yup.string(),
+    usuario            : yup.string(),
+    fecha_mov          : yup.string(),
   });
 
 // Schema ALMACENES
-export const validationAlmacenesSchema = (isEditting: boolean | undefined) =>
+export const validationAlmacenesSchema = () =>
   yup.object().shape({
-    descripcion: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    tipo: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
+    descripcion: yup.string().required(`${msg}`),
+    tipo       : yup.string().required(`${msg}`),
   });
 
 // Schema MARCAS
-export const validationMarcasSchema = (isEditting: boolean | undefined) =>
+export const validationMarcasSchema = () =>
   yup.object().shape({
-    nombre: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    proveedor: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
+    nombre   : yup.string().required(`${msg}`),
+    proveedor: yup.string().required(`${msg}`),
   });
 // Schema PROVEEDORES
-export const validationProveedoresSchema = (isEditting: boolean | undefined) =>
+export const validationProveedoresSchema = () =>
   yup.object().shape({
-    rut: yup.string(),
-    nombre: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
+    rut      : yup.string(),
+    nombre   : yup.string().required(`${msg}`),
     direccion: yup.string(),
-    telefono: yup.string(),
-    correo: yup.string().email(),
+    telefono : yup.string(),
+    correo   : yup.string().email(),
     sitio_web: yup.string(),
   });
 
 /*************** P R O Y E C T O S ***************/
 // Schema MANDANTES
-export const validationMandantesSchema = (isEditting: boolean | undefined) =>
+export const validationMandantesSchema = () =>
   yup.object().shape({
-    codigo: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    rut: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    nombre: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    region: yup.string(),
+    codigo   : yup.string().required(`${msg}`),
+    rut      : yup.string().required(`${msg}`),
+    nombre   : yup.string().required(`${msg}`),
+    region   : yup.string(),
     provincia: yup.string(),
-    comuna: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
+    comuna   : yup.string().required(`${msg}`),
   });
-export const validationProyectosSchema = (isEditting: boolean | undefined) =>
+
+  export const validationProyectosSchema = () =>
   yup.object().shape({
-    empresa_adjudicada: !isEditting ? yup.number().required(`${msg}`) : yup.number(),
-    mandante: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    ejecutivo_proyecto: !isEditting ? yup.number().required(`${msg}`) : yup.number(),
-    codigo_proyecto: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    codigo_licitacion: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    titulo_proyecto: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    estado: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    unidad_compra: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    fecha_adjudicacion: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    fecha_inicio: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    fecha_termino: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    dias_entrega: !isEditting ? yup.number().required(`${msg}`) : yup.number(),
-    oftalmologo: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    presupuesto: !isEditting ? yup.number().required(`${msg}`) : yup.number(),
-    cantidad_atendida: yup.number().nullable(),
-    total_facturado: yup.number().nullable(),
-    cantidad_disponible: yup.number().nullable(),
-    saldo_disponible: yup.number().nullable(),
-    avance: yup.number().nullable(),
-    cantidad_requerida: !isEditting ? yup.number().required(`${msg}`) : yup.number(),
-    administrador_nombre: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    administrador_telefono: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    administrador_correo: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    contabilidad_nombre: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    contabilidad_telefono: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    contabilidad_correo: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    referente_nombre: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    referente_telefono: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    referente_correo: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    finanzas_nombre: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    finanzas_telefono: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    finanzas_correo: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    observaciones: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    // punto_venta: !isEditting ? yup.number().required(`${msg}`) : yup.number(),
+    codigo_proyecto       : yup.string().required(`${msg}`),
+    codigo_licitacion     : yup.string(),
+    titulo_proyecto       : yup.string().required(`${msg}`),
+    estado                : yup.string().required(`${msg}`),
+    empresa_adjudicada    : yup.string().required(`${msg}`),
+    mandante              : yup.string().required(`${msg}`),
+    unidad_compra         : yup.string(),
+    fecha_adjudicacion    : yup.string(),
+    fecha_inicio          : yup.string().required(`${msg}`),
+    fecha_termino         : yup.string().required(`${msg}`),
+    cantidad_requerida    : yup.string(),
+
+    cantidad_atendida     : yup.string().nullable(),
+    cantidad_disponible   : yup.string().nullable(),
+    total_facturado       : yup.string().nullable(),
+    saldo_disponible      : yup.string().nullable(),
+    avance                : yup.string().nullable(),
+
+    presupuesto           : yup.string(),
+    dias_entrega          : yup.string(),
+    ejecutivo_proyecto    : yup.string().required(`${msg}`),
+
+    administrador_nombre  : yup.string(),
+    administrador_telefono: yup.string(),
+    administrador_correo  : yup.string(),
+    contabilidad_nombre   : yup.string(),
+    contabilidad_telefono : yup.string(),
+    contabilidad_correo   : yup.string(),
+    referente_nombre      : yup.string(),
+    referente_telefono    : yup.string(),
+    referente_correo      : yup.string(),
+    finanzas_nombre       : yup.string(),
+    finanzas_telefono     : yup.string(),
+    finanzas_correo       : yup.string(),
+
+    oftalmologo           : yup.string().default("0"),
+    observaciones         : yup.string(),
   });
  
-export const validationParametrizacionArmazones = (isEditting: boolean | undefined) =>
+export const validationParametrizacionArmazones = () =>
   yup.object().shape({
-    proyecto: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    codigo_armazon: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    estado: !isEditting
-      ? yup.string().required(`${msg}`)
-      : yup.string(),
+    proyecto      : yup.string().required(`${msg}`),
+    codigo_armazon: yup.string().required(`${msg}`),
+    estado        : yup.string().required(`${msg}`),
 });
 
 // Schema PROYECTOS GRUPOS
@@ -231,94 +225,88 @@ export const validationProyectoGruposSchema = (isEditting: boolean | undefined) 
     observaciones     : yup.string(), 
   });
   
-// Schema PROYECTOS DIRECCIONES
-export const validationProyectoDireccionesSchema = (isEditting: boolean | undefined) =>
+// Schema PROYECTOS DIRECCIONES 
+export const validationProyectoDireccionesSchema = () =>
   yup.object().shape({
-    proyecto: !isEditting ? yup.string().required(`${msg}`) : yup.string(), 
-    titulo: yup.string(), 
-    establecimiento: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    lugar: !isEditting ? yup.string().required(`${msg}`) : yup.string(), 
-    direccion: yup.string(), 
-    telefono: yup.string(),
-    observaciones: yup.string(), 
+    proyecto        : yup.string().required(`${msg}`), 
+    titulo          : yup.string(), 
+    establecimiento : yup.string().required(`${msg}`),
+    lugar           : yup.string().required(`${msg}`),
+    direccion       : yup.string(), 
+    telefono        : yup.string(),
+    observaciones   : yup.string(), 
   });
 
 // Schema REPORTE ATENCION
-export const validationReporteAtencionSchema = (isEditting: boolean | undefined) =>
+export const validationReporteAtencionSchema = () =>
   yup.object().shape({
-    proyecto: !isEditting ? yup.string().required(`${msg}`) : yup.string(), 
-    titulo: yup.string(), 
-    licitacion: yup.string(), 
-    folio_reporte: !isEditting ? yup.number().required(`${msg}`) : yup.number(),
-    fecha_desde: !isEditting ? yup.string().required(`${msg}`) : yup.string(), 
-    fecha_hasta: !isEditting ? yup.string().required(`${msg}`) : yup.string(), 
-    cantidad_lentes: yup.number(), 
-    total_atenciones: yup.number(),
+    proyecto             : yup.string().required(`${msg}`), 
+    titulo               : yup.string(), 
+    licitacion           : yup.string(), 
+    folio_reporte        : yup.string().required(`${msg}`), 
+    fecha_desde          : yup.string().required(`${msg}`), 
+    fecha_hasta          : yup.string().required(`${msg}`), 
+    cantidad_lentes      : yup.string(), 
+    total_atenciones     : yup.string(),
     orden_compra_mandante: yup.string(), 
-    fecha_vb: yup.string(), 
-    factura: yup.number(), 
-    fecha_factura: yup.string(), 
-    total_factura: yup.number(), 
-    nota_credito: yup.number(), 
-    fecha_ncredito: yup.string(), 
-    total_ncredito: yup.number(), 
-    nota_debito: yup.number(), 
-    fecha_ndebito: yup.string(), 
-    total_ndebito: yup.number(), 
-    guia_despacho: yup.number(), 
-    fecha_guia_despacho: yup.string(), 
-    observaciones: yup.string(), 
+    fecha_vb             : yup.string(), 
+    factura              : yup.string(), 
+    fecha_factura        : yup.string(), 
+    total_factura        : yup.string(), 
+    nota_credito         : yup.string(), 
+    fecha_ncredito       : yup.string(), 
+    total_ncredito       : yup.string(), 
+    nota_debito          : yup.string(), 
+    fecha_ndebito        : yup.string(), 
+    total_ndebito        : yup.string(), 
+    guia_despacho        : yup.string(), 
+    fecha_guia_despacho  : yup.string(), 
+    observaciones        : yup.string(), 
   });
 
 // Schema REPORTE FIRMAS
-export const validationReporteFirmasSchema = (isEditting: boolean | undefined) =>
+export const validationReporteFirmasSchema = () =>
   yup.object().shape({
-    proyecto: !isEditting ? yup.string().required(`${msg}`) : yup.string(), 
-    titulo: yup.string(), 
-    licitacion: yup.string(), 
-    folio_reporte: !isEditting ? yup.number().required(`${msg}`) : yup.number(),
-    fecha_desde: !isEditting ? yup.string().required(`${msg}`) : yup.string(), 
-    fecha_hasta: !isEditting ? yup.string().required(`${msg}`) : yup.string(), 
+    proyecto     : yup.string().required(`${msg}`), 
+    titulo       : yup.string(), 
+    licitacion   : yup.string(), 
+    folio_reporte: yup.string().required(`${msg}`), 
+    fecha_desde  : yup.string().required(`${msg}`), 
+    fecha_hasta  : yup.string().required(`${msg}`), 
     observaciones: yup.string(), 
   });
 
   // Schema OFTALMÓLOGOS
-export const validationOftalmologosSchema = (isEditting: boolean | undefined) =>
+export const validationOftalmologosSchema = () =>
   yup.object().shape({
-    rut: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    nombre: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    telefono: yup.string(),
-    correo: yup.string(),
-    valor_consulta: !isEditting
-      ? yup.number().required(`${msg}`)
-      : yup.number(),
+    rut           : yup.string().required(`${msg}`),
+    nombre        : yup.string().required(`${msg}`),
+    telefono      : yup.string(),
+    correo        : yup.string(),
+    valor_consulta: yup.string().required(`${msg}`),
   });
 
 /*************** S I S T E M A ***************/
 // Schema CARGOS
-export const validationCargosSchema = (isEditting: boolean | undefined) =>
+export const validationCargosSchema = () =>
   yup.object().shape({
-    nombre: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
+    nombre: yup.string().required(`${msg}`),
   });
 
 // Schema FUNCIONALIDADES
-export const validationFuncionalidadSchema = (
-  isEditting: boolean | undefined
-) =>
+export const validationFuncionalidadSchema = () =>
   yup.object().shape({
-    descripcion: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
+    descripcion: yup.string().required(`${msg}`),
   });
 
 // Schema USUSARIOS
-export const validationUsusariosSchema = (isEditting: boolean | undefined) =>
+export const validationUsusariosSchema = () =>
   yup.object().shape({
-    nombre: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    cargo: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
+    nombre  : yup.string().required(`${msg}`),
+    cargo   : yup.string().required(`${msg}`),
     telefono: yup.string(),
-    correo: !isEditting
-      ? yup.string().email().required(`${msg}`)
-      : yup.string(),
-    estado: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
+    correo  : yup.string().required(`${msg}`),
+    estado  : yup.string().required(`${msg}`),
   });
 
 export const validationProfileUserSchema = () =>
@@ -332,33 +320,33 @@ export const validationProfileUserSchema = () =>
   });
 
 //Schema PERFILES DE CARGOS
-export const validationPerfilesSchema = (isEditting: boolean | undefined) =>
+export const validationPerfilesSchema = () =>
   yup.object().shape({
-    cargo: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    funcionalidad: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    permiso: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
+    cargo        : yup.string().required(`${msg}`),
+    funcionalidad: yup.string().required(`${msg}`),
+    permiso      : yup.string().required(`${msg}`),
   });
 
 //Schema PERMISOS DE USUARIO
-export const validationPermisosSchema = (isEditting: boolean | undefined) =>
+export const validationPermisosSchema = () =>
   yup.object().shape({
-    usuario: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    funcionalidad: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    permiso: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
+    usuario      : yup.string().required(`${msg}`),
+    funcionalidad: yup.string().required(`${msg}`),
+    permiso      : yup.string().required(`${msg}`),
   });
 
 // Schema EMPRESAS
-export const validationEmpresasSchema = (isEditting: boolean | undefined) =>
+export const validationEmpresasSchema = () =>
   yup.object().shape({
-    rut: yup.string(),
-    nombre: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    razon_social: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    giro: !isEditting ? yup.string().required(`${msg}`) : yup.string(),
-    direccion: yup.string(),
-    telefono: yup.string(),
-    correo: yup.string().email(),
-    sitio_web: yup.string(),
-    nombre_logo: yup.string(),
+    rut         : yup.string(),
+    nombre      : yup.string().required(`${msg}`),
+    razon_social: yup.string().required(`${msg}`),
+    giro        : yup.string().required(`${msg}`),
+    direccion   : yup.string(),
+    telefono    : yup.string(),
+    correo      : yup.string().email(),
+    sitio_web   : yup.string(),
+    nombre_logo : yup.string(),
   });
 
 /*************** L O G I N ***************/

@@ -118,7 +118,7 @@ const MPuntosVenta: React.FC = () => {
         />
       </div>
 
-      <div className="scroll">
+      <div className="width90 scroll">
         <TableComponent
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
@@ -138,7 +138,7 @@ const MPuntosVenta: React.FC = () => {
 
       {isModalInsert && (
         <FPuntosVenta
-          label={`${TITLES.nuevo} ${strEntidad}`}
+          label={`${TITLES.ingreso} ${strEntidad}`}
           closeModal={closeModal}
           selectedRows={selectedRows}
           setEntities={setEntities}
@@ -149,7 +149,7 @@ const MPuntosVenta: React.FC = () => {
 
       {isModalEdit && (
         <FPuntosVenta
-          label={`${TITLES.editar} ${strEntidad}`}
+          label={`${TITLES.edicion} ${strEntidad}`}
           selectedRows={selectedRows}
           setEntities={setEntities}
           params={params}

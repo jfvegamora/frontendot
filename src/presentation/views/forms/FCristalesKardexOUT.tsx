@@ -26,20 +26,20 @@ const strBaseUrl = "/api/cristaleskardex/";
 const strEntidad = "Kardex de Cristal ";
 
 export interface InputData {
-  insumo             : number | undefined;
+  insumo             : string | undefined;
   // descripcion         : string | undefined;
   fecha               : string | undefined;
   // es                  : string | undefined;
   motivo              : string | undefined;
-  cantidad            : number | undefined;
+  cantidad            : string | undefined;
   almacen             : string | undefined;
-  // numero_factura      : number | undefined;
+  // numero_factura      : string | undefined;
   // proveedor           : string | undefined;
-  // valor_neto          : number | undefined;
-  // ot                  : number | undefined;
-  almacen_relacionado : string | undefined;
+  // valor_neto          : string | undefined;
+  // ot                  : string | undefined;
+  almacen_relacionado : string | null | undefined;
   observaciones       : string | undefined;
-  usuario             : number | undefined;
+  usuario             : string | undefined;
   fecha_mov           : string | undefined;
 }
 
@@ -78,56 +78,59 @@ export function transformInsertQuery(jsonData: InputData, userId?:number): Outpu
     ${userId}, 
    '${fechaFormateada + " " + dateHora}'`;
 
+    // ${(jsonData.almacen_relacionado && jsonData.almacen_relacionado?.toString())?.length === 0 ? "0" : jsonData.almacen_relacionado}, 
+    // 
+
   const query: OutputData = {
     query: "03",
     _p1: _p1,
   };
   console.log("query INSERT ", query);
-
   return query;
 }
 
-// export function transformUpdateQuery(
-//   jsonData: InputData
-//   // ,primaryKey: string
-// ): OutputData | null {
-//   const fields = [
-//     `almacen            = ${jsonData.almacen}`,
-//     `es                 = ${
-//       jsonData.es === MOTIVO_KARDEX.entrada
-//         ? 1
-//         : jsonData.es === MOTIVO_KARDEX.salida
-//         ? 2
-//         : 0
-//     }`,
-//     `motivo             = ${jsonData.motivo}`,
-//     `cantidad           = ${jsonData.cantidad}`,
-//     `valor_neto         = ${jsonData.valor_neto}`,
-//     `proveedor          = ${jsonData.proveedor}`,
-//     `numero_factura     = ${jsonData.numero_factura}`,
-//     `ot                 = ${jsonData.ot}`,
-//     `almacen_relacionado= ${jsonData.almacen_relacionado}`,
-//     `observaciones      ='${jsonData.observaciones}'`,
-//     `usuario            = ${jsonData.usuario}`,
-//     `fecha_mov          ='${jsonData.fecha_mov}'`,
-//   ];
+export function transformUpdateQuery(
+  // jsonData: InputData
+  // ,primaryKey: string
+): OutputData | null {
+  // const fields = [
+  //   `almacen            = ${jsonData.almacen}`,
+  //   `es                 = ${
+  //     jsonData.es === MOTIVO_KARDEX.entrada
+  //       ? 1
+  //       : jsonData.es === MOTIVO_KARDEX.salida
+  //       ? 2
+  //       : 0
+  //   }`,
+  //   `motivo             = ${jsonData.motivo}`,
+  //   `cantidad           = ${jsonData.cantidad}`,
+  //   `valor_neto         = ${jsonData.valor_neto}`,
+  //   `proveedor          = ${jsonData.proveedor}`,
+  //   `numero_factura     = ${jsonData.numero_factura}`,
+  //   `ot                 = ${jsonData.ot}`,
+  //   `almacen_relacionado= ${jsonData.almacen_relacionado}`,
+  //   `observaciones      ='${jsonData.observaciones}'`,
+  //   `usuario            = ${jsonData.usuario}`,
+  //   `fecha_mov          ='${jsonData.fecha_mov}'`,
+  // ];
 
-//   const filteredFields = fields.filter(
-//     (field) => field !== null && field !== ""
-//   );
+  // const filteredFields = fields.filter(
+  //   (field) => field !== null && field !== ""
+  // );
 
-//   if (filteredFields.length === 0) {
-//     return null;
-//   }
-//   const _p1 = filteredFields.join(",");
+  // if (filteredFields.length === 0) {
+  //   return null;
+  // }
+  // const _p1 = filteredFields.join(",");
 
-//   return {
-//     query: "04",
-//     _p1,
-//     _p2: jsonData.cristal,
-//     _p3: jsonData.fecha,
-//   };
-// }
+  // return {
+  //   query: "04",
+  //   _p1,
+  //   _p2: jsonData.cristal,
+  //   _p3: jsonData.fecha,
+  // };
+  return null;
+}
 
 interface IUserFormPrps {
   closeModal: () => void;
@@ -141,7 +144,7 @@ interface IUserFormPrps {
 
 const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
   ({ closeModal, setEntities, params, label, data, isEditting }) => {
-    const schema = validationKardexOUTSchema(isEditting);
+    const schema = validationKardexOUTSchema();
     const { showModal, CustomModal } = useModal();
     const userState = useAppSelector((store: AppStore) => store.user);
     const { show } = useCustomToast();
@@ -166,12 +169,12 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
     });
 
     const resetTextFields = React.useCallback(() => {
-      setValue("insumo", 0);
+      setValue("insumo", "");
       setValue("fecha", "undefined");
       // setValue("descripcion", "");
-      setValue("cantidad", 0);
+      setValue("cantidad", "");
       setValue("observaciones", "");
-      setValue("almacen_relacionado", "0");
+      // setValue("almacen_relacionado", "0");
 
       if (firstInputRef.current) {
         const firstInput = firstInputRef.current.querySelector(
@@ -263,7 +266,7 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
       async (data: InputData, isEditting: boolean) => {
         try {
           const transformedData = isEditting
-            ? transformUpdateQuery(data)
+            ? transformUpdateQuery()
             : transformInsertQuery(data, userState?.id);
 
           const response = isEditting
@@ -306,7 +309,7 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
                 name="insumo"
                 data={data && data[EnumGrid.insumo]}
                 control={control}
-                error={!isEditting && errors.insumo}
+                error={errors.insumo}
                 inputRef={firstInputRef}
                 onlyRead={isEditting}
               />
@@ -318,7 +321,7 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
                 name="fecha"
                 data={data && data[EnumGrid.fecha]}
                 control={control}
-                error={!isEditting && errors.fecha}
+                error={errors.fecha}
                 onlyRead={isEditting}
               />
             </div>
@@ -332,7 +335,7 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
                     data={data && data[EnumGrid.motivo_id]}
                     control={control}
                     entidad={["/api/kardexmotivos/", "02"]}
-                    error={!isEditting && errors.motivo}
+                    error={errors.motivo}
                     // customWidth={"345px"}
                   />
               </div>
@@ -343,7 +346,7 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
                 name="cantidad"
                 data={data && data[EnumGrid.salidas]}
                 control={control}
-                error={!isEditting && errors.cantidad}
+                error={errors.cantidad}
               />
               </div>
             </div>
@@ -356,7 +359,7 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
                 data={data && data[EnumGrid.almacen_id]}
                 control={control}
                 entidad={["/api/almacenes/", "02"]}
-                error={!isEditting && errors.almacen}
+                error={errors.almacen}
               />
               </div>
             </div>
@@ -369,7 +372,7 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
                 data={data && data[EnumGrid.almacen_relacionado_id]}
                 control={control}
                 entidad={["/api/almacenes/", "02"]}
-                error={!isEditting && errors.almacen_relacionado}
+                // error={errors.almacen_relacionado}
               />
             </div>
             </div>
@@ -380,7 +383,7 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
                 name="observaciones"
                 data={data && data[EnumGrid.observaciones]}
                 control={control}
-                error={!isEditting && errors.observaciones}
+                error={errors.observaciones}
               />
             </div>
           </div>

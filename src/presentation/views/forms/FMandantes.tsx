@@ -19,22 +19,22 @@ const strBaseUrl = "/api/mandantes/";
 const strEntidad = "Mandante ";
 
 export interface InputData {
-  codigo: string | undefined;
-  rut: string | undefined;
-  nombre: string | undefined;
-  region: string | undefined;
+  codigo   : string | undefined;
+  rut      : string | undefined;
+  nombre   : string | undefined;
+  region   : string | undefined;
   provincia: string | undefined;
-  comuna: string | undefined;
+  comuna   : string | undefined;
 }
 
 interface OutputData {
   query: string;
   _p1: string;
-  _p2?: string;
+  _p2?: number;
 }
 
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
-  const _p1 = `'${jsonData.codigo}','${jsonData.rut}','${jsonData.nombre}','${jsonData.comuna}'`;
+  const _p1 = `${jsonData.codigo},'${jsonData.rut}','${jsonData.nombre}','${jsonData.comuna}'`;
 
   console.log("p1", _p1);
   const query: OutputData = {
@@ -42,18 +42,18 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
     _p1: _p1,
   };
 
-  console.log("queryy", query);
+  console.log("query03", query);
   return query;
 }
 
 export function transformUpdateQuery(
   jsonData: InputData,
-  primaryKey: string
+  primaryKey: number
 ): OutputData | null {
   const fields = [
     `rut    ='${jsonData.rut}'`,
     `nombre ='${jsonData.nombre}'`,
-    `comuna ='${jsonData.comuna}'`,
+    `comuna = ${jsonData.comuna}`,
   ];
 
   const filteredFields = fields.filter(
@@ -64,12 +64,15 @@ export function transformUpdateQuery(
     return null;
   }
   const _p1 = filteredFields.join(",");
-  // console.log("primaryKey", primaryKey);
-  return {
+
+  const query: OutputData = {
     query: "04",
-    _p1,
-    _p2: ` '${primaryKey}'`,
+    _p1: _p1,
+    _p2: primaryKey,
   };
+  console.log("query04", query);
+  return query;
+
 }
 
 interface IUserFormPrps {
@@ -83,7 +86,7 @@ interface IUserFormPrps {
 }
 const FMandantes: React.FC<IUserFormPrps> = React.memo(
   ({ closeModal, setEntities, params, label, data, isEditting }) => {
-    const schema = validationMandantesSchema(isEditting);
+    const schema = validationMandantesSchema();
     const { showModal, CustomModal } = useModal();
     const { show } = useCustomToast();
     
@@ -242,12 +245,12 @@ const FMandantes: React.FC<IUserFormPrps> = React.memo(
         >
           <div className="userFormularioContainer">
             <TextInputComponent
-              type="text"
+              type="number"
               label="Código"
               name="codigo"
               data={data && data[EnumGrid.codigo]}
               control={control}
-              error={!isEditting && errors.codigo}
+              error={errors.codigo}
               inputRef={firstInputRef}
               onlyRead={isEditting}
             />
@@ -257,7 +260,7 @@ const FMandantes: React.FC<IUserFormPrps> = React.memo(
               name="rut"
               data={data && data[EnumGrid.rut]}
               control={control}
-              error={!isEditting && errors.rut}
+              error={errors.rut}
             />
             <TextInputComponent
               type="text"
@@ -265,7 +268,7 @@ const FMandantes: React.FC<IUserFormPrps> = React.memo(
               name="nombre"
               data={data && data[EnumGrid.nombre]}
               control={control}
-              error={!isEditting && errors.nombre}
+              error={errors.nombre}
             />
             <div className="w-full ">
               <RegProComponent

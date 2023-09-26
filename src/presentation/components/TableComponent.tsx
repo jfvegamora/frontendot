@@ -6,7 +6,7 @@ import { BsFillXSquareFill } from "react-icons/bs";
 
 import { usePermission } from "../hooks";
 import { BUTTON_MESSAGES } from "../utils";
-import ExportToPDF from "./ExportToPDF";
+import {ExportToPDF} from "./ExportToPDF";
 import { ExportCSV } from "./ExportToCsv";
 // import { ExportCSV } from "./ExportToCsv";
 
@@ -109,6 +109,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                       />
                     ) : (
                       renderTextCell(column.cell as string)
+                      // renderTextCell(column.cell as string, column.alignment)
                     )}
                   </th>
                 ) : null;

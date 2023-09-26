@@ -751,7 +751,7 @@ export const table_head_proyectos = [
   {
     cell: "Empresa Id",
     key: "empresa_id",
-    visible: true,
+    visible: false,
   },
   {
     cell: "Empresa",
@@ -761,7 +761,7 @@ export const table_head_proyectos = [
   {
     cell: "Mandante Id",
     key: "mandante_id",
-    visible: true,
+    visible: false,
   },
   {
     cell: "Mandante",
@@ -806,7 +806,7 @@ export const table_head_proyectos = [
   {
     cell: "Ejecutivo ID",
     key: "ejecutivo_id",
-    visible: true,
+    visible: false,
   },
   {
     cell: "Ejecutivo",
@@ -874,19 +874,9 @@ export const table_head_proyectos = [
     visible: true,
   },
   {
-    cell: "Punto de Venta ID",
-    key: "punto_venta_id",
-    visible: true,
-  },
-  {
-    cell: "Punto de Venta",
-    key: "punto_venta",
-    visible: true,
-  },
-  {
     cell: "Oftalmólogo ID",
     key: "oftalmologo_id",
-    visible: true,
+    visible: false,
   },
   {
     cell: "Oftalmólogo",
@@ -1501,7 +1491,6 @@ export const table_head_cargos = [
     width: "w-[6rem]",
   },
 ];
-
 export const table_head_perfiles = [
   {
     cell: <input type="checkbox" />,
@@ -1541,7 +1530,6 @@ export const table_head_perfiles = [
     visible: true,
   },
 ];
-
 export const table_head_usuarios = [
   {
     cell: <input type="checkbox" />,
@@ -1601,7 +1589,6 @@ export const table_head_usuarios = [
     alignment: "items-center"
   },
 ];
-
 export const table_head_permisos = [
   {
     cell: <input type="checkbox" />,
@@ -1639,7 +1626,6 @@ export const table_head_permisos = [
     visible: true,
   },
 ];
-
 export const table_head_funcionalidades = [
   {
     cell: <input type="checkbox" />,
@@ -1662,7 +1648,6 @@ export const table_head_funcionalidades = [
     visible: true,
   },
 ];
-
 export const table_head_empresas = [
   {
     cell: <input type="checkbox" />,

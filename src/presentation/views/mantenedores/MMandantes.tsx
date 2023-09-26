@@ -31,7 +31,7 @@ const strQuery = "01";
 const idMenu = 14;
 
 type PrimaryKey = {
-  pk1: string;
+  pk1: number;
 };
 
 const MMandantes: React.FC = () => {
@@ -90,8 +90,8 @@ const MMandantes: React.FC = () => {
           updateParams={updateParams}
           setEntities={setEntities}
           primaryKeyInputs={[
-            { name: "_p1", label: "Código", type: "text" },
-            { name: "_p2", label: "Nombre", type: "text" },
+            { name: "_p2", label: "Código", type: "number" },
+            { name: "_p1", label: "Nombre", type: "text" },
           ]}
         />
 
@@ -108,12 +108,12 @@ const MMandantes: React.FC = () => {
           showDeleteButton={true}
           showForwardButton={false}
           showRefreshButton={true}
-          comilla={true}
+          comilla={false}
           idMenu={idMenu}
         />
       </div>
 
-      <div className="scroll">
+      <div className="width100 scroll">
         <TableComponent
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
@@ -133,7 +133,7 @@ const MMandantes: React.FC = () => {
 
       {isModalInsert && (
         <FMandantes
-          label={`${TITLES.nuevo} ${strEntidad}`}
+          label={`${TITLES.ingreso} ${strEntidad}`}
           closeModal={closeModal}
           selectedRows={selectedRows}
           setEntities={setEntities}
@@ -144,7 +144,7 @@ const MMandantes: React.FC = () => {
 
       {isModalEdit && (
         <FMandantes
-          label={`${TITLES.editar} ${strEntidad}`}
+          label={`${TITLES.edicion} ${strEntidad}`}
           selectedRows={selectedRows}
           setEntities={setEntities}
           params={params}

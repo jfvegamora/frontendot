@@ -19,11 +19,11 @@ const strBaseUrl = "/api/establecimientos/";
 const strEntidad = "Establecimiento ";
 
 export interface InputData {
-  nombre: string | undefined;
-  mandante: string | undefined;
-  region: string | undefined;
+  nombre   : string | undefined;
+  mandante : string | undefined;
+  region   : string | undefined;
   provincia: string | undefined;
-  comuna: string | undefined;
+  comuna   : string | undefined;
 }
 
 interface OutputData {
@@ -35,13 +35,11 @@ interface OutputData {
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
   const _p1 = `'${jsonData.nombre}', ${jsonData.comuna}, ${jsonData.mandante}`;
 
-  console.log("p1:", _p1);
   const query: OutputData = {
     query: "03",
     _p1: _p1,
   };
-
-  console.log("queryy", query);
+  console.log("query03", query);
   return query;
 }
 
@@ -63,13 +61,14 @@ export function transformUpdateQuery(
     return null;
   }
   const _p1 = filteredFields.join(",");
-  console.log("primaryKey", primaryKey);
-  console.log("_p1: ", _p1);
-  return {
+
+  const query: OutputData = {
     query: "04",
     _p1,
     _p2: ` '${primaryKey}'`,
   };
+  console.log("query04", query);
+  return query;
 }
 
 interface IUserFormPrps {
@@ -84,7 +83,7 @@ interface IUserFormPrps {
 
 const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
   ({ closeModal, setEntities, params, label, data, isEditting }) => {
-    const schema = validationEstablecimientosSchema(isEditting);
+    const schema = validationEstablecimientosSchema();
     const { showModal, CustomModal } = useModal();
 
     const { show } = useCustomToast();
@@ -240,7 +239,7 @@ const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
                 name="nombre"
                 data={data && data[EnumGrid.nombre]}
                 control={control}
-                error={!isEditting && errors.nombre}
+                error={errors.nombre}
                 inputRef={firstInputRef}
               />
 
@@ -251,7 +250,7 @@ const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
                 data={data && data[EnumGrid.mandante_id]}
                 control={control}
                 entidad={["/api/mandantes/", "02"]}
-                error={!isEditting && errors.mandante}
+                error={errors.mandante}
                 customWidth={"345px"}
               />
             </div>
