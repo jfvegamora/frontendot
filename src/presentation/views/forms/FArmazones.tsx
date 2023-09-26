@@ -18,18 +18,18 @@ const strBaseUrl = "/api/armazones/";
 const strEntidad = "Armazón ";
 
 export interface InputData {
-  codigo: number | undefined;
-  tipo: string | undefined;
-  material: string | undefined;
-  marca: string | undefined;
-  modelo: string | undefined;
-  color: string | undefined;
-  aro: number | undefined;
-  puente: number | undefined;
-  diagonal: number | undefined;
-  brazo: number | undefined;
-  uso: string | undefined;
-  stock_minimo: number | undefined;
+  codigo      : string | undefined;
+  tipo        : string | undefined;
+  material    : string | undefined;
+  marca       : string | undefined;
+  modelo      : string | undefined;
+  color       : string | undefined;
+  aro         : string | undefined;
+  puente      : string | undefined;
+  diagonal    : string | undefined;
+  brazo       : string | undefined;
+  uso         : string | undefined;
+  stock_minimo: string | undefined;
 }
 
 interface OutputData {
@@ -57,7 +57,7 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
     query: "03",
     _p1: _p1,
   };
-
+  console.log("query", query);
   return query;
 }
 
@@ -87,12 +87,14 @@ export function transformUpdateQuery(
     return null;
   }
   const _p1 = filteredFields.join(",");
-  console.log("primaryKey", primaryKey);
-  return {
+
+  const query: OutputData = {
     query: "04",
     _p1,
     _p3: primaryKey,
   };
+  console.log("query", query);
+  return query;
 }
 
 interface IUserFormPrps {
@@ -107,7 +109,7 @@ interface IUserFormPrps {
 
 const FArmazones: React.FC<IUserFormPrps> = React.memo(
   ({ closeModal, setEntities, params, label, data, isEditting }) => {
-    const schema = validationArmazonesSchema(isEditting);
+    const schema = validationArmazonesSchema();
     const { showModal, CustomModal } = useModal();
     const { show } = useCustomToast();
 
@@ -132,14 +134,14 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
     });
 
     const resetTextFields = React.useCallback(() => {
-      setValue("codigo", 0);
+      setValue("codigo", "");
       setValue("modelo", "");
       setValue("color", "");
-      setValue("aro", 0);
-      setValue("puente", 0);
-      setValue("diagonal", 0);
-      setValue("brazo", 0);
-      setValue("stock_minimo", 0);
+      setValue("aro", "");
+      setValue("puente", "");
+      setValue("diagonal", "");
+      setValue("brazo", "");
+      setValue("stock_minimo", "");
 
       if (firstInputRef.current) {
         const firstInput = firstInputRef.current.querySelector(
@@ -279,7 +281,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                 name="codigo"
                 data={data && data[EnumGrid.codigo]}
                 control={control}
-                error={!isEditting && errors.codigo}
+                error={errors.codigo}
                 inputRef={firstInputRef}
                 onlyRead={isEditting}
               />
@@ -292,7 +294,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                 data={data && data[EnumGrid.armazon_tipo_id]}
                 control={control}
                 entidad={["/api/tipos/", "02", "ArmazonesTipos"]}
-                error={!isEditting && errors.tipo}
+                error={errors.tipo}
                 // customWidth={"345px"}
                 inputRef={secondInputRef}
               />
@@ -305,7 +307,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                 data={data && data[EnumGrid.armazon_material_id]}
                 control={control}
                 entidad={["/api/tipos/", "02", "ArmazonesMaterial"]}
-                error={!isEditting && errors.material}
+                error={errors.material}
                 // customWidth={"345px"}
               />
             </div>
@@ -317,7 +319,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                   data={data && data[EnumGrid.marca_id]}
                   control={control}
                   entidad={["/api/marcas/", "02"]}
-                  error={!isEditting && errors.marca}
+                  error={errors.marca}
                   // customWidth={"345px"}
                 />
             </div>
@@ -328,7 +330,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                 name="modelo"
                 data={data && data[EnumGrid.modelo]}
                 control={control}
-                error={!isEditting && errors.modelo}
+                error={errors.modelo}
               />
               <TextInputComponent
                 type="text"
@@ -336,7 +338,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                 name="color"
                 data={data && data[EnumGrid.color]}
                 control={control}
-                error={!isEditting && errors.color}
+                error={errors.color}
               />
             </div>
             <div className="userFormularioRow">
@@ -346,7 +348,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                 name="aro"
                 data={data && data[EnumGrid.aro]}
                 control={control}
-                error={!isEditting && errors.aro}
+                error={errors.aro}
               />
               <TextInputComponent
                 type="number"
@@ -354,7 +356,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                 name="puente"
                 data={data && data[EnumGrid.puente]}
                 control={control}
-                error={!isEditting && errors.puente}
+                error={errors.puente}
               />
               <TextInputComponent
                 type="number"
@@ -362,7 +364,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                 name="brazo"
                 data={data && data[EnumGrid.brazo]}
                 control={control}
-                error={!isEditting && errors.brazo}
+                error={errors.brazo}
               />
               <TextInputComponent
                 type="number"
@@ -370,7 +372,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                 name="diagonal"
                 data={data && data[EnumGrid.diagonal]}
                 control={control}
-                error={!isEditting && errors.diagonal}
+                error={errors.diagonal}
               />
             </div>
             <div className="userFormularioRow">
@@ -381,7 +383,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                   data={data && data[EnumGrid.armazon_uso_id]}
                   control={control}
                   entidad={["/api/tipos/", "02", "ArmazonesUsos"]}
-                  error={!isEditting && errors.uso}
+                  error={errors.uso}
                   // customWidth={"345px"}
                 />
                 <TextInputComponent
@@ -390,7 +392,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                   name="stock_minimo"
                   data={data && data[EnumGrid.stock_minimo]}
                   control={control}
-                  error={!isEditting && errors.stock_minimo}
+                  error={errors.stock_minimo}
                 />
             </div>
           </div>

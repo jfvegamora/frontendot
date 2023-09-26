@@ -68,7 +68,7 @@ const transformUpdateQuery = (
 
 const FFuncionalidad: React.FC<IFormProps> = React.memo(
   ({ closeModal, setEntities, params, data, label, isEditting }) => {
-    const schema = validationFuncionalidadSchema(isEditting);
+    const schema = validationFuncionalidadSchema();
     const { editEntity, createdEntity, ListEntity } = useCrud(strBaseUrl);
     const [blnKeep, setblnKeep] = useState(false);
     const { show } = useCustomToast();
@@ -200,7 +200,7 @@ const FFuncionalidad: React.FC<IFormProps> = React.memo(
               name="descripcion"
               data={data && data[EnumGrid.descripcion]}
               control={control}
-              error={!isEditting && errors.descripcion}
+              error={errors.descripcion}
             />
           </div>
 

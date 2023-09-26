@@ -18,15 +18,15 @@ const strBaseUrl = "/api/empresas/";
 const strEntidad = "Empresas ";
 
 export interface InputData {
-  rut: string | undefined;
-  nombre: string | undefined;
+  rut         : string | undefined;
+  nombre      : string | undefined;
   razon_social: string | undefined;
-  giro: string | undefined;
-  direccion: string | undefined;
-  telefono: string | undefined;
-  correo: string | undefined;
-  sitio_web: string | undefined;
-  nombre_logo: string | undefined;
+  giro        : string | undefined;
+  direccion   : string | undefined;
+  telefono    : string | undefined;
+  correo      : string | undefined;
+  sitio_web   : string | undefined;
+  nombre_logo : string | undefined;
 }
 
 interface OutputData {
@@ -78,12 +78,14 @@ export function transformUpdateQuery(
     return null;
   }
   const _p1 = filteredFields.join(",");
-  //  console.log("primaryKey", primaryKey);
-  return {
+
+  const query: OutputData = {
     query: "04",
     _p1,
     _p2: primaryKey,
   };
+
+  return query;
 }
 
 interface IUserFormPrps {
@@ -98,7 +100,7 @@ interface IUserFormPrps {
 
 const FEmpresas: React.FC<IUserFormPrps> = React.memo(
   ({ closeModal, setEntities, params, label, data, isEditting }) => {
-    const schema = validationEmpresasSchema(isEditting);
+    const schema = validationEmpresasSchema();
     const { showModal, CustomModal } = useModal();
 
     const { show } = useCustomToast();
@@ -241,7 +243,7 @@ const FEmpresas: React.FC<IUserFormPrps> = React.memo(
     }, []);
 
     return (
-      <div className="useFormContainer">
+      <div className="useFormContainer useFormContainer40rem">
         <div className="userFormBtnCloseContainer">
           <button onClick={closeModal} className="userFormBtnClose">
             X
@@ -250,91 +252,116 @@ const FEmpresas: React.FC<IUserFormPrps> = React.memo(
         <h1 className="userFormLabel">{label}</h1>
 
         <form
-          onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))}
-          // onSubmit={(e) => {
-          //   e.preventDefault();
-          //   if (!isModalOpen) {
-          //     handleSubmit((data) => handleSaveChange(data, isEditting))(e);
-          //   }
-          // }}
-          className="userFormulario"
-        >
+          onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
-            <TextInputComponent
-              type="text"
-              label="RUT"
-              name="rut"
-              data={data && data[EnumGrid.rut]}
-              control={control}
-              error={!isEditting && errors.rut}
-              inputRef={firstInputRef}
-            />
-            <TextInputComponent
-              type="text"
-              label="Nombre"
-              name="nombre"
-              data={data && data[EnumGrid.nombre]}
-              control={control}
-              error={!isEditting && errors.nombre}
-              inputRef={firstInputRef}
-            />
-            <div className="w-full "></div>
-            <TextInputComponent
-              type="text"
-              label="Razón Social"
-              name="razon_social"
-              data={data && data[EnumGrid.razon_social]}
-              control={control}
-              error={!isEditting && errors.razon_social}
-            />
-            <TextInputComponent
-              type="text"
-              label="Giro"
-              name="giro"
-              data={data && data[EnumGrid.giro]}
-              control={control}
-              error={!isEditting && errors.giro}
-            />
-            <TextInputComponent
-              type="text"
-              label="Dirección"
-              name="direccion"
-              data={data && data[EnumGrid.direccion]}
-              control={control}
-              error={!isEditting && errors.direccion}
-            />
-            <TextInputComponent
-              type="text"
-              label="Teléfono"
-              name="telefono"
-              data={data && data[EnumGrid.telefono]}
-              control={control}
-              error={!isEditting && errors.telefono}
-            />
-            <TextInputComponent
-              type="email"
-              label="Correo"
-              name="correo"
-              data={data && data[EnumGrid.correo]}
-              control={control}
-              error={!isEditting && errors.correo}
-            />
-            <TextInputComponent
-              type="text"
-              label="Sitio Web"
-              name="sitio_web"
-              data={data && data[EnumGrid.sitio_web]}
-              control={control}
-              error={!isEditting && errors.sitio_web}
-            />
-            <TextInputComponent
-              type="text"
-              label="Logo"
-              name="nombre_logo"
-              data={data && data[EnumGrid.nombre_logo]}
-              control={control}
-              error={!isEditting && errors.nombre_logo}
-            />
+            <div className="input-container">
+              <div className="w-full">
+                <TextInputComponent
+                  type="text"
+                  label="RUT"
+                  name="rut"
+                  data={data && data[EnumGrid.rut]}
+                  control={control}
+                  error={errors.rut}
+                  inputRef={firstInputRef}
+                />
+              </div>
+              <div className="w-full">
+                <TextInputComponent
+                  type="text"
+                  label="Nombre"
+                  name="nombre"
+                  data={data && data[EnumGrid.nombre]}
+                  control={control}
+                  error={errors.nombre}
+                  inputRef={firstInputRef}
+                />
+              </div> 
+            </div>
+
+            <div className="input-container">
+              <div className="w-full">
+                <TextInputComponent
+                  type="text"
+                  label="Razón Social"
+                  name="razon_social"
+                  data={data && data[EnumGrid.razon_social]}
+                  control={control}
+                  error={errors.razon_social}
+                />
+              </div>
+              <div className="w-full">
+                <TextInputComponent
+                  type="text"
+                  label="Giro"
+                  name="giro"
+                  data={data && data[EnumGrid.giro]}
+                  control={control}
+                  error={errors.giro}
+                />
+              </div> 
+            </div>
+
+            <div className="input-container">
+              <div className="w-full">
+                <TextInputComponent
+                  type="text"
+                  label="Dirección"
+                  name="direccion"
+                  data={data && data[EnumGrid.direccion]}
+                  control={control}
+                  error={errors.direccion}
+                />
+              </div>
+              <div className="w-full">
+                <TextInputComponent
+                  type="text"
+                  label="Teléfono"
+                  name="telefono"
+                  data={data && data[EnumGrid.telefono]}
+                  control={control}
+                  error={errors.telefono}
+                />
+              </div> 
+            </div>
+
+            <div className="input-container">
+              <div className="w-full">
+                <TextInputComponent
+                  type="email"
+                  label="Correo"
+                  name="correo"
+                  data={data && data[EnumGrid.correo]}
+                  control={control}
+                  error={errors.correo}
+                />
+              </div>
+              <div className="w-full">
+                <TextInputComponent
+                  type="text"
+                  label="Sitio Web"
+                  name="sitio_web"
+                  data={data && data[EnumGrid.sitio_web]}
+                  control={control}
+                  error={errors.sitio_web}
+                />
+              </div> 
+            </div>
+
+            <div className="input-container">
+              <div className="w-full">
+                <TextInputComponent
+                  type="text"
+                  label="Logo"
+                  name="nombre_logo"
+                  data={data && data[EnumGrid.nombre_logo]}
+                  control={control}
+                  error={errors.nombre_logo}
+                />
+              </div> 
+              <div className="w-full">
+              </div> 
+            </div>
           </div>
 
           <button type="submit" className="userFormBtnSubmit">

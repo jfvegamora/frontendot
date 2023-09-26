@@ -87,7 +87,7 @@ const MProyectosDirecciones: React.FC = () => {
       <div className="mantenedorContainer">
         <h1 className="mantenedorH1">Direcciones de Despacho</h1>
   
-        <div className="mantenedorHead width70">
+        <div className="mantenedorHead width90">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
             setParams={setParams}
@@ -122,7 +122,7 @@ const MProyectosDirecciones: React.FC = () => {
           />
         </div>
   
-        <div className="width90 scroll">
+        <div className="width100 scroll">
           <TableComponent
             handleSelectChecked={handleSelect}
             handleSelectedCheckedAll={handleSelectedAll}
@@ -142,7 +142,7 @@ const MProyectosDirecciones: React.FC = () => {
   
         {isModalInsert && (
           <FProyectosDirecciones
-            label={`${TITLES.nueva} ${strEntidad}`}
+            label={`${TITLES.ingreso} ${strEntidad}`}
             closeModal={closeModal}
             selectedRows={selectedRows}
             setEntities={setEntities}
@@ -153,7 +153,7 @@ const MProyectosDirecciones: React.FC = () => {
   
         {isModalEdit && (
           <FProyectosDirecciones
-            label={`${TITLES.editar} ${strEntidad}`}
+            label={`${TITLES.edicion} ${strEntidad}`}
             selectedRows={selectedRows}
             setEntities={setEntities}
             params={params}

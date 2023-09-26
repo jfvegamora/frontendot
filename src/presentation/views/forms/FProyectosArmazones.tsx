@@ -22,9 +22,9 @@ const strBaseUrl = "/api/proyectoscatalogo/";
 const strEntidad = "Parametrizacion de Armazones ";
 
 export interface InputData {
-  proyecto: string | undefined;
+  proyecto      : string | undefined;
   codigo_armazon: string | undefined;
-  estado: string | undefined;
+  estado        : string | undefined;
 }
 
 interface OutputData {
@@ -35,28 +35,20 @@ interface OutputData {
 }
 
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
-  // if (jsonData.password !== jsonData.password2) {
-  //   alert(ERROR_MESSAGES.passwordNotMatch);
-  // }
 
   const _p1 = ` '${jsonData.proyecto}', 
-    '${jsonData.codigo_armazon}',  
-     ${jsonData.estado === "Disponible" ? 1 : 2}`;
+                '${jsonData.codigo_armazon}',  
+                 ${jsonData.estado === "Disponible" ? 1 : 2}`;
 
   const query: OutputData = {
     query: "03",
     _p1: _p1,
   };
 
-  console.log('query', query)
-
   return query;
 }
 
-export function transformUpdateQuery(
-  jsonData: InputData,
-  primaryKey: any
-): OutputData | null {
+export function transformUpdateQuery(jsonData: InputData): OutputData | null {
   const fields = [
     `estado   = ${jsonData.estado === "Disponible" ? 1 : 2}`,
   ];
@@ -68,15 +60,16 @@ export function transformUpdateQuery(
   if (filteredFields.length === 0) {
     return null;
   }
+
   const _p1 = filteredFields.join(",");
-  console.log("primaryKey", primaryKey);
+
   const query = {
     query: "04",
     _p1,
     _p2: jsonData.proyecto,
     _p3: jsonData.codigo_armazon,
   };
-  console.log("query", query);
+
   return query;
 }
 
@@ -92,7 +85,7 @@ interface IUserFormPrps {
 
 const FProyectosArmazones: React.FC<IUserFormPrps> = React.memo(
   ({ closeModal, setEntities, params, label, data, isEditting }) => {
-    const schema = validationParametrizacionArmazones(isEditting);
+    const schema = validationParametrizacionArmazones();
     const { showModal, CustomModal } = useModal();
     const { show } = useCustomToast();
 
@@ -212,7 +205,7 @@ const FProyectosArmazones: React.FC<IUserFormPrps> = React.memo(
         // console.log(data);
         try {
           const transformedData = isEditting
-            ? transformUpdateQuery(data, intId )
+            ? transformUpdateQuery(data)
             : transformInsertQuery(data);
 
           const response = isEditting
@@ -228,13 +221,9 @@ const FProyectosArmazones: React.FC<IUserFormPrps> = React.memo(
       },
       [editEntity, createdEntity, handleApiResponse, intId]
     );
-
  
-    // useEffect(() => {
-    //   focusFirstInput("nombre");
-    // }, []);
     useEffect(() => {
-      isEditting ? focusSecondInput("nombre") : focusFirstInput("cargo");
+      isEditting ? focusSecondInput("estado") : focusFirstInput("proyecto");
     }, []);
 
     return (
@@ -247,15 +236,7 @@ const FProyectosArmazones: React.FC<IUserFormPrps> = React.memo(
         <h1 className="userFormLabel">{label}</h1>
 
         <form
-          onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))}
-          // onSubmit={(e) => {
-          //   e.preventDefault();
-          //   if (!isModalOpen) {
-          //     handleSubmit((data) => handleSaveChange(data, isEditting))(e);
-          //   }
-          // }}
-          className="userFormulario"
-        >
+          onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
            
             <div className="w-full ">
@@ -266,8 +247,7 @@ const FProyectosArmazones: React.FC<IUserFormPrps> = React.memo(
                 data={data && data[EnumGrid.codigo_proyecto]}
                 control={control}
                 entidad={["/api/proyectos/", "02"]}
-                error={!isEditting && errors.proyecto}
-                customWidth={"345px"}
+                error={errors.proyecto}
                 inputRef={firstInputRef}
                 readOnly={isEditting}
               />
@@ -280,10 +260,10 @@ const FProyectosArmazones: React.FC<IUserFormPrps> = React.memo(
                     name="codigo_armazon"
                     data={data && data[EnumGrid.codigo_armazon]}
                     control={control}
+                    error={errors.codigo_armazon}
                     onlyRead={isEditting}
                 />
             </div>
-
 
             <RadioButtonComponent
               control={control}
@@ -291,7 +271,7 @@ const FProyectosArmazones: React.FC<IUserFormPrps> = React.memo(
               name="estado"
               data={data && data[EnumGrid.estado]}
               options={["Disponible", "No Disponible"]}
-              error={!isEditting && errors.estado}
+              error={errors.estado}
               horizontal={true}
             />
           </div>

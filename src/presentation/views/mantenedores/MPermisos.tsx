@@ -145,7 +145,7 @@ const MPermisos: React.FC = () => {
 
       {isModalInsert && (
         <FPermisos
-          label={`${TITLES.nuevo} ${strEntidad}`}
+          label={`${TITLES.ingreso} ${strEntidad}`}
           closeModal={closeModal}
           selectedRows={selectedRows}
           setEntities={setEntities}
@@ -156,7 +156,7 @@ const MPermisos: React.FC = () => {
 
       {isModalEdit && (
         <FPermisos
-          label={`${TITLES.editar} ${strEntidad}`}
+          label={`${TITLES.edicion} ${strEntidad}`}
           selectedRows={selectedRows}
           setEntities={setEntities}
           params={params}

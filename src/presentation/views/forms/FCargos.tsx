@@ -70,7 +70,7 @@ const transformUpdateQuery = (
 
 const FCargos: React.FC<ICargosFormProps> = React.memo(
   ({ closeModal, setEntities, params, data, label, isEditting }) => {
-    const schema = validationCargosSchema(isEditting);
+    const schema = validationCargosSchema();
     const { showModal, CustomModal } = useModal();
 
     const { show } = useCustomToast();
@@ -225,7 +225,7 @@ const FCargos: React.FC<ICargosFormProps> = React.memo(
               name="nombre"
               data={data && data[EnumGrid.nombre]}
               control={control}
-              error={!isEditting && errors.nombre}
+              error={errors.nombre}
               inputRef={firstInputRef}
             />
           </div>

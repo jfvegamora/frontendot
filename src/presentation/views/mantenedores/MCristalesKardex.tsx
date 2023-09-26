@@ -108,7 +108,7 @@ const MCristalesKardex: React.FC = () => {
     <div className="mantenedorContainer">
       <h1 className="mantenedorH1">Kardex de Cristales</h1>
 
-      <div className="mantenedorHead width100 flex flex-col">
+      <div className="mantenedorHead width70 flex flex-col">
         <PrimaryKeySearch
           baseUrl={strBaseUrl}
           description={kardexDescription}
@@ -142,7 +142,7 @@ const MCristalesKardex: React.FC = () => {
         />
       </div>
 
-      <div className="scroll">
+      <div className="width100 scroll">
         <TableComponent
           handleSelectChecked     ={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}

@@ -17,39 +17,40 @@ import { ERROR_MESSAGES, MODAL, SUCCESS_MESSAGES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
+import { json } from "react-router-dom";
 
 const strBaseUrl = "/api/proyectos/";
 const strEntidad = "Proyecto ";
 
 interface InputData {
-    codigo_proyecto: string | undefined;
-    codigo_licitacion: string | undefined;
-    titulo_proyecto: string | undefined;
-    estado: string | undefined;
-    empresa_adjudicada: number | undefined;
-    mandante: string | undefined;
-    unidad_compra: string | undefined;
-    fecha_adjudicacion: string | undefined;
-    fecha_inicio: string | undefined;
-    fecha_termino: string | undefined;
-    cantidad_requerida: number | undefined;
-    presupuesto: number | undefined;
-    dias_entrega: number | undefined;
-    ejecutivo_proyecto: number | undefined;
-    administrador_nombre: string | undefined;
-    administrador_correo: string | undefined;
+    codigo_proyecto       : string | undefined;
+    codigo_licitacion     : string | undefined;
+    titulo_proyecto       : string | undefined;
+    estado                : string | undefined;
+    empresa_adjudicada    : string | undefined;
+    mandante              : string | undefined;
+    unidad_compra         : string | undefined;
+    fecha_adjudicacion    : string | undefined;
+    fecha_inicio          : string | undefined;
+    fecha_termino         : string | undefined;
+    cantidad_requerida    : string | undefined;
+    presupuesto           : string | undefined;
+    dias_entrega          : string | undefined;
+    ejecutivo_proyecto    : string | undefined;
+    administrador_nombre  : string | undefined;
+    administrador_correo  : string | undefined;
     administrador_telefono: string | undefined;
-    referente_nombre: string | undefined;
-    referente_correo: string | undefined;
-    referente_telefono: string | undefined;
-    contabilidad_nombre: string | undefined;
-    contabilidad_correo: string | undefined;
-    contabilidad_telefono: string | undefined;
-    finanzas_nombre: string | undefined;
-    finanzas_correo: string | undefined;
-    finanzas_telefono: string | undefined;
-    oftalmologo: string | undefined;
-    observaciones: string | undefined;
+    referente_nombre      : string | undefined;
+    referente_correo      : string | undefined;
+    referente_telefono    : string | undefined;
+    contabilidad_nombre   : string | undefined;
+    contabilidad_correo   : string | undefined;
+    contabilidad_telefono : string | undefined;
+    finanzas_nombre       : string | undefined;
+    finanzas_correo       : string | undefined;
+    finanzas_telefono     : string | undefined;
+    oftalmologo           : string | 0;
+    observaciones         : string | undefined;
   }
   
   
@@ -59,38 +60,19 @@ interface OutputData {
   _p2?: string;
   _p3?: string;
 }
-//   CALL spProyectos(3, 0, "'4030000ll', 
-//     '40300002lll', 
-//     'Test Proyecto', 
-//     2,
-//     1, 
-//     722, 
-//     '123123', 
-//     '2023-09-29', 
-//     '2023-09-27', 
-//     '2023-09-26', 
-//     123123, 
-//     123, 
-//     1233, 
-//     98, 
-//     'contacto nombre 1', 
-//     'correo@administrativo.cl', 
-//     '4030000', 
-//     'tecnico nombre', 
-//     'tecnico@correo.cl', 
-//     '4030000', 
-//     'contabilidad nombre', 
-//     'contabilidad@mail.cl', 
-//     '4030000', 
-//     'finanzas nombre', 
-//     'finanzas@correo.cl', 
-//     '4030000', 
-//     12,
-//     2, 
-//     'observaciones test proyecto 1'", 0, '', 0, 0)
 
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
-    const _p2 = ` '${jsonData.codigo_proyecto}', 
+  // (codigo, codigo_licitacion, titulo, estado, empresa, mandante, unidad_compra, 
+  //   fecha_adjudicacion, fecha_inicio, fecha_termino, cantidad_requerida, presupuesto, dias_de_entrega, 
+  //   ejecutivo, contacto_adm_nombre, contacto_adm_correo, contacto_adm_telefono, 
+  //   referente_tec_nombre, referente_tec_correo, referente_tec_telefono, 
+  //   contacto_conta_nombre, contacto_conta_correo, contacto_conta_telefono, 
+  //   contacto_fin_nombre, contacto_fin_correo, contacto_fin_telefono, punto_venta, oftalmologo, observaciones )
+
+      //  ${jsonData.cantidad_requerida !== null ? jsonData.cantidad_requerida : 0}, 
+
+      const _p2 = ` 
+      '${jsonData.codigo_proyecto}', 
       '${jsonData.codigo_licitacion}', 
       '${jsonData.titulo_proyecto}', 
        ${jsonData.estado === "Abierto" ? 1 : 2},
@@ -100,10 +82,10 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
       '${jsonData.fecha_adjudicacion}', 
       '${jsonData.fecha_inicio}', 
       '${jsonData.fecha_termino}', 
-      ${jsonData.cantidad_requerida}, 
-      ${jsonData.presupuesto}, 
-      ${jsonData.dias_entrega}, 
-      ${jsonData.ejecutivo_proyecto}, 
+       ${jsonData.cantidad_requerida || 0}, 
+       ${jsonData.presupuesto || 0}, 
+       ${jsonData.dias_entrega || 0}, 
+       ${jsonData.ejecutivo_proyecto}, 
       '${jsonData.administrador_nombre}', 
       '${jsonData.administrador_correo}', 
       '${jsonData.administrador_telefono}', 
@@ -116,8 +98,7 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
       '${jsonData.finanzas_nombre}', 
       '${jsonData.finanzas_nombre}', 
       '${jsonData.finanzas_telefono}', 
-      ${12}, 
-      ${jsonData.oftalmologo},
+       ${jsonData.oftalmologo},
       '${jsonData.observaciones}'`;
   
     const query: OutputData = {
@@ -133,13 +114,12 @@ export function transformUpdateQuery(
   primaryKey: string
 ): OutputData | null {
   const fields = [
-    // jsonData.nombre && `nombre='${jsonData.nombre}'`,
     `codigo_licitacion          ='${jsonData.codigo_licitacion}'`,
     `titulo                     ='${jsonData.titulo_proyecto}'`,
     `estado                     = ${jsonData.estado === "Abierto" ? 1 : 2}`,
     `empresa                    = ${jsonData.empresa_adjudicada}`,
     `mandante                   = ${jsonData.mandante}`,
-    `unidad_compra             ='${jsonData.unidad_compra}'`,
+    `unidad_compra              ='${jsonData.unidad_compra}'`,
     `fecha_adjudicacion         ='${jsonData.fecha_adjudicacion}'`,
     `fecha_inicio               ='${jsonData.fecha_inicio}'`,
     `fecha_termino              ='${jsonData.fecha_termino}'`,
@@ -159,7 +139,6 @@ export function transformUpdateQuery(
     `contacto_fin_nombre        ='${jsonData.finanzas_nombre}'`,
     `contacto_fin_correo        ='${jsonData.finanzas_correo}'`,
     `contacto_fin_telefono      ='${jsonData.finanzas_telefono}'`,
-    `punto_venta                = ${12}`,
     `oftalmologo                = ${jsonData.oftalmologo}`,
     `observaciones              ='${jsonData.observaciones}'`,
   ];
@@ -228,13 +207,13 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
       setValue("fecha_adjudicacion", "");
       setValue("fecha_inicio", "");
       setValue("fecha_termino", "");
-      setValue("dias_entrega", undefined);
-      setValue("cantidad_requerida", 0);
-      setValue("cantidad_atendida", undefined);
-      setValue("total_facturado", undefined);
-      setValue("cantidad_disponible", undefined);
-      setValue("saldo_disponible", undefined);
-      setValue("avance", undefined);
+      setValue("dias_entrega", "");
+      setValue("cantidad_requerida", "");
+      setValue("cantidad_atendida", "");
+      setValue("total_facturado", "");
+      setValue("cantidad_disponible", "");
+      setValue("saldo_disponible", "");
+      setValue("avance", "");
       setValue("administrador_nombre", "");
       setValue("administrador_correo", "");
       setValue("administrador_telefono", "");
@@ -389,7 +368,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                         data={data && data[EnumGrid.EMPRESA_ID]}
                         control={control}
                         entidad={["/api/empresas/", "02"]}
-                        error={!isEditting && errors.empresa_adjudicada}
+                        error={errors.empresa_adjudicada}
                         customWidth={"345px"}
                         inputRef={secondInputRef}
                     />
@@ -402,7 +381,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                         data={data && data[EnumGrid.MANDANTE_ID]}
                         control={control}
                         entidad={["/api/mandantes/", "02"]}
-                        error={!isEditting && errors.mandante}
+                        error={errors.mandante}
                         customWidth={"345px"}
                     />
                 </div>
@@ -414,7 +393,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                         data={data && data[EnumGrid.EJECUTIVO_ID]}
                         control={control}
                         entidad={["/api/usuarios/", "02"]}
-                        error={!isEditting && errors.ejecutivo_proyecto}
+                        error={errors.ejecutivo_proyecto}
                         customWidth={"345px"}
                         inputRef={secondInputRef}
                     />
@@ -429,7 +408,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                         name="codigo_proyecto"
                         data={data && data[EnumGrid.CODIGO]}
                         control={control}
-                        error={!isEditting && errors.codigo_proyecto}
+                        error={errors.codigo_proyecto}
                         onlyRead={isEditting}
                     />
                 </div>
@@ -440,7 +419,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                         name="codigo_licitacion"
                         data={data && data[EnumGrid.CODIGO_LICITACION]}
                         control={control}
-                        error={!isEditting && errors.codigo_licitacion}
+                        error={errors.codigo_licitacion}
                     />
                 </div>
                 <div className="w-[27%] mr-8">
@@ -450,7 +429,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                         name="titulo_proyecto"
                         data={data && data[EnumGrid.TITULO]}
                         control={control}
-                        error={!isEditting && errors.titulo_proyecto}
+                        error={errors.titulo_proyecto}
                     />
                 </div>
                 <div className="w-[25.5%]">
@@ -460,7 +439,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                     name="estado"
                     data={data && data[EnumGrid.ESTADO]}
                     options={["Abierto", "Cerrado"]}
-                    error={!isEditting && errors.estado}
+                    error={errors.estado}
                     horizontal={true}
                 />
                 </div>
@@ -475,7 +454,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                         name="unidad_compra"
                         data={data && data[EnumGrid.UNIDAD_COMPRA]}
                         control={control}
-                        error={!isEditting && errors.unidad_compra}
+                        error={errors.unidad_compra}
                 />
             </div>          
             <div className="w-[15%] mr-8">
@@ -485,7 +464,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                         name="fecha_adjudicacion"
                         data={data && data[EnumGrid.FECHA_ADJUDICACION]}
                         control={control}
-                        error={!isEditting && errors.fecha_adjudicacion}
+                        error={errors.fecha_adjudicacion}
                 />
             </div>          
             <div className="w-[15%] mr-8">
@@ -495,7 +474,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                         name="fecha_inicio"
                         data={data && data[EnumGrid.FECHA_INICIO]}
                         control={control}
-                        error={!isEditting && errors.fecha_inicio}
+                        error={errors.fecha_inicio}
                 />
             </div>          
             <div className="w-[15%] mr-8">
@@ -505,7 +484,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                         name="fecha_termino"
                         data={data && data[EnumGrid.FECHA_TERMINO]}
                         control={control}
-                        error={!isEditting && errors.fecha_termino}
+                        error={errors.fecha_termino}
                 />
             </div>          
             <div className="w-[10%] mr-8">
@@ -515,7 +494,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                         name="dias_entrega"
                         data={data && data[EnumGrid.DIAS_DE_ENTREGA]}
                         control={control}
-                        error={!isEditting && errors.dias_entrega}
+                        error={errors.dias_entrega}
                 />
             </div> 
             <div className="w-[20%]">
@@ -526,7 +505,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                         data={data && data[EnumGrid.OFTALMOLOGO_ID]}
                         control={control}
                         entidad={["/api/oftalmologos/", "02"]}
-                        error={!isEditting && errors.oftalmologo}
+                        error={errors.oftalmologo}
                         customWidth={"345px"}
                         inputRef={secondInputRef}
                     />
@@ -543,7 +522,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                         name="cantidad_requerida"
                         data={data && data[EnumGrid.CANTIDAD_REQUERIDA]}
                         control={control}
-                        error={!isEditting && errors.cantidad_requerida}
+                        error={errors.cantidad_requerida}
                 />
             </div>          
             <div className="w-[12%] mr-8">
@@ -553,7 +532,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                         name="presupuesto"
                         data={data && data[EnumGrid.PRESUPUESTO]}
                         control={control}
-                        error={!isEditting && errors.presupuesto}
+                        error={errors.presupuesto}
                 />
             </div>          
             <div className="w-[12%] mr-8">
@@ -617,7 +596,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                             name="administrador_nombre"
                             data={data && data[EnumGrid.CONTACTO_ADMINISTRADOR_NOMBRE]}
                             control={control}
-                            error={!isEditting && errors.administrador_nombre}
+                            error={errors.administrador_nombre}
                         />
                     </div>
                     <div className="w-[55%] mr-8">
@@ -627,7 +606,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                             name="administrador_telefono"
                             data={data && data[EnumGrid.CONTACTO_ADMINISTRADOR_TELEFONO]}
                             control={control}
-                            error={!isEditting && errors.administrador_telefono}
+                            error={errors.administrador_telefono}
                         />
                     </div>
                     <div className="w-[55%] mr-8">
@@ -637,7 +616,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                             name="administrador_correo"
                             data={data && data[EnumGrid.CONTACTO_ADMINISTRADOR_CORREO]}
                             control={control}
-                            error={!isEditting && errors.administrador_correo}
+                            error={errors.administrador_correo}
                         />
                     </div>
                 </div>
@@ -651,7 +630,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                             name="contabilidad_nombre"
                             data={data && data[EnumGrid.CONTACTO_CONTABILIDAD_NOMBRE]}
                             control={control}
-                            error={!isEditting && errors.contabilidad_nombre}
+                            error={errors.contabilidad_nombre}
                         />
                     </div>
                     <div className="w-[55%] mr-8">
@@ -661,7 +640,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                             name="contabilidad_telefono"
                             data={data && data[EnumGrid.CONTACTO_CONTABILIDAD_TELEFON]}
                             control={control}
-                            error={!isEditting && errors.contabilidad_telefono}
+                            error={errors.contabilidad_telefono}
                         />
                     </div>
                     <div className="w-[55%] mr-8">
@@ -671,7 +650,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                             name="contabilidad_correo"
                             data={data && data[EnumGrid.CONTACTO_CONTABILIDAD_CORREO]}
                             control={control}
-                            error={!isEditting && errors.contabilidad_correo}
+                            error={errors.contabilidad_correo}
                         />
                     </div>
                 </div>
@@ -687,7 +666,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                             name="referente_nombre"
                             data={data && data[EnumGrid.REFERENTE_TECNICO_NOMBRE]}
                             control={control}
-                            error={!isEditting && errors.referente_nombre}
+                            error={errors.referente_nombre}
                         />
                     </div>
                     <div className="w-[55%] mr-8">
@@ -697,7 +676,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                             name="referente_telefono"
                             data={data && data[EnumGrid.REFERENTE_TECNICO_TELEFONO]}
                             control={control}
-                            error={!isEditting && errors.referente_telefono}
+                            error={errors.referente_telefono}
                         />
                     </div>
                     <div className="w-[55%] mr-8">
@@ -707,7 +686,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                             name="referente_correo"
                             data={data && data[EnumGrid.REFERENTE_TECNICO_CORREO]}
                             control={control}
-                            error={!isEditting && errors.referente_correo}
+                            error={errors.referente_correo}
                         />
                     </div>
                 </div>
@@ -721,7 +700,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                             name="finanzas_nombre"
                             data={data && data[EnumGrid.CONTACTO_FINANZAS_NOMBRE]}
                             control={control}
-                            error={!isEditting && errors.finanzas_nombre}
+                            error={errors.finanzas_nombre}
                         />
                     </div>
                     <div className="w-[55%] mr-8">
@@ -731,7 +710,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                             name="finanzas_telefono"
                             data={data && data[EnumGrid.CONTACTO_FINANZAS_TELEFONO]}
                             control={control}
-                            error={!isEditting && errors.finanzas_telefono}
+                            error={errors.finanzas_telefono}
                         />
                     </div>
                     <div className="w-[55%] mr-8">
@@ -741,7 +720,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                             name="finanzas_correo"
                             data={data && data[EnumGrid.CONTACTO_FINANZAS_CORREO]}
                             control={control}
-                            error={!isEditting && errors.finanzas_correo}
+                            error={errors.finanzas_correo}
                         />
                     </div>
                 </div>
@@ -755,7 +734,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                         name="observaciones"
                         data={data && data[EnumGrid.OBSERVACIONES]}
                         control={control}
-                        error={!isEditting && errors.observaciones}
+                        error={errors.observaciones}
                     />
                 </div>
 

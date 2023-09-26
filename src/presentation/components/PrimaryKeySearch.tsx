@@ -41,7 +41,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
       description || ""
     );
     const { ListEntity } = useCrud(baseUrl);
-    console.log("cristalDescritpion", cristalDescritpion[3]);
+    // console.log("cristalDescritpion", cristalDescritpion[3]);
     
     useEffect(() => {
       // Actualiza el estado interno cuando la prop description cambia

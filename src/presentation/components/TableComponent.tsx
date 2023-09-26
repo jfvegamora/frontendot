@@ -6,8 +6,8 @@ import { BsFillXSquareFill } from "react-icons/bs";
 
 import { usePermission } from "../hooks";
 import { BUTTON_MESSAGES } from "../utils";
-import ExportToPDF from "./ExportToPDF";
-import { ExportCSV } from "./ExportToCsv";
+// import ExportToPDF from "./ExportToPDF";
+// import { ExportCSV } from "./ExportToCsv";
 
 interface ITableComponentProps<T> {
   tableHead: { cell: JSX.Element | string; key: string; visible: boolean; width?:string; alignment?:string }[];
@@ -88,7 +88,8 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                         }
                       />
                     ) : (
-                      renderTextCell(column.cell as string, column.alignment)
+                      renderTextCell(column.cell as string)
+                      // renderTextCell(column.cell as string, column.alignment)
                     )}
                   </th>
                 ) : null;
@@ -151,7 +152,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                       </Tooltip>
                     )}
 
-                    <ExportToPDF/>
+                    {/* <ExportToPDF/> */}
                     
                   </td>
                 </tr>

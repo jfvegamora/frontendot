@@ -85,7 +85,7 @@ const MProyectosFirmas: React.FC = () => {
       <div className="mantenedorContainer">
         <h1 className="mantenedorH1">Reportes de Firmas</h1>
   
-        <div className="mantenedorHead width70">
+        <div className="mantenedorHead width90">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
             setParams={setParams}
@@ -120,7 +120,7 @@ const MProyectosFirmas: React.FC = () => {
           />
         </div>
   
-        <div className="width90 scroll">
+        <div className="width100 scroll">
           <TableComponent
             handleSelectChecked={handleSelect}
             handleSelectedCheckedAll={handleSelectedAll}
@@ -140,7 +140,7 @@ const MProyectosFirmas: React.FC = () => {
   
         {isModalInsert && (
           <FProyectosFirmas
-            label={`${TITLES.nuevo} ${strEntidad}`}
+            label={`${TITLES.ingreso} ${strEntidad}`}
             closeModal={closeModal}
             selectedRows={selectedRows}
             setEntities={setEntities}
@@ -151,7 +151,7 @@ const MProyectosFirmas: React.FC = () => {
   
         {isModalEdit && (
           <FProyectosFirmas
-            label={`${TITLES.editar} ${strEntidad}`}
+            label={`${TITLES.edicion} ${strEntidad}`}
             selectedRows={selectedRows}
             setEntities={setEntities}
             params={params}

@@ -19,7 +19,7 @@ const strEntidad = "Almacén ";
 
 export interface InputData {
   descripcion: string | undefined;
-  tipo: string | undefined;
+  tipo       : string | undefined;
 }
 
 interface OutputData {
@@ -78,7 +78,7 @@ interface IUserFormPrps {
 
 const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
   ({ closeModal, setEntities, params, label, data, isEditting }) => {
-    const schema = validationAlmacenesSchema(isEditting);
+    const schema = validationAlmacenesSchema();
     const { showModal, CustomModal } = useModal();
     const { show } = useCustomToast();
 
@@ -239,7 +239,7 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
               name="descripcion"
               data={data && data[EnumGrid.descripcion]}
               control={control}
-              error={!isEditting && errors.descripcion}
+              error={errors.descripcion}
               inputRef={firstInputRef}
             />
             <div className="w-full ">
@@ -250,8 +250,7 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
                 data={data && data[EnumGrid.tipo_almacen_id]}
                 control={control}
                 entidad={["/api/tipos/", "02", "AlmacenesTipos"]}
-                error={!isEditting && errors.tipo}
-                customWidth={"345px"}
+                error={errors.tipo}
               />
             </div>
           </div>

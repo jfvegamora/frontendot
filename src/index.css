@@ -172,7 +172,7 @@ select::-ms-expand {
 
 .mantenedorH1 {
   text-align: center;
-  margin-top: 1.5rem;
+  margin-top: 2rem;
   font-weight: 500;
   font-size: 1.5rem;
   line-height: 2rem;
@@ -447,12 +447,13 @@ select::-ms-expand {
   max-width: 50rem;
   left: 20%;
 }
-.useFormContainer70rem {
-  max-width: 90vw;
-  left: 5%;
 .useFormContainer60rem {
   max-width: 60rem;
   left: 15%;
+}
+.useFormContainer70rem {
+  max-width: 90vw;
+  left: 5%;
 }
 
 .labelForm {

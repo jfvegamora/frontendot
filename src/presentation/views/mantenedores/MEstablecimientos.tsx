@@ -84,7 +84,7 @@ const MEstablecimientos: React.FC = () => {
     <div className="mantenedorContainer">
       <h1 className="mantenedorH1">Establecimientos</h1>
 
-      <div className="mantenedorHead width70">
+      <div className="mantenedorHead width80">
         <PrimaryKeySearch
           baseUrl={strBaseUrl}
           setParams={setParams}
@@ -119,7 +119,7 @@ const MEstablecimientos: React.FC = () => {
         />
       </div>
 
-      <div className="scroll">
+      <div className="width80 scroll">
         <TableComponent
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
@@ -139,7 +139,7 @@ const MEstablecimientos: React.FC = () => {
 
       {isModalInsert && (
         <FEstablecimientos
-          label={`${TITLES.nuevo} ${strEntidad}`}
+          label={`${TITLES.ingreso} ${strEntidad}`}
           closeModal={closeModal}
           selectedRows={selectedRows}
           setEntities={setEntities}
@@ -150,7 +150,7 @@ const MEstablecimientos: React.FC = () => {
 
       {isModalEdit && (
         <FEstablecimientos
-          label={`${TITLES.editar} ${strEntidad}`}
+          label={`${TITLES.edicion} ${strEntidad}`}
           selectedRows={selectedRows}
           setEntities={setEntities}
           params={params}

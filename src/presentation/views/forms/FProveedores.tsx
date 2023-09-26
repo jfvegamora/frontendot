@@ -7,7 +7,7 @@ import React, { useState, useEffect } from "react";
 import { TextInputComponent } from "../../components";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { validationEmpresasSchema } from "../../utils/validationFormSchemas";
+import { validationProveedoresSchema } from "../../utils/validationFormSchemas";
 import { EnumGrid } from "../mantenedores/MProveedores";
 import { ERROR_MESSAGES, MODAL, SUCCESS_MESSAGES } from "../../utils";
 import { useCrud } from "../../hooks";
@@ -18,11 +18,11 @@ const strBaseUrl = "/api/proveedores/";
 const strEntidad = "Proveedor ";
 
 export interface InputData {
-  nombre: string | undefined;
-  rut: string | undefined;
+  nombre   : string | undefined;
+  rut      : string | undefined;
   direccion: string | undefined;
-  telefono: string | undefined;
-  correo: string | undefined;
+  telefono : string | undefined;
+  correo   : string | undefined;
   sitio_web: string | undefined;
 }
 
@@ -33,9 +33,10 @@ interface OutputData {
 }
 
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
-  const _p1 = `'${jsonData.nombre}', 
-      ${jsonData.rut}, 
-      ${jsonData.direccion}, 
+  const _p1 = `
+     '${jsonData.rut}', 
+     '${jsonData.nombre}', 
+     '${jsonData.direccion}', 
      '${jsonData.telefono}', 
      '${jsonData.correo}', 
      '${jsonData.sitio_web}'`;
@@ -44,7 +45,7 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
     query: "03",
     _p1: _p1,
   };
-
+  console.log("query", query);
   return query;
 }
 
@@ -89,7 +90,7 @@ interface IUserFormPrps {
 
 const FProveedores: React.FC<IUserFormPrps> = React.memo(
   ({ closeModal, setEntities, params, label, data, isEditting }) => {
-    const schema = validationEmpresasSchema(isEditting);
+    const schema = validationProveedoresSchema();
     const { showModal, CustomModal } = useModal();
     const { show } = useCustomToast();
 
@@ -222,7 +223,7 @@ const FProveedores: React.FC<IUserFormPrps> = React.memo(
     );
 
     useEffect(() => {
-      focusFirstInput("nombre");
+      focusFirstInput("rut");
     }, []);
 
     return (
@@ -236,14 +237,7 @@ const FProveedores: React.FC<IUserFormPrps> = React.memo(
 
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))}
-          // onSubmit={(e) => {
-          //   e.preventDefault();
-          //   if (!isModalOpen) {
-          //     handleSubmit((data) => handleSaveChange(data, isEditting))(e);
-          //   }
-          // }}
-          className="userFormulario"
-        >
+          className="userFormulario">
           <div className="userFormularioContainer">
             <TextInputComponent
               type="text"
@@ -251,7 +245,7 @@ const FProveedores: React.FC<IUserFormPrps> = React.memo(
               name="rut"
               data={data && data[EnumGrid.Rut]}
               control={control}
-              error={!isEditting && errors.rut}
+              error={errors.rut}
               inputRef={firstInputRef}
             />
             <TextInputComponent
@@ -260,8 +254,7 @@ const FProveedores: React.FC<IUserFormPrps> = React.memo(
               name="nombre"
               data={data && data[EnumGrid.Nombre]}
               control={control}
-              error={!isEditting && errors.nombre}
-              inputRef={firstInputRef}
+              error={errors.nombre}
             />
             <div className="w-full "></div>
 
@@ -285,7 +278,7 @@ const FProveedores: React.FC<IUserFormPrps> = React.memo(
               name="correo"
               data={data && data[EnumGrid.Correo]}
               control={control}
-              error={!isEditting && errors.correo}
+              error={errors.correo}
             />
             <TextInputComponent
               type="text"
@@ -293,7 +286,7 @@ const FProveedores: React.FC<IUserFormPrps> = React.memo(
               name="sitio_web"
               data={data && data[EnumGrid.Sitio_Web]}
               control={control}
-              error={!isEditting && errors.sitio_web}
+              error={errors.sitio_web}
             />
           </div>
 

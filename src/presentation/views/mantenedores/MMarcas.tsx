@@ -112,7 +112,7 @@ const MMarcas: React.FC = () => {
         />
       </div>
 
-      <div className="scroll width70">
+      <div className="scroll width60">
         <TableComponent
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
@@ -132,7 +132,7 @@ const MMarcas: React.FC = () => {
 
       {isModalInsert && (
         <FMarcas
-          label={`${TITLES.nuevo} ${strEntidad}`}
+          label={`${TITLES.ingreso} ${strEntidad}`}
           closeModal={closeModal}
           selectedRows={selectedRows}
           setEntities={setEntities}
@@ -143,7 +143,7 @@ const MMarcas: React.FC = () => {
 
       {isModalEdit && (
         <FMarcas
-          label={`${TITLES.editar} ${strEntidad}`}
+          label={`${TITLES.edicion} ${strEntidad}`}
           selectedRows={selectedRows}
           setEntities={setEntities}
           params={params}

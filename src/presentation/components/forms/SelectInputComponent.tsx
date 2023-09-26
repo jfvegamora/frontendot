@@ -233,7 +233,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
   }) => {
     const [refreshToggle, setrefreshToggle] = useState(false);
     const [entities, setEntities] = useState([]);
-    const [strSelectedName, setStrSelectedName] = useState(data);
+    const [strSelectedName, setStrSelectedName] = useState(data || undefined);
     const strUrl = entidad && entidad[0];
     const strTableName = entidad[2] ? `_p1=${entidad[2]}` : "";
     const inputRef = useRef(null);
@@ -359,7 +359,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
           </Tooltip>
         )}
         {error && (
-          <p className="text-xs text-red-500 absolute right-20">
+          <p className="text-xs text-red-500 relative top-0 left-0">
             {error.message}
           </p>
         )}

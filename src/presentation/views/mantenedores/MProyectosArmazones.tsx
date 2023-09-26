@@ -101,7 +101,7 @@ const MProyectosArmazones: React.FC = () => {
     <div className="mantenedorContainer">
       <h1 className="mantenedorH1">Parametrizacion de Armazones</h1>
 
-      <div className="mantenedorHead width80">
+      <div className="mantenedorHead width90">
         <PrimaryKeySearch
           baseUrl={strBaseUrl}
           setParams={setParams}
@@ -137,7 +137,7 @@ const MProyectosArmazones: React.FC = () => {
         />
       </div>
 
-      <div className="width90 scroll">
+      <div className="width100 scroll">
         <TableComponent
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
@@ -158,7 +158,7 @@ const MProyectosArmazones: React.FC = () => {
 
       {isModalInsert && (
         <FProyectosArmazones
-          label={`${TITLES.nuevo} ${strEntidad}`}
+          label={`${TITLES.ingreso} ${strEntidad}`}
           closeModal={closeModal}
           selectedRows={selectedRows}
           setEntities={setEntities}
@@ -169,7 +169,7 @@ const MProyectosArmazones: React.FC = () => {
 
       {isModalEdit && (
         <FProyectosArmazones
-          label={`${TITLES.editar} ${strEntidad}`}
+          label={`${TITLES.edicion} ${strEntidad}`}
           selectedRows={selectedRows}
           setEntities={setEntities}
           params={params}

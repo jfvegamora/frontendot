@@ -42,11 +42,9 @@ export enum EnumGrid {
   CONTACTO_FINANZAS_NOMBRE = 27,
   CONTACTO_FINANZAS_CORREO = 28,
   CONTACTO_FINANZAS_TELEFONO = 29,
-  PUNTO_VENTA_ID = 30,
-  PUNTO_VENTA = 31,
-  OFTALMOLOGO_ID = 32,
-  OFTALMOLOGO = 33,
-  OBSERVACIONES = 34,
+  OFTALMOLOGO_ID = 30,
+  OFTALMOLOGO = 31,
+  OBSERVACIONES = 32,
 }
 const strEntidad = "Proyecto ";
 const strEntidadExcel = "Proyectos";
@@ -107,7 +105,7 @@ const MProyectos: React.FC = () => {
     <div className="mantenedorContainer">
       <h1 className="mantenedorH1">Proyectos</h1>
 
-      <div className="mantenedorHead width90">
+      <div className="mantenedorHead width100">
         <PrimaryKeySearch
           baseUrl={strBaseUrl}
           setParams={setParams}
@@ -156,7 +154,7 @@ const MProyectos: React.FC = () => {
         />
       </div>
 
-      <div className="scroll">
+      <div className="width100 scroll">
         <TableComponent
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
@@ -176,7 +174,7 @@ const MProyectos: React.FC = () => {
 
       {isModalInsert && (
         <FProyectos
-          label={`${TITLES.nuevo} ${strEntidad}`}
+          label={`${TITLES.ingreso} ${strEntidad}`}
           closeModal={closeModal}
           selectedRows={selectedRows}
           setEntities={setEntities}
@@ -187,7 +185,7 @@ const MProyectos: React.FC = () => {
 
       {isModalEdit && (
         <FProyectos
-          label={`${TITLES.editar} ${strEntidad}`}
+          label={`${TITLES.edicion} ${strEntidad}`}
           selectedRows={selectedRows}
           setEntities={setEntities}
           params={params}

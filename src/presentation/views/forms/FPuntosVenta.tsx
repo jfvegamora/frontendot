@@ -19,11 +19,11 @@ const strEntidad = "Punto de Venta ";
 
 export interface InputData {
   descripcion: string | undefined;
-  tipo: string | undefined;
-  direccion: string | undefined;
-  almacen: string | undefined;
-  encargado: string | undefined;
-  telefono: string | undefined;
+  tipo       : string | undefined;
+  direccion  : string | undefined;
+  almacen    : string | undefined;
+  encargado  : string | undefined;
+  telefono   : string | undefined;
 }
 
 interface OutputData {
@@ -44,7 +44,7 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
     query: "03",
     _p1: _p1,
   };
-
+  console.log("query", query);
   return query;
 }
 
@@ -69,13 +69,14 @@ export function transformUpdateQuery(
     return null;
   }
   const _p1 = filteredFields.join(",");
-  console.log("_p1", _p1);
-  console.log("primaryKey", primaryKey);
-  return {
+
+  const query: OutputData = {
     query: "04",
     _p1,
     _p2: primaryKey,
   };
+  console.log("query", query);
+  return query;
 }
 
 interface IUserFormPrps {
@@ -90,7 +91,7 @@ interface IUserFormPrps {
 
 const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
   ({ closeModal, setEntities, params, label, data, isEditting }) => {
-    const schema = validationPuntosVentaSchema(isEditting);
+    const schema = validationPuntosVentaSchema();
     const { showModal, CustomModal } = useModal();
     const { show } = useCustomToast();
 
@@ -238,14 +239,7 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
 
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))}
-          // onSubmit={(e) => {
-          //   e.preventDefault();
-          //   if (!isModalOpen) {
-          //     handleSubmit((data) => handleSaveChange(data, isEditting))(e);
-          //   }
-          // }}
-          className="userFormulario"
-        >
+          className="userFormulario">
           <div className="userFormularioContainer">
             <TextInputComponent
               type="text"
@@ -253,7 +247,7 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
               name="descripcion"
               data={data && data[EnumGrid.descripcion]}
               control={control}
-              error={!isEditting && errors.descripcion}
+              error={errors.descripcion}
               inputRef={firstInputRef}
             />
             <div className="w-full ">
@@ -264,7 +258,7 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
                 data={data && data[EnumGrid.tipo_id]}
                 control={control}
                 entidad={["/api/tipos/", "02", "PuntosVentaTipos"]}
-                error={!isEditting && errors.tipo}
+                error={errors.tipo}
                 customWidth={"345px"}
               />
             </div>
@@ -285,7 +279,7 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
                 data={data && data[EnumGrid.almacen_id]}
                 control={control}
                 entidad={["/api/almacenes/", "02"]}
-                error={!isEditting && errors.almacen}
+                error={errors.almacen}
                 customWidth={"345px"}
               />
             </div>
@@ -298,7 +292,7 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
                 data={data && data[EnumGrid.encargado_id]}
                 control={control}
                 entidad={["/api/usuarios/", "02"]}
-                error={!isEditting && errors.encargado}
+                error={errors.encargado}
                 customWidth={"345px"}
               />
             </div>
@@ -309,7 +303,7 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
               name="telefono"
               data={data && data[EnumGrid.telefono]}
               control={control}
-              error={!isEditting && errors.telefono}
+              error={errors.telefono}
             />
           </div>
 

@@ -21,23 +21,23 @@ export interface InputData {
   proyecto              : string | undefined;
   titulo                : string | undefined;
   licitacion            : string | undefined;
-  folio_reporte         : number | undefined;
+  folio_reporte         : string | undefined;
   fecha_desde           : string | undefined;
   fecha_hasta           : string | undefined;
-  cantidad_lentes       : number | undefined; 
-  total_atenciones      : number | undefined;
+  cantidad_lentes       : string | undefined; 
+  total_atenciones      : string | undefined;
   orden_compra_mandante : string | undefined;
   fecha_vb              : string | undefined;
-  factura               : number | undefined;
+  factura               : string | undefined;
   fecha_factura         : string | undefined;
-  total_factura         : number | undefined;
-  nota_credito          : number | undefined;
+  total_factura         : string | undefined;
+  nota_credito          : string | undefined;
   fecha_ncredito        : string | undefined;
-  total_ncredito        : number | undefined;
-  nota_debito           : number | undefined;
+  total_ncredito        : string | undefined;
+  nota_debito           : string | undefined;
   fecha_ndebito         : string | undefined;
-  total_ndebito         : number | undefined;
-  guia_despacho         : number | undefined;
+  total_ndebito         : string | undefined;
+  guia_despacho         : string | undefined;
   fecha_guia_despacho   : string | undefined;
   observaciones         : string | undefined;
 }
@@ -50,12 +50,28 @@ interface OutputData {
 }
 
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
-
-  const _p1 = `'${jsonData.proyecto}', ${jsonData.folio_reporte}, '${jsonData.fecha_desde}', '${jsonData.fecha_hasta}', 
-  '${jsonData.orden_compra_mandante}', '${jsonData.fecha_vb}', ${jsonData.factura}, '${jsonData.fecha_factura}', 
-  ${jsonData.total_factura}, ${jsonData.nota_credito}, '${jsonData.fecha_ncredito}', ${jsonData.total_ncredito}, 
-  ${jsonData.nota_debito}, '${jsonData.fecha_ndebito}', ${jsonData.total_ndebito}, ${jsonData.guia_despacho}, 
-  '${jsonData.fecha_guia_despacho}', '${jsonData.observaciones}'`;
+  // (proyecto, folio_reporte, fecha_desde, fecha_hasta, orden_compra_mandante, 
+  //   fecha_vb, factura, fecha_factura, total_factura, nota_credito, fecha_ncredito, total_ncredito, 
+  //   nota_debito, fecha_ndebito, total_ndebito, guia_despacho, fecha_guia_despacho, observaciones)
+  const _p1 = `
+ '${jsonData.proyecto}', 
+  ${jsonData.folio_reporte}, 
+ '${jsonData.fecha_desde}', 
+ '${jsonData.fecha_hasta}', 
+ '${jsonData.orden_compra_mandante}', 
+ '${jsonData.fecha_vb}', 
+  ${(jsonData.factura && jsonData.factura?.toString())?.length === 0 ? "0" : jsonData.factura}, 
+ '${jsonData.fecha_factura}', 
+  ${(jsonData.total_factura && jsonData.total_factura?.toString())?.length === 0 ? "0" : jsonData.total_factura}, 
+  ${(jsonData.nota_credito && jsonData.nota_credito?.toString())?.length === 0 ? "0" : jsonData.nota_credito}, 
+ '${jsonData.fecha_ncredito}', 
+  ${(jsonData.total_ncredito && jsonData.total_ncredito?.toString())?.length === 0 ? "0" : jsonData.total_ncredito}, 
+  ${(jsonData.nota_debito && jsonData.nota_debito?.toString())?.length === 0 ? "0" : jsonData.nota_debito}, 
+ '${jsonData.fecha_ndebito}', 
+  ${(jsonData.total_ndebito && jsonData.total_ndebito?.toString())?.length === 0 ? "0" : jsonData.total_ndebito}, 
+  ${(jsonData.guia_despacho && jsonData.guia_despacho?.toString())?.length === 0 ? "0" : jsonData.guia_despacho}, 
+ '${jsonData.fecha_guia_despacho}', 
+ '${jsonData.observaciones}'`;
 
   const query: OutputData = {
     query: "03",
@@ -69,16 +85,16 @@ export function transformUpdateQuery(jsonData: InputData): OutputData | null {
   const fields = [
     `orden_compra_mandante= '${jsonData.orden_compra_mandante}'`, 
     `fecha_vb             = '${jsonData.fecha_vb}'`, 
-    `factura              =  ${jsonData.factura}`, 
+    `factura              =  ${(jsonData.factura && jsonData.factura?.toString())?.length === 0 ? "0" : jsonData.factura}`, 
     `fecha_factura        = '${jsonData.fecha_factura}'`, 
-    `total_factura        =  ${jsonData.total_factura}`, 
-    `nota_credito         =  ${jsonData.nota_credito}`, 
+    `total_factura        =  ${(jsonData.total_factura && jsonData.total_factura?.toString())?.length === 0 ? "0" : jsonData.total_factura}`, 
+    `nota_credito         =  ${(jsonData.nota_credito && jsonData.nota_credito?.toString())?.length === 0 ? "0" : jsonData.nota_credito}`, 
     `fecha_ncredito       = '${jsonData.fecha_ncredito}'`, 
-    `total_ncredito       =  ${jsonData.total_ncredito}`, 
-    `nota_debito          =  ${jsonData.nota_debito}`, 
+    `total_ncredito       =  ${(jsonData.total_ncredito && jsonData.total_ncredito?.toString())?.length === 0 ? "0" : jsonData.total_ncredito}`, 
+    `nota_debito          =  ${(jsonData.nota_debito && jsonData.nota_debito?.toString())?.length === 0 ? "0" : jsonData.nota_debito}`, 
     `fecha_ndebito        = '${jsonData.fecha_ndebito}'`, 
-    `total_ndebito        =  ${jsonData.total_ndebito}`, 
-    `guia_despacho        =  ${jsonData.guia_despacho}`, 
+    `total_ndebito        =  ${(jsonData.total_ndebito && jsonData.total_ndebito?.toString())?.length === 0 ? "0" : jsonData.total_ndebito}`, 
+    `guia_despacho        =  ${(jsonData.guia_despacho && jsonData.guia_despacho?.toString())?.length === 0 ? "0" : jsonData.guia_despacho}`, 
     `fecha_guia_despacho  = '${jsonData.fecha_guia_despacho}'`, 
     `observaciones        = '${jsonData.observaciones}'`,
   ];
@@ -92,12 +108,15 @@ export function transformUpdateQuery(jsonData: InputData): OutputData | null {
   }
   const _p1 = filteredFields.join(",");
   
-  return {
+  const query: OutputData = {
     query: "04",
     _p1,
     _p2: jsonData.proyecto,
     _p3: jsonData.folio_reporte?.toString(),
   };
+  console.log("query04", query);
+  return query;
+
 }
 
 interface IUserFormPrps {
@@ -112,7 +131,7 @@ interface IUserFormPrps {
 
 const FProyectosAtenciones: React.FC<IUserFormPrps> = React.memo(
   ({ closeModal, setEntities, params, label, data, isEditting }) => {
-    const schema = validationReporteAtencionSchema(isEditting);
+    const schema = validationReporteAtencionSchema();
     const { showModal, CustomModal } = useModal();
     const { show } = useCustomToast();
 
@@ -135,17 +154,17 @@ const FProyectosAtenciones: React.FC<IUserFormPrps> = React.memo(
     });
 
     const resetTextFields = React.useCallback(() => {
-      setValue("folio_reporte", 0);
-      setValue("cantidad_lentes", 0);
-      setValue("total_atenciones", 0);
+      setValue("folio_reporte", "");
+      setValue("cantidad_lentes", "");
+      setValue("total_atenciones", "");
       setValue("orden_compra_mandante", "");
-      setValue("factura", 0);
-      setValue("total_factura", 0);
-      setValue("nota_credito", 0);
-      setValue("total_ncredito", 0);
-      setValue("nota_debito", 0);
-      setValue("total_ndebito", 0);
-      setValue("guia_despacho", 0);
+      setValue("factura", "");
+      setValue("total_factura", "");
+      setValue("nota_credito", "");
+      setValue("total_ncredito", "");
+      setValue("nota_debito", "");
+      setValue("total_ndebito", "");
+      setValue("guia_despacho", "");
       setValue("observaciones", "");
           if (firstInputRef.current) {
         const firstInput = firstInputRef.current.querySelector(
@@ -287,7 +306,7 @@ const FProyectosAtenciones: React.FC<IUserFormPrps> = React.memo(
                   data={data && data[EnumGrid.proyecto]}
                   control={control}
                   entidad={["/api/proyectos/", "02"]}
-                  error={!isEditting && errors.proyecto}
+                  error={errors.proyecto}
                   inputRef={firstInputRef}
                   readOnly={isEditting}
                   />
@@ -299,7 +318,7 @@ const FProyectosAtenciones: React.FC<IUserFormPrps> = React.memo(
                 name="folio_reporte"
                 data={data && data[EnumGrid.folio_reporte]}
                 control={control}
-                error={!isEditting && errors.folio_reporte}
+                error={errors.folio_reporte}
                 onlyRead={isEditting}
               />
             </div>
@@ -310,7 +329,7 @@ const FProyectosAtenciones: React.FC<IUserFormPrps> = React.memo(
                 name="fecha_desde"
                 data={data && data[EnumGrid.fecha_desde]}
                 control={control}
-                error={!isEditting && errors.fecha_desde}
+                error={errors.fecha_desde}
                 onlyRead={isEditting}
               />
             </div>
@@ -321,7 +340,7 @@ const FProyectosAtenciones: React.FC<IUserFormPrps> = React.memo(
                 name="fecha_hasta"
                 data={data && data[EnumGrid.fecha_hasta]}
                 control={control}
-                error={!isEditting && errors.fecha_hasta}
+                error={errors.fecha_hasta}
                 onlyRead={isEditting}
               />
             </div>
@@ -335,7 +354,7 @@ const FProyectosAtenciones: React.FC<IUserFormPrps> = React.memo(
                   name="cantidad_lentes"
                   data={data && data[EnumGrid.cantidad_lentes]}
                   control={control}
-                  error={!isEditting && errors.cantidad_lentes}
+                  error={errors.cantidad_lentes}
                 />
             </div>
             <div className="w-full ">
@@ -345,7 +364,7 @@ const FProyectosAtenciones: React.FC<IUserFormPrps> = React.memo(
                 name="total_atenciones"
                 data={data && data[EnumGrid.total_atenciones]}
                 control={control}
-                error={!isEditting && errors.total_atenciones}
+                error={errors.total_atenciones}
               />
             </div>
             <div className="w-full ">
@@ -355,7 +374,7 @@ const FProyectosAtenciones: React.FC<IUserFormPrps> = React.memo(
                 name="orden_compra_mandante"
                 data={data && data[EnumGrid.orden_compra_mandante]}
                 control={control}
-                error={!isEditting && errors.orden_compra_mandante}
+                error={errors.orden_compra_mandante}
               />
             </div>
             <div className="w-full ">
@@ -365,7 +384,7 @@ const FProyectosAtenciones: React.FC<IUserFormPrps> = React.memo(
                 name="fecha_vb"
                 data={data && data[EnumGrid.fecha_vb]}
                 control={control}
-                error={!isEditting && errors.fecha_vb}
+                error={errors.fecha_vb}
               />
             </div>
           </div>
@@ -378,7 +397,7 @@ const FProyectosAtenciones: React.FC<IUserFormPrps> = React.memo(
                   name="factura"
                   data={data && data[EnumGrid.factura]}
                   control={control}
-                  error={!isEditting && errors.factura}
+                  error={errors.factura}
                 />
             </div>
             <div className="w-full ">
@@ -388,7 +407,7 @@ const FProyectosAtenciones: React.FC<IUserFormPrps> = React.memo(
                 name="fecha_factura"
                 data={data && data[EnumGrid.fecha_factura]}
                 control={control}
-                error={!isEditting && errors.fecha_factura}
+                error={errors.fecha_factura}
               />
             </div>
             <div className="w-full ">
@@ -398,7 +417,7 @@ const FProyectosAtenciones: React.FC<IUserFormPrps> = React.memo(
                 name="total_factura"
                 data={data && data[EnumGrid.total_factura]}
                 control={control}
-                error={!isEditting && errors.total_factura}
+                error={errors.total_factura}
               />
             </div>
             <div className="w-full ">
@@ -408,7 +427,7 @@ const FProyectosAtenciones: React.FC<IUserFormPrps> = React.memo(
                 name="nota_credito"
                 data={data && data[EnumGrid.nota_credito]}
                 control={control}
-                error={!isEditting && errors.nota_credito}
+                error={errors.nota_credito}
               />
             </div>
             <div className="w-full ">
@@ -418,7 +437,7 @@ const FProyectosAtenciones: React.FC<IUserFormPrps> = React.memo(
                 name="fecha_ncredito"
                 data={data && data[EnumGrid.fecha_ncredito]}
                 control={control}
-                error={!isEditting && errors.fecha_ncredito}
+                error={errors.fecha_ncredito}
               />
             </div>
             <div className="w-full ">
@@ -428,7 +447,7 @@ const FProyectosAtenciones: React.FC<IUserFormPrps> = React.memo(
                 name="total_ncredito"
                 data={data && data[EnumGrid.total_ncredito]}
                 control={control}
-                error={!isEditting && errors.total_ncredito}
+                error={errors.total_ncredito}
               />
             </div>
           </div>
@@ -441,7 +460,7 @@ const FProyectosAtenciones: React.FC<IUserFormPrps> = React.memo(
                   name="nota_debito"
                   data={data && data[EnumGrid.nota_debito]}
                   control={control}
-                  error={!isEditting && errors.nota_debito}
+                  error={errors.nota_debito}
                 />
             </div>
             <div className="w-full ">
@@ -451,7 +470,7 @@ const FProyectosAtenciones: React.FC<IUserFormPrps> = React.memo(
                 name="fecha_ndebito"
                 data={data && data[EnumGrid.fecha_ndebito]}
                 control={control}
-                error={!isEditting && errors.fecha_ndebito}
+                error={errors.fecha_ndebito}
               />
             </div>
             <div className="w-full ">
@@ -461,7 +480,7 @@ const FProyectosAtenciones: React.FC<IUserFormPrps> = React.memo(
                 name="total_ndebito"
                 data={data && data[EnumGrid.total_ndebito]}
                 control={control}
-                error={!isEditting && errors.total_ndebito}
+                error={errors.total_ndebito}
               />
             </div>
             <div className="w-full ">
@@ -471,7 +490,7 @@ const FProyectosAtenciones: React.FC<IUserFormPrps> = React.memo(
                 name="guia_despacho"
                 data={data && data[EnumGrid.guia_despacho]}
                 control={control}
-                error={!isEditting && errors.guia_despacho}
+                error={errors.guia_despacho}
               />
             </div>
             <div className="w-full ">
@@ -481,7 +500,7 @@ const FProyectosAtenciones: React.FC<IUserFormPrps> = React.memo(
                 name="fecha_guia_despacho"
                 data={data && data[EnumGrid.fecha_guia_despacho]}
                 control={control}
-                error={!isEditting && errors.fecha_guia_despacho}
+                error={errors.fecha_guia_despacho}
               />
             </div>
           </div>
@@ -494,7 +513,7 @@ const FProyectosAtenciones: React.FC<IUserFormPrps> = React.memo(
                 name="observaciones"
                 data={data && data[EnumGrid.observaciones]}
                 control={control}
-                error={!isEditting && errors.observaciones}
+                error={errors.observaciones}
               />
             </div>
           </div>

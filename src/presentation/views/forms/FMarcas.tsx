@@ -18,7 +18,7 @@ const strBaseUrl = "/api/marcas/";
 const strEntidad = "Marca ";
 
 export interface InputData {
-  nombre: string | undefined;
+  nombre   : string | undefined;
   proveedor: string | undefined;
 }
 
@@ -81,7 +81,7 @@ interface IUserFormPrps {
 
 const FMarcas: React.FC<IUserFormPrps> = React.memo(
   ({ closeModal, setEntities, params, label, data, isEditting }) => {
-    const schema = validationMarcasSchema(isEditting);
+    const schema = validationMarcasSchema();
     const { showModal, CustomModal } = useModal();
     const { show } = useCustomToast();
 
@@ -242,7 +242,7 @@ const FMarcas: React.FC<IUserFormPrps> = React.memo(
               name="nombre"
               data={data && data[EnumGrid.nombre]}
               control={control}
-              error={!isEditting && errors.nombre}
+              error={errors.nombre}
               inputRef={firstInputRef}
             />
             <div className="w-full ">
@@ -253,7 +253,7 @@ const FMarcas: React.FC<IUserFormPrps> = React.memo(
                 data={data && data[EnumGrid.proveedor_id]}
                 control={control}
                 entidad={["/api/proveedores/", "02"]}
-                error={!isEditting && errors.proveedor}
+                error={errors.proveedor}
                 customWidth={"345px"}
               />
             </div>

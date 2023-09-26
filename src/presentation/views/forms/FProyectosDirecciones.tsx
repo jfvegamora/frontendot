@@ -84,7 +84,7 @@ interface IUserFormPrps {
 
 const FProyectosDirecciones: React.FC<IUserFormPrps> = React.memo(
   ({ closeModal, setEntities, params, label, data, isEditting }) => {
-    const schema = validationProyectoDireccionesSchema(isEditting);
+    const schema = validationProyectoDireccionesSchema();
     const { showModal, CustomModal } = useModal();
     const { show } = useCustomToast();
 
@@ -231,16 +231,7 @@ const FProyectosDirecciones: React.FC<IUserFormPrps> = React.memo(
         </div>
         <h1 className="userFormLabel">{label}</h1>
 
-        <form
-          onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))}
-          // onSubmit={(e) => {
-          //   e.preventDefault();
-          //   if (!isModalOpen) {
-          //     handleSubmit((data) => handleSaveChange(data, isEditting))(e);
-          //   }
-          // }}
-          className="userFormulario"
-        >
+        <form onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
           <div className="input-container">
             <div className="w-full ">
@@ -251,7 +242,7 @@ const FProyectosDirecciones: React.FC<IUserFormPrps> = React.memo(
                   data={data && data[EnumGrid.proyecto]}
                   control={control}
                   entidad={["/api/proyectos/", "02"]}
-                  error={!isEditting && errors.proyecto}
+                  error={errors.proyecto}
                   inputRef={firstInputRef}
                   readOnly={isEditting}
                   />
@@ -264,7 +255,7 @@ const FProyectosDirecciones: React.FC<IUserFormPrps> = React.memo(
                   data={data && data[EnumGrid.establecimiento_id]}
                   control={control}
                   entidad={["/api/establecimientos/", "02"]}
-                  error={!isEditting && errors.establecimiento}
+                  error={errors.establecimiento}
                   readOnly={isEditting}
                   />
             </div>
@@ -277,7 +268,7 @@ const FProyectosDirecciones: React.FC<IUserFormPrps> = React.memo(
                 name="lugar"
                 data={data && data[EnumGrid.lugar]}
                 control={control}
-                error={!isEditting && errors.lugar}
+                error={errors.lugar}
               />
             </div>
             <div className="w-full ">
@@ -287,7 +278,7 @@ const FProyectosDirecciones: React.FC<IUserFormPrps> = React.memo(
                   name="direccion"
                   data={data && data[EnumGrid.direccion]}
                   control={control}
-                  error={!isEditting && errors.direccion}
+                  error={errors.direccion}
                 />
             </div>
             <div className="w-full ">
@@ -297,7 +288,7 @@ const FProyectosDirecciones: React.FC<IUserFormPrps> = React.memo(
                   name="telefono"
                   data={data && data[EnumGrid.telefono]}
                   control={control}
-                  error={!isEditting && errors.telefono}
+                  error={errors.telefono}
                 />
             </div>
           </div>
@@ -310,7 +301,7 @@ const FProyectosDirecciones: React.FC<IUserFormPrps> = React.memo(
                 name="observaciones"
                 data={data && data[EnumGrid.observaciones]}
                 control={control}
-                error={!isEditting && errors.observaciones}
+                error={errors.observaciones}
               />
             </div>
           </div>

@@ -21,7 +21,7 @@ export interface InputData {
   proyecto              : string | undefined;
   titulo                : string | undefined;
   licitacion            : string | undefined;
-  folio_reporte         : number | undefined;
+  folio_reporte         : string | undefined;
   fecha_desde           : string | undefined;
   fecha_hasta           : string | undefined;
   observaciones         : string | undefined;
@@ -43,13 +43,13 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
     query: "03",
     _p1: _p1,
   };
-console.log("query: ", query);
+  console.log("query: ", query);
   return query;
 }
 
 export function transformUpdateQuery(jsonData: InputData): OutputData | null {
   const fields = [
-    `observaciones        = '${jsonData.observaciones}'`,
+    `observaciones = '${jsonData.observaciones}'`,
   ];
 
   const filteredFields = fields.filter(
@@ -61,12 +61,14 @@ export function transformUpdateQuery(jsonData: InputData): OutputData | null {
   }
   const _p1 = filteredFields.join(",");
   
-  return {
+  const query: OutputData = {
     query: "04",
     _p1,
     _p2: jsonData.proyecto,
     _p3: jsonData.folio_reporte?.toString(),
   };
+  console.log("query: ", query);
+  return query;
 }
 
 interface IUserFormPrps {
@@ -81,7 +83,7 @@ interface IUserFormPrps {
 
 const FProyectosFirmas: React.FC<IUserFormPrps> = React.memo(
   ({ closeModal, setEntities, params, label, data, isEditting }) => {
-    const schema = validationReporteFirmasSchema(isEditting);
+    const schema = validationReporteFirmasSchema();
     const { showModal, CustomModal } = useModal();
     const { show } = useCustomToast();
 
@@ -104,7 +106,7 @@ const FProyectosFirmas: React.FC<IUserFormPrps> = React.memo(
     });
 
     const resetTextFields = React.useCallback(() => {
-      setValue("folio_reporte", 0);
+      setValue("folio_reporte", "");
       setValue("observaciones", "");
           if (firstInputRef.current) {
         const firstInput = firstInputRef.current.querySelector(
@@ -228,14 +230,7 @@ const FProyectosFirmas: React.FC<IUserFormPrps> = React.memo(
 
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))}
-          // onSubmit={(e) => {
-          //   e.preventDefault();
-          //   if (!isModalOpen) {
-          //     handleSubmit((data) => handleSaveChange(data, isEditting))(e);
-          //   }
-          // }}
-          className="userFormulario"
-        >
+          className="userFormulario">
           <div className="userFormularioContainer">
           <div className="input-container">
             <div className="w-full ">
@@ -246,7 +241,7 @@ const FProyectosFirmas: React.FC<IUserFormPrps> = React.memo(
                   data={data && data[EnumGrid.proyecto]}
                   control={control}
                   entidad={["/api/proyectos/", "02"]}
-                  error={!isEditting && errors.proyecto}
+                  error={errors.proyecto}
                   inputRef={firstInputRef}
                   readOnly={isEditting}
                   />
@@ -258,7 +253,7 @@ const FProyectosFirmas: React.FC<IUserFormPrps> = React.memo(
                 name="folio_reporte"
                 data={data && data[EnumGrid.folio_reporte]}
                 control={control}
-                error={!isEditting && errors.folio_reporte}
+                error={errors.folio_reporte}
                 onlyRead={isEditting}
               />
             </div>
@@ -269,7 +264,7 @@ const FProyectosFirmas: React.FC<IUserFormPrps> = React.memo(
                 name="fecha_desde"
                 data={data && data[EnumGrid.fecha_desde]}
                 control={control}
-                error={!isEditting && errors.fecha_desde}
+                error={errors.fecha_desde}
                 onlyRead={isEditting}
               />
             </div>
@@ -280,7 +275,7 @@ const FProyectosFirmas: React.FC<IUserFormPrps> = React.memo(
                 name="fecha_hasta"
                 data={data && data[EnumGrid.fecha_hasta]}
                 control={control}
-                error={!isEditting && errors.fecha_hasta}
+                error={errors.fecha_hasta}
                 onlyRead={isEditting}
               />
             </div>
@@ -294,7 +289,7 @@ const FProyectosFirmas: React.FC<IUserFormPrps> = React.memo(
                 name="observaciones"
                 data={data && data[EnumGrid.observaciones]}
                 control={control}
-                error={!isEditting && errors.observaciones}
+                error={errors.observaciones}
               />
             </div>
           </div>
