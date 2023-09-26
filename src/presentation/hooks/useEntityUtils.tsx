@@ -103,6 +103,17 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
     },
     [entities]
   );
+  //METODO EXCEL DE LA GRILLA
+  const toggleExcel = useCallback(
+    (rowIndex?: number) => {
+      if (rowIndex !== undefined) {
+        rowIndex >= 0
+          ? (setSelectedRows([rowIndex]), setEntity(entities[rowIndex]))
+          : (setSelectedRows([]), setEntity(null));
+      }
+    },
+    [entities]
+  );
 
   // FACTORIZAR
   const resetDelete = () => {
@@ -189,5 +200,6 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
     entity,
     refreshData,
     resetEntities,
+    toggleExcel
   };
 };

@@ -133,9 +133,10 @@ const MProyectosDirecciones: React.FC = () => {
             setSelectedRows={setSelectedRows}
             entidad={strEntidad}
             data={entities}
+            strBaseUrl={strBaseUrl}
             tableHead={table_head_proyectos_direcciones}
             showEditButton={true}
-            showDeleteButton={false}
+            showPdfButton={true}
             idMenu={idMenu}
           />
         </div>

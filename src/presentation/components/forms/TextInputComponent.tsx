@@ -15,20 +15,28 @@ interface ITextInputProps {
   error?: any;
   inputRef?: any;
   className?:string;
+  handleChange?: (data:any)=>void;
 }
-//width:100%
-//max-width padre 
+
 const TextInputComponent: React.FC<ITextInputProps> = ({
   label,
   type,
   control,
   name,
+  handleChange,
   onlyRead,
   data,
   error,
   inputRef,
   className
 }) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (handleChange) {
+      handleChange(e.target.value);
+    }
+  };
+
+
   return (
 <div
   className={`${"flex items-center mb-4 mx-4  relative rounded-xl "} ${
@@ -40,18 +48,7 @@ const TextInputComponent: React.FC<ITextInputProps> = ({
     control={control}
     defaultValue={data ? data : ""}
     render={({ field }) => (
-      <div className="flex flex-col  w-full"> {/* Utiliza flex para permitir el flujo de contenido */}
-        {/* <label
-          htmlFor={label}
-          style={{
-            color          : "grey",
-            fontWeight     : "normal",
-            fontSize       : "16px",
-            backgroundColor: "transparent",
-          }}
-        >
-          {label}
-        </label> */}
+      <div className="flex flex-col  w-full">
         <Input
           {...field}
           label     ={label}
@@ -59,8 +56,9 @@ const TextInputComponent: React.FC<ITextInputProps> = ({
           id        ={label}
           type      ={type}
           readOnly  ={onlyRead}
+          onBlur    ={(e)=>handleInputChange(e)}
           ref       ={inputRef}
-          className ={`${className ? className : "custom-input py-2 px-3 "}`}
+          className ={`${className ? className : " custom-input py-2 px-3 "}`}
           // className={`${className ? className : "custom-input py-2 px-3"}`}
         />
       </div>
@@ -72,42 +70,43 @@ const TextInputComponent: React.FC<ITextInputProps> = ({
     </p>
   )}
 </div>
-    // <div
-    //   className={`${className ? className : "flex  bg-red-500 items-center mb-4 mx-4 border rounded-xl"} ${
-    //     error && "border-red-400"
-    //   }`}
-    // >
-    //   <Controller
-    //     name          ={name}
-    //     control       ={control}
-    //     defaultValue  ={data ? data : ""}
-    //     render        ={({ field }) => (
-    //       <Input
-    //         {...field}
-    //         color     ="orange"
-    //         label     ={label}
-    //         id        ={label}
-    //         type      ={type}
-    //         readOnly  ={onlyRead}
-    //         ref       ={inputRef}
-    //         className ={`${className ? className : "custom-input py-2 px-3 w-1/2"}`}
-    //         labelProps={{
-    //           style: {
-    //             color     : "grey",
-    //             fontWeight: "normal",
-    //             fontSize  : "16px",
-    //           },
-    //         }}
-    //       />
-    //     )}
-    //   />
-    //   {error && (
-    //     <p className="text-xs text-red-500 absolute right-20">
-    //       {error.message}
-    //     </p>
-    //   )}
-    // </div>
   );
 };
 
 export default TextInputComponent;
+
+// <div
+//   className={`${className ? className : "flex  bg-red-500 items-center mb-4 mx-4 border rounded-xl"} ${
+//     error && "border-red-400"
+//   }`}
+// >
+//   <Controller
+//     name          ={name}
+//     control       ={control}
+//     defaultValue  ={data ? data : ""}
+//     render        ={({ field }) => (
+//       <Input
+//         {...field}
+//         color     ="orange"
+//         label     ={label}
+//         id        ={label}
+//         type      ={type}
+//         readOnly  ={onlyRead}
+//         ref       ={inputRef}
+//         className ={`${className ? className : "custom-input py-2 px-3 w-1/2"}`}
+//         labelProps={{
+//           style: {
+//             color     : "grey",
+//             fontWeight: "normal",
+//             fontSize  : "16px",
+//           },
+//         }}
+//       />
+//     )}
+//   />
+//   {error && (
+//     <p className="text-xs text-red-500 absolute right-20">
+//       {error.message}
+//     </p>
+//   )}
+// </div>

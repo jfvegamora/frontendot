@@ -233,7 +233,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
   }) => {
     const [refreshToggle, setrefreshToggle] = useState(false);
     const [entities, setEntities] = useState([]);
-    const [strSelectedName, setStrSelectedName] = useState(data);
+    const [strSelectedName, setStrSelectedName] = useState(data || undefined);
     const strUrl = entidad && entidad[0];
     const strTableName = entidad[2] ? `_p1=${entidad[2]}` : "";
     const inputRef = useRef(null);
@@ -247,7 +247,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
       if (data) {
         const name =
           data && entities.find((entity: any) => entity[0] === data)?.[1];
-        console.log("name", entities);
+        // console.log("name", entities);
         setStrSelectedName(name);
       }
       ListEntity(strTableName, entidad[1])

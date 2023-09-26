@@ -84,7 +84,7 @@ select::-ms-expand {
   margin: 0 auto;
   background-color: white;
   border-radius: 15px;
-  z-index: 20;
+  z-index: 1140;
   padding-bottom: 20px;
 }
 
@@ -301,6 +301,7 @@ select::-ms-expand {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
   text-align: center;
+  border-collapse: collapse;
 
   background-color: #ffffff;
   border-radius: 10px;
@@ -309,6 +310,8 @@ select::-ms-expand {
   overflow: auto;
   position: relative;
 }
+
+
 
 .scroll {
   max-height: 500px;
@@ -324,11 +327,12 @@ select::-ms-expand {
   background-color: darkorange;
   padding: 1rem;
   border-width: 1px;
+  
 }
 .gridTop {
   position: sticky;
   top: 0; /* La parte superior del encabezado se fija en la parte superior del contenedor */
-  z-index: 1;
+  z-index: 0;
 }
 
 /* Estilos CSS para el checkbox en la tabla */
@@ -349,7 +353,7 @@ select::-ms-expand {
   line-height: 1.25rem;
   line-height: 1;
   opacity: 0.7;
-  text-align: left;
+  /* text-align: left; */
 
   /*word-wrap: break-word;*/ /* Rompe palabras largas */
   overflow: hidden; /* Oculta el contenido que se desborde */
@@ -359,6 +363,7 @@ select::-ms-expand {
   border-bottom-width: 2px;
   padding-left: 1rem;
   padding-right: 1rem;
+  /* white-space: nowrap; */
   /*padding-top: 0.5rem;
   padding-bottom: 0.5rem;*/
 }
@@ -450,6 +455,7 @@ select::-ms-expand {
 .useFormContainer70rem {
   max-width: 90vw;
   left: 5%;
+}
 .useFormContainer60rem {
   max-width: 60rem;
   left: 15%;

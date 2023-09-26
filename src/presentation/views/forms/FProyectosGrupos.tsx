@@ -105,8 +105,10 @@ interface IUserFormPrps {
 const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
   ({ closeModal, setEntities, params, label, data, isEditting }) => {
     const schema = validationProyectoGruposSchema(isEditting);
+    const [idCristal, setIdCristal] = useState('');
     const { showModal, CustomModal } = useModal();
     const { show } = useCustomToast();
+    const {ListEntity:ListEntityCristales} = useCrud("/api/cristaleskardex/");
 
     const {
       editEntity,
@@ -247,8 +249,26 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
     useEffect(() => {
       focusFirstInput("cristal");
     }, []);
-    console.log('error', errors.esferico_desde)
-    console.log('error', errors.cilindrico_desde)
+
+    const handleCristalesDescription = async (data: any) => {
+      if (data) {
+        const query = "01";
+        const primaryKey = `&_p1=${data}`;
+        const result = await ListEntityCristales(primaryKey, query);
+    
+        if (result && result[0] && result[0][3]) {
+          setIdCristal(result[0][3]);
+        } else {
+          setIdCristal("Cristal no existe");
+        }
+      }
+    };
+    
+
+    useEffect(() => {
+      setValue('data_cristal', idCristal || '');
+    }, [idCristal, setValue]);
+
     return (
       <div className="useFormContainer useFormContainer60rem">
         <div className="userFormBtnCloseContainer">
@@ -260,12 +280,6 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
 
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))}
-          // onSubmit={(e) => {
-          //   e.preventDefault();
-          //   if (!isModalOpen) {
-          //     handleSubmit((data) => handleSaveChange(data, isEditting))(e);
-          //   }
-          // }}
           className="userFormulario">
           <div className="userFormularioContainer">
 
@@ -304,6 +318,7 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                 name="cristal"
                 // data={data && data[EnumGrid.]}
                 control={control}
+                handleChange={handleCristalesDescription}
                 error={!isEditting && errors.cristal}
                 />
             </div>
@@ -312,10 +327,10 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                 type="text"
                 label="Descripción"
                 name="data_cristal"
-                // data={data && data[EnumGrid.]}
+                // data={data && idCristal}
                 control={control}
                 error={!isEditting && errors.data_cristal}
-                onlyRead={isEditting}
+                onlyRead={true}
                 />
             </div>
           </div>

@@ -14,6 +14,8 @@ type Props = {
   strBaseUrl?: any;
   params?: any;
   strEntidad?: string;
+  query?:string;
+  entity?:any;
 };
 const customStyles = {
   content: {
@@ -26,32 +28,22 @@ const customStyles = {
   },
 };
 
+
 export const ExportCSV: React.FC<Props> = ({
   strBaseUrl,
   params,
   strEntidad,
+  query,
+  entity
 }) => {
   const [isModalInsert, setisModalInsert] = useState(false);
   const [exportAll, setExportAll] = useState(false);
   const [exportTable, setExportTable] = useState(false);
   const { show } = useCustomToast();
 
-  const { exportEntity } = useCrud(strBaseUrl);
-  let queryString = "";
+  const { exportEntity } = useCrud(strBaseUrl || "");
+  let queryString =  query ? query :"";
 
-  // console.log("params", params);
-
-  // if (params) {
-  //   const paramNames = ["_p1", "_p2", "_p3", "_p4"];
-  //   queryString = params
-  //     .map((value: string, index: any) =>
-  //       value !== "" ? `${paramNames[index]}=${value}` : ""
-  //     )
-  //     .filter((param: string) => param !== "")
-  //     .join("&");
-
-  //   console.log("queryString", queryString);
-  // }
   if (params) {
     const paramNames = [
       "_p1",
@@ -74,7 +66,6 @@ export const ExportCSV: React.FC<Props> = ({
       .map((value: string | string[], index: number) => {
         const paramName = paramNames[index];
         if (value.includes(`${paramName}=`)) {
-          // El valor ya contiene el nombre del parámetro, no lo agregamos nuevamente.
           return value;
         }
         return value !== "" ? `${paramName}=${value}` : "";
@@ -82,7 +73,6 @@ export const ExportCSV: React.FC<Props> = ({
       .filter((param: string) => param !== "")
       .join("&");
 
-    // console.log("queryString", queryString);
   }
 
   const handleExport = (exportAll: boolean) => {
@@ -96,29 +86,58 @@ export const ExportCSV: React.FC<Props> = ({
     }
   };
 
+  const exportExcel = (primaryKey:string) => {
+    return exportEntity(primaryKey, strEntidad, query)
+              .then(() => {
+                show({
+                  message: EXCEL.download,
+                  type: "success",
+                });
+              })
+              .catch((e) => console.log(e));
+  }
+
   useEffect(() => {
-    if (exportAll) {
-      // console.log("strEntidad", strEntidad);
-      exportEntity("", strEntidad)
-        .then(() => {
-          show({
-            message: EXCEL.download,
-            type: "success",
-          });
-        })
-        .catch((e) => console.log(e));
-    } else if (exportTable) {
-      exportEntity(queryString, strEntidad)
-        .then(() => {
-          show({
-            message: EXCEL.download,
-            type: "success",
-          });
-        })
-        .catch((e) => console.log(e));
+    
+    // if (exportAll) {
+    //   // console.log("strEntidad", strEntidad);
+    //   const primarykey = exportAll ? "" : queryString; 
+    //   exportEntity("", strEntidad)
+    //     .then(() => {
+    //       show({
+    //         message: EXCEL.download,
+    //         type: "success",
+    //       });
+    //     })
+    //     .catch((e) => console.log(e));
+    // } else if (exportTable) {
+    //   exportEntity(queryString, strEntidad)
+    //     .then(() => {
+    //       show({
+    //         message: EXCEL.download,
+    //         type: "success",
+    //       });
+    //     })
+    //     .catch((e) => console.log(e));
+    // }
+    
+    if(exportAll || exportTable){
+      const primarykey = exportAll ? "" : queryString; 
+      exportExcel(primarykey)
     }
   }, [exportAll, exportTable]);
 
+  const handleExportEntity = () => {
+    console.log('ejecutando caso de uso 2'); 
+
+    console.log('query', query)
+    if(entity){
+      const primaryKey = `_p1=${entity[1]}&_p2=${entity[4]}`;
+      // console.log('primaryKey',primaryKey)
+      exportExcel(primaryKey)
+    }
+
+  }
   return (
     <>
       <Tooltip content="Exportar">
@@ -126,43 +145,47 @@ export const ExportCSV: React.FC<Props> = ({
             </Button> */}
         <IconButton variant="text" color="blue-gray" className="mx-2">
           <RiFileExcel2Line
-            className="w-10 h-10"
-            onClick={() => setisModalInsert(true)}
-          />
+            className={` ${query ? "gridIcons" : "w-10 h-10"}`}
+              onClick={() => {
+                if(!query) return setisModalInsert(true)
+                handleExportEntity()    
+              }} 
+              />
         </IconButton>
       </Tooltip>
+          {!query && (
+              <Modal
+                isOpen={isModalInsert}
+                onRequestClose={() => setisModalInsert(false)}
+                contentLabel={EXCEL.title}
+                style={customStyles}
+                overlayClassName="overlay"
+              >
+                <h2 className="modalTitle">{EXCEL.title}</h2>
+                <p className="modalSubTitle">{EXCEL.subTitle}</p>
 
-      <Modal
-        isOpen={isModalInsert}
-        onRequestClose={() => setisModalInsert(false)}
-        contentLabel={EXCEL.title}
-        style={customStyles}
-        overlayClassName="overlay"
-      >
-        <h2 className="modalTitle">{EXCEL.title}</h2>
-        <p className="modalSubTitle">{EXCEL.subTitle}</p>
-
-        <div className="flex justify-center">
-          <button
-            onClick={() => handleExport(true)}
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mr-2 rounded"
-          >
-            {EXCEL.exportAll}
-          </button>
-          <button
-            onClick={() => handleExport(false)}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
-          >
-            {EXCEL.exportUnit}
-          </button>
-          <button
-            onClick={() => setisModalInsert(false)}
-            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 mx-2 rounded"
-          >
-            {EXCEL.cancel}
-          </button>
-        </div>
-      </Modal>
+                <div className="flex justify-center">
+                  <button
+                    onClick={() => handleExport(true)}
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mr-2 rounded"
+                  >
+                    {EXCEL.exportAll}
+                  </button>
+                  <button
+                    onClick={() => handleExport(false)}
+                    className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+                  >
+                    {EXCEL.exportUnit}
+                  </button>
+                  <button
+                    onClick={() => setisModalInsert(false)}
+                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 mx-2 rounded"
+                  >
+                    {EXCEL.cancel}
+                  </button>
+                </div>
+              </Modal>
+          )} 
     </>
   );
 };

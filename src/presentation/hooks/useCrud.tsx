@@ -18,7 +18,8 @@ const useCrud = (
   focusSecondInput: (strInputName: string) => void;
   exportEntity: (
     primaryKey?: string,
-    strEntidad?: string
+    strEntidad?: string,
+    query?:string
   ) => Promise<any | undefined>;
   ListEntity: (primaryKeys: any, query: string) => Promise<any | undefined>;
   firstInputRef: any;
@@ -115,13 +116,16 @@ const useCrud = (
 
   const exportEntity = async (
     primaryKey?: string,
-    strEntidad?: string
+    strEntidad?: string,
+    query?:string
   ): Promise<void> => {
     try {
-      console.log("primaryKey", primaryKey);
+      console.log('query', query)
+      // console.log("primaryKey", primaryKey);
       const strUrl = primaryKey
-        ? `/excel/?query=01&${primaryKey}`
-        : "/excel/?query=01";
+        ? `/excel/?${query ?  query : "query=01"}&${primaryKey}`
+        : `/excel/?${query ? query : "query=01"}`;
+
       console.log("strurlexcel", strUrl);
 
       const response = await axiosInstance.get(strUrl, {

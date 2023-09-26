@@ -41,7 +41,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
       description || ""
     );
     const { ListEntity } = useCrud(baseUrl);
-    console.log("cristalDescritpion", cristalDescritpion[3]);
+    // console.log("cristalDescritpion", cristalDescritpion[3]);
     
     useEffect(() => {
       // Actualiza el estado interno cuando la prop description cambia
@@ -121,8 +121,8 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
           key={groupIndex}
           className={
             primaryKeyInputs.length > 5
-              ? `grid grid-rows-3 w-[40vw] grid-cols-2 `
-              : "flex mb-4"
+              ? `grid grid-rows-3 w-[40vw] grid-cols-2  items-center`
+              : "flex mb-auto items-center"
           }
         >
           {group.map((input, inputIndex) => (
@@ -132,7 +132,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
               control={control}
               defaultValue=""
               render={({ field }) => (
-                <div className="mx-2 mb-4">
+                <div className="w-full flex items-center">
                   {input.type === "select" ? (
                     <div className={`w-[15rem]`}>
                       <SelectInputComponent

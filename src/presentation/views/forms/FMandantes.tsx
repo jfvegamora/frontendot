@@ -64,8 +64,7 @@ export function transformUpdateQuery(
     return null;
   }
   const _p1 = filteredFields.join(",");
-  console.log("primaryKey", primaryKey);
-  console.log("_p1: ", _p1);
+  // console.log("primaryKey", primaryKey);
   return {
     query: "04",
     _p1,
@@ -82,12 +81,12 @@ interface IUserFormPrps {
   setEntities?: any;
   params?: any;
 }
-
 const FMandantes: React.FC<IUserFormPrps> = React.memo(
   ({ closeModal, setEntities, params, label, data, isEditting }) => {
     const schema = validationMandantesSchema(isEditting);
     const { showModal, CustomModal } = useModal();
     const { show } = useCustomToast();
+    
 
     const {
       editEntity,
@@ -221,6 +220,7 @@ const FMandantes: React.FC<IUserFormPrps> = React.memo(
       focusFirstInput("codigo");
     }, []);
 
+    // console.log('data', data)
     return (
       <div className="useFormContainer">
         <div className="userFormBtnCloseContainer">

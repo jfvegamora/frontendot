@@ -16,6 +16,7 @@ const strEntidad = "Reporte de Firmas ";
 const strEntidadExcel = "Reporte_de_Firmas";
 const strBaseUrl = "/api/proyectoreportefirma/";
 const strQuery = "01";
+const strQueryExcel = "query=06";
 const idMenu = 20;
 
 export enum EnumGrid {
@@ -58,9 +59,10 @@ const MProyectosFirmas: React.FC = () => {
       //primary buttons methods
       handleDeleteSelected,
       resetEntities,
+      toggleExcel
     } = useEntityUtils(strBaseUrl, strQuery);
     // console.log("entities:", entities);
-    console.log("selectedRows", selectedRows);
+    // console.log("selectedRows", selectedRows);
   
     const pkToDelete: PrimaryKey[] = [];
   
@@ -135,6 +137,12 @@ const MProyectosFirmas: React.FC = () => {
             showEditButton={true}
             showDeleteButton={false}
             idMenu={idMenu}
+
+            showExcelButton={true}
+            queryExcel={strQueryExcel}
+            strBaseUrl={strBaseUrl}
+            strEntidad={strEntidadExcel}
+            toggleExcel={toggleExcel}
           />
         </div>
   

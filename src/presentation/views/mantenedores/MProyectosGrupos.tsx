@@ -77,7 +77,7 @@ const MProyectosGrupos: React.FC = () => {
       resetEntities,
     } = useEntityUtils(strBaseUrl, strQuery);
     // console.log("entities:", entities);
-    console.log("selectedRows", selectedRows);
+
   
     const pkToDelete: PrimaryKey[] = [];
   

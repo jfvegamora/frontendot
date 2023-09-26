@@ -8,6 +8,7 @@ import { usePermission } from "../hooks";
 import { BUTTON_MESSAGES } from "../utils";
 import ExportToPDF from "./ExportToPDF";
 import { ExportCSV } from "./ExportToCsv";
+// import { ExportCSV } from "./ExportToCsv";
 
 interface ITableComponentProps<T> {
   tableHead: { cell: JSX.Element | string; key: string; visible: boolean; width?:string; alignment?:string }[];
@@ -17,14 +18,19 @@ interface ITableComponentProps<T> {
   handleSelectedCheckedAll?: (event: any, rowsIds: any) => void;
   toggleEditModal?: (id: number) => void;
   handleDeleteSelected?: (id: number) => void;
+  toggleExcel?: (id:number) => void;
   selectedRows?: number[];
   pkToDelete?: any;
   setSelectedRows?: any;
   entidad: string;
-  showEditButton: boolean;
-  showDeleteButton: boolean;
-  params?: never[];
+  showEditButton?: boolean;
+  showDeleteButton?: boolean;
+  showPdfButton?:boolean;
+  showExcelButton?:boolean;
   idMenu: number;
+  strBaseUrl?:string;
+  strEntidad?: string;
+  queryExcel?:any;
 }
 
 const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
@@ -35,12 +41,18 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
     handleSelectChecked,
     handleSelectedCheckedAll,
     toggleEditModal,
+    toggleExcel,
     handleDeleteSelected,
     selectedRows,
     showEditButton,
     showDeleteButton,
+    showPdfButton,
+    showExcelButton,
     pkToDelete,
     idMenu,
+    strBaseUrl,
+    strEntidad,
+    queryExcel,
   }) => {
     const { escritura_lectura, lectura} = usePermission(idMenu);
     const [rowIds, setRowIds] = useState<number[]>([]);
@@ -55,11 +67,18 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
       }
     }, [data]);
 
-    const renderTextCell = (text: string) => (
-      <Typography variant="small" color="blue-gray" className="gridText">
-        {text}
-      </Typography>
-    );
+    const renderTextCell = (text: string, alignment?:string) => {
+
+      const cellStyle = {
+        textAlign:alignment
+      }
+      
+      return(
+        <Typography variant="small" color="blue-gray" className="gridText" style={cellStyle}>
+          {text}
+        </Typography>
+      )
+    };
 
     const renderCheckboxCell = (id: number) => (
       <input
@@ -68,7 +87,8 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
         type="checkbox"
       />
     );
-
+    
+ 
     return (
       <table className="gridContainer">
         <thead className="gridTop">
@@ -88,7 +108,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                         }
                       />
                     ) : (
-                      renderTextCell(column.cell as string, column.alignment)
+                      renderTextCell(column.cell as string)
                     )}
                   </th>
                 ) : null;
@@ -103,11 +123,12 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                 <tr key={rowIndex}>
                   {rowData.map((row: any, col: number) => {
                     // console.log("col", col);
-                    const visible = tableHead && tableHead[col].visible;
+                    const visible   = tableHead && tableHead[col].visible;
+                    const alignment = tableHead && tableHead[col].alignment; 
                     return (
                       visible && (
                         <td
-                          className="gridTableData"
+                        className={`gridTableData ${alignment}`} 
                           key={col}
                           id={tableHead[col].key}
                         >
@@ -120,38 +141,58 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                   })}
                   <td className="gridTableData">
                     {/* ===========BOTONES DE TABLA============ */}
-                    {showEditButton && escritura_lectura && (
-                      <Tooltip content={BUTTON_MESSAGES.edit.concat(entidad)}>
-                        <IconButton
-                          variant="text"
-                          color="blue-gray"
-                          onClick={() =>
-                            toggleEditModal && toggleEditModal(rowIndex)
-                          }
-                        >
-                          <PencilIcon className="gridIcons" />
-                        </IconButton>
-                      </Tooltip>
-                    )}
+                    <div className="flex">
+                      {showEditButton && escritura_lectura && (
+                        <Tooltip content={BUTTON_MESSAGES.edit.concat(entidad)}>
+                          <IconButton
+                            variant="text"
+                            color="blue-gray"
+                            onClick={() =>
+                              toggleEditModal && toggleEditModal(rowIndex)
+                            }
+                          >
+                            <PencilIcon className="gridIcons" />
+                          </IconButton>
+                        </Tooltip>
+                      )}
 
-                    {escritura_lectura && showDeleteButton && (
-                      <Tooltip content={BUTTON_MESSAGES.delete.concat(entidad)}>
-                        <IconButton
-                          variant="text"
-                          color="blue-gray"
-                          onClick={() => {
-                            handleSelectChecked &&
-                              handleSelectChecked(rowIndex);
-                            handleDeleteSelected &&
-                              handleDeleteSelected(pkToDelete);
-                          }}
-                        >
-                          <BsFillXSquareFill className="gridIcons" />
-                        </IconButton>
-                      </Tooltip>
-                    )}
+                      {escritura_lectura && showDeleteButton && (
+                        <Tooltip content={BUTTON_MESSAGES.delete.concat(entidad)}>
+                          <IconButton
+                            variant="text"
+                            color="blue-gray"
+                            onClick={() => {
+                              handleSelectChecked &&
+                                handleSelectChecked(rowIndex);
+                              handleDeleteSelected &&
+                                handleDeleteSelected(pkToDelete);
+                            }}
+                          >
+                            <BsFillXSquareFill className="gridIcons" />
+                          </IconButton>
+                        </Tooltip>
+                      )}
+                        
+                        {escritura_lectura && showPdfButton && (     
+                          <ExportToPDF proyecto_codigo={rowData[1]} establecimiento_id={rowData[4]} strBaseUrl={strBaseUrl}/>
+                        )}
+                        
+                        {escritura_lectura && showExcelButton && (
+                          <div
+                           onClick={()=>{
+                             toggleExcel && toggleExcel(rowIndex)
+                           }}
+                          >
+                            <ExportCSV
+                              strEntidad={strEntidad}
+                              strBaseUrl={strBaseUrl}
+                              query={queryExcel}
+                              entity={rowData}
+                            />
+                          </div>
+                        )}
 
-                    <ExportToPDF/>
+                    </div>
                     
                   </td>
                 </tr>

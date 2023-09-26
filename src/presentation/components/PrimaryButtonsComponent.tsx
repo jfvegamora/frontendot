@@ -9,6 +9,7 @@ import { BUTTON_MESSAGES, MODAL } from "../utils";
 import { ExportCSV } from "./ExportToCsv";
 import { useModal } from "../hooks/useModal";
 import { CgInsertAfterR, CgInsertBeforeR } from "react-icons/cg";
+import ImportToCsv from "./ImportToCsv";
 
 //CgInsertAfterR
 //CgInsertBeforeR
@@ -184,6 +185,10 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
             <CustomModal />
           </>
         )}
+
+
+
+        <ImportToCsv/>
       </div>
     );
   }

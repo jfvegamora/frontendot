@@ -1480,6 +1480,7 @@ export const table_head_cargos = [
     cell: <input type="checkbox" />,
     key: "checkbox",
     visible: true,
+    width: "w-[6rem]",
   },
   {
     cell: "ID",
@@ -1490,11 +1491,14 @@ export const table_head_cargos = [
     cell: "Nombre",
     key: "nombre",
     visible: true,
+    width: "w-[27rem]",
+    alignment: "text-left"
   },
   {
     cell: "",
     key: "opciones",
     visible: true,
+    width: "w-[6rem]",
   },
 ];
 
@@ -1503,6 +1507,7 @@ export const table_head_perfiles = [
     cell: <input type="checkbox" />,
     key: "checkbox",
     visible: true,
+    
   },
   {
     cell: "ID_CARGO",
@@ -1513,6 +1518,7 @@ export const table_head_perfiles = [
     cell: "Cargo",
     key: "cargo",
     visible: true,
+    
   },
   {
     cell: "ID_FUNCIONALIDAD",
@@ -1541,6 +1547,7 @@ export const table_head_usuarios = [
     cell: <input type="checkbox" />,
     key: "checkbox",
     visible: true,
+    width: "w-[4rem]",
   },
   {
     cell: "ID",
@@ -1551,23 +1558,28 @@ export const table_head_usuarios = [
     cell: "Nombre",
     key: "nombre",
     visible: true,
-    width: "2/12",
-    alignment: "text-right"
+    width: "w-[14rem]",
+    alignment: "text-left"
   },
   {
     cell: "Teléfono",
     key: "telefono",
     visible: true,
+    width: "w-[8rem]",
+    alignment: "text-right"
   },
   {
     cell: "Correo",
     key: "correo",
     visible: true,
+    width: "w-[17rem]",
+    alignment: "text-left"
   },
   {
     cell: "Estado",
     key: "estado",
     visible: true,
+    width: "w-[6rem]"
   },
   {
     cell: "Cargo_id",
@@ -1578,11 +1590,15 @@ export const table_head_usuarios = [
     cell: "Cargo",
     key: "cargo_descripcion",
     visible: true,
+    width: "w-[15rem]",
+    alignment: "text-left"
   },
   {
-    cell: "",
+    cell: "opciones",
     key: "opciones",
     visible: true,
+    width: "w-[6rem]",
+    alignment: "items-center"
   },
 ];
 
