@@ -5,6 +5,7 @@ import { useForm, Controller } from "react-hook-form";
 import { IconButton, Input, Tooltip } from "@material-tailwind/react";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 
+
 import useCrud from "../hooks/useCrud";
 import { SelectInputComponent } from ".";
 
@@ -70,12 +71,22 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
 
     const handleSearch = React.useCallback(async (data: any) => {
       if ("_pCilindrico" in data || "_pEsferico" in data) {
-        console.log("si contiene");
         data = {
           ...data,
           _pCilindrico: data._pCilindrico.replace(/[,]/g, "."),
           _pEsferico: data._pEsferico.replace(/[,]/g, "."),
         };
+      }
+
+      // console.log('data search', data)
+      
+      if(primaryKeyInputs[1]){
+        if(primaryKeyInputs[1]["type"] === "date" && primaryKeyInputs[2]["type"] === "date"){
+          if(new Date(data["_p2"]) > new Date(data["_p3"])){
+            alert('Fecha desde es mayor a la fecha Hasta')
+            return null;
+          }
+        }
       }
 
       const searchParams = Object.entries(data)
@@ -84,7 +95,11 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
         )
         .filter((param) => param !== "")
         .join("&");
+<<<<<<< HEAD
       console.log("searchParams", searchParams);
+=======
+      
+>>>>>>> 2585de3c6659b68615f200328e52cfddc8de1546
       data && updateParams([searchParams]);
       try {
         const response = await ListEntity(searchParams, "01");
@@ -122,7 +137,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
           className={
             primaryKeyInputs.length > 5
               ? `grid grid-rows-3 w-[40vw] grid-cols-2  items-center`
-              : "flex mb-auto items-center"
+              : "flex mb-auto items-center ml-[-2rem] "
           }
         >
           {group.map((input, inputIndex) => (
@@ -132,9 +147,9 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
               control={control}
               defaultValue=""
               render={({ field }) => (
-                <div className="w-full flex items-center">
+                <div className="w-full flex items-cente">
                   {input.type === "select" ? (
-                    <div className={`w-[15rem]`}>
+                    <div className={`mt-4 mb-2 w-[14rem]`}>
                       <SelectInputComponent
                         label={input.label}
                         name={input.name}
@@ -179,10 +194,11 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                       </div>
                     </div>
                   ) : input.type === "date" ? (
-                    <div>
-                      <label className="primaryKeyLabel">{input.label}</label>
+                    <div className="mx-2 items-center relative mt-2">
+                      <label className="primaryKeyLabel text-xs mt-1 absolute top-[-1rem]">{input.label}</label>
                       <input
                         type="date"
+                        className="h-[2.5rem]"
                         {...field}
                         value={field.value || ""}
                         onChange={(e) => {
@@ -192,7 +208,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                       />
                     </div>
                   ) : (
-                    <div className="w-full">
+                    <div className="w-full mx-2 items-center">
                       <Input
                         color="orange"
                         className=""
@@ -246,7 +262,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
     }, [inputValues]);
 
     return (
-      <form className="primaryKeyContainer">
+      <form className="primaryKeyContainer items-center relative">
         {renderInputs()}
         <Tooltip content="Buscar">
           <IconButton
@@ -260,7 +276,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
         </Tooltip>
         {description && (
           <input
-            className="mx-8 w-[45rem]"
+            className="mx-8 w-[44rem] absolute bottom-[-2rem] left-[-4rem]"
             readOnly={true}
             type="text"
             defaultValue={cristalDescritpion && cristalDescritpion[3]}

@@ -11,13 +11,14 @@ import {
 } from "../../components";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { validationProyectosSchema } from "../../utils/validationFormSchemas";
+import { fechaActual, validationProyectosSchema } from "../../utils/validationFormSchemas";
 import { EnumGrid } from "../mantenedores/MProyectos";
 import { ERROR_MESSAGES, MODAL, SUCCESS_MESSAGES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
-import { json } from "react-router-dom";
+import {toast} from 'react-toastify'
+
 
 const strBaseUrl = "/api/proyectos/";
 const strEntidad = "Proyecto ";
@@ -70,6 +71,24 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
   //   contacto_fin_nombre, contacto_fin_correo, contacto_fin_telefono, punto_venta, oftalmologo, observaciones )
 
       //  ${jsonData.cantidad_requerida !== null ? jsonData.cantidad_requerida : 0}, 
+
+      if(jsonData.fecha_adjudicacion && jsonData.fecha_inicio && jsonData.fecha_termino){        
+        if(fechaActual <= new Date(jsonData.fecha_adjudicacion as string)){
+          toast.error('Fecha de adjudicacion mayor a Fecha actual')
+          throw new Error()
+        }
+        
+        if(jsonData.fecha_adjudicacion > jsonData.fecha_inicio){
+          toast.error('Fecha de inicio mayor a fecha de adjudicacion')
+          throw new Error()
+        }
+
+        if(jsonData.fecha_inicio > jsonData.fecha_termino){
+          toast.error('Fecha de inicio mayor a fecha de termino ')
+          throw new Error()
+        }
+      }
+
 
       const _p2 = ` 
       '${jsonData.codigo_proyecto}', 
@@ -174,7 +193,7 @@ interface IUserFormPrps {
 
 const FProyectos: React.FC<IUserFormPrps> = React.memo(
   ({ closeModal, setEntities, params, label, data, isEditting }) => {
-    const schema = validationProyectosSchema(isEditting);
+    const schema = validationProyectosSchema();
     const { showModal, CustomModal } = useModal();
     const { show } = useCustomToast();
 

@@ -1,6 +1,8 @@
 import * as yup from "yup";
 
 const msg = "Requerido";
+export const fechaActual = new Date();
+
 
 /*************** O T ***************/
 // Schema CLIENTES
@@ -311,12 +313,12 @@ export const validationUsusariosSchema = () =>
 
 export const validationProfileUserSchema = () =>
   yup.object().shape({
-    nombre: yup.string().required(`${msg}`),
-    correo: yup.string().required(`${msg}`),
-    telefono: yup.string().required(`${msg}`),
-    password: yup.string().required(`${msg}`),
-    newPassword: yup.string().required(`${msg}`),
-    confirmNewPassword: yup.string().required(`${msg}`),
+    nombre               : yup.string().required(`${msg}`),
+    correo               : yup.string().required(`${msg}`),
+    telefono             : yup.string().required(`${msg}`),
+    password             : yup.string().required(`${msg}`),
+    newPassword          : yup.string().required(`${msg}`),
+    confirmNewPassword   : yup.string().required(`${msg}`),
   });
 
 //Schema PERFILES DE CARGOS
@@ -325,7 +327,7 @@ export const validationPerfilesSchema = () =>
     cargo        : yup.string().required(`${msg}`),
     funcionalidad: yup.string().required(`${msg}`),
     permiso      : yup.string().required(`${msg}`),
-  });
+  }); 
 
 //Schema PERMISOS DE USUARIO
 export const validationPermisosSchema = () =>

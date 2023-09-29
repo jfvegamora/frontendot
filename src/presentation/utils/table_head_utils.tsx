@@ -5,36 +5,44 @@ export const table_head_clientes = [
     cell: <input type="checkbox" />,
     key: "checkbox",
     visible: true,
+    width: "w-[3rem]"
   },
   {
     cell: "RUT",
     key: "rut",
     visible: true,
+    alignment: "text-right"
   },
   {
     cell: "Nombre",
     key: "nombre",
     visible: true,
+    alignment: "text-left"
   },
   {
     cell: "Tipo",
     key: "tipo",
     visible: true,
+    alignment: "text-left"
   },
   {
     cell: "Sexo",
     key: "sexo",
     visible: true,
+    alignment: "text-left"
   },
   {
     cell: "Fecha Nacimiento",
     key: "fecha_nacimiento",
     visible: true,
+
   },
   {
     cell: "Dirección",
     key: "direccion",
     visible: true,
+    alignment: "text-left"
+
   },
   {
     cell: "REGION_ID",
@@ -45,6 +53,7 @@ export const table_head_clientes = [
     cell: "Región",
     key: "region",
     visible: true,
+    alignment: "text-left"
   },
   {
     cell: "Provincia ID",
@@ -55,6 +64,7 @@ export const table_head_clientes = [
     cell: "Provincia",
     key: "provincia",
     visible: true,
+    alignment: "text-left"
   },
   {
     cell: "Comuna ID",
@@ -65,16 +75,19 @@ export const table_head_clientes = [
     cell: "Comuna",
     key: "comuna",
     visible: true,
+    alignment: "text-left"
   },
   {
     cell: "Teléfono",
     key: "telefono",
     visible: true,
+    alignment: "text-right"
   },
   {
     cell: "Correo",
     key: "correo",
     visible: true,
+    alignment: "text-left"
   },
   {
     cell: "Establecimiento ID",
@@ -85,11 +98,13 @@ export const table_head_clientes = [
     cell: "Establecimiento",
     key: "establecimiento",
     visible: true,
+    alignment: "text-left"
   },
   {
     cell: "",
     key: "opciones",
     visible: true,
+    width: "w-[3rem]",
   },
 ];
 
@@ -98,6 +113,7 @@ export const table_head_establecimientos = [
     cell: <input type="checkbox" />,
     key: "checkbox",
     visible: true,
+    width: "w-[4rem]"
   },
   {
     cell: "ID",
@@ -108,6 +124,7 @@ export const table_head_establecimientos = [
     cell: "Nombre",
     key: "nombre",
     visible: true,
+    alignment: "text-left"
   },
   {
     cell: "Mandante ID",
@@ -118,6 +135,7 @@ export const table_head_establecimientos = [
     cell: "Mandante",
     key: "mandante",
     visible: true,
+    alignment: "text-left"
   },
   {
     cell: "Región ID",
@@ -128,6 +146,7 @@ export const table_head_establecimientos = [
     cell: "Región",
     key: "region",
     visible: true,
+    alignment: "text-left"
   },
   {
     cell: "Provincia ID",
@@ -138,6 +157,7 @@ export const table_head_establecimientos = [
     cell: "Provincia",
     key: "provincia",
     visible: true,
+    alignment: "text-left"
   },
   {
     cell: "Comuna ID",
@@ -148,11 +168,13 @@ export const table_head_establecimientos = [
     cell: "Comuna",
     key: "comuna",
     visible: true,
+    alignment: "text-left"
   },
   {
     cell: "",
     key: "opciones",
     visible: true,
+    width: "w-[3rem]",
   },
 ];
 
@@ -161,6 +183,7 @@ export const table_head_puntos_venta = [
     cell: <input type="checkbox" />,
     key: "checkbox",
     visible: true,
+    width: "w-[3rem]",
   },
   {
     cell: "Id",
@@ -171,6 +194,7 @@ export const table_head_puntos_venta = [
     cell: "Descripción",
     key: "descripcion",
     visible: true,
+    alignment: "text-left"
   },
   {
     cell: "Tipo Id",
@@ -186,11 +210,13 @@ export const table_head_puntos_venta = [
     cell: "Dirección",
     key: "direccion",
     visible: true,
+    alignment: "text-left"
   },
   {
     cell: "Teléfono",
     key: "telefono",
     visible: true,
+    alignment: "text-right"
   },
   {
     cell: "Encargado Id",
@@ -201,6 +227,7 @@ export const table_head_puntos_venta = [
     cell: "Encargado",
     key: "encargado",
     visible: true,
+    alignment: "text-left"
   },
   {
     cell: "Almacén Id",
@@ -211,11 +238,13 @@ export const table_head_puntos_venta = [
     cell: "Almacén",
     key: "almacen",
     visible: true,
+    alignment: "text-left"
   },
   {
     cell: "",
     key: "opciones",
     visible: true,
+    width: "w-[3rem]",
   },
 ];
 
@@ -225,16 +254,19 @@ export const table_head_accesorios = [
     cell: <input type="checkbox" />,
     key: "checkbox",
     visible: true,
+    width: "w-[3rem]",
   },
   {
     cell: "Código",
     key: "codigo",
     visible: true,
+    alignment: "text-left"
   },
   {
     cell: "Descripción",
     key: "descripcion",
     visible: true,
+    alignment: "text-left"
   },
   {
     cell: "Marca Id",
@@ -245,6 +277,7 @@ export const table_head_accesorios = [
     cell: "Marca",
     key: "marca",
     visible: true,
+    alignment: "text-left"
   },
   {
     cell: "Proveedor Id",
@@ -255,21 +288,25 @@ export const table_head_accesorios = [
     cell: "Proveedor",
     key: "proveedor",
     visible: true,
+    alignment: "text-left"
   },
   {
     cell: "Precio Neto",
     key: "precio_neto",
     visible: true,
+    alignment: "text-right"
   },
   {
     cell: "Stock Mínimo",
     key: "stock_minimo",
     visible: true,
+    alignment: "text-right"
   },
   {
     cell: "",
     key: "opciones",
     visible: true,
+    width: "w-[3rem]",
   },
 ];
 
@@ -278,11 +315,13 @@ export const table_head_armazones = [
     cell: <input type="checkbox" />,
     key: "checkbox",
     visible: true,
+    width: "w-[3rem]",
   },
   {
     cell: "Código",
     key: "codigo",
     visible: true,
+    alignment: "text-left"
   },
   {
     cell: "Armazon Tipo ID",
@@ -293,6 +332,7 @@ export const table_head_armazones = [
     cell: "Tipo",
     key: "amazon_tipo",
     visible: true,
+    alignment: "text-left"
   },
   {
     cell: "Marca ID",
@@ -303,16 +343,19 @@ export const table_head_armazones = [
     cell: "Marca",
     key: "marca",
     visible: true,
+    alignment: "text-left"
   },
   {
     cell: "Modelo",
     key: "modelo",
     visible: true,
+    alignment: "text-left"
   },
   {
     cell: "Color",
     key: "color",
     visible: true,
+    alignment: "text-left"
   },
   {
     cell: "Armazon Material ID",
@@ -323,26 +366,31 @@ export const table_head_armazones = [
     cell: "Armazon Material",
     key: "armazon_material",
     visible: true,
+    alignment: "text-left"
   },
   {
     cell: "Aro",
     key: "aro",
     visible: true,
+    alignment: "text-right"
   },
   {
     cell: "Puente",
     key: "puente",
     visible: true,
+    alignment: "text-right"
   },
   {
     cell: "Diagonal",
     key: "diagonal",
     visible: true,
+    alignment: "text-right"
   },
   {
     cell: "Brazo",
     key: "brazo",
     visible: true,
+    alignment: "text-right"
   },
   {
     cell: "Armazon Uso ID",
@@ -353,16 +401,19 @@ export const table_head_armazones = [
     cell: "Armazon Uso",
     key: "armazon_uso",
     visible: true,
+    alignment: "text-left"
   },
   {
     cell: "Stock Mínimo",
     key: "stock_minimo",
     visible: true,
+    alignment: "text-right"
   },
   {
     cell: "",
     key: "opciones",
     visible: true,
+    width: "w-[3rem]",
   },
 ];
 
@@ -371,11 +422,13 @@ export const table_head_cristales = [
     cell: <input type="checkbox" />,
     key: "checkbox",
     visible: true,
+    width: "w-[3rem]",
   },
   {
     cell: "Código",
     key: "codigo",
     visible: true,
+    alignment: "text-left"
   },
   {
     cell: "Marca ID",
@@ -386,6 +439,7 @@ export const table_head_cristales = [
     cell: "Marca",
     key: "marca",
     visible: true,
+    alignment: "text-left"
   },
   {
     cell: "Proveedor ID",
@@ -396,6 +450,7 @@ export const table_head_cristales = [
     cell: "Proveedor",
     key: "proveedor",
     visible: true,
+    alignment: "text-left"
   },
   {
     cell: "Diseño ID",
@@ -406,6 +461,7 @@ export const table_head_cristales = [
     cell: "Diseño",
     key: "diseno",
     visible: true,
+    alignment: "text-left"
   },
   {
     cell: "Índice ID",
@@ -416,6 +472,7 @@ export const table_head_cristales = [
     cell: "Índice",
     key: "indice",
     visible: true,
+    alignment: "text-right"
   },
   {
     cell: "Material ID",
@@ -426,6 +483,7 @@ export const table_head_cristales = [
     cell: "Material",
     key: "material",
     visible: true,
+    alignment: "text-left"
   },
   {
     cell: "Color ID",
@@ -436,6 +494,7 @@ export const table_head_cristales = [
     cell: "Color",
     key: "color",
     visible: true,
+    alignment: "text-left"
   },
   {
     cell: "Tratamiento ID",
@@ -446,46 +505,55 @@ export const table_head_cristales = [
     cell: "Tratamiento",
     key: "tratamiento",
     visible: true,
+    alignment: "text-left"
   },
   {
     cell: "Diámetro",
     key: "diametro",
     visible: true,
+    alignment: "text-right"
   },
   {
     cell: "ESF",
     key: "esferico",
     visible: true,
+    alignment: "text-right"
   },
   {
     cell: "CIL",
     key: "cilindrico",
     visible: true,
+    alignment: "text-right"
   },
   {
     cell: "Ingresos",
     key: "ingresos",
     visible: true,
+    alignment: "text-right"
   },
   {
     cell: "Egresos",
     key: "egresos",
     visible: true,
+    alignment: "text-right"
   },
   {
     cell: "Stock Actual",
     key: "stock_actual",
     visible: true,
+    alignment: "text-right"
   },
   {
     cell: "Stock Mínimo",
     key: "stock_minimo",
     visible: true,
+    alignment: "text-right"
   },
   {
     cell: "",
     key: "opciones",
     visible: true,
+    width: "w-[3rem]",
   },
 ];
 
@@ -494,11 +562,13 @@ export const table_head_kardex = [
     cell: <input type="checkbox" />,
     key: "checkbox",
     visible: true,
+    width: "w-[3rem]",
   },
   {
     cell: "Fecha",
     key: "fecha",
     visible: true,
+    width: "w-[8rem]",
   },
   {
     cell: "Código Insumo",

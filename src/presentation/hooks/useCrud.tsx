@@ -12,6 +12,7 @@ const useCrud = (
   verifyUserEmail: (correo: string) => Promise<any | undefined>;
   forgotPassword: (correo: string) => Promise<any | undefined>;
   editEntity: (entityData: any) => Promise<any | undefined>;
+  excelTypes: (tableName:any) => Promise<any | undefined>;
   deleteAllEntity: (id: number[], comilla?: string) => Promise<any | undefined>;
   focusFirstInput: (strInputName: string) => void;
   loginEntity: (data: any) => Promise<any | undefined>;
@@ -79,6 +80,19 @@ const useCrud = (
       }
     }
   };
+
+  const excelTypes = async(tableName:string) => {
+    try {
+      const table_name = {
+        table_name : tableName
+      }
+      const result = await axios.post("https://mtoopticos.cl/api/typesexcel/", table_name)
+      return result.data
+    } catch (error) {
+      console.log(error)
+      return error
+    }
+  }
 
   const verifyUserEmail = async (correo: string) => {
     try {
@@ -262,6 +276,7 @@ const useCrud = (
     loginEntity,
     focusSecondInput,
     secondInputRef,
+    excelTypes
   };
 };
 

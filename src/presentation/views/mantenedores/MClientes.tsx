@@ -12,6 +12,7 @@ import { useEntityUtils } from "../../hooks";
 import FClientes from "../forms/FClientes";
 import { TITLES, table_head_clientes, TIPO_CLIENTE } from "../../utils";
 
+
 export enum EnumGrid {
   rut = 1,
   nombre = 2,
@@ -94,7 +95,7 @@ const MClientes: React.FC = () => {
     <div className="mantenedorContainer">
       <h1 className="mantenedorH1">Clientes</h1>
 
-      <div className="mantenedorHead width80">
+      <div className="mantenedorHead width90 items-center">    
         <PrimaryKeySearch
           baseUrl={strBaseUrl}
           setParams={setParams}
@@ -181,6 +182,9 @@ const MClientes: React.FC = () => {
           isEditting={true}
         />
       )}
+    
+      {/* <ModalImpor/> */}
+    
     </div>
   );
 };

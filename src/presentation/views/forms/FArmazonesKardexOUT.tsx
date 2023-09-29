@@ -10,7 +10,7 @@ import {
 } from "../../components";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { validationKardexOUTSchema } from "../../utils/validationFormSchemas";
+import { fechaActual, validationKardexOUTSchema } from "../../utils/validationFormSchemas";
 import { EnumGrid } from "../mantenedores/MArmazonesKardex";
 import {
   ERROR_MESSAGES,
@@ -21,6 +21,7 @@ import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import { AppStore, useAppSelector } from "../../../redux/store";
 import useCustomToast from "../../hooks/useCustomToast";
+import {toast} from 'react-toastify'
 
 const strBaseUrl = "/api/armazoneskardex/";
 const strEntidad = "Kardex de Armazón ";
@@ -51,14 +52,20 @@ interface OutputData {
 }
 
 export function transformInsertQuery(jsonData: InputData, userId?:number): OutputData | null {
-  const fechaActual = new Date();
   const year = fechaActual.getFullYear(); // Obtiene el año de 4 dígitos
   const month = String(fechaActual.getMonth() + 1).padStart(2, '0'); // Obtiene el mes (agrega 1 ya que los meses comienzan en 0) y lo formatea a 2 dígitos
   const day = String(fechaActual.getDate()).padStart(2, '0'); // Obtiene el día y lo formatea a 2 dígitos
 
   const fechaFormateada = `${year}/${month}/${day}`;
   const dateHora = new Date().toLocaleTimeString();
-  // console.log('DATETIME: ',fechaFormateada + " " +dateHora)
+  
+  if(jsonData.fecha){
+    if(fechaActual <= new Date(jsonData.fecha as string)){
+      toast.error('Fecha mayor a la actual')
+      throw new Error('fecha mayor a la actual')
+      
+    }
+  }
 
   /*INSERT INTO CristalesKardex 
   (fecha, cristal, almacen, es, motivo, cantidad, valor_neto, proveedor, 

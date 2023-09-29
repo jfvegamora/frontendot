@@ -3,6 +3,7 @@ export const ERROR_MESSAGES = {
   edit: "Error al editar",
   delete: "Error al eliminar",
   passwordNotMatch: "Error las contraseñas no coinciden",
+  fechaActual: "es mayor a la fecha actual"
 };
 
 export const SUCCESS_MESSAGES = {

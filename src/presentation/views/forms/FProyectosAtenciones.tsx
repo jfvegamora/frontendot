@@ -7,12 +7,13 @@ import React, { useState, useEffect } from "react";
 import { SelectInputComponent, TextInputComponent } from "../../components";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { validationReporteAtencionSchema } from "../../utils/validationFormSchemas";
+import { fechaActual, validationReporteAtencionSchema } from "../../utils/validationFormSchemas";
 import { EnumGrid } from "../mantenedores/MProyectosAtenciones";
 import { ERROR_MESSAGES, MODAL, SUCCESS_MESSAGES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
+import {toast} from 'react-toastify'
 
 const strBaseUrl = "/api/proyectoreporteatencion/";
 const strEntidad = "Reporte de Atención ";
@@ -53,6 +54,48 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
   // (proyecto, folio_reporte, fecha_desde, fecha_hasta, orden_compra_mandante, 
   //   fecha_vb, factura, fecha_factura, total_factura, nota_credito, fecha_ncredito, total_ncredito, 
   //   nota_debito, fecha_ndebito, total_ndebito, guia_despacho, fecha_guia_despacho, observaciones)
+
+  if(jsonData.fecha_desde && jsonData.fecha_hasta && jsonData.fecha_factura && jsonData.fecha_guia_despacho && jsonData.fecha_ncredito && jsonData.fecha_ndebito && jsonData.fecha_vb){
+    
+    if(jsonData.fecha_desde >= jsonData.fecha_hasta){
+      toast.error('Fecha desde mayor a fecha hasta')
+      throw new Error('')
+    }
+
+    if(new Date(jsonData.fecha_hasta as string) >= fechaActual){
+      toast.error('fecha actual mayor a fecha hasta')
+      throw new Error('')
+    }
+
+    if(new Date(jsonData.fecha_vb as string) >= fechaActual){
+      toast.error('fecha actual mayor a fecha vB')
+      throw new Error('')
+    }
+
+    if(new Date(jsonData.fecha_factura as string) >= fechaActual){
+      toast.error('fecha factura mayor a fecha actual')
+      throw new Error('')
+    }
+
+    if( new Date(jsonData.fecha_ncredito as string) >= fechaActual){
+      toast.error('fecha nota de credito mayor a fecha actual')
+      throw new Error('')
+    }
+
+    if(new Date(jsonData.fecha_ndebito as string) >= fechaActual){
+      toast.error('fecha nota de debito mayor a fecha actual')
+      throw new Error('')
+    }
+
+    if(new Date(jsonData.fecha_guia_despacho as string) >= fechaActual){
+      toast.error('fecha guia de despacho mayor a fecha actual')
+      throw new Error('')
+    }
+
+  }
+
+
+
   const _p1 = `
  '${jsonData.proyecto}', 
   ${jsonData.folio_reporte}, 

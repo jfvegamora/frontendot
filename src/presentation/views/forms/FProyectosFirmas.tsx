@@ -7,12 +7,13 @@ import React, { useState, useEffect } from "react";
 import { SelectInputComponent, TextInputComponent } from "../../components";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { validationReporteFirmasSchema } from "../../utils/validationFormSchemas";
+import { fechaActual, validationReporteFirmasSchema } from "../../utils/validationFormSchemas";
 import { EnumGrid } from "../mantenedores/MProyectosFirmas";
 import { ERROR_MESSAGES, MODAL, SUCCESS_MESSAGES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
+import {toast} from 'react-toastify'
 
 const strBaseUrl = "/api/proyectoreportefirma/";
 const strEntidad = "Reporte de Firmas ";
@@ -35,6 +36,24 @@ interface OutputData {
 }
 
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
+
+  if(jsonData.fecha_desde && jsonData.fecha_hasta){
+    
+    if(new Date(jsonData.fecha_desde) > new Date(jsonData.fecha_hasta)){
+      toast.error('Fecha desde mayor a la fecha hasta')
+      throw new Error('')
+    }
+    
+
+    if(new Date(jsonData.fecha_hasta) <= fechaActual){
+      toast.error('Fecha hasta menor a la fecha actual')
+      throw new Error('')
+    }
+  
+  
+  }
+  
+    
 
   const _p1 = `'${jsonData.proyecto}', ${jsonData.folio_reporte}, '${jsonData.fecha_desde}', 
                '${jsonData.fecha_hasta}', '${jsonData.observaciones}'`;
