@@ -84,7 +84,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
         )
         .filter((param) => param !== "")
         .join("&");
-      // console.log("searchParams", searchParams);
+      console.log("searchParams", searchParams);
       data && updateParams([searchParams]);
       try {
         const response = await ListEntity(searchParams, "01");

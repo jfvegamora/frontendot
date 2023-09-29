@@ -1567,7 +1567,8 @@ export const table_head_usuarios = [
     cell: "Estado",
     key: "estado",
     visible: true,
-    width: "w-[6rem]"
+    width: "w-[6rem]",
+    alignment: "items-center"
   },
   {
     cell: "Cargo_id",
