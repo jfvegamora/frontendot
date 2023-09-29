@@ -104,11 +104,12 @@ const MCristalesKardex: React.FC = () => {
 
   // console.log("entities", kardexDescription);
   // console.log("data kardex:", entities && entities[0]);
+  // console.log('kardexDescription', kardexDescription)
   return (
     <div className="mantenedorContainer">
       <h1 className="mantenedorH1">Kardex de Cristales</h1>
 
-      <div className="mantenedorHead width70 flex flex-col">
+      <div className="mantenedorHead width80 flex flex-col">
         <PrimaryKeySearch
           baseUrl={strBaseUrl}
           description={kardexDescription}
@@ -170,6 +171,7 @@ const MCristalesKardex: React.FC = () => {
           data={entity}
           closeModal={closeModal}
           isEditting={false}
+          description={kardexDescription}
         />
       )}
 
@@ -181,6 +183,7 @@ const MCristalesKardex: React.FC = () => {
           setEntities={setEntities}
           params={params}
           isEditting={false}
+          description={kardexDescription}
         />
       )}
     </div>

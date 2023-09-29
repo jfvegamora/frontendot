@@ -188,7 +188,7 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
 
 
 
-        <ImportToCsv/>
+        <ImportToCsv strEntidad={strEntidad}/>
       </div>
     );
   }

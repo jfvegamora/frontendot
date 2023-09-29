@@ -21,6 +21,8 @@ import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import { AppStore, useAppSelector } from "../../../redux/store";
 import useCustomToast from "../../hooks/useCustomToast";
+import {toast} from 'react-toastify'
+
 
 const strBaseUrl = "/api/cristaleskardex/";
 const strEntidad = "Kardex de Cristal ";
@@ -58,7 +60,14 @@ export function transformInsertQuery(jsonData: InputData, userId?:number): Outpu
 
   const fechaFormateada = `${year}/${month}/${day}`;
   const dateHora = new Date().toLocaleTimeString();
-  // console.log('DATETIME: ',fechaFormateada + " " +dateHora)
+  
+  if(jsonData.fecha){
+    if(fechaActual < new Date(jsonData.fecha as string)){
+      toast.error('Fecha mayor a la actual')
+      throw new Error('fecha mayor a la actual')
+      
+    }
+  }
 
   /*INSERT INTO CristalesKardex 
   (fecha, cristal, almacen, es, motivo, cantidad, valor_neto, proveedor, 
@@ -140,10 +149,14 @@ interface IUserFormPrps {
   selectedRows?: any;
   setEntities?: any;
   params?: any;
+  description?:any
 }
 
 const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
-  ({ closeModal, setEntities, params, label, data, isEditting }) => {
+  ({ closeModal, setEntities, params, label, data, isEditting, description }) => {
+    const [cristalDescritpion, setCristalDescription] = useState(
+      description || ""
+    );
     const schema = validationKardexOUTSchema();
     const { showModal, CustomModal } = useModal();
     const userState = useAppSelector((store: AppStore) => store.user);
@@ -290,6 +303,24 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
       isEditting ? focusSecondInput("es") : focusFirstInput("insumo");
     }, []);
 
+    const handleCristales = (data:number) => {
+      // console.log('traer description', data)
+      const primaryKey = `_p1=${data}`
+      try {
+        if(data){
+          ListEntity(primaryKey, "01")
+          .then((data)=>{
+            setCristalDescription(data[0][3])
+          })
+          .catch((e)=>{
+            console.log(e)
+          })
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
     return (
       <div className="useFormContainer useFormContainer30rem">
         <div className="userFormBtnCloseContainer">
@@ -312,6 +343,7 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
                 error={errors.insumo}
                 inputRef={firstInputRef}
                 onlyRead={isEditting}
+                handleChange={handleCristales}
               />
             </div>
             <div className="w-full">
@@ -325,6 +357,17 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
                 onlyRead={isEditting}
               />
             </div>
+            </div>
+            <div className="w-[96%]">
+              <TextInputComponent
+                type="text"
+                label="Descripcion"
+                name="decripcion"
+                data={cristalDescritpion}
+                control={control}
+                error={!isEditting && errors.descripcion}
+                onlyRead={true}
+              />
             </div>
             <div className="input-container">
               <div className="w-full">

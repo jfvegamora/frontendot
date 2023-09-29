@@ -65,7 +65,7 @@ const RadioButtonComponent: React.FC<IRadioButtonProps> = ({
         </div>
       ))}
       {error && (
-        <p className="text-xs text-red-500 absolute right-20">
+        <p className="text-xs text-red-500 absolute top-[-6%] right-[40rem]">
           {error.message}
         </p>
       )}

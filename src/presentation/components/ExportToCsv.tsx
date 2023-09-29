@@ -13,10 +13,12 @@ import useCustomToast from "../hooks/useCustomToast";
 type Props = {
   strBaseUrl?: any;
   params?: any;
-  strEntidad?: string;
+  strEntidad?: string ;
   query?:string;
   entity?:any;
 };
+
+
 const customStyles = {
   content: {
     top: "50%",
@@ -86,8 +88,8 @@ export const ExportCSV: React.FC<Props> = ({
     }
   };
 
-  const exportExcel = (primaryKey:string) => {
-    return exportEntity(primaryKey, strEntidad, query)
+  const exportExcel = (primaryKey:string, nombreExcel?:string) => {
+    return exportEntity(primaryKey, nombreExcel, query)
               .then(() => {
                 show({
                   message: EXCEL.download,
@@ -123,7 +125,8 @@ export const ExportCSV: React.FC<Props> = ({
     
     if(exportAll || exportTable){
       const primarykey = exportAll ? "" : queryString; 
-      exportExcel(primarykey)
+
+      exportExcel(primarykey, strEntidad)
     }
   }, [exportAll, exportTable]);
 
@@ -132,12 +135,14 @@ export const ExportCSV: React.FC<Props> = ({
 
     console.log('query', query)
     if(entity){
-      const primaryKey = `_p1=${entity[1]}&_p2=${entity[4]}`;
+      const primaryKey =`_p1=${entity[1]}&_p2=${entity[4]}`;
+      const nombreExcel = `${strEntidad}_${entity[1]}_${entity[5]}_${entity[6]}`
       // console.log('primaryKey',primaryKey)
-      exportExcel(primaryKey)
+      exportExcel(primaryKey, nombreExcel)
     }
-
   }
+
+  // console.log('entity', entity)
   return (
     <>
       <Tooltip content="Exportar">

@@ -56,6 +56,7 @@ const RegProComponent: React.FC<Props> = React.memo(
           setProvincias(provincias);
           if (provincias.length > 0) {
             // Si hay al menos una provincia, establece la selección inicial
+            // console.log('provincias', provincias)
             setSelectedProvincia(data ? data[EnumGrid.provincia_id] : provincias[0][0]);
           }
           // if (data) {
@@ -78,6 +79,9 @@ const RegProComponent: React.FC<Props> = React.memo(
       const _p1 = data
           ? `_p1=${selectedProvincia === 0 ? data[EnumGrid.provincia_id] : selectedProvincia}`
           : `_p1=${selectedProvincia}`
+      // console.log('_p1', _p1)
+      // console.log('selectedProvincia', selectedProvincia)
+
 
       ListEntityComunas(_p1, "02")
         .then((comunas) => {
@@ -95,26 +99,29 @@ const RegProComponent: React.FC<Props> = React.memo(
         .catch((e) => console.log(e));
     }, [selectedProvincia, data, EnumGrid.comuna_id, comunaName]);
 
-
+    // console.log('comunas', comunas)
     // console.log('regiones:',regiones === 0 ? 'si': 'no')
+
+    console.log('errors', errors)
   
     return (
-      <div className="flex flex-col min-w-[60px] mt-4 w-full items-center mb-2 mx-4 mt-select mt-select-dropdown-up cursor-pointer ">
-        <div className="w-full">
+      <div className=" flex flex-col min-w-full w-full items-center mb-2  mt-select mt-select-dropdown-up cursor-pointer ">
+        <div className="w-[96%] ml-[-4%] m-1 ">
           <SelectInputComponent
             label="Region"
             name="region"
             control={control}
             data={data && data[EnumGrid?.region_id]}
             entidad={["/api/regiones/", "02"]}
-            error={!isEditting && errors.region}
+            error={!isEditting && errors}
             setState={setRegiones}
           />
         </div>
 
         <div className="w-full">
           <div className="flex min-w-[100%]w-full items-center mb-2 mx-4 mt-select mt-select-dropdown-up cursor-pointer ">
-            <div className="custom-select">
+            <div className="custom-select relative">
+              <label className="absolute top-[-6%] left-3 text-gray-600 font-extralight text-xs z-20">Provincias</label>
               <select
                 defaultValue={data && provinciaName}
                 onChange={(e) => {
@@ -146,11 +153,13 @@ const RegProComponent: React.FC<Props> = React.memo(
             control={control}
             render={({ field }) => (
               <div className="flex min-w-[100%]w-full items-center mb-2 mx-4 mt-select mt-select-dropdown-up cursor-pointer ">
-                <div className="custom-select">
+                <div className="custom-select relative">
+
+                <label className="absolute top-[-6%] left-3 text-gray-600 font-extralight text-xs z-20">Comuna</label>
                   <select
                     {...field}
                     defaultValue={data && data[EnumGrid.comuna_id]}
-                    className="custom-input py-2 px-3 w-[85%] cursor-pointer z-0"
+                    className="custom-input py-2 px-3 w-[85%] cursor-pointer z-0 "
                   >
                     {comunas.length > 1 &&
                       comunas.map((comuna, index) => {
@@ -168,6 +177,11 @@ const RegProComponent: React.FC<Props> = React.memo(
                         )
                       })}
                   </select>
+                  {errors && (
+                  <p className="text-xs text-red-500 absolute left-20 top-[-5%] ">
+                    {errors.message}
+                  </p>
+                )}
                 </div>
               </div>
             )}

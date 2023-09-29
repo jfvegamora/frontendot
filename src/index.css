@@ -231,7 +231,7 @@ select::-ms-expand {
 /*========CLASSES PRIMARYKEYSEARCH=======*/
 .primaryKeyContainer {
   display: flex;
-  width: 90%;
+  width: 70%;
   margin-left: 2.5rem;
   margin-right: 2.5rem;
 }
@@ -264,8 +264,9 @@ select::-ms-expand {
 }
 
 .primaryKeyIcon {
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 2rem;
+  height: 2rem;
+  /* margin-left: 20px; */
 }
 
 /*========CLASSES PRIMARYBUTTONS=======*/

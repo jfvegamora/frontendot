@@ -120,16 +120,20 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
           {data &&
             data.map((rowData: any, rowIndex: number) => {
               // const id = [3, 3];
+              console.log('rowData', rowData[6])
+            
               return (
                 <tr key={rowIndex}>
                   {rowData.map((row: any, col: number) => {
                     // console.log("col", col);
                     const visible   = tableHead && tableHead[col].visible;
-                    const alignment = tableHead && tableHead[col].alignment; 
+                    const alignment = tableHead && tableHead[col].alignment;
+                    const color = rowData[6] === "Entrada" ? "green" : (rowData[6] === "Salida" ? "red" : "blanco");
+
                     return (
                       visible && (
                         <td
-                        className={`gridTableData ${alignment}`} 
+                        className={`gridTableData bg-${color}-500 ${alignment}`} 
                           key={col}
                           id={tableHead[col].key}
                         >

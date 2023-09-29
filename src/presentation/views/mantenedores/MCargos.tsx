@@ -11,6 +11,7 @@ import {
 } from "../../components";
 import { TITLES, table_head_cargos } from "../../utils";
 import FCargos from "../forms/FCargos";
+import LongPolling from "../../components/LongPolling";
 
 const strEntidad = "Cargo ";
 const strEntidadExcel = "Cargos";
@@ -153,6 +154,8 @@ const MCargos: React.FC = () => {
           isEditting={true}
         />
       )}
+
+      {/* <LongPolling/> */}
     </div>
   );
 };

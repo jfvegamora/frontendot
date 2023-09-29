@@ -11,7 +11,7 @@ import {
 } from "../../components";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { validationClientesSchema } from "../../utils/validationFormSchemas";
+import { fechaActual, validationClientesSchema } from "../../utils/validationFormSchemas";
 import { EnumGrid } from "../mantenedores/MClientes";
 import {
   ERROR_MESSAGES,
@@ -24,6 +24,7 @@ import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import RegProComponent from "../../components/forms/RegProComponent";
 import useCustomToast from "../../hooks/useCustomToast";
+import { toast } from "react-toastify";
 
 const strBaseUrl = "/api/clientes/";
 const strEntidad = "Cliente ";
@@ -50,7 +51,15 @@ interface OutputData {
   _p3?: number;
 }
 
-export function transformInsertQuery(jsonData: InputData): OutputData | null {
+export function transformInsertQuery(jsonData: InputData): OutputData | null  {
+
+  if(jsonData.fecha_nacimiento){
+    if(fechaActual < new Date(jsonData.fecha_nacimiento as string)){
+      toast.error('Fecha mayor a la actual')
+      throw new Error('fecha mayor a la actual')
+    }
+  }
+  
   const _p1 = `'${jsonData.rut}', 
                '${jsonData.nombre}', 
                 ${
@@ -350,7 +359,7 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
                 control={control}
                 EnumGrid={EnumGrid}
                 isEditting={isEditting}
-                errors={errors}
+                errors={errors.comuna}
                 data={data && data}
               />
             </div>

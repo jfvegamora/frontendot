@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Input } from "@material-tailwind/react";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { Controller } from "react-hook-form";
 
 interface ITextInputProps {
@@ -30,28 +30,35 @@ const TextInputComponent: React.FC<ITextInputProps> = ({
   inputRef,
   className
 }) => {
+  const [defaultValue, setDefaultValue] = useState<string>(data || "")
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (handleChange) {
       handleChange(e.target.value);
     }
   };
+ 
+  
+  useEffect(()=>{
+    setDefaultValue(data)
+  },[data])
 
-
-  return (
-<div
+return (
+  <div
   className={`${"flex items-center mb-4 mx-4  relative rounded-xl "} ${
     error && "border-red-400"
   }`}
->
+  >
   <Controller
     name={name}
     control={control}
-    defaultValue={data ? data : ""}
+    // defaultValue={data ? data : ""}
+    defaultValue={defaultValue}
     render={({ field }) => (
       <div className="flex flex-col  w-full">
         <Input
           {...field}
           label     ={label}
+          // value     ={ defaultValue}
           color     ="orange"
           id        ={label}
           type      ={type}

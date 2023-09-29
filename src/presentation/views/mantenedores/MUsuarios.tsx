@@ -79,7 +79,7 @@ const MUsuarios: React.FC = () => {
     <div className="mantenedorContainer">
       <h1 className="mantenedorH1">Usuarios</h1>
 
-      <div className="mantenedorHead width70">
+      <div className="mantenedorHead width70 items-center">
         <PrimaryKeySearch
           baseUrl={strBaseUrl}
           setParams={setParams}

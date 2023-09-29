@@ -263,14 +263,14 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
 
     return (
       // <div className="flex min-w-[60px] w-full items-center mb-2 mx-4 mt-select mt-select-dropdown-up cursor-pointer ">
-      <div className="flex min-w-[100%]w-full items-center mb-2 mx-4 mt-select mt-select-dropdown-up cursor-pointer ">
+      <div className="flex min-w-[100%]  w-full items-center  mx-4 mt-select mt-select-dropdown-up cursor-pointer">
         {/* <label className="label-input w-1/3">{label}</label> */}
         <Controller
           name={name}
           control={control}
           defaultValue={strSelectedName}
           render={({ field }) => (
-            <div className="custom-select">
+            <div className="custom-select ">
               <div className=" top-[-18%] left-3.5 absolute w-1/2 z-10">
                 <label
                   htmlFor={label}
@@ -279,6 +279,11 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
                 >
                   {label}
                 </label>
+                {error && (
+                  <p className="text-xs text-red-500 relative top-0 z-20  left-[30%] ">
+                    {error.message}
+                 </p>
+                )}
               </div>
 
               <select
@@ -322,28 +327,11 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
                       {option[1]}
                     </option>
                   ))}
+                  
               </select>
-              {/* <div className="relative">
-                <GoTriangleDown
-                  className="absolute right-3 top-[-10px] w-5 h-5 z-10"
-                  onClick={() => {
-                    const select = inputRef.current;
-                    console.log(select);
-                    if (select) {
-                      const event = new MouseEvent("mousedown", {
-                        bubbles: true,
-                        cancelable: true,
-                      });
-                      console.log(event);
-                      select.dispatchEvent(event);
-                      select.focus();
-                      select.click(); // Simula un clic en el select
-                    }
-                  }}
-                />
-              </div> */}
-            </div> // flex-col
-          )} // render
+              
+            </div> 
+          )}
         />
         {/* Controller  */}
         {showRefresh && (
@@ -358,11 +346,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
             </IconButton>
           </Tooltip>
         )}
-        {error && (
-          <p className="text-xs text-red-500 relative top-0 left-0">
-            {error.message}
-          </p>
-        )}
+        
       </div>
     );
   }

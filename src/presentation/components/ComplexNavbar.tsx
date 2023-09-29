@@ -38,7 +38,7 @@ function ProfileMenu() {
 
   const profileMenuItems = [
     {
-      label: `Mi Perfil (${userState && userState.nombre})`,
+      label: `Mi Perfil`,
       icon: UserCircleIcon,
       action: "/profile",
     },
@@ -50,6 +50,10 @@ function ProfileMenu() {
   ];
 
   return (
+    <div className="right-0 absolute flex mx-4 justify-between w-[20%] items-center">
+      {userState && (
+        <h1 className="m-auto">{userState.nombre}</h1>
+      )}
     <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
       <MenuHandler>
         <Button
@@ -114,6 +118,7 @@ function ProfileMenu() {
         })}
       </MenuList>
     </Menu>
+    </div>
   );
 }
 

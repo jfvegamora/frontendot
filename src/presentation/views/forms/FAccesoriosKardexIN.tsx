@@ -10,7 +10,7 @@ import {
 } from "../../components";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { validationKardexINSchema } from "../../utils/validationFormSchemas";
+import { fechaActual, validationKardexINSchema } from "../../utils/validationFormSchemas";
 import { EnumGrid } from "../mantenedores/MAccesoriosKardex";
 import {
   ERROR_MESSAGES,
@@ -21,6 +21,7 @@ import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import { AppStore, useAppSelector } from "../../../redux/store";
 import useCustomToast from "../../hooks/useCustomToast";
+import {toast} from 'react-toastify'
 
 const strBaseUrl = "/api/accesorioskardex/";
 const strEntidad = "Kardex de Accesorio ";
@@ -50,17 +51,26 @@ interface OutputData {
   _p3?: string;
 }
 
-export function transformInsertQuery(jsonData: InputData, userId?:number): OutputData | null {
-  const fechaActual = new Date();
+export function transformInsertQuery(jsonData: InputData, userId?:number): OutputData | null | any {
   const year = fechaActual.getFullYear(); // Obtiene el año de 4 dígitos
   const month = String(fechaActual.getMonth() + 1).padStart(2, '0'); // Obtiene el mes (agrega 1 ya que los meses comienzan en 0) y lo formatea a 2 dígitos
   const day = String(fechaActual.getDate()).padStart(2, '0'); // Obtiene el día y lo formatea a 2 dígitos
 
   const fechaFormateada = `${year}/${month}/${day}`;
   const dateHora = new Date().toLocaleTimeString();
+  
+  if(jsonData.fecha){
+    if(fechaActual < new Date(jsonData.fecha as string)){
+      toast.error('Fecha mayor a la actual')
+      throw new Error('fecha mayor a la actual')
+      
+    }
+  }
+
+  
   console.log('DATETIME: ',fechaFormateada + " " +dateHora)
 
-  console.log('jsonData', jsonData)
+
 
   /*INSERT INTO CristalesKardex 
   (fecha, cristal, almacen, es, motivo, cantidad, valor_neto, proveedor, 
@@ -172,7 +182,7 @@ const FAccesoriosKardexIN: React.FC<IUserFormPrps> = React.memo(
 
     const resetTextFields = React.useCallback(() => {
       setValue("insumo", "");
-      setValue("fecha", "undefined");
+      setValue("fecha", "");
       // setValue("descripcion", "");
       setValue("cantidad", "");
       setValue("numero_factura", "");
@@ -252,6 +262,8 @@ const FAccesoriosKardexIN: React.FC<IUserFormPrps> = React.memo(
       [closeModal, blnKeep, updateNewEntity, showModal]
     );
 
+   
+
     useEffect(() => {
       const handleKeyDown = (event: KeyboardEvent) => {
         if (event.key === "Escape") {
@@ -276,6 +288,7 @@ const FAccesoriosKardexIN: React.FC<IUserFormPrps> = React.memo(
           const response = isEditting
             ? await editEntity(transformedData)
             : await createdEntity(transformedData);
+          console.log('response', response)
           handleApiResponse(response, isEditting);
         } catch (error: any) {
           show({
