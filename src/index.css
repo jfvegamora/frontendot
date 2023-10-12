@@ -4,12 +4,14 @@
 
 * {
   transition: all 0.3s ease;
+  
 }
 
 body {
   background-color: gainsboro;
   vertical-align: top;
   overflow: hidden;
+  
 }
 
 /* Estilos CSS para los inputs de Form */
@@ -36,6 +38,7 @@ select {
   background-color: var(--darkgray);
   background-image: none;
   cursor: pointer;
+  background-color: red;
 }
 
 /* Remove IE arrow */
@@ -182,7 +185,7 @@ select::-ms-expand {
 .mantenedorHead {
   display: flex;
   margin-top: 1.25rem;
-
+  align-items: center;
   background-color: ghostwhite;
   border-color: dodgerblue;
   border-width: 1px;
@@ -328,12 +331,12 @@ select::-ms-expand {
   background-color: darkorange;
   padding: 1rem;
   border-width: 1px;
-  
+
 }
 .gridTop {
   position: sticky;
   top: 0; /* La parte superior del encabezado se fija en la parte superior del contenedor */
-  z-index: 0;
+  z-index: 10;
 }
 
 /* Estilos CSS para el checkbox en la tabla */
@@ -400,6 +403,20 @@ select::-ms-expand {
   margin: 0 auto;
 }
 
+/*========CLASSES TABS=========*/
+.custom-tab {
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  width: 10%;
+  background-color: orange;
+}
+
+.custom-tab:focus{  
+  background-color: orangered; 
+}
+
+
 /*========CLASSES FUsuarios=========*/
 .userFormularioRow {
   display: flex;
@@ -424,13 +441,9 @@ select::-ms-expand {
   position: relative;
   padding-left: 1rem;
   padding-right: 1rem;
-  width: 90%;
-  max-width: 28rem;
   margin-left: auto;
   margin-right: auto;
   position: absolute;
-  top: 11%;
-  left: 35%;
   z-index: 10;
   border-radius: 0.5rem;
   --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.5),

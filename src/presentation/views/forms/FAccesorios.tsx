@@ -228,7 +228,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
     }, []);
 
     return (
-      <div className="useFormContainer">
+      <div className="useFormContainer top-20 left-[30%] w-[35%]">
         <div className="userFormBtnCloseContainer">
           <button onClick={closeModal} className="userFormBtnClose">
             X
@@ -286,14 +286,40 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
               control={control}
               error={errors.precio_neto}
             />
-            <TextInputComponent
-              type="number"
-              label="Stock Mínimo"
-              name="stock_minimo"
-              data={data && data[EnumGrid.stock_minimo]}
-              control={control}
-              error={errors.stock_minimo}
-            />
+            <div className="w-full flex items-center">
+              
+              <div className="w-1/2">
+                <TextInputComponent
+                  type="number"
+                  label="Stock Mínimo"
+                  name="stock_minimo"
+                  data={data && data[EnumGrid.stock_minimo]}
+                  control={control}
+                  error={errors.stock_minimo}
+                />
+              </div>
+              <div className="w-1/2">
+                <TextInputComponent
+                  type="number"
+                  label="Stock Reservado"
+                  name="stock_reservado"
+                  onlyRead={true}
+                  data={data && data[EnumGrid.stock_reservado]}
+                  control={control}
+                  error={errors.stock_minimo}
+                />
+              </div>
+              <div className="w-1/2">
+                <TextInputComponent
+                  type="number"
+                  label="Stock Disponible"
+                  name="stock_disponible"
+                  data={data && data[EnumGrid.stock_disponible]}
+                  control={control}
+                  error={errors.stock_minimo}
+                />
+              </div>
+            </div>
           </div>
 
           <button type="submit" className="userFormBtnSubmit">

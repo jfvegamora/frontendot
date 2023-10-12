@@ -79,3 +79,15 @@ export const MOTIVO_KARDEX = {
   entrada: "Entrada",
   salida: "Salida",
 };
+
+export const MOTIVO_OT = {
+  todos:"Todos",
+  venta: "Venta",
+  garantia: "Garantia"
+}
+
+export const ESTADO_OT = {
+  todos:"Todos",
+  entregada: "Entregada",
+  anulada: "Anulada"
+}

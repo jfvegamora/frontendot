@@ -1,5 +1,631 @@
 /************ MENU OT ************/
+export const table_head_OT_diaria = [
+  {
+    cell: <input type="checkbox" />,
+    key: "checkbox",
+    visible: true,
+    width: "w-[7rem]"
+  },
+  {
+    cell: "Folio",
+    key: "folio",
+    visible: true,
+    alignment: "text-right"
+  },
+  {
+    cell: "Motivo",
+    key: "motivo",
+    visible: true,
+    alignment: "text-left"
+  },
+  {
+    cell: "Estado",
+    key: "estado",
+    visible: true,
+    alignment: "text-left"
+  },
+  {
+    cell: "Estado Impresion",
+    key: "estado_impresion",
+    visible: true,
+    alignment: "text-left"
+  },
+  {
+    cell: "Proyecto",
+    key: "proyecto",
+    visible: true,
+    alignment: "text-left"
+  },
+  {
+    cell: "Establecimiento",
+    key: "establecimiento",
+    visible: true,
+  },
+  {
+    cell: "Cliente",
+    key: "cliente",
+    visible: true,
+    alignment: "text-left"
 
+  },
+  {
+    cell: "Cliente",
+    key: "cliente",
+    visible: true,
+    alignment: "text-left"
+
+  },
+  {
+    cell: "Cliente",
+    key: "cliente",
+    visible: true,
+    alignment: "text-left"
+
+  },
+  {
+    cell: "Cliente",
+    key: "cliente",
+    visible: true,
+    alignment: "text-left"
+
+  },
+  {
+    cell: "Cliente",
+    key: "cliente",
+    visible: true,
+    alignment: "text-left"
+
+  },
+  {
+    cell: "Cliente",
+    key: "cliente",
+    visible: true,
+    alignment: "text-left"
+
+  },
+  {
+    cell: "Cliente",
+    key: "cliente",
+    visible: true,
+    alignment: "text-left"
+
+  },
+  {
+    cell: "Cliente",
+    key: "cliente",
+    visible: false,
+    alignment: "text-left"
+
+  },
+  {
+    cell: "Fecha Atencion",
+    key: "fecha_Atencion",
+    visible: true,
+  }
+];
+export const table_head_OT_historica = [
+  {
+    cell: <input type="checkbox" />,
+    key: "checkbox",
+    visible: true,
+    width: "w-[7rem]"
+  },
+  {
+    cell: "Folio",
+    key: "folio",
+    visible: true,
+    alignment: "text-right"
+  },
+  {
+    cell: "Motivo",
+    key: "motivo",
+    visible: true,
+    alignment: "text-left"
+  },
+  {
+    cell: "Area ID",
+    key: "area_id",
+    visible: true,
+  },
+  {
+    cell: "Area",
+    key: "area",
+    visible: true,
+    alignment: "text-left"
+  },
+  {
+    cell: "Estado ID",
+    key: "estado_id",
+    visible: true,
+    alignment: "text-left"
+  },
+  {
+    cell: "Estado",
+    key: "estado",
+    visible: true,
+    alignment: "text-left"
+  },
+  {
+    cell: "Estado Validacion ID",
+    key: "estado_validacion",
+    visible: true,
+    alignment: "text-left"
+  },
+  {
+    cell: "Estado Validacion",
+    key: "estado_impresion",
+    visible: true,
+    alignment: "text-left"
+  },
+  {
+    cell: "Estado Impresion ID",
+    key: "estado_impresion_id",
+    visible: true,
+    alignment: "text-left"
+  },
+  {
+    cell: "Estado Impresion",
+    key: "estado_impresion",
+    visible: true,
+    alignment: "text-left"
+  },
+
+
+  {
+    cell: "Proyecto ID",
+    key: "proyecto_id",
+    visible: true,
+    alignment: "text-left"
+  },
+  {
+    cell: "Proyecto",
+    key: "proyecto",
+    visible: true,
+    alignment: "text-left"
+  },
+  {
+    cell: "Establecimiento ID",
+    key: "establecimiento",
+    visible: true,
+  },
+  {
+    cell: "Establecimiento_id",
+    key: "establecimiento",
+    visible: true,
+  },
+  {
+    cell: "Cliente rut",
+    key: "cliente_rut",
+    visible: true,
+    alignment: "text-left"
+
+  },
+  {
+    cell: "Cliente nombre",
+    key: "cliente_nombre",
+    visible: true,
+    alignment: "text-left"
+
+  },
+  {
+    cell: "Fecha Atencion",
+    key: "fecha_atencion",
+    visible: true,
+    alignment: "text-left"
+
+  },
+  {
+    cell: "Fecha Entrega Taller",
+    key: "fecha_entrega_taller",
+    visible: true,
+    alignment: "text-left"
+
+  },
+  {
+    cell: "Fecha despacho",
+    key: "fecha_despacho",
+    visible: true,
+    alignment: "text-left"
+
+  },
+  {
+    cell: "Fecha entrega Cliente",
+    key: "fecha_entrega_cliente",
+    visible: true,
+    alignment: "text-left"
+
+  },
+  {
+    cell: "Punto Venta ID",
+    key: "punto_venta_id",
+    visible: true,
+    alignment: "text-left"
+
+  },
+  {
+    cell: "Punto Venta",
+    key: "punto_venta",
+    visible: true,
+    alignment: "text-left"
+
+  },
+  {
+    cell: "Numero receta",
+    key: "numero_receta",
+    visible: true,
+  },
+  {
+    cell: "Fecha receta",
+    key: "fecha_receta",
+    visible: true,
+  },
+  {
+    cell: "Tipo anteojo ID",
+    key: "tipo_anteojo_id",
+    visible: true,
+  },
+  {
+    cell: "Tipo anteojo ",
+    key: "tipo_anteojo",
+    visible: true,
+  },
+  {
+    cell: "A1 OD ESF",
+    key: "a1_od_esf",
+    visible: true,
+  },
+  {
+    cell: "A1 OD CIL",
+    key: "a1_of_cil",
+    visible: true,
+  },
+  {
+    cell: "A1 OD EJE",
+    key: "a1_of_eje",
+    visible: true,
+  },
+
+
+  //40
+  {
+    cell: "A1 OD AD",
+    key: "a1_of_ad",
+    visible: true,
+  },
+  {
+    cell: "A1 OI ESF",
+    key: "a1_oi_esf",
+    visible: true,
+  },
+  {
+    cell: "A1 OI CIL",
+    key: "a1_oi_cill",
+    visible: true,
+  },
+  {
+    cell: "A1 OI EJE",
+    key: "a1_oi_eje",
+    visible: true,
+  },
+  {
+    cell: "A1 OI AD",
+    key: "a1_oi_ad",
+    visible: true,
+  },
+  {
+    cell: "A1 DP",
+    key: "a1_dp",
+    visible: true,
+  },
+  {
+    cell: "A1 ALT",
+    key: "a1_grupo",
+    visible: true,
+  },
+  {
+    cell: "A1 GRUPO",
+    key: "a1_alt",
+    visible: true,
+  },
+  
+  {
+    cell: "A2 OD ESF",
+    key: "a1_alt",
+    visible: true,
+  },
+  {
+    cell: "A2 OD CILL",
+    key:"a1_of_esf",
+    visible: true,
+  },
+  {
+    cell: "A2 OD EJE",
+    key: "a1_od_cill",
+    visible: true,
+  },
+  {
+    cell: "A2 OI ESF",
+    key: "a2_od_eje",
+    visible: true,
+  },
+  {
+    cell: "A2 OI CIL",
+    key: "a2_oi_esf",
+    visible: true,
+  },
+  {
+    cell: "A2 OI EJE",
+    key: "a2_oi_cill",
+    visible: true,
+  },
+  {
+    cell: "A2 DP",
+    key: "a1_oi_eje",
+    visible: true,
+  },
+  {
+    cell: "A2 Gupo",
+    key: "a2_dp",
+    visible: true,
+  },
+  {
+    cell: "A1 Opcion venta ID",
+    key: "a1_grupo",
+    visible: true,
+  },
+  {
+    cell: "A1 Opcion venta",
+    key: "a1_opc_vta",
+    visible: true,
+  },
+  {
+    cell: "A1 Armazon ID",
+    key: "a1_armazon_id",
+    visible: true,
+  },
+  {
+    cell: "A1 Armazon",
+    key: "a2_opc_vta",
+    visible: true,
+  },
+  {
+    cell: "A1 Armazon Opcion venta ID",
+    key: "a1_armazon_opcion_venta_id",
+    visible: true,
+  },
+
+
+
+
+
+  //20
+  {
+    cell: "A1 Armazon Opcion Venta",
+    key: "a1_armazon_opcion_venta",
+    visible: true,
+  },
+  {
+    cell: "A2 Armazon ID",
+    key: "a3_opc_vta",
+    visible: true,
+  },
+  {
+    cell: "A2 Armazon",
+    key: "a3_armazon",
+    visible: true,
+  },
+  {
+    cell: "A2 Armazon Opcion Venta ID",
+    key: "a2_armazon_opcion_venta_id",
+    visible: true,
+  },
+  {
+    cell: "A2 Armazon Opcion Venta",
+    key: "a2_armazon_opcion_venta",
+    visible: true,
+  },
+  {
+    cell: "Cristal 1 OD Codigo",
+    key: "observaciones",
+    visible: true,
+  },
+  {
+    cell: "Cristal 1 OD",
+    key: "cristal_1_od",
+    visible: true,
+  },
+  {
+    cell: "Cristal 1 OI Opcion Venta ID",
+    key: "cristal1_oi_opcion_vta_id",
+    visible: true,
+  },
+  {
+    cell: "Cristal 1 OI Opcion venta",
+    key: "cristal1_opcion_venta_oi",
+    visible: true,
+  },
+  {
+    cell: "Cristal 1 OI Codigo",
+    key: "cristal1_oi_codigo",
+    visible: true,
+  },
+  {
+    cell: "Cristal 1 OI",
+    key: "cristal1_oi",
+    visible: true,
+  },
+  {
+    cell: "Cristal 1 Tratamiento adicional ID",
+    key: "cristal1_trat_adicional_id",
+    visible: true,
+  },
+  {
+    cell: "Cristal 1 Tratamiento adicional",
+    key: "cristal1_trat_adicional",
+    visible: true,
+  },
+  {
+    cell: "Cristal2 OD Opcion venta ID",
+    key: "cristal2_opcion_vta_id",
+    visible: true,
+  },
+  {
+    cell: "Cristal2 OD Opcion venta",
+    key: "cristal2_od_opcion_venta",
+    visible: true,
+  },
+  {
+    cell: "Cristal 2 OD Codigo",
+    key: "cristal2_od_codigo",
+    visible: true,
+  },
+  {
+    cell: "Cristal 2 OD",
+    key: "cristal2_od",
+    visible: true,
+  },
+  {
+    cell: "Cristal2 OI Opcion venta ID",
+    key: "cristal2_oi_opcion_venta_id",
+    visible: true,
+  },
+  {
+    cell: "Cristal2 OI Opcion venta ",
+    key: "cristal2_oi_opcion_venta",
+    visible: true,
+  },
+  {
+    cell: "Cristal 2 OI Codigo",
+    key: "cristal2_oi_codigo",
+    visible: true,
+  },
+  {
+    cell: "Cristal 2 OI",
+    key: "cristal2_oi",
+    visible: true,
+  },
+
+
+
+
+
+
+  {
+    cell: "Cristal 2 Tratamiento adicional ID",
+    key: "cristal2_tratamiento_adicional_id",
+    visible: true,
+  },
+  {
+    cell: "Cristal 2 Tratamiento adicional",
+    key: "cristal2_tratamiento_adicional",
+    visible: true,
+  },
+  {
+    cell: "Motivo Garantia ID",
+    key: "motivo_garantia_id",
+    visible: true,
+  },
+  {
+    cell: "Motivo Garantia",
+    key: "motivo_garantia",
+    visible: true,
+  },
+  {
+    cell: "Folio asociado",
+    key: "folio_asociado",
+    visible: true,
+  },
+  {
+    cell: "Resolución garantia ID",
+    key: "resolucion_garantia_id",
+    visible: true,
+  },
+  {
+    cell: "Resolución garantia",
+    key: "resolucion_garantia",
+    visible: true,
+  },
+
+  {
+    cell: "Worktracking",
+    key: "worktracking",
+    visible: true,
+  },
+
+
+  {
+    cell: "Nota de venta",
+    key: "nota_venta",
+    visible: true,
+  },
+  {
+    cell: "Numero factura",
+    key: "numero_factura",
+    visible: true,
+  },
+  {
+    cell: "Folio interno Mandante",
+    key: "folio_interno_mandante",
+    visible: true,
+  },
+ 
+  {
+    cell: "Observaciones",
+    key: "observaciones",
+    visible: true,
+  },
+  {
+    cell: "",
+    key: "botones",
+    visible: true,
+  },
+];
+
+
+export const table_head_OT_bitacora = [
+  {
+    cell: "FECHA/HORA",
+    key: "date",
+    visible: true,
+    width: "w-[10rem]"
+  },
+  {
+    cell: "USUARIO",
+    key: "usuario",
+    visible: true,
+    alignment: "text-right"
+  },
+  {
+    cell: "ORIGEN",
+    key: "origen",
+    visible: true,
+    alignment: "text-left"
+  },
+  {
+    cell: "DESTINO",
+    key: "destino",
+    visible: true,
+    alignment: "text-left"
+  },
+  {
+    cell: "ESTADO",
+    key: "estado",
+    visible: true,
+    alignment: "text-left"
+  },
+  {
+    cell: "SITUACION",
+    key: "situacion",
+    visible: true,
+  },
+  {
+    cell: "OBS",
+    key: "obs",
+    visible: true,
+    alignment: "text-left"
+
+  }
+];
 export const table_head_clientes = [
   {
     cell: <input type="checkbox" />,
@@ -248,6 +874,49 @@ export const table_head_puntos_venta = [
   },
 ];
 
+export const table_head_situaciones = [
+  {
+    cell: <input type="checkbox" />,
+    key: "checkbox",
+    visible: true,
+    width: "w-[4rem]",
+    alignment: "items-right"
+  },
+  {
+    cell: "ID",
+    key: "id",
+    visible: false,
+  },
+  {
+    cell: "Descripcion",
+    key: "descripcion",
+    visible: true,
+    width: "w-[25rem]",
+    alignment: "text-left"
+  },
+  {
+    cell: "ID Area",
+    key: "id_area",
+    visible: false,
+    width: "w-[9rem]",
+    alignment: "text-left"
+  },
+  {
+    cell: "Area",
+    key: "area",
+    visible: true,
+    width: "w-[8rem]",
+    alignment: "text-left"
+  },
+  {
+    cell: "",
+    key: "opciones",
+    visible: true,
+    width: "w-[5rem]",
+    alignment: "items-center"
+  },
+];
+
 /************ MENU BODEGA ************/
 export const table_head_accesorios = [
   {
@@ -297,8 +966,20 @@ export const table_head_accesorios = [
     alignment: "text-right"
   },
   {
-    cell: "Stock Mínimo",
+    cell: "Stock mínimo",
     key: "stock_minimo",
+    visible: true,
+    alignment: "text-right"
+  },
+  {
+    cell: "Stock reservado",
+    key: "stock_reservado",
+    visible: true,
+    alignment: "text-right"
+  },
+  {
+    cell: "Stock disponible",
+    key: "stock_disponible",
     visible: true,
     alignment: "text-right"
   },
@@ -404,8 +1085,20 @@ export const table_head_armazones = [
     alignment: "text-left"
   },
   {
-    cell: "Stock Mínimo",
+    cell: "Stock Minimo",
     key: "stock_minimo",
+    visible: true,
+    alignment: "text-right"
+  },
+  {
+    cell: "Stock disponible",
+    key: "stock_disponible",
+    visible: true,
+    alignment: "text-right"
+  },
+  {
+    cell: "Stock reservado",
+    key: "stock_reservado",
     visible: true,
     alignment: "text-right"
   },
@@ -413,7 +1106,7 @@ export const table_head_armazones = [
     cell: "",
     key: "opciones",
     visible: true,
-    width: "w-[3rem]",
+    width: "w-[4rem]",
   },
 ];
 
@@ -429,6 +1122,11 @@ export const table_head_cristales = [
     key: "codigo",
     visible: true,
     alignment: "text-left"
+  },
+  {
+    cell: "Marca ID",
+    key: "marca_id",
+    visible: false,
   },
   {
     cell: "Marca ID",
@@ -538,14 +1236,20 @@ export const table_head_cristales = [
     alignment: "text-right"
   },
   {
-    cell: "Stock Actual",
-    key: "stock_actual",
+    cell: "Stock Mínimo",
+    key: "stock_minimo",
     visible: true,
     alignment: "text-right"
   },
   {
-    cell: "Stock Mínimo",
-    key: "stock_minimo",
+    cell: "Stock Reservado",
+    key: "stock_reservado",
+    visible: true,
+    alignment: "text-right"
+  },
+  {
+    cell: "Stock Disponible",
+    key: "stock_disponible",
     visible: true,
     alignment: "text-right"
   },
@@ -1235,6 +1939,11 @@ export const table_head_proyectos_grupos = [
     visible: true,
   },
   {
+    cell: "Diametro",
+    key: "diametro",
+    visible: true,
+  },
+  {
     cell: "$ Venta Neto",
     key: "precio_venta_neto",
     visible: true,
@@ -1697,6 +2406,44 @@ export const table_head_permisos = [
     visible: true,
   },
 ];
+export const table_head_permisos_areas = [
+  {
+    cell: <input type="checkbox" />,
+    key: "checkbox",
+    visible: true,
+    width: "w-[3rem]"
+  },
+  {
+    cell: "ID_USUARIO",
+    key: "id_usuario",
+    visible: false,
+  },
+  {
+    cell: "Usuario",
+    key: "usuario",
+    visible: true,
+  },
+  {
+    cell: "ID_AREA",
+    key: "id_area",
+    visible: false,
+  },
+  {
+    cell: "Area",
+    key: "area",
+    visible: true,
+  },
+  {
+    cell: "PERMISO",
+    key: "permiso",
+    visible: true,
+  },
+  {
+    cell: "",
+    key: "opciones",
+    visible: true,
+  },
+];
 export const table_head_funcionalidades = [
   {
     cell: <input type="checkbox" />,
@@ -1779,5 +2526,35 @@ export const table_head_empresas = [
     cell: "",
     key: "opciones",
     visible: true,
+  },
+];
+
+
+
+/************ LOGS ERRORES ************/
+export const table_head_errors = [
+  {
+    cell: <input type="checkbox" />,
+    key: "checkbox",
+    visible: false,
+    width: "w-[6rem]",
+  },
+  {
+    cell: "ID",
+    key: "id",
+    visible: false,
+  },
+  {
+    cell: "Errores",
+    key: "errores",
+    visible: true,
+    width: "w-full",
+    alignment: "text-left"
+  },
+  {
+    cell: "",
+    key: "opciones",
+    visible: false,
+    width: "w-[6rem]",
   },
 ];

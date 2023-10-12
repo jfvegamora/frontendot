@@ -42,6 +42,11 @@ export const validationPuntosVentaSchema = () =>
     almacen    : yup.string().required(`${msg}`),
     encargado  : yup.string().required(`${msg}`),
   });
+export const validationSituacionesSchema = () =>
+  yup.object().shape({
+    descripcion: yup.string().required(`${msg}`),
+    area       : yup.number().required(`${msg}`),
+  });
 
 /*************** B O D E G A ***************/
 // Schema ARMAZONES
@@ -184,7 +189,7 @@ export const validationMandantesSchema = () =>
     avance                : yup.string().nullable(),
 
     presupuesto           : yup.string(),
-    dias_entrega          : yup.string(),
+    dias_entrega          : yup.string().required(`${msg}`),
     ejecutivo_proyecto    : yup.string().required(`${msg}`),
 
     administrador_nombre  : yup.string(),
@@ -334,6 +339,13 @@ export const validationPermisosSchema = () =>
   yup.object().shape({
     usuario      : yup.string().required(`${msg}`),
     funcionalidad: yup.string().required(`${msg}`),
+    permiso      : yup.string().required(`${msg}`),
+  });
+
+  export const validationPermisosAreasSchema = () =>
+  yup.object().shape({
+    usuario      : yup.string().required(`${msg}`),
+    area         : yup.string().required(`${msg}`),
     permiso      : yup.string().required(`${msg}`),
   });
 

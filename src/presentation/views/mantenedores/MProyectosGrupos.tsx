@@ -104,7 +104,7 @@ const MProyectosGrupos: React.FC = () => {
       <div className="mantenedorContainer">
         <h1 className="mantenedorH1">Parametrización de Grupos</h1>
   
-        <div className="mantenedorHead width90">
+        <div className="mantenedorHead width90 items-center">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
             setParams={setParams}
@@ -179,6 +179,7 @@ const MProyectosGrupos: React.FC = () => {
             isEditting={true}
           />
         )}
+
       </div>
     );
   };

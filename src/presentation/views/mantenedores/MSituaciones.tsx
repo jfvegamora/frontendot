@@ -1,102 +1,96 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from "react";
 
+
+import React, { useState, useEffect } from "react";
+import { useEntityUtils } from "../../hooks";
 import {
   PrimaryButtonsComponent,
   PrimaryKeySearch,
   TableComponent,
 } from "../../components";
-import { useEntityUtils } from "../../hooks";
-import FAccesorios from "../forms/FAccesorios";
-import { TITLES, table_head_accesorios } from "../../utils";
+import { TITLES , table_head_situaciones } from "../../utils";
+import FSituaciones from "../forms/FSituaciones";
+
+
+
+const strEntidad = "Situaciones ";
+const strEntidadExcel = "Situaciones";
+const strBaseUrl = "/api/otsituaciones/";
+const strQuery = "01";
+const idMenu = 30;
 
 export enum EnumGrid {
-  codigo           = 1,
-  descripcion      = 2,
-  marca_id         = 3,
-  marca            = 4,
-  proveedor_id     = 5,
-  proveedor        = 6,
-  precio_neto      = 7,
-  stock_minimo     = 8,
-  stock_reservado  = 9,
-  stock_disponible = 10
+  ID = 1,
+  descripcion = 2,
+  area_id = 3,
+  area = 4
 }
 
-const strEntidad = "Accesorio ";
-const strEntidadExcel = "Accesorios";
-const strBaseUrl = "/api/accesorios/";
-const strQuery = "01";
-const idMenu = 9;
+
 
 type PrimaryKey = {
   pk1: number;
 };
-const MAccesorios: React.FC = () => {
+
+const MCargos: React.FC = () => {
+  // const { createdEntity, editEntity } = useCrud(strBaseUrl);
   const [params, setParams] = useState([]);
 
+  
   const updateParams = (newParams: Record<string, never>) => {
     setParams(Object.keys(newParams).map((key) => newParams[key]));
   };
-
+  
   const {
-    //entities state
+    //Entities State
     entities,
-    setEntities,
     entity,
-    //modal methods
+    setEntities,
+    selectedRows,
+    setSelectedRows,
+    //Modal Methds
+    openModal,
+    closeModal,
     isModalInsert,
     isModalEdit,
     toggleEditModal,
-    openModal,
-    closeModal,
-    //Check methods
-    handleSelect,
-    selectedRows,
-    setSelectedRows,
-    handleSelectedAll,
-    //primary buttons methods
+    
+    //Check/Buttons Methods
     handleDeleteSelected,
+    handleSelect,
+    handleSelectedAll,
     resetEntities,
   } = useEntityUtils(strBaseUrl, strQuery);
-  // console.log("entities:", entities);
-
+  
   const pkToDelete: PrimaryKey[] = [];
-  console.log("pkToDelete:", pkToDelete);
-
+  
   useEffect(() => {
-    const newPkToDelete = selectedRows.map((row: number) => ({
-      pk1: entities[row][EnumGrid.codigo],
+    console.log(selectedRows)
+    const newPkToDelete = selectedRows.map((row) => ({
+      pk1: entities[row][EnumGrid.ID],
     }));
-    newPkToDelete.forEach((newPk: { pk1: any }) => {
+    newPkToDelete.forEach((newPk) => {
       if (!pkToDelete.some((existingPk) => existingPk.pk1 === newPk.pk1)) {
         pkToDelete.push(newPk);
       }
     });
+
   }, [selectedRows]);
+
 
   return (
     <div className="mantenedorContainer">
-      <h1 className="mantenedorH1">Accesorios</h1>
+      <h1 className="mantenedorH1">Situaciones</h1>
 
-      <div className="mantenedorHead width80 items-center">
+      <div className="mantenedorHead width50">
         <PrimaryKeySearch
           baseUrl={strBaseUrl}
-          setParams={setParams}
           updateParams={updateParams}
+          setParams={setParams}
           setEntities={setEntities}
-          primaryKeyInputs={[
-            { name: "_p1", label: "Código", type: "text" },
-            { name: "_p2", label: "Descripción", type: "text" },
-            {
-              name: "_p3",
-              label: "Marca",
-              type: "select",
-              selectUrl: "/api/marcas/",
-            },
-          ]}
+          primaryKeyInputs={[{ name: "_p1", label: "Descripcion", type: "text" }]}
         />
 
         <PrimaryButtonsComponent
@@ -104,7 +98,6 @@ const MAccesorios: React.FC = () => {
           handleDeleteSelected={handleDeleteSelected}
           handleRefresh={resetEntities}
           params={params}
-          comilla={false}
           pkToDelete={pkToDelete}
           strEntidad={strEntidadExcel}
           strBaseUrl={strBaseUrl}
@@ -117,18 +110,18 @@ const MAccesorios: React.FC = () => {
         />
       </div>
 
-      <div className="width100 scroll">
+      <div className="width50 scroll">
         <TableComponent
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
           toggleEditModal={toggleEditModal}
           handleDeleteSelected={handleDeleteSelected}
           selectedRows={selectedRows}
-          pkToDelete={pkToDelete}
           setSelectedRows={setSelectedRows}
           entidad={strEntidad}
+          pkToDelete={pkToDelete}
           data={entities}
-          tableHead={table_head_accesorios}
+          tableHead={table_head_situaciones}
           showEditButton={true}
           showDeleteButton={false}
           idMenu={idMenu}
@@ -136,7 +129,7 @@ const MAccesorios: React.FC = () => {
       </div>
 
       {isModalInsert && (
-        <FAccesorios
+        <FSituaciones
           label={`${TITLES.ingreso} ${strEntidad}`}
           closeModal={closeModal}
           selectedRows={selectedRows}
@@ -147,21 +140,20 @@ const MAccesorios: React.FC = () => {
       )}
 
       {isModalEdit && (
-        <FAccesorios
+        <FSituaciones
           label={`${TITLES.edicion} ${strEntidad}`}
+          closeModal={closeModal}
           selectedRows={selectedRows}
           setEntities={setEntities}
-          params={params}
           data={entity}
-          closeModal={closeModal}
+          params={params}
           isEditting={true}
         />
       )}
 
-
-
+    
     </div>
   );
 };
 
-export default MAccesorios;
+export default MCargos;

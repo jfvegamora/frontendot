@@ -297,115 +297,40 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))}
           className="userFormulario"
         >
-          <div className="userFormularioContainer">
-            <div className="input-container">
-            <div className="w-full">
-              <TextInputComponent
-                type="text"
-                label="RUT"
-                name="rut"
-                data={data && data[EnumGrid.rut]}
-                control={control}
-                error={errors.rut}
-                inputRef={firstInputRef}
-                onlyRead={isEditting}
-              />
+          <div className="userFormularioContainer ">
+            <div className="input-container items-center">
+
+            <div className="w-full flex">
+              <div className="w-[30%]">
+                <TextInputComponent
+                  type="text"
+                  label="RUT"
+                  name="rut"
+                  data={data && data[EnumGrid.rut]}
+                  control={control}
+                  error={errors.rut}
+                  inputRef={firstInputRef}
+                  onlyRead={isEditting}
+                />
               </div>
-              <div className="w-full">
-              <TextInputComponent
-                type="text"
-                label="Nombre"
-                name="nombre"
-                data={data && data[EnumGrid.nombre]}
-                control={control}
-                error={errors.nombre}
-                inputRef={secondInputRef}
-              />
-              </div> 
-            </div>
 
-            <div className="input-container">
-              <div className="w-full">
-              <RadioButtonComponent
-                control={control}
-                label="Sexo"
-                name="sexo"
-                data={data && data[EnumGrid.sexo]}
-                options={[SEXO.masculino, SEXO.femenino, SEXO.no_aplica]}
-                error={errors.sexo}
-                // horizontal={true}
-              />
-              </div> 
-              <div className="w-full">
-              <RadioButtonComponent
-                control={control}
-                label="Tipo"
-                name="tipo"
-                data={data && data[EnumGrid.tipo]}
-                options={[
-                  TIPO_CLIENTE.beneficiario,
-                  TIPO_CLIENTE.particular,
-                  TIPO_CLIENTE.optica,
-                ]}
-                error={errors.tipo}
-                // horizontal={true}
-              />
-            </div>
-          </div>
 
-          <div className="input-container">
-              <div className="w-full">
-              <RegProComponent
-                control={control}
-                EnumGrid={EnumGrid}
-                isEditting={isEditting}
-                errors={errors.comuna}
-                data={data && data}
-              />
-            </div>
-              <div className="w-full">
-              <TextInputComponent
-                type="text"
-                label="Direccion"
-                name="direccion"
-                data={data && data[EnumGrid.direccion]}
-                control={control}
-                error={errors.direccion}
-              />
-
-<TextInputComponent
-                type="date"
-                label="Fecha Nacimiento"
-                name="fecha_nacimiento"
-                data={data && data[EnumGrid.fecha_nacimiento]}
-                control={control}
-                error={errors.fecha_nacimiento}
-              />
-
-<TextInputComponent
-                type="text"
-                label="Teléfono"
-                name="telefono"
-                data={data && data[EnumGrid.telefono]}
-                control={control}
-                error={errors.telefono}
-              />
-            </div>
-          </div>
-
-<div className="input-container">
-              <div className="w-full">
-              <TextInputComponent
-                type="text"
-                label="Correo"
-                name="correo"
-                data={data && data[EnumGrid.correo]}
-                control={control}
-                error={errors.correo}
-              />
+              <div className="w-[70%]">
+                <TextInputComponent
+                  type="text"
+                  label="Nombre"
+                  name="nombre"
+                  data={data && data[EnumGrid.nombre]}
+                  control={control}
+                  error={errors.nombre}
+                  inputRef={secondInputRef}
+                />
               </div>
-              <div className="w-full">
 
+              </div>
+
+
+              <div className="w-full items-center">
                 <SelectInputComponent
                   label="Establecimiento"
                   name="establecimiento"
@@ -416,13 +341,115 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
                   error={errors.establecimiento}
                   customWidth={"345px"}
                 />
+              </div> 
+            </div>
+
+            <div className="input-container mt-4 items-center">
+             
+              <div className="w-[90%] flex pl-4 ">
+                <div className="w-[30%] mr-16 ">
+                  <RadioButtonComponent
+                    control={control}
+                    label="Sexo"
+                    name="sexo"
+                    data={data && data[EnumGrid.sexo]}
+                    options={[SEXO.masculino, SEXO.femenino, SEXO.no_aplica]}
+                    error={errors.sexo}
+                    // horizontal={true}
+                    />
+                </div>
+
+                <div className="w-[30%]">
+                  <RadioButtonComponent
+                    control={control}
+                    label="Tipo"
+                    name="tipo"
+                    data={data && data[EnumGrid.tipo]}
+                    options={[
+                      TIPO_CLIENTE.beneficiario,
+                      TIPO_CLIENTE.particular,
+                      TIPO_CLIENTE.optica,
+                    ]}
+                    error={errors.tipo}
+                  />
+                </div>
+              </div> 
+
+
+              <div className="w-[90%] rounded-lg border border-blue-500 relative">
+                <label className="labelForm w-[20%] absolute top-[-7%] left-2 text-center z-10 ">Direccion</label>
+                <RegProComponent
+                  control={control}
+                  EnumGrid={EnumGrid}
+                  isEditting={isEditting}
+                  errors={errors.comuna}
+                  data={data && data}
+                />
+                <div className="mt-[-2%]">
+                  <TextInputComponent
+                  type="text"
+                  label="Direccion"
+                  name="direccion"
+                  data={data && data[EnumGrid.direccion]}
+                  control={control}
+                  error={errors.direccion}
+                />
+                </div>
               </div>
+          </div>
+
+
+
+
+          <div className="input-container mt-4 mb-4 flex items-center">
+              
+              <div className="w-[50%] flex items-center">
+
+                <div className="w-[80%]">
+                  <TextInputComponent
+                    type="date"
+                    label="Fecha Nacimiento"
+                    name="fecha_nacimiento"
+                    data={data && data[EnumGrid.fecha_nacimiento]}
+                    control={control}
+                    error={errors.fecha_nacimiento}
+                  />
+                </div>
+
+                <div className="w-[80%]">
+                  <TextInputComponent
+                    type="text"
+                    label="Teléfono"
+                    name="telefono"
+                    data={data && data[EnumGrid.telefono]}
+                    control={control}
+                    error={errors.telefono}
+                  />
+                </div>
+                <div className="w-[110%]">
+                  <TextInputComponent
+                    type="text"
+                    label="Correo"
+                    name="correo"
+                    data={data && data[EnumGrid.correo]}
+                    control={control}
+                    error={errors.correo}
+                  />
+                </div>
+                
+
+
+            </div>
+
+            <div className="w-[50%]">
+            <button type="submit" className="userFormBtnSubmit">
+            Guardar
+          </button>
             </div>
           </div>
 
-          <button type="submit" className="userFormBtnSubmit">
-            Guardar
-          </button>
+          </div>
+
         </form>
 
         <CustomModal />

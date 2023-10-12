@@ -68,7 +68,10 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
   //Metodo Check aLL
   const handleSelectedAll = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>, row?: any) => {
-      setSelectedRows(event.target.checked ? row : []);
+      console.log(row)
+      const selectedRowsLimited = event.target.checked ? row.slice(0, 500) : [];
+      console.log(selectedRowsLimited)
+      setSelectedRows(selectedRowsLimited);
     },
     [entities]
   );
@@ -83,10 +86,20 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
   //METODO CHECK INDIVIDUAL
   const handleSelect = useCallback((rowIndex: number): void => {
     // console.log("id handleselect", id);
-    setSelectedRows((prevSelectedRow) =>
-      prevSelectedRow.includes(rowIndex)
-        ? prevSelectedRow.filter((selectedRow) => selectedRow !== rowIndex)
-        : [...prevSelectedRow, rowIndex]
+    setSelectedRows((prevSelectedRow) =>{
+
+      console.log(prevSelectedRow)
+      if(prevSelectedRow.length >= 400){
+        toast.error("Ya tienes 100 elementos seleccionados")
+        return prevSelectedRow;
+      }
+      
+      return prevSelectedRow.includes(rowIndex)
+      ? prevSelectedRow.filter((selectedRow) => selectedRow !== rowIndex)
+      : [...prevSelectedRow, rowIndex]
+    }
+      
+      
     );
   }, []);
 

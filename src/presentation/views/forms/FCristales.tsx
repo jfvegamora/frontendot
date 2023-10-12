@@ -247,8 +247,9 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
       isEditting ? focusSecondInput("codigo") : focusFirstInput("marca");
     }, []);
 
+
     return (
-      <div className="useFormContainer">
+      <div className="useFormContainer top-20 left-[35%] w-[30%]">
         <div className="userFormBtnCloseContainer">
           <button onClick={closeModal} className="userFormBtnClose">
             X
@@ -332,7 +333,7 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                 customWidth={""}
               />
             </div>
-            <div className="input-container">
+            <div className="flex items-center">
               <TextInputComponent
                 type="number"
                 label="Diámetro"
@@ -361,14 +362,41 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                 className="input"
               />
             </div>
-            <TextInputComponent
-              type="number"
-              label="Stock Mínimo"
-              name="stock_minimo"
-              data={data && data[EnumGrid.stock_minimo]}
-              control={control}
-              error={errors.stock_minimo}
-            />
+            <div className=" flex items-center">
+              
+              <div className="w-[50%]">
+                <TextInputComponent
+                  type="number"
+                  label="Stock Minimo"
+                  name="stock_minimo"
+                  data={data && data[EnumGrid.stock_minimo]}
+                  control={control}
+                  error={errors.stock_minimo}
+                />
+              </div>
+              <div className="w-[50%]">
+                <TextInputComponent
+                  type="number"
+                  label="Stock Reservado"
+                  name="stock_reservado"
+                  data={data && data[EnumGrid.stock_reservado]}
+                  control={control}
+                  // error={errors.stock_minimo}
+                />
+              </div>
+              <div className="w-[50%]">
+                <TextInputComponent
+                  type="number"
+                  label="Stock Disponible"
+                  name="stock_disponible"
+                  data={data && data[EnumGrid.stock_disponible]}
+                  control={control}
+                  onlyRead={true}
+                />
+              </div>
+
+
+            </div>
           </div>
 
           <button type="submit" className="userFormBtnSubmit">

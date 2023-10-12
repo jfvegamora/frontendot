@@ -202,7 +202,7 @@ const FPerfiles: React.FC<IFormPrps> = React.memo(
     }, [closeModal]);
 
     return (
-      <div className="useFormContainer">
+      <div className="useFormContainer top-[15%] left-[35%] w-[28%]  z-10">
         <div className="userFormBtnCloseContainer">
           <button onClick={closeModal} className="userFormBtnClose">
             X

@@ -5,14 +5,15 @@ import { useCrud } from "../../hooks";
 
 interface Props {
   control: any;
-  isEditting: boolean;
+  isEditting?: boolean;
   data?: any;
-  EnumGrid: any;
-  errors: any;
+  EnumGrid?: any;
+  errors?: any;
+  handleSelectChange?:any
 }
 
 const RegProComponent: React.FC<Props> = React.memo(
-  ({ control, isEditting, data, EnumGrid, errors }) => {
+  ({ control, isEditting, data, EnumGrid, errors,handleSelectChange }) => {
     const [provincias, setProvincias] = useState([]);
     const [regiones, setRegiones] = useState(0);
     const [comunas, setComunas] = useState([]);
@@ -102,11 +103,11 @@ const RegProComponent: React.FC<Props> = React.memo(
     // console.log('comunas', comunas)
     // console.log('regiones:',regiones === 0 ? 'si': 'no')
 
-    console.log('errors', errors)
+    // console.log('errors', errors)
   
     return (
-      <div className=" flex flex-col min-w-full w-full items-center mb-2  mt-select mt-select-dropdown-up cursor-pointer ">
-        <div className="w-[96%] ml-[-4%] m-1 ">
+      <div className=" flex flex-col min-w-full w-full items-center mb-4  mt-select mt-select-dropdown-up cursor-pointer ">
+        <div className="w-[95%] ml-[-5%] mb-2 ">
           <SelectInputComponent
             label="Region"
             name="region"
@@ -158,6 +159,12 @@ const RegProComponent: React.FC<Props> = React.memo(
                 <label className="absolute top-[-6%] left-3 text-gray-600 font-extralight text-xs z-20">Comuna</label>
                   <select
                     {...field}
+                    onChange={(e)=>{
+                      // console.log(e.target)
+                      if(handleSelectChange){
+                        handleSelectChange(e.target)
+                      }
+                    }}
                     defaultValue={data && data[EnumGrid.comuna_id]}
                     className="custom-input py-2 px-3 w-[85%] cursor-pointer z-0 "
                   >

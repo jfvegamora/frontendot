@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
 
+
 import React, { useState, useEffect } from "react";
 import { useEntityUtils } from "../../hooks";
 import {
@@ -11,7 +12,8 @@ import {
 } from "../../components";
 import { TITLES, table_head_cargos } from "../../utils";
 import FCargos from "../forms/FCargos";
-import LongPolling from "../../components/LongPolling";
+
+
 
 const strEntidad = "Cargo ";
 const strEntidadExcel = "Cargos";
@@ -23,6 +25,9 @@ export enum EnumGrid {
   ID = 1,
   nombre = 2,
 }
+
+
+
 type PrimaryKey = {
   pk1: number;
 };
@@ -31,10 +36,11 @@ const MCargos: React.FC = () => {
   // const { createdEntity, editEntity } = useCrud(strBaseUrl);
   const [params, setParams] = useState([]);
 
+  
   const updateParams = (newParams: Record<string, never>) => {
     setParams(Object.keys(newParams).map((key) => newParams[key]));
   };
-
+  
   const {
     //Entities State
     entities,
@@ -48,17 +54,18 @@ const MCargos: React.FC = () => {
     isModalInsert,
     isModalEdit,
     toggleEditModal,
-
+    
     //Check/Buttons Methods
     handleDeleteSelected,
     handleSelect,
     handleSelectedAll,
     resetEntities,
   } = useEntityUtils(strBaseUrl, strQuery);
-
+  
   const pkToDelete: PrimaryKey[] = [];
-
+  
   useEffect(() => {
+    console.log(selectedRows)
     const newPkToDelete = selectedRows.map((row) => ({
       pk1: entities[row][EnumGrid.ID],
     }));
@@ -67,22 +74,9 @@ const MCargos: React.FC = () => {
         pkToDelete.push(newPk);
       }
     });
-    fetch("https://mtoopticos.cl/sse/").then((response) =>
-      console.log("Estado de la solicitud:", response.status)
-    );
 
-    // const eventSource = new EventSource("https://mtoopticos.cl/sse/");
-
-    // eventSource.onmessage = (event) => {
-    //   const sseDataElement = document.getElementById("sse-data");
-    //   sseDataElement.innerText = `Mensaje del servidor: ${event.data}`;
-    // };
-
-    // eventSource.onerror = (error) => {
-    //   console.error("Error en la conexión SSE", error);
-    //   eventSource.close();
-    // };
   }, [selectedRows]);
+
 
   return (
     <div className="mantenedorContainer">
@@ -155,7 +149,7 @@ const MCargos: React.FC = () => {
         />
       )}
 
-      {/* <LongPolling/> */}
+    
     </div>
   );
 };

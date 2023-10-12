@@ -9,32 +9,29 @@ import {
   TableComponent,
 } from "../../components";
 import { useEntityUtils } from "../../hooks";
-import FAccesorios from "../forms/FAccesorios";
-import { TITLES, table_head_accesorios } from "../../utils";
+import { TITLES, table_head_permisos_areas } from "../../utils";
+import FPermisosAreas from "../forms/FPermisosAreas";
 
 export enum EnumGrid {
-  codigo           = 1,
-  descripcion      = 2,
-  marca_id         = 3,
-  marca            = 4,
-  proveedor_id     = 5,
-  proveedor        = 6,
-  precio_neto      = 7,
-  stock_minimo     = 8,
-  stock_reservado  = 9,
-  stock_disponible = 10
+  id = 0,
+  usuario_id = 1,
+  usuario = 2,
+  funcionalidad_id = 3,
+  funcionalidad = 4,
+  permiso = 5,
 }
-
-const strEntidad = "Accesorio ";
-const strEntidadExcel = "Accesorios";
-const strBaseUrl = "/api/accesorios/";
+const strEntidad = "Permiso de Areas ";
+const strEntidadExcel = "Permisos_de_areas";
+const strBaseUrl = "/api/otusuarios/";
 const strQuery = "01";
-const idMenu = 9;
+const idMenu   = 29;
 
 type PrimaryKey = {
   pk1: number;
+  pk2: number;
 };
-const MAccesorios: React.FC = () => {
+
+const MPermisos: React.FC = () => {
   const [params, setParams] = useState([]);
 
   const updateParams = (newParams: Record<string, never>) => {
@@ -62,39 +59,51 @@ const MAccesorios: React.FC = () => {
     resetEntities,
   } = useEntityUtils(strBaseUrl, strQuery);
   // console.log("entities:", entities);
+  // console.log("selectedRows", selectedRows);
 
   const pkToDelete: PrimaryKey[] = [];
-  console.log("pkToDelete:", pkToDelete);
 
   useEffect(() => {
-    const newPkToDelete = selectedRows.map((row: number) => ({
-      pk1: entities[row][EnumGrid.codigo],
+    const newPkToDelete = selectedRows.map((row) => ({
+      pk1: entities[row][EnumGrid.usuario_id],
+      pk2: entities[row][EnumGrid.funcionalidad_id],
     }));
-    newPkToDelete.forEach((newPk: { pk1: any }) => {
-      if (!pkToDelete.some((existingPk) => existingPk.pk1 === newPk.pk1)) {
+    newPkToDelete.forEach((newPk) => {
+      if (
+        !pkToDelete.some(
+          (existingPk) =>
+            existingPk.pk1 === newPk.pk1 && existingPk.pk2 === newPk.pk2
+        )
+      ) {
         pkToDelete.push(newPk);
       }
     });
+    // console.log("newObject:",Object.keys(pkToDelete[0]).length);
   }, [selectedRows]);
 
   return (
     <div className="mantenedorContainer">
-      <h1 className="mantenedorH1">Accesorios</h1>
+      <h1 className="mantenedorH1">Permisos de Areas</h1>
 
-      <div className="mantenedorHead width80 items-center">
+      <div className="mantenedorHead width70">
         <PrimaryKeySearch
           baseUrl={strBaseUrl}
           setParams={setParams}
           updateParams={updateParams}
           setEntities={setEntities}
           primaryKeyInputs={[
-            { name: "_p1", label: "Código", type: "text" },
-            { name: "_p2", label: "Descripción", type: "text" },
+            {
+              name: "_p2",
+              label: "Usuario",
+              type: "select",
+              selectUrl: "/api/usuarios/",
+            },
             {
               name: "_p3",
-              label: "Marca",
+              label: "Areas",
               type: "select",
-              selectUrl: "/api/marcas/",
+              selectUrl: "/api/tipos/",
+              tipos: "OTAreas",
             },
           ]}
         />
@@ -104,7 +113,6 @@ const MAccesorios: React.FC = () => {
           handleDeleteSelected={handleDeleteSelected}
           handleRefresh={resetEntities}
           params={params}
-          comilla={false}
           pkToDelete={pkToDelete}
           strEntidad={strEntidadExcel}
           strBaseUrl={strBaseUrl}
@@ -114,21 +122,22 @@ const MAccesorios: React.FC = () => {
           showForwardButton={false}
           showRefreshButton={true}
           idMenu={idMenu}
+
         />
       </div>
 
-      <div className="width100 scroll">
+      <div className="width70 scroll">
         <TableComponent
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
           toggleEditModal={toggleEditModal}
           handleDeleteSelected={handleDeleteSelected}
-          selectedRows={selectedRows}
           pkToDelete={pkToDelete}
+          selectedRows={selectedRows}
           setSelectedRows={setSelectedRows}
           entidad={strEntidad}
           data={entities}
-          tableHead={table_head_accesorios}
+          tableHead={table_head_permisos_areas}
           showEditButton={true}
           showDeleteButton={false}
           idMenu={idMenu}
@@ -136,7 +145,7 @@ const MAccesorios: React.FC = () => {
       </div>
 
       {isModalInsert && (
-        <FAccesorios
+        <FPermisosAreas
           label={`${TITLES.ingreso} ${strEntidad}`}
           closeModal={closeModal}
           selectedRows={selectedRows}
@@ -147,7 +156,7 @@ const MAccesorios: React.FC = () => {
       )}
 
       {isModalEdit && (
-        <FAccesorios
+        <FPermisosAreas
           label={`${TITLES.edicion} ${strEntidad}`}
           selectedRows={selectedRows}
           setEntities={setEntities}
@@ -157,11 +166,8 @@ const MAccesorios: React.FC = () => {
           isEditting={true}
         />
       )}
-
-
-
     </div>
   );
 };
 
-export default MAccesorios;
+export default MPermisos;

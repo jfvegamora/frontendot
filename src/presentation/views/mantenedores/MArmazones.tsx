@@ -29,6 +29,8 @@ export enum EnumGrid {
   armazon_uso_id = 14,
   armazon_uso = 15,
   stock_minimo = 16,
+  stock_disponible = 17,
+  stock_resrvado = 18,
 }
 
 const strEntidad = "Armazón ";
@@ -163,6 +165,7 @@ const MArmazones: React.FC = () => {
           isEditting={true}
         />
       )}
+
     </div>
   );
 };

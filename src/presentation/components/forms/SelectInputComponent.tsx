@@ -27,6 +27,7 @@ interface ISelectInputProps {
   readOnly?: boolean;
   customWidth?: any;
   setState?: any;
+  isOT?:boolean
 }
 
 // const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
@@ -230,6 +231,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     handleSelectChange,
     readOnly,
     setState,
+    isOT
   }) => {
     const [refreshToggle, setrefreshToggle] = useState(false);
     const [entities, setEntities] = useState([]);
@@ -250,6 +252,8 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
         // console.log("name", entities);
         setStrSelectedName(name);
       }
+      // console.log(strTableName)
+      // console.log(entidad[1])
       ListEntity(strTableName, entidad[1])
         .then((data: any) => {
           if (data?.name === "AxiosError") {
@@ -263,15 +267,15 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
 
     return (
       // <div className="flex min-w-[60px] w-full items-center mb-2 mx-4 mt-select mt-select-dropdown-up cursor-pointer ">
-      <div className="flex min-w-[100%]  w-full items-center  mx-4 mt-select mt-select-dropdown-up cursor-pointer">
+      <div className="flex min-w-[100%] w-full items-center  mx-4 mt-select mt-select-dropdown-up cursor-pointer">
         {/* <label className="label-input w-1/3">{label}</label> */}
         <Controller
           name={name}
           control={control}
           defaultValue={strSelectedName}
           render={({ field }) => (
-            <div className="custom-select ">
-              <div className=" top-[-18%] left-3.5 absolute w-1/2 z-10">
+            <div className={`custom-select rounded-lg border absolute${error ? 'border-red-500' : 'border-gray-500'}  `}>
+              <div className=" top-[-18%]  left-3.5 absolute w-1/2 z-10">
                 <label
                   htmlFor={label}
                   // className="absolute top-[-1%] left-[3%] text-sm"
@@ -280,7 +284,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
                   {label}
                 </label>
                 {error && (
-                  <p className="text-xs text-red-500 relative top-0 z-20  left-[30%] ">
+                  <p className="text-xs text-red-500 relative top-[-10%] z-20  left-[30%] ">
                     {error.message}
                  </p>
                 )}
@@ -293,6 +297,9 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
                 onChange={(e) => {
                   setState && setState(e.target.value);
                   field.onChange(e);
+                  if(isOT){
+                    handleSelectChange(e.target)
+                  }
                   if (setHandleSearch) {
                     const selectedValue = e.target.value.toString();
                     console.log("name", name);

@@ -12,6 +12,7 @@ interface IRadioButtonProps {
   error?: any;
   horizontal?: boolean;
   inputRef?: any;
+  onChange?: (value: any) => void;
 }
 
 const RadioButtonComponent: React.FC<IRadioButtonProps> = ({
@@ -23,11 +24,13 @@ const RadioButtonComponent: React.FC<IRadioButtonProps> = ({
   label,
   horizontal,
   inputRef,
+  onChange
 }) => {
   
+
   return (
     <div
-      className={`relative px-8 py-4 w-[92%] mt-2 mx-auto border-[0.5px] border-[dodgerblue] flex ${
+      className={`relative px-8 h-[90%] py-4 w-[90%]  mt-2 mx-auto border-[0.5px] border-[dodgerblue] flex ${
         horizontal ? "justify-arround ml-4" : "flex-col justify-between"
       } rounded-lg ${error && "border border-red-400"}`}
     >
@@ -55,17 +58,22 @@ const RadioButtonComponent: React.FC<IRadioButtonProps> = ({
                   defaultChecked={data === option}
                   //  checked={field.value === option}
                   className="mr-2 transform scale-150"
-                  onChange={(e) => field.onChange(e.target.value)}
+                  onChange={(e) => {
+                    field.onChange(e.target.value)
+                    if(onChange){
+                      onChange(e.target)
+                    }
+                  }}
                   ref       ={inputRef}
                   />
-                <p className="text-[16px]">{option}</p>
+                <p className="text-[16px] w-[68px]">{option}</p>
               </label>
             )}
           />
         </div>
       ))}
       {error && (
-        <p className="text-xs text-red-500 absolute top-[-6%] right-[40rem]">
+        <p className="text-xs text-red-500 absolute top-[-6%] right-[20%]">
           {error.message}
         </p>
       )}

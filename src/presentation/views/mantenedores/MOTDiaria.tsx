@@ -9,8 +9,11 @@ import {
   TableComponent,
 } from "../../components";
 import { useEntityUtils } from "../../hooks";
-import FUsuarios from "../forms/FUsuarios";
-import { TITLES, table_head_usuarios } from "../../utils";
+import {  TITLES, table_head_OT_diaria } from "../../utils";
+import axios from "axios";
+import useSWR from "swr";
+import { toast } from 'react-toastify';
+import FOT from "../forms/FOT";
 
 export enum EnumGrid {
   id = 1,
@@ -21,19 +24,35 @@ export enum EnumGrid {
   cargo_id = 6,
   cargo = 7,
 }
+
+export enum OptionValuesMotivo {
+  Todos = 0,
+  Venta = 1,
+  Garantia = 2
+}
+
+
+export enum OptionValuesEstado {
+  Todos = 0,
+  Entregada = 1,
+  Annulada = 2
+}
+
+
 const strEntidad = "Usuario ";
 const strEntidadExcel = "Usuarios";
-const strBaseUrl = "/api/usuarios/";
+const strBaseUrl = "/api/ot/";
 const strQuery = "01";
-const idMenu = 24;
+const idMenu = 1;
 
 type PrimaryKey = {
   pk1: number;
 };
-const MUsuarios: React.FC = () => {
+const MOTDiaria: React.FC = () => {
   const [params, setParams] = useState([]);
-  const [totalRowIndex, setTotalRowIndex] = useState([]);
-  const [shotRow, setShotRow] = useState(undefined)
+  const [entitiesOT, setEntitiesOT] = useState([]);
+  const [selectedValue, setSelectedValue] = useState('_p3=0');  
+
 
   const updateParams = (newParams: Record<string, never>) => {
     setParams(Object.keys(newParams).map((key) => newParams[key]));
@@ -63,27 +82,12 @@ const MUsuarios: React.FC = () => {
 
   // console.log("params:", params);
 
-  console.log(totalRowIndex)
-  console.log(shotRow)
-  useEffect(()=>{
-    totalRowIndex.map((row)=>{
-      console.log('render')
-      if(row === shotRow){
-        setSelectedRows((prev)=>[...prev, row])
-        console.log('selectedRows',selectedRows)
-      }
-    })
-    if( shotRow !== undefined &&!totalRowIndex.includes(shotRow)){
-      alert('no esta')
-    }
-  },[shotRow,totalRowIndex])
-  
   const pkToDelete: PrimaryKey[] = [];
 
   // console.log('pktodelete', pkToDelete)
   useEffect(() => {
     const newPkToDelete = selectedRows.map((row: number) => ({
-      pk1: entities[row][EnumGrid.id],
+      pk1: entitiesOT[row][EnumGrid.id],
     }));
     newPkToDelete.forEach((newPk: { pk1: any }) => {
       if (!pkToDelete.some((existingPk) => existingPk.pk1 === newPk.pk1)) {
@@ -92,36 +96,95 @@ const MUsuarios: React.FC = () => {
     });
   }, [selectedRows]);
 
-  const handleClick = (e:any) => {
-    console.log(e.target.value)
-    const number = parseInt(e.target.value)
-    setShotRow(number)
+
+  //SWR-POLLING
+  const fetcher = (url:string) => axios.get(url).then((res)=>res.data);
+  const {data} = useSWR(`https://mtoopticos.cl/api/otdiaria/listado/?query=01&${selectedValue}`, fetcher,{
+    refreshInterval:2000,
+  });
+
+
+
+
+  useEffect(()=>{
+    if(data && JSON.stringify(data) !== JSON.stringify(entitiesOT)){
+      toast.success('nueva OT')
+      setEntitiesOT(data)
+    }
+  },[data]);
+
+  const handleSelectedChange = (e:any) => {
+    setSelectedValue(e.target.value)
   }
  
+  // console.log('selectedValue',selectedValue)
   return (
     <div className="mantenedorContainer">
-      <h1 className="mantenedorH1">Usuarios</h1>
-    <input type="text" onChange={(e)=>handleClick(e)}></input>
-      <div className="mantenedorHead width70 items-center">
+      <h1 className="mantenedorH1">Órdenes de trabajo</h1>
+
+      <div className="mantenedorHead width100 items-center">
+        <select  
+          className="bg-green-300"
+          onChange={handleSelectedChange}
+          value={selectedValue}
+        >
+          <option value="_p3=0">Todos</option>
+          <option value="_p3=10">Adquisiciones</option>
+          <option value="_p3=20">Calculo</option>
+          <option value="_p3=30">Laboratorio</option>
+          <option value="_p3=40">Proyectos</option>
+          <option value="_p3=50">Venta</option>
+          <option value="_p3=60">Bodega Insumos</option>
+          <option value="_p3=70">Taller de corte</option>
+          <option value="_p3=80">Taller de montaje</option>
+          <option value="_p3=90">Bodega produccion terminados</option>
+          <option value="_p3=100">Empaque</option>
+        </select>
+
         <PrimaryKeySearch
           baseUrl={strBaseUrl}
           setParams={setParams}
           updateParams={updateParams}
           setEntities={setEntities}
           primaryKeyInputs={[
-            { name: "_p1", label: "Nombre", type: "text" },
-            {
-              name: "_p2",
-              label: "Cargos",
-              type: "select",
-              selectUrl: "/api/cargos/",
-            },
+            // { name: "_p1", label: "Folio", type: "text" },
+            // { name: "_p2", label: "Rut", type: "text" },
+            // { name: "_p3", label: "Nombre", type: "text" },
+            // { name: "_p4", label: "Desde", type: "date" },
+            // { name: "_p5", label: "Hasta", type: "date" },
             // {
-            //   name      : "_p3",
-            //   label     : "Tipo Insumos",
-            //   type      : "select",
-            //   selectUrl : "/api/tipos/",
-            //   tipos     : "TipoInsumos"
+            //   name: "_p6",
+            //   label: "Cargos",
+            //   type: "select",
+            //   selectUrl: "/api/cargos/",
+            // },
+            // {
+            //   name: "_p6",
+            //   label: "Cargos",
+            //   type: "select",
+            //   selectUrl: "/api/cargos/",
+            // },
+            // {
+            //   name: "_p3",
+            //   label: "Motivo",
+            //   type: "radiobuttons",
+            //   options: [
+            //     MOTIVO_OT.todos,
+            //     MOTIVO_OT.venta,
+            //     MOTIVO_OT.garantia,
+            //   ],
+            //   values: OptionValuesMotivo,
+            // },
+            // {
+            //   name: "_p3",
+            //   label: "Estado",
+            //   type: "radiobuttons",
+            //   options: [
+            //     ESTADO_OT.todos,
+            //     ESTADO_OT.entregada,
+            //     ESTADO_OT.anulada,
+            //   ],
+            //   values: OptionValuesMotivo,
             // },
           ]}
         />
@@ -153,17 +216,17 @@ const MUsuarios: React.FC = () => {
           pkToDelete={pkToDelete}
           setSelectedRows={setSelectedRows}
           entidad={strEntidad}
-          data={entities}
-          tableHead={table_head_usuarios}
+          data={entitiesOT}
+          tableHead={table_head_OT_diaria}
           showEditButton={true}
           showDeleteButton={false}
           idMenu={idMenu}
-          setTotalRowIndex={setTotalRowIndex}
+          isOT={true}
         />
       </div>
 
       {isModalInsert && (
-        <FUsuarios
+        <FOT
           label={`${TITLES.ingreso} ${strEntidad}`}
           closeModal={closeModal}
           selectedRows={selectedRows}
@@ -174,7 +237,7 @@ const MUsuarios: React.FC = () => {
       )}
 
       {isModalEdit && (
-        <FUsuarios
+        <FOT
           label={`${TITLES.edicion} ${strEntidad}`}
           selectedRows={selectedRows}
           setEntities={setEntities}
@@ -188,4 +251,4 @@ const MUsuarios: React.FC = () => {
   );
 };
 
-export default MUsuarios;
+export default MOTDiaria;

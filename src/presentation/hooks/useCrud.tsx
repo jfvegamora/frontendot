@@ -175,6 +175,7 @@ const useCrud = (
     primaryKeys: any,
     query: any
   ): Promise<any | undefined> => {
+    console.log(primaryKeys)
     const searchUrl = `${baseUrl}listado/?query=${query}&${primaryKeys}`;
     try {
       // console.log("searchUrl", searchUrl);

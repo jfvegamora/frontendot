@@ -78,9 +78,14 @@ export function validateExcelData(data:any, validationStructure:any) {
   return validationErrors;
 }
 
+export interface ExcelUploadResult {
+  blob?: Blob;
+  numberOfElements?: number;
+  errors?:any
+}
 
 export const handleFileUpload = (file: File,columnsToDelete:string[]) => {
-  return new Promise<Blob>((resolve, reject) => {
+  return new Promise<ExcelUploadResult>((resolve, reject) => {
     const reader = new FileReader();
     const errors:any = []
 
@@ -103,10 +108,11 @@ export const handleFileUpload = (file: File,columnsToDelete:string[]) => {
         const validationErrors = validateExcelData(filteredRows, columnsToDelete)
 
         if (validationErrors.length > 0) {
-          console.error('Validation errors:', validationErrors);
-          // reject('Validation errors occurred.', validationErrors);
           errors.push(validationErrors)
-          return errors
+          const logs = validationErrors.map(error => {
+            return ["", "", error]
+          })
+          resolve({errors: logs})
         }
 
 
@@ -119,7 +125,14 @@ export const handleFileUpload = (file: File,columnsToDelete:string[]) => {
           type: 'application/vnd.ms-excel',
         });
 
-        resolve(modifiedBlob)
+        
+        const numberOfColumns = Object.keys(firstElement).length;
+
+        const numberOfElements = filteredRows.length * numberOfColumns
+
+
+        // resolve(modifiedBlob)
+        resolve({blob:modifiedBlob, numberOfElements})
         
       }
     };
