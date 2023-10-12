@@ -1,73 +1,33 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect } from "react";
-import { RadioButtonComponent, SelectInputComponent } from "../../components";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { validationPermisosSchema } from "../../utils/validationFormSchemas";
-import { EnumGrid } from "../mantenedores/MPermisos";
-import { ERROR_MESSAGES, MODAL, SUCCESS_MESSAGES, TITLES } from "../../utils";
+
+import {
+  ERROR_MESSAGES,
+  MODAL,
+  SUCCESS_MESSAGES,
+  validationSituacionesSchema,
+} from "../../utils";
+import { TextInputComponent } from "../../components";
 import { useCrud } from "../../hooks";
+import { EnumGrid } from "../mantenedores/MSituaciones";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
 
-const strBaseUrl = "/api/permisos/";
-const strEntidad = "Perfil ";
+const strBaseUrl = "/api/otsituaciones/";
+const strEntidad = "Situaciones ";
+// const strQuery = "01";
 
-export interface InputData {
-  usuario: string | undefined;
-  funcionalidad: string | undefined;
-  permiso: string | undefined;
+export interface ISituacionesInputData {
+  descripcion: string | undefined;
+  area:   number | undefined;
 }
 
-interface OutputData {
-  query: string;
-  _p1: string;
-  _p2?: string;
-  _p3?: string;
-}
-
-export function transformInsertQuery(jsonData: InputData): OutputData | null {
-  // if (jsonData.password !== jsonData.password2) {
-  //   alert(ERROR_MESSAGES.passwordNotMatch);
-  // }
-
-  const _p1 = `${jsonData.usuario}, ${jsonData.funcionalidad}, ${
-    jsonData.permiso === "Lectura" ? 1 : 2
-  }`;
-
-  const query: OutputData = {
-    query: "03",
-    _p1: _p1,
-  };
-
-  return query;
-}
-
-export function transformUpdateQuery(jsonData: InputData): OutputData | null {
-  const fields = [`permiso=${jsonData.permiso === "Lectura" ? 1 : 2}`];
-
-  const filteredFields = fields.filter(
-    (field) => field !== null && field !== ""
-  );
-
-  if (filteredFields.length === 0) {
-    return null;
-  }
-  const _p1 = filteredFields.join(",");
-
-  return {
-    query: "04",
-    _p1,
-    _p2: jsonData.usuario,
-    _p3: jsonData.funcionalidad,
-  };
-}
-
-interface IFormPrps {
+interface ISituacionesFormProps {
   closeModal: () => void;
   data?: any[];
   label: string;
@@ -77,10 +37,43 @@ interface IFormPrps {
   params?: any;
 }
 
-const FPermisos: React.FC<IFormPrps> = React.memo(
-  ({ closeModal, setEntities, params, label, data, isEditting }) => {
-    const schema = validationPermisosSchema();
+interface OutputData {
+  query: string;
+  _p1: string;
+}
+
+const transformInsertQuery = (
+  jsonData: ISituacionesInputData
+): OutputData | null => {
+  const _p1 = `'${jsonData.descripcion}', ${jsonData.area} `;
+  const query: OutputData = {
+    query: "03",
+    _p1: _p1,
+  };
+  console.log("insert:", query);
+  return query;
+};
+
+const transformUpdateQuery = (
+  jsonData: ISituacionesInputData,
+  primaryKey: string
+): OutputData | null => {
+  const _p1 = `descripcion='${jsonData.descripcion}', area=${jsonData.area}`;
+
+  const query = {
+    query: "04",
+    _p1,
+    _p2: primaryKey,
+  };
+
+  return query;
+};
+
+const FSituaciones: React.FC<ISituacionesFormProps> = React.memo(
+  ({ closeModal, setEntities, params, data, label, isEditting }) => {
+    const schema = validationSituacionesSchema();
     const { showModal, CustomModal } = useModal();
+
     const { show } = useCustomToast();
 
     const {
@@ -91,14 +84,28 @@ const FPermisos: React.FC<IFormPrps> = React.memo(
       firstInputRef,
     } = useCrud(strBaseUrl);
     const [blnKeep, setblnKeep] = useState(false);
+    const intId = data && data[EnumGrid.ID];
 
     const {
       control,
       handleSubmit,
       formState: { errors },
+      setValue,
     } = useForm({
       resolver: yupResolver(schema),
     });
+
+    const resetTextFields = React.useCallback(() => {
+      setValue("descripcion", "");
+      if (firstInputRef.current) {
+        const firstInput = firstInputRef.current.querySelector(
+          'input[name="nombre"]'
+        );
+        if (firstInput) {
+          firstInput.focus();
+        }
+      }
+    }, [setValue, firstInputRef]);
 
     const updateNewEntity = React.useCallback(async () => {
       const newEntityData = await ListEntity(params, "01");
@@ -129,21 +136,23 @@ const FPermisos: React.FC<IFormPrps> = React.memo(
             type: "error",
           });
         }
-        if (!blnKeep && !isEditting && !errorResponse) {
+        if (!blnKeep && !isEditting) {
           // const result = window.confirm("¿Quieres continuar ingresando?");
           const result = await showModal(
             MODAL.keep,
             MODAL.keepYes,
             MODAL.kepNo
           );
+
           if (result) {
             setblnKeep(true);
-            // resetTextFields();
+            resetTextFields();
             updateNewEntity();
           } else {
             closeModal();
             updateNewEntity();
           }
+
           toastSuccess(isEditting);
         }
         if (isEditting) {
@@ -152,17 +161,18 @@ const FPermisos: React.FC<IFormPrps> = React.memo(
           toastSuccess(isEditting);
         }
 
-        // resetTextFields();
+        resetTextFields();
         updateNewEntity();
       },
-      [closeModal, blnKeep, updateNewEntity, showModal]
+      [closeModal, blnKeep, resetTextFields, updateNewEntity, showModal]
     );
 
     const handleSaveChange = React.useCallback(
-      async (data: InputData, isEditting: boolean) => {
+      async (data: ISituacionesInputData, isEditting: boolean) => {
         try {
+          console.log("isEdditing:", isEditting);
           const transformedData = isEditting
-            ? transformUpdateQuery(data)
+            ? transformUpdateQuery(data, intId.toString())
             : transformInsertQuery(data);
 
           const response = isEditting
@@ -170,19 +180,18 @@ const FPermisos: React.FC<IFormPrps> = React.memo(
             : await createdEntity(transformedData);
           handleApiResponse(response, isEditting);
         } catch (error: any) {
-          console.log("error form:", error);
+          console.log("error cargos form:", error);
           show({
             message: error,
             type: "error",
           });
         }
       },
-      [editEntity, createdEntity, handleApiResponse]
+      [editEntity, createdEntity, handleApiResponse, intId]
     );
-
     useEffect(() => {
-      focusFirstInput("usuario");
-    }, []);
+      focusFirstInput("nombre");
+    }, [focusFirstInput]);
 
     useEffect(() => {
       const handleKeyDown = (event: KeyboardEvent) => {
@@ -197,9 +206,8 @@ const FPermisos: React.FC<IFormPrps> = React.memo(
         window.removeEventListener("keydown", handleKeyDown);
       };
     }, [closeModal]);
-    console.log("data", data);
     return (
-      <div className="useFormContainer top-[15%] left-[35%] w-[28%]  z-10">
+      <div className="useFormContainer">
         <div className="userFormBtnCloseContainer">
           <button onClick={closeModal} className="userFormBtnClose">
             X
@@ -211,55 +219,29 @@ const FPermisos: React.FC<IFormPrps> = React.memo(
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))}
           className="userFormulario"
         >
-          <div className="userFormularioContainer">
-            <div className="w-full   items-center" >
-              <div className="w-full  py-2 h-1/2 items-center ">
-                <SelectInputComponent
-                  label="Usuario"
-                  name="usuario"
-                  showRefresh={true}
-                  data={data && data[EnumGrid.usuario_id]}
-                  control={control}
-                  entidad={["/api/usuarios/", "02"]}
-                  error={errors.usuario}
-                  readOnly={isEditting}
-                  customWidth={"345px"}
-                />
-              </div>
-              <div className="w-full  py-2 items-center ">
-                <SelectInputComponent
-                  label="Funcionalidad"
-                  name="funcionalidad"
-                  showRefresh={true}
-                  data={data && data[EnumGrid.funcionalidad_id]}
-                  control={control}
-                  entidad={["/api/funcionalidades/", "02"]}
-                  error={errors.funcionalidad}
-                  inputRef={firstInputRef}
-                  readOnly={isEditting}
-                  customWidth={"345px"}
-                />
-              </div>
-              <div className="py-2 px-4 w-full">
-                  <RadioButtonComponent
-                    control={control}
-                    label="Permiso"
-                    name="permiso"
-                    data={data && data[EnumGrid.permiso]}
-                    options={["Lectura", "Lectura/Escritura"]}
-                    error={errors.permiso}
-                  />
-              </div>
-            </div>
-
-            {/* <TextInputComponent/> */}
+          <div className="userFormularioCont">
+            <TextInputComponent
+              type="text"
+              label="Descripcion"
+              name="descripcion"
+              data={data && data[EnumGrid.descripcion]}
+              control={control}
+              error={errors.descripcion}
+              inputRef={firstInputRef}
+            />
+            <TextInputComponent
+              type="number"
+              label="area"
+              name="area"
+              data={data && data[EnumGrid.area_id]}
+              control={control}
+              error={errors.area}
+            //   inputRef={firstInputRef}
+            />
           </div>
-
-          <div className="w-full px-4">
-            <button type="submit" className="userFormBtnSubmit">
-              {`${TITLES.guardar}`}
-            </button>
-          </div>
+          <button type="submit" className="userFormBtnSubmit">
+            Guardar
+          </button>
         </form>
         <CustomModal />
       </div>
@@ -267,4 +249,4 @@ const FPermisos: React.FC<IFormPrps> = React.memo(
   }
 );
 
-export default FPermisos;
+export default FSituaciones;

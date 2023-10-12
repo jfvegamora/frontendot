@@ -26,6 +26,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { AppStore, useAppDispatch, useAppSelector } from "../../redux/store";
 import { logout } from "../../redux/slices/userSlice";
+import { Link } from "react-router-dom";
 
 // profile menu component
 
@@ -143,6 +144,11 @@ const navListMenuOT = [
     link: "/puntosventa",
     id: 4,
   },
+  {
+    title: "Situaciones",
+    link: "/situaciones",
+    id: 30,
+  },
 ];
 
 const navListMenuBodega = [
@@ -251,6 +257,11 @@ const navListMenuSistema = [
     title: "Permisos de Usuario",
     link: "/permisos",
     id: 26,
+  },
+  {
+    title: "Permisos de Area",
+    link: "/permisosareas",
+    id: 29,
   },
   {
     title: "Perfiles de Cargo",
@@ -785,11 +796,11 @@ export default function ComplexNavbar() {
         <Navbar className=" mt-2 mx-auto max-w-screen-xl p-2 lg:rounded-full lg:pl-6 navBarBorder">
           <div className="relative mx-auto flex items-center text-blue-gray-900">
             <Typography
-              as="a"
-              href="#"
+              
+              
               className="mr-4 ml-2 cursor-pointer py-1.5 font-medium"
             >
-              Sistema Gestión OT
+              <Link to="/otdiaria">Sistema Gestión OT</Link>
             </Typography>
             <div className="absolute top-2/4 left-2/4 hidden -translate-x-2/4 -translate-y-2/4 lg:block">
               <NavList />

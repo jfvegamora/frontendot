@@ -33,8 +33,10 @@ export enum EnumGrid {
   cilindrico = 18,
   tot_ingresos=19,
   tot_egresos=20,
-  stock_actual=21,
-  stock_minimo = 22,
+  tot_=21,
+  stock_minimo=22,
+  stock_reservado = 23,
+  stock_disponible = 24,
 }
 
 const strEntidad = "Cristal ";
@@ -73,7 +75,11 @@ const MCristales: React.FC = () => {
     handleDeleteSelected,
     resetEntities,
   } = useEntityUtils(strBaseUrl, strQuery);
-  // console.log("entities:", entities);
+  if(entities){
+    console.log("entities:", entity);
+    // console.log("entities:", entities[0]);
+
+  }
 
   // console.log("params:", params);
 
@@ -240,6 +246,7 @@ const MCristales: React.FC = () => {
           isEditting={true}
         />
       )}
+
     </div>
   );
 };

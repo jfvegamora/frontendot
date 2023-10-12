@@ -132,8 +132,8 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
           key={groupIndex}
           className={
             primaryKeyInputs.length > 5
-              ? `grid grid-rows-3 w-[40vw] grid-cols-2  items-center`
-              : "flex mb-auto items-center ml-[-2rem] "
+              ? `grid grid-rows-3 w-[40vw] h-[40vh] grid-cols-2  items-center`
+              : "flex mb-auto items-center  ml-[-2rem] "
           }
         >
           {group.map((input, inputIndex) => (
@@ -143,9 +143,9 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
               control={control}
               defaultValue=""
               render={({ field }) => (
-                <div className="w-full flex items-cente">
+                <div className="w-full flex items-center">
                   {input.type === "select" ? (
-                    <div className={`mt-4 mb-2 w-[14rem]`}>
+                    <div className={`mt-2 mx-2 items-center mb-2 w-[14rem]`}>
                       <SelectInputComponent
                         label={input.label}
                         name={input.name}
@@ -164,7 +164,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                       />
                     </div>
                   ) : input.type === "radiobuttons" ? (
-                    <div className="relative px-8 py-4 w-[92%] mt-2 mx-auto border-[0.5px] border-[dodgerblue] rounded-md flex">
+                    <div className="relative px-8 items-center py-4 w-[92%]  mt-2 mx-auto border-[0.5px] border-[dodgerblue] rounded-md flex">
                       <label className="absolute text-sm top-[-10px] left-4 bg-[ghostwhite] w-[6rem]">
                         <span className="ml-[20px] text-[16px]">
                           {input.label}
@@ -190,11 +190,11 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                       </div>
                     </div>
                   ) : input.type === "date" ? (
-                    <div className="mx-2 items-center relative mt-2">
-                      <label className="primaryKeyLabel text-xs mt-1 absolute top-[-1rem]">{input.label}</label>
+                    <div className="ml-6 w-full mx-2 items-center relative mt-2">
+                      <label className="primaryKeyLabel items-center text-xs mt-1 absolute top-[-1rem]">{input.label}</label>
                       <input
                         type="date"
-                        className="h-[2.5rem]"
+                        className="h-[2.5rem] w-full border border-black rounded"
                         {...field}
                         value={field.value || ""}
                         onChange={(e) => {
@@ -204,7 +204,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                       />
                     </div>
                   ) : (
-                    <div className="w-full mx-2 items-center">
+                    <div className="w-full mx-4 items-center">
                       <Input
                         color="orange"
                         className=""
@@ -263,7 +263,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
         <Tooltip content="Buscar">
           <IconButton
             variant="text"
-            className="primaryKeyIconButton"
+            className="primaryKeyIconButton items-center ml-6"
             type="submit"
             onClick={handleSubmit(handleSearch)}
           >

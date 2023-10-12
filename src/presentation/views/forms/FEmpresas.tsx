@@ -243,7 +243,7 @@ const FEmpresas: React.FC<IUserFormPrps> = React.memo(
     }, []);
 
     return (
-      <div className="useFormContainer useFormContainer40rem">
+      <div className="useFormContainer useFormContainer40rem top-[15%] left-[35%] w-[28%]  z-10">
         <div className="userFormBtnCloseContainer">
           <button onClick={closeModal} className="userFormBtnClose">
             X

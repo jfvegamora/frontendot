@@ -142,6 +142,7 @@ const MPermisos: React.FC = () => {
           idMenu={idMenu}
         />
       </div>
+     
 
       {isModalInsert && (
         <FPermisos

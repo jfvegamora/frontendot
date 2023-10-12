@@ -1,9 +1,11 @@
 import {lazy}             from 'react';
 
-// const MOT                   = lazy(()=>import("../presentation/views/mantenedores/MOT"));
+const MOTDiaria             = lazy(()=>import("../presentation/views/mantenedores/MOTDiaria"));
+const MOT                   = lazy(()=>import("../presentation/views/mantenedores/MOT"));
 const MClientes             = lazy(()=>import("../presentation/views/mantenedores/MClientes"));
 const MEstablecimientos     = lazy(()=>import("../presentation/views/mantenedores/MEstablecimientos"));
 const MPuntosVenta          = lazy(()=>import("../presentation/views/mantenedores/MPuntosVenta"));
+const MSituaciones          = lazy(()=>import("../presentation/views/mantenedores/MSituaciones"));
 
 const MArmazones            = lazy(()=>import("../presentation/views/mantenedores/MArmazones"));
 const MArmazonesKardex      = lazy(()=>import("../presentation/views/mantenedores/MArmazonesKardex"));
@@ -13,7 +15,7 @@ const MAccesorios           = lazy(()=>import("../presentation/views/mantenedore
 const MAccesoriosKardex     = lazy(()=>import("../presentation/views/mantenedores/MAccesoriosKardex"));
 const MAlmacenes            = lazy(()=>import("../presentation/views/mantenedores/MAlmacenes"));
 const MMarcas               = lazy(()=>import("../presentation/views/mantenedores/MMarcas"));
-const MProveedores          = lazy(() =>import("../presentation/views/mantenedores/MProveedores"));
+const MProveedores          = lazy(()=>import("../presentation/views/mantenedores/MProveedores"));
 
 const MMandantes            = lazy(()=>import("../presentation/views/mantenedores/MMandantes"));
 const MProyectos            = lazy(()=>import("../presentation/views/mantenedores/MProyectos"));
@@ -27,9 +29,10 @@ const MOftalmologos         = lazy(()=>import("../presentation/views/mantenedore
 
 const MCargos               = lazy(()=>import("../presentation/views/mantenedores/MCargos"));
 const MFuncionalidades      = lazy(()=>import("../presentation/views/mantenedores/MFuncionalidades"));
+const MPermisos             = lazy(()=>import("../presentation/views/mantenedores/MPermisos"));
+const MPermisosAreas        = lazy(()=>import("../presentation/views/mantenedores/MPermisosArea"));
 const MUsuarios             = lazy(()=>import("../presentation/views/mantenedores/MUsuarios")); 
 const MPerfiles             = lazy(()=>import("../presentation/views/mantenedores/MPerfiles"));
-const MPermisos             = lazy(()=>import("../presentation/views/mantenedores/MPermisos"));
 const MEmpresas             = lazy(()=>import("../presentation/views/mantenedores/MEmpresas"));
 
 export const PublicRoutes = {
@@ -47,9 +50,11 @@ export const PrivateRoutes = {
 
   //MENU OT
   OT                    : "ot",
+  OTDIARIA              : "otdiaria",
   CLIENTES              : "clientes",
   ESTABLECIMIENTOS      : "establecimientos",
   PUNTOS_VENTA          : "puntosventa",
+  SITUACIONES           : "situaciones",
 
   //BODEGA
   ARMAZONES             : "armazones",
@@ -78,18 +83,25 @@ export const PrivateRoutes = {
   USUARIOS              : "usuarios",
   PERFILES              : "perfiles",
   PERMISOS              : "permisos",
+  PERMISOS_AREAS        : "permisosareas",
   EMPRESAS              : "empresas",
 };
 
 export const privateRoutes = [
 
-  //MENU OT
-  // {
-  //   id                  : "1",
-  //   path                : PrivateRoutes.OT,
-  //   component           : MOT,
-  //   requiredPermissions : ['view_' + PrivateRoutes.OT]
-  // },
+  // MENU OT
+  {
+    id                  : "1",
+    path                : PrivateRoutes.OT,
+    component           : MOT,
+    requiredPermissions : ['view_' + PrivateRoutes.OT]
+  },
+  {
+    id                  : "30",
+    path                : PrivateRoutes.OTDIARIA,
+    component           : MOTDiaria,
+    requiredPermissions : ['view_' + PrivateRoutes.OT]
+  },
   {
     id                  : "2",
     path                : PrivateRoutes.CLIENTES,
@@ -107,6 +119,12 @@ export const privateRoutes = [
     path                : PrivateRoutes.PUNTOS_VENTA,
     component           : MPuntosVenta,
     requiredPermissions : ['view_' + PrivateRoutes.PUNTOS_VENTA]
+  },
+  {
+    id                  : "30",
+    path                : PrivateRoutes.SITUACIONES,
+    component           : MSituaciones,
+    requiredPermissions : ['view_' + PrivateRoutes.SITUACIONES]
   },
 
   //BODEGA
@@ -247,6 +265,7 @@ export const privateRoutes = [
     component: MAlmacenes,
     requiredPermissions: ["view_cristales_kardex"],
   },
+
   //MENU DE SISTEMA
   {
     id                  : "22",
@@ -276,6 +295,12 @@ export const privateRoutes = [
     id                  : "26",
     path                : PrivateRoutes.PERMISOS,
     component           : MPermisos,
+    requiredPermissions : ['view_' + PrivateRoutes.PERMISOS]
+  },
+  {
+    id                  : "29",
+    path                : PrivateRoutes.PERMISOS_AREAS,
+    component           : MPermisosAreas,
     requiredPermissions : ['view_' + PrivateRoutes.PERMISOS]
   },
   {

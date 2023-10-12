@@ -11,6 +11,7 @@ import {
 import { useEntityUtils } from "../../hooks";
 import FClientes from "../forms/FClientes";
 import { TITLES, table_head_clientes, TIPO_CLIENTE } from "../../utils";
+import FOT from "../forms/FOT";
 
 
 export enum EnumGrid {
@@ -38,6 +39,8 @@ export enum OptionValues {
   Particular = 2,
   Óptica = 3,
 }
+
+
 
 const strEntidad = "Cliente ";
 const strEntidadExcel = "Clientes";
@@ -93,6 +96,7 @@ const MClientes: React.FC = () => {
 
   return (
     <div className="mantenedorContainer">
+      
       <h1 className="mantenedorH1">Clientes</h1>
 
       <div className="mantenedorHead width90 items-center">    
@@ -182,8 +186,8 @@ const MClientes: React.FC = () => {
           isEditting={true}
         />
       )}
-    
-      {/* <ModalImpor/> */}
+  
+     
     
     </div>
   );

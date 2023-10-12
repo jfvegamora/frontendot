@@ -256,7 +256,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
     }, []);
 
     return (
-      <div className="useFormContainer useFormContainer3">
+      <div className="useFormContainer w-[60%] top-[18%] left-[16%] ">
         <div className="userFormBtnCloseContainer">
           <button onClick={closeModal} className="userFormBtnClose">
             X
@@ -273,45 +273,47 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
           //   }
           // }}
           className="userFormulario">
-          <div className="userFormularioContainer">
-            <div className="w-full">
-              <TextInputComponent
-                type="number"
-                label="Código"
-                name="codigo"
-                data={data && data[EnumGrid.codigo]}
-                control={control}
-                error={errors.codigo}
-                inputRef={firstInputRef}
-                onlyRead={isEditting}
-              />
-            </div>
-            <div className="w-full">
-              <SelectInputComponent
-                label="Tipo"
-                name="tipo"
-                showRefresh={true}
-                data={data && data[EnumGrid.armazon_tipo_id]}
-                control={control}
-                entidad={["/api/tipos/", "02", "ArmazonesTipos"]}
-                error={errors.tipo}
-                // customWidth={"345px"}
-                inputRef={secondInputRef}
-              />
-            </div>
-            <div className="w-full">
-              <SelectInputComponent
-                label="Material"
-                name="material"
-                showRefresh={true}
-                data={data && data[EnumGrid.armazon_material_id]}
-                control={control}
-                entidad={["/api/tipos/", "02", "ArmazonesMaterial"]}
-                error={errors.material}
-                // customWidth={"345px"}
-              />
-            </div>
-            <div className="w-full">
+          <div className=" items center">
+
+            <div className="w-full  flex items-center">
+              <div className="w-[22%]">
+                <TextInputComponent
+                  type="number"
+                  label="Código"
+                  name="codigo"
+                  data={data && data[EnumGrid.codigo]}
+                  control={control}
+                  error={errors.codigo}
+                  inputRef={firstInputRef}
+                  onlyRead={isEditting}
+                />
+              </div>
+              <div className="w-[26%]">
+                <SelectInputComponent
+                  label="Tipo"
+                  name="tipo"
+                  showRefresh={true}
+                  data={data && data[EnumGrid.armazon_tipo_id]}
+                  control={control}
+                  entidad={["/api/tipos/", "02", "ArmazonesTipos"]}
+                  error={errors.tipo}
+                  // customWidth={"345px"}
+                  inputRef={secondInputRef}
+                />
+              </div>
+              <div className="w-[24%]">
+                <SelectInputComponent
+                  label="Material"
+                  name="material"
+                  showRefresh={true}
+                  data={data && data[EnumGrid.armazon_material_id]}
+                  control={control}
+                  entidad={["/api/tipos/", "02", "ArmazonesMaterial"]}
+                  error={errors.material}
+                  // customWidth={"345px"}
+                />
+              </div>
+              <div className="w-[26%]">
                 <SelectInputComponent
                   label="Marca"
                   name="marca"
@@ -322,78 +324,122 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                   error={errors.marca}
                   // customWidth={"345px"}
                 />
+              </div>
             </div>
-            <div className="userFormularioRow">
-              <TextInputComponent
-                type="text"
-                label="Modelo"
-                name="modelo"
-                data={data && data[EnumGrid.modelo]}
-                control={control}
-                error={errors.modelo}
-              />
-              <TextInputComponent
-                type="text"
-                label="Color"
-                name="color"
-                data={data && data[EnumGrid.color]}
-                control={control}
-                error={errors.color}
-              />
-            </div>
-            <div className="userFormularioRow">
-              <TextInputComponent
-                type="number"
-                label="Aro"
-                name="aro"
-                data={data && data[EnumGrid.aro]}
-                control={control}
-                error={errors.aro}
-              />
-              <TextInputComponent
-                type="number"
-                label="Puente"
-                name="puente"
-                data={data && data[EnumGrid.puente]}
-                control={control}
-                error={errors.puente}
-              />
-              <TextInputComponent
-                type="number"
-                label="Brazo"
-                name="brazo"
-                data={data && data[EnumGrid.brazo]}
-                control={control}
-                error={errors.brazo}
-              />
-              <TextInputComponent
-                type="number"
-                label="Diagonal"
-                name="diagonal"
-                data={data && data[EnumGrid.diagonal]}
-                control={control}
-                error={errors.diagonal}
-              />
-            </div>
-            <div className="userFormularioRow">
-                <SelectInputComponent
-                  label="Uso"
-                  name="uso"
-                  showRefresh={true}
-                  data={data && data[EnumGrid.armazon_uso_id]}
+            
+            <div className="w-full  flex items-center">
+
+              <div className="w-[22%]">
+                <TextInputComponent
+                  type="text"
+                  label="Modelo"
+                  name="modelo"
+                  data={data && data[EnumGrid.modelo]}
                   control={control}
-                  entidad={["/api/tipos/", "02", "ArmazonesUsos"]}
-                  error={errors.uso}
-                  // customWidth={"345px"}
+                  error={errors.modelo}
                 />
+              </div>
+
+              <div className="w-[20%]">
+                <TextInputComponent
+                  type="text"
+                  label="Color"
+                  name="color"
+                  data={data && data[EnumGrid.color]}
+                  control={control}
+                  error={errors.color}
+                />
+              </div>
+              <div className="w-[15%]">
                 <TextInputComponent
                   type="number"
-                  label="Stock Mínimo"
-                  name="stock_minimo"
-                  data={data && data[EnumGrid.stock_minimo]}
+                  label="Aro"
+                  name="aro"
+                  data={data && data[EnumGrid.aro]}
                   control={control}
-                  error={errors.stock_minimo}
+                  error={errors.aro}
                 />
+              </div>
+              <div className="w-[15%]">
+                <TextInputComponent
+                  type="number"
+                  label="Puente"
+                  name="puente"
+                  data={data && data[EnumGrid.puente]}
+                  control={control}
+                  error={errors.puente}
+                />
+              </div>
+              <div className="w-[15%]">
+                <TextInputComponent
+                  type="number"
+                  label="Diagonal"
+                  name="diagonal"
+                  data={data && data[EnumGrid.diagonal]}
+                  control={control}
+                  error={errors.diagonal}
+                />
+              </div>
+              <div className="w-[15%]">
+                <TextInputComponent
+                  type="number"
+                  label="Brazo"
+                  name="brazo"
+                  data={data && data[EnumGrid.brazo]}
+                  control={control}
+                  error={errors.brazo}
+                />
+              </div>
+              
+            </div>
+
+
+            <div className="w-full flex items-center ">
+                <div className="w-[41.5%]">
+                  <SelectInputComponent
+                        label="Uso"
+                        name="uso"
+                        showRefresh={true}
+                        data={data && data[EnumGrid.armazon_uso_id]}
+                        control={control}
+                        entidad={["/api/tipos/", "02", "ArmazonesUsos"]}
+                        error={errors.uso}
+                        // customWidth={"345px"}
+                    />
+                </div>
+
+                <div className="w-[20%]">
+                    <TextInputComponent
+                      type="number"
+                      label="Stock Mínimo"
+                      name="stock_minimo"
+                      data={data && data[EnumGrid.stock_minimo]}
+                      control={control}
+                      error={errors.stock_minimo}
+                    />
+                </div>
+                <div className="w-[20%]">
+                    <TextInputComponent
+                      type="number"
+                      label="Stock Reservado"
+                      name="stock_resrvado"
+                      data={data && data[EnumGrid.stock_resrvado]}
+                      control={control}
+                      error={errors.stock_minimo}
+                      onlyRead={true}
+                    />
+                </div>
+                <div className="w-[20%]">
+                    <TextInputComponent
+                      type="number"
+                      label="Stock Disponible"
+                      name="stock_disponible"
+                      onlyRead={true}
+                      data={data && data[EnumGrid.stock_disponible]}
+                      control={control}
+                      error={errors.stock_minimo}
+                    />
+                </div>
             </div>
           </div>
 

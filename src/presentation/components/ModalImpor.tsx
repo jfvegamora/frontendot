@@ -1,36 +1,55 @@
-import React,{useState, useEffect} from 'react';
+import React from 'react';
 import { Progress } from "@material-tailwind/react";
 import { TableComponent } from '.';
-import { table_head_cargos } from '../utils';
+import { table_head_errors } from '../utils';
 
-const logs = [
-    ['2', "log2", "Error en la fila 1, campo nombre "],
-    ['2', "log2", "Error en la fila 1, campo nombre "],
-    ['2', "log2", "Error en la fila 1, campo nombre "]
-]
 
 interface ModalImportProps {
     titleState: any;
     progress: any;
     onClose: any;
+    errors:any
   }
 const ModalImpor:React.FC<ModalImportProps> = ({
     titleState,
     progress,
-    onClose
+    onClose,
+    errors
 }) => {
 
-    // console.log('titleState', titleState)
+    console.log('errors', errors)
+    let transformedErrors:any[] = [];
+    if(errors){
+        transformedErrors = errors.map((error:any)=>{
+            let b = error[2]
+            
+            if(error[2].includes('Duplicate')){
+                let primaryKey = error[2].match(/'([\d-]+)'/)
+                b="Ya existe registro con el rut: " + primaryKey[0]
+            }
+
+            if(error[2].includes("truncated")){
+                const column = b.match(/column '([^']+)'/)[1]
+                const row = b.match(/row (\d+)/)[1]
+
+                    b = 'No corresponde el ID del registro de la columna:' + " " + column + ", " + "en la fila:" + " " + row;
+            
+            }
+            return ["","",b]
+        })
+    }
+
+    console.log(transformedErrors)
 
    return (
     <div className='w-[90%] border border-black mx-auto h-[80%] left-20 z-20 bg-white absolute top-[10%] '>
             <div className='h-[60vh]'>
-                <h1 className='absolute right-0 text-5xl' onClick={()=>onClose(false)}>X</h1>
+                <h1 className='absolute right-0 text-5xl' onClick={()=>onClose()}>X</h1>
                 <h1 className='text-xl text-center'>{titleState}</h1>
 
-                <div className="w-1/2 mx-auto my-10">
+                <div className="w-[70%] mx-auto my-12 p-4">
                     <Progress 
-                    value={progress} 
+                    value={Math.floor(progress)} 
                     label="Completed" 
                     color="green"
                     size="lg"
@@ -39,14 +58,13 @@ const ModalImpor:React.FC<ModalImportProps> = ({
 
                 </div>
 
-            <div className='bg-blue-500 mt-[15rem] h-[30vh]'>
-                    {titleState === "Confirmacion" && (
+            <div className=' mt-[7rem] h-[45vh] overflow-y-auto'>
+                    {titleState === "Errores" && (
                         <TableComponent
                         idMenu={26}
                         entidad='progres bar'
-                        tableHead={table_head_cargos}
-                        data={logs}
-                        
+                        tableHead={table_head_errors}
+                        data={transformedErrors}
                         />
                     )}
             </div>

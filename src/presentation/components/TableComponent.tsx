@@ -27,10 +27,12 @@ interface ITableComponentProps<T> {
   showDeleteButton?: boolean;
   showPdfButton?:boolean;
   showExcelButton?:boolean;
+  isOT?:boolean;
   idMenu: number;
   strBaseUrl?:string;
   strEntidad?: string;
   queryExcel?:any;
+  setTotalRowIndex?:any;
 }
 
 const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
@@ -53,9 +55,12 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
     strBaseUrl,
     strEntidad,
     queryExcel,
+    isOT,
+     setTotalRowIndex
   }) => {
     const { escritura_lectura, lectura} = usePermission(idMenu);
     const [rowIds, setRowIds] = useState<number[]>([]);
+
    
     useEffect(() => {
       if (data) {
@@ -64,6 +69,8 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
           .fill(0)
           .map((_, index) => index);
         setRowIds(newRowIds);
+
+        setTotalRowIndex && setTotalRowIndex(newRowIds)
       }
     }, [data]);
 
@@ -81,13 +88,38 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
     };
 
     const renderCheckboxCell = (id: number) => (
-      <input
-        checked={selectedRows && selectedRows.includes(id)}
-        onChange={() => handleSelectChecked && handleSelectChecked(id)}
-        type="checkbox"
-      />
+
+      <div className="flex items-center justify-between">
+        
+        <input
+          checked={selectedRows && selectedRows.includes(id)}
+          onChange={() => handleSelectChecked && handleSelectChecked(id)}
+          type="checkbox"
+        />
+        {isOT && (
+          <>
+            <Tooltip content={BUTTON_MESSAGES.edit.concat(entidad)}>
+          <IconButton
+             variant="text"
+             color="blue-gray"
+         // onClick={() =>toggleEditModal && toggleEditModal(rowIndex)}
+          >
+              <PencilIcon className="gridIcons" />
+         </IconButton>
+          </Tooltip>
+          <Tooltip content={BUTTON_MESSAGES.edit.concat(entidad)}>
+              <IconButton
+                variant="text"
+                color="blue-gray"
+            // onClick={() =>toggleEditModal && toggleEditModal(rowIndex)}
+              >
+                  <PencilIcon className="gridIcons" />
+            </IconButton>
+          </Tooltip>
+          </>
+        )}
+      </div>
     );
-    
  
     return (
       <table className="gridContainer">
@@ -120,7 +152,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
           {data &&
             data.map((rowData: any, rowIndex: number) => {
               // const id = [3, 3];
-              console.log('rowData', rowData[6])
+              // console.log('rowData', rowData[6])
             
               return (
                 <tr key={rowIndex}>
@@ -129,7 +161,8 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                     const visible   = tableHead && tableHead[col].visible;
                     const alignment = tableHead && tableHead[col].alignment;
                     const color = rowData[6] === "Entrada" ? "green" : (rowData[6] === "Salida" ? "red" : "blanco");
-
+                  
+                    
                     return (
                       visible && (
                         <td
@@ -137,6 +170,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                           key={col}
                           id={tableHead[col].key}
                         >
+                          
                           {col === 0
                             ? renderCheckboxCell(rowIndex)
                             : renderTextCell(row)}
@@ -144,7 +178,8 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                       )
                     );
                   })}
-                  <td className="gridTableData">
+                  {!isOT && (
+                    <td className="gridTableData">
                     {/* ===========BOTONES DE TABLA============ */}
                     <div className="flex">
                       {showEditButton && escritura_lectura && (
@@ -200,6 +235,8 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                     </div>
                     
                   </td>
+                  )}
+                  
                 </tr>
               );
             })}

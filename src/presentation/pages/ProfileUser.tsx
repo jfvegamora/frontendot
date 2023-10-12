@@ -75,10 +75,10 @@ const ProfileUser: React.FC = () => {
       return navigate("/login");
     }
   }, []);
-  console.log(userState);
+  // console.log(userState);
 
   return (
-    <div className="useFormContainer mt-4">
+    <div className="useFormContainer mt-4 top-24 left-[35%]">
       <h1 className="userFormLabel">Perfil de Usuario</h1>
 
       <form onSubmit={handleSubmit((data) => handleChange(data))}>
@@ -101,7 +101,7 @@ const ProfileUser: React.FC = () => {
           error={errors.correo}
         />
 
-        <div className="w-full">
+        <div className="w-[92%]">
           <SelectInputComponent
             label="Cargo"
             name="cargo"

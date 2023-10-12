@@ -206,7 +206,7 @@ const FCargos: React.FC<ICargosFormProps> = React.memo(
       };
     }, [closeModal]);
     return (
-      <div className="useFormContainer">
+      <div className="useFormContainer top-44 w-1/4 left-[35%]">
         <div className="userFormBtnCloseContainer">
           <button onClick={closeModal} className="userFormBtnClose">
             X

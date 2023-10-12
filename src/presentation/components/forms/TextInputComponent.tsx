@@ -7,7 +7,7 @@ import { Controller } from "react-hook-form";
 interface ITextInputProps {
   label: string;
   name: string;
-  defaultValue?: string;
+  defaultValue?: any;
   onlyRead?: boolean;
   type: string;
   control: any;
@@ -33,7 +33,7 @@ const TextInputComponent: React.FC<ITextInputProps> = ({
   const [defaultValue, setDefaultValue] = useState<string>(data || "")
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (handleChange) {
-      handleChange(e.target.value);
+      handleChange(e.target);
     }
   };
  
@@ -41,12 +41,11 @@ const TextInputComponent: React.FC<ITextInputProps> = ({
   useEffect(()=>{
     setDefaultValue(data)
   },[data])
-
+  // console.log(daa)
+// console.log(defaultValue)
 return (
   <div
-  className={`${"flex items-center mb-4 mx-4  relative rounded-xl "} ${
-    error && "border-red-400"
-  }`}
+  className={`${"flex items-center mb-4 mx-4  relative rounded-xl "}`}
   >
   <Controller
     name={name}
@@ -57,6 +56,7 @@ return (
       <div className="flex flex-col  w-full">
         <Input
           {...field}
+          error = {error ? true : false }
           label     ={label}
           // value     ={ defaultValue}
           color     ="orange"

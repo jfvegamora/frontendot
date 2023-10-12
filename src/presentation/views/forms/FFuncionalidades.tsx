@@ -181,7 +181,7 @@ const FFuncionalidad: React.FC<IFormProps> = React.memo(
     }, [closeModal]);
 
     return (
-      <div className="useFormContainer">
+      <div className="useFormContainer top-44 left-[35%] w-1/4">
         <div className="userFormBtnCloseContainer">
           <button onClick={closeModal} className="userFormBtnClose">
             X

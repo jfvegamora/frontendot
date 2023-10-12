@@ -283,7 +283,7 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
 
-          <div className="input-container">
+          <div className="input-container items-center">
             <div className="w-full ">
                 <SelectInputComponent
                   label="Proyecto"
@@ -387,6 +387,16 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                 type="number"
                 label="CIL hasta"
                 name="cilindrico_hasta"
+                data={data && data[EnumGrid.cilindrico_hasta]}
+                control={control}
+                error={errors.cilindrico_hasta}
+              />
+            </div>
+            <div className="w-full ">
+              <TextInputComponent
+                type="number"
+                label="Diametro"
+                name="diametro"
                 data={data && data[EnumGrid.cilindrico_hasta]}
                 control={control}
                 error={errors.cilindrico_hasta}
