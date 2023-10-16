@@ -12,7 +12,7 @@ import {
   SUCCESS_MESSAGES,
   validationSituacionesSchema,
 } from "../../utils";
-import { TextInputComponent } from "../../components";
+import { SelectInputComponent, TextInputComponent } from "../../components";
 import { useCrud } from "../../hooks";
 import { EnumGrid } from "../mantenedores/MSituaciones";
 import { useModal } from "../../hooks/useModal";
@@ -24,7 +24,7 @@ const strEntidad = "Situaciones ";
 
 export interface ISituacionesInputData {
   descripcion: string | undefined;
-  area:   number | undefined;
+  area:   string | undefined;
 }
 
 interface ISituacionesFormProps {
@@ -65,7 +65,7 @@ const transformUpdateQuery = (
     _p1,
     _p2: primaryKey,
   };
-
+console.log("update", query);
   return query;
 };
 
@@ -229,15 +229,18 @@ const FSituaciones: React.FC<ISituacionesFormProps> = React.memo(
               error={errors.descripcion}
               inputRef={firstInputRef}
             />
-            <TextInputComponent
-              type="number"
-              label="area"
-              name="area"
-              data={data && data[EnumGrid.area_id]}
-              control={control}
-              error={errors.area}
-            //   inputRef={firstInputRef}
-            />
+            <div className="w-full ">
+              <SelectInputComponent
+                label="Área"
+                name="area"
+                showRefresh={true}
+                data={data && data[EnumGrid.area_id]}
+                control={control}
+                entidad={["/api/tipos/", "02", "OTAreas"]}
+                error={errors.area}
+                customWidth={"345px"}
+              />
+          </div>
           </div>
           <button type="submit" className="userFormBtnSubmit">
             Guardar

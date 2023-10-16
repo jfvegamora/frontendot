@@ -1866,7 +1866,7 @@ export const table_head_proyectos_grupos = [
   {
     cell: "Marca",
     key: "marca",
-    visible: true,
+    visible: false,
   },
   {
     cell: "Diseño ID",
