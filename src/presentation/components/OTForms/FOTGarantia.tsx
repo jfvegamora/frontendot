@@ -1,37 +1,59 @@
 import React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { SelectInputComponent, TextInputComponent } from '..';
-import { EnumGrid } from '../../views/mantenedores/MOT';
+import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
+import { AppStore, useAppSelector } from '../../../redux/store';
+import { useCrud } from '../../hooks';
+import { toast } from 'react-toastify';
 
 
 interface IProps{
-    data?:any
+    data?:any,
+    onClose:any,
 }
 
 interface FormData{
     folio_ot: number;
     proyecto:string;
     nombre_cliente: string;
-    motivo_garatia:string;
-    observaciones:string
+    motivo_garantia:string;
+    observaciones:string,
+    onClose:any
 }
 
+const strBaseUrl = "/api/othistorica/"
+
 const FOTGarantia:React.FC<IProps> = ({
-    data
+    data,
+    onClose
 }) => {
     const {control, handleSubmit} = useForm<FormData>()
+    const userState = useAppSelector((store: AppStore) => store.user);
+    const {createdEntity} = useCrud(strBaseUrl)
 
     const onSubmit: SubmitHandler<FormData> = async(jsonData) =>{
         console.log('jsondata', jsonData)
+        
+        const query = {
+            query:"03",
+            _folio: `${data[EnumGrid.folio]}`,
+            _p1:`${jsonData.motivo_garantia}, '${jsonData.observaciones}' `,
+            _usuario: userState?.id.toString()
+        }
+        console.log(query)
+        const result = await createdEntity(query)
+        const nuevoFolio = result && result["datos"][0][0]
+        
+
+        toast.success(`Nueva OT creada con folio: ${nuevoFolio}}`)  
     }
 
     //LOGICA OT GARANTIA
-
-    console.log(data)
+    // console.log(data)
   return (
     <div className='useFormContainer h-[50%] w-[60%] left-[20%] top-[30%] z-30'>
         <div className=" flex justify-end w-full">
-            <h2 className='text-2xl'>X</h2>
+            <h2 className='text-2xl' onClick={onClose}>X</h2>
         </div>
         <form className='text-center' onSubmit={handleSubmit(onSubmit)}>
                 <h1 className='text-2xl mt-2'>Nueva OT por garantía</h1> 

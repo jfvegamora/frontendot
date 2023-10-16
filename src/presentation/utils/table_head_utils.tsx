@@ -19,14 +19,57 @@ export const table_head_OT_diaria = [
     alignment: "text-left"
   },
   {
+    cell: "Area ID",
+    key: "area_id",
+    visible: true,
+  },
+  {
+    cell: "Area",
+    key: "area",
+    visible: true,
+    alignment: "text-left"
+  },
+  {
+    cell: "Estado ID",
+    key: "estado_id",
+    visible: true,
+    alignment: "text-left"
+  },
+  {
     cell: "Estado",
     key: "estado",
     visible: true,
     alignment: "text-left"
   },
   {
+    cell: "Estado Validacion ID",
+    key: "estado_validacion",
+    visible: true,
+    alignment: "text-left"
+  },
+  {
+    cell: "Estado Validacion",
+    key: "estado_impresion",
+    visible: true,
+    alignment: "text-left"
+  },
+  {
+    cell: "Estado Impresion ID",
+    key: "estado_impresion_id",
+    visible: true,
+    alignment: "text-left"
+  },
+  {
     cell: "Estado Impresion",
     key: "estado_impresion",
+    visible: true,
+    alignment: "text-left"
+  },
+
+
+  {
+    cell: "Proyecto ID",
+    key: "proyecto_id",
     visible: true,
     alignment: "text-left"
   },
@@ -37,69 +80,560 @@ export const table_head_OT_diaria = [
     alignment: "text-left"
   },
   {
-    cell: "Establecimiento",
+    cell: "Establecimiento ID",
     key: "establecimiento",
     visible: true,
   },
   {
-    cell: "Cliente",
-    key: "cliente",
+    cell: "Establecimiento_id",
+    key: "establecimiento",
+    visible: true,
+  },
+
+
+
+  {
+    cell: "Cliente rut",
+    key: "cliente_rut",
     visible: true,
     alignment: "text-left"
 
   },
   {
-    cell: "Cliente",
-    key: "cliente",
+    cell: "Cliente nombre",
+    key: "cliente_nombre",
+    visible: true,
+    alignment: "text-left"
+  },
+  {
+    cell: "Tipo",
+    key: "tipo",
+    visible: true,
+    alignment: "text-left"
+  },
+
+  {
+    cell: "Sexo",
+    key: "sexo",
+    visible: true,
+    alignment: "text-left"
+  },
+  {
+    cell: "Fecha Nacimiento",
+    key: "fecha_nacimiento",
+    visible: true,
+
+  },
+  {
+    cell: "Dirección",
+    key: "direccion",
     visible: true,
     alignment: "text-left"
 
   },
   {
-    cell: "Cliente",
-    key: "cliente",
+    cell: "REGION_ID",
+    key: "region_id",
     visible: true,
-    alignment: "text-left"
-
   },
   {
-    cell: "Cliente",
-    key: "cliente",
+    cell: "Región",
+    key: "region",
     visible: true,
     alignment: "text-left"
-
   },
   {
-    cell: "Cliente",
-    key: "cliente",
+    cell: "Provincia ID",
+    key: "provincia_id",
+    visible: true,
+  },
+  {
+    cell: "Provincia",
+    key: "provincia",
     visible: true,
     alignment: "text-left"
-
   },
   {
-    cell: "Cliente",
-    key: "cliente",
+    cell: "Comuna ID",
+    key: "comuna_id",
+    visible: true,
+  },
+  {
+    cell: "Comuna",
+    key: "comuna",
     visible: true,
     alignment: "text-left"
-
   },
   {
-    cell: "Cliente",
-    key: "cliente",
+    cell: "Teléfono",
+    key: "telefono",
+    visible: true,
+    alignment: "text-right"
+  },
+  {
+    cell: "Correo",
+    key: "correo",
     visible: true,
     alignment: "text-left"
-
   },
-  {
-    cell: "Cliente",
-    key: "cliente",
-    visible: false,
-    alignment: "text-left"
 
-  },
+
+
+
+
+
   {
     cell: "Fecha Atencion",
-    key: "fecha_Atencion",
+    key: "fecha_atencion",
+    visible: true,
+    alignment: "text-left"
+
+  },
+  {
+    cell: "Fecha Entrega Taller",
+    key: "fecha_entrega_taller",
+    visible: true,
+    alignment: "text-left"
+
+  },
+  {
+    cell: "Fecha despacho",
+    key: "fecha_despacho",
+    visible: true,
+    alignment: "text-left"
+
+  },
+  {
+    cell: "Fecha entrega Cliente",
+    key: "fecha_entrega_cliente",
+    visible: true,
+    alignment: "text-left"
+
+  },
+  {
+    cell: "Punto Venta ID",
+    key: "punto_venta_id",
+    visible: true,
+    alignment: "text-left"
+
+  },
+  {
+    cell: "Punto Venta",
+    key: "punto_venta",
+    visible: true,
+    alignment: "text-left"
+
+  },
+  {
+    cell: "Numero receta",
+    key: "numero_receta",
+    visible: true,
+  },
+  {
+    cell: "Fecha receta",
+    key: "fecha_receta",
+    visible: true,
+  },
+  {
+    cell: "Tipo anteojo ID",
+    key: "tipo_anteojo_id",
+    visible: true,
+  },
+  {
+    cell: "Tipo anteojo ",
+    key: "tipo_anteojo",
+    visible: true,
+  },
+  {
+    cell: "A1 OD ESF",
+    key: "a1_od_esf",
+    visible: true,
+  },
+  {
+    cell: "A1 OD CIL",
+    key: "a1_of_cil",
+    visible: true,
+  },
+  {
+    cell: "A1 OD EJE",
+    key: "a1_of_eje",
+    visible: true,
+  },
+
+
+  //40
+  {
+    cell: "A1 OD AD",
+    key: "a1_of_ad",
+    visible: true,
+  },
+  {
+    cell: "A1 OI ESF",
+    key: "a1_oi_esf",
+    visible: true,
+  },
+  {
+    cell: "A1 OI CIL",
+    key: "a1_oi_cill",
+    visible: true,
+  },
+  {
+    cell: "A1 OI EJE",
+    key: "a1_oi_eje",
+    visible: true,
+  },
+  {
+    cell: "A1 OI AD",
+    key: "a1_oi_ad",
+    visible: true,
+  },
+  {
+    cell: "A1 DP",
+    key: "a1_dp",
+    visible: true,
+  },
+  {
+    cell: "A1 ALT",
+    key: "a1_grupo",
+    visible: true,
+  },
+  {
+    cell: "A1 GRUPO",
+    key: "a1_alt",
+    visible: true,
+  },
+  
+  {
+    cell: "A2 OD ESF",
+    key: "a1_alt",
+    visible: true,
+  },
+  {
+    cell: "A2 OD CILL",
+    key:"a1_of_esf",
+    visible: true,
+  },
+  {
+    cell: "A2 OD EJE",
+    key: "a1_od_cill",
+    visible: true,
+  },
+  {
+    cell: "A2 OI ESF",
+    key: "a2_od_eje",
+    visible: true,
+  },
+  {
+    cell: "A2 OI CIL",
+    key: "a2_oi_esf",
+    visible: true,
+  },
+  {
+    cell: "A2 OI EJE",
+    key: "a2_oi_cill",
+    visible: true,
+  },
+  {
+    cell: "A2 DP",
+    key: "a1_oi_eje",
+    visible: true,
+  },
+  {
+    cell: "A2 Gupo",
+    key: "a2_dp",
+    visible: true,
+  },
+
+
+
+  {
+    cell: "A1 Opcion venta ID",
+    key: "a1_grupo",
+    visible: true,
+  },
+  {
+    cell: "A1 Opcion venta",
+    key: "a1_opc_vta",
+    visible: true,
+  },
+
+
+
+
+
+
+
+  {
+    cell: "A1 Armazon ID",
+    key: "a1_armazon_id",
+    visible: true,
+  },
+  {
+    cell: "A1 Armazon",
+    key: "a1_armazon",
+    visible: true,
+  },
+  {
+    cell: "A2 Opcion venta ID",
+    key: "a2_opcion_vta_id",
+    visible: true,
+  },
+  {
+    cell: "A2 Opcion venta",
+    key: "a2_opcion_vta",
+    visible: true,
+  },
+  {
+    cell: "A2 Armazon ID",
+    key: "a2_armazon",
+    visible: true,
+  },
+  {
+    cell: "A2 Armazon",
+    key: "a1_armazon_id",
+    visible: true,
+  },
+  {
+    cell: "A3 Opcion venta ID",
+    key: "a3_opcion_vta_id",
+    visible: true,
+  },
+  {
+    cell: "A3 Opcion venta",
+    key: "a1_opcion_venta",
+    visible: true,
+  },
+  {
+    cell: "A3 Armazon ID",
+    key: "a1_armazon_id",
+    visible: true,
+  },
+  {
+    cell: "A3 Armazon",
+    key: "a1_armazon_id",
+    visible: true,
+  },
+  {
+    cell: "Cristal 1 Opcion venta ID",
+    key: "cristal1_opcion_vta_id",
+    visible: true,
+  },
+  {
+    cell: "Cristal 1 opcion venta",
+    key: "cristal1_opcion_vta",
+    visible: true,
+  },
+  {
+    cell: "Cristal 1 Diseño ID",
+    key: "cristal1_diseño_id",
+    visible: true,
+  },
+  {
+    cell: "Cristal 1 Diseño",
+    key: "cristal1_diseño",
+    visible: true,
+  },
+  {
+    cell: "Cristal 1 Indice ID",
+    key: "cristal1_indice_id",
+    visible: true,
+  },
+  {
+    cell: "Cristal 1 Indice",
+    key: "cristal1_indice",
+    visible: true,
+  },
+
+  {
+    cell: "Cristal 1 matetial ID",
+    key: "crsital1_material_id",
+    visible: true,
+  },
+  {
+    cell: "Cristal 1 Material",
+    key: "cristal1_material",
+    visible: true,
+  },
+  {
+    cell: "Cristal 1 Tratamiento ID",
+    key: "cristsal1_tratamiento_id",
+    visible: true,
+  },
+  //20
+  {
+    cell: "Cristal 1 Tratamiento",
+    key: "cristal1_tratamiento",
+    visible: true,
+  },
+  {
+    cell: "Cristal 1 color ID",
+    key: "cristal1_color_id",
+    visible: true,
+  },
+  {
+    cell: "Cristal 1 Color",
+    key: "cristal1_color",
+    visible: true,
+  },
+  {
+    cell: "Cristal 1 OD codigo",
+    key: "Cristal 1 OI",
+    visible: true,
+  },
+
+  {
+    cell: "Cristal 1 OI codigo",
+    key: "observaciones",
+    visible: true,
+  },
+  {
+    cell: "Cristal 1 Tratamiento adicional ID",
+    key: "cristal1_tratamiento_adicional_id",
+    visible: true,
+  },
+  {
+    cell: "Cristal 1 Tratamiento adicional",
+    key: "cristal1_tratamiento_adicional",
+    visible: true,
+  },
+  {
+    cell: "Cristal 2 Opcion Venta ID",
+    key: "cristal2_opcion_vta_id",
+    visible: true,
+  },
+  {
+    cell: "Cristal 2 Opcion venta",
+    key: "cristal2_opcion_venta",
+    visible: true,
+  },
+  {
+    cell: "Cristal 2 Diseño ID",
+    key: "cristal2_diseño_id",
+    visible: true,
+  },
+  {
+    cell: "Cristal 2 Diseño",
+    key: "cristal2_diseño",
+    visible: true,
+  },
+  {
+    cell: "Crista 2 Indice ID",
+    key: "cristal2_indice_id",
+    visible: true,
+  },
+  {
+    cell: "Cristal 2 Indice",
+    key: "cristal2_indice",
+    visible: true,
+  },
+  {
+    cell: "Cristal 2 Material ID",
+    key: "cristal2_material_id",
+    visible: true,
+  },
+  {
+    cell: "Cristal 2 Material",
+    key: "cristal2_material",
+    visible: true,
+  },
+  {
+    cell: "Cristal 2 Tratamiento ID",
+    key: "cristal2_tratamiento_id",
+    visible: true,
+  },
+  {
+    cell: "Cristal 2 Tratamiento",
+    key: "cristal2_tratamiento",
+    visible: true,
+  },
+  {
+    cell: "Cristal 2 Color ID",
+    key: "cristal2_color_id",
+    visible: true,
+  },
+  {
+    cell: "Cristal 2 Color ",
+    key: "cristal2_color",
+    visible: true,
+  },
+  {
+    cell: "Cristal 2 OD Codigo",
+    key: "cristal2_od_codigo",
+    visible: true,
+  },
+  {
+    cell: "Cristal 2 OI Codigo",
+    key: "cristal2_oi_codigo",
+    visible: true,
+  },
+
+
+
+
+
+
+  {
+    cell: "Cristal 2 Tratamiento adicional ID",
+    key: "cristal2_tratamiento_adicional_id",
+    visible: true,
+  },
+  {
+    cell: "Cristal 2 Tratamiento adicional",
+    key: "cristal2_tratamiento_adicional",
+    visible: true,
+  },
+  {
+    cell: "Motivo Garantia ID",
+    key: "motivo_garantia_id",
+    visible: true,
+  },
+  {
+    cell: "Motivo Garantia",
+    key: "motivo_garantia",
+    visible: true,
+  },
+  {
+    cell: "Folio asociado",
+    key: "folio_asociado",
+    visible: true,
+  },
+  {
+    cell: "Resolución garantia ID",
+    key: "resolucion_garantia_id",
+    visible: true,
+  },
+  {
+    cell: "Resolución garantia",
+    key: "resolucion_garantia",
+    visible: true,
+  },
+
+  {
+    cell: "Worktracking",
+    key: "worktracking",
+    visible: true,
+  },
+
+
+  {
+    cell: "Nota de venta",
+    key: "nota_venta",
+    visible: true,
+  },
+  {
+    cell: "Numero factura",
+    key: "numero_factura",
+    visible: true,
+  },
+  {
+    cell: "Folio interno Mandante",
+    key: "folio_interno_mandante",
+    visible: true,
+  },
+ 
+  {
+    cell: "Observaciones",
+    key: "observaciones",
     visible: true,
   }
 ];
@@ -193,6 +727,9 @@ export const table_head_OT_historica = [
     key: "establecimiento",
     visible: true,
   },
+
+
+
   {
     cell: "Cliente rut",
     key: "cliente_rut",
@@ -205,8 +742,84 @@ export const table_head_OT_historica = [
     key: "cliente_nombre",
     visible: true,
     alignment: "text-left"
+  },
+  {
+    cell: "Tipo",
+    key: "tipo",
+    visible: true,
+    alignment: "text-left"
+  },
+
+  {
+    cell: "Sexo",
+    key: "sexo",
+    visible: true,
+    alignment: "text-left"
+  },
+  {
+    cell: "Fecha Nacimiento",
+    key: "fecha_nacimiento",
+    visible: true,
 
   },
+  {
+    cell: "Dirección",
+    key: "direccion",
+    visible: true,
+    alignment: "text-left"
+
+  },
+  {
+    cell: "REGION_ID",
+    key: "region_id",
+    visible: true,
+  },
+  {
+    cell: "Región",
+    key: "region",
+    visible: true,
+    alignment: "text-left"
+  },
+  {
+    cell: "Provincia ID",
+    key: "provincia_id",
+    visible: true,
+  },
+  {
+    cell: "Provincia",
+    key: "provincia",
+    visible: true,
+    alignment: "text-left"
+  },
+  {
+    cell: "Comuna ID",
+    key: "comuna_id",
+    visible: true,
+  },
+  {
+    cell: "Comuna",
+    key: "comuna",
+    visible: true,
+    alignment: "text-left"
+  },
+  {
+    cell: "Teléfono",
+    key: "telefono",
+    visible: true,
+    alignment: "text-right"
+  },
+  {
+    cell: "Correo",
+    key: "correo",
+    visible: true,
+    alignment: "text-left"
+  },
+
+
+
+
+
+
   {
     cell: "Fecha Atencion",
     key: "fecha_atencion",

@@ -95,7 +95,7 @@ const MUsuarios: React.FC = () => {
   const handleClick = (e:any) => {
     console.log(e.target.value)
     const number = parseInt(e.target.value)
-    setShotRow(number)
+    // setShotRow(number)
   }
  
   return (
@@ -158,7 +158,7 @@ const MUsuarios: React.FC = () => {
           showEditButton={true}
           showDeleteButton={false}
           idMenu={idMenu}
-          setTotalRowIndex={setTotalRowIndex}
+          // setTotalRowIndex={setTotalRowIndex}
         />
       </div>
 

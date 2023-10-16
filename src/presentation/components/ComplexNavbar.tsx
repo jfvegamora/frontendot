@@ -125,8 +125,8 @@ function ProfileMenu() {
 
 const navListMenuOT = [
   {
-    title: "Órdenes de Trabajo",
-    link: "/ot",
+    title: "Órdenes de Trabajo Historico",
+    link: "/othistorica",
     id: 1,
   },
   {
@@ -793,14 +793,14 @@ export default function ComplexNavbar() {
   return (
     <>
       {userState?.nombre && (
-        <Navbar className=" mt-2 mx-auto max-w-screen-xl p-2 lg:rounded-full lg:pl-6 navBarBorder">
+        <Navbar className=" mt-2 mx-auto max-w-screen-xl p-2 lg:rounded-full lg:pl-6 navBarBorder z-10">
           <div className="relative mx-auto flex items-center text-blue-gray-900">
             <Typography
               
               
               className="mr-4 ml-2 cursor-pointer py-1.5 font-medium"
             >
-              <Link to="/otdiaria">Sistema Gestión OT</Link>
+              <Link to="/ot">Gestión OT</Link>
             </Typography>
             <div className="absolute top-2/4 left-2/4 hidden -translate-x-2/4 -translate-y-2/4 lg:block">
               <NavList />

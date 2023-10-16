@@ -7,8 +7,8 @@ export interface IFuncionalidad {
     descripcion:string;
 }
 
-const initialState:IFuncionalidad | null = localStorage.getItem("user")
-   ? JSON.parse(localStorage.getItem("user") as string)
+const initialState:IFuncionalidad | null = localStorage.getItem("Funcionalidades")
+   ? JSON.parse(localStorage.getItem("Funcionalidades") as string)
    : []
 
 export const fetchFuncionalidades = createAsyncThunk('funcionalidades/fetchFuncionalidades', async ()=>{

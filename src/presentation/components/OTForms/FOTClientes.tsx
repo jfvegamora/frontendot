@@ -2,7 +2,7 @@ import React from 'react'
 import { RadioButtonComponent, SelectInputComponent, TextInputComponent } from '..'
 import { SEXO, TIPO_CLIENTE } from '../../utils';
 import RegProComponent from '../forms/RegProComponent';
-import { EnumGrid } from '../../views/mantenedores/MOT';
+import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
 
 
 interface IClientes {
@@ -82,7 +82,7 @@ const FOTClientes:React.FC<IClientes> = ({
                         handleSelectChange={handleInputChange}
                         data={formValues ? formValues["establecimiento"]  : data && data[EnumGrid.establecimiento_id]}
                         control={control}
-                        entidad={["/api/establecimientos/", "02"]}
+                        entidad={["/api/establecimientos/", "02", "PR001A"]}
                         // error={errors.establecimiento}
                         customWidth={"345px"}
                     />
@@ -99,7 +99,7 @@ const FOTClientes:React.FC<IClientes> = ({
                                 control={control}
                                 label="Sexo"
                                 name="sexo"
-                                data={formValues && formValues["sexo"]}
+                                data={formValues ? formValues["establecimiento"]  : data && data[EnumGrid.cliente_sexo]}
                             
                                 options={[SEXO.masculino, SEXO.femenino, SEXO.no_aplica]}
                                 // error={errors.sexo}
@@ -112,7 +112,7 @@ const FOTClientes:React.FC<IClientes> = ({
                                 control={control}
                                 label="Tipo"
                                 name="tipo"
-                                data={formValues && formValues["tipo"]}
+                                data={formValues ? formValues["establecimiento"]  : data && data[EnumGrid.cliente_tipo]}
                                 options={[
                                     TIPO_CLIENTE.beneficiario, 
                                     TIPO_CLIENTE.particular,
@@ -132,18 +132,19 @@ const FOTClientes:React.FC<IClientes> = ({
                                 label="Fecha de nacimiento"
                                 name="fecha_nacimiento"
                                 handleChange={handleInputChange}
-                                data={formValues && formValues["fecha_nacimiento"]}
+                                data={formValues ? formValues["establecimiento"]  : data && data[EnumGrid.cliente_fecha_nacimiento]}
+                                
                                 control={control}
                                 // error={errors.fecha_nacimiento}
                             />
                             </div>
                             <div className="w-[50%]">
                             <TextInputComponent
-                                type="number"
+                                type="text"
                                 label="Telefono"
                                 name="telefono"
                                 handleChange={handleInputChange}
-                                data={formValues && formValues["telefoono"]}
+                                data={formValues ? formValues["establecimiento"]  : data && data[EnumGrid.cliente_telefono]}
                                 control={control}
                                 // error={errors.fecha_nacimiento}
                             />
@@ -156,7 +157,7 @@ const FOTClientes:React.FC<IClientes> = ({
                                     label="Correo"
                                     name="correo"
                                     handleChange={handleInputChange}
-                                    data={formValues && formValues["correo"]}
+                                    data={formValues ? formValues["establecimiento"]  : data && data[EnumGrid.cliente_correo]}
                                     control={control}
                                     // error={errors.fecha_nacimiento}
                                 />
@@ -174,7 +175,7 @@ const FOTClientes:React.FC<IClientes> = ({
                             EnumGrid={EnumGrid}
                             isEditting={false}
                             errors={""}
-                            data={formValues && formValues}
+                            data={formValues ? formValues  : data && data[EnumGrid.cliente_region_id]}
                             handleSelectChange={handleInputChange}
                         />
                    

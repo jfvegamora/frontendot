@@ -134,8 +134,11 @@ export const ExportCSV: React.FC<Props> = ({
     console.log('ejecutando caso de uso 2'); 
 
     console.log('query', query)
+   
     if(entity){
+      console.log(entity)
       const primaryKey =`_p1=${entity[1]}&_p2=${entity[4]}`;
+
       const nombreExcel = `${strEntidad}_${entity[1]}_${entity[5]}_${entity[6]}`
       // console.log('primaryKey',primaryKey)
       exportExcel(primaryKey, nombreExcel)

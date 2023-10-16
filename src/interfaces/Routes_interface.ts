@@ -1,7 +1,7 @@
 import {lazy}             from 'react';
 
-const MOTDiaria             = lazy(()=>import("../presentation/views/mantenedores/MOTDiaria"));
 const MOT                   = lazy(()=>import("../presentation/views/mantenedores/MOT"));
+const MOTHistorica          = lazy(()=>import("../presentation/views/mantenedores/MOTHistorica"));
 const MClientes             = lazy(()=>import("../presentation/views/mantenedores/MClientes"));
 const MEstablecimientos     = lazy(()=>import("../presentation/views/mantenedores/MEstablecimientos"));
 const MPuntosVenta          = lazy(()=>import("../presentation/views/mantenedores/MPuntosVenta"));
@@ -49,8 +49,8 @@ export const PrivateRoutes = {
   PROFILE               : 'profile',
 
   //MENU OT
+  OTHISTORICA           : "othistorica",
   OT                    : "ot",
-  OTDIARIA              : "otdiaria",
   CLIENTES              : "clientes",
   ESTABLECIMIENTOS      : "establecimientos",
   PUNTOS_VENTA          : "puntosventa",
@@ -92,14 +92,14 @@ export const privateRoutes = [
   // MENU OT
   {
     id                  : "1",
-    path                : PrivateRoutes.OT,
-    component           : MOT,
+    path                : PrivateRoutes.OTHISTORICA,
+    component           : MOTHistorica,
     requiredPermissions : ['view_' + PrivateRoutes.OT]
   },
   {
     id                  : "30",
-    path                : PrivateRoutes.OTDIARIA,
-    component           : MOTDiaria,
+    path                : PrivateRoutes.OT,
+    component           : MOT,
     requiredPermissions : ['view_' + PrivateRoutes.OT]
   },
   {

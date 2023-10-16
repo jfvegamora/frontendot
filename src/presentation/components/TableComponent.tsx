@@ -56,12 +56,12 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
     strEntidad,
     queryExcel,
     isOT,
-     setTotalRowIndex
+    //  setTotalRowIndex
   }) => {
-    const { escritura_lectura, lectura} = usePermission(idMenu);
+    const { escritura_lectura, lectura} = usePermission(idMenu || 0 );
     const [rowIds, setRowIds] = useState<number[]>([]);
 
-   
+    console.log(idMenu)
     useEffect(() => {
       if (data) {
         // Crea un arreglo de IDs de filas basado en la longitud de los datos
@@ -70,19 +70,19 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
           .map((_, index) => index);
         setRowIds(newRowIds);
 
-        setTotalRowIndex && setTotalRowIndex(newRowIds)
+        // setTotalRowIndex && setTotalRowIndex(newRowIds)
       }
     }, [data]);
 
-    const renderTextCell = (text: string, alignment?:string) => {
+    const renderTextCell = (text: string, alignment?:string, type?:number) => {
 
       const cellStyle = {
         textAlign:alignment
       }
-      
+      // console.log(type)
       return(
-        <Typography variant="small" color="blue-gray" className="gridText" style={cellStyle}>
-          {text}
+        <Typography variant="small" color="blue-gray" className={`gridText ${type === 1 ? '!text-white': ''} `} style={cellStyle}>
+          {text || 'no data'}
         </Typography>
       )
     };
@@ -90,7 +90,6 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
     const renderCheckboxCell = (id: number) => (
 
       <div className="flex items-center justify-between">
-        
         <input
           checked={selectedRows && selectedRows.includes(id)}
           onChange={() => handleSelectChecked && handleSelectChecked(id)}
@@ -111,7 +110,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
               <IconButton
                 variant="text"
                 color="blue-gray"
-            // onClick={() =>toggleEditModal && toggleEditModal(rowIndex)}
+                onClick={() =>toggleEditModal && toggleEditModal(id)}
               >
                   <PencilIcon className="gridIcons" />
             </IconButton>
@@ -152,7 +151,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
           {data &&
             data.map((rowData: any, rowIndex: number) => {
               // const id = [3, 3];
-              // console.log('rowData', rowData[6])
+              // console.log('rowData', rowData)
             
               return (
                 <tr key={rowIndex}>
@@ -160,20 +159,21 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                     // console.log("col", col);
                     const visible   = tableHead && tableHead[col].visible;
                     const alignment = tableHead && tableHead[col].alignment;
-                    const color = rowData[6] === "Entrada" ? "green" : (rowData[6] === "Salida" ? "red" : "blanco");
+                    // console.log(rowData[5])
+                    const color = rowData[5] === '99' ? "gray" : "";
+                    const type = color === 'gray' ? 1: 0
                   
-                    
                     return (
                       visible && (
                         <td
-                        className={`gridTableData bg-${color}-500 ${alignment}`} 
+                        className={`gridTableData bg-${color}-500   ${alignment}`} 
                           key={col}
                           id={tableHead[col].key}
                         >
                           
                           {col === 0
                             ? renderCheckboxCell(rowIndex)
-                            : renderTextCell(row)}
+                            : renderTextCell(row, '', type)}
                         </td>
                       )
                     );

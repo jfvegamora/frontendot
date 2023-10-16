@@ -30,7 +30,7 @@ const ProfileUser = lazy(() => import("./presentation/pages/ProfileUser"));
 // const pathMant = "./presentation/views/mantenedores/";
 
 // MENU OT
-//const MOT = lazy(() => import(pathMant + "MOT"));
+//const MOTHistorica = lazy(() => import(pathMant + "MOTHistorica"));
 // const MClientes = lazy(() => import("./presentation/views/mantenedores/MClientes"));
 // const MEstablecimientos = lazy(() => import("./presentation/views/mantenedores/MEstablecimientos"));
 // const MPuntosVenta = lazy(() => import(pathMant + "MPuntosVenta"));
@@ -68,6 +68,7 @@ function App() {
 
   useEffect(() => {
     const pathName = window.location.pathname.substring(1);
+    
     const currentRoute = privateRoutes.find((route) => route.path === pathName);
     if (
       permisosID &&

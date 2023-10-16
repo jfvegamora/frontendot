@@ -77,7 +77,7 @@ export function transformUpdateQuery(
     query: "04",
     _p1: encodeURIComponent(_p1).replace(/%20/g, "+"),
     _p2: primaryKey,
-    _p3: "",
+    _p3: ""
   };
   console.log("query", query);
   return query;

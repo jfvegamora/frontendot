@@ -13,6 +13,7 @@ interface IRadioButtonProps {
   horizontal?: boolean;
   inputRef?: any;
   onChange?: (value: any) => void;
+  readOnly?:boolean
 }
 
 const RadioButtonComponent: React.FC<IRadioButtonProps> = ({
@@ -24,7 +25,8 @@ const RadioButtonComponent: React.FC<IRadioButtonProps> = ({
   label,
   horizontal,
   inputRef,
-  onChange
+  onChange,
+  readOnly
 }) => {
   
 
@@ -55,14 +57,17 @@ const RadioButtonComponent: React.FC<IRadioButtonProps> = ({
                   {...field}
                   type="radio"
                   value={option}
+           
+                  disabled={readOnly}
                   defaultChecked={data === option}
                   //  checked={field.value === option}
                   className="mr-2 transform scale-150"
                   onChange={(e) => {
-                    field.onChange(e.target.value)
-                    if(onChange){
-                      onChange(e.target)
-                    }
+                      field.onChange(e.target.value)
+                      if(onChange){
+                        onChange(e.target)
+                      }
+                  
                   }}
                   ref       ={inputRef}
                   />

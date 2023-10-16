@@ -106,6 +106,7 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
   //METODO EDITAR DE LA GRILLA
   const toggleEditModal = useCallback(
     (rowIndex?: number) => {
+      console.log(rowIndex)
       setIsModalEdit((prev) => !prev);
 
       if (rowIndex !== undefined) {
@@ -173,23 +174,23 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
     [selectedRows, showModal]
   );
 
-  useEffect(() => {
-    ListEntity("_id=10000", query)
-      .then((data: any) => {
-        if (data?.name === "AxiosError") {
-          return;
-        } else {
-          // console.log("data", data);
-          data &&
-            setEntities((prev) =>
-              prev ? [...prev, ...data] : data && [...data]
-            );
-        }
-      })
-      .catch((e) => {
-        return e;
-      });
-  }, [pageSize, onDelete]);
+  // useEffect(() => {
+  //   ListEntity("_id=20000", query)
+  //     .then((data: any) => {
+  //       if (data?.name === "AxiosError") {
+  //         return;
+  //       } else {
+  //         // console.log("data", data);
+  //         data &&
+  //           setEntities((prev) =>
+  //             prev ? [...prev, ...data] : data && [...data]
+  //           );
+  //       }
+  //     })
+  //     .catch((e) => {
+  //       return e;
+  //     });
+  // }, [pageSize, onDelete]);
 
   return {
     openModal,

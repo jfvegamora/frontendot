@@ -3,7 +3,7 @@ import { SelectInputComponent, TextInputComponent } from '..'
 import useSWR from 'swr';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { EnumGrid } from '../../views/mantenedores/MOT';
+import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
 
 interface IArmazones {
     control:any,

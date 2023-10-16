@@ -28,13 +28,25 @@ const TextInputComponent: React.FC<ITextInputProps> = ({
   data,
   error,
   inputRef,
-  className
+  className,
+  defaultValue:formatvalue
 }) => {
   const [defaultValue, setDefaultValue] = useState<string>(data || "")
+  const [value, setValue] = useState('')
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    
+    console.log(e.target.name)
     if (handleChange) {
+      if(e.target.name === formatvalue){
+        e.target.value = '20.00'
+      }
+
       handleChange(e.target);
     }
+  
+  
+  
   };
  
   
@@ -58,7 +70,6 @@ return (
           {...field}
           error = {error ? true : false }
           label     ={label}
-          // value     ={ defaultValue}
           color     ="orange"
           id        ={label}
           type      ={type}
