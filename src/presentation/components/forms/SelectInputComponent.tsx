@@ -239,8 +239,9 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     const strUrl = entidad && entidad[0];
     const strTableName = entidad[2] ? `_p1=${entidad[2]}` : "";
     const inputRef = useRef(null);
-
+    // console.log(entidad)
     const { ListEntity } = useCrud(strUrl);
+    // console.log(strUrl)
 
     const { refreshData } = useEntityUtils(strUrl, entidad[1]);
 
@@ -298,7 +299,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
                   setState && setState(e.target.value);
                   field.onChange(e);
                   if(isOT){
-                    handleSelectChange(e.target)
+                    handleSelectChange &&  handleSelectChange(e.target)
                   }
                   if (setHandleSearch) {
                     const selectedValue = e.target.value.toString();

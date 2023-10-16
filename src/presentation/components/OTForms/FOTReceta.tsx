@@ -1,6 +1,6 @@
 import React from 'react'
 import { SelectInputComponent, TextInputComponent } from '..'
-import { EnumGrid } from '../../views/mantenedores/MOT'
+import { EnumGrid } from '../../views/mantenedores/MOTHistorica'
 
 interface IReceta {
     control:any,
@@ -15,11 +15,21 @@ const FOTReceta:React.FC<IReceta> = ({
     formValues,
     data
 }) => {
-    
+
     const handleInputChange = (e:any) => {
-        const {name, value} = e;
+        let {name, value} = e;
+        console.log(name)
+        console.log(value)
+
+        // if(name === "anteojo1_ESF_OD"){
+        //     const modifiedValue = parseFloat(value).toFixed(2);
+        //     onDataChange({[name]:modifiedValue})
+        // }
+
         onDataChange({[name]:value})
     }
+
+    
 
 
   return (
@@ -66,7 +76,21 @@ const FOTReceta:React.FC<IReceta> = ({
             </div>
 
             <div className="w-full flex items-center pt-8  relative pb-8 rounded-lg border border-blue-500 ">
-                <label className='absolute z-10 top-[-8%] w-[15%] left-[65%] text-center labelForm  rounded-lg border border-blue-500'>Grupo</label>
+                <div className='absolute z-20 top-[-8%] w-[15%] left-[70%] text-center labelForm  rounded-lg border border-blue-500 '>
+                <SelectInputComponent
+                            label="Grupo"
+                            name="tipo_anteojo"
+                            showRefresh={false}
+                            isOT={true}
+                            handleSelectChange={handleInputChange}
+                            data={formValues ? formValues["tipo_anteojo"] : data && data[EnumGrid.tipo_anteojo_id]}
+                            control={control}
+                            entidad={["/api/tipos/", "02","OTTipoAnteojo"]}
+                            // error={errors.establecimiento}
+                            
+                            customWidth={"340px"}
+                        />
+                </div>
                 <label className='absolute z-10 top-[-10%] w-[15%] left-[36%] text-center labelForm  rounded-lg text-2xl'>ANTEOJO 1</label>
 
 
@@ -76,8 +100,9 @@ const FOTReceta:React.FC<IReceta> = ({
                         <label className='labelForm w-[40%] absolute z-10 text-center -top-2 left-[30%]'>OJO DERECHO</label>
                         <div className="w-[25%]">
                             <TextInputComponent
-                                type="text"
+                                type="te"
                                 label="ESF"
+                                defaultValue={'anteojo1_ESF_OD'}
                                 name="anteojo1_ESF_OD"
                                 handleChange={handleInputChange}
                                 data={formValues ? formValues["anteojo1_ESF_OD"] : data && data[EnumGrid.a1_od_esf]}
@@ -198,7 +223,21 @@ const FOTReceta:React.FC<IReceta> = ({
             </div>
 
             <div className="w-full flex items-center   pt-8 relative pb-8 rounded-lg border border-blue-500 ">
-                <label className='absolute z-10 top-[-8%] w-[15%] left-[65%] text-center labelForm  rounded-lg border border-blue-500'>Grupo</label>
+            <div className='absolute z-20 top-[-8%] w-[15%] left-[70%] text-center labelForm  rounded-lg border border-blue-500 '>
+                <SelectInputComponent
+                            label="Grupo"
+                            name="tipo_anteojo"
+                            showRefresh={false}
+                            isOT={true}
+                            handleSelectChange={handleInputChange}
+                            data={formValues ? formValues["tipo_anteojo"] : data && data[EnumGrid.tipo_anteojo_id]}
+                            control={control}
+                            entidad={["/api/tipos/", "02","OTTipoAnteojo"]}
+                            // error={errors.establecimiento}
+                            
+                            customWidth={"345px"}
+                        />
+                </div>
                 <label className='absolute z-10 top-[-10%] w-[15%] left-[36%] text-center labelForm  rounded-lg text-2xl'>ANTEOJO 1</label>
 
 

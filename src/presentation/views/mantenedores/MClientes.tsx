@@ -99,7 +99,7 @@ const MClientes: React.FC = () => {
       
       <h1 className="mantenedorH1">Clientes</h1>
 
-      <div className="mantenedorHead width90 items-center">    
+      <div className="mantenedorHead width90 items-center ">    
         <PrimaryKeySearch
           baseUrl={strBaseUrl}
           setParams={setParams}

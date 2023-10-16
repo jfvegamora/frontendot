@@ -94,6 +94,8 @@ const useCrud = (
     }
   }
 
+  
+
   const verifyUserEmail = async (correo: string) => {
     try {
       // const result = await axiosInstance.get(`${baseUrl}listado/?query=07&_p1=${correo}`)
@@ -175,8 +177,12 @@ const useCrud = (
     primaryKeys: any,
     query: any
   ): Promise<any | undefined> => {
-    console.log(primaryKeys)
-    const searchUrl = `${baseUrl}listado/?query=${query}&${primaryKeys}`;
+    // console.log(primaryKeys)
+    // console.log(baseUrl
+    const searchUrl = baseUrl === 'https://mtoopticos.cl/api/tipos/'
+      ? `${baseUrl}listado/?query=${query}&${primaryKeys || '_p1=OTMotivoGarantia'}`
+      : `${baseUrl}listado/?query=${query}&${primaryKeys}`;
+
     try {
       // console.log("searchUrl", searchUrl);
       const response = await axiosInstance.get(searchUrl);

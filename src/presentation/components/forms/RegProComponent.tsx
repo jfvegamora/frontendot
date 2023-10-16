@@ -15,7 +15,7 @@ interface Props {
 const RegProComponent: React.FC<Props> = React.memo(
   ({ control, isEditting, data, EnumGrid, errors,handleSelectChange }) => {
     const [provincias, setProvincias] = useState([]);
-    const [regiones, setRegiones] = useState(0);
+    const [regiones, setRegiones] = useState( data || 0);
     const [comunas, setComunas] = useState([]);
 
 
@@ -42,7 +42,8 @@ const RegProComponent: React.FC<Props> = React.memo(
     const { ListEntity } = useCrud("/api/provincias/");
     const { ListEntity: ListEntityComunas } = useCrud("/api/comunas/");
 
-
+    console.log(data)
+    console.log(regiones)
 
     useEffect(() => {
       // const _p1 = `_p1=${data ? data[EnumGrid.region_id] : regiones}`;

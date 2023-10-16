@@ -1,6 +1,16 @@
 import React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { SelectInputComponent, TextInputComponent } from '..';
+import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
+
+
+interface IDerivacion {
+    data?:any;
+    onClose?: any;
+    switchCaseDerivar:any;
+}
+
+
 
 interface FormData{
     folio_ot: number;
@@ -13,19 +23,25 @@ interface FormData{
     observaciones:string
 }
 
-const Derivacion:React.FC = () => {
+const FOTDerivacion:React.FC<IDerivacion> = ({
+    data,
+    onClose,
+    switchCaseDerivar
+}) => {
     const {control, handleSubmit} = useForm<FormData>()
 
     const onSubmit: SubmitHandler<FormData> = async(jsonData) =>{
         console.log('jsondata', jsonData)
+        switchCaseDerivar()
     }
 
 
+  console.log(data);
 
   return (
-    <div className='useFormContainer h-[40%] w-[60%] left-[20%] top-[30%] z-30'>
+    <div className='useFormContainer h-[55%] w-[60%] left-[20%] top-[30%] z-30'>
         <div className=" flex justify-end w-full">
-            <h2 className='text-2xl'>X</h2>
+            <h2 className='text-2xl cursor-pointer' onClick={onClose}>X</h2>
         </div>
         <form className='text-center' onSubmit={handleSubmit(onSubmit)}>
                 <h1 className='text-2xl mt-2'>Derivacion De OT</h1>
@@ -37,6 +53,8 @@ const Derivacion:React.FC = () => {
                             label="Folio OT"
                             name="folio_ot"
                             control={control}
+                            data={data && data[EnumGrid.folio]}
+                            onlyRead={true}
                             // handleChange={handleInputChange}
                             // data={formValues && formValues["rut"]}
                             // error={errors.fecha_nacimiento}
@@ -48,6 +66,8 @@ const Derivacion:React.FC = () => {
                             label="Proyecto"
                             name="proyecto"
                             control={control}
+                            data={data && data[EnumGrid.proyecto_titulo]}
+                            onlyRead={true}
                             // handleChange={handleInputChange}
                             // data={formValues && formValues["rut"]}
                             // error={errors.fecha_nacimiento}
@@ -59,6 +79,8 @@ const Derivacion:React.FC = () => {
                             label="Nombre Cliente"
                             name="nombre_cliente"
                             control={control}
+                            data={data && data[EnumGrid.cliente_nomnbre]}
+                            onlyRead={true}
                             // handleChange={handleInputChange}
                             // data={formValues && formValues["rut"]}
                             // error={errors.fecha_nacimiento}
@@ -73,6 +95,8 @@ const Derivacion:React.FC = () => {
                             label="Área desde"
                             name="area_desde"
                             control={control}
+                            data= {data && data[EnumGrid.area]}
+                            onlyRead={true}
                             // handleChange={handleInputChange}
                             // data={formValues && formValues["rut"]}
                             // error={errors.fecha_nacimiento}
@@ -87,7 +111,7 @@ const Derivacion:React.FC = () => {
                             control={control}
                             // handleSelectChange={handleInputChange}
                             // data={formValues && formValues["proyectos"]}
-                            entidad={["/api/tipos/", "02", "OTMotivoGarantia"]}
+                            entidad={["/api/tipos/", "02", "OTAreas"]}
                             // error={errors.establecimiento}
                             // customWidth={"345px"}
                         />
@@ -101,7 +125,7 @@ const Derivacion:React.FC = () => {
                             control={control}
                             // handleSelectChange={handleInputChange}
                             // data={formValues && formValues["proyectos"]}
-                            entidad={["/api/tipos/", "02", "OTMotivoGarantia"]}
+                            entidad={["/api/tipos/", "02", "OTSituaciones"]}
                             // error={errors.establecimiento}
                             // customWidth={"345px"}
                         />
@@ -131,4 +155,4 @@ const Derivacion:React.FC = () => {
   )
 }
 
-export default Derivacion
+export default FOTDerivacion

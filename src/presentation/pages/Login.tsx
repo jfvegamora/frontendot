@@ -13,6 +13,7 @@ import { login } from "../../redux/slices/userSlice";
 import { IUser } from "../../interfaces";
 import { fetchFuncionalidades } from "../../redux/slices/funcionalidadesSlice";
 import useCustomToast from "../hooks/useCustomToast";
+import { fetchOTAreas } from "../../redux/slices/OTAreasSlice";
 // import ToastNotification from "../components/ToastNotification";
 
 interface LoginFormValues {
@@ -47,6 +48,7 @@ const Login: React.FC = React.memo(() => {
           const response: IUser = jwtDecode(user[0]);
           dispatch(login(response));
           dispatch(fetchFuncionalidades());
+          dispatch(fetchOTAreas())
           // toast.success("Sesion Iniciada");
           show({ message: LOGIN.loginSuccess, type: "success" });
           navigate("/usuarios");
