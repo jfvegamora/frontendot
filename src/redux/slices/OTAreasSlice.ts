@@ -22,7 +22,6 @@ export const fetchOTAreas = createAsyncThunk('OTAreas/fetchOTAreas',async()=>{
         
         console.log(response.data)
         return response.data
-    
     } catch (error) {
         throw error
     }
@@ -35,7 +34,10 @@ const funcionalidadesSlice = createSlice({
         updateActualArea: (state, action) => {
             // Actualiza el área actual en el estado
             if (state) {
-              state.areaActual = action.payload;
+                return {
+                    ...state,
+                    areaActual: action.payload,
+                };
             }
         },
     },
