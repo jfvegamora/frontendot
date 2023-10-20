@@ -348,6 +348,13 @@ export const validationPermisosSchema = () =>
     permiso      : yup.string().required(`${msg}`),
   });
 
+//Schema PERMISOS DE OT
+export const validationOTPermisosSchema = () =>
+  yup.object().shape({
+    usuario      : yup.string().required(`${msg}`),
+    permiso      : yup.string().required(`${msg}`),
+  });
+
   export const validationPermisosAreasSchema = () =>
   yup.object().shape({
     usuario      : yup.string().required(`${msg}`),

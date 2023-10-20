@@ -21,6 +21,7 @@ export const BUTTON_MESSAGES = {
   delete: "Eliminar ",
   bln_ingreso: "Ingreso",
   bln_egreso: "Egreso",
+  permiso_ot: "Permisos OT",
 };
 
 export const TITLES = {

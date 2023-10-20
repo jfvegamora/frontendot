@@ -97,7 +97,7 @@ export const privateRoutes = [
     requiredPermissions : ['view_' + PrivateRoutes.OT]
   },
   {
-    id                  : "30",
+    id                  : "28",
     path                : PrivateRoutes.OT,
     component           : MOT,
     requiredPermissions : ['view_' + PrivateRoutes.OT]
@@ -121,7 +121,7 @@ export const privateRoutes = [
     requiredPermissions : ['view_' + PrivateRoutes.PUNTOS_VENTA]
   },
   {
-    id                  : "30",
+    id                  : "29",
     path                : PrivateRoutes.SITUACIONES,
     component           : MSituaciones,
     requiredPermissions : ['view_' + PrivateRoutes.SITUACIONES]
@@ -295,12 +295,6 @@ export const privateRoutes = [
     id                  : "26",
     path                : PrivateRoutes.PERMISOS,
     component           : MPermisos,
-    requiredPermissions : ['view_' + PrivateRoutes.PERMISOS]
-  },
-  {
-    id                  : "29",
-    path                : PrivateRoutes.PERMISOS_AREAS,
-    component           : MPermisosAreas,
     requiredPermissions : ['view_' + PrivateRoutes.PERMISOS]
   },
   {
