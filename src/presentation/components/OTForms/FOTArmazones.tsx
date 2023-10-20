@@ -49,7 +49,8 @@ const FOTArmazones:React.FC<IArmazones> = ({
     // console.log(armazon1)
     // console.log(formValues)
     // console.log(codArmazon2 && codArmazon2[0])
-    console.log(data && data[EnumGrid.a1_armazon_id])
+    // console.log(data && data[EnumGrid.a1_armazon_id])
+
   return (
     <form>
         <div className='w-full labelForm rounded-lg border border-blue-500'>
@@ -59,11 +60,11 @@ const FOTArmazones:React.FC<IArmazones> = ({
                         <div className="w-[90%] ml-4">
                             <SelectInputComponent
                                 label="Opción de Venta"
-                                name="anteojo1_opcion_vta"
+                                name="a1_opcion_vta_id"
                                 showRefresh={true}
                                 isOT={true}
                                 handleSelectChange={handleInputChange}
-                                data={formValues && formValues["anteojo1_opcion_vta"]}
+                                data={formValues ? formValues["a1_opcion_vta_id"] : data && data[EnumGrid.a1_opcion_vta_id]}
                                 control={control}
                                 entidad={["/api/tipos/", "02","OTOpcionVentaArmazon"]}
                                 // error={errors.establecimiento}
@@ -76,9 +77,9 @@ const FOTArmazones:React.FC<IArmazones> = ({
                                 <TextInputComponent
                                     type="text"
                                     label="Codigo Armazon"
-                                    name="codigo_armazon_1"
+                                    name="a1_armazon_id"
                                     handleChange={handleInputChange}
-                                    data={formValues ? formValues["codigo_armazon_1"] : data && data[EnumGrid.a1_armazon_id]}
+                                    data={formValues ? formValues["a1_armazon_id"] : data && data[EnumGrid.a1_armazon_id]}
                                     control={control}
                                     // error={errors.fecha_nacimiento}
                                 />
@@ -152,11 +153,11 @@ const FOTArmazones:React.FC<IArmazones> = ({
                         <div className="w-[90%] ml-4">
                             <SelectInputComponent
                                 label="Opción de Venta"
-                                name="anteojo2_opcion_vta"
+                                name="a2_opcion_vta_id"
                                 showRefresh={true}
                                 isOT={true}
                                 handleSelectChange={handleInputChange}
-                                data={formValues ? formValues["anteojo2_opcion_vta"] : data && data[EnumGrid.a2_armazon_opcion_venta_id]}
+                                data={formValues ? formValues["a2_opcion_vta_id"] : data && data[EnumGrid.a2_opcion_vta_id]}
                                 control={control}
                                 entidad={["/api/tipos/", "02","OTOpcionVentaArmazon"]}
                                 // error={errors.establecimiento}
@@ -169,9 +170,9 @@ const FOTArmazones:React.FC<IArmazones> = ({
                                 <TextInputComponent
                                     type="text"
                                     label="Codigo Armazon"
-                                    name="codigo_armazon_2"
+                                    name="a2_armazon_id"
                                     handleChange={handleInputChange}
-                                    data={formValues ? formValues["codigo_armazon_2"] : data && data[EnumGrid.a2_armazon_id]}
+                                    data={formValues ? formValues["a2_armazon_id"] : data && data[EnumGrid.a2_armazon_id]}
                                     control={control}
                                     // error={errors.fecha_nacimiento}
                                 />
@@ -243,11 +244,11 @@ const FOTArmazones:React.FC<IArmazones> = ({
                         <div className="w-[90%] ml-4">
                             <SelectInputComponent
                                 label="Opcion de Venta"
-                                name="anteojo3_opcion_vta"
+                                name="a3_opcion_vta_id"
                                 showRefresh={true}
                                 isOT={true}
                                 handleSelectChange={handleInputChange}
-                                data={formValues && formValues["anteojo1_opcion_vta"]}
+                                data={formValues ? formValues["a3_opcion_vta_id"] : data && data[EnumGrid.a3_opcion_vta_id]}
                                 control={control}
                                 entidad={["/api/tipos/", "02","OTOpcionVentaArmazon"]}
                                 // error={errors.establecimiento}
@@ -260,9 +261,10 @@ const FOTArmazones:React.FC<IArmazones> = ({
                                 <TextInputComponent
                                     type="text"
                                     label="Codigo Armazon"
-                                    name="codigo_armazon_3"
+                                    name="a3_armazon_id"
                                     handleChange={handleInputChange}
-                                    data={formValues && formValues["codigo_amrazon_3"]}
+                                    data={formValues ? formValues["a3_armazon_id"] : data && data[EnumGrid.a3_armazon_id]}
+
                                     control={control}
                                     // error={errors.fecha_nacimiento}
                                 />

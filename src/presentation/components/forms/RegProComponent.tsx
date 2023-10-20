@@ -42,8 +42,8 @@ const RegProComponent: React.FC<Props> = React.memo(
     const { ListEntity } = useCrud("/api/provincias/");
     const { ListEntity: ListEntityComunas } = useCrud("/api/comunas/");
 
-    console.log(data)
-    console.log(regiones)
+    // console.log(data)
+    // console.log(regiones)
 
     useEffect(() => {
       // const _p1 = `_p1=${data ? data[EnumGrid.region_id] : regiones}`;
@@ -150,7 +150,7 @@ const RegProComponent: React.FC<Props> = React.memo(
 
         <div className="w-full">
           <Controller
-            name="comuna"
+            name="cliente_comuna_id"
             defaultValue={data && data[EnumGrid.comuna_id]}
             control={control}
             render={({ field }) => (

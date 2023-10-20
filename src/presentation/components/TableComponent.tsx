@@ -61,7 +61,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
     const { escritura_lectura, lectura} = usePermission(idMenu || 0 );
     const [rowIds, setRowIds] = useState<number[]>([]);
 
-    console.log(idMenu)
+    // console.log(idMenu)
     useEffect(() => {
       if (data) {
         // Crea un arreglo de IDs de filas basado en la longitud de los datos
@@ -82,7 +82,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
       // console.log(type)
       return(
         <Typography variant="small" color="blue-gray" className={`gridText ${type === 1 ? '!text-white': ''} `} style={cellStyle}>
-          {text || 'no data'}
+          {text !== null && text !== undefined ? text.toString() : ""}
         </Typography>
       )
     };

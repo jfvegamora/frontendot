@@ -60,6 +60,7 @@ function App() {
   const navigate = useNavigate();
 
   const permisosID = userState && Object.keys(userState?.permisos);
+  console.log('permmisosID', permisosID)
 
   const redirectToLogin = () => {
     navigate(`/login`);

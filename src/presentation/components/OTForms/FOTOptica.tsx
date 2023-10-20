@@ -3,7 +3,6 @@ import { RadioButtonComponent, SelectInputComponent, TextInputComponent } from '
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
 // import { Switch , switchButton} from "@material-tailwind/react";
 import Switch from "react-switch";
-import useSWR from 'swr';
 import axios from 'axios';
 
 interface IOptica {
@@ -35,8 +34,7 @@ const FOTOptica:React.FC<IOptica> = ({
     const handleInputChange = (e:any) => {
         const { name, value } = e;
         
-        console.log(name)
-        console.log(value)
+        //metodo para validar pasando name value 
         if(name === "resolucion_garantia"){
             setToggle(value)
         }
@@ -52,7 +50,7 @@ const FOTOptica:React.FC<IOptica> = ({
     //   console.log(data[EnumGrid.fecha_despacho])
     //   console.log( formValues && formValues["motivo"])
     
-    const handleSwitchValidation = (event:any) => {
+    const handleSwitchValidation = () => {
         setIsToggleValidacion((prev)=>!prev)
     }
     
@@ -73,7 +71,7 @@ const FOTOptica:React.FC<IOptica> = ({
 
 
 
-    
+   
   return (
     <form action="">
         <div className='w-full labelForm rounded-lg border border-blue-500'>
@@ -158,11 +156,11 @@ const FOTOptica:React.FC<IOptica> = ({
                 <div className="w-[22%] ml-2">
                     <SelectInputComponent
                         label="Puntos de Venta"
-                        name="punto_venta"
+                        name="punto_venta_id"
                         showRefresh={true}
                         isOT={true}
                         handleSelectChange={handleInputChange}
-                        data={formValues ? formValues["punto_venta"] : data && data[EnumGrid.punto_venta_id]}
+                        data={formValues ? formValues["punto_venta_id"] : data && data[EnumGrid.punto_venta_id]}
                         // data={data && data[EnumGrid.establecimiento_id]}
                         control={control}
                         entidad={["/api/puntosventa/", "02"]}
@@ -228,11 +226,11 @@ const FOTOptica:React.FC<IOptica> = ({
                         <div className="w-[35%] ">
                             <SelectInputComponent
                                 label="Motivo"
-                                name="motivo_garantia"
+                                name="motivo_garantia_id"
                                 showRefresh={true}
                                 isOT={true}
                                 handleSelectChange={handleInputChange}
-                                data={formValues ? formValues["motivo_garantia"] : data && data[EnumGrid.motivo_gtia_id]}
+                                data={formValues ? formValues["motivo_garantia_id"] : data && data[EnumGrid.motivo_garantia_id]}
                                 control={control}
                                 entidad={["/api/tipos/", "02", "OTMotivoGarantia"]}
                                 // error={errors.establecimiento}
@@ -267,9 +265,9 @@ const FOTOptica:React.FC<IOptica> = ({
                             <RadioButtonComponent
                                 control={control}
                                 label="Resolucion"
-                                name="resolucion_garantia"
+                                name="resolucion_garantia_id"
                                 // data={data ? data[EnumGrid.motivo] : formValues["motivo"]}
-                                data={formValues ? formValues["resolucion_garantia"] : data && data[EnumGrid.resolucion_gtia_id]}
+                                data={formValues ? formValues["resolucion_garantia_id"] : data && data[EnumGrid.resolucion_garantia_id]}
                                 options={["Aceptada", "Rechazada"]}
                                 // error={errors.sexo}
                                 horizontal={true}
@@ -334,9 +332,9 @@ const FOTOptica:React.FC<IOptica> = ({
                         <TextInputComponent
                             type="number"
                             label="Folio interno mandante"
-                            name="folio_asociado"
+                            name="folio_interno_mandante"
                             handleChange={handleInputChange}
-                            data={formValues ? formValues["folio_asociado"] : data && data[EnumGrid.folio_mandante]}
+                            data={formValues ? formValues["folio_interno_mandante"] : data && data[EnumGrid.folio_interno_mandante]}
                             control={control}
                             // error={errors.fecha_nacimiento}
                         />

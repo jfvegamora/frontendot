@@ -18,8 +18,8 @@ const FOTReceta:React.FC<IReceta> = ({
 
     const handleInputChange = (e:any) => {
         let {name, value} = e;
-        console.log(name)
-        console.log(value)
+        // console.log(name)
+        // console.log(value)
 
         // if(name === "anteojo1_ESF_OD"){
         //     const modifiedValue = parseFloat(value).toFixed(2);
@@ -39,11 +39,11 @@ const FOTReceta:React.FC<IReceta> = ({
                 <div className="w-[20%] -ml-4">
                         <SelectInputComponent
                             label="Tipo de Anteojo"
-                            name="tipo_anteojo"
+                            name="tipo_anteojo_id"
                             showRefresh={true}
                             isOT={true}
                             handleSelectChange={handleInputChange}
-                            data={formValues ? formValues["tipo_anteojo"] : data && data[EnumGrid.tipo_anteojo_id]}
+                            data={formValues ? formValues["tipo_anteojo_id"] : data && data[EnumGrid.tipo_anteojo_id]}
                             control={control}
                             entidad={["/api/tipos/", "02","OTTipoAnteojo"]}
                             // error={errors.establecimiento}
@@ -103,9 +103,9 @@ const FOTReceta:React.FC<IReceta> = ({
                                 type="te"
                                 label="ESF"
                                 defaultValue={'anteojo1_ESF_OD'}
-                                name="anteojo1_ESF_OD"
+                                name="a1_od_esf"
                                 handleChange={handleInputChange}
-                                data={formValues ? formValues["anteojo1_ESF_OD"] : data && data[EnumGrid.a1_od_esf]}
+                                data={formValues ? formValues["a1_od_esf"] : data && data[EnumGrid.a1_od_esf]}
                                 control={control}
                                 // error={errors.fecha_nacimiento}
                             />
@@ -114,10 +114,10 @@ const FOTReceta:React.FC<IReceta> = ({
                             <TextInputComponent
                                 type="text"
                                 label="CIL"
-                                name="anteojo1_CIL_OD"
+                                name="a1_od_cil"
                                 handleChange={handleInputChange}
                                 
-                                data={formValues ? formValues["anteojo1_CIL_OD"] : data && data[EnumGrid.a1_od_cil]}
+                                data={formValues ? formValues["a1_od_cil"] : data && data[EnumGrid.a1_od_cil]}
                                 control={control}
                                 // error={errors.fecha_nacimiento}
                             />
@@ -126,9 +126,9 @@ const FOTReceta:React.FC<IReceta> = ({
                             <TextInputComponent
                                 type="text"
                                 label="EJE"
-                                name="anteojo1_EJE_OD"
+                                name="a1_od_eje"
                                 handleChange={handleInputChange}
-                                data={formValues ? formValues["anteojo1_EJE_OD"] : data && data[EnumGrid.a1_od_eje]}
+                                data={formValues ? formValues["a1_od_eje"] : data && data[EnumGrid.a1_od_eje]}
                                 control={control}
                                 // error={errors.fecha_nacimiento}
                             />
@@ -137,9 +137,9 @@ const FOTReceta:React.FC<IReceta> = ({
                             <TextInputComponent
                                 type="text"
                                 label="AD"
-                                name="anteojo1_AD_OD"
+                                name="a1_od_ad"
                                 handleChange={handleInputChange}
-                                data={formValues ? formValues["anteojo1_AD_OD"] : data && data[EnumGrid.a1_od_ad]}
+                                data={formValues ? formValues["a1_od_ad"] : data && data[EnumGrid.a1_od_ad]}
                                 control={control}
                                 // error={errors.fecha_nacimiento}
                             />
@@ -154,9 +154,9 @@ const FOTReceta:React.FC<IReceta> = ({
                             <TextInputComponent
                                 type="text"
                                 label="ESF"
-                                name="anteojo1_ESF_OI"
+                                name="a1_oi_esf"
                                 handleChange={handleInputChange}
-                                data={formValues ? formValues["anteojo1_ESF_OI"] : data && data[EnumGrid.a1_oi_esf]}
+                                data={formValues ? formValues["a1_oi_esf"] : data && data[EnumGrid.a1_oi_esf]}
                                 control={control}
                                 // error={errors.fecha_nacimiento}
                             />
@@ -165,9 +165,9 @@ const FOTReceta:React.FC<IReceta> = ({
                             <TextInputComponent
                                 type="text"
                                 label="CIL"
-                                name="anteojo1_CIL_OI"
+                                name="a1_oi_cil"
                                 handleChange={handleInputChange}
-                                data={formValues ? formValues["anteojo1_CIL_OI"] : data && data[EnumGrid.a1_oi_cil]}
+                                data={formValues ? formValues["a1_oi_cil"] : data && data[EnumGrid.a1_oi_cil]}
                                 control={control}
                                 // error={errors.fecha_nacimiento}
                             />
@@ -176,9 +176,9 @@ const FOTReceta:React.FC<IReceta> = ({
                             <TextInputComponent
                                 type="text"
                                 label="EJE"
-                                name="anteojo1_EJE_OI"
+                                name="a1_oi_eje"
                                 handleChange={handleInputChange}
-                                data={formValues ? formValues["anteojo1_EJE_OI"] : data && data[EnumGrid.a1_oi_eje]}
+                                data={formValues ? formValues["a1_oi_eje"] : data && data[EnumGrid.a1_oi_eje]}
                                 control={control}
                                 // error={errors.fecha_nacimiento}
                             />
@@ -187,9 +187,9 @@ const FOTReceta:React.FC<IReceta> = ({
                             <TextInputComponent
                                 type="text"
                                 label="AD"
-                                name="anteojo1_AD_OI"
+                                name="a1_oi_ad"
                                 handleChange={handleInputChange}
-                                data={formValues ? formValues["anteojo1_AD_OI"] : data && data[EnumGrid.a1_oi_ad]}
+                                data={formValues ? formValues["a1_oi_ad"] : data && data[EnumGrid.a1_oi_ad]}
                                 control={control}
                                 // error={errors.fecha_nacimiento}
                             />
@@ -201,9 +201,9 @@ const FOTReceta:React.FC<IReceta> = ({
                             <TextInputComponent
                                 type="text"
                                 label="DP"
-                                name="anteojo1_DP"
+                                name="a1_dp"
                                 handleChange={handleInputChange}
-                                data={formValues ? formValues["anteojo1_DP"] : data && data[EnumGrid.a1_dp]}
+                                data={formValues ? formValues["a1_dp"] : data && data[EnumGrid.a1_dp]}
                                 control={control}
                                 // error={errors.fecha_nacimiento}
                             />
@@ -212,9 +212,9 @@ const FOTReceta:React.FC<IReceta> = ({
                             <TextInputComponent
                                 type="text"
                                 label="ALT"
-                                name="anteojo1_ALT"
+                                name="a1_alt"
                                 handleChange={handleInputChange}
-                                data={formValues ? formValues["anteojo1_ALT"] : data && data[EnumGrid.a1_alt]}
+                                data={formValues ? formValues["a1_alt"] : data && data[EnumGrid.a1_alt]}
                                 control={control}
                                 // error={errors.fecha_nacimiento}
                             />
@@ -249,9 +249,9 @@ const FOTReceta:React.FC<IReceta> = ({
                             <TextInputComponent
                                 type="text"
                                 label="ESF"
-                                name="anteojo2_ESF_OD"
+                                name="a2_od_esf"
                                 handleChange={handleInputChange}
-                                data={formValues ? formValues["anteojo2_ESF_OD"] : data && data[EnumGrid.a2_od_esf]}
+                                data={formValues ? formValues["a2_od_esf"] : data && data[EnumGrid.a2_od_esf]}
 
                                 control={control}
                                 // error={errors.fecha_nacimiento}
@@ -261,9 +261,9 @@ const FOTReceta:React.FC<IReceta> = ({
                             <TextInputComponent
                                 type="text"
                                 label="CIL"
-                                name="anteojo2_CIL_OD"
+                                name="a2_od_cil"
                                 handleChange={handleInputChange}
-                                data={formValues ? formValues["anteojo2_CIL_OD"] : data && data[EnumGrid.a2_od_cil]}
+                                data={formValues ? formValues["a2_od_cil"] : data && data[EnumGrid.a2_od_cil]}
                                 control={control}
                                 // error={errors.fecha_nacimiento}
                             />
@@ -272,9 +272,9 @@ const FOTReceta:React.FC<IReceta> = ({
                             <TextInputComponent
                                 type="text"
                                 label="EJE"
-                                name="anteojo2_EJE_OD"
+                                name="a2_od_eje"
                                 handleChange={handleInputChange}
-                                data={formValues ? formValues["anteojo2_EJE_OD"] : data && data[EnumGrid.a2_od_eje]}
+                                data={formValues ? formValues["a2_od_eje"] : data && data[EnumGrid.a2_od_eje]}
                                 
                                 control={control}
                                 // error={errors.fecha_nacimiento}
@@ -291,9 +291,9 @@ const FOTReceta:React.FC<IReceta> = ({
                             <TextInputComponent
                                 type="text"
                                 label="ESF"
-                                name="anteojo2_ESF_OI"
+                                name="a2_oi_esf"
                                 handleChange={handleInputChange}
-                                data={formValues ? formValues["anteojo2_ESF_OI"] : data && data[EnumGrid.a2_oi_esf]}
+                                data={formValues ? formValues["a2_oi_esf"] : data && data[EnumGrid.a2_oi_esf]}
                                 control={control}
                                 // error={errors.fecha_nacimiento}
                             />
@@ -302,9 +302,9 @@ const FOTReceta:React.FC<IReceta> = ({
                             <TextInputComponent
                                 type="text"
                                 label="CIL"
-                                name="anteojo2_CIL_OI"
+                                name="a2_oi_cil"
                                 handleChange={handleInputChange}
-                                data={formValues ? formValues["anteojo2_CIL_OI"] : data && data[EnumGrid.a2_oi_cil]}
+                                data={formValues ? formValues["a2_oi_cil"] : data && data[EnumGrid.a2_oi_cil]}
                                 control={control}
                                 // error={errors.fecha_nacimiento}
                             />
@@ -313,9 +313,9 @@ const FOTReceta:React.FC<IReceta> = ({
                             <TextInputComponent
                                 type="text"
                                 label="EJE"
-                                name="anteojo2_EJE_OI"
+                                name="a2_oi_eje"
                                 handleChange={handleInputChange}
-                                data={formValues ? formValues["anteojo2_EJE_OI"] : data && data[EnumGrid.a2_oi_eje]}
+                                data={formValues ? formValues["a2_oi_eje"] : data && data[EnumGrid.a2_oi_eje]}
                                 control={control}
                                 // error={errors.fecha_nacimiento}
                             />
@@ -329,9 +329,9 @@ const FOTReceta:React.FC<IReceta> = ({
                             <TextInputComponent
                                 type="text"
                                 label="DP"
-                                name="anteojo2_DP"
+                                name="a2_dp"
                                 handleChange={handleInputChange}
-                                data={formValues ? formValues["anteojo2_DP"] : data && data[EnumGrid.a2_dp]}
+                                data={formValues ? formValues["a2_dp"] : data && data[EnumGrid.a2_dp]}
                                 control={control}
                                 // error={errors.fecha_nacimiento}
                             />

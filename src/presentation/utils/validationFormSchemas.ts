@@ -5,6 +5,22 @@ export const fechaActual = new Date();
 
 
 /*************** O T ***************/
+//Schema OT
+export const validationOTSchema = () =>
+  yup.object().shape({
+    proyecto        : yup.string().required(`${msg}`),
+    establecimiento : yup.string().required(`${msg}`),
+    tipo            : yup.string().required(`${msg}`),
+    sexo            : yup.string().required(`${msg}`),
+    fecha_nacimiento: yup.string(),
+    direccion       : yup.string(),
+    region          : yup.string(),
+    provincia       : yup.string(),
+    comuna          : yup.string().required(`${msg}`),
+    telefono        : yup.string().required(`${msg}`),
+    correo          : yup.string(),
+    establecimient : yup.string().required(`${msg}`),
+  });
 // Schema CLIENTES
 export const validationClientesSchema = () =>
   yup.object().shape({

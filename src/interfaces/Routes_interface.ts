@@ -97,7 +97,7 @@ export const privateRoutes = [
     requiredPermissions : ['view_' + PrivateRoutes.OT]
   },
   {
-    id                  : "30",
+    id                  : "28",
     path                : PrivateRoutes.OT,
     component           : MOT,
     requiredPermissions : ['view_' + PrivateRoutes.OT]

@@ -41,7 +41,7 @@ export enum OptionValuesEstado {
 }
 
 
-const strEntidad = "Usuario ";
+const strEntidad = "Orden de Trabajo ";
 const strEntidadExcel = "Usuarios";
 const strBaseUrl = "/api/ot/";
 const strQuery = "01";

@@ -19,37 +19,37 @@ const FOTCristales:React.FC<ICristales> = ({
     formValues,
     data
 }) => {
-    const fetcher = (url:string) => axios.get(url).then((res)=>res.data);
-    const [codCristal1OD, setCodCristal1OD] = useState(formValues ? formValues["anteojo1_cristal_OD"] : data && data[EnumGrid.cristal1_od_codigo] || 0);
-    const [codCristal1OI, setCodCristal1OI] = useState(formValues ? formValues["anteojo1_cristal_OI"] : data && data[EnumGrid.cristal1_oi_codigo] || 0);
+    // const fetcher = (url:string) => axios.get(url).then((res)=>res.data);
+    // const [codCristal1OD, setCodCristal1OD] = useState(formValues ? formValues["anteojo1_cristal_OD"] : data && data[EnumGrid.cristal1_od_codigo] || 0);
+    // const [codCristal1OI, setCodCristal1OI] = useState(formValues ? formValues["anteojo1_cristal_OI"] : data && data[EnumGrid.cristal1_oi_codigo] || 0);
     
-    const [codCristal2OD, setCodCristal2OD] = useState(formValues ? formValues["anteojo2_cristal_OD"] : data && data[EnumGrid.cristal2_od_codigo] || 0);
-    const [codCristal2OI, setCodCrisyal2OI] = useState(formValues ? formValues["anteojo2_cristal_OI"] : data && data[EnumGrid.cristal2_oi_codigo] || 0);
+    // const [codCristal2OD, setCodCristal2OD] = useState(formValues ? formValues["anteojo2_cristal_OD"] : data && data[EnumGrid.cristal2_od_codigo] || 0);
+    // const [codCristal2OI, setCodCrisyal2OI] = useState(formValues ? formValues["anteojo2_cristal_OI"] : data && data[EnumGrid.cristal2_oi_codigo] || 0);
 
 
-    const { data:cristal1OD } = useSWR(`https://mtoopticos.cl/api/cristales/listado/?query=01&_p1=${codCristal1OD}`, fetcher);
-    const { data:cristal1OI } = useSWR(`https://mtoopticos.cl/api/cristales/listado/?query=01&_p1=${codCristal1OI}`, fetcher);
-    const { data:cristal2OD } = useSWR(`https://mtoopticos.cl/api/cristales/listado/?query=01&_p1=${codCristal2OD}`, fetcher);
-    const { data:cristal2OI } = useSWR(`https://mtoopticos.cl/api/cristales/listado/?query=01&_p1=${codCristal2OI}`, fetcher);
+    // const { data:cristal1OD } = useSWR(`https://mtoopticos.cl/api/cristales/listado/?query=01&_p1=${codCristal1OD}`, fetcher);
+    // const { data:cristal1OI } = useSWR(`https://mtoopticos.cl/api/cristales/listado/?query=01&_p1=${codCristal1OI}`, fetcher);
+    // const { data:cristal2OD } = useSWR(`https://mtoopticos.cl/api/cristales/listado/?query=01&_p1=${codCristal2OD}`, fetcher);
+    // const { data:cristal2OI } = useSWR(`https://mtoopticos.cl/api/cristales/listado/?query=01&_p1=${codCristal2OI}`, fetcher);
     
 
     const handleInputChange = (e:any) => {
-        const {name, value} = e;
-        onDataChange({[name]:value})
-        if(name === 'anteojo1_cristal_OD'){
-            setCodCristal1OD(value) 
-        }
-        if(name === 'anteojo1_cristal_OI'){
-            setCodCristal1OI(value) 
-        }
-        if(name === 'anteojo2_cristal_OD'){
-            setCodCristal2OD(value) 
-        }
-        if(name === 'anteojo2_cristal_OI'){
-            setCodCrisyal2OI(value) 
-        }
+        // const {name, value} = e;
+        // onDataChange({[name]:value})
+        // if(name === 'anteojo1_cristal_OD'){
+        //     setCodCristal1OD(value) 
+        // }
+        // if(name === 'anteojo1_cristal_OI'){
+        //     setCodCristal1OI(value) 
+        // }
+        // if(name === 'anteojo2_cristal_OD'){
+        //     setCodCristal2OD(value) 
+        // }
+        // if(name === 'anteojo2_cristal_OI'){
+        //     setCodCrisyal2OI(value) 
+        // }
     }
-  console.log(data && data[EnumGrid.cristal1_od_codigo])
+//   console.log(data && data[EnumGrid.cr1_od])
 
   return (
     <form>
@@ -64,11 +64,11 @@ const FOTCristales:React.FC<ICristales> = ({
                         <div className="w-[90%] mt-6">
                             <SelectInputComponent
                                         label="Opcion de Venta"
-                                        name="cristales1_opcion_vta"
+                                        name="cristal1_opcion_vta_id"
                                         showRefresh={false}
                                         isOT={true}
                                         handleSelectChange={handleInputChange}
-                                        data={formValues ? formValues["cristales1_opcion_vta"] : data && data[EnumGrid.cristal1_od]}
+                                        data={formValues ? formValues["cristal1_opcion_vta_id"] : data && data[EnumGrid.cristal1_opcion_vta_id]}
                                         control={control}
                                         entidad={["/api/tipos/", "02","OTOpcionVentaCristales"]}
                                         // error={errors.establecimiento}
@@ -78,11 +78,11 @@ const FOTCristales:React.FC<ICristales> = ({
                         <div className="w-[90%]">
                             <SelectInputComponent
                                         label="Indice"
-                                        name="cristales1_indice"
+                                        name="cristal1_indice_id"
                                         showRefresh={false}
                                         isOT={true}
                                         handleSelectChange={handleInputChange}
-                                        data={formValues ? formValues["cristales1_indice"] : data && data[EnumGrid.cristal1_od]}
+                                        data={formValues ? formValues["cristal1_indice_id"] : data && data[EnumGrid.cristal1_indice_id]}
                                         control={control}
                                         entidad={["/api/tipos/", "02","CristalesIndices"]}
                                         // error={errors.establecimiento}
@@ -92,11 +92,11 @@ const FOTCristales:React.FC<ICristales> = ({
                         <div className="w-[90%]">
                             <SelectInputComponent
                                         label="Tratamiento"
-                                        name="cristales1_tratamiento_adicional"
+                                        name="cristal1_tratamiento_id"
                                         showRefresh={false}
                                         isOT={true}
                                         handleSelectChange={handleInputChange}
-                                        data={formValues ? formValues["cristales1_tratamiento_adicional"] : data && data[EnumGrid.cristal1_od]}
+                                        data={formValues ? formValues["cristal1_tratamiento_id"] : data && data[EnumGrid.cristal1_tratamiento_id]}
                                         control={control}
                                         entidad={["/api/tipos/", "02","OTTratamientoAdicional"]}
                                         // error={errors.establecimiento}
@@ -117,9 +117,9 @@ const FOTCristales:React.FC<ICristales> = ({
                                     <TextInputComponent
                                         type="text"
                                         label="Codigo Cristal"
-                                        name="anteojo1_cristal_OD"
+                                        name="cristal1_od"
                                         handleChange={handleInputChange}
-                                        data={formValues ? formValues["anteojo1_cristal_OD"] : data && data[EnumGrid.cristal1_od_codigo]}
+                                        data={formValues ? formValues["cristal1_od"] : data && data[EnumGrid.cristal1_od]}
                                         control={control}
                                         // error={errors.fecha_nacimiento}
                                     />
@@ -171,11 +171,11 @@ const FOTCristales:React.FC<ICristales> = ({
                     <div className="w-[90%] mt-6">
                             <SelectInputComponent
                                         label="Diseño"
-                                        name="cristales1_diseno"
+                                        name="cristal1_diseno_id"
                                         showRefresh={false}
                                         isOT={true}
                                         handleSelectChange={handleInputChange}
-                                        data={formValues ? formValues["cristales1_diseno"] : data && data[EnumGrid.cristal1_od]}
+                                        data={formValues ? formValues["cristal1_diseno_id"] : data && data[EnumGrid.cristal1_diseno_id]}
                                         control={control}
                                         entidad={["/api/tipos/", "02","CristalesDisenos"]}
                                         // error={errors.establecimiento}
@@ -185,11 +185,11 @@ const FOTCristales:React.FC<ICristales> = ({
                     <div className="w-[90%]">
                             <SelectInputComponent
                                         label="Material"
-                                        name="cristales1_material"
+                                        name="cristal1_material_id"
                                         showRefresh={false}
                                         isOT={true}
                                         handleSelectChange={handleInputChange}
-                                        data={formValues ? formValues["cristales1_material"] : data && data[EnumGrid.cristal1_od]}
+                                        data={formValues ? formValues["cristal1_material_id"] : data && data[EnumGrid.cristal1_material_id]}
                                         control={control}
                                         entidad={["/api/tipos/", "02","CristalesMateriales"]}
                                         // error={errors.establecimiento}
@@ -199,11 +199,11 @@ const FOTCristales:React.FC<ICristales> = ({
                     <div className="w-[90%]">
                             <SelectInputComponent
                                         label="Color"
-                                        name="cristales1_color"
+                                        name="cristal1_color_id"
                                         showRefresh={false}
                                         isOT={true}
                                         handleSelectChange={handleInputChange}
-                                        data={formValues ? formValues["cristales1_color"] : data && data[EnumGrid.cristal1_od]}
+                                        data={formValues ? formValues["cristal1_color_id"] : data && data[EnumGrid.cristal1_color_id]}
                                         control={control}
                                         entidad={["/api/tipos/", "02","CristalesColores"]}
                                         // error={errors.establecimiento}
@@ -219,9 +219,9 @@ const FOTCristales:React.FC<ICristales> = ({
                                 <TextInputComponent
                                     type="text"
                                     label="Codigo Cristal"
-                                    name="anteojo1_cristal_OI"
+                                    name="cristal1_oi"
                                     handleChange={handleInputChange}
-                                    data={formValues && formValues["anteojo1_cristal_OI"]}
+                                    data={formValues ? formValues["cristal1_oi"] : data && data[EnumGrid.cristal1_oi]}
                                     control={control}
                                     // error={errors.fecha_nacimiento}
                                 />
@@ -266,11 +266,11 @@ const FOTCristales:React.FC<ICristales> = ({
                      <div className="w-[90%]">
                             <SelectInputComponent
                                         label="Tratamiento adicional"
-                                        name="cristales1_color"
+                                        name="cristal1_tratamiento_adicional_id"
                                         showRefresh={false}
                                         isOT={true}
                                         handleSelectChange={handleInputChange}
-                                        data={formValues ? formValues["cristales1_color"] : data && data[EnumGrid.cristal1_od]}
+                                        data={formValues ? formValues["cristal1_tratamiento_adicional_id"] : data && data[EnumGrid.cristal1_tratamiento_adicional_id]}
                                         control={control}
                                         entidad={["/api/tipos/", "02","CristalesTratamientos"]}
                                         // error={errors.establecimiento}
@@ -289,11 +289,11 @@ const FOTCristales:React.FC<ICristales> = ({
                         <div className="w-[90%] mt-6">
                             <SelectInputComponent
                                         label="Opcion de Venta"
-                                        name="cristales1_opcion_vta"
+                                        name="cristal2_od_opcion_venta_id"
                                         showRefresh={false}
                                         isOT={true}
                                         handleSelectChange={handleInputChange}
-                                        data={formValues ? formValues["cristales1_opcion_vta"] : data && data[EnumGrid.cristal1_od]}
+                                        data={formValues ? formValues["cristal2_od_opcion_venta_id"] : data && data[EnumGrid.cristal2_od_opcion_venta_id]}
                                         control={control}
                                         entidad={["/api/tipos/", "02","OTOpcionVentaCristales"]}
                                         // error={errors.establecimiento}
@@ -303,11 +303,11 @@ const FOTCristales:React.FC<ICristales> = ({
                         <div className="w-[90%]">
                             <SelectInputComponent
                                         label="Indice"
-                                        name="cristales1_indice"
+                                        name="cristal2_indice_id"
                                         showRefresh={false}
                                         isOT={true}
                                         handleSelectChange={handleInputChange}
-                                        data={formValues ? formValues["cristales1_indice"] : data && data[EnumGrid.cristal1_od]}
+                                        data={formValues ? formValues["cristal2_indice_id"] : data && data[EnumGrid.cristal2_indice_id]}
                                         control={control}
                                         entidad={["/api/tipos/", "02","CristalesIndices"]}
                                         // error={errors.establecimiento}
@@ -317,11 +317,11 @@ const FOTCristales:React.FC<ICristales> = ({
                         <div className="w-[90%]">
                             <SelectInputComponent
                                         label="Tratamiento"
-                                        name="cristales1_tratamiento_adicional"
+                                        name="cristal2_tratamiento_id"
                                         showRefresh={false}
                                         isOT={true}
                                         handleSelectChange={handleInputChange}
-                                        data={formValues ? formValues["cristales1_tratamiento_adicional"] : data && data[EnumGrid.cristal1_od]}
+                                        data={formValues ? formValues["cristal2_tratamiento_id"] : data && data[EnumGrid.cristal2_tratamiento_id]}
                                         control={control}
                                         entidad={["/api/tipos/", "02","OTTratamientoAdicional"]}
                                         // error={errors.establecimiento}
@@ -342,9 +342,9 @@ const FOTCristales:React.FC<ICristales> = ({
                                     <TextInputComponent
                                         type="text"
                                         label="Codigo Cristal"
-                                        name="anteojo1_cristal_OD"
+                                        name="cristal2_od"
                                         handleChange={handleInputChange}
-                                        data={formValues ? formValues["anteojo1_cristal_OD"] : data && data[EnumGrid.cristal1_od_codigo]}
+                                        data={formValues ? formValues["cristal2_od"] : data && data[EnumGrid.cristal2_od]}
                                         control={control}
                                         // error={errors.fecha_nacimiento}
                                     />
@@ -396,11 +396,11 @@ const FOTCristales:React.FC<ICristales> = ({
                     <div className="w-[90%] mt-6">
                             <SelectInputComponent
                                         label="Diseño"
-                                        name="cristales1_diseno"
+                                        name="cristal2_diseno_id"
                                         showRefresh={false}
                                         isOT={true}
                                         handleSelectChange={handleInputChange}
-                                        data={formValues ? formValues["cristales1_diseno"] : data && data[EnumGrid.cristal1_od]}
+                                        data={formValues ? formValues["cristal2_diseno_id"] : data && data[EnumGrid.cristal2_diseno_id]}
                                         control={control}
                                         entidad={["/api/tipos/", "02","CristalesDisenos"]}
                                         // error={errors.establecimiento}
@@ -410,11 +410,11 @@ const FOTCristales:React.FC<ICristales> = ({
                     <div className="w-[90%]">
                             <SelectInputComponent
                                         label="Material"
-                                        name="cristales1_material"
+                                        name="cristal2_material_id"
                                         showRefresh={false}
                                         isOT={true}
                                         handleSelectChange={handleInputChange}
-                                        data={formValues ? formValues["cristales1_material"] : data && data[EnumGrid.cristal1_od]}
+                                        data={formValues ? formValues["cristal2_material_id"] : data && data[EnumGrid.cristal2_material_id]}
                                         control={control}
                                         entidad={["/api/tipos/", "02","CristalesMateriales"]}
                                         // error={errors.establecimiento}
@@ -424,11 +424,11 @@ const FOTCristales:React.FC<ICristales> = ({
                     <div className="w-[90%]">
                             <SelectInputComponent
                                         label="Color"
-                                        name="cristales1_color"
+                                        name="cristal2_color_id"
                                         showRefresh={false}
                                         isOT={true}
                                         handleSelectChange={handleInputChange}
-                                        data={formValues ? formValues["cristales1_color"] : data && data[EnumGrid.cristal1_od]}
+                                        data={formValues ? formValues["cristal2_color_id"] : data && data[EnumGrid.cristal2_color_id]}
                                         control={control}
                                         entidad={["/api/tipos/", "02","CristalesColores"]}
                                         // error={errors.establecimiento}
@@ -444,9 +444,9 @@ const FOTCristales:React.FC<ICristales> = ({
                                 <TextInputComponent
                                     type="text"
                                     label="Codigo Cristal"
-                                    name="anteojo1_cristal_OI"
+                                    name="cristal2_oi"
                                     handleChange={handleInputChange}
-                                    data={formValues && formValues["anteojo1_cristal_OI"]}
+                                    data={formValues ? formValues["cristal2_oi"] : data && data[EnumGrid.cristal2_oi]}
                                     control={control}
                                     // error={errors.fecha_nacimiento}
                                 />
@@ -492,11 +492,11 @@ const FOTCristales:React.FC<ICristales> = ({
                      <div className="w-[90%]">
                             <SelectInputComponent
                                         label="Tratamiento adicional"
-                                        name="tratamiento_Adicional_2"
+                                        name="cristal2_tratamiento_adicional_id"
                                         showRefresh={false}
                                         isOT={true}
                                         handleSelectChange={handleInputChange}
-                                        data={formValues ? formValues["cristales1_color"] : data && data[EnumGrid.cristal1_od]}
+                                        data={formValues ? formValues["cristal2_tratamiento_adicional_id"] : data && data[EnumGrid.cristal2_tratamiento_adicional_id]}
                                         control={control}
                                         entidad={["/api/tipos/", "02","CristalesTratamientos"]}
                                         // error={errors.establecimiento}

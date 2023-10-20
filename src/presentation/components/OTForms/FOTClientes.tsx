@@ -1,15 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { RadioButtonComponent, SelectInputComponent, TextInputComponent } from '..'
 import { SEXO, TIPO_CLIENTE } from '../../utils';
 import RegProComponent from '../forms/RegProComponent';
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
+import { EnumGrid as EnumClientes } from '../../views/mantenedores/MClientes';
+import axios from 'axios';
 
 
 interface IClientes {
     control:any,
     onDataChange: any,
     formValues: any,
-    data:any
+    data:any,
+    setExistCliente:any,
+    strCodigoProyecto:string,
 }
 
 
@@ -17,19 +21,57 @@ const FOTClientes:React.FC<IClientes> = ({
     control,
     onDataChange,
     formValues,
-    data
+    data,
+    setExistCliente,
+    strCodigoProyecto
 }) => {
+    const [inputState, setInputState] = useState({})
+
+    const fetchCliente = async(cliente_rut:string) => {
+        try {
+            const cliente = await axios(`https://mtoopticos.cl/api/clientes/listado/?query=01&_p1=${cliente_rut}`)
+            console.log(cliente)
+            
+            return cliente          
+        } catch (error) {
+            throw error
+        }    
+    }
     
     const handleInputChange = (e:any) => {
         const { name, value } = e;
+        console.log(name)
+        console.log(value)
+
+
+        if(name === 'cliente_rut'){
+            fetchCliente(value).then((data:any)=>{
+                console.log(data["data"][0][2])
+                setExistCliente(true)
+                onDataChange({['cliente_nombre']: data["data"][0][EnumClientes.nombre]})
+                onDataChange({['cliente_sexo']: data["data"][0][EnumClientes.sexo]})
+                onDataChange({['cliente_tipo']: data["data"][0][EnumClientes.tipo]})
+                onDataChange({['cliente_fecha_nacimiento']: data["data"][0][EnumClientes.fecha_nacimiento]})
+                onDataChange({['cliente_correo']: data["data"][0][EnumClientes.correo]})
+                onDataChange({['cliente_telefono']: data["data"][0][EnumClientes.telefono]})
+
+            }).catch((error:any)=>{
+                setExistCliente(false)
+                console.log(error)
+            })
+        }
         onDataChange({ [name]: value }); // Envia los datos al componente padre
       };
 
+
       
-     
+      
+     console.log(formValues)
+    //  console.log(inputState)
+     console.log(formValues && formValues["cliente_nombre"])
   return (
     <form action="">
-        <div className='w-full h-full labelForm rounded-lg border border-blue-500'>
+        <div className='w-full h-[40rem]  labelForm rounded-lg border border-blue-500'>
             
             {/* <div className='w-full  flex  items-center pt-4 '>
                 <div className="w-[55.5%] ml-4">
@@ -76,13 +118,13 @@ const FOTClientes:React.FC<IClientes> = ({
                 <div className="w-[30%] ml-8">
                     <SelectInputComponent
                         label="Establecimiento"
-                        name="establecimiento"
+                        name="establecimiento_id"
                         showRefresh={true}
                         isOT={true}
                         handleSelectChange={handleInputChange}
-                        data={formValues ? formValues["establecimiento"]  : data && data[EnumGrid.establecimiento_id]}
+                        data={formValues ? formValues["establecimiento_id"]  : data && data[EnumGrid.establecimiento_id]}
                         control={control}
-                        entidad={["/api/establecimientos/", "02", "PR001A"]}
+                        entidad={["/api/establecimientos/", "02", strCodigoProyecto]}
                         // error={errors.establecimiento}
                         customWidth={"345px"}
                     />
@@ -90,7 +132,7 @@ const FOTClientes:React.FC<IClientes> = ({
             </div>
 
 
-            <div className="w-[100%] mt-10 h-[20rem] flex items-center">
+            <div className="w-[100%] mt-10 h-[27rem] flex items-center ">
                 
                 <div className="w-[55%] h-[90%] ml-8 items-center   ">
                     <div className='w-full flex items-center  h-1/2'>
@@ -98,8 +140,8 @@ const FOTClientes:React.FC<IClientes> = ({
                             <RadioButtonComponent
                                 control={control}
                                 label="Sexo"
-                                name="sexo"
-                                data={formValues ? formValues["establecimiento"]  : data && data[EnumGrid.cliente_sexo]}
+                                name="cliente_sexo"
+                                data={formValues ? formValues["cliente_sexo"]  : data && data[EnumGrid.cliente_sexo]}
                             
                                 options={[SEXO.masculino, SEXO.femenino, SEXO.no_aplica]}
                                 // error={errors.sexo}
@@ -111,8 +153,8 @@ const FOTClientes:React.FC<IClientes> = ({
                             <RadioButtonComponent
                                 control={control}
                                 label="Tipo"
-                                name="tipo"
-                                data={formValues ? formValues["establecimiento"]  : data && data[EnumGrid.cliente_tipo]}
+                                name="cliente_tipo"
+                                data={formValues ? formValues["cliente_tipo"]  : data && data[EnumGrid.cliente_tipo]}
                                 options={[
                                     TIPO_CLIENTE.beneficiario, 
                                     TIPO_CLIENTE.particular,
@@ -130,9 +172,9 @@ const FOTClientes:React.FC<IClientes> = ({
                             <TextInputComponent
                                 type="date"
                                 label="Fecha de nacimiento"
-                                name="fecha_nacimiento"
+                                name="cliente_fecha_nacimiento"
                                 handleChange={handleInputChange}
-                                data={formValues ? formValues["establecimiento"]  : data && data[EnumGrid.cliente_fecha_nacimiento]}
+                                data={formValues ? formValues["cliente_fecha_nacimiento"]  : data && data[EnumGrid.cliente_fecha_nacimiento]}
                                 
                                 control={control}
                                 // error={errors.fecha_nacimiento}
@@ -142,9 +184,9 @@ const FOTClientes:React.FC<IClientes> = ({
                             <TextInputComponent
                                 type="text"
                                 label="Telefono"
-                                name="telefono"
+                                name="cliente_telefono"
                                 handleChange={handleInputChange}
-                                data={formValues ? formValues["establecimiento"]  : data && data[EnumGrid.cliente_telefono]}
+                                data={formValues ? formValues["cliente_telefono"]  : data && data[EnumGrid.cliente_telefono]}
                                 control={control}
                                 // error={errors.fecha_nacimiento}
                             />
@@ -155,9 +197,9 @@ const FOTClientes:React.FC<IClientes> = ({
                                 <TextInputComponent
                                     type="text"
                                     label="Correo"
-                                    name="correo"
+                                    name="cliente_correo"
                                     handleChange={handleInputChange}
-                                    data={formValues ? formValues["establecimiento"]  : data && data[EnumGrid.cliente_correo]}
+                                    data={formValues ? formValues["cliente_correo"]  : data && data[EnumGrid.cliente_correo]}
                                     control={control}
                                     // error={errors.fecha_nacimiento}
                                 />
@@ -183,14 +225,15 @@ const FOTClientes:React.FC<IClientes> = ({
                         <TextInputComponent
                             type="text"
                             label="N° calle"
-                            name="direccion"
+                            name="cliente_direccion"
                             handleChange={handleInputChange}
-                            data={formValues && formValues["direccion"]}
+                            data={formValues ? formValues["cliente_direccion"]  : data && data[EnumGrid.cliente_direccion]}
                             control={control}
                             // error={errors.fecha_nacimiento}
                         />
                     </div>
                 </div>
+
             </div>
 
 

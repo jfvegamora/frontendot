@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import axios from "axios";
 
 export interface IOTAreas {
-    areas: [number, string] ,
+    areas: [number, number,string, string, number, string, string] ,
     areaActual: number | null
 }
 
@@ -18,7 +18,7 @@ const initialState: IOTAreas | null = {
 
 export const fetchOTAreas = createAsyncThunk('OTAreas/fetchOTAreas',async()=>{
     try {
-        const response = await axios.get('https://mtoopticos.cl/api/tipos/listado/?query=02&_p1=OTAreas');
+        const response = await axios.get('https://mtoopticos.cl/api/otareas/listado/?query=01');
         
         console.log(response.data)
         return response.data
