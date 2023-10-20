@@ -2479,7 +2479,7 @@ export const table_head_proyectos_grupos = [
   {
     cell: "Marca",
     key: "marca",
-    visible: true,
+    visible: false,
   },
   {
     cell: "Diseño ID",
@@ -2959,7 +2959,8 @@ export const table_head_usuarios = [
     cell: "Estado",
     key: "estado",
     visible: true,
-    width: "w-[6rem]"
+    width: "w-[6rem]",
+    alignment: "items-center"
   },
   {
     cell: "Cargo_id",
@@ -3018,42 +3019,26 @@ export const table_head_permisos = [
     visible: true,
   },
 ];
-export const table_head_permisos_areas = [
+export const table_head_funcionalidades_ot = [
   {
     cell: <input type="checkbox" />,
     key: "checkbox",
     visible: true,
-    width: "w-[3rem]"
   },
   {
-    cell: "ID_USUARIO",
-    key: "id_usuario",
+    cell: "ID",
+    key: "id",
     visible: false,
   },
   {
-    cell: "Usuario",
-    key: "usuario",
-    visible: true,
-  },
-  {
-    cell: "ID_AREA",
-    key: "id_area",
-    visible: false,
-  },
-  {
-    cell: "Area",
-    key: "area",
-    visible: true,
-  },
-  {
-    cell: "PERMISO",
-    key: "permiso",
+    cell: "Funcionalidad OT",
+    key: "nombre",
     visible: true,
   },
   {
     cell: "",
     key: "opciones",
-    visible: true,
+    visible: false,
   },
 ];
 export const table_head_funcionalidades = [

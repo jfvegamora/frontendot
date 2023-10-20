@@ -10,6 +10,7 @@ import {
 } from "../../components";
 import { useEntityUtils } from "../../hooks";
 import FUsuarios from "../forms/FUsuarios";
+import FUsuariosOT from "../forms/FUsuariosOT";
 import { TITLES, table_head_usuarios } from "../../utils";
 
 export enum EnumGrid {
@@ -157,6 +158,7 @@ const MUsuarios: React.FC = () => {
           tableHead={table_head_usuarios}
           showEditButton={true}
           showDeleteButton={false}
+          showPermisoOTButton={true}  
           idMenu={idMenu}
           // setTotalRowIndex={setTotalRowIndex}
         />
@@ -175,6 +177,18 @@ const MUsuarios: React.FC = () => {
 
       {isModalEdit && (
         <FUsuarios
+          label={`${TITLES.edicion} ${strEntidad}`}
+          selectedRows={selectedRows}
+          setEntities={setEntities}
+          params={params}
+          data={entity}
+          closeModal={closeModal}
+          isEditting={true}
+        />
+      )}
+
+      {isModalEdit && (
+        <FUsuariosOT
           label={`${TITLES.edicion} ${strEntidad}`}
           selectedRows={selectedRows}
           setEntities={setEntities}

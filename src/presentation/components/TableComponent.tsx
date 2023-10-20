@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { IconButton, Tooltip, Typography } from "@material-tailwind/react";
 import { PencilIcon } from "@heroicons/react/24/solid";
 import { BsFillXSquareFill } from "react-icons/bs";
-
+import { BsPersonLock } from "react-icons/bs";
 import { usePermission } from "../hooks";
 import { BUTTON_MESSAGES } from "../utils";
 import {ExportToPDF} from "./ExportToPDF";
@@ -27,6 +27,7 @@ interface ITableComponentProps<T> {
   showDeleteButton?: boolean;
   showPdfButton?:boolean;
   showExcelButton?:boolean;
+  showPermisoOTButton?:boolean;
   isOT?:boolean;
   idMenu: number;
   strBaseUrl?:string;
@@ -50,6 +51,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
     showDeleteButton,
     showPdfButton,
     showExcelButton,
+    showPermisoOTButton,
     pkToDelete,
     idMenu,
     strBaseUrl,
@@ -192,6 +194,20 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                             }
                           >
                             <PencilIcon className="gridIcons" />
+                          </IconButton>
+                        </Tooltip>
+                      )}
+
+                      {showPermisoOTButton && escritura_lectura && (
+                        <Tooltip content={BUTTON_MESSAGES.permiso_ot.concat(entidad)}>
+                          <IconButton
+                            variant="text"
+                            color="blue-gray"
+                            onClick={() =>
+                              toggleEditModal && toggleEditModal(rowIndex)
+                            }
+                          >
+                            < BsPersonLock className="gridIcons" />
                           </IconButton>
                         </Tooltip>
                       )}

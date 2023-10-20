@@ -125,7 +125,12 @@ function ProfileMenu() {
 
 const navListMenuOT = [
   {
-    title: "Órdenes de Trabajo Historico",
+    title: "OT Diaria",
+    link: "/ot",
+    id: 29,
+  },
+  {
+    title: "OT Histórica",
     link: "/othistorica",
     id: 1,
   },
@@ -147,7 +152,7 @@ const navListMenuOT = [
   {
     title: "Situaciones",
     link: "/situaciones",
-    id: 30,
+    id: 28,
   },
 ];
 
@@ -257,11 +262,6 @@ const navListMenuSistema = [
     title: "Permisos de Usuario",
     link: "/permisos",
     id: 26,
-  },
-  {
-    title: "Permisos de Area",
-    link: "/permisosareas",
-    id: 29,
   },
   {
     title: "Perfiles de Cargo",
@@ -799,8 +799,8 @@ export default function ComplexNavbar() {
               
               
               className="mr-4 ml-2 cursor-pointer py-1.5 font-medium"
-            >
-              <Link to="/ot">Gestión OT</Link>
+            >Sistema Gestión OT
+              {/* <Link to="/ot">Gestión OT</Link> */}
             </Typography>
             <div className="absolute top-2/4 left-2/4 hidden -translate-x-2/4 -translate-y-2/4 lg:block">
               <NavList />

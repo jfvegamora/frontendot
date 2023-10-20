@@ -52,17 +52,23 @@ export const ExportToPDF:React.FC<IExportToPdf> = ({
       const destinatario = `
         DESTINATARIO:
 
-          LUGAR DESPACHO:     ${etiqueta[0][0]}
-          DIRECCION:          ${etiqueta[0][1]}
-          TELEFONO:           ${etiqueta[0][2]}
+          LUGAR DESPACHO:
+            ${etiqueta[0][0]}
+          DIRECCION:
+            ${etiqueta[0][1]}
+          TELEFONO:
+            ${etiqueta[0][2]}
       `;
 
       const remitente = `
         DE:
 
-          EMPRESA:           ${etiqueta[0][3]}
-          TELEFONO:          ${etiqueta[0][4]}
-          CORREO:            ${etiqueta[0][5]}
+          EMPRESA:
+            ${etiqueta[0][3]}
+          TELEFONO:
+            ${etiqueta[0][4]}
+          CORREO:
+            ${etiqueta[0][5]}
 
       `;
 

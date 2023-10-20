@@ -58,10 +58,11 @@ export const validationPuntosVentaSchema = () =>
     almacen    : yup.string().required(`${msg}`),
     encargado  : yup.string().required(`${msg}`),
   });
+// Schema SITUACIONES
 export const validationSituacionesSchema = () =>
   yup.object().shape({
     descripcion: yup.string().required(`${msg}`),
-    area       : yup.number().required(`${msg}`),
+    area       : yup.string().default('0'),
   });
 
 /*************** B O D E G A ***************/
@@ -233,17 +234,22 @@ export const validationParametrizacionArmazones = () =>
 });
 
 // Schema PROYECTOS GRUPOS
-export const validationProyectoGruposSchema = (isEditting: boolean | undefined) =>
+export const validationProyectoGruposSchema = () =>
   yup.object().shape({
     proyecto          : yup.string().required(`${msg}`), 
-    cristal           : !isEditting ? yup.string().required(`${msg}`) : yup.string(), 
-    data_cristal      : yup.string(), 
     cod_grupo         : yup.string().required(`${msg}`), 
     descripcion       : yup.string().required(`${msg}`), 
+    // marca             : yup.string().required(`${msg}`),
+    diseno            : yup.string().required(`${msg}`),
+    indice            : yup.string().required(`${msg}`),
+    material          : yup.string().required(`${msg}`),
+    color             : yup.string().required(`${msg}`),
+    tratamiento       : yup.string().required(`${msg}`),
     esferico_desde    : yup.string().required(`${msg}`), 
     cilindrico_desde  : yup.string().required(`${msg}`), 
     esferico_hasta    : yup.string().required(`${msg}`), 
     cilindrico_hasta  : yup.string().required(`${msg}`), 
+    diametro          : yup.string(), 
     precio_venta_neto : yup.string(), 
     observaciones     : yup.string(), 
   });
@@ -355,6 +361,13 @@ export const validationPermisosSchema = () =>
   yup.object().shape({
     usuario      : yup.string().required(`${msg}`),
     funcionalidad: yup.string().required(`${msg}`),
+    permiso      : yup.string().required(`${msg}`),
+  });
+
+//Schema PERMISOS DE OT
+export const validationOTPermisosSchema = () =>
+  yup.object().shape({
+    usuario      : yup.string().required(`${msg}`),
     permiso      : yup.string().required(`${msg}`),
   });
 

@@ -40,8 +40,9 @@ export enum EnumGrid {
   cilindrico_desde 	=19,
   esferico_hasta 		=20,
   cilindrico_hasta 	=21,
-  precio_venta_neto =22,
-  observaciones     =23,
+  diametro          =22,
+  precio_venta_neto =23,
+  observaciones     =24,
 }
 
 type PrimaryKey = {

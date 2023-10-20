@@ -4,22 +4,21 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect } from "react";
-import { RadioButtonComponent, SelectInputComponent } from "../../components";
+import { TextInputComponent } from "../../components";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { validationPermisosAreasSchema } from "../../utils/validationFormSchemas";
-import { EnumGrid } from "../mantenedores/MPermisosArea";
+import { validationOTPermisosSchema } from "../../utils/validationFormSchemas";
+import { EnumGrid } from "../mantenedores/MPermisos";
 import { ERROR_MESSAGES, MODAL, SUCCESS_MESSAGES, TITLES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
 
-const strBaseUrl = "/api/otusuarios/";
-const strEntidad = "Permisos Area ";
+const strBaseUrl = "/api/otpermisos/";
+const strEntidad = "Permisos OT ";
 
 export interface InputData {
   usuario: string | undefined;
-  area: string | undefined;
   permiso: string | undefined;
 }
 
@@ -31,13 +30,8 @@ interface OutputData {
 }
 
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
-  // if (jsonData.password !== jsonData.password2) {
-  //   alert(ERROR_MESSAGES.passwordNotMatch);
-  // }
 
-  const _p1 = `${jsonData.usuario}, ${jsonData.area}, ${
-    jsonData.permiso === "Lectura" ? 1 : 2
-  }`;
+  const _p1 = `${jsonData.usuario}, ${jsonData.permiso}`;
 
   const query: OutputData = {
     query: "03",
@@ -48,7 +42,7 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
 }
 
 export function transformUpdateQuery(jsonData: InputData): OutputData | null {
-  const fields = [`permiso=${jsonData.permiso === "Lectura" ? 1 : 2}`];
+  const fields = [`permiso=${jsonData.permiso}`];
 
   const filteredFields = fields.filter(
     (field) => field !== null && field !== ""
@@ -63,7 +57,6 @@ export function transformUpdateQuery(jsonData: InputData): OutputData | null {
     query: "04",
     _p1,
     _p2: jsonData.usuario,
-    _p3: jsonData.area,
   };
 }
 
@@ -77,9 +70,9 @@ interface IFormPrps {
   params?: any;
 }
 
-const FPermisosAreas: React.FC<IFormPrps> = React.memo(
+const FUsuariosOT: React.FC<IFormPrps> = React.memo(
   ({ closeModal, setEntities, params, label, data, isEditting }) => {
-    const schema = validationPermisosAreasSchema();
+    const schema = validationOTPermisosSchema();
     const { showModal, CustomModal } = useModal();
     const { show } = useCustomToast();
 
@@ -88,7 +81,6 @@ const FPermisosAreas: React.FC<IFormPrps> = React.memo(
       createdEntity,
       ListEntity,
       focusFirstInput,
-      firstInputRef,
     } = useCrud(strBaseUrl);
     const [blnKeep, setblnKeep] = useState(false);
 
@@ -212,46 +204,26 @@ const FPermisosAreas: React.FC<IFormPrps> = React.memo(
           className="userFormulario"
         >
           <div className="userFormularioContainer">
-            <div className="w-full">
-              <SelectInputComponent
-                label="Usuario"
-                name="usuario"
-                showRefresh={true}
-                data={data && data[EnumGrid.usuario_id]}
-                control={control}
-                entidad={["/api/usuarios/", "02"]}
-                error={errors.usuario}
-                readOnly={isEditting}
-                customWidth={"345px"}
-              />
-              <SelectInputComponent
-                label="Areas"
-                name="area"
-                showRefresh={true}
-                data={data && data[EnumGrid.funcionalidad_id]}
-                control={control}
-                entidad={["/api/tipos/", "02", "OTAreas"]}
-                error={errors.area}
-                inputRef={firstInputRef}
-                readOnly={isEditting}
-                customWidth={"345px"}
-              />
-            </div>
-
-            <RadioButtonComponent
+            <div className="w-full   items-center" >
+              <div className="w-full  py-2 h-1/2 items-center ">
+              <TextInputComponent
+              type="text"
+              label="Usuario"
+              name="usuario"
+              data={data && data[EnumGrid.usuario]}
               control={control}
-              label="Permiso"
-              name="permiso"
-              data={data && data[EnumGrid.permiso]}
-              options={["Lectura", "Lectura/Escritura"]}
-              error={errors.permiso}
+              error={errors.usuario}
+              onlyRead={isEditting}
             />
-            {/* <TextInputComponent/> */}
+              </div>
+            </div>
           </div>
 
-          <button type="submit" className="userFormBtnSubmit">
-            {`${TITLES.guardar}`}
-          </button>
+          <div className="w-full px-4">
+            <button type="submit" className="userFormBtnSubmit">
+              {`${TITLES.guardar}`}
+            </button>
+          </div>
         </form>
         <CustomModal />
       </div>
@@ -259,4 +231,4 @@ const FPermisosAreas: React.FC<IFormPrps> = React.memo(
   }
 );
 
-export default FPermisosAreas;
+export default FUsuariosOT;
