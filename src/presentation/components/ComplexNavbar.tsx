@@ -127,7 +127,7 @@ const navListMenuOT = [
   {
     title: "OT Diaria",
     link: "/ot",
-    id: 29,
+    id: 28,
   },
   {
     title: "OT Histórica",
@@ -152,7 +152,7 @@ const navListMenuOT = [
   {
     title: "Situaciones",
     link: "/situaciones",
-    id: 28,
+    id: 29,
   },
 ];
 

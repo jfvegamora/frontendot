@@ -19,7 +19,7 @@ const strEntidad = "Situaciones ";
 const strEntidadExcel = "Situaciones";
 const strBaseUrl = "/api/otsituaciones/";
 const strQuery = "01";
-const idMenu = 30;
+const idMenu = 29;
 
 export enum EnumGrid {
   ID = 1,
