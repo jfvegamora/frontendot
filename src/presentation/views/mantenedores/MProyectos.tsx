@@ -100,7 +100,7 @@ const MProyectos: React.FC = () => {
     });
     // console.log('pktoDelete', pkToDelete)
   }, [selectedRows]);
-//   console.log('entities', entities)
+  console.log('entities', entities)
   return (
     <div className="mantenedorContainer">
       <h1 className="mantenedorH1">Proyectos</h1>

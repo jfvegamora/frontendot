@@ -9,45 +9,34 @@ import {
   TableComponent,
 } from "../../components";
 import { useEntityUtils } from "../../hooks";
-import { TITLES, table_head_parametrizacion_armazones} from "../../utils";
-import FProyectosArmazones from "../forms/FProyectosArmazones";
+import { TITLES, table_head_parametrizacion_accesorios} from "../../utils";
+import FProyectosAccesorios from "../forms/FProyectosAccesorios";
 
 
 export enum EnumGrid {
   codigo_proyecto      = 1,
   titulo_proyecto      = 2,
   codigo_licitacion    = 3,
-  codigo_armazon       = 4,
-  proveedor_id         = 5,
-  proveedor            = 6,
-  tipo_id              = 7,
-  tipo                 = 8,
-  marca_id             = 9,
-  marca                = 10,
-  modelo               = 11,
-  color                = 12,
-  material_id          = 13,
-  material             = 14,
-  aro                  = 15,
-  puente               = 16,
-  diagonal             = 17,
-  brazo                = 18,
-  uso_id               = 19,
-  uso                  = 20,
-  estado               = 21
+  codigo_accesorio     = 4,
+  accesorio            = 5,
+  proveedor_id         = 6,
+  proveedor            = 7,
+  marca_id             = 8,
+  marca                = 9,
+  estado               = 10
 }
-const strEntidad = "Parametrizacion de Armazon ";
-const strEntidadExcel = "Parametrizacion_de_armazones";
-const strBaseUrl = "/api/proyectoscatalogo/";
+const strEntidad = "Parametrizacion de Accesorios ";
+const strEntidadExcel = "Parametrizacion_de_accesorios";
+const strBaseUrl = "/api/proyectosaccesorios/";
 const strQuery = "01";
-const idMenu   = 16;
+const idMenu   = 32;
 
 type PrimaryKey = {
   pk1: string;
   pk2: string;
 };
 
-const MProyectosArmazones: React.FC = () => {
+const MProyectosAccesorios: React.FC = () => {
   const [params, setParams] = useState([]);
 
   const updateParams = (newParams: Record<string, never>) => {
@@ -82,7 +71,7 @@ const MProyectosArmazones: React.FC = () => {
   useEffect(() => {
     const newPkToDelete = selectedRows.map((row) => ({
       pk1: entities[row][EnumGrid.codigo_proyecto],
-      pk2: `${entities[row][EnumGrid.codigo_armazon]}`,
+      pk2: `${entities[row][EnumGrid.codigo_accesorio]}`,
     }));
     newPkToDelete.forEach((newPk) => {
       if (
@@ -99,7 +88,7 @@ const MProyectosArmazones: React.FC = () => {
 
   return (
     <div className="mantenedorContainer">
-      <h1 className="mantenedorH1">Parametrizacion de Armazones</h1>
+      <h1 className="mantenedorH1">Parametrización de Accesorios</h1>
 
       <div className="mantenedorHead width90">
         <PrimaryKeySearch
@@ -148,7 +137,7 @@ const MProyectosArmazones: React.FC = () => {
           setSelectedRows={setSelectedRows}
           entidad={strEntidad}
           data={entities}
-          tableHead={table_head_parametrizacion_armazones}
+          tableHead={table_head_parametrizacion_accesorios}
           showEditButton={true}
           showDeleteButton={false}
           idMenu={idMenu}
@@ -157,7 +146,7 @@ const MProyectosArmazones: React.FC = () => {
    
 
       {isModalInsert && (
-        <FProyectosArmazones
+        <FProyectosAccesorios
           label={`${TITLES.ingreso} ${strEntidad}`}
           closeModal={closeModal}
           selectedRows={selectedRows}
@@ -168,7 +157,7 @@ const MProyectosArmazones: React.FC = () => {
       )}
 
       {isModalEdit && (
-        <FProyectosArmazones
+        <FProyectosAccesorios
           label={`${TITLES.edicion} ${strEntidad}`}
           selectedRows={selectedRows}
           setEntities={setEntities}
@@ -182,4 +171,4 @@ const MProyectosArmazones: React.FC = () => {
   );
 };
 
-export default MProyectosArmazones;
+export default MProyectosAccesorios;

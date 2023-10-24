@@ -221,7 +221,7 @@ const useCrud = (
       const intPk = pk[0].map((item: any) => Object.keys(item).length);
       const pkQueryParam = encodeURIComponent(JSON.stringify(pk[0]));
       const valoresPk1Obj1 = pk[0].map(
-        (objeto: { pk1: any }) => `${objeto.pk1}`
+        (objeto: { pk1: any }) => `'${objeto.pk1}'`
       );
       console.log('valoresPk1Obj1',valoresPk1Obj1)
       console.log('typeof:',!isNaN(parseInt(valoresPk1Obj1[0])))
@@ -234,7 +234,7 @@ const useCrud = (
           ? `/eliminar/?query=05&_pkToDelete=${pkQueryParam}`
           :  !isNaN(parseInt(valoresPk1Obj1[0])) && /^\d+$/.test(valoresPk1Obj1[0])
                ? (`/eliminar/?query=05&_p1=${valoresPk1Obj1}`)
-               : (`/eliminar/?query=05&_p3='${valoresPk1Obj1}'`)
+               : (`/eliminar/?query=05&_p3=${valoresPk1Obj1}`)
       
       // const url =
       //   intPk[0] > 1 || pk[1] 

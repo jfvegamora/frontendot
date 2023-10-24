@@ -11,20 +11,20 @@ import {
 } from "../../components";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { validationParametrizacionArmazones } from "../../utils/validationFormSchemas";
-import { EnumGrid } from "../mantenedores/MProyectosArmazones";
+import { validationParametrizacionAccesorios } from "../../utils/validationFormSchemas";
+import { EnumGrid } from "../mantenedores/MProyectosAccesorios";
 import { ERROR_MESSAGES, MODAL, SUCCESS_MESSAGES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
 
-const strBaseUrl = "/api/proyectoscatalogo/";
-const strEntidad = "Parametrizacion de Armazones ";
+const strBaseUrl = "/api/proyectosaccesorios/";
+const strEntidad = "Parametrización de Accesorios ";
 
 export interface InputData {
-  proyecto      : string | undefined;
-  codigo_armazon: string | undefined;
-  estado        : string | undefined;
+  proyecto        : string | undefined;
+  codigo_accesorio: string | undefined;
+  estado          : string | undefined;
 }
 
 interface OutputData {
@@ -37,7 +37,7 @@ interface OutputData {
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
 
   const _p1 = ` '${jsonData.proyecto}', 
-                '${jsonData.codigo_armazon}',  
+                '${jsonData.codigo_accesorio}',  
                  ${jsonData.estado === "Disponible" ? 1 : 2}`;
 
   const query: OutputData = {
@@ -67,7 +67,7 @@ export function transformUpdateQuery(jsonData: InputData): OutputData | null {
     query: "04",
     _p1,
     _p2: jsonData.proyecto,
-    _p3: jsonData.codigo_armazon,
+    _p3: jsonData.codigo_accesorio,
   };
 
   return query;
@@ -83,9 +83,9 @@ interface IUserFormPrps {
   params?: any;
 }
 
-const FProyectosArmazones: React.FC<IUserFormPrps> = React.memo(
+const FProyectosAccesorios: React.FC<IUserFormPrps> = React.memo(
   ({ closeModal, setEntities, params, label, data, isEditting }) => {
-    const schema = validationParametrizacionArmazones();
+    const schema = validationParametrizacionAccesorios();
     const { showModal, CustomModal } = useModal();
     const { show } = useCustomToast();
 
@@ -98,7 +98,7 @@ const FProyectosArmazones: React.FC<IUserFormPrps> = React.memo(
       focusSecondInput,
     } = useCrud(strBaseUrl);
     const [blnKeep, setblnKeep] = useState(false);
-    const intId = data && [data[EnumGrid.codigo_armazon, EnumGrid.codigo_proyecto]];
+    const intId = data && [data[EnumGrid.codigo_accesorio, EnumGrid.codigo_proyecto]];
     const {
       control,
       handleSubmit,
@@ -109,7 +109,7 @@ const FProyectosArmazones: React.FC<IUserFormPrps> = React.memo(
     });
 
     const resetTextFields = React.useCallback(() => {
-      setValue("codigo_armazon", "");
+      setValue("codigo_accesorio", "");
 
       if (firstInputRef.current) {
         const firstInput = firstInputRef.current.querySelector(
@@ -256,11 +256,11 @@ const FProyectosArmazones: React.FC<IUserFormPrps> = React.memo(
             <div className="w-[91.5%]">
                 <TextInputComponent
                     type="text"
-                    label="Código Armazon"
-                    name="codigo_armazon"
-                    data={data && data[EnumGrid.codigo_armazon]}
+                    label="Código Accesorio"
+                    name="codigo_accesorio"
+                    data={data && data[EnumGrid.codigo_accesorio]}
                     control={control}
-                    error={errors.codigo_armazon}
+                    error={errors.codigo_accesorio}
                     onlyRead={isEditting}
                 />
             </div>
@@ -288,4 +288,4 @@ const FProyectosArmazones: React.FC<IUserFormPrps> = React.memo(
   }
 );
 
-export default FProyectosArmazones;
+export default FProyectosAccesorios;

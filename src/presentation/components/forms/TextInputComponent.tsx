@@ -76,6 +76,7 @@ return (
           id        ={label}
           type      ={type}
           readOnly  ={onlyRead}
+          step      ={0.01}
           onBlur    ={(e)=>handleInputChange(e)}
           ref       ={inputRef}
           className ={`${className ? className : " custom-input py-2 px-3 "}`}

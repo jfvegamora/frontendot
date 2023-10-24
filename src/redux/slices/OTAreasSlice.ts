@@ -35,7 +35,10 @@ const funcionalidadesSlice = createSlice({
         updateActualArea: (state, action) => {
             // Actualiza el área actual en el estado
             if (state) {
-              state.areaActual = action.payload;
+              return{
+                ...state,
+                areaActual:action.payload
+              }
             }
         },
     },
