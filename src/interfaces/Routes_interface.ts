@@ -20,7 +20,7 @@ const MProveedores          = lazy(()=>import("../presentation/views/mantenedore
 const MMandantes            = lazy(()=>import("../presentation/views/mantenedores/MMandantes"));
 const MProyectos            = lazy(()=>import("../presentation/views/mantenedores/MProyectos"));
 const MProyectosArmazones   = lazy(()=>import("../presentation/views/mantenedores/MProyectosArmazones"));
-
+const MProyectosAccesorios  = lazy(()=>import("../presentation/views/mantenedores/MProyectosAccesorios"));
 const MProyectosGrupos      = lazy(()=>import("../presentation/views/mantenedores/MProyectosGrupos"));
 const MProyectosDirecciones = lazy(()=>import("../presentation/views/mantenedores/MProyectosDirecciones"));
 const MProyectosAtenciones  = lazy(()=>import("../presentation/views/mantenedores/MProyectosAtenciones"));
@@ -30,7 +30,7 @@ const MOftalmologos         = lazy(()=>import("../presentation/views/mantenedore
 const MCargos               = lazy(()=>import("../presentation/views/mantenedores/MCargos"));
 const MFuncionalidades      = lazy(()=>import("../presentation/views/mantenedores/MFuncionalidades"));
 const MPermisos             = lazy(()=>import("../presentation/views/mantenedores/MPermisos"));
-const MPermisosAreas        = lazy(()=>import("../presentation/views/mantenedores/MPermisosArea"));
+// const MPermisosAreas        = lazy(()=>import("../presentation/views/mantenedores/MPermisosArea"));
 const MUsuarios             = lazy(()=>import("../presentation/views/mantenedores/MUsuarios")); 
 const MPerfiles             = lazy(()=>import("../presentation/views/mantenedores/MPerfiles"));
 const MEmpresas             = lazy(()=>import("../presentation/views/mantenedores/MEmpresas"));
@@ -72,6 +72,7 @@ export const PrivateRoutes = {
   PROYECTOS             : "proyectos",
   PROYECTOS_ARMAZONES   : "proyectoarmazones",
   PROYECTOS_GRUPOS      : "proyectogrupos",
+  PROYECTOS_ACCESORIOS  : "proyectoaccesorios",
   PROYECTOS_DIRECCIONES : "proyectodireccionesdespacho",
   REPORTE_ATENCION      : "proyectoreporteatencion",
   REPORTE_FIRMAS        : "proyectoreportefirma",
@@ -207,6 +208,12 @@ export const privateRoutes = [
     path                : PrivateRoutes.PROYECTOS_GRUPOS,
     component           : MProyectosGrupos,
     requiredPermissions : ['view_' + PrivateRoutes.PROYECTOS_GRUPOS]
+  },
+  {
+    id                  : "32",
+    path                : PrivateRoutes.PROYECTOS_ACCESORIOS,
+    component           : MProyectosAccesorios,
+    requiredPermissions : ['view_' + PrivateRoutes.PROYECTOS_ACCESORIOS]
   },
   {
     id                  : "18",

@@ -1,96 +1,111 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
-
-
 import React, { useState, useEffect } from "react";
-import { useEntityUtils } from "../../hooks";
+
 import {
   PrimaryButtonsComponent,
   PrimaryKeySearch,
   TableComponent,
 } from "../../components";
-import { TITLES , table_head_situaciones } from "../../utils";
-import FSituaciones from "../forms/FSituaciones";
+import { useEntityUtils } from "../../hooks";
+import { TITLES, table_head_parametrizacion_accesorios} from "../../utils";
+import FProyectosAccesorios from "../forms/FProyectosAccesorios";
 
-
-
-const strEntidad = "Situaciones ";
-const strEntidadExcel = "Situaciones";
-const strBaseUrl = "/api/otsituaciones/";
-const strQuery = "01";
-const idMenu = 29;
 
 export enum EnumGrid {
-  ID = 1,
-  descripcion = 2,
-  area_id = 3,
-  area = 4
+  codigo_proyecto      = 1,
+  titulo_proyecto      = 2,
+  codigo_licitacion    = 3,
+  codigo_accesorio     = 4,
+  accesorio            = 5,
+  proveedor_id         = 6,
+  proveedor            = 7,
+  marca_id             = 8,
+  marca                = 9,
+  estado               = 10
 }
-
-
+const strEntidad = "Parametrizacion de Accesorios ";
+const strEntidadExcel = "Parametrizacion_de_accesorios";
+const strBaseUrl = "/api/proyectosaccesorios/";
+const strQuery = "01";
+const idMenu   = 32;
 
 type PrimaryKey = {
-  pk1: number;
+  pk1: string;
+  pk2: string;
 };
 
-const MCargos: React.FC = () => {
-  // const { createdEntity, editEntity } = useCrud(strBaseUrl);
+const MProyectosAccesorios: React.FC = () => {
   const [params, setParams] = useState([]);
 
-  
   const updateParams = (newParams: Record<string, never>) => {
     setParams(Object.keys(newParams).map((key) => newParams[key]));
   };
-  
+
   const {
-    //Entities State
+    //entities state
     entities,
-    entity,
     setEntities,
-    selectedRows,
-    setSelectedRows,
-    //Modal Methds
-    openModal,
-    closeModal,
+    entity,
+    //modal methods
     isModalInsert,
     isModalEdit,
     toggleEditModal,
-    
-    //Check/Buttons Methods
-    handleDeleteSelected,
+    openModal,
+    closeModal,
+    //Check methods
     handleSelect,
+    selectedRows,
+    setSelectedRows,
     handleSelectedAll,
+    //primary buttons methods
+    handleDeleteSelected,
     resetEntities,
   } = useEntityUtils(strBaseUrl, strQuery);
-  
+  // console.log("entities:", entities);
+  // console.log("selectedRows", selectedRows);
+
   const pkToDelete: PrimaryKey[] = [];
-  
+
   useEffect(() => {
-    console.log(selectedRows)
     const newPkToDelete = selectedRows.map((row) => ({
-      pk1: entities[row][EnumGrid.ID],
+      pk1: entities[row][EnumGrid.codigo_proyecto],
+      pk2: `${entities[row][EnumGrid.codigo_accesorio]}`,
     }));
     newPkToDelete.forEach((newPk) => {
-      if (!pkToDelete.some((existingPk) => existingPk.pk1 === newPk.pk1)) {
+      if (
+        !pkToDelete.some(
+          (existingPk) =>
+            existingPk.pk1 === newPk.pk1 && existingPk.pk2 === newPk.pk2
+        )
+      ) {
         pkToDelete.push(newPk);
       }
     });
-
+    // console.log("newObject:",Object.keys(pkToDelete[0]).length);
   }, [selectedRows]);
-
 
   return (
     <div className="mantenedorContainer">
-      <h1 className="mantenedorH1">Situaciones</h1>
+      <h1 className="mantenedorH1">Parametrización de Accesorios</h1>
 
-      <div className="mantenedorHead width50">
+      <div className="mantenedorHead width90">
         <PrimaryKeySearch
           baseUrl={strBaseUrl}
-          updateParams={updateParams}
           setParams={setParams}
+          updateParams={updateParams}
           setEntities={setEntities}
-          primaryKeyInputs={[{ name: "_p1", label: "Descripcion", type: "text" }]}
+          primaryKeyInputs={[
+            {
+              name: "_p1",
+              label: "Proyecto",
+              type: "select",
+              selectUrl: "/api/proyectos/",
+            },
+            { name: "_p2", label: "Código Proyecto", type: "text" },
+            { name: "_p3", label: "Código Licitacion", type: "text" },
+          ]}
         />
 
         <PrimaryButtonsComponent
@@ -107,29 +122,31 @@ const MCargos: React.FC = () => {
           showForwardButton={false}
           showRefreshButton={true}
           idMenu={idMenu}
+
         />
       </div>
 
-      <div className="width50 scroll">
+      <div className="width100 scroll">
         <TableComponent
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
           toggleEditModal={toggleEditModal}
           handleDeleteSelected={handleDeleteSelected}
+          pkToDelete={pkToDelete}
           selectedRows={selectedRows}
           setSelectedRows={setSelectedRows}
           entidad={strEntidad}
-          pkToDelete={pkToDelete}
           data={entities}
-          tableHead={table_head_situaciones}
+          tableHead={table_head_parametrizacion_accesorios}
           showEditButton={true}
           showDeleteButton={false}
           idMenu={idMenu}
         />
       </div>
+   
 
       {isModalInsert && (
-        <FSituaciones
+        <FProyectosAccesorios
           label={`${TITLES.ingreso} ${strEntidad}`}
           closeModal={closeModal}
           selectedRows={selectedRows}
@@ -140,20 +157,18 @@ const MCargos: React.FC = () => {
       )}
 
       {isModalEdit && (
-        <FSituaciones
+        <FProyectosAccesorios
           label={`${TITLES.edicion} ${strEntidad}`}
-          closeModal={closeModal}
           selectedRows={selectedRows}
           setEntities={setEntities}
-          data={entity}
           params={params}
+          data={entity}
+          closeModal={closeModal}
           isEditting={true}
         />
       )}
-
-    
     </div>
   );
 };
 
-export default MCargos;
+export default MProyectosAccesorios;

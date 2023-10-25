@@ -152,7 +152,7 @@ const navListMenuOT = [
   {
     title: "Situaciones",
     link: "/situaciones",
-    id: 30,
+    id: 29,
   },
 ];
 
@@ -224,6 +224,11 @@ const navListMenuProyectos = [
     title: "Parametrización de Grupos",
     link: "/proyectogrupos",
     id: 17,
+  },
+  {
+    title: "Parametrización de Accesorios",
+    link: "/proyectoaccesorios",
+    id: 32,
   },
   {
     title: "Parametrización de Despacho",

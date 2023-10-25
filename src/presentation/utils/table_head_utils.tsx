@@ -2322,7 +2322,7 @@ export const table_head_proyectos = [
     visible: true,
   },
 ];
-export const table_head_parametrizacion_cargo_armazones = [
+export const table_head_parametrizacion_armazones = [
   {
     cell: <input type="checkbox" />,
     key: "checkbox",
@@ -2335,7 +2335,7 @@ export const table_head_parametrizacion_cargo_armazones = [
   },
   {
     cell: "Titulo Proyecto",
-    key: "titulo_proyector",
+    key: "titulo_proyecto",
     visible: true,
   },
   {
@@ -2426,6 +2426,68 @@ export const table_head_parametrizacion_cargo_armazones = [
   {
     cell: "Uso",
     key: "uso",
+    visible: true,
+  },
+  {
+    cell: "Estado",
+    key: "estado",
+    visible: true,
+  },
+  {
+    cell: "",
+    key: "opciones",
+    visible: true,
+  },
+];
+export const table_head_parametrizacion_accesorios = [
+  {
+    cell: <input type="checkbox" />,
+    key: "checkbox",
+    visible: true,
+  },
+  {
+    cell: "Código",
+    key: "codigo",
+    visible: true,
+  },
+  {
+    cell: "Titulo Proyecto",
+    key: "titulo_proyecto",
+    visible: true,
+  },
+  {
+    cell: "Código Licitacion",
+    key: "codigo_licitacion",
+    visible: true,
+  },
+  {
+    cell: "Código Accesorio",
+    key: "codigo_accesorio",
+    visible: true,
+  },
+  {
+    cell: "Accesorio",
+    key: "accesorio",
+    visible: true,
+  },
+  {
+    cell: "Proveedor Id",
+    key: "proveedor_id",
+    visible: true,
+  },
+  {
+    cell: "Proveedor",
+    key: "proveedor",
+    visible: true,
+  },
+  {
+    cell: "Marca Id",
+    key: "marca_id",
+    visible: true,
+  },
+  {
+    cell: "Marca",
+    key: "marca",
     visible: true,
   },
   {
@@ -2578,13 +2640,13 @@ export const table_head_proyectos_grupos = [
     visible: true,
   },
   {
-    cell: "CIL desde",
-    key: "cilindrico_desde",
+    cell: "ESF hasta",
+    key: "esferico_hasta",
     visible: true,
   },
   {
-    cell: "ESF hasta",
-    key: "esferico_hasta",
+    cell: "CIL desde",
+    key: "cilindrico_desde",
     visible: true,
   },
   {

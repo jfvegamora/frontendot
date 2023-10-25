@@ -9,7 +9,7 @@ import {
   TableComponent,
 } from "../../components";
 import { useEntityUtils } from "../../hooks";
-import { TITLES, table_head_parametrizacion_cargo_armazones} from "../../utils";
+import { TITLES, table_head_parametrizacion_armazones} from "../../utils";
 import FProyectosArmazones from "../forms/FProyectosArmazones";
 
 
@@ -148,7 +148,7 @@ const MProyectosArmazones: React.FC = () => {
           setSelectedRows={setSelectedRows}
           entidad={strEntidad}
           data={entities}
-          tableHead={table_head_parametrizacion_cargo_armazones}
+          tableHead={table_head_parametrizacion_armazones}
           showEditButton={true}
           showDeleteButton={false}
           idMenu={idMenu}

@@ -185,7 +185,8 @@ export const validationMandantesSchema = () =>
     comuna   : yup.string().required(`${msg}`),
   });
 
-  export const validationProyectosSchema = () =>
+// Schema PROYECTOS
+export const validationProyectosSchema = () =>
   yup.object().shape({
     codigo_proyecto       : yup.string().required(`${msg}`),
     codigo_licitacion     : yup.string(),
@@ -226,6 +227,7 @@ export const validationMandantesSchema = () =>
     observaciones         : yup.string(),
   });
  
+// Schema PROYECTOS ARMAZONES
 export const validationParametrizacionArmazones = () =>
   yup.object().shape({
     proyecto      : yup.string().required(`${msg}`),
@@ -254,6 +256,14 @@ export const validationProyectoGruposSchema = () =>
     observaciones     : yup.string(), 
   });
   
+// Schema PROYECTOS ACCESORIOS
+export const validationParametrizacionAccesorios = () =>
+  yup.object().shape({
+    proyecto        : yup.string().required(`${msg}`),
+    codigo_accesorio: yup.string().required(`${msg}`),
+    estado          : yup.string().required(`${msg}`),
+});
+
 // Schema PROYECTOS DIRECCIONES 
 export const validationProyectoDireccionesSchema = () =>
   yup.object().shape({
