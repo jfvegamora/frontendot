@@ -19,4 +19,5 @@ export interface IUser {
   correo: string;
   estado: number;
   permisos: {[key:string]: IPermiso[]}
+  permisos_campos:any
 }

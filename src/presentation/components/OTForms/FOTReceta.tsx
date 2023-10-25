@@ -7,13 +7,17 @@ interface IReceta {
     onDataChange: any,
     formValues: any,
     data:any
+    onlyRead?:boolean,
+    permiso_grupo_dioptria:boolean
 }
 
 const FOTReceta:React.FC<IReceta> = ({
     control,
     onDataChange,
     formValues,
-    data
+    data,
+    onlyRead,
+    permiso_grupo_dioptria
 }) => {
 
     const handleInputChange = (e:any) => {
@@ -29,7 +33,7 @@ const FOTReceta:React.FC<IReceta> = ({
         onDataChange({[name]:value})
     }
 
-    
+    console.log(permiso_grupo_dioptria)
 
 
   return (
@@ -48,6 +52,7 @@ const FOTReceta:React.FC<IReceta> = ({
                             entidad={["/api/tipos/", "02","OTTipoAnteojo"]}
                             // error={errors.establecimiento}
                             customWidth={"345px"}
+                            readOnly={onlyRead}
                         />
                 </div>
                 <div className="w-[30%] ml-10">
@@ -58,6 +63,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                     handleChange={handleInputChange}
                                     data={formValues ? formValues["numero_receta"] : data && data[EnumGrid.numero_receta]}
                                     control={control}
+                                    onlyRead={onlyRead}
                                     // error={errors.fecha_nacimiento}
                                 />
                 </div>
@@ -69,6 +75,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                     handleChange={handleInputChange}
                                     data={formValues ? formValues["fecha_receta"] : data && data[EnumGrid.fecha_receta]}
                                     control={control}
+                                    onlyRead={onlyRead}
                                     // error={errors.fecha_nacimiento}
                                 />
                 </div>
@@ -87,7 +94,7 @@ const FOTReceta:React.FC<IReceta> = ({
                             control={control}
                             entidad={["/api/tipos/", "02","OTTipoAnteojo"]}
                             // error={errors.establecimiento}
-                            
+                            readOnly={onlyRead || permiso_grupo_dioptria}
                             customWidth={"340px"}
                         />
                 </div>
@@ -107,6 +114,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 handleChange={handleInputChange}
                                 data={formValues ? formValues["a1_od_esf"] : data && data[EnumGrid.a1_od_esf]}
                                 control={control}
+                                onlyRead={onlyRead}
                                 // error={errors.fecha_nacimiento}
                             />
                         </div>
@@ -116,7 +124,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 label="CIL"
                                 name="a1_od_cil"
                                 handleChange={handleInputChange}
-                                
+                                onlyRead={onlyRead}
                                 data={formValues ? formValues["a1_od_cil"] : data && data[EnumGrid.a1_od_cil]}
                                 control={control}
                                 // error={errors.fecha_nacimiento}
@@ -130,6 +138,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 handleChange={handleInputChange}
                                 data={formValues ? formValues["a1_od_eje"] : data && data[EnumGrid.a1_od_eje]}
                                 control={control}
+                                onlyRead={onlyRead}
                                 // error={errors.fecha_nacimiento}
                             />
                         </div>
@@ -141,6 +150,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 handleChange={handleInputChange}
                                 data={formValues ? formValues["a1_od_ad"] : data && data[EnumGrid.a1_od_ad]}
                                 control={control}
+                                onlyRead={onlyRead}
                                 // error={errors.fecha_nacimiento}
                             />
                         </div>
@@ -158,6 +168,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 handleChange={handleInputChange}
                                 data={formValues ? formValues["a1_oi_esf"] : data && data[EnumGrid.a1_oi_esf]}
                                 control={control}
+                                onlyRead={onlyRead}
                                 // error={errors.fecha_nacimiento}
                             />
                         </div>
@@ -169,6 +180,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 handleChange={handleInputChange}
                                 data={formValues ? formValues["a1_oi_cil"] : data && data[EnumGrid.a1_oi_cil]}
                                 control={control}
+                                onlyRead={onlyRead}
                                 // error={errors.fecha_nacimiento}
                             />
                         </div>
@@ -180,6 +192,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 handleChange={handleInputChange}
                                 data={formValues ? formValues["a1_oi_eje"] : data && data[EnumGrid.a1_oi_eje]}
                                 control={control}
+                                onlyRead={onlyRead}
                                 // error={errors.fecha_nacimiento}
                             />
                         </div>
@@ -191,6 +204,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 handleChange={handleInputChange}
                                 data={formValues ? formValues["a1_oi_ad"] : data && data[EnumGrid.a1_oi_ad]}
                                 control={control}
+                                onlyRead={onlyRead}
                                 // error={errors.fecha_nacimiento}
                             />
                         </div>
@@ -205,6 +219,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 handleChange={handleInputChange}
                                 data={formValues ? formValues["a1_dp"] : data && data[EnumGrid.a1_dp]}
                                 control={control}
+                                onlyRead={onlyRead}
                                 // error={errors.fecha_nacimiento}
                             />
                     </div>
@@ -216,6 +231,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 handleChange={handleInputChange}
                                 data={formValues ? formValues["a1_alt"] : data && data[EnumGrid.a1_alt]}
                                 control={control}
+                                onlyRead={onlyRead}
                                 // error={errors.fecha_nacimiento}
                             />
                     </div>
@@ -234,7 +250,7 @@ const FOTReceta:React.FC<IReceta> = ({
                             control={control}
                             entidad={["/api/tipos/", "02","OTTipoAnteojo"]}
                             // error={errors.establecimiento}
-                            
+                            readOnly={onlyRead || permiso_grupo_dioptria}
                             customWidth={"345px"}
                         />
                 </div>
@@ -254,6 +270,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 data={formValues ? formValues["a2_od_esf"] : data && data[EnumGrid.a2_od_esf]}
 
                                 control={control}
+                                onlyRead={onlyRead}
                                 // error={errors.fecha_nacimiento}
                             />
                         </div>
@@ -265,6 +282,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 handleChange={handleInputChange}
                                 data={formValues ? formValues["a2_od_cil"] : data && data[EnumGrid.a2_od_cil]}
                                 control={control}
+                                onlyRead={onlyRead}
                                 // error={errors.fecha_nacimiento}
                             />
                         </div>
@@ -275,7 +293,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 name="a2_od_eje"
                                 handleChange={handleInputChange}
                                 data={formValues ? formValues["a2_od_eje"] : data && data[EnumGrid.a2_od_eje]}
-                                
+                                onlyRead={onlyRead}
                                 control={control}
                                 // error={errors.fecha_nacimiento}
                             />
@@ -295,6 +313,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 handleChange={handleInputChange}
                                 data={formValues ? formValues["a2_oi_esf"] : data && data[EnumGrid.a2_oi_esf]}
                                 control={control}
+                                onlyRead={onlyRead}
                                 // error={errors.fecha_nacimiento}
                             />
                         </div>
@@ -306,6 +325,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 handleChange={handleInputChange}
                                 data={formValues ? formValues["a2_oi_cil"] : data && data[EnumGrid.a2_oi_cil]}
                                 control={control}
+                                onlyRead={onlyRead}
                                 // error={errors.fecha_nacimiento}
                             />
                         </div>
@@ -317,6 +337,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 handleChange={handleInputChange}
                                 data={formValues ? formValues["a2_oi_eje"] : data && data[EnumGrid.a2_oi_eje]}
                                 control={control}
+                                onlyRead={onlyRead}
                                 // error={errors.fecha_nacimiento}
                             />
                         </div>
@@ -333,6 +354,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 handleChange={handleInputChange}
                                 data={formValues ? formValues["a2_dp"] : data && data[EnumGrid.a2_dp]}
                                 control={control}
+                                onlyRead={onlyRead}
                                 // error={errors.fecha_nacimiento}
                             />
                     </div>

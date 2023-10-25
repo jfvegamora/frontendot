@@ -3,16 +3,16 @@ import axios from "axios";
 
 export interface IOTAreas {
     areas: [number, number,string, string, number, string, string] ,
-    areaActual: number | null
+    areaActual: number | null,
+    areaSiguiente: number | null
 }
 
 
 
 const initialState: IOTAreas | null = {
-    areas: localStorage.getItem("OTAreas")
-    ? JSON.parse(localStorage.getItem("OTAreas") as string)
-    : [],
-    areaActual: null,
+    areas: localStorage.getItem("OTAreas") ? JSON.parse(localStorage.getItem("OTAreas") as string): [],
+    areaActual: localStorage.getItem('areaActual') ? JSON.parse(localStorage.getItem('areaActual') as string) : null,
+    areaSiguiente: localStorage.getItem('areaSiguiente') ? JSON.parse(localStorage.getItem('areaSiguiente') as string) :null,
   };
   
 
@@ -34,22 +34,35 @@ const funcionalidadesSlice = createSlice({
         updateActualArea: (state, action) => {
             // Actualiza el área actual en el estado
             if (state) {
+                localStorage.setItem('areaActual', JSON.stringify(action.payload))
                 return {
                     ...state,
                     areaActual: action.payload,
                 };
             }
         },
+        updateNextArea: (state,action) => {
+            if(state){
+                localStorage.setItem('areaSiguiente', JSON.stringify(action.payload))
+                return{
+                    ...state,
+                    areaSiguiente:action.payload
+                }
+            }
+        }
     },
     extraReducers: (builder)=>{
         builder
-            .addCase(fetchOTAreas.fulfilled, (_state,action)=>{
+            .addCase(fetchOTAreas.fulfilled, (state,action)=>{
                 localStorage.setItem('OTAreas', JSON.stringify(action.payload))
-                return action.payload;
+                return {
+                    ...state,
+                    areas:action.payload
+                }
             })
     }
 });
 
 
-export const { updateActualArea } = funcionalidadesSlice.actions;
+export const { updateActualArea, updateNextArea } = funcionalidadesSlice.actions;
 export default funcionalidadesSlice.reducer;

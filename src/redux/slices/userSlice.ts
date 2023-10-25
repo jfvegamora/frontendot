@@ -12,6 +12,7 @@ const initialState:IUser | null = localStorage.getItem("user")
       correo: "",
       estado: 0,
       permisos: 0,
+      permisos_campos:''
     };
 
 
@@ -24,6 +25,7 @@ export const userSlice = createSlice({
     login: (_state, action:PayloadAction<IUser>) => {
         const userData = action.payload;
         _state = userData;
+        console.log(userData)
         localStorage.setItem(UserKey, JSON.stringify(userData))
         return userData;
     },

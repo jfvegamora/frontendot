@@ -161,7 +161,7 @@ const RegProComponent: React.FC<Props> = React.memo(
                   <select
                     {...field}
                     onChange={(e)=>{
-                      // console.log(e.target)
+                      console.log(e.target)
                       if(handleSelectChange){
                         handleSelectChange(e.target)
                       }

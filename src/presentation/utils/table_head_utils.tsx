@@ -4,7 +4,7 @@ export const table_head_OT_diaria = [
     cell: <input type="checkbox" />,
     key: "checkbox",
     visible: true,
-    width: "w-[7rem]"
+    width: "w-[9rem]"
   },
   {
     cell: "Folio",
@@ -1197,16 +1197,34 @@ export const table_head_OT_historica = [
 
 export const table_head_OT_bitacora = [
   {
+    cell: <input type="checkbox" />,
+    key: "checkbox",
+    visible: true,
+    width: "w-[7rem]"
+  },
+  {
     cell: "FECHA/HORA",
     key: "date",
     visible: true,
     width: "w-[10rem]"
   },
   {
+    cell: "USUARIO ID",
+    key: "usuario_id",
+    visible: true,
+    alignment: "text-right"
+  },
+  {
     cell: "USUARIO",
     key: "usuario",
     visible: true,
-    alignment: "text-right"
+    alignment: "text-left"
+  },
+  {
+    cell: "ORIGEN_ID",
+    key: "origen_id",
+    visible: true,
+    alignment: "text-left"
   },
   {
     cell: "ORIGEN",
@@ -1215,29 +1233,52 @@ export const table_head_OT_bitacora = [
     alignment: "text-left"
   },
   {
+    cell: "DESTINO_ID",
+    key: "destino_id",
+    visible: true,
+  },
+  {
     cell: "DESTINO",
     key: "destino",
     visible: true,
     alignment: "text-left"
+
   },
   {
-    cell: "ESTADO",
-    key: "estado",
+    cell: "ESTADO ID",
+    key: "estaodo_id",
     visible: true,
     alignment: "text-left"
+
+  },
+  {
+    cell: "SITUACION ID",
+    key: "situacion_id",
+    visible: true,
+    alignment: "text-left"
+
   },
   {
     cell: "SITUACION",
     key: "situacion",
     visible: true,
+    alignment: "text-left"
+
   },
   {
-    cell: "OBS",
-    key: "obs",
+    cell: "OBSERVACIONES",
+    key: "destino",
     visible: true,
     alignment: "text-left"
 
-  }
+  },
+  {
+    cell: "OBSERVACIONES",
+    key: "destino",
+    visible: true,
+    alignment: "text-left"
+
+  },
 ];
 export const table_head_clientes = [
   {

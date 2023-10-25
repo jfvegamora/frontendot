@@ -285,8 +285,9 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
     //   setValue('data_cristal', idCristal || '');
     // }, [idCristal, setValue]);
 
+    console.log('data', data)
     return (
-      <div className="useFormContainer useFormContainer60rem">
+      <div className="useFormContainer handleDerivarClick !top-[-6%]">
         <div className="userFormBtnCloseContainer">
           <button onClick={closeModal} className="userFormBtnClose">
             X
