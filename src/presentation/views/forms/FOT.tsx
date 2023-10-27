@@ -106,18 +106,18 @@ interface FormData {
 
 
 const validacionNivel1 = [
-  { campo:"numero_worktracking",
+  { campo:"worktracking",
     valor: 0
-  },
-  { campo:"nota_venta",
-    valor: 0
-  },
-  { campo:"folio_mandante",
-    valor: 0
-  },
-  { campo:"numero_factura",
-    valor: 0
-  },
+  }
+  // { campo:"nota_venta",
+  //   valor: 0
+  // },
+  // { campo:"folio_mandante",
+  //   valor: 0
+  // },
+  // { campo:"numero_factura",
+  //   valor: 0
+  // },
 ]
 
 
@@ -593,8 +593,10 @@ const FOT:React.FC<IFOTProps> = ({
   const [submitAction, setSubmitAction] = useState('');
   const [strCodigoProyecto, setStrCodigoProyecto] = useState(data && data[EnumGrid.proyecto_codigo] || '')
   const [isMotivo, setIsMotivo] = useState(false);
-  const [toggle, setToggle] = useState('');
+  const [toggle, setToggle] = useState();
 
+
+  const [a1Grupo, setA1Grupo] = useState('')
   
   // console.log(strCodigoProyecto)
 
@@ -611,15 +613,17 @@ const FOT:React.FC<IFOTProps> = ({
 
 
   //validaciones
-  const sumatoriaNivel1 = validacionNivel1.reduce((index, objeto) => index + objeto.valor, 0);
-  const actualizarEstado = (campo:string, valor:number) => {
-    const index = validacionNivel1.findIndex(objeto => objeto.campo === campo);
-    if (index !== -1) {
-      validacionNivel1[index].valor = valor;
+
+    const sumatoriaNivel1 = validacionNivel1.reduce((index, objeto) => index + objeto.valor, 0);
+    const actualizarEstado = (campo:string, valor:number) => {
+      const index = validacionNivel1.findIndex(objeto => objeto.campo === campo);
+      if (index !== -1) {
+        validacionNivel1[index].valor = valor;
+      }
     }
-  }
 
 
+  // console.log(sumatoriaNivel1)
 
   //submit boton pausar
   const onSubmit: SubmitHandler<FormData> = async(jsonData, type?:any) => {
@@ -648,7 +652,6 @@ const FOT:React.FC<IFOTProps> = ({
       switchCaseDerivar(jsonData)
     }
 
-  
   };
 
 
@@ -662,10 +665,10 @@ const FOT:React.FC<IFOTProps> = ({
         ...data
       }
     }));
-    console.log(formValues)
+    // console.log(formValues)
 
-    console.log(data)
-    console.log(name)
+    // console.log(data)
+    // console.log(nam e)
 
 
     // console.log(Object.keys(data)[0])
@@ -738,7 +741,9 @@ const FOT:React.FC<IFOTProps> = ({
         // ejemplo de comoo debe quedar: https://mtoopticos.cl/api/proyectogrupos/listado/?_pkToDelete=[{ "diseno": "1", "indice":"1", "material":"1", "color":"1", "tratamiento":"1", "esferico":"-6.25", "cilindrico":"-0.25" }]&_p2="PR001A"&query=06
         const encodedJSON = encodeURIComponent(pkJSON)
         const result = await axios(`https://mtoopticos.cl/api/proyectogrupos/listado/?query=06&_p2=${optica.proyecto}&_pkToDelete=${encodedJSON}`)
-        console.log(result)
+        console.log(result.data[0])
+        setA1Grupo(result.data[0])
+
       } catch (error) {
         console.log(error)
       }
@@ -818,7 +823,7 @@ React.useEffect(() => {
         </TabPanel>
         
         <TabPanel>
-          <FOTCristales permiso_cristales={permiso_cristales} onlyRead={onlyRead} data={data && data}  formValues={formValues["cristales"]} control={control} onDataChange={(data:any) => handleFormChange(data , 'cristales')}  /> 
+          <FOTCristales permiso_cristales={permiso_cristales} onlyRead={onlyRead} data={data && data}  formValues={formValues["cristales"]} control={control} onDataChange={(data:any) => handleFormChange(data , 'cristales')} a1Grupo={a1Grupo}   /> 
         </TabPanel>
 
         <TabPanel>
@@ -854,9 +859,9 @@ React.useEffect(() => {
                 Garantia
               </button>
           )}
-              {OTPermissions && OTPermissions[6] === "1" && (
+              {/* {OTPermissions && OTPermissions[6] === "1" && (
                 <button className='bg-green-400 mx-4  text-white w-1/4 ' onClick={handleProcesarClick}>Procesar</button>
-              )}
+              )} */}
               
 
               {OTPermissions && OTPermissions[7] === "1" && (
@@ -870,14 +875,14 @@ React.useEffect(() => {
               )}
 
 
-
-
-          {/* OT DIARIA
           {
             sumatoriaNivel1 === validacionNivel1.length && (
               <button className='bg-green-400 mx-4  text-white w-1/4 ' onClick={handleSubmit(onSubmit)}>Procesar</button>
             )
           }
+
+
+          {/* OT DIARIA
           {
            (
               <button className='bg-green-400 mx-4  text-white w-1/4 ' onClick={handleProcesarClick}>Procesar</button>

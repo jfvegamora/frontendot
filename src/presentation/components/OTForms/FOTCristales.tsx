@@ -11,7 +11,9 @@ interface ICristales {
     formValues: any,
     data:any,
     onlyRead?:boolean,
-    permiso_cristales?:boolean
+    permiso_cristales?:boolean,
+    a1Grupo?:any,
+    a2Grupo?:any
 }
 
 
@@ -21,8 +23,17 @@ const FOTCristales:React.FC<ICristales> = ({
     formValues,
     data,
     onlyRead,
-    permiso_cristales
+    permiso_cristales,
+    a1Grupo
 }) => {
+    const [cristalRead, setCristalRead] = useState(false)
+    const [validate, setValidate] = useState({
+        cristal1_tratamiento_id: '',
+        cristal1_opcion_vta_id: '',
+        cristal1_diseno_id: '',
+        cristal1_indice_id: '',
+        cristal1_material_id: ''
+      });
     // const fetcher = (url:string) => axios.get(url).then((res)=>res.data);
     // const [codCristal1OD, setCodCristal1OD] = useState(formValues ? formValues["anteojo1_cristal_OD"] : data && data[EnumGrid.cristal1_od_codigo] || 0);
     // const [codCristal1OI, setCodCristal1OI] = useState(formValues ? formValues["anteojo1_cristal_OI"] : data && data[EnumGrid.cristal1_oi_codigo] || 0);
@@ -36,12 +47,31 @@ const FOTCristales:React.FC<ICristales> = ({
     // const { data:cristal2OD } = useSWR(`https://mtoopticos.cl/api/cristales/listado/?query=01&_p1=${codCristal2OD}`, fetcher);
     // const { data:cristal2OI } = useSWR(`https://mtoopticos.cl/api/cristales/listado/?query=01&_p1=${codCristal2OI}`, fetcher);
     
-
+    console.log(a1Grupo[0])
     const handleInputChange = (e:any) => {
         const {name, value} = e;
+
         console.log(name)
         console.log(value)
+        if(
+            name === "cristal1_tratamiento_id" ||
+            name === "cristal1_opcion_vta_id" || 
+            name === "cristal1_diseno_id" ||
+            name === "cristal1_indice_id" ||
+            name === "cristal1_material_id" 
+        ){
+
+            setValidate(prevValidate => ({
+                ...prevValidate,
+                [name]: value
+              }));
+        }
         onDataChange({[name]:value})
+        // console.log(validate)
+        
+    
+        
+
         // if(name === 'anteojo1_cristal_OD'){
         //     setCodCristal1OD(value) 
         // }
@@ -55,12 +85,30 @@ const FOTCristales:React.FC<ICristales> = ({
         //     setCodCrisyal2OI(value) 
         // }
     }
-//   console.log(data && data[EnumGrid.cr1_od])
 
+
+
+    React.useEffect(() => {
+        console.log(validate)
+        if (
+            validate &&
+            validate.cristal1_material_id !== '' &&
+            validate.cristal1_opcion_vta_id !== '' &&
+            validate.cristal1_diseno_id !== '' &&
+            validate.cristal1_indice_id !== '' &&
+            validate.cristal1_tratamiento_id !== ''
+          ) {
+            setCristalRead(true);
+          } else {
+            setCristalRead(false);
+          }
+      }, [validate]
+    );
+      console.log(a1Grupo[0])
   return (
     <form>
         <div className='w-full labelForm flex items-center rounded-lg border border-blue-500 !mt-8'>
-            <div className=" w-1/2 relative items-center">
+            <div className=" w-1/2 relative items-center mt-8">
                <div className=" flex items-center  ml-2 rounded-lg border border-blue-500">
 
                <div className="w-full  items-center">
@@ -116,8 +164,22 @@ const FOTCristales:React.FC<ICristales> = ({
 
                     <div className="w-full">
                     <h1 className='labelForm absolute z-10 top-[-2%] text-2xl w-[30%] text-center left-[30%]'>Anteojo 1</h1>
-                    
-                    <div className="mt-16 mx-auto w-[90%] relative mb-8 !h-[20rem] labelForm rounded-lg border border-blue-500 ">
+                    <div className="w-[35%] absolute top-[-6%] labelForm right-[5%]">
+                            <SelectInputComponent
+                                        label="Grupo"
+                                        name="cristal1_tratamiento_id"
+                                        showRefresh={false}
+                                        isOT={true}
+                                        handleSelectChange={handleInputChange}
+                                        data={1}
+                                        control={control}
+                                        entidad={["/api/proyectogrupos/", "02","PR001A"]}
+                                        // error={errors.establecimiento}
+                                        customWidth={"345px"}
+                                        readOnly={onlyRead || permiso_cristales}
+                            />
+                    </div>
+                    <div className="mt-16  mx-auto w-[90%] relative mb-8 !h-[15rem] labelForm rounded-lg border border-blue-500 ">
                         <h1 className='absolute w-[30%] z-10 labelForm text-center text-xl top-[-3%] left-[30%]'>OD</h1>
 
                         <div className="w-[90%] ml-4 flex items-center">
@@ -221,12 +283,12 @@ const FOTCristales:React.FC<ICristales> = ({
                                         entidad={["/api/tipos/", "02","CristalesColores"]}
                                         // error={errors.establecimiento}
                                         customWidth={"345px"}
-                                        readOnly={onlyRead || permiso_cristales}
+                                        readOnly={onlyRead || permiso_cristales || !cristalRead}
                             />
                     </div>
                 </div>
 
-                <div className="mt-16 mx-auto w-[90%] !h-[20rem] relative mb-8 labelForm rounded-lg border border-blue-500">
+                <div className="mt-16 mx-auto w-[90%] !h-[15rem] relative mb-8 labelForm rounded-lg border border-blue-500">
                     <h1 className='absolute w-[30%] z-10 labelForm text-center text-xl top-[-3%] left-[30%]'>OI</h1>
                     <div className="w-[90%] ml-4 flex items-center">
                             <div className="w-[50%]">
@@ -298,7 +360,7 @@ const FOTCristales:React.FC<ICristales> = ({
                     </div>
                 </div>                            
             </div>
-            <div className=" w-1/2 relative items-center">
+            <div className=" w-1/2 relative items-center mt-8">
                <div className=" flex items-center  ml-2 rounded-lg border border-blue-500">
 
                <div className="w-full items-center">
@@ -342,7 +404,7 @@ const FOTCristales:React.FC<ICristales> = ({
                                         showRefresh={false}
                                         isOT={true}
                                         handleSelectChange={handleInputChange}
-                                        data={formValues ? formValues["cristal2_tratamiento_id"] : data && data[EnumGrid.cristal2_tratamiento_id]}
+                                        data={1}
                                         control={control}
                                         entidad={["/api/tipos/", "02","OTTratamientoAdicional"]}
                                         // error={errors.establecimiento}
@@ -354,8 +416,23 @@ const FOTCristales:React.FC<ICristales> = ({
 
                     <div className="w-full">
                     <h1 className='labelForm absolute z-10 top-[-2%] text-2xl w-[30%] text-center left-[30%]'>Anteojo 2</h1>
+                    <div className="w-[35%] absolute top-[-6%] labelForm right-[5%]">
+                            <SelectInputComponent
+                                        label="Grupo"
+                                        name="cristal1_tratamiento_id"
+                                        showRefresh={false}
+                                        isOT={true}
+                                        handleSelectChange={handleInputChange}
+                                        data={3}
+                                        control={control}
+                                        entidad={["/api/proyectogrupos/", "02","PR001A"]}
+                                        // error={errors.establecimiento}
+                                        customWidth={"345px"}
+                                        readOnly={onlyRead || permiso_cristales}
+                            />
+                    </div>
                     
-                    <div className="mt-16 mx-auto w-[90%] relative mb-8 !h-[20rem] labelForm rounded-lg border border-blue-500 ">
+                    <div className="mt-16 mx-auto w-[90%] relative mb-8 !h-[15rem] labelForm rounded-lg border border-blue-500 ">
                         <h1 className='absolute w-[30%] z-10 labelForm text-center text-xl top-[-3%] left-[30%]'>OD</h1>
 
                         <div className="w-[90%] ml-4 flex items-center">
@@ -464,7 +541,7 @@ const FOTCristales:React.FC<ICristales> = ({
                     </div>
                 </div>
 
-                <div className="mt-16 mx-auto w-[90%] !h-[20rem] relative mb-8 labelForm rounded-lg border border-blue-500">
+                <div className="mt-16 mx-auto w-[90%] !h-[15rem] relative mb-8 labelForm rounded-lg border border-blue-500">
                     <h1 className='absolute w-[30%] z-10 labelForm text-center text-xl top-[-3%] left-[30%]'>OI</h1>
                     <div className="w-[90%] ml-4 flex items-center">
                             <div className="w-[50%]">
