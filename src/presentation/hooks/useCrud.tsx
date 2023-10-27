@@ -216,7 +216,7 @@ const useCrud = (
   //   return numCampos;
   // }
 
-  const deleteAllEntity = async (pk: any[]): Promise<void | unknown> => {
+  const deleteAllEntity = async (pk: any[], _p: string): Promise<void | unknown> => {
     try {
       const intPk = pk[0].map((item: any) => Object.keys(item).length);
       const pkQueryParam = encodeURIComponent(JSON.stringify(pk[0]));
@@ -232,9 +232,10 @@ const useCrud = (
       const url =
         intPk[0] > 1 || pk[1] 
           ? `/eliminar/?query=05&_pkToDelete=${pkQueryParam}`
-          :  !isNaN(parseInt(valoresPk1Obj1[0])) && /^\d+$/.test(valoresPk1Obj1[0])
-               ? (`/eliminar/?query=05&_p1=${valoresPk1Obj1}`)
-               : (`/eliminar/?query=05&_p3=${valoresPk1Obj1}`)
+          : `/eliminar/?query=05&${_p}=${valoresPk1Obj1}`
+          // :  !isNaN(parseInt(valoresPk1Obj1[0])) && /^\d+$/.test(valoresPk1Obj1[0])
+          //      ? (`/eliminar/?query=05&_p1=${valoresPk1Obj1}`)
+          //      : (`/eliminar/?query=05&_p3=${valoresPk1Obj1}`)
       
       // const url =
       //   intPk[0] > 1 || pk[1] 
