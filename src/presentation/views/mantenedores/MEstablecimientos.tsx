@@ -80,6 +80,7 @@ const MEstablecimientos: React.FC = () => {
     });
   }, [selectedRows]);
 
+  console.log('entities', entities)
   return (
     <div className="mantenedorContainer">
       <h1 className="mantenedorH1">Establecimientos</h1>
@@ -120,7 +121,7 @@ const MEstablecimientos: React.FC = () => {
       </div>
 
       <div className="width80 scroll">
-        <TableComponent
+        {/* <TableComponent
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
           toggleEditModal={toggleEditModal}
@@ -134,7 +135,7 @@ const MEstablecimientos: React.FC = () => {
           showEditButton={true}
           showDeleteButton={false}
           idMenu={idMenu}
-        />
+        /> */}
       </div>
 
       {isModalInsert && (

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { AiOutlineForward, AiFillDelete } from "react-icons/ai";
 import { IconButton, Tooltip } from "@material-tailwind/react";
 import { SiAddthis } from "react-icons/si";
@@ -10,6 +10,8 @@ import { ExportCSV } from "./ExportToCsv";
 import { useModal } from "../hooks/useModal";
 import { CgInsertAfterR, CgInsertBeforeR } from "react-icons/cg";
 import ImportToCsv from "./ImportToCsv";
+import { AppStore, useAppSelector } from "../../redux/store";
+import OTPrimaryButtons from "./OTPrimaryButtons";
 
 //CgInsertAfterR
 //CgInsertBeforeR
@@ -35,6 +37,7 @@ interface IPrimaryButtonProps {
   pkToDelete?: any;
   idMenu: number;
   bln_egreso?: boolean;
+  isOT?:boolean;
 }
 
 const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
@@ -56,9 +59,27 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
     comilla,
     idMenu,
     bln_egreso,
+    isOT
   }) => {
     const { escritura_lectura } = usePermission(idMenu);
     const { CustomModal, showModal } = useModal();
+    const [OTPermissions, setOTPermissions] = useState("");
+
+    const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas);
+
+    const areaActual = OTAreas["areaActual"]
+
+    // console.log(areaActual)
+    // console.log(OTAreas.areas)
+
+    const permissions = (area:number) => areaActual && OTAreas["areas"].find((permiso:any)=>permiso[1] === area)
+
+
+    useEffect(()=>{
+      // console.log('render')
+      const permiso = areaActual && permissions(areaActual)
+      setOTPermissions(permiso && permiso[5])
+    },[areaActual])
 
     const renderButton = useCallback(
       (icon: React.ReactNode, handle: () => void, tooltip: string) => (
@@ -76,7 +97,21 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
       ),
       [escritura_lectura]
     );
-    // console.log("params", params);
+
+
+    if(isOT){
+      return (
+        <OTPrimaryButtons 
+          areaName={"name"} 
+          areaPermissions={OTPermissions} 
+          areaActual={areaActual}  
+          handleAddPerson={handleAddPerson}
+          params={params}
+        />
+      )
+    }
+      
+
     return (
       <div className="primaryBtnContainer">
         {showForwardButton &&
@@ -116,30 +151,6 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
             )}
           </>
         )}
-
-        {/* {showAddButton &&
-          escritura_lectura &&
-          renderButton(
-            <SiAddthis className="primaryBtnIcon" />,
-            handleAddPerson!,
-            BUTTON_MESSAGES.add
-          )}
-
-
-        {showAddButton &&
-          escritura_lectura &&
-          renderButton(
-            <CgInsertBeforeR className="primaryBtnIcon" />,
-            handleAddPerson!,
-            BUTTON_MESSAGES.add
-          )}
-        {showAddButton &&
-          escritura_lectura &&
-          renderButton(
-            <CgInsertAfterR className="primaryBtnIcon" />,
-            handleAddPerson!,
-            BUTTON_MESSAGES.add
-          )} */}
 
         {showRefreshButton &&
           renderButton(
@@ -185,13 +196,46 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
             <CustomModal />
           </>
         )}
-
-
-
+        {/* { OTAreas &&  OTAreas["areas"].map((area:any)=>(
+          // console.log(area)
+          ))} */}
         <ImportToCsv strEntidad={strEntidad}/>
+
+
+
+        
+
+
       </div>
     );
   }
 );
 
 export default PrimaryButtonsComponent;
+
+
+
+
+     {/* {showAddButton &&
+          escritura_lectura &&
+          renderButton(
+            <SiAddthis className="primaryBtnIcon" />,
+            handleAddPerson!,
+            BUTTON_MESSAGES.add
+          )}
+
+
+        {showAddButton &&
+          escritura_lectura &&
+          renderButton(
+            <CgInsertBeforeR className="primaryBtnIcon" />,
+            handleAddPerson!,
+            BUTTON_MESSAGES.add
+          )}
+        {showAddButton &&
+          escritura_lectura &&
+          renderButton(
+            <CgInsertAfterR className="primaryBtnIcon" />,
+            handleAddPerson!,
+            BUTTON_MESSAGES.add
+          )} */}

@@ -51,7 +51,7 @@ const Login: React.FC = React.memo(() => {
           dispatch(fetchOTAreas())
           // toast.success("Sesion Iniciada");
           show({ message: LOGIN.loginSuccess, type: "success" });
-          navigate("/usuarios");
+          navigate("/ot");
         })
         .catch((_e) => show({ message: LOGIN.loginError, type: "error" }));
     } catch (error: any) {

@@ -226,8 +226,9 @@ const FProyectosArmazones: React.FC<IUserFormPrps> = React.memo(
       isEditting ? focusSecondInput("estado") : focusFirstInput("proyecto");
     }, []);
 
+    console.log('data', data)
     return (
-      <div className="useFormContainer">
+      <div className="useFormContainer top-[20%]">
         <div className="userFormBtnCloseContainer">
           <button onClick={closeModal} className="userFormBtnClose">
             X

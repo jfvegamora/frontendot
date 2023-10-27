@@ -5,6 +5,7 @@ import RegProComponent from '../forms/RegProComponent';
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
 import { EnumGrid as EnumClientes } from '../../views/mantenedores/MClientes';
 import axios from 'axios';
+import OTTextInputComponent from './OTTextInputComponent';
 
 
 interface IClientes {
@@ -14,6 +15,7 @@ interface IClientes {
     data:any,
     setExistCliente:any,
     strCodigoProyecto:string,
+    onlyRead?:boolean;
 }
 
 
@@ -23,16 +25,18 @@ const FOTClientes:React.FC<IClientes> = ({
     formValues,
     data,
     setExistCliente,
-    strCodigoProyecto
+    strCodigoProyecto,
+    onlyRead
 }) => {
-    const [inputState, setInputState] = useState({})
+    const [clienteData, setClienteData] = useState()
 
+    console.log(onlyRead)
     const fetchCliente = async(cliente_rut:string) => {
         try {
             const cliente = await axios(`https://mtoopticos.cl/api/clientes/listado/?query=01&_p1=${cliente_rut}`)
             console.log(cliente)
             
-            return cliente          
+            return cliente.data          
         } catch (error) {
             throw error
         }    
@@ -46,6 +50,7 @@ const FOTClientes:React.FC<IClientes> = ({
 
         if(name === 'cliente_rut'){
             fetchCliente(value).then((data:any)=>{
+                setClienteData(data)
                 console.log(data["data"][0][2])
                 setExistCliente(true)
                 onDataChange({['cliente_nombre']: data["data"][0][EnumClientes.nombre]})
@@ -65,10 +70,10 @@ const FOTClientes:React.FC<IClientes> = ({
 
 
       
-      
-     console.log(formValues)
+    //   console.log(clienteData && clienteData[0])
+    //  console.log(formValues)
     //  console.log(inputState)
-     console.log(formValues && formValues["cliente_nombre"])
+    //  console.log(formValues && formValues["cliente_nombre"])
   return (
     <form action="">
         <div className='w-full h-[40rem]  labelForm rounded-lg border border-blue-500'>
@@ -94,24 +99,27 @@ const FOTClientes:React.FC<IClientes> = ({
             <div className="w-[100%] mt-10 flex items-center ">
 
                 <div className="w-[15%] ml-4">
-                    <TextInputComponent
+                    <OTTextInputComponent
                         type="text"
                         label="Rut"
                         name="cliente_rut"
                         handleChange={handleInputChange}
                         data={formValues ? formValues["cliente_rut"]  : data && data[EnumGrid.cliente_rut]}
                         control={control}
+                        onlyRead={onlyRead}
                         // error={errors.fecha_nacimiento}
                     />
                 </div>
                 <div className="w-[40%]">
-                    <TextInputComponent
+                    <OTTextInputComponent
                         type="text"
                         label="Nombre"
                         name="cliente_nombre"
                         handleChange={handleInputChange}
                         data={formValues ? formValues["cliente_nombre"]  : data && data[EnumGrid.cliente_nomnbre]}
+                        otData={clienteData  && clienteData[0] && clienteData[0][EnumClientes.nombre]}
                         control={control}
+                        onlyRead={onlyRead}
                         // error={errors.fecha_nacimiento}
                     />
                 </div>
@@ -127,9 +135,11 @@ const FOTClientes:React.FC<IClientes> = ({
                         entidad={["/api/establecimientos/", "02", strCodigoProyecto]}
                         // error={errors.establecimiento}
                         customWidth={"345px"}
+                        readOnly={onlyRead}
                     />
                 </div> 
             </div>
+         
 
 
             <div className="w-[100%] mt-10 h-[27rem] flex items-center ">
@@ -147,6 +157,7 @@ const FOTClientes:React.FC<IClientes> = ({
                                 // error={errors.sexo}
                                 // horizontal={true}
                                 onChange={handleInputChange}
+                                readOnly={onlyRead}
                             />    
                         </div>
                         <div className="w-[25%] ml-20">
@@ -163,44 +174,50 @@ const FOTClientes:React.FC<IClientes> = ({
                                 // error={errors.sexo}
                                 // horizontal={true}
                                 onChange={handleInputChange}
+                                readOnly={onlyRead}
                             />    
                         </div>
                     </div>
                     <div className='w-full  h-1/2'>
                         <div className="w-full h-1/2 flex ml-[-2%] items-center ">
                             <div className="w-[50%]">
-                            <TextInputComponent
+                            <OTTextInputComponent
                                 type="date"
                                 label="Fecha de nacimiento"
                                 name="cliente_fecha_nacimiento"
                                 handleChange={handleInputChange}
                                 data={formValues ? formValues["cliente_fecha_nacimiento"]  : data && data[EnumGrid.cliente_fecha_nacimiento]}
-                                
+                                otData={clienteData && clienteData[0] && clienteData[0][EnumClientes.fecha_nacimiento]}
                                 control={control}
+                                onlyRead={onlyRead}
                                 // error={errors.fecha_nacimiento}
                             />
                             </div>
                             <div className="w-[50%]">
-                            <TextInputComponent
+                            <OTTextInputComponent
                                 type="text"
                                 label="Telefono"
                                 name="cliente_telefono"
                                 handleChange={handleInputChange}
                                 data={formValues ? formValues["cliente_telefono"]  : data && data[EnumGrid.cliente_telefono]}
                                 control={control}
+                                onlyRead={onlyRead}
+                                otData={clienteData && clienteData[0] && clienteData[0][EnumClientes.telefono]}
                                 // error={errors.fecha_nacimiento}
                             />
                             </div>
                         </div>
                         <div className="w-full h-1/2 ml-[-2%] ">
                             <div className="w-[100%]">
-                                <TextInputComponent
+                                <OTTextInputComponent
                                     type="text"
                                     label="Correo"
                                     name="cliente_correo"
                                     handleChange={handleInputChange}
                                     data={formValues ? formValues["cliente_correo"]  : data && data[EnumGrid.cliente_correo]}
                                     control={control}
+                                    onlyRead={onlyRead}
+                                    otData={clienteData  && clienteData[0] && clienteData[0][EnumClientes.correo]}
                                     // error={errors.fecha_nacimiento}
                                 />
                             </div>
@@ -222,13 +239,15 @@ const FOTClientes:React.FC<IClientes> = ({
                         />
                    
                     <div className="-mt-4">
-                        <TextInputComponent
+                        <OTTextInputComponent
                             type="text"
                             label="N° calle"
+                            onlyRead={onlyRead}
                             name="cliente_direccion"
                             handleChange={handleInputChange}
                             data={formValues ? formValues["cliente_direccion"]  : data && data[EnumGrid.cliente_direccion]}
                             control={control}
+                            otData={clienteData  && clienteData[0] && clienteData[0][EnumClientes.direccion]}
                             // error={errors.fecha_nacimiento}
                         />
                     </div>

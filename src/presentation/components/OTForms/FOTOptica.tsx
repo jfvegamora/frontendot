@@ -13,6 +13,10 @@ interface IOptica {
     setToggle?:any,
     isEditting?:boolean
     setIsMotivo?:any
+    onlyRead?:boolean;
+    permiso_estado_impresion:boolean,
+    permiso_estado_validacion:boolean,
+    permiso_resolucion_garantia:boolean
 }
 
 
@@ -23,7 +27,11 @@ const FOTOptica:React.FC<IOptica> = ({
     data,
     setToggle,
     isEditting,
-    setIsMotivo
+    setIsMotivo,
+    onlyRead,
+    permiso_estado_impresion,
+    permiso_estado_validacion,
+    permiso_resolucion_garantia
 }) => {
     const strUrl = 'https://mtoopticos.cl/api/ot/listado'
     const impresion = data && data[9] === 1 ? true: false
@@ -71,7 +79,7 @@ const FOTOptica:React.FC<IOptica> = ({
 
 
 
-   
+ 
   return (
     <form action="">
         <div className='w-full labelForm rounded-lg border border-blue-500'>
@@ -89,22 +97,27 @@ const FOTOptica:React.FC<IOptica> = ({
                         entidad={["/api/proyectos/", "02"]}
                         // error={errors.establecimiento}
                         customWidth={"345px"}
+                        readOnly={onlyRead}
                     />
                 </div>
-                {isEditting && (
+                {isEditting && !onlyRead && (
                     <>
-                        <div className="w-[25%] mt-4 mb-8 ml-4 px-[1.5rem] ">
-                            <div className=" items-center flex">
-                                <Switch onChange={handleSwitchValidation} checked={isToggleValidacion}/>
-                                <label className='ml-2'>Estado de Validacion</label>
+                        {!permiso_estado_validacion && (
+                            <div className="w-[25%] mt-4 mb-8 ml-4 px-[1.5rem] ">
+                                <div className=" items-center flex">
+                                    <Switch onChange={handleSwitchValidation} checked={isToggleValidacion}/>
+                                    <label className='ml-2'>Estado de Validacion</label>
+                                </div>
                             </div>
-                        </div>
-                        <div className="w-[25%] mt-4 mb-8 ml-4 px-[1.5rem] ">
-                            <div className=" items-center flex">
-                                <Switch onChange={(e)=>handleSwitchImpresion(e)} checked={isToggleImpresion}/>
-                                <label className='ml-2'>Estado de Impresion</label>
+                        )}
+                        {!permiso_estado_impresion && (
+                            <div className="w-[25%] mt-4 mb-8 ml-4 px-[1.5rem] ">
+                                <div className=" items-center flex">
+                                    <Switch onChange={(e)=>handleSwitchImpresion(e)} checked={isToggleImpresion}/>
+                                    <label className='ml-2'>Estado de Impresion</label>
+                                </div>
                             </div>
-                        </div>
+                        )}
                     
                     </>
                 )}
@@ -124,7 +137,7 @@ const FOTOptica:React.FC<IOptica> = ({
                         options={["Venta", "Garantía"]}
                         // error={errors.sexo}
                         horizontal={true}
-                        readOnly={!isEditting}
+                        readOnly={!isEditting || onlyRead}
                         onChange={handleInputChange}
                     />                    
                 </div>
@@ -137,6 +150,7 @@ const FOTOptica:React.FC<IOptica> = ({
                         handleChange={handleInputChange}
                         data={formValues ? formValues["area"] : data && data[EnumGrid.area]}
                         control={control}
+                        onlyRead={onlyRead}
                         // error={errors.fecha_nacimiento}
                     />
                 </div>
@@ -149,6 +163,7 @@ const FOTOptica:React.FC<IOptica> = ({
                         handleChange={handleInputChange}
                         data={formValues ? formValues["estado"] : data && data[EnumGrid.estado]}
                         control={control}
+                        onlyRead={onlyRead}
                         // error={errors.fecha_nacimiento}
                     />
                 </div>
@@ -166,6 +181,7 @@ const FOTOptica:React.FC<IOptica> = ({
                         entidad={["/api/puntosventa/", "02"]}
                         // error={errors.establecimiento}
                         customWidth={"345px"}
+                        readOnly={onlyRead}
                     />
                 </div>
             </div>
@@ -180,6 +196,7 @@ const FOTOptica:React.FC<IOptica> = ({
                         handleChange={handleInputChange}
                         data={formValues ? formValues["fecha_atencion"] : data && data[EnumGrid.fecha_atencion]}
                         control={control}
+                        onlyRead={onlyRead}
                         // error={errors.fecha_nacimiento}
                     />
                 </div>
@@ -191,6 +208,7 @@ const FOTOptica:React.FC<IOptica> = ({
                         handleChange={handleInputChange}
                         data={formValues ? formValues["fecha_entrega_taller"] : data &&  data[EnumGrid.fecha_entrega_taller]}
                         control={control}
+                        onlyRead={onlyRead}
                         // error={errors.fecha_nacimiento}
                     />
                 </div>
@@ -202,6 +220,7 @@ const FOTOptica:React.FC<IOptica> = ({
                         handleChange={handleInputChange}
                         data={formValues ? formValues["fecha_despacho"] : data && data[EnumGrid.fecha_despacho]}
                         control={control}
+                        onlyRead={onlyRead}
                         // error={errors.fecha_nacimiento}
                     />
                 </div>
@@ -213,6 +232,7 @@ const FOTOptica:React.FC<IOptica> = ({
                         handleChange={handleInputChange}
                         data={formValues ? formValues["fecha_entrega_cliente"] : data && data[EnumGrid.fecha_entrega_cliente]}
                         control={control}
+                        onlyRead={onlyRead}
                         // error={errors.fecha_nacimiento}
                     />
                 </div>
@@ -235,8 +255,9 @@ const FOTOptica:React.FC<IOptica> = ({
                                 entidad={["/api/tipos/", "02", "OTMotivoGarantia"]}
                                 // error={errors.establecimiento}
                                 customWidth={"345px"}
-                                readOnly={data && data[EnumGrid.motivo] === 'Garantía' ? false : true}
-                            />
+                                readOnly={data && data[EnumGrid.motivo] === 'Garantía' ? false : true || onlyRead}
+
+                           />
                         </div>
                         
                         <div className="w-[35%]">
@@ -247,7 +268,7 @@ const FOTOptica:React.FC<IOptica> = ({
                                 handleChange={handleInputChange}
                                 data={formValues ? formValues["folio_asociado"] : data && data[EnumGrid.folio_asociado]}
                                 control={control}
-                                onlyRead={data && data[EnumGrid.motivo] === 'Garantía' ? false : true}
+                                onlyRead={data && data[EnumGrid.motivo] === 'Garantía' ? false : true || onlyRead}
                                 // error={errors.fecha_nacimiento}
                             />
                         </div>
@@ -271,7 +292,7 @@ const FOTOptica:React.FC<IOptica> = ({
                                 options={["Aceptada", "Rechazada"]}
                                 // error={errors.sexo}
                                 horizontal={true}
-                                readOnly={!isEditting || !motivo }
+                                readOnly={!isEditting || !motivo || onlyRead || permiso_resolucion_garantia}
                                 onChange={handleInputChange}
                                 
                             />  
@@ -288,6 +309,7 @@ const FOTOptica:React.FC<IOptica> = ({
                             handleChange={handleInputChange}
                             data={formValues ? formValues["observaciones"] : data && data[EnumGrid.observaciones]}
                             control={control}
+                            onlyRead={onlyRead}
                             // error={errors.fecha_nacimiento}
                         />
                     </div>
@@ -303,6 +325,7 @@ const FOTOptica:React.FC<IOptica> = ({
                             handleChange={handleInputChange}
                             data={formValues ? formValues["worktracking"] : data && data[EnumGrid.worktracking]}
                             control={control}
+                            onlyRead={onlyRead}
                             // error={errors.fecha_nacimiento}
                         />
                     </div>
@@ -314,6 +337,7 @@ const FOTOptica:React.FC<IOptica> = ({
                             handleChange={handleInputChange}
                             data={formValues ? formValues["nota_venta"] : data && data[EnumGrid.nota_venta]}
                             control={control}
+                            onlyRead={onlyRead}
                             // error={errors.fecha_nacimiento}
                         />
                     </div>
@@ -325,6 +349,7 @@ const FOTOptica:React.FC<IOptica> = ({
                             handleChange={handleInputChange}
                             data={formValues ? formValues["numero_factura"] : data && data[EnumGrid.numero_factura]}
                             control={control}
+                            onlyRead={onlyRead}
                             // error={errors.fecha_nacimiento}
                         />
                     </div>
@@ -336,6 +361,7 @@ const FOTOptica:React.FC<IOptica> = ({
                             handleChange={handleInputChange}
                             data={formValues ? formValues["folio_interno_mandante"] : data && data[EnumGrid.folio_interno_mandante]}
                             control={control}
+                            onlyRead={onlyRead}
                             // error={errors.fecha_nacimiento}
                         />
                     </div>

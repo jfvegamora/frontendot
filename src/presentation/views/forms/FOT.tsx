@@ -21,18 +21,6 @@ import FOTDerivacion from '../../components/OTForms/FOTDerivacion';
 import { SEXO, TIPO_CLIENTE } from '../../utils';
 
 
-// {
-//   "query": "03",
-//   "_destino": "60",
-//   "_estado": "1",
-//   "_origen": "40",
-//   "_p1": "1,70,1,1,1,'PR002A',3,'1-22323','2023-10-18','2023-10-19','2023-10-21','2023-10-22',11,123123,'2023-10-19',2,1,2,3,4,5,6,7,8,9,10,1,11,12,13,14,15,16,17,1,1,1,1,2,1,3,1,1,3,4,3,2,1001,1002,1,1,2,5,4,3,1,1003,1004,2,0,0,0,123,123,123,123,'observaciones test'",
-//   "_p3":"'1-22323','cliente test ot 2',0, 0,'2023-10-24','calle falsa 123' ,150, '12331','test@test.cl', '3'",
-//   "_rut": "",
-//   "_usuario": "98"
-// }
-
-
 interface IFOTProps {
   closeModal: () => void;
   data?: any[];
@@ -42,6 +30,7 @@ interface IFOTProps {
   setEntities?: any;
   params?: any;
   isMOT?:boolean
+  onlyRead?: boolean;
 }
 
 interface FormData {
@@ -116,11 +105,6 @@ interface FormData {
 }
 
 
-
-
-const strBaseUrl="/api/ot/"
-
-
 const validacionNivel1 = [
   { campo:"numero_worktracking",
     valor: 0
@@ -142,48 +126,67 @@ const FOT:React.FC<IFOTProps> = ({
   closeModal,
   data,
   isEditting,
-  isMOT
+  isMOT,
+  onlyRead
 }) => {
   // const {createdEntity, editEntity} = useCrud(strBaseUrl);
+  const folioOT = data && data[EnumGrid.folio]
+  //PERMISOS DE AREA
+  const [OTPermissions, setOTPermissions] = useState("");
   const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas);
   const User:any = useAppSelector((store: AppStore) => store.user);
   let OTAreaActual = OTAreas["areaActual"]
-  // console.log(data)
+  const permissions = (area:number) => OTAreaActual && OTAreas["areas"].find((permiso:any)=>permiso[1] === area)
+  //PERMISOS DE CAMPOS
+  const permisos_campos           = useAppSelector((store: AppStore) => store.user?.permisos_campos);
+  let permiso_armazones           = permisos_campos && permisos_campos[0] === "1" ? false : true;
+  let permiso_cristales           = permisos_campos && permisos_campos[1] === "1" ? false : true;
+  let permiso_estado_impresion    = permisos_campos && permisos_campos[2] === "1" ? false : true;
+  let permiso_estado_validacion   = permisos_campos && permisos_campos[3] === "1" ? false : true;
+  let permiso_resolucion_garantia = permisos_campos && permisos_campos[4] === "1" ? false : true;
+  let permiso_grupo_dioptria      = permisos_campos && permisos_campos[5] === "1" ? false : true;
 
-  console.log('otAreas', OTAreas)
+
+
+
+
+  React.useEffect(()=>{
+    // console.log('render')
+    const permiso = OTAreaActual && permissions(OTAreaActual)
+    setOTPermissions(permiso && permiso[5])
+  },[OTAreaActual])
+
+
+  // console.log('otAreas', OTAreas)
+  // console.log(OTPermissions)
   
   // console.log(isEditting)
   const switchCasePausar = (jsonData:any) => {
-    let _origen = 60;
-    let _destino = 60
-    let _estado = 0;
-
-    // _origen = OTAreaActual;
-    // _destino = OTAreaActual;
-     _estado = 3;
+    let _origen = OTAreas["areaActual"];
+    let _destino =  OTAreas["areaActual"]
+    let _estado = 3;
 
     let area = isEditting
     ? (data && parseInt(data[EnumGrid.estado_id]))
     : 1;
 
-    console.log('isEditting', isEditting)
-    console.log('data estado', data && data[EnumGrid.estado_id])
+    // console.log('isEditting', isEditting)
+    // console.log('data estado', data && data[EnumGrid.estado_id])
 
     switch (area) {
       case 1:
         console.log('Ejecutando acción para pausar, estado numero 1');
-        // updateOT(data, _destino, _origen, _estado);
         insertOT(jsonData)
         break;
-      case 2:
+      case (2 && 99 || 2):
         console.log('Ejecutando acción para pausar, estado numero 2');
         updateOT(data, _destino, _origen, _estado);
         break;
-      case 3:
+      case (3 && 99 || 3):
         console.log('Ejecutando acción para pausar, estado numero 3');
         updateOT(data, _destino, _origen, _estado);
         break;
-      case 4:
+      case (4 && 99 || 4):
         console.log('Ejecutando acción para pausar, estado numero 4');
         updateOT(data, _destino, _origen, _estado)
         break;
@@ -198,78 +201,36 @@ const FOT:React.FC<IFOTProps> = ({
   //  console.log('hola')
   //  const formData = getValues
 
-    let _origen = 0;
-    let _destino = 0;
-    let _estado = 0;
+    let _origen = OTAreas["areaActual"];
+    let _destino = OTAreas["areaSiguiente"];;
+    let _estado = 2;
     
 
     // console.log(formData)
     let area = isEditting
     ? (data && parseInt(data[EnumGrid.estado_id]))
     : 1;
-    console.log('area', area)
+ 
 
     switch (area) {
       case 1:
         console.log('Ejecutando acción para procesar, estado numero 1');
-        // origen = area actual
-        // destino = area actual
-        // ot estado = 3 (pendiente)
-        // bitacora(origen,origen, "ingresada")
-        // bitacora(origen, destino, estado) 
-        // insert ot = query 03
-        _origen = 50;
-        _destino= 50;
-        _estado = 2;
-        // updateOT(data, _destino, _origen, _estado);
         insertOT(jsonData)
-
-        
         break;
-      case 2:
+      case (2 || 99 ):
         console.log('Ejecutando acción para procesar, estado numero 2');
-        // _oirgen = area actual
-        //_destino = area actual 
-        // ot.estado = 3(pendiente)
-        // bitacora(origen, destino, estado) 
-        // Update ot = query04
-        _origen = 60;
-        _destino = 70;
-        _estado = 2;
-        updateOT(data, _destino, _origen, _estado);
-
-
-        
+        updateOT(data, _destino, _origen, _estado);  
         break;
-      case 3:
+      case (3 || 99 ):
         console.log('Ejecutando acción para procesar, estado numero 3');
-        // ot.origen = area actual
-        // ot.destino = area
-        // ot.estado = 3 (pendiente)
-        // update ot = query04
-        _origen =  60;
-        _destino = 60;
-        _estado = 2;
-
         updateOT(data, _destino, _origen, _estado);
         break;
-      case 4:
+      case (4 || 99):
         console.log('Ejecutando acción para procesar, estado numero 4');
-        //ot.area = area actual
-        // destino = area actual
-        // bi(origen, destino, estado)
-        //Update ot = query04
-
-        _origen = 60;
-        _destino = 70;
-        _estado = 2;
-        
         updateOT(data, _destino, _origen, _estado)
         break;
       default:
           console.log('Número no reconocido');
-          // Realizar acciones para números no reconocidos
-          // Realizar otras acciones específicas para este caso
         break;
     }
   }
@@ -286,7 +247,7 @@ const FOT:React.FC<IFOTProps> = ({
     const area = data && parseInt(data[EnumGrid.estado_id])
 
     switch (area) {
-      case 2:
+      case (2 && 99):
         console.log('Ejecutando acción para el número 2');
         // _oirgen = area actual
         //_destino = area elegida 
@@ -304,7 +265,7 @@ const FOT:React.FC<IFOTProps> = ({
 
         
         break;
-      case 3:
+      case (3 && 99):
         console.log('Ejecutando derivacion,  para el estado numero 3');
         // ot.origen = area actual
         // ot.destino = area
@@ -316,7 +277,7 @@ const FOT:React.FC<IFOTProps> = ({
 
         updateOT(data, _destino, _origen, _estado);
         break;
-      case 4:
+      case (4 && 99):
         console.log('Ejecutando acción para el estado número 4');
         //ot.area = area actual
         // destino = area actual
@@ -351,22 +312,37 @@ const FOT:React.FC<IFOTProps> = ({
     let a1_grupo = 1;
     let a2_grupo = 1;
     let area = 50;
-    let _rut = `${jsonData.cliente_rut || ""}`
-    let _p3 = [ ...(jsonData.cliente_nombre !== undefined ? [`nombre='${jsonData.cliente_nombre}'`] : []),  ...(jsonData.cliente_tipo !== undefined ? [`tipo=${jsonData.cliente_tipo === TIPO_CLIENTE.beneficiario ? 1 : jsonData.cliente_tipo === TIPO_CLIENTE.particular ? 2 : jsonData.cliente_sexo === TIPO_CLIENTE.optica ? 3 : 0}`] : []),...(jsonData.cliente_sexo !== undefined ? [`sexo=${jsonData.cliente_sexo === SEXO.masculino ? 1 : jsonData.cliente_sexo === SEXO.femenino ? 2 : jsonData.cliente_sexo === SEXO.no_aplica ? 3 : 0}`] : []) , ...(jsonData.cliente_fecha_nacimiento !== undefined ? [`fecha_nacimiento='${jsonData.cliente_fecha_nacimiento}'`] : []) , ...(jsonData.cliente_direccion !== undefined ? [`direccion='${jsonData.cliente_direccion}'`] : []) , ...(jsonData.cliente_comuna !== undefined ? [`comuna=${jsonData.cliente_comuna || 150}`] : []), ...(jsonData.cliente_telefono !== undefined ? [`telefono='${jsonData.cliente_telefono}'`] : []), ...(jsonData.cliente_correo !== undefined ? [`correo='${jsonData.cliente_correo}'`] : []), ...(jsonData.establecimiento_id !== undefined ? [`establecimiento=${jsonData.establecimiento_id}`] : [])].join(', ');
+    let _rut = ""
+    let _p3 = ""
 
-    
+    // _p3 = `'${jsonData[EnumGrid.cliente_rut]}','${formValues && formValues["cliente"] && formValues["cliente"]["cliente_nombre"] || jsonData[EnumGrid.cliente_nomnbre]}',${jsonData[EnumGrid.cliente_tipo] === TIPO_CLIENTE.beneficiario ? "1" : jsonData[EnumGrid.cliente_tipo] === TIPO_CLIENTE.particular ? "2" : jsonData[EnumGrid.cliente_tipo] === TIPO_CLIENTE.optica ? "3" : "0"}, ${jsonData[EnumGrid.cliente_sexo] === SEXO.masculino ? "1" : jsonData[EnumGrid.cliente_sexo] === SEXO.femenino ? "2" : jsonData[EnumGrid.cliente_sexo] === SEXO.no_aplica ? "3" : "0"},'${jsonData[EnumGrid.cliente_fecha_nacimiento]}','${jsonData[EnumGrid.cliente_direccion]}' ,${formValues && formValues["cliente"] && formValues["cliente"]["cliente_comuna_id"] || jsonData[EnumGrid.cliente_comuna_id] }, '${jsonData[EnumGrid.cliente_telefono]}','${jsonData[EnumGrid.cliente_correo]}', ${jsonData[EnumGrid.establecimiento_id]}`;
+
+
+    if(isEditting){
+      _rut = `${jsonData[EnumGrid.cliente_rut] || ""}`
+
+      _p3 = [ ...(jsonData[EnumGrid.cliente_nomnbre] !== undefined ? [`nombre='${formValues && formValues["cliente"] && formValues["cliente"]["cliente_nombre"] || jsonData[EnumGrid.cliente_nomnbre]}'`] : []),  ...(jsonData[EnumGrid.cliente_tipo] !== undefined ? [`tipo=${jsonData[EnumGrid.cliente_tipo] === TIPO_CLIENTE.beneficiario ? 1 : jsonData[EnumGrid.cliente_tipo] === TIPO_CLIENTE.particular ? 2 : jsonData[EnumGrid.cliente_tipo] === TIPO_CLIENTE.optica ? 3 : 0}`] : []),...(jsonData[EnumGrid.cliente_sexo] !== undefined ? [`sexo=${jsonData[EnumGrid.cliente_sexo] === SEXO.masculino ? 1 : jsonData[EnumGrid.cliente_sexo] === SEXO.femenino ? 2 : jsonData[EnumGrid.cliente_sexo] === SEXO.no_aplica ? 3 : 0}`] : []) , ...(jsonData[EnumGrid.cliente_fecha_nacimiento] !== undefined ? [`fecha_nacimiento='${jsonData[EnumGrid.cliente_fecha_nacimiento]}'`] : []) , ...(jsonData[EnumGrid.cliente_direccion] !== undefined ? [`direccion='${jsonData[EnumGrid.cliente_direccion]}'`] : []) , ...( formValues && formValues["cliente"] && formValues["cliente"]["cliente_comuna_id"]!== undefined ? [`comuna=${formValues["cliente"]["cliente_comuna_id"] || 150}`] : []), ...(jsonData[EnumGrid.cliente_telefono] !== undefined ? [`telefono='${jsonData[EnumGrid.cliente_telefono]}'`] : []), ...(jsonData[EnumGrid.cliente_correo] !== undefined ? [`correo='${jsonData[EnumGrid.cliente_correo]}'`] : []), ...(jsonData[EnumGrid.establecimiento_id] !== undefined ? [`establecimiento=${jsonData[EnumGrid.establecimiento_id]}`] : [])].join(', ');
+
+    }
+
+    console.log(_p3)
 
 
     // console.log('jsonData', jsonData.a2_opcion_vta_id )
     console.log('jsonData', jsonData)
+    console.log('data', data)
+
+    console.log('existCliente',existCliente)
 
 
-    if(!existCliente){
-      _rut = '';
-      if (jsonData && jsonData.cliente_rut) {
-        _p3 = `'${jsonData.cliente_rut}','${jsonData.cliente_nombre}',${jsonData.cliente_tipo === TIPO_CLIENTE.beneficiario ? "1" : jsonData.cliente_tipo === TIPO_CLIENTE.particular ? "2" : jsonData.cliente_tipo === TIPO_CLIENTE.optica ? "3" : "0"}, ${jsonData.cliente_sexo === SEXO.masculino ? "1" : jsonData.cliente_sexo === SEXO.femenino ? "2" : jsonData.cliente_sexo === SEXO.no_aplica ? "3" : "0"},'${jsonData.cliente_fecha_nacimiento}','${jsonData.cliente_direccion}' ,${jsonData.cliente_comuna_id || 150}, '${jsonData.cliente_telefono}','${jsonData.cliente_correo}', ${jsonData.establecimiento_id}`;
-      }
-    }
+    // if(!existCliente){
+    //   _rut = '';
+    //   if (jsonData && jsonData[EnumGrid.cliente_rut]) {
+    //     _p3 = `'${jsonData[EnumGrid.cliente_rut]}','${jsonData[EnumGrid.cliente_nomnbre]}',${jsonData[EnumGrid.cliente_tipo] === TIPO_CLIENTE.beneficiario ? "1" : jsonData[EnumGrid.cliente_tipo] === TIPO_CLIENTE.particular ? "2" : jsonData[EnumGrid.cliente_tipo] === TIPO_CLIENTE.optica ? "3" : "0"}, ${jsonData[EnumGrid.cliente_sexo] === SEXO.masculino ? "1" : jsonData[EnumGrid.cliente_sexo] === SEXO.femenino ? "2" : jsonData[EnumGrid.cliente_sexo] === SEXO.no_aplica ? "3" : "0"},'${jsonData[EnumGrid.cliente_fecha_nacimiento]}','${jsonData[EnumGrid.cliente_direccion]}' ,${formValues && formValues["cliente"] && formValues["cliente"]["cliente_comuna_id"] || jsonData[EnumGrid.cliente_comuna_id] }, '${jsonData[EnumGrid.cliente_telefono]}','${jsonData[EnumGrid.cliente_correo]}', ${jsonData[EnumGrid.establecimiento_id]}`;
+    //   }
+    // }
+    
+    
     // console.log(data)
     
     
@@ -461,9 +437,9 @@ const FOT:React.FC<IFOTProps> = ({
 
 
 
-    console.log('fields',fields)
-    console.log('origen', _origen)
-    console.log('destino', _destino)
+    // console.log('fields',fields)
+    // console.log('origen', _origen)
+    // console.log('destino', _destino)
 
 
 
@@ -472,17 +448,13 @@ const FOT:React.FC<IFOTProps> = ({
       { codigo: `${jsonData[EnumGrid.cristal1_oi]}` },
       { codigo: `${jsonData[EnumGrid.cristal2_od]}` },
       { codigo: `${jsonData[EnumGrid.cristal2_oi]}` }
-      // { codigo: `${jsonData.cristal1_od}` },
-      // { codigo: `${jsonData.cristal1_oi}` },
-      // { codigo: `${jsonData.cristal2_od}` },
-      // { codigo: `${jsonData.cristal2_oi}` }
     ]
       .map(item => {
         const numero = parseFloat(item.codigo);
-        if (!isNaN(numero) && numero !== null) {
+        if (!isNaN(numero) && numero !== 0 &&numero !== null) {
           return { 'codigo': numero };
         }
-        return null; // Otra opción en caso de no ser un número válido
+        return null; 
       })
       .filter(item => item !== null);
 
@@ -494,37 +466,20 @@ const FOT:React.FC<IFOTProps> = ({
       ]
         .map(item => {
           const numero = parseFloat(item.codigo);
-          if (!isNaN(numero) && numero !== null ) {
+          if (!isNaN(numero) && numero !== 0 && numero !== null ) {
             return { codigo: numero };
           }
-          return null; // Otra opción en caso de no ser un número válido
+          return null; 
         })
         .filter(item => item !== null);
       
-      // `armazones` contendrá objetos con la propiedad "codigo" y valores numéricos válidos
-      
-
-    // console.log('cristales', cristales)
+        console.log(cristales)
 
 
-
-
-
-    // console.log('formValues',gestions)
-    // console.log(_origen)
-  
-    // const filteredFields = fields.filter(
-    //   (field) => field !== null && field !== "" && field !== undefined
-    // );
-  
-    // if (filteredFields.length === 0) {
-    //   return null;
-    // }
-    // const _p1 = filteredFields.join(",");
-    // console.log("p1", _p1);
-
+    closeModal()
     const filteredFields = fields.map((field) => (field === 'undefined') ? '' : field);
     const _p1 = filteredFields.join(',');
+
 
     const query = {
       query: "04",
@@ -573,14 +528,15 @@ const FOT:React.FC<IFOTProps> = ({
     let origen = 50;
     let destino = 60;
 
-    let _p3 = [`nombre='${jsonData.cliente_nombre}'`, `tipo=${jsonData.cliente_tipo === TIPO_CLIENTE.beneficiario ? 1 : jsonData.cliente_tipo === TIPO_CLIENTE.particular ? 2 : jsonData.cliente_tipo === TIPO_CLIENTE.optica ? 3 : 0}`, `sexo=${jsonData.cliente_sexo === SEXO.masculino ? 1 : jsonData.cliente_sexo === SEXO.femenino ? 2 : jsonData.cliente_sexo === SEXO.no_aplica ? 3 : 0}`, `fecha_nacimiento='${jsonData.cliente_fecha_nacimiento}'`, `direccion='${jsonData.cliente_direccion}'`, `comuna=${jsonData.cliente_comuna || 150}`, `telefono='${jsonData.cliente_telefono}'`, `correo='${jsonData.cliente_correo}'`, `establecimiento=${jsonData.establecimiento_id}`].join(', ');
+    // let _p3 = [`nombre='${jsonData.cliente_nombre}'`, `tipo=${jsonData.cliente_tipo === TIPO_CLIENTE.beneficiario ? 1 : jsonData.cliente_tipo === TIPO_CLIENTE.particular ? 2 : jsonData.cliente_tipo === TIPO_CLIENTE.optica ? 3 : 0}`, `sexo=${jsonData.cliente_sexo === SEXO.masculino ? 1 : jsonData.cliente_sexo === SEXO.femenino ? 2 : jsonData.cliente_sexo === SEXO.no_aplica ? 3 : 0}`, `fecha_nacimiento='${jsonData.cliente_fecha_nacimiento}'`, `direccion='${jsonData.cliente_direccion}'`, `comuna=${jsonData.cliente_comuna || 150}`, `telefono='${jsonData.cliente_telefono}'`, `correo='${jsonData.cliente_correo}'`, `establecimiento=${jsonData.establecimiento_id}`].join(', ');
+    let  _p3 =`'${jsonData.cliente_rut}','${jsonData.cliente_nombre}',${jsonData.cliente_tipo === TIPO_CLIENTE.beneficiario ? "1" : jsonData.cliente_tipo === TIPO_CLIENTE.particular ? "2" : jsonData.cliente_tipo === TIPO_CLIENTE.optica ? "3" : "0"}, ${jsonData.cliente_sexo === SEXO.masculino ? "1" : jsonData.cliente_sexo === SEXO.femenino ? "2" : jsonData.cliente_sexo === SEXO.no_aplica ? "3" : "0"},'${jsonData.cliente_fecha_nacimiento}','${jsonData.cliente_direccion}' ,${jsonData.cliente_comuna_id || 150}, '${jsonData.cliente_telefono}','${jsonData.cliente_correo}', ${jsonData.establecimiento_id}`;
 
-    let _rut = jsonData.cliente_rut;
+    let _rut = '';
     
-    if(!existCliente){
-       _rut = '';
-       _p3 =`'${jsonData.cliente_rut}','${jsonData.cliente_nombre}',${jsonData.cliente_tipo === TIPO_CLIENTE.beneficiario ? "1" : jsonData.cliente_tipo === TIPO_CLIENTE.particular ? "2" : jsonData.cliente_tipo === TIPO_CLIENTE.optica ? "3" : "0"}, ${jsonData.cliente_sexo === SEXO.masculino ? "1" : jsonData.cliente_sexo === SEXO.femenino ? "2" : jsonData.cliente_sexo === SEXO.no_aplica ? "3" : "0"},'${jsonData.cliente_fecha_nacimiento}','${jsonData.cliente_direccion}' ,${jsonData.cliente_comuna_id || 150}, '${jsonData.cliente_telefono}','${jsonData.cliente_correo}', ${jsonData.establecimiento_id}`;
-    }
+    // if(!existCliente){
+    //    _rut = '';
+    //    _p3 =`'${jsonData.cliente_rut}','${jsonData.cliente_nombre}',${jsonData.cliente_tipo === TIPO_CLIENTE.beneficiario ? "1" : jsonData.cliente_tipo === TIPO_CLIENTE.particular ? "2" : jsonData.cliente_tipo === TIPO_CLIENTE.optica ? "3" : "0"}, ${jsonData.cliente_sexo === SEXO.masculino ? "1" : jsonData.cliente_sexo === SEXO.femenino ? "2" : jsonData.cliente_sexo === SEXO.no_aplica ? "3" : "0"},'${jsonData.cliente_fecha_nacimiento}','${jsonData.cliente_direccion}' ,${jsonData.cliente_comuna_id || 150}, '${jsonData.cliente_telefono}','${jsonData.cliente_correo}', ${jsonData.establecimiento_id}`;
+    // }
 
     // console.log('data', jsonData)
     const _p1 = `${motivo},${destino},${estado},${estado_impresion},${estado_validacion},'${jsonData.proyecto}',${jsonData.establecimiento_id},'${jsonData.cliente_rut}','${jsonData.fecha_atencion}','${jsonData.fecha_entrega_taller}','${jsonData.fecha_despacho}','${jsonData.fecha_entrega_cliente}',${jsonData.punto_venta_id},${jsonData.numero_receta},'${jsonData.fecha_receta}',${jsonData.tipo_anteojo_id},${jsonData.a1_od_esf},${jsonData.a1_od_cil},${jsonData.a1_od_eje},${jsonData.a1_od_ad },${jsonData.a1_oi_esf},${jsonData.a1_oi_cil},${jsonData.a1_oi_eje},${jsonData.a1_oi_ad},${jsonData.a1_dp},${jsonData.a1_alt},${a1_grupo},${jsonData.a2_od_esf},${jsonData.a2_od_cil},${jsonData.a2_od_eje},${jsonData.a2_oi_esf},${jsonData.a2_oi_cil},${jsonData.a2_oi_eje},${jsonData.a2_dp},${a2_grupo},${jsonData.a1_opcion_vta_id},${jsonData.a1_armazon_id},${jsonData.a2_opcion_vta_id},${jsonData.a2_armazon_id},${jsonData.a3_opcion_vta_id || 0},${jsonData.a3_armazon_id || 0},${jsonData.cristal1_opcion_vta_id},${jsonData.cristal1_diseno_id},${jsonData.cristal1_indice_id},${jsonData.cristal1_material_id},${jsonData.cristal1_tratamiento_id},${jsonData.cristal1_color_id},${jsonData.cristal1_od},${jsonData.cristal1_oi},${jsonData.cristal1_tratamiento_adicional_id},${jsonData.cristal2_od_opcion_venta_id},${jsonData.cristal2_diseno_id},${jsonData.cristal2_indice_id},${jsonData.cristal2_material_id},${jsonData.cristal2_tratamiento_id},${jsonData.cristal2_color_id},${jsonData.cristal2_od},${jsonData.cristal2_oi},${jsonData.cristal2_tratamiento_adicional_id},${jsonData.motivo_garantia_id || 0},${jsonData.folio_asociado || 0},${jsonData.resolucion_garantia_id || 0},${jsonData.worktracking || 0},${jsonData.nota_venta || 0},${jsonData.numero_factura || 0},${jsonData.folio_interno_mandante || 0},'${jsonData.observaciones || ""}'`;
@@ -611,14 +567,15 @@ const FOT:React.FC<IFOTProps> = ({
        
     };
     console.log(query)
+  
     
-    try {
-      const response = await axios.post("https://mtoopticos.cl/api/ot/crear/", query)
-      console.log(response)
+    // try {
+    //   const response = await axios.post("https://mtoopticos.cl/api/ot/crear/", query)
+    //   console.log(response)
       
-    } catch (error) {
-      console.log(error)
-    }
+    // } catch (error) {
+    //   console.log(error)
+    // }
 
 
 
@@ -669,18 +626,19 @@ const FOT:React.FC<IFOTProps> = ({
     const actualDate = moment().format('DD-MM-YYYY HH:mm:ss');
     const fechaActual = moment().format('YYYY-MM-DD')
     
+    console.log(jsonData)
     
     // console.log('Datos de todos los formularios:', jsonData);
     // console.log(jsonData["fecha_atencion"])
     // console.log(fechaActual)
     //Validaciones
       //OPTICA
-    if(jsonData["fecha_atencion"] > fechaActual) {
-      toast.error("Fecha de atencion mayor a la fecha actual")
-      return null;
-    }
+    // if(jsonData["fecha_atencion"] > fechaActual) {
+    //   toast.error("Fecha de atencion mayor a la fecha actual")
+    //   return null;
+    // }
     
-    // console.log(submitAction)
+    console.log(submitAction)
 
     if (submitAction === 'pausar') {
       switchCasePausar(jsonData);
@@ -695,26 +653,7 @@ const FOT:React.FC<IFOTProps> = ({
 
 
   //Persistencia de datos
-  const handleFormChange = (data: any, name: string) => {
-    //
-
-    // console.log(data)
-    // console.log(name)
-      if(Object.keys(data)[0] === 'proyecto'){
-        console.log(Object.values(data)[0])
-        setStrCodigoProyecto(Object.values(data)[0])
-     }
-     
-    //  if (Object.keys(data)[0] === 'cliente_rut') {
-    //     setFormValues((prevFormValues: any) => ({
-    //       ...prevFormValues,
-    //       ['cliente']: {
-    //         ...prevFormValues['cliente'],
-    //         ["cliente_nombre"]:"prueba nombre"
-    //       }
-    //     }));
-        // console.log(formValues)
-      // }
+  const handleFormChange = async(data: any, name: string) => {
 
     setFormValues((prevFormValues: any) => ({
       ...prevFormValues,
@@ -723,9 +662,95 @@ const FOT:React.FC<IFOTProps> = ({
         ...data
       }
     }));
+    console.log(formValues)
+
+    console.log(data)
+    console.log(name)
+
+
+    // console.log(Object.keys(data)[0])
+
     
-    // console.log('formValues', formValues)
-    //campo validado correctamente
+
+
+    if(Object.keys(data)[0] === 'cristal1_color_id'){
+        console.log(data)
+        // console.log(Object.values(data)[0])
+        const colorID = Object.values(data)[0]
+       console.log(formValues)
+        const {receta, cristales, optica} = formValues
+      
+        const _pkToDelete1_od ={
+         "diseno": cristales.cristal1_diseno_id,
+         "indice":cristales.cristal1_indice_id,
+         "material":cristales.cristal1_material_id,
+         "color":colorID,
+         "tratamiento":cristales.cristal1_tratamiento_id,
+         "esferico":receta.a1_od_esf,
+         "cilindrico":receta.a1_od_cil
+       }
+        const _pkToDelete1_oi ={
+         "diseno": cristales.cristal1_diseno_id,
+         "indice":cristales.cristal1_indice_id,
+         "material":cristales.cristal1_material_id,
+         "color": colorID,
+         "tratamiento":cristales.cristal1_tratamiento_id,
+         "esferico":receta.a1_oi_esf,
+         "cilindrico":receta.a1_oi_cil
+       }
+      //   const _pkToDelete2_od ={
+      //    "diseno": cristales.cristal2_diseno_id,
+      //    "indice":cristales.cristal2_indice_id,
+      //    "material":cristales.cristal2_material_id,
+      //    "color":cristales.cristal2_color_id,
+      //    "tratamiento":cristales.cristal2_tratamiento_id,
+      //    "esferico":receta.a2_od_esf,
+      //    "cilindrico":receta.a2_od_cil
+      //  }
+
+      //  const _pkToDelete2_oi ={
+      //   "diseno": cristales.cristal2_diseno_id,
+      //   "indice":cristales.cristal2_indice_id,
+      //   "material":cristales.cristal2_material_id,
+      //   "color":cristales.cristal2_color_id,
+      //   "tratamiento":cristales.cristal2_tratamiento_id,
+      //   "esferico":receta.a2_oi_esf,
+      //   "cilindrico":receta.a2_oi_cil
+      //  }
+
+       const arrayJSON:any = []
+
+      const addIfNotNullAndNotEmpty = (object:any) => {
+        if (object && Object.keys(object).every(key => object[key] !== null)) {
+          arrayJSON.push(object);
+        }
+      };
+
+      addIfNotNullAndNotEmpty(_pkToDelete1_od);   
+      addIfNotNullAndNotEmpty(_pkToDelete1_oi);
+
+      // addIfNotNullAndNotEmpty(_pkToDelete2_od);
+      // addIfNotNullAndNotEmpty(_pkToDelete2_oi);
+
+       console.log(arrayJSON)
+      const pkJSON = JSON.stringify(arrayJSON)
+      try {
+        // ejemplo de comoo debe quedar: https://mtoopticos.cl/api/proyectogrupos/listado/?_pkToDelete=[{ "diseno": "1", "indice":"1", "material":"1", "color":"1", "tratamiento":"1", "esferico":"-6.25", "cilindrico":"-0.25" }]&_p2="PR001A"&query=06
+        const encodedJSON = encodeURIComponent(pkJSON)
+        const result = await axios(`https://mtoopticos.cl/api/proyectogrupos/listado/?query=06&_p2=${optica.proyecto}&_pkToDelete=${encodedJSON}`)
+        console.log(result)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
+    if(Object.keys(data)[0] === 'proyecto'){
+        console.log(Object.values(data)[0])
+        setStrCodigoProyecto(Object.values(data)[0])
+    }
+     
+
+
     actualizarEstado(Object.keys(data)[0], 1)
 
   };
@@ -739,24 +764,12 @@ const FOT:React.FC<IFOTProps> = ({
     }
   };
 
-
-
-
-  // console.log( data && data[EnumGrid.motivo])
-  // console.log(toggle)
-  // console.log(showDerivacion)
-  // console.log(showGarantia)
-  // console.log(isMOT)
-
   const handlePausarClick = () => {
     setSubmitAction('pausar');
-    handleSubmit(onSubmit)();
   };
-
 // Handler para el botón 'Procesar'
 const handleProcesarClick = () => {
   setSubmitAction('procesar');
-  handleSubmit(onSubmit)();
 };
 
 const handleDerivarClick = () => {
@@ -764,14 +777,19 @@ const handleDerivarClick = () => {
   handleSubmit(onSubmit)()
 }
 
-  console.log('existCliente',existCliente)
+
+React.useEffect(() => {
+  if (submitAction === 'pausar' || submitAction === 'procesar' || submitAction === 'derivar') {
+    handleSubmit(onSubmit)();
+  }
+}, [submitAction]);
 
 
-  
   return (
 
     <div className='useFormContainer top-[1%] w-[94vw] relative h-[95vh] z-20'>
       <Tabs>
+        
         <TabList className='flex items-center'>
           <Tab className="custom-tab">Óptica</Tab>
           <Tab className="custom-tab">Cliente</Tab>
@@ -784,26 +802,27 @@ const handleDerivarClick = () => {
 
         <div className='top-0 absolute right-3 text-2xl cursor-pointert' onClick={closeModal}>X</div>
           <TabPanel onSelect={loadFormData}>
-            <FOTOptica setIsMotivo={setIsMotivo} isEditting={isEditting} data={data && data} formValues={formValues["optica"]} control={control} setToggle={setToggle} onDataChange={(data:any) => handleFormChange(data , 'optica')} />
+            <FOTOptica onlyRead={onlyRead} setIsMotivo={setIsMotivo} isEditting={isEditting} data={data && data} formValues={formValues["optica"]} control={control} setToggle={setToggle} onDataChange={(data:any) => handleFormChange(data , 'optica')} permiso_estado_impresion={permiso_estado_impresion} permiso_estado_validacion={permiso_estado_validacion} permiso_resolucion_garantia={permiso_resolucion_garantia} />
           </TabPanel>
           
         <TabPanel>
-          <FOTClientes data={data && data} formValues={formValues["cliente"]} control={control} onDataChange={(data:any) => handleFormChange(data , 'cliente')} strCodigoProyecto={strCodigoProyecto} setExistCliente={setExistCliente}    />
+          <FOTClientes onlyRead={onlyRead} data={data && data} formValues={formValues["cliente"]} control={control} onDataChange={(data:any) => handleFormChange(data , 'cliente')} strCodigoProyecto={strCodigoProyecto} setExistCliente={setExistCliente}    />
         </TabPanel>
 
         <TabPanel>
-          <FOTReceta data={data && data} formValues={formValues["receta"]} control={control} onDataChange={(data:any) => handleFormChange(data , 'receta')}  />
+          <FOTReceta permiso_grupo_dioptria={permiso_grupo_dioptria} onlyRead={onlyRead} data={data && data} formValues={formValues["receta"]} control={control} onDataChange={(data:any) => handleFormChange(data , 'receta')}  />
         </TabPanel>
 
         <TabPanel> 
-          <FOTArmazones data={data && data} formValues={formValues["armazones"]} control={control} onDataChange={(data:any) => handleFormChange(data , 'armazones')}  />
+          <FOTArmazones permiso_armazones={permiso_armazones} onlyRead={onlyRead}  data={data && data} formValues={formValues["armazones"]} control={control} onDataChange={(data:any) => handleFormChange(data , 'armazones')}  />
         </TabPanel>
+        
         <TabPanel>
-          
-          <FOTCristales data={data && data}  formValues={formValues["armazones"]} control={control} onDataChange={(data:any) => handleFormChange(data , 'cristales')}  /> 
+          <FOTCristales permiso_cristales={permiso_cristales} onlyRead={onlyRead} data={data && data}  formValues={formValues["cristales"]} control={control} onDataChange={(data:any) => handleFormChange(data , 'cristales')}  /> 
         </TabPanel>
+
         <TabPanel>
-          <FOTBitacora/>
+          <FOTBitacora otFolio={data && data[EnumGrid.folio]}/>
         </TabPanel>
 
         {showGarantia && (
@@ -814,9 +833,14 @@ const handleDerivarClick = () => {
 
         {showDerivacion && (
           <div>
-            <FOTDerivacion data={data && data} onClose={onCloseDerivacion} switchCaseDerivar={switchCaseDerivar}/>
+            <FOTDerivacion  closeModal={closeModal} formValues={formValues} data={data && data} onClose={onCloseDerivacion} switchCaseDerivar={switchCaseDerivar}/>
           </div>
         )}
+
+
+
+
+
 
         <div className='flex items-center mx-auto  justify-around w-1/2 '>
           {/* OTHISTORICA */}
@@ -830,11 +854,25 @@ const handleDerivarClick = () => {
                 Garantia
               </button>
           )}
+              {OTPermissions && OTPermissions[6] === "1" && (
+                <button className='bg-green-400 mx-4  text-white w-1/4 ' onClick={handleProcesarClick}>Procesar</button>
+              )}
+              
+
+              {OTPermissions && OTPermissions[7] === "1" && (
+                <button className='bg-yellow-400 mx-4   w-1/4 'onClick={handlePausarClick}>Pausar</button>
+              )}
+              {OTPermissions && OTPermissions[8] === "1" && (
+                <button className='bg-red-400 mx-4 text-white  w-1/4 ' onClick={()=>{setShowDerivacion((prev)=>!prev)}}>Derivar</button>
+              )}
+              {OTPermissions && OTPermissions[9] === "1" && (
+                <button className='bg-black mx-4 text-white  w-1/4 '>Anular</button>
+              )}
 
 
 
 
-          {/* OT DIARIA */}
+          {/* OT DIARIA
           {
             sumatoriaNivel1 === validacionNivel1.length && (
               <button className='bg-green-400 mx-4  text-white w-1/4 ' onClick={handleSubmit(onSubmit)}>Procesar</button>
@@ -848,7 +886,6 @@ const handleDerivarClick = () => {
 
 
 
-        <button className='bg-yellow-400 mx-4   w-1/4 'onClick={handlePausarClick}>Pausar</button>
 
           {toggle === "Aceptada" && isEditting && (
             <>
@@ -860,8 +897,7 @@ const handleDerivarClick = () => {
   
               <button className='bg-black mx-4 text-white  w-1/4 '>Anular</button>
             </>
-          )}
-             <button className='bg-red-400 mx-4 text-white  w-1/4 ' onClick={handleDerivarClick}>Derivar</button>
+          )} */}
         </div>
       </Tabs>
     </div>
@@ -916,3 +952,88 @@ export default FOT;
 // _usuario
 // : 
 // "98"
+
+
+
+
+
+
+//PR001
+// {
+//   "query": "03",
+//   "_armazonesJSON":"[{\"codigo\":1},{\"codigo\":2}]",
+//   "_cristalesJSON":"[{\"codigo\":1001},{\"codigo\":1002},{\"codigo\":1003},{\"codigo\":1004}]",
+//   "_destino":"60",
+//   "_origen":"50",
+//   "_estado":"2",
+//   "_obs":"ot editada desde frontend",
+//   "_p1":"1,60,2,0,1,'PR002A',1,'1-1','2023-10-23','2023-10-24','2023-10-25','2023-10-21',11,132132,'2023-10-28',2,1,2,4,5,6,7,8,9,10,11,1,12,13,14,15,16,16,18,1,1,1,1,2,0,0,1,1,2,2,3,2,1001,1002,3,1,1,2,2,2,1,1003,1004,1,0,0,0,123,123,123,123,'observ'"
+//   ,
+//   "_p3":"'2-2','nombre test 3',1, 1,'2023-10-28','calle2' ,48, '21312','correo@oreoreoo.cl', 1",
+//   "_proyecto":"PR002A",
+//   "_punto_venta":"11",
+//   "_rut":"",
+//   "_situacion":"0",
+//   "_usuario":"98"
+
+// },
+
+
+//PR003
+// {
+//   "query": "03",
+//   "_armazonesJSON":"[]",
+//   "_cristalesJSON":"[]",
+//   "_destino":"60",
+//   "_origen":"50",
+//   "_estado":"2",
+//   "_obs":"ot editada desde frontend",
+//   "_p1":"1,60,2,0,1,'PR003',1,'1-1','2023-10-23','2023-10-24','2023-10-25','2023-10-21',11,132132,'2023-10-28',2,1,2,4,5,6,7,8,9,10,11,1,12,13,14,15,16,16,18,1,1,0,1,0,0,0,1,1,2,2,3,2,0,0,3,1,1,2,2,2,1,0,0,1,0,0,0,123,123,123,123,'observ'"
+//   ,
+//   "_p3":"'2-2','nombre test 3',1, 1,'2023-10-28','calle2' ,48, '21312','correo@oreoreoo.cl', 1",
+//   "_proyecto":"PR003",
+//   "_punto_venta":"11",
+//   "_rut":"",
+//   "_situacion":"0",
+//   "_usuario":"98"
+// }
+
+
+//pr003
+// {
+//   "query": "03",
+//   "_armazonesJSON":"[{\"codigo\":1},{\"codigo\":2}]",
+//   "_cristalesJSON":"[]",
+//   "_destino":"60",
+//   "_origen":"50",
+//   "_estado":"2",
+//   "_obs":"ot editada desde frontend",
+//   "_p1":"1,60,2,0,1,'PR002A',1,'1-1','2023-10-23','2023-10-24','2023-10-25','2023-10-21',11,132132,'2023-10-28',2,1,2,4,5,6,7,8,9,10,11,1,12,13,14,15,16,16,18,1,1,1,1,2,0,0,1,1,2,2,3,2,0,0,3,1,1,2,2,2,1,0,0,1,0,0,0,123,123,123,123,'observ'"
+//   ,
+//   "_p3":"'2-2','nombre test 3',1, 1,'2023-10-28','calle2' ,48, '21312','correo@oreoreoo.cl', 1",
+//   "_proyecto":"PR002A",
+//   "_punto_venta":"11",
+//   "_rut":"",
+//   "_situacion":"0",
+//   "_usuario":"98"
+// }
+
+
+//pr005
+// {
+//   "query": "03",
+//   "_armazonesJSON":"[]",
+//   "_cristalesJSON":"[{\"codigo\":1001},{\"codigo\":1002},{\"codigo\":1003},{\"codigo\":1004}]",
+//   "_destino":"60",
+//   "_origen":"50",
+//   "_estado":"2",
+//   "_obs":"ot editada desde frontend",
+//   "_p1":"1,60,2,0,1,'PR005',1,'2-4','2023-10-23','2023-10-24','2023-10-25','2023-10-21',11,132132,'2023-10-28',2,1,2,4,5,6,7,8,9,10,11,1,12,13,14,15,16,16,18,1,1,0,1,0,0,0,1,1,2,2,3,2,1001,1002,3,1,1,2,2,2,1,1003,1004,1,0,0,0,123,123,123,123,'observ'"
+//   ,
+//   "_p3":"'2-4','nombre test 3',1, 1,'2023-10-28','calle2' ,48, '21312','correo@oreoreoo.cl', 1",
+//   "_proyecto":"PR005",
+//   "_punto_venta":"11",
+//   "_rut":"",
+//   "_situacion":"0",
+//   "_usuario":"98"
+// }

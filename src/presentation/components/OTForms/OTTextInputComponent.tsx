@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Input } from "@material-tailwind/react";
 import React, {useEffect, useState} from "react";
 import { Controller } from "react-hook-form";
@@ -16,9 +14,10 @@ interface ITextInputProps {
   inputRef?: any;
   className?:string;
   handleChange?: (data:any)=>void;
+  otData?:any
 }
 
-const TextInputComponent: React.FC<ITextInputProps> = ({
+const OTTextInputComponent: React.FC<ITextInputProps> = ({
   label,
   type,
   control,
@@ -29,19 +28,20 @@ const TextInputComponent: React.FC<ITextInputProps> = ({
   error,
   inputRef,
   className,
-  defaultValue:formatvalue
+  defaultValue:formatvalue,
+  otData
 }) => {
   const [defaultValue, setDefaultValue] = useState<string>(data || "")
-  const [value, setValue] = useState('')
+
+  const initialValue = otData !== undefined ? otData : data;
+  const [value, setValue] = useState<string>(initialValue);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    
+    const newValue = e.target.value;
+    console.log(newValue)
+    setValue(newValue)
     // console.log(e.target.name)
     if (handleChange) {
-      if(e.target.name === formatvalue){
-        e.target.value = '20.00'
-      }
-
       handleChange(e.target);
     }
   
@@ -51,12 +51,15 @@ const TextInputComponent: React.FC<ITextInputProps> = ({
  
   
   useEffect(()=>{
-    setDefaultValue(data)
-  },[data])
+    setDefaultValue(otData || data || "")
+    console.log('cambio')
+    setValue(otData !== undefined ? otData : data);
+  },[data,otData])
 
 
-  // console.log(daa)
-  // console.log(data)
+
+
+
 return (
   <div
   className={`${"flex items-center mb-4 mx-4  relative rounded-xl "}`}
@@ -72,14 +75,14 @@ return (
           {...field}
           error = {error ? true : false }
           label     ={label}
+          value     ={value}
           color     ="orange"
           id        ={label}
+          onChange  ={(e)=>setValue(e.target.value)}
           type      ={type}
-          step      ={0.01}
-          readOnly  ={onlyRead}
-          step      ={0.01}
           onBlur    ={(e)=>handleInputChange(e)}
           ref       ={inputRef}
+          readOnly  = {onlyRead}
           className ={`${className ? className : " custom-input py-2 px-3 "}`}
           // className={`${className ? className : "custom-input py-2 px-3"}`}
         />
@@ -95,40 +98,4 @@ return (
   );
 };
 
-export default TextInputComponent;
-
-// <div
-//   className={`${className ? className : "flex  bg-red-500 items-center mb-4 mx-4 border rounded-xl"} ${
-//     error && "border-red-400"
-//   }`}
-// >
-//   <Controller
-//     name          ={name}
-//     control       ={control}
-//     defaultValue  ={data ? data : ""}
-//     render        ={({ field }) => (
-//       <Input
-//         {...field}
-//         color     ="orange"
-//         label     ={label}
-//         id        ={label}
-//         type      ={type}
-//         readOnly  ={onlyRead}
-//         ref       ={inputRef}
-//         className ={`${className ? className : "custom-input py-2 px-3 w-1/2"}`}
-//         labelProps={{
-//           style: {
-//             color     : "grey",
-//             fontWeight: "normal",
-//             fontSize  : "16px",
-//           },
-//         }}
-//       />
-//     )}
-//   />
-//   {error && (
-//     <p className="text-xs text-red-500 absolute right-20">
-//       {error.message}
-//     </p>
-//   )}
-// </div>
+export default OTTextInputComponent;

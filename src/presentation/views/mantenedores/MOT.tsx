@@ -8,7 +8,7 @@ import {
   PrimaryKeySearch,
   TableComponent,
 } from "../../components";
-import { useEntityUtils } from "../../hooks";
+import { useEntityUtils, usePermission } from "../../hooks";
 import {  TITLES, table_head_OT_diaria } from "../../utils";
 import axios from "axios";
 import useSWR from "swr";
@@ -56,6 +56,9 @@ const MOT: React.FC = () => {
   const [params, setParams] = useState([]);
   const [entitiesOT, setEntitiesOT] = useState([]);
   const [selectedValue, setSelectedValue] = useState('_p3=0');
+
+  const { lectura} = usePermission(28);
+  console.log(lectura)  
 
 
   const updateParams = (newParams: Record<string, never>) => {
@@ -105,7 +108,7 @@ const MOT: React.FC = () => {
   //SWR-POLLING
   const fetcher = (url:string) => axios.get(url).then((res)=>res.data);
   const {data} = useSWR(`https://mtoopticos.cl/api/ot/listado/?query=01&_origen=${OTAreas["areaActual"]}`, fetcher,{
-    refreshInterval:2000,
+    refreshInterval:1000,
   });
 
   console.log('data cambiada', data)
@@ -126,7 +129,9 @@ const MOT: React.FC = () => {
   // console.log('selectedValue',selectedValue)
   return (
     <div className="mantenedorContainer">
-      <h1 className="mantenedorH1">Órdenes de trabajo</h1>
+      <div className="mt-8">
+        <OTAreasButtons/>
+      </div>
 
       <div className="mantenedorHead width100 items-center">
         <select  
@@ -209,13 +214,11 @@ const MOT: React.FC = () => {
           showForwardButton={false}
           showRefreshButton={true}
           idMenu={idMenu}
+          isOT={true}
         />
       </div>
 
-      <div>
-        <OTAreasButtons/>
-      </div>
-
+      
       <div className="scroll">
         <TableComponent
           handleSelectChecked={handleSelect}
@@ -243,6 +246,8 @@ const MOT: React.FC = () => {
           setEntities={setEntities}
           params={params}
           isEditting={false}
+          
+
         />
       )}
 
@@ -255,6 +260,7 @@ const MOT: React.FC = () => {
           data={entity}
           closeModal={closeModal}
           isEditting={true}
+          onlyRead={lectura}
         />
       )}
     </div>

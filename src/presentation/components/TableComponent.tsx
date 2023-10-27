@@ -8,6 +8,8 @@ import { usePermission } from "../hooks";
 import { BUTTON_MESSAGES } from "../utils";
 import {ExportToPDF} from "./ExportToPDF";
 import { ExportCSV } from "./ExportToCsv";
+import { AppStore, useAppSelector } from "../../redux/store";
+import OTGrillaButtons from "./OTGrillaButtons";
 // import { ExportCSV } from "./ExportToCsv";
 
 interface ITableComponentProps<T> {
@@ -62,6 +64,17 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
   }) => {
     const { escritura_lectura, lectura} = usePermission(idMenu || 0 );
     const [rowIds, setRowIds] = useState<number[]>([]);
+    
+    const [ OTPermissions, setOTPermissions] = useState("");
+    const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas);
+    const areaActual = OTAreas["areaActual"] 
+    const permissions = (area:number) => areaActual &&  OTAreas["areas"].find((permiso:any)=>permiso[1] === area)
+
+    useEffect(()=>{
+      // console.log('render')
+      const permiso = permissions(areaActual)
+      setOTPermissions( permiso && permiso[5])
+    },[areaActual])
 
     // console.log(idMenu)
     useEffect(() => {
@@ -89,38 +102,32 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
       )
     };
 
-    const renderCheckboxCell = (id: number) => (
+    const renderCheckboxCell = (id: number) => {
+      console.log(id)
 
-      <div className="flex items-center justify-between">
-        <input
-          checked={selectedRows && selectedRows.includes(id)}
-          onChange={() => handleSelectChecked && handleSelectChecked(id)}
-          type="checkbox"
-        />
-        {isOT && (
-          <>
-            <Tooltip content={BUTTON_MESSAGES.edit.concat(entidad)}>
-          <IconButton
-             variant="text"
-             color="blue-gray"
-         // onClick={() =>toggleEditModal && toggleEditModal(rowIndex)}
-          >
-              <PencilIcon className="gridIcons" />
-         </IconButton>
-          </Tooltip>
-          <Tooltip content={BUTTON_MESSAGES.edit.concat(entidad)}>
-              <IconButton
-                variant="text"
-                color="blue-gray"
-                onClick={() =>toggleEditModal && toggleEditModal(id)}
-              >
-                  <PencilIcon className="gridIcons" />
-            </IconButton>
-          </Tooltip>
-          </>
-        )}
-      </div>
-    );
+      return (
+        <div className="flex items-center justify-between">
+          <input
+            checked={selectedRows && selectedRows.includes(id)}
+            onChange={() => handleSelectChecked && handleSelectChecked(id)}
+            type="checkbox"
+          />
+          {isOT && (
+
+            <>
+            <OTGrillaButtons
+              areaPermissions={OTPermissions}
+              id={id}
+              toggleEditModal={toggleEditModal}
+              
+              
+            />
+            </>
+          )}
+        </div>
+
+      )
+  };
  
     return (
       <table className="gridContainer">
