@@ -103,7 +103,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
     };
 
     const renderCheckboxCell = (id: number) => {
-      console.log(id)
+      // console.log(id)
 
       return (
         <div className="flex items-center justify-between">

@@ -86,9 +86,10 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
   //METODO CHECK INDIVIDUAL
   const handleSelect = useCallback((rowIndex: number): void => {
     // console.log("id handleselect", id);
+    console.log(rowIndex)
     setSelectedRows((prevSelectedRow) =>{
 
-      console.log(prevSelectedRow)
+      // console.log(prevSelectedRow)
       if(prevSelectedRow.length >= 400){
         toast.error("Ya tienes 100 elementos seleccionados")
         return prevSelectedRow;

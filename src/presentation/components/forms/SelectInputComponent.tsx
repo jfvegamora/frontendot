@@ -244,7 +244,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     // console.log(strUrl)
 
     const { refreshData } = useEntityUtils(strUrl, entidad[1]);
-
+    // console.log(data)
     useEffect(() => {
       refreshData();
       if (data) {
@@ -265,6 +265,13 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
         })
         .catch((e) => console.log(e));
     }, [refreshToggle, refreshData, data]);
+
+    useEffect(() => {
+      setStrSelectedName(data);
+      console.log('data', data)
+    }, [data]);
+
+    console.log(strSelectedName);
 
     return (
       // <div className="flex min-w-[60px] w-full items-center mb-2 mx-4 mt-select mt-select-dropdown-up cursor-pointer ">
@@ -336,8 +343,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
                     </option>
                   ))}
                   
-              </select>
-              
+              </select>  
             </div> 
           )}
         />

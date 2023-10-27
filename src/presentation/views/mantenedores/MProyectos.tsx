@@ -86,21 +86,17 @@ const MProyectos: React.FC = () => {
 
   // console.log("params:", params);
 
-  const pkToDelete: PrimaryKey[] = [];
+  const [pkToDelete, setPkToDelete] = useState<string[]>([])
+  const strParamsToDelete = '_p3' // _p3/_p1/_pkToDelete
+  
+  useEffect(() => {    
+    const newPkToDelete = selectedRows.map((row: number) => `'${entities[row][EnumGrid.CODIGO]}'`);
+    const combinedPks = newPkToDelete.join(',');
 
-  // console.log('pktodelete', pkToDelete)
-  useEffect(() => {
-    const newPkToDelete = selectedRows.map((row: number) => ({
-      pk1: entities[row][EnumGrid.CODIGO],
-    }));
-    newPkToDelete.forEach((newPk: { pk1: any }) => {
-      if (!pkToDelete.some((existingPk) => existingPk.pk1 === newPk.pk1)) {
-        pkToDelete.push(newPk);
-      }
-    });
-    // console.log('pktoDelete', pkToDelete)
+    setPkToDelete([`${strParamsToDelete}=${combinedPks}`]);
   }, [selectedRows]);
-  console.log('entities', entities)
+
+  // console.log('entities', entities)
   return (
     <div className="mantenedorContainer">
       <h1 className="mantenedorH1">Proyectos</h1>
