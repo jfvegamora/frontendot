@@ -75,6 +75,9 @@ const MAccesorios: React.FC = () => {
     setPkToDelete([`${strParamsToDelete}=${combinedPks}`]);
   }, [selectedRows]);
   
+
+
+
   return (
     <div className="mantenedorContainer">
       <h1 className="mantenedorH1">Accesorios</h1>

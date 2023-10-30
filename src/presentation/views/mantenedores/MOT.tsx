@@ -58,8 +58,9 @@ const MOT: React.FC = () => {
   const [selectedValue, setSelectedValue] = useState('_p3=0');
 
   const { lectura} = usePermission(28);
-  console.log(lectura)  
-
+  // console.log(lectura)
+  // let a = JSON.parse(localStorage.getItem("ListBoxTipos") as string)  
+  // console.log( a["cristalDiseño"] )
 
   const updateParams = (newParams: Record<string, never>) => {
     setParams(Object.keys(newParams).map((key) => newParams[key]));

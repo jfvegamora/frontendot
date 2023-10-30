@@ -6,7 +6,7 @@ import 'react-tabs/style/react-tabs.css';
 import moment from 'moment';
 import axios from 'axios';
 import {toast} from 'react-toastify';
-
+import { signal } from "@preact/signals-react";
 
 import FOTOptica from '../../components/OTForms/FOTOptica';
 import FOTClientes from '../../components/OTForms/FOTClientes';
@@ -19,6 +19,7 @@ import FOTGarantia from '../../components/OTForms/FOTGarantia';
 import { EnumGrid } from '../mantenedores/MOTHistorica';
 import FOTDerivacion from '../../components/OTForms/FOTDerivacion';
 import { SEXO, TIPO_CLIENTE } from '../../utils';
+import { validationCliente, validationEstablecimientos, validationFechaAtencion, validationProyectos, validationPuntoVenta, validationTipoAnteojos } from '../../utils/validationOT';
 
 
 interface IFOTProps {
@@ -105,21 +106,48 @@ interface FormData {
 }
 
 
-const validacionNivel1 = [
-  { campo:"worktracking",
+export const validacionNivel1 = [
+  { campo:"proyecto",
     valor: 0
-  }
-  // { campo:"nota_venta",
-  //   valor: 0
-  // },
-  // { campo:"folio_mandante",
-  //   valor: 0
-  // },
-  // { campo:"numero_factura",
-  //   valor: 0
-  // },
+  },
+  { campo:"establecimiento_id",
+    valor: 0
+  },
+  { campo:"cliente_rut",
+    valor: 0
+  },
+  { campo:"fecha_atencion",
+    valor: 0
+  },
+  { campo:"punto_venta_id",
+    valor: 0
+  },
+  { campo:"tipo_anteojo_id",
+    valor: 0
+  },
 ]
 
+
+export const validationNivel1 = signal([
+  { campo:"proyecto",
+    valor: 0
+  },
+  { campo:"establecimiento_id",
+    valor: 0
+  },
+  { campo:"cliente_rut",
+    valor: 0
+  },
+  { campo:"fecha_atencion",
+    valor: 0
+  },
+  { campo:"punto_venta_id",
+    valor: 0
+  },
+  { campo:"tipo_anteojo_id",
+    valor: 0
+  },
+]);
 
 
 const FOT:React.FC<IFOTProps> = ({
@@ -594,9 +622,10 @@ const FOT:React.FC<IFOTProps> = ({
   const [strCodigoProyecto, setStrCodigoProyecto] = useState(data && data[EnumGrid.proyecto_codigo] || '')
   const [isMotivo, setIsMotivo] = useState(false);
   const [toggle, setToggle] = useState();
+  const [changeboolean, setChangeboolean] = useState(false)
 
 
-  const [a1Grupo, setA1Grupo] = useState('')
+  const [a1Grupo, setA1Grupo] = useState(0)
   
   // console.log(strCodigoProyecto)
 
@@ -604,17 +633,9 @@ const FOT:React.FC<IFOTProps> = ({
   const onCloseGarantia = () =>setShowGarantia(false)
   const onCloseDerivacion = () =>setShowDerivacion(false)
   
-    
-  
-  // console.log(sumatoriaNivel1)
-  // console.log(scoreValidation)
-  
-
-
-
-  //validaciones
-
     const sumatoriaNivel1 = validacionNivel1.reduce((index, objeto) => index + objeto.valor, 0);
+    const sumatoriatest = validationNivel1.value.reduce((index, objeto) => index + objeto.valor, 0);
+    
     const actualizarEstado = (campo:string, valor:number) => {
       const index = validacionNivel1.findIndex(objeto => objeto.campo === campo);
       if (index !== -1) {
@@ -629,19 +650,7 @@ const FOT:React.FC<IFOTProps> = ({
   const onSubmit: SubmitHandler<FormData> = async(jsonData, type?:any) => {
     const actualDate = moment().format('DD-MM-YYYY HH:mm:ss');
     const fechaActual = moment().format('YYYY-MM-DD')
-    
-    console.log(jsonData)
-    
-    // console.log('Datos de todos los formularios:', jsonData);
-    // console.log(jsonData["fecha_atencion"])
-    // console.log(fechaActual)
-    //Validaciones
-      //OPTICA
-    // if(jsonData["fecha_atencion"] > fechaActual) {
-    //   toast.error("Fecha de atencion mayor a la fecha actual")
-    //   return null;
-    // }
-    
+
     console.log(submitAction)
 
     if (submitAction === 'pausar') {
@@ -657,7 +666,9 @@ const FOT:React.FC<IFOTProps> = ({
 
   //Persistencia de datos
   const handleFormChange = async(data: any, name: string) => {
-
+    console.log(name)
+    console.log(data)
+    setChangeboolean((prev)=>!prev)
     setFormValues((prevFormValues: any) => ({
       ...prevFormValues,
       [name]: {
@@ -665,16 +676,6 @@ const FOT:React.FC<IFOTProps> = ({
         ...data
       }
     }));
-    // console.log(formValues)
-
-    // console.log(data)
-    // console.log(nam e)
-
-
-    // console.log(Object.keys(data)[0])
-
-    
-
 
     if(Object.keys(data)[0] === 'cristal1_color_id'){
         console.log(data)
@@ -742,7 +743,7 @@ const FOT:React.FC<IFOTProps> = ({
         const encodedJSON = encodeURIComponent(pkJSON)
         const result = await axios(`https://mtoopticos.cl/api/proyectogrupos/listado/?query=06&_p2=${optica.proyecto}&_pkToDelete=${encodedJSON}`)
         console.log(result.data[0])
-        setA1Grupo(result.data[0])
+        setA1Grupo(3)
 
       } catch (error) {
         console.log(error)
@@ -772,15 +773,10 @@ const FOT:React.FC<IFOTProps> = ({
   const handlePausarClick = () => {
     setSubmitAction('pausar');
   };
-// Handler para el botón 'Procesar'
-const handleProcesarClick = () => {
-  setSubmitAction('procesar');
-};
+  const handleProcesarClick = () => {
+    setSubmitAction('procesar');
+  };
 
-const handleDerivarClick = () => {
-  setSubmitAction('derivar')
-  handleSubmit(onSubmit)()
-}
 
 
 React.useEffect(() => {
@@ -789,6 +785,32 @@ React.useEffect(() => {
   }
 }, [submitAction]);
 
+// React.useEffect(()=>{
+//   // console.log(validacionNivel1)
+//   validationProyectos(data && data[EnumGrid.proyecto_codigo])
+//   validationEstablecimientos(data && data[EnumGrid.establecimiento_id])
+//   // validationCliente(data && data[EnumGrid.cliente_rut])
+//   validationFechaAtencion(data && data[EnumGrid.fecha_atencion])
+//   validationTipoAnteojos(data && data[EnumGrid.tipo_anteojo_id])
+//   validationPuntoVenta(data && data[EnumGrid.punto_venta_id])
+// },[data,sumatoriaNivel1])
+
+
+if(isEditting){
+  console.log('validaciones')
+  validationProyectos(data && data[EnumGrid.proyecto_codigo])
+  validationEstablecimientos(data && data[EnumGrid.establecimiento_id])
+  validationCliente(data && data[EnumGrid.cliente_rut])
+  validationFechaAtencion(data && data[EnumGrid.fecha_atencion])
+  validationTipoAnteojos(data && data[EnumGrid.tipo_anteojo_id])
+  validationPuntoVenta(data && data[EnumGrid.punto_venta_id])
+}
+
+console.log(sumatoriaNivel1)
+console.log(validacionNivel1)
+console.log(validationNivel1.value)
+console.log(sumatoriatest)
+// console.log(data && data[EnumGrid.es]tado_id])
 
   return (
 
@@ -859,27 +881,30 @@ React.useEffect(() => {
                 Garantia
               </button>
           )}
-              {/* {OTPermissions && OTPermissions[6] === "1" && (
+              {OTPermissions && OTPermissions[6] === "1" && sumatoriatest === validationNivel1.value.length && (
                 <button className='bg-green-400 mx-4  text-white w-1/4 ' onClick={handleProcesarClick}>Procesar</button>
-              )} */}
+              )}
               
 
-              {OTPermissions && OTPermissions[7] === "1" && (
+              {OTPermissions && OTPermissions[7] === "1" && sumatoriatest === validationNivel1.value.length && (
                 <button className='bg-yellow-400 mx-4   w-1/4 'onClick={handlePausarClick}>Pausar</button>
               )}
-              {OTPermissions && OTPermissions[8] === "1" && (
+              {OTPermissions && OTPermissions[8] === "1" && sumatoriatest === validationNivel1.value.length &&(
                 <button className='bg-red-400 mx-4 text-white  w-1/4 ' onClick={()=>{setShowDerivacion((prev)=>!prev)}}>Derivar</button>
               )}
-              {OTPermissions && OTPermissions[9] === "1" && (
+
+
+
+              {OTPermissions && OTPermissions[9] === "1" && sumatoriaNivel1 === validacionNivel1.length && data && data[EnumGrid.estado_id] === 3 && (
                 <button className='bg-black mx-4 text-white  w-1/4 '>Anular</button>
               )}
 
 
-          {
+          {/* {
             sumatoriaNivel1 === validacionNivel1.length && (
               <button className='bg-green-400 mx-4  text-white w-1/4 ' onClick={handleSubmit(onSubmit)}>Procesar</button>
             )
-          }
+          } */}
 
 
           {/* OT DIARIA

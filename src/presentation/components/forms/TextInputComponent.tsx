@@ -65,6 +65,7 @@ return (
     name={name}
     control={control}
     // defaultValue={data ? data : ""}
+    
     defaultValue={data}
     render={({ field }) => (
       <div className="flex flex-col  w-full">
@@ -77,7 +78,7 @@ return (
           type      ={type}
           step      ={0.01}
           readOnly  ={onlyRead}
-          step      ={0.01}
+
           onBlur    ={(e)=>handleInputChange(e)}
           ref       ={inputRef}
           className ={`${className ? className : " custom-input py-2 px-3 "}`}
