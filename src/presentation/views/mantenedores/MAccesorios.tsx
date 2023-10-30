@@ -32,8 +32,8 @@ const strQuery = "01";
 const idMenu = 9;
 
 type PrimaryKey = {
-  pk122: number;
-};
+  pk1: string;
+}
 const MAccesorios: React.FC = () => {
   const [params, setParams] = useState([]);
   const updateParams = (newParams: Record<string, never>) => {
@@ -89,7 +89,7 @@ const MAccesorios: React.FC = () => {
           updateParams={updateParams}
           setEntities={setEntities}
           primaryKeyInputs={[
-            { name: "_p1", label: "Código", type: "text" },
+            { name: "_p1", label: "Código", type: "number" },
             { name: "_p2", label: "Descripción", type: "text" },
             {
               name: "_p3",

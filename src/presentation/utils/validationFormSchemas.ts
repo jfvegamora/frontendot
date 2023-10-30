@@ -86,11 +86,13 @@ export const validationArmazonesSchema = () =>
 // Schema ACCESORIOS
 export const validationAccesoriosSchema = () =>
   yup.object().shape({
-    codigo      : yup.string().required(`${msg}`),
-    descripcion : yup.string().required(`${msg}`),
-    marca       : yup.string().required(`${msg}`),
-    precio_neto : yup.string().required(`${msg}`),
-    stock_minimo: yup.string().required(`${msg}`),
+    codigo          : yup.string().required(`${msg}`),
+    descripcion     : yup.string().required(`${msg}`),
+    marca           : yup.string().required(`${msg}`),
+    precio_neto     : yup.string(),
+    stock_minimo    : yup.string().required(`${msg}`),
+    stock_reservado : yup.string(),
+    stock_disponible: yup.string(),
   });
 
 // Schema CRISTALES

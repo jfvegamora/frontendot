@@ -64,24 +64,34 @@ const MProyectosFirmas: React.FC = () => {
     // console.log("entities:", entities);
     // console.log("selectedRows", selectedRows);
   
-    const pkToDelete: PrimaryKey[] = [];
+    const [pkToDelete, setPkToDelete] = useState<string[]>([])
+    const strParamsToDelete = '_pkToDelete' // _p3/_p1/_pkToDelete
+    
+    useEffect(() => {    
+      const newPkToDelete = selectedRows.map((row: number) => 
+       `{"pk1":"${entities[row][EnumGrid.proyecto]}", "pk2":"${entities[row][EnumGrid.folio_reporte]}"}`);
+      const combinedPks = newPkToDelete.join(',');
   
-    useEffect(() => {
-      const newPkToDelete = selectedRows.map((row) => ({
-        pk1: entities[row][EnumGrid.proyecto],
-        pk2: entities[row][EnumGrid.folio_reporte],
-      }));
-      newPkToDelete.forEach((newPk) => {
-        if (
-          !pkToDelete.some(
-            (existingPk) =>
-              existingPk.pk1 === newPk.pk1 && existingPk.pk2 === newPk.pk2
-          )
-        ) {
-          pkToDelete.push(newPk);
-        }
-      });
+      setPkToDelete([`${strParamsToDelete}=[${combinedPks}]`]);
     }, [selectedRows]);
+      // const pkToDelete: PrimaryKey[] = [];
+  
+    // useEffect(() => {
+    //   const newPkToDelete = selectedRows.map((row) => ({
+    //     pk1: entities[row][EnumGrid.proyecto],
+    //     pk2: entities[row][EnumGrid.folio_reporte],
+    //   }));
+    //   newPkToDelete.forEach((newPk) => {
+    //     if (
+    //       !pkToDelete.some(
+    //         (existingPk) =>
+    //           existingPk.pk1 === newPk.pk1 && existingPk.pk2 === newPk.pk2
+    //       )
+    //     ) {
+    //       pkToDelete.push(newPk);
+    //     }
+    //   });
+    // }, [selectedRows]);
   
     return (
       <div className="mantenedorContainer">

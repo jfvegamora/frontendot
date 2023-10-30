@@ -18,11 +18,13 @@ const strBaseUrl = "/api/accesorios/";
 const strEntidad = "Accesorio ";
 
 export interface InputData {
-  codigo      : string | undefined;
-  descripcion : string | undefined;
-  marca       : string | undefined;
-  precio_neto : string | undefined;
-  stock_minimo: string | undefined;
+  codigo          : string | undefined;
+  descripcion     : string | undefined;
+  marca           : string | undefined;
+  precio_neto     : string | undefined;
+  stock_minimo    : string | undefined;
+  stock_reservado : string | undefined;
+  stock_disponible: string | undefined;
 }
 
 interface OutputData {
@@ -37,22 +39,17 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
                '${jsonData.descripcion}', 
                 ${jsonData.marca}, 
                 ${jsonData.precio_neto}, 
-                ${jsonData.stock_minimo}`;
+                ${jsonData.stock_minimo}, 0, 0`;
 
-  const query: OutputData = {
-    query: "03",
-    _p1: _p1,
-  };
-
-  return query;
-}
+  const query: OutputData = {query: "03", _p1: _p1,};
+    return query;
+  }
 
 export function transformUpdateQuery(
-  jsonData: InputData,
-  primaryKey: string
+  jsonData: InputData, 
+  primaryKey: number
 ): OutputData | null {
   const fields = [
-    `codigo       = ${jsonData.codigo}`,
     `descripcion  ='${jsonData.descripcion}'`,
     `marca        = ${jsonData.marca}`,
     `precio_neto  = ${jsonData.precio_neto}`,
@@ -67,12 +64,16 @@ export function transformUpdateQuery(
     return null;
   }
   const _p1 = filteredFields.join(",");
-  console.log("primaryKey", primaryKey);
-  return {
-    query: "04",
-    _p1,
-    _p2: primaryKey,
-  };
+
+  const query: OutputData = {query: "04", _p1: _p1, _p3: primaryKey,};
+  // console.log("query", query);
+  return query;
+
+  // return {
+  //   query: "04",
+  //   _p1,
+  //   _p2: primaryKey,
+  // };
 }
 
 interface IUserFormPrps {
@@ -85,7 +86,7 @@ interface IUserFormPrps {
   params?: any;
 }
 
-const FUsuarios: React.FC<IUserFormPrps> = React.memo(
+const FAccesorios: React.FC<IUserFormPrps> = React.memo(
   ({ closeModal, setEntities, params, label, data, isEditting }) => {
     const schema = validationAccesoriosSchema();
     const { showModal, CustomModal } = useModal();
@@ -116,6 +117,8 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
       setValue("descripcion", "");
       setValue("precio_neto", "");
       setValue("stock_minimo", "");
+      setValue("stock_reservado", "");
+      setValue("stock_disponible", "");
       if (firstInputRef.current) {
         const firstInput = firstInputRef.current.querySelector(
           'input[name="codigo"]'
@@ -237,18 +240,12 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
         <h1 className="userFormLabel">{label}</h1>
 
         <form
-          onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))}
-          // onSubmit={(e) => {
-          //   e.preventDefault();
-          //   if (!isModalOpen) {
-          //     handleSubmit((data) => handleSaveChange(data, isEditting))(e);
-          //   }
-          // }}
-          className="userFormulario"
-        >
+          onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
+          <div className="w-full flex items-center">
+          <div className="w-1/2">
             <TextInputComponent
-              type="text"
+              type="number"
               label="Código"
               name="codigo"
               data={data && data[EnumGrid.codigo]}
@@ -257,16 +254,8 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
               inputRef={firstInputRef}
               onlyRead={isEditting}
             />
-            <TextInputComponent
-              type="text"
-              label="Descripción"
-              name="descripcion"
-              data={data && data[EnumGrid.descripcion]}
-              control={control}
-              error={errors.descripcion}
-              inputRef={secondInputRef}
-            />
-            <div className="w-full ">
+            </div>
+            <div className="w-1/2">
               <SelectInputComponent
                 label="Marca"
                 name="marca"
@@ -277,17 +266,30 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                 error={errors.marca}
               />
             </div>
+            </div>
 
             <TextInputComponent
-              type="number"
-              label="Precio Neto"
-              name="precio_neto"
-              data={data && data[EnumGrid.precio_neto]}
+              type="text"
+              label="Descripción"
+              name="descripcion"
+              data={data && data[EnumGrid.descripcion]}
               control={control}
-              error={errors.precio_neto}
+              error={errors.descripcion}
+              inputRef={secondInputRef}
             />
+
             <div className="w-full flex items-center">
-              
+            <div className="w-1/2">
+              <TextInputComponent
+                type="number"
+                label="Precio Neto"
+                name="precio_neto"
+                data={data && data[EnumGrid.precio_neto]}
+                control={control}
+                error={errors.precio_neto}
+              />
+              </div>
+
               <div className="w-1/2">
                 <TextInputComponent
                   type="number"
@@ -298,15 +300,18 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                   error={errors.stock_minimo}
                 />
               </div>
+              </div>
+
+            <div className="w-full flex items-center">
               <div className="w-1/2">
                 <TextInputComponent
                   type="number"
                   label="Stock Reservado"
                   name="stock_reservado"
-                  onlyRead={true}
                   data={data && data[EnumGrid.stock_reservado]}
                   control={control}
                   error={errors.stock_minimo}
+                  onlyRead={true}
                 />
               </div>
               <div className="w-1/2">
@@ -317,6 +322,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                   data={data && data[EnumGrid.stock_disponible]}
                   control={control}
                   error={errors.stock_minimo}
+                  onlyRead={true}
                 />
               </div>
             </div>
@@ -333,4 +339,4 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
   }
 );
 
-export default FUsuarios;
+export default FAccesorios;
