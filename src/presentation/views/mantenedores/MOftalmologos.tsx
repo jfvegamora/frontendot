@@ -61,19 +61,27 @@ const MOftalmologos: React.FC = () => {
 
   // console.log("params:", params);
 
-  const pkToDelete: PrimaryKey[] = [];
+  const [pkToDelete, setPkToDelete] = useState<string[]>([])
+  const strParamsToDelete = '_p1' // _p3/_p1/_pkToDelete
+  
+  useEffect(() => {    
+    const newPkToDelete = selectedRows.map((row: number) => `${entities[row][EnumGrid.id]}`);
+    const combinedPks = newPkToDelete.join(',');
 
-  // console.log('pktodelete', pkToDelete)
-  useEffect(() => {
-    const newPkToDelete = selectedRows.map((row: number) => ({
-      pk1: entities[row][EnumGrid.id],
-    }));
-    newPkToDelete.forEach((newPk: { pk1: any }) => {
-      if (!pkToDelete.some((existingPk) => existingPk.pk1 === newPk.pk1)) {
-        pkToDelete.push(newPk);
-      }
-    });
+    setPkToDelete([`${strParamsToDelete}=${combinedPks}`]);
   }, [selectedRows]);
+  // const pkToDelete: PrimaryKey[] = [];
+
+  // useEffect(() => {
+  //   const newPkToDelete = selectedRows.map((row: number) => ({
+  //     pk1: entities[row][EnumGrid.id],
+  //   }));
+  //   newPkToDelete.forEach((newPk: { pk1: any }) => {
+  //     if (!pkToDelete.some((existingPk) => existingPk.pk1 === newPk.pk1)) {
+  //       pkToDelete.push(newPk);
+  //     }
+  //   });
+  // }, [selectedRows]);
 
   return (
     <div className="mantenedorContainer">

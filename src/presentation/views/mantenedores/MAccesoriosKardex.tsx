@@ -76,24 +76,33 @@ const MAccesoriosKardex: React.FC = () => {
 
   // console.log("params:", params);
 
-  const pkToDelete: PrimaryKey[] = [];
+  const [pkToDelete, setPkToDelete] = useState<string[]>([])
+  const strParamsToDelete = '_pkToDelete' // _p3/_p1/_pkToDelete
+  
+  useEffect(() => {    
+    const newPkToDelete = selectedRows.map((row: number) => 
+     `{"pk1":"${entities[row][EnumGrid.insumo]}", "pk2":"${entities[row][EnumGrid.fecha]}"}`);
+    const combinedPks = newPkToDelete.join(',');
 
-  useEffect(() => {
-    const newPkToDelete = selectedRows.map((row) => ({
-      pk1: entities[row][EnumGrid.insumo],
-      pk2: entities[row][EnumGrid.fecha],
-    }));
-    newPkToDelete.forEach((newPk) => {
-      if (
-        !pkToDelete.some(
-          (existingPk) =>
-            existingPk.pk1 === newPk.pk1 && existingPk.pk2 === newPk.pk2
-        )
-      ) {
-        pkToDelete.push(newPk);
-      }
-    });
+    setPkToDelete([`${strParamsToDelete}=[${combinedPks}]`]);
   }, [selectedRows]);
+  // const pkToDelete: PrimaryKey[] = [];
+  // useEffect(() => {
+  //   const newPkToDelete = selectedRows.map((row) => ({
+  //     pk1: entities[row][EnumGrid.insumo],
+  //     pk2: entities[row][EnumGrid.fecha],
+  //   }));
+  //   newPkToDelete.forEach((newPk) => {
+  //     if (
+  //       !pkToDelete.some(
+  //         (existingPk) =>
+  //           existingPk.pk1 === newPk.pk1 && existingPk.pk2 === newPk.pk2
+  //       )
+  //     ) {
+  //       pkToDelete.push(newPk);
+  //     }
+  //   });
+  // }, [selectedRows]);
 
   return (
     <div className="mantenedorContainer">

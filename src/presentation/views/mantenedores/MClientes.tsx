@@ -80,19 +80,27 @@ const MClientes: React.FC = () => {
   } = useEntityUtils(strBaseUrl, strQuery);
   // console.log("entities:", entities);
 
-  const pkToDelete: PrimaryKey[] = [];
-  // console.log("pkToDelete1: ", pkToDelete);
+  const [pkToDelete, setPkToDelete] = useState<string[]>([])
+  const strParamsToDelete = '_p1' // _p3/_p1/_pkToDelete
+  
+  useEffect(() => {    
+    const newPkToDelete = selectedRows.map((row: number) => `'${entities[row][EnumGrid.rut]}'`);
+    const combinedPks = newPkToDelete.join(',');
 
-  useEffect(() => {
-    const newPkToDelete = selectedRows.map((row: number) => ({
-      pk1: entities[row][EnumGrid.rut],
-    }));
-    newPkToDelete.forEach((newPk: { pk1: any }) => {
-      if (!pkToDelete.some((existingPk) => existingPk.pk1 === newPk.pk1)) {
-        pkToDelete.push(newPk);
-      }
-    });
+    setPkToDelete([`${strParamsToDelete}=${combinedPks}`]);
   }, [selectedRows]);
+  // const pkToDelete: PrimaryKey[] = [];
+
+  // useEffect(() => {
+  //   const newPkToDelete = selectedRows.map((row: number) => ({
+  //     pk1: entities[row][EnumGrid.rut],
+  //   }));
+  //   newPkToDelete.forEach((newPk: { pk1: any }) => {
+  //     if (!pkToDelete.some((existingPk) => existingPk.pk1 === newPk.pk1)) {
+  //       pkToDelete.push(newPk);
+  //     }
+  //   });
+  // }, [selectedRows]);
 
   return (
     <div className="mantenedorContainer">

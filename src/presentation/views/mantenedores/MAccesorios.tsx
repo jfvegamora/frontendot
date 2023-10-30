@@ -32,12 +32,8 @@ const strQuery = "01";
 const idMenu = 9;
 
 type PrimaryKey = {
-<<<<<<< HEAD
   pk1: string;
-=======
-  pk122: number;
->>>>>>> 5ef53ec9660598bf21650fe98d335891a908151b
-};
+}
 const MAccesorios: React.FC = () => {
   const [params, setParams] = useState([]);
   const updateParams = (newParams: Record<string, never>) => {

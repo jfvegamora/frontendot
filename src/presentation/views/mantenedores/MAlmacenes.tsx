@@ -30,7 +30,6 @@ type PrimaryKey = {
 };
 const MAlmacenes: React.FC = () => {
   const [params, setParams] = useState([]);
-
   const updateParams = (newParams: Record<string, never>) => {
     setParams(Object.keys(newParams).map((key) => newParams[key]));
   };
@@ -59,18 +58,27 @@ const MAlmacenes: React.FC = () => {
 
   // console.log("params:", params);
 
-  const pkToDelete: PrimaryKey[] = [];
+  // const pkToDelete: PrimaryKey[] = [];
+  const [pkToDelete, setPkToDelete] = useState<string[]>([])
+  const strParamsToDelete = '_p1' // _p3/_p1/_pkToDelete
 
-  useEffect(() => {
-    const newPkToDelete = selectedRows.map((row: number) => ({
-      pk1: entities[row][EnumGrid.id],
-    }));
-    newPkToDelete.forEach((newPk: { pk1: any }) => {
-      if (!pkToDelete.some((existingPk) => existingPk.pk1 === newPk.pk1)) {
-        pkToDelete.push(newPk);
-      }
-    });
+  useEffect(() => {    
+    const newPkToDelete = selectedRows.map((row: number) => `${entities[row][EnumGrid.id]}`);
+    const combinedPks = newPkToDelete.join(',');
+
+    setPkToDelete([`${strParamsToDelete}=${combinedPks}`]);
   }, [selectedRows]);
+
+  // useEffect(() => {
+  //   const newPkToDelete = selectedRows.map((row: number) => ({
+  //     pk1: entities[row][EnumGrid.id],
+  //   }));
+  //   newPkToDelete.forEach((newPk: { pk1: any }) => {
+  //     if (!pkToDelete.some((existingPk) => existingPk.pk1 === newPk.pk1)) {
+  //       pkToDelete.push(newPk);
+  //     }
+  //   });
+  // }, [selectedRows]);
 
   return (
     <div className="mantenedorContainer">

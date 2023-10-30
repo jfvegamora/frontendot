@@ -64,20 +64,29 @@ const MCargos: React.FC = () => {
     resetEntities,
   } = useEntityUtils(strBaseUrl, strQuery);
   
-  const pkToDelete: PrimaryKey[] = [];
+  const [pkToDelete, setPkToDelete] = useState<string[]>([])
+  const strParamsToDelete = '_p1' // _p3/_p1/_pkToDelete
   
-  useEffect(() => {
-    console.log(selectedRows)
-    const newPkToDelete = selectedRows.map((row) => ({
-      pk1: entities[row][EnumGrid.ID],
-    }));
-    newPkToDelete.forEach((newPk) => {
-      if (!pkToDelete.some((existingPk) => existingPk.pk1 === newPk.pk1)) {
-        pkToDelete.push(newPk);
-      }
-    });
+  useEffect(() => {    
+    const newPkToDelete = selectedRows.map((row: number) => `${entities[row][EnumGrid.ID]}`);
+    const combinedPks = newPkToDelete.join(',');
 
+    setPkToDelete([`${strParamsToDelete}=${combinedPks}`]);
   }, [selectedRows]);
+  // const pkToDelete: PrimaryKey[] = [];
+  
+  // useEffect(() => {
+  //   console.log(selectedRows)
+  //   const newPkToDelete = selectedRows.map((row) => ({
+  //     pk1: entities[row][EnumGrid.ID],
+  //   }));
+  //   newPkToDelete.forEach((newPk) => {
+  //     if (!pkToDelete.some((existingPk) => existingPk.pk1 === newPk.pk1)) {
+  //       pkToDelete.push(newPk);
+  //     }
+  //   });
+
+  // }, [selectedRows]);
 
 
   return (
