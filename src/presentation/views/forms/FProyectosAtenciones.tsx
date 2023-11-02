@@ -398,7 +398,8 @@ const FProyectosAtenciones: React.FC<IUserFormPrps> = React.memo(
                   data={data && data[EnumGrid.cantidad_lentes]}
                   control={control}
                   error={errors.cantidad_lentes}
-                />
+                  onlyRead={true}
+                  />
             </div>
             <div className="w-full ">
               <TextInputComponent
@@ -408,7 +409,8 @@ const FProyectosAtenciones: React.FC<IUserFormPrps> = React.memo(
                 data={data && data[EnumGrid.total_atenciones]}
                 control={control}
                 error={errors.total_atenciones}
-              />
+                onlyRead={true}
+                />
             </div>
             <div className="w-full ">
               <TextInputComponent

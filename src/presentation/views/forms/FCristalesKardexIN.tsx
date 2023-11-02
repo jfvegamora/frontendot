@@ -29,7 +29,7 @@ const strEntidad = "Kardex de Cristal ";
 
 export interface InputData {
   insumo              : string | undefined;
-  descripcion         : string | undefined;
+  // descripcion         : string | undefined;
   fecha               : string | undefined;
   // es                  : string | undefined;
   motivo              : string | undefined;
@@ -363,7 +363,7 @@ const FCristalesKardexIN: React.FC<IUserFormPrps> = React.memo(
               />
             </div> 
             </div>
-            <div className="w-[96%]">
+            {/* <div className="w-[96%]">
               <TextInputComponent
                 type="text"
                 label="Descripcion"
@@ -373,7 +373,7 @@ const FCristalesKardexIN: React.FC<IUserFormPrps> = React.memo(
                 error={!isEditting && errors.descripcion}
                 onlyRead={true}
               />
-            </div>
+            </div> */}
             <div className="input-container">
               <div className="w-full">
               <SelectInputComponent

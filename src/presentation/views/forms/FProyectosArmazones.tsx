@@ -18,7 +18,7 @@ import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
 
-const strBaseUrl = "/api/proyectoscatalogo/";
+const strBaseUrl = "/api/proyectoarmazones/";
 const strEntidad = "Parametrizacion de Armazones ";
 
 export interface InputData {
@@ -69,7 +69,7 @@ export function transformUpdateQuery(jsonData: InputData): OutputData | null {
     _p2: jsonData.proyecto,
     _p3: jsonData.codigo_armazon,
   };
-
+console.log("query: ", query);
   return query;
 }
 

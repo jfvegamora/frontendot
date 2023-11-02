@@ -69,7 +69,7 @@ export function transformUpdateQuery(jsonData: InputData): OutputData | null {
     _p2: jsonData.proyecto,
     _p3: jsonData.codigo_accesorio,
   };
-
+  console.log("query: ", query);
   return query;
 }
 
@@ -88,7 +88,7 @@ const FProyectosAccesorios: React.FC<IUserFormPrps> = React.memo(
     const schema = validationParametrizacionAccesorios();
     const { showModal, CustomModal } = useModal();
     const { show } = useCustomToast();
-
+    
     const {
       editEntity,
       createdEntity,
@@ -227,7 +227,7 @@ const FProyectosAccesorios: React.FC<IUserFormPrps> = React.memo(
     }, []);
 
     return (
-      <div className="useFormContainer">
+      <div className="useFormContainer top-0">
         <div className="userFormBtnCloseContainer">
           <button onClick={closeModal} className="userFormBtnClose">
             X

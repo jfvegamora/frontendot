@@ -263,7 +263,7 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
         >
           <div className="userFormularioContainer">
             <TextInputComponent
-              type="number"
+              type="text"
               label="Código"
               name="codigo"
               data={data && data[EnumGrid.codigo]}
@@ -271,6 +271,7 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
               error={errors.codigo}
               inputRef={firstInputRef}
               onlyRead={isEditting}
+              maxLength={20}
             />
             <SelectInputComponent
               label="Marca"
@@ -351,6 +352,7 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                 control={control}
                 error={errors.esferico}
                 className="input"
+                step={0.01}
               />
               <TextInputComponent
                 type="number"
@@ -360,6 +362,7 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                 control={control}
                 error={errors.cilindrico}
                 className="input"
+                step={0.01}
               />
             </div>
             <div className=" flex items-center">
@@ -381,7 +384,7 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                   name="stock_reservado"
                   data={data && data[EnumGrid.stock_reservado]}
                   control={control}
-                  // error={errors.stock_minimo}
+                  onlyRead={true}
                 />
               </div>
               <div className="w-[50%]">

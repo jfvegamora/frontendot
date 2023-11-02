@@ -92,7 +92,7 @@ export function transformInsertQuery(jsonData: InputData, userId?:number): Outpu
     query: "03",
     _p1: _p1,
   };
-  console.log("p1", query);
+  // console.log("p1", query);
 
   return query;
 }
@@ -329,7 +329,7 @@ const FArmazonesKardexIN: React.FC<IUserFormPrps> = React.memo(
                 type={isEditting ? "datetime" : "date"}
                 label="Fecha"
                 name="fecha"
-                data={data && data[EnumGrid.fecha]}
+                data={ fechaActual ? fechaActual : data && data[EnumGrid.fecha]}
                 control={control}
                 error={errors.fecha}
                 onlyRead={isEditting}

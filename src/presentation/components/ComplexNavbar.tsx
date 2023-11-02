@@ -221,8 +221,8 @@ const navListMenuProyectos = [
     id: 16,
   },
   {
-    title: "Parametrización de Grupos",
-    link: "/proyectogrupos",
+    title: "Parametrización de Cristales",
+    link: "/proyectocristales",
     id: 17,
   },
   {

@@ -358,7 +358,7 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
               />
             </div>
             </div>
-            <div className="w-[96%]">
+            {/* <div className="w-[96%]">
               <TextInputComponent
                 type="text"
                 label="Descripcion"
@@ -368,7 +368,7 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
                 error={!isEditting && errors.descripcion}
                 onlyRead={true}
               />
-            </div>
+            </div> */}
             <div className="input-container">
               <div className="w-full">
               <SelectInputComponent

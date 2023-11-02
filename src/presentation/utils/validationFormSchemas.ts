@@ -393,15 +393,15 @@ export const validationOTPermisosSchema = () =>
 // Schema EMPRESAS
 export const validationEmpresasSchema = () =>
   yup.object().shape({
-    rut         : yup.string(),
+    rut         : yup.string().default(''),
     nombre      : yup.string().required(`${msg}`),
     razon_social: yup.string().required(`${msg}`),
     giro        : yup.string().required(`${msg}`),
-    direccion   : yup.string(),
-    telefono    : yup.string(),
-    correo      : yup.string().email(),
-    sitio_web   : yup.string(),
-    nombre_logo : yup.string(),
+    direccion   : yup.string().default(''),
+    telefono    : yup.string().default(''),
+    correo      : yup.string().email().default(''),
+    sitio_web   : yup.string().default(''),
+    nombre_logo : yup.string().default(''),
   });
 
 /*************** L O G I N ***************/

@@ -9,12 +9,12 @@ import {
   PrimaryKeySearch,
   TableComponent,
 } from "../../components";
-import { TITLES, table_head_proyectos_grupos } from "../../utils";
-import FProyectosGrupos from "../forms/FProyectosGrupos";
+import { TITLES, table_head_proyectos_cristales } from "../../utils";
+import FProyectosCristales from "../forms/FProyectosCristales";
 
-const strEntidad = "Parametrización de Grupos ";
-const strEntidadExcel = "Parametrizacion_de_Grupos";
-const strBaseUrl = "/api/proyectogrupos/";
+const strEntidad = "Parametrización de Cristales ";
+const strEntidadExcel = "Parametrizacion_de_Cristales";
+const strBaseUrl = "/api/proyectocristales/";
 const strQuery = "01";
 const idMenu = 17;
 
@@ -50,7 +50,7 @@ type PrimaryKey = {
   pk2: number;
 };
 
-const MProyectosGrupos: React.FC = () => {
+const MProyectosCristales: React.FC = () => {
     const [params, setParams] = useState([]);
   
     const updateParams = (newParams: Record<string, never>) => {
@@ -113,7 +113,7 @@ const MProyectosGrupos: React.FC = () => {
 
     return (
       <div className="mantenedorContainer">
-        <h1 className="mantenedorH1">Parametrización de Grupos</h1>
+        <h1 className="mantenedorH1">Parametrización de Cristales</h1>
   
         <div className="mantenedorHead width90 items-center">
           <PrimaryKeySearch
@@ -161,7 +161,7 @@ const MProyectosGrupos: React.FC = () => {
             setSelectedRows={setSelectedRows}
             entidad={strEntidad}
             data={entities}
-            tableHead={table_head_proyectos_grupos}
+            tableHead={table_head_proyectos_cristales}
             showEditButton={true}
             showDeleteButton={false}
             idMenu={idMenu}
@@ -169,7 +169,7 @@ const MProyectosGrupos: React.FC = () => {
         </div>
   
         {isModalInsert && (
-          <FProyectosGrupos
+          <FProyectosCristales
             label={`${TITLES.ingreso} ${strEntidad}`}
             closeModal={closeModal}
             selectedRows={selectedRows}
@@ -180,7 +180,7 @@ const MProyectosGrupos: React.FC = () => {
         )}
   
         {isModalEdit && (
-          <FProyectosGrupos
+          <FProyectosCristales
             label={`${TITLES.edicion} ${strEntidad}`}
             selectedRows={selectedRows}
             setEntities={setEntities}
@@ -195,4 +195,4 @@ const MProyectosGrupos: React.FC = () => {
     );
   };
 
-export default MProyectosGrupos;
+export default MProyectosCristales;
