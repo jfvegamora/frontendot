@@ -1,6 +1,7 @@
 import React from 'react'
 import { SelectInputComponent, TextInputComponent } from '..'
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica'
+import { validationOTlevel1 } from '../../utils/validationOT'
 
 interface IReceta {
     control:any,
@@ -24,6 +25,7 @@ const FOTReceta:React.FC<IReceta> = ({
         let {name, value} = e;
         // console.log(name)
         // console.log(value)
+        validationOTlevel1(name, value)
 
         // if(name === "anteojo1_ESF_OD"){
         //     const modifiedValue = parseFloat(value).toFixed(2);

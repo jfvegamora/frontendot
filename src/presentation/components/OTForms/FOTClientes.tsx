@@ -6,6 +6,8 @@ import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
 import { EnumGrid as EnumClientes } from '../../views/mantenedores/MClientes';
 import axios from 'axios';
 import OTTextInputComponent from './OTTextInputComponent';
+import { validacionNivel1 } from '../../views/forms/FOT';
+import { validationOTlevel1 } from '../../utils/validationOT';
 
 
 interface IClientes {
@@ -30,11 +32,11 @@ const FOTClientes:React.FC<IClientes> = ({
 }) => {
     const [clienteData, setClienteData] = useState()
 
-    console.log(onlyRead)
+    // console.log(onlyRead)
     const fetchCliente = async(cliente_rut:string) => {
         try {
             const cliente = await axios(`https://mtoopticos.cl/api/clientes/listado/?query=01&_p1=${cliente_rut}`)
-            console.log(cliente)
+            // console.log(cliente)
             
             return cliente.data          
         } catch (error) {
@@ -47,6 +49,7 @@ const FOTClientes:React.FC<IClientes> = ({
         console.log(name)
         console.log(value)
 
+        validationOTlevel1(name, value)
 
         if(name === 'cliente_rut'){
             fetchCliente(value).then((data:any)=>{
@@ -234,7 +237,7 @@ const FOTClientes:React.FC<IClientes> = ({
                             EnumGrid={EnumGrid}
                             isEditting={false}
                             errors={""}
-                            data={formValues ? formValues  : data && data[EnumGrid.cliente_region_id]}
+                            data={formValues ? formValues  : data && data}
                             handleSelectChange={handleInputChange}
                         />
                    

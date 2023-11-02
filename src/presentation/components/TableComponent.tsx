@@ -169,7 +169,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                     const visible   = tableHead && tableHead[col].visible;
                     const alignment = tableHead && tableHead[col].alignment;
                     // console.log(rowData[5])
-                    const color = rowData[5] === '99' ? "gray" : "";
+                    const color = rowData[5] === 99 ? "gray" : "";
                     const type = color === 'gray' ? 1: 0
                   
                     return (

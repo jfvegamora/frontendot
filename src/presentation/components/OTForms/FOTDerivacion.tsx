@@ -56,7 +56,8 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
 
         let _p3 = `'${data[EnumGrid.cliente_rut]}','${data[EnumGrid.cliente_nomnbre]}',${data[EnumGrid.cliente_tipo] === TIPO_CLIENTE.beneficiario ? "1" : data[EnumGrid.cliente_tipo] === TIPO_CLIENTE.particular ? "2" : data[EnumGrid.cliente_tipo] === TIPO_CLIENTE.optica ? "3" : "0"}, ${data[EnumGrid.cliente_sexo] === SEXO.masculino ? "1" : data[EnumGrid.cliente_sexo] === SEXO.femenino ? "2" : data[EnumGrid.cliente_sexo] === SEXO.no_aplica ? "3" : "0"},'${data[EnumGrid.cliente_fecha_nacimiento]}','${data[EnumGrid.cliente_direccion]}' ,${formValues && formValues["cliente"] && formValues["cliente"]["cliente_comuna_id"] || data[EnumGrid.cliente_comuna_id] }, '${data[EnumGrid.cliente_telefono]}','${data[EnumGrid.cliente_correo]}', ${data[EnumGrid.establecimiento_id]}`;
  
-
+        // console.log(data)
+        // console.log(data && data[EnumGrid.estado_impresion_id])
         const fields = [
             `motivo=${data[EnumGrid.motivo] === "Venta" ? 1: 2}`,
             `area=${_destino}`,

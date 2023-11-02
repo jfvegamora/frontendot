@@ -219,8 +219,7 @@ const useCrud = (
   const deleteAllEntity = async (pk: any[]): Promise<void | unknown> => {
     try {
       console.log(pk[0])
-
-
+      
       const newUrl = `/eliminar/?query=05&${pk[0]}`
       console.log(newUrl)
       const response = await axiosInstance.delete(newUrl);

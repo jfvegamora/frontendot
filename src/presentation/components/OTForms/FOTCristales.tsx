@@ -27,6 +27,7 @@ const FOTCristales:React.FC<ICristales> = ({
     a1Grupo
 }) => {
     const [cristalRead, setCristalRead] = useState(false)
+    const [grupo1, setGrupo1] = useState(2)
     const [validate, setValidate] = useState({
         cristal1_tratamiento_id: '',
         cristal1_opcion_vta_id: '',
@@ -34,14 +35,14 @@ const FOTCristales:React.FC<ICristales> = ({
         cristal1_indice_id: '',
         cristal1_material_id: ''
       });
-    // const fetcher = (url:string) => axios.get(url).then((res)=>res.data);
-    // const [codCristal1OD, setCodCristal1OD] = useState(formValues ? formValues["anteojo1_cristal_OD"] : data && data[EnumGrid.cristal1_od_codigo] || 0);
-    // const [codCristal1OI, setCodCristal1OI] = useState(formValues ? formValues["anteojo1_cristal_OI"] : data && data[EnumGrid.cristal1_oi_codigo] || 0);
-    
-    // const [codCristal2OD, setCodCristal2OD] = useState(formValues ? formValues["anteojo2_cristal_OD"] : data && data[EnumGrid.cristal2_od_codigo] || 0);
-    // const [codCristal2OI, setCodCrisyal2OI] = useState(formValues ? formValues["anteojo2_cristal_OI"] : data && data[EnumGrid.cristal2_oi_codigo] || 0);
-
-
+      // const [codCristal1OD, setCodCristal1OD] = useState(formValues ? formValues["anteojo1_cristal_OD"] : data && data[EnumGrid.cristal1_od_codigo] || 0);
+      // const [codCristal1OI, setCodCristal1OI] = useState(formValues ? formValues["anteojo1_cristal_OI"] : data && data[EnumGrid.cristal1_oi_codigo] || 0);
+      
+      // const [codCristal2OD, setCodCristal2OD] = useState(formValues ? formValues["anteojo2_cristal_OD"] : data && data[EnumGrid.cristal2_od_codigo] || 0);
+      // const [codCristal2OI, setCodCrisyal2OI] = useState(formValues ? formValues["anteojo2_cristal_OI"] : data && data[EnumGrid.cristal2_oi_codigo] || 0);
+      
+      
+      // const fetcher = (url:string) => axios.get(url).then((res)=>res.data);
     // const { data:cristal1OD } = useSWR(`https://mtoopticos.cl/api/cristales/listado/?query=01&_p1=${codCristal1OD}`, fetcher);
     // const { data:cristal1OI } = useSWR(`https://mtoopticos.cl/api/cristales/listado/?query=01&_p1=${codCristal1OI}`, fetcher);
     // const { data:cristal2OD } = useSWR(`https://mtoopticos.cl/api/cristales/listado/?query=01&_p1=${codCristal2OD}`, fetcher);
@@ -105,6 +106,31 @@ const FOTCristales:React.FC<ICristales> = ({
       }, [validate]
     );
       console.log(a1Grupo[0])
+
+      const renderGrupo1 = () => (
+            <SelectInputComponent
+                                        label="Grupo 1"
+                                        name="cristal1_grupo1_id"
+                                        showRefresh={false}
+                                        isOT={true}
+                                        handleSelectChange={handleInputChange}
+                                        data={1}
+                                        control={control}
+                                        entidad={["/api/proyectogrupos/", "02","PR001A"]}
+                                        // error={errors.establecimiento}
+                                        customWidth={"345px"}
+                                        readOnly={onlyRead || permiso_cristales}
+         />
+      
+       )
+
+
+       
+    React.useEffect(()=>{
+        renderGrupo1()
+        console.log('cambio')
+        console.log(grupo1)
+    },[grupo1])
   return (
     <form>
         <div className='w-full labelForm flex items-center rounded-lg border border-blue-500 !mt-8'>
@@ -123,6 +149,7 @@ const FOTCristales:React.FC<ICristales> = ({
                                         isOT={true}
                                         handleSelectChange={handleInputChange}
                                         data={formValues ? formValues["cristal1_opcion_vta_id"] : data && data[EnumGrid.cristal1_opcion_vta_id]}
+                                        // data={1}
                                         control={control}
                                         entidad={["/api/tipos/", "02","OTOpcionVentaCristales"]}
                                         // error={errors.establecimiento}
@@ -165,19 +192,7 @@ const FOTCristales:React.FC<ICristales> = ({
                     <div className="w-full">
                     <h1 className='labelForm absolute z-10 top-[-2%] text-2xl w-[30%] text-center left-[30%]'>Anteojo 1</h1>
                     <div className="w-[35%] absolute top-[-6%] labelForm right-[5%]">
-                            <SelectInputComponent
-                                        label="Grupo"
-                                        name="cristal1_tratamiento_id"
-                                        showRefresh={false}
-                                        isOT={true}
-                                        handleSelectChange={handleInputChange}
-                                        data={1}
-                                        control={control}
-                                        entidad={["/api/proyectogrupos/", "02","PR001A"]}
-                                        // error={errors.establecimiento}
-                                        customWidth={"345px"}
-                                        readOnly={onlyRead || permiso_cristales}
-                            />
+                            {renderGrupo1()}
                     </div>
                     <div className="mt-16  mx-auto w-[90%] relative mb-8 !h-[15rem] labelForm rounded-lg border border-blue-500 ">
                         <h1 className='absolute w-[30%] z-10 labelForm text-center text-xl top-[-3%] left-[30%]'>OD</h1>
@@ -417,19 +432,19 @@ const FOTCristales:React.FC<ICristales> = ({
                     <div className="w-full">
                     <h1 className='labelForm absolute z-10 top-[-2%] text-2xl w-[30%] text-center left-[30%]'>Anteojo 2</h1>
                     <div className="w-[35%] absolute top-[-6%] labelForm right-[5%]">
-                            <SelectInputComponent
+                            {/* <SelectInputComponent
                                         label="Grupo"
-                                        name="cristal1_tratamiento_id"
+                                        name="cristal2_grupo2_id"
                                         showRefresh={false}
                                         isOT={true}
                                         handleSelectChange={handleInputChange}
-                                        data={3}
+                                        data={2}
                                         control={control}
                                         entidad={["/api/proyectogrupos/", "02","PR001A"]}
                                         // error={errors.establecimiento}
                                         customWidth={"345px"}
                                         readOnly={onlyRead || permiso_cristales}
-                            />
+                            /> */}
                     </div>
                     
                     <div className="mt-16 mx-auto w-[90%] relative mb-8 !h-[15rem] labelForm rounded-lg border border-blue-500 ">

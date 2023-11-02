@@ -266,18 +266,10 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
         .catch((e) => console.log(e));
     }, [refreshToggle, refreshData, data]);
 
-    useEffect(() => {
-      setStrSelectedName(data);
-      console.log('data', data)
-    }, [data]);
-
-    console.log(strSelectedName);
-
-    return (
-      // <div className="flex min-w-[60px] w-full items-center mb-2 mx-4 mt-select mt-select-dropdown-up cursor-pointer ">
-      <div className="flex min-w-[100%] w-full items-center  mx-4 mt-select mt-select-dropdown-up cursor-pointer">
-        {/* <label className="label-input w-1/3">{label}</label> */}
-        <Controller
+    
+    // console.log(strSelectedName);
+    const renderInput = () => (
+      <Controller
           name={name}
           control={control}
           defaultValue={strSelectedName}
@@ -302,6 +294,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
                 {...field}
                 ref={inputRef}
                 disabled={readOnly}
+                
                 onChange={(e) => {
                   setState && setState(e.target.value);
                   field.onChange(e);
@@ -347,6 +340,19 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
             </div> 
           )}
         />
+    )
+
+    useEffect(() => {
+      setStrSelectedName(data);
+      renderInput()
+      // console.log('data', data)
+    }, [data]);
+
+    return (
+      // <div className="flex min-w-[60px] w-full items-center mb-2 mx-4 mt-select mt-select-dropdown-up cursor-pointer ">
+      <div className="flex min-w-[100%] w-full items-center  mx-4 mt-select mt-select-dropdown-up cursor-pointer">
+        {/* <label className="label-input w-1/3">{label}</label> */}
+        {renderInput()}
         {/* Controller  */}
         {showRefresh && (
           <Tooltip content="Refrescar">

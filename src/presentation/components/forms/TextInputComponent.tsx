@@ -69,6 +69,7 @@ return (
     name={name}
     control={control}
     // defaultValue={data ? data : ""}
+    
     defaultValue={data}
     render={({ field }) => (
       <div className="flex flex-col  w-full">
