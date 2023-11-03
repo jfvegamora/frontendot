@@ -21,7 +21,7 @@ const MMandantes            = lazy(()=>import("../presentation/views/mantenedore
 const MProyectos            = lazy(()=>import("../presentation/views/mantenedores/MProyectos"));
 const MProyectosArmazones   = lazy(()=>import("../presentation/views/mantenedores/MProyectosArmazones"));
 const MProyectosAccesorios  = lazy(()=>import("../presentation/views/mantenedores/MProyectosAccesorios"));
-const MProyectosGrupos      = lazy(()=>import("../presentation/views/mantenedores/MProyectosGrupos"));
+const MProyectosCristales   = lazy(()=>import("../presentation/views/mantenedores/MProyectosCristales"));
 const MProyectosDirecciones = lazy(()=>import("../presentation/views/mantenedores/MProyectosDirecciones"));
 const MProyectosAtenciones  = lazy(()=>import("../presentation/views/mantenedores/MProyectosAtenciones"));
 const MProyectosFirmas      = lazy(()=>import("../presentation/views/mantenedores/MProyectosFirmas"));
@@ -71,7 +71,7 @@ export const PrivateRoutes = {
   MANDANTES             : "mandantes",
   PROYECTOS             : "proyectos",
   PROYECTOS_ARMAZONES   : "proyectoarmazones",
-  PROYECTOS_GRUPOS      : "proyectogrupos",
+  PROYECTOS_CRISTALES   : "proyectocristales",
   PROYECTOS_ACCESORIOS  : "proyectoaccesorios",
   PROYECTOS_DIRECCIONES : "proyectodireccionesdespacho",
   REPORTE_ATENCION      : "proyectoreporteatencion",
@@ -205,9 +205,9 @@ export const privateRoutes = [
   },
   {
     id                  : "17",
-    path                : PrivateRoutes.PROYECTOS_GRUPOS,
-    component           : MProyectosGrupos,
-    requiredPermissions : ['view_' + PrivateRoutes.PROYECTOS_GRUPOS]
+    path                : PrivateRoutes.PROYECTOS_CRISTALES,
+    component           : MProyectosCristales,
+    requiredPermissions : ['view_' + PrivateRoutes.PROYECTOS_CRISTALES]
   },
   {
     id                  : "32",

@@ -8,7 +8,7 @@ import { SelectInputComponent, TextInputComponent } from "../../components";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationProyectoGruposSchema } from "../../utils/validationFormSchemas";
-import { EnumGrid } from "../mantenedores/MProyectosGrupos";
+import { EnumGrid } from "../mantenedores/MProyectosCristales";
 import { ERROR_MESSAGES, MODAL, SUCCESS_MESSAGES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";

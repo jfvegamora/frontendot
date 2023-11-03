@@ -8,14 +8,14 @@ import { SelectInputComponent, TextInputComponent } from "../../components";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationProyectoGruposSchema } from "../../utils/validationFormSchemas";
-import { EnumGrid } from "../mantenedores/MProyectosGrupos";
+import { EnumGrid } from "../mantenedores/MProyectosCristales";
 import { ERROR_MESSAGES, MODAL, SUCCESS_MESSAGES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
 
-const strBaseUrl = "/api/proyectogrupos/";
-const strEntidad = "Parametrización de Grupos ";
+const strBaseUrl = "/api/proyectocristales/";
+const strEntidad = "Parametrización de Cristales ";
 
 export interface InputData {
   proyecto          : string | undefined;
@@ -71,7 +71,7 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
     // _p2: jsonData.cristal?.toString(),
   };
 
-  console.log("query_insert: ", query);
+  // console.log("query_insert: ", query);
   return query;
 }
 
@@ -118,7 +118,7 @@ interface IUserFormPrps {
   params?: any;
 }
 
-const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
+const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
   ({ closeModal, setEntities, params, label, data, isEditting }) => {
     const schema = validationProyectoGruposSchema();
     // const [idCristal, setIdCristal] = useState('');
@@ -285,7 +285,7 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
     //   setValue('data_cristal', idCristal || '');
     // }, [idCristal, setValue]);
 
-    console.log('data', data)
+    // console.log('data', data)
     return (
       <div className="useFormContainer handleDerivarClick !top-[-6%]">
         <div className="userFormBtnCloseContainer">
@@ -414,7 +414,8 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                   data={data && data[EnumGrid.esferico_desde]}
                   control={control}
                   error={errors.esferico_desde}
-                />
+                  step={0.01}
+                  />
               </div>
               <div className="w-full ">
                 <TextInputComponent
@@ -424,7 +425,8 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                   data={data && data[EnumGrid.esferico_hasta]}
                   control={control}
                   error={errors.esferico_hasta}
-                />
+                  step={0.01}
+                  />
               </div>
               <div className="w-full ">
                 <TextInputComponent
@@ -434,7 +436,8 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                   data={data && data[EnumGrid.cilindrico_desde]}
                   control={control}
                   error={errors.cilindrico_desde}
-                />
+                  step={0.01}
+                  />
               </div>
               <div className="w-full ">
                 <TextInputComponent
@@ -444,7 +447,8 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                   data={data && data[EnumGrid.cilindrico_hasta]}
                   control={control}
                   error={errors.cilindrico_hasta}
-                />
+                  step={0.01}
+                  />
               </div>
               <div className="w-full ">
                 <TextInputComponent
@@ -493,4 +497,4 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
   }
 );
 
-export default FProyectosGrupos;
+export default FProyectosCristales;

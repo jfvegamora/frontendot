@@ -561,7 +561,8 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                         name="cantidad_atendida"
                         // data={data && data[EnumGrid.]}
                         control={control}
-                />
+                        onlyRead={true}
+                        />
             </div>          
             <div className="w-[12%] mr-8">
                  <TextInputComponent
@@ -570,7 +571,8 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                         name="total_facturado"
                         // data={data && data[EnumGrid]}
                         control={control}
-                />
+                        onlyRead={true}
+                        />
             </div>          
             <div className="w-[12%] mr-8">
                  <TextInputComponent
@@ -579,7 +581,8 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                         name="cantidad_disponible"
                         // data={data && data[EnumGrid.DIAS_DE_ENTREGA]}
                         control={control}
-                />
+                        onlyRead={true}
+                        />
             </div> 
             <div className="w-[12%] mr-8">
                  <TextInputComponent
@@ -588,7 +591,8 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                         name="saldo_disponible"
                         // data={data && data[EnumGrid.DIAS_DE_ENTREGA]}
                         control={control}
-                />
+                        onlyRead={true}
+                        />
             </div> 
            
             <div className="w-[12%] mr-8">
@@ -598,7 +602,8 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                         name="avance"
                         // data={data && data[EnumGrid.DIAS_DE_ENTREGA]}
                         control={control}
-                />
+                        onlyRead={true}
+                        />
             </div> 
            
 

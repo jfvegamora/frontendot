@@ -40,7 +40,7 @@ interface OutputData {
 }
 
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
-  const _p1 = ` ${jsonData.codigo}, 
+  const _p1 = `'${jsonData.codigo}', 
                 ${jsonData.tipo}, 
                 ${jsonData.marca}, 
                '${jsonData.modelo}', 
@@ -57,13 +57,13 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
     query: "03",
     _p1: _p1,
   };
-  console.log("query", query);
+  // console.log("query", query);
   return query;
 }
 
 export function transformUpdateQuery(
   jsonData: InputData,
-  primaryKey: number
+  primaryKey: string
 ): OutputData | null {
   const fields = [
     `tipo         =  ${jsonData.tipo}`,
@@ -91,9 +91,9 @@ export function transformUpdateQuery(
   const query: OutputData = {
     query: "04",
     _p1,
-    _p3: primaryKey,
+    _p2: primaryKey,
   };
-  console.log("query", query);
+  // console.log("query", query);
   return query;
 }
 

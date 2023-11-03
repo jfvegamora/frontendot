@@ -38,7 +38,7 @@ export enum EnumGrid {
 }
 const strEntidad = "Parametrizacion de Armazon ";
 const strEntidadExcel = "Parametrizacion_de_armazones";
-const strBaseUrl = "/api/proyectoscatalogo/";
+const strBaseUrl = "/api/proyectoarmazones/";
 const strQuery = "01";
 const idMenu   = 16;
 

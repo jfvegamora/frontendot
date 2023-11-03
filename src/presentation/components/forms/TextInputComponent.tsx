@@ -16,6 +16,8 @@ interface ITextInputProps {
   inputRef?: any;
   className?:string;
   handleChange?: (data:any)=>void;
+  maxLength?:number;
+  step?:number
 }
 
 const TextInputComponent: React.FC<ITextInputProps> = ({
@@ -29,7 +31,9 @@ const TextInputComponent: React.FC<ITextInputProps> = ({
   error,
   inputRef,
   className,
-  defaultValue:formatvalue
+  defaultValue:formatvalue,
+  maxLength,
+  step
 }) => {
   const [defaultValue, setDefaultValue] = useState<any>(data || "")
   const [value, setValue] = useState('')
@@ -77,9 +81,9 @@ return (
           color     ="orange"
           id        ={label}
           type      ={type}
-          step      ={0.01}
+          step      ={step ? step : 1}
           readOnly  ={onlyRead}
-
+          maxLength ={maxLength}
           onBlur    ={(e)=>handleInputChange(e)}
           ref       ={inputRef}
           className ={`${className ? className : " custom-input py-2 px-3 "}`}

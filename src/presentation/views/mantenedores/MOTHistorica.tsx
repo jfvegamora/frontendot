@@ -10,7 +10,7 @@ import {
 } from "../../components";
 import { useEntityUtils } from "../../hooks";
 import FUsuarios from "../forms/FUsuarios";
-import { ESTADO_OT, MOTIVO_OT, TITLES, table_head_OT_diaria, table_head_OT_historica, table_head_usuarios } from "../../utils";
+import { ESTADO_OT, MOTIVO_OT, TITLES, table_head_OT_diaria, table_head_usuarios } from "../../utils";
 import { OptionValuesMotivo } from "./MOT";
 import FOT from "../forms/FOT";
 import Garantia from "../../components/OTForms/FOTGarantia";
@@ -274,7 +274,7 @@ const MUsuarios: React.FC = () => {
           setSelectedRows={setSelectedRows}
           entidad={strEntidad}
           data={entities}
-          tableHead={table_head_OT_historica}
+          tableHead={table_head_OT_diaria}
           showEditButton={true}
           showDeleteButton={false}
           idMenu={idMenu}

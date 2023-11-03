@@ -49,7 +49,8 @@ export function transformUpdateQuery(
 ): OutputData | null {
   const fields = [
     // jsonData.nombre && `nombre='${jsonData.nombre}'`,
-    `nombre   ='${jsonData.nombre}'`,
+    // `nombre   ='${jsonData.nombre}'`,
+    `nombre   ='MARCAÁ10'`,
     `proveedor=${jsonData.proveedor}`,
   ];
 

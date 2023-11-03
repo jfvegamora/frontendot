@@ -39,7 +39,7 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
                '${jsonData.descripcion}', 
                 ${jsonData.marca}, 
                 ${jsonData.precio_neto}, 
-                ${jsonData.stock_minimo}, 0, 0`;
+                ${jsonData.stock_minimo}`;
 
   const query: OutputData = {query: "03", _p1: _p1,};
     return query;
@@ -245,9 +245,10 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
           <div className="w-full flex items-center">
           <div className="w-1/2">
             <TextInputComponent
-              type="number"
+              type="text"
               label="Código"
               name="codigo"
+              maxLength={20}
               data={data && data[EnumGrid.codigo]}
               control={control}
               error={errors.codigo}
