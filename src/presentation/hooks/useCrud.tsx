@@ -184,7 +184,7 @@ const useCrud = (
       : `${baseUrl}listado/?query=${query}&${primaryKeys}`;
 
     try {
-      // console.log("searchUrl", searchUrl);
+      console.log("searchUrl", searchUrl);
       const response = await axiosInstance.get(searchUrl);
       return response.data;
     } catch (error) {

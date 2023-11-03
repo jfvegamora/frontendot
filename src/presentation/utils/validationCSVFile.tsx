@@ -46,26 +46,32 @@ import * as XLSX from 'xlsx';
 
 export function validateExcelData(data:any, validationStructure:any) {
   const validationErrors = [];
+  
   const validationMap = validationStructure.map((validation:any)=>{
     validation[0] = validation[0].toUpperCase()
     return validation
   })
-
+  // console.log(validationStructure)
+  // console.log(validationMap)
   for (let i = 0; i < data.length; i++) {
     const rowData = data[i];
     for (let j = 0; j < validationMap.length; j++) {
 
       const [fieldName, fieldType, allowNull, maxLength] = validationMap[j];
       const cellValue = rowData[fieldName]; // Value from the Excel cell
-      
+      // console.log(cellValue)      
+      // console.log(cellValue.length)      
+      // console.log(maxLength)            
      
       // Validar el tipo de datos
-      if (fieldType === 'int' && !Number.isInteger(cellValue)) {
-        validationErrors.push(`Error en la fila ${i + 2}: El campo ${fieldName} debe ser un número entero.`);
+      if (fieldType === 'int') {
+        if (!Number.isInteger(cellValue)) {
+          validationErrors.push(`Error en la fila ${i + 2}: El campo ${fieldName} debe ser un número entero.`);
+        }
       }
 
       // Validar la longitud para varchar
-      if (typeof cellValue === 'string' && maxLength && cellValue.length > maxLength) {
+      if (typeof cellValue === 'string' && maxLength > 0 && cellValue.length > maxLength) {
         validationErrors.push(`Error en la fila ${i + 2}: El campo ${fieldName} excede la longitud máxima permitida de ${maxLength}.`);
       }
 
@@ -254,8 +260,8 @@ export const validateFile = (file: File, columnValidations:any)=> {
   
             
             if (columnValidation.maxLength && columnValue.length > columnValidation.maxLength) {
-                console.log('columnValidation', columnValidation.maxLength)
-                console.log('columnValue', columnValue.length)
+                // console.log('columnValidation', columnValidation.maxLength)
+                // console.log('columnValue', columnValue.length)
               reject(new Error(`El valor en la columna ${j + 1} excede la longitud máxima permitida en la fila ${i + 1}.`));
               return;
             }
@@ -275,19 +281,3 @@ export const validateFile = (file: File, columnValidations:any)=> {
 };
   
 
-export const columnValidationsClientes = {
-    0: { type: 'varchar', maxLength: 15 },  
-    1: { type: 'varchar', maxLength: 50 }, 
-    2: { type: 'integer'},
-    3: { type: 'varchar', maxLength: 15 },
-    4: { type: 'integer'},
-    5: { type: 'varchar', maxLength: 15 },
-    6: { type: 'date'},
-    7: { type: 'varchar', maxLength:100},
-    8: { type: 'integer'},
-    9: { type: 'varchar', maxLength: 15 },
-    10: { type: 'varchar', maxLength:20},
-    11: { type: 'varchar', maxLength:50},
-    12: { type: 'integer'},
-    13: { type: 'varchar', maxLength: 15 }
-  }

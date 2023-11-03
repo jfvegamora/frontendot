@@ -1,0 +1,11 @@
+export { default as FOTArmazones } from './FOTArmazones';
+export { default as FOTBitacora } from './FOTBitacora';
+export { default as FOTClientes } from './FOTClientes';
+export { default as FOTCristales } from './FOTCristales';
+export { default as FOTDerivacion } from './FOTDerivacion';
+export { default as FOTGarantia } from './FOTGarantia';
+export { default as FOTOptica } from './FOTOptica';
+export { default as FOTReceta } from './FOTReceta';
+export { default as OTSelectInputComponent } from './OTSelectInputComponent';
+export { default as OTTextInputComponent } from './OTTextInputComponent';
+// export { default as Otprueba } from './Otprueba';

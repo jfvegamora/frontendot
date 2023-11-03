@@ -9,7 +9,7 @@ import {
   TableComponent,
 } from "../../components";
 import { useEntityUtils, usePermission } from "../../hooks";
-import {  TITLES, table_head_OT_diaria } from "../../utils";
+import {  TITLES, table_head_OT_diaria, validar_parametrizacion } from "../../utils";
 import axios from "axios";
 import useSWR from "swr";
 import { toast } from 'react-toastify';
@@ -112,7 +112,7 @@ const MOT: React.FC = () => {
     refreshInterval:1000,
   });
 
-  console.log('data cambiada', data)
+  // console.log('data cambiada', validar_parametrizacion.value)
 
 
   useEffect(()=>{

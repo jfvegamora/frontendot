@@ -5,6 +5,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
 import { AppStore, useAppSelector } from '../../../redux/store';
+import { validationOTlevel2 } from '../../utils/validationOT';
 
 interface IArmazones {
     control:any,
@@ -40,6 +41,8 @@ const FOTArmazones:React.FC<IArmazones> = ({
     
     const handleInputChange = (e:any) => {
         const { name, value } = e;
+
+        validationOTlevel2(name, value)
         if(name === 'codigo_armazon_1'){
             setCodArmazon1(value) 
         }

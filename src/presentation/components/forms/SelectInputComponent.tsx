@@ -237,11 +237,12 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     const [entities, setEntities] = useState([]);
     const [strSelectedName, setStrSelectedName] = useState(data || undefined);
     const strUrl = entidad && entidad[0];
-    const strTableName = entidad[2] ? `_p1=${entidad[2]}` : "";
+    const strTableName = entidad[3] ? `_p3=${entidad[2]}` : entidad[2] ? `_p1=${entidad[2]}` : "";
     const inputRef = useRef(null);
     // console.log(entidad)
     const { ListEntity } = useCrud(strUrl);
     // console.log(strUrl)
+    // console.log(strTableName)
 
     const { refreshData } = useEntityUtils(strUrl, entidad[1]);
     // console.log(data)

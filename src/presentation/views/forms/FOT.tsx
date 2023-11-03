@@ -6,20 +6,19 @@ import 'react-tabs/style/react-tabs.css';
 import moment from 'moment';
 import axios from 'axios';
 import {toast} from 'react-toastify';
-import { signal } from "@preact/signals-react";
+import { Signal, signal } from "@preact/signals-react";
 
-import FOTOptica from '../../components/OTForms/FOTOptica';
-import FOTClientes from '../../components/OTForms/FOTClientes';
-import FOTReceta from '../../components/OTForms/FOTReceta';
-import FOTArmazones from '../../components/OTForms/FOTArmazones';
-import FOTCristales from '../../components/OTForms/FOTCristales';
-import FOTBitacora from '../../components/OTForms/FOTBitacora';
+
+import {FOTArmazones, FOTBitacora, FOTClientes, FOTCristales, FOTOptica, FOTReceta} from '../../components/OTForms'
 import { useCrud } from '../../hooks';
 import FOTGarantia from '../../components/OTForms/FOTGarantia';
 import { EnumGrid } from '../mantenedores/MOTHistorica';
 import FOTDerivacion from '../../components/OTForms/FOTDerivacion';
-import { SEXO, TIPO_CLIENTE } from '../../utils';
-import { validationCliente, validationEstablecimientos, validationFechaAtencion, validationProyectos, validationPuntoVenta, validationTipoAnteojos } from '../../utils/validationOT';
+import { SEXO, TIPO_CLIENTE, a1_od_ad, a1_od_cil, a1_od_eje, a1_od_esf, a1_oi_ad, a1_oi_cil, a1_oi_eje, a1_oi_esf, a2_od_cil, a2_od_eje, a2_od_esf, a2_oi_cil, a2_oi_eje, a2_oi_esf, buscarCampo, clearDioptrias, clearDioptriasA2, dioptriasHabilitadas, dioptrias_receta, reiniciarA2DioptriasReceta, reiniciarDioptriasReceta, reiniciarValidationNivel2, tipo_de_anteojo, validar_parametrizacion, validar_por_tipo_anteojo } from '../../utils';
+import { validationCliente, validationEstablecimientos, validationFechaAtencion, validationOTlevel2, validationProyectos, validationPuntoVenta, validationTipoAnteojos, validation_A2_OD_CIL, validation_A2_OD_EJE, validation_A2_OD_ESF, validation_A2_OI_CIL, validation_A2_OI_EJE, validation_A2_OI_ESF } from '../../utils/validationOT';
+import { inputName } from '../../components/OTForms/Otprueba';
+
+
 
 
 interface IFOTProps {
@@ -149,6 +148,165 @@ export const validationNivel1 = signal([
   },
 ]);
 
+export const validationNivel2 = signal([
+  { campo: "fecha_entrega_taller",
+    valor: 0
+  },
+  { campo: "fecha_despacho",
+    valor: 0
+  },
+  { campo: "fecha_entrega_cliente",
+    valor: 0
+  },
+  { campo: "a1_od_esf",
+    valor: 0
+  },
+  { campo: "a1_od_cil",
+    valor: 0
+  },
+  { campo: "a1_od_eje",
+    valor: 0
+  },
+  { campo: "a1_od_ad",
+    valor: 0
+  },
+  { campo: "a1_oi_ad",
+    valor: 0
+  },
+  { campo: "a1_oi_esf",
+    valor: 0
+  },
+  { campo: "a1_oi_cil",
+    valor: 0
+  },
+  { campo: "a1_oi_eje",
+    valor: 0
+  },
+  { campo: "a1_dp",
+    valor: 0
+  },
+  { campo: "a1_alt",
+    valor: 0
+  },
+  { campo:'combinaciones_validas',
+    valor: 0
+  },
+  { campo: "a2_od_esf",
+    valor: 0
+  },
+  { campo: "a2_od_cil",
+    valor: 0
+  },
+  { campo: "a2_od_eje",
+    valor: 0
+  },
+  { campo: "a2_oi_esf",
+    valor: 0
+  },
+  { campo: "a2_oi_cil",
+    valor: 0
+  },
+  { campo: "a2_oi_eje",
+    valor: 0
+  },
+  { campo: "a2_dp",
+    valor: 0
+  },
+  //A2_GRUPO
+  { campo: "a1_opcion_vta_id",
+    valor: 0
+  },
+  { campo: "a1_armazon_id",
+    valor: 0
+  },
+  { campo: "a2_opcion_vta_id",
+    valor: 0
+  },
+  { campo: "a2_armazon_id",
+    valor: 0
+  },
+
+
+
+  { campo: "cristal1_opcion_vta_id",
+    valor: 0
+  },
+  { campo: "cristal1_diseno_id",
+    valor: 0
+  },
+  { campo: "cristal1_indice_id",
+    valor: 0
+  },
+  { campo: "cristal1_material_id",
+    valor: 0
+  },
+  { campo: "cristal1_tratamiento_id",
+    valor: 0
+  },
+  { campo: "cristal1_color_id",
+    valor: 0
+  },
+  { campo: "cristal1_od",
+    valor: 0
+  },
+  { campo: "cristal1_oi",
+    valor: 0
+  },
+  { campo: "cristal1_tratamiento_adicional_id",
+    valor: 0
+  },
+
+
+
+  { campo: "cristal2_od_opcion_venta_id",
+    valor: 0
+  },
+  { campo: "cristal2_diseno_id",
+    valor: 0
+  },
+  { campo: "cristal2_indice_id",
+    valor: 0
+  },
+  { campo: "cristal2_material_id",
+    valor: 0
+  },
+  { campo: "cristal2_tratamiento_id",
+    valor: 0
+  },
+  { campo: "cristal2_color_id",
+    valor: 0
+  },
+  { campo: "cristal2_od",
+    valor: 0
+  },
+  { campo: "cristal2_oi",
+    valor: 0
+  },
+  { campo: "cristal2_tratamiento_adicional_id",
+    valor: 0
+  },
+])
+
+interface Dioptrias {
+  ESF: string[],
+  CIL: string[],
+  EJE: string[],
+  AD: string[]
+}
+
+
+
+export const tipo_anteojo = signal(false);
+export const onlyReadReceta = signal(false);
+
+export const dioptrias:any = signal<Dioptrias>({
+  ESF:[''],
+  CIL:[''],
+  EJE:[''],
+  AD:['']
+})
+
+export const tipo_lejos_cerca = signal(false);
 
 const FOT:React.FC<IFOTProps> = ({
   closeModal,
@@ -158,7 +316,7 @@ const FOT:React.FC<IFOTProps> = ({
   onlyRead
 }) => {
   // const {createdEntity, editEntity} = useCrud(strBaseUrl);
-  const folioOT = data && data[EnumGrid.folio]
+  // const folioOT = data && data[EnumGrid.folio]
   //PERMISOS DE AREA
   const [OTPermissions, setOTPermissions] = useState("");
   const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas);
@@ -174,12 +332,14 @@ const FOT:React.FC<IFOTProps> = ({
   let permiso_resolucion_garantia = permisos_campos && permisos_campos[4] === "1" ? false : true;
   let permiso_grupo_dioptria      = permisos_campos && permisos_campos[5] === "1" ? false : true;
 
-
+  
 
 
 
   React.useEffect(()=>{
-    // console.log('render')
+    console.log('render')
+    validar_parametrizacion.value = data && data[EnumGrid.validar_parametrizacion_id]
+
     const permiso = OTAreaActual && permissions(OTAreaActual)
     setOTPermissions(permiso && permiso[5])
   },[OTAreaActual])
@@ -613,7 +773,7 @@ const FOT:React.FC<IFOTProps> = ({
   }
   
   //Estados locales
-  const { control, handleSubmit, setValue, getValues } = useForm<FormData>();
+  const { control, handleSubmit, setValue } = useForm<FormData>();
   const [formValues, setFormValues] = useState<FormData | any>({});
   const [showGarantia, setShowGarantia] = useState(false);
   const [showDerivacion, setShowDerivacion] = useState(false);
@@ -633,15 +793,17 @@ const FOT:React.FC<IFOTProps> = ({
   const onCloseGarantia = () =>setShowGarantia(false)
   const onCloseDerivacion = () =>setShowDerivacion(false)
   
-    const sumatoriaNivel1 = validacionNivel1.reduce((index, objeto) => index + objeto.valor, 0);
-    const sumatoriatest = validationNivel1.value.reduce((index, objeto) => index + objeto.valor, 0);
+  // const sumatoriaNivel1 = validacionNivel1.reduce((index, objeto) => index + objeto.valor, 0);
+
+  const sumatoriaNivel1 = validationNivel1.value.reduce((index, objeto) => index + objeto.valor, 0);
+  const sumatoriaNivel2 = validationNivel2.value.reduce((index, objeto) => index + objeto.valor, 0)
     
-    const actualizarEstado = (campo:string, valor:number) => {
-      const index = validacionNivel1.findIndex(objeto => objeto.campo === campo);
-      if (index !== -1) {
+  const actualizarEstado = (campo:string, valor:number) => {
+    const index = validacionNivel1.findIndex(objeto => objeto.campo === campo);
+    if (index !== -1) {
         validacionNivel1[index].valor = valor;
       }
-    }
+  }
 
 
   // console.log(sumatoriaNivel1)
@@ -664,6 +826,7 @@ const FOT:React.FC<IFOTProps> = ({
   };
 
 
+
   //Persistencia de datos
   const handleFormChange = async(data: any, name: string) => {
     console.log(name)
@@ -677,6 +840,48 @@ const FOT:React.FC<IFOTProps> = ({
       }
     }));
 
+
+
+    //FUNCION
+    
+
+    // if(tipo_de_anteojo.value === "3" || tipo_de_anteojo.value === "4" || tipo_de_anteojo.value === "5" || tipo_de_anteojo.value === "6"){
+       
+    //   dioptriasHabilitadas.value.a1_ad = false
+    //   dioptriasHabilitadas.value.a1_alt = false
+    //   console.log(dioptriasHabilitadas.value)
+    // }
+
+
+    //FUNCION
+    if(tipo_de_anteojo.value === "3"){
+      a2_od_esf.value = dioptrias_receta.value.a1_od.esf + dioptrias_receta.value.a1_od.ad
+      a2_od_cil.value = dioptrias_receta.value.a1_od.cil 
+      a2_od_eje.value = dioptrias_receta.value.a1_od.eje
+
+      a2_oi_esf.value = dioptrias_receta.value.a1_oi.esf + dioptrias_receta.value.a1_oi.ad
+      a2_oi_cil.value = dioptrias_receta.value.a1_oi.cil
+      a2_oi_eje.value = dioptrias_receta.value.a1_oi.eje
+
+      validation_A2_OD_ESF(a2_od_esf.value)
+      validation_A2_OD_CIL(a2_od_cil.value)
+      validation_A2_OD_EJE(a2_od_eje.value)
+
+
+      validation_A2_OI_ESF(a2_oi_esf.value)
+      validation_A2_OI_CIL(a2_oi_cil.value)
+      validation_A2_OI_EJE(a2_oi_eje.value)
+
+    }else{
+      console.log('otro')
+      // clearDioptrias()
+      reiniciarA2DioptriasReceta()
+      clearDioptriasA2(0)
+      // limpiarDioptriasReceta(dioptrias_receta.value)
+    }
+
+
+    //FUNCION
     if(Object.keys(data)[0] === 'cristal1_color_id'){
         console.log(data)
         // console.log(Object.values(data)[0])
@@ -750,12 +955,16 @@ const FOT:React.FC<IFOTProps> = ({
       }
     }
 
+
+    //
     if(Object.keys(data)[0] === 'proyecto'){
         console.log(Object.values(data)[0])
         setStrCodigoProyecto(Object.values(data)[0])
+        fetchDioptrias(Object.values(data)[0] as string)
     }
-     
 
+     
+    
 
     actualizarEstado(Object.keys(data)[0], 1)
 
@@ -773,6 +982,7 @@ const FOT:React.FC<IFOTProps> = ({
   const handlePausarClick = () => {
     setSubmitAction('pausar');
   };
+
   const handleProcesarClick = () => {
     setSubmitAction('procesar');
   };
@@ -785,32 +995,72 @@ React.useEffect(() => {
   }
 }, [submitAction]);
 
-// React.useEffect(()=>{
-//   // console.log(validacionNivel1)
-//   validationProyectos(data && data[EnumGrid.proyecto_codigo])
-//   validationEstablecimientos(data && data[EnumGrid.establecimiento_id])
-//   // validationCliente(data && data[EnumGrid.cliente_rut])
-//   validationFechaAtencion(data && data[EnumGrid.fecha_atencion])
-//   validationTipoAnteojos(data && data[EnumGrid.tipo_anteojo_id])
-//   validationPuntoVenta(data && data[EnumGrid.punto_venta_id])
-// },[data,sumatoriaNivel1])
-
 
 if(isEditting){
   console.log('validaciones')
+  //VALIDACIONES NIVEL 1
   validationProyectos(data && data[EnumGrid.proyecto_codigo])
   validationEstablecimientos(data && data[EnumGrid.establecimiento_id])
   validationCliente(data && data[EnumGrid.cliente_rut])
   validationFechaAtencion(data && data[EnumGrid.fecha_atencion])
   validationTipoAnteojos(data && data[EnumGrid.tipo_anteojo_id])
   validationPuntoVenta(data && data[EnumGrid.punto_venta_id])
+
+  //VALIDACIONES NIVEL 2
+
 }
 
-console.log(sumatoriaNivel1)
-console.log(validacionNivel1)
-console.log(validationNivel1.value)
-console.log(sumatoriatest)
-// console.log(data && data[EnumGrid.es]tado_id])
+
+// console.log(validationNivel1.value)
+// console.log(validationNivel2.value)
+// console.log(sumatoriaNivel1)
+// console.log(sumatoriaNivel2)
+
+const fetchDioptrias = async(proyecto:string) => {
+    try {
+
+      const requests = [
+        axios(`https://mtoopticos.cl/api/ot/listado/?query=12&_p3=ESF&_proyecto=${proyecto}`),
+        axios(`https://mtoopticos.cl/api/ot/listado/?query=12&_p3=CIL&_proyecto=${proyecto}`),
+        axios(`https://mtoopticos.cl/api/ot/listado/?query=12&_p3=EJE&_proyecto=${proyecto}`),
+        axios(`https://mtoopticos.cl/api/ot/listado/?query=12&_p3=AD&_proyecto=${proyecto}`)
+
+      ]
+      
+      const [responseESF, responseCIL, responseEJE, responseAD] = await Promise.all(requests);
+
+      dioptrias.value.ESF = responseESF.data;
+      dioptrias.value.CIL = responseCIL.data;
+      dioptrias.value.EJE = responseEJE.data;
+      dioptrias.value.AD  = responseAD.data;
+
+      console.log(dioptrias.value)
+    } catch (error) {
+      console.log(error)
+      throw error
+    }
+}
+
+
+console.log(validationNivel2.value)
+// console.log(validationNivel2)
+console.log(dioptrias_receta.value)
+console.log(dioptriasHabilitadas.value)
+// console.log(dioptrias.value)
+// console.log(a1_od_esf.value)
+// console.log(data && data[EnumGrid.estado_validacion_id])
+
+
+const handleEsferico = () => {
+  inputName.value = inputName.value + 1
+  console.log(inputName.value)
+}
+
+// console.log(validar_parametrizacion.value)
+
+// console.log(tipo_de_anteojo.value)
+// console.log(data && data[EnumGrid.validar_parametrizacion_id])
+
 
   return (
 
@@ -827,7 +1077,7 @@ console.log(sumatoriatest)
         </TabList>
 
 
-        <div className='top-0 absolute right-3 text-2xl cursor-pointert' onClick={closeModal}>X</div>
+        <div className='top-0 absolute right-3 text-2xl cursor-pointert' onClick={()=>{closeModal(), clearDioptrias(), reiniciarDioptriasReceta(), reiniciarValidationNivel2()}}>X</div>
           <TabPanel onSelect={loadFormData}>
             <FOTOptica onlyRead={onlyRead} setIsMotivo={setIsMotivo} isEditting={isEditting} data={data && data} formValues={formValues["optica"]} control={control} setToggle={setToggle} onDataChange={(data:any) => handleFormChange(data , 'optica')} permiso_estado_impresion={permiso_estado_impresion} permiso_estado_validacion={permiso_estado_validacion} permiso_resolucion_garantia={permiso_resolucion_garantia} />
           </TabPanel>
@@ -870,32 +1120,43 @@ console.log(sumatoriatest)
 
 
         <div className='flex items-center mx-auto  justify-around w-1/2 '>
-          {/* OTHISTORICA */}
-          {/* {isEditting && isMOT && data && data[EnumGrid.estado] === "Garantia" && (
-              <button className='bg-green-400 mx-4 text-white w-1/4' onClick={() => setShowGarantia(prev => !prev)}>
-                Garantia
-              </button>
-          )} */}
-          {isEditting && isMOT && isMotivo &&  (
-              <button className='bg-green-400 mx-4 text-white w-1/4' onClick={() => setShowGarantia(prev => !prev)}>
-                Garantia
-              </button>
-          )}
-              {OTPermissions && OTPermissions[6] === "1" && sumatoriatest === validationNivel1.value.length && (
+      
+              {isEditting && 
+              isMOT       && 
+              isMotivo    &&  (
+                  <button className='bg-green-400 mx-4 text-white w-1/4' onClick={() => setShowGarantia(prev => !prev)}>
+                    Garantia
+                  </button>
+              )}
+
+              {OTPermissions && 
+              OTPermissions[6] === "1" && 
+              sumatoriaNivel1 === validationNivel1.value.length &&
+              (sumatoriaNivel2 === validationNivel2.value.length || data && data[EnumGrid.validar_parametrizacion_id] === "0" ) && (
                 <button className='bg-green-400 mx-4  text-white w-1/4 ' onClick={handleProcesarClick}>Procesar</button>
               )}
+              <button onClick={handleEsferico}>ESFERIco</button>
               
 
-              {OTPermissions && OTPermissions[7] === "1" && sumatoriatest === validationNivel1.value.length && (
+              {OTPermissions && 
+              OTPermissions[7] === "1" &&
+              sumatoriaNivel1 === validationNivel1.value.length && (
                 <button className='bg-yellow-400 mx-4   w-1/4 'onClick={handlePausarClick}>Pausar</button>
               )}
-              {OTPermissions && OTPermissions[8] === "1" && sumatoriatest === validationNivel1.value.length &&(
+
+              {OTPermissions &&
+               OTPermissions[8] === "1" &&
+               sumatoriaNivel1 === validationNivel1.value.length &&
+               data && data[EnumGrid.estado_id] > 1 && (
                 <button className='bg-red-400 mx-4 text-white  w-1/4 ' onClick={()=>{setShowDerivacion((prev)=>!prev)}}>Derivar</button>
               )}
 
 
 
-              {OTPermissions && OTPermissions[9] === "1" && sumatoriaNivel1 === validacionNivel1.length && data && data[EnumGrid.estado_id] === 3 && (
+              {OTPermissions &&
+               OTPermissions[9] === "1" && 
+               sumatoriaNivel1 === validacionNivel1.length && 
+               (data && data[EnumGrid.estado_id] === 3 || data && data[EnumGrid.estado_id] === 4 ) && (
                 <button className='bg-black mx-4 text-white  w-1/4 '>Anular</button>
               )}
 

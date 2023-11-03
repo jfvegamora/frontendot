@@ -3,6 +3,7 @@ import { SelectInputComponent, TextInputComponent } from '..';
 import useSWR from 'swr';
 import axios from 'axios';
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
+import { validationOTlevel2 } from '../../utils/validationOT';
 
 
 interface ICristales {
@@ -54,6 +55,8 @@ const FOTCristales:React.FC<ICristales> = ({
 
         console.log(name)
         console.log(value)
+
+        validationOTlevel2(name, value)
         if(
             name === "cristal1_tratamiento_id" ||
             name === "cristal1_opcion_vta_id" || 

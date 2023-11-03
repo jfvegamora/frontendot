@@ -13,8 +13,8 @@ interface ImportProps{
 
 const PositionToRemove ={
   Clientes:     [3,5,9,13],
-
-  Armazones:    [2,3,4,5],
+  
+  // Armazones:    [2,3,4,5],
 }
 
 const strUseCrud = "/api/typesexcel";
@@ -92,7 +92,7 @@ const ImportToCsv:React.FC<ImportProps> = ({
 
   useEffect(()=>{
     setErrors((prev:any)=>prev)
-    console.log('actualizando...')
+    // console.log('actualizando...')
   },[isOpen])
   //ETAPA LECTURA
   
@@ -101,7 +101,7 @@ const ImportToCsv:React.FC<ImportProps> = ({
     const formData = new FormData();        
     const result = await excelTypes(strEntidad)
     
-    console.log(acceptedFiles[0])
+    // console.log(acceptedFiles[0])
     
     
     const validate = await  handleFileUpload(acceptedFiles[0],JSON.parse(result["resul"]))
@@ -109,7 +109,7 @@ const ImportToCsv:React.FC<ImportProps> = ({
 
 
     setTimeout(()=>{
-      console.log(validate["errors"])
+      // console.log(validate["errors"])
       if(validate["errors"]){
         console.log(validate)
         setErrors((_prev:any)=>validate["errors"])
@@ -122,7 +122,7 @@ const ImportToCsv:React.FC<ImportProps> = ({
     
     if(validate["blob"] && validate["numberOfElements"]){   
       formData.append('file', validate["blob"], 'modified_file.xls');
-      formData.append('positions_to_remove', JSON.stringify(PositionToRemove[strEntidad as "Clientes" | "Armazones"]));
+      formData.append('positions_to_remove', JSON.stringify(PositionToRemove[strEntidad as "Clientes" ]));
       formData.append('entidad', JSON.stringify(strEntidad));
 
       // await handleValidacion(validate["numberOfElements"] || 0)
@@ -149,10 +149,10 @@ const ImportToCsv:React.FC<ImportProps> = ({
           a = true;
         }
 
-        console.log(a)
+        // console.log(a)
         if(!a){
           setTimeout(async()=>{
-            console.log('ejecutando')
+            // console.log('ejecutando')
             setProgress(0)
             setTimeout(async()=>{
                 setCurrentStage('Almacenamiento')

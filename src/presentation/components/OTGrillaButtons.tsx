@@ -18,7 +18,7 @@ type AreaButtonsProps ={
 
   }
 
-const strEntidad = "Ordenen de Trabajo";
+const strEntidad = "Orden de Trabajo";
 const strBaseUrl = "/api/ot/";
 
 

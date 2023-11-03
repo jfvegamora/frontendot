@@ -4,7 +4,7 @@ import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
 // import { Switch , switchButton} from "@material-tailwind/react";
 import Switch from "react-switch";
 import axios from 'axios';
-import { validationOTlevel1, validationProyectos } from '../../utils/validationOT';
+import { validationOTlevel1, validationOTlevel2, validationProyectos } from '../../utils/validationOT';
 
 interface IOptica {
     control:any,
@@ -42,10 +42,11 @@ const FOTOptica:React.FC<IOptica> = ({
     
     const handleInputChange = (e:any) => {
         const { name, value } = e;
-        console.log(name)
-        console.log(value)
+        // console.log(name)
+        // console.log(value)
 
         validationOTlevel1(name, value)
+        validationOTlevel2(name, value)
         //metodo para validar pasando name value 
         if(name === "resolucion_garantia"){
             setToggle(value)
@@ -155,7 +156,7 @@ const FOTOptica:React.FC<IOptica> = ({
                         handleChange={handleInputChange}
                         data={formValues ? formValues["area"] : data && data[EnumGrid.area]}
                         control={control}
-                        onlyRead={onlyRead}
+                        onlyRead={true}
                         // error={errors.fecha_nacimiento}
                     />
                 </div>
@@ -168,7 +169,7 @@ const FOTOptica:React.FC<IOptica> = ({
                         handleChange={handleInputChange}
                         data={formValues ? formValues["estado"] : data && data[EnumGrid.estado]}
                         control={control}
-                        onlyRead={onlyRead}
+                        onlyRead={true}
                         // error={errors.fecha_nacimiento}
                     />
                 </div>

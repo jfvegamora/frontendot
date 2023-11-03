@@ -31,7 +31,7 @@ const TextInputComponent: React.FC<ITextInputProps> = ({
   className,
   defaultValue:formatvalue
 }) => {
-  const [defaultValue, setDefaultValue] = useState<string>(data || "")
+  const [defaultValue, setDefaultValue] = useState<any>(data || "")
   const [value, setValue] = useState('')
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -52,10 +52,11 @@ const TextInputComponent: React.FC<ITextInputProps> = ({
   
   useEffect(()=>{
     setDefaultValue(data)
+    // console.log(data)
   },[data])
 
 
-  // console.log(daa)
+  // console.log(data)
   // console.log(data)
 return (
   <div
@@ -66,7 +67,7 @@ return (
     control={control}
     // defaultValue={data ? data : ""}
     
-    defaultValue={data}
+    defaultValue={defaultValue}
     render={({ field }) => (
       <div className="flex flex-col  w-full">
         <Input

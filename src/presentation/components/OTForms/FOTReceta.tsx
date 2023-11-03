@@ -1,7 +1,13 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { SelectInputComponent, TextInputComponent } from '..'
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica'
-import { validationOTlevel1 } from '../../utils/validationOT'
+import { signal } from '@preact/signals-react'
+import Otprueba, { inputName } from './Otprueba'
+import { DioptriasReceta, a1_od_ad, a1_od_cil, a1_od_eje, a1_od_esf, a1_oi_ad, a1_oi_cil, a1_oi_eje, a1_oi_esf, a2_od_cil, a2_od_eje, a2_od_esf, a2_oi_cil, a2_oi_eje, a2_oi_esf, actualizarVariable, dioptriasHabilitadas, dioptrias_receta } from '../../utils'
+import { validationOTlevel1, validationOTlevel2 } from '../../utils/validationOT'
+import { combinaciones_validas, habilitarCampo, setDioptriasReceta, setTipoAnteojo, validation_tipo_anteojo } from '../../utils/OTReceta_utils'
+
+// export const inputName = signal(0)
 
 interface IReceta {
     control:any,
@@ -20,24 +26,30 @@ const FOTReceta:React.FC<IReceta> = ({
     onlyRead,
     permiso_grupo_dioptria
 }) => {
-
     const handleInputChange = (e:any) => {
         let {name, value} = e;
-        // console.log(name)
-        // console.log(value)
+        console.log(name)
+        console.log(value)
+        
+        if(name === 'tipo_anteojo_id'){
+          setTipoAnteojo(value)      
+        }
+        validation_tipo_anteojo()
+        setDioptriasReceta(name, value)
         validationOTlevel1(name, value)
-
-        // if(name === "anteojo1_ESF_OD"){
-        //     const modifiedValue = parseFloat(value).toFixed(2);
-        //     onDataChange({[name]:modifiedValue})
-        // }
-
+        validationOTlevel2(name, value)
+        
+        
+        
         onDataChange({[name]:value})
+        combinaciones_validas()
     }
 
-    console.log(permiso_grupo_dioptria)
+    console.log(dioptriasHabilitadas.value);
+    console.log(habilitarCampo.value);
+    // inputName.value = 50
 
-
+//   inputName.value = 90  
   return (
     <form>
         <div className="w-full labelForm  rounded-lg px-8 flex flex-col justify-between   py-4 border border-blue-500">
@@ -52,11 +64,28 @@ const FOTReceta:React.FC<IReceta> = ({
                             data={formValues ? formValues["tipo_anteojo_id"] : data && data[EnumGrid.tipo_anteojo_id]}
                             control={control}
                             entidad={["/api/tipos/", "02","OTTipoAnteojo"]}
+                            // entidad={["/api/ot/", "12","ESF", "_p3"]}
                             // error={errors.establecimiento}
                             customWidth={"345px"}
                             readOnly={onlyRead}
                         />
                 </div>
+                {/* <div className="w-[20%] -ml-4">
+                        <OTListBox
+                            label="Tipo de Anteojo"
+                            name="tipo_anteojo_id"
+                            showRefresh={true}
+                            isOT={true}
+                            handleSelectChange={handleInputChange}
+                            data={formValues ? formValues["tipo_anteojo_id"] : data && data[EnumGrid.tipo_anteojo_id]}
+                            control={control}
+                            // entidad={["/api/tipos/", "02","OTTipoAnteojo"]}
+                            entidad={["/api/ot/", "12","ESF", "_p3"]}
+                            // error={errors.establecimiento}
+                            customWidth={"345px"}
+                            readOnly={onlyRead}
+                        />
+                </div> */}
                 <div className="w-[30%] ml-10">
                                 <TextInputComponent
                                     type="text"
@@ -109,12 +138,13 @@ const FOTReceta:React.FC<IReceta> = ({
                         <label className='labelForm w-[40%] absolute z-10 text-center -top-2 left-[30%]'>OJO DERECHO</label>
                         <div className="w-[25%]">
                             <TextInputComponent
-                                type="te"
+                                type="number"
                                 label="ESF"
-                                defaultValue={'anteojo1_ESF_OD'}
+                               
                                 name="a1_od_esf"
                                 handleChange={handleInputChange}
-                                data={formValues ? formValues["a1_od_esf"] : data && data[EnumGrid.a1_od_esf]}
+                                // data={formValues ? formValues["a1_od_esf"] : data && data[EnumGrid.a1_od_esf]}
+                                data={a1_od_esf ? a1_od_esf : data && data[EnumGrid.a1_od_esf]}
                                 control={control}
                                 onlyRead={onlyRead}
                                 // error={errors.fecha_nacimiento}
@@ -127,7 +157,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 name="a1_od_cil"
                                 handleChange={handleInputChange}
                                 onlyRead={onlyRead}
-                                data={formValues ? formValues["a1_od_cil"] : data && data[EnumGrid.a1_od_cil]}
+                                data={a1_od_cil ? a1_od_cil : data && data[EnumGrid.a1_od_cil]}
                                 control={control}
                                 // error={errors.fecha_nacimiento}
                             />
@@ -138,7 +168,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 label="EJE"
                                 name="a1_od_eje"
                                 handleChange={handleInputChange}
-                                data={formValues ? formValues["a1_od_eje"] : data && data[EnumGrid.a1_od_eje]}
+                                data={a1_od_eje ? a1_od_eje : data && data[EnumGrid.a1_od_eje]}
                                 control={control}
                                 onlyRead={onlyRead}
                                 // error={errors.fecha_nacimiento}
@@ -146,13 +176,13 @@ const FOTReceta:React.FC<IReceta> = ({
                         </div>
                         <div className="w-[25%]">
                             <TextInputComponent
-                                type="text"
+                                type="number"
                                 label="AD"
                                 name="a1_od_ad"
                                 handleChange={handleInputChange}
-                                data={formValues ? formValues["a1_od_ad"] : data && data[EnumGrid.a1_od_ad]}
+                                data={a1_od_ad ? a1_od_ad : data && data[EnumGrid.a1_od_ad]}
                                 control={control}
-                                onlyRead={onlyRead}
+                                onlyRead={habilitarCampo.value.a1_ad}
                                 // error={errors.fecha_nacimiento}
                             />
                         </div>
@@ -168,7 +198,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 label="ESF"
                                 name="a1_oi_esf"
                                 handleChange={handleInputChange}
-                                data={formValues ? formValues["a1_oi_esf"] : data && data[EnumGrid.a1_oi_esf]}
+                                data={a1_oi_esf ? a1_oi_esf: data && data[EnumGrid.a1_oi_esf]}
                                 control={control}
                                 onlyRead={onlyRead}
                                 // error={errors.fecha_nacimiento}
@@ -180,7 +210,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 label="CIL"
                                 name="a1_oi_cil"
                                 handleChange={handleInputChange}
-                                data={formValues ? formValues["a1_oi_cil"] : data && data[EnumGrid.a1_oi_cil]}
+                                data={a1_oi_cil ? a1_oi_cil : data && data[EnumGrid.a1_oi_cil]}
                                 control={control}
                                 onlyRead={onlyRead}
                                 // error={errors.fecha_nacimiento}
@@ -192,7 +222,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 label="EJE"
                                 name="a1_oi_eje"
                                 handleChange={handleInputChange}
-                                data={formValues ? formValues["a1_oi_eje"] : data && data[EnumGrid.a1_oi_eje]}
+                                data={a1_oi_eje ? a1_oi_eje : data && data[EnumGrid.a1_oi_eje]}
                                 control={control}
                                 onlyRead={onlyRead}
                                 // error={errors.fecha_nacimiento}
@@ -204,7 +234,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 label="AD"
                                 name="a1_oi_ad"
                                 handleChange={handleInputChange}
-                                data={formValues ? formValues["a1_oi_ad"] : data && data[EnumGrid.a1_oi_ad]}
+                                data={a1_oi_ad ? a1_oi_ad : data && data[EnumGrid.a1_oi_ad]}
                                 control={control}
                                 onlyRead={onlyRead}
                                 // error={errors.fecha_nacimiento}
@@ -233,7 +263,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 handleChange={handleInputChange}
                                 data={formValues ? formValues["a1_alt"] : data && data[EnumGrid.a1_alt]}
                                 control={control}
-                                onlyRead={onlyRead}
+                                onlyRead={habilitarCampo.value.a1_alt}
                                 // error={errors.fecha_nacimiento}
                             />
                     </div>
@@ -256,7 +286,7 @@ const FOTReceta:React.FC<IReceta> = ({
                             customWidth={"345px"}
                         />
                 </div>
-                <label className='absolute z-10 top-[-10%] w-[15%] left-[36%] text-center labelForm  rounded-lg text-2xl'>ANTEOJO 1</label>
+                <label className='absolute z-10 top-[-10%] w-[15%] left-[36%] text-center labelForm  rounded-lg text-2xl'>ANTEOJO 2</label>
 
 
 
@@ -265,12 +295,12 @@ const FOTReceta:React.FC<IReceta> = ({
                         <label className='labelForm w-[40%] absolute z-10 text-center -top-2 left-[30%]'>OJO DERECHO</label>
                         <div className="w-[25%]">
                             <TextInputComponent
-                                type="text"
+                                type="number"
                                 label="ESF"
                                 name="a2_od_esf"
                                 handleChange={handleInputChange}
-                                data={formValues ? formValues["a2_od_esf"] : data && data[EnumGrid.a2_od_esf]}
-
+                                data={a2_od_esf ? a2_od_esf : data && data[EnumGrid.a2_od_esf]}
+                                // data={a2_od_esf}
                                 control={control}
                                 onlyRead={onlyRead}
                                 // error={errors.fecha_nacimiento}
@@ -282,7 +312,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 label="CIL"
                                 name="a2_od_cil"
                                 handleChange={handleInputChange}
-                                data={formValues ? formValues["a2_od_cil"] : data && data[EnumGrid.a2_od_cil]}
+                                data={a2_od_cil ? a2_od_cil : data && data[EnumGrid.a2_od_cil]}
                                 control={control}
                                 onlyRead={onlyRead}
                                 // error={errors.fecha_nacimiento}
@@ -294,7 +324,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 label="EJE"
                                 name="a2_od_eje"
                                 handleChange={handleInputChange}
-                                data={formValues ? formValues["a2_od_eje"] : data && data[EnumGrid.a2_od_eje]}
+                                data={a2_od_eje ? a2_od_eje : data && data[EnumGrid.a2_od_eje]}
                                 onlyRead={onlyRead}
                                 control={control}
                                 // error={errors.fecha_nacimiento}
@@ -313,7 +343,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 label="ESF"
                                 name="a2_oi_esf"
                                 handleChange={handleInputChange}
-                                data={formValues ? formValues["a2_oi_esf"] : data && data[EnumGrid.a2_oi_esf]}
+                                data={a2_oi_esf ? a2_oi_esf : data && data[EnumGrid.a2_oi_esf]}
                                 control={control}
                                 onlyRead={onlyRead}
                                 // error={errors.fecha_nacimiento}
@@ -325,7 +355,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 label="CIL"
                                 name="a2_oi_cil"
                                 handleChange={handleInputChange}
-                                data={formValues ? formValues["a2_oi_cil"] : data && data[EnumGrid.a2_oi_cil]}
+                                data={a2_oi_cil ? a2_oi_cil : data && data[EnumGrid.a2_oi_cil]}
                                 control={control}
                                 onlyRead={onlyRead}
                                 // error={errors.fecha_nacimiento}
@@ -337,7 +367,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 label="EJE"
                                 name="a2_oi_eje"
                                 handleChange={handleInputChange}
-                                data={formValues ? formValues["a2_oi_eje"] : data && data[EnumGrid.a2_oi_eje]}
+                                data={a2_oi_eje ? a2_oi_eje : data && data[EnumGrid.a2_oi_eje]}
                                 control={control}
                                 onlyRead={onlyRead}
                                 // error={errors.fecha_nacimiento}

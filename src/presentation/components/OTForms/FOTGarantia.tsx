@@ -27,10 +27,11 @@ const FOTGarantia:React.FC<IProps> = ({
     data,
     onClose
 }) => {
-    const {control, handleSubmit} = useForm<FormData>()
+    const {control, handleSubmit} = useForm<FormData>();
     const userState = useAppSelector((store: AppStore) => store.user);
-    const {createdEntity} = useCrud(strBaseUrl)
+    const {createdEntity} = useCrud(strBaseUrl);
 
+    
     const onSubmit: SubmitHandler<FormData> = async(jsonData) =>{
         console.log('jsondata', jsonData)
         
@@ -108,7 +109,7 @@ const FOTGarantia:React.FC<IProps> = ({
                             showRefresh={true}
                             isOT={true}
                             control={control}
-                            data={data && data[EnumGrid.motivo_gtia_id]}
+                            // data={data && data[EnumGrid.motivo_gtia_id]}
                             // handleSelectChange={handleInputChange}
                             // data={formValues && formValues["proyectos"]}
                             entidad={["/api/tipos/", "02", "OTMotivoGarantia"]}
