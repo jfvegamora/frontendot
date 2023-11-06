@@ -33,11 +33,12 @@ interface OutputData {
 }
 
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
-  const _p1 = `'${jsonData.nombre}', ${jsonData.comuna}, ${jsonData.mandante}`;
+  let _p1 = `"${jsonData.nombre}", ${jsonData.comuna}, ${jsonData.mandante}`;
+  _p1 = _p1.replace(/'/g, '!');
 
   const query: OutputData = {
     query: "03",
-    _p1: _p1,
+    _p1
   };
   console.log("query03", query);
   return query;
@@ -48,7 +49,7 @@ export function transformUpdateQuery(
   primaryKey: string
 ): OutputData | null {
   const fields = [
-    `nombre   ='${jsonData.nombre}'`,
+    `nombre   ="${jsonData.nombre}"`,
     `comuna   = ${jsonData.comuna}`,
     `mandante = ${jsonData.mandante}`,
   ];
@@ -60,7 +61,8 @@ export function transformUpdateQuery(
   if (filteredFields.length === 0) {
     return null;
   }
-  const _p1 = filteredFields.join(",");
+  let _p1 = filteredFields.join(",");
+  _p1 = _p1.replace(/'/g, '!');
 
   const query: OutputData = {
     query: "04",

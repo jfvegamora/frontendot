@@ -4,7 +4,7 @@ import { table_head_OT_bitacora } from '../../utils'
 import axios from 'axios'
 
 const strURL = 'https://mtoopticos.cl/api/otbitacora/listado/?query=01';
-const strQuery = "01&_p2=126"
+// const strQuery = "01&_p2=126"
 
 
 interface IBitacora {

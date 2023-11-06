@@ -28,13 +28,10 @@ const strBaseUrl = "/api/usuarios/";
 const strQuery = "01";
 const idMenu = 24;
 
-type PrimaryKey = {
-  pk1: number;
-};
 const MUsuarios: React.FC = () => {
   const [params, setParams] = useState([]);
-  const [totalRowIndex, setTotalRowIndex] = useState([]);
-  const [shotRow, setShotRow] = useState(undefined)
+  const [totalRowIndex, _setTotalRowIndex] = useState([]);
+  const [shotRow, _setShotRow] = useState(undefined)
 
   const updateParams = (newParams: Record<string, never>) => {
     setParams(Object.keys(newParams).map((key) => newParams[key]));
@@ -100,17 +97,10 @@ const MUsuarios: React.FC = () => {
   //     }
   //   });
   // }, [selectedRows]);
-
-  const handleClick = (e:any) => {
-    console.log(e.target.value)
-    const number = parseInt(e.target.value)
-    // setShotRow(number)
-  }
  
   return (
     <div className="mantenedorContainer">
       <h1 className="mantenedorH1">Usuarios</h1>
-    <input type="text" onChange={(e)=>handleClick(e)}></input>
       <div className="mantenedorHead width70 items-center">
         <PrimaryKeySearch
           baseUrl={strBaseUrl}

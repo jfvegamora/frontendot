@@ -27,9 +27,6 @@ const strBaseUrl = "/api/oftalmologos/";
 const strQuery = "01";
 const idMenu = 21;
 
-type PrimaryKey = {
-  pk1: number;
-};
 const MOftalmologos: React.FC = () => {
   const [params, setParams] = useState([]);
 

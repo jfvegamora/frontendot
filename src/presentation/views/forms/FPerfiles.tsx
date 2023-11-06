@@ -35,13 +35,14 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
   //   alert(ERROR_MESSAGES.passwordNotMatch);
   // }
 
-  const _p1 = `${jsonData.cargo}, ${jsonData.funcionalidad}, ${
+  let _p1 = `${jsonData.cargo}, ${jsonData.funcionalidad}, ${
     jsonData.permiso === "Lectura" ? 1 : 2
   }`;
+  _p1 = _p1.replace(/'/g, '!');
 
   const query: OutputData = {
     query: "03",
-    _p1: _p1,
+    _p1
   };
 
   return query;

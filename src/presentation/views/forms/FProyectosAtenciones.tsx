@@ -96,29 +96,33 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
 
 
 
-  const _p1 = `
- '${jsonData.proyecto}', 
+  let _p1 = `
+ "${jsonData.proyecto}", 
   ${jsonData.folio_reporte}, 
- '${jsonData.fecha_desde}', 
- '${jsonData.fecha_hasta}', 
- '${jsonData.orden_compra_mandante}', 
- '${jsonData.fecha_vb}', 
+ "${jsonData.fecha_desde}", 
+ "${jsonData.fecha_hasta}", 
+ "${jsonData.orden_compra_mandante}", 
+ "${jsonData.fecha_vb}", 
   ${(jsonData.factura && jsonData.factura?.toString())?.length === 0 ? "0" : jsonData.factura}, 
- '${jsonData.fecha_factura}', 
+ "${jsonData.fecha_factura}", 
   ${(jsonData.total_factura && jsonData.total_factura?.toString())?.length === 0 ? "0" : jsonData.total_factura}, 
   ${(jsonData.nota_credito && jsonData.nota_credito?.toString())?.length === 0 ? "0" : jsonData.nota_credito}, 
- '${jsonData.fecha_ncredito}', 
+ "${jsonData.fecha_ncredito}", 
   ${(jsonData.total_ncredito && jsonData.total_ncredito?.toString())?.length === 0 ? "0" : jsonData.total_ncredito}, 
   ${(jsonData.nota_debito && jsonData.nota_debito?.toString())?.length === 0 ? "0" : jsonData.nota_debito}, 
- '${jsonData.fecha_ndebito}', 
+ "${jsonData.fecha_ndebito}", 
   ${(jsonData.total_ndebito && jsonData.total_ndebito?.toString())?.length === 0 ? "0" : jsonData.total_ndebito}, 
   ${(jsonData.guia_despacho && jsonData.guia_despacho?.toString())?.length === 0 ? "0" : jsonData.guia_despacho}, 
- '${jsonData.fecha_guia_despacho}', 
- '${jsonData.observaciones}'`;
+ "${jsonData.fecha_guia_despacho}", 
+ "${jsonData.observaciones}"`;
+
+
+ _p1 = _p1.replace(/'/g, '!');
+
 
   const query: OutputData = {
     query: "03",
-    _p1: _p1,
+    _p1
   };
 console.log("query: ", query);
   return query;
@@ -126,20 +130,20 @@ console.log("query: ", query);
 
 export function transformUpdateQuery(jsonData: InputData): OutputData | null {
   const fields = [
-    `orden_compra_mandante= '${jsonData.orden_compra_mandante}'`, 
-    `fecha_vb             = '${jsonData.fecha_vb}'`, 
+    `orden_compra_mandante= "${jsonData.orden_compra_mandante}"`, 
+    `fecha_vb             = "${jsonData.fecha_vb}"`, 
     `factura              =  ${(jsonData.factura && jsonData.factura?.toString())?.length === 0 ? "0" : jsonData.factura}`, 
-    `fecha_factura        = '${jsonData.fecha_factura}'`, 
+    `fecha_factura        = "${jsonData.fecha_factura}"`, 
     `total_factura        =  ${(jsonData.total_factura && jsonData.total_factura?.toString())?.length === 0 ? "0" : jsonData.total_factura}`, 
     `nota_credito         =  ${(jsonData.nota_credito && jsonData.nota_credito?.toString())?.length === 0 ? "0" : jsonData.nota_credito}`, 
-    `fecha_ncredito       = '${jsonData.fecha_ncredito}'`, 
+    `fecha_ncredito       = "${jsonData.fecha_ncredito}"`, 
     `total_ncredito       =  ${(jsonData.total_ncredito && jsonData.total_ncredito?.toString())?.length === 0 ? "0" : jsonData.total_ncredito}`, 
     `nota_debito          =  ${(jsonData.nota_debito && jsonData.nota_debito?.toString())?.length === 0 ? "0" : jsonData.nota_debito}`, 
-    `fecha_ndebito        = '${jsonData.fecha_ndebito}'`, 
+    `fecha_ndebito        = "${jsonData.fecha_ndebito}"`, 
     `total_ndebito        =  ${(jsonData.total_ndebito && jsonData.total_ndebito?.toString())?.length === 0 ? "0" : jsonData.total_ndebito}`, 
     `guia_despacho        =  ${(jsonData.guia_despacho && jsonData.guia_despacho?.toString())?.length === 0 ? "0" : jsonData.guia_despacho}`, 
-    `fecha_guia_despacho  = '${jsonData.fecha_guia_despacho}'`, 
-    `observaciones        = '${jsonData.observaciones}'`,
+    `fecha_guia_despacho  = "${jsonData.fecha_guia_despacho}"`, 
+    `observaciones        = "${jsonData.observaciones}"`,
   ];
 
   const filteredFields = fields.filter(
@@ -149,7 +153,9 @@ export function transformUpdateQuery(jsonData: InputData): OutputData | null {
   if (filteredFields.length === 0) {
     return null;
   }
-  const _p1 = filteredFields.join(",");
+  let _p1 = filteredFields.join(",");
+  _p1 = _p1.replace(/'/g, '!');
+
   
   const query: OutputData = {
     query: "04",

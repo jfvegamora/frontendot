@@ -33,15 +33,17 @@ interface OutputData {
 }
 
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
-  const _p1 = ` '${jsonData.rut}', 
-    '${jsonData.nombre}', 
-    '${jsonData.telefono}', 
-    '${jsonData.correo}', 
+  let _p1 = ` "${jsonData.rut}", 
+    "${jsonData.nombre}", 
+    "${jsonData.telefono}", 
+    "${jsonData.correo}", 
      ${jsonData.valor_consulta}`;
+
+  _p1 = _p1.replace(/'/g, '!');
 
   const query: OutputData = {
     query: "03",
-    _p1: _p1,
+    _p1
   };
 
   return query;
@@ -52,10 +54,10 @@ export function transformUpdateQuery(
   primaryKey: string
 ): OutputData | null {
   const fields = [
-    `rut            ='${jsonData.rut}'`,
-    `nombre         ='${jsonData.nombre}'`,
-    `telefono       ='${jsonData.telefono}'`,
-    `correo         ='${jsonData.correo}'`,
+    `rut            ="${jsonData.rut}"`,
+    `nombre         ="${jsonData.nombre}"`,
+    `telefono       ="${jsonData.telefono}"`,
+    `correo         ="${jsonData.correo}"`,
     `valor_consulta = ${jsonData.valor_consulta}`,
   ];
 
@@ -66,7 +68,9 @@ export function transformUpdateQuery(
   if (filteredFields.length === 0) {
     return null;
   }
-  const _p1 = filteredFields.join(",");
+  let _p1 = filteredFields.join(",");
+  _p1 = _p1.replace(/'/g, '!');
+
   console.log("primaryKey", primaryKey);
   return {
     query: "04",

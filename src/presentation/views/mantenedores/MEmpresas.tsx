@@ -30,9 +30,6 @@ const strBaseUrl = "/api/empresas/";
 const strQuery = "01";
 const idMenu = 27;
 
-type PrimaryKey = {
-  pk1: number;
-};
 
 const MEmpresas: React.FC = () => {
   const [params, setParams] = useState([]);

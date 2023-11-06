@@ -9,12 +9,10 @@ import {
   TableComponent,
 } from "../../components";
 import { useEntityUtils } from "../../hooks";
-import FUsuarios from "../forms/FUsuarios";
-import { ESTADO_OT, MOTIVO_OT, TITLES, table_head_OT_diaria, table_head_usuarios } from "../../utils";
+// import FUsuarios from "../forms/FUsuarios";
+import { ESTADO_OT, MOTIVO_OT, TITLES, table_head_OT_diaria } from "../../utils";
 import { OptionValuesMotivo } from "./MOT";
 import FOT from "../forms/FOT";
-import Garantia from "../../components/OTForms/FOTGarantia";
-import Derivacion from "../../components/OTForms/FOTDerivacion";
 
 export enum EnumGrid {
   folio = 1,

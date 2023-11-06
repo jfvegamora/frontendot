@@ -52,9 +52,7 @@ const strBaseUrl = "/api/proyectos/";
 const strQuery = "01";
 const idMenu = 15;
 
-type PrimaryKey = {
-  pk1: number;
-};
+
 const MProyectos: React.FC = () => {
   const [params, setParams] = useState([]);
 
@@ -167,7 +165,7 @@ const MProyectos: React.FC = () => {
           idMenu={idMenu}
         />
       </div>
-
+    
       {isModalInsert && (
         <FProyectos
           label={`${TITLES.ingreso} ${strEntidad}`}

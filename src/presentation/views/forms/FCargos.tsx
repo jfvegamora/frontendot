@@ -44,12 +44,14 @@ interface OutputData {
 const transformInsertQuery = (
   jsonData: ICargosInputData
 ): OutputData | null => {
-  const _p1 = `'${jsonData.nombre}'`;
+  let _p1 = `"${jsonData.nombre}"`;
+  _p1 = _p1.replace(/'/g, '!');
+
   const query: OutputData = {
     query: "03",
-    _p1: _p1,
+    _p1,
   };
-  console.log("insert:", query);
+  // console.log("insert:", query);
   return query;
 };
 
@@ -57,8 +59,10 @@ const transformUpdateQuery = (
   jsonData: ICargosInputData,
   primaryKey: string
 ): OutputData | null => {
-  const _p1 = `nombre='${jsonData.nombre}'`;
-
+  let _p1 = `nombre="${jsonData.nombre}"`;
+  
+  _p1 = _p1.replace(/'/g, '!');
+  
   const query = {
     query: "04",
     _p1,

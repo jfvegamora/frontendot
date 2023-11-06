@@ -46,10 +46,10 @@ interface OutputData {
 
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
 //LA MRCA SE IGNORA. MARCA=0.
-  const _p1 = `
- '${jsonData.proyecto}', 
+  let _p1 = `
+ "${jsonData.proyecto}", 
   ${jsonData.cod_grupo}, 
- '${jsonData.descripcion}', 
+ "${jsonData.descripcion}", 
   0, 
   ${jsonData.diseno}, 
   ${jsonData.indice}, 
@@ -62,12 +62,13 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
   ${(jsonData.cilindrico_hasta && jsonData.cilindrico_hasta?.toString())?.length === 0 ? "0" : jsonData.cilindrico_hasta}, 
   ${(jsonData.diametro && jsonData.diametro?.toString())?.length === 0 ? "0" : jsonData.diametro},
   ${(jsonData.precio_venta_neto && jsonData.precio_venta_neto?.toString())?.length === 0 ? "0" : jsonData.precio_venta_neto},
-  '${jsonData.observaciones}'`;
+  "${jsonData.observaciones}"`;
 
+  _p1 = _p1.replace(/'/g, '!');
 
   const query: OutputData = {
     query: "03",
-    _p1: _p1,
+    _p1,
     // _p2: jsonData.cristal?.toString(),
   };
 
@@ -77,7 +78,7 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
 
 export function transformUpdateQuery(jsonData: InputData): OutputData | null {
   const fields = [
-    `descripcion       ='${jsonData.descripcion}'`,
+    `descripcion       ="${jsonData.descripcion}"`,
     // `marca             = ${jsonData.marca}`,
     `diseno            = ${jsonData.diseno}`,
     `indice            = ${jsonData.indice}`, 
@@ -90,10 +91,11 @@ export function transformUpdateQuery(jsonData: InputData): OutputData | null {
     `cilindrico_hasta  = ${(jsonData.cilindrico_hasta && jsonData.cilindrico_hasta?.toString())?.length === 0 ? "0" : jsonData.cilindrico_hasta}`,
     `diametro          = ${(jsonData.diametro && jsonData.diametro?.toString())?.length === 0 ? "0" : jsonData.diametro}`,
     `precio_venta_neto = ${(jsonData.precio_venta_neto && jsonData.precio_venta_neto?.toString())?.length === 0 ? "0" : jsonData.precio_venta_neto}`,
-    `observaciones     ='${jsonData.observaciones}'`,
+    `observaciones     ="${jsonData.observaciones}"`,
   ];
 
-  const _p1 = fields.join(",");
+  let _p1 = fields.join(",");
+  _p1 = _p1.replace(/'/g, '!');
 
 
   const query = {

@@ -31,10 +31,6 @@ const strBaseUrl = "/api/proyectosaccesorios/";
 const strQuery = "01";
 const idMenu   = 32;
 
-type PrimaryKey = {
-  pk1: string;
-  pk2: string;
-};
 
 const MProyectosAccesorios: React.FC = () => {
   const [params, setParams] = useState([]);

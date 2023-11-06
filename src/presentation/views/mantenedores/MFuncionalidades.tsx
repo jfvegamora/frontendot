@@ -22,9 +22,7 @@ export enum EnumGrid {
   ID = 1,
   nombre = 2,
 }
-type PrimaryKey = {
-  pk1: number;
-};
+
 const MCargos: React.FC = () => {
   // const { createdEntity, editEntity } = useCrud(strBaseUrl);
   const [params, setParams] = useState([]);

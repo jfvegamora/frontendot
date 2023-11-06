@@ -40,10 +40,8 @@ const strBaseUrl = "/api/cristaleskardex/";
 const strQuery = "01";
 const idMenu = 8;
 
-type PrimaryKey = {
-  pk1: string; //cristal
-  pk2: string; //fecha
-};
+
+
 const MCristalesKardex: React.FC = () => {
   const [params, setParams] = useState([]);
   const [kardexDescription, setKardexDescription] = useState("");

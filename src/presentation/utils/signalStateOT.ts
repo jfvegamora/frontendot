@@ -86,19 +86,21 @@ export function reiniciarDioptriasReceta() {
     }
   }
   export function reiniciarA2DioptriasReceta() {
-    const sectionsToReset = ['a2_od', 'a2_oi'];
-  
-    for (const sectionKey of sectionsToReset) {
-      const section = dioptrias_receta.value[sectionKey];
-  
-      for (const subfieldKey in section) {
-        section[subfieldKey] = 0;
-      }
-    }
+    dioptrias_receta.value.a1_od.ad = 0;
+    
 
-    console.log(dioptrias_receta)
+    dioptrias_receta.value.a2_od.esf.value = 0;
+    dioptrias_receta.value.a2_od.cil.value = 0;
+    dioptrias_receta.value.a2_od.eje.value = 0;
+
+    dioptrias_receta.value.a2_oi.esf.value = 0;
+    dioptrias_receta.value.a2_oi.cil.value = 0;
+    dioptrias_receta.value.a2_oi.eje.value = 0;
   }
 
+export const onchangeDioptrias  = () => {
+  dioptrias_receta.value.a2_od.esf = 20
+}
 export const reiniciarValidationNivel2 = () => {
     validationNivel2.value.forEach((item) => {
       item.valor = 0;
@@ -163,6 +165,7 @@ export const clearDioptriasA2 = (valor:number) => {
         'a2_oi_eje',
     ]
 
+    console.log(valor)
     campos.forEach((campo) =>{
         const elemento = buscarCampo(campo)
         if(elemento){
@@ -170,89 +173,89 @@ export const clearDioptriasA2 = (valor:number) => {
         }
     })
 
-    // console.log(validationNivel2.value)
+    console.log(validationNivel2.value)
 
 };
 
 
 
-export const validar_por_tipo_anteojo = (estado:string) => {
-    // const adicional1 = buscarCampo('a1_od_ad')
-    // const adicional2 = buscarCampo('a1_oi_ad')
+// export const validar_por_tipo_anteojo = (estado:string) => {
+//     // const adicional1 = buscarCampo('a1_od_ad')
+//     // const adicional2 = buscarCampo('a1_oi_ad')
     
-    // const esferico1   = buscarCampo('a2_od_esf')
-    // const cilindrico1 = buscarCampo('a2_od_cil')
-    // const eje1        = buscarCampo('a2_od_eje')
-    // const esferico2   = buscarCampo('a2_oi_esf')
-    // const cilindrico2 = buscarCampo('a2_oi_cil')
-    // const eje2        = buscarCampo('a2_oi_eje')
+//     // const esferico1   = buscarCampo('a2_od_esf')
+//     // const cilindrico1 = buscarCampo('a2_od_cil')
+//     // const eje1        = buscarCampo('a2_od_eje')
+//     // const esferico2   = buscarCampo('a2_oi_esf')
+//     // const cilindrico2 = buscarCampo('a2_oi_cil')
+//     // const eje2        = buscarCampo('a2_oi_eje')
     
-    const campos = [
-        'a1_od_ad',
-        'a1_oi_ad',
-        'a2_od_esf',
-        'a2_od_cil',
-        'a2_od_eje',
-        'a2_oi_esf',
-        'a2_oi_cil',
-        'a2_oi_eje',
-    ];
+//     const campos = [
+//         'a1_od_ad',
+//         'a1_oi_ad',
+//         'a2_od_esf',
+//         'a2_od_cil',
+//         'a2_od_eje',
+//         'a2_oi_esf',
+//         'a2_oi_cil',
+//         'a2_oi_eje',
+//     ];
 
-    const anteojo_tipos = ["1","2","7"]
+//     const anteojo_tipos = ["1","2","7"]
 
 
-    console.log(estado)
+//     console.log(estado)
 
-    // console.log('true o false', anteojo_tipos.includes(estado))
-    const campoPrueba = validationNivel2.value.find((item) => item.campo === 'a2_od_esf');
+//     // console.log('true o false', anteojo_tipos.includes(estado))
+//     const campoPrueba = validationNivel2.value.find((item) => item.campo === 'a2_od_esf');
     
-    if(campoPrueba){
-        return campoPrueba["valor"] = 10
-    }
-    // console.log(campoPrueba?.valor)
-    // console.log(validationNivel2.value)
-    // console.log('campo prueba', campoPrueba)
-    // console.log(validationNivel2.value)
+//     if(campoPrueba){
+//         return campoPrueba["valor"] = 10
+//     }
+//     // console.log(campoPrueba?.valor)
+//     // console.log(validationNivel2.value)
+//     // console.log('campo prueba', campoPrueba)
+//     // console.log(validationNivel2.value)
 
 
-    // if (anteojo_tipos.includes(estado)) {
-    //     campos.forEach((campo) => {
-    //       const elemento = buscarCampo(campo);
-    //       if (elemento) {
-    //         elemento.valor = 1;
-    //       }
-    //       console.log(elemento)
-    //     });
-    //   }
-    // if(anteojo_tipos.includes(estado)){
-    //     if(adicional1){
-    //         adicional1.valor = 1
-    //     }
+//     // if (anteojo_tipos.includes(estado)) {
+//     //     campos.forEach((campo) => {
+//     //       const elemento = buscarCampo(campo);
+//     //       if (elemento) {
+//     //         elemento.valor = 1;
+//     //       }
+//     //       console.log(elemento)
+//     //     });
+//     //   }
+//     // if(anteojo_tipos.includes(estado)){
+//     //     if(adicional1){
+//     //         adicional1.valor = 1
+//     //     }
 
-    //     if(adicional2){
-    //         adicional2.valor = 1
-    //     }
-    //     if(esferico1){
-    //         esferico1.valor = 1
-    //     }
-    //     if(cilindrico1){
-    //         cilindrico1.valor = 1
-    //     }
-    //     if(eje1){
-    //         eje1.valor = 1
-    //     }
-    //     if(esferico2){
-    //         esferico2.valor = 1
-    //     }
-    //     if(cilindrico2){
-    //         cilindrico2.valor = 1
-    //     }
-    //     if(eje2){
-    //         eje2.valor = 1
-    //     }
-    // }
+//     //     if(adicional2){
+//     //         adicional2.valor = 1
+//     //     }
+//     //     if(esferico1){
+//     //         esferico1.valor = 1
+//     //     }
+//     //     if(cilindrico1){
+//     //         cilindrico1.valor = 1
+//     //     }
+//     //     if(eje1){
+//     //         eje1.valor = 1
+//     //     }
+//     //     if(esferico2){
+//     //         esferico2.valor = 1
+//     //     }
+//     //     if(cilindrico2){
+//     //         cilindrico2.valor = 1
+//     //     }
+//     //     if(eje2){
+//     //         eje2.valor = 1
+//     //     }
+//     // }
 
-};
+// };
 
 
 //RE NOMBRAR EL ARCHIVO A UTILS OT Y DEJAR ADEMAS DE LAS SEÑALES DEJAR LAS FUNCONES DE LA OT, TANTO EL ISNERT, UPDATE, E IGUAL LOS SWITHCCASE 

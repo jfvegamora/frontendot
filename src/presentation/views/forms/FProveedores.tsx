@@ -33,17 +33,18 @@ interface OutputData {
 }
 
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
-  const _p1 = `
-     '${jsonData.rut}', 
-     '${jsonData.nombre}', 
-     '${jsonData.direccion}', 
-     '${jsonData.telefono}', 
-     '${jsonData.correo}', 
-     '${jsonData.sitio_web}'`;
+  let _p1 = `
+     "${jsonData.rut}", 
+     "${jsonData.nombre}", 
+     "${jsonData.direccion}", 
+     "${jsonData.telefono}", 
+     "${jsonData.correo}", 
+     "${jsonData.sitio_web}"`;
+ _p1 = _p1.replace(/'/g, '!');
 
   const query: OutputData = {
     query: "03",
-    _p1: _p1,
+    _p1,
   };
   console.log("query", query);
   return query;
@@ -54,12 +55,12 @@ export function transformUpdateQuery(
   primaryKey: string
 ): OutputData | null {
   const fields = [
-    `rut       ='${jsonData.rut}'`,
-    `nombre    ='${jsonData.nombre}'`,
-    `direccion ='${jsonData.direccion}'`,
-    `telefono  ='${jsonData.telefono}'`,
-    `correo    ='${jsonData.correo}'`,
-    `sitio_web ='${jsonData.sitio_web}'`,
+    `rut       ="${jsonData.rut}"`,
+    `nombre    ="${jsonData.nombre}"`,
+    `direccion ="${jsonData.direccion}"`,
+    `telefono  ="${jsonData.telefono}"`,
+    `correo    ="${jsonData.correo}"`,
+    `sitio_web ="${jsonData.sitio_web}"`,
   ];
 
   const filteredFields = fields.filter(
@@ -69,7 +70,9 @@ export function transformUpdateQuery(
   if (filteredFields.length === 0) {
     return null;
   }
-  const _p1 = filteredFields.join(",");
+  let _p1 = filteredFields.join(",");
+  _p1 = _p1.replace(/'/g, '!');
+
   //  console.log("primaryKey", primaryKey);
   return {
     query: "04",

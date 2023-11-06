@@ -38,15 +38,16 @@ interface OutputData {
 
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
 
-  const _p1 = ` '${jsonData.nombre}', 
+  let _p1 = ` "${jsonData.nombre}", 
      ${jsonData.cargo}, 
-    '${jsonData.telefono}', 
-    '${jsonData.correo}', 
+    "${jsonData.telefono}", 
+    "${jsonData.correo}", 
      ${jsonData.estado === "Activo" ? 1 : 2}`;
 
+  _p1 = _p1.replace(/'/g, '!');  
   const query: OutputData = {
     query: "03",
-    _p1: _p1,
+    _p1
   };
 
   return query;
@@ -57,13 +58,14 @@ export function transformUpdateQuery(
   primaryKey: string
 ): OutputData | null {
   const fields = [
-    `nombre   ='${jsonData.nombre}'`,
-    `telefono ='${jsonData.telefono}'`,
-    `correo   ='${jsonData.correo}'`,
+    `nombre   ="${jsonData.nombre}"`,
+    `telefono ="${jsonData.telefono}"`,
+    `correo   ="${jsonData.correo}"`,
     `estado   = ${jsonData.estado === "Activo" ? 1 : 2}`,
     `cargo    = ${jsonData.cargo}`,
   ];
 
+ 
   const filteredFields = fields.filter(
     (field) => field !== null && field !== ""
   );
@@ -71,12 +73,14 @@ export function transformUpdateQuery(
   if (filteredFields.length === 0) {
     return null;
   }
-  const _p1 = filteredFields.join(",");
-  console.log("primaryKey", primaryKey);
+  let _p1 = filteredFields.join(",");
+
+  _p1 = _p1.replace(/'/g, '!');
+  
   const query = {
     query: "04",
     _p1: encodeURIComponent(_p1).replace(/%20/g, "+"),
-    _p2: primaryKey,
+      _p2: primaryKey,
     _p3: ""
   };
   console.log("query", query);

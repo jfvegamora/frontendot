@@ -41,10 +41,6 @@ const strBaseUrl = "/api/accesorioskardex/";
 const strQuery = "01";
 const idMenu = 10;
 
-type PrimaryKey = {
-  pk1: string; //accesorio
-  pk2: string; //fecha
-};
 const MAccesoriosKardex: React.FC = () => {
   const [params, setParams] = useState([]);
 

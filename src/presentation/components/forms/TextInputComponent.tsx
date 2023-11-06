@@ -36,7 +36,6 @@ const TextInputComponent: React.FC<ITextInputProps> = ({
   step
 }) => {
   const [defaultValue, setDefaultValue] = useState<any>(data || "")
-  const [value, setValue] = useState('')
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     

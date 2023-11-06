@@ -36,19 +36,21 @@ interface OutputData {
 }
 
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
-  const _p1 = ` '${jsonData.rut}', 
-      '${jsonData.nombre}', 
-      '${jsonData.razon_social}', 
-      '${jsonData.giro}', 
-      '${jsonData.direccion}', 
-      '${jsonData.telefono}', 
-      '${jsonData.correo}', 
-      '${jsonData.sitio_web}', 
-      '${jsonData.nombre_logo}'`;
-
+  let _p1 = ` "${jsonData.rut}", 
+      "${jsonData.nombre}", 
+      "${jsonData.razon_social}", 
+      "${jsonData.giro}", 
+      "${jsonData.direccion}", 
+      "${jsonData.telefono}", 
+      "${jsonData.correo}", 
+      "${jsonData.sitio_web}", 
+      "${jsonData.nombre_logo}"`;
+      
+  _p1 = _p1.replace(/'/g, '!');
+  
   const query: OutputData = {
     query: "03",
-    _p1: _p1,
+    _p1
   };
 
   return query;
@@ -59,15 +61,15 @@ export function transformUpdateQuery(
   primaryKey: string
 ): OutputData | null {
   const fields = [
-    `rut          ='${jsonData.rut}'`,
-    `nombre       ='${jsonData.nombre}'`,
-    `razon_social ='${jsonData.razon_social}'`,
-    `giro         ='${jsonData.giro}'`,
-    `direccion    ='${jsonData.direccion}'`,
-    `telefono     ='${jsonData.telefono}'`,
-    `correo       ='${jsonData.correo}'`,
-    `sitio_web    ='${jsonData.sitio_web}'`,
-    `nombre_logo  ='${jsonData.nombre_logo}'`,
+    `rut          ="${jsonData.rut}"`,
+    `nombre       ="${jsonData.nombre}"`,
+    `razon_social ="${jsonData.razon_social}"`,
+    `giro         ="${jsonData.giro}"`,
+    `direccion    ="${jsonData.direccion}"`,
+    `telefono     ="${jsonData.telefono}"`,
+    `correo       ="${jsonData.correo}"`,
+    `sitio_web    ="${jsonData.sitio_web}"`,
+    `nombre_logo  ="${jsonData.nombre_logo}"`,
   ];
 
   const filteredFields = fields.filter(
@@ -77,7 +79,9 @@ export function transformUpdateQuery(
   if (filteredFields.length === 0) {
     return null;
   }
-  const _p1 = filteredFields.join(",");
+  let _p1 = filteredFields.join(",");
+  _p1 = _p1.replace(/'/g, '!');
+
 
   const query: OutputData = {
     query: "04",

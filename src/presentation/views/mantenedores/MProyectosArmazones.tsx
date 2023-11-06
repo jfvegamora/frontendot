@@ -42,10 +42,7 @@ const strBaseUrl = "/api/proyectoarmazones/";
 const strQuery = "01";
 const idMenu   = 16;
 
-type PrimaryKey = {
-  pk1: string;
-  pk2: string;
-};
+
 
 const MProyectosArmazones: React.FC = () => {
   const [params, setParams] = useState([]);

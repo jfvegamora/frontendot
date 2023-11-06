@@ -28,10 +28,10 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
   error,
   inputRef,
   className,
-  defaultValue:formatvalue,
+  // defaultValue:formatvalue,
   otData
 }) => {
-  const [defaultValue, setDefaultValue] = useState<string>(data || "")
+  const [_defaultValue, setDefaultValue] = useState<string>(data || "")
 
   const initialValue = otData !== undefined ? otData : data;
   const [value, setValue] = useState<string>(initialValue);

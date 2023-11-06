@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
-import { RadioButtonComponent, SelectInputComponent, TextInputComponent } from '..'
+import { RadioButtonComponent, SelectInputComponent } from '..'
 import { SEXO, TIPO_CLIENTE } from '../../utils';
 import RegProComponent from '../forms/RegProComponent';
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
 import { EnumGrid as EnumClientes } from '../../views/mantenedores/MClientes';
 import axios from 'axios';
 import OTTextInputComponent from './OTTextInputComponent';
-import { validacionNivel1 } from '../../views/forms/FOT';
 import { validationOTlevel1 } from '../../utils/validationOT';
 
 

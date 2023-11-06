@@ -41,10 +41,7 @@ const strBaseUrl = "/api/armazoneskardex/";
 const strQuery = "01";
 const idMenu = 6;
 
-type PrimaryKey = {
-  pk1: string; //armazon
-  pk2: string; //fecha
-};
+
 const MArmazonesKardex: React.FC = () => {
   const [params, setParams] = useState([]);
 

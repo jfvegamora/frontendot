@@ -31,9 +31,9 @@ const strBaseUrl = "/api/accesorios/";
 const strQuery = "01";
 const idMenu = 9;
 
-type PrimaryKey = {
-  pk1: string;
-}
+// type PrimaryKey = {
+//   pk1: string;
+// }
 const MAccesorios: React.FC = () => {
   const [params, setParams] = useState([]);
   const updateParams = (newParams: Record<string, never>) => {

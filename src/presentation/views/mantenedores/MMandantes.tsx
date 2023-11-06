@@ -30,10 +30,6 @@ const strBaseUrl = "/api/mandantes/";
 const strQuery = "01";
 const idMenu = 14;
 
-type PrimaryKey = {
-  pk1: number;
-};
-
 const MMandantes: React.FC = () => {
   const [params, setParams] = useState([]);
 

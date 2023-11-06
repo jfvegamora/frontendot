@@ -27,9 +27,6 @@ const strBaseUrl      = "/api/proveedores/";
 const strQuery        = "01";
 const idMenu          = 13;
 
-type PrimaryKey = {
-  pk1: number;
-};
 
 const MProveedores: React.FC = () => {
   const [params, setParams] = useState([]);

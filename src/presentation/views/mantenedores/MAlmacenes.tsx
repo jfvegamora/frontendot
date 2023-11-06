@@ -25,9 +25,6 @@ const strBaseUrl = "/api/almacenes/";
 const strQuery = "01";
 const idMenu = 11;
 
-type PrimaryKey = {
-  pk1: number;
-};
 const MAlmacenes: React.FC = () => {
   const [params, setParams] = useState([]);
   const updateParams = (newParams: Record<string, never>) => {

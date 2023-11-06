@@ -1,6 +1,6 @@
 import { IconButton, Tooltip } from '@material-tailwind/react';
 import React, { useCallback } from 'react';
-import { AppStore, useAppSelector } from '../../redux/store';
+
 import { SiAddthis } from 'react-icons/si';
 import { BUTTON_MESSAGES } from '../utils';
 import { ExportCSV } from './ExportToCsv';
@@ -20,9 +20,9 @@ const strBaseUrl = "/api/ot/";
 
 
 const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
-    areaName,
+    // areaName,
     areaPermissions,
-    areaActual,
+    // areaActual,
     handleAddPerson,
     params
 }) => {

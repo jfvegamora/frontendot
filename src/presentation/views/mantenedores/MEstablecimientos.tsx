@@ -31,9 +31,7 @@ const strBaseUrl = "/api/establecimientos/";
 const strQuery = "01";
 const idMenu = 3;
 
-type PrimaryKey = {
-  pk1: string;
-};
+
 
 const MEstablecimientos: React.FC = () => {
   const [params, setParams] = useState([]);

@@ -40,11 +40,11 @@ interface OutputData {
 }
 
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
-  const _p1 = `'${jsonData.codigo}', 
+  let _p1 = `"${jsonData.codigo}", 
                 ${jsonData.tipo}, 
                 ${jsonData.marca}, 
-               '${jsonData.modelo}', 
-               '${jsonData.color}', 
+               "${jsonData.modelo}", 
+               "${jsonData.color}", 
                 ${jsonData.material}, 
                 ${jsonData.aro}, 
                 ${jsonData.puente}, 
@@ -52,10 +52,12 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
                 ${jsonData.brazo}, 
                 ${jsonData.uso}, 
                 ${jsonData.stock_minimo}`;
+  _p1 = _p1.replace(/'/g, '!');
+
 
   const query: OutputData = {
     query: "03",
-    _p1: _p1,
+    _p1,
   };
   // console.log("query", query);
   return query;
@@ -68,8 +70,8 @@ export function transformUpdateQuery(
   const fields = [
     `tipo         =  ${jsonData.tipo}`,
     `marca        =  ${jsonData.marca}`,
-    `modelo       = '${jsonData.modelo}'`,
-    `color        = '${jsonData.color}'`,
+    `modelo       = "${jsonData.modelo}"`,
+    `color        = "${jsonData.color}"`,
     `material     =  ${jsonData.material}`,
     `aro          =  ${jsonData.aro}`,
     `puente       =  ${jsonData.puente}`,
@@ -86,7 +88,9 @@ export function transformUpdateQuery(
   if (filteredFields.length === 0) {
     return null;
   }
-  const _p1 = filteredFields.join(",");
+  let _p1 = filteredFields.join(",");
+  _p1 = _p1.replace(/'/g, '!');
+
 
   const query: OutputData = {
     query: "04",

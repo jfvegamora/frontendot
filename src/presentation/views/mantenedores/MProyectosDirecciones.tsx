@@ -29,10 +29,7 @@ export enum EnumGrid {
   telefono           =8,
   observaciones      =9, 
 }
-type PrimaryKey = {
-  pk1: string;
-  pk2: number;
-};
+
 
 const MProyectosDirecciones: React.FC = () => {
     const [params, setParams] = useState([]);

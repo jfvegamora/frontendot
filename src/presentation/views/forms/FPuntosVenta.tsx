@@ -33,16 +33,18 @@ interface OutputData {
 }
 
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
-  const _p1 = ` ${jsonData.tipo}, 
-              '${jsonData.descripcion}', 
-              '${jsonData.direccion}', 
-              '${jsonData.telefono}', 
+  let _p1 = ` ${jsonData.tipo}, 
+              "${jsonData.descripcion}", 
+              "${jsonData.direccion}", 
+              "${jsonData.telefono}", 
                ${jsonData.encargado}, 
                ${jsonData.almacen}`;
 
+  _p1 = _p1.replace(/'/g, '!');     
+
   const query: OutputData = {
     query: "03",
-    _p1: _p1,
+    _p1,
   };
   console.log("query", query);
   return query;
@@ -54,9 +56,9 @@ export function transformUpdateQuery(
 ): OutputData | null {
   const fields = [
     `tipo       = ${jsonData.tipo}`,
-    `descripcion='${jsonData.descripcion}'`,
-    `direccion  ='${jsonData.direccion}'`,
-    `telefono   ='${jsonData.telefono}'`,
+    `descripcion="${jsonData.descripcion}"`,
+    `direccion  ="${jsonData.direccion}"`,
+    `telefono   ="${jsonData.telefono}"`,
     `encargado  = ${jsonData.encargado}`,
     `almacen    = ${jsonData.almacen}`,
   ];
@@ -68,7 +70,8 @@ export function transformUpdateQuery(
   if (filteredFields.length === 0) {
     return null;
   }
-  const _p1 = filteredFields.join(",");
+  let _p1 = filteredFields.join(",");
+  _p1 = _p1.replace(/'/g, '!');
 
   const query: OutputData = {
     query: "04",

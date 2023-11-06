@@ -4,7 +4,7 @@ import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
 // import { Switch , switchButton} from "@material-tailwind/react";
 import Switch from "react-switch";
 import axios from 'axios';
-import { validationOTlevel1, validationOTlevel2, validationProyectos } from '../../utils/validationOT';
+import { validationOTlevel1, validationOTlevel2 } from '../../utils/validationOT';
 
 interface IOptica {
     control:any,

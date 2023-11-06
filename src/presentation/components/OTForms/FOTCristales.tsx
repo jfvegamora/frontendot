@@ -1,7 +1,5 @@
 import React,{useState} from 'react'
 import { SelectInputComponent, TextInputComponent } from '..';
-import useSWR from 'swr';
-import axios from 'axios';
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
 import { validationOTlevel2 } from '../../utils/validationOT';
 
@@ -28,7 +26,7 @@ const FOTCristales:React.FC<ICristales> = ({
     a1Grupo
 }) => {
     const [cristalRead, setCristalRead] = useState(false)
-    const [grupo1, setGrupo1] = useState(2)
+    const [grupo1, _setGrupo1] = useState(2)
     const [validate, setValidate] = useState({
         cristal1_tratamiento_id: '',
         cristal1_opcion_vta_id: '',

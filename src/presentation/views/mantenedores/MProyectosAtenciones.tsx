@@ -43,10 +43,6 @@ export enum EnumGrid {
   fecha_guia_despacho   =21, 
   observaciones         =22, 
 }
-type PrimaryKey = {
-  pk1: string;
-  pk2: number;
-};
 
 const MProyectosAtenciones: React.FC = () => {
     const [params, setParams] = useState([]);

@@ -36,23 +36,25 @@ interface OutputData {
 
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
   // (proyecto, establecimiento, lugar, direccion, telefono, observaciones)
-  const _p1 = `'${jsonData.proyecto}', ${jsonData.establecimiento}, '${jsonData.lugar}', 
-               '${jsonData.direccion}', '${jsonData.telefono}', '${jsonData.observaciones}'`;
+  let _p1 = `"${jsonData.proyecto}", ${jsonData.establecimiento}, "${jsonData.lugar}", 
+               "${jsonData.direccion}", "${jsonData.telefono}", "${jsonData.observaciones}"`;
+  
+   _p1 = _p1.replace(/'/g, '!');
 
   const query: OutputData = {
     query: "03",
-    _p1: _p1,
+    _p1
   };
-console.log("query: ", query);
+// console.log("query: ", query);
   return query;
 }
 
 export function transformUpdateQuery(jsonData: InputData): OutputData | null {
   const fields = [
-    `lugar        = '${jsonData.lugar}'`,
-    `direccion    = '${jsonData.direccion}'`,
-    `telefono     = '${jsonData.telefono}'`,
-    `observaciones= '${jsonData.observaciones}'`,
+    `lugar        = "${jsonData.lugar}"`,
+    `direccion    = "${jsonData.direccion}"`,
+    `telefono     = "${jsonData.telefono}"`,
+    `observaciones= "${jsonData.observaciones}"`,
   ];
 
   const filteredFields = fields.filter(
@@ -62,7 +64,10 @@ export function transformUpdateQuery(jsonData: InputData): OutputData | null {
   if (filteredFields.length === 0) {
     return null;
   }
-  const _p1 = filteredFields.join(",");
+  let _p1 = filteredFields.join(",");
+  _p1 = _p1.replace(/'/g, '!');
+
+
   
   return {
     query: "04",

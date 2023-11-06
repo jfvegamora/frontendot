@@ -39,9 +39,6 @@ const strBaseUrl = "/api/armazones/";
 const strQuery = "01";
 const idMenu = 5;
 
-type PrimaryKey = {
-  pk1: string;
-};
 const MArmazones: React.FC = () => {
   const [params, setParams] = useState([]);
 

@@ -60,8 +60,8 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null  {
     }
   }
   
-  const _p1 = `'${jsonData.rut}', 
-               '${jsonData.nombre}', 
+  let _p1 = `"${jsonData.rut}", 
+               "${jsonData.nombre}", 
                 ${
                   jsonData.tipo === TIPO_CLIENTE.beneficiario
                     ? "1": jsonData.tipo === TIPO_CLIENTE.particular
@@ -74,16 +74,17 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null  {
                     ? "2": jsonData.sexo === SEXO.no_aplica
                     ? "3": "0"
                 }, 
-               '${jsonData.fecha_nacimiento}', 
-               '${jsonData.direccion}', 
+               "${jsonData.fecha_nacimiento}", 
+               "${jsonData.direccion}", 
                 ${jsonData.comuna}, 
-               '${jsonData.telefono}', 
-               '${jsonData.correo}', 
+               "${jsonData.telefono}", 
+               "${jsonData.correo}", 
                 ${jsonData.establecimiento}`;
+  _p1 = _p1.replace(/'/g, '!');
 
   const query: OutputData = {
     query: "03",
-    _p1: _p1,
+    _p1,
   };
   console.log("query", query);
   return query;
@@ -94,7 +95,7 @@ export function transformUpdateQuery(
   primaryKey: string
 ): OutputData | null {
   const fields = [
-    `nombre           ='${jsonData.nombre}'`,
+    `nombre           ="${jsonData.nombre}"`,
     `tipo             = ${
         jsonData.tipo === TIPO_CLIENTE.beneficiario ? 1
       : jsonData.tipo === TIPO_CLIENTE.particular   ? 2
@@ -103,11 +104,11 @@ export function transformUpdateQuery(
         jsonData.sexo === SEXO.masculino ? 1
       : jsonData.sexo === SEXO.femenino  ? 2
       : jsonData.sexo === SEXO.no_aplica ? 3: 0}`,
-    `fecha_nacimiento ='${jsonData.fecha_nacimiento}'`,
-    `direccion        ='${jsonData.direccion}'`,
+    `fecha_nacimiento ="${jsonData.fecha_nacimiento}"`,
+    `direccion        ="${jsonData.direccion}"`,
     `comuna           = ${jsonData.comuna}`,
-    `telefono         ='${jsonData.telefono}'`,
-    `correo           ='${jsonData.correo}'`,
+    `telefono         ="${jsonData.telefono}"`,
+    `correo           ="${jsonData.correo}"`,
     `establecimiento  = ${jsonData.establecimiento}`,
   ];
 
@@ -118,7 +119,8 @@ export function transformUpdateQuery(
   if (filteredFields.length === 0) {
     return null;
   }
-  const _p1 = filteredFields.join(",");
+  let  _p1 = filteredFields.join(",");
+  _p1 = _p1.replace(/'/g, '!');
 
   const query: OutputData = {
     query: "04",

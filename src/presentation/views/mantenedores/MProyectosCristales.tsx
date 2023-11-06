@@ -45,10 +45,7 @@ export enum EnumGrid {
   observaciones     =24,
 }
 
-type PrimaryKey = {
-  pk1: string;
-  pk2: number;
-};
+
 
 const MProyectosCristales: React.FC = () => {
     const [params, setParams] = useState([]);

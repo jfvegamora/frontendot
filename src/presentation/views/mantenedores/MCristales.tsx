@@ -45,9 +45,7 @@ const strBaseUrl = "/api/cristales/";
 const strQuery = "01";
 const idMenu = 7;
 
-type PrimaryKey = {
-  pk1: number;
-};
+
 const MCristales: React.FC = () => {
   const [params, setParams] = useState([]);
 

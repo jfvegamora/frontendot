@@ -55,12 +55,14 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
   
     
 
-  const _p1 = `'${jsonData.proyecto}', ${jsonData.folio_reporte}, '${jsonData.fecha_desde}', 
-               '${jsonData.fecha_hasta}', '${jsonData.observaciones}'`;
+  let _p1 = `"${jsonData.proyecto}", ${jsonData.folio_reporte}, "${jsonData.fecha_desde}", 
+               "${jsonData.fecha_hasta}", "${jsonData.observaciones}"`;
 
+   _p1 = _p1.replace(/'/g, '!');
+  
   const query: OutputData = {
     query: "03",
-    _p1: _p1,
+    _p1,
   };
   console.log("query: ", query);
   return query;
@@ -68,7 +70,7 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
 
 export function transformUpdateQuery(jsonData: InputData): OutputData | null {
   const fields = [
-    `observaciones = '${jsonData.observaciones}'`,
+    `observaciones = "${jsonData.observaciones}"`,
   ];
 
   const filteredFields = fields.filter(
@@ -78,7 +80,9 @@ export function transformUpdateQuery(jsonData: InputData): OutputData | null {
   if (filteredFields.length === 0) {
     return null;
   }
-  const _p1 = filteredFields.join(",");
+  let _p1 = filteredFields.join(",");
+  _p1 = _p1.replace(/'/g, '!');
+
   
   const query: OutputData = {
     query: "04",

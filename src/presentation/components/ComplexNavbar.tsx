@@ -26,7 +26,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { AppStore, useAppDispatch, useAppSelector } from "../../redux/store";
 import { logout } from "../../redux/slices/userSlice";
-import { Link } from "react-router-dom";
+
 
 // profile menu component
 

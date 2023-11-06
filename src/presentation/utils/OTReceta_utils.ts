@@ -1,7 +1,7 @@
 import { signal } from "@preact/signals-react"
-import { DioptriasReceta, a1_od_cil, a1_od_eje, a1_od_esf, a2_od_cil, a2_od_eje, a2_od_esf, a2_oi_cil, a2_oi_eje, a2_oi_esf, buscarCampo, clearDioptrias, clearDioptriasA2, dioptriasHabilitadas, dioptrias_receta, tipo_de_anteojo } from "."
+import { DioptriasReceta, buscarCampo,  clearDioptriasA2, dioptrias_receta, reiniciarA2DioptriasReceta, tipo_de_anteojo } from "."
 import { validationNivel2 } from "../views/forms/FOT"
-import { validation_A2_OD_CIL, validation_A2_OD_EJE, validation_A2_OD_ESF, validation_A2_OI_CIL, validation_A2_OI_EJE, validation_A2_OI_ESF } from "./validationOT";
+
 
 export const habilitarCampo = signal({
     a1_ad:true,
@@ -13,8 +13,8 @@ export const setTipoAnteojo = (value:any) => {
         const anteojo_tipos = ["1","2","7"]
         tipo_de_anteojo.value = value
         if(anteojo_tipos.includes(tipo_de_anteojo.value)){
-          // console.log('true')
           clearDioptriasA2(1)
+          reiniciarA2DioptriasReceta()
         }else{
           clearDioptriasA2(0)
         }

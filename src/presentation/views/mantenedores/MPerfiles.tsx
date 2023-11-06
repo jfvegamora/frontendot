@@ -25,10 +25,7 @@ const strEntidadExcel = "Perfil_de_cargos";
 const strBaseUrl = "/api/perfiles/";
 const strQuery = "01";
 const idMenu   = 25;
-type PrimaryKey = {
-  pk1: number;
-  pk2: number;
-};
+
 
 const MPerfiles: React.FC = () => {
   const [params, setParams] = useState([]);

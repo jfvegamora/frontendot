@@ -25,9 +25,7 @@ const strBaseUrl = "/api/marcas/";
 const strQuery = "01";
 const idMenu = 12;
 
-type PrimaryKey = {
-  pk1: number;
-};
+
 const MMarcas: React.FC = () => {
   const [params, setParams] = useState([]);
 

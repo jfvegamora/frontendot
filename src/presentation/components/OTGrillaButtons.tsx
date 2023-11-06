@@ -1,9 +1,7 @@
 import { IconButton, Tooltip } from '@material-tailwind/react';
-import React, { useCallback } from 'react';
+import React from 'react';
 import { BUTTON_MESSAGES } from '../utils';
-import { ExportCSV } from './ExportToCsv';
 import { usePermission } from '../hooks';
-import ImportToCsv from './ImportToCsv';
 import { PencilIcon } from "@heroicons/react/24/solid";
 import { PiPrinterFill } from "react-icons/pi";
 import { ImWhatsapp } from "react-icons/im";
@@ -19,14 +17,14 @@ type AreaButtonsProps ={
   }
 
 const strEntidad = "Orden de Trabajo";
-const strBaseUrl = "/api/ot/";
+// const strBaseUrl = "/api/ot/";
 
 
 
 const OTGrillaButtons:React.FC<AreaButtonsProps> = ({
     areaPermissions,
-    areaActual,
-    params,
+    // areaActual,
+    // params,
     id,
     toggleEditModal
 }) => {
@@ -36,22 +34,22 @@ const OTGrillaButtons:React.FC<AreaButtonsProps> = ({
     console.log(areaPermissions)
     console.log(id)
 
-    const renderButton = useCallback(
-      (icon: React.ReactNode, handle: () => void, tooltip: string) => (
-        <Tooltip content={tooltip}>
-          <IconButton
-            variant="text"
-            color="blue-gray"
-            className="primaryBtnIconButton"
-            onClick={handle}
-            // disabled={!escritura_lectura}
-          >
-            {icon}
-          </IconButton>
-        </Tooltip>
-      ),
-      []
-    );
+    // const renderButton = useCallback(
+    //   (icon: React.ReactNode, handle: () => void, tooltip: string) => (
+    //     <Tooltip content={tooltip}>
+    //       <IconButton
+    //         variant="text"
+    //         color="blue-gray"
+    //         className="primaryBtnIconButton"
+    //         onClick={handle}
+    //         // disabled={!escritura_lectura}
+    //       >
+    //         {icon}
+    //       </IconButton>
+    //     </Tooltip>
+    //   ),
+    //   []
+    // );
 
 
     return (

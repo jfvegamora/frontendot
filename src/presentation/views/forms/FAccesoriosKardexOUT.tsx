@@ -71,7 +71,7 @@ export function transformInsertQuery(jsonData: InputData, userId?:number): Outpu
   /*INSERT INTO CristalesKardex 
   (fecha, cristal, almacen, es, motivo, cantidad, valor_neto, proveedor, 
     numero_factura, OT, almacen_relacionado, observaciones, usuario, fecha_mov)*/
-  const _p1 = `'${jsonData.fecha + " " + fechaActual.toLocaleTimeString()}', 
+  let _p1 = `"${jsonData.fecha + " " + fechaActual.toLocaleTimeString()}", 
     ${jsonData.insumo}, 
     ${jsonData.almacen}, 
     ${2}, 
@@ -82,16 +82,17 @@ export function transformInsertQuery(jsonData: InputData, userId?:number): Outpu
     ${'0'}, 
     ${'0'}, 
     ${jsonData.almacen_relacionado}, 
-   '${jsonData.observaciones}',
+   "${jsonData.observaciones}",
     ${userId}, 
-   '${fechaFormateada + " " + dateHora}'`;
+   "${fechaFormateada + " " + dateHora}"`;
 
     // ${(jsonData.almacen_relacionado && jsonData.almacen_relacionado?.toString())?.length === 0 ? "0" : jsonData.almacen_relacionado}, 
     // 
+    _p1 = _p1.replace(/'/g, '!');
 
   const query: OutputData = {
     query: "03",
-    _p1: _p1,
+    _p1
   };
   console.log("query INSERT ", query);
   return query;

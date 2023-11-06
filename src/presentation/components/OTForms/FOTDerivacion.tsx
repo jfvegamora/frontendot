@@ -3,7 +3,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { SelectInputComponent, TextInputComponent } from '..';
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
 import { AppStore, useAppSelector } from '../../../redux/store';
-import { SEXO, TIPO_CLIENTE } from '../../utils';
+// import { SEXO, TIPO_CLIENTE } from '../../utils';
 import axios from 'axios';
 
 
@@ -32,8 +32,7 @@ interface FormData{
 const FOTDerivacion:React.FC<IDerivacion> = ({
     data,
     onClose,
-    switchCaseDerivar,
-    formValues,
+    // formValues,
     closeModal
 }) => {
     const {control, handleSubmit} = useForm<FormData>()
@@ -54,7 +53,7 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
         let a1_grupo = 1;
         let a2_grupo = 2;
 
-        let _p3 = `'${data[EnumGrid.cliente_rut]}','${data[EnumGrid.cliente_nomnbre]}',${data[EnumGrid.cliente_tipo] === TIPO_CLIENTE.beneficiario ? "1" : data[EnumGrid.cliente_tipo] === TIPO_CLIENTE.particular ? "2" : data[EnumGrid.cliente_tipo] === TIPO_CLIENTE.optica ? "3" : "0"}, ${data[EnumGrid.cliente_sexo] === SEXO.masculino ? "1" : data[EnumGrid.cliente_sexo] === SEXO.femenino ? "2" : data[EnumGrid.cliente_sexo] === SEXO.no_aplica ? "3" : "0"},'${data[EnumGrid.cliente_fecha_nacimiento]}','${data[EnumGrid.cliente_direccion]}' ,${formValues && formValues["cliente"] && formValues["cliente"]["cliente_comuna_id"] || data[EnumGrid.cliente_comuna_id] }, '${data[EnumGrid.cliente_telefono]}','${data[EnumGrid.cliente_correo]}', ${data[EnumGrid.establecimiento_id]}`;
+        // let _p3 = `'${data[EnumGrid.cliente_rut]}','${data[EnumGrid.cliente_nomnbre]}',${data[EnumGrid.cliente_tipo] === TIPO_CLIENTE.beneficiario ? "1" : data[EnumGrid.cliente_tipo] === TIPO_CLIENTE.particular ? "2" : data[EnumGrid.cliente_tipo] === TIPO_CLIENTE.optica ? "3" : "0"}, ${data[EnumGrid.cliente_sexo] === SEXO.masculino ? "1" : data[EnumGrid.cliente_sexo] === SEXO.femenino ? "2" : data[EnumGrid.cliente_sexo] === SEXO.no_aplica ? "3" : "0"},'${data[EnumGrid.cliente_fecha_nacimiento]}','${data[EnumGrid.cliente_direccion]}' ,${formValues && formValues["cliente"] && formValues["cliente"]["cliente_comuna_id"] || data[EnumGrid.cliente_comuna_id] }, '${data[EnumGrid.cliente_telefono]}','${data[EnumGrid.cliente_correo]}', ${data[EnumGrid.establecimiento_id]}`;
  
         // console.log(data)
         // console.log(data && data[EnumGrid.estado_impresion_id])
@@ -62,7 +61,7 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
             `motivo=${data[EnumGrid.motivo] === "Venta" ? 1: 2}`,
             `area=${_destino}`,
             `estado=${_estado}`,
-            `estado_validacion=${data[EnumGrid.estado_validacion_id]}`,
+            `estado_validacion=${data[EnumGrid.validar_parametrizacion_id]}`,
             `estado_impresion=${data[EnumGrid.estado_impresion_id]}`,
             ...(data[EnumGrid.proyecto_codigo] !== undefined ? [`proyecto='${data[EnumGrid.proyecto_codigo]}'`] : []),
             ...(data[EnumGrid.establecimiento_id] !== undefined ? [`establecimiento=${data[EnumGrid.establecimiento_id]}`] : []),

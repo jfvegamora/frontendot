@@ -9,7 +9,7 @@ import {
   TableComponent,
 } from "../../components";
 import { useEntityUtils, usePermission } from "../../hooks";
-import {  TITLES, table_head_OT_diaria, validar_parametrizacion } from "../../utils";
+import {  TITLES, table_head_OT_diaria } from "../../utils";
 import axios from "axios";
 import useSWR from "swr";
 import { toast } from 'react-toastify';
@@ -68,7 +68,7 @@ const MOT: React.FC = () => {
 
   const {
     //entities state
-    entities,
+    // entities,
     setEntities,
     entity,
     //modal methods

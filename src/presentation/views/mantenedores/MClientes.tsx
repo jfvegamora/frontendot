@@ -11,7 +11,6 @@ import {
 import { useEntityUtils } from "../../hooks";
 import FClientes from "../forms/FClientes";
 import { TITLES, table_head_clientes, TIPO_CLIENTE } from "../../utils";
-import FOT from "../forms/FOT";
 
 
 export enum EnumGrid {
@@ -48,9 +47,7 @@ const strBaseUrl = "/api/clientes/";
 const strQuery = "01";
 const idMenu = 2;
 
-type PrimaryKey = {
-  pk1: string;
-};
+
 const MClientes: React.FC = () => {
   const [params, setParams] = useState([]);
 

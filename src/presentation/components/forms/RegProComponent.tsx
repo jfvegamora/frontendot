@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Controller } from "react-hook-form";
 import { SelectInputComponent } from ".";
 import { useCrud } from "../../hooks";
-import axios from "axios";
-import useSWR from "swr";
+// import axios from "axios";
+// import useSWR from "swr";
 
 interface Props {
   control: any;
@@ -35,7 +35,7 @@ const RegProComponent: React.FC<Props> = React.memo(
     const { ListEntity } = useCrud("/api/provincias/");
     const { ListEntity: ListEntityComunas } = useCrud("/api/comunas/");
 
-     const fetcher = (url:string) => axios.get(url).then((res)=>res.data);
+    //  const fetcher = (url:string) => axios.get(url).then((res)=>res.data);
     // const { data:cristal1OD } = useSWR(`https://mtooptsicos.cl/api//listado/?query=01&_p1=${codCristal1OD}`, fetcher);
 
     // console.log(data)

@@ -42,11 +42,12 @@ interface OutputData {
 }
 
 const transformInsertQuery = (jsonData: InputData): OutputData | null => {
-  const _p1 = `'${jsonData.descripcion}'`;
+  let _p1 = `"${jsonData.descripcion}"`;
+  _p1 = _p1.replace(/'/g, '!');
 
   const query: OutputData = {
     query: "03",
-    _p1: _p1,
+    _p1
   };
   return query;
 };
@@ -55,7 +56,8 @@ const transformUpdateQuery = (
   jsonData: InputData,
   primaryKey: string
 ): OutputData | null => {
-  const _p1 = `descripcion='${jsonData.descripcion}'`;
+  let _p1 = `descripcion="${jsonData.descripcion}"`;
+  _p1 = _p1.replace(/'/g, '!');
 
   const query = {
     query: "04",

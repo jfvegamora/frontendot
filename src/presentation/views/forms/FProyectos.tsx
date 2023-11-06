@@ -90,36 +90,38 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
       }
 
 
-      const _p2 = ` 
-      '${jsonData.codigo_proyecto}', 
-      '${jsonData.codigo_licitacion}', 
-      '${jsonData.titulo_proyecto}', 
+      let _p2 = ` 
+      "${jsonData.codigo_proyecto}", 
+      "${jsonData.codigo_licitacion}", 
+      "${jsonData.titulo_proyecto}", 
        ${jsonData.estado === "Abierto" ? 1 : 2},
        ${jsonData.empresa_adjudicada}, 
        ${jsonData.mandante}, 
-      '${jsonData.unidad_compra}', 
-      '${jsonData.fecha_adjudicacion}', 
-      '${jsonData.fecha_inicio}', 
-      '${jsonData.fecha_termino}', 
+      "${jsonData.unidad_compra}", 
+      "${jsonData.fecha_adjudicacion}", 
+      "${jsonData.fecha_inicio}", 
+      "${jsonData.fecha_termino}", 
        ${jsonData.cantidad_requerida || 0}, 
        ${jsonData.presupuesto || 0}, 
        ${jsonData.dias_entrega || 0}, 
        ${jsonData.ejecutivo_proyecto || ""}, 
-      '${jsonData.administrador_nombre || ""}', 
-      '${jsonData.administrador_correo}', 
-      '${jsonData.administrador_telefono}', 
-      '${jsonData.referente_nombre}', 
-      '${jsonData.referente_correo}', 
-      '${jsonData.referente_telefono}', 
-      '${jsonData.contabilidad_nombre}', 
-      '${jsonData.contabilidad_correo}', 
-      '${jsonData.contabilidad_telefono}', 
-      '${jsonData.finanzas_nombre}', 
-      '${jsonData.finanzas_nombre}', 
-      '${jsonData.finanzas_telefono}', 
+      "${jsonData.administrador_nombre || ""}", 
+      "${jsonData.administrador_correo}", 
+      "${jsonData.administrador_telefono}", 
+      "${jsonData.referente_nombre}", 
+      "${jsonData.referente_correo}", 
+      "${jsonData.referente_telefono}", 
+      "${jsonData.contabilidad_nombre}", 
+      "${jsonData.contabilidad_correo}", 
+      "${jsonData.contabilidad_telefono}", 
+      "${jsonData.finanzas_nombre}", 
+      "${jsonData.finanzas_nombre}", 
+      "${jsonData.finanzas_telefono}", 
        ${jsonData.oftalmologo},
-      '${jsonData.observaciones}'`;
+      "${jsonData.observaciones}"`;
   
+    _p2 = _p2.replace(/'/g, '!');
+
     const query: OutputData = {
       query: "03",
       _p2,
@@ -133,33 +135,33 @@ export function transformUpdateQuery(
   primaryKey: string
 ): OutputData | null {
   const fields = [
-    `codigo_licitacion          ='${jsonData.codigo_licitacion}'`,
-    `titulo                     ='${jsonData.titulo_proyecto}'`,
+    `codigo_licitacion          ="${jsonData.codigo_licitacion}"`,
+    `titulo                     ="${jsonData.titulo_proyecto}"`,
     `estado                     = ${jsonData.estado === "Abierto" ? 1 : 2}`,
     `empresa                    = ${jsonData.empresa_adjudicada}`,
     `mandante                   = ${jsonData.mandante}`,
-    `unidad_compra              ='${jsonData.unidad_compra}'`,
-    `fecha_adjudicacion         ='${jsonData.fecha_adjudicacion}'`,
-    `fecha_inicio               ='${jsonData.fecha_inicio}'`,
-    `fecha_termino              ='${jsonData.fecha_termino}'`,
+    `unidad_compra              ="${jsonData.unidad_compra}"`,
+    `fecha_adjudicacion         ="${jsonData.fecha_adjudicacion}"`,
+    `fecha_inicio               ="${jsonData.fecha_inicio}"`,
+    `fecha_termino              ="${jsonData.fecha_termino}"`,
     `cantidad_requerida         = ${jsonData.cantidad_requerida}`,
     `presupuesto                = ${jsonData.presupuesto}`,
     `dias_de_entrega            = ${jsonData.dias_entrega}`,
     `ejecutivo                  = ${jsonData.ejecutivo_proyecto}`,
-    `contacto_adm_nombre        ='${jsonData.administrador_nombre}'`,
-    `contacto_adm_correo        ='${jsonData.administrador_correo}'`,
-    `contacto_adm_telefono      ='${jsonData.administrador_telefono}'`,
-    `referente_tec_nombre       ='${jsonData.referente_nombre}'`,
-    `referente_tec_correo       ='${jsonData.referente_correo}'`,
-    `referente_tec_telefono     ='${jsonData.referente_telefono}'`,
-    `contacto_conta_nombre      ='${jsonData.contabilidad_nombre}'`,
-    `contacto_conta_correo      ='${jsonData.contabilidad_correo}'`,
-    `contacto_conta_telefono    ='${jsonData.contabilidad_telefono}'`,
-    `contacto_fin_nombre        ='${jsonData.finanzas_nombre}'`,
-    `contacto_fin_correo        ='${jsonData.finanzas_correo}'`,
-    `contacto_fin_telefono      ='${jsonData.finanzas_telefono}'`,
+    `contacto_adm_nombre        ="${jsonData.administrador_nombre}"`,
+    `contacto_adm_correo        ="${jsonData.administrador_correo}"`,
+    `contacto_adm_telefono      ="${jsonData.administrador_telefono}"`,
+    `referente_tec_nombre       ="${jsonData.referente_nombre}"`,
+    `referente_tec_correo       ="${jsonData.referente_correo}"`,
+    `referente_tec_telefono     ="${jsonData.referente_telefono}"`,
+    `contacto_conta_nombre      ="${jsonData.contabilidad_nombre}"`,
+    `contacto_conta_correo      ="${jsonData.contabilidad_correo}"`,
+    `contacto_conta_telefono    ="${jsonData.contabilidad_telefono}"`,
+    `contacto_fin_nombre        ="${jsonData.finanzas_nombre}"`,
+    `contacto_fin_correo        ="${jsonData.finanzas_correo}"`,
+    `contacto_fin_telefono      ="${jsonData.finanzas_telefono}"`,
     `oftalmologo                = ${jsonData.oftalmologo}`,
-    `observaciones              ='${jsonData.observaciones}'`,
+    `observaciones              ="${jsonData.observaciones}"`,
   ];
 
   const filteredFields = fields.filter(
@@ -169,8 +171,10 @@ export function transformUpdateQuery(
   if (filteredFields.length === 0) {
     return null;
   }
-  const _p2 = filteredFields.join(",");
+   let _p2 = filteredFields.join(",");
   // console.log("primaryKey", primaryKey);
+  _p2 = _p2.replace(/'/g, '!');
+
   console.log(_p2)
   const query = {
     query: "04",
@@ -364,7 +368,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
     }, []);
 
     return (
-      <div className="useFormContainer top-10 h-[70vh] useFormContainer70rem ">
+      <div className="useFormContainer top-10 h-[90vh] useFormContainer70rem ">
         <div className="userFormBtnCloseContainer">
           <button onClick={closeModal} className="userFormBtnClose">
             X
@@ -378,7 +382,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
         >
           <div className="userFormularioContainer">
 
-            <div className="w-full items-center flex h-[50px] mt-[10px] mb-[10px]">
+            <div className="w-full items-center flex h-[60px] mt-[10px] mb-[10px]">
                 <div className="w-1/4">
                     <SelectInputComponent
                         label="Empresa Adjudicada"
@@ -419,7 +423,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                 </div>
             </div>
 
-            <div className="w-full items-center flex h-[50px] mt-[10px] mb-[10px]">
+            <div className="w-full items-center flex h-[60px] mt-[10px] mb-[10px]">
                 <div className="w-[27%] mr-8">
                     <TextInputComponent
                         type="text"
@@ -464,7 +468,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                 </div>
             </div>
                       
-           <div className="w-full  items-center flex h-[50px] mt-[25px] mb-[10px]">
+           <div className="w-full  items-center flex h-[60px] mt-[25px] mb-[10px]">
 
             <div className="w-[15%] mr-8">
                  <TextInputComponent
@@ -532,7 +536,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
 
            </div>  
 
-           <div className="w-full  items-center flex h-[50px] mt-[25px] mb-[10px]">
+           <div className="w-full  items-center flex h-[60px] mt-[25px] mb-[10px]">
 
             <div className="w-[12%] mr-8">
                  <TextInputComponent
@@ -610,7 +614,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
            </div>      
 
 
-            <div className="w-[98%] items-center flex h-[50px] mt-[30px] mb-[10px]">
+            <div className="w-[98%] items-center flex h-[60px] mt-[30px] mb-[10px]">
                 <div className=" relative mx-4 w-1/2 flex">
                     <h1 className="absolute z-20 top-[-45%]">Contacto Administrativo</h1>
                     <div className="w-[55%] mr-8">

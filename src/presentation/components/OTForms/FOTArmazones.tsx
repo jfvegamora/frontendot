@@ -1,10 +1,8 @@
-import React, {useEffect, useRef, useState} from 'react'
+import React, {useState} from 'react'
 import { SelectInputComponent, TextInputComponent } from '..'
 import useSWR from 'swr';
 import axios from 'axios';
-import { toast } from 'react-toastify';
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
-import { AppStore, useAppSelector } from '../../../redux/store';
 import { validationOTlevel2 } from '../../utils/validationOT';
 
 interface IArmazones {

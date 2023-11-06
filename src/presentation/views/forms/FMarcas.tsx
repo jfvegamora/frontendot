@@ -33,11 +33,13 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
   //   alert(ERROR_MESSAGES.passwordNotMatch);
   // }
 
-  const _p1 = `'${jsonData.nombre}', ${jsonData.proveedor}`;
+  let _p1 = `"${jsonData.nombre}", ${jsonData.proveedor}`;
+
+  _p1 = _p1.replace(/'/g, '!');
 
   const query: OutputData = {
     query: "03",
-    _p1: _p1,
+    _p1,
   };
 
   return query;
@@ -49,8 +51,7 @@ export function transformUpdateQuery(
 ): OutputData | null {
   const fields = [
     // jsonData.nombre && `nombre='${jsonData.nombre}'`,
-    // `nombre   ='${jsonData.nombre}'`,
-    `nombre   ='MARCAÁ10'`,
+    `nombre   ="${jsonData.nombre}"`,
     `proveedor=${jsonData.proveedor}`,
   ];
 
@@ -61,8 +62,9 @@ export function transformUpdateQuery(
   if (filteredFields.length === 0) {
     return null;
   }
-  const _p1 = filteredFields.join(",");
-  console.log("primaryKey", primaryKey);
+  let _p1 = filteredFields.join(",");
+  _p1 = _p1.replace(/'/g, '!');
+  
   return {
     query: "04",
     _p1,

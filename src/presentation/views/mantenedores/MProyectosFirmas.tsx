@@ -28,10 +28,8 @@ export enum EnumGrid {
   fecha_hasta           =6, 
   observaciones         =7, 
 }
-type PrimaryKey = {
-  pk1: string;
-  pk2: number;
-};
+
+
 
 const MProyectosFirmas: React.FC = () => {
     const [params, setParams] = useState([]);

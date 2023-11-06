@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { SelectInputComponent, TextInputComponent } from '..'
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica'
-import { signal } from '@preact/signals-react'
-import Otprueba, { inputName } from './Otprueba'
-import { DioptriasReceta, a1_od_ad, a1_od_cil, a1_od_eje, a1_od_esf, a1_oi_ad, a1_oi_cil, a1_oi_eje, a1_oi_esf, a2_od_cil, a2_od_eje, a2_od_esf, a2_oi_cil, a2_oi_eje, a2_oi_esf, actualizarVariable, dioptriasHabilitadas, dioptrias_receta } from '../../utils'
+import {a1_od_ad, a1_od_cil, a1_od_eje, a1_od_esf, a1_oi_ad, a1_oi_cil, a1_oi_eje, a1_oi_esf, a2_od_cil, a2_od_eje, a2_od_esf, a2_oi_cil, a2_oi_eje, a2_oi_esf, dioptriasHabilitadas, dioptrias_receta, onchangeDioptrias } from '../../utils'
 import { validationOTlevel1, validationOTlevel2 } from '../../utils/validationOT'
 import { combinaciones_validas, habilitarCampo, setDioptriasReceta, setTipoAnteojo, validation_tipo_anteojo } from '../../utils/OTReceta_utils'
 
@@ -30,7 +28,13 @@ const FOTReceta:React.FC<IReceta> = ({
         let {name, value} = e;
         console.log(name)
         console.log(value)
-        
+        if(name == 'a1_od_eje'){
+            console.log(dioptrias_receta.value.a1_od.cil)
+            if(dioptrias_receta.value.a1_od.cil > 0){
+                console.log('ejecutando')
+                onchangeDioptrias()
+            }
+        }
         if(name === 'tipo_anteojo_id'){
           setTipoAnteojo(value)      
         }
@@ -88,7 +92,7 @@ const FOTReceta:React.FC<IReceta> = ({
                 </div> */}
                 <div className="w-[30%] ml-10">
                                 <TextInputComponent
-                                    type="text"
+                                    type="number"
                                     label="Numero de receta"
                                     name="numero_receta"
                                     handleChange={handleInputChange}
@@ -152,7 +156,7 @@ const FOTReceta:React.FC<IReceta> = ({
                         </div>
                         <div className="w-[25%]">
                             <TextInputComponent
-                                type="text"
+                                type="number"
                                 label="CIL"
                                 name="a1_od_cil"
                                 handleChange={handleInputChange}
@@ -164,7 +168,7 @@ const FOTReceta:React.FC<IReceta> = ({
                         </div>
                         <div className="w-[25%]">
                             <TextInputComponent
-                                type="text"
+                                type="number"
                                 label="EJE"
                                 name="a1_od_eje"
                                 handleChange={handleInputChange}
@@ -194,7 +198,7 @@ const FOTReceta:React.FC<IReceta> = ({
                         <label className='labelForm w-[40%] absolute z-10 text-center -top-2 left-[30%]'>OJO IZQUIERDO</label>
                         <div className="w-[25%]">
                             <TextInputComponent
-                                type="text"
+                                type="number"
                                 label="ESF"
                                 name="a1_oi_esf"
                                 handleChange={handleInputChange}
@@ -206,7 +210,7 @@ const FOTReceta:React.FC<IReceta> = ({
                         </div>
                         <div className="w-[25%]">
                             <TextInputComponent
-                                type="text"
+                                type="number"
                                 label="CIL"
                                 name="a1_oi_cil"
                                 handleChange={handleInputChange}
@@ -218,7 +222,7 @@ const FOTReceta:React.FC<IReceta> = ({
                         </div>
                         <div className="w-[25%]">
                             <TextInputComponent
-                                type="text"
+                                type="number"
                                 label="EJE"
                                 name="a1_oi_eje"
                                 handleChange={handleInputChange}
@@ -230,7 +234,7 @@ const FOTReceta:React.FC<IReceta> = ({
                         </div>
                         <div className="w-[25%]">
                             <TextInputComponent
-                                type="text"
+                                type="number"
                                 label="AD"
                                 name="a1_oi_ad"
                                 handleChange={handleInputChange}
@@ -245,7 +249,7 @@ const FOTReceta:React.FC<IReceta> = ({
                 <div className="w-[14%] items-center ">
                     <div className="w-[70%] mx-auto">
                             <TextInputComponent
-                                type="text"
+                                type="number"
                                 label="DP"
                                 name="a1_dp"
                                 handleChange={handleInputChange}
@@ -257,7 +261,7 @@ const FOTReceta:React.FC<IReceta> = ({
                     </div>
                     <div className="w-[70%] mx-auto">
                             <TextInputComponent
-                                type="text"
+                                type="number"
                                 label="ALT"
                                 name="a1_alt"
                                 handleChange={handleInputChange}
@@ -302,30 +306,30 @@ const FOTReceta:React.FC<IReceta> = ({
                                 data={a2_od_esf ? a2_od_esf : data && data[EnumGrid.a2_od_esf]}
                                 // data={a2_od_esf}
                                 control={control}
-                                onlyRead={onlyRead}
+                                onlyRead={true}
                                 // error={errors.fecha_nacimiento}
                             />
                         </div>
                         <div className="w-[25%]">
                             <TextInputComponent
-                                type="text"
+                                type="number"
                                 label="CIL"
                                 name="a2_od_cil"
                                 handleChange={handleInputChange}
                                 data={a2_od_cil ? a2_od_cil : data && data[EnumGrid.a2_od_cil]}
                                 control={control}
-                                onlyRead={onlyRead}
+                                onlyRead={true}
                                 // error={errors.fecha_nacimiento}
                             />
                         </div>
                         <div className="w-[25%]">
                             <TextInputComponent
-                                type="text"
+                                type="number"
                                 label="EJE"
                                 name="a2_od_eje"
                                 handleChange={handleInputChange}
                                 data={a2_od_eje ? a2_od_eje : data && data[EnumGrid.a2_od_eje]}
-                                onlyRead={onlyRead}
+                                onlyRead={true}
                                 control={control}
                                 // error={errors.fecha_nacimiento}
                             />
@@ -339,37 +343,37 @@ const FOTReceta:React.FC<IReceta> = ({
                         <label className='labelForm w-[40%] absolute z-10 text-center -top-2 left-[30%]'>OJO IZQUIERDO</label>
                         <div className="w-[25%]">
                             <TextInputComponent
-                                type="text"
+                                type="number"
                                 label="ESF"
                                 name="a2_oi_esf"
                                 handleChange={handleInputChange}
                                 data={a2_oi_esf ? a2_oi_esf : data && data[EnumGrid.a2_oi_esf]}
                                 control={control}
-                                onlyRead={onlyRead}
+                                onlyRead={true}
                                 // error={errors.fecha_nacimiento}
                             />
                         </div>
                         <div className="w-[25%]">
                             <TextInputComponent
-                                type="text"
+                                type="number"
                                 label="CIL"
                                 name="a2_oi_cil"
                                 handleChange={handleInputChange}
                                 data={a2_oi_cil ? a2_oi_cil : data && data[EnumGrid.a2_oi_cil]}
                                 control={control}
-                                onlyRead={onlyRead}
+                                onlyRead={true}
                                 // error={errors.fecha_nacimiento}
                             />
                         </div>
                         <div className="w-[25%]">
                             <TextInputComponent
-                                type="text"
+                                type="number"
                                 label="EJE"
                                 name="a2_oi_eje"
                                 handleChange={handleInputChange}
                                 data={a2_oi_eje ? a2_oi_eje : data && data[EnumGrid.a2_oi_eje]}
                                 control={control}
-                                onlyRead={onlyRead}
+                                onlyRead={true}
                                 // error={errors.fecha_nacimiento}
                             />
                         </div>
@@ -380,13 +384,13 @@ const FOTReceta:React.FC<IReceta> = ({
                 <div className="w-[14%] items-center ">
                     <div className="w-[70%] mx-auto">
                             <TextInputComponent
-                                type="text"
+                                type="number"
                                 label="DP"
                                 name="a2_dp"
                                 handleChange={handleInputChange}
                                 data={formValues ? formValues["a2_dp"] : data && data[EnumGrid.a2_dp]}
                                 control={control}
-                                onlyRead={onlyRead}
+                                onlyRead={true}
                                 // error={errors.fecha_nacimiento}
                             />
                     </div>

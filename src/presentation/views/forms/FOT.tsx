@@ -3,19 +3,16 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { AppStore, useAppSelector } from '../../../redux/store';
 import 'react-tabs/style/react-tabs.css'; 
-import moment from 'moment';
 import axios from 'axios';
-import {toast} from 'react-toastify';
-import { Signal, signal } from "@preact/signals-react";
+import {signal } from "@preact/signals-react";
 
 
 import {FOTArmazones, FOTBitacora, FOTClientes, FOTCristales, FOTOptica, FOTReceta} from '../../components/OTForms'
-import { useCrud } from '../../hooks';
 import FOTGarantia from '../../components/OTForms/FOTGarantia';
 import { EnumGrid } from '../mantenedores/MOTHistorica';
 import FOTDerivacion from '../../components/OTForms/FOTDerivacion';
-import { SEXO, TIPO_CLIENTE, a1_od_ad, a1_od_cil, a1_od_eje, a1_od_esf, a1_oi_ad, a1_oi_cil, a1_oi_eje, a1_oi_esf, a2_od_cil, a2_od_eje, a2_od_esf, a2_oi_cil, a2_oi_eje, a2_oi_esf, buscarCampo, clearDioptrias, clearDioptriasA2, dioptriasHabilitadas, dioptrias_receta, reiniciarA2DioptriasReceta, reiniciarDioptriasReceta, reiniciarValidationNivel2, tipo_de_anteojo, validar_parametrizacion, validar_por_tipo_anteojo } from '../../utils';
-import { validationCliente, validationEstablecimientos, validationFechaAtencion, validationOTlevel2, validationProyectos, validationPuntoVenta, validationTipoAnteojos, validation_A2_OD_CIL, validation_A2_OD_EJE, validation_A2_OD_ESF, validation_A2_OI_CIL, validation_A2_OI_EJE, validation_A2_OI_ESF } from '../../utils/validationOT';
+import { SEXO, TIPO_CLIENTE, a2_od_cil, a2_od_eje, a2_od_esf, a2_oi_cil, a2_oi_eje, a2_oi_esf, clearDioptrias,  dioptriasHabilitadas, dioptrias_receta, reiniciarDioptriasReceta, reiniciarValidationNivel2, tipo_de_anteojo, validar_parametrizacion } from '../../utils';
+import { validationCliente, validationEstablecimientos, validationFechaAtencion, validationProyectos, validationPuntoVenta, validationTipoAnteojos, validation_A2_OD_CIL, validation_A2_OD_EJE, validation_A2_OD_ESF, validation_A2_OI_CIL, validation_A2_OI_EJE, validation_A2_OI_ESF } from '../../utils/validationOT';
 import { inputName } from '../../components/OTForms/Otprueba';
 
 
@@ -366,15 +363,15 @@ const FOT:React.FC<IFOTProps> = ({
         console.log('Ejecutando acción para pausar, estado numero 1');
         insertOT(jsonData)
         break;
-      case (2 && 99 || 2):
+      case (2 ):
         console.log('Ejecutando acción para pausar, estado numero 2');
         updateOT(data, _destino, _origen, _estado);
         break;
-      case (3 && 99 || 3):
+      case (3 ):
         console.log('Ejecutando acción para pausar, estado numero 3');
         updateOT(data, _destino, _origen, _estado);
         break;
-      case (4 && 99 || 4):
+      case (4 ):
         console.log('Ejecutando acción para pausar, estado numero 4');
         updateOT(data, _destino, _origen, _estado)
         break;
@@ -405,15 +402,15 @@ const FOT:React.FC<IFOTProps> = ({
         console.log('Ejecutando acción para procesar, estado numero 1');
         insertOT(jsonData)
         break;
-      case (2 || 99 ):
+      case (2):
         console.log('Ejecutando acción para procesar, estado numero 2');
         updateOT(data, _destino, _origen, _estado);  
         break;
-      case (3 || 99 ):
+      case (3):
         console.log('Ejecutando acción para procesar, estado numero 3');
         updateOT(data, _destino, _origen, _estado);
         break;
-      case (4 || 99):
+      case (4):
         console.log('Ejecutando acción para procesar, estado numero 4');
         updateOT(data, _destino, _origen, _estado)
         break;
@@ -424,7 +421,7 @@ const FOT:React.FC<IFOTProps> = ({
   }
 
 
-  const switchCaseDerivar = (jsonData:any) => {
+  const switchCaseDerivar = (_jsonData:any) => {
    
     let _origen = 0;
     let _destino = 0;
@@ -435,7 +432,7 @@ const FOT:React.FC<IFOTProps> = ({
     const area = data && parseInt(data[EnumGrid.estado_id])
 
     switch (area) {
-      case (2 && 99):
+      case (1):
         console.log('Ejecutando acción para el número 2');
         // _oirgen = area actual
         //_destino = area elegida 
@@ -453,7 +450,7 @@ const FOT:React.FC<IFOTProps> = ({
 
         
         break;
-      case (3 && 99):
+      case (3 ):
         console.log('Ejecutando derivacion,  para el estado numero 3');
         // ot.origen = area actual
         // ot.destino = area
@@ -465,7 +462,7 @@ const FOT:React.FC<IFOTProps> = ({
 
         updateOT(data, _destino, _origen, _estado);
         break;
-      case (4 && 99):
+      case (4 ):
         console.log('Ejecutando acción para el estado número 4');
         //ot.area = area actual
         // destino = area actual
@@ -499,7 +496,6 @@ const FOT:React.FC<IFOTProps> = ({
     let motivo = 1;
     let a1_grupo = 1;
     let a2_grupo = 1;
-    let area = 50;
     let _rut = ""
     let _p3 = ""
 
@@ -509,33 +505,10 @@ const FOT:React.FC<IFOTProps> = ({
     if(isEditting){
       _rut = `${jsonData[EnumGrid.cliente_rut] || ""}`
 
-      _p3 = [ ...(jsonData[EnumGrid.cliente_nomnbre] !== undefined ? [`nombre='${formValues && formValues["cliente"] && formValues["cliente"]["cliente_nombre"] || jsonData[EnumGrid.cliente_nomnbre]}'`] : []),  ...(jsonData[EnumGrid.cliente_tipo] !== undefined ? [`tipo=${jsonData[EnumGrid.cliente_tipo] === TIPO_CLIENTE.beneficiario ? 1 : jsonData[EnumGrid.cliente_tipo] === TIPO_CLIENTE.particular ? 2 : jsonData[EnumGrid.cliente_tipo] === TIPO_CLIENTE.optica ? 3 : 0}`] : []),...(jsonData[EnumGrid.cliente_sexo] !== undefined ? [`sexo=${jsonData[EnumGrid.cliente_sexo] === SEXO.masculino ? 1 : jsonData[EnumGrid.cliente_sexo] === SEXO.femenino ? 2 : jsonData[EnumGrid.cliente_sexo] === SEXO.no_aplica ? 3 : 0}`] : []) , ...(jsonData[EnumGrid.cliente_fecha_nacimiento] !== undefined ? [`fecha_nacimiento='${jsonData[EnumGrid.cliente_fecha_nacimiento]}'`] : []) , ...(jsonData[EnumGrid.cliente_direccion] !== undefined ? [`direccion='${jsonData[EnumGrid.cliente_direccion]}'`] : []) , ...( formValues && formValues["cliente"] && formValues["cliente"]["cliente_comuna_id"]!== undefined ? [`comuna=${formValues["cliente"]["cliente_comuna_id"] || 150}`] : []), ...(jsonData[EnumGrid.cliente_telefono] !== undefined ? [`telefono='${jsonData[EnumGrid.cliente_telefono]}'`] : []), ...(jsonData[EnumGrid.cliente_correo] !== undefined ? [`correo='${jsonData[EnumGrid.cliente_correo]}'`] : []), ...(jsonData[EnumGrid.establecimiento_id] !== undefined ? [`establecimiento=${jsonData[EnumGrid.establecimiento_id]}`] : [])].join(', ');
-
+      _p3 = [ ...(jsonData[EnumGrid.cliente_nomnbre] !== undefined ? [`nombre="${formValues && formValues["cliente"] && formValues["cliente"]["cliente_nombre"] || jsonData[EnumGrid.cliente_nomnbre]}"`] : []),  ...(jsonData[EnumGrid.cliente_tipo] !== undefined ? [`tipo=${jsonData[EnumGrid.cliente_tipo] === TIPO_CLIENTE.beneficiario ? 1 : jsonData[EnumGrid.cliente_tipo] === TIPO_CLIENTE.particular ? 2 : jsonData[EnumGrid.cliente_tipo] === TIPO_CLIENTE.optica ? 3 : 0}`] : []),...(jsonData[EnumGrid.cliente_sexo] !== undefined ? [`sexo=${jsonData[EnumGrid.cliente_sexo] === SEXO.masculino ? 1 : jsonData[EnumGrid.cliente_sexo] === SEXO.femenino ? 2 : jsonData[EnumGrid.cliente_sexo] === SEXO.no_aplica ? 3 : 0}`] : []) , ...(jsonData[EnumGrid.cliente_fecha_nacimiento] !== undefined ? [`fecha_nacimiento="${jsonData[EnumGrid.cliente_fecha_nacimiento]}"`] : []) , ...(jsonData[EnumGrid.cliente_direccion] !== undefined ? [`direccion="${jsonData[EnumGrid.cliente_direccion]}"`] : []) , ...( formValues && formValues["cliente"] && formValues["cliente"]["cliente_comuna_id"]!== undefined ? [`comuna=${formValues["cliente"]["cliente_comuna_id"] || 150}`] : []), ...(jsonData[EnumGrid.cliente_telefono] !== undefined ? [`telefono="${jsonData[EnumGrid.cliente_telefono]}"`] : []), ...(jsonData[EnumGrid.cliente_correo] !== undefined ? [`correo="${jsonData[EnumGrid.cliente_correo]}"`] : []), ...(jsonData[EnumGrid.establecimiento_id] !== undefined ? [`establecimiento=${jsonData[EnumGrid.establecimiento_id]}`] : [])].join(', ');
+      _p3 = _p3.replace(/'/g, '!');
     }
-
-    console.log(_p3)
-
-
-    // console.log('jsonData', jsonData.a2_opcion_vta_id )
-    console.log('jsonData', jsonData)
-    console.log('data', data)
-
-    console.log('existCliente',existCliente)
-
-
-    // if(!existCliente){
-    //   _rut = '';
-    //   if (jsonData && jsonData[EnumGrid.cliente_rut]) {
-    //     _p3 = `'${jsonData[EnumGrid.cliente_rut]}','${jsonData[EnumGrid.cliente_nomnbre]}',${jsonData[EnumGrid.cliente_tipo] === TIPO_CLIENTE.beneficiario ? "1" : jsonData[EnumGrid.cliente_tipo] === TIPO_CLIENTE.particular ? "2" : jsonData[EnumGrid.cliente_tipo] === TIPO_CLIENTE.optica ? "3" : "0"}, ${jsonData[EnumGrid.cliente_sexo] === SEXO.masculino ? "1" : jsonData[EnumGrid.cliente_sexo] === SEXO.femenino ? "2" : jsonData[EnumGrid.cliente_sexo] === SEXO.no_aplica ? "3" : "0"},'${jsonData[EnumGrid.cliente_fecha_nacimiento]}','${jsonData[EnumGrid.cliente_direccion]}' ,${formValues && formValues["cliente"] && formValues["cliente"]["cliente_comuna_id"] || jsonData[EnumGrid.cliente_comuna_id] }, '${jsonData[EnumGrid.cliente_telefono]}','${jsonData[EnumGrid.cliente_correo]}', ${jsonData[EnumGrid.establecimiento_id]}`;
-    //   }
-    // }
-    
-    
-    // console.log(data)
-    
-    
-    
-    
+        
     
     // const fields = [`motivo=${motivo}`, `area=${_destino}`, `estado=${_estado}`, `estado_validacion=${estado_validacion}`, `estado_impresion=${estado_impresion}`, `proyecto='${jsonData[EnumGrid.proyecto_codigo]}'`, `establecimiento=${jsonData[EnumGrid.establecimiento_id]}`, ...(jsonData[EnumGrid.cliente_rut] !== undefined ? [`cliente='${jsonData[EnumGrid.cliente_rut]}'`] : []), `fecha_atencion='${jsonData[EnumGrid.fecha_atencion]}'`, `fecha_entrega_taller='${jsonData[EnumGrid.fecha_entrega_taller]}'`, `fecha_despacho='${jsonData[EnumGrid.fecha_despacho]}'`, `fecha_entrega_cliente='${jsonData[EnumGrid.fecha_entrega_cliente]}'`, `punto_venta=${jsonData[EnumGrid.punto_venta_id]}`, `numero_receta=${jsonData[EnumGrid.numero_receta]}`, `fecha_receta='${jsonData[EnumGrid.fecha_entrega_cliente]}'`, `tipo_anteojo=${jsonData[EnumGrid.tipo_anteojo_id]}`, `a1_od_esf=${jsonData[EnumGrid.a1_od_esf]}`, `a1_od_cil=${jsonData[EnumGrid.a1_od_cil]}`, `a1_od_eje=${jsonData[EnumGrid.a1_od_eje]}`, `a1_od_ad=${jsonData[EnumGrid.a1_od_ad]}`, `a1_oi_esf=${jsonData[EnumGrid.a1_oi_esf]}`, `a1_oi_cil=${jsonData[EnumGrid.a1_oi_cil]}`, `a1_oi_eje=${jsonData[EnumGrid.a1_oi_eje]}`, `a1_oi_ad=${jsonData[EnumGrid.a1_oi_ad]}`, `a1_dp=${jsonData[EnumGrid.a1_dp]}`, `a1_alt=${jsonData[EnumGrid.a1_alt]}`, `a1_grupo=${a1_grupo}`, `a2_od_esf=${jsonData[EnumGrid.a2_od_esf]}`, `a2_od_cil=${jsonData[EnumGrid.a2_od_cil]}`, `a2_od_eje=${jsonData[EnumGrid.a2_od_eje]}`, `a2_oi_esf=${jsonData[EnumGrid.a2_oi_esf]}`, `a2_oi_cil=${jsonData[EnumGrid.a2_oi_cil]}`, `a2_oi_eje=${jsonData[EnumGrid.a2_oi_eje]}`, `a2_dp=${jsonData[EnumGrid.a2_dp]}`, `a2_grupo=${a2_grupo}`, `anteojo1_opcion_vta=${jsonData[EnumGrid.a1_opcion_vta_id]}`, `anteojo1_armazon=${jsonData[EnumGrid.a1_armazon_id]}`, `anteojo2_opcion_vta=${jsonData[EnumGrid.a2_opcion_vta_id]}`, `anteojo2_armazon=${jsonData[EnumGrid.a2_armazon_id]}`, `anteojo3_opcion_vta=${jsonData[EnumGrid.a3_opcion_vta_id]}`, `anteojo3_armazon=${jsonData[EnumGrid.a3_armazon_id]}`, `cristales1_opcion_vta=${jsonData[EnumGrid.cristal1_opcion_vta_id]}`, `cristales1_diseno=${jsonData[EnumGrid.cristal1_diseno_id]}`, `cristales1_indice=${jsonData[EnumGrid.cristal1_indice_id]}`, `cristales1_material=${jsonData[EnumGrid.cristal1_material_id]}`, `cristales1_tratamiento=${jsonData[EnumGrid.cristal1_tratamiento_id]}`, `cristales1_color=${jsonData[EnumGrid.cristal1_color_id]}`, `cristales1_od=${jsonData[EnumGrid.cristal1_od]}`, `cristales1_oi=${jsonData[EnumGrid.cristal1_oi]}`, `cristales1_tratamiento_adicional=${jsonData[EnumGrid.cristal1_tratamiento_adicional_id]}`, `cristales2_opcion_vta=${jsonData[EnumGrid.cristal2_od_opcion_venta_id]}`, `cristales2_diseno=${jsonData[EnumGrid.cristal2_diseno_id]}`, `cristales2_indice=${jsonData[EnumGrid.cristal2_indice_id]}`, `cristales2_material=${jsonData[EnumGrid.cristal2_material_id]}`, `cristales2_tratamiento=${jsonData[EnumGrid.cristal2_tratamiento_id]}`, `cristales2_color=${jsonData[EnumGrid.cristal2_color_id]}`, `cristales2_od=${jsonData[EnumGrid.cristal2_od]}`, `cristales2_oi=${jsonData[EnumGrid.cristal2_oi]}`, `cristales2_tratamiento_adicional=${jsonData[EnumGrid.cristal2_tratamiento_adicional_id]}`, `motivo_garantia=${jsonData[EnumGrid.motivo_garantia_id]}`, `folio_asociado=${jsonData[EnumGrid.folio_asociado]}`, `resolucion_garantia=${jsonData[EnumGrid.resolucion_garantia_id]}`, `worktracking=${jsonData[EnumGrid.worktracking]}`, `nota_venta=${jsonData[EnumGrid.nota_venta]}`, `numero_factura=${jsonData[EnumGrid.numero_factura]}`, `folio_interno_mandante=${jsonData[EnumGrid.folio_interno_mandante]}`, `observaciones='${jsonData[EnumGrid.observaciones] || ""}'`];
     const fields = [
@@ -544,82 +517,84 @@ const FOT:React.FC<IFOTProps> = ({
       `estado=${_estado}`,
       `estado_validacion=${estado_validacion}`,
       `estado_impresion=${estado_impresion}`,
-      ...(jsonData.proyecto_codigo !== undefined ? [`proyecto='${jsonData.proyecto_codigo}'`] : []),
-      ...(jsonData.establecimiento_id !== undefined ? [`establecimiento=${jsonData.establecimiento_id}`] : []),
-      ...(jsonData.cliente_rut !== undefined ? [`cliente='${jsonData.cliente_rut}'`] : []),
-      ...(jsonData.fecha_atencion !== undefined ? [`fecha_atencion='${jsonData.fecha_atencion}'`] : []),
-      ...(jsonData.fecha_entrega_taller !== undefined ? [`fecha_entrega_taller='${jsonData.fecha_entrega_taller}'`] : []),
-      ...(jsonData.fecha_despacho !== undefined ? [`fecha_despacho='${jsonData.fecha_despacho}'`] : []),
-      ...(jsonData.fecha_entrega_cliente !== undefined ? [`fecha_entrega_cliente='${jsonData.fecha_entrega_cliente}'`] : []),
-      ...(jsonData.punto_venta_id !== undefined ? [`punto_venta=${jsonData.punto_venta_id}`] : []),
-      ...(jsonData.numero_receta !== undefined ? [`numero_receta=${jsonData.numero_receta}`] : []),
-      ...(jsonData.fecha_receta !== undefined ? [`fecha_receta='${jsonData.fecha_receta}'`] : []),
-      ...(jsonData.tipo_anteojo_id !== undefined ? [`tipo_anteojo=${jsonData.tipo_anteojo_id}`] : []),
+      ...(jsonData.proyecto_codigo                     !== undefined ? [`proyecto="${jsonData.proyecto_codigo}"`] : []),
+      ...(jsonData.establecimiento_id                  !== undefined ? [`establecimiento=${jsonData.establecimiento_id}`] : []),
+      ...(jsonData.cliente_rut                         !== undefined ? [`cliente="${jsonData.cliente_rut}"`] : []),
+      ...(jsonData.fecha_atencion                      !== undefined ? [`fecha_atencion="${jsonData.fecha_atencion}"`] : []),
+      ...(jsonData.fecha_entrega_taller                !== undefined ? [`fecha_entrega_taller="${jsonData.fecha_entrega_taller}"`] : []),
+      ...(jsonData.fecha_despacho                      !== undefined ? [`fecha_despacho="${jsonData.fecha_despacho}"`] : []),
+      ...(jsonData.fecha_entrega_cliente               !== undefined ? [`fecha_entrega_cliente="${jsonData.fecha_entrega_cliente}"`] : []),
+      ...(jsonData.punto_venta_id                      !== undefined ? [`punto_venta=${jsonData.punto_venta_id}`] : []),
+      ...(jsonData.numero_receta                       !== undefined ? [`numero_receta=${jsonData.numero_receta}`] : []),
+      ...(jsonData.fecha_receta                        !== undefined ? [`fecha_receta="${jsonData.fecha_receta}"`] : []),
+      ...(jsonData.tipo_anteojo_id                     !== undefined ? [`tipo_anteojo=${jsonData.tipo_anteojo_id}`] : []),
+    
 
-      ...(jsonData.a1_od_esf !== undefined ? [`a1_od_esf=${jsonData.a1_od_esf}`] : []),
-      ...(jsonData.a1_od_cil !== undefined ? [`a1_od_cil=${jsonData.a1_od_cil}`] : []),
-      ...(jsonData.a1_od_eje !== undefined ? [`a1_od_eje=${jsonData.a1_od_eje}`] : []),
-      ...(jsonData.a1_od_ad !== undefined ? [`a1_od_ad=${jsonData.a1_od_ad}`] : []),
-      ...(jsonData.a1_oi_esf !== undefined ? [`a1_oi_esf=${jsonData.a1_oi_esf}`] : []),
-      ...(jsonData.a1_oi_cil !== undefined ? [`a1_oi_cil=${jsonData.a1_oi_cil}`] : []),
-      ...(jsonData.a1_oi_eje !== undefined ? [`a1_oi_eje=${jsonData.a1_oi_eje}`] : []),
-      ...(jsonData.a1_oi_ad !== undefined ? [`a1_oi_ad=${jsonData.a1_oi_ad}`] : []),
-      ...(jsonData.a1_dp !== undefined ? [`a1_dp=${jsonData.a1_dp}`] : []),
-      ...(jsonData.a1_alt !== undefined ? [`a1_alt=${jsonData.a1_alt}`] : []),
+      ...(jsonData.a1_od_esf                           !== undefined ? [`a1_od_esf=${jsonData.a1_od_esf}`] : []),
+      ...(jsonData.a1_od_cil                           !== undefined ? [`a1_od_cil=${jsonData.a1_od_cil}`] : []),
+      ...(jsonData.a1_od_eje                           !== undefined ? [`a1_od_eje=${jsonData.a1_od_eje}`] : []),
+      ...(jsonData.a1_od_ad                            !== undefined ? [`a1_od_ad=${jsonData.a1_od_ad}`] : []),
+      ...(jsonData.a1_oi_esf                           !== undefined ? [`a1_oi_esf=${jsonData.a1_oi_esf}`] : []),
+      ...(jsonData.a1_oi_cil                           !== undefined ? [`a1_oi_cil=${jsonData.a1_oi_cil}`] : []),
+      ...(jsonData.a1_oi_eje                           !== undefined ? [`a1_oi_eje=${jsonData.a1_oi_eje}`] : []),
+      ...(jsonData.a1_oi_ad                            !== undefined ? [`a1_oi_ad=${jsonData.a1_oi_ad}`] : []),
+      ...(jsonData.a1_dp                               !== undefined ? [`a1_dp=${jsonData.a1_dp}`] : []),
+      ...(jsonData.a1_alt                              !== undefined ? [`a1_alt=${jsonData.a1_alt}`] : []),
+      
       `a1_grupo=${a1_grupo}`,
       
       
-      ...(jsonData.a2_od_esf !== undefined ? [`a2_od_esf=${jsonData.a2_od_esf}`] : []),
-      ...(jsonData.a2_od_cil !== undefined ? [`a2_od_cil=${jsonData.a2_od_cil}`] : []),
-      ...(jsonData.a2_od_eje !== undefined ? [`a2_od_eje=${jsonData.a2_od_eje}`] : []),
-      ...(jsonData.a2_oi_esf !== undefined ? [`a2_oi_esf=${jsonData.a2_oi_esf}`] : []),
-      ...(jsonData.a2_oi_cil !== undefined ? [`a2_oi_cil=${jsonData.a2_oi_cil}`] : []),
-      ...(jsonData.a2_oi_eje !== undefined ? [`a2_oi_eje=${jsonData.a2_oi_eje}`] : []),
-      ...(jsonData.a2_dp !== undefined ? [`a2_dp=${jsonData.a2_dp}`] : []),
+      ...(jsonData.a2_od_esf                           !== undefined ? [`a2_od_esf=${jsonData.a2_od_esf}`] : []),
+      ...(jsonData.a2_od_cil                           !== undefined ? [`a2_od_cil=${jsonData.a2_od_cil}`] : []),
+      ...(jsonData.a2_od_eje                           !== undefined ? [`a2_od_eje=${jsonData.a2_od_eje}`] : []),
+      ...(jsonData.a2_oi_esf                           !== undefined ? [`a2_oi_esf=${jsonData.a2_oi_esf}`] : []),
+      ...(jsonData.a2_oi_cil                           !== undefined ? [`a2_oi_cil=${jsonData.a2_oi_cil}`] : []),
+      ...(jsonData.a2_oi_eje                           !== undefined ? [`a2_oi_eje=${jsonData.a2_oi_eje}`] : []),
+      ...(jsonData.a2_dp                               !== undefined ? [`a2_dp=${jsonData.a2_dp}`] : []),
       `a2_grupo=${a2_grupo}`,
       
       
-      ...(jsonData.a1_opcion_vta_id !== undefined ? [`anteojo1_opcion_vta=${jsonData.a1_opcion_vta_id}`] : []),
-      ...(jsonData.a1_armazon_id !== undefined ? [`anteojo1_armazon=${jsonData.a1_armazon_id}`] : []),
-      ...(jsonData.a2_opcion_vta_id !== undefined ? [`anteojo2_opcion_vta=${jsonData.a2_opcion_vta_id}`] : []),
-      ...(jsonData.a2_armazon_id !== undefined ? [`anteojo2_armazon=${jsonData.a2_armazon_id}`] : []),
-      ...(jsonData.a3_opcion_vta_id !== undefined ? [`anteojo3_opcion_vta=${jsonData.a3_opcion_vta_id}`] : []),
-      ...(jsonData.a3_armazon_id !== undefined ? [`anteojo3_armazon=${jsonData.a3_armazon_id}`] : []),
+      ...(jsonData.a1_opcion_vta_id                    !== undefined ? [`anteojo1_opcion_vta=${jsonData.a1_opcion_vta_id}`] : []),
+      ...(jsonData.a1_armazon_id                       !== undefined ? [`anteojo1_armazon="${jsonData.a1_armazon_id}"`] : []),
+      ...(jsonData.a2_opcion_vta_id                    !== undefined ? [`anteojo2_opcion_vta=${jsonData.a2_opcion_vta_id}`] : []),
+      ...(jsonData.a2_armazon_id                       !== undefined ? [`anteojo2_armazon="${jsonData.a2_armazon_id}"`] : []),
+      ...(jsonData.a3_opcion_vta_id                    !== undefined ? [`anteojo3_opcion_vta=${jsonData.a3_opcion_vta_id}`] : []),
+      ...(jsonData.a3_armazon_id                       !== undefined ? [`anteojo3_armazon="${jsonData.a3_armazon_id}"`] : []),
       
       
-      ...(jsonData.cristal1_opcion_vta_id !== undefined ? [`cristales1_opcion_vta=${jsonData.cristal1_opcion_vta_id}`] : []),
-      ...(jsonData.cristal1_diseno_id !== undefined ? [`cristales1_diseno=${jsonData.cristal1_diseno_id}`] : []),
-      ...(jsonData.cristal1_indice_id !== undefined ? [`cristales1_indice=${jsonData.cristal1_indice_id}`] : []),
-      ...(jsonData.cristal1_material_id !== undefined ? [`cristales1_material=${jsonData.cristal1_material_id}`] : []),
-      ...(jsonData.cristal1_tratamiento_id !== undefined ? [`cristales1_tratamiento=${jsonData.cristal1_tratamiento_id}`] : []),
-      ...(jsonData.cristal1_color_id !== undefined ? [`cristales1_color=${jsonData.cristal1_color_id}`] : []),
-      ...(jsonData.cristal1_od !== undefined ? [`cristales1_od=${jsonData.cristal1_od}`] : []),
-      ...(jsonData.cristal1_oi !== undefined ? [`cristales1_oi=${jsonData.cristal1_oi}`] : []),
-      ...(jsonData.cristal1_tratamiento_adicional_id !== undefined ? [`cristales1_tratamiento_adicional=${jsonData.cristal1_tratamiento_adicional_id}`] : []),
-      
-      
-      
-      
-      ...(jsonData.cristal2_opcion_vta_id !== undefined ? [`cristales2_opcion_vta=${jsonData.cristal2_opcion_vta_id}`] : []),
-      ...(jsonData.cristal2_diseno_id !== undefined ? [`cristales2_diseno=${jsonData.cristal2_diseno_id}`] : []),
-      ...(jsonData.cristal2_indice_id !== undefined ? [`cristales2_indice=${jsonData.cristal2_indice_id}`] : []),
-      ...(jsonData.cristal2_material_id !== undefined ? [`cristales2_material=${jsonData.cristal2_material_id}`] : []),
-      ...(jsonData.cristal2_tratamiento_id !== undefined ? [`cristales2_tratamiento=${jsonData.cristal2_tratamiento_id}`] : []),
-      ...(jsonData.cristal2_color_id !== undefined ? [`cristales2_color=${jsonData.cristal2_color_id}`] : []),
-      ...(jsonData.cristal2_od !== undefined ? [`cristales2_od=${jsonData.cristal2_od}`] : []),
-      ...(jsonData.cristal2_oi !== undefined ? [`cristales2_oi=${jsonData.cristal2_oi}`] : []),
-      ...(jsonData.cristal2_tratamiento_adicional_id !== undefined ? [`cristales2_tratamiento_adicional=${jsonData.cristal2_tratamiento_adicional_id}`] : []),
+      ...(jsonData.cristal1_opcion_vta_id              !== undefined ? [`cristales1_opcion_vta=${jsonData.cristal1_opcion_vta_id}`] : []),
+      ...(jsonData.cristal1_diseno_id                  !== undefined ? [`cristales1_diseno=${jsonData.cristal1_diseno_id}`] : []),
+      ...(jsonData.cristal1_indice_id                  !== undefined ? [`cristales1_indice=${jsonData.cristal1_indice_id}`] : []),
+      ...(jsonData.cristal1_material_id                !== undefined ? [`cristales1_material=${jsonData.cristal1_material_id}`] : []),
+      ...(jsonData.cristal1_tratamiento_id             !== undefined ? [`cristales1_tratamiento=${jsonData.cristal1_tratamiento_id}`] : []),
+      ...(jsonData.cristal1_color_id                   !== undefined ? [`cristales1_color=${jsonData.cristal1_color_id}`] : []),
+      ...(jsonData.cristal1_od                         !== undefined ? [`cristales1_od="${jsonData.cristal1_od}"`] : []),
+      ...(jsonData.cristal1_oi                         !== undefined ? [`cristales1_oi="${jsonData.cristal1_oi}"`] : []),
+      ...(jsonData.cristal1_tratamiento_adicional_id   !== undefined ? [`cristales1_tratamiento_adicional=${jsonData.cristal1_tratamiento_adicional_id}`] : []),
       
       
       
-      ...(jsonData.motivo_garantia_id !== undefined ? [`motivo_garantia=${jsonData.motivo_garantia_id}`] : []),
-      ...(jsonData.folio_asociado !== undefined ? [`folio_asociado=${jsonData.folio_asociado}`] : []),
-      ...(jsonData.resolucion_garantia_id !== undefined ? [`resolucion_garantia=${jsonData.resolucion_garantia_id || 0}`] : []),
-      ...(jsonData.worktracking !== undefined ? [`worktracking=${jsonData.worktracking}`] : []),
-      ...(jsonData.nota_venta !== undefined ? [`nota_venta=${jsonData.nota_venta}`] : []),
-      ...(jsonData.numero_factura !== undefined ? [`numero_factura=${jsonData.numero_factura}`] : []),
-      ...(jsonData.folio_interno_mandante !== undefined ? [`folio_interno_mandante=${jsonData.folio_interno_mandante}`] : []),
-      ...(jsonData.observaciones !== undefined ? [`observaciones='${jsonData.observaciones}'`] : []),
+      
+      ...(jsonData.cristal2_opcion_vta_id             !== undefined ? [`cristales2_opcion_vta=${jsonData.cristal2_opcion_vta_id}`] : []),
+      ...(jsonData.cristal2_diseno_id                 !== undefined ? [`cristales2_diseno=${jsonData.cristal2_diseno_id}`] : []),
+      ...(jsonData.cristal2_indice_id                 !== undefined ? [`cristales2_indice=${jsonData.cristal2_indice_id}`] : []),
+      ...(jsonData.cristal2_material_id               !== undefined ? [`cristales2_material=${jsonData.cristal2_material_id}`] : []),
+      ...(jsonData.cristal2_tratamiento_id            !== undefined ? [`cristales2_tratamiento=${jsonData.cristal2_tratamiento_id}`] : []),
+      ...(jsonData.cristal2_color_id                  !== undefined ? [`cristales2_color=${jsonData.cristal2_color_id}`] : []),
+      ...(jsonData.cristal2_od                        !== undefined ? [`cristales2_od="${jsonData.cristal2_od}"`] : []),
+      ...(jsonData.cristal2_oi                        !== undefined ? [`cristales2_oi="${jsonData.cristal2_oi}"`] : []),
+      ...(jsonData.cristal2_tratamiento_adicional_id  !== undefined ? [`cristales2_tratamiento_adicional=${jsonData.cristal2_tratamiento_adicional_id}`] : []),
+      
+      
+      
+      ...(jsonData.motivo_garantia_id                !== undefined ? [`motivo_garantia=${jsonData.motivo_garantia_id}`] : []),
+      ...(jsonData.folio_asociado                    !== undefined ? [`folio_asociado=${jsonData.folio_asociado}`] : []),
+      ...(jsonData.resolucion_garantia_id            !== undefined ? [`resolucion_garantia=${jsonData.resolucion_garantia_id || 0}`] : []),
+      ...(jsonData.worktracking                      !== undefined ? [`worktracking=${jsonData.worktracking}`] : []),
+      ...(jsonData.nota_venta                        !== undefined ? [`nota_venta=${jsonData.nota_venta}`] : []),
+      ...(jsonData.numero_factura                    !== undefined ? [`numero_factura=${jsonData.numero_factura}`] : []),
+      ...(jsonData.folio_interno_mandante            !== undefined ? [`folio_interno_mandante=${jsonData.folio_interno_mandante}`] : []),
+      ...(jsonData.observaciones                     !== undefined ? [`observaciones="${jsonData.observaciones}"`] : []),
       // Continúa agregando los campos de la misma manera...
     ];
 
@@ -632,10 +607,10 @@ const FOT:React.FC<IFOTProps> = ({
 
 
     const cristales = [
-      { codigo: `${jsonData[EnumGrid.cristal1_od]}` },
-      { codigo: `${jsonData[EnumGrid.cristal1_oi]}` },
-      { codigo: `${jsonData[EnumGrid.cristal2_od]}` },
-      { codigo: `${jsonData[EnumGrid.cristal2_oi]}` }
+      { codigo: `"${jsonData[EnumGrid.cristal1_od]}"` },
+      { codigo: `"${jsonData[EnumGrid.cristal1_oi]}"` },
+      { codigo: `"${jsonData[EnumGrid.cristal2_od]}"` },
+      { codigo: `"${jsonData[EnumGrid.cristal2_oi]}"` }
     ]
       .map(item => {
         const numero = parseFloat(item.codigo);
@@ -649,8 +624,8 @@ const FOT:React.FC<IFOTProps> = ({
 
 
       const armazones = [
-        { codigo: jsonData[EnumGrid.a1_armazon_id] },
-        { codigo: jsonData[EnumGrid.a2_armazon_id] },
+        { codigo: `"${jsonData[EnumGrid.a1_armazon_id]}"` },
+        { codigo: `"${jsonData[EnumGrid.a2_armazon_id]}"` },
       ]
         .map(item => {
           const numero = parseFloat(item.codigo);
@@ -666,8 +641,9 @@ const FOT:React.FC<IFOTProps> = ({
 
     closeModal()
     const filteredFields = fields.map((field) => (field === 'undefined') ? '' : field);
-    const _p1 = filteredFields.join(',');
-
+    let _p1 = filteredFields.join(',');
+    
+    _p1 = _p1.replace(/'/g, '!');
 
     const query = {
       query: "04",
@@ -717,7 +693,8 @@ const FOT:React.FC<IFOTProps> = ({
     let destino = 60;
 
     // let _p3 = [`nombre='${jsonData.cliente_nombre}'`, `tipo=${jsonData.cliente_tipo === TIPO_CLIENTE.beneficiario ? 1 : jsonData.cliente_tipo === TIPO_CLIENTE.particular ? 2 : jsonData.cliente_tipo === TIPO_CLIENTE.optica ? 3 : 0}`, `sexo=${jsonData.cliente_sexo === SEXO.masculino ? 1 : jsonData.cliente_sexo === SEXO.femenino ? 2 : jsonData.cliente_sexo === SEXO.no_aplica ? 3 : 0}`, `fecha_nacimiento='${jsonData.cliente_fecha_nacimiento}'`, `direccion='${jsonData.cliente_direccion}'`, `comuna=${jsonData.cliente_comuna || 150}`, `telefono='${jsonData.cliente_telefono}'`, `correo='${jsonData.cliente_correo}'`, `establecimiento=${jsonData.establecimiento_id}`].join(', ');
-    let  _p3 =`'${jsonData.cliente_rut}','${jsonData.cliente_nombre}',${jsonData.cliente_tipo === TIPO_CLIENTE.beneficiario ? "1" : jsonData.cliente_tipo === TIPO_CLIENTE.particular ? "2" : jsonData.cliente_tipo === TIPO_CLIENTE.optica ? "3" : "0"}, ${jsonData.cliente_sexo === SEXO.masculino ? "1" : jsonData.cliente_sexo === SEXO.femenino ? "2" : jsonData.cliente_sexo === SEXO.no_aplica ? "3" : "0"},'${jsonData.cliente_fecha_nacimiento}','${jsonData.cliente_direccion}' ,${jsonData.cliente_comuna_id || 150}, '${jsonData.cliente_telefono}','${jsonData.cliente_correo}', ${jsonData.establecimiento_id}`;
+    let  _p3 =`"${jsonData.cliente_rut}","${jsonData.cliente_nombre}",${jsonData.cliente_tipo === TIPO_CLIENTE.beneficiario ? "1" : jsonData.cliente_tipo === TIPO_CLIENTE.particular ? "2" : jsonData.cliente_tipo === TIPO_CLIENTE.optica ? "3" : "0"}, ${jsonData.cliente_sexo === SEXO.masculino ? "1" : jsonData.cliente_sexo === SEXO.femenino ? "2" : jsonData.cliente_sexo === SEXO.no_aplica ? "3" : "0"},"${jsonData.cliente_fecha_nacimiento}","${jsonData.cliente_direccion}" ,${jsonData.cliente_comuna_id || 150}, "${jsonData.cliente_telefono}","${jsonData.cliente_correo}", ${jsonData.establecimiento_id}`;
+    _p3 = _p3.replace(/'/g, '!');
 
     let _rut = '';
     
@@ -727,7 +704,8 @@ const FOT:React.FC<IFOTProps> = ({
     // }
 
     // console.log('data', jsonData)
-    const _p1 = `${motivo},${destino},${estado},${estado_impresion},${estado_validacion},'${jsonData.proyecto}',${jsonData.establecimiento_id},'${jsonData.cliente_rut}','${jsonData.fecha_atencion}','${jsonData.fecha_entrega_taller}','${jsonData.fecha_despacho}','${jsonData.fecha_entrega_cliente}',${jsonData.punto_venta_id},${jsonData.numero_receta},'${jsonData.fecha_receta}',${jsonData.tipo_anteojo_id},${jsonData.a1_od_esf},${jsonData.a1_od_cil},${jsonData.a1_od_eje},${jsonData.a1_od_ad },${jsonData.a1_oi_esf},${jsonData.a1_oi_cil},${jsonData.a1_oi_eje},${jsonData.a1_oi_ad},${jsonData.a1_dp},${jsonData.a1_alt},${a1_grupo},${jsonData.a2_od_esf},${jsonData.a2_od_cil},${jsonData.a2_od_eje},${jsonData.a2_oi_esf},${jsonData.a2_oi_cil},${jsonData.a2_oi_eje},${jsonData.a2_dp},${a2_grupo},${jsonData.a1_opcion_vta_id},${jsonData.a1_armazon_id},${jsonData.a2_opcion_vta_id},${jsonData.a2_armazon_id},${jsonData.a3_opcion_vta_id || 0},${jsonData.a3_armazon_id || 0},${jsonData.cristal1_opcion_vta_id},${jsonData.cristal1_diseno_id},${jsonData.cristal1_indice_id},${jsonData.cristal1_material_id},${jsonData.cristal1_tratamiento_id},${jsonData.cristal1_color_id},${jsonData.cristal1_od},${jsonData.cristal1_oi},${jsonData.cristal1_tratamiento_adicional_id},${jsonData.cristal2_od_opcion_venta_id},${jsonData.cristal2_diseno_id},${jsonData.cristal2_indice_id},${jsonData.cristal2_material_id},${jsonData.cristal2_tratamiento_id},${jsonData.cristal2_color_id},${jsonData.cristal2_od},${jsonData.cristal2_oi},${jsonData.cristal2_tratamiento_adicional_id},${jsonData.motivo_garantia_id || 0},${jsonData.folio_asociado || 0},${jsonData.resolucion_garantia_id || 0},${jsonData.worktracking || 0},${jsonData.nota_venta || 0},${jsonData.numero_factura || 0},${jsonData.folio_interno_mandante || 0},'${jsonData.observaciones || ""}'`;
+    let _p1 = `${motivo},${destino},${estado},${estado_impresion},${estado_validacion},"${jsonData.proyecto}",${jsonData.establecimiento_id},"${jsonData.cliente_rut}","${jsonData.fecha_atencion}","${jsonData.fecha_entrega_taller}","${jsonData.fecha_despacho}","${jsonData.fecha_entrega_cliente}",${jsonData.punto_venta_id},${jsonData.numero_receta},"${jsonData.fecha_receta}",${jsonData.tipo_anteojo_id},${jsonData.a1_od_esf},${jsonData.a1_od_cil},${jsonData.a1_od_eje},${jsonData.a1_od_ad },${jsonData.a1_oi_esf},${jsonData.a1_oi_cil},${jsonData.a1_oi_eje},${jsonData.a1_oi_ad},${jsonData.a1_dp},${jsonData.a1_alt},${a1_grupo},${jsonData.a2_od_esf},${jsonData.a2_od_cil},${jsonData.a2_od_eje},${jsonData.a2_oi_esf},${jsonData.a2_oi_cil},${jsonData.a2_oi_eje},${jsonData.a2_dp},${a2_grupo},${jsonData.a1_opcion_vta_id},${jsonData.a1_armazon_id},${jsonData.a2_opcion_vta_id},${jsonData.a2_armazon_id},${jsonData.a3_opcion_vta_id || 0},${jsonData.a3_armazon_id || 0},${jsonData.cristal1_opcion_vta_id},${jsonData.cristal1_diseno_id},${jsonData.cristal1_indice_id},${jsonData.cristal1_material_id},${jsonData.cristal1_tratamiento_id},${jsonData.cristal1_color_id},${jsonData.cristal1_od},${jsonData.cristal1_oi},${jsonData.cristal1_tratamiento_adicional_id},${jsonData.cristal2_od_opcion_venta_id},${jsonData.cristal2_diseno_id},${jsonData.cristal2_indice_id},${jsonData.cristal2_material_id},${jsonData.cristal2_tratamiento_id},${jsonData.cristal2_color_id},${jsonData.cristal2_od},${jsonData.cristal2_oi},${jsonData.cristal2_tratamiento_adicional_id},${jsonData.motivo_garantia_id || 0},${jsonData.folio_asociado || 0},${jsonData.resolucion_garantia_id || 0},${jsonData.worktracking || 0},${jsonData.nota_venta || 0},${jsonData.numero_factura || 0},${jsonData.folio_interno_mandante || 0},"${jsonData.observaciones || ""}"`;
+    _p1 = _p1.replace(/'/g, '!');
 
 
     // const _p3 = `'${jsonData.cliente_rut}','${jsonData.cliente_nombre}',${jsonData.cliente_tipo === TIPO_CLIENTE.beneficiario ? "1" : jsonData.cliente_tipo === TIPO_CLIENTE.particular ? "2" : jsonData.cliente_tipo === TIPO_CLIENTE.optica ? "3" : "0"}, ${jsonData.cliente_sexo === SEXO.masculino ? "1" : jsonData.cliente_sexo === SEXO.femenino ? "2" : jsonData.cliente_sexo === SEXO.no_aplica ? "3" : "0"},'${jsonData.cliente_fecha_nacimiento}','${jsonData.cliente_direccion}' ,${jsonData.cliente_comuna_id || 150}, '${jsonData.cliente_telefono}','${jsonData.cliente_correo}', ${jsonData.establecimiento_id}`;
@@ -777,12 +755,12 @@ const FOT:React.FC<IFOTProps> = ({
   const [formValues, setFormValues] = useState<FormData | any>({});
   const [showGarantia, setShowGarantia] = useState(false);
   const [showDerivacion, setShowDerivacion] = useState(false);
-  const [existCliente, setExistCliente] = useState(false);
+  const [_existCliente, setExistCliente] = useState(false);
   const [submitAction, setSubmitAction] = useState('');
   const [strCodigoProyecto, setStrCodigoProyecto] = useState(data && data[EnumGrid.proyecto_codigo] || '')
   const [isMotivo, setIsMotivo] = useState(false);
-  const [toggle, setToggle] = useState();
-  const [changeboolean, setChangeboolean] = useState(false)
+  const [_toggle, setToggle] = useState();
+  const [_changeboolean, setChangeboolean] = useState(false)
 
 
   const [a1Grupo, setA1Grupo] = useState(0)
@@ -809,11 +787,8 @@ const FOT:React.FC<IFOTProps> = ({
   // console.log(sumatoriaNivel1)
 
   //submit boton pausar
-  const onSubmit: SubmitHandler<FormData> = async(jsonData, type?:any) => {
-    const actualDate = moment().format('DD-MM-YYYY HH:mm:ss');
-    const fechaActual = moment().format('YYYY-MM-DD')
-
-    console.log(submitAction)
+  const onSubmit: SubmitHandler<FormData> = async(jsonData, _type?:any) => {
+      //  console.log(submitAction)
 
     if (submitAction === 'pausar') {
       switchCasePausar(jsonData);
@@ -839,29 +814,17 @@ const FOT:React.FC<IFOTProps> = ({
         ...data
       }
     }));
-
-
-
-    //FUNCION
-    
-
-    // if(tipo_de_anteojo.value === "3" || tipo_de_anteojo.value === "4" || tipo_de_anteojo.value === "5" || tipo_de_anteojo.value === "6"){
-       
-    //   dioptriasHabilitadas.value.a1_ad = false
-    //   dioptriasHabilitadas.value.a1_alt = false
-    //   console.log(dioptriasHabilitadas.value)
-    // }
-
-
     //FUNCION
     if(tipo_de_anteojo.value === "3"){
-      a2_od_esf.value = dioptrias_receta.value.a1_od.esf + dioptrias_receta.value.a1_od.ad
-      a2_od_cil.value = dioptrias_receta.value.a1_od.cil 
-      a2_od_eje.value = dioptrias_receta.value.a1_od.eje
 
-      a2_oi_esf.value = dioptrias_receta.value.a1_oi.esf + dioptrias_receta.value.a1_oi.ad
-      a2_oi_cil.value = dioptrias_receta.value.a1_oi.cil
-      a2_oi_eje.value = dioptrias_receta.value.a1_oi.eje
+      a2_od_esf.value = (dioptrias_receta.value.a1_od.esf ? dioptrias_receta.value.a1_od.esf : 0) + (dioptrias_receta.value.a1_od.ad ? dioptrias_receta.value.a1_od.ad : 0)
+      a2_od_cil.value = (dioptrias_receta.value.a1_od.cil ? dioptrias_receta.value.a1_od.cil : 0) 
+      a2_od_eje.value = (dioptrias_receta.value.a1_od.eje ? dioptrias_receta.value.a1_od.eje : 0)
+
+      a2_oi_esf.value = (dioptrias_receta.value.a1_oi.esf ? dioptrias_receta.value.a1_oi.esf : 0) + (dioptrias_receta.value.a1_oi.ad ? dioptrias_receta.value.a1_oi.ad : 0)
+      a2_oi_cil.value = (dioptrias_receta.value.a1_oi.cil ? dioptrias_receta.value.a1_oi.cil : 0) 
+      a2_oi_eje.value = (dioptrias_receta.value.a1_oi.eje ? dioptrias_receta.value.a1_oi.eje : 0) 
+
 
       validation_A2_OD_ESF(a2_od_esf.value)
       validation_A2_OD_CIL(a2_od_cil.value)
@@ -875,8 +838,8 @@ const FOT:React.FC<IFOTProps> = ({
     }else{
       console.log('otro')
       // clearDioptrias()
-      reiniciarA2DioptriasReceta()
-      clearDioptriasA2(0)
+      // reiniciarA2DioptriasReceta()
+      // clearDioptriasA2(0)
       // limpiarDioptriasReceta(dioptrias_receta.value)
     }
 

@@ -26,10 +26,6 @@ const strBaseUrl = "/api/permisos/";
 const strQuery = "01";
 const idMenu   = 26;
 
-type PrimaryKey = {
-  pk1: number;
-  pk2: number;
-};
 
 const MPermisos: React.FC = () => {
   const [params, setParams] = useState([]);

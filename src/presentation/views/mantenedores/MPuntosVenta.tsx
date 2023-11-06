@@ -31,9 +31,7 @@ const strBaseUrl = "/api/puntosventa/";
 const strQuery = "01";
 const idMenu = 4;
 
-type PrimaryKey = {
-  pk1: number;
-};
+
 const MPuntosVenta: React.FC = () => {
   const [params, setParams] = useState([]);
 
