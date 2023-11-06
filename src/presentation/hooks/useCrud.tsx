@@ -5,7 +5,16 @@
 import { useRef } from "react";
 import axios, { AxiosInstance } from "axios";
 
-export const baseURL = (params:string) => params.startsWith("http") ? params : `https://mtoopticos.cl${params}`;
+export const baseURL = (params:string) => {
+
+  //Produccion
+  // const URLBackend = 'https://mtoopticos.cl';
+
+  //Desarrollo
+  const URLBackend = 'https://gestiondev.mtoopticos.cl/';
+
+  return params.startsWith("http") ? params : `${URLBackend}${params}`;
+}
 
 
 const useCrud = (
