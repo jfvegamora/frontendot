@@ -11,12 +11,16 @@ import { toast } from "react-toastify";
 
 import { useCrud } from ".";
 import { useModal } from "./useModal";
+import { baseURL } from "./useCrud";
+
 
 export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
-  const baseUrl = entityApiBaseUrl.startsWith("http")
-    ? entityApiBaseUrl
-    : `https://mtoopticos.cl${entityApiBaseUrl}`;
+  // const baseUrl = entityApiBaseUrl.startsWith("http")
+    // ? entityApiBaseUrl
+    // : `https://mtoopticos.cl${entityApiBaseUrl}`;
   // : `http://127.0.0.1:8000${entityApiBaseUrl}`;
+  const baseUrl = baseURL(entityApiBaseUrl)
+
   const [entity, setEntity] = useState<any | null>(null);
   const [entities, setEntities] = useState<never[]>([]);
   const [pageSize, setPageSize] = useState(1);

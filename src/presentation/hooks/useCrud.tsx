@@ -5,6 +5,9 @@
 import { useRef } from "react";
 import axios, { AxiosInstance } from "axios";
 
+export const baseURL = (params:string) => params.startsWith("http") ? params : `https://mtoopticos.cl${params}`;
+
+
 const useCrud = (
   apiBaseUrl: string
 ): {
@@ -26,10 +29,7 @@ const useCrud = (
   firstInputRef: any;
   secondInputRef: any;
 } => {
-  const baseUrl = apiBaseUrl.startsWith("http")
-    ? apiBaseUrl
-    : `https://mtoopticos.cl${apiBaseUrl}`;
-  // :`http://127.0.0.1:8000${apiBaseUrl}`;
+  const baseUrl = baseURL(apiBaseUrl)
 
   const axiosInstance: AxiosInstance = axios.create({
     baseURL: baseUrl,
