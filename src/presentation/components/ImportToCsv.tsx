@@ -13,7 +13,7 @@ interface ImportProps{
 
 const PositionToRemove ={
   // Mandantes:    [4,5,6,7,9],
-  Clientes:     [3,5,9,13],
+  // Clientes:     [3,5,9,13],
   
   // Armazones:    [2,3,4,5],
 }
