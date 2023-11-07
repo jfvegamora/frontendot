@@ -228,7 +228,7 @@ const navListMenuProyectos = [
   {
     title: "Parametrización de Accesorios",
     link: "/proyectoaccesorios",
-    id: 32,
+    id: 30,
   },
   {
     title: "Parametrización de Despacho",

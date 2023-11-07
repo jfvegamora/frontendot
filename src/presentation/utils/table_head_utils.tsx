@@ -963,7 +963,7 @@ export const table_head_establecimientos = [
     key: "nombre",
     visible: true,
     alignment: "text-left",
-    width: "w-[9rem]",
+    width: "w-[12rem]",
   },
   {
     cell: "Mandante ID",
@@ -975,7 +975,7 @@ export const table_head_establecimientos = [
     key: "mandante",
     visible: true,
     alignment: "text-left",
-    width: "w-[9rem]",
+    width: "w-[12rem]",
   },
   {
     cell: "Región ID",
@@ -986,7 +986,8 @@ export const table_head_establecimientos = [
     cell: "Región",
     key: "region",
     visible: true,
-    alignment: "text-left"
+    alignment: "text-left",
+    width: "w-[6rem]",
   },
   {
     cell: "Provincia ID",
@@ -997,7 +998,8 @@ export const table_head_establecimientos = [
     cell: "Provincia",
     key: "provincia",
     visible: true,
-    alignment: "text-left"
+    alignment: "text-left",
+    width: "w-[6rem]",
   },
   {
     cell: "Comuna ID",
@@ -1008,7 +1010,8 @@ export const table_head_establecimientos = [
     cell: "Comuna",
     key: "comuna",
     visible: true,
-    alignment: "text-left"
+    alignment: "text-left",
+    width: "w-[6rem]",
   },
   {
     cell: "",
@@ -2937,6 +2940,7 @@ export const table_head_perfiles = [
     cell: "Cargo",
     key: "cargo",
     visible: true,
+    alignment: "text-left",
   },
   {
     cell: "ID_FUNCIONALIDAD",
@@ -2947,6 +2951,7 @@ export const table_head_perfiles = [
     cell: "Funcionalidad",
     key: "funcionalidad",
     visible: true,
+    alignment: "text-left",
   },
   {
     cell: "Permiso",
@@ -3066,7 +3071,7 @@ export const table_head_empresas = [
     key: "direccion",
     visible: true,
     alignment: "text-left",
-    width: "w-[12rem]",
+    width: "w-[14rem]",
   },
   {
     cell: "Teléfono",
@@ -3092,7 +3097,7 @@ export const table_head_empresas = [
   {
     cell: "Logo",
     key: "nombre_logo",
-    visible: true,
+    visible: false,
     alignment: "text-left",
     width: "w-[10rem]",
   },
