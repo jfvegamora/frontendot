@@ -224,7 +224,7 @@ export const privateRoutes = [
     requiredPermissions : ['view_' + PrivateRoutes.PROYECTOS_CRISTALES]
   },
   {
-    id                  : "32",
+    id                  : "30",
     path                : PrivateRoutes.PROYECTOS_ACCESORIOS,
     component           : MProyectosAccesorios,
     requiredPermissions : ['view_' + PrivateRoutes.PROYECTOS_ACCESORIOS]

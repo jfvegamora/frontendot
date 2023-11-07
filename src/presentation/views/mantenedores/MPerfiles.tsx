@@ -129,7 +129,7 @@ const MPerfiles: React.FC = () => {
         />
       </div>
 
-      <div className="width70">
+      <div className="width70 scroll">
         <TableComponent
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
