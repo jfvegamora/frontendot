@@ -53,7 +53,7 @@ const Login: React.FC = React.memo(() => {
           dispatch(fetchListBoxTipos())
           // toast.success("Sesion Iniciada");
           show({ message: LOGIN.loginSuccess, type: "success" });
-          navigate("/ot");
+          navigate("/landing");
         })
         .catch((_e) => show({ message: LOGIN.loginError, type: "error" }));
     } catch (error: any) {

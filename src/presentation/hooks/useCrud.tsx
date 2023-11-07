@@ -11,7 +11,7 @@ export const baseURL = (params:string) => {
   // const URLBackend = 'https://mtoopticos.cl';
 
   //Desarrollo
-  const URLBackend = 'https://gestiondev.mtoopticos.cl/';
+  const URLBackend = 'https://gestiondev.mtoopticos.cl';
 
   return params.startsWith("http") ? params : `${URLBackend}${params}`;
 }

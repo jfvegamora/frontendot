@@ -166,6 +166,14 @@ const MProyectos: React.FC = () => {
         />
       </div>
     
+      {/* <FProyectos
+        label={`${TITLES.ingreso} ${strEntidad}`}
+        closeModal={closeModal}
+        selectedRows={selectedRows}
+        setEntities={setEntities}
+        params={params}
+        isEditting={false}
+      /> */}
       {isModalInsert && (
         <FProyectos
           label={`${TITLES.ingreso} ${strEntidad}`}

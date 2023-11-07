@@ -1,5 +1,9 @@
 import {lazy}             from 'react';
 
+
+//landingPage
+const Landing               = lazy(()=>import("../presentation/pages/LandingPage"))
+
 const MOT                   = lazy(()=>import("../presentation/views/mantenedores/MOT"));
 const MOTHistorica          = lazy(()=>import("../presentation/views/mantenedores/MOTHistorica"));
 const MClientes             = lazy(()=>import("../presentation/views/mantenedores/MClientes"));
@@ -86,10 +90,20 @@ export const PrivateRoutes = {
   PERMISOS              : "permisos",
   PERMISOS_AREAS        : "permisosareas",
   EMPRESAS              : "empresas",
+
+
+  //landingpage
+  LANDING               : "landing"
 };
 
 export const privateRoutes = [
-
+  
+  {
+    id                  : "1",
+    path                : PrivateRoutes.LANDING,
+    component           : Landing,
+    requiredPermissions : ['view_' + PrivateRoutes.OT]
+  },
   // MENU OT
   {
     id                  : "1",

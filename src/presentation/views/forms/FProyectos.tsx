@@ -536,7 +536,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
 
            </div>  
 
-           <div className="w-full  items-center flex h-[60px] mt-[25px] mb-[10px]">
+           <div className="w-full   items-center flex h-[60px] mt-[25px] mb-[10px]">
 
             <div className="w-[12%] mr-8">
                  <TextInputComponent
@@ -614,7 +614,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
            </div>      
 
 
-            <div className="w-[98%] items-center flex h-[60px] mt-[30px] mb-[10px]">
+            <div className="w-[98%] bg-red-500 items-center flex h-[60px] mt-[30px] mb-[10px]">
                 <div className=" relative mx-4 w-1/2 flex">
                     <h1 className="absolute z-20 top-[-45%]">Contacto Administrativo</h1>
                     <div className="w-[55%] mr-8">

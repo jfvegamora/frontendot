@@ -12,8 +12,8 @@ import { EnumGrid } from "../mantenedores/MMandantes";
 import { ERROR_MESSAGES, MODAL, SUCCESS_MESSAGES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
-import RegProComponent from "../../components/forms/RegProComponent";
 import useCustomToast from "../../hooks/useCustomToast";
+import RegProCom from "../../components/RegProCom";
 
 const strBaseUrl = "/api/mandantes/";
 const strEntidad = "Mandante ";
@@ -109,6 +109,7 @@ const FMandantes: React.FC<IUserFormPrps> = React.memo(
       handleSubmit,
       formState: { errors },
       setValue,
+      register
     } = useForm({
       resolver: yupResolver(schema),
     });
@@ -229,7 +230,7 @@ const FMandantes: React.FC<IUserFormPrps> = React.memo(
 
     // console.log('data', data)
     return (
-      <div className="useFormContainer">
+      <div className="useFormContainer top-0">
         <div className="userFormBtnCloseContainer">
           <button onClick={closeModal} className="userFormBtnClose">
             X
@@ -275,13 +276,16 @@ const FMandantes: React.FC<IUserFormPrps> = React.memo(
               error={errors.nombre}
             />
             <div className="w-full ">
-              <RegProComponent
-                control={control}
-                EnumGrid={EnumGrid}
-                isEditting={isEditting}
-                errors={errors}
-                data={data && data}
+              <RegProCom
+               name="comuna"
+               control={control}
+               register={register}
+               setValue={setValue}
+               defaultRegion={data && data[EnumGrid.region_id]}
+               defaultProvincia={data && data[EnumGrid.provincia_id]}
+               defaultComuna={data && data[EnumGrid.comuna_id]}
               />
+              
             </div>
           </div>
 

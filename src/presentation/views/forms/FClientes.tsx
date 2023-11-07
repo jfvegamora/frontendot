@@ -22,9 +22,9 @@ import {
 } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
-import RegProComponent from "../../components/forms/RegProComponent";
 import useCustomToast from "../../hooks/useCustomToast";
 import { toast } from "react-toastify";
+import RegProCom from "../../components/RegProCom";
 
 const strBaseUrl = "/api/clientes/";
 const strEntidad = "Cliente ";
@@ -164,6 +164,7 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
       handleSubmit,
       formState: { errors },
       setValue,
+      register
     } = useForm({
       resolver: yupResolver(schema),
     });
@@ -285,6 +286,8 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
     useEffect(() => {
       isEditting ? focusSecondInput("nombre") : focusFirstInput("rut");
     }, []);
+
+    // console.log(data && data)
  
     return (
       <div className="useFormContainer useFormContainer70rem top-0">
@@ -380,12 +383,16 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
 
               <div className="w-[90%] rounded-lg border border-blue-500 relative">
                 <label className="labelForm w-[20%] absolute top-[-7%] left-2 text-center z-10 ">Direccion</label>
-                <RegProComponent
+                <RegProCom
+                  name="comuna"
                   control={control}
-                  EnumGrid={EnumGrid}
-                  isEditting={isEditting}
-                  errors={errors.comuna}
-                  data={data && data}
+                  register={register}
+                  setValue={setValue}
+                  defaultRegion={data && data[EnumGrid.region_id]}
+                  defaultComuna={data && data[EnumGrid.comuna_id]}
+                  defaultProvincia={data && data[EnumGrid.provincia_id]}
+
+
                 />
                 <div className="mt-[-2%]">
                   <TextInputComponent
