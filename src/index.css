@@ -8,7 +8,7 @@
 }
 
 body {
-  background-color: gainsboro;
+  background-color:#4a5568;
   vertical-align: top;
   overflow: hidden;
   height: 100vh;
@@ -502,6 +502,17 @@ input:checked + .slider:before {
   width: 100px;
 }
 
+.center-form{
+  top:10%;
+}
+
+.centered-div {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .useFormContainer {
   --tw-bg-opacity: 1;
   /*  background-color: rgb(255 255 255 / var(--tw-bg-opacity));*/
@@ -557,11 +568,27 @@ input:checked + .slider:before {
   align-items: flex-end;
 }
 
-.userFormBtnClose {
+/* .userFormBtnClose {
   --tw-text-opacity: 1;
-  /*  color: rgb(244 67 54 / var(--tw-text-opacity));*/
   color: orangered;
   font-size: 30px;
+} */
+
+.userFormBtnClose {
+  /* Estilos normales */
+  background: none;
+  border: none;
+  color: orangered;
+  font-size: 2rem;
+  cursor: pointer;
+  transition: transform 0.2s; /* Agregar una transición suave */
+
+  /* Agrandar la X en el hover */
+  transform-origin: center;
+}
+
+.userFormBtnClose:hover {
+  transform: scale(1.2); /* Aumentar el tamaño al 120% */
 }
 
 .userFormLabel {

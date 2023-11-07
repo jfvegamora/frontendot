@@ -1777,7 +1777,7 @@ export const table_head_mandantes = [
     width: "w-[3rem]"
   },
   {
-    cell: "Código",
+    cell: "Código Mercado Público",
     key: "codigo",
     visible: true,
     alignment: "text-center",
