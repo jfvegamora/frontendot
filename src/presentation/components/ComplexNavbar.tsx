@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import { signal } from "@preact/signals-react";
 import {
   Navbar,
   Collapse,
@@ -27,7 +28,7 @@ import {
 import { AppStore, useAppDispatch, useAppSelector } from "../../redux/store";
 import { logout } from "../../redux/slices/userSlice";
 
-
+export const strNavTitle  = signal("OT");
 // profile menu component
 
 function ProfileMenu() {
@@ -319,6 +320,7 @@ function NavListMenuOT({ userPermission }: { userPermission: number[] }) {
         }`}
         onClick={() => {
           if (hasPermission) {
+            strNavTitle.value = title
             navigate(link);
           }
         }}
@@ -404,6 +406,7 @@ function NavListMenuBodega({ userPermission }: { userPermission: number[] }) {
         onClick={() => {
           if (hasPermission) {
             navigate(link);
+            strNavTitle.value = title
           }
         }}
       >
@@ -492,6 +495,7 @@ function NavListMenuProyectos({
         onClick={() => {
           if (hasPermission) {
             navigate(link);
+            strNavTitle.value = title
           }
         }}
       >
@@ -576,6 +580,7 @@ function NavListMenuSistema({ userPermission }: { userPermission: number[] }) {
         onClick={() => {
           if (hasPermission) {
             navigate(link);
+            strNavTitle.value = title
           }
         }}
       >
@@ -784,16 +789,30 @@ function NavList() {
 export default function ComplexNavbar() {
   const [isNavOpen, setIsNavOpen] = React.useState(false);
   const userState = useAppSelector((store: AppStore) => store.user);
-
+  const location = useLocation();
+  const [titulo, setTitulo] = useState('');
+  
+  
   const toggleIsNavOpen = () => setIsNavOpen((cur) => !cur);
-
+  
   React.useEffect(() => {
     window.addEventListener(
       "resize",
       () => window.innerWidth >= 960 && setIsNavOpen(false)
-    );
+      );
+      
+      
     // const userPermission = userState?.permisos.map((permiso)=>permiso)
   }, []);
+  
+  React.useEffect(()=>{
+    const nuevoTitulo = location.pathname.split('/').pop();
+    if(nuevoTitulo){
+      const tituloConPrimeraLetraMayuscula = nuevoTitulo.charAt(0).toUpperCase() + nuevoTitulo.slice(1);
+      setTitulo(tituloConPrimeraLetraMayuscula || '');
+
+    }
+  }, [location])
 
   return (
     <>
@@ -804,7 +823,7 @@ export default function ComplexNavbar() {
               
               
               className="mr-4 ml-2 cursor-pointer py-1.5 font-medium"
-            >Sistema Gestión OT
+            >{strNavTitle}
               {/* <Link to="/ot">Gestión OT</Link> */}
             </Typography>
             <div className="absolute top-2/4 left-2/4 hidden -translate-x-2/4 -translate-y-2/4 lg:block">

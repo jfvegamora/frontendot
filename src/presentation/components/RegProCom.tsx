@@ -112,7 +112,7 @@ const RegProCom:React.FC<IProps> = ({
                             onChange={handleProvinceChange}
                             className="custom-input py-2 px-3 cursor-pointer z-0 "
                             >
-                                <option value={0}>Seleccionar provincias</option>
+                                <option value={0}>Seleccionar provincia</option>
                                     {provinces && provinces.map((province:any) => (
                                         <option key={province[0]} value={province[0]}>
                                             {province[1]}
@@ -139,7 +139,7 @@ const RegProCom:React.FC<IProps> = ({
                             onChange={handleCommuneChange}
                             className="custom-input py-2 px-3 cursor-pointer z-0 "
                             >
-                                <option value={0}>Selecionar comunas</option>
+                                <option value={0}>Selecionar comuna</option>
                                     {comunas && comunas.map((comuna:any) => (
                                         <option key={comuna[0]} value={comuna[0]}>
                                             {comuna[1]}
