@@ -134,7 +134,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
           key={groupIndex}
           className={
             primaryKeyInputs.length > 5
-              ? `grid grid-rows-3 w-[40vw] h-[40vh] grid-cols-2  items-center`
+              ? `grid grid-rows-3 w-[40vw] h-[40vh] grid-cols-2  items-center `
               : "flex mb-auto items-center  ml-[-2rem] "
           }
         >

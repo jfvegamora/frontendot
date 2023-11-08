@@ -71,29 +71,9 @@ const MProyectosDirecciones: React.FC = () => {
   
       setPkToDelete([`${strParamsToDelete}=[${combinedPks}]`]);
     }, [selectedRows]);
-      // const pkToDelete: PrimaryKey[] = [];
-  
-    // useEffect(() => {
-    //   const newPkToDelete = selectedRows.map((row) => ({
-    //     pk1: entities[row][EnumGrid.proyecto],
-    //     pk2: entities[row][EnumGrid.establecimiento_id],
-    //   }));
-    //   newPkToDelete.forEach((newPk) => {
-    //     if (
-    //       !pkToDelete.some(
-    //         (existingPk) =>
-    //           existingPk.pk1 === newPk.pk1 && existingPk.pk2 === newPk.pk2
-    //       )
-    //     ) {
-    //       pkToDelete.push(newPk);
-    //     }
-    //   });
-    // }, [selectedRows]);
   
     return (
       <div className="mantenedorContainer">
-        <h1 className="mantenedorH1">Direcciones de Despacho</h1>
-  
         <div className="mantenedorHead width90">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}

@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationPerfilesSchema } from "../../utils/validationFormSchemas";
 import { EnumGrid } from "../mantenedores/MPerfiles";
-import { ERROR_MESSAGES, MODAL, SUCCESS_MESSAGES } from "../../utils";
+import { ERROR_MESSAGES, MODAL, SUCCESS_MESSAGES, TITLES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
@@ -203,7 +203,7 @@ const FPerfiles: React.FC<IFormPrps> = React.memo(
     }, [closeModal]);
 
     return (
-      <div className="useFormContainer top-[15%] left-[35%] w-[28%]  z-10">
+      <div className="useFormContainer centered-div use30rem">
         <div className="userFormBtnCloseContainer">
           <button onClick={closeModal} className="userFormBtnClose">
             X
@@ -250,11 +250,10 @@ const FPerfiles: React.FC<IFormPrps> = React.memo(
               options={["Lectura", "Lectura/Escritura"]}
               error={errors.permiso}
             />
-            {/* <TextInputComponent/> */}
           </div>
 
           <button type="submit" className="userFormBtnSubmit">
-            Guardar
+          {`${TITLES.guardar}`}
           </button>
         </form>
         <CustomModal />

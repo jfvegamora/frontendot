@@ -32,7 +32,8 @@ interface ISelectInputProps {
   readOnly?: boolean;
   customWidth?: any;
   setState?: any;
-  isOT?:boolean
+  isOT?:boolean;
+  tabIndex?: number;
 }
 
 const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
@@ -49,7 +50,8 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     handleSelectChange,
     readOnly,
     setState,
-    isOT
+    isOT,
+    tabIndex
   }) => {
     const dispatch = useAppDispatch()
     const [refreshToggle, setrefreshToggle] = useState(false);
@@ -58,7 +60,6 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     const strUrl = entidad && entidad[0];
     const strTableName = entidad[3] ? `_p3=${entidad[2]}` : entidad[1] ? `_p1=${entidad[0]}` : "";
     const inputRef = useRef(null);
-    // console.log(entidad)
     const { ListEntity } = useCrud(strUrl);
     // console.log(strUrl)
     // console.log(strTableName)
@@ -110,12 +111,12 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
           control={control}
           defaultValue={strSelectedName}
           render={({ field }) => (
-            <div className={`custom-select rounded-lg border absolute${error ? 'border-red-500' : 'border-gray-500'}  `}>
+            <div className={`custom-select rounded-lg !h-[3rem]  absolute${error ? 'border-red-500' : 'border-gray-500'}  `}>
               <div className=" top-[-18%]  left-3.5 absolute w-1/2 z-10">
                 <label
                   htmlFor={label}
                   // className="absolute top-[-1%] left-[3%] text-sm"
-                  className="text-[11px] text-gray-600 top-0 relative"
+                  className="labelSelect relative"
                 >
                   {label}
                 </label>
@@ -130,6 +131,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
                 {...field}
                 ref={inputRef}
                 disabled={readOnly}
+                tabIndex  ={tabIndex || 1}
                 
                 onChange={(e) => {
                   setState && setState(e.target.value);
@@ -186,7 +188,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
 
     return (
       // <div className="flex min-w-[60px] w-full items-center mb-2 mx-4 mt-select mt-select-dropdown-up cursor-pointer ">
-      <div className="flex min-w-[100%] w-full items-center  mx-4 mt-select mt-select-dropdown-up cursor-pointer">
+      <div className="flex min-w-[100%] w-full items-center mx-4 mt-select mt-select-dropdown-up cursor-pointer">
         {/* <label className="label-input w-1/3">{label}</label> */}
         {renderInput()}
         {/* Controller  */}
@@ -195,8 +197,8 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
             <IconButton
               onClick={() => setrefreshToggle((prev) => !prev)}
               variant="text"
-              color="blue-gray"
-              className="mx2"
+              className="mx2 iconRefresh"
+              tabIndex={-1}
             >
               <FiRefreshCw className="h-6 w-6" />
             </IconButton>

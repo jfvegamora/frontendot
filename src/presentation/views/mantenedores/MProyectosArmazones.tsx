@@ -36,7 +36,7 @@ export enum EnumGrid {
   uso                  = 20,
   estado               = 21
 }
-const strEntidad = "Parametrizacion de Armazon ";
+const strEntidad = "Parametrización de Armazón ";
 const strEntidadExcel = "Parametrizacion_de_armazones";
 const strBaseUrl = "/api/proyectoarmazones/";
 const strQuery = "01";
@@ -84,29 +84,9 @@ const MProyectosArmazones: React.FC = () => {
 
     setPkToDelete([`${strParamsToDelete}=[${combinedPks}]`]);
   }, [selectedRows]);
-  // const pkToDelete: PrimaryKey[] = [];
-
-  // useEffect(() => {
-  //   const newPkToDelete = selectedRows.map((row) => ({
-  //     pk1: entities[row][EnumGrid.codigo_proyecto],
-  //     pk2: `${entities[row][EnumGrid.codigo_armazon]}`,
-  //   }));
-  //   newPkToDelete.forEach((newPk) => {
-  //     if (
-  //       !pkToDelete.some(
-  //         (existingPk) =>
-  //           existingPk.pk1 === newPk.pk1 && existingPk.pk2 === newPk.pk2
-  //       )
-  //     ) {
-  //       pkToDelete.push(newPk);
-  //     }
-  //   });
-  // }, [selectedRows]);
 
   return (
     <div className="mantenedorContainer">
-      <h1 className="mantenedorH1">Parametrizacion de Armazones</h1>
-
       <div className="mantenedorHead width90">
         <PrimaryKeySearch
           baseUrl={strBaseUrl}

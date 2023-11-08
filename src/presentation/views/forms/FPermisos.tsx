@@ -199,7 +199,7 @@ const FPermisos: React.FC<IFormPrps> = React.memo(
     }, [closeModal]);
     console.log("data", data);
     return (
-      <div className="useFormContainer top-[15%] left-[35%] w-[28%]  z-10">
+      <div className="useFormContainer centered-div use30rem">
         <div className="userFormBtnCloseContainer">
           <button onClick={closeModal} className="userFormBtnClose">
             X

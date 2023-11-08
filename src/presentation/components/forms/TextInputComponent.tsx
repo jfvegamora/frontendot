@@ -17,7 +17,8 @@ interface ITextInputProps {
   className?:string;
   handleChange?: (data:any)=>void;
   maxLength?:number;
-  step?:number
+  step?:number;
+  tabIndex?: number;
 }
 
 const TextInputComponent: React.FC<ITextInputProps> = ({
@@ -33,7 +34,8 @@ const TextInputComponent: React.FC<ITextInputProps> = ({
   className,
   defaultValue:formatvalue,
   maxLength,
-  step
+  step,
+  tabIndex
 }) => {
   const [defaultValue, setDefaultValue] = useState<any>(data || "")
 
@@ -63,7 +65,7 @@ const TextInputComponent: React.FC<ITextInputProps> = ({
   // console.log(data)
 return (
   <div
-  className={`${"flex items-center mb-4 mx-4  relative rounded-xl "}`}
+  className={`${"flex items-center mx-4 relative rounded-xl"}`}
   >
   <Controller
     name={name}
@@ -77,7 +79,6 @@ return (
           {...field}
           error = {error ? true : false }
           label     ={label}
-          color     ="orange"
           id        ={label}
           type      ={type}
           step      ={step ? step : 1}
@@ -85,8 +86,8 @@ return (
           maxLength ={maxLength}
           onBlur    ={(e)=>handleInputChange(e)}
           ref       ={inputRef}
-          className ={`${className ? className : " custom-input py-2 px-3 "}`}
-          // className={`${className ? className : "custom-input py-2 px-3"}`}
+          className ={`${className ? className : " custom-input py-3 px-3 "}`}
+          tabIndex  ={tabIndex || 1}
         />
       </div>
     )}

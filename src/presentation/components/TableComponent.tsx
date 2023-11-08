@@ -89,6 +89,44 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
       }
     }, [data]);
 
+    useEffect(() => {
+      // Obtén todas las columnas (th) y guárdalas en una variable
+      const columns = document.querySelectorAll('th');
+      console.log('columns', columns)
+  
+      columns.forEach((column) => {
+        // Agrega un evento al mouse para el redimensionamiento
+        column.addEventListener('mousedown', (e:any) => {
+          const initialX = e.clientX;
+          const columnId = e.target.id;
+          const column = document.getElementById(columnId);
+  
+          // Función que se ejecuta cuando se mueve el mouse
+          const handleMouseMove = (e:any) => {
+            if(column){
+              const width = column.offsetWidth + (e.clientX - initialX);
+              column.style.width = `${width}px`;
+            }
+          };
+  
+          // Función que se ejecuta al soltar el mouse
+          const handleMouseUp = () => {
+            document.removeEventListener('mousemove', handleMouseMove);
+            document.removeEventListener('mouseup', handleMouseUp);
+          };
+  
+          // Agrega eventos al documento para el movimiento del mouse y al soltar el mouse
+          document.addEventListener('mousemove', handleMouseMove);
+          document.addEventListener('mouseup', handleMouseUp);
+        });
+  
+        // Limpia los eventos cuando el componente se desmonta
+        return () => {
+          column.removeEventListener('mousedown');
+        };
+      });
+    }, []);
+
     const renderTextCell = (text: string, alignment?:string, type?:number) => {
 
       const cellStyle = {
@@ -140,7 +178,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                 return isVisible ? (
                   <th key={index} className={`gridHead ${column.width || 'w-auto'}`}>
                     {column.key === "checkbox" ? (
-                      <input
+                      <input className="checkTable"
                         type="checkbox"
                         onChange={(e) =>
                           handleSelectedCheckedAll &&

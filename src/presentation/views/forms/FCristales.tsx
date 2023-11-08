@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationCristalesSchema } from "../../utils/validationFormSchemas";
 import { EnumGrid } from "../mantenedores/MCristales";
-import { ERROR_MESSAGES, MODAL, SUCCESS_MESSAGES } from "../../utils";
+import { ERROR_MESSAGES, MODAL, SUCCESS_MESSAGES, TITLES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
@@ -248,9 +248,9 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
       isEditting ? focusSecondInput("codigo") : focusFirstInput("marca");
     }, []);
 
-
+ console.log(data && typeof data[EnumGrid.stock_reservado])
     return (
-      <div className="useFormContainer top-20 left-[35%] w-[30%]">
+      <div className="useFormContainer centered-div use30rem">
         <div className="userFormBtnCloseContainer">
           <button onClick={closeModal} className="userFormBtnClose">
             X
@@ -263,50 +263,45 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
           className="userFormulario"
         >
           <div className="userFormularioContainer">
-            <TextInputComponent
-              type="text"
-              label="Código"
-              name="codigo"
-              data={data && data[EnumGrid.codigo]}
-              control={control}
-              error={errors.codigo}
-              inputRef={firstInputRef}
-              onlyRead={isEditting}
-              maxLength={20}
-            />
-            <SelectInputComponent
-              label="Marca"
-              name="marca"
-              showRefresh={true}
-              data={data && data[EnumGrid.marca_id]}
-              control={control}
-              entidad={["/api/marcas/", "02"]}
-              error={errors.marca}
-              customWidth={""}
-              inputRef={secondInputRef}
-            />
-
-
-            {/* <SelectInputTiposComponent
-              label="Marca"
-              name="marca"
-              showRefresh={true}
-              control={control}
-              entidad={"cristalesMateriales"}
-              error={errors.marca}
-            /> */}
-
-
-            <SelectInputComponent
-              label="Diseño"
-              name="diseno"
-              showRefresh={true}
-              data={data && data[EnumGrid.diseno_id]}
-              control={control}
-              entidad={["/api/tipos/", "02", "CristalesDisenos"]}
-              error={errors.diseno}
-            />
-            <div className="w-full ">
+            <div className="rowForm">
+              <TextInputComponent
+                type="text"
+                label="Código"
+                name="codigo"
+                data={data && data[EnumGrid.codigo]}
+                control={control}
+                error={errors.codigo}
+                inputRef={firstInputRef}
+                onlyRead={isEditting}
+                maxLength={20}
+              />
+            </div>
+            <div className="rowForm">
+              <SelectInputComponent
+                label="Marca"
+                name="marca"
+                showRefresh={true}
+                data={data && data[EnumGrid.marca_id]}
+                control={control}
+                entidad={["/api/marcas/", "02"]}
+                error={errors.marca}
+                customWidth={""}
+                inputRef={secondInputRef}
+                tabIndex={1}
+              />
+            </div>
+            <div className="rowForm">
+              <SelectInputComponent
+                label="Diseño"
+                name="diseno"
+                showRefresh={true}
+                data={data && data[EnumGrid.diseno_id]}
+                control={control}
+                entidad={["/api/tipos/", "02", "CristalesDisenos"]}
+                error={errors.diseno}
+              />
+            </div>
+            <div className="rowForm">
               <SelectInputComponent
                 label="Índice"
                 name="indice"
@@ -317,6 +312,8 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                 error={errors.indice}
                 customWidth={""}
               />
+            </div>
+            <div className="rowForm">
               <SelectInputComponent
                 label="Material"
                 name="material"
@@ -326,6 +323,8 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                 entidad={["/api/tipos/", "02", "CristalesMateriales"]}
                 error={errors.material}
               />
+            </div>
+            <div className="rowForm">
               <SelectInputComponent
                 label="Color"
                 name="color"
@@ -336,6 +335,8 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                 error={errors.color}
                 customWidth={""}
               />
+            </div>
+            <div className="rowForm">
               <SelectInputComponent
                 label="Tratamiento"
                 name="tratamiento"
@@ -347,7 +348,7 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                 customWidth={""}
               />
             </div>
-            <div className="flex items-center">
+            <div className="flex items-center rowForm">
               <TextInputComponent
                 type="number"
                 label="Diámetro"
@@ -355,7 +356,6 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                 data={data && data[EnumGrid.diametro]}
                 control={control}
                 error={errors.diametro}
-                className="input"
               />
               <TextInputComponent
                 type="number"
@@ -364,7 +364,6 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                 data={data && data[EnumGrid.esferico]}
                 control={control}
                 error={errors.esferico}
-                className="input"
                 step={0.01}
               />
               <TextInputComponent
@@ -374,12 +373,10 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                 data={data && data[EnumGrid.cilindrico]}
                 control={control}
                 error={errors.cilindrico}
-                className="input"
                 step={0.01}
               />
             </div>
-            <div className=" flex items-center">
-              
+            <div className="flex items-center rowForm">
               <div className="w-[50%]">
                 <TextInputComponent
                   type="number"
@@ -396,8 +393,10 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                   label="Stock Reservado"
                   name="stock_reservado"
                   data={data && data[EnumGrid.stock_reservado]}
+                  // data={100000}
                   control={control}
                   onlyRead={true}
+                  tabIndex={-1}
                 />
               </div>
               <div className="w-[50%]">
@@ -408,16 +407,17 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                   data={data && data[EnumGrid.stock_disponible]}
                   control={control}
                   onlyRead={true}
+                  tabIndex={-1}
                 />
               </div>
 
-
             </div>
           </div>
-
-          <button type="submit" className="userFormBtnSubmit">
-            Guardar
+          <button type="submit" className="userFormBtnSubmit" tabIndex={1}>
+          {`${TITLES.guardar}`}
           </button>
+
+
         </form>
 
         <CustomModal />

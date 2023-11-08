@@ -10,7 +10,7 @@ import {
   ERROR_MESSAGES,
   MODAL,
   SUCCESS_MESSAGES,
-  validationSituacionesSchema,
+  validationSituacionesSchema, TITLES
 } from "../../utils";
 import { SelectInputComponent, TextInputComponent } from "../../components";
 import { useCrud } from "../../hooks";
@@ -209,7 +209,7 @@ const FSituaciones: React.FC<ISituacionesFormProps> = React.memo(
       };
     }, [closeModal]);
     return (
-      <div className="useFormContainer">
+      <div className="useFormContainer centered-div">
         <div className="userFormBtnCloseContainer">
           <button onClick={closeModal} className="userFormBtnClose">
             X
@@ -245,7 +245,7 @@ const FSituaciones: React.FC<ISituacionesFormProps> = React.memo(
           </div>
           </div>
           <button type="submit" className="userFormBtnSubmit">
-            Guardar
+          {`${TITLES.guardar}`}
           </button>
         </form>
         <CustomModal />

@@ -15,7 +15,7 @@ import { EnumGrid } from "../mantenedores/MAccesoriosKardex";
 import {
   ERROR_MESSAGES,
   MODAL,
-  SUCCESS_MESSAGES,
+  SUCCESS_MESSAGES, TITLES,
 } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
@@ -302,7 +302,7 @@ const FAccesoriosKardexIN: React.FC<IUserFormPrps> = React.memo(
     }, []);
 
     return (
-      <div className="useFormContainer useFormContainer40rem">
+      <div className="useFormContainer centered-div use50rem">
         <div className="userFormBtnCloseContainer">
           <button onClick={closeModal} className="userFormBtnClose">
             X
@@ -434,7 +434,7 @@ const FAccesoriosKardexIN: React.FC<IUserFormPrps> = React.memo(
           </div>
 
           <button type="submit" className="userFormBtnSubmit">
-            Guardar
+          {`${TITLES.guardar}`}
           </button>
         </form>
 

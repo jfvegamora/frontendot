@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationProyectoGruposSchema } from "../../utils/validationFormSchemas";
 import { EnumGrid } from "../mantenedores/MProyectosCristales";
-import { ERROR_MESSAGES, MODAL, SUCCESS_MESSAGES } from "../../utils";
+import { ERROR_MESSAGES, MODAL, SUCCESS_MESSAGES, TITLES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
@@ -289,7 +289,7 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
 
     // console.log('data', data)
     return (
-      <div className="useFormContainer handleDerivarClick !top-[-6%]">
+      <div className="useFormContainer centered-div use60rem">
         <div className="userFormBtnCloseContainer">
           <button onClick={closeModal} className="userFormBtnClose">
             X
@@ -301,7 +301,7 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
             <div className="input-container items-center">
-              <div className="w-full ">
+              <div className="w-full">
                 <SelectInputComponent
                   label="Proyecto"
                   name="proyecto"
@@ -314,7 +314,10 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                   inputRef={firstInputRef}
                   />
               </div>
-              <div className="w-full ">
+            </div>
+
+            <div className="input-container items-center">
+              <div className="w-[15%]">
                 <TextInputComponent
                     type="number"
                     label="ID Grupo"
@@ -325,7 +328,7 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                     onlyRead={isEditting}
                     />
               </div>
-              <div className="w-full ">
+              <div className="w-[35%]">
                 <TextInputComponent
                   type="text"
                   label="Descripción"
@@ -335,11 +338,8 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                   error={errors.descripcion}
                 />
               </div>
-            </div>
-
-            <div className="input-container items-center">
-              <div className="w-full ">
-              <SelectInputComponent
+              <div className="w-[50%]">
+                <SelectInputComponent
                     label="Diseño"
                     name="diseno"
                     showRefresh={true}
@@ -348,9 +348,7 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                     entidad={["/api/tipos/", "02", "CristalesDisenos"]}
                     error={errors.diseno}
                     inputRef={focusSecondInput}
-                    />
-              </div>
-              <div className="w-full ">
+                  />
               </div>
             </div>
             
@@ -489,7 +487,7 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
           </div>
 
           <button type="submit" className="userFormBtnSubmit">
-            Guardar
+          {`${TITLES.guardar}`}
           </button>
         </form>
 

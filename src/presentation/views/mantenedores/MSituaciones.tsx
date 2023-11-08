@@ -30,7 +30,6 @@ export enum EnumGrid {
 
 
 const MCargos: React.FC = () => {
-  // const { createdEntity, editEntity } = useCrud(strBaseUrl);
   const [params, setParams] = useState([]);
 
   
@@ -68,33 +67,16 @@ const MCargos: React.FC = () => {
 
     setPkToDelete([`${strParamsToDelete}=${combinedPks}`]);
   }, [selectedRows]);
-  // const pkToDelete: PrimaryKey[] = [];
-  
-  // useEffect(() => {
-  //   console.log(selectedRows)
-  //   const newPkToDelete = selectedRows.map((row) => ({
-  //     pk1: entities[row][EnumGrid.ID],
-  //   }));
-  //   newPkToDelete.forEach((newPk) => {
-  //     if (!pkToDelete.some((existingPk) => existingPk.pk1 === newPk.pk1)) {
-  //       pkToDelete.push(newPk);
-  //     }
-  //   });
-
-  // }, [selectedRows]);
-
 
   return (
     <div className="mantenedorContainer">
-      <h1 className="mantenedorH1">Situaciones</h1>
-
       <div className="mantenedorHead width50">
         <PrimaryKeySearch
           baseUrl={strBaseUrl}
           updateParams={updateParams}
           setParams={setParams}
           setEntities={setEntities}
-          primaryKeyInputs={[{ name: "_p1", label: "Descripcion", type: "text" }]}
+          primaryKeyInputs={[{ name: "_p1", label: "Descripción", type: "text" }]}
         />
 
         <PrimaryButtonsComponent

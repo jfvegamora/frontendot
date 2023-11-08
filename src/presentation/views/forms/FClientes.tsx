@@ -18,7 +18,7 @@ import {
   MODAL,
   SUCCESS_MESSAGES,
   SEXO,
-  TIPO_CLIENTE,
+  TIPO_CLIENTE, TITLES
 } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
@@ -290,8 +290,8 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
     // console.log(data && data)
  
     return (
-      <div className="useFormContainer useFormContainer70rem top-0">
-        <div className="userFormBtnCloseContainer">
+      <div className="useFormContainer centered-div use70rem">
+        <div className="userFormBtnCloseContainer ">
           <button onClick={closeModal} className="userFormBtnClose">
             X
           </button>
@@ -300,40 +300,36 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
 
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))}
-          className="userFormulario"
+          className="userFormulario "
         >
-          <div className="userFormularioContainer ">
-            <div className="input-container items-center">
+          <div className="userFormularioContainer pb-6">
+            <div className="input-container items-center rowForm">
+              <div className="w-full flex">
+                <div className="w-[30%]">
+                  <TextInputComponent
+                    type="text"
+                    label="RUT"
+                    name="rut"
+                    data={data && data[EnumGrid.rut]}
+                    control={control}
+                    error={errors.rut}
+                    inputRef={firstInputRef}
+                    onlyRead={isEditting}
+                  />
+                </div>
 
-            <div className="w-full flex">
-              <div className="w-[30%]">
-                <TextInputComponent
-                  type="text"
-                  label="RUT"
-                  name="rut"
-                  data={data && data[EnumGrid.rut]}
-                  control={control}
-                  error={errors.rut}
-                  inputRef={firstInputRef}
-                  onlyRead={isEditting}
-                />
+                <div className="w-[70%]">
+                  <TextInputComponent
+                    type="text"
+                    label="Nombre"
+                    name="nombre"
+                    data={data && data[EnumGrid.nombre]}
+                    control={control}
+                    error={errors.nombre}
+                    inputRef={secondInputRef}
+                  />
+                </div>
               </div>
-
-
-              <div className="w-[70%]">
-                <TextInputComponent
-                  type="text"
-                  label="Nombre"
-                  name="nombre"
-                  data={data && data[EnumGrid.nombre]}
-                  control={control}
-                  error={errors.nombre}
-                  inputRef={secondInputRef}
-                />
-              </div>
-
-              </div>
-
 
               <div className="w-full items-center">
                 <SelectInputComponent
@@ -349,10 +345,9 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
               </div> 
             </div>
 
-            <div className="input-container mt-4 items-center">
-             
-              <div className="w-[90%] flex pl-4 ">
-                <div className="w-[30%] mr-16 ">
+            <div className="input-container mt-4 items-center ">
+              <div className="w-[90%] flex pl-4">
+                <div className="w-[30%] mr-14 ">
                   <RadioButtonComponent
                     control={control}
                     label="Sexo"
@@ -381,7 +376,7 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
               </div> 
 
 
-              <div className="w-[90%] rounded-lg border border-blue-500 relative">
+              <div className="w-[90%] rounded-lg border border-blue-500 relative dirCliente pb-4">
                 <label className="labelForm w-[20%] absolute top-[-7%] left-2 text-center z-10 ">Direccion</label>
                 <RegProCom
                   name="comuna"
@@ -394,7 +389,7 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
 
 
                 />
-                <div className="mt-[-2%]">
+                <div className="mt-[-2%] rowForm">
                   <TextInputComponent
                   type="text"
                   label="Direccion"
@@ -405,15 +400,10 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
                 />
                 </div>
               </div>
-          </div>
+            </div>
 
-
-
-
-          <div className="input-container mt-4 mb-4 flex items-center">
-              
+            <div className="input-container mt-4 mb-4 flex items-center rowForm">
               <div className="w-[50%] flex items-center">
-
                 <div className="w-[80%]">
                   <TextInputComponent
                     type="date"
@@ -435,6 +425,7 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
                     error={errors.telefono}
                   />
                 </div>
+
                 <div className="w-[110%]">
                   <TextInputComponent
                     type="text"
@@ -445,20 +436,15 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
                     error={errors.correo}
                   />
                 </div>
-                
+              </div>
 
-
-            </div>
-
-            <div className="w-[50%]">
-            <button type="submit" className="userFormBtnSubmit">
-            Guardar
-          </button>
+              <div className="w-[50%] pt-4">
+                <button type="submit" className="userFormBtnSubmit">
+                  {`${TITLES.guardar}`}
+                </button>
+              </div>
             </div>
           </div>
-
-          </div>
-
         </form>
 
         <CustomModal />

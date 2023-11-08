@@ -25,11 +25,11 @@ export enum EnumGrid {
   marca                = 9,
   estado               = 10
 }
-const strEntidad = "Parametrizacion de Accesorios ";
+const strEntidad = "Parametrización de Accesorios ";
 const strEntidadExcel = "Parametrizacion_de_accesorios";
 const strBaseUrl = "/api/proyectosaccesorios/";
 const strQuery = "01";
-const idMenu   = 32;
+const idMenu   = 30;
 
 
 const MProyectosAccesorios: React.FC = () => {
@@ -59,8 +59,6 @@ const MProyectosAccesorios: React.FC = () => {
     handleDeleteSelected,
     resetEntities,
   } = useEntityUtils(strBaseUrl, strQuery);
-  // console.log("entities:", entities);
-  // console.log("selectedRows", selectedRows);
 
   const [pkToDelete, setPkToDelete] = useState<string[]>([])
   const strParamsToDelete = '_pkToDelete' // _p3/_p1/_pkToDelete
@@ -72,30 +70,9 @@ const MProyectosAccesorios: React.FC = () => {
 
     setPkToDelete([`${strParamsToDelete}=[${combinedPks}]`]);
   }, [selectedRows]);
-  // const pkToDelete: PrimaryKey[] = [];
-
-  // useEffect(() => {
-  //   const newPkToDelete = selectedRows.map((row) => ({
-  //     pk1: entities[row][EnumGrid.codigo_proyecto],
-  //     pk2: `${entities[row][EnumGrid.codigo_accesorio]}`,
-  //   }));
-  //   newPkToDelete.forEach((newPk) => {
-  //     if (
-  //       !pkToDelete.some(
-  //         (existingPk) =>
-  //           existingPk.pk1 === newPk.pk1 && existingPk.pk2 === newPk.pk2
-  //       )
-  //     ) {
-  //       pkToDelete.push(newPk);
-  //     }
-  //   });
-  //   // console.log("newObject:",Object.keys(pkToDelete[0]).length);
-  // }, [selectedRows]);
 
   return (
     <div className="mantenedorContainer">
-      <h1 className="mantenedorH1">Parametrización de Accesorios</h1>
-
       <div className="mantenedorHead width90">
         <PrimaryKeySearch
           baseUrl={strBaseUrl}
