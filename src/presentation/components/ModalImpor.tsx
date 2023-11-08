@@ -22,20 +22,20 @@ const ModalImpor:React.FC<ModalImportProps> = ({
     if(errors){
 
         transformedErrors = errors.map((error:any)=>{
-            console.log(error)
             let b = error[2]
-            const column = b && b.match(/column '([^']+)'/)[1]
-            const row = b && b.match(/row (\d+)/)[1]
+            console.log(b)
+            const column = b && b.match(/column '([^']+)'/)
+            const row = b && b.match(/row (\d+)/)
 
             
             if(error[2].includes('Duplicate')){
                 let primaryKey = error[2].match(/'([\d-]+)'/)
-                b="Ya existe registro con el valor : " + primaryKey[0] + "de la columna:" + column + " en la fila:" + row
+                    b="Ya existe registro con el valor : " + primaryKey[0] + "de la columna:" + column + " en la fila:" + row
             }
 
             if(error[2].includes("truncated")){
-                    b = 'No corresponde el ID del registro de la columna:' + " " + column + ", " + "en la fila:" + " " + row;
-            
+                    // b = 'No corresponde el ID del registro de la columna:' + " " + column + ", " + "en la fila:" + " " + row;
+                    b = 'Columna: ' + column + " truncada" + "en la fila:" + " " + row;
             }
             return ["","",b]
         })

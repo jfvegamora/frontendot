@@ -12,6 +12,8 @@ import {
 } from "../../components";
 import { TITLES, table_head_cargos } from "../../utils";
 import FCargos from "../forms/FCargos";
+import FilterButton from "../../components/FilterButton";
+import { handleContainerClick } from "../../pages/LandingPage";
 
 
 
@@ -82,34 +84,36 @@ const MCargos: React.FC = () => {
 
 
   return (
-    <div className="mantenedorContainer">
-      <h1 className="mantenedorH1">Cargos</h1>
-
+    <div className="mantenedorContainer" onClick={handleContainerClick}>
+        <FilterButton>
       <div className="mantenedorHead width50">
-        <PrimaryKeySearch
-          baseUrl={strBaseUrl}
-          updateParams={updateParams}
-          setParams={setParams}
-          setEntities={setEntities}
-          primaryKeyInputs={[{ name: "_p1", label: "Cargo", type: "text" }]}
-        />
+          <>
+            <PrimaryKeySearch
+              baseUrl={strBaseUrl}
+              updateParams={updateParams}
+              setParams={setParams}
+              setEntities={setEntities}
+              primaryKeyInputs={[{ name: "_p1", label: "Cargo", type: "text" }]}
+            />
 
-        <PrimaryButtonsComponent
-          handleAddPerson={openModal}
-          handleDeleteSelected={handleDeleteSelected}
-          handleRefresh={resetEntities}
-          params={params}
-          pkToDelete={pkToDelete}
-          strEntidad={strEntidadExcel}
-          strBaseUrl={strBaseUrl}
-          showAddButton={true}
-          showExportButton={true}
-          showDeleteButton={true}
-          showForwardButton={false}
-          showRefreshButton={true}
-          idMenu={idMenu}
-        />
+            <PrimaryButtonsComponent
+              handleAddPerson={openModal}
+              handleDeleteSelected={handleDeleteSelected}
+              handleRefresh={resetEntities}
+              params={params}
+              pkToDelete={pkToDelete}
+              strEntidad={strEntidadExcel}
+              strBaseUrl={strBaseUrl}
+              showAddButton={true}
+              showExportButton={true}
+              showDeleteButton={true}
+              showForwardButton={false}
+              showRefreshButton={true}
+              idMenu={idMenu}
+            />
+          </>
       </div>
+        </FilterButton>
 
       <div className="width50 scroll">
         <TableComponent

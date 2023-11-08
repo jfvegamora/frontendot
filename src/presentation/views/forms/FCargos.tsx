@@ -17,6 +17,7 @@ import { useCrud } from "../../hooks";
 import { EnumGrid } from "../mantenedores/MCargos";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
+import { handleContainerClick } from "../../pages/LandingPage";
 
 const strBaseUrl = "/api/cargos/";
 const strEntidad = "Cargo ";

@@ -8,6 +8,7 @@ import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 
 import useCrud from "../hooks/useCrud";
 import { SelectInputComponent } from ".";
+import { filterToggle } from "./FilterButton";
 
 interface IPrimaryKeyState {
   [key: string]: string | number;
@@ -70,6 +71,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
     );
 
     const handleSearch = React.useCallback(async (data: any) => {
+      filterToggle.value = false;
       if ("_pCilindrico" in data || "_pEsferico" in data) {
         data = {
           ...data,
@@ -263,7 +265,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
         <Tooltip content="Buscar">
           <IconButton
             variant="text"
-            className="primaryKeyIconButton items-center ml-6"
+            className="primaryKeyIconButton items-center ml-6 "
             type="submit"
             onClick={handleSubmit(handleSearch)}
           >

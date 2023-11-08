@@ -46,6 +46,7 @@ import * as XLSX from 'xlsx';
 
 export function validateExcelData(data:any, validationStructure:any) {
   const validationErrors = [];
+  console.log('a')
   
   const validationMap = validationStructure.map((validation:any)=>{
     validation[0] = validation[0].toUpperCase()
@@ -59,11 +60,11 @@ export function validateExcelData(data:any, validationStructure:any) {
 
       const [fieldName, fieldType, allowNull, maxLength] = validationMap[j];
       const cellValue = rowData[fieldName]; // Value from the Excel cell
-      // console.log(cellValue)      
+      console.log('cellValue',cellValue)      
       // console.log(cellValue.length)      
       // console.log(maxLength)            
      
-      // Validar el tipo de datos
+  
       if (fieldType === 'int') {
         if (!Number.isInteger(cellValue)) {
           validationErrors.push(`Error en la fila ${i + 2}: El campo ${fieldName} debe ser un número entero.`);
@@ -124,6 +125,7 @@ export const handleFileUpload = (file: File,columnsToDelete:string[]) => {
 
 
         const modifiedWorkbook = XLSX.utils.book_new();
+        
         XLSX.utils.book_append_sheet(modifiedWorkbook, XLSX.utils.json_to_sheet(filteredRows), sheetName);
 
         

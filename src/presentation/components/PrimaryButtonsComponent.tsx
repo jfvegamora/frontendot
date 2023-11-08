@@ -166,6 +166,8 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
             strBaseUrl={strBaseUrl}
           />
         )}
+        
+        <ImportToCsv strEntidad={strEntidad}/>
 
         {showDeleteButton && escritura_lectura && handleDeleteSelected && (
           <>
@@ -199,7 +201,7 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
         {/* { OTAreas &&  OTAreas["areas"].map((area:any)=>(
           // console.log(area)
           ))} */}
-        <ImportToCsv strEntidad={strEntidad}/>
+        
 
 
 

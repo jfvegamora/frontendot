@@ -27,6 +27,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { AppStore, useAppDispatch, useAppSelector } from "../../redux/store";
 import { logout } from "../../redux/slices/userSlice";
+import imagen from '../../assets/react.svg';
 
 export const strNavTitle  = signal("OT");
 // profile menu component
@@ -369,7 +370,8 @@ function NavListMenuOT({ userPermission }: { userPermission: number[] }) {
             variant="gradient"
             className="col-span-3 grid h-full w-full place-items-center rounded-md"
           >
-            <RocketLaunchIcon strokeWidth={1} className="h-28 w-28" />
+            {/* <RocketLaunchIcon strokeWidth={1} className="h-28 w-28" /> */}
+            <img src={imagen} alt="" />
           </Card>
           <ul className="col-span-4 flex w-full flex-col gap-1">
             {renderItems}

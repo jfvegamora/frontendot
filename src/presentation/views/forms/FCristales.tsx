@@ -13,6 +13,7 @@ import { ERROR_MESSAGES, MODAL, SUCCESS_MESSAGES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
+import SelectInputTiposComponent from "../../components/forms/SelectInputTiposComponent";
 
 const strBaseUrl = "/api/cristales/";
 const strEntidad = "Cristal ";
@@ -284,6 +285,18 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
               customWidth={""}
               inputRef={secondInputRef}
             />
+
+
+            {/* <SelectInputTiposComponent
+              label="Marca"
+              name="marca"
+              showRefresh={true}
+              control={control}
+              entidad={"cristalesMateriales"}
+              error={errors.marca}
+            /> */}
+
+
             <SelectInputComponent
               label="Diseño"
               name="diseno"

@@ -3,16 +3,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-//@ts-nocheck
-
 import { IconButton, Tooltip } from "@material-tailwind/react";
 import React, { useEffect, useState, useRef } from "react";
 import { Controller } from "react-hook-form";
 import { FiRefreshCw } from "react-icons/fi";
 import { useCrud, useEntityUtils } from "../../hooks";
-import { AppStore, useAppDispatch, useAppSelector } from "../../../redux/store";
 import axios from "axios";
-import { setDataListbox } from "../../../redux/slices/listBoxSlice";
+import { AppStore, useAppSelector } from "../../../redux/store";
 // import Select from "react-select";
 
 interface ISelectInputProps {
@@ -26,7 +23,7 @@ interface ISelectInputProps {
   handleSelectChange?: any;
   inputName?: any;
   error?: any;
-  entidad: string[];
+  entidad?: string;
   inputValues?: any;
   inputRef?: any;
   readOnly?: boolean;
@@ -35,7 +32,8 @@ interface ISelectInputProps {
   isOT?:boolean
 }
 
-const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
+
+const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
   ({
     label,
     control,
@@ -51,59 +49,53 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     setState,
     isOT
   }) => {
-    const dispatch = useAppDispatch()
+    
+    const {cristalesMaterial} = useAppSelector((store: AppStore) => store.listBoxTipos);
+    // console.log(cristalMaterial)
+
+
     const [refreshToggle, setrefreshToggle] = useState(false);
-    const [entities, setEntities] = useState([]);
+    const [entities, setEntities] = useState(cristalesMaterial|| []);
     const [strSelectedName, setStrSelectedName] = useState(data || undefined);
     const strUrl = entidad && entidad[0];
-    const strTableName = entidad[3] ? `_p3=${entidad[2]}` : entidad[1] ? `_p1=${entidad[0]}` : "";
     const inputRef = useRef(null);
+
+
+    useEffect(()=>{
+      if(cristalesMaterial && cristalesMaterial?.length < 1){
+        axios('https://mtoopticos.cl/api/tipos/listado/?query=02&_p1=CristalesMateriales')
+        .then((data:any)=>setEntities(data))
+        .catch((error)=>console.log(error))
+      }
+    },[])
     // console.log(entidad)
-    const { ListEntity } = useCrud(strUrl);
     // console.log(strUrl)
     // console.log(strTableName)
-    
-    
-    
-    const strUrl2 = `https://mtoopticos.cl${entidad[0]}listado/?query=${entidad[1]}`;
-    
-    const state = useAppSelector((store: AppStore) => store.listBox);
-    
-    // console.log(strUrl2)
-    
-    const fetchSelectData =async()=>{
-      const {data} = await axios(strUrl2)
-      const payload = {
-        [label]:data
-      }
-      dispatch(setDataListbox(payload))
-      setEntities(data)
-    }
 
+    // const fetchData = async() => {
+    //   const url = `https://mtoopticos.cl${strUrl}listado/?query=${entidad[1]}&${strTableName}`
+    //   console.log(url)
+    //   try {
+    //     const {data} = await axios(`https://mtoopticos.cl${strUrl}listado/?query=${entidad[1]}&${strTableName}`)
+    //     console.log(data)
+    //     setEntities(data)
+    //   } catch (error) {
+    //     console.log(error)
+    //   }
+    // }
+    // console.log(data)
+    // useEffect(() => {
+    // //   fetchData()
+    //   if (data) {
+    //     const name =
+    //       data && entities.find((entity: any) => entity[0] === data)?.[1];
+    //     // console.log("name", entities);
+    //     setStrSelectedName(name);
+    //   }
+    // }, [refreshToggle, data]);
 
-    // console.log(label)
-    // console.log(state)
-     if(refreshToggle){
-      // console.log('refresh')
-      fetchSelectData()
-     }
     
-
-    React.useEffect(()=>{
-      if(!state.hasOwnProperty(label)){
-        // console.log('no se encuentra')
-        fetchSelectData()
-      }else{
-        // console.log('si se encuentra')
-        setEntities(state[label])
-      }
-
-    },[])
-    // console.log(refreshToggle)
-
-
-    const { refreshData } = useEntityUtils(strUrl, entidad[1]);
-
+    // console.log(strSelectedName);
     const renderInput = () => (
       <Controller
           name={name}
@@ -132,26 +124,26 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
                 disabled={readOnly}
                 
                 onChange={(e) => {
-                  setState && setState(e.target.value);
-                  field.onChange(e);
-                  if(isOT){
-                    handleSelectChange &&  handleSelectChange(e.target)
-                  }
-                  if (setHandleSearch) {
-                    const selectedValue = e.target.value.toString();
-                    // console.log("name", name);
-                    // console.log("selectedValue", selectedValue);
-                    handleSelectChange(name, selectedValue);
-                    const inputValuesToUpdate = {
-                      ...inputValues,
-                      [name]: selectedValue,
-                    };
+                  // setState && setState(e.target.value);
+                  // field.onChange(e);
+                  // if(isOT){
+                  //   handleSelectChange &&  handleSelectChange(e.target)
+                  // }
+                  // if (setHandleSearch) {
+                  //   const selectedValue = e.target.value.toString();
+                  //   console.log("name", name);
+                  //   console.log("selectedValue", selectedValue);
+                  //   handleSelectChange(name, selectedValue);
+                  //   const inputValuesToUpdate = {
+                  //     ...inputValues,
+                  //     [name]: selectedValue,
+                  //   };
 
-                    if (setHandleSearch) {
-                      setHandleSearch(inputValuesToUpdate);
-                    }
-                  }
-                  setrefreshToggle((prev) => !prev);
+                  //   if (setHandleSearch) {
+                  //     setHandleSearch(inputValuesToUpdate);
+                  //   }
+                  // }
+                  // setrefreshToggle((prev) => !prev);
                 }}
                 className="custom-input py-2 px-3 w-[85%] cursor-pointer z-0"
               >
@@ -208,4 +200,4 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
   }
 );
 
-export default SelectInputComponent;
+export default SelectInputTiposComponent;

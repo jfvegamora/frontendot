@@ -7,6 +7,16 @@
   
 }
 
+input[type="checkbox"]:checked {
+  background: red;
+  color: red;
+}
+input[type="checkbox"]:focus {
+  background: red;
+  color: red;
+}
+
+
 body {
   background-color:#4a5568;
   vertical-align: top;
@@ -238,8 +248,8 @@ select::-ms-expand {
 /*========CLASSES PRIMARYKEYSEARCH=======*/
 .primaryKeyContainer {
   display: flex;
-  width: 70%;
-  margin-left: 2.5rem;
+  width: 100%;
+  margin-left: 1rem;
   margin-right: 2.5rem;
 
 }
@@ -523,7 +533,7 @@ input:checked + .slider:before {
   margin-left: auto;
   margin-right: auto;
   position: absolute;
-  z-index: 10;
+  z-index: 20;
   border-radius: 0.5rem;
   --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.5),
     0 4px 6px -4px rgb(0 0 0 / 0.5);
