@@ -67,29 +67,9 @@ const MPerfiles: React.FC = () => {
 
     setPkToDelete([`${strParamsToDelete}=[${combinedPks}]`]);
   }, [selectedRows]);
-  // const pkToDelete: PrimaryKey[] = [];
-
-  // useEffect(() => {
-  //   const newPkToDelete = selectedRows.map((row) => ({
-  //     pk1: entities[row][EnumGrid.cargo_id],
-  //     pk2: entities[row][EnumGrid.funcionalidad_id],
-  //   }));
-  //   newPkToDelete.forEach((newPk) => {
-  //     if (
-  //       !pkToDelete.some(
-  //         (existingPk) =>
-  //           existingPk.pk1 === newPk.pk1 && existingPk.pk2 === newPk.pk2
-  //       )
-  //     ) {
-  //       pkToDelete.push(newPk);
-  //     }
-  //   });
-  // }, [selectedRows]);
 
   return (
     <div className="mantenedorContainer">
-      <h1 className="mantenedorH1">Perfiles de Cargo</h1>
-
       <div className="mantenedorHead width70">
         <PrimaryKeySearch
           baseUrl={strBaseUrl}

@@ -77,15 +77,15 @@ const RegProCom:React.FC<IProps> = ({
                 control={control}
                 render={({field})=>(
                     <div className="flex min-w-[100%] w-[60%] items-center mb-2 mx-4 mt-select mt-select-dropdown-up cursor-pointer ">
-                        <div className='custom-select relative'>
-                        <label className="absolute top-[-6%] left-3 text-gray-600 font-extralight text-xs z-20">Regiones</label>
+                        <div className='custom-select custom-select-reg relative rounded-lg !h-[3rem]'>
+                        <label className="labelSelectReg absolute top-[-6%] left-3 text-gray-600 font-extralight text-xs z-20">Región</label>
                         <select 
                             {...field}
                             value={selectedRegion} 
                             onChange={handleRegionChange}
                             className="custom-input py-2 px-3 cursor-pointer z-0 "
                             >
-                                <option value={0}>Seleccionar region</option>
+                                <option value={0}>Región</option>
                                     {regions && regions.map((region:any) => (
                                         <option key={region[0]} value={region[0]}>
                                             {region[1]}
@@ -104,15 +104,15 @@ const RegProCom:React.FC<IProps> = ({
                 control={control}
                 render={({field})=>(
                     <div className="flex min-w-[100%] w-[60%] items-center mb-2 mx-4 mt-select mt-select-dropdown-up cursor-pointer ">
-                        <div className='custom-select relative'>
-                        <label className="absolute top-[-6%] left-3 text-gray-600 font-extralight text-xs z-20">Provincias</label>
+                        <div className='custom-select custom-select-reg relative rounded-lg !h-[3rem]'>
+                        <label className="labelSelectReg absolute top-[-6%] left-3 text-gray-600 font-extralight text-xs z-20">Provincia</label>
                         <select 
                             {...field}
                             value={selectedProvince} 
                             onChange={handleProvinceChange}
                             className="custom-input py-2 px-3 cursor-pointer z-0 "
                             >
-                                <option value={0}>Seleccionar provincia</option>
+                                <option value={0}>Provincia</option>
                                     {provinces && provinces.map((province:any) => (
                                         <option key={province[0]} value={province[0]}>
                                             {province[1]}
@@ -131,15 +131,15 @@ const RegProCom:React.FC<IProps> = ({
                 control={control}
                 render={({})=>(
                     <div className="flex min-w-[100%] w-[60%] items-center mb-2 mx-4 mt-select mt-select-dropdown-up cursor-pointer ">
-                        <div className='custom-select relative'>
-                        <label className="absolute top-[-6%] left-3 text-gray-600 font-extralight text-xs z-20">Comunas</label>
+                        <div className='custom-select custom-select-reg relative rounded-lg !h-[3rem]'>
+                        <label className="labelSelectReg absolute top-[-6%] left-3 text-gray-600 font-extralight text-xs z-20">Comuna</label>
                         <select 
                             {...register(name)}
                             value={selectedCommune} 
                             onChange={handleCommuneChange}
                             className="custom-input py-2 px-3 cursor-pointer z-0 "
                             >
-                                <option value={0}>Selecionar comuna</option>
+                                <option value={0}>Comuna</option>
                                     {comunas && comunas.map((comuna:any) => (
                                         <option key={comuna[0]} value={comuna[0]}>
                                             {comuna[1]}

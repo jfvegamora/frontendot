@@ -74,8 +74,6 @@ const MProyectosCristales: React.FC = () => {
       handleDeleteSelected,
       resetEntities,
     } = useEntityUtils(strBaseUrl, strQuery);
-    // console.log("entities:", entities);
-
   
     const [pkToDelete, setPkToDelete] = useState<string[]>([])
     const strParamsToDelete = '_pkToDelete' // _p3/_p1/_pkToDelete
@@ -87,32 +85,10 @@ const MProyectosCristales: React.FC = () => {
   
       setPkToDelete([`${strParamsToDelete}=[${combinedPks}]`]);
     }, [selectedRows]);
-      // const pkToDelete: PrimaryKey[] = [];
-  
-    // useEffect(() => {
-    //   const newPkToDelete = selectedRows.map((row) => ({
-    //     pk1: entities[row][EnumGrid.proyecto],
-    //     pk2: entities[row][EnumGrid.cod_grupo],
-    //   }));
-    //   newPkToDelete.forEach((newPk) => {
-    //     if (
-    //       !pkToDelete.some(
-    //         (existingPk) =>
-    //           existingPk.pk1 === newPk.pk1 && existingPk.pk2 === newPk.pk2
-    //       )
-    //     ) {
-    //       pkToDelete.push(newPk);
-    //     }
-    //   });
-    // }, [selectedRows]);
-  
-    // console.log('entities', entities)
 
     return (
       <div className="mantenedorContainer">
-        <h1 className="mantenedorH1">Parametrización de Cristales</h1>
-  
-        <div className="mantenedorHead width90 items-center">
+        <div className="mantenedorHead width90">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
             setParams={setParams}

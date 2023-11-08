@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { fechaActual, validationReporteAtencionSchema } from "../../utils/validationFormSchemas";
 import { EnumGrid } from "../mantenedores/MProyectosAtenciones";
-import { ERROR_MESSAGES, MODAL, SUCCESS_MESSAGES } from "../../utils";
+import { ERROR_MESSAGES, MODAL, SUCCESS_MESSAGES, TITLES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
@@ -327,22 +327,16 @@ const FProyectosAtenciones: React.FC<IUserFormPrps> = React.memo(
     }, []);
 
     return (
-      <div className="useFormContainer useFormContainer60rem">
+      <div className="useFormContainer centered-div use70rem">
         <div className="userFormBtnCloseContainer">
           <button onClick={closeModal} className="userFormBtnClose">
             X
           </button>
         </div>
         <h1 className="userFormLabel">{label}</h1>
-
+ 
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))}
-          // onSubmit={(e) => {
-          //   e.preventDefault();
-          //   if (!isModalOpen) {
-          //     handleSubmit((data) => handleSaveChange(data, isEditting))(e);
-          //   }
-          // }}
           className="userFormulario"
         >
           <div className="userFormularioContainer">
@@ -360,7 +354,7 @@ const FProyectosAtenciones: React.FC<IUserFormPrps> = React.memo(
                   readOnly={isEditting}
                   />
             </div>
-            <div className="w-full ">
+            <div className="w-[40%]">
               <TextInputComponent
                 type="number"
                 label="Folio"
@@ -371,7 +365,7 @@ const FProyectosAtenciones: React.FC<IUserFormPrps> = React.memo(
                 onlyRead={isEditting}
               />
             </div>
-            <div className="w-full ">
+            <div className="w-[20%]">
               <TextInputComponent
                 type="date"
                 label="Fecha Desde"
@@ -382,7 +376,7 @@ const FProyectosAtenciones: React.FC<IUserFormPrps> = React.memo(
                 onlyRead={isEditting}
               />
             </div>
-            <div className="w-full ">
+            <div className="w-[20%]">
               <TextInputComponent
                 type="date"
                 label="Fecha Hasta"
@@ -396,7 +390,7 @@ const FProyectosAtenciones: React.FC<IUserFormPrps> = React.memo(
           </div>
 
           <div className="input-container">
-            <div className="w-full ">
+            <div className="w-[20%]">
               <TextInputComponent
                   type="number"
                   label="Nro Lentes"
@@ -407,7 +401,7 @@ const FProyectosAtenciones: React.FC<IUserFormPrps> = React.memo(
                   onlyRead={true}
                   />
             </div>
-            <div className="w-full ">
+            <div className="w-[20%]">
               <TextInputComponent
                 type="number"
                 label="Total Atenciones"
@@ -418,7 +412,7 @@ const FProyectosAtenciones: React.FC<IUserFormPrps> = React.memo(
                 onlyRead={true}
                 />
             </div>
-            <div className="w-full ">
+            <div className="w-[30%]">
               <TextInputComponent
                 type="text"
                 label="Orden Compra Mandante"
@@ -428,7 +422,7 @@ const FProyectosAtenciones: React.FC<IUserFormPrps> = React.memo(
                 error={errors.orden_compra_mandante}
               />
             </div>
-            <div className="w-full ">
+            <div className="w-[20%]">
               <TextInputComponent
                 type="date"
                 label="Fecha VB"
@@ -441,7 +435,7 @@ const FProyectosAtenciones: React.FC<IUserFormPrps> = React.memo(
           </div>
 
           <div className="input-container">
-            <div className="w-full ">
+            <div className="w-[30%]">
               <TextInputComponent
                   type="number"
                   label="Factura"
@@ -451,7 +445,7 @@ const FProyectosAtenciones: React.FC<IUserFormPrps> = React.memo(
                   error={errors.factura}
                 />
             </div>
-            <div className="w-full ">
+            <div className="w-[20%]">
               <TextInputComponent
                 type="date"
                 label="Fecha"
@@ -461,7 +455,7 @@ const FProyectosAtenciones: React.FC<IUserFormPrps> = React.memo(
                 error={errors.fecha_factura}
               />
             </div>
-            <div className="w-full ">
+            <div className="w-[30%]">
               <TextInputComponent
                 type="number"
                 label="Total"
@@ -471,7 +465,7 @@ const FProyectosAtenciones: React.FC<IUserFormPrps> = React.memo(
                 error={errors.total_factura}
               />
             </div>
-            <div className="w-full ">
+            <div className="w-[30%]">
               <TextInputComponent
                 type="number"
                 label="Nota Crédito"
@@ -481,7 +475,7 @@ const FProyectosAtenciones: React.FC<IUserFormPrps> = React.memo(
                 error={errors.nota_credito}
               />
             </div>
-            <div className="w-full ">
+            <div className="w-[20%]">
               <TextInputComponent
                 type="date"
                 label="Fecha"
@@ -491,7 +485,7 @@ const FProyectosAtenciones: React.FC<IUserFormPrps> = React.memo(
                 error={errors.fecha_ncredito}
               />
             </div>
-            <div className="w-full ">
+            <div className="w-[30%]">
               <TextInputComponent
                 type="number"
                 label="Total"
@@ -504,7 +498,7 @@ const FProyectosAtenciones: React.FC<IUserFormPrps> = React.memo(
           </div>
 
           <div className="input-container">
-            <div className="w-full ">
+            <div className="w-[30%]">
               <TextInputComponent
                   type="number"
                   label="Nota Débito"
@@ -514,7 +508,7 @@ const FProyectosAtenciones: React.FC<IUserFormPrps> = React.memo(
                   error={errors.nota_debito}
                 />
             </div>
-            <div className="w-full ">
+            <div className="w-[30%]">
               <TextInputComponent
                 type="date"
                 label="Fecha"
@@ -524,7 +518,7 @@ const FProyectosAtenciones: React.FC<IUserFormPrps> = React.memo(
                 error={errors.fecha_ndebito}
               />
             </div>
-            <div className="w-full ">
+            <div className="w-[30%]">
               <TextInputComponent
                 type="number"
                 label="Total"
@@ -534,7 +528,7 @@ const FProyectosAtenciones: React.FC<IUserFormPrps> = React.memo(
                 error={errors.total_ndebito}
               />
             </div>
-            <div className="w-full ">
+            <div className="w-[30%]">
               <TextInputComponent
                 type="number"
                 label="Guia Despacho"
@@ -544,7 +538,7 @@ const FProyectosAtenciones: React.FC<IUserFormPrps> = React.memo(
                 error={errors.guia_despacho}
               />
             </div>
-            <div className="w-full ">
+            <div className="w-[20%]">
               <TextInputComponent
                 type="date"
                 label="Fecha"
@@ -557,7 +551,7 @@ const FProyectosAtenciones: React.FC<IUserFormPrps> = React.memo(
           </div>
 
           <div className="input-container">
-            <div className="w-full ">
+            <div className="w-full">
               <TextInputComponent
                 type="text"
                 label="Observaciones"
@@ -571,7 +565,7 @@ const FProyectosAtenciones: React.FC<IUserFormPrps> = React.memo(
           </div>
 
           <button type="submit" className="userFormBtnSubmit">
-            Guardar
+          {`${TITLES.guardar}`}
           </button>
         </form>
 

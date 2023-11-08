@@ -32,7 +32,7 @@ const RadioButtonComponent: React.FC<IRadioButtonProps> = ({
 
   return (
     <div
-      className={`relative px-8 h-[90%] py-4 w-[90%]  mt-2 mx-auto border-[0.5px] border-[dodgerblue] flex ${
+      className={`relative px-8 h-[90%] py-4 w-[90%]  mt-2 mx-auto border-[1px] radioComponent flex ${
         horizontal ? "justify-arround ml-4" : "flex-col justify-between"
       } rounded-lg ${error && "border border-red-400"}`}
     >
@@ -43,7 +43,7 @@ const RadioButtonComponent: React.FC<IRadioButtonProps> = ({
         <div
           className={`${
             horizontal ? "px-20" : "px-[3rem]"
-          } py-2 flex w-1/3 text-center justify-between`}
+          } py-2 flex w-1/3 textOption justify-between`}
           key={index}
         >
           <Controller

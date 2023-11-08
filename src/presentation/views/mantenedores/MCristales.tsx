@@ -73,13 +73,7 @@ const MCristales: React.FC = () => {
     handleDeleteSelected,
     resetEntities,
   } = useEntityUtils(strBaseUrl, strQuery);
-  if(entities){
-    console.log("entities:", entity);
-    // console.log("entities:", entities[0]);
 
-  }
-
-  // console.log("params:", params);
 
   const [pkToDelete, setPkToDelete] = useState<string[]>([])
   const strParamsToDelete = '_p1' // _p3/_p1/_pkToDelete
@@ -90,26 +84,10 @@ const MCristales: React.FC = () => {
 
     setPkToDelete([`${strParamsToDelete}=${combinedPks}`]);
   }, [selectedRows]);
-  // const pkToDelete: PrimaryKey[] = [];
-
-  // //console.log('pktodelete', pkToDelete)
-  // useEffect(() => {
-  //   const newPkToDelete = selectedRows.map((row: number) => ({
-  //     pk1: entities[row][EnumGrid.codigo],
-  //   }));
-  //   newPkToDelete.forEach((newPk: { pk1: any }) => {
-  //     if (!pkToDelete.some((existingPk) => existingPk.pk1 === newPk.pk1)) {
-  //       pkToDelete.push(newPk);
-  //     }
-  //   });
-  // }, [selectedRows]);
 
   return (
     <div className="mantenedorContainer">
-      <h1 className="mantenedorH1">Cristales</h1>
-
-      <div className="mantenedorHeadFlex width100">
-        <div className="w-[300rem]">
+      <div className="mantenedorHead width100">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
             setParams={setParams}
@@ -135,13 +113,6 @@ const MCristales: React.FC = () => {
                 selectUrl: "/api/tipos/",
                 tipos: "CristalesDisenos",
               },
-              // {
-              //   name      : "_p3",
-              //   label     : "Tipo Insumos",
-              //   type      : "select",
-              //   selectUrl : "/api/tipos/",
-              //   tipos     : "TipoInsumos"
-              // },
               {
                 name: "_pMaterial",
                 label: "Material",
@@ -165,34 +136,18 @@ const MCristales: React.FC = () => {
               },
               {
                 name: "_pIndice",
-                label: "Indice",
+                label: "Índice",
                 type: "select",
                 selectUrl: "/api/tipos/",
                 tipos: "CristalesIndices",
-              },
-              {
-                name: "_pTratamiento",
-                label: "Tratamiento",
-                type: "select",
-                selectUrl: "/api/tipos/",
-                tipos: "CristalesTratamientos",
               },
               { name: "_p1", label: "Código", type: "number" },
               { name: "_pDiametro", label: "Diametro", type: "number" },
               { name: "_pEsferico", label: "Esferico", type: "number" },
               { name: "_pCilindrico", label: "Cilindrico", type: "number" },
 
-              // { name: "_pDiseno", label: "Diseño", type: "select", selectUrl: "/api//"},
-              // { name: "_pIndice", label: "Indice", type: "select", selectUrl: "/api//"},
-              // { name: "_pMaterial", label: "Material", type: "select", selectUrl: "/api//"},
-              // { name: "_pColor", label: "Color", type: "select", selectUrl: "/api//"},
-              // { name: "_pTratamiento", label: "Tratamiento", type: "select", selectUrl: "/api//"},
-              // { name: "_pDiametro", label: "Diámetro", type: "number" },
-              // { name: "_pEsferico", label: "Esférico", type: "number" },
-              // { name: "_pCilindrico", label: "Cilíndrico", type: "number" },
             ]}
           />
-        </div>
         <div className="w-full">
           <PrimaryButtonsComponent
             handleAddPerson={openModal}

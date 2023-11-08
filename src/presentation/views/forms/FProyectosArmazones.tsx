@@ -13,7 +13,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationParametrizacionArmazones } from "../../utils/validationFormSchemas";
 import { EnumGrid } from "../mantenedores/MProyectosArmazones";
-import { ERROR_MESSAGES, MODAL, SUCCESS_MESSAGES } from "../../utils";
+import { ERROR_MESSAGES, MODAL, SUCCESS_MESSAGES, TITLES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
@@ -228,9 +228,8 @@ const FProyectosArmazones: React.FC<IUserFormPrps> = React.memo(
       isEditting ? focusSecondInput("estado") : focusFirstInput("proyecto");
     }, []);
 
-    console.log('data', data)
     return (
-      <div className="useFormContainer top-[20%]">
+      <div className="useFormContainer centered-div use40rem">
         <div className="userFormBtnCloseContainer">
           <button onClick={closeModal} className="userFormBtnClose">
             X
@@ -241,8 +240,8 @@ const FProyectosArmazones: React.FC<IUserFormPrps> = React.memo(
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
-           
-            <div className="w-full ">
+            <div className="w-full flex items-center">
+              <div className="w-full">
               <SelectInputComponent
                 label="Proyecto"
                 name="proyecto"
@@ -254,9 +253,10 @@ const FProyectosArmazones: React.FC<IUserFormPrps> = React.memo(
                 inputRef={firstInputRef}
                 readOnly={isEditting}
               />
+              </div>
             </div>
-
-            <div className="w-[91.5%]">
+            <div className="w-full flex items-center">
+              <div className="w-[40%]">
                 <TextInputComponent
                     type="text"
                     label="Código Armazon"
@@ -266,22 +266,24 @@ const FProyectosArmazones: React.FC<IUserFormPrps> = React.memo(
                     error={errors.codigo_armazon}
                     onlyRead={isEditting}
                 />
-            </div>
+              </div>
 
-            <RadioButtonComponent
-              control={control}
-              label="Estado"
-              name="estado"
-              data={data && data[EnumGrid.estado]}
-              options={["Disponible", "No disponible"]}
-              error={errors.estado}
-              horizontal={true}
-            />
+              <div className="w-[60%]">
+                <RadioButtonComponent
+                control={control}
+                label="Estado"
+                name="estado"
+                data={data && data[EnumGrid.estado]}
+                options={["Disponible", "No disponible"]}
+                error={errors.estado}
+                horizontal={true}
+                />
+                </div>
+            </div>
           </div>
 
-
           <button type="submit" className="userFormBtnSubmit">
-            Guardar
+          {`${TITLES.guardar}`}
           </button>
         </form>
 

@@ -15,7 +15,7 @@ import { EnumGrid } from "../mantenedores/MCristalesKardex";
 import {
   ERROR_MESSAGES,
   MODAL,
-  SUCCESS_MESSAGES,
+  SUCCESS_MESSAGES, TITLES
 } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
@@ -326,7 +326,7 @@ const FCristalesKardexIN: React.FC<IUserFormPrps> = React.memo(
     // console.log('cristalDescritpion',cristalDescritpion)
 
     return (
-      <div className="useFormContainer useFormContainer40rem">
+      <div className="useFormContainer centered-div use50rem">
         <div className="userFormBtnCloseContainer">
           <button onClick={closeModal} className="userFormBtnClose">
             X
@@ -459,7 +459,7 @@ const FCristalesKardexIN: React.FC<IUserFormPrps> = React.memo(
           </div>
 
           <button type="submit" className="userFormBtnSubmit">
-            Guardar
+          {`${TITLES.guardar}`}
           </button>
         </form>
 

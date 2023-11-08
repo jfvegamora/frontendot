@@ -10,7 +10,7 @@ import {
   ERROR_MESSAGES,
   MODAL,
   SUCCESS_MESSAGES,
-  validationCargosSchema,
+  validationCargosSchema, TITLES
 } from "../../utils";
 import { TextInputComponent } from "../../components";
 import { useCrud } from "../../hooks";
@@ -210,7 +210,7 @@ const FCargos: React.FC<ICargosFormProps> = React.memo(
       };
     }, [closeModal]);
     return (
-      <div className="useFormContainer top-44 w-1/4 left-[35%]">
+      <div className="useFormContainer centered-div use30rem">
         <div className="userFormBtnCloseContainer">
           <button onClick={closeModal} className="userFormBtnClose">
             X
@@ -234,7 +234,7 @@ const FCargos: React.FC<ICargosFormProps> = React.memo(
             />
           </div>
           <button type="submit" className="userFormBtnSubmit">
-            Guardar
+          {`${TITLES.guardar}`}
           </button>
         </form>
         <CustomModal />

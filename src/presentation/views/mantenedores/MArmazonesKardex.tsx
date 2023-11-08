@@ -69,9 +69,6 @@ const MArmazonesKardex: React.FC = () => {
     handleDeleteSelected,
     resetEntities,
   } = useEntityUtils(strBaseUrl, strQuery);
-  // console.log("entities:", entities);
-
-  // console.log("params:", params);
 
   const [pkToDelete, setPkToDelete] = useState<string[]>([])
   const strParamsToDelete = '_pkToDelete' // _p3/_p1/_pkToDelete
@@ -83,30 +80,10 @@ const MArmazonesKardex: React.FC = () => {
 
     setPkToDelete([`${strParamsToDelete}=[${combinedPks}]`]);
   }, [selectedRows]);
-  // const pkToDelete: PrimaryKey[] = [];
-
-  // useEffect(() => {
-  //   const newPkToDelete = selectedRows.map((row) => ({
-  //     pk1: entities[row][EnumGrid.insumo],
-  //     pk2: entities[row][EnumGrid.fecha],
-  //   }));
-  //   newPkToDelete.forEach((newPk) => {
-  //     if (
-  //       !pkToDelete.some(
-  //         (existingPk) =>
-  //           existingPk.pk1 === newPk.pk1 && existingPk.pk2 === newPk.pk2
-  //       )
-  //     ) {
-  //       pkToDelete.push(newPk);
-  //     }
-  //   });
-  // }, [selectedRows]);
 
   return (
     <div className="mantenedorContainer">
-      <h1 className="mantenedorH1">Kardex de Armazones</h1>
-
-      <div className="mantenedorHead width70 flex flex-col">
+      <div className="mantenedorHead width70">
         <PrimaryKeySearch
           baseUrl={strBaseUrl}
           setParams={setParams}

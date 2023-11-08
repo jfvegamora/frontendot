@@ -80,12 +80,9 @@ const MProyectos: React.FC = () => {
     handleDeleteSelected,
     resetEntities,
   } = useEntityUtils(strBaseUrl, strQuery);
-  // console.log("entities:", entities);
-
-  // console.log("params:", params);
 
   const [pkToDelete, setPkToDelete] = useState<string[]>([])
-  const strParamsToDelete = '_p3' // _p3/_p1/_pkToDelete
+  const strParamsToDelete = '_p2' // _p3/_p1/_pkToDelete
   
   useEffect(() => {    
     const newPkToDelete = selectedRows.map((row: number) => `'${entities[row][EnumGrid.CODIGO]}'`);
@@ -94,11 +91,8 @@ const MProyectos: React.FC = () => {
     setPkToDelete([`${strParamsToDelete}=${combinedPks}`]);
   }, [selectedRows]);
 
-  // console.log('entities', entities)
   return (
     <div className="mantenedorContainer">
-      <h1 className="mantenedorH1">Proyectos</h1>
-
       <div className="mantenedorHead width100">
         <PrimaryKeySearch
           baseUrl={strBaseUrl}
@@ -120,14 +114,6 @@ const MProyectos: React.FC = () => {
             },
             { name: "_p3", label: "Codigo Proyecto", type: "text" },
             { name: "_p4", label: "Codigo Licitacion", type: "text" },
-
-            // {
-            //   name      : "_p3",
-            //   label     : "Tipo Insumos",
-            //   type      : "select",
-            //   selectUrl : "/api/tipos/",
-            //   tipos     : "TipoInsumos"
-            // },
           ]}
         />
 

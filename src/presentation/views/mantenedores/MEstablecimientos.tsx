@@ -60,9 +60,6 @@ const MEstablecimientos: React.FC = () => {
     handleDeleteSelected,
     resetEntities,
   } = useEntityUtils(strBaseUrl, strQuery);
-  // console.log("entities:", entities);
-
-  // console.log("params:", params);
 
   const [pkToDelete, setPkToDelete] = useState<string[]>([])
   const strParamsToDelete = '_p1' // _p3/_p1/_pkToDelete
@@ -73,24 +70,10 @@ const MEstablecimientos: React.FC = () => {
 
     setPkToDelete([`${strParamsToDelete}=${combinedPks}`]);
   }, [selectedRows]);
-  // const pkToDelete: PrimaryKey[] = [];
-
-  // useEffect(() => {
-  //   const newPkToDelete = selectedRows.map((row: number) => ({
-  //     pk1: entities[row][EnumGrid.id],
-  //   }));
-  //   newPkToDelete.forEach((newPk: { pk1: any }) => {
-  //     if (!pkToDelete.some((existingPk) => existingPk.pk1 === newPk.pk1)) {
-  //       pkToDelete.push(newPk);
-  //     }
-  //   });
-  // }, [selectedRows]);
 
   console.log('entities', entities)
   return (
     <div className="mantenedorContainer">
-      <h1 className="mantenedorH1">Establecimientos</h1>
-
       <div className="mantenedorHead width80">
         <PrimaryKeySearch
           baseUrl={strBaseUrl}
@@ -98,7 +81,7 @@ const MEstablecimientos: React.FC = () => {
           updateParams={updateParams}
           setEntities={setEntities}
           primaryKeyInputs={[
-            { name: "_p1", label: "Establecmiento", type: "text" },
+            { name: "_p1", label: "Establecimiento", type: "text" },
             {
               name: "_p2",
               label: "Mandante",

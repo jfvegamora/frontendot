@@ -259,7 +259,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
     }, []);
 
     return (
-      <div className="useFormContainer top-0">
+      <div className="useFormContainer centered-div">
         <div className="userFormBtnCloseContainer">
           <button onClick={closeModal} className="userFormBtnClose">
             X
@@ -334,7 +334,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
           )}
 
           <button type="submit" className="userFormBtnSubmit">
-            Guardar
+          {`${TITLES.guardar}`}
           </button>
         </form>
 

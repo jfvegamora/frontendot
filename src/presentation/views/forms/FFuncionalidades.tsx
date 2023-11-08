@@ -7,7 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import {
   ERROR_MESSAGES,
   MODAL,
-  SUCCESS_MESSAGES,
+  SUCCESS_MESSAGES, TITLES,
   validationFuncionalidadSchema,
 } from "../../utils";
 import { TextInputComponent } from "../../components";
@@ -183,7 +183,7 @@ const FFuncionalidad: React.FC<IFormProps> = React.memo(
     }, [closeModal]);
 
     return (
-      <div className="useFormContainer top-44 left-[35%] w-1/4">
+      <div className="useFormContainer centered-div use30rem">
         <div className="userFormBtnCloseContainer">
           <button onClick={closeModal} className="userFormBtnClose">
             X
@@ -207,7 +207,7 @@ const FFuncionalidad: React.FC<IFormProps> = React.memo(
           </div>
 
           <button type="submit" className="userFormBtnSubmit">
-            Guardar
+          {`${TITLES.guardar}`}
           </button>
         </form>
         <CustomModal />

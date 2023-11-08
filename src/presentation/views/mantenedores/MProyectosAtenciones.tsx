@@ -72,8 +72,6 @@ const MProyectosAtenciones: React.FC = () => {
       resetEntities,
       toggleExcel
     } = useEntityUtils(strBaseUrl, strQuery);
-    // console.log("entities:", entities);
-    // console.log("entity", entity);
   
     const [pkToDelete, setPkToDelete] = useState<string[]>([])
     const strParamsToDelete = '_pkToDelete' // _p3/_p1/_pkToDelete
@@ -85,29 +83,9 @@ const MProyectosAtenciones: React.FC = () => {
   
       setPkToDelete([`${strParamsToDelete}=[${combinedPks}]`]);
     }, [selectedRows]);
-    //   const pkToDelete: PrimaryKey[] = [];
-  
-    // useEffect(() => {
-    //   const newPkToDelete = selectedRows.map((row) => ({
-    //     pk1: entities[row][EnumGrid.proyecto],
-    //     pk2: entities[row][EnumGrid.folio_reporte],
-    //   }));
-    //   newPkToDelete.forEach((newPk) => {
-    //     if (
-    //       !pkToDelete.some(
-    //         (existingPk) =>
-    //           existingPk.pk1 === newPk.pk1 && existingPk.pk2 === newPk.pk2
-    //       )
-    //     ) {
-    //       pkToDelete.push(newPk);
-    //     }
-    //   });
-    // }, [selectedRows]);
   
     return (
       <div className="mantenedorContainer">
-        <h1 className="mantenedorH1">Reportes de Atención</h1>
-  
         <div className="mantenedorHead width90">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}

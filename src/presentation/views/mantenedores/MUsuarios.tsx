@@ -57,9 +57,6 @@ const MUsuarios: React.FC = () => {
     handleDeleteSelected,
     resetEntities,
   } = useEntityUtils(strBaseUrl, strQuery);
-  // console.log("entities:", entities);
-
-  // console.log("params:", params);
 
   console.log(totalRowIndex)
   console.log(shotRow)
@@ -85,23 +82,10 @@ const MUsuarios: React.FC = () => {
 
     setPkToDelete([`${strParamsToDelete}=${combinedPks}`]);
   }, [selectedRows]);
-  // const pkToDelete: PrimaryKey[] = [];
-
-  // useEffect(() => {
-  //   const newPkToDelete = selectedRows.map((row: number) => ({
-  //     pk1: entities[row][EnumGrid.id],
-  //   }));
-  //   newPkToDelete.forEach((newPk: { pk1: any }) => {
-  //     if (!pkToDelete.some((existingPk) => existingPk.pk1 === newPk.pk1)) {
-  //       pkToDelete.push(newPk);
-  //     }
-  //   });
-  // }, [selectedRows]);
  
   return (
     <div className="mantenedorContainer">
-      <h1 className="mantenedorH1">Usuarios</h1>
-      <div className="mantenedorHead width70 items-center">
+      <div className="mantenedorHead width70">
         <PrimaryKeySearch
           baseUrl={strBaseUrl}
           setParams={setParams}
@@ -115,13 +99,6 @@ const MUsuarios: React.FC = () => {
               type: "select",
               selectUrl: "/api/cargos/",
             },
-            // {
-            //   name      : "_p3",
-            //   label     : "Tipo Insumos",
-            //   type      : "select",
-            //   selectUrl : "/api/tipos/",
-            //   tipos     : "TipoInsumos"
-            // },
           ]}
         />
 
@@ -142,7 +119,7 @@ const MUsuarios: React.FC = () => {
         />
       </div>
 
-      <div className="scroll">
+      <div className="width90 scroll">
         <TableComponent
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}

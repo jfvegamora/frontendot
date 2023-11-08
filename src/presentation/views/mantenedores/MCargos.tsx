@@ -21,15 +21,13 @@ const strBaseUrl = "/api/cargos/";
 const strQuery = "01";
 const idMenu = 22;
 
-export enum EnumGrid {
-  ID = 1,
-  nombre = 2,
-}
+  export enum EnumGrid {
+    ID = 1,
+    nombre = 2,
+  }
 
 const MCargos: React.FC = () => {
-  // const { createdEntity, editEntity } = useCrud(strBaseUrl);
   const [params, setParams] = useState([]);
-
   
   const updateParams = (newParams: Record<string, never>) => {
     setParams(Object.keys(newParams).map((key) => newParams[key]));
@@ -56,20 +54,6 @@ const MCargos: React.FC = () => {
     resetEntities,
   } = useEntityUtils(strBaseUrl, strQuery);
   
-  // const pkToDelete: PrimaryKey[] = [];
-  
-  // useEffect(() => {
-  //   console.log(selectedRows)
-  //   const newPkToDelete = selectedRows.map((row) => ({
-  //     pk1: entities[row][EnumGrid.ID],
-  //   }));
-  //   newPkToDelete.forEach((newPk) => {
-  //     if (!pkToDelete.some((existingPk) => existingPk.pk1 === newPk.pk1)) {
-  //       pkToDelete.push(newPk);
-  //     }
-  //   });
-
-  // }, [selectedRows]);
   const [pkToDelete, setPkToDelete] = useState<string[]>([])
   const strParamsToDelete = '_p1' // _p3/_p1/_pkToDelete
   
@@ -83,8 +67,6 @@ const MCargos: React.FC = () => {
 
   return (
     <div className="mantenedorContainer">
-      <h1 className="mantenedorH1">Cargos</h1>
-
       <div className="mantenedorHead width50">
         <PrimaryKeySearch
           baseUrl={strBaseUrl}

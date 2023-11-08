@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationAccesoriosSchema } from "../../utils/validationFormSchemas";
 import { EnumGrid } from "../mantenedores/MAccesorios";
-import { ERROR_MESSAGES, MODAL, SUCCESS_MESSAGES } from "../../utils";
+import { TITLES, ERROR_MESSAGES, MODAL, SUCCESS_MESSAGES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
@@ -241,7 +241,7 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
     }, []);
 
     return (
-      <div className="useFormContainer top-20 left-[30%] w-[35%]">
+      <div className="useFormContainer centered-div use40rem">
         <div className="userFormBtnCloseContainer">
           <button onClick={closeModal} className="userFormBtnClose">
             X
@@ -252,31 +252,31 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
-          <div className="w-full flex items-center">
-          <div className="w-1/2">
-            <TextInputComponent
-              type="text"
-              label="Código"
-              name="codigo"
-              maxLength={20}
-              data={data && data[EnumGrid.codigo]}
-              control={control}
-              error={errors.codigo}
-              inputRef={firstInputRef}
-              onlyRead={isEditting}
-            />
-            </div>
-            <div className="w-1/2">
-              <SelectInputComponent
-                label="Marca"
-                name="marca"
-                showRefresh={true}
-                data={data && data[EnumGrid.marca_id]}
-                control={control}
-                entidad={["/api/marcas/", "02"]}
-                error={errors.marca}
-              />
-            </div>
+            <div className="w-full flex items-center">
+              <div className="w-1/2">
+                <TextInputComponent
+                  type="text"
+                  label="Código"
+                  name="codigo"
+                  maxLength={20}
+                  data={data && data[EnumGrid.codigo]}
+                  control={control}
+                  error={errors.codigo}
+                  inputRef={firstInputRef}
+                  onlyRead={isEditting}
+                />
+              </div>
+              <div className="w-1/2">
+                <SelectInputComponent
+                  label="Marca"
+                  name="marca"
+                  showRefresh={true}
+                  data={data && data[EnumGrid.marca_id]}
+                  control={control}
+                  entidad={["/api/marcas/", "02"]}
+                  error={errors.marca}
+                />
+              </div>
             </div>
 
             <TextInputComponent
@@ -290,15 +290,15 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
             />
 
             <div className="w-full flex items-center">
-            <div className="w-1/2">
-              <TextInputComponent
-                type="number"
-                label="Precio Neto"
-                name="precio_neto"
-                data={data && data[EnumGrid.precio_neto]}
-                control={control}
-                error={errors.precio_neto}
-              />
+              <div className="w-1/2">
+                <TextInputComponent
+                  type="number"
+                  label="Precio Neto"
+                  name="precio_neto"
+                  data={data && data[EnumGrid.precio_neto]}
+                  control={control}
+                  error={errors.precio_neto}
+                />
               </div>
 
               <div className="w-1/2">
@@ -311,7 +311,7 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
                   error={errors.stock_minimo}
                 />
               </div>
-              </div>
+            </div>
 
             <div className="w-full flex items-center">
               <div className="w-1/2">
@@ -340,7 +340,7 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
           </div>
 
           <button type="submit" className="userFormBtnSubmit">
-            Guardar
+          {`${TITLES.guardar}`}
           </button>
         </form>
 

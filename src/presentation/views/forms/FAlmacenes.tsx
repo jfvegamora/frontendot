@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationAlmacenesSchema } from "../../utils/validationFormSchemas";
 import { EnumGrid } from "../mantenedores/MAlmacenes";
-import { ERROR_MESSAGES, MODAL, SUCCESS_MESSAGES } from "../../utils";
+import { ERROR_MESSAGES, MODAL, SUCCESS_MESSAGES, TITLES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
@@ -215,7 +215,7 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
     }, []);
 
     return (
-      <div className="useFormContainer">
+      <div className="useFormContainer centered-div use30rem">
         <div className="userFormBtnCloseContainer">
           <button onClick={closeModal} className="userFormBtnClose">
             X
@@ -231,8 +231,7 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
           //     handleSubmit((data) => handleSaveChange(data, isEditting))(e);
           //   }
           // }}
-          className="userFormulario"
-        >
+          className="userFormulario">
           <div className="userFormularioContainer">
             <TextInputComponent
               type="text"
@@ -257,7 +256,7 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
           </div>
 
           <button type="submit" className="userFormBtnSubmit">
-            Guardar
+          {`${TITLES.guardar}`}
           </button>
         </form>
 

@@ -13,7 +13,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationParametrizacionAccesorios } from "../../utils/validationFormSchemas";
 import { EnumGrid } from "../mantenedores/MProyectosAccesorios";
-import { ERROR_MESSAGES, MODAL, SUCCESS_MESSAGES } from "../../utils";
+import { ERROR_MESSAGES, MODAL, SUCCESS_MESSAGES, TITLES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
@@ -39,8 +39,6 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
   let _p1 = ` "${jsonData.proyecto}", 
                 "${jsonData.codigo_accesorio}",  
                  ${jsonData.estado === "Disponible" ? 1 : 2}`;
-
-
   _p1 = _p1.replace(/'/g, '!');
 
   const query: OutputData = {
@@ -72,7 +70,6 @@ export function transformUpdateQuery(jsonData: InputData): OutputData | null {
     _p2: jsonData.proyecto,
     _p3: jsonData.codigo_accesorio,
   };
-  console.log("query: ", query);
   return query;
 }
 
@@ -230,7 +227,7 @@ const FProyectosAccesorios: React.FC<IUserFormPrps> = React.memo(
     }, []);
 
     return (
-      <div className="useFormContainer top-0">
+      <div className="useFormContainer centered-div use40rem">
         <div className="userFormBtnCloseContainer">
           <button onClick={closeModal} className="userFormBtnClose">
             X
@@ -241,47 +238,50 @@ const FProyectosAccesorios: React.FC<IUserFormPrps> = React.memo(
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
-           
-            <div className="w-full ">
-              <SelectInputComponent
-                label="Proyecto"
-                name="proyecto"
-                showRefresh={true}
-                data={data && data[EnumGrid.codigo_proyecto]}
-                control={control}
-                entidad={["/api/proyectos/", "02"]}
-                error={errors.proyecto}
-                inputRef={firstInputRef}
-                readOnly={isEditting}
-              />
-            </div>
-
-            <div className="w-[91.5%]">
-                <TextInputComponent
-                    type="text"
-                    label="Código Accesorio"
-                    name="codigo_accesorio"
-                    data={data && data[EnumGrid.codigo_accesorio]}
-                    control={control}
-                    error={errors.codigo_accesorio}
-                    onlyRead={isEditting}
+            <div className="w-full flex items-center">
+              <div className="w-full">
+                <SelectInputComponent
+                  label="Proyecto"
+                  name="proyecto"
+                  showRefresh={true}
+                  data={data && data[EnumGrid.codigo_proyecto]}
+                  control={control}
+                  entidad={["/api/proyectos/", "02"]}
+                  error={errors.proyecto}
+                  inputRef={firstInputRef}
+                  readOnly={isEditting}
                 />
+              </div>
             </div>
+            <div className="w-full flex items-center">
+              <div className="w-[40%]">
+                <TextInputComponent
+                  type="text"
+                  label="Código Accesorio"
+                  name="codigo_accesorio"
+                  data={data && data[EnumGrid.codigo_accesorio]}
+                  control={control}
+                  error={errors.codigo_accesorio}
+                  onlyRead={isEditting}
+                />
+              </div>
 
-            <RadioButtonComponent
-              control={control}
-              label="Estado"
-              name="estado"
-              data={data && data[EnumGrid.estado]}
-              options={["Disponible", "No disponible"]}
-              error={errors.estado}
-              horizontal={true}
-            />
+              <div className="w-[60%]">
+                <RadioButtonComponent
+                control={control}
+                label="Estado"
+                name="estado"
+                data={data && data[EnumGrid.estado]}
+                options={["Disponible", "No disponible"]}
+                error={errors.estado}
+                horizontal={true}
+                />
+              </div>
+            </div>
           </div>
 
-
           <button type="submit" className="userFormBtnSubmit">
-            Guardar
+          {`${TITLES.guardar}`}
           </button>
         </form>
 

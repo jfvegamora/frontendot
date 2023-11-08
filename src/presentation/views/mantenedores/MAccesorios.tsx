@@ -80,9 +80,7 @@ const MAccesorios: React.FC = () => {
 
   return (
     <div className="mantenedorContainer">
-      <h1 className="mantenedorH1">Accesorios</h1>
-
-      <div className="mantenedorHead width80 items-center">
+      <div className="mantenedorHead width90 ">
         <PrimaryKeySearch
           baseUrl={strBaseUrl}
           setParams={setParams}

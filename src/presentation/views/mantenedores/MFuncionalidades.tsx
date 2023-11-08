@@ -61,23 +61,9 @@ const MCargos: React.FC = () => {
 
     setPkToDelete([`${strParamsToDelete}=${combinedPks}`]);
   }, [selectedRows]);
-  // const pkToDelete: PrimaryKey[] = [];
-
-  // useEffect(() => {
-  //   const newPkToDelete = selectedRows.map((row) => ({
-  //     pk1: entities[row][EnumGrid.ID],
-  //   }));
-  //   newPkToDelete.forEach((newPk) => {
-  //     if (!pkToDelete.some((existingPk) => existingPk.pk1 === newPk.pk1)) {
-  //       pkToDelete.push(newPk);
-  //     }
-  //   });
-  // }, [selectedRows]);
 
   return (
     <div className="mantenedorContainer">
-      <h1 className="mantenedorH1">Funcionalidades</h1>
-
       <div className="mantenedorHead width50">
         <PrimaryKeySearch
           baseUrl={strBaseUrl}
@@ -86,12 +72,6 @@ const MCargos: React.FC = () => {
           setEntities={setEntities}
           primaryKeyInputs={[
             { name: "_p1", label: "Funcionalidad", type: "text" },
-            // {
-            //   name: "_p2",
-            //   label: "Funcionalidad2",
-            //   type: "select",
-            //   selectUrl: "/api/usuarios/",
-            // },
           ]}
         />
 
