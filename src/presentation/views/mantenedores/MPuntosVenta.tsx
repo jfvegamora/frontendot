@@ -72,7 +72,7 @@ const MPuntosVenta: React.FC = () => {
 
   return (
     <div className="mantenedorContainer">
-      <div className="mantenedorHead width70">
+      <div className="mantenedorHead width90">
         <PrimaryKeySearch
           baseUrl={strBaseUrl}
           setParams={setParams}
@@ -126,6 +126,7 @@ const MPuntosVenta: React.FC = () => {
         />
       </div>
 
+      
       {isModalInsert && (
         <FPuntosVenta
           label={`${TITLES.ingreso} ${strEntidad}`}

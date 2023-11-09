@@ -1907,7 +1907,7 @@ export const table_head_proyectos = [
     width: "w-[9rem]",
   },
   {
-    cell: "Fecha Adjuficación",
+    cell: "Fecha Adjudicación",
     key: "fecha_adjudicacion",
     visible: true,
     alignment: "text-center",
@@ -1921,7 +1921,7 @@ export const table_head_proyectos = [
     width: "w-[8rem]",
   },
   {
-    cell: "Fecha Termino",
+    cell: "Fecha Término",
     key: "fecha_termino",
     visible: true,
     alignment: "text-center",
@@ -1942,7 +1942,7 @@ export const table_head_proyectos = [
     width: "w-[8rem]",
   },
   {
-    cell: "Dias de Entrega",
+    cell: "Días de Entrega",
     key: "dias_entrega",
     visible: true,
     alignment: "text-center",
@@ -1975,7 +1975,7 @@ export const table_head_proyectos = [
     width: "w-[9rem]",
   },
   {
-    cell: "Contacto Administrador Telefono",
+    cell: "Contacto Administrador Teléfono",
     key: "contacto_administrador_telefono",
     visible: true,
     alignment: "text-left",
@@ -1996,7 +1996,7 @@ export const table_head_proyectos = [
     width: "w-[9rem]",
   },
   {
-    cell: "Referente Técnico Telefono",
+    cell: "Referente Técnico Teléfono",
     key: "referente_tecnico_telefono",
     visible: true,
     alignment: "text-left",
@@ -2017,7 +2017,7 @@ export const table_head_proyectos = [
     width: "w-[9rem]",
   },
   {
-    cell: "Contacto Contabilidad Telefono",
+    cell: "Contacto Contabilidad Teléfono",
     key: "contacto_contabilidad_telefono",
     visible: true,
     alignment: "text-left",
@@ -2038,7 +2038,7 @@ export const table_head_proyectos = [
     width: "w-[9rem]",
   },
   {
-    cell: "Contacto Finanzas Telefono",
+    cell: "Contacto Finanzas Teléfono",
     key: "contacto_finanzas_telefono",
     visible: true,
     alignment: "text-left",

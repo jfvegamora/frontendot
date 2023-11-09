@@ -29,7 +29,8 @@ interface ISelectInputProps {
   readOnly?: boolean;
   customWidth?: any;
   setState?: any;
-  isOT?:boolean
+  isOT?:boolean;
+  tabIndex?: number;
 }
 
 
@@ -47,7 +48,8 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
     handleSelectChange,
     readOnly,
     setState,
-    isOT
+    isOT,
+    tabIndex
   }) => {
     
     const {cristalesMaterial} = useAppSelector((store: AppStore) => store.listBoxTipos);
@@ -102,7 +104,7 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
           control={control}
           defaultValue={strSelectedName}
           render={({ field }) => (
-            <div className={`custom-select rounded-lg border absolute${error ? 'border-red-500' : 'border-gray-500'}  `}>
+            <div className={`custom-select rounded-lg !h-[3rem]  absolute${error ? 'border-red-500' : 'border-gray-500'}  `}>
               <div className=" top-[-18%]  left-3.5 absolute w-1/2 z-10">
                 <label
                   htmlFor={label}
@@ -122,7 +124,7 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
                 {...field}
                 ref={inputRef}
                 disabled={readOnly}
-                
+                tabIndex  ={tabIndex || 1}
                 onChange={(e) => {
                   // setState && setState(e.target.value);
                   // field.onChange(e);
@@ -188,7 +190,8 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
               onClick={() => setrefreshToggle((prev) => !prev)}
               variant="text"
               color="blue-gray"
-              className="mx2"
+              className="mx2 iconRefresh"
+              tabIndex={-1}
             >
               <FiRefreshCw className="h-6 w-6" />
             </IconButton>

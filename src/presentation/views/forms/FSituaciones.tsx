@@ -209,7 +209,7 @@ const FSituaciones: React.FC<ISituacionesFormProps> = React.memo(
       };
     }, [closeModal]);
     return (
-      <div className="useFormContainer centered-div">
+      <div className="useFormContainer centered-div w-[30vw]">
         <div className="userFormBtnCloseContainer">
           <button onClick={closeModal} className="userFormBtnClose">
             X
@@ -222,16 +222,23 @@ const FSituaciones: React.FC<ISituacionesFormProps> = React.memo(
           className="userFormulario"
         >
           <div className="userFormularioCont">
-            <TextInputComponent
-              type="text"
-              label="Descripcion"
-              name="descripcion"
-              data={data && data[EnumGrid.descripcion]}
-              control={control}
-              error={errors.descripcion}
-              inputRef={firstInputRef}
-            />
-            <div className="w-full ">
+
+          <div className="input-container items-center rowForm  ">
+            <div className="w-[99%]">
+              <TextInputComponent
+                type="text"
+                label="Descripcion"
+                name="descripcion"
+                data={data && data[EnumGrid.descripcion]}
+                control={control}
+                error={errors.descripcion}
+                inputRef={firstInputRef}
+              />
+            </div>
+          </div>
+
+          <div className="input-container items-center rowForm  ">
+            <div className="w-full !mt-4 ">
               <SelectInputComponent
                 label="Área"
                 name="area"
@@ -242,9 +249,12 @@ const FSituaciones: React.FC<ISituacionesFormProps> = React.memo(
                 error={errors.area}
                 customWidth={"345px"}
               />
+            </div>
           </div>
+
+
           </div>
-          <button type="submit" className="userFormBtnSubmit">
+          <button type="submit" tabIndex={1} className="userFormBtnSubmit">
           {`${TITLES.guardar}`}
           </button>
         </form>

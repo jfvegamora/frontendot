@@ -113,7 +113,14 @@ const MCargos: React.FC = () => {
           idMenu={idMenu}
         />
       </div>
-
+      <FSituaciones
+          label={`${TITLES.ingreso} ${strEntidad}`}
+          closeModal={closeModal}
+          selectedRows={selectedRows}
+          setEntities={setEntities}
+          params={params}
+          isEditting={false}
+        />
       {isModalInsert && (
         <FSituaciones
           label={`${TITLES.ingreso} ${strEntidad}`}

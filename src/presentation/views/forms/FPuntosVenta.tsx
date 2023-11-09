@@ -13,6 +13,7 @@ import { ERROR_MESSAGES, MODAL, SUCCESS_MESSAGES, TITLES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
+import SelectInputTiposComponent from "../../components/forms/SelectInputTiposComponent";
 
 const strBaseUrl = "/api/puntosventa/";
 const strEntidad = "Punto de Venta ";
@@ -232,7 +233,7 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
     }, []);
 
     return (
-      <div className="useFormContainer centered-div">
+      <div className="useFormContainer centered-div w-[30vw]">
         <div className="userFormBtnCloseContainer">
           <button onClick={closeModal} className="userFormBtnClose">
             X
@@ -244,50 +245,64 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))}
           className="userFormulario">
           <div className="userFormularioContainer">
-            <TextInputComponent
-              type="text"
-              label="Descripción"
-              name="descripcion"
-              data={data && data[EnumGrid.descripcion]}
-              control={control}
-              error={errors.descripcion}
-              inputRef={firstInputRef}
-            />
-            <div className="w-full ">
-              <SelectInputComponent
-                label="Tipo"
-                name="tipo"
-                showRefresh={true}
-                data={data && data[EnumGrid.tipo_id]}
-                control={control}
-                entidad={["/api/tipos/", "02", "PuntosVentaTipos"]}
-                error={errors.tipo}
-                customWidth={"345px"}
-              />
+            <div className="input-container items-center rowForm">
+              <div className="w-[99%] !mb-[1rem]">
+                <TextInputComponent
+                  type="text"
+                  label="Descripción"
+                  name="descripcion"
+                  data={data && data[EnumGrid.descripcion]}
+                  control={control}
+                  error={errors.descripcion}
+                  inputRef={firstInputRef}
+                />
+              </div>
             </div>
 
-            <TextInputComponent
-              type="text"
-              label="Dirección"
-              name="direccion"
-              data={data && data[EnumGrid.direccion]}
-              control={control}
-            />
-
-            <div className="w-full ">
-              <SelectInputComponent
-                label="Almacén"
-                name="almacen"
-                showRefresh={true}
-                data={data && data[EnumGrid.almacen_id]}
-                control={control}
-                entidad={["/api/almacenes/", "02"]}
-                error={errors.almacen}
-                customWidth={"345px"}
-              />
+            <div className="input-container items-center rowForm">
+              <div className="w-full">
+                <SelectInputTiposComponent
+                  label="Tipo"
+                  name="tipo"
+                  showRefresh={true}
+                  data={data && data[EnumGrid.tipo_id]}
+                  control={control}
+                  entidad={"PuntosVentaTipos"}
+                  error={errors.tipo}
+                  customWidth={"345px"}
+                />
+              </div>
             </div>
 
-            <div className="w-full ">
+            <div className="input-container items-center rowForm">
+              <div className="w-[99%] !mb-[2rem]  !mt-[1.5rem]">
+                <TextInputComponent
+                  type="text"
+                  label="Dirección"
+                  name="direccion"
+                  data={data && data[EnumGrid.direccion]}
+                  control={control}
+                />
+              </div>
+            </div>
+
+          <div className="input-container items-center rowForm">
+              <div className="w-full ">
+                <SelectInputComponent
+                  label="Almacén"
+                  name="almacen"
+                  showRefresh={true}
+                  data={data && data[EnumGrid.almacen_id]}
+                  control={control}
+                  entidad={["/api/almacenes/", "02"]}
+                  error={errors.almacen}
+                  customWidth={"345px"}
+                />
+              </div>
+          </div>
+
+        <div className="input-container items-center rowForm">
+            <div className="w-full mt-[1rem]">
               <SelectInputComponent
                 label="Encargado"
                 name="encargado"
@@ -299,18 +314,23 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
                 customWidth={"345px"}
               />
             </div>
+        </div>
 
-            <TextInputComponent
-              type="text"
-              label="Teléfono"
-              name="telefono"
-              data={data && data[EnumGrid.telefono]}
-              control={control}
-              error={errors.telefono}
-            />
+        <div className="input-container items-center rowForm">
+            <div className="w-[99%]">
+              <TextInputComponent
+                type="text"
+                label="Teléfono"
+                name="telefono"
+                data={data && data[EnumGrid.telefono]}
+                control={control}
+                error={errors.telefono}
+              />
+            </div>
           </div>
+        </div>
 
-          <button type="submit" className="userFormBtnSubmit">
+          <button type="submit" tabIndex={1} className="userFormBtnSubmit ">
           {`${TITLES.guardar}`}
           </button>
         </form>

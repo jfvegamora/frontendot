@@ -235,40 +235,52 @@ const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
           className="userFormulario"
         >
           <div className="userFormularioContainer">
-            <div className="w-full ">
-              <TextInputComponent
-                type="text"
-                label="Nombre"
-                name="nombre"
-                data={data && data[EnumGrid.nombre]}
-                control={control}
-                error={errors.nombre}
-                inputRef={firstInputRef}
-              />
-
-              <SelectInputComponent
-                label="Mandante"
-                name="mandante"
-                showRefresh={true}
-                data={data && data[EnumGrid.mandante_id]}
-                control={control}
-                entidad={["/api/mandantes/", "02"]}
-                error={errors.mandante}
-                customWidth={"345px"}
-              />
+            
+            <div className="input-container items-center rowForm w-[28rem] ">
+              <div className="w-full ">
+                <TextInputComponent
+                  type="text"
+                  label="Nombre"
+                  name="nombre"
+                  data={data && data[EnumGrid.nombre]}
+                  control={control}
+                  error={errors.nombre}
+                  inputRef={firstInputRef}
+                />
+              </div>
+              
             </div>
-            <RegProCom
-              name="comuna"
-              control={control}
-              register={register}
-              setValue={setValue}
-              defaultRegion={data && data[EnumGrid.region_id]}
-              defaultProvincia={data && data[EnumGrid.provincia_id]}
-              defaultComuna={data && data[EnumGrid.comuna_id]}
-            />
-          </div>
 
-          <button type="submit" className="userFormBtnSubmit">
+            <div className="input-container items-center rowForm w-[28.2rem] ">
+              <div className="w-[100%] !mt-[1rem] -mb-2">
+                  <SelectInputComponent
+                    label="Mandante"
+                    name="mandante"
+                    showRefresh={true}
+                    data={data && data[EnumGrid.mandante_id]}
+                    control={control}
+                    entidad={["/api/mandantes/", "02"]}
+                    error={errors.mandante}
+                    customWidth={"345px"}
+                  />
+              </div>
+            </div>
+
+      
+                <div className="w-full">
+                  <RegProCom
+                    name="comuna"
+                    control={control}
+                    register={register}
+                    setValue={setValue}
+                    defaultRegion={data && data[EnumGrid.region_id]}
+                    defaultProvincia={data && data[EnumGrid.provincia_id]}
+                    defaultComuna={data && data[EnumGrid.comuna_id]}
+                  />
+                </div>
+            </div>
+
+          <button type="submit" tabIndex={1} className="userFormBtnSubmit">
           {`${TITLES.guardar}`}
           </button>
         </form>

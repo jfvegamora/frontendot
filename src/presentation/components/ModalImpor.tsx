@@ -37,7 +37,7 @@ const ModalImpor:React.FC<ModalImportProps> = ({
             if(error[2].includes("truncated")){
                     // b = 'No corresponde el ID del registro de la columna:' + " " + column + ", " + "en la fila:" + " " + row;
                    console.log(resultExcelTypes.value)
-                    b = 'Columna: ' + column + " truncada" + "en la fila:" + " " + row;
+                    // b = 'Columna: ' + column + " truncada" + "en la fila:" + " " + row;
                     b = `Excede el maximo permitido `
             }
             return ["","",b]
