@@ -124,7 +124,7 @@ const RegProCom:React.FC<IProps> = ({
                 )}
             /> 
         </div>  
-        <div className="w-[93%] ">
+        <div className="w-[93%] mb-4">
             <Controller
                 name={name}
                 // defaultValue={}

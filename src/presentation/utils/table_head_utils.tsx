@@ -2067,7 +2067,7 @@ export const table_head_proyectos = [
     cell: "",
     key: "opciones",
     visible: true,
-    width: "w-[3rem]",
+    width: "w-[4rem]",
   },
 ];
 export const table_head_parametrizacion_armazones = [

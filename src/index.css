@@ -577,7 +577,7 @@ input:checked + .slider:before {
 }
 
 
-/*========CLASSES FUsuarios=========*/
+/*========CLASSES FORULARIOS=========*/
 .userFormularioRow {
   display: flex;
   flex-direction: row;
@@ -593,14 +593,15 @@ input:checked + .slider:before {
 .radioComponent, .dirCliente{
   border-color: #f8b179;
   border-width: 2px;
+  position: relative;
 }
 
-.radioComponent label span, .dirCliente label{
+.radioComponent label span, .dirCliente label {
   color: #f8b179;
 }
 
-.dirCliente{
-
+input[type="radio"]:checked{
+  background-color: #f8b179 !important;
 }
 
 .short-number TextInputComponent {
@@ -694,6 +695,7 @@ input:checked + .slider:before {
   background-color: rgb(103 111 157 / 0.5);
   color:white;
   border-radius: 15%;
+  top: -18px !important;
 }
 
 .textOption{

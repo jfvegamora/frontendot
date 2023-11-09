@@ -290,7 +290,7 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
     // console.log(data && data)
  
     return (
-      <div className="useFormContainer centered-div use70rem">
+      <div className="useFormContainer centered-div use70rem" >
         <div className="userFormBtnCloseContainer ">
           <button onClick={closeModal} className="userFormBtnClose">
             X
@@ -305,7 +305,7 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
           <div className="userFormularioContainer pb-6">
             <div className="input-container items-center rowForm">
               <div className="w-full flex">
-                <div className="w-[30%]">
+                <div className="w-[15%]">
                   <TextInputComponent
                     type="text"
                     label="RUT"
@@ -318,7 +318,7 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
                   />
                 </div>
 
-                <div className="w-[70%]">
+                <div className="w-[35%]">
                   <TextInputComponent
                     type="text"
                     label="Nombre"
@@ -329,55 +329,94 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
                     inputRef={secondInputRef}
                   />
                 </div>
-              </div>
 
-              <div className="w-full items-center">
-                <SelectInputComponent
-                  label="Establecimiento"
-                  name="establecimiento"
-                  showRefresh={true}
-                  data={data && data[EnumGrid.establecimiento_id]}
-                  control={control}
-                  entidad={["/api/establecimientos/", "02"]}
-                  error={errors.establecimiento}
-                  customWidth={"345px"}
-                />
-              </div> 
+                <div className="w-[50%]">
+                  <SelectInputComponent
+                    label="Establecimiento"
+                    name="establecimiento"
+                    showRefresh={true}
+                    data={data && data[EnumGrid.establecimiento_id]}
+                    control={control}
+                    entidad={["/api/establecimientos/", "02"]}
+                    error={errors.establecimiento}
+                    customWidth={"345px"}
+                  />
+                </div> 
+              </div>
             </div>
 
-            <div className="input-container mt-4 items-center ">
-              <div className="w-[90%] flex pl-4">
-                <div className="w-[30%] mr-14 ">
-                  <RadioButtonComponent
-                    control={control}
-                    label="Sexo"
-                    name="sexo"
-                    data={data && data[EnumGrid.sexo]}
-                    options={[SEXO.masculino, SEXO.femenino, SEXO.no_aplica]}
-                    error={errors.sexo}
-                    // horizontal={true}
+            <div className="input-container mt-12 items-center" style={{ alignItems: 'flex-start' }}>
+              <div className="w-[50%] flex pl-4 pb-6" style={{ display: 'inline', marginTop: '-20px'}}>
+                <div className="w-[100%] flex pl-4 pb-2">
+                  <div className="w-[50%] mr-10">
+                    <RadioButtonComponent
+                      control={control}
+                      label="Sexo"
+                      name="sexo"
+                      data={data && data[EnumGrid.sexo]}
+                      options={[SEXO.masculino, SEXO.femenino, SEXO.no_aplica]}
+                      error={errors.sexo}
+                      />
+                  </div>
+
+                  <div className="w-[50%] mr-10">
+                    <RadioButtonComponent
+                      control={control}
+                      label="Tipo"
+                      name="tipo"
+                      data={data && data[EnumGrid.tipo]}
+                      options={[
+                        TIPO_CLIENTE.beneficiario,
+                        TIPO_CLIENTE.particular,
+                        TIPO_CLIENTE.optica,
+                      ]}
+                      error={errors.tipo}
                     />
+                  </div>
                 </div>
 
-                <div className="w-[30%]">
-                  <RadioButtonComponent
-                    control={control}
-                    label="Tipo"
-                    name="tipo"
-                    data={data && data[EnumGrid.tipo]}
-                    options={[
-                      TIPO_CLIENTE.beneficiario,
-                      TIPO_CLIENTE.particular,
-                      TIPO_CLIENTE.optica,
-                    ]}
-                    error={errors.tipo}
-                  />
+                <div className="w-full flex rowForm" style={{ display: 'inline-block !important'}}>
+                  <div className="w-[40%]">
+                    <TextInputComponent
+                      type="date"
+                      label="Fecha Nacimiento"
+                      name="fecha_nacimiento"
+                      data={data && data[EnumGrid.fecha_nacimiento]}
+                      control={control}
+                      error={errors.fecha_nacimiento}
+                    />
+                  </div>
+
+                  <div className="w-[60%]">
+                    <TextInputComponent
+                      type="text"
+                      label="Teléfono"
+                      name="telefono"
+                      data={data && data[EnumGrid.telefono]}
+                      control={control}
+                      error={errors.telefono}
+                    />
+                  </div>
+                </div>
+
+                <div className="w-[100%] rowForm ">
+                  <div className="w-full">
+                    <TextInputComponent
+                      type="text"
+                      label="Correo"
+                      name="correo"
+                      data={data && data[EnumGrid.correo]}
+                      control={control}
+                      error={errors.correo}
+                    />
+                  </div>
                 </div>
               </div> 
 
 
-              <div className="w-[90%] rounded-lg border border-blue-500 relative dirCliente pb-4">
-                <label className="labelForm w-[20%] absolute top-[-7%] left-2 text-center z-10 ">Direccion</label>
+
+              <div className="w-[50%] rounded-lg dirCliente pb-6" style={{ marginTop: '-20px' }}>
+                <label className="labelForm w-[20%] absolute top-[-7%] left-2 text-center z-10 ">Dirección</label>
                 <RegProCom
                   name="comuna"
                   control={control}
@@ -389,7 +428,7 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
 
 
                 />
-                <div className="mt-[-2%] rowForm">
+                <div className="rowForm">
                   <TextInputComponent
                   type="text"
                   label="Direccion"
@@ -402,42 +441,7 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
               </div>
             </div>
 
-            <div className="input-container mt-4 mb-4 flex items-center rowForm">
-              <div className="w-[50%] flex items-center">
-                <div className="w-[80%]">
-                  <TextInputComponent
-                    type="date"
-                    label="Fecha Nacimiento"
-                    name="fecha_nacimiento"
-                    data={data && data[EnumGrid.fecha_nacimiento]}
-                    control={control}
-                    error={errors.fecha_nacimiento}
-                  />
-                </div>
-
-                <div className="w-[80%]">
-                  <TextInputComponent
-                    type="text"
-                    label="Teléfono"
-                    name="telefono"
-                    data={data && data[EnumGrid.telefono]}
-                    control={control}
-                    error={errors.telefono}
-                  />
-                </div>
-
-                <div className="w-[110%]">
-                  <TextInputComponent
-                    type="text"
-                    label="Correo"
-                    name="correo"
-                    data={data && data[EnumGrid.correo]}
-                    control={control}
-                    error={errors.correo}
-                  />
-                </div>
-              </div>
-
+            <div className="flex items-center rowForm justify-center">
               <div className="w-[50%] pt-4">
                 <button type="submit" className="userFormBtnSubmit">
                   {`${TITLES.guardar}`}
