@@ -1,52 +1,10 @@
 import * as XLSX from 'xlsx';
-
-
-// export function validateExcelData(data:any, validationStructure:any) {
-//   const validationErrors = [];
-//   const validationMap = validationStructure.map((validation:any)=>{
-//     validation[0] = validation[0].toUpperCase()
-//     return validation
-//   })
-
-//   for (let i = 0; i < data.length; i++) {
-//     const rowData = data[i];
-
-//     for (const fieldName in rowData) {
-//       const uppercaseFieldName = fieldName.toUpperCase();
-
-//       if (!validationMap[uppercaseFieldName]) {
-//         continue;
-//       }
-
-//       const [fieldType, allowNull, maxLength] = validationStructure.find(([name]:any) => name.toUpperCase() === uppercaseFieldName);
-
-//       const cellValue = rowData[fieldName];
-//       console.log('cellValue', cellValue)
-//       console.log('allowNull', allowNull)
-//       // Validar el tipo de datos
-//       if (fieldType === "int" && !Number.isInteger(cellValue)) {
-//         validationErrors.push(`Error en la fila ${i + 1}: El campo ${fieldName} debe ser un número entero.`);
-//       }
-
-//       // Validar la longitud para varchar
-//       if (fieldType === "varchar" && typeof cellValue === "string" && maxLength && cellValue.length > maxLength) {
-//         validationErrors.push(`Error en la fila ${i + 1}: El campo ${fieldName} excede la longitud máxima permitida de ${maxLength}.`);
-//       }
-
-//       // Validar si el campo puede ser nulo
-//       if (allowNull === "NO" && (cellValue === null || cellValue === "")) {
-//         console.log('cell error',cellValue)
-//         validationErrors.push(`Error en la fila ${i + 1}: El campo ${fieldName} no puede estar vacío.`);
-//       }
-//     }
-//   }
-//   console.log('validationErrors',validationErrors)
-//   return validationErrors;
-// }
+import moment from 'moment';
+import { isValid, parse } from 'date-fns';
 
 export function validateExcelData(data:any, validationStructure:any) {
   const validationErrors = [];
-  console.log('a')
+  console.log('DATA BEFORE: ', data);
   
   const validationMap = validationStructure.map((validation:any)=>{
     validation[0] = validation[0].toUpperCase()
@@ -59,29 +17,78 @@ export function validateExcelData(data:any, validationStructure:any) {
     for (let j = 0; j < validationMap.length; j++) {
 
       const [fieldName, fieldType, allowNull, maxLength] = validationMap[j];
-      const cellValue = rowData[fieldName]; // Value from the Excel cell
-      console.log('cellValue',cellValue)      
+      let cellValue = rowData[fieldName]; // Value from the Excel cell
+       console.log('Fila:', i + 2, ' - Campo:',fieldName, ' - allowNULL:', allowNull, ' - Type:', fieldType, ' - Value:', cellValue)
+      // console.log('allownull:', allowNull)      
       // console.log(cellValue.length)      
       // console.log(maxLength)            
      
-  
-      if (fieldType === 'int') {
-        if (!Number.isInteger(cellValue)) {
-          validationErrors.push(`Error en la fila ${i + 2}: El campo ${fieldName} debe ser un número entero.`);
+      if (allowNull === "NO") { //SI ES REQUERIDO
+        if ((cellValue === null || cellValue === undefined)) {
+          if (fieldType === 'int' || fieldType.substring(0,fieldType.indexOf('(')) === 'enum') {
+            validationErrors.push(`Fila ${i + 2}: ${fieldName}-> se requiere un número.`);
+          }else if (fieldType === 'string' || fieldType.substring(0,fieldType.indexOf('(')) === 'varchar'){
+            validationErrors.push(`Fila ${i + 2}: ${fieldName} -> se requiere texto.`);
+          }else if (fieldType === 'date'){
+            validationErrors.push(`Fila ${i + 2}: ${fieldName} -> se requiere una fecha.`);
+          }else{
+            validationErrors.push(`Fila ${i + 2}: ${fieldName} -> no puede estar vacío.`);
+          }
+        }
+        else if (fieldType === 'int' || fieldType.substring(0,fieldType.indexOf('(')) === 'enum' || fieldType.substring(0,fieldType.indexOf('(')) === 'decimal') {
+          if (!(typeof cellValue === 'number' || (typeof cellValue === 'string' && !isNaN(Number(cellValue))))) {
+            validationErrors.push(`Fila ${i + 2}: ${fieldName}: ${cellValue} -> debe ser un número válido.`);
+          }
+        }
+        else if (fieldType === 'string' || fieldType.substring(0,fieldType.indexOf('(')) === 'varchar') {
+          if (maxLength > 0 && cellValue.length > maxLength) {
+            validationErrors.push(`Fila ${i + 2}: ${fieldName}: ${cellValue} -> Tiene ${cellValue.length} caracteres y excede longitud máxima permitida (${maxLength}).`);
+          }
+        }
+        else if (fieldType === 'date') {
+          if ((cellValue === null || cellValue === undefined)) {
+            rowData[fieldName]= '1900-01-01';
+            // cellValue = '1900-01-01';
+          // }else if (cellValue.toString() === 'Invalid Date' || isNaN(cellValue)) {
+          // }else if (!isNaN(Date.parse(cellValue))) {
+          }else if (moment(cellValue, 'DD-MM-YYYY', true).isValid()) {
+          // }else if (isValid(new Date(cellValue))) {
+          // }else if (isValid(parse(cellValue ,'yyyy-MM-dd',new Date(cellValue)))) {
+            console.log('FECHA VALIDA1?: ', cellValue);
+            validationErrors.push(`Fila ${i + 2}: ${fieldName}: ${cellValue} -> debe ser una fecha válida..`);
+          }
         }
       }
-
-      // Validar la longitud para varchar
-      if (typeof cellValue === 'string' && maxLength > 0 && cellValue.length > maxLength) {
-        validationErrors.push(`Error en la fila ${i + 2}: El campo ${fieldName} excede la longitud máxima permitida de ${maxLength}.`);
+      else if (fieldType === 'int' || fieldType.substring(0,fieldType.indexOf('(')) === 'enum' || fieldType.substring(0,fieldType.indexOf('(')) === 'decimal') {
+        if ((cellValue === null || cellValue === undefined)) {
+          cellValue = 0;
+        }else if (!(typeof cellValue === 'number' || (typeof cellValue === 'string' && !isNaN(Number(cellValue))))) {
+          validationErrors.push(`Fila ${i + 2}: ${fieldName}: ${cellValue} -> debe ser un número válido.`);
+        }
       }
-
-      // Validar si el campo puede ser nulo
-      if (allowNull && (cellValue === null || cellValue === undefined)) {
-        validationErrors.push(`Error en la fila ${i + 2}: El campo ${fieldName} no puede estar vacío.`);
+      else if (fieldType === 'string' || fieldType.substring(0,fieldType.indexOf('(')) === 'varchar') {
+        if ((cellValue === null || cellValue === undefined)) {
+          cellValue = '';
+        }else if (maxLength > 0 && cellValue.length > maxLength) {
+          validationErrors.push(`Fila ${i + 2}: ${fieldName}: ${cellValue} -> Tiene ${cellValue.length} caracteres y excede longitud máxima permitida (${maxLength}).`);
+        }
+      }
+      else if (fieldType === 'date') {
+        if ((cellValue === null || cellValue === undefined)) {
+          // cellValue = '1900-01-01';
+          rowData[fieldName]= '1900-01-01';
+        // }else if (cellValue.toString() === 'Invalid Date' || isNaN(cellValue)) {
+        }else if (moment(cellValue, 'DD-MM-YYYY', true).isValid()) {
+        // }else if (isValid(parse(cellValue ,'yyyy-MM-dd',new Date(cellValue)))) {  
+        // rowData[fieldName]= cellValue.toString();
+          // rowData[fieldName]= "2023" + "-"   + "04" + "-" + "22"  ;
+          console.log('FECHA VALIDA2?: ', cellValue);
+          validationErrors.push(`Fila ${i + 2}: ${fieldName}: ${cellValue} -> debe ser una fecha válida.`);
+        }
       }
     }
   }
+  console.log('DATA AFTER: ', data);
   return validationErrors;
 }
 
@@ -106,11 +113,7 @@ export const handleFileUpload = (file: File,columnsToDelete:string[]) => {
         const worksheet = workbook.Sheets[sheetName];
         const firstElement:any = XLSX.utils.sheet_to_json(worksheet)[0];
         const nameElement = Object.keys(firstElement)[0]
-
-
-      
         const filteredRows = XLSX.utils.sheet_to_json(worksheet).filter((row: any) => row[nameElement])
-
 
         const validationErrors = validateExcelData(filteredRows, columnsToDelete)
 
@@ -121,8 +124,6 @@ export const handleFileUpload = (file: File,columnsToDelete:string[]) => {
           })
           resolve({errors: logs})
         }
-
-
 
         const modifiedWorkbook = XLSX.utils.book_new();
         

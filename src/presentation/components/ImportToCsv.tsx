@@ -107,6 +107,7 @@ const ImportToCsv:React.FC<ImportProps> = ({
     setIsOpen((prev)=>!prev)  
     const formData = new FormData();        
     const result = await excelTypes(strEntidad)
+    console.log('result tipos excel', result)
     resultExcelTypes.value = result
     
     // console.log(acceptedFiles[0])
