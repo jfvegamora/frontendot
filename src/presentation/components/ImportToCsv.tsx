@@ -6,8 +6,11 @@ import ModalImpor from './ModalImpor';
 import {toast} from 'react-toastify';
 import { TfiImport } from "react-icons/tfi";
 import { IconButton, Tooltip } from '@material-tailwind/react';
+import { URLBackend } from '../hooks/useCrud';
+import { signal } from '@preact/signals-react';
 
 
+export const resultExcelTypes = signal({})
 
 interface ImportProps{
   // strEntidad: string | undefined;
@@ -104,6 +107,7 @@ const ImportToCsv:React.FC<ImportProps> = ({
     setIsOpen((prev)=>!prev)  
     const formData = new FormData();        
     const result = await excelTypes(strEntidad)
+    resultExcelTypes.value = result
     
     // console.log(acceptedFiles[0])
     
@@ -131,8 +135,9 @@ const ImportToCsv:React.FC<ImportProps> = ({
       formData.append('entidad', JSON.stringify(strEntidad));
 
       // await handleValidacion(validate["numberOfElements"] || 0)
-      
-      fetch(`https://mtoopticos.cl/api/excel/import/`, {
+      const url = `${URLBackend.value}/api/excel/import/`
+      console.log(url)
+      fetch(url, {
         method: 'POST',
         body: formData,
       })
@@ -178,6 +183,8 @@ const ImportToCsv:React.FC<ImportProps> = ({
     const {getInputProps, getRootProps} = useDropzone({
         onDrop,
     })
+
+    
   
   const handleClose = () => {
     setIsOpen(false)

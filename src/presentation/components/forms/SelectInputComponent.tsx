@@ -13,6 +13,7 @@ import { useCrud, useEntityUtils } from "../../hooks";
 import { AppStore, useAppDispatch, useAppSelector } from "../../../redux/store";
 import axios from "axios";
 import { setDataListbox } from "../../../redux/slices/listBoxSlice";
+import { URLBackend } from "../../hooks/useCrud";
 // import Select from "react-select";
 
 interface ISelectInputProps {
@@ -66,7 +67,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     
     
     
-    const strUrl2 = `https://mtoopticos.cl${entidad[0]}listado/?query=${entidad[1]}`;
+    const strUrl2 = `${URLBackend}${entidad[0]}listado/?query=${entidad[1]}`;
     
     const state = useAppSelector((store: AppStore) => store.listBox);
     

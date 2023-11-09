@@ -87,7 +87,7 @@ const FOTOptica:React.FC<IOptica> = ({
  
   return (
     <form action="">
-        <div className='w-full labelForm rounded-lg border border-blue-500'>
+        <div className='w-full labelForm rounded-lg border radioComponent'>
 
             <div className="w-full flex items-center justify-between">
                 <div className="w-[25%] mt-4 mb-8 ml-4">

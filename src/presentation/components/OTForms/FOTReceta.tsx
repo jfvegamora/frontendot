@@ -56,7 +56,7 @@ const FOTReceta:React.FC<IReceta> = ({
 //   inputName.value = 90  
   return (
     <form>
-        <div className="w-full labelForm  rounded-lg px-8 flex flex-col justify-between   py-4 border border-blue-500">
+        <div className="w-full labelForm  rounded-lg px-8 flex flex-col justify-between !h-[80vh]  py-4 border radioComponent">
             <div className="w-full flex items-center">
                 <div className="w-[20%] -ml-4">
                         <SelectInputComponent
@@ -117,8 +117,8 @@ const FOTReceta:React.FC<IReceta> = ({
                 
             </div>
 
-            <div className="w-full flex items-center pt-8  relative pb-8 rounded-lg border border-blue-500 ">
-                <div className='absolute z-20 top-[-8%] w-[15%] left-[70%] text-center labelForm  rounded-lg border border-blue-500 '>
+            <div className="w-full flex items-center pt-8  relative pb-8 rounded-lg border radioComponent ">
+                <div className='absolute z-20 top-[-8%] w-[15%] left-[70%] text-center labelForm  rounded-lg border radioComponent '>
                 <SelectInputComponent
                             label="Grupo"
                             name="tipo_anteojo"
@@ -138,7 +138,7 @@ const FOTReceta:React.FC<IReceta> = ({
 
 
                 <div className=" w-[43%] items-center  ">
-                    <div className="w-[90%] mx-auto flex items-center h-[9rem] relative labelForm  rounded-lg border border-blue-500">
+                    <div className="w-[90%] mx-auto flex items-center h-[9rem] relative labelForm  rounded-lg border radioComponent">
                         <label className='labelForm w-[40%] absolute z-10 text-center -top-2 left-[30%]'>OJO DERECHO</label>
                         <div className="w-[25%]">
                             <TextInputComponent
@@ -194,7 +194,7 @@ const FOTReceta:React.FC<IReceta> = ({
                 </div>
 
                 <div className=" w-[43%] items-center">
-                <div className="w-[90%] mx-auto flex items-center h-[9rem] relative labelForm  rounded-lg border border-blue-500">
+                <div className="w-[90%] mx-auto flex items-center h-[9rem] relative labelForm  rounded-lg border radioComponent">
                         <label className='labelForm w-[40%] absolute z-10 text-center -top-2 left-[30%]'>OJO IZQUIERDO</label>
                         <div className="w-[25%]">
                             <TextInputComponent

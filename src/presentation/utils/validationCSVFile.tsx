@@ -156,63 +156,63 @@ export const handleFileUpload = (file: File,columnsToDelete:string[]) => {
 
 
 
-export const removeColumns = (file:File, columnIndices:number[]) => {
-    return new Promise<Blob>((resolve, reject) => {
-        const reader = new FileReader();
+// export const removeColumns = (file:File, columnIndices:number[]) => {
+//     return new Promise<Blob>((resolve, reject) => {
+//         const reader = new FileReader();
     
-        reader.onload = (event) => {
-          if (event.target && event.target.result) {
-            let data: Uint8Array | string;
+//         reader.onload = (event) => {
+//           if (event.target && event.target.result) {
+//             let data: Uint8Array | string;
     
-            if (typeof event.target.result === 'string') {
-              // Si es una cadena, convierte a Uint8Array
-              const encoder = new TextEncoder();
-              data = encoder.encode(event.target.result);
-            } else {
-              // Si es ArrayBuffer, utiliza directamente
-              data = new Uint8Array(event.target.result);
-            }
+//             if (typeof event.target.result === 'string') {
+//               // Si es una cadena, convierte a Uint8Array
+//               const encoder = new TextEncoder();
+//               data = encoder.encode(event.target.result);
+//             } else {
+//               // Si es ArrayBuffer, utiliza directamente
+//               data = new Uint8Array(event.target.result);
+//             }
     
-            const workbook = XLSX.read(data, { type: 'array' });
+//             const workbook = XLSX.read(data, { type: 'array' });
     
-            // Resto del código para eliminar columnas, crear el nuevo libro de trabajo y resolver la promesa...
-            const sheetName = workbook.SheetNames[0];
-            const sheet = workbook.Sheets[sheetName];
+//             // Resto del código para eliminar columnas, crear el nuevo libro de trabajo y resolver la promesa...
+//             const sheetName = workbook.SheetNames[0];
+//             const sheet = workbook.Sheets[sheetName];
     
-            const columnLettersToRemove = columnIndices.map(index => XLSX.utils.encode_col(index));
+//             const columnLettersToRemove = columnIndices.map(index => XLSX.utils.encode_col(index));
     
-            for (const columnLetter of columnLettersToRemove) {
-              for (const cellId in sheet) {
-                if (sheet.hasOwnProperty(cellId) && cellId.startsWith(columnLetter)) {
-                  delete sheet[cellId];
-                }
-              }
-            }
+//             for (const columnLetter of columnLettersToRemove) {
+//               for (const cellId in sheet) {
+//                 if (sheet.hasOwnProperty(cellId) && cellId.startsWith(columnLetter)) {
+//                   delete sheet[cellId];
+//                 }
+//               }
+//             }
     
-            const modifiedWorkbook = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(modifiedWorkbook, sheet, sheetName);
+//             const modifiedWorkbook = XLSX.utils.book_new();
+//             XLSX.utils.book_append_sheet(modifiedWorkbook, sheet, sheetName);
     
-            const modifiedBlob = new Blob([XLSX.write(modifiedWorkbook, { type: 'array', bookType: 'xlsx' })], {
-              type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-            });
+//             const modifiedBlob = new Blob([XLSX.write(modifiedWorkbook, { type: 'array', bookType: 'xlsx' })], {
+//               type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+//             });
     
-            resolve(modifiedBlob);
-          } else {
-            reject(new Error('No se pudo leer el archivo.'));
-          }
-        };
+//             resolve(modifiedBlob);
+//           } else {
+//             reject(new Error('No se pudo leer el archivo.'));
+//           }
+//         };
     
-        reader.onerror = (error) => {
-          reject(new Error('Error al leer el archivo: ' + error));
-        };
+//         reader.onerror = (error) => {
+//           reject(new Error('Error al leer el archivo: ' + error));
+//         };
     
-        if (file instanceof Blob) {
-          reader.readAsArrayBuffer(file);
-        } else {
-          reject(new Error('El archivo no es válido.'));
-        }
-      });
-    };
+//         if (file instanceof Blob) {
+//           reader.readAsArrayBuffer(file);
+//         } else {
+//           reject(new Error('El archivo no es válido.'));
+//         }
+//       });
+//     };
 
 
 

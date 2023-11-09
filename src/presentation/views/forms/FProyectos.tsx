@@ -370,7 +370,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
     }, []);
 
     return (
-      <div className="useFormContainer top-4  h-[95vh] useFormContainer70rem ">
+      <div className="useFormContainer top-2  h-[95vh] useFormContainer70rem ">
         <div className="userFormBtnCloseContainer absolute right-4">
           <button onClick={closeModal} className="userFormBtnClose">
             X

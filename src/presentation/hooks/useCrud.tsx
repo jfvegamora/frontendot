@@ -4,15 +4,15 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 import { useRef } from "react";
 import axios, { AxiosInstance } from "axios";
+import { signal } from "@preact/signals-react";
+
+// PRODUCCION
+export const URLBackend = signal('https://mtoopticos.cl');
+// DESARROLLO
+// export const URLBackend = signal('https://gestiondev.mtoopticos.cl');
+
 
 export const baseURL = (params:string) => {
-
-  //Produccion
-  const URLBackend = 'https://mtoopticos.cl';
-
-  //Desarrollo
-  // const URLBackend = 'https://gestiondev.mtoopticos.cl';
-
   return params.startsWith("http") ? params : `${URLBackend}${params}`;
 }
 

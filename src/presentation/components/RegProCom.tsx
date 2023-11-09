@@ -48,7 +48,7 @@ const RegProCom:React.FC<IProps> = ({
 //   console.log(selectedRegion)
 //   console.log(comunas)
   
-  
+  console.log(defaultComuna)
 
   const handleRegionChange = (e: { target: { value: string; }; }) => {
     const regionId = parseInt(e.target.value, 10);
@@ -139,7 +139,7 @@ const RegProCom:React.FC<IProps> = ({
                             onChange={handleCommuneChange}
                             className="custom-input py-2 px-3 cursor-pointer z-0 "
                             >
-                                <option value={0}>Comuna</option>
+                                <option value={defaultComuna ? defaultComuna : 0}>Comuna</option>
                                     {comunas && comunas.map((comuna:any) => (
                                         <option key={comuna[0]} value={comuna[0]}>
                                             {comuna[1]}

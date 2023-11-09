@@ -18,7 +18,7 @@ const FilterButton:React.FC<IProps> = ({
   return (
     <div className="fixed top-[5rem] left-10 z-[13] items-center">
       <BsFillFilterCircleFill
-        className="bg-blue-500 w-16 h-16 text-white p-3 rounded-full shadow-lg top-0 absolute z-30"
+        className={`bg-blue-500 w-[4.5rem] h-[4.5rem] text-white p-3 rounded-full shadow-lg top-0 absolute z-30 transition-transform transform hover:scale-110 cursor-pointer ${filterToggle.value ? 'scale-110' : ''}`}
         onClick={toggleFilters}
       />
       <div
