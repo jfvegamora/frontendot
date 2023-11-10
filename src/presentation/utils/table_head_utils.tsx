@@ -190,6 +190,18 @@ export const table_head_OT_diaria = [
   },
   //************ RECETA */
   {
+    cell: "Oftalmólogo ID",
+    key: "oftalmologo_id",
+    visible: false,
+  },
+  {
+    cell: "Oftalmólogo",
+    key: "oftalmologo",
+    visible: true,
+    alignment: "text-left",
+    width: "w-[9rem]",
+  },
+  {
     cell: "Fecha Atención",
     key: "fecha_atencion",
     visible: true,
@@ -943,7 +955,7 @@ export const table_head_clientes = [
     cell: "",
     key: "opciones",
     visible: true,
-    width: "w-[3rem]",
+    width: "w-[4rem]",
   },
 ];
 export const table_head_establecimientos = [
@@ -1017,7 +1029,7 @@ export const table_head_establecimientos = [
     cell: "",
     key: "opciones",
     visible: true,
-    width: "w-[3rem]",
+    width: "w-[4rem]",
   },
 ];
 export const table_head_puntos_venta = [
@@ -1087,7 +1099,7 @@ export const table_head_puntos_venta = [
     cell: "",
     key: "opciones",
     visible: true,
-    width: "w-[3rem]",
+    width: "w-[4rem]",
   },
 ];
 export const table_head_situaciones = [
@@ -1128,7 +1140,7 @@ export const table_head_situaciones = [
     cell: "",
     key: "opciones",
     visible: true,
-    width: "w-[5rem]",
+    width: "w-[4rem]",
     alignment: "items-center"
   },
 ];
@@ -1204,7 +1216,7 @@ export const table_head_accesorios = [
     cell: "",
     key: "opciones",
     visible: true,
-    width: "w-[3rem]",
+    width: "w-[4rem]",
   },
 ];
 export const table_head_armazones = [
@@ -1504,7 +1516,7 @@ export const table_head_cristales = [
     cell: "",
     key: "opciones",
     visible: true,
-    width: "w-[3rem]",
+    width: "w-[4rem]",
   },
 ];
 export const table_head_kardex = [
@@ -1674,7 +1686,7 @@ export const table_head_almacenes = [
     cell: "",
     key: "opciones",
     visible: true,
-    width: "w-[3rem]",
+    width: "w-[4rem]",
   },
 ];
 export const table_head_marcas = [
@@ -1710,7 +1722,7 @@ export const table_head_marcas = [
     cell: "",
     key: "opciones",
     visible: true,
-    width: "w-[3rem]",
+    width: "w-[4rem]",
   },
 ];
 export const table_head_proveedores = [
@@ -1764,7 +1776,7 @@ export const table_head_proveedores = [
     cell: "",
     key: "opciones",
     visible: true,
-    width: "w-[3rem]",
+    width: "w-[4rem]",
   },
 ];
 
@@ -1837,7 +1849,7 @@ export const table_head_mandantes = [
     cell: "",
     key: "opciones",
     visible: true,
-    width: "w-[3rem]",
+    width: "w-[4rem]",
   },
 ];
 export const table_head_proyectos = [
@@ -2218,7 +2230,7 @@ export const table_head_parametrizacion_armazones = [
     cell: "",
     key: "opciones",
     visible: true,
-    width: "w-[3rem]",
+    width: "w-[4rem]",
   },
 ];
 export const table_head_parametrizacion_accesorios = [
@@ -2298,7 +2310,7 @@ export const table_head_parametrizacion_accesorios = [
     cell: "",
     key: "opciones",
     visible: true,
-    width: "w-[3rem]",
+    width: "w-[4rem]",
   },
 ];
 export const table_head_proyectos_cristales = [
@@ -2466,7 +2478,7 @@ export const table_head_proyectos_cristales = [
   cell: "",
   key: "opciones",
   visible: true,
-  width: "w-[3rem]",
+  width: "w-[4rem]",
 },
 ];
 export const table_head_proyectos_direcciones = [
@@ -2826,7 +2838,7 @@ export const table_head_oftalmologos = [
     cell: "",
     key: "opciones",
     visible: true,
-    width: "w-[3rem]",
+    width: "w-[4rem]",
   },
 ];
 
@@ -2853,7 +2865,7 @@ export const table_head_cargos = [
     cell: "",
     key: "opciones",
     visible: true,
-    width: "w-[3rem]",
+    width: "w-[4rem]",
   },
 ];
 export const table_head_funcionalidades = [
@@ -2878,7 +2890,7 @@ export const table_head_funcionalidades = [
     cell: "",
     key: "opciones",
     visible: true,
-    width: "w-[3rem]",
+    width: "w-[4rem]",
   },
 ];
 export const table_head_permisos = [
@@ -2921,7 +2933,7 @@ export const table_head_permisos = [
     cell: "",
     key: "opciones",
     visible: true,
-    width: "w-[3rem]",
+    width: "w-[4rem]",
   },
 ];
 export const table_head_perfiles = [
@@ -2964,7 +2976,7 @@ export const table_head_perfiles = [
     cell: "",
     key: "opciones",
     visible: true,
-    width: "w-[3rem]",
+    width: "w-[4rem]",
   },
 ];
 export const table_head_usuarios = [
@@ -3105,7 +3117,7 @@ export const table_head_empresas = [
     cell: "",
     key: "opciones",
     visible: true,
-    width: "w-[3rem]",
+    width: "w-[4rem]",
   },
 ];
 export const table_head_funcionalidades_ot = [
@@ -3130,8 +3142,6 @@ export const table_head_funcionalidades_ot = [
     visible: false,
   },
 ];
-
-
 
 /************ LOGS ERRORES ************/
 export const table_head_errors = [
