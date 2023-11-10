@@ -118,6 +118,7 @@ const MMandantes: React.FC = () => {
         />
       </div>
 
+      
       {isModalInsert && (
         <FMandantes
           label={`${TITLES.ingreso} ${strEntidad}`}

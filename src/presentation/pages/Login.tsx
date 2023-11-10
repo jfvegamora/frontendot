@@ -78,33 +78,44 @@ const Login: React.FC = React.memo(() => {
           </a>
           <div className="useFormContainer top-[20%] w-[25%]">
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-              <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-                Login
+              <h1 className="text-xl font-bold leading-tight text-center tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                Iniciar Sesión
               </h1>
               <form
                 className="userFormulario"
                 onSubmit={handleSubmit(handleChange)}
               >
                 <div className="userFormularioContainer">
-                  <TextInputComponent
-                    type="text"
-                    label="Correo"
-                    name="_p1"
-                    control={control}
-                    error={errors._p1}
-                  />
-                  <TextInputComponent
-                    type="password"
-                    label="Password"
-                    name="_p3"
-                    control={control}
-                    error={errors._p3}
-                  />
+                <div className="input-container items-center rowForm ">
+                    <div className="w-full">
+                        <TextInputComponent
+                          type="text"
+                          label="Correo"
+                          name="_p1"
+                          control={control}
+                          error={errors._p1}
+                        />
+                    </div>
                 </div>
-
-                <button type="submit" className="userFormBtnSubmit">
-                  Sign in
-                </button>
+                <div className="input-container items-center rowForm  ">
+                    <div className="w-full">
+                        <TextInputComponent
+                          type="password"
+                          label="Password"
+                          name="_p3"
+                          control={control}
+                          error={errors._p3}
+                        />
+                    </div>
+                </div>
+                </div>
+                <div className="input-container items-center rowForm ">
+                  <div className="w-[90%] mx-auto">
+                    <button type="submit" tabIndex={1} className="userFormBtnSubmit !mt-8">
+                      Sign in
+                    </button>
+                  </div>
+                </div>
                 <Link to="/forgotpassword">Recupera Contraseña</Link>
               </form>
             </div>

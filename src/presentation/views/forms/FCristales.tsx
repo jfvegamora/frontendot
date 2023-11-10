@@ -291,61 +291,59 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
               />
             </div>
             <div className="rowForm">
-              <SelectInputComponent
+              <SelectInputTiposComponent
                 label="Diseño"
                 name="diseno"
                 showRefresh={true}
                 data={data && data[EnumGrid.diseno_id]}
                 control={control}
-                entidad={["/api/tipos/", "02", "CristalesDisenos"]}
+                entidad={"CristalesDisenos"}
                 error={errors.diseno}
               />
             </div>
             <div className="rowForm">
-              <SelectInputComponent
+              <SelectInputTiposComponent
                 label="Índice"
                 name="indice"
                 showRefresh={true}
                 data={data && data[EnumGrid.indice_id]}
                 control={control}
-                entidad={["/api/tipos/", "02", "CristalesIndices"]}
-                error={errors.indice}
-                customWidth={""}
+                entidad={"CristalesIndices"}
+                error={errors.indice}              
               />
             </div>
             <div className="rowForm">
-              <SelectInputComponent
+              <SelectInputTiposComponent
                 label="Material"
                 name="material"
                 showRefresh={true}
                 data={data && data[EnumGrid.material_id]}
                 control={control}
-                entidad={["/api/tipos/", "02", "CristalesMateriales"]}
+                entidad="CristalesMateriales"
                 error={errors.material}
+              
               />
             </div>
-            <div className="rowForm">
-              <SelectInputComponent
+            <div className="rowForm"> 
+              <SelectInputTiposComponent
                 label="Color"
                 name="color"
                 showRefresh={true}
                 data={data && data[EnumGrid.color_id]}
                 control={control}
-                entidad={["/api/tipos/", "02", "CristalesColores"]}
-                error={errors.color}
-                customWidth={""}
+                entidad="CristalesColores"
+              
               />
             </div>
             <div className="rowForm">
-              <SelectInputComponent
+              <SelectInputTiposComponent
                 label="Tratamiento"
                 name="tratamiento"
                 showRefresh={true}
                 data={data && data[EnumGrid.tratamiento_id]}
                 control={control}
-                entidad={["/api/tipos/", "02", "CristalesTratamientos"]}
+                entidad="CristalesTratamientos"
                 error={errors.tratamiento}
-                customWidth={""}
               />
             </div>
             <div className="flex items-center rowForm">

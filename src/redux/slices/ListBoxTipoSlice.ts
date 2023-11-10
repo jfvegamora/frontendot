@@ -2,44 +2,44 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import axios from "axios";
 
 export interface ITiposListbox {
-    cristalesDiseño: [] | null;
-    cristalesMaterial: [] | null;
-    cristalesIndice: [] | null;
-    cristalesColor: [] | null;
-    cristalesTratamiento: [] | null;
-    almacenesTipos:[] | null;
-    tipoInsumos: [] | null;
-    armazonesUsos: [] | null;
-    armazonesMaterial:[] | null;
-    armazonesTipos:[] | null;
-    otOpcionVentaArmazon: [] | null;
-    otOpcionVentaCristales: [] | null;
-    otTipoAnteojo: [] | null;
-    otAreas: [] | null;
-    puntosVentaTipos: [] | null;
+    CristalesDiseño: [] | null;
+    CristalesMaterial: [] | null;
+    CristalesIndice: [] | null;
+    CristalesColor: [] | null;
+    CristalesTratamiento: [] | null;
+    AlmacenesTipos:[] | null;
+    TipoInsumos: [] | null;
+    ArmazonesUsos: [] | null;
+    ArmazonesMaterial:[] | null;
+    ArmazonesTipos:[] | null;
+    OTOpcionVentaArmazon: [] | null;
+    OTOpcionVentaCristales: [] | null;
+    OTTipoAnteojo: [] | null;
+    OTAreas: [] | null;
+    PuntosVentaTipos: [] | null;
+    [key: string]: any | undefined;
 }
 
 const initialState: ITiposListbox | null = {
-    cristalesDiseño:           localStorage.getItem("ListBoxTipos.cristalDiseño") ? JSON.parse(localStorage.getItem("ListBoxTipos.cristalDiseño") as string): [],
-    cristalesMaterial:         localStorage.getItem('ListBoxTipos.cristalMaterial') ? JSON.parse(localStorage.getItem('ListBoxTipos.cristalMaterial') as string) : null,
-    cristalesIndice:           localStorage.getItem('ListBoxTipos.cristalIndice') ? JSON.parse(localStorage.getItem('ListBoxTipos.cristalIndice') as string) :null,
-    cristalesColor:            localStorage.getItem('ListBoxTipos.cristalColores') ? JSON.parse(localStorage.getItem('ListBoxTipos.cristalColores') as string) :null,
-    cristalesTratamiento:      localStorage.getItem('ListBoxTipos.cristalTratamiento') ? JSON.parse(localStorage.getItem('ListBoxTipos.cristalTratamiento') as string) :null,
+    CristalesDiseño:           localStorage.getItem("ListBoxTipos.CristalDiseño") ? JSON.parse(localStorage.getItem("ListBoxTipos.CristalDiseño") as string): [],
+    CristalesMaterial:         localStorage.getItem('ListBoxTipos.CristalMaterial') ? JSON.parse(localStorage.getItem('ListBoxTipos.CristalMaterial') as string) : null,
+    CristalesIndice:           localStorage.getItem('ListBoxTipos.CristalIndice') ? JSON.parse(localStorage.getItem('ListBoxTipos.CristalIndice') as string) :null,
+    CristalesColor:            localStorage.getItem('ListBoxTipos.CristalColores') ? JSON.parse(localStorage.getItem('ListBoxTipos.CristalColores') as string) :null,
+    CristalesTratamiento:      localStorage.getItem('ListBoxTipos.CristalTratamiento') ? JSON.parse(localStorage.getItem('ListBoxTipos.CristalTratamiento') as string) :null,
     
-    almacenesTipos:          localStorage.getItem('ListBoxTipos.almacenesTipos') ? JSON.parse(localStorage.getItem('ListBoxTipos.almaceensTipos') as string) :null,
-    tipoInsumos:             localStorage.getItem('ListBoxTipos.tipoInsumos') ? JSON.parse(localStorage.getItem('ListBoxTipos.tipoInsumos') as string) :null,
+    AlmacenesTipos:          localStorage.getItem('ListBoxTipos.AlmacenesTipos') ? JSON.parse(localStorage.getItem('ListBoxTipos.AlmaceensTipos') as string) :null,
+    TipoInsumos:             localStorage.getItem('ListBoxTipos.TipoInsumos') ? JSON.parse(localStorage.getItem('ListBoxTipos.TipoInsumos') as string) :null,
     
-    armazonesUsos:           localStorage.getItem('ListBoxTipos.armazonesUsos') ? JSON.parse(localStorage.getItem('ListBoxTipos.armazonesUsos') as string) :null,
-    armazonesMaterial:       localStorage.getItem('ListBoxTipos.armazonesMaterial') ? JSON.parse(localStorage.getItem('ListBoxTipos.armazonesMaterial') as string) :null,
-    armazonesTipos:           localStorage.getItem('ListBoxTipos.armazonesTipos') ? JSON.parse(localStorage.getItem('ListBoxTipos.armazonesTipos') as string) :null,
+    ArmazonesUsos:           localStorage.getItem('ListBoxTipos.ArmazonesUsos') ? JSON.parse(localStorage.getItem('ListBoxTipos.ArmazonesUsos') as string) :null,
+    ArmazonesMaterial:       localStorage.getItem('ListBoxTipos.ArmazonesMaterial') ? JSON.parse(localStorage.getItem('ListBoxTipos.ArmazonesMaterial') as string) :null,
+    ArmazonesTipos:           localStorage.getItem('ListBoxTipos.ArmazonesTipos') ? JSON.parse(localStorage.getItem('ListBoxTipos.ArmazonesTipos') as string) :null,
     
-    otOpcionVentaArmazon:    localStorage.getItem('ListBoxTipos.otOpcionVentaArmazon') ? JSON.parse(localStorage.getItem('ListBoxTipos.otOpcionVentaArmazon') as string) :null,
-    otOpcionVentaCristales:  localStorage.getItem('ListBoxTipos.otOpcionVentaCristales') ? JSON.parse(localStorage.getItem('ListBoxTipos.otOpcionVentaCristales') as string) :null,
-    otTipoAnteojo:           localStorage.getItem('ListBoxTipos.otTipoAnteojo') ? JSON.parse(localStorage.getItem('ListBoxTipos.otTipoAnteojo') as string) :null,
-    otAreas:                localStorage.getItem('ListBoxTipos.otAreas') ? JSON.parse(localStorage.getItem('ListBoxTipos.otAreas') as string) :null,
+    OTOpcionVentaArmazon:    localStorage.getItem('ListBoxTipos.OTOpcionVentaArmazon') ? JSON.parse(localStorage.getItem('ListBoxTipos.OTOpcionVentaArmazon') as string) :null,
+    OTOpcionVentaCristales:  localStorage.getItem('ListBoxTipos.OTOpcionVentaCristales') ? JSON.parse(localStorage.getItem('ListBoxTipos.OTOpcionVentaCristales') as string) :null,
+    OTTipoAnteojo:           localStorage.getItem('ListBoxTipos.OTTipoAnteojo') ? JSON.parse(localStorage.getItem('ListBoxTipos.OTTipoAnteojo') as string) :null,
+    OTAreas:                localStorage.getItem('ListBoxTipos.OTAreas') ? JSON.parse(localStorage.getItem('ListBoxTipos.OTAreas') as string) :null,
     
-    puntosVentaTipos:        localStorage.getItem('ListBoxTipos.puntosVentaTipos') ? JSON.parse(localStorage.getItem('ListBoxTipos.puntosVentaTipos') as string) :null,
-
+    PuntosVentaTipos:        localStorage.getItem('ListBoxTipos.PuntosVentaTipos') ? JSON.parse(localStorage.getItem('ListBoxTipos.PuntosVentaTipos') as string) :null,
 };
   
 
@@ -78,20 +78,20 @@ const initialState: ITiposListbox | null = {
         ]);
 
         return {
-            cristalesDiseño: cristalesDiseño.data,
-            cristalesMaterial: cristalesMaterial.data,
-            cristalesColores: cristalesColores.data,
-            cristalesTratamiento: cristalesTratamiento.data,
-            cristalesIndice: cristalesIndice.data,
-            almacenesTipos: almaceensTipos.data,
-            tipoInsumos: tipoInsumos.data,
-            armazonesUsos: armazonesUsos.data,
-            armazonesMaterial: armazonesMaterial.data,
-            armazonesTipos: armazonesTipos.data,
-            otOpcionVentaArmazon: otOpcionVentaArmazon.data,
-            otOpcionVentaCristales: otOpcionVentaCristales.data,
-            otTipoAnteojo: otTipoAnteojo.data,
-            puntoVentaTipos: puntosVentaTipos.data
+            CristalesDiseño: cristalesDiseño.data,
+            CristalesMaterial: cristalesMaterial.data,
+            CristalesColores: cristalesColores.data,
+            CristalesTratamiento: cristalesTratamiento.data,
+            CristalesIndice: cristalesIndice.data,
+            AlmacenesTipos: almaceensTipos.data,
+            TipoInsumos: tipoInsumos.data,
+            ArmazonesUsos: armazonesUsos.data,
+            ArmazonesMaterial: armazonesMaterial.data,
+            ArmazonesTipos: armazonesTipos.data,
+            OTOpcionVentaArmazon: otOpcionVentaArmazon.data,
+            OTOpcionVentaCristales: otOpcionVentaCristales.data,
+            OTTipoAnteojo: otTipoAnteojo.data,
+            PuntoVentaTipos: puntosVentaTipos.data
         }
 
     } catch (error) {
@@ -107,37 +107,37 @@ const listBoxTiposSlice = createSlice({
     extraReducers: (builder)=>{
         builder
             .addCase(fetchListBoxTipos.fulfilled, (state,action)=>{
-                localStorage.setItem('ListBoxTipos.cristalesDiseño', JSON.stringify(action.payload.cristalesDiseño));
-                localStorage.setItem('ListBoxTipos.cristalesMaterial', JSON.stringify(action.payload.cristalesMaterial));
-                localStorage.setItem('ListBoxTipos.cristalesColores', JSON.stringify(action.payload.cristalesColores));
-                localStorage.setItem('ListBoxTipos.cristalesTratamiento', JSON.stringify(action.payload.cristalesTratamiento));
-                localStorage.setItem('ListBoxTipos.cristalesIndice', JSON.stringify(action.payload.cristalesIndice));
-                localStorage.setItem('ListBoxTipos.almacenesTipos', JSON.stringify(action.payload.almacenesTipos));
-                localStorage.setItem('ListBoxTipos.tipoInsumos', JSON.stringify(action.payload.tipoInsumos));
-                localStorage.setItem('ListBoxTipos.armazonesUsos', JSON.stringify(action.payload.armazonesUsos));
-                localStorage.setItem('ListBoxTipos.armazonesMaterial', JSON.stringify(action.payload.armazonesMaterial));
-                localStorage.setItem('ListBoxTipos.armazonesTipos', JSON.stringify(action.payload.armazonesTipos));
-                localStorage.setItem('ListBoxTipos.otOpcionVentaArmazon', JSON.stringify(action.payload.otOpcionVentaArmazon));
-                localStorage.setItem('ListBoxTipos.otOpcionVentaCristales', JSON.stringify(action.payload.otOpcionVentaCristales));
-                localStorage.setItem('ListBoxTipos.otTipoAnteojo', JSON.stringify(action.payload.otTipoAnteojo));
-                localStorage.setItem('ListBoxTipos.puntosVentaTipos', JSON.stringify(action.payload.puntoVentaTipos));
+                localStorage.setItem('ListBoxTipos.CristalesDiseño', JSON.stringify(action.payload.CristalesDiseño));
+                localStorage.setItem('ListBoxTipos.CristalesMaterial', JSON.stringify(action.payload.CristalesMaterial));
+                localStorage.setItem('ListBoxTipos.CristalesColores', JSON.stringify(action.payload.CristalesColores));
+                localStorage.setItem('ListBoxTipos.CristalesTratamiento', JSON.stringify(action.payload.CristalesTratamiento));
+                localStorage.setItem('ListBoxTipos.CristalesIndice', JSON.stringify(action.payload.CristalesIndice));
+                localStorage.setItem('ListBoxTipos.AlmacenesTipos', JSON.stringify(action.payload.AlmacenesTipos));
+                localStorage.setItem('ListBoxTipos.TipoInsumos', JSON.stringify(action.payload.TipoInsumos));
+                localStorage.setItem('ListBoxTipos.ArmazonesUsos', JSON.stringify(action.payload.ArmazonesUsos));
+                localStorage.setItem('ListBoxTipos.ArmazonesMaterial', JSON.stringify(action.payload.ArmazonesMaterial));
+                localStorage.setItem('ListBoxTipos.ArmazonesTipos', JSON.stringify(action.payload.ArmazonesTipos));
+                localStorage.setItem('ListBoxTipos.OTOpcionVentaArmazon', JSON.stringify(action.payload.OTOpcionVentaArmazon));
+                localStorage.setItem('ListBoxTipos.OTOpcionVentaCristales', JSON.stringify(action.payload.OTOpcionVentaCristales));
+                localStorage.setItem('ListBoxTipos.OTTipoAnteojo', JSON.stringify(action.payload.OTTipoAnteojo));
+                localStorage.setItem('ListBoxTipos.PuntosVentaTipos', JSON.stringify(action.payload.PuntoVentaTipos));
                 
                 return {
                     ...state,
-                    cristalesDiseño:action.payload.cristalesDiseño,
-                    cristalesMaterial: action.payload.cristalesMaterial,
-                    cristalesIndice: action.payload.cristalesIndice,
-                    cristalesColor: action.payload.cristalesColores,
-                    cristalesTratamiento: action.payload.cristalesTratamiento,
-                    almacenesTipos: action.payload.almacenesTipos,
-                    tipoInsumos: action.payload.tipoInsumos,
-                    armazonesUsos: action.payload.armazonesUsos,
-                    armazonesMaterial: action.payload.armazonesMaterial,
-                    armazonesTipos: action.payload.armazonesTipos,
-                    otOpcionVentaArmazon: action.payload.otOpcionVentaArmazon,
-                    otOpcionVentaCristales: action.payload.otOpcionVentaCristales,
-                    otTipoAnteojo: action.payload.otTipoAnteojo,
-                    puntoVentaTipos: action.payload.puntoVentaTipos,
+                    CristalesDiseño:action.payload.CristalesDiseño,
+                    CristalesMaterial: action.payload.CristalesMaterial,
+                    CristalesIndice: action.payload.CristalesIndice,
+                    CristalesColor: action.payload.CristalesColores,
+                    CristalesTratamiento: action.payload.CristalesTratamiento,
+                    AlmacenesTipos: action.payload.AlmacenesTipos,
+                    TipoInsumos: action.payload.TipoInsumos,
+                    ArmazonesUsos: action.payload.ArmazonesUsos,
+                    ArmazonesMaterial: action.payload.ArmazonesMaterial,
+                    ArmazonesTipos: action.payload.ArmazonesTipos,
+                    OTOpcionVentaArmazon: action.payload.OTOpcionVentaArmazon,
+                    OTOpcionVentaCristales: action.payload.OTOpcionVentaCristales,
+                    OTTipoAnteojo: action.payload.OTTipoAnteojo,
+                    PuntoVentaTipos: action.payload.PuntoVentaTipos,
 
 
                 }

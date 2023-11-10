@@ -252,96 +252,120 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
-            <div className="w-full flex items-center">
-              <div className="w-1/2">
-                <TextInputComponent
-                  type="text"
-                  label="Código"
-                  name="codigo"
-                  maxLength={20}
-                  data={data && data[EnumGrid.codigo]}
-                  control={control}
-                  error={errors.codigo}
-                  inputRef={firstInputRef}
-                  onlyRead={isEditting}
-                />
+
+            <div className="w-full flex items-center h-[4rem]">
+              <div className="input-container items-center rowForm  w-[50%] ">
+                <div className="w-full">
+                  <TextInputComponent
+                    type="text"
+                    label="Código"
+                    name="codigo"
+                    maxLength={20}
+                    data={data && data[EnumGrid.codigo]}
+                    control={control}
+                    error={errors.codigo}
+                    inputRef={firstInputRef}
+                    onlyRead={isEditting}
+                  />
+                </div>
               </div>
-              <div className="w-1/2">
-                <SelectInputComponent
-                  label="Marca"
-                  name="marca"
-                  showRefresh={true}
-                  data={data && data[EnumGrid.marca_id]}
-                  control={control}
-                  entidad={["/api/marcas/", "02"]}
-                  error={errors.marca}
-                />
+              <div className="input-container items-center rowForm  w-[50%]">
+                <div className="w-full !mt-4">
+                  <SelectInputComponent
+                    label="Marca"
+                    name="marca"
+                    showRefresh={true}
+                    data={data && data[EnumGrid.marca_id]}
+                    control={control}
+                    entidad={["/api/marcas/", "02"]}
+                    error={errors.marca}
+                  />
+                </div>
               </div>
             </div>
 
-            <TextInputComponent
-              type="text"
-              label="Descripción"
-              name="descripcion"
-              data={data && data[EnumGrid.descripcion]}
-              control={control}
-              error={errors.descripcion}
-              inputRef={secondInputRef}
-            />
-
-            <div className="w-full flex items-center">
-              <div className="w-1/2">
-                <TextInputComponent
-                  type="number"
-                  label="Precio Neto"
-                  name="precio_neto"
-                  data={data && data[EnumGrid.precio_neto]}
-                  control={control}
-                  error={errors.precio_neto}
-                />
-              </div>
-
-              <div className="w-1/2">
-                <TextInputComponent
-                  type="number"
-                  label="Stock Mínimo"
-                  name="stock_minimo"
-                  data={data && data[EnumGrid.stock_minimo]}
-                  control={control}
-                  error={errors.stock_minimo}
-                />
+            
+            <div className="w-full flex items-center h-[4rem]">
+              <div className="input-container items-center rowForm w-full ">
+                <div className="w-full">
+                    <TextInputComponent
+                      type="text"
+                      label="Descripción"
+                      name="descripcion"
+                      data={data && data[EnumGrid.descripcion]}
+                      control={control}
+                      error={errors.descripcion}
+                      inputRef={secondInputRef}
+                    />
+                </div>
               </div>
             </div>
 
-            <div className="w-full flex items-center">
-              <div className="w-1/2">
-                <TextInputComponent
-                  type="number"
-                  label="Stock Reservado"
-                  name="stock_reservado"
-                  data={data && data[EnumGrid.stock_reservado]}
-                  control={control}
-                  error={errors.stock_minimo}
-                  onlyRead={true}
-                />
+            <div className="w-full flex items-center h-[4rem]">
+              <div className="input-container items-center rowForm w-[50%] ">
+                <div className="w-full">
+                  <TextInputComponent
+                    type="number"
+                    label="Precio Neto"
+                    name="precio_neto"
+                    data={data && data[EnumGrid.precio_neto]}
+                    control={control}
+                    error={errors.precio_neto}
+                  />
+                </div>
               </div>
-              <div className="w-1/2">
-                <TextInputComponent
-                  type="number"
-                  label="Stock Disponible"
-                  name="stock_disponible"
-                  data={data && data[EnumGrid.stock_disponible]}
-                  control={control}
-                  error={errors.stock_minimo}
-                  onlyRead={true}
-                />
+              <div className="input-container items-center rowForm  w-[50%]">
+                <div className="w-full">
+                  <TextInputComponent
+                    type="number"
+                    label="Stock Mínimo"
+                    name="stock_minimo"
+                    data={data && data[EnumGrid.stock_minimo]}
+                    control={control}
+                    error={errors.stock_minimo}
+                  />
+                </div>
+              </div>
+            </div>
+
+
+            <div className="w-full flex items-center ">
+              <div className="input-container items-center rowForm w-[50%] ">
+                <div className="w-full">
+                  <TextInputComponent
+                    type="number"
+                    label="Stock Reservado"
+                    name="stock_reservado"
+                    data={data && data[EnumGrid.stock_reservado]}
+                    control={control}
+                    error={errors.stock_minimo}
+                    onlyRead={true}
+                  />
+                </div>
+              </div>
+              <div className="input-container items-center rowForm  w-[50%]">
+                <div className="w-full">
+                  <TextInputComponent
+                    type="number"
+                    label="Stock Disponible"
+                    name="stock_disponible"
+                    data={data && data[EnumGrid.stock_disponible]}
+                    control={control}
+                    error={errors.stock_minimo}
+                    onlyRead={true}
+                  />
+                </div>
               </div>
             </div>
           </div>
 
-          <button type="submit" className="userFormBtnSubmit">
-          {`${TITLES.guardar}`}
-          </button>
+          <div className="w-full">
+            <div className="w-[50%] mx-auto">
+              <button type="submit" tabIndex={1} className="userFormBtnSubmit">
+              {`${TITLES.guardar}`}
+              </button>
+            </div>
+          </div>
         </form>
 
         <CustomModal />

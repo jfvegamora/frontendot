@@ -333,108 +333,122 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
 
         <form onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
-            <div className="input-container">
-            <div className="w-full">
-              <TextInputComponent
-                type="number"
-                label="Código Cristal"
-                name="insumo"
-                data={data && data[EnumGrid.insumo]}
-                control={control}
-                error={errors.insumo}
-                inputRef={firstInputRef}
-                onlyRead={isEditting}
-                handleChange={handleCristales}
-              />
+
+            <div className="w-full flex items-center h-[4rem]">
+                <div className="input-container items-center rowForm w-[50%]">
+                  <div className="w-full">
+                    <TextInputComponent
+                      type="number"
+                      label="Código Cristal"
+                      name="insumo"
+                      data={data && data[EnumGrid.insumo]}
+                      control={control}
+                      error={errors.insumo}
+                      inputRef={firstInputRef}
+                      onlyRead={isEditting}
+                      handleChange={handleCristales}
+                    />
+                  </div>
+                </div>
+                <div className="input-container items-center rowForm w-[50%]">
+                  <div className="w-full">
+                    <TextInputComponent
+                      type={isEditting ? "datetime" : "date"}
+                      label="Fecha"
+                      name="fecha"
+                      data={data && data[EnumGrid.fecha]}
+                      control={control}
+                      error={errors.fecha}
+                      onlyRead={isEditting}
+                    />
+                  </div>
+                </div>
             </div>
-            <div className="w-full">
-              <TextInputComponent
-                type={isEditting ? "datetime" : "date"}
-                label="Fecha"
-                name="fecha"
-                data={data && data[EnumGrid.fecha]}
-                control={control}
-                error={errors.fecha}
-                onlyRead={isEditting}
-              />
+
+            <div className="w-full flex items-center h-[4rem]">
+              <div className="input-container items-center rowForm w-[50%]">
+                <div className="w-full !mt-4">
+                    <SelectInputComponent
+                      label="Motivo"
+                      name="motivo"
+                      showRefresh={true}
+                      data={data && data[EnumGrid.motivo_id]}
+                      control={control}
+                      entidad={["/api/kardexmotivos/", "02"]}
+                      error={errors.motivo}
+                      // customWidth={"345px"}
+                    />
+                </div>
+              </div>
+              <div className="input-container items-center rowForm w-[50%]">
+                <div className="w-full">
+                    <TextInputComponent
+                      type="number"
+                      label="Cantidad"
+                      name="cantidad"
+                      data={data && data[EnumGrid.salidas]}
+                      control={control}
+                      error={errors.cantidad}
+                    />
+                </div>
+              </div>
             </div>
-            </div>
-            {/* <div className="w-[96%]">
-              <TextInputComponent
-                type="text"
-                label="Descripcion"
-                name="decripcion"
-                data={cristalDescritpion}
-                control={control}
-                error={!isEditting && errors.descripcion}
-                onlyRead={true}
-              />
-            </div> */}
-            <div className="input-container">
-              <div className="w-full">
-              <SelectInputComponent
-                    label="Motivo"
-                    name="motivo"
+
+            <div className="w-full flex items center h-[4rem]">
+              <div className="input-container items-center rowForm w-full">
+                <div className="w-full !mt-4">
+                  <SelectInputComponent
+                    label="Almacén"
+                    name="almacen"
                     showRefresh={true}
-                    data={data && data[EnumGrid.motivo_id]}
+                    data={data && data[EnumGrid.almacen_id]}
                     control={control}
-                    entidad={["/api/kardexmotivos/", "02"]}
-                    error={errors.motivo}
-                    // customWidth={"345px"}
+                    entidad={["/api/almacenes/", "02"]}
+                    error={errors.almacen}
                   />
-              </div>
-              <div className="w-full">
-              <TextInputComponent
-                type="number"
-                label="Cantidad"
-                name="cantidad"
-                data={data && data[EnumGrid.salidas]}
-                control={control}
-                error={errors.cantidad}
-              />
+                </div>
               </div>
             </div>
-            <div className="input-container">
-            <div className="w-full">
-              <SelectInputComponent
-                label="Almacén"
-                name="almacen"
-                showRefresh={true}
-                data={data && data[EnumGrid.almacen_id]}
-                control={control}
-                entidad={["/api/almacenes/", "02"]}
-                error={errors.almacen}
-              />
+
+            <div className="w-full flex items-center h-[4rem]">
+              <div className="input-container items-center rowForm w-full">
+                <div className="w-full">
+                  <SelectInputComponent
+                    label="Almacén Traspaso"
+                    name="almacen_relacionado"
+                    showRefresh={true}
+                    data={data && data[EnumGrid.almacen_relacionado_id]}
+                    control={control}
+                    entidad={["/api/almacenes/", "02"]}
+                    // error={errors.almacen_relacionado}
+                  />
+                </div>
               </div>
-            </div>
-            <div className="input-container">
-            <div className="w-full">
-            <SelectInputComponent
-                label="Almacén Traspaso"
-                name="almacen_relacionado"
-                showRefresh={true}
-                data={data && data[EnumGrid.almacen_relacionado_id]}
-                control={control}
-                entidad={["/api/almacenes/", "02"]}
-                // error={errors.almacen_relacionado}
-              />
-            </div>
-            </div>
-            <div className="w-full">
-              <TextInputComponent
-                type="text"
-                label="Observaciones"
-                name="observaciones"
-                data={data && data[EnumGrid.observaciones]}
-                control={control}
-                error={errors.observaciones}
-              />
+            </div>  
+
+            <div className="w-full flex items-center h-[4rem]">
+              <div className="input-container items-center rowForm w-full">
+                <div className="w-full">
+                  <TextInputComponent
+                    type="text"
+                    label="Observaciones"
+                    name="observaciones"
+                    data={data && data[EnumGrid.observaciones]}
+                    control={control}
+                    error={errors.observaciones}
+                  />
+                </div>
+              </div>
             </div>
           </div>
 
-          <button type="submit" className="userFormBtnSubmit">
-          {`${TITLES.guardar}`}
-          </button>
+          <div className="w-full">
+            <div className="w-[60%] mx-auto">
+              <button type="submit" tabIndex={1} className="userFormBtnSubmit">
+              {`${TITLES.guardar}`}
+              </button>
+            </div>
+          </div>
         </form>
 
         <CustomModal />

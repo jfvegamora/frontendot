@@ -143,6 +143,8 @@ const MCristalesKardex: React.FC = () => {
       </div>
 
 
+      
+
       {isModalInsert && (
         <FCristalesKardexIN
           label={`${TITLES.ingreso} ${strEntidad}`}

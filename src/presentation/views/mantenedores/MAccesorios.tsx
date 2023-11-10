@@ -133,7 +133,7 @@ const MAccesorios: React.FC = () => {
           idMenu={idMenu}
         />
       </div>
-
+ 
       {isModalInsert && (
         <FAccesorios
           label={`${TITLES.ingreso} ${strEntidad}`}

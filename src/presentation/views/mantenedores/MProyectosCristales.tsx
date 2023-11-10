@@ -141,6 +141,7 @@ const MProyectosCristales: React.FC = () => {
           />
         </div>
   
+  
         {isModalInsert && (
           <FProyectosCristales
             label={`${TITLES.ingreso} ${strEntidad}`}

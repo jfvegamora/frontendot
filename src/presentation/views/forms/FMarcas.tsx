@@ -230,32 +230,49 @@ const FMarcas: React.FC<IUserFormPrps> = React.memo(
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
-            <TextInputComponent
-              type="text"
-              label="Nombre"
-              name="nombre"
-              data={data && data[EnumGrid.nombre]}
-              control={control}
-              error={errors.nombre}
-              inputRef={firstInputRef}
-            />
-            <div className="w-full ">
-              <SelectInputComponent
-                label="Proveedor"
-                name="proveedor"
-                showRefresh={true}
-                data={data && data[EnumGrid.proveedor_id]}
-                control={control}
-                entidad={["/api/proveedores/", "02"]}
-                error={errors.proveedor}
-                customWidth={"345px"}
-              />
+
+            <div className="w-full flex items-center h-[4rem]">
+              <div className="input-container items-center rowForm w-full">
+                <div className="w-full">
+                  <TextInputComponent
+                    type="text"
+                    label="Nombre"
+                    name="nombre"
+                    data={data && data[EnumGrid.nombre]}
+                    control={control}
+                    error={errors.nombre}
+                    inputRef={firstInputRef}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="w-full flex items-center h-[4rem]">
+              <div className="input-container items-center rowForm w-full">
+                <div className="w-full ">
+                  <SelectInputComponent
+                    label="Proveedor"
+                    name="proveedor"
+                    showRefresh={true}
+                    data={data && data[EnumGrid.proveedor_id]}
+                    control={control}
+                    entidad={["/api/proveedores/", "02"]}
+                    error={errors.proveedor}
+                    customWidth={"345px"}
+                  />
+                </div>
+              </div>
             </div>
           </div>
 
-          <button type="submit" className="userFormBtnSubmit">
-          {`${TITLES.guardar}`}
-          </button>
+          <div className="w-full">
+            <div className="w-[70%] mx-auto">
+              <button type="submit" tabIndex={1} className="userFormBtnSubmit">
+              {`${TITLES.guardar}`}
+              </button>
+            </div>
+          </div>
+
         </form>
 
         <CustomModal />

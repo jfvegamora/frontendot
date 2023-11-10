@@ -385,61 +385,73 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
           <div className="userFormularioContainer">
 
             <div className="w-full items-center flex h-[80px] mt-[20px] mb-[10px]">
-                <div className="w-1/4">
-                    <SelectInputComponent
-                        label="Empresa Adjudicada"
-                        name="empresa_adjudicada"
-                        showRefresh={true}
-                        data={data && data[EnumGrid.EMPRESA_ID]}
-                        control={control}
-                        entidad={["/api/empresas/", "02"]}
-                        error={errors.empresa_adjudicada}
-                        customWidth={"345px"}
-                        inputRef={secondInputRef}
-                    />
+                
+                <div className="input-container items-center rowForm w-[25%]">
+                  <div className="w-full">
+                      <SelectInputComponent
+                          label="Empresa Adjudicada"
+                          name="empresa_adjudicada"
+                          showRefresh={true}
+                          data={data && data[EnumGrid.EMPRESA_ID]}
+                          control={control}
+                          entidad={["/api/empresas/", "02"]}
+                          error={errors.empresa_adjudicada}
+                          customWidth={"345px"}
+                          inputRef={secondInputRef}
+                      />
+                  </div>
                 </div>
-                <div className="w-1/4">
-                    <SelectInputComponent
-                        label="Mandante"
-                        name="mandante"
-                        showRefresh={true}
-                        data={data && data[EnumGrid.MANDANTE_ID]}
-                        control={control}
-                        entidad={["/api/mandantes/", "02"]}
-                        error={errors.mandante}
-                        customWidth={"345px"}
-                    />
-                </div>
-                <div className="w-1/4">
-                    <SelectInputComponent
-                        label="Ejecutivo de proyecto"
-                        name="ejecutivo_proyecto"
-                        showRefresh={true}
-                        data={data && data[EnumGrid.EJECUTIVO_ID]}
-                        control={control}
-                        entidad={["/api/usuarios/", "02"]}
-                        error={errors.ejecutivo_proyecto}
-                        customWidth={"345px"}
-                        inputRef={secondInputRef}
-                    />
-                </div>
-                <div className="w-[25%]">
-                    <SelectInputComponent
-                        label="Oftalmólogos"
-                        name="oftalmologo"
-                        showRefresh={true}
-                        data={data && data[EnumGrid.OFTALMOLOGO_ID]}
-                        control={control}
-                        entidad={["/api/oftalmologos/", "02"]}
-                        error={errors.oftalmologo}
-                        customWidth={"345px"}
-                        inputRef={secondInputRef}
-                    />
-                </div>
-            </div>
 
+                <div className="input-container items-center rowForm w-[25%]">
+                  <div className="w-full">
+                      <SelectInputComponent
+                          label="Mandante"
+                          name="mandante"
+                          showRefresh={true}
+                          data={data && data[EnumGrid.MANDANTE_ID]}
+                          control={control}
+                          entidad={["/api/mandantes/", "02"]}
+                          error={errors.mandante}
+                          customWidth={"345px"}
+                      />
+                  </div>
+                </div>
+                <div className="input-container items-center rowForm w-[25%]">
+                  <div className="w-full">
+                      <SelectInputComponent
+                          label="Ejecutivo de proyecto"
+                          name="ejecutivo_proyecto"
+                          showRefresh={true}
+                          data={data && data[EnumGrid.EJECUTIVO_ID]}
+                          control={control}
+                          entidad={["/api/usuarios/", "02"]}
+                          error={errors.ejecutivo_proyecto}
+                          customWidth={"345px"}
+                          inputRef={secondInputRef}
+                      />
+                  </div>
+                </div>
+                <div className="input-container items-center rowForm w-[25%]">
+                  <div className="w-full">
+                      <SelectInputComponent
+                          label="Oftalmólogos"
+                          name="oftalmologo"
+                          showRefresh={true}
+                          data={data && data[EnumGrid.OFTALMOLOGO_ID]}
+                          control={control}
+                          entidad={["/api/oftalmologos/", "02"]}
+                          error={errors.oftalmologo}
+                          customWidth={"345px"}
+                          inputRef={secondInputRef}
+                      />
+                  </div>
+                </div>
+
+            </div>
             <div className="w-full items-center flex h-[80px] mt-[10px] mb-[10px]">
-                <div className="w-[30%] mr-2">
+
+              <div className="input-container items-center rowForm w-[15%]">
+                <div className="w-full mr-2">
                     <TextInputComponent
                         type="text"
                         label="Código Proyecto"
@@ -450,17 +462,23 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                         onlyRead={isEditting}
                     />
                 </div>
-                <div className="w-[30%] mr-2">
-                    <TextInputComponent
-                        type="text"
-                        label="Código Licitacion"
-                        name="codigo_licitacion"
-                        data={data && data[EnumGrid.CODIGO_LICITACION]}
-                        control={control}
-                        error={errors.codigo_licitacion}
-                    />
-                </div>
-                <div className="w-[30%] mr-2">
+              </div>
+
+              <div className="input-container items-center rowForm w-[15%]">
+                  <div className="w-full mr-2">
+                      <TextInputComponent
+                          type="text"
+                          label="Código Licitacion"
+                          name="codigo_licitacion"
+                          data={data && data[EnumGrid.CODIGO_LICITACION]}
+                          control={control}
+                          error={errors.codigo_licitacion}
+                      />
+                  </div>
+              </div>
+
+              <div className="input-container items-center rowForm w-[50%]">
+                <div className="w-full mr-2">
                     <TextInputComponent
                         type="text"
                         label="Título"
@@ -470,150 +488,189 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                         error={errors.titulo_proyecto}
                     />
                 </div>
-                <div className="w-[25.5%]">
-                <RadioButtonComponent
-                    control={control}
-                    label="Estado"
-                    name="estado"
-                    data={data && data[EnumGrid.ESTADO]}
-                    options={["Abierto", "Cerrado"]}
-                    error={errors.estado}
-                    horizontal={true}
-                />
-                </div>
+              </div>
+
+              <div className="input-container items-center rowForm w-[25%]">
+                  <div className="w-full">
+                    <RadioButtonComponent
+                        control={control}
+                        label="Estado"
+                        name="estado"
+                        data={data && data[EnumGrid.ESTADO]}
+                        options={["Abierto", "Cerrado"]}
+                        error={errors.estado}
+                        horizontal={true}
+                    />
+                  </div>
+              </div>
             </div>
                       
-           <div className="w-full  items-center flex h-[80px] mt-[30px] mb-[10px]">
+           <div className="w-full items-center flex h-[80px] mt-[30px] mb-[10px]">
 
-            <div className="w-[20%] mr-2">
-                 <TextInputComponent
-                        type="text"
-                        label="Unidad Compra"
-                        name="unidad_compra"
-                        data={data && data[EnumGrid.UNIDAD_COMPRA]}
-                        control={control}
-                        error={errors.unidad_compra}
-                />
-            </div>          
-            <div className="w-[20%] mr-2">
-                 <TextInputComponent
-                        type="date"
-                        label="Fecha adjudicacion"
-                        name="fecha_adjudicacion"
-                        data={data && data[EnumGrid.FECHA_ADJUDICACION]}
-                        control={control}
-                        error={errors.fecha_adjudicacion}
-                />
-            </div>          
-            <div className="w-[20%] mr-2">
-                 <TextInputComponent
-                        type="date"
-                        label="Fecha Inicio"
-                        name="fecha_inicio"
-                        data={data && data[EnumGrid.FECHA_INICIO]}
-                        control={control}
-                        error={errors.fecha_inicio}
-                />
-            </div>          
-            <div className="w-[20%] mr-2">
-                 <TextInputComponent
-                        type="date"
-                        label="Fecha Término"
-                        name="fecha_termino"
-                        data={data && data[EnumGrid.FECHA_TERMINO]}
-                        control={control}
-                        error={errors.fecha_termino}
-                />
-            </div>          
-            <div className="w-[20%] mr-2">
-                 <TextInputComponent
-                        type="number"
-                        label="Dias de entrega"
-                        name="dias_entrega"
-                        data={data && data[EnumGrid.DIAS_DE_ENTREGA]}
-                        control={control}
-                        error={errors.dias_entrega}
-                />
+            <div className="input-container items-center rowForm w-full">
+              <div className="w-full mr-2">
+                  <TextInputComponent
+                          type="text"
+                          label="Unidad Compra"
+                          name="unidad_compra"
+                          data={data && data[EnumGrid.UNIDAD_COMPRA]}
+                          control={control}
+                          error={errors.unidad_compra}
+                  />
+              </div>          
             </div>
-            <div className="w-[20%] mr-2">
-                 <TextInputComponent
+
+            <div className="input-container items-center rowForm w-[15%]">
+              <div className="w-full mr-2">
+                  <TextInputComponent
+                          type="date"
+                          label="Fecha adjudicacion"
+                          name="fecha_adjudicacion"
+                          data={data && data[EnumGrid.FECHA_ADJUDICACION]}
+                          control={control}
+                          error={errors.fecha_adjudicacion}
+                  />
+              </div>          
+            </div>
+
+            <div className="input-container items-center rowForm w-[12%]">
+              <div className="w-full mr-2">
+                  <TextInputComponent
+                          type="date"
+                          label="Fecha Inicio"
+                          name="fecha_inicio"
+                          data={data && data[EnumGrid.FECHA_INICIO]}
+                          control={control}
+                          error={errors.fecha_inicio}
+                  />
+              </div>          
+            </div>
+            
+            <div className="input-container items-center rowForm w-[13%]">
+              <div className="w-full mr-2">
+                  <TextInputComponent
+                          type="date"
+                          label="Fecha Término"
+                          name="fecha_termino"
+                          data={data && data[EnumGrid.FECHA_TERMINO]}
+                          control={control}
+                          error={errors.fecha_termino}
+                  />
+              </div>          
+            </div>
+
+            <div className="input-container items-center rowForm w-[25%]">
+              <div className="w-full mr-2">
+                  <TextInputComponent
+                          type="number"
+                          label="Dias de entrega"
+                          name="dias_entrega"
+                          data={data && data[EnumGrid.DIAS_DE_ENTREGA]}
+                          control={control}
+                          error={errors.dias_entrega}
+                  />
+            </div>
+
+
+
+            
+            </div>
+            <div className="input-container items-center rowForm w-[22%]">
+                <div className="w-full mr-2">
+                  <TextInputComponent
                         type="number"
-                        label="Avance"
+                        label="% Avance"
                         name="avance"
                         // data={data && data[EnumGrid.DIAS_DE_ENTREGA]}
                         control={control}
                         onlyRead={true}
-                        />
-            </div> 
+                   />
+                </div> 
+            </div>
 
            </div>  
 
+
+
            <div className="w-full   items-center flex h-[80px] mt-[25px] mb-[10px]">
 
-            <div className="w-[16%] mr-2">
-                 <TextInputComponent
-                        type="number"
-                        label="Cantidad Requerida"
-                        name="cantidad_requerida"
-                        data={data && data[EnumGrid.CANTIDAD_REQUERIDA]}
-                        control={control}
-                        error={errors.cantidad_requerida}
-                />
-            </div>          
-            <div className="w-[16%] mr-2">
-                 <TextInputComponent
-                        type="number"
-                        label="Presupuesto"
-                        name="presupuesto"
-                        data={data && data[EnumGrid.PRESUPUESTO]}
-                        control={control}
-                        error={errors.presupuesto}
-                />
-            </div>          
-            <div className="w-[16%] mr-2">
-                 <TextInputComponent
-                        type="number"
-                        label="Cantidad Atendida"
-                        name="cantidad_atendida"
-                        // data={data && data[EnumGrid.]}
-                        control={control}
-                        onlyRead={true}
-                        />
-            </div>          
-            <div className="w-[16%] mr-2">
-                 <TextInputComponent
-                        type="number"
-                        label="Total Facturado"
-                        name="total_facturado"
-                        // data={data && data[EnumGrid]}
-                        control={control}
-                        onlyRead={true}
-                        />
-            </div>          
-            <div className="w-[16%] mr-2">
-                 <TextInputComponent
-                        type="number"
-                        label="Cantidad Disponible"
-                        name="cantidad_disponible"
-                        // data={data && data[EnumGrid.DIAS_DE_ENTREGA]}
-                        control={control}
-                        onlyRead={true}
-                        />
-            </div> 
-            <div className="w-[16%] mr-2">
-                 <TextInputComponent
-                        type="number"
-                        label="Saldo Disponible"
-                        name="saldo_disponible"
-                        // data={data && data[EnumGrid.DIAS_DE_ENTREGA]}
-                        control={control}
-                        onlyRead={true}
-                        />
-            </div> 
+            <div className="input-container items-center rowForm w-[16%]">
+              <div className="w-full mr-2">
+                  <TextInputComponent
+                          type="number"
+                          label="Cantidad Requerida"
+                          name="cantidad_requerida"
+                          data={data && data[EnumGrid.CANTIDAD_REQUERIDA]}
+                          control={control}
+                          error={errors.cantidad_requerida}
+                  />
+              </div>          
+            </div>
+            <div className="input-container items-center rowForm w-[16%]">
+              <div className="w-full mr-2">
+                  <TextInputComponent
+                          type="number"
+                          label="Presupuesto"
+                          name="presupuesto"
+                          data={data && data[EnumGrid.PRESUPUESTO]}
+                          control={control}
+                          error={errors.presupuesto}
+                  />
+              </div>          
+            </div>
+            <div className="input-container items-center rowForm w-[16%]">
+              <div className="w-full mr-2">
+                  <TextInputComponent
+                          type="number"
+                          label="Cantidad Atendida"
+                          name="cantidad_atendida"
+                          // data={data && data[EnumGrid.]}
+                          control={control}
+                          onlyRead={true}
+                          />
+              </div>          
+
+            </div>
+            <div className="input-container items-center rowForm w-[16%]">
+              <div className="w-full mr-2">
+                  <TextInputComponent
+                          type="number"
+                          label="Total Facturado"
+                          name="total_facturado"
+                          // data={data && data[EnumGrid]}
+                          control={control}
+                          onlyRead={true}
+                          />
+              </div>          
+            </div>
+            <div className="input-container items-center rowForm w-[16%]">
+              <div className="w-full mr-2">
+                  <TextInputComponent
+                          type="number"
+                          label="Cantidad Disponible"
+                          name="cantidad_disponible"
+                          // data={data && data[EnumGrid.DIAS_DE_ENTREGA]}
+                          control={control}
+                          onlyRead={true}
+                          />
+              </div> 
+            </div>
+            <div className="input-container items-center rowForm w-[16%]">
+              <div className="w-full mr-2">
+                  <TextInputComponent
+                          type="number"
+                          label="Saldo Disponible"
+                          name="saldo_disponible"
+                          // data={data && data[EnumGrid.DIAS_DE_ENTREGA]}
+                          control={control}
+                          onlyRead={true}
+                          />
+              </div> 
+            </div>
            </div>      
 
 
-            <div className="w-[98%]  items-center flex h-[90px] mt-[15px] mb-[20px]">
+            <div className="w-full items-center flex h-[90px] mt-[15px] mb-[20px]">
                   <FrameComponent>
                       <ContactComponent
                         label="Contacto Administrativo"
@@ -645,7 +702,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                   </FrameComponent>
             </div>
 
-            <div className="w-[98%] items-center flex h-[50px] mt-[30px] mb-[10px]">
+            <div className="w-full items-center flex h-[50px] !mt-[30px] mb-[10px]">
                    <FrameComponent>
                       <ContactComponent
                         label="Referente Técnino"
@@ -677,20 +734,22 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
             </div>
             
             <div className="w-[98%] items-center flex h-[50px] mt-[30px] mb-[25px]">
-                <div className="w-1/2 items-center">
-                    <TextInputComponent
-                        type="text"
-                        label="Observaciones"
-                        name="observaciones"
-                        data={data && data[EnumGrid.OBSERVACIONES]}
-                        control={control}
-                        error={errors.observaciones}
-                    />
-                </div>
+              <div className="input-container imput-center rowForm w-[50%]">
+                  <div className="w-full items-center">
+                      <TextInputComponent
+                          type="text"
+                          label="Observaciones"
+                          name="observaciones"
+                          data={data && data[EnumGrid.OBSERVACIONES]}
+                          control={control}
+                          error={errors.observaciones}
+                      />
+                  </div>
+              </div>
 
                 <div className="w-1/2 flex justify-end items-center">
                     <div className="w-1/2 items-center">
-                        <button type="submit" className="userFormBtnSubmit">
+                        <button type="submit" tabIndex={1} className="userFormBtnSubmit">
                             Guardar
                         </button>
                     </div>

@@ -330,7 +330,7 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
                   />
                 </div>
 
-                <div className="w-[50%]">
+                <div className="w-[50%] !mt-2">
                   <SelectInputComponent
                     label="Establecimiento"
                     name="establecimiento"

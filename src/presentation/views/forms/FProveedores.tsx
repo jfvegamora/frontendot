@@ -242,60 +242,110 @@ const FProveedores: React.FC<IUserFormPrps> = React.memo(
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))}
           className="userFormulario">
           <div className="userFormularioContainer">
-            <TextInputComponent
-              type="text"
-              label="RUT"
-              name="rut"
-              data={data && data[EnumGrid.Rut]}
-              control={control}
-              error={errors.rut}
-              inputRef={firstInputRef}
-            />
-            <TextInputComponent
-              type="text"
-              label="Nombre"
-              name="nombre"
-              data={data && data[EnumGrid.Nombre]}
-              control={control}
-              error={errors.nombre}
-            />
-            <div className="w-full "></div>
+            
+            <div className="w-full flex items-center h-[4rem]">
+              <div className="input-container items-center rowForm w-full">
+                <div className="w-full">
+                  <TextInputComponent
+                    type="text"
+                    label="RUT"
+                    name="rut"
+                    data={data && data[EnumGrid.Rut]}
+                    control={control}
+                    error={errors.rut}
+                    inputRef={firstInputRef}
+                  />
+                </div>
+              </div>
+            </div>
 
-            <TextInputComponent
-              type="text"
-              label="Dirección"
-              name="direccion"
-              data={data && data[EnumGrid.Direccion]}
-              control={control}
-            />
-            <TextInputComponent
-              type="text"
-              label="Teléfono"
-              name="telefono"
-              data={data && data[EnumGrid.Telefono]}
-              control={control}
-            />
-            <TextInputComponent
-              type="email"
-              label="Correo"
-              name="correo"
-              data={data && data[EnumGrid.Correo]}
-              control={control}
-              error={errors.correo}
-            />
-            <TextInputComponent
-              type="text"
-              label="Sitio Web"
-              name="sitio_web"
-              data={data && data[EnumGrid.Sitio_Web]}
-              control={control}
-              error={errors.sitio_web}
-            />
+
+            <div className="w-full flex items-center h-[4rem]">
+              <div className="input-container items-center rowForm w-full">
+                <div className="w-full">
+                  <TextInputComponent
+                    type="text"
+                    label="Nombre"
+                    name="nombre"
+                    data={data && data[EnumGrid.Nombre]}
+                    control={control}
+                    error={errors.nombre}
+                  />
+                </div>
+              </div>
+            </div>
+
+
+            <div className="w-full flex items-center h-[4rem]">
+              <div className="input-container items-center rowForm w-full">
+                <div className="w-full">
+                  <TextInputComponent
+                    type="text"
+                    label="Dirección"
+                    name="direccion"
+                    data={data && data[EnumGrid.Direccion]}
+                    control={control}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="w-full flex items-center h-[4rem]">
+              <div className="input-container items-center rowForm w-full">
+                <div className="w-full">
+                  <TextInputComponent
+                    type="text"
+                    label="Teléfono"
+                    name="telefono"
+                    data={data && data[EnumGrid.Telefono]}
+                    control={control}
+                  />
+                </div>
+              </div>
+            </div>
+
+
+            <div className="w-full flex items-center h-[4rem]">
+              <div className="input-container items-center rowForm w-full">
+                <div className="w-full">
+                  <TextInputComponent
+                    type="email"
+                    label="Correo"
+                    name="correo"
+                    data={data && data[EnumGrid.Correo]}
+                    control={control}
+                    error={errors.correo}
+                  />
+                </div>
+              </div>
+            </div>
+
+
+            <div className="w-full flex items-center h-[4rem]">
+              <div className="input-container items-center rowForm w-full">
+                <div className="w-full">
+                  <TextInputComponent
+                    type="text"
+                    label="Sitio Web"
+                    name="sitio_web"
+                    data={data && data[EnumGrid.Sitio_Web]}
+                    control={control}
+                    error={errors.sitio_web}
+                  />
+                </div>
+              </div>
+            </div>
+
           </div>
 
-          <button type="submit" className="userFormBtnSubmit">
-          {`${TITLES.guardar}`}
-          </button>
+          <div className="w-full">
+            <div className="w-[70%] mx-auto">
+                <button type="submit" className="userFormBtnSubmit">
+                {`${TITLES.guardar}`}
+                </button>
+            </div>
+          </div>
+
         </form>
 
         <CustomModal />

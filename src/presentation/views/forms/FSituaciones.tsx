@@ -17,6 +17,7 @@ import { useCrud } from "../../hooks";
 import { EnumGrid } from "../mantenedores/MSituaciones";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
+import SelectInputTiposComponent from "../../components/forms/SelectInputTiposComponent";
 
 const strBaseUrl = "/api/otsituaciones/";
 const strEntidad = "Situaciones ";
@@ -239,15 +240,14 @@ const FSituaciones: React.FC<ISituacionesFormProps> = React.memo(
 
           <div className="input-container items-center rowForm  ">
             <div className="w-full !mt-4 ">
-              <SelectInputComponent
-                label="Área"
+              <SelectInputTiposComponent
+                label="Area"
                 name="area"
                 showRefresh={true}
                 data={data && data[EnumGrid.area_id]}
                 control={control}
-                entidad={["/api/tipos/", "02", "OTAreas"]}
+                entidad={"OTAreas"}
                 error={errors.area}
-                customWidth={"345px"}
               />
             </div>
           </div>

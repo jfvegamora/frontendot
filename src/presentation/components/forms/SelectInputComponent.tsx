@@ -68,8 +68,10 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     
     
     const strUrl2 = `${URLBackend}${entidad[0]}listado/?query=${entidad[1]}`;
+    console.log(strUrl2)
     
     const state = useAppSelector((store: AppStore) => store.listBox);
+    console.log(state)
     
     // console.log(strUrl2)
     

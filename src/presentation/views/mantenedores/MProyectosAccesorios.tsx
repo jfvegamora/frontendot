@@ -127,7 +127,6 @@ const MProyectosAccesorios: React.FC = () => {
         />
       </div>
    
-
       {isModalInsert && (
         <FProyectosAccesorios
           label={`${TITLES.ingreso} ${strEntidad}`}

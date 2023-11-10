@@ -23,7 +23,7 @@ interface ISelectInputProps {
   handleSelectChange?: any;
   inputName?: any;
   error?: any;
-  entidad?: string;
+  entidad: string;
   inputValues?: any;
   inputRef?: any;
   readOnly?: boolean;
@@ -51,22 +51,35 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
     isOT,
     tabIndex
   }) => {
-    
-    const {cristalesMaterial} = useAppSelector((store: AppStore) => store.listBoxTipos);
-    // console.log(cristalMaterial)
 
+
+    
+
+    const {cristalesMaterial} = useAppSelector((store: AppStore) => store.listBoxTipos);
+    const stateListBox = useAppSelector((store: AppStore) => store.listBoxTipos[entidad]);
+    // const stateListBox = useAppSelector((store: AppStore) => (store.listBoxTipos as any)[entidad || ""]);
+
+    
+    // const stateListBox = useAppSelector((store: AppStore) => store.listBoxTipos![entidad]);
+
+    console.log(stateListBox)
+
+
+
+    
 
     const [refreshToggle, setrefreshToggle] = useState(false);
-    const [entities, setEntities] = useState(cristalesMaterial|| []);
+    const [entities, setEntities] = useState(stateListBox|| []);
     const [strSelectedName, setStrSelectedName] = useState(data || undefined);
-    const strUrl = entidad && entidad[0];
+    // const strUrl = entidad && entidad[0];
     const inputRef = useRef(null);
-
+    console.log(entities)
 
     useEffect(()=>{
-      if(cristalesMaterial && cristalesMaterial?.length < 1){
-        axios('https://mtoopticos.cl/api/tipos/listado/?query=02&_p1=CristalesMateriales')
-        .then((data:any)=>setEntities(data))
+      if(stateListBox && stateListBox?.length < 1 || stateListBox === null || stateListBox === undefined){
+        console.log('no data')
+        axios(`https://mtoopticos.cl/api/tipos/listado/?query=02&_p1=${entidad}`)
+        .then((data:any)=>setEntities(data.data))
         .catch((error)=>console.log(error))
       }
     },[])
@@ -126,6 +139,7 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
                 disabled={readOnly}
                 tabIndex  ={tabIndex || 1}
                 onChange={(e) => {
+                  field.onChange(e);
                   // setState && setState(e.target.value);
                   // field.onChange(e);
                   // if(isOT){
@@ -154,8 +168,8 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
                     {label}
                   </option>
                 )}
-                {entities &&
-                  entities.map((option: any, index) => (
+                {entities && entities.length > 1 &&
+                  entities.map((option: any, index: React.Key | null | undefined) => (
                     <option
                       key={index}
                       value={

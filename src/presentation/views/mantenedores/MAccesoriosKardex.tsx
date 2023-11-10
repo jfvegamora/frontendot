@@ -133,6 +133,8 @@ const MAccesoriosKardex: React.FC = () => {
         />
       </div>
 
+      
+      
 
       {isModalInsert && (
         <FAccesoriosKardexIN

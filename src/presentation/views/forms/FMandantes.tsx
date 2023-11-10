@@ -248,50 +248,77 @@ const FMandantes: React.FC<IUserFormPrps> = React.memo(
           // }}
           className="userFormulario"
         >
-          <div className="userFormularioContainer">
-            <TextInputComponent
-              type="number"
-              label="Código"
-              name="codigo"
-              data={data && data[EnumGrid.codigo]}
-              control={control}
-              error={errors.codigo}
-              inputRef={firstInputRef}
-              onlyRead={isEditting}
-            />
-            <TextInputComponent
-              type="text"
-              label="RUT"
-              name="rut"
-              data={data && data[EnumGrid.rut]}
-              control={control}
-              error={errors.rut}
-            />
-            <TextInputComponent
-              type="text"
-              label="Nombre"
-              name="nombre"
-              data={data && data[EnumGrid.nombre]}
-              control={control}
-              error={errors.nombre}
-            />
-            <div className="w-full ">
-              <RegProCom
-               name="comuna"
-               control={control}
-               register={register}
-               setValue={setValue}
-               defaultRegion={data && data[EnumGrid.region_id]}
-               defaultProvincia={data && data[EnumGrid.provincia_id]}
-               defaultComuna={data && data[EnumGrid.comuna_id]}
-              />
-              
+          <div className="userFormularioContainer h-[46vh]">
+
+            <div className="w-full flex items-center h-[3rem]">
+              <div className="input-container items-center rowForm w-full">
+                  <div className="w-full">
+                    <TextInputComponent
+                      type="number"
+                      label="Código"
+                      name="codigo"
+                      data={data && data[EnumGrid.codigo]}
+                      control={control}
+                      error={errors.codigo}
+                      inputRef={firstInputRef}
+                      onlyRead={isEditting}
+                    />
+                  </div>
+              </div>
+            </div>
+            <div className="w-full flex items-center h-[4rem]">
+              <div className="input-container items-center rowForm w-full">
+                  <div className="w-full">
+                    <TextInputComponent
+                      type="text"
+                      label="RUT"
+                      name="rut"
+                      data={data && data[EnumGrid.rut]}
+                      control={control}
+                      error={errors.rut}
+                    />
+                  </div>
+              </div>
+            </div>
+            <div className="w-full flex items-center h-[4rem]">
+              <div className="input-container items-center rowForm w-full">
+                  <div className="w-full">
+                    <TextInputComponent
+                      type="text"
+                      label="Nombre"
+                      name="nombre"
+                      data={data && data[EnumGrid.nombre]}
+                      control={control}
+                      error={errors.nombre}
+                    />
+                  </div>
+              </div>
+            </div>
+
+            <div className="w-full flex items-center h-[4rem]">
+              <div className="input-container items-center rowForm w-full">
+                  <div className="w-full">
+                      <RegProCom
+                      name="comuna"
+                      control={control}
+                      register={register}
+                      setValue={setValue}
+                      defaultRegion={data && data[EnumGrid.region_id]}
+                      defaultProvincia={data && data[EnumGrid.provincia_id]}
+                      defaultComuna={data && data[EnumGrid.comuna_id]}
+                      />
+                  </div>
+              </div>
             </div>
           </div>
 
-          <button type="submit" className="userFormBtnSubmit">
-          {`${TITLES.guardar}`}
-          </button>
+            <div className="w-full">
+              <div className="w-[70%] mx-auto">
+                <button type="submit" tabIndex={1} className="userFormBtnSubmit">
+                {`${TITLES.guardar}`}
+                </button>
+              </div>
+            </div>
         </form>
 
         <CustomModal />

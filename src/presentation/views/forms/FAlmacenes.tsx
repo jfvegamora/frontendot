@@ -13,6 +13,7 @@ import { ERROR_MESSAGES, MODAL, SUCCESS_MESSAGES, TITLES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
+import SelectInputTiposComponent from "../../components/forms/SelectInputTiposComponent";
 
 const strBaseUrl = "/api/almacenes/";
 const strEntidad = "Almacén ";
@@ -233,31 +234,48 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
           // }}
           className="userFormulario">
           <div className="userFormularioContainer">
-            <TextInputComponent
-              type="text"
-              label="Descripción"
-              name="descripcion"
-              data={data && data[EnumGrid.descripcion]}
-              control={control}
-              error={errors.descripcion}
-              inputRef={firstInputRef}
-            />
-            <div className="w-full ">
-              <SelectInputComponent
-                label="Tipo"
-                name="tipo"
-                showRefresh={true}
-                data={data && data[EnumGrid.tipo_almacen_id]}
-                control={control}
-                entidad={["/api/tipos/", "02", "AlmacenesTipos"]}
-                error={errors.tipo}
-              />
+
+            <div className="w-full flex items-center h-[4rem]">
+              <div className="input-container items-center rowForm w-full">
+                  <div className="w-full">
+                    <TextInputComponent
+                      type="text"
+                      label="Descripción"
+                      name="descripcion"
+                      data={data && data[EnumGrid.descripcion]}
+                      control={control}
+                      error={errors.descripcion}
+                      inputRef={firstInputRef}
+                    />
+                  </div>
+              </div>
+            </div>
+
+            <div className="w-full flex items-center h-[4rem]">
+              <div className="input-container items-center rowForm w-full">
+                <div className="w-full ">
+                  <SelectInputTiposComponent
+                    label="Tipo"
+                    name="tipo"
+                    showRefresh={true}
+                    data={data && data[EnumGrid.tipo_almacen_id]}
+                    control={control}
+                    entidad={"AlmacenesTipos"}
+                    error={errors.tipo}
+                  />
+                </div>
+              </div>
             </div>
           </div>
 
-          <button type="submit" className="userFormBtnSubmit">
-          {`${TITLES.guardar}`}
-          </button>
+          <div className="w-full">
+            <div className="w-[70%] mx-auto">
+              <button type="submit" tabIndex={1} className="userFormBtnSubmit">
+              {`${TITLES.guardar}`}
+              </button>
+            </div>
+          </div>
+
         </form>
 
         <CustomModal />

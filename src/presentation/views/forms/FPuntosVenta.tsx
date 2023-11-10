@@ -47,7 +47,7 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
     query: "03",
     _p1,
   };
-  console.log("query", query);
+  // console.log("query", query);
   return query;
 }
 
@@ -79,7 +79,7 @@ export function transformUpdateQuery(
     _p1,
     _p2: primaryKey,
   };
-  console.log("query", query);
+  // console.log("query", query);
   return query;
 }
 
@@ -148,7 +148,7 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
     const handleApiResponse = React.useCallback(
       async (response: any, isEditting: boolean) => {
         const errorResponse = response?.response?.data.error;
-        console.log("response", response);
+        // console.log("response", response);
         if (errorResponse || response.code === "ERR_BAD_RESPONSE") {
           const errorMessage =
             errorResponse === "IntegrityError"

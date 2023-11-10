@@ -3,6 +3,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useCallback } from "react";
 import FilterButton, { filterToggle } from "../components/FilterButton";
+import { AppStore, useAppSelector } from "../../redux/store";
 // import FrameComponent from "../components/FrameComponent";
 
 export const handleContainerClick = (event:React.MouseEvent<HTMLDivElement>) => {
@@ -16,6 +17,13 @@ export const handleContainerClick = (event:React.MouseEvent<HTMLDivElement>) => 
 }
 
 const LandingPage: React.FC = () => {
+  
+  let key = 'puntosVentaTipos'
+  
+  const result = useAppSelector((store: AppStore) => store.listBoxTipos[key]);
+
+  console.log(result)
+
   return (
     <div className="mantenedorContainer" onClick={handleContainerClick}>
       <div className="mt-16">

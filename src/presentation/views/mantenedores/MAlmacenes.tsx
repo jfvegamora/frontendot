@@ -118,6 +118,7 @@ const MAlmacenes: React.FC = () => {
         />
       </div>
 
+
       {isModalInsert && (
         <FAlmacenes
           label={`${TITLES.ingreso} ${strEntidad}`}

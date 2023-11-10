@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 import { Controller } from "react-hook-form";
+import { Radio } from "@material-tailwind/react";
 
 interface IRadioButtonProps {
   label: string;
@@ -63,17 +64,17 @@ const RadioButtonComponent: React.FC<IRadioButtonProps> = ({
                   disabled={readOnly}
                   defaultChecked={data === option}
                   //  checked={field.value === option}
-                  className="mr-2 transforrm scale-150"
+                  className={`mr-2 transform scale-150 ${field.value === option ? 'text-orange-500' : 'text-gray-500'}`}
                   onChange={(e) => {
                       field.onChange(e.target.value)
                       if(onChange){
                         onChange(e.target)
                       }
-                  
                   }}
-                  ref       ={inputRef}
+                  ref={inputRef}
                   />
                 <p className="text-[16px] w-[68px]">{option}</p>
+                {/* <Radio name="type" label="HTML" color="blue"/> */}
               </label>
             )}
           />

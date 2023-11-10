@@ -14,15 +14,9 @@
   
 }
 
-input[type="checkbox"]:checked {
-  background: red;
-  color: red;
+.checked{
+  background-color: red !important;
 }
-input[type="checkbox"]:focus {
-  background: red;
-  color: red;
-}
-
 
 body {
   background-color:#424769;
