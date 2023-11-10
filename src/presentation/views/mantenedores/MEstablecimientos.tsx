@@ -127,15 +127,17 @@ const MEstablecimientos: React.FC = () => {
         /> }
       </div>
 
+
+
       {isModalInsert && (
-        <FEstablecimientos
-          label={`${TITLES.ingreso} ${strEntidad}`}
-          closeModal={closeModal}
-          selectedRows={selectedRows}
-          setEntities={setEntities}
-          params={params}
-          isEditting={false}
-        />
+      <FEstablecimientos
+        label={`${TITLES.ingreso} ${strEntidad}`}
+        closeModal={closeModal}
+        selectedRows={selectedRows}
+        setEntities={setEntities}
+        params={params}
+        isEditting={false}
+      />
       )}
 
       {isModalEdit && (

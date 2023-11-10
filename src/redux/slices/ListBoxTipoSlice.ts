@@ -15,6 +15,7 @@ export interface ITiposListbox {
     otOpcionVentaArmazon: [] | null;
     otOpcionVentaCristales: [] | null;
     otTipoAnteojo: [] | null;
+    otAreas: [] | null;
     puntosVentaTipos: [] | null;
 }
 
@@ -35,6 +36,7 @@ const initialState: ITiposListbox | null = {
     otOpcionVentaArmazon:    localStorage.getItem('ListBoxTipos.otOpcionVentaArmazon') ? JSON.parse(localStorage.getItem('ListBoxTipos.otOpcionVentaArmazon') as string) :null,
     otOpcionVentaCristales:  localStorage.getItem('ListBoxTipos.otOpcionVentaCristales') ? JSON.parse(localStorage.getItem('ListBoxTipos.otOpcionVentaCristales') as string) :null,
     otTipoAnteojo:           localStorage.getItem('ListBoxTipos.otTipoAnteojo') ? JSON.parse(localStorage.getItem('ListBoxTipos.otTipoAnteojo') as string) :null,
+    otAreas:                localStorage.getItem('ListBoxTipos.otAreas') ? JSON.parse(localStorage.getItem('ListBoxTipos.otAreas') as string) :null,
     
     puntosVentaTipos:        localStorage.getItem('ListBoxTipos.puntosVentaTipos') ? JSON.parse(localStorage.getItem('ListBoxTipos.puntosVentaTipos') as string) :null,
 
