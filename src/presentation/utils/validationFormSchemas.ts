@@ -43,6 +43,7 @@ export const validationEstablecimientosSchema = () =>
   yup.object().shape({
     nombre   : yup.string().required(`${msg}`),
     mandante : yup.string().required(`${msg}`),
+    tipo     : yup.string().required(`${msg}`),
     region   : yup.string(),
     provincia: yup.string(),
     comuna   : yup.string().required(`${msg}`),

@@ -14,12 +14,14 @@ import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
 import RegProCom from "../../components/RegProCom";
+import SelectInputTiposComponent from "../../components/forms/SelectInputTiposComponent";
 
 const strBaseUrl = "/api/establecimientos/";
 const strEntidad = "Establecimiento ";
 
 export interface InputData {
   nombre   : string | undefined;
+  tipo     : string | undefined;
   mandante : string | undefined;
   region   : string | undefined;
   provincia: string | undefined;
@@ -30,10 +32,11 @@ interface OutputData {
   query: string;
   _p1: string;
   _p2?: string;
+  _p3?: string;
 }
 
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
-  let _p1 = `"${jsonData.nombre}", ${jsonData.comuna}, ${jsonData.mandante}`;
+  let _p1 = `"${jsonData.nombre}", ${jsonData.comuna}, ${jsonData.mandante}, ${jsonData.tipo}`;
   _p1 = _p1.replace(/'/g, '!');
 
   const query: OutputData = {
@@ -52,6 +55,7 @@ export function transformUpdateQuery(
     `nombre   ="${jsonData.nombre}"`,
     `comuna   = ${jsonData.comuna}`,
     `mandante = ${jsonData.mandante}`,
+    `tipo     = ${jsonData.tipo}`,
   ];
 
   const filteredFields = fields.filter(
@@ -249,6 +253,19 @@ const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
                 />
               </div>
               
+            </div>
+
+            <div className="input-container items-center rowForm w-[28.2rem] ">
+              <div className="w-[100%] !mt-[1rem] -mb-2">
+              <SelectInputTiposComponent
+                label="Tipo"
+                name="tipo"
+                showRefresh={true}
+                data={data && data[EnumGrid.tipo_id]}
+                control={control}
+                entidad="EstablecimientosTipos"
+              />
+            </div>
             </div>
 
             <div className="input-container items-center rowForm w-[28.2rem] ">

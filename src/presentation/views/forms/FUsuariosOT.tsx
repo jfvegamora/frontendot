@@ -21,7 +21,7 @@ export interface InputData {
   usuario: string | undefined;
   permiso: string | undefined;
 }
-
+ 
 interface OutputData {
   query: string;
   _p1: string;
@@ -193,9 +193,13 @@ const FUsuariosOT: React.FC<IFormPrps> = React.memo(
     return (
       <div className="useFormContainer centered-div">
         <div className="userFormBtnCloseContainer">
+         
+        <div>
           <button onClick={closeModal} className="userFormBtnClose">
             X
           </button>
+        </div>
+
         </div>
         <h1 className="userFormLabel">{label}</h1>
 

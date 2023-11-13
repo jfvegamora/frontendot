@@ -46,6 +46,8 @@ const MUsuarios: React.FC = () => {
     isModalInsert,
     isModalEdit,
     toggleEditModal,
+    isModalPermisoOT,
+    togglePermisoOTModal,
     openModal,
     closeModal,
     //Check methods
@@ -135,6 +137,7 @@ const MUsuarios: React.FC = () => {
           showDeleteButton={false}
           showPermisoOTButton={true}  
           idMenu={idMenu}
+          togglePermisoOTModal={togglePermisoOTModal}
           // setTotalRowIndex={setTotalRowIndex}
         />
       </div>
@@ -161,8 +164,8 @@ const MUsuarios: React.FC = () => {
           isEditting={true}
         />
       )}
-
-      {isModalEdit && (
+ 
+      {isModalPermisoOT && (
         <FUsuariosOT
           label={`${TITLES.edicion} ${strEntidad}`}
           selectedRows={selectedRows}
