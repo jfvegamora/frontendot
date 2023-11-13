@@ -2,11 +2,11 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import axios from "axios";
 
 export interface ITiposListbox {
-    CristalesDiseño: [] | null;
-    CristalesMaterial: [] | null;
-    CristalesIndice: [] | null;
-    CristalesColor: [] | null;
-    CristalesTratamiento: [] | null;
+    CristalesDisenos: [] | null;
+    CristalesMateriales: [] | null;
+    CristalesIndices: [] | null;
+    CristalesColores: [] | null;
+    CristalesTratamientos: [] | null;
     AlmacenesTipos:[] | null;
     TipoInsumos: [] | null;
     ArmazonesUsos: [] | null;
@@ -21,11 +21,11 @@ export interface ITiposListbox {
 }
 
 const initialState: ITiposListbox | null = {
-    CristalesDiseño:           localStorage.getItem("ListBoxTipos.CristalDiseño") ? JSON.parse(localStorage.getItem("ListBoxTipos.CristalDiseño") as string): [],
-    CristalesMaterial:         localStorage.getItem('ListBoxTipos.CristalMaterial') ? JSON.parse(localStorage.getItem('ListBoxTipos.CristalMaterial') as string) : null,
-    CristalesIndice:           localStorage.getItem('ListBoxTipos.CristalIndice') ? JSON.parse(localStorage.getItem('ListBoxTipos.CristalIndice') as string) :null,
-    CristalesColor:            localStorage.getItem('ListBoxTipos.CristalColores') ? JSON.parse(localStorage.getItem('ListBoxTipos.CristalColores') as string) :null,
-    CristalesTratamiento:      localStorage.getItem('ListBoxTipos.CristalTratamiento') ? JSON.parse(localStorage.getItem('ListBoxTipos.CristalTratamiento') as string) :null,
+    CristalesDisenos:           localStorage.getItem("ListBoxTipos.CristalDisenos") ? JSON.parse(localStorage.getItem("ListBoxTipos.CristalDisenos") as string): [],
+    CristalesMateriales:         localStorage.getItem('ListBoxTipos.CristalMateriales') ? JSON.parse(localStorage.getItem('ListBoxTipos.CristalMateriales') as string) : null,
+    CristalesIndices:           localStorage.getItem('ListBoxTipos.CristalIndices') ? JSON.parse(localStorage.getItem('ListBoxTipos.CristalIndices') as string) :null,
+    CristalesColores:            localStorage.getItem('ListBoxTipos.CristalColores') ? JSON.parse(localStorage.getItem('ListBoxTipos.CristalColores') as string) :null,
+    CristalesTratamientos:      localStorage.getItem('ListBoxTipos.CristalTratamientos') ? JSON.parse(localStorage.getItem('ListBoxTipos.CristalTratamientos') as string) :null,
     
     AlmacenesTipos:          localStorage.getItem('ListBoxTipos.AlmacenesTipos') ? JSON.parse(localStorage.getItem('ListBoxTipos.AlmaceensTipos') as string) :null,
     TipoInsumos:             localStorage.getItem('ListBoxTipos.TipoInsumos') ? JSON.parse(localStorage.getItem('ListBoxTipos.TipoInsumos') as string) :null,
@@ -46,7 +46,7 @@ const initialState: ITiposListbox | null = {
   export const fetchListBoxTipos = createAsyncThunk('listBox/fetchListBoxTipos', async () => {
     try {
         const [
-            cristalesDiseño, 
+            cristalesDiseno, 
             cristalesMaterial, 
             cristalesColores, 
             cristalesTratamiento, 
@@ -78,11 +78,11 @@ const initialState: ITiposListbox | null = {
         ]);
 
         return {
-            CristalesDiseño: cristalesDiseño.data,
-            CristalesMaterial: cristalesMaterial.data,
+            CristalesDisenos: cristalesDiseno.data,
+            CristalesMateriales: cristalesMaterial.data,
             CristalesColores: cristalesColores.data,
-            CristalesTratamiento: cristalesTratamiento.data,
-            CristalesIndice: cristalesIndice.data,
+            CristalesTratamientos: cristalesTratamiento.data,
+            CristalesIndices: cristalesIndice.data,
             AlmacenesTipos: almaceensTipos.data,
             TipoInsumos: tipoInsumos.data,
             ArmazonesUsos: armazonesUsos.data,
@@ -95,6 +95,7 @@ const initialState: ITiposListbox | null = {
         }
 
     } catch (error) {
+        console.log(error)
         throw error;
     }
 });
@@ -103,15 +104,22 @@ const initialState: ITiposListbox | null = {
 const listBoxTiposSlice = createSlice({
     name: 'ListBoxTipos',
     initialState,
-    reducers: {},
+    reducers: {
+        updateDataForKey: (state, action) => {
+            const { entidad, data } = action.payload;
+            if (state.hasOwnProperty(entidad)) {
+                state[entidad] = data.data;
+            }
+        },
+    },
     extraReducers: (builder)=>{
         builder
             .addCase(fetchListBoxTipos.fulfilled, (state,action)=>{
-                localStorage.setItem('ListBoxTipos.CristalesDiseño', JSON.stringify(action.payload.CristalesDiseño));
-                localStorage.setItem('ListBoxTipos.CristalesMaterial', JSON.stringify(action.payload.CristalesMaterial));
+                localStorage.setItem('ListBoxTipos.CristalesDisenos', JSON.stringify(action.payload.CristalesDisenos));
+                localStorage.setItem('ListBoxTipos.CristalesMateriales', JSON.stringify(action.payload.CristalesMateriales));
                 localStorage.setItem('ListBoxTipos.CristalesColores', JSON.stringify(action.payload.CristalesColores));
-                localStorage.setItem('ListBoxTipos.CristalesTratamiento', JSON.stringify(action.payload.CristalesTratamiento));
-                localStorage.setItem('ListBoxTipos.CristalesIndice', JSON.stringify(action.payload.CristalesIndice));
+                localStorage.setItem('ListBoxTipos.CristalesTratamientos', JSON.stringify(action.payload.CristalesTratamientos));
+                localStorage.setItem('ListBoxTipos.CristalesIndices', JSON.stringify(action.payload.CristalesIndices));
                 localStorage.setItem('ListBoxTipos.AlmacenesTipos', JSON.stringify(action.payload.AlmacenesTipos));
                 localStorage.setItem('ListBoxTipos.TipoInsumos', JSON.stringify(action.payload.TipoInsumos));
                 localStorage.setItem('ListBoxTipos.ArmazonesUsos', JSON.stringify(action.payload.ArmazonesUsos));
@@ -124,11 +132,11 @@ const listBoxTiposSlice = createSlice({
                 
                 return {
                     ...state,
-                    CristalesDiseño:action.payload.CristalesDiseño,
-                    CristalesMaterial: action.payload.CristalesMaterial,
-                    CristalesIndice: action.payload.CristalesIndice,
-                    CristalesColor: action.payload.CristalesColores,
-                    CristalesTratamiento: action.payload.CristalesTratamiento,
+                    CristalesDiseños:action.payload.CristalesDisenos,
+                    CristalesMateriales: action.payload.CristalesMateriales,
+                    CristalesIndices: action.payload.CristalesIndices,
+                    CristalesColores: action.payload.CristalesColores,
+                    CristalesTratamientos: action.payload.CristalesTratamientos,
                     AlmacenesTipos: action.payload.AlmacenesTipos,
                     TipoInsumos: action.payload.TipoInsumos,
                     ArmazonesUsos: action.payload.ArmazonesUsos,
@@ -146,4 +154,5 @@ const listBoxTiposSlice = createSlice({
 });
 
 
+export const { updateDataForKey } = listBoxTiposSlice.actions;
 export default listBoxTiposSlice.reducer;

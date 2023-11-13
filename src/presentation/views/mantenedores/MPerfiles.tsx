@@ -127,6 +127,7 @@ const MPerfiles: React.FC = () => {
         />
       </div>
 
+  
       {isModalInsert && (
         <FPerfiles
           label={`${TITLES.ingreso} ${strEntidad}`}

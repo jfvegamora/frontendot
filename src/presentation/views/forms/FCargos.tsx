@@ -223,20 +223,32 @@ const FCargos: React.FC<ICargosFormProps> = React.memo(
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))}
           className="userFormulario"
         >
-          <div className="userFormularioCont">
-            <TextInputComponent
-              type="text"
-              label="Nombre"
-              name="nombre"
-              data={data && data[EnumGrid.nombre]}
-              control={control}
-              error={errors.nombre}
-              inputRef={firstInputRef}
-            />
+          <div className="userFormularioContainer">
+
+            <div className="w-full items-center flex">
+                <div className="input-container items-center rowForm w-full">
+                    <div className="w-full">
+                      <TextInputComponent
+                        type="text"
+                        label="Nombre"
+                        name="nombre"
+                        data={data && data[EnumGrid.nombre]}
+                        control={control}
+                        error={errors.nombre}
+                        inputRef={firstInputRef}
+                      />
+                    </div>
+                </div>
+            </div>
           </div>
-          <button type="submit" className="userFormBtnSubmit">
-          {`${TITLES.guardar}`}
-          </button>
+
+          <div className="w-full">
+            <div className="mx-auto w-[70%]">
+              <button type="submit"  tabIndex={1} className="userFormBtnSubmit">
+              {`${TITLES.guardar}`}
+              </button>
+            </div>
+          </div>
         </form>
         <CustomModal />
       </div>

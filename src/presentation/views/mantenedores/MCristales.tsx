@@ -98,18 +98,15 @@ const MCristales: React.FC = () => {
               updateParams={updateParams}
               setEntities={setEntities}
               primaryKeyInputs={[
+                { name: "_p1", label: "Código", type: "number" },
                 {
-                  name: "_pMarca",
-                  label: "Marca",
+                  name: "_pIndice",
+                  label: "Indice",
                   type: "select",
-                  selectUrl: "/api/marcas/",
+                  selectUrl: "/api/tipos/",
+                  tipos: "CristalesIndices",
                 },
-                {
-                  name: "_pProveedor",
-                  label: "Proveedor",
-                  type: "select",
-                  selectUrl: "/api/proveedores/",
-                },
+              
                 {
                   name: "_pDiseno",
                   label: "Diseño",
@@ -117,13 +114,6 @@ const MCristales: React.FC = () => {
                   selectUrl: "/api/tipos/",
                   tipos: "CristalesDisenos",
                 },
-                // {
-                //   name      : "_p3",
-                //   label     : "Tipo Insumos",
-                //   type      : "select",
-                //   selectUrl : "/api/tipos/",
-                //   tipos     : "TipoInsumos"
-                // },
                 {
                   name: "_pMaterial",
                   label: "Material",
@@ -131,6 +121,27 @@ const MCristales: React.FC = () => {
                   selectUrl: "/api/tipos/",
                   tipos: "CristalesMateriales",
                 },
+
+                
+                { name: "_pEsferico", label: "Esférico", type: "number" },
+                { name: "_pCilindrico", label: "Cilíndrico", type: "number" },
+               
+
+
+
+                {
+                  name: "_pMarca",
+                  label: "Marca",
+                  type: "select",
+                  selectUrl: "/api/marcas/"
+                },
+                {
+                  name: "_pProveedor",
+                  label: "Proveedor",
+                  type: "select",
+                  selectUrl: "/api/proveedores/",
+                },
+
                 {
                   name: "_pColor",
                   label: "Color",
@@ -145,33 +156,10 @@ const MCristales: React.FC = () => {
                   selectUrl: "/api/tipos/",
                   tipos: "CristalesTratamientos",
                 },
-                {
-                  name: "_pIndice",
-                  label: "Indice",
-                  type: "select",
-                  selectUrl: "/api/tipos/",
-                  tipos: "CristalesIndices",
-                },
-                {
-                  name: "_pTratamiento",
-                  label: "Tratamiento",
-                  type: "select",
-                  selectUrl: "/api/tipos/",
-                  tipos: "CristalesTratamientos",
-                },
-                { name: "_p1", label: "Código", type: "number" },
-                { name: "_pDiametro", label: "Diametro", type: "number" },
-                { name: "_pEsferico", label: "Esferico", type: "number" },
-                { name: "_pCilindrico", label: "Cilindrico", type: "number" },
 
-                // { name: "_pDiseno", label: "Diseño", type: "select", selectUrl: "/api//"},
-                // { name: "_pIndice", label: "Indice", type: "select", selectUrl: "/api//"},
-                // { name: "_pMaterial", label: "Material", type: "select", selectUrl: "/api//"},
-                // { name: "_pColor", label: "Color", type: "select", selectUrl: "/api//"},
-                // { name: "_pTratamiento", label: "Tratamiento", type: "select", selectUrl: "/api//"},
-                // { name: "_pDiametro", label: "Diámetro", type: "number" },
-                // { name: "_pEsferico", label: "Esférico", type: "number" },
-                // { name: "_pCilindrico", label: "Cilíndrico", type: "number" },
+
+
+                { name: "_pDiametro", label: "Diámetro", type: "number" },
               ]}
             />
           </div>

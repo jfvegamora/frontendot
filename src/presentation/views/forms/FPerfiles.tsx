@@ -216,45 +216,66 @@ const FPerfiles: React.FC<IFormPrps> = React.memo(
           className="userFormulario"
         >
           <div className="userFormularioContainer">
-            <div className="w-full">
-              <SelectInputComponent
-                label="Cargo"
-                name="cargo"
-                showRefresh={true}
-                data={data && data[EnumGrid.cargo_id]}
-                control={control}
-                entidad={["/api/cargos/", "02"]}
-                error={errors.cargo}
-                readOnly={isEditting}
-                customWidth={"345px"}
-              />
-              <SelectInputComponent
-                label="Funcionalidad"
-                name="funcionalidad"
-                showRefresh={true}
-                data={data && data[EnumGrid.funcionalidad_id]}
-                control={control}
-                entidad={["/api/funcionalidades/", "02"]}
-                error={errors.funcionalidad}
-                inputRef={firstInputRef}
-                readOnly={isEditting}
-                customWidth={"345px"}
-              />
-            </div>
 
-            <RadioButtonComponent
-              control={control}
-              label="Permiso"
-              name="permiso"
-              data={data && data[EnumGrid.permiso]}
-              options={["Lectura", "Lectura/Escritura"]}
-              error={errors.permiso}
-            />
+            <div className="w-full items-center flex !mb-4">
+              <div className="input-container items-center rowForm w-full">
+                <div className="w-full">
+                  <SelectInputComponent
+                    label="Cargo"
+                    name="cargo"
+                    showRefresh={true}
+                    data={data && data[EnumGrid.cargo_id]}
+                    control={control}
+                    entidad={["/api/cargos/", "02"]}
+                    error={errors.cargo}
+                    readOnly={isEditting}
+                    customWidth={"345px"}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="w-full items-center flex !mb-12">
+              <div className="input-container items-center rowForm w-full">
+                <div className="w-full">
+                  <SelectInputComponent
+                    label="Funcionalidad"
+                    name="funcionalidad"
+                    showRefresh={true}
+                    data={data && data[EnumGrid.funcionalidad_id]}
+                    control={control}
+                    entidad={["/api/funcionalidades/", "02"]}
+                    error={errors.funcionalidad}
+                    inputRef={firstInputRef}
+                    readOnly={isEditting}
+                    customWidth={"345px"}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="w-full items-center flex !mb-12">
+              <div className="input-container items-center rowForm w-full">
+                <div className="w-full">
+                  <RadioButtonComponent
+                    control={control}
+                    label="Permiso"
+                    name="permiso"
+                    data={data && data[EnumGrid.permiso]}
+                    options={["Lectura", "Lectura/Escritura"]}
+                    error={errors.permiso}
+                  />
+                </div>
+              </div>
+            </div>
           </div>
 
-          <button type="submit" className="userFormBtnSubmit">
-          {`${TITLES.guardar}`}
-          </button>
+          <div className="w-full">
+            <div className="mx-auto w-[70%]">
+              <button type="submit" tabIndex={1} className="userFormBtnSubmit">
+              {`${TITLES.guardar}`}
+              </button>
+            </div>
+          </div>
+
         </form>
         <CustomModal />
       </div>

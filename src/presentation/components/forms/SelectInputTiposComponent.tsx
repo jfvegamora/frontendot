@@ -9,12 +9,13 @@ import { Controller } from "react-hook-form";
 import { FiRefreshCw } from "react-icons/fi";
 import { useCrud, useEntityUtils } from "../../hooks";
 import axios from "axios";
-import { AppStore, useAppSelector } from "../../../redux/store";
+import { AppStore, useAppDispatch, useAppSelector } from "../../../redux/store";
+import { updateDataForKey } from "../../../redux/slices/ListBoxTipoSlice";
 // import Select from "react-select";
 
 interface ISelectInputProps {
   label: string;
-  control: any;
+  control?: any;
   name: string;
   showRefresh?: boolean;
   data?: any;
@@ -57,12 +58,14 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
 
     const {cristalesMaterial} = useAppSelector((store: AppStore) => store.listBoxTipos);
     const stateListBox = useAppSelector((store: AppStore) => store.listBoxTipos[entidad]);
+    const dispatch = useAppDispatch()
     // const stateListBox = useAppSelector((store: AppStore) => (store.listBoxTipos as any)[entidad || ""]);
 
     
     // const stateListBox = useAppSelector((store: AppStore) => store.listBoxTipos![entidad]);
 
-    console.log(stateListBox)
+    // console.log(entidad)
+    // console.log(ox)
 
 
 
@@ -73,13 +76,16 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
     const [strSelectedName, setStrSelectedName] = useState(data || undefined);
     // const strUrl = entidad && entidad[0];
     const inputRef = useRef(null);
-    console.log(entities)
+    // console.log(entities)
 
     useEffect(()=>{
       if(stateListBox && stateListBox?.length < 1 || stateListBox === null || stateListBox === undefined){
         console.log('no data')
         axios(`https://mtoopticos.cl/api/tipos/listado/?query=02&_p1=${entidad}`)
-        .then((data:any)=>setEntities(data.data))
+        .then((data:any)=>{
+          setEntities(data.data)
+          dispatch(updateDataForKey({entidad, data}))
+        })
         .catch((error)=>console.log(error))
       }
     },[])
@@ -140,26 +146,26 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
                 tabIndex  ={tabIndex || 1}
                 onChange={(e) => {
                   field.onChange(e);
-                  // setState && setState(e.target.value);
-                  // field.onChange(e);
-                  // if(isOT){
-                  //   handleSelectChange &&  handleSelectChange(e.target)
-                  // }
-                  // if (setHandleSearch) {
-                  //   const selectedValue = e.target.value.toString();
-                  //   console.log("name", name);
-                  //   console.log("selectedValue", selectedValue);
-                  //   handleSelectChange(name, selectedValue);
-                  //   const inputValuesToUpdate = {
-                  //     ...inputValues,
-                  //     [name]: selectedValue,
-                  //   };
+                  setState && setState(e.target.value);
+                  field.onChange(e);
+                  if(isOT){
+                    handleSelectChange &&  handleSelectChange(e.target)
+                  }
+                  if (setHandleSearch) {
+                    const selectedValue = e.target.value.toString();
+                    console.log("name", name);
+                    console.log("selectedValue", selectedValue);
+                    handleSelectChange(name, selectedValue);
+                    const inputValuesToUpdate = {
+                      ...inputValues,
+                      [name]: selectedValue,
+                    };
 
-                  //   if (setHandleSearch) {
-                  //     setHandleSearch(inputValuesToUpdate);
-                  //   }
-                  // }
-                  // setrefreshToggle((prev) => !prev);
+                    if (setHandleSearch) {
+                      setHandleSearch(inputValuesToUpdate);
+                    }
+                  }
+                  setrefreshToggle((prev) => !prev);
                 }}
                 className="custom-input py-2 px-3 w-[85%] cursor-pointer z-0"
               >

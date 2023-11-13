@@ -114,6 +114,7 @@ const MOftalmologos: React.FC = () => {
         />
       </div>
 
+      
       {isModalInsert && (
         <FOftalmologos
           label={`${TITLES.ingreso} ${strEntidad}`}

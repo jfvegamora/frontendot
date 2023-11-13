@@ -144,7 +144,7 @@ const MProyectosAtenciones: React.FC = () => {
           
           />
         </div>
-  
+
         {isModalInsert && (
           <FProyectosAtenciones
             label={`${TITLES.ingreso} ${strEntidad}`}

@@ -131,6 +131,7 @@ const MProyectosFirmas: React.FC = () => {
             toggleExcel={toggleExcel}
           />
         </div>
+          
   
         {isModalInsert && (
           <FProyectosFirmas
@@ -141,7 +142,7 @@ const MProyectosFirmas: React.FC = () => {
             params={params}
             isEditting={false}
           />
-        )}
+          )}
   
         {isModalEdit && (
           <FProyectosFirmas

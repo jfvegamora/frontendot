@@ -254,73 +254,94 @@ const FProyectosFirmas: React.FC<IUserFormPrps> = React.memo(
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))}
           className="userFormulario">
-          <div className="userFormularioContainer">
-          <div className="input-container">
-            <div className="w-full ">
-                <SelectInputComponent
-                  label="Proyecto"
-                  name="proyecto"
-                  showRefresh={true}
-                  data={data && data[EnumGrid.proyecto]}
+          <div className="userFormularioContainer !w-[40vw]">
+
+          <div className="w-full items-center flex h-[70px] ">
+
+            <div className="input-container items-center rowForm w-[50%]">
+              <div className="w-full !mt-4 ">
+                  <SelectInputComponent
+                    label="Proyecto"
+                    name="proyecto"
+                    showRefresh={true}
+                    data={data && data[EnumGrid.proyecto]}
+                    control={control}
+                    entidad={["/api/proyectos/", "02"]}
+                    error={errors.proyecto}
+                    inputRef={firstInputRef}
+                    readOnly={isEditting}
+                    />
+              </div>
+            </div>
+
+            <div className="input-container items-center rowForm w-[50%]">
+              <div className="w-full ">
+                <TextInputComponent
+                  type="number"
+                  label="Folio"
+                  name="folio_reporte"
+                  data={data && data[EnumGrid.folio_reporte]}
                   control={control}
-                  entidad={["/api/proyectos/", "02"]}
-                  error={errors.proyecto}
-                  inputRef={firstInputRef}
-                  readOnly={isEditting}
-                  />
-            </div>
-            <div className="w-full ">
-              <TextInputComponent
-                type="number"
-                label="Folio"
-                name="folio_reporte"
-                data={data && data[EnumGrid.folio_reporte]}
-                control={control}
-                error={errors.folio_reporte}
-                onlyRead={isEditting}
-              />
-            </div>
-            <div className="w-full ">
-              <TextInputComponent
-                type="date"
-                label="Fecha Desde"
-                name="fecha_desde"
-                data={data && data[EnumGrid.fecha_desde]}
-                control={control}
-                error={errors.fecha_desde}
-                onlyRead={isEditting}
-              />
-            </div>
-            <div className="w-full ">
-              <TextInputComponent
-                type="date"
-                label="Fecha Hasta"
-                name="fecha_hasta"
-                data={data && data[EnumGrid.fecha_hasta]}
-                control={control}
-                error={errors.fecha_hasta}
-                onlyRead={isEditting}
-              />
+                  error={errors.folio_reporte}
+                  onlyRead={isEditting}
+                />
+              </div>
+
             </div>
           </div>
 
-          <div className="input-container">
-            <div className="w-full ">
-              <TextInputComponent
-                type="text"
-                label="Observaciones"
-                name="observaciones"
-                data={data && data[EnumGrid.observaciones]}
-                control={control}
-                error={errors.observaciones}
-              />
+          <div className="w-full items-center flex h-[60px]">
+            <div className="input-container items-center rowForm w-[50%]">
+              <div className="w-full ">
+                <TextInputComponent
+                  type="date"
+                  label="Fecha Desde"
+                  name="fecha_desde"
+                  data={data && data[EnumGrid.fecha_desde]}
+                  control={control}
+                  error={errors.fecha_desde}
+                  onlyRead={isEditting}
+                />
+              </div>
+            </div>
+            <div className="input-container items-center rowForm w-[50%]">
+              <div className="w-full ">
+                <TextInputComponent
+                  type="date"
+                  label="Fecha Hasta"
+                  name="fecha_hasta"
+                  data={data && data[EnumGrid.fecha_hasta]}
+                  control={control}
+                  error={errors.fecha_hasta}
+                  onlyRead={isEditting}
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="w-full items-center flex h-[60px]">
+            <div className="input-copntainer items-center rowForm w-full">
+              <div className="w-full ">
+                <TextInputComponent
+                  type="text"
+                  label="Observaciones"
+                  name="observaciones"
+                  data={data && data[EnumGrid.observaciones]}
+                  control={control}
+                  error={errors.observaciones}
+                />
+              </div>
             </div>
           </div>
           </div>
 
-          <button type="submit" className="userFormBtnSubmit">
-          {`${TITLES.guardar}`}
-          </button>
+          <div className="w-full">
+            <div className="mx-auto w-[70%]">
+              <button type="submit" tabIndex={1} className="userFormBtnSubmit">
+              {`${TITLES.guardar}`}
+              </button>
+            </div>
+          </div>
         </form>
 
         <CustomModal />

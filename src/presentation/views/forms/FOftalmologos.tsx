@@ -243,53 +243,90 @@ const FOftalmologos: React.FC<IUserFormPrps> = React.memo(
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
-            <TextInputComponent
-              type="text"
-              label="RUT"
-              name="rut"
-              data={data && data[EnumGrid.rut]}
-              control={control}
-              error={errors.rut}
-              inputRef={firstInputRef}
-            />
-            <TextInputComponent
-              type="text"
-              label="Nombre"
-              name="nombre"
-              data={data && data[EnumGrid.nombre]}
-              control={control}
-              error={errors.nombre}
-            />
-            <div className="w-full "> </div>
 
-            <TextInputComponent
-              type="text"
-              label="Teléfono"
-              name="telefono"
-              data={data && data[EnumGrid.telefono]}
-              control={control}
-            />
-            <TextInputComponent
-              type="email"
-              label="Correo"
-              name="correo"
-              data={data && data[EnumGrid.correo]}
-              control={control}
-              // onlyRead={isEditting}
-            />
-            <TextInputComponent
-              type="number"
-              label="Valor Consulta"
-              name="valor_consulta"
-              data={data && data[EnumGrid.valor_consulta]}
-              control={control}
-              error={errors.valor_consulta}
-            />
+            <div className="w-full items-center flex">
+              <div className="input-container items-center rowForm w-full">
+                <div className="w-full">
+                  <TextInputComponent
+                    type="text"
+                    label="RUT"
+                    name="rut"
+                    data={data && data[EnumGrid.rut]}
+                    control={control}
+                    error={errors.rut}
+                    inputRef={firstInputRef}
+                  />
+                </div>
+              </div>  
+            </div>
+
+            <div className="w-full items-center flex">
+              <div className="input-container items-center rowForm w-full">
+                <div className="w-full">
+                  <TextInputComponent
+                    type="text"
+                    label="Nombre"
+                    name="nombre"
+                    data={data && data[EnumGrid.nombre]}
+                    control={control}
+                    error={errors.nombre}
+                  />
+                </div>
+              </div>  
+            </div>  
+
+            <div className="w-full items-center flex">
+              <div className="input-container items-center rowForm w-full">
+                <div className="w-full">
+                  <TextInputComponent
+                    type="text"
+                    label="Teléfono"
+                    name="telefono"
+                    data={data && data[EnumGrid.telefono]}
+                    control={control}
+                  />
+                </div>
+              </div>  
+            </div>  
+
+            <div className="w-full items-center flex">
+              <div className="input-container items-center rowForm w-full">
+                <div className="w-full">
+                  <TextInputComponent
+                    type="email"
+                    label="Correo"
+                    name="correo"
+                    data={data && data[EnumGrid.correo]}
+                    control={control}
+                    // onlyRead={isEditting}
+                  />
+                </div>
+              </div>  
+            </div>  
+            <div className="w-full items-center flex">
+              <div className="input-container items-center rowForm w-full">
+                <div className="w-full">
+                  <TextInputComponent
+                    type="number"
+                    label="Valor Consulta"
+                    name="valor_consulta"
+                    data={data && data[EnumGrid.valor_consulta]}
+                    control={control}
+                    error={errors.valor_consulta}
+                  />
+                </div>
+              </div>  
+            </div>  
           </div>
 
-          <button type="submit" className="userFormBtnSubmit">
-          {`${TITLES.guardar}`}
-          </button>
+          <div className="w-full">
+            <div className="mx-auto w-[70%]">
+              <button type="submit" tabIndex={1} className="userFormBtnSubmit">
+              {`${TITLES.guardar}`}
+              </button>
+            </div>
+          </div>
+
         </form>
 
         <CustomModal />

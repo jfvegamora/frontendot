@@ -128,6 +128,7 @@ const MProyectosDirecciones: React.FC = () => {
           />
         </div>
   
+        
         {isModalInsert && (
           <FProyectosDirecciones
             label={`${TITLES.ingreso} ${strEntidad}`}

@@ -116,6 +116,7 @@ const MCargos: React.FC = () => {
           idMenu={idMenu}
         />
       </div>
+      
 
       {isModalInsert && (
         <FCargos

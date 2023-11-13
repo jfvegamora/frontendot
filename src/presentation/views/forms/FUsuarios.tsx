@@ -270,56 +270,84 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))}
           className="userFormulario">
-          <div className="userFormularioContainer">
-            <TextInputComponent
-              type="text"
-              label="Nombre"
-              name="nombre"
-              data={data && data[EnumGrid.nombre]}
-              control={control}
-              error={errors.nombre}
-              inputRef={firstInputRef}
-            />
-            <div className="w-full ">
-              <SelectInputComponent
-                label="Cargo"
-                name="cargo"
-                showRefresh={true}
-                data={data && data[EnumGrid.cargo_id]}
-                control={control}
-                entidad={["/api/cargos/", "02"]}
-                error={errors.cargo}
-                customWidth={"345px"}
-                inputRef={secondInputRef}
-              />
+          <div className="userFormularioContainer !w-[30vw]">
+            
+            <div className="w-full items-center flex !mb-4">
+              <div className="input-container items-center rowForm w-full">
+                <div className="w-full">
+                  <TextInputComponent
+                    type="text"
+                    label="Nombre"
+                    name="nombre"
+                    data={data && data[EnumGrid.nombre]}
+                    control={control}
+                    error={errors.nombre}
+                    inputRef={firstInputRef}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="w-full items-center flex !mb-4">
+              <div className="input-container items-center rowForm w-full">
+                <div className="w-full">
+                  <SelectInputComponent
+                    label="Cargo"
+                    name="cargo"
+                    showRefresh={true}
+                    data={data && data[EnumGrid.cargo_id]}
+                    control={control}
+                    entidad={["/api/cargos/", "02"]}
+                    error={errors.cargo}
+                    customWidth={"345px"}
+                    inputRef={secondInputRef}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="w-full items-center flex !mb-4">
+              <div className="input-container items-center rowForm w-full">
+                <div className="w-full">
+                  <TextInputComponent
+                    type="text"
+                    label="Teléfono"
+                    name="telefono"
+                    data={data && data[EnumGrid.telefono]}
+                    control={control}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="w-full items-center flex !mb-4">
+              <div className="input-container items-center rowForm w-full">
+                <div className="w-full">
+                  <TextInputComponent
+                    type="email"
+                    label="Correo"
+                    name="correo"
+                    data={data && data[EnumGrid.correo]}
+                    control={control}
+                    error={errors.correo}
+                    onlyRead={isEditting}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="w-full items-center flex !my-8">
+              <div className="input-container items-center rowForm w-full">
+                <div className="w-full">
+                  <RadioButtonComponent
+                    control={control}
+                    label="Estado"
+                    name="estado"
+                    data={data && data[EnumGrid.estado]}
+                    options={["Activo", "Suspendido"]}
+                    error={errors.estado}
+                    // horizontal={true}
+                  />
+                </div>
+              </div>
             </div>
 
-            <TextInputComponent
-              type="text"
-              label="Teléfono"
-              name="telefono"
-              data={data && data[EnumGrid.telefono]}
-              control={control}
-            />
-            <TextInputComponent
-              type="email"
-              label="Correo"
-              name="correo"
-              data={data && data[EnumGrid.correo]}
-              control={control}
-              error={errors.correo}
-              onlyRead={isEditting}
-            />
-
-            <RadioButtonComponent
-              control={control}
-              label="Estado"
-              name="estado"
-              data={data && data[EnumGrid.estado]}
-              options={["Activo", "Suspendido"]}
-              error={errors.estado}
-              // horizontal={true}
-            />
           </div>
           {isEditting && (
             <div className="w-1/2">
@@ -327,15 +355,22 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                 type="button"
                 onClick={handlePermisos}
                 className="userFormBtnSubmit"
+                tabIndex={1}
               >
                 Copiar Permisos
               </button>
             </div>
           )}
 
-          <button type="submit" className="userFormBtnSubmit">
-          {`${TITLES.guardar}`}
-          </button>
+          <div className="w-full">
+            <div className="mx-auto w-[70%]">
+              <button type="submit" className="userFormBtnSubmit">
+              {`${TITLES.guardar}`}
+              </button>
+            </div>
+          </div>
+
+
         </form>
 
         <CustomModal />

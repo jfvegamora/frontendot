@@ -9,6 +9,7 @@ import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import useCrud from "../hooks/useCrud";
 import { SelectInputComponent } from ".";
 import { filterToggle } from "./FilterButton";
+import SelectInputTiposComponent from "./forms/SelectInputTiposComponent";
 
 interface IPrimaryKeyState {
   [key: string]: string | number;
@@ -71,7 +72,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
     );
 
     const handleSearch = React.useCallback(async (data: any) => {
-      filterToggle.value = false;
+      // filterToggle.value = false;
       if ("_pCilindrico" in data || "_pEsferico" in data) {
         data = {
           ...data,
@@ -147,7 +148,20 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
               render={({ field }) => (
                 <div className="w-full flex items-center">
                   {input.type === "select" ? (
-                    <div className={`mt-2 mx-2 items-center mb-2 w-[14rem]`}>
+                    input.tipos  ? (
+                      <div className={`input-container rowForm items-center mb-2 w-[14rem]`}>
+                        <SelectInputTiposComponent
+                          label={input.label}
+                          name={input.name}
+                          showRefresh={false}
+                          control={control}
+                          entidad={input.tipos}
+                          setHandleSearch={handleSearch}
+                          handleSelectChange={handleSelectChange}
+                        />
+                      </div>
+                    ) : (
+                      <div className={`input-container rowForm items-center mb-2 w-[14rem] `}>
                       <SelectInputComponent
                         label={input.label}
                         name={input.name}
@@ -165,6 +179,8 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                         customWidth={"200px"}
                       />
                     </div>
+                    )
+                    
                   ) : input.type === "radiobuttons" ? (
                     <div className="relative px-8 items-center py-4 w-[92%]  mt-2 mx-auto border-[0.5px] border-[dodgerblue] rounded-md flex">
                       <label className="absolute text-sm top-[-10px] left-4 bg-[ghostwhite] w-[6rem]">
@@ -206,10 +222,10 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                       />
                     </div>
                   ) : (
-                    <div className="w-full mx-4 items-center">
+                    <div className="w-[80%]  !h-[40%] !mx-4 items-cente input-container rowForm ">
                       <Input
                         color="orange"
-                        className=""
+                        className="text-center"
                         {...field}
                         label={input.label}
                         value={inputValues[input.name] || ""}
@@ -269,7 +285,8 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
             type="submit"
             onClick={handleSubmit(handleSearch)}
           >
-            <MemoizedMagnifyingGlassIcon />
+            {/* <MemoizedMagnifyingGlassIcon /> */}
+            <MagnifyingGlassIcon className="primaryKeyIcon" onClick={()=>filterToggle.value = false} />
           </IconButton>
         </Tooltip>
         {description && (

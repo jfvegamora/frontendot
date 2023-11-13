@@ -238,83 +238,108 @@ const FProyectosDirecciones: React.FC<IUserFormPrps> = React.memo(
 
         <form onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
-          <div className="input-container">
-            <div className="w-full ">
+
+            <div className="w-full items-center flex">
+
+              <div className="input-container items-center rowForm w-[50%]">
+                  <div className="w-full ">
+                      <SelectInputComponent
+                        label="Proyecto"
+                        name="proyecto"
+                        showRefresh={true}
+                        data={data && data[EnumGrid.proyecto]}
+                        control={control}
+                        entidad={["/api/proyectos/", "02"]}
+                        error={errors.proyecto}
+                        inputRef={firstInputRef}
+                        readOnly={isEditting}
+                        />
+                  </div>
+              </div>
+
+
+              <div className="input-container items-center rowForm w-[50%]">
+                <div className="w-full ">
                 <SelectInputComponent
-                  label="Proyecto"
-                  name="proyecto"
-                  showRefresh={true}
-                  data={data && data[EnumGrid.proyecto]}
-                  control={control}
-                  entidad={["/api/proyectos/", "02"]}
-                  error={errors.proyecto}
-                  inputRef={firstInputRef}
-                  readOnly={isEditting}
+                      label="Establecimiento"
+                      name="establecimiento"
+                      showRefresh={true}
+                      data={data && data[EnumGrid.establecimiento_id]}
+                      control={control}
+                      entidad={["/api/establecimientos/", "02"]}
+                      error={errors.establecimiento}
+                      readOnly={isEditting}
+                      />
+                </div>
+              </div>
+            </div>
+
+
+            <div className="w-full items-center flex">
+
+              <div className="input-container items-center rowForm w-[33%]">
+                <div className="w-full ">
+                  <TextInputComponent
+                    type="text"
+                    label="Lugar"
+                    name="lugar"
+                    data={data && data[EnumGrid.lugar]}
+                    control={control}
+                    error={errors.lugar}
                   />
+                </div>
+              </div>
+              <div className="input-container items-center rowForm w-[33%]">
+                <div className="w-full ">
+                  <TextInputComponent
+                      type="text"
+                      label="Dirección"
+                      name="direccion"
+                      data={data && data[EnumGrid.direccion]}
+                      control={control}
+                      error={errors.direccion}
+                    />
+                </div>
+              </div>
+              <div className="input-container items-center rowForm w-[33%]">
+                <div className="w-full ">
+                  <TextInputComponent
+                      type="text"
+                      label="Teléfono"
+                      name="telefono"
+                      data={data && data[EnumGrid.telefono]}
+                      control={control}
+                      error={errors.telefono}
+                    />
+                </div>
+              </div>
             </div>
-            <div className="w-full ">
-            <SelectInputComponent
-                  label="Establecimiento"
-                  name="establecimiento"
-                  showRefresh={true}
-                  data={data && data[EnumGrid.establecimiento_id]}
-                  control={control}
-                  entidad={["/api/establecimientos/", "02"]}
-                  error={errors.establecimiento}
-                  readOnly={isEditting}
+      
+
+
+            <div className="w-full items-center flex">
+              <div className="input-container items-center rowForm w-full">
+                <div className="w-full ">
+                  <TextInputComponent
+                    type="text"
+                    label="Observaciones"
+                    name="observaciones"
+                    data={data && data[EnumGrid.observaciones]}
+                    control={control}
+                    error={errors.observaciones}
                   />
-            </div>
-          </div>
-          <div className="input-container">
-            <div className="w-full ">
-              <TextInputComponent
-                type="text"
-                label="Lugar"
-                name="lugar"
-                data={data && data[EnumGrid.lugar]}
-                control={control}
-                error={errors.lugar}
-              />
-            </div>
-            <div className="w-full ">
-              <TextInputComponent
-                  type="text"
-                  label="Dirección"
-                  name="direccion"
-                  data={data && data[EnumGrid.direccion]}
-                  control={control}
-                  error={errors.direccion}
-                />
-            </div>
-            <div className="w-full ">
-              <TextInputComponent
-                  type="text"
-                  label="Teléfono"
-                  name="telefono"
-                  data={data && data[EnumGrid.telefono]}
-                  control={control}
-                  error={errors.telefono}
-                />
+                </div>
+              </div>
             </div>
           </div>
 
-          <div className="input-container">
-            <div className="w-full ">
-              <TextInputComponent
-                type="text"
-                label="Observaciones"
-                name="observaciones"
-                data={data && data[EnumGrid.observaciones]}
-                control={control}
-                error={errors.observaciones}
-              />
+          <div className="w-full">
+            <div className="w-[70%] mx-auto">
+              <button type="submit" tabIndex={1} className="userFormBtnSubmit">
+              {`${TITLES.guardar}`}
+              </button>
             </div>
           </div>
-          </div>
-
-          <button type="submit" className="userFormBtnSubmit">
-          {`${TITLES.guardar}`}
-          </button>
         </form>
 
         <CustomModal />

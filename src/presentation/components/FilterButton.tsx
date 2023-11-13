@@ -14,6 +14,8 @@ const FilterButton:React.FC<IProps> = ({
   const toggleFilters = () => {
     filterToggle.value = !filterToggle.value
   };
+
+  console.log(filterToggle.value)
   
   return (
     <div className="fixed top-[5rem] left-10 z-[13] items-center">

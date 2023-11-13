@@ -195,20 +195,31 @@ const FFuncionalidad: React.FC<IFormProps> = React.memo(
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))}
           className="userFormulario"
         >
-          <div className="userFormularioCont">
-            <TextInputComponent
-              type="text"
-              label="Descripción"
-              name="descripcion"
-              data={data && data[EnumGrid.descripcion]}
-              control={control}
-              error={errors.descripcion}
-            />
+          <div className="userFormularioContainer">
+
+            <div className="w-full items-center flex">
+              <div className="input-container items-center rowForm w-full">
+                <div className="w-full">
+                  <TextInputComponent
+                    type="text"
+                    label="Descripción"
+                    name="descripcion"
+                    data={data && data[EnumGrid.descripcion]}
+                    control={control}
+                    error={errors.descripcion}
+                  />
+                </div>
+              </div>
+            </div>
           </div>
 
-          <button type="submit" className="userFormBtnSubmit">
-          {`${TITLES.guardar}`}
-          </button>
+          <div className="w-full">
+            <div className="mx-auto w-[70%]">
+              <button type="submit" tabIndex={1} className="userFormBtnSubmit">
+              {`${TITLES.guardar}`}
+              </button>
+            </div>
+          </div>
         </form>
         <CustomModal />
       </div>

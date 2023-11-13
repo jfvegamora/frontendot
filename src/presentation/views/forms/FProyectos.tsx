@@ -592,7 +592,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
 
 
 
-           <div className="w-full   items-center flex h-[80px] mt-[25px] mb-[10px]">
+           <div className="w-full items-center flex h-[80px] mt-[25px] mb-[10px]">
 
             <div className="input-container items-center rowForm w-[16%]">
               <div className="w-full mr-2">
