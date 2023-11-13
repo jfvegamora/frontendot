@@ -1219,6 +1219,27 @@ export const table_head_accesorios = [
     alignment: "text-right"
   },
   {
+    cell: "Ingresos",
+    key: "ingresos",
+    visible: true,
+    alignment: "text-right",
+    width: "w-[6rem]",
+  },
+  {
+    cell: "Egresos",
+    key: "egresos",
+    visible: true,
+    alignment: "text-right",
+    width: "w-[6rem]",
+  },
+  {
+    cell: "Stock Actual",
+    key: "stock_actual",
+    visible: true,
+    alignment: "text-right",
+    width: "w-[7rem]",
+  },
+  {
     cell: "Stock Mínimo",
     key: "stock_minimo",
     visible: true,
@@ -1346,6 +1367,27 @@ export const table_head_armazones = [
     visible: true,
     alignment: "text-left",
     width: "w-[6rem]",
+  },
+  {
+    cell: "Ingresos",
+    key: "ingresos",
+    visible: true,
+    alignment: "text-right",
+    width: "w-[6rem]",
+  },
+  {
+    cell: "Egresos",
+    key: "egresos",
+    visible: true,
+    alignment: "text-right",
+    width: "w-[6rem]",
+  },
+  {
+    cell: "Stock Actual",
+    key: "stock_actual",
+    visible: true,
+    alignment: "text-right",
+    width: "w-[7rem]",
   },
   {
     cell: "Stock Mínimo",
