@@ -64,18 +64,14 @@ const Login: React.FC = React.memo(() => {
   return (
     <div className="bg-black-500 w-full h-full">
       <section className="bg-gray-100 dark:bg-gray-900 h-full mt-[-2v6%]">
-        <div className="flex flex-col items-center justify-centerlg:py-0">
-          <a
-            href="#"
-            className="flex items-center text-2xl font-semibold text-gray-900 dark:text-white"
-          >
-            <img
-              className="w-8 h-8 mr-2"
-              src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg"
-              alt="logo"
-            />
-            Sistema Gestión OT
-          </a>
+        <div className="flex flex-col items-center justify-centerlg py-10">
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage: "url('../../assets/desktop01.jpg')",
+          }}
+        ></div>          
+          <h1 className="userFormLabel">Sistema Gestión OT</h1>
           <div className="useFormContainer top-[20%] w-[25%]">
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
               <h1 className="text-xl font-bold leading-tight text-center tracking-tight text-gray-900 md:text-2xl dark:text-white">
@@ -116,7 +112,7 @@ const Login: React.FC = React.memo(() => {
                     </button>
                   </div>
                 </div>
-                <Link to="/forgotpassword">Recupera Contraseña</Link>
+                <Link className="forgotPwd" to="/forgotpassword">Recupera Contraseña</Link>
               </form>
             </div>
           </div>

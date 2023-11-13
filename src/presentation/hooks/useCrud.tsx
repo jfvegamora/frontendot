@@ -7,9 +7,9 @@ import axios, { AxiosInstance } from "axios";
 import { signal } from "@preact/signals-react";
 
 // PRODUCCION
-// export const URLBackend = signal('https://mtoopticos.cl');
+ export const URLBackend = signal('https://mtoopticos.cl');
 // DESARROLLO
-export const URLBackend = signal('https://gestiondev.mtoopticos.cl');
+//export const URLBackend = signal('https://gestiondev.mtoopticos.cl');
 
 
 export const baseURL = (params:string) => {

@@ -95,6 +95,18 @@ export const table_head_OT_diaria = [
     alignment: "text-left",
     width: "w-[10rem]"
   },
+  {
+    cell: "Establecimiento Tipo ID",
+    key: "establecimiento_tipo_id",
+    visible: false,
+  },
+  {
+    cell: "Establecimiento Tipo",
+    key: "establecimiento_tipo",
+    visible: true,
+    alignment: "text-left",
+    width: "w-[12rem]",
+  },
   //************ CLIENTE */
   {
     cell: "RUT Cliente",
@@ -978,6 +990,18 @@ export const table_head_establecimientos = [
     width: "w-[12rem]",
   },
   {
+    cell: "Establecimiento Tipo ID",
+    key: "establecimiento_tipo_id",
+    visible: false,
+  },
+  {
+    cell: "Establecimiento Tipo",
+    key: "establecimiento_tipo",
+    visible: true,
+    alignment: "text-left",
+    width: "w-[12rem]",
+  },
+  {
     cell: "Mandante ID",
     key: "mandante_id",
     visible: false,
@@ -1195,19 +1219,19 @@ export const table_head_accesorios = [
     alignment: "text-right"
   },
   {
-    cell: "Stock mínimo",
+    cell: "Stock Mínimo",
     key: "stock_minimo",
     visible: true,
     alignment: "text-right"
   },
   {
-    cell: "Stock reservado",
+    cell: "Stock Reservado",
     key: "stock_reservado",
     visible: true,
     alignment: "text-right"
   },
   {
-    cell: "Stock disponible",
+    cell: "Stock Disponible",
     key: "stock_disponible",
     visible: true,
     alignment: "text-right"
@@ -1324,21 +1348,21 @@ export const table_head_armazones = [
     width: "w-[6rem]",
   },
   {
-    cell: "Stock mínimo",
+    cell: "Stock Mínimo",
     key: "stock_minimo",
     visible: true,
     alignment: "text-right",
     width: "w-[7rem]",
   },
   {
-    cell: "Stock disponible",
+    cell: "Stock Disponible",
     key: "stock_disponible",
     visible: true,
     alignment: "text-right",
     width: "w-[7rem]",
   },
   {
-    cell: "Stock reservado",
+    cell: "Stock Reservado",
     key: "stock_reservado",
     visible: true,
     alignment: "text-right",
@@ -3103,13 +3127,6 @@ export const table_head_empresas = [
     cell: "Sitio Web",
     key: "sitio_web",
     visible: true,
-    alignment: "text-left",
-    width: "w-[10rem]",
-  },
-  {
-    cell: "Logo",
-    key: "nombre_logo",
-    visible: false,
     alignment: "text-left",
     width: "w-[10rem]",
   },

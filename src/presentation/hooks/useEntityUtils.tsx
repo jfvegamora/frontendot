@@ -25,6 +25,7 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
   // const [intLastId, setIntLastId] = useState<number | null>(0);
   const [isModalInsert, setisModalInsert] = useState<boolean>(false);
   const [isModalEdit, setIsModalEdit] = useState<boolean>(false);
+  const [isModalPermisoOT, setIsModalPermisOT] = useState<boolean>(false);
   const [isEntityProfile, setIsEntityProfile] = useState<boolean>(false);
   const [onDelete, setDataGrid] = useState<boolean>(false);
 
@@ -49,6 +50,7 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
     setIsModalEdit(false);
     setIsEntityProfile(false);
     setSelectedRows([]);
+    setIsModalPermisOT(false);
   }, []);
 
   const resetEntities = () => {
@@ -116,6 +118,20 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
           ? (setSelectedRows([rowIndex]), setEntity(entities[rowIndex]))
           : (setSelectedRows([]), setEntity(null));
       }
+    },
+    [entities]
+  );
+  //METODO PERMISOS DE OT USUARIO DE LA GRILLA
+  const togglePermisoOTModal = useCallback(
+    (rowIndex?: number) => {
+      console.log(rowIndex)
+      setIsModalPermisOT((prev) => !prev);
+
+      // if (rowIndex !== undefined) {
+      //   rowIndex >= 0
+      //     ? (setSelectedRows([rowIndex]), setEntity(entities[rowIndex]))
+      //     : (setSelectedRows([]), setEntity(null));
+      // }
     },
     [entities]
   );
@@ -204,6 +220,7 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
     setEntities,
     handleRefresh,
     toggleEditModal,
+    togglePermisoOTModal,
     isModalEdit,
     selectedRows,
     setSelectedRows,
@@ -216,6 +233,7 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
     entity,
     refreshData,
     resetEntities,
-    toggleExcel
+    toggleExcel,
+    isModalPermisoOT
   };
 };

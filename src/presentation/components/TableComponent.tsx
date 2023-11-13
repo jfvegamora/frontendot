@@ -36,6 +36,7 @@ interface ITableComponentProps<T> {
   strEntidad?: string;
   queryExcel?:any;
   setTotalRowIndex?:any;
+  togglePermisoOTModal?:() => void;
 }
 
 const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
@@ -60,6 +61,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
     strEntidad,
     queryExcel,
     isOT,
+    togglePermisoOTModal
     //  setTotalRowIndex
   }) => {
     const { escritura_lectura, lectura} = usePermission(idMenu || 0 );
@@ -225,6 +227,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                       )
                     );
                   })}
+
                   {!isOT && (
                     <td className="gridTableData">
                     {/* ===========BOTONES DE TABLA============ */}
@@ -249,7 +252,8 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                             variant="text"
                             color="blue-gray"
                             onClick={() =>
-                              toggleEditModal && toggleEditModal(rowIndex)
+                              // toggleEditModal && toggleEditModal(rowIndex)
+                              togglePermisoOTModal && togglePermisoOTModal()
                             }
                           >
                             < BsPersonLock className="gridIcons" />

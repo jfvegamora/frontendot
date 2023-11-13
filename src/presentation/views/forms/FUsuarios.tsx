@@ -52,7 +52,7 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
 
   return query;
 }
-
+ 
 export function transformUpdateQuery(
   jsonData: InputData,
   primaryKey: string
@@ -261,6 +261,9 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
     return (
       <div className="useFormContainer centered-div">
         <div className="userFormBtnCloseContainer">
+        <div className="userFormBtnCloseContainer">
+          <button onClick={closeModal} className="userFormBtnClose"></button>
+        </div>
           <button onClick={closeModal} className="userFormBtnClose">
             X
           </button>

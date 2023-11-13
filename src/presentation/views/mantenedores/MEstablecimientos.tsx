@@ -15,14 +15,16 @@ import { TITLES, table_head_establecimientos } from "../../utils";
 export enum EnumGrid {
   id = 1,
   nombre = 2,
-  mandante_id = 3,
-  mandante = 4,
-  region_id = 5,
-  region = 6,
-  provincia_id = 7,
-  provincia = 8,
-  comuna_id = 9,
-  comuna = 10,
+  tipo_id = 3,
+  tipo = 4,
+  mandante_id = 5,
+  mandante = 6,
+  region_id = 7,
+  region = 8,
+  provincia_id = 9,
+  provincia = 10,
+  comuna_id = 11,
+  comuna = 12,
 }
 
 const strEntidad = "Establecimiento ";
@@ -88,7 +90,14 @@ const MEstablecimientos: React.FC = () => {
               type: "select",
               selectUrl: "/api/mandantes/",
             },
-          ]}
+            {
+              name      : "_p3",
+              label     : "Tipo",
+              type      : "select",
+              selectUrl : "/api/tipos/",
+              tipos     : "EstablecimientosTipos"
+            },
+      ]}
         />
 
         <PrimaryButtonsComponent
