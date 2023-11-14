@@ -20,6 +20,7 @@ const strBaseUrl = "/api/establecimientos/";
 const strEntidad = "Establecimiento ";
 
 export interface InputData {
+  codigo   : string | undefined;
   nombre   : string | undefined;
   tipo     : string | undefined;
   mandante : string | undefined;
@@ -36,7 +37,7 @@ interface OutputData {
 }
 
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
-  let _p1 = `"${jsonData.nombre}", ${jsonData.comuna}, ${jsonData.mandante}, ${jsonData.tipo}`;
+  let _p1 = `"${jsonData.codigo}", "${jsonData.nombre}", ${jsonData.comuna}, ${jsonData.mandante}, ${jsonData.tipo}`;
   _p1 = _p1.replace(/'/g, '!');
 
   const query: OutputData = {
@@ -52,6 +53,7 @@ export function transformUpdateQuery(
   primaryKey: string
 ): OutputData | null {
   const fields = [
+    `codigo   ="${jsonData.codigo}"`,
     `nombre   ="${jsonData.nombre}"`,
     `comuna   = ${jsonData.comuna}`,
     `mandante = ${jsonData.mandante}`,
@@ -114,10 +116,11 @@ const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
     });
 
     const resetTextFields = React.useCallback(() => {
+      setValue("codigo", "");
       setValue("nombre", "");
       if (firstInputRef.current) {
         const firstInput = firstInputRef.current.querySelector(
-          'input[name="nombre"]'
+          'input[name="codigo"]'
         );
         if (firstInput) {
           firstInput.focus();
@@ -222,7 +225,7 @@ const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
     );
 
     useEffect(() => {
-      focusFirstInput("nombre");
+      focusFirstInput("codigo");
     }, []);
 
     return (
@@ -240,6 +243,20 @@ const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
         >
           <div className="userFormularioContainer">
             
+          <div className="input-container items-center rowForm w-[28rem] ">
+              <div className="w-full ">
+                <TextInputComponent
+                  type="text"
+                  label="Código"
+                  name="codigo"
+                  data={data && data[EnumGrid.codigo]}
+                  control={control}
+                  error={errors.codigo}
+                  inputRef={firstInputRef}
+                />
+              </div>
+            </div>
+
             <div className="input-container items-center rowForm w-[28rem] ">
               <div className="w-full ">
                 <TextInputComponent
@@ -249,10 +266,8 @@ const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
                   data={data && data[EnumGrid.nombre]}
                   control={control}
                   error={errors.nombre}
-                  inputRef={firstInputRef}
                 />
               </div>
-              
             </div>
 
             <div className="input-container items-center rowForm w-[28.2rem] ">

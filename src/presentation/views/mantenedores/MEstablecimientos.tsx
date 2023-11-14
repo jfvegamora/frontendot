@@ -14,17 +14,18 @@ import { TITLES, table_head_establecimientos } from "../../utils";
 
 export enum EnumGrid {
   id = 1,
-  nombre = 2,
-  tipo_id = 3,
-  tipo = 4,
-  mandante_id = 5,
-  mandante = 6,
-  region_id = 7,
-  region = 8,
-  provincia_id = 9,
-  provincia = 10,
-  comuna_id = 11,
-  comuna = 12,
+  codigo = 2,
+  nombre = 3,
+  tipo_id = 4,
+  tipo = 5,
+  mandante_id = 6,
+  mandante = 7,
+  region_id = 8,
+  region = 9,
+  provincia_id = 10,
+  provincia = 11,
+  comuna_id = 12,
+  comuna = 13,
 }
 
 const strEntidad = "Establecimiento ";
@@ -73,7 +74,7 @@ const MEstablecimientos: React.FC = () => {
     setPkToDelete([`${strParamsToDelete}=${combinedPks}`]);
   }, [selectedRows]);
 
-  console.log('entities', entities)
+  // console.log('entities', entities)
   return (
     <div className="mantenedorContainer">
       <div className="mantenedorHead width80">

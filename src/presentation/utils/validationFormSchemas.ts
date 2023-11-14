@@ -41,6 +41,7 @@ export const validationClientesSchema = () =>
 // Schema ESTABLECIMIENTOS
 export const validationEstablecimientosSchema = () =>
   yup.object().shape({
+    codigo   : yup.string(),
     nombre   : yup.string().required(`${msg}`),
     mandante : yup.string().required(`${msg}`),
     tipo     : yup.string().required(`${msg}`),

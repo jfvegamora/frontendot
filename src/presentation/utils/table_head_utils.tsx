@@ -983,6 +983,13 @@ export const table_head_establecimientos = [
     visible: false,
   },
   {
+    cell: "Código",
+    key: "codigo",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[6rem]",
+  },
+  {
     cell: "Nombre",
     key: "nombre",
     visible: true,
