@@ -135,8 +135,8 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
           key={groupIndex}
           className={
             primaryKeyInputs.length > 5
-              ? `grid grid-rows-3 w-[40vw] h-[40vh] grid-cols-2  items-center `
-              : "flex mb-auto items-center  ml-[-2rem] "
+              ? `grid grid-rows-3 w-[40vw] h-[30vh] grid-cols-2 items-center `
+              : "flex mb-auto items-center  w-[50rem] ml-[-1rem] "
           }
         >
           {group.map((input, inputIndex) => (
@@ -146,14 +146,15 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
               control={control}
               defaultValue=""
               render={({ field }) => (
-                <div className="w-full flex items-center">
+                <div className="w-full flex items-center rowForm input-container">
                   {input.type === "select" ? (
                     input.tipos  ? (
-                      <div className={`input-container rowForm items-center mb-2 w-[14rem]`}>
+                      // <div className={` items-center bg-red-500 mb-2 w-[90%] `}>
+                      <div className="input-container custom-select-key w-full">
                         <SelectInputTiposComponent
                           label={input.label}
                           name={input.name}
-                          showRefresh={false}
+                          showRefresh={true}
                           control={control}
                           entidad={input.tipos}
                           setHandleSearch={handleSearch}
@@ -161,11 +162,11 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                         />
                       </div>
                     ) : (
-                      <div className={`input-container rowForm items-center mb-2 w-[14rem] `}>
+                      <div className={` input-container w-full !mt-2`}>
                       <SelectInputComponent
                         label={input.label}
                         name={input.name}
-                        showRefresh={false}
+                        showRefresh={true}
                         control={control}
                         entidad={
                           input.tipos
@@ -222,27 +223,29 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                       />
                     </div>
                   ) : (
-                    <div className="w-[80%]  !h-[40%] !mx-4 items-cente input-container rowForm ">
-                      <Input
-                        color="orange"
-                        className="text-center"
-                        {...field}
-                        label={input.label}
-                        value={inputValues[input.name] || ""}
-                        onChange={(e) => {
-                          field.onChange(e);
-                          handleInputChange(input.name, e.target.value);
-                        }}
-                        onKeyDown={handleKeyDown}
-                        onBlur={handleBlur}
-                        labelProps={{
-                          style: {
-                            color: "grey",
-                            fontWeight: "normal",
-                            fontSize: "16px",
-                          },
-                        }}
-                      />
+                    <div className="w-[90%]  items-center input-container rowForm  ">
+                          <div className="w-[96%]  -mt-2 mx-auto ">
+                            <Input
+                              color="orange"
+                              className="!w-[96%] !h-12 ml-2"
+                              {...field}
+                              label={input.label}
+                              value={inputValues[input.name] || ""}
+                              onChange={(e) => {
+                                field.onChange(e);
+                                handleInputChange(input.name, e.target.value);
+                              }}
+                              onKeyDown={handleKeyDown}
+                              onBlur={handleBlur}
+                              labelProps={{
+                                style: {
+                                  color: "grey",
+                                  fontWeight: "normal",
+                                  fontSize: "16px",
+                                },
+                              }}
+                            />
+                          </div>
                     </div>
                   )}
                 </div>
@@ -285,8 +288,8 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
             type="submit"
             onClick={handleSubmit(handleSearch)}
           >
-            {/* <MemoizedMagnifyingGlassIcon /> */}
-            <MagnifyingGlassIcon className="primaryKeyIcon" onClick={()=>filterToggle.value = false} />
+            <MemoizedMagnifyingGlassIcon />
+            {/* <MagnifyingGlassIcon className="primaryKeyIcon" se} /> */}
           </IconButton>
         </Tooltip>
         {description && (

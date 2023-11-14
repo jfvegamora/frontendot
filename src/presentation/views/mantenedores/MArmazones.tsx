@@ -79,7 +79,7 @@ const MArmazones: React.FC = () => {
 
   return (
     <div className="mantenedorContainer">
-      <div className="mantenedorHead width80">
+      <div className="mantenedorHead width90">
         <PrimaryKeySearch
           baseUrl={strBaseUrl}
           setParams={setParams}

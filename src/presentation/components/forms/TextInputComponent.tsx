@@ -86,7 +86,7 @@ return (
           maxLength ={maxLength}
           onBlur    ={(e)=>handleInputChange(e)}
           ref       ={inputRef}
-          className ={`${className ? className : " custom-input !mr-[1r6rem]"}`}
+          className ={`${className ? className : " custom-input "}`}
           tabIndex  ={tabIndex || 1}
           placeholder={type === 'date' ? "dd-mm-yyyy" : ''}
           

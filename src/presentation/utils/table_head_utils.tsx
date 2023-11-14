@@ -1,4 +1,4 @@
-/************ MENU OT ************/
+3/************ MENU OT ************/
 export const table_head_OT_diaria = [
   {
     cell: <input type="checkbox" />,
@@ -970,6 +970,7 @@ export const table_head_clientes = [
     width: "w-[4rem]",
   },
 ];
+
 export const table_head_establecimientos = [
   {
     cell: <input type="checkbox" />,

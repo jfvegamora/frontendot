@@ -11,7 +11,7 @@ import {
 import { useEntityUtils } from "../../hooks";
 import FCristales from "../forms/FCristales";
 import { TITLES, table_head_cristales } from "../../utils";
-import FilterButton from "../../components/FilterButton";
+import FilterButton, { filterToggle } from "../../components/FilterButton";
 import { handleContainerClick } from "../../pages/LandingPage";
 
 export enum EnumGrid {
@@ -87,11 +87,13 @@ const MCristales: React.FC = () => {
     setPkToDelete([`${strParamsToDelete}=${combinedPks}`]);
   }, [selectedRows]);
 
+  // console.log(filterToggle.value)
+
   return (
-    <div className="mantenedorContainer"  onClick={handleContainerClick}>
+    <div className="mantenedorContainer !h-[50rem]"  onClick={handleContainerClick}>
       <FilterButton>
-        <div className="mantenedorHeadFlex width100">
-          <div className="w-[300rem]">
+        <div className="mantenedorHeadFlex width100 relative">
+          <div className="w-[95%] mx-auto ">
             <PrimaryKeySearch
               baseUrl={strBaseUrl}
               setParams={setParams}
@@ -163,7 +165,7 @@ const MCristales: React.FC = () => {
               ]}
             />
           </div>
-          <div className="w-full">
+          <div className="w-[20%] absolute bottom-[2.5rem] right-[12rem]">
             <PrimaryButtonsComponent
               handleAddPerson={openModal}
               handleDeleteSelected={handleDeleteSelected}
@@ -184,7 +186,7 @@ const MCristales: React.FC = () => {
         </div>
       </FilterButton>
 
-      <div className="width100 scroll ">
+      <div className={`width100 scroll ${filterToggle.value ? "!mt-[20rem] !h-[20rem]" : "!mt-[4rem] !h-[100rem]"} `}>
         <TableComponent
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}

@@ -136,7 +136,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
       }
       // console.log(type)
       return(
-        <Typography variant="small" color="blue-gray" className={`gridText ${type === 1 ? '!text-white': ''} `} style={cellStyle}>
+        <Typography variant="small" color="blue-gray" className={`gridText  ${type === 1 ? '!text-white': ''} `} style={cellStyle}>
           {text !== null && text !== undefined ? text.toString() : ""}
         </Typography>
       )
@@ -178,7 +178,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                 const isVisible =
                   column.visible && (column.key !== "checkbox" || escritura_lectura || lectura);
                 return isVisible ? (
-                  <th key={index} className={`gridHead ${column.width || 'w-auto'}`}>
+                  <th key={index} className={`gridHead   ${column.width || 'w-auto'}`}>
                     {column.key === "checkbox" ? (
                       <input className="checkTable"
                         type="checkbox"
@@ -215,7 +215,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                     return (
                       visible && (
                         <td
-                        className={`gridTableData bg-${color}-500   ${alignment}`} 
+                        className={`gridTableData  bg-${color}-500   ${alignment}`} 
                           key={col}
                           id={tableHead[col].key}
                         >

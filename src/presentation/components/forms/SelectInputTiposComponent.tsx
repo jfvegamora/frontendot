@@ -56,15 +56,15 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
 
     
 
-    const {cristalesMaterial} = useAppSelector((store: AppStore) => store.listBoxTipos);
+    const store = useAppSelector((store: AppStore) => store.listBoxTipos);
     const stateListBox = useAppSelector((store: AppStore) => store.listBoxTipos[entidad]);
     const dispatch = useAppDispatch()
     // const stateListBox = useAppSelector((store: AppStore) => (store.listBoxTipos as any)[entidad || ""]);
 
     
     // const stateListBox = useAppSelector((store: AppStore) => store.listBoxTipos![entidad]);
-
-    // console.log(entidad)
+    console.log(store)
+    console.log(entidad)
     // console.log(ox)
 
 
@@ -123,7 +123,7 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
           control={control}
           defaultValue={strSelectedName}
           render={({ field }) => (
-            <div className={`custom-select rounded-lg !h-[3rem]  absolute${error ? 'border-red-500' : 'border-gray-500'}  `}>
+            <div className={`custom-select border-gray-400 border-[1px] rounded-lg !h-[3rem]  absolute${error ? 'border-red-500' : 'border-gray-500'}  `}>
               <div className=" top-[-18%]  left-3.5 absolute w-1/2 z-10">
                 <label
                   htmlFor={label}

@@ -17,29 +17,31 @@ export interface ITiposListbox {
     OTTipoAnteojo: [] | null;
     OTAreas: [] | null;
     PuntosVentaTipos: [] | null;
+    ClientesTipos: [] | null;
     [key: string]: any | undefined;
 }
 
 const initialState: ITiposListbox | null = {
-    CristalesDisenos:           localStorage.getItem("ListBoxTipos.CristalDisenos") ? JSON.parse(localStorage.getItem("ListBoxTipos.CristalDisenos") as string): [],
-    CristalesMateriales:         localStorage.getItem('ListBoxTipos.CristalMateriales') ? JSON.parse(localStorage.getItem('ListBoxTipos.CristalMateriales') as string) : null,
-    CristalesIndices:           localStorage.getItem('ListBoxTipos.CristalIndices') ? JSON.parse(localStorage.getItem('ListBoxTipos.CristalIndices') as string) :null,
-    CristalesColores:            localStorage.getItem('ListBoxTipos.CristalColores') ? JSON.parse(localStorage.getItem('ListBoxTipos.CristalColores') as string) :null,
-    CristalesTratamientos:      localStorage.getItem('ListBoxTipos.CristalTratamientos') ? JSON.parse(localStorage.getItem('ListBoxTipos.CristalTratamientos') as string) :null,
+    CristalesDisenos:        localStorage.getItem("ListBoxTipos.CristalDisenos") ? JSON.parse(localStorage.getItem("ListBoxTipos.CristalDisenos") as string): [],
+    CristalesMateriales:     localStorage.getItem('ListBoxTipos.CristalMateriales') ? JSON.parse(localStorage.getItem('ListBoxTipos.CristalMateriales') as string) : null,
+    CristalesIndices:        localStorage.getItem('ListBoxTipos.CristalIndices') ? JSON.parse(localStorage.getItem('ListBoxTipos.CristalIndices') as string) :null,
+    CristalesColores:        localStorage.getItem('ListBoxTipos.CristalColores') ? JSON.parse(localStorage.getItem('ListBoxTipos.CristalColores') as string) :null,
+    CristalesTratamientos:   localStorage.getItem('ListBoxTipos.CristalTratamientos') ? JSON.parse(localStorage.getItem('ListBoxTipos.CristalTratamientos') as string) :null,
     
     AlmacenesTipos:          localStorage.getItem('ListBoxTipos.AlmacenesTipos') ? JSON.parse(localStorage.getItem('ListBoxTipos.AlmaceensTipos') as string) :null,
     TipoInsumos:             localStorage.getItem('ListBoxTipos.TipoInsumos') ? JSON.parse(localStorage.getItem('ListBoxTipos.TipoInsumos') as string) :null,
     
     ArmazonesUsos:           localStorage.getItem('ListBoxTipos.ArmazonesUsos') ? JSON.parse(localStorage.getItem('ListBoxTipos.ArmazonesUsos') as string) :null,
     ArmazonesMaterial:       localStorage.getItem('ListBoxTipos.ArmazonesMaterial') ? JSON.parse(localStorage.getItem('ListBoxTipos.ArmazonesMaterial') as string) :null,
-    ArmazonesTipos:           localStorage.getItem('ListBoxTipos.ArmazonesTipos') ? JSON.parse(localStorage.getItem('ListBoxTipos.ArmazonesTipos') as string) :null,
+    ArmazonesTipos:          localStorage.getItem('ListBoxTipos.ArmazonesTipos') ? JSON.parse(localStorage.getItem('ListBoxTipos.ArmazonesTipos') as string) :null,
     
     OTOpcionVentaArmazon:    localStorage.getItem('ListBoxTipos.OTOpcionVentaArmazon') ? JSON.parse(localStorage.getItem('ListBoxTipos.OTOpcionVentaArmazon') as string) :null,
     OTOpcionVentaCristales:  localStorage.getItem('ListBoxTipos.OTOpcionVentaCristales') ? JSON.parse(localStorage.getItem('ListBoxTipos.OTOpcionVentaCristales') as string) :null,
     OTTipoAnteojo:           localStorage.getItem('ListBoxTipos.OTTipoAnteojo') ? JSON.parse(localStorage.getItem('ListBoxTipos.OTTipoAnteojo') as string) :null,
-    OTAreas:                localStorage.getItem('ListBoxTipos.OTAreas') ? JSON.parse(localStorage.getItem('ListBoxTipos.OTAreas') as string) :null,
+    OTAreas:                 localStorage.getItem('ListBoxTipos.OTAreas') ? JSON.parse(localStorage.getItem('ListBoxTipos.OTAreas') as string) :null,
     
     PuntosVentaTipos:        localStorage.getItem('ListBoxTipos.PuntosVentaTipos') ? JSON.parse(localStorage.getItem('ListBoxTipos.PuntosVentaTipos') as string) :null,
+    ClientesTipos:            localStorage.getItem('ListBoxTipos.ClientesTipos') ? JSON.parse(localStorage.getItem('ListBoxTipos.ClientesTipos') as string) :null
 };
   
 
@@ -59,7 +61,8 @@ const initialState: ITiposListbox | null = {
             otOpcionVentaArmazon,
             otOpcionVentaCristales,
             otTipoAnteojo,
-            puntosVentaTipos
+            puntosVentaTipos,
+            clientestipos
         ] = await Promise.all([
             axios.get('https://mtoopticos.cl/api/tipos/listado/?query=02&_p1=CristalesDisenos'),
             axios.get('https://mtoopticos.cl/api/tipos/listado/?query=02&_p1=CristalesMateriales'),
@@ -75,6 +78,7 @@ const initialState: ITiposListbox | null = {
             axios.get('https://mtoopticos.cl/api/tipos/listado/?query=02&_p1=OTOpcionVentaCristales'),
             axios.get('https://mtoopticos.cl/api/tipos/listado/?query=02&_p1=OTTipoAnteojo'),
             axios.get('https://mtoopticos.cl/api/tipos/listado/?query=02&_p1=PuntosVentaTipos'),
+            axios.get('https://mtoopticos.cl/api/tipos/listado/?query=02&_p1=ClientesTipos'),
         ]);
 
         return {
@@ -91,7 +95,8 @@ const initialState: ITiposListbox | null = {
             OTOpcionVentaArmazon: otOpcionVentaArmazon.data,
             OTOpcionVentaCristales: otOpcionVentaCristales.data,
             OTTipoAnteojo: otTipoAnteojo.data,
-            PuntoVentaTipos: puntosVentaTipos.data
+            PuntoVentaTipos: puntosVentaTipos.data,
+            ClientesTipos: clientestipos.data
         }
 
     } catch (error) {
@@ -129,6 +134,7 @@ const listBoxTiposSlice = createSlice({
                 localStorage.setItem('ListBoxTipos.OTOpcionVentaCristales', JSON.stringify(action.payload.OTOpcionVentaCristales));
                 localStorage.setItem('ListBoxTipos.OTTipoAnteojo', JSON.stringify(action.payload.OTTipoAnteojo));
                 localStorage.setItem('ListBoxTipos.PuntosVentaTipos', JSON.stringify(action.payload.PuntoVentaTipos));
+                localStorage.setItem('ListBoxTipos.ClientesTipos', JSON.stringify(action.payload.ClientesTipos));
                 
                 return {
                     ...state,
@@ -146,6 +152,7 @@ const listBoxTiposSlice = createSlice({
                     OTOpcionVentaCristales: action.payload.OTOpcionVentaCristales,
                     OTTipoAnteojo: action.payload.OTTipoAnteojo,
                     PuntoVentaTipos: action.payload.PuntoVentaTipos,
+                    ClientesTipos: action.payload.ClientesTipos
 
 
                 }

@@ -68,10 +68,10 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     
     
     const strUrl2 = `${URLBackend}${entidad[0]}listado/?query=${entidad[1]}`;
-    console.log(strUrl2)
+    // console.log(strUrl2)
     
     const state = useAppSelector((store: AppStore) => store.listBox);
-    console.log(state)
+    // console.log(state)
     
     // console.log(strUrl2)
     
@@ -114,7 +114,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
           control={control}
           defaultValue={strSelectedName}
           render={({ field }) => (
-            <div className={`custom-select rounded-lg !h-[3rem]  absolute${error ? 'border-red-500' : 'border-gray-500'}  `}>
+            <div className={`custom-select border-gray-400 border-[1px] rounded-lg !h-[3rem]  absolute${error ? 'border-red-500' : 'border-gray-500'}  `}>
               <div className=" top-[-18%]  left-3.5 absolute w-1/2 z-10">
                 <label
                   htmlFor={label}

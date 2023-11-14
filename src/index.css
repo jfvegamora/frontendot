@@ -91,7 +91,7 @@ select::-ms-expand {
 .custom-select input:focus {
   border-width: 3px;
   /* border-color: #f39c12 !important; */
-  border: 3px solid #f39c12 !important;
+  border: 2px solid #f39c12 !important;
 
   /* outline: none !important;  */
 }
@@ -408,7 +408,8 @@ select::-ms-expand {
   border-color: rgb(207 216 220 / var(--tw-border-opacity));
   /*background-color: rgb(236 239 241 / 1);*/
   /* background-color: #424769; */
-  padding: 1rem;
+  height: 1px;
+  /* padding: 1rem; */
   border-width: 1px;
 }
 
@@ -445,7 +446,7 @@ table{
 
 th, td{
   background-color: #ffffff33;
-  padding: 15px;
+  /* padding: 15px; */
   color:#fff;
 }
 
@@ -465,13 +466,15 @@ tbody td{
 tbody td:hover:before{
   content: "" !important;
   position: absolute !important;
-  background-color: rgb(0 0 0 / 0.1) !important;
-  /* left: 0;  */
-  /* right: 0; */
+  /* background-color: rgb(0 0 0 / 0.1) !important; */
+  background-color: blue !important;
+  left: 0; 
+  right: 0;
   /* top: -9999px; */
   /* bottom: -9999px; */
-  z-index: 20 !important;
+  /* z-index: 10 !important; */
 }
+
 
 .gridTableData {
   border-bottom-width: 2px;

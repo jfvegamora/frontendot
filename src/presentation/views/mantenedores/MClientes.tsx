@@ -105,14 +105,9 @@ const MClientes: React.FC = () => {
             {
               name: "_p3",
               label: "Tipo",
-              type: "radiobuttons",
-              options: [
-                TIPO_CLIENTE.todos,
-                TIPO_CLIENTE.beneficiario,
-                TIPO_CLIENTE.particular,
-                TIPO_CLIENTE.optica,
-              ],
-              values: OptionValues,
+              type: "select",
+              selectUrl: "/api/tipos/",
+              tipos: "ClientesTipos",
             },
           ]}
         />
