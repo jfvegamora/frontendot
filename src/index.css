@@ -222,7 +222,7 @@ select::-ms-expand {
   height: 93vh;
   overflow: hidden;
 
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, 1);
   border-color: #f9b17a;
   border-width: 1px;
   border-radius: 20px;
@@ -271,14 +271,14 @@ select::-ms-expand {
 }
 
 /* Estilos para la grilla y elementos de la lista */
-.tableContainer {
-  background-color: #ffffff; /* Fondo de la grilla */
-  border-radius: 10px; /* Esquinas redondeadas */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
-  overflow: hidden; /* Para ocultar sombra en los bordes superiores */
-  margin-top: 20px; /* Espacio desde la parte superior */
+/* .tableContainer {
+  background-color: #ffffff; 
+  border-radius: 10px; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+  overflow: hidden; 
+  margin-top: 20px; 
   height: 90%;
-}
+} */
 
 /* Estilo para filas alternadas en la grilla */
 .tableRow:nth-child(even) {
@@ -379,7 +379,6 @@ select::-ms-expand {
   border-right-width: 2px;
   margin-left: auto;
   margin-right: auto;
-  /* margin-top: 1.5rem; */
   width: 100%;
   min-width: max-content;
   table-layout: fixed;
@@ -388,26 +387,19 @@ select::-ms-expand {
   text-align: center;
   border-collapse: collapse;
 
-  background-color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.1);
   border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(255, 69, 0, 0.8);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
   max-height: 100vh;
   overflow: auto;
   position: relative;
 }
-
+ 
 .gridTop {
   position: sticky;
   top: 0;
   z-index: 1;
-  background-color: #f8b179;
 }
-
-/* .gridTop {
-  position: sticky;
-  top: 50; 
-  z-index: 10;
-} */
 
 .gridHead {
   border-top-width: 1px;
@@ -415,11 +407,11 @@ select::-ms-expand {
   --tw-border-opacity: 1;
   border-color: rgb(207 216 220 / var(--tw-border-opacity));
   /*background-color: rgb(236 239 241 / 1);*/
-  background-color: #424769;
+  /* background-color: #424769; */
   padding: 1rem;
   border-width: 1px;
-
 }
+
 
 /* Estilos CSS para el checkbox en la tabla */
 .gridHead input[type="checkbox"],
@@ -440,10 +432,45 @@ select::-ms-expand {
   line-height: 1.25rem;
   line-height: 1;
   opacity: 0.7;
-  /* text-align: left; */
+  overflow: hidden; 
+}
 
-  /*word-wrap: break-word;*/ /* Rompe palabras largas */
-  overflow: hidden; /* Oculta el contenido que se desborde */
+table{
+  font-family: sans-serif;
+  font-weight: 100;
+  border-collapse: collapse;
+  overflow: hidden;
+  box-shadow: 0 0 20px #0000001a;
+}
+
+th, td{
+  background-color: #ffffff33;
+  padding: 15px;
+  color:#fff;
+}
+
+thead th{
+  background-color: #55608f !important;
+}
+
+tbody tr:hover{
+  /* background-color: rgb(255 255 255 / 0.5) !important; */
+  background-color: rgb(0 0 0 / 0.1) !important;
+}
+
+tbody td{
+  position: relative !important;
+}
+
+tbody td:hover:before{
+  content: "" !important;
+  position: absolute !important;
+  background-color: rgb(0 0 0 / 0.1) !important;
+  /* left: 0;  */
+  /* right: 0; */
+  /* top: -9999px; */
+  /* bottom: -9999px; */
+  z-index: 20 !important;
 }
 
 .gridTableData {
@@ -461,12 +488,12 @@ select::-ms-expand {
   color: #676f9d;
 }
 
-th {
+/* th {
   background-color: darkorange;
   padding: 5px;
   resize: horizontal;
   overflow: hidden;
-}
+} */
 
 /*Ancho del frame para div de keyInputs y div de la grilla. */
 .width50 {
