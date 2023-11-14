@@ -12,7 +12,7 @@ import {
   SUCCESS_MESSAGES,
   validationSituacionesSchema, TITLES
 } from "../../utils";
-import { SelectInputComponent, TextInputComponent } from "../../components";
+import { TextInputComponent } from "../../components";
 import { useCrud } from "../../hooks";
 import { EnumGrid } from "../mantenedores/MSituaciones";
 import { useModal } from "../../hooks/useModal";

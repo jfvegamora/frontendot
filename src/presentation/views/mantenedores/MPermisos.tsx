@@ -68,27 +68,29 @@ const MPermisos: React.FC = () => {
 
   return (
     <div className="mantenedorContainer">
-      <div className="mantenedorHead width70">
-        <PrimaryKeySearch
-          baseUrl={strBaseUrl}
-          setParams={setParams}
-          updateParams={updateParams}
-          setEntities={setEntities}
-          primaryKeyInputs={[
-            {
-              name: "_p2",
-              label: "Usuario",
-              type: "select",
-              selectUrl: "/api/usuarios/",
-            },
-            {
-              name: "_p3",
-              label: "Funcionalidad",
-              type: "select",
-              selectUrl: "/api/funcionalidades/",
-            },
-          ]}
-        />
+      <div className="mantenedorHead width80">
+        <div className="w-[60%]">
+          <PrimaryKeySearch
+            baseUrl={strBaseUrl}
+            setParams={setParams}
+            updateParams={updateParams}
+            setEntities={setEntities}
+            primaryKeyInputs={[
+              {
+                name: "_p2",
+                label: "Usuario",
+                type: "select",
+                selectUrl: "/api/usuarios/",
+              },
+              {
+                name: "_p3",
+                label: "Funcionalidad",
+                type: "select",
+                selectUrl: "/api/funcionalidades/",
+              },
+            ]}
+          />
+        </div>
 
         <PrimaryButtonsComponent
           handleAddPerson={openModal}

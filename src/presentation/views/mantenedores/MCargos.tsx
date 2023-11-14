@@ -12,7 +12,6 @@ import {
 } from "../../components";
 import { TITLES, table_head_cargos } from "../../utils";
 import FCargos from "../forms/FCargos";
-import FilterButton from "../../components/FilterButton";
 import { handleContainerClick } from "../../pages/LandingPage";
 
 
@@ -69,9 +68,8 @@ const MCargos: React.FC = () => {
 
   return (
     <div className="mantenedorContainer" onClick={handleContainerClick}>
-        <FilterButton>
-      <div className="mantenedorHead width50">
-          <>
+      <div className="mantenedorHead width60">
+        <div className="w-[60%] ">
             <PrimaryKeySearch
               baseUrl={strBaseUrl}
               updateParams={updateParams}
@@ -79,6 +77,7 @@ const MCargos: React.FC = () => {
               setEntities={setEntities}
               primaryKeyInputs={[{ name: "_p1", label: "Cargo", type: "text" }]}
             />
+        </div>
 
             <PrimaryButtonsComponent
               handleAddPerson={openModal}
@@ -95,9 +94,8 @@ const MCargos: React.FC = () => {
               showRefreshButton={true}
               idMenu={idMenu}
             />
-          </>
       </div>
-        </FilterButton>
+
 
       <div className="width50 scroll">
         <TableComponent

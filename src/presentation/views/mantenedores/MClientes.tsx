@@ -10,7 +10,7 @@ import {
 } from "../../components";
 import { useEntityUtils } from "../../hooks";
 import FClientes from "../forms/FClientes";
-import { TITLES, table_head_clientes, TIPO_CLIENTE } from "../../utils";
+import { TITLES, table_head_clientes } from "../../utils";
 
 
 export enum EnumGrid {
@@ -88,7 +88,8 @@ const MClientes: React.FC = () => {
 
   return (
     <div className="mantenedorContainer">
-      <div className="mantenedorHead width90">    
+      <div className="mantenedorHead width90">   
+      <div className="w-[70%]">
         <PrimaryKeySearch
           baseUrl={strBaseUrl}
           setParams={setParams}
@@ -111,6 +112,7 @@ const MClientes: React.FC = () => {
             },
           ]}
         />
+      </div> 
 
         <PrimaryButtonsComponent
           handleAddPerson={openModal}

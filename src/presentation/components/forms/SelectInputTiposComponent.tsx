@@ -7,7 +7,6 @@ import { IconButton, Tooltip } from "@material-tailwind/react";
 import React, { useEffect, useState, useRef } from "react";
 import { Controller } from "react-hook-form";
 import { FiRefreshCw } from "react-icons/fi";
-import { useCrud, useEntityUtils } from "../../hooks";
 import axios from "axios";
 import { AppStore, useAppDispatch, useAppSelector } from "../../../redux/store";
 import { updateDataForKey } from "../../../redux/slices/ListBoxTipoSlice";
@@ -56,22 +55,22 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
 
     
 
-    const store = useAppSelector((store: AppStore) => store.listBoxTipos);
+    // const store = useAppSelector((store: AppStore) => store.listBoxTipos);
     const stateListBox = useAppSelector((store: AppStore) => store.listBoxTipos[entidad]);
     const dispatch = useAppDispatch()
     // const stateListBox = useAppSelector((store: AppStore) => (store.listBoxTipos as any)[entidad || ""]);
 
     
     // const stateListBox = useAppSelector((store: AppStore) => store.listBoxTipos![entidad]);
-    console.log(store)
-    console.log(entidad)
+    // console.log(store)
+    // console.log(entidad)
     // console.log(ox)
 
 
 
     
 
-    const [refreshToggle, setrefreshToggle] = useState(false);
+    const [_refreshToggle, setrefreshToggle] = useState(false);
     const [entities, setEntities] = useState(stateListBox|| []);
     const [strSelectedName, setStrSelectedName] = useState(data || undefined);
     // const strUrl = entidad && entidad[0];
@@ -80,7 +79,7 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
 
     useEffect(()=>{
       if(stateListBox && stateListBox?.length < 1 || stateListBox === null || stateListBox === undefined){
-        console.log('no data')
+        // console.log('no data')
         axios(`https://mtoopticos.cl/api/tipos/listado/?query=02&_p1=${entidad}`)
         .then((data:any)=>{
           setEntities(data.data)

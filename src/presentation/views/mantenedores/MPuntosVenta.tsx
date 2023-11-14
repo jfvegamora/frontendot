@@ -73,22 +73,24 @@ const MPuntosVenta: React.FC = () => {
   return (
     <div className="mantenedorContainer">
       <div className="mantenedorHead width90">
-        <PrimaryKeySearch
-          baseUrl={strBaseUrl}
-          setParams={setParams}
-          updateParams={updateParams}
-          setEntities={setEntities}
-          primaryKeyInputs={[
-            { name: "_p1", label: "Descripción", type: "text" },
-            {
-              name      : "_p2",
-              label     : "Tipo",
-              type      : "select",
-              selectUrl : "/api/tipos/",
-              tipos     : "PuntosVentaTipos"
-            },
-          ]}
-        />
+        <div className="w-[50%]">
+          <PrimaryKeySearch
+            baseUrl={strBaseUrl}
+            setParams={setParams}
+            updateParams={updateParams}
+            setEntities={setEntities}
+            primaryKeyInputs={[
+              { name: "_p1", label: "Descripción", type: "text" },
+              {
+                name      : "_p2",
+                label     : "Tipo",
+                type      : "select",
+                selectUrl : "/api/tipos/",
+                tipos     : "PuntosVentaTipos"
+              },
+            ]}
+          />
+        </div>
 
         <PrimaryButtonsComponent
           handleAddPerson={openModal}

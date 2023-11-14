@@ -65,22 +65,24 @@ const MAlmacenes: React.FC = () => {
   return (
     <div className="mantenedorContainer">
       <div className="mantenedorHead width70">
-        <PrimaryKeySearch
-          baseUrl={strBaseUrl}
-          setParams={setParams}
-          updateParams={updateParams}
-          setEntities={setEntities}
-          primaryKeyInputs={[
-            { name: "_p1", label: "Descripción", type: "text" },
-            {
-              name      : "_p2",
-              label     : "Tipo",
-              type      : "select",
-              selectUrl : "/api/tipos/",
-              tipos     : "AlmacenesTipos"
-            },
-          ]}
-        />
+        <div className="w-[60%]">
+          <PrimaryKeySearch
+            baseUrl={strBaseUrl}
+            setParams={setParams}
+            updateParams={updateParams}
+            setEntities={setEntities}
+            primaryKeyInputs={[
+              { name: "_p1", label: "Descripción", type: "text" },
+              {
+                name      : "_p2",
+                label     : "Tipo",
+                type      : "select",
+                selectUrl : "/api/tipos/",
+                tipos     : "AlmacenesTipos"
+              },
+            ]}
+          />
+        </div>
 
         <PrimaryButtonsComponent
           handleAddPerson={openModal}

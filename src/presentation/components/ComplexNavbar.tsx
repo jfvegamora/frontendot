@@ -22,7 +22,6 @@ import {
   Square3Stack3DIcon,
   ChevronDownIcon,
   PowerIcon,
-  RocketLaunchIcon,
   Bars2Icon,
 } from "@heroicons/react/24/outline";
 import { AppStore, useAppDispatch, useAppSelector } from "../../redux/store";
@@ -661,7 +660,7 @@ export default function ComplexNavbar() {
   const [isNavOpen, setIsNavOpen] = React.useState(false);
   const userState = useAppSelector((store: AppStore) => store.user);
   const location = useLocation();
-  const [titulo, setTitulo] = useState('');
+  const [_titulo, setTitulo] = useState('');
   
   
   const toggleIsNavOpen = () => setIsNavOpen((cur) => !cur);

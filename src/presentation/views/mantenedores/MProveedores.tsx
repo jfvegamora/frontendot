@@ -68,17 +68,19 @@ const MProveedores: React.FC = () => {
 
   return (
     <div className="mantenedorContainer">
-      <div className="mantenedorHead width70">
-        <PrimaryKeySearch
-          baseUrl         ={strBaseUrl}
-          setParams       ={setParams}
-          updateParams    ={updateParams}
-          setEntities     ={setEntities}
-          primaryKeyInputs={[
-            { name: "_p1", label: "RUT"   , type: "text" },
-            { name: "_p3", label: "Nombre", type: "text" },
-          ]}
-        />
+      <div className="mantenedorHead width80">
+        <div className="w-[60%]">
+          <PrimaryKeySearch
+            baseUrl         ={strBaseUrl}
+            setParams       ={setParams}
+            updateParams    ={updateParams}
+            setEntities     ={setEntities}
+            primaryKeyInputs={[
+              { name: "_p1", label: "RUT"   , type: "text" },
+              { name: "_p3", label: "Nombre", type: "text" },
+            ]}
+          />
+        </div>
 
         <PrimaryButtonsComponent
           handleAddPerson     ={openModal}

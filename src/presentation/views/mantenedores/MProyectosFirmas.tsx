@@ -74,22 +74,24 @@ const MProyectosFirmas: React.FC = () => {
     return (
       <div className="mantenedorContainer">
         <div className="mantenedorHead width90">
-          <PrimaryKeySearch
-            baseUrl={strBaseUrl}
-            setParams={setParams}
-            updateParams={updateParams}
-            setEntities={setEntities}
-            primaryKeyInputs={[
-              {
-                name: "_p1",
-                label: "Proyecto",
-                type: "select",
-                selectUrl: "/api/proyectos/",
-              },
-              { name: "_p2", label: "Código Proyecto", type: "text" },
-              { name: "_p3", label: "Código Licitación", type: "text" },
-            ]}
+          <div className="w-[70%]">
+            <PrimaryKeySearch
+              baseUrl={strBaseUrl}
+              setParams={setParams}
+              updateParams={updateParams}
+              setEntities={setEntities}
+              primaryKeyInputs={[
+                {
+                  name: "_p1",
+                  label: "Proyecto",
+                  type: "select",
+                  selectUrl: "/api/proyectos/",
+                },
+                { name: "_p2", label: "Código Proyecto", type: "text" },
+                { name: "_p3", label: "Código Licitación", type: "text" },
+              ]}
             />
+          </div>
   
           <PrimaryButtonsComponent
             handleAddPerson={openModal}

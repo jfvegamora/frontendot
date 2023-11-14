@@ -88,6 +88,7 @@ const MProyectosArmazones: React.FC = () => {
   return (
     <div className="mantenedorContainer">
       <div className="mantenedorHead width90">
+      <div className="w-[70%]">
         <PrimaryKeySearch
           baseUrl={strBaseUrl}
           setParams={setParams}
@@ -104,6 +105,7 @@ const MProyectosArmazones: React.FC = () => {
             { name: "_p3", label: "Código Licitacion", type: "text" },
           ]}
         />
+      </div>
 
         <PrimaryButtonsComponent
           handleAddPerson={openModal}

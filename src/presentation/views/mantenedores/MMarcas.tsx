@@ -67,21 +67,23 @@ const MMarcas: React.FC = () => {
   return (
     <div className="mantenedorContainer">
       <div className="mantenedorHead width70">
-        <PrimaryKeySearch
-          baseUrl={strBaseUrl}
-          setParams={setParams}
-          updateParams={updateParams}
-          setEntities={setEntities}
-          primaryKeyInputs={[
-            { name: "_p1", label: "Nombre", type: "text" },
-            {
-              name: "_p2",
-              label: "Proveedor",
-              type: "select",
-              selectUrl: "/api/proveedores/",
-            },
-          ]}
-        />
+        <div className="w-[60%]">
+          <PrimaryKeySearch
+            baseUrl={strBaseUrl}
+            setParams={setParams}
+            updateParams={updateParams}
+            setEntities={setEntities}
+            primaryKeyInputs={[
+              { name: "_p1", label: "Nombre", type: "text" },
+              {
+                name: "_p2",
+                label: "Proveedor",
+                type: "select",
+                selectUrl: "/api/proveedores/",
+              },
+            ]}
+          />
+        </div>
 
         <PrimaryButtonsComponent
           handleAddPerson={openModal}

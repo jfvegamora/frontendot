@@ -78,28 +78,30 @@ const MEstablecimientos: React.FC = () => {
   return (
     <div className="mantenedorContainer">
       <div className="mantenedorHead width80">
-        <PrimaryKeySearch
-          baseUrl={strBaseUrl}
-          setParams={setParams}
-          updateParams={updateParams}
-          setEntities={setEntities}
-          primaryKeyInputs={[
-            { name: "_p1", label: "Establecimiento", type: "text" },
-            {
-              name: "_p2",
-              label: "Mandante",
-              type: "select",
-              selectUrl: "/api/mandantes/",
-            },
-            {
-              name      : "_p3",
-              label     : "Tipo",
-              type      : "select",
-              selectUrl : "/api/tipos/",
-              tipos     : "EstablecimientosTipos"
-            },
-      ]}
-        />
+        <div className="w-[70%]">
+          <PrimaryKeySearch
+            baseUrl={strBaseUrl}
+            setParams={setParams}
+            updateParams={updateParams}
+            setEntities={setEntities}
+            primaryKeyInputs={[
+              { name: "_p1", label: "Establecimiento", type: "text" },
+              {
+                name: "_p2",
+                label: "Mandante",
+                type: "select",
+                selectUrl: "/api/mandantes/",
+              },
+              {
+                name      : "_p3",
+                label     : "Tipo",
+                type      : "select",
+                selectUrl : "/api/tipos/",
+                tipos     : "EstablecimientosTipos"
+              },
+        ]}
+          />
+        </div>
 
         <PrimaryButtonsComponent
           handleAddPerson={openModal}

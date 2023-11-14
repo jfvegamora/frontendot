@@ -70,27 +70,29 @@ const MPerfiles: React.FC = () => {
 
   return (
     <div className="mantenedorContainer">
-      <div className="mantenedorHead width70">
-        <PrimaryKeySearch
-          baseUrl={strBaseUrl}
-          setParams={setParams}
-          updateParams={updateParams}
-          setEntities={setEntities}
-          primaryKeyInputs={[
-            {
-              name: "_p2",
-              label: "Cargo",
-              type: "select",
-              selectUrl: "/api/cargos/",
-            },
-            {
-              name: "_p3",
-              label: "Funcionalidad",
-              type: "select",
-              selectUrl: "/api/funcionalidades/",
-            },
-          ]}
-        />
+      <div className="mantenedorHead width80">
+        <div className="w-[60%]">
+          <PrimaryKeySearch
+            baseUrl={strBaseUrl}
+            setParams={setParams}
+            updateParams={updateParams}
+            setEntities={setEntities}
+            primaryKeyInputs={[
+              {
+                name: "_p2",
+                label: "Cargo",
+                type: "select",
+                selectUrl: "/api/cargos/",
+              },
+              {
+                name: "_p3",
+                label: "Funcionalidad",
+                type: "select",
+                selectUrl: "/api/funcionalidades/",
+              },
+            ]}
+          />
+        </div>
 
         <PrimaryButtonsComponent
           handleAddPerson={openModal}

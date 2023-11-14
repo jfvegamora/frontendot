@@ -4,7 +4,7 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect } from "react";
-import { SelectInputComponent, TextInputComponent } from "../../components";
+import { TextInputComponent } from "../../components";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationAlmacenesSchema } from "../../utils/validationFormSchemas";

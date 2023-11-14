@@ -8,7 +8,6 @@ import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 
 import useCrud from "../hooks/useCrud";
 import { SelectInputComponent } from ".";
-import { filterToggle } from "./FilterButton";
 import SelectInputTiposComponent from "./forms/SelectInputTiposComponent";
 
 interface IPrimaryKeyState {
@@ -31,6 +30,7 @@ interface PrimaryKeySearchProps {
   updateParams: any;
   description?: any;
 }
+
 
 const MemoizedMagnifyingGlassIcon = React.memo(() => (
   <MagnifyingGlassIcon className="primaryKeyIcon" />
@@ -122,7 +122,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
     const handleBlur = React.useCallback(() => {
       handleSubmit(handleSearch)();
     }, []);
-    // console.log(primaryKeyInputs.length);
+
 
     const renderInputs = () => {
       const inputGroups = [];
@@ -136,7 +136,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
           className={
             primaryKeyInputs.length > 5
               ? `grid grid-rows-3 w-[40vw] h-[30vh] grid-cols-2 items-center `
-              : "flex mb-auto items-center  w-[50rem] ml-[-1rem] "
+              : "flex mb-auto items-cente w-[70rem] ml-[-1rem] items-center "
           }
         >
           {group.map((input, inputIndex) => (
@@ -227,6 +227,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                           <div className="w-[96%]  -mt-2 mx-auto ">
                             <Input
                               color="orange"
+                              tabIndex={1}
                               className="!w-[96%] !h-12 ml-2"
                               {...field}
                               label={input.label}
@@ -252,6 +253,20 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
               )}
             />
           ))}
+          {/* <div className="">
+            <Tooltip content="Buscar">
+            <IconButton
+            tabIndex={1}
+              variant="text"
+              className="primaryKeyIconButton items-center ml-6 "
+              type="submit"
+              onClick={handleSubmit(handleSearch)}
+            >
+              <MemoizedMagnifyingGlassIcon />
+            
+            </IconButton>
+          </Tooltip>
+          </div> */}
         </div>
       ));
     };
@@ -282,16 +297,18 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
       <form className="primaryKeyContainer items-center relative">
         {renderInputs()}
         <Tooltip content="Buscar">
-          <IconButton
-            variant="text"
-            className="primaryKeyIconButton items-center ml-6 "
-            type="submit"
-            onClick={handleSubmit(handleSearch)}
-          >
-            <MemoizedMagnifyingGlassIcon />
-            {/* <MagnifyingGlassIcon className="primaryKeyIcon" se} /> */}
-          </IconButton>
-        </Tooltip>
+            <IconButton
+            tabIndex={1}
+              variant="text"
+              className="primaryKeyIconButton items-center ml-6 "
+              type="submit"
+              onClick={handleSubmit(handleSearch)}
+            >
+              <MemoizedMagnifyingGlassIcon />
+              {/* <MagnifyingGlassIcon className="primaryKeyIcon" se} /> */}
+            </IconButton>
+          </Tooltip>
+       
         {description && (
           <input
             className="mx-8 w-[44rem] absolute bottom-[-2rem] left-[-4rem]"

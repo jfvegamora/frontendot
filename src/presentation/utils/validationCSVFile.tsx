@@ -1,6 +1,5 @@
 import * as XLSX from 'xlsx';
 import moment from 'moment';
-import { isValid, parse } from 'date-fns';
 
 export function validateExcelData(data:any, validationStructure:any) {
   const validationErrors = [];

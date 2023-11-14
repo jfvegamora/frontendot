@@ -83,7 +83,7 @@ const MArmazonesKardex: React.FC = () => {
 
   return (
     <div className="mantenedorContainer">
-      <div className="mantenedorHead width90">
+      <div className="mantenedorHead width100">
         <PrimaryKeySearch
           baseUrl={strBaseUrl}
           setParams={setParams}

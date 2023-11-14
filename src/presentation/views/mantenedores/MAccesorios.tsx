@@ -81,22 +81,25 @@ const MAccesorios: React.FC = () => {
   return (
     <div className="mantenedorContainer">
       <div className="mantenedorHead width90 ">
-        <PrimaryKeySearch
-          baseUrl={strBaseUrl}
-          setParams={setParams}
-          updateParams={updateParams}
-          setEntities={setEntities}
-          primaryKeyInputs={[
-            { name: "_p1", label: "Código", type: "number" },
-            { name: "_p2", label: "Descripción", type: "text" },
-            {
-              name: "_p3",
-              label: "Marca",
-              type: "select",
-              selectUrl: "/api/marcas/",
-            },
-          ]}
-        />
+        <div className="w-[70%]">
+          <PrimaryKeySearch
+            baseUrl={strBaseUrl}
+            setParams={setParams}
+            updateParams={updateParams}
+            setEntities={setEntities}
+            primaryKeyInputs={[
+              { name: "_p1", label: "Código", type: "number" },
+              { name: "_p2", label: "Descripción", type: "text" },
+              {
+                name: "_p3",
+                label: "Marca",
+                type: "select",
+                selectUrl: "/api/marcas/",
+              },
+            ]}
+          />
+
+        </div>
 
         <PrimaryButtonsComponent
           handleAddPerson={openModal}

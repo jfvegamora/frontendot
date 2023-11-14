@@ -353,7 +353,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
 
           </div>
           {isEditting && (
-            <div className="w-1/2">
+            <div className="w-1/2 mx-auto">
               <button
                 type="button"
                 onClick={handlePermisos}

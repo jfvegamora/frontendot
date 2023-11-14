@@ -64,16 +64,18 @@ const MCargos: React.FC = () => {
 
   return (
     <div className="mantenedorContainer">
-      <div className="mantenedorHead width50">
-        <PrimaryKeySearch
-          baseUrl={strBaseUrl}
-          updateParams={updateParams}
-          setParams={setParams}
-          setEntities={setEntities}
-          primaryKeyInputs={[
-            { name: "_p1", label: "Funcionalidad", type: "text" },
-          ]}
-        />
+      <div className="mantenedorHead width60">
+        <div className="w-[60%]">
+          <PrimaryKeySearch
+            baseUrl={strBaseUrl}
+            updateParams={updateParams}
+            setParams={setParams}
+            setEntities={setEntities}
+            primaryKeyInputs={[
+              { name: "_p1", label: "Funcionalidad", type: "text" },
+            ]}
+          />
+        </div>
 
         <PrimaryButtonsComponent
           handleAddPerson={openModal}

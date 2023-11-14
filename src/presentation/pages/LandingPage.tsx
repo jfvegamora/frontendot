@@ -1,8 +1,8 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useCallback } from "react";
-import FilterButton, { filterToggle } from "../components/FilterButton";
+import React from "react";
+import { filterToggle } from "../components/FilterButton";
 import { AppStore, useAppSelector } from "../../redux/store";
 // import FrameComponent from "../components/FrameComponent";
 
@@ -27,12 +27,7 @@ const LandingPage: React.FC = () => {
   return (
     <div className="mantenedorContainer" onClick={handleContainerClick}>
       <div className="mt-16">
-      
-        <FilterButton>
-          <h1>Hola mundo</h1>
-          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vero suscipit ab laboriosam quam laborum sed est in beatae. Facilis necessitatibus fugit error sequi consectetur id impedit voluptas est aperiam earum?
-          </p>
-        </FilterButton>
+
       </div>
     </div>
   );

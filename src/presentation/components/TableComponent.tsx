@@ -92,42 +92,45 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
     }, [data]);
 
     useEffect(() => {
-      // Obtén todas las columnas (th) y guárdalas en una variable
+      const handleColumnMouseDown = (e: any) => {
+        const initialX = e.clientX;
+        const columnId = e.target.id;
+        const column = document.getElementById(columnId);
+    
+        const handleMouseMove = (e: any) => {
+          if (column) {
+            const width = column.offsetWidth + (e.clientX - initialX);
+            column.style.width = `${width}px`;
+          }
+        };
+    
+        const handleMouseUp = () => {
+          document.removeEventListener('mousemove', handleMouseMove);
+          document.removeEventListener('mouseup', handleMouseUp);
+        };
+    
+        document.addEventListener('mousemove', handleMouseMove);
+        document.addEventListener('mouseup', handleMouseUp);
+      };
+    
       const columns = document.querySelectorAll('th');
-      console.log('columns', columns)
-  
+    
       columns.forEach((column) => {
-        // Agrega un evento al mouse para el redimensionamiento
-        column.addEventListener('mousedown', (e:any) => {
-          const initialX = e.clientX;
-          const columnId = e.target.id;
-          const column = document.getElementById(columnId);
-  
-          // Función que se ejecuta cuando se mueve el mouse
-          const handleMouseMove = (e:any) => {
-            if(column){
-              const width = column.offsetWidth + (e.clientX - initialX);
-              column.style.width = `${width}px`;
-            }
-          };
-  
-          // Función que se ejecuta al soltar el mouse
-          const handleMouseUp = () => {
-            document.removeEventListener('mousemove', handleMouseMove);
-            document.removeEventListener('mouseup', handleMouseUp);
-          };
-  
-          // Agrega eventos al documento para el movimiento del mouse y al soltar el mouse
-          document.addEventListener('mousemove', handleMouseMove);
-          document.addEventListener('mouseup', handleMouseUp);
-        });
-  
-        // Limpia los eventos cuando el componente se desmonta
+        column.addEventListener('mousedown', handleColumnMouseDown);
+    
         return () => {
-          column.removeEventListener('mousedown');
+          column.removeEventListener('mousedown', handleColumnMouseDown);
         };
       });
+    
+      // Limpia los eventos cuando el componente se desmonta
+      return () => {
+        columns.forEach((column) => {
+          column.removeEventListener('mousedown', handleColumnMouseDown);
+        });
+      };
     }, []);
+    
 
     const renderTextCell = (text: string, alignment?:string, type?:number) => {
 
@@ -136,7 +139,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
       }
       // console.log(type)
       return(
-        <Typography variant="small" color="blue-gray" className={`gridText  ${type === 1 ? '!text-white': ''} `} style={cellStyle}>
+        <Typography variant="small" color="blue-gray" className={`gridText h-8 text-center  ${type === 1 ? '!text-white': ''} `} style={cellStyle}>
           {text !== null && text !== undefined ? text.toString() : ""}
         </Typography>
       )

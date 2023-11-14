@@ -89,6 +89,7 @@ const MProyectosCristales: React.FC = () => {
     return (
       <div className="mantenedorContainer">
         <div className="mantenedorHead width90">
+        <div className="w-[70%]">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
             setParams={setParams}
@@ -105,6 +106,7 @@ const MProyectosCristales: React.FC = () => {
               { name: "_p3", label: "Código Licitación", type: "text" },
             ]}
             />
+        </div>
   
           <PrimaryButtonsComponent
             handleAddPerson={openModal}

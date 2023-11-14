@@ -94,44 +94,49 @@ const MProyectos: React.FC = () => {
   return (
     <div className="mantenedorContainer">
       <div className="mantenedorHead width100">
-        <PrimaryKeySearch
-          baseUrl={strBaseUrl}
-          setParams={setParams}
-          updateParams={updateParams}
-          setEntities={setEntities}
-          primaryKeyInputs={[
-            {
-              name: "_p1",
-              label: "Mandante",
-              type: "select",
-              selectUrl: "/api/mandantes/",
-            },
-            {
-              name: "_p2",
-              label: "Titulo",
-              type: "select",
-              selectUrl: "/api/proyectos/",
-            },
-            { name: "_p3", label: "Codigo Proyecto", type: "text" },
-            { name: "_p4", label: "Codigo Licitacion", type: "text" },
-          ]}
-        />
+        <div className="w-[75%] ">
+          <PrimaryKeySearch
+            baseUrl={strBaseUrl}
+            setParams={setParams}
+            updateParams={updateParams}
+            setEntities={setEntities}
+            primaryKeyInputs={[
+              {
+                name: "_p1",
+                label: "Mandante",
+                type: "select",
+                selectUrl: "/api/mandantes/",
+              },
+              {
+                name: "_p2",
+                label: "Titulo",
+                type: "select",
+                selectUrl: "/api/proyectos/",
+              },
+              { name: "_p3", label: "Codigo Proyecto", type: "text" },
+              { name: "_p4", label: "Codigo Licitacion", type: "text" },
+            ]}
+          />
+        </div>
 
-        <PrimaryButtonsComponent
-          handleAddPerson={openModal}
-          handleDeleteSelected={handleDeleteSelected}
-          handleRefresh={resetEntities}
-          params={params}
-          pkToDelete={pkToDelete}
-          strEntidad={strEntidadExcel}
-          strBaseUrl={strBaseUrl}
-          showAddButton={true}
-          showExportButton={true}
-          showDeleteButton={true}
-          showForwardButton={false}
-          showRefreshButton={true}
-          idMenu={idMenu}
-        />
+        <div className="w-[25%] ml-16  ">
+          <PrimaryButtonsComponent
+            handleAddPerson={openModal}
+            handleDeleteSelected={handleDeleteSelected}
+            handleRefresh={resetEntities}
+            params={params}
+            pkToDelete={pkToDelete}
+            strEntidad={strEntidadExcel}
+            strBaseUrl={strBaseUrl}
+            showAddButton={true}
+            showExportButton={true}
+            showDeleteButton={true}
+            showForwardButton={false}
+            showRefreshButton={true}
+            idMenu={idMenu}
+          />
+        </div>
+
       </div>
 
       <div className="width100 scroll">

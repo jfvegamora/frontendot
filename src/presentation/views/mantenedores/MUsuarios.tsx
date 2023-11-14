@@ -87,22 +87,24 @@ const MUsuarios: React.FC = () => {
  
   return (
     <div className="mantenedorContainer">
-      <div className="mantenedorHead width70">
-        <PrimaryKeySearch
-          baseUrl={strBaseUrl}
-          setParams={setParams}
-          updateParams={updateParams}
-          setEntities={setEntities}
-          primaryKeyInputs={[
-            { name: "_p1", label: "Nombre", type: "text" },
-            {
-              name: "_p2",
-              label: "Cargos",
-              type: "select",
-              selectUrl: "/api/cargos/",
-            },
-          ]}
-        />
+      <div className="mantenedorHead width80">
+        <div className="w-[60%]">
+          <PrimaryKeySearch
+            baseUrl={strBaseUrl}
+            setParams={setParams}
+            updateParams={updateParams}
+            setEntities={setEntities}
+            primaryKeyInputs={[
+              { name: "_p1", label: "Nombre", type: "text" },
+              {
+                name: "_p2",
+                label: "Cargos",
+                type: "select",
+                selectUrl: "/api/cargos/",
+              },
+            ]}
+          />
+        </div>
 
         <PrimaryButtonsComponent
           handleAddPerson={openModal}
@@ -135,7 +137,7 @@ const MUsuarios: React.FC = () => {
           tableHead={table_head_usuarios}
           showEditButton={true}
           showDeleteButton={false}
-          showPermisoOTButton={true}  
+          showPermisoOTButton={false}  
           idMenu={idMenu}
           togglePermisoOTModal={togglePermisoOTModal}
           // setTotalRowIndex={setTotalRowIndex}

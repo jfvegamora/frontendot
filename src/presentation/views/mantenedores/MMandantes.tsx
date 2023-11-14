@@ -70,17 +70,19 @@ const MMandantes: React.FC = () => {
 
   return (
     <div className="mantenedorContainer">
-      <div className="mantenedorHead width70">
-        <PrimaryKeySearch
-          baseUrl={strBaseUrl}
-          setParams={setParams}
-          updateParams={updateParams}
-          setEntities={setEntities}
-          primaryKeyInputs={[
-            { name: "_p2", label: "Código", type: "number" },
-            { name: "_p1", label: "Nombre", type: "text" },
-          ]}
-        />
+      <div className="mantenedorHead width80">
+        <div className="w-[60%]">
+          <PrimaryKeySearch
+            baseUrl={strBaseUrl}
+            setParams={setParams}
+            updateParams={updateParams}
+            setEntities={setEntities}
+            primaryKeyInputs={[
+              { name: "_p2", label: "Código", type: "number" },
+              { name: "_p1", label: "Nombre", type: "text" },
+            ]}
+          />
+        </div>
 
         <PrimaryButtonsComponent
           handleAddPerson={openModal}
