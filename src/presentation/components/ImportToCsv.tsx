@@ -201,6 +201,7 @@ const ImportToCsv:React.FC<ImportProps> = ({
             variant="text"
             color="blue-gray"
             className="primaryBtnIconButton"
+            tabIndex={1}
             // onClick={handle}
             // disabled={!escritura_lectura}
           >

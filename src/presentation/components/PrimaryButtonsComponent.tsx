@@ -86,6 +86,7 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
         <Tooltip content={tooltip}>
           <IconButton
             variant="text"
+            tabIndex={1}
             color="blue-gray"
             className="primaryBtnIconButton"
             onClick={handle}
@@ -174,6 +175,7 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
             <Tooltip content="Eliminar">
               <IconButton
                 variant="text"
+                tabIndex={1}
                 color="blue-gray"
                 className="primaryBtnIconButton"
                 disabled={!escritura_lectura}
