@@ -112,7 +112,7 @@ const Login: React.FC = React.memo(() => {
                     </button>
                   </div>
                 </div>
-                <Link className="forgotPwd" to="/forgotpassword">Recupera Contraseña</Link>
+                <Link className="forgotPwd text-white" to="/forgotpassword">Recupera Contraseña</Link>
               </form>
             </div>
           </div>
