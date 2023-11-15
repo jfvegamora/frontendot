@@ -75,7 +75,7 @@ const ProfileUser: React.FC = () => {
       return navigate("/login");
     }
   }, []);
-  // console.log(userState);
+  console.log(userState);
 
   return (
     <div className="useFormContainer w-[35vw] mt-4 top-24 left-[33%]">

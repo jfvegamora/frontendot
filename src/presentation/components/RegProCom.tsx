@@ -69,11 +69,11 @@ const RegProCom:React.FC<IProps> = ({
     setValue("comuna", communeId);
   };
 
-  console.log(defaultComuna)
-  console.log(selectedCommune)
-  console.log(comunas)
-  console.log(defaultProvincia)
-  console.log(defaultRegion)
+//   console.log(defaultComuna)
+//   console.log(selectedCommune)
+//   console.log(comunas)
+//   console.log(defaultProvincia)
+//   console.log(defaultRegion)
   
   return (
     <div className='w-full py-2 items-center'>

@@ -47,6 +47,7 @@ const Login: React.FC = React.memo(() => {
           if (user.length === 0)
             return show({ message: LOGIN.loginError, type: "error" });
           const response: IUser = jwtDecode(user[0]);
+          console.log(response)
           dispatch(login(response));
           dispatch(fetchFuncionalidades());
           dispatch(fetchOTAreas())

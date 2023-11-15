@@ -53,7 +53,7 @@ const FilterButton: React.FC<IProps> = ({
       >
         {children}
       </div>
-        <RxDoubleArrowLeft onClick={()=>filterToggle.value = !filterToggle.value} className=" text-[#f39c12] hover:bg-gray-200  rounded-xl cursor-pointer w-[4rem] absolute h-[4rem] top-[6.5rem] right-2"/>
+        <RxDoubleArrowLeft onClick={()=>filterToggle.value = !filterToggle.value} className=" text-[#f39c12] hover:bg-gray-200  rounded-xl cursor-pointer w-[4rem] absolute h-[4rem] top-[6.5rem] right-4"/>
     </div>
   );
 };

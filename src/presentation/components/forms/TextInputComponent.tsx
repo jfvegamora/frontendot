@@ -89,7 +89,7 @@ return (
           className ={`${className ? className : " custom-input "}`}
           tabIndex  ={tabIndex || 1}
           placeholder={type === 'date' ? "dd-mm-yyyy" : ''}
-          
+          autoComplete="off" 
         />
       </div>
     )}
