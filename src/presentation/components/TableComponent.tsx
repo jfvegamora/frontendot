@@ -149,11 +149,12 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
       // console.log(id)
 
       return (
-        <div className="flex items-center justify-between">
+        <>
           <input
             checked={selectedRows && selectedRows.includes(id)}
             onChange={() => handleSelectChecked && handleSelectChecked(id)}
             type="checkbox"
+            
           />
           {isOT && (
 
@@ -167,7 +168,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
             />
             </>
           )}
-        </div>
+        </>
 
       )
   };

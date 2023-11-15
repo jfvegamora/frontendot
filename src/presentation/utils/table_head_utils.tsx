@@ -4,7 +4,8 @@ export const table_head_OT_diaria = [
     cell: <input type="checkbox" />,
     key: "checkbox",
     visible: true,
-    width: "w-[9rem]"
+    width: "w-[9rem]",
+    alignment: "flex justify-center items-center"
   },
   //************ ÓPTICA */
   {
@@ -769,7 +770,8 @@ export const table_head_OT_bitacora = [
     cell: <input type="checkbox" />,
     key: "checkbox",
     visible: true,
-    width: "w-[3rem]"
+    width: "w-[3rem]",
+    alignment: "flex justify-center items-center"
   },
   {
     cell: "Fecha/Hora",
@@ -857,7 +859,8 @@ export const table_head_clientes = [
     cell: <input type="checkbox" />,
     key: "checkbox",
     visible: true,
-    width: "w-[3rem]"
+    width: "w-[3rem]",
+    alignment: "flex justify-center  items-center"
   },
   {
     cell: "RUT",
@@ -975,7 +978,8 @@ export const table_head_establecimientos = [
     cell: <input type="checkbox" />,
     key: "checkbox",
     visible: true,
-    width: "w-[4rem]"
+    width: "w-[4rem]",
+    alignment: "flex justify-center items-center"
   },
   {
     cell: "ID",
@@ -1069,6 +1073,7 @@ export const table_head_puntos_venta = [
     key: "checkbox",
     visible: true,
     width: "w-[3rem]",
+    alignment: "flex justify-center items-center"
   },
   {
     cell: "Id",
@@ -1139,7 +1144,7 @@ export const table_head_situaciones = [
     key: "checkbox",
     visible: true,
     width: "w-[4rem]",
-    alignment: "items-right"
+    alignment: "flex justify-center items-center"
   },
   {
     cell: "ID",
@@ -1183,6 +1188,7 @@ export const table_head_accesorios = [
     key: "checkbox",
     visible: true,
     width: "w-[3rem]",
+    alignment: "flex justify-center items-center"
   },
   {
     cell: "Código",
@@ -1281,6 +1287,7 @@ export const table_head_armazones = [
     key: "checkbox",
     visible: true,
     width: "w-[3rem]",
+    alignment: "flex justify-center items-center"
   },
   {
     cell: "Código",
@@ -1434,6 +1441,7 @@ export const table_head_cristales = [
     key: "checkbox",
     visible: true,
     width: "w-[3rem]",
+    alignment: "flex justify-center items-center"
   },
   {
     cell: "Código",
@@ -1602,6 +1610,7 @@ export const table_head_kardex = [
     key: "checkbox",
     visible: true,
     width: "w-[3rem]",
+    alignment: "flex justify-center items-center"
   },
   {
     cell: "Fecha/Hora",
@@ -1736,6 +1745,7 @@ export const table_head_almacenes = [
     key: "checkbox",
     visible: true,
     width: "w-[3rem]",
+    alignment: "flex justify-center items-center"
   },
   {
     cell: "ID",
@@ -1772,6 +1782,7 @@ export const table_head_marcas = [
     key: "checkbox",
     visible: true,
     width: "w-[3rem]",
+    alignment: "flex justify-center items-center"
   },
   {
     cell: "ID",
@@ -1808,6 +1819,7 @@ export const table_head_proveedores = [
     key: "checkbox",
     visible: true,
     width: "w-[3rem]",
+    alignment: "flex justify-center items-center"
   },
   {
     cell: "ID",
@@ -1863,7 +1875,8 @@ export const table_head_mandantes = [
     cell: <input type="checkbox" />,
     key: "checkbox",
     visible: true,
-    width: "w-[3rem]"
+    width: "w-[3rem]",
+    alignment: "flex justify-center items-center"
   },
   {
     cell: "Cod. Mercado Público",
@@ -1935,6 +1948,7 @@ export const table_head_proyectos = [
     key: "checkbox",
     visible: true,
     width: "w-[3rem]",
+    alignment: "flex justify-center items-center"
   },
   {
     cell: "Código",
@@ -2165,6 +2179,7 @@ export const table_head_parametrizacion_armazones = [
     key: "checkbox",
     visible: true,
     width: "w-[3rem]",
+    alignment: "flex justify-center items-center"
   },
   {
     cell: "Código Proyecto",
@@ -2316,6 +2331,7 @@ export const table_head_parametrizacion_accesorios = [
     key: "checkbox",
     visible: true,
     width: "w-[3rem]",
+    alignment: "flex justify-center items-center"
   },
   {
     cell: "Código Proyecto",
@@ -2396,6 +2412,7 @@ export const table_head_proyectos_cristales = [
     key: "checkbox",
     visible: true,
     width: "w-[3rem]",
+    alignment: "flex justify-center items-center"
   },
   {
     cell: "Código Proyecto",
@@ -2564,6 +2581,7 @@ export const table_head_proyectos_direcciones = [
     key: "checkbox",
     visible: true,
     width: "w-[3rem]",
+    alignment: "flex justify-center items-center"
   },
   {
     cell: "Código Proyecto",
@@ -2639,6 +2657,7 @@ export const table_head_proyectos_atenciones = [
     key: "checkbox",
     visible: true,
     width: "w-[3rem]",
+    alignment: "flex justify-center items-center"
   },
   {
     cell: "Código Proyecto",
@@ -2807,6 +2826,7 @@ export const table_head_proyectos_firmas = [
     key: "checkbox",
     visible: true,
     width: "w-[3rem]",
+    alignment: "flex justify-center items-center"
   },
   {
     cell: "Código Proyecto",
@@ -2870,6 +2890,7 @@ export const table_head_oftalmologos = [
     key: "checkbox",
     visible: true,
     width: "w-[3rem]",
+    alignment: "flex justify-center items-center"
   },
   {
     cell: "ID",
@@ -2926,6 +2947,7 @@ export const table_head_cargos = [
     key: "checkbox",
     visible: true,
     width: "w-[3rem]",
+    alignment: "flex justify-center items-center"
   },
   {
     cell: "ID",
@@ -2959,6 +2981,7 @@ export const table_head_funcionalidades = [
     key: "checkbox",
     visible: true,
     width: "w-[3rem]",
+    alignment: "flex justify-center items-center"
   },
   {
     cell: "ID",
@@ -2984,6 +3007,7 @@ export const table_head_permisos = [
     key: "checkbox",
     visible: true,
     width: "w-[3rem]",
+    alignment: "flex justify-center items-center"
   },
   {
     cell: "ID_USUARIO",
@@ -3027,6 +3051,7 @@ export const table_head_perfiles = [
     key: "checkbox",
     visible: true,
     width: "w-[3rem]",
+    alignment: "flex justify-center items-center"
   },
   {
     cell: "ID_CARGO",
@@ -3070,6 +3095,7 @@ export const table_head_usuarios = [
     key: "checkbox",
     visible: true,
     width: "w-[3rem]",
+    alignment: "flex justify-center items-center"
   },
   {
     cell: "ID",
@@ -3129,6 +3155,7 @@ export const table_head_empresas = [
     key: "checkbox",
     visible: true,
     width: "w-[3rem]",
+    alignment: "flex justify-center items-center"
   },
   {
     cell: "ID",
@@ -3203,6 +3230,7 @@ export const table_head_funcionalidades_ot = [
     cell: <input type="checkbox" />,
     key: "checkbox",
     visible: true,
+    alignment: "flex justify-center items-center"
   },
   {
     cell: "ID",
@@ -3228,6 +3256,7 @@ export const table_head_errors = [
     key: "checkbox",
     visible: false,
     width: "w-[6rem]",
+    alignment: "flex justify-center items-center"
   },
   {
     cell: "ID",
