@@ -139,10 +139,11 @@ interface IUserFormPrps {
   selectedRows?: any;
   setEntities?: any;
   params?: any;
+  escritura_lectura?: boolean;
 }
 
 const FClientes: React.FC<IUserFormPrps> = React.memo(
-  ({ closeModal, setEntities, params, label, data, isEditting }) => {
+  ({ closeModal, setEntities, params, label, data, isEditting, escritura_lectura }) => {
     const schema = validationClientesSchema();
     const { showModal, CustomModal } = useModal();
 
@@ -443,9 +444,11 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
 
             <div className="flex items-center rowForm justify-center">
               <div className="w-[50%] pt-4">
-                <button type="submit" tabIndex={1} className="userFormBtnSubmit">
-                  {`${TITLES.guardar}`}
-                </button>
+                {escritura_lectura && (
+                  <button type="submit" tabIndex={1} className="userFormBtnSubmit">
+                    {`${TITLES.guardar}`}
+                  </button>
+                )}
               </div>
             </div>
           </div>

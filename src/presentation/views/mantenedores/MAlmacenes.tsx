@@ -8,7 +8,7 @@ import {
   PrimaryKeySearch,
   TableComponent,
 } from "../../components";
-import { useEntityUtils } from "../../hooks";
+import { useEntityUtils, usePermission } from "../../hooks";
 import FAlmacenes from "../forms/FAlmacenes";
 import { TITLES, table_head_almacenes } from "../../utils";
 
@@ -27,6 +27,8 @@ const idMenu = 11;
 
 const MAlmacenes: React.FC = () => {
   const [params, setParams] = useState([]);
+  const { escritura_lectura} = usePermission(idMenu || 0 );
+
   const updateParams = (newParams: Record<string, never>) => {
     setParams(Object.keys(newParams).map((key) => newParams[key]));
   };
@@ -129,6 +131,7 @@ const MAlmacenes: React.FC = () => {
           setEntities={setEntities}
           params={params}
           isEditting={false}
+          escritura_lectura={escritura_lectura}
         />
       )}
 
@@ -141,6 +144,7 @@ const MAlmacenes: React.FC = () => {
           data={entity}
           closeModal={closeModal}
           isEditting={true}
+          escritura_lectura={escritura_lectura}
         />
       )}
     </div>

@@ -34,6 +34,7 @@ interface IFormProps {
   selectedRows?: any;
   setEntities?: any;
   params?: any;
+  escritura_lectura?: boolean;
 }
 
 interface OutputData {
@@ -69,7 +70,7 @@ const transformUpdateQuery = (
 };
 
 const FFuncionalidad: React.FC<IFormProps> = React.memo(
-  ({ closeModal, setEntities, params, data, label, isEditting }) => {
+  ({ closeModal, setEntities, params, data, label, isEditting, escritura_lectura }) => {
     const schema = validationFuncionalidadSchema();
     const { editEntity, createdEntity, ListEntity } = useCrud(strBaseUrl);
     const [blnKeep, setblnKeep] = useState(false);
@@ -215,9 +216,11 @@ const FFuncionalidad: React.FC<IFormProps> = React.memo(
 
           <div className="w-full">
             <div className="mx-auto w-[70%]">
-              <button type="submit" tabIndex={1} className="userFormBtnSubmit">
-              {`${TITLES.guardar}`}
-              </button>
+                {escritura_lectura && (
+                  <button type="submit" tabIndex={1} className="userFormBtnSubmit">
+                    {`${TITLES.guardar}`}
+                  </button>
+                )}
             </div>
           </div>
         </form>

@@ -8,7 +8,7 @@ import {
   PrimaryKeySearch,
   TableComponent,
 } from "../../components";
-import { useEntityUtils } from "../../hooks";
+import { useEntityUtils, usePermission } from "../../hooks";
 import FCristales from "../forms/FCristales";
 import { TITLES, table_head_cristales } from "../../utils";
 import FilterButton, { filterToggle } from "../../components/FilterButton";
@@ -50,6 +50,7 @@ const idMenu = 7;
 
 const MCristales: React.FC = () => {
   const [params, setParams] = useState([]);
+  const { escritura_lectura} = usePermission(idMenu || 0 );
 
   const updateParams = (newParams: Record<string, never>) => {
     setParams(Object.keys(newParams).map((key) => newParams[key]));
@@ -128,9 +129,6 @@ const MCristales: React.FC = () => {
                 { name: "_pEsferico", label: "Esférico", type: "number" },
                 { name: "_pCilindrico", label: "Cilíndrico", type: "number" },
                
-
-
-
                 {
                   name: "_pMarca",
                   label: "Marca",
@@ -213,6 +211,7 @@ const MCristales: React.FC = () => {
           setEntities={setEntities}
           params={params}
           isEditting={false}
+          escritura_lectura={escritura_lectura}
         />
       )}
 
@@ -225,6 +224,7 @@ const MCristales: React.FC = () => {
           data={entity}
           closeModal={closeModal}
           isEditting={true}
+          escritura_lectura={escritura_lectura}
         />
       )}
 

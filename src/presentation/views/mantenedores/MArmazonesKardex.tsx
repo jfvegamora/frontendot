@@ -8,7 +8,7 @@ import {
   PrimaryKeySearch,
   TableComponent, 
 } from "../../components";
-import { useEntityUtils } from "../../hooks";
+import { useEntityUtils, usePermission } from "../../hooks";
 import FArmazonesKardexIN from "../forms/FArmazonesKardexIN";
 import FArmazonesKardexOUT from "../forms/FArmazonesKardexOUT";
 import { TITLES, table_head_kardex } from "../../utils";
@@ -44,6 +44,7 @@ const idMenu = 6;
 
 const MArmazonesKardex: React.FC = () => {
   const [params, setParams] = useState([]);
+  const { escritura_lectura} = usePermission(idMenu || 0 );
 
   const updateParams = (newParams: Record<string, never>) => {
     setParams(Object.keys(newParams).map((key) => newParams[key]));
@@ -83,7 +84,7 @@ const MArmazonesKardex: React.FC = () => {
 
   return (
     <div className="mantenedorContainer">
-      <div className="mantenedorHead width100">
+      <div className="mantenedorHead width80">
         <PrimaryKeySearch
           baseUrl={strBaseUrl}
           setParams={setParams}
@@ -146,6 +147,7 @@ const MArmazonesKardex: React.FC = () => {
           data={entity}
           closeModal={closeModal}
           isEditting={false}
+          escritura_lectura={escritura_lectura}
         />
       )}
 
@@ -157,6 +159,7 @@ const MArmazonesKardex: React.FC = () => {
           setEntities={setEntities}
           params={params}
           isEditting={false}
+          escritura_lectura={escritura_lectura}
         />
       )}
     </div>

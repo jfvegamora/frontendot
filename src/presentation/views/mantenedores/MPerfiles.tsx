@@ -8,7 +8,7 @@ import {
   PrimaryKeySearch,
   TableComponent,
 } from "../../components";
-import { useEntityUtils } from "../../hooks";
+import { useEntityUtils, usePermission } from "../../hooks";
 import { TITLES, table_head_perfiles } from "../../utils";
 import FPerfiles from "../forms/FPerfiles";
 
@@ -29,6 +29,7 @@ const idMenu   = 25;
 
 const MPerfiles: React.FC = () => {
   const [params, setParams] = useState([]);
+  const { escritura_lectura} = usePermission(idMenu || 0 );
 
   const updateParams = (newParams: Record<string, never>) => {
     setParams(Object.keys(newParams).map((key) => newParams[key]));
@@ -138,6 +139,7 @@ const MPerfiles: React.FC = () => {
           setEntities={setEntities}
           params={params}
           isEditting={false}
+          escritura_lectura={escritura_lectura}
         />
       )}
 
@@ -150,6 +152,7 @@ const MPerfiles: React.FC = () => {
           data={entity}
           closeModal={closeModal}
           isEditting={true}
+          escritura_lectura={escritura_lectura}
         />
       )}
     </div>

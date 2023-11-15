@@ -8,7 +8,7 @@ import {
   PrimaryKeySearch,
   TableComponent,
 } from "../../components";
-import { useEntityUtils } from "../../hooks";
+import { useEntityUtils, usePermission } from "../../hooks";
 import FMandantes from "../forms/FMandantes";
 import { TITLES, table_head_mandantes } from "../../utils";
 
@@ -32,6 +32,7 @@ const idMenu = 14;
 
 const MMandantes: React.FC = () => {
   const [params, setParams] = useState([]);
+  const { escritura_lectura} = usePermission(idMenu || 0 );
 
   const updateParams = (newParams: Record<string, never>) => {
     setParams(Object.keys(newParams).map((key) => newParams[key]));
@@ -129,6 +130,7 @@ const MMandantes: React.FC = () => {
           setEntities={setEntities}
           params={params}
           isEditting={false}
+          escritura_lectura={escritura_lectura}
         />
       )}
 
@@ -141,6 +143,7 @@ const MMandantes: React.FC = () => {
           data={entity}
           closeModal={closeModal}
           isEditting={true}
+          escritura_lectura={escritura_lectura}
         />
       )}
     </div>

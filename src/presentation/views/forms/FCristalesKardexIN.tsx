@@ -149,11 +149,12 @@ interface IUserFormPrps {
   selectedRows?: any;
   setEntities?: any;
   params?: any;
-  description?:any
+  description?:any;
+  escritura_lectura?: boolean;
 }
 
 const FCristalesKardexIN: React.FC<IUserFormPrps> = React.memo(
-  ({ closeModal, setEntities, params, label, data, isEditting, description }) => {
+  ({ closeModal, setEntities, params, label, data, isEditting, description, escritura_lectura }) => {
     const [_cristalDescritpion, setCristalDescription] = useState(
       description || ""
     );
@@ -472,9 +473,11 @@ const FCristalesKardexIN: React.FC<IUserFormPrps> = React.memo(
 
           <div className="w-full">
             <div className="w-[60%] mx-auto">
-              <button type="submit" className="userFormBtnSubmit">
-              {`${TITLES.guardar}`}
-              </button>
+                {escritura_lectura && (
+                  <button type="submit" tabIndex={1} className="userFormBtnSubmit">
+                    {`${TITLES.guardar}`}
+                  </button>
+                )}
             </div>
           </div>
 

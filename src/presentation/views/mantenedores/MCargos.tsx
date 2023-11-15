@@ -4,7 +4,7 @@
 
 
 import React, { useState, useEffect } from "react";
-import { useEntityUtils } from "../../hooks";
+import { useEntityUtils, usePermission } from "../../hooks";
 import {
   PrimaryButtonsComponent,
   PrimaryKeySearch,
@@ -29,6 +29,7 @@ const idMenu = 22;
 
 const MCargos: React.FC = () => {
   const [params, setParams] = useState([]);
+  const { escritura_lectura} = usePermission(idMenu || 0 );
   
   const updateParams = (newParams: Record<string, never>) => {
     setParams(Object.keys(newParams).map((key) => newParams[key]));
@@ -124,6 +125,7 @@ const MCargos: React.FC = () => {
           setEntities={setEntities}
           params={params}
           isEditting={false}
+          escritura_lectura={escritura_lectura}
         />
       )}
 
@@ -136,6 +138,7 @@ const MCargos: React.FC = () => {
           data={entity}
           params={params}
           isEditting={true}
+          escritura_lectura={escritura_lectura}
         />
       )}
 

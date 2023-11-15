@@ -8,7 +8,7 @@ import {
   PrimaryKeySearch,
   TableComponent,
 } from "../../components";
-import { useEntityUtils } from "../../hooks";
+import { useEntityUtils, usePermission } from "../../hooks";
 import FArmazones from "../forms/FArmazones";
 import { TITLES, table_head_armazones } from "../../utils";
 
@@ -41,6 +41,7 @@ const idMenu = 5;
 
 const MArmazones: React.FC = () => {
   const [params, setParams] = useState([]);
+  const { escritura_lectura} = usePermission(idMenu || 0 );
 
   const updateParams = (newParams: Record<string, never>) => {
     setParams(Object.keys(newParams).map((key) => newParams[key]));
@@ -144,6 +145,7 @@ const MArmazones: React.FC = () => {
           setEntities={setEntities}
           params={params}
           isEditting={false}
+          escritura_lectura={escritura_lectura}
         />
       )}
 
@@ -156,6 +158,7 @@ const MArmazones: React.FC = () => {
           data={entity}
           closeModal={closeModal}
           isEditting={true}
+          escritura_lectura={escritura_lectura}
         />
       )}
 

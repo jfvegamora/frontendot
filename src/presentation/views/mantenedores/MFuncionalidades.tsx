@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
-import { useEntityUtils } from "../../hooks";
+import { useEntityUtils, usePermission } from "../../hooks";
 import {
   PrimaryButtonsComponent,
   PrimaryKeySearch,
@@ -26,6 +26,7 @@ export enum EnumGrid {
 const MCargos: React.FC = () => {
   // const { createdEntity, editEntity } = useCrud(strBaseUrl);
   const [params, setParams] = useState([]);
+  const { escritura_lectura} = usePermission(idMenu || 0 );
 
   const updateParams = (newParams: Record<string, never>) => {
     setParams(Object.keys(newParams).map((key) => newParams[key]));
@@ -120,6 +121,7 @@ const MCargos: React.FC = () => {
           setEntities={setEntities}
           params={params}
           isEditting={false}
+          escritura_lectura={escritura_lectura}
         />
       )}
       {isModalEdit && (
@@ -131,6 +133,7 @@ const MCargos: React.FC = () => {
           data={entity}
           params={params}
           isEditting={true}
+          escritura_lectura={escritura_lectura}
         />
       )}
     </div>

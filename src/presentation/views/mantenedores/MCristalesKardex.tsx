@@ -8,7 +8,7 @@ import {
   PrimaryKeySearch,
   TableComponent, 
 } from "../../components";
-import { useEntityUtils } from "../../hooks";
+import { useEntityUtils, usePermission } from "../../hooks";
 import FCristalesKardexIN from "../forms/FCristalesKardexIN";
 import FCristalesKardexOUT from "../forms/FCristalesKardexOUT";
 import { TITLES, table_head_kardex } from "../../utils";
@@ -45,6 +45,7 @@ const idMenu = 8;
 const MCristalesKardex: React.FC = () => {
   const [params, setParams] = useState([]);
   const [kardexDescription, setKardexDescription] = useState("");
+  const { escritura_lectura} = usePermission(idMenu || 0 );
 
   const updateParams = (newParams: Record<string, never>) => {
     setParams(Object.keys(newParams).map((key) => newParams[key]));
@@ -155,6 +156,7 @@ const MCristalesKardex: React.FC = () => {
           closeModal={closeModal}
           isEditting={false}
           description={kardexDescription}
+          escritura_lectura={escritura_lectura}
         />
       )}
 
@@ -167,6 +169,7 @@ const MCristalesKardex: React.FC = () => {
           params={params}
           isEditting={false}
           description={kardexDescription}
+          escritura_lectura={escritura_lectura}
         />
       )}
     </div>

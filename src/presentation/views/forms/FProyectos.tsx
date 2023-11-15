@@ -7,13 +7,13 @@ import React, { useState, useEffect } from "react";
 import {
   RadioButtonComponent,
   SelectInputComponent,
-  TextInputComponent,
+  TextInputComponent, 
 } from "../../components";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { fechaActual, validationProyectosSchema } from "../../utils/validationFormSchemas";
 import { EnumGrid } from "../mantenedores/MProyectos";
-import { ERROR_MESSAGES, MODAL, SUCCESS_MESSAGES } from "../../utils";
+import { ERROR_MESSAGES, MODAL, SUCCESS_MESSAGES, TITLES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
@@ -195,10 +195,11 @@ interface IUserFormPrps {
   selectedRows?: any;
   setEntities?: any;
   params?: any;
+  escritura_lectura?: boolean;
 }
 
 const FProyectos: React.FC<IUserFormPrps> = React.memo(
-  ({ closeModal, setEntities, params, label, data, isEditting }) => {
+  ({ closeModal, setEntities, params, label, data, isEditting, escritura_lectura }) => {
     const schema = validationProyectosSchema();
     const { showModal, CustomModal } = useModal();
     const { show } = useCustomToast();
@@ -747,13 +748,15 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                   </div>
               </div>
 
-                <div className="w-1/2 flex justify-end items-center">
-                    <div className="w-1/2 items-center">
-                        <button type="submit" tabIndex={1} className="userFormBtnSubmit">
-                            Guardar
-                        </button>
-                    </div>
-                </div>
+              <div className="w-1/2 flex justify-end items-center">
+                  <div className="w-1/2 items-center">
+                    {escritura_lectura && (
+                      <button type="submit" tabIndex={1} className="userFormBtnSubmit">
+                        {`${TITLES.guardar}`}
+                      </button>
+                    )}
+                  </div>
+              </div>
 
             </div>
 

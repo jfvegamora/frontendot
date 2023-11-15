@@ -36,6 +36,7 @@ interface ISituacionesFormProps {
   selectedRows?: any;
   setEntities?: any;
   params?: any;
+  escritura_lectura?: boolean;
 }
 
 interface OutputData {
@@ -73,7 +74,7 @@ console.log("update", query);
 };
 
 const FSituaciones: React.FC<ISituacionesFormProps> = React.memo(
-  ({ closeModal, setEntities, params, data, label, isEditting }) => {
+  ({ closeModal, setEntities, params, data, label, isEditting, escritura_lectura }) => {
     const schema = validationSituacionesSchema();
     const { showModal, CustomModal } = useModal();
 
@@ -254,9 +255,11 @@ const FSituaciones: React.FC<ISituacionesFormProps> = React.memo(
 
 
           </div>
-          <button type="submit" tabIndex={1} className="userFormBtnSubmit">
-          {`${TITLES.guardar}`}
-          </button>
+          {escritura_lectura && (
+            <button type="submit" tabIndex={1} className="userFormBtnSubmit">
+              {`${TITLES.guardar}`}
+            </button>
+          )}
         </form>
         <CustomModal />
       </div>

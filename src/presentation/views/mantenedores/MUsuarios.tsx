@@ -8,7 +8,7 @@ import {
   PrimaryKeySearch,
   TableComponent,
 } from "../../components";
-import { useEntityUtils } from "../../hooks";
+import { useEntityUtils, usePermission } from "../../hooks";
 import FUsuarios from "../forms/FUsuarios";
 import FUsuariosOT from "../forms/FUsuariosOT";
 import { TITLES, table_head_usuarios } from "../../utils";
@@ -32,6 +32,7 @@ const MUsuarios: React.FC = () => {
   const [params, setParams] = useState([]);
   const [totalRowIndex, _setTotalRowIndex] = useState([]);
   const [shotRow, _setShotRow] = useState(undefined)
+  const { escritura_lectura} = usePermission(idMenu || 0 );
 
   const updateParams = (newParams: Record<string, never>) => {
     setParams(Object.keys(newParams).map((key) => newParams[key]));
@@ -60,14 +61,10 @@ const MUsuarios: React.FC = () => {
     resetEntities,
   } = useEntityUtils(strBaseUrl, strQuery);
 
-  console.log(totalRowIndex)
-  console.log(shotRow)
   useEffect(()=>{
     totalRowIndex.map((row)=>{
-      console.log('render')
       if(row === shotRow){
         setSelectedRows((prev)=>[...prev, row])
-        console.log('selectedRows',selectedRows)
       }
     })
     if( shotRow !== undefined &&!totalRowIndex.includes(shotRow)){
@@ -167,6 +164,7 @@ const MUsuarios: React.FC = () => {
           data={entity}
           closeModal={closeModal}
           isEditting={true}
+          escritura_lectura={escritura_lectura}
         />
       )}
  
@@ -179,6 +177,7 @@ const MUsuarios: React.FC = () => {
           data={entity}
           closeModal={closeModal}
           isEditting={true}
+          escritura_lectura={escritura_lectura}
         />
       )}
     </div>

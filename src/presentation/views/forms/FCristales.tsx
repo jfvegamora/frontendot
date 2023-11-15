@@ -100,10 +100,11 @@ interface IUserFormPrps {
   selectedRows?: any;
   setEntities?: any;
   params?: any;
+  escritura_lectura?: boolean;
 }
 
 const FCristales: React.FC<IUserFormPrps> = React.memo(
-  ({ closeModal, setEntities, params, label, data, isEditting }) => {
+  ({ closeModal, setEntities, params, label, data, isEditting, escritura_lectura }) => {
     const schema = validationCristalesSchema();
     const { showModal, CustomModal } = useModal();
     const { show } = useCustomToast();
@@ -411,11 +412,11 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
 
             </div>
           </div>
-          <button type="submit" className="userFormBtnSubmit" tabIndex={1}>
-          {`${TITLES.guardar}`}
-          </button>
-
-
+          {escritura_lectura && (
+            <button type="submit" tabIndex={1} className="userFormBtnSubmit">
+              {`${TITLES.guardar}`}
+            </button>
+          )}
         </form>
 
         <CustomModal />

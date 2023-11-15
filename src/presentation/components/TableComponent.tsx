@@ -235,7 +235,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                     <td className="gridTableData">
                     {/* ===========BOTONES DE TABLA============ */}
                     <div className="flex">
-                      {showEditButton && escritura_lectura && (
+                      {showEditButton && (
                         <Tooltip content={BUTTON_MESSAGES.edit.concat(entidad)}>
                           <IconButton
                             variant="text"

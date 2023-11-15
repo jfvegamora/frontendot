@@ -8,7 +8,7 @@ import {
   PrimaryKeySearch,
   TableComponent,
 } from "../../components";
-import { useEntityUtils } from "../../hooks";
+import { useEntityUtils, usePermission } from "../../hooks";
 import { TITLES, table_head_parametrizacion_accesorios} from "../../utils";
 import FProyectosAccesorios from "../forms/FProyectosAccesorios";
 
@@ -34,6 +34,7 @@ const idMenu   = 30;
 
 const MProyectosAccesorios: React.FC = () => {
   const [params, setParams] = useState([]);
+  const { escritura_lectura} = usePermission(idMenu || 0 );
 
   const updateParams = (newParams: Record<string, never>) => {
     setParams(Object.keys(newParams).map((key) => newParams[key]));
@@ -137,6 +138,7 @@ const MProyectosAccesorios: React.FC = () => {
           setEntities={setEntities}
           params={params}
           isEditting={false}
+          escritura_lectura={escritura_lectura}
         />
       )}
 
@@ -149,6 +151,7 @@ const MProyectosAccesorios: React.FC = () => {
           data={entity}
           closeModal={closeModal}
           isEditting={true}
+          escritura_lectura={escritura_lectura}
         />
       )}
     </div>

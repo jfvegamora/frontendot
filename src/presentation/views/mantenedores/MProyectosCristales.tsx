@@ -3,7 +3,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
 import React, { useState, useEffect } from "react";
-import { useEntityUtils } from "../../hooks";
+import { useEntityUtils, usePermission } from "../../hooks";
 import {
   PrimaryButtonsComponent,
   PrimaryKeySearch,
@@ -49,6 +49,7 @@ export enum EnumGrid {
 
 const MProyectosCristales: React.FC = () => {
     const [params, setParams] = useState([]);
+    const { escritura_lectura} = usePermission(idMenu || 0 );
   
     const updateParams = (newParams: Record<string, never>) => {
       setParams(Object.keys(newParams).map((key) => newParams[key]));
@@ -152,7 +153,8 @@ const MProyectosCristales: React.FC = () => {
             setEntities={setEntities}
             params={params}
             isEditting={false}
-          />
+            escritura_lectura={escritura_lectura}
+            />
         )}
   
         {isModalEdit && (
@@ -164,7 +166,8 @@ const MProyectosCristales: React.FC = () => {
             data={entity}
             closeModal={closeModal}
             isEditting={true}
-          />
+            escritura_lectura={escritura_lectura}
+            />
         )}
 
       </div>

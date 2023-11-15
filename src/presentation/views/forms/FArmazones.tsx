@@ -110,10 +110,11 @@ interface IUserFormPrps {
   selectedRows?: any;
   setEntities?: any;
   params?: any;
+  escritura_lectura?: boolean;
 }
 
 const FArmazones: React.FC<IUserFormPrps> = React.memo(
-  ({ closeModal, setEntities, params, label, data, isEditting }) => {
+  ({ closeModal, setEntities, params, label, data, isEditting, escritura_lectura }) => {
     const schema = validationArmazonesSchema();
     const { showModal, CustomModal } = useModal();
     const { show } = useCustomToast();
@@ -482,9 +483,11 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
 
           <div className="w-full ">
             <div className="w-[50%] mx-auto">
-              <button type="submit" tabIndex={1} className="userFormBtnSubmit">
-              {`${TITLES.guardar}`}
-              </button>
+              {escritura_lectura && (
+                <button type="submit" tabIndex={1} className="userFormBtnSubmit">
+                {`${TITLES.guardar}`}
+                </button>
+              )}
             </div>
           </div>
         </form>

@@ -91,10 +91,11 @@ interface IUserFormPrps {
   selectedRows?: any;
   setEntities?: any;
   params?: any;
+  escritura_lectura?: boolean;
 }
 
 const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
-  ({ closeModal, setEntities, params, label, data, isEditting }) => {
+  ({ closeModal, setEntities, params, label, data, isEditting, escritura_lectura }) => {
     const schema = validationPuntosVentaSchema();
     const { showModal, CustomModal } = useModal();
     const { show } = useCustomToast();
@@ -330,9 +331,11 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
           </div>
         </div>
 
-          <button type="submit" tabIndex={1} className="userFormBtnSubmit ">
-          {`${TITLES.guardar}`}
+        {escritura_lectura && (
+          <button type="submit" tabIndex={1} className="userFormBtnSubmit">
+            {`${TITLES.guardar}`}
           </button>
+        )}
         </form>
 
         <CustomModal />
