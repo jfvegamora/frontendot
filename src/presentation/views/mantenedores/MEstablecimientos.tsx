@@ -121,7 +121,7 @@ const MEstablecimientos: React.FC = () => {
         />
       </div>
 
-      <div className="width80 scroll">
+      <div className="width100 scroll">
         {<TableComponent
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}

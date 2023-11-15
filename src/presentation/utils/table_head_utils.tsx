@@ -160,7 +160,7 @@ export const table_head_OT_diaria = [
     key: "region",
     visible: true,
     alignment: "text-left",
-    width: "w-[10rem]"
+    width: "w-[9rem]"
   },
   {
     cell: "Provincia ID",
@@ -172,7 +172,7 @@ export const table_head_OT_diaria = [
     key: "provincia",
     visible: true,
     alignment: "text-left",
-    width: "w-[8rem]"
+    width: "w-[9rem]"
   },
   {
     cell: "Comuna ID",
@@ -184,7 +184,7 @@ export const table_head_OT_diaria = [
     key: "comuna",
     visible: true,
     alignment: "text-left",
-    width: "w-[8rem]"
+    width: "w-[9rem]"
   },
   {
     cell: "Teléfono",
@@ -911,7 +911,7 @@ export const table_head_clientes = [
     key: "region",
     visible: true,
     alignment: "text-left",
-    width: "w-[7rem]",
+    width: "w-[9rem]",
   },
   {
     cell: "Provincia ID",
@@ -923,7 +923,7 @@ export const table_head_clientes = [
     key: "provincia",
     visible: true,
     alignment: "text-left",
-    width: "w-[7rem]",
+    width: "w-[9rem]",
   },
   {
     cell: "Comuna ID",
@@ -970,7 +970,6 @@ export const table_head_clientes = [
     width: "w-[4rem]",
   },
 ];
-
 export const table_head_establecimientos = [
   {
     cell: <input type="checkbox" />,
@@ -1031,7 +1030,7 @@ export const table_head_establecimientos = [
     key: "region",
     visible: true,
     alignment: "text-left",
-    width: "w-[6rem]",
+    width: "w-[9rem]",
   },
   {
     cell: "Provincia ID",
@@ -1043,7 +1042,7 @@ export const table_head_establecimientos = [
     key: "provincia",
     visible: true,
     alignment: "text-left",
-    width: "w-[6rem]",
+    width: "w-[9rem]",
   },
   {
     cell: "Comuna ID",
@@ -1055,7 +1054,7 @@ export const table_head_establecimientos = [
     key: "comuna",
     visible: true,
     alignment: "text-left",
-    width: "w-[6rem]",
+    width: "w-[9rem]",
   },
   {
     cell: "",
@@ -1122,7 +1121,7 @@ export const table_head_puntos_venta = [
     visible: false,
   },
   {
-    cell: "Almacén",
+    cell: "Almacén de Consumo",
     key: "almacen",
     visible: true,
     alignment: "text-left"
@@ -2934,6 +2933,14 @@ export const table_head_cargos = [
     key: "nombre",
     visible: true,
     alignment: "text-left",
+    width: "w-[12rem]",
+  },
+  {
+    cell: "Usuarios",
+    key: "usuarios",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[4rem]",
   },
   {
     cell: "",
