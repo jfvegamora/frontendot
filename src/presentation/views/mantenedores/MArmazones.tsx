@@ -112,6 +112,7 @@ const MArmazones: React.FC = () => {
           showExportButton={true}
           showDeleteButton={true}
           showForwardButton={false}
+          showImportCsv={true}
           showRefreshButton={true}
           idMenu={idMenu}
         />

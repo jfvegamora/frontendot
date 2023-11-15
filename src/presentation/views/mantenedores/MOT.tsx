@@ -214,6 +214,7 @@ const MOT: React.FC = () => {
           showDeleteButton={true}
           showForwardButton={false}
           showRefreshButton={true}
+          showImportCsv={true}
           idMenu={idMenu}
           isOT={true}
         />

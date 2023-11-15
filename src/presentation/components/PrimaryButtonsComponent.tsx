@@ -30,6 +30,7 @@ interface IPrimaryButtonProps {
   showRefreshButton?: boolean;
   showDeleteButton?: boolean;
   showExportButton?: boolean;
+  showImportCsv?:boolean;
   comilla?: boolean;
   strBaseUrl?: string;
   params?: never[];
@@ -51,6 +52,7 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
     showAddButton,
     showRefreshButton,
     showDeleteButton,
+    showImportCsv,
     strBaseUrl,
     showExportButton,
     params,
@@ -168,7 +170,9 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
           />
         )}
         
-        <ImportToCsv strEntidad={strEntidad}/>
+        {showImportCsv && escritura_lectura && (
+          <ImportToCsv strEntidad={strEntidad}/>
+        )}
 
         {showDeleteButton && escritura_lectura && handleDeleteSelected && (
           <>

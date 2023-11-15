@@ -79,8 +79,10 @@ export function transformUpdateQuery(
   
   const query = {
     query: "04",
-    _p1: encodeURIComponent(_p1).replace(/%20/g, "+"),
-      _p2: primaryKey,
+    // _p1: encodeURIComponent(_p1).replace(/%20/g, "+"),
+    // _p1: encodeURIComponent(_p1),
+    _p1,
+    _p2: primaryKey,
     _p3: ""
   };
   console.log("query", query);

@@ -127,6 +127,7 @@ const MClientes: React.FC = () => {
           showDeleteButton={true}
           showForwardButton={false}
           showRefreshButton={true}
+          showImportCsv={true}
           comilla={true}
           idMenu={idMenu}
         />
