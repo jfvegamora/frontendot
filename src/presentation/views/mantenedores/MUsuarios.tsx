@@ -87,8 +87,8 @@ const MUsuarios: React.FC = () => {
  
   return (
     <div className="mantenedorContainer">
-      <div className="mantenedorHead width80">
-        <div className="w-[60%]">
+      <div className="mantenedorHead width80 relative">
+        <div className="w-[70%]">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
             setParams={setParams}
@@ -105,7 +105,7 @@ const MUsuarios: React.FC = () => {
             ]}
           />
         </div>
-
+        <div className="w-[30%] bg-red-300 absolute -right-8">
         <PrimaryButtonsComponent
           handleAddPerson={openModal}
           handleDeleteSelected={handleDeleteSelected}
@@ -119,8 +119,10 @@ const MUsuarios: React.FC = () => {
           showDeleteButton={true}
           showForwardButton={false}
           showRefreshButton={true}
+          showImportCsv={true}
           idMenu={idMenu}
         />
+        </div>
       </div>
 
       <div className="width90 scroll">

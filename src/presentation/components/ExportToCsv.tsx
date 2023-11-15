@@ -151,7 +151,7 @@ export const ExportCSV: React.FC<Props> = ({
       <Tooltip content="Exportar">
         {/* <Button className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 mr- rounded'>
             </Button> */}
-        <IconButton variant="text" color="blue-gray" className="mx-2 primaryBtnIconButton">
+        <IconButton variant="text" tabIndex={1} color="blue-gray" className="mx-2 primaryBtnIconButton">
           <RiFileExcel2Line
             className={` ${query ? "gridIcons" : "w-10 h-10"}`}
               onClick={() => {

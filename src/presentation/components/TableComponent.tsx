@@ -139,7 +139,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
       }
       // console.log(type)
       return(
-        <Typography variant="small" color="blue-gray" className={`gridText h-8 text-center  ${type === 1 ? '!text-white': ''} `} style={cellStyle}>
+        <Typography variant="small" color="blue-gray" className={`gridText h-[2.7rem]  py-2  ${type === 1 ? '!text-white': ''} `} style={cellStyle}>
           {text !== null && text !== undefined ? text.toString() : ""}
         </Typography>
       )

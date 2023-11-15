@@ -116,6 +116,7 @@ const MEstablecimientos: React.FC = () => {
           showDeleteButton={true}
           showForwardButton={false}
           showRefreshButton={true}
+          showImportCsv={true}
           comilla={false}
           idMenu={idMenu}
         />

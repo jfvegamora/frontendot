@@ -300,7 +300,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
             <IconButton
             tabIndex={1}
               variant="text"
-              className="primaryKeyIconButton items-center ml-6 "
+              className="primaryKeyIconButton items-center ml-2 mr-2 "
               type="submit"
               onClick={handleSubmit(handleSearch)}
             >
