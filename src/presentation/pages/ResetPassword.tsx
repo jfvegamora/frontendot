@@ -10,7 +10,7 @@ import bcrypt from "bcryptjs-react";
 
 import { TextInputComponent } from "../components";
 import { validationResetPasswordSchema } from "../utils";
-import { useCrud } from "../hooks";
+import axios from "axios";
 
 interface InputData {
   password: string;
@@ -20,12 +20,11 @@ interface InputData {
 interface DecodedToken {
   id: string;
 }
-const strBaseUrl = "/api/usuarios/";
+// const strBaseUrl = "/api/usuarios/";
 
 const ResetPassword: React.FC = () => {
   const { token } = useParams<{ token: string }>();
   const schema = validationResetPasswordSchema();
-  const { editEntity } = useCrud(strBaseUrl);
   const navigate = useNavigate();
 
   const {
@@ -50,43 +49,66 @@ const ResetPassword: React.FC = () => {
       decodedToken = jwt_decode(tokenOriginal);
       const updatePassword = {
         query: "04",
-        _p1: `password='${hashPassword}'`,
+        _p1: `password="${hashPassword}"`,
         _p2: decodedToken?.id.toString(),
         _p3: "",
       };
-      await editEntity(updatePassword);
+       await axios.post('https://mtoopticos.cl/api/usuarios/changepasswrod/',updatePassword)
+      // await editEntity(updatePassword);
+
+      // console.log(response)
+
       toast.success("Nueva contraseña creada correctamente");
       navigate("/login");
     } catch (error: any) {
+      console.log(error)
       toast.error(error);
     }
   };
 
   return (
-    <div className="useFormContainer mt-8">
-      <h1 className="mantenedorH1">Nueva Contraseña</h1>
+    <div className="useFormContainer mt-8 right-[38%] top-[15%] w-[25vw] h-[40vh]">
+      <h1 className="userFormLabel text-white mt-10">Nueva Contraseña</h1>
 
       <form
         onSubmit={handleSubmit((data) => handleChange(data))}
         className="userFormulario"
       >
-        <TextInputComponent
-          type="password"
-          label="Contraseña"
-          name="password"
-          control={control}
-          error={errors.password}
-        />
-        <TextInputComponent
-          type="password"
-          label="Confirmar contraseña"
-          name="confirmPassword"
-          control={control}
-          error={errors.confirmPassword}
-        />
-        <button type="submit" className="userFormBtnSubmit">
-          Guardar
-        </button>
+        <div className="w-full items-center flex">
+          <div className="input-container items-center rowForm w-full">
+            <div className="w-full">
+              <TextInputComponent
+                type="password"
+                label="Contraseña"
+                name="password"
+                control={control}
+                error={errors.password}
+              />
+            </div>
+          </div>
+        </div>
+        <div className="w-full items-center flex">
+          <div className="input-container items-center rowForm w-full">
+            <div className="w-full">
+              <TextInputComponent
+                type="password"
+                label="Confirmar contraseña"
+                name="confirmPassword"
+                control={control}
+                error={errors.confirmPassword}
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="w-full">
+          <div className="w-[90%] mx-auto">
+            <button type="submit" tabIndex={1} className="userFormBtnSubmit">
+              Guardar
+            </button>
+          </div>
+
+        </div>
       </form>
     </div>
   );

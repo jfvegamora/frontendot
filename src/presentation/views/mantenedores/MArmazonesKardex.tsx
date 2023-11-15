@@ -85,17 +85,19 @@ const MArmazonesKardex: React.FC = () => {
   return (
     <div className="mantenedorContainer">
       <div className="mantenedorHead width80">
-        <PrimaryKeySearch
-          baseUrl={strBaseUrl}
-          setParams={setParams}
-          updateParams={updateParams}
-          setEntities={setEntities}
-          primaryKeyInputs={[
-            { name: "_p1", label: "Código", type: "number" },
-            { name: "_p2", label: "Desde", type: "date" },
-            { name: "_p3", label: "Hasta", type: "date" },
-          ]}
-        />
+        <div className="w-[60%]">
+          <PrimaryKeySearch
+            baseUrl={strBaseUrl}
+            setParams={setParams}
+            updateParams={updateParams}
+            setEntities={setEntities}
+            primaryKeyInputs={[
+              { name: "_p1", label: "Código", type: "number" },
+              { name: "_p2", label: "Desde", type: "date" },
+              { name: "_p3", label: "Hasta", type: "date" },
+            ]}
+          />
+        </div>
 
         <PrimaryButtonsComponent
           handleAddPerson={openModal}

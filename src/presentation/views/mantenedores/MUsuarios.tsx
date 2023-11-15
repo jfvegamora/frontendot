@@ -102,7 +102,7 @@ const MUsuarios: React.FC = () => {
             ]}
           />
         </div>
-        <div className="w-[30%] bg-red-300 absolute -right-8">
+        <div className="w-[30%]  absolute -right-4">
         <PrimaryButtonsComponent
           handleAddPerson={openModal}
           handleDeleteSelected={handleDeleteSelected}

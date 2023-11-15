@@ -63,7 +63,7 @@ const Login: React.FC = React.memo(() => {
 
   return (
     <div className="bg-black-500 w-full h-full">
-      <section className="bg-gray-100 dark:bg-gray-900 h-full mt-[-2v6%]">
+      <section className=" dark:bg-gray-900 h-full mt-[-2v6%]">
         <div className="flex flex-col items-center justify-centerlg py-10">
         <div
           className="absolute inset-0 bg-cover bg-center"
@@ -71,7 +71,7 @@ const Login: React.FC = React.memo(() => {
             backgroundImage: "url('../../assets/desktop01.jpg')",
           }}
         ></div>          
-          <h1 className="userFormLabel">Sistema Gestión OT</h1>
+          <h1 className="userFormLabel text-white">Sistema Gestión OT</h1>
           <div className="useFormContainer top-[20%] w-[25%]">
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
               <h1 className="text-xl font-bold leading-tight text-center tracking-tight text-gray-900 md:text-2xl dark:text-white">
@@ -81,7 +81,9 @@ const Login: React.FC = React.memo(() => {
                 className="userFormulario"
                 onSubmit={handleSubmit(handleChange)}
               >
-                <div className="userFormularioContainer">
+  
+   
+
                 <div className="input-container items-center rowForm ">
                     <div className="w-full">
                         <TextInputComponent
@@ -93,6 +95,7 @@ const Login: React.FC = React.memo(() => {
                         />
                     </div>
                 </div>
+                
                 <div className="input-container items-center rowForm  ">
                     <div className="w-full">
                         <TextInputComponent
@@ -104,7 +107,7 @@ const Login: React.FC = React.memo(() => {
                         />
                     </div>
                 </div>
-                </div>
+        
                 <div className="input-container items-center rowForm ">
                   <div className="w-[90%] mx-auto">
                     <button type="submit" tabIndex={1} className="userFormBtnSubmit !mt-8">
@@ -112,7 +115,7 @@ const Login: React.FC = React.memo(() => {
                     </button>
                   </div>
                 </div>
-                <Link className="forgotPwd text-white" to="/forgotpassword">Recupera Contraseña</Link>
+                <Link className=" forgotPwd text-white" to="/forgotpassword">Recupera Contraseña</Link>
               </form>
             </div>
           </div>
