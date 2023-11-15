@@ -44,25 +44,37 @@ const ResetPassword: React.FC = () => {
   };
 
   return (
-    <div className="useFormContainer mt-8">
-      <h1 className="mantenedorH1">Recuperar Contraseña</h1>
+    <div className="useFormContainer mt-8 right-[38%] top-[15%] w-[25vw] h-[40vh]">
+      <h1 className="userFormLabel text-white mt-10">Recuperar Contraseña</h1>
 
       <form
         onSubmit={handleSubmit((data) => handleChange(data))}
         className="userFormulario"
       >
-        <TextInputComponent
-          type="email"
-          label="Correo"
-          name="correo"
-          control={control}
-          error={errors.correo}
-        />
-        <button type="submit" className="userFormBtnSubmit">
-          Guardar
-        </button>
+        <div className="w-full items-center flex">
+          <div className="input-container items-center rowForm w-full">
+            <div className="w-full">
+              <TextInputComponent
+                type="email"
+                label="Correo"
+                name="correo"
+                control={control}
+                error={errors.correo}
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="w-full">
+          <div className="w-[90%] mx-auto">
+            <button type="submit" tabIndex={1} className="userFormBtnSubmit">
+              Guardar
+            </button>
+      <Link replace to="/login" className="text-white">Login</Link>
+          </div>
+        </div>
         
-      <Link replace to="/login">Login</Link>
+        
       </form>
     </div>
   );
