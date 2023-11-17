@@ -116,7 +116,7 @@ const FArmazonesKardexIN: React.FC<IUserFormPrps> = React.memo(
     const { show } = useCustomToast();
     const [fechaHoraActual, setFechaHoraActual] = useState(new Date());
 
-
+    //COPIAR PARA AJUSTE DE INVENTARIO
     const [showAutorizacion, setShowAutorizacion] = useState(false);
     const [_isAutorizacionValida, setIsAutorizacionValida] = useState(false);
 
@@ -127,7 +127,7 @@ const FArmazonesKardexIN: React.FC<IUserFormPrps> = React.memo(
         setIsAutorizacionValida(false);
       }
     };
-
+    // 
 
 
     const {
