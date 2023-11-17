@@ -31,7 +31,7 @@ export interface InputData {
   descripcion         : string | undefined;
   fecha               : string | undefined;
   // es                  : string | undefined;
-  motivo              : string | undefined;
+  motivo_ingreso              : string | undefined;
   cantidad            : string | undefined;
   almacen             : string | undefined;
   numero_factura      : string | undefined;
@@ -51,56 +51,12 @@ interface OutputData {
   _p3?: string;
 }
 
-export function transformInsertQuery(jsonData: InputData, userId?:number): OutputData | null | any {
-  const year = fechaActual.getFullYear(); // Obtiene el año de 4 dígitos
-  const month = String(fechaActual.getMonth() + 1).padStart(2, '0'); // Obtiene el mes (agrega 1 ya que los meses comienzan en 0) y lo formatea a 2 dígitos
-  const day = String(fechaActual.getDate()).padStart(2, '0'); // Obtiene el día y lo formatea a 2 dígitos
-
-  const fechaFormateada = `${year}/${month}/${day}`;
-  const dateHora = new Date().toLocaleTimeString();
-  
-  if(jsonData.fecha){
-    if(fechaActual < new Date(jsonData.fecha as string)){
-      toast.error('Fecha mayor a la actual')
-      throw new Error('fecha mayor a la actual')
-      
-    }
-  }
-
-    let _p1 = `"${jsonData.fecha + " " + fechaActual.toLocaleTimeString()}", 
-    ${jsonData.insumo}, 
-    ${jsonData.almacen}, 
-    ${1}, 
-    ${jsonData.motivo},
-    ${jsonData.cantidad}, 
-    ${(jsonData.valor_neto && jsonData.valor_neto?.toString())?.length === 0 ? "0" : jsonData.valor_neto}, 
-    ${ jsonData.proveedor}, 
-    ${(jsonData.numero_factura && jsonData.numero_factura?.toString())?.length === 0 ? "0" : jsonData.numero_factura}, 
-    ${'0'}, 
-    ${'0'}, 
-   "${jsonData.observaciones}",
-    ${userId}, 
-   "${fechaFormateada + " " +dateHora}"`;
-
-  //  ${(jsonData.proveedor && jsonData.proveedor?.toString())?.length === 0 ? "0" : jsonData.proveedor}, 
-
-  _p1 = _p1.replace(/'/g, '!');
-
-  const query: OutputData = {
-    query: "03",
-    _p1
-  };
-  console.log("p1", query);
-
-  return query;
-}
-
 export function transformUpdateQuery(
   // jsonData: InputData
   // ,primaryKey: string
-): OutputData | null {
+  ): OutputData | null {
   // const fields = [
-  //   `almacen            = ${jsonData.almacen}`,
+    //   `almacen            = ${jsonData.almacen}`,
   //   `es                 = ${
   //     jsonData.es === MOTIVO_KARDEX.entrada
   //       ? 1
@@ -119,12 +75,12 @@ export function transformUpdateQuery(
   //   `usuario            = ${jsonData.usuario}`,
   //   `fecha_mov          ='${jsonData.fecha_mov}'`,
   // ];
-
+  
   // const filteredFields = fields.filter(
-  //   (field) => field !== null && field !== ""
-  // );
+    //   (field) => field !== null && field !== ""
+    // );
 
-  // if (filteredFields.length === 0) {
+    // if (filteredFields.length === 0) {
   //   return null;
   // }
   // const _p1 = filteredFields.join(",");
@@ -155,6 +111,7 @@ const FAccesoriosKardexIN: React.FC<IUserFormPrps> = React.memo(
     const { showModal, CustomModal } = useModal();
     const userState = useAppSelector((store: AppStore) => store.user);
     const { show } = useCustomToast();
+    const [fechaHoraActual, setFechaHoraActual] = useState(fechaActual);
 
     const {
       editEntity,
@@ -174,6 +131,51 @@ const FAccesoriosKardexIN: React.FC<IUserFormPrps> = React.memo(
     } = useForm({
       resolver: yupResolver(schema),
     });
+    
+    function transformInsertQuery(jsonData: InputData, userId?:number): OutputData | null | any {
+      const year = fechaHoraActual.getFullYear(); // Obtiene el año de 4 dígitos
+      const month = String(fechaHoraActual.getMonth() + 1).padStart(2, '0'); // Obtiene el mes (agrega 1 ya que los meses comienzan en 0) y lo formatea a 2 dígitos
+      const day = String(fechaHoraActual.getDate()).padStart(2, '0'); // Obtiene el día y lo formatea a 2 dígitos
+    
+      const fechaFormateada = `${year}/${month}/${day}`;
+      const dateHora = new Date().toLocaleTimeString();
+      
+      if(jsonData.fecha){
+        if(fechaHoraActual < new Date(jsonData.fecha as string)){
+          toast.error('Fecha mayor a la actual')
+          throw new Error('fecha mayor a la actual')
+          
+        }
+      }
+    
+        let _p1 = `"${jsonData.fecha + " " + fechaHoraActual.toLocaleTimeString()}", 
+        ${jsonData.insumo}, 
+        ${jsonData.almacen}, 
+        ${1}, 
+        ${jsonData.motivo_ingreso},
+        ${jsonData.cantidad}, 
+        ${(jsonData.valor_neto && jsonData.valor_neto?.toString())?.length === 0 ? "0" : jsonData.valor_neto}, 
+        ${ jsonData.proveedor}, 
+        ${(jsonData.numero_factura && jsonData.numero_factura?.toString())?.length === 0 ? "0" : jsonData.numero_factura}, 
+        ${'0'}, 
+        ${'0'}, 
+       "${jsonData.observaciones}",
+        ${userId}, 
+       "${fechaFormateada + " " +dateHora}"`;
+    
+      //  ${(jsonData.proveedor && jsonData.proveedor?.toString())?.length === 0 ? "0" : jsonData.proveedor}, 
+    
+      _p1 = _p1.replace(/'/g, '!');
+    
+      const query: OutputData = {
+        query: "03",
+        _p1
+      };
+      setFechaHoraActual(new Date())
+      console.log("p1", query);
+    
+      return query;
+    }
 
     const resetTextFields = React.useCallback(() => {
       setValue("insumo", "");
@@ -187,7 +189,7 @@ const FAccesoriosKardexIN: React.FC<IUserFormPrps> = React.memo(
       if (firstInputRef.current) {
         const firstInput = firstInputRef.current.querySelector(
           'input[name="insumo"]'
-        );
+          );
         if (firstInput) {
           firstInput.focus();
         }
@@ -348,13 +350,13 @@ const FAccesoriosKardexIN: React.FC<IUserFormPrps> = React.memo(
                 <div className="input-container items-center rowForm w-[50%]">
                   <div className="w-full !mt-4">
                       <SelectInputComponent
-                        label="Motivo"
-                        name="motivo"
+                        label="Motivo Ingreso"
+                        name="motivo_ingreso"
                         showRefresh={true}
                         data={data && data[EnumGrid.motivo_id]}
                         control={control}
                         entidad={["/api/kardexmotivos/", "01"]}
-                        error={errors.motivo}
+                        error={errors.motivo_ingreso}
                         // customWidth={"345px"}
                       />
                   </div>

@@ -73,6 +73,8 @@ const FOTReceta:React.FC<IReceta> = ({
                             customWidth={"345px"}
                             readOnly={onlyRead}
                         />
+
+                        
                 </div>
                 {/* <div className="w-[20%] -ml-4">
                         <OTListBox

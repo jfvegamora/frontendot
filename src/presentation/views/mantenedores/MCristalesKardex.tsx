@@ -91,7 +91,7 @@ const MCristalesKardex: React.FC = () => {
 
   return (
     <div className="mantenedorContainer">
-      <div className="mantenedorHead width80">
+      <div className="mantenedorHead width80 h-[9rem]">
         <div className="w-[60%]">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}

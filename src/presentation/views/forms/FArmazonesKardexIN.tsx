@@ -22,6 +22,7 @@ import { useModal } from "../../hooks/useModal";
 import { AppStore, useAppSelector } from "../../../redux/store";
 import useCustomToast from "../../hooks/useCustomToast";
 import {toast} from 'react-toastify'
+import { signal, useSignal } from "@preact/signals-react";
 
 const strBaseUrl = "/api/armazoneskardex/";
 const strEntidad = "Kardex de Cristal ";
@@ -31,7 +32,7 @@ export interface InputData {
   descripcion         : string | undefined;
   fecha               : string | undefined;
   // es                  : string | undefined;
-  motivo              : string | undefined;
+  motivo_ingreso              : string | undefined;
   cantidad            : string | undefined;
   almacen             : string | undefined;
   numero_factura      : string | undefined;
@@ -51,53 +52,7 @@ interface OutputData {
   _p3?: string;
 }
 
-export function transformInsertQuery(jsonData: InputData, userId?:number): OutputData | null {
-  
-  const year = fechaActual.getFullYear(); // Obtiene el año de 4 dígitos
-  const month = String(fechaActual.getMonth() + 1).padStart(2, '0'); // Obtiene el mes (agrega 1 ya que los meses comienzan en 0) y lo formatea a 2 dígitos
-  const day = String(fechaActual.getDate()).padStart(2, '0'); // Obtiene el día y lo formatea a 2 dígitos
 
-  const fechaFormateada = `${year}/${month}/${day}`;
-  const dateHora = new Date().toLocaleTimeString();
-  
-  if(jsonData.fecha){
-    if(fechaActual < new Date(jsonData.fecha as string)){
-      toast.error('Fecha mayor a la actual')
-      throw new Error('fecha mayor a la actual')
-      
-    }
-  }
-
-  /*INSERT INTO CristalesKardex 
-  (fecha, cristal, almacen, es, motivo, cantidad, valor_neto, proveedor, 
-    numero_factura, OT, almacen_relacionado, observaciones, usuario, fecha_mov)*/
-    let _p1 = `"${jsonData.fecha + " " + fechaActual.toLocaleTimeString()}", 
-    ${jsonData.insumo}, 
-    ${jsonData.almacen}, 
-    ${1}, 
-    ${jsonData.motivo},
-    ${jsonData.cantidad}, 
-    ${(jsonData.valor_neto && jsonData.valor_neto?.toString())?.length === 0 ? "0" : jsonData.valor_neto}, 
-    ${ jsonData.proveedor}, 
-    ${(jsonData.numero_factura && jsonData.numero_factura?.toString())?.length === 0 ? "0" : jsonData.numero_factura}, 
-    ${'0'}, 
-    ${'0'}, 
-   "${jsonData.observaciones}",
-    ${userId}, 
-   "${fechaFormateada + " " +dateHora}"`;
-
-  //  ${(jsonData.proveedor && jsonData.proveedor?.toString())?.length === 0 ? "0" : jsonData.proveedor}, 
-
-  _p1 = _p1.replace(/'/g, '!');
-
-  const query: OutputData = {
-    query: "03",
-    _p1
-  };
-  // console.log("p1", query);
-
-  return query;
-}
 
 export function transformUpdateQuery(
   // jsonData: InputData
@@ -159,7 +114,8 @@ const FArmazonesKardexIN: React.FC<IUserFormPrps> = React.memo(
     const { showModal, CustomModal } = useModal();
     const userState = useAppSelector((store: AppStore) => store.user);
     const { show } = useCustomToast();
-
+    const [fechaHoraActual, setFechaHoraActual] = useState(new Date());
+    
     const {
       editEntity,
       createdEntity,
@@ -197,7 +153,7 @@ const FArmazonesKardexIN: React.FC<IUserFormPrps> = React.memo(
         }
       }
     }, [setValue, firstInputRef]);
-
+    
     const updateNewEntity = React.useCallback(async () => {
       const newEntityData = await ListEntity(params, "01");
       setEntities(newEntityData);
@@ -245,7 +201,7 @@ const FArmazonesKardexIN: React.FC<IUserFormPrps> = React.memo(
             closeModal();
             updateNewEntity();
           }
-
+          
           toastSuccess(isEditting);
         }
 
@@ -261,6 +217,55 @@ const FArmazonesKardexIN: React.FC<IUserFormPrps> = React.memo(
       [closeModal, blnKeep, updateNewEntity, showModal]
     );
 
+    function transformInsertQuery(jsonData: InputData, userId?:number): OutputData | null {
+      setFechaHoraActual(new Date())
+      
+      
+    
+      const year = fechaHoraActual.getFullYear(); // Obtiene el año de 4 dígitos
+      const month = String(fechaHoraActual.getMonth() + 1).padStart(2, '0'); // Obtiene el mes (agrega 1 ya que los meses comienzan en 0) y lo formatea a 2 dígitos
+      const day = String(fechaHoraActual.getDate()).padStart(2, '0'); // Obtiene el día y lo formatea a 2 dígitos
+    
+      const fechaFormateada = `${year}/${month}/${day}`;
+      const dateHora = new Date().toLocaleTimeString();
+      
+      if(jsonData.fecha){
+        if(fechaHoraActual < new Date(jsonData.fecha as string)){
+          toast.error('Fecha mayor a la actual')
+          throw new Error('fecha mayor a la actual')
+          
+        }
+      }
+    
+      /*INSERT INTO CristalesKardex 
+      (fecha, cristal, almacen, es, motivo, cantidad, valor_neto, proveedor, 
+        numero_factura, OT, almacen_relacionado, observaciones, usuario, fecha_mov)*/
+        let _p1 = `"${jsonData.fecha + " " + fechaHoraActual.toLocaleTimeString()}", 
+        ${jsonData.insumo}, 
+        ${jsonData.almacen}, 
+        ${1}, 
+        ${jsonData.motivo_ingreso},
+        ${jsonData.cantidad}, 
+        ${(jsonData.valor_neto && jsonData.valor_neto?.toString())?.length === 0 ? "0" : jsonData.valor_neto}, 
+        ${ jsonData.proveedor}, 
+        ${(jsonData.numero_factura && jsonData.numero_factura?.toString())?.length === 0 ? "0" : jsonData.numero_factura}, 
+        ${'0'}, 
+        ${'0'}, 
+       "${jsonData.observaciones}",
+        ${userId}, 
+       "${fechaFormateada + " " +dateHora}"`;
+    
+      //  ${(jsonData.proveedor && jsonData.proveedor?.toString())?.length === 0 ? "0" : jsonData.proveedor}, 
+    
+      _p1 = _p1.replace(/'/g, '!');
+    
+      const query: OutputData = {
+        query: "03",
+        _p1
+      };
+      // console.log("p1", query);
+      return query;
+    }
     useEffect(() => {
       const handleKeyDown = (event: KeyboardEvent) => {
         if (event.key === "Escape") {
@@ -281,7 +286,7 @@ const FArmazonesKardexIN: React.FC<IUserFormPrps> = React.memo(
           const transformedData = isEditting
             ? transformUpdateQuery()
             : transformInsertQuery(data, userState?.id);
-
+            
           const response = isEditting
             ? await editEntity(transformedData)
             : await createdEntity(transformedData);
@@ -303,6 +308,9 @@ const FArmazonesKardexIN: React.FC<IUserFormPrps> = React.memo(
       isEditting ? focusSecondInput("es") : focusFirstInput("insumo");
     }, []);
 
+    console.log(fechaHoraActual)
+   
+    
     return (
       <div className="useFormContainer centered-div use50rem">
         <div className="userFormBtnCloseContainer">
@@ -351,13 +359,13 @@ const FArmazonesKardexIN: React.FC<IUserFormPrps> = React.memo(
             <div className="input-container items-center rowForm w-[50%]  ">
               <div className="w-full !mt-4">
                 <SelectInputComponent
-                      label="Motivo"
-                      name="motivo"
+                      label="Motivo Ingreso"
+                      name="motivo_ingreso"
                       showRefresh={true}
                       data={data && data[EnumGrid.motivo_id]}
                       control={control}
                       entidad={["/api/kardexmotivos/", "01"]}
-                      error={errors.motivo}
+                      error={errors.motivo_ingreso}
                       // customWidth={"345px"}
                     />
                 </div>

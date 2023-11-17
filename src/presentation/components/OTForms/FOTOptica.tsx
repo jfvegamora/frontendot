@@ -5,6 +5,7 @@ import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
 import Switch from "react-switch";
 import axios from 'axios';
 import { validationOTlevel1, validationOTlevel2 } from '../../utils/validationOT';
+import { fecha_despacho, fecha_entrega_cliente, fecha_entrega_taller, fetchFechas } from '../../utils';
 
 interface IOptica {
     control:any,
@@ -39,11 +40,25 @@ const FOTOptica:React.FC<IOptica> = ({
     const [isToggleImpresion, setIsToggleImpresion] = useState(impresion || false)
     const [isToggleValidacion, setIsToggleValidacion] = useState(false)
     const [motivo, setMotivo] = useState(false)
-    
+    const [strCodigoProyecto, setStrCodigoProyecto] = useState("");
+
+
     const handleInputChange = (e:any) => {
         const { name, value } = e;
-        // console.log(name)
-        // console.log(value)
+       
+        console.log(name)   
+        console.log(value)
+        
+        
+        if(name === "proyecto"){
+            setStrCodigoProyecto(value)
+        }
+
+        if(name === 'fecha_atencion'){
+            fetchFechas(value, strCodigoProyecto)
+        }   
+
+
 
         validationOTlevel1(name, value)
         validationOTlevel2(name, value)
@@ -58,11 +73,9 @@ const FOTOptica:React.FC<IOptica> = ({
         onDataChange({ [name]: value });        
         // Envia los datos al componente padre
     };
+
     
 
-    //   console.log(data[EnumGrid.fecha_despacho])
-    //   console.log( formValues && formValues["motivo"])
-    
     const handleSwitchValidation = () => {
         setIsToggleValidacion((prev)=>!prev)
     }
@@ -212,7 +225,7 @@ const FOTOptica:React.FC<IOptica> = ({
                         label="Fecha taller"
                         name="fecha_entrega_taller"
                         handleChange={handleInputChange}
-                        data={formValues ? formValues["fecha_entrega_taller"] : data &&  data[EnumGrid.fecha_entrega_taller]}
+                        data={fecha_entrega_taller || (formValues && formValues["fecha_entrega_taller"]) || (data && data[EnumGrid.fecha_entrega_taller])}
                         control={control}
                         onlyRead={onlyRead}
                         // error={errors.fecha_nacimiento}
@@ -224,7 +237,7 @@ const FOTOptica:React.FC<IOptica> = ({
                         label="Fecha despacho"
                         name="fecha_despacho"
                         handleChange={handleInputChange}
-                        data={formValues ? formValues["fecha_despacho"] : data && data[EnumGrid.fecha_despacho]}
+                        data={fecha_despacho || (formValues && formValues["fecha_entrega_taller"]) || (data && data[EnumGrid.fecha_entrega_taller])}
                         control={control}
                         onlyRead={onlyRead}
                         // error={errors.fecha_nacimiento}
@@ -236,7 +249,7 @@ const FOTOptica:React.FC<IOptica> = ({
                         label="Fecha entrega cliente"
                         name="fecha_entrega_cliente"
                         handleChange={handleInputChange}
-                        data={formValues ? formValues["fecha_entrega_cliente"] : data && data[EnumGrid.fecha_entrega_cliente]}
+                        data={fecha_entrega_cliente || (formValues && formValues["fecha_entrega_taller"]) || (data && data[EnumGrid.fecha_entrega_taller])}
                         control={control}
                         onlyRead={onlyRead}
                         // error={errors.fecha_nacimiento}

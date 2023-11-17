@@ -11,7 +11,7 @@ import {FOTArmazones, FOTBitacora, FOTClientes, FOTCristales, FOTOptica, FOTRece
 import FOTGarantia from '../../components/OTForms/FOTGarantia';
 import { EnumGrid } from '../mantenedores/MOTHistorica';
 import FOTDerivacion from '../../components/OTForms/FOTDerivacion';
-import { SEXO, TIPO_CLIENTE, a2_od_cil, a2_od_eje, a2_od_esf, a2_oi_cil, a2_oi_eje, a2_oi_esf, clearDioptrias,  dioptriasHabilitadas, dioptrias_receta, reiniciarDioptriasReceta, reiniciarValidationNivel2, tipo_de_anteojo, validar_parametrizacion } from '../../utils';
+import { SEXO, TIPO_CLIENTE, a2_od_cil, a2_od_eje, a2_od_esf, a2_oi_cil, a2_oi_eje, a2_oi_esf, clearDioptrias,  dioptriasHabilitadas, dioptrias_receta, fecha_despacho, fecha_entrega_cliente, fecha_entrega_taller, reiniciarDioptriasReceta, reiniciarValidationNivel2, tipo_de_anteojo, validar_parametrizacion } from '../../utils';
 import { validationCliente, validationEstablecimientos, validationFechaAtencion, validationProyectos, validationPuntoVenta, validationTipoAnteojos, validation_A2_OD_CIL, validation_A2_OD_EJE, validation_A2_OD_ESF, validation_A2_OI_CIL, validation_A2_OI_EJE, validation_A2_OI_ESF } from '../../utils/validationOT';
 import { inputName } from '../../components/OTForms/Otprueba';
 
@@ -295,6 +295,8 @@ interface Dioptrias {
 
 export const tipo_anteojo = signal(false);
 export const onlyReadReceta = signal(false);
+
+
 
 export const dioptrias:any = signal<Dioptrias>({
   ESF:[''],
@@ -704,7 +706,7 @@ const FOT:React.FC<IFOTProps> = ({
     // }
 
     // console.log('data', jsonData)
-    let _p1 = `${motivo},${destino},${estado},${estado_impresion},${estado_validacion},"${jsonData.proyecto}",${jsonData.establecimiento_id},"${jsonData.cliente_rut}","${jsonData.fecha_atencion}","${jsonData.fecha_entrega_taller}","${jsonData.fecha_despacho}","${jsonData.fecha_entrega_cliente}",${jsonData.punto_venta_id},${jsonData.numero_receta},"${jsonData.fecha_receta}",${jsonData.tipo_anteojo_id},${jsonData.a1_od_esf},${jsonData.a1_od_cil},${jsonData.a1_od_eje},${jsonData.a1_od_ad },${jsonData.a1_oi_esf},${jsonData.a1_oi_cil},${jsonData.a1_oi_eje},${jsonData.a1_oi_ad},${jsonData.a1_dp},${jsonData.a1_alt},${a1_grupo},${jsonData.a2_od_esf},${jsonData.a2_od_cil},${jsonData.a2_od_eje},${jsonData.a2_oi_esf},${jsonData.a2_oi_cil},${jsonData.a2_oi_eje},${jsonData.a2_dp},${a2_grupo},${jsonData.a1_opcion_vta_id},${jsonData.a1_armazon_id},${jsonData.a2_opcion_vta_id},${jsonData.a2_armazon_id},${jsonData.a3_opcion_vta_id || 0},${jsonData.a3_armazon_id || 0},${jsonData.cristal1_opcion_vta_id},${jsonData.cristal1_diseno_id},${jsonData.cristal1_indice_id},${jsonData.cristal1_material_id},${jsonData.cristal1_tratamiento_id},${jsonData.cristal1_color_id},${jsonData.cristal1_od},${jsonData.cristal1_oi},${jsonData.cristal1_tratamiento_adicional_id},${jsonData.cristal2_od_opcion_venta_id},${jsonData.cristal2_diseno_id},${jsonData.cristal2_indice_id},${jsonData.cristal2_material_id},${jsonData.cristal2_tratamiento_id},${jsonData.cristal2_color_id},${jsonData.cristal2_od},${jsonData.cristal2_oi},${jsonData.cristal2_tratamiento_adicional_id},${jsonData.motivo_garantia_id || 0},${jsonData.folio_asociado || 0},${jsonData.resolucion_garantia_id || 0},${jsonData.worktracking || 0},${jsonData.nota_venta || 0},${jsonData.numero_factura || 0},${jsonData.folio_interno_mandante || 0},"${jsonData.observaciones || ""}"`;
+    let _p1 = `${motivo},${destino},${estado},${estado_impresion},${estado_validacion},"${jsonData.proyecto}",${jsonData.establecimiento_id},"${jsonData.cliente_rut}","${jsonData.fecha_atencion}","${jsonData.fecha_entrega_taller || fecha_entrega_taller}","${jsonData.fecha_despacho || fecha_despacho}","${jsonData.fecha_entrega_cliente || fecha_entrega_cliente}",${jsonData.punto_venta_id},${jsonData.numero_receta},"${jsonData.fecha_receta}",${jsonData.tipo_anteojo_id},${jsonData.a1_od_esf},${jsonData.a1_od_cil},${jsonData.a1_od_eje},${jsonData.a1_od_ad },${jsonData.a1_oi_esf},${jsonData.a1_oi_cil},${jsonData.a1_oi_eje},${jsonData.a1_oi_ad},${jsonData.a1_dp},${jsonData.a1_alt},${a1_grupo},${jsonData.a2_od_esf},${jsonData.a2_od_cil},${jsonData.a2_od_eje},${jsonData.a2_oi_esf},${jsonData.a2_oi_cil},${jsonData.a2_oi_eje},${jsonData.a2_dp},${a2_grupo},${jsonData.a1_opcion_vta_id},${jsonData.a1_armazon_id},${jsonData.a2_opcion_vta_id},${jsonData.a2_armazon_id},${jsonData.a3_opcion_vta_id || 0},${jsonData.a3_armazon_id || 0},${jsonData.cristal1_opcion_vta_id},${jsonData.cristal1_diseno_id},${jsonData.cristal1_indice_id},${jsonData.cristal1_material_id},${jsonData.cristal1_tratamiento_id},${jsonData.cristal1_color_id},${jsonData.cristal1_od},${jsonData.cristal1_oi},${jsonData.cristal1_tratamiento_adicional_id},${jsonData.cristal2_od_opcion_venta_id},${jsonData.cristal2_diseno_id},${jsonData.cristal2_indice_id},${jsonData.cristal2_material_id},${jsonData.cristal2_tratamiento_id},${jsonData.cristal2_color_id},${jsonData.cristal2_od},${jsonData.cristal2_oi},${jsonData.cristal2_tratamiento_adicional_id},${jsonData.motivo_garantia_id || 0},${jsonData.folio_asociado || 0},${jsonData.resolucion_garantia_id || 0},${jsonData.worktracking || 0},${jsonData.nota_venta || 0},${jsonData.numero_factura || 0},${jsonData.folio_interno_mandante || 0},"${jsonData.observaciones || ""}"`;
     _p1 = _p1.replace(/'/g, '!');
 
 
@@ -751,7 +753,7 @@ const FOT:React.FC<IFOTProps> = ({
   }
   
   //Estados locales
-  const { control, handleSubmit, setValue } = useForm<FormData>();
+  const { control, handleSubmit, setValue, register } = useForm<FormData>();
   const [formValues, setFormValues] = useState<FormData | any>({});
   const [showGarantia, setShowGarantia] = useState(false);
   const [showDerivacion, setShowDerivacion] = useState(false);
@@ -806,6 +808,10 @@ const FOT:React.FC<IFOTProps> = ({
   const handleFormChange = async(data: any, name: string) => {
     console.log(name)
     console.log(data)
+
+    
+
+
     setChangeboolean((prev)=>!prev)
     setFormValues((prevFormValues: any) => ({
       ...prevFormValues,
@@ -1006,6 +1012,7 @@ const fetchDioptrias = async(proyecto:string) => {
 
 
 console.log(validationNivel2.value)
+console.log(validationNivel1.value)
 // console.log(validationNivel2)
 console.log(dioptrias_receta.value)
 console.log(dioptriasHabilitadas.value)
@@ -1042,11 +1049,11 @@ const handleEsferico = () => {
 
         <div className='top-0 absolute right-3 text-2xl cursor-pointert' onClick={()=>{closeModal(), clearDioptrias(), reiniciarDioptriasReceta(), reiniciarValidationNivel2()}}>X</div>
           <TabPanel onSelect={loadFormData}>
-            <FOTOptica onlyRead={onlyRead} setIsMotivo={setIsMotivo} isEditting={isEditting} data={data && data} formValues={formValues["optica"]} control={control} setToggle={setToggle} onDataChange={(data:any) => handleFormChange(data , 'optica')} permiso_estado_impresion={permiso_estado_impresion} permiso_estado_validacion={permiso_estado_validacion} permiso_resolucion_garantia={permiso_resolucion_garantia} />
+            <FOTOptica onlyRead={onlyRead} setIsMotivo={setIsMotivo} isEditting={isEditting} data={data && data} formValues={formValues["optica"]} control={control} setToggle={setToggle}  onDataChange={(data:any) => handleFormChange(data , 'optica')} permiso_estado_impresion={permiso_estado_impresion} permiso_estado_validacion={permiso_estado_validacion} permiso_resolucion_garantia={permiso_resolucion_garantia} />
           </TabPanel>
           
         <TabPanel>
-          <FOTClientes onlyRead={onlyRead} data={data && data} formValues={formValues["cliente"]} control={control} onDataChange={(data:any) => handleFormChange(data , 'cliente')} strCodigoProyecto={strCodigoProyecto} setExistCliente={setExistCliente}    />
+          <FOTClientes onlyRead={onlyRead} data={data && data} register={register} formValues={formValues["cliente"]} control={control} onDataChange={(data:any) => handleFormChange(data , 'cliente')} strCodigoProyecto={strCodigoProyecto} setExistCliente={setExistCliente}    />
         </TabPanel>
 
         <TabPanel>

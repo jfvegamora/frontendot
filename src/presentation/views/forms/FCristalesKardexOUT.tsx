@@ -10,7 +10,7 @@ import {
 } from "../../components";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { validationKardexOUTSchema } from "../../utils/validationFormSchemas";
+import { fechaActual, validationKardexOUTSchema } from "../../utils/validationFormSchemas";
 import { EnumGrid } from "../mantenedores/MCristalesKardex";
 import {
   ERROR_MESSAGES,
@@ -32,7 +32,7 @@ export interface InputData {
   // descripcion         : string | undefined;
   fecha               : string | undefined;
   // es                  : string | undefined;
-  motivo              : string | undefined;
+  motivo_egreso              : string | undefined;
   cantidad            : string | undefined;
   almacen             : string | undefined;
   // numero_factura      : string | undefined;
@@ -52,59 +52,13 @@ interface OutputData {
   _p3?: string;
 }
 
-export function transformInsertQuery(jsonData: InputData, userId?:number): OutputData | null {
-  const fechaActual = new Date();
-  const year = fechaActual.getFullYear(); // Obtiene el año de 4 dígitos
-  const month = String(fechaActual.getMonth() + 1).padStart(2, '0'); // Obtiene el mes (agrega 1 ya que los meses comienzan en 0) y lo formatea a 2 dígitos
-  const day = String(fechaActual.getDate()).padStart(2, '0'); // Obtiene el día y lo formatea a 2 dígitos
-
-  const fechaFormateada = `${year}/${month}/${day}`;
-  const dateHora = new Date().toLocaleTimeString();
-  
-  if(jsonData.fecha){
-    if(fechaActual < new Date(jsonData.fecha as string)){
-      toast.error('Fecha mayor a la actual')
-      throw new Error('fecha mayor a la actual')
-      
-    }
-  }
-
-  /*INSERT INTO CristalesKardex 
-  (fecha, cristal, almacen, es, motivo, cantidad, valor_neto, proveedor, 
-    numero_factura, OT, almacen_relacionado, observaciones, usuario, fecha_mov)*/
-  let _p1 = `"${jsonData.fecha + " " + fechaActual.toLocaleTimeString()}", 
-    ${jsonData.insumo}, 
-    ${jsonData.almacen}, 
-    ${2}, 
-    ${jsonData.motivo},
-    ${jsonData.cantidad}, 
-    ${'0'}, 
-    ${'0'}, 
-    ${'0'}, 
-    ${'0'}, 
-    ${jsonData.almacen_relacionado}, 
-   "${jsonData.observaciones}",
-    ${userId}, 
-   "${fechaFormateada + " " + dateHora}"`;
-
-    // ${(jsonData.almacen_relacionado && jsonData.almacen_relacionado?.toString())?.length === 0 ? "0" : jsonData.almacen_relacionado}, 
-    // 
-   _p1 = _p1.replace(/'/g, '!');
-  
-  const query: OutputData = {
-    query: "03",
-    _p1,
-  };
-  console.log("query INSERT ", query);
-  return query;
-}
 
 export function transformUpdateQuery(
   // jsonData: InputData
   // ,primaryKey: string
-): OutputData | null {
+  ): OutputData | null {
   // const fields = [
-  //   `almacen            = ${jsonData.almacen}`,
+    //   `almacen            = ${jsonData.almacen}`,
   //   `es                 = ${
   //     jsonData.es === MOTIVO_KARDEX.entrada
   //       ? 1
@@ -129,10 +83,10 @@ export function transformUpdateQuery(
   // );
 
   // if (filteredFields.length === 0) {
-  //   return null;
+    //   return null;
   // }
   // const _p1 = filteredFields.join(",");
-
+  
   // return {
   //   query: "04",
   //   _p1,
@@ -163,6 +117,7 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
     const { showModal, CustomModal } = useModal();
     const userState = useAppSelector((store: AppStore) => store.user);
     const { show } = useCustomToast();
+    const [fechaHoraActual, setFechaHoraActual] = useState(fechaActual);
 
     const {
       editEntity,
@@ -194,13 +149,60 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
       if (firstInputRef.current) {
         const firstInput = firstInputRef.current.querySelector(
           'input[name="insumo"]'
-        );
+          );
         if (firstInput) {
           firstInput.focus();
         }
       }
     }, [setValue, firstInputRef]);
-
+    
+    function transformInsertQuery(jsonData: InputData, userId?:number): OutputData | null {
+      
+      const year = fechaHoraActual.getFullYear(); // Obtiene el año de 4 dígitos
+      const month = String(fechaHoraActual.getMonth() + 1).padStart(2, '0'); // Obtiene el mes (agrega 1 ya que los meses comienzan en 0) y lo formatea a 2 dígitos
+      const day = String(fechaHoraActual.getDate()).padStart(2, '0'); // Obtiene el día y lo formatea a 2 dígitos
+    
+      const fechaFormateada = `${year}/${month}/${day}`;
+      const dateHora = new Date().toLocaleTimeString();
+      
+      if(jsonData.fecha){
+        if(fechaHoraActual < new Date(jsonData.fecha as string)){
+          toast.error('Fecha mayor a la actual')
+          throw new Error('fecha mayor a la actual')
+          
+        }
+      }
+    
+      /*INSERT INTO CristalesKardex 
+      (fecha, cristal, almacen, es, motivo, cantidad, valor_neto, proveedor, 
+        numero_factura, OT, almacen_relacionado, observaciones, usuario, fecha_mov)*/
+      let _p1 = `"${jsonData.fecha + " " + fechaHoraActual.toLocaleTimeString()}", 
+        ${jsonData.insumo}, 
+        ${jsonData.almacen}, 
+        ${2}, 
+        ${jsonData.motivo_egreso},
+        ${jsonData.cantidad}, 
+        ${'0'}, 
+        ${'0'}, 
+        ${'0'}, 
+        ${'0'}, 
+        ${jsonData.almacen_relacionado}, 
+       "${jsonData.observaciones}",
+        ${userId}, 
+       "${fechaFormateada + " " + dateHora}"`;
+    
+        // ${(jsonData.almacen_relacionado && jsonData.almacen_relacionado?.toString())?.length === 0 ? "0" : jsonData.almacen_relacionado}, 
+        // 
+       _p1 = _p1.replace(/'/g, '!');
+      
+      const query: OutputData = {
+        query: "03",
+        _p1,
+      };
+      setFechaHoraActual(new Date())
+      console.log("query INSERT ", query);
+      return query;
+    }
     const updateNewEntity = React.useCallback(async () => {
       const newEntityData = await ListEntity(params, "01");
       setEntities(newEntityData);
@@ -370,13 +372,13 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
               <div className="input-container items-center rowForm w-[50%]">
                 <div className="w-full !mt-4">
                     <SelectInputComponent
-                      label="Motivo"
-                      name="motivo"
+                      label="Motivo Egreso"
+                      name="motivo_egreso"
                       showRefresh={true}
                       data={data && data[EnumGrid.motivo_id]}
                       control={control}
                       entidad={["/api/kardexmotivos/", "02"]}
-                      error={errors.motivo}
+                      error={errors.motivo_egreso}
                       // customWidth={"345px"}
                     />
                 </div>

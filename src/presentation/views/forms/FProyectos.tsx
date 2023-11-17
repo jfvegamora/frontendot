@@ -136,6 +136,7 @@ export function transformUpdateQuery(
   jsonData: InputData,
   primaryKey: string
 ): OutputData | null {
+  console.log(jsonData)
   const fields = [
     `codigo_licitacion          ="${jsonData.codigo_licitacion}"`,
     `titulo                     ="${jsonData.titulo_proyecto}"`,
@@ -165,6 +166,7 @@ export function transformUpdateQuery(
     `oftalmologo                = ${jsonData.oftalmologo}`,
     `observaciones              ="${jsonData.observaciones}"`,
   ];
+  
 
   const filteredFields = fields.filter(
     (field) => field !== null && field !== ""
@@ -224,6 +226,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
       resolver: yupResolver(schema),
       shouldUnregister:false
     });
+    
 
     const resetTextFields = React.useCallback(() => {
       setValue("codigo_proyecto", "");

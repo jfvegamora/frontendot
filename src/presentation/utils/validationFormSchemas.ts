@@ -1,8 +1,10 @@
 import * as yup from "yup";
 
-const msg = "Requerido";
+import { signal } from "@preact/signals-react";
+// export const fechaActual = signal(new Date())
 export const fechaActual = new Date();
 
+const msg = "Requerido";
 
 /*************** O T ***************/
 //Schema OT
@@ -121,7 +123,7 @@ export const validationKardexINSchema = () =>
     fecha              : yup.string().required(`${msg}`),
     almacen            : yup.string().required(`${msg}`),
     // es: yup.number(),
-    motivo             : yup.string().required(`${msg}`),
+    motivo_ingreso             : yup.string().required(`${msg}`),
     cantidad           : yup.string().required(`${msg}`),
     valor_neto         : yup.string(),
     numero_factura     : yup.string(),
@@ -141,7 +143,7 @@ export const validationKardexOUTSchema = () =>
     fecha              : yup.string().required(`${msg}`),
     almacen            : yup.string().required(`${msg}`),
     // es: yup.number(),
-    motivo             : yup.string().required(`${msg}`),
+    motivo_egreso             : yup.string().required(`${msg}`),
     cantidad           : yup.string().required(`${msg}`),
     // numero_factura: yup.number(),
     // proveedor: yup.string(),
@@ -202,15 +204,15 @@ export const validationProyectosSchema = () =>
     fecha_adjudicacion    : yup.string(),
     fecha_inicio          : yup.string().required(`${msg}`),
     fecha_termino         : yup.string().required(`${msg}`),
-    cantidad_requerida    : yup.string(),
+    cantidad_requerida    : yup.string().default("0"),
 
-    cantidad_atendida     : yup.string().nullable(),
-    cantidad_disponible   : yup.string().nullable(),
+    cantidad_atendida     : yup.string().nullable().default("0"),
+    cantidad_disponible   : yup.string().nullable().default("0"),
     total_facturado       : yup.string().nullable(),
     saldo_disponible      : yup.string().nullable(),
     avance                : yup.string().nullable(),
 
-    presupuesto           : yup.string(),
+    presupuesto           : yup.string().default("0"),
     dias_entrega          : yup.string().required(`${msg}`),
     ejecutivo_proyecto    : yup.string().required(`${msg}`),
 

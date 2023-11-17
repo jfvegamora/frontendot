@@ -55,7 +55,6 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     tabIndex
   }) => {
     const dispatch = useAppDispatch()
-    const [refreshToggle, setrefreshToggle] = useState(false);
     const [entities, setEntities] = useState([]);
     const [strSelectedName, setStrSelectedName] = useState(data || undefined);
     const strUrl = entidad && entidad[0];
@@ -65,13 +64,14 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     // console.log(strUrl)
     // console.log(strTableName)
     
-    
+    // console.log(entidad)
     
     const strUrl2 = `${URLBackend}${entidad[0]}listado/?query=${entidad[1]}`;
     // console.log(strUrl2)
     
     const state = useAppSelector((store: AppStore) => store.listBox);
     // console.log(state)
+    
     
     // console.log(strUrl2)
     
@@ -87,10 +87,10 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
 
     // console.log(label)
     // console.log(state)
-     if(refreshToggle){
-      // console.log('refresh')
-      fetchSelectData()
-     }
+    //  if(refreshToggle){
+    //   // console.log('refresh')
+    //   fetchSelectData()
+    //  }
     
 
     React.useEffect(()=>{
@@ -102,10 +102,10 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
         setEntities(state[label])
       }
 
-    },[])
+    },[state, label])
     // console.log(refreshToggle)
 
-
+    // console.log('render')
     const { refreshData } = useEntityUtils(strUrl, entidad[1]);
 
     const renderInput = () => (
@@ -143,20 +143,16 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
                     handleSelectChange &&  handleSelectChange(e.target)
                   }
                   if (setHandleSearch) {
-                    const selectedValue = e.target.value.toString();
-                    // console.log("name", name);
-                    // console.log("selectedValue", selectedValue);
+                    const selectedValue = e.target.value.toString();;
                     handleSelectChange(name, selectedValue);
                     const inputValuesToUpdate = {
                       ...inputValues,
                       [name]: selectedValue,
                     };
-
                     if (setHandleSearch) {
                       setHandleSearch(inputValuesToUpdate);
                     }
                   }
-                  setrefreshToggle((prev) => !prev);
                 }}
                 className="custom-input py-2 px-3 w-[85%] cursor-pointer z-0"
               >
@@ -184,7 +180,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     )
 
     useEffect(() => {
-      setStrSelectedName(data);
+      // setStrSelectedName(data);
       renderInput()
       // console.log('data', data)
     }, [data]);
@@ -198,7 +194,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
         {showRefresh && (
           <Tooltip content="Refrescar">
             <IconButton
-              onClick={() => setrefreshToggle((prev) => !prev)}
+              onClick={() => fetchSelectData()}
               variant="text"
               className="mx2 iconRefresh"
               tabIndex={-1}

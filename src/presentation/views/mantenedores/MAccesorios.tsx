@@ -20,9 +20,12 @@ export enum EnumGrid {
   proveedor_id     = 5,
   proveedor        = 6,
   precio_neto      = 7,
-  stock_minimo     = 8,
-  stock_reservado  = 9,
-  stock_disponible = 10
+  totsl_ingresos   = 8,
+  total_egresos    = 9,
+  stock_actual     = 10,
+  stock_minimo     = 11,
+  stock_reservado  = 12,
+  stock_disponible = 13
 }
 
 const strEntidad = "Accesorio ";

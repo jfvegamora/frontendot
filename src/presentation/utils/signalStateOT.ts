@@ -1,5 +1,7 @@
 import { Signal, signal } from "@preact/signals-react";
 import { validationNivel2 } from "../views/forms/FOT";
+import axios from "axios";
+import { URLBackend } from "../hooks/useCrud";
 
 export const a1_od_esf  = signal(null);
 export const a1_od_cil  = signal(null);
@@ -25,6 +27,14 @@ export const a2_oi_eje  = signal(null);
 
 export const tipo_de_anteojo = signal('');
 export const validar_parametrizacion = signal("");
+
+
+//SEÑALES FECHA PARA GENERARLAS A PARTIR DE FECHA_ATECION/QUERY 11 SPOT
+export const fecha_despacho = signal("");
+export const fecha_entrega_taller = signal("");
+export const fecha_entrega_cliente = signal("");
+
+
 
 // export type DioptriasReceta = {
 //     a1_od: { esf: number | any; cil: number | any; eje: number | any; ad: number | any };
@@ -176,6 +186,27 @@ export const clearDioptriasA2 = (valor:number) => {
     console.log(validationNivel2.value)
 
 };
+
+
+
+export const fetchFechas = async(fecha_atencion:string, codgioProyecto:string) => {
+  try {
+       const {data} = await axios(`${URLBackend}/api/ot/listado/?query=11&_proyecto=${codgioProyecto}&_fecha_desde=${fecha_atencion}`)
+       console.log(data[0])
+       console.log(data[0][0])
+       console.log(data[0][1])
+       console.log(data[0][2])
+       
+       fecha_entrega_taller.value = data[0][0]
+       fecha_despacho.value = data[0][1]
+       fecha_entrega_cliente.value =data[0][2]
+      
+      return data         
+  } catch (error) {
+    console.log('fetchFechasError:', error);
+    throw error
+  }
+}
 
 
 
