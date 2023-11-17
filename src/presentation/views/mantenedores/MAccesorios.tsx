@@ -101,7 +101,13 @@ const MAccesorios: React.FC = () => {
                 type: "select",
                 selectUrl: "/api/marcas/",
               },
-            ]}
+              {
+                name: "_p4",
+                label: "Almacenes",
+                type: "select",
+                selectUrl: "/api/almacenes/",
+              },
+              ]}
           />
 
         </div>

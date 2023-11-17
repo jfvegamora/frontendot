@@ -510,6 +510,18 @@ export const table_head_OT_diaria = [
     width: "w-[8rem]"
   },
   {
+    cell: "CR1 Marca ID",
+    key: "cr1_marca_id",
+    visible: false,
+  },
+  {
+    cell: "CRISTAL 1 Marca",
+    key: "cr1_marca",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[8rem]"
+  },
+  {
     cell: "CR1 Diseño ID",
     key: "cr1_diseño_id",
     visible: false,
@@ -570,6 +582,13 @@ export const table_head_OT_diaria = [
     width: "w-[7rem]"
   },
   {
+    cell: "CRISTAL 1 Diámetro",
+    key: "cr1_diametro",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[7rem]"
+  },
+  {
     cell: "CRISTAL 1 OD Código",
     key: "cr1_od_codigo",
     visible: true,
@@ -605,6 +624,18 @@ export const table_head_OT_diaria = [
   {
     cell: "CRISTAL 2 Opción Venta",
     key: "cr2_opcion_vta",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[8rem]"
+  },
+  {
+    cell: "CR12 Marca ID",
+    key: "cr2_marca_id",
+    visible: false,
+  },
+  {
+    cell: "CRISTAL 2 Marca",
+    key: "cr2_marca",
     visible: true,
     alignment: "text-center",
     width: "w-[8rem]"
@@ -665,6 +696,13 @@ export const table_head_OT_diaria = [
   {
     cell: "CRISTAL 2 Color",
     key: "cr2_color",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[7rem]"
+  },
+  {
+    cell: "CRISTAL 2 Diámetro",
+    key: "cr2_diametro",
     visible: true,
     alignment: "text-center",
     width: "w-[7rem]"

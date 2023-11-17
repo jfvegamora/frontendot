@@ -156,11 +156,14 @@ const MCristales: React.FC = () => {
                   selectUrl: "/api/tipos/",
                   tipos: "CristalesTratamientos",
                 },
-
-
-
+                {
+                  name: "_p4",
+                  label: "Almacenes",
+                  type: "select",
+                  selectUrl: "/api/almacenes/",
+                },
                 { name: "_pDiametro", label: "Diámetro", type: "number" },
-              ]}
+                ]}
             />
           </div>
           <div className="w-[20%] absolute bottom-[2.5rem] right-[12rem]">

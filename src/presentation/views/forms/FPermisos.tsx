@@ -75,6 +75,7 @@ interface IFormPrps {
   selectedRows?: any;
   setEntities?: any;
   params?: any;
+  escritura_lectura?: boolean;
 }
 
 const FPermisos: React.FC<IFormPrps> = React.memo(
