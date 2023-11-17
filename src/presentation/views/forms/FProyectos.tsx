@@ -94,33 +94,33 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
 
       let _p2 = ` 
       "${jsonData.codigo_proyecto}", 
-      "${jsonData.codigo_licitacion}", 
+      "${jsonData.codigo_licitacion || ""}", 
       "${jsonData.titulo_proyecto}", 
        ${jsonData.estado === "Abierto" ? 1 : 2},
        ${jsonData.empresa_adjudicada}, 
        ${jsonData.mandante}, 
-      "${jsonData.unidad_compra}", 
-      "${jsonData.fecha_adjudicacion}", 
+      "${jsonData.unidad_compra || ""}", 
+      "${jsonData.fecha_adjudicacion || "1900-01-01"}", 
       "${jsonData.fecha_inicio}", 
       "${jsonData.fecha_termino}", 
        ${jsonData.cantidad_requerida || 0}, 
        ${jsonData.presupuesto || 0}, 
-       ${jsonData.dias_entrega || 0}, 
-       ${jsonData.ejecutivo_proyecto || ""}, 
+       ${jsonData.dias_entrega}, 
+       ${jsonData.ejecutivo_proyecto}, 
       "${jsonData.administrador_nombre || ""}", 
-      "${jsonData.administrador_correo}", 
-      "${jsonData.administrador_telefono}", 
-      "${jsonData.referente_nombre}", 
-      "${jsonData.referente_correo}", 
-      "${jsonData.referente_telefono}", 
-      "${jsonData.contabilidad_nombre}", 
-      "${jsonData.contabilidad_correo}", 
-      "${jsonData.contabilidad_telefono}", 
-      "${jsonData.finanzas_nombre}", 
-      "${jsonData.finanzas_nombre}", 
-      "${jsonData.finanzas_telefono}", 
-       ${jsonData.oftalmologo},
-      "${jsonData.observaciones}"`;
+      "${jsonData.administrador_correo || ""}", 
+      "${jsonData.administrador_telefono || ""}", 
+      "${jsonData.referente_nombre || ""}", 
+      "${jsonData.referente_correo || ""}", 
+      "${jsonData.referente_telefono || ""}", 
+      "${jsonData.contabilidad_nombre || ""}", 
+      "${jsonData.contabilidad_correo || ""}", 
+      "${jsonData.contabilidad_telefono || ""}", 
+      "${jsonData.finanzas_nombre || ""}", 
+      "${jsonData.finanzas_nombre || ""}", 
+      "${jsonData.finanzas_telefono || ""}", 
+       ${jsonData.oftalmologo || 0},
+      "${jsonData.observaciones || ""}"`;
   
     _p2 = _p2.replace(/'/g, '!');
 
@@ -138,33 +138,33 @@ export function transformUpdateQuery(
 ): OutputData | null {
   console.log(jsonData)
   const fields = [
-    `codigo_licitacion          ="${jsonData.codigo_licitacion}"`,
-    `titulo                     ="${jsonData.titulo_proyecto}"`,
+    `codigo_licitacion          = "${jsonData.codigo_licitacion || ""}"`,
+    `titulo                     = "${jsonData.titulo_proyecto}"`,
     `estado                     = ${jsonData.estado === "Abierto" ? 1 : 2}`,
     `empresa                    = ${jsonData.empresa_adjudicada}`,
     `mandante                   = ${jsonData.mandante}`,
-    `unidad_compra              ="${jsonData.unidad_compra}"`,
-    `fecha_adjudicacion         ="${jsonData.fecha_adjudicacion}"`,
-    `fecha_inicio               ="${jsonData.fecha_inicio}"`,
-    `fecha_termino              ="${jsonData.fecha_termino}"`,
-    `cantidad_requerida         = ${jsonData.cantidad_requerida}`,
-    `presupuesto                = ${jsonData.presupuesto}`,
+    `unidad_compra              = "${jsonData.unidad_compra || ""}"`,
+    `fecha_adjudicacion         = "${jsonData.fecha_adjudicacion || "1900-01-01"}"`,
+    `fecha_inicio               = "${jsonData.fecha_inicio}"`,
+    `fecha_termino              = "${jsonData.fecha_termino}"`,
+    `cantidad_requerida         = ${jsonData.cantidad_requerida || 0}`,
+    `presupuesto                = ${jsonData.presupuesto || 0}`,
     `dias_de_entrega            = ${jsonData.dias_entrega}`,
     `ejecutivo                  = ${jsonData.ejecutivo_proyecto}`,
-    `contacto_adm_nombre        ="${jsonData.administrador_nombre}"`,
-    `contacto_adm_correo        ="${jsonData.administrador_correo}"`,
-    `contacto_adm_telefono      ="${jsonData.administrador_telefono}"`,
-    `referente_tec_nombre       ="${jsonData.referente_nombre}"`,
-    `referente_tec_correo       ="${jsonData.referente_correo}"`,
-    `referente_tec_telefono     ="${jsonData.referente_telefono}"`,
-    `contacto_conta_nombre      ="${jsonData.contabilidad_nombre}"`,
-    `contacto_conta_correo      ="${jsonData.contabilidad_correo}"`,
-    `contacto_conta_telefono    ="${jsonData.contabilidad_telefono}"`,
-    `contacto_fin_nombre        ="${jsonData.finanzas_nombre}"`,
-    `contacto_fin_correo        ="${jsonData.finanzas_correo}"`,
-    `contacto_fin_telefono      ="${jsonData.finanzas_telefono}"`,
+    `contacto_adm_nombre        = "${jsonData.administrador_nombre || ""}"`,
+    `contacto_adm_correo        = "${jsonData.administrador_correo || ""}"`,
+    `contacto_adm_telefono      = "${jsonData.administrador_telefono || ""}"`,
+    `referente_tec_nombre       = "${jsonData.referente_nombre || ""}"`,
+    `referente_tec_correo       = "${jsonData.referente_correo || ""}"`,
+    `referente_tec_telefono     = "${jsonData.referente_telefono || ""}"`,
+    `contacto_conta_nombre      = "${jsonData.contabilidad_nombre || ""}"`,
+    `contacto_conta_correo      = "${jsonData.contabilidad_correo || ""}"`,
+    `contacto_conta_telefono    = "${jsonData.contabilidad_telefono || ""}"`,
+    `contacto_fin_nombre        = "${jsonData.finanzas_nombre || ""}"`,
+    `contacto_fin_correo        = "${jsonData.finanzas_correo || ""}"`,
+    `contacto_fin_telefono      = "${jsonData.finanzas_telefono || ""}"`,
     `oftalmologo                = ${jsonData.oftalmologo}`,
-    `observaciones              ="${jsonData.observaciones}"`,
+    `observaciones              = "${jsonData.observaciones}"`,
   ];
   
 
@@ -176,11 +176,10 @@ export function transformUpdateQuery(
     return null;
   }
    let _p2 = filteredFields.join(",");
-  // console.log("primaryKey", primaryKey);
-  _p2 = _p2.replace(/'/g, '!');
 
-  console.log(_p2)
-  const query = {
+   _p2 = _p2.replace(/'/g, '!');
+
+   const query = {
     query: "04",
     _p2,
     _p3: primaryKey,
@@ -681,11 +680,11 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                         control={control}
                         errors={errors}
                         nombre="administrador_nombre"
-                        telefono="administrador_telefono"
                         correo="administrador_correo"
+                        telefono="administrador_telefono"
                         dataNombre={data && data[EnumGrid.CONTACTO_ADMINISTRADOR_NOMBRE]}
-                        dataCorreo={data && data[EnumGrid.CONTACTO_ADMINISTRADOR_TELEFONO]}
-                        dataTelefono={data && data[EnumGrid.CONTACTO_ADMINISTRADOR_CORREO]}
+                        dataCorreo={data && data[EnumGrid.CONTACTO_ADMINISTRADOR_CORREO]}
+                        dataTelefono={data && data[EnumGrid.CONTACTO_ADMINISTRADOR_TELEFONO]}
                       />
                   </FrameComponent>
           
@@ -697,11 +696,11 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     errors={errors}
                     nombre="contabilidad_nombre"
-                    telefono="contabilidad_telefono"
                     correo="contabilidad_correo"
+                    telefono="contabilidad_telefono"
                     dataNombre={data && data[EnumGrid.CONTACTO_CONTABILIDAD_NOMBRE]}
-                    dataTelefono={data && data[EnumGrid.CONTACTO_CONTABILIDAD_TELEFON]}
                     dataCorreo={data && data[EnumGrid.CONTACTO_CONTABILIDAD_CORREO]}
+                    dataTelefono={data && data[EnumGrid.CONTACTO_CONTABILIDAD_TELEFONO]}
                     />
                   </FrameComponent>
             </div>
@@ -713,8 +712,8 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                         control={control}
                         errors={errors}
                         nombre="referente_nombre"
-                        telefono="referente_telefono"
                         correo="referente_correo"
+                        telefono="referente_telefono"
                         dataNombre={data && data[EnumGrid.REFERENTE_TECNICO_NOMBRE]}
                         dataCorreo={data && data[EnumGrid.REFERENTE_TECNICO_CORREO]}
                         dataTelefono={data && data[EnumGrid.REFERENTE_TECNICO_TELEFONO]}
@@ -726,8 +725,8 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                         control={control}
                         errors={errors}
                         nombre="finanzas_nombre"
-                        telefono="finanzas_telefono"
                         correo="finanzas_correo"
+                        telefono="finanzas_telefono"
                         dataNombre={data && data[EnumGrid.CONTACTO_FINANZAS_NOMBRE]}
                         dataCorreo={data && data[EnumGrid.CONTACTO_FINANZAS_CORREO]}
                         dataTelefono={data && data[EnumGrid.CONTACTO_FINANZAS_TELEFONO]}
