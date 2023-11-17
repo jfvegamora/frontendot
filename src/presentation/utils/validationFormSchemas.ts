@@ -122,38 +122,76 @@ export const validationKardexINSchema = () =>
     descripcion        : yup.string(),
     fecha              : yup.string().required(`${msg}`),
     almacen            : yup.string().required(`${msg}`),
-    // es: yup.number(),
-    motivo_ingreso             : yup.string().required(`${msg}`),
+    motivo_ingreso     : yup.string().required(`${msg}`),
     cantidad           : yup.string().required(`${msg}`),
-    valor_neto         : yup.string(),
-    numero_factura     : yup.string(),
-    proveedor          : yup.string().default("0").nullable(),
-    // ot: yup.number(),
-    // almacen_relacionado: yup.string().required(`${msg}`),
     observaciones      : yup.string(),
     usuario            : yup.string(),
     fecha_mov          : yup.string(),
-  });
+
+    valor_neto         : yup.string().default("0").test({
+                          test: function(value) {
+                          // Obtén el valor de 'motivo_ingreso' desde el contexto
+                          const motivoIngreso = this.resolve(yup.ref('motivo_ingreso'));
+                          
+                          // Realiza la lógica de validación basada en 'motivo_ingreso' y 'valor_neto'
+                          if (motivoIngreso === '2' && !value) {
+                            return this.createError({ message:  `${msg}` });
+                          }
+                          
+                          return true;
+                        }}),
+
+
+    proveedor          : yup.string().default("0").test({
+                        test: function(value) {
+                          // Obtén el valor de 'motivo_ingreso' desde el contexto
+                          const motivoIngreso = this.resolve(yup.ref('motivo_ingreso'));
+                          
+                          // Realiza la lógica de validación basada en 'motivo_ingreso' y 'proveedor'
+                          if (motivoIngreso === '2' && !value) {
+                            return this.createError({ message: `${msg}` });
+                          }
+                          
+                          return true;
+                        }}),
+
+
+    numero_factura      : yup.string().test({
+                          test: function(value) {
+                            const motivoIngreso = this.resolve(yup.ref('motivo_ingreso'));
+                            
+                            if (motivoIngreso === '2' && !value) {
+                              return this.createError({ message: `${msg}` });
+                            }
+                            
+                            return true;
+                          },
+  })});
 
 // Schema EGRESO INSUMOS KARDEX (CRISTALES-ARMAZONES-ACCESORIOS)
 export const validationKardexOUTSchema = () =>
   yup.object().shape({
-    insumo             : yup.string().required(`${msg}`),
-    descripcion        : yup.string(),
-    fecha              : yup.string().required(`${msg}`),
-    almacen            : yup.string().required(`${msg}`),
-    // es: yup.number(),
-    motivo_egreso             : yup.string().required(`${msg}`),
-    cantidad           : yup.string().required(`${msg}`),
-    // numero_factura: yup.number(),
-    // proveedor: yup.string(),
-    // valor_neto: yup.number(),
-    // ot: yup.number(),
-    almacen_relacionado: yup.string().default("0").nullable(),
-    observaciones      : yup.string(),
-    usuario            : yup.string(),
-    fecha_mov          : yup.string(),
-  });
+    insumo               : yup.string().required(`${msg}`),
+    descripcion          : yup.string(),
+    fecha                : yup.string().required(`${msg}`),
+    almacen              : yup.string().required(`${msg}`),
+    motivo_egreso        : yup.string().required(`${msg}`),
+    cantidad             : yup.string().required(`${msg}`),
+    observaciones        : yup.string(),
+    usuario              : yup.string(),
+    fecha_mov            : yup.string(),
+    almacen_relacionado  : yup.string().test({
+                            test: function(value) {
+                              const motivoEgreso = this.resolve(yup.ref('motivo_egreso'));
+                              // console.log(motivoEgreso)
+                              
+                              if (motivoEgreso === '2' && !value) {
+                                return this.createError({ message: `${msg}` });
+                              }
+                              
+                              return true;
+                            },
+  })});
 
 // Schema ALMACENES
 export const validationAlmacenesSchema = () =>

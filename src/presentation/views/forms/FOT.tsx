@@ -713,7 +713,10 @@ const FOT:React.FC<IFOTProps> = ({
     // const _p3 = `'${jsonData.cliente_rut}','${jsonData.cliente_nombre}',${jsonData.cliente_tipo === TIPO_CLIENTE.beneficiario ? "1" : jsonData.cliente_tipo === TIPO_CLIENTE.particular ? "2" : jsonData.cliente_tipo === TIPO_CLIENTE.optica ? "3" : "0"}, ${jsonData.cliente_sexo === SEXO.masculino ? "1" : jsonData.cliente_sexo === SEXO.femenino ? "2" : jsonData.cliente_sexo === SEXO.no_aplica ? "3" : "0"},'${jsonData.cliente_fecha_nacimiento}','${jsonData.cliente_direccion}' ,${jsonData.cliente_comuna_id || 150}, '${jsonData.cliente_telefono}','${jsonData.cliente_correo}', ${jsonData.establecimiento_id}`;
 
     const cristales  = [{'codigo': jsonData.cristal1_od},{'codigo': jsonData.cristal1_oi},{'codigo': jsonData.cristal2_od},{'codigo':jsonData.cristal2_oi}];
-    const armazones  = [{'codigo': jsonData.a1_armazon_id},{'codigo': jsonData.a2_armazon_id},]; 
+    const armazones  = [
+      {'codigo': jsonData.a1_armazon_id},
+      {'codigo': jsonData.a2_armazon_id},
+  ]; 
 
   
     

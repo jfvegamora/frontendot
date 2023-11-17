@@ -47,7 +47,7 @@ export interface InputData {
 interface OutputData {
   query: string;
   _p1: string;
-  _p2?: number;
+  _p2?: any;
   _p3?: string;
 }
 
@@ -112,6 +112,7 @@ const FArmazonesKardexOUT: React.FC<IUserFormPrps> = React.memo(
     const userState = useAppSelector((store: AppStore) => store.user);
     const { show } = useCustomToast();
     const [fechaHoraActual, setFechaHoraActual] = useState(new Date());
+    const fechaFormateada = fechaHoraActual.toISOString().split('T')[0];
 
     const {
       editEntity,
@@ -135,6 +136,8 @@ const FArmazonesKardexOUT: React.FC<IUserFormPrps> = React.memo(
     function transformInsertQuery(jsonData: InputData, userId?:number): OutputData | null {
       setFechaHoraActual(new Date())
 
+      
+
 
       const year = fechaHoraActual.getFullYear(); // Obtiene el año de 4 dígitos
       const month = String(fechaHoraActual.getMonth() + 1).padStart(2, '0'); // Obtiene el mes (agrega 1 ya que los meses comienzan en 0) y lo formatea a 2 dígitos
@@ -154,68 +157,38 @@ const FArmazonesKardexOUT: React.FC<IUserFormPrps> = React.memo(
       /*INSERT INTO CristalesKardex 
       (fecha, cristal, almacen, es, motivo, cantidad, valor_neto, proveedor, 
         numero_factura, OT, almacen_relacionado, observaciones, usuario, fecha_mov)*/
-      let _p1 = `"${jsonData.fecha + " " + fechaHoraActual.toLocaleTimeString()}", 
-        ${jsonData.insumo}, 
-        ${jsonData.almacen}, 
-        ${2}, 
-        ${jsonData.motivo_egreso},
-        ${jsonData.cantidad}, 
-        ${'0'}, 
-        ${'0'}, 
-        ${'0'}, 
-        ${'0'}, 
-        ${jsonData.almacen_relacionado}, 
-       "${jsonData.observaciones}",
-        ${userId}, 
-       "${fechaFormateada + " " + dateHora}"`;
+        let _p1 = `"${jsonData.fecha + " " + fechaHoraActual.toLocaleTimeString()}", ${jsonData.insumo}, ${jsonData.almacen}, ${2}, ${jsonData.motivo_egreso}, ${jsonData.cantidad}, ${'0'}, ${'0'}, ${'0'}, ${'0'}, ${jsonData.almacen_relacionado}, "${jsonData.observaciones}", ${userId}, "${fechaFormateada + " " + dateHora}"`;
 
+        let kardex = []
 
     
         // ${(jsonData.almacen_relacionado && jsonData.almacen_relacionado?.toString())?.length === 0 ? "0" : jsonData.almacen_relacionado}, 
         // 
-       if(jsonData.motivo_egreso === "2"){
-        console.log('armar pk to delete')
-          // const _pkToDelete = [{
-          //   "insumo": `${jsonData.insumo}`,
-          //   "almacen": `${jsonData.almacen}`,
-          //   "cantidad": `${jsonData.cantidad}`,
-          //   "observaciones": `"${jsonData.observaciones}"`,
-          //   "usuario": `${userState?.id}`,
-          //   "es": "2",
-          //   "motivo":`${jsonData.motivo_egreso}`,
-          //   "almacen_relacionado": `${jsonData.almacen_relacionado}`,
-          //   "fecha": `${jsonData.fecha + " " + fechaHoraActual.toLocaleTimeString()}`,
-          // }]
-           
-          const _pkToDelete = {
-            "insumo": `${jsonData.insumo}`,
-            "almacen": `${jsonData.almacen}`,
-            "cantidad": `${jsonData.cantidad}`,
-            "observaciones": `${jsonData.observaciones}`,
-            "usuario": `${userState?.id}`,
-            "es": "2",
-            "motivo":`${jsonData.motivo_egreso}`,
-            "almacen_relacionado": `${jsonData.almacen_relacionado}`,
-            "fecha": `${jsonData.fecha} ${fechaHoraActual.toLocaleTimeString()}`,
-          };
-          const _pkToDeleteString = JSON.stringify([_pkToDelete]);
-          
-          const query = {
-            query: "03",
-            // _pkToDelete: _pkToDeleteString,
-            _pkToDelete: '[{"pk1":"2062", "pk2":"2023-11-17T11:46:49"}]',
-            _p1
-            
-          }
-          console.log(query)
-          return query;
+       if(jsonData.motivo_egreso === "2"){  
+          kardex = [{
+            'fecha': jsonData.fecha + " " +fechaHoraActual.toLocaleTimeString(),
+            'insumo': jsonData.insumo,
+            'almacen': jsonData.almacen,
+            'es': "2",
+            'motivo': jsonData.motivo_egreso,
+            'cantidad': jsonData.cantidad,
+            'almacen_relacionado': jsonData.almacen_relacionado,
+            'observaciones': jsonData.observaciones,
+            'usuario': userState?.id,
+          }]
+       }else{
+         kardex = [{
+          'es': "2",
+          'motivo': jsonData.motivo_egreso
+        }]
        }   
       
       _p1 = _p1.replace(/'/g, '!');
     
-      const query: OutputData = {
+      const query = {
         query: "03",
-        _p1
+        _p1,
+        _pkToDelete:JSON.stringify(kardex),
       };
       console.log("query INSERT ", query);
       return query;
@@ -377,7 +350,7 @@ const FArmazonesKardexOUT: React.FC<IUserFormPrps> = React.memo(
                       type={isEditting ? "datetime" : "date"}
                       label="Fecha"
                       name="fecha"
-                      data={fechaActual ? fechaActual :  data && data[EnumGrid.fecha]}
+                      data={fechaFormateada ? fechaFormateada :  data && data[EnumGrid.fecha]}
                       control={control}
                       error={errors.fecha}
                       onlyRead={isEditting}
@@ -439,7 +412,7 @@ const FArmazonesKardexOUT: React.FC<IUserFormPrps> = React.memo(
                       data={data && data[EnumGrid.almacen_relacionado_id]}
                       control={control}
                       entidad={["/api/almacenes/", "02"]}
-                      // error={errors.almacen_relacionado}
+                      error={errors.almacen_relacionado}
                     />
                   </div>
                 </div>

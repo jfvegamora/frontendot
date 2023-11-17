@@ -95,7 +95,7 @@ const FOTOptica:React.FC<IOptica> = ({
         }
     }
 
-
+    console.log(fecha_entrega_taller.value)
 
  
   return (

@@ -12,6 +12,7 @@ import { useEntityUtils, usePermission } from "../../hooks";
 import FArmazonesKardexIN from "../forms/FArmazonesKardexIN";
 import FArmazonesKardexOUT from "../forms/FArmazonesKardexOUT";
 import { TITLES, table_head_kardex } from "../../utils";
+import AjusteInventario from "../../components/AjusteInventario";
 
 export enum EnumGrid {
   fecha = 1,
@@ -78,6 +79,7 @@ const MArmazonesKardex: React.FC = () => {
     const newPkToDelete = selectedRows.map((row: number) => 
      `{"pk1":"${entities[row][EnumGrid.insumo]}", "pk2":"${entities[row][EnumGrid.fecha]}"}`);
     const combinedPks = newPkToDelete.join(',');
+    console.log(pkToDelete)
 
     setPkToDelete([`${strParamsToDelete}=[${combinedPks}]`]);
   }, [selectedRows]);
@@ -143,8 +145,7 @@ const MArmazonesKardex: React.FC = () => {
         />
       </div>
 
-     
- 
+      
 
       {isModalInsert && (
         <FArmazonesKardexIN

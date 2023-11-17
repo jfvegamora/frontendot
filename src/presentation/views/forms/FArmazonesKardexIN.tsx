@@ -10,7 +10,7 @@ import {
 } from "../../components";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { fechaActual, validationKardexINSchema } from "../../utils/validationFormSchemas";
+import { validationKardexINSchema } from "../../utils/validationFormSchemas";
 import { EnumGrid } from "../mantenedores/MArmazonesKardex";
 import {
   ERROR_MESSAGES,
@@ -22,7 +22,7 @@ import { useModal } from "../../hooks/useModal";
 import { AppStore, useAppSelector } from "../../../redux/store";
 import useCustomToast from "../../hooks/useCustomToast";
 import {toast} from 'react-toastify'
-import { signal, useSignal } from "@preact/signals-react";
+import AjusteInventario, { ajuste_inventario_autorizacion } from "../../components/AjusteInventario";
 
 const strBaseUrl = "/api/armazoneskardex/";
 const strEntidad = "Kardex de Cristal ";
@@ -115,7 +115,21 @@ const FArmazonesKardexIN: React.FC<IUserFormPrps> = React.memo(
     const userState = useAppSelector((store: AppStore) => store.user);
     const { show } = useCustomToast();
     const [fechaHoraActual, setFechaHoraActual] = useState(new Date());
-    
+
+
+    const [showAutorizacion, setShowAutorizacion] = useState(false);
+    const [_isAutorizacionValida, setIsAutorizacionValida] = useState(false);
+
+    const handleAutorizacionSubmit = async (_data: any) => {
+      try {
+        setIsAutorizacionValida(true);
+      } catch (error) {
+        setIsAutorizacionValida(false);
+      }
+    };
+
+
+
     const {
       editEntity,
       createdEntity,
@@ -217,10 +231,16 @@ const FArmazonesKardexIN: React.FC<IUserFormPrps> = React.memo(
       [closeModal, blnKeep, updateNewEntity, showModal]
     );
 
-    function transformInsertQuery(jsonData: InputData, userId?:number): OutputData | null {
+   function transformInsertQuery(jsonData: InputData, userId?:number): OutputData | null {
       setFechaHoraActual(new Date())
+
+      if(jsonData.motivo_ingreso === '5'){
+        console.log('pedir autorizacion')
+        setShowAutorizacion(true)
+
+      }
       
-      
+      // console.log(jsonData)
     
       const year = fechaHoraActual.getFullYear(); // Obtiene el año de 4 dígitos
       const month = String(fechaHoraActual.getMonth() + 1).padStart(2, '0'); // Obtiene el mes (agrega 1 ya que los meses comienzan en 0) y lo formatea a 2 dígitos
@@ -236,36 +256,30 @@ const FArmazonesKardexIN: React.FC<IUserFormPrps> = React.memo(
           
         }
       }
-    
-      /*INSERT INTO CristalesKardex 
-      (fecha, cristal, almacen, es, motivo, cantidad, valor_neto, proveedor, 
-        numero_factura, OT, almacen_relacionado, observaciones, usuario, fecha_mov)*/
-        let _p1 = `"${jsonData.fecha + " " + fechaHoraActual.toLocaleTimeString()}", 
-        ${jsonData.insumo}, 
-        ${jsonData.almacen}, 
-        ${1}, 
-        ${jsonData.motivo_ingreso},
-        ${jsonData.cantidad}, 
-        ${(jsonData.valor_neto && jsonData.valor_neto?.toString())?.length === 0 ? "0" : jsonData.valor_neto}, 
-        ${ jsonData.proveedor}, 
-        ${(jsonData.numero_factura && jsonData.numero_factura?.toString())?.length === 0 ? "0" : jsonData.numero_factura}, 
-        ${'0'}, 
-        ${'0'}, 
-       "${jsonData.observaciones}",
-        ${userId}, 
-       "${fechaFormateada + " " +dateHora}"`;
-    
+
+      let _p1 = `"${jsonData.fecha + " " + fechaHoraActual.toLocaleTimeString()}", ${jsonData.insumo}, ${jsonData.almacen}, ${1}, ${jsonData.motivo_ingreso}, ${jsonData.cantidad}, ${(jsonData.valor_neto && jsonData.valor_neto?.toString())?.length === 0 ? "0" : jsonData.valor_neto}, ${jsonData.proveedor}, ${(jsonData.numero_factura && jsonData.numero_factura?.toString())?.length === 0 ? "0" : jsonData.numero_factura}, ${'0'}, ${'0'}, "${jsonData.observaciones}", ${userId}, "${fechaFormateada + " " + dateHora}"`;
+
       //  ${(jsonData.proveedor && jsonData.proveedor?.toString())?.length === 0 ? "0" : jsonData.proveedor}, 
-    
+      const kardex = [{
+        'es': "1",
+        'motivo': jsonData.motivo_ingreso
+      }]
+
       _p1 = _p1.replace(/'/g, '!');
-    
-      const query: OutputData = {
+      
+      const query = {
         query: "03",
-        _p1
+        _p1,
+        _pkToDelete:JSON.stringify(kardex),
       };
-      // console.log("p1", query);
+
+      ajuste_inventario_autorizacion.value = false
+      console.log("query ", query);
       return query;
+    
     }
+
+
     useEffect(() => {
       const handleKeyDown = (event: KeyboardEvent) => {
         if (event.key === "Escape") {
@@ -283,6 +297,25 @@ const FArmazonesKardexIN: React.FC<IUserFormPrps> = React.memo(
     const handleSaveChange = React.useCallback(
       async (data: InputData, isEditting: boolean) => {
         try {
+
+
+        if (data.motivo_ingreso === '5') {
+            setShowAutorizacion(true);
+            await new Promise<void>((resolve) => {
+              const unsubscribe = ajuste_inventario_autorizacion.subscribe((valido) => {
+                console.log(valido)
+                if (valido) {
+                  setShowAutorizacion(false);
+                  setIsAutorizacionValida(valido);
+                  unsubscribe();
+                  resolve();
+                }
+              });
+            });
+          }
+
+
+          
           const transformedData = isEditting
             ? transformUpdateQuery()
             : transformInsertQuery(data, userState?.id);
@@ -306,11 +339,18 @@ const FArmazonesKardexIN: React.FC<IUserFormPrps> = React.memo(
     // }, []);
     useEffect(() => {
       isEditting ? focusSecondInput("es") : focusFirstInput("insumo");
+      if(!showAutorizacion){
+        ajuste_inventario_autorizacion.value = false
+      }
     }, []);
+    // console.log(showAutorizacion)
 
-    console.log(fechaHoraActual)
-   
+    // console.log(fechaHoraActual)
+    const fechaFormateada = fechaHoraActual.toISOString().split('T')[0];
+    // console.log(fechaFormateada)
     
+    // '2023-12-01'
+    console.log(errors)
     return (
       <div className="useFormContainer centered-div use50rem">
         <div className="userFormBtnCloseContainer">
@@ -322,6 +362,11 @@ const FArmazonesKardexIN: React.FC<IUserFormPrps> = React.memo(
 
         <form onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
+             {showAutorizacion && (
+                <div className="relative top-0">
+                  <AjusteInventario onSubmit={handleAutorizacionSubmit} />
+                </div>
+              )}
 
             <div className="w-full flex items-center h-[4rem]">
                 <div className="input-container items-center rowForm w-[50%]  ">
@@ -344,7 +389,7 @@ const FArmazonesKardexIN: React.FC<IUserFormPrps> = React.memo(
                         type={isEditting ? "datetime" : "date"}
                         label="Fecha"
                         name="fecha"
-                        data={ fechaActual ? fechaActual : data && data[EnumGrid.fecha]}
+                        data={ fechaFormateada ? fechaFormateada : data && data[EnumGrid.fecha]}
                         control={control}
                         error={errors.fecha}
                         onlyRead={isEditting}
@@ -426,8 +471,8 @@ const FArmazonesKardexIN: React.FC<IUserFormPrps> = React.memo(
                       data={data && data[EnumGrid.proveedor_id]}
                       control={control}
                       entidad={["/api/proveedores/", "02"]}
-                      // error={errors.proveedor}
-                      customWidth={""}
+                      error={errors.proveedor}
+                      
                     />
                   </div>
                 </div>
@@ -471,6 +516,8 @@ const FArmazonesKardexIN: React.FC<IUserFormPrps> = React.memo(
               )}
             </div>
           </div>
+
+
         </form>
 
         <CustomModal />

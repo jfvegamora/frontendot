@@ -164,12 +164,12 @@ const FAccesoriosKardexIN: React.FC<IUserFormPrps> = React.memo(
        "${fechaFormateada + " " +dateHora}"`;
     
       //  ${(jsonData.proveedor && jsonData.proveedor?.toString())?.length === 0 ? "0" : jsonData.proveedor}, 
-    
+     
       _p1 = _p1.replace(/'/g, '!');
     
-      const query: OutputData = {
+      const query = {
         query: "03",
-        _p1
+        _p1,
       };
       setFechaHoraActual(new Date())
       console.log("p1", query);
