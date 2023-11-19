@@ -77,10 +77,10 @@ const MAccesorios: React.FC = () => {
     const newPkToDelete = selectedRows.map((row: number) => `${entities[row][EnumGrid.codigo]}`);
     const combinedPks = newPkToDelete.join(',');
 
-    setPkToDelete([`${strParamsToDelete}=${combinedPks}`]);
+    setPkToDelete([`${strParamsToDelete}="${combinedPks}"`]);
   }, [selectedRows]);
   
-
+  console.log(pkToDelete)
 
 
   return (

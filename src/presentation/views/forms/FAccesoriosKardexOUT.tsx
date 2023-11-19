@@ -13,7 +13,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { fechaActual, validationKardexOUTSchema } from "../../utils/validationFormSchemas";
 import { EnumGrid } from "../mantenedores/MAccesoriosKardex";
 import {
-  ERROR_MESSAGES,
   MODAL,
   SUCCESS_MESSAGES, TITLES,
 } from "../../utils";
@@ -22,6 +21,7 @@ import { useModal } from "../../hooks/useModal";
 import { AppStore, useAppSelector } from "../../../redux/store";
 import useCustomToast from "../../hooks/useCustomToast";
 import { toast } from "react-toastify";
+import { ajuste_inventario_autorizacion } from "../../components/AjusteInventario";
 
 const strBaseUrl = "/api/accesorioskardex/";
 const strEntidad = "Kardex de Accesorio ";
@@ -114,6 +114,17 @@ const FAccesoriosKardexOUT: React.FC<IUserFormPrps> = React.memo(
     const { show } = useCustomToast();
     const [fechaHoraActual, setFechaHoraActual] = useState(fechaActual);
 
+    const [showAutorizacion, setShowAutorizacion] = useState(false);
+    const [_isAutorizacionValida, setIsAutorizacionValida] = useState(false);
+
+    const handleAutorizacionSubmit = async (_data: any) => {
+      try {
+        setIsAutorizacionValida(true);
+      } catch (error) {
+        setIsAutorizacionValida(false);
+      }
+    };
+
     const {
       editEntity,
       createdEntity,
@@ -134,6 +145,13 @@ const FAccesoriosKardexOUT: React.FC<IUserFormPrps> = React.memo(
     });
 
     function transformInsertQuery(jsonData: InputData, userId?:number): OutputData | null {
+      setFechaHoraActual(new Date())
+
+      if(jsonData.motivo_egreso === '5'){
+        console.log('pedir autorizacion')
+        setShowAutorizacion(true)
+
+      }
     
       const year = fechaHoraActual.getFullYear(); // Obtiene el año de 4 dígitos
       const month = String(fechaHoraActual.getMonth() + 1).padStart(2, '0'); // Obtiene el mes (agrega 1 ya que los meses comienzan en 0) y lo formatea a 2 dígitos
@@ -176,7 +194,8 @@ const FAccesoriosKardexOUT: React.FC<IUserFormPrps> = React.memo(
         query: "03",
         _p1
       };
-      setFechaHoraActual(new Date())
+      
+      ajuste_inventario_autorizacion.value = false
       console.log("query INSERT ", query);
       return query;
     }
@@ -214,23 +233,19 @@ const FAccesoriosKardexOUT: React.FC<IUserFormPrps> = React.memo(
 
     const handleApiResponse = React.useCallback(
       async (response: any, isEditting: boolean) => {
-        const errorResponse = response?.response?.data.error;
-        console.log("response", response);
-        if (errorResponse || response.code === "ERR_BAD_RESPONSE") {
-          const errorMessage =
-            errorResponse === "IntegrityError"
-              ? isEditting
-                ? strEntidad.concat(ERROR_MESSAGES.edit)
-                : strEntidad.concat(ERROR_MESSAGES.create)
-              : errorResponse;
+        if (response.code === "ERR_BAD_RESPONSE" || response.stack) {
+          const errorMessage = isEditting
+                ? strEntidad.concat(": " + response.message)
+                : strEntidad.concat(": " + response.message)
           show({
             message: errorMessage ? errorMessage : response.code,
             type: "error",
           });
+
           return;
         }
 
-        if (!blnKeep && !isEditting && !errorResponse) {
+        if (!blnKeep && !isEditting) {
           const result = await showModal(
             MODAL.keep,
             MODAL.keepYes,
@@ -277,6 +292,21 @@ const FAccesoriosKardexOUT: React.FC<IUserFormPrps> = React.memo(
     const handleSaveChange = React.useCallback(
       async (data: InputData, isEditting: boolean) => {
         try {
+          if (data.motivo_egreso === '5') {
+            setShowAutorizacion(true);
+            await new Promise<void>((resolve) => {
+              const unsubscribe = ajuste_inventario_autorizacion.subscribe((valido) => {
+                console.log(valido)
+                if (valido) {
+                  setShowAutorizacion(false);
+                  setIsAutorizacionValida(valido);
+                  unsubscribe();
+                  resolve();
+                }
+              });
+            });
+          }
+
           const transformedData = isEditting
             ? transformUpdateQuery()
             : transformInsertQuery(data, userState?.id);

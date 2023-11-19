@@ -17,6 +17,9 @@ import { ERROR_MESSAGES, MODAL, SUCCESS_MESSAGES, TITLES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { signal } from "@preact/signals-react";
 
 const strBaseUrl = "/api/proyectoarmazones/";
 const strEntidad = "Parametrizacion de Armazones ";
@@ -91,6 +94,8 @@ const FProyectosArmazones: React.FC<IUserFormPrps> = React.memo(
     const schema = validationParametrizacionArmazones();
     const { showModal, CustomModal } = useModal();
     const { show } = useCustomToast();
+    const [changeCodigo, setChangeCodigo] = useState()
+    const armazonData = signal([])
 
     const {
       editEntity,
@@ -140,15 +145,10 @@ const FProyectosArmazones: React.FC<IUserFormPrps> = React.memo(
 
     const handleApiResponse = React.useCallback(
       async (response: any, isEditting: boolean) => {
-        const errorResponse = response?.response?.data.error;
-        console.log("response", response);
-        if (errorResponse || response.code === "ERR_BAD_RESPONSE") {
-          const errorMessage =
-            errorResponse === "IntegrityError"
-              ? isEditting
-                ? strEntidad.concat(ERROR_MESSAGES.edit)
-                : strEntidad.concat(ERROR_MESSAGES.create)
-              : errorResponse;
+        if (response.code === "ERR_BAD_RESPONSE" || response.stack) {
+          const errorMessage = isEditting
+                ? strEntidad.concat(": " + response.message)
+                : strEntidad.concat(": " + response.message)
           show({
             message: errorMessage ? errorMessage : response.code,
             type: "error",
@@ -157,7 +157,7 @@ const FProyectosArmazones: React.FC<IUserFormPrps> = React.memo(
           return;
         }
 
-        if (!blnKeep && !isEditting && !errorResponse) {
+        if (!blnKeep && !isEditting) {
           const result = await showModal(
             MODAL.keep,
             MODAL.keepYes,
@@ -224,6 +224,33 @@ const FProyectosArmazones: React.FC<IUserFormPrps> = React.memo(
       },
       [editEntity, createdEntity, handleApiResponse, intId]
     );
+
+    const fetchArmazon = async(codigo:string | undefined) =>{
+        try {
+            const {data} = await axios(`https://mtoopticos.cl/api/armazones/listado/?query=01&_p1=${codigo}`)
+            armazonData.value = data       
+        } catch (error) {
+          throw error
+        }
+    }
+
+      useEffect(()=>{
+        if(changeCodigo){
+            fetchArmazon(changeCodigo)
+             .then(()=>{
+               if(armazonData.value.length >= 1){
+                 toast.error('Codigo existente')
+                 armazonData.value = []
+               }else{
+                 toast.success('Código valido')
+                 armazonData.value = []
+               }
+             })
+        }
+      },[changeCodigo])
+      
+
+    
  
     useEffect(() => {
       isEditting ? focusSecondInput("estado") : focusFirstInput("proyecto");
@@ -270,6 +297,7 @@ const FProyectosArmazones: React.FC<IUserFormPrps> = React.memo(
                         control={control}
                         error={errors.codigo_armazon}
                         onlyRead={isEditting}
+                        handleChange={setChangeCodigo}
                     />
                   </div>
                 </div>

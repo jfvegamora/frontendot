@@ -146,22 +146,19 @@ const FProveedores: React.FC<IUserFormPrps> = React.memo(
     };
     const handleApiResponse = React.useCallback(
       async (response: any, isEditting: boolean) => {
-        const errorResponse = response?.response?.data.error;
-        if (errorResponse) {
-          const errorMessage =
-            errorResponse === "IntegrityError"
-              ? isEditting
-                ? strEntidad.concat(ERROR_MESSAGES.edit)
-                : strEntidad.concat(ERROR_MESSAGES.create)
-              : errorResponse;
+        if (response.code === "ERR_BAD_RESPONSE" || response.stack) {
+          const errorMessage = isEditting
+                ? strEntidad.concat(": " + response.message)
+                : strEntidad.concat(": " + response.message)
           show({
             message: errorMessage ? errorMessage : response.code,
             type: "error",
           });
+
           return;
         }
 
-        if (!blnKeep && !isEditting && !errorResponse) {
+        if (!blnKeep && !isEditting) {
           const result = await showModal(
             MODAL.keep,
             MODAL.keepYes,
@@ -190,7 +187,6 @@ const FProveedores: React.FC<IUserFormPrps> = React.memo(
       },
       [closeModal, blnKeep, updateNewEntity, showModal]
     );
-
     useEffect(() => {
       const handleKeyDown = (event: KeyboardEvent) => {
         if (event.key === "Escape") {

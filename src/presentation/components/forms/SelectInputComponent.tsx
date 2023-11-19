@@ -115,7 +115,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
           defaultValue={strSelectedName}
           render={({ field }) => (
             <div className={`custom-select border-gray-400 border-[1px] rounded-lg !h-[3rem]  absolute${error ? 'border-red-500' : 'border-gray-500'}  `}>
-              <div className=" top-[-18%]  left-3.5 absolute w-1/2 z-10">
+              <div className=" top-[-18%]   left-3.5 absolute w-1/2 z-10">
                 <label
                   htmlFor={label}
                   // className="absolute top-[-1%] left-[3%] text-sm"
@@ -124,7 +124,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
                   {label}
                 </label>
                 {error && (
-                  <p className="text-xs text-red-500 relative top-[-10%] z-20  left-[30%] ">
+                  <p className="text-xs text-red-500  absolute top-[.5rem] z-20  left-[38%] ">
                     {error.message}
                  </p>
                 )}

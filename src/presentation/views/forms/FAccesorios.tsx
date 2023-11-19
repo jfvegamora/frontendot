@@ -35,13 +35,13 @@ interface OutputData {
 }
 
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
-  let _p1 = ` ${jsonData.codigo}, 
+  let _p1 = `  "${jsonData.codigo}", 
                "${jsonData.descripcion}", 
                 ${jsonData.marca}, 
-                ${jsonData.precio_neto}, 
+                ${jsonData.precio_neto || "0"}, 
                 ${jsonData.stock_minimo}`;
 
-  _p1 = _p1.replace(/'/g, '!');
+  _p1 = _p1.replace(/'/g, '!'); 
 
   const query: OutputData = {
     query: "03", 
@@ -151,23 +151,19 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
 
     const handleApiResponse = React.useCallback(
       async (response: any, isEditting: boolean) => {
-        const errorResponse = response?.response?.data.error;
-        console.log("response", response);
-        if (errorResponse || response.code === "ERR_BAD_RESPONSE") {
-          const errorMessage =
-            errorResponse === "IntegrityError"
-              ? isEditting
-                ? strEntidad.concat(ERROR_MESSAGES.edit)
-                : strEntidad.concat(ERROR_MESSAGES.create)
-              : errorResponse;
+        if (response.code === "ERR_BAD_RESPONSE" || response.stack) {
+          const errorMessage = isEditting
+                ? strEntidad.concat(": " + response.message)
+                : strEntidad.concat(": " + response.message)
           show({
             message: errorMessage ? errorMessage : response.code,
             type: "error",
           });
+
           return;
         }
 
-        if (!blnKeep && !isEditting && !errorResponse) {
+        if (!blnKeep && !isEditting) {
           const result = await showModal(
             MODAL.keep,
             MODAL.keepYes,
@@ -334,7 +330,6 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
                     name="stock_reservado"
                     data={data && data[EnumGrid.stock_reservado]}
                     control={control}
-                    error={errors.stock_minimo}
                     onlyRead={true}
                   />
                 </div>
@@ -347,7 +342,6 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
                     name="stock_disponible"
                     data={data && data[EnumGrid.stock_disponible]}
                     control={control}
-                    error={errors.stock_minimo}
                     onlyRead={true}
                   />
                 </div>

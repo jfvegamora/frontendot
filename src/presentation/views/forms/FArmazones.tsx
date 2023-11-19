@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationArmazonesSchema } from "../../utils/validationFormSchemas";
 import { EnumGrid } from "../mantenedores/MArmazones";
-import { ERROR_MESSAGES, MODAL, SUCCESS_MESSAGES, TITLES } from "../../utils";
+import { MODAL, SUCCESS_MESSAGES, TITLES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
@@ -174,15 +174,10 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
 
     const handleApiResponse = React.useCallback(
       async (response: any, isEditting: boolean) => {
-        const errorResponse = response?.response?.data.error;
-        console.log("response", response);
-        if (errorResponse || response.code === "ERR_BAD_RESPONSE") {
-          const errorMessage =
-            errorResponse === "IntegrityError"
-              ? isEditting
-                ? strEntidad.concat(ERROR_MESSAGES.edit)
-                : strEntidad.concat(ERROR_MESSAGES.create)
-              : errorResponse;
+        if (response.code === "ERR_BAD_RESPONSE" || response.stack) {
+          const errorMessage = isEditting
+                ? strEntidad.concat(": " + response.message)
+                : strEntidad.concat(": " + response.message)
           show({
             message: errorMessage ? errorMessage : response.code,
             type: "error",
@@ -191,7 +186,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
           return;
         }
 
-        if (!blnKeep && !isEditting && !errorResponse) {
+        if (!blnKeep && !isEditting) {
           const result = await showModal(
             MODAL.keep,
             MODAL.keepYes,
@@ -220,7 +215,6 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
       },
       [closeModal, blnKeep, updateNewEntity, showModal]
     );
-
     useEffect(() => {
       const handleKeyDown = (event: KeyboardEvent) => {
         if (event.key === "Escape") {
@@ -259,6 +253,8 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
     useEffect(() => {
       isEditting ? focusSecondInput("tipo") : focusFirstInput("codigo");
     }, []);
+
+    console.log(errors)
 
     return (
       <div className="useFormContainer centered-div use60rem">
@@ -326,7 +322,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                 <div className="w-full !mt-4">
                     <SelectInputComponent
                       label="Marca"
-                      name="marcae"
+                      name="marca"
                       showRefresh={true}
                       data={data && data[EnumGrid.marca_id]}
                       control={control}
@@ -458,7 +454,6 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                           name="stock_resrvado"
                           data={data && data[EnumGrid.stock_resrvado]}
                           control={control}
-                          error={errors.stock_minimo}
                           onlyRead={true}
                         />
                     </div>
@@ -473,7 +468,6 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                           onlyRead={true}
                           data={data && data[EnumGrid.stock_disponible]}
                           control={control}
-                          error={errors.stock_minimo}
                         />
                     </div>
                   </div>

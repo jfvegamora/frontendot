@@ -132,7 +132,7 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
                   {label}
                 </label>
                 {error && (
-                  <p className="text-xs text-red-500 relative top-[-10%] z-20  left-[30%] ">
+                  <p className="text-xs text-red-500 absolute top-[.5rem] z-20  left-[38%] ">
                     {error.message}
                  </p>
                 )}

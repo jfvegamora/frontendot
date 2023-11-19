@@ -205,9 +205,11 @@ const useCrud = (
     try {
       const response = await axiosInstance.post("/crear/", entityData);
       return response.data;
-    } catch (error) {
-      console.log(error);
-      return error;
+    } catch (error:any) {
+          const errorMessage = JSON.parse(error.request.responseText).error;
+          const mensajeError = procesarMensajeError(errorMessage);
+          console.log(mensajeError);
+          return new Error(mensajeError)
     }
   };
 
@@ -285,4 +287,20 @@ const useCrud = (
   };
 };
 
+
 export default useCrud;
+
+
+export const procesarMensajeError = (mensajeError:any) => {
+  if (mensajeError.includes('Duplicate entry') && mensajeError.includes('P01-2233Q1')) {
+    return 'Ya existe un registro con el mismo valor';
+  } else if (mensajeError.includes('Duplicate entry')) {
+    return 'No se pudo guardar: Entrada duplicada.';
+  } else if (mensajeError.includes('truncated')) {
+    return 'Valor excede máximo permitido.';
+  } else if (mensajeError.includes('The document is empty')) {
+    return 'No hay registros.';
+  }
+
+  return 'Otro mensaje de error genérico.';
+};

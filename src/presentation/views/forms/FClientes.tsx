@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   RadioButtonComponent,
   SelectInputComponent,
@@ -146,6 +146,7 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
   ({ closeModal, setEntities, params, label, data, isEditting, escritura_lectura }) => {
     const schema = validationClientesSchema();
     const { showModal, CustomModal } = useModal();
+    const selectRef = useRef();
 
     const { show } = useCustomToast();
 
@@ -165,7 +166,9 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
       handleSubmit,
       formState: { errors },
       setValue,
-      register
+      register,
+      getValues
+      
     } = useForm({
       resolver: yupResolver(schema),
     });
@@ -203,23 +206,19 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
 
     const handleApiResponse = React.useCallback(
       async (response: any, isEditting: boolean) => {
-        const errorResponse = response?.response?.data.error;
-        console.log("response", response);
-        if (errorResponse || response.code === "ERR_BAD_RESPONSE") {
-          const errorMessage =
-            errorResponse === "IntegrityError"
-              ? isEditting
-                ? strEntidad.concat(ERROR_MESSAGES.edit)
-                : strEntidad.concat(ERROR_MESSAGES.create)
-              : errorResponse;
+        if (response.code === "ERR_BAD_RESPONSE" || response.stack) {
+          const errorMessage = isEditting
+                ? strEntidad.concat(": " + response.message)
+                : strEntidad.concat(": " + response.message)
           show({
             message: errorMessage ? errorMessage : response.code,
             type: "error",
           });
+
           return;
         }
 
-        if (!blnKeep && !isEditting && !errorResponse) {
+        if (!blnKeep && !isEditting) {
           const result = await showModal(
             MODAL.keep,
             MODAL.keepYes,
@@ -286,10 +285,15 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
 
     useEffect(() => {
       isEditting ? focusSecondInput("nombre") : focusFirstInput("rut");
+      
     }, []);
 
     // console.log(data && data)
     
+    console.log(errors.comuna)
+    // console.log(getValues())
+
+
     return (
       <div className="useFormContainer centered-div use70rem" >
         <div className="userFormBtnCloseContainer ">
@@ -426,6 +430,7 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
                   defaultRegion={data && data[EnumGrid.region_id]}
                   defaultComuna={data && data[EnumGrid.comuna_id]}
                   defaultProvincia={data && data[EnumGrid.provincia_id]}
+                  errors={errors.comuna}
 
 
                 />

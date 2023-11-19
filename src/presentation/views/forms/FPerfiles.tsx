@@ -121,21 +121,19 @@ const FPerfiles: React.FC<IFormPrps> = React.memo(
 
     const handleApiResponse = React.useCallback(
       async (response: any, isEditting: boolean) => {
-        const errorResponse = response?.response?.data.error;
-        if (errorResponse) {
-          const errorMessage =
-            errorResponse === "IntegrityError"
-              ? isEditting
-                ? strEntidad.concat(ERROR_MESSAGES.edit)
-                : strEntidad.concat(ERROR_MESSAGES.create)
-              : errorResponse;
+        if (response.code === "ERR_BAD_RESPONSE" || response.stack) {
+          const errorMessage = isEditting
+                ? strEntidad.concat(": " + response.message)
+                : strEntidad.concat(": " + response.message)
           show({
             message: errorMessage ? errorMessage : response.code,
             type: "error",
           });
+
+          return;
         }
-        if (!blnKeep && !isEditting && !errorResponse) {
-          // const result = window.confirm("¿Quieres continuar ingresando?");
+
+        if (!blnKeep && !isEditting) {
           const result = await showModal(
             MODAL.keep,
             MODAL.keepYes,
@@ -143,21 +141,23 @@ const FPerfiles: React.FC<IFormPrps> = React.memo(
           );
           if (result) {
             setblnKeep(true);
-            // resetTextFields();
+            resetTextFields();
             updateNewEntity();
           } else {
             closeModal();
             updateNewEntity();
           }
+
           toastSuccess(isEditting);
         }
+
         if (isEditting) {
           updateNewEntity();
           closeModal();
           toastSuccess(isEditting);
         }
 
-        // resetTextFields();
+        resetTextFields();
         updateNewEntity();
       },
       [closeModal, blnKeep, updateNewEntity, showModal]
@@ -287,3 +287,7 @@ const FPerfiles: React.FC<IFormPrps> = React.memo(
 );
 
 export default FPerfiles;
+function resetTextFields() {
+  throw new Error("Function not implemented.");
+}
+

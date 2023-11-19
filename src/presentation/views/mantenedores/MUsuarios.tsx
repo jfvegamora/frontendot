@@ -164,7 +164,7 @@ const MUsuarios: React.FC = () => {
           data={entity}
           closeModal={closeModal}
           isEditting={true}
-          escritura_lectura={escritura_lectura}
+          // escritura_lectura={escritura_lectura}
         />
       )}
  

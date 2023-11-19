@@ -26,7 +26,8 @@ const RegProCom:React.FC<IProps> = ({
     register,
     setValue,
     name,
-    tabIndex
+    tabIndex,
+    errors
 }) => {
 
   const { data: regions } = useSWR('https://mtoopticos.cl/api/regiones/listado/?query=02', fetcher);
@@ -74,6 +75,7 @@ const RegProCom:React.FC<IProps> = ({
 //   console.log(comunas)
 //   console.log(defaultProvincia)
 //   console.log(defaultRegion)
+
   
   return (
     <div className='w-full py-2 items-center'>
@@ -93,7 +95,7 @@ const RegProCom:React.FC<IProps> = ({
                             tabIndex  ={tabIndex || 1}
                             className="custom-input py-2 px-3 cursor-pointer z-0 "
                             >
-                                <option value={0}>Región</option>
+                                <option value={0}></option>
                                     {regions && regions.map((region:any) => (
                                         <option key={region[0]} value={region[0]}>
                                             {region[1]}
@@ -121,7 +123,7 @@ const RegProCom:React.FC<IProps> = ({
                             tabIndex  ={tabIndex || 1}
                             className="custom-input py-2 px-3 cursor-pointer z-0 "
                             >
-                                <option value={0}>Provincia</option>
+                                {/* <option value={0}>Provincia</option> */}
                                     {provinces && provinces.map((province:any) => (
                                         <option key={province[0]} value={province[0]}>
                                             {province[1]}
@@ -141,8 +143,14 @@ const RegProCom:React.FC<IProps> = ({
                 render={({})=>(
                     <div className="flex min-w-[100%] w-[60%] items-center mb-2 mx-4 mt-select mt-select-dropdown-up cursor-pointer ">
                         <div className='custom-select custom-select-reg relative rounded-lg !h-[3rem]'>
-                        <label className="labelSelect absolute !top-[-3%] left-3 !text-[#f39c12] font-extralight text-xs z-20">Comuna</label>
-                        <select 
+        
+                                 <label className="labelSelect absolute !top-[-3%] left-3 !text-[#f39c12] font-extralight text-xs z-20">Comuna</label>
+                                 {errors && (
+                                    <p className="text-xs text-red-500 absolute top-[-2%] z-20  left-[22%] ">
+                                        {errors.message}
+                                    </p>
+                                    )}
+                                <select 
                             {...register(name)}
                             value={selectedCommune} 
                             defaultValue={defaultComuna && defaultComuna}
@@ -151,7 +159,7 @@ const RegProCom:React.FC<IProps> = ({
                             className="custom-input py-2 px-3 cursor-pointer z-0 "
                             >
                                 {/* <option value={defaultComuna ? defaultComuna : 0}>Comuna</option> */}
-                                <option defaultValue={defaultComuna ? defaultComuna: 0}>Comuna</option>
+                                {/* <option>Comuna</option> */}
                                     {comunas && comunas.map((comuna:any) => (
                                         <option key={comuna[0]} value={comuna[0]}>
                                             {comuna[1]}

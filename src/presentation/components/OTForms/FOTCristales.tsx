@@ -285,6 +285,7 @@ const FOTCristales:React.FC<ICristales> = ({
                                         // error={errors.establecimiento}
                                         customWidth={"345px"}
                                         readOnly={onlyRead || permiso_cristales}
+                                        
                             />
                     </div>
                     <div className="w-[90%]">

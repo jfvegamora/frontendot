@@ -13,7 +13,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { validationKardexINSchema } from "../../utils/validationFormSchemas";
 import { EnumGrid } from "../mantenedores/MArmazonesKardex";
 import {
-  ERROR_MESSAGES,
   MODAL,
   SUCCESS_MESSAGES, TITLES,
 } from "../../utils";
@@ -184,15 +183,10 @@ const FArmazonesKardexIN: React.FC<IUserFormPrps> = React.memo(
 
     const handleApiResponse = React.useCallback(
       async (response: any, isEditting: boolean) => {
-        const errorResponse = response?.response?.data.error;
-        console.log("response", response);
-        if (errorResponse || response.code === "ERR_BAD_RESPONSE") {
-          const errorMessage =
-            errorResponse === "IntegrityError"
-              ? isEditting
-                ? strEntidad.concat(ERROR_MESSAGES.edit)
-                : strEntidad.concat(ERROR_MESSAGES.create)
-              : errorResponse;
+        if (response.code === "ERR_BAD_RESPONSE" || response.stack) {
+          const errorMessage = isEditting
+                ? strEntidad.concat(": " + response.message)
+                : strEntidad.concat(": " + response.message)
           show({
             message: errorMessage ? errorMessage : response.code,
             type: "error",
@@ -201,7 +195,7 @@ const FArmazonesKardexIN: React.FC<IUserFormPrps> = React.memo(
           return;
         }
 
-        if (!blnKeep && !isEditting && !errorResponse) {
+        if (!blnKeep && !isEditting) {
           const result = await showModal(
             MODAL.keep,
             MODAL.keepYes,
@@ -215,7 +209,7 @@ const FArmazonesKardexIN: React.FC<IUserFormPrps> = React.memo(
             closeModal();
             updateNewEntity();
           }
-          
+
           toastSuccess(isEditting);
         }
 
@@ -350,7 +344,7 @@ const FArmazonesKardexIN: React.FC<IUserFormPrps> = React.memo(
     // console.log(fechaFormateada)
     
     // '2023-12-01'
-    console.log(errors)
+    // console.log(errors)
     return (
       <div className="useFormContainer centered-div use50rem">
         <div className="userFormBtnCloseContainer">

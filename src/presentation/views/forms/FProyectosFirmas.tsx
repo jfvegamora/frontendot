@@ -40,12 +40,12 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
   if(jsonData.fecha_desde && jsonData.fecha_hasta){
     
     if(new Date(jsonData.fecha_desde) > new Date(jsonData.fecha_hasta)){
-      toast.error('Fecha desde mayor a la fecha hasta')
+      toast.error('Fecha hasta mayor a la fecha desde')
       throw new Error('')
-    }
-    
-
-    if(new Date(jsonData.fecha_hasta) <= fechaActual){
+    }else if (new Date(jsonData.fecha_desde) === new Date(jsonData.fecha_hasta)){
+      toast.error('Fechas iguales')
+      throw new Error('')
+    } else if(new Date(jsonData.fecha_hasta) <= fechaActual){
       toast.error('Fecha hasta menor a la fecha actual')
       throw new Error('')
     }
@@ -158,23 +158,19 @@ const FProyectosFirmas: React.FC<IUserFormPrps> = React.memo(
 
     const handleApiResponse = React.useCallback(
       async (response: any, isEditting: boolean) => {
-        const errorResponse = response?.response?.data.error;
-        console.log("response", response);
-        if (errorResponse || response.code === "ERR_BAD_RESPONSE") {
-          const errorMessage =
-            errorResponse === "IntegrityError"
-              ? isEditting
-                ? strEntidad.concat(ERROR_MESSAGES.edit)
-                : strEntidad.concat(ERROR_MESSAGES.create)
-              : errorResponse;
+        if (response.code === "ERR_BAD_RESPONSE" || response.stack) {
+          const errorMessage = isEditting
+                ? strEntidad.concat(": " + response.message)
+                : strEntidad.concat(": " + response.message)
           show({
             message: errorMessage ? errorMessage : response.code,
             type: "error",
           });
+
           return;
         }
 
-        if (!blnKeep && !isEditting && !errorResponse) {
+        if (!blnKeep && !isEditting) {
           const result = await showModal(
             MODAL.keep,
             MODAL.keepYes,
@@ -203,7 +199,6 @@ const FProyectosFirmas: React.FC<IUserFormPrps> = React.memo(
       },
       [closeModal, blnKeep, updateNewEntity, showModal]
     );
-
     useEffect(() => {
       const handleKeyDown = (event: KeyboardEvent) => {
         if (event.key === "Escape") {

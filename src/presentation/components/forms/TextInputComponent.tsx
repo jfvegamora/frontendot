@@ -37,21 +37,19 @@ const TextInputComponent: React.FC<ITextInputProps> = ({
   step,
   tabIndex
 }) => {
-  const [defaultValue, setDefaultValue] = useState<any>(data || "")
+  const [defaultValue, setDefaultValue] = useState<any>(data && data || "")
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     
     // console.log(e.target.name)
     if (handleChange) {
-      if(e.target.name === formatvalue){
-        e.target.value = '20.00'
-      }
-
-      handleChange(e.target);
+      // if(e.target.name === formatvalue){
+      //   e.target.value = '20.00'
+      // }
+  
+      
+      handleChange(e.target.value);
     }
-  
-  
-  
   };
  
   
@@ -95,7 +93,7 @@ return (
     )}
   />
   {error && (
-    <p className="text-xs text-red-500 absolute top-0 left-0">
+    <p className="text-xs text-red-500 absolute top-[.5rem] left-[22%]">
       {error.message}
     </p>
   )}
