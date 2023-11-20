@@ -93,6 +93,8 @@ const FProyectosDirecciones: React.FC<IUserFormPrps> = React.memo(
     const schema = validationProyectoDireccionesSchema();
     const { showModal, CustomModal } = useModal();
     const { show } = useCustomToast();
+    const [strCodigoProyecto, setStrCodigoProyecto] = useState("");
+
 
     const {
       editEntity,
@@ -224,6 +226,15 @@ const FProyectosDirecciones: React.FC<IUserFormPrps> = React.memo(
       focusFirstInput("proyecto");
     }, []);
 
+    const handleInputChange = (e:any) =>{
+      const { name, value } = e;
+      console.log(name)
+      if(name === 'proyecto'){
+        setStrCodigoProyecto(value)
+      }
+    }
+
+    console.log('codigo proyecto', strCodigoProyecto)
     return (
       <div className="useFormContainer centered-div">
         <div className="userFormBtnCloseContainer">
@@ -245,7 +256,9 @@ const FProyectosDirecciones: React.FC<IUserFormPrps> = React.memo(
                         name="proyecto"
                         showRefresh={true}
                         data={data && data[EnumGrid.proyecto]}
+                        handleSelectChange={handleInputChange}
                         control={control}
+                        isOT={true}
                         entidad={["/api/proyectos/", "02"]}
                         error={errors.proyecto}
                         inputRef={firstInputRef}
@@ -257,16 +270,18 @@ const FProyectosDirecciones: React.FC<IUserFormPrps> = React.memo(
 
               <div className="input-container items-center rowForm w-[50%]">
                 <div className="w-full ">
-                <SelectInputComponent
+                  <SelectInputComponent
                       label="Establecimiento"
-                      name="establecimiento"
+                      name="establecimiento_id"
                       showRefresh={true}
+                      isOT={true}
+                      handleSelectChange={handleInputChange}
                       data={data && data[EnumGrid.establecimiento_id]}
                       control={control}
-                      entidad={["/api/establecimientos/", "02"]}
-                      error={errors.establecimiento}
-                      readOnly={isEditting}
-                      />
+                      entidad={["/api/establecimientos/", "06", strCodigoProyecto]}
+                      customWidth={"345px"}
+                      tabIndex={1}
+                  />
                 </div>
               </div>
             </div>

@@ -63,10 +63,12 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     const { ListEntity } = useCrud(strUrl);
     // console.log(strUrl)
     // console.log(strTableName)
-    
+    const _p1 =  entidad[2] && `_p1=${entidad[2]}`   
+    console.log( _p1)  
     // console.log(entidad)
     
-    const strUrl2 = `${URLBackend}${entidad[0]}listado/?query=${entidad[1]}`;
+    const strUrl2 = entidad[2] ? `${URLBackend}${entidad[0]}listado/?query=${entidad[1]}&${_p1}`  
+            :`${URLBackend}${entidad[0]}listado/?query=${entidad[1]}`;
     // console.log(strUrl2)
     
     const state = useAppSelector((store: AppStore) => store.listBox);

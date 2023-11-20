@@ -7,7 +7,7 @@ import React, { useState, useEffect } from "react";
 import { SelectInputComponent, TextInputComponent } from "../../components";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { validationProyectoGruposSchema } from "../../utils/validationFormSchemas";
+import { validationProyectoCristalesSchema } from "../../utils/validationFormSchemas";
 import { EnumGrid } from "../mantenedores/MProyectosCristales";
 import { ERROR_MESSAGES, MODAL, SUCCESS_MESSAGES, TITLES } from "../../utils";
 import { useCrud } from "../../hooks";
@@ -21,7 +21,7 @@ export interface InputData {
   proyecto          : string | undefined;
   cod_grupo         : string | undefined;
   descripcion       : string | undefined;
-  // marca             : string | undefined;
+  marca             : string | undefined;
   diseno            : string | undefined;
   indice            : string | undefined;
   material          : string | undefined;
@@ -50,7 +50,7 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
  "${jsonData.proyecto}", 
   ${jsonData.cod_grupo}, 
  "${jsonData.descripcion}", 
-  0, 
+  ${jsonData.marca}, 
   ${jsonData.diseno}, 
   ${jsonData.indice}, 
   ${jsonData.material}, 
@@ -79,7 +79,7 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
 export function transformUpdateQuery(jsonData: InputData): OutputData | null {
   const fields = [
     `descripcion       ="${jsonData.descripcion}"`,
-    // `marca             = ${jsonData.marca}`,
+    `marca             = ${jsonData.marca}`,
     `diseno            = ${jsonData.diseno}`,
     `indice            = ${jsonData.indice}`, 
     `material          = ${jsonData.material}`, 
@@ -123,7 +123,7 @@ interface IUserFormPrps {
 
 const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
   ({ closeModal, setEntities, params, label, data, isEditting, escritura_lectura }) => {
-    const schema = validationProyectoGruposSchema();
+    const schema = validationProyectoCristalesSchema();
     // const [idCristal, setIdCristal] = useState('');
     const { showModal, CustomModal } = useModal();
     const { show } = useCustomToast();
@@ -158,10 +158,10 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
       setValue("precio_venta_neto", "");
       setValue("diametro", "");
       setValue("observaciones", "");
-          if (firstInputRef.current) {
-        const firstInput = firstInputRef.current.querySelector(
-          'input[name="cristal"]'
-        );
+        if (firstInputRef.current) {
+          const firstInput = firstInputRef.current.querySelector(
+              'input[name="cod_grupo"]'
+            );
         if (firstInput) {
           firstInput.focus();
         }
@@ -262,7 +262,7 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
     );
 
     useEffect(() => {
-      isEditting ? focusSecondInput("cristal") : focusFirstInput("proyecto");
+      isEditting ? focusSecondInput("cod_grupo") : focusFirstInput("cod_grupo");
     }, []);
 
     // const handleCristalesDescription = async (data: any) => {
@@ -300,7 +300,7 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
 
             <div className="w-full flex items-center h-[4rem]">
               <div className="input-container items-center rowForm w-full">
-                <div className="w-full">
+                <div className="w-[50%]">
                   <SelectInputComponent
                     label="Proyecto"
                     name="proyecto"
@@ -310,15 +310,10 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                     entidad={["/api/proyectos/", "02"]}
                     error={errors.proyecto}
                     readOnly={isEditting}
-                    inputRef={firstInputRef}
+                    // inputRef={firstInputRef}
                     />
                 </div>
-              </div>
-            </div>
-
-          <div className="w-full flex items-center h-[4rem]">
-              <div className="input-container items-center rowForm w-[15%]">
-                <div className="w-full">
+                <div className="w-[20%]">
                   <TextInputComponent
                       type="number"
                       label="ID Grupo"
@@ -327,12 +322,10 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                       control={control}
                       error={errors.cod_grupo}
                       onlyRead={isEditting}
+                      inputRef={firstInputRef}
                       />
                 </div>
-              </div>
-
-              <div className="input-container items-center rowForm w-[35%]">
-                <div className="w-full">
+                <div className="w-[30%]">
                   <TextInputComponent
                     type="text"
                     label="Descripción"
@@ -342,6 +335,20 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                     error={errors.descripcion}
                   />
                 </div>
+              </div>
+            </div>
+
+          <div className="w-full flex items-center h-[4rem]">
+              <div className="input-container items-center rowForm w-[50%]">
+              <SelectInputComponent
+                    label="Marca"
+                    name="marca"
+                    showRefresh={true}
+                    data={data && data[EnumGrid.marca_id]}
+                    control={control}
+                    entidad={["/api/marcas/", "02"]}
+                    error={errors.marca}
+                  />
               </div>
 
               <div className="input-container items-center rowForm w-[50%]">

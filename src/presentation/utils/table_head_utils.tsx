@@ -2495,7 +2495,8 @@ export const table_head_proyectos_cristales = [
   {
     cell: "Marca",
     key: "marca",
-    visible: false,
+    visible: true,
+    width: "w-[5rem]",
   },
   {
     cell: "Diseño ID",
@@ -2758,7 +2759,7 @@ export const table_head_proyectos_atenciones = [
     key: "orden_compra_mandante",
     visible: true,
     alignment: "text-center",
-    width: "w-[8rem]",
+    width: "w-[10rem]",
   },
   {
     cell: "Fecha VB",
@@ -2855,7 +2856,7 @@ export const table_head_proyectos_atenciones = [
     cell: "",
     key: "opciones",
     visible: true,
-    width: "w-[6rem]",
+    width: "w-[7rem]",
   },
 ];
 export const table_head_proyectos_firmas = [
