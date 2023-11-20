@@ -279,13 +279,13 @@ export const validationParametrizacionArmazones = () =>
     estado        : yup.string().required(`${msg}`),
 });
 
-// Schema PROYECTOS GRUPOS
-export const validationProyectoGruposSchema = () =>
+// Schema PROYECTOS CRISTALES
+export const validationProyectoCristalesSchema = () =>
   yup.object().shape({
     proyecto          : yup.string().required(`${msg}`), 
     cod_grupo         : yup.string().required(`${msg}`), 
     descripcion       : yup.string().required(`${msg}`), 
-    // marca             : yup.string().required(`${msg}`),
+    marca             : yup.string().required(`${msg}`),
     diseno            : yup.string().required(`${msg}`),
     indice            : yup.string().required(`${msg}`),
     material          : yup.string().required(`${msg}`),
@@ -295,7 +295,7 @@ export const validationProyectoGruposSchema = () =>
     cilindrico_desde  : yup.string().required(`${msg}`), 
     esferico_hasta    : yup.string().required(`${msg}`), 
     cilindrico_hasta  : yup.string().required(`${msg}`), 
-    diametro          : yup.string(), 
+    diametro          : yup.string().required(`${msg}`), 
     precio_venta_neto : yup.string(), 
     observaciones     : yup.string(), 
   });

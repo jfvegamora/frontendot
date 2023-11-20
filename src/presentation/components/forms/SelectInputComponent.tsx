@@ -63,7 +63,8 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     const { ListEntity } = useCrud(strUrl);
     // console.log(strUrl)
     // console.log(strTableName)
-    
+    const _p1 =  entidad[2] && `_p1=${entidad[2]}`   
+    console.log( _p1)  
     // console.log(entidad)
     // if(strTableName){
     //   console.log(strTableName)
