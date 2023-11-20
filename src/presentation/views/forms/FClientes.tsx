@@ -90,46 +90,6 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null  {
   return query;
 }
 
-export function transformUpdateQuery(
-  jsonData: InputData,
-  primaryKey: string
-): OutputData | null {
-  const fields = [
-    `nombre           ="${jsonData.nombre}"`,
-    `tipo             = ${
-        jsonData.tipo === TIPO_CLIENTE.beneficiario ? 1
-      : jsonData.tipo === TIPO_CLIENTE.particular   ? 2
-      : jsonData.tipo === TIPO_CLIENTE.optica       ? 3: 0}`,
-    `sexo             = ${
-        jsonData.sexo === SEXO.masculino ? 1
-      : jsonData.sexo === SEXO.femenino  ? 2
-      : jsonData.sexo === SEXO.no_aplica ? 3: 0}`,
-    `fecha_nacimiento ="${jsonData.fecha_nacimiento}"`,
-    `direccion        ="${jsonData.direccion}"`,
-    `comuna           = ${jsonData.comuna}`,
-    `telefono         ="${jsonData.telefono}"`,
-    `correo           ="${jsonData.correo}"`,
-    `establecimiento  = ${jsonData.establecimiento}`,
-  ];
-
-  const filteredFields = fields.filter(
-    (field) => field !== null && field !== ""
-  );
-
-  if (filteredFields.length === 0) {
-    return null;
-  }
-  let  _p1 = filteredFields.join(",");
-  _p1 = _p1.replace(/'/g, '!');
-
-  const query: OutputData = {
-    query: "04",
-    _p1,
-    _p2: `'${primaryKey}'`,
-  };
-  console.log("query", query);
-  return query;
-}
 
 interface IUserFormPrps {
   closeModal: () => void;
@@ -144,7 +104,7 @@ interface IUserFormPrps {
 
 const FClientes: React.FC<IUserFormPrps> = React.memo(
   ({ closeModal, setEntities, params, label, data, isEditting, escritura_lectura }) => {
-    const schema = validationClientesSchema();
+    const schema = validationClientesSchema(isEditting);
     const { showModal, CustomModal } = useModal();
     const selectRef = useRef();
 
@@ -172,7 +132,47 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
     } = useForm({
       resolver: yupResolver(schema),
     });
-
+    
+   function transformUpdateQuery(
+      jsonData: InputData,
+      primaryKey: string
+    ): OutputData | null {
+      const fields = [
+        `nombre           ="${jsonData.nombre}"`,
+        `tipo             = ${
+            jsonData.tipo === TIPO_CLIENTE.beneficiario ? 1
+          : jsonData.tipo === TIPO_CLIENTE.particular   ? 2
+          : jsonData.tipo === TIPO_CLIENTE.optica       ? 3: 0}`,
+        `sexo             = ${
+            jsonData.sexo === SEXO.masculino ? 1
+          : jsonData.sexo === SEXO.femenino  ? 2
+          : jsonData.sexo === SEXO.no_aplica ? 3: 0}`,
+        `fecha_nacimiento ="${jsonData.fecha_nacimiento}"`,
+        `direccion        ="${jsonData.direccion}"`,
+        `comuna           = ${jsonData.comuna || data && data[EnumGrid.comuna_id]}`,
+        `telefono         ="${jsonData.telefono}"`,
+        `correo           ="${jsonData.correo}"`,
+        `establecimiento  = ${jsonData.establecimiento}`,
+      ];
+    
+      const filteredFields = fields.filter(
+        (field) => field !== null && field !== ""
+      );
+    
+      if (filteredFields.length === 0) {
+        return null;
+      }
+      let  _p1 = filteredFields.join(",");
+      _p1 = _p1.replace(/'/g, '!');
+    
+      const query: OutputData = {
+        query: "04",
+        _p1,
+        _p2: `'${primaryKey}'`,
+      };
+      console.log("query", query);
+      return query;
+    }
     const resetTextFields = React.useCallback(() => {
       setValue("rut", "");
       setValue("nombre", "");
@@ -290,7 +290,7 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
 
     // console.log(data && data)
     
-    console.log(errors.comuna)
+    // console.log(errors.comuna)
     // console.log(getValues())
 
 

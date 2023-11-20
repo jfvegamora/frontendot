@@ -302,5 +302,5 @@ export const procesarMensajeError = (mensajeError:any) => {
     return 'No hay registros.';
   }
 
-  return 'Otro mensaje de error genérico.';
+  return mensajeError
 };

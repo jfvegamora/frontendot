@@ -2,6 +2,7 @@ import React,{useState} from 'react'
 import { SelectInputComponent, TextInputComponent } from '..';
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
 import { validationOTlevel2 } from '../../utils/validationOT';
+import SelectInputTiposComponent from '../forms/SelectInputTiposComponent';
 
 
 interface ICristales {
@@ -109,19 +110,19 @@ const FOTCristales:React.FC<ICristales> = ({
       console.log(a1Grupo[0])
 
       const renderGrupo1 = () => (
-            <SelectInputComponent
-                                        label="Grupo 1"
-                                        name="cristal1_grupo1_id"
-                                        showRefresh={false}
-                                        isOT={true}
-                                        handleSelectChange={handleInputChange}
-                                        data={1}
-                                        control={control}
-                                        entidad={["/api/proyectogrupos/", "02","PR001A"]}
-                                        // error={errors.establecimiento}
-                                        customWidth={"345px"}
-                                        readOnly={onlyRead || permiso_cristales}
-         />
+            <div className='w-full rowForm'>
+                <div className="w-[50%] mx-auto">
+                    <TextInputComponent   
+                        type='text'
+                        label="Grupo 1"
+                        name="cristal1_grupo1_id"
+                        data={1}
+                        control={control}
+                        onlyRead={onlyRead || permiso_cristales}
+                    />  
+                </div>
+
+            </div>
       
        )
 
@@ -129,505 +130,373 @@ const FOTCristales:React.FC<ICristales> = ({
        
     React.useEffect(()=>{
         renderGrupo1()
-        console.log('cambio')
-        console.log(grupo1)
+        // console.log('cambio')
+        // console.log(grupo1)
     },[grupo1])
   return (
     <form>
-        <div className='w-full labelForm flex items-center rounded-lg border border-blue-500 !mt-8'>
+        <div className='w-full labelForm flex items-center rounded-lg border border-blue-500 !mt-[-1.5rem] '>
             <div className=" w-1/2 relative items-center mt-8">
-               <div className=" flex items-center  ml-2 rounded-lg border border-blue-500">
 
-               <div className="w-full  items-center">
+               <div className=" flex items-center  ml-2 rounded-lg border border-red-500">
+
+               <div className="w-[80%]  items-center mx-auto   !mt-8 !h-[36rem]">
                 
 
-                    <div className="w-full !-mb-8">
-                        <div className="w-[90%] mt-6">
-                            <SelectInputComponent
-                                        label="Opcion de Venta"
-                                        name="cristal1_opcion_vta_id"
-                                        showRefresh={false}
-                                        isOT={true}
-                                        handleSelectChange={handleInputChange}
-                                        data={formValues ? formValues["cristal1_opcion_vta_id"] : data && data[EnumGrid.cristal1_opcion_vta_id]}
-                                        // data={1}
-                                        control={control}
-                                        entidad={["/api/tipos/", "02","OTOpcionVentaCristales"]}
-                                        // error={errors.establecimiento}
-                                        customWidth={"345px"}
-                                        readOnly={onlyRead || permiso_cristales}
-                                    />
-                            </div>
-                        <div className="w-[90%]">
-                            <SelectInputComponent
-                                        label="Indice"
-                                        name="cristal1_indice_id"
-                                        showRefresh={false}
-                                        isOT={true}
-                                        handleSelectChange={handleInputChange}
-                                        data={formValues ? formValues["cristal1_indice_id"] : data && data[EnumGrid.cristal1_indice_id]}
-                                        control={control}
-                                        entidad={["/api/tipos/", "02","CristalesIndices"]}
-                                        // error={errors.establecimiento}
-                                        customWidth={"345px"}
-                                        readOnly={onlyRead || permiso_cristales}
-                                    />
-                            </div>
-                        <div className="w-[90%]">
-                            <SelectInputComponent
-                                        label="Tratamiento"
-                                        name="cristal1_tratamiento_id"
-                                        showRefresh={false}
-                                        isOT={true}
-                                        handleSelectChange={handleInputChange}
-                                        data={formValues ? formValues["cristal1_tratamiento_id"] : data && data[EnumGrid.cristal1_tratamiento_id]}
-                                        control={control}
-                                        entidad={["/api/tipos/", "02","OTTratamientoAdicional"]}
-                                        // error={errors.establecimiento}
-                                        customWidth={"345px"}
-                                        readOnly={onlyRead || permiso_cristales}
-                                    />
-                            </div>
-                    </div>
+                    <div className="w-full  !-mb-4 ">
 
-                    <div className="w-full">
-                    <h1 className='labelForm absolute z-10 top-[-2%] text-2xl w-[30%] text-center left-[30%]'>Anteojo 1</h1>
-                    <div className="w-[35%] absolute top-[-6%] labelForm right-[5%]">
-                            {renderGrupo1()}
-                    </div>
-                    <div className="mt-16  mx-auto w-[90%] relative mb-8 !h-[15rem] labelForm rounded-lg border border-blue-500 ">
-                        <h1 className='absolute w-[30%] z-10 labelForm text-center text-xl top-[-3%] left-[30%]'>OD</h1>
-
-                        <div className="w-[90%] ml-4 flex items-center">
+                          <div className="w-full flex mt-6 rowForm ">
+                              <div className="w-[50%]">
+                                <SelectInputTiposComponent
+                                    label='Opción Venta'
+                                    name='cristal1_opcion_vta_id'
+                                    showRefresh={true}
+                                    isOT={true}
+                                    handleSelectChange={handleInputChange}
+                                    data={formValues ? formValues["cristal1_opcion_vta_id"] : data && data[EnumGrid.cristal1_opcion_vta_id]}
+                                    control={control}
+                                    entidad='OTOpcionVentaCristales'
+                                    readOnly={onlyRead || permiso_cristales}
                                 
-                                <div className="w-[50%]">
-                                    <TextInputComponent
-                                        type="text"
-                                        label="Codigo Cristal"
-                                        name="cristal1_od"
-                                        handleChange={handleInputChange}
-                                        data={formValues ? formValues["cristal1_od"] : data && data[EnumGrid.cristal1_od]}
-                                        control={control}
-                                        onlyRead={onlyRead || permiso_cristales}
-                                        // error={errors.fecha_nacimiento}
-                                    />
-                                </div>
-
-                                <div className="w-[50%]">
-                                    <TextInputComponent
-                                        type="number"
-                                        label="Stock Actual"
-                                        name="anteojo1_stock_actual_od"
-                                        onlyRead={true}
-                                        handleChange={handleInputChange}
-                                        // data={armazon1 && armazon1[16]}
-                                        control={control}
-                                        defaultValue={30}
-                                        
-                                        // error={errors.fecha_nacimiento}
-                                    />
-                                </div>
-                            </div>
-
-
-
-                            {/* <div className="w-[82%] mb-6 ml-8 mx-auto labelForm rounded-lg border border-blue-500">
-                                <p className='ml-2 text-xl'>Marca: {cristal1OD && cristal1OD[0] && cristal1OD[0][3]}</p>
-                                <p className='ml-2 text-xl'>Diseño: {cristal1OD && cristal1OD[0] && cristal1OD[0][7]} </p>
-                                <p className='ml-2 text-xl'>Indice: {cristal1OD && cristal1OD[0] && cristal1OD[0][9]}</p>
-                                <p className='ml-2 text-xl'>Material: {cristal1OD && cristal1OD[0] && cristal1OD[0][11]}</p>
-                                <p className='ml-2 text-xl'>Color: {cristal1OD && cristal1OD[0] && cristal1OD[0][13]}</p>
-                                <p className='ml-2 text-xl'>Tratamientos: {cristal1OD && cristal1OD[0] && cristal1OD[0][15]}</p>
-                                <p className='ml-2 text-xl'>ESF: {cristal1OD && cristal1OD[0] && cristal1OD[0][18]}</p>
-                                <p className='ml-2 text-xl'>CIL: {cristal1OD && cristal1OD[0] && cristal1OD[0][19]}</p>
-                                <p className='ml-2 text-xl'>Diametro: {cristal1OD && cristal1OD[0] && cristal1OD[0][17]}</p>
-                            
-                            </div>     */}
-
-                    </div>
-
-                    
-                    </div>
-               </div>
-
-
-
-
-               
-               <div className="w-full">
-
-               <div className="w-full !-mb-8 ">
-                    <div className="w-[90%] mt-6">
-                            <SelectInputComponent
-                                        label="Diseño"
-                                        name="cristal1_diseno_id"
-                                        showRefresh={false}
+                                />
+                              </div>
+                              <div className="w-[50%]">
+                                <SelectInputComponent
+                                        label="Marca"
+                                        name="cristal1_marca_id"
+                                        showRefresh={true}
                                         isOT={true}
                                         handleSelectChange={handleInputChange}
-                                        data={formValues ? formValues["cristal1_diseno_id"] : data && data[EnumGrid.cristal1_diseno_id]}
+                                        data={formValues ? formValues["cristal1_marca_id"] : data && data[EnumGrid.cristal1_marca_id]}
                                         control={control}
-                                        entidad={["/api/tipos/", "02","CristalesDisenos"]}
+                                        entidad={["/api/marcas/", "02"]}
                                         // error={errors.establecimiento}
                                         customWidth={"345px"}
                                         readOnly={onlyRead || permiso_cristales}
-                            />
-                    </div>
-                    <div className="w-[90%]">
-                            <SelectInputComponent
-                                        label="Material"
-                                        name="cristal1_material_id"
-                                        showRefresh={false}
-                                        isOT={true}
-                                        handleSelectChange={handleInputChange}
-                                        data={formValues ? formValues["cristal1_material_id"] : data && data[EnumGrid.cristal1_material_id]}
-                                        control={control}
-                                        entidad={["/api/tipos/", "02","CristalesMateriales"]}
-                                        // error={errors.establecimiento}
-                                        customWidth={"345px"}
-                                        readOnly={onlyRead || permiso_cristales}
-                                        
-                            />
-                    </div>
-                    <div className="w-[90%]">
-                            <SelectInputComponent
-                                        label="Color"
-                                        name="cristal1_color_id"
-                                        showRefresh={false}
-                                        isOT={true}
-                                        handleSelectChange={handleInputChange}
-                                        data={formValues ? formValues["cristal1_color_id"] : data && data[EnumGrid.cristal1_color_id]}
-                                        control={control}
-                                        entidad={["/api/tipos/", "02","CristalesColores"]}
-                                        // error={errors.establecimiento}
-                                        customWidth={"345px"}
-                                        readOnly={onlyRead || permiso_cristales || !cristalRead}
-                            />
-                    </div>
-                </div>
-
-                <div className="mt-16 mx-auto w-[90%] !h-[15rem] relative mb-8 labelForm rounded-lg border border-blue-500">
-                    <h1 className='absolute w-[30%] z-10 labelForm text-center text-xl top-[-3%] left-[30%]'>OI</h1>
-                    <div className="w-[90%] ml-4 flex items-center">
-                            <div className="w-[50%]">
-
-                                <TextInputComponent
-                                    type="text"
-                                    label="Codigo Cristal"
-                                    name="cristal1_oi"
-                                    handleChange={handleInputChange}
-                                    data={formValues ? formValues["cristal1_oi"] : data && data[EnumGrid.cristal1_oi]}
-                                    control={control}
-                                    onlyRead={onlyRead || permiso_cristales}
-                                    // error={errors.fecha_nacimiento}
                                 />
 
-
-                            </div>
-                            <div className="w-[50%]">
-                                <TextInputComponent
-                                    type="number"
-                                    label="Stock Actual"
-                                    name="anteojo1_stock_actual_OI"
-                                    onlyRead={true}
-                                    handleChange={handleInputChange}
-                                    // data={armazon1 && armazon1[16]}
-                                    control={control}
-                                    defaultValue={30}
-                                    // error={errors.fecha_nacimiento}
+                              </div>
+                          </div>
+                        <div className="w-full rowForm">      
+                                <SelectInputTiposComponent
+                                  label='Diseño'
+                                   name='cristal1_diseno_id'
+                                   showRefresh={true}
+                                   isOT={true}
+                                   handleSelectChange={handleInputChange}
+                                   data={formValues ? formValues["cristal1_diseno_id"] : data && data[EnumGrid.cristal1_diseno_id]}
+                                   entidad={"CristalesDisenos"}
+                                   control={control}
+                                   readOnly={onlyRead || permiso_cristales}
                                 />
-                            </div>
                         </div>
 
+                        <div className="w-full rowForm">
+                            <SelectInputTiposComponent
+                              label='Indice'
+                              name='cristal1_indice_id'
+                              showRefresh={true}
+                              isOT={true}
+                              handleSelectChange={handleInputChange}
+                              data={formValues ? formValues["cristal1_indice_id"] : data && data[EnumGrid.cristal1_indice_id]}
+                              control={control}
+                              entidad={'CristalesIndices'}
+                              readOnly={onlyRead || permiso_cristales}
+                            />
+                        </div>
 
+                        <div className="w-full rowForm">
+                            <SelectInputTiposComponent
+                              label='Material'
+                              name="cristal1_material_id"
+                              showRefresh={true}
+                              isOT={true}
+                              handleSelectChange={handleInputChange}
+                              data={formValues ? formValues["cristal1_material_id"] : data && data[EnumGrid.cristal1_material_id]}
+                              control={control}
+                              entidad={'CristalesMateriales'}
+                              readOnly={onlyRead || permiso_cristales}
+                            />
+                        </div>
+                     
+                        <div className="w-full rowForm">
+                            <SelectInputTiposComponent
+                              label='Color'
+                              name="cristal1_color_id"
+                              showRefresh={true}
+                              isOT={true}
+                              handleSelectChange={handleInputChange}
+                              data={formValues ? formValues["cristal1_color_id"] : data && data[EnumGrid.cristal1_color_id]}
+                              control={control}
+                              entidad={"CristalesColores"}
+                              readOnly={onlyRead || permiso_cristales }
+                            />
+                        </div>
 
-                        {/* <div className="w-[82%] mb-6 ml-8 mx-auto labelForm rounded-lg border border-blue-500">
-                            <p className='ml-2 text-xl'>Marca: {cristal1OI && cristal1OI[0] && cristal1OI[0][3]}</p>
-                            <p className='ml-2 text-xl'>Diseño: {cristal1OI && cristal1OI[0] && cristal1OI[0][7]} </p>
-                            <p className='ml-2 text-xl'>Indice: {cristal1OI && cristal1OI[0] && cristal1OI[0][9]}</p>
-                            <p className='ml-2 text-xl'>Material: {cristal1OI && cristal1OI[0] && cristal1OI[0][11]}</p>
-                            <p className='ml-2 text-xl'>Color: {cristal1OI && cristal1OI[0] && cristal1OI[0][13]}</p>
-                            <p className='ml-2 text-xl'>Tratamientos: {cristal1OI && cristal1OI[0] && cristal1OI[0][15]}</p>
-                            <p className='ml-2 text-xl'>ESE: {cristal1OI && cristal1OI[0] && cristal1OI[0][18]}</p>
-                            <p className='ml-2 text-xl'>CIL: {cristal1OI && cristal1OI[0] && cristal1OI[0][19]}</p>
-                            <p className='ml-2 text-xl'>Diametro: {cristal1OI && cristal1OI[0] && cristal1OI[0][17]}</p>
-                        
-                        </div>     */}
+                        <div className="w-full rowForm">
+                            <SelectInputTiposComponent
+                              label='Tratamiento'
+                              name="cristal1_tratamiento_id"
+                              showRefresh={true}
+                              isOT={true}
+                              handleSelectChange={handleInputChange}
+                              data={formValues ? formValues["cristal1_tratamiento_id"] : data && data[EnumGrid.cristal1_tratamiento_id]}
+                              control={control}
+                              entidad={"CristalesTratamientos"}
+                              readOnly={onlyRead || permiso_cristales }
+                            />
+                        </div>
 
+                        <div className="w-full rowForm ">
+                                 <TextInputComponent
+                                        control={control}
+                                        type="text"
+                                        label="Diametro"
+                                        name="cristal1_diametro"
+                                        handleChange={handleInputChange}
+                                        isOT={true}
+                                        // data={formValues ? formValues["cristal1_diametro"] : data && data[EnumGrid.diametro_a1]}
+                                        onlyRead={onlyRead || permiso_cristales}
+                                        // error={errors.fecha_nacimiento}
+                                  />
+                        </div>
+                        <div className="w-full !mt-8 !mb-6">
+                            <div className="w-full rowForm relative flex  ">
+                            <h1 className='absolute w-[30%] z-10 labelForm text-center text-xl !top-[10%] left-[10%]'>OD</h1>
+                            <h1 className='absolute w-[30%] z-10 labelForm text-center text-xl !top-[-10rem] left-[60%]'>OI</h1>
+                                <div className="w-[50%]">
+                                        <TextInputComponent
+                                            type="text"
+                                            label="Codigo Cristal"
+                                            name="cristal1_od"
+                                            handleChange={handleInputChange}
+                                            data={formValues ? formValues["cristal1_od"] : data && data[EnumGrid.cristal1_od]}
+                                            control={control}
+                                            isOT={true}
+                                            onlyRead={onlyRead || permiso_cristales}
+                                            // error={errors.fecha_nacimiento}
+                                        />
+                                </div>
+                                <div className="w-[50%]">
+                                        <TextInputComponent
+                                            type="text"
+                                            label="Codigo Cristal"
+                                            name="cristal1_oi"
+                                            isOT={true}
+                                            handleChange={handleInputChange}
+                                            data={formValues ? formValues["cristal1_oi"] : data && data[EnumGrid.cristal1_oi]}
+                                            control={control}
+                                            onlyRead={onlyRead || permiso_cristales}
+                                            // error={errors.fecha_nacimiento}
+                                        />
+                                </div>
+                            </div>
 
-                </div>
+                        </div>
+
+                     <div className="w-full rowForm !mt-8">
+                                <SelectInputTiposComponent
+                                label='Tratamiento adicional'
+                                name='cristal1_tratamiento_adicional_id'
+                                showRefresh={true}
+                                isOT={true}
+                                handleSelectChange={handleInputChange}
+                                data={formValues ? formValues["cristal1_tratamiento_adicional_id"] : data && data[EnumGrid.cristal1_tratamiento_adicional_id]}
+                                control={control}
+                                entidad='CristalesTratamientos'
+                                readOnly={onlyRead || permiso_cristales}
+                                />
+                      </div>
+                    </div>
+
+                        <h1 className='labelForm absolute z-10 top-[-10%] text-2xl w-[30%] text-center left-[30%]'>Anteojo 1</h1>
+                        <div className="w-[35%] absolute top-[-5%] labelForm right-[5%]">
+                                {renderGrupo1()}
+                        </div>
                </div>
 
 
+
+
+              
+
                </div> 
-               <div className="w-full  ml-4">
-                     <div className="w-[90%]">
-                            <SelectInputComponent
-                                        label="Tratamiento adicional"
-                                        name="cristal1_tratamiento_adicional_id"
-                                        showRefresh={false}
-                                        isOT={true}
-                                        handleSelectChange={handleInputChange}
-                                        data={formValues ? formValues["cristal1_tratamiento_adicional_id"] : data && data[EnumGrid.cristal1_tratamiento_adicional_id]}
-                                        control={control}
-                                        entidad={["/api/tipos/", "02","CristalesTratamientos"]}
-                                        // error={errors.establecimiento}
-                                        customWidth={"345px"}
-                                        readOnly={onlyRead || permiso_cristales}
-                             />
-                    </div>
-                </div>                            
+                                      
             </div>
             <div className=" w-1/2 relative items-center mt-8">
                <div className=" flex items-center  ml-2 rounded-lg border border-blue-500">
 
-               <div className="w-full items-center">
-                
+               <div className="w-full items-center"> 
+                    <div className="w-[80%] items-center mx-auto !-mb-8 ">
 
-                    <div className="w-full !-mb-8">
-                        <div className="w-[90%] mt-6">
-                            <SelectInputComponent
-                                        label="Opcion de Venta"
-                                        name="cristal2_od_opcion_venta_id"
-                                        showRefresh={false}
+                        <div className="w-full mt-6 rowForm flex">
+                            <div className="w-[50%]">
+                                <SelectInputTiposComponent
+                                            label="Opcion de Venta"
+                                            name="cristal2_od_opcion_venta_id"
+                                            showRefresh={true}
+                                            isOT={true}
+                                            handleSelectChange={handleInputChange}
+                                            data={formValues ? formValues["cristal2_od_opcion_venta_id"] : data && data[EnumGrid.cristal2_od_opcion_venta_id]}
+                                            control={control}
+                                            entidad='OTOpcionVentaCristales'
+                                            readOnly={onlyRead || permiso_cristales}
+                                  />
+                            </div>
+                            <div className="w-[50%]">
+                                    <SelectInputComponent
+                                        label="Marca"
+                                        name="cristal2_marca_id"
+                                        showRefresh={true}
                                         isOT={true}
                                         handleSelectChange={handleInputChange}
-                                        data={formValues ? formValues["cristal2_od_opcion_venta_id"] : data && data[EnumGrid.cristal2_od_opcion_venta_id]}
+                                        // data={formValues ? formValues["cristal2_marca_id"] : data && data[EnumGrid.cristal2_indice_id]}
                                         control={control}
-                                        entidad={["/api/tipos/", "02","OTOpcionVentaCristales"]}
-                                        // error={errors.establecimiento}
-                                        customWidth={"345px"}
+                                        entidad={["/api/marcas/", "02"]}
                                         readOnly={onlyRead || permiso_cristales}
                                     />
                             </div>
-                        <div className="w-[90%]">
-                            <SelectInputComponent
-                                        label="Indice"
-                                        name="cristal2_indice_id"
-                                        showRefresh={false}
-                                        isOT={true}
-                                        handleSelectChange={handleInputChange}
-                                        data={formValues ? formValues["cristal2_indice_id"] : data && data[EnumGrid.cristal2_indice_id]}
-                                        control={control}
-                                        entidad={["/api/tipos/", "02","CristalesIndices"]}
-                                        // error={errors.establecimiento}
-                                        customWidth={"345px"}
-                                        readOnly={onlyRead || permiso_cristales}
-                                    />
-                            </div>
-                        <div className="w-[90%]">
-                            <SelectInputComponent
-                                        label="Tratamiento"
-                                        name="cristal2_tratamiento_id"
-                                        showRefresh={false}
-                                        isOT={true}
-                                        handleSelectChange={handleInputChange}
-                                        data={1}
-                                        control={control}
-                                        entidad={["/api/tipos/", "02","OTTratamientoAdicional"]}
-                                        // error={errors.establecimiento}
-                                        customWidth={"345px"}
-                                        readOnly={onlyRead || permiso_cristales}
-                                    />
-                            </div>
-                    </div>
-
-                    <div className="w-full">
-                    <h1 className='labelForm absolute z-10 top-[-2%] text-2xl w-[30%] text-center left-[30%]'>Anteojo 2</h1>
-                    <div className="w-[35%] absolute top-[-6%] labelForm right-[5%]">
-                            {/* <SelectInputComponent
-                                        label="Grupo"
-                                        name="cristal2_grupo2_id"
-                                        showRefresh={false}
-                                        isOT={true}
-                                        handleSelectChange={handleInputChange}
-                                        data={2}
-                                        control={control}
-                                        entidad={["/api/proyectogrupos/", "02","PR001A"]}
-                                        // error={errors.establecimiento}
-                                        customWidth={"345px"}
-                                        readOnly={onlyRead || permiso_cristales}
-                            /> */}
-                    </div>
-                    
-                    <div className="mt-16 mx-auto w-[90%] relative mb-8 !h-[15rem] labelForm rounded-lg border border-blue-500 ">
-                        <h1 className='absolute w-[30%] z-10 labelForm text-center text-xl top-[-3%] left-[30%]'>OD</h1>
-
-                        <div className="w-[90%] ml-4 flex items-center">
-                                
-                                <div className="w-[50%]">
-                                    <TextInputComponent
-                                        type="text"
-                                        label="Codigo Cristal"
-                                        name="cristal2_od"
-                                        handleChange={handleInputChange}
-                                        data={formValues ? formValues["cristal2_od"] : data && data[EnumGrid.cristal2_od]}
-                                        control={control}
-                                        onlyRead={onlyRead || permiso_cristales}
-                                        // error={errors.fecha_nacimiento}
-                                    />
-                                </div>
-
-                                <div className="w-[50%]">
-                                    <TextInputComponent
-                                        type="number"
-                                        label="Stock Actual"
-                                        name="anteojo1_stock_actual_od"
-                                        onlyRead={true}
-                                        handleChange={handleInputChange}
-                                        // data={armazon1 && armazon1[16]}
-                                        control={control}
-                                        defaultValue={30}
-                                
-                                        // error={errors.fecha_nacimiento}
-                                    />
-                                </div>
-                            </div>
-
-
-
-                            {/* <div className="w-[82%] mb-6 ml-8 mx-auto labelForm rounded-lg border border-blue-500">
-                                <p className='ml-2 text-xl'>Marca: {cristal1OD && cristal1OD[0] && cristal1OD[0][3]}</p>
-                                <p className='ml-2 text-xl'>Diseño: {cristal1OD && cristal1OD[0] && cristal1OD[0][7]} </p>
-                                <p className='ml-2 text-xl'>Indice: {cristal1OD && cristal1OD[0] && cristal1OD[0][9]}</p>
-                                <p className='ml-2 text-xl'>Material: {cristal1OD && cristal1OD[0] && cristal1OD[0][11]}</p>
-                                <p className='ml-2 text-xl'>Color: {cristal1OD && cristal1OD[0] && cristal1OD[0][13]}</p>
-                                <p className='ml-2 text-xl'>Tratamientos: {cristal1OD && cristal1OD[0] && cristal1OD[0][15]}</p>
-                                <p className='ml-2 text-xl'>ESF: {cristal1OD && cristal1OD[0] && cristal1OD[0][18]}</p>
-                                <p className='ml-2 text-xl'>CIL: {cristal1OD && cristal1OD[0] && cristal1OD[0][19]}</p>
-                                <p className='ml-2 text-xl'>Diametro: {cristal1OD && cristal1OD[0] && cristal1OD[0][17]}</p>
-                            
-                            </div>     */}
-
-                    </div>
-
-                    
-                    </div>
-               </div>
-
-
-
-
-               
-               <div className="w-full">
-
-               <div className="w-full !-mb-8 ">
-                    <div className="w-[90%] mt-6">
-                            <SelectInputComponent
+                        </div>
+                        
+                        <div className="w-full rowForm">
+                                <SelectInputTiposComponent
                                         label="Diseño"
                                         name="cristal2_diseno_id"
-                                        showRefresh={false}
+                                        showRefresh={true}
                                         isOT={true}
                                         handleSelectChange={handleInputChange}
                                         data={formValues ? formValues["cristal2_diseno_id"] : data && data[EnumGrid.cristal2_diseno_id]}
                                         control={control}
-                                        entidad={["/api/tipos/", "02","CristalesDisenos"]}
-                                        // error={errors.establecimiento}
+                                        entidad={"CristalesDisenos"}
                                         customWidth={"345px"}
                                         readOnly={onlyRead || permiso_cristales}
                             />
-                    </div>
-                    <div className="w-[90%]">
-                            <SelectInputComponent
-                                        label="Material"
-                                        name="cristal2_material_id"
-                                        showRefresh={false}
+                        </div>
+
+                        <div className="w-full rowForm">
+                                    <SelectInputTiposComponent
+                                        label="Indice"
+                                        name="cristal2_indice_id"
+                                        showRefresh={true}
                                         isOT={true}
                                         handleSelectChange={handleInputChange}
-                                        data={formValues ? formValues["cristal2_material_id"] : data && data[EnumGrid.cristal2_material_id]}
+                                        data={formValues ? formValues["cristal2_indice_id"] : data && data[EnumGrid.cristal2_indice_id]}
                                         control={control}
-                                        entidad={["/api/tipos/", "02","CristalesMateriales"]}
-                                        // error={errors.establecimiento}
+                                        entidad={"CristalesIndices"}
                                         customWidth={"345px"}
                                         readOnly={onlyRead || permiso_cristales}
+                                    />
+
+                        </div>
+
+                        <div className="w-full rowForm">
+                            <SelectInputTiposComponent
+                                    label="Material"
+                                    name="cristal2_material_id"
+                                    showRefresh={true}
+                                    isOT={true}
+                                    handleSelectChange={handleInputChange}
+                                    data={formValues ? formValues["cristal2_material_id"] : data && data[EnumGrid.cristal2_material_id]}
+                                    control={control}
+                                    entidad={"CristalesMateriales"}
+                                    readOnly={onlyRead || permiso_cristales}
                             />
-                    </div>
-                    <div className="w-[90%]">
-                            <SelectInputComponent
+                        </div>
+
+                        <div className="w-full rowForm">
+                                 <SelectInputTiposComponent
                                         label="Color"
                                         name="cristal2_color_id"
-                                        showRefresh={false}
+                                        showRefresh={true}
                                         isOT={true}
                                         handleSelectChange={handleInputChange}
                                         data={formValues ? formValues["cristal2_color_id"] : data && data[EnumGrid.cristal2_color_id]}
                                         control={control}
-                                        entidad={["/api/tipos/", "02","CristalesColores"]}
-                                        // error={errors.establecimiento}
-                                        customWidth={"345px"}
+                                        entidad={"CristalesColores"}
                                         readOnly={onlyRead || permiso_cristales}
-                            />
-                    </div>
-                </div>
-
-                <div className="mt-16 mx-auto w-[90%] !h-[15rem] relative mb-8 labelForm rounded-lg border border-blue-500">
-                    <h1 className='absolute w-[30%] z-10 labelForm text-center text-xl top-[-3%] left-[30%]'>OI</h1>
-                    <div className="w-[90%] ml-4 flex items-center">
-                            <div className="w-[50%]">
-                                <TextInputComponent
-                                    type="text"
-                                    label="Codigo Cristal"
-                                    name="cristal2_oi"
-                                    handleChange={handleInputChange}
-                                    data={formValues ? formValues["cristal2_oi"] : data && data[EnumGrid.cristal2_oi]}
-                                    control={control}
-                                    onlyRead={onlyRead || permiso_cristales}
-                                    // error={errors.fecha_nacimiento}
                                 />
-                            </div>
-                            <div className="w-[50%]">
-                                <TextInputComponent
-                                    type="number"
-                                    label="Stock Actual"
-                                    name="anteojo1_stock_actual_OI"
-                                    onlyRead={true}
-                                    handleChange={handleInputChange}
-                                    // data={armazon1 && armazon1[16]}
-                                    control={control}
-                                    defaultValue={30}
-                                
-                                    // error={errors.fecha_nacimiento}
-                                />
-                            </div>
                         </div>
-
-
-
-                        {/* <div className="w-[82%] mb-6 ml-8 mx-auto labelForm rounded-lg border border-blue-500">
-                            <p className='ml-2 text-xl'>Marca: {cristal1OI && cristal1OI[0] && cristal1OI[0][3]}</p>
-                            <p className='ml-2 text-xl'>Diseño: {cristal1OI && cristal1OI[0] && cristal1OI[0][7]} </p>
-                            <p className='ml-2 text-xl'>Indice: {cristal1OI && cristal1OI[0] && cristal1OI[0][9]}</p>
-                            <p className='ml-2 text-xl'>Material: {cristal1OI && cristal1OI[0] && cristal1OI[0][11]}</p>
-                            <p className='ml-2 text-xl'>Color: {cristal1OI && cristal1OI[0] && cristal1OI[0][13]}</p>
-                            <p className='ml-2 text-xl'>Tratamientos: {cristal1OI && cristal1OI[0] && cristal1OI[0][15]}</p>
-                            <p className='ml-2 text-xl'>ESE: {cristal1OI && cristal1OI[0] && cristal1OI[0][18]}</p>
-                            <p className='ml-2 text-xl'>CIL: {cristal1OI && cristal1OI[0] && cristal1OI[0][19]}</p>
-                            <p className='ml-2 text-xl'>Diametro: {cristal1OI && cristal1OI[0] && cristal1OI[0][17]}</p>
                         
-                            
-                        </div>     */}
+                        <div className="w-full rowForm">
+                            <SelectInputTiposComponent
+                                        label="Tratamiento"
+                                        name="cristal2_tratamiento_id"
+                                        showRefresh={true}
+                                        isOT={true}
+                                        handleSelectChange={handleInputChange}
+                                        data={1}
+                                        control={control}
+                                        entidad={"OTTratamientoAdicional"}
+                                        readOnly={onlyRead || permiso_cristales}
+                                    />
+                            </div>
+                            <div className="w-full rowForm ">
+                                 <TextInputComponent
+                                        type="text"
+                                        label="Diametro"
+                                        name="cristal2_diametro"
+                                        handleChange={handleInputChange}
+                                        // data={formValues ? formValues["cristal1_diametro"] : data && data[EnumGrid.diametro_a1]}
+                                        control={control}
+                                        isOT={true}
+                                        onlyRead={onlyRead || permiso_cristales}
+                                        // error={errors.fecha_nacimiento}
+                                  />
+                        </div>
+                        <div className="w-full !mt-8 !mb-6">
+                            <div className="w-full rowForm relative flex  ">
+                            <h1 className='absolute w-[30%] z-10 labelForm text-center text-xl !top-[10%] left-[10%]'>OD</h1>
+                            <h1 className='absolute w-[30%] z-10 labelForm text-center text-xl !top-[-10rem] left-[60%]'>OI</h1>
+                                <div className="w-[50%]">
+                                        <TextInputComponent
+                                            type="text"
+                                            label="Codigo Cristal"
+                                            name="cristal2_od"
+                                            handleChange={handleInputChange}
+                                            data={formValues ? formValues["cristal2_od"] : data && data[EnumGrid.cristal2_od]}
+                                            control={control}
+                                            isOT={true}
+                                            onlyRead={onlyRead || permiso_cristales}
+                                            // error={errors.fecha_nacimiento}
+                                        />
+                                </div>
+                                <div className="w-[50%]">
+                                        <TextInputComponent
+                                            type="text"
+                                            label="Codigo Cristal"
+                                            name="cristal2_oi"
+                                            handleChange={handleInputChange}
+                                            data={formValues ? formValues["cristal2_oi"] : data && data[EnumGrid.cristal2_oi]}
+                                            control={control}
+                                            isOT={true}
+                                            onlyRead={onlyRead || permiso_cristales}
+                                            // error={errors.fecha_nacimiento}
+                                        />
+                                </div>
+                            </div>
 
-
-                </div>
-               </div>
-
-
-               </div>                             
-                <div className="w-full  ml-4">
-                     <div className="w-[90%]">
-                            <SelectInputComponent
+                        </div>
+                    <div className="w-full rowForm">
+                            <SelectInputTiposComponent
                                         label="Tratamiento adicional"
                                         name="cristal2_tratamiento_adicional_id"
-                                        showRefresh={false}
+                                        showRefresh={true}
                                         isOT={true}
                                         handleSelectChange={handleInputChange}
                                         data={formValues ? formValues["cristal2_tratamiento_adicional_id"] : data && data[EnumGrid.cristal2_tratamiento_adicional_id]}
                                         control={control}
-                                        entidad={["/api/tipos/", "02","CristalesTratamientos"]}
-                                        // error={errors.establecimiento}
-                                        customWidth={"345px"}
+                                        entidad={"CristalesTratamientos"}
                                         readOnly={onlyRead || permiso_cristales}
                              />
                     </div>
-                </div>
+                    </div>
+                    
+                        <h1 className='labelForm absolute z-10 top-[-20%] text-2xl w-[30%] text-center left-[30%]'>Anteojo 2</h1>
+                        <div className="w-[35%] absolute top-[-5%] labelForm right-[5%]">
+                                {renderGrupo1()}
+                        </div>
+               </div>
+               </div>                             
             </div>            
         </div>
 

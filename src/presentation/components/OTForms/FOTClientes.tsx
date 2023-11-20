@@ -9,6 +9,7 @@ import OTTextInputComponent from './OTTextInputComponent';
 import { validationOTlevel1 } from '../../utils/validationOT';
 import RegProCom from '../RegProCom';
 import { URLBackend } from '../../hooks/useCrud';
+import { codigoProyecto } from '../../views/forms/FOT';
 
 
 interface IClientes {
@@ -172,7 +173,7 @@ const FOTClientes:React.FC<IClientes> = ({
                                 handleSelectChange={handleInputChange}
                                 data={formValues ? formValues["establecimiento_id"]  : data && data[EnumGrid.establecimiento_id]}
                                 control={control}
-                                entidad={["/api/establecimientos/", "06", strCodigoProyecto]}
+                                entidad={["/api/establecimientos/", "06", codigoProyecto.value]}
                                 // error={errors.establecimiento}
                                 customWidth={"345px"}
                                 readOnly={onlyRead}

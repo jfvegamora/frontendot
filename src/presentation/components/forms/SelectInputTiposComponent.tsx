@@ -8,9 +8,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { Controller } from "react-hook-form";
 import { FiRefreshCw } from "react-icons/fi";
 import axios from "axios";
-import { AppStore, useAppDispatch, useAppSelector } from "../../../redux/store";
-import { updateDataForKey } from "../../../redux/slices/ListBoxTipoSlice";
-// import Select from "react-select";
+import { AppStore, useAppSelector } from "../../../redux/store";
 
 interface ISelectInputProps {
   label: string;
@@ -51,71 +49,32 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
     isOT,
     tabIndex
   }) => {
-
-
-    
-
-    // const store = useAppSelector((store: AppStore) => store.listBoxTipos);
     const stateListBox = useAppSelector((store: AppStore) => store.listBoxTipos[entidad]);
-    const dispatch = useAppDispatch()
-    // const stateListBox = useAppSelector((store: AppStore) => (store.listBoxTipos as any)[entidad || ""]);
-
-    
-    // const stateListBox = useAppSelector((store: AppStore) => store.listBoxTipos![entidad]);
-    // console.log(store)
-    // console.log(entidad)
-    // console.log(ox)
-
-
-
-    
-
-    const [_refreshToggle, setrefreshToggle] = useState(false);
     const [entities, setEntities] = useState(stateListBox|| []);
-    const [strSelectedName, setStrSelectedName] = useState(data || undefined);
-    // const strUrl = entidad && entidad[0];
+    const [strSelectedName, _setStrSelectedName] = useState(data || undefined);
     const inputRef = useRef(null);
-    // console.log(entities)
 
-    useEffect(()=>{
-      if(stateListBox && stateListBox?.length < 1 || stateListBox === null || stateListBox === undefined){
-        // console.log('no data')
-        axios(`https://mtoopticos.cl/api/tipos/listado/?query=02&_p1=${entidad}`)
-        .then((data:any)=>{
-          setEntities(data.data)
-          dispatch(updateDataForKey({entidad, data}))
-        })
-        .catch((error)=>console.log(error))
+
+    const fetchData = async () => {
+      try {
+        if (!stateListBox || stateListBox.length < 1) {
+          const { data } = await axios(`https://mtoopticos.cl/api/tipos/listado/?query=02&_p1=${entidad}`);
+          // console.log(data);
+          setEntities(data);
+        }
+      } catch (error) {
+        console.log('FETCH-TIPOS', error);
+        throw error;
       }
-    },[])
-    // console.log(entidad)
-    // console.log(strUrl)
-    // console.log(strTableName)
+    }
 
-    // const fetchData = async() => {
-    //   const url = `https://mtoopticos.cl${strUrl}listado/?query=${entidad[1]}&${strTableName}`
-    //   console.log(url)
-    //   try {
-    //     const {data} = await axios(`https://mtoopticos.cl${strUrl}listado/?query=${entidad[1]}&${strTableName}`)
-    //     console.log(data)
-    //     setEntities(data)
-    //   } catch (error) {
-    //     console.log(error)
-    //   }
-    // }
-    // console.log(data)
-    // useEffect(() => {
-    // //   fetchData()
-    //   if (data) {
-    //     const name =
-    //       data && entities.find((entity: any) => entity[0] === data)?.[1];
-    //     // console.log("name", entities);
-    //     setStrSelectedName(name);
-    //   }
-    // }, [refreshToggle, data]);
+    useEffect(() => {
+      fetchData();
+    }, [entidad, stateListBox]);
+    
 
     
-    // console.log(strSelectedName);
+
     const renderInput = () => (
       <Controller
           name={name}
@@ -164,7 +123,7 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
                       setHandleSearch(inputValuesToUpdate);
                     }
                   }
-                  setrefreshToggle((prev) => !prev);
+ 
                 }}
                 className="custom-input py-2 px-3 w-[85%] cursor-pointer z-0"
               >
@@ -192,9 +151,8 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
     )
 
     useEffect(() => {
-      setStrSelectedName(data);
       renderInput()
-      // console.log('data', data)
+
     }, [data]);
 
     return (
@@ -206,7 +164,7 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
         {showRefresh && (
           <Tooltip content="Refrescar">
             <IconButton
-              onClick={() => setrefreshToggle((prev) => !prev)}
+              onClick={() => fetchData()}
               variant="text"
               color="blue-gray"
               className="mx2 iconRefresh"

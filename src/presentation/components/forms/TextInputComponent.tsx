@@ -19,6 +19,7 @@ interface ITextInputProps {
   maxLength?:number;
   step?:number;
   tabIndex?: number;
+  isOT?:boolean
 }
 
 const TextInputComponent: React.FC<ITextInputProps> = ({
@@ -35,7 +36,8 @@ const TextInputComponent: React.FC<ITextInputProps> = ({
   defaultValue:formatvalue,
   maxLength,
   step,
-  tabIndex
+  tabIndex,
+  isOT
 }) => {
   const [defaultValue, setDefaultValue] = useState<any>(data && data || "")
 
@@ -46,9 +48,13 @@ const TextInputComponent: React.FC<ITextInputProps> = ({
       // if(e.target.name === formatvalue){
       //   e.target.value = '20.00'
       // }
-  
-      
-      handleChange(e.target.value);
+      if(isOT){
+        handleChange(e.target)
+      }else{
+        handleChange(e.target.value)
+      }
+    
+    
     }
   };
  

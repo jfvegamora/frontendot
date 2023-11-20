@@ -46,12 +46,12 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
                 ${jsonData.marca}, 
                "${jsonData.modelo}", 
                "${jsonData.color}", 
-                ${jsonData.material}, 
-                ${jsonData.aro}, 
-                ${jsonData.puente}, 
-                ${jsonData.diagonal}, 
-                ${jsonData.brazo}, 
-                ${jsonData.uso}, 
+                ${jsonData.material || 0}, 
+                ${jsonData.aro || 0}, 
+                ${jsonData.puente || 0}, 
+                ${jsonData.diagonal || 0}, 
+                ${jsonData.brazo || 0}, 
+                ${jsonData.uso || 0}, 
                 ${jsonData.stock_minimo}`;
   _p1 = _p1.replace(/'/g, '!');
 
@@ -280,7 +280,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
               <div className="input-container items-center rowForm w-[22%]  ">
                 <div className="w-full">
                   <TextInputComponent
-                    type="number"
+                    type="text"
                     label="Código"
                     name="codigo"
                     data={data && data[EnumGrid.codigo]}

@@ -305,6 +305,8 @@ export const dioptrias:any = signal<Dioptrias>({
   AD:['']
 })
 
+
+export const codigoProyecto = signal("")
 export const tipo_lejos_cerca = signal(false);
 
 const FOT:React.FC<IFOTProps> = ({
@@ -768,6 +770,7 @@ const FOT:React.FC<IFOTProps> = ({
   const [_changeboolean, setChangeboolean] = useState(false)
 
 
+
   const [a1Grupo, setA1Grupo] = useState(0)
   
   // console.log(strCodigoProyecto)
@@ -853,7 +856,9 @@ const FOT:React.FC<IFOTProps> = ({
     }
 
 
-    //FUNCION
+
+
+    //FUNCION para traer grupo, parametrizacion de cristales
     if(Object.keys(data)[0] === 'cristal1_color_id'){
         console.log(data)
         // console.log(Object.values(data)[0])
@@ -862,11 +867,13 @@ const FOT:React.FC<IFOTProps> = ({
         const {receta, cristales, optica} = formValues
       
         const _pkToDelete1_od ={
+         "marca": cristales.cristal1_marca_id,
          "diseno": cristales.cristal1_diseno_id,
          "indice":cristales.cristal1_indice_id,
          "material":cristales.cristal1_material_id,
          "color":colorID,
          "tratamiento":cristales.cristal1_tratamiento_id,
+         "diametro": cristales.cristal1_diametro,
          "esferico":receta.a1_od_esf,
          "cilindrico":receta.a1_od_cil
        }
@@ -913,12 +920,15 @@ const FOT:React.FC<IFOTProps> = ({
       // addIfNotNullAndNotEmpty(_pkToDelete2_od);
       // addIfNotNullAndNotEmpty(_pkToDelete2_oi);
 
+      // CALL spProyectoCristales(6, '', 'P01-2233Q1', '', '[{"marca":"1","diseno":"1","indice":"2","material":"1","color":"1","tratamiento":"1","diametro":"65","esferico":"-18","cilindrico":"-2"},{"marca":"1","diseno":"1","indice":"2","material":"1","color":"1","tratamiento":"1","diametro":"65","esferico":"-18","cilindrico":"-5"}]', 0, 0);
+
        console.log(arrayJSON)
+       console.log(optica.proyecto_codigo)
       const pkJSON = JSON.stringify(arrayJSON)
       try {
         // ejemplo de comoo debe quedar: https://mtoopticos.cl/api/proyectogrupos/listado/?_pkToDelete=[{ "diseno": "1", "indice":"1", "material":"1", "color":"1", "tratamiento":"1", "esferico":"-6.25", "cilindrico":"-0.25" }]&_p2="PR001A"&query=06
         const encodedJSON = encodeURIComponent(pkJSON)
-        const result = await axios(`https://mtoopticos.cl/api/proyectogrupos/listado/?query=06&_p2=${optica.proyecto}&_pkToDelete=${encodedJSON}`)
+        const result = await axios(`https://mtoopticos.cl/api/proyectocristales/listado/?query=06&_p2=${optica.proyecto}&_pkToDelete=${encodedJSON}`)
         console.log(result.data[0])
         setA1Grupo(3)
 
@@ -928,10 +938,14 @@ const FOT:React.FC<IFOTProps> = ({
     }
 
 
+
+
+
     //
     if(Object.keys(data)[0] === 'proyecto'){
         console.log(Object.values(data)[0])
         setStrCodigoProyecto(Object.values(data)[0])
+        codigoProyecto.value = (Object.values(data)[0] as string);
         fetchDioptrias(Object.values(data)[0] as string)
     }
 
