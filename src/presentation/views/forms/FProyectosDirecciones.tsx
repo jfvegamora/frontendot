@@ -272,7 +272,7 @@ const FProyectosDirecciones: React.FC<IUserFormPrps> = React.memo(
                 <div className="w-full ">
                   <SelectInputComponent
                       label="Establecimiento"
-                      name="establecimiento_id"
+                      name="establecimiento"
                       showRefresh={true}
                       isOT={true}
                       handleSelectChange={handleInputChange}

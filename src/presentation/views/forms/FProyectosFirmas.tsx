@@ -40,17 +40,9 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
   if(jsonData.fecha_desde && jsonData.fecha_hasta){
     
     if(new Date(jsonData.fecha_desde) > new Date(jsonData.fecha_hasta)){
-      toast.error('Fecha hasta mayor a la fecha desde')
-      throw new Error('')
-    }else if (new Date(jsonData.fecha_desde) === new Date(jsonData.fecha_hasta)){
-      toast.error('Fechas iguales')
-      throw new Error('')
-    } else if(new Date(jsonData.fecha_hasta) <= fechaActual){
-      toast.error('Fecha hasta menor a la fecha actual')
+      toast.error('Fecha desde mayor a la fecha hasta')
       throw new Error('')
     }
-  
-  
   }
   
     
