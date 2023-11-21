@@ -58,7 +58,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     const [entities, setEntities] = useState([]);
     const [strSelectedName, setStrSelectedName] = useState(data || undefined);
     const strUrl = entidad && entidad[0];
-    const strTableName = entidad[3] ? `_p3=${entidad[2]}` : entidad[1] ? `_p1=${entidad[0]}` : "";
+    const strTableName = entidad[2] && `_p1=${entidad[2]}`
     const inputRef = useRef(null);
     const { ListEntity } = useCrud(strUrl);
     // console.log(strUrl)
@@ -66,9 +66,14 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     const _p1 =  entidad[2] && `_p1=${entidad[2]}`   
     console.log( _p1)  
     // console.log(entidad)
-    
-    const strUrl2 = entidad[2] ? `${URLBackend}${entidad[0]}listado/?query=${entidad[1]}&${_p1}`  
-            :`${URLBackend}${entidad[0]}listado/?query=${entidad[1]}`;
+    // if(strTableName){
+    //   console.log(strTableName)
+    // }
+
+    const strUrl2 = strTableName ? `${URLBackend}${entidad[0]}listado/?query=${entidad[1]}&${strTableName}`
+                                 : `${URLBackend}${entidad[0]}listado/?query=${entidad[1]}`;
+
+
     // console.log(strUrl2)
     
     const state = useAppSelector((store: AppStore) => store.listBox);
@@ -94,10 +99,9 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     //   fetchSelectData()
     //  }
     
-
     React.useEffect(()=>{
       if(!state.hasOwnProperty(label)){
-        // console.log('no se encuentra')
+        console.log('no se encuentra')
         fetchSelectData()
       }else{
         // console.log('si se encuentra')
@@ -105,6 +109,13 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
       }
 
     },[state, label])
+
+   React.useEffect(()=>{
+     if(strTableName){
+        // console.log(strTableName)
+        fetchSelectData()
+      }
+    },[])
     // console.log(refreshToggle)
 
     // console.log('render')

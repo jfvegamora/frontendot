@@ -13,6 +13,7 @@ import { ERROR_MESSAGES, MODAL, SUCCESS_MESSAGES, TITLES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
+import SelectInputTiposComponent from "../../components/forms/SelectInputTiposComponent";
 
 const strBaseUrl = "/api/proyectocristales/";
 const strEntidad = "Parametrización de Cristales ";
@@ -300,7 +301,7 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
 
             <div className="w-full flex items-center h-[4rem]">
               <div className="input-container items-center rowForm w-full">
-                <div className="w-[50%]">
+                <div className="w-[50%] !mt-2">
                   <SelectInputComponent
                     label="Proyecto"
                     name="proyecto"
@@ -313,7 +314,8 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                     // inputRef={firstInputRef}
                     />
                 </div>
-                <div className="w-[20%]">
+                <div className="w-[50%] flex">
+                <div className="w-[25% !mt-[.2rem]">
                   <TextInputComponent
                       type="number"
                       label="ID Grupo"
@@ -325,7 +327,7 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                       inputRef={firstInputRef}
                       />
                 </div>
-                <div className="w-[30%]">
+                <div className="w-full">
                   <TextInputComponent
                     type="text"
                     label="Descripción"
@@ -335,21 +337,28 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                     error={errors.descripcion}
                   />
                 </div>
+                </div>
               </div>
             </div>
 
           <div className="w-full flex items-center h-[4rem]">
               <div className="input-container items-center rowForm w-[50%]">
-              <SelectInputComponent
-                    label="Marca"
-                    name="marca"
-                    showRefresh={true}
-                    data={data && data[EnumGrid.marca_id]}
-                    control={control}
-                    entidad={["/api/marcas/", "02"]}
-                    error={errors.marca}
-                  />
+                  <div className="w-full !mt-2">
+                    <SelectInputComponent
+                      label="Marca"
+                      name="marca"
+                      showRefresh={true}
+                      data={data && data[EnumGrid.marca_id]}
+                      control={control}
+                      entidad={["/api/marcas/", "02"]}
+                      // error={errors.marca}
+                      customWidth={""}
+                      tabIndex={1}
+                    />
+
+                  </div>
               </div>
+
 
               <div className="input-container items-center rowForm w-[50%]">
                 <div className="w-full !mt-4 ">

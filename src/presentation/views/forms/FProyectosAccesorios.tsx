@@ -17,6 +17,9 @@ import { ERROR_MESSAGES, MODAL, SUCCESS_MESSAGES, TITLES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
+import axios from "axios";
+import { signal } from "@preact/signals-react";
+import { toast } from "react-toastify";
 
 const strBaseUrl = "/api/proyectosaccesorios/";
 const strEntidad = "Parametrización de Accesorios ";
@@ -89,6 +92,8 @@ const FProyectosAccesorios: React.FC<IUserFormPrps> = React.memo(
     const schema = validationParametrizacionAccesorios();
     const { showModal, CustomModal } = useModal();
     const { show } = useCustomToast();
+    const [changeCodigo, setChangeCodigo] = useState()
+    const accesorioData = signal([])
     
     const {
       editEntity,
@@ -218,7 +223,29 @@ const FProyectosAccesorios: React.FC<IUserFormPrps> = React.memo(
       },
       [editEntity, createdEntity, handleApiResponse, intId]
     );
- 
+    const fetchArmazon = async(codigo:string | undefined) =>{
+      try {
+          const {data} = await axios(`https://mtoopticos.cl/api/armazones/listado/?query=01&_p1=${codigo}`)
+          accesorioData.value = data 
+          console.log(data)      
+      } catch (error) {
+        throw error
+      }
+  }
+
+    useEffect(()=>{
+      if(changeCodigo){
+          fetchArmazon(changeCodigo)
+           .then(()=>{
+             if(accesorioData.value.length >= 1){
+              accesorioData.value = []
+             }else{
+               toast.error('Código valido')
+               accesorioData.value = []
+             }
+           })
+      }
+    },[changeCodigo])
     useEffect(() => {
       isEditting ? focusSecondInput("estado") : focusFirstInput("proyecto");
     }, []);
@@ -265,6 +292,7 @@ const FProyectosAccesorios: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     error={errors.codigo_accesorio}
                     onlyRead={isEditting}
+                    handleChange={setChangeCodigo}
                   />
                 </div>
               </div>

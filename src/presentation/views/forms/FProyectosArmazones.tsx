@@ -239,10 +239,9 @@ const FProyectosArmazones: React.FC<IUserFormPrps> = React.memo(
             fetchArmazon(changeCodigo)
              .then(()=>{
                if(armazonData.value.length >= 1){
-                 toast.error('Codigo existente')
                  armazonData.value = []
                }else{
-                 toast.success('Código valido')
+                 toast.error('Código valido')
                  armazonData.value = []
                }
              })

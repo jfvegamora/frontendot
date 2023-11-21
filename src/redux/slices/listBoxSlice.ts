@@ -9,7 +9,7 @@ export const listBoxSlice = createSlice({
   name: "ListBoxSlice",
   reducers: {
       setDataListbox: (state:any, action:any):void => {
-        console.log(action.payload)
+        // console.log(action.payload)
         Object.keys(action.payload).forEach((key)=>{
           state[key] = action.payload[key]
         })

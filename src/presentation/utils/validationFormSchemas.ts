@@ -24,7 +24,7 @@ export const validationOTSchema = () =>
     establecimient : yup.string().required(`${msg}`),
   });
 // Schema CLIENTES
-export const validationClientesSchema = () =>
+export const validationClientesSchema = (isEditting?:boolean) =>
   yup.object().shape({
     rut             : yup.string().required(`${msg}`),
     nombre          : yup.string().required(`${msg}`),
@@ -34,7 +34,7 @@ export const validationClientesSchema = () =>
     direccion       : yup.string(),
     region          : yup.string(),
     provincia       : yup.string(),
-    comuna          : yup.string().required(`${msg}`),
+    comuna          : isEditting ? yup.string() : yup.string().required(`${msg}`),
     telefono        : yup.string().required(`${msg}`),
     correo          : yup.string(),
     establecimiento : yup.string().required(`${msg}`),

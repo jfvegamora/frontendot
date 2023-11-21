@@ -6,6 +6,7 @@ import Switch from "react-switch";
 import axios from 'axios';
 import { validationOTlevel1, validationOTlevel2 } from '../../utils/validationOT';
 import { fecha_despacho, fecha_entrega_cliente, fecha_entrega_taller, fetchFechas } from '../../utils';
+import SelectInputTiposComponent from '../forms/SelectInputTiposComponent';
 
 interface IOptica {
     control:any,
@@ -263,7 +264,7 @@ const FOTOptica:React.FC<IOptica> = ({
                     <div className="flex items-center w-[101%] h-[46%] mx-auto rounded-lg border border-blue-500 relative">
                         <label className='labelForm absolute left-4 text-center top-[-8%] w-[10%]'>Garantia</label>
                         <div className="w-[35%] ">
-                            <SelectInputComponent
+                            <SelectInputTiposComponent
                                 label="Motivo"
                                 name="motivo_garantia_id"
                                 showRefresh={true}
@@ -271,9 +272,7 @@ const FOTOptica:React.FC<IOptica> = ({
                                 handleSelectChange={handleInputChange}
                                 data={formValues ? formValues["motivo_garantia_id"] : data && data[EnumGrid.motivo_garantia_id]}
                                 control={control}
-                                entidad={["/api/tipos/", "02", "OTMotivoGarantia"]}
-                                // error={errors.establecimiento}
-                                customWidth={"345px"}
+                                entidad={"OTMotivoGarantia"}
                                 readOnly={data && data[EnumGrid.motivo] === 'Garantía' ? false : true || onlyRead}
 
                            />

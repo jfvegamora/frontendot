@@ -228,6 +228,7 @@ const FMandantes: React.FC<IUserFormPrps> = React.memo(
     }, []);
 
     // console.log('data', data)
+    console.log(errors && errors)
     return (
       <div className="useFormContainer centered-div use30rem">
         <div className="userFormBtnCloseContainer">

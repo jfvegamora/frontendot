@@ -57,7 +57,7 @@ export function transformUpdateQuery(
   const fields = [
     `descripcion  ="${jsonData.descripcion}"`,
     `marca        = ${jsonData.marca}`,
-    `precio_neto  = ${jsonData.precio_neto}`,
+    `precio_neto  = ${jsonData.precio_neto || 0}`,
     `stock_minimo = ${jsonData.stock_minimo}`,
   ];
 

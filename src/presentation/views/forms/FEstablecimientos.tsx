@@ -93,9 +93,9 @@ interface IUserFormPrps {
 const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
   ({ closeModal, setEntities, params, label, data, isEditting, escritura_lectura }) => {
     const schema = validationEstablecimientosSchema();
+    const { show } = useCustomToast();
     const { showModal, CustomModal } = useModal();
 
-    const { show } = useCustomToast();
 
     const {
       editEntity,
