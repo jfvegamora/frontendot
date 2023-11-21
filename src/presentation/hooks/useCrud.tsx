@@ -32,7 +32,8 @@ const useCrud = (
   exportEntity: (
     primaryKey?: string,
     strEntidad?: string,
-    query?:string
+    query?:string,
+    jsonData?:any
   ) => Promise<any | undefined>;
   ListEntity: (primaryKeys: any, query: string) => Promise<any | undefined>;
   firstInputRef: any;
@@ -142,20 +143,46 @@ const useCrud = (
   const exportEntity = async (
     primaryKey?: string,
     strEntidad?: string,
-    query?:string
+    query?:string,
+    jsonData?:any
   ): Promise<void> => {
     try {
-      console.log('query', query)
+      
+      // console.log('query', query)
       // console.log("primaryKey", primaryKey);
-      const strUrl = primaryKey
-        ? `/excel/?${query ?  query : "query=01"}&${primaryKey}`
-        : `/excel/?${query ? query : "query=01"}`;
+      let strUrl = ''
+      let response:any = {}
 
-      console.log("strurlexcel", strUrl);
+      if(jsonData){
+        strUrl = `/excelindividual/?query=06&_pkToDelete=${jsonData}`
+        console.log(jsonData)
+        console.log(strUrl)
 
-      const response = await axiosInstance.get(strUrl, {
-        responseType: "blob",
-      });
+        response = await axiosInstance.get(strUrl,{
+          responseType: 'blob'
+        })
+        console.log(response)
+
+      }else{
+        //CASO DE USO 1
+        strUrl = primaryKey
+          ? `/excel/?${query ?  query : "query=01"}&${primaryKey}`
+          : `/excel/?${query ? query : "query=01"}`;
+  
+        console.log("strurlexcel", strUrl);
+  
+        response = await axiosInstance.get(strUrl, {
+          responseType: "blob",
+        });
+
+      }
+
+
+      //CASO DE USO 2
+
+
+
+      //GENERAL
 
       const fileURL: string = URL.createObjectURL(
         new Blob([response.data], { type: "application/vnd.ms-excel" })
@@ -188,6 +215,8 @@ const useCrud = (
   ): Promise<any | undefined> => {
     // console.log(primaryKeys)
     // console.log(baseUrl
+
+
     const searchUrl = baseUrl === 'https://mtoopticos.cl/api/tipos/'
       ? `${baseUrl}listado/?query=${query}&${primaryKeys || '_p1=OTMotivoGarantia'}`
       : `${baseUrl}listado/?query=${query}&${primaryKeys}`;

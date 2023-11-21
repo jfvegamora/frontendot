@@ -88,8 +88,8 @@ export const ExportCSV: React.FC<Props> = ({
     }
   };
 
-  const exportExcel = (primaryKey:string, nombreExcel?:string) => {
-    return exportEntity(primaryKey, nombreExcel, query)
+  const exportExcel = (primaryKey:string, nombreExcel?:string,jsonData?:any) => {
+    return exportEntity(primaryKey, nombreExcel, query, jsonData)
               .then(() => {
                 show({
                   message: EXCEL.download,
@@ -100,29 +100,6 @@ export const ExportCSV: React.FC<Props> = ({
   }
 
   useEffect(() => {
-    
-    // if (exportAll) {
-    //   // console.log("strEntidad", strEntidad);
-    //   const primarykey = exportAll ? "" : queryString; 
-    //   exportEntity("", strEntidad)
-    //     .then(() => {
-    //       show({
-    //         message: EXCEL.download,
-    //         type: "success",
-    //       });
-    //     })
-    //     .catch((e) => console.log(e));
-    // } else if (exportTable) {
-    //   exportEntity(queryString, strEntidad)
-    //     .then(() => {
-    //       show({
-    //         message: EXCEL.download,
-    //         type: "success",
-    //       });
-    //     })
-    //     .catch((e) => console.log(e));
-    // }
-    
     if(exportAll || exportTable){
       const primarykey = exportAll ? "" : queryString; 
 
@@ -130,10 +107,13 @@ export const ExportCSV: React.FC<Props> = ({
     }
   }, [exportAll, exportTable]);
 
+
+
   const handleExportEntity = () => {
     console.log('ejecutando caso de uso 2'); 
 
     console.log('query', query)
+    console.log(strEntidad)
    
     if(entity){
       console.log(entity)
@@ -141,7 +121,22 @@ export const ExportCSV: React.FC<Props> = ({
 
       const nombreExcel = `${strEntidad}_${entity[1]}_${entity[5]}_${entity[6]}`
       // console.log('primaryKey',primaryKey)
-      exportExcel(primaryKey, nombreExcel)
+
+      const data = [{
+        proyecto: `${entity[1]}`,
+        fecha_desde: `${entity[5]}`,
+        fecha_hasta: `${entity[6]}`
+      }]
+      // const data = [{
+      //   proyecto:"P01-2233Q1",
+      //   fecha_desde:"2023-11-16",
+      //   fecha_hasta:"2023-11-21"
+      // }]
+
+      console.log(data)
+      const jsonData = JSON.stringify(data);
+
+      exportExcel(primaryKey, nombreExcel, jsonData)
     }
   }
 

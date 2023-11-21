@@ -48,7 +48,6 @@ const FOTCristales:React.FC<ICristales> = ({
     // const { data:cristal2OD } = useSWR(`https://mtoopticos.cl/api/cristales/listado/?query=01&_p1=${codCristal2OD}`, fetcher);
     // const { data:cristal2OI } = useSWR(`https://mtoopticos.cl/api/cristales/listado/?query=01&_p1=${codCristal2OI}`, fetcher);
     
-    console.log(a1Grupo[0])
     const handleInputChange = (e:any) => {
         const {name, value} = e;
 
@@ -107,7 +106,7 @@ const FOTCristales:React.FC<ICristales> = ({
           }
       }, [validate]
     );
-      console.log(a1Grupo[0])
+
 
       const renderGrupo1 = () => (
             <div className='w-full rowForm'>

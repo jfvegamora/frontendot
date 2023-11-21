@@ -104,3 +104,34 @@ export const combinaciones_validas = () => {
 
 }
 
+
+
+//METODO PARA VALIDAR CAMPOS EN ESTRUCTURA Y ASI PODER VALIDAR LA LLAMADA A SPPROYECTOCRISTALES QUERY 06
+export const verificaCampos = (estructura: any): boolean => {
+    const camposAValidar = [
+      'optica.proyecto',
+      'cristales.cristal1_marca_id',
+      'cristales.cristal1_diseno_id',
+      'cristales.cristal1_indice_id',
+      'cristales.cristal1_material_id',
+      'cristales.cristal1_color_id',
+      'cristales.cristal1_tratamiento_id',
+      'receta.a1_od_esf',
+      'receta.a1_od_cil',
+    ];
+
+    for (const campo of camposAValidar) {
+      const partes = campo.split('.');
+      let valorActual = estructura;
+
+      for (const parte of partes) {
+        if (valorActual && valorActual.hasOwnProperty(parte)) {
+          valorActual = valorActual[parte];
+        } else {
+          return false; 
+        }
+      }
+    }
+  
+    return true;
+  };
