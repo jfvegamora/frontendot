@@ -41,7 +41,7 @@ export const validationClientesSchema = (isEditting?:boolean) =>
   });
 
 // Schema ESTABLECIMIENTOS
-export const validationEstablecimientosSchema = () =>
+export const validationEstablecimientosSchema = (isEditting:boolean) =>
   yup.object().shape({
     codigo   : yup.string(),
     nombre   : yup.string().required(`${msg}`),
@@ -49,7 +49,7 @@ export const validationEstablecimientosSchema = () =>
     tipo     : yup.string().required(`${msg}`),
     region   : yup.string(),
     provincia: yup.string(),
-    comuna   : yup.string().required(`${msg}`),
+    comuna   : isEditting ? yup.string() : yup.string().required(`${msg}`),
   });
 
 // Schema PUNTOS DE VENTA

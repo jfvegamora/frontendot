@@ -56,44 +56,44 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
   //   fecha_vb, factura, fecha_factura, total_factura, nota_credito, fecha_ncredito, total_ncredito, 
   //   nota_debito, fecha_ndebito, total_ndebito, guia_despacho, fecha_guia_despacho, observaciones)
 
-  if(jsonData.fecha_desde && jsonData.fecha_hasta && jsonData.fecha_factura && jsonData.fecha_guia_despacho && jsonData.fecha_ncredito && jsonData.fecha_ndebito && jsonData.fecha_vb){
-    
-    if(jsonData.fecha_desde >= jsonData.fecha_hasta){
-      toast.error('Fecha desde mayor a fecha hasta')
+  if(jsonData.fecha_desde && jsonData.fecha_hasta){  
+    if(new Date(jsonData.fecha_desde) > new Date(jsonData.fecha_hasta)){
+      toast.error('Fecha desde mayor a la fecha hasta')
       throw new Error('')
     }
-
-    if(new Date(jsonData.fecha_hasta as string) >= fechaActual){
-      toast.error('fecha actual mayor a fecha hasta')
-      throw new Error('')
-    }
-
-    if(new Date(jsonData.fecha_vb as string) >= fechaActual){
-      toast.error('fecha actual mayor a fecha vB')
-      throw new Error('')
-    }
-
-    if(new Date(jsonData.fecha_factura as string) >= fechaActual){
-      toast.error('fecha factura mayor a fecha actual')
-      throw new Error('')
-    }
-
-    if( new Date(jsonData.fecha_ncredito as string) >= fechaActual){
-      toast.error('fecha nota de credito mayor a fecha actual')
-      throw new Error('')
-    }
-
-    if(new Date(jsonData.fecha_ndebito as string) >= fechaActual){
-      toast.error('fecha nota de debito mayor a fecha actual')
-      throw new Error('')
-    }
-
-    if(new Date(jsonData.fecha_guia_despacho as string) >= fechaActual){
-      toast.error('fecha guia de despacho mayor a fecha actual')
-      throw new Error('')
-    }
-
   }
+
+    // if(new Date(jsonData.fecha_hasta as string) >= fechaActual){
+    //   toast.error('fecha actual mayor a fecha hasta')
+    //   throw new Error('')
+    // }
+
+    // if(new Date(jsonData.fecha_vb as string) >= fechaActual){
+    //   toast.error('fecha actual mayor a fecha vB')
+    //   throw new Error('')
+    // }
+
+    // if(new Date(jsonData.fecha_factura as string) >= fechaActual){
+    //   toast.error('fecha factura mayor a fecha actual')
+    //   throw new Error('')
+    // }
+
+    // if( new Date(jsonData.fecha_ncredito as string) >= fechaActual){
+    //   toast.error('fecha nota de credito mayor a fecha actual')
+    //   throw new Error('')
+    // }
+
+    // if(new Date(jsonData.fecha_ndebito as string) >= fechaActual){
+    //   toast.error('fecha nota de debito mayor a fecha actual')
+    //   throw new Error('')
+    // }
+
+    // if(new Date(jsonData.fecha_guia_despacho as string) >= fechaActual){
+    //   toast.error('fecha guia de despacho mayor a fecha actual')
+    //   throw new Error('')
+    // }
+
+  
 
 
 
@@ -243,6 +243,9 @@ const FProyectosAtenciones: React.FC<IUserFormPrps> = React.memo(
 
     const handleApiResponse = React.useCallback(
       async (response: any, isEditting: boolean) => {
+        if(response.mensaje.includes('Creado')){
+          toastSuccess(isEditting);
+        }
         if (response.code === "ERR_BAD_RESPONSE" || response.stack) {
           const errorMessage = isEditting
                 ? strEntidad.concat(": " + response.message)
@@ -270,7 +273,7 @@ const FProyectosAtenciones: React.FC<IUserFormPrps> = React.memo(
             updateNewEntity();
           }
 
-          toastSuccess(isEditting);
+          // toastSuccess(isEditting);
         }
 
         if (isEditting) {

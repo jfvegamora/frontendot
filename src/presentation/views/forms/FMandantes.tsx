@@ -146,6 +146,9 @@ const FMandantes: React.FC<IUserFormPrps> = React.memo(
 
     const handleApiResponse = React.useCallback(
       async (response: any, isEditting: boolean) => {
+        if(response.mensaje.includes('Creado')){
+          toastSuccess(isEditting);
+        }
         if (response.code === "ERR_BAD_RESPONSE" || response.stack) {
           const errorMessage = isEditting
                 ? strEntidad.concat(": " + response.message)
@@ -173,7 +176,7 @@ const FMandantes: React.FC<IUserFormPrps> = React.memo(
             updateNewEntity();
           }
 
-          toastSuccess(isEditting);
+          // toastSuccsess(isEditting);
         }
 
         if (isEditting) {
@@ -248,9 +251,9 @@ const FMandantes: React.FC<IUserFormPrps> = React.memo(
           // }}
           className="userFormulario"
         >
-          <div className="userFormularioContainer h-[46vh]">
+          <div className="userFormularioContainer h-[50vh]">
 
-            <div className="w-full flex items-center h-[3rem]">
+            <div className="w-full flex items-center h-[3.5rem]">
               <div className="input-container items-center rowForm w-full">
                   <div className="w-full">
                     <TextInputComponent
@@ -266,7 +269,7 @@ const FMandantes: React.FC<IUserFormPrps> = React.memo(
                   </div>
               </div>
             </div>
-            <div className="w-full flex items-center h-[4rem]">
+            <div className="w-full flex items-center h-[3rem]">
               <div className="input-container items-center rowForm w-full">
                   <div className="w-full">
                     <TextInputComponent
@@ -295,8 +298,8 @@ const FMandantes: React.FC<IUserFormPrps> = React.memo(
               </div>
             </div>
 
-            <div className="w-full flex items-center h-[4rem]">
-              <div className="input-container items-center rowForm w-full">
+            <div className="w-full flex items-center !mt-[4.5rem] h-[4rem]">
+              <div className="input-container items-center rowForm w-full" >
                   <div className="w-full">
                       <RegProCom
                       name="comuna"

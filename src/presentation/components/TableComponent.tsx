@@ -271,8 +271,6 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                             variant="text"
                             color="blue-gray"
                             onClick={() => {
-                              handleSelectChecked &&
-                                handleSelectChecked(rowIndex);
                               handleDeleteSelected &&
                                 handleDeleteSelected(pkToDelete);
                             }}

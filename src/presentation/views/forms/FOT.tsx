@@ -850,7 +850,7 @@ const FOT:React.FC<IFOTProps> = ({
          "diseno": cristales.cristal1_diseno_id,
          "indice":cristales.cristal1_indice_id,
          "material":cristales.cristal1_material_id,
-         "color":colorID,
+         "color":cristales.cristal1_color_id,
          "tratamiento":cristales.cristal1_tratamiento_id,
          "diametro": cristales.cristal1_diametro,
          "esferico":receta.a1_od_esf,
@@ -861,7 +861,7 @@ const FOT:React.FC<IFOTProps> = ({
          "diseno": cristales.cristal1_diseno_id,
          "indice":cristales.cristal1_indice_id,
          "material":cristales.cristal1_material_id,
-         "color": colorID,
+         "color": cristales.cristal1_color_id,
          "tratamiento":cristales.cristal1_tratamiento_id,
          "diametro": cristales.cristal1_diametro,
          "esferico":receta.a1_oi_esf,
@@ -949,87 +949,6 @@ const FOT:React.FC<IFOTProps> = ({
 
 
 
-    //FUNCION para traer grupo, parametrizacion de cristales
-    // if(Object.keys(data)[0] === 'cristal1_color_id'){
-    //     console.log(data)
-    //     // console.log(Object.values(data)[0])
-    //     console.log(formValues)
-        
-    //     const colorID = Object.values(data)[0]
-    //     const {receta, cristales, optica} = formValues
-      
-    //     const _pkToDelete1_od ={
-    //      "marca": cristales.cristal1_marca_id,
-    //      "diseno": cristales.cristal1_diseno_id,
-    //      "indice":cristales.cristal1_indice_id,
-    //      "material":cristales.cristal1_material_id,
-    //      "color":colorID,
-    //      "tratamiento":cristales.cristal1_tratamiento_id,
-    //      "diametro": cristales.cristal1_diametro,
-    //      "esferico":receta.a1_od_esf,
-    //      "cilindrico":receta.a1_od_cil
-    //    }
-    //     const _pkToDelete1_oi ={
-    //      "marca": cristales.cristal1_marca_id,
-    //      "diseno": cristales.cristal1_diseno_id,
-    //      "indice":cristales.cristal1_indice_id,
-    //      "material":cristales.cristal1_material_id,
-    //      "color": colorID,
-    //      "tratamiento":cristales.cristal1_tratamiento_id,
-    //      "diametro": cristales.cristal1_diametro,
-    //      "esferico":receta.a1_oi_esf,
-    //      "cilindrico":receta.a1_oi_cil
-    //    }
-    //   //   const _pkToDelete2_od ={
-    //   //    "diseno": cristales.cristal2_diseno_id,
-    //   //    "indice":cristales.cristal2_indice_id,
-    //   //    "material":cristales.cristal2_material_id,
-    //   //    "color":cristales.cristal2_color_id,
-    //   //    "tratamiento":cristales.cristal2_tratamiento_id,
-    //   //    "esferico":receta.a2_od_esf,
-    //   //    "cilindrico":receta.a2_od_cil
-    //   //  }
-
-    //   //  const _pkToDelete2_oi ={
-    //   //   "diseno": cristales.cristal2_diseno_id,
-    //   //   "indice":cristales.cristal2_indice_id,
-    //   //   "material":cristales.cristal2_material_id,
-    //   //   "color":cristales.cristal2_color_id,
-    //   //   "tratamiento":cristales.cristal2_tratamiento_id,
-    //   //   "esferico":receta.a2_oi_esf,
-    //   //   "cilindrico":receta.a2_oi_cil
-    //   //  }
-
-    //    const arrayJSON:any = []
-
-    //   const addIfNotNullAndNotEmpty = (object:any) => {
-    //     if (object && Object.keys(object).every(key => object[key] !== null)) {
-    //       arrayJSON.push(object);
-    //     }
-    //   };
-
-    //   addIfNotNullAndNotEmpty(_pkToDelete1_od);   
-    //   addIfNotNullAndNotEmpty(_pkToDelete1_oi);
-
-    //   // CALL spProyectoCristales(6, '', 'P01-2233Q1', '', '[{"marca":"1","diseno":"1","indice":"2","material":"1","color":"1","tratamiento":"1","diametro":"65","esferico":"-18","cilindrico":"-2"},{"marca":"1","diseno":"1","indice":"2","material":"1","color":"1","tratamiento":"1","diametro":"65","esferico":"-18","cilindrico":"-5"}]', 0, 0);
-
-    //   const pkJSON = JSON.stringify(arrayJSON)
-    //   try {
-    //     // ejemplo de comoo debe quedar: https://mtoopticos.cl/api/proyectogrupos/listado/?_pkToDelete=[{ "diseno": "1", "indice":"1", "material":"1", "color":"1", "tratamiento":"1", "esferico":"-6.25", "cilindrico":"-0.25" }]&_p2="PR001A"&query=06
-    //     const encodedJSON = encodeURIComponent(pkJSON)
-    //     const result = await axios(`https://mtoopticos.cl/api/proyectocristales/listado/?query=06&_p2=${optica.proyecto}&_pkToDelete=${encodedJSON}`)
-    //     console.log(result.data[0])
-    //     a1Grupo.value = result.data[0]
-
-    //   } catch (error) {
-    //     console.log(error)
-    //   }
-    // }
-
-
-
-
-
     //
     if(Object.keys(data)[0] === 'proyecto'){
         console.log(Object.values(data)[0])
@@ -1038,8 +957,7 @@ const FOT:React.FC<IFOTProps> = ({
         fetchDioptrias(Object.values(data)[0] as string)
     }
 
-     
-    
+
 
     actualizarEstado(Object.keys(data)[0], 1)
 

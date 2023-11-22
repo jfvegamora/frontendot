@@ -185,6 +185,9 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
 
     const handleApiResponse = React.useCallback(
       async (response: any, isEditting: boolean) => {
+        if(response.mensaje.includes('Creado')){
+          toastSuccess(isEditting);
+        }
         if (response.code === "ERR_BAD_RESPONSE" || response.stack) {
           const errorMessage = isEditting
                 ? strEntidad.concat(": " + response.message)
@@ -212,7 +215,7 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
             updateNewEntity();
           }
 
-          toastSuccess(isEditting);
+          // toastSuccess(isEditting);
         }
 
         if (isEditting) {

@@ -170,8 +170,8 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
                 className="custom-input py-2 px-3 w-[85%] cursor-pointer z-0"
               >
                 {!data && (
-                  <option value={"0"} className="text-sm">
-                    {label}
+                  <option value={undefined} className="text-sm">
+                    
                   </option>
                 )}
                 {entities &&

@@ -73,6 +73,8 @@ const MEstablecimientos: React.FC = () => {
     setPkToDelete([`${strParamsToDelete}=${combinedPks}`]);
   }, [selectedRows]);
 
+  console.log(pkToDelete)
+
   // console.log('entities', entities)
   return (
     <div className="mantenedorContainer">
@@ -114,7 +116,7 @@ const MEstablecimientos: React.FC = () => {
           showExportButton={true}
           showDeleteButton={true}
           showForwardButton={false}
-          showRefreshButton={true}
+          showRefreshButton={false}
           showImportCsv={true}
           comilla={false}
           idMenu={idMenu}
@@ -134,7 +136,7 @@ const MEstablecimientos: React.FC = () => {
           data={entities}
           tableHead={table_head_establecimientos}
           showEditButton={true}
-          showDeleteButton={false}
+          showDeleteButton={true}
           idMenu={idMenu}
         /> }
       </div>

@@ -15,12 +15,12 @@ const customStyles = {
 };
 
 export function useModal() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
   const [params, setParams] = useState<string[]>([]);
   const [modalResolve, setModalResolve] = useState<(result: boolean) => void>(
     () => () => {}
-  );
+    );
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
   const showModal = useCallback(
     (message: string, ...props: string[]): Promise<boolean> => {

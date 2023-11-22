@@ -3,6 +3,7 @@ import { SelectInputComponent, TextInputComponent } from '..';
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
 import { validationOTlevel2 } from '../../utils/validationOT';
 import SelectInputTiposComponent from '../forms/SelectInputTiposComponent';
+import { a1Grupo } from '../../views/forms/FOT';
 
 
 interface ICristales {
@@ -12,7 +13,6 @@ interface ICristales {
     data:any,
     onlyRead?:boolean,
     permiso_cristales?:boolean,
-    a1Grupo?:any,
     a2Grupo?:any
 }
 
@@ -24,7 +24,7 @@ const FOTCristales:React.FC<ICristales> = ({
     data,
     onlyRead,
     permiso_cristales,
-    a1Grupo
+
 }) => {
     const [cristalRead, setCristalRead] = useState(false)
     const [grupo1, _setGrupo1] = useState(2)
@@ -115,7 +115,7 @@ const FOTCristales:React.FC<ICristales> = ({
                         type='text'
                         label="Grupo 1"
                         name="cristal1_grupo1_id"
-                        data={1}
+                        data={a1Grupo}
                         control={control}
                         onlyRead={onlyRead || permiso_cristales}
                     />  

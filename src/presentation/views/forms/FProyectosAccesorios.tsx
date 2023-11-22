@@ -143,6 +143,9 @@ const FProyectosAccesorios: React.FC<IUserFormPrps> = React.memo(
 
     const handleApiResponse = React.useCallback(
       async (response: any, isEditting: boolean) => {
+        if(response.mensaje.includes('Creado')){
+          toastSuccess(isEditting);
+        }
         if (response.code === "ERR_BAD_RESPONSE" || response.stack) {
           const errorMessage = isEditting
                 ? strEntidad.concat(": " + response.message)
@@ -170,7 +173,7 @@ const FProyectosAccesorios: React.FC<IUserFormPrps> = React.memo(
             updateNewEntity();
           }
 
-          toastSuccess(isEditting);
+          // toastSuccess(isEditting);
         }
 
         if (isEditting) {
@@ -240,7 +243,7 @@ const FProyectosAccesorios: React.FC<IUserFormPrps> = React.memo(
              if(accesorioData.value.length >= 1){
               accesorioData.value = []
              }else{
-               toast.error('Código valido')
+               toast.error('Código accesorio inválido')
                accesorioData.value = []
              }
            })

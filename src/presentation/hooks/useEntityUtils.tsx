@@ -191,7 +191,18 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
     },
     [selectedRows, showModal]
   );
+  
+  const deleteIndiidual = useCallback(async(pkToDelete:any)=>{
+    try {
+        console.log(pkToDelete)
+        const response = await deleteAllEntity(pkToDelete);
 
+        console.log(response)
+    } catch (error) {
+      console.log('delete individual error:', error)
+      throw error
+    }
+  },[])
   // useEffect(() => {
   //   ListEntity("_id=20000", query)
   //     .then((data: any) => {
@@ -234,6 +245,7 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
     refreshData,
     resetEntities,
     toggleExcel,
-    isModalPermisoOT
+    isModalPermisoOT,
+    deleteIndiidual
   };
 };

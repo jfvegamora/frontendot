@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationEstablecimientosSchema } from "../../utils/validationFormSchemas";
 import { EnumGrid } from "../mantenedores/MEstablecimientos";
-import { ERROR_MESSAGES, MODAL, SUCCESS_MESSAGES, TITLES } from "../../utils";
+import { MODAL, SUCCESS_MESSAGES, TITLES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
@@ -48,36 +48,7 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
   return query;
 }
 
-export function transformUpdateQuery(
-  jsonData: InputData,
-  primaryKey: string
-): OutputData | null {
-  const fields = [
-    `codigo   ="${jsonData.codigo}"`,
-    `nombre   ="${jsonData.nombre}"`,
-    `comuna   = ${jsonData.comuna}`,
-    `mandante = ${jsonData.mandante}`,
-    `tipo     = ${jsonData.tipo}`,
-  ];
 
-  const filteredFields = fields.filter(
-    (field) => field !== null && field !== ""
-  );
-
-  if (filteredFields.length === 0) {
-    return null;
-  }
-  let _p1 = filteredFields.join(",");
-  _p1 = _p1.replace(/'/g, '!');
-
-  const query: OutputData = {
-    query: "04",
-    _p1,
-    _p2: ` '${primaryKey}'`,
-  };
-  console.log("query04", query);
-  return query;
-}
 
 interface IUserFormPrps {
   closeModal: () => void;
@@ -92,11 +63,10 @@ interface IUserFormPrps {
 
 const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
   ({ closeModal, setEntities, params, label, data, isEditting, escritura_lectura }) => {
-    const schema = validationEstablecimientosSchema();
+    const schema = validationEstablecimientosSchema(isEditting);
     const { show } = useCustomToast();
-    const { showModal, CustomModal } = useModal();
-
-
+    
+    
     const {
       editEntity,
       createdEntity,
@@ -111,11 +81,43 @@ const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
       handleSubmit,
       formState: { errors },
       setValue,
-      register
+      register,
+      getValues
     } = useForm({
       resolver: yupResolver(schema),
     });
-
+    const { showModal, CustomModal } = useModal();
+    
+    function transformUpdateQuery(
+      jsonData: InputData,
+      primaryKey: string
+    ): OutputData | null {
+      const fields = [
+        `codigo   ="${jsonData.codigo}"`,
+        `nombre   ="${jsonData.nombre}"`,
+        `comuna   = ${jsonData.comuna || data && data[EnumGrid.comuna_id]}`,
+        `mandante = ${jsonData.mandante}`,
+        `tipo     = ${jsonData.tipo}`,
+      ];
+    
+      const filteredFields = fields.filter(
+        (field) => field !== null && field !== ""
+      );
+    
+      if (filteredFields.length === 0) {
+        return null;
+      }
+      let _p1 = filteredFields.join(",");
+      _p1 = _p1.replace(/'/g, '!');
+    
+      const query: OutputData = {
+        query: "04",
+        _p1,
+        _p2: ` '${primaryKey}'`,
+      };
+      console.log("query04", query);
+      return query;
+    }
     const resetTextFields = React.useCallback(() => {
       setValue("codigo", "");
       setValue("nombre", "");
@@ -128,6 +130,7 @@ const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
         }
       }
     }, [setValue, firstInputRef]);
+
 
     const updateNewEntity = React.useCallback(async () => {
       const newEntityData = await ListEntity(params, "01");
@@ -145,6 +148,15 @@ const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
 
     const handleApiResponse = React.useCallback(
       async (response: any, isEditting: boolean) => {
+        
+        // console.log(response)
+        // console.log(blnKeep)
+        
+        if(response.mensaje.includes('Creado')){
+          toastSuccess(isEditting);
+        }
+
+        console.log(response)
         if (response.code === "ERR_BAD_RESPONSE" || response.stack) {
           const errorMessage = isEditting
                 ? strEntidad.concat(": " + response.message)
@@ -172,7 +184,7 @@ const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
             updateNewEntity();
           }
 
-          toastSuccess(isEditting);
+          // toastSuccess(isEditting);
         }
 
         if (isEditting) {
@@ -180,6 +192,7 @@ const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
           closeModal();
           toastSuccess(isEditting);
         }
+
 
         resetTextFields();
         updateNewEntity();
@@ -222,10 +235,11 @@ const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
       [editEntity, createdEntity, handleApiResponse, intId]
     );
 
+
     useEffect(() => {
       focusFirstInput("codigo");
     }, []);
-    console.log(errors)
+  
 
     return (
       <div className="useFormContainer centered-div use30rem">

@@ -109,6 +109,9 @@ const FUsuariosOT: React.FC<IFormPrps> = React.memo(
 
     const handleApiResponse = React.useCallback(
       async (response: any, isEditting: boolean) => {
+        if(response.mensaje.includes('Creado')){
+          toastSuccess(isEditting);
+        }
         const errorResponse = response?.response?.data.error;
         if (errorResponse) {
           const errorMessage =
@@ -137,7 +140,7 @@ const FUsuariosOT: React.FC<IFormPrps> = React.memo(
             closeModal();
             updateNewEntity();
           }
-          toastSuccess(isEditting);
+          // toastSuccess(isEditting);
         }
         if (isEditting) {
           updateNewEntity();

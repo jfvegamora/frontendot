@@ -145,6 +145,9 @@ const FProyectosArmazones: React.FC<IUserFormPrps> = React.memo(
 
     const handleApiResponse = React.useCallback(
       async (response: any, isEditting: boolean) => {
+        if(response.mensaje.includes('Creado')){
+          toastSuccess(isEditting);
+        }
         if (response.code === "ERR_BAD_RESPONSE" || response.stack) {
           const errorMessage = isEditting
                 ? strEntidad.concat(": " + response.message)
@@ -172,7 +175,7 @@ const FProyectosArmazones: React.FC<IUserFormPrps> = React.memo(
             updateNewEntity();
           }
 
-          toastSuccess(isEditting);
+          // toastSuccess(isEditting);
         }
 
         if (isEditting) {
@@ -234,19 +237,19 @@ const FProyectosArmazones: React.FC<IUserFormPrps> = React.memo(
         }
     }
 
-      useEffect(()=>{
+   useEffect(()=>{
         if(changeCodigo){
             fetchArmazon(changeCodigo)
              .then(()=>{
                if(armazonData.value.length >= 1){
                  armazonData.value = []
                }else{
-                 toast.error('Código valido')
+                 toast.error('Código armazon inválido')
                  armazonData.value = []
                }
              })
         }
-      },[changeCodigo])
+   },[changeCodigo])
       
 
     
