@@ -905,6 +905,9 @@ const FOT:React.FC<IFOTProps> = ({
         // ejemplo de comoo debe quedar: https://mtoopticos.cl/api/proyectogrupos/listado/?_pkToDelete=[{ "diseno": "1", "indice":"1", "material":"1", "color":"1", "tratamiento":"1", "esferico":"-6.25", "cilindrico":"-0.25" }]&_p2="PR001A"&query=06
         const encodedJSON = encodeURIComponent(pkJSON)
         const result = await axios(`https://mtoopticos.cl/api/proyectocristales/listado/?query=06&_p2=${optica.proyecto}&_pkToDelete=${encodedJSON}`)
+        const {data} = await axios(`https://mtoopticos.cl/api/cristales/listado/?query=01&_p1=&_pIndice=2&_pDiseno=1&_pMaterial=1&_pEsferico=-20.00&_pCilindrico=-6&_pMarca=1&_pColor=1&_pTratamiento=1&_pDiametro=65`)
+        
+        
         console.log(result.data[0])
         a1Grupo.value = result.data[0]
       } catch (error) {

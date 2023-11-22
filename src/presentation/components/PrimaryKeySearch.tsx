@@ -157,6 +157,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                           showRefresh={true}
                           control={control}
                           entidad={input.tipos}
+                          inputValues={inputValues}
                           setHandleSearch={handleSearch}
                           handleSelectChange={handleSelectChange}
                         />

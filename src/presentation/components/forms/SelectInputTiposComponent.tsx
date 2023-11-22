@@ -111,8 +111,8 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
                   }
                   if (setHandleSearch) {
                     const selectedValue = e.target.value.toString();
-                    console.log("name", name);
-                    console.log("selectedValue", selectedValue);
+                    // console.log("name", name);
+                    // console.log("selectedValue", selectedValue);
                     handleSelectChange(name, selectedValue);
                     const inputValuesToUpdate = {
                       ...inputValues,

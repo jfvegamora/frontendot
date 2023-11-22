@@ -122,8 +122,19 @@ const listBoxTiposSlice = createSlice({
     extraReducers: (builder)=>{
         builder
             .addCase(fetchListBoxTipos.fulfilled, (state,action)=>{
-                console.log(action.payload)
-                console.log(state)
+                const data = action.payload;
+                if(data){
+                    data.forEach(([key, id, value]: [string, number, string]) => {
+                        if (state[key] === undefined) {
+                          state[key] = [];
+                        }
+                        state[key] = Array.isArray(state[key]) ? [...state[key], { id, value }] : [{ id, value }];
+                    })
+                }
+
+                Object.keys(state).forEach((key) => {
+                    localStorage.setItem(`ListBoxTipos.${key}`, JSON.stringify(state[key]));
+                });
                 // localStorage.setItem('ListBoxTipos.CristalesDisenos', JSON.stringify(action.payload.CristalesDisenos));
                 // localStorage.setItem('ListBoxTipos.CristalesMateriales', JSON.stringify(action.payload.CristalesMateriales));
                 // localStorage.setItem('ListBoxTipos.CristalesColores', JSON.stringify(action.payload.CristalesColores));
