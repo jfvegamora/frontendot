@@ -127,19 +127,19 @@ const FCargos: React.FC<ICargosFormProps> = React.memo(
 
     const handleApiResponse = React.useCallback(
       async (response: any, isEditting: boolean) => {
-        if(response.mensaje.includes('Creado')){
-          toastSuccess(isEditting);
-        }
         if (response.code === "ERR_BAD_RESPONSE" || response.stack) {
           const errorMessage = isEditting
-                ? strEntidad.concat(": " + response.message)
-                : strEntidad.concat(": " + response.message)
+          ? strEntidad.concat(": " + response.message)
+          : strEntidad.concat(": " + response.message)
           show({
             message: errorMessage ? errorMessage : response.code,
             type: "error",
           });
 
           return;
+        }
+        if(response.mensaje.includes('Creado')){
+          toastSuccess(isEditting);
         }
 
         if (!blnKeep && !isEditting) {

@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationOTPermisosSchema } from "../../utils/validationFormSchemas";
 import { EnumGrid } from "../mantenedores/MPermisos";
-import { ERROR_MESSAGES, MODAL, SUCCESS_MESSAGES, TITLES } from "../../utils";
+import {  MODAL, SUCCESS_MESSAGES, TITLES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
@@ -109,24 +109,22 @@ const FUsuariosOT: React.FC<IFormPrps> = React.memo(
 
     const handleApiResponse = React.useCallback(
       async (response: any, isEditting: boolean) => {
-        if(response.mensaje.includes('Creado')){
-          toastSuccess(isEditting);
-        }
-        const errorResponse = response?.response?.data.error;
-        if (errorResponse) {
-          const errorMessage =
-            errorResponse === "IntegrityError"
-              ? isEditting
-                ? strEntidad.concat(ERROR_MESSAGES.edit)
-                : strEntidad.concat(ERROR_MESSAGES.create)
-              : errorResponse;
+        if (response.code === "ERR_BAD_RESPONSE" || response.stack) {
+          const errorMessage = isEditting
+                ? strEntidad.concat(": " + response.message)
+                : strEntidad.concat(": " + response.message)
           show({
             message: errorMessage ? errorMessage : response.code,
             type: "error",
           });
+          
+          return;
         }
-        if (!blnKeep && !isEditting && !errorResponse) {
-          // const result = window.confirm("¿Quieres continuar ingresando?");
+        
+        if(response.mensaje.includes('Creado')){
+          toastSuccess(isEditting);
+        }
+        if (!blnKeep && !isEditting) {
           const result = await showModal(
             MODAL.keep,
             MODAL.keepYes,
@@ -134,21 +132,22 @@ const FUsuariosOT: React.FC<IFormPrps> = React.memo(
           );
           if (result) {
             setblnKeep(true);
-            // resetTextFields();
             updateNewEntity();
           } else {
             closeModal();
             updateNewEntity();
           }
+
           // toastSuccess(isEditting);
         }
+
         if (isEditting) {
           updateNewEntity();
           closeModal();
           toastSuccess(isEditting);
         }
 
-        // resetTextFields();
+
         updateNewEntity();
       },
       [closeModal, blnKeep, updateNewEntity, showModal]

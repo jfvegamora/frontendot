@@ -282,9 +282,6 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
 
     const handleApiResponse = React.useCallback(
       async (response: any, isEditting: boolean) => {
-        if(response.mensaje.includes('Creado')){
-          toastSuccess(isEditting);
-        }
         if (response.code === "ERR_BAD_RESPONSE" || response.stack) {
           const errorMessage = isEditting
                 ? strEntidad.concat(": " + response.message)
@@ -296,7 +293,10 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
 
           return;
         }
-
+        
+        if(response.mensaje.includes('Creado')){
+          toastSuccess(isEditting);
+        }
         if (!blnKeep && !isEditting) {
           const result = await showModal(
             MODAL.keep,

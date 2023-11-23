@@ -251,10 +251,10 @@ const FProyectosAtenciones: React.FC<IUserFormPrps> = React.memo(
 
     const handleApiResponse = React.useCallback(
       async (response: any, isEditting: boolean) => {
-        if (response.code === "ERR_BAD_RESPONSE" || response.stack || response.datos.length > 1) {
+        if (response.code === "ERR_BAD_RESPONSE" || response.stack || response.datos.length >= 1) {
           const errorMessage = isEditting
-          ? strEntidad.concat(": " + response.message || response.datos)
-          : strEntidad.concat(": " + response.message || response.datos )
+          ? strEntidad.concat(": " + response.datos && response.datos[0] ? response.datos[0][0] : response.message )
+          : strEntidad.concat(": " + response.datos && response.datos[0] ? response.datos[0][0] : response.message )
           show({
             message: errorMessage ? errorMessage : response.code,
             type: "error",
