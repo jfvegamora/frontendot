@@ -79,6 +79,9 @@ const listBoxTiposSlice = createSlice({
             .addCase(fetchListBoxTipos.fulfilled, (state,action)=>{
                 const data = action.payload;
                 if(data){
+                    Object.keys(state).forEach((key) => {
+                        state[key] = [];
+                      });                
                     data.forEach(([key, id, value]: [string, number, string]) => {
                         if (state[key] === undefined) {
                           state[key] = [];
