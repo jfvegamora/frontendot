@@ -81,7 +81,8 @@ const listBoxTiposSlice = createSlice({
                 if(data){
                     Object.keys(state).forEach((key) => {
                         state[key] = [];
-                      });                
+                      });   
+                                   
                     data.forEach(([key, id, value]: [string, number, string]) => {
                         if (state[key] === undefined) {
                           state[key] = [];
