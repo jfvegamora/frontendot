@@ -8,7 +8,7 @@ export interface ITiposListbox {
     CristalesColores: [] | null;
     CristalesTratamientos: [] | null;
     AlmacenesTipos:[] | null;
-    TipoInsumos: [] | null;
+    // TipoInsumos: [] | null;
     ArmazonesUsos: [] | null;
     ArmazonesMaterial:[] | null;
     ArmazonesTipos:[] | null;
@@ -29,7 +29,7 @@ const initialState: ITiposListbox | null = {
     CristalesTratamientos:   localStorage.getItem('ListBoxTipos.CristalTratamientos') ? JSON.parse(localStorage.getItem('ListBoxTipos.CristalTratamientos') as string) :null,
     
     AlmacenesTipos:          localStorage.getItem('ListBoxTipos.AlmacenesTipos') ? JSON.parse(localStorage.getItem('ListBoxTipos.AlmaceensTipos') as string) : null,
-    TipoInsumos:             localStorage.getItem('ListBoxTipos.TipoInsumos') ? JSON.parse(localStorage.getItem('ListBoxTipos.TipoInsumos') as string) :null,
+    // TipoInsumos:             localStorage.getItem('ListBoxTipos.TipoInsumos') ? JSON.parse(localStorage.getItem('ListBoxTipos.TipoInsumos') as string) :null,
     
     ArmazonesUsos:           localStorage.getItem('ListBoxTipos.ArmazonesUsos') ? JSON.parse(localStorage.getItem('ListBoxTipos.ArmazonesUsos') as string) :null,
     ArmazonesMaterial:       localStorage.getItem('ListBoxTipos.ArmazonesMaterial') ? JSON.parse(localStorage.getItem('ListBoxTipos.ArmazonesMaterial') as string) :null,
@@ -47,7 +47,104 @@ const initialState: ITiposListbox | null = {
 
   export const fetchListBoxTipos = createAsyncThunk('listBox/fetchListBoxTipos', async () => {
     try {
-        // const [
+        const {data} = await axios('https://mtoopticos.cl/api/tipos/listado/?query=02')
+        return data
+    } catch (error) {
+        console.log(error)
+        throw error;
+    }
+});
+
+
+const listBoxTiposSlice = createSlice({
+    name: 'ListBoxTipos',
+    initialState,
+    reducers: {
+        updateDataForKey: (state, action) => {
+            const { entidad, data } = action.payload;
+            if (state.hasOwnProperty(entidad)) {
+                state[entidad] = data.data;
+            }
+        },
+        clearLocalStorage: (_state) => {
+            Object.keys(localStorage).forEach((key) => {
+              if (key.startsWith("ListBoxTipos.")) {
+                localStorage.removeItem(key);
+              }
+            });
+          },
+    },
+    extraReducers: (builder)=>{
+        builder
+            .addCase(fetchListBoxTipos.fulfilled, (state,action)=>{
+                const data = action.payload;
+                if(data){
+                    data.forEach(([key, id, value]: [string, number, string]) => {
+                        if (state[key] === undefined) {
+                          state[key] = [];
+                        }
+                        state[key] = Array.isArray(state[key]) ? [...state[key], [id, value ]] : [[id, value ]];
+                    })
+                }
+
+                Object.keys(state).forEach((key) => {
+                    localStorage.setItem(`ListBoxTipos.${key}`, JSON.stringify(state[key]));
+                });
+
+                return state;
+            })
+    }
+});
+
+
+export const { updateDataForKey, clearLocalStorage } = listBoxTiposSlice.actions;
+export default listBoxTiposSlice.reducer;
+
+
+
+
+
+
+
+
+                // localStorage.setItem('ListBoxTipos.CristalesDisenos', JSON.stringify(action.payload.CristalesDisenos));
+                // localStorage.setItem('ListBoxTipos.CristalesMateriales', JSON.stringify(action.payload.CristalesMateriales));
+                // localStorage.setItem('ListBoxTipos.CristalesColores', JSON.stringify(action.payload.CristalesColores));
+                // localStorage.setItem('ListBoxTipos.CristalesTratamientos', JSON.stringify(action.payload.CristalesTratamientos));
+                // localStorage.setItem('ListBoxTipos.CristalesIndices', JSON.stringify(action.payload.CristalesIndices));
+                // localStorage.setItem('ListBoxTipos.AlmacenesTipos', JSON.stringify(action.payload.AlmacenesTipos));
+                // localStorage.setItem('ListBoxTipos.TipoInsumos', JSON.stringify(action.payload.TipoInsumos));
+                // localStorage.setItem('ListBoxTipos.ArmazonesUsos', JSON.stringify(action.payload.ArmazonesUsos));
+                // localStorage.setItem('ListBoxTipos.ArmazonesMaterial', JSON.stringify(action.payload.ArmazonesMaterial));
+                // localStorage.setItem('ListBoxTipos.ArmazonesTipos', JSON.stringify(action.payload.ArmazonesTipos));
+                // localStorage.setItem('ListBoxTipos.OTOpcionVentaArmazon', JSON.stringify(action.payload.OTOpcionVentaArmazon));
+                // localStorage.setItem('ListBoxTipos.OTOpcionVentaCristales', JSON.stringify(action.payload.OTOpcionVentaCristales));
+                // localStorage.setItem('ListBoxTipos.OTTipoAnteojo', JSON.stringify(action.payload.OTTipoAnteojo));
+                // localStorage.setItem('ListBoxTipos.PuntosVentaTipos', JSON.stringify(action.payload.PuntoVentaTipos));
+                // localStorage.setItem('ListBoxTipos.ClientesTipos', JSON.stringify(action.payload.ClientesTipos));
+                
+                // return {
+                //     ...state,
+                //     // CristalesDiseños:action.payload.CristalesDisenos,
+                //     // CristalesMateriales: action.payload.CristalesMateriales,
+                //     // CristalesIndices: action.payload.CristalesIndices,
+                //     // CristalesColores: action.payload.CristalesColores,
+                //     // CristalesTratamientos: action.payload.CristalesTratamientos,
+                //     // AlmacenesTipos: action.payload.AlmacenesTipos,
+                //     // TipoInsumos: action.payload.TipoInsumos,
+                //     // ArmazonesUsos: action.payload.ArmazonesUsos,
+                //     // ArmazonesMaterial: action.payload.ArmazonesMaterial,
+                //     // ArmazonesTipos: action.payload.ArmazonesTipos,
+                //     // OTOpcionVentaArmazon: action.payload.OTOpcionVentaArmazon,
+                //     // OTOpcionVentaCristales: action.payload.OTOpcionVentaCristales,
+                //     // OTTipoAnteojo: action.payload.OTTipoAnteojo,
+                //     // PuntoVentaTipos: action.payload.PuntoVentaTipos,
+                //     // ClientesTipos: action.payload.ClientesTipos
+                // }
+
+
+
+                        // const [
         //     cristalesDiseno, 
         //     cristalesMaterial, 
         //     cristalesColores, 
@@ -98,83 +195,3 @@ const initialState: ITiposListbox | null = {
         //     PuntoVentaTipos: puntosVentaTipos.data,
         //     ClientesTipos: clientestipos.data
         // }
-
-        const {data} = await axios('https://mtoopticos.cl/api/tipos/listado/?query=02')
-        return data
-    } catch (error) {
-        console.log(error)
-        throw error;
-    }
-});
-
-
-const listBoxTiposSlice = createSlice({
-    name: 'ListBoxTipos',
-    initialState,
-    reducers: {
-        updateDataForKey: (state, action) => {
-            const { entidad, data } = action.payload;
-            if (state.hasOwnProperty(entidad)) {
-                state[entidad] = data.data;
-            }
-        },
-    },
-    extraReducers: (builder)=>{
-        builder
-            .addCase(fetchListBoxTipos.fulfilled, (state,action)=>{
-                const data = action.payload;
-                if(data){
-                    data.forEach(([key, id, value]: [string, number, string]) => {
-                        if (state[key] === undefined) {
-                          state[key] = [];
-                        }
-                        state[key] = Array.isArray(state[key]) ? [...state[key], [id, value ]] : [[id, value ]];
-                    })
-                }
-
-                Object.keys(state).forEach((key) => {
-                    localStorage.setItem(`ListBoxTipos.${key}`, JSON.stringify(state[key]));
-                });
-
-                return state;
-                // localStorage.setItem('ListBoxTipos.CristalesDisenos', JSON.stringify(action.payload.CristalesDisenos));
-                // localStorage.setItem('ListBoxTipos.CristalesMateriales', JSON.stringify(action.payload.CristalesMateriales));
-                // localStorage.setItem('ListBoxTipos.CristalesColores', JSON.stringify(action.payload.CristalesColores));
-                // localStorage.setItem('ListBoxTipos.CristalesTratamientos', JSON.stringify(action.payload.CristalesTratamientos));
-                // localStorage.setItem('ListBoxTipos.CristalesIndices', JSON.stringify(action.payload.CristalesIndices));
-                // localStorage.setItem('ListBoxTipos.AlmacenesTipos', JSON.stringify(action.payload.AlmacenesTipos));
-                // localStorage.setItem('ListBoxTipos.TipoInsumos', JSON.stringify(action.payload.TipoInsumos));
-                // localStorage.setItem('ListBoxTipos.ArmazonesUsos', JSON.stringify(action.payload.ArmazonesUsos));
-                // localStorage.setItem('ListBoxTipos.ArmazonesMaterial', JSON.stringify(action.payload.ArmazonesMaterial));
-                // localStorage.setItem('ListBoxTipos.ArmazonesTipos', JSON.stringify(action.payload.ArmazonesTipos));
-                // localStorage.setItem('ListBoxTipos.OTOpcionVentaArmazon', JSON.stringify(action.payload.OTOpcionVentaArmazon));
-                // localStorage.setItem('ListBoxTipos.OTOpcionVentaCristales', JSON.stringify(action.payload.OTOpcionVentaCristales));
-                // localStorage.setItem('ListBoxTipos.OTTipoAnteojo', JSON.stringify(action.payload.OTTipoAnteojo));
-                // localStorage.setItem('ListBoxTipos.PuntosVentaTipos', JSON.stringify(action.payload.PuntoVentaTipos));
-                // localStorage.setItem('ListBoxTipos.ClientesTipos', JSON.stringify(action.payload.ClientesTipos));
-                
-                // return {
-                //     ...state,
-                //     // CristalesDiseños:action.payload.CristalesDisenos,
-                //     // CristalesMateriales: action.payload.CristalesMateriales,
-                //     // CristalesIndices: action.payload.CristalesIndices,
-                //     // CristalesColores: action.payload.CristalesColores,
-                //     // CristalesTratamientos: action.payload.CristalesTratamientos,
-                //     // AlmacenesTipos: action.payload.AlmacenesTipos,
-                //     // TipoInsumos: action.payload.TipoInsumos,
-                //     // ArmazonesUsos: action.payload.ArmazonesUsos,
-                //     // ArmazonesMaterial: action.payload.ArmazonesMaterial,
-                //     // ArmazonesTipos: action.payload.ArmazonesTipos,
-                //     // OTOpcionVentaArmazon: action.payload.OTOpcionVentaArmazon,
-                //     // OTOpcionVentaCristales: action.payload.OTOpcionVentaCristales,
-                //     // OTTipoAnteojo: action.payload.OTTipoAnteojo,
-                //     // PuntoVentaTipos: action.payload.PuntoVentaTipos,
-                //     // ClientesTipos: action.payload.ClientesTipos
-                // }
-            })
-    }
-});
-
-
-export const { updateDataForKey } = listBoxTiposSlice.actions;
-export default listBoxTiposSlice.reducer;

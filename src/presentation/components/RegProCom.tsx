@@ -1,3 +1,4 @@
+import { signal } from '@preact/signals-react';
 import React,{useState} from 'react'
 import { Controller } from 'react-hook-form';
 import useSWR from 'swr';
@@ -29,6 +30,7 @@ const RegProCom:React.FC<IProps> = ({
     tabIndex,
     errors
 }) => {
+    const firstProvinciaID = signal(null)
 
   const { data: regions } = useSWR('https://mtoopticos.cl/api/regiones/listado/?query=02', fetcher);
   
@@ -42,12 +44,12 @@ const RegProCom:React.FC<IProps> = ({
   const [selectedProvince, setSelectedProvince] = useState(defaultProvincia || 0);
 
   const { data: comunas } = useSWR(
-    selectedProvince ? `https://mtoopticos.cl/api/comunas/listado/?query=02&_p1=${selectedProvince}` : null,
+    selectedProvince ? `https://mtoopticos.cl/api/comunas/listado/?query=02&_p1=${firstProvinciaID || selectedProvince}` : null,
     fetcher
   );
   const [selectedCommune, setSelectedCommune] = useState(defaultComuna || 0);
 
-
+    // console.log(provinces[0][0])
 //   console.log(selectedRegion)
 //   console.log(comunas)
   
@@ -57,8 +59,10 @@ const RegProCom:React.FC<IProps> = ({
     const regionId = parseInt(e.target.value, 10);
     console.log('cambio')
     setSelectedRegion(regionId);
+    console.log(provinces)
+    firstProvinciaID.value = provinces[0][0]
     setSelectedProvince(0);
-    setSelectedCommune(0)
+    setSelectedCommune(provinces[0][0])
   };
 
   const handleProvinceChange = (e: { target: { value: string; }; }) => {

@@ -83,7 +83,7 @@ const MAccesoriosKardex: React.FC = () => {
 
   return (
     <div className="mantenedorContainer">
-      <div className="mantenedorHead width70">
+      <div className="mantenedorHead width90">
         <div className="w-[60%]">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}

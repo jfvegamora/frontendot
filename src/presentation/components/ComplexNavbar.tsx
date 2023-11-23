@@ -27,6 +27,7 @@ import {
 import { AppStore, useAppDispatch, useAppSelector } from "../../redux/store";
 import { logout } from "../../redux/slices/userSlice";
 import imagen from '../../assets/lentes02.jpg';
+import { clearLocalStorage } from "../../redux/slices/ListBoxTipoSlice";
 
 export const strNavTitle  = signal("");
 // profile menu component
@@ -93,6 +94,7 @@ function ProfileMenu() {
                 if (typeof action === "function") {
                   toast.success("Sesion cerrada");
                   dispatch(logout());
+                  dispatch(clearLocalStorage())
                   navigate("/login");
                 }
                 closeMenu();

@@ -352,7 +352,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                 <div className={`w-[90%] items-center input-container rowForm`}>
                   <div className={`-mt-2 mx-auto w-[96%]`}>
                     {input.name === "_pEsferico" ? (
-                      <div className="grid grid-rows-1 grid-cols-2 ">
+                      <div className="grid grid-rows-1 grid-cols-2  ">
                         <Controller
                           name="_pEsferico"
                           control={control}
@@ -361,7 +361,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                             <Input
                               color="orange"
                               tabIndex={1}
-                              className={`${input?.styles?.with || "!w-[96%]"} !h-12 ml-2`}
+                              className={`${input?.styles?.with || "!w-[96%]"} !h-12 ml-2 !mt-4`}
                               {...field}
                               label={input.label}
                               value={inputValues["_pEsferico"] || ""}
@@ -389,7 +389,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                             <Input
                               color="blue"
                               tabIndex={1}
-                              className={`${input?.styles?.with || "!w-[96%]"} !h-12 ml-2`}
+                              className={`${input?.styles?.with || "!w-[96%]"} !h-12 ml-2 !mt-4`}
                               {...field}
                               label="Cilíndrico"
                               value={cilindrico}
@@ -419,7 +419,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                           <Input
                             color="orange"
                             tabIndex={1}
-                            className={`${input?.styles?.with || "!w-[96%]"} !h-12 ml-2`}
+                            className={`${input?.styles?.with || "!w-[96%]"} !h-12 ml-2 !mt-4`}
                             {...field}
                             type={input.type}
                             label={input.label}
@@ -444,34 +444,38 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                   </div>
                 </div>
               ) : input.type === "select" ? (
-                <div className={` input-container w-full !mt-2`}>
-                  <Controller
-                    name={input.name}
-                    control={control}
-                    defaultValue=""
-                    render={({ field }) => (
-                      <SelectInputComponent
-                      {...field}
-                        label={input.label}
-                        name={input.name}
-                        showRefresh={true}
-                        control={control}
-                        entidad={
-                          input.tipos
-                            ? [input.selectUrl, "02", input.tipos]
-                            : [input.selectUrl, "02"]
-                        }
-                        inputName={input.name}
-                        inputValues={inputValues}
-                        setHandleSearch={handleSearch}
-                        handleSelectChange={handleSelectChange}
-                        customWidth={"200px"}
-                      />
-                    )}
-                  />
+                <div className={` input-container w-full !mt-6 `}>
+                  <div className={` ${primaryKeyInputs.length > 4 ? "w-full" : "w-[13rem]"}`}>
+
+                    <Controller
+                      name={input.name}
+                      control={control}
+                      defaultValue=""
+                      render={({ field }) => (
+                        <SelectInputComponent
+                        {...field}
+                          label={input.label}
+                          name={input.name}
+                          showRefresh={true}
+                          control={control}
+                          entidad={
+                            input.tipos
+                              ? [input.selectUrl, "02", input.tipos]
+                              : [input.selectUrl, "02"]
+                          }
+                          inputName={input.name}
+                          inputValues={inputValues}
+                          setHandleSearch={handleSearch}
+                          handleSelectChange={handleSelectChange}
+                      
+                        />
+                      )}
+                    />
+
+                  </div>
                 </div>
               ) : input.type === "date" ? (
-                <div className="ml-6 w-full mx-2 items-center relative mt-2">
+                <div className="ml-6 w-full mx-2 items-center relative !mt-4">
                   <label className="primaryKeyLabel items-center text-xs mt-1 absolute top-[-1rem]">{input.label}</label>
                   <Controller
                     name={input.name}
