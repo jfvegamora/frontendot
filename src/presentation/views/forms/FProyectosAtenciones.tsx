@@ -118,13 +118,21 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
  "${jsonData.observaciones}"`;
 
 
- _p1 = _p1.replace(/'/g, '!');
+  const pktodelete = [{
+    proyecto: jsonData.proyecto,
+    fecha_desde: jsonData.fecha_desde,
+    fecha_hasta: jsonData.fecha_hasta
+  }]
+
+  _p1 = _p1.replace(/'/g, '!');
 
 
-  const query: OutputData = {
+  const query = {
     query: "03",
-    _p1
+    _p1,
+    _pkToDelete: JSON.stringify(pktodelete)
   };
+
 console.log("query: ", query);
   return query;
 }
@@ -243,21 +251,21 @@ const FProyectosAtenciones: React.FC<IUserFormPrps> = React.memo(
 
     const handleApiResponse = React.useCallback(
       async (response: any, isEditting: boolean) => {
-        if(response.mensaje.includes('Creado')){
-          toastSuccess(isEditting);
-        }
-        if (response.code === "ERR_BAD_RESPONSE" || response.stack) {
+        if (response.code === "ERR_BAD_RESPONSE" || response.stack || response.datos.length > 1) {
           const errorMessage = isEditting
-                ? strEntidad.concat(": " + response.message)
-                : strEntidad.concat(": " + response.message)
+          ? strEntidad.concat(": " + response.message || response.datos)
+          : strEntidad.concat(": " + response.message || response.datos )
           show({
             message: errorMessage ? errorMessage : response.code,
             type: "error",
           });
-
+          
           return;
         }
-
+        if(response.mensaje.includes('Creado')){
+          toastSuccess(isEditting);
+        }
+        
         if (!blnKeep && !isEditting) {
           const result = await showModal(
             MODAL.keep,
