@@ -149,21 +149,37 @@ const FProyectosFirmas: React.FC<IUserFormPrps> = React.memo(
 
     const handleApiResponse = React.useCallback(
       async (response: any, isEditting: boolean) => {
-        if (response.code === "ERR_BAD_RESPONSE" || response.stack) {
-          const errorMessage = isEditting
-          ? strEntidad.concat(": " + response.message)
-                : strEntidad.concat(": " + response.message)
+        // if (response.code === "ERR_BAD_RESPONSE" || response.stack || response.datos.length >= 1) {
+        //   const errorMessage = isEditting
+        //   ? strEntidad.concat(": " + response.datos && response.datos[0] ? response.datos[0][0] : response.message )
+        //   : strEntidad.concat(": " + response.datos && response.datos[0] ? response.datos[0][0] : response.message )
+        //   show({
+        //     message: errorMessage ? errorMessage : response.code,
+        //     type: "error",
+        //   });
+          
+        //   return;
+        // }
+        if (response.code === "ERR_BAD_RESPONSE" || response.stack || (response.datos && response.datos.length >= 1)) {
+          let errorMessage = strEntidad + ": ";
+          if (response.datos && response.datos.length >= 1 && response.datos[0][0]) {
+            errorMessage += response.datos[0][0];
+          } else {
+            errorMessage += response.message;
+          }
+        
           show({
-            message: errorMessage ? errorMessage : response.code,
+            message: errorMessage,
             type: "error",
           });
           
           return;
         }
-        
+
         if(response.mensaje.includes('Creado')){
           toastSuccess(isEditting);
         }
+        
         if (!blnKeep && !isEditting) {
           const result = await showModal(
             MODAL.keep,
@@ -193,6 +209,10 @@ const FProyectosFirmas: React.FC<IUserFormPrps> = React.memo(
       },
       [closeModal, blnKeep, updateNewEntity, showModal]
     );
+
+
+
+
     useEffect(() => {
       const handleKeyDown = (event: KeyboardEvent) => {
         if (event.key === "Escape") {
