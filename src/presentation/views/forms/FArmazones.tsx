@@ -458,6 +458,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                           data={data && data[EnumGrid.stock_resrvado]}
                           control={control}
                           onlyRead={true}
+                          tabIndex={-1}
                         />
                     </div>
                   </div>
@@ -471,6 +472,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                           onlyRead={true}
                           data={data && data[EnumGrid.stock_disponible]}
                           control={control}
+                          tabIndex={-1}
                         />
                     </div>
                   </div>

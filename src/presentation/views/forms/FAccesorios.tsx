@@ -334,6 +334,7 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
                     data={data && data[EnumGrid.stock_reservado]}
                     control={control}
                     onlyRead={true}
+                    tabIndex={-1}
                   />
                 </div>
               </div>
@@ -346,6 +347,7 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
                     data={data && data[EnumGrid.stock_disponible]}
                     control={control}
                     onlyRead={true}
+                    tabIndex={-1}
                   />
                 </div>
               </div>
