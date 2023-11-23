@@ -13,6 +13,7 @@ import { ERROR_MESSAGES, MODAL, SUCCESS_MESSAGES, TITLES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
+import { signal } from "@preact/signals-react";
 
 const strBaseUrl = "/api/proyectodireccionesdespacho/";
 const strEntidad = "Parametrización de Dirección de Despacho ";
@@ -94,6 +95,7 @@ const FProyectosDirecciones: React.FC<IUserFormPrps> = React.memo(
     const { showModal, CustomModal } = useModal();
     const { show } = useCustomToast();
     const [strCodigoProyecto, setStrCodigoProyecto] = useState("");
+    const strCodigoProyecto2 = signal("")
 
 
     const {
@@ -231,14 +233,20 @@ const FProyectosDirecciones: React.FC<IUserFormPrps> = React.memo(
 
     const handleInputChange = (e:any) =>{
       const { name, value } = e;
+      console.log(value)
       console.log(name)
       if(name === 'proyecto'){
+        strCodigoProyecto2.value = (value as string)  
         setStrCodigoProyecto(value)
+        console.log(strCodigoProyecto2.value)
       }
+      console.log(strCodigoProyecto2.value)
+
     }
 
-    console.log('codigo proyecto', strCodigoProyecto)
-    console.log(errors)
+    // console.log('codigo proyecto', strCodigoProyecto)
+    // console.log(errors)
+    console.log(strCodigoProyecto2.value)
     return (
       <div className="useFormContainer centered-div">
         <div className="userFormBtnCloseContainer">

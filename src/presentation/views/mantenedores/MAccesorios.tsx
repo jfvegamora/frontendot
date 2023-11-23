@@ -71,16 +71,16 @@ const MAccesorios: React.FC = () => {
   // const pkToDelete: PrimaryKey[] = [];
   //NUEVA ELIMINNACION
   const [pkToDelete, setPkToDelete] = useState<string[]>([])
-  const strParamsToDelete = '_p1' // _p3/_p1/_pkToDelete
+  const strParamsToDelete = '_p1'
   
   useEffect(() => {    
-    const newPkToDelete = selectedRows.map((row: number) => `${entities[row][EnumGrid.codigo]}`);
+    const newPkToDelete = selectedRows.map((row: number) => `'${entities[row][EnumGrid.codigo]}'`);
     const combinedPks = newPkToDelete.join(',');
 
     setPkToDelete([`${strParamsToDelete}="${combinedPks}"`]);
   }, [selectedRows]);
   
-  console.log(pkToDelete)
+  // console.log(pkToDelete)
 
 
   return (

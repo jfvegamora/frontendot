@@ -59,7 +59,7 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
       try {
         if (!stateListBox || stateListBox.length < 1) {
           const { data } = await axios(`https://mtoopticos.cl/api/tipos/listado/?query=02&_p1=${entidad}`);
-          // console.log(data);
+          console.log(data);
           setEntities(data);
         }
       } catch (error) {
@@ -73,7 +73,7 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
     }, [entidad, stateListBox]);
     
 
-    
+    console.log(entities)
 
     const renderInput = () => (
       <Controller
@@ -86,7 +86,7 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
                 <label
                   htmlFor={label}
                   // className="absolute top-[-1%] left-[3%] text-sm"
-                  className="text-[11px] text-gray-600 top-0 relative"
+                  className="labelSelect text-gray-600 top-0 relative"
                 >
                   {label}
                 </label>

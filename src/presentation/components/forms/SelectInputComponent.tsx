@@ -62,9 +62,10 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     const inputRef = useRef(null);
     const { ListEntity } = useCrud(strUrl);
     // console.log(strUrl)
+    // console.log(entidad)
     // console.log(strTableName)
     const _p1 =  entidad[2] && `_p1=${entidad[2]}`   
-    console.log( _p1)  
+    // console.log( _p1)  
     // console.log(entidad)
     // if(strTableName){
     //   console.log(strTableName)
@@ -74,7 +75,8 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
                                  : `${URLBackend}${entidad[0]}listado/?query=${entidad[1]}`;
 
 
-    // console.log(strUrl2)
+
+    // caonsole.log(strUrl2)
     
     const state = useAppSelector((store: AppStore) => store.listBox);
     // console.log(state)
@@ -84,6 +86,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     
     const fetchSelectData =async()=>{
       const {data} = await axios(strUrl2)
+      // console.log(data)
       const payload = {
         [label]:data
       }
@@ -101,7 +104,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     
     React.useEffect(()=>{
       if(!state.hasOwnProperty(label)){
-        console.log('no se encuentra')
+        // console.log('no se encuentra')
         fetchSelectData()
       }else{
         // console.log('si se encuentra')
@@ -111,11 +114,10 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     },[state, label])
 
    React.useEffect(()=>{
-     if(strTableName){
         // console.log(strTableName)
         fetchSelectData()
-      }
-    },[])
+        // console.log('cambio')
+    },[strUrl2])
     // console.log(refreshToggle)
 
     // console.log('render')

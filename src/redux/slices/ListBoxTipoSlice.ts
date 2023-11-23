@@ -128,13 +128,15 @@ const listBoxTiposSlice = createSlice({
                         if (state[key] === undefined) {
                           state[key] = [];
                         }
-                        state[key] = Array.isArray(state[key]) ? [...state[key], { id, value }] : [{ id, value }];
+                        state[key] = Array.isArray(state[key]) ? [...state[key], [id, value ]] : [[id, value ]];
                     })
                 }
 
                 Object.keys(state).forEach((key) => {
                     localStorage.setItem(`ListBoxTipos.${key}`, JSON.stringify(state[key]));
                 });
+
+                return state;
                 // localStorage.setItem('ListBoxTipos.CristalesDisenos', JSON.stringify(action.payload.CristalesDisenos));
                 // localStorage.setItem('ListBoxTipos.CristalesMateriales', JSON.stringify(action.payload.CristalesMateriales));
                 // localStorage.setItem('ListBoxTipos.CristalesColores', JSON.stringify(action.payload.CristalesColores));
@@ -151,26 +153,24 @@ const listBoxTiposSlice = createSlice({
                 // localStorage.setItem('ListBoxTipos.PuntosVentaTipos', JSON.stringify(action.payload.PuntoVentaTipos));
                 // localStorage.setItem('ListBoxTipos.ClientesTipos', JSON.stringify(action.payload.ClientesTipos));
                 
-                return {
-                    ...state,
-                    // CristalesDiseños:action.payload.CristalesDisenos,
-                    // CristalesMateriales: action.payload.CristalesMateriales,
-                    // CristalesIndices: action.payload.CristalesIndices,
-                    // CristalesColores: action.payload.CristalesColores,
-                    // CristalesTratamientos: action.payload.CristalesTratamientos,
-                    // AlmacenesTipos: action.payload.AlmacenesTipos,
-                    // TipoInsumos: action.payload.TipoInsumos,
-                    // ArmazonesUsos: action.payload.ArmazonesUsos,
-                    // ArmazonesMaterial: action.payload.ArmazonesMaterial,
-                    // ArmazonesTipos: action.payload.ArmazonesTipos,
-                    // OTOpcionVentaArmazon: action.payload.OTOpcionVentaArmazon,
-                    // OTOpcionVentaCristales: action.payload.OTOpcionVentaCristales,
-                    // OTTipoAnteojo: action.payload.OTTipoAnteojo,
-                    // PuntoVentaTipos: action.payload.PuntoVentaTipos,
-                    // ClientesTipos: action.payload.ClientesTipos
-
-
-                }
+                // return {
+                //     ...state,
+                //     // CristalesDiseños:action.payload.CristalesDisenos,
+                //     // CristalesMateriales: action.payload.CristalesMateriales,
+                //     // CristalesIndices: action.payload.CristalesIndices,
+                //     // CristalesColores: action.payload.CristalesColores,
+                //     // CristalesTratamientos: action.payload.CristalesTratamientos,
+                //     // AlmacenesTipos: action.payload.AlmacenesTipos,
+                //     // TipoInsumos: action.payload.TipoInsumos,
+                //     // ArmazonesUsos: action.payload.ArmazonesUsos,
+                //     // ArmazonesMaterial: action.payload.ArmazonesMaterial,
+                //     // ArmazonesTipos: action.payload.ArmazonesTipos,
+                //     // OTOpcionVentaArmazon: action.payload.OTOpcionVentaArmazon,
+                //     // OTOpcionVentaCristales: action.payload.OTOpcionVentaCristales,
+                //     // OTTipoAnteojo: action.payload.OTTipoAnteojo,
+                //     // PuntoVentaTipos: action.payload.PuntoVentaTipos,
+                //     // ClientesTipos: action.payload.ClientesTipos
+                // }
             })
     }
 });

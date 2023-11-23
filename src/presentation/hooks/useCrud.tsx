@@ -321,7 +321,7 @@ export default useCrud;
 
 
 export const procesarMensajeError = (mensajeError:any) => {
-  if (mensajeError.includes('Duplicate entry') && mensajeError.includes('P01-2233Q1')) {
+  if (mensajeError.includes('Duplicate entry')) {
     return 'Ya existe un registro con el mismo valor';
   } else if (mensajeError.includes('Duplicate entry')) {
     return 'No se pudo guardar: Entrada duplicada.';
@@ -329,6 +329,8 @@ export const procesarMensajeError = (mensajeError:any) => {
     return 'Valor excede máximo permitido.';
   } else if (mensajeError.includes('The document is empty')) {
     return 'No hay registros.';
+  }else if (mensajeError.includes('Cannot add or update a child row')){
+    return 'No existe el código'
   }
 
   return mensajeError

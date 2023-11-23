@@ -75,10 +75,11 @@ const MArmazones: React.FC = () => {
   const strParamsToDelete = '_p1' // _p3/_p1/_pkToDelete
 
   useEffect(() => {    
-    const newPkToDelete = selectedRows.map((row: number) => `${entities[row][EnumGrid.codigo]}`);
+    const newPkToDelete = selectedRows.map((row: number) => `'${entities[row][EnumGrid.codigo]}'`);
     const combinedPks = newPkToDelete.join(',');
 
-    setPkToDelete([`${strParamsToDelete}=${combinedPks}`]);
+    console.log(combinedPks)
+    setPkToDelete([`${strParamsToDelete}='${combinedPks}'`]);
   }, [selectedRows]);
 
   return (

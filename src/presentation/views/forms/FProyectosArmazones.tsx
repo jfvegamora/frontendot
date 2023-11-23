@@ -145,21 +145,22 @@ const FProyectosArmazones: React.FC<IUserFormPrps> = React.memo(
 
     const handleApiResponse = React.useCallback(
       async (response: any, isEditting: boolean) => {
-        if(response.mensaje.includes('Creado')){
-          toastSuccess(isEditting);
-        }
+        console.log(response)
         if (response.code === "ERR_BAD_RESPONSE" || response.stack) {
           const errorMessage = isEditting
-                ? strEntidad.concat(": " + response.message)
-                : strEntidad.concat(": " + response.message)
+          ? strEntidad.concat(": " + response.message)
+          : strEntidad.concat(": " + response.message)
           show({
             message: errorMessage ? errorMessage : response.code,
             type: "error",
           });
-
+          
           return;
         }
-
+        if(response.mensaje.includes('Creado')){
+          toastSuccess(isEditting);
+        }
+        
         if (!blnKeep && !isEditting) {
           const result = await showModal(
             MODAL.keep,
@@ -243,6 +244,7 @@ const FProyectosArmazones: React.FC<IUserFormPrps> = React.memo(
              .then(()=>{
                if(armazonData.value.length >= 1){
                  armazonData.value = []
+                //  toast.error('codigo armazon existente')
                }else{
                  toast.error('Código armazon inválido')
                  armazonData.value = []
