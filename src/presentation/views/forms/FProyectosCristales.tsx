@@ -289,6 +289,7 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
     // }, [idCristal, setValue]);
 
     // console.log('data', data)
+    console.log(errors)
     return (
       <div className="useFormContainer centered-div use60rem">
         <div className="userFormBtnCloseContainer">
@@ -354,7 +355,7 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                       data={data && data[EnumGrid.marca_id]}
                       control={control}
                       entidad={["/api/marcas/", "02"]}
-                      // error={errors.marca}
+                      error={errors.marca}
                       customWidth={""}
                       tabIndex={1}
                     />

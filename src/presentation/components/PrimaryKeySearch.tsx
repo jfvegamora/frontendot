@@ -22,6 +22,7 @@ interface PrimaryKeySearchProps {
     type: string;
     name: string;
     options?: string[];
+    styles?: {with:string};
     selectUrl?: any;
     values?: any;
     tipos?: string;
@@ -38,7 +39,8 @@ const MemoizedMagnifyingGlassIcon = React.memo(() => (
 
 const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
   ({ setEntities, primaryKeyInputs, baseUrl, updateParams, description }) => {
-    const { control, handleSubmit } = useForm<IPrimaryKeyState>();
+    const { control, handleSubmit, register } = useForm<IPrimaryKeyState>();
+    const [cilindrico, setCilindrico] = useState();
     const [inputValues, setInputValues] = useState<IPrimaryKeyState>({});
     const [cristalDescritpion, setCristalDescription] = useState(
       description || ""
@@ -55,9 +57,10 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
     
     const handleInputChange = React.useCallback(
       (name: string, value: string) => {
+        console.log(name)
         setInputValues((prev) => ({ ...prev, [name]: value }));
       },
-      []
+      [inputValues, updateParams]
     );
 
     const handleSelectChange = React.useCallback(
@@ -73,11 +76,11 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
 
     const handleSearch = React.useCallback(async (data: any) => {
       // filterToggle.value = false;
+      // console.log(data)
+      // console.log(cilindrico)
       if ("_pCilindrico" in data || "_pEsferico" in data) {
         data = {
           ...data,
-          _pCilindrico: data._pCilindrico.replace(/[,]/g, "."),
-          _pEsferico: data._pEsferico.replace(/[,]/g, "."),
         };
       }
 
@@ -100,6 +103,8 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
         .join("&");
       
       data && updateParams([searchParams]);
+      // console.log(data)
+      // console.log(searchParams)
       try {
         const response = await ListEntity(searchParams, "01");
         setEntities(response);
@@ -122,14 +127,216 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
     const handleBlur = React.useCallback(() => {
       handleSubmit(handleSearch)();
     }, []);
+    // console.log(inputValues)
 
+    // const renderInputs = () => {
+    //   const inputGroups = [];
+    //   for (let i = 0; i < primaryKeyInputs.length; i += 6) {
+    //     inputGroups.push(primaryKeyInputs.slice(i, i + 6));
+    //   }
+
+    //   return inputGroups.map((group, groupIndex) => (
+    //     <div
+    //       key={groupIndex}
+    //       className={
+    //         primaryKeyInputs.length > 5
+    //           ? `grid grid-rows-3 w-[40vw] h-[30vh] grid-cols-2 items-center `
+    //           : "flex mb-auto items-cente w-[70rem] ml-[-1rem] items-center "
+    //       }
+    //     >
+    //       {group.map((input, inputIndex) => (
+    //         <Controller
+    //           key={inputIndex}
+    //           name={input.name}
+    //           control={control}
+    //           defaultValue=""
+    //           render={({ field }) => (
+    //             <div className="w-full flex items-center rowForm input-container">
+    //               {input.type === "select" ? (
+    //                 input.tipos  ? (
+    //                   // <div className={` items-center bg-red-500 mb-2 w-[90%] `}>
+    //                   <div className="input-container custom-select-key w-full">
+    //                     <SelectInputTiposComponent
+    //                       label={input.label}
+    //                       name={input.name}
+    //                       showRefresh={true}
+    //                       control={control}
+    //                       entidad={input.tipos}
+    //                       inputValues={inputValues}
+    //                       setHandleSearch={handleSearch}
+    //                       handleSelectChange={handleSelectChange}
+                          
+    //                     />
+    //                   </div>
+    //                 ) : (
+    //                   <div className={` input-container w-full !mt-2`}>
+    //                   <SelectInputComponent
+    //                     label={input.label}
+    //                     name={input.name}
+    //                     showRefresh={true}
+    //                     control={control}
+    //                     entidad={
+    //                       input.tipos
+    //                         ? [input.selectUrl, "02", input.tipos]
+    //                         : [input.selectUrl, "02"]
+    //                     }
+    //                     inputName={input.name}
+    //                     inputValues={inputValues}
+    //                     setHandleSearch={handleSearch}
+    //                     handleSelectChange={handleSelectChange}
+    //                     customWidth={"200px"}
+    //                   />
+    //                 </div>
+    //                 )
+                    
+    //               ) : input.type === "radiobuttons" ? (
+    //                 <div className="relative px-8 items-center py-4 w-[92%]  mt-2 mx-auto border-[0.5px] border-[dodgerblue] rounded-md flex">
+    //                   <label className="absolute text-sm top-[-10px] left-4 bg-[ghostwhite] w-[6rem]">
+    //                     <span className="ml-[20px] text-[16px]">
+    //                       {input.label}
+    //                     </span>
+    //                   </label>
+    //                   <div className="primaryKeyRadioContainer">
+    //                     {input.options?.map((entity, index) => (
+    //                       <div
+    //                         key={index}
+    //                         className="primaryKeybtnRadioContainer"
+    //                       >
+    //                         <input
+    //                           type="radio"
+    //                           {...field}
+    //                           value={input.values[entity]}
+    //                           onChange={(e) => {
+    //                             field.onChange(e.target.value);
+    //                           }}
+    //                         />
+    //                         <span className="ml-1">{entity}</span>
+    //                       </div>
+    //                     ))}
+    //                   </div>
+    //                 </div>
+    //               ) : input.type === "date" ? (
+    //                 <div className="ml-6 w-full mx-2 items-center relative mt-2">
+    //                   <label className="primaryKeyLabel items-center text-xs mt-1 absolute top-[-1rem]">{input.label}</label>
+    //                   <input
+    //                     type="date"
+    //                     className="h-[2.5rem] w-full border border-black rounded"
+    //                     {...field}
+    //                     value={field.value || ""}
+    //                     onChange={(e) => {
+    //                       field.onChange(e.target.value);
+    //                     }}
+    //                     onBlur={handleBlur}
+    //                   />
+    //                 </div>
+    //               ) : (
+    //                 <div className="w-[90%]  items-center input-container rowForm  ">
+    //                       <div className={`-mt-2 mx-auto w-[96%] `}>
+    //                         {input.name === "_pEsferico" ? (
+    //                           <div className="grid grid-rows-1 grid-cols-2 ">
+    //                             <Input
+    //                             color="orange"
+    //                             type={input.type}
+    //                             tabIndex={1}
+    //                             className={`${input?.styles?.with || "!w-[96%]"} !h-12 ml-2`}
+    //                             {...field}
+    //                             label={input.label}
+    //                             value={inputValues[input.name] || ""}
+    //                             onChange={(e) => {
+    //                               field.onChange(e);
+    //                               handleInputChange(input.name, e.target.value);
+    //                             }}
+    //                             onKeyDown={handleKeyDown}
+    //                             onBlur={handleBlur}
+    //                             labelProps={{
+    //                               style: {
+    //                                 color: "grey",
+    //                                 fontWeight: "normal",
+    //                                 fontSize: "16px",
+    //                               },
+    //                             }}
+    //                             />
+    //                             <Input
+    //                               {...register('_pCilindrico')}
+    //                               color="blue"
+    //                               tabIndex={1}
+    //                               className={`${input?.styles?.with || "!w-[96%]"} !h-12 ml-2`}
+    //                               type={input.type}
+    //                               label="Cilíndrico"
+    //                               value={cilindrico}
+    //                               onChange={(e) => {
+    //                                 field.onChange(e);
+    //                                 setCilindrico(e.target.value as any)
+    //                                 // handleInputChange("_pCilindrico", e.target.value);
+    //                               }}
+    //                               onKeyDown={handleKeyDown}
+    //                               onBlur={handleBlur}
+    //                               labelProps={{
+    //                                 style: {
+    //                                   color: "grey",
+    //                                   fontWeight: "normal",
+    //                                   fontSize: "16px",
+    //                                 },
+    //                               }}
+                                
+    //                           />
+                              
+    //                           </div>
+    //                         ) : (
+    //                           <Input
+    //                             color="orange"
+    //                             tabIndex={1}
+    //                             className={`${input?.styles?.with || "!w-[96%]"} !h-12 ml-2`}
+    //                             {...field}
+    //                             type={input.type}
+    //                             label={input.label}
+    //                             value={inputValues[input.name] || ""}
+    //                             onChange={(e) => {
+    //                               field.onChange(e);
+    //                               handleInputChange(input.name, e.target.value);
+    //                             }}
+    //                             onKeyDown={handleKeyDown}
+    //                             onBlur={handleBlur}
+    //                             labelProps={{
+    //                               style: {
+    //                                 color: "grey",
+    //                                 fontWeight: "normal",
+    //                                 fontSize: "16px",
+    //                               },
+    //                             }}
+    //                           />
+    //                         )}
+    //                       </div>
+    //                 </div>
+    //               )}
+    //             </div>
+    //           )}
+    //         />
+    //       ))}
+    //       {/* <div className="">
+    //         <Tooltip content="Buscar">
+    //         <IconButton
+    //         tabIndex={1}
+    //           variant="text"
+    //           className="primaryKeyIconButton items-center ml-6 "
+    //           type="submit"
+    //           onClick={handleSubmit(handleSearch)}
+    //         >
+    //           <MemoizedMagnifyingGlassIcon />
+            
+    //         </IconButton>
+    //       </Tooltip>
+    //       </div> */}
+    //     </div>
+    //   ));
+    // };
 
     const renderInputs = () => {
       const inputGroups = [];
       for (let i = 0; i < primaryKeyInputs.length; i += 6) {
         inputGroups.push(primaryKeyInputs.slice(i, i + 6));
       }
-
+    
       return inputGroups.map((group, groupIndex) => (
         <div
           key={groupIndex}
@@ -140,31 +347,111 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
           }
         >
           {group.map((input, inputIndex) => (
-            <Controller
-              key={inputIndex}
-              name={input.name}
-              control={control}
-              defaultValue=""
-              render={({ field }) => (
-                <div className="w-full flex items-center rowForm input-container">
-                  {input.type === "select" ? (
-                    input.tipos  ? (
-                      // <div className={` items-center bg-red-500 mb-2 w-[90%] `}>
-                      <div className="input-container custom-select-key w-full">
-                        <SelectInputTiposComponent
-                          label={input.label}
-                          name={input.name}
-                          showRefresh={true}
+            <div key={inputIndex} className="w-full flex items-center rowForm input-container">
+              {input.type === "number" ? (
+                <div className={`w-[90%] items-center input-container rowForm`}>
+                  <div className={`-mt-2 mx-auto w-[96%]`}>
+                    {input.name === "_pEsferico" ? (
+                      <div className="grid grid-rows-1 grid-cols-2 ">
+                        <Controller
+                          name="_pEsferico"
                           control={control}
-                          entidad={input.tipos}
-                          inputValues={inputValues}
-                          setHandleSearch={handleSearch}
-                          handleSelectChange={handleSelectChange}
+                          defaultValue=""
+                          render={({ field }) => (
+                            <Input
+                              color="orange"
+                              tabIndex={1}
+                              className={`${input?.styles?.with || "!w-[96%]"} !h-12 ml-2`}
+                              {...field}
+                              label={input.label}
+                              value={inputValues["_pEsferico"] || ""}
+                              onChange={(e) => {
+                                field.onChange(e);
+                                handleInputChange("_pEsferico", e.target.value);
+                              }}
+                              onKeyDown={handleKeyDown}
+                              onBlur={handleBlur}
+                              labelProps={{
+                                style: {
+                                  color: "grey",
+                                  fontWeight: "normal",
+                                  fontSize: "16px",
+                                },
+                              }}
+                            />
+                          )}
+                        />
+                        <Controller
+                          name="_pCilindrico"
+                          control={control}
+                          defaultValue=""
+                          render={({ field }) => (
+                            <Input
+                              color="blue"
+                              tabIndex={1}
+                              className={`${input?.styles?.with || "!w-[96%]"} !h-12 ml-2`}
+                              {...field}
+                              label="Cilíndrico"
+                              value={cilindrico}
+                              onChange={(e) => {
+                                field.onChange(e);
+                                setCilindrico(e.target.value as any);
+                              }}
+                              onKeyDown={handleKeyDown}
+                              onBlur={handleBlur}
+                              labelProps={{
+                                style: {
+                                  color: "grey",
+                                  fontWeight: "normal",
+                                  fontSize: "16px",
+                                },
+                              }}
+                            />
+                          )}
                         />
                       </div>
                     ) : (
-                      <div className={` input-container w-full !mt-2`}>
+                      <Controller
+                        name={input.name}
+                        control={control}
+                        defaultValue=""
+                        render={({ field }) => (
+                          <Input
+                            color="orange"
+                            tabIndex={1}
+                            className={`${input?.styles?.with || "!w-[96%]"} !h-12 ml-2`}
+                            {...field}
+                            type={input.type}
+                            label={input.label}
+                            value={inputValues[input.name] || ""}
+                            onChange={(e) => {
+                              field.onChange(e);
+                              handleInputChange(input.name, e.target.value);
+                            }}
+                            onKeyDown={handleKeyDown}
+                            onBlur={handleBlur}
+                            labelProps={{
+                              style: {
+                                color: "grey",
+                                fontWeight: "normal",
+                                fontSize: "16px",
+                              },
+                            }}
+                          />
+                        )}
+                      />
+                    )}
+                  </div>
+                </div>
+              ) : input.type === "select" ? (
+                <div className={` input-container w-full !mt-2`}>
+                  <Controller
+                    name={input.name}
+                    control={control}
+                    defaultValue=""
+                    render={({ field }) => (
                       <SelectInputComponent
+                      {...field}
                         label={input.label}
                         name={input.name}
                         showRefresh={true}
@@ -180,38 +467,17 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                         handleSelectChange={handleSelectChange}
                         customWidth={"200px"}
                       />
-                    </div>
-                    )
-                    
-                  ) : input.type === "radiobuttons" ? (
-                    <div className="relative px-8 items-center py-4 w-[92%]  mt-2 mx-auto border-[0.5px] border-[dodgerblue] rounded-md flex">
-                      <label className="absolute text-sm top-[-10px] left-4 bg-[ghostwhite] w-[6rem]">
-                        <span className="ml-[20px] text-[16px]">
-                          {input.label}
-                        </span>
-                      </label>
-                      <div className="primaryKeyRadioContainer">
-                        {input.options?.map((entity, index) => (
-                          <div
-                            key={index}
-                            className="primaryKeybtnRadioContainer"
-                          >
-                            <input
-                              type="radio"
-                              {...field}
-                              value={input.values[entity]}
-                              onChange={(e) => {
-                                field.onChange(e.target.value);
-                              }}
-                            />
-                            <span className="ml-1">{entity}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  ) : input.type === "date" ? (
-                    <div className="ml-6 w-full mx-2 items-center relative mt-2">
-                      <label className="primaryKeyLabel items-center text-xs mt-1 absolute top-[-1rem]">{input.label}</label>
+                    )}
+                  />
+                </div>
+              ) : input.type === "date" ? (
+                <div className="ml-6 w-full mx-2 items-center relative mt-2">
+                  <label className="primaryKeyLabel items-center text-xs mt-1 absolute top-[-1rem]">{input.label}</label>
+                  <Controller
+                    name={input.name}
+                    control={control}
+                    defaultValue=""
+                    render={({ field }) => (
                       <input
                         type="date"
                         className="h-[2.5rem] w-full border border-black rounded"
@@ -222,56 +488,47 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                         }}
                         onBlur={handleBlur}
                       />
-                    </div>
-                  ) : (
-                    <div className="w-[90%]  items-center input-container rowForm  ">
-                          <div className="w-[96%]  -mt-2 mx-auto ">
-                            <Input
-                              color="orange"
-                              tabIndex={1}
-                              className="!w-[96%] !h-12 ml-2"
-                              {...field}
-                              label={input.label}
-                              value={inputValues[input.name] || ""}
-                              onChange={(e) => {
-                                field.onChange(e);
-                                handleInputChange(input.name, e.target.value);
-                              }}
-                              onKeyDown={handleKeyDown}
-                              onBlur={handleBlur}
-                              labelProps={{
-                                style: {
-                                  color: "grey",
-                                  fontWeight: "normal",
-                                  fontSize: "16px",
-                                },
-                              }}
-                            />
-                          </div>
-                    </div>
-                  )}
+                    )}
+                  />
                 </div>
+              ) : (
+                // Otros tipos de entrada
+                <Controller
+                  name={input.name}
+                  control={control}
+                  defaultValue=""
+                  render={({ field }) => (
+                    <Input
+                      color="orange"
+                      tabIndex={1}
+                      className={`${input?.styles?.with || "!w-[96%]"} !h-12 ml-2`}
+                      {...field}
+                      type={input.type}
+                      label={input.label}
+                      value={inputValues[input.name] || ""}
+                      onChange={(e) => {
+                        field.onChange(e);
+                        handleInputChange(input.name, e.target.value);
+                      }}
+                      onKeyDown={handleKeyDown}
+                      onBlur={handleBlur}
+                      labelProps={{
+                        style: {
+                          color: "grey",
+                          fontWeight: "normal",
+                          fontSize: "16px",
+                        },
+                      }}
+                    />
+                  )}
+                />
               )}
-            />
+            </div>
           ))}
-          {/* <div className="">
-            <Tooltip content="Buscar">
-            <IconButton
-            tabIndex={1}
-              variant="text"
-              className="primaryKeyIconButton items-center ml-6 "
-              type="submit"
-              onClick={handleSubmit(handleSearch)}
-            >
-              <MemoizedMagnifyingGlassIcon />
-            
-            </IconButton>
-          </Tooltip>
-          </div> */}
         </div>
       ));
     };
-
+    
     useEffect(() => {
       const searchParams = {
         _p1: inputValues._p1 || "",

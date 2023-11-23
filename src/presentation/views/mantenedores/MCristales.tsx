@@ -126,8 +126,8 @@ const MCristales: React.FC = () => {
                 },
 
                 
-                { name: "_pEsferico", label: "Esférico", type: "number" },
-                { name: "_pCilindrico", label: "Cilíndrico", type: "number" },
+                { name: "_pEsferico",   label: "Esférico", type: "number", styles:{with:"!w-[57%]  bg-red-400"} },
+                { name: "_pDiametro", label: "Diámetro", type: "number" },
                
                 {
                   name: "_pMarca",
@@ -162,7 +162,6 @@ const MCristales: React.FC = () => {
                   type: "select",
                   selectUrl: "/api/almacenes/",
                 },
-                { name: "_pDiametro", label: "Diámetro", type: "number" },
                 ]}
             />
           </div>

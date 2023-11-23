@@ -31,7 +31,7 @@ interface OutputData {
   query: string;
   _p1: string;
   _p2?: string;
-  _p3?: number;
+  _p3?: string;
 }
 
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
@@ -71,10 +71,10 @@ export function transformUpdateQuery(
   let _p1 = filteredFields.join(",");
   _p1 = _p1.replace(/'/g, '!');
 
-  const query: OutputData = {
+  const query = {
     query: "04",
-   _p1,
-    _p3: primaryKey
+    _p1,
+    _p2:`${primaryKey}` 
   };
   // console.log("query", query);
   return query;

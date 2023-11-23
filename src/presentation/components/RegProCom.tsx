@@ -55,13 +55,17 @@ const RegProCom:React.FC<IProps> = ({
 
   const handleRegionChange = (e: { target: { value: string; }; }) => {
     const regionId = parseInt(e.target.value, 10);
+    console.log('cambio')
     setSelectedRegion(regionId);
     setSelectedProvince(0);
+    setSelectedCommune(0)
   };
 
   const handleProvinceChange = (e: { target: { value: string; }; }) => {
     const provinceId = parseInt(e.target.value, 10);
+    console.log('cambio')
     setSelectedProvince(provinceId);
+    setSelectedCommune(0)
   };
 
   const handleCommuneChange = (e: { target: { value: string; }; }) => {
@@ -77,7 +81,7 @@ const RegProCom:React.FC<IProps> = ({
 //   console.log(defaultRegion)
 
 //   console.log(errors)
-console.log(defaultComuna)
+// console.log(defaultComuna)
   return (
     <div className='w-full py-2 items-center'>
         <div className="w-[93%] mb-4">
@@ -96,7 +100,11 @@ console.log(defaultComuna)
                             tabIndex  ={tabIndex || 1}
                             className="custom-input py-2 px-3 cursor-pointer z-0 "
                             >
-                                <option value={0}></option>
+                                {!regions && (
+                                    <option value={undefined} className="text-sm">
+                                        
+                                    </option>
+                                )}
                                     {regions && regions.map((region:any) => (
                                         <option key={region[0]} value={region[0]}>
                                             {region[1]}
@@ -125,6 +133,11 @@ console.log(defaultComuna)
                             className="custom-input py-2 px-3 cursor-pointer z-0 "
                             >
                                 {/* <option value={0}>Provincia</option> */}
+                                {!provinces && (
+                                    <option value={undefined} className="text-sm">
+                                        
+                                    </option>
+                                    )}
                                     {provinces && provinces.map((province:any) => (
                                         <option key={province[0]} value={province[0]}>
                                             {province[1]}
@@ -160,6 +173,11 @@ console.log(defaultComuna)
                             className="custom-input py-2 px-3 cursor-pointer z-0 "
                             >
                                 {/* <option value={defaultComuna ? defaultComuna : 0}>Comuna</option> */}
+                                {!comunas && (
+                                    <option value={undefined} className="text-sm">
+                    
+                                </option>
+                                )}
                                 {/* <option>Comuna</option> */}
                                     {comunas && comunas.map((comuna:any) => (
                                         <option key={comuna[0]} value={comuna[0]}>
