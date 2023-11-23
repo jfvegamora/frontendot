@@ -139,7 +139,8 @@ export enum EnumGrid {
   nota_venta = 114,
   numero_factura = 115,
   folio_interno_mandante = 116,
-  observaciones = 117
+  total = 117,
+  observaciones = 118
 }
 
 

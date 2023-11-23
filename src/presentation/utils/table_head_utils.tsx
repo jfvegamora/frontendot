@@ -796,6 +796,13 @@ export const table_head_OT_diaria = [
     width: "w-[8rem]"
   },
   {
+    cell: "Total $",
+    key: "total",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[8rem]"
+  },
+  {
     cell: "Observaciones",
     key: "observaciones",
     visible: true,
