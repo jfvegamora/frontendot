@@ -85,8 +85,8 @@ const MAccesorios: React.FC = () => {
 
   return (
     <div className="mantenedorContainer">
-      <div className="mantenedorHead width90 ">
-        <div className="w-[70%]">
+      <div className="mantenedorHead width100 !h-[6rem] ">
+        <div className="w-[70%] absolute">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
             setParams={setParams}
@@ -111,24 +111,26 @@ const MAccesorios: React.FC = () => {
           />
 
         </div>
+        <div className="w-[30%] px-2 relative -right-[58rem] ">
+            <PrimaryButtonsComponent
+              handleAddPerson={openModal}
+              handleDeleteSelected={handleDeleteSelected}
+              handleRefresh={resetEntities}
+              params={params}
+              comilla={false}
+              pkToDelete={pkToDelete}
+              strEntidad={strEntidadExcel}
+              strBaseUrl={strBaseUrl}
+              showAddButton={true}
+              showExportButton={true}
+              showDeleteButton={true}
+              showForwardButton={false}
+              showRefreshButton={true}
+              showImportCsv={true}
+              idMenu={idMenu}
+            />
 
-        <PrimaryButtonsComponent
-          handleAddPerson={openModal}
-          handleDeleteSelected={handleDeleteSelected}
-          handleRefresh={resetEntities}
-          params={params}
-          comilla={false}
-          pkToDelete={pkToDelete}
-          strEntidad={strEntidadExcel}
-          strBaseUrl={strBaseUrl}
-          showAddButton={true}
-          showExportButton={true}
-          showDeleteButton={true}
-          showForwardButton={false}
-          showRefreshButton={true}
-          showImportCsv={true}
-          idMenu={idMenu}
-        />
+          </div>
       </div>
 
       <div className="width100 scroll">

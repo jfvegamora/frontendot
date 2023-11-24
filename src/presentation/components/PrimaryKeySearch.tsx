@@ -411,7 +411,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                       </div>
                     ) : (
                       
-                      <div className={`${input?.styles?.with || "!w-[96%]"} `}>
+                      <div className={`${input?.styles?.with || "!w-[96%] "} `}>
                         <Controller
                         name={input.name}
                         control={control}
@@ -421,7 +421,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                             color="orange"
                             tabIndex={1}
                             // className={`${input?.styles?.with || "!w-[96%]"} !h-12 ml-2 !mt-4`}
-                            className={`!h-12 ml-2 !mt-4`}
+                            className={`!h-12 ml-2 !mt-4 `}
                             {...field}
                             type={input.type}
                             label={input.label}
@@ -565,7 +565,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
             <IconButton
             tabIndex={1}
               variant="text"
-              className="primaryKeyIconButton items-center ml-2 mr-2 "
+              className="primaryKeyIconButton items-center ml-2 mr-16  "
               type="submit"
               onClick={handleSubmit(handleSearch)}
             >
