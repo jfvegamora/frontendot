@@ -33,7 +33,6 @@ const TextInputComponent: React.FC<ITextInputProps> = ({
   error,
   inputRef,
   className,
-  defaultValue:formatvalue,
   maxLength,
   step,
   tabIndex,

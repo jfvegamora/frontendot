@@ -81,8 +81,7 @@ const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
       handleSubmit,
       formState: { errors },
       setValue,
-      register,
-      getValues
+      register
     } = useForm({
       resolver: yupResolver(schema),
     });

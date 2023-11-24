@@ -12,7 +12,6 @@ import { useEntityUtils, usePermission } from "../../hooks";
 import FArmazonesKardexIN from "../forms/FArmazonesKardexIN";
 import FArmazonesKardexOUT from "../forms/FArmazonesKardexOUT";
 import { TITLES, table_head_kardex } from "../../utils";
-import AjusteInventario from "../../components/AjusteInventario";
 
 export enum EnumGrid {
   fecha = 1,

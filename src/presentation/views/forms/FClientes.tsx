@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import {
   RadioButtonComponent,
   SelectInputComponent,
@@ -14,7 +14,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { fechaActual, validationClientesSchema } from "../../utils/validationFormSchemas";
 import { EnumGrid } from "../mantenedores/MClientes";
 import {
-  ERROR_MESSAGES,
   MODAL,
   SUCCESS_MESSAGES,
   SEXO,
@@ -106,7 +105,6 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
   ({ closeModal, setEntities, params, label, data, isEditting, escritura_lectura }) => {
     const schema = validationClientesSchema(isEditting);
     const { showModal, CustomModal } = useModal();
-    const selectRef = useRef();
 
     const { show } = useCustomToast();
 
@@ -127,7 +125,6 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
       formState: { errors },
       setValue,
       register,
-      getValues
       
     } = useForm({
       resolver: yupResolver(schema),

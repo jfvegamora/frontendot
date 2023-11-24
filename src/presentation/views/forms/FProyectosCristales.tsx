@@ -9,11 +9,10 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationProyectoCristalesSchema } from "../../utils/validationFormSchemas";
 import { EnumGrid } from "../mantenedores/MProyectosCristales";
-import { ERROR_MESSAGES, MODAL, SUCCESS_MESSAGES, TITLES } from "../../utils";
+import { MODAL, SUCCESS_MESSAGES, TITLES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
-import SelectInputTiposComponent from "../../components/forms/SelectInputTiposComponent";
 
 const strBaseUrl = "/api/proyectocristales/";
 const strEntidad = "Parametrización de Cristales ";

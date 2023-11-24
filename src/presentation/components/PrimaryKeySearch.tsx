@@ -8,7 +8,6 @@ import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 
 import useCrud from "../hooks/useCrud";
 import { SelectInputComponent } from ".";
-import SelectInputTiposComponent from "./forms/SelectInputTiposComponent";
 
 interface IPrimaryKeyState {
   [key: string]: string | number;
@@ -39,7 +38,7 @@ const MemoizedMagnifyingGlassIcon = React.memo(() => (
 
 const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
   ({ setEntities, primaryKeyInputs, baseUrl, updateParams, description }) => {
-    const { control, handleSubmit, register } = useForm<IPrimaryKeyState>();
+    const { control, handleSubmit } = useForm<IPrimaryKeyState>();
     const [cilindrico, setCilindrico] = useState();
     const [inputValues, setInputValues] = useState<IPrimaryKeyState>({});
     const [cristalDescritpion, setCristalDescription] = useState(

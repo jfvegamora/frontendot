@@ -117,18 +117,18 @@ const FCristalesKardexIN: React.FC<IUserFormPrps> = React.memo(
     const { showModal, CustomModal } = useModal();
     const userState = useAppSelector((store: AppStore) => store.user);
     const { show } = useCustomToast();
-    const [fechaHoraActual, setFechaHoraActual] = useState(fechaActual);
+    const [fechaHoraActual] = useState(fechaActual);
 
-    const [showAutorizacion, setShowAutorizacion] = useState(false);
+    const [_showAutorizacion, setShowAutorizacion] = useState(false);
     const [_isAutorizacionValida, setIsAutorizacionValida] = useState(false);
 
-    const handleAutorizacionSubmit = async (_data: any) => {
-      try {
-        setIsAutorizacionValida(true);
-      } catch (error) {
-        setIsAutorizacionValida(false);
-      }
-    };
+    // const handleAutorizacionSubmit = async (_data: any) => {
+    //   try {
+    //     setIsAutorizacionValida(true);
+    //   } catch (error) {
+    //     setIsAutorizacionValida(false);
+    //   }
+    // };
 
     const {
       editEntity,

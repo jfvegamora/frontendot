@@ -190,6 +190,7 @@ export const clearDioptriasA2 = (valor:number) => {
 
 
 export const fetchFechas = async(fecha_atencion:string, codgioProyecto:string) => {
+  console.log('ejecutando')
   try {
        const {data} = await axios(`${URLBackend}/api/ot/listado/?query=11&_proyecto=${codgioProyecto}&_fecha_desde=${fecha_atencion}`)
        console.log(data[0])

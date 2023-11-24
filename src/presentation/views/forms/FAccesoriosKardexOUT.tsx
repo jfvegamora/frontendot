@@ -114,16 +114,16 @@ const FAccesoriosKardexOUT: React.FC<IUserFormPrps> = React.memo(
     const { show } = useCustomToast();
     const [fechaHoraActual, setFechaHoraActual] = useState(fechaActual);
 
-    const [showAutorizacion, setShowAutorizacion] = useState(false);
+    const [_showAutorizacion, setShowAutorizacion] = useState(false);
     const [_isAutorizacionValida, setIsAutorizacionValida] = useState(false);
 
-    const handleAutorizacionSubmit = async (_data: any) => {
-      try {
-        setIsAutorizacionValida(true);
-      } catch (error) {
-        setIsAutorizacionValida(false);
-      }
-    };
+    // const handleAutorizacionSubmit = async (_data: any) => {
+    //   try {
+    //     setIsAutorizacionValida(true);
+    //   } catch (error) {
+    //     setIsAutorizacionValida(false);
+    //   }
+    // };
 
     const {
       editEntity,

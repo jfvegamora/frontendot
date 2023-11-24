@@ -26,7 +26,7 @@ const FOTCristales:React.FC<ICristales> = ({
     permiso_cristales,
 
 }) => {
-    const [cristalRead, setCristalRead] = useState(false)
+    const [_cristalRead, setCristalRead] = useState(false)
     const [grupo1, _setGrupo1] = useState(2)
     const [validate, setValidate] = useState({
         cristal1_tratamiento_id: '',

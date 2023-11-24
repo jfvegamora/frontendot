@@ -1,6 +1,5 @@
 import * as yup from "yup";
 
-import { signal } from "@preact/signals-react";
 // export const fechaActual = signal(new Date())
 export const fechaActual = new Date();
 

@@ -5,7 +5,6 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import {
-  ERROR_MESSAGES,
   MODAL,
   SUCCESS_MESSAGES, TITLES,
   validationFuncionalidadSchema,
@@ -81,8 +80,7 @@ const FFuncionalidad: React.FC<IFormProps> = React.memo(
     const {
       control,
       handleSubmit,
-      formState: { errors },
-      reset,
+      formState: { errors }
     } = useForm({
       resolver: yupResolver(schema),
     });

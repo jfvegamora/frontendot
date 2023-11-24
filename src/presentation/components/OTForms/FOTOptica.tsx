@@ -96,8 +96,6 @@ const FOTOptica:React.FC<IOptica> = ({
         }
     }
 
-    console.log(fecha_entrega_taller.value)
-
  
   return (
     <form action="">
@@ -217,6 +215,7 @@ const FOTOptica:React.FC<IOptica> = ({
                         data={formValues ? formValues["fecha_atencion"] : data && data[EnumGrid.fecha_atencion]}
                         control={control}
                         onlyRead={onlyRead}
+                        isOT={true}
                         // error={errors.fecha_nacimiento}
                     />
                 </div>

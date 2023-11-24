@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { RadioButtonComponent, SelectInputComponent } from '..'
 import { SEXO, TIPO_CLIENTE } from '../../utils';
-import RegProComponent from '../forms/RegProComponent';
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
 import { EnumGrid as EnumClientes } from '../../views/mantenedores/MClientes';
 import axios from 'axios';
@@ -30,7 +29,6 @@ const FOTClientes:React.FC<IClientes> = ({
     formValues,
     data,
     setExistCliente,
-    strCodigoProyecto,
     onlyRead,
     register
 }) => {

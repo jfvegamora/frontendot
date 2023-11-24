@@ -604,11 +604,11 @@ export const validation_A2_DP =(value:string | any) => {
 
 export const validation_A2_OI_EJE = (value:string | any) => {
     const item = validationNivel2.value.find((item) => item.campo === 'a2_oi_eje');
-    console.log(value)
+    // console.log(value)
     if (typeof value !== 'string' || value.trim() !== '' || !isNaN(Number(value))) {
         const numericValue = Number(value);
-        console.log(numericValue)
-        console.log(dioptrias.value.EJE)
+        // console.log(numericValue)
+        // console.log(dioptrias.value.EJE)
         const validate = dioptrias.value.EJE.some((dioptria: any) => dioptria[0] === numericValue);
         item && (item.valor = validate ? 1 : 0);
       } else if (item) {
