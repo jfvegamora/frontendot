@@ -7,19 +7,16 @@ import React, { useState, useEffect } from "react";
 import {
   RadioButtonComponent,
   SelectInputComponent,
-  TextInputComponent,
 } from "../../components";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationParametrizacionPuntosVenta } from "../../utils/validationFormSchemas";
 import { EnumGrid } from "../mantenedores/MProyectosPuntosVenta";
-import { ERROR_MESSAGES, MODAL, SUCCESS_MESSAGES, TITLES } from "../../utils";
+import {  MODAL, SUCCESS_MESSAGES, TITLES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
-import axios from "axios";
-import { toast } from "react-toastify";
-import { signal } from "@preact/signals-react";
+
 
 const strBaseUrl = "/api/proyectopuntosventa/";
 const strEntidad = "Parametrizacion de Punto de Venta ";
@@ -94,8 +91,7 @@ const FProyectosPuntosVenta: React.FC<IUserFormPrps> = React.memo(
     const schema = validationParametrizacionPuntosVenta();
     const { showModal, CustomModal } = useModal();
     const { show } = useCustomToast();
-    const [changeCodigo, setChangeCodigo] = useState()
-    const armazonData = signal([])
+
 
     const {
       editEntity,
