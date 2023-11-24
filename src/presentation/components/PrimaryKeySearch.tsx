@@ -343,7 +343,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
           className={
             primaryKeyInputs.length > 5
               ? `grid grid-rows-3 w-[40vw] h-[30vh] grid-cols-2 items-center `
-              : "flex mb-auto items-cente w-[70rem] ml-[-1rem] items-center "
+              : "flex mb-auto items-cente w-[70rem]  items-center "
           }
         >
           {group.map((input, inputIndex) => (
@@ -411,7 +411,9 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                         />
                       </div>
                     ) : (
-                      <Controller
+                      
+                      <div className={`${input?.styles?.with || "!w-[96%]"} `}>
+                        <Controller
                         name={input.name}
                         control={control}
                         defaultValue=""
@@ -419,7 +421,8 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                           <Input
                             color="orange"
                             tabIndex={1}
-                            className={`${input?.styles?.with || "!w-[96%]"} !h-12 ml-2 !mt-4`}
+                            // className={`${input?.styles?.with || "!w-[96%]"} !h-12 ml-2 !mt-4`}
+                            className={`!h-12 ml-2 !mt-4`}
                             {...field}
                             type={input.type}
                             label={input.label}
@@ -440,6 +443,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                           />
                         )}
                       />
+                      </div>
                     )}
                   </div>
                 </div>

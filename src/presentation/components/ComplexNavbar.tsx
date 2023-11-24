@@ -239,6 +239,11 @@ const navListMenuProyectos = [
     id: 18,
   },
   {
+    title: "Parametrización de Puntos de Venta",
+    link: "/proyectopuntosventa",
+    id: 33,
+  },
+  {
     title: "Reporte de Atención",
     link: "/proyectoreporteatencion",
     id: 19,
@@ -689,13 +694,16 @@ export default function ComplexNavbar() {
   return (
     <>
       {userState?.nombre && (
-        <Navbar className=" mt-2 mx-auto max-w-screen-xl p-2 lg:rounded-full lg:pl-6 navBarBorder z-10">
+        <Navbar className=" mt-2 mx-auto max-w-screen-xl  p-2 lg:rounded-full lg:pl-6 navBarBorder z-10">
           <div className="relative mx-auto flex items-center text-blue-gray-900">
-            <Typography className="mr-4 ml-2 cursor-pointer py-1.5 font-medium mantenedor-titulo">
+            <Typography className="w-[40%] ml-2 cursor-pointer font-medium mantenedor-titulo">
+              <div className="w-[65%] text-ms h-[3rem] overflow ">
               {strNavTitle}
+
+              </div>
               {/* <Link to="/ot">Gestión OT</Link> */}
             </Typography>
-            <div className="absolute top-2/4 left-2/4 hidden -translate-x-2/4 -translate-y-2/4 lg:block">
+            <div className="absolute  top-2/4 left-[52%] hidden -translate-x-2/4 -translate-y-2/4 lg:block">
               <NavList />
             </div>
             <IconButton

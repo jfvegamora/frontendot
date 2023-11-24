@@ -320,6 +320,14 @@ export const validationProyectoDireccionesSchema = () =>
     observaciones   : yup.string(), 
   });
 
+// Schema PROYECTOS PUNTOS DE VENTA
+export const validationParametrizacionPuntosVenta = () =>
+  yup.object().shape({
+    proyecto   : yup.string().required(`${msg}`),
+    punto_venta: yup.string().required(`${msg}`),
+    estado     : yup.string().required(`${msg}`),
+});
+
 // Schema REPORTE ATENCION
 export const validationReporteAtencionSchema = () =>
   yup.object().shape({
