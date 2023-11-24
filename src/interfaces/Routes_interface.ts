@@ -27,6 +27,7 @@ const MProyectosArmazones   = lazy(()=>import("../presentation/views/mantenedore
 const MProyectosAccesorios  = lazy(()=>import("../presentation/views/mantenedores/MProyectosAccesorios"));
 const MProyectosCristales   = lazy(()=>import("../presentation/views/mantenedores/MProyectosCristales"));
 const MProyectosDirecciones = lazy(()=>import("../presentation/views/mantenedores/MProyectosDirecciones"));
+const MProyectosPuntosVenta = lazy(()=>import("../presentation/views/mantenedores/MProyectosPuntosVenta"));
 const MProyectosAtenciones  = lazy(()=>import("../presentation/views/mantenedores/MProyectosAtenciones"));
 const MProyectosFirmas      = lazy(()=>import("../presentation/views/mantenedores/MProyectosFirmas"));
 const MOftalmologos         = lazy(()=>import("../presentation/views/mantenedores/MOftalmologos"));
@@ -78,6 +79,7 @@ export const PrivateRoutes = {
   PROYECTOS_CRISTALES   : "proyectocristales",
   PROYECTOS_ACCESORIOS  : "proyectoaccesorios",
   PROYECTOS_DIRECCIONES : "proyectodireccionesdespacho",
+  PROYECTOS_PUNTOS_VENTA: "proyectopuntosventa",
   REPORTE_ATENCION      : "proyectoreporteatencion",
   REPORTE_FIRMAS        : "proyectoreportefirma",
   OFTALMOLOGOS          : "oftalmologos",
@@ -234,6 +236,12 @@ export const privateRoutes = [
     path                : PrivateRoutes.PROYECTOS_DIRECCIONES,
     component           : MProyectosDirecciones,
     requiredPermissions : ['view_' + PrivateRoutes.PROYECTOS_DIRECCIONES]
+  },
+  {
+    id                  : "33",
+    path                : PrivateRoutes.PROYECTOS_PUNTOS_VENTA,
+    component           : MProyectosPuntosVenta,
+    requiredPermissions : ['view_' + PrivateRoutes.PROYECTOS_PUNTOS_VENTA]
   },
   {
     id                  : "19",
