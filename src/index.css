@@ -357,6 +357,15 @@ select::-ms-expand {
 .primaryBtnIcon {
   height: 2.5rem;
   width: 2.5rem;
+  transition: transform 0.3s ease
+}
+
+.primaryBtnIconButton:hover, .primaryKeyIconButton:hover{
+  transform: scale(1.2); 
+}
+
+.userFormBtnSubmit:hover{
+  transform: scale(1.05); 
 }
 
 .scroll {
