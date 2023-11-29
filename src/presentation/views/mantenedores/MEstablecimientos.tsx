@@ -78,7 +78,7 @@ const MEstablecimientos: React.FC = () => {
   // console.log('entities', entities)
   return (
     <div className="mantenedorContainer">
-      <div className="mantenedorHead width80">
+      <div className="mantenedorHead width90">
         <div className="w-[70%]">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}

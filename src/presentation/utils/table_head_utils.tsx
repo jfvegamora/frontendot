@@ -919,7 +919,7 @@ export const table_head_clientes = [
     key: "nombre",
     visible: true,
     alignment: "text-left",
-    width: "w-[12rem]",
+    width: "w-[24rem]",
   },
   {
     cell: "Tipo",
@@ -1682,7 +1682,7 @@ export const table_head_kardex = [
     cell: "Almacén",
     key: "almacen",
     visible: true,
-    width: "w-[10rem]",
+    width: "w-[12rem]",
   },
   {
     cell: "E/S",

@@ -73,7 +73,7 @@ const MPuntosVenta: React.FC = () => {
 
   return (
     <div className="mantenedorContainer">
-      <div className="mantenedorHead width90">
+      <div className="mantenedorHead width80">
         <div className="w-[50%]">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
