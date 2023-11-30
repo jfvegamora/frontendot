@@ -47,13 +47,15 @@ const ResetPassword: React.FC = () => {
 
     try {
       decodedToken = jwt_decode(tokenOriginal);
+      
       const updatePassword = {
         query: "04",
         _p1: `password="${hashPassword}"`,
         _p2: decodedToken?.id.toString(),
-        _p3: "",
+        _p3: `${""}` ,
       };
-       await axios.post('https://mtoopticos.cl/api/usuarios/changepasswrod/',updatePassword)
+
+      await axios.post('https://mtoopticos.cl/api/usuarios/changepasswrod/',updatePassword)
       // await editEntity(updatePassword);
 
       // console.log(response)
