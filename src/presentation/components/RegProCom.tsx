@@ -1,4 +1,4 @@
-import { signal } from '@preact/signals-react';
+// import { signal } from '@preact/signals-react';
 import React,{useState} from 'react'
 import { Controller } from 'react-hook-form';
 import useSWR from 'swr';
@@ -30,7 +30,7 @@ const RegProCom:React.FC<IProps> = ({
     tabIndex,
     errors
 }) => {
-    const firstProvinciaID = signal(null)
+    // const firstProvinciaID = signal(null)
 
   const { data: regions } = useSWR('https://mtoopticos.cl/api/regiones/listado/?query=02', fetcher);
   
