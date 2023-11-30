@@ -96,7 +96,9 @@ const useCrud = (
       const table_name = {
         table_name : tableName
       }
-      const result = await axios.post("https://mtoopticos.cl/api/typesexcel/", table_name)
+      // console.log(table_name)
+      const result = await axios.post(`${URLBackend}/api/typesexcel/`, table_name)
+      console.log(result.data)
       return result.data
     } catch (error) {
       console.log(error)

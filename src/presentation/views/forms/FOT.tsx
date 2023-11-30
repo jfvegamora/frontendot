@@ -906,9 +906,9 @@ const FOT:React.FC<IFOTProps> = ({
         const result = await axios(`https://mtoopticos.cl/api/proyectocristales/listado/?query=06&_p2=${optica.proyecto}&_pkToDelete=${encodedJSON}`)
 
         // https://mtoopticos.cl/api/cristales/listado/?query=01&_p1=&_pIndice=2&_pDiseno=1&_pMaterial=1&_pEsferico=-20.00&_pCilindrico=-6&_pMarca=1&_pColor=1&_pTratamiento=1&_pDiametro=65
-        const {data:cristalData} = await axios(`https://mtoopticos.cl/api/cristales/listado/?query=01&_p1=&_pIndice=${cristales.cristal1_indice_id}&_pDiseno=${cristales.cristal1_diseno_id}&_pMaterial=${cristales.cristal1_material_id}&_pEsferico=-${receta.a1_od_esf}&_pCilindrico=-${receta.a1_od_cil}&_pMarca=${cristales.cristal1_marca_id}&_pColor=${cristales.cristal1_color_id}&_pTratamiento=${cristales.cristal1_tratamiento_id}&_pDiametro=${cristales.cristal1_diametro}`)
+        // const {data:cristalData} = await axios(`https://mtoopticos.cl/api/cristales/listado/?query=01&_p1=&_pIndice=${cristales.cristal1_indice_id}&_pDiseno=${cristales.cristal1_diseno_id}&_pMaterial=${cristales.cristal1_material_id}&_pEsferico=-${receta.a1_od_esf}&_pCilindrico=-${receta.a1_od_cil}&_pMarca=${cristales.cristal1_marca_id}&_pColor=${cristales.cristal1_color_id}&_pTratamiento=${cristales.cristal1_tratamiento_id}&_pDiametro=${cristales.cristal1_diametro}`)
         
-        console.log(cristalData)
+        // console.log(cristalData)
         console.log(result.data[0])
         a1Grupo.value = result.data[0]
       } catch (error) {

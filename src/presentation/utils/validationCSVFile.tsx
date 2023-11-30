@@ -75,7 +75,7 @@ export function validateExcelData(data:any, validationStructure:any) {
       else if (fieldType === 'date') {
         if ((cellValue === null || cellValue === undefined)) {
           // cellValue = '1900-01-01';
-          rowData[fieldName]= '1900-01-01';
+          rowData[fieldName]= '';
         // }else if (cellValue.toString() === 'Invalid Date' || isNaN(cellValue)) {
         }else if (moment(cellValue, 'DD-MM-YYYY', true).isValid()) {
         // }else if (isValid(parse(cellValue ,'yyyy-MM-dd',new Date(cellValue)))) {  
