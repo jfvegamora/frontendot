@@ -80,9 +80,9 @@ const MCristales: React.FC = () => {
 
   const [pkToDelete, setPkToDelete] = useState<string[]>([])
   const strParamsToDelete = '_p1' // _p3/_p1/_pkToDelete
-  
+   
   useEffect(() => {    
-    const newPkToDelete = selectedRows.map((row: number) => `${entities[row][EnumGrid.codigo]}`);
+    const newPkToDelete = selectedRows.map((row: number) => `'${entities[row][EnumGrid.codigo]}'`);
     const combinedPks = newPkToDelete.join(',');
 
     setPkToDelete([`${strParamsToDelete}=${combinedPks}`]);

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react';
 import { AppStore, useAppDispatch, useAppSelector } from '../../redux/store';
 import { Button } from "@material-tailwind/react";
 import { updateActualArea, updateNextArea } from '../../redux/slices/OTAreasSlice';
@@ -9,10 +9,13 @@ const OTAreasButtons:React.FC = () => {
 
 console.log(OTAreas && OTAreas.areas)
 
+const [botonPresionado, setBotonPresionado] = useState(null);
+
 const handleEstado = (area:any) => {
     console.log(area)
     dispatch(updateActualArea(area && area[1]))
     dispatch(updateNextArea(area && area[4]))
+    setBotonPresionado(area && area[1]); // Actualiza el botón presionado
 }
 
 
@@ -23,7 +26,16 @@ const renderButtons = () => (
         // console.log(area)
         <div className="w-full " key={index}>
           <div className="w-[8rem] items-center">  
-            <Button color='orange' className='w-full text-black text-xs h-16 text-center' onClick={()=>handleEstado(area)}  key={area[1]}>{area[2]}</Button>
+            {/* <Button className='w-full text-xs h-16 text-center btnAreas' onClick={()=>handleEstado(area)}  key={area[1]}>{area[2]}</Button> */}
+              <Button
+                className={`w-full text-xs h-16 text-center btnAreas ${
+                  botonPresionado === area[1] ? 'bg-tuColorPresionado btnPresionado' : 'bg-tuColorNormal'
+                }`}
+                onClick={() => handleEstado(area)}
+                key={area[1]}
+              >
+                {area[2]}
+              </Button>
           </div>
         </div>
     ))

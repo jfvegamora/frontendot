@@ -14,6 +14,28 @@
   
 }
 
+ .btnAreas{
+  /* background-color: transparent; */
+  color: #676f9d;
+  border-color: #f9b17a;
+  border-width: 1px;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btnAreas:hover{
+  border-color: transparent;
+  background-color: rgb(103 111 157 / 0.3) ;
+  box-shadow: 0 6px 8px rgb(0 0 0 / 0.5) !important;
+  transition: transform 0.4s ease-in-out;
+  transform: translateY(2px) scale(1.07); 
+} 
+
+.btnPresionado {
+  transition: transform 0.2s ease-in-out;
+  transform: translateY(2px) scale(0.95); 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
 .checked{
   background-color: red !important;
 }
@@ -363,7 +385,7 @@ select::-ms-expand {
 .primaryBtnIconButton:hover, .primaryKeyIconButton:hover{
   transform: scale(1.2); 
 }
-
+ 
 .userFormBtnSubmit:hover{
   transform: scale(1.05); 
 }
