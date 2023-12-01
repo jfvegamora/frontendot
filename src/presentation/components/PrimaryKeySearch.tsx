@@ -3,11 +3,11 @@
 import React, { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { IconButton, Input, Tooltip } from "@material-tailwind/react";
-import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-
-
+// import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import useCrud from "../hooks/useCrud";
 import { SelectInputComponent } from ".";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 
 interface IPrimaryKeyState {
   [key: string]: string | number;
@@ -32,9 +32,9 @@ interface PrimaryKeySearchProps {
 }
 
 
-const MemoizedMagnifyingGlassIcon = React.memo(() => (
-  <MagnifyingGlassIcon className="primaryKeyIcon" />
-));
+// const MemoizedMagnifyingGlassIcon = React.memo(() => (
+//   <MagnifyingGlassIcon className="primaryKeyIcon" />
+// ));
 
 const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
   ({ setEntities, primaryKeyInputs, baseUrl, updateParams, description }) => {
@@ -569,8 +569,9 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
               type="submit"
               onClick={handleSubmit(handleSearch)}
             >
-              <MemoizedMagnifyingGlassIcon />
+              {/* <MemoizedMagnifyingGlassIcon /> */}
               {/* <MagnifyingGlassIcon className="primaryKeyIcon" se} /> */}
+              <FontAwesomeIcon icon={faMagnifyingGlass} className="primaryKeyIcon"/>
             </IconButton>
           </Tooltip>
        

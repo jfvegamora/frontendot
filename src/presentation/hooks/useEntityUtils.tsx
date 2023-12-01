@@ -24,6 +24,7 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
   const [selectedRows, setSelectedRows] = useState<number[]>([]);
   // const [intLastId, setIntLastId] = useState<number | null>(0);
   const [isModalInsert, setisModalInsert] = useState<boolean>(false);
+  const [isModalCopiar, setisModalCopiar] = useState<boolean>(false);
   const [isModalEdit, setIsModalEdit] = useState<boolean>(false);
   const [isModalPermisoOT, setIsModalPermisOT] = useState<boolean>(false);
   const [isEntityProfile, setIsEntityProfile] = useState<boolean>(false);
@@ -45,8 +46,13 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
     setisModalInsert(true);
   }, []);
 
+  const toggleModalCopiar = useCallback(()=>{
+    setisModalCopiar(true)
+  },[])
+
   const closeModal = useCallback(() => {
     setisModalInsert(false);
+    setisModalCopiar(false);
     setIsModalEdit(false);
     setIsEntityProfile(false);
     setSelectedRows([]);
@@ -227,11 +233,13 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
     pageSize,
     setPageSize,
     isModalInsert,
+    isModalCopiar,
     entities,
     setEntities,
     handleRefresh,
     toggleEditModal,
     togglePermisoOTModal,
+    toggleModalCopiar,
     isModalEdit,
     selectedRows,
     setSelectedRows,

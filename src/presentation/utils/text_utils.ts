@@ -22,6 +22,7 @@ export const BUTTON_MESSAGES = {
   bln_ingreso: "Ingreso",
   bln_egreso: "Egreso",
   permiso_ot: "Permisos OT",
+  copiar: "Copiar",
 };
 
 export const TITLES = {
@@ -32,7 +33,7 @@ export const TITLES = {
   ingreso: "Ingreso de ",
   egreso: "Egreso de ",
   edicion: "Edición de ",
-
+  copiar: "Copiar",
   permisos: "Permisos copiados correctamente",
   permisosError: "Usuario ya cuenta con permisos",
 };

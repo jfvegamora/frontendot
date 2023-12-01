@@ -11,6 +11,7 @@ import {
 import { useEntityUtils, usePermission } from "../../hooks";
 import { TITLES, table_head_parametrizacion_armazones} from "../../utils";
 import FProyectosArmazones from "../forms/FProyectosArmazones";
+import FProyectosArmazonesCopiar from "../forms/FProyectosArmazonesCopiar";
 
 
 export enum EnumGrid {
@@ -60,7 +61,9 @@ const MProyectosArmazones: React.FC = () => {
     //modal methods
     isModalInsert,
     isModalEdit,
+    isModalCopiar,
     toggleEditModal,
+    toggleModalCopiar,
     openModal,
     closeModal,
     //Check methods
@@ -112,16 +115,19 @@ const MProyectosArmazones: React.FC = () => {
           handleAddPerson={openModal}
           handleDeleteSelected={handleDeleteSelected}
           handleRefresh={resetEntities}
+          handleCopiar={toggleModalCopiar}
           params={params}
           pkToDelete={pkToDelete}
           strEntidad={strEntidadExcel}
           strBaseUrl={strBaseUrl}
           showAddButton={true}
+          showCopiar={true}
           showExportButton={true}
           showDeleteButton={true}
           showForwardButton={false}
           showRefreshButton={true}
           idMenu={idMenu}
+          bln_egreso={false}
 
         />
       </div>
@@ -170,6 +176,19 @@ const MProyectosArmazones: React.FC = () => {
           escritura_lectura={escritura_lectura}
         />
       )}
+
+      {isModalCopiar && (
+        <FProyectosArmazonesCopiar
+          label={`${TITLES.ingreso} ${strEntidad}`}
+          closeModal={closeModal}
+          selectedRows={selectedRows}
+          setEntities={setEntities}
+          params={params}
+          isEditting={false}
+          escritura_lectura={escritura_lectura}
+        />
+      )}
+
     </div>
   );
 };

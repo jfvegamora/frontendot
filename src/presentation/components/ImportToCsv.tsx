@@ -4,11 +4,12 @@ import {handleFileUpload} from '../utils/validationCSVFile';
 import { useCrud } from '../hooks';
 import ModalImpor from './ModalImpor';
 import {toast} from 'react-toastify';
-import { TfiImport } from "react-icons/tfi";
+// import { TfiImport } from "react-icons/tfi";
 import { IconButton, Tooltip } from '@material-tailwind/react';
 import { URLBackend } from '../hooks/useCrud';
 import { signal } from '@preact/signals-react';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUpload } from '@fortawesome/free-solid-svg-icons';
 
 export const resultExcelTypes = signal({})
 
@@ -205,7 +206,8 @@ const ImportToCsv:React.FC<ImportProps> = ({
             // onClick={handle}
             // disabled={!escritura_lectura}
           >
-          <TfiImport className="primaryBtnIcon"/>  
+          {/* <TfiImport className="primaryBtnIcon"/>   */}
+          <FontAwesomeIcon icon={faUpload} className={` ${"primaryBtnIcon"}`}  />
           </IconButton>
         </Tooltip>
         <input className='cursor-pointer'  type='file' {...getInputProps()} accept="text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />

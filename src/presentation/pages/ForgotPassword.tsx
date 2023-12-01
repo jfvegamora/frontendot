@@ -44,15 +44,19 @@ const ResetPassword: React.FC = () => {
   };
 
   return (
-    <div className="useFormContainer mt-8 right-[38%] top-[15%] w-[25vw] h-[40vh]">
-      <h1 className="userFormLabel text-white mt-10">Recuperar Contraseña</h1>
+    <div className="loginFormContainer mt-8 mx-auto w-[90%] md:w-[50%] lg:w-[40%] xl:w-[30%] !mt-[25vh]">
+         <h1 className="userFormLabel text-white pt-10 text-2xl md:text-2xl lg:text-3xl xl:text-3xl">Sistema Gestión OT</h1>
+          <div className=" md:w-[100%] mt-8">
+            <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
+            <h1 className="text-xl font-bold leading-tight text-center tracking-tight text-white md:text-2xl dark:text-white">
+Recuperar Contraseña</h1>
 
       <form
         onSubmit={handleSubmit((data) => handleChange(data))}
         className="userFormulario"
       >
         <div className="w-full items-center flex">
-          <div className="input-container items-center rowForm w-full">
+          <div className="input-container items-center rowForm w-full mb-4">
             <div className="w-full">
               <TextInputComponent
                 type="email"
@@ -65,17 +69,17 @@ const ResetPassword: React.FC = () => {
           </div>
         </div>
 
-        <div className="w-full">
-          <div className="w-[90%] mx-auto">
-            <button type="submit" tabIndex={1} className="userFormBtnSubmit">
-              Guardar
-            </button>
-      <Link replace to="/login" className="text-white">Login</Link>
-          </div>
-        </div>
+      <div className="w-full mt-4">
+        <button type="submit" tabIndex={1} className="userFormBtnSubmit w-full">
+            Enviar correo
+        </button>
+        <Link replace to="/login" className="text-white block text-center mt-2 pb-6">Login</Link>
+      </div>
         
         
       </form>
+      </div>
+          </div>
     </div>
   );
 };

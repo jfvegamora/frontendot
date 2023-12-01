@@ -14,13 +14,13 @@ import {
   MenuItem,
   Avatar,
   Card,
-  IconButton,
+  IconButton, 
 } from "@material-tailwind/react";
 import { toast } from "react-toastify";
 import {
   UserCircleIcon,
-  Square3Stack3DIcon,
-  ChevronDownIcon,
+  // Square3Stack3DIcon,
+  // ChevronDownIcon,
   PowerIcon,
   Bars2Icon,
 } from "@heroicons/react/24/outline";
@@ -28,6 +28,11 @@ import { AppStore, useAppDispatch, useAppSelector } from "../../redux/store";
 import { logout } from "../../redux/slices/userSlice";
 import imagen from '../../assets/lentes02.jpg';
 import { clearLocalStorage } from "../../redux/slices/ListBoxTipoSlice";
+import avatarImage from '../../assets/avatar01.png';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faChevronDown, faFileLines, faWarehouse, faHandshakeSimple, faGears } from '@fortawesome/free-solid-svg-icons';
+
 
 export const strNavTitle  = signal("");
 // profile menu component
@@ -69,15 +74,18 @@ function ProfileMenu() {
             size="sm"
             alt="tania andrew"
             className="border border-blue-500 p-0.5"
-            src="https://www.freeiconspng.com/uploads/account-profile-user-icon--icon-search-engine-10.png"
+            src={avatarImage}
+            // src="https://www.freeiconspng.com/uploads/account-profile-user-icon--icon-search-engine-10.png"
             //src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
           />
-          <ChevronDownIcon
+          {/* <ChevronDownIcon
             strokeWidth={2.5}
             className={`h-3 w-3 transition-transform ${
               isMenuOpen ? "rotate-180" : ""
             }`}
-          />
+          /> */}
+          <FontAwesomeIcon icon={faChevronDown} />  
+
         </Button>
       </MenuHandler>
       <MenuList className="p-1">
@@ -317,10 +325,6 @@ function NavListMenuOT({ userPermission }: { userPermission: number[] }) {
           }
         }}
       >
-        {/* {React.createElement(icon, {
-        className: `h-4 w-4 ${hasPermission ? "" : "text-gray-400"}`,
-        strokeWidth: 2,
-      })} */}
         <Typography
           as="span"
           variant="small"
@@ -336,18 +340,16 @@ function NavListMenuOT({ userPermission }: { userPermission: number[] }) {
     <React.Fragment>
       <Menu open={isMenuOpen} handler={setIsMenuOpen}>
         <MenuHandler>
-          <Typography as="a" href="#" variant="small" className="font-normal">
+          <Typography as="a" href="#" variant="large" className="font-normal">
             <MenuItem
               {...triggers}
               className="hidden items-center gap-2 text-blue-gray-900 lg:flex lg:rounded-full"
             >
-              <Square3Stack3DIcon className="h-[18px] w-[18px]" /> OT{" "}
-              <ChevronDownIcon
-                strokeWidth={2}
-                className={`h-3 w-3 transition-transform ${
+              <FontAwesomeIcon icon={faFileLines} size="xl" /> OT{" "}  
+              <FontAwesomeIcon icon={faChevronDown} strokeWidth={2} 
+                  className={`h-3 w-3 transition-transform ${
                   isMenuOpen ? "rotate-180" : ""
-                }`}
-              />
+                }`}/>  
             </MenuItem>
           </Typography>
         </MenuHandler>
@@ -370,7 +372,8 @@ function NavListMenuOT({ userPermission }: { userPermission: number[] }) {
         </MenuList>
       </Menu>
       <MenuItem className="flex items-center gap-2 text-blue-gray-900 lg:hidden">
-        <Square3Stack3DIcon className="h-[18px] w-[18px]" /> OT{" "}
+        {/* <Square3Stack3DIcon className="h-[18px] w-[18px]" /> OT{" "} */}
+        <FontAwesomeIcon icon={faFileLines} /> OT{" "}
       </MenuItem>
       <ul className="ml-6 flex w-full flex-col gap-1 lg:hidden">
         {renderItems}
@@ -403,10 +406,6 @@ function NavListMenuBodega({ userPermission }: { userPermission: number[] }) {
           }
         }}
       >
-        {/* {React.createElement(icon, {
-        className: `h-4 w-4 ${hasPermission ? "" : "text-gray-400"}`,
-        strokeWidth: 2,
-      })} */}
         <Typography
           as="span"
           variant="small"
@@ -422,18 +421,16 @@ function NavListMenuBodega({ userPermission }: { userPermission: number[] }) {
     <React.Fragment>
       <Menu open={isMenuOpen} handler={setIsMenuOpen}>
         <MenuHandler>
-          <Typography as="a" href="#" variant="small" className="font-normal">
+          <Typography as="a" href="#" variant="large" className="font-normal">
             <MenuItem
               {...triggers}
               className="hidden items-center gap-2 text-blue-gray-900 lg:flex lg:rounded-full"
             >
-              <Square3Stack3DIcon className="h-[18px] w-[18px]" /> BODEGA{" "}
-              <ChevronDownIcon
-                strokeWidth={2}
-                className={`h-3 w-3 transition-transform ${
+              <FontAwesomeIcon icon={faWarehouse} size="xl" /> BODEGA{" "}  
+              <FontAwesomeIcon icon={faChevronDown} strokeWidth={2} 
+                  className={`h-3 w-3 transition-transform ${
                   isMenuOpen ? "rotate-180" : ""
-                }`}
-              />
+                }`}/>  
             </MenuItem>
           </Typography>
         </MenuHandler>
@@ -456,7 +453,7 @@ function NavListMenuBodega({ userPermission }: { userPermission: number[] }) {
         </MenuList>
       </Menu>
       <MenuItem className="flex items-center gap-2 text-blue-gray-900 lg:hidden">
-        <Square3Stack3DIcon className="h-[18px] w-[18px]" /> Bodega{" "}
+        <FontAwesomeIcon icon={faWarehouse} /> BODEGA{" "}  
       </MenuItem>
       <ul className="ml-6 flex w-full flex-col gap-1 lg:hidden">
         {renderItems}
@@ -493,10 +490,6 @@ function NavListMenuProyectos({
           }
         }}
       >
-        {/* {React.createElement(icon, {
-        className: `h-4 w-4 ${hasPermission ? "" : "text-gray-400"}`,
-        strokeWidth: 2,
-      })} */}
         <Typography
           as="span"
           variant="small"
@@ -512,18 +505,16 @@ function NavListMenuProyectos({
     <React.Fragment>
       <Menu open={isMenuOpen} handler={setIsMenuOpen}>
         <MenuHandler>
-          <Typography as="a" href="#" variant="small" className="font-normal">
+          <Typography as="a" href="#" variant="large" className="font-normal">
             <MenuItem
               {...triggers}
               className="hidden items-center gap-2 text-blue-gray-900 lg:flex lg:rounded-full"
             >
-              <Square3Stack3DIcon className="h-[18px] w-[18px]" /> PROYECTOS{" "}
-              <ChevronDownIcon
-                strokeWidth={2}
-                className={`h-3 w-3 transition-transform ${
+              <FontAwesomeIcon icon={faHandshakeSimple} size="xl" /> PROYECTOS{" "}  
+              <FontAwesomeIcon icon={faChevronDown} strokeWidth={2} 
+                  className={`h-3 w-3 transition-transform ${
                   isMenuOpen ? "rotate-180" : ""
-                }`}
-              />
+                }`}/>  
             </MenuItem>
           </Typography>
         </MenuHandler>
@@ -538,7 +529,6 @@ function NavListMenuProyectos({
             className="col-span-3 grid h-full w-full place-items-center rounded-md"
           >
             <img className="imgNavBar" src={imagen}></img>
-            {/* <RocketLaunchIcon strokeWidth={1} className="h-28 w-28" /> */}
           </Card>
           <ul className="col-span-4 flex w-full flex-col gap-1">
             {renderItems}
@@ -546,7 +536,7 @@ function NavListMenuProyectos({
         </MenuList>
       </Menu>
       <MenuItem className="flex items-center gap-2 text-blue-gray-900 lg:hidden">
-        <Square3Stack3DIcon className="h-[18px] w-[18px]" /> Proyectos{" "}
+        <FontAwesomeIcon icon={faHandshakeSimple} /> PROYECTOS{" "}  
       </MenuItem>
       <ul className="ml-6 flex w-full flex-col gap-1 lg:hidden">
         {renderItems}
@@ -579,10 +569,6 @@ function NavListMenuSistema({ userPermission }: { userPermission: number[] }) {
           }
         }}
       >
-        {/* {React.createElement(icon, {
-          className: `h-4 w-4 ${hasPermission ? "" : "text-gray-400"}`,
-          strokeWidth: 2,
-        })} */}
         <Typography
           as="span"
           variant="small"
@@ -598,18 +584,16 @@ function NavListMenuSistema({ userPermission }: { userPermission: number[] }) {
     <React.Fragment>
       <Menu open={isMenuOpen} handler={setIsMenuOpen}>
         <MenuHandler>
-          <Typography as="a" href="#" variant="small" className="font-normal">
+          <Typography as="a" href="#" variant="large" className="font-normal">
             <MenuItem
               {...triggers}
               className="hidden items-center gap-2 text-blue-gray-900 lg:flex lg:rounded-full"
             >
-              <Square3Stack3DIcon className="h-[18px] w-[18px]" /> SISTEMA{" "}
-              <ChevronDownIcon
-                strokeWidth={2}
-                className={`h-3 w-3 transition-transform ${
+              <FontAwesomeIcon icon={faGears} size="xl" /> SISTEMA{" "}  
+              <FontAwesomeIcon icon={faChevronDown} strokeWidth={2} 
+                  className={`h-3 w-3 transition-transform ${
                   isMenuOpen ? "rotate-180" : ""
-                }`}
-              />
+                }`}/>  
             </MenuItem>
           </Typography>
         </MenuHandler>
@@ -624,7 +608,6 @@ function NavListMenuSistema({ userPermission }: { userPermission: number[] }) {
             className="col-span-3 grid h-full w-full place-items-center rounded-md"
           >
             <img className="imgNavBar" src={imagen}></img>
-            {/* <RocketLaunchIcon strokeWidth={1} className="h-28 w-28" /> */}
           </Card>
           <ul className="col-span-4 flex w-full flex-col gap-1">
             {renderItems}
@@ -632,7 +615,7 @@ function NavListMenuSistema({ userPermission }: { userPermission: number[] }) {
         </MenuList>
       </Menu>
       <MenuItem className="flex items-center gap-2 text-blue-gray-900 lg:hidden">
-        <Square3Stack3DIcon className="h-[18px] w-[18px]" /> Sistema{" "}
+        <FontAwesomeIcon icon={faGears} /> SISTEMA{" "}  
       </MenuItem>
       <ul className="ml-6 flex w-full flex-col gap-1 lg:hidden">
         {renderItems}
@@ -677,9 +660,6 @@ export default function ComplexNavbar() {
       "resize",
       () => window.innerWidth >= 960 && setIsNavOpen(false)
       );
-      
-      
-    // const userPermission = userState?.permisos.map((permiso)=>permiso)
   }, []);
   
   React.useEffect(()=>{
@@ -701,7 +681,6 @@ export default function ComplexNavbar() {
               {strNavTitle}
 
               </div>
-              {/* <Link to="/ot">Gestión OT</Link> */}
             </Typography>
             <div className="absolute  top-2/4 left-[52%] hidden -translate-x-2/4 -translate-y-2/4 lg:block">
               <NavList />

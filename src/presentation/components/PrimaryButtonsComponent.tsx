@@ -1,20 +1,20 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useCallback, useEffect, useState } from "react";
-import { AiOutlineForward, AiFillDelete } from "react-icons/ai";
+// import { AiOutlineForward, AiFillDelete } from "react-icons/ai";
 import { IconButton, Tooltip } from "@material-tailwind/react";
-import { SiAddthis } from "react-icons/si";
-import { FiRefreshCw } from "react-icons/fi";
+// import { SiAddthis } from "react-icons/si";
+// import { FiRefreshCw } from "react-icons/fi";
 import { usePermission } from "../hooks";
 import { BUTTON_MESSAGES, MODAL } from "../utils";
 import { ExportCSV } from "./ExportToCsv";
 import { useModal } from "../hooks/useModal";
-import { CgInsertAfterR, CgInsertBeforeR } from "react-icons/cg";
+// import { CgInsertAfterR, CgInsertBeforeR } from "react-icons/cg";
 import ImportToCsv from "./ImportToCsv";
 import { AppStore, useAppSelector } from "../../redux/store";
 import OTPrimaryButtons from "./OTPrimaryButtons";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlus, faClone, faArrowsRotate, faTrash, faFileArrowDown, faFileArrowUp } from '@fortawesome/free-solid-svg-icons';
 
-//CgInsertAfterR
-//CgInsertBeforeR
 
 interface IPrimaryButtonProps {
   handlePageSize?: () => void;
@@ -23,6 +23,7 @@ interface IPrimaryButtonProps {
   escritura?: boolean;
   personsLength?: number;
   handleAddPerson?: () => void;
+  handleCopiar?: any;
   handleRefresh?: () => void;
   handleAddTipe2?: () => void;
   showForwardButton?: boolean;
@@ -39,16 +40,18 @@ interface IPrimaryButtonProps {
   idMenu: number;
   bln_egreso?: boolean;
   isOT?:boolean;
+  showCopiar?: boolean;
 }
-
+ 
 const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
   ({
     handleDeleteSelected,
-    handlePageSize,
+    // handlePageSize,
     handleAddPerson,
+    handleCopiar,
     handleRefresh,
     toggleEditModal,
-    showForwardButton,
+    // showForwardButton,
     showAddButton,
     showRefreshButton,
     showDeleteButton,
@@ -61,7 +64,8 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
     comilla,
     idMenu,
     bln_egreso,
-    isOT
+    isOT,
+    showCopiar
   }) => {
     const { escritura_lectura } = usePermission(idMenu);
     const { CustomModal, showModal } = useModal();
@@ -117,24 +121,24 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
 
     return (
       <div className="primaryBtnContainer">
-        {showForwardButton &&
+        {/* {showForwardButton &&
           renderButton(
             <AiOutlineForward className="primaryBtnIcon" />,
             handlePageSize!,
             BUTTON_MESSAGES.next
-          )}
+          )} */}
 
         {bln_egreso === true ? (
           <>
             {showAddButton && escritura_lectura && (
               <>
                 {renderButton(
-                  <CgInsertBeforeR className="primaryBtnIcon" />,
+                  <FontAwesomeIcon icon={faFileArrowUp} className="primaryBtnIcon"/>,
                   handleAddPerson!,
                   BUTTON_MESSAGES.bln_ingreso
                 )}
                 {renderButton(
-                  <CgInsertAfterR className="primaryBtnIcon" />,
+                  <FontAwesomeIcon icon={faFileArrowDown} className="primaryBtnIcon"/>,
                   toggleEditModal!,
                   BUTTON_MESSAGES.bln_egreso
                 )}
@@ -146,9 +150,18 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
             {showAddButton && escritura_lectura && (
               <>
                 {renderButton(
-                  <SiAddthis className="primaryBtnIcon" />,
+                  <FontAwesomeIcon icon={faPlus} className="primaryBtnIcon"/>,
                   handleAddPerson!,
                   BUTTON_MESSAGES.add
+                )}
+              </>
+            )}
+            {showCopiar && escritura_lectura && (
+              <>
+                {renderButton(
+                  <FontAwesomeIcon icon={faClone} className="primaryBtnIcon"/>,
+                  handleCopiar!,
+                  BUTTON_MESSAGES.copiar
                 )}
               </>
             )}
@@ -157,7 +170,7 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
 
         {showRefreshButton &&
           renderButton(
-            <FiRefreshCw className="primaryBtnIcon" />,
+            <FontAwesomeIcon icon={faArrowsRotate} className="primaryBtnIcon" />,
             handleRefresh!,
             BUTTON_MESSAGES.refresh
           )}
@@ -197,53 +210,16 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
                 }}
               >
                 <span style={{ verticalAlign: "0.1em" }}>
-                  <AiFillDelete className="primaryBtnIcon" />
+                  <FontAwesomeIcon icon={faTrash} className="primaryBtnIcon"/>
                 </span>
               </IconButton>
             </Tooltip>
             <CustomModal />
           </>
         )}
-        {/* { OTAreas &&  OTAreas["areas"].map((area:any)=>(
-          // console.log(area)
-          ))} */}
-        
-
-
-
-        
-
-
       </div>
     );
   }
 );
 
 export default PrimaryButtonsComponent;
-
-
-
-
-     {/* {showAddButton &&
-          escritura_lectura &&
-          renderButton(
-            <SiAddthis className="primaryBtnIcon" />,
-            handleAddPerson!,
-            BUTTON_MESSAGES.add
-          )}
-
-
-        {showAddButton &&
-          escritura_lectura &&
-          renderButton(
-            <CgInsertBeforeR className="primaryBtnIcon" />,
-            handleAddPerson!,
-            BUTTON_MESSAGES.add
-          )}
-        {showAddButton &&
-          escritura_lectura &&
-          renderButton(
-            <CgInsertAfterR className="primaryBtnIcon" />,
-            handleAddPerson!,
-            BUTTON_MESSAGES.add
-          )} */}

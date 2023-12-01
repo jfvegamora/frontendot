@@ -241,16 +241,16 @@ export const validationProyectosSchema = () =>
     fecha_adjudicacion    : yup.string(),
     fecha_inicio          : yup.string().required(`${msg}`),
     fecha_termino         : yup.string().required(`${msg}`),
+    dias_entrega          : yup.string().required(`${msg}`),
+    avance                : yup.string().nullable(),
     cantidad_requerida    : yup.string().default("0"),
+    presupuesto           : yup.string().default("0"),
 
     cantidad_atendida     : yup.string().nullable().default("0"),
-    cantidad_disponible   : yup.string().nullable().default("0"),
     total_facturado       : yup.string().nullable(),
+    cantidad_disponible   : yup.string().nullable().default("0"),
     saldo_disponible      : yup.string().nullable(),
-    avance                : yup.string().nullable(),
 
-    presupuesto           : yup.string().default("0"),
-    dias_entrega          : yup.string().required(`${msg}`),
     ejecutivo_proyecto    : yup.string().required(`${msg}`),
 
     administrador_nombre  : yup.string(),
@@ -276,6 +276,13 @@ export const validationParametrizacionArmazones = () =>
     proyecto      : yup.string().required(`${msg}`),
     codigo_armazon: yup.string().required(`${msg}`),
     estado        : yup.string().required(`${msg}`),
+});
+
+// Schema PROYECTOS ARMAZONES COPIAR
+export const validationParametrizacionArmazonesCopiar = () =>
+  yup.object().shape({
+    proyecto_origen : yup.string().required(`${msg}`),
+    proyecto_destino: yup.string().required(`${msg}`),
 });
 
 // Schema PROYECTOS CRISTALES

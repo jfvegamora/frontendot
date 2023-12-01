@@ -3,12 +3,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
-import { RiFileExcel2Line } from "react-icons/ri";
+// import { RiFileExcel2Line } from "react-icons/ri";
 
 import { IconButton, Tooltip } from "@material-tailwind/react";
 import { useCrud } from "../hooks";
 import { EXCEL } from "../utils";
 import useCustomToast from "../hooks/useCustomToast";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faDownload } from '@fortawesome/free-solid-svg-icons';
 
 type Props = {
   strBaseUrl?: any;
@@ -140,21 +142,17 @@ export const ExportCSV: React.FC<Props> = ({
     }
   }
 
-  // console.log('entity', entity)
   return (
     <>
       <Tooltip content="Exportar">
-        {/* <Button className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 mr- rounded'>
-            </Button> */}
         <IconButton variant="text" tabIndex={1} color="blue-gray" className="mx-2 primaryBtnIconButton">
-          <RiFileExcel2Line
-            className={` ${query ? "gridIcons" : "w-10 h-10"}`}
+        <FontAwesomeIcon icon={faDownload} className={` ${query ? "gridIcons" : "primaryBtnIcon"}`}
               onClick={() => {
                 if(!query) return setisModalInsert(true)
                 handleExportEntity()    
-              }} 
-              />
+              }}  />
         </IconButton>
+
       </Tooltip>
           {!query && (
               <Modal

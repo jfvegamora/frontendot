@@ -53,6 +53,10 @@ body {
   
 }
 
+.font-menu{
+  color: #676f9d;
+}
+
 .mantenedor-titulo{
   font-size: 1.3rem;
   font-weight: 600;
@@ -712,15 +716,33 @@ input[type="radio"]:checked{
 
 .useFormContainer {
   --tw-bg-opacity: 1;
-  /*  background-color: rgb(255 255 255 / var(--tw-bg-opacity));*/
   background-color: rgb(103 111 157 / 0.9);
-  position: relative;
   padding-left: 1rem;
   padding-right: 1rem;
   margin-left: auto;
   margin-right: auto;
   position: absolute;
   z-index: 20;
+  border-radius: 0.5rem;
+  --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.5),
+    0 4px 6px -4px rgb(0 0 0 / 0.5);
+  --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color),
+    0 4px 6px -4px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+    var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.loginFormContainer {
+  --tw-bg-opacity: 1;
+  background-color: rgb(103 111 157 / 0.9);
+  padding-left: 1rem;
+  padding-right: 1rem;
+  margin: auto; /* Ajusta el margen para centrar horizontalmente */
+  display: flexbox; /* Usa flexbox para centrar vertical y horizontalmente */
+  flex-direction: column; /* Aplica flex en dirección de columna */
+  align-items: center; /* Centra horizontalmente */
+  justify-content: center; /* Centra verticalmente */
+  max-width: auto; /* Ajusta el ancho máximo según tus necesidades */
   border-radius: 0.5rem;
   --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.5),
     0 4px 6px -4px rgb(0 0 0 / 0.5);
