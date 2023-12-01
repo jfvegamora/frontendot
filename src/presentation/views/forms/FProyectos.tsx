@@ -36,9 +36,14 @@ interface InputData {
     fecha_adjudicacion    : string | undefined;
     fecha_inicio          : string | undefined;
     fecha_termino         : string | undefined;
+    dias_entrega          : string | undefined;
+    avance                : string | undefined;
     cantidad_requerida    : string | undefined;
     presupuesto           : string | undefined;
-    dias_entrega          : string | undefined;
+    cantidad_atendida     : string | undefined;
+    total_facturado       : string | undefined;
+    cantidad_disponible   : string | undefined;
+    saldo_disponible      : string | undefined;
     ejecutivo_proyecto    : string | undefined;
     administrador_nombre  : string | undefined;
     administrador_correo  : string | undefined;
@@ -582,7 +587,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                         type="number"
                         label="% Avance"
                         name="avance"
-                        // data={data && data[EnumGrid.DIAS_DE_ENTREGA]}
+                        data={data && data[EnumGrid.AVANCE]}
                         control={control}
                         onlyRead={true}
                    />
@@ -625,7 +630,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                           type="number"
                           label="Cantidad Atendida"
                           name="cantidad_atendida"
-                          // data={data && data[EnumGrid.]}
+                          data={data && data[EnumGrid.CANTIDAD_ATENDIDA]}
                           control={control}
                           onlyRead={true}
                           />
@@ -638,7 +643,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                           type="number"
                           label="Total Facturado"
                           name="total_facturado"
-                          // data={data && data[EnumGrid]}
+                          data={data && data[EnumGrid.TOTAL_FACTURADO]}
                           control={control}
                           onlyRead={true}
                           />
@@ -650,7 +655,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                           type="number"
                           label="Cantidad Disponible"
                           name="cantidad_disponible"
-                          // data={data && data[EnumGrid.DIAS_DE_ENTREGA]}
+                          data={data && data[EnumGrid.CANTIDAD_DISPONIBLE]}
                           control={control}
                           onlyRead={true}
                           />
@@ -662,7 +667,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                           type="number"
                           label="Saldo Disponible"
                           name="saldo_disponible"
-                          // data={data && data[EnumGrid.DIAS_DE_ENTREGA]}
+                          data={data && data[EnumGrid.SALDO_DISPONIBLE]}
                           control={control}
                           onlyRead={true}
                           />
