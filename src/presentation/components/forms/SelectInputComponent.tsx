@@ -147,7 +147,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
 
               <select
                 {...field}
-                ref={inputRef}
+                ref={inputRef ? inputRef : null}
                 disabled={readOnly}
                 tabIndex  ={tabIndex || 1}
                 

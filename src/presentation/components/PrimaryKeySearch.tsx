@@ -449,14 +449,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
               ) : input.type === "select" ? (
                 <div className={` input-container w-full !mt-6 `}>
                   <div className={` ${primaryKeyInputs.length > 4 ? "w-full" : "w-[13rem]"}`}>
-
-                    <Controller
-                      name={input.name}
-                      control={control}
-                      defaultValue=""
-                      render={({ field }) => (
                         <SelectInputComponent
-                        {...field}
                           label={input.label}
                           name={input.name}
                           showRefresh={true}
@@ -472,9 +465,6 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                           handleSelectChange={handleSelectChange}
                       
                         />
-                      )}
-                    />
-
                   </div>
                 </div>
               ) : input.type === "date" ? (

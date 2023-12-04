@@ -302,8 +302,8 @@ const navListMenuSistema = [
 ];
 
 function NavListMenuOT({ userPermission }: { userPermission: number[] }) {
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const navigate = useNavigate();
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   const triggers = {
     onMouseEnter: () => setIsMenuOpen(true),
@@ -346,10 +346,7 @@ function NavListMenuOT({ userPermission }: { userPermission: number[] }) {
               className="hidden items-center gap-2 text-blue-gray-900 lg:flex lg:rounded-full"
             >
               <FontAwesomeIcon icon={faFileLines} size="xl" /> OT{" "}  
-              <FontAwesomeIcon icon={faChevronDown} strokeWidth={2} 
-                  className={`h-3 w-3 transition-transform ${
-                  isMenuOpen ? "rotate-180" : ""
-                }`}/>  
+              <FontAwesomeIcon icon={faChevronDown} strokeWidth={2} className={`h-3 w-3 transition-transform ${isMenuOpen ? "rotate-180" : "" }`}/>  
             </MenuItem>
           </Typography>
         </MenuHandler>
@@ -643,10 +640,10 @@ function NavList() {
 }
 
 export default function ComplexNavbar() {
-  const [isNavOpen, setIsNavOpen] = React.useState(false);
   const userState = useAppSelector((store: AppStore) => store.user);
   const location = useLocation();
   const [_titulo, setTitulo] = useState('');
+  const [isNavOpen, setIsNavOpen] = React.useState(false);
   
   
   const toggleIsNavOpen = () => setIsNavOpen((cur) => !cur);
