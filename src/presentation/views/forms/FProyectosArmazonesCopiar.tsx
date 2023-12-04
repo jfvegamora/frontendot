@@ -37,7 +37,7 @@ interface OutputData {
 
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
   console.log("jsondata: ", jsonData.proyecto_origen, "-", jsonData.proyecto_destino)
-  if(jsonData.proyecto_origen = jsonData.proyecto_destino){
+  if(jsonData.proyecto_origen === jsonData.proyecto_destino){
     toast.error('Debes seleccionar distintos Proyectos.')
     throw new Error()
   }

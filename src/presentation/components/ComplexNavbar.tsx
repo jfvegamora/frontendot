@@ -340,7 +340,7 @@ function NavListMenuOT({ userPermission }: { userPermission: number[] }) {
     <React.Fragment>
       <Menu open={isMenuOpen} handler={setIsMenuOpen}>
         <MenuHandler>
-          <Typography as="a" href="#" variant="small" className="font-normal">
+          <Typography as="a" href="#" variant="h6" className="font-normal">
             <MenuItem
               {...triggers}
               className="hidden items-center gap-2 text-blue-gray-900 lg:flex lg:rounded-full"
@@ -421,7 +421,7 @@ function NavListMenuBodega({ userPermission }: { userPermission: number[] }) {
     <React.Fragment>
       <Menu open={isMenuOpen} handler={setIsMenuOpen}>
         <MenuHandler>
-          <Typography as="a" href="#" variant="small" className="font-normal">
+          <Typography as="a" href="#" variant="h6" className="font-normal">
             <MenuItem
               {...triggers}
               className="hidden items-center gap-2 text-blue-gray-900 lg:flex lg:rounded-full"
@@ -462,11 +462,7 @@ function NavListMenuBodega({ userPermission }: { userPermission: number[] }) {
   );
 }
 
-function NavListMenuProyectos({
-  userPermission,
-}: {
-  userPermission: number[];
-}) {
+function NavListMenuProyectos({userPermission,}: {userPermission: number[];}) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const navigate = useNavigate();
 
@@ -505,7 +501,7 @@ function NavListMenuProyectos({
     <React.Fragment>
       <Menu open={isMenuOpen} handler={setIsMenuOpen}>
         <MenuHandler>
-          <Typography as="a" href="#" variant="small" className="font-normal">
+          <Typography as="a" href="#" variant="h6" className="font-normal">
             <MenuItem
               {...triggers}
               className="hidden items-center gap-2 text-blue-gray-900 lg:flex lg:rounded-full"
@@ -584,7 +580,7 @@ function NavListMenuSistema({ userPermission }: { userPermission: number[] }) {
     <React.Fragment>
       <Menu open={isMenuOpen} handler={setIsMenuOpen}>
         <MenuHandler>
-          <Typography as="a" href="#" variant="small" className="font-normal">
+          <Typography as="a" href="#" variant="h6" className="font-normal">
             <MenuItem
               {...triggers}
               className="hidden items-center gap-2 text-blue-gray-900 lg:flex lg:rounded-full"
@@ -677,7 +673,7 @@ export default function ComplexNavbar() {
         <Navbar className=" mt-2 mx-auto max-w-screen-xl  p-2 lg:rounded-full lg:pl-6 navBarBorder z-10">
           <div className="relative mx-auto flex items-center text-blue-gray-900">
             <div className="w-[40%] ml-2 cursor-pointer font-medium mantenedor-titulo">
-              <Typography className="w-[65%] text-ms h-[3rem] overflow ">
+              <Typography className="w-[65%] text-xl h-[3rem] overflow ">
               {strNavTitle}
 
               </Typography>
