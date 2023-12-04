@@ -10,7 +10,7 @@ import {
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationProyectoParametrizacionCopiar } from "../../utils/validationFormSchemas";
-import { EnumGrid } from "../mantenedores/MProyectosDirecciones";
+// import { EnumGrid } from "../mantenedores/MProyectosDirecciones";
 import { BUTTON_MESSAGES, MODAL, SUCCESS_MESSAGES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
@@ -75,7 +75,7 @@ interface IUserFormPrps {
 }
 
 const FProyectosDireccionesCopiar: React.FC<IUserFormPrps> = React.memo(
-  ({ closeModal, setEntities, params, label, data, isEditting, escritura_lectura }) => {
+  ({ closeModal, setEntities, params, label, isEditting, escritura_lectura }) => {
     const schema = validationProyectoParametrizacionCopiar();
     const { showModal, CustomModal } = useModal();
     const { show } = useCustomToast();

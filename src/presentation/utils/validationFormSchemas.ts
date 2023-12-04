@@ -242,14 +242,14 @@ export const validationProyectosSchema = () =>
     fecha_inicio          : yup.string().required(`${msg}`),
     fecha_termino         : yup.string().required(`${msg}`),
     dias_entrega          : yup.string().required(`${msg}`),
-    avance                : yup.string().nullable(),
+    avance                : yup.string().default("0"),
     cantidad_requerida    : yup.string().default("0"),
     presupuesto           : yup.string().default("0"),
 
-    cantidad_atendida     : yup.string().nullable().default("0"),
-    total_facturado       : yup.string().nullable(),
-    cantidad_disponible   : yup.string().nullable().default("0"),
-    saldo_disponible      : yup.string().nullable(),
+    cantidad_atendida     : yup.string().default("0"),
+    total_facturado       : yup.string().default("0"),
+    cantidad_disponible   : yup.string().default("0"),
+    saldo_disponible      : yup.string().default("0"),
 
     ejecutivo_proyecto    : yup.string().required(`${msg}`),
 

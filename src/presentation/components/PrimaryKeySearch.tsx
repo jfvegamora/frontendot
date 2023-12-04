@@ -564,7 +564,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
               <FontAwesomeIcon icon={faMagnifyingGlass} className="primaryKeyIcon"/>
             </IconButton>
           </Tooltip>
-       
+        
         {description && (
           <input
             className="mx-8 w-[44rem] border-none absolute bottom-[-2rem] left-[-2rem]"

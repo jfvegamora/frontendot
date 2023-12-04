@@ -353,13 +353,13 @@ select::-ms-expand {
 
 .primaryKeyIconButton {
   color: orangered;
-  width: 15rem;
+  /* width: 15rem; */
   z-index: 20;
 }
 
 .primaryKeyIcon {
-  width: 3rem;
-  height: 3rem;
+  width: 2rem;
+  height: 2rem;
   z-index: 20;
 }
 

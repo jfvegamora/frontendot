@@ -474,7 +474,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                   <div className="w-full mr-2">
                       <TextInputComponent
                           type="text"
-                          label="Código Licitacion"
+                          label="Código Licitación"
                           name="codigo_licitacion"
                           data={data && data[EnumGrid.CODIGO_LICITACION]}
                           control={control}
@@ -517,7 +517,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
               <div className="w-full mr-2">
                   <TextInputComponent
                           type="text"
-                          label="Unidad Compra"
+                          label="Unidad de Compra"
                           name="unidad_compra"
                           data={data && data[EnumGrid.UNIDAD_COMPRA]}
                           control={control}
@@ -530,7 +530,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
               <div className="w-full mr-2">
                   <TextInputComponent
                           type="date"
-                          label="Fecha adjudicacion"
+                          label="Fecha adjudicación"
                           name="fecha_adjudicacion"
                           data={data && data[EnumGrid.FECHA_ADJUDICACION]}
                           control={control}
@@ -569,7 +569,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
               <div className="w-full mr-2">
                   <TextInputComponent
                           type="number"
-                          label="Dias de entrega"
+                          label="Días de entrega"
                           name="dias_entrega"
                           data={data && data[EnumGrid.DIAS_DE_ENTREGA]}
                           control={control}
@@ -590,7 +590,8 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                         data={data && data[EnumGrid.AVANCE]}
                         control={control}
                         onlyRead={true}
-                   />
+                        error={errors.avance}
+                        />
                 </div> 
             </div>
 
