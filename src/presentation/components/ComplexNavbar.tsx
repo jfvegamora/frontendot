@@ -58,9 +58,9 @@ function ProfileMenu() {
   ];
 
   return (
-    <div className="right-0 absolute flex mx-4 justify-between w-[20%] items-center">
+    <div className="right-0 absolute flex mx-4 justify-right items-center">
       {userState && (
-        <h1 className="m-auto">{userState.nombre}</h1>
+        <p className="m-auto font-menu pr-1">{userState.nombre}</p>
       )}
     <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
       <MenuHandler>
@@ -75,15 +75,7 @@ function ProfileMenu() {
             alt="tania andrew"
             className="border border-blue-500 p-0.5"
             src={avatarImage}
-            // src="https://www.freeiconspng.com/uploads/account-profile-user-icon--icon-search-engine-10.png"
-            //src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
           />
-          {/* <ChevronDownIcon
-            strokeWidth={2.5}
-            className={`h-3 w-3 transition-transform ${
-              isMenuOpen ? "rotate-180" : ""
-            }`}
-          /> */}
           <FontAwesomeIcon icon={faChevronDown} />  
 
         </Button>
@@ -343,7 +335,7 @@ function NavListMenuOT({ userPermission }: { userPermission: number[] }) {
           <Typography as="a" href="#" variant="h6" className="font-normal">
             <MenuItem
               {...triggers}
-              className="hidden items-center gap-2 text-blue-gray-900 lg:flex lg:rounded-full"
+              className="hidden items-center gap-2 font-menu lg:flex lg:rounded-full"
             >
               <FontAwesomeIcon icon={faFileLines} size="xl" /> OT{" "}  
               <FontAwesomeIcon icon={faChevronDown} strokeWidth={2} className={`h-3 w-3 transition-transform ${isMenuOpen ? "rotate-180" : "" }`}/>  
@@ -421,7 +413,7 @@ function NavListMenuBodega({ userPermission }: { userPermission: number[] }) {
           <Typography as="a" href="#" variant="h6" className="font-normal">
             <MenuItem
               {...triggers}
-              className="hidden items-center gap-2 text-blue-gray-900 lg:flex lg:rounded-full"
+              className="hidden items-center gap-2 font-menu lg:flex lg:rounded-full"
             >
               <FontAwesomeIcon icon={faWarehouse} size="xl" /> BODEGA{" "}  
               <FontAwesomeIcon icon={faChevronDown} strokeWidth={2} 
@@ -501,7 +493,7 @@ function NavListMenuProyectos({userPermission,}: {userPermission: number[];}) {
           <Typography as="a" href="#" variant="h6" className="font-normal">
             <MenuItem
               {...triggers}
-              className="hidden items-center gap-2 text-blue-gray-900 lg:flex lg:rounded-full"
+              className="hidden items-center gap-2 font-menu lg:flex lg:rounded-full"
             >
               <FontAwesomeIcon icon={faHandshakeSimple} size="xl" /> PROYECTOS{" "}  
               <FontAwesomeIcon icon={faChevronDown} strokeWidth={2} 
@@ -580,7 +572,7 @@ function NavListMenuSistema({ userPermission }: { userPermission: number[] }) {
           <Typography as="a" href="#" variant="h6" className="font-normal">
             <MenuItem
               {...triggers}
-              className="hidden items-center gap-2 text-blue-gray-900 lg:flex lg:rounded-full"
+              className="hidden items-center gap-2 font-menu lg:flex lg:rounded-full"
             >
               <FontAwesomeIcon icon={faGears} size="xl" /> SISTEMA{" "}  
               <FontAwesomeIcon icon={faChevronDown} strokeWidth={2} 
@@ -670,7 +662,7 @@ export default function ComplexNavbar() {
         <Navbar className=" mt-2 mx-auto max-w-screen-xl  p-2 lg:rounded-full lg:pl-6 navBarBorder z-10">
           <div className="relative mx-auto flex items-center text-blue-gray-900">
             <div className="w-[40%] ml-2 cursor-pointer font-medium mantenedor-titulo">
-              <Typography className="w-[65%] text-xl h-[3rem] overflow ">
+              <Typography className="w-[65%] text-2xl h-[3rem] overflow ">
               {strNavTitle}
 
               </Typography>
