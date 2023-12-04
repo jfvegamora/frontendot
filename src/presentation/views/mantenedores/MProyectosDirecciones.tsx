@@ -11,6 +11,7 @@ import {
 } from "../../components";
 import { TITLES, table_head_proyectos_direcciones } from "../../utils";
 import FProyectosDirecciones from "../forms/FProyectosDirecciones";
+import FProyectosDireccionesCopiar from "../forms/FProyectosDireccionesCopiar";
 
 const strEntidad = "Parametrización de Dirección de Despacho ";
 const strEntidadExcel = "Direcciones_de_Despacho";
@@ -47,7 +48,9 @@ const MProyectosDirecciones: React.FC = () => {
       //modal methods
       isModalInsert,
       isModalEdit,
+      isModalCopiar,
       toggleEditModal,
+      toggleModalCopiar,
       openModal,
       closeModal,
       //Check methods
@@ -99,11 +102,13 @@ const MProyectosDirecciones: React.FC = () => {
             handleAddPerson={openModal}
             handleDeleteSelected={handleDeleteSelected}
             handleRefresh={resetEntities}
+            handleCopiar={toggleModalCopiar}
             params={params}
             pkToDelete={pkToDelete}
             strEntidad={strEntidadExcel}
             strBaseUrl={strBaseUrl}
             showAddButton={true}
+            showCopiar={true}
             showExportButton={true}
             showDeleteButton={true}
             showForwardButton={false}
@@ -156,6 +161,18 @@ const MProyectosDirecciones: React.FC = () => {
             escritura_lectura={escritura_lectura}
             />
         )}
+
+      {isModalCopiar && (
+        <FProyectosDireccionesCopiar
+          label={`${TITLES.copiar} ${strEntidad}`}
+          closeModal={closeModal}
+          selectedRows={selectedRows}
+          setEntities={setEntities}
+          params={params}
+          isEditting={false}
+          escritura_lectura={escritura_lectura}
+        />
+      )}
       </div>
     );
   };

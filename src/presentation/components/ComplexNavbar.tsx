@@ -340,7 +340,7 @@ function NavListMenuOT({ userPermission }: { userPermission: number[] }) {
     <React.Fragment>
       <Menu open={isMenuOpen} handler={setIsMenuOpen}>
         <MenuHandler>
-          <Typography as="a" href="#" variant="large" className="font-normal">
+          <Typography as="a" href="#" variant="small" className="font-normal">
             <MenuItem
               {...triggers}
               className="hidden items-center gap-2 text-blue-gray-900 lg:flex lg:rounded-full"
@@ -421,7 +421,7 @@ function NavListMenuBodega({ userPermission }: { userPermission: number[] }) {
     <React.Fragment>
       <Menu open={isMenuOpen} handler={setIsMenuOpen}>
         <MenuHandler>
-          <Typography as="a" href="#" variant="large" className="font-normal">
+          <Typography as="a" href="#" variant="small" className="font-normal">
             <MenuItem
               {...triggers}
               className="hidden items-center gap-2 text-blue-gray-900 lg:flex lg:rounded-full"
@@ -505,7 +505,7 @@ function NavListMenuProyectos({
     <React.Fragment>
       <Menu open={isMenuOpen} handler={setIsMenuOpen}>
         <MenuHandler>
-          <Typography as="a" href="#" variant="large" className="font-normal">
+          <Typography as="a" href="#" variant="small" className="font-normal">
             <MenuItem
               {...triggers}
               className="hidden items-center gap-2 text-blue-gray-900 lg:flex lg:rounded-full"
@@ -584,7 +584,7 @@ function NavListMenuSistema({ userPermission }: { userPermission: number[] }) {
     <React.Fragment>
       <Menu open={isMenuOpen} handler={setIsMenuOpen}>
         <MenuHandler>
-          <Typography as="a" href="#" variant="large" className="font-normal">
+          <Typography as="a" href="#" variant="small" className="font-normal">
             <MenuItem
               {...triggers}
               className="hidden items-center gap-2 text-blue-gray-900 lg:flex lg:rounded-full"
@@ -676,12 +676,12 @@ export default function ComplexNavbar() {
       {userState?.nombre && (
         <Navbar className=" mt-2 mx-auto max-w-screen-xl  p-2 lg:rounded-full lg:pl-6 navBarBorder z-10">
           <div className="relative mx-auto flex items-center text-blue-gray-900">
-            <Typography className="w-[40%] ml-2 cursor-pointer font-medium mantenedor-titulo">
-              <div className="w-[65%] text-ms h-[3rem] overflow ">
+            <div className="w-[40%] ml-2 cursor-pointer font-medium mantenedor-titulo">
+              <Typography className="w-[65%] text-ms h-[3rem] overflow ">
               {strNavTitle}
 
-              </div>
-            </Typography>
+              </Typography>
+            </div>
             <div className="absolute  top-2/4 left-[52%] hidden -translate-x-2/4 -translate-y-2/4 lg:block">
               <NavList />
             </div>

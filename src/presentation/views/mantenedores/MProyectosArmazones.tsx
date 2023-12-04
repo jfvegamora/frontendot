@@ -179,7 +179,7 @@ const MProyectosArmazones: React.FC = () => {
 
       {isModalCopiar && (
         <FProyectosArmazonesCopiar
-          label={`${TITLES.ingreso} ${strEntidad}`}
+          label={`${TITLES.copiar} ${strEntidad}`}
           closeModal={closeModal}
           selectedRows={selectedRows}
           setEntities={setEntities}
