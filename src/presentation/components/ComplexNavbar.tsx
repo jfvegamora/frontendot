@@ -674,10 +674,10 @@ export default function ComplexNavbar() {
         <Navbar className=" mt-2 mx-auto max-w-screen-xl  p-2 lg:rounded-full lg:pl-6 navBarBorder z-10">
           <div className="relative mx-auto flex items-center text-blue-gray-900">
             <div className="w-[40%] ml-2 cursor-pointer font-medium mantenedor-titulo">
-              <h1 className="w-[65%] text-ms h-[3rem] overflow ">
+              <Typography className="w-[65%] text-ms h-[3rem] overflow ">
               {strNavTitle}
 
-              </h1>
+              </Typography>
             </div>
             <div className="absolute  top-2/4 left-[52%] hidden -translate-x-2/4 -translate-y-2/4 lg:block">
               <NavList />

@@ -52,7 +52,7 @@ const AjusteInventario:React.FC<Props> = ({
     
   return (
     <div className='w-[30rem] h-[13rem] useFormContainer z-30 relative top-0'>
-        <h1 className='userFormLabel'>Ingrese código de autorizacion</h1>
+        <h1 className='userFormLabel'>Ingrese código de autorización</h1>
 
         <div className="w-full items-center flex">
             <div className="input-container  items-center rowForm w-full">

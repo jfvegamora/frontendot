@@ -11,6 +11,7 @@ import {
 import { useEntityUtils, usePermission } from "../../hooks";
 import { TITLES, table_head_parametrizacion_accesorios} from "../../utils";
 import FProyectosAccesorios from "../forms/FProyectosAccesorios";
+import FProyectosAccesoriosCopiar from "../forms/FProyectosAccesoriosCopiar";
 
 
 export enum EnumGrid {
@@ -27,7 +28,7 @@ export enum EnumGrid {
 }
 const strEntidad = "Parametrización de Accesorios ";
 const strEntidadExcel = "Parametrizacion_de_accesorios";
-const strBaseUrl = "/api/proyectosaccesorios/";
+const strBaseUrl = "/api/proyectoaccesorios/";
 const strQuery = "01";
 const idMenu   = 30;
 
@@ -48,7 +49,9 @@ const MProyectosAccesorios: React.FC = () => {
     //modal methods
     isModalInsert,
     isModalEdit,
+    isModalCopiar,
     toggleEditModal,
+    toggleModalCopiar,
     openModal,
     closeModal,
     //Check methods
@@ -98,11 +101,13 @@ const MProyectosAccesorios: React.FC = () => {
           handleAddPerson={openModal}
           handleDeleteSelected={handleDeleteSelected}
           handleRefresh={resetEntities}
+          handleCopiar={toggleModalCopiar}
           params={params}
           pkToDelete={pkToDelete}
           strEntidad={strEntidadExcel}
           strBaseUrl={strBaseUrl}
           showAddButton={true}
+          showCopiar={true}
           showExportButton={true}
           showDeleteButton={true}
           showForwardButton={false}
@@ -154,6 +159,19 @@ const MProyectosAccesorios: React.FC = () => {
           escritura_lectura={escritura_lectura}
         />
       )}
+
+      {isModalCopiar && (
+        <FProyectosAccesoriosCopiar
+          label={`${TITLES.copiar} ${strEntidad}`}
+          closeModal={closeModal}
+          selectedRows={selectedRows}
+          setEntities={setEntities}
+          params={params}
+          isEditting={false}
+          escritura_lectura={escritura_lectura}
+        />
+      )}
+
     </div>
   );
 };

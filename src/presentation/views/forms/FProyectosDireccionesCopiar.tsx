@@ -10,7 +10,7 @@ import {
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationProyectoParametrizacionCopiar } from "../../utils/validationFormSchemas";
-import { EnumGrid } from "../mantenedores/MProyectosArmazones";
+import { EnumGrid } from "../mantenedores/MProyectosDirecciones";
 import { BUTTON_MESSAGES, MODAL, SUCCESS_MESSAGES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
@@ -21,8 +21,8 @@ import {toast} from 'react-toastify'
 // import { toast } from "react-toastify";
 // import { signal } from "@preact/signals-react";
 
-const strBaseUrl = "/api/proyectoarmazones/";
-const strEntidad = "Parametrizacion de Armazones ";
+const strBaseUrl = "/api/proyectodireccionesdespacho/";
+const strEntidad = "Parametrizacion Dirección de Despacho ";
 
 export interface InputData {
   proyecto_origen : string ;
@@ -37,13 +37,13 @@ interface OutputData {
 
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
   console.log("jsondata: ", jsonData.proyecto_origen, "-", jsonData.proyecto_destino)
-  if(jsonData.proyecto_origen = jsonData.proyecto_destino){
-    toast.error('Debes seleccionar distintos Proyectos.')
-    throw new Error()
-  }
+  // if(jsonData.proyecto_origen = jsonData.proyecto_destino){
+  //   toast.error('Debes seleccionar distintos Proyectos.')
+  //   throw new Error()
+  // }
 
   const query: OutputData = {
-    query: "06",
+    query: "07",
     _p1: jsonData.proyecto_origen,
     _p2: jsonData.proyecto_destino,
   };
@@ -74,7 +74,7 @@ interface IUserFormPrps {
   escritura_lectura?: boolean;
 }
 
-const FProyectosArmazonesCopiar: React.FC<IUserFormPrps> = React.memo(
+const FProyectosDireccionesCopiar: React.FC<IUserFormPrps> = React.memo(
   ({ closeModal, setEntities, params, label, data, isEditting, escritura_lectura }) => {
     const schema = validationProyectoParametrizacionCopiar();
     const { showModal, CustomModal } = useModal();
@@ -91,7 +91,7 @@ const FProyectosArmazonesCopiar: React.FC<IUserFormPrps> = React.memo(
       // focusSecondInput,
     } = useCrud(strBaseUrl);
     const [blnKeep, setblnKeep] = useState(false);
-    const intId = data && [data[EnumGrid.codigo_armazon, EnumGrid.codigo_proyecto]];
+    // const intId = data && [data[EnumGrid.codigo_armazon, EnumGrid.codigo_proyecto]];
     const {
       control,
       handleSubmit,
@@ -211,7 +211,7 @@ const FProyectosArmazonesCopiar: React.FC<IUserFormPrps> = React.memo(
           });
         }
       },
-      [editEntity, createdEntity, handleApiResponse, intId]
+      [editEntity, createdEntity, handleApiResponse]
     );
 
     return (
@@ -278,4 +278,4 @@ const FProyectosArmazonesCopiar: React.FC<IUserFormPrps> = React.memo(
   }
 );
 
-export default FProyectosArmazonesCopiar;
+export default FProyectosDireccionesCopiar;

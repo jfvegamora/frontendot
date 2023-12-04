@@ -33,7 +33,7 @@ export const TITLES = {
   ingreso: "Ingreso de ",
   egreso: "Egreso de ",
   edicion: "Edición de ",
-  copiar: "Copiar",
+  copiar: "Copia de ",
   permisos: "Permisos copiados correctamente",
   permisosError: "Usuario ya cuenta con permisos",
 };

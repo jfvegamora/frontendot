@@ -11,6 +11,7 @@ import {
 } from "../../components";
 import { TITLES, table_head_proyectos_cristales } from "../../utils";
 import FProyectosCristales from "../forms/FProyectosCristales";
+import FProyectosCristalesCopiar from "../forms/FProyectosCristalesCopiar";
 
 const strEntidad = "Parametrización de Cristales ";
 const strEntidadExcel = "Parametrizacion_de_Cristales";
@@ -63,7 +64,9 @@ const MProyectosCristales: React.FC = () => {
       //modal methods
       isModalInsert,
       isModalEdit,
+      isModalCopiar,
       toggleEditModal,
+      toggleModalCopiar,
       openModal,
       closeModal,
       //Check methods
@@ -113,11 +116,13 @@ const MProyectosCristales: React.FC = () => {
             handleAddPerson={openModal}
             handleDeleteSelected={handleDeleteSelected}
             handleRefresh={resetEntities}
+            handleCopiar={toggleModalCopiar}
             params={params}
             pkToDelete={pkToDelete}
             strEntidad={strEntidadExcel}
             strBaseUrl={strBaseUrl}
             showAddButton={true}
+            showCopiar={true}
             showExportButton={true}
             showDeleteButton={true}
             showForwardButton={false}
@@ -170,6 +175,17 @@ const MProyectosCristales: React.FC = () => {
             />
         )}
 
+        {isModalCopiar && (
+        <FProyectosCristalesCopiar
+          label={`${TITLES.copiar} ${strEntidad}`}
+          closeModal={closeModal}
+          selectedRows={selectedRows}
+          setEntities={setEntities}
+          params={params}
+          isEditting={false}
+          escritura_lectura={escritura_lectura}
+        />
+      )}
       </div>
     );
   };

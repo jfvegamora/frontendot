@@ -11,6 +11,7 @@ import {
 import { useEntityUtils, usePermission } from "../../hooks";
 import { TITLES, table_head_proyectos_puntos_venta} from "../../utils";
 import FProyectosPuntosVenta from "../forms/FProyectosPuntosVenta";
+import FProyectosPuntosVentaCopiar from "../forms/FProyectosPuntosVentaCopiar";
 
 
 export enum EnumGrid {
@@ -45,7 +46,9 @@ const MProyectosPuntosVenta: React.FC = () => {
     //modal methods
     isModalInsert,
     isModalEdit,
+    isModalCopiar,
     toggleEditModal,
+    toggleModalCopiar,
     openModal,
     closeModal,
     //Check methods
@@ -97,11 +100,13 @@ const MProyectosPuntosVenta: React.FC = () => {
           handleAddPerson={openModal}
           handleDeleteSelected={handleDeleteSelected}
           handleRefresh={resetEntities}
+          handleCopiar={toggleModalCopiar}
           params={params}
           pkToDelete={pkToDelete}
           strEntidad={strEntidadExcel}
           strBaseUrl={strBaseUrl}
           showAddButton={true}
+          showCopiar={true}
           showExportButton={true}
           showDeleteButton={true}
           showForwardButton={false}
@@ -150,6 +155,18 @@ const MProyectosPuntosVenta: React.FC = () => {
           data={entity}
           closeModal={closeModal}
           isEditting={true}
+          escritura_lectura={escritura_lectura}
+        />
+      )}
+
+      {isModalCopiar && (
+        <FProyectosPuntosVentaCopiar
+          label={`${TITLES.copiar} ${strEntidad}`}
+          closeModal={closeModal}
+          selectedRows={selectedRows}
+          setEntities={setEntities}
+          params={params}
+          isEditting={false}
           escritura_lectura={escritura_lectura}
         />
       )}
