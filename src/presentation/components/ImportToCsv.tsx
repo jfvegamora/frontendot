@@ -10,6 +10,7 @@ import { URLBackend } from '../hooks/useCrud';
 import { signal } from '@preact/signals-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUpload } from '@fortawesome/free-solid-svg-icons';
+import { AppStore, useAppSelector } from '../../redux/store';
 
 export const resultExcelTypes = signal({})
 
@@ -34,6 +35,7 @@ const ImportToCsv:React.FC<ImportProps> = ({
   const [progress, setProgress] = useState(1);
   const [currentStage, setCurrentStage] = useState('Validacion');
   const [isOpen, setIsOpen] = useState(false)
+  const userState = useAppSelector((store: AppStore) => store.user);
   const [errors, setErrors] = useState<any>()
   let a = false
 
@@ -135,6 +137,7 @@ const ImportToCsv:React.FC<ImportProps> = ({
       formData.append('file', validate["blob"], 'modified_file.xls');
       formData.append('positions_to_remove', JSON.stringify(PositionToRemove[strEntidad as "Clientes"]));
       formData.append('entidad', JSON.stringify(strEntidad));
+      formData.append('userID',JSON.stringify(userState?.id));
 
       // await handleValidacion(validate["numberOfElements"] || 0)
       const url = `${URLBackend.value}/api/excel/import/`
