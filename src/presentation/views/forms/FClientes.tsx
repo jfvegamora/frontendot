@@ -24,6 +24,7 @@ import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
 import { toast } from "react-toastify";
 import RegProCom from "../../components/RegProCom";
+import FrameComponent from "../../components/FrameComponent";
 
 const strBaseUrl = "/api/clientes/";
 const strEntidad = "Cliente ";
@@ -295,7 +296,7 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
 
 
     return (
-      <div className="useFormContainer centered-div use60rem" >
+      <div className="useFormContainer centered-div use70rem" >
         <div className="userFormBtnCloseContainer ">
           <button onClick={closeModal} className="userFormBtnClose">
             X
@@ -307,8 +308,9 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))}
           className="userFormulario "
         >
-          <div className="userFormularioContainer  !h-[40rem]">
-            <div className="input-container rowForm">
+          <div className="userFormularioContainer  !h-[30rem] ">
+
+            <div className="input-container rowForm  !h-[4rem]">
               <div className="flex">
                 <div className="">
                   <TextInputComponent
@@ -334,13 +336,24 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
                     inputRef={secondInputRef}
                   />
                 </div>
+                <div className="!w-[30rem] mt-[0.3rem]">
+                    <SelectInputComponent
+                        label="Establecimiento"
+                        name="establecimiento"
+                        showRefresh={true}
+                        data={data && data[EnumGrid.establecimiento_id]}
+                        control={control}
+                        entidad={["/api/establecimientos/", "02"]}
+                        error={errors.establecimiento}
+                    />
+                </div>
               </div> 
             </div>
 
-            <div className="input-container items-center !mt-[1rem] rowForm">
+            <div className="input-container items-center !mt-[1rem] rowForm  !h-[19rem]">
               <div className="flex" style={{ display: 'inline'}}>
                 <div className="flex">
-                  <div className="w-[50%] mr-10 flex !h-[8rem]">
+                  <div className="w-[50%] !mt-2 mr-10 flex !h-[8rem]">
                     <RadioButtonComponent
                       control={control}
                       label="Sexo"
@@ -363,28 +376,30 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
                       ]}
                       error={errors.tipo}
                     />
-                  </div>
-
-                  <div className="flex w-[50%] mr-10">
+                  <div className="flex  absolute top-[58%] w-[50%] mr-10">
                     <div className="flex-col">
                     <div className="flex">
-                      <TextInputComponent
-                        type="date"
-                        label="Fecha Nacimiento"
-                        name="fecha_nacimiento"
-                        data={data && data[EnumGrid.fecha_nacimiento]}
-                        control={control}
-                        error={errors.fecha_nacimiento}
-                      />
+                      <div className="w-[50%]">
+                        <TextInputComponent
+                          type="date"
+                          label="Fecha Nacimiento"
+                          name="fecha_nacimiento"
+                          data={data && data[EnumGrid.fecha_nacimiento]}
+                          control={control}
+                          error={errors.fecha_nacimiento}
+                        />
+                      </div>
+                      <div className="w-[50%]">
+                        <TextInputComponent
+                          type="text"
+                          label="Teléfono"
+                          name="telefono"
+                          data={data && data[EnumGrid.telefono]}
+                          control={control}
+                          error={errors.telefono}
+                        />
+                      </div>
 
-                      <TextInputComponent
-                        type="text"
-                        label="Teléfono"
-                        name="telefono"
-                        data={data && data[EnumGrid.telefono]}
-                        control={control}
-                        error={errors.telefono}
-                      />
                     </div>
 
                       <TextInputComponent
@@ -396,55 +411,54 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
                         error={errors.correo}
                       />
 
-                      <SelectInputComponent
-                        label="Establecimiento"
-                        name="establecimiento"
-                        showRefresh={true}
-                        data={data && data[EnumGrid.establecimiento_id]}
-                        control={control}
-                        entidad={["/api/establecimientos/", "02"]}
-                        error={errors.establecimiento}
+                      
+                    </div>
+                  </div>
+
+                  </div>
+
+                    
+                  <div className="w-[40%] !mt-[.8rem] !ml-8 border ">
+                      
+                    <label className="labelForm w-[20%] top-[-7%] left-2 text-center z-10 ">Dirección</label>
+                    <RegProCom
+                      name="comuna"
+                      control={control}
+                      register={register}
+                      setValue={setValue}
+                      defaultRegion={data && data[EnumGrid.region_id]}
+                      defaultComuna={data && data[EnumGrid.comuna_id]}
+                      defaultProvincia={data && data[EnumGrid.provincia_id]}
+                      errors={errors.comuna}
+                      />
+                    <div className="">
+                      <TextInputComponent
+                      type="text"
+                      label="Direccion"
+                      name="direccion"
+                      data={data && data[EnumGrid.direccion]}
+                      control={control}
+                      error={errors.direccion}
                       />
                     </div>
                   </div>
+                    
                 </div>
               </div> 
             </div>
 
 
-            <div className="input-container items-center rowForm" >
+            {/* <div className="input-container items-center rowForm" >
               <div className="flex  !bg-red-500">
                 <div className="w-[20%]">
                 </div>
 
-                <div className="w-[60%] !mt-[1rem] ">
-                  <label className="labelForm w-[20%] top-[-7%] left-2 text-center z-10 ">Dirección</label>
-                  <RegProCom
-                    name="comuna"
-                    control={control}
-                    register={register}
-                    setValue={setValue}
-                    defaultRegion={data && data[EnumGrid.region_id]}
-                    defaultComuna={data && data[EnumGrid.comuna_id]}
-                    defaultProvincia={data && data[EnumGrid.provincia_id]}
-                    errors={errors.comuna}
-                  />
-                  <div className="">
-                    <TextInputComponent
-                    type="text"
-                    label="Direccion"
-                    name="direccion"
-                    data={data && data[EnumGrid.direccion]}
-                    control={control}
-                    error={errors.direccion}
-                    />
-                  </div>
-                </div>
+                
 
                 <div className="w-[20%]">
                 </div>
               </div>
-            </div>
+            </div> */}
 
             <div className="flex items-center rowForm justify-center">
               <div className="w-[50%] pt-4">

@@ -247,7 +247,8 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
               ) : input.type === "select" ? (
               <div className={`input-container ${input.styles?.with ? input.styles.with : "!w-[20rem]"}`}>
                   {/* <div className={` ${primaryKeyInputs.length > 4 ? "w-full" : "w-[13rem]"}`}> */}
-                  <div className={`${input.styles?.with ? input.styles.with : ""} `}>
+                  {/* <div className={`${input.styles?.with ? input.styles.with : ""} `}> */}
+                  <div className="w-full ">
                         <SelectInputComponent
                           label={input.label}
                           name={input.name}

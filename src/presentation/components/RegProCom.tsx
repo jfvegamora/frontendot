@@ -85,7 +85,7 @@ const RegProCom:React.FC<IProps> = ({
 //   console.log(errors)
 // console.log(defaultComuna)
   return (
-    <div className='w-full py-2 items-center border'>
+    <div className='w-full py-2 items-center '>
         <div className="w-[93%] mb-4">
             <Controller
                 name="cliente_region_id"

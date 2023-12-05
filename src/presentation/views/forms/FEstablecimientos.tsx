@@ -306,6 +306,7 @@ const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={["/api/mandantes/", "02"]}
                     error={errors.mandante}
+                    customWidth={"w-full ml-4"}
                   />
               </div>
             </div>

@@ -274,7 +274,7 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
             </div>
 
             <div className="input-container items-center rowForm">
-              <div className="w-[99%] !mb-[2rem]  !mt-[1.5rem]">
+              <div className="w-[99%] !mb-[2rem]  ">
                 <TextInputComponent
                   type="text"
                   label="Dirección"
@@ -285,7 +285,7 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
               </div>
             </div>
 
-          <div className="input-container items-center rowForm">
+          <div className="input-container items-center rowForm ">
               <div className="w-full ">
                 <SelectInputComponent
                   label="Almacén"
@@ -295,7 +295,7 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
                   control={control}
                   entidad={["/api/almacenes/", "02"]}
                   error={errors.almacen}
-                  customWidth={"345px"}
+                  customWidth={"w-full ml-4"}
                 />
               </div>
           </div>
@@ -310,7 +310,7 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
                 control={control}
                 entidad={["/api/usuarios/", "02"]}
                 error={errors.encargado}
-                customWidth={"345px"}
+                customWidth={"w-full ml-4"}
               />
             </div>
         </div>

@@ -115,7 +115,7 @@ const MCristales: React.FC = () => {
                   label: "Diseño",
                   type: "select",
                   selectUrl: "/api/tipos/",
-                  tipos: "CristalesDisenos", styles:{with:"!mt-[0.5rem]"},
+                  tipos: "CristalesDisenos", styles:{with:"!mt-[0.5rem]  w-[19rem]"},
                 },
                 {
                   name: "_pMaterial",
