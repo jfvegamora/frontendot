@@ -19,7 +19,8 @@ interface ITextInputProps {
   maxLength?:number;
   step?:number;
   tabIndex?: number;
-  isOT?:boolean
+  isOT?:boolean;
+  customWidth?: any;
 }
 
 const TextInputComponent: React.FC<ITextInputProps> = ({
@@ -36,7 +37,8 @@ const TextInputComponent: React.FC<ITextInputProps> = ({
   maxLength,
   step,
   tabIndex,
-  isOT
+  isOT,
+  customWidth
 }) => {
   const [defaultValue, setDefaultValue] = useState<any>(data && data || "")
 
@@ -77,7 +79,8 @@ return (
     defaultValue={defaultValue}
     render={({ field }) => (
       // <div className="flex flex-col  w-full">
-      <div className="!mb-[1rem] !ml-[1rem]">
+      // <div className="!mb-[1rem] !ml-[1rem]">
+        <div className={` !mb-[1rem] !ml-[1rem] ${customWidth ? customWidth : ""} `}>
         <Input
           {...field}
           error = {error ? true : false }
