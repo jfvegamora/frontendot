@@ -115,7 +115,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
 
     const handleKeyDown = React.useCallback(
       (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === " " || e.key === "Enter") {
+        if ( e.key === "Enter") {
           e.preventDefault();
           handleSubmit(handleSearch)();
         }

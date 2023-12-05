@@ -359,6 +359,7 @@ const FCristalesKardexIN: React.FC<IUserFormPrps> = React.memo(
     }
 
     // console.log('cristalDescritpion',cristalDescritpion)
+    console.log(errors)
 
     return (
       <div className="useFormContainer centered-div use50rem">
@@ -408,7 +409,7 @@ const FCristalesKardexIN: React.FC<IUserFormPrps> = React.memo(
                 <div className="w-full !mt-4">
                     <SelectInputComponent
                       label="Motivo Ingreso"
-                      name="motivo_imgreso"
+                      name="motivo_ingreso"
                       showRefresh={true}
                       data={data && data[EnumGrid.motivo_id]}
                       control={control}
