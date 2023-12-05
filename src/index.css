@@ -659,6 +659,7 @@ input:checked + .slider:before {
 .radioComponent, .dirCliente{
   border-color: #f8b179;
   border-width: 2px;
+  border-radius: 15px;
   /* position: relative; */
 }
 

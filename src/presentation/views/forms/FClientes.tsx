@@ -350,7 +350,7 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
               </div> 
             </div>
 
-            <div className="input-container items-center !mt-[1rem] rowForm  !h-[19rem]">
+            <div className="input-container items-center !mt-[1rem] rowForm !h-[19rem]">
               <div className="flex" style={{ display: 'inline'}}>
                 <div className="flex">
                   <div className="w-[50%] !mt-2 mr-10 flex !h-[8rem]">
@@ -418,7 +418,7 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
                   </div>
 
                     
-                  <div className="w-[40%] !mt-[.8rem] !ml-8 border ">
+                  <div className="w-[40%] !mt-[.8rem] !ml-8 dirCliente ">
                       
                     <label className="labelForm w-[20%] top-[-7%] left-2 text-center z-10 ">Dirección</label>
                     <RegProCom

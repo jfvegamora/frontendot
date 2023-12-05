@@ -291,7 +291,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                 </div>
               ) : (
                 // Otros tipos de entrada
-              <div className={`input-container !mt-[-0.6rem] !ml-[0rem] !mr-4 !pl-[0rem] !pr-[1rem] 
+              <div className={`input-container !mt-[-0.3rem] !ml-[0rem] !mr-4 !pl-[0rem] !pr-[1rem] 
                               ${input.styles?.with ? input.styles.with : ""}`}>
                 <Controller
                   name={input.name}
