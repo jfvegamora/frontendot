@@ -223,12 +223,17 @@ select::-ms-expand {
   /* color: rgb(97 97 97 / var(--tw-text-opacity)); */
   color: #676f9d;
   background-color: #ffffff;
-
+  min-width: unset !important;
   height: 3rem;
   white-space: pre-wrap;
   margin: 0px 0px 0px 0px !important;
   
 }
+/* Estilo para anular min-width con !important */
+[class~="min-w-[200px]"] {
+  min-width: auto !important;
+}
+
 
 .custom-input.error {
   border-width: 3px; /* Ajusta el ancho del borde para el error */
@@ -724,6 +729,7 @@ input[type="radio"]:checked{
   transform: translate(-50%, -50%);
 }
 
+
 .useFormContainer {
   --tw-bg-opacity: 1;
   background-color: rgb(103 111 157 / 0.9);
@@ -787,7 +793,7 @@ input[type="radio"]:checked{
 
 .labelForm {
   background-color: rgb(103 111 157 / 0.5);
-  color:white;
+  color:orange;
   /* border-radius: 15%; */
   /* top: -18px !important; */
 }

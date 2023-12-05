@@ -345,6 +345,7 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
                         control={control}
                         entidad={["/api/establecimientos/", "02"]}
                         error={errors.establecimiento}
+                        customWidth={"!w-[30rem]"}
                     />
                 </div>
               </div> 
@@ -420,7 +421,7 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
                     
                   <div className="w-[40%] !mt-[.8rem] !ml-8 dirCliente ">
                       
-                    <label className="labelForm w-[20%] top-[-7%] left-2 text-center z-10 ">Dirección</label>
+                    <label className="labelForm !px-[0.8rem] !top-[-1rem] !left-[1rem] z-10 relative">Dirección</label>
                     <RegProCom
                       name="comuna"
                       control={control}
@@ -439,6 +440,7 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
                       data={data && data[EnumGrid.direccion]}
                       control={control}
                       error={errors.direccion}
+                      customWidth={"!mt-[-1rem]"}
                       />
                     </div>
                   </div>

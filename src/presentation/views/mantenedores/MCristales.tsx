@@ -126,7 +126,7 @@ const MCristales: React.FC = () => {
                 },
 
                 
-                { name: "_pEsferico",   label: "Esférico", type: "number",  },
+                { name: "_pEsferico",   label: "Esférico", type: "number", styles:{with:"!w-[8rem]"} },
                 { name: "_pDiametro", label: "Diámetro", type: "number", styles:{with:"!mt-[-0.1rem] !w-[16.8rem]"}},
                
                 {
@@ -187,7 +187,7 @@ const MCristales: React.FC = () => {
         </div>
       </FilterButton>
 
-      <div className={`width100 scroll ${filterToggle.value ? "!mt-[14rem] !h-[20rem]" : "!mt-[4rem] !h-[100rem]"} `}>
+      <div className={`width100 scroll ${filterToggle.value ? "!mt-[21rem] !h-[25rem]" : "!mt-[4rem] !h-[100rem]"} `}>
         <TableComponent
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
