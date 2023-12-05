@@ -31,7 +31,7 @@ import { clearLocalStorage } from "../../redux/slices/ListBoxTipoSlice";
 import avatarImage from '../../assets/avatar01.png';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronDown, faFileLines, faWarehouse, faHandshakeSimple, faGears } from '@fortawesome/free-solid-svg-icons';
+import { faChevronDown, faGlasses, faWarehouse, faGears, faWallet } from '@fortawesome/free-solid-svg-icons';
 
 
 export const strNavTitle  = signal("");
@@ -138,7 +138,7 @@ const navListMenuOT = [
     id: 1,
   },
   {
-    title: "Clientes",
+    title: "Beneficiarios / Clientes",
     link: "/clientes",
     id: 2,
   },
@@ -153,7 +153,7 @@ const navListMenuOT = [
     id: 4,
   },
   {
-    title: "Situaciones",
+    title: "Situaciones de derivación",
     link: "/situaciones",
     id: 29,
   },
@@ -209,11 +209,6 @@ const navListMenuBodega = [
 
 const navListMenuProyectos = [
   {
-    title: "Mandantes",
-    link: "/mandantes",
-    id: 14,
-  },
-  {
     title: "Proyectos",
     link: "/proyectos",
     id: 15,
@@ -254,13 +249,28 @@ const navListMenuProyectos = [
     id: 20,
   },
   {
+    title: "Mandantes",
+    link: "/mandantes",
+    id: 14,
+  },
+  {
     title: "Oftalmólogos",
     link: "/oftalmologos",
     id: 21,
   },
+  {
+    title: "Empresas",
+    link: "/empresas",
+    id: 27,
+  },
 ];
 
 const navListMenuSistema = [
+  {
+    title: "Usuarios",
+    link: "/usuarios",
+    id: 24,
+  },
   {
     title: "Cargos",
     link: "/cargos",
@@ -280,16 +290,6 @@ const navListMenuSistema = [
     title: "Perfiles de Cargo",
     link: "/perfiles",
     id: 25,
-  },
-  {
-    title: "Usuarios",
-    link: "/usuarios",
-    id: 24,
-  },
-  {
-    title: "Empresas",
-    link: "/empresas",
-    id: 27,
   },
 ];
 
@@ -337,7 +337,7 @@ function NavListMenuOT({ userPermission }: { userPermission: number[] }) {
               {...triggers}
               className="hidden items-center gap-2 font-menu lg:flex lg:rounded-full"
             >
-              <FontAwesomeIcon icon={faFileLines} size="xl" /> OT{" "}  
+              <FontAwesomeIcon icon={faGlasses} size="xl" /> VENTAS{" "}  
               <FontAwesomeIcon icon={faChevronDown} strokeWidth={2} className={`h-3 w-3 transition-transform ${isMenuOpen ? "rotate-180" : "" }`}/>  
             </MenuItem>
           </Typography>
@@ -362,7 +362,7 @@ function NavListMenuOT({ userPermission }: { userPermission: number[] }) {
       </Menu>
       <MenuItem className="flex items-center gap-2 text-blue-gray-900 lg:hidden">
         {/* <Square3Stack3DIcon className="h-[18px] w-[18px]" /> OT{" "} */}
-        <FontAwesomeIcon icon={faFileLines} /> OT{" "}
+        <FontAwesomeIcon icon={faGlasses} /> VENTAS{" "}
       </MenuItem>
       <ul className="ml-6 flex w-full flex-col gap-1 lg:hidden">
         {renderItems}
@@ -495,7 +495,7 @@ function NavListMenuProyectos({userPermission,}: {userPermission: number[];}) {
               {...triggers}
               className="hidden items-center gap-2 font-menu lg:flex lg:rounded-full"
             >
-              <FontAwesomeIcon icon={faHandshakeSimple} size="xl" /> PROYECTOS{" "}  
+              <FontAwesomeIcon icon={faWallet} size="xl" /> ADMINISTRACIÓN{" "}  
               <FontAwesomeIcon icon={faChevronDown} strokeWidth={2} 
                   className={`h-3 w-3 transition-transform ${
                   isMenuOpen ? "rotate-180" : ""
@@ -521,7 +521,7 @@ function NavListMenuProyectos({userPermission,}: {userPermission: number[];}) {
         </MenuList>
       </Menu>
       <MenuItem className="flex items-center gap-2 text-blue-gray-900 lg:hidden">
-        <FontAwesomeIcon icon={faHandshakeSimple} /> PROYECTOS{" "}  
+        <FontAwesomeIcon icon={faWallet} /> ADMINISTRACIÓN{" "}  
       </MenuItem>
       <ul className="ml-6 flex w-full flex-col gap-1 lg:hidden">
         {renderItems}

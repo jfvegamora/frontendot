@@ -84,8 +84,8 @@ const MUsuarios: React.FC = () => {
  
   return (
     <div className="mantenedorContainer">
-      <div className="mantenedorHead width80 relative">
-        <div className="w-[70%]">
+      <div className="mantenedorHead width70 relative">
+        <div className="w-[60%]">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
             setParams={setParams}

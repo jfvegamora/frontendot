@@ -69,8 +69,8 @@ const MProveedores: React.FC = () => {
 
   return (
     <div className="mantenedorContainer">
-      <div className="mantenedorHead width80">
-        <div className="w-[60%]">
+      <div className="mantenedorHead width60">
+        <div className="w-[30%]">
           <PrimaryKeySearch
             baseUrl         ={strBaseUrl}
             setParams       ={setParams}

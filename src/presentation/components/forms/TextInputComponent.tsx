@@ -67,9 +67,8 @@ const TextInputComponent: React.FC<ITextInputProps> = ({
   // console.log(data)
   // console.log(data)
 return (
-  <div
-  className={`${"flex items-center mx-4 relative rounded-xl"}`}
-  >
+  // <div className={`${"flex items-center mx-4 relative rounded-xl"}`}>
+  <div className={`${"mr-4 rounded-xl "}`}>
   <Controller
     name={name}
     control={control}
@@ -77,7 +76,8 @@ return (
     
     defaultValue={defaultValue}
     render={({ field }) => (
-      <div className="flex flex-col  w-full">
+      // <div className="flex flex-col  w-full">
+      <div className="!mb-[1rem] !ml-[1rem]">
         <Input
           {...field}
           error = {error ? true : false }

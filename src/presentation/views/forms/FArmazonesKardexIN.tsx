@@ -254,7 +254,20 @@ const FArmazonesKardexIN: React.FC<IUserFormPrps> = React.memo(
         }
       }
 
-      let _p1 = `"${jsonData.fecha + " " + fechaHoraActual.toLocaleTimeString()}", ${jsonData.insumo}, ${jsonData.almacen}, ${1}, ${jsonData.motivo_ingreso}, ${jsonData.cantidad}, ${(jsonData.valor_neto && jsonData.valor_neto?.toString())?.length === 0 ? "0" : jsonData.valor_neto}, ${jsonData.proveedor}, ${(jsonData.numero_factura && jsonData.numero_factura?.toString())?.length === 0 ? "0" : jsonData.numero_factura}, ${'0'}, ${'0'}, "${jsonData.observaciones}", ${userId}, "${fechaFormateada + " " + dateHora}"`;
+      let _p1 = `"${jsonData.fecha + " " + fechaHoraActual.toLocaleTimeString()}", 
+      "${jsonData.insumo}", 
+      ${jsonData.almacen}, 
+      ${1}, 
+      ${jsonData.motivo_ingreso}, 
+      ${jsonData.cantidad}, 
+      ${(jsonData.valor_neto && jsonData.valor_neto?.toString())?.length === 0 ? "0" : jsonData.valor_neto}, 
+      ${jsonData.proveedor}, 
+      ${(jsonData.numero_factura && jsonData.numero_factura?.toString())?.length === 0 ? "0" : jsonData.numero_factura}, 
+      ${'0'}, 
+      ${'0'}, 
+      "${jsonData.observaciones}", 
+      ${userId}, 
+      "${fechaFormateada + " " + dateHora}"`;
 
       //  ${(jsonData.proveedor && jsonData.proveedor?.toString())?.length === 0 ? "0" : jsonData.proveedor}, 
       const kardex = [{

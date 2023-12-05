@@ -71,7 +71,7 @@ const MMandantes: React.FC = () => {
 
   return (
     <div className="mantenedorContainer">
-      <div className="mantenedorHead width80">
+      <div className="mantenedorHead width60">
         <div className="w-[60%]">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
@@ -79,7 +79,7 @@ const MMandantes: React.FC = () => {
             updateParams={updateParams}
             setEntities={setEntities}
             primaryKeyInputs={[
-              { name: "_p2", label: "Código", type: "number" },
+              { name: "_p2", label: "Código", type: "number", styles:{with:" !mt-[-1.3rem] !pr-[1rem]"}, },
               { name: "_p1", label: "Nombre", type: "text" },
             ]}
           />

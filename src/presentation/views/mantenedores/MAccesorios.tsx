@@ -93,19 +93,19 @@ const MAccesorios: React.FC = () => {
             updateParams={updateParams}
             setEntities={setEntities}
             primaryKeyInputs={[
-              { name: "_p1", label: "Código", type: "number" },
+              { name: "_p1", label: "Código", type: "text" },
               { name: "_p2", label: "Descripción", type: "text" },
               {
                 name: "_p3",
                 label: "Marca",
                 type: "select",
-                selectUrl: "/api/marcas/",
+                selectUrl: "/api/marcas/", styles:{with:"w-[14rem]"},
               },
               {
                 name: "_p4",
                 label: "Almacenes",
                 type: "select",
-                selectUrl: "/api/almacenes/",
+                selectUrl: "/api/almacenes/", styles:{with:"w-[14rem]"},
               },
               ]}
           />

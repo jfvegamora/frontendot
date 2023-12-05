@@ -88,7 +88,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
       if(primaryKeyInputs[1]){
         if(primaryKeyInputs[1]["type"] === "date" && primaryKeyInputs[2]["type"] === "date"){
           if(new Date(data["_p2"]) > new Date(data["_p3"])){
-            alert('Fecha desde es mayor a la fecha Hasta')
+            alert('Fecha desde es mayor a la Fecha hasta')
             return null;
           }
         }
@@ -126,209 +126,6 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
     const handleBlur = React.useCallback(() => {
       handleSubmit(handleSearch)();
     }, []);
-    // console.log(inputValues)
-
-    // const renderInputs = () => {
-    //   const inputGroups = [];
-    //   for (let i = 0; i < primaryKeyInputs.length; i += 6) {
-    //     inputGroups.push(primaryKeyInputs.slice(i, i + 6));
-    //   }
-
-    //   return inputGroups.map((group, groupIndex) => (
-    //     <div
-    //       key={groupIndex}
-    //       className={
-    //         primaryKeyInputs.length > 5
-    //           ? `grid grid-rows-3 w-[40vw] h-[30vh] grid-cols-2 items-center `
-    //           : "flex mb-auto items-cente w-[70rem] ml-[-1rem] items-center "
-    //       }
-    //     >
-    //       {group.map((input, inputIndex) => (
-    //         <Controller
-    //           key={inputIndex}
-    //           name={input.name}
-    //           control={control}
-    //           defaultValue=""
-    //           render={({ field }) => (
-    //             <div className="w-full flex items-center rowForm input-container">
-    //               {input.type === "select" ? (
-    //                 input.tipos  ? (
-    //                   // <div className={` items-center bg-red-500 mb-2 w-[90%] `}>
-    //                   <div className="input-container custom-select-key w-full">
-    //                     <SelectInputTiposComponent
-    //                       label={input.label}
-    //                       name={input.name}
-    //                       showRefresh={true}
-    //                       control={control}
-    //                       entidad={input.tipos}
-    //                       inputValues={inputValues}
-    //                       setHandleSearch={handleSearch}
-    //                       handleSelectChange={handleSelectChange}
-                          
-    //                     />
-    //                   </div>
-    //                 ) : (
-    //                   <div className={` input-container w-full !mt-2`}>
-    //                   <SelectInputComponent
-    //                     label={input.label}
-    //                     name={input.name}
-    //                     showRefresh={true}
-    //                     control={control}
-    //                     entidad={
-    //                       input.tipos
-    //                         ? [input.selectUrl, "02", input.tipos]
-    //                         : [input.selectUrl, "02"]
-    //                     }
-    //                     inputName={input.name}
-    //                     inputValues={inputValues}
-    //                     setHandleSearch={handleSearch}
-    //                     handleSelectChange={handleSelectChange}
-    //                     customWidth={"200px"}
-    //                   />
-    //                 </div>
-    //                 )
-                    
-    //               ) : input.type === "radiobuttons" ? (
-    //                 <div className="relative px-8 items-center py-4 w-[92%]  mt-2 mx-auto border-[0.5px] border-[dodgerblue] rounded-md flex">
-    //                   <label className="absolute text-sm top-[-10px] left-4 bg-[ghostwhite] w-[6rem]">
-    //                     <span className="ml-[20px] text-[16px]">
-    //                       {input.label}
-    //                     </span>
-    //                   </label>
-    //                   <div className="primaryKeyRadioContainer">
-    //                     {input.options?.map((entity, index) => (
-    //                       <div
-    //                         key={index}
-    //                         className="primaryKeybtnRadioContainer"
-    //                       >
-    //                         <input
-    //                           type="radio"
-    //                           {...field}
-    //                           value={input.values[entity]}
-    //                           onChange={(e) => {
-    //                             field.onChange(e.target.value);
-    //                           }}
-    //                         />
-    //                         <span className="ml-1">{entity}</span>
-    //                       </div>
-    //                     ))}
-    //                   </div>
-    //                 </div>
-    //               ) : input.type === "date" ? (
-    //                 <div className="ml-6 w-full mx-2 items-center relative mt-2">
-    //                   <label className="primaryKeyLabel items-center text-xs mt-1 absolute top-[-1rem]">{input.label}</label>
-    //                   <input
-    //                     type="date"
-    //                     className="h-[2.5rem] w-full border border-black rounded"
-    //                     {...field}
-    //                     value={field.value || ""}
-    //                     onChange={(e) => {
-    //                       field.onChange(e.target.value);
-    //                     }}
-    //                     onBlur={handleBlur}
-    //                   />
-    //                 </div>
-    //               ) : (
-    //                 <div className="w-[90%]  items-center input-container rowForm  ">
-    //                       <div className={`-mt-2 mx-auto w-[96%] `}>
-    //                         {input.name === "_pEsferico" ? (
-    //                           <div className="grid grid-rows-1 grid-cols-2 ">
-    //                             <Input
-    //                             color="orange"
-    //                             type={input.type}
-    //                             tabIndex={1}
-    //                             className={`${input?.styles?.with || "!w-[96%]"} !h-12 ml-2`}
-    //                             {...field}
-    //                             label={input.label}
-    //                             value={inputValues[input.name] || ""}
-    //                             onChange={(e) => {
-    //                               field.onChange(e);
-    //                               handleInputChange(input.name, e.target.value);
-    //                             }}
-    //                             onKeyDown={handleKeyDown}
-    //                             onBlur={handleBlur}
-    //                             labelProps={{
-    //                               style: {
-    //                                 color: "grey",
-    //                                 fontWeight: "normal",
-    //                                 fontSize: "16px",
-    //                               },
-    //                             }}
-    //                             />
-    //                             <Input
-    //                               {...register('_pCilindrico')}
-    //                               color="blue"
-    //                               tabIndex={1}
-    //                               className={`${input?.styles?.with || "!w-[96%]"} !h-12 ml-2`}
-    //                               type={input.type}
-    //                               label="Cilíndrico"
-    //                               value={cilindrico}
-    //                               onChange={(e) => {
-    //                                 field.onChange(e);
-    //                                 setCilindrico(e.target.value as any)
-    //                                 // handleInputChange("_pCilindrico", e.target.value);
-    //                               }}
-    //                               onKeyDown={handleKeyDown}
-    //                               onBlur={handleBlur}
-    //                               labelProps={{
-    //                                 style: {
-    //                                   color: "grey",
-    //                                   fontWeight: "normal",
-    //                                   fontSize: "16px",
-    //                                 },
-    //                               }}
-                                
-    //                           />
-                              
-    //                           </div>
-    //                         ) : (
-    //                           <Input
-    //                             color="orange"
-    //                             tabIndex={1}
-    //                             className={`${input?.styles?.with || "!w-[96%]"} !h-12 ml-2`}
-    //                             {...field}
-    //                             type={input.type}
-    //                             label={input.label}
-    //                             value={inputValues[input.name] || ""}
-    //                             onChange={(e) => {
-    //                               field.onChange(e);
-    //                               handleInputChange(input.name, e.target.value);
-    //                             }}
-    //                             onKeyDown={handleKeyDown}
-    //                             onBlur={handleBlur}
-    //                             labelProps={{
-    //                               style: {
-    //                                 color: "grey",
-    //                                 fontWeight: "normal",
-    //                                 fontSize: "16px",
-    //                               },
-    //                             }}
-    //                           />
-    //                         )}
-    //                       </div>
-    //                 </div>
-    //               )}
-    //             </div>
-    //           )}
-    //         />
-    //       ))}
-    //       {/* <div className="">
-    //         <Tooltip content="Buscar">
-    //         <IconButton
-    //         tabIndex={1}
-    //           variant="text"
-    //           className="primaryKeyIconButton items-center ml-6 "
-    //           type="submit"
-    //           onClick={handleSubmit(handleSearch)}
-    //         >
-    //           <MemoizedMagnifyingGlassIcon />
-            
-    //         </IconButton>
-    //       </Tooltip>
-    //       </div> */}
-    //     </div>
-    //   ));
-    // };
 
     const renderInputs = () => {
       const inputGroups = [];
@@ -346,10 +143,12 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
           }
         >
           {group.map((input, inputIndex) => (
-            <div key={inputIndex} className="w-full flex items-center rowForm input-container">
+            <div key={inputIndex} className="items-center rowForm ">
               {input.type === "number" ? (
-                <div className={`w-[90%] items-center input-container rowForm`}>
-                  <div className={`-mt-2 mx-auto w-[96%]`}>
+                // <div className={`w-[90%] items-center input-container rowForm`}>
+                <div className={`input-container ${input.styles?.with ? input.styles.with : ""}`}>
+                  {/* <div className={`-mt-2 mx-auto w-[96%]`}> */}
+                  <div className={``}>
                     {input.name === "_pEsferico" ? (
                       <div className="grid grid-rows-1 grid-cols-2  ">
                         <Controller
@@ -360,7 +159,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                             <Input
                               color="orange"
                               tabIndex={1}
-                              className={`${input?.styles?.with || "!w-[96%]"} !h-12 ml-2 !mt-4`}
+                              className={`${input?.styles?.with || "!w-[50%]"} !h-12 !mt-3`}
                               {...field}
                               label={input.label}
                               value={inputValues["_pEsferico"] || ""}
@@ -388,7 +187,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                             <Input
                               color="blue"
                               tabIndex={1}
-                              className={`${input?.styles?.with || "!w-[96%]"} !h-12 ml-2 !mt-4`}
+                              className={`${input?.styles?.with || "!w-[50%]"} !h-12 !mt-3`}
                               {...field}
                               label="Cilíndrico"
                               value={cilindrico}
@@ -410,8 +209,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                         />
                       </div>
                     ) : (
-                      
-                      <div className={`${input?.styles?.with || "!w-[96%] "} `}>
+                      <div className={`input-container ${input.styles?.with ? input.styles.with : ""}`}>
                         <Controller
                         name={input.name}
                         control={control}
@@ -420,8 +218,8 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                           <Input
                             color="orange"
                             tabIndex={1}
-                            // className={`${input?.styles?.with || "!w-[96%]"} !h-12 ml-2 !mt-4`}
-                            className={`!h-12 ml-2 !mt-4 `}
+                            className={`!h-12 !mt-4 `}
+                            // className=""
                             {...field}
                             type={input.type}
                             label={input.label}
@@ -447,8 +245,9 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                   </div>
                 </div>
               ) : input.type === "select" ? (
-                <div className={` input-container w-full !mt-6 `}>
-                  <div className={` ${primaryKeyInputs.length > 4 ? "w-full" : "w-[13rem]"}`}>
+              <div className={`input-container ${input.styles?.with ? input.styles.with : "!w-[20rem]"}`}>
+                  {/* <div className={` ${primaryKeyInputs.length > 4 ? "w-full" : "w-[13rem]"}`}> */}
+                  <div className={`${input.styles?.with ? input.styles.with : ""} `}>
                         <SelectInputComponent
                           label={input.label}
                           name={input.name}
@@ -463,13 +262,14 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                           inputValues={inputValues}
                           setHandleSearch={handleSearch}
                           handleSelectChange={handleSelectChange}
-                      
                         />
                   </div>
                 </div>
               ) : input.type === "date" ? (
-                <div className="ml-6 w-full mx-2 items-center relative !mt-4">
-                  <label className="primaryKeyLabel items-center text-xs mt-1 absolute top-[-1rem]">{input.label}</label>
+                <div className={`input-container !mr-[1rem] !mt-[0.2rem] 
+                              ${input.styles?.with ? input.styles.with : ""}`}>
+                  {/* <label className="primaryKeyLabel items-center text-xs mt-1 absolute top-[-1rem]">{input.label}</label> */}
+                  <label className="primaryKeyLabel items-center text-base mt-1 absolute top-[-1.1rem]">{input.label}</label>
                   <Controller
                     name={input.name}
                     control={control}
@@ -477,7 +277,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                     render={({ field }) => (
                       <input
                         type="date"
-                        className="h-[2.5rem] w-full border border-black rounded"
+                        className="h-[2.5rem] w-full border border-gray-500 rounded"
                         {...field}
                         value={field.value || ""}
                         onChange={(e) => {
@@ -490,6 +290,8 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                 </div>
               ) : (
                 // Otros tipos de entrada
+              <div className={`input-container !mt-[-0.6rem] !ml-[0rem] !mr-4 !pl-[0rem] !pr-[1rem] 
+                              ${input.styles?.with ? input.styles.with : ""}`}>
                 <Controller
                   name={input.name}
                   control={control}
@@ -498,7 +300,8 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                     <Input
                       color="orange"
                       tabIndex={1}
-                      className={`${input?.styles?.with || "!w-[96%]"} !h-12 ml-2`}
+                      // className={`${input?.styles?.with || "!w-[96%]"} !h-12 ml-2`}
+                      className={`!m-0 !h-12 !mt-[0.3rem]  ${input?.styles?.with || ""}`}
                       {...field}
                       type={input.type}
                       label={input.label}
@@ -519,6 +322,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                     />
                   )}
                 />
+            </div>
               )}
             </div>
           ))}
@@ -551,20 +355,22 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
     return (
       <form className="primaryKeyContainer items-center relative">
         {renderInputs()}
-        <Tooltip content="Buscar">
-            <IconButton
-            tabIndex={1}
-              variant="text"
-              className="primaryKeyIconButton items-center ml-2 mr-16  "
-              type="submit"
-              onClick={handleSubmit(handleSearch)}
-            >
-              {/* <MemoizedMagnifyingGlassIcon /> */}
-              {/* <MagnifyingGlassIcon className="primaryKeyIcon" se} /> */}
-              <FontAwesomeIcon icon={faMagnifyingGlass} className="primaryKeyIcon"/>
+        <div className="w-[60px]">
+          <Tooltip content="Buscar">
+              <IconButton
+              tabIndex={1}
+                variant="text"
+                // className="primaryKeyIconButton items-center ml-2 mr-16  "
+                className="primaryKeyIconButton ml-2 mr-2"
+                type="submit"
+                onClick={handleSubmit(handleSearch)}
+              >
+                {/* <MemoizedMagnifyingGlassIcon /> */}
+                {/* <MagnifyingGlassIcon className="primaryKeyIcon" se} /> */}
+                <FontAwesomeIcon icon={faMagnifyingGlass} className="primaryKeyIcon"/>
             </IconButton>
           </Tooltip>
-        
+        </div>
         {description && (
           <input
             className="mx-8 w-[44rem] border-none absolute bottom-[-2rem] left-[-2rem]"

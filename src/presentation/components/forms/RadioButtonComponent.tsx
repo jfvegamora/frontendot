@@ -35,18 +35,18 @@ const RadioButtonComponent: React.FC<IRadioButtonProps> = ({
 
   return (
     <div
-      className={`relative px-8 h-[90%] py-4 w-[90%]  mt-2 mx-auto border-[1px] radioComponent flex ${
+      className={`px-8 py-0 mt-2 mx-2 border-[1px] radioComponent flex   ${
         horizontal ? "justify-arround ml-4" : "flex-col justify-between"
       } rounded-lg ${error && "border border-red-400"}`}
     >
-      <label className="absolute text-sm top-[-10px] left-4  labelForm w-[6rem]">
-        <span className="ml-[20px] text-[16px]">{label}</span>
+      <label className="relative text-base top-[-15px] left-[-1rem] labelForm w-[6rem]">
+        <span className="ml-[2px] text-[16px]">{label}</span>
       </label>
       {options.map((option, index) => (
         <div
-          className={`${
+          className={` ${
             horizontal ? "px-20" : "px-[3rem]"
-          } py-2 flex w-1/3 textOption justify-between`}
+          } py-0 flex w-1 textOption `}
           key={index}
         >
           <Controller

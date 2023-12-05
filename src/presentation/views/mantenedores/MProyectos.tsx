@@ -103,7 +103,7 @@ const MProyectos: React.FC = () => {
   return (
     <div className="mantenedorContainer">
       <div className="mantenedorHead width100">
-        <div className="w-[75%] ">
+        <div className="w-[70%] ">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
             setParams={setParams}
@@ -114,16 +114,16 @@ const MProyectos: React.FC = () => {
                 name: "_p1",
                 label: "Mandante",
                 type: "select",
-                selectUrl: "/api/mandantes/",
+                selectUrl: "/api/mandantes/", styles:{with:" !w-[17rem]"},
               },
               {
                 name: "_p2",
                 label: "Título",
                 type: "select",
-                selectUrl: "/api/proyectos/",
+                selectUrl: "/api/proyectos/", styles:{with:" !w-[24rem]"},
               },
-              { name: "_p3", label: "Código Proyecto", type: "text" },
-              { name: "_p4", label: "Código Licitación", type: "text" },
+              { name: "_p3", label: "Código Proyecto", type: "text", styles:{with:" !w-[9rem]"}, },
+              { name: "_p4", label: "Código Licitación", type: "text", styles:{with:" !w-[9rem]"}, },
             ]}
           />
         </div>

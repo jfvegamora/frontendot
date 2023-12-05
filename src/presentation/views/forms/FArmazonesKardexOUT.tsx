@@ -172,7 +172,20 @@ const FArmazonesKardexOUT: React.FC<IUserFormPrps> = React.memo(
       /*INSERT INTO CristalesKardex 
       (fecha, cristal, almacen, es, motivo, cantidad, valor_neto, proveedor, 
         numero_factura, OT, almacen_relacionado, observaciones, usuario, fecha_mov)*/
-        let _p1 = `"${jsonData.fecha + " " + fechaHoraActual.toLocaleTimeString()}", ${jsonData.insumo}, ${jsonData.almacen}, ${2}, ${jsonData.motivo_egreso}, ${jsonData.cantidad}, ${'0'}, ${'0'}, ${'0'}, ${'0'}, ${jsonData.almacen_relacionado}, "${jsonData.observaciones}", ${userId}, "${fechaFormateada + " " + dateHora}"`;
+        let _p1 = `"${jsonData.fecha + " " + fechaHoraActual.toLocaleTimeString()}", 
+        "${jsonData.insumo}", 
+        ${jsonData.almacen}, 
+        ${2}, 
+        ${jsonData.motivo_egreso}, 
+        ${jsonData.cantidad}, 
+        ${'0'}, 
+        ${'0'}, 
+        ${'0'}, 
+        ${'0'}, 
+        ${jsonData.almacen_relacionado}, 
+        "${jsonData.observaciones}", 
+        ${userId}, 
+        "${fechaFormateada + " " + dateHora}"`;
 
         let kardex = []
 

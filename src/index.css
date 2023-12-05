@@ -659,7 +659,7 @@ input:checked + .slider:before {
 .radioComponent, .dirCliente{
   border-color: #f8b179;
   border-width: 2px;
-  position: relative;
+  /* position: relative; */
 }
 
 .radioComponent label span, .dirCliente label {
@@ -673,6 +673,15 @@ input[type="radio"]:checked{
 .short-number TextInputComponent {
   width: 100px;
 }
+
+.input-container{
+  margin: 0;
+  padding: 0;
+}
+
+/* .input-element{
+  margin-top: 0.5rem !important;
+} */
 
 .rowForm{
   height: 50px;
@@ -778,8 +787,8 @@ input[type="radio"]:checked{
 .labelForm {
   background-color: rgb(103 111 157 / 0.5);
   color:white;
-  border-radius: 15%;
-  top: -18px !important;
+  /* border-radius: 15%; */
+  /* top: -18px !important; */
 }
 
 .textOption{
@@ -842,12 +851,6 @@ input[type="radio"]:checked{
 .userFormularioContainer .input {
   margin-bottom: 20px; /* Espacio de 20px entre los input */
   flex: 1; /* Para que se ajusten al ancho del contenedor */
-}
-
-.input-container {
-  display: flex;
-  justify-content: space-between; /* Espacio entre elementos */
-  padding-right: 20px; /* Espacio desde el borde del contenedor */
 }
 
 .input {

@@ -129,8 +129,10 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
           control={control}
           defaultValue={strSelectedName}
           render={({ field }) => (
-            <div className={`custom-select border-gray-400 border-[1px] rounded-lg !h-[3rem]  absolute${error ? 'border-red-500' : 'border-gray-500'}  `}>
-              <div className=" top-[-18%]   left-3.5 absolute w-1/2 z-10">
+            // <div className={`custom-select border-gray-400 border-[1px] rounded-lg !h-[3rem]  absolute${error ? 'border-red-500' : 'border-gray-500'}  `}>
+            <div className={`custom-select border-gray-400 border-[1px] rounded-lg !h-[3rem] !p-0 !m-0 !ml-[1rem] absolute${error ? 'border-red-500' : 'border-gray-500'}  `}>
+              {/* <div className=" top-[-18%]   left-3.5 absolute w-1/2 z-10"> */}
+              <div className=" top-[-20%]   left-3.5 absolute w-1/2 z-10">
                 <label
                   htmlFor={label}
                   // className="absolute top-[-1%] left-[3%] text-sm"
@@ -169,8 +171,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
                     }
                   }
                 }}
-                className="custom-input py-2 px-3 w-[85%] cursor-pointer z-0"
-              >
+                className="custom-input py-2  cursor-pointer z-0">
                 {!data && (
                   <option value={undefined} className="text-sm">
                     
@@ -201,8 +202,8 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     }, [data]);
 
     return (
-      // <div className="flex min-w-[60px] w-full items-center mb-2 mx-4 mt-select mt-select-dropdown-up cursor-pointer ">
-      <div className="flex min-w-[100%] w-full items-center mx-4 mt-select mt-select-dropdown-up cursor-pointer">
+      // <div className="flex min-w-[100%] w-full items-center mx-4 mt-select mt-select-dropdown-up cursor-pointer">
+      <div className="flex items-center mt-select-dropdown-up cursor-pointer">
         {/* <label className="label-input w-1/3">{label}</label> */}
         {renderInput()}
         {/* Controller  */}

@@ -296,8 +296,8 @@ const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
             </div>
             </div>
 
-            <div className="input-container items-center rowForm w-[28.2rem] ">
-              <div className="w-[100%] !mt-[1rem] -mb-2">
+            <div className="input-container rowForm ">
+              <div className="!mt-[1rem] ">
                   <SelectInputComponent
                     label="Mandante"
                     name="mandante"
@@ -306,7 +306,6 @@ const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={["/api/mandantes/", "02"]}
                     error={errors.mandante}
-                    customWidth={"345px"}
                   />
               </div>
             </div>

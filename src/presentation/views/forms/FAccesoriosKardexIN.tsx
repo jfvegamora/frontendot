@@ -166,7 +166,7 @@ const FAccesoriosKardexIN: React.FC<IUserFormPrps> = React.memo(
       }
     
         let _p1 = `"${jsonData.fecha + " " + fechaHoraActual.toLocaleTimeString()}", 
-        ${jsonData.insumo}, 
+       "${jsonData.insumo}", 
         ${jsonData.almacen}, 
         ${1}, 
         ${jsonData.motivo_ingreso},

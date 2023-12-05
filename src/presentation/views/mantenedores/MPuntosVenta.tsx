@@ -73,8 +73,8 @@ const MPuntosVenta: React.FC = () => {
 
   return (
     <div className="mantenedorContainer">
-      <div className="mantenedorHead width80">
-        <div className="w-[50%]">
+      <div className="mantenedorHead width70">
+        <div className="w-[30%]">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
             setParams={setParams}
@@ -87,7 +87,7 @@ const MPuntosVenta: React.FC = () => {
                 label     : "Tipo",
                 type      : "select",
                 selectUrl : "/api/tipos/",
-                tipos     : "PuntosVentaTipos"
+                tipos     : "PuntosVentaTipos", styles:{with:" !w-[19rem]"},
               },
             ]}
           />

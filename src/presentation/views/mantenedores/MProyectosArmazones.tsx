@@ -92,7 +92,7 @@ const MProyectosArmazones: React.FC = () => {
   return (
     <div className="mantenedorContainer">
       <div className="mantenedorHead width90">
-      <div className="w-[70%]">
+      <div className="w-[75%]">
         <PrimaryKeySearch
           baseUrl={strBaseUrl}
           setParams={setParams}
@@ -101,12 +101,12 @@ const MProyectosArmazones: React.FC = () => {
           primaryKeyInputs={[
             {
               name: "_p1",
-              label: "Proyecto",
+              label: "Proyecto (?)",
               type: "select",
-              selectUrl: "/api/proyectos/",
+              selectUrl: "/api/proyectos/", styles:{with:" !w-[33rem]"},
             },
-            { name: "_p2", label: "Código Proyecto", type: "text" },
-            { name: "_p3", label: "Código Licitacion", type: "text" },
+            { name: "_p2", label: "Código Proyecto", type: "text", styles:{with:" !w-[9rem]"}, },
+            { name: "_p3", label: "Código Licitacion", type: "text", styles:{with:" !w-[9rem]"}, },
           ]}
         />
       </div>

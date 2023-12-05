@@ -65,15 +65,15 @@ const MCargos: React.FC = () => {
 
   return (
     <div className="mantenedorContainer">
-      <div className="mantenedorHead width60">
-        <div className="w-[60%]">
+      <div className="mantenedorHead width50">
+        <div className="w-[40%]">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
             updateParams={updateParams}
             setParams={setParams}
             setEntities={setEntities}
             primaryKeyInputs={[
-              { name: "_p1", label: "Funcionalidad", type: "text" },
+              { name: "_p1", label: "Funcionalidad", type: "text", styles:{with:" !w-[14rem]"} },
             ]}
           />
         </div>

@@ -93,7 +93,7 @@ const MArmazonesKardex: React.FC = () => {
             updateParams={updateParams}
             setEntities={setEntities}
             primaryKeyInputs={[
-              { name: "_p1", label: "Código", type: "number" },
+              { name: "_p1", label: "Código (?)", type: "text" },
               {
                 name: "_p4",
                 label: "Almacenes",
