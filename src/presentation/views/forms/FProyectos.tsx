@@ -402,7 +402,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                           control={control}
                           entidad={["/api/empresas/", "02"]}
                           error={errors.empresa_adjudicada}
-                          customWidth={"345px"}
+                          customWidth={"!ml-[1rem] !w-[21rem]"}
                           inputRef={secondInputRef}
                       />
                   </div>
@@ -418,21 +418,21 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                           control={control}
                           entidad={["/api/mandantes/", "02"]}
                           error={errors.mandante}
-                          customWidth={"345px"}
+                          customWidth={"!w-[21rem]"}
                       />
                   </div>
                 </div>
                 <div className="input-container items-center rowForm w-[25%]">
                   <div className="w-full">
                       <SelectInputComponent
-                          label="Ejecutivo de proyecto"
+                          label="Ejecutivo proyecto"
                           name="ejecutivo_proyecto"
                           showRefresh={true}
                           data={data && data[EnumGrid.EJECUTIVO_ID]}
                           control={control}
                           entidad={["/api/usuarios/", "02"]}
                           error={errors.ejecutivo_proyecto}
-                          customWidth={"345px"}
+                          customWidth={"!w-[21rem]"}
                           inputRef={secondInputRef}
                       />
                   </div>
@@ -440,14 +440,14 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                 <div className="input-container items-center rowForm w-[25%]">
                   <div className="w-full">
                       <SelectInputComponent
-                          label="Oftalmólogos"
+                          label="Oftalmólogo (Canasta)"
                           name="oftalmologo"
                           showRefresh={true}
                           data={data && data[EnumGrid.OFTALMOLOGO_ID]}
                           control={control}
                           entidad={["/api/oftalmologos/", "02"]}
                           error={errors.oftalmologo}
-                          customWidth={"345px"}
+                          customWidth={"!w-[23rem]"}
                           inputRef={secondInputRef}
                       />
                   </div>
@@ -613,6 +613,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                   />
               </div>          
             </div>
+
             <div className="input-container items-center rowForm w-[16%]">
               <div className="w-full mr-2">
                   <TextInputComponent
@@ -677,7 +678,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
            </div>      
 
 
-            <div className="w-full items-center flex h-[90px] mt-[15px] mb-[20px]">
+            <div className="w-full items-center flex h-[90px] mt-[25px] !mb-[40px]">
                   <FrameComponent>
                       <ContactComponent
                         label="Contacto Administrativo"
@@ -709,7 +710,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                   </FrameComponent>
             </div>
 
-            <div className="w-full items-center flex h-[50px] !mt-[30px] mb-[10px]">
+            <div className="w-full items-center flex h-[50px] ">
                    <FrameComponent>
                       <ContactComponent
                         label="Referente Técnino"

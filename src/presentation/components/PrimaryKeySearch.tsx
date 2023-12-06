@@ -159,7 +159,8 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                             <Input
                               color="orange"
                               tabIndex={1}
-                              className={`${input?.styles?.with || "!w-[50%]"} !h-12 !mt-3`}
+                              className={`${input?.styles?.with || "!w-[1rem] "} !h-12 !mt-3`}
+                              // className={`${input.styles?.with ? input.styles.with : ""}`}
                               {...field}
                               label={input.label}
                               value={inputValues["_pEsferico"] || ""}
@@ -245,7 +246,8 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                   </div>
                 </div>
               ) : input.type === "select" ? (
-              <div className={`input-container ${input.styles?.with ? input.styles.with : "!w-[20rem]"}`}>
+              // <div className={`input-container ${input.styles?.with ? input.styles.with : "!w-[20rem]"}`}>
+              <div className="input-container ">
                   {/* <div className={` ${primaryKeyInputs.length > 4 ? "w-full" : "w-[13rem]"}`}> */}
                   {/* <div className={`${input.styles?.with ? input.styles.with : ""} `}> */}
                   <div className="w-full ">
@@ -263,6 +265,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                           inputValues={inputValues}
                           setHandleSearch={handleSearch}
                           handleSelectChange={handleSelectChange}
+                          customWidth={input.styles?.with}
                         />
                   </div>
                 </div>

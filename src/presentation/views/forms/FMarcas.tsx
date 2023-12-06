@@ -258,7 +258,7 @@ const FMarcas: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={["/api/proveedores/", "02"]}
                     error={errors.proveedor}
-                    customWidth={"345px"}
+                    customWidth={"!ml-[1rem] !w-[28rem]"}
                   />
                 </div>
               </div>

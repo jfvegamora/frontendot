@@ -43,71 +43,54 @@ const TextInputComponent: React.FC<ITextInputProps> = ({
   const [defaultValue, setDefaultValue] = useState<any>(data && data || "")
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    
-    // console.log(e.target.name)
     if (handleChange) {
-      // if(e.target.name === formatvalue){
-      //   e.target.value = '20.00'
-      // }
       if(isOT){
         handleChange(e.target)
       }else{
         handleChange(e.target.value)
       }
-    
-    
     }
   };
- 
   
   useEffect(()=>{
     setDefaultValue(data)
-    // console.log(data)
   },[data])
 
+// ...
 
-  // console.log(data)
-  // console.log(data)
 return (
-  // <div className={`${"flex items-center mx-4 relative rounded-xl"}`}>
-  <div className={`mr-4 rounded-xl  ${customWidth ? customWidth : ""}`}>
-  <Controller
-    name={name}
-    control={control}
-    defaultValue={defaultValue}
-    render={({ field }) => (
-        <div className={` !mb-[1rem] !ml-[1rem]   `}>
+  <div className={`mr-4 rounded-xl ${customWidth ? customWidth : ""}`}>
+    <Controller
+      name={name}
+      control={control}
+      defaultValue={defaultValue}
+      render={({ field }) => (
+        <div className={`labelInput !mb-[1rem] !ml-[1rem] relative ${error ? 'border-red-500' : 'border-gray-500'}`}>
           <Input
             {...field}
-            error = {error ? true : false }
-            label     ={label}
-            id        ={label}
-            type      ={type}
-            readOnly  ={onlyRead}
-            maxLength ={maxLength}
-            onBlur    ={(e)=>handleInputChange(e)}
-            ref       ={inputRef}
-            className ={`${className ? className : " custom-input "}`}
-            tabIndex  ={tabIndex || 1}
+            error={error ? true : false}
+            label={label}
+            id={label}
+            type={type}
+            readOnly={onlyRead}
+            maxLength={maxLength}
+            onBlur={(e) => handleInputChange(e)}
+            ref={inputRef}
+            className={`${className ? className : "custom-input "}`}
+            tabIndex={tabIndex || 1}
             placeholder={type === 'date' ? "dd-mm-yyyy" : ''}
             autoComplete="off" 
-            
           />
-          {/* <input 
-            type="text" 
-            name="" 
-            id="" 
-          /> */}
-      </div>
-    )}
-  />
-  {error && (
-    <p className="text-xs text-red-500 absolute top-[.5rem] left-[22%]">
-      {error.message}
-    </p>
-  )}
-</div>
-  );
+          {error && (
+            <p className="absolute top-0 right-[50%] labelErr">
+              {error.message}
+            </p>
+          )}
+        </div>
+      )}
+    />
+  </div>
+);
 };
 
 export default TextInputComponent;

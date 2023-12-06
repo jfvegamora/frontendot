@@ -194,7 +194,7 @@ const FSituaciones: React.FC<ISituacionesFormProps> = React.memo(
       [editEntity, createdEntity, handleApiResponse, intId]
     );
     useEffect(() => {
-      focusFirstInput("nombre");
+      focusFirstInput("descripcion");
     }, [focusFirstInput]);
 
     useEffect(() => {

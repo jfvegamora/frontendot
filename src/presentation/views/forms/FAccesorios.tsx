@@ -250,7 +250,7 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
 
             <div className="w-full flex items-center h-[4rem]">
               <div className="input-container items-center rowForm  w-[50%] ">
-                <div className="w-full">
+                <div className="w-full !mt-4">
                   <TextInputComponent
                     type="text"
                     label="Código"
@@ -266,7 +266,37 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
               </div>
               <div className="input-container items-center rowForm  w-[50%]">
                 <div className="w-full !mt-4">
-                  <SelectInputComponent
+                <TextInputComponent
+                    type="text"
+                    label="Código FAB"
+                    name="codigo_fab"
+                    maxLength={20}
+                    data={data && data[EnumGrid.codigo]}
+                    control={control}
+                    error={errors.codigo}
+                    onlyRead={isEditting}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="w-full flex items-center h-[4rem]">
+              <div className="input-container items-center rowForm  w-[50%] ">
+                <div className="w-full !mt-4">
+                  <TextInputComponent
+                    type="text"
+                    label="Descripción"
+                    name="descripcion"
+                    data={data && data[EnumGrid.descripcion]}
+                    control={control}
+                    error={errors.descripcion}
+                    inputRef={secondInputRef}
+                  />
+                </div>
+              </div>
+              <div className="input-container items-center rowForm  w-[50%]">
+                <div className="w-full !mt-4">
+                <SelectInputComponent
                     label="Marca"
                     name="marca"
                     showRefresh={true}
@@ -274,13 +304,14 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={["/api/marcas/", "02"]}
                     error={errors.marca}
-                  />
+                    customWidth={"!ml-[1rem] !w-[19rem]"}
+                    />
                 </div>
               </div>
             </div>
 
             
-            <div className="w-full flex items-center h-[4rem]">
+            {/* <div className="w-full flex items-center h-[4rem]">
               <div className="input-container items-center rowForm w-full ">
                 <div className="w-full">
                     <TextInputComponent
@@ -294,7 +325,7 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
                     />
                 </div>
               </div>
-            </div>
+            </div> */}
 
             <div className="w-full flex items-center h-[4rem]">
               <div className="input-container items-center rowForm w-[50%] ">

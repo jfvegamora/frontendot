@@ -71,7 +71,7 @@ const transformUpdateQuery = (
 const FFuncionalidad: React.FC<IFormProps> = React.memo(
   ({ closeModal, setEntities, params, data, label, isEditting, escritura_lectura }) => {
     const schema = validationFuncionalidadSchema();
-    const { editEntity, createdEntity, ListEntity } = useCrud(strBaseUrl);
+    const { editEntity, createdEntity, ListEntity, firstInputRef, focusFirstInput} = useCrud(strBaseUrl);
     const [blnKeep, setblnKeep] = useState(false);
     const { show } = useCustomToast();
     const { showModal, CustomModal } = useModal();
@@ -183,6 +183,10 @@ const FFuncionalidad: React.FC<IFormProps> = React.memo(
       };
     }, [closeModal]);
 
+    useEffect(() => {
+      focusFirstInput("descripcion");
+    }, []);
+
     return (
       <div className="useFormContainer centered-div use30rem">
         <div className="userFormBtnCloseContainer">
@@ -208,7 +212,8 @@ const FFuncionalidad: React.FC<IFormProps> = React.memo(
                     data={data && data[EnumGrid.descripcion]}
                     control={control}
                     error={errors.descripcion}
-                  />
+                    inputRef={firstInputRef}
+                    />
                 </div>
               </div>
             </div>

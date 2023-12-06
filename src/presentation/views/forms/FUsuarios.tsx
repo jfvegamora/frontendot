@@ -307,6 +307,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                     error={errors.cargo}
                     customWidth={"345px"}
                     inputRef={secondInputRef}
+                    customWidth={"w-full ml-[1rem]"}
                   />
                 </div>
               </div>
@@ -339,7 +340,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                 </div>
               </div>
             </div>
-            <div className="w-full items-center flex !my-8">
+            <div className="w-full items-center flex !my-1">
               <div className="input-container items-center rowForm w-full">
                 <div className="w-full">
                   <RadioButtonComponent
@@ -349,7 +350,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                     data={data && data[EnumGrid.estado]}
                     options={["Activo", "Suspendido"]}
                     error={errors.estado}
-                    // horizontal={true}
+                    horizontal={true}
                   />
                 </div>
               </div>

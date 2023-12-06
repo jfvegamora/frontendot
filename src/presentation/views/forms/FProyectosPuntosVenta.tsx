@@ -257,7 +257,7 @@ const FProyectosPuntosVenta: React.FC<IUserFormPrps> = React.memo(
     }, []);
 
     return (
-      <div className="useFormContainer centered-div use30rem">
+      <div className="useFormContainer centered-div use40rem">
         <div className="userFormBtnCloseContainer">
           <button onClick={closeModal} className="userFormBtnClose">
             X
@@ -268,44 +268,54 @@ const FProyectosPuntosVenta: React.FC<IUserFormPrps> = React.memo(
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
-            <div className="rowForm">
-              <SelectInputComponent
-                label="Proyecto"
-                name="proyecto"
-                showRefresh={true}
-                data={data && data[EnumGrid.codigo_proyecto]}
-                control={control}
-                entidad={["/api/proyectos/", "02"]}
-                error={errors.proyecto}
-                inputRef={firstInputRef}
-                readOnly={isEditting}
-              />
-            </div>
-            <div className="rowForm">
-              <SelectInputComponent
-                  label="Punto de Venta"
-                  name="punto_venta"
+            <div className="w-full flex items-center h-[4rem] ">
+              <div className="input-container items-center rowForm w-full">
+                <div className="w-full ">
+                <SelectInputComponent
+                  label="Proyecto"
+                  name="proyecto"
                   showRefresh={true}
-                  data={data && data[EnumGrid.punto_venta_id]}
+                  data={data && data[EnumGrid.codigo_proyecto]}
                   control={control}
-                  entidad={["/api/puntosventa/", "02"]}
-                  error={errors.punto_venta}
+                  entidad={["/api/proyectos/", "02"]}
+                  error={errors.proyecto}
                   inputRef={firstInputRef}
                   readOnly={isEditting}
-                />
+                  customWidth={"!ml-[1rem] !w-[38rem] "}
+                  />
+                </div>
+              </div>
             </div>
+            <div className="w-full flex items-center !my-8 h-[4rem]">
+              <div className="input-container items-center rowForm w-[40%]">
+                <div className="w-full">
+                  <SelectInputComponent
+                      label="Punto de Venta"
+                      name="punto_venta"
+                      showRefresh={true}
+                      data={data && data[EnumGrid.punto_venta_id]}
+                      control={control}
+                      entidad={["/api/puntosventa/", "02"]}
+                      error={errors.punto_venta}
+                      inputRef={firstInputRef}
+                      readOnly={isEditting}
+                      customWidth={"!ml-[1rem] !w-[16rem]"}
+                      />
+                </div>
+              </div>
 
-            <div className="rowForm w-[100%] !h-auto">
-              <div className="w-full !mt-8">
-                <RadioButtonComponent
-                control={control}
-                label="Estado"
-                name="estado"
-                data={data && data[EnumGrid.estado]}
-                options={["Disponible", "No disponible"]}
-                error={errors.estado}
-                horizontal={true}
-                />
+              <div className="input-container items-center rowForm w-[60%]">
+                <div className="w-full">
+                  <RadioButtonComponent
+                  control={control}
+                  label="Estado"
+                  name="estado"
+                  data={data && data[EnumGrid.estado]}
+                  options={["Disponible", "No disponible"]}
+                  error={errors.estado}
+                  horizontal={true}
+                  />
+                </div>
               </div>
             </div>
           </div>

@@ -237,6 +237,7 @@ const FProyectosArmazonesCopiar: React.FC<IUserFormPrps> = React.memo(
                       control={control}
                       entidad={["/api/proyectos/", "02"]}
                       error={errors.proyecto_origen}
+                      customWidth={"!ml-[1rem] !w-[38rem] "}
                     />
                   </div>
                 </div>
@@ -253,6 +254,7 @@ const FProyectosArmazonesCopiar: React.FC<IUserFormPrps> = React.memo(
                       control={control}
                       entidad={["/api/proyectos/", "02"]}
                       error={errors.proyecto_destino}
+                      customWidth={"!ml-[1rem] !w-[38rem] "}
                     />
                   </div>
                 </div>

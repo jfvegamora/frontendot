@@ -92,12 +92,13 @@ const MArmazones: React.FC = () => {
           setEntities={setEntities}
           primaryKeyInputs={[
             { name: "_p1", label: "Código", type: "text", styles:{with:"!w-[9rem]"} },
+            { name: "_p5", label: "Código FAB", type: "text", styles:{with:"!w-[9rem]"} },
             { name: "_p2", label: "Modelo", type: "text", styles:{with:"!w-[9rem]"} },
             {
               name: "_p3",
               label: "Marca",
               type: "select",
-              selectUrl: "/api/marcas/", styles:{with:"!w-[14rem] !mr-[4rem]"},
+              selectUrl: "/api/marcas/", styles:{with:"!w-[14rem]"},
             },
             {
               name: "_p4",

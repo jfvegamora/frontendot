@@ -248,7 +248,7 @@ const FProyectosDirecciones: React.FC<IUserFormPrps> = React.memo(
     // console.log(errors)
     console.log(strCodigoProyecto2.value)
     return (
-      <div className="useFormContainer centered-div">
+      <div className="useFormContainer centered-div use50rem">
         <div className="userFormBtnCloseContainer">
           <button onClick={closeModal} className="userFormBtnClose">
             X
@@ -258,11 +258,9 @@ const FProyectosDirecciones: React.FC<IUserFormPrps> = React.memo(
 
         <form onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
-
-            <div className="w-full items-center flex">
-
-              <div className="input-container items-center rowForm w-[50%]">
-                  <div className="w-full ">
+            <div className="!pt-[1rem] h-[4rem]">
+              <div className="input-container items-center rowForm w-full flex">
+                  <div className="!w-[50%]">
                       <SelectInputComponent
                         label="Proyecto"
                         name="proyecto"
@@ -275,13 +273,11 @@ const FProyectosDirecciones: React.FC<IUserFormPrps> = React.memo(
                         error={errors.proyecto}
                         inputRef={firstInputRef}
                         readOnly={isEditting}
+                        customWidth={"!ml-[1rem]"}
                         />
                   </div>
-              </div>
 
-
-              <div className="input-container items-center rowForm w-[50%]">
-                <div className="w-full ">
+              <div className="w-[50%]">
                   <SelectInputComponent
                       label="Establecimiento"
                       name="establecimiento"
@@ -291,18 +287,16 @@ const FProyectosDirecciones: React.FC<IUserFormPrps> = React.memo(
                       data={data && data[EnumGrid.establecimiento_id]}
                       control={control}
                       entidad={["/api/establecimientos/", "06", strCodigoProyecto]}
-                      customWidth={"345px"}
                       tabIndex={1}
-                  />
-                </div>
+                      customWidth={"!w-[25.4rem]"}
+                      />
               </div>
+                </div>
             </div>
 
-
-            <div className="w-full items-center flex">
-
-              <div className="input-container items-center rowForm w-[33%]">
-                <div className="w-full ">
+            <div className="!pt-[1rem] h-[4rem]">
+              <div className="input-container items-center rowForm w-full flex">
+                  <div className="!w-[35%]">
                   <TextInputComponent
                     type="text"
                     label="Lugar"
@@ -312,9 +306,7 @@ const FProyectosDirecciones: React.FC<IUserFormPrps> = React.memo(
                     error={errors.lugar}
                   />
                 </div>
-              </div>
-              <div className="input-container items-center rowForm w-[33%]">
-                <div className="w-full ">
+              <div className="w-[35%]">
                   <TextInputComponent
                       type="text"
                       label="Dirección"
@@ -324,9 +316,7 @@ const FProyectosDirecciones: React.FC<IUserFormPrps> = React.memo(
                       error={errors.direccion}
                     />
                 </div>
-              </div>
-              <div className="input-container items-center rowForm w-[33%]">
-                <div className="w-full ">
+                <div className="w-[30%]">
                   <TextInputComponent
                       type="text"
                       label="Teléfono"
@@ -339,10 +329,8 @@ const FProyectosDirecciones: React.FC<IUserFormPrps> = React.memo(
               </div>
             </div>
       
-
-
-            <div className="w-full items-center flex">
-              <div className="input-container items-center rowForm w-full">
+            <div className="!pt-[1rem] h-[4rem]">
+              <div className="input-container items-center rowForm w-full flex">
                 <div className="w-full ">
                   <TextInputComponent
                     type="text"

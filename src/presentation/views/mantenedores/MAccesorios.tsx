@@ -86,7 +86,7 @@ const MAccesorios: React.FC = () => {
   return (
     <div className="mantenedorContainer">
       <div className="mantenedorHead width100 !h-[6rem] ">
-        <div className="w-[70%] absolute">
+        <div className="w-[65%] absolute">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
             setParams={setParams}
@@ -100,13 +100,13 @@ const MAccesorios: React.FC = () => {
                 name: "_p3",
                 label: "Marca",
                 type: "select",
-                selectUrl: "/api/marcas/", styles:{with:"!w-[8rem]"},
+                selectUrl: "/api/marcas/", styles:{with:"!w-[14rem]"},
               },
               {
                 name: "_p4",
                 label: "Almacén",
                 type: "select",
-                selectUrl: "/api/almacenes/", styles:{with:"!w-[8rem]"},
+                selectUrl: "/api/almacenes/", styles:{with:"!w-[14rem]"},
               },
               ]}
           />

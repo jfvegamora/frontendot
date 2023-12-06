@@ -250,12 +250,9 @@ const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
         <h1 className="userFormLabel">{label}</h1>
 
         <form
-          onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))}
-          className="userFormulario"
-        >
+          onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
-            
-          <div className="input-container items-center rowForm w-[28rem] ">
+            <div className="input-container items-center rowForm w-[28rem] ">
               <div className="w-full ">
                 <TextInputComponent
                   type="text"
@@ -283,7 +280,7 @@ const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
             </div>
 
             <div className="input-container items-center rowForm w-[28.2rem] ">
-              <div className="w-[100%] !mt-[1rem] -mb-2">
+              <div className="w-[100%] !mt-[1rem] mb-2">
               <SelectInputTiposComponent
                 label="Tipo"
                 name="tipo"

@@ -302,9 +302,9 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
 
-            <div className="w-full flex items-center h-[4rem]">
-              <div className="input-container items-center rowForm w-full">
-                <div className="w-[50%] !mt-2">
+            <div className="!pt-[1rem] h-[4rem]">
+              <div className="input-container items-center rowForm w-full flex">
+                <div className="w-[50%]">
                   <SelectInputComponent
                     label="Proyecto"
                     name="proyecto"
@@ -314,39 +314,41 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                     entidad={["/api/proyectos/", "02"]}
                     error={errors.proyecto}
                     readOnly={isEditting}
-                    // inputRef={firstInputRef}
+                    inputRef={firstInputRef}
+                    customWidth={"!w-[29rem] !ml-[1rem] !mt-[-0.6rem]"}
                     />
                 </div>
                 <div className="w-[50%] flex">
-                <div className="w-[25% !mt-[.2rem]">
-                  <TextInputComponent
-                      type="number"
-                      label="ID Grupo"
-                      name="cod_grupo"
-                      data={data && data[EnumGrid.cod_grupo]}
+                  <div className="w-[25%]">
+                    <TextInputComponent
+                        type="number"
+                        label="ID Grupo"
+                        name="cod_grupo"
+                        data={data && data[EnumGrid.cod_grupo]}
+                        control={control}
+                        error={errors.cod_grupo}
+                        onlyRead={isEditting}
+                        customWidth={"!w-[8rem] !ml-[-12px]"}
+                        />
+                  </div>
+                  <div className="w-[75%]">
+                    <TextInputComponent
+                      type="text"
+                      label="Descripción"
+                      name="descripcion"
+                      data={data && data[EnumGrid.descripcion]}
                       control={control}
-                      error={errors.cod_grupo}
-                      onlyRead={isEditting}
-                      inputRef={firstInputRef}
+                      error={errors.descripcion}
+                      customWidth={"!w-[20.8rem]"}
                       />
-                </div>
-                <div className="w-full">
-                  <TextInputComponent
-                    type="text"
-                    label="Descripción"
-                    name="descripcion"
-                    data={data && data[EnumGrid.descripcion]}
-                    control={control}
-                    error={errors.descripcion}
-                  />
-                </div>
+                  </div>
                 </div>
               </div>
             </div>
 
-          <div className="w-full flex items-center h-[4rem]">
-              <div className="input-container items-center rowForm w-[50%]">
-                  <div className="w-full !mt-2">
+            <div className="!pt-[1rem] h-[4rem]">
+              <div className="input-container items-center rowForm w-full flex">
+                  <div className="!w-[50%]">
                     <SelectInputComponent
                       label="Marca"
                       name="marca"
@@ -355,17 +357,13 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                       control={control}
                       entidad={["/api/marcas/", "02"]}
                       error={errors.marca}
-                      customWidth={""}
                       tabIndex={1}
+                      customWidth={"!w-[29rem] !ml-[1rem]"}
                     />
-
                   </div>
-              </div>
 
-
-              <div className="input-container items-center rowForm w-[50%]">
-                <div className="w-full !mt-4 ">
-                  <SelectInputComponent
+                  <div className="w-[50%]">
+                    <SelectInputComponent
                       label="Diseño"
                       name="diseno"
                       showRefresh={true}
@@ -374,14 +372,15 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                       entidad={["/api/tipos/", "02", "CristalesDisenos"]}
                       error={errors.diseno}
                       inputRef={focusSecondInput}
+                      customWidth={"!w-[30.3rem]"}
                     />
-                </div>
+                  </div>
               </div>
-          </div>
+            </div>
 
-          <div className="w-full flex items-center h-[4rem]">
-              <div className="input-container items-center rowForm w-[50%]">
-                <div className="w-full !mt-4">
+            <div className="!pt-[1rem] h-[4rem]">
+              <div className="input-container items-center rowForm w-full flex">
+                <div className="!w-[50%]">
                   <SelectInputComponent
                     label="Índice"
                     name="indice"
@@ -390,12 +389,10 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={["/api/tipos/", "02", "CristalesIndices"]}
                     error={errors.indice}
-                    customWidth={""}
+                      customWidth={"!w-[29rem] !ml-[1rem]"}
                   />
                 </div>
-              </div>
-              <div className="input-container items-center rowForm w-[50%]">
-                <div className="w-full !mt-4">
+                <div className="w-[50%]">
                   <SelectInputComponent
                     label="Material"
                     name="material"
@@ -404,15 +401,15 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={["/api/tipos/", "02", "CristalesMateriales"]}
                     error={errors.material}
+                    customWidth={"!w-[30.3rem]"}
                   />
                 </div>
               </div>
+            </div>
 
-          </div>
-
-          <div className="w-full flex items-center h-[4rem]">
-            <div className="input-container items-center rowForm w-[50%]">
-              <div className="w-full ">
+            <div className="!pt-[1rem] h-[4rem]">
+              <div className="input-container items-center rowForm w-full flex">
+                <div className="!w-[50%]">
                 <SelectInputComponent
                   label="Color"
                   name="color"
@@ -421,13 +418,10 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                   control={control}
                   entidad={["/api/tipos/", "02", "CristalesColores"]}
                   error={errors.color}
-                  customWidth={""}
-                />
-              </div>
-            </div>
-
-            <div className="input-container items-center rowForm w-[50%]">
-              <div className="w-full ">
+                  customWidth={"!w-[29rem] !ml-[1rem]"}
+                  />
+                </div>
+                <div className="w-[50%]">
                 <SelectInputComponent
                   label="Tratamiento"
                   name="tratamiento"
@@ -436,17 +430,17 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                   control={control}
                   entidad={["/api/tipos/", "02", "CristalesTratamientos"]}
                   error={errors.tratamiento}
-                  customWidth={""}
-                />
+                  customWidth={"!w-[30.3rem]"}
+                  />
               </div>
-
             </div>
           </div>
 
 
-          <div className="w-full flex items-center h-[4rem]">
-            <div className="input-container items-center rowForm w-[17%]">
-              <div className="w-full ">
+          <div className="!pt-[1rem] h-[4rem]">
+            <div className="input-container items-center rowForm w-full flex">
+            <div className="w-[50%] flex">
+              <div className="">
                 <TextInputComponent
                   type="number"
                   label="ESF desde"
@@ -457,9 +451,7 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                   step={0.01}
                   />
               </div>
-            </div>
-            <div className="input-container items-center rowForm w-[17%]">
-              <div className="w-full ">
+              <div className="">
                 <TextInputComponent
                   type="number"
                   label="ESF hasta"
@@ -470,9 +462,7 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                   step={0.01}
                   />
               </div>
-            </div>
-            <div className="input-container items-center rowForm w-[17%]">
-              <div className="w-full ">
+              <div className="">
                 <TextInputComponent
                   type="number"
                   label="CIL desde"
@@ -481,11 +471,12 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                   control={control}
                   error={errors.cilindrico_desde}
                   step={0.01}
+                  customWidth={"!pr-[0.4rem]"}
                   />
               </div>
-            </div>
-            <div className="input-container items-center rowForm w-[17%]">
-              <div className="w-full ">
+              </div>
+              <div className="w-[50%] flex">
+              <div className="">
                 <TextInputComponent
                   type="number"
                   label="CIL hasta"
@@ -494,23 +485,20 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                   control={control}
                   error={errors.cilindrico_hasta}
                   step={0.01}
+                  customWidth={"!ml-[-1rem]"}
                   />
               </div>
-            </div>
-            <div className="input-container items-center rowForm w-[17%]">
-              <div className="w-full ">
+              <div className="">
                 <TextInputComponent
                   type="number"
-                  label="Diametro"
+                  label="Diámetro"
                   name="diametro"
                   data={data && data[EnumGrid.diametro]}
                   control={control}
                   error={errors.diametro}
                 />
               </div>
-            </div>
-            <div className="input-container items-center rowForm w-[17%]">
-              <div className="w-full ">
+              <div className="">
                 <TextInputComponent
                   type="number"
                   label="$ Venta Neto"
@@ -519,6 +507,7 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                   control={control}
                   error={errors.precio_venta_neto}
                 />
+              </div>
               </div>
             </div>
           </div>

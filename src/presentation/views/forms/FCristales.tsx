@@ -249,7 +249,7 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
     //   focusFirstInput("codigo");
     // }, []);
     useEffect(() => {
-      isEditting ? focusSecondInput("codigo") : focusFirstInput("marca");
+      isEditting ? focusSecondInput("marca") : focusFirstInput("codigo");
     }, []);
 
  console.log(data && typeof data[EnumGrid.stock_reservado])
@@ -275,6 +275,18 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                 control={control}
                 error={errors.codigo}
                 inputRef={firstInputRef}
+                onlyRead={isEditting}
+                maxLength={20}
+                />
+            </div>
+            <div className="rowForm">
+              <TextInputComponent
+                type="text"
+                label="Código FAB"
+                name="codigo_fab"
+                // data={data && data[EnumGrid.codigo]}
+                control={control}
+                // error={errors.codigo}
                 onlyRead={isEditting}
                 maxLength={20}
                 />

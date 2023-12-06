@@ -242,17 +242,8 @@ const FMandantes: React.FC<IUserFormPrps> = React.memo(
         <h1 className="userFormLabel">{label}</h1>
 
         <form
-          onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))}
-          // onSubmit={(e) => {
-          //   e.preventDefault();
-          //   if (!isModalOpen) {
-          //     handleSubmit((data) => handleSaveChange(data, isEditting))(e);
-          //   }
-          // }}
-          className="userFormulario"
-        >
+          onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer h-[50vh]">
-
             <div className="w-full flex items-center h-[3.5rem]">
               <div className="input-container items-center rowForm w-full">
                   <div className="w-full">
@@ -298,7 +289,7 @@ const FMandantes: React.FC<IUserFormPrps> = React.memo(
               </div>
             </div>
 
-            <div className="w-full flex items-center !mt-[4.5rem] h-[4rem]">
+            <div className="w-full flex items-center !mt-[-0.5rem] h-[4rem]">
               <div className="input-container items-center rowForm w-full" >
                   <div className="w-full">
                       <RegProCom

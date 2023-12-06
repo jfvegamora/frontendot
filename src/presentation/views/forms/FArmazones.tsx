@@ -125,6 +125,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
       ListEntity,
       firstInputRef,
       focusFirstInput,
+      secondInputRef,
       focusSecondInput,
     } = useCrud(strBaseUrl);
     const [blnKeep, setblnKeep] = useState(false);
@@ -315,6 +316,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                   control={control}
                   entidad={"ArmazonesTipos"}
                   error={errors.tipo}
+                  inputRef={secondInputRef}
                   customWidth={"!w-[16rem]"}
                   />
                 </div>

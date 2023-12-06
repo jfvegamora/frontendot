@@ -305,11 +305,8 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
         <h1 className="userFormLabel">{label}</h1>
 
         <form
-          onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))}
-          className="userFormulario "
-        >
+          onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario ">
           <div className="userFormularioContainer  !h-[30rem] ">
-
             <div className="input-container rowForm  !h-[4rem]">
               <div className="flex">
                 <div className="">
@@ -419,9 +416,8 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
                   </div>
 
                     
-                  <div className="w-[40%] !mt-[.8rem] !ml-8 dirCliente ">
-                      
-                    <label className="labelForm !px-[0.8rem] !top-[-1rem] !left-[1rem] z-10 relative">Dirección</label>
+                  <div className="w-[40%] !mt-[.8rem] !ml-8 dirCliente ">                      
+                    <label className="  !top-[-1.5rem] !left-[1rem] z-10 relative">Dirección</label>
                     <RegProCom
                       name="comuna"
                       control={control}
@@ -437,6 +433,7 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
                       type="text"
                       label="Direccion"
                       name="direccion"
+                      className=""
                       data={data && data[EnumGrid.direccion]}
                       control={control}
                       error={errors.direccion}

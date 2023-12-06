@@ -86,7 +86,7 @@ const MArmazonesKardex: React.FC = () => {
   return (
     <div className="mantenedorContainer">
       <div className="mantenedorHead width100">
-        <div className="w-[80%]">
+        <div className="w-[70%]">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
             setParams={setParams}
@@ -94,11 +94,12 @@ const MArmazonesKardex: React.FC = () => {
             setEntities={setEntities}
             primaryKeyInputs={[
               { name: "_p1", label: "Código (?)", type: "text" },
+              { name: "_p5", label: "Código FAB", type: "text" },
               {
                 name: "_p4",
                 label: "Almacenes",
                 type: "select",
-                selectUrl: "/api/almacenes/",
+                selectUrl: "/api/almacenes/", styles:{with:" !w-[14rem]"},
               },
               { name: "_p2", label: "Desde", type: "date" },
               { name: "_p3", label: "Hasta", type: "date" },

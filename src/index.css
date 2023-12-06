@@ -50,7 +50,11 @@ body {
   overflow: hidden;
   height: 100vh;
   width: 100vw;
-  
+  font-size:medium;
+}
+
+.labelInput label, .labelInput input{
+  font-size:medium !important;
 }
 
 .font-menu{
@@ -67,7 +71,7 @@ body {
 .label-input {
   --tw-text-opacity: 1;
   color: rgb(97 97 97 / var(--tw-text-opacity));
-  font-size: 0.875rem;
+  font-size: 1rem;
   line-height: 1.25rem;
   font-weight: 700;
   text-align: center;
@@ -95,17 +99,22 @@ select::-ms-expand {
   display: none;
 }
 
-.labelSelect{
+.labelErr{
+  font-size: medium;
+  font-style: italic;
+  color: red;
+}
+/* .labelSelect{
   font-size: medium;
   color: #424769; 
   top: 5px;
-}
+} */
 
-.labelSelectReg{
+/* .labelSelectReg{
   font-size: medium;
   color: #424769; 
   top: 0px;
-}
+} */
 
 /* Custom Select wrapper */
 .custom-select, .custom-select-reg {
@@ -159,10 +168,9 @@ select::-ms-expand {
 }
 
 /* Modificar el título del input */
-.custom-input label::before {
-  font: medium; /* Tamaño de letra deseado para el título */
-  /*color: #c41e6e; /* Color deseado para el título */
-}
+/* .custom-input label::before {
+  font: medium; 
+} */
 
 .customModal {
   position: absolute;
@@ -218,9 +226,8 @@ select::-ms-expand {
   --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
   appearance: none;
-  border-radius: 0.25rem /* 4px */;
+  border-radius: 0.25rem;
   --tw-text-opacity: 1;
-  /* color: rgb(97 97 97 / var(--tw-text-opacity)); */
   color: #676f9d;
   background-color: #ffffff;
   min-width: unset !important;
@@ -791,13 +798,6 @@ input[type="radio"]:checked{
   width: 80rem;
 }
 
-.labelForm {
-  background-color: rgb(103 111 157 / 0.5);
-  color:orange;
-  /* border-radius: 15%; */
-  /* top: -18px !important; */
-}
-
 .textOption{
   color: white;
 }
@@ -864,8 +864,7 @@ input[type="radio"]:checked{
   flex-grow: 1; /* Hace que los elementos se ajusten automáticamente */
 }
 
-/* Aplica la alineación a todos los input de tipo number */
-input[type="number"] {
+/* input[type="number"] {
   text-align: right;
   font-size:medium;
   border-radius: 0.3rem;
@@ -875,7 +874,7 @@ input[type="text"] {
   text-align: left;
   font-size:medium;
   border-radius: 0.3rem;
-}
+} */
 
 
 .flex-col {
