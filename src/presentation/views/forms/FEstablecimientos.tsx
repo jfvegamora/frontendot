@@ -238,7 +238,8 @@ const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
     useEffect(() => {
       focusFirstInput("codigo");
     }, []);
-  
+    
+    // console.log(firstInputRef)
 
     return (
       <div className="useFormContainer centered-div use30rem">

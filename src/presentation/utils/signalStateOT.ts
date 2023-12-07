@@ -193,14 +193,17 @@ export const fetchFechas = async(fecha_atencion:string, codgioProyecto:string) =
   console.log('ejecutando')
   try {
        const {data} = await axios(`${URLBackend}/api/ot/listado/?query=11&_proyecto=${codgioProyecto}&_fecha_desde=${fecha_atencion}`)
-       console.log(data[0])
-       console.log(data[0][0])
-       console.log(data[0][1])
-       console.log(data[0][2])
+      //  console.log(data[0])
+       const parsedData = JSON.parse(data[0]); // Parsear la cadena JSON a objeto
+
+        // console.log(parsedData);
+        // console.log(parsedData.fecha_entrega_taller);
+        // console.log(parsedData.fecha_despacho);
+        // console.log(parsedData.fecha_entrega_cliente)
        
-       fecha_entrega_taller.value = data[0][0]
-       fecha_despacho.value = data[0][1]
-       fecha_entrega_cliente.value =data[0][2]
+       fecha_entrega_taller.value = parsedData.fecha_entrega_taller
+       fecha_despacho.value = parsedData.fecha_despacho
+       fecha_entrega_cliente.value =parsedData.fecha_entrega_cliente
       
       return data         
   } catch (error) {

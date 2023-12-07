@@ -79,7 +79,8 @@ return (
             className={`${className ? className : "custom-input "}`}
             tabIndex={tabIndex || 1}
             placeholder={type === 'date' ? "dd-mm-yyyy" : ''}
-            autoComplete="off" 
+            autoComplete="off"
+            step={step ? step : 1 } 
           />
           {error && (
             <p className="absolute top-0 right-[50%] labelErr">

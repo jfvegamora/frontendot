@@ -96,7 +96,7 @@ const FOTOptica:React.FC<IOptica> = ({
         }
     }
 
- 
+ console.log(fecha_entrega_taller.value)
   return (
     <form action="">
         <div className='w-full labelForm rounded-lg border radioComponent'>
@@ -228,6 +228,7 @@ const FOTOptica:React.FC<IOptica> = ({
                         data={fecha_entrega_taller || (formValues && formValues["fecha_entrega_taller"]) || (data && data[EnumGrid.fecha_entrega_taller])}
                         control={control}
                         onlyRead={onlyRead}
+                        isOT={true}
                         // error={errors.fecha_nacimiento}
                     />
                 </div>
@@ -240,6 +241,7 @@ const FOTOptica:React.FC<IOptica> = ({
                         data={fecha_despacho || (formValues && formValues["fecha_entrega_taller"]) || (data && data[EnumGrid.fecha_entrega_taller])}
                         control={control}
                         onlyRead={onlyRead}
+                        isOT={true}
                         // error={errors.fecha_nacimiento}
                     />
                 </div>
@@ -252,6 +254,7 @@ const FOTOptica:React.FC<IOptica> = ({
                         data={fecha_entrega_cliente || (formValues && formValues["fecha_entrega_taller"]) || (data && data[EnumGrid.fecha_entrega_taller])}
                         control={control}
                         onlyRead={onlyRead}
+                        isOT={true}
                         // error={errors.fecha_nacimiento}
                     />
                 </div>
