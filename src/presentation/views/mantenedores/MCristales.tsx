@@ -102,7 +102,7 @@ const MCristales: React.FC = () => {
               setEntities={setEntities}
               primaryKeyInputs={[
                 { name: "_p1", label: "Código", type: "text", styles:{with:"!w-[17rem]"}},
-                { name: "_p5", label: "Código FAB", type: "text", styles:{with:"!w-[17rem]"}},
+                { name: "_p2", label: "Código FAB", type: "text", styles:{with:"!w-[17rem]"}},
                 
                 {
                   name: "_pIndice",
