@@ -35,16 +35,16 @@ const RadioButtonComponent: React.FC<IRadioButtonProps> = ({
 
   return (
     <div
-      className={`px-8 py-0 mt-2 mx-2 border-[1px] radioComponent flex   ${
+      className={` w-full px-8 py-0 mt-2 relative mx-2 border-[1px] radioComponent flex   ${
         horizontal ? "justify-arround ml-1 !h-[3rem] " : "flex-col justify-between"
       } rounded-lg ${error && "border border-red-400"}`}
     >
-      <label className="relative text-base top-[-22px] left-[-1rem] labelInput w-[6rem]">
+      <label className="absolute z-20 text-base top-[-21px] left-[1rem] labelInput w-[6rem]">
         <span className="ml-[2px] text-[16px]">{label}</span>
       </label>
       {options.map((option, index) => (
         <div
-          className={` ${ horizontal ? " bg-blue-400 w-full" : "px-[3rem]"} py-0 flex w-1 textOption `}
+          className={` ${ horizontal ? "  w-full" : "px-[3rem]"} py-0 flex textOption `}
           key={index}
         >
           <Controller
@@ -72,14 +72,12 @@ const RadioButtonComponent: React.FC<IRadioButtonProps> = ({
                   ref={inputRef}
                   />
                 <p className="text-[16px] w-full ">{option}</p>
-                {/* <Radio name="type" label="HTML" color="blue"/> */}
               </label>
             )}
           />
         </div>
       ))}
       {error && (
-        // <p className="text-xs text-red-500 absolute top-[-6%] right-[20%]">
         <p className={`relative  labelErr ${horizontal ? "top-[0] right-[-4rem]" : "top-[-6rem] right-[-2rem]"}`}>
           {error.message}
         </p>

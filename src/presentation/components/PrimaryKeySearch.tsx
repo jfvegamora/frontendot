@@ -150,7 +150,8 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                   {/* <div className={`-mt-2 mx-auto w-[96%]`}> */}
                   <div className={``}>
                     {input.name === "_pEsferico" ? (
-                      <div className="grid grid-rows-1 grid-cols-2  ">
+                      // <div className="grid grid-rows-1 grid-cols-2">
+                      <div className="flex !w-[14rem]">
                         <Controller
                           name="_pEsferico"
                           control={control}
@@ -159,7 +160,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                             <Input
                               color="orange"
                               tabIndex={1}
-                              className={`${input?.styles?.with || "!w-[1rem] "} !h-12 !mt-3`}
+                              className={`${input?.styles?.with || "!w-[8rem] "} !h-12 !mt-3 !mr-[0.8rem]`}
                               // className={`${input.styles?.with ? input.styles.with : ""}`}
                               {...field}
                               label={input.label}
@@ -188,7 +189,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                             <Input
                               color="blue"
                               tabIndex={1}
-                              className={`${input?.styles?.with || "!w-[50%]"} !h-12 !mt-3`}
+                              className={`${input?.styles?.with || "!w-[8rem]"} !h-12 !mt-3`}
                               {...field}
                               label="Cilíndrico"
                               value={cilindrico}

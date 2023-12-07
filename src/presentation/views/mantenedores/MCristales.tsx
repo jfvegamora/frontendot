@@ -121,7 +121,7 @@ const MCristales: React.FC = () => {
                 },
 
                 { name: "_pDiametro", label: "Diámetro", type: "number", styles:{with:"!mt-[-0.1rem] !w-[17rem]"}},
-                { name: "_pEsferico",   label: "Esférico", type: "number", styles:{with:"!w-[4rem] "} },
+                { name: "_pEsferico",   label: "Esférico", type: "number", styles:{with:""} },
                 {
                   name: "_pMarca",
                   label: "Marca",
