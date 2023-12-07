@@ -110,7 +110,7 @@ interface IUserFormPrps {
 
 const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
   ({ closeModal, setEntities, params, label, data, isEditting, description, escritura_lectura }) => {
-    const [_cristalDescritpion, setCristalDescription] = useState(
+    const [_cristalDescritpion, _setCristalDescription] = useState(
       description || ""
     );
     const schema = validationKardexOUTSchema();
@@ -341,23 +341,23 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
       isEditting ? focusSecondInput("es") : focusFirstInput("insumo");
     }, []);
 
-    const handleCristales = (data:number) => {
-      // console.log('traer description', data)
-      const primaryKey = `_p1=${data}`
-      try {
-        if(data){
-          ListEntity(primaryKey, "01")
-          .then((data)=>{
-            setCristalDescription(data[0][3])
-          })
-          .catch((e)=>{
-            console.log(e)
-          })
-        }
-      } catch (error) {
-        console.log(error)
-      }
-    }
+    // const handleCristales = (data:number) => {
+    //   // console.log('traer description', data)
+    //   const primaryKey = `_p1=${data}`
+    //   try {
+    //     if(data){
+    //       ListEntity(primaryKey, "01")
+    //       .then((data)=>{
+    //         setCristalDescription(data[0][3])
+    //       })
+    //       .catch((e)=>{
+    //         console.log(e)
+    //       })
+    //     }
+    //   } catch (error) {
+    //     console.log(error)
+    //   }
+    // }
 
     return (
       <div className="useFormContainer centered-div use50rem">

@@ -305,7 +305,6 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={["/api/cargos/", "02"]}
                     error={errors.cargo}
-                    customWidth={"345px"}
                     inputRef={secondInputRef}
                     customWidth={"w-full ml-[1rem]"}
                   />

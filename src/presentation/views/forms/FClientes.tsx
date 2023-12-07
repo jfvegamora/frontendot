@@ -24,7 +24,6 @@ import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
 import { toast } from "react-toastify";
 import RegProCom from "../../components/RegProCom";
-import FrameComponent from "../../components/FrameComponent";
 
 const strBaseUrl = "/api/clientes/";
 const strEntidad = "Cliente ";
