@@ -43,7 +43,6 @@ const TextInputComponent: React.FC<ITextInputProps> = ({
   const [defaultValue, setDefaultValue] = useState<any>(data && data || "")
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    
     // console.log(e.target.name)
     if (handleChange) {
       // if(e.target.name === formatvalue){
@@ -75,7 +74,6 @@ return (
     name={name}
     control={control}
     // defaultValue={data ? data : ""}
-    
     defaultValue={defaultValue}
     render={({ field }) => (
       // <div className="flex flex-col  w-full">
@@ -91,7 +89,7 @@ return (
           readOnly  ={onlyRead}
           maxLength ={maxLength}
           onBlur    ={(e)=>handleInputChange(e)}
-          ref       ={inputRef}
+          ref       ={inputRef ? inputRef : null}
           className ={`${className ? className : " custom-input "}`}
           tabIndex  ={tabIndex || 1}
           placeholder={type === 'date' ? "dd-mm-yyyy" : ''}

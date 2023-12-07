@@ -699,7 +699,7 @@ const FOT:React.FC<IFOTProps> = ({
     let destino = 60;
 
     // let _p3 = [`nombre='${jsonData.cliente_nombre}'`, `tipo=${jsonData.cliente_tipo === TIPO_CLIENTE.beneficiario ? 1 : jsonData.cliente_tipo === TIPO_CLIENTE.particular ? 2 : jsonData.cliente_tipo === TIPO_CLIENTE.optica ? 3 : 0}`, `sexo=${jsonData.cliente_sexo === SEXO.masculino ? 1 : jsonData.cliente_sexo === SEXO.femenino ? 2 : jsonData.cliente_sexo === SEXO.no_aplica ? 3 : 0}`, `fecha_nacimiento='${jsonData.cliente_fecha_nacimiento}'`, `direccion='${jsonData.cliente_direccion}'`, `comuna=${jsonData.cliente_comuna || 150}`, `telefono='${jsonData.cliente_telefono}'`, `correo='${jsonData.cliente_correo}'`, `establecimiento=${jsonData.establecimiento_id}`].join(', ');
-    let  _p3 =`"${jsonData.cliente_rut}","${jsonData.cliente_nombre}",${jsonData.cliente_tipo === TIPO_CLIENTE.beneficiario ? "1" : jsonData.cliente_tipo === TIPO_CLIENTE.particular ? "2" : jsonData.cliente_tipo === TIPO_CLIENTE.optica ? "3" : "0"}, ${jsonData.cliente_sexo === SEXO.masculino ? "1" : jsonData.cliente_sexo === SEXO.femenino ? "2" : jsonData.cliente_sexo === SEXO.no_aplica ? "3" : "0"},"${jsonData.cliente_fecha_nacimiento}","${jsonData.cliente_direccion}" ,${jsonData.cliente_comuna_id || 150}, "${jsonData.cliente_telefono}","${jsonData.cliente_correo}", ${jsonData.establecimiento_id}`;
+    let  _p3 =`"${jsonData.cliente_rut || formValues.cliente.cliente_rut || ""}","${jsonData.cliente_nombre || formValues.cliente.cliente_nombre || ""}",${jsonData.cliente_tipo === TIPO_CLIENTE.beneficiario ? "1" : jsonData.cliente_tipo === TIPO_CLIENTE.particular ? "2" : jsonData.cliente_tipo === TIPO_CLIENTE.optica ? "3" : "0"}, ${jsonData.cliente_sexo === SEXO.masculino ? "1" : jsonData.cliente_sexo === SEXO.femenino ? "2" : jsonData.cliente_sexo === SEXO.no_aplica ? "3" : "0"},"${jsonData.cliente_fecha_nacimiento || formValues.cliente.cliente_fecha_nacimiento || ""}","${jsonData.cliente_direccion || ""}" ,${jsonData.cliente_comuna_id || 150}, "${jsonData.cliente_telefono || formValues.cliente.cliente_telefono || ""}","${jsonData.cliente_correo || formValues.cliente.cliente_correo || ""}", ${jsonData.establecimiento_id || formValues.cliente.establecimiento_id || 0}`;
     _p3 = _p3.replace(/'/g, '!');
 
     let _rut = '';
@@ -710,7 +710,7 @@ const FOT:React.FC<IFOTProps> = ({
     // }
 
     // console.log('data', jsonData)
-    let _p1 = `${motivo},${destino},${estado},${estado_impresion},${estado_validacion},"${jsonData.proyecto}",${jsonData.establecimiento_id},"${jsonData.cliente_rut}","${jsonData.fecha_atencion}","${jsonData.fecha_entrega_taller || fecha_entrega_taller}","${jsonData.fecha_despacho || fecha_despacho}","${jsonData.fecha_entrega_cliente || fecha_entrega_cliente}",${jsonData.punto_venta_id},${jsonData.numero_receta},"${jsonData.fecha_receta}",${jsonData.tipo_anteojo_id},${jsonData.a1_od_esf},${jsonData.a1_od_cil},${jsonData.a1_od_eje},${jsonData.a1_od_ad },${jsonData.a1_oi_esf},${jsonData.a1_oi_cil},${jsonData.a1_oi_eje},${jsonData.a1_oi_ad},${jsonData.a1_dp},${jsonData.a1_alt},${a1_grupo},${jsonData.a2_od_esf},${jsonData.a2_od_cil},${jsonData.a2_od_eje},${jsonData.a2_oi_esf},${jsonData.a2_oi_cil},${jsonData.a2_oi_eje},${jsonData.a2_dp},${a2_grupo},${jsonData.a1_opcion_vta_id},${jsonData.a1_armazon_id},${jsonData.a2_opcion_vta_id},${jsonData.a2_armazon_id},${jsonData.a3_opcion_vta_id || 0},${jsonData.a3_armazon_id || 0},${jsonData.cristal1_opcion_vta_id},${jsonData.cristal1_diseno_id},${jsonData.cristal1_indice_id},${jsonData.cristal1_material_id},${jsonData.cristal1_tratamiento_id},${jsonData.cristal1_color_id},${jsonData.cristal1_od},${jsonData.cristal1_oi},${jsonData.cristal1_tratamiento_adicional_id},${jsonData.cristal2_od_opcion_venta_id},${jsonData.cristal2_diseno_id},${jsonData.cristal2_indice_id},${jsonData.cristal2_material_id},${jsonData.cristal2_tratamiento_id},${jsonData.cristal2_color_id},${jsonData.cristal2_od},${jsonData.cristal2_oi},${jsonData.cristal2_tratamiento_adicional_id},${jsonData.motivo_garantia_id || 0},${jsonData.folio_asociado || 0},${jsonData.resolucion_garantia_id || 0},${jsonData.worktracking || 0},${jsonData.nota_venta || 0},${jsonData.numero_factura || 0},${jsonData.folio_interno_mandante || 0},"${jsonData.observaciones || ""}"`;
+    let _p1 = `${motivo},${destino},${estado},${estado_impresion},${estado_validacion},"${jsonData.proyecto}",${jsonData.establecimiento_id},"${jsonData.cliente_rut || formValues.cliente.cliente_rut}","${jsonData.fecha_atencion}","${jsonData.fecha_entrega_taller || fecha_entrega_taller}","${jsonData.fecha_despacho || fecha_despacho}","${jsonData.fecha_entrega_cliente || fecha_entrega_cliente}",${jsonData.punto_venta_id || 0},${jsonData.numero_receta ?? 0},"${jsonData.fecha_receta ?? 0}",${jsonData.tipo_anteojo_id ?? 0},${jsonData.a1_od_esf ?? 0},${jsonData.a1_od_cil ?? 0},${jsonData.a1_od_eje ?? 0},${jsonData.a1_od_ad || 0 },${jsonData.a1_oi_esf ?? 0},${jsonData.a1_oi_cil ?? 0},${jsonData.a1_oi_eje ?? 0},${jsonData.a1_oi_ad || 0},${jsonData.a1_dp || 0},${jsonData.a1_alt || 0},${a1_grupo || 0},${jsonData.a2_od_esf || 0},${jsonData.a2_od_cil || 0},${jsonData.a2_od_eje || 0},${jsonData.a2_oi_esf || 0},${jsonData.a2_oi_cil || 0},${jsonData.a2_oi_eje || 0},${jsonData.a2_dp || 0},${a2_grupo || 0},${jsonData.a1_opcion_vta_id || 0},${jsonData.a1_armazon_id || 0},${jsonData.a2_opcion_vta_id || 0},${jsonData.a2_armazon_id || 0},${jsonData.a3_opcion_vta_id || 0},${jsonData.a3_armazon_id || 0},${jsonData.cristal1_opcion_vta_id || 0},${jsonData.cristal1_diseno_id || 0},${jsonData.cristal1_indice_id || 0},${jsonData.cristal1_material_id || 0},${jsonData.cristal1_tratamiento_id || 0},${jsonData.cristal1_color_id || 0},${jsonData.cristal1_od || 0},${jsonData.cristal1_oi || 0},${jsonData.cristal1_tratamiento_adicional_id || 0},${jsonData.cristal2_od_opcion_venta_id || 0},${jsonData.cristal2_diseno_id || 0},${jsonData.cristal2_indice_id || 0},${jsonData.cristal2_material_id || 0},${jsonData.cristal2_tratamiento_id || 0},${jsonData.cristal2_color_id || 0},${jsonData.cristal2_od || 0},${jsonData.cristal2_oi || 0},${jsonData.cristal2_tratamiento_adicional_id || 0},${jsonData.motivo_garantia_id || 0},${jsonData.folio_asociado || 0},${jsonData.resolucion_garantia_id || 0},${jsonData.worktracking || 0},${jsonData.nota_venta || 0},${jsonData.numero_factura || 0},${jsonData.folio_interno_mandante || 0},"${jsonData.observaciones || ""}"`;
     _p1 = _p1.replace(/'/g, '!');
 
 
@@ -721,9 +721,7 @@ const FOT:React.FC<IFOTProps> = ({
       {'codigo': jsonData.a1_armazon_id},
       {'codigo': jsonData.a2_armazon_id},
   ]; 
-
-  
-    
+   
     const query = {
       query: "03",
       _p1,
@@ -741,6 +739,10 @@ const FOT:React.FC<IFOTProps> = ({
       _punto_venta:`${jsonData.punto_venta_id}`,
        
     };
+
+    console.log('Valor de jsonData.a1_od_cil:', jsonData.a1_od_cil.value || 0);
+    console.log(formValues)
+    console.log(jsonData)
     console.log(query)
   
     

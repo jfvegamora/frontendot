@@ -136,13 +136,18 @@ const FEmpresas: React.FC<IUserFormPrps> = React.memo(
       setValue("correo", "");
       setValue("sitio_web", "");
       setValue("nombre_logo", "");
+
+      console.log(firstInputRef)
       if (firstInputRef.current) {
         const firstInput =
           firstInputRef.current.querySelector('input[name="rut"]');
+
+        console.log(firstInput)
         if (firstInput) {
           firstInput.focus();
         }
       }
+    
     }, [setValue, firstInputRef]);
 
     const updateNewEntity = React.useCallback(async () => {
@@ -245,6 +250,7 @@ const FEmpresas: React.FC<IUserFormPrps> = React.memo(
       focusFirstInput("rut");
     }, []);
 
+    console.log('h')
     return (
       <div className="useFormContainer centered-div use50rem">
         <div className="userFormBtnCloseContainer">

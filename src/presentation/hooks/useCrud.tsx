@@ -7,9 +7,9 @@ import axios, { AxiosInstance } from "axios";
 import { signal } from "@preact/signals-react";
 
 // PRODUCCION
- export const URLBackend = signal('https://mtoopticos.cl');
+//  export const URLBackend = signal('https://mtoopticos.cl');
 // DESARROLLO
-// export const URLBackend = signal('https://gestiondev.mtoopticos.cl');
+export const URLBackend = signal('https://gestiondev.mtoopticos.cl');
 
 
 export const baseURL = (params:string) => {
@@ -66,18 +66,21 @@ const useCrud = (
     }
   };
 
-  const firstInputRef = useRef<HTMLInputElement | null>(null);
-  const secondInputRef = useRef<HTMLInputElement | null>(null);
+  const firstInputRef   = useRef<HTMLInputElement | null>(null);
+  const secondInputRef  = useRef<HTMLInputElement | null>(null);
 
   const focusFirstInput = (strInputName: string) => {
-    if (firstInputRef.current) {
-      const firstInput = firstInputRef.current.querySelector(
-        `input[name=${strInputName}]`
-      );
+    console.log(strInputName)
+
+    if(firstInputRef.current) {
+      
+      const firstInput = firstInputRef.current.querySelector(`input[name=${strInputName}]`);
+      console.log(firstInput)
+
       if (firstInput) {
         (firstInput as HTMLInputElement).focus();
       }
-    }
+    }    
   };
 
   const focusSecondInput = (strInputName: string) => {
