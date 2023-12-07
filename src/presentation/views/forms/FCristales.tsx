@@ -249,7 +249,7 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
     //   focusFirstInput("codigo");
     // }, []);
     useEffect(() => {
-      isEditting ? focusSecondInput("codigo") : focusFirstInput("marca");
+      isEditting ? focusSecondInput("marca") : focusFirstInput("codigo");
     }, []);
 
  console.log(data && typeof data[EnumGrid.stock_reservado])
@@ -264,8 +264,7 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
 
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))}
-          className="userFormulario"
-        >
+          className="userFormulario">
           <div className="userFormularioContainer">
             <div className="rowForm">
               <TextInputComponent
@@ -278,7 +277,19 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                 inputRef={firstInputRef}
                 onlyRead={isEditting}
                 maxLength={20}
-              />
+                />
+            </div>
+            <div className="rowForm">
+              <TextInputComponent
+                type="text"
+                label="Código FAB"
+                name="codigo_fab"
+                // data={data && data[EnumGrid.codigo]}
+                control={control}
+                // error={errors.codigo}
+                onlyRead={isEditting}
+                maxLength={20}
+                />
             </div>
             <div className="rowForm">
               <SelectInputComponent
@@ -289,7 +300,7 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                 control={control}
                 entidad={["/api/marcas/", "02"]}
                 error={errors.marca}
-                customWidth={""}
+                customWidth={"!ml-[1rem] !w-[28rem]"}
                 inputRef={secondInputRef}
                 tabIndex={1}
               />
@@ -350,36 +361,41 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                 error={errors.tratamiento}
               />
             </div>
-            <div className="flex items-center rowForm">
-              <TextInputComponent
-                type="number"
-                label="Diámetro"
-                name="diametro"
-                data={data && data[EnumGrid.diametro]}
-                control={control}
-                error={errors.diametro}
-              />
-              <TextInputComponent
-                type="number"
-                label="Esférico"
-                name="esferico"
-                data={data && data[EnumGrid.esferico]}
-                control={control}
-                error={errors.esferico}
-                step={0.01}
-              />
-              <TextInputComponent
-                type="number"
-                label="Cilíndrico"
-                name="cilindrico"
-                data={data && data[EnumGrid.cilindrico]}
-                control={control}
-                error={errors.cilindrico}
-                step={0.01}
-              />
+            <div className="!mt-[0.4rem]">
+              <div className="flex items-center rowForm">
+                <TextInputComponent
+                  type="number"
+                  label="Diámetro"
+                  name="diametro"
+                  data={data && data[EnumGrid.diametro]}
+                  control={control}
+                  error={errors.diametro}
+                  customWidth={"w-[14rem] "}
+                />
+                
+                <TextInputComponent
+                  type="number"
+                  label="Esférico"
+                  name="esferico"
+                  data={data && data[EnumGrid.esferico]}
+                  control={control}
+                  error={errors.esferico}
+                  step={0.01}
+                  customWidth={"w-[14rem]"}
+                />
+                <TextInputComponent
+                  type="number"
+                  label="Cilíndrico"
+                  name="cilindrico"
+                  data={data && data[EnumGrid.cilindrico]}
+                  control={control}
+                  error={errors.cilindrico}
+                  step={0.01}
+                  customWidth={"w-[14rem]"}
+                />
+              </div>
             </div>
             <div className="flex items-center rowForm">
-              <div className="w-[50%]">
                 <TextInputComponent
                   type="number"
                   label="Stock Minimo"
@@ -388,8 +404,6 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                   control={control}
                   error={errors.stock_minimo}
                 />
-              </div>
-              <div className="w-[50%]">
                 <TextInputComponent
                   type="number"
                   label="Stock Reservado"
@@ -400,8 +414,6 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                   onlyRead={true}
                   tabIndex={-1}
                 />
-              </div>
-              <div className="w-[50%]">
                 <TextInputComponent
                   type="number"
                   label="Stock Disponible"
@@ -411,8 +423,6 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                   onlyRead={true}
                   tabIndex={-1}
                 />
-              </div>
-
             </div>
           </div>
           {escritura_lectura && (

@@ -211,11 +211,8 @@ const FPermisos: React.FC<IFormPrps> = React.memo(
         <h1 className="userFormLabel">{label}</h1>
 
         <form
-          onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))}
-          className="userFormulario"
-        >
+          onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
-            
             <div className="w-full items-center flex !mb-4">
               <div className="input-container items-center rowForm w-full">
                 <div className="w-full">
@@ -228,13 +225,13 @@ const FPermisos: React.FC<IFormPrps> = React.memo(
                     entidad={["/api/usuarios/", "02"]}
                     error={errors.usuario}
                     readOnly={isEditting}
-                    customWidth={"345px"}
-                  />
+                    customWidth={"!ml-[1rem] "}
+                    />
                 </div>
               </div>
             </div>
 
-            <div className="w-full items-center flex !mb-12">
+            <div className="w-full items-center flex !mb-4">
               <div className="input-container items-center rowForm w-full">
                 <div className="w-full">
                     <SelectInputComponent
@@ -247,16 +244,16 @@ const FPermisos: React.FC<IFormPrps> = React.memo(
                       error={errors.funcionalidad}
                       inputRef={firstInputRef}
                       readOnly={isEditting}
-                      customWidth={"345px"}
-                    />
+                      customWidth={"!ml-[1rem] "}
+                      />
                   </div>
                 </div>
               </div>
             </div>
             
-            <div className="w-full items center flex !mb-12">
+            <div className="items center flex !mb-2">
               <div className="input-container items-center rowForm  w-full">
-                <div className="w-full">
+                <div className="w-full !ml-[1rem] !w-[25rem]">
                     <RadioButtonComponent
                       control={control}
                       label="Permiso"
@@ -264,6 +261,7 @@ const FPermisos: React.FC<IFormPrps> = React.memo(
                       data={data && data[EnumGrid.permiso]}
                       options={["Lectura", "Lectura/Escritura"]}
                       error={errors.permiso}
+                      horizontal={true}
                     />
                 </div>
               </div>

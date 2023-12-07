@@ -377,37 +377,43 @@ const FArmazonesKardexOUT: React.FC<IUserFormPrps> = React.memo(
                   <AjusteInventario onSubmit={handleAutorizacionSubmit} />
                 </div>
               )}
-            
-            <div className="w-full flex items-center h-[3rem]">
-              <div className="input-container items-center rowForm w-[50%]  ">
-                <div className="w-full">
-                  <TextInputComponent
-                    type="number"
-                    label="Código Armazón"
-                    name="insumo"
-                    data={data && data[EnumGrid.insumo]}
-                    control={control}
-                    error={errors.insumo}
-                    inputRef={firstInputRef}
-                    onlyRead={isEditting}
-                  />
-                </div>
-              </div>
 
-              <div className="input-container items-center rowForm w-[50%]  ">
-                  <div className="w-full">
+              <div className="w-full flex items-center h-[4rem]">
+                <div className="input-container items-center rowForm ">
+                  <div className="w-full flex">
                     <TextInputComponent
-                      type={isEditting ? "datetime" : "date"}
-                      label="Fecha"
-                      name="fecha"
-                      data={fechaFormateada ? fechaFormateada :  data && data[EnumGrid.fecha]}
+                      type="text"
+                      label="Código Armazón"
+                      name="insumo"
+                      data={data && data[EnumGrid.insumo]}
                       control={control}
-                      error={errors.fecha}
+                      error={errors.insumo}
+                      inputRef={firstInputRef}
                       onlyRead={isEditting}
+                      customWidth={"!w-[11rem] "}
+                      />
+                    <TextInputComponent
+                      type="text"
+                      label="Código FAB"
+                      name="insumo_fab"
+                      // data={data && data[EnumGrid.insumo]}
+                      control={control}
+                      // error={errors.insumo}
+                      onlyRead={isEditting}
+                      customWidth={"!w-[11rem] !ml-[-1rem] "}
                     />
-                  </div>
-               </div>
-              </div>
+                      <TextInputComponent
+                        type={isEditting ? "datetime" : "date"}
+                        label="Fecha"
+                        name="fecha"
+                        data={ fechaFormateada ? fechaFormateada : data && data[EnumGrid.fecha]}
+                        control={control}
+                        error={errors.fecha}
+                        onlyRead={isEditting}
+                        customWidth={"!w-[11rem] !ml-[1rem] "}
+                        />
+                    </div> 
+                </div>
             </div>
 
             <div className="w-full flex items-center h-[5rem]">
@@ -421,7 +427,7 @@ const FArmazonesKardexOUT: React.FC<IUserFormPrps> = React.memo(
                       control={control}
                       entidad={["/api/kardexmotivos/", "02"]}
                       error={errors.motivo_egreso}
-                      // customWidth={"345px"}
+                      customWidth={"!ml-[1rem] !mt-[-0.6rem]"}                      
                     />
                 </div>
               </div>
@@ -450,6 +456,7 @@ const FArmazonesKardexOUT: React.FC<IUserFormPrps> = React.memo(
                       control={control}
                       entidad={["/api/almacenes/", "02"]}
                       error={errors.almacen}
+                      customWidth={"!ml-[1rem] !mt-[-0.6rem]"}                      
                     />
                   </div>
                 </div>
@@ -463,6 +470,7 @@ const FArmazonesKardexOUT: React.FC<IUserFormPrps> = React.memo(
                       control={control}
                       entidad={["/api/almacenes/", "02"]}
                       error={errors.almacen_relacionado}
+                      customWidth={"!ml-[1rem] !mt-[-0.6rem] !w-[24rem]"}                      
                     />
                   </div>
                 </div>
@@ -482,6 +490,7 @@ const FArmazonesKardexOUT: React.FC<IUserFormPrps> = React.memo(
                 </div>
               </div>
             </div>
+          </div>
             
           <div className="w-full">
             <div className="w-[60%] mx-auto">

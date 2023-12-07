@@ -225,29 +225,22 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
         <h1 className="userFormLabel">{label}</h1>
 
         <form
-          onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))}
-          // onSubmit={(e) => {
-          //   e.preventDefault();
-          //   if (!isModalOpen) {
-          //     handleSubmit((data) => handleSaveChange(data, isEditting))(e);
-          //   }
-          // }}
-          className="userFormulario">
+          onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
 
             <div className="w-full flex items-center h-[4rem]">
               <div className="input-container items-center rowForm w-full">
-                  <div className="w-full">
-                    <TextInputComponent
-                      type="text"
-                      label="Descripción"
-                      name="descripcion"
-                      data={data && data[EnumGrid.descripcion]}
-                      control={control}
-                      error={errors.descripcion}
-                      inputRef={firstInputRef}
-                    />
-                  </div>
+                <div className="w-full">
+                  <TextInputComponent
+                    type="text"
+                    label="Descripción"
+                    name="descripcion"
+                    data={data && data[EnumGrid.descripcion]}
+                    control={control}
+                    error={errors.descripcion}
+                    inputRef={firstInputRef}
+                  />
+                </div>
               </div>
             </div>
 

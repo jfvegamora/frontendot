@@ -90,7 +90,7 @@ const MClientes: React.FC = () => {
   return (
     <div className="mantenedorContainer">
       <div className="mantenedorHead width80">   
-      <div className="w-[50%]">
+      <div className="w-[70%]">
         <PrimaryKeySearch
           baseUrl={strBaseUrl}
           setParams={setParams}
@@ -151,7 +151,6 @@ const MClientes: React.FC = () => {
           idMenu={idMenu}
         />
       </div>
-
 
       {isModalInsert && (
         <FClientes

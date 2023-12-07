@@ -305,11 +305,8 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
         <h1 className="userFormLabel">{label}</h1>
 
         <form
-          onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))}
-          className="userFormulario "
-        >
+          onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario ">
           <div className="userFormularioContainer  !h-[30rem] ">
-
             <div className="input-container rowForm  !h-[4rem]">
               <div className="flex">
                 <div className="">
@@ -345,12 +342,13 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
                         control={control}
                         entidad={["/api/establecimientos/", "02"]}
                         error={errors.establecimiento}
+                        customWidth={"!w-[30rem]"}
                     />
                 </div>
               </div> 
             </div>
 
-            <div className="input-container items-center !mt-[1rem] rowForm  !h-[19rem]">
+            <div className="input-container items-center !mt-[1rem] rowForm !h-[19rem]">
               <div className="flex" style={{ display: 'inline'}}>
                 <div className="flex">
                   <div className="w-[50%] !mt-2 mr-10 flex !h-[8rem]">
@@ -418,9 +416,8 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
                   </div>
 
                     
-                  <div className="w-[40%] !mt-[.8rem] !ml-8 border ">
-                      
-                    <label className="labelForm w-[20%] top-[-7%] left-2 text-center z-10 ">Dirección</label>
+                  <div className="w-[40%] !mt-[.8rem] !ml-8 dirCliente ">                      
+                    <label className="  !top-[-1.5rem] !left-[1rem] z-10 relative">Dirección</label>
                     <RegProCom
                       name="comuna"
                       control={control}
@@ -436,9 +433,11 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
                       type="text"
                       label="Direccion"
                       name="direccion"
+                      className=""
                       data={data && data[EnumGrid.direccion]}
                       control={control}
                       error={errors.direccion}
+                      customWidth={"!mt-[-1rem]"}
                       />
                     </div>
                   </div>

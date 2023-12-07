@@ -118,6 +118,7 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
     const userState = useAppSelector((store: AppStore) => store.user);
     const { show } = useCustomToast();
     const [fechaHoraActual] = useState(fechaActual);
+    const fechaFormateada = fechaHoraActual.toISOString().split('T')[0];
 
 
     const [_showAutorizacion, setShowAutorizacion] = useState(false);
@@ -370,7 +371,119 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
         <form onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
 
+              <div className="w-full flex items-center h-[4rem]">
+                <div className="input-container items-center rowForm ">
+                  <div className="w-full flex">
+                    <TextInputComponent
+                      type="text"
+                      label="Código Cristal"
+                      name="insumo"
+                      data={data && data[EnumGrid.insumo]}
+                      control={control}
+                      error={errors.insumo}
+                      inputRef={firstInputRef}
+                      onlyRead={isEditting}
+                      customWidth={"!w-[11rem] "}
+                      />
+                    <TextInputComponent
+                      type="text"
+                      label="Código FAB"
+                      name="insumo_fab"
+                      // data={data && data[EnumGrid.insumo]}
+                      control={control}
+                      // error={errors.insumo}
+                      onlyRead={isEditting}
+                      customWidth={"!w-[11rem] !ml-[-1rem] "}
+                    />
+                      <TextInputComponent
+                        type={isEditting ? "datetime" : "date"}
+                        label="Fecha"
+                        name="fecha"
+                        data={ fechaFormateada ? fechaFormateada : data && data[EnumGrid.fecha]}
+                        control={control}
+                        error={errors.fecha}
+                        onlyRead={isEditting}
+                        customWidth={"!w-[11rem] !ml-[1rem] "}
+                        />
+                    </div> 
+                </div>
+            </div>
+
+            <div className="w-full flex items-center h-[5rem]">
+              <div className="input-container items-center rowForm w-[50%]  ">
+                <div className="w-full !mt-4">
+                    <SelectInputComponent
+                      label="Motivo Egreso"
+                      name="motivo_egreso"
+                      showRefresh={true}
+                      data={data && data[EnumGrid.motivo_id]}
+                      control={control}
+                      entidad={["/api/kardexmotivos/", "02"]}
+                      error={errors.motivo_egreso}
+                      customWidth={"!ml-[1rem] !mt-[-0.6rem]"}                      
+                    />
+                </div>
+              </div>
+              <div className="input-container items-center rowForm w-[50%]  ">
+                <div className="w-full">
+                  <TextInputComponent
+                    type="number"
+                    label="Cantidad"
+                    name="cantidad"
+                    data={data && data[EnumGrid.salidas]}
+                    control={control}
+                    error={errors.cantidad}
+                  />
+                </div>
+              </div>
+            </div>
+
             <div className="w-full flex items-center h-[4rem]">
+                <div className="input-container items-center rowForm w-[50%]  ">
+                  <div className="w-full">
+                    <SelectInputComponent
+                      label="Almacén"
+                      name="almacen"
+                      showRefresh={true}
+                      data={data && data[EnumGrid.almacen_id]}
+                      control={control}
+                      entidad={["/api/almacenes/", "02"]}
+                      error={errors.almacen}
+                      customWidth={"!ml-[1rem] !mt-[-0.6rem]"}                      
+                    />
+                  </div>
+                </div>
+                <div className="input-container items-center rowForm w-[50%]  ">
+                  <div className="w-full">
+                    <SelectInputComponent
+                      label="Almacén Traspaso"
+                      name="almacen_relacionado"
+                      showRefresh={true}
+                      data={data && data[EnumGrid.almacen_relacionado_id]}
+                      control={control}
+                      entidad={["/api/almacenes/", "02"]}
+                      error={errors.almacen_relacionado}
+                      customWidth={"!ml-[1rem] !mt-[-0.6rem] !w-[24rem]"}                      
+                    />
+                  </div>
+                </div>
+            </div>
+
+            <div className="w-full flex items-center h-[4rem]">
+              <div className="input-container items-center rowForm w-full">
+                <div className="w-full">
+                  <TextInputComponent
+                    type="text"
+                    label="Observaciones"
+                    name="observaciones"
+                    data={data && data[EnumGrid.observaciones]}
+                    control={control}
+                    error={errors.observaciones}
+                  />
+                </div>
+              </div>
+            </div>
+            {/* <div className="w-full flex items-center h-[4rem]">
                 <div className="input-container items-center rowForm w-[50%]">
                   <div className="w-full">
                     <TextInputComponent
@@ -475,7 +588,7 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
                   />
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
 
           <div className="w-full">

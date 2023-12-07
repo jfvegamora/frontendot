@@ -36,17 +36,15 @@ const RadioButtonComponent: React.FC<IRadioButtonProps> = ({
   return (
     <div
       className={`px-8 py-0 mt-2 mx-2 border-[1px] radioComponent flex   ${
-        horizontal ? "justify-arround ml-4" : "flex-col justify-between"
+        horizontal ? "justify-arround ml-1 !h-[3rem] " : "flex-col justify-between"
       } rounded-lg ${error && "border border-red-400"}`}
     >
-      <label className="relative text-base top-[-15px] left-[-1rem] labelForm w-[6rem]">
+      <label className="relative text-base top-[-22px] left-[-1rem] labelInput w-[6rem]">
         <span className="ml-[2px] text-[16px]">{label}</span>
       </label>
       {options.map((option, index) => (
         <div
-          className={` ${
-            horizontal ? "px-20" : "px-[3rem]"
-          } py-0 flex w-1 textOption `}
+          className={` ${ horizontal ? " bg-blue-400 w-full" : "px-[3rem]"} py-0 flex w-1 textOption `}
           key={index}
         >
           <Controller
@@ -55,7 +53,7 @@ const RadioButtonComponent: React.FC<IRadioButtonProps> = ({
             control={control}
             defaultValue={data ? data : ""}
             render={({ field }) => (
-              <label className=" flex items-center cursor-pointer ml-[-3.6rem]">
+              <label className=" flex items-center cursor-pointer ">
                 <input
                   {...field}
                   type="radio"
@@ -73,7 +71,7 @@ const RadioButtonComponent: React.FC<IRadioButtonProps> = ({
                   }}
                   ref={inputRef}
                   />
-                <p className="text-[16px] w-[68px]">{option}</p>
+                <p className="text-[16px] w-full ">{option}</p>
                 {/* <Radio name="type" label="HTML" color="blue"/> */}
               </label>
             )}
@@ -81,7 +79,8 @@ const RadioButtonComponent: React.FC<IRadioButtonProps> = ({
         </div>
       ))}
       {error && (
-        <p className="text-xs text-red-500 absolute top-[-6%] right-[20%]">
+        // <p className="text-xs text-red-500 absolute top-[-6%] right-[20%]">
+        <p className={`relative  labelErr ${horizontal ? "top-[0] right-[-4rem]" : "top-[-6rem] right-[-2rem]"}`}>
           {error.message}
         </p>
       )}

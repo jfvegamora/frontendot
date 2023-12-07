@@ -101,11 +101,12 @@ const MCristalesKardex: React.FC = () => {
             setEntities={setEntities}
             primaryKeyInputs={[
               { name: "_p1", label: "Código (?)", type: "text" },
+              { name: "_p5", label: "Código FAB", type: "text" },
               {
                 name: "_p4",
-                label: "Almacenes",
+                label: "Almacén",
                 type: "select",
-                selectUrl: "/api/almacenes/",
+                selectUrl: "/api/almacenes/", styles:{with:" !w-[14rem]"},
               },
               { name: "_p2", label: "Desde", type: "date" },
               { name: "_p3", label: "Hasta", type: "date" },

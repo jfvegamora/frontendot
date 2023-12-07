@@ -369,7 +369,7 @@ const FArmazonesKardexIN: React.FC<IUserFormPrps> = React.memo(
           </button>
         </div>
         <h1 className="userFormLabel">{label}</h1>
-
+ 
         <form onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
              {showAutorizacion && (
@@ -379,10 +379,10 @@ const FArmazonesKardexIN: React.FC<IUserFormPrps> = React.memo(
               )}
 
             <div className="w-full flex items-center h-[4rem]">
-                <div className="input-container items-center rowForm w-[50%]  ">
-                  <div className="w-full">
+                <div className="input-container items-center rowForm ">
+                  <div className="w-full flex">
                     <TextInputComponent
-                      type="number"
+                      type="text"
                       label="Código Armazón"
                       name="insumo"
                       data={data && data[EnumGrid.insumo]}
@@ -390,11 +390,18 @@ const FArmazonesKardexIN: React.FC<IUserFormPrps> = React.memo(
                       error={errors.insumo}
                       inputRef={firstInputRef}
                       onlyRead={isEditting}
+                      customWidth={"!w-[11rem] "}
+                      />
+                    <TextInputComponent
+                      type="text"
+                      label="Código FAB"
+                      name="insumo_fab"
+                      // data={data && data[EnumGrid.insumo]}
+                      control={control}
+                      // error={errors.insumo}
+                      onlyRead={isEditting}
+                      customWidth={"!w-[11rem] !ml-[-1rem] "}
                     />
-                  </div>
-                </div>
-                <div className="input-container items-center rowForm w-[50%]  ">
-                    <div className="w-full">
                       <TextInputComponent
                         type={isEditting ? "datetime" : "date"}
                         label="Fecha"
@@ -403,28 +410,28 @@ const FArmazonesKardexIN: React.FC<IUserFormPrps> = React.memo(
                         control={control}
                         error={errors.fecha}
                         onlyRead={isEditting}
-                      />
+                        customWidth={"!w-[11rem] !ml-[1rem] "}
+                        />
                     </div> 
                 </div>
             </div>
 
 
             <div className="w-full flex items-center h-[4rem]">
-
-            <div className="input-container items-center rowForm w-[50%]  ">
-              <div className="w-full !mt-4">
-                <SelectInputComponent
-                      label="Motivo Ingreso"
-                      name="motivo_ingreso"
-                      showRefresh={true}
-                      data={data && data[EnumGrid.motivo_id]}
-                      control={control}
-                      entidad={["/api/kardexmotivos/", "01"]}
-                      error={errors.motivo_ingreso}
-                      // customWidth={"345px"}
-                    />
-                </div>
-            </div>
+              <div className="input-container items-center rowForm w-[50%]  ">
+                <div className="w-full !mt-4">
+                  <SelectInputComponent
+                        label="Motivo Ingreso"
+                        name="motivo_ingreso"
+                        showRefresh={true}
+                        data={data && data[EnumGrid.motivo_id]}
+                        control={control}
+                        entidad={["/api/kardexmotivos/", "01"]}
+                        error={errors.motivo_ingreso}
+                        customWidth={"!ml-[1rem] !mt-[-0.6rem]"}
+                      />
+                  </div>
+              </div>
 
               <div className="input-container items-center rowForm w-[50%]  ">
                   <div className="w-full">
@@ -452,7 +459,8 @@ const FArmazonesKardexIN: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={["/api/almacenes/", "02"]}
                     error={errors.almacen}
-                  />
+                    customWidth={"!ml-[1rem] !mt-[-0.6rem]"}
+                    />
                 </div>
               </div>
               <div className="input-container items-center rowForm w-[50%]  ">
@@ -482,7 +490,7 @@ const FArmazonesKardexIN: React.FC<IUserFormPrps> = React.memo(
                       control={control}
                       entidad={["/api/proveedores/", "02"]}
                       error={errors.proveedor}
-                      
+                      customWidth={"!ml-[1rem] !mt-[-0.6rem]"}                      
                     />
                   </div>
                 </div>

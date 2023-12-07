@@ -149,17 +149,6 @@ const FProyectosFirmas: React.FC<IUserFormPrps> = React.memo(
 
     const handleApiResponse = React.useCallback(
       async (response: any, isEditting: boolean) => {
-        // if (response.code === "ERR_BAD_RESPONSE" || response.stack || response.datos.length >= 1) {
-        //   const errorMessage = isEditting
-        //   ? strEntidad.concat(": " + response.datos && response.datos[0] ? response.datos[0][0] : response.message )
-        //   : strEntidad.concat(": " + response.datos && response.datos[0] ? response.datos[0][0] : response.message )
-        //   show({
-        //     message: errorMessage ? errorMessage : response.code,
-        //     type: "error",
-        //   });
-          
-        //   return;
-        // }
         if (response.code === "ERR_BAD_RESPONSE" || response.stack || (response.datos && response.datos.length >= 1)) {
           let errorMessage = strEntidad + ": ";
           if (response.datos && response.datos.length >= 1 && response.datos[0][0]) {
@@ -253,7 +242,7 @@ const FProyectosFirmas: React.FC<IUserFormPrps> = React.memo(
     }, []);
 
     return (
-      <div className="useFormContainer centered-div">
+      <div className="useFormContainer centered-div use40rem">
         <div className="userFormBtnCloseContainer">
           <button onClick={closeModal} className="userFormBtnClose">
             X
@@ -262,14 +251,11 @@ const FProyectosFirmas: React.FC<IUserFormPrps> = React.memo(
         <h1 className="userFormLabel">{label}</h1>
 
         <form
-          onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))}
-          className="userFormulario">
-          <div className="userFormularioContainer !w-[40vw]">
-
-          <div className="w-full items-center flex h-[70px] ">
-
-            <div className="input-container items-center rowForm w-[50%]">
-              <div className="w-full !mt-4 ">
+          onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
+          <div className="userFormularioContainer">
+            <div className="w-full flex items-center h-[4rem]">
+              <div className="input-container items-center rowForm ">
+                <div className="w-full">
                   <SelectInputComponent
                     label="Proyecto"
                     name="proyecto"
@@ -280,69 +266,64 @@ const FProyectosFirmas: React.FC<IUserFormPrps> = React.memo(
                     error={errors.proyecto}
                     inputRef={firstInputRef}
                     readOnly={isEditting}
+                    customWidth={"!ml-[1rem] !w-[38.4rem]"}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="w-full  items-center h-[4rem]">
+              <div className="input-container items-center rowForm ">
+                <div className="flex">
+                  <TextInputComponent
+                    type="number"
+                    label="Folio"
+                    name="folio_reporte"
+                    data={data && data[EnumGrid.folio_reporte]}
+                    control={control}
+                    error={errors.folio_reporte}
+                    onlyRead={isEditting}
+                    customWidth={"!w-[11rem]"}
                     />
+                  <TextInputComponent
+                    type="date"
+                    label="Fecha Desde"
+                    name="fecha_desde"
+                    data={data && data[EnumGrid.fecha_desde]}
+                    control={control}
+                    error={errors.fecha_desde}
+                    onlyRead={isEditting}
+                    customWidth={"!w-[11rem] !ml-[1rem] "}
+                    />
+                  <TextInputComponent
+                    type="date"
+                    label="Fecha Hasta"
+                    name="fecha_hasta"
+                    data={data && data[EnumGrid.fecha_hasta]}
+                    control={control}
+                    error={errors.fecha_hasta}
+                    onlyRead={isEditting}
+                    customWidth={"!w-[11rem] !ml-[1rem] "}
+                  />
+                </div>
               </div>
             </div>
 
-            <div className="input-container items-center rowForm w-[50%]">
-              <div className="w-full ">
-                <TextInputComponent
-                  type="number"
-                  label="Folio"
-                  name="folio_reporte"
-                  data={data && data[EnumGrid.folio_reporte]}
-                  control={control}
-                  error={errors.folio_reporte}
-                  onlyRead={isEditting}
-                />
-              </div>
-
-            </div>
-          </div>
-
-          <div className="w-full items-center flex h-[60px]">
-            <div className="input-container items-center rowForm w-[50%]">
-              <div className="w-full ">
-                <TextInputComponent
-                  type="date"
-                  label="Fecha Desde"
-                  name="fecha_desde"
-                  data={data && data[EnumGrid.fecha_desde]}
-                  control={control}
-                  error={errors.fecha_desde}
-                  onlyRead={isEditting}
-                />
+            <div className="w-full flex items-center h-[4rem]">
+              <div className="input-container items-center rowForm w-full  ">
+                <div className="w-full">
+                  <TextInputComponent
+                    type="text"
+                    label="Observaciones"
+                    name="observaciones"
+                    data={data && data[EnumGrid.observaciones]}
+                    control={control}
+                    error={errors.observaciones}
+                    // customWidth={"!w-[90%] "}
+                  />
+                </div>
               </div>
             </div>
-            <div className="input-container items-center rowForm w-[50%]">
-              <div className="w-full ">
-                <TextInputComponent
-                  type="date"
-                  label="Fecha Hasta"
-                  name="fecha_hasta"
-                  data={data && data[EnumGrid.fecha_hasta]}
-                  control={control}
-                  error={errors.fecha_hasta}
-                  onlyRead={isEditting}
-                />
-              </div>
-            </div>
-          </div>
-
-          <div className="w-full items-center flex h-[60px]">
-            <div className="input-copntainer items-center rowForm w-full">
-              <div className="w-full ">
-                <TextInputComponent
-                  type="text"
-                  label="Observaciones"
-                  name="observaciones"
-                  data={data && data[EnumGrid.observaciones]}
-                  control={control}
-                  error={errors.observaciones}
-                />
-              </div>
-            </div>
-          </div>
           </div>
 
           <div className="w-full">

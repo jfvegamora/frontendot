@@ -85,7 +85,7 @@ const RegProCom:React.FC<IProps> = ({
 //   console.log(errors)
 // console.log(defaultComuna)
   return (
-    <div className='w-full py-2 items-center '>
+    <div className='w-full pb-2 items-center '>
         <div className="w-[93%] mb-4">
             <Controller
                 name="cliente_region_id"
@@ -93,8 +93,8 @@ const RegProCom:React.FC<IProps> = ({
                 control={control}
                 render={({field})=>(
                     <div className="flex min-w-[100%] w-[60%] items-center mb-2 mx-4 mt-select mt-select-dropdown-up cursor-pointer  ">
-                        <div className='custom-select custom-select-reg relative rounded-lg !h-[3rem]'>
-                        <label className=" labelSelect absolute !top-[-3%] left-3 !text-[#f39c12] font-extralight text-xs z-20">Región</label>
+                        <div className='custom-select !top-[-3%]  custom-select-reg relative rounded-lg !h-[3rem]'>
+                        <label className=" absolute left-3 z-20">Región</label>
                         <select 
                             {...field}
                             value={selectedRegion} 
@@ -126,7 +126,7 @@ const RegProCom:React.FC<IProps> = ({
                 render={({field})=>(
                     <div className="flex min-w-[100%] w-[60%] items-center mb-2 mx-4 mt-select mt-select-dropdown-up cursor-pointer ">
                         <div className='custom-select custom-select-reg relative rounded-lg !h-[3rem]'>
-                        <label className="labelSelect absolute !top-[-3%] left-3 !text-[#f39c12] font-extralight text-xs z-20">Provincia</label>
+                        <label className="absolute !top-[-3%] left-3 z-20">Provincia</label>
                         <select 
                             {...field}
                             value={selectedProvince} 
@@ -160,9 +160,9 @@ const RegProCom:React.FC<IProps> = ({
                     <div className="flex min-w-[100%] w-[60%] items-center mb-2 mx-4 mt-select mt-select-dropdown-up cursor-pointer ">
                         <div className='custom-select custom-select-reg relative rounded-lg !h-[3rem]'>
         
-                                 <label className="labelSelect absolute !top-[-3%] left-3 !text-[#f39c12] font-extralight text-xs z-20">Comuna</label>
+                                 <label className="labelSelect absolute !top-[-3%] left-3 z-20">Comuna</label>
                                  {errors && (
-                                    <p className="text-xs text-red-500 absolute top-[-2%] z-20  left-[22%] ">
+                                    <p className="absolute top-[-2%] z-20 right-[50%] labelErr">
                                         {errors.message}
                                     </p>
                                     )}

@@ -125,6 +125,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
       ListEntity,
       firstInputRef,
       focusFirstInput,
+      secondInputRef,
       focusSecondInput,
     } = useCrud(strBaseUrl);
     const [blnKeep, setblnKeep] = useState(false);
@@ -270,18 +271,12 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
 
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))}
-          // onSubmit={(e) => {
-          //   e.preventDefault();
-          //   if (!isModalOpen) {
-          //     handleSubmit((data) => handleSaveChange(data, isEditting))(e);
-          //   }
-          // }}
           className="userFormulario h-[47vh]">
           <div className=" items center">
 
             <div className="w-full  flex items-center h-[5rem]">
-              <div className="input-container items-center rowForm w-[22%]  ">
-                <div className="w-full">
+              <div className="input-container items-center rowForm w-[25%]  ">
+                <div className="w-full !mt-4">
                   <TextInputComponent
                     type="text"
                     label="Código"
@@ -291,11 +286,27 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                     error={errors.codigo}
                     inputRef={firstInputRef}
                     onlyRead={isEditting}
-                  />
+                    customWidth={"!w-[100%]"}
+                    />
                 </div>
               </div>
 
-              <div className="input-container items-center rowForm w-[19%]  ">
+              <div className="input-container items-center rowForm w-[25%]  ">
+                <div className="w-full !mt-4">
+                  <TextInputComponent
+                    type="text"
+                    label="Código FAB"
+                    name="codigo_fab"
+                    // data={data && data[EnumGrid.codigo]}
+                    control={control}
+                    // error={errors.codigo}
+                    onlyRead={isEditting}
+                    customWidth={"!w-[100%]"}
+                    />
+                </div>
+              </div>
+
+              <div className="input-container items-center rowForm w-[25%]  ">
                 <div className="w-full !mt-4">
                   <SelectInputTiposComponent
                   label="Tipo"
@@ -305,10 +316,12 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                   control={control}
                   entidad={"ArmazonesTipos"}
                   error={errors.tipo}
+                  inputRef={secondInputRef}
+                  customWidth={"!w-[16rem]"}
                   />
                 </div>
               </div>
-              <div className="input-container items-center rowForm w-[30%]  ">
+              <div className="input-container items-center rowForm w-[25%]  ">
                 <div className="w-full !mt-4">
                   <SelectInputTiposComponent
                   label="Material"
@@ -318,27 +331,15 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                   control={control}
                   entidad={"ArmazonesMaterial"}
                   error={errors.material}
+                  customWidth={"!w-[15rem]"}
                   />
-                </div>
-              </div>
-              <div className="input-container items-center rowForm w-[29%]  ">
-                <div className="w-full !mt-4">
-                    <SelectInputComponent
-                      label="Marca"
-                      name="marca"
-                      showRefresh={true}
-                      data={data && data[EnumGrid.marca_id]}
-                      control={control}
-                      entidad={["/api/marcas/", "02"]}
-                      error={errors.marca}
-                    />
                 </div>
               </div>
             </div>
             
-            <div className="w-full  flex items-center h-[5rem]">
-                <div className="input-container items-center rowForm w-[22%]">
-                  <div className="w-full">
+            <div className="w-[100%]  flex items-center h-[5rem]">
+                <div className="input-container items-center rowForm w-[20%]">
+                  <div className="w-full !mt-4">
                     <TextInputComponent
                       type="text"
                       label="Modelo"
@@ -346,12 +347,28 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                       data={data && data[EnumGrid.modelo]}
                       control={control}
                       error={errors.modelo}
+                      customWidth={"!w-[11rem]"}
                     />
                   </div>
                 </div>
 
-                <div className="input-container items-center rowForm w-[20%]">
-                  <div className="w-full">
+                <div className="input-container items-center rowForm w-[25%]">
+                  <div className="w-full !mt-4">
+                <SelectInputComponent
+                      label="Marca"
+                      name="marca"
+                      showRefresh={true}
+                      data={data && data[EnumGrid.marca_id]}
+                      control={control}
+                      entidad={["/api/marcas/", "02"]}
+                      error={errors.marca}
+                      customWidth={"!w-[17rem]"}
+                      />
+                  </div>
+                </div>
+
+                <div className="input-container items-center rowForm w-[15%]">
+                  <div className="w-full !mt-4">
                     <TextInputComponent
                       type="text"
                       label="Color"
@@ -359,12 +376,13 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                       data={data && data[EnumGrid.color]}
                       control={control}
                       error={errors.color}
+                      customWidth={"!w-[100%]"}
                     />
                   </div>
                 </div>
 
                 <div className="input-container items-center rowForm w-[15%]">
-                  <div className="w-full">
+                  <div className="w-full !mt-4">
                     <TextInputComponent
                       type="number"
                       label="Aro"
@@ -372,12 +390,13 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                       data={data && data[EnumGrid.aro]}
                       control={control}
                       error={errors.aro}
+                      customWidth={"!w-[100%]"}
                     />
                   </div>
                 </div>
 
                 <div className="input-container items-center rowForm w-[15%]">
-                    <div className="w-full">
+                  <div className="w-full !mt-4">
                       <TextInputComponent
                         type="number"
                         label="Puente"
@@ -385,12 +404,13 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                         data={data && data[EnumGrid.puente]}
                         control={control}
                         error={errors.puente}
-                      />
-                    </div>
+                        customWidth={"!w-[100%]"}
+                        />
+                  </div>
                 </div>
 
                 <div className="input-container items-center rowForm w-[15%]">
-                  <div className="w-full">
+                  <div className="w-full !mt-4">
                     <TextInputComponent
                       type="number"
                       label="Diagonal"
@@ -398,12 +418,13 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                       data={data && data[EnumGrid.diagonal]}
                       control={control}
                       error={errors.diagonal}
+                      customWidth={"!w-[100%]"}
                     />
                   </div>
                 </div>
 
                 <div className="input-container items-center rowForm w-[15%]">
-                  <div className="w-full">
+                  <div className="w-full !mt-4">
                     <TextInputComponent
                       type="number"
                       label="Brazo"
@@ -411,9 +432,10 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                       data={data && data[EnumGrid.brazo]}
                       control={control}
                       error={errors.brazo}
+                      customWidth={"!w-[100%]"}
                     />
-                  </div>
-                </div>              
+                  </div>         
+                </div>         
             </div>
 
 
@@ -423,7 +445,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
             <div className="w-full flex items-center  h-[5rem] ">
 
                 <div className="input-container items-center rowForm w-[41.5%]  ">
-                    <div className="w-full !mt-4">
+                    <div className="w-full">
                       <SelectInputTiposComponent
                       label="Uso"
                       name="uso"

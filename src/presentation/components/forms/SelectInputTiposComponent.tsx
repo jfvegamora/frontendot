@@ -47,7 +47,8 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
     readOnly,
     setState,
     isOT,
-    tabIndex
+    tabIndex,
+    customWidth
   }) => {
     const stateListBox = useAppSelector((store: AppStore) => store.listBoxTipos[entidad]);
     const [entities, setEntities] = useState(stateListBox|| []);
@@ -81,8 +82,10 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
           control={control}
           defaultValue={strSelectedName}
           render={({ field }) => (
-            <div className={`custom-select border-gray-400 border-[1px] rounded-lg !h-[3rem]  absolute${error ? 'border-red-500' : 'border-gray-500'}  `}>
-              <div className=" top-[-18%]  left-3.5 absolute w-1/2 z-10">
+            // <div className={` custom-select border-gray-400 border-[1px] rounded-lg !h-[3rem]  absolute${error ? 'border-red-500' : 'border-gray-500'}  `}>
+            //   <div className=" top-[-18%]  left-3.5 absolute w-1/2 z-10">
+              <div className={`custom-select border-gray-400 border-[1px] rounded-lg !h-[3rem] relative ${error ? 'border-red-500' : 'border-gray-500'}  `}>
+              <div className="top-[-0.1rem]   left-3.5 absolute w-1/2 z-10">
                 <label
                   htmlFor={label}
                   // className="absolute top-[-1%] left-[3%] text-sm"
@@ -91,7 +94,8 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
                   {label}
                 </label>
                 {error && (
-                  <p className="text-xs text-red-500 absolute top-[.5rem] z-20  left-[38%] ">
+                  // <p className="text-xs text-red-500 absolute top-[.5rem] z-20  left-[38%] ">
+                  <p className="absolute z-20 top-[0.1rem] right-1 labelErr">
                     {error.message}
                  </p>
                 )}
@@ -157,7 +161,7 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
 
     return (
       // <div className="flex min-w-[60px] w-full items-center mb-2 mx-4 mt-select mt-select-dropdown-up cursor-pointer ">
-      <div className="flex min-w-[100%] w-full items-center  mx-4 mt-select mt-select-dropdown-up cursor-pointer">
+      <div className={`flex min-w-[100%] w-full items-center  mx-4 mt-select mt-select-dropdown-up cursor-pointer ${customWidth ? customWidth : "w-[20rem]"}`}>
         {/* <label className="label-input w-1/3">{label}</label> */}
         {renderInput()}
         {/* Controller  */}

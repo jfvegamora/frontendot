@@ -265,28 +265,28 @@ const FProyectosAccesorios: React.FC<IUserFormPrps> = React.memo(
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
-
-            <div className="w-full flex items-center h-[4rem]">
-              <div className="input-container items-center rowForm w-full">
-                <div className="w-full">
-                  <SelectInputComponent
-                    label="Proyecto"
-                    name="proyecto"
-                    showRefresh={true}
-                    data={data && data[EnumGrid.codigo_proyecto]}
-                    control={control}
-                    entidad={["/api/proyectos/", "02"]}
-                    error={errors.proyecto}
-                    inputRef={firstInputRef}
-                    readOnly={isEditting}
-                  />
-                </div>
+          <div className="w-full flex items-center h-[4rem] ">
+            <div className="input-container items-center rowForm w-full">
+              <div className="w-full ">
+                <SelectInputComponent
+                  label="Proyecto"
+                  name="proyecto"
+                  showRefresh={true}
+                  data={data && data[EnumGrid.codigo_proyecto]}
+                  control={control}
+                  entidad={["/api/proyectos/", "02"]}
+                  error={errors.proyecto}
+                  inputRef={firstInputRef}
+                  readOnly={isEditting}
+                  customWidth={"!ml-[1rem] !w-[38rem] "}
+                />
               </div>
             </div>
+          </div>
 
-            <div className="w-full flex items-center h-[4rem] !my-8">
-              <div className=" input-container rowForm w-[40%] items-center">
-                <div className="w-full">
+            <div className="w-full flex items-center !my-8 h-[4rem]">
+                <div className="input-container items-center rowForm w-[40%]">
+                  <div className="w-full">
                   <TextInputComponent
                     type="text"
                     label="Código Accesorio"
@@ -299,7 +299,7 @@ const FProyectosAccesorios: React.FC<IUserFormPrps> = React.memo(
                   />
                 </div>
               </div>
-              <div className="input-container rowForm w-[60%] items-center">
+              <div className="input-container items-center rowForm w-[60%]">
                 <div className="w-full">
                   <RadioButtonComponent
                   control={control}

@@ -364,14 +364,11 @@ const FProyectosAtenciones: React.FC<IUserFormPrps> = React.memo(
         <h1 className="userFormLabel">{label}</h1>
  
         <form
-          onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))}
-          className="userFormulario"
-        >
+          onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
-
-          <div className="w-full items-center flex h-[80px]">
-              <div className="input-container items-center rowForm w-[40%]">
-                <div className="w-full !mt-4">
+            <div className="w-full flex items-center h-[4rem] ">
+              <div className="input-container items-center rowForm w-full">
+                <div className="w-full ">
                     <SelectInputComponent
                       label="Proyecto"
                       name="proyecto"
@@ -382,6 +379,7 @@ const FProyectosAtenciones: React.FC<IUserFormPrps> = React.memo(
                       error={errors.proyecto}
                       inputRef={firstInputRef}
                       readOnly={isEditting}
+                      customWidth={"!ml-[1rem] !w-[38rem] "}
                       />
                 </div>
               </div>
@@ -479,11 +477,81 @@ const FProyectosAtenciones: React.FC<IUserFormPrps> = React.memo(
             </div>
           </div>
 
-          <div className="w-full items-center flex h-[80px] !my-4">
+          <div className="w-full items-center flex h-[90px] mt-[25px] !mb-[40px]">
+            <div className="!w-[50%] flex">
+                <FrameComponent label="Factura">
+                <div className="flex">
+                  <TextInputComponent
+                    type="number"
+                    label="Factura"
+                    name="factura"
+                    data={data && data[EnumGrid.factura]}
+                    control={control}
+                    error={errors.factura}
+                    customWidth={"!w-[10rem]"}
+                    />
+            </div>
+            <div className="flex">
+                  <TextInputComponent
+                    type="date"
+                    label="Fecha"
+                    name="fecha_factura"
+                    data={data && data[EnumGrid.fecha_factura]}
+                    control={control}
+                    error={errors.fecha_factura}
+                    customWidth={"!w-[10rem]"}
+                  />
+              
+              </div>
+            <div className="flex">
+                  <TextInputComponent
+                    type="number"
+                    label="Total"
+                    name="total_factura"
+                    data={data && data[EnumGrid.total_factura]}
+                    control={control}
+                    error={errors.total_factura}
+                    customWidth={"!w-[10rem]"}
+                  />
+          </div>
+              </FrameComponent>
+          </div>
+
+            <div className="flex !w-[50%]">
+            <FrameComponent label="Nota de Crédito">
+                    <TextInputComponent
+                      type="number"
+                      label="Nota Crédito"
+                      name="nota_credito"
+                      data={data && data[EnumGrid.nota_credito]}
+                      control={control}
+                      error={errors.nota_credito}
+                    />
+                  
+                    <TextInputComponent
+                      type="date"
+                      label="Fecha"
+                      name="fecha_ncredito"
+                      data={data && data[EnumGrid.fecha_ncredito]}
+                      control={control}
+                      error={errors.fecha_ncredito}
+                    />
+                  
+                    <TextInputComponent
+                      type="number"
+                      label="Total"
+                      name="total_ncredito"
+                      data={data && data[EnumGrid.total_ncredito]}
+                      control={control}
+                      error={errors.total_ncredito}
+                    />
+              </FrameComponent>
+              </div>
+          </div>
+
+          {/* <div className="w-full items-center flex h-[80px] !my-4">
             <div className="input-container items-center rowForm w-[50%]">
-              <FrameComponent
-                label="Factura"
-              >
+              <FrameComponent label="Factura">
                 <div className="flex">
                   <div className="w-[40%]">
                     <TextInputComponent
@@ -563,9 +631,9 @@ const FProyectosAtenciones: React.FC<IUserFormPrps> = React.memo(
                   </div>
                 </FrameComponent>
             </div>
-          </div>
+          </div> */}
 
-          <div className="w-full items-center flex h-[80px] !mt-6 !mb-2">
+          {/* <div className="w-full items-center flex h-[80px] !mt-6 !mb-2">
 
             <div className="input-container items-center rowForm w-[50%]">
                 <FrameComponent
@@ -636,7 +704,7 @@ const FProyectosAtenciones: React.FC<IUserFormPrps> = React.memo(
                 </div>
               </FrameComponent>
             </div>
-          </div>
+          </div> */}
 
           <div className="w-full items-center flex h-[50px]">
             <div className="input-container items-center rowForm w-full">

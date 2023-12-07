@@ -91,7 +91,7 @@ const MCristales: React.FC = () => {
   // console.log(filterToggle.value)
 
   return (
-    <div className="mantenedorContainer !h-[50rem]"  onClick={handleContainerClick}>
+    <div className="mantenedorContainer !h-[45rem]"  onClick={handleContainerClick}>
       <FilterButton>
         <div className="mantenedorHeadFlex width100 relative">
           <div className="w-[95%] mx-auto ">
@@ -101,7 +101,9 @@ const MCristales: React.FC = () => {
               updateParams={updateParams}
               setEntities={setEntities}
               primaryKeyInputs={[
-                { name: "_p1", label: "Código", type: "text", styles:{with:""}},
+                { name: "_p1", label: "Código", type: "text", styles:{with:"!w-[17rem]"}},
+                { name: "_p2", label: "Código FAB", type: "text", styles:{with:"!w-[17rem]"}},
+                
                 {
                   name: "_pIndice",
                   label: "Indice",
@@ -111,13 +113,6 @@ const MCristales: React.FC = () => {
                 },
               
                 {
-                  name: "_pDiseno",
-                  label: "Diseño",
-                  type: "select",
-                  selectUrl: "/api/tipos/",
-                  tipos: "CristalesDisenos", styles:{with:"!mt-[0.5rem]  w-[19rem]"},
-                },
-                {
                   name: "_pMaterial",
                   label: "Material",
                   type: "select",
@@ -125,21 +120,21 @@ const MCristales: React.FC = () => {
                   tipos: "CristalesMateriales", styles:{with:"!mt-[0.5rem] !w-[19rem]"},
                 },
 
-                
-                { name: "_pEsferico",   label: "Esférico", type: "number",  },
-                { name: "_pDiametro", label: "Diámetro", type: "number", styles:{with:"!mt-[-0.1rem] !w-[16.8rem]"}},
-               
+                { name: "_pDiametro", label: "Diámetro", type: "number", styles:{with:"!mt-[-0.1rem] !w-[17rem]"}},
+                { name: "_pEsferico",   label: "Esférico", type: "number", styles:{with:"!w-[4rem] "} },
                 {
                   name: "_pMarca",
                   label: "Marca",
                   type: "select",
                   selectUrl: "/api/marcas/", styles:{with:" !w-[19rem]"},
                 },
+              
                 {
-                  name: "_pProveedor",
-                  label: "Proveedor",
+                  name: "_pDiseno",
+                  label: "Diseño",
                   type: "select",
-                  selectUrl: "/api/proveedores/", styles:{with:" !w-[19rem]"}
+                  selectUrl: "/api/tipos/",
+                  tipos: "CristalesDisenos", styles:{with:"!mt-[0.5rem]  w-[19rem]"},
                 },
 
                 {
@@ -156,9 +151,10 @@ const MCristales: React.FC = () => {
                   selectUrl: "/api/tipos/",
                   tipos: "CristalesTratamientos", styles:{with:"!mt-[0.5rem] !w-[19rem]"},
                 },
+
                 {
                   name: "_p4",
-                  label: "Almacenes",
+                  label: "Almacén",
                   type: "select",
                   selectUrl: "/api/almacenes/", styles:{with:"!mt-[1.2rem] !w-[19rem]"},
                 },
@@ -187,7 +183,7 @@ const MCristales: React.FC = () => {
         </div>
       </FilterButton>
 
-      <div className={`width100 scroll ${filterToggle.value ? "!mt-[14rem] !h-[20rem]" : "!mt-[4rem] !h-[100rem]"} `}>
+      <div className={`width100 scroll ${filterToggle.value ? "!mt-[21rem] !h-[25rem]" : "!mt-[4rem] !h-[60rem]"} `}>
         <TableComponent
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}

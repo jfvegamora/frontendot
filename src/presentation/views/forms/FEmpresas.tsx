@@ -139,10 +139,7 @@ const FEmpresas: React.FC<IUserFormPrps> = React.memo(
 
       console.log(firstInputRef)
       if (firstInputRef.current) {
-        const firstInput =
-          firstInputRef.current.querySelector('input[name="rut"]');
-
-        console.log(firstInput)
+        const firstInput = firstInputRef.current.querySelector('input[name="rut"]');
         if (firstInput) {
           firstInput.focus();
         }
@@ -263,8 +260,6 @@ const FEmpresas: React.FC<IUserFormPrps> = React.memo(
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
-      
-
               <div className="w-full items-center flex">
                 <div className="input-container items-center rowForm w-[50%]">
                   <div className="w-full">
