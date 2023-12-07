@@ -49,8 +49,8 @@ const FOTReceta:React.FC<IReceta> = ({
         combinaciones_validas()
     }
 
-    console.log(dioptriasHabilitadas.value);
-    console.log(habilitarCampo.value);
+    // console.log(dioptriasHabilitadas.value);
+    // console.log(habilitarCampo.value);
     // inputName.value = 50
 
 //   inputName.value = 90  
@@ -92,7 +92,7 @@ const FOTReceta:React.FC<IReceta> = ({
                             readOnly={onlyRead}
                         />
                 </div> */}
-                <div className="w-[30%] ml-10">
+                <div className="w-[27%] ">
                                 <TextInputComponent
                                     type="number"
                                     label="Numero de receta"
@@ -105,7 +105,20 @@ const FOTReceta:React.FC<IReceta> = ({
                                     // error={errors.fecha_nacimiento}
                                 />
                 </div>
-                <div className="w-[30%] ml-10">
+                <div className="w-[15%] ml-4 justify-between">
+                                <TextInputComponent
+                                    type="number"
+                                    label="Total"
+                                    name="total"
+                                    handleChange={handleInputChange}
+                                    data={formValues ? formValues["total"] : data && data[EnumGrid.total]}
+                                    control={control}
+                                    isOT={true}
+                                    onlyRead={onlyRead}
+                                    // error={errors.fecha_nacimiento}
+                                />
+                </div>
+                <div className="w-[15%] ml-4">
                                 <TextInputComponent
                                     type="date"
                                     label="Fecha receta"
@@ -117,6 +130,24 @@ const FOTReceta:React.FC<IReceta> = ({
                                     onlyRead={onlyRead}
                                     // error={errors.fecha_nacimiento}
                                 />
+                </div>
+                <div className="w-[34%] ml-4 mb-[0.3rem]" >
+                        <SelectInputComponent
+                            label="Oftalmólogo"
+                            name="oftalmologo_id"
+                            showRefresh={true}
+                            isOT={true}
+                            handleSelectChange={handleInputChange}
+                            data={formValues ? formValues["oftalmologo_id"] : data && data[EnumGrid.oftalmologo_id]}
+                            control={control}
+                            entidad={["/api/oftalmologos/", "02"]}
+                            // entidad={["/api/ot/", "12","ESF", "_p3"]}
+                            // error={errors.establecimiento}
+                            customWidth={"345px"}
+                            readOnly={onlyRead}
+                        />
+
+                        
                 </div>
                 
             </div>

@@ -16,6 +16,7 @@ import { toast } from 'react-toastify';
 import FOT from "../forms/FOT";
 import OTAreasButtons from "../../components/OTAreasButtons";
 import { AppStore, useAppSelector } from "../../../redux/store";
+import { URLBackend } from "../../hooks/useCrud";
 
 export enum EnumGrid {
   id = 1,
@@ -108,8 +109,9 @@ const MOT: React.FC = () => {
 
   //SWR-POLLING
   const fetcher = (url:string) => axios.get(url).then((res)=>res.data);
-  const {data} = useSWR(`https://mtoopticos.cl/api/ot/listado/?query=01&_origen=${OTAreas["areaActual"]}`, fetcher,{
-    refreshInterval:1000,
+  const {data} = useSWR(`${URLBackend}/api/ot/listado/?query=01&_origen=${OTAreas["areaActual"]}`, fetcher,{
+    refreshInterval:5000,
+    
   });
 
   // console.log('data cambiada', validar_parametrizacion.value)

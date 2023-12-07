@@ -58,7 +58,6 @@ const MProyectosAtenciones: React.FC = () => {
       setEntities,
       entity,
       //modal methods
-      isModalInsert,
       isModalEdit,
       toggleEditModal,
       openModal,

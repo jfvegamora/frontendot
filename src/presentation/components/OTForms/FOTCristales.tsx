@@ -254,7 +254,7 @@ const FOTCristales:React.FC<ICristales> = ({
                                         name="cristal1_diametro"
                                         handleChange={handleInputChange}
                                         isOT={true}
-                                        // data={formValues ? formValues["cristal1_diametro"] : data && data[EnumGrid.diametro_a1]}
+                                        data={formValues ? formValues["cristal1_diametro"] : data && data[EnumGrid.cristal1_diametro]}
                                         onlyRead={onlyRead || permiso_cristales}
                                         // error={errors.fecha_nacimiento}
                                   />
@@ -349,7 +349,7 @@ const FOTCristales:React.FC<ICristales> = ({
                                         showRefresh={true}
                                         isOT={true}
                                         handleSelectChange={handleInputChange}
-                                        // data={formValues ? formValues["cristal2_marca_id"] : data && data[EnumGrid.cristal2_indice_id]}
+                                        data={formValues ? formValues["cristal2_marca_id"] : data && data[EnumGrid.cristal2_indice_id]}
                                         control={control}
                                         entidad={["/api/marcas/", "02"]}
                                         readOnly={onlyRead || permiso_cristales}

@@ -15,6 +15,7 @@ import { SEXO, TIPO_CLIENTE, a2_od_cil, a2_od_eje, a2_od_esf, a2_oi_cil, a2_oi_e
 import { validationCliente, validationEstablecimientos, validationFechaAtencion, validationProyectos, validationPuntoVenta, validationTipoAnteojos, validation_A2_OD_CIL, validation_A2_OD_EJE, validation_A2_OD_ESF, validation_A2_OI_CIL, validation_A2_OI_EJE, validation_A2_OI_ESF } from '../../utils/validationOT';
 import { inputName } from '../../components/OTForms/Otprueba';
 import { verificaCampos } from '../../utils/OTReceta_utils';
+import { URLBackend } from '../../hooks/useCrud';
 
 
 
@@ -689,17 +690,17 @@ const FOT:React.FC<IFOTProps> = ({
 
   const insertOT = async(jsonData:any) => {
 
-    let estado = 2;
+    let estado = 20;
     let estado_impresion = 0;
     let estado_validacion = 1;
     let motivo = 1;
     let a1_grupo = 1;
-    let a2_grupo = 1;
+    let a2_grupo = 99;
     let origen = 50;
     let destino = 60;
 
     // let _p3 = [`nombre='${jsonData.cliente_nombre}'`, `tipo=${jsonData.cliente_tipo === TIPO_CLIENTE.beneficiario ? 1 : jsonData.cliente_tipo === TIPO_CLIENTE.particular ? 2 : jsonData.cliente_tipo === TIPO_CLIENTE.optica ? 3 : 0}`, `sexo=${jsonData.cliente_sexo === SEXO.masculino ? 1 : jsonData.cliente_sexo === SEXO.femenino ? 2 : jsonData.cliente_sexo === SEXO.no_aplica ? 3 : 0}`, `fecha_nacimiento='${jsonData.cliente_fecha_nacimiento}'`, `direccion='${jsonData.cliente_direccion}'`, `comuna=${jsonData.cliente_comuna || 150}`, `telefono='${jsonData.cliente_telefono}'`, `correo='${jsonData.cliente_correo}'`, `establecimiento=${jsonData.establecimiento_id}`].join(', ');
-    let  _p3 =`"${jsonData.cliente_rut || formValues.cliente.cliente_rut || ""}","${jsonData.cliente_nombre || formValues.cliente.cliente_nombre || ""}",${jsonData.cliente_tipo === TIPO_CLIENTE.beneficiario ? "1" : jsonData.cliente_tipo === TIPO_CLIENTE.particular ? "2" : jsonData.cliente_tipo === TIPO_CLIENTE.optica ? "3" : "0"}, ${jsonData.cliente_sexo === SEXO.masculino ? "1" : jsonData.cliente_sexo === SEXO.femenino ? "2" : jsonData.cliente_sexo === SEXO.no_aplica ? "3" : "0"},"${jsonData.cliente_fecha_nacimiento || formValues.cliente.cliente_fecha_nacimiento || ""}","${jsonData.cliente_direccion || ""}" ,${jsonData.cliente_comuna_id || 150}, "${jsonData.cliente_telefono || formValues.cliente.cliente_telefono || ""}","${jsonData.cliente_correo || formValues.cliente.cliente_correo || ""}", ${jsonData.establecimiento_id || formValues.cliente.establecimiento_id || 0}`;
+    let  _p3 =`"${jsonData.cliente_rut || formValues.cliente.cliente_rut || ""}","${jsonData.cliente_nombre || formValues.cliente.cliente_nombre || ""}",${jsonData.cliente_tipo === TIPO_CLIENTE.beneficiario ? "1" : jsonData.cliente_tipo === TIPO_CLIENTE.particular ? "2" : jsonData.cliente_tipo === TIPO_CLIENTE.optica ? "3" : "0"}, ${jsonData.cliente_sexo === SEXO.masculino ? "1" : jsonData.cliente_sexo === SEXO.femenino ? "2" : jsonData.cliente_sexo === SEXO.no_aplica ? "3" : "0"},"${jsonData.cliente_fecha_nacimiento || formValues.cliente.cliente_fecha_nacimiento || ""}","${jsonData.cliente_direccion || ""}" ,${jsonData.cliente_comuna || 150}, "${jsonData.cliente_telefono || formValues.cliente.cliente_telefono || ""}","${jsonData.cliente_correo || formValues.cliente.cliente_correo || ""}", ${jsonData.establecimiento_id || formValues.cliente.establecimiento_id || 0}`;
     _p3 = _p3.replace(/'/g, '!');
 
     let _rut = '';
@@ -710,7 +711,7 @@ const FOT:React.FC<IFOTProps> = ({
     // }
 
     // console.log('data', jsonData)
-    let _p1 = `${motivo},${destino},${estado},${estado_impresion},${estado_validacion},"${jsonData.proyecto}",${jsonData.establecimiento_id},"${jsonData.cliente_rut || formValues.cliente.cliente_rut}","${jsonData.fecha_atencion}","${jsonData.fecha_entrega_taller || fecha_entrega_taller}","${jsonData.fecha_despacho || fecha_despacho}","${jsonData.fecha_entrega_cliente || fecha_entrega_cliente}",${jsonData.punto_venta_id || 0},${jsonData.numero_receta ?? 0},"${jsonData.fecha_receta ?? 0}",${jsonData.tipo_anteojo_id ?? 0},${jsonData.a1_od_esf ?? 0},${jsonData.a1_od_cil ?? 0},${jsonData.a1_od_eje ?? 0},${jsonData.a1_od_ad || 0 },${jsonData.a1_oi_esf ?? 0},${jsonData.a1_oi_cil ?? 0},${jsonData.a1_oi_eje ?? 0},${jsonData.a1_oi_ad || 0},${jsonData.a1_dp || 0},${jsonData.a1_alt || 0},${a1_grupo || 0},${jsonData.a2_od_esf || 0},${jsonData.a2_od_cil || 0},${jsonData.a2_od_eje || 0},${jsonData.a2_oi_esf || 0},${jsonData.a2_oi_cil || 0},${jsonData.a2_oi_eje || 0},${jsonData.a2_dp || 0},${a2_grupo || 0},${jsonData.a1_opcion_vta_id || 0},${jsonData.a1_armazon_id || 0},${jsonData.a2_opcion_vta_id || 0},${jsonData.a2_armazon_id || 0},${jsonData.a3_opcion_vta_id || 0},${jsonData.a3_armazon_id || 0},${jsonData.cristal1_opcion_vta_id || 0},${jsonData.cristal1_diseno_id || 0},${jsonData.cristal1_indice_id || 0},${jsonData.cristal1_material_id || 0},${jsonData.cristal1_tratamiento_id || 0},${jsonData.cristal1_color_id || 0},${jsonData.cristal1_od || 0},${jsonData.cristal1_oi || 0},${jsonData.cristal1_tratamiento_adicional_id || 0},${jsonData.cristal2_od_opcion_venta_id || 0},${jsonData.cristal2_diseno_id || 0},${jsonData.cristal2_indice_id || 0},${jsonData.cristal2_material_id || 0},${jsonData.cristal2_tratamiento_id || 0},${jsonData.cristal2_color_id || 0},${jsonData.cristal2_od || 0},${jsonData.cristal2_oi || 0},${jsonData.cristal2_tratamiento_adicional_id || 0},${jsonData.motivo_garantia_id || 0},${jsonData.folio_asociado || 0},${jsonData.resolucion_garantia_id || 0},${jsonData.worktracking || 0},${jsonData.nota_venta || 0},${jsonData.numero_factura || 0},${jsonData.folio_interno_mandante || 0},"${jsonData.observaciones || ""}"`;
+    let _p1 = `${motivo},${destino},${estado},${estado_impresion},${estado_validacion},"${jsonData.proyecto}",${jsonData.establecimiento_id},"${jsonData.cliente_rut || formValues.cliente.cliente_rut}",${jsonData.oftalmologo_id ?? 0} ,"${jsonData.fecha_atencion}","${jsonData.fecha_entrega_taller || fecha_entrega_taller}","${jsonData.fecha_despacho || fecha_despacho}","${jsonData.fecha_entrega_cliente || fecha_entrega_cliente}",${jsonData.punto_venta_id || 0},${jsonData.numero_receta.value ?? 0},"${jsonData.fecha_receta ?? ""}",${jsonData.tipo_anteojo_id ?? 0},${jsonData.a1_od_esf.value ?? 0},${jsonData.a1_od_cil.value ?? 0},${jsonData.a1_od_eje.value ?? 0},${jsonData.a1_od_ad.value ?? 0 },${jsonData.a1_oi_esf.value ?? 0},${jsonData.a1_oi_cil.value ?? 0},${jsonData.a1_oi_eje.value ?? 0},${jsonData.a1_oi_ad.value ?? 0},${jsonData.a1_dp.value ?? 0},${jsonData.a1_alt.value ?? 0},${a1_grupo ?? 0},${jsonData.a2_od_esf.value ?? 0},${jsonData.a2_od_cil.value ?? 0},${jsonData.a2_od_eje.value ?? 0},${jsonData.a2_oi_esf.value ?? 0},${jsonData.a2_oi_cil.value ?? 0},${jsonData.a2_oi_eje.value ?? 0},${jsonData.a2_dp.value ?? 0},${a2_grupo ?? 0},${jsonData.a1_opcion_vta_id ?? 0},"${jsonData.a1_armazon_id ?? " "}",${jsonData.a2_opcion_vta_id ?? 0},"${jsonData.a2_armazon_id ?? " "}",${jsonData.a3_opcion_vta_id ?? 0},"${jsonData.a3_armazon_id ?? " "}",${jsonData.cristal1_opcion_vta_id || 0},${jsonData.cristal1_marca_id || 0},${jsonData.cristal1_diseno_id || 0},${jsonData.cristal1_indice_id || 0},${jsonData.cristal1_material_id || 0},${jsonData.cristal1_tratamiento_id || 0},${jsonData.cristal1_color_id || 0},${jsonData.cristal1_diametro || 0},"${jsonData.cristal1_od ?? " "}","${jsonData.cristal1_oi ?? " "}",${jsonData.cristal1_tratamiento_adicional_id || 0},${jsonData.cristal2_od_opcion_venta_id || 0},${jsonData.cristal2_marca_id || 0},${jsonData.cristal2_diseno_id || 0},${jsonData.cristal2_indice_id || 0},${jsonData.cristal2_material_id || 0},${jsonData.cristal2_tratamiento_id || 0},${jsonData.cristal2_color_id || 0},${jsonData.cristal2_diametro || 0},"${jsonData.cristal2_od ?? " "}","${jsonData.cristal2_oi ?? " "}",${jsonData.cristal2_tratamiento_adicional_id || 0},${jsonData.motivo_garantia_id || 0},${jsonData.folio_asociado || 0},${jsonData.resolucion_garantia_id || 0},${jsonData.worktracking || 0},${jsonData.nota_venta || 0},${jsonData.numero_factura || 0},${jsonData.folio_interno_mandante || 0},${jsonData.total || 0},"${jsonData.observaciones || ""}"`;
     _p1 = _p1.replace(/'/g, '!');
 
 
@@ -740,19 +741,18 @@ const FOT:React.FC<IFOTProps> = ({
        
     };
 
-    console.log('Valor de jsonData.a1_od_cil:', jsonData.a1_od_cil.value || 0);
+    // console.log('Valor de jsonData.a1_od_cil:', jsonData.a1_od_cil.value || 0);
     console.log(formValues)
     console.log(jsonData)
     console.log(query)
   
-    
-    // try {
-    //   const response = await axios.post("https://mtoopticos.cl/api/ot/crear/", query)
-    //   console.log(response)
-      
-    // } catch (error) {
-    //   console.log(error)
-    // }
+
+    try {
+      const response = await axios.post(`${URLBackend}/api/ot/crear/`, query)
+      console.log(response)
+    } catch (error) {
+      console.log(error)
+    }
 
 
 
@@ -760,7 +760,7 @@ const FOT:React.FC<IFOTProps> = ({
   
     // return query;
   }
-  
+  console.log('h')
   //Estados locales
   const { control, handleSubmit, setValue, register } = useForm<FormData>();
   const [formValues, setFormValues] = useState<FormData | any>({});
@@ -1135,7 +1135,7 @@ const handleEsferico = () => {
               (sumatoriaNivel2 === validationNivel2.value.length || data && data[EnumGrid.validar_parametrizacion_id] === "0" ) && (
                 <button className='bg-green-400 mx-4  text-white w-1/4 ' onClick={handleProcesarClick}>Procesar</button>
               )}
-              <button onClick={handleEsferico}>ESFERIco</button>
+
               
 
               {OTPermissions && 
