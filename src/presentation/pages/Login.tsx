@@ -15,7 +15,6 @@ import { fetchFuncionalidades } from "../../redux/slices/funcionalidadesSlice";
 import useCustomToast from "../hooks/useCustomToast";
 import { fetchOTAreas } from "../../redux/slices/OTAreasSlice";
 import { fetchListBoxTipos } from "../../redux/slices/ListBoxTipoSlice";
-import { fetchOT } from "../../redux/slices/OTSlice";
 // import ToastNotification from "../components/ToastNotification";
 
 interface LoginFormValues {
@@ -65,7 +64,7 @@ const Login: React.FC = React.memo(() => {
   };
 
   return (
-    <div className="loginFormContainer mt-8 mx-auto w-[90%] md:w-[50%] lg:w-[40%] xl:w-[30%] !mt-[25vh]">
+    <div className="loginFormContainer mx-auto w-[90%] md:w-[50%] lg:w-[40%] xl:w-[30%] !mt-[25vh]">
           <h1 className="userFormLabel text-white pt-10 text-2xl md:text-2xl lg:text-3xl xl:text-3xl">Sistema Gestión OT</h1>
           <div className=" md:w-[100%] mt-8">
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
@@ -103,14 +102,14 @@ const Login: React.FC = React.memo(() => {
                     </div>
                 </div>
         
-                <div className="input-container items-center rowForm mt-4">
+                <div className="input-container items-center  mt-4">
                   <div className="w-[90%] mx-auto">
                     <button type="submit" tabIndex={1} className="userFormBtnSubmit !mt-8">
                       Entrar
                     </button>
+                    <Link className="text-white block text-center !mt-[1rem]" to="/forgotpassword">Recuperar Contraseña</Link>
                   </div>
                 </div>
-                <Link className="forgotPwd text-white block text-center mt-4" to="/forgotpassword">Recupera Contraseña</Link>
               </form>
             </div>
           </div>

@@ -58,6 +58,7 @@ const MProyectosAtenciones: React.FC = () => {
       setEntities,
       entity,
       //modal methods
+      isModalInsert,
       isModalEdit,
       toggleEditModal,
       openModal,
@@ -147,7 +148,7 @@ const MProyectosAtenciones: React.FC = () => {
           />
         </div>
 
-        {/* {isModalInsert && ( */}
+        {isModalInsert && (
           <FProyectosAtenciones
             label={`${TITLES.ingreso} ${strEntidad}`}
             closeModal={closeModal}
@@ -157,7 +158,7 @@ const MProyectosAtenciones: React.FC = () => {
             isEditting={false}
             escritura_lectura={escritura_lectura}
             />
-        {/* )} */}
+        )}
   
         {isModalEdit && (
           <FProyectosAtenciones

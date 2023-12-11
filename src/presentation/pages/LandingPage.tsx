@@ -1,11 +1,11 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect } from "react";
+import React from "react";
 import { filterToggle } from "../components/FilterButton";
-import { AppStore, useAppDispatch, useAppSelector } from "../../redux/store";
-import { fetchOT } from "../../redux/slices/OTSlice";
-import { FixedSizeList } from 'react-window';
+import { AppStore, useAppSelector } from "../../redux/store";
+
+// import { FixedSizeList } from 'react-window';
 import TableOTComponent from "../components/TableOTComponent";
 import { table_head_OT_diaria } from "../utils";
 // import FrameComponent from "../components/FrameComponent";
@@ -21,24 +21,12 @@ export const handleContainerClick = (event:React.MouseEvent<HTMLDivElement>) => 
 
 const LandingPage: React.FC = () => {
   
-  let key = 'puntosVentaTipos';
-  const itemCount = 1000; // Cantidad total de elementos
-  const itemSize = 50; 
+
   
-  const dispatch = useAppDispatch()
   const result = useAppSelector((store: AppStore) => store.OTS);
   console.log(result)
 
-  useEffect(()=>{
-    dispatch(fetchOT())
-  },[])
-  const renderItem = () => (
-    <div>
-      {result.data.length > 1 && result.data.map((ot:any,index:any)=>(
-        <h1 key={index}>{ot[3]}</h1>
-      ))}
-    </div>
-  );
+
 
   return (
     <div className="mantenedorContainer">

@@ -20,6 +20,7 @@ import useCustomToast from "../../hooks/useCustomToast";
 import axios from "axios";
 import { signal } from "@preact/signals-react";
 import { toast } from "react-toastify";
+import { URLBackend } from "../../hooks/useCrud";
 
 const strBaseUrl = "/api/proyectosaccesorios/";
 const strEntidad = "Parametrización de Accesorios ";
@@ -228,7 +229,7 @@ const FProyectosAccesorios: React.FC<IUserFormPrps> = React.memo(
     );
     const fetchArmazon = async(codigo:string | undefined) =>{
       try {
-          const {data} = await axios(`https://mtoopticos.cl/api/armazones/listado/?query=01&_p1=${codigo}`)
+          const {data} = await axios(`${URLBackend}/api/accesorios/listado/?query=01&_p1=${codigo}`)
           accesorioData.value = data 
           console.log(data)      
       } catch (error) {

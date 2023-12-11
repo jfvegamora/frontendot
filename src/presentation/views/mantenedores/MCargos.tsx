@@ -31,6 +31,7 @@ const MCargos: React.FC = () => {
   const [params, setParams] = useState([]);
   const { escritura_lectura} = usePermission(idMenu || 0 );
   
+  
   const updateParams = (newParams: Record<string, never>) => {
     setParams(Object.keys(newParams).map((key) => newParams[key]));
   };

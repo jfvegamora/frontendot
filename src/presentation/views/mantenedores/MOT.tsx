@@ -4,22 +4,15 @@
 import React, { useState, useEffect } from "react";
 
 import {
-  PrimaryButtonsComponent,
-  PrimaryKeySearch,
   TableComponent,
 } from "../../components";
 import { useEntityUtils, usePermission } from "../../hooks";
-import {  TITLES, table_head_OT_diaria, table_head_OT_diaria2 } from "../../utils";
-import axios from "axios";
-import useSWR from "swr";
-import { toast } from 'react-toastify';
+import {  TITLES ,table_head_OT_diaria2 } from "../../utils";
 import FOT from "../forms/FOT";
 import OTAreasButtons from "../../components/OTAreasButtons";
 import { AppStore, useAppDispatch, useAppSelector } from "../../../redux/store";
-import { URLBackend } from "../../hooks/useCrud";
+// import { URLBackend } from "../../hooks/useCrud";
 import { fetchOT } from "../../../redux/slices/OTSlice";
-import TableOTComponent from "../../components/TableOTComponent";
-import FilterButton from "../../components/FilterButton";
 
 export enum EnumGrid {
   id = 1,
@@ -46,20 +39,17 @@ export enum OptionValuesEstado {
 
 
 const strEntidad = "Orden de Trabajo ";
-const strEntidadExcel = "Usuarios";
 const strBaseUrl = "/api/ot/";
 const strQuery = "01";
 const idMenu = 1;
 
-type PrimaryKey = {
-  pk1: number;
-};
+
 const MOT: React.FC = () => {
   const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas);
   const areaActual = OTAreas["areaActual"] 
   const OTs:any = useAppSelector((store: AppStore) => store.OTS);
   const dispatch = useAppDispatch();
-  const [params, setParams] = useState([]);
+  const [params, _setParams] = useState([]);
   // const [entitiesOT, setEntitiesOT] = useState([]);
 
   
@@ -82,7 +72,7 @@ const MOT: React.FC = () => {
     isModalInsert,
     isModalEdit,
     toggleEditModal,
-    openModal,
+    // openModal,
     closeModal,
     //Check methods
     handleSelect,
@@ -91,7 +81,6 @@ const MOT: React.FC = () => {
     handleSelectedAll,
     //primary buttons methods
     handleDeleteSelected,
-    resetEntities,
   } = useEntityUtils(strBaseUrl, strQuery);
   // console.log("entities:", entities);
 

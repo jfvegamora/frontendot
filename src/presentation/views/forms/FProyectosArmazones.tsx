@@ -20,6 +20,7 @@ import useCustomToast from "../../hooks/useCustomToast";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { signal } from "@preact/signals-react";
+import { URLBackend } from "../../hooks/useCrud";
 
 const strBaseUrl = "/api/proyectoarmazones/";
 const strEntidad = "Parametrizacion de Armazones ";
@@ -231,7 +232,7 @@ const FProyectosArmazones: React.FC<IUserFormPrps> = React.memo(
 
     const fetchArmazon = async(codigo:string | undefined) =>{
         try {
-            const {data} = await axios(`https://mtoopticos.cl/api/armazones/listado/?query=01&_p1=${codigo}`)
+            const {data} = await axios(`${URLBackend}/api/armazones/listado/?query=01&_p1=${codigo}`)
             armazonData.value = data       
         } catch (error) {
           throw error

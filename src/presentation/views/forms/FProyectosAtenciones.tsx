@@ -424,7 +424,7 @@ const FProyectosAtenciones: React.FC<IUserFormPrps> = React.memo(
               </div>
           </div>
 
-          <div className="w-full items-center flex h-[80px] ">
+          <div className="w-full items-center flex h-[6rem]">
             <div className="input-container items-center rowForm w-[19.5%]">
               <div className="w-full">
                 <TextInputComponent
@@ -477,9 +477,9 @@ const FProyectosAtenciones: React.FC<IUserFormPrps> = React.memo(
             </div>
           </div>
 
-          <div className="w-full items-center flex h-[90px] mt-[25px] !mb-[40px]">
-            <div className="!w-[50%] flex">
-                <FrameComponent label="Factura">
+          <div className=" items-center flex !mt-[1rem] !mb-[1rem]">
+            <div className="!w-[50%] mr-[2rem]">
+              <FrameComponent label="Factura">
                 <div className="flex">
                   <TextInputComponent
                     type="number"
@@ -488,10 +488,8 @@ const FProyectosAtenciones: React.FC<IUserFormPrps> = React.memo(
                     data={data && data[EnumGrid.factura]}
                     control={control}
                     error={errors.factura}
-                    customWidth={"!w-[10rem]"}
-                    />
-            </div>
-            <div className="flex">
+                    customWidth={"w-[30%] mr-4"}
+                  />
                   <TextInputComponent
                     type="date"
                     label="Fecha"
@@ -499,11 +497,8 @@ const FProyectosAtenciones: React.FC<IUserFormPrps> = React.memo(
                     data={data && data[EnumGrid.fecha_factura]}
                     control={control}
                     error={errors.fecha_factura}
-                    customWidth={"!w-[10rem]"}
+                    customWidth={"w-[30%] mr-4"}
                   />
-              
-              </div>
-            <div className="flex">
                   <TextInputComponent
                     type="number"
                     label="Total"
@@ -511,200 +506,46 @@ const FProyectosAtenciones: React.FC<IUserFormPrps> = React.memo(
                     data={data && data[EnumGrid.total_factura]}
                     control={control}
                     error={errors.total_factura}
-                    customWidth={"!w-[10rem]"}
+                    customWidth={"w-[40%] mr-4"}
                   />
-          </div>
-              </FrameComponent>
-          </div>
-
-            <div className="flex !w-[50%]">
-            <FrameComponent label="Nota de Crédito">
-                    <TextInputComponent
-                      type="number"
-                      label="Nota Crédito"
-                      name="nota_credito"
-                      data={data && data[EnumGrid.nota_credito]}
-                      control={control}
-                      error={errors.nota_credito}
-                    />
-                  
-                    <TextInputComponent
-                      type="date"
-                      label="Fecha"
-                      name="fecha_ncredito"
-                      data={data && data[EnumGrid.fecha_ncredito]}
-                      control={control}
-                      error={errors.fecha_ncredito}
-                    />
-                  
-                    <TextInputComponent
-                      type="number"
-                      label="Total"
-                      name="total_ncredito"
-                      data={data && data[EnumGrid.total_ncredito]}
-                      control={control}
-                      error={errors.total_ncredito}
-                    />
-              </FrameComponent>
-              </div>
-          </div>
-
-          {/* <div className="w-full items-center flex h-[80px] !my-4">
-            <div className="input-container items-center rowForm w-[50%]">
-              <FrameComponent label="Factura">
-                <div className="flex">
-                  <div className="w-[40%]">
-                    <TextInputComponent
-                        type="number"
-                        label="Factura"
-                        name="factura"
-                        data={data && data[EnumGrid.factura]}
-                        control={control}
-                        error={errors.factura}
-                      />
-                  </div>
-
-                  <div className="w-[30%]">
-                    <TextInputComponent
-                      type="date"
-                      label="Fecha"
-                      name="fecha_factura"
-                      data={data && data[EnumGrid.fecha_factura]}
-                      control={control}
-                      error={errors.fecha_factura}
-                    />
-                  </div>
-                
-                  <div className="w-[35%]">
-                    <TextInputComponent
-                      type="number"
-                      label="Total"
-                      name="total_factura"
-                      data={data && data[EnumGrid.total_factura]}
-                      control={control}
-                      error={errors.total_factura}
-                    />
-                  </div>
-                </div >
-              </FrameComponent>
-
-            </div>
-            <div className="input-container items-center rowForm w-[50%]">
-                <FrameComponent
-                 label="Nota de Crédito" 
-                >
-                  <div className="flex">
-                    
-                    <div className="w-[40%]">
-                      <TextInputComponent
-                        type="number"
-                        label="Nota Crédito"
-                        name="nota_credito"
-                        data={data && data[EnumGrid.nota_credito]}
-                        control={control}
-                        error={errors.nota_credito}
-                      />
-                    </div>
-                    
-                    <div className="w-[30%]">
-                      <TextInputComponent
-                        type="date"
-                        label="Fecha"
-                        name="fecha_ncredito"
-                        data={data && data[EnumGrid.fecha_ncredito]}
-                        control={control}
-                        error={errors.fecha_ncredito}
-                      />
-                    </div>
-                    
-                    <div className="w-[35%]">
-                      <TextInputComponent
-                        type="number"
-                        label="Total"
-                        name="total_ncredito"
-                        data={data && data[EnumGrid.total_ncredito]}
-                        control={control}
-                        error={errors.total_ncredito}
-                      />
-                    </div>
-
-                  </div>
-                </FrameComponent>
-            </div>
-          </div> */}
-
-          {/* <div className="w-full items-center flex h-[80px] !mt-6 !mb-2">
-
-            <div className="input-container items-center rowForm w-[50%]">
-                <FrameComponent
-                  label="Nota de Débito"
-                >
-                  <div className="flex">
-                  <div className="w-[40%]">
-                    <TextInputComponent
-                        type="number"
-                        label="Nota Débito"
-                        name="nota_debito"
-                        data={data && data[EnumGrid.nota_debito]}
-                        control={control}
-                        error={errors.nota_debito}
-                      />
-                  </div>
-
-                  <div className="w-[30%]">
-                    <TextInputComponent
-                      type="date"
-                      label="Fecha"
-                      name="fecha_ndebito"
-                      data={data && data[EnumGrid.fecha_ndebito]}
-                      control={control}
-                      error={errors.fecha_ndebito}
-                    />
-                  </div>
-                  <div className="w-[35%]">
-                    <TextInputComponent
-                      type="number"
-                      label="Total"
-                      name="total_ndebito"
-                      data={data && data[EnumGrid.total_ndebito]}
-                      control={control}
-                      error={errors.total_ndebito}
-                    />
-                  </div>
-                  </div>
-                </FrameComponent>
-
-            </div>
-
-            <div className="input-container items-center rowForm w-[50%]">
-              <FrameComponent
-               label="Guia despacho"
-              >
-                <div className="flex">
-                  <div className="w-[37%]">
-                    <TextInputComponent
-                      type="number"
-                      label="Guia Despacho"
-                      name="guia_despacho"
-                      data={data && data[EnumGrid.guia_despacho]}
-                      control={control}
-                      error={errors.guia_despacho}
-                    />
-                  </div>
-                  <div className="w-[30%]">
-                    <TextInputComponent
-                      type="date"
-                      label="Fecha"
-                      name="fecha_guia_despacho"
-                      data={data && data[EnumGrid.fecha_guia_despacho]}
-                      control={control}
-                      error={errors.fecha_guia_despacho}
-                    />
-                  </div>
                 </div>
               </FrameComponent>
             </div>
-          </div> */}
+
+            <div className="!w-[50%] !mr-[2rem]">
+              <FrameComponent label="Nota de Crédito">
+                <div className="flex">
+                  <TextInputComponent
+                    type="number"
+                    label="Nota Crédito"
+                    name="nota_credito"
+                    data={data && data[EnumGrid.nota_credito]}
+                    control={control}
+                    error={errors.nota_credito}
+                    customWidth={"w-[30%] mr-4"}
+                    />
+                  <TextInputComponent
+                    type="date"
+                    label="Fecha"
+                    name="fecha_ncredito"
+                    data={data && data[EnumGrid.fecha_ncredito]}
+                    control={control}
+                    error={errors.fecha_ncredito}
+                    customWidth={"w-[30%] mr-4"}
+                    />
+                  <TextInputComponent
+                    type="number"
+                    label="Total"
+                    name="total_ncredito"
+                    data={data && data[EnumGrid.total_ncredito]}
+                    control={control}
+                    error={errors.total_ncredito}
+                    customWidth={"w-[40%] mr-4"}
+                    />
+                </div>
+              </FrameComponent>
+              </div>
+            </div>
 
           <div className="w-full items-center flex h-[50px]">
             <div className="input-container items-center rowForm w-full">

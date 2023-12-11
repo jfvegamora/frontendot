@@ -5,7 +5,7 @@
 import { useRef } from "react";
 import axios, { AxiosInstance } from "axios";
 import { signal } from "@preact/signals-react";
-import useSWR from "swr";
+// import useSWR from "swr";
 
 // PRODUCCION
 //  export const URLBackend = signal('https://mtoopticos.cl');
@@ -220,7 +220,7 @@ const useCrud = (
   ): Promise<any | undefined> => {
     // console.log(primaryKeys)
     // console.log(baseUrl
-    const fetcher = (url:string) => axios.get(url).then((res)=>res.data);
+    // const fetcher = (url:string) => axios.get(url).then((res)=>res.data);
 
 
     const searchUrl = baseUrl === 'https://mtoopticos.cl/api/tipos/'
