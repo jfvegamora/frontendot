@@ -84,7 +84,7 @@ const MArmazones: React.FC = () => {
   return (
     <div className="mantenedorContainer">
       <div className="mantenedorHead width100 !h-[6rem]">
-      <div className="w-[70%] absolute">
+      <div className="w-[70%] ">
         <PrimaryKeySearch
           baseUrl={strBaseUrl}
           setParams={setParams}
@@ -110,7 +110,7 @@ const MArmazones: React.FC = () => {
         />
       </div>
 
-        <div className="w-[30%] px-2 relative -right-[58rem] ">
+        <div className="w-[25%] px-2">
           <PrimaryButtonsComponent
             handleAddPerson={openModal}
             handleDeleteSelected={handleDeleteSelected}

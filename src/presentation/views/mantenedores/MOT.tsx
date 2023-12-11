@@ -9,14 +9,17 @@ import {
   TableComponent,
 } from "../../components";
 import { useEntityUtils, usePermission } from "../../hooks";
-import {  TITLES, table_head_OT_diaria } from "../../utils";
+import {  TITLES, table_head_OT_diaria, table_head_OT_diaria2 } from "../../utils";
 import axios from "axios";
 import useSWR from "swr";
 import { toast } from 'react-toastify';
 import FOT from "../forms/FOT";
 import OTAreasButtons from "../../components/OTAreasButtons";
-import { AppStore, useAppSelector } from "../../../redux/store";
+import { AppStore, useAppDispatch, useAppSelector } from "../../../redux/store";
 import { URLBackend } from "../../hooks/useCrud";
+import { fetchOT } from "../../../redux/slices/OTSlice";
+import TableOTComponent from "../../components/TableOTComponent";
+import FilterButton from "../../components/FilterButton";
 
 export enum EnumGrid {
   id = 1,
@@ -53,19 +56,22 @@ type PrimaryKey = {
 };
 const MOT: React.FC = () => {
   const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas);
-
+  const areaActual = OTAreas["areaActual"] 
+  const OTs:any = useAppSelector((store: AppStore) => store.OTS);
+  const dispatch = useAppDispatch();
   const [params, setParams] = useState([]);
-  const [entitiesOT, setEntitiesOT] = useState([]);
-  const [selectedValue, setSelectedValue] = useState('_p3=0');
+  // const [entitiesOT, setEntitiesOT] = useState([]);
+
+  
 
   const { lectura} = usePermission(28);
   // console.log(lectura)
   // let a = JSON.parse(localStorage.getItem("ListBoxTipos") as string)  
   // console.log( a["cristalDiseño"] )
 
-  const updateParams = (newParams: Record<string, never>) => {
-    setParams(Object.keys(newParams).map((key) => newParams[key]));
-  };
+  // const updateParams = (newParams: Record<string, never>) => {
+  //   setParams(Object.keys(newParams).map((key) => newParams[key]));
+  // };
 
   const {
     //entities state
@@ -92,51 +98,63 @@ const MOT: React.FC = () => {
   // console.log("params:", params);
   // console.log(entity)
 
-  const pkToDelete: PrimaryKey[] = [];
+  // const pkToDelete: PrimaryKey[] = [];
 
   // console.log('pktodelete', pkToDelete)
-  useEffect(() => {
-    const newPkToDelete = selectedRows.map((row: number) => ({
-      pk1: entitiesOT[row][EnumGrid.id],
-    }));
-    newPkToDelete.forEach((newPk: { pk1: any }) => {
-      if (!pkToDelete.some((existingPk) => existingPk.pk1 === newPk.pk1)) {
-        pkToDelete.push(newPk);
-      }
-    });
-  }, [selectedRows]);
+  // useEffect(() => {
+  //   const newPkToDelete = selectedRows.map((row: number) => ({
+  //     pk1: entitiesOT[row][EnumGrid.id],
+  //   }));
+  //   newPkToDelete.forEach((newPk: { pk1: any }) => {
+  //     if (!pkToDelete.some((existingPk) => existingPk.pk1 === newPk.pk1)) {
+  //       pkToDelete.push(newPk);
+  //     }
+  //   });
+  // }, [selectedRows]);
 
 
   //SWR-POLLING
-  const fetcher = (url:string) => axios.get(url).then((res)=>res.data);
-  const {data} = useSWR(`${URLBackend}/api/ot/listado/?query=01&_origen=${OTAreas["areaActual"]}`, fetcher,{
-    refreshInterval:5000,
-    
-  });
+  // const fetcher = (url:string) => axios.get(url).then((res)=>res.data);
+  // const {data} = useSWR(`${URLBackend}/api/ot/listado/?query=01&_origen=${OTAreas["areaActual"]}`, fetcher,{
+  //   refreshInterval: 10000
+  // });
 
   // console.log('data cambiada', validar_parametrizacion.value)
+  useEffect(()=>{   
+    dispatch(fetchOT(areaActual))
+    const interval = setInterval(fetchOT, 10000);
 
+  // Limpia el intervalo en la limpieza del efecto
+    return () => clearInterval(interval);
+  },[areaActual])
 
-  useEffect(()=>{
-    if(data && JSON.stringify(data) !== JSON.stringify(entitiesOT)){
-      toast.success('nueva OT')
-      setEntitiesOT(data)
-      setEntities(data)
-    }
-  },[data]);
+  console.log(OTs)
 
-  const handleSelectedChange = (e:any) => {
-    setSelectedValue(e.target.value)
-  }
- 
+  // useEffect(()=>{
+  //   if(data && data.length > 0){
+  //     // toast.success( 'nueva OT')
+  //     // const newData = data.slice(0,6)
+  //     console.time('LLAMADA A API')
+  //     setEntitiesOT(data)
+  //     setEntities(data)
+  //     // setRenderEntities(newData)
+  //   }
+  // },[data]);
+
+  // const handleSelectedChange = (e:any) => {
+  //   setSelectedValue(e.target.value)
+  // }
+  // console.log(OTs.data.slice(0,250))
   // console.log('selectedValue',selectedValue)
   return (
     <div className="mantenedorContainer">
       <div className="mt-8">
-        <OTAreasButtons/>
+       
+            <OTAreasButtons/>
+
       </div>
 
-      <div className="mantenedorHead width100 items-center">
+      {/* <div className="mantenedorHead width100 items-center">
         <select  
           className="bg-green-300"
           onChange={handleSelectedChange}
@@ -220,7 +238,7 @@ const MOT: React.FC = () => {
           idMenu={idMenu}
           isOT={true}
         />
-      </div>
+      </div> */}
 
       
       <div className="scroll">
@@ -230,16 +248,17 @@ const MOT: React.FC = () => {
           toggleEditModal={toggleEditModal}
           handleDeleteSelected={handleDeleteSelected}
           selectedRows={selectedRows}
-          pkToDelete={pkToDelete}
+          // pkToDelete={pkToDelete}
           setSelectedRows={setSelectedRows}
           entidad={strEntidad}
-          data={entitiesOT}
-          tableHead={table_head_OT_diaria}
+          data={OTs.data}
+          tableHead={table_head_OT_diaria2}
           showEditButton={true}
           showDeleteButton={false}
           idMenu={idMenu}
           isOT={true}
         />
+
       </div>
 
       {isModalInsert && (

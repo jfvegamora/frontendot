@@ -48,7 +48,7 @@ const ModalImpor:React.FC<ModalImportProps> = ({
 
    return (
     <div className='w-[90%] border border-black mx-auto h-[80%] left-20 z-20 bg-white absolute top-[10%] '>
-            <div className='h-[60vh]'>
+            <div className='h-[60vh]  w-full'>
                 <h1 className='absolute right-0 text-5xl' onClick={()=>onClose()}>X</h1>
                 <h1 className='text-xl text-center'>{titleState}</h1>
 

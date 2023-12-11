@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useEffect, useState} from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { AppStore, useAppSelector } from '../../../redux/store';
@@ -1060,7 +1060,19 @@ const handleEsferico = () => {
 
 // console.log(tipo_de_anteojo.value)
 // console.log(data && data[EnumGrid.validar_parametrizacion_id])
+useEffect(() => {
+  const handleKeyDown = (event: KeyboardEvent) => {
+    if (event.key === "Escape") {
+      closeModal();
+    }
+  };
 
+  window.addEventListener("keydown", handleKeyDown);
+
+  return () => {
+    window.removeEventListener("keydown", handleKeyDown);
+  };
+}, [closeModal]);
 
   return (
 

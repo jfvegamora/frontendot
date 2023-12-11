@@ -810,6 +810,260 @@ export const table_head_OT_diaria = [
     width: "w-[12rem]"
   }
 ];
+
+
+export const table_head_OT_diaria2 = [
+  {
+    cell: <input type="checkbox" />,
+    key: "checkbox",
+    visible: true,
+    width: "w-[9rem]",
+    alignment: "flex justify-center items-center"
+  },
+  //************ ÓPTICA */
+  {
+    cell: "Folio",
+    key: "folio",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[10rem]"
+  },
+  {
+    cell: "Motivo",
+    key: "motivo",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[6rem]"
+  },
+  {
+    cell: "Estado",
+    key: "estado",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[8rem]"
+  },
+  {
+    cell: "Título Proyecto",
+    key: "proyecto",
+    visible: true,
+    alignment: "text-left",
+    width: "w-[12rem]"
+  },
+  {
+    cell: "Establecimiento",
+    key: "establecimiento",
+    visible: true,
+    alignment: "text-left",
+    width: "w-[10rem]"
+  },
+  //************ CLIENTE */
+  {
+    cell: "RUT Cliente",
+    key: "cliente_rut",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[8rem]"
+  },
+  {
+    cell: "Nombre",
+    key: "cliente_nombre",
+    visible: true,
+    alignment: "text-left",
+    width: "w-[14rem]"
+  },
+ //************ RECETA */
+  {
+    cell: "Fecha Atención",
+    key: "fecha_atencion",
+    visible: true,
+    alignment: "text-left",
+    width: "w-[8rem]"
+  },
+  {
+    cell: "Tipo Anteojo ",
+    key: "tipo_anteojo",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[8rem]"
+  },
+  //************ RECETA ANTEOJO 1 */
+  {
+    cell: "A1 OD ESF",
+    key: "a1_od_esf",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[4rem]"
+  },
+  {
+    cell: "A1 OD CIL",
+    key: "a1_od_cil",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[4rem]"
+  },
+  {
+    cell: "A1 OD EJE",
+    key: "a1_od_eje",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[4rem]"
+  },
+  {
+    cell: "A1 OD AD",
+    key: "a1_od_ad",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[4rem]"
+  },
+  {
+    cell: "A1 OI ESF",
+    key: "a1_oi_esf",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[4rem]"
+  },
+  {
+    cell: "A1 OI CIL",
+    key: "a1_oi_cil",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[4rem]"
+  },
+  {
+    cell: "A1 OI EJE",
+    key: "a1_oi_eje",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[4rem]"
+  },
+  {
+    cell: "A1 OI AD",
+    key: "a1_oi_ad",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[4rem]"
+  },
+  {
+    cell: "A1 DP",
+    key: "a1_dp",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[4rem]"
+  },
+  {
+    cell: "A1 ALT",
+    key: "a1_alt",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[4rem]"
+  },
+  //************ RECETA ANTEOJO 2 */  
+  {
+    cell: "A2 OD ESF",
+    key: "a2_od_esf",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[4rem]"
+  },
+  {
+    cell: "A2 OD CIL",
+    key:"a2_od_cil",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[4rem]"
+  },
+  {
+    cell: "A2 OD EJE",
+    key: "a2_od_eje",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[4rem]"
+  },
+  {
+    cell: "A2 OI ESF",
+    key: "a2_oi_esf",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[4rem]"
+  },
+  {
+    cell: "A2 OI CIL",
+    key: "a2_oi_cil",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[4rem]"
+  },
+  {
+    cell: "A2 OI EJE",
+    key: "a2_oi_eje",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[4rem]"
+  },
+  {
+    cell: "A2 DP",
+    key: "a2_dp",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[4rem]"
+  },
+  //************ ARMAZONES */
+  {
+    cell: "A1 Armazón Código",
+    key: "a1_armazon_codigo",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[10rem]"
+  },
+  {
+    cell: "A2 Armazón Código",
+    key: "a2_armazon_codigo",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[10rem]"
+  },
+  {
+    cell: "A3 Armazón Código",
+    key: "a3_armazon_codigo",
+    visible: false,
+    alignment: "text-center",
+    width: "w-[10rem]"
+  },
+
+  // ************** CRISTAL ANTEOJO 1
+  {
+    cell: "CRISTAL 1 OD Código",
+    key: "cr1_od_codigo",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[10rem]"
+  },
+  {
+    cell: "CRISTAL 1 OI Código",
+    key: "cr1_oi_codigo",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[10rem]"
+  },
+
+  // ************** CRISTAL ANTEOJO 2
+  {
+    cell: "CRISTAL 2 OD Código",
+    key: "cr2_od_codigo",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[10rem]"
+  },
+  {
+    cell: "CRISTAL 2 OI Código",
+    key: "cr2_oi_codigo",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[10rem]"
+  },
+];
+
+
 export const table_head_OT_bitacora = [
   {
     cell: <input type="checkbox" />,

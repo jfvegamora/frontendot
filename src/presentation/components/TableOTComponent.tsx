@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { IconButton, Tooltip, Typography } from "@material-tailwind/react";
 import { PencilIcon } from "@heroicons/react/24/solid";
 import { BsFillXSquareFill } from "react-icons/bs";
@@ -8,8 +8,10 @@ import { usePermission } from "../hooks";
 import { BUTTON_MESSAGES } from "../utils";
 import {ExportToPDF} from "./ExportToPDF";
 import { ExportCSV } from "./ExportToCsv";
-import { AppStore, useAppSelector } from "../../redux/store";
+import { AppStore, useAppDispatch, useAppSelector } from "../../redux/store";
 import OTGrillaButtons from "./OTGrillaButtons";
+import { FixedSizeList } from "react-window";
+import { fetchOT } from "../../redux/slices/OTSlice";
 // import { ExportCSV } from "./ExportToCsv";
 
 interface ITableComponentProps<T> {
@@ -39,10 +41,10 @@ interface ITableComponentProps<T> {
   togglePermisoOTModal?:() => void;
 }
 
-const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
+const TableOTComponent: React.FC<ITableComponentProps<any>> = React.memo(
   ({
     tableHead,
-    data,
+    // data,
     entidad,
     handleSelectChecked,
     handleSelectedCheckedAll,
@@ -66,16 +68,24 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
   }) => {
     const { escritura_lectura, lectura} = usePermission(idMenu || 0 );
     const [rowIds, setRowIds] = useState<number[]>([]);
-    
+    const data = useAppSelector((store: AppStore) => store.OTS.data);
+    const dispatch = useAppDispatch()
+
     const [ OTPermissions, setOTPermissions] = useState("");
     const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas);
     const areaActual = OTAreas["areaActual"] 
     const permissions = (area:number) => areaActual &&  OTAreas["areas"].find((permiso:any)=>permiso[1] === area)
 
     useEffect(()=>{
-      // console.log('render')
+      console.log('render')
+      dispatch(fetchOT(areaActual))
+      
       const permiso = permissions(areaActual)
       setOTPermissions( permiso && permiso[5])
+      const interval = setInterval(fetchOT, 10000);
+
+    // Limpia el intervalo en la limpieza del efecto
+      return () => clearInterval(interval);
     },[areaActual])
 
     // console.log(idMenu)
@@ -132,50 +142,60 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
     }, []);
     
 
-    const renderTextCell = (text: string, alignment?:string, type?:number) => {
-
-      const cellStyle = {
-        textAlign:alignment
-      }
-      // console.log(type)
-      return(
-        <Typography variant="small" color="blue-gray" className={`gridText h-[2.7rem]  py-2  ${type === 1 ? '!text-white': ''} `} style={cellStyle}>
-          {text !== null && text !== undefined ? text.toString() : ""}
-        </Typography>
-      )
-    };
-
-    const renderCheckboxCell = (id: number) => {
-      // console.log(id)
-
-      return (
-        <>
-          <input
-            checked={selectedRows && selectedRows.includes(id)}
-            onChange={() => handleSelectChecked && handleSelectChecked(id)}
-            type="checkbox"
-            
-          />
-          {isOT && (
-
-            <>
-            <OTGrillaButtons
-              areaPermissions={OTPermissions}
-              id={id}
-              toggleEditModal={toggleEditModal}
-              
-              
+    const renderTextCell = useMemo(
+      () => (text: string, alignment?: string, type?: number) => {
+        const cellStyle = {
+          textAlign: alignment
+        };
+    
+        return (
+          <Typography
+            variant="small"
+            color="blue-gray"
+            className={`gridText h-[2.7rem]  py-2  ${type === 1 ? '!text-white' : ''} `}
+            style={cellStyle}
+          >
+            {text !== null && text !== undefined ? text.toString() : ""}
+          </Typography>
+        );
+      },
+      []
+    );
+    
+    const renderCheckboxCell = useMemo(
+      () => (id: number) => {
+        return (
+          <>
+            <input
+              checked={selectedRows && selectedRows.includes(id)}
+              onChange={() => handleSelectChecked && handleSelectChecked(id)}
+              type="checkbox"
             />
-            </>
-          )}
-        </>
+            {isOT && (
+              <>
+                <OTGrillaButtons
+                  areaPermissions={OTPermissions}
+                  id={id}
+                  toggleEditModal={toggleEditModal}
+                />
+              </>
+            )}
+          </>
+        );
+      },
+      [selectedRows, isOT, OTPermissions, handleSelectChecked, toggleEditModal]
+    );
+    
 
-      )
-  };
-  // console.log(data)
- 
-    return (
-      <table className="gridContainer">
+
+
+
+  console.log(data)
+  // console.log(Object.values(data).map((rowData, rowIndex)=> rowData))
+  
+  
+  const renderBody = () => (
+    <table className="gridContainer">
         <thead className="gridTop">
           <tr>
             {tableHead &&
@@ -202,11 +222,12 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
           </tr>
         </thead>
         <tbody className="gridData">
-          {data &&
-            data.map((rowData: any, rowIndex: number) => {
+          {
+            data?.map((rowData: any, rowIndex: number) => {
               // const id = [3, 3];
-              // console.log('rowData', rowData)
-            
+              console.log('rowData', rowData)
+          
+
               return (
                 <tr key={rowIndex}>
                   {rowData.map((row: any, col: number) => {
@@ -220,7 +241,8 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                     return (
                       visible && (
                         <td
-                        className={`gridTableData  bg-${color}-500   ${alignment}`} 
+                        // className={`gridTableData  bg-${color}-500   ${alignment}`} 
+                        className={`  bg-${color}-500   ${alignment}`} 
                           key={col}
                           id={tableHead[col].key}
                         >
@@ -231,7 +253,13 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                         </td>
                       )
                     );
+                    
                   })}
+                  
+
+
+
+
 
                   {!isOT && (
                     <td className="gridTableData">
@@ -309,9 +337,24 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
               );
             })}
         </tbody>
+        
       </table>
+  )
+            console.log(data)
+    return (
+      <FixedSizeList
+          height={500} 
+          width={window.innerWidth} 
+          itemCount={data ? data.length : 0}
+          itemSize={50}
+        >
+        {renderBody}
+      </FixedSizeList>
+      
     );
   }
 );
+// const MemoizedTableOTComponent = React.memo(TableOTComponent);
+// export default MemoizedTableOTComponent;
 
-export default TableComponent;
+export default TableOTComponent;

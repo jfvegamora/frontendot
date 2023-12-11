@@ -1,17 +1,19 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { AppStore, useAppDispatch, useAppSelector } from '../../redux/store';
 import { Button } from "@material-tailwind/react";
 import { updateActualArea, updateNextArea } from '../../redux/slices/OTAreasSlice';
+import { clearData } from '../../redux/slices/OTSlice';
 
 const OTAreasButtons:React.FC = () => {
   const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas);
   const dispatch = useAppDispatch()
 
-console.log(OTAreas && OTAreas.areas)
+// console.log(OTAreas && OTAreas.areas)
 
 const [botonPresionado, setBotonPresionado] = useState(null);
 
 const handleEstado = (area:any) => {
+    dispatch(clearData())
     console.log(area)
     dispatch(updateActualArea(area && area[1]))
     dispatch(updateNextArea(area && area[4]))
@@ -20,31 +22,35 @@ const handleEstado = (area:any) => {
 
 
 // console.log('otareas',OTAreas)
-
-const renderButtons = () => (
-  OTAreas && OTAreas.areas &&  OTAreas.areas.map((area:any, index:number)=>(
-        // console.log(area)
-        <div className="w-full " key={index}>
-          <div className="w-[8rem] items-center">  
+const renderButtons = useMemo(() => {
+  return (
+    OTAreas &&
+    OTAreas.areas &&
+    OTAreas.areas.map((area: any, index: number) => (
+      <div className="w-full" key={index}>
+        <div className="w-[8rem] items-center">  
             {/* <Button className='w-full text-xs h-16 text-center btnAreas' onClick={()=>handleEstado(area)}  key={area[1]}>{area[2]}</Button> */}
               <Button
                 className={`w-full text-xs h-16 text-center btnAreas ${
                   botonPresionado === area[1] ? 'bg-tuColorPresionado btnPresionado' : 'bg-tuColorNormal'
                 }`}
+                // className={`w-full text-xs h-16 text-center`}
                 onClick={() => handleEstado(area)}
                 key={area[1]}
               >
                 {area[2]}
               </Button>
           </div>
-        </div>
+      </div>
     ))
+  );
+}, [OTAreas]);
 
-)
+
 
   return (
     <div className='w-full flex items-center'>
-        {renderButtons()}
+        {renderButtons}
     </div>
   )
 }

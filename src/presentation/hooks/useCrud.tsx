@@ -5,12 +5,12 @@
 import { useRef } from "react";
 import axios, { AxiosInstance } from "axios";
 import { signal } from "@preact/signals-react";
+import useSWR from "swr";
 
 // PRODUCCION
 //  export const URLBackend = signal('https://mtoopticos.cl');
 // DESARROLLO
 export const URLBackend = signal('https://gestiondev.mtoopticos.cl');
-
 
 export const baseURL = (params:string) => {
   return params.startsWith("http") ? params : `${URLBackend}${params}`;
@@ -220,6 +220,7 @@ const useCrud = (
   ): Promise<any | undefined> => {
     // console.log(primaryKeys)
     // console.log(baseUrl
+    const fetcher = (url:string) => axios.get(url).then((res)=>res.data);
 
 
     const searchUrl = baseUrl === 'https://mtoopticos.cl/api/tipos/'
@@ -231,6 +232,7 @@ const useCrud = (
       const response = await axiosInstance.get(searchUrl);
       return response.data;
     } catch (error) {
+      console.log(error)
       return error;
     }
   };
