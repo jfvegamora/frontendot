@@ -48,7 +48,7 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
 //LA MRCA SE IGNORA. MARCA=0.
   let _p1 = `
  "${jsonData.proyecto}", 
-  ${jsonData.cod_grupo}, 
+ "${jsonData.cod_grupo}", 
  "${jsonData.descripcion}", 
   ${jsonData.marca}, 
   ${jsonData.diseno}, 
@@ -56,11 +56,11 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
   ${jsonData.material}, 
   ${jsonData.color}, 
   ${jsonData.tratamiento}, 
-  ${(jsonData.esferico_desde && jsonData.esferico_desde?.toString())?.length === 0 ? "0" : jsonData.esferico_desde}, 
-  ${(jsonData.cilindrico_desde && jsonData.cilindrico_desde?.toString())?.length === 0 ? "0" : jsonData.cilindrico_desde}, 
-  ${(jsonData.esferico_hasta && jsonData.esferico_hasta?.toString())?.length === 0 ? "0" : jsonData.esferico_hasta}, 
-  ${(jsonData.cilindrico_hasta && jsonData.cilindrico_hasta?.toString())?.length === 0 ? "0" : jsonData.cilindrico_hasta}, 
   ${(jsonData.diametro && jsonData.diametro?.toString())?.length === 0 ? "0" : jsonData.diametro},
+  ${(jsonData.esferico_desde && jsonData.esferico_desde?.toString())?.length === 0 ? "0" : jsonData.esferico_desde}, 
+  ${(jsonData.esferico_hasta && jsonData.esferico_hasta?.toString())?.length === 0 ? "0" : jsonData.esferico_hasta}, 
+  ${(jsonData.cilindrico_desde && jsonData.cilindrico_desde?.toString())?.length === 0 ? "0" : jsonData.cilindrico_desde}, 
+  ${(jsonData.cilindrico_hasta && jsonData.cilindrico_hasta?.toString())?.length === 0 ? "0" : jsonData.cilindrico_hasta}, 
   ${(jsonData.precio_venta_neto && jsonData.precio_venta_neto?.toString())?.length === 0 ? "0" : jsonData.precio_venta_neto},
   "${jsonData.observaciones}"`;
 
@@ -321,7 +321,7 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                 <div className="w-[50%] flex">
                   <div className="w-[25%]">
                     <TextInputComponent
-                        type="number"
+                        type="text"
                         label="ID Grupo"
                         name="cod_grupo"
                         data={data && data[EnumGrid.cod_grupo]}
