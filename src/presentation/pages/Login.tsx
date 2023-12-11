@@ -101,14 +101,14 @@ const Login: React.FC = React.memo(() => {
                     </div>
                 </div>
         
-                <div className="input-container items-center rowForm mt-4">
+                <div className="input-container items-center  mt-4">
                   <div className="w-[90%] mx-auto">
                     <button type="submit" tabIndex={1} className="userFormBtnSubmit !mt-8">
                       Entrar
                     </button>
+                    <Link className="text-white block text-center !mt-[1rem]" to="/forgotpassword">Recuperar Contraseña</Link>
                   </div>
                 </div>
-                <Link className="forgotPwd text-white block text-center mt-4" to="/forgotpassword">Recupera Contraseña</Link>
               </form>
             </div>
           </div>

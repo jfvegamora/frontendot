@@ -111,9 +111,9 @@ const ProfileUser: React.FC = () => {
             </div>
           </div>
         </div>
-        <div className="w-full items-center rowForm flex">
+        <div className="w-full items-center rowForm flex ">
           <div className="input-container items-center rowForm w-full">
-            <div className="w-[93%] mt-2">
+            <div className="mt-2 !ml-[1rem] !mr-[1rem]">
               <SelectInputComponent
                 label="Cargo"
                 name="cargo"
@@ -122,7 +122,7 @@ const ProfileUser: React.FC = () => {
                 control={control}
                 entidad={["/api/cargos/", "02"]}
                 readOnly={true}
-                // customWidth={"345px"}
+                customWidth={"100%"}
               />
             </div>
           </div>

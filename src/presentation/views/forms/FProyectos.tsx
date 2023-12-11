@@ -403,7 +403,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                           entidad={["/api/empresas/", "02"]}
                           error={errors.empresa_adjudicada}
                           customWidth={"!ml-[1rem] !w-[21rem]"}
-                          inputRef={secondInputRef}
+                          inputRef={firstInputRef}
                       />
                   </div>
                 </div>
@@ -496,7 +496,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                 </div>
               </div>
 
-              <div className="input-container items-center rowForm w-[25%]">
+              <div className="input-container items-center rowForm">
                   <div className="w-full">
                     <RadioButtonComponent
                         control={control}

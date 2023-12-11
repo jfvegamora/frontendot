@@ -113,7 +113,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
       ListEntity,
       firstInputRef,
       focusFirstInput,
-      secondInputRef,
+      // secondInputRef,
       focusSecondInput,
     } = useCrud(strBaseUrl);
     const [blnKeep, setblnKeep] = useState(false);
@@ -257,7 +257,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
     }, []);
 
     useEffect(() => {
-      isEditting ? focusSecondInput("nombre") : focusFirstInput("cargo");
+      isEditting ? focusSecondInput("nombre") : focusFirstInput("nombre");
     }, []);
 
     console.log(escritura_lectura)
@@ -305,7 +305,6 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={["/api/cargos/", "02"]}
                     error={errors.cargo}
-                    inputRef={secondInputRef}
                     customWidth={"w-full ml-[1rem]"}
                   />
                 </div>

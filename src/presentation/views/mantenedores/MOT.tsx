@@ -110,7 +110,7 @@ const MOT: React.FC = () => {
   //SWR-POLLING
   const fetcher = (url:string) => axios.get(url).then((res)=>res.data);
   const {data} = useSWR(`${URLBackend}/api/ot/listado/?query=01&_origen=${OTAreas["areaActual"]}`, fetcher,{
-    refreshInterval:5000,
+    refreshInterval:60000,
     
   });
 

@@ -13,7 +13,7 @@ import ImportToCsv from "./ImportToCsv";
 import { AppStore, useAppSelector } from "../../redux/store";
 import OTPrimaryButtons from "./OTPrimaryButtons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus, faClone, faArrowsRotate, faTrash, faFileArrowDown, faFileArrowUp } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faClone, faArrowsRotate, faTrash, faArrowRightToBracket, faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 
 
 interface IPrimaryButtonProps {
@@ -133,12 +133,12 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
             {showAddButton && escritura_lectura && (
               <>
                 {renderButton(
-                  <FontAwesomeIcon icon={faFileArrowUp} className="primaryBtnIcon"/>,
+                  <FontAwesomeIcon icon={faArrowRightToBracket} className="primaryBtnIcon"/>,
                   handleAddPerson!,
                   BUTTON_MESSAGES.bln_ingreso
                 )}
                 {renderButton(
-                  <FontAwesomeIcon icon={faFileArrowDown} className="primaryBtnIcon"/>,
+                  <FontAwesomeIcon icon={faArrowRightFromBracket} className="primaryBtnIcon"/>,
                   toggleEditModal!,
                   BUTTON_MESSAGES.bln_egreso
                 )}

@@ -252,9 +252,9 @@ const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
 
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
-          <div className="userFormularioContainer">
-            <div className="input-container items-center rowForm w-[28rem] ">
-              <div className="w-full ">
+          <div className="userFormularioContainer !h-[35rem]" style={{ display: 'inline-block'}}>
+            <div className="input-container items-center rowForm w-[28.2rem] ">
+              <div className="w-[100%] !mt-[1rem] mb-2">
                 <TextInputComponent
                   type="text"
                   label="Código"
@@ -267,8 +267,8 @@ const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
               </div>
             </div>
 
-            <div className="input-container items-center rowForm w-[28rem] ">
-              <div className="w-full ">
+            <div className="input-container items-center rowForm w-[28.2rem] ">
+              <div className="w-[100%] !mt-[1rem] mb-2">
                 <TextInputComponent
                   type="text"
                   label="Nombre"
@@ -282,52 +282,59 @@ const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
 
             <div className="input-container items-center rowForm w-[28.2rem] ">
               <div className="w-[100%] !mt-[1rem] mb-2">
-              <SelectInputTiposComponent
-                label="Tipo"
-                name="tipo"
-                showRefresh={true}
-                data={data && data[EnumGrid.tipo_id]}
-                control={control}
-                entidad="EstablecimientosTipos"
-                error={errors.tipo}
-              />
-            </div>
-            </div>
-
-            <div className="input-container rowForm ">
-              <div className="!mt-[1rem] ">
-                  <SelectInputComponent
-                    label="Mandante"
-                    name="mandante"
-                    showRefresh={true}
-                    data={data && data[EnumGrid.mandante_id]}
-                    control={control}
-                    entidad={["/api/mandantes/", "02"]}
-                    error={errors.mandante}
-                    customWidth={"w-full ml-[1rem]"}
-                  />
+                <SelectInputTiposComponent
+                  label="Tipo"
+                  name="tipo"
+                  showRefresh={true}
+                  data={data && data[EnumGrid.tipo_id]}
+                  control={control}
+                  entidad="EstablecimientosTipos"
+                  error={errors.tipo}
+                />
               </div>
             </div>
 
-      
-                <div className="w-full">
-                  <RegProCom
-                    name="comuna"
-                    control={control}
-                    register={register}
-                    setValue={setValue}
-                    defaultRegion={data && data[EnumGrid.region_id]}
-                    defaultProvincia={data && data[EnumGrid.provincia_id]}
-                    defaultComuna={data && data[EnumGrid.comuna_id]}
-                    errors={errors.comuna}
-                  />
-                </div>
+            <div className="input-container items-center rowForm w-[28.2rem] ">
+              <div className="w-[100%] !mt-[1rem] mb-2">
+                <SelectInputComponent
+                  label="Mandante"
+                  name="mandante"
+                  showRefresh={true}
+                  data={data && data[EnumGrid.mandante_id]}
+                  control={control}
+                  entidad={["/api/mandantes/", "02"]}
+                  error={errors.mandante}
+                  customWidth={"w-full ml-[1rem]"}
+                />
+              </div>
             </div>
-            {escritura_lectura && (
-              <button type="submit" tabIndex={1} className="userFormBtnSubmit">
-              {`${TITLES.guardar}`}
-              </button>
-            )}
+      
+            <div className="input-container items-center rowForm w-[28.2rem]">
+              <div className="!mt-[1rem]">
+                <RegProCom
+                  name="comuna"
+                  control={control}
+                  register={register}
+                  setValue={setValue}
+                  defaultRegion={data && data[EnumGrid.region_id]}
+                  defaultProvincia={data && data[EnumGrid.provincia_id]}
+                  defaultComuna={data && data[EnumGrid.comuna_id]}
+                  errors={errors.comuna}
+                />
+              </div>
+
+              <div className="flex justify-center">
+                <div className="w-[50%]">
+                  {escritura_lectura && (
+                  <button type="submit" tabIndex={1} className="userFormBtnSubmit">
+                  {`${TITLES.guardar}`}
+                  </button>
+                  )}
+              </div>
+              </div>
+            </div>
+
+          </div>
         </form>
 
         <CustomModal />

@@ -305,7 +305,7 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
 
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario ">
-          <div className="userFormularioContainer  !h-[30rem] ">
+          <div className="userFormularioContainer  !h-[30rem] " >
             <div className="input-container rowForm  !h-[4rem]">
               <div className="flex">
                 <div className="">
@@ -373,47 +373,42 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
                       ]}
                       error={errors.tipo}
                     />
-                  <div className="flex  absolute top-[58%] w-[50%] mr-10">
-                    <div className="flex-col">
-                    <div className="flex">
-                      <div className="w-[50%]">
-                        <TextInputComponent
-                          type="date"
-                          label="Fecha Nacimiento"
-                          name="fecha_nacimiento"
-                          data={data && data[EnumGrid.fecha_nacimiento]}
-                          control={control}
-                          error={errors.fecha_nacimiento}
-                        />
+                    <div className="flex  absolute top-[58%] w-[50%] mr-10">
+                      <div className="flex-col">
+                        <div className="flex">
+                          <div className="w-[50%]">
+                            <TextInputComponent
+                              type="date"
+                              label="Fecha Nacimiento"
+                              name="fecha_nacimiento"
+                              data={data && data[EnumGrid.fecha_nacimiento]}
+                              control={control}
+                              error={errors.fecha_nacimiento}
+                            />
+                          </div>
+                          <div className="w-[50%]">
+                            <TextInputComponent
+                              type="text"
+                              label="Teléfono"
+                              name="telefono"
+                              data={data && data[EnumGrid.telefono]}
+                              control={control}
+                              error={errors.telefono}
+                            />
+                          </div>
                       </div>
-                      <div className="w-[50%]">
+
                         <TextInputComponent
                           type="text"
-                          label="Teléfono"
-                          name="telefono"
-                          data={data && data[EnumGrid.telefono]}
+                          label="Correo"
+                          name="correo"
+                          data={data && data[EnumGrid.correo]}
                           control={control}
-                          error={errors.telefono}
+                          error={errors.correo}
                         />
                       </div>
-
-                    </div>
-
-                      <TextInputComponent
-                        type="text"
-                        label="Correo"
-                        name="correo"
-                        data={data && data[EnumGrid.correo]}
-                        control={control}
-                        error={errors.correo}
-                      />
-
-                      
                     </div>
                   </div>
-
-                  </div>
-
                     
                   <div className="w-[40%] !mt-[.8rem] !ml-8 dirCliente ">                      
                     <label className="  !top-[-1.5rem] !left-[1rem] z-10 relative">Dirección</label>
@@ -440,23 +435,9 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
                       />
                     </div>
                   </div>
-                    
                 </div>
               </div> 
             </div>
-
-
-            {/* <div className="input-container items-center rowForm" >
-              <div className="flex  !bg-red-500">
-                <div className="w-[20%]">
-                </div>
-
-                
-
-                <div className="w-[20%]">
-                </div>
-              </div>
-            </div> */}
 
             <div className="flex items-center rowForm justify-center">
               <div className="w-[50%] pt-4">
