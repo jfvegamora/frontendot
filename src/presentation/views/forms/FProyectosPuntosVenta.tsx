@@ -287,7 +287,7 @@ const FProyectosPuntosVenta: React.FC<IUserFormPrps> = React.memo(
               </div>
             </div>
             <div className="w-full flex items-center !my-8 h-[4rem]">
-              <div className="input-container items-center rowForm w-[40%]">
+              <div className="input-container items-center rowForm w-[45%]">
                 <div className="w-full">
                   <SelectInputComponent
                       label="Punto de Venta"
@@ -304,7 +304,7 @@ const FProyectosPuntosVenta: React.FC<IUserFormPrps> = React.memo(
                 </div>
               </div>
 
-              <div className="input-container items-center rowForm w-[60%]">
+              <div className="input-container items-center rowForm w-[50%]">
                 <div className="w-full">
                   <RadioButtonComponent
                   control={control}

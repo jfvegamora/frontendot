@@ -9,28 +9,28 @@ import {
   TableComponent,
 } from "../../components";
 import { useEntityUtils, usePermission } from "../../hooks";
-import { TITLES, table_head_proyectos_puntos_venta} from "../../utils";
-import FProyectosPuntosVenta from "../forms/FProyectosPuntosVenta";
-import FProyectosPuntosVentaCopiar from "../forms/FProyectosPuntosVentaCopiar";
+import { TITLES, table_head_proyectos_usuarios} from "../../utils";
+import FProyectosUsuarios from "../forms/FProyectosUsuarios";
+import FProyectosUsuariosCopiar from "../forms/FProyectosUsuariosCopiar";
 
 
 export enum EnumGrid {
-  codigo_proyecto      = 1,
-  titulo_proyecto      = 2,
-  codigo_licitacion    = 3,
-  punto_venta_id       = 4,
-  punto_venta          = 5,
-  estado               = 6
+  codigo_proyecto     = 1,
+  titulo_proyecto     = 2,
+  codigo_licitacion   = 3,
+  usuario_id          = 4,
+  usuario             = 5,
+  estado              = 6
 }
-const strEntidad = "Parametrización de Puntos de Venta ";
-const strEntidadExcel = "Parametrizacion_de_puntos_de_venta";
-const strBaseUrl = "/api/proyectopuntosventa/";
+const strEntidad = "Parametrización de Usuarios ";
+const strEntidadExcel = "Parametrizacion_de_usuarios";
+const strBaseUrl = "/api/proyectousuarios/";
 const strQuery = "01";
-const idMenu   = 33;
+const idMenu   = 34;
 
 
 
-const MProyectosPuntosVenta: React.FC = () => {
+const MProyectosUsuarios: React.FC = () => {
   const [params, setParams] = useState([]);
   const { escritura_lectura} = usePermission(idMenu || 0 );
 
@@ -68,7 +68,7 @@ const MProyectosPuntosVenta: React.FC = () => {
   
   useEffect(() => {    
     const newPkToDelete = selectedRows.map((row: number) => 
-     `{"pk1":"${entities[row][EnumGrid.codigo_proyecto]}", "pk2":"${entities[row][EnumGrid.punto_venta_id]}"}`);
+     `{"pk1":"${entities[row][EnumGrid.codigo_proyecto]}", "pk2":"${entities[row][EnumGrid.usuario_id]}"}`);
     const combinedPks = newPkToDelete.join(',');
 
     setPkToDelete([`${strParamsToDelete}=[${combinedPks}]`]);
@@ -127,7 +127,7 @@ const MProyectosPuntosVenta: React.FC = () => {
           setSelectedRows={setSelectedRows}
           entidad={strEntidad}
           data={entities}
-          tableHead={table_head_proyectos_puntos_venta}
+          tableHead={table_head_proyectos_usuarios}
           showEditButton={true}
           showDeleteButton={false}
           idMenu={idMenu}
@@ -135,7 +135,7 @@ const MProyectosPuntosVenta: React.FC = () => {
       </div>      
 
       {isModalInsert && (
-        <FProyectosPuntosVenta
+        <FProyectosUsuarios
           label={`${TITLES.ingreso} ${strEntidad}`}
           closeModal={closeModal}
           selectedRows={selectedRows}
@@ -147,7 +147,7 @@ const MProyectosPuntosVenta: React.FC = () => {
       )}
 
       {isModalEdit && (
-        <FProyectosPuntosVenta
+        <FProyectosUsuarios
           label={`${TITLES.edicion} ${strEntidad}`}
           selectedRows={selectedRows}
           setEntities={setEntities}
@@ -160,7 +160,7 @@ const MProyectosPuntosVenta: React.FC = () => {
       )}
 
       {isModalCopiar && (
-        <FProyectosPuntosVentaCopiar
+        <FProyectosUsuariosCopiar
           label={`${TITLES.copiar} ${strEntidad}`}
           closeModal={closeModal}
           selectedRows={selectedRows}
@@ -174,4 +174,4 @@ const MProyectosPuntosVenta: React.FC = () => {
   );
 };
 
-export default MProyectosPuntosVenta;
+export default MProyectosUsuarios;

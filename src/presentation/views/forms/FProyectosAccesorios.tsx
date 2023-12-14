@@ -300,7 +300,7 @@ const FProyectosAccesorios: React.FC<IUserFormPrps> = React.memo(
                   />
                 </div>
               </div>
-              <div className="input-container items-center rowForm w-[60%]">
+              <div className="input-container items-center rowForm w-[50%]">
                 <div className="w-full">
                   <RadioButtonComponent
                   control={control}

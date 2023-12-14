@@ -31,7 +31,7 @@ import { clearLocalStorage } from "../../redux/slices/ListBoxTipoSlice";
 import avatarImage from '../../assets/avatar01.png';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronDown, faGlasses, faWarehouse, faGears, faWallet } from '@fortawesome/free-solid-svg-icons';
+import { faChevronDown, faGlasses, faWarehouse, faGears, faWallet, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
 
 export const strNavTitle  = signal("");
@@ -207,12 +207,7 @@ const navListMenuBodega = [
   },
 ];
 
-const navListMenuProyectos = [
-  {
-    title: "Proyectos",
-    link: "/proyectos",
-    id: 15,
-  },
+const subMenuParametrizacion = [
   {
     title: "Parametrización de Armazones",
     link: "/proyectoarmazones",
@@ -237,6 +232,19 @@ const navListMenuProyectos = [
     title: "Parametrización de Puntos de Venta",
     link: "/proyectopuntosventa",
     id: 33,
+  },
+  {
+    title: "Parametrización de Usuarios",
+    link: "/proyectousuarios",
+    id: 34,
+  },
+];
+
+const navListMenuProyectos = [
+  {
+    title: "Proyectos",
+    link: "/proyectos",
+    id: 15,
   },
   {
     title: "Reporte de Atención",
@@ -292,6 +300,7 @@ const navListMenuSistema = [
     id: 25,
   },
 ];
+
 
 function NavListMenuOT({ userPermission }: { userPermission: number[] }) {
   const navigate = useNavigate();
@@ -451,8 +460,11 @@ function NavListMenuBodega({ userPermission }: { userPermission: number[] }) {
   );
 }
 
-function NavListMenuProyectos({userPermission,}: {userPermission: number[];}) {
+
+function NavListMenuProyectos({ userPermission }: { userPermission: number[] }) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const [openMenu, setOpenMenu] = React.useState(false);
+
   const navigate = useNavigate();
 
   const triggers = {
@@ -460,29 +472,68 @@ function NavListMenuProyectos({userPermission,}: {userPermission: number[];}) {
     onMouseLeave: () => setIsMenuOpen(false),
   };
 
-  const renderItems = navListMenuProyectos.map(({ title, link, id }) => {
+  const renderItems = navListMenuProyectos.map(({ title, link, id, subMenu }:any) => {
     const hasPermission = userPermission.includes(id);
+
+    const renderSubMenu = subMenu
+      ? subMenu.map(({ title: subMenuTitle, link: subMenuLink, id: subMenuId }:any) => {
+          const subMenuHasPermission = userPermission.includes(subMenuId);
+          return (
+  
+            <MenuItem
+              key={subMenuId}
+              className={`flex !bg-red-500  left-[30rem] items-center gap-2 rounded ${
+                subMenuHasPermission ? "" : "text-gray-400 cursor-not-allowed"
+              }`}
+              onClick={() => {
+                if (subMenuHasPermission) {
+                  navigate(subMenuLink);
+                  strNavTitle.value = subMenuTitle;
+                }
+              }}
+            >
+              <Typography
+                as="span"
+                variant="small"
+                className={`font-normal ${subMenuHasPermission ? "" : "text-gray-400"}`}
+              >
+                {subMenuTitle}
+              </Typography>
+            </MenuItem>
+          );
+        })
+      : null;
+
     return (
-      <MenuItem
-        key={id}
-        className={`flex items-center gap-2 rounded ${
-          hasPermission ? "" : "text-gray-400 cursor-not-allowed"
-        }`}
-        onClick={() => {
-          if (hasPermission) {
-            navigate(link);
-            strNavTitle.value = title
-          }
-        }}
-      >
-        <Typography
-          as="span"
-          variant="small"
-          className={`font-normal ${hasPermission ? "" : "text-gray-400"}`}
+      <React.Fragment key={id}>
+        <MenuItem
+          className={`flex items-center gap-2 rounded ${
+            hasPermission ? "" : "text-gray-400 cursor-not-allowed"
+          }`}
+          onClick={() => {
+            if (hasPermission) {
+              navigate(link);
+              strNavTitle.value = title;
+            }
+          }}
         >
-          {title}
-        </Typography>
-      </MenuItem>
+          <Typography
+            as="span"
+            variant="small"
+            className={`font-normal ${hasPermission ? "" : "text-gray-400"}`}
+          >
+            {title}
+          </Typography>
+          {renderSubMenu && renderSubMenu.length > 0 && (
+            <Menu open={isMenuOpen} handler={setIsMenuOpen}>
+              <MenuHandler>
+                <FontAwesomeIcon icon={faChevronDown} className="h-3 w-3" />
+              </MenuHandler>
+              <MenuList className="p-1">{renderSubMenu}</MenuList>
+            </Menu>
+          )}
+        </MenuItem>
+      </React.Fragment>
     );
   });
 
@@ -495,11 +546,14 @@ function NavListMenuProyectos({userPermission,}: {userPermission: number[];}) {
               {...triggers}
               className="hidden items-center gap-2 font-menu lg:flex lg:rounded-full"
             >
-              <FontAwesomeIcon icon={faWallet} size="xl" /> ADMINISTRACIÓN{" "}  
-              <FontAwesomeIcon icon={faChevronDown} strokeWidth={2} 
-                  className={`h-3 w-3 transition-transform ${
+              <FontAwesomeIcon icon={faWallet} size="xl" /> ADMINISTRACIÓN{" "}
+              <FontAwesomeIcon
+                icon={faChevronDown}
+                strokeWidth={2}
+                className={`h-3 w-3 transition-transform ${
                   isMenuOpen ? "rotate-180" : ""
-                }`}/>  
+                }`}
+              />
             </MenuItem>
           </Typography>
         </MenuHandler>
@@ -516,16 +570,53 @@ function NavListMenuProyectos({userPermission,}: {userPermission: number[];}) {
             <img className="imgNavBar" src={imagen}></img>
           </Card>
           <ul className="col-span-4 flex w-full flex-col gap-1">
+  
+            
+              <Menu
+                placement="right-start"
+                open={openMenu}
+                handler={setOpenMenu}
+                allowHover
+                offset={15}
+            >
+              <MenuHandler className="flex items-center justify-between" >
+                <MenuItem>
+                Parametrización <FontAwesomeIcon icon={faChevronRight} />  
+
+                </MenuItem>
+              </MenuHandler>
+              <MenuList>
+              {subMenuParametrizacion.map(({title, id, link})=>{
+                const hasPermission = userPermission.includes(id);
+                return(
+                <MenuItem
+                className={`flex items-center gap-2 rounded ${
+                  hasPermission ? "" : "text-gray-400 cursor-not-allowed"
+                }`}
+                 key={id}
+                 onClick={() => {
+                  if (hasPermission) {
+                    navigate(link);
+                    strNavTitle.value = title;
+                  }
+                }}
+                >
+                  {title}
+                </MenuItem>
+                )
+
+                })}
+
+            </MenuList>
+            </Menu>
             {renderItems}
           </ul>
         </MenuList>
       </Menu>
       <MenuItem className="flex items-center gap-2 text-blue-gray-900 lg:hidden">
-        <FontAwesomeIcon icon={faWallet} /> ADMINISTRACIÓN{" "}  
+        <FontAwesomeIcon icon={faWallet} /> ADMINISTRACIÓN{" "}
       </MenuItem>
-      <ul className="ml-6 flex w-full flex-col gap-1 lg:hidden">
-        {renderItems}
-      </ul>
+      <ul className="ml-6 flex w-full flex-col gap-1 lg:hidden">{renderItems}</ul>
     </React.Fragment>
   );
 }

@@ -7,28 +7,24 @@ import React, { useState, useEffect } from "react";
 import {
   RadioButtonComponent,
   SelectInputComponent,
-  TextInputComponent,
 } from "../../components";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { validationParametrizacionArmazones } from "../../utils/validationFormSchemas";
-import { EnumGrid } from "../mantenedores/MProyectosArmazones";
-import { MODAL, SUCCESS_MESSAGES, TITLES } from "../../utils";
+import { validationParametrizacionUsuarios } from "../../utils/validationFormSchemas";
+import { EnumGrid } from "../mantenedores/MProyectosUsuarios";
+import {  MODAL, SUCCESS_MESSAGES, TITLES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
-import axios from "axios";
-import { toast } from "react-toastify";
-import { signal } from "@preact/signals-react";
-import { URLBackend } from "../../hooks/useCrud";
 
-const strBaseUrl = "/api/proyectoarmazones/";
-const strEntidad = "Parametrizacion de Armazones ";
+
+const strBaseUrl = "/api/proyectousuarios/";
+const strEntidad = "Parametrizacion de Usuarios ";
 
 export interface InputData {
-  proyecto      : string | undefined;
-  codigo_armazon: string | undefined;
-  estado        : string | undefined;
+  proyecto  : string | undefined;
+  usuario   : string | undefined;
+  estado    : string | undefined;
 }
 
 interface OutputData {
@@ -36,13 +32,14 @@ interface OutputData {
   _p1: string;
   _p2?: string;
   _p3?: string;
+  _id?: string;
 }
 
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
 
-  let _p1 = ` "${jsonData.proyecto}", 
-                "${jsonData.codigo_armazon}",  
-                 ${jsonData.estado === "Disponible" ? 1 : 2}`;
+  let _p1 = `"${jsonData.proyecto}", 
+              ${jsonData.usuario},  
+               ${jsonData.estado === "Disponible" ? 1 : 2}`;
 
   _p1 = _p1.replace(/'/g, '!');
 
@@ -73,9 +70,9 @@ export function transformUpdateQuery(jsonData: InputData): OutputData | null {
     query: "04",
     _p1,
     _p2: jsonData.proyecto,
-    _p3: jsonData.codigo_armazon,
+    _id: jsonData.usuario,
   };
-console.log("query: ", query);
+// console.log("query: ", query);
   return query;
 }
 
@@ -90,13 +87,12 @@ interface IUserFormPrps {
   escritura_lectura?: boolean;
 }
 
-const FProyectosArmazones: React.FC<IUserFormPrps> = React.memo(
+const FProyectosUsuarios: React.FC<IUserFormPrps> = React.memo(
   ({ closeModal, setEntities, params, label, data, isEditting, escritura_lectura }) => {
-    const schema = validationParametrizacionArmazones();
+    const schema = validationParametrizacionUsuarios();
     const { showModal, CustomModal } = useModal();
     const { show } = useCustomToast();
-    const [changeCodigo, setChangeCodigo] = useState()
-    const armazonData = signal([])
+
 
     const {
       editEntity,
@@ -107,7 +103,7 @@ const FProyectosArmazones: React.FC<IUserFormPrps> = React.memo(
       focusSecondInput,
     } = useCrud(strBaseUrl);
     const [blnKeep, setblnKeep] = useState(false);
-    const intId = data && [data[EnumGrid.codigo_armazon, EnumGrid.codigo_proyecto]];
+    const intId = data && [data[EnumGrid.usuario_id, EnumGrid.codigo_proyecto]];
     const {
       control,
       handleSubmit,
@@ -118,11 +114,11 @@ const FProyectosArmazones: React.FC<IUserFormPrps> = React.memo(
     });
 
     const resetTextFields = React.useCallback(() => {
-      setValue("codigo_armazon", "");
+      setValue("usuario", "");
 
       if (firstInputRef.current) {
         const firstInput = firstInputRef.current.querySelector(
-          'input[name="nombre"]'
+          'input[name="proyecto"]'
         );
         if (firstInput) {
           firstInput.focus();
@@ -230,29 +226,29 @@ const FProyectosArmazones: React.FC<IUserFormPrps> = React.memo(
       [editEntity, createdEntity, handleApiResponse, intId]
     );
 
-    const fetchArmazon = async(codigo:string | undefined) =>{
-        try {
-            const {data} = await axios(`${URLBackend}/api/armazones/listado/?query=01&_p1=${codigo}`)
-            armazonData.value = data       
-        } catch (error) {
-          throw error
-        }
-    }
+    // const fetchArmazon = async(codigo:string | undefined) =>{
+    //     try {
+    //         const {data} = await axios(`https://mtoopticos.cl/api/armazones/listado/?query=01&_p1=${codigo}`)
+    //         armazonData.value = data       
+    //     } catch (error) {
+    //       throw error
+    //     }
+    // }
 
-   useEffect(()=>{
-        if(changeCodigo){
-            fetchArmazon(changeCodigo)
-             .then(()=>{
-               if(armazonData.value.length >= 1){
-                 armazonData.value = []
-                //  toast.error('codigo armazon existente')
-               }else{
-                 toast.error('Código armazon inválido')
-                 armazonData.value = []
-               }
-             })
-        }
-   },[changeCodigo])
+  //  useEffect(()=>{
+  //       if(changeCodigo){
+  //           fetchArmazon(changeCodigo)
+  //            .then(()=>{
+  //              if(armazonData.value.length >= 1){
+  //                armazonData.value = []
+  //               //  toast.error('codigo armazon existente')
+  //              }else{
+  //                toast.error('Código armazon inválido')
+  //                armazonData.value = []
+  //              }
+  //            })
+  //       }
+  //  },[changeCodigo])
       
 
     
@@ -276,49 +272,50 @@ const FProyectosArmazones: React.FC<IUserFormPrps> = React.memo(
             <div className="w-full flex items-center h-[4rem] ">
               <div className="input-container items-center rowForm w-full">
                 <div className="w-full ">
-                  <SelectInputComponent
-                    label="Proyecto"
-                    name="proyecto"
-                    showRefresh={true}
-                    data={data && data[EnumGrid.codigo_proyecto]}
-                    control={control}
-                    entidad={["/api/proyectos/", "02"]}
-                    error={errors.proyecto}
-                    inputRef={firstInputRef}
-                    readOnly={isEditting}
-                    customWidth={"!ml-[1rem] !w-[38rem] "}
+                <SelectInputComponent
+                  label="Proyecto"
+                  name="proyecto"
+                  showRefresh={true}
+                  data={data && data[EnumGrid.codigo_proyecto]}
+                  control={control}
+                  entidad={["/api/proyectos/", "02"]}
+                  error={errors.proyecto}
+                  inputRef={firstInputRef}
+                  readOnly={isEditting}
+                  customWidth={"!ml-[1rem] !w-[38rem] "}
                   />
                 </div>
               </div>
             </div>
-
             <div className="w-full flex items-center !my-8 h-[4rem]">
-              <div className="input-container items-center rowForm w-[40%]">
+              <div className="input-container items-center rowForm w-[45%]">
                 <div className="w-full">
-                  <TextInputComponent
-                      type="text"
-                      label="Código Armazon"
-                      name="codigo_armazon"
-                      data={data && data[EnumGrid.codigo_armazon]}
+                  <SelectInputComponent
+                      label="Usuario"
+                      name="usuario"
+                      showRefresh={true}
+                      data={data && data[EnumGrid.usuario_id]}
                       control={control}
-                      error={errors.codigo_armazon}
-                      onlyRead={isEditting}
-                      handleChange={setChangeCodigo}
-                  />
+                      entidad={["/api/usuarios/", "02"]}
+                      error={errors.usuario}
+                      inputRef={firstInputRef}
+                      readOnly={isEditting}
+                      customWidth={"!ml-[1rem] !w-[16rem]"}
+                      />
                 </div>
               </div>
 
-              <div className="input-container items-center rowForm w-[50%] ">
-                <div className="w-full !ml-[1rem]">
-                    <RadioButtonComponent
-                    control={control}
-                    label="Estado"
-                    name="estado"
-                    data={data && data[EnumGrid.estado]}
-                    options={["Disponible", "No disponible"]}
-                    error={errors.estado}
-                    horizontal={true}
-                    />
+              <div className="input-container items-center rowForm w-[50%]">
+                <div className="w-full">
+                  <RadioButtonComponent
+                  control={control}
+                  label="Estado"
+                  name="estado"
+                  data={data && data[EnumGrid.estado]}
+                  options={["Disponible", "No disponible"]}
+                  error={errors.estado}
+                  horizontal={true}
+                  />
                 </div>
               </div>
             </div>
@@ -342,4 +339,4 @@ const FProyectosArmazones: React.FC<IUserFormPrps> = React.memo(
   }
 );
 
-export default FProyectosArmazones;
+export default FProyectosUsuarios;

@@ -13,7 +13,7 @@ export const SUCCESS_MESSAGES = {
 };
 
 export const BUTTON_MESSAGES = {
-  add: "Agregar ",
+  add: "Nuevo ",
   refresh: "Refrescar ",
   next: "Siguiente ",
   deleteAll: "Eliminar Seleccionados ",

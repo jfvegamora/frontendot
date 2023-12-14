@@ -307,7 +307,7 @@ export const validationParametrizacionAccesorios = () =>
     estado          : yup.string().required(`${msg}`),
 });
 
-// Schema PROYECTOS ARMAZONES-CRISTALES-ACCESORIOS COPIAR
+// Schema PROYECTOS ARMAZONES-CRISTALES-ACCESORIOS-USUARIOS COPIAR
 export const validationProyectoParametrizacionCopiar = () =>
   yup.object().shape({
     proyecto_origen : yup.string().required(`${msg}`),
@@ -331,6 +331,14 @@ export const validationParametrizacionPuntosVenta = () =>
   yup.object().shape({
     proyecto   : yup.string().required(`${msg}`),
     punto_venta: yup.string().required(`${msg}`),
+    estado     : yup.string().required(`${msg}`),
+});
+
+// Schema PROYECTOS USUARIOS
+export const validationParametrizacionUsuarios = () =>
+  yup.object().shape({
+    proyecto   : yup.string().required(`${msg}`),
+    usuario    : yup.string().required(`${msg}`),
     estado     : yup.string().required(`${msg}`),
 });
 
