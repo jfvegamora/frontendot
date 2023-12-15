@@ -9,43 +9,29 @@ import {
   TableComponent,
 } from "../../components";
 import { useEntityUtils, usePermission } from "../../hooks";
-import { TITLES, table_head_parametrizacion_armazones} from "../../utils";
-import FProyectosArmazones from "../forms/FProyectosArmazones";
-import FProyectosArmazonesCopiar from "../forms/FProyectosArmazonesCopiar";
+import { TITLES, table_head_proyectos_muestrarios} from "../../utils";
+import FProyectosMuestrarios from "../forms/FProyectosMuestrarios";
 
 
 export enum EnumGrid {
-  codigo_proyecto      = 1,
-  titulo_proyecto      = 2,
-  codigo_licitacion    = 3,
-  codigo_armazon       = 4,
-  proveedor_id         = 5,
-  proveedor            = 6,
-  tipo_id              = 7,
-  tipo                 = 8,
-  marca_id             = 9,
-  marca                = 10,
-  modelo               = 11,
-  color                = 12,
-  material_id          = 13,
-  material             = 14,
-  aro                  = 15,
-  puente               = 16,
-  diagonal             = 17,
-  brazo                = 18,
-  uso_id               = 19,
-  uso                  = 20,
-  estado               = 21
+  codigo_proyecto     = 1,
+  titulo_proyecto     = 2,
+  codigo_licitacion   = 3,
+  almacen_id          = 4,
+  almacen             = 5,
+  almacen_tipo_id     = 6,
+  almacen_tipo        = 7,
+  estado              = 8
 }
-const strEntidad = "Parametrización de Armazón ";
-const strEntidadExcel = "Parametrizacion_de_armazones";
-const strBaseUrl = "/api/proyectoarmazones/";
+const strEntidad = "Parametrización de Muestrarios ";
+const strEntidadExcel = "Parametrizacion_de_muestrarios";
+const strBaseUrl = "/api/proyectomuestrarios/";
 const strQuery = "01";
-const idMenu   = 16;
+const idMenu   = 35;
 
 
 
-const MProyectosArmazones: React.FC = () => {
+const MProyectosMuestrarios: React.FC = () => {
   const [params, setParams] = useState([]);
   const { escritura_lectura} = usePermission(idMenu || 0 );
 
@@ -61,7 +47,7 @@ const MProyectosArmazones: React.FC = () => {
     //modal methods
     isModalInsert,
     isModalEdit,
-    isModalCopiar,
+    // isModalCopiar,
     toggleEditModal,
     toggleModalCopiar,
     openModal,
@@ -83,7 +69,7 @@ const MProyectosArmazones: React.FC = () => {
   
   useEffect(() => {    
     const newPkToDelete = selectedRows.map((row: number) => 
-     `{"pk1":"${entities[row][EnumGrid.codigo_proyecto]}", "pk2":"${entities[row][EnumGrid.codigo_armazon]}"}`);
+     `{"pk1":"${entities[row][EnumGrid.codigo_proyecto]}", "pk2":"${entities[row][EnumGrid.almacen_id]}"}`);
     const combinedPks = newPkToDelete.join(',');
 
     setPkToDelete([`${strParamsToDelete}=[${combinedPks}]`]);
@@ -106,7 +92,7 @@ const MProyectosArmazones: React.FC = () => {
               selectUrl: "/api/proyectos/", styles:{with:" !w-[33rem]"},
             },
             { name: "_p2", label: "Código Proyecto", type: "text", styles:{with:" !w-[9rem]"}, },
-            { name: "_p3", label: "Código Licitacion", type: "text", styles:{with:" !w-[9rem]"}, },
+            { name: "_p3", label: "Código Licitacion", type: "text", styles:{with:"!w-[9rem]"} },
           ]}
         />
       </div>
@@ -121,18 +107,17 @@ const MProyectosArmazones: React.FC = () => {
           strEntidad={strEntidadExcel}
           strBaseUrl={strBaseUrl}
           showAddButton={true}
-          showCopiar={true}
+          showCopiar={false}
           showExportButton={true}
           showDeleteButton={true}
           showForwardButton={false}
           showRefreshButton={true}
           idMenu={idMenu}
-          bln_egreso={false}
 
         />
       </div>
 
-      <div className="width100 scroll">
+      <div className="width70 scroll">
         <TableComponent
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
@@ -143,17 +128,15 @@ const MProyectosArmazones: React.FC = () => {
           setSelectedRows={setSelectedRows}
           entidad={strEntidad}
           data={entities}
-          tableHead={table_head_parametrizacion_armazones}
+          tableHead={table_head_proyectos_muestrarios}
           showEditButton={true}
           showDeleteButton={false}
           idMenu={idMenu}
         />
-      </div>
-   
-      
+      </div>      
 
       {isModalInsert && (
-        <FProyectosArmazones
+        <FProyectosMuestrarios
           label={`${TITLES.ingreso} ${strEntidad}`}
           closeModal={closeModal}
           selectedRows={selectedRows}
@@ -165,7 +148,7 @@ const MProyectosArmazones: React.FC = () => {
       )}
 
       {isModalEdit && (
-        <FProyectosArmazones
+        <FProyectosMuestrarios
           label={`${TITLES.edicion} ${strEntidad}`}
           selectedRows={selectedRows}
           setEntities={setEntities}
@@ -177,20 +160,8 @@ const MProyectosArmazones: React.FC = () => {
         />
       )}
 
-      {isModalCopiar && (
-        <FProyectosArmazonesCopiar
-          label={`${TITLES.copiar} ${strEntidad}`}
-          closeModal={closeModal}
-          selectedRows={selectedRows}
-          setEntities={setEntities}
-          params={params}
-          isEditting={false}
-          escritura_lectura={escritura_lectura}
-        />
-      )}
-
     </div>
   );
 };
 
-export default MProyectosArmazones;
+export default MProyectosMuestrarios;

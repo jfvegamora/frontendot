@@ -7,24 +7,28 @@ import React, { useState, useEffect } from "react";
 import {
   RadioButtonComponent,
   SelectInputComponent,
+  TextInputComponent,
 } from "../../components";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { validationParametrizacionPuntosVenta } from "../../utils/validationFormSchemas";
-import { EnumGrid } from "../mantenedores/MProyectosPuntosVenta";
-import {  MODAL, SUCCESS_MESSAGES, TITLES } from "../../utils";
+import { validationParametrizacionArmazones } from "../../utils/validationFormSchemas";
+import { EnumGrid } from "../mantenedores/MAlmacenesArmazones";
+import { MODAL, SUCCESS_MESSAGES, TITLES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { signal } from "@preact/signals-react";
+import { URLBackend } from "../../hooks/useCrud";
 
-
-const strBaseUrl = "/api/proyectopuntosventa/";
-const strEntidad = "Parametrizacion de Punto de Venta ";
+const strBaseUrl = "/api/almacenarmazones/";
+const strEntidad = "Parametrización de Armazones ";
 
 export interface InputData {
-  proyecto   : string | undefined;
-  punto_venta: string | undefined;
-  estado     : string | undefined;
+  almacen       : string | undefined;
+  codigo_armazon: string | undefined;
+  estado        : string | undefined;
 }
 
 interface OutputData {
@@ -32,21 +36,19 @@ interface OutputData {
   _p1: string;
   _p2?: string;
   _p3?: string;
+  _p4?: string;
 }
 
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
 
-  let _p1 = ` "${jsonData.proyecto}", 
-                "${jsonData.punto_venta}",  
-                 ${jsonData.estado === "Disponible" ? 1 : 2}`;
-
+  let _p1 = `${jsonData.almacen}, "${jsonData.codigo_armazon}", ${jsonData.estado === "Disponible" ? 1 : 2}`;
   _p1 = _p1.replace(/'/g, '!');
 
   const query: OutputData = {
     query: "03",
     _p1,
   };
-
+console.log("query", query)
   return query;
 }
 
@@ -68,10 +70,9 @@ export function transformUpdateQuery(jsonData: InputData): OutputData | null {
   const query = {
     query: "04",
     _p1,
-    _p2: jsonData.proyecto,
-    _p3: jsonData.punto_venta,
+    _p2: jsonData.codigo_armazon,
+    _p3: jsonData.almacen,
   };
-// console.log("query: ", query);
   return query;
 }
 
@@ -86,12 +87,13 @@ interface IUserFormPrps {
   escritura_lectura?: boolean;
 }
 
-const FProyectosPuntosVenta: React.FC<IUserFormPrps> = React.memo(
+const FAlmacenesArmazones: React.FC<IUserFormPrps> = React.memo(
   ({ closeModal, setEntities, params, label, data, isEditting, escritura_lectura }) => {
-    const schema = validationParametrizacionPuntosVenta();
+    const schema = validationParametrizacionArmazones();
     const { showModal, CustomModal } = useModal();
     const { show } = useCustomToast();
-
+    const [changeCodigo, setChangeCodigo] = useState()
+    const armazonData = signal([])
 
     const {
       editEntity,
@@ -102,7 +104,7 @@ const FProyectosPuntosVenta: React.FC<IUserFormPrps> = React.memo(
       focusSecondInput,
     } = useCrud(strBaseUrl);
     const [blnKeep, setblnKeep] = useState(false);
-    const intId = data && [data[EnumGrid.punto_venta_id, EnumGrid.codigo_proyecto]];
+    const intId = data && [data[EnumGrid.codigo_armazon, EnumGrid.almacen_id]];
     const {
       control,
       handleSubmit,
@@ -113,11 +115,11 @@ const FProyectosPuntosVenta: React.FC<IUserFormPrps> = React.memo(
     });
 
     const resetTextFields = React.useCallback(() => {
-      setValue("punto_venta", "");
+      setValue("codigo_armazon", "");
 
       if (firstInputRef.current) {
         const firstInput = firstInputRef.current.querySelector(
-          'input[name="proyecto"]'
+          'input[name="nombre"]'
         );
         if (firstInput) {
           firstInput.focus();
@@ -225,35 +227,35 @@ const FProyectosPuntosVenta: React.FC<IUserFormPrps> = React.memo(
       [editEntity, createdEntity, handleApiResponse, intId]
     );
 
-    // const fetchArmazon = async(codigo:string | undefined) =>{
-    //     try {
-    //         const {data} = await axios(`https://mtoopticos.cl/api/armazones/listado/?query=01&_p1=${codigo}`)
-    //         armazonData.value = data       
-    //     } catch (error) {
-    //       throw error
-    //     }
-    // }
+    const fetchArmazon = async(codigo:string | undefined) =>{
+        try {
+            const {data} = await axios(`${URLBackend}/api/armazones/listado/?query=01&_p1=${codigo}`)
+            armazonData.value = data       
+        } catch (error) {
+          throw error
+        }
+    }
 
-  //  useEffect(()=>{
-  //       if(changeCodigo){
-  //           fetchArmazon(changeCodigo)
-  //            .then(()=>{
-  //              if(armazonData.value.length >= 1){
-  //                armazonData.value = []
-  //               //  toast.error('codigo armazon existente')
-  //              }else{
-  //                toast.error('Código armazon inválido')
-  //                armazonData.value = []
-  //              }
-  //            })
-  //       }
-  //  },[changeCodigo])
+   useEffect(()=>{
+        if(changeCodigo){
+            fetchArmazon(changeCodigo)
+             .then(()=>{
+               if(armazonData.value.length >= 1){
+                 armazonData.value = []
+                //  toast.error('codigo armazon existente')
+               }else{
+                 toast.error('Código armazon inválido')
+                 armazonData.value = []
+               }
+             })
+        }
+   },[changeCodigo])
       
 
     
  
     useEffect(() => {
-      isEditting ? focusSecondInput("estado") : focusFirstInput("proyecto");
+      isEditting ? focusSecondInput("estado") : focusFirstInput("almacen");
     }, []);
 
     return (
@@ -271,50 +273,49 @@ const FProyectosPuntosVenta: React.FC<IUserFormPrps> = React.memo(
             <div className="w-full flex items-center h-[4rem] ">
               <div className="input-container items-center rowForm w-full">
                 <div className="w-full ">
-                <SelectInputComponent
-                  label="Proyecto"
-                  name="proyecto"
-                  showRefresh={true}
-                  data={data && data[EnumGrid.codigo_proyecto]}
-                  control={control}
-                  entidad={["/api/proyectos/", "02"]}
-                  error={errors.proyecto}
-                  inputRef={firstInputRef}
-                  readOnly={isEditting}
-                  customWidth={"!ml-[1rem] !w-[38rem] "}
+                  <SelectInputComponent
+                    label="Muestrario"
+                    name="almacen"
+                    showRefresh={true}
+                    data={data && data[EnumGrid.almacen_id]}
+                    control={control}
+                    entidad={["/api/almacenes/", "02", '1']}
+                    error={errors.almacen}
+                    inputRef={firstInputRef}
+                    readOnly={isEditting}
+                    customWidth={"!ml-[1rem] !w-[38rem] "}
                   />
                 </div>
               </div>
             </div>
+
             <div className="w-full flex items-center !my-8 h-[4rem]">
-              <div className="input-container items-center rowForm w-[45%]">
+              <div className="input-container items-center rowForm w-[40%]">
                 <div className="w-full">
-                  <SelectInputComponent
-                      label="Punto de Venta"
-                      name="punto_venta"
-                      showRefresh={true}
-                      data={data && data[EnumGrid.punto_venta_id]}
+                  <TextInputComponent
+                      type="text"
+                      label="Código Armazon"
+                      name="codigo_armazon"
+                      data={data && data[EnumGrid.codigo_armazon]}
                       control={control}
-                      entidad={["/api/puntosventa/", "02"]}
-                      error={errors.punto_venta}
-                      inputRef={firstInputRef}
-                      readOnly={isEditting}
-                      customWidth={"!ml-[1rem] !w-[16rem]"}
-                      />
+                      error={errors.codigo_armazon}
+                      onlyRead={isEditting}
+                      handleChange={setChangeCodigo}
+                  />
                 </div>
               </div>
 
-              <div className="input-container items-center rowForm w-[50%]">
-                <div className="w-full">
-                  <RadioButtonComponent
-                  control={control}
-                  label="Estado"
-                  name="estado"
-                  data={data && data[EnumGrid.estado]}
-                  options={["Disponible", "No disponible"]}
-                  error={errors.estado}
-                  horizontal={true}
-                  />
+              <div className="input-container items-center rowForm w-[50%] ">
+                <div className="w-full !ml-[1rem]">
+                    <RadioButtonComponent
+                    control={control}
+                    label="Estado"
+                    name="estado"
+                    data={data && data[EnumGrid.estado]}
+                    options={["Disponible", "No disponible"]}
+                    error={errors.estado}
+                    horizontal={true}
+                    />
                 </div>
               </div>
             </div>
@@ -338,4 +339,4 @@ const FProyectosPuntosVenta: React.FC<IUserFormPrps> = React.memo(
   }
 );
 
-export default FProyectosPuntosVenta;
+export default FAlmacenesArmazones;

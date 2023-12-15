@@ -111,7 +111,7 @@ const MProyectosFirmas: React.FC = () => {
           />
         </div>
   
-        <div className="width100 scroll">
+        <div className="width80 scroll">
           <TableComponent
             handleSelectChecked={handleSelect}
             handleSelectedCheckedAll={handleSelectedAll}

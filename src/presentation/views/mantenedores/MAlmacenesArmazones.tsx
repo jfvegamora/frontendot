@@ -9,28 +9,42 @@ import {
   TableComponent,
 } from "../../components";
 import { useEntityUtils, usePermission } from "../../hooks";
-import { TITLES, table_head_proyectos_puntos_venta} from "../../utils";
-import FProyectosPuntosVenta from "../forms/FProyectosPuntosVenta";
-import FProyectosPuntosVentaCopiar from "../forms/FProyectosPuntosVentaCopiar";
+import { TITLES, table_head_parametrizacion_armazones} from "../../utils";
+import FAlmacenesArmazones from "../forms/FAlmacenesArmazones";
+import FAlmacenesArmazonesCopiar from "../forms/FAlmacenesArmazonesCopiar";
 
 
 export enum EnumGrid {
-  codigo_proyecto      = 1,
-  titulo_proyecto      = 2,
-  codigo_licitacion    = 3,
-  punto_venta_id       = 4,
-  punto_venta          = 5,
-  estado               = 6
+  almacen_id           = 1,
+  almacen              = 2,
+  codigo_armazon       = 3,
+  proveedor_id         = 4,
+  proveedor            = 5,
+  tipo_id              = 6,
+  tipo                 = 7,
+  marca_id             = 8,
+  marca                = 9,
+  modelo               = 10,
+  color                = 11,
+  material_id          = 12,
+  material             = 13,
+  aro                  = 14,
+  puente               = 15,
+  diagonal             = 16,
+  brazo                = 17,
+  uso_id               = 18,
+  uso                  = 19,
+  estado               = 20
 }
-const strEntidad = "Parametrización de Puntos de Venta ";
-const strEntidadExcel = "Parametrizacion_de_puntos_de_venta";
-const strBaseUrl = "/api/proyectopuntosventa/";
+const strEntidad = "Parametrización de Armazones ";
+const strEntidadExcel = "Parametrizacion_de_armazones";
+const strBaseUrl = "/api/almacenarmazones/";
 const strQuery = "01";
-const idMenu   = 33;
+const idMenu   = 16;
 
 
 
-const MProyectosPuntosVenta: React.FC = () => {
+const MAlmacenesArmazones: React.FC = () => {
   const [params, setParams] = useState([]);
   const { escritura_lectura} = usePermission(idMenu || 0 );
 
@@ -68,7 +82,7 @@ const MProyectosPuntosVenta: React.FC = () => {
   
   useEffect(() => {    
     const newPkToDelete = selectedRows.map((row: number) => 
-     `{"pk1":"${entities[row][EnumGrid.codigo_proyecto]}", "pk2":"${entities[row][EnumGrid.punto_venta_id]}"}`);
+     `{"pk1":"${entities[row][EnumGrid.almacen_id]}", "pk2":"${entities[row][EnumGrid.codigo_armazon]}"}`);
     const combinedPks = newPkToDelete.join(',');
 
     setPkToDelete([`${strParamsToDelete}=[${combinedPks}]`]);
@@ -85,13 +99,19 @@ const MProyectosPuntosVenta: React.FC = () => {
           setEntities={setEntities}
           primaryKeyInputs={[
             {
-              name: "_p1",
-              label: "Proyecto (?)",
+              name: "_p3",
+              label: "Muestrario (?)",
               type: "select",
-              selectUrl: "/api/proyectos/", styles:{with:" !w-[33rem]"},
+              selectUrl: "/api/almacenes/", styles:{with:" !w-[33rem]"}, tipos:'1'
             },
-            { name: "_p2", label: "Código Proyecto", type: "text", styles:{with:" !w-[9rem]"}, },
-            { name: "_p3", label: "Código Licitacion", type: "text", styles:{with:"!w-[9rem]"} },
+            // {
+            //   name: "_p1",
+            //   label: "Proyecto (?)",
+            //   type: "select",
+            //   selectUrl: "/api/proyectos/", styles:{with:" !w-[33rem]"},
+            // },
+            // { name: "_p2", label: "Código Proyecto", type: "text", styles:{with:" !w-[9rem]"}, },
+            // { name: "_p3", label: "Código Licitacion", type: "text", styles:{with:" !w-[9rem]"}, },
           ]}
         />
       </div>
@@ -112,11 +132,12 @@ const MProyectosPuntosVenta: React.FC = () => {
           showForwardButton={false}
           showRefreshButton={true}
           idMenu={idMenu}
+          bln_egreso={false}
 
         />
       </div>
 
-      <div className="width70 scroll">
+      <div className="width100 scroll">
         <TableComponent
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
@@ -127,15 +148,17 @@ const MProyectosPuntosVenta: React.FC = () => {
           setSelectedRows={setSelectedRows}
           entidad={strEntidad}
           data={entities}
-          tableHead={table_head_proyectos_puntos_venta}
+          tableHead={table_head_parametrizacion_armazones}
           showEditButton={true}
           showDeleteButton={false}
           idMenu={idMenu}
         />
-      </div>      
+      </div>
+   
+      
 
       {isModalInsert && (
-        <FProyectosPuntosVenta
+        <FAlmacenesArmazones
           label={`${TITLES.ingreso} ${strEntidad}`}
           closeModal={closeModal}
           selectedRows={selectedRows}
@@ -147,7 +170,7 @@ const MProyectosPuntosVenta: React.FC = () => {
       )}
 
       {isModalEdit && (
-        <FProyectosPuntosVenta
+        <FAlmacenesArmazones
           label={`${TITLES.edicion} ${strEntidad}`}
           selectedRows={selectedRows}
           setEntities={setEntities}
@@ -160,7 +183,7 @@ const MProyectosPuntosVenta: React.FC = () => {
       )}
 
       {isModalCopiar && (
-        <FProyectosPuntosVentaCopiar
+        <FAlmacenesArmazonesCopiar
           label={`${TITLES.copiar} ${strEntidad}`}
           closeModal={closeModal}
           selectedRows={selectedRows}
@@ -170,8 +193,9 @@ const MProyectosPuntosVenta: React.FC = () => {
           escritura_lectura={escritura_lectura}
         />
       )}
+
     </div>
   );
 };
 
-export default MProyectosPuntosVenta;
+export default MAlmacenesArmazones;

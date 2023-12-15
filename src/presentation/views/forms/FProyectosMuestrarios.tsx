@@ -10,20 +10,20 @@ import {
 } from "../../components";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { validationParametrizacionPuntosVenta } from "../../utils/validationFormSchemas";
-import { EnumGrid } from "../mantenedores/MProyectosPuntosVenta";
+import { validationParametrizacionMuestrarios } from "../../utils/validationFormSchemas";
+import { EnumGrid } from "../mantenedores/MProyectosMuestrarios";
 import {  MODAL, SUCCESS_MESSAGES, TITLES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
 
 
-const strBaseUrl = "/api/proyectopuntosventa/";
-const strEntidad = "Parametrizacion de Punto de Venta ";
+const strBaseUrl = "/api/proyectomuestrarios/";
+const strEntidad = "Parametrizacion de Muestrarios ";
 
 export interface InputData {
   proyecto   : string | undefined;
-  punto_venta: string | undefined;
+  almacen    : string | undefined;
   estado     : string | undefined;
 }
 
@@ -37,7 +37,7 @@ interface OutputData {
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
 
   let _p1 = ` "${jsonData.proyecto}", 
-                "${jsonData.punto_venta}",  
+                "${jsonData.almacen}",  
                  ${jsonData.estado === "Disponible" ? 1 : 2}`;
 
   _p1 = _p1.replace(/'/g, '!');
@@ -69,7 +69,7 @@ export function transformUpdateQuery(jsonData: InputData): OutputData | null {
     query: "04",
     _p1,
     _p2: jsonData.proyecto,
-    _p3: jsonData.punto_venta,
+    _p3: jsonData.almacen,
   };
 // console.log("query: ", query);
   return query;
@@ -86,9 +86,9 @@ interface IUserFormPrps {
   escritura_lectura?: boolean;
 }
 
-const FProyectosPuntosVenta: React.FC<IUserFormPrps> = React.memo(
+const FProyectosMuestrarios: React.FC<IUserFormPrps> = React.memo(
   ({ closeModal, setEntities, params, label, data, isEditting, escritura_lectura }) => {
-    const schema = validationParametrizacionPuntosVenta();
+    const schema = validationParametrizacionMuestrarios();
     const { showModal, CustomModal } = useModal();
     const { show } = useCustomToast();
 
@@ -102,7 +102,7 @@ const FProyectosPuntosVenta: React.FC<IUserFormPrps> = React.memo(
       focusSecondInput,
     } = useCrud(strBaseUrl);
     const [blnKeep, setblnKeep] = useState(false);
-    const intId = data && [data[EnumGrid.punto_venta_id, EnumGrid.codigo_proyecto]];
+    const intId = data && [data[EnumGrid.almacen_id, EnumGrid.codigo_proyecto]];
     const {
       control,
       handleSubmit,
@@ -113,7 +113,7 @@ const FProyectosPuntosVenta: React.FC<IUserFormPrps> = React.memo(
     });
 
     const resetTextFields = React.useCallback(() => {
-      setValue("punto_venta", "");
+      setValue("almacen", "");
 
       if (firstInputRef.current) {
         const firstInput = firstInputRef.current.querySelector(
@@ -290,13 +290,13 @@ const FProyectosPuntosVenta: React.FC<IUserFormPrps> = React.memo(
               <div className="input-container items-center rowForm w-[45%]">
                 <div className="w-full">
                   <SelectInputComponent
-                      label="Punto de Venta"
-                      name="punto_venta"
+                      label="Muestrario"
+                      name="almacen"
                       showRefresh={true}
-                      data={data && data[EnumGrid.punto_venta_id]}
+                      data={data && data[EnumGrid.almacen_id]}
                       control={control}
-                      entidad={["/api/puntosventa/", "02"]}
-                      error={errors.punto_venta}
+                      entidad={["/api/almacenes/", "02", "1"]} //excluye almacenes tipo 1: Bodega
+                      error={errors.almacen}
                       inputRef={firstInputRef}
                       readOnly={isEditting}
                       customWidth={"!ml-[1rem] !w-[16rem]"}
@@ -338,4 +338,4 @@ const FProyectosPuntosVenta: React.FC<IUserFormPrps> = React.memo(
   }
 );
 
-export default FProyectosPuntosVenta;
+export default FProyectosMuestrarios;

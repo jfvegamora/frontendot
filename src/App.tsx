@@ -11,6 +11,7 @@ import { PublicRoutes, privateRoutes } from "./interfaces";
 import AuthGuard, {
   hasRequiredPermissions,
 } from "./presentation/guards/auth_guard";
+import { Spinner } from "@material-tailwind/react";
 
 //Lazy components
 const Login = lazy(() => import("./presentation/pages/Login"));
@@ -48,7 +49,8 @@ function App() {
   
   return (
     <div className="App">
-      <Suspense fallback={<>Cargando.....</>}>
+      {/* <Suspense fallback={<><Spinner className="h-12 w-12"/></>}> */}
+      <Suspense fallback={<div className="flex items-center justify-center h-screen"><Spinner className="h-12 w-12" style={{ color: '#f39c12' }} /></div>}>
         <ToastContainer />
         <Navbar />
         <RoutesWithNotFound>

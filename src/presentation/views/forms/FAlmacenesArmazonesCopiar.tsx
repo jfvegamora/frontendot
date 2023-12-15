@@ -5,74 +5,62 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect } from "react";
 import {
-  RadioButtonComponent,
   SelectInputComponent,
 } from "../../components";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { validationParametrizacionPuntosVenta } from "../../utils/validationFormSchemas";
-import { EnumGrid } from "../mantenedores/MProyectosPuntosVenta";
-import {  MODAL, SUCCESS_MESSAGES, TITLES } from "../../utils";
+import { validationProyectoParametrizacionCopiar } from "../../utils/validationFormSchemas";
+// import { EnumGrid } from "../mantenedores/MAlmacenesArmazones";
+import { BUTTON_MESSAGES, MODAL, SUCCESS_MESSAGES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
+import {toast} from 'react-toastify'
 
+// import axios from "axios";
+// import { toast } from "react-toastify";
+// import { signal } from "@preact/signals-react";
 
-const strBaseUrl = "/api/proyectopuntosventa/";
-const strEntidad = "Parametrizacion de Punto de Venta ";
+const strBaseUrl = "/api/almacenarmazones/";
+const strEntidad = "Parametrización de Armazones ";
 
 export interface InputData {
-  proyecto   : string | undefined;
-  punto_venta: string | undefined;
-  estado     : string | undefined;
+  origen : string ;
+  destino: string ;
 }
 
 interface OutputData {
   query: string;
   _p1: string;
-  _p2?: string;
-  _p3?: string;
+  _p2: string;
 }
 
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
-
-  let _p1 = ` "${jsonData.proyecto}", 
-                "${jsonData.punto_venta}",  
-                 ${jsonData.estado === "Disponible" ? 1 : 2}`;
-
-  _p1 = _p1.replace(/'/g, '!');
+  // console.log("jsondata: ", jsonData.proyecto_origen, "-", jsonData.proyecto_destino)
+  if(jsonData.origen === jsonData.destino){
+    toast.error('Debes seleccionar distintos Almacenes.')
+    throw new Error()
+  }
 
   const query: OutputData = {
-    query: "03",
-    _p1,
+    query: "06",
+    _p1: jsonData.origen,
+    _p2: jsonData.destino,
   };
-
+// console.log("query", query)
   return query;
 }
 
-export function transformUpdateQuery(jsonData: InputData): OutputData | null {
-  const fields = [
-    `estado   = ${jsonData.estado === "Disponible" ? 1 : 2}`,
-  ];
+export function transformUpdateQuery(_jsonData: InputData): OutputData | null {
 
-  const filteredFields = fields.filter(
-    (field) => field !== null && field !== ""
-  );
-
-  if (filteredFields.length === 0) {
-    return null;
-  }
-
-  const _p1 = filteredFields.join(",");
-
-  const query = {
-    query: "04",
-    _p1,
-    _p2: jsonData.proyecto,
-    _p3: jsonData.punto_venta,
-  };
-// console.log("query: ", query);
-  return query;
+  // const query = {
+  //   query: "06",
+  //   _p1: jsonData.proyecto_origen,
+  //   _p2: jsonData.proyecto_destino,
+  // };
+  // console.log("query: ", query);
+  // return query;
+  return null;
 }
 
 interface IUserFormPrps {
@@ -86,23 +74,24 @@ interface IUserFormPrps {
   escritura_lectura?: boolean;
 }
 
-const FProyectosPuntosVenta: React.FC<IUserFormPrps> = React.memo(
-  ({ closeModal, setEntities, params, label, data, isEditting, escritura_lectura }) => {
-    const schema = validationParametrizacionPuntosVenta();
+const FAlmacenesArmazonesCopiar: React.FC<IUserFormPrps> = React.memo(
+  ({ closeModal, setEntities, params, label, isEditting, escritura_lectura }) => {
+    const schema = validationProyectoParametrizacionCopiar();
     const { showModal, CustomModal } = useModal();
     const { show } = useCustomToast();
-
+    // const [changeCodigo, setChangeCodigo] = useState()
+    // const armazonData = signal([])
 
     const {
       editEntity,
       createdEntity,
       ListEntity,
       firstInputRef,
-      focusFirstInput,
-      focusSecondInput,
+      // focusFirstInput,
+      // focusSecondInput,
     } = useCrud(strBaseUrl);
     const [blnKeep, setblnKeep] = useState(false);
-    const intId = data && [data[EnumGrid.punto_venta_id, EnumGrid.codigo_proyecto]];
+    // const intId = data && [data[EnumGrid.almacen_id, EnumGrid.codigo_armazon]];
     const {
       control,
       handleSubmit,
@@ -113,11 +102,11 @@ const FProyectosPuntosVenta: React.FC<IUserFormPrps> = React.memo(
     });
 
     const resetTextFields = React.useCallback(() => {
-      setValue("punto_venta", "");
+      // setValue("codigo_armazon", "");
 
       if (firstInputRef.current) {
         const firstInput = firstInputRef.current.querySelector(
-          'input[name="proyecto"]'
+          'input[name="origen"]'
         );
         if (firstInput) {
           firstInput.focus();
@@ -222,39 +211,8 @@ const FProyectosPuntosVenta: React.FC<IUserFormPrps> = React.memo(
           });
         }
       },
-      [editEntity, createdEntity, handleApiResponse, intId]
+      [editEntity, createdEntity, handleApiResponse]
     );
-
-    // const fetchArmazon = async(codigo:string | undefined) =>{
-    //     try {
-    //         const {data} = await axios(`https://mtoopticos.cl/api/armazones/listado/?query=01&_p1=${codigo}`)
-    //         armazonData.value = data       
-    //     } catch (error) {
-    //       throw error
-    //     }
-    // }
-
-  //  useEffect(()=>{
-  //       if(changeCodigo){
-  //           fetchArmazon(changeCodigo)
-  //            .then(()=>{
-  //              if(armazonData.value.length >= 1){
-  //                armazonData.value = []
-  //               //  toast.error('codigo armazon existente')
-  //              }else{
-  //                toast.error('Código armazon inválido')
-  //                armazonData.value = []
-  //              }
-  //            })
-  //       }
-  //  },[changeCodigo])
-      
-
-    
- 
-    useEffect(() => {
-      isEditting ? focusSecondInput("estado") : focusFirstInput("proyecto");
-    }, []);
 
     return (
       <div className="useFormContainer centered-div use40rem">
@@ -268,55 +226,39 @@ const FProyectosPuntosVenta: React.FC<IUserFormPrps> = React.memo(
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
-            <div className="w-full flex items-center h-[4rem] ">
-              <div className="input-container items-center rowForm w-full">
-                <div className="w-full ">
-                <SelectInputComponent
-                  label="Proyecto"
-                  name="proyecto"
-                  showRefresh={true}
-                  data={data && data[EnumGrid.codigo_proyecto]}
-                  control={control}
-                  entidad={["/api/proyectos/", "02"]}
-                  error={errors.proyecto}
-                  inputRef={firstInputRef}
-                  readOnly={isEditting}
-                  customWidth={"!ml-[1rem] !w-[38rem] "}
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="w-full flex items-center !my-8 h-[4rem]">
-              <div className="input-container items-center rowForm w-[45%]">
-                <div className="w-full">
-                  <SelectInputComponent
-                      label="Punto de Venta"
-                      name="punto_venta"
+            <div className="w-full flex items-center h-[4rem]">
+                <div className="input-container items-center rowForm w-full">
+                  <div className="w-full">
+                    <SelectInputComponent
+                      label="Almacén Desde"
+                      name="origen"
                       showRefresh={true}
-                      data={data && data[EnumGrid.punto_venta_id]}
+                      // data={data && data[EnumGrid.codigo_proyecto]}
                       control={control}
-                      entidad={["/api/puntosventa/", "02"]}
-                      error={errors.punto_venta}
-                      inputRef={firstInputRef}
-                      readOnly={isEditting}
-                      customWidth={"!ml-[1rem] !w-[16rem]"}
-                      />
+                      entidad={["/api/almacenes/", "02", '1']}
+                      error={errors.origen}
+                      customWidth={"!ml-[1rem] !w-[38rem] "}
+                    />
+                  </div>
                 </div>
-              </div>
+            </div>
 
-              <div className="input-container items-center rowForm w-[50%]">
-                <div className="w-full">
-                  <RadioButtonComponent
-                  control={control}
-                  label="Estado"
-                  name="estado"
-                  data={data && data[EnumGrid.estado]}
-                  options={["Disponible", "No disponible"]}
-                  error={errors.estado}
-                  horizontal={true}
-                  />
+            <div className="w-full flex items-center !my-8 h-[4rem]">
+                <div className="input-container items-center rowForm w-full">
+                  <div className="w-full">
+                    <SelectInputComponent
+                      label="Almacén hacia"
+                      name="destino"
+                      showRefresh={true}
+                      // data={data && data[EnumGrid.codigo_proyecto]}
+                      control={control}
+                      entidad={["/api/almacenes/", "02", '1']}
+                      error={errors.destino}
+                      customWidth={"!ml-[1rem] !w-[38rem] "}
+                    />
+                  </div>
                 </div>
-              </div>
+
             </div>
           </div>
 
@@ -324,7 +266,7 @@ const FProyectosPuntosVenta: React.FC<IUserFormPrps> = React.memo(
             <div className="w-[70%] mx-auto">
                 {escritura_lectura && (
                   <button type="submit" tabIndex={1} className="userFormBtnSubmit">
-                    {`${TITLES.guardar}`}
+                    {`${BUTTON_MESSAGES.copiar}`}
                   </button>
                 )}
             </div>
@@ -338,4 +280,4 @@ const FProyectosPuntosVenta: React.FC<IUserFormPrps> = React.memo(
   }
 );
 
-export default FProyectosPuntosVenta;
+export default FAlmacenesArmazonesCopiar;

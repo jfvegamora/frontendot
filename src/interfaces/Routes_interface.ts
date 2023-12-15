@@ -23,11 +23,13 @@ const MProveedores          = lazy(()=>import("../presentation/views/mantenedore
 
 const MMandantes            = lazy(()=>import("../presentation/views/mantenedores/MMandantes"));
 const MProyectos            = lazy(()=>import("../presentation/views/mantenedores/MProyectos"));
-const MProyectosArmazones   = lazy(()=>import("../presentation/views/mantenedores/MProyectosArmazones"));
+const MAlmacenesArmazones   = lazy(()=>import("../presentation/views/mantenedores/MAlmacenesArmazones"));
+const MProyectosMuestrarios = lazy(()=>import("../presentation/views/mantenedores/MProyectosMuestrarios"));
 const MProyectosAccesorios  = lazy(()=>import("../presentation/views/mantenedores/MProyectosAccesorios"));
 const MProyectosCristales   = lazy(()=>import("../presentation/views/mantenedores/MProyectosCristales"));
 const MProyectosDirecciones = lazy(()=>import("../presentation/views/mantenedores/MProyectosDirecciones"));
 const MProyectosPuntosVenta = lazy(()=>import("../presentation/views/mantenedores/MProyectosPuntosVenta"));
+const MProyectosUsuarios    = lazy(()=>import("../presentation/views/mantenedores/MProyectosUsuarios"));
 const MProyectosAtenciones  = lazy(()=>import("../presentation/views/mantenedores/MProyectosAtenciones"));
 const MProyectosFirmas      = lazy(()=>import("../presentation/views/mantenedores/MProyectosFirmas"));
 const MOftalmologos         = lazy(()=>import("../presentation/views/mantenedores/MOftalmologos"));
@@ -75,11 +77,13 @@ export const PrivateRoutes = {
   //PROYECTOS
   MANDANTES             : "mandantes",
   PROYECTOS             : "proyectos",
-  PROYECTOS_ARMAZONES   : "proyectoarmazones",
+  ALMACEN_ARMAZONES   : "almacenarmazones",
+  PROYECTOS_MUESTRARIOS : "proyectomuestrarios",
   PROYECTOS_CRISTALES   : "proyectocristales",
   PROYECTOS_ACCESORIOS  : "proyectoaccesorios",
   PROYECTOS_DIRECCIONES : "proyectodireccionesdespacho",
   PROYECTOS_PUNTOS_VENTA: "proyectopuntosventa",
+  PROYECTOS_USUARIOS    : "proyectousuarios",
   REPORTE_ATENCION      : "proyectoreporteatencion",
   REPORTE_FIRMAS        : "proyectoreportefirma",
   OFTALMOLOGOS          : "oftalmologos",
@@ -214,10 +218,16 @@ export const privateRoutes = [
     requiredPermissions : ['view_' + PrivateRoutes.PROYECTOS]
   },
   {
+    id                  : "35",
+    path                : PrivateRoutes.PROYECTOS_MUESTRARIOS,
+    component           : MProyectosMuestrarios,
+    requiredPermissions : ['view_' + PrivateRoutes.PROYECTOS_MUESTRARIOS]
+  },
+  {
     id                  : "16",
-    path                : PrivateRoutes.PROYECTOS_ARMAZONES,
-    component           : MProyectosArmazones,
-    requiredPermissions : ['view_' + PrivateRoutes.PROYECTOS_ARMAZONES]
+    path                : PrivateRoutes.ALMACEN_ARMAZONES,
+    component           : MAlmacenesArmazones,
+    requiredPermissions : ['view_' + PrivateRoutes.ALMACEN_ARMAZONES]
   },
   {
     id                  : "17",
@@ -242,6 +252,12 @@ export const privateRoutes = [
     path                : PrivateRoutes.PROYECTOS_PUNTOS_VENTA,
     component           : MProyectosPuntosVenta,
     requiredPermissions : ['view_' + PrivateRoutes.PROYECTOS_PUNTOS_VENTA]
+  },
+  {
+    id                  : "34",
+    path                : PrivateRoutes.PROYECTOS_USUARIOS,
+    component           : MProyectosUsuarios,
+    requiredPermissions : ['view_' + PrivateRoutes.PROYECTOS_USUARIOS]
   },
   {
     id                  : "19",

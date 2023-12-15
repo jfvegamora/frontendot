@@ -25,8 +25,8 @@ const strBaseUrl = "/api/proyectocristales/";
 const strEntidad = "Parametrizacion de Cristales ";
 
 export interface InputData {
-  proyecto_origen : string ;
-  proyecto_destino: string ;
+  origen : string ;
+  destino: string ;
 }
 
 interface OutputData {
@@ -36,16 +36,16 @@ interface OutputData {
 }
 
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
-  console.log("jsondata: ", jsonData.proyecto_origen, "-", jsonData.proyecto_destino)
-  if(jsonData.proyecto_origen === jsonData.proyecto_destino){
+  console.log("jsondata: ", jsonData.origen, "-", jsonData.destino)
+  if(jsonData.origen === jsonData.destino){
     toast.error('Debes seleccionar distintos Proyectos.')
     throw new Error()
   }
 
   const query: OutputData = {
     query: "07",
-    _p1: jsonData.proyecto_origen,
-    _p2: jsonData.proyecto_destino,
+    _p1: jsonData.origen,
+    _p2: jsonData.destino,
   };
 
   return query;
@@ -55,8 +55,8 @@ export function transformUpdateQuery(_jsonData: InputData): OutputData | null {
 
   // const query = {
   //   query: "06",
-  //   _p1: jsonData.proyecto_origen,
-  //   _p2: jsonData.proyecto_destino,
+  //   _p1: jsonData.origen,
+  //   _p2: jsonData.destino,
   // };
   // console.log("query: ", query);
   // return query;
@@ -106,7 +106,7 @@ const FProyectosCristalesCopiar: React.FC<IUserFormPrps> = React.memo(
 
       if (firstInputRef.current) {
         const firstInput = firstInputRef.current.querySelector(
-          'input[name="proyecto_origen"]'
+          'input[name="origen"]'
         );
         if (firstInput) {
           firstInput.focus();
@@ -231,12 +231,12 @@ const FProyectosCristalesCopiar: React.FC<IUserFormPrps> = React.memo(
                   <div className="w-full">
                     <SelectInputComponent
                       label="Proyecto Desde"
-                      name="proyecto_origen"
+                      name="origen"
                       showRefresh={true}
                       // data={data && data[EnumGrid.codigo_proyecto]}
                       control={control}
                       entidad={["/api/proyectos/", "02"]}
-                      error={errors.proyecto_origen}
+                      error={errors.origen}
                       customWidth={"!ml-[1rem] !w-[38rem] "}
                     />
                   </div>
@@ -248,12 +248,12 @@ const FProyectosCristalesCopiar: React.FC<IUserFormPrps> = React.memo(
                   <div className="w-full">
                   <SelectInputComponent
                       label="Copiar hacia"
-                      name="proyecto_destino"
+                      name="destino"
                       showRefresh={true}
                       // data={data && data[EnumGrid.codigo_proyecto]}
                       control={control}
                       entidad={["/api/proyectos/", "02"]}
-                      error={errors.proyecto_destino}
+                      error={errors.destino}
                       customWidth={"!ml-[1rem] !w-[38rem] "}
                     />
                   </div>
