@@ -10,7 +10,7 @@ import {
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationProyectoParametrizacionCopiar } from "../../utils/validationFormSchemas";
-import { EnumGrid } from "../mantenedores/MProyectosArmazones";
+// import { EnumGrid } from "../mantenedores/MAlmacenesArmazones";
 import { BUTTON_MESSAGES, MODAL, SUCCESS_MESSAGES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
@@ -21,12 +21,12 @@ import {toast} from 'react-toastify'
 // import { toast } from "react-toastify";
 // import { signal } from "@preact/signals-react";
 
-const strBaseUrl = "/api/proyectoarmazones/";
-const strEntidad = "Parametrizacion de Armazones ";
+const strBaseUrl = "/api/almacenarmazones/";
+const strEntidad = "Parametrización de Armazones ";
 
 export interface InputData {
-  proyecto_origen : string ;
-  proyecto_destino: string ;
+  origen : string ;
+  destino: string ;
 }
 
 interface OutputData {
@@ -36,18 +36,18 @@ interface OutputData {
 }
 
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
-  console.log("jsondata: ", jsonData.proyecto_origen, "-", jsonData.proyecto_destino)
-  if(jsonData.proyecto_origen === jsonData.proyecto_destino){
-    toast.error('Debes seleccionar distintos Proyectos.')
+  // console.log("jsondata: ", jsonData.proyecto_origen, "-", jsonData.proyecto_destino)
+  if(jsonData.origen === jsonData.destino){
+    toast.error('Debes seleccionar distintos Almacenes.')
     throw new Error()
   }
 
   const query: OutputData = {
     query: "06",
-    _p1: jsonData.proyecto_origen,
-    _p2: jsonData.proyecto_destino,
+    _p1: jsonData.origen,
+    _p2: jsonData.destino,
   };
-
+// console.log("query", query)
   return query;
 }
 
@@ -74,8 +74,8 @@ interface IUserFormPrps {
   escritura_lectura?: boolean;
 }
 
-const FProyectosArmazonesCopiar: React.FC<IUserFormPrps> = React.memo(
-  ({ closeModal, setEntities, params, label, data, isEditting, escritura_lectura }) => {
+const FAlmacenesArmazonesCopiar: React.FC<IUserFormPrps> = React.memo(
+  ({ closeModal, setEntities, params, label, isEditting, escritura_lectura }) => {
     const schema = validationProyectoParametrizacionCopiar();
     const { showModal, CustomModal } = useModal();
     const { show } = useCustomToast();
@@ -91,7 +91,7 @@ const FProyectosArmazonesCopiar: React.FC<IUserFormPrps> = React.memo(
       // focusSecondInput,
     } = useCrud(strBaseUrl);
     const [blnKeep, setblnKeep] = useState(false);
-    const intId = data && [data[EnumGrid.codigo_armazon, EnumGrid.codigo_proyecto]];
+    // const intId = data && [data[EnumGrid.almacen_id, EnumGrid.codigo_armazon]];
     const {
       control,
       handleSubmit,
@@ -106,7 +106,7 @@ const FProyectosArmazonesCopiar: React.FC<IUserFormPrps> = React.memo(
 
       if (firstInputRef.current) {
         const firstInput = firstInputRef.current.querySelector(
-          'input[name="proyecto_origen"]'
+          'input[name="origen"]'
         );
         if (firstInput) {
           firstInput.focus();
@@ -211,7 +211,7 @@ const FProyectosArmazonesCopiar: React.FC<IUserFormPrps> = React.memo(
           });
         }
       },
-      [editEntity, createdEntity, handleApiResponse, intId]
+      [editEntity, createdEntity, handleApiResponse]
     );
 
     return (
@@ -230,13 +230,13 @@ const FProyectosArmazonesCopiar: React.FC<IUserFormPrps> = React.memo(
                 <div className="input-container items-center rowForm w-full">
                   <div className="w-full">
                     <SelectInputComponent
-                      label="Proyecto Desde"
-                      name="proyecto_origen"
+                      label="Almacén Desde"
+                      name="origen"
                       showRefresh={true}
                       // data={data && data[EnumGrid.codigo_proyecto]}
                       control={control}
-                      entidad={["/api/proyectos/", "02"]}
-                      error={errors.proyecto_origen}
+                      entidad={["/api/almacenes/", "02", '1']}
+                      error={errors.origen}
                       customWidth={"!ml-[1rem] !w-[38rem] "}
                     />
                   </div>
@@ -246,14 +246,14 @@ const FProyectosArmazonesCopiar: React.FC<IUserFormPrps> = React.memo(
             <div className="w-full flex items-center !my-8 h-[4rem]">
                 <div className="input-container items-center rowForm w-full">
                   <div className="w-full">
-                  <SelectInputComponent
-                      label="Copiar hacia"
-                      name="proyecto_destino"
+                    <SelectInputComponent
+                      label="Almacén hacia"
+                      name="destino"
                       showRefresh={true}
                       // data={data && data[EnumGrid.codigo_proyecto]}
                       control={control}
-                      entidad={["/api/proyectos/", "02"]}
-                      error={errors.proyecto_destino}
+                      entidad={["/api/almacenes/", "02", '1']}
+                      error={errors.destino}
                       customWidth={"!ml-[1rem] !w-[38rem] "}
                     />
                   </div>
@@ -280,4 +280,4 @@ const FProyectosArmazonesCopiar: React.FC<IUserFormPrps> = React.memo(
   }
 );
 
-export default FProyectosArmazonesCopiar;
+export default FAlmacenesArmazonesCopiar;

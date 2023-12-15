@@ -12,7 +12,7 @@ import {
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationParametrizacionArmazones } from "../../utils/validationFormSchemas";
-import { EnumGrid } from "../mantenedores/MProyectosArmazones";
+import { EnumGrid } from "../mantenedores/MAlmacenesArmazones";
 import { MODAL, SUCCESS_MESSAGES, TITLES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
@@ -22,11 +22,11 @@ import { toast } from "react-toastify";
 import { signal } from "@preact/signals-react";
 import { URLBackend } from "../../hooks/useCrud";
 
-const strBaseUrl = "/api/proyectoarmazones/";
-const strEntidad = "Parametrizacion de Armazones ";
+const strBaseUrl = "/api/almacenarmazones/";
+const strEntidad = "Parametrización de Armazones ";
 
 export interface InputData {
-  proyecto      : string | undefined;
+  almacen       : string | undefined;
   codigo_armazon: string | undefined;
   estado        : string | undefined;
 }
@@ -36,21 +36,19 @@ interface OutputData {
   _p1: string;
   _p2?: string;
   _p3?: string;
+  _p4?: string;
 }
 
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
 
-  let _p1 = ` "${jsonData.proyecto}", 
-                "${jsonData.codigo_armazon}",  
-                 ${jsonData.estado === "Disponible" ? 1 : 2}`;
-
+  let _p1 = `${jsonData.almacen}, "${jsonData.codigo_armazon}", ${jsonData.estado === "Disponible" ? 1 : 2}`;
   _p1 = _p1.replace(/'/g, '!');
 
   const query: OutputData = {
     query: "03",
     _p1,
   };
-
+console.log("query", query)
   return query;
 }
 
@@ -72,10 +70,9 @@ export function transformUpdateQuery(jsonData: InputData): OutputData | null {
   const query = {
     query: "04",
     _p1,
-    _p2: jsonData.proyecto,
-    _p3: jsonData.codigo_armazon,
+    _p2: jsonData.codigo_armazon,
+    _p3: jsonData.almacen,
   };
-console.log("query: ", query);
   return query;
 }
 
@@ -90,7 +87,7 @@ interface IUserFormPrps {
   escritura_lectura?: boolean;
 }
 
-const FProyectosArmazones: React.FC<IUserFormPrps> = React.memo(
+const FAlmacenesArmazones: React.FC<IUserFormPrps> = React.memo(
   ({ closeModal, setEntities, params, label, data, isEditting, escritura_lectura }) => {
     const schema = validationParametrizacionArmazones();
     const { showModal, CustomModal } = useModal();
@@ -107,7 +104,7 @@ const FProyectosArmazones: React.FC<IUserFormPrps> = React.memo(
       focusSecondInput,
     } = useCrud(strBaseUrl);
     const [blnKeep, setblnKeep] = useState(false);
-    const intId = data && [data[EnumGrid.codigo_armazon, EnumGrid.codigo_proyecto]];
+    const intId = data && [data[EnumGrid.codigo_armazon, EnumGrid.almacen_id]];
     const {
       control,
       handleSubmit,
@@ -258,7 +255,7 @@ const FProyectosArmazones: React.FC<IUserFormPrps> = React.memo(
     
  
     useEffect(() => {
-      isEditting ? focusSecondInput("estado") : focusFirstInput("proyecto");
+      isEditting ? focusSecondInput("estado") : focusFirstInput("almacen");
     }, []);
 
     return (
@@ -277,13 +274,13 @@ const FProyectosArmazones: React.FC<IUserFormPrps> = React.memo(
               <div className="input-container items-center rowForm w-full">
                 <div className="w-full ">
                   <SelectInputComponent
-                    label="Proyecto"
-                    name="proyecto"
+                    label="Muestrario"
+                    name="almacen"
                     showRefresh={true}
-                    data={data && data[EnumGrid.codigo_proyecto]}
+                    data={data && data[EnumGrid.almacen_id]}
                     control={control}
-                    entidad={["/api/proyectos/", "02"]}
-                    error={errors.proyecto}
+                    entidad={["/api/almacenes/", "02", '1']}
+                    error={errors.almacen}
                     inputRef={firstInputRef}
                     readOnly={isEditting}
                     customWidth={"!ml-[1rem] !w-[38rem] "}
@@ -342,4 +339,4 @@ const FProyectosArmazones: React.FC<IUserFormPrps> = React.memo(
   }
 );
 
-export default FProyectosArmazones;
+export default FAlmacenesArmazones;

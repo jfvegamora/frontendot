@@ -209,8 +209,13 @@ const navListMenuBodega = [
 
 const subMenuParametrizacion = [
   {
+    title: "Parametrización de Muestrarios",
+    link: "/proyectomuestrarios",
+    id: 35,
+  },
+  {
     title: "Parametrización de Armazones",
-    link: "/proyectoarmazones",
+    link: "/almacenarmazones",
     id: 16,
   },
   {

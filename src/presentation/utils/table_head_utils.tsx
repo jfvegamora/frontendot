@@ -2507,7 +2507,7 @@ export const table_head_proyectos = [
     width: "w-[4rem]",
   },
 ];
-export const table_head_parametrizacion_armazones = [
+export const table_head_proyectos_muestrarios = [
   {
     cell: <input type="checkbox" />,
     key: "checkbox",
@@ -2535,6 +2535,66 @@ export const table_head_parametrizacion_armazones = [
     visible: false,
     alignment: "text-center",
     width: "w-[10rem]",
+  },
+  {
+    cell: "Almacen ID",
+    key: "almacen_id",
+    visible: false,
+  },
+  {
+    cell: "Almacen",
+    key: "almacen",
+    visible: true,
+    alignment: "text-left",
+    width: "w-[10rem]",
+  },
+  {
+    cell: "Almacen Tipo ID",
+    key: "almacen_tipo_id",
+    visible: false,
+  },
+  {
+    cell: "Tipo",
+    key: "almacen_tipo",
+    visible: true,
+    alignment: "text-left",
+    width: "w-[10rem]",
+  },
+  {
+    cell: "Estado",
+    key: "estado",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[7rem]",
+  },
+  {
+    cell: "",
+    key: "opciones",
+    visible: true,
+    width: "w-[4rem]",
+  },
+];
+export const table_head_parametrizacion_armazones = [
+  {
+    cell: <input type="checkbox" />,
+    key: "checkbox",
+    visible: true,
+    width: "w-[3rem]",
+    alignment: "flex justify-center items-center"
+  },
+  {
+    cell: "Almacen ID",
+    key: "almacen_id",
+    visible: false,
+    alignment: "text-center",
+    width: "w-[10rem]",
+  },
+  {
+    cell: "Muestrario",
+    key: "almacen",
+    visible: false,
+    alignment: "text-left",
+    width: "w-[12rem]",
   },
   {
     cell: "Código Armazón",
@@ -2659,6 +2719,158 @@ export const table_head_parametrizacion_armazones = [
     width: "w-[4rem]",
   },
 ];
+// export const table_head_parametrizacion_armazones = [
+//   {
+//     cell: <input type="checkbox" />,
+//     key: "checkbox",
+//     visible: true,
+//     width: "w-[3rem]",
+//     alignment: "flex justify-center items-center"
+//   },
+//   {
+//     cell: "Código Proyecto",
+//     key: "codigo",
+//     visible: false,
+//     alignment: "text-center",
+//     width: "w-[10rem]",
+//   },
+//   {
+//     cell: "Título Proyecto",
+//     key: "titulo_proyecto",
+//     visible: false,
+//     alignment: "text-left",
+//     width: "w-[12rem]",
+//   },
+//   {
+//     cell: "Código Licitación",
+//     key: "codigo_licitacion",
+//     visible: false,
+//     alignment: "text-center",
+//     width: "w-[10rem]",
+//   },
+//   {
+//     cell: "Código Armazón",
+//     key: "codigo_armazon",
+//     visible: true,
+//     alignment: "text-center",
+//     width: "w-[10rem]",
+//   },
+//   {
+//     cell: "Proveedor Id",
+//     key: "proveedor_id",
+//     visible: false,
+//   },
+//   {
+//     cell: "Proveedor",
+//     key: "proveedor",
+//     visible: true,
+//     alignment: "text-left",
+//     width: "w-[10rem]",
+//   },
+//   {
+//     cell: "Tipo Id",
+//     key: "tipo_id",
+//     visible: false,
+//   },
+//   {
+//     cell: "Tipo",
+//     key: "tipo",
+//     visible: true,
+//     alignment: "text-center",
+//     width: "w-[8rem]",
+//   },
+//   {
+//     cell: "Marca Id",
+//     key: "marca_id",
+//     visible: false,
+//   },
+//   {
+//     cell: "Marca",
+//     key: "marca",
+//     visible: true,
+//     alignment: "text-center",
+//     width: "w-[8rem]",
+//   },
+//   {
+//     cell: "Modelo",
+//     key: "modelo",
+//     visible: true,
+//     alignment: "text-center",
+//     width: "w-[8rem]",
+//   },
+//   {
+//     cell: "Color",
+//     key: "color",
+//     visible: true,
+//     alignment: "text-center",
+//     width: "w-[8rem]",
+//   },
+//   {
+//     cell: "Material Id",
+//     key: "material_id",
+//     visible: false,
+//   },
+//   {
+//     cell: "Material",
+//     key: "material",
+//     visible: true,
+//     alignment: "text-center",
+//     width: "w-[8rem]",
+//   },
+//   {
+//     cell: "Aro",
+//     key: "aro",
+//     visible: true,
+//     alignment: "text-center",
+//     width: "w-[6rem]",
+//   },
+//   {
+//     cell: "Puente",
+//     key: "puente",
+//     visible: true,
+//     alignment: "text-center",
+//     width: "w-[6rem]",
+//   },
+//   {
+//     cell: "Diagonal",
+//     key: "diagonal",
+//     visible: true,
+//     alignment: "text-center",
+//     width: "w-[7rem]",
+//   },
+//   {
+//     cell: "Brazo",
+//     key: "brazo",
+//     visible: true,
+//     alignment: "text-center",
+//     width: "w-[6rem]",
+//   },
+//   {
+//     cell: "Uso Id",
+//     key: "uso_id",
+//     visible: false,
+//   },
+//   {
+//     cell: "Uso",
+//     key: "uso",
+//     visible: true,
+//     alignment: "text-center",
+//     width: "w-[6rem]",
+//   },
+//   {
+//     cell: "Estado",
+//     key: "estado",
+//     visible: true,
+//     alignment: "text-center",
+//     width: "w-[7rem]",
+//   },
+//   {
+//     cell: "",
+//     key: "opciones",
+//     visible: true,
+//     width: "w-[4rem]",
+//   },
+// ];
 export const table_head_parametrizacion_accesorios = [
   {
     cell: <input type="checkbox" />,
@@ -3384,6 +3596,82 @@ export const table_head_oftalmologos = [
     width: "w-[4rem]",
   },
 ];
+export const table_head_empresas = [
+  {
+    cell: <input type="checkbox" />,
+    key: "checkbox",
+    visible: true,
+    width: "w-[3rem]",
+    alignment: "flex justify-center items-center"
+  },
+  {
+    cell: "ID",
+    key: "id",
+    visible: false,
+  },
+  {
+    cell: "RUT",
+    key: "rut",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[8rem]",
+  },
+  {
+    cell: "Nombre",
+    key: "nombre",
+    visible: true,
+    alignment: "text-left",
+    width: "w-[12rem]",
+  },
+  {
+    cell: "Razón Social",
+    key: "razon_social",
+    visible: true,
+    alignment: "text-left",
+    width: "w-[12rem]",
+  },
+  {
+    cell: "Giro",
+    key: "giro",
+    visible: true,
+    alignment: "text-left",
+    width: "w-[12rem]",
+  },
+  {
+    cell: "Dirección",
+    key: "direccion",
+    visible: true,
+    alignment: "text-left",
+    width: "w-[14rem]",
+  },
+  {
+    cell: "Teléfono",
+    key: "telefono",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[10rem]",
+  },
+  {
+    cell: "Correo",
+    key: "correo",
+    visible: true,
+    alignment: "text-left",
+    width: "w-[10rem]",
+  },
+  {
+    cell: "Sitio Web",
+    key: "sitio_web",
+    visible: true,
+    alignment: "text-left",
+    width: "w-[10rem]",
+  },
+  {
+    cell: "",
+    key: "opciones",
+    visible: true,
+    width: "w-[4rem]",
+  },
+];
 
 /************ MENU SISTEMA ************/
 export const table_head_cargos = [
@@ -3592,82 +3880,6 @@ export const table_head_usuarios = [
     key: "opciones",
     visible: true,
     width: "w-[6rem]",
-  },
-];
-export const table_head_empresas = [
-  {
-    cell: <input type="checkbox" />,
-    key: "checkbox",
-    visible: true,
-    width: "w-[3rem]",
-    alignment: "flex justify-center items-center"
-  },
-  {
-    cell: "ID",
-    key: "id",
-    visible: false,
-  },
-  {
-    cell: "RUT",
-    key: "rut",
-    visible: true,
-    alignment: "text-center",
-    width: "w-[8rem]",
-  },
-  {
-    cell: "Nombre",
-    key: "nombre",
-    visible: true,
-    alignment: "text-left",
-    width: "w-[12rem]",
-  },
-  {
-    cell: "Razón Social",
-    key: "razon_social",
-    visible: true,
-    alignment: "text-left",
-    width: "w-[12rem]",
-  },
-  {
-    cell: "Giro",
-    key: "giro",
-    visible: true,
-    alignment: "text-left",
-    width: "w-[12rem]",
-  },
-  {
-    cell: "Dirección",
-    key: "direccion",
-    visible: true,
-    alignment: "text-left",
-    width: "w-[14rem]",
-  },
-  {
-    cell: "Teléfono",
-    key: "telefono",
-    visible: true,
-    alignment: "text-center",
-    width: "w-[10rem]",
-  },
-  {
-    cell: "Correo",
-    key: "correo",
-    visible: true,
-    alignment: "text-left",
-    width: "w-[10rem]",
-  },
-  {
-    cell: "Sitio Web",
-    key: "sitio_web",
-    visible: true,
-    alignment: "text-left",
-    width: "w-[10rem]",
-  },
-  {
-    cell: "",
-    key: "opciones",
-    visible: true,
-    width: "w-[4rem]",
   },
 ];
 export const table_head_funcionalidades_ot = [

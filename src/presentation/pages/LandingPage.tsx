@@ -6,8 +6,8 @@ import { filterToggle } from "../components/FilterButton";
 import { AppStore, useAppSelector } from "../../redux/store";
 
 // import { FixedSizeList } from 'react-window';
-import TableOTComponent from "../components/TableOTComponent";
-import { table_head_OT_diaria } from "../utils";
+// import TableOTComponent from "../components/TableOTComponent";
+// import { table_head_OT_diaria } from "../utils";
 // import FrameComponent from "../components/FrameComponent";
 export const handleContainerClick = (event:React.MouseEvent<HTMLDivElement>) => {
   if (event.target instanceof Element) {
@@ -30,22 +30,13 @@ const LandingPage: React.FC = () => {
 
   return (
     <div className="mantenedorContainer">
-      <div className="mt-16 scroll">
-          {/* <FixedSizeList
-          height={500} // Altura de la lista visible en píxeles
-          width={900} // Ancho de la lista visible en píxeles
-          itemCount={itemCount}
-          itemSize={itemSize}
-          >
-          
-          {renderItem}
-    </FixedSizeList> */}
-    <TableOTComponent
-      tableHead={table_head_OT_diaria}
-      entidad={"ot"}
-      idMenu={20}
-    />
-      </div>
+      {/* <div className="mt-16 scroll">
+        <TableOTComponent
+          tableHead={table_head_OT_diaria}
+          entidad={"ot"}
+          idMenu={20}
+        />
+      </div> */}
     </div>
   );
 };

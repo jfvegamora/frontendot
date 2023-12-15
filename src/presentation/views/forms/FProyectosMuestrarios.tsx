@@ -5,62 +5,74 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect } from "react";
 import {
+  RadioButtonComponent,
   SelectInputComponent,
 } from "../../components";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { validationProyectoParametrizacionCopiar } from "../../utils/validationFormSchemas";
-// import { EnumGrid } from "../mantenedores/MProyectosPuntosVenta";
-import { BUTTON_MESSAGES, MODAL, SUCCESS_MESSAGES } from "../../utils";
+import { validationParametrizacionMuestrarios } from "../../utils/validationFormSchemas";
+import { EnumGrid } from "../mantenedores/MProyectosMuestrarios";
+import {  MODAL, SUCCESS_MESSAGES, TITLES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
-import {toast} from 'react-toastify'
 
-// import axios from "axios";
-// import { toast } from "react-toastify";
-// import { signal } from "@preact/signals-react";
 
-const strBaseUrl = "/api/proyectousuarios/";
-const strEntidad = "Parametrizacion de Usuarios ";
+const strBaseUrl = "/api/proyectomuestrarios/";
+const strEntidad = "Parametrizacion de Muestrarios ";
 
 export interface InputData {
-  origen : string ;
-  destino: string ;
+  proyecto   : string | undefined;
+  almacen    : string | undefined;
+  estado     : string | undefined;
 }
 
 interface OutputData {
   query: string;
   _p1: string;
-  _p2: string;
+  _p2?: string;
+  _p3?: string;
 }
 
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
-  console.log("jsondata: ", jsonData.origen, "-", jsonData.destino)
-  if(jsonData.origen === jsonData.destino){
-    toast.error('Debes seleccionar distintos Proyectos.')
-    throw new Error()
-  }
+
+  let _p1 = ` "${jsonData.proyecto}", 
+                "${jsonData.almacen}",  
+                 ${jsonData.estado === "Disponible" ? 1 : 2}`;
+
+  _p1 = _p1.replace(/'/g, '!');
 
   const query: OutputData = {
-    query: "06",
-    _p1: jsonData.origen,
-    _p2: jsonData.destino,
+    query: "03",
+    _p1,
   };
 
   return query;
 }
 
-export function transformUpdateQuery(_jsonData: InputData): OutputData | null {
+export function transformUpdateQuery(jsonData: InputData): OutputData | null {
+  const fields = [
+    `estado   = ${jsonData.estado === "Disponible" ? 1 : 2}`,
+  ];
 
-  // const query = {
-  //   query: "06",
-  //   _p1: jsonData.origen,
-  //   _p2: jsonData.destino,
-  // };
-  // console.log("query: ", query);
-  // return query;
-  return null;
+  const filteredFields = fields.filter(
+    (field) => field !== null && field !== ""
+  );
+
+  if (filteredFields.length === 0) {
+    return null;
+  }
+
+  const _p1 = filteredFields.join(",");
+
+  const query = {
+    query: "04",
+    _p1,
+    _p2: jsonData.proyecto,
+    _p3: jsonData.almacen,
+  };
+// console.log("query: ", query);
+  return query;
 }
 
 interface IUserFormPrps {
@@ -74,24 +86,23 @@ interface IUserFormPrps {
   escritura_lectura?: boolean;
 }
 
-const FProyectosUsuariosCopiar: React.FC<IUserFormPrps> = React.memo(
-  ({ closeModal, setEntities, params, label, isEditting, escritura_lectura }) => {
-    const schema = validationProyectoParametrizacionCopiar();
+const FProyectosMuestrarios: React.FC<IUserFormPrps> = React.memo(
+  ({ closeModal, setEntities, params, label, data, isEditting, escritura_lectura }) => {
+    const schema = validationParametrizacionMuestrarios();
     const { showModal, CustomModal } = useModal();
     const { show } = useCustomToast();
-    // const [changeCodigo, setChangeCodigo] = useState()
-    // const armazonData = signal([])
+
 
     const {
       editEntity,
       createdEntity,
       ListEntity,
       firstInputRef,
-      // focusFirstInput,
-      // focusSecondInput,
+      focusFirstInput,
+      focusSecondInput,
     } = useCrud(strBaseUrl);
     const [blnKeep, setblnKeep] = useState(false);
-    // const intId = data && [data[EnumGrid.codigo_armazon, EnumGrid.codigo_proyecto]];
+    const intId = data && [data[EnumGrid.almacen_id, EnumGrid.codigo_proyecto]];
     const {
       control,
       handleSubmit,
@@ -102,11 +113,11 @@ const FProyectosUsuariosCopiar: React.FC<IUserFormPrps> = React.memo(
     });
 
     const resetTextFields = React.useCallback(() => {
-      // setValue("codigo_armazon", "");
+      setValue("almacen", "");
 
       if (firstInputRef.current) {
         const firstInput = firstInputRef.current.querySelector(
-          'input[name="origen"]'
+          'input[name="proyecto"]'
         );
         if (firstInput) {
           firstInput.focus();
@@ -211,8 +222,39 @@ const FProyectosUsuariosCopiar: React.FC<IUserFormPrps> = React.memo(
           });
         }
       },
-      [editEntity, createdEntity, handleApiResponse]
+      [editEntity, createdEntity, handleApiResponse, intId]
     );
+
+    // const fetchArmazon = async(codigo:string | undefined) =>{
+    //     try {
+    //         const {data} = await axios(`https://mtoopticos.cl/api/armazones/listado/?query=01&_p1=${codigo}`)
+    //         armazonData.value = data       
+    //     } catch (error) {
+    //       throw error
+    //     }
+    // }
+
+  //  useEffect(()=>{
+  //       if(changeCodigo){
+  //           fetchArmazon(changeCodigo)
+  //            .then(()=>{
+  //              if(armazonData.value.length >= 1){
+  //                armazonData.value = []
+  //               //  toast.error('codigo armazon existente')
+  //              }else{
+  //                toast.error('Código armazon inválido')
+  //                armazonData.value = []
+  //              }
+  //            })
+  //       }
+  //  },[changeCodigo])
+      
+
+    
+ 
+    useEffect(() => {
+      isEditting ? focusSecondInput("estado") : focusFirstInput("proyecto");
+    }, []);
 
     return (
       <div className="useFormContainer centered-div use40rem">
@@ -226,39 +268,55 @@ const FProyectosUsuariosCopiar: React.FC<IUserFormPrps> = React.memo(
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
-            <div className="w-full flex items-center h-[4rem]">
-                <div className="input-container items-center rowForm w-full">
-                  <div className="w-full">
-                    <SelectInputComponent
-                      label="Proyecto Desde"
-                      name="origen"
-                      showRefresh={true}
-                      // data={data && data[EnumGrid.codigo_proyecto]}
-                      control={control}
-                      entidad={["/api/proyectos/", "02"]}
-                      error={errors.origen}
-                      customWidth={"!ml-[1rem] !w-[38rem] "}
-                    />
-                  </div>
+            <div className="w-full flex items-center h-[4rem] ">
+              <div className="input-container items-center rowForm w-full">
+                <div className="w-full ">
+                <SelectInputComponent
+                  label="Proyecto"
+                  name="proyecto"
+                  showRefresh={true}
+                  data={data && data[EnumGrid.codigo_proyecto]}
+                  control={control}
+                  entidad={["/api/proyectos/", "02"]}
+                  error={errors.proyecto}
+                  inputRef={firstInputRef}
+                  readOnly={isEditting}
+                  customWidth={"!ml-[1rem] !w-[38rem] "}
+                  />
                 </div>
+              </div>
             </div>
-
             <div className="w-full flex items-center !my-8 h-[4rem]">
-                <div className="input-container items-center rowForm w-full">
-                  <div className="w-full">
+              <div className="input-container items-center rowForm w-[45%]">
+                <div className="w-full">
                   <SelectInputComponent
-                      label="Copiar hacia"
-                      name="destino"
+                      label="Muestrario"
+                      name="almacen"
                       showRefresh={true}
-                      // data={data && data[EnumGrid.codigo_proyecto]}
+                      data={data && data[EnumGrid.almacen_id]}
                       control={control}
-                      entidad={["/api/proyectos/", "02"]}
-                      error={errors.destino}
-                      customWidth={"!ml-[1rem] !w-[38rem] "}
-                    />
-                  </div>
+                      entidad={["/api/almacenes/", "02", "1"]} //excluye almacenes tipo 1: Bodega
+                      error={errors.almacen}
+                      inputRef={firstInputRef}
+                      readOnly={isEditting}
+                      customWidth={"!ml-[1rem] !w-[16rem]"}
+                      />
                 </div>
+              </div>
 
+              <div className="input-container items-center rowForm w-[50%]">
+                <div className="w-full">
+                  <RadioButtonComponent
+                  control={control}
+                  label="Estado"
+                  name="estado"
+                  data={data && data[EnumGrid.estado]}
+                  options={["Disponible", "No disponible"]}
+                  error={errors.estado}
+                  horizontal={true}
+                  />
+                </div>
+              </div>
             </div>
           </div>
 
@@ -266,7 +324,7 @@ const FProyectosUsuariosCopiar: React.FC<IUserFormPrps> = React.memo(
             <div className="w-[70%] mx-auto">
                 {escritura_lectura && (
                   <button type="submit" tabIndex={1} className="userFormBtnSubmit">
-                    {`${BUTTON_MESSAGES.copiar}`}
+                    {`${TITLES.guardar}`}
                   </button>
                 )}
             </div>
@@ -280,4 +338,4 @@ const FProyectosUsuariosCopiar: React.FC<IUserFormPrps> = React.memo(
   }
 );
 
-export default FProyectosUsuariosCopiar;
+export default FProyectosMuestrarios;

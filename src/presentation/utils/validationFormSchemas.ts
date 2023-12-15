@@ -269,14 +269,31 @@ export const validationProyectosSchema = () =>
     oftalmologo           : yup.string().default("0"),
     observaciones         : yup.string(),
   });
- 
+
+  // Schema PROYECTOS MUESTRARIOS
+export const validationParametrizacionMuestrarios = () =>
+yup.object().shape({
+  proyecto   : yup.string().required(`${msg}`),
+  almacen    : yup.string().required(`${msg}`),
+  estado     : yup.string().required(`${msg}`),
+});
+
+
 // Schema PROYECTOS ARMAZONES
 export const validationParametrizacionArmazones = () =>
   yup.object().shape({
-    proyecto      : yup.string().required(`${msg}`),
+    almacen       : yup.string().required(`${msg}`),
     codigo_armazon: yup.string().required(`${msg}`),
     estado        : yup.string().required(`${msg}`),
 });
+
+// Schema PROYECTOS ARMAZONES
+// export const validationParametrizacionArmazones = () =>
+//   yup.object().shape({
+//     proyecto      : yup.string().required(`${msg}`),
+//     codigo_armazon: yup.string().required(`${msg}`),
+//     estado        : yup.string().required(`${msg}`),
+// });
 
 // Schema PROYECTOS CRISTALES
 export const validationProyectoCristalesSchema = () =>
@@ -307,11 +324,11 @@ export const validationParametrizacionAccesorios = () =>
     estado          : yup.string().required(`${msg}`),
 });
 
-// Schema PROYECTOS ARMAZONES-CRISTALES-ACCESORIOS-USUARIOS COPIAR
+// Schema PROYECTOS ARMAZONES-CRISTALES-ACCESORIOS-USUARIOS-MUESTRARIOS COPIAR
 export const validationProyectoParametrizacionCopiar = () =>
   yup.object().shape({
-    proyecto_origen : yup.string().required(`${msg}`),
-    proyecto_destino: yup.string().required(`${msg}`),
+    origen : yup.string().required(`${msg}`),
+    destino: yup.string().required(`${msg}`),
 });
 
 // Schema PROYECTOS DIRECCIONES 
