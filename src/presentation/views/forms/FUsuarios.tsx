@@ -260,7 +260,8 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
       isEditting ? focusSecondInput("nombre") : focusFirstInput("nombre");
     }, []);
 
-    console.log(escritura_lectura)
+    // console.log(escritura_lectura)
+    // console.log(data)
 
     return (
       <div className="useFormContainer centered-div">

@@ -9,22 +9,23 @@ import { BUTTON_MESSAGES } from '../utils';
 type AreaButtonsProps ={
     areaPermissions:string;
     id:number
-    toggleEditModal?: (id: number) => void;
+    toggleEditOTModal?: (id: number, folio:any) => void;
+    folio?:number
 }
 
 const strEntidad = "Orden de Trabajo";
 
-const OTGrillaButtons:React.FC<AreaButtonsProps> = React.memo(({ areaPermissions, id, toggleEditModal }) => {
+const OTGrillaButtons:React.FC<AreaButtonsProps> = React.memo(({ areaPermissions, id, toggleEditOTModal,folio }) => {
     const { escritura_lectura } = usePermission(28);
-    console.log(id)
+    console.log(toggleEditOTModal)
     return (
         <div className='flex items-center'>
-            {toggleEditModal && (
+            {toggleEditOTModal && (
                 <Tooltip content={BUTTON_MESSAGES.edit.concat(strEntidad)}>
                     <IconButton
                         variant="text"
                         color="blue-gray"
-                        onClick={() => toggleEditModal(id)}
+                        onClick={() => toggleEditOTModal(id, folio)}
                     >
                         <PencilIcon className="gridIcons" />
                     </IconButton>

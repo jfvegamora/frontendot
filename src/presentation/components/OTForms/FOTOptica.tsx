@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useEffect, useState} from 'react'
 import { RadioButtonComponent, SelectInputComponent, TextInputComponent } from '..'
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
 // import { Switch , switchButton} from "@material-tailwind/react";
@@ -7,6 +7,9 @@ import axios from 'axios';
 import { validationOTlevel1, validationOTlevel2 } from '../../utils/validationOT';
 import { fecha_despacho, fecha_entrega_cliente, fecha_entrega_taller, fetchFechas } from '../../utils';
 import SelectInputTiposComponent from '../forms/SelectInputTiposComponent';
+import { AppStore, useAppSelector } from '../../../redux/store';
+import { URLBackend } from '../../hooks/useCrud';
+import { codigoProyecto } from '../../views/forms/FOT';
 
 interface IOptica {
     control:any,
@@ -36,13 +39,16 @@ const FOTOptica:React.FC<IOptica> = ({
     permiso_estado_validacion,
     permiso_resolucion_garantia
 }) => {
-    const strUrl = 'https://mtoopticos.cl/api/ot/listado'
+    const strUrl = `${URLBackend}/api/ot/listado`
     const impresion = data && data[9] === 1 ? true: false
     const [isToggleImpresion, setIsToggleImpresion] = useState(impresion || false)
     const [isToggleValidacion, setIsToggleValidacion] = useState(false)
     const [motivo, setMotivo] = useState(false)
     const [strCodigoProyecto, setStrCodigoProyecto] = useState("");
+    const userID:any = useAppSelector((store: AppStore) => store.user?.id);
 
+
+   
 
     const handleInputChange = (e:any) => {
         const { name, value } = e;
@@ -80,6 +86,7 @@ const FOTOptica:React.FC<IOptica> = ({
     const handleSwitchValidation = () => {
         setIsToggleValidacion((prev)=>!prev)
     }
+
     
     const handleSwitchImpresion = async (event:any) => {
         setIsToggleImpresion((prev)=>!prev)
@@ -88,6 +95,8 @@ const FOTOptica:React.FC<IOptica> = ({
         //_p2 = 1 si se activa y 0 si se apaga
         try {
             const query = `?query=06&_folio=${data[EnumGrid.folio]}&_p2=${event === true ? 1 : 0}`
+            const endpoint = `${strUrl}/${query}`
+            console.log(endpoint)
             const result = await axios(`${strUrl}/${query}`);
             console.log(result)
             
@@ -96,13 +105,19 @@ const FOTOptica:React.FC<IOptica> = ({
         }
     }
 
- console.log(fecha_entrega_taller.value)
-  return (
+
+//  console.log(fecha_entrega_taller.ue)
+// console.log(data[33])
+// console.log(data && data[EnumGrid.fecha_entrega_cliente])
+// console.log(isEditting)
+// console.log(fecha_despacho.value)
+
+
+return (
     <form action="">
         <div className='w-full labelForm rounded-lg border radioComponent'>
-
-            <div className="w-full flex items-center justify-between">
-                <div className="w-[25%] mt-4 mb-8 ml-4">
+            <div className="w-full flex items-center justify-between rowForm   !h-[6rem]">
+                <div className="w-[25%] mt-6 mb-8 ml-4">
                     <SelectInputComponent
                         label="Proyectos"
                         name="proyecto"
@@ -111,7 +126,7 @@ const FOTOptica:React.FC<IOptica> = ({
                         handleSelectChange={handleInputChange}
                         data={formValues ? formValues["proyecto"]  : data && data[EnumGrid.proyecto_codigo]}
                         control={control}
-                        entidad={["/api/proyectos/", "02"]}
+                        entidad={["/api/proyectos/", "07", userID]}
                         // error={errors.establecimiento}
                         customWidth={"345px"}
                         readOnly={onlyRead}
@@ -144,7 +159,7 @@ const FOTOptica:React.FC<IOptica> = ({
             
             
             </div>
-            <div className='w-full mt-10  flex items-center'>
+            <div className='w-full mt-10  flex items-center rowForm !h-[5rem]'>
                 <div className="w-[25%] ml-4">
                     <RadioButtonComponent
                         control={control}
@@ -156,7 +171,6 @@ const FOTOptica:React.FC<IOptica> = ({
                         horizontal={true}
                         readOnly={!isEditting || onlyRead}
                         onChange={handleInputChange}
-        
                     />                    
                 </div>
 
@@ -186,7 +200,7 @@ const FOTOptica:React.FC<IOptica> = ({
                     />
                 </div>
                 
-                <div className="w-[22%] ml-2">
+                <div className="w-[22%] ml-5 -mt-[0.3rem]">
                     <SelectInputComponent
                         label="Puntos de Venta"
                         name="punto_venta_id"
@@ -196,7 +210,7 @@ const FOTOptica:React.FC<IOptica> = ({
                         data={formValues ? formValues["punto_venta_id"] : data && data[EnumGrid.punto_venta_id]}
                         // data={data && data[EnumGrid.establecimiento_id]}
                         control={control}
-                        entidad={["/api/puntosventa/", "02"]}
+                        entidad={["/api/puntosventa/", "06", codigoProyecto.value]}
                         // error={errors.establecimiento}
                         customWidth={"345px"}
                         readOnly={onlyRead}
@@ -204,7 +218,7 @@ const FOTOptica:React.FC<IOptica> = ({
                 </div>
             </div>
 
-            <div className="w-[100%]  flex items-center mt-10 ">
+            <div className="w-[100%]  flex items-center rowForm !mt-20 !h-[5rem] ">
 
                 <div className="w-[25%] ml-4">
                     <TextInputComponent
@@ -212,7 +226,8 @@ const FOTOptica:React.FC<IOptica> = ({
                         label="Fecha atención"
                         name="fecha_atencion"
                         handleChange={handleInputChange}
-                        data={formValues ? formValues["fecha_atencion"] : data && data[EnumGrid.fecha_atencion]}
+                        // data={formValues ? formValues["fecha_atencion"] : data && data[EnumGrid.fecha_atencion]}
+                        data={data && data[EnumGrid.fecha_atencion] || (formValues && formValues["fecha_atencion"])}
                         control={control}
                         onlyRead={onlyRead}
                         isOT={true}
@@ -225,7 +240,8 @@ const FOTOptica:React.FC<IOptica> = ({
                         label="Fecha taller"
                         name="fecha_entrega_taller"
                         handleChange={handleInputChange}
-                        data={fecha_entrega_taller || (formValues && formValues["fecha_entrega_taller"]) || (data && data[EnumGrid.fecha_entrega_taller])}
+                        // data={(data && data[EnumGrid.fecha_entrega_taller]) || fecha_entrega_taller || (formValues && formValues["fecha_entrega_taller"])}
+                        data={(data && data[EnumGrid.fecha_entrega_taller]) || (formValues && formValues["fecha_entrega_taller"]) || fecha_entrega_taller }
                         control={control}
                         onlyRead={onlyRead}
                         isOT={true}
@@ -238,7 +254,7 @@ const FOTOptica:React.FC<IOptica> = ({
                         label="Fecha despacho"
                         name="fecha_despacho"
                         handleChange={handleInputChange}
-                        data={fecha_despacho || (formValues && formValues["fecha_entrega_taller"]) || (data && data[EnumGrid.fecha_entrega_taller])}
+                        data={(data && data[EnumGrid.fecha_despacho]) || (formValues && formValues["fecha_entrega_taller"]) || fecha_despacho}
                         control={control}
                         onlyRead={onlyRead}
                         isOT={true}
@@ -251,7 +267,7 @@ const FOTOptica:React.FC<IOptica> = ({
                         label="Fecha entrega cliente"
                         name="fecha_entrega_cliente"
                         handleChange={handleInputChange}
-                        data={fecha_entrega_cliente || (formValues && formValues["fecha_entrega_taller"]) || (data && data[EnumGrid.fecha_entrega_taller])}
+                        data={(data && data[EnumGrid.fecha_entrega_cliente]) || (formValues && formValues["fecha_entrega_taller"]) || fecha_entrega_cliente}
                         control={control}
                         onlyRead={onlyRead}
                         isOT={true}
@@ -261,10 +277,10 @@ const FOTOptica:React.FC<IOptica> = ({
             
             </div>
 
-            <div className="w-full mt-10   h-[20rem] flex items-center">
-                <div className="w-[90%] h-[90%]  ml-8 mx-auto flex flex-col justify-around items-center  ">
-                    <div className="flex items-center w-[101%] h-[46%] mx-auto rounded-lg border border-blue-500 relative">
-                        <label className='labelForm absolute left-4 text-center top-[-8%] w-[10%]'>Garantia</label>
+            <div className="w-full mt-10   !h-[17rem] flex items-center rowForm">
+                <div className="w-[90%] h-[90%]  ml-8 mx-auto flex flex-col justify-around items-center ">
+                    <div className="flex items-center w-[101%] h-[46%] mx-auto rounded-lg radioComponent relative">
+                        <label className='labelForm absolute left-4 text-center top-[-20%] w-[10%]'>Garantia</label>
                         <div className="w-[35%] ">
                             <SelectInputTiposComponent
                                 label="Motivo"

@@ -12,6 +12,9 @@ import { toast } from "react-toastify";
 import { useCrud } from ".";
 import { useModal } from "./useModal";
 import { baseURL } from "./useCrud";
+import { AppStore, useAppDispatch, useAppSelector } from "../../redux/store";
+import { fetchOTByID } from "../../redux/slices/OTSlice";
+import axios from "axios";
 
 
 export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
@@ -32,6 +35,10 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
 
   const { showModal } = useModal();
   const { deleteAllEntity, ListEntity } = useCrud(baseUrl);
+
+  const dispatch = useAppDispatch();
+  const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas);
+  const areaActual = OTAreas["areaActual"] 
 
   // console.log("queryutils", query);
   const refreshData = useCallback(() => {
@@ -113,12 +120,24 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
     );
   }, []);
 
+  const toggleEditOTModal = useCallback(async(rowIndex:any, folio:any)=>{
+    console.log(rowIndex)
+      console.log(folio)
+      console.log(areaActual)
+      const response = await axios(`https://gestiondev.mtoopticos.cl/api/ot/listado/?query=01&_origen=${areaActual}&_folio=${folio}`)
+      console.log(response.data[0])
+      setEntity(response.data[0])
+      dispatch(fetchOTByID({ folio: folio, OTAreas: areaActual }));
+      setIsModalEdit((prev) => !prev);
+  },[])
+
   //METODO EDITAR DE LA GRILLA
+
   const toggleEditModal = useCallback(
     (rowIndex?: number) => {
-      console.log(rowIndex)
       setIsModalEdit((prev) => !prev);
-
+      const test = rowIndex && entities[rowIndex]
+      console.log(test)
       if (rowIndex !== undefined) {
         rowIndex >= 0
           ? (setSelectedRows([rowIndex]), setEntity(entities[rowIndex]))
@@ -231,6 +250,7 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
     openModal,
     closeModal,
     pageSize,
+    toggleEditOTModal,
     setPageSize,
     isModalInsert,
     isModalCopiar,

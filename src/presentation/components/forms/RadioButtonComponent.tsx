@@ -1,8 +1,5 @@
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Controller } from "react-hook-form";
-
 
 interface IRadioButtonProps {
   label: string;
@@ -14,7 +11,7 @@ interface IRadioButtonProps {
   horizontal?: boolean;
   inputRef?: any;
   onChange?: (value: any) => void;
-  readOnly?:boolean;
+  readOnly?: boolean;
   tabIndex?: number;
 }
 
@@ -29,13 +26,17 @@ const RadioButtonComponent: React.FC<IRadioButtonProps> = ({
   inputRef,
   onChange,
   readOnly,
-  tabIndex
+  tabIndex,
 }) => {
-  
+  const [currentValue, setCurrentValue] = useState<any>(data || "");
+
+  useEffect(() => {
+    setCurrentValue(data || "");
+  }, [data]);
 
   return (
     <div
-      className={` w-full px-8 py-0 mt-2 relative mx-2 border-[1px] radioComponent flex   ${
+      className={`w-full px-8 py-0 mt-2 relative mx-2 border-[1px] radioComponent flex   ${
         horizontal ? "justify-arround ml-1 !h-[3rem] " : "flex-col justify-between"
       } rounded-lg ${error && "border border-red-400"}`}
     >
@@ -43,34 +44,31 @@ const RadioButtonComponent: React.FC<IRadioButtonProps> = ({
         <span className="ml-[2px] text-[16px]">{label}</span>
       </label>
       {options.map((option, index) => (
-        <div
-          className={` ${ horizontal ? "  w-full" : "px-[3rem]"} py-0 flex textOption `}
-          key={index}
-        >
+        <div className={` ${horizontal ? "  w-full" : "w-full "} py-0 flex textOption `} key={index}>
           <Controller
             key={index}
             name={name}
             control={control}
-            defaultValue={data ? data : ""}
+            defaultValue={currentValue}
             render={({ field }) => (
-              <label className=" flex items-center cursor-pointer ">
+              <label className="flex items-center cursor-pointer ">
                 <input
                   {...field}
                   type="radio"
                   value={option}
-                  tabIndex  ={tabIndex || 1}
+                  tabIndex={tabIndex || 1}
                   disabled={readOnly}
                   defaultChecked={data === option}
-                  //  checked={field.value === option}
                   className={`mr-2 transform scale-150 ${field.value === option ? 'text-orange-500' : 'text-gray-500'}`}
                   onChange={(e) => {
-                      field.onChange(e.target.value)
-                      if(onChange){
-                        onChange(e.target)
-                      }
+                    field.onChange(e.target.value);
+                    if (onChange) {
+                      onChange(e.target);
+                    }
+                    setCurrentValue(e.target.value);
                   }}
                   ref={inputRef}
-                  />
+                />
                 <p className="text-[16px] w-full ">{option}</p>
               </label>
             )}

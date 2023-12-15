@@ -1,9 +1,10 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import {
+  PrimaryButtonsComponent,
   TableComponent,
 } from "../../components";
 import { useEntityUtils, usePermission } from "../../hooks";
@@ -50,7 +51,7 @@ const MOT: React.FC = () => {
   const OTs:any = useAppSelector((store: AppStore) => store.OTS);
   const dispatch = useAppDispatch();
   const [params, _setParams] = useState([]);
-  // const [entitiesOT, setEntitiesOT] = useState([]);
+  const areaActualRef = useRef(areaActual)
 
   
 
@@ -72,7 +73,8 @@ const MOT: React.FC = () => {
     isModalInsert,
     isModalEdit,
     toggleEditModal,
-    // openModal,
+    toggleEditOTModal,
+    openModal,
     closeModal,
     //Check methods
     handleSelect,
@@ -81,6 +83,7 @@ const MOT: React.FC = () => {
     handleSelectedAll,
     //primary buttons methods
     handleDeleteSelected,
+    resetEntities
   } = useEntityUtils(strBaseUrl, strQuery);
   // console.log("entities:", entities);
 
@@ -109,15 +112,29 @@ const MOT: React.FC = () => {
   // });
 
   // console.log('data cambiada', validar_parametrizacion.value)
-  useEffect(()=>{   
-    dispatch(fetchOT(areaActual))
-    const interval = setInterval(fetchOT, 10000);
+  // useEffect(()=>{
+  //   console.log('render')
+  //   console.log(areaActual)
+  //   console.log(areaActualRef.current)
+    
+  //   if (areaActualRef.current !== areaActual) {
+  //     areaActualRef.current = areaActual; // Actualizar la referencia mutable
+  //     dispatch(fetchOT(areaActual)); // Hacer la llamada inicial cuando el área cambie
+  //   }
+    
+    
 
-  // Limpia el intervalo en la limpieza del efecto
-    return () => clearInterval(interval);
-  },[areaActual])
+  //   const interval = setInterval(() => {
+  //     console.log('render ot')
+  //     dispatch(fetchOT(areaActualRef.current)); // Usar el área actual de la referencia mutable
+  //   }, 60000);
 
-  console.log(OTs)
+  // // Limpia el intervalo en la limpieza del efecto
+  //   return () => clearInterval(interval);
+  // },[]);
+
+  // console.log(OTs)
+  // console.log(entity)
 
   // useEffect(()=>{
   //   if(data && data.length > 0){
@@ -143,31 +160,14 @@ const MOT: React.FC = () => {
 
       </div>
 
-      {/* <div className="mantenedorHead width100 items-center">
-        <select  
-          className="bg-green-300"
-          onChange={handleSelectedChange}
-          value={selectedValue}
-        >
-          <option value="_p3=0">Todos</option>
-          <option value="_p3=10">Adquisiciones</option>
-          <option value="_p3=20">Calculo</option>
-          <option value="_p3=30">Laboratorio</option>
-          <option value="_p3=40">Proyectos</option>
-          <option value="_p3=50">Venta</option>
-          <option value="_p3=60">Bodega Insumos</option>
-          <option value="_p3=70">Taller de corte</option>
-          <option value="_p3=80">Taller de montaje</option>
-          <option value="_p3=90">Bodega produccion terminados</option>
-          <option value="_p3=100">Empaque</option>
-        </select>
+      <div className="mantenedorHead width100 items-center !bg-red-400">
 
-        <PrimaryKeySearch
-          baseUrl={strBaseUrl}
-          setParams={setParams}
-          updateParams={updateParams}
-          setEntities={setEntities}
-          primaryKeyInputs={[
+         {/* <PrimaryKeySearch
+          // baseUrl={strBaseUrl}
+          // setParams={setParams}
+          // updateParams={updateParams}
+          // setEntities={setEntities}
+          // primaryKeyInputs={[
             // { name: "_p1", label: "Folio", type: "text" },
             // { name: "_p2", label: "Rut", type: "text" },
             // { name: "_p3", label: "Nombre", type: "text" },
@@ -207,16 +207,16 @@ const MOT: React.FC = () => {
             //   ],
             //   values: OptionValuesMotivo,
             // },
-          ]}
-        />
+          // ]}
+        // /> */}
 
         <PrimaryButtonsComponent
           handleAddPerson={openModal}
           handleDeleteSelected={handleDeleteSelected}
           handleRefresh={resetEntities}
           params={params}
-          pkToDelete={pkToDelete}
-          strEntidad={strEntidadExcel}
+          // pkToDelete={pkToDelete}
+          // strEntidad={strEntidadExcel}
           strBaseUrl={strBaseUrl}
           showAddButton={true}
           showExportButton={true}
@@ -227,7 +227,7 @@ const MOT: React.FC = () => {
           idMenu={idMenu}
           isOT={true}
         />
-      </div> */}
+      </div>
 
       
       <div className="scroll">
@@ -235,6 +235,7 @@ const MOT: React.FC = () => {
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
           toggleEditModal={toggleEditModal}
+          toggleEditOTModal={toggleEditOTModal}
           handleDeleteSelected={handleDeleteSelected}
           selectedRows={selectedRows}
           // pkToDelete={pkToDelete}

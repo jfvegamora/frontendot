@@ -9,6 +9,7 @@ import { validationOTlevel1 } from '../../utils/validationOT';
 import RegProCom from '../RegProCom';
 import { URLBackend } from '../../hooks/useCrud';
 import { codigoProyecto } from '../../views/forms/FOT';
+import { toast } from 'react-toastify';
 
 
 interface IClientes {
@@ -59,8 +60,9 @@ const FOTClientes:React.FC<IClientes> = ({
                       // Realizar acciones específicas para el tipo 1
                     } else if (typeof mensaje === 'string' && mensaje.startsWith('ERROR:')) {
                       // Tipo 2 (ERROR)
-                      console.log('Tipo 2 (ERROR):', cliente.data);
+                      console.log('Tipo 2 (ERROR):', cliente.data[0][0]);
                       // Realizar acciones específicas para el tipo 2
+                      toast.error(cliente.data[0][0])
                     } else {
                       // Otro tipo de respuesta o formato desconocido
                       console.log('Respuesta desconocida:', cliente.data);
@@ -124,7 +126,8 @@ const FOTClientes:React.FC<IClientes> = ({
     //  console.log(formValues)
     //  console.log(inputState)
     //  console.log(formValues && formValues["cliente_nombre"])
-  return (
+      console.log(formValues ? formValues["cliente_tipo"]  : data && data[EnumGrid.cliente_tipo])
+    return (
     <form action="">
         <div className='w-full h-[80vh]  labelForm rounded-lg border radioComponent !mt-8'>
 
@@ -145,6 +148,7 @@ const FOTClientes:React.FC<IClientes> = ({
                             />
                         </div>
                     </div>
+
                     <div className="input-container items-center rowForm w-[40%]">
                         <div className="w-full !mt-4">
                             <OTTextInputComponent
@@ -156,13 +160,12 @@ const FOTClientes:React.FC<IClientes> = ({
                                 otData={clienteData  && clienteData[0] && clienteData[0][EnumClientes.nombre]}
                                 control={control}
                                 onlyRead={onlyRead}
-                            
                                 // error={errors.fecha_nacimiento}
                             />
                         </div>
                     </div>
                     <div className="input-container items-center rowForm w-[40%]">
-                        <div className="w-full !mt-2 ml-4 ">
+                        <div className="w-full !mt-[1.6rem] ml-4 ">
                             <SelectInputComponent
                                 label="Establecimiento"
                                 name="establecimiento_id"
@@ -194,7 +197,7 @@ const FOTClientes:React.FC<IClientes> = ({
 
                     <div className='w-[89%] mx-auto !mt-2 !mb-4 flex items-center  h-1/2'>
                         <div className="w-full flex  !ml-[5rem]">
-                            <div className="w-[35%] ">
+                            <div className="w-[40%]  ">
                                 <RadioButtonComponent
                                     control={control}
                                     label="Sexo"
@@ -208,7 +211,7 @@ const FOTClientes:React.FC<IClientes> = ({
                                     readOnly={onlyRead}
                                 />    
                             </div>
-                            <div className="w-[35%] ml-20">
+                            <div className="w-[40%] ml-10">
                                 <RadioButtonComponent
                                     control={control}
                                     label="Tipo"
@@ -230,7 +233,7 @@ const FOTClientes:React.FC<IClientes> = ({
                     </div>
 
 
-                    <div className='w-[90%] mx-auto  '>
+                    <div className='w-[90%] mx-auto mr-4 '>
                         <div className="w-full h-1/2 flex ml-[-2%]  items-center rowForm  ">
                             <div className="mx-auto flex w-[80%]">
                                 <div className="w-[44%]">
@@ -246,7 +249,7 @@ const FOTClientes:React.FC<IClientes> = ({
                                     // error={errors.fecha_nacimiento}
                                 />
                                 </div>
-                                <div className="w-[44%] ml-12">
+                                <div className="w-[47%] ml-12      ">
                                 <OTTextInputComponent
                                     type="text"
                                     label="Telefono"
@@ -296,7 +299,7 @@ const FOTClientes:React.FC<IClientes> = ({
 
 
 
-                <div className="w-[31%] rounded-lg border -mt-14 border-blue-500 ml-8  mx-auto items-center grid relative">
+                <div className="w-[31%] rounded-lg border !bg-red-400 -mt-4 border-blue-500 ml-8  mx-auto items-center grid relative">
                     
                     <label className='labelForm w-[25%] top-[-8%] left-[2%] pl-8 absolute z-10'>Direccion</label>
                      

@@ -1,12 +1,15 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { AppStore, useAppDispatch, useAppSelector } from '../../redux/store';
 import { Button } from "@material-tailwind/react";
 import { updateActualArea, updateNextArea } from '../../redux/slices/OTAreasSlice';
-import { clearData } from '../../redux/slices/OTSlice';
+import { clearData, fetchOT } from '../../redux/slices/OTSlice';
 
 const OTAreasButtons:React.FC = () => {
   const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas);
   const dispatch = useAppDispatch()
+  const [areaActual, setAreaActual] = useState()
+  const areaActualRef = useRef<string | null>(null);
+
 
 // console.log(OTAreas && OTAreas.areas)
 
@@ -14,11 +17,24 @@ const [botonPresionado, setBotonPresionado] = useState(null);
 
 const handleEstado = (area:any) => {
     dispatch(clearData())
-    console.log(area)
+    setAreaActual(area[1])
     dispatch(updateActualArea(area && area[1]))
     dispatch(updateNextArea(area && area[4]))
-    setBotonPresionado(area && area[1]); // Actualiza el botón presionado
+    setBotonPresionado(area && area[1]); 
 }
+
+useEffect(() => {
+  if (areaActual && areaActual !== areaActualRef.current) {
+    areaActualRef.current = areaActual;
+    dispatch(fetchOT(areaActual)); // Llama inicialmente cuando cambia el área
+  }
+
+  const interval = setInterval(() => {
+    dispatch(fetchOT(areaActualRef.current)); // Llama fetchOT cada minuto con el área actual
+  }, 60000);
+
+  return () => clearInterval(interval); // Limpia el intervalo al desmontar el componente
+}, [areaActual, dispatch]);
 
 
 // console.log('otareas',OTAreas)

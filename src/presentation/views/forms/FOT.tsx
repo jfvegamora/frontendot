@@ -1,4 +1,4 @@
-import React,{useEffect, useState} from 'react';
+import React,{useEffect, useState, Suspense, lazy} from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { AppStore, useAppSelector } from '../../../redux/store';
@@ -7,17 +7,22 @@ import axios from 'axios';
 import {signal } from "@preact/signals-react";
 
 
-import {FOTArmazones, FOTBitacora, FOTClientes, FOTCristales, FOTOptica, FOTReceta} from '../../components/OTForms'
 import FOTGarantia from '../../components/OTForms/FOTGarantia';
 import { EnumGrid } from '../mantenedores/MOTHistorica';
 import FOTDerivacion from '../../components/OTForms/FOTDerivacion';
-import { SEXO, TIPO_CLIENTE, a2_od_cil, a2_od_eje, a2_od_esf, a2_oi_cil, a2_oi_eje, a2_oi_esf, clearDioptrias,  dioptriasHabilitadas, dioptrias_receta, fecha_despacho, fecha_entrega_cliente, fecha_entrega_taller, reiniciarDioptriasReceta, reiniciarValidationNivel2, tipo_de_anteojo, validar_parametrizacion } from '../../utils';
+import { SEXO, TIPO_CLIENTE, a1_od_ad, a1_od_cil, a1_od_eje, a1_od_esf, a2_od_cil, a2_od_eje, a2_od_esf, a2_oi_cil, a2_oi_eje, a2_oi_esf, clearDioptrias,  clearDioptriasA2,  dioptriasHabilitadas, dioptrias_receta, fecha_despacho, fecha_entrega_cliente, fecha_entrega_taller, reiniciarA2DioptriasReceta, reiniciarDioptriasReceta, reiniciarValidationNivel2, tipo_de_anteojo, validar_parametrizacion } from '../../utils';
 import { validationCliente, validationEstablecimientos, validationFechaAtencion, validationProyectos, validationPuntoVenta, validationTipoAnteojos, validation_A2_OD_CIL, validation_A2_OD_EJE, validation_A2_OD_ESF, validation_A2_OI_CIL, validation_A2_OI_EJE, validation_A2_OI_ESF } from '../../utils/validationOT';
 // import { inputName } from '../../components/OTForms/Otprueba';
 import { verificaCampos } from '../../utils/OTReceta_utils';
 import { URLBackend } from '../../hooks/useCrud';
+import {transponer, transponer_a2 } from '../../utils/FOTReceta_utils';
 
-
+const FOTArmazones = lazy(()=>import('../../components/OTForms/FOTArmazones'));
+const FOTBitacora = lazy(()=>import('../../components/OTForms/FOTBitacora'));
+const FOTClientes = lazy(()=>import('../../components/OTForms/FOTClientes'));
+const FOTCristales = lazy(()=>import('../../components/OTForms/FOTCristales'));
+const FOTOptica = lazy(()=>import('../../components/OTForms/FOTOptica'));
+const FOTReceta = lazy(()=>import('../../components/OTForms/FOTReceta'));
 
 
 interface IFOTProps {
@@ -325,6 +330,8 @@ const FOT:React.FC<IFOTProps> = ({
   const [OTPermissions, setOTPermissions] = useState("");
   const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas);
   const User:any = useAppSelector((store: AppStore) => store.user);
+  const OT:any = useAppSelector((store: AppStore) => store.OTS.ot);
+
   let OTAreaActual = OTAreas["areaActual"]
   const permissions = (area:number) => OTAreaActual && OTAreas["areas"].find((permiso:any)=>permiso[1] === area)
   //PERMISOS DE CAMPOS
@@ -760,7 +767,7 @@ const FOT:React.FC<IFOTProps> = ({
   
     // return query;
   }
-  console.log('h')
+  // console.log('h')
   //Estados locales
   const { control, handleSubmit, setValue, register } = useForm<FormData>();
   const [formValues, setFormValues] = useState<FormData | any>({});
@@ -922,17 +929,39 @@ const FOT:React.FC<IFOTProps> = ({
     }
     
 
-
+    // if((Object.keys(data)[0] === 'a1_od_esf' && Object.keys(data)[0] !== '') || (Object.keys(data)[0] === 'a1_od_eje' && Object.keys(data)[0] !== '') || (Object.keys(data)[0] === 'a1_od_cil' && Object.keys(data)[0] !== '')){
+    //   transponer('a1_od_esf', 'a1_od_cil', 'a1_od_eje', 'a1_od_ad', 'a1_od', data)
+    //   // transponer1Ejecutado = true;
+    // }
+    console.log(tipo_de_anteojo.value)
     //FUNCION
+    if(tipo_de_anteojo.value !== "3"){
+      console.log('otro')
+    }
+
     if(tipo_de_anteojo.value === "3"){
+      console.log(name)
+      console.log(Object.keys(data)[0])
+      // let transponer1Ejecutado = false;
 
-      a2_od_esf.value = (dioptrias_receta.value.a1_od.esf ? dioptrias_receta.value.a1_od.esf : 0) + (dioptrias_receta.value.a1_od.ad ? dioptrias_receta.value.a1_od.ad : 0)
-      a2_od_cil.value = (dioptrias_receta.value.a1_od.cil ? dioptrias_receta.value.a1_od.cil : 0) 
-      a2_od_eje.value = (dioptrias_receta.value.a1_od.eje ? dioptrias_receta.value.a1_od.eje : 0)
+      
 
-      a2_oi_esf.value = (dioptrias_receta.value.a1_oi.esf ? dioptrias_receta.value.a1_oi.esf : 0) + (dioptrias_receta.value.a1_oi.ad ? dioptrias_receta.value.a1_oi.ad : 0)
-      a2_oi_cil.value = (dioptrias_receta.value.a1_oi.cil ? dioptrias_receta.value.a1_oi.cil : 0) 
-      a2_oi_eje.value = (dioptrias_receta.value.a1_oi.eje ? dioptrias_receta.value.a1_oi.eje : 0) 
+
+
+      // if (transponer1Ejecutado) {
+      //   transponer_a2('a2_od_esf', '', ''); // Llamar a transponer 2 después de transponer 1
+      // }
+
+
+
+
+      // a2_od_esf.value = (dioptrias_receta.value.a1_od.esf ? dioptrias_receta.value.a1_od.esf : 0) + (dioptrias_receta.value.a1_od.ad ? dioptrias_receta.value.a1_od.ad : 0)
+      // a2_od_cil.value = (dioptrias_receta.value.a1_od.cil ? dioptrias_receta.value.a1_od.cil : 0) 
+      // a2_od_eje.value = (dioptrias_receta.value.a1_od.eje ? dioptrias_receta.value.a1_od.eje : 0)
+
+      // a2_oi_esf.value = (dioptrias_receta.value.a1_oi.esf ? dioptrias_receta.value.a1_oi.esf : 0) + (dioptrias_receta.value.a1_oi.ad ? dioptrias_receta.value.a1_oi.ad : 0)
+      // a2_oi_cil.value = (dioptrias_receta.value.a1_oi.cil ? dioptrias_receta.value.a1_oi.cil : 0) 
+      // a2_oi_eje.value = (dioptrias_receta.value.a1_oi.eje ? dioptrias_receta.value.a1_oi.eje : 0) 
 
 
       validation_A2_OD_ESF(a2_od_esf.value)
@@ -948,7 +977,7 @@ const FOT:React.FC<IFOTProps> = ({
       console.log('otro')
       // clearDioptrias()
       // reiniciarA2DioptriasReceta()
-      // clearDioptriasA2(0)
+      // clearDioptriasA2(" ")
       // limpiarDioptriasReceta(dioptrias_receta.value)
     }
 
@@ -995,7 +1024,12 @@ React.useEffect(() => {
 }, [submitAction]);
 
 
+
 if(isEditting){
+  
+  
+  // console.log(OT)
+
   console.log('validaciones')
   //VALIDACIONES NIVEL 1
   validationProyectos(data && data[EnumGrid.proyecto_codigo])
@@ -1044,8 +1078,8 @@ const fetchDioptrias = async(proyecto:string) => {
 console.log(validationNivel2.value)
 console.log(validationNivel1.value)
 // console.log(validationNivel2)
-console.log(dioptrias_receta.value)
-console.log(dioptriasHabilitadas.value)
+console.log(dioptrias_receta.value.a2_od)
+// console.log(dioptriasHabilitadas.value)
 // console.log(dioptrias.value)
 // console.log(a1_od_esf.value)
 // console.log(data && data[EnumGrid.estado_validacion_id])
@@ -1064,6 +1098,9 @@ useEffect(() => {
   const handleKeyDown = (event: KeyboardEvent) => {
     if (event.key === "Escape") {
       closeModal();
+      clearDioptrias();
+      reiniciarDioptriasReceta();
+      reiniciarValidationNivel2();
     }
   };
 
@@ -1074,6 +1111,8 @@ useEffect(() => {
   };
 }, [closeModal]);
 
+console.log(isEditting)
+  console.log(data)
   return (
 
     <div className='useFormContainer top-[1%] w-[94vw] relative h-[95vh] z-20'>
@@ -1088,120 +1127,123 @@ useEffect(() => {
           <Tab className="custom-tab">Bitácora</Tab>
         </TabList>
 
+    <Suspense fallback={<div>Cargandos2...</div>}>
+      <div className='top-0 absolute right-3 text-2xl cursor-pointert' onClick={()=>{closeModal(), clearDioptrias(), reiniciarDioptriasReceta(), reiniciarValidationNivel2()}}>X</div>
+            <TabPanel onSelect={loadFormData}>
+              <FOTOptica onlyRead={onlyRead} setIsMotivo={setIsMotivo} isEditting={isEditting} data={data && data} formValues={formValues["optica"]} control={control} setToggle={setToggle}  onDataChange={(data:any) => handleFormChange(data , 'optica')} permiso_estado_impresion={permiso_estado_impresion} permiso_estado_validacion={permiso_estado_validacion} permiso_resolucion_garantia={permiso_resolucion_garantia} />
+            </TabPanel>
+            
+          <TabPanel>
+            <FOTClientes onlyRead={onlyRead} data={data && data} register={register} formValues={formValues["cliente"]} control={control} onDataChange={(data:any) => handleFormChange(data , 'cliente')} strCodigoProyecto={strCodigoProyecto} setExistCliente={setExistCliente}    />
+          </TabPanel>
 
-        <div className='top-0 absolute right-3 text-2xl cursor-pointert' onClick={()=>{closeModal(), clearDioptrias(), reiniciarDioptriasReceta(), reiniciarValidationNivel2()}}>X</div>
-          <TabPanel onSelect={loadFormData}>
-            <FOTOptica onlyRead={onlyRead} setIsMotivo={setIsMotivo} isEditting={isEditting} data={data && data} formValues={formValues["optica"]} control={control} setToggle={setToggle}  onDataChange={(data:any) => handleFormChange(data , 'optica')} permiso_estado_impresion={permiso_estado_impresion} permiso_estado_validacion={permiso_estado_validacion} permiso_resolucion_garantia={permiso_resolucion_garantia} />
+          <TabPanel>
+            <FOTReceta permiso_grupo_dioptria={permiso_grupo_dioptria} onlyRead={onlyRead} data={data && data} formValues={formValues["receta"]} control={control} onDataChange={(data:any) => handleFormChange(data , 'receta')}  />
+          </TabPanel>
+
+          <TabPanel> 
+            <FOTArmazones permiso_armazones={permiso_armazones} onlyRead={onlyRead}  data={data && data} formValues={formValues["armazones"]} control={control} onDataChange={(data:any) => handleFormChange(data , 'armazones')}  />
           </TabPanel>
           
-        <TabPanel>
-          <FOTClientes onlyRead={onlyRead} data={data && data} register={register} formValues={formValues["cliente"]} control={control} onDataChange={(data:any) => handleFormChange(data , 'cliente')} strCodigoProyecto={strCodigoProyecto} setExistCliente={setExistCliente}    />
-        </TabPanel>
+          <TabPanel>
+            <FOTCristales permiso_cristales={permiso_cristales} onlyRead={onlyRead} data={data && data}  formValues={formValues["cristales"]} control={control} onDataChange={(data:any) => handleFormChange(data , 'cristales')}   /> 
+          </TabPanel>
 
-        <TabPanel>
-          <FOTReceta permiso_grupo_dioptria={permiso_grupo_dioptria} onlyRead={onlyRead} data={data && data} formValues={formValues["receta"]} control={control} onDataChange={(data:any) => handleFormChange(data , 'receta')}  />
-        </TabPanel>
+          <TabPanel>
+            <FOTBitacora otFolio={data && data[EnumGrid.folio]}/>
+          </TabPanel>
 
-        <TabPanel> 
-          <FOTArmazones permiso_armazones={permiso_armazones} onlyRead={onlyRead}  data={data && data} formValues={formValues["armazones"]} control={control} onDataChange={(data:any) => handleFormChange(data , 'armazones')}  />
-        </TabPanel>
-        
-        <TabPanel>
-          <FOTCristales permiso_cristales={permiso_cristales} onlyRead={onlyRead} data={data && data}  formValues={formValues["cristales"]} control={control} onDataChange={(data:any) => handleFormChange(data , 'cristales')}   /> 
-        </TabPanel>
-
-        <TabPanel>
-          <FOTBitacora otFolio={data && data[EnumGrid.folio]}/>
-        </TabPanel>
-
-        {showGarantia && (
-          <div>
-            <FOTGarantia data={data && data} onClose={onCloseGarantia}/>
-          </div>
-        )}
-
-        {showDerivacion && (
-          <div>
-            <FOTDerivacion  closeModal={closeModal} formValues={formValues} data={data && data} onClose={onCloseDerivacion} switchCaseDerivar={switchCaseDerivar}/>
-          </div>
-        )}
-
-
-
-
-
-
-        <div className='flex items-center mx-auto  justify-around w-1/2 '>
-      
-              {isEditting && 
-              isMOT       && 
-              isMotivo    &&  (
-                  <button className='bg-green-400 mx-4 text-white w-1/4' onClick={() => setShowGarantia(prev => !prev)}>
-                    Garantia
-                  </button>
-              )}
-
-              {OTPermissions && 
-              OTPermissions[6] === "1" && 
-              sumatoriaNivel1 === validationNivel1.value.length &&
-              (sumatoriaNivel2 === validationNivel2.value.length || data && data[EnumGrid.validar_parametrizacion_id] === "0" ) && (
-                <button className='bg-green-400 mx-4  text-white w-1/4 ' onClick={handleProcesarClick}>Procesar</button>
-              )}
-
-              
-
-              {OTPermissions && 
-              OTPermissions[7] === "1" &&
-              sumatoriaNivel1 === validationNivel1.value.length && (
-                <button className='bg-yellow-400 mx-4   w-1/4 'onClick={handlePausarClick}>Pausar</button>
-              )}
-
-              {OTPermissions &&
-               OTPermissions[8] === "1" &&
-               sumatoriaNivel1 === validationNivel1.value.length &&
-               data && data[EnumGrid.estado_id] > 1 && (
-                <button className='bg-red-400 mx-4 text-white  w-1/4 ' onClick={()=>{setShowDerivacion((prev)=>!prev)}}>Derivar</button>
-              )}
-
-
-
-              {OTPermissions &&
-               OTPermissions[9] === "1" && 
-               sumatoriaNivel1 === validacionNivel1.length && 
-               (data && data[EnumGrid.estado_id] === 3 || data && data[EnumGrid.estado_id] === 4 ) && (
-                <button className='bg-black mx-4 text-white  w-1/4 '>Anular</button>
-              )}
-
-
-          {/* {
-            sumatoriaNivel1 === validacionNivel1.length && (
-              <button className='bg-green-400 mx-4  text-white w-1/4 ' onClick={handleSubmit(onSubmit)}>Procesar</button>
-            )
-          } */}
-
-
-          {/* OT DIARIA
-          {
-           (
-              <button className='bg-green-400 mx-4  text-white w-1/4 ' onClick={handleProcesarClick}>Procesar</button>
-            )
-          }
-
-
-
-
-          {toggle === "Aceptada" && isEditting && (
-            <>
-              <button className='bg-red-400 mx-4 text-white  w-1/4 ' onClick={()=>setShowDerivacion((prev)=>!prev)}>Derivar</button>
-            </>
+          {showGarantia && (
+            <div>
+              <FOTGarantia data={data && data} onClose={onCloseGarantia}/>
+            </div>
           )}
-          {toggle === "Rechazada" && isMotivo &&(
-            <>
-  
-              <button className='bg-black mx-4 text-white  w-1/4 '>Anular</button>
-            </>
-          )} */}
-        </div>
+
+          {showDerivacion && (
+            <div>
+              <FOTDerivacion  closeModal={closeModal} formValues={formValues} data={data && data} onClose={onCloseDerivacion} switchCaseDerivar={switchCaseDerivar}/>
+            </div>
+          )}
+
+
+
+
+
+
+          <div className='flex items-center mx-auto  justify-around w-1/2 '>
+        
+                {isEditting && 
+                isMOT       && 
+                isMotivo    &&  (
+                    <button className='bg-green-400 mx-4 text-white w-1/4' onClick={() => setShowGarantia(prev => !prev)}>
+                      Garantia
+                    </button>
+                )}
+
+                {OTPermissions && 
+                OTPermissions[6] === "1" && 
+                sumatoriaNivel1 === validationNivel1.value.length &&
+                (sumatoriaNivel2 === validationNivel2.value.length || data && data[EnumGrid.validar_parametrizacion_id] === "0" ) && (
+                  <button className='bg-green-400 mx-4  text-white w-1/4 ' onClick={handleProcesarClick}>Procesar</button>
+                )}
+
+                
+
+                {OTPermissions && 
+                OTPermissions[7] === "1" &&
+                sumatoriaNivel1 === validationNivel1.value.length && (
+                  <button className='bg-yellow-400 mx-4   w-1/4 'onClick={handlePausarClick}>Pausar</button>
+                )}
+
+                {OTPermissions &&
+                OTPermissions[8] === "1" &&
+                sumatoriaNivel1 === validationNivel1.value.length &&
+                data && data[EnumGrid.estado_id] > 1 && (
+                  <button className='bg-red-400 mx-4 text-white  w-1/4 ' onClick={()=>{setShowDerivacion((prev)=>!prev)}}>Derivar</button>
+                )}
+
+
+
+                {OTPermissions &&
+                OTPermissions[9] === "1" && 
+                sumatoriaNivel1 === validacionNivel1.length && 
+                (data && data[EnumGrid.estado_id] === 3 || data && data[EnumGrid.estado_id] === 4 ) && (
+                  <button className='bg-black mx-4 text-white  w-1/4 '>Anular</button>
+                )}
+
+
+            {/* {
+              sumatoriaNivel1 === validacionNivel1.length && (
+                <button className='bg-green-400 mx-4  text-white w-1/4 ' onClick={handleSubmit(onSubmit)}>Procesar</button>
+              )
+            } */}
+
+
+            {/* OT DIARIA
+            {
+            (
+                <button className='bg-green-400 mx-4  text-white w-1/4 ' onClick={handleProcesarClick}>Procesar</button>
+              )
+            }
+
+
+
+
+            {toggle === "Aceptada" && isEditting && (
+              <>
+                <button className='bg-red-400 mx-4 text-white  w-1/4 ' onClick={()=>setShowDerivacion((prev)=>!prev)}>Derivar</button>
+              </>
+            )}
+            {toggle === "Rechazada" && isMotivo &&(
+              <>
+    
+                <button className='bg-black mx-4 text-white  w-1/4 '>Anular</button>
+              </>
+            )} */}
+          </div>
+
+
+      </Suspense>
       </Tabs>
     </div>
   );
@@ -1210,133 +1252,3 @@ useEffect(() => {
 export default FOT;
 
 
-
-
-
-// query
-// : 
-// "03"
-// _armazonesJSON
-// : 
-// "[{\"codigo\":\"1\"},{\"codigo\":\"2\"}]"
-// _cristalesJSON
-// : 
-// "[{\"codigo\":\"1001\"},{\"codigo\":\"1002\"},{\"codigo\":\"1003\"},{\"codigo\":\"1004\"}]"
-// _destino
-// : 
-// "60"
-// _estado
-// : 
-// "2"
-// _obs
-// : 
-// ""
-// _origen
-// : 
-// "50"
-// _p1
-// : 
-// "1,60,2,0,1,'PR001A',1,'1-1','2023-10-20','2023-10-24','2023-10-25','2023-10-21',11,132132,'2023-10-28',2,1,2,4,5,6,7,8,9,10,11,1,12,13,14,15,16,16,18,1,1,1,1,2,0,0,1,1,2,2,3,2,1001,1002,3,1,1,2,2,2,1,1003,1004,1,0,0,0,123,123,123,123,'observ'"
-// _p3
-// : 
-// "'1-1','nombre test',1, 1,'2023-10-28','undefined' ,150, '21312','correo@oreoreoo.cl', 1"
-// _proyecto
-// : 
-// "PR001A"
-// _punto_venta
-// : 
-// "11"
-// _rut
-// : 
-// ""
-// _situacion
-// : 
-// "0"
-// _usuario
-// : 
-// "98"
-
-
-
-
-
-
-//PR001
-// {
-//   "query": "03",
-//   "_armazonesJSON":"[{\"codigo\":1},{\"codigo\":2}]",
-//   "_cristalesJSON":"[{\"codigo\":1001},{\"codigo\":1002},{\"codigo\":1003},{\"codigo\":1004}]",
-//   "_destino":"60",
-//   "_origen":"50",
-//   "_estado":"2",
-//   "_obs":"ot editada desde frontend",
-//   "_p1":"1,60,2,0,1,'PR002A',1,'1-1','2023-10-23','2023-10-24','2023-10-25','2023-10-21',11,132132,'2023-10-28',2,1,2,4,5,6,7,8,9,10,11,1,12,13,14,15,16,16,18,1,1,1,1,2,0,0,1,1,2,2,3,2,1001,1002,3,1,1,2,2,2,1,1003,1004,1,0,0,0,123,123,123,123,'observ'"
-//   ,
-//   "_p3":"'2-2','nombre test 3',1, 1,'2023-10-28','calle2' ,48, '21312','correo@oreoreoo.cl', 1",
-//   "_proyecto":"PR002A",
-//   "_punto_venta":"11",
-//   "_rut":"",
-//   "_situacion":"0",
-//   "_usuario":"98"
-
-// },
-
-
-//PR003
-// {
-//   "query": "03",
-//   "_armazonesJSON":"[]",
-//   "_cristalesJSON":"[]",
-//   "_destino":"60",
-//   "_origen":"50",
-//   "_estado":"2",
-//   "_obs":"ot editada desde frontend",
-//   "_p1":"1,60,2,0,1,'PR003',1,'1-1','2023-10-23','2023-10-24','2023-10-25','2023-10-21',11,132132,'2023-10-28',2,1,2,4,5,6,7,8,9,10,11,1,12,13,14,15,16,16,18,1,1,0,1,0,0,0,1,1,2,2,3,2,0,0,3,1,1,2,2,2,1,0,0,1,0,0,0,123,123,123,123,'observ'"
-//   ,
-//   "_p3":"'2-2','nombre test 3',1, 1,'2023-10-28','calle2' ,48, '21312','correo@oreoreoo.cl', 1",
-//   "_proyecto":"PR003",
-//   "_punto_venta":"11",
-//   "_rut":"",
-//   "_situacion":"0",
-//   "_usuario":"98"
-// }
-
-
-//pr003
-// {
-//   "query": "03",
-//   "_armazonesJSON":"[{\"codigo\":1},{\"codigo\":2}]",
-//   "_cristalesJSON":"[]",
-//   "_destino":"60",
-//   "_origen":"50",
-//   "_estado":"2",
-//   "_obs":"ot editada desde frontend",
-//   "_p1":"1,60,2,0,1,'PR002A',1,'1-1','2023-10-23','2023-10-24','2023-10-25','2023-10-21',11,132132,'2023-10-28',2,1,2,4,5,6,7,8,9,10,11,1,12,13,14,15,16,16,18,1,1,1,1,2,0,0,1,1,2,2,3,2,0,0,3,1,1,2,2,2,1,0,0,1,0,0,0,123,123,123,123,'observ'"
-//   ,
-//   "_p3":"'2-2','nombre test 3',1, 1,'2023-10-28','calle2' ,48, '21312','correo@oreoreoo.cl', 1",
-//   "_proyecto":"PR002A",
-//   "_punto_venta":"11",
-//   "_rut":"",
-//   "_situacion":"0",
-//   "_usuario":"98"
-// }
-
-
-//pr005
-// {
-//   "query": "03",
-//   "_armazonesJSON":"[]",
-//   "_cristalesJSON":"[{\"codigo\":1001},{\"codigo\":1002},{\"codigo\":1003},{\"codigo\":1004}]",
-//   "_destino":"60",
-//   "_origen":"50",
-//   "_estado":"2",
-//   "_obs":"ot editada desde frontend",
-//   "_p1":"1,60,2,0,1,'PR005',1,'2-4','2023-10-23','2023-10-24','2023-10-25','2023-10-21',11,132132,'2023-10-28',2,1,2,4,5,6,7,8,9,10,11,1,12,13,14,15,16,16,18,1,1,0,1,0,0,0,1,1,2,2,3,2,1001,1002,3,1,1,2,2,2,1,1003,1004,1,0,0,0,123,123,123,123,'observ'"
-//   ,
-//   "_p3":"'2-4','nombre test 3',1, 1,'2023-10-28','calle2' ,48, '21312','correo@oreoreoo.cl', 1",
-//   "_proyecto":"PR005",
-//   "_punto_venta":"11",
-//   "_rut":"",
-//   "_situacion":"0",
-//   "_usuario":"98"
-// }

@@ -94,7 +94,7 @@ const RegProCom:React.FC<IProps> = ({
                 render={({field})=>(
                     <div className="flex min-w-[100%] w-[60%] items-center mb-2 mx-4 mt-select mt-select-dropdown-up cursor-pointer  ">
                         <div className='custom-select !top-[-3%]  custom-select-reg relative rounded-lg !h-[3rem]'>
-                        <label className=" absolute left-3 z-20">Región</label>
+                        <label className=" labelForm text-[#f39c12] absolute left-3 z-20">Región</label>
                         <select 
                             {...field}
                             value={selectedRegion} 
@@ -126,7 +126,7 @@ const RegProCom:React.FC<IProps> = ({
                 render={({field})=>(
                     <div className="flex min-w-[100%] w-[60%] items-center mb-2 mx-4 mt-select mt-select-dropdown-up cursor-pointer ">
                         <div className='custom-select custom-select-reg relative rounded-lg !h-[3rem]'>
-                        <label className="absolute !top-[-3%] left-3 z-20">Provincia</label>
+                        <label className="absolute !top-[-3%] text-[#f39c12] left-3 z-20">Provincia</label>
                         <select 
                             {...field}
                             value={selectedProvince} 
@@ -160,7 +160,7 @@ const RegProCom:React.FC<IProps> = ({
                     <div className="flex min-w-[100%] w-[60%] items-center mb-2 mx-4 mt-select mt-select-dropdown-up cursor-pointer ">
                         <div className='custom-select custom-select-reg relative rounded-lg !h-[3rem]'>
         
-                                 <label className="labelSelect absolute !top-[-3%] left-3 z-20">Comuna</label>
+                                 <label className="labelSelect absolute text-[#f39c12] !top-[-3%] left-3 z-20">Comuna</label>
                                  {errors && (
                                     <p className="absolute top-[-2%] z-20 right-[50%] labelErr">
                                         {errors.message}

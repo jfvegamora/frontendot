@@ -1,6 +1,7 @@
 import { Input } from "@material-tailwind/react";
 import React, {useEffect, useState} from "react";
 import { Controller } from "react-hook-form";
+import { a1_od_cil, a1_od_eje, a1_od_esf, a2_od_cil, a2_od_eje, a2_od_esf, dioptrias_receta } from "../../utils";
 
 interface ITextInputProps {
   label: string;
@@ -11,6 +12,7 @@ interface ITextInputProps {
   control: any;
   data?: any;
   error?: any;
+  tabIndex?: number;
   inputRef?: any;
   className?:string;
   handleChange?: (data:any)=>void;
@@ -26,18 +28,63 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
   onlyRead,
   data,
   error,
+  tabIndex,
   inputRef,
   className,
   // defaultValue:formatvalue,
-  otData
 }) => {
-  const [_defaultValue, setDefaultValue] = useState<string>(data || "")
+  const [defaultValue, setDefaultValue] = useState<string>(data || "  ")
 
-  const initialValue = otData !== undefined ? otData : data;
-  const [value, setValue] = useState<string>(initialValue);
+  let initialValue:any = 0;
+
+  switch (name) {
+    case 'a1_od_esf':
+        initialValue =  dioptrias_receta.value.a1_od.esf    
+      break;
+    case 'a1_od_cil':
+        initialValue = dioptrias_receta.value.a1_od.cil 
+      break;
+    case 'a1_od_eje':
+        initialValue = dioptrias_receta.value.a1_od.eje 
+      break;
+      
+
+
+    case 'a2_od_esf':
+        initialValue = a2_od_esf.value
+      break;
+    case 'a2_od_cil':
+        initialValue = a2_od_cil.value
+        break;
+    case 'a2_od_eje':
+       initialValue = a2_od_eje.value
+       break;
+    default:
+      break;
+  }
+
+
+
+
+  const [value, setValue] = useState<string>(" ");
+  
+  useEffect(() => {
+    console.log(initialValue)
+  
+    // setValue(initialValue === undefined ? "" : initialValue);
+    setValue(initialValue);
+  }, [initialValue, defaultValue]);
+
+
+
+  
+
+
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
+    // console.log(newValue)s
+    setDefaultValue('v')
     console.log(newValue)
     setValue(newValue)
     // console.log(e.target.name)
@@ -47,16 +94,11 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
   
   
   
+
   };
  
-  
-  useEffect(()=>{
-    setDefaultValue(otData || data || "")
-    console.log('cambio')
-    setValue(otData !== undefined ? otData : data);
-  },[data,otData])
 
-
+  console.log(value)
 
 
 
@@ -68,12 +110,12 @@ return (
     name={name}
     control={control}
     // defaultValue={data ? data : ""}
-    defaultValue={data}
+    defaultValue={initialValue}
     render={({ field }) => (
       <div className="flex flex-col  w-full">
         <Input
           {...field}
-          error = {error ? true : false }
+          error     = {error ? true : false }
           label     ={label}
           value     ={value}
           color     ="orange"
@@ -82,6 +124,7 @@ return (
           type      ={type}
           onBlur    ={(e)=>handleInputChange(e)}
           ref       ={inputRef}
+          tabIndex  ={tabIndex || 1}
           readOnly  = {onlyRead}
           className ={`${className ? className : " custom-input py-2 px-3 "}`}
           // className={`${className ? className : "custom-input py-2 px-3"}`}

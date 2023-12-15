@@ -2,9 +2,11 @@ import React from 'react'
 import { SelectInputComponent, TextInputComponent } from '..'
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica'
 // import {a1_od_ad, a1_od_cil, a1_od_eje, a1_od_esf, a1_oi_ad, a1_oi_cil, a1_oi_eje, a1_oi_esf, a2_od_cil, a2_od_eje, a2_od_esf, a2_oi_cil, a2_oi_eje, a2_oi_esf, dioptriasHabilitadas, dioptrias_receta, onchangeDioptrias } from '../../utils'
-import {a1_od_ad, a1_od_cil, a1_od_eje, a1_od_esf, a1_oi_ad, a1_oi_cil, a1_oi_eje, a1_oi_esf, a2_od_cil, a2_od_eje, a2_od_esf, a2_oi_cil, a2_oi_eje, a2_oi_esf, dioptrias_receta, onchangeDioptrias } from '../../utils'
+import {a1_od_ad, a1_od_cil, a1_od_eje, a1_od_esf, a1_oi_ad, a1_oi_cil, a1_oi_eje, a1_oi_esf, a2_od_cil, a2_od_eje, a2_od_esf, a2_oi_cil, a2_oi_eje, a2_oi_esf, clearDioptriasA2, dioptrias_receta, reiniciarA2DioptriasReceta, tipo_de_anteojo } from '../../utils'
 import { validationOTlevel1, validationOTlevel2 } from '../../utils/validationOT'
 import { combinaciones_validas, habilitarCampo, setDioptriasReceta, setTipoAnteojo, validation_tipo_anteojo } from '../../utils/OTReceta_utils'
+import { OTTextInputComponent } from '.'
+import { transponer } from '../../utils/FOTReceta_utils'
 
 // export const inputName = signal(0)
 
@@ -27,27 +29,54 @@ const FOTReceta:React.FC<IReceta> = ({
 }) => {
     const handleInputChange = (e:any) => {
         let {name, value} = e;
+        onDataChange({[name]:value})
+        
+        
         console.log(name)
         console.log(value)
-        if(name == 'a1_od_eje'){
-            console.log(dioptrias_receta.value.a1_od.cil)
-            if(dioptrias_receta.value.a1_od.cil > 0){
-                console.log('ejecutando')
-                onchangeDioptrias()
-            }
-        }
+        
+        
         if(name === 'tipo_anteojo_id'){
-          setTipoAnteojo(value)      
+            if(value !== '3'){
+                console.log('distinto de lejos/cerca')
+                reiniciarA2DioptriasReceta()
+                clearDioptriasA2(" ")
+            }
+          setTipoAnteojo(value)
+
         }
+        
+        
+
+
+
+        
+        
+
+
+        
         validation_tipo_anteojo()
         setDioptriasReceta(name, value)
         validationOTlevel1(name, value)
         validationOTlevel2(name, value)
         
         
-        
-        onDataChange({[name]:value})
         combinaciones_validas()
+
+
+        if(name === 'a1_od_cil' || name === 'a1_od_eje' || name === 'a1_od_ad'){
+            console.log('render')
+            transponer('a1_od_esf', 'a1_od_cil', 'a1_od_eje', 'a1_od_ad', 'a1_od')
+    
+
+        }
+        // if(tipo_de_anteojo.value === '3'){
+        //     console.log('render')
+        //     if(name === 'a1_od_cil' || name === 'a1_od_eje'){
+        //         console.log('render')
+        //         transposicionDioptrias({[name] : value})
+        //     }
+        // }
     }
 
     // console.log(dioptriasHabilitadas.value);
@@ -177,47 +206,46 @@ const FOTReceta:React.FC<IReceta> = ({
                     <div className="w-[90%] mx-auto flex items-center h-[9rem] relative labelForm  rounded-lg border radioComponent">
                         <label className='labelForm w-[40%] absolute z-10 text-center -top-2 left-[30%]'>OJO DERECHO</label>
                         <div className="w-[25%]">
-                            <TextInputComponent
+                            <OTTextInputComponent
                                 type="number"
                                 label="ESF"
-                               
                                 name="a1_od_esf"
                                 handleChange={handleInputChange}
                                 // data={formValues ? formValues["a1_od_esf"] : data && data[EnumGrid.a1_od_esf]}
-                                data={a1_od_esf ? a1_od_esf : data && data[EnumGrid.a1_od_esf]}
+                                otData={ a1_od_esf.value || data && data[EnumGrid.a1_od_esf]}
                                 control={control}
-                                isOT={true}
+                                // isOT={true}
                                 onlyRead={onlyRead}
                                 // error={errors.fecha_nacimiento}
                             />
                         </div>
                         <div className="w-[25%]">
-                            <TextInputComponent
+                            <OTTextInputComponent
                                 type="number"
                                 label="CIL"
                                 name="a1_od_cil"
                                 handleChange={handleInputChange}
                                 onlyRead={onlyRead}
-                                data={a1_od_cil ? a1_od_cil : data && data[EnumGrid.a1_od_cil]}
+                                otData={a1_od_cil.value || data && data[EnumGrid.a1_od_cil]}
                                 control={control}
-                                isOT={true}
+                                // isOT={true}
                                 // error={errors.fecha_nacimiento}
                             />
                         </div>
-                        <div className="w-[25%]">
-                            <TextInputComponent
+                        <div className="w-[25%]" tabIndex={-1}>
+                            <OTTextInputComponent
                                 type="number"
                                 label="EJE"
                                 name="a1_od_eje"
                                 handleChange={handleInputChange}
-                                data={a1_od_eje ? a1_od_eje : data && data[EnumGrid.a1_od_eje]}
+                                otData={a1_od_eje.value || data && data[EnumGrid.a1_od_eje]}
                                 control={control}
-                                isOT={true}
                                 onlyRead={onlyRead}
+                                tabIndex={-1}
                                 // error={errors.fecha_nacimiento}
                             />
                         </div>
-                        <div className="w-[25%]">
+                        <div className="w-[25%]" tabIndex={-1}>
                             <TextInputComponent
                                 type="number"
                                 label="AD"
@@ -226,7 +254,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 data={a1_od_ad ? a1_od_ad : data && data[EnumGrid.a1_od_ad]}
                                 control={control}
                                 isOT={true}
-
+                                tabIndex={-1}
                                 onlyRead={habilitarCampo.value.a1_ad}
                                 // error={errors.fecha_nacimiento}
                             />
@@ -351,16 +379,14 @@ const FOTReceta:React.FC<IReceta> = ({
                     <div className="w-[90%] mx-auto flex items-center h-[9rem] relative labelForm  rounded-lg border border-blue-500">
                         <label className='labelForm w-[40%] absolute z-10 text-center -top-2 left-[30%]'>OJO DERECHO</label>
                         <div className="w-[25%]">
-                            <TextInputComponent
-                                type="number"
+                            <OTTextInputComponent
+                                type="text"
                                 label="ESF"
                                 name="a2_od_esf"
                                 handleChange={handleInputChange}
-                                data={a2_od_esf ? a2_od_esf : data && data[EnumGrid.a2_od_esf]}
+                                otData={ a2_od_esf.value || data && data[EnumGrid.a2_od_esf]}
                                 // data={a2_od_esf}
                                 control={control}
-                                isOT={true}
-
                                 onlyRead={true}
                                 // error={errors.fecha_nacimiento}
                             />

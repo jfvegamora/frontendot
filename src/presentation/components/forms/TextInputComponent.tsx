@@ -53,10 +53,12 @@ const TextInputComponent: React.FC<ITextInputProps> = ({
   };
   
   useEffect(()=>{
-    setDefaultValue(data)
+    setDefaultValue(data || "")
   },[data])
 
 // ...
+
+// console.log(defaultValue)
 
 return (
   <div className={`mr-4 rounded-xl ${customWidth ? customWidth : ""}`}>
@@ -72,6 +74,7 @@ return (
             label={label}
             id={label}
             type={type}
+            // defaultValue={defaultValue}
             readOnly={onlyRead}
             maxLength={maxLength}
             onBlur={(e) => handleInputChange(e)}

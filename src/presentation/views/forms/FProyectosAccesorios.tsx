@@ -22,7 +22,7 @@ import { signal } from "@preact/signals-react";
 import { toast } from "react-toastify";
 import { URLBackend } from "../../hooks/useCrud";
 
-const strBaseUrl = "/api/proyectosaccesorios/";
+const strBaseUrl = "/api/proyectoaccesorios/";
 const strEntidad = "Parametrización de Accesorios ";
 
 export interface InputData {
@@ -241,6 +241,7 @@ const FProyectosAccesorios: React.FC<IUserFormPrps> = React.memo(
       if(changeCodigo){
           fetchArmazon(changeCodigo)
            .then(()=>{
+              console.log(accesorioData.value)
              if(accesorioData.value.length >= 1){
               accesorioData.value = []
              }else{

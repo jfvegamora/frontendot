@@ -19,6 +19,7 @@ interface ITableComponentProps<T> {
   handleSelectChecked?: (id: number) => void;
   handleSelectedCheckedAll?: (event: any, rowsIds: any) => void;
   toggleEditModal?: (id: number) => void;
+  toggleEditOTModal?: (id: number, folio:any) => void;
   handleDeleteSelected?: (id: number) => void;
   toggleExcel?: (id:number) => void;
   selectedRows?: number[];
@@ -47,6 +48,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
     handleSelectChecked,
     handleSelectedCheckedAll,
     toggleEditModal,
+    toggleEditOTModal,
     toggleExcel,
     handleDeleteSelected,
     selectedRows,
@@ -145,9 +147,9 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
       )
     };
 
-    const renderCheckboxCell = (id: number) => {
+    const renderCheckboxCell = (id: number, folio:number) => {
       // console.log(id)
-
+      // console.log(folio)
       return (
         <>
           <input
@@ -162,7 +164,8 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
             <OTGrillaButtons
               areaPermissions={OTPermissions}
               id={id}
-              toggleEditModal={toggleEditModal}
+              folio={folio}
+              toggleEditOTModal={toggleEditOTModal}
               
               
             />
@@ -206,6 +209,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
             data.map((rowData: any, rowIndex: number) => {
               // const id = [3, 3];
               // console.log('rowData', rowData)
+              const folio     = rowData[1]
             
               return (
                 <tr key={rowIndex}>
@@ -213,6 +217,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                     // console.log("col", col);
                     const visible   = tableHead && tableHead[col].visible;
                     const alignment = tableHead && tableHead[col].alignment;
+                    // console.log(folio)
                     // console.log(rowData[5])
                     const color = rowData[5] === 99 ? "gray" : "";
                     const type = color === 'gray' ? 1: 0
@@ -226,7 +231,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                         >
                           
                           {col === 0
-                            ? renderCheckboxCell(rowIndex)
+                            ? renderCheckboxCell(rowIndex, folio)
                             : renderTextCell(row, '', type)}
                         </td>
                       )

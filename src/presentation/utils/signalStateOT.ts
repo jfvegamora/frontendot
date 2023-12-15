@@ -1,29 +1,29 @@
-import { Signal, signal } from "@preact/signals-react";
 import { validationNivel2 } from "../views/forms/FOT";
 import axios from "axios";
 import { URLBackend } from "../hooks/useCrud";
 
-export const a1_od_esf  = signal(null);
-export const a1_od_cil  = signal(null);
-export const a1_od_eje  = signal(null);
-export const a1_od_ad   = signal(null);
+import { Signal, signal } from "@preact/signals-react";
+export const a1_od_esf  = signal<number | undefined>(undefined);
+export const a1_od_cil  = signal<number | undefined>(undefined);
+export const a1_od_eje  = signal<number | undefined>(undefined)
+export const a1_od_ad   = signal<number | undefined>(undefined)
 
 
-export const a1_oi_esf  = signal(null);
-export const a1_oi_cil  = signal(null);
-export const a1_oi_eje  = signal(null);
-export const a1_oi_ad   = signal(null);
+export const a1_oi_esf  = signal<number | undefined>(undefined)
+export const a1_oi_cil  = signal<number | undefined>(undefined)
+export const a1_oi_eje  = signal<number | undefined>(undefined)
+export const a1_oi_ad   = signal<number | undefined>(undefined)
 
 
-export const a2_od_esf  = signal(null);
-export const a2_od_cil  = signal(null);
-export const a2_od_eje  = signal(null);
+export const a2_od_esf  = signal<number | undefined>(undefined)
+export const a2_od_cil  = signal<number | undefined>(undefined)
+export const a2_od_eje  = signal<number | undefined>(undefined)
 
 
 
-export const a2_oi_esf  = signal(null);
-export const a2_oi_cil  = signal(null);
-export const a2_oi_eje  = signal(null);
+export const a2_oi_esf  = signal<number | undefined>(undefined)
+export const a2_oi_cil  = signal<number | undefined>(undefined)
+export const a2_oi_eje  = signal<number | undefined>(undefined)
 
 export const tipo_de_anteojo = signal('');
 export const validar_parametrizacion = signal("");
@@ -56,16 +56,16 @@ export type DioptriasReceta = {
 
 export const dioptrias_receta:Signal<DioptriasReceta> = signal<DioptriasReceta>({
     a1_od: {
-      esf:  a1_od_esf ,
+      esf:  a1_od_esf,
       cil: a1_od_cil,
       eje: a1_od_eje,
-      ad: a1_od_ad  ,
+      ad: a1_od_ad,
     },
     a1_oi: {
       esf: a1_oi_esf,
       cil: a1_oi_cil,
       eje: a1_oi_eje,
-      ad: a1_oi_ad  ,
+      ad: a1_oi_ad,
     },
     a2_od: {
       esf: a2_od_esf,
@@ -96,21 +96,19 @@ export function reiniciarDioptriasReceta() {
     }
   }
   export function reiniciarA2DioptriasReceta() {
-    dioptrias_receta.value.a1_od.ad = 0;
+    dioptrias_receta.value.a1_od.ad = "";
     
 
-    dioptrias_receta.value.a2_od.esf.value = 0;
-    dioptrias_receta.value.a2_od.cil.value = 0;
-    dioptrias_receta.value.a2_od.eje.value = 0;
+    dioptrias_receta.value.a2_od.esf.value = "";
+    dioptrias_receta.value.a2_od.cil.value = "";
+    dioptrias_receta.value.a2_od.eje.value = "";
 
-    dioptrias_receta.value.a2_oi.esf.value = 0;
-    dioptrias_receta.value.a2_oi.cil.value = 0;
-    dioptrias_receta.value.a2_oi.eje.value = 0;
+    dioptrias_receta.value.a2_oi.esf.value = undefined;
+    dioptrias_receta.value.a2_oi.cil.value = undefined;
+    dioptrias_receta.value.a2_oi.eje.value = undefined;
   }
 
-export const onchangeDioptrias  = () => {
-  dioptrias_receta.value.a2_od.esf = 20
-}
+
 export const reiniciarValidationNivel2 = () => {
     validationNivel2.value.forEach((item) => {
       item.valor = 0;
@@ -138,23 +136,23 @@ export const buscarCampo = (campo: string) => {
 
 export const clearDioptrias = () => {
 
-    a1_od_esf.value = null,
-    a1_od_cil.value = null,
-    a1_od_eje.value = null,
-    a1_od_ad.value  = null,
+    a1_od_esf.value = undefined,
+    a1_od_cil.value = undefined,
+    a1_od_eje.value = undefined,
+    a1_od_ad.value  = undefined,
 
-    a1_oi_eje.value = null,
-    a1_oi_cil.value = null,
-    a1_oi_eje.value = null,
-    a1_oi_ad.value  = null,
+    a1_oi_eje.value = undefined,
+    a1_oi_cil.value = undefined,
+    a1_oi_eje.value = undefined,
+    a1_oi_ad.value  = undefined,
 
-    a2_od_esf.value = null,
-    a2_od_cil.value = null,
-    a2_od_eje.value = null,
+    a2_od_esf.value = undefined,
+    a2_od_cil.value = undefined,
+    a2_od_eje.value = undefined,
 
-    a2_oi_esf.value = null,
-    a2_oi_cil.value = null,
-    a2_oi_eje.value = null
+    a2_oi_esf.value = undefined,
+    a2_oi_cil.value = undefined,
+    a2_oi_eje.value = undefined
 
     tipo_de_anteojo.value = ""
     validar_parametrizacion.value = "",
@@ -165,7 +163,7 @@ export const clearDioptrias = () => {
 
 
 
-export const clearDioptriasA2 = (valor:number) => {
+export const clearDioptriasA2 = (valor:any) => {
     const campos = [
         'a2_od_esf',
         'a2_od_cil',
@@ -183,7 +181,7 @@ export const clearDioptriasA2 = (valor:number) => {
         }
     })
 
-    console.log(validationNivel2.value)
+    // console.log(validationNivel2.value)
 
 };
 

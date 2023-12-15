@@ -209,6 +209,8 @@ const FCargos: React.FC<ICargosFormProps> = React.memo(
         window.removeEventListener("keydown", handleKeyDown);
       };
     }, [closeModal]);
+
+    console.log(data)
     return (
       <div className="useFormContainer centered-div use30rem">
         <div className="userFormBtnCloseContainer">

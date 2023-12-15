@@ -29,6 +29,8 @@ export enum EnumGrid {
   proyecto_titulo = 12,
   establecimiento_id = 13,
   establecimiento = 14,
+
+  
   cliente_rut = 15,
   cliente_nomnbre = 16,
   cliente_tipo = 17,
