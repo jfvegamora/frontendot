@@ -33,7 +33,8 @@ const useCrud = (
     primaryKey?: string,
     strEntidad?: string,
     query?:string,
-    jsonData?:any
+    jsonData?:any,
+    customExport?:boolean,
   ) => Promise<any | undefined>;
   ListEntity: (primaryKeys: any, query: string) => Promise<any | undefined>;
   firstInputRef: any;
@@ -149,7 +150,8 @@ const useCrud = (
     primaryKey?: string,
     strEntidad?: string,
     query?:string,
-    jsonData?:any
+    jsonData?:any,
+    customExport?:boolean
   ): Promise<void> => {
     try {
       
@@ -158,16 +160,23 @@ const useCrud = (
       let strUrl = ''
       let response:any = {}
 
-      if(jsonData){
+      if(customExport){
+        strUrl ='/otros/?query=01'
+        console.log(strUrl)
+        response = await axiosInstance.get(`${URLBackend}/api/otros/listado/?query=01`,{
+          responseType: 'blob'
+        })
+
+        // console.log(response)
+      }else if (jsonData){
         strUrl = `/excelindividual/?query=06&_pkToDelete=${jsonData}`
         console.log(jsonData)
         console.log(strUrl)
-
+  
         response = await axiosInstance.get(strUrl,{
           responseType: 'blob'
         })
         console.log(response)
-
       }else{
         //CASO DE USO 1
         strUrl = primaryKey
@@ -182,8 +191,6 @@ const useCrud = (
 
       }
 
-
-      //CASO DE USO 2
 
 
 

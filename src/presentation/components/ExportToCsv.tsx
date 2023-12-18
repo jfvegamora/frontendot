@@ -15,7 +15,8 @@ import { faDownload } from '@fortawesome/free-solid-svg-icons';
 type Props = {
   strBaseUrl?: any;
   params?: any;
-  strEntidad?: string ;
+  strEntidad?: string;
+  customExport?:boolean;
   query?:string;
   entity?:any;
 };
@@ -38,7 +39,8 @@ export const ExportCSV: React.FC<Props> = ({
   params,
   strEntidad,
   query,
-  entity
+  entity,
+  customExport
 }) => {
   const [isModalInsert, setisModalInsert] = useState(false);
   const [exportAll, setExportAll] = useState(false);
@@ -91,7 +93,7 @@ export const ExportCSV: React.FC<Props> = ({
   };
 
   const exportExcel = (primaryKey:string, nombreExcel?:string,jsonData?:any) => {
-    return exportEntity(primaryKey, nombreExcel, query, jsonData)
+    return exportEntity(primaryKey, nombreExcel, query, jsonData, customExport)
               .then(() => {
                 show({
                   message: EXCEL.download,

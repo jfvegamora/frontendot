@@ -1,5 +1,5 @@
 // import { signal } from '@preact/signals-react';
-import React,{useState} from 'react'
+import React,{useEffect, useState} from 'react'
 import { Controller } from 'react-hook-form';
 import useSWR from 'swr';
 
@@ -84,6 +84,24 @@ const RegProCom:React.FC<IProps> = ({
 
 //   console.log(errors)
 // console.log(defaultComuna)
+
+useEffect(()=>{
+
+    if(defaultRegion){
+        setSelectedRegion(defaultRegion)
+        if(defaultProvincia){
+            console.log(defaultProvincia)
+            setSelectedProvince(defaultProvincia)
+            if(defaultComuna){
+                console.log(defaultComuna)
+                setSelectedCommune(defaultComuna)
+    
+            }
+        }
+    }
+
+
+},[defaultComuna, defaultProvincia, defaultRegion])
   return (
     <div className='w-full pb-2 items-center '>
         <div className="w-[93%] mb-4">

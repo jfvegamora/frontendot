@@ -16,6 +16,7 @@ import { validationCliente, validationEstablecimientos, validationFechaAtencion,
 import { verificaCampos } from '../../utils/OTReceta_utils';
 import { URLBackend } from '../../hooks/useCrud';
 import {transponer, transponer_a2 } from '../../utils/FOTReceta_utils';
+import { Spinner } from '@material-tailwind/react';
 
 const FOTArmazones = lazy(()=>import('../../components/OTForms/FOTArmazones'));
 const FOTBitacora = lazy(()=>import('../../components/OTForms/FOTBitacora'));
@@ -933,11 +934,7 @@ const FOT:React.FC<IFOTProps> = ({
     //   transponer('a1_od_esf', 'a1_od_cil', 'a1_od_eje', 'a1_od_ad', 'a1_od', data)
     //   // transponer1Ejecutado = true;
     // }
-    console.log(tipo_de_anteojo.value)
     //FUNCION
-    if(tipo_de_anteojo.value !== "3"){
-      console.log('otro')
-    }
 
     if(tipo_de_anteojo.value === "3"){
       console.log(name)
@@ -974,7 +971,7 @@ const FOT:React.FC<IFOTProps> = ({
       validation_A2_OI_EJE(a2_oi_eje.value)
 
     }else{
-      console.log('otro')
+      // console.log('otro')
       // clearDioptrias()
       // reiniciarA2DioptriasReceta()
       // clearDioptriasA2(" ")
@@ -986,7 +983,7 @@ const FOT:React.FC<IFOTProps> = ({
 
     //
     if(Object.keys(data)[0] === 'proyecto'){
-        console.log(Object.values(data)[0])
+        // console.log(Object.values(data)[0])
         setStrCodigoProyecto(Object.values(data)[0])
         codigoProyecto.value = (Object.values(data)[0] as string);
         fetchDioptrias(Object.values(data)[0] as string)
@@ -1030,7 +1027,7 @@ if(isEditting){
   
   // console.log(OT)
 
-  console.log('validaciones')
+  // console.log('validaciones')
   //VALIDACIONES NIVEL 1
   validationProyectos(data && data[EnumGrid.proyecto_codigo])
   validationEstablecimientos(data && data[EnumGrid.establecimiento_id])
@@ -1078,7 +1075,7 @@ const fetchDioptrias = async(proyecto:string) => {
 console.log(validationNivel2.value)
 console.log(validationNivel1.value)
 // console.log(validationNivel2)
-console.log(dioptrias_receta.value.a2_od)
+// console.log(dioptrias_receta.value.a2_od)
 // console.log(dioptriasHabilitadas.value)
 // console.log(dioptrias.value)
 // console.log(a1_od_esf.value)
@@ -1111,8 +1108,9 @@ useEffect(() => {
   };
 }, [closeModal]);
 
-console.log(isEditting)
-  console.log(data)
+// console.log(isEditting)
+  // console.log(data)
+
   return (
 
     <div className='useFormContainer top-[1%] w-[94vw] relative h-[95vh] z-20'>
@@ -1127,7 +1125,7 @@ console.log(isEditting)
           <Tab className="custom-tab">Bitácora</Tab>
         </TabList>
 
-    <Suspense fallback={<div>Cargandos2...</div>}>
+   <Suspense fallback={<div className="flex items-center justify-center h-screen"><Spinner className="h-12 w-12" style={{ color: '#f39c12' }} /></div>}>
       <div className='top-0 absolute right-3 text-2xl cursor-pointert' onClick={()=>{closeModal(), clearDioptrias(), reiniciarDioptriasReceta(), reiniciarValidationNivel2()}}>X</div>
             <TabPanel onSelect={loadFormData}>
               <FOTOptica onlyRead={onlyRead} setIsMotivo={setIsMotivo} isEditting={isEditting} data={data && data} formValues={formValues["optica"]} control={control} setToggle={setToggle}  onDataChange={(data:any) => handleFormChange(data , 'optica')} permiso_estado_impresion={permiso_estado_impresion} permiso_estado_validacion={permiso_estado_validacion} permiso_resolucion_garantia={permiso_resolucion_garantia} />
@@ -1173,8 +1171,9 @@ console.log(isEditting)
           <div className='flex items-center mx-auto  justify-around w-1/2 '>
         
                 {isEditting && 
-                isMOT       && 
-                isMotivo    &&  (
+                // isMOT       && 
+                // isMotivo    &&  (
+                  (
                     <button className='bg-green-400 mx-4 text-white w-1/4' onClick={() => setShowGarantia(prev => !prev)}>
                       Garantia
                     </button>

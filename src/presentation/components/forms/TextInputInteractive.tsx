@@ -23,7 +23,7 @@ interface ITextInputProps {
   customWidth?: any;
 }
 
-const TextInputComponent: React.FC<ITextInputProps> = ({
+const TextInputInteractive: React.FC<ITextInputProps> = ({
   label,
   type,
   control,
@@ -42,29 +42,38 @@ const TextInputComponent: React.FC<ITextInputProps> = ({
 }) => {
   const [defaultValue, setDefaultValue] = useState<any>(data && data || "")
 
+  const [value, setValue] = useState<any>();
+
 
   
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    
     if (handleChange) {
       if(isOT){
         handleChange(e.target)
       }else{
         handleChange(e.target.value)
       }
-    }
+    }   
 
+    console.log(e.target.value)
+    setValue(e.target.value)
 
   };
   
   useEffect(()=>{
     console.log(data)
-    setDefaultValue(data || "")
+    if(data){
+        setDefaultValue(data)
+        setValue(data)
+    }
+    // setValue(data)
   },[data])
 
 // ...
 
 // console.log(defaultValue)
-
+console.log(value)
 return (
   <div className={`mr-4 rounded-xl ${customWidth ? customWidth : ""}`}>
     <Controller
@@ -79,10 +88,14 @@ return (
             label={label}
             id={label}
             type={type}
+            value={value}
             // defaultValue={defaultValue}
             readOnly={onlyRead}
             maxLength={maxLength}
             onBlur={(e) => handleInputChange(e)}
+            onChange={(e)=> {
+                setValue(e.target.value)
+            }}
             ref={inputRef}
             className={`${className ? className : "custom-input "}`}
             tabIndex={tabIndex || 1}
@@ -102,5 +115,5 @@ return (
 );
 };
 
-export default TextInputComponent;
+export default TextInputInteractive;
 

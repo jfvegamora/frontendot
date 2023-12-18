@@ -46,6 +46,7 @@ const FOTOptica:React.FC<IOptica> = ({
     const [motivo, setMotivo] = useState(false)
     const [strCodigoProyecto, setStrCodigoProyecto] = useState("");
     const userID:any = useAppSelector((store: AppStore) => store.user?.id);
+    const _origen:any = useAppSelector((store: AppStore) => store.OTAreas.areaActual);
 
 
    
@@ -83,17 +84,38 @@ const FOTOptica:React.FC<IOptica> = ({
 
     
 
-    const handleSwitchValidation = () => {
+    const handleSwitchValidation = (event:any) => {
         setIsToggleValidacion((prev)=>!prev)
+        console.log(event)
+
+        try {
+            
+        } catch (error) {
+            console.log(error)
+            throw error
+        }
     }
 
     
     const handleSwitchImpresion = async (event:any) => {
         setIsToggleImpresion((prev)=>!prev)
         console.log(event)
+        const _estado = data && data[EnumGrid.estado_id]
         //_folio= folio ot
         //_p2 = 1 si se activa y 0 si se apaga
         try {
+            //_p2
+            //_folio
+            
+            //_usuario
+            //_origen
+            //_estado
+
+            console.log(_estado)
+            console.log(userID)
+            console.log(_origen)
+
+
             const query = `?query=06&_folio=${data[EnumGrid.folio]}&_p2=${event === true ? 1 : 0}`
             const endpoint = `${strUrl}/${query}`
             console.log(endpoint)
@@ -102,6 +124,7 @@ const FOTOptica:React.FC<IOptica> = ({
             
         } catch (error) {
             console.log(error)
+            throw error
         }
     }
 
@@ -137,7 +160,7 @@ return (
                         {!permiso_estado_validacion && (
                             <div className="w-[25%] mt-4 mb-8 ml-4 px-[1.5rem] ">
                                 <div className=" items-center flex">
-                                    <Switch onChange={handleSwitchValidation} checked={isToggleValidacion}/>
+                                    <Switch onChange={(e)=>handleSwitchValidation(e)} checked={isToggleValidacion}/>
                                     <label className='ml-2'>Estado de Validacion</label>
                                 </div>
                             </div>

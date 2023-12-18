@@ -95,7 +95,7 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
 
   
 
-
+  console.log(jsonData)
 
   let _p1 = `
  "${jsonData.proyecto}", 

@@ -30,9 +30,19 @@ const RadioButtonComponent: React.FC<IRadioButtonProps> = ({
 }) => {
   const [currentValue, setCurrentValue] = useState<any>(data || "");
 
+
+  const [value,setValue] = useState<any>();
+
+
+
   useEffect(() => {
-    setCurrentValue(data || "");
+    if(data){
+      setValue(data)
+      setCurrentValue(data || "");
+    }
   }, [data]);
+
+
 
   return (
     <div
@@ -55,16 +65,17 @@ const RadioButtonComponent: React.FC<IRadioButtonProps> = ({
                 <input
                   {...field}
                   type="radio"
-                  value={option}
+                  value={value}
                   tabIndex={tabIndex || 1}
                   disabled={readOnly}
-                  defaultChecked={data === option}
+                  checked={value === option}
                   className={`mr-2 transform scale-150 ${field.value === option ? 'text-orange-500' : 'text-gray-500'}`}
                   onChange={(e) => {
                     field.onChange(e.target.value);
                     if (onChange) {
                       onChange(e.target);
                     }
+                    setValue(e.target.value)
                     setCurrentValue(e.target.value);
                   }}
                   ref={inputRef}

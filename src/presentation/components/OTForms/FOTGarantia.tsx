@@ -59,7 +59,7 @@ const FOTGarantia:React.FC<IProps> = ({
         <form className='text-center' onSubmit={handleSubmit(onSubmit)}>
                 <h1 className='text-2xl mt-2'>Nueva OT por garantía</h1> 
 
-                <div className="flex  items-center w-full">
+                <div className="flex  items-center rowForm w-full">
                     <div className="w-[25%] ml-4">
                         <TextInputComponent
                             type="text"
@@ -101,8 +101,8 @@ const FOTGarantia:React.FC<IProps> = ({
                     </div>
                 </div>
 
-                <div className="w-full flex items-center">
-                    <div className="w-[98.5%] ml-4">
+                <div className="w-full flex items-center rowForm">
+                    <div className="w-[98.5%] ml-8 !my-4">
                         <SelectInputComponent
                             label="Motivo Garantia"
                             name="motivo_garantia"
@@ -119,7 +119,7 @@ const FOTGarantia:React.FC<IProps> = ({
                     </div>
                 </div>
 
-                <div className=" w-full flex items-center">
+                <div className=" w-full flex items-center rowForm">
                     <div className="w-[98%] ml-4">
                         <TextInputComponent
                             type="text"

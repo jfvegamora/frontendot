@@ -31,6 +31,7 @@ interface IPrimaryButtonProps {
   showRefreshButton?: boolean;
   showDeleteButton?: boolean;
   showExportButton?: boolean;
+  showCustomExportButton?:boolean;
   showImportCsv?:boolean;
   comilla?: boolean;
   strBaseUrl?: string;
@@ -51,7 +52,8 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
     handleCopiar,
     handleRefresh,
     toggleEditModal,
-    // showForwardButton,
+    // showForwardButton
+    showCustomExportButton,
     showAddButton,
     showRefreshButton,
     showDeleteButton,
@@ -182,6 +184,19 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
             strBaseUrl={strBaseUrl}
           />
         )}
+
+         
+        {showCustomExportButton && (
+          <ExportCSV
+            strEntidad={strEntidad}
+            params={params}
+            strBaseUrl={strBaseUrl}
+            customExport={true}
+          />
+        )}
+
+
+
         
         {showImportCsv && escritura_lectura && (
           <ImportToCsv strEntidad={strEntidad}/>
