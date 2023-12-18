@@ -1,7 +1,10 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, 
+  // useEffect, 
+  // useRef 
+} from "react";
 
 import {
   PrimaryButtonsComponent,
@@ -11,9 +14,11 @@ import { useEntityUtils, usePermission } from "../../hooks";
 import {  TITLES ,table_head_OT_diaria2 } from "../../utils";
 import FOT from "../forms/FOT";
 import OTAreasButtons from "../../components/OTAreasButtons";
-import { AppStore, useAppDispatch, useAppSelector } from "../../../redux/store";
+import { AppStore, 
+  // useAppDispatch, 
+  useAppSelector } from "../../../redux/store";
 // import { URLBackend } from "../../hooks/useCrud";
-import { fetchOT } from "../../../redux/slices/OTSlice";
+// import { fetchOT } from "../../../redux/slices/OTSlice";
 
 export enum EnumGrid {
   id = 1,
@@ -46,12 +51,12 @@ const idMenu = 1;
 
 
 const MOT: React.FC = () => {
-  const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas);
-  const areaActual = OTAreas["areaActual"] 
+  // const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas);
+  // const areaActual = OTAreas["areaActual"] 
   const OTs:any = useAppSelector((store: AppStore) => store.OTS);
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
   const [params, _setParams] = useState([]);
-  const areaActualRef = useRef(areaActual)
+  // const areaActualRef = useRef(areaActual)
 
   
 

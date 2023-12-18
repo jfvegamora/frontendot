@@ -1,7 +1,11 @@
-import { a1_od_esf, a1_od_cil, a1_od_eje, a1_oi_esf, a1_oi_cil, a1_oi_eje, dioptrias_receta, a2_od_esf, a2_oi_esf, a2_od_cil, a2_oi_cil, a2_od_eje, a2_oi_eje, tipo_de_anteojo } from ".";
+import { a1_od_esf, a1_od_cil, a1_od_eje, 
+    // a1_oi_esf, a1_oi_cil, a1_oi_eje, 
+    dioptrias_receta, a2_od_esf, a2_oi_esf, a2_od_cil, a2_oi_cil, a2_od_eje, a2_oi_eje, tipo_de_anteojo } from ".";
 
 
-export const transponer = (ESF:any, CIL:any, EJE:any, AD:any, anteojo:any)  => {
+export const transponer = (ESF:any, CIL:any, EJE:any, 
+    // AD:any, 
+    anteojo:any)  => {
     
     // let cilindrico = formValues?.a1_od_cil;
     let ESF2 = null;
@@ -110,7 +114,9 @@ export const transponer = (ESF:any, CIL:any, EJE:any, AD:any, anteojo:any)  => {
 };
 
 
-export const transponer_a2 = (ESF:any, CIL:any , EJE:any, AD:any) => {
+export const transponer_a2 = (ESF:any, CIL:any , EJE:any, 
+    // AD:any
+    ) => {
    
    
     switch (ESF) {  

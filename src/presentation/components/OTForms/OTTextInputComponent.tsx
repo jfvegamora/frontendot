@@ -1,7 +1,9 @@
 import { Input } from "@material-tailwind/react";
 import React, {useEffect, useState} from "react";
 import { Controller } from "react-hook-form";
-import { a1_od_cil, a1_od_eje, a1_od_esf, a2_od_cil, a2_od_eje, a2_od_esf, dioptrias_receta } from "../../utils";
+import { 
+  // a1_od_cil, a1_od_eje, a1_od_esf, 
+  a2_od_cil, a2_od_eje, a2_od_esf, dioptrias_receta } from "../../utils";
 
 interface ITextInputProps {
   label: string;
