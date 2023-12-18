@@ -1,4 +1,6 @@
-import React,{useEffect, useState} from 'react'
+import React,{
+    // useEffect, 
+    useState} from 'react'
 import { RadioButtonComponent, SelectInputComponent, TextInputComponent } from '..'
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
 // import { Switch , switchButton} from "@material-tailwind/react";

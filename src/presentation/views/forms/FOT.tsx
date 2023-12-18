@@ -10,12 +10,18 @@ import {signal } from "@preact/signals-react";
 import FOTGarantia from '../../components/OTForms/FOTGarantia';
 import { EnumGrid } from '../mantenedores/MOTHistorica';
 import FOTDerivacion from '../../components/OTForms/FOTDerivacion';
-import { SEXO, TIPO_CLIENTE, a1_od_ad, a1_od_cil, a1_od_eje, a1_od_esf, a2_od_cil, a2_od_eje, a2_od_esf, a2_oi_cil, a2_oi_eje, a2_oi_esf, clearDioptrias,  clearDioptriasA2,  dioptriasHabilitadas, dioptrias_receta, fecha_despacho, fecha_entrega_cliente, fecha_entrega_taller, reiniciarA2DioptriasReceta, reiniciarDioptriasReceta, reiniciarValidationNivel2, tipo_de_anteojo, validar_parametrizacion } from '../../utils';
+import { SEXO, TIPO_CLIENTE, 
+  // a1_od_ad, a1_od_cil, a1_od_eje, a1_od_esf, 
+  a2_od_cil, a2_od_eje, a2_od_esf, a2_oi_cil, a2_oi_eje, a2_oi_esf, clearDioptrias,  
+  // clearDioptriasA2,  dioptriasHabilitadas, 
+  dioptrias_receta, fecha_despacho, fecha_entrega_cliente, fecha_entrega_taller, 
+  // reiniciarA2DioptriasReceta, 
+  reiniciarDioptriasReceta, reiniciarValidationNivel2, tipo_de_anteojo, validar_parametrizacion } from '../../utils';
 import { validationCliente, validationEstablecimientos, validationFechaAtencion, validationProyectos, validationPuntoVenta, validationTipoAnteojos, validation_A2_OD_CIL, validation_A2_OD_EJE, validation_A2_OD_ESF, validation_A2_OI_CIL, validation_A2_OI_EJE, validation_A2_OI_ESF } from '../../utils/validationOT';
 // import { inputName } from '../../components/OTForms/Otprueba';
 import { verificaCampos } from '../../utils/OTReceta_utils';
 import { URLBackend } from '../../hooks/useCrud';
-import {transponer, transponer_a2 } from '../../utils/FOTReceta_utils';
+// import {transponer, transponer_a2 } from '../../utils/FOTReceta_utils';
 
 const FOTArmazones = lazy(()=>import('../../components/OTForms/FOTArmazones'));
 const FOTBitacora = lazy(()=>import('../../components/OTForms/FOTBitacora'));
@@ -330,7 +336,7 @@ const FOT:React.FC<IFOTProps> = ({
   const [OTPermissions, setOTPermissions] = useState("");
   const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas);
   const User:any = useAppSelector((store: AppStore) => store.user);
-  const OT:any = useAppSelector((store: AppStore) => store.OTS.ot);
+  // const OT:any = useAppSelector((store: AppStore) => store.OTS.ot);
 
   let OTAreaActual = OTAreas["areaActual"]
   const permissions = (area:number) => OTAreaActual && OTAreas["areas"].find((permiso:any)=>permiso[1] === area)

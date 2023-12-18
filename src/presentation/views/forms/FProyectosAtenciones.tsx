@@ -34,11 +34,11 @@ export interface InputData {
   fecha_factura         : string | undefined;
   total_factura         : string | undefined;
   nota_credito          : string | undefined;
-  fecha_ncredito        : string | undefined;
-  total_ncredito        : string | undefined;
+  fecha_nota_credito    : string | undefined;
+  total_nota_credito    : string | undefined;
   nota_debito           : string | undefined;
-  fecha_ndebito         : string | undefined;
-  total_ndebito         : string | undefined;
+  fecha_nota_debito     : string | undefined;
+  total_nota_debito     : string | undefined;
   guia_despacho         : string | undefined;
   fecha_guia_despacho   : string | undefined;
   observaciones         : string | undefined;
@@ -93,10 +93,6 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
     //   throw new Error('')
     // }
 
-  
-
-
-
   let _p1 = `
  "${jsonData.proyecto}", 
   ${jsonData.folio_reporte}, 
@@ -108,11 +104,11 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
  "${jsonData.fecha_factura}", 
   ${(jsonData.total_factura && jsonData.total_factura?.toString())?.length === 0 ? "0" : jsonData.total_factura}, 
   ${(jsonData.nota_credito && jsonData.nota_credito?.toString())?.length === 0 ? "0" : jsonData.nota_credito}, 
- "${jsonData.fecha_ncredito}", 
-  ${(jsonData.total_ncredito && jsonData.total_ncredito?.toString())?.length === 0 ? "0" : jsonData.total_ncredito}, 
+ "${jsonData.fecha_nota_credito}", 
+  ${(jsonData.total_nota_credito && jsonData.total_nota_credito?.toString())?.length === 0 ? "0" : jsonData.total_nota_credito}, 
   ${(jsonData.nota_debito && jsonData.nota_debito?.toString())?.length === 0 ? "0" : jsonData.nota_debito}, 
- "${jsonData.fecha_ndebito}", 
-  ${(jsonData.total_ndebito && jsonData.total_ndebito?.toString())?.length === 0 ? "0" : jsonData.total_ndebito}, 
+ "${jsonData.fecha_nota_debito}", 
+  ${(jsonData.total_nota_debito && jsonData.total_nota_debito?.toString())?.length === 0 ? "0" : jsonData.total_nota_debito}, 
   ${(jsonData.guia_despacho && jsonData.guia_despacho?.toString())?.length === 0 ? "0" : jsonData.guia_despacho}, 
  "${jsonData.fecha_guia_despacho}", 
  "${jsonData.observaciones}"`;
@@ -145,11 +141,11 @@ export function transformUpdateQuery(jsonData: InputData): OutputData | null {
     `fecha_factura        = "${jsonData.fecha_factura}"`, 
     `total_factura        =  ${(jsonData.total_factura && jsonData.total_factura?.toString())?.length === 0 ? "0" : jsonData.total_factura}`, 
     `nota_credito         =  ${(jsonData.nota_credito && jsonData.nota_credito?.toString())?.length === 0 ? "0" : jsonData.nota_credito}`, 
-    `fecha_ncredito       = "${jsonData.fecha_ncredito}"`, 
-    `total_ncredito       =  ${(jsonData.total_ncredito && jsonData.total_ncredito?.toString())?.length === 0 ? "0" : jsonData.total_ncredito}`, 
+    `fecha_ncredito       = "${jsonData.fecha_nota_credito}"`, 
+    `total_ncredito       =  ${(jsonData.total_nota_credito && jsonData.total_nota_credito?.toString())?.length === 0 ? "0" : jsonData.total_nota_credito}`, 
     `nota_debito          =  ${(jsonData.nota_debito && jsonData.nota_debito?.toString())?.length === 0 ? "0" : jsonData.nota_debito}`, 
-    `fecha_ndebito        = "${jsonData.fecha_ndebito}"`, 
-    `total_ndebito        =  ${(jsonData.total_ndebito && jsonData.total_ndebito?.toString())?.length === 0 ? "0" : jsonData.total_ndebito}`, 
+    `fecha_ndebito        = "${jsonData.fecha_nota_debito}"`, 
+    `total_ndebito        =  ${(jsonData.total_nota_debito && jsonData.total_nota_debito?.toString())?.length === 0 ? "0" : jsonData.total_nota_debito}`, 
     `guia_despacho        =  ${(jsonData.guia_despacho && jsonData.guia_despacho?.toString())?.length === 0 ? "0" : jsonData.guia_despacho}`, 
     `fecha_guia_despacho  = "${jsonData.fecha_guia_despacho}"`, 
     `observaciones        = "${jsonData.observaciones}"`,
@@ -220,9 +216,9 @@ const FProyectosAtenciones: React.FC<IUserFormPrps> = React.memo(
       setValue("factura", "");
       setValue("total_factura", "");
       setValue("nota_credito", "");
-      setValue("total_ncredito", "");
+      setValue("total_nota_credito", "");
       setValue("nota_debito", "");
-      setValue("total_ndebito", "");
+      setValue("total_nota_debito", "");
       setValue("guia_despacho", "");
       setValue("observaciones", "");
           if (firstInputRef.current) {
@@ -477,13 +473,13 @@ const FProyectosAtenciones: React.FC<IUserFormPrps> = React.memo(
             </div>
           </div>
 
-          <div className=" items-center flex !mt-[1rem] !mb-[1rem]">
+          <div className="rowForm  !h-[7rem]  flex !mt-[1rem] !mb-[1rem] ">
             <div className="!w-[50%] mr-[2rem]">
               <FrameComponent label="Factura">
                 <div className="flex">
                   <TextInputComponent
                     type="number"
-                    label="Factura"
+                    label="Número"
                     name="factura"
                     data={data && data[EnumGrid.factura]}
                     control={control}
@@ -517,7 +513,7 @@ const FProyectosAtenciones: React.FC<IUserFormPrps> = React.memo(
                 <div className="flex">
                   <TextInputComponent
                     type="number"
-                    label="Nota Crédito"
+                    label="Número"
                     name="nota_credito"
                     data={data && data[EnumGrid.nota_credito]}
                     control={control}
@@ -527,19 +523,19 @@ const FProyectosAtenciones: React.FC<IUserFormPrps> = React.memo(
                   <TextInputComponent
                     type="date"
                     label="Fecha"
-                    name="fecha_ncredito"
-                    data={data && data[EnumGrid.fecha_ncredito]}
+                    name="fecha_nota_credito"
+                    data={data && data[EnumGrid.fecha_nota_credito]}
                     control={control}
-                    error={errors.fecha_ncredito}
+                    error={errors.fecha_nota_credito}
                     customWidth={"w-[30%] mr-4"}
                     />
                   <TextInputComponent
                     type="number"
                     label="Total"
-                    name="total_ncredito"
-                    data={data && data[EnumGrid.total_ncredito]}
+                    name="total_nota_credito"
+                    data={data && data[EnumGrid.total_nota_credito]}
                     control={control}
-                    error={errors.total_ncredito}
+                    error={errors.total_nota_credito}
                     customWidth={"w-[40%] mr-4"}
                     />
                 </div>
@@ -547,6 +543,66 @@ const FProyectosAtenciones: React.FC<IUserFormPrps> = React.memo(
               </div>
             </div>
 
+          <div className="rowForm !h-[7rem]  flex !mt-[1rem] !mb-[1rem] ">
+            <div className="!w-[50%] mr-[2rem] ">
+              <FrameComponent label="Nota Débito">
+                <div className="flex">
+                  <TextInputComponent
+                    type="number"
+                    label="Número"
+                    name="nota_debito"
+                    data={data && data[EnumGrid.nota_debito]}
+                    control={control}
+                    error={errors.nota_debito}
+                    customWidth={"w-[30%] mr-4"}
+                  />
+                  <TextInputComponent
+                    type="date"
+                    label="Fecha"
+                    name="fecha_nota_debito"
+                    data={data && data[EnumGrid.fecha_nota_debito]}
+                    control={control}
+                    error={errors.fecha_nota_debito}
+                    customWidth={"w-[30%] mr-4"}
+                  />
+                  <TextInputComponent
+                    type="number"
+                    label="Total"
+                    name="total_nota_debito"
+                    data={data && data[EnumGrid.total_nota_debito]}
+                    control={control}
+                    error={errors.total_nota_debito}
+                    customWidth={"w-[40%] mr-4"}
+                  />
+                </div>
+              </FrameComponent>
+            </div>
+
+            <div className="!w-[50%] !mr-[2rem]">
+              <FrameComponent label="Guía Despacho">
+                <div className="flex">
+                  <TextInputComponent
+                    type="number"
+                    label="Número"
+                    name="guia_despacho"
+                    data={data && data[EnumGrid.guia_despacho]}
+                    control={control}
+                    error={errors.guia_despacho}
+                    customWidth={"w-[30%] mr-4"}
+                    />
+                  <TextInputComponent
+                    type="date"
+                    label="Fecha"
+                    name="fecha_guia_despacho"
+                    data={data && data[EnumGrid.fecha_guia_despacho]}
+                    control={control}
+                    error={errors.fecha_guia_despacho}
+                    customWidth={"w-[30%] mr-4"}
+                    />
+                </div>
+              </FrameComponent>
+              </div>
+            </div>
           <div className="w-full items-center flex h-[50px]">
             <div className="input-container items-center rowForm w-full">
               <div className="w-full">

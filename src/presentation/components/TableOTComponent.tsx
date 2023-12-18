@@ -176,7 +176,7 @@ const TableOTComponent: React.FC<ITableComponentProps<any>> = React.memo(
                 <OTGrillaButtons
                   areaPermissions={OTPermissions}
                   id={id}
-                  toggleEditModal={toggleEditModal}
+                  // toggleEditModal={toggleEditModal}
                 />
               </>
             )}
