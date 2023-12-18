@@ -163,7 +163,7 @@ const useCrud = (
       if(customExport){
         strUrl ='/otros/?query=01'
         console.log(strUrl)
-        response = await axiosInstance.get(`${URLBackend}/api/otros/listado/?query=01`,{
+        response = await axiosInstance.get(`${URLBackend}/api/otros/excel/?query=01`,{
           responseType: 'blob'
         })
 

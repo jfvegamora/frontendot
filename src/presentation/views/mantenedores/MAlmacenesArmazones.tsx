@@ -91,7 +91,7 @@ const MAlmacenesArmazones: React.FC = () => {
   return (
     <div className="mantenedorContainer">
       <div className="mantenedorHead width90">
-      <div className="w-[75%]">
+      <div className="w-[50%]">
         <PrimaryKeySearch
           baseUrl={strBaseUrl}
           setParams={setParams}
@@ -127,7 +127,7 @@ const MAlmacenesArmazones: React.FC = () => {
           strBaseUrl={strBaseUrl}
           showAddButton={true}
           showCopiar={true}
-          // showExportButton={true}
+          showExportButton={true}
           showDeleteButton={true}
           showForwardButton={false}
           showRefreshButton={true}
