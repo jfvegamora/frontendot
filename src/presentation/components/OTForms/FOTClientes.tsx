@@ -65,6 +65,15 @@ const FOTClientes:React.FC<IClientes> = ({
                       onDataChange({['cliente_nombre']: "  "})    
                       onDataChange({['cliente_sexo']: "  "})
                       onDataChange({['cliente_tipo']: "  "})
+                      onDataChange({['cliente_fecha_nacimiento']: " "})
+                      onDataChange({['cliente_correo']: "  "})
+                      onDataChange({['cliente_telefono']: "  "})
+
+
+                      
+                      onDataChange({['cliente_region']:"  "})
+                      onDataChange({['cliente_comuna']:"  "})
+                      onDataChange({['cliente_provincia']:"  "})
 
                       // Realizar acciones específicas para el tipo 1
                     } else if (typeof mensaje === 'string' && mensaje.startsWith('ERROR:')) {

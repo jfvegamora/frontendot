@@ -160,7 +160,10 @@ const useCrud = (
       let strUrl = ''
       let response:any = {}
 
-      if(customExport){
+      console.log(customExport)
+      console.log(query)
+      
+      if(customExport && query){
         strUrl ='/otros/?query=01'
         console.log(strUrl)
         response = await axiosInstance.get(`${URLBackend}/api/otros/excel/?query=01`,{
