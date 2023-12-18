@@ -14,14 +14,14 @@ import { SEXO, TIPO_CLIENTE,
   // a1_od_ad, a1_od_cil, a1_od_eje, a1_od_esf, 
   a2_od_cil, a2_od_eje, a2_od_esf, a2_oi_cil, a2_oi_eje, a2_oi_esf, clearDioptrias,  
   // clearDioptriasA2,  dioptriasHabilitadas, 
-  dioptrias_receta, fecha_despacho, fecha_entrega_cliente, fecha_entrega_taller, 
+   fecha_despacho, fecha_entrega_cliente, fecha_entrega_taller, 
   // reiniciarA2DioptriasReceta, 
   reiniciarDioptriasReceta, reiniciarValidationNivel2, tipo_de_anteojo, validar_parametrizacion } from '../../utils';
 import { validationCliente, validationEstablecimientos, validationFechaAtencion, validationProyectos, validationPuntoVenta, validationTipoAnteojos, validation_A2_OD_CIL, validation_A2_OD_EJE, validation_A2_OD_ESF, validation_A2_OI_CIL, validation_A2_OI_EJE, validation_A2_OI_ESF } from '../../utils/validationOT';
 // import { inputName } from '../../components/OTForms/Otprueba';
 import { verificaCampos } from '../../utils/OTReceta_utils';
 import { URLBackend } from '../../hooks/useCrud';
-import {transponer, transponer_a2 } from '../../utils/FOTReceta_utils';
+// import {transponer, transponer_a2 } from '../../utils/FOTReceta_utils';
 import { Spinner } from '@material-tailwind/react';
 
 const FOTArmazones = lazy(()=>import('../../components/OTForms/FOTArmazones'));
@@ -328,7 +328,7 @@ const FOT:React.FC<IFOTProps> = ({
   closeModal,
   data,
   isEditting,
-  isMOT,
+  // isMOT,
   onlyRead
 }) => {
   // const {createdEntity, editEntity} = useCrud(strBaseUrl);
@@ -783,7 +783,7 @@ const FOT:React.FC<IFOTProps> = ({
   const [_existCliente, setExistCliente] = useState(false);
   const [submitAction, setSubmitAction] = useState('');
   const [strCodigoProyecto, setStrCodigoProyecto] = useState(data && data[EnumGrid.proyecto_codigo] || '')
-  const [isMotivo, setIsMotivo] = useState(false);
+  const [_isMotivo, setIsMotivo] = useState(false);
   const [_toggle, setToggle] = useState();
   const [_changeboolean, setChangeboolean] = useState(false)
 

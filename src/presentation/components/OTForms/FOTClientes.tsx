@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import { RadioButtonComponent, SelectInputComponent, TextInputComponent } from '..'
+import { RadioButtonComponent, SelectInputComponent } from '..'
 import { SEXO, TIPO_CLIENTE } from '../../utils';
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
 import { EnumGrid as EnumClientes } from '../../views/mantenedores/MClientes';
 import axios from 'axios';
-import OTTextInputComponent from './OTTextInputComponent';
+// import OTTextInputComponent from './OTTextInputComponent';
 import { validationOTlevel1 } from '../../utils/validationOT';
 import RegProCom from '../RegProCom';
 import { URLBackend } from '../../hooks/useCrud';
@@ -34,7 +34,7 @@ const FOTClientes:React.FC<IClientes> = ({
     onlyRead,
     register
 }) => {
-    const [clienteData, setClienteData] = useState()
+    const [_clienteData, setClienteData] = useState()
 
     // console.log(onlyRead)
     const fetchCliente = async(cliente_rut:string) => {
@@ -87,7 +87,7 @@ const FOTClientes:React.FC<IClientes> = ({
                     onDataChange({['cliente_nombre']: cliente.data[0][EnumClientes.nombre]})    
                     onDataChange({['cliente_sexo']: cliente.data[0][EnumClientes.sexo]})
                     onDataChange({['cliente_tipo']: cliente.data[0][EnumClientes.tipo]})
-                    
+
                     onDataChange({['cliente_fecha_nacimiento']: cliente.data[0][EnumClientes.fecha_nacimiento]})
                     onDataChange({['cliente_correo']: cliente.data[0][EnumClientes.correo]})
                     onDataChange({['cliente_telefono']: cliente.data[0][EnumClientes.telefono]})
