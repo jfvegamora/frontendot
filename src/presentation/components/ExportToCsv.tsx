@@ -118,7 +118,7 @@ export const ExportCSV: React.FC<Props> = ({
 
     console.log('query', query)
     console.log(strEntidad)
-   
+    
     if(entity){
       console.log(entity)
       const primaryKey =`_p1=${entity[1]}&_p2=${entity[4]}`;

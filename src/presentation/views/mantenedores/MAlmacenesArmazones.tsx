@@ -127,11 +127,12 @@ const MAlmacenesArmazones: React.FC = () => {
           strBaseUrl={strBaseUrl}
           showAddButton={true}
           showCopiar={true}
-          // showExportButton={true}
+          showExportButton={true}
           showDeleteButton={true}
           showForwardButton={false}
           showRefreshButton={true}
           showCustomExportButton={true}
+          customExporTooltip={"Armazones Muestrario"}
           idMenu={idMenu}
           bln_egreso={false}
 

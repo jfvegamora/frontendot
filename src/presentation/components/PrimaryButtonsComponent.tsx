@@ -14,6 +14,7 @@ import { AppStore, useAppSelector } from "../../redux/store";
 import OTPrimaryButtons from "./OTPrimaryButtons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faClone, faArrowsRotate, faTrash, faArrowRightToBracket, faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { ExportCustomCSV } from "./ExportCustomToCsv";
 
 
 interface IPrimaryButtonProps {
@@ -26,6 +27,7 @@ interface IPrimaryButtonProps {
   handleCopiar?: any;
   handleRefresh?: () => void;
   handleAddTipe2?: () => void;
+  customExporTooltip?:string;
   showForwardButton?: boolean;
   showAddButton?: boolean;
   showRefreshButton?: boolean;
@@ -54,6 +56,7 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
     toggleEditModal,
     // showForwardButton
     showCustomExportButton,
+    customExporTooltip,
     showAddButton,
     showRefreshButton,
     showDeleteButton,
@@ -187,11 +190,13 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
 
          
         {showCustomExportButton && (
-          <ExportCSV
+          <ExportCustomCSV
             strEntidad={strEntidad}
             params={params}
             strBaseUrl={strBaseUrl}
             customExport={true}
+            query={"queryExcel"}
+            customExporTooltip={customExporTooltip}
           />
         )}
 
