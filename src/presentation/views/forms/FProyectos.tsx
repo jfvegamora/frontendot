@@ -713,7 +713,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
             <div className="w-full items-center flex h-[50px] ">
                    <FrameComponent>
                       <ContactComponent
-                        label="Referente Técnino"
+                        label="Referente Técnico"
                         control={control}
                         errors={errors}
                         nombre="referente_nombre"

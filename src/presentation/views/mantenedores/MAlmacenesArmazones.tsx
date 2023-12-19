@@ -132,7 +132,7 @@ const MAlmacenesArmazones: React.FC = () => {
           showForwardButton={false}
           showRefreshButton={true}
           showCustomExportButton={true}
-          customExporTooltip={"Armazones Muestrario"}
+          customExporTooltip={"Exportar armazones por muestrario"}
           idMenu={idMenu}
           bln_egreso={false}
 
