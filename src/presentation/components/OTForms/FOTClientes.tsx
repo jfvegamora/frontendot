@@ -74,6 +74,8 @@ const FOTClientes:React.FC<IClientes> = ({
                       onDataChange({['cliente_region']:0})
                       onDataChange({['cliente_comuna']:0})
                       onDataChange({['cliente_provincia']:0})
+                      onDataChange({['cliente_direccion']: "  "})
+
 
                       // Realizar acciones específicas para el tipo 1
                     } else if (typeof mensaje === 'string' && mensaje.startsWith('ERROR:')) {
@@ -361,7 +363,7 @@ const FOTClientes:React.FC<IClientes> = ({
                          defaultComuna={formValues ? formValues["cliente_comuna"]  : data && data[EnumGrid.cliente_comuna_id]}
                          
                         />
-                    <div className="-mt-[1.3rem] w-[101%]">
+                    <div className="-mt-[1.3rem] w-[101%] rowForm">
                         <TextInputInteractive
                             type="text"
                             label="N° calle"

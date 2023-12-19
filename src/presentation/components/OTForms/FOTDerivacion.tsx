@@ -46,7 +46,7 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
     }
 
     const fetchDerivacion = async(jsonData:FormData) => {
-        let _estado = "4";
+        let _estado = 40;
         let _origen = OTAreas["areaActual"].toString();
         let _destino = jsonData.area_hasta;
 
@@ -61,7 +61,7 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
             `motivo=${data[EnumGrid.motivo] === "Venta" ? 1: 2}`,
             `area=${_destino}`,
             `estado=${_estado}`,
-            `estado_validacion=${data[EnumGrid.validar_parametrizacion_id]}`,
+            `validar_parametrizacion=${data[EnumGrid.validar_parametrizacion_id]}`,
             `estado_impresion=${data[EnumGrid.estado_impresion_id]}`,
             ...(data[EnumGrid.proyecto_codigo] !== undefined ? [`proyecto='${data[EnumGrid.proyecto_codigo]}'`] : []),
             ...(data[EnumGrid.establecimiento_id] !== undefined ? [`establecimiento=${data[EnumGrid.establecimiento_id]}`] : []),
@@ -74,7 +74,7 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
 
             ...(data[EnumGrid.punto_venta_id] !== undefined ? [`punto_venta=${data[EnumGrid.punto_venta_id]}`] : []),
             ...(data[EnumGrid.numero_receta] !== undefined ? [`numero_receta=${data[EnumGrid.numero_receta]}`] : []),
-            ...(data[EnumGrid.fecha_receta] !== undefined ? [`fecha_receta='${data[EnumGrid.fecha_receta]}'`] : []),
+            ...(data[EnumGrid.fecha_receta] !== undefined  && data[EnumGrid.fecha_receta] !== null  ? [`fecha_receta='${data[EnumGrid.fecha_receta]}'`] : []),
             ...(data[EnumGrid.tipo_anteojo_id] !== undefined ? [`tipo_anteojo=${data[EnumGrid.tipo_anteojo_id]}`] : []),
             
             
@@ -143,7 +143,7 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
           ];
 
         //   console.log(fields)
-        const filteredFields = fields.map((field) => (field === 'undefined') ? '' : field);
+        const filteredFields = fields.map((field) => (field === 'undefined') ? ' ' : field);
         const _p1 = filteredFields.join(',');
         const cristales = [
             { codigo: `${data[EnumGrid.cristal1_od]}` },
@@ -212,17 +212,24 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
     }
 
 
-   console.log(OTAreas);
-    console.log(data)
+//    console.log(OTAreas);
+    console.log( data && data[EnumGrid.fecha_receta])
+    console.log( data && data[EnumGrid.cristal1_od])
+    console.log( data && data[EnumGrid.cristal1_oi])
+    console.log( data && data[EnumGrid.cristal2_oi])
+    console.log( data && data[EnumGrid.cristal2_oi])
+    console.log( data && data[EnumGrid.a1_armazon_id])
+    console.log( data && data[EnumGrid.a2_armazon_id])
+    console.log( data && data[EnumGrid.a3_armazon_id])
   return (
     <div className='useFormContainer h-[55%] w-[60%] left-[20%] top-[30%] z-30'>
         <div className=" flex justify-end w-full">
             <h2 className='text-2xl cursor-pointer' onClick={onClose}>X</h2>
         </div>
-        <form className='text-center' onSubmit={handleSubmit(onSubmit)}>
+        <form className='text-center  !h-[80%]' onSubmit={handleSubmit(onSubmit)}>
                 <h1 className='text-2xl mt-2'>Derivacion De OT</h1>
 
-                <div className="flex  items-center w-full">
+                <div className="flex  items-center rowForm w-full">
                     <div className="w-[25%] ml-4">
                         <TextInputComponent
                             type="text"
@@ -264,7 +271,7 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
                     </div>
                 </div>
 
-                <div className="w-full flex items-center">
+                <div className="w-full flex items-center !h-20 rowForm !mt-16">
                     <div className="w-[25%] ml-4">
                         <TextInputComponent
                             type="text"
@@ -278,7 +285,7 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
                             // error={errors.fecha_nacimiento}
                         />
                     </div>
-                    <div className="w-[35.2%] ml-4">
+                    <div className="w-[20%] ml-7 mr-16">
                         <SelectInputComponent
                             label="Área hasta"
                             name="area_hasta"
@@ -288,11 +295,12 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
                             // handleSelectChange={handleInputChange}
                             // data={formValues && formValues["proyectos"]}
                             entidad={["/api/tipos/", "02", "OTAreas"]}
+                            customWidth={"w-[18.5rem]"}
                             // error={errors.establecimiento}
                             // customWidth={"345px"}
                         />
                     </div>
-                    <div className="w-[35.2%] ml-4">
+                    <div className="w-[20%] ml-[4.8rem]    ">
                         <SelectInputComponent
                             label="Situacion"
                             name="situacion"
@@ -303,12 +311,13 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
                             // data={formValues && formValues["proyectos"]}
                             entidad={["/api/tipos/", "02", "OTSituaciones"]}
                             // error={errors.establecimiento}
+                            customWidth={"w-[18.5rem]"}
                             // customWidth={"345px"}
                         />
                     </div>
                 </div>
 
-                <div className=" w-full flex items-center">
+                <div className=" w-full flex items-center rowForm">
                     <div className="w-[98%] ml-4">
                         <TextInputComponent
                             type="text"
@@ -322,7 +331,7 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
                     </div>
                 </div>
 
-                <div className=' w-full flex justify-end mx-[-1.5rem]'>
+                <div className=' w-full flex justify-end mx-[-1.5rem] h-12'>
                     <button  type="submit" className='w-[14%] text-xl bg-red-400 text-white'>Derivar</button>
                 </div>
         </form>

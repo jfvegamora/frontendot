@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import axios from "axios";
+import { URLBackend } from "../../presentation/hooks/useCrud";
 
 export interface ITiposListbox {
     CristalesDisenos: [] | null;
@@ -16,6 +17,7 @@ export interface ITiposListbox {
     OTOpcionVentaCristales: [] | null;
     OTTipoAnteojo: [] | null;
     OTAreas: [] | null;
+    OTEstados: [] | null;
     PuntosVentaTipos: [] | null;
     ClientesTipos: [] | null;
     [key: string]: any | undefined;
@@ -23,10 +25,10 @@ export interface ITiposListbox {
 
 const initialState: ITiposListbox | null = {
     CristalesDisenos:        localStorage.getItem("ListBoxTipos.CristalDisenos") ? JSON.parse(localStorage.getItem("ListBoxTipos.CristalDisenos") as string): [],
-    CristalesMateriales:     localStorage.getItem('ListBoxTipos.CristalMateriales') ? JSON.parse(localStorage.getItem('ListBoxTipos.CristalMateriales') as string) : null,
-    CristalesIndices:        localStorage.getItem('ListBoxTipos.CristalIndices') ? JSON.parse(localStorage.getItem('ListBoxTipos.CristalIndices') as string) :null,
-    CristalesColores:        localStorage.getItem('ListBoxTipos.CristalColores') ? JSON.parse(localStorage.getItem('ListBoxTipos.CristalColores') as string) :null,
-    CristalesTratamientos:   localStorage.getItem('ListBoxTipos.CristalTratamientos') ? JSON.parse(localStorage.getItem('ListBoxTipos.CristalTratamientos') as string) :null,
+    CristalesMateriales:     localStorage.getItem('ListBoxTipos.CristalesMateriales') ? JSON.parse(localStorage.getItem('ListBoxTipos.CristalesMateriales') as string) : null,
+    CristalesIndices:        localStorage.getItem('ListBoxTipos.CristalesIndices') ? JSON.parse(localStorage.getItem('ListBoxTipos.CristalesIndices') as string) :null,
+    CristalesColores:        localStorage.getItem('ListBoxTipos.CristalesColores') ? JSON.parse(localStorage.getItem('ListBoxTipos.CristalesColores') as string) :null,
+    CristalesTratamientos:   localStorage.getItem('ListBoxTipos.CristalesTratamientos') ? JSON.parse(localStorage.getItem('ListBoxTipos.CristalesTratamientos') as string) :null,
     
     AlmacenesTipos:          localStorage.getItem('ListBoxTipos.AlmacenesTipos') ? JSON.parse(localStorage.getItem('ListBoxTipos.AlmaceensTipos') as string) : null,
     // TipoInsumos:             localStorage.getItem('ListBoxTipos.TipoInsumos') ? JSON.parse(localStorage.getItem('ListBoxTipos.TipoInsumos') as string) :null,
@@ -39,6 +41,7 @@ const initialState: ITiposListbox | null = {
     OTOpcionVentaCristales:  localStorage.getItem('ListBoxTipos.OTOpcionVentaCristales') ? JSON.parse(localStorage.getItem('ListBoxTipos.OTOpcionVentaCristales') as string) :null,
     OTTipoAnteojo:           localStorage.getItem('ListBoxTipos.OTTipoAnteojo') ? JSON.parse(localStorage.getItem('ListBoxTipos.OTTipoAnteojo') as string) :null,
     OTAreas:                 localStorage.getItem('ListBoxTipos.OTAreas') ? JSON.parse(localStorage.getItem('ListBoxTipos.OTAreas') as string) :null,
+    OTEstados:               localStorage.getItem('ListBoxTipos.OTEstados') ? JSON.parse(localStorage.getItem('ListBoxTipos.OTEstados') as string) :null,
     
     PuntosVentaTipos:        localStorage.getItem('ListBoxTipos.PuntosVentaTipos') ? JSON.parse(localStorage.getItem('ListBoxTipos.PuntosVentaTipos') as string) :null,
     ClientesTipos:           localStorage.getItem('ListBoxTipos.ClientesTipos') ? JSON.parse(localStorage.getItem('ListBoxTipos.ClientesTipos') as string) :null
@@ -47,13 +50,15 @@ const initialState: ITiposListbox | null = {
 
   export const fetchListBoxTipos = createAsyncThunk('listBox/fetchListBoxTipos', async () => {
     try {
-        const {data} = await axios('https://mtoopticos.cl/api/tipos/listado/?query=02')
+        const {data} = await axios(`${URLBackend}/api/tipos/listado/?query=02`)
+        console.log(data)
         return data
     } catch (error) {
         console.log(error)
         throw error;
     }
 });
+
 
 
 const listBoxTiposSlice = createSlice({
@@ -88,7 +93,10 @@ const listBoxTiposSlice = createSlice({
                           state[key] = [];
                         }
                         state[key] = Array.isArray(state[key]) ? [...state[key], [id, value ]] : [[id, value ]];
+
                     })
+
+                    console.log(state)
                 }
 
                 Object.keys(state).forEach((key) => {

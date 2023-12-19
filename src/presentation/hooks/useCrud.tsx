@@ -71,12 +71,10 @@ const useCrud = (
   const secondInputRef  = useRef<HTMLInputElement | null>(null);
 
   const focusFirstInput = (strInputName: string) => {
-    console.log(strInputName)
 
     if(firstInputRef.current) {
       
       const firstInput = firstInputRef.current.querySelector(`input[name=${strInputName}]`);
-      console.log(firstInput)
 
       if (firstInput) {
         (firstInput as HTMLInputElement).focus();
@@ -102,7 +100,6 @@ const useCrud = (
       }
       // console.log(table_name)
       const result = await axios.post(`${URLBackend}/api/typesexcel/`, table_name)
-      console.log(result.data)
       return result.data
     } catch (error) {
       console.log(error)
@@ -120,6 +117,7 @@ const useCrud = (
       );
       return result.data.length > 0 ? "Correo existe" : "Correo no existe";
     } catch (error) {
+      console.log(error)
       return error;
     }
   };
@@ -133,6 +131,7 @@ const useCrud = (
       const response = await axiosInstance.post("/forwardpassword/", body);
       return response.data;
     } catch (error) {
+      console.log(error)
       return error;
     }
   };
@@ -160,12 +159,9 @@ const useCrud = (
       let strUrl = ''
       let response:any = {}
 
-      console.log(customExport)
-      console.log(query)
       
       if(customExport && query){
         strUrl ='/otros/?query=01'
-        console.log(strUrl)
         response = await axiosInstance.get(`${URLBackend}/api/otros/excel/?query=01`,{
           responseType: 'blob'
         })
@@ -173,20 +169,16 @@ const useCrud = (
         // console.log(response)
       }else if (jsonData){
         strUrl = `/excelindividual/?query=06&_pkToDelete=${jsonData}`
-        console.log(jsonData)
-        console.log(strUrl)
   
         response = await axiosInstance.get(strUrl,{
           responseType: 'blob'
         })
-        console.log(response)
       }else{
         //CASO DE USO 1
         strUrl = primaryKey
           ? `/excel/?${query ?  query : "query=01"}&${primaryKey}`
           : `/excel/?${query ? query : "query=01"}`;
   
-        console.log("strurlexcel", strUrl);
   
         response = await axiosInstance.get(strUrl, {
           responseType: "blob",
@@ -220,6 +212,7 @@ const useCrud = (
       link.click();
       URL.revokeObjectURL(fileURL);
     } catch (error) {
+      console.log(error)
       throw new Error("Error al descargar Excel");
     }
   };
@@ -228,17 +221,13 @@ const useCrud = (
     primaryKeys: any,
     query: any
   ): Promise<any | undefined> => {
-    // console.log(primaryKeys)
-    // console.log(baseUrl
-    // const fetcher = (url:string) => axios.get(url).then((res)=>res.data);
-
 
     const searchUrl = baseUrl === 'https://mtoopticos.cl/api/tipos/'
-      ? `${baseUrl}listado/?query=${query}&${primaryKeys || '_p1=OTMotivoGarantia'}`
-      : `${baseUrl}listado/?query=${query}&${primaryKeys}`;
+      ? `${baseUrl}listado/?query=${query === undefined ? "01" : query}&${primaryKeys || '_p1=OTMotivoGarantia'}`
+      : `${baseUrl}listado/?query=${query === undefined ? "01" : query}${primaryKeys === "" ? "&_limit=100" : (`&${primaryKeys}`)}`;
 
     try {
-      console.log("searchUrl", searchUrl);
+      // console.log("searchUrl", searchUrl);  
       const response = await axiosInstance.get(searchUrl);
       return response.data;
     } catch (error) {
@@ -254,7 +243,6 @@ const useCrud = (
     } catch (error:any) {
           const errorMessage = JSON.parse(error.request.responseText).error;
           const mensajeError = procesarMensajeError(errorMessage);
-          console.log(mensajeError);
           return new Error(mensajeError)
     }
   };

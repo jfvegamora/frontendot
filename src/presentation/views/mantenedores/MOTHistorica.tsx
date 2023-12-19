@@ -10,7 +10,7 @@ import {
 } from "../../components";
 import { useEntityUtils } from "../../hooks";
 // import FUsuarios from "../forms/FUsuarios";
-import { ESTADO_OT, MOTIVO_OT, TITLES, table_head_OT_diaria } from "../../utils";
+import { MOTIVO_OT, TITLES, table_head_OT_historica } from "../../utils";
 import { OptionValuesMotivo } from "./MOT";
 import FOT from "../forms/FOT";
 
@@ -152,7 +152,7 @@ export enum EnumGrid {
 const strEntidad = "Orden de Trabajo ";
 const strEntidadExcel = "Ordenes de trabajo";
 const strBaseUrl = "/api/othistorica/";
-const strQuery = "01";
+const strQuery = "14";
 const idMenu = 1;
 
 type PrimaryKey = {
@@ -174,6 +174,7 @@ const MUsuarios: React.FC = () => {
     isModalInsert,
     isModalEdit,
     toggleEditModal,
+    toggleEditOTModal,
     openModal,
     closeModal,
     //Check methods
@@ -203,19 +204,23 @@ const MUsuarios: React.FC = () => {
     });
   }, [selectedRows]);
 
+
   return (
     <div className="mantenedorContainer">
-      <h1 className="mantenedorH1">Órdenes de Trabajo</h1>
+      {/* <h1 className="mantenedorH1">Órdenes de Trabajo</h1> */}
 
-      <div className="mantenedorHead width90  items-center">
+      <div className="mantenedorHead width90  items-center relative">
         <PrimaryKeySearch
           baseUrl={strBaseUrl}
           setParams={setParams}
           updateParams={updateParams}
+          strQuery={strQuery}
           setEntities={setEntities}
+          otHistorica={true}
           primaryKeyInputs={[
             { name: "_folio", label: "Folio", type: "text" },
             { name: "_rut", label: "Rut", type: "text" },
+            { name: "_nombre", label: "Nombre", type: "text" },
             {
                 name: "_proyecto",
                 label: "Proyecto",
@@ -237,17 +242,11 @@ const MUsuarios: React.FC = () => {
               },
             {
                 name: "_estado",
-                label: "Estado",
-                type: "radiobuttons",
-                options: [
-                  ESTADO_OT.todos,
-                  ESTADO_OT.entregada,
-                  ESTADO_OT.anulada,
-                ],
-                values: OptionValuesMotivo,
-              },
-              { name: "_nombre", label: "Nombre", type: "text" },
-              
+                label: "OTEstado",
+                type: "select",
+                selectUrl:"/api/tipos/s",
+                tipos: "OTEstados"
+              },              
               {
                   name: "_establecimiento",
                   label: "Establecimiento",
@@ -259,7 +258,7 @@ const MUsuarios: React.FC = () => {
             
           ]}
         />
-
+        <div className="w-[50%]  bottom-8 right-0 absolute">
         <PrimaryButtonsComponent
           handleAddPerson={openModal}
           handleDeleteSelected={handleDeleteSelected}
@@ -275,6 +274,8 @@ const MUsuarios: React.FC = () => {
           showRefreshButton={true}
           idMenu={idMenu}
         />
+
+        </div>
       </div>
 
       <div className="scroll">
@@ -282,16 +283,18 @@ const MUsuarios: React.FC = () => {
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
           toggleEditModal={toggleEditModal}
+          toggleEditOTModal={toggleEditOTModal}
           handleDeleteSelected={handleDeleteSelected}
           selectedRows={selectedRows}
           pkToDelete={pkToDelete}
           setSelectedRows={setSelectedRows}
           entidad={strEntidad}
           data={entities}
-          tableHead={table_head_OT_diaria}
+          tableHead={table_head_OT_historica}
           showEditButton={true}
           showDeleteButton={false}
           idMenu={idMenu}
+          isOT={true}
         />
       </div>
 

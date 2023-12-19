@@ -89,17 +89,15 @@ const FOTOptica:React.FC<IOptica> = ({
 
     
 
-    const handleSwitchValidation = (event:any) => {
+    const handleSwitchValidation = async(event:any) => {
         setIsToggleValidacion((prev)=>!prev)
         console.log(event)
-
-        try {
-            //p2
-            //folio
-            //usuario
-            //origen
-            //estado    
-
+        try { 
+            const query = `?query=07&_folio=${data[EnumGrid.folio]}&_p2=${event === true ? 1 : 0}&_estado=${_estado}&_usuario=${userID}&_origen=${_origen}`
+            const result = await axios(`${strUrl}/${query}`);
+            if(result.status === 200){
+                toast.success('Estado cambiado')
+            }
 
         } catch (error) {
             console.log(error)

@@ -8,6 +8,7 @@ import useCrud from "../hooks/useCrud";
 import { SelectInputComponent } from ".";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import SelectInputTiposComponent from "./forms/SelectInputTiposComponent";
 
 interface IPrimaryKeyState {
   [key: string]: string | number;
@@ -16,6 +17,7 @@ interface IPrimaryKeyState {
 interface PrimaryKeySearchProps {
   setEntities: any;
   setParams?: any;
+  strQuery?:any;
   primaryKeyInputs: {
     label: string;
     type: string;
@@ -29,6 +31,7 @@ interface PrimaryKeySearchProps {
   baseUrl: string;
   updateParams: any;
   description?: any;
+  otHistorica?:boolean
 }
 
 
@@ -37,7 +40,7 @@ interface PrimaryKeySearchProps {
 // ));
 
 const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
-  ({ setEntities, primaryKeyInputs, baseUrl, updateParams, description }) => {
+  ({ setEntities, primaryKeyInputs, baseUrl, updateParams, description,strQuery, otHistorica }) => {
     const { control, handleSubmit } = useForm<IPrimaryKeyState>();
     const [cilindrico, setCilindrico] = useState();
     const [inputValues, setInputValues] = useState<IPrimaryKeyState>({});
@@ -56,7 +59,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
     
     const handleInputChange = React.useCallback(
       (name: string, value: string) => {
-        console.log(name)
+        // console.log(name)
         setInputValues((prev) => ({ ...prev, [name]: value }));
       },
       [inputValues, updateParams]
@@ -96,7 +99,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
 
       const searchParams = Object.entries(data)
         .map(([key, value]: any) =>
-          key === "_p1" || value ? `${key}=${encodeURIComponent(value)}` : ""
+          key === "" || value ? ( key.includes('_proyecto') ? `${key}=${encodeURIComponent(value)}` :`${key}=${encodeURIComponent(value)}`) : "" 
         )
         .filter((param) => param !== "")
         .join("&");
@@ -105,7 +108,14 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
       // console.log(data)
       // console.log(searchParams)
       try {
-        const response = await ListEntity(searchParams, "01");
+        // console.log(searchParams)
+
+        // if(searchParams.includes('_proyecto')){
+
+        // }
+        console.log(data)
+        console.log(searchParams)
+        const response = await ListEntity(searchParams, strQuery);
         setEntities(response);
       } catch (error) {
         console.log(error);
@@ -138,7 +148,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
           key={groupIndex}
           className={
             primaryKeyInputs.length > 5
-              ? `grid grid-rows-3 w-[40vw] h-[30vh] grid-cols-2 items-center `
+              ? `${otHistorica ? "grid grid-rows-3 grid-cols-2 " : "grid grid-rows-3 grid-cols-2"} w-[40vw] h-[30vh]  items-center `
               : "flex mb-auto items-cente w-[70rem]  items-center "
           }
         >
@@ -248,28 +258,45 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                 </div>
               ) : input.type === "select" ? (
               // <div className={`input-container ${input.styles?.with ? input.styles.with : "!w-[20rem]"}`}>
-              <div className="input-container ">
-                  {/* <div className={` ${primaryKeyInputs.length > 4 ? "w-full" : "w-[13rem]"}`}> */}
-                  {/* <div className={`${input.styles?.with ? input.styles.with : ""} `}> */}
-                  <div className="w-full ">
-                        <SelectInputComponent
-                          label={input.label}
-                          name={input.name}
-                          showRefresh={true}
-                          control={control}
-                          entidad={
-                            input.tipos
-                              ? [input.selectUrl, "02", input.tipos]
-                              : [input.selectUrl, "02"]
-                          }
-                          inputName={input.name}
-                          inputValues={inputValues}
-                          setHandleSearch={handleSearch}
-                          handleSelectChange={handleSelectChange}
-                          customWidth={input.styles?.with}
-                        />
-                  </div>
+              input.tipos ? (
+                <div className="input-container">
+                    <SelectInputTiposComponent
+                      label={input.label}
+                      name={input.name}
+                      showRefresh={true}
+                      control={control}
+                      entidad={input.tipos}
+                      inputName={input.name}
+                      inputValues={inputValues}
+                      setHandleSearch={handleSearch}
+                      handleSelectChange={handleSelectChange}
+                      customWidth={input.styles?.with}
+                    />
                 </div>
+              ): (
+                <div className="input-container ">
+                    {/* <div className={` ${primaryKeyInputs.length > 4 ? "w-full" : "w-[13rem]"}`}> */}
+                    {/* <div className={`${input.styles?.with ? input.styles.with : ""} `}> */}
+                    <div className="w-full ">
+                          <SelectInputComponent
+                            label={input.label}
+                            name={input.name}
+                            showRefresh={true}
+                            control={control}
+                            entidad={
+                              input.tipos
+                                ? [input.selectUrl, "02", input.tipos]
+                                : [input.selectUrl, "02"]
+                            }
+                            inputName={input.name}
+                            inputValues={inputValues}
+                            setHandleSearch={handleSearch}
+                            handleSelectChange={handleSelectChange}
+                            customWidth={input.styles?.with}
+                          />
+                    </div>
+                  </div>
+              )
               ) : input.type === "date" ? (
                 <div className={`input-container !mr-[1rem] !mt-[0.2rem] 
                               ${input.styles?.with ? input.styles.with : ""}`}>

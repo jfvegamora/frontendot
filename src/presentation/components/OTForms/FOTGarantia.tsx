@@ -43,14 +43,17 @@ const FOTGarantia:React.FC<IProps> = ({
         }
         console.log(query)
         const result = await createdEntity(query)
+        console.log(result)
         const nuevoFolio = result && result["datos"][0][0]
         
+        
 
-        toast.success(`Nueva OT creada con folio: ${nuevoFolio}}`)  
+        toast.success(`Nueva OT creada con folio: ${nuevoFolio}`)
+        onClose()  
     }
 
     //LOGICA OT GARANTIA
-    // console.log(data)
+    console.log(data)
   return (
     <div className='useFormContainer h-[50%] w-[60%] left-[20%] top-[30%] z-30'>
         <div className=" flex justify-end w-full">

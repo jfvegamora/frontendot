@@ -1117,7 +1117,8 @@ useEffect(() => {
 // console.log(isEditting)
   // console.log(data)
 
-  
+  console.log(data)
+
 
   return (
 

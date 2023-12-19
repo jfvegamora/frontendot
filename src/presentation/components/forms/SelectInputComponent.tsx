@@ -120,10 +120,11 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
         // console.log('cambio')
     },[strUrl2])
     // console.log(refreshToggle)
-
+    // console.log(state)
+    // console.log(label)
     // console.log('render')
     const { refreshData } = useEntityUtils(strUrl, entidad[1]);
-
+    console.log(state)
     const renderInput = () => (
       <Controller
           name={name}

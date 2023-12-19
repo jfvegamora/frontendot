@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 
 import { useCrud } from ".";
 import { useModal } from "./useModal";
-import { baseURL } from "./useCrud";
+import { URLBackend, baseURL } from "./useCrud";
 import { AppStore, useAppDispatch, useAppSelector } from "../../redux/store";
 import { fetchOTByID } from "../../redux/slices/OTSlice";
 import axios from "axios";
@@ -124,7 +124,7 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
     console.log(rowIndex)
       console.log(folio)
       console.log(areaActual)
-      const response = await axios(`https://gestiondev.mtoopticos.cl/api/ot/listado/?query=01&_origen=${areaActual}&_folio=${folio}`)
+      const response = await axios(`${URLBackend}/api/ot/listado/?query=01&_folio=${folio}`)
       console.log(response.data[0])
       setEntity(response.data[0])
       dispatch(fetchOTByID({ folio: folio, OTAreas: areaActual }));
