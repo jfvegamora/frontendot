@@ -1,4 +1,5 @@
 import React,{
+    useEffect,
     // useEffect, 
     useState} from 'react'
 import { RadioButtonComponent, SelectInputComponent, TextInputComponent } from '..'
@@ -12,6 +13,7 @@ import SelectInputTiposComponent from '../forms/SelectInputTiposComponent';
 import { AppStore, useAppSelector } from '../../../redux/store';
 import { URLBackend } from '../../hooks/useCrud';
 import { codigoProyecto } from '../../views/forms/FOT';
+import { toast } from 'react-toastify';
 
 interface IOptica {
     control:any,
@@ -49,6 +51,7 @@ const FOTOptica:React.FC<IOptica> = ({
     const [strCodigoProyecto, setStrCodigoProyecto] = useState("");
     const userID:any = useAppSelector((store: AppStore) => store.user?.id);
     const _origen:any = useAppSelector((store: AppStore) => store.OTAreas.areaActual);
+    const _estado = data && data[EnumGrid.estado_id]
 
 
    
@@ -91,7 +94,13 @@ const FOTOptica:React.FC<IOptica> = ({
         console.log(event)
 
         try {
-            
+            //p2
+            //folio
+            //usuario
+            //origen
+            //estado    
+
+
         } catch (error) {
             console.log(error)
             throw error
@@ -101,29 +110,12 @@ const FOTOptica:React.FC<IOptica> = ({
     
     const handleSwitchImpresion = async (event:any) => {
         setIsToggleImpresion((prev)=>!prev)
-        console.log(event)
-        const _estado = data && data[EnumGrid.estado_id]
-        //_folio= folio ot
-        //_p2 = 1 si se activa y 0 si se apaga
         try {
-            //_p2
-            //_folio
-            
-            //_usuario
-            //_origen
-            //_estado
-
-            console.log(_estado)
-            console.log(userID)
-            console.log(_origen)
-
-
-            const query = `?query=06&_folio=${data[EnumGrid.folio]}&_p2=${event === true ? 1 : 0}`
-            const endpoint = `${strUrl}/${query}`
-            console.log(endpoint)
+            const query = `?query=06&_folio=${data[EnumGrid.folio]}&_p2=${event === true ? 1 : 0}&_estado=${_estado}&_usuario=${userID}&_origen=${_origen}`
             const result = await axios(`${strUrl}/${query}`);
-            console.log(result)
-            
+            if(result.status === 200){
+                toast.success('Estado cambiado')
+            }
         } catch (error) {
             console.log(error)
             throw error
@@ -131,9 +123,15 @@ const FOTOptica:React.FC<IOptica> = ({
     }
 
 
+    useEffect(()=>{
+        if(data){
+            data[EnumGrid.estado_impresion_id] === '1' ? setIsToggleImpresion(true) : setIsToggleValidacion(false);
+            data[EnumGrid.validar_parametrizacion_id] === '1' ? setIsToggleValidacion(true) : setIsToggleValidacion(false);
+        }
+    },[data])
 //  console.log(fecha_entrega_taller.ue)
 // console.log(data[33])
-// console.log(data && data[EnumGrid.fecha_entrega_cliente])
+console.log(isToggleValidacion)
 // console.log(isEditting)
 // console.log(fecha_despacho.value)
 

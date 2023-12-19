@@ -219,7 +219,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                     const alignment = tableHead && tableHead[col].alignment;
                     // console.log(folio)
                     // console.log(rowData[5])
-                    const color = rowData[5] === 99 ? "gray" : "";
+                    const color = rowData[34] === 'S' ? "gray" : "";
                     const type = color === 'gray' ? 1: 0
                   
                     return (

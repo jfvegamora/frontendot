@@ -28,7 +28,6 @@ const RadioButtonComponent: React.FC<IRadioButtonProps> = ({
   readOnly,
   tabIndex,
 }) => {
-  const [currentValue, setCurrentValue] = useState<any>(data || "");
 
 
   const [value,setValue] = useState<any>();
@@ -38,7 +37,6 @@ const RadioButtonComponent: React.FC<IRadioButtonProps> = ({
   useEffect(() => {
     if(data){
       setValue(data)
-      setCurrentValue(data || "");
     }
   }, [data]);
 
@@ -59,7 +57,7 @@ const RadioButtonComponent: React.FC<IRadioButtonProps> = ({
             key={index}
             name={name}
             control={control}
-            defaultValue={currentValue}
+            defaultValue={value}
             render={({ field }) => (
               <label className="flex items-center cursor-pointer ">
                 <input
@@ -71,12 +69,12 @@ const RadioButtonComponent: React.FC<IRadioButtonProps> = ({
                   checked={value === option}
                   className={`mr-2 transform scale-150 ${field.value === option ? 'text-orange-500' : 'text-gray-500'}`}
                   onChange={(e) => {
-                    field.onChange(e.target.value);
+                    console.log(option)
+                    field.onChange(option);
                     if (onChange) {
                       onChange(e.target);
                     }
-                    setValue(e.target.value)
-                    setCurrentValue(e.target.value);
+                    setValue(option)
                   }}
                   ref={inputRef}
                 />

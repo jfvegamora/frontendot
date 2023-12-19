@@ -32,7 +32,7 @@ const RegProCom:React.FC<IProps> = ({
 }) => {
     // const firstProvinciaID = signal(null)
 
-  const { data: regions } = useSWR('https://mtoopticos.cl/api/regiones/listado/?query=02', fetcher);
+  let { data: regions } = useSWR('https://mtoopticos.cl/api/regiones/listado/?query=02', fetcher);
   
   const [selectedRegion, setSelectedRegion] = useState(defaultRegion || 0);
   
@@ -60,7 +60,9 @@ const RegProCom:React.FC<IProps> = ({
     console.log('cambio')
     setSelectedRegion(regionId);
     setSelectedProvince(0);
-    setSelectedCommune(provinces[0][0])
+    if(provinces){
+        setSelectedCommune(provinces[0][0])
+    }
   };
 
   const handleProvinceChange = (e: { target: { value: string; }; }) => {
@@ -86,7 +88,10 @@ const RegProCom:React.FC<IProps> = ({
 // console.log(defaultComuna)
 
 useEffect(()=>{
-
+    console.log(defaultRegion)
+    if(defaultRegion === 0){
+        regions = []
+    }
     if(defaultRegion){
         setSelectedRegion(defaultRegion)
         if(defaultProvincia){
@@ -102,6 +107,10 @@ useEffect(()=>{
 
 
 },[defaultComuna, defaultProvincia, defaultRegion])
+
+console.log(provinces)
+console.log(regions)
+
   return (
     <div className='w-full pb-2 items-center '>
         <div className="w-[93%] mb-4">

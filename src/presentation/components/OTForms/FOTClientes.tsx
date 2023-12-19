@@ -70,10 +70,10 @@ const FOTClientes:React.FC<IClientes> = ({
                       onDataChange({['cliente_telefono']: "  "})
 
 
-                      
-                      onDataChange({['cliente_region']:"  "})
-                      onDataChange({['cliente_comuna']:"  "})
-                      onDataChange({['cliente_provincia']:"  "})
+
+                      onDataChange({['cliente_region']:0})
+                      onDataChange({['cliente_comuna']:0})
+                      onDataChange({['cliente_provincia']:0})
 
                       // Realizar acciones específicas para el tipo 1
                     } else if (typeof mensaje === 'string' && mensaje.startsWith('ERROR:')) {
