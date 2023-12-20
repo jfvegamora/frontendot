@@ -77,7 +77,7 @@ const MOftalmologos: React.FC = () => {
             setEntities={setEntities}
             primaryKeyInputs={[
               { name: "_p1", label: "RUT", type: "text", styles:{with:" !w-[8rem]"}, },
-              { name: "_p3", label: "Nombre", type: "text" },
+              { name: "_p3", label: "Nombre", type: "text", styles:{with:" !w-[16rem]"}, },
             ]}
           />
         </div>

@@ -79,8 +79,8 @@ const MMandantes: React.FC = () => {
             updateParams={updateParams}
             setEntities={setEntities}
             primaryKeyInputs={[
-              { name: "_p2", label: "Código", type: "number", styles:{with:" !mt-[-1.3rem] !pr-[1rem]"}, },
-              { name: "_p1", label: "Nombre", type: "text" },
+              { name: "_p2", label: "Código", type: "number", styles:{with:"!w-[8rem] !mt-[-1.3rem] !pr-[1rem]"}, },
+              { name: "_p1", label: "Nombre", type: "text", styles:{with:" !w-[16rem]"}, },
             ]}
           />
         </div>
