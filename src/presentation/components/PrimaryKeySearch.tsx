@@ -148,7 +148,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
           key={groupIndex}
           className={
             primaryKeyInputs.length > 5
-              ? `${otHistorica ? "grid grid-rows-3 grid-cols-2 " : "grid grid-rows-3 grid-cols-2"} w-[40vw] h-[30vh]  items-center `
+              ? `${otHistorica ? "grid grid-rows-3  grid-cols-2 " : "grid grid-rows-3 grid-cols-2"} w-[40vw] h-[30vh]  items-center `
               : "flex mb-auto items-cente w-[70rem]  items-center "
           }
         >
@@ -259,7 +259,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
               ) : input.type === "select" ? (
               // <div className={`input-container ${input.styles?.with ? input.styles.with : "!w-[20rem]"}`}>
               input.tipos ? (
-                <div className="input-container">
+                <div className="input-container !mt-[0.4rem]">
                     <SelectInputTiposComponent
                       label={input.label}
                       name={input.name}
@@ -298,7 +298,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                   </div>
               )
               ) : input.type === "date" ? (
-                <div className={`input-container !mr-[1rem] !mt-[0.2rem] 
+                <div className={`input-container relative rowForm !mr-[1rem] !mt-[0.2rem] 
                               ${input.styles?.with ? input.styles.with : ""}`}>
                   {/* <label className="primaryKeyLabel items-center text-xs mt-1 absolute top-[-1rem]">{input.label}</label> */}
                   <label className="primaryKeyLabel items-center text-base mt-1 absolute top-[-1.1rem]">{input.label}</label>
@@ -307,9 +307,10 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                     control={control}
                     defaultValue=""
                     render={({ field }) => (
-                      <input
+                      <Input
                         type="date"
-                        className="h-[2.5rem] w-full border border-gray-500 rounded"
+                        color="orange"
+                        className="h-[3rem] w-full border border-gray-500 rounded "
                         {...field}
                         value={field.value || ""}
                         onChange={(e) => {

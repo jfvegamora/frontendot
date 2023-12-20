@@ -9,15 +9,18 @@ import { BUTTON_MESSAGES } from '../utils';
 type AreaButtonsProps ={
     areaPermissions:string;
     id:number
-    toggleEditOTModal?: (id: number, folio:any) => void;
-    folio?:number
+    toggleEditOTModal?: (folio: any, historica:any) => void;
+    folio?:number;
+    entidad?:string
 }
 
 const strEntidad = "Orden de Trabajo";
 
-const OTGrillaButtons:React.FC<AreaButtonsProps> = React.memo(({ areaPermissions, id, toggleEditOTModal,folio }) => {
+const OTGrillaButtons:React.FC<AreaButtonsProps> = React.memo(({ areaPermissions, toggleEditOTModal,folio,entidad }) => {
     const { escritura_lectura } = usePermission(28);
+    let historica = false;
     console.log(toggleEditOTModal)
+    entidad === "Orden de Trabajo Hisotrico" ? historica = true : historica = false
     return (
         <div className='flex items-center'>
             {toggleEditOTModal && (
@@ -25,7 +28,7 @@ const OTGrillaButtons:React.FC<AreaButtonsProps> = React.memo(({ areaPermissions
                     <IconButton
                         variant="text"
                         color="blue-gray"
-                        onClick={() => toggleEditOTModal(id, folio)}
+                        onClick={() => toggleEditOTModal(folio, historica)  }
                     >
                         <PencilIcon className="gridIcons" />
                     </IconButton>

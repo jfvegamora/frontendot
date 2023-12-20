@@ -10,8 +10,8 @@ import {
 } from "../../components";
 import { useEntityUtils } from "../../hooks";
 // import FUsuarios from "../forms/FUsuarios";
-import { MOTIVO_OT, TITLES, table_head_OT_historica } from "../../utils";
-import { OptionValuesMotivo } from "./MOT";
+import { TITLES, table_head_OT_historica } from "../../utils";
+// import { OptionValuesMotivo } from "./MOT";
 import FOT from "../forms/FOT";
 
 export enum EnumGrid {
@@ -149,7 +149,7 @@ export enum EnumGrid {
 }
 
 
-const strEntidad = "Orden de Trabajo ";
+const strEntidad = "Orden de Trabajo Hisotrico";
 const strEntidadExcel = "Ordenes de trabajo";
 const strBaseUrl = "/api/othistorica/";
 const strQuery = "14";
@@ -227,19 +227,9 @@ const MUsuarios: React.FC = () => {
                 type: "select",
                 selectUrl: "/api/proyectos/",
               },
-            { name: "_fecha_desde", label: "Desde", type: "date" },
-          
-            {
-                name: "_motivo",
-                label: "Motivo",
-                type: "radiobuttons",
-                options: [
-                  MOTIVO_OT.todos,
-                  MOTIVO_OT.venta,
-                  MOTIVO_OT.garantia,
-                ],
-                values: OptionValuesMotivo,
-              },
+            { name: "_fecha_desde", label: "Desde", type: "date", styles:{with:"w-[17.3rem]  !h-[6rem]"} },
+            { name: "_fecha_hasta", label: "Hasta", type: "date" ,styles:{with:"w-[17.3rem]  !h-[6rem]"}},
+            // {name:"_motivo", label:"motivo",type:"radio" },
             {
                 name: "_estado",
                 label: "OTEstado",
@@ -247,13 +237,19 @@ const MUsuarios: React.FC = () => {
                 selectUrl:"/api/tipos/s",
                 tipos: "OTEstados"
               },              
+            {
+                name: "_motivo",
+                label: "OTMotivo",
+                type: "select",
+                selectUrl:"/api/tipos/s",
+                tipos: "OTMotivo"
+              },              
               {
                   name: "_establecimiento",
                   label: "Establecimiento",
                   type: "select",
                   selectUrl: "/api/establecimientos/",
                 },
-                { name: "_fecha_hasta", label: "Hasta", type: "date" },
             
             
           ]}
@@ -307,6 +303,7 @@ const MUsuarios: React.FC = () => {
           setEntities={setEntities}
           params={params}
           isEditting={false}
+          isMOT={false}
         />
       )}
 

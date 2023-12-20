@@ -16,13 +16,14 @@ import { SEXO, TIPO_CLIENTE,
   // clearDioptriasA2,  dioptriasHabilitadas, 
    fecha_despacho, fecha_entrega_cliente, fecha_entrega_taller, 
   // reiniciarA2DioptriasReceta, 
-  reiniciarDioptriasReceta, reiniciarValidationNivel2, tipo_de_anteojo, validar_parametrizacion } from '../../utils';
+  reiniciarDioptriasReceta, reiniciarValidationNivel1, reiniciarValidationNivel2, tipo_de_anteojo, validar_parametrizacion } from '../../utils';
 import { validationCliente, validationEstablecimientos, validationFechaAtencion, validationProyectos, validationPuntoVenta, validationTipoAnteojos, validation_A2_OD_CIL, validation_A2_OD_EJE, validation_A2_OD_ESF, validation_A2_OI_CIL, validation_A2_OI_EJE, validation_A2_OI_ESF } from '../../utils/validationOT';
 // import { inputName } from '../../components/OTForms/Otprueba';
 import { verificaCampos } from '../../utils/OTReceta_utils';
 import { URLBackend } from '../../hooks/useCrud';
 // import {transponer, transponer_a2 } from '../../utils/FOTReceta_utils';
 import { Spinner } from '@material-tailwind/react';
+import { toast } from 'react-toastify';
 
 const FOTArmazones = lazy(()=>import('../../components/OTForms/FOTArmazones'));
 const FOTBitacora = lazy(()=>import('../../components/OTForms/FOTBitacora'));
@@ -328,7 +329,7 @@ const FOT:React.FC<IFOTProps> = ({
   closeModal,
   data,
   isEditting,
-  // isMOT,
+  isMOT,
   onlyRead
 }) => {
   // const {createdEntity, editEntity} = useCrud(strBaseUrl);
@@ -353,9 +354,14 @@ const FOT:React.FC<IFOTProps> = ({
   
 
 
-
+  const handleCloseForm = () => {
+      closeModal();
+      clearDioptrias();
+      reiniciarDioptriasReceta();
+      reiniciarValidationNivel2();
+      reiniciarValidationNivel1();
+  }
   React.useEffect(()=>{
-    console.log('render')
     validar_parametrizacion.value = data && data[EnumGrid.validar_parametrizacion_id]
 
     const permiso = OTAreaActual && permissions(OTAreaActual)
@@ -704,14 +710,16 @@ const FOT:React.FC<IFOTProps> = ({
 
   const insertOT = async(jsonData:any) => {
 
-    let estado = 20;
+    let estado = 10;
     let estado_impresion = 0;
     let estado_validacion = 1;
     let motivo = 1;
+
     let a1_grupo = 1;
     let a2_grupo = 99;
+    
     let origen = 50;
-    let destino = 60;
+    let destino = 50;
 
     // let _p3 = [`nombre='${jsonData.cliente_nombre}'`, `tipo=${jsonData.cliente_tipo === TIPO_CLIENTE.beneficiario ? 1 : jsonData.cliente_tipo === TIPO_CLIENTE.particular ? 2 : jsonData.cliente_tipo === TIPO_CLIENTE.optica ? 3 : 0}`, `sexo=${jsonData.cliente_sexo === SEXO.masculino ? 1 : jsonData.cliente_sexo === SEXO.femenino ? 2 : jsonData.cliente_sexo === SEXO.no_aplica ? 3 : 0}`, `fecha_nacimiento='${jsonData.cliente_fecha_nacimiento}'`, `direccion='${jsonData.cliente_direccion}'`, `comuna=${jsonData.cliente_comuna || 150}`, `telefono='${jsonData.cliente_telefono}'`, `correo='${jsonData.cliente_correo}'`, `establecimiento=${jsonData.establecimiento_id}`].join(', ');
     let  _p3 =`"${jsonData.cliente_rut || formValues.cliente.cliente_rut || ""}","${jsonData.cliente_nombre || formValues.cliente.cliente_nombre || ""}",${jsonData.cliente_tipo === TIPO_CLIENTE.beneficiario ? "1" : jsonData.cliente_tipo === TIPO_CLIENTE.particular ? "2" : jsonData.cliente_tipo === TIPO_CLIENTE.optica ? "3" : "0"}, ${jsonData.cliente_sexo === SEXO.masculino ? "1" : jsonData.cliente_sexo === SEXO.femenino ? "2" : jsonData.cliente_sexo === SEXO.no_aplica ? "3" : "0"},"${jsonData.cliente_fecha_nacimiento || formValues.cliente.cliente_fecha_nacimiento || ""}","${jsonData.cliente_direccion || ""}" ,${jsonData.cliente_comuna || 150}, "${jsonData.cliente_telefono || formValues.cliente.cliente_telefono || ""}","${jsonData.cliente_correo || formValues.cliente.cliente_correo || ""}", ${jsonData.establecimiento_id || formValues.cliente.establecimiento_id || 0}`;
@@ -789,6 +797,31 @@ const FOT:React.FC<IFOTProps> = ({
 
 
 
+ 
+  //HANDLE ANULAR OT
+  const handleAnular = async()=> {
+    try {
+      const strUrl = `${URLBackend}/api/ot/listado`
+      const _folio = data && data[EnumGrid.folio]
+      const _estado = data && data[EnumGrid.estado_id]
+      const userID =  User.id
+      const _origen = OTAreaActual
+
+        console.log('click')
+
+        const query = `?query=05&_folio=${_folio}&_estado=${_estado}&_usuario=${userID}&_origen=${_origen}`
+        const result = await axios(`${strUrl}/${query}`);
+        console.log(result)
+        if(result.status === 200){
+            toast.success('OT anulada ')
+        }
+        handleCloseForm()
+    } catch (error) {
+        console.log(error)
+        throw error
+    }
+}
+
   
   // console.log(strCodigoProyecto)
 
@@ -824,6 +857,8 @@ const FOT:React.FC<IFOTProps> = ({
     }
 
   };
+
+
 
 
 
@@ -1100,10 +1135,7 @@ console.log(validationNivel1.value)
 useEffect(() => {
   const handleKeyDown = (event: KeyboardEvent) => {
     if (event.key === "Escape") {
-      closeModal();
-      clearDioptrias();
-      reiniciarDioptriasReceta();
-      reiniciarValidationNivel2();
+      handleCloseForm()
     }
   };
 
@@ -1117,8 +1149,17 @@ useEffect(() => {
 // console.log(isEditting)
   // console.log(data)
 
-  console.log(data)
 
+
+  // console.log(data)
+  // console.log(OTAreaActual)
+  console.log(OTPermissions)
+  // console.log(OTPermissions[9])
+  // console.log(sumatoriaNivel1)
+
+  // console.log(data && data[EnumGrid.estado_id])
+  // console.log(isMotivo)
+  console.log(isMOT)
 
   return (
 
@@ -1135,7 +1176,7 @@ useEffect(() => {
         </TabList>
 
    <Suspense fallback={<div className="flex items-center justify-center h-screen"><Spinner className="h-12 w-12" style={{ color: '#f39c12' }} /></div>}>
-      <div className='top-0 absolute right-3 text-2xl cursor-pointert' onClick={()=>{closeModal(), clearDioptrias(), reiniciarDioptriasReceta(), reiniciarValidationNivel2()}}>X</div>
+      <div className='top-0 absolute right-3 text-2xl cursor-pointert' onClick={()=>{handleCloseForm()}}>X</div>
             <TabPanel onSelect={loadFormData}>
               <FOTOptica onlyRead={onlyRead} setIsMotivo={setIsMotivo} isEditting={isEditting} data={data && data} formValues={formValues["optica"]} control={control} setToggle={setToggle}  onDataChange={(data:any) => handleFormChange(data , 'optica')} permiso_estado_impresion={permiso_estado_impresion} permiso_estado_validacion={permiso_estado_validacion} permiso_resolucion_garantia={permiso_resolucion_garantia} />
             </TabPanel>
@@ -1157,7 +1198,7 @@ useEffect(() => {
           </TabPanel>
 
           <TabPanel>
-            <FOTBitacora otFolio={data && data[EnumGrid.folio]}/>
+            <FOTBitacora isMOT={isMOT} otFolio={data && data[EnumGrid.folio]}/>
           </TabPanel>
 
           {showGarantia && (
@@ -1180,7 +1221,7 @@ useEffect(() => {
           <div className='flex items-center mx-auto  justify-around w-1/2 '>
         
                 {isEditting && 
-                // isMOT       && 
+                isMOT       && 
                 // isMotivo    &&  (
                   (
                     <button className='bg-green-400 mx-4 text-white w-1/4' onClick={() => setShowGarantia(prev => !prev)}>
@@ -1189,6 +1230,7 @@ useEffect(() => {
                 )}
 
                 {OTPermissions && 
+                !isMOT &&
                 OTPermissions[6] === "1" && 
                 sumatoriaNivel1 === validationNivel1.value.length &&
                 (sumatoriaNivel2 === validationNivel2.value.length || data && data[EnumGrid.validar_parametrizacion_id] === "0" ) && (
@@ -1198,12 +1240,14 @@ useEffect(() => {
                 
 
                 {OTPermissions && 
+                !isMOT &&
                 OTPermissions[7] === "1" &&
                 sumatoriaNivel1 === validationNivel1.value.length && (
                   <button className='bg-yellow-400 mx-4   w-1/4 'onClick={handlePausarClick}>Pausar</button>
                 )}
 
                 {OTPermissions &&
+                !isMOT &&
                 OTPermissions[8] === "1" &&
                 sumatoriaNivel1 === validationNivel1.value.length &&
                 data && data[EnumGrid.estado_id] > 1 && (
@@ -1215,8 +1259,9 @@ useEffect(() => {
                 {OTPermissions &&
                 OTPermissions[9] === "1" && 
                 sumatoriaNivel1 === validacionNivel1.length && 
-                (data && data[EnumGrid.estado_id] === 3 || data && data[EnumGrid.estado_id] === 4 ) && (
-                  <button className='bg-black mx-4 text-white  w-1/4 '>Anular</button>
+                (data && data[EnumGrid.estado_id] === 30 || data && data[EnumGrid.estado_id] === 40 ) && 
+                (
+                  <button className='bg-black mx-4 text-white  w-1/4' onClick={()=>handleAnular()}>Anular</button>
                 )}
 
 

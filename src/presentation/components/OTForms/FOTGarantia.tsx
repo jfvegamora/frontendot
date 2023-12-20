@@ -35,21 +35,26 @@ const FOTGarantia:React.FC<IProps> = ({
     const onSubmit: SubmitHandler<FormData> = async(jsonData) =>{
         console.log('jsondata', jsonData)
         
-        const query = {
-            query:"03",
-            _folio: `${data[EnumGrid.folio]}`,
-            _p1:`${jsonData.motivo_garantia}, '${jsonData.observaciones}' `,
-            _usuario: userState?.id.toString()
-        }
-        console.log(query)
-        const result = await createdEntity(query)
-        console.log(result)
-        const nuevoFolio = result && result["datos"][0][0]
-        
-        
-
-        toast.success(`Nueva OT creada con folio: ${nuevoFolio}`)
-        onClose()  
+        try {
+            const query = {
+                query:"03",
+                _folio: `${data[EnumGrid.folio]}`,
+                _p1:`${jsonData.motivo_garantia}, '${jsonData.observaciones}' `,
+                _usuario: userState?.id.toString()
+            }
+            console.log(query)
+            const result = await createdEntity(query)
+            console.log(result)
+            const nuevoFolio = result && result["datos"][0][0]
+            
+            
+    
+            toast.success(`Nueva OT creada con folio: ${nuevoFolio}`)
+            onClose() 
+        } catch (error:any) {
+            console.log(error)
+            toast.error(error)
+        } 
     }
 
     //LOGICA OT GARANTIA

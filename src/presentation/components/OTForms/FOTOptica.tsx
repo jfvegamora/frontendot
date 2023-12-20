@@ -41,13 +41,12 @@ const FOTOptica:React.FC<IOptica> = ({
     onlyRead,
     permiso_estado_impresion,
     permiso_estado_validacion,
-    permiso_resolucion_garantia
 }) => {
     const strUrl = `${URLBackend}/api/ot/listado`
     const impresion = data && data[9] === 1 ? true: false
     const [isToggleImpresion, setIsToggleImpresion] = useState(impresion || false)
     const [isToggleValidacion, setIsToggleValidacion] = useState(false)
-    const [motivo, setMotivo] = useState(false)
+    const [_motivo, setMotivo] = useState(false)
     const [strCodigoProyecto, setStrCodigoProyecto] = useState("");
     const userID:any = useAppSelector((store: AppStore) => store.user?.id);
     const _origen:any = useAppSelector((store: AppStore) => store.OTAreas.areaActual);
@@ -72,6 +71,10 @@ const FOTOptica:React.FC<IOptica> = ({
         }   
 
 
+        if(name === 'Resolucion'){
+            handleSwitchResolucion(value)
+        }
+
 
         validationOTlevel1(name, value)
         validationOTlevel2(name, value)
@@ -87,7 +90,21 @@ const FOTOptica:React.FC<IOptica> = ({
         // Envia los datos al componente padre
     };
 
+
+
     
+    const handleSwitchResolucion = async(value:string) => {
+        try {
+            const query = `?query=08&_folio=${data[EnumGrid.folio]}&_p2=${value === 'Rechazada' ? 0 : 1}&_estado=${_estado}&_usuario=${userID}&_origen=${_origen}`
+            const result = await axios(`${strUrl}/${query}`);
+            if(result.status === 200){
+                toast.success('Resolucion cambiada')
+            }
+        } catch (error) {
+            console.log(error)
+            throw error
+        }
+    }
 
     const handleSwitchValidation = async(event:any) => {
         setIsToggleValidacion((prev)=>!prev)
@@ -129,7 +146,7 @@ const FOTOptica:React.FC<IOptica> = ({
     },[data])
 //  console.log(fecha_entrega_taller.ue)
 // console.log(data[33])
-console.log(isToggleValidacion)
+
 // console.log(isEditting)
 // console.log(fecha_despacho.value)
 
@@ -190,7 +207,7 @@ return (
                         options={["Venta", "Garantía"]}
                         // error={errors.sexo}
                         horizontal={true}
-                        readOnly={!isEditting || onlyRead}
+                        readOnly={true}
                         onChange={handleInputChange}
                     />                    
                 </div>
@@ -312,7 +329,7 @@ return (
                                 data={formValues ? formValues["motivo_garantia_id"] : data && data[EnumGrid.motivo_garantia_id]}
                                 control={control}
                                 entidad={"OTMotivoGarantia"}
-                                readOnly={data && data[EnumGrid.motivo] === 'Garantía' ? false : true || onlyRead}
+                                readOnly={true}
 
                            />
                         </div>
@@ -325,7 +342,7 @@ return (
                                 handleChange={handleInputChange}
                                 data={formValues ? formValues["folio_asociado"] : data && data[EnumGrid.folio_asociado]}
                                 control={control}
-                                onlyRead={data && data[EnumGrid.motivo] === 'Garantía' ? false : true || onlyRead}
+                                onlyRead={true}
                                 // error={errors.fecha_nacimiento}
                             />
                         </div>
@@ -345,11 +362,11 @@ return (
                                 label="Resolucion"
                                 name="resolucion_garantia_id"
                                 // data={data ? data[EnumGrid.motivo] : formValues["motivo"]}
-                                data={formValues ? formValues["resolucion_garantia_id"] : data && data[EnumGrid.resolucion_garantia_id]}
+                                data={formValues ? formValues["resolucion_garantia_id"] : data && data[EnumGrid.resolucion_garantia_id] === 0 ? 'Rechazada' : 'Aceptada'}
                                 options={["Aceptada", "Rechazada"]}
                                 // error={errors.sexo}
                                 horizontal={true}
-                                readOnly={!isEditting || !motivo || onlyRead || permiso_resolucion_garantia}
+                                // readOnly={!isEditting || !motivo || onlyRead || permiso_resolucion_garantia}
                                 onChange={handleInputChange}
                                 
                             />  

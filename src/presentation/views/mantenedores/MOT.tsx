@@ -264,6 +264,7 @@ const MOT: React.FC = () => {
           setEntities={setEntities}
           params={params}
           isEditting={false}
+          isMOT={false}
           
 
         />
@@ -279,6 +280,7 @@ const MOT: React.FC = () => {
           closeModal={closeModal}
           isEditting={true}
           onlyRead={lectura}
+          isMOT={false}
         />
       )}
     </div>

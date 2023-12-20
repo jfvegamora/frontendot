@@ -120,11 +120,13 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
     );
   }, []);
 
-  const toggleEditOTModal = useCallback(async(rowIndex:any, folio:any)=>{
-    console.log(rowIndex)
+  const toggleEditOTModal = useCallback(async(folio:any,historica:any)=>{
       console.log(folio)
-      console.log(areaActual)
-      const response = await axios(`${URLBackend}/api/ot/listado/?query=01&_folio=${folio}`)
+      console.log(historica)
+      
+      const endpoint = historica === false ? `${URLBackend}/api/ot/listado/?query=01&_folio=${folio}` : `${URLBackend}/api/othistorica/listado/?query=01&_folio=${folio}`
+      console.log(endpoint)
+      const response = await axios(endpoint)
       console.log(response.data[0])
       setEntity(response.data[0])
       dispatch(fetchOTByID({ folio: folio, OTAreas: areaActual }));

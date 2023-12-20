@@ -150,6 +150,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
     const renderCheckboxCell = (id: number, folio:number) => {
       // console.log(id)
       // console.log(folio)
+      console.log(entidad)
       return (
         <>
           <input
@@ -166,6 +167,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
               id={id}
               folio={folio}
               toggleEditOTModal={toggleEditOTModal}
+              entidad={entidad}
               
               
             />

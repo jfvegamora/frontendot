@@ -1,4 +1,4 @@
-import { validationNivel2 } from "../views/forms/FOT";
+import { validationNivel1, validationNivel2 } from "../views/forms/FOT";
 import axios from "axios";
 import { URLBackend } from "../hooks/useCrud";
 
@@ -111,6 +111,11 @@ export function reiniciarDioptriasReceta() {
 
 export const reiniciarValidationNivel2 = () => {
     validationNivel2.value.forEach((item) => {
+      item.valor = 0;
+    });
+};
+export const reiniciarValidationNivel1 = () => {
+    validationNivel1.value.forEach((item) => {
       item.valor = 0;
     });
 };
