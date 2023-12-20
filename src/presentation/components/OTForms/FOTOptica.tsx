@@ -155,9 +155,9 @@ return (
     <form action="">
         <div className='w-full labelForm rounded-lg border radioComponent'>
             <div className="w-full flex items-center justify-between rowForm   !h-[6rem]">
-                <div className="w-[25%] mt-6 mb-8 ml-4">
+                <div className="w-[50%] mt-6 mb-8 ml-[2rem]">
                     <SelectInputComponent
-                        label="Proyectos"
+                        label="Proyecto"
                         name="proyecto"
                         showRefresh={true}
                         isOT={true}
@@ -176,7 +176,7 @@ return (
                             <div className="w-[25%] mt-4 mb-8 ml-4 px-[1.5rem] ">
                                 <div className=" items-center flex">
                                     <Switch onChange={(e)=>handleSwitchValidation(e)} checked={isToggleValidacion}/>
-                                    <label className='ml-2'>Estado de Validacion</label>
+                                    <label className='ml-2'>Validar Parametrización</label>
                                 </div>
                             </div>
                         )}
@@ -184,7 +184,7 @@ return (
                             <div className="w-[25%] mt-4 mb-8 ml-4 px-[1.5rem] ">
                                 <div className=" items-center flex">
                                     <Switch onChange={(e)=>handleSwitchImpresion(e)} checked={isToggleImpresion}/>
-                                    <label className='ml-2'>Estado de Impresion</label>
+                                    <label className='ml-2'>OT Impresa</label>
                                 </div>
                             </div>
                         )}
@@ -198,6 +198,23 @@ return (
             
             </div>
             <div className='w-full mt-10  flex items-center rowForm !h-[5rem]'>
+                <div className="w-[30%] ml-[2rem] -mt-[0.3rem]">
+                    <SelectInputComponent
+                        label="Punto de Venta"
+                        name="punto_venta_id"
+                        showRefresh={true}
+                        isOT={true}
+                        handleSelectChange={handleInputChange}
+                        data={formValues ? formValues["punto_venta_id"] : data && data[EnumGrid.punto_venta_id]}
+                        // data={data && data[EnumGrid.establecimiento_id]}
+                        control={control}
+                        entidad={["/api/puntosventa/", "06", codigoProyecto.value]}
+                        // error={errors.establecimiento}
+                        customWidth={"345px"}
+                        readOnly={onlyRead}
+                    />
+                </div>
+
                 <div className="w-[25%] ml-4">
                     <RadioButtonComponent
                         control={control}
@@ -212,7 +229,7 @@ return (
                     />                    
                 </div>
 
-                <div className="w-[24%]">
+                <div className="w-[20%] ml-4">
                     <TextInputComponent
                         type="text"
                         label="Area actual"
@@ -225,7 +242,7 @@ return (
                     />
                 </div>
                 
-                <div className="w-[25%]">
+                <div className="w-[20%] ml-4">
                     <TextInputComponent
                         type="text"
                         label="Estado actual"
@@ -238,27 +255,11 @@ return (
                     />
                 </div>
                 
-                <div className="w-[22%] ml-5 -mt-[0.3rem]">
-                    <SelectInputComponent
-                        label="Puntos de Venta"
-                        name="punto_venta_id"
-                        showRefresh={true}
-                        isOT={true}
-                        handleSelectChange={handleInputChange}
-                        data={formValues ? formValues["punto_venta_id"] : data && data[EnumGrid.punto_venta_id]}
-                        // data={data && data[EnumGrid.establecimiento_id]}
-                        control={control}
-                        entidad={["/api/puntosventa/", "06", codigoProyecto.value]}
-                        // error={errors.establecimiento}
-                        customWidth={"345px"}
-                        readOnly={onlyRead}
-                    />
-                </div>
             </div>
 
             <div className="w-[100%]  flex items-center rowForm !mt-20 !h-[5rem] ">
 
-                <div className="w-[25%] ml-4">
+                <div className="w-[15%] ml-4">
                     <TextInputComponent
                         type="date"
                         label="Fecha atención"
@@ -272,7 +273,7 @@ return (
                         // error={errors.fecha_nacimiento}
                     />
                 </div>
-                <div className="w-[25%]">
+                <div className="w-[15%]">
                     <TextInputComponent
                         type="date"
                         label="Fecha taller"
@@ -286,7 +287,7 @@ return (
                         // error={errors.fecha_nacimiento}
                     />
                 </div>
-                <div className="w-[25%]">
+                <div className="w-[15%]">
                     <TextInputComponent
                         type="date"
                         label="Fecha despacho"
@@ -299,7 +300,7 @@ return (
                         // error={errors.fecha_nacimiento}
                     />
                 </div>
-                <div className="w-[25%]">
+                <div className="w-[15%]">
                     <TextInputComponent
                         type="date"
                         label="Fecha entrega cliente"
@@ -319,7 +320,7 @@ return (
                 <div className="w-[90%] h-[90%]  ml-8 mx-auto flex flex-col justify-around items-center ">
                     <div className="flex items-center w-[101%] h-[46%] mx-auto rounded-lg radioComponent relative">
                         <label className='labelForm absolute left-4 text-center top-[-20%] w-[10%]'>Garantia</label>
-                        <div className="w-[35%] ">
+                        <div className="w-[35%] ml-[1rem] ">
                             <SelectInputTiposComponent
                                 label="Motivo"
                                 name="motivo_garantia_id"
@@ -334,7 +335,7 @@ return (
                            />
                         </div>
                         
-                        <div className="w-[35%]">
+                        <div className="w-[30%]">
                             <TextInputComponent
                                 type="number"
                                 label="Folio Asociado"
@@ -347,16 +348,7 @@ return (
                             />
                         </div>
                         
-                        <div className="w-[35%]">
-                            {/* <TextInputComponent
-                                type="text"
-                                label="Resolucion"
-                                name="resolucion_garantia"
-                                handleChange={handleInputChange}
-                                data={formValues ? formValues["resolucion_garantia"] : data && data[EnumGrid.resolucion_garantia]}
-                                control={control}
-                                // error={errors.fecha_nacimiento}
-                            /> */}
+                        <div className="w-[35%] mr-[1rem]">
                             <RadioButtonComponent
                                 control={control}
                                 label="Resolucion"
