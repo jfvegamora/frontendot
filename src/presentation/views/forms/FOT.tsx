@@ -10,18 +10,18 @@ import {signal } from "@preact/signals-react";
 import FOTGarantia from '../../components/OTForms/FOTGarantia';
 import { EnumGrid } from '../mantenedores/MOTHistorica';
 import FOTDerivacion from '../../components/OTForms/FOTDerivacion';
-import { SEXO, TIPO_CLIENTE, 
-  a1_od_esf, 
+import { A1_CR_OD, A1_CR_OI, A1_GRUPO, SEXO, TIPO_CLIENTE, 
   // a1_od_ad, a1_od_cil, a1_od_eje, a1_od_esf, 
   a2_od_cil, a2_od_eje, a2_od_esf, a2_oi_cil, a2_oi_eje, a2_oi_esf, clearDioptrias,  
   dioptrias_receta,  
   // clearDioptriasA2,  dioptriasHabilitadas, 
    fecha_despacho, fecha_entrega_cliente, fecha_entrega_taller, 
+  punto_venta, 
   // reiniciarA2DioptriasReceta, 
   reiniciarDioptriasReceta, reiniciarValidationNivel1, reiniciarValidationNivel2, tipo_de_anteojo, validar_parametrizacion } from '../../utils';
 import { validationCliente, validationEstablecimientos, validationFechaAtencion, validationProyectos, validationPuntoVenta, validationTipoAnteojos, validation_A2_OD_CIL, validation_A2_OD_EJE, validation_A2_OD_ESF, validation_A2_OI_CIL, validation_A2_OI_EJE, validation_A2_OI_ESF } from '../../utils/validationOT';
 // import { inputName } from '../../components/OTForms/Otprueba';
-import { verificaCampos } from '../../utils/OTReceta_utils';
+// import { verificaCampos } from '../../utils/OTReceta_utils';
 import { URLBackend } from '../../hooks/useCrud';
 // import {transponer, transponer_a2 } from '../../utils/FOTReceta_utils';
 import { Spinner, button } from '@material-tailwind/react';
@@ -423,7 +423,7 @@ const FOT:React.FC<IFOTProps> = ({
   }
 
 
-  const switchCaseProcesar = (jsonData:any) => {
+  const switchCaseProcesar = (_jsonData:any) => {
   //  console.log('hola')
   //  const formData = getValues
 
@@ -749,7 +749,7 @@ const FOT:React.FC<IFOTProps> = ({
 
 
   //Estados locales
-  const { control, handleSubmit, setValue, register } = useForm<FormData>();
+  const { control, handleSubmit, setValue, register, getValues } = useForm<any>();
   const [formValues, setFormValues] = useState<FormData | any>({});
   const [showGarantia, setShowGarantia] = useState(false);
   const [showDerivacion, setShowDerivacion] = useState(false);
@@ -810,7 +810,7 @@ const FOT:React.FC<IFOTProps> = ({
   // console.log(sumatoriaNivel1)
 
   //submit boton pausar
-  const onSubmit: SubmitHandler<FormData> = async(jsonData, _type?:any) => {
+  const onSubmit: SubmitHandler<any> = async(jsonData, _type?:any) => {
       //  console.log(submitAction)
 
     console.log(jsonData)  
@@ -848,11 +848,25 @@ const FOT:React.FC<IFOTProps> = ({
         ...data
       }
     }));
-
     console.log(name)
     console.log(data)
-    console.log(formValues) 
+    
+  //todo GUARDAMOS CODIGO DE PROYECTO
+    if(Object.keys(data)[0] === 'proyecto_codigo'){
+      console.log(Object.values(data)[0])
+      setStrCodigoProyecto(Object.values(data)[0])
+      codigoProyecto.value = (Object.values(data)[0] as string);
+      fetchDioptrias(Object.values(data)[0] as string)
+    }
 
+    if(Object.keys(data)[0] === 'punto_venta_id'){
+      punto_venta.value = (Object.values(data)[0] as string);
+    }
+
+    console.log(punto_venta.value)
+
+    //todo  INICIO CRISTALES, TRAE GRUPO Y CODIGO DEPENDIENDO DE DATOS DEL CRISTAL 
+     // ? ANTEOJO 1: 
     if(
       Object.keys(data)[0] === 'cristal1_marca_id'      ||
       Object.keys(data)[0] === 'cristal1_diseno_id'     ||
@@ -865,89 +879,125 @@ const FOT:React.FC<IFOTProps> = ({
       Object.keys(data)[0] === 'a1_od_cil'
      ){
 
-      console.log('llamar a grupo')
-      console.log(formValues)
-      const response = verificaCampos(formValues)
+      const formValue = getValues()
+      const {cristal1_marca_id, cristal1_diseno_id, cristal1_indice_id, cristal1_color_id , cristal1_material_id,cristal1_tratamiento_id, cristal1_diametro } = formValue;
+ 
 
-      if(response){
-        const {receta, cristales, optica} = formValues
-      
+      if(cristal1_marca_id                      !== undefined &&
+        cristal1_diseno_id                      !== undefined &&
+        cristal1_indice_id                      !== undefined && 
+        cristal1_color_id                       !== undefined &&
+        cristal1_material_id                    !== undefined &&
+        cristal1_tratamiento_id                 !== undefined &&
+        cristal1_diametro                       !== ''   
+      ){
+        // console.log('ejecutando llamada...')
         const _pkToDelete1_od ={
-         "marca": cristales.cristal1_marca_id,
-         "diseno": cristales.cristal1_diseno_id,
-         "indice":cristales.cristal1_indice_id,
-         "material":cristales.cristal1_material_id,
-         "color":cristales.cristal1_color_id,
-         "tratamiento":cristales.cristal1_tratamiento_id,
-         "diametro": cristales.cristal1_diametro,
-         "esferico":receta.a1_od_esf,
-         "cilindrico":receta.a1_od_cil
-       }
-        const _pkToDelete1_oi ={
-         "marca": cristales.cristal1_marca_id,
-         "diseno": cristales.cristal1_diseno_id,
-         "indice":cristales.cristal1_indice_id,
-         "material":cristales.cristal1_material_id,
-         "color": cristales.cristal1_color_id,
-         "tratamiento":cristales.cristal1_tratamiento_id,
-         "diametro": cristales.cristal1_diametro,
-         "esferico":receta.a1_oi_esf,
-         "cilindrico":receta.a1_oi_cil
-       }
-      //   const _pkToDelete2_od ={
-      //    "diseno": cristales.cristal2_diseno_id,
-      //    "indice":cristales.cristal2_indice_id,
-      //    "material":cristales.cristal2_material_id,
-      //    "color":cristales.cristal2_color_id,
-      //    "tratamiento":cristales.cristal2_tratamiento_id,
-      //    "esferico":receta.a2_od_esf,
-      //    "cilindrico":receta.a2_od_cil
-      //  }
-
-      //  const _pkToDelete2_oi ={
-      //   "diseno": cristales.cristal2_diseno_id,
-      //   "indice":cristales.cristal2_indice_id,
-      //   "material":cristales.cristal2_material_id,
-      //   "color":cristales.cristal2_color_id,
-      //   "tratamiento":cristales.cristal2_tratamiento_id,
-      //   "esferico":receta.a2_oi_esf,
-      //   "cilindrico":receta.a2_oi_cil
-      //  }
-
-      const arrayJSON:any = []
-
-      const addIfNotNullAndNotEmpty = (object:any) => {
-        if (object && Object.keys(object).every(key => object[key] !== null)) {
-          arrayJSON.push(object);
+          "marca":      cristal1_marca_id,
+          "diseno":     cristal1_diseno_id,
+          "indice":     cristal1_indice_id,
+          "material":   cristal1_material_id,
+          "color":      cristal1_color_id,
+          "tratamiento":cristal1_tratamiento_id,
+          "diametro":   cristal1_diametro,
+          "esferico":   dioptrias_receta.value.a1_od.esf ?? 0, 
+          "cilindrico": dioptrias_receta.value.a1_od.cil ?? 0
         }
-      };
 
-      addIfNotNullAndNotEmpty(_pkToDelete1_od);   
-      addIfNotNullAndNotEmpty(_pkToDelete1_oi);
 
-      // CALL spProyectoCristales(6, '', 'P01-2233Q1', '', '[{"marca":"1","diseno":"1","indice":"2","material":"1","color":"1","tratamiento":"1","diametro":"65","esferico":"-18","cilindrico":"-2"},{"marca":"1","diseno":"1","indice":"2","material":"1","color":"1","tratamiento":"1","diametro":"65","esferico":"-18","cilindrico":"-5"}]', 0, 0);
-
-      const pkJSON = JSON.stringify(arrayJSON)
-      console.log(formValues)
-      try {
-        // ejemplo de comoo debe quedar: https://mtoopticos.cl/api/proyectogrupos/listado/?_pkToDelete=[{ "diseno": "1", "indice":"1", "material":"1", "color":"1", "tratamiento":"1", "esferico":"-6.25", "cilindrico":"-0.25" }]&_p2="PR001A"&query=06
-        const encodedJSON = encodeURIComponent(pkJSON)
-        const result = await axios(`https://mtoopticos.cl/api/proyectocristales/listado/?query=06&_p2=${optica.proyecto}&_pkToDelete=${encodedJSON}`)
-
-        // https://mtoopticos.cl/api/cristales/listado/?query=01&_p1=&_pIndice=2&_pDiseno=1&_pMaterial=1&_pEsferico=-20.00&_pCilindrico=-6&_pMarca=1&_pColor=1&_pTratamiento=1&_pDiametro=65
-        // const {data:cristalData} = await axios(`https://mtoopticos.cl/api/cristales/listado/?query=01&_p1=&_pIndice=${cristales.cristal1_indice_id}&_pDiseno=${cristales.cristal1_diseno_id}&_pMaterial=${cristales.cristal1_material_id}&_pEsferico=-${receta.a1_od_esf}&_pCilindrico=-${receta.a1_od_cil}&_pMarca=${cristales.cristal1_marca_id}&_pColor=${cristales.cristal1_color_id}&_pTratamiento=${cristales.cristal1_tratamiento_id}&_pDiametro=${cristales.cristal1_diametro}`)
+        // console.log(_pkToDelete1_od)
         
-        // console.log(cristalData)
-        console.log(result.data[0])
-        a1Grupo.value = result.data[0]
-      } catch (error) {
-        console.log(error)
+        const _pkToDelete1_oi ={
+          "marca":      cristal1_marca_id,
+          "diseno":     cristal1_diseno_id,
+          "indice":     cristal1_indice_id,
+          "material":   cristal1_material_id,
+          "color":      cristal1_color_id,
+          "tratamiento":cristal1_tratamiento_id,
+          "diametro":   cristal1_diametro,
+          "esferico":   dioptrias_receta.value.a1_oi.esf ?? 0,
+          "cilindrico": dioptrias_receta.value.a1_oi.cil ?? 0, 
+        }
+
+        // console.log(_pkToDelete1_oi)
+
+
+        try {
+          const pkJSON = JSON.stringify([_pkToDelete1_od, _pkToDelete1_oi])
+          const encodedJSON = encodeURIComponent(pkJSON)
+          const {data} = await axios(`${URLBackend}/api/proyectocristales/listado/?query=06&_p2=${codigoProyecto.value}&_pkToDelete=${encodedJSON}`)
+          
+          const cristalesDATA = JSON.parse(data[0][0])
+          console.log(cristalesDATA)
+          
+          A1_CR_OD.value = cristalesDATA["CR_OD"]
+          A1_CR_OI.value = cristalesDATA["CR_OI"]
+          A1_GRUPO.value = cristalesDATA["GRUPO"]
+
+        } catch (error) {
+          console.log(error)
+          throw error
+        }  
       }
+    }
+    //? ANTEOJO 2:
+    if(
+      Object.keys(data)[0] === 'cristal2_marca_id'      ||
+      Object.keys(data)[0] === 'cristal2_diseno_id'     ||
+      Object.keys(data)[0] === 'cristal2_indice_id'     ||
+      Object.keys(data)[0] === 'cristal2_material_id'   ||
+      Object.keys(data)[0] === 'cristal2_color_id'      ||
+      Object.keys(data)[0] === 'cristal2_tratamiento_id'||
+      Object.keys(data)[0] === 'cristal2_diametro'      ||
+      Object.keys(data)[0] === 'a1_od_esf'              ||
+      Object.keys(data)[0] === 'a1_od_cil'
+    ){
+      const formValue = getValues()
+      const {cristal2_marca_id, cristal2_diseno_id, cristal2_indice_id, cristal2_color_id , cristal2_material_id,cristal2_tratamiento_id, cristal2_diametro } = formValue;
+ 
+
+      if(cristal2_marca_id                      !== undefined &&
+        cristal2_diseno_id                      !== undefined &&
+        cristal2_indice_id                      !== undefined && 
+        cristal2_color_id                       !== undefined &&
+        cristal2_material_id                    !== undefined &&
+        cristal2_tratamiento_id                 !== undefined &&
+        cristal2_diametro                       !== ''   
+      ){
+        console.log('ejecutando llamada.....')
+        const _pkToDelete1_od ={
+          "marca":      cristal2_marca_id,
+          "diseno":     cristal2_diseno_id,
+          "indice":     cristal2_indice_id,
+          "material":   cristal2_material_id,
+          "color":      cristal2_color_id,
+          "tratamiento":cristal2_tratamiento_id,
+          "diametro":   cristal2_diametro,
+          "esferico":   dioptrias_receta.value.a2_od.esf ?? 0, 
+          "cilindrico": dioptrias_receta.value.a2_od.cil ?? 0
+        }
+
+
+        console.log(_pkToDelete1_od)
+        
+        const _pkToDelete1_oi ={
+          "marca":      cristal2_marca_id,
+          "diseno":     cristal2_diseno_id,
+          "indice":     cristal2_indice_id,
+          "material":   cristal2_material_id,
+          "color":      cristal2_color_id,
+          "tratamiento":cristal2_tratamiento_id,
+          "diametro":   cristal2_diametro,
+          "esferico":   dioptrias_receta.value.a2_oi.esf ?? 0,
+          "cilindrico": dioptrias_receta.value.a2_oi.cil ?? 0, 
+        }
+
+        console.log(_pkToDelete1_oi)
+
       }
 
-      console.log(response)
     }
-    
+    // todo FIN CRISTALES
 
     // if((Object.keys(data)[0] === 'a1_od_esf' && Object.keys(data)[0] !== '') || (Object.keys(data)[0] === 'a1_od_eje' && Object.keys(data)[0] !== '') || (Object.keys(data)[0] === 'a1_od_cil' && Object.keys(data)[0] !== '')){
     //   transponer('a1_od_esf', 'a1_od_cil', 'a1_od_eje', 'a1_od_ad', 'a1_od', data)
@@ -1001,13 +1051,7 @@ const FOT:React.FC<IFOTProps> = ({
 
 
     //
-    if(Object.keys(data)[0] === 'proyecto'){
-        // console.log(Object.values(data)[0])
-        setStrCodigoProyecto(Object.values(data)[0])
-        codigoProyecto.value = (Object.values(data)[0] as string);
-        fetchDioptrias(Object.values(data)[0] as string)
-    }
-
+    
 
 
     actualizarEstado(Object.keys(data)[0], 1)
@@ -1104,7 +1148,7 @@ const fetchDioptrias = async(proyecto:string) => {
 console.log(validationNivel2.value)
 console.log(validationNivel1.value)
 // console.log(validationNivel2)
-// console.log(dioptrias_receta.value.a2_od)
+console.log(dioptrias_receta.value.a1_od)
 // console.log(dioptriasHabilitadas.value)
 // console.log(dioptrias.value)
 // console.log(a1_od_esf.value)

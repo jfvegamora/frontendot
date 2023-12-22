@@ -33,6 +33,7 @@ const FOTReceta:React.FC<IReceta> = ({
 }) => {
     const handleInputChange = (e:any) => {
         let {name, value} = e;
+        setDioptriasReceta(name, value)
         onDataChange({[name]:value})
         
         
@@ -51,16 +52,7 @@ const FOTReceta:React.FC<IReceta> = ({
         }
         
         
-
-
-
-        
-        
-
-
-        
         validation_tipo_anteojo()
-        setDioptriasReceta(name, value)
         validationOTlevel1(name, value)
         validationOTlevel2(name, value)
         

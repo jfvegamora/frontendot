@@ -3,7 +3,8 @@ import { SelectInputComponent, TextInputComponent } from '..';
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
 import { validationOTlevel2 } from '../../utils/validationOT';
 import SelectInputTiposComponent from '../forms/SelectInputTiposComponent';
-import { a1Grupo } from '../../views/forms/FOT';
+import { A1_CR_OD, A1_CR_OI, A1_GRUPO } from '../../utils';
+import TextInputInteractive from '../forms/TextInputInteractive';
 
 
 interface ICristales {
@@ -111,11 +112,11 @@ const FOTCristales:React.FC<ICristales> = ({
       const renderGrupo1 = () => (
             <div className='w-full rowForm'>
                 <div className="w-[50%] mx-auto">
-                    <TextInputComponent   
+                    <TextInputInteractive   
                         type='text'
                         label="Grupo 1"
                         name="cristal1_grupo1_id"
-                        data={a1Grupo}
+                        data={A1_GRUPO}
                         control={control}
                         onlyRead={onlyRead || permiso_cristales}
                     />  
@@ -275,26 +276,26 @@ const FOTCristales:React.FC<ICristales> = ({
                         <div className="w-full !mt-8 !mb-6">
                             <div className="w-full rowForm relative flex  ">
                                 <div className="w-[50%]">
-                                        <TextInputComponent
+                                        <TextInputInteractive
                                             type="text"
                                             label="Codigo Cristal"
                                             name="cristal1_od"
                                             handleChange={handleInputChange}
-                                            data={formValues ? formValues["cristal1_od"] : data && data[EnumGrid.cristal1_od]}
+                                            data={A1_CR_OD.value || data && data[EnumGrid.cristal1_od]}
                                             control={control}
                                             isOT={true}
                                             onlyRead={onlyRead || permiso_cristales}
-                                            // error={errors.fecha_nacimiento}
+                                            // error={errors.fecha_nacimiento}t
                                         />
                                 </div>
                                 <div className="w-[50%]">
-                                        <TextInputComponent
+                                        <TextInputInteractive
                                             type="text"
                                             label="Codigo Cristal"
                                             name="cristal1_oi"
                                             isOT={true}
                                             handleChange={handleInputChange}
-                                            data={formValues ? formValues["cristal1_oi"] : data && data[EnumGrid.cristal1_oi]}
+                                            data={ A1_CR_OI.value ||data && data[EnumGrid.cristal1_oi]}
                                             control={control}
                                             onlyRead={onlyRead || permiso_cristales}
                                             // error={errors.fecha_nacimiento}
