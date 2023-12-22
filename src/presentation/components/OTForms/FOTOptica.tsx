@@ -158,7 +158,7 @@ return (
                 <div className="w-[50%] mt-6 mb-8 ml-[2rem]">
                     <SelectInputComponent
                         label="Proyecto"
-                        name="proyecto"
+                        name="proyecto_codigo"
                         showRefresh={true}
                         isOT={true}
                         handleSelectChange={handleInputChange}

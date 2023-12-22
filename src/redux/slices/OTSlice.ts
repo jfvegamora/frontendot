@@ -4,16 +4,16 @@ import { URLBackend } from "../../presentation/hooks/useCrud";
 
 export interface DataState {
     currentPage: number;
-    pageSize: number;
-    totalPages: number;
+    cristales: any[];
+    armazones: any[];
     data: any[];
     ot: any[]
 }
 
 const initialState: DataState = {
     currentPage: 1,
-    pageSize: 50,
-    totalPages: 1,
+    cristales: [],
+    armazones: [],
     data: [],
     ot: []
 };
@@ -22,10 +22,7 @@ export const fetchOT = createAsyncThunk(
     'ot/fetchOT',
     async (OTAreas:any) => {
         try {
-            // console.log(OTAreas)
             const response = await axios.get(`${URLBackend}/api/ot/listado/?query=14&_origen=${OTAreas}`);
-            // console.log(response.data.slice(0,5))
-            console.log(response)
             return response.data;
         } catch (error) {
             console.log(error);
@@ -40,12 +37,7 @@ export const fetchOTByID = createAsyncThunk(
     async(params:any) => {
         try {
             const {folio, OTAreas} = params;
-
-            console.log(folio)
-            console.log(OTAreas)
             const response = await axios.get(`${URLBackend}/api/ot/listado/?query=01&_origen=${OTAreas}&_folio=${folio}`);
-            console.log(response)
-            console.log(response.data[0])
             return response.data[0]
         } catch (error) {
             console.log(error)
@@ -59,8 +51,18 @@ const OTSlice = createSlice({
     initialState,
     reducers: {
         clearData(state) {
-            state.data = []; // Establece el arreglo data como vacío
+            state.data = [];
         },
+        addToCristales(state, action) {
+            state.cristales.push(...action.payload); // Agrega elementos al arreglo cristales
+        },
+        addToArmazones(state, action) {
+            state.armazones.push(...action.payload); // Agrega elementos al arreglo armazones
+        },
+        clearCodigos(state){
+            state.armazones = [];
+            state.cristales = [];
+        }
     },
     extraReducers: (builder) => {
         builder.addCase(fetchOT.fulfilled, (state, action) => {
@@ -70,9 +72,9 @@ const OTSlice = createSlice({
         builder.addCase(fetchOTByID.fulfilled, (state,action)=>{
             state.ot = action.payload
             return state
-        })
+        });
     },
 });
 
-export const { clearData } = OTSlice.actions;
+export const { clearData, addToCristales, addToArmazones, clearCodigos } = OTSlice.actions;
 export default OTSlice.reducer;

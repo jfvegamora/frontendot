@@ -299,3 +299,15 @@ export const fetchFechas = async(fecha_atencion:string, codgioProyecto:string) =
 //RE NOMBRAR EL ARCHIVO A UTILS OT Y DEJAR ADEMAS DE LAS SEÑALES DEJAR LAS FUNCONES DE LA OT, TANTO EL ISNERT, UPDATE, E IGUAL LOS SWITHCCASE 
 //TANTO LAS DERIVACIONES-PAUSA-PROCESAR
 //TAMBIEN AGREGAR ALGUNA FUNCION QUE ESTE DENTRO DEL ONCHANGE DEL FORMULARIO
+
+
+export function validarValor(str:string) {
+  const partes = str.split('=');
+  
+  if (partes.length === 2) {
+    const valor = partes[1].trim();
+    return valor !== 'undefined' && valor !== '';
+  }
+  
+  return false;
+}

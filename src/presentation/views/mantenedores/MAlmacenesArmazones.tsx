@@ -102,14 +102,14 @@ const MAlmacenesArmazones: React.FC = () => {
               name: "_p3",
               label: "Muestrario (?)",
               type: "select",
-              selectUrl: "/api/almacenes/", styles:{with:" !w-[33rem]"}, tipos:'1'
+              selectUrl: "/api/almacenes/", styles:{with:" !w-[33rem]"}, _p1:'1'
             },
-            // {
-            //   name: "_p1",
-            //   label: "Proyecto (?)",
-            //   type: "select",
-            //   selectUrl: "/api/proyectos/", styles:{with:" !w-[33rem]"},
-            // },
+            {
+              name: "_p1",
+              label: "Proyecto (?)",
+              type: "select",
+              selectUrl: "/api/proyectos/", styles:{with:" !w-[33rem]"},
+            },
             // { name: "_p2", label: "Código Proyecto", type: "text", styles:{with:" !w-[9rem]"}, },
             // { name: "_p3", label: "Código Licitacion", type: "text", styles:{with:" !w-[9rem]"}, },
           ]}

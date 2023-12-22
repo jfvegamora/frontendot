@@ -10,7 +10,6 @@ import axios from 'axios';
 interface IDerivacion {
     data?:any;
     onClose?: any;
-    switchCaseDerivar:any;
     formValues:any;
     closeModal:any
 }
@@ -196,8 +195,8 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
             _punto_venta: `${data[EnumGrid.punto_venta_id]}`
         }
 
-        console.log('query', query)
-        console.log('query', _p1)
+        // console.log('query', query)
+        // console.log('query', _p1)
 
       
         try {
