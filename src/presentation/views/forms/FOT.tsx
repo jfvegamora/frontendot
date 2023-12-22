@@ -849,6 +849,13 @@ const FOT:React.FC<IFOTProps> = ({
       }
     }));
 
+    if(Object.keys(data)[0] === 'proyecto_codigo'){
+      // console.log(Object.values(data)[0])
+      setStrCodigoProyecto(Object.values(data)[0])
+      codigoProyecto.value = (Object.values(data)[0] as string);
+      fetchDioptrias(Object.values(data)[0] as string)
+  }
+
     console.log(name)
     console.log(data)
     console.log(formValues) 
@@ -1001,12 +1008,7 @@ const FOT:React.FC<IFOTProps> = ({
 
 
     //
-    if(Object.keys(data)[0] === 'proyecto'){
-        // console.log(Object.values(data)[0])
-        setStrCodigoProyecto(Object.values(data)[0])
-        codigoProyecto.value = (Object.values(data)[0] as string);
-        fetchDioptrias(Object.values(data)[0] as string)
-    }
+    
 
 
 
