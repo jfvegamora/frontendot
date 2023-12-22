@@ -27,6 +27,7 @@ interface PrimaryKeySearchProps {
     selectUrl?: any;
     values?: any;
     tipos?: string;
+    _p1?:string
   }[];
   baseUrl: string;
   updateParams: any;
@@ -284,8 +285,8 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                             showRefresh={true}
                             control={control}
                             entidad={
-                              input.tipos
-                                ? [input.selectUrl, "02", input.tipos]
+                              input._p1
+                                ? [input.selectUrl, "02", input._p1]
                                 : [input.selectUrl, "02"]
                             }
                             inputName={input.name}

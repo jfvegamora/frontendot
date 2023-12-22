@@ -9,6 +9,7 @@ import { Controller } from "react-hook-form";
 import { FiRefreshCw } from "react-icons/fi";
 import axios from "axios";
 import { AppStore, useAppSelector } from "../../../redux/store";
+import { URLBackend } from "../../hooks/useCrud";
 
 interface ISelectInputProps {
   label: string;
@@ -59,7 +60,7 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
     const fetchData = async () => {
       try {
         if (!stateListBox || stateListBox.length < 1) {
-          const { data } = await axios(`https://mtoopticos.cl/api/tipos/listado/?query=02&_p1=${entidad}`);
+          const { data } = await axios(`${URLBackend}/api/tipos/listado/?query=02&_p1=${entidad}`);
           console.log(data);
           setEntities(data);
         }
