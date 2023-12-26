@@ -118,7 +118,7 @@ const FMuestrariosArmazones: React.FC<IUserFormPrps> = React.memo(
 
       if (firstInputRef.current) {
         const firstInput = firstInputRef.current.querySelector(
-          'input[name="muestrario"]'
+          'input[name="codigo_armazon"]'
         );
         if (firstInput) {
           firstInput.focus();
@@ -254,7 +254,7 @@ const FMuestrariosArmazones: React.FC<IUserFormPrps> = React.memo(
     
  
     useEffect(() => {
-      isEditting ? focusSecondInput("estado") : focusFirstInput("codigo_armazon");
+      isEditting ? focusSecondInput("estado") : focusFirstInput("armazon");
     }, []);
 
     return (
