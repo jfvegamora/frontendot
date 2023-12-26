@@ -118,7 +118,7 @@ const FVitrinasArmazones: React.FC<IUserFormPrps> = React.memo(
 
       if (firstInputRef.current) {
         const firstInput = firstInputRef.current.querySelector(
-          'input[name="muestrario"]'
+          'input[name="codigo_armazon"]'
         );
         if (firstInput) {
           firstInput.focus();
