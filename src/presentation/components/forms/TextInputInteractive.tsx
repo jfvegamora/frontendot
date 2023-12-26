@@ -97,7 +97,7 @@ return (
                 setValue(e.target.value)
             }}
             ref={inputRef}
-            className={`${className ? className : "custom-input "}`}
+            className={`${className ? className : "custom-input "} ${onlyRead ? "bg-gray-200 opacity-70 cursor-not-allowed" : ""}`}
             tabIndex={tabIndex || 1}
             placeholder={type === 'date' ? "dd-mm-yyyy" : ''}
             autoComplete="off"

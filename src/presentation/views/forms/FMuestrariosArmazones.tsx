@@ -254,7 +254,7 @@ const FMuestrariosArmazones: React.FC<IUserFormPrps> = React.memo(
     
  
     useEffect(() => {
-      isEditting ? focusSecondInput("estado") : focusFirstInput("muestrario");
+      isEditting ? focusSecondInput("estado") : focusFirstInput("codigo_armazon");
     }, []);
 
     return (

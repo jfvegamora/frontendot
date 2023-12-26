@@ -20,7 +20,8 @@ interface IReceta {
     formValues: any,
     data:any
     onlyRead?:boolean,
-    permiso_grupo_dioptria:boolean
+    permiso_grupo_dioptria:boolean;
+    isEditting?:boolean;
 }
 
 const FOTReceta:React.FC<IReceta> = ({
@@ -29,7 +30,8 @@ const FOTReceta:React.FC<IReceta> = ({
     formValues,
     data,
     onlyRead,
-    permiso_grupo_dioptria
+    permiso_grupo_dioptria,
+    isEditting
 }) => {
     const handleInputChange = (e:any) => {
         let {name, value} = e;
@@ -79,13 +81,15 @@ const FOTReceta:React.FC<IReceta> = ({
 
     // console.log(dioptriasHabilitadas.value);
     // console.log(habilitarCampo.value);
+
+    console.log(permiso_grupo_dioptria)
     // inputName.value = 50
 
 //   inputName.value = 90  
   return (
     <form>
         <div className="w-full labelForm  rounded-lg px-8 flex flex-col justify-between !h-[80vh]  py-4 border radioComponent">
-            <div className="w-full flex items-center">
+            <div className="w-full flex items-center rowForm">
                 <div className="w-[20%] -ml-4">
                         <SelectInputComponent
                             label="Tipo de Anteojo"
@@ -99,7 +103,7 @@ const FOTReceta:React.FC<IReceta> = ({
                             // entidad={["/api/ot/", "12","ESF", "_p3"]}
                             // error={errors.establecimiento}
                             customWidth={"345px"}
-                            readOnly={onlyRead}
+                            readOnly={isEditting}
                         />
 
                         
@@ -129,7 +133,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                     data={formValues ? formValues["numero_receta"] : data && data[EnumGrid.numero_receta]}
                                     control={control}
                                     isOT={true}
-                                    onlyRead={onlyRead}
+                                    onlyRead={isEditting}
                                     // error={errors.fecha_nacimiento}
                                 />
                 </div>
@@ -142,7 +146,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                     data={formValues ? formValues["total"] : data && data[EnumGrid.total]}
                                     control={control}
                                     isOT={true}
-                                    onlyRead={onlyRead}
+                                    onlyRead={isEditting}
                                     // error={errors.fecha_nacimiento}
                                 />
                 </div>
@@ -155,7 +159,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                     data={formValues ? formValues["fecha_receta"] : data && data[EnumGrid.fecha_receta]}
                                     control={control}
                                     isOT={true}
-                                    onlyRead={onlyRead}
+                                    onlyRead={isEditting}
                                     // error={errors.fecha_nacimiento}
                                 />
                 </div>
@@ -172,7 +176,7 @@ const FOTReceta:React.FC<IReceta> = ({
                             // entidad={["/api/ot/", "12","ESF", "_p3"]}
                             // error={errors.establecimiento}
                             customWidth={"345px"}
-                            readOnly={onlyRead}
+                            readOnly={isEditting}
                         />
 
                         
@@ -181,28 +185,14 @@ const FOTReceta:React.FC<IReceta> = ({
             </div>
 
             <div className="w-full flex items-center pt-8  relative pb-8 rounded-lg border radioComponent ">
-                <div className='absolute z-20 top-[-8%] w-[15%] left-[70%] text-center labelForm  rounded-lg border radioComponent '>
-                <SelectInputComponent
-                            label="Grupo"
-                            name="tipo_anteojo"
-                            showRefresh={false}
-                            isOT={true}
-                            handleSelectChange={handleInputChange}
-                            data={formValues ? formValues["tipo_anteojo"] : data && data[EnumGrid.tipo_anteojo_id]}
-                            control={control}
-                            entidad={["/api/tipos/", "02","OTTipoAnteojo"]}
-                            // error={errors.establecimiento}
-                            readOnly={onlyRead || permiso_grupo_dioptria}
-                            customWidth={"340px"}
-                        />
-                </div>
-                <label className='absolute z-10 top-[-10%] w-[15%] left-[36%] text-center labelForm  rounded-lg text-2xl'>ANTEOJO 1</label>
+                
+                <label className='absolute z-10 top-[-15%] w-[15%] left-[36%] text-center labelForm text-[#f8b179]   rounded-lg text-2xl'>ANTEOJO 1</label>
 
 
 
-                <div className=" w-[43%] items-center  ">
+                <div className=" w-[43%] items-center rowForm !mt-[-10rem] !h-[8rem]  ">
                     <div className="w-[90%] mx-auto flex items-center h-[9rem] relative labelForm  rounded-lg border radioComponent">
-                        <label className='labelForm w-[40%] absolute z-10 text-center -top-2 left-[30%]'>OJO DERECHO</label>
+                        <label className='labelForm w-[40%] absolute z-10 text-center -top-6 left-[30%]'>OJO DERECHO</label>
                         <div className="w-[25%]">
                             <OTTextInputComponent
                                 type="number"
@@ -213,7 +203,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 otData={ a1_od_esf.value || data && data[EnumGrid.a1_od_esf]}
                                 control={control}
                                 // isOT={true}
-                                onlyRead={onlyRead}
+                                onlyRead={permiso_grupo_dioptria}
                                 // error={errors.fecha_nacimiento}
                             />
                         </div>
@@ -223,7 +213,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 label="CIL"
                                 name="a1_od_cil"
                                 handleChange={handleInputChange}
-                                onlyRead={onlyRead}
+                                onlyRead={permiso_grupo_dioptria}
                                 otData={a1_od_cil.value || data && data[EnumGrid.a1_od_cil]}
                                 control={control}
                                 // isOT={true}
@@ -238,12 +228,12 @@ const FOTReceta:React.FC<IReceta> = ({
                                 handleChange={handleInputChange}
                                 otData={a1_od_eje.value || data && data[EnumGrid.a1_od_eje]}
                                 control={control}
-                                onlyRead={onlyRead}
+                                onlyRead={isEditting}
                                 tabIndex={-1}
                                 // error={errors.fecha_nacimiento}
                             />
                         </div>
-                        <div className="w-[25%]" tabIndex={-1}>
+                        <div className="w-[25%] -mt-[0.4rem]" tabIndex={-1}>
                             <TextInputComponent
                                 type="number"
                                 label="AD"
@@ -260,9 +250,9 @@ const FOTReceta:React.FC<IReceta> = ({
                     </div>    
                 </div>
 
-                <div className=" w-[43%] items-center">
+                <div className=" w-[43%] items-center rowForm !h-[8rem]">
                 <div className="w-[90%] mx-auto flex items-center h-[9rem] relative labelForm  rounded-lg border radioComponent">
-                        <label className='labelForm w-[40%] absolute z-10 text-center -top-2 left-[30%]'>OJO IZQUIERDO</label>
+                        <label className='labelForm w-[40%] absolute z-10 text-center -top-6 left-[30%]'>OJO IZQUIERDO</label>
                         <div className="w-[25%]">
                             <TextInputComponent
                                 type="number"
@@ -301,7 +291,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 control={control}
                                 isOT={true}
 
-                                onlyRead={onlyRead}
+                                onlyRead={isEditting}
                                 // error={errors.fecha_nacimiento}
                             />
                         </div>
@@ -315,7 +305,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 control={control}
                                 isOT={true}
 
-                                onlyRead={onlyRead}
+                                onlyRead={isEditting}
                                 // error={errors.fecha_nacimiento}
                             />
                         </div>
@@ -332,7 +322,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 control={control}
                                 isOT={true}
 
-                                onlyRead={onlyRead}
+                                onlyRead={isEditting}
                                 // error={errors.fecha_nacimiento}
                             />
                     </div>
@@ -345,7 +335,6 @@ const FOTReceta:React.FC<IReceta> = ({
                                 data={formValues ? formValues["a1_alt"] : data && data[EnumGrid.a1_alt]}
                                 control={control}
                                 isOT={true}
-
                                 onlyRead={habilitarCampo.value.a1_alt}
                                 // error={errors.fecha_nacimiento}
                             />
@@ -353,29 +342,14 @@ const FOTReceta:React.FC<IReceta> = ({
                 </div>
             </div>
 
-            <div className="w-full flex items-center   pt-8 relative pb-8 rounded-lg border border-blue-500 ">
-            <div className='absolute z-20 top-[-8%] w-[15%] left-[70%] text-center labelForm  rounded-lg border border-blue-500 '>
-                <SelectInputComponent
-                            label="Grupo"
-                            name="tipo_anteojo"
-                            showRefresh={false}
-                            isOT={true}
-                            handleSelectChange={handleInputChange}
-                            data={formValues ? formValues["tipo_anteojo"] : data && data[EnumGrid.tipo_anteojo_id]}
-                            control={control}
-                            entidad={["/api/tipos/", "02","OTTipoAnteojo"]}
-                            // error={errors.establecimiento}
-                            readOnly={onlyRead || permiso_grupo_dioptria}
-                            customWidth={"345px"}
-                        />
-                </div>
-                <label className='absolute z-10 top-[-10%] w-[15%] left-[36%] text-center labelForm  rounded-lg text-2xl'>ANTEOJO 2</label>
+            <div className="w-full flex items-center   pt-8 relative pb-8 rounded-lg labelForm  border radioComponent">
+                <label className='absolute z-10 top-[-15%] w-[15%] left-[36%] text-center labelForm text-[#f8b179] rounded-lg text-3xl'>ANTEOJO 2</label>
 
 
 
-                <div className=" w-[43%] items-center  ">
-                    <div className="w-[90%] mx-auto flex items-center h-[9rem] relative labelForm  rounded-lg border border-blue-500">
-                        <label className='labelForm w-[40%] absolute z-10 text-center -top-2 left-[30%]'>OJO DERECHO</label>
+                <div className=" w-[43%] items-center !mt-[-10rem] !h-[8rem] rowForm ">
+                    <div className="w-[90%] mx-auto flex items-center !h-[8rem] relative labelForm  rounded-lg border radioComponent">
+                        <label className='labelForm w-[40%] absolute z-10 text-center -top-6 left-[30%]'>OJO DERECHO</label>
                         <div className="w-[25%]">
                             <OTTextInputComponent
                                 type="text"
@@ -422,9 +396,9 @@ const FOTReceta:React.FC<IReceta> = ({
                     </div>    
                 </div>
 
-                <div className=" w-[43%] items-center">
-                <div className="w-[90%] mx-auto flex items-center h-[9rem] relative labelForm  rounded-lg border border-blue-500">
-                        <label className='labelForm w-[40%] absolute z-10 text-center -top-2 left-[30%]'>OJO IZQUIERDO</label>
+                <div className=" w-[43%] items-center rowForm !h-[8rem]">
+                <div className="w-[90%] mx-auto flex items-center h-[8rem] relative labelForm  rounded-lg border radioComponent">
+                        <label className='labelForm w-[40%] absolute z-10 text-center -top-6 left-[30%]'>OJO IZQUIERDO</label>
                         <div className="w-[25%]">
                             <TextInputComponent
                                 type="number"

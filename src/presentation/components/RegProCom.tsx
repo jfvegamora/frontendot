@@ -16,6 +16,7 @@ interface IProps{
     defaultComuna?:number;
     name:string
     tabIndex?: number;
+    onlyRead?:boolean;
 };
 const fetcher = (url:string) => fetch(url).then((res) => res.json());
 
@@ -28,7 +29,8 @@ const RegProCom:React.FC<IProps> = ({
     setValue,
     name,
     tabIndex,
-    errors
+    errors,
+    onlyRead
 }) => {
     // const firstProvinciaID = signal(null)
 
@@ -127,6 +129,7 @@ console.log(regions)
                             value={selectedRegion} 
                             onChange={handleRegionChange}
                             tabIndex  ={tabIndex || 1}
+                            disabled={onlyRead}
                             className="custom-input py-2 px-3 cursor-pointer z-0 "
                             >
                                 {!regions && (
@@ -157,6 +160,7 @@ console.log(regions)
                         <select 
                             {...field}
                             value={selectedProvince} 
+                            disabled={onlyRead}
                             onChange={handleProvinceChange}
                             tabIndex  ={tabIndex || 1}
                             className="custom-input py-2 px-3 cursor-pointer z-0 "
@@ -196,6 +200,7 @@ console.log(regions)
                                 <select 
                             {...register(name)}
                             value={selectedCommune} 
+                            disabled={onlyRead}
                             defaultValue={defaultComuna && defaultComuna}
                             onChange={handleCommuneChange}
                             tabIndex  ={tabIndex || 1}

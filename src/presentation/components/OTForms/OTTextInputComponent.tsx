@@ -128,7 +128,7 @@ return (
           ref       ={inputRef}
           tabIndex  ={tabIndex || 1}
           readOnly  = {onlyRead}
-          className ={`${className ? className : " custom-input py-2 px-3 "}`}
+          className ={`${className ? className : " custom-input py-2 px-3 "} ${onlyRead ? "bg-gray-200 opacity-70 cursor-not-allowed" : ""}`}
           // className={`${className ? className : "custom-input py-2 px-3"}`}
         />
       </div>

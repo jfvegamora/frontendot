@@ -41,6 +41,7 @@ const FOTOptica:React.FC<IOptica> = ({
     onlyRead,
     permiso_estado_impresion,
     permiso_estado_validacion,
+    permiso_resolucion_garantia
 }) => {
     const strUrl = `${URLBackend}/api/ot/listado`
     const impresion = data && data[9] === 1 ? true: false
@@ -140,8 +141,8 @@ const FOTOptica:React.FC<IOptica> = ({
 
     useEffect(()=>{
         if(data){
-            data[EnumGrid.estado_impresion_id] === '1' ? setIsToggleImpresion(true) : setIsToggleValidacion(false);
-            data[EnumGrid.validar_parametrizacion_id] === '1' ? setIsToggleValidacion(true) : setIsToggleValidacion(false);
+            data[EnumGrid.estado_impresion_id] === '0' ? setIsToggleImpresion(true) : setIsToggleValidacion(false);
+            data[EnumGrid.validar_parametrizacion_id] === '0' ? setIsToggleValidacion(true) : setIsToggleValidacion(false);
         }
     },[data])
 //  console.log(fecha_entrega_taller.ue)
@@ -149,6 +150,10 @@ const FOTOptica:React.FC<IOptica> = ({
 
 // console.log(isEditting)
 // console.log(fecha_despacho.value)
+// console.log(isEditting)
+// console.log(permiso_estado_impresion)
+// console.log(permiso_resolucion_garantia)
+// console.log(permiso_est  ado_validacion)
 
 
 return (
@@ -167,7 +172,7 @@ return (
                         entidad={["/api/proyectos/", "07", userID]}
                         // error={errors.establecimiento}
                         customWidth={"345px"}
-                        readOnly={onlyRead}
+                        readOnly={isEditting}
                     />
                 </div>
                 {isEditting && !onlyRead && (
@@ -211,7 +216,7 @@ return (
                         entidad={["/api/puntosventa/", "06", codigoProyecto.value]}
                         // error={errors.establecimiento}
                         customWidth={"345px"}
-                        readOnly={onlyRead}
+                        readOnly={isEditting}
                     />
                 </div>
 
@@ -268,7 +273,7 @@ return (
                         // data={formValues ? formValues["fecha_atencion"] : data && data[EnumGrid.fecha_atencion]}
                         data={data && data[EnumGrid.fecha_atencion] || (formValues && formValues["fecha_atencion"])}
                         control={control}
-                        onlyRead={onlyRead}
+                        onlyRead={isEditting}
                         isOT={true}
                         // error={errors.fecha_nacimiento}
                     />
@@ -282,7 +287,7 @@ return (
                         // data={(data && data[EnumGrid.fecha_entrega_taller]) || fecha_entrega_taller || (formValues && formValues["fecha_entrega_taller"])}
                         data={(data && data[EnumGrid.fecha_entrega_taller]) || (formValues && formValues["fecha_entrega_taller"]) || fecha_entrega_taller }
                         control={control}
-                        onlyRead={onlyRead}
+                        onlyRead={isEditting}
                         isOT={true}
                         // error={errors.fecha_nacimiento}
                     />
@@ -295,7 +300,7 @@ return (
                         handleChange={handleInputChange}
                         data={(data && data[EnumGrid.fecha_despacho]) || (formValues && formValues["fecha_entrega_taller"]) || fecha_despacho}
                         control={control}
-                        onlyRead={onlyRead}
+                        onlyRead={isEditting}
                         isOT={true}
                         // error={errors.fecha_nacimiento}
                     />
@@ -308,7 +313,7 @@ return (
                         handleChange={handleInputChange}
                         data={(data && data[EnumGrid.fecha_entrega_cliente]) || (formValues && formValues["fecha_entrega_taller"]) || fecha_entrega_cliente}
                         control={control}
-                        onlyRead={onlyRead}
+                        onlyRead={isEditting}
                         isOT={true}
                         // error={errors.fecha_nacimiento}
                     />
@@ -358,7 +363,7 @@ return (
                                 options={["Aceptada", "Rechazada"]}
                                 // error={errors.sexo}
                                 horizontal={true}
-                                // readOnly={!isEditting || !motivo || onlyRead || permiso_resolucion_garantia}
+                                readOnly={permiso_resolucion_garantia}
                                 onChange={handleInputChange}
                                 
                             />  
@@ -375,7 +380,7 @@ return (
                             handleChange={handleInputChange}
                             data={formValues ? formValues["observaciones"] : data && data[EnumGrid.observaciones]}
                             control={control}
-                            onlyRead={onlyRead}
+                            onlyRead={isEditting}
                             // error={errors.fecha_nacimiento}
                         />
                     </div>
@@ -391,7 +396,7 @@ return (
                             handleChange={handleInputChange}
                             data={formValues ? formValues["worktracking"] : data && data[EnumGrid.worktracking]}
                             control={control}
-                            onlyRead={onlyRead}
+                            onlyRead={isEditting}
                             // error={errors.fecha_nacimiento}
                         />
                     </div>
@@ -403,7 +408,7 @@ return (
                             handleChange={handleInputChange}
                             data={formValues ? formValues["nota_venta"] : data && data[EnumGrid.nota_venta]}
                             control={control}
-                            onlyRead={onlyRead}
+                            onlyRead={isEditting}
                             // error={errors.fecha_nacimiento}
                         />
                     </div>
@@ -415,7 +420,7 @@ return (
                             handleChange={handleInputChange}
                             data={formValues ? formValues["numero_factura"] : data && data[EnumGrid.numero_factura]}
                             control={control}
-                            onlyRead={onlyRead}
+                            onlyRead={isEditting}
                             // error={errors.fecha_nacimiento}
                         />
                     </div>
@@ -427,7 +432,7 @@ return (
                             handleChange={handleInputChange}
                             data={formValues ? formValues["folio_interno_mandante"] : data && data[EnumGrid.folio_interno_mandante]}
                             control={control}
-                            onlyRead={onlyRead}
+                            onlyRead={isEditting}
                             // error={errors.fecha_nacimiento}
                         />
                     </div>

@@ -97,7 +97,7 @@ export function reiniciarDioptriasReceta() {
       const section:any = dioptrias_receta.value[sectionKey] ;
 
       for (const subfieldKey in section) {
-        section[subfieldKey] = 0;
+        section[subfieldKey] = "";
       }
     
     }

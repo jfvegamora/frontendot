@@ -863,7 +863,6 @@ const FOT:React.FC<IFOTProps> = ({
       punto_venta.value = (Object.values(data)[0] as string);
     }
 
-    console.log(punto_venta.value)
 
     //todo  INICIO CRISTALES, TRAE GRUPO Y CODIGO DEPENDIENDO DE DATOS DEL CRISTAL 
      // ? ANTEOJO 1: 
@@ -1147,15 +1146,17 @@ const fetchDioptrias = async(proyecto:string) => {
 }
 
 
-console.log(validationNivel2.value)
-console.log(validationNivel1.value)
+// console.log(validationNivel2.value)
+// console.log(validationNivel1.value)
 // console.log(validationNivel2)
-console.log(dioptrias_receta.value.a1_od)
+// console.log(dioptrias_receta.value.a1_od)
 // console.log(dioptriasHabilitadas.value)
 // console.log(dioptrias.value)
 // console.log(a1_od_esf.value)
 // console.log(data && data[EnumGrid.estado_validacion_id])
 
+console.log(OTPermissions)
+console.log(permisos_campos)
 
 // const handleEsferico = () => {
 //   inputName.value = inputName.value + 1
@@ -1222,11 +1223,11 @@ useEffect(() => {
             </TabPanel>
             
           <TabPanel>
-            <FOTClientes onlyRead={onlyRead} data={data && data} register={register} formValues={formValues["cliente"]} control={control} onDataChange={(data:any) => handleFormChange(data , 'cliente')} strCodigoProyecto={strCodigoProyecto} setExistCliente={setExistCliente}    />
+            <FOTClientes onlyRead={onlyRead} data={data && data} isEditting={isEditting} register={register} formValues={formValues["cliente"]} control={control} onDataChange={(data:any) => handleFormChange(data , 'cliente')} strCodigoProyecto={strCodigoProyecto} setExistCliente={setExistCliente}    />
           </TabPanel>
 
           <TabPanel>
-            <FOTReceta permiso_grupo_dioptria={permiso_grupo_dioptria} onlyRead={onlyRead} data={data && data} formValues={formValues["receta"]} control={control} onDataChange={(data:any) => handleFormChange(data , 'receta')}  />
+            <FOTReceta permiso_grupo_dioptria={permiso_grupo_dioptria} onlyRead={onlyRead} isEditting={isEditting} data={data && data} formValues={formValues["receta"]} control={control} onDataChange={(data:any) => handleFormChange(data , 'receta')}  />
           </TabPanel>
 
           <TabPanel> 
@@ -1234,7 +1235,7 @@ useEffect(() => {
           </TabPanel>
           
           <TabPanel>
-            <FOTCristales permiso_cristales={permiso_cristales} onlyRead={onlyRead} data={data && data}  formValues={formValues["cristales"]} control={control} onDataChange={(data:any) => handleFormChange(data , 'cristales')}   /> 
+            <FOTCristales permiso_cristales={permiso_cristales} onlyRead={onlyRead} isEditting={isEditting} data={data && data}  formValues={formValues["cristales"]} control={control} onDataChange={(data:any) => handleFormChange(data , 'cristales')}   /> 
           </TabPanel>
 
           <TabPanel>

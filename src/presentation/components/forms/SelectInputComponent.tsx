@@ -14,6 +14,7 @@ import { AppStore, useAppDispatch, useAppSelector } from "../../../redux/store";
 import axios from "axios";
 import { setDataListbox } from "../../../redux/slices/listBoxSlice";
 import { URLBackend } from "../../hooks/useCrud";
+import { punto_venta } from "../../utils";
 // import Select from "react-select";
 
 interface ISelectInputProps {
@@ -88,6 +89,11 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     const fetchSelectData =async()=>{
       const {data} = await axios(strUrl2)
       // console.log(data)
+      if(label === 'Punto de Venta'){
+        if(data){
+          punto_venta.value = data[0][0]
+        }
+      }
       const payload = {
         [label]:data
       }
@@ -124,7 +130,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     // console.log(label)
     // console.log('render')
     const { refreshData } = useEntityUtils(strUrl, entidad[1]);
-    console.log(state)
+    // console.log(state)
     const renderInput = () => (
       <Controller
           name={name}

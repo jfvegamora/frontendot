@@ -93,45 +93,45 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
       }
     }, [data]);
 
-    useEffect(() => {
-      const handleColumnMouseDown = (e: any) => {
-        const initialX = e.clientX;
-        const columnId = e.target.id;
-        const column = document.getElementById(columnId);
+    // useEffect(() => {
+    //   const handleColumnMouseDown = (e: any) => {
+    //     const initialX = e.clientX;
+    //     const columnId = e.target.id;
+    //     const column = document.getElementById(columnId);
     
-        const handleMouseMove = (e: any) => {
-          if (column) {
-            const width = column.offsetWidth + (e.clientX - initialX);
-            column.style.width = `${width}px`;
-          }
-        };
+    //     const handleMouseMove = (e: any) => {
+    //       if (column) {
+    //         const width = column.offsetWidth + (e.clientX - initialX);
+    //         column.style.width = `${width}px`;
+    //       }
+    //     };
     
-        const handleMouseUp = () => {
-          document.removeEventListener('mousemove', handleMouseMove);
-          document.removeEventListener('mouseup', handleMouseUp);
-        };
+    //     const handleMouseUp = () => {
+    //       document.removeEventListener('mousemove', handleMouseMove);
+    //       document.removeEventListener('mouseup', handleMouseUp);
+    //     };
     
-        document.addEventListener('mousemove', handleMouseMove);
-        document.addEventListener('mouseup', handleMouseUp);
-      };
+    //     document.addEventListener('mousemove', handleMouseMove);
+    //     document.addEventListener('mouseup', handleMouseUp);
+    //   };
     
-      const columns = document.querySelectorAll('th');
+    //   const columns = document.querySelectorAll('th');
     
-      columns.forEach((column) => {
-        column.addEventListener('mousedown', handleColumnMouseDown);
+    //   columns.forEach((column) => {
+    //     column.addEventListener('mousedown', handleColumnMouseDown);
     
-        return () => {
-          column.removeEventListener('mousedown', handleColumnMouseDown);
-        };
-      });
+    //     return () => {
+    //       column.removeEventListener('mousedown', handleColumnMouseDown);
+    //     };
+    //   });
     
-      // Limpia los eventos cuando el componente se desmonta
-      return () => {
-        columns.forEach((column) => {
-          column.removeEventListener('mousedown', handleColumnMouseDown);
-        });
-      };
-    }, []);
+    //   // Limpia los eventos cuando el componente se desmonta
+    //   return () => {
+    //     columns.forEach((column) => {
+    //       column.removeEventListener('mousedown', handleColumnMouseDown);
+    //     });
+    //   };
+    // }, []);
     
 
     const renderTextCell = (text: string, alignment?:string, type?:number) => {
