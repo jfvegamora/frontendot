@@ -9,28 +9,45 @@ import {
   TableComponent,
 } from "../../components";
 import { useEntityUtils, usePermission } from "../../hooks";
-import { TITLES, table_head_proyectos_puntos_venta} from "../../utils";
-import FProyectosPuntosVenta from "../forms/FProyectosPuntosVenta";
-import FProyectosPuntosVentaCopiar from "../forms/FProyectosPuntosVentaCopiar";
+import { TITLES, table_head_muestrarios_armazones} from "../../utils";
+import FMuestrariosArmazones from "../forms/FMuestrariosArmazones";
+import FMuestrariosArmazonesCopiar from "../forms/FMuestrariosArmazonesCopiar";
 
 
 export enum EnumGrid {
-  codigo_proyecto      = 1,
-  titulo_proyecto      = 2,
-  codigo_licitacion    = 3,
-  punto_venta_id       = 4,
-  punto_venta          = 5,
-  estado               = 6
+  muestrario_id       = 1,
+  muestrario          = 2,
+  punto_venta_id      = 3,
+  punto_venta         = 4,
+  codigo_armazon      = 5,
+  estado              = 6,
+  proveedor_id        = 7,
+  proveedor           = 8,
+  tipo_id             = 9,
+  tipo                = 10,
+  marca_id            = 11,
+  marca               = 12,
+  modelo              = 13,
+  color               = 14,
+  material_id         = 15,
+  material            = 16,
+  aro                 = 17,
+  puente              = 18,
+  diagonal            = 19,
+  brazo               = 20,
+  uso_id              = 21,
+  uso                 = 22,
+  stock_minimo        = 23,
+  stock_disponible    = 24,
 }
-const strEntidad = "Parametrización de Puntos de Venta ";
-const strEntidadExcel = "Parametrizacion_de_puntos_de_venta";
-const strBaseUrl = "/api/proyectopuntosventa/";
+const strEntidad = "Parametrización de Muestrarios ";
+const strEntidadExcel = "Parametrizacion_de_muestrarios";
+const strBaseUrl = "/api/muestrariosarmazones/";
 const strQuery = "01";
-const idMenu   = 33;
+const idMenu   = 16;
 
 
-
-const MProyectosPuntosVenta: React.FC = () => {
+const MMuestrariosArmazones: React.FC = () => {
   const [params, setParams] = useState([]);
   const { escritura_lectura} = usePermission(idMenu || 0 );
 
@@ -68,7 +85,7 @@ const MProyectosPuntosVenta: React.FC = () => {
   
   useEffect(() => {    
     const newPkToDelete = selectedRows.map((row: number) => 
-     `{"pk1":"${entities[row][EnumGrid.codigo_proyecto]}", "pk2":"${entities[row][EnumGrid.punto_venta_id]}"}`);
+     `{"pk1":"${entities[row][EnumGrid.muestrario_id]}", "pk2":"${entities[row][EnumGrid.codigo_armazon]}"}`);
     const combinedPks = newPkToDelete.join(',');
 
     setPkToDelete([`${strParamsToDelete}=[${combinedPks}]`]);
@@ -77,7 +94,7 @@ const MProyectosPuntosVenta: React.FC = () => {
   return (
     <div className="mantenedorContainer">
       <div className="mantenedorHead width90">
-      <div className="w-[75%]">
+      <div className="w-[50%]">
         <PrimaryKeySearch
           baseUrl={strBaseUrl}
           setParams={setParams}
@@ -85,19 +102,13 @@ const MProyectosPuntosVenta: React.FC = () => {
           setEntities={setEntities}
           primaryKeyInputs={[
             {
-              name: "_p1",
-              label: "Proyecto",
+              name: "_p2",
+              label: "Muestrario",
               type: "select",
-              selectUrl: "/api/proyectos/", styles:{with:" !w-[33rem]"},
+              selectUrl: "/api/muestrarios/", styles:{with:" !w-[23rem]"}
             },
-            {
-              name      : "_p3",
-              label     : "Punto de Venta",
-              type      : "select",
-              selectUrl : "/api/puntosventa/",
-            },
-          // { name: "_p2", label: "Código Proyecto", type: "text", styles:{with:" !w-[9rem]"}, },
-            // { name: "_p3", label: "Código Licitacion", type: "text", styles:{with:"!w-[9rem]"} },
+            { name: "_p3", label: "Código Armazón", type: "text", styles:{with:" !w-[12rem]"}, },
+            // { name: "_p3", label: "Código Licitacion", type: "text", styles:{with:" !w-[9rem]"}, },
           ]}
         />
       </div>
@@ -117,12 +128,15 @@ const MProyectosPuntosVenta: React.FC = () => {
           showDeleteButton={true}
           showForwardButton={false}
           showRefreshButton={true}
+          showCustomExportButton={true}
+          customExporTooltip={"Exportar muestrarios"}
           idMenu={idMenu}
+          bln_egreso={false}
 
         />
       </div>
 
-      <div className="width90 scroll">
+      <div className="width100 scroll">
         <TableComponent
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
@@ -133,15 +147,17 @@ const MProyectosPuntosVenta: React.FC = () => {
           setSelectedRows={setSelectedRows}
           entidad={strEntidad}
           data={entities}
-          tableHead={table_head_proyectos_puntos_venta}
-          showEditButton={false}
+          tableHead={table_head_muestrarios_armazones}
+          showEditButton={true}
           showDeleteButton={false}
           idMenu={idMenu}
         />
-      </div>      
+      </div>
+   
+      
 
       {isModalInsert && (
-        <FProyectosPuntosVenta
+        <FMuestrariosArmazones
           label={`${TITLES.ingreso} ${strEntidad}`}
           closeModal={closeModal}
           selectedRows={selectedRows}
@@ -153,20 +169,20 @@ const MProyectosPuntosVenta: React.FC = () => {
       )}
 
       {isModalEdit && (
-        <FProyectosPuntosVenta
+        <FMuestrariosArmazones
           label={`${TITLES.edicion} ${strEntidad}`}
           selectedRows={selectedRows}
           setEntities={setEntities}
           params={params}
           data={entity}
           closeModal={closeModal}
-          isEditting={false}
+          isEditting={true}
           escritura_lectura={escritura_lectura}
         />
       )}
 
       {isModalCopiar && (
-        <FProyectosPuntosVentaCopiar
+        <FMuestrariosArmazonesCopiar
           label={`${TITLES.copiar} ${strEntidad}`}
           closeModal={closeModal}
           selectedRows={selectedRows}
@@ -176,8 +192,9 @@ const MProyectosPuntosVenta: React.FC = () => {
           escritura_lectura={escritura_lectura}
         />
       )}
+
     </div>
   );
 };
 
-export default MProyectosPuntosVenta;
+export default MMuestrariosArmazones;

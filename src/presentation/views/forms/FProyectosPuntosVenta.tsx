@@ -5,7 +5,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect } from "react";
 import {
-  RadioButtonComponent,
+  // RadioButtonComponent,
   SelectInputComponent,
 } from "../../components";
 import { useForm } from "react-hook-form";
@@ -24,7 +24,7 @@ const strEntidad = "Parametrizacion de Punto de Venta ";
 export interface InputData {
   proyecto   : string | undefined;
   punto_venta: string | undefined;
-  estado     : string | undefined;
+  // estado     : string | undefined;
 }
 
 interface OutputData {
@@ -37,8 +37,8 @@ interface OutputData {
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
 
   let _p1 = ` "${jsonData.proyecto}", 
-                "${jsonData.punto_venta}",  
-                 ${jsonData.estado === "Disponible" ? 1 : 2}`;
+               ${jsonData.punto_venta}`;  
+                //  ${jsonData.estado === "Disponible" ? 1 : 2}`;
 
   _p1 = _p1.replace(/'/g, '!');
 
@@ -50,29 +50,31 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
   return query;
 }
 
-export function transformUpdateQuery(jsonData: InputData): OutputData | null {
-  const fields = [
-    `estado   = ${jsonData.estado === "Disponible" ? 1 : 2}`,
-  ];
+export function transformUpdateQuery(): OutputData | null {
+  // export function transformUpdateQuery(jsonData: InputData): OutputData | null {
+//   const fields = [
+//     `estado   = ${jsonData.estado === "Disponible" ? 1 : 2}`,
+//   ];
 
-  const filteredFields = fields.filter(
-    (field) => field !== null && field !== ""
-  );
+//   const filteredFields = fields.filter(
+//     (field) => field !== null && field !== ""
+//   );
 
-  if (filteredFields.length === 0) {
-    return null;
-  }
+//   if (filteredFields.length === 0) {
+//     return null;
+//   }
 
-  const _p1 = filteredFields.join(",");
+//   const _p1 = filteredFields.join(",");
 
-  const query = {
-    query: "04",
-    _p1,
-    _p2: jsonData.proyecto,
-    _p3: jsonData.punto_venta,
-  };
-// console.log("query: ", query);
-  return query;
+//   const query = {
+//     query: "04",
+//     _p1,
+//     _p2: jsonData.proyecto,
+//     _p3: jsonData.punto_venta,
+//   };
+// // console.log("query: ", query);
+//   return query;
+return null;
 }
 
 interface IUserFormPrps {
@@ -208,7 +210,8 @@ const FProyectosPuntosVenta: React.FC<IUserFormPrps> = React.memo(
         // console.log(data);
         try {
           const transformedData = isEditting
-            ? transformUpdateQuery(data)
+            ? transformUpdateQuery()
+            // ? transformUpdateQuery(data)
             : transformInsertQuery(data);
 
           const response = isEditting
@@ -287,7 +290,7 @@ const FProyectosPuntosVenta: React.FC<IUserFormPrps> = React.memo(
               </div>
             </div>
             <div className="w-full flex items-center !my-8 h-[4rem]">
-              <div className="input-container items-center rowForm w-[45%]">
+              <div className="input-container items-center rowForm w-full">
                 <div className="w-full">
                   <SelectInputComponent
                       label="Punto de Venta"
@@ -299,12 +302,12 @@ const FProyectosPuntosVenta: React.FC<IUserFormPrps> = React.memo(
                       error={errors.punto_venta}
                       inputRef={firstInputRef}
                       readOnly={isEditting}
-                      customWidth={"!ml-[1rem] !w-[16rem]"}
+                      customWidth={"!ml-[1rem] !w-[38rem]"}
                       />
                 </div>
               </div>
 
-              <div className="input-container items-center rowForm w-[50%]">
+              {/* <div className="input-container items-center rowForm w-[50%]">
                 <div className="w-full">
                   <RadioButtonComponent
                   control={control}
@@ -316,7 +319,7 @@ const FProyectosPuntosVenta: React.FC<IUserFormPrps> = React.memo(
                   horizontal={true}
                   />
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
 

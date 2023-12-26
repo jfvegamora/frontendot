@@ -9,42 +9,45 @@ import {
   TableComponent,
 } from "../../components";
 import { useEntityUtils, usePermission } from "../../hooks";
-import { TITLES, table_head_parametrizacion_armazones} from "../../utils";
-import FAlmacenesArmazones from "../forms/FAlmacenesArmazones";
-import FAlmacenesArmazonesCopiar from "../forms/FAlmacenesArmazonesCopiar";
+import { TITLES, table_head_vitrinas_armazones} from "../../utils";
+import FVitrinasArmazones from "../forms/FVitrinasArmazones";
+import FVitrinasArmazonesCopiar from "../forms/FVitrinasArmazonesCopiar";
 
 
 export enum EnumGrid {
-  almacen_id           = 1,
-  almacen              = 2,
-  codigo_armazon       = 3,
-  proveedor_id         = 4,
-  proveedor            = 5,
-  tipo_id              = 6,
-  tipo                 = 7,
-  marca_id             = 8,
-  marca                = 9,
-  modelo               = 10,
-  color                = 11,
-  material_id          = 12,
-  material             = 13,
-  aro                  = 14,
-  puente               = 15,
-  diagonal             = 16,
-  brazo                = 17,
-  uso_id               = 18,
-  uso                  = 19,
-  estado               = 20
+  vitrina_id          = 1,
+  vitrina             = 2,
+  punto_venta_id      = 3,
+  punto_venta         = 4,
+  codigo_armazon      = 5,
+  estado              = 6,
+  proveedor_id        = 7,
+  proveedor           = 8,
+  tipo_id             = 9,
+  tipo                = 10,
+  marca_id            = 11,
+  marca               = 12,
+  modelo              = 13,
+  color               = 14,
+  material_id         = 15,
+  material            = 16,
+  aro                 = 17,
+  puente              = 18,
+  diagonal            = 19,
+  brazo               = 20,
+  uso_id              = 21,
+  uso                 = 22,
+  stock_minimo        = 23,
+  stock_disponible    = 24,
 }
-const strEntidad = "Parametrización de Armazones ";
-const strEntidadExcel = "Parametrizacion_de_armazones";
-const strBaseUrl = "/api/almacenarmazones/";
+const strEntidad = "Parametrización de Vitrinas ";
+const strEntidadExcel = "Parametrizacion_de_vitrinas";
+const strBaseUrl = "/api/vitrinasarmazones/";
 const strQuery = "01";
-const idMenu   = 16;
+const idMenu   = 35;
 
 
-
-const MAlmacenesArmazones: React.FC = () => {
+const MVitrinasArmazones: React.FC = () => {
   const [params, setParams] = useState([]);
   const { escritura_lectura} = usePermission(idMenu || 0 );
 
@@ -82,7 +85,7 @@ const MAlmacenesArmazones: React.FC = () => {
   
   useEffect(() => {    
     const newPkToDelete = selectedRows.map((row: number) => 
-     `{"pk1":"${entities[row][EnumGrid.almacen_id]}", "pk2":"${entities[row][EnumGrid.codigo_armazon]}"}`);
+     `{"pk1":"${entities[row][EnumGrid.vitrina_id]}", "pk2":"${entities[row][EnumGrid.codigo_armazon]}"}`);
     const combinedPks = newPkToDelete.join(',');
 
     setPkToDelete([`${strParamsToDelete}=[${combinedPks}]`]);
@@ -99,12 +102,12 @@ const MAlmacenesArmazones: React.FC = () => {
           setEntities={setEntities}
           primaryKeyInputs={[
             {
-              name: "_p3",
-              label: "Muestrario (?)",
+              name: "_p2",
+              label: "Vitrina",
               type: "select",
-              selectUrl: "/api/almacenes/", styles:{with:" !w-[33rem]"}, _p1:'1'
+              selectUrl: "/api/vitrinas/", styles:{with:" !w-[23rem]"}
             },
-            // { name: "_p2", label: "Código Proyecto", type: "text", styles:{with:" !w-[9rem]"}, },
+            { name: "_p3", label: "Código Armazón", type: "text", styles:{with:" !w-[12rem]"}, },
             // { name: "_p3", label: "Código Licitacion", type: "text", styles:{with:" !w-[9rem]"}, },
           ]}
         />
@@ -126,7 +129,7 @@ const MAlmacenesArmazones: React.FC = () => {
           showForwardButton={false}
           showRefreshButton={true}
           showCustomExportButton={true}
-          customExporTooltip={"Exportar armazones por muestrario"}
+          customExporTooltip={"Exportar muestrarios"}
           idMenu={idMenu}
           bln_egreso={false}
 
@@ -144,7 +147,7 @@ const MAlmacenesArmazones: React.FC = () => {
           setSelectedRows={setSelectedRows}
           entidad={strEntidad}
           data={entities}
-          tableHead={table_head_parametrizacion_armazones}
+          tableHead={table_head_vitrinas_armazones}
           showEditButton={true}
           showDeleteButton={false}
           idMenu={idMenu}
@@ -154,7 +157,7 @@ const MAlmacenesArmazones: React.FC = () => {
       
 
       {isModalInsert && (
-        <FAlmacenesArmazones
+        <FVitrinasArmazones
           label={`${TITLES.ingreso} ${strEntidad}`}
           closeModal={closeModal}
           selectedRows={selectedRows}
@@ -166,7 +169,7 @@ const MAlmacenesArmazones: React.FC = () => {
       )}
 
       {isModalEdit && (
-        <FAlmacenesArmazones
+        <FVitrinasArmazones
           label={`${TITLES.edicion} ${strEntidad}`}
           selectedRows={selectedRows}
           setEntities={setEntities}
@@ -179,7 +182,7 @@ const MAlmacenesArmazones: React.FC = () => {
       )}
 
       {isModalCopiar && (
-        <FAlmacenesArmazonesCopiar
+        <FVitrinasArmazonesCopiar
           label={`${TITLES.copiar} ${strEntidad}`}
           closeModal={closeModal}
           selectedRows={selectedRows}
@@ -194,4 +197,4 @@ const MAlmacenesArmazones: React.FC = () => {
   );
 };
 
-export default MAlmacenesArmazones;
+export default MVitrinasArmazones;

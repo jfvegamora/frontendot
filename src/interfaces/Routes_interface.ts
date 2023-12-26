@@ -23,8 +23,10 @@ const MProveedores          = lazy(()=>import("../presentation/views/mantenedore
 
 const MMandantes            = lazy(()=>import("../presentation/views/mantenedores/MMandantes"));
 const MProyectos            = lazy(()=>import("../presentation/views/mantenedores/MProyectos"));
-const MAlmacenesArmazones   = lazy(()=>import("../presentation/views/mantenedores/MAlmacenesArmazones"));
-const MProyectosMuestrarios = lazy(()=>import("../presentation/views/mantenedores/MProyectosMuestrarios"));
+const MMuestrarios          = lazy(()=>import("../presentation/views/mantenedores/MMuestrarios"));
+const MVitrinas             = lazy(()=>import("../presentation/views/mantenedores/MVitrinas"));
+const MMuestrariosArmazones = lazy(()=>import("../presentation/views/mantenedores/MMuestrariosArmazones"));
+const MVitrinasArmazones    = lazy(()=>import("../presentation/views/mantenedores/MVitrinasArmazones"));
 const MProyectosAccesorios  = lazy(()=>import("../presentation/views/mantenedores/MProyectosAccesorios"));
 const MProyectosCristales   = lazy(()=>import("../presentation/views/mantenedores/MProyectosCristales"));
 const MProyectosDirecciones = lazy(()=>import("../presentation/views/mantenedores/MProyectosDirecciones"));
@@ -77,8 +79,10 @@ export const PrivateRoutes = {
   //PROYECTOS
   MANDANTES             : "mandantes",
   PROYECTOS             : "proyectos",
-  ALMACEN_ARMAZONES   : "almacenarmazones",
-  PROYECTOS_MUESTRARIOS : "proyectomuestrarios",
+  MUESTRARIOS           : "muestrarios",
+  VITRINAS              : "vitrinas",
+  MUESTRARIOS_ARMAZONES : "muestrariosarmazones",
+  VITRINAS_ARMAZONES    : "vitrinasarmazones",
   PROYECTOS_CRISTALES   : "proyectocristales",
   PROYECTOS_ACCESORIOS  : "proyectoaccesorios",
   PROYECTOS_DIRECCIONES : "proyectodireccionesdespacho",
@@ -206,6 +210,30 @@ export const privateRoutes = [
 
   //PROYECTOS
   {
+    id                  : "36",
+    path                : PrivateRoutes.MUESTRARIOS,
+    component           : MMuestrarios,
+    requiredPermissions : ['view_' + PrivateRoutes.MUESTRARIOS]
+  },
+  {
+    id                  : "37",
+    path                : PrivateRoutes.VITRINAS,
+    component           : MVitrinas,
+    requiredPermissions : ['view_' + PrivateRoutes.VITRINAS]
+  },
+  {
+    id                  : "16",
+    path                : PrivateRoutes.MUESTRARIOS_ARMAZONES,
+    component           : MMuestrariosArmazones,
+    requiredPermissions : ['view_' + PrivateRoutes.MUESTRARIOS_ARMAZONES]
+  },
+  {
+    id                  : "35",
+    path                : PrivateRoutes.VITRINAS_ARMAZONES,
+    component           : MVitrinasArmazones,
+    requiredPermissions : ['view_' + PrivateRoutes.VITRINAS_ARMAZONES]
+  },
+  {
     id                  : "14",
     path                : PrivateRoutes.MANDANTES,
     component           : MMandantes,
@@ -216,18 +244,6 @@ export const privateRoutes = [
     path                : PrivateRoutes.PROYECTOS,
     component           : MProyectos,
     requiredPermissions : ['view_' + PrivateRoutes.PROYECTOS]
-  },
-  {
-    id                  : "35",
-    path                : PrivateRoutes.PROYECTOS_MUESTRARIOS,
-    component           : MProyectosMuestrarios,
-    requiredPermissions : ['view_' + PrivateRoutes.PROYECTOS_MUESTRARIOS]
-  },
-  {
-    id                  : "16",
-    path                : PrivateRoutes.ALMACEN_ARMAZONES,
-    component           : MAlmacenesArmazones,
-    requiredPermissions : ['view_' + PrivateRoutes.ALMACEN_ARMAZONES]
   },
   {
     id                  : "17",

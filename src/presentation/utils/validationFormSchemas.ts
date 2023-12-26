@@ -270,30 +270,35 @@ export const validationProyectosSchema = () =>
     observaciones         : yup.string(),
   });
 
-  // Schema PROYECTOS MUESTRARIOS
-export const validationParametrizacionMuestrarios = () =>
+// Schema MUESTRARIOS
+export const validationMuestrariosSchema = () =>
 yup.object().shape({
-  proyecto   : yup.string().required(`${msg}`),
-  almacen    : yup.string().required(`${msg}`),
-  estado     : yup.string().required(`${msg}`),
+  descripcion : yup.string().required(`${msg}`),
+  punto_venta : yup.string().required(`${msg}`),
 });
 
-
-// Schema PROYECTOS ARMAZONES
-export const validationParametrizacionArmazones = () =>
-  yup.object().shape({
-    almacen       : yup.string().required(`${msg}`),
-    codigo_armazon: yup.string().required(`${msg}`),
-    estado        : yup.string().required(`${msg}`),
+// Schema VITRINAS
+export const validationVitrinasSchema = () =>
+yup.object().shape({
+  descripcion : yup.string().required(`${msg}`),
+  punto_venta : yup.string().required(`${msg}`),
 });
 
-// Schema PROYECTOS ARMAZONES
-// export const validationParametrizacionArmazones = () =>
-//   yup.object().shape({
-//     proyecto      : yup.string().required(`${msg}`),
-//     codigo_armazon: yup.string().required(`${msg}`),
-//     estado        : yup.string().required(`${msg}`),
-// });
+// Schema MUESTRARIOS ARMAZONES
+export const validationMuestrariosArmazones = () =>
+yup.object().shape({
+  muestrario    : yup.string().required(`${msg}`),
+  codigo_armazon: yup.string().required(`${msg}`),
+  estado        : yup.string().required(`${msg}`),
+});
+
+// Schema VITRINAS ARMAZONES
+export const validationVitrinasArmazones = () =>
+yup.object().shape({
+  vitrina       : yup.string().required(`${msg}`),
+  codigo_armazon: yup.string().required(`${msg}`),
+  estado        : yup.string().required(`${msg}`),
+});
 
 // Schema PROYECTOS CRISTALES
 export const validationProyectoCristalesSchema = () =>
@@ -324,7 +329,7 @@ export const validationParametrizacionAccesorios = () =>
     estado          : yup.string().required(`${msg}`),
 });
 
-// Schema PROYECTOS ARMAZONES-CRISTALES-ACCESORIOS-USUARIOS-MUESTRARIOS COPIAR
+// Schema PROYECTOS ARMAZONES-CRISTALES-ACCESORIOS-USUARIOS-MUESTRARIOS-VITRINAS COPIAR
 export const validationProyectoParametrizacionCopiar = () =>
   yup.object().shape({
     origen : yup.string().required(`${msg}`),
@@ -348,7 +353,6 @@ export const validationParametrizacionPuntosVenta = () =>
   yup.object().shape({
     proyecto   : yup.string().required(`${msg}`),
     punto_venta: yup.string().required(`${msg}`),
-    estado     : yup.string().required(`${msg}`),
 });
 
 // Schema PROYECTOS USUARIOS

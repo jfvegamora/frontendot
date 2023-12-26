@@ -210,18 +210,23 @@ const navListMenuBodega = [
 const subMenuParametrizacion = [
   {
     title: "Parametrización de Muestrarios",
-    link: "/proyectomuestrarios",
-    id: 35,
+    link: "/muestrariosarmazones",
+    id: 16,
   },
   {
-    title: "Parametrización de Armazones",
-    link: "/almacenarmazones",
-    id: 16,
+    title: "Parametrización de Vitrinas",
+    link: "/vitrinasarmazones",
+    id: 35,
   },
   {
     title: "Parametrización de Cristales",
     link: "/proyectocristales",
     id: 17,
+  },
+  {
+    title: "Parametrización de Puntos de Venta",
+    link: "/proyectopuntosventa",
+    id: 33,
   },
   {
     title: "Parametrización de Accesorios",
@@ -234,11 +239,6 @@ const subMenuParametrizacion = [
     id: 18,
   },
   {
-    title: "Parametrización de Puntos de Venta",
-    link: "/proyectopuntosventa",
-    id: 33,
-  },
-  {
     title: "Parametrización de Usuarios",
     link: "/proyectousuarios",
     id: 34,
@@ -246,6 +246,16 @@ const subMenuParametrizacion = [
 ];
 
 const navListMenuProyectos = [
+  {
+    title: "Muestrarios",
+    link: "/muestrarios",
+    id: 36,
+  },
+  {
+    title: "Vitrinas",
+    link: "/vitrinas",
+    id: 37,
+  },
   {
     title: "Proyectos",
     link: "/proyectos",
