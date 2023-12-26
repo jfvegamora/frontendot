@@ -810,8 +810,6 @@ export const table_head_OT_diaria = [
     width: "w-[12rem]"
   }
 ];
-
-
 export const table_head_OT_diaria2 = [
   {
     cell: <input type="checkbox" />,
@@ -1332,8 +1330,6 @@ export const table_head_OT_historica = [
     width: "w-[4rem]",
   },
 ];
-
-
 export const table_head_OT_bitacora = [
   {
     cell: <input type="checkbox" />,
@@ -1984,15 +1980,15 @@ export const table_head_armazones = [
     width: "w-[6rem]",
   },
   {
-    cell: "Stock Disponible",
-    key: "stock_disponible",
+    cell: "Stock Reservado",
+    key: "stock_reservado",
     visible: true,
     alignment: "text-right",
     width: "w-[6rem]",
   },
   {
-    cell: "Stock Reservado",
-    key: "stock_reservado",
+    cell: "Stock Disponible",
+    key: "stock_disponible",
     visible: true,
     alignment: "text-right",
     width: "w-[6rem]",
@@ -2777,7 +2773,7 @@ export const table_head_proyectos = [
     width: "w-[4rem]",
   },
 ];
-export const table_head_proyectos_muestrarios = [
+export const table_head_muestrarios = [
   {
     cell: <input type="checkbox" />,
     key: "checkbox",
@@ -2786,56 +2782,26 @@ export const table_head_proyectos_muestrarios = [
     alignment: "flex justify-center items-center"
   },
   {
-    cell: "Código Proyecto",
-    key: "codigo",
-    visible: false,
-    alignment: "text-center",
-    width: "w-[10rem]",
-  },
-  {
-    cell: "Título Proyecto",
-    key: "titulo_proyecto",
-    visible: false,
-    alignment: "text-left",
-    width: "w-[12rem]",
-  },
-  {
-    cell: "Código Licitación",
-    key: "codigo_licitacion",
-    visible: false,
-    alignment: "text-center",
-    width: "w-[10rem]",
-  },
-  {
-    cell: "Almacen ID",
-    key: "almacen_id",
+    cell: "ID",
+    key: "id",
     visible: false,
   },
   {
-    cell: "Almacen",
-    key: "almacen",
+    cell: "Descripción",
+    key: "descripcion",
     visible: true,
-    alignment: "text-left",
-    width: "w-[10rem]",
+    alignment: "text-left"
   },
   {
-    cell: "Almacen Tipo ID",
-    key: "almacen_tipo_id",
+    cell: "Punto Venta ID",
+    key: "punto_venta_id",
     visible: false,
   },
   {
-    cell: "Tipo",
-    key: "almacen_tipo",
+    cell: "Punto Venta",
+    key: "punto_venta",
     visible: true,
-    alignment: "text-left",
-    width: "w-[10rem]",
-  },
-  {
-    cell: "Estado",
-    key: "estado",
-    visible: true,
-    alignment: "text-center",
-    width: "w-[7rem]",
+    alignment: "text-left"
   },
   {
     cell: "",
@@ -2844,7 +2810,7 @@ export const table_head_proyectos_muestrarios = [
     width: "w-[4rem]",
   },
 ];
-export const table_head_parametrizacion_armazones = [
+export const table_head_vitrinas = [
   {
     cell: <input type="checkbox" />,
     key: "checkbox",
@@ -2853,15 +2819,66 @@ export const table_head_parametrizacion_armazones = [
     alignment: "flex justify-center items-center"
   },
   {
-    cell: "Almacen ID",
-    key: "almacen_id",
+    cell: "ID",
+    key: "id",
+    visible: false,
+  },
+  {
+    cell: "Descripción",
+    key: "descripcion",
+    visible: true,
+    alignment: "text-left"
+  },
+  {
+    cell: "Punto Venta ID",
+    key: "punto_venta_id",
+    visible: false,
+  },
+  {
+    cell: "Punto Venta",
+    key: "punto_venta",
+    visible: true,
+    alignment: "text-left"
+  },
+  {
+    cell: "",
+    key: "opciones",
+    visible: true,
+    width: "w-[4rem]",
+  },
+];
+export const table_head_muestrarios_armazones = [
+  {
+    cell: <input type="checkbox" />,
+    key: "checkbox",
+    visible: true,
+    width: "w-[3rem]",
+    alignment: "flex justify-center items-center"
+  },
+  {
+    cell: "Muestrario ID",
+    key: "muestrario_id",
     visible: false,
     alignment: "text-center",
     width: "w-[10rem]",
   },
   {
     cell: "Muestrario",
-    key: "almacen",
+    key: "muestrario",
+    visible: true,
+    alignment: "text-left",
+    width: "w-[12rem]",
+  },
+  {
+    cell: "Punto Venta ID",
+    key: "punto_venta_id",
+    visible: false,
+    alignment: "text-center",
+    width: "w-[10rem]",
+  },
+  {
+    cell: "Punto Venta",
+    key: "punto_venta",
     visible: false,
     alignment: "text-left",
     width: "w-[12rem]",
@@ -2872,6 +2889,13 @@ export const table_head_parametrizacion_armazones = [
     visible: true,
     alignment: "text-center",
     width: "w-[10rem]",
+  },
+  {
+    cell: "Estado",
+    key: "estado",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[7rem]",
   },
   {
     cell: "Proveedor Id",
@@ -2976,8 +3000,15 @@ export const table_head_parametrizacion_armazones = [
     width: "w-[6rem]",
   },
   {
-    cell: "Estado",
-    key: "estado",
+    cell: "Stock Mínimo",
+    key: "stock_minimo",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[7rem]",
+  },
+  {
+    cell: "Stock Disponible",
+    key: "stock_disponible",
     visible: true,
     alignment: "text-center",
     width: "w-[7rem]",
@@ -2989,158 +3020,179 @@ export const table_head_parametrizacion_armazones = [
     width: "w-[4rem]",
   },
 ];
-// export const table_head_parametrizacion_armazones = [
-//   {
-//     cell: <input type="checkbox" />,
-//     key: "checkbox",
-//     visible: true,
-//     width: "w-[3rem]",
-//     alignment: "flex justify-center items-center"
-//   },
-//   {
-//     cell: "Código Proyecto",
-//     key: "codigo",
-//     visible: false,
-//     alignment: "text-center",
-//     width: "w-[10rem]",
-//   },
-//   {
-//     cell: "Título Proyecto",
-//     key: "titulo_proyecto",
-//     visible: false,
-//     alignment: "text-left",
-//     width: "w-[12rem]",
-//   },
-//   {
-//     cell: "Código Licitación",
-//     key: "codigo_licitacion",
-//     visible: false,
-//     alignment: "text-center",
-//     width: "w-[10rem]",
-//   },
-//   {
-//     cell: "Código Armazón",
-//     key: "codigo_armazon",
-//     visible: true,
-//     alignment: "text-center",
-//     width: "w-[10rem]",
-//   },
-//   {
-//     cell: "Proveedor Id",
-//     key: "proveedor_id",
-//     visible: false,
-//   },
-//   {
-//     cell: "Proveedor",
-//     key: "proveedor",
-//     visible: true,
-//     alignment: "text-left",
-//     width: "w-[10rem]",
-//   },
-//   {
-//     cell: "Tipo Id",
-//     key: "tipo_id",
-//     visible: false,
-//   },
-//   {
-//     cell: "Tipo",
-//     key: "tipo",
-//     visible: true,
-//     alignment: "text-center",
-//     width: "w-[8rem]",
-//   },
-//   {
-//     cell: "Marca Id",
-//     key: "marca_id",
-//     visible: false,
-//   },
-//   {
-//     cell: "Marca",
-//     key: "marca",
-//     visible: true,
-//     alignment: "text-center",
-//     width: "w-[8rem]",
-//   },
-//   {
-//     cell: "Modelo",
-//     key: "modelo",
-//     visible: true,
-//     alignment: "text-center",
-//     width: "w-[8rem]",
-//   },
-//   {
-//     cell: "Color",
-//     key: "color",
-//     visible: true,
-//     alignment: "text-center",
-//     width: "w-[8rem]",
-//   },
-//   {
-//     cell: "Material Id",
-//     key: "material_id",
-//     visible: false,
-//   },
-//   {
-//     cell: "Material",
-//     key: "material",
-//     visible: true,
-//     alignment: "text-center",
-//     width: "w-[8rem]",
-//   },
-//   {
-//     cell: "Aro",
-//     key: "aro",
-//     visible: true,
-//     alignment: "text-center",
-//     width: "w-[6rem]",
-//   },
-//   {
-//     cell: "Puente",
-//     key: "puente",
-//     visible: true,
-//     alignment: "text-center",
-//     width: "w-[6rem]",
-//   },
-//   {
-//     cell: "Diagonal",
-//     key: "diagonal",
-//     visible: true,
-//     alignment: "text-center",
-//     width: "w-[7rem]",
-//   },
-//   {
-//     cell: "Brazo",
-//     key: "brazo",
-//     visible: true,
-//     alignment: "text-center",
-//     width: "w-[6rem]",
-//   },
-//   {
-//     cell: "Uso Id",
-//     key: "uso_id",
-//     visible: false,
-//   },
-//   {
-//     cell: "Uso",
-//     key: "uso",
-//     visible: true,
-//     alignment: "text-center",
-//     width: "w-[6rem]",
-//   },
-//   {
-//     cell: "Estado",
-//     key: "estado",
-//     visible: true,
-//     alignment: "text-center",
-//     width: "w-[7rem]",
-//   },
-//   {
-//     cell: "",
-//     key: "opciones",
-//     visible: true,
-//     width: "w-[4rem]",
-//   },
-// ];
+export const table_head_vitrinas_armazones = [
+  {
+    cell: <input type="checkbox" />,
+    key: "checkbox",
+    visible: true,
+    width: "w-[3rem]",
+    alignment: "flex justify-center items-center"
+  },
+  {
+    cell: "Vitrina ID",
+    key: "vitrina_id",
+    visible: false,
+    alignment: "text-center",
+    width: "w-[10rem]",
+  },
+  {
+    cell: "Vitrina",
+    key: "vitrina",
+    visible: true,
+    alignment: "text-left",
+    width: "w-[12rem]",
+  },
+  {
+    cell: "Punto Venta ID",
+    key: "punto_venta_id",
+    visible: false,
+    alignment: "text-center",
+    width: "w-[10rem]",
+  },
+  {
+    cell: "Punto Venta",
+    key: "punto_venta",
+    visible: false,
+    alignment: "text-left",
+    width: "w-[12rem]",
+  },
+  {
+    cell: "Código Armazón",
+    key: "codigo_armazon",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[10rem]",
+  },
+  {
+    cell: "Estado",
+    key: "estado",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[7rem]",
+  },
+  {
+    cell: "Proveedor Id",
+    key: "proveedor_id",
+    visible: false,
+  },
+  {
+    cell: "Proveedor",
+    key: "proveedor",
+    visible: true,
+    alignment: "text-left",
+    width: "w-[10rem]",
+  },
+  {
+    cell: "Tipo Id",
+    key: "tipo_id",
+    visible: false,
+  },
+  {
+    cell: "Tipo",
+    key: "tipo",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[8rem]",
+  },
+  {
+    cell: "Marca Id",
+    key: "marca_id",
+    visible: false,
+  },
+  {
+    cell: "Marca",
+    key: "marca",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[8rem]",
+  },
+  {
+    cell: "Modelo",
+    key: "modelo",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[8rem]",
+  },
+  {
+    cell: "Color",
+    key: "color",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[8rem]",
+  },
+  {
+    cell: "Material Id",
+    key: "material_id",
+    visible: false,
+  },
+  {
+    cell: "Material",
+    key: "material",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[8rem]",
+  },
+  {
+    cell: "Aro",
+    key: "aro",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[6rem]",
+  },
+  {
+    cell: "Puente",
+    key: "puente",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[6rem]",
+  },
+  {
+    cell: "Diagonal",
+    key: "diagonal",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[7rem]",
+  },
+  {
+    cell: "Brazo",
+    key: "brazo",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[6rem]",
+  },
+  {
+    cell: "Uso Id",
+    key: "uso_id",
+    visible: false,
+  },
+  {
+    cell: "Uso",
+    key: "uso",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[6rem]",
+  },
+  {
+    cell: "Stock Mínimo",
+    key: "stock_minimo",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[7rem]",
+  },
+  {
+    cell: "Stock Disponible",
+    key: "stock_disponible",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[7rem]",
+  },
+  {
+    cell: "",
+    key: "opciones",
+    visible: true,
+    width: "w-[4rem]",
+  },
+];
 export const table_head_parametrizacion_accesorios = [
   {
     cell: <input type="checkbox" />,
@@ -3479,21 +3531,21 @@ export const table_head_proyectos_puntos_venta = [
   {
     cell: "Código Proyecto",
     key: "codigo",
-    visible: false,
+    visible: true,
     alignment: "text-center",
     width: "w-[10rem]",
   },
   {
     cell: "Título Proyecto",
     key: "titulo_proyecto",
-    visible: false,
+    visible: true,
     alignment: "text-left",
     width: "w-[12rem]",
   },
   {
     cell: "Código Licitación",
     key: "codigo_licitacion",
-    visible: false,
+    visible: true,
     alignment: "text-center",
     width: "w-[10rem]",
   },
@@ -3508,13 +3560,6 @@ export const table_head_proyectos_puntos_venta = [
     visible: true,
     alignment: "text-left",
     width: "w-[10rem]",
-  },
-  {
-    cell: "Estado",
-    key: "estado",
-    visible: true,
-    alignment: "text-center",
-    width: "w-[7rem]",
   },
   {
     cell: "",

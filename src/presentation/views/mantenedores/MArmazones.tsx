@@ -32,8 +32,8 @@ export enum EnumGrid {
   total_egresos = 17,
   stock_actual = 18,
   stock_minimo = 19,
-  stock_disponible = 20,
-  stock_resrvado = 21,
+  stock_reservado = 20,
+  stock_disponible = 21,
 }
 
 const strEntidad = "Armazón ";
