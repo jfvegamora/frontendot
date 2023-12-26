@@ -317,7 +317,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                   entidad={"ArmazonesTipos"}
                   error={errors.tipo}
                   inputRef={secondInputRef}
-                  customWidth={"!w-[16rem]"}
+                  customWidth={"!w-[14rem] mx-4"}
                   />
                 </div>
               </div>
@@ -453,6 +453,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                       data={data && data[EnumGrid.armazon_uso_id]}
                       control={control}
                       entidad={"ArmazonesUsos"}
+                      customWidth={"!w-[25rem] !ml-4"}
                       error={errors.uso}
                       />
                     </div>

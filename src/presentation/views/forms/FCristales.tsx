@@ -312,6 +312,7 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                 showRefresh={true}
                 data={data && data[EnumGrid.diseno_id]}
                 control={control}
+                customWidth={"!ml-[1rem] !w-[28rem]"}
                 entidad={"CristalesDisenos"}
                 error={errors.diseno}
               />
@@ -323,6 +324,7 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                 showRefresh={true}
                 data={data && data[EnumGrid.indice_id]}
                 control={control}
+                customWidth={"!ml-[1rem] !w-[28rem]"}
                 entidad={"CristalesIndices"}
                 error={errors.indice}              
               />
@@ -335,6 +337,7 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                 data={data && data[EnumGrid.material_id]}
                 control={control}
                 entidad="CristalesMateriales"
+                customWidth={"!ml-[1rem] !w-[28rem]"}
                 error={errors.material}
               
               />
@@ -347,6 +350,7 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                 data={data && data[EnumGrid.color_id]}
                 control={control}
                 entidad="CristalesColores"
+                customWidth={"!ml-[1rem] !w-[28rem]"}
                 error={errors.color}
               />
             </div>
@@ -358,6 +362,7 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                 data={data && data[EnumGrid.tratamiento_id]}
                 control={control}
                 entidad="CristalesTratamientos"
+                customWidth={"!ml-[1rem] !w-[28rem]"}
                 error={errors.tratamiento}
               />
             </div>

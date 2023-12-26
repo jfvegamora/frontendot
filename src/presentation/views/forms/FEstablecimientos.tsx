@@ -290,6 +290,7 @@ const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
                   control={control}
                   entidad="EstablecimientosTipos"
                   error={errors.tipo}
+                  customWidth={"!w-full ml-4"}
                 />
               </div>
             </div>

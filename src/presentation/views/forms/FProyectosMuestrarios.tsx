@@ -36,9 +36,7 @@ interface OutputData {
 
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
 
-  let _p1 = ` "${jsonData.proyecto}", 
-                "${jsonData.almacen}",  
-                 ${jsonData.estado === "Disponible" ? 1 : 2}`;
+  let _p1 = ` "${jsonData.proyecto}","${jsonData.almacen}", ${jsonData.estado === "Disponible" ? 1 : 2}`;
 
   _p1 = _p1.replace(/'/g, '!');
 

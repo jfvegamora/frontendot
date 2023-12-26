@@ -248,6 +248,7 @@ const FSituaciones: React.FC<ISituacionesFormProps> = React.memo(
                 data={data && data[EnumGrid.area_id]}
                 control={control}
                 entidad={"OTAreas"}
+                customWidth={"!w-full ml-4"}
                 error={errors.area}
               />
             </div>

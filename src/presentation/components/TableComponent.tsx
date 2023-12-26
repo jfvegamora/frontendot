@@ -214,7 +214,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
               const folio     = rowData[1]
             
               return (
-                <tr key={rowIndex}>
+                <tr key={rowIndex} className="overflow-hidden">
                   {rowData.map((row: any, col: number) => {
                     // console.log("col", col);
                     const visible   = tableHead && tableHead[col].visible;

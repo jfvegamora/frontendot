@@ -110,8 +110,8 @@ const FOTCristales:React.FC<ICristales> = ({
 
 
       const renderGrupo1 = () => (
-            <div className='w-full rowForm'>
-                <div className="w-[50%] mx-auto">
+            <div className='w-full rowForm '>
+                <div className="w-[50%] mx-auto  absolute top-[-34%] left-[28%]">
                     <TextInputInteractive   
                         type='text'
                         label="Grupo 1"
@@ -138,11 +138,9 @@ const FOTCristales:React.FC<ICristales> = ({
         <div className='w-full labelForm flex items-center rounded-lg border border-blue-500 !mt-[1.7rem] '>
             <div className=" w-1/2 relative items-center mt-8">
 
-               <div className=" flex items-center  ml-2 rounded-lg border border-red-500">
+               <div className=" flex items-center  ml-2 rounded-lg border border-red-500  h-[35rem]">
 
                <div className="w-[80%]  items-center mx-auto   !mt-8 !h-[36rem]">
-                
-
                     <div className="w-full  !-mb-4 ">
 
                           <div className="w-full flex mt-6 rowForm ">
@@ -260,7 +258,7 @@ const FOTCristales:React.FC<ICristales> = ({
                             />
                         </div>
 
-                        <div className="w-[95%] rowForm !mr-[-2rem] ">
+                        <div className="w-full rowForm left-[9%] absolute mr-10 ">
                                  <TextInputComponent
                                         control={control}
                                         type="text"
@@ -270,12 +268,13 @@ const FOTCristales:React.FC<ICristales> = ({
                                         isOT={true}
                                         data={formValues ? formValues["cristal1_diametro"] : data && data[EnumGrid.cristal1_diametro]}
                                         onlyRead={onlyRead || permiso_cristales}
+                                        customWidth={'w-[33.6rem]'}
                                         // error={errors.fecha_nacimiento}
                                   />
                         </div>
-                        <div className="w-full !mt-8 !mb-6">
+                        <div className="w-full !mt-[5rem] !mb-6">
                             <div className="w-full rowForm relative flex  ">
-                                <div className="w-[50%]">
+                                <div className="w-[50%] -ml-[1rem]">
                                         <TextInputInteractive
                                             type="text"
                                             label="Codigo Cristal"
@@ -316,6 +315,7 @@ const FOTCristales:React.FC<ICristales> = ({
                                 control={control}
                                 entidad='CristalesTratamientos'
                                 readOnly={onlyRead || permiso_cristales}
+                                customWidth={"w-full"}
                                 />
                       </div>
                     </div>
@@ -334,11 +334,10 @@ const FOTCristales:React.FC<ICristales> = ({
                </div> 
                                       
             </div>
-            <div className=" w-1/2 relative items-center mt-8">
-               <div className=" flex items-center  ml-2 rounded-lg border border-blue-500">
-
+            <div className=" w-1/2 relative items-center mt-2" >
+               <div className=" flex items-center  ml-2 rounded-lg border border-blue-500 h-[35rem]">
                <div className="w-full items-center"> 
-                    <div className="w-[80%] items-center mx-auto !-mb-8 ">
+                    <div className="w-[80%] items-center mx-auto">
 
                         <div className="w-full mt-6 rowForm flex">
                             <div className="w-[50%]">
@@ -368,65 +367,69 @@ const FOTCristales:React.FC<ICristales> = ({
                                     />
                             </div>
                         </div>
-                        
-                        <div className="w-full rowForm">
-                                <SelectInputTiposComponent
-                                        label="Diseño"
-                                        name="cristal2_diseno_id"
-                                        showRefresh={true}
-                                        isOT={true}
-                                        handleSelectChange={handleInputChange}
-                                        data={formValues ? formValues["cristal2_diseno_id"] : data && data[EnumGrid.cristal2_diseno_id]}
-                                        control={control}
-                                        entidad={"CristalesDisenos"}
-                                        customWidth={"345px"}
-                                        readOnly={onlyRead || permiso_cristales}
-                            />
-                        </div>
 
-                        <div className="w-full rowForm">
+                        <div className="w-full rowForm flex">
+                            <div className="w-[50%] ">
                                     <SelectInputTiposComponent
-                                        label="Indice"
-                                        name="cristal2_indice_id"
+                                            label="Diseño"
+                                            name="cristal2_diseno_id"
+                                            showRefresh={true}
+                                            isOT={true}
+                                            handleSelectChange={handleInputChange}
+                                            data={formValues ? formValues["cristal2_diseno_id"] : data && data[EnumGrid.cristal2_diseno_id]}
+                                            control={control}
+                                            entidad={"CristalesDisenos"}
+                                            readOnly={onlyRead || permiso_cristales}
+                                />
+                            </div>
+
+                            <div className="w-[50%]">
+                                        <SelectInputTiposComponent
+                                            label="Indice"
+                                            name="cristal2_indice_id"
+                                            showRefresh={true}
+                                            isOT={true}
+                                            handleSelectChange={handleInputChange}
+                                            data={formValues ? formValues["cristal2_indice_id"] : data && data[EnumGrid.cristal2_indice_id]}
+                                            control={control}
+                                            entidad={"CristalesIndices"}
+                                            readOnly={onlyRead || permiso_cristales}
+                                        />
+
+                            </div>
+                        </div>
+
+                        <div className="w-full rowForm flex">
+                            <div className="w-[50%]">
+                                <SelectInputTiposComponent
+                                        label="Material"
+                                        name="cristal2_material_id"
                                         showRefresh={true}
                                         isOT={true}
                                         handleSelectChange={handleInputChange}
-                                        data={formValues ? formValues["cristal2_indice_id"] : data && data[EnumGrid.cristal2_indice_id]}
+                                        data={formValues ? formValues["cristal2_material_id"] : data && data[EnumGrid.cristal2_material_id]}
                                         control={control}
-                                        entidad={"CristalesIndices"}
-                                        customWidth={"345px"}
-                                        readOnly={onlyRead || permiso_cristales}
-                                    />
-
-                        </div>
-
-                        <div className="w-full rowForm">
-                            <SelectInputTiposComponent
-                                    label="Material"
-                                    name="cristal2_material_id"
-                                    showRefresh={true}
-                                    isOT={true}
-                                    handleSelectChange={handleInputChange}
-                                    data={formValues ? formValues["cristal2_material_id"] : data && data[EnumGrid.cristal2_material_id]}
-                                    control={control}
-                                    entidad={"CristalesMateriales"}
-                                    readOnly={onlyRead || permiso_cristales}
-                            />
-                        </div>
-
-                        <div className="w-full rowForm">
-                                 <SelectInputTiposComponent
-                                        label="Color"
-                                        name="cristal2_color_id"
-                                        showRefresh={true}
-                                        isOT={true}
-                                        handleSelectChange={handleInputChange}
-                                        data={formValues ? formValues["cristal2_color_id"] : data && data[EnumGrid.cristal2_color_id]}
-                                        control={control}
-                                        entidad={"CristalesColores"}
+                                        entidad={"CristalesMateriales"}
                                         readOnly={onlyRead || permiso_cristales}
                                 />
+                            </div>
+
+                            <div className="w-[50%]">
+                                    <SelectInputTiposComponent
+                                            label="Color"
+                                            name="cristal2_color_id"
+                                            showRefresh={true}
+                                            isOT={true}
+                                            handleSelectChange={handleInputChange}
+                                            data={formValues ? formValues["cristal2_color_id"] : data && data[EnumGrid.cristal2_color_id]}
+                                            control={control}
+                                            entidad={"CristalesColores"}
+                                            readOnly={onlyRead || permiso_cristales}
+                                    />
+                            </div>
                         </div>
+                        
+
                         
                         <div className="w-full rowForm">
                             <SelectInputTiposComponent
@@ -438,6 +441,7 @@ const FOTCristales:React.FC<ICristales> = ({
                                         data={1}
                                         control={control}
                                         entidad={"OTTratamientoAdicional"}
+                                        customWidth={"w-[35rem]"}
                                         readOnly={onlyRead || permiso_cristales}
                                     />
                             </div>
@@ -456,8 +460,6 @@ const FOTCristales:React.FC<ICristales> = ({
                         </div>
                         <div className="w-full !mt-8 !mb-6">
                             <div className="w-full rowForm relative flex  ">
-                            <h1 className='absolute w-[30%] z-10 labelForm text-center text-xl !top-[10%] left-[10%]'>OD</h1>
-                            <h1 className='absolute w-[30%] z-10 labelForm text-center text-xl !top-[-10rem] left-[60%]'>OI</h1>
                                 <div className="w-[50%]">
                                         <TextInputComponent
                                             type="text"

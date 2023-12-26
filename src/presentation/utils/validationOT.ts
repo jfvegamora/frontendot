@@ -76,7 +76,7 @@ export const validationTipoAnteojos = (value:number) => {
 export const validationOTlevel1 = (name: string, value: any) => {
     console.log(name)
     switch (name) {
-      case 'proyecto':
+      case 'proyecto_codigo':
         validationProyectos(value)
         break;
      case 'establecimiento_id':
@@ -837,8 +837,10 @@ export const validationFechaDespacho = (value:string) => {
 }
 
 export const validationFechaEntregaTaller =(value:string) => {
+    console.log(value)
     if(value !== ''){
         const item = validationNivel2.value.find(item => item.campo === 'fecha_entrega_taller');
+        console.log(item)
         if (item) {
             item.valor = 1;
         }

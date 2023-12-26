@@ -3,6 +3,7 @@ import axios from "axios";
 import { URLBackend } from "../hooks/useCrud";
 
 import { Signal, signal } from "@preact/signals-react";
+import { validationFechaDespacho, validationFechaEntregaCliente, validationFechaEntregaTaller } from "./validationOT";
 export const a1_od_esf  = signal<number | undefined>(undefined);
 export const a1_od_cil  = signal<number | undefined>(undefined);
 export const a1_od_eje  = signal<number | undefined>(undefined)
@@ -205,7 +206,7 @@ export const fetchFechas = async(fecha_atencion:string, codgioProyecto:string) =
       //  console.log(data[0])
        const parsedData = JSON.parse(data[0]); // Parsear la cadena JSON a objeto
 
-        // console.log(parsedData);
+        console.log(parsedData);
         // console.log(parsedData.fecha_entrega_taller);
         // console.log(parsedData.fecha_despacho);
         // console.log(parsedData.fecha_entrega_cliente)
@@ -213,6 +214,10 @@ export const fetchFechas = async(fecha_atencion:string, codgioProyecto:string) =
        fecha_entrega_taller.value = parsedData.fecha_entrega_taller
        fecha_despacho.value = parsedData.fecha_despacho
        fecha_entrega_cliente.value =parsedData.fecha_entrega_cliente
+
+       validationFechaEntregaCliente(fecha_entrega_cliente.value)
+       validationFechaDespacho(fecha_despacho.value)
+       validationFechaEntregaTaller(fecha_entrega_taller.value)
       
       return data         
   } catch (error) {

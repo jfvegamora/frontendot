@@ -1,7 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, 
+import React, { useEffect, useState, 
   // useEffect, 
   // useRef 
 } from "react";
@@ -17,6 +17,7 @@ import OTAreasButtons from "../../components/OTAreasButtons";
 import { AppStore, 
   // useAppDispatch, 
   useAppSelector } from "../../../redux/store";
+import FilterButton from "../../components/FilterButton";
 // import { URLBackend } from "../../hooks/useCrud";
 // import { fetchOT } from "../../../redux/slices/OTSlice";
 
@@ -56,6 +57,7 @@ const MOT: React.FC = () => {
   const OTs:any = useAppSelector((store: AppStore) => store.OTS);
   // const dispatch = useAppDispatch();
   const [params, _setParams] = useState([]);
+  const [estadosOT, setEstadosOT] = useState()
   // const areaActualRef = useRef(areaActual)
 
   
@@ -157,11 +159,23 @@ const MOT: React.FC = () => {
   // }
   // console.log(OTs.data.slice(0,250))
   // console.log('selectedValue',selectedValue)
+
+  // console.log(OTs.estadosOT)
+
+  useEffect(()=>{
+    setEstadosOT(OTs.estadosOT)
+  },[OTs.estadosOT])
+
+  console.log(estadosOT)
   return (
     <div className="mantenedorContainer">
       <div className="mt-8">
-       
+        <FilterButton
+          isOT={true}
+        >
             <OTAreasButtons/>
+        </FilterButton>
+       
 
       </div>
 
@@ -235,7 +249,7 @@ const MOT: React.FC = () => {
       </div>
 
       
-      <div className="scroll">
+      <div className="scroll !h-[23rem]">
         <TableComponent
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
@@ -255,6 +269,9 @@ const MOT: React.FC = () => {
         />
 
       </div>
+        {/* <div className="w-full bg-red-300 bottom-0">
+          <span>{estadosOT}</span>
+        </div> */}
 
       {isModalInsert && (
         <FOT
