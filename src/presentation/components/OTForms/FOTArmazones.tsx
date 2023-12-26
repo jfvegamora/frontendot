@@ -37,8 +37,8 @@ const FOTArmazones:React.FC<IArmazones> = ({
 
 
     const { data:armazon1 } = useSWR(`${URLBackend}/api/almacenarmazones/listado/?query=02&_p2=${codArmazon1}&_p1=${codigoProyecto.value}&_p3=${punto_venta}`, fetcher);
-    const { data:armazon2 } = useSWR(`${URLBackend}/api/almacenarmazones/listado/?query=02&_p1=${codArmazon2}&_p1=${codigoProyecto.value}&_p3=${punto_venta}`, fetcher);
-    const { data:armazon3 } = useSWR(`${URLBackend}/api/almacenarmazones/listado/?query=02&_p1=${codArmazon3}&_p1=${codigoProyecto.value}&_p3=${punto_venta}`, fetcher);
+    const { data:armazon2 } = useSWR(`${URLBackend}/api/almacenarmazones/listado/?query=02&_p2=${codArmazon2}&_p1=${codigoProyecto.value}&_p3=${punto_venta}`, fetcher);
+    const { data:armazon3 } = useSWR(`${URLBackend}/api/almacenarmazones/listado/?query=02&_p2=${codArmazon3}&_p1=${codigoProyecto.value}&_p3=${punto_venta}`, fetcher);
     
     
     const handleInputChange = (e:any) => {
@@ -60,7 +60,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
 
     useEffect(()=>{
         console.log(codArmazon2)
-
+        console.log(armazon2)
         if (codArmazon2 !== 0 && (armazon2 && armazon2[0][0] === 'Código Armazón no existe.')) {
             toast.error('Código Armazón no existe.')
             //!LIMPIAR DATA DE LOS INPUTS
@@ -69,8 +69,8 @@ const FOTArmazones:React.FC<IArmazones> = ({
     
   
     // console.log(codArmazon2)
-    // console.log(armazon2[0].length)
-    // console.log(armazon1[0].length)
+    console.log(armazon2)
+    console.log(armazon1)
     // console.log(typeof armazon1[0])
     // console.log(armazon2[0][0])
     // console.log(formValues)

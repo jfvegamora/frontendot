@@ -5,12 +5,14 @@ import { RxDoubleArrowLeft } from "react-icons/rx";
 
 interface IProps {
   children: ReactNode;
+  isOT?:boolean;
 }
 
 export const filterToggle = signal(false);
 
 const FilterButton: React.FC<IProps> = ({
-  children
+  children,
+  isOT
 }) => {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -49,7 +51,7 @@ const FilterButton: React.FC<IProps> = ({
       <div
         className={`${
           filterToggle.value ? 'w-[98vw] h-auto mx-auto' : 'w-0 -left-[70rem] absolute'
-        } transition-all duration-500 bg-white !h-[40vh] p-2 items-center rounded shadow-lg overflow-hidden`}
+        } transition-all duration-500 bg-white ${isOT ? "!h-[12rem]" : "!h-[40rem]"} p-2 items-center rounded shadow-lg overflow-hidden`}
       >
         {children}
       </div>

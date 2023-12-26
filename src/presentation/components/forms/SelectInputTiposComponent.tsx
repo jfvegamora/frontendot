@@ -61,7 +61,7 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
       try {
         if (!stateListBox || stateListBox.length < 1) {
           const { data } = await axios(`${URLBackend}/api/tipos/listado/?query=02&_p1=${entidad}`);
-          console.log(data);
+          // console.log(data);
           setEntities(data);
         }
       } catch (error) {
@@ -75,7 +75,7 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
     }, [entidad, stateListBox]);
     
 
-    console.log(entities)
+    // console.log(entities)
 
     const renderInput = () => (
       <Controller
@@ -130,7 +130,7 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
                   }
  
                 }}
-                className="custom-input py-2 px-3 w-[85%] cursor-pointer z-0"
+                className="custom-input py-2  cursor-pointer z-0"
               >
                 {!data && (
                   <option value={undefined} className="text-sm">

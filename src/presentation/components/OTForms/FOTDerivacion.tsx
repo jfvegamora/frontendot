@@ -5,6 +5,7 @@ import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
 import { AppStore, useAppSelector } from '../../../redux/store';
 // import { SEXO, TIPO_CLIENTE } from '../../utils';
 import axios from 'axios';
+import { URLBackend } from '../../hooks/useCrud';
 
 
 interface IDerivacion {
@@ -45,7 +46,7 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
     }
 
     const fetchDerivacion = async(jsonData:FormData) => {
-        let _estado = 40;
+        let _estado = "40";
         let _origen = OTAreas["areaActual"].toString();
         let _destino = jsonData.area_hasta;
 
@@ -62,14 +63,14 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
             `estado=${_estado}`,
             `validar_parametrizacion=${data[EnumGrid.validar_parametrizacion_id]}`,
             `estado_impresion=${data[EnumGrid.estado_impresion_id]}`,
-            ...(data[EnumGrid.proyecto_codigo] !== undefined ? [`proyecto='${data[EnumGrid.proyecto_codigo]}'`] : []),
+            ...(data[EnumGrid.proyecto_codigo] !== undefined ? [`proyecto="${data[EnumGrid.proyecto_codigo]}"`] : []),
             ...(data[EnumGrid.establecimiento_id] !== undefined ? [`establecimiento=${data[EnumGrid.establecimiento_id]}`] : []),
-            ...(data[EnumGrid.cliente_rut] !== undefined ? [`cliente='${data[EnumGrid.cliente_rut]}'`] : []),
+            ...(data[EnumGrid.cliente_rut] !== undefined ? [`cliente="${data[EnumGrid.cliente_rut]}"`] : []),
 
-            ...(data[EnumGrid.fecha_atencion] !== undefined ? [`fecha_atencion='${data[EnumGrid.fecha_atencion]}'`] : []),
-            ...(data[EnumGrid.fecha_entrega_taller] !== undefined ? [`fecha_entrega_taller='${data[EnumGrid.fecha_entrega_taller]}'`] : []),
-            ...(data[EnumGrid.fecha_despacho] !== undefined ? [`fecha_despacho='${data[EnumGrid.fecha_despacho]}'`] : []),
-            ...(data[EnumGrid.fecha_entrega_cliente] !== undefined ? [`fecha_entrega_cliente='${data[EnumGrid.fecha_entrega_cliente]}'`] : []),
+            ...(data[EnumGrid.fecha_atencion] !== undefined ? [`fecha_atencion="${data[EnumGrid.fecha_atencion]}"`] : []),
+            ...(data[EnumGrid.fecha_entrega_taller] !== undefined ? [`fecha_entrega_taller="${data[EnumGrid.fecha_entrega_taller]}"`] : []),
+            ...(data[EnumGrid.fecha_despacho] !== undefined ? [`fecha_despacho="${data[EnumGrid.fecha_despacho]}"`] : []),
+            ...(data[EnumGrid.fecha_entrega_cliente] !== undefined ? [`fecha_entrega_cliente="${data[EnumGrid.fecha_entrega_cliente]}"`] : []),
 
             ...(data[EnumGrid.punto_venta_id] !== undefined ? [`punto_venta=${data[EnumGrid.punto_venta_id]}`] : []),
             ...(data[EnumGrid.numero_receta] !== undefined ? [`numero_receta=${data[EnumGrid.numero_receta]}`] : []),
@@ -101,11 +102,11 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
             `a2_grupo=${a2_grupo}`,
             
             ...(data[EnumGrid.a1_opcion_vta_id] !== undefined ? [`anteojo1_opcion_vta=${data[EnumGrid.a1_opcion_vta_id]}`] : []),
-            ...(data[EnumGrid.a1_armazon_id] !== undefined ? [`anteojo1_armazon=${data[EnumGrid.a1_armazon_id]}`] : []),
+            ...(data[EnumGrid.a1_armazon_id] !== undefined ? [`anteojo1_armazon="${data[EnumGrid.a1_armazon_id]}"`] : []),
             ...(data[EnumGrid.a2_opcion_vta_id] !== undefined ? [`anteojo2_opcion_vta=${data[EnumGrid.a2_opcion_vta_id]}`] : []),
-            ...(data[EnumGrid.a2_armazon_id] !== undefined ? [`anteojo2_armazon=${data[EnumGrid.a2_armazon_id]}`] : []),
+            ...(data[EnumGrid.a2_armazon_id] !== undefined ? [`anteojo2_armazon="${data[EnumGrid.a2_armazon_id]}"`] : []),
             ...(data[EnumGrid.a3_opcion_vta_id] !== undefined ? [`anteojo3_opcion_vta=${data[EnumGrid.a3_opcion_vta_id]}`] : []),
-            ...(data[EnumGrid.a3_armazon_id] !== undefined ? [`anteojo3_armazon=${data[EnumGrid.a3_armazon_id]}`] : []),
+            ...(data[EnumGrid.a3_armazon_id] !== undefined ? [`anteojo3_armazon="${data[EnumGrid.a3_armazon_id]}"`] : []),
             
             
             ...(data[EnumGrid.cristal1_opcion_vta_id] !== undefined ? [`cristales1_opcion_vta=${data[EnumGrid.cristal1_opcion_vta_id]}`] : []),
@@ -114,8 +115,8 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
             ...(data[EnumGrid.cristal1_material_id] !== undefined ? [`cristales1_material=${data[EnumGrid.cristal1_material_id]}`] : []),
             ...(data[EnumGrid.cristal1_tratamiento_id] !== undefined ? [`cristales1_tratamiento=${data[EnumGrid.cristal1_tratamiento_id]}`] : []),
             ...(data[EnumGrid.cristal1_color_id] !== undefined ? [`cristales1_color=${data[EnumGrid.cristal1_color_id]}`] : []),
-            ...(data[EnumGrid.cristal1_od] !== undefined ? [`cristales1_od=${data[EnumGrid.cristal1_od]}`] : []),
-            ...(data[EnumGrid.cristal1_oi] !== undefined ? [`cristales1_oi=${data[EnumGrid.cristal1_oi]}`] : []),
+            ...(data[EnumGrid.cristal1_od] !== undefined ? [`cristales1_od="${data[EnumGrid.cristal1_od]}"`] : []),
+            ...(data[EnumGrid.cristal1_oi] !== undefined ? [`cristales1_oi="${data[EnumGrid.cristal1_oi]}"`] : []),
             ...(data[EnumGrid.cristal1_tratamiento_adicional_id] !== undefined ? [`cristales1_tratamiento_adicional=${data[EnumGrid.cristal1_tratamiento_adicional_id]}`] : []),
             
             
@@ -125,8 +126,8 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
             ...(data[EnumGrid.cristal2_material_id] !== undefined ? [`cristales2_material=${data[EnumGrid.cristal2_material_id]}`] : []),
             ...(data[EnumGrid.cristal2_tratamiento_id] !== undefined ? [`cristales2_tratamiento=${data[EnumGrid.cristal2_tratamiento_id]}`] : []),
             ...(data[EnumGrid.cristal2_color_id] !== undefined ? [`cristales2_color=${data[EnumGrid.cristal2_color_id]}`] : []),
-            ...(data[EnumGrid.cristal2_od] !== undefined ? [`cristales2_od=${data[EnumGrid.cristal2_od]}`] : []),
-            ...(data[EnumGrid.cristal2_oi] !== undefined ? [`cristales2_oi=${data[EnumGrid.cristal2_oi]}`] : []),
+            ...(data[EnumGrid.cristal2_od] !== undefined ? [`cristales2_od="${data[EnumGrid.cristal2_od]}"`] : []),
+            ...(data[EnumGrid.cristal2_oi] !== undefined ? [`cristales2_oi="${data[EnumGrid.cristal2_oi]}"`] : []),
             ...(data[EnumGrid.cristal2_tratamiento_adicional_id] !== undefined ? [`cristales2_oi=${data[EnumGrid.cristal2_tratamiento_adicional_id]}`] : []),
             
             
@@ -134,10 +135,10 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
             ...(data[EnumGrid.folio_asociado] !== undefined ? [`folio_asociado=${data[EnumGrid.folio_asociado]}`] : []),
             ...(data[EnumGrid.resolucion_garantia_id] !== undefined ? [`resolucion_garantia=${data[EnumGrid.resolucion_garantia_id]}`] : []),
             ...(data[EnumGrid.worktracking] !== undefined ? [`worktracking=${data[EnumGrid.worktracking]}`] : []),
-            ...(data[EnumGrid.nota_venta] !== undefined ? [`nota_venta=${data[EnumGrid.nota_venta]}`] : []),
-            ...(data[EnumGrid.numero_factura] !== undefined ? [`numero_factura=${data[EnumGrid.numero_factura]}`] : []),
-            ...(data[EnumGrid.folio_interno_mandante] !== undefined ? [`folio_interno_mandante=${data[EnumGrid.folio_interno_mandante]}`] : []),
-            ...(data[EnumGrid.observaciones] !== undefined ? [`observaciones='${data[EnumGrid.observaciones]}'`] : []),
+            ...(data[EnumGrid.nota_venta] !== undefined ? [`nota_venta="${data[EnumGrid.nota_venta]}"`] : []),
+            ...(data[EnumGrid.numero_factura] !== undefined ? [`numero_factura="${data[EnumGrid.numero_factura]}"`] : []),
+            ...(data[EnumGrid.folio_interno_mandante] !== undefined ? [`folio_interno_mandante="${data[EnumGrid.folio_interno_mandante]}"`] : []),
+            ...(data[EnumGrid.observaciones] !== undefined ? [`observaciones='"${data[EnumGrid.observaciones]}"'`] : []),
             // Continúa agregando los campos de la misma manera...
           ];
 
@@ -153,7 +154,7 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
             .map(item => {
               const numero = parseFloat(item.codigo);
               if (!isNaN(numero) && numero !== null) {
-                return { 'codigo': numero };
+                return { 'codigo': `"${numero}"` };
               }
               return null; 
             })
@@ -195,12 +196,12 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
             _punto_venta: `${data[EnumGrid.punto_venta_id]}`
         }
 
-        // console.log('query', query)
+        console.log('query', query)
         // console.log('query', _p1)
 
       
         try {
-          const response = await axios.post('https://mtoopticos.cl/api/ot/editar/', query)
+          const response = await axios.post(`${URLBackend}/api/ot/editar/`, query)
           console.log(response)
           closeModal()
         

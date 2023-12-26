@@ -268,7 +268,7 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
                   control={control}
                   entidad={"PuntosVentaTipos"}
                   error={errors.tipo}
-                  customWidth={"345px"}
+                  customWidth={"w-full ml-4"}
                 />
               </div>
             </div>

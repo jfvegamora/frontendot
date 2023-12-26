@@ -19,7 +19,7 @@ import { A1_CR_OD, A1_CR_OI, A1_GRUPO, SEXO, TIPO_CLIENTE,
   punto_venta, 
   // reiniciarA2DioptriasReceta, 
   reiniciarDioptriasReceta, reiniciarValidationNivel1, reiniciarValidationNivel2, tipo_de_anteojo, validar_parametrizacion } from '../../utils';
-import { validationCliente, validationEstablecimientos, validationFechaAtencion, validationProyectos, validationPuntoVenta, validationTipoAnteojos, validation_A2_OD_CIL, validation_A2_OD_EJE, validation_A2_OD_ESF, validation_A2_OI_CIL, validation_A2_OI_EJE, validation_A2_OI_ESF } from '../../utils/validationOT';
+import { validationCliente, validationEstablecimientos, validationFechaAtencion, validationProyectos, validationPuntoVenta, validationTipoAnteojos, validation_A2_OD_CIL, validation_A2_OD_EJE, validation_A2_OD_ESF, validation_A2_OI_CIL, validation_A2_OI_EJE, validation_A2_OI_ESF, validation_Cristal1_od, validation_Cristal1_oi } from '../../utils/validationOT';
 // import { inputName } from '../../components/OTForms/Otprueba';
 // import { verificaCampos } from '../../utils/OTReceta_utils';
 import { URLBackend } from '../../hooks/useCrud';
@@ -933,7 +933,9 @@ const FOT:React.FC<IFOTProps> = ({
           A1_CR_OD.value = cristalesDATA["CR_OD"]
           A1_CR_OI.value = cristalesDATA["CR_OI"]
           A1_GRUPO.value = cristalesDATA["GRUPO"]
-
+          
+          validation_Cristal1_od(cristalesDATA["CR_OD"])
+          validation_Cristal1_oi(cristalesDATA["CR_OI"])
         } catch (error) {
           console.log(error)
           throw error
@@ -1123,10 +1125,10 @@ const fetchDioptrias = async(proyecto:string) => {
     try {
 
       const requests = [
-        axios(`https://mtoopticos.cl/api/ot/listado/?query=12&_p3=ESF&_proyecto=${proyecto}`),
-        axios(`https://mtoopticos.cl/api/ot/listado/?query=12&_p3=CIL&_proyecto=${proyecto}`),
-        axios(`https://mtoopticos.cl/api/ot/listado/?query=12&_p3=EJE&_proyecto=${proyecto}`),
-        axios(`https://mtoopticos.cl/api/ot/listado/?query=12&_p3=AD&_proyecto=${proyecto}`)
+        axios(`${URLBackend}/api/ot/listado/?query=12&_p3=ESF&_proyecto=${proyecto}`),
+        axios(`${URLBackend}/api/ot/listado/?query=12&_p3=CIL&_proyecto=${proyecto}`),
+        axios(`${URLBackend}/api/ot/listado/?query=12&_p3=EJE&_proyecto=${proyecto}`),
+        axios(`${URLBackend}/api/ot/listado/?query=12&_p3=AD&_proyecto=${proyecto}`)
 
       ]
       
@@ -1194,6 +1196,7 @@ useEffect(() => {
   // console.log(isMotivo)
   console.log(isMOT)
   console.log(data)
+  console.log(validationNivel1.value)
 
   //PASAR DATA A FORMVALUES Y LEER FORMVALUES
 
@@ -1208,6 +1211,7 @@ useEffect(() => {
           <Tab className="custom-tab">Receta</Tab>
           <Tab className="custom-tab">Armazones</Tab>
           <Tab className="custom-tab">Cristales</Tab>
+          
           <Tab className="custom-tab">Bitácora</Tab>
         </TabList>
 
@@ -1277,7 +1281,7 @@ useEffect(() => {
                 !isMOT &&
                 isEditting &&
                 OTPermissions[7] === "1" &&
-                sumatoriaNivel1 === validationNivel1.value.length && (
+                (
                   <button className='bg-yellow-400 mx-4   w-1/4 'onClick={handlePausarClick}>Pausar</button>
                 )}
 
@@ -1303,6 +1307,7 @@ useEffect(() => {
                 {OTPermissions &&
                 !isEditting &&
                  OTPermissions[10] === "1" &&
+                 sumatoriaNivel1 === validationNivel1.value.length &&
                  (
                   <button className=' w-1/4 bg-blue-200 text-white' onClick={handleIngresarClick}>Ingresar</button>
                  )

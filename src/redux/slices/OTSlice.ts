@@ -3,7 +3,7 @@ import axios from "axios";
 import { URLBackend } from "../../presentation/hooks/useCrud";
 
 export interface DataState {
-    currentPage: number;
+    estadosOT: any;
     cristales: any[];
     armazones: any[];
     data: any[];
@@ -11,7 +11,7 @@ export interface DataState {
 }
 
 const initialState: DataState = {
-    currentPage: 1,
+    estadosOT: {},
     cristales: [],
     armazones: [],
     data: [],
@@ -66,6 +66,23 @@ const OTSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(fetchOT.fulfilled, (state, action) => {
+            console.log(action.payload)
+            state.estadosOT = {};
+
+            action.payload.forEach((ot:any)=>{
+                console.log(ot)
+                const estado = ot[3];
+
+                // Resto del código es igual...
+                console.log(estado)
+                console.log(state.estadosOT[estado])
+                if (state.estadosOT[estado]) {
+                    state.estadosOT[estado]++;
+                } else {
+                    state.estadosOT[estado] = 1;
+                }
+                return;
+            })
             state.data = action.payload
             return state
         });
