@@ -48,7 +48,7 @@ const RadioButtonComponent: React.FC<IRadioButtonProps> = ({
         horizontal ? "justify-arround ml-1 !h-[3rem] " : "flex-col justify-between"
       } rounded-lg ${error && "border border-red-400"}`}
     >
-      <label className="absolute z-20 text-base top-[-21px] left-[1rem] labelInput w-[6rem]">
+      <label className="absolute z-20 text-base top-[-21px] left-[1rem] labelInput !w-[10rem]">
         <span className="ml-[2px] text-[16px]">{label}</span>
       </label>
       {options.map((option, index) => (

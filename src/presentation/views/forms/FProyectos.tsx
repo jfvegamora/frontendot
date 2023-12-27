@@ -29,6 +29,7 @@ interface InputData {
     codigo_proyecto       : string | undefined;
     codigo_licitacion     : string | undefined;
     titulo_proyecto       : string | undefined;
+    param_cristales       : string | undefined;
     estado                : string | undefined;
     empresa_adjudicada    : string | undefined;
     mandante              : string | undefined;
@@ -101,6 +102,7 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
       "${jsonData.codigo_proyecto}", 
       "${jsonData.codigo_licitacion || ""}", 
       "${jsonData.titulo_proyecto}", 
+       ${jsonData.param_cristales === "Por anteojo" ? 1 : 2},
        ${jsonData.estado === "Abierto" ? 1 : 2},
        ${jsonData.empresa_adjudicada}, 
        ${jsonData.mandante}, 
@@ -145,6 +147,7 @@ export function transformUpdateQuery(
   const fields = [
     `codigo_licitacion          = "${jsonData.codigo_licitacion || ""}"`,
     `titulo                     = "${jsonData.titulo_proyecto}"`,
+    `param_cristales            = ${jsonData.param_cristales === "Por anteojo" ? 1 : 2}`,
     `estado                     = ${jsonData.estado === "Abierto" ? 1 : 2}`,
     `empresa                    = ${jsonData.empresa_adjudicada}`,
     `mandante                   = ${jsonData.mandante}`,
@@ -456,7 +459,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
             </div>
             <div className="w-full items-center flex h-[80px] mt-[10px] mb-[10px]">
 
-              <div className="input-container items-center rowForm w-[15%]">
+              <div className="input-container items-center rowForm w-[12%]">
                 <div className="w-full mr-2">
                     <TextInputComponent
                         type="text"
@@ -470,7 +473,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                 </div>
               </div>
 
-              <div className="input-container items-center rowForm w-[15%]">
+              <div className="input-container items-center rowForm w-[12%]">
                   <div className="w-full mr-2">
                       <TextInputComponent
                           type="text"
@@ -483,7 +486,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                   </div>
               </div>
 
-              <div className="input-container items-center rowForm w-[50%]">
+              <div className="input-container items-center rowForm w-[35%]">
                 <div className="w-full mr-2">
                     <TextInputComponent
                         type="text"
@@ -498,6 +501,20 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
 
               <div className="input-container items-center rowForm">
                   <div className="w-full">
+                    <RadioButtonComponent
+                        control={control}
+                        label="Param. de Cristales"
+                        name="param_cristales"
+                        data={data && data[EnumGrid.PARAM_CRISTALES]}
+                        options={["Por anteojo", "Por ojo"]}
+                        error={errors.param_cristales}
+                        horizontal={true}
+                    />
+                  </div>
+              </div>
+
+              <div className="input-container items-center rowForm">
+                  <div className="w-full !ml-[1rem]">
                     <RadioButtonComponent
                         control={control}
                         label="Estado"

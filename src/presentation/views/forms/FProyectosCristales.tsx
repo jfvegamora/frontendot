@@ -328,6 +328,7 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                         control={control}
                         error={errors.cod_grupo}
                         onlyRead={isEditting}
+                        inputRef={firstInputRef}
                         customWidth={"!w-[8rem] !ml-[-12px]"}
                         />
                   </div>

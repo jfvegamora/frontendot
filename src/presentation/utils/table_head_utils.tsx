@@ -2537,6 +2537,13 @@ export const table_head_proyectos = [
     width: "w-[16rem]",
   },
   {
+    cell: "Param Cristales",
+    key: "param_cristales",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[6rem]",
+  },
+  {
     cell: "Estado",
     key: "estado",
     visible: true,

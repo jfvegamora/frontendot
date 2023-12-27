@@ -234,6 +234,7 @@ export const validationProyectosSchema = () =>
     codigo_proyecto       : yup.string().required(`${msg}`),
     codigo_licitacion     : yup.string(),
     titulo_proyecto       : yup.string().required(`${msg}`),
+    param_cristales       : yup.string().required(`${msg}`),
     estado                : yup.string().required(`${msg}`),
     empresa_adjudicada    : yup.string().required(`${msg}`),
     mandante              : yup.string().required(`${msg}`),
