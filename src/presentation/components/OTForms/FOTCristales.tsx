@@ -3,7 +3,7 @@ import { SelectInputComponent, TextInputComponent } from '..';
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
 import { validationOTlevel2 } from '../../utils/validationOT';
 import SelectInputTiposComponent from '../forms/SelectInputTiposComponent';
-import { A1_CR_OD, A1_CR_OI, A1_GRUPO } from '../../utils';
+import { A1_CR_OD, A1_CR_OI, A1_GRUPO, A1_GRUPO_OD, A1_GRUPO_OI, A2_GRUPO_OD, A2_GRUPO_OI } from '../../utils';
 import TextInputInteractive from '../forms/TextInputInteractive';
 
 
@@ -57,19 +57,7 @@ const FOTCristales:React.FC<ICristales> = ({
         console.log(value)
 
         validationOTlevel2(name, value)
-        if(
-            name === "cristal1_tratamiento_id" ||
-            name === "cristal1_opcion_vta_id" || 
-            name === "cristal1_diseno_id" ||
-            name === "cristal1_indice_id" ||
-            name === "cristal1_material_id" 
-        ){
-
-            setValidate(prevValidate => ({
-                ...prevValidate,
-                [name]: value
-              }));
-        }
+       
         onDataChange({[name]:value})
         // console.log(validate)
         
@@ -92,40 +80,74 @@ const FOTCristales:React.FC<ICristales> = ({
 
 
 
-    React.useEffect(() => {
-        console.log(validate)
-        if (
-            validate &&
-            validate.cristal1_material_id !== '' &&
-            validate.cristal1_opcion_vta_id !== '' &&
-            validate.cristal1_diseno_id !== '' &&
-            validate.cristal1_indice_id !== '' &&
-            validate.cristal1_tratamiento_id !== ''
-          ) {
-            setCristalRead(true);
-          } else {
-            setCristalRead(false);
-          }
-      }, [validate]
-    );
+    // React.useEffect(() => {
+    //     console.log(validate)
+    //     if (
+    //         validate &&
+    //         validate.cristal1_material_id !== '' &&
+    //         validate.cristal1_opcion_vta_id !== '' &&
+    //         validate.cristal1_diseno_id !== '' &&
+    //         validate.cristal1_indice_id !== '' &&
+    //         validate.cristal1_tratamiento_id !== ''
+    //       ) {
+    //         setCristalRead(true);
+    //       } else {
+    //         setCristalRead(false);
+    //       }
+    //   }, [validate]
+    // );  
+
+    const gruposDioptrias:any = {
+        "A1_GRUPO_OI" : () => {
+            return {
+                label: "Grupo 1 OI",
+                name: "cristal1_grupo1_oi",
+                data: A1_GRUPO_OI.value
+            }
+        },
+        "A1_GRUPO_OD": () => {
+            return {
+                label: "Grupo 1 OD",
+                name: "cristal1_grupo1_od",
+                data: A1_GRUPO_OD.value
+            }
+        },
+        "A2_GRUPO_OI": () => {
+            return {
+                label: "Grupo 2 OI",
+                name: "cristal2_grupo2_oi",
+                data: A2_GRUPO_OI.value
+            }
+        },
+        "A2_GRUPO_OD": () => {
+            return {
+                label: "Grupo 2 OD",
+                name: "cristal2_grupo2_od",
+                data: A2_GRUPO_OD.value
+            }
+        }
+    }
 
 
-      const renderGrupo1 = () => (
-            <div className='w-full rowForm '>
-                <div className="w-[50%] mx-auto  absolute top-[-34%] left-[28%]">
+      const renderGrupo1 = (grupo:string) => {
+
+        const {label, name, data} = gruposDioptrias[grupo]()
+  
+       return (<div className='w-full rowForm '>
+                <div className="w-[55%] mx-auto  absolute top-[-34%] left-[28%]">
                     <TextInputInteractive   
                         type='text'
-                        label="Grupo 1"
-                        name="cristal1_grupo1_id"
-                        data={A1_GRUPO}
+                        label={label}
+                        name={name}
+                        data={data}
                         control={control}
                         onlyRead={onlyRead || permiso_cristales}
                     />  
                 </div>
 
-            </div>
+            </div>)
       
-       )
+      }
 
 
        
@@ -141,7 +163,7 @@ const FOTCristales:React.FC<ICristales> = ({
   return (
     <form>
         <div className='w-full labelForm flex items-center rounded-lg border radioComponent !mt-[1.7rem] '>
-            <div className=" w-1/2 relative items-center mt-8">
+            <div className=" w-1/2 relative items-center mt-10">
 
                <div className=" flex items-center  ml-2 rounded-lg border border-red-500  h-[35rem]">
 
@@ -325,10 +347,15 @@ const FOTCristales:React.FC<ICristales> = ({
                       </div>
                     </div>
 
-                        <h1 className=' absolute z-10 top-[-6%] text-2xl w-[30%] text-center !text-[#f8b179] left-[30%]'>Anteojo 1</h1>
+                        <h1 className=' absolute z-10 top-[-6%] text-2xl w-[30%] text-center !text-[#f8b179] left-[4%]'>Anteojo 1</h1>
                         <div className="w-[35%] absolute top-[-5%] labelForm right-[5%]">
-                                {renderGrupo1()}
-                        </div>
+                                {renderGrupo1("A1_GRUPO_OI")}
+                                
+                        </div>  
+                        <div className="w-[35%] absolute top-[-5%] labelForm right-[20%]">
+                                {renderGrupo1("A1_GRUPO_OD")}
+                                
+                        </div>  
                </div>
 
 
@@ -513,9 +540,13 @@ const FOTCristales:React.FC<ICristales> = ({
                     </div>
                     </div>
                     
-                        <h1 className='labelForm absolute z-10 top-[-6%] text-2xl w-[30%] !text-[#f8b179] text-center left-[30%]'>Anteojo 2</h1>
+                        <h1 className='labelForm absolute z-10 top-[-6%] text-2xl w-[30%] !text-[#f8b179] text-center left-[4%]'>Anteojo 2</h1>
                         <div className="w-[35%] absolute top-[-5%] labelForm right-[5%]">
-                                {renderGrupo1()}
+                                {renderGrupo1("A2_GRUPO_OI")}
+                        </div>
+                        <div className="w-[35%] absolute top-[-5%] labelForm right-[20%]">
+                                {renderGrupo1("A2_GRUPO_OD")}
+
                         </div>
                </div>
                </div>                             

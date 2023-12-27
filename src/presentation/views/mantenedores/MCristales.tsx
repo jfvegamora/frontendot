@@ -161,7 +161,7 @@ const MCristales: React.FC = () => {
                 ]}
             />
           </div>
-          <div className="w-[20%] absolute bottom-[0.8rem] right-[12rem]">
+          <div className="w-[100%] top-[10rem] bottom-[0.8rem] right-[12rem]">
             <PrimaryButtonsComponent
               handleAddPerson={openModal}
               handleDeleteSelected={handleDeleteSelected}
@@ -183,7 +183,7 @@ const MCristales: React.FC = () => {
         </div>
       </FilterButton>
 
-      <div className={`width100 scroll ${filterToggle.value ? "!mt-[21rem] !h-[25rem]" : "!mt-[4rem] !h-[60rem]"} `}>
+      <div className={`width100 scroll ${filterToggle.value ? "!mt-[21rem] !h-[25rem]" : "!mt-[4rem] !h-[40rem]"} `}>
         <TableComponent
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}

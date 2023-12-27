@@ -166,10 +166,10 @@ const MOT: React.FC = () => {
     setEstadosOT(OTs.estadosOT)
   },[OTs.estadosOT])
 
-  console.log(estadosOT)
+  // console.log(estadosOT)
   return (
     <div className="mantenedorContainer">
-      <div className="mt-8">
+      <div className="mt-4">
         <FilterButton
           isOT={true}
         >

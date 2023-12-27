@@ -42,7 +42,7 @@ const FilterButton: React.FC<IProps> = ({
 
 
   return (
-    <div className="fixed top-[4rem] left-5 z-[13] items-center">
+    <div className="fixed top-[4rem] left-5 z-[13] items-center bg-yellow-300">
       <MagnifyingGlassIcon
         className={`bg-[#f39c12] w-[3.5rem] h-[3.5rem] text-white p-3 rounded-full shadow-lg top-0 absolute z-30 transition-transform transform cursor-pointer ${isHovered ? 'scale-110' : ''}`}
         onMouseEnter={handleMouseEnter}
@@ -51,7 +51,7 @@ const FilterButton: React.FC<IProps> = ({
       <div
         className={`${
           filterToggle.value ? 'w-[98vw] h-auto mx-auto' : 'w-0 -left-[70rem] absolute'
-        } transition-all duration-500 bg-white ${isOT ? "!h-[12rem]" : "!h-[40rem]"} p-2 items-center rounded shadow-lg overflow-hidden`}
+        } transition-all duration-500 bg-white ${isOT ? "!h-[12rem]" : "!h-[20rem]"} p-2 items-center rounded shadow-lg overflow-hidden`}
       >
         {children}
       </div>

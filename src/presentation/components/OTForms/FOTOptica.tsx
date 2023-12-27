@@ -8,7 +8,7 @@ import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
 import Switch from "react-switch";
 import axios from 'axios';
 import { validationOTlevel1, validationOTlevel2 } from '../../utils/validationOT';
-import { fecha_despacho, fecha_entrega_cliente, fecha_entrega_taller, fetchFechas } from '../../utils';
+import { fecha_despacho, fecha_entrega_cliente, fecha_entrega_taller, fetchFechas, validar_parametrizacion } from '../../utils';
 import SelectInputTiposComponent from '../forms/SelectInputTiposComponent';
 import { AppStore, useAppSelector } from '../../../redux/store';
 import { URLBackend } from '../../hooks/useCrud';
@@ -115,8 +115,8 @@ const FOTOptica:React.FC<IOptica> = ({
             const result = await axios(`${strUrl}/${query}`);
             if(result.status === 200){
                 toast.success('Estado cambiado')
+                validar_parametrizacion.value = validar_parametrizacion.value === '1' ? '0' : '1'
             }
-
         } catch (error) {
             console.log(error)
             throw error
@@ -141,8 +141,13 @@ const FOTOptica:React.FC<IOptica> = ({
 
     useEffect(()=>{
         if(data){
-            data[EnumGrid.estado_impresion_id] === '0' ? setIsToggleImpresion(true) : setIsToggleValidacion(false);
-            data[EnumGrid.validar_parametrizacion_id] === '0' ? setIsToggleValidacion(true) : setIsToggleValidacion(false);
+            data[EnumGrid.estado_impresion_id] === '1' ? setIsToggleImpresion(true) : setIsToggleValidacion(false);
+            data[EnumGrid.validar_parametrizacion_id] === '1' ? setIsToggleValidacion(true) : setIsToggleValidacion(false);
+            // validar_parametrizacion.value = data[EnumGrid.validar_parametrizacion_id]
+            // console.log('render')
+        }else{
+            // validar_parametrizacion.value = "1"
+            // console.log('render')
         }
     },[data])
 //  console.log(fecha_entrega_taller.ue)
@@ -154,6 +159,8 @@ const FOTOptica:React.FC<IOptica> = ({
 // console.log(permiso_estado_impresion)
 // console.log(permiso_resolucion_garantia)
 // console.log(permiso_est  ado_validacion)
+
+// console.log(validar_parametrizacion.value)
 
 
 return (

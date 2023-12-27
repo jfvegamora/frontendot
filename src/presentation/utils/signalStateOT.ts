@@ -26,18 +26,25 @@ export const a2_oi_esf  = signal<number | undefined>(undefined)
 export const a2_oi_cil  = signal<number | undefined>(undefined)
 export const a2_oi_eje  = signal<number | undefined>(undefined)
 
-export const tipo_de_anteojo         = signal('');
-export const validar_parametrizacion = signal("");
+export const tipo_de_anteojo          = signal('');
 
+export const validar_parametrizacion  = signal('1');
 
 //SEÑALES FECHA PARA GENERARLAS A PARTIR DE FECHA_ATECION/QUERY 11 SPOT
-export const fecha_despacho        = signal("");
-export const fecha_entrega_taller  = signal("");
-export const fecha_entrega_cliente = signal("");
+export const fecha_despacho         = signal("");
+export const fecha_entrega_taller   = signal("");
+export const fecha_entrega_cliente  = signal("");
 
 export const A1_CR_OD = signal("");
 export const A1_CR_OI = signal("");
 export const A1_GRUPO = signal("");
+
+
+export const A1_GRUPO_OD = signal("");
+export const A1_GRUPO_OI = signal("");
+export const A2_GRUPO_OD = signal("");
+export const A2_GRUPO_OI = signal("");
+
 
 export const punto_venta = signal("");
 

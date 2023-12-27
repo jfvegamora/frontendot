@@ -10,7 +10,7 @@ import {signal } from "@preact/signals-react";
 import FOTGarantia from '../../components/OTForms/FOTGarantia';
 import { EnumGrid } from '../mantenedores/MOTHistorica';
 import FOTDerivacion from '../../components/OTForms/FOTDerivacion';
-import { A1_CR_OD, A1_CR_OI, A1_GRUPO, SEXO, TIPO_CLIENTE, 
+import { A1_CR_OD, A1_CR_OI, A1_GRUPO, A1_GRUPO_OD, A1_GRUPO_OI, SEXO, TIPO_CLIENTE, 
   // a1_od_ad, a1_od_cil, a1_od_eje, a1_od_esf, 
   a2_od_cil, a2_od_eje, a2_od_esf, a2_oi_cil, a2_oi_eje, a2_oi_esf, clearDioptrias,  
   dioptrias_receta,  
@@ -372,7 +372,7 @@ const FOT:React.FC<IFOTProps> = ({
 
 
   React.useEffect(()=>{
-    validar_parametrizacion.value = data && data[EnumGrid.validar_parametrizacion_id]
+    validar_parametrizacion.value = data && data[EnumGrid.validar_parametrizacion_id] || '1'
 
     const permiso = OTAreaActual && permissions(OTAreaActual)
     setOTPermissions(permiso && permiso[5])
@@ -927,11 +927,14 @@ const FOT:React.FC<IFOTProps> = ({
           const {data} = await axios(`${URLBackend}/api/proyectocristales/listado/?query=06&_p2=${codigoProyecto.value}&_pkToDelete=${encodedJSON}`)
           
           const cristalesDATA = JSON.parse(data[0][0])
-          console.log(cristalesDATA)
+          // console.log(cristalesDATA)
           
-          A1_CR_OD.value = cristalesDATA["CR_OD"]
-          A1_CR_OI.value = cristalesDATA["CR_OI"]
-          A1_GRUPO.value = cristalesDATA["GRUPO"]
+          A1_CR_OD.value = cristalesDATA["CR_OD"] ?? " "
+          A1_CR_OI.value = cristalesDATA["CR_OI"] ?? " "
+          // A1_GRUPO.value = cristalesDATA["GRUPO"]
+
+          A1_GRUPO_OD.value = cristalesDATA["GRUPO_OD"]
+          A1_GRUPO_OI.value = cristalesDATA["GRUPO_OI"]
           
           validation_Cristal1_od(cristalesDATA["CR_OD"])
           validation_Cristal1_oi(cristalesDATA["CR_OI"])
@@ -941,6 +944,7 @@ const FOT:React.FC<IFOTProps> = ({
         }  
       }
     }
+
     //? ANTEOJO 2:
     if(
       Object.keys(data)[0] === 'cristal2_marca_id'      ||
@@ -1155,8 +1159,8 @@ const fetchDioptrias = async(proyecto:string) => {
 // console.log(a1_od_esf.value)
 // console.log(data && data[EnumGrid.estado_validacion_id])
 
-console.log(OTPermissions)
-console.log(permisos_campos)
+// console.log(OTPermissions)
+// console.log(permisos_campos)
 
 // const handleEsferico = () => {
 //   inputName.value = inputName.value + 1
@@ -1186,7 +1190,7 @@ useEffect(() => {
 
 
 
-  // console.log(data)
+  console.log(data && data[EnumGrid.validar_parametrizacion_id])
   // console.log(OTAreaActual)
   // console.log(OTPermissions)
   // console.log(OTPermissions[10])
