@@ -153,6 +153,16 @@ const navListMenuOT = [
     id: 4,
   },
   {
+    title: "Muestrarios",
+    link: "/muestrarios",
+    id: 36,
+  },
+  {
+    title: "Vitrinas",
+    link: "/vitrinas",
+    id: 37,
+  },
+  {
     title: "Situaciones de derivación",
     link: "/situaciones",
     id: 29,
@@ -246,16 +256,6 @@ const subMenuParametrizacion = [
 ];
 
 const navListMenuProyectos = [
-  {
-    title: "Muestrarios",
-    link: "/muestrarios",
-    id: 36,
-  },
-  {
-    title: "Vitrinas",
-    link: "/vitrinas",
-    id: 37,
-  },
   {
     title: "Proyectos",
     link: "/proyectos",

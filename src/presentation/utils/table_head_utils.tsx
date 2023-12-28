@@ -3345,7 +3345,7 @@ export const table_head_proyectos_cristales = [
     key: "diseno",
     visible: true,
     alignment: "text-center",
-    width: "w-[10rem]",
+    width: "w-[8rem]",
   },
   {
     cell: "Índice ID",
@@ -3357,7 +3357,7 @@ export const table_head_proyectos_cristales = [
     key: "indice",
     visible: true,
     alignment: "text-center",
-    width: "w-[12rem]",
+    width: "w-[10rem]",
   },
   {
     cell: "Material ID",
@@ -3369,7 +3369,7 @@ export const table_head_proyectos_cristales = [
     key: "material",
     visible: true,
     alignment: "text-center",
-    width: "w-[10rem]",
+    width: "w-[8rem]",
   },
   {
     cell: "Color_id",
@@ -3393,7 +3393,14 @@ export const table_head_proyectos_cristales = [
     key: "tratamiento",
     visible: true,
     alignment: "text-center",
-    width: "w-[10rem]",
+    width: "w-[8rem]",
+  },
+  {
+    cell: "Diámetro",
+    key: "diametro",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[6rem]",
   },
   {
     cell: "ESF desde",
@@ -3422,13 +3429,6 @@ export const table_head_proyectos_cristales = [
     visible: true,
     alignment: "text-center",
     width: "w-[6rem]",
-  },
-  {
-    cell: "Diámetro",
-    key: "diametro",
-    visible: true,
-    alignment: "text-center",
-    width: "w-[8rem]",
   },
   {
     cell: "$ Venta Neto",

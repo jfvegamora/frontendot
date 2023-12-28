@@ -444,6 +444,16 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
               <div className="">
                 <TextInputComponent
                   type="number"
+                  label="Diámetro"
+                  name="diametro"
+                  data={data && data[EnumGrid.diametro]}
+                  control={control}
+                  error={errors.diametro}
+                />
+              </div>
+              <div className="">
+                <TextInputComponent
+                  type="number"
                   label="ESF desde"
                   name="esferico_desde"
                   data={data && data[EnumGrid.esferico_desde]}
@@ -463,6 +473,8 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                   step={0.01}
                   />
               </div>
+              </div>
+              <div className="w-[50%] flex">
               <div className="">
                 <TextInputComponent
                   type="number"
@@ -475,8 +487,6 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                   customWidth={"!pr-[0.4rem]"}
                   />
               </div>
-              </div>
-              <div className="w-[50%] flex">
               <div className="">
                 <TextInputComponent
                   type="number"
@@ -488,16 +498,6 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                   step={0.01}
                   customWidth={"!ml-[-1rem]"}
                   />
-              </div>
-              <div className="">
-                <TextInputComponent
-                  type="number"
-                  label="Diámetro"
-                  name="diametro"
-                  data={data && data[EnumGrid.diametro]}
-                  control={control}
-                  error={errors.diametro}
-                />
               </div>
               <div className="">
                 <TextInputComponent
