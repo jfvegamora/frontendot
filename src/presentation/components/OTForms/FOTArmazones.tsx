@@ -36,6 +36,9 @@ const FOTArmazones:React.FC<IArmazones> = ({
     const [codArmazon3, setCodArmazon3] = useState(formValues ? formValues["a3_armazon_id"] : " ");
 
 
+
+    //TODO! =========================== ENVIAR DP EN _P4 PARA VALIDAR ARMAZONES =====================================================================
+
     const endpoint = validar_parametrizacion.value === '0' 
                                                    ? `${URLBackend}/api/armazones/listado/?query=01` 
                                                    : `${URLBackend}/api/armazones/listado/?query=02&_p2=${codigoProyecto.value}&_p3=${punto_venta.value}`;
@@ -43,11 +46,11 @@ const FOTArmazones:React.FC<IArmazones> = ({
     // const { data:armazon1 } = useSWR(`${URLBackend}/api/almacenarmazones/listado/?query=02&_p2=${codArmazon1}&_p1=${codigoProyecto.value}&_p3=${punto_venta}`, fetcher);
     // console.log(validar_parametrizacion.value)
     // console.log(codArmazon1)
-    // console.log(`${endpoint}&_p1=${codArmazon1 !== '' ? codArmazon1 : "13123"}`)
+    // console.log(`${endpoint}&_p1=${codArmazon1.trim() ||  "13123"}`)
 
-    const { data:armazon1 } = useSWR(`${endpoint}&_p1=${codArmazon1 !== ' ' ? codArmazon1 : "aaaa"}`, fetcher);
-    const { data:armazon2 } = useSWR(`${endpoint}&_p1=${codArmazon2 !== ' ' ? codArmazon2 : "aaaa"}`, fetcher);
-    const { data:armazon3 } = useSWR(`${endpoint}&_p1=${codArmazon3 !== ' ' ? codArmazon3 : "aaaa"}`, fetcher);
+    const { data:armazon1 } = useSWR(`${endpoint}&_p1=${codArmazon1 !== ' ' ? codArmazon1 : "aaaa"}`, fetcher); //! DP ANTEOJO 1
+    const { data:armazon2 } = useSWR(`${endpoint}&_p1=${codArmazon2 !== ' ' ? codArmazon2 : "aaaa"}`, fetcher); //! DP ANTEOJO 2
+    const { data:armazon3 } = useSWR(`${endpoint}&_p1=${codArmazon3 !== ' ' ? codArmazon3 : "aaaa"}`, fetcher); //! DP ANTEOJO 3
     
     
     const handleInputChange = (e:any) => {
@@ -69,23 +72,25 @@ const FOTArmazones:React.FC<IArmazones> = ({
 
 
     useEffect(()=>{
+        // console.log(validar_parametrizacion.value)
+        // console.log(armazon1)
         if(validar_parametrizacion.value === '1'){
             if( codArmazon1  !== " " && codArmazon1 !== undefined  && armazon1 && armazon1[0] && (armazon1[0].length === 3 || armazon1[0].length === 1)){
                 toast.error(armazon1[0][0])
                 onDataChange({['a1_armazon_id']: " "}) 
             }
         }else if (armazon1 && armazon1.length === 0 && codArmazon1 !== " "){
-            toast.error('Codigo de armazon no existe')
+            toast.error(1)
             onDataChange({['a1_armazon_id']: " "}) 
 
         }
-         console.log(armazon1)   
+        //  console.log(armazon1)   
     },[armazon1,codArmazon1])
 
     useEffect(()=>{
         if(validar_parametrizacion.value === '1'){
             if(codArmazon2 !== " " && codArmazon2 !== undefined && armazon2 && armazon2[0] && (armazon2[0].length === 3 || armazon2[0].length === 1)){
-                toast.error(2,armazon2[0][0])
+                toast.error(armazon2[0][0])
                 onDataChange({['a2_armazon_id']: " "})    
             }
         }else if (armazon2 && armazon2.length === 0 && codArmazon2 !== " "){

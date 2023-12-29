@@ -4,40 +4,45 @@ import { URLBackend } from "../hooks/useCrud";
 
 import { Signal, signal } from "@preact/signals-react";
 import { validationFechaDespacho, validationFechaEntregaCliente, validationFechaEntregaTaller } from "./validationOT";
-export const a1_od_esf  = signal<number | undefined>(undefined);
-export const a1_od_cil  = signal<number | undefined>(undefined);
-export const a1_od_eje  = signal<number | undefined>(undefined)
-export const a1_od_ad   = signal<number | undefined>(undefined)
+export const a1_od_esf  = signal<any | undefined>(undefined);
+export const a1_od_cil  = signal<any | undefined>(undefined);
+export const a1_od_eje  = signal<any | undefined>(undefined)
+export const a1_od_ad   = signal<any | undefined>(undefined)
 
 
-export const a1_oi_esf  = signal<number | undefined>(undefined)
-export const a1_oi_cil  = signal<number | undefined>(undefined)
-export const a1_oi_eje  = signal<number | undefined>(undefined)
-export const a1_oi_ad   = signal<number | undefined>(undefined)
+export const a1_oi_esf  = signal<any | undefined>(undefined)
+export const a1_oi_cil  = signal<any | undefined>(undefined)
+export const a1_oi_eje  = signal<any | undefined>(undefined)
+export const a1_oi_ad   = signal<any | undefined>(undefined)
 
 
-export const a2_od_esf  = signal<number | undefined>(undefined)
-export const a2_od_cil  = signal<number | undefined>(undefined)
-export const a2_od_eje  = signal<number | undefined>(undefined)
+export const a2_od_esf  = signal<any>(undefined)
+export const a2_od_cil  = signal<any>(undefined)
+export const a2_od_eje  = signal<any>(undefined)
 
 
 
-export const a2_oi_esf  = signal<number | undefined>(undefined)
-export const a2_oi_cil  = signal<number | undefined>(undefined)
-export const a2_oi_eje  = signal<number | undefined>(undefined)
+export const a2_oi_esf  = signal<any | undefined>(undefined)
+export const a2_oi_cil  = signal<any | undefined>(undefined)
+export const a2_oi_eje  = signal<any | undefined>(undefined)
 
 export const tipo_de_anteojo          = signal('');
 
 export const validar_parametrizacion  = signal('1');
 
 //SEÑALES FECHA PARA GENERARLAS A PARTIR DE FECHA_ATECION/QUERY 11 SPOT
+export const fecha_atencion_signal  = signal("");
 export const fecha_despacho         = signal("");
 export const fecha_entrega_taller   = signal("");
 export const fecha_entrega_cliente  = signal("");
 
+export const A1_GRUPO = signal("");
+
+
 export const A1_CR_OD = signal("");
 export const A1_CR_OI = signal("");
-export const A1_GRUPO = signal("");
+export const A2_CR_OD = signal("");
+export const A2_CR_OI = signal("");
 
 
 export const A1_GRUPO_OD = signal("");
@@ -47,6 +52,9 @@ export const A2_GRUPO_OI = signal("");
 
 
 export const punto_venta = signal("");
+
+
+export const clearSelectInput = signal(false)
 
 
 
@@ -151,6 +159,17 @@ export const buscarCampo = (campo: string) => {
     return validationNivel2.value.find((item) => item.campo === campo);
 };
 
+export const clearGrupos = () => {
+  A1_GRUPO_OD.value   = "";
+  A1_GRUPO_OI.value   = "";
+  A2_GRUPO_OD.value   = "";
+  A2_GRUPO_OI.value   = "";
+
+  A1_CR_OD.value      = "";
+  A1_CR_OI.value      = "";
+  A1_CR_OD.value      = "";
+  A1_CR_OI.value      = "";
+}
 
 
 export const clearDioptrias = () => {
@@ -204,6 +223,32 @@ export const clearDioptriasA2 = (valor:any) => {
 
 };
 
+export const clearInputDioptrias = () => {
+     //? A1-OJO-DERECHO
+     dioptrias_receta.value.a1_od.esf = " ";
+     dioptrias_receta.value.a1_od.cil = " ";
+     dioptrias_receta.value.a1_od.eje = " ";
+     dioptrias_receta.value.a1_od.ad  = " ";
+     
+     dioptrias_receta.value.a1_oi.esf  = " ";
+     dioptrias_receta.value.a1_oi.cil  = " ";
+     dioptrias_receta.value.a1_oi.eje  = " ";
+     dioptrias_receta.value.a1_oi.ad   = " ";
+     
+     a1_od_ad.value = "  ";
+
+     //? A2-OJO-DERECHO
+     a2_od_esf.value = "  ";
+     a2_od_cil.value = "  ";
+     a2_od_eje.value = "  ";
+
+     a2_oi_esf.value = "  ";
+     a2_oi_cil.value = "  ";
+     a2_oi_eje.value = "  ";
+
+     
+
+}
 
 
 export const fetchFechas = async(fecha_atencion:string, codgioProyecto:string) => {
@@ -217,10 +262,10 @@ export const fetchFechas = async(fecha_atencion:string, codgioProyecto:string) =
         // console.log(parsedData.fecha_entrega_taller);
         // console.log(parsedData.fecha_despacho);
         // console.log(parsedData.fecha_entrega_cliente)
-       
-       fecha_entrega_taller.value = parsedData.fecha_entrega_taller
-       fecha_despacho.value = parsedData.fecha_despacho
-       fecha_entrega_cliente.value =parsedData.fecha_entrega_cliente
+       fecha_atencion_signal.value         = fecha_atencion;
+       fecha_entrega_taller.value    = parsedData.fecha_entrega_taller
+       fecha_despacho.value          = parsedData.fecha_despacho
+       fecha_entrega_cliente.value   = parsedData.fecha_entrega_cliente
 
        validationFechaEntregaCliente(fecha_entrega_cliente.value)
        validationFechaDespacho(fecha_despacho.value)

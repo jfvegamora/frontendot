@@ -664,6 +664,8 @@ export const validation_A2_OD_CIL = (value:string | any) => {
 
 export const validation_A2_OD_ESF =( value:string | any) => {
     const item = validationNivel2.value.find((item) => item.campo === 'a2_od_esf');
+
+    //TODO: SUMAR 1 SI EXISTE A1_OD_AD
     
     // console.log(value)
     

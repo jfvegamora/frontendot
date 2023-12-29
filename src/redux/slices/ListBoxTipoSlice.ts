@@ -31,7 +31,7 @@ const initialState: ITiposListbox | null = {
     CristalesColores:        localStorage.getItem('ListBoxTipos.CristalesColores') ? JSON.parse(localStorage.getItem('ListBoxTipos.CristalesColores') as string) :null,
     CristalesTratamientos:   localStorage.getItem('ListBoxTipos.CristalesTratamientos') ? JSON.parse(localStorage.getItem('ListBoxTipos.CristalesTratamientos') as string) :null,
     
-    AlmacenesTipos:          localStorage.getItem('ListBoxTipos.AlmacenesTipos') ? JSON.parse(localStorage.getItem('ListBoxTipos.AlmaceensTipos') as string) : null,
+    AlmacenesTipos:          localStorage.getItem('ListBoxTipos.AlmacenesTipos') ? JSON.parse(localStorage.getItem('ListBoxTipos.AlmacenesTipos') as string) : null,
     // TipoInsumos:             localStorage.getItem('ListBoxTipos.TipoInsumos') ? JSON.parse(localStorage.getItem('ListBoxTipos.TipoInsumos') as string) :null,
     
     ArmazonesUsos:           localStorage.getItem('ListBoxTipos.ArmazonesUsos') ? JSON.parse(localStorage.getItem('ListBoxTipos.ArmazonesUsos') as string) :null,

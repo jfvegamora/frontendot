@@ -1,9 +1,9 @@
-import React,{useState} from 'react'
+import React,{useEffect} from 'react'
 import { SelectInputComponent, TextInputComponent } from '..';
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
 import { validationOTlevel2 } from '../../utils/validationOT';
 import SelectInputTiposComponent from '../forms/SelectInputTiposComponent';
-import { A1_CR_OD, A1_CR_OI, A1_GRUPO, A1_GRUPO_OD, A1_GRUPO_OI, A2_GRUPO_OD, A2_GRUPO_OI } from '../../utils';
+import { A1_CR_OD, A1_CR_OI, A1_GRUPO_OD, A1_GRUPO_OI, A2_CR_OD, A2_CR_OI, A2_GRUPO_OD, A2_GRUPO_OI, clearSelectInput } from '../../utils';
 import TextInputInteractive from '../forms/TextInputInteractive';
 
 
@@ -28,15 +28,7 @@ const FOTCristales:React.FC<ICristales> = ({
     permiso_cristales,
     isEditting    
 }) => {
-    const [_cristalRead, setCristalRead] = useState(false)
-    const [grupo1, _setGrupo1] = useState(2)
-    const [validate, setValidate] = useState({
-        cristal1_tratamiento_id: '',
-        cristal1_opcion_vta_id: '',
-        cristal1_diseno_id: '',
-        cristal1_indice_id: '',
-        cristal1_material_id: ''
-      });
+    
       // const [codCristal1OD, setCodCristal1OD] = useState(formValues ? formValues["anteojo1_cristal_OD"] : data && data[EnumGrid.cristal1_od_codigo] || 0);
       // const [codCristal1OI, setCodCristal1OI] = useState(formValues ? formValues["anteojo1_cristal_OI"] : data && data[EnumGrid.cristal1_oi_codigo] || 0);
       
@@ -77,6 +69,11 @@ const FOTCristales:React.FC<ICristales> = ({
         //     setCodCrisyal2OI(value) 
         // }
     }
+
+
+    useEffect(()=>{
+        onDataChange({['cristal2_diametro']:" "})
+    },[clearSelectInput.value])
 
 
 
@@ -151,11 +148,7 @@ const FOTCristales:React.FC<ICristales> = ({
 
 
        
-    // React.useEffect(()=>{
-    //     renderGrupo1()
-    //     // console.log('cambio')
-    //     // console.log(grupo1)
-    // },[grupo1])
+
 
     console.log(permiso_cristales)
 
@@ -181,11 +174,11 @@ const FOTCristales:React.FC<ICristales> = ({
                                     data={formValues ? formValues["cristal1_opcion_vta_id"] : data && data[EnumGrid.cristal1_opcion_vta_id]}
                                     control={control}
                                     entidad='OTOpcionVentaCristales'
-                                    readOnly={ isEditting && permiso_cristales}
+                                    readOnly={  isEditting && permiso_cristales}
                                 
                                 />
                               </div>
-                              <div className="w-[50%]">
+                              <div className="w-[50%] !mr-[2rem]">
                                 <SelectInputComponent
                                         label="Marca"
                                         name="cristal1_marca_id"
@@ -268,8 +261,6 @@ const FOTCristales:React.FC<ICristales> = ({
 
 
                           </div>
-
-
                         <div className="w-full rowForm">
                             <SelectInputTiposComponent
                               label='Tratamiento'
@@ -284,7 +275,6 @@ const FOTCristales:React.FC<ICristales> = ({
                               customWidth={"w-[35rem]"}
                             />
                         </div>
-
                         <div className="w-full rowForm left-[9%] absolute mr-10 ">
                                  <TextInputComponent
                                         control={control}
@@ -382,7 +372,8 @@ const FOTCristales:React.FC<ICristales> = ({
                                             data={formValues ? formValues["cristal2_od_opcion_venta_id"] : data && data[EnumGrid.cristal2_od_opcion_venta_id]}
                                             control={control}
                                             entidad='OTOpcionVentaCristales'
-                                            readOnly={isEditting && permiso_cristales}
+                                            readOnly={  isEditting && permiso_cristales ||  clearSelectInput.value}
+                                            FOTcristales={true}
                                   />
                             </div>
                             <div className="w-[50%]">
@@ -395,7 +386,8 @@ const FOTCristales:React.FC<ICristales> = ({
                                         data={formValues ? formValues["cristal2_marca_id"] : data && data[EnumGrid.cristal2_indice_id]}
                                         control={control}
                                         entidad={["/api/marcas/", "02"]}
-                                        readOnly={isEditting && permiso_cristales}
+                                        readOnly={  isEditting && permiso_cristales ||  clearSelectInput.value}
+                                        isFOTcristales={true}
 
                                     />
                             </div>
@@ -412,7 +404,8 @@ const FOTCristales:React.FC<ICristales> = ({
                                             data={formValues ? formValues["cristal2_diseno_id"] : data && data[EnumGrid.cristal2_diseno_id]}
                                             control={control}
                                             entidad={"CristalesDisenos"}
-                                            readOnly={isEditting && permiso_cristales}
+                                            FOTcristales={true}
+                                            readOnly={  isEditting && permiso_cristales ||  clearSelectInput.value}
                                 />
                             </div>
 
@@ -426,7 +419,8 @@ const FOTCristales:React.FC<ICristales> = ({
                                             data={formValues ? formValues["cristal2_indice_id"] : data && data[EnumGrid.cristal2_indice_id]}
                                             control={control}
                                             entidad={"CristalesIndices"}
-                                            readOnly={isEditting && permiso_cristales}
+                                            FOTcristales={true}
+                                            readOnly={  isEditting && permiso_cristales ||  clearSelectInput.value}
                                         />
 
                             </div>
@@ -442,9 +436,10 @@ const FOTCristales:React.FC<ICristales> = ({
                                         handleSelectChange={handleInputChange}
                                         data={formValues ? formValues["cristal2_material_id"] : data && data[EnumGrid.cristal2_material_id]}
                                         control={control}
+                                        FOTcristales={true}
                                         entidad={"CristalesMateriales"}
-                                        readOnly={isEditting && permiso_cristales}
-                                />
+                                        readOnly={  isEditting && permiso_cristales ||  clearSelectInput.value}
+                                        />
                             </div>
 
                             <div className="w-[50%]">
@@ -456,8 +451,9 @@ const FOTCristales:React.FC<ICristales> = ({
                                             handleSelectChange={handleInputChange}
                                             data={formValues ? formValues["cristal2_color_id"] : data && data[EnumGrid.cristal2_color_id]}
                                             control={control}
+                                            FOTcristales={true}
                                             entidad={"CristalesColores"}
-                                            readOnly={isEditting && permiso_cristales}
+                                            readOnly={  isEditting && permiso_cristales ||  clearSelectInput.value}
                                     />
                             </div>
                         </div>
@@ -475,19 +471,20 @@ const FOTCristales:React.FC<ICristales> = ({
                                         control={control}
                                         entidad={"OTTratamientoAdicional"}
                                         customWidth={"w-[36.7rem]"}
-                                        readOnly={isEditting && permiso_cristales}
-                                    />
+                                        FOTcristales={true}
+                                        readOnly={  isEditting && permiso_cristales ||  clearSelectInput.value}
+                                        />
                             </div>
                             <div className="w-full rowForm left-[9%] absolute mr-10 ">
-                                 <TextInputComponent
+                                 <TextInputInteractive
                                         type="text"
                                         label="Diametro"
                                         name="cristal2_diametro"
                                         handleChange={handleInputChange}
-                                        // data={formValues ? formValues["cristal1_diametro"] : data && data[EnumGrid.diametro_a1]}
+                                        data={formValues ? formValues["cristal1_diametro"] : data && data[EnumGrid.cristal2_diametro]}
                                         control={control}
                                         isOT={true}
-                                        onlyRead={isEditting && permiso_cristales}
+                                        onlyRead={  isEditting && permiso_cristales ||  clearSelectInput.value}
                                         customWidth={'w-[35.3rem]'}
                                         // error={errors.fecha_nacimiento}
                                   />
@@ -495,28 +492,28 @@ const FOTCristales:React.FC<ICristales> = ({
                         <div className="w-full !mt-[5rem] !mb-6">
                             <div className="w-[35.3rem] rowForm relative flex  ">
                                 <div className="w-[60%] -ml-[1rem]">
-                                        <TextInputComponent
+                                        <TextInputInteractive
                                             type="text"
-                                            label="Codigo Cristal"
+                                            label="Codigo Cristal ojo derecho"
                                             name="cristal2_od"
                                             handleChange={handleInputChange}
-                                            data={formValues ? formValues["cristal2_od"] : data && data[EnumGrid.cristal2_od]}
+                                            data={ A2_CR_OD.value  || data && data[EnumGrid.cristal2_od]}
                                             control={control}
                                             isOT={true}
-                                            onlyRead={isEditting && permiso_cristales}
+                                            onlyRead={  isEditting && permiso_cristales ||  clearSelectInput.value}
                                             // error={errors.fecha_nacimiento}
                                         />
                                 </div>
                                 <div className="w-[60%]">
-                                        <TextInputComponent
+                                        <TextInputInteractive
                                             type="text"
-                                            label="Codigo Cristal"
+                                            label="Codigo Cristal ojo izquierdo"
                                             name="cristal2_oi"
                                             handleChange={handleInputChange}
-                                            data={formValues ? formValues["cristal2_oi"] : data && data[EnumGrid.cristal2_oi]}
+                                            data={A2_CR_OI.value || data && data[EnumGrid.cristal2_oi]}
                                             control={control}
                                             isOT={true}
-                                            onlyRead={isEditting && permiso_cristales}
+                                            onlyRead={  isEditting && permiso_cristales ||  clearSelectInput.value}
                                             // error={errors.fecha_nacimiento}
                                         />
                                 </div>
@@ -533,8 +530,9 @@ const FOTCristales:React.FC<ICristales> = ({
                                         data={formValues ? formValues["cristal2_tratamiento_adicional_id"] : data && data[EnumGrid.cristal2_tratamiento_adicional_id]}
                                         control={control}
                                         entidad={"CristalesTratamientos"}
-                                        readOnly={isEditting && permiso_cristales}
+                                        readOnly={  isEditting && permiso_cristales ||  clearSelectInput.value}
                                         customWidth={"w-[36.6rem]"}
+                                        FOTcristales={true}
 
                              />
                     </div>

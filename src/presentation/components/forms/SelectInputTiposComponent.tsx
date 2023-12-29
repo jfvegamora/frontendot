@@ -10,6 +10,7 @@ import { FiRefreshCw } from "react-icons/fi";
 import axios from "axios";
 import { AppStore, useAppSelector } from "../../../redux/store";
 import { URLBackend } from "../../hooks/useCrud";
+import { clearSelectInput } from "../../utils";
 
 interface ISelectInputProps {
   label: string;
@@ -30,6 +31,7 @@ interface ISelectInputProps {
   setState?: any;
   isOT?:boolean;
   tabIndex?: number;
+  FOTcristales?:boolean
 }
 
 
@@ -49,7 +51,8 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
     setState,
     isOT,
     tabIndex,
-    customWidth
+    customWidth,
+    FOTcristales
   }) => {
     const stateListBox = useAppSelector((store: AppStore) => store.listBoxTipos[entidad]);
     const [entities, setEntities] = useState(stateListBox|| []);
@@ -76,6 +79,7 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
     
 
     // console.log(entities)
+    console.log(clearSelectInput.value)
 
     const renderInput = () => (
       <Controller
@@ -137,15 +141,17 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
                     
                   </option>
                 )}
+                
                 {entities && entities.length > 1 &&
                   entities.map((option: any, index: React.Key | null | undefined) => (
                     <option
                       key={index}
-                      value={
-                        option[0] !== undefined ? option[0].toString() : ""
-                      }
+                      
+                      value={ clearSelectInput.value  && FOTcristales === true ? "" : (option[0] !== undefined ? option[0].toString() : "" )  }
                     >
-                      {option[1]}
+                      { clearSelectInput.value  && FOTcristales === true ? (
+                        <option value={0}> </option>
+                      ) :  option[1]}
                     </option>
                   ))}
                   

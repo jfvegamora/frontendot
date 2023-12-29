@@ -1,11 +1,12 @@
 import { signal } from "@preact/signals-react"
-import { DioptriasReceta, buscarCampo,  clearDioptriasA2, dioptrias_receta, reiniciarA2DioptriasReceta, tipo_de_anteojo } from "."
+import { A2_CR_OD, A2_CR_OI, DioptriasReceta, buscarCampo,  clearDioptriasA2, clearSelectInput, dioptrias_receta, reiniciarA2DioptriasReceta, tipo_de_anteojo } from "."
 import { validationNivel2 } from "../views/forms/FOT"
 
 
 export const habilitarCampo = signal({
     a1_ad:true,
-    a1_alt:true
+    a1_alt:true,
+    a2_dp:true
 });
 
 
@@ -37,6 +38,8 @@ export const validation_tipo_anteojo = () => {
     const a1_ad  = buscarCampo('a1_od_ad');
     const a1_alt = buscarCampo('a1_alt');
 
+    // console.log(tipo_de_anteojo.value)
+
     if(tipo_de_anteojo.value == '1' || tipo_de_anteojo.value == '2' || tipo_de_anteojo.value == '7'){
         
         if(a1_ad){
@@ -46,24 +49,41 @@ export const validation_tipo_anteojo = () => {
           a1_alt.valor = 1
         }
   
-        habilitarCampo.value.a1_ad = true
+        habilitarCampo.value.a1_ad  = true
         habilitarCampo.value.a1_alt = true
+        habilitarCampo.value.a2_dp  = true
+        clearSelectInput.value = true;
+        A2_CR_OD.value = " ";
+        A2_CR_OI.value = " ";
         // console.log(dioptriasHabilitadas.value)
     }
 
+    if(tipo_de_anteojo.value === '3'){
+      
+      habilitarCampo.value.a2_dp  = false
+      habilitarCampo.value.a1_alt = true
+      habilitarCampo.value.a1_ad  = false
+      clearSelectInput.value = false;
+    }
 
-    if(tipo_de_anteojo.value == '3' || tipo_de_anteojo.value == '4' || tipo_de_anteojo.value == '5' || tipo_de_anteojo.value == '6'){
+    if(tipo_de_anteojo.value == '4' || tipo_de_anteojo.value == '5' || tipo_de_anteojo.value == '6'){
         
         if(a1_ad){
             a1_ad.valor = 0
           }
         if(a1_alt){
-            a1_alt.valor = 0
+            a1_alt.valor = 1
           }
 
-      habilitarCampo.value.a1_ad = false
+      habilitarCampo.value.a1_ad  = false
       habilitarCampo.value.a1_alt = false
+      habilitarCampo.value.a2_dp  = true
+      clearSelectInput.value = true;
+      A2_CR_OD.value = " ";
+      A2_CR_OI.value = " ";
     }
+
+
 }
 
 
@@ -135,3 +155,6 @@ export const verificaCampos = (estructura: any): boolean => {
   
     return true;
   };
+
+
+  

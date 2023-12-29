@@ -2,8 +2,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState, 
-  // useEffect, 
-  // useRef 
 } from "react";
 
 import {
@@ -15,11 +13,7 @@ import {  TITLES ,table_head_OT_diaria2 } from "../../utils";
 import FOT from "../forms/FOT";
 import OTAreasButtons from "../../components/OTAreasButtons";
 import { AppStore, 
-  // useAppDispatch, 
   useAppSelector } from "../../../redux/store";
-import FilterButton from "../../components/FilterButton";
-// import { URLBackend } from "../../hooks/useCrud";
-// import { fetchOT } from "../../../redux/slices/OTSlice";
 
 export enum EnumGrid {
   id = 1,
@@ -57,7 +51,7 @@ const MOT: React.FC = () => {
   const OTs:any = useAppSelector((store: AppStore) => store.OTS);
   // const dispatch = useAppDispatch();
   const [params, _setParams] = useState([]);
-  const [estadosOT, setEstadosOT] = useState()
+  const [_estadosOT, setEstadosOT] = useState()
   // const areaActualRef = useRef(areaActual)
 
   
@@ -170,64 +164,65 @@ const MOT: React.FC = () => {
   return (
     <div className="mantenedorContainer">
       <div className="mt-4">
-        <FilterButton
+        {/* <FilterButton
           isOT={true}
         >
-            <OTAreasButtons/>
+              
         </FilterButton>
-       
+        */}
+        <OTAreasButtons/>
 
       </div>
 
-      <div className="mantenedorHead width100 items-center !bg-red-400">
+        <div className="mantenedorHead width100  items-center !bg-red-400">
 
-         {/* <PrimaryKeySearch
-          // baseUrl={strBaseUrl}
-          // setParams={setParams}
-          // updateParams={updateParams}
-          // setEntities={setEntities}
-          // primaryKeyInputs={[
-            // { name: "_p1", label: "Folio", type: "text" },
-            // { name: "_p2", label: "Rut", type: "text" },
-            // { name: "_p3", label: "Nombre", type: "text" },
-            // { name: "_p4", label: "Desde", type: "date" },
-            // { name: "_p5", label: "Hasta", type: "date" },
-            // {
-            //   name: "_p6",
-            //   label: "Cargos",
-            //   type: "select",
-            //   selectUrl: "/api/cargos/",
-            // },
-            // {
-            //   name: "_p6",
-            //   label: "Cargos",
-            //   type: "select",
-            //   selectUrl: "/api/cargos/",
-            // },
-            // {
-            //   name: "_p3",
-            //   label: "Motivo",
-            //   type: "radiobuttons",
-            //   options: [
-            //     MOTIVO_OT.todos,
-            //     MOTIVO_OT.venta,
-            //     MOTIVO_OT.garantia,
-            //   ],
-            //   values: OptionValuesMotivo,
-            // },
-            // {
-            //   name: "_p3",
-            //   label: "Estado",
-            //   type: "radiobuttons",
-            //   options: [
-            //     ESTADO_OT.todos,
-            //     ESTADO_OT.entregada,
-            //     ESTADO_OT.anulada,
-            //   ],
-            //   values: OptionValuesMotivo,
-            // },
-          // ]}
-        // /> */}
+{/* <PrimaryKeySearch
+  // baseUrl={strBaseUrl}
+  // setParams={setParams}
+  // updateParams={updateParams}
+  // setEntities={setEntities}
+  // primaryKeyInputs={[
+    // { name: "_p1", label: "Folio", type: "text" },
+    // { name: "_p2", label: "Rut", type: "text" },
+    // { name: "_p3", label: "Nombre", type: "text" },
+    // { name: "_p4", label: "Desde", type: "date" },
+    // { name: "_p5", label: "Hasta", type: "date" },
+    // {
+    //   name: "_p6",
+    //   label: "Cargos",
+    //   type: "select",
+    //   selectUrl: "/api/cargos/",
+    // },
+    // {
+    //   name: "_p6",
+    //   label: "Cargos",
+    //   type: "select",
+    //   selectUrl: "/api/cargos/",
+    // },
+    // {
+    //   name: "_p3",
+    //   label: "Motivo",
+    //   type: "radiobuttons",
+    //   options: [
+      //     MOTIVO_OT.todos,
+    //     MOTIVO_OT.venta,
+    //     MOTIVO_OT.garantia,
+    //   ],
+    //   values: OptionValuesMotivo,
+    // },
+    // {
+    //   name: "_p3",
+    //   label: "Estado",
+    //   type: "radiobuttons",
+    //   options: [
+    //     ESTADO_OT.todos,
+    //     ESTADO_OT.entregada,
+    //     ESTADO_OT.anulada,
+    //   ],
+    //   values: OptionValuesMotivo,
+    // },
+    // ]}
+  // /> */}
 
         <PrimaryButtonsComponent
           handleAddPerson={openModal}
@@ -245,9 +240,8 @@ const MOT: React.FC = () => {
           showImportCsv={true}
           idMenu={idMenu}
           isOT={true}
-        />
-      </div>
-
+          />
+        </div>
       
       <div className="scroll !h-[23rem]">
         <TableComponent

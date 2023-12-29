@@ -14,7 +14,7 @@ import { AppStore, useAppDispatch, useAppSelector } from "../../../redux/store";
 import axios from "axios";
 import { setDataListbox } from "../../../redux/slices/listBoxSlice";
 import { URLBackend } from "../../hooks/useCrud";
-import { punto_venta } from "../../utils";
+import { clearSelectInput, punto_venta } from "../../utils";
 // import Select from "react-select";
 
 interface ISelectInputProps {
@@ -36,6 +36,7 @@ interface ISelectInputProps {
   setState?: any;
   isOT?:boolean;
   tabIndex?: number;
+  isFOTcristales?:boolean;
 }
 
 const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
@@ -54,7 +55,8 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     setState,
     isOT,
     tabIndex,
-    customWidth
+    customWidth,
+    isFOTcristales
   }) => {
     const dispatch = useAppDispatch()
     const [entities, setEntities] = useState([]);
@@ -183,11 +185,11 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
                   entities.map((option: any, index) => (
                     <option
                       key={index}
-                      value={
-                        option[0] !== undefined ? option[0].toString() : ""
-                      }
+                      value={ isFOTcristales ? (  clearSelectInput.value ?  "" : (option[0] !== undefined ? option[0].toString() : "") )  :  (option[0] !== undefined ? option[0].toString() : "") }
                     >
-                      {option[1]}
+                      { clearSelectInput.value && isFOTcristales === true ? (
+                        <option value={0}> </option>
+                      ) :  option[1]}
                     </option>
                   ))}
                   

@@ -32,7 +32,6 @@ const FOTClientes:React.FC<IClientes> = ({
     formValues,
     data,
     setExistCliente,
-    onlyRead,
     register,
     isEditting
 }) => {
@@ -64,12 +63,12 @@ const FOTClientes:React.FC<IClientes> = ({
                       // Tipo 1 (OK)
                       console.log('Tipo 1 (OK):', cliente.data);
                       
-                      onDataChange({['cliente_nombre']: "  "})    
-                      onDataChange({['cliente_sexo']: "  "})
-                      onDataChange({['cliente_tipo']: "  "})
-                      onDataChange({['cliente_fecha_nacimiento']: " "})
-                      onDataChange({['cliente_correo']: "  "})
-                      onDataChange({['cliente_telefono']: "  "})
+                      onDataChange({['cliente_nombre']: ""})    
+                      onDataChange({['cliente_sexo']: ""})
+                      onDataChange({['cliente_tipo']: ""})
+                      onDataChange({['cliente_fecha_nacimiento']: ""})
+                      onDataChange({['cliente_correo']: ""})
+                      onDataChange({['cliente_telefono']: ""})
 
 
 
@@ -133,6 +132,7 @@ const FOTClientes:React.FC<IClientes> = ({
         const { name, value } = e;
         console.log(name)
         console.log(value)
+        onDataChange({ [name]: value }); // Envia los datos al componente padre
 
         validationOTlevel1(name, value)
 
@@ -140,7 +140,7 @@ const FOTClientes:React.FC<IClientes> = ({
             fetchCliente(value).then((data:any)=>{
                 // setClienteData(data)
                 console.log(data)
-                console.log(data[0][EnumClientes.nombre])
+                // console.log(data[0][EnumClientes.nombre])
                 // setExistCliente(true)
                 // onDataChange({['cliente_nombre']: data[0][EnumClientes.nombre]})    
                 // onDataChange({['cliente_sexo']: data[0][EnumClientes.sexo]})
@@ -158,19 +158,18 @@ const FOTClientes:React.FC<IClientes> = ({
                 console.log(error)
             })
         }
-        onDataChange({ [name]: value }); // Envia los datos al componente padre
       };
 
 
-      console.log(data)
-      console.log(data && data[EnumGrid.cliente_comuna_id])
-      console.log(data && data[EnumGrid.cliente_provincia_id])
-      console.log(data && data[EnumGrid.cliente_region_id])
+    //   console.log(data)
+    //   console.log(data && data[EnumGrid.cliente_comuna_id])
+    //   console.log(data && data[EnumGrid.cliente_provincia_id])
+    //   console.log(data && data[EnumGrid.cliente_region_id])
 
 
-      console.log(formValues ? formValues["cliente_comuna"]  : data && data[EnumGrid.cliente_comuna_id])
-      console.log(formValues ? formValues["cliente_provincia"]  : data && data[EnumGrid.cliente_provincia_id])
-      console.log(formValues ? formValues["cliente_region"]  : data && data[EnumGrid.cliente_region_id])
+    //   console.log(formValues ? formValues["cliente_comuna"]  : data && data[EnumGrid.cliente_comuna_id])
+    //   console.log(formValues ? formValues["cliente_provincia"]  : data && data[EnumGrid.cliente_provincia_id])
+    //   console.log(formValues ? formValues["cliente_region"]  : data && data[EnumGrid.cliente_region_id])
                                       //   console.log(clienteData && clienteData[0])
     //  console.log(formValues)
     //  console.log(inputState)
@@ -204,14 +203,15 @@ const FOTClientes:React.FC<IClientes> = ({
                     <div className="input-container items-center rowForm w-[40%]">
                         <div className="w-full !mt-4">
                             <TextInputInteractive
+                                control={control}
                                 type="text"
                                 label="Nombre"
                                 name="cliente_nombre"
                                 handleChange={handleInputChange}
                                 data={formValues ? formValues["cliente_nombre"]  : data && data[EnumGrid.cliente_nomnbre]}
                                 // otData={clienteData  && clienteData[0] && clienteData[0][EnumClientes.nombre]}
-                                control={control}
                                 onlyRead={isEditting}
+                                isOT={true}
                                 // error={errors.fecha_nacimiento}
                             />
                         </div>
@@ -298,6 +298,7 @@ const FOTClientes:React.FC<IClientes> = ({
                                     // otData={clienteData && clienteData[0] && clienteData[0][EnumClientes.fecha_nacimiento]}
                                     control={control}
                                     onlyRead={isEditting}
+                                    isOT={true}
                                     // error={errors.fecha_nacimiento}
                                 />
                                 </div>
@@ -309,6 +310,7 @@ const FOTClientes:React.FC<IClientes> = ({
                                     handleChange={handleInputChange}
                                     data={formValues ? formValues["cliente_telefono"]  : data && data[EnumGrid.cliente_telefono]}
                                     control={control}
+                                    isOT={true}
                                     onlyRead={isEditting}
                                     // otData={clienteData && clienteData[0] && clienteData[0][EnumClientes.telefono]}
                                     // error={errors.fecha_nacimiento}
@@ -328,6 +330,7 @@ const FOTClientes:React.FC<IClientes> = ({
                                         handleChange={handleInputChange}
                                         data={formValues ? formValues["cliente_correo"]  : data && data[EnumGrid.cliente_correo]}
                                         control={control}
+                                        isOT={true}
                                         onlyRead={isEditting}
                                         // otData={clienteData  && clienteData[0] && clienteData[0][EnumClientes.correo]}
                                         // error={errors.fecha_nacimiento}
@@ -365,6 +368,7 @@ const FOTClientes:React.FC<IClientes> = ({
                          defaultComuna={formValues ? formValues["cliente_comuna"]  : data && data[EnumGrid.cliente_comuna_id]}
                          onlyRead={isEditting}
                          
+                         
                         />
                     <div className="-mt-[1.3rem] w-[101%] rowForm">
                         <TextInputInteractive
@@ -375,6 +379,7 @@ const FOTClientes:React.FC<IClientes> = ({
                             handleChange={handleInputChange}
                             data={formValues ? formValues["cliente_direccion"]  : data && data[EnumGrid.cliente_direccion]}
                             control={control}
+                            isOT={true}
                             // otData={clienteData  && clienteData[0] && clienteData[0][EnumClientes.direccion]}
                             // error={errors.fecha_nacimiento}
                         />

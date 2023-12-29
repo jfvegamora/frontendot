@@ -40,18 +40,20 @@ const TextInputInteractive: React.FC<ITextInputProps> = ({
   isOT,
   customWidth
 }) => {
-  const [defaultValue, setDefaultValue] = useState<any>(data && data || "")
+  const [_defaultValue, setDefaultValue] = useState<any>(data && data || "")
 
   const [value, setValue] = useState<any>();
 
 
   
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    
+    console.log(handleChange)
     if (handleChange) {
       if(isOT){
+        console.log('render')
         handleChange(e.target)
       }else{
+        console.log('render')
         handleChange(e.target.value)
       }
     }   
@@ -79,7 +81,7 @@ return (
     <Controller
       name={name}
       control={control}
-      defaultValue={defaultValue}
+      defaultValue={value}
       render={({ field }) => (
         <div className={`labelInput !mb-[1rem] !ml-[1rem] relative ${error ? 'border-red-500' : 'border-gray-500'}`}>
           <Input

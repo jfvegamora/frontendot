@@ -33,6 +33,7 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
   tabIndex,
   inputRef,
   className,
+  otData
   // defaultValue:formatvalue,
 }) => {
   const [defaultValue, setDefaultValue] = useState<string>(data || "  ")
@@ -40,6 +41,7 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
   let initialValue:any = 0;
 
   switch (name) {
+    //? OJO DERECHO | ANTEOJO 1
     case 'a1_od_esf':
         initialValue =  dioptrias_receta.value.a1_od.esf    
       break;
@@ -47,11 +49,26 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
         initialValue = dioptrias_receta.value.a1_od.cil 
       break;
     case 'a1_od_eje':
-        initialValue = dioptrias_receta.value.a1_od.eje 
+        initialValue = dioptrias_receta.value.a1_od.eje
+        break;
+    case 'a1_od_ad':
+        initialValue = dioptrias_receta.value.a1_od.ad
       break;
-      
+    //? OJO IZQUIERDO | ANTEOJO 1  
+    case 'a1_oi_esf':
+        initialValue = dioptrias_receta.value.a1_oi.esf
+        break;
+    case 'a1_oi_cil':
+        initialValue = dioptrias_receta.value.a1_oi.cil
+        break;
+    case 'a1_oi_eje':
+        initialValue = dioptrias_receta.value.a1_oi.eje
+        break;
+    case 'a1_oi_ad':
+         initialValue = dioptrias_receta.value.a1_oi.ad
+         break;      
 
-
+    //? OJO DERECHO | ANTEOJO 2
     case 'a2_od_esf':
         initialValue = a2_od_esf.value
       break;
@@ -75,7 +92,7 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
   
     // setValue(initialValue === undefined ? "" : initialValue);
     setValue(initialValue);
-  }, [initialValue, defaultValue]);
+  }, [initialValue, defaultValue, otData]);
 
 
 
@@ -84,15 +101,32 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
 
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = e.target.value;
+    
+    let newValue = ''
+    if (handleChange) {
+      handleChange(e.target);
+    }
+    
+    if(e.target.name === 'a1_od_cil'){
+        newValue = parseInt(e.target.value) > 0 ?  (parseInt(e.target.value) * -1 ).toString() : null as any
+        setValue(newValue)
+        return;
+    
+     }
+    if(e.target.name === 'a1_oi_cil'){
+        newValue = parseInt(e.target.value) > 0 ?  (parseInt(e.target.value) * -1 ).toString() : null as any
+        setValue(newValue)
+        return;
+    
+     }
+    newValue = e.target.value;
+    console.log(e.target.name)
     // console.log(newValue)s
+
     setDefaultValue('v')
     console.log(newValue)
     setValue(newValue)
     // console.log(e.target.name)
-    if (handleChange) {
-      handleChange(e.target);
-    }
   
   
   
@@ -102,6 +136,7 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
 
   console.log(value)
 
+  
 
 
 return (
