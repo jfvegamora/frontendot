@@ -4,6 +4,18 @@ import { URLBackend } from "../hooks/useCrud";
 
 import { Signal, signal } from "@preact/signals-react";
 import { validationFechaDespacho, validationFechaEntregaCliente, validationFechaEntregaTaller } from "./validationOT";
+
+
+export const dioptrias:any = signal<any>({
+  ESF:[''],
+  CIL:[''],
+  EJE:[''],
+  AD:['']
+})
+
+
+export const codigoProyecto = signal("")
+
 export const a1_od_esf  = signal<any | undefined>(undefined);
 export const a1_od_cil  = signal<any | undefined>(undefined);
 export const a1_od_eje  = signal<any | undefined>(undefined)
@@ -39,11 +51,20 @@ export const fecha_entrega_cliente  = signal("");
 export const A1_GRUPO = signal("");
 
 
+export const a1_armazon = signal("")
+export const a2_armazon = signal("")
+export const a3_armazon = signal("")
+
+export const A1_Diametro = signal("");
+export const A2_Diametro = signal("");
 export const A1_CR_OD = signal("");
 export const A1_CR_OI = signal("");
 export const A2_CR_OD = signal("");
 export const A2_CR_OI = signal("");
 
+
+export const A1_DP = signal("");
+export const A2_DP = signal("");
 
 export const A1_GRUPO_OD = signal("");
 export const A1_GRUPO_OI = signal("");
@@ -54,7 +75,7 @@ export const A2_GRUPO_OI = signal("");
 export const punto_venta = signal("");
 
 
-export const clearSelectInput = signal(false)
+export const clearSelectInput = signal(true)
 
 
 
@@ -154,6 +175,9 @@ export const actualizarVariable = (name: string, value: any) => {
     }
 };
 
+export const setCodigosCristales = (cristal:string) =>{
+  console.log('cristal')
+}
 
 export const buscarCampo = (campo: string) => {
     return validationNivel2.value.find((item) => item.campo === campo);
@@ -169,6 +193,13 @@ export const clearGrupos = () => {
   A1_CR_OI.value      = "";
   A1_CR_OD.value      = "";
   A1_CR_OI.value      = "";
+
+  a1_armazon.value    = "";
+  a2_armazon.value    = "";
+  a3_armazon.value    = "";
+
+  A1_Diametro.value   = "";
+  A2_Diametro.value   = "";
 }
 
 
@@ -249,6 +280,16 @@ export const clearInputDioptrias = () => {
      
 
 }
+export function validarValor(str:string) {
+  const partes = str.split('=');
+  
+  if (partes.length === 2) {
+    const valor = partes[1].trim();
+    return valor !== 'undefined' && valor !== '';
+  }
+  
+  return false;
+}
 
 
 export const fetchFechas = async(fecha_atencion:string, codgioProyecto:string) => {
@@ -280,97 +321,126 @@ export const fetchFechas = async(fecha_atencion:string, codgioProyecto:string) =
 
 
 
-// export const validar_por_tipo_anteojo = (estado:string) => {
-//     // const adicional1 = buscarCampo('a1_od_ad')
-//     // const adicional2 = buscarCampo('a1_oi_ad')
+const fetchDioptrias = async(proyecto:string) => {
+  try {
+
+    const requests = [
+      axios(`${URLBackend}/api/ot/listado/?query=12&_p3=ESF&_proyecto=${proyecto}`),
+      axios(`${URLBackend}/api/ot/listado/?query=12&_p3=CIL&_proyecto=${proyecto}`),
+      axios(`${URLBackend}/api/ot/listado/?query=12&_p3=EJE&_proyecto=${proyecto}`),
+      axios(`${URLBackend}/api/ot/listado/?query=12&_p3=AD&_proyecto=${proyecto}`)
+
+    ]
     
-//     // const esferico1   = buscarCampo('a2_od_esf')
-//     // const cilindrico1 = buscarCampo('a2_od_cil')
-//     // const eje1        = buscarCampo('a2_od_eje')
-//     // const esferico2   = buscarCampo('a2_oi_esf')
-//     // const cilindrico2 = buscarCampo('a2_oi_cil')
-//     // const eje2        = buscarCampo('a2_oi_eje')
-    
-//     const campos = [
-//         'a1_od_ad',
-//         'a1_oi_ad',
-//         'a2_od_esf',
-//         'a2_od_cil',
-//         'a2_od_eje',
-//         'a2_oi_esf',
-//         'a2_oi_cil',
-//         'a2_oi_eje',
-//     ];
+    const [responseESF, responseCIL, responseEJE, responseAD] = await Promise.all(requests);
 
-//     const anteojo_tipos = ["1","2","7"]
+    dioptrias.value.ESF = responseESF.data;
+    dioptrias.value.CIL = responseCIL.data;
+    dioptrias.value.EJE = responseEJE.data;
+    dioptrias.value.AD  = responseAD.data;
 
-
-//     console.log(estado)
-
-//     // console.log('true o false', anteojo_tipos.includes(estado))
-//     const campoPrueba = validationNivel2.value.find((item) => item.campo === 'a2_od_esf');
-    
-//     if(campoPrueba){
-//         return campoPrueba["valor"] = 10
-//     }
-//     // console.log(campoPrueba?.valor)
-//     // console.log(validationNivel2.value)
-//     // console.log('campo prueba', campoPrueba)
-//     // console.log(validationNivel2.value)
-
-
-//     // if (anteojo_tipos.includes(estado)) {
-//     //     campos.forEach((campo) => {
-//     //       const elemento = buscarCampo(campo);
-//     //       if (elemento) {
-//     //         elemento.valor = 1;
-//     //       }
-//     //       console.log(elemento)
-//     //     });
-//     //   }
-//     // if(anteojo_tipos.includes(estado)){
-//     //     if(adicional1){
-//     //         adicional1.valor = 1
-//     //     }
-
-//     //     if(adicional2){
-//     //         adicional2.valor = 1
-//     //     }
-//     //     if(esferico1){
-//     //         esferico1.valor = 1
-//     //     }
-//     //     if(cilindrico1){
-//     //         cilindrico1.valor = 1
-//     //     }
-//     //     if(eje1){
-//     //         eje1.valor = 1
-//     //     }
-//     //     if(esferico2){
-//     //         esferico2.valor = 1
-//     //     }
-//     //     if(cilindrico2){
-//     //         cilindrico2.valor = 1
-//     //     }
-//     //     if(eje2){
-//     //         eje2.valor = 1
-//     //     }
-//     // }
-
-// };
-
-
-//RE NOMBRAR EL ARCHIVO A UTILS OT Y DEJAR ADEMAS DE LAS SEÑALES DEJAR LAS FUNCONES DE LA OT, TANTO EL ISNERT, UPDATE, E IGUAL LOS SWITHCCASE 
-//TANTO LAS DERIVACIONES-PAUSA-PROCESAR
-//TAMBIEN AGREGAR ALGUNA FUNCION QUE ESTE DENTRO DEL ONCHANGE DEL FORMULARIO
-
-
-export function validarValor(str:string) {
-  const partes = str.split('=');
-  
-  if (partes.length === 2) {
-    const valor = partes[1].trim();
-    return valor !== 'undefined' && valor !== '';
+    console.log(dioptrias.value)
+  } catch (error) {
+    console.log(error)
+    throw error
   }
-  
-  return false;
 }
+
+
+type InputChangeActions = {
+  [key: string]: (data: any) => void;
+  
+  // Especifica las claves permitidas y sus tipos de función si conoces la estructura exacta
+  a1_armazon_id: (data: any) => void;
+  a2_armazon_id: (data: any) => void;
+  a3_armazon_id: (data: any) => void;
+  tipo_anteojo_id: (data: any) => void;
+  proyecto_codigo: (data: any) => void;
+  punto_venta_id: (data: any) => void;
+};
+
+
+
+//TODO: ESTRUCTURA QUE SE EJECUTA EN CADA CHANGE DE LOS INPUT
+export const inputChangeActions:InputChangeActions = {
+
+
+  cristal1_od: (data:any) => {
+    A1_CR_OD.value = Object.values(data)[0] as string;
+  },
+  cristal1_oi: (data:any) => {
+    A1_CR_OI.value = Object.values(data)[0] as string;
+  },
+  cristal2_od: (data:any) => {
+    A2_CR_OD.value = Object.values(data)[0] as string;
+  },
+  cristal2_oi: (data:any) => {
+    A2_CR_OI.value = Object.values(data)[0] as string;
+  },
+  a1_dp: (data:any) => {
+    A1_DP.value = Object.values(data)[0] as string;
+  },
+  a2_dp: (data:any) => {
+    A2_DP.value = Object.values(data)[0] as string;
+  },
+  cristal1_diametro: (data:any) =>{
+    A1_Diametro.value = Object.values(data)[0] as string;
+  },
+  cristal2_diametro: (data:any) =>{
+    A2_Diametro.value = Object.values(data)[0] as string;
+  },
+  a1_armazon_id: (data:any) => {
+    a1_armazon.value = Object.values(data)[0] as string;
+  },
+  a2_armazon_id: (data:any) => {
+    a2_armazon.value = Object.values(data)[0] as string;
+  },
+  a3_armazon_id: (data:any) => {
+    a3_armazon.value = Object.values(data)[0] as string;
+  },
+  tipo_anteojo_id: (data:any) => {
+    tipo_de_anteojo.value = Object.values(data)[0] as string
+    clearInputDioptrias()
+  },
+  proyecto_codigo: (data:any) => {
+    console.log('codigo')
+    codigoProyecto.value = (Object.values(data)[0] as string);
+    fetchDioptrias(Object.values(data)[0] as string)    
+  },
+  punto_venta_id: (data:any) => {
+    punto_venta.value = (Object.values(data)[0] as string);
+  }
+
+}
+
+
+//TODO:  ESTRUCTURA PARA TRAER CODIGOS DE CRISTALES + GRUPO DE ANTEOJO 1
+export const changeCodigoCristal_A1:any = {
+  cristal1_marca_id: true,
+  cristal1_diseno_id:true,
+  cristal1_indice_id:true,
+  cristal1_material_id:true,
+  cristal1_color_id:true,
+  cristal1_tratamiento_id:true,
+  cristal1_diametro:true,
+  a1_od_esf:true,
+  a1_od_cil:true,
+  a1_oi_esf:true,
+  a1_oi_cil:true
+}
+
+//TODO:  ESTRUCTURA PARA TRAER CODIGOS DE CRISTALES + GRUPO DE ANTEOJO 2
+export const changeCodigoCristal_A2:any = {
+  cristal2_marca_id: true,
+  cristal2_diseno_id:true,
+  cristal2_indice_id:true,
+  cristal2_material_id:true,
+  cristal2_color_id:true,
+  cristal2_tratamiento_id:true,
+  cristal2_diametro:true,
+  a2_od_esf:true,
+  a2_od_cil:true,
+  a2_oi_esf:true,
+  a2_oi_cil:true
+}
+

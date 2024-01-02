@@ -88,8 +88,6 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
   const [value, setValue] = useState<string>(" ");
   
   useEffect(() => {
-    console.log(initialValue)
-  
     // setValue(initialValue === undefined ? "" : initialValue);
     setValue(initialValue);
   }, [initialValue, defaultValue, otData]);
@@ -124,7 +122,6 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
     // console.log(newValue)s
 
     setDefaultValue('v')
-    console.log(newValue)
     setValue(newValue)
     // console.log(e.target.name)
   
@@ -134,7 +131,6 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
   };
  
 
-  console.log(value)
 
   
 

@@ -8,11 +8,10 @@ import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
 import Switch from "react-switch";
 import axios from 'axios';
 import { validationOTlevel1, validationOTlevel2 } from '../../utils/validationOT';
-import { fecha_despacho, fecha_entrega_cliente, fecha_entrega_taller, fetchFechas, punto_venta, validar_parametrizacion } from '../../utils';
+import { codigoProyecto, fecha_despacho, fecha_entrega_cliente, fecha_entrega_taller, fetchFechas, punto_venta, validar_parametrizacion } from '../../utils';
 import SelectInputTiposComponent from '../forms/SelectInputTiposComponent';
 import { AppStore, useAppSelector } from '../../../redux/store';
 import { URLBackend } from '../../hooks/useCrud';
-import { codigoProyecto } from '../../views/forms/FOT';
 import { toast } from 'react-toastify';
 import TextInputInteractive from '../forms/TextInputInteractive';
 
@@ -170,7 +169,7 @@ const FOTOptica:React.FC<IOptica> = ({
 console.log(validar_parametrizacion.value)
 
 
-
+console.log(codigoProyecto.value)
 return (
     <form action="">
         <div className='w-full labelForm rounded-lg border radioComponent'>

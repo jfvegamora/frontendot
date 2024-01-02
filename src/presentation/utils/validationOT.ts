@@ -1,4 +1,5 @@
-import { dioptrias, validationNivel1, validationNivel2 } from "../views/forms/FOT";
+import { dioptrias } from ".";
+import { validationNivel1, validationNivel2 } from "../views/forms/FOT";
 
 export const validationProyectos = (value:string) => {
     if(value !== ''){

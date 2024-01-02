@@ -6,9 +6,8 @@ import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
 import { EnumGrid as EnumArmazones } from '../../views/mantenedores/MArmazones';
 import { validationOTlevel2 } from '../../utils/validationOT';
 import { URLBackend } from '../../hooks/useCrud';
-import { codigoProyecto } from '../../views/forms/FOT';
 import { toast } from 'react-toastify';
-import { punto_venta, validar_parametrizacion } from '../../utils';
+import { A1_DP, A1_Diametro, A2_DP, A2_Diametro, clearSelectInput, codigoProyecto, punto_venta, validar_parametrizacion } from '../../utils';
 import TextInputInteractive from '../forms/TextInputInteractive';
 
 interface IArmazones {
@@ -36,8 +35,8 @@ const FOTArmazones:React.FC<IArmazones> = ({
     const [codArmazon3, setCodArmazon3] = useState(formValues ? formValues["a3_armazon_id"] : " ");
 
 
-
-    //TODO! =========================== ENVIAR DP EN _P4 PARA VALIDAR ARMAZONES =====================================================================
+    //TODO! =========================== ENVIAR DP EN _P4 PARA VALIDAR ARMAZONES ===========================================================================
+    //TODO! =========================== ENVIAR Diametro EN _P5 PARA VALIDAR ARMAZONES =====================================================================
 
     const endpoint = validar_parametrizacion.value === '0' 
                                                    ? `${URLBackend}/api/armazones/listado/?query=01` 
@@ -48,9 +47,9 @@ const FOTArmazones:React.FC<IArmazones> = ({
     // console.log(codArmazon1)
     // console.log(`${endpoint}&_p1=${codArmazon1.trim() ||  "13123"}`)
 
-    const { data:armazon1 } = useSWR(`${endpoint}&_p1=${codArmazon1 !== ' ' ? codArmazon1 : "aaaa"}`, fetcher); //! DP ANTEOJO 1
-    const { data:armazon2 } = useSWR(`${endpoint}&_p1=${codArmazon2 !== ' ' ? codArmazon2 : "aaaa"}`, fetcher); //! DP ANTEOJO 2
-    const { data:armazon3 } = useSWR(`${endpoint}&_p1=${codArmazon3 !== ' ' ? codArmazon3 : "aaaa"}`, fetcher); //! DP ANTEOJO 3
+    const { data:armazon1 } = useSWR(`${endpoint}&_p1=${codArmazon1 !== ' ' ? codArmazon1 : "aaaa"}&_p4=${A1_DP.value}&_p5=${A1_Diametro.value}`, fetcher); //! DP ANTEOJO 1
+    const { data:armazon2 } = useSWR(`${endpoint}&_p1=${codArmazon2 !== ' ' ? codArmazon2 : "aaaa"}&_p4=${A2_DP.value}&_p5=${A2_Diametro.value}`, fetcher); //! DP ANTEOJO 2
+    const { data:armazon3 } = useSWR(`${endpoint}&_p1=${codArmazon3 !== ' ' ? codArmazon3 : "aaaa"}&_p4=${A1_DP.value}&_p5=${A1_Diametro.value}`, fetcher); //! DP ANTEOJO 3
     
     
     const handleInputChange = (e:any) => {
@@ -247,7 +246,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
                                 entidad={["/api/tipos/", "02","OTOpcionVentaArmazon"]}
                                 // error={errors.establecimiento}
                                 customWidth={"345px"}
-                                readOnly={permiso_armazones}
+                                readOnly={permiso_armazones ||  clearSelectInput.value}
                             />
                         </div>
 
@@ -260,7 +259,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
                                     handleChange={handleInputChange}
                                     data={formValues ? formValues["a2_armazon_id"] : data && data[EnumGrid.a2_armazon_id]}
                                     control={control}
-                                    onlyRead={permiso_armazones}
+                                    onlyRead={permiso_armazones ||  clearSelectInput.value}
                                     isOT={true}
                                     // error={errors.fecha_nacimiento}
                                 />

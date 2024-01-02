@@ -3,7 +3,7 @@ import { SelectInputComponent, TextInputComponent } from '..';
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
 import { validationOTlevel2 } from '../../utils/validationOT';
 import SelectInputTiposComponent from '../forms/SelectInputTiposComponent';
-import { A1_CR_OD, A1_CR_OI, A1_GRUPO_OD, A1_GRUPO_OI, A2_CR_OD, A2_CR_OI, A2_GRUPO_OD, A2_GRUPO_OI, clearSelectInput } from '../../utils';
+import { A1_CR_OD, A1_CR_OI, A1_GRUPO_OD, A1_GRUPO_OI, A2_CR_OD, A2_CR_OI, A2_GRUPO_OD, A2_GRUPO_OI, clearSelectInput, setCodigosCristales } from '../../utils';
 import TextInputInteractive from '../forms/TextInputInteractive';
 
 
@@ -48,8 +48,10 @@ const FOTCristales:React.FC<ICristales> = ({
         console.log(name)
         console.log(value)
 
+
+        setCodigosCristales(value)
         validationOTlevel2(name, value)
-       
+        
         onDataChange({[name]:value})
         // console.log(validate)
         
@@ -481,7 +483,7 @@ const FOTCristales:React.FC<ICristales> = ({
                                         label="Diametro"
                                         name="cristal2_diametro"
                                         handleChange={handleInputChange}
-                                        data={formValues ? formValues["cristal1_diametro"] : data && data[EnumGrid.cristal2_diametro]}
+                                        data={formValues ? formValues["cristal2_diametro"] : data && data[EnumGrid.cristal2_diametro]}
                                         control={control}
                                         isOT={true}
                                         onlyRead={  isEditting && permiso_cristales ||  clearSelectInput.value}

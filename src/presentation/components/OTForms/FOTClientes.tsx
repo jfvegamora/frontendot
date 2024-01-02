@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { RadioButtonComponent, SelectInputComponent } from '..'
-import { SEXO, TIPO_CLIENTE } from '../../utils';
+import { SEXO, TIPO_CLIENTE, codigoProyecto } from '../../utils';
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
 import { EnumGrid as EnumClientes } from '../../views/mantenedores/MClientes';
 import axios from 'axios';
@@ -8,7 +8,7 @@ import axios from 'axios';
 import { validationOTlevel1 } from '../../utils/validationOT';
 import RegProCom from '../RegProCom';
 import { URLBackend } from '../../hooks/useCrud';
-import { codigoProyecto } from '../../views/forms/FOT';
+
 import { toast } from 'react-toastify';
 import TextInputInteractive from '../forms/TextInputInteractive';
 
@@ -19,7 +19,6 @@ interface IClientes {
     formValues: any,
     data:any,
     setExistCliente:any,
-    strCodigoProyecto:string,
     onlyRead?:boolean;
     register?:any
     isEditting?:boolean;
@@ -36,7 +35,6 @@ const FOTClientes:React.FC<IClientes> = ({
     isEditting
 }) => {
     const [_clienteData, setClienteData] = useState()
-
     // console.log(onlyRead)
     const fetchCliente = async(cliente_rut:string) => {
         try {

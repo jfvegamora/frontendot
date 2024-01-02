@@ -38,6 +38,7 @@ interface ITableComponentProps<T> {
   queryExcel?:any;
   setTotalRowIndex?:any;
   togglePermisoOTModal?:() => void;
+  leftEdit?:boolean;
 }
 
 const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
@@ -63,7 +64,8 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
     strEntidad,
     queryExcel,
     isOT,
-    togglePermisoOTModal
+    togglePermisoOTModal,
+    leftEdit
     //  setTotalRowIndex
   }) => {
     const { escritura_lectura, lectura} = usePermission(idMenu || 0 );
@@ -157,8 +159,23 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
             checked={selectedRows && selectedRows.includes(id)}
             onChange={() => handleSelectChecked && handleSelectChecked(id)}
             type="checkbox"
+            className="mx-6"
             
           />
+
+          { leftEdit && showEditButton && (
+                        <Tooltip content={BUTTON_MESSAGES.edit.concat(entidad)}>
+                          <IconButton
+                            variant="text"
+                            color="blue-gray"
+                            onClick={() =>
+                              toggleEditModal && toggleEditModal(id)
+                            }
+                          >
+                            <PencilIcon className="gridIcons" />
+                          </IconButton>
+                        </Tooltip>
+         )}
           {isOT && (
 
             <>
