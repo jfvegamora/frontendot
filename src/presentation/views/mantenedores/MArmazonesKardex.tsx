@@ -142,6 +142,7 @@ const MArmazonesKardex: React.FC = () => {
           showEditButton          ={false}
           showDeleteButton        ={false}
           idMenu                  ={idMenu}
+          leftEdit={true}
         />
       </div>
 
