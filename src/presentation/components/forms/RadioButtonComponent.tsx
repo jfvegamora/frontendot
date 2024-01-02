@@ -36,7 +36,12 @@ const RadioButtonComponent: React.FC<IRadioButtonProps> = ({
 
   useEffect(() => {
     if(data){
-      setValue(data)
+      if(name === 'resolucion_garantia_id'){
+        setValue(" ")
+      }else{
+        setValue(data)
+
+      }
     }
   }, [data]);
 

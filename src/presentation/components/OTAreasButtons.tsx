@@ -26,7 +26,7 @@ const handleEstado = (area:any) => {
 useEffect(() => {
   if (areaActual && areaActual !== areaActualRef.current) {
     areaActualRef.current = areaActual;
-    dispatch(fetchOT(areaActual)); // Llama inicialmente cuando cambia el área
+    dispatch(fetchOT({OTAreas:areaActual})); // Llama inicialmente cuando cambia el área
   }
 
   const interval = setInterval(() => {

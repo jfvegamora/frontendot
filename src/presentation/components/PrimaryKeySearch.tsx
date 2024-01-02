@@ -9,6 +9,8 @@ import { SelectInputComponent } from ".";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import SelectInputTiposComponent from "./forms/SelectInputTiposComponent";
+import { AppStore, useAppDispatch, useAppSelector } from "../../redux/store";
+import { fetchOT } from "../../redux/slices/OTSlice";
 
 interface IPrimaryKeyState {
   [key: string]: string | number;
@@ -48,6 +50,8 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
     const [cristalDescritpion, setCristalDescription] = useState(
       description || ""
     );
+    const dispatch = useAppDispatch();
+    const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas);
     const { ListEntity } = useCrud(baseUrl);
     // console.log("cristalDescritpion", cristalDescritpion[3]);
     
@@ -56,7 +60,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
       setCristalDescription(description || '');
     }, [description]);
     
-    
+    console.log(OTAreas["areaActual"])
     
     const handleInputChange = React.useCallback(
       (name: string, value: string) => {
@@ -109,17 +113,13 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
       // console.log(data)
       // console.log(searchParams)
       try {
-        // console.log(searchParams)
+        const response = otHistorica 
+                            ?  dispatch(fetchOT({OTAreas:OTAreas["areaActual"], searchParams:searchParams}))
+                            :  await ListEntity(searchParams, strQuery);
 
-        // if(searchParams.includes('_proyecto')){
 
-        // }
-        console.log(data)
-        console.log(searchParams)
-        const response = await ListEntity(searchParams, strQuery);
         setEntities(response);
       } catch (error) {
-        console.log(error);
         return error;
       }
     }, []);

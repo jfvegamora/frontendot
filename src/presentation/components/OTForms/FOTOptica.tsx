@@ -131,6 +131,7 @@ const FOTOptica:React.FC<IOptica> = ({
             const query = `?query=06&_folio=${data[EnumGrid.folio]}&_p2=${event === true ? 1 : 0}&_estado=${_estado}&_usuario=${userID}&_origen=${_origen}`
             const result = await axios(`${strUrl}/${query}`);
             if(result.status === 200){
+                console.log(result)
                 toast.success('Estado cambiado')
             }
         } catch (error) {

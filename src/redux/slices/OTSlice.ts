@@ -20,9 +20,16 @@ const initialState: DataState = {
 
 export const fetchOT = createAsyncThunk(
     'ot/fetchOT',
-    async (OTAreas:any) => {
+    async (params:any) => {
+        const {OTAreas, searchParams} = params;
+        const OTUrl = searchParams
+                                 ? `${URLBackend}/api/ot/listado/?query=14&_origen=${OTAreas}&${searchParams}` 
+                                 : `${URLBackend}/api/ot/listado/?query=14&_origen=${OTAreas}`
+
+        // console.log(OTUrl)
         try {
-            const response = await axios.get(`${URLBackend}/api/ot/listado/?query=14&_origen=${OTAreas}`);
+            const response = await axios.get(OTUrl);
+            
             return response.data;
         } catch (error) {
             console.log(error);

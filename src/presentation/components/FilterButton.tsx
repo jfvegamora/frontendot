@@ -6,13 +6,15 @@ import { RxDoubleArrowLeft } from "react-icons/rx";
 interface IProps {
   children: ReactNode;
   isOT?:boolean;
+  className?:string;
 }
 
 export const filterToggle = signal(false);
 
 const FilterButton: React.FC<IProps> = ({
   children,
-  isOT
+  isOT,
+  className
 }) => {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -40,9 +42,9 @@ const FilterButton: React.FC<IProps> = ({
     };
   }, []);
 
-
+  className
   return (
-    <div className="fixed top-[4rem] left-5 z-[13] items-center bg-yellow-300">
+    <div className={`fixed ${className ? className : "top-[4rem] left-5"} z-[13] items-center bg-yellow-300`}>
       <MagnifyingGlassIcon
         className={`bg-[#f39c12] w-[3.5rem] h-[3.5rem] text-white p-3 rounded-full shadow-lg top-0 absolute z-30 transition-transform transform cursor-pointer ${isHovered ? 'scale-110' : ''}`}
         onMouseEnter={handleMouseEnter}

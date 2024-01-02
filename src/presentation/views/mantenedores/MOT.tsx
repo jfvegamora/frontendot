@@ -6,6 +6,7 @@ import React, { useEffect, useState,
 
 import {
   PrimaryButtonsComponent,
+  PrimaryKeySearch,
   TableComponent,
 } from "../../components";
 import { useEntityUtils, usePermission } from "../../hooks";
@@ -14,6 +15,7 @@ import FOT from "../forms/FOT";
 import OTAreasButtons from "../../components/OTAreasButtons";
 import { AppStore, 
   useAppSelector } from "../../../redux/store";
+import FilterButton from "../../components/FilterButton";
 
 export enum EnumGrid {
   id = 1,
@@ -41,7 +43,7 @@ export enum OptionValuesEstado {
 
 const strEntidad = "Orden de Trabajo ";
 const strBaseUrl = "/api/ot/";
-const strQuery = "01";
+const strQuery = "14&_origen=40";
 const idMenu = 1;
 
 
@@ -49,11 +51,12 @@ const MOT: React.FC = () => {
   // const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas);
   // const areaActual = OTAreas["areaActual"] 
   const OTs:any = useAppSelector((store: AppStore) => store.OTS);
+  const area:any = useAppSelector((store: AppStore) => store.OTAreas);
   // const dispatch = useAppDispatch();
-  const [params, _setParams] = useState([]);
+  const [params, setParams] = useState([]);
   const [_estadosOT, setEstadosOT] = useState()
   // const areaActualRef = useRef(areaActual)
-
+  // console.log(area)
   
 
   const { lectura} = usePermission(28);
@@ -61,9 +64,9 @@ const MOT: React.FC = () => {
   // let a = JSON.parse(localStorage.getItem("ListBoxTipos") as string)  
   // console.log( a["cristalDiseño"] )
 
-  // const updateParams = (newParams: Record<string, never>) => {
-  //   setParams(Object.keys(newParams).map((key) => newParams[key]));
-  // };
+  const updateParams = (newParams: Record<string, never>) => {
+    setParams(Object.keys(newParams).map((key) => newParams[key]));
+  };
 
   const {
     //entities state
@@ -174,7 +177,7 @@ const MOT: React.FC = () => {
 
       </div>
 
-        <div className="mantenedorHead width100  items-center !bg-red-400">
+        <div className="mantenedorHead width100 !h-[4rem]  items-center !bg-red-400">
 
 {/* <PrimaryKeySearch
   // baseUrl={strBaseUrl}
@@ -241,6 +244,57 @@ const MOT: React.FC = () => {
           idMenu={idMenu}
           isOT={true}
           />
+        </div>
+
+        <div>
+          <FilterButton
+            className="top-[12.5rem] left-[3rem]"
+          >
+            <PrimaryKeySearch
+              baseUrl={strBaseUrl}
+              setParams={setParams}
+              updateParams={updateParams}
+              strQuery={strQuery}
+              setEntities={setEntities}
+              otHistorica={true}
+              primaryKeyInputs={[
+                { name: "_folio", label: "Folio", type: "text" },
+                { name: "_rut", label: "Rut", type: "text" },
+                { name: "_nombre", label: "Nombre", type: "text" },
+                {
+                    name: "_proyecto",
+                    label: "Proyecto",
+                    type: "select",
+                    selectUrl: "/api/proyectos/",
+                  },
+                { name: "_fecha_desde", label: "Desde", type: "date", styles:{with:"w-[17.3rem]  !h-[6rem]"} },
+                { name: "_fecha_hasta", label: "Hasta", type: "date" ,styles:{with:"w-[17.3rem]  !h-[6rem]"}},
+                // {name:"_motivo", label:"motivo",type:"radio" },
+                {
+                    name: "_estado",
+                    label: "OTEstado",
+                    type: "select",
+                    selectUrl:"/api/tipos/s",
+                    tipos: "OTEstados"
+                  },              
+                {
+                    name: "_motivo",
+                    label: "OTMotivo",
+                    type: "select",
+                    selectUrl:"/api/tipos/s",
+                    tipos: "OTMotivo"
+                  },              
+                  {
+                      name: "_establecimiento",
+                      label: "Establecimiento",
+                      type: "select",
+                      selectUrl: "/api/establecimientos/",
+                    },
+                
+                
+              ]}
+            />
+          </FilterButton>
         </div>
       
       <div className="scroll !h-[23rem]">
