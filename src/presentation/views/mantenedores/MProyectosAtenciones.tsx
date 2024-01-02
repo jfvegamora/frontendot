@@ -139,6 +139,7 @@ const MProyectosAtenciones: React.FC = () => {
             showEditButton={true}
             showExcelButton={true}
             idMenu={idMenu}
+            leftEdit={true}
 
             queryExcel={strQueryExcel}
             strBaseUrl={strBaseUrl}

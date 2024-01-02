@@ -151,8 +151,8 @@ export enum EnumGrid {
 }
 
 
-const strEntidad = "Orden de Trabajo Hisotrico";
-const strEntidadExcel = "Ordenes de trabajo";
+const strEntidad = "Orden de Trabajo Histórico";
+const strEntidadExcel = "Órdenes de trabajo";
 const strBaseUrl = "/api/othistorica/";
 const strQuery = "14";
 const idMenu = 1;
@@ -160,7 +160,7 @@ const idMenu = 1;
 type PrimaryKey = {
   pk1: number;
 };
-const MUsuarios: React.FC = () => {
+const MOTHistorica: React.FC = () => {
   const [params, setParams] = useState([]);
 
   const updateParams = (newParams: Record<string, never>) => {
@@ -222,37 +222,39 @@ const MUsuarios: React.FC = () => {
           primaryKeyInputs={[
             { name: "_folio", label: "Folio", type: "text" },
             { name: "_rut", label: "Rut", type: "text" },
-            { name: "_nombre", label: "Nombre", type: "text" },
+
             {
-                name: "_proyecto",
-                label: "Proyecto",
-                type: "select",
-                selectUrl: "/api/proyectos/",
-              },
+              name: "_proyecto",
+              label: "Proyecto",
+              type: "select",
+              selectUrl: "/api/proyectos/",
+            },
+            {
+              name: "_establecimiento",
+              label: "Establecimiento",
+              type: "select",
+              selectUrl: "/api/establecimientos/",
+            },
+
             { name: "_fecha_desde", label: "Desde", type: "date", styles:{with:"w-[17.3rem]  !h-[6rem]"} },
             { name: "_fecha_hasta", label: "Hasta", type: "date" ,styles:{with:"w-[17.3rem]  !h-[6rem]"}},
-            // {name:"_motivo", label:"motivo",type:"radio" },
+
+            { name: "_nombre", label: "Nombre", type: "text" },
             {
-                name: "_estado",
-                label: "OTEstado",
-                type: "select",
-                selectUrl:"/api/tipos/s",
-                tipos: "OTEstados"
-              },              
+              name: "_estado",
+              label: "OTEstado",
+              type: "select",
+              selectUrl:"/api/tipos/s",
+              tipos: "OTEstados"
+            },              
             {
-                name: "_motivo",
-                label: "OTMotivo",
-                type: "select",
-                selectUrl:"/api/tipos/s",
-                tipos: "OTMotivo"
-              },              
-              {
-                  name: "_establecimiento",
-                  label: "Establecimiento",
-                  type: "select",
-                  selectUrl: "/api/establecimientos/",
-                },
-            
+              name: "_motivo",
+              label: "OTMotivo",
+              type: "select",
+              selectUrl:"/api/tipos/s",
+              tipos: "OTMotivo"
+            },              
+              
             
           ]}
         />
@@ -325,4 +327,4 @@ const MUsuarios: React.FC = () => {
   );
 };
 
-export default MUsuarios;
+export default MOTHistorica;

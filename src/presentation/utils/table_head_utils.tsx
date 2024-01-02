@@ -613,7 +613,7 @@ export const table_head_clientes = [
     cell: <input type="checkbox" />,
     key: "checkbox",
     visible: true,
-    width: "w-[3rem]",
+    width: "w-[5rem]",
     alignment: "flex justify-center  items-center"
   },
   {
@@ -1040,7 +1040,7 @@ export const table_head_armazones = [
     cell: <input type="checkbox" />,
     key: "checkbox",
     visible: true,
-    width: "w-[3rem]",
+    width: "w-[5rem]",
     alignment: "flex justify-center items-center"
   },
   {
@@ -1194,7 +1194,7 @@ export const table_head_cristales = [
     cell: <input type="checkbox" />,
     key: "checkbox",
     visible: true,
-    width: "w-[3rem]",
+    width: "w-[5rem]",
     alignment: "flex justify-center items-center"
   },
   {
@@ -1701,7 +1701,7 @@ export const table_head_proyectos = [
     cell: <input type="checkbox" />,
     key: "checkbox",
     visible: true,
-    width: "w-[3rem]",
+    width: "w-[5rem]",
     alignment: "flex justify-center items-center"
   },
   {
@@ -2048,7 +2048,7 @@ export const table_head_muestrarios_armazones = [
     cell: <input type="checkbox" />,
     key: "checkbox",
     visible: true,
-    width: "w-[3rem]",
+    width: "w-[5rem]",
     alignment: "flex justify-center items-center"
   },
   {
@@ -2221,7 +2221,7 @@ export const table_head_vitrinas_armazones = [
     cell: <input type="checkbox" />,
     key: "checkbox",
     visible: true,
-    width: "w-[3rem]",
+    width: "w-[5rem]",
     alignment: "flex justify-center items-center"
   },
   {
@@ -2475,7 +2475,7 @@ export const table_head_proyectos_cristales = [
     cell: <input type="checkbox" />,
     key: "checkbox",
     visible: true,
-    width: "w-[3rem]",
+    width: "w-[5rem]",
     alignment: "flex justify-center items-center"
   },
   {
@@ -2824,7 +2824,7 @@ export const table_head_proyectos_atenciones = [
     cell: <input type="checkbox" />,
     key: "checkbox",
     visible: true,
-    width: "w-[3rem]",
+    width: "w-[5rem]",
     alignment: "flex justify-center items-center"
   },
   {
