@@ -363,8 +363,6 @@ type InputChangeActions = {
 
 //TODO: ESTRUCTURA QUE SE EJECUTA EN CADA CHANGE DE LOS INPUT
 export const inputChangeActions:InputChangeActions = {
-
-
   cristal1_od: (data:any) => {
     A1_CR_OD.value = Object.values(data)[0] as string;
   },
