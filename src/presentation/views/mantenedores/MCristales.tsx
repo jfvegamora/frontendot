@@ -91,9 +91,9 @@ const MCristales: React.FC = () => {
   // console.log(filterToggle.value)
 
   return (
-    <div className="mantenedorContainer !h-[45rem]"  onClick={handleContainerClick}>
+    <div className="mantenedorContainer"  onClick={handleContainerClick}>
       <FilterButton>
-        <div className="mantenedorHeadFlex width100 relative">
+        <div className="mantenedorHeadFlex width100 relative ">
           <div className="w-[95%] mx-auto ">
             <PrimaryKeySearch
               baseUrl={strBaseUrl}
