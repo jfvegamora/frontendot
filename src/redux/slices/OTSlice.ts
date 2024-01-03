@@ -73,16 +73,16 @@ const OTSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(fetchOT.fulfilled, (state, action) => {
-            console.log(action.payload)
+            // console.log(action.payload)
             state.estadosOT = {};
 
             action.payload.forEach((ot:any)=>{
-                console.log(ot)
+                // console.log(ot)
                 const estado = ot[3];
 
                 // Resto del código es igual...
-                console.log(estado)
-                console.log(state.estadosOT[estado])
+                // console.log(estado)
+                // console.log(state.estadosOT[estado])
                 if (state.estadosOT[estado]) {
                     state.estadosOT[estado]++;
                 } else {

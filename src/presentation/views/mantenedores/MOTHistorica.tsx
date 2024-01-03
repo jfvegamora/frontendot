@@ -13,6 +13,7 @@ import { useEntityUtils } from "../../hooks";
 import { TITLES, table_head_OT_historica } from "../../utils";
 // import { OptionValuesMotivo } from "./MOT";
 import FOT from "../forms/FOT";
+import { AppStore, useAppSelector } from "../../../redux/store";
 
 export enum EnumGrid {
   folio = 1,
@@ -162,6 +163,7 @@ type PrimaryKey = {
 };
 const MOTHistorica: React.FC = () => {
   const [params, setParams] = useState([]);
+  const OTs:any = useAppSelector((store: AppStore) => store.OTS);
 
   const updateParams = (newParams: Record<string, never>) => {
     setParams(Object.keys(newParams).map((key) => newParams[key]));
@@ -289,7 +291,7 @@ const MOTHistorica: React.FC = () => {
           pkToDelete={pkToDelete}
           setSelectedRows={setSelectedRows}
           entidad={strEntidad}
-          data={entities}
+          data={OTs.data}
           tableHead={table_head_OT_historica}
           showEditButton={true}
           showDeleteButton={false}
