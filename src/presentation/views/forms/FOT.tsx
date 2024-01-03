@@ -394,7 +394,7 @@ const FOT:React.FC<IFOTProps> = ({
     
     if(data){
       console.log(data[EnumGrid.motivo])
-      motivo_ot.value = data[EnumGrid.motivo] === 'Garantia' ? false : true
+      motivo_ot.value = data[EnumGrid.motivo] === 'Garantía' ? false : true
     }
   },[])
 

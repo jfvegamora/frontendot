@@ -69,7 +69,11 @@ const FOTArmazones:React.FC<IArmazones> = ({
         // console.log(validar_parametrizacion.value)
         // console.log(armazon1)
         if(validar_parametrizacion.value === '1'){
-            if( codArmazon1  !== " " && codArmazon1 !== undefined  && armazon1 && armazon1[0] && (armazon1[0].length === 3 || armazon1[0].length === 1)){
+            console.log(armazon1)
+            console.log(codArmazon1)
+            
+            console.log(!codArmazon1.trim())
+            if(!(!codArmazon1.trim()) && codArmazon1 !== undefined  && armazon1 && armazon1[0] && (armazon1[0].length === 3 || armazon1[0].length === 1)){
                 //? VALIDACION QUERY 02
                 toast.error(armazon1[0][0])
                 onDataChange({['a1_armazon_id']: " "}) 
@@ -85,7 +89,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
 
     useEffect(()=>{
         if(validar_parametrizacion.value === '1'){
-            if(codArmazon2 !== " " && codArmazon2 !== undefined && armazon2 && armazon2[0] && (armazon2[0].length === 3 || armazon2[0].length === 1)){
+            if(!(!codArmazon2.trim()) && codArmazon2 !== undefined && armazon2 && armazon2[0] && (armazon2[0].length === 3 || armazon2[0].length === 1)){
                 toast.error(armazon2[0][0])
                 onDataChange({['a2_armazon_id']: " "})    
             }
@@ -102,7 +106,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
         console.log('render')
         console.log(codArmazon3)
         if(validar_parametrizacion.value === '1'){
-            if(codArmazon3  !== " " && codArmazon3 !== undefined && armazon3 && armazon3[0] && (armazon3[0].length === 3 || armazon3[0].length === 1)){
+            if(!(!codArmazon3.trim()) && codArmazon3 !== undefined && armazon3 && armazon3[0] && (armazon3[0].length === 3 || armazon3[0].length === 1)){
                 toast.error(3,armazon3[0][0])
                 onDataChange({['a3_armazon_id']: " "})    
             }

@@ -170,9 +170,10 @@ const FOTOptica:React.FC<IOptica> = ({
 console.log(validar_parametrizacion.value)
 
 console.log(motivo_ot.value)
+
 console.log(permiso_resolucion_garantia)
 
-console.log(permiso_resolucion_garantia && motivo_ot.value)
+console.log(!permiso_resolucion_garantia && !motivo_ot.value)
 // console.log( !(motivo_ot.value === 'Garantía') && permiso_resolucion_garantia)
 return (
     <form action="">
@@ -381,7 +382,7 @@ return (
                                 options={["Aceptada", "Rechazada"]}
                                 // error={errors.sexo}
                                 horizontal={true}
-                                readOnly={!permiso_resolucion_garantia && !motivo_ot.value}
+                                readOnly={!(!permiso_resolucion_garantia && !motivo_ot.value)}
                                 onChange={handleInputChange}
                                 
                             />  
