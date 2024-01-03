@@ -7,16 +7,17 @@ import { EnumGrid as EnumArmazones } from '../../views/mantenedores/MArmazones';
 import { validationOTlevel2 } from '../../utils/validationOT';
 import { URLBackend } from '../../hooks/useCrud';
 import { toast } from 'react-toastify';
-import { A1_DP, A1_Diametro, A2_DP, A2_Diametro, clearSelectInput, codigoProyecto, punto_venta, validar_parametrizacion } from '../../utils';
+import { A1_DP, A1_Diametro, A2_DP, A2_Diametro, codigoProyecto, punto_venta, validar_parametrizacion } from '../../utils';
 import TextInputInteractive from '../forms/TextInputInteractive';
 
 interface IArmazones {
-    control:any,
-    onDataChange: any,
-    formValues: any,
-    data:any,
-    onlyRead?:boolean,
-    permiso_armazones:boolean
+    control:any;
+    onDataChange: any;
+    formValues: any;
+    data:any;
+    onlyRead?:boolean;
+    permiso_armazones:boolean;
+    permisos_areas_armazones:boolean;
 }
 
 const FOTArmazones:React.FC<IArmazones> = ({
@@ -24,9 +25,10 @@ const FOTArmazones:React.FC<IArmazones> = ({
     onDataChange,
     formValues,
     data, 
-    permiso_armazones
+    permiso_armazones,
+    permisos_areas_armazones
 }) => {
-    const fetcher = (url:string) => axios.get(url).then((res)=>res.data);
+    const fetcher = (url:string) => axios.get(url).then((res)=>res.data) as any;
 
     
     // const [codArmazon1, setCodArmazon1] = useState( formValues && formValues["codigo_armazon_1"] || 0);
@@ -69,10 +71,10 @@ const FOTArmazones:React.FC<IArmazones> = ({
         // console.log(validar_parametrizacion.value)
         // console.log(armazon1)
         if(validar_parametrizacion.value === '1'){
-            console.log(armazon1)
-            console.log(codArmazon1)
+            // console.log(armazon1)
+            // console.log(codArmazon1)
             
-            console.log(!codArmazon1.trim())
+            // console.log(!codArmazon1.trim())
             if(!(!codArmazon1.trim()) && codArmazon1 !== undefined  && armazon1 && armazon1[0] && (armazon1[0].length === 3 || armazon1[0].length === 1)){
                 //? VALIDACION QUERY 02
                 toast.error(armazon1[0][0])
@@ -80,7 +82,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
             }
         }else if (armazon1 && armazon1.length === 0 && codArmazon1 !== " "){
             //? VALIDACION QUERY 01
-            toast.error('Código de armazon 1 no existe')
+            toast.error('Código de Armazón 1 no existe')
             onDataChange({['a1_armazon_id']: " "}) 
 
         }
@@ -94,7 +96,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
                 onDataChange({['a2_armazon_id']: " "})    
             }
         }else if (armazon2 && armazon2.length === 0 && codArmazon2 !== " "){
-            toast.error('Código de armazon 2 no existe')
+            toast.error('Código de Armazón 2 no existe')
             onDataChange({['a2_armazon_id']: " "}) 
         }
 
@@ -103,16 +105,16 @@ const FOTArmazones:React.FC<IArmazones> = ({
 
 
     useEffect(()=>{
-        console.log('render')
-        console.log(codArmazon3)
+        // console.log('render')
+        // console.log(codArmazon3)
         if(validar_parametrizacion.value === '1'){
             if(!(!codArmazon3.trim()) && codArmazon3 !== undefined && armazon3 && armazon3[0] && (armazon3[0].length === 3 || armazon3[0].length === 1)){
-                toast.error(3,armazon3[0][0])
+                toast.error(armazon3[0][0])
                 onDataChange({['a3_armazon_id']: " "})    
             }
 
         }else if (armazon3 && armazon3.length === 0 && codArmazon3 !== " "){
-            toast.error('Código de armazon 3 no existe')
+            toast.error('Código de Armazón 3 no existe')
             onDataChange({['a3_armazon_id']: " "}) 
         }
 
@@ -149,7 +151,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
                                 control={control}
                                 entidad={["/api/tipos/", "02","OTOpcionVentaArmazon"]}
                                 // error={errors.establecimiento}
-                                readOnly={permiso_armazones}
+                                readOnly={permiso_armazones || permisos_areas_armazones}
                                 customWidth={"345px"}
                             />
                         </div>
@@ -163,7 +165,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
                                     handleChange={handleInputChange}
                                     data={formValues ? formValues["a1_armazon_id"] : data && data[EnumGrid.a1_armazon_id]}
                                     control={control}
-                                    onlyRead={permiso_armazones}
+                                    onlyRead={permiso_armazones || permisos_areas_armazones}
                                     isOT={true}
                                     // error={errors.fecha_nacimiento}
                                 />
@@ -248,7 +250,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
                                 entidad={["/api/tipos/", "02","OTOpcionVentaArmazon"]}
                                 // error={errors.establecimiento}
                                 customWidth={"345px"}
-                                readOnly={permiso_armazones ||  clearSelectInput.value}
+                                readOnly={ permisos_areas_armazones || permiso_armazones}
                             />
                         </div>
 
@@ -261,7 +263,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
                                     handleChange={handleInputChange}
                                     data={formValues ? formValues["a2_armazon_id"] : data && data[EnumGrid.a2_armazon_id]}
                                     control={control}
-                                    onlyRead={permiso_armazones ||  clearSelectInput.value}
+                                    onlyRead={ permisos_areas_armazones || permiso_armazones}
                                     isOT={true}
                                     // error={errors.fecha_nacimiento}
                                 />
@@ -343,7 +345,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
                                 entidad={["/api/tipos/", "02","OTOpcionVentaArmazon"]}
                                 // error={errors.establecimiento}
                                 customWidth={"345px"}
-                                readOnly={permiso_armazones}
+                                readOnly={permiso_armazones || permisos_areas_armazones}
                             />
                         </div>
 
@@ -357,7 +359,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
                                     data={formValues ? formValues["a3_armazon_id"] : data && data[EnumGrid.a3_armazon_id]}
 
                                     control={control}
-                                    onlyRead={permiso_armazones}
+                                    onlyRead={permiso_armazones || permisos_areas_armazones}
                                     isOT={true}
                                     // error={errors.fecha_nacimiento}
                                 />

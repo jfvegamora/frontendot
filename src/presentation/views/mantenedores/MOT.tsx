@@ -17,7 +17,6 @@ import { AppStore,
   useAppDispatch, 
   useAppSelector } from "../../../redux/store";
 import FilterButton from "../../components/FilterButton";
-import { updateActualArea } from "../../../redux/slices/OTAreasSlice";
 import { clearData } from "../../../redux/slices/OTSlice";
 
 export enum EnumGrid {
@@ -54,7 +53,6 @@ const MOT: React.FC = () => {
   // const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas);
   // const areaActual = OTAreas["areaActual"] 
   const OTs:any = useAppSelector((store: AppStore) => store.OTS);
-  const area:any = useAppSelector((store: AppStore) => store.OTAreas);
   const dispatch = useAppDispatch()
   // const dispatch = useAppDispatch();
   const [params, setParams] = useState([]);

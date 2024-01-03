@@ -62,8 +62,11 @@ export const transponer = (ESF:any, CIL:any, EJE:any,
                 const esfValue = isNaN(dioptrias_receta.value[anteojo].esf)
                 ? 0
                 : dioptrias_receta.value[anteojo].esf;
+
+                // console.log(parseInt(esfValue))
+                // console.log(dioptrias_receta.value[anteojo].cil)
                 
-                dioptrias_receta.value[anteojo].esf = esfValue + dioptrias_receta.value[anteojo].cil;
+                dioptrias_receta.value[anteojo].esf = parseInt(esfValue) + dioptrias_receta.value[anteojo].cil;
                 
                 // dioptrias_receta.value[anteojo].cil = 0;
 
@@ -95,8 +98,8 @@ export const transponer = (ESF:any, CIL:any, EJE:any,
 
 
     // console.log(dioptrias_receta.value[anteojo])
-    console.log(dioptrias_receta.value[anteojo].ad)
-    console.log(!Number.isNaN(dioptrias_receta.value[anteojo].ad))
+    // console.log(dioptrias_receta.value[anteojo].ad)
+    // console.log(!Number.isNaN(dioptrias_receta.value[anteojo].ad))
 
     if(Number.isNaN(dioptrias_receta.value[anteojo].ad)){
         if(tipo_de_anteojo.value === '3' && ESF2 && CIL2 && EJE2){

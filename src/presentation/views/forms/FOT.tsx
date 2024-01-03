@@ -12,19 +12,11 @@ import { EnumGrid } from '../mantenedores/MOTHistorica';
 import FOTDerivacion from '../../components/OTForms/FOTDerivacion';
 import { A1_CR_OD, A1_CR_OI, A1_GRUPO_OD, A1_GRUPO_OI, A2_CR_OD, A2_CR_OI, A2_Diametro, A2_GRUPO_OD, A2_GRUPO_OI, SEXO, TIPO_CLIENTE, 
   a1_armazon, 
-  a1_od_ad, 
-  a1_od_cil, 
-  a1_od_eje, 
   a1_od_esf, 
-  a1_oi_ad, 
-  a1_oi_cil, 
-  a1_oi_eje, 
-  a1_oi_esf, 
   a2_armazon, 
   // a1_od_ad, a1_od_cil, a1_od_eje, a1_od_esf, 
   a2_od_cil, a2_od_eje, a2_od_esf, a2_oi_cil, a2_oi_eje, a2_oi_esf, a3_armazon, changeCodigoCristal_A1, changeCodigoCristal_A2, clearDioptrias,  
   clearGrupos,  
-  clearInputDioptrias,  
   clearSelectInput,  
   codigoProyecto,  
   dioptrias_receta,  
@@ -33,7 +25,6 @@ import { A1_CR_OD, A1_CR_OI, A1_GRUPO_OD, A1_GRUPO_OI, A2_CR_OD, A2_CR_OI, A2_Di
    fecha_despacho, fecha_entrega_cliente, fecha_entrega_taller, 
   inputChangeActions, 
   motivo_ot, 
-  punto_venta, 
   // reiniciarA2DioptriasReceta, 
   reiniciarDioptriasReceta, reiniciarValidationNivel1, reiniciarValidationNivel2, tipo_de_anteojo, validar_parametrizacion } from '../../utils';
 import { validationCliente, validationEstablecimientos, validationFechaAtencion, validationProyectos, validationPuntoVenta, validationTipoAnteojos, validation_A2_OD_CIL, validation_A2_OD_EJE, validation_A2_OD_ESF, validation_A2_OI_CIL, validation_A2_OI_EJE, validation_A2_OI_ESF, validation_Cristal1_od, validation_Cristal1_oi } from '../../utils/validationOT';
@@ -44,6 +35,7 @@ import { URLBackend } from '../../hooks/useCrud';
 import { Spinner } from '@material-tailwind/react';
 import { toast } from 'react-toastify';
 import { addToArmazones, addToCristales, clearCodigos } from '../../../redux/slices/OTSlice';
+import { validation_tipo_anteojo } from '../../utils/OTReceta_utils';
 
 const FOTArmazones = lazy(()=>import('../../components/OTForms/FOTArmazones'));
 const FOTBitacora = lazy(()=>import('../../components/OTForms/FOTBitacora'));
@@ -360,10 +352,24 @@ const FOT:React.FC<IFOTProps> = ({
   let permiso_estado_validacion   = permisos_campos && permisos_campos[3] === "1" ? false : true;
   let permiso_resolucion_garantia = permisos_campos && permisos_campos[4] === "1" ? false : true;
   let permiso_grupo_dioptria      = permisos_campos && permisos_campos[5] === "1" ? false : true;
+  let permisos_receta             = permisos_campos && permisos_campos[6] === "1" ? false : true;
 
-  
-  
-  console.log(permiso_resolucion_garantia)
+
+  const permisosAreas = OTAreaActual && permissions(OTAreaActual)[6] as any
+
+  let permisos_areas_armazones            = permisosAreas && permisosAreas[0] === '1' ? false : true;
+  let permisos_areas_cristales            = permisosAreas && permisosAreas[1] === '1' ? false : true;
+  let permisos_areas_estado_impresion     = permisosAreas && permisosAreas[2] === '1' ? false : true;
+  let permisos_areas_estado_validacion    = permisosAreas && permisosAreas[3] === '1' ? false : true;
+  let permisos_areas_resolucion_garantia  = permisosAreas && permisosAreas[4] === '1' ? false : true;
+  let permisos_areas_grupo_dioptria       = permisosAreas && permisosAreas[5] === '1' ? false : true;
+  let permisos_areas_receta               = permisosAreas && permisosAreas[6] === '1' ? false : true;
+
+
+
+
+  console.log(permisosAreas)
+  console.log(permisos_campos)
 
   const handleCloseForm = () => {
       closeModal();
@@ -387,13 +393,11 @@ const FOT:React.FC<IFOTProps> = ({
 
 
   React.useEffect(()=>{
-    console.log('render')
     dispatch(clearCodigos())
     dispatch(addToArmazones([{codigo: data && data[EnumGrid.a1_armazon_id]}, {codigo: data && data[EnumGrid.a2_armazon_id]}]))
     dispatch(addToCristales([{codigo: data && data[EnumGrid.cristal1_od]}, {codigo:data && data[EnumGrid.cristal1_oi]}, {codigo: data && data[EnumGrid.cristal2_od]}, {codigo: data && data[EnumGrid.cristal2_oi]}]))
     
     if(data){
-      console.log(data[EnumGrid.motivo])
       motivo_ot.value = data[EnumGrid.motivo] === 'Garantía' ? false : true
     }
   },[])
@@ -889,6 +893,7 @@ const FOT:React.FC<IFOTProps> = ({
     console.log(name)
     console.log(data)
     
+
     //TODO: inputChangeAction 
     const key = Object.keys(data)[0] 
     if(inputChangeActions[key]){
@@ -1037,10 +1042,13 @@ const FOT:React.FC<IFOTProps> = ({
           console.log('render')
           dioptrias_receta.value.a1_od.ad  = " ";
         }
-        
+         
 
         if(typeof dioptrias_receta.value.a1_od.ad !== 'object' &&  dioptrias_receta.value.a1_od.ad > 0){
-          a2_od_esf.value = (typeof dioptrias_receta.value.a1_od.esf !== 'object' && Number.isNaN(dioptrias_receta.value.a1_od.esf) ? 0 : dioptrias_receta.value.a1_od.esf ) + dioptrias_receta.value.a1_od.ad
+          console.log(dioptrias_receta.value.a1_od.esf)
+          console.log(dioptrias_receta.value.a1_od.ad)
+
+          a2_od_esf.value = (typeof dioptrias_receta.value.a1_od.esf !== 'object' && Number.isNaN(dioptrias_receta.value.a1_od.esf) ? 0 : parseFloat(dioptrias_receta.value.a1_od.esf) ) + parseFloat(dioptrias_receta.value.a1_od.ad)
           a2_od_cil.value = (typeof dioptrias_receta.value.a1_od.cil === 'object' ? 0 : dioptrias_receta.value.a1_od.cil)
           a2_od_eje.value = (typeof dioptrias_receta.value.a1_od.eje === 'object' ? 0 : dioptrias_receta.value.a1_od.eje)
         }
@@ -1145,10 +1153,40 @@ if(isEditting){
   validationFechaAtencion(data && data[EnumGrid.fecha_atencion])
   validationTipoAnteojos(data && data[EnumGrid.tipo_anteojo_id])
   validationPuntoVenta(data && data[EnumGrid.punto_venta_id])
-
   //VALIDACIONES NIVEL 2
 
 }
+
+
+useEffect(()=>{
+  tipo_de_anteojo.value = data && data[EnumGrid.tipo_anteojo_id].toString();
+  validation_tipo_anteojo()
+
+
+  dioptrias_receta.value.a1_od.esf = data && data[EnumGrid.a1_od_esf]
+  dioptrias_receta.value.a1_od.cil = data && data[EnumGrid.a1_od_cil]
+  dioptrias_receta.value.a1_od.eje = data && data[EnumGrid.a1_od_eje]
+  dioptrias_receta.value.a1_od.ad  = data && data[EnumGrid.a1_od_ad]
+
+  dioptrias_receta.value.a1_oi.esf = data && data[EnumGrid.a1_oi_esf]
+  dioptrias_receta.value.a1_oi.cil = data && data[EnumGrid.a1_oi_cil]
+  dioptrias_receta.value.a1_oi.eje = data && data[EnumGrid.a1_oi_eje]
+  dioptrias_receta.value.a1_oi.ad  = data && data[EnumGrid.a1_oi_ad]
+
+
+
+  a2_od_esf.value = data && data[EnumGrid.a2_od_esf]
+  a2_od_cil.value = data && data[EnumGrid.a2_od_cil]
+  a2_od_eje.value = data && data[EnumGrid.a2_od_eje]
+
+
+  a2_oi_esf.value = data && data[EnumGrid.a2_oi_esf]
+  a2_oi_cil.value = data && data[EnumGrid.a2_oi_cil]
+  a2_oi_eje.value = data && data[EnumGrid.a2_oi_eje]
+},[])
+
+
+console.log(a1_od_esf.value)
 
 
 // console.log(validationNivel1.value)
@@ -1239,7 +1277,7 @@ useEffect(() => {
    <Suspense fallback={<div className="flex items-center justify-center h-screen"><Spinner className="h-12 w-12" style={{ color: '#f39c12' }} /></div>}>
       <div className='top-0 absolute right-3 text-2xl cursor-pointert' onClick={()=>{handleCloseForm()}}>X</div>
             <TabPanel onSelect={loadFormData}>
-              <FOTOptica onlyRead={onlyRead} setIsMotivo={setIsMotivo} isEditting={isEditting} data={data && data} formValues={formValues["optica"]} control={control} setToggle={setToggle}  onDataChange={(data:any) => handleFormChange(data , 'optica')} permiso_estado_impresion={permiso_estado_impresion} permiso_estado_validacion={permiso_estado_validacion} permiso_resolucion_garantia={permiso_resolucion_garantia} />
+              <FOTOptica onlyRead={onlyRead} setIsMotivo={setIsMotivo} isEditting={isEditting} data={data && data} formValues={formValues["optica"]} control={control} setToggle={setToggle}  onDataChange={(data:any) => handleFormChange(data , 'optica')} permisos_areas_resolucion_garantia={permisos_areas_resolucion_garantia}    permisos_areas_estado_immpresion={permisos_areas_estado_impresion} permisos_areas_estado_validacion={permisos_areas_estado_validacion} permiso_estado_impresion={permiso_estado_impresion} permiso_estado_validacion={permiso_estado_validacion} permiso_resolucion_garantia={permiso_resolucion_garantia} />
             </TabPanel>
             
           <TabPanel>
@@ -1247,15 +1285,15 @@ useEffect(() => {
           </TabPanel>
 
           <TabPanel>
-            <FOTReceta permiso_grupo_dioptria={permiso_grupo_dioptria} onlyRead={onlyRead} isEditting={isEditting} data={data && data} formValues={formValues["receta"]} control={control} onDataChange={(data:any) => handleFormChange(data , 'receta')}  />
+            <FOTReceta  permisos_receta={permisos_receta} permisos_areas_receta={permisos_areas_receta} onlyRead={onlyRead} isEditting={isEditting} data={data && data} formValues={formValues["receta"]} control={control} onDataChange={(data:any) => handleFormChange(data , 'receta')}  />
           </TabPanel>
 
           <TabPanel>
-            <FOTCristales permiso_cristales={permiso_cristales} onlyRead={onlyRead} isEditting={isEditting} data={data && data}  formValues={formValues["cristales"]} control={control} onDataChange={(data:any) => handleFormChange(data , 'cristales')}   /> 
+            <FOTCristales permiso_grupo_dioptria={permiso_grupo_dioptria} permisos_areas_grupo_dioptria={permisos_areas_grupo_dioptria} permisos_areas_cristales={permisos_areas_cristales}  permiso_cristales={permiso_cristales} onlyRead={onlyRead} isEditting={isEditting} data={data && data}  formValues={formValues["cristales"]} control={control} onDataChange={(data:any) => handleFormChange(data , 'cristales')}   /> 
           </TabPanel>
 
           <TabPanel> 
-            <FOTArmazones permiso_armazones={permiso_armazones} onlyRead={onlyRead}  data={data && data} formValues={formValues["armazones"]} control={control} onDataChange={(data:any) => handleFormChange(data , 'armazones')}  />
+            <FOTArmazones permisos_areas_armazones={permisos_areas_armazones} permiso_armazones={permiso_armazones} onlyRead={onlyRead}  data={data && data} formValues={formValues["armazones"]} control={control} onDataChange={(data:any) => handleFormChange(data , 'armazones')}  />
           </TabPanel>
           
 

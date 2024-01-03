@@ -3,7 +3,7 @@ import { A2_CR_OD, A2_CR_OI, DioptriasReceta, buscarCampo,  clearDioptriasA2, cl
 import { validationNivel2 } from "../views/forms/FOT"
 
 
-export const habilitarCampo = signal({
+export const deshabilitarCampo = signal({
     a1_ad:true,
     a1_alt:true,
     a2_dp:true
@@ -35,9 +35,11 @@ export const setDioptriasReceta = (name:string, value:any) =>{
 
 export const validation_tipo_anteojo = () => {
     // console.log(tipo_de_anteojo.value)
+    console.log('render')
     const a1_ad  = buscarCampo('a1_od_ad');
     const a1_alt = buscarCampo('a1_alt');
 
+    console.log(tipo_de_anteojo.value)
     // console.log(tipo_de_anteojo.value)
 
     if(tipo_de_anteojo.value == '1' || tipo_de_anteojo.value == '2' || tipo_de_anteojo.value == '7'){
@@ -49,9 +51,9 @@ export const validation_tipo_anteojo = () => {
           a1_alt.valor = 1
         }
   
-        habilitarCampo.value.a1_ad  = true
-        habilitarCampo.value.a1_alt = true
-        habilitarCampo.value.a2_dp  = true
+        deshabilitarCampo.value.a1_ad  = true
+        deshabilitarCampo.value.a1_alt = true
+        deshabilitarCampo.value.a2_dp  = true
         clearSelectInput.value = true;
         A2_CR_OD.value = " ";
         A2_CR_OI.value = " ";
@@ -59,10 +61,11 @@ export const validation_tipo_anteojo = () => {
     }
 
     if(tipo_de_anteojo.value === '3'){
+
       
-      habilitarCampo.value.a2_dp  = false
-      habilitarCampo.value.a1_alt = true
-      habilitarCampo.value.a1_ad  = false
+      deshabilitarCampo.value.a2_dp  = false
+      deshabilitarCampo.value.a1_alt = true
+      deshabilitarCampo.value.a1_ad  = false
       clearSelectInput.value = false;
     }
 
@@ -75,9 +78,9 @@ export const validation_tipo_anteojo = () => {
             a1_alt.valor = 1
           }
 
-      habilitarCampo.value.a1_ad  = false
-      habilitarCampo.value.a1_alt = false
-      habilitarCampo.value.a2_dp  = true
+      deshabilitarCampo.value.a1_ad  = false
+      deshabilitarCampo.value.a1_alt = false
+      deshabilitarCampo.value.a2_dp  = true
       clearSelectInput.value = true;
       A2_CR_OD.value = " ";
       A2_CR_OI.value = " ";

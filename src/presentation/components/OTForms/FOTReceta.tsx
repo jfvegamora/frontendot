@@ -8,7 +8,7 @@ import {a1_od_ad, a1_od_eje, a1_od_esf, a1_oi_ad, a1_oi_cil, a1_oi_eje, a1_oi_es
     // tipo_de_anteojo 
 } from '../../utils'
 import { validationOTlevel1, validationOTlevel2 } from '../../utils/validationOT'
-import { combinaciones_validas, habilitarCampo, setDioptriasReceta, validation_tipo_anteojo } from '../../utils/OTReceta_utils'
+import { combinaciones_validas, deshabilitarCampo, setDioptriasReceta, validation_tipo_anteojo } from '../../utils/OTReceta_utils'
 import { OTTextInputComponent } from '.'
 import { transponer } from '../../utils/FOTReceta_utils'
 import TextInputInteractive from '../forms/TextInputInteractive'
@@ -21,8 +21,9 @@ interface IReceta {
     formValues: any,
     data:any
     onlyRead?:boolean,
-    permiso_grupo_dioptria:boolean;
     isEditting?:boolean;
+    permisos_receta:boolean;
+    permisos_areas_receta:boolean
 }
 
 const FOTReceta:React.FC<IReceta> = ({
@@ -30,8 +31,9 @@ const FOTReceta:React.FC<IReceta> = ({
     onDataChange,
     formValues,
     data,
-    permiso_grupo_dioptria,
-    isEditting
+    permisos_receta,
+    isEditting,
+    permisos_areas_receta
 }) => {
     const handleInputChange = (e:any) => {
         let {name, value} = e;
@@ -84,12 +86,19 @@ const FOTReceta:React.FC<IReceta> = ({
     }
 
     // console.log(dioptriasHabilitadas.value);
-    // console.log(habilitarCampo.value);
+    // console.log(deshabilitarCampo.value);
+    
+    console.log(!(isEditting || (permisos_receta && permisos_areas_receta)))
 
-    console.log(permiso_grupo_dioptria)
-    console.log(habilitarCampo.value.a2_dp)
-    // inputName.value = 50
+    console.log(permisos_areas_receta)
+    console.log(permisos_receta)
 
+    console.log(isEditting)
+    console.log(!isEditting)
+
+
+
+    console.log(deshabilitarCampo.value.a1_ad)
 //   inputName.value = 90  
   return (
     <form>
@@ -205,10 +214,10 @@ const FOTReceta:React.FC<IReceta> = ({
                                 name="a1_od_esf"
                                 handleChange={handleInputChange}
                                 // data={formValues ? formValues["a1_od_esf"] : data && data[EnumGrid.a1_od_esf]}
-                                otData={ a1_od_esf.value || data && data[EnumGrid.a1_od_esf]}
+                                otData={data && data[EnumGrid.a1_od_esf] ||  a1_od_esf.value}
                                 control={control}
                                 // isOT={true}
-                                onlyRead={permiso_grupo_dioptria}
+                                onlyRead={ !(isEditting || (permisos_receta && permisos_areas_receta))}
                                 // error={errors.fecha_nacimiento}
                             />
                         </div>
@@ -218,9 +227,9 @@ const FOTReceta:React.FC<IReceta> = ({
                                 label="CIL"
                                 name="a1_od_cil"
                                 handleChange={handleInputChange}
-                                onlyRead={permiso_grupo_dioptria}
                                 otData={dioptrias_receta.value.a1_od.cil || data && data[EnumGrid.a1_od_cil]}
                                 control={control}
+                                onlyRead={!(!isEditting || (permisos_receta && permisos_areas_receta))}
                                 // isOT={true}
                                 // error={errors.fecha_nacimiento}
                             />
@@ -233,7 +242,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 handleChange={handleInputChange}
                                 otData={a1_od_eje.value || data && data[EnumGrid.a1_od_eje]}
                                 control={control}
-                                onlyRead={isEditting}
+                                onlyRead={!(!isEditting || (permisos_receta && permisos_areas_receta))}
                                 tabIndex={-1}
                                 // error={errors.fecha_nacimiento}
                             />
@@ -248,7 +257,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 control={control}
                                 // isOT={true}
                                 tabIndex={-1}
-                                onlyRead={habilitarCampo.value.a1_ad}
+                                onlyRead={!(deshabilitarCampo.value.a1_ad && (!isEditting || (permisos_receta && permisos_areas_receta))) }
                                 // error={errors.fecha_nacimiento}
                             />
                         </div>
@@ -268,7 +277,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 control={control}
                                 // isOT={true}
 
-                                onlyRead={permiso_grupo_dioptria}
+                                onlyRead={!(!isEditting || (permisos_receta && permisos_areas_receta))}
                                 // error={errors.fecha_nacimiento}
                             />
                         </div>
@@ -282,7 +291,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 control={control}
                                 // isOT={true}
 
-                                onlyRead={permiso_grupo_dioptria}
+                                onlyRead={!(!isEditting || (permisos_receta && permisos_areas_receta))}
                                 // error={errors.fecha_nacimiento}
                             />
                         </div>
@@ -296,7 +305,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 control={control}
                                 // isOT={true}
 
-                                onlyRead={isEditting}
+                                onlyRead={!(!isEditting || (permisos_receta && permisos_areas_receta))}
                                 // error={errors.fecha_nacimiento}
                             />
                         </div>
@@ -310,7 +319,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 control={control}
                                 // isOT={true}
 
-                                onlyRead={habilitarCampo.value.a1_ad}
+                                onlyRead={deshabilitarCampo.value.a1_ad && (permisos_receta || permisos_areas_receta)}
                             
                                 // error={errors.fecha_nacimiento}
                             />
@@ -328,7 +337,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 control={control}
                                 isOT={true}
 
-                                onlyRead={isEditting}
+                                onlyRead={permisos_receta && permisos_areas_receta}
                                 // error={errors.fecha_nacimiento}
                             />
                     </div>
@@ -341,7 +350,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 data={formValues ? formValues["a1_alt"] : data && data[EnumGrid.a1_alt]}
                                 control={control}
                                 isOT={true}
-                                onlyRead={habilitarCampo.value.a1_alt}
+                                onlyRead={deshabilitarCampo.value.a1_alt || (permisos_receta || permisos_areas_receta)}
                                 // error={errors.fecha_nacimiento}
                             />
                     </div>
@@ -462,7 +471,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 control={control}
                                 isOT={true}
 
-                                onlyRead={habilitarCampo.value.a2_dp}
+                                onlyRead={deshabilitarCampo.value.a2_dp}
                                 // error={errors.fecha_nacimiento}
                             />
                     </div>

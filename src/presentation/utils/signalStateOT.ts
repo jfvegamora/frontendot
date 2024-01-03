@@ -176,7 +176,7 @@ export const actualizarVariable = (name: string, value: any) => {
     }
 };
 
-export const setCodigosCristales = (cristal:string) =>{
+export const setCodigosCristales = (_cristal:string) =>{
   console.log('cristal')
 }
 
