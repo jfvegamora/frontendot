@@ -64,8 +64,8 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
       console.log('click')
     }
 
-    console.log(areaPermissions && areaPermissions[4])
-    console.log(areaPermissions)
+    // console.log(areaPermissions && areaPermissions[4])
+    // console.log(areaPermissions)
 
     return (
     <div className='flex items-center   ml-[4rem] !w-[40rem]'>

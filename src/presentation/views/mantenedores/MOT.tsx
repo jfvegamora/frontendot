@@ -14,8 +14,11 @@ import {  TITLES ,table_head_OT_diaria2 } from "../../utils";
 import FOT from "../forms/FOT";
 import OTAreasButtons from "../../components/OTAreasButtons";
 import { AppStore, 
+  useAppDispatch, 
   useAppSelector } from "../../../redux/store";
 import FilterButton from "../../components/FilterButton";
+import { updateActualArea } from "../../../redux/slices/OTAreasSlice";
+import { clearData } from "../../../redux/slices/OTSlice";
 
 export enum EnumGrid {
   id = 1,
@@ -52,6 +55,7 @@ const MOT: React.FC = () => {
   // const areaActual = OTAreas["areaActual"] 
   const OTs:any = useAppSelector((store: AppStore) => store.OTS);
   const area:any = useAppSelector((store: AppStore) => store.OTAreas);
+  const dispatch = useAppDispatch()
   // const dispatch = useAppDispatch();
   const [params, setParams] = useState([]);
   const [_estadosOT, setEstadosOT] = useState()
@@ -160,6 +164,10 @@ const MOT: React.FC = () => {
   // console.log(OTs.estadosOT)
 
   useEffect(()=>{
+    dispatch(clearData())
+  },[])
+
+  useEffect(()=>{
     setEstadosOT(OTs.estadosOT)
   },[OTs.estadosOT])
 
@@ -178,72 +186,23 @@ const MOT: React.FC = () => {
       </div>
 
         <div className="mantenedorHead width100 !h-[4rem]  items-center !bg-red-400">
-
-{/* <PrimaryKeySearch
-  // baseUrl={strBaseUrl}
-  // setParams={setParams}
-  // updateParams={updateParams}
-  // setEntities={setEntities}
-  // primaryKeyInputs={[
-    // { name: "_p1", label: "Folio", type: "text" },
-    // { name: "_p2", label: "Rut", type: "text" },
-    // { name: "_p3", label: "Nombre", type: "text" },
-    // { name: "_p4", label: "Desde", type: "date" },
-    // { name: "_p5", label: "Hasta", type: "date" },
-    // {
-    //   name: "_p6",
-    //   label: "Cargos",
-    //   type: "select",
-    //   selectUrl: "/api/cargos/",
-    // },
-    // {
-    //   name: "_p6",
-    //   label: "Cargos",
-    //   type: "select",
-    //   selectUrl: "/api/cargos/",
-    // },
-    // {
-    //   name: "_p3",
-    //   label: "Motivo",
-    //   type: "radiobuttons",
-    //   options: [
-      //     MOTIVO_OT.todos,
-    //     MOTIVO_OT.venta,
-    //     MOTIVO_OT.garantia,
-    //   ],
-    //   values: OptionValuesMotivo,
-    // },
-    // {
-    //   name: "_p3",
-    //   label: "Estado",
-    //   type: "radiobuttons",
-    //   options: [
-    //     ESTADO_OT.todos,
-    //     ESTADO_OT.entregada,
-    //     ESTADO_OT.anulada,
-    //   ],
-    //   values: OptionValuesMotivo,
-    // },
-    // ]}
-  // /> */}
-
-        <PrimaryButtonsComponent
-          handleAddPerson={openModal}
-          handleDeleteSelected={handleDeleteSelected}
-          handleRefresh={resetEntities}
-          params={params}
-          // pkToDelete={pkToDelete}
-          // strEntidad={strEntidadExcel}
-          strBaseUrl={strBaseUrl}
-          showAddButton={true}
-          showExportButton={true}
-          showDeleteButton={true}
-          showForwardButton={false}
-          showRefreshButton={true}
-          showImportCsv={true}
-          idMenu={idMenu}
-          isOT={true}
-          />
+          <PrimaryButtonsComponent
+            handleAddPerson={openModal}
+            handleDeleteSelected={handleDeleteSelected}
+            handleRefresh={resetEntities}
+            params={params}
+            // pkToDelete={pkToDelete}
+            // strEntidad={strEntidadExcel}
+            strBaseUrl={strBaseUrl}
+            showAddButton={true}
+            showExportButton={true}
+            showDeleteButton={true}
+            showForwardButton={false}
+            showRefreshButton={true}
+            showImportCsv={true}
+            idMenu={idMenu}
+            isOT={true}
+            />
         </div>
 
         <div>

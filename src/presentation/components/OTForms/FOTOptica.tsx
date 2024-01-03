@@ -8,7 +8,7 @@ import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
 import Switch from "react-switch";
 import axios from 'axios';
 import { validationOTlevel1, validationOTlevel2 } from '../../utils/validationOT';
-import { codigoProyecto, fecha_despacho, fecha_entrega_cliente, fecha_entrega_taller, fetchFechas, punto_venta, validar_parametrizacion } from '../../utils';
+import { codigoProyecto, fecha_despacho, fecha_entrega_cliente, fecha_entrega_taller, fetchFechas, motivo_ot, punto_venta, validar_parametrizacion } from '../../utils';
 import SelectInputTiposComponent from '../forms/SelectInputTiposComponent';
 import { AppStore, useAppSelector } from '../../../redux/store';
 import { URLBackend } from '../../hooks/useCrud';
@@ -169,8 +169,11 @@ const FOTOptica:React.FC<IOptica> = ({
 
 console.log(validar_parametrizacion.value)
 
+console.log(motivo_ot.value)
+console.log(permiso_resolucion_garantia)
 
-console.log(codigoProyecto.value)
+console.log(permiso_resolucion_garantia && motivo_ot.value)
+// console.log( !(motivo_ot.value === 'Garantía') && permiso_resolucion_garantia)
 return (
     <form action="">
         <div className='w-full labelForm rounded-lg border radioComponent'>
@@ -378,7 +381,7 @@ return (
                                 options={["Aceptada", "Rechazada"]}
                                 // error={errors.sexo}
                                 horizontal={true}
-                                readOnly={permiso_resolucion_garantia}
+                                readOnly={!permiso_resolucion_garantia && !motivo_ot.value}
                                 onChange={handleInputChange}
                                 
                             />  

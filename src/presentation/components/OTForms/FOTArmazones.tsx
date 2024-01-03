@@ -32,7 +32,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
     // const [codArmazon1, setCodArmazon1] = useState( formValues && formValues["codigo_armazon_1"] || 0);
     const [codArmazon1, setCodArmazon1] = useState(formValues ? formValues["a1_armazon_id"] : data && data[EnumGrid.a1_armazon_id] || " ");
     const [codArmazon2, setCodArmazon2] = useState(formValues ? formValues["a2_armazon_id"] : data && data[EnumGrid.a2_armazon_id] || " ");
-    const [codArmazon3, setCodArmazon3] = useState(formValues ? formValues["a3_armazon_id"] : " ");
+    const [codArmazon3, setCodArmazon3] = useState(formValues ? formValues["a3_armazon_id"] : data && data[EnumGrid.a3_armazon_id] || " ");
 
 
     //TODO! =========================== ENVIAR DP EN _P4 PARA VALIDAR ARMAZONES ===========================================================================
@@ -42,14 +42,9 @@ const FOTArmazones:React.FC<IArmazones> = ({
                                                    ? `${URLBackend}/api/armazones/listado/?query=01` 
                                                    : `${URLBackend}/api/armazones/listado/?query=02&_p2=${codigoProyecto.value}&_p3=${punto_venta.value}`;
 
-    // const { data:armazon1 } = useSWR(`${URLBackend}/api/almacenarmazones/listado/?query=02&_p2=${codArmazon1}&_p1=${codigoProyecto.value}&_p3=${punto_venta}`, fetcher);
-    // console.log(validar_parametrizacion.value)
-    // console.log(codArmazon1)
-    // console.log(`${endpoint}&_p1=${codArmazon1.trim() ||  "13123"}`)
-
-    const { data:armazon1 } = useSWR(`${endpoint}&_p1=${codArmazon1 !== ' ' ? codArmazon1 : "aaaa"}&_p4=${A1_DP.value}&_p5=${A1_Diametro.value}`, fetcher); //! DP ANTEOJO 1
-    const { data:armazon2 } = useSWR(`${endpoint}&_p1=${codArmazon2 !== ' ' ? codArmazon2 : "aaaa"}&_p4=${A2_DP.value}&_p5=${A2_Diametro.value}`, fetcher); //! DP ANTEOJO 2
-    const { data:armazon3 } = useSWR(`${endpoint}&_p1=${codArmazon3 !== ' ' ? codArmazon3 : "aaaa"}&_p4=${A1_DP.value}&_p5=${A1_Diametro.value}`, fetcher); //! DP ANTEOJO 3
+    const { data:armazon1 } = useSWR(`${endpoint}&_p1=${codArmazon1 !== ' ' ? codArmazon1 : "aaaa"}&_p4=${typeof A1_DP.value === 'number' ? A1_DP.value : 0}&_p5=${typeof A1_Diametro.value === 'number' ? A1_Diametro.value : ""}`, fetcher); //! DP ANTEOJO 1
+    const { data:armazon2 } = useSWR(`${endpoint}&_p1=${codArmazon2 !== ' ' ? codArmazon2 : "aaaa"}&_p4=${typeof A2_DP.value === 'number' ? A2_DP.value : 0}&_p5=${typeof A2_Diametro.value === 'number' ? A2_Diametro.value : ""}`, fetcher); //! DP ANTEOJO 2
+    const { data:armazon3 } = useSWR(`${endpoint}&_p1=${codArmazon3 !== ' ' ? codArmazon3 : "aaaa"}&_p4=${typeof A1_DP.value === 'number' ? A1_DP.value : 0}&_p5=${typeof A1_Diametro.value === 'number' ? A1_Diametro.value : ""}`, fetcher); //! DP ANTEOJO 3
     
     
     const handleInputChange = (e:any) => {
@@ -75,11 +70,13 @@ const FOTArmazones:React.FC<IArmazones> = ({
         // console.log(armazon1)
         if(validar_parametrizacion.value === '1'){
             if( codArmazon1  !== " " && codArmazon1 !== undefined  && armazon1 && armazon1[0] && (armazon1[0].length === 3 || armazon1[0].length === 1)){
+                //? VALIDACION QUERY 02
                 toast.error(armazon1[0][0])
                 onDataChange({['a1_armazon_id']: " "}) 
             }
         }else if (armazon1 && armazon1.length === 0 && codArmazon1 !== " "){
-            toast.error(1)
+            //? VALIDACION QUERY 01
+            toast.error('Código de armazon 1 no existe')
             onDataChange({['a1_armazon_id']: " "}) 
 
         }
@@ -93,7 +90,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
                 onDataChange({['a2_armazon_id']: " "})    
             }
         }else if (armazon2 && armazon2.length === 0 && codArmazon2 !== " "){
-            toast.error('Codigo de armazon no existe')
+            toast.error('Código de armazon 2 no existe')
             onDataChange({['a2_armazon_id']: " "}) 
         }
 
@@ -102,7 +99,8 @@ const FOTArmazones:React.FC<IArmazones> = ({
 
 
     useEffect(()=>{
-
+        console.log('render')
+        console.log(codArmazon3)
         if(validar_parametrizacion.value === '1'){
             if(codArmazon3  !== " " && codArmazon3 !== undefined && armazon3 && armazon3[0] && (armazon3[0].length === 3 || armazon3[0].length === 1)){
                 toast.error(3,armazon3[0][0])
@@ -110,7 +108,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
             }
 
         }else if (armazon3 && armazon3.length === 0 && codArmazon3 !== " "){
-            toast.error('Codigo de armazon no existe')
+            toast.error('Código de armazon 3 no existe')
             onDataChange({['a3_armazon_id']: " "}) 
         }
 

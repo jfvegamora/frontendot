@@ -32,6 +32,7 @@ import { A1_CR_OD, A1_CR_OI, A1_GRUPO_OD, A1_GRUPO_OI, A2_CR_OD, A2_CR_OI, A2_Di
   // clearDioptriasA2,  dioptriasHabilitadas, 
    fecha_despacho, fecha_entrega_cliente, fecha_entrega_taller, 
   inputChangeActions, 
+  motivo_ot, 
   punto_venta, 
   // reiniciarA2DioptriasReceta, 
   reiniciarDioptriasReceta, reiniciarValidationNivel1, reiniciarValidationNivel2, tipo_de_anteojo, validar_parametrizacion } from '../../utils';
@@ -362,7 +363,7 @@ const FOT:React.FC<IFOTProps> = ({
 
   
   
-
+  console.log(permiso_resolucion_garantia)
 
   const handleCloseForm = () => {
       closeModal();
@@ -390,6 +391,11 @@ const FOT:React.FC<IFOTProps> = ({
     dispatch(clearCodigos())
     dispatch(addToArmazones([{codigo: data && data[EnumGrid.a1_armazon_id]}, {codigo: data && data[EnumGrid.a2_armazon_id]}]))
     dispatch(addToCristales([{codigo: data && data[EnumGrid.cristal1_od]}, {codigo:data && data[EnumGrid.cristal1_oi]}, {codigo: data && data[EnumGrid.cristal2_od]}, {codigo: data && data[EnumGrid.cristal2_oi]}]))
+    
+    if(data){
+      console.log(data[EnumGrid.motivo])
+      motivo_ot.value = data[EnumGrid.motivo] === 'Garantia' ? false : true
+    }
   },[])
 
 

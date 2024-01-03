@@ -76,6 +76,7 @@ export const punto_venta = signal("");
 
 
 export const clearSelectInput = signal(true)
+export const motivo_ot = signal(false);
 
 
 
@@ -200,6 +201,8 @@ export const clearGrupos = () => {
 
   A1_Diametro.value   = "";
   A2_Diametro.value   = "";
+
+  motivo_ot.value     = false;
 }
 
 

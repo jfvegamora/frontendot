@@ -84,11 +84,11 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
     // console.log(OTAreas.areas)
 
     const permissions = (area:number) => areaActual && OTAreas["areas"].find((permiso:any)=>permiso[1] === area)
-
-
+  
     useEffect(()=>{
       // console.log('render')
       const permiso = areaActual && permissions(areaActual)
+          console.log(permiso)
       setOTPermissions(permiso && permiso[5])
     },[areaActual])
 
