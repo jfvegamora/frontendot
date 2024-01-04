@@ -45,7 +45,7 @@ export enum OptionValuesEstado {
 
 const strEntidad = "Orden de Trabajo ";
 const strBaseUrl = "/api/ot/";
-const strQuery = "14&_origen=40";
+const strQuery = "14";
 const idMenu = 1;
 
 
@@ -183,7 +183,7 @@ const MOT: React.FC = () => {
 
       </div>
 
-        <div className="mantenedorHead width100 !h-[4rem]  items-center !bg-red-400">
+        <div className="mantenedorHeadOT width100 !h-[4rem]  items-center">
           <PrimaryButtonsComponent
             handleAddPerson={openModal}
             handleDeleteSelected={handleDeleteSelected}
@@ -205,7 +205,8 @@ const MOT: React.FC = () => {
 
         <div>
           <FilterButton
-            className="top-[12.5rem] left-[3rem]"
+            className="top-[10rem] left-[3rem] !h-[2rem]"
+            isOT = {true}
           >
             <PrimaryKeySearch
               baseUrl={strBaseUrl}
@@ -217,8 +218,14 @@ const MOT: React.FC = () => {
               primaryKeyInputs={[
                 { name: "_folio", label: "Folio", type: "text" },
                 { name: "_rut", label: "Rut", type: "text" },
-                { name: "_nombre", label: "Nombre", type: "text" },
                 {
+                  name: "_estado",
+                  label: "OTEstado",
+                  type: "select",
+                  selectUrl:"/api/tipos/s",
+                  tipos: "OTEstados"
+                },              
+              {
                     name: "_proyecto",
                     label: "Proyecto",
                     type: "select",
@@ -227,13 +234,7 @@ const MOT: React.FC = () => {
                 { name: "_fecha_desde", label: "Desde", type: "date", styles:{with:"w-[17.3rem]  !h-[6rem]"} },
                 { name: "_fecha_hasta", label: "Hasta", type: "date" ,styles:{with:"w-[17.3rem]  !h-[6rem]"}},
                 // {name:"_motivo", label:"motivo",type:"radio" },
-                {
-                    name: "_estado",
-                    label: "OTEstado",
-                    type: "select",
-                    selectUrl:"/api/tipos/s",
-                    tipos: "OTEstados"
-                  },              
+                { name: "_nombre", label: "Nombre", type: "text" },
                 {
                     name: "_motivo",
                     label: "OTMotivo",
@@ -254,7 +255,7 @@ const MOT: React.FC = () => {
           </FilterButton>
         </div>
       
-      <div className="scroll !h-[23rem]">
+      <div className="scroll !h-[30rem]">
         <TableComponent
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}

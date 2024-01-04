@@ -229,7 +229,7 @@ const subMenuParametrizacion = [
     id: 35,
   },
   {
-    title: "Parametrización de Cristales",
+    title: "Parametrización de Grupos",
     link: "/proyectocristales",
     id: 17,
   },
@@ -237,6 +237,11 @@ const subMenuParametrizacion = [
     title: "Parametrización de Puntos de Venta",
     link: "/proyectopuntosventa",
     id: 33,
+  },
+  {
+    title: "Parametrización de Reporte Atención",
+    link: "/proyectoreporteatencion",
+    id: 19,
   },
   {
     title: "Parametrización de Accesorios",
@@ -260,11 +265,6 @@ const navListMenuProyectos = [
     title: "Proyectos",
     link: "/proyectos",
     id: 15,
-  },
-  {
-    title: "Reporte de Atención",
-    link: "/proyectoreporteatencion",
-    id: 19,
   },
   {
     title: "Reporte de Firmas",

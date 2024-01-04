@@ -2725,6 +2725,18 @@ export const table_head_proyectos_puntos_venta = [
     alignment: "flex justify-center items-center"
   },
   {
+    cell: "Punto Venta ID",
+    key: "punto_venta_id",
+    visible: false,
+  },
+  {
+    cell: "Punto Venta",
+    key: "punto_venta",
+    visible: true,
+    alignment: "text-left",
+    width: "w-[16rem]",
+  },
+  {
     cell: "Código Proyecto",
     key: "codigo",
     visible: true,
@@ -2736,32 +2748,13 @@ export const table_head_proyectos_puntos_venta = [
     key: "titulo_proyecto",
     visible: true,
     alignment: "text-left",
-    width: "w-[20rem]",
-  },
-  {
-    cell: "Código Licitación",
-    key: "codigo_licitacion",
-    visible: false,
-    alignment: "text-center",
-    width: "w-[10rem]",
-  },
-  {
-    cell: "Punto Venta ID",
-    key: "punto_venta_id",
-    visible: false,
-  },
-  {
-    cell: "Punto Venta",
-    key: "punto_venta",
-    visible: true,
-    alignment: "text-left",
-    width: "w-[10rem]",
+    width: "w-[28rem]",
   },
   {
     cell: "",
     key: "opciones",
     visible: true,
-    width: "w-[4rem]",
+    width: "w-[2rem]",
   },
 ];
 export const table_head_proyectos_usuarios = [
