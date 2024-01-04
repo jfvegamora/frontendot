@@ -22,8 +22,8 @@ interface IReceta {
     data:any
     onlyRead?:boolean,
     isEditting?:boolean;
-    permisos_receta:boolean;
-    permisos_areas_receta:boolean
+    permiso_areas_receta:boolean;
+    permiso_usuario_receta:boolean
 }
 
 const FOTReceta:React.FC<IReceta> = ({
@@ -31,9 +31,9 @@ const FOTReceta:React.FC<IReceta> = ({
     onDataChange,
     formValues,
     data,
-    permisos_receta,
+    permiso_areas_receta,
     isEditting,
-    permisos_areas_receta
+    permiso_usuario_receta
 }) => {
     const handleInputChange = (e:any) => {
         let {name, value} = e;
@@ -87,23 +87,16 @@ const FOTReceta:React.FC<IReceta> = ({
 
     // console.log(dioptriasHabilitadas.value);
     // console.log(deshabilitarCampo.value);
+
     
-    console.log(!(isEditting || (permisos_receta && permisos_areas_receta)))
-
-    console.log(permisos_areas_receta)
-    console.log(permisos_receta)
-
-    console.log(isEditting)
-    console.log(!isEditting)
 
 
-
-    console.log(deshabilitarCampo.value.a1_ad)
+    // console.log()
 //   inputName.value = 90  
   return (
     <form>
         <div className="w-full labelForm  rounded-lg px-8 flex flex-col justify-between !h-[80vh]  py-4 border radioComponent">
-            <div className="w-full flex items-center rowForm">
+            <div className="w-full flex items-center rowForm ">
                 <div className="w-[20%] -ml-4">
                         <SelectInputComponent
                             label="Tipo de Anteojo"
@@ -198,7 +191,7 @@ const FOTReceta:React.FC<IReceta> = ({
                 
             </div>
 
-            <div className="w-full flex items-center pt-8  relative pb-8 rounded-lg border radioComponent ">
+            <div className="w-full flex !mt-[-4rem] items-center pt-8  relative pb-8 rounded-lg border radioComponent ">
                 
                 <label className='absolute z-10 top-[-15%] w-[15%] left-[36%] text-center labelForm text-[#f8b179]   rounded-lg text-2xl'>ANTEOJO 1</label>
 
@@ -217,7 +210,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 otData={data && data[EnumGrid.a1_od_esf] ||  a1_od_esf.value}
                                 control={control}
                                 // isOT={true}
-                                onlyRead={ !(isEditting || (permisos_receta && permisos_areas_receta))}
+                                onlyRead={ !(permiso_usuario_receta && permiso_usuario_receta)}
                                 // error={errors.fecha_nacimiento}
                             />
                         </div>
@@ -229,7 +222,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 handleChange={handleInputChange}
                                 otData={dioptrias_receta.value.a1_od.cil || data && data[EnumGrid.a1_od_cil]}
                                 control={control}
-                                onlyRead={!(!isEditting || (permisos_receta && permisos_areas_receta))}
+                                onlyRead={!(!isEditting || (permiso_usuario_receta && permiso_usuario_receta))}
                                 // isOT={true}
                                 // error={errors.fecha_nacimiento}
                             />
@@ -242,7 +235,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 handleChange={handleInputChange}
                                 otData={a1_od_eje.value || data && data[EnumGrid.a1_od_eje]}
                                 control={control}
-                                onlyRead={!(!isEditting || (permisos_receta && permisos_areas_receta))}
+                                onlyRead={!(!isEditting || (permiso_usuario_receta && permiso_usuario_receta))}
                                 tabIndex={-1}
                                 // error={errors.fecha_nacimiento}
                             />
@@ -257,7 +250,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 control={control}
                                 // isOT={true}
                                 tabIndex={-1}
-                                onlyRead={!(deshabilitarCampo.value.a1_ad && (!isEditting || (permisos_receta && permisos_areas_receta))) }
+                                onlyRead={!(deshabilitarCampo.value.a1_ad && (!isEditting || (permiso_usuario_receta && permiso_usuario_receta))) }
                                 // error={errors.fecha_nacimiento}
                             />
                         </div>
@@ -277,7 +270,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 control={control}
                                 // isOT={true}
 
-                                onlyRead={!(!isEditting || (permisos_receta && permisos_areas_receta))}
+                                onlyRead={!(!isEditting || (permiso_usuario_receta && permiso_usuario_receta))}
                                 // error={errors.fecha_nacimiento}
                             />
                         </div>
@@ -291,7 +284,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 control={control}
                                 // isOT={true}
 
-                                onlyRead={!(!isEditting || (permisos_receta && permisos_areas_receta))}
+                                onlyRead={!(!isEditting || (permiso_usuario_receta && permiso_usuario_receta))}
                                 // error={errors.fecha_nacimiento}
                             />
                         </div>
@@ -305,8 +298,8 @@ const FOTReceta:React.FC<IReceta> = ({
                                 control={control}
                                 // isOT={true}
 
-                                onlyRead={!(!isEditting || (permisos_receta && permisos_areas_receta))}
-                                // error={errors.fecha_nacimiento}
+                                onlyRead={!(!isEditting || (permiso_usuario_receta && permiso_usuario_receta))}
+                                // error={errors.fecha_nacimiento}permiso_usuario_receta
                             />
                         </div>
                         <div className="w-[25%]">
@@ -319,7 +312,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 control={control}
                                 // isOT={true}
 
-                                onlyRead={deshabilitarCampo.value.a1_ad && (permisos_receta || permisos_areas_receta)}
+                                onlyRead={!(deshabilitarCampo.value.a1_ad && (!isEditting || (permiso_usuario_receta && permiso_usuario_receta)))}
                             
                                 // error={errors.fecha_nacimiento}
                             />
@@ -337,7 +330,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 control={control}
                                 isOT={true}
 
-                                onlyRead={permisos_receta && permisos_areas_receta}
+                                onlyRead={!(permiso_usuario_receta && permiso_usuario_receta)}
                                 // error={errors.fecha_nacimiento}
                             />
                     </div>
@@ -350,20 +343,20 @@ const FOTReceta:React.FC<IReceta> = ({
                                 data={formValues ? formValues["a1_alt"] : data && data[EnumGrid.a1_alt]}
                                 control={control}
                                 isOT={true}
-                                onlyRead={deshabilitarCampo.value.a1_alt || (permisos_receta || permisos_areas_receta)}
+                                onlyRead={!(deshabilitarCampo.value.a1_alt && (!isEditting || (permiso_usuario_receta && permiso_usuario_receta)))}
                                 // error={errors.fecha_nacimiento}
                             />
                     </div>
                 </div>
             </div>
 
-            <div className="w-full flex items-center   pt-8 relative pb-8 rounded-lg labelForm  border radioComponent">
+            <div className="w-full flex items-center    pt-8 relative pb-8 rounded-lg labelForm  border radioComponent">
                 <label className='absolute z-10 top-[-15%] w-[15%] left-[36%] text-center labelForm text-[#f8b179] rounded-lg text-3xl'>ANTEOJO 2</label>
 
 
 
-                <div className=" w-[43%] items-center !mt-[-10rem] !h-[8rem] rowForm ">
-                    <div className="w-[90%] mx-auto flex items-center !h-[8rem] relative labelForm  rounded-lg border radioComponent">
+                <div className=" w-[43%] items-center  !mt-[-4rem] !h-[8rem] rowForm ">
+                    <div className="w-[90%] mx-auto flex items-center  !h-[8rem] relative labelForm  rounded-lg border radioComponent">
                         <label className='labelForm w-[40%] absolute z-10 text-center -top-6 left-[30%]'>OJO DERECHO</label>
                         <div className="w-[25%]">
                             <OTTextInputComponent

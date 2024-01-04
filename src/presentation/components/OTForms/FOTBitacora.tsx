@@ -35,8 +35,7 @@ const FOTBitacora:React.FC<IBitacora> = ({
     fetchData()
   },[])
   return (
-    <div className='scroll'>
-        <h1>BITACORA</h1>
+    <div className='scroll !h-[40rem]'>
         <TableComponent
             tableHead={table_head_OT_bitacora}
             entidad={'bitacora'}

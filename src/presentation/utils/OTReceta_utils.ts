@@ -51,8 +51,8 @@ export const validation_tipo_anteojo = () => {
           a1_alt.valor = 1
         }
   
-        deshabilitarCampo.value.a1_ad  = true
-        deshabilitarCampo.value.a1_alt = true
+        deshabilitarCampo.value.a1_ad  = false
+        deshabilitarCampo.value.a1_alt = false
         deshabilitarCampo.value.a2_dp  = true
         clearSelectInput.value = true;
         A2_CR_OD.value = " ";
@@ -65,7 +65,7 @@ export const validation_tipo_anteojo = () => {
       
       deshabilitarCampo.value.a2_dp  = false
       deshabilitarCampo.value.a1_alt = true
-      deshabilitarCampo.value.a1_ad  = false
+      deshabilitarCampo.value.a1_ad  = true
       clearSelectInput.value = false;
     }
 
@@ -81,7 +81,7 @@ export const validation_tipo_anteojo = () => {
       deshabilitarCampo.value.a1_ad  = false
       deshabilitarCampo.value.a1_alt = false
       deshabilitarCampo.value.a2_dp  = true
-      clearSelectInput.value = true;
+      clearSelectInput.value = false;
       A2_CR_OD.value = " ";
       A2_CR_OI.value = " ";
     }

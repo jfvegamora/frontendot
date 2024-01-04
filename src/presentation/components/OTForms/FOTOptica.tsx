@@ -24,12 +24,12 @@ interface IOptica {
     isEditting?:boolean
     setIsMotivo?:any
     onlyRead?:boolean;
-    permiso_estado_impresion:boolean,
-    permiso_estado_validacion:boolean,
-    permiso_resolucion_garantia:boolean,
-    permisos_areas_estado_validacion:boolean,
+    permiso_usuario_estado_impresion:boolean,
+    permiso_usuario_estado_validacion:boolean,
+    permiso_usuario_resolucion_garantia:boolean,
+    permiso_areas_estado_validacion:boolean,
     permisos_areas_estado_immpresion:boolean,
-    permisos_areas_resolucion_garantia:boolean
+    permiso_areas_resolucion_garantia:boolean
 }
 
 
@@ -42,13 +42,13 @@ const FOTOptica:React.FC<IOptica> = ({
     isEditting,
     setIsMotivo,
     onlyRead,
-    permiso_estado_impresion,
-    permiso_estado_validacion,
-    permiso_resolucion_garantia,
+    permiso_usuario_estado_impresion,
+    permiso_usuario_estado_validacion,
+    permiso_usuario_resolucion_garantia,
 
-    permisos_areas_estado_validacion,
+    permiso_areas_estado_validacion,
     permisos_areas_estado_immpresion,
-    permisos_areas_resolucion_garantia
+    permiso_areas_resolucion_garantia
 }) => {
     const strUrl = `${URLBackend}/api/ot/listado`
     const impresion = data && data[9] === 1 ? true: false
@@ -202,14 +202,14 @@ return (
                  
                             <div className="w-[25%] mt-4 mb-8 ml-4 px-[1.5rem] " >
                                 <div className=" items-center flex">
-                                    <Switch onChange={(e)=>handleSwitchValidation(e)} checked={isToggleValidacion} disabled={permiso_estado_validacion || permisos_areas_estado_validacion}/>
+                                    <Switch onChange={(e)=>handleSwitchValidation(e)} checked={isToggleValidacion} disabled={!(permiso_usuario_estado_validacion && permiso_areas_estado_validacion)}/>
                                     <label className='ml-2'>Validar Parametrización</label>
                                 </div>
                             </div>
                   
                             <div className="w-[25%] mt-4 mb-8 ml-4 px-[1.5rem] ">
                                 <div className=" items-center flex">
-                                    <Switch onChange={(e)=>handleSwitchImpresion(e)} checked={isToggleImpresion} disabled={permiso_estado_impresion || permisos_areas_estado_immpresion}/>
+                                    <Switch onChange={(e)=>handleSwitchImpresion(e)} checked={isToggleImpresion} disabled={!(permiso_usuario_estado_impresion && permisos_areas_estado_immpresion)}/>
                                     <label className='ml-2'>OT Impresa</label>
                                 </div>
                             </div>
@@ -384,7 +384,7 @@ return (
                                 options={["Aceptada", "Rechazada"]}
                                 // error={errors.sexo}
                                 horizontal={true}
-                                readOnly={!(!permiso_resolucion_garantia && !motivo_ot.value) || permisos_areas_resolucion_garantia}
+                                readOnly={!(permiso_usuario_resolucion_garantia && permiso_areas_resolucion_garantia) ||  motivo_ot.value}
                                 onChange={handleInputChange}
                                 
                             />  

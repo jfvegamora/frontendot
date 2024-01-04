@@ -3,7 +3,7 @@ import { SelectInputComponent, TextInputComponent } from '..';
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
 import { validationOTlevel2 } from '../../utils/validationOT';
 import SelectInputTiposComponent from '../forms/SelectInputTiposComponent';
-import { A1_CR_OD, A1_CR_OI, A1_GRUPO_OD, A1_GRUPO_OI, A2_CR_OD, A2_CR_OI, A2_GRUPO_OD, A2_GRUPO_OI, clearSelectInput, setCodigosCristales } from '../../utils';
+import { A1_CR_OD, A1_CR_OI, A1_GRUPO_OD, A1_GRUPO_OI, A2_CR_OD, A2_CR_OI, A2_Diametro, A2_GRUPO_OD, A2_GRUPO_OI, clearSelectInput, setCodigosCristales, tipo_de_anteojo } from '../../utils';
 import TextInputInteractive from '../forms/TextInputInteractive';
 
 
@@ -15,10 +15,10 @@ interface ICristales {
     onlyRead?:boolean,
     a2Grupo?:any,
     isEditting?:boolean;
-    permiso_cristales?:boolean,
-    permisos_areas_cristales:boolean;
-    permisos_areas_grupo_dioptria:boolean;
-    permiso_grupo_dioptria:boolean;
+    permiso_usuario_cristales?:boolean,
+    permiso_areas_cristales:boolean;
+    permiso_areas_grupo_dioptria:boolean;
+    permiso_usuario_grupo_dioptria:boolean;
 }
 
 
@@ -27,10 +27,11 @@ const FOTCristales:React.FC<ICristales> = ({
     onDataChange,
     formValues,
     data,
-    permiso_cristales,
-    permisos_areas_cristales,
-    permisos_areas_grupo_dioptria,
-    permiso_grupo_dioptria
+    permiso_usuario_cristales,
+    permiso_areas_cristales,
+    permiso_areas_grupo_dioptria,
+    permiso_usuario_grupo_dioptria,
+    isEditting
 }) => {
     
       // const [codCristal1OD, setCodCristal1OD] = useState(formValues ? formValues["anteojo1_cristal_OD"] : data && data[EnumGrid.cristal1_od_codigo] || 0);
@@ -51,12 +52,12 @@ const FOTCristales:React.FC<ICristales> = ({
 
         console.log(name)
         console.log(value)
+        onDataChange({[name]:value})
 
 
         setCodigosCristales(value)
         validationOTlevel2(name, value)
         
-        onDataChange({[name]:value})
         // console.log(validate)
         
     
@@ -77,9 +78,7 @@ const FOTCristales:React.FC<ICristales> = ({
     }
 
 
-    useEffect(()=>{
-        onDataChange({['cristal2_diametro']:" "})
-    },[clearSelectInput.value])
+
 
 
 
@@ -144,21 +143,13 @@ const FOTCristales:React.FC<ICristales> = ({
                         name={name}
                         data={data}
                         control={control}
-                        onlyRead={permisos_areas_grupo_dioptria || permiso_grupo_dioptria}
+                        onlyRead={!(permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria)}
                     />  
                 </div>
-
             </div>)
-      
       }
 
-
-       
-
-
-      console.log(!(permisos_areas_grupo_dioptria || permiso_grupo_dioptria) || clearSelectInput.value)
-      console.log(clearSelectInput.value)
-
+      console.log(A2_CR_OI.value)
 
   return (
     <form>
@@ -181,7 +172,8 @@ const FOTCristales:React.FC<ICristales> = ({
                                     data={formValues ? formValues["cristal1_opcion_vta_id"] : data && data[EnumGrid.cristal1_opcion_vta_id]}
                                     control={control}
                                     entidad='OTOpcionVentaCristales'
-                                    readOnly={permisos_areas_grupo_dioptria || permiso_grupo_dioptria}
+                                    // readOnly={ isEditting  || !(permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria)}
+                                    readOnly={!(!isEditting || (permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria))}
 
                                 
                                 />
@@ -198,8 +190,7 @@ const FOTCristales:React.FC<ICristales> = ({
                                         entidad={["/api/marcas/", "02"]}
                                         // error={errors.establecimiento}
                                         customWidth={"345px"}
-                                        readOnly={permisos_areas_grupo_dioptria || permiso_grupo_dioptria}
-
+                                        readOnly={!(!isEditting || (permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria))}
                                 />
 
                               </div>
@@ -216,8 +207,7 @@ const FOTCristales:React.FC<ICristales> = ({
                                         data={formValues ? formValues["cristal1_diseno_id"] : data && data[EnumGrid.cristal1_diseno_id]}
                                         entidad={"CristalesDisenos"}
                                         control={control}
-                                        readOnly={permisos_areas_grupo_dioptria || permiso_grupo_dioptria}
-                                        />
+                                        readOnly={!(!isEditting || (permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria))}                                        />
                                 </div>
 
                                 <div className="w-[50%]">
@@ -231,8 +221,7 @@ const FOTCristales:React.FC<ICristales> = ({
                                     control={control}
                                     entidad={'CristalesIndices'}
                                     customWidth={"w-[17.5rem]"}
-                                    readOnly={permisos_areas_grupo_dioptria || permiso_grupo_dioptria}
-                                    />
+                                    readOnly={!(!isEditting || (permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria))}                                    />
                                 </div>
 
 
@@ -249,8 +238,7 @@ const FOTCristales:React.FC<ICristales> = ({
                                     data={formValues ? formValues["cristal1_material_id"] : data && data[EnumGrid.cristal1_material_id]}
                                     control={control}
                                     entidad={'CristalesMateriales'}
-                                    readOnly={permisos_areas_grupo_dioptria || permiso_grupo_dioptria}
-                                    />
+                                    readOnly={!(!isEditting || (permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria))}                                    />
                                 </div>
                             
                                 <div className="w-[50%]">
@@ -264,8 +252,7 @@ const FOTCristales:React.FC<ICristales> = ({
                                     control={control}
                                     entidad={"CristalesColores"}
                                     customWidth={"w-[17.5rem]"}
-                                    readOnly={permisos_areas_grupo_dioptria || permiso_grupo_dioptria}
-                                    />
+                                    readOnly={!(!isEditting || (permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria))}                                    />
                                 </div>
 
 
@@ -281,8 +268,7 @@ const FOTCristales:React.FC<ICristales> = ({
                               control={control}
                               entidad={"CristalesTratamientos"}
                               customWidth={"w-[35rem]"}
-                              readOnly={permisos_areas_grupo_dioptria || permiso_grupo_dioptria}
-                            />
+                              readOnly={!(!isEditting || (permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria))}                              />
                         </div>
                         <div className="w-full rowForm left-[9%] absolute mr-10 ">
                                  <TextInputComponent
@@ -294,8 +280,7 @@ const FOTCristales:React.FC<ICristales> = ({
                                         isOT={true}
                                         data={formValues ? formValues["cristal1_diametro"] : data && data[EnumGrid.cristal1_diametro]}
                                         customWidth={'w-[33.6rem]'}
-                                        onlyRead={permisos_areas_grupo_dioptria || permiso_grupo_dioptria}
-                                        // error={errors.fecha_nacimiento}
+                                        onlyRead={!(!isEditting || (permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria))}                                        // error={errors.fecha_nacimiento}
                                   />
                         </div>
                         <div className="w-full !mt-[5rem] !mb-6">
@@ -309,7 +294,7 @@ const FOTCristales:React.FC<ICristales> = ({
                                             data={A1_CR_OD.value || data && data[EnumGrid.cristal1_od]}
                                             control={control}
                                             isOT={true}
-                                            onlyRead={permisos_areas_cristales || permiso_cristales}
+                                            onlyRead={!(!isEditting || (permiso_areas_cristales && permiso_usuario_cristales))}
                                             // error={errors.fecha_nacimiento}t
                                         />
                                 </div>
@@ -322,7 +307,7 @@ const FOTCristales:React.FC<ICristales> = ({
                                             handleChange={handleInputChange}
                                             data={ A1_CR_OI.value ||data && data[EnumGrid.cristal1_oi]}
                                             control={control}
-                                            onlyRead={permisos_areas_cristales || permiso_cristales}
+                                            onlyRead={!(!isEditting || (permiso_areas_cristales && permiso_usuario_cristales))}
                                             // error={errors.fecha_nacimiento}
                                         />
                                 </div>
@@ -341,8 +326,7 @@ const FOTCristales:React.FC<ICristales> = ({
                                 control={control}
                                 entidad='CristalesTratamientos'
                                 customWidth={"w-full"}
-                                readOnly={permisos_areas_grupo_dioptria || permiso_grupo_dioptria}
-                                />
+                                readOnly={!(!isEditting || (permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria))}                                />
                       </div>
                     </div>
 
@@ -381,7 +365,7 @@ const FOTCristales:React.FC<ICristales> = ({
                                             data={formValues ? formValues["cristal2_od_opcion_venta_id"] : data && data[EnumGrid.cristal2_od_opcion_venta_id]}
                                             control={control}
                                             entidad='OTOpcionVentaCristales'
-                                            readOnly={permisos_areas_grupo_dioptria || permiso_grupo_dioptria || clearSelectInput.value}
+                                            readOnly={!((!isEditting && tipo_de_anteojo.value === '3') || (isEditting && permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria && tipo_de_anteojo.value === '3'))}
                                             FOTcristales={true}
                                   />
                             </div>
@@ -395,7 +379,7 @@ const FOTCristales:React.FC<ICristales> = ({
                                         data={formValues ? formValues["cristal2_marca_id"] : data && data[EnumGrid.cristal2_indice_id]}
                                         control={control}
                                         entidad={["/api/marcas/", "02"]}
-                                        readOnly={ permisos_areas_grupo_dioptria || permiso_grupo_dioptria ||  clearSelectInput.value}
+                                        readOnly={!((!isEditting && tipo_de_anteojo.value === '3') || (isEditting && permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria && tipo_de_anteojo.value === '3'))}
                                         isFOTcristales={true}
 
                                     />
@@ -414,8 +398,8 @@ const FOTCristales:React.FC<ICristales> = ({
                                             control={control}
                                             entidad={"CristalesDisenos"}
                                             FOTcristales={true}
-                                            readOnly={  permisos_areas_grupo_dioptria || permiso_grupo_dioptria||  clearSelectInput.value}
-                                />
+                                            readOnly={!((!isEditting && tipo_de_anteojo.value === '3') || (isEditting && permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria && tipo_de_anteojo.value === '3'))}
+                                            />
                             </div>
 
                             <div className="w-[50%]">
@@ -429,8 +413,8 @@ const FOTCristales:React.FC<ICristales> = ({
                                             control={control}
                                             entidad={"CristalesIndices"}
                                             FOTcristales={true}
-                                            readOnly={ permisos_areas_grupo_dioptria || permiso_grupo_dioptria ||  clearSelectInput.value}
-                                        />
+                                            readOnly={!((!isEditting && tipo_de_anteojo.value === '3') || (isEditting && permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria && tipo_de_anteojo.value === '3'))}
+                                            />
 
                             </div>
                         </div>
@@ -447,7 +431,7 @@ const FOTCristales:React.FC<ICristales> = ({
                                         control={control}
                                         FOTcristales={true}
                                         entidad={"CristalesMateriales"}
-                                        readOnly={  permisos_areas_grupo_dioptria || permiso_grupo_dioptria||  clearSelectInput.value}
+                                        readOnly={!((!isEditting && tipo_de_anteojo.value === '3') || (isEditting && permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria && tipo_de_anteojo.value === '3'))}
                                         />
                             </div>
 
@@ -462,8 +446,8 @@ const FOTCristales:React.FC<ICristales> = ({
                                             control={control}
                                             FOTcristales={true}
                                             entidad={"CristalesColores"}
-                                            readOnly={  permisos_areas_grupo_dioptria || permiso_grupo_dioptria||  clearSelectInput.value}
-                                    />
+                                            readOnly={!((!isEditting && tipo_de_anteojo.value === '3') || (isEditting && permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria && tipo_de_anteojo.value === '3'))}
+                                            />
                             </div>
                         </div>
                         
@@ -481,7 +465,7 @@ const FOTCristales:React.FC<ICristales> = ({
                                         entidad={"OTTratamientoAdicional"}
                                         customWidth={"w-[36.7rem]"}
                                         FOTcristales={true}
-                                        readOnly={  permisos_areas_grupo_dioptria || permiso_grupo_dioptria ||  clearSelectInput.value}
+                                        readOnly={!((!isEditting && tipo_de_anteojo.value === '3') || (isEditting && permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria && tipo_de_anteojo.value === '3'))}
                                         />
                             </div>
                             <div className="w-full rowForm left-[9%] absolute mr-10 ">
@@ -490,10 +474,11 @@ const FOTCristales:React.FC<ICristales> = ({
                                         label="Diametro"
                                         name="cristal2_diametro"
                                         handleChange={handleInputChange}
-                                        data={formValues ? formValues["cristal2_diametro"] : data && data[EnumGrid.cristal2_diametro]}
+                                        // data={formValues ? formValues["cristal2_diametro"] : data && data[EnumGrid.cristal2_diametro]}
+                                        data={A2_Diametro.value || data && data[EnumGrid.cristal2_diametro]}
                                         control={control}
                                         isOT={true}
-                                        onlyRead={  permisos_areas_grupo_dioptria || permiso_grupo_dioptria ||  clearSelectInput.value}
+                                        onlyRead={!((!isEditting && tipo_de_anteojo.value === '3') || (isEditting && permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria && tipo_de_anteojo.value === '3'))}
                                         customWidth={'w-[35.3rem]'}
                                         // error={errors.fecha_nacimiento}
                                   />
@@ -509,7 +494,7 @@ const FOTCristales:React.FC<ICristales> = ({
                                             data={ A2_CR_OD.value  || data && data[EnumGrid.cristal2_od]}
                                             control={control}
                                             isOT={true}
-                                            onlyRead={  (permisos_areas_cristales || permiso_cristales) ||  clearSelectInput.value}
+                                            onlyRead={!((!isEditting && tipo_de_anteojo.value === '3') || (isEditting && permiso_areas_cristales && permiso_usuario_cristales && tipo_de_anteojo.value === '3'))}
                                             // error={errors.fecha_nacimiento}
                                         />
                                 </div>
@@ -522,7 +507,7 @@ const FOTCristales:React.FC<ICristales> = ({
                                             data={A2_CR_OI.value || data && data[EnumGrid.cristal2_oi]}
                                             control={control}
                                             isOT={true}
-                                            onlyRead={  (permisos_areas_cristales || permiso_cristales) ||  clearSelectInput.value}
+                                            onlyRead={!((!isEditting && tipo_de_anteojo.value === '3') || (isEditting && permiso_areas_cristales && permiso_usuario_cristales && tipo_de_anteojo.value === '3'))}
                                             // error={errors.fecha_nacimiento}
                                         />
                                 </div>
@@ -539,7 +524,7 @@ const FOTCristales:React.FC<ICristales> = ({
                                         data={formValues ? formValues["cristal2_tratamiento_adicional_id"] : data && data[EnumGrid.cristal2_tratamiento_adicional_id]}
                                         control={control}
                                         entidad={"CristalesTratamientos"}
-                                        readOnly={  permisos_areas_grupo_dioptria || permiso_grupo_dioptria ||  clearSelectInput.value}
+                                        readOnly={!((!isEditting && tipo_de_anteojo.value === '3') || (isEditting && permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria && tipo_de_anteojo.value === '3'))}
                                         customWidth={"w-[36.6rem]"}
                                         FOTcristales={true}
 

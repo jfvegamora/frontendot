@@ -223,9 +223,10 @@ const MOT: React.FC = () => {
                     label: "Proyecto",
                     type: "select",
                     selectUrl: "/api/proyectos/",
+                    styles:{with:"w-[21.6rem]"}
                   },
-                { name: "_fecha_desde", label: "Desde", type: "date", styles:{with:"w-[17.3rem]  !h-[6rem]"} },
-                { name: "_fecha_hasta", label: "Hasta", type: "date" ,styles:{with:"w-[17.3rem]  !h-[6rem]"}},
+                { name: "_fecha_desde", label: "Desde", type: "date", styles:{with:"w-[19.3rem]  !h-[6rem]"} },
+                { name: "_fecha_hasta", label: "Hasta", type: "date" ,styles:{with:"w-[19.3rem]  !h-[6rem]"}},
                 // {name:"_motivo", label:"motivo",type:"radio" },
                 {
                     name: "_estado",
@@ -254,7 +255,7 @@ const MOT: React.FC = () => {
           </FilterButton>
         </div>
       
-      <div className="scroll !h-[23rem]">
+      <div className="scroll !h-[30rem]">
         <TableComponent
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}

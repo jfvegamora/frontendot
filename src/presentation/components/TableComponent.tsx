@@ -194,7 +194,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
 
       )
   };
-  console.log(data)
+  // console.log(data)
  
     return (
       <table className="gridContainer">

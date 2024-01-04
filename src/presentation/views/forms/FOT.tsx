@@ -27,7 +27,7 @@ import { A1_CR_OD, A1_CR_OI, A1_GRUPO_OD, A1_GRUPO_OI, A2_CR_OD, A2_CR_OI, A2_Di
   motivo_ot, 
   // reiniciarA2DioptriasReceta, 
   reiniciarDioptriasReceta, reiniciarValidationNivel1, reiniciarValidationNivel2, tipo_de_anteojo, validar_parametrizacion } from '../../utils';
-import { validationCliente, validationEstablecimientos, validationFechaAtencion, validationProyectos, validationPuntoVenta, validationTipoAnteojos, validation_A2_OD_CIL, validation_A2_OD_EJE, validation_A2_OD_ESF, validation_A2_OI_CIL, validation_A2_OI_EJE, validation_A2_OI_ESF, validation_Cristal1_od, validation_Cristal1_oi } from '../../utils/validationOT';
+import { validationCliente, validationEstablecimientos, validationFechaAtencion, validationProyectos, validationPuntoVenta, validationTipoAnteojos, validation_A2_OD_CIL, validation_A2_OD_EJE, validation_A2_OD_ESF, validation_A2_OI_CIL, validation_A2_OI_EJE, validation_A2_OI_ESF, validation_Cristal1_od, validation_Cristal1_oi, validation_Cristal2_od, validation_Cristal2_oi } from '../../utils/validationOT';
 // import { inputName } from '../../components/OTForms/Otprueba';
 // import { verificaCampos } from '../../utils/OTReceta_utils';
 import { URLBackend } from '../../hooks/useCrud';
@@ -344,32 +344,28 @@ const FOT:React.FC<IFOTProps> = ({
   let OTAreaActual = OTAreas["areaActual"]
   const permissions = (area:number) => OTAreaActual && OTAreas["areas"].find((permiso:any)=>permiso[1] === area)
   //PERMISOS DE CAMPOS
-  const permisos_campos           = useAppSelector((store: AppStore) => store.user?.permisos_campos);
+  const permisosCampos           = useAppSelector((store: AppStore) => store.user?.permisos_campos);
 
-  let permiso_armazones           = permisos_campos && permisos_campos[0] === "1" ? false : true;
-  let permiso_cristales           = permisos_campos && permisos_campos[1] === "1" ? false : true;
-  let permiso_estado_impresion    = permisos_campos && permisos_campos[2] === "1" ? false : true;
-  let permiso_estado_validacion   = permisos_campos && permisos_campos[3] === "1" ? false : true;
-  let permiso_resolucion_garantia = permisos_campos && permisos_campos[4] === "1" ? false : true;
-  let permiso_grupo_dioptria      = permisos_campos && permisos_campos[5] === "1" ? false : true;
-  let permisos_receta             = permisos_campos && permisos_campos[6] === "1" ? false : true;
+  let permiso_usuario_armazones           = permisosCampos && permisosCampos[0] === "1" ? true : false;
+  let permiso_usuario_cristales           = permisosCampos && permisosCampos[1] === "1" ? true : false;
+  let permiso_usuario_estado_impresion    = permisosCampos && permisosCampos[2] === "1" ? true : false;
+  let permiso_usuario_estado_validacion   = permisosCampos && permisosCampos[3] === "1" ? true : false;
+  let permiso_usuario_resolucion_garantia = permisosCampos && permisosCampos[4] === "1" ? true : false;
+  let permiso_usuario_grupo_dioptria      = permisosCampos && permisosCampos[5] === "1" ? true : false;
+  let permiso_usuario_receta             = permisosCampos && permisosCampos[6] === "1" ? true : false;
 
 
+  
   const permisosAreas = OTAreaActual && permissions(OTAreaActual)[6] as any
 
-  let permisos_areas_armazones            = permisosAreas && permisosAreas[0] === '1' ? false : true;
-  let permisos_areas_cristales            = permisosAreas && permisosAreas[1] === '1' ? false : true;
-  let permisos_areas_estado_impresion     = permisosAreas && permisosAreas[2] === '1' ? false : true;
-  let permisos_areas_estado_validacion    = permisosAreas && permisosAreas[3] === '1' ? false : true;
-  let permisos_areas_resolucion_garantia  = permisosAreas && permisosAreas[4] === '1' ? false : true;
-  let permisos_areas_grupo_dioptria       = permisosAreas && permisosAreas[5] === '1' ? false : true;
-  let permisos_areas_receta               = permisosAreas && permisosAreas[6] === '1' ? false : true;
+  let permiso_areas_armazones            = permisosAreas && permisosAreas[0] === '1' ? true : false;
+  let permiso_areas_cristales            = permisosAreas && permisosAreas[1] === '1' ? true : false;
+  let permiso_areas_estado_impresion     = permisosAreas && permisosAreas[2] === '1' ? true : false;
+  let permiso_areas_estado_validacion    = permisosAreas && permisosAreas[3] === '1' ? true : false;
+  let permiso_areas_resolucion_garantia  = permisosAreas && permisosAreas[4] === '1' ? true : false;
+  let permiso_areas_grupo_dioptria       = permisosAreas && permisosAreas[5] === '1' ? true : false;
+  let permiso_areas_receta               = permisosAreas && permisosAreas[6] === '1' ? true : false;
 
-
-
-
-  console.log(permisosAreas)
-  console.log(permisos_campos)
 
   const handleCloseForm = () => {
       closeModal();
@@ -703,6 +699,22 @@ const FOT:React.FC<IFOTProps> = ({
     console.log(formValues)
 
 
+
+
+    console.log(A2_CR_OI.value)
+    console.log(typeof A2_CR_OI.value)
+
+    console.log(typeof A2_CR_OI.value === 'string' ? A2_CR_OI.value : " ")
+  
+
+   console.log(A2_Diametro.value)
+   console.log(typeof A2_Diametro.value)
+
+    console.log(typeof A2_Diametro.value === 'number' ? A2_Diametro.value : 0)
+
+
+    
+
     // console.log(formValues.cliente.cliente_tipo)
     // console.log(jsonData.cliente_tipo)
 
@@ -741,8 +753,9 @@ const FOT:React.FC<IFOTProps> = ({
     // console.log(_p55)
     // const _p66 =`${jsonData.cristal2_od_opcion_venta_id || 0},${jsonData.cristal2_marca_id || 0},${jsonData.cristal2_diseno_id || 0},${jsonData.cristal2_indice_id || 0},${jsonData.cristal2_material_id || 0},${typeof A2_Diametro.value === 'number' ? A2_Diametro.value : 0},${jsonData.cristal2_color_id || 0},${jsonData.cristal2_diametro || 0},"${A2_CR_OD.value ?? " "}","${A2_CR_OI.value ?? " "}",${jsonData.cristal2_tratamiento_adicional_id || 0}` 
     // console.log(_p66)
-    let _p1 = `${motivo},${_destino},${estado},${estado_impresion},${estado_validacion}, "${jsonData.proyecto_codigo}",${jsonData.establecimiento_id},"${jsonData.cliente_rut || formValues.cliente.cliente_rut}" ,${jsonData.oftalmologo_id ?? 0} ,"${jsonData.fecha_atencion || fecha_atencion_signal.value}","${jsonData.fecha_entrega_taller || fecha_entrega_taller.value}","${jsonData.fecha_despacho || fecha_despacho.value}","${jsonData.fecha_entrega_cliente || fecha_entrega_cliente.value}",${jsonData.punto_venta_id || 0},${jsonData.numero_receta ?? 0},"${jsonData.fecha_receta ?? ""}",${jsonData.tipo_anteojo_id ?? 0},${typeof dioptrias_receta.value.a1_od.esf === 'number' ? dioptrias_receta.value.a1_od.esf : 0 },${typeof dioptrias_receta.value.a1_od.cil === 'number' ? dioptrias_receta.value.a1_od.cil : 0},${typeof dioptrias_receta.value.a1_od.eje === 'number' ? dioptrias_receta.value.a1_od.eje : 0},${typeof dioptrias_receta.value.a1_od.ad === 'number' ? dioptrias_receta.value.a1_od.ad : 0 },${typeof dioptrias_receta.value.a1_oi.esf === 'number' ? dioptrias_receta.value.a1_oi.esf  : 0},${typeof dioptrias_receta.value.a1_oi.cil === 'number' ? dioptrias_receta.value.a1_oi.cil : 0},${typeof dioptrias_receta.value.a1_oi.eje === 'number' ? dioptrias_receta.value.a1_oi.eje : 0},${typeof dioptrias_receta.value.a1_oi.ad === 'number' ? dioptrias_receta.value.a1_oi.ad  : 0 },${typeof jsonData.a1_dp === 'number' ? jsonData.a1_dp : 0},${typeof jsonData.a1_alt === 'number' ? jsonData.a1_alt : 0}, ${A1_GRUPO_OD.value} ,${A1_GRUPO_OI.value} ,${typeof a2_od_esf.value === 'number' ? a2_od_esf.value :  0 },${typeof a2_od_cil.value === 'number' ? a2_od_cil.value : 0 },${typeof a2_od_eje.value === 'number' ? a2_od_eje.value : 0 },${typeof a2_oi_esf.value === 'number' ? a2_oi_esf.value : 0 },${typeof a2_oi_cil.value  === 'number' ? a2_oi_cil.value : 0 },${typeof a2_oi_eje.value === 'number' ? a2_oi_eje.value : 0},${typeof jsonData.a2_dp === 'number' ? jsonData.a2_dp : 0},"${A2_GRUPO_OD.value}","${A2_GRUPO_OI.value}" ,${jsonData.a1_opcion_vta_id ?? 0},"${a1_armazon.value ?? 0}",${jsonData.a2_opcion_vta_id ?? 0},"${a2_armazon.value ?? 0 }",${jsonData.a3_opcion_vta_id ?? 0},"${a3_armazon.value?? 0}",${jsonData.cristal1_opcion_vta_id || 0},${jsonData.cristal1_marca_id || 0},${jsonData.cristal1_diseno_id || 0},${jsonData.cristal1_indice_id || 0},${jsonData.cristal1_material_id || 0},${jsonData.cristal1_tratamiento_id || 0},${jsonData.cristal1_color_id || 0},${jsonData.cristal1_diametro || 0},"${A1_CR_OD ?? " "}","${A1_CR_OI ?? " "}",${jsonData.cristal1_tratamiento_adicional_id || 0},${jsonData.cristal2_od_opcion_venta_id || 0},${jsonData.cristal2_marca_id || 0},${jsonData.cristal2_diseno_id || 0},${jsonData.cristal2_indice_id || 0},${jsonData.cristal2_material_id || 0},${typeof jsonData.cristal2_tratamiento === 'number' ? jsonData.cristal2_tratamiento : 0},${jsonData.cristal2_color_id || 0},${typeof A2_Diametro.value === 'number' ? A2_Diametro.value : 0},"${A2_CR_OD.value ?? " "}","${A2_CR_OI.value ?? " "}",${jsonData.cristal2_tratamiento_adicional_id || 0},${jsonData.motivo_garantia_id || 0},${jsonData.folio_asociado || 0},${isEditting ? 0 : jsonData.resolucion_garantia_id === 'Aceptada' ? '1' : '2'},"${jsonData.worktracking || 0}","${jsonData.nota_venta || 0}","${jsonData.numero_factura || 0}","${jsonData.folio_interno_mandante || 0}",${jsonData.total || 0},"${jsonData.observaciones || ""}"`
+    let _p1 = `${motivo},${_destino},${estado},${estado_impresion},${estado_validacion}, "${jsonData.proyecto_codigo}",${jsonData.establecimiento_id},"${jsonData.cliente_rut || formValues.cliente.cliente_rut}" ,${jsonData.oftalmologo_id ?? 0} ,"${jsonData.fecha_atencion || fecha_atencion_signal.value}","${jsonData.fecha_entrega_taller || fecha_entrega_taller.value}","${jsonData.fecha_despacho || fecha_despacho.value}","${jsonData.fecha_entrega_cliente || fecha_entrega_cliente.value}",${jsonData.punto_venta_id || 0},${typeof jsonData.numero_receta  === 'number' ? jsonData.numero_receta  : 0},"${jsonData.fecha_receta ?? ""}",${jsonData.tipo_anteojo_id ?? 0},${typeof dioptrias_receta.value.a1_od.esf === 'number' ? dioptrias_receta.value.a1_od.esf : 0 },${typeof dioptrias_receta.value.a1_od.cil === 'number' ? dioptrias_receta.value.a1_od.cil : 0},${typeof dioptrias_receta.value.a1_od.eje === 'number' ? dioptrias_receta.value.a1_od.eje : 0},${typeof dioptrias_receta.value.a1_od.ad === 'number' ? dioptrias_receta.value.a1_od.ad : 0 },${typeof dioptrias_receta.value.a1_oi.esf === 'number' ? dioptrias_receta.value.a1_oi.esf  : 0},${typeof dioptrias_receta.value.a1_oi.cil === 'number' ? dioptrias_receta.value.a1_oi.cil : 0},${typeof dioptrias_receta.value.a1_oi.eje === 'number' ? dioptrias_receta.value.a1_oi.eje : 0},${typeof dioptrias_receta.value.a1_oi.ad === 'number' ? dioptrias_receta.value.a1_oi.ad  : 0 },${typeof jsonData.a1_dp === 'number' ? jsonData.a1_dp : 0},${typeof jsonData.a1_alt === 'number' ? jsonData.a1_alt : 0}, "${A1_GRUPO_OD.value}" ,"${A1_GRUPO_OI.value}" ,${typeof a2_od_esf.value === 'number' ? a2_od_esf.value :  0 },${typeof a2_od_cil.value === 'number' ? a2_od_cil.value : 0 },${typeof a2_od_eje.value === 'number' ? a2_od_eje.value : 0 },${typeof a2_oi_esf.value === 'number' ? a2_oi_esf.value : 0 },${typeof a2_oi_cil.value  === 'number' ? a2_oi_cil.value : 0 },${typeof a2_oi_eje.value === 'number' ? a2_oi_eje.value : 0},${typeof jsonData.a2_dp === 'number' ? jsonData.a2_dp : 0},"${A2_GRUPO_OD.value}","${A2_GRUPO_OI.value}" ,${jsonData.a1_opcion_vta_id ?? 0},"${a1_armazon.value ?? 0}",${jsonData.a2_opcion_vta_id ?? 0},"${a2_armazon.value ?? 0 }",${jsonData.a3_opcion_vta_id ?? 0},"${a3_armazon.value?? 0}",${jsonData.cristal1_opcion_vta_id || 0},${jsonData.cristal1_marca_id || 0},${jsonData.cristal1_diseno_id || 0},${jsonData.cristal1_indice_id || 0},${jsonData.cristal1_material_id || 0},${jsonData.cristal1_tratamiento_id || 0},${jsonData.cristal1_color_id || 0},${jsonData.cristal1_diametro || 0},"${A1_CR_OD ?? " "}","${A1_CR_OI ?? " "}",${jsonData.cristal1_tratamiento_adicional_id || 0},${jsonData.cristal2_od_opcion_venta_id || 0},${jsonData.cristal2_marca_id || 0},${jsonData.cristal2_diseno_id || 0},${jsonData.cristal2_indice_id || 0},${jsonData.cristal2_material_id || 0},${typeof jsonData.cristal2_tratamiento === 'number' ? jsonData.cristal2_tratamiento : 0},${jsonData.cristal2_color_id || 0},${typeof A2_Diametro.value === 'number' ? A2_Diametro.value : 0},"${typeof A2_CR_OD.value === 'string' ? A2_CR_OD.value : ""}","${typeof A2_CR_OI.value === 'string' ? A2_CR_OI.value : " " }",${jsonData.cristal2_tratamiento_adicional_id || 0},${jsonData.motivo_garantia_id || 0},${jsonData.folio_asociado || 0},${isEditting ? 0 : jsonData.resolucion_garantia_id === 'Aceptada' ? '1' : '2'},"${jsonData.worktracking || 0}","${jsonData.nota_venta || 0}","${jsonData.numero_factura || 0}","${jsonData.folio_interno_mandante || 0}",${jsonData.total || 0},"${jsonData.observaciones || ""}"`
 
+    console.log(_p1)
     // console.log(_p11)
     let _rut = '';
     
@@ -759,7 +772,7 @@ const FOT:React.FC<IFOTProps> = ({
     // const _p3 = `'${jsonData.cliente_rut}','${jsonData.cliente_nombre}',${jsonData.cliente_tipo === TIPO_CLIENTE.beneficiario ? "1" : jsonData.cliente_tipo === TIPO_CLIENTE.particular ? "2" : jsonData.cliente_tipo === TIPO_CLIENTE.optica ? "3" : "0"}, ${jsonData.cliente_sexo === SEXO.masculino ? "1" : jsonData.cliente_sexo === SEXO.femenino ? "2" : jsonData.cliente_sexo === SEXO.no_aplica ? "3" : "0"},'${jsonData.cliente_fecha_nacimiento}','${jsonData.cliente_direccion}' ,${jsonData.cliente_comuna_id || 150}, '${jsonData.cliente_telefono}','${jsonData.cliente_correo}', ${jsonData.establecimiento_id}`;
 
     const cristales  = [{'codigo': A1_CR_OD.value },{'codigo': A1_CR_OI.value},{'codigo': A2_CR_OD.value},{'codigo':A2_CR_OI.value}];
-    const armazones  = [{'codigo': a1_armazon.value },{'codigo': a2_armazon.value},]; 
+    const armazones  = [{'codigo': a1_armazon.value },{'codigo': tipo_de_anteojo.value === '3' ?  a2_armazon.value : ""},]; 
    
     const query = {
       query: "03",
@@ -785,8 +798,15 @@ const FOT:React.FC<IFOTProps> = ({
     try {
       const response = await axios.post(`${URLBackend}/api/ot/crear/`, query)
       console.log(response)
+      if(response.data){
+        const message = `Nuevo Folio OT: ${response.data.datos[0][0]}`
+        toast.success(message)
+        closeModal()
+      }
     } catch (error) {
       console.log(error)
+      toast.error('Error al Ingresar la OT')
+      closeModal()
     }
     // return query;
     // return
@@ -858,7 +878,16 @@ const FOT:React.FC<IFOTProps> = ({
   const onSubmit: SubmitHandler<any> = async(jsonData, _type?:any) => {
       //  console.log(submitAction)
 
-    console.log(jsonData)  
+    console.log(jsonData)
+    
+    //! LOGICA JSON CRISTALES/ARMAZONES COMPARTIDA UPDATE + INSERT
+    
+        //? ========================================
+
+        //? ========================================
+    
+    //! LOGICA JSON CRISTALES/ARMAZONES COMPARTIDA UPDATE + INSERT
+
     if (submitAction === 'pausar') {
       console.log('pausar')
       updateOT(jsonData, OTAreaActual, OTAreaActual, 30);
@@ -981,7 +1010,8 @@ const FOT:React.FC<IFOTProps> = ({
     if(changeCodigoCristal_A2[key]){
       const formValue = getValues()
       const {cristal2_marca_id, cristal2_diseno_id, cristal2_indice_id, cristal2_color_id , cristal2_material_id,cristal2_tratamiento_id, cristal2_diametro } = formValue;
- 
+      console.log(formValue.cristal2_diametro)
+      console.log(A2_Diametro.value)
 
       if(cristal2_marca_id                      !== undefined &&
         cristal2_diseno_id                      !== undefined &&
@@ -999,7 +1029,7 @@ const FOT:React.FC<IFOTProps> = ({
           "material":   cristal2_material_id,
           "color":      cristal2_color_id,
           "tratamiento":cristal2_tratamiento_id,
-          "diametro":   cristal2_diametro,
+          "diametro":   A2_Diametro.value,
           "esferico":   dioptrias_receta.value.a2_od.esf ?? 0, 
           "cilindrico": dioptrias_receta.value.a2_od.cil ?? 0
         }
@@ -1014,12 +1044,36 @@ const FOT:React.FC<IFOTProps> = ({
           "material":   cristal2_material_id,
           "color":      cristal2_color_id,
           "tratamiento":cristal2_tratamiento_id,
-          "diametro":   cristal2_diametro,
+          "diametro":   A2_Diametro.value,
           "esferico":   dioptrias_receta.value.a2_oi.esf ?? 0,
           "cilindrico": dioptrias_receta.value.a2_oi.cil ?? 0, 
         }
 
         console.log(_pkToDelete1_oi)
+
+        try {
+          const pkJSON = JSON.stringify([_pkToDelete1_od, _pkToDelete1_oi])
+          const encodedJSON = encodeURIComponent(pkJSON)
+
+          const {data} = await axios(`${URLBackend}/api/proyectocristales/listado/?query=06&_p2=${codigoProyecto.value}&_pkToDelete=${encodedJSON}`)
+          
+          const cristalesDATA = JSON.parse(data[0][0])
+          console.log(cristalesDATA)
+
+          A2_CR_OD.value = cristalesDATA["CR_OD"].trim() || " ";
+          A2_CR_OI.value = cristalesDATA["CR_OI"].trim() || " ";
+
+          A2_GRUPO_OD.value = cristalesDATA["GRUPO_OD"];
+          A2_GRUPO_OI.value = cristalesDATA["GRUPO_OI"];
+
+          validation_Cristal2_od(cristalesDATA["CR_OD"]);
+          validation_Cristal2_oi(cristalesDATA["CR_OI"]);
+          
+        
+        } catch (error) {
+          console.log(error)
+          throw error
+        }
 
       }
 
@@ -1158,10 +1212,13 @@ if(isEditting){
 }
 
 
+
 useEffect(()=>{
   tipo_de_anteojo.value = data && data[EnumGrid.tipo_anteojo_id].toString();
-  validation_tipo_anteojo()
 
+  if(isEditting){
+    validation_tipo_anteojo()
+  }
 
   dioptrias_receta.value.a1_od.esf = data && data[EnumGrid.a1_od_esf]
   dioptrias_receta.value.a1_od.cil = data && data[EnumGrid.a1_od_cil]
@@ -1256,7 +1313,6 @@ useEffect(() => {
   //PASAR DATA A FORMVALUES Y LEER FORMVALUES
 
   console.log(OTPermissions)
-  console.log(permisos_campos)
   
   return (
 
@@ -1277,7 +1333,7 @@ useEffect(() => {
    <Suspense fallback={<div className="flex items-center justify-center h-screen"><Spinner className="h-12 w-12" style={{ color: '#f39c12' }} /></div>}>
       <div className='top-0 absolute right-3 text-2xl cursor-pointert' onClick={()=>{handleCloseForm()}}>X</div>
             <TabPanel onSelect={loadFormData}>
-              <FOTOptica onlyRead={onlyRead} setIsMotivo={setIsMotivo} isEditting={isEditting} data={data && data} formValues={formValues["optica"]} control={control} setToggle={setToggle}  onDataChange={(data:any) => handleFormChange(data , 'optica')} permisos_areas_resolucion_garantia={permisos_areas_resolucion_garantia}    permisos_areas_estado_immpresion={permisos_areas_estado_impresion} permisos_areas_estado_validacion={permisos_areas_estado_validacion} permiso_estado_impresion={permiso_estado_impresion} permiso_estado_validacion={permiso_estado_validacion} permiso_resolucion_garantia={permiso_resolucion_garantia} />
+              <FOTOptica onlyRead={onlyRead} setIsMotivo={setIsMotivo} isEditting={isEditting} data={data && data} formValues={formValues["optica"]} control={control} setToggle={setToggle}  onDataChange={(data:any) => handleFormChange(data , 'optica')} permiso_areas_resolucion_garantia={permiso_areas_resolucion_garantia}    permisos_areas_estado_immpresion={permiso_areas_estado_impresion} permiso_areas_estado_validacion={permiso_areas_estado_validacion} permiso_usuario_estado_impresion={permiso_usuario_estado_impresion} permiso_usuario_estado_validacion={permiso_usuario_estado_validacion} permiso_usuario_resolucion_garantia={permiso_usuario_resolucion_garantia} />
             </TabPanel>
             
           <TabPanel>
@@ -1285,15 +1341,15 @@ useEffect(() => {
           </TabPanel>
 
           <TabPanel>
-            <FOTReceta  permisos_receta={permisos_receta} permisos_areas_receta={permisos_areas_receta} onlyRead={onlyRead} isEditting={isEditting} data={data && data} formValues={formValues["receta"]} control={control} onDataChange={(data:any) => handleFormChange(data , 'receta')}  />
+            <FOTReceta  permiso_usuario_receta={permiso_usuario_receta} permiso_areas_receta={permiso_areas_receta} onlyRead={onlyRead} isEditting={isEditting} data={data && data} formValues={formValues["receta"]} control={control} onDataChange={(data:any) => handleFormChange(data , 'receta')}  />
           </TabPanel>
 
           <TabPanel>
-            <FOTCristales permiso_grupo_dioptria={permiso_grupo_dioptria} permisos_areas_grupo_dioptria={permisos_areas_grupo_dioptria} permisos_areas_cristales={permisos_areas_cristales}  permiso_cristales={permiso_cristales} onlyRead={onlyRead} isEditting={isEditting} data={data && data}  formValues={formValues["cristales"]} control={control} onDataChange={(data:any) => handleFormChange(data , 'cristales')}   /> 
+            <FOTCristales permiso_usuario_grupo_dioptria={permiso_usuario_grupo_dioptria} permiso_areas_grupo_dioptria={permiso_areas_grupo_dioptria} permiso_areas_cristales={permiso_areas_cristales}  permiso_usuario_cristales={permiso_usuario_cristales} onlyRead={onlyRead} isEditting={isEditting} data={data && data}  formValues={formValues["cristales"]} control={control} onDataChange={(data:any) => handleFormChange(data , 'cristales')}   /> 
           </TabPanel>
 
           <TabPanel> 
-            <FOTArmazones permisos_areas_armazones={permisos_areas_armazones} permiso_armazones={permiso_armazones} onlyRead={onlyRead}  data={data && data} formValues={formValues["armazones"]} control={control} onDataChange={(data:any) => handleFormChange(data , 'armazones')}  />
+            <FOTArmazones permiso_areas_armazones={permiso_areas_armazones} permiso_usuario_armazones={permiso_usuario_armazones} onlyRead={onlyRead}  data={data && data} formValues={formValues["armazones"]} control={control} onDataChange={(data:any) => handleFormChange(data , 'armazones')}  />
           </TabPanel>
           
 

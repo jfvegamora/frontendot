@@ -47,24 +47,19 @@ const TextInputInteractive: React.FC<ITextInputProps> = ({
 
   
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(handleChange)
     if (handleChange) {
       if(isOT){
-        console.log('render')
         handleChange(e.target)
       }else{
-        console.log('render')
         handleChange(e.target.value)
       }
     }   
 
-    console.log(e.target.value)
     setValue(e.target.value)
 
   };
   
   useEffect(()=>{
-    console.log(data)
     if(data){
         setDefaultValue(data)
         setValue(data)
@@ -75,7 +70,6 @@ const TextInputInteractive: React.FC<ITextInputProps> = ({
 // ...
 
 // console.log(defaultValue)
-console.log(value)
 return (
   <div className={`mr-4 rounded-xl ${customWidth ? customWidth : ""}`}>
     <Controller
