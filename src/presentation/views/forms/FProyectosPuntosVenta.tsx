@@ -115,11 +115,11 @@ const FProyectosPuntosVenta: React.FC<IUserFormPrps> = React.memo(
     });
 
     const resetTextFields = React.useCallback(() => {
-      setValue("punto_venta", "");
+      setValue("proyecto", "");
 
       if (firstInputRef.current) {
         const firstInput = firstInputRef.current.querySelector(
-          'input[name="proyecto"]'
+          'input[name="punto_venta"]'
         );
         if (firstInput) {
           firstInput.focus();
@@ -274,17 +274,17 @@ const FProyectosPuntosVenta: React.FC<IUserFormPrps> = React.memo(
             <div className="w-full flex items-center h-[4rem] ">
               <div className="input-container items-center rowForm w-full">
                 <div className="w-full ">
-                <SelectInputComponent
-                  label="Proyecto"
-                  name="proyecto"
-                  showRefresh={true}
-                  data={data && data[EnumGrid.codigo_proyecto]}
-                  control={control}
-                  entidad={["/api/proyectos/", "02"]}
-                  error={errors.proyecto}
-                  inputRef={firstInputRef}
-                  readOnly={isEditting}
-                  customWidth={"!ml-[1rem] !w-[38rem] "}
+                  <SelectInputComponent
+                    label="Punto de Venta"
+                    name="punto_venta"
+                    showRefresh={true}
+                    data={data && data[EnumGrid.punto_venta_id]}
+                    control={control}
+                    entidad={["/api/puntosventa/", "02"]}
+                    error={errors.punto_venta}
+                    inputRef={firstInputRef}
+                    readOnly={isEditting}
+                    customWidth={"!ml-[1rem] !w-[38rem]"}
                   />
                 </div>
               </div>
@@ -293,17 +293,17 @@ const FProyectosPuntosVenta: React.FC<IUserFormPrps> = React.memo(
               <div className="input-container items-center rowForm w-full">
                 <div className="w-full">
                   <SelectInputComponent
-                      label="Punto de Venta"
-                      name="punto_venta"
-                      showRefresh={true}
-                      data={data && data[EnumGrid.punto_venta_id]}
-                      control={control}
-                      entidad={["/api/puntosventa/", "02"]}
-                      error={errors.punto_venta}
-                      inputRef={firstInputRef}
-                      readOnly={isEditting}
-                      customWidth={"!ml-[1rem] !w-[38rem]"}
-                      />
+                    label="Proyecto"
+                    name="proyecto"
+                    showRefresh={true}
+                    data={data && data[EnumGrid.codigo_proyecto]}
+                    control={control}
+                    entidad={["/api/proyectos/", "02"]}
+                    error={errors.proyecto}
+                    inputRef={firstInputRef}
+                    readOnly={isEditting}
+                    customWidth={"!ml-[1rem] !w-[38rem] "}
+                    />
                 </div>
               </div>
 

@@ -15,12 +15,10 @@ import FProyectosPuntosVentaCopiar from "../forms/FProyectosPuntosVentaCopiar";
 
 
 export enum EnumGrid {
-  codigo_proyecto      = 1,
-  titulo_proyecto      = 2,
-  codigo_licitacion    = 3,
-  punto_venta_id       = 4,
-  punto_venta          = 5,
-  estado               = 6
+  punto_venta_id       = 1,
+  punto_venta          = 2,
+  codigo_proyecto      = 3,
+  titulo_proyecto      = 4,
 }
 const strEntidad = "Parametrización de Puntos de Venta ";
 const strEntidadExcel = "Parametrizacion_de_puntos_de_venta";
@@ -85,16 +83,16 @@ const MProyectosPuntosVenta: React.FC = () => {
           setEntities={setEntities}
           primaryKeyInputs={[
             {
-              name: "_p1",
-              label: "Proyecto",
-              type: "select",
-              selectUrl: "/api/proyectos/", styles:{with:" !w-[33rem]"},
-            },
-            {
               name      : "_p3",
               label     : "Punto de Venta",
               type      : "select",
               selectUrl : "/api/puntosventa/",
+            },
+            {
+              name: "_p1",
+              label: "Proyecto",
+              type: "select",
+              selectUrl: "/api/proyectos/", styles:{with:" !w-[33rem]"},
             },
           // { name: "_p2", label: "Código Proyecto", type: "text", styles:{with:" !w-[9rem]"}, },
             // { name: "_p3", label: "Código Licitacion", type: "text", styles:{with:"!w-[9rem]"} },

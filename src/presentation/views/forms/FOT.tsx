@@ -5,6 +5,7 @@ import { AppStore, useAppDispatch, useAppSelector } from '../../../redux/store';
 import 'react-tabs/style/react-tabs.css'; 
 import axios from 'axios';
 import {signal } from "@preact/signals-react";
+import { Button } from '@material-tailwind/react';
 
 
 import FOTGarantia from '../../components/OTForms/FOTGarantia';
@@ -1316,17 +1317,22 @@ useEffect(() => {
   
   return (
 
-    <div className='useFormContainer top-[1%] w-[94vw] relative h-[95vh] z-20'>
+    <div className='useFormContainer top-[10%] w-[94vw] relative h-[85vh] z-20'>
       <Tabs>
-        
-        <TabList className='flex items-center'>
-          <Tab className="custom-tab btnAreas">Óptica</Tab>
-          <Tab className="custom-tab btnAreas">Cliente</Tab>
-          <Tab className="custom-tab btnAreas text-white">Receta</Tab>
-          <Tab className="custom-tab btnAreas text-white">Cristales</Tab>
-          <Tab className="custom-tab btnAreas text-white">Armazones</Tab>
-          <Tab className="custom-tab">Bitácora</Tab>
-          <h1>Folio: {data && data[EnumGrid.folio]}</h1>
+        <TabList className='flex items-center top-[10]'>
+          <Tab className="custom-tab ">ÓPTICA</Tab>
+          <Tab className="custom-tab ">CLIENTE</Tab>
+          <Tab className="custom-tab ">RECETA</Tab>
+          <Tab className="custom-tab ">CRISTALES</Tab>
+          <Tab className="custom-tab ">ARMAZONES</Tab>
+          <Tab className="custom-tab ">BITÁCORA</Tab>
+          {/* <Tab className="custom-tab ">Óptica</Tab>
+          <Tab className="custom-tab ">Cliente</Tab>
+          <Tab className="custom-tab ">Receta</Tab>
+          <Tab className="custom-tab ">Cristales</Tab>
+          <Tab className="custom-tab ">Armazones</Tab>
+          <Tab className="custom-tab ">Bitácora</Tab> */}
+          <h1 className='tabFolioNumber'>Folio OT: {data && data[EnumGrid.folio]}</h1>
         </TabList>
 
 
@@ -1376,9 +1382,9 @@ useEffect(() => {
                 isMOT       && 
                 // isMotivo    &&  (
                   (
-                    <button className='bg-green-400 mx-4 text-white w-1/4' onClick={() => setShowGarantia(prev => !prev)}>
+                    <Button className='otActionButton bg-green-400' onClick={() => setShowGarantia(prev => !prev)}>
                       Garantia
-                    </button>
+                    </Button>
                 )}
 
                 {OTPermissions && 
@@ -1388,7 +1394,7 @@ useEffect(() => {
                 sumatoriaNivel1 === validationNivel1.value.length &&
                 (sumatoriaNivel2 === validationNivel2.value.length || data && data[EnumGrid.validar_parametrizacion_id] === "0" ) &&
                (
-                  <button className='bg-green-400 mx-4  text-white w-1/4 ' onClick={handleProcesarClick}>Procesar</button>
+                  <Button className='otActionButton bg-green-400' onClick={handleProcesarClick}>Procesar</Button>
                 )}
 
                 
@@ -1398,7 +1404,7 @@ useEffect(() => {
                 isEditting &&
                 OTPermissions[7] === "1" &&
                 (
-                  <button className='bg-yellow-400 mx-4   w-1/4 'onClick={handlePausarClick}>Pausar</button>
+                  <Button className='otActionButton bg-yellow-700' onClick={handlePausarClick}>Pausar</Button>
                 )}
 
                 {OTPermissions &&
@@ -1407,7 +1413,7 @@ useEffect(() => {
                 OTPermissions[8] === "1" &&
                 sumatoriaNivel1 === validationNivel1.value.length &&
                 data && data[EnumGrid.estado_id] > 1 && (
-                  <button className='bg-red-400 mx-4 text-white  w-1/4 ' onClick={()=>{setShowDerivacion((prev)=>!prev)}}>Derivar</button>
+                  <Button className='otActionButton bg-red-900' onClick={()=>{setShowDerivacion((prev)=>!prev)}}>Derivar</Button>
                 )}
 
 
@@ -1417,7 +1423,7 @@ useEffect(() => {
                 sumatoriaNivel1 === validacionNivel1.length && 
                 // (data && data[EnumGrid.estado_id] === 30 || data && data[EnumGrid.estado_id] === 40 ) && 
                 (
-                  <button className='bg-black mx-4 text-white  w-1/4' onClick={()=>handleAnular()}>Anular</button>
+                  <Button className='otActionButton bg-black' onClick={()=>handleAnular()}>Anular</Button>
                 )}
                 
                 {OTPermissions &&
@@ -1425,7 +1431,7 @@ useEffect(() => {
                  OTPermissions[10] === "1" &&
                 //  sumatoriaNivel1 === validationNivel1.value.length &&
                  (
-                  <button className=' w-1/4 bg-blue-200 text-white' onClick={handleIngresarClick}>Ingresar</button>
+                  <Button className='otActionButton bg-blue-500' onClick={handleIngresarClick}>Ingresar</Button>
                  )
                 
                 }

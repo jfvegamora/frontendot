@@ -1,4 +1,4 @@
-import { IconButton, Tooltip } from '@material-tailwind/react';
+import { IconButton, Tooltip, Button } from '@material-tailwind/react';
 import React, { useCallback } from 'react';
 
 import { SiAddthis } from 'react-icons/si';
@@ -111,7 +111,9 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
         )}
         {areaPermissions && areaPermissions[6] === '1' && escritura_lectura && (
           <Tooltip content={BUTTON_MESSAGES.procesar}>
-              <button className='bg-green-400 mx-4 transition-transform transform hover:scale-110 active:scale-95 w-[10rem] h-[2.5rem]  text-white ' onClick={handleProcesarMasivo}>Procesar</button>
+              {/* <button className='bg-green-400 mx-4 transition-transform transform hover:scale-110 active:scale-95 w-[10rem] h-[2.5rem]  text-white '  */}
+              <Button color="green" className='otActionButton'
+              onClick={handleProcesarMasivo}>Procesar</Button>
           </Tooltip>
         )}
 

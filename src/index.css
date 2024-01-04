@@ -298,6 +298,19 @@ select::-ms-expand {
   margin-bottom: 20px !important;
 }
 
+.mantenedorHeadOT {
+  display: flex;
+  align-items: center;
+  background-color: rgb(255 255 255 / 0);
+  border-color: #f9b17a;
+  border-width: 1px;
+  border-radius: 10px;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+  padding: 10px 10px 10px 10px;
+  margin: 0 auto;
+  margin-bottom: 10px !important;
+}
+
 .mantenedorHeadFlex {
   display: flex;
   flex-direction: column;
@@ -405,7 +418,16 @@ select::-ms-expand {
 .primaryBtnIconButton:hover, .primaryKeyIconButton:hover{
   transform: scale(1.2); 
 }
- 
+
+.otActionButton:hover{
+  transform: scale(1.2); 
+}
+
+.otActionButton{
+  box-shadow: 0 0 10px  rgb(66 71 105 / 0.9);
+  font-size: medium;
+}
+
 .userFormBtnSubmit:hover{
   transform: scale(1.05); 
 }
@@ -643,15 +665,29 @@ input:checked + .slider:before {
 
 /*========CLASSES TABS=========*/
 .custom-tab {
-  padding: 10px 20px;
   font-size: 16px;
   font-weight: bold;
-  width: 10%;
-  background-color: orange;
+  color: white;
+  text-align: center;
+  width: 12%;
+  background-color: rgb(249 177 122 / 0.6); 
+  /* border: 1px solid; */
+  border-color: white;
+  border-top-right-radius: 20px;
+  padding: 10px 20px;
+  margin: 0.5rem 0.1rem 0 0;
 }
 
 .custom-tab:focus{  
-  background-color: orangered; 
+  background-color: #f9b17a; 
+}
+
+.tabFolioNumber{
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin-left: 1rem;
+
 }
 
 
