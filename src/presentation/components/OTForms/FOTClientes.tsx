@@ -177,10 +177,8 @@ const FOTClientes:React.FC<IClientes> = ({
 
     return (
     <form action="">
-        <div className='w-full h-[80vh]  labelForm rounded-lg border radioComponent !mt-8'>
-
-
-            <div className="w-full !mt-10 mx-auto items-center flex ">
+        <div className='w-full frameOTForm !h-[33rem]'>
+            <div className="w-full flex items-center rowForm !h-[4rem]">
                 <div className="w-[80%]      flex mx-auto">
                     <div className="input-container items-center rowForm w-[15%]">
                         <div className="w-full !mt-4">
@@ -215,7 +213,7 @@ const FOTClientes:React.FC<IClientes> = ({
                         </div>
                     </div>
                     <div className="input-container items-center rowForm w-[40%]">
-                        <div className="w-full !mt-[1.6rem] ml-4 ">
+                        <div className="w-full !mt-[1rem] ml-4 ">
                             <SelectInputComponent
                                 label="Establecimiento"
                                 name="establecimiento_id"
@@ -237,14 +235,8 @@ const FOTClientes:React.FC<IClientes> = ({
                 </div>
             </div>
 
-
-
-            
-
-            <div className="w-[100%]  h-[27rem] flex items-center">
-                
-                <div className="w-[50%] h-[75%] -mt-14 ml-8 items-center">
-
+            <div className="w-full flex items-center rowForm !h-[26rem]">
+                <div className="w-[50%] ml-8 items-center">
                     <div className='w-[89%] mx-auto !mt-2 !mb-4 flex items-center  h-1/2'>
                         <div className="w-full flex  !ml-[5rem]">
                             <div className="w-[40%]  ">
@@ -289,7 +281,7 @@ const FOTClientes:React.FC<IClientes> = ({
                                 <div className="w-[44%]">
                                 <TextInputInteractive
                                     type="date"
-                                    label="Fecha de nacimiento"
+                                    label="Fecha nacimiento"
                                     name="cliente_fecha_nacimiento"
                                     handleChange={handleInputChange}
                                     data={formValues ? formValues["cliente_fecha_nacimiento"]  : data && data[EnumGrid.cliente_fecha_nacimiento]}
@@ -303,7 +295,7 @@ const FOTClientes:React.FC<IClientes> = ({
                                 <div className="w-[47%] ml-12      ">
                                 <TextInputInteractive
                                     type="text"
-                                    label="Telefono"
+                                    label="Teléfono"
                                     name="cliente_telefono"
                                     handleChange={handleInputChange}
                                     data={formValues ? formValues["cliente_telefono"]  : data && data[EnumGrid.cliente_telefono]}
@@ -340,23 +332,8 @@ const FOTClientes:React.FC<IClientes> = ({
                     </div>
                 </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-                <div className="w-[31%] rounded-lg border -mt-4 border-blue-500 ml-8  mx-auto items-center grid relative">
-                    
+                <div className="w-[31%] items-center relative dirCliente">
                     <label className='labelForm w-[25%] top-[-8%] left-[2%] pl-8 absolute z-10'>Direccion</label>
-                     
-
                         <RegProCom
                          name="cliente_comuna"
                          control={control}
@@ -371,7 +348,7 @@ const FOTClientes:React.FC<IClientes> = ({
                     <div className="-mt-[1.3rem] w-[101%] rowForm">
                         <TextInputInteractive
                             type="text"
-                            label="N° calle"
+                            label="Calle, casa, villa"
                             onlyRead={isEditting}
                             name="cliente_direccion"
                             handleChange={handleInputChange}
@@ -385,8 +362,6 @@ const FOTClientes:React.FC<IClientes> = ({
                 </div>
 
             </div>
-
-
         </div>
     </form>
   )

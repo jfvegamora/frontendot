@@ -180,8 +180,8 @@ const FOTOptica:React.FC<IOptica> = ({
 // console.log( !(motivo_ot.value === 'Garantía') && permiso_resolucion_garantia)
 return (
     <form action="">
-        <div className='w-full labelForm rounded-lg border radioComponent'>
-            <div className="w-full flex items-center justify-between rowForm   !h-[6rem]">
+        <div className='w-full frameOTForm'>
+            <div className="w-full flex items-center rowForm !h-[5rem] justify-between">
                 <div className="w-[50%] mt-6 mb-8 ml-[2rem]">
                     <SelectInputComponent
                         label="Proyecto"
@@ -199,31 +199,24 @@ return (
                 </div>
                 {isEditting && !onlyRead && (
                     <>
-                 
-                            <div className="w-[25%] mt-4 mb-8 ml-4 px-[1.5rem] " >
-                                <div className=" items-center flex">
-                                    <Switch onChange={(e)=>handleSwitchValidation(e)} checked={isToggleValidacion} disabled={!(permiso_usuario_estado_validacion && permiso_areas_estado_validacion)}/>
-                                    <label className='ml-2'>Validar Parametrización</label>
-                                </div>
+                        <div className="w-[25%] mt-4 mb-8 ml-4 px-[1.5rem] " >
+                            <div className=" items-center flex">
+                                <Switch onChange={(e)=>handleSwitchValidation(e)} checked={isToggleValidacion} disabled={!(permiso_usuario_estado_validacion && permiso_areas_estado_validacion)}/>
+                                <label className='ml-2'>Validar Parametrización</label>
                             </div>
-                  
-                            <div className="w-[25%] mt-4 mb-8 ml-4 px-[1.5rem] ">
-                                <div className=" items-center flex">
-                                    <Switch onChange={(e)=>handleSwitchImpresion(e)} checked={isToggleImpresion} disabled={!(permiso_usuario_estado_impresion && permisos_areas_estado_immpresion)}/>
-                                    <label className='ml-2'>OT Impresa</label>
-                                </div>
+                        </div>
+                
+                        <div className="w-[25%] mt-4 mb-8 ml-4 px-[1.5rem] ">
+                            <div className=" items-center flex">
+                                <Switch onChange={(e)=>handleSwitchImpresion(e)} checked={isToggleImpresion} disabled={!(permiso_usuario_estado_impresion && permisos_areas_estado_immpresion)}/>
+                                <label className='ml-2'>OT Impresa</label>
                             </div>
-                        
-                    
+                        </div>
                     </>
                 )}
-                
-            
-            
-            
-            
             </div>
-            <div className='w-full mt-10  flex items-center rowForm !h-[5rem]'>
+
+            <div className="w-full flex items-center rowForm !h-[4rem]">
                 <div className="w-[30%] ml-[2rem] -mt-[0.3rem]">
                     <SelectInputComponent
                         label="Punto de Venta"
@@ -283,7 +276,7 @@ return (
                 
             </div>
 
-            <div className="w-[100%]  flex items-center rowForm !mt-20 !h-[5rem] ">
+            <div className="w-full flex items-center rowForm !h-[4rem] ">
 
                 <div className="w-[15%] ml-4">
                     <TextInputInteractive
@@ -342,10 +335,10 @@ return (
             
             </div>
 
-            <div className="w-full mt-10   !h-[17rem] flex items-center rowForm">
+            <div className="w-full flex items-center rowForm !h-[17rem]">
                 <div className="w-[90%] h-[90%]  ml-8 mx-auto flex flex-col justify-around items-center ">
                     <div className="flex items-center w-[101%] h-[46%] mx-auto rounded-lg radioComponent relative">
-                        <label className='labelForm absolute left-4 text-center top-[-20%] w-[10%]'>Garantia</label>
+                        <label className='labelForm absolute left-4 text-center top-[-20%] w-[10%]'>Garantía</label>
                         <div className="w-[35%] ml-[1rem] ">
                             <SelectInputTiposComponent
                                 label="Motivo"
@@ -377,7 +370,7 @@ return (
                         <div className="w-[35%] mr-[1rem]">
                             <RadioButtonComponent
                                 control={control}
-                                label="Resolucion"
+                                label="Resolución"
                                 name="resolucion_garantia_id"
                                 // data={data ? data[EnumGrid.motivo] : formValues["motivo"]}
                                 data={formValues ? formValues["resolucion_garantia_id"] : data && data[EnumGrid.resolucion_garantia_id] === 0 ? 'Rechazada' : 'Aceptada'}
@@ -459,8 +452,6 @@ return (
                     </div>
                 </div>
             </div>
-
-
         </div>
     </form>
   )
