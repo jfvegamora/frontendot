@@ -27,7 +27,8 @@ export const table_head_OT_diaria2 = [
     key: "estado",
     visible: true,
     alignment: "text-center",
-    width: "w-[8rem]"
+    width: "w-[8rem]",
+    color: true
   },
   {
     cell: "Título Proyecto",

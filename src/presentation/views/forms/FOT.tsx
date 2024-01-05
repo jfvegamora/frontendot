@@ -354,7 +354,7 @@ const FOT:React.FC<IFOTProps> = ({
   let permiso_usuario_estado_validacion   = permisosCampos && permisosCampos[3] === "1" ? true : false;
   let permiso_usuario_resolucion_garantia = permisosCampos && permisosCampos[4] === "1" ? true : false;
   let permiso_usuario_grupo_dioptria      = permisosCampos && permisosCampos[5] === "1" ? true : false;
-  let permiso_usuario_receta             = permisosCampos && permisosCampos[6] === "1" ? true : false;
+  let permiso_usuario_receta              = permisosCampos && permisosCampos[6] === "1" ? true : false;
 
 
   
@@ -473,7 +473,7 @@ const FOT:React.FC<IFOTProps> = ({
   //   }
   // }
   
-
+  console.log(data && data[EnumGrid.estado_id])
   //Metodo editar query04
   const updateOT =async (
     jsonData:any,
@@ -506,6 +506,13 @@ const FOT:React.FC<IFOTProps> = ({
     console.log(formValues)
     console.log(jsonData.numero_receta)
 
+    console.log(a1_armazon.value)
+
+    console.log(jsonData.cristal1_color_id)
+
+    console.log(typeof jsonData.cristal1_color_id  === 'undefined' ? data && data[EnumGrid.cristal1_color_id] : parseInt(jsonData.cristal1_color_id))
+
+    console.log(data && data[EnumGrid.cristal1_color_id])
 
     
     const fields = [
@@ -514,59 +521,63 @@ const FOT:React.FC<IFOTProps> = ({
       `estado=${_estado}`,
       `validar_parametrizacion=${estado_validacion}`,
       `estado_impresion=${estado_impresion}`,
-      `proyecto="${jsonData.proyecto_codigo                                                !== undefined ? jsonData.proyecto_codigo : ""}"`,
-      (`establecimiento=${data && data[EnumGrid.establecimiento_id]                        !== undefined ? data[EnumGrid.establecimiento_id] : 0 }`),
-      (`cliente="${!cliente_rut.value.trim()                                               === false     ? cliente_rut.value : "" }"`),
-      (`fecha_atencion="${!fecha_atencion_signal.value.trim()                              === false     ? fecha_atencion_signal.value : "" }"`),
-      (`fecha_entrega_taller="${!fecha_entrega_taller.value.trim()                         === false     ? fecha_entrega_taller.value : "" }"`),
-      (`fecha_despacho="${!fecha_despacho.value.trim()                                     === false     ? fecha_despacho.value : "" }"`),
-      (`fecha_entrega_cliente="${!fecha_entrega_cliente.value.trim()                       === false     ? fecha_entrega_cliente.value : ""}"`),
-      (`punto_venta=${jsonData.punto_venta_id                                              !== undefined ? jsonData.punto_venta_id : 0 }`),
-      (`numero_receta=${data && data[EnumGrid.numero_receta]                               !== undefined ? data[EnumGrid.numero_receta] : 0 }`),
-      (`fecha_receta="${jsonData.fecha_receta                                              !== undefined ? jsonData.fecha_receta : "" }"`),
-      (`tipo_anteojo=${!tipo_de_anteojo.value.trim()                                       === false     ? tipo_de_anteojo.value : 0 }`),
+      `proyecto="${jsonData.proyecto_codigo                                                       !== undefined ? jsonData.proyecto_codigo : ""}"`,
+      (`establecimiento=${data && data[EnumGrid.establecimiento_id]                               !== undefined ? data[EnumGrid.establecimiento_id] : 0 }`),
+      (`cliente="${!cliente_rut.value.trim()                                                      === false     ? cliente_rut.value : "" }"`),
+      (`fecha_atencion="${!fecha_atencion_signal.value.trim()                                     === false     ? fecha_atencion_signal.value : "" }"`),
+      (`fecha_entrega_taller="${!fecha_entrega_taller.value.trim()                                === false     ? fecha_entrega_taller.value : "" }"`),
+      (`fecha_despacho="${!fecha_despacho.value.trim()                                            === false     ? fecha_despacho.value : "" }"`),
+      (`fecha_entrega_cliente="${!fecha_entrega_cliente.value.trim()                              === false     ? fecha_entrega_cliente.value : ""}"`),
+      (`punto_venta=${jsonData.punto_venta_id                                                     !== undefined ? jsonData.punto_venta_id : 0 }`),
+      (`numero_receta=${data && data[EnumGrid.numero_receta]                                      !== undefined ? data[EnumGrid.numero_receta] : 0 }`),
+      (`fecha_receta="${jsonData.fecha_receta                                                     !== undefined ? jsonData.fecha_receta : "" }"`),
+      (`tipo_anteojo=${!tipo_de_anteojo.value.trim()                                              === false     ? tipo_de_anteojo.value : 0 }`),
 
 
-      (`a1_od_esf=${typeof dioptrias_receta.value.a1_od.esf                                !== 'object' ? dioptrias_receta.value.a1_od.esf : 0 }`),
-      (`a1_od_cil=${typeof dioptrias_receta.value.a1_od.cil                                !== 'object' ? dioptrias_receta.value.a1_od.cil : 0 }`),
-      (`a1_od_eje=${typeof dioptrias_receta.value.a1_od.eje                                !== 'object' ? dioptrias_receta.value.a1_od.eje : 0 }`),
-      (`a1_od_ad =${typeof dioptrias_receta.value.a1_od.ad                                 !== 'object' ? dioptrias_receta.value.a1_od.ad : 0 }`),
-      (`a1_oi_esf=${typeof dioptrias_receta.value.a1_oi.esf                                !== 'object' ? dioptrias_receta.value.a1_oi.esf : 0 }`),
-      (`a1_oi_cil=${typeof dioptrias_receta.value.a1_oi.cil                                !== 'object' ? dioptrias_receta.value.a1_oi.cil : 0 }`),
-      (`a1_oi_eje=${typeof dioptrias_receta.value.a1_oi.eje                                !== 'object' ? dioptrias_receta.value.a1_oi.eje : 0 }`),
-      (`a1_oi_ad =${typeof dioptrias_receta.value.a1_oi.ad                                 !== 'object' ? dioptrias_receta.value.a1_oi.ad : 0 }`),
-      (`a1_dp=${jsonData.a1_dp                                                             !== '' ? jsonData.a1_dp : 0 }`),
-      (`a1_alt=${jsonData.a1_alt                                                           !== '' ? jsonData.a1_alt : 0 }`),
+      (`a1_od_esf=${typeof dioptrias_receta.value.a1_od.esf                                       !== 'object' ? dioptrias_receta.value.a1_od.esf : 0 }`),
+      (`a1_od_cil=${typeof dioptrias_receta.value.a1_od.cil                                       !== 'object' ? dioptrias_receta.value.a1_od.cil : 0 }`),
+      (`a1_od_eje=${typeof dioptrias_receta.value.a1_od.eje                                       !== 'object' ? dioptrias_receta.value.a1_od.eje : 0 }`),
+      (`a1_od_ad =${typeof dioptrias_receta.value.a1_od.ad                                        !== 'object' ? dioptrias_receta.value.a1_od.ad : 0 }`),
+      (`a1_oi_esf=${typeof dioptrias_receta.value.a1_oi.esf                                       !== 'object' ? dioptrias_receta.value.a1_oi.esf : 0 }`),
+      (`a1_oi_cil=${typeof dioptrias_receta.value.a1_oi.cil                                       !== 'object' ? dioptrias_receta.value.a1_oi.cil : 0 }`),
+      (`a1_oi_eje=${typeof dioptrias_receta.value.a1_oi.eje                                       !== 'object' ? dioptrias_receta.value.a1_oi.eje : 0 }`),
+      (`a1_oi_ad =${typeof dioptrias_receta.value.a1_oi.ad                                        !== 'object' ? dioptrias_receta.value.a1_oi.ad : 0 }`),
+      (`a1_dp=${jsonData.a1_dp                                                                    !== ''       ? jsonData.a1_dp : 0 }`),
+      (`a1_alt=${jsonData.a1_alt                                                                  !== ''       ? jsonData.a1_alt : 0 }`),
 
 
-      `a1_grupo=${a1_grupo}`,
+      `a1_grupo_od=${typeof A1_GRUPO_OD.value                                                     !== 'object' ? A1_GRUPO_OD.value : ""}`,
+      `a1_grupo_oI=${typeof A1_GRUPO_OI.value                                                     !== 'object' ? A1_GRUPO_OI.value : ""}`,
       
-      (`a2_od_esf=${typeof a2_od_esf.value                                                 !== 'object' ? a2_od_esf.value : 0 }`),
-      (`a2_od_cil=${typeof dioptrias_receta.value.a2_od.cil                                !== 'object' ? dioptrias_receta.value.a2_od.cil : 0 }`),
-      (`a2_od_eje=${typeof dioptrias_receta.value.a2_od.eje                                !== 'object' ? dioptrias_receta.value.a2_od.eje : 0 }`),
-      (`a2_oi_esf=${typeof dioptrias_receta.value.a2_oi.esf                                !== 'object' ? dioptrias_receta.value.a2_oi.esf : 0 }`),
-      (`a2_oi_cil=${typeof dioptrias_receta.value.a2_oi.cil                                !== 'object' ? dioptrias_receta.value.a2_oi.cil : 0 }`),
-      (`a2_oi_eje=${typeof dioptrias_receta.value.a2_oi.eje                                !== 'object' ? dioptrias_receta.value.a2_oi.eje : 0 }`),
-      (`a2_dp=${jsonData.a2_dp                                                             !== '' ? jsonData.a2_dp : 0 }`),
+      (`a2_od_esf=${typeof a2_od_esf.value                                                        !== 'object' ? a2_od_esf.value : 0 }`),
+      (`a2_od_cil=${typeof a2_od_cil.value                                                        !== 'object' ? a2_od_cil.value : 0 }`),
+      (`a2_od_eje=${typeof a2_od_eje.value                                                        !== 'object' ? a2_od_eje.value : 0 }`),
+      (`a2_oi_esf=${typeof a2_oi_esf.value                                                        !== 'object' ? a2_oi_esf.value : 0 }`),
+      (`a2_oi_cil=${typeof a2_oi_cil.value                                                        !== 'object' ? a2_oi_cil.value : 0 }`),
+      (`a2_oi_eje=${typeof a2_oi_eje.value                                                        !== 'object' ? a2_oi_eje.value : 0 }`),
+      (`a2_dp=${jsonData.a2_dp                                                                    !== ''       ? jsonData.a2_dp : 0 }`),
 
-      `a2_grupo=${a2_grupo}`,
       
-      (`anteojo1_opcion_vta=${jsonData.a1_opcion_vta_id                                    !== undefined ? jsonData.a1_opcion_vta_id : 0 }`),
-      (`anteojo1_armazon="${jsonData.a1_armazon_id                                         !== undefined ? jsonData.a1_armazon_id : "" }"`),
-      (`anteojo2_opcion_vta=${jsonData.a2_opcion_vta_id                                    !== undefined ? jsonData.a2_opcion_vta_id : 0 }`),
-      (`anteojo2_armazon="${jsonData.a2_armazon_id                                         !== undefined ? jsonData.a2_armazon_id : "" }"`),
-      (`anteojo3_opcion_vta=${jsonData.a3_opcion_vta_id                                    !== undefined ? jsonData.a3_opcion_vta_id : 0 }`),
-      (`anteojo3_armazon="${jsonData.a3_armazon_id                                         !== undefined ? jsonData.a3_armazon_id : "" }"`),
+      `a2_grupo_od=${typeof A2_GRUPO_OD.value                                                     !== 'object' ? A2_GRUPO_OD.value : ""}`,
+      `a2_grupo_oI=${typeof A2_GRUPO_OI.value                                                     !== 'object' ? A2_GRUPO_OI.value : ""}`,
+      
+      
+      (`anteojo1_opcion_vta=${0}`),
+      (`anteojo1_armazon="${typeof a1_armazon.value                                               !== 'object' ? a1_armazon.value : "" }"`),
+      (`anteojo2_opcion_vta=${0}`),
+      (`anteojo2_armazon="${typeof a2_armazon.value                                               !== 'object' ? a2_armazon.value : "" }"`),
+      (`anteojo3_opcion_vta=${0}`),
+      (`anteojo3_armazon="${typeof a3_armazon.value                                               !== 'object' ? a3_armazon.value : "" }"`),
 
-      (`cristales1_opcion_vta=${jsonData.cristal1_opcion_vta_id                            !== undefined ? jsonData.cristal1_opcion_vta_id : 0 }`),
-      (`cristales1_diseno=${jsonData.cristal1_diseno_id                                    !== undefined ? jsonData.cristal1_diseno_id : 0 }`),
-      (`cristales1_indice=${jsonData.cristal1_indice_id                                    !== undefined ? jsonData.cristal1_indice_id : 0 }`),
-      (`cristales1_material=${jsonData.cristal1_material_id                                !== undefined ? jsonData.cristal1_material_id : 0 }`),
-      (`cristales1_tratamiento=${jsonData.cristal1_tratamiento_id                          !== undefined ? jsonData.cristal1_tratamiento_id : 0 }`),
-      (`cristales1_color=${jsonData.cristal1_color_id                                      !== undefined ? jsonData.cristal1_color_id : 0 }`),
-      (`cristales1_od="${jsonData.cristal1_od                                              !== undefined ? jsonData.cristal1_od : "" }"`),
-      (`cristales1_oi="${jsonData.cristal1_oi                                              !== undefined ? jsonData.cristal1_oi : "" }"`),
-      (`cristales1_tratamiento_adicional=${jsonData.cristal1_tratamiento_adicional_id      !== undefined ? jsonData.cristal1_tratamiento_adicional_id : 0 }`),
+      (`cristales1_opcion_vta=${0}`),
+      (`cristales1_diseno=${typeof jsonData.cristal1_diseno_id                                    === 'undefined' ? data && data[EnumGrid.cristal1_diseno_id]                : parseInt(jsonData.cristal1_diseno_id)}`),
+      (`cristales1_indice=${typeof jsonData.cristal1_indice_id                                    === 'undefined' ? data && data[EnumGrid.cristal1_indice_id]                : parseInt(jsonData.cristal1_indice_id)}`),
+      (`cristales1_material=${typeof jsonData.cristal1_material_id                                === 'undefined' ? data && data[EnumGrid.cristal1_material_id]              : parseInt(jsonData.cristal1_material_id)}`),
+      (`cristales1_tratamiento=${typeof jsonData.cristal1_tratamiento_id                          === 'undefined' ? data && data[EnumGrid.cristal1_tratamiento_id]           : parseInt(jsonData.cristal1_tratamiento_id)}`),
+      (`cristales1_color=${typeof jsonData.cristal1_color_id                                      === 'undefined' ? data && data[EnumGrid.cristal1_color_id]                 : parseInt(jsonData.cristal1_color_id) }`),
+      (`cristales1_od="${typeof jsonData.cristal1_od                                              === 'undefined' ? jsonData.cristal1_od : "" }"`),
+      (`cristales1_oi="${typeof jsonData.cristal1_oi                                              === 'undefined' ? jsonData.cristal1_oi : "" }"`),
+      (`cristales1_tratamiento_adicional=${typeof jsonData.cristal1_tratamiento_adicional_id      === 'undefined' ? data && data[EnumGrid.cristal1_tratamiento_adicional_id] : parseInt(jsonData.cristal1_tratamiento_adicional_id)}`),
 
       
       (`cristales2_opcion_vta=${jsonData.cristal2_opcion_vta_id                            !== undefined ? jsonData.cristal2_opcion_vta_id : 0 }`),
@@ -1283,6 +1294,22 @@ useEffect(()=>{
     a2_oi_esf.value = data[EnumGrid.a2_oi_esf]
     a2_oi_cil.value = data[EnumGrid.a2_oi_cil]
     a2_oi_eje.value = data[EnumGrid.a2_oi_eje]
+
+    A1_GRUPO_OD.value = data[EnumGrid.a1_grupo_od] 
+    A1_GRUPO_OI.value = data[EnumGrid.a1_grupo_oI]
+    A2_GRUPO_OD.value = data[EnumGrid.a2_grupo_od]
+    A2_GRUPO_OI.value = data[EnumGrid.a2_grupo_oi]
+
+
+    a1_armazon.value = data[EnumGrid.a1_armazon_id]
+    a2_armazon.value = data[EnumGrid.a2_armazon_id]
+    a3_armazon.value = data[EnumGrid.a3_armazon_id]
+
+    A1_CR_OD.value   = data[EnumGrid.cristal1_od]
+    A1_CR_OI.value   = data[EnumGrid.cristal1_oi]
+    A2_CR_OD.value   = data[EnumGrid.cristal2_od] 
+    A2_CR_OI.value   = data[EnumGrid.cristal2_oi] 
+
 }
 },[data])
 

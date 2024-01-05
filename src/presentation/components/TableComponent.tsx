@@ -13,7 +13,7 @@ import OTGrillaButtons from "./OTGrillaButtons";
 // import { ExportCSV } from "./ExportToCsv";
 
 interface ITableComponentProps<T> {
-  tableHead: { cell: JSX.Element | string; key: string; visible: boolean; width?:string; alignment?:string }[];
+  tableHead: { cell: JSX.Element | string; key: string; visible: boolean; width?:string; alignment?:string, color?:boolean }[];
   data?: T[];
   renderButtons?: (item: any) => React.ReactNode;
   handleSelectChecked?: (id: number) => void;
@@ -136,14 +136,14 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
     // }, []);
     
 
-    const renderTextCell = (text: string, alignment?:string, type?:number) => {
+    const renderTextCell = (text: string, alignment?:string, type?:number, color2?:boolean) => {
 
       const cellStyle = {
         textAlign:alignment
       }
       // console.log(type)
       return(
-        <Typography variant="small" color="blue-gray" className={`gridText h-[2.7rem]  py-2  ${type === 1 ? '!text-white': ''} `} style={cellStyle}>
+        <Typography variant="small" color="blue-gray" className={`gridText h-[2.7rem]  py-2  ${(type === 1 && color2) ? '!text-white': 'text-black'} `} style={cellStyle}>
           {text !== null && text !== undefined ? text.toString() : ""}
         </Typography>
       )
@@ -229,6 +229,8 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
               // const id = [3, 3];
               // console.log('rowData', rowData)
               const folio     = rowData[1]
+              console.log(rowData)
+              console.log(rowIndex)
             
               return (
                 <tr key={rowIndex} className="overflow-hidden">
@@ -236,22 +238,26 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                     // console.log("col", col);
                     const visible   = tableHead && tableHead[col].visible;
                     const alignment = tableHead && tableHead[col].alignment;
+                    const color2     = tableHead && tableHead[col].color;
+
+
+                  
                     // console.log(folio)
                     // console.log(rowData[5])
-                    const color = rowData[34] === 'S' ? "gray" : "";
-                    const type = color === 'gray' ? 1: 0
+                    const color = (rowData[34] === 'S' ? "bg-black" : "");
+                    const type = color === 'bg-black' ? 1: 0
                   
                     return (
                       visible && (
                         <td
-                        className={`gridTableData  bg-${color}-500   ${alignment}`} 
+                        className={`gridTableData  ${color2 ? color : ""}   ${alignment}`} 
                           key={col}
                           id={tableHead[col].key}
                         >
                           
                           {col === 0
                             ? renderCheckboxCell(rowIndex, folio)
-                            : renderTextCell(row, '', type)}
+                            : renderTextCell(row, '', type, color2)}
                         </td>
                       )
                     );

@@ -84,7 +84,7 @@ return (
             maxLength={maxLength}
             onBlur={(e) => handleInputChange(e)}
             ref={inputRef}
-            className={`${className ? className : "custom-input"}   ${onlyRead ? "bg-gray-200 opacity-70 cursor-not-allowed" : ""}`}
+            className={`${className ? className : "custom-input"}   ${onlyRead ? "!bg-gray-200 opacity-80 cursor-not-allowed " : ""}`}
             tabIndex={tabIndex || 1}
             placeholder={type === 'date' ? "dd-mm-yyyy" : ''}
             autoComplete="off"
