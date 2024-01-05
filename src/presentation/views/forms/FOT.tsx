@@ -1361,7 +1361,7 @@ useEffect(() => {
   
   return (
 
-    <div className='useFormContainer top-[10%] w-[94vw] relative h-[85vh] z-20'>
+    <div className='useFormContainer useFormContainerOT top-[10%] w-[94vw] relative h-[82vh] z-20'>
       <Tabs>
         <TabList className='flex items-center top-[10]'>
           <Tab className="custom-tab ">ÓPTICA</Tab>
@@ -1381,7 +1381,11 @@ useEffect(() => {
 
 
    <Suspense fallback={<div className="flex items-center justify-center h-screen"><Spinner className="h-12 w-12" style={{ color: '#f39c12' }} /></div>}>
-      <div className='top-0 absolute right-3 text-2xl cursor-pointert' onClick={()=>{handleCloseForm()}}>X</div>
+      <div className='top-0 absolute right-3 text-2xl cursor-pointert' onClick={()=>{handleCloseForm()}}>
+          <button onClick={closeModal} className="userFormBtnClose">
+            X
+          </button>
+      </div>
             <TabPanel onSelect={loadFormData}>
               <FOTOptica onlyRead={onlyRead} setIsMotivo={setIsMotivo} isEditting={isEditting} data={data && data} formValues={formValues["optica"]} control={control} setToggle={setToggle}  onDataChange={(data:any) => handleFormChange(data , 'optica')} permiso_areas_resolucion_garantia={permiso_areas_resolucion_garantia}    permisos_areas_estado_immpresion={permiso_areas_estado_impresion} permiso_areas_estado_validacion={permiso_areas_estado_validacion} permiso_usuario_estado_impresion={permiso_usuario_estado_impresion} permiso_usuario_estado_validacion={permiso_usuario_estado_validacion} permiso_usuario_resolucion_garantia={permiso_usuario_resolucion_garantia} />
             </TabPanel>
@@ -1420,7 +1424,7 @@ useEffect(() => {
           )}
 
 
-          <div className='flex items-center mx-auto  justify-around w-1/2 '>
+          <div className='flex items-center mx-auto mt-[1.5rem] justify-around w-1/2 '>
         
                 {isEditting && 
                 isMOT       && 

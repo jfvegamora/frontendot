@@ -35,13 +35,15 @@ const FOTBitacora:React.FC<IBitacora> = ({
     fetchData()
   },[])
   return (
-    <div className='scroll !h-[37rem]'>
+    <div className='frameOTForm '>
+    <div className='scroll !h-[32rem]'>
         <TableComponent
             tableHead={table_head_OT_bitacora}
             entidad={'bitacora'}
             idMenu={22}
             data={dataBitacora}
         />
+    </div>
     </div>
   )
 }

@@ -95,108 +95,83 @@ const FOTReceta:React.FC<IReceta> = ({
 //   inputName.value = 90  
   return (
     <form>
-        <div className="w-full labelForm  rounded-lg px-8 flex flex-col justify-between !h-[80vh]  py-4 border radioComponent">
-            <div className="w-full flex items-center rowForm ">
-                <div className="w-[20%] -ml-4">
-                        <SelectInputComponent
-                            label="Tipo de Anteojo"
-                            name="tipo_anteojo_id"
-                            showRefresh={true}
-                            isOT={true}
-                            handleSelectChange={handleInputChange}
-                            data={formValues ? formValues["tipo_anteojo_id"] : data && data[EnumGrid.tipo_anteojo_id]}
-                            control={control}
-                            entidad={["/api/tipos/", "02","OTTipoAnteojo"]}
-                            // entidad={["/api/ot/", "12","ESF", "_p3"]}
-                            // error={errors.establecimiento}
-                            customWidth={"345px"}
-                            readOnly={isEditting}
-                        />
-
-                        
+        <div className="w-full frameOTForm">
+            <div className="w-full flex items-center rowForm !h-[5rem]">
+                <div className="w-[23%]  !ml-[1rem]">
+                    <SelectInputComponent
+                        label="Tipo Anteojo"
+                        name="tipo_anteojo_id"
+                        showRefresh={true}
+                        isOT={true}
+                        handleSelectChange={handleInputChange}
+                        data={formValues ? formValues["tipo_anteojo_id"] : data && data[EnumGrid.tipo_anteojo_id]}
+                        control={control}
+                        entidad={["/api/tipos/", "02","OTTipoAnteojo"]}
+                        // entidad={["/api/ot/", "12","ESF", "_p3"]}
+                        // error={errors.establecimiento}
+                        customWidth={"345px"}
+                        readOnly={isEditting}
+                    />
                 </div>
-                {/* <div className="w-[20%] -ml-4">
-                        <OTListBox
-                            label="Tipo de Anteojo"
-                            name="tipo_anteojo_id"
-                            showRefresh={true}
-                            isOT={true}
-                            handleSelectChange={handleInputChange}
-                            data={formValues ? formValues["tipo_anteojo_id"] : data && data[EnumGrid.tipo_anteojo_id]}
-                            control={control}
-                            // entidad={["/api/tipos/", "02","OTTipoAnteojo"]}
-                            entidad={["/api/ot/", "12","ESF", "_p3"]}
-                            // error={errors.establecimiento}
-                            customWidth={"345px"}
-                            readOnly={onlyRead}
-                        />
-                </div> */}
-                <div className="w-[27%] ">
-                                <TextInputComponent
-                                    type="number"
-                                    label="Numero de receta"
-                                    name="numero_receta"
-                                    handleChange={handleInputChange}
-                                    data={formValues ? formValues["numero_receta"] : data && data[EnumGrid.numero_receta]}
-                                    control={control}
-                                    isOT={true}
-                                    onlyRead={isEditting}
-                                    // error={errors.fecha_nacimiento}
-                                />
+                <div className="w-[20%] ">
+                    <TextInputComponent
+                        type="number"
+                        label="Numero de receta"
+                        name="numero_receta"
+                        handleChange={handleInputChange}
+                        data={formValues ? formValues["numero_receta"] : data && data[EnumGrid.numero_receta]}
+                        control={control}
+                        isOT={true}
+                        onlyRead={isEditting}
+                        // error={errors.fecha_nacimiento}
+                    />
                 </div>
-                <div className="w-[15%] ml-4 justify-between">
-                                <TextInputComponent
-                                    type="number"
-                                    label="Total"
-                                    name="total"
-                                    handleChange={handleInputChange}
-                                    data={formValues ? formValues["total"] : data && data[EnumGrid.total]}
-                                    control={control}
-                                    isOT={true}
-                                    onlyRead={isEditting}
-                                    // error={errors.fecha_nacimiento}
-                                />
+                <div className="w-[20%] ml-4 justify-between">
+                    <TextInputComponent
+                        type="number"
+                        label="Total $"
+                        name="total"
+                        handleChange={handleInputChange}
+                        data={formValues ? formValues["total"] : data && data[EnumGrid.total]}
+                        control={control}
+                        isOT={true}
+                        onlyRead={isEditting}
+                        // error={errors.fecha_nacimiento}
+                    />
                 </div>
                 <div className="w-[15%] ml-4">
-                                <TextInputComponent
-                                    type="date"
-                                    label="Fecha receta"
-                                    name="fecha_receta"
-                                    handleChange={handleInputChange}
-                                    data={formValues ? formValues["fecha_receta"] : data && data[EnumGrid.fecha_receta]}
-                                    control={control}
-                                    isOT={true}
-                                    onlyRead={isEditting}
-                                    // error={errors.fecha_nacimiento}
-                                />
+                    <TextInputComponent
+                        type="date"
+                        label="Fecha receta"
+                        name="fecha_receta"
+                        handleChange={handleInputChange}
+                        data={formValues ? formValues["fecha_receta"] : data && data[EnumGrid.fecha_receta]}
+                        control={control}
+                        isOT={true}
+                        onlyRead={isEditting}
+                        // error={errors.fecha_nacimiento}
+                    />
                 </div>
                 <div className="w-[34%] ml-4 mb-[0.3rem]" >
-                        <SelectInputComponent
-                            label="Oftalmólogo"
-                            name="oftalmologo_id"
-                            showRefresh={true}
-                            isOT={true}
-                            handleSelectChange={handleInputChange}
-                            data={formValues ? formValues["oftalmologo_id"] : data && data[EnumGrid.oftalmologo_id]}
-                            control={control}
-                            entidad={["/api/oftalmologos/", "02"]}
-                            // entidad={["/api/ot/", "12","ESF", "_p3"]}
-                            // error={errors.establecimiento}
-                            customWidth={"345px"}
-                            readOnly={isEditting}
-                        />
-
-                        
+                    <SelectInputComponent
+                        label="Oftalmólogo"
+                        name="oftalmologo_id"
+                        showRefresh={true}
+                        isOT={true}
+                        handleSelectChange={handleInputChange}
+                        data={formValues ? formValues["oftalmologo_id"] : data && data[EnumGrid.oftalmologo_id]}
+                        control={control}
+                        entidad={["/api/oftalmologos/", "02"]}
+                        // entidad={["/api/ot/", "12","ESF", "_p3"]}
+                        // error={errors.establecimiento}
+                        customWidth={"345px"}
+                        readOnly={isEditting}
+                    />
                 </div>
-                
             </div>
 
-            <div className="w-full flex !mt-[-4rem] items-center pt-8  relative pb-8 rounded-lg border radioComponent ">
-                
-                <label className='absolute z-10 top-[-15%] w-[15%] left-[36%] text-center labelForm text-[#f8b179]   rounded-lg text-2xl'>ANTEOJO 1</label>
-
-
-
+            <div className="w-full flex items-center rowForm !h-[11rem] relative ">
+                <label className='absolute z-10 top-[-5%] w-[15%] left-[36%] text-center text-2xl'>ANTEOJO 1</label>
                 <div className=" w-[43%] items-center rowForm !mt-[-10rem] !h-[8rem]  ">
                     <div className="w-[90%] mx-auto flex items-center h-[9rem] relative labelForm  rounded-lg border radioComponent">
                         <label className='labelForm w-[40%] absolute z-10 text-center -top-6 left-[30%]'>OJO DERECHO</label>
@@ -206,12 +181,9 @@ const FOTReceta:React.FC<IReceta> = ({
                                 label="ESF"
                                 name="a1_od_esf"
                                 handleChange={handleInputChange}
-                                // data={formValues ? formValues["a1_od_esf"] : data && data[EnumGrid.a1_od_esf]}
                                 otData={data && data[EnumGrid.a1_od_esf] ||  a1_od_esf.value}
                                 control={control}
-                                // isOT={true}
                                 onlyRead={ !(permiso_usuario_receta && permiso_usuario_receta)}
-                                // error={errors.fecha_nacimiento}
                             />
                         </div>
                         <div className="w-[25%]">
@@ -223,8 +195,6 @@ const FOTReceta:React.FC<IReceta> = ({
                                 otData={dioptrias_receta.value.a1_od.cil || data && data[EnumGrid.a1_od_cil]}
                                 control={control}
                                 onlyRead={!(!isEditting || (permiso_usuario_receta && permiso_usuario_receta))}
-                                // isOT={true}
-                                // error={errors.fecha_nacimiento}
                             />
                         </div>
                         <div className="w-[25%]" tabIndex={-1}>
@@ -236,11 +206,9 @@ const FOTReceta:React.FC<IReceta> = ({
                                 otData={a1_od_eje.value || data && data[EnumGrid.a1_od_eje]}
                                 control={control}
                                 onlyRead={!(!isEditting || (permiso_usuario_receta && permiso_usuario_receta))}
-                                tabIndex={-1}
-                                // error={errors.fecha_nacimiento}
                             />
                         </div>
-                        <div className="w-[25%] mt-[0.1rem]" tabIndex={-1}>
+                        <div className="w-[25%]" tabIndex={-1}>
                             <OTTextInputComponent
                                 type="number"
                                 label="AD"
@@ -248,10 +216,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 handleChange={handleInputChange}
                                 otData={ a1_od_ad.value || data && data[EnumGrid.a1_od_ad]}
                                 control={control}
-                                // isOT={true}
-                                tabIndex={-1}
                                 onlyRead={!(deshabilitarCampo.value.a1_ad && (!isEditting || (permiso_usuario_receta && permiso_usuario_receta))) }
-                                // error={errors.fecha_nacimiento}
                             />
                         </div>
                     </div>    
@@ -350,11 +315,8 @@ const FOTReceta:React.FC<IReceta> = ({
                 </div>
             </div>
 
-            <div className="w-full flex items-center    pt-8 relative pb-8 rounded-lg labelForm  border radioComponent">
-                <label className='absolute z-10 top-[-15%] w-[15%] left-[36%] text-center labelForm text-[#f8b179] rounded-lg text-3xl'>ANTEOJO 2</label>
-
-
-
+            <div className="w-full flex items-center rowForm !h-[11rem] relative ">
+                <label className='absolute z-10 top-[-5%] w-[15%] left-[36%] text-center text-2xl'>ANTEOJO 2</label>
                 <div className=" w-[43%] items-center  !mt-[-4rem] !h-[8rem] rowForm ">
                     <div className="w-[90%] mx-auto flex items-center  !h-[8rem] relative labelForm  rounded-lg border radioComponent">
                         <label className='labelForm w-[40%] absolute z-10 text-center -top-6 left-[30%]'>OJO DERECHO</label>
@@ -470,6 +432,23 @@ const FOTReceta:React.FC<IReceta> = ({
                     </div>
                 </div>
             </div>
+
+            <div className="w-full flex items-center rowForm !h-[3rem] relative ">
+            <div className="w-[104%] ml-2">
+                        <TextInputComponent
+                            type="text"
+                            label="Observaciones"
+                            name="observaciones"
+                            handleChange={handleInputChange}
+                            data={formValues ? formValues["observaciones"] : data && data[EnumGrid.observaciones]}
+                            control={control}
+                            onlyRead={isEditting}
+                            // error={errors.fecha_nacimiento}
+                        />
+                    </div>
+
+            </div>
+
         </div>
     </form>
   )
