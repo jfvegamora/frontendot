@@ -720,12 +720,18 @@ input:checked + .slider:before {
 
 .textArmazonOT{
   font-size:larger;
-  color: white; 
+  color: #f9b17a; 
+  margin-left: 1rem;
   /*676f9d rgb(103 111 157 / 0.9)
   #424769 rgb(66 71 105 / 0.9)
   #2d3250 rgb(45 50 80 / 0.9)
   #f9b17a rgb(249 177 122 / 0.9)  */
-  
+}
+
+.textArmazonOTDetalle{
+  font-size:larger;
+  color: white; 
+  margin-right: 1rem;
 }
 
 .radioComponent label span, .dirCliente label {

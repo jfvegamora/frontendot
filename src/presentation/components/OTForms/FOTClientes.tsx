@@ -61,12 +61,12 @@ const FOTClientes:React.FC<IClientes> = ({
                       // Tipo 1 (OK)
                       console.log('Tipo 1 (OK):', cliente.data);
                       
-                      onDataChange({['cliente_nombre']: ""})    
-                      onDataChange({['cliente_sexo']: ""})
-                      onDataChange({['cliente_tipo']: ""})
-                      onDataChange({['cliente_fecha_nacimiento']: ""})
-                      onDataChange({['cliente_correo']: ""})
-                      onDataChange({['cliente_telefono']: ""})
+                      onDataChange({['cliente_nombre']: " "})    
+                      onDataChange({['cliente_sexo']: " "})
+                      onDataChange({['cliente_tipo']: " "})
+                      onDataChange({['cliente_fecha_nacimiento']: " "})
+                      onDataChange({['cliente_correo']: " "})
+                      onDataChange({['cliente_telefono']: " "})
 
 
 
