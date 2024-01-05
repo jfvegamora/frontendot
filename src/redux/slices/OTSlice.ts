@@ -22,6 +22,7 @@ export const fetchOT = createAsyncThunk(
     'ot/fetchOT',
     async (params:any) => {
         const {OTAreas, searchParams} = params;
+        // console.log(searchParams)
         const OTUrl = searchParams
                                  ? `${URLBackend}/api/ot/listado/?query=14&_origen=${OTAreas}&${searchParams}` 
                                  : `${URLBackend}/api/ot/listado/?query=14&_origen=${OTAreas}`

@@ -40,7 +40,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
           <IconButton
             variant="text"
             color="blue-gray"
-            className="primaryBtnIconButton !mx-4"
+            className="primaryBtnIconButton "
             onClick={handle}
             // disabled={!escritura_lectura}
           >
@@ -68,7 +68,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
     // console.log(areaPermissions)
 
     return (
-    <div className='flex items-center   ml-[4rem] !w-[40rem]'>
+    <div className='flex items-center   ml-[4rem] !w-[50rem]'>
         {areaPermissions && areaPermissions[0] === "1" && escritura_lectura && (
           renderButton(
             <SiAddthis className="primaryBtnIcon mr-4" />,

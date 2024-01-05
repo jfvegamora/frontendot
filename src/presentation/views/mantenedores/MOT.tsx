@@ -281,6 +281,7 @@ const MOT: React.FC = () => {
         </div> */}
 
       {isModalInsert && (
+        
         <FOT
           label={`${TITLES.ingreso} ${strEntidad}`}
           closeModal={closeModal}

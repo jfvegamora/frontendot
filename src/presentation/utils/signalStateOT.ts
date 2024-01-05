@@ -39,7 +39,6 @@ export const a2_oi_cil  = signal<any | undefined>(undefined)
 export const a2_oi_eje  = signal<any | undefined>(undefined)
 
 export const tipo_de_anteojo          = signal('');
-
 export const validar_parametrizacion  = signal('1');
 
 //SEÑALES FECHA PARA GENERARLAS A PARTIR DE FECHA_ATECION/QUERY 11 SPOT
@@ -47,6 +46,10 @@ export const fecha_atencion_signal  = signal("");
 export const fecha_despacho         = signal("");
 export const fecha_entrega_taller   = signal("");
 export const fecha_entrega_cliente  = signal("");
+
+export const cliente_rut            = signal("");
+
+
 
 export const A1_GRUPO = signal("");
 

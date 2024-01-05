@@ -156,13 +156,13 @@ const FOTCristales:React.FC<ICristales> = ({
         <div className='w-full labelForm flex items-center rounded-lg border radioComponent !mt-[1.7rem] '>
             <div className=" w-1/2 relative items-center mt-10">
 
-               <div className=" flex items-center  ml-2 rounded-lg border border-red-500  h-[35rem]">
+               <div className=" flex items-center  ml-2 rounded-lg border  h-[35rem]">
 
                <div className="w-[80%]  items-center mx-auto   !mt-8 !h-[36rem]">
                     <div className="w-full  !-mb-4 ">
 
-                          <div className="w-full flex mt-6 rowForm ">
-                              <div className="w-[50%]">
+                          <div className="w-full  flex !px-8 mt-6 rowForm ">
+                              <div className="w-[43%]  !mr-[1.2rem]">
                                 <SelectInputTiposComponent
                                     label='Opción Venta'
                                     name='cristal1_opcion_vta_id'
@@ -189,7 +189,7 @@ const FOTCristales:React.FC<ICristales> = ({
                                         control={control}
                                         entidad={["/api/marcas/", "02"]}
                                         // error={errors.establecimiento}
-                                        customWidth={"345px"}
+                                        customWidth={"w-[17.5rem]"}
                                         readOnly={!(!isEditting || (permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria))}
                                 />
 
@@ -197,7 +197,7 @@ const FOTCristales:React.FC<ICristales> = ({
                           </div>
 
                           <div className="w-full flex mt-6 rowForm ">
-                                <div className="w-[50%]">      
+                                <div className="w-[43%]  !mr-[1.2rem]"> 
                                         <SelectInputTiposComponent
                                         label='Diseño'
                                         name='cristal1_diseno_id'
@@ -228,7 +228,7 @@ const FOTCristales:React.FC<ICristales> = ({
                           </div>
 
                           <div className="w-full flex mt-6 rowForm ">
-                                <div className="w-[50%]">
+                                <div className="w-[43%]  !mr-[1.2rem]">
                                     <SelectInputTiposComponent
                                     label='Material'
                                     name="cristal1_material_id"
@@ -267,7 +267,7 @@ const FOTCristales:React.FC<ICristales> = ({
                               data={formValues ? formValues["cristal1_tratamiento_id"] : data && data[EnumGrid.cristal1_tratamiento_id]}
                               control={control}
                               entidad={"CristalesTratamientos"}
-                              customWidth={"w-[35rem]"}
+                              customWidth={"w-[35.6rem]"}
                               readOnly={!(!isEditting || (permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria))}                              />
                         </div>
                         <div className="w-full rowForm left-[9%] absolute mr-10 ">
@@ -279,13 +279,13 @@ const FOTCristales:React.FC<ICristales> = ({
                                         handleChange={handleInputChange}
                                         isOT={true}
                                         data={formValues ? formValues["cristal1_diametro"] : data && data[EnumGrid.cristal1_diametro]}
-                                        customWidth={'w-[33.6rem]'}
+                                        customWidth={'w-[34.2rem]'}
                                         onlyRead={!(!isEditting || (permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria))}                                        // error={errors.fecha_nacimiento}
                                   />
                         </div>
                         <div className="w-full !mt-[5rem] !mb-6">
                             <div className="w-full rowForm relative flex  ">
-                                <div className="w-[50%] -ml-[1rem]">
+                                <div className="w-[46%] -ml-[1rem]">
                                         <TextInputInteractive
                                             type="text"
                                             label="Codigo Cristal"
@@ -298,7 +298,7 @@ const FOTCristales:React.FC<ICristales> = ({
                                             // error={errors.fecha_nacimiento}t
                                         />
                                 </div>
-                                <div className="w-[50%]">
+                                <div className="w-[45.5%]">
                                         <TextInputInteractive
                                             type="text"
                                             label="Codigo Cristal"
@@ -325,7 +325,7 @@ const FOTCristales:React.FC<ICristales> = ({
                                 data={formValues ? formValues["cristal1_tratamiento_adicional_id"] : data && data[EnumGrid.cristal1_tratamiento_adicional_id]}
                                 control={control}
                                 entidad='CristalesTratamientos'
-                                customWidth={"w-full"}
+                                customWidth={"w-[36rem]"}
                                 readOnly={!(!isEditting || (permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria))}                                />
                       </div>
                     </div>
