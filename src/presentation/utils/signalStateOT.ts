@@ -272,7 +272,6 @@ export const clearInputDioptrias = () => {
      dioptrias_receta.value.a1_oi.eje  = " ";
      dioptrias_receta.value.a1_oi.ad   = " ";
      
-     a1_od_ad.value = "  ";
 
      //? A2-OJO-DERECHO
      a2_od_esf.value = "  ";
@@ -448,3 +447,16 @@ export const changeCodigoCristal_A2:any = {
   a2_oi_cil:true
 }
 
+
+
+//TODO: 
+
+export const existeCliente = async(rut:string) => {
+  try {
+      const {data} = await axios('')     
+      console.log(data)
+  } catch (error) {
+    console.log(error)
+    throw error;
+  }
+}

@@ -54,6 +54,11 @@ export const fetchOTByID = createAsyncThunk(
     }
 )
 
+const filterCodigos = (codigos:any) => {
+     const codigosFiltrados = codigos.filter((codigo:any)=> codigo.codigo !== null && codigo.codigo !== 'undefined')
+    return codigosFiltrados;
+}
+
 const OTSlice = createSlice({
     name: 'OTSlice',
     initialState,
@@ -62,10 +67,12 @@ const OTSlice = createSlice({
             state.data = [];
         },
         addToCristales(state, action) {
-            state.cristales.push(...action.payload); // Agrega elementos al arreglo cristales
+            const codigos = filterCodigos(action.payload)
+            state.cristales.push(...codigos); // Agrega elementos al arreglo cristales
         },
         addToArmazones(state, action) {
-            state.armazones.push(...action.payload); // Agrega elementos al arreglo armazones
+            const codigos = filterCodigos(action.payload)
+            state.armazones.push(...codigos); // Agrega elementos al arreglo armazones
         },
         clearCodigos(state){
             state.armazones = [];
