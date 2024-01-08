@@ -152,7 +152,6 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
     const renderCheckboxCell = (id: number, folio:number) => {
       // console.log(id)
       // console.log(folio)
-      console.log(entidad)
       return (
         <>
           <input
@@ -229,8 +228,6 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
               // const id = [3, 3];
               // console.log('rowData', rowData)
               const folio     = rowData[1]
-              console.log(rowData)
-              console.log(rowIndex)
             
               return (
                 <tr key={rowIndex} className="overflow-hidden">

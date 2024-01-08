@@ -40,9 +40,7 @@ MTO
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-.checked{
-  background-color: red !important;
-}
+
 
 body {
   background-color:#424769;
@@ -87,11 +85,10 @@ select {
   /* Personalize */
   flex: 1;
   padding: 0 1em;
-  color: #fff;
-  background-color: var(--darkgray);
+  --tw-text-opacity: 1;
+    color: rgb(0 0 0 / var(--tw-text-opacity));
   background-image: none;
   cursor: pointer;
-  background-color: red;
 }
 
 /* Remove IE arrow */
