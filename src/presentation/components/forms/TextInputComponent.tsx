@@ -21,6 +21,7 @@ interface ITextInputProps {
   tabIndex?: number;
   isOT?:boolean;
   customWidth?: any;
+  isOptional?:boolean;
 }
 
 const TextInputComponent: React.FC<ITextInputProps> = ({
@@ -38,7 +39,8 @@ const TextInputComponent: React.FC<ITextInputProps> = ({
   step,
   tabIndex,
   isOT,
-  customWidth
+  customWidth,
+  isOptional
 }) => {
   const [defaultValue, setDefaultValue] = useState<any>(data && data || "")
 
@@ -85,9 +87,9 @@ return (
             onBlur={(e) => handleInputChange(e)}
             ref={inputRef}
             // className={`${className ? className : "custom-input"} ${onlyRead ? "opacity-80 cursor-not-allowed" : ""}`}
-            className={`${className ? className : "custom-input"} ${onlyRead ? "custom-input-onlyread" : "custom-input"}`}
+            className={`${className ? className : "custom-input"}  ${onlyRead ? "custom-input-onlyread" :  isOptional && "custom-input-optional"} `}
             style={onlyRead ? { backgroundColor: "rgb(103 111 157 / 0.9)" } : {}}
-                        tabIndex={tabIndex || 1}
+            tabIndex={tabIndex || 1}
             placeholder={type === 'date' ? "dd-mm-yyyy" : ''}
             autoComplete="off"
             step={step ? step : 1 } 

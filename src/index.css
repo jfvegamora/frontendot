@@ -231,12 +231,12 @@ select::-ms-expand {
   margin: 0px 0px 0px 0px !important;
 }
 
-.custom-input.custom-input-optional{
+.custom-input-optional{
   background-color: #b0bbc4;
   color: #2d3250;
 }
 
-.custom-input.custom-input-onlyread{
+.custom-input-onlyread{
   background-color:#2d3250;
   color: #b0bbc4;
 }

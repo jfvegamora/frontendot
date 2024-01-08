@@ -302,6 +302,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                     // error={errors.codigo}
                     onlyRead={isEditting}
                     customWidth={"!w-[100%]"}
+                    isOptional={true}
                     />
                 </div>
               </div>
