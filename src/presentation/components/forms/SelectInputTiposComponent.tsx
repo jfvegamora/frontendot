@@ -31,7 +31,8 @@ interface ISelectInputProps {
   setState?: any;
   isOT?:boolean;
   tabIndex?: number;
-  FOTcristales?:boolean
+  FOTcristales?:boolean;
+  isOptional?:boolean;
 }
 
 
@@ -52,7 +53,8 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
     isOT,
     tabIndex,
     customWidth,
-    FOTcristales
+    FOTcristales,
+    isOptional,
   }) => {
     const stateListBox = useAppSelector((store: AppStore) => store.listBoxTipos[entidad]);
     const [entities, setEntities] = useState(stateListBox|| []);
@@ -77,18 +79,12 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
       fetchData();
     }, [entidad, stateListBox]);
     
-
-    // console.log(entities)
-    console.log(clearSelectInput.value)
-
     const renderInput = () => (
       <Controller
           name={name}
           control={control}
           defaultValue={strSelectedName}
           render={({ field }) => (
-            // <div className={` custom-select border-gray-400 border-[1px] rounded-lg !h-[3rem]  absolute${error ? 'border-red-500' : 'border-gray-500'}  `}>
-            //   <div className=" top-[-18%]  left-3.5 absolute w-1/2 z-10">
             <div className={`custom-select border-gray-400 border-[1px] rounded-lg !h-[3rem] relative ${error ? 'border-red-500' : 'border-gray-500'}  `}>
               <div className="top-[-0.1rem]   left-3.5 absolute w-1/2 z-10">
                 <label
@@ -99,7 +95,6 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
                   {label}
                 </label>
                 {error && (
-                  // <p className="text-xs text-red-500 absolute top-[.5rem] z-20  left-[38%] ">
                   <p className="absolute z-20 top-[0.1rem] right-1 labelErr">
                     {error.message}
                  </p>
@@ -120,8 +115,6 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
                   }
                   if (setHandleSearch) {
                     const selectedValue = e.target.value.toString();
-                    // console.log("name", name);
-                    // console.log("selectedValue", selectedValue);
                     handleSelectChange(name, selectedValue);
                     const inputValuesToUpdate = {
                       ...inputValues,
@@ -134,8 +127,8 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
                   }
  
                 }}
-                className="custom-input py-2  cursor-pointer z-0"
-              >
+                className={`"custom-input py-2  cursor-pointer z-0"  ${readOnly ? "custom-onlyread" : isOptional ? "custom-optional" : "custom-required"} `}
+                >
                 {!data && (
                   <option value={undefined} className="text-sm">
                     

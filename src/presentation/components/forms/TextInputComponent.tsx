@@ -66,9 +66,6 @@ const TextInputComponent: React.FC<ITextInputProps> = ({
 // ...
 
 // console.log(defaultValue)
-if(label === 'Dirección'){
-  console.log(`${className ? className : "custom-input"}  ${onlyRead ? "custom-onlyread" : "" } ${isOptional ? "custom-optional" : ""}`)
-}
 
 return (
   <div className={`mr-4 rounded-xl ${customWidth ? customWidth : ""}`}>
@@ -89,10 +86,7 @@ return (
             maxLength={maxLength}
             onBlur={(e) => handleInputChange(e)}
             ref={inputRef}
-            // className={`${className ? className : "custom-input"} ${onlyRead ? "opacity-80 cursor-not-allowed" : ""}`}
-            // className={`${className ? className : "custom-input"}  ${onlyRead ? "custom-input-onlyread" : isOptional && "custom-input-optional" }} `}
-            className={`${className ? className : "custom-input"}  ${onlyRead ? "custom-onlyread" : ""} ${isOptional ? "custom-optional" : "custom-required" } `}
-            style={onlyRead ? { backgroundColor: "rgb(103 111 157 / 0.9)" } : {}}
+            className={`${className ? className : "custom-input"}  ${onlyRead ? "custom-onlyread" : isOptional ? "custom-optional" : "custom-required"}`}
             tabIndex={tabIndex || 1}
             placeholder={type === 'date' ? "dd-mm-yyyy" : ''}
             autoComplete="off"

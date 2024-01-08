@@ -271,7 +271,6 @@ const FProyectosDirecciones: React.FC<IUserFormPrps> = React.memo(
                         isOT={true}
                         entidad={["/api/proyectos/", "02"]}
                         error={errors.proyecto}
-                        inputRef={firstInputRef}
                         readOnly={isEditting}
                         customWidth={"!ml-[1rem]"}
                         />
@@ -288,6 +287,7 @@ const FProyectosDirecciones: React.FC<IUserFormPrps> = React.memo(
                       control={control}
                       entidad={["/api/establecimientos/", "06", strCodigoProyecto]}
                       tabIndex={1}
+                      error={errors.establecimiento}
                       customWidth={"!w-[25.4rem]"}
                       />
               </div>
@@ -314,7 +314,8 @@ const FProyectosDirecciones: React.FC<IUserFormPrps> = React.memo(
                       data={data && data[EnumGrid.direccion]}
                       control={control}
                       error={errors.direccion}
-                    />
+                      isOptional={true}
+                      />
                 </div>
                 <div className="w-[30%]">
                   <TextInputComponent
@@ -324,7 +325,8 @@ const FProyectosDirecciones: React.FC<IUserFormPrps> = React.memo(
                       data={data && data[EnumGrid.telefono]}
                       control={control}
                       error={errors.telefono}
-                    />
+                      isOptional={true}
+                      />
                 </div>
               </div>
             </div>
@@ -339,7 +341,8 @@ const FProyectosDirecciones: React.FC<IUserFormPrps> = React.memo(
                     data={data && data[EnumGrid.observaciones]}
                     control={control}
                     error={errors.observaciones}
-                  />
+                    isOptional={true}
+                    />
                 </div>
               </div>
             </div>

@@ -235,6 +235,8 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
       isEditting ? focusSecondInput("descripcion") : focusFirstInput("codigo");
     }, []);
 
+
+    
     return (
       <div className="useFormContainer centered-div use40rem">
         <div className="userFormBtnCloseContainer">
@@ -273,8 +275,8 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
                     maxLength={20}
                     data={data && data[EnumGrid.codigo]}
                     control={control}
-                    error={errors.codigo}
                     onlyRead={isEditting}
+                    isOptional={true}
                   />
                 </div>
               </div>
@@ -310,23 +312,6 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
               </div>
             </div>
 
-            
-            {/* <div className="w-full flex items-center h-[4rem]">
-              <div className="input-container items-center rowForm w-full ">
-                <div className="w-full">
-                    <TextInputComponent
-                      type="text"
-                      label="Descripción"
-                      name="descripcion"
-                      data={data && data[EnumGrid.descripcion]}
-                      control={control}
-                      error={errors.descripcion}
-                      inputRef={secondInputRef}
-                    />
-                </div>
-              </div>
-            </div> */}
-
             <div className="w-full flex items-center h-[4rem]">
               <div className="input-container items-center rowForm w-[50%] ">
                 <div className="w-full">
@@ -337,6 +322,7 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
                     data={data && data[EnumGrid.precio_neto]}
                     control={control}
                     error={errors.precio_neto}
+                    isOptional={true}
                   />
                 </div>
               </div>

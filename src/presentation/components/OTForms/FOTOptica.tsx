@@ -251,13 +251,12 @@ return (
                 <div className="w-[20%] ml-4">
                     <TextInputComponent
                         type="text"
-                        label="Area actual"
+                        label="Área actual"
                         name="area"
                         handleChange={handleInputChange}
                         data={formValues ? formValues["area"] : data && data[EnumGrid.area]}
                         control={control}
                         onlyRead={true}
-                        // error={errors.fecha_nacimiento}
                     />
                 </div>
                 
@@ -270,7 +269,6 @@ return (
                         data={formValues ? formValues["estado"] : data && data[EnumGrid.estado]}
                         control={control}
                         onlyRead={true}
-                        // error={errors.fecha_nacimiento}
                     />
                 </div>
                 
@@ -284,12 +282,10 @@ return (
                         label="Fecha atención"
                         name="fecha_atencion"
                         handleChange={handleInputChange}
-                        // data={formValues ? formValues["fecha_atencion"] : data && data[EnumGrid.fecha_atencion]}
                         data={data && data[EnumGrid.fecha_atencion] || (formValues && formValues["fecha_atencion"])}
                         control={control}
                         onlyRead={isEditting}
                         isOT={true}
-                        // error={errors.fecha_nacimiento}
                     />
                 </div>
                 <div className="w-[15%]">
@@ -298,13 +294,12 @@ return (
                         label="Fecha taller"
                         name="fecha_entrega_taller"
                         handleChange={handleInputChange}
-                        // data={(data && data[EnumGrid.fecha_entrega_taller]) || fecha_entrega_taller || (formValues && formValues["fecha_entrega_taller"])}
                         data={(data && data[EnumGrid.fecha_entrega_taller]) || (formValues && formValues["fecha_entrega_taller"]) || fecha_entrega_taller }
                         control={control}
                         onlyRead={isEditting}
                         isOT={true}
-                        // error={errors.fecha_nacimiento}
-                    />
+                        isOptional={true}
+                        />
                 </div>
                 <div className="w-[15%]">
                     <TextInputInteractive
@@ -316,7 +311,7 @@ return (
                         control={control}
                         onlyRead={isEditting}
                         isOT={true}
-                        // error={errors.fecha_nacimiento}
+                        isOptional={true}
                     />
                 </div>
                 <div className="w-[15%]">
@@ -329,7 +324,7 @@ return (
                         control={control}
                         onlyRead={isEditting}
                         isOT={true}
-                        // error={errors.fecha_nacimiento}
+                        isOptional={true}
                     />
                 </div>
             
@@ -350,7 +345,6 @@ return (
                                 control={control}
                                 entidad={"OTMotivoGarantia"}
                                 readOnly={true}
-
                            />
                         </div>
                         
@@ -363,7 +357,6 @@ return (
                                 data={formValues ? formValues["folio_asociado"] : data && data[EnumGrid.folio_asociado]}
                                 control={control}
                                 onlyRead={true}
-                                // error={errors.fecha_nacimiento}
                             />
                         </div>
                         
@@ -395,8 +388,8 @@ return (
                             data={formValues ? formValues["observaciones"] : data && data[EnumGrid.observaciones]}
                             control={control}
                             onlyRead={isEditting}
-                            // error={errors.fecha_nacimiento}
-                        />
+                            isOptional={true}
+                            />
                     </div>
                 </div>
 
@@ -411,8 +404,8 @@ return (
                             data={formValues ? formValues["worktracking"] : data && data[EnumGrid.worktracking]}
                             control={control}
                             onlyRead={isEditting}
-                            // error={errors.fecha_nacimiento}
-                        />
+                            isOptional={true}
+                            />
                     </div>
                     <div className="">
                         <TextInputComponent
@@ -423,8 +416,8 @@ return (
                             data={formValues ? formValues["nota_venta"] : data && data[EnumGrid.nota_venta]}
                             control={control}
                             onlyRead={isEditting}
-                            // error={errors.fecha_nacimiento}
-                        />
+                            isOptional={true}
+                            />
                     </div>
                     <div className="">
                         <TextInputComponent
@@ -435,8 +428,8 @@ return (
                             data={formValues ? formValues["numero_factura"] : data && data[EnumGrid.numero_factura]}
                             control={control}
                             onlyRead={isEditting}
-                            // error={errors.fecha_nacimiento}
-                        />
+                            isOptional={true}
+                            />
                     </div>
                     <div className="">
                         <TextInputComponent
@@ -447,8 +440,8 @@ return (
                             data={formValues ? formValues["folio_interno_mandante"] : data && data[EnumGrid.folio_interno_mandante]}
                             control={control}
                             onlyRead={isEditting}
-                            // error={errors.fecha_nacimiento}
-                        />
+                            isOptional={true}
+                            />
                     </div>
                 </div>
             </div>

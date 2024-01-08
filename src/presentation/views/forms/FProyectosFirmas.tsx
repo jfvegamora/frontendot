@@ -319,7 +319,7 @@ const FProyectosFirmas: React.FC<IUserFormPrps> = React.memo(
                     data={data && data[EnumGrid.observaciones]}
                     control={control}
                     error={errors.observaciones}
-                    // customWidth={"!w-[90%] "}
+                    isOptional={true}
                   />
                 </div>
               </div>

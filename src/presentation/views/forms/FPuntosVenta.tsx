@@ -281,7 +281,8 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
                   name="direccion"
                   data={data && data[EnumGrid.direccion]}
                   control={control}
-                />
+                  isOptional={true}
+                  />
               </div>
             </div>
 
@@ -324,7 +325,8 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
                 data={data && data[EnumGrid.telefono]}
                 control={control}
                 error={errors.telefono}
-              />
+                isOptional={true}
+                />
             </div>
           </div>
         </div>

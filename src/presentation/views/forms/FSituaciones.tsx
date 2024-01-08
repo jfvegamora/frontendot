@@ -229,7 +229,7 @@ const FSituaciones: React.FC<ISituacionesFormProps> = React.memo(
             <div className="w-[99%]">
               <TextInputComponent
                 type="text"
-                label="Descripcion"
+                label="Descripción"
                 name="descripcion"
                 data={data && data[EnumGrid.descripcion]}
                 control={control}
@@ -242,7 +242,7 @@ const FSituaciones: React.FC<ISituacionesFormProps> = React.memo(
           <div className="input-container items-center rowForm  ">
             <div className="w-full !mt-4 ">
               <SelectInputTiposComponent
-                label="Area"
+                label="Área exclusiva"
                 name="area"
                 showRefresh={true}
                 data={data && data[EnumGrid.area_id]}
@@ -250,7 +250,8 @@ const FSituaciones: React.FC<ISituacionesFormProps> = React.memo(
                 entidad={"OTAreas"}
                 customWidth={"!w-full ml-4"}
                 error={errors.area}
-              />
+                isOptional={true}
+                />
             </div>
           </div>
           </div>

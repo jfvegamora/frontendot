@@ -311,6 +311,7 @@ const FOTClientes:React.FC<IClientes> = ({
                                         control={control}
                                         isOT={true}
                                         onlyRead={isEditting}
+                                        isOptional={true}
                                         // otData={clienteData  && clienteData[0] && clienteData[0][EnumClientes.correo]}
                                         // error={errors.fecha_nacimiento}
                                     />
@@ -344,6 +345,7 @@ const FOTClientes:React.FC<IClientes> = ({
                             data={formValues ? formValues["cliente_direccion"]  : data && data[EnumGrid.cliente_direccion]}
                             control={control}
                             isOT={true}
+                            isOptional={true}
                             // otData={clienteData  && clienteData[0] && clienteData[0][EnumClientes.direccion]}
                             // error={errors.fecha_nacimiento}
                         />

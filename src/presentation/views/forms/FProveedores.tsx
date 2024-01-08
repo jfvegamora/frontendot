@@ -254,7 +254,8 @@ const FProveedores: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     error={errors.rut}
                     inputRef={firstInputRef}
-                  />
+                    isOptional={true}
+                    />
                 </div>
               </div>
             </div>
@@ -285,7 +286,8 @@ const FProveedores: React.FC<IUserFormPrps> = React.memo(
                     name="direccion"
                     data={data && data[EnumGrid.Direccion]}
                     control={control}
-                  />
+                    isOptional={true}
+                    />
                 </div>
               </div>
             </div>
@@ -299,7 +301,8 @@ const FProveedores: React.FC<IUserFormPrps> = React.memo(
                     name="telefono"
                     data={data && data[EnumGrid.Telefono]}
                     control={control}
-                  />
+                    isOptional={true}
+                    />
                 </div>
               </div>
             </div>
@@ -315,7 +318,8 @@ const FProveedores: React.FC<IUserFormPrps> = React.memo(
                     data={data && data[EnumGrid.Correo]}
                     control={control}
                     error={errors.correo}
-                  />
+                    isOptional={true}
+                    />
                 </div>
               </div>
             </div>
@@ -331,7 +335,8 @@ const FProveedores: React.FC<IUserFormPrps> = React.memo(
                     data={data && data[EnumGrid.Sitio_Web]}
                     control={control}
                     error={errors.sitio_web}
-                  />
+                    isOptional={true}
+                    />
                 </div>
               </div>
             </div>

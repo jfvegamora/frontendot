@@ -271,7 +271,8 @@ const FEmpresas: React.FC<IUserFormPrps> = React.memo(
                       control={control}
                       error={errors.rut}
                       inputRef={firstInputRef}
-                    />
+                      isOptional={true}
+                      />
                   </div>
                 </div>
                 <div className="input-container items-center rowForm w-[50%]">   
@@ -326,7 +327,8 @@ const FEmpresas: React.FC<IUserFormPrps> = React.memo(
                       data={data && data[EnumGrid.direccion]}
                       control={control}
                       error={errors.direccion}
-                    />
+                      isOptional={true}
+                      />
                   </div>
                 </div>
                 <div className="input-container items-center rowForm w-[50%]">
@@ -338,7 +340,8 @@ const FEmpresas: React.FC<IUserFormPrps> = React.memo(
                       data={data && data[EnumGrid.telefono]}
                       control={control}
                       error={errors.telefono}
-                    />
+                      isOptional={true}
+                      />
                   </div> 
                 </div>
               </div>
@@ -353,7 +356,8 @@ const FEmpresas: React.FC<IUserFormPrps> = React.memo(
                       data={data && data[EnumGrid.correo]}
                       control={control}
                       error={errors.correo}
-                    />
+                      isOptional={true}
+                      />
                   </div>
                 </div>
                 <div className="input-container items-center rowForm w-[50%]">
@@ -365,7 +369,8 @@ const FEmpresas: React.FC<IUserFormPrps> = React.memo(
                       data={data && data[EnumGrid.sitio_web]}
                       control={control}
                       error={errors.sitio_web}
-                    />
+                      isOptional={true}
+                      />
                   </div> 
                 </div>
               </div>

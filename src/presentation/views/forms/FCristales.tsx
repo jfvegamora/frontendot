@@ -289,6 +289,7 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                 // error={errors.codigo}
                 onlyRead={isEditting}
                 maxLength={20}
+                isOptional={true}
                 />
             </div>
             <div className="rowForm">

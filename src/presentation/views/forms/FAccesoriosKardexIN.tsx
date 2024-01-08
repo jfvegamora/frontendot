@@ -367,11 +367,10 @@ const FAccesoriosKardexIN: React.FC<IUserFormPrps> = React.memo(
                       type="text"
                       label="Código FAB"
                       name="insumo_fab"
-                      // data={data && data[EnumGrid.insumo]}
                       control={control}
-                      // error={errors.insumo}
                       onlyRead={isEditting}
                       customWidth={"!w-[11rem] !ml-[-1rem] "}
+                      isOptional={true}
                     />
                       <TextInputComponent
                         type={isEditting ? "datetime" : "date"}
@@ -443,7 +442,7 @@ const FAccesoriosKardexIN: React.FC<IUserFormPrps> = React.memo(
                       data={data && data[EnumGrid.numero_factura]}
                       control={control}
                       error={errors.numero_factura}
-                    
+                      isOptional={true}
                     />
                 </div>
               </div>
@@ -462,6 +461,7 @@ const FAccesoriosKardexIN: React.FC<IUserFormPrps> = React.memo(
                       entidad={["/api/proveedores/", "02"]}
                       error={errors.proveedor}
                       customWidth={"!ml-[1rem] !mt-[-0.6rem]"}                      
+                      isOptional={true}
                     />
                   </div>
                 </div>
@@ -474,6 +474,7 @@ const FAccesoriosKardexIN: React.FC<IUserFormPrps> = React.memo(
                       data={data && data[EnumGrid.valor_neto]}
                       control={control}
                       error={errors.valor_neto}
+                      isOptional={true}
                     />
                   </div>
                 </div>
@@ -490,6 +491,7 @@ const FAccesoriosKardexIN: React.FC<IUserFormPrps> = React.memo(
                       data={data && data[EnumGrid.observaciones]}
                       control={control}
                       error={errors.observaciones}
+                      isOptional={true}
                     />
                   </div>
                 </div>
