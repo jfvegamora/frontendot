@@ -4,14 +4,9 @@ import { SelectInputComponent, TextInputComponent } from '..';
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
 import { AppStore, useAppDispatch, useAppSelector } from '../../../redux/store';
 // import { SEXO, TIPO_CLIENTE } from '../../utils';
-<<<<<<< HEAD
-import {  updateOT } from '../../utils';
-import { fetchOT } from '../../../redux/slices/OTSlice';
-=======
-import axios from 'axios';
-import { URLBackend } from '../../hooks/useCrud';
->>>>>>> 84f2fcbc792c840a9d4b7bb50ec0fbdfe16c261a
 import { Button } from '@material-tailwind/react';
+import { updateOT } from '../../utils';
+import { fetchOT } from '../../../redux/slices/OTSlice';
 
 
 interface IDerivacion {
