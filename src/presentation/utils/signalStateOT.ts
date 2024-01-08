@@ -3,7 +3,7 @@ import axios from "axios";
 import { URLBackend } from "../hooks/useCrud";
 
 import { Signal, signal } from "@preact/signals-react";
-import { validationFechaDespacho, validationFechaEntregaCliente, validationFechaEntregaTaller } from "./validationOT";
+import { validationFechaDespacho, validationFechaEntregaCliente, validationFechaEntregaTaller, validation_A1_ALT, validation_A1_DP, validation_A1_OD_AD, validation_A1_OD_CILL, validation_A1_OD_EJE, validation_A1_OD_ESF, validation_A1_OI_CIL, validation_A1_OI_EJE, validation_A1_OI_ESF, validation_A2_DP, validation_A2_OD_CIL, validation_A2_OD_EJE, validation_A2_OD_ESF, validation_A2_OI_CIL, validation_A2_OI_EJE, validation_A2_OI_ESF } from "./validationOT";
 import { EnumGrid } from "../views/mantenedores/MOTHistorica";
 import { toast } from "react-toastify";
 
@@ -87,8 +87,9 @@ export const motivo_ot = signal(false);
 export const cristalesJSONsignal = signal<any>({})
 export const armazonesJSONsignal = signal<any>({})
 
-export const isExistClient = signal(false);
-
+export const isExistClient      = signal(false);
+export const isToggleImpression = signal<any>(false);
+export const isToggleValidation = signal<any>(false);
 
 
 
@@ -212,8 +213,10 @@ export const clearGrupos = () => {
   A1_Diametro.value   = "";
   A2_Diametro.value   = "";
 
-  motivo_ot.value     = false;
-  isExistClient.value = false;
+  motivo_ot.value          = false;
+  isExistClient.value      = false;
+  isToggleImpression.value = false;
+  isToggleValidation.value = false;
 }
 
 
@@ -290,9 +293,34 @@ export const clearInputDioptrias = () => {
      a2_oi_cil.value = "  ";
      a2_oi_eje.value = "  ";
 
-     
 
+
+     //TODO: VALIDACION DE CAMPOS
+     validation_A1_OD_ESF(undefined);
+     validation_A1_OD_CILL(undefined);
+     validation_A1_OD_EJE(undefined);
+     validation_A1_OD_AD(undefined);
+
+     validation_A1_OI_ESF(undefined);
+     validation_A1_OI_CIL(undefined);
+     validation_A1_OI_EJE(undefined);
+
+     validation_A1_ALT(undefined);
+     validation_A1_DP(undefined);
+
+
+     validation_A2_OD_ESF(undefined);
+     validation_A2_OD_CIL(undefined);
+     validation_A2_OD_EJE(undefined);
+
+     validation_A2_OI_ESF(undefined);
+     validation_A2_OI_CIL(undefined);
+     validation_A2_OI_EJE(undefined);
+
+     validation_A2_DP(undefined);
 }
+
+
 export function validarValor(str:string) {
   const partes = str.split('=');
   
@@ -457,17 +485,6 @@ export const changeCodigoCristal_A2:any = {
 
 
 
-//TODO: 
-
-export const existeCliente = async(rut:string) => {
-  try {
-      const {data} = await axios('')     
-      console.log(data)
-  } catch (error) {
-    console.log(error)
-    throw error;
-  }
-}
 
 
 export const updateOT =async (
@@ -475,11 +492,12 @@ export const updateOT =async (
   _origen:any,
   _destino:any,
   _estado:number,
-  formValues:any,
+  _formValues:any,
   data:any,
   cristalOri:any,
   armazonOri:any,
-  user:any
+  user:any,
+  _obs?:string
 )  => {
   let estado_impresion = 1;
   let estado_validacion = 1;
@@ -491,6 +509,7 @@ export const updateOT =async (
   const fields = [
     `motivo=${motivo}`,
     `area=${_destino}`,
+    `estado=${_estado}`,
     `validar_parametrizacion=${estado_validacion}`,
     `estado_impresion=${estado_impresion}`,
     `proyecto="${jsonData.proyecto_codigo                                                       !== undefined ? jsonData.proyecto_codigo : codigoProyecto.value}"`,
@@ -612,8 +631,7 @@ const _armazonesJSON = JSON.stringify(armazones)
                           .filter((prev)=>prev[1] !== 'undefined')
                           .map((parts) => parts.join('='));
   
-  console.log(filteredFields)
-
+    console.log(_estado)
 
   let _p1 = filteredFields.join(',');    
   _p1 = _p1.replace(/'/g, '!');
@@ -632,7 +650,7 @@ const _armazonesJSON = JSON.stringify(armazones)
     // _usuario:User["id"].toString(),
     _usuario:user,
     _situacion:"0",
-    _obs: "ot editada desde front",
+    _obs: _obs ? _obs : "ot editada desde front",
     _cristalesJSON,
     _armazonesJSON,
     _punto_venta: `${jsonData.punto_venta_id || data[EnumGrid.punto_venta_id]}`,
@@ -647,15 +665,11 @@ const _armazonesJSON = JSON.stringify(armazones)
 
   };
 
-  console.log(cristalOri)
 
 
-  console.log(jsonData)
-  console.log("query", query);
 
   try {
     const response = await axios.post(`${URLBackend}/api/ot/editar/`, query)
-    console.log(response)
 
     if(response.status === 200){
       return toast.success('OT Editada Correctamente')

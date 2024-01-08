@@ -36,7 +36,8 @@ export const setDioptriasReceta = (name:string, value:any) =>{
 export const validation_tipo_anteojo = () => {
     // console.log(tipo_de_anteojo.value)
     console.log('render')
-    const a1_ad  = buscarCampo('a1_od_ad');
+    const a1_od_ad  = buscarCampo('a1_od_ad');
+    const a1_oi_ad  = buscarCampo('a1_oi_ad');
     const a1_alt = buscarCampo('a1_alt');
 
     console.log(tipo_de_anteojo.value)
@@ -44,12 +45,16 @@ export const validation_tipo_anteojo = () => {
 
     if(tipo_de_anteojo.value == '1' || tipo_de_anteojo.value == '2' || tipo_de_anteojo.value == '7'){
         
-        if(a1_ad){
-          a1_ad.valor = 1
+        if(a1_od_ad){
+          a1_od_ad.valor = 1
+        }
+        if(a1_oi_ad){
+          a1_oi_ad.valor = 1;
         }
         if(a1_alt){
           a1_alt.valor = 1
         }
+
   
         deshabilitarCampo.value.a1_ad  = false
         deshabilitarCampo.value.a1_alt = false
@@ -57,6 +62,8 @@ export const validation_tipo_anteojo = () => {
         clearSelectInput.value = true;
         A2_CR_OD.value = " ";
         A2_CR_OI.value = " ";
+
+
         // console.log(dioptriasHabilitadas.value)
     }
 
@@ -71,15 +78,18 @@ export const validation_tipo_anteojo = () => {
 
     if(tipo_de_anteojo.value == '4' || tipo_de_anteojo.value == '5' || tipo_de_anteojo.value == '6'){
         
-        if(a1_ad){
-            a1_ad.valor = 0
+        if(a1_od_ad){
+            a1_od_ad.valor = 0
           }
+        if(a1_oi_ad){
+          a1_oi_ad.valor = 0
+        }
         if(a1_alt){
-            a1_alt.valor = 1
+            a1_alt.valor = 0
           }
 
-      deshabilitarCampo.value.a1_ad  = false
-      deshabilitarCampo.value.a1_alt = false
+      deshabilitarCampo.value.a1_ad  = true
+      deshabilitarCampo.value.a1_alt = true
       deshabilitarCampo.value.a2_dp  = true
       clearSelectInput.value = false;
       A2_CR_OD.value = " ";
@@ -90,6 +100,8 @@ export const validation_tipo_anteojo = () => {
 }
 
 
+
+//! CREAR COMBINACIONES_VALIDAS PARA OJO DERECHO Y OJO IZQUIERDO:
 export const combinaciones_validas = () => {
     const item = validationNivel2.value.find(item => item.campo === 'combinaciones_validas');
 
@@ -97,9 +109,9 @@ export const combinaciones_validas = () => {
     let CIL = dioptrias_receta.value.a1_od.cil
     let EJE = dioptrias_receta.value.a1_od.eje
 
-    let isESF = typeof ESF === 'number';
-    let isCIL = typeof CIL === 'number';
-    let isEJE = typeof EJE === 'number';
+    let isESF = typeof ESF === 'number' && !Number.isNaN(ESF);
+    let isCIL = typeof CIL === 'number' && !Number.isNaN(CIL);
+    let isEJE = typeof EJE === 'number' && !Number.isNaN(EJE);
     
     //VALIDACION 1
     if (typeof ESF === 'object' && typeof CIL === 'object' && typeof EJE === 'object') {

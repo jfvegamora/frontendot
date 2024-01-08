@@ -1,14 +1,11 @@
-import React,{
-    useEffect,
-    // useEffect, 
-    useState} from 'react'
+import React,{useState} from 'react'
 import { RadioButtonComponent, SelectInputComponent, TextInputComponent } from '..'
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
 // import { Switch , switchButton} from "@material-tailwind/react";
 import Switch from "react-switch";
 import axios from 'axios';
 import { validationOTlevel1, validationOTlevel2 } from '../../utils/validationOT';
-import { codigoProyecto, fecha_despacho, fecha_entrega_cliente, fecha_entrega_taller, fetchFechas, motivo_ot, punto_venta, validar_parametrizacion } from '../../utils';
+import { codigoProyecto, fecha_despacho, fecha_entrega_cliente, fecha_entrega_taller, fetchFechas, isToggleImpression, isToggleValidation, motivo_ot, validar_parametrizacion } from '../../utils';
 import SelectInputTiposComponent from '../forms/SelectInputTiposComponent';
 import { AppStore, useAppSelector } from '../../../redux/store';
 import { URLBackend } from '../../hooks/useCrud';
@@ -51,9 +48,6 @@ const FOTOptica:React.FC<IOptica> = ({
     permiso_areas_resolucion_garantia
 }) => {
     const strUrl = `${URLBackend}/api/ot/listado`
-    const impresion = data && data[9] === 1 ? true: false
-    const [isToggleImpresion, setIsToggleImpresion] = useState(impresion || false)
-    const [isToggleValidacion, setIsToggleValidacion] = useState(false)
     const [_motivo, setMotivo] = useState(false)
     const [strCodigoProyecto, setStrCodigoProyecto] = useState("");
     const userID:any = useAppSelector((store: AppStore) => store.user?.id);
@@ -115,7 +109,6 @@ const FOTOptica:React.FC<IOptica> = ({
     }
 
     const handleSwitchValidation = async(event:any) => {
-        setIsToggleValidacion((prev)=>!prev)
         console.log(event)
         try { 
             const query = `?query=07&_folio=${data[EnumGrid.folio]}&_p2=${event === true ? 1 : 0}&_estado=${_estado}&_usuario=${userID}&_origen=${_origen}`
@@ -123,7 +116,7 @@ const FOTOptica:React.FC<IOptica> = ({
             if(result.status === 200){
                 toast.success('Estado cambiado')
                 validar_parametrizacion.value = validar_parametrizacion.value === '1' ? '0' : '1'
-                validar_parametrizacion.value === '1' ? setIsToggleValidacion(true) : setIsToggleValidacion(false);
+                validar_parametrizacion.value === '1' ? isToggleValidation.value = true : isToggleValidation.value = false;
             }
         } catch (error) {
             console.log(error)
@@ -133,12 +126,13 @@ const FOTOptica:React.FC<IOptica> = ({
 
     
     const handleSwitchImpresion = async (event:any) => {
-        setIsToggleImpresion((prev)=>!prev)
+        // setIsToggleImpresion((prev)=>!prev)
         try {
             const query = `?query=06&_folio=${data[EnumGrid.folio]}&_p2=${event === true ? 1 : 0}&_estado=${_estado}&_usuario=${userID}&_origen=${_origen}`
             const result = await axios(`${strUrl}/${query}`);
             if(result.status === 200){
                 console.log(result)
+                result.data[0][0]  === 1 ? isToggleImpression.value = true : isToggleImpression.value = false;
                 toast.success('Estado cambiado')
             }
         } catch (error) {
@@ -147,37 +141,6 @@ const FOTOptica:React.FC<IOptica> = ({
         }
     }
 
-
-    useEffect(()=>{
-        if(data){
-            console.log(data[EnumGrid.validar_parametrizacion_id])
-            data[EnumGrid.estado_impresion_id] === '1' ? setIsToggleImpresion(true) : setIsToggleValidacion(false);
-            data[EnumGrid.validar_parametrizacion_id] === '1' ? setIsToggleValidacion(true) : setIsToggleValidacion(false);
-            codigoProyecto.value = data[EnumGrid.proyecto_codigo]
-            punto_venta.value = data[EnumGrid.punto_venta_id]
-            // validar_parametrizacion.value = data[EnumGrid.validar_parametrizacion_id]
-            // console.log('render')
-        }else{
-            // validar_parametrizacion.value = "1"
-            // console.log('render')
-        }
-    },[data])
-
-  
-//  console.log(fecha_entrega_taller.ue)
-// console.log(data[33])
-
-// console.log(isEditting)
-// console.log(fecha_despacho.value)
-// console.log(isEditting)
-// console.log(permiso_estado_impresion)
-// console.log(permiso_resolucion_garantia)
-// console.log(permiso_est  ado_validacion)
-
-
-
-
-// console.log( !(motivo_ot.value === 'Garantía') && permiso_resolucion_garantia)
 return (
     <form action="">
         <div className='w-full frameOTForm'>
@@ -201,14 +164,14 @@ return (
                     <>
                         <div className="w-[25%] mt-4 mb-8 ml-4 px-[1.5rem] " >
                             <div className=" items-center flex">
-                                <Switch onChange={(e)=>handleSwitchValidation(e)} checked={isToggleValidacion} disabled={!(permiso_usuario_estado_validacion && permiso_areas_estado_validacion)}/>
+                                <Switch onChange={(e)=>handleSwitchValidation(e)} checked={isToggleValidation.value} disabled={!(permiso_usuario_estado_validacion && permiso_areas_estado_validacion)}/>
                                 <label className='ml-2'>Validar Parametrización</label>
                             </div>
                         </div>
                 
                         <div className="w-[25%] mt-4 mb-8 ml-4 px-[1.5rem] ">
                             <div className=" items-center flex">
-                                <Switch onChange={(e)=>handleSwitchImpresion(e)} checked={isToggleImpresion} disabled={!(permiso_usuario_estado_impresion && permisos_areas_estado_immpresion)}/>
+                                <Switch onChange={(e)=>handleSwitchImpresion(e)} checked={isToggleImpression.value} disabled={!(permiso_usuario_estado_impresion && permisos_areas_estado_immpresion)}/>
                                 <label className='ml-2'>OT Impresa</label>
                             </div>
                         </div>

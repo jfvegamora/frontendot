@@ -27,7 +27,10 @@ import { A1_CR_OD, A1_CR_OI, A1_GRUPO_OD, A1_GRUPO_OI, A2_CR_OD, A2_CR_OI, A2_Di
    fecha_despacho, fecha_entrega_cliente, fecha_entrega_taller, 
   inputChangeActions, 
   isExistClient, 
+  isToggleImpression, 
+  isToggleValidation, 
   motivo_ot, 
+  punto_venta, 
   // reiniciarA2DioptriasReceta, 
   reiniciarDioptriasReceta, reiniciarValidationNivel1, reiniciarValidationNivel2, tipo_de_anteojo, updateOT, validar_parametrizacion } from '../../utils';
 import { validationCliente, validationEstablecimientos, validationFechaAtencion, validationProyectos, validationPuntoVenta, validationTipoAnteojos, validation_A2_OD_CIL, validation_A2_OD_EJE, validation_A2_OD_ESF, validation_A2_OI_CIL, validation_A2_OI_EJE, validation_A2_OI_ESF, validation_Cristal1_od, validation_Cristal1_oi, validation_Cristal2_od, validation_Cristal2_oi } from '../../utils/validationOT';
@@ -37,7 +40,7 @@ import { URLBackend } from '../../hooks/useCrud';
 // import {transponer, transponer_a2 } from '../../utils/FOTReceta_utils';
 import { Spinner } from '@material-tailwind/react';
 import { toast } from 'react-toastify';
-import { addToArmazones, addToCristales, clearCodigos } from '../../../redux/slices/OTSlice';
+import { addToArmazones, addToCristales, clearCodigos, fetchOT } from '../../../redux/slices/OTSlice';
 import { validation_tipo_anteojo } from '../../utils/OTReceta_utils';
 
 const FOTArmazones = lazy(()=>import('../../components/OTForms/FOTArmazones'));
@@ -907,6 +910,8 @@ const FOT:React.FC<IFOTProps> = ({
          OTSlice.armazones,
          User["id"].toString()
       ).then(()=>{
+        console.log(OTAreaActual)
+        dispatch(fetchOT({OTAreas:OTAreaActual}))
         handleCloseForm()
       })
       // switchCasePausar(jsonData);
@@ -1233,6 +1238,11 @@ if(isEditting){
 useEffect(()=>{
   if(data){
 
+    codigoProyecto.value = data[EnumGrid.proyecto_codigo]
+    punto_venta.value    = data[EnumGrid.punto_venta_id]
+
+    isToggleImpression.value = data[EnumGrid.estado_impresion_id]        === '1' ? true : false
+    isToggleValidation.value = data[EnumGrid.validar_parametrizacion_id] === '1' ? true :false
     tipo_de_anteojo.value = data[EnumGrid.tipo_anteojo_id].toString();
     
     fecha_atencion_signal.value = data[EnumGrid.fecha_atencion]
@@ -1355,6 +1365,7 @@ useEffect(() => {
   console.log(validationNivel2.value)
 
   //PASAR DATA A FORMVALUES Y LEER FORMVALUES
+  
 
   console.log(fecha_atencion_signal.value)
   console.log(!fecha_atencion_signal.value.trim())

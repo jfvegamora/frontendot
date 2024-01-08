@@ -590,7 +590,7 @@ export const validation_A2_armazon = (value:string | any) => {
 
 
 export const validation_A2_DP =(value:string | any) => {
-    if (value.trim() === '' || isNaN(value)) {
+    if (value !== '') {
         const item = validationNivel2.value.find((item) => item.campo === 'a2_dp');
         if (item) {
           item.valor = 0;
@@ -606,7 +606,7 @@ export const validation_A2_DP =(value:string | any) => {
 export const validation_A2_OI_EJE = (value:string | any) => {
     const item = validationNivel2.value.find((item) => item.campo === 'a2_oi_eje');
     // console.log(value)
-    if (typeof value !== 'string' || value.trim() !== '' || !isNaN(Number(value))) {
+    if (value !== '') {
         const numericValue = Number(value);
         // console.log(numericValue)
         // console.log(dioptrias.value.EJE)
@@ -620,7 +620,7 @@ export const validation_A2_OI_EJE = (value:string | any) => {
 
 export const validation_A2_OI_CIL = (value:string | any) => {
     const item = validationNivel2.value.find((item) => item.campo === 'a2_oi_cil');
-    if (typeof value !== 'string' || value.trim() !== '' || !isNaN(Number(value))) {
+    if (value !== '') {
         const formattedValue = Number(value).toFixed(2);
         const validate = dioptrias.value.CIL.some((dioptria: string) => dioptria.includes(formattedValue));
         item && (item.valor = validate ? 1 : 0);
@@ -631,7 +631,7 @@ export const validation_A2_OI_CIL = (value:string | any) => {
 
 export const validation_A2_OI_ESF =(value:string | any) => {
     const item = validationNivel2.value.find((item) => item.campo === 'a2_oi_esf');
-    if (typeof value !== 'string' || value.trim() !== '' || !isNaN(Number(value))) {
+    if (value !== '') {
         const formattedValue = Number(value).toFixed(2);
         const validate = dioptrias.value.ESF.some((dioptria: string) => dioptria.includes(formattedValue));
         item && (item.valor = validate ? 1 : 0);
@@ -643,7 +643,7 @@ export const validation_A2_OI_ESF =(value:string | any) => {
 export const validation_A2_OD_EJE = (value:string | any) => {
     const item = validationNivel2.value.find((item) => item.campo === 'a2_od_eje');
     
-    if (typeof value !== 'string' || value.trim() !== '' || !isNaN(Number(value))) {
+    if (value !== '') {
         const numericValue = Number(value);
         const validate = dioptrias.value.EJE.some((dioptria: any) =>numericValue === dioptria[0]);
         item && (item.valor = validate ? 1 : 0);
@@ -654,7 +654,7 @@ export const validation_A2_OD_EJE = (value:string | any) => {
 
 export const validation_A2_OD_CIL = (value:string | any) => {
     const item = validationNivel2.value.find((item) => item.campo === 'a2_od_cil');
-    if (typeof value !== 'string' || value.trim() !== '' || !isNaN(Number(value))) {
+    if (value !== '') {
         const formattedValue = Number(value).toFixed(2);
         const validate = dioptrias.value.CIL.some((dioptria: string) => dioptria.includes(formattedValue));
         item && (item.valor = validate ? 1 : 0);
@@ -670,7 +670,7 @@ export const validation_A2_OD_ESF =( value:string | any) => {
     
     // console.log(value)
     
-    if(typeof value !== 'string' || value.trim() !== '' || !isNaN(Number(value))) {
+    if(value !== '') {
         const formattedValue = Number(value).toFixed(2);
         const validate = dioptrias.value.ESF.some((dioptria: string) => dioptria.includes(formattedValue));
         item && (item.valor = validate ? 1 : 0);
@@ -681,29 +681,31 @@ export const validation_A2_OD_ESF =( value:string | any) => {
 }
 
 export const validation_A1_ALT = (value:string | any) => {
-    if (value.trim() === '' || isNaN(value)) {
+    if (value !== '') {
         const item = validationNivel2.value.find((item) => item.campo === 'a1_alt');
         if (item) {
-          item.valor = 0;
+          item.valor = 1;
         };
       } else {
         const item = validationNivel2.value.find((item) => item.campo === 'a1_alt');
         if (item) {
-          item.valor = 1;
+          item.valor = 0;
         };
     }
 };
 
 export const validation_A1_DP = (value:string | any) => {
-    if (value.trim() === '' || isNaN(value)) {
+
+    
+    if (value !== '') {
         const item = validationNivel2.value.find((item) => item.campo === 'a1_dp');
         if (item) {
-          item.valor = 0;
+          item.valor = 1;
         };
       } else {
         const item = validationNivel2.value.find((item) => item.campo === 'a1_dp');
         if (item) {
-          item.valor = 1;
+          item.valor = 0;
         };
     }
 }
@@ -711,7 +713,7 @@ export const validation_A1_DP = (value:string | any) => {
 export const validation_A1_OI_AD = (value:string | any) => {
     const item = validationNivel2.value.find((item) => item.campo === 'a1_oi_ad');
     
-    if (typeof value !== 'string' || value.trim() !== '' || !isNaN(Number(value))) {
+    if (value !== '') {
         const formattedValue = Number(value).toFixed(2);        
         const validate = dioptrias.value.AD.some((dioptria: string) => dioptria.includes(formattedValue));
         item && (item.valor = validate ? 1 : 0);
@@ -723,7 +725,7 @@ export const validation_A1_OI_AD = (value:string | any) => {
 export const validation_A1_OI_EJE = (value:string | any) => {
     const item = validationNivel2.value.find((item) => item.campo === 'a1_oi_eje');
     
-    if (typeof value !== 'string' || value.trim() !== '' || !isNaN(Number(value))) {
+    if (value !== '') {
         const numericValue = Number(value);
         const validate = dioptrias.value.EJE.some((dioptria: any) => dioptria[0] === numericValue);
         item && (item.valor = validate ? 1 : 0);
@@ -735,7 +737,7 @@ export const validation_A1_OI_EJE = (value:string | any) => {
 export const validation_A1_OI_CIL = (value:string | any) => {
     const item = validationNivel2.value.find((item) => item.campo === 'a1_oi_cil');
     
-    if (typeof value !== 'string' || value.trim() !== '' || !isNaN(Number(value))) {
+    if (value !== '') {
         const formattedValue = Number(value).toFixed(2);
         const validate = dioptrias.value.CIL.some((dioptria: string) => dioptria.includes(formattedValue));
         item && (item.valor = validate ? 1 : 0);
@@ -748,7 +750,7 @@ export const validation_A1_OI_CIL = (value:string | any) => {
 export const validation_A1_OI_ESF = (value:string | any) => {
     const item = validationNivel2.value.find((item) => item.campo === 'a1_oi_esf');
 
-    if (typeof value !== 'string' || value.trim() !== '' || !isNaN(Number(value))) {
+    if (value !== '') {
         const formattedValue = Number(value).toFixed(2);
         const validate = dioptrias.value.ESF.some((dioptria: string) => dioptria.includes(formattedValue));
         item && (item.valor = validate ? 1 : 0);
@@ -760,7 +762,7 @@ export const validation_A1_OI_ESF = (value:string | any) => {
 export const validation_A1_OD_AD = (value:string | any) => {
     const item = validationNivel2.value.find((item) => item.campo === 'a1_od_ad');
 
-    if (typeof value !== 'string' || value.trim() !== '' || !isNaN(Number(value))) {
+    if (value !== '') {
         const formattedValue = Number(value).toFixed(2);
         const validate = dioptrias.value.AD.some((dioptria: string) => dioptria.includes(formattedValue));
         item && (item.valor = validate ? 1 : 0);
@@ -768,13 +770,15 @@ export const validation_A1_OD_AD = (value:string | any) => {
         item.valor = 0;
      }
 
+     console.log(item)
+
 }
 
 
 export const validation_A1_OD_EJE = (value: string | any) => {
     const item = validationNivel2.value.find((item) => item.campo === 'a1_od_eje');
   
-    if (typeof value !== 'string' || value.trim() !== '' || !isNaN(Number(value))) {
+    if (value !== '') {
       const numericValue = Number(value);
       const validate = dioptrias.value.EJE.some((dioptria: any) =>numericValue === dioptria[0]);
       item && (item.valor = validate ? 1 : 0);
@@ -786,7 +790,7 @@ export const validation_A1_OD_EJE = (value: string | any) => {
 export const validation_A1_OD_CILL = (value:string | any) => {
     const item = validationNivel2.value.find((item) => item.campo === 'a1_od_cil');
     
-    if (typeof value !== 'string' || value.trim() !== '' || !isNaN(Number(value))) {
+    if (value !== '') {
         const formattedValue = Number(value).toFixed(2);
         const validate = dioptrias.value.CIL.some((dioptria: string) => dioptria.includes(formattedValue));
         item && (item.valor = validate ? 1 : 0);
@@ -795,13 +799,14 @@ export const validation_A1_OD_CILL = (value:string | any) => {
      }
 }
 
-export const validation_A1_OD_ESF = (value: string) => {
+export const validation_A1_OD_ESF = (value: any) => {
     const item = validationNivel2.value.find((item) => item.campo === 'a1_od_esf');
-    console.log(value)
-    if (typeof value !== 'string' || value.trim() !== '' || !isNaN(Number(value))) {
+
+    if (value !== '') {
       const formattedValue = Number(value).toFixed(2);
       console.log(dioptrias.value.ESF)
       const validate = dioptrias.value.ESF.some((dioptria: string) => dioptria.includes(formattedValue));
+      console.log(validate)
       item && (item.valor = validate ? 1 : 0);
     } else if (item) {
       item.valor = 0;
