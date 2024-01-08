@@ -282,7 +282,6 @@ const FProyectosPuntosVenta: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={["/api/puntosventa/", "02"]}
                     error={errors.punto_venta}
-                    inputRef={firstInputRef}
                     readOnly={isEditting}
                     customWidth={"!ml-[1rem] !w-[38rem]"}
                   />
@@ -300,7 +299,6 @@ const FProyectosPuntosVenta: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={["/api/proyectos/", "02"]}
                     error={errors.proyecto}
-                    inputRef={firstInputRef}
                     readOnly={isEditting}
                     customWidth={"!ml-[1rem] !w-[38rem] "}
                     />

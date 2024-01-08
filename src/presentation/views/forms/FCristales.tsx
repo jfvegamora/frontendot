@@ -119,7 +119,6 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
       ListEntity,
       firstInputRef,
       focusFirstInput,
-      secondInputRef,
       focusSecondInput,
     } = useCrud(strBaseUrl);
     const [blnKeep, setblnKeep] = useState(false);
@@ -302,7 +301,6 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                 entidad={["/api/marcas/", "02"]}
                 error={errors.marca}
                 customWidth={"!ml-[1rem] !w-[28rem]"}
-                inputRef={secondInputRef}
                 tabIndex={1}
               />
             </div>

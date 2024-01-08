@@ -280,7 +280,6 @@ const FVitrinasArmazones: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={["/api/vitrinas/", "02"]}
                     error={errors.vitrina}
-                    inputRef={firstInputRef}
                     readOnly={isEditting}
                     customWidth={"!ml-[1rem] !w-[38rem] "}
                   />

@@ -342,18 +342,7 @@ return (
 
                     </div>
 
-                    <div className="w-[104%] ml-2">
-                        <TextInputComponent
-                            type="text"
-                            label="Observaciones"
-                            name="observaciones"
-                            handleChange={handleInputChange}
-                            data={formValues ? formValues["observaciones"] : data && data[EnumGrid.observaciones]}
-                            control={control}
-                            onlyRead={isEditting}
-                            isOptional={true}
-                            />
-                    </div>
+            
                 </div>
 
 

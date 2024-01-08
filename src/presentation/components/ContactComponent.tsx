@@ -24,7 +24,6 @@ const ContactComponent:React.FC<IProps> = ({
     dataCorreo,
     dataTelefono,
     label,
-    isOptional,
 }) => {
   return (
     <div className=" relative mx-4 w-full flex ">

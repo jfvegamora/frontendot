@@ -89,7 +89,6 @@ const FPermisos: React.FC<IFormPrps> = React.memo(
       createdEntity,
       ListEntity,
       focusFirstInput,
-      firstInputRef,
     } = useCrud(strBaseUrl);
     const [blnKeep, setblnKeep] = useState(false);
 
@@ -242,7 +241,6 @@ const FPermisos: React.FC<IFormPrps> = React.memo(
                       control={control}
                       entidad={["/api/funcionalidades/", "02"]}
                       error={errors.funcionalidad}
-                      inputRef={firstInputRef}
                       readOnly={isEditting}
                       customWidth={"!ml-[1rem] "}
                       />

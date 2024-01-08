@@ -314,7 +314,6 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                     entidad={["/api/proyectos/", "02"]}
                     error={errors.proyecto}
                     readOnly={isEditting}
-                    inputRef={firstInputRef}
                     customWidth={"!w-[29rem] !ml-[1rem] !mt-[-0.6rem]"}
                     />
                 </div>
@@ -372,7 +371,6 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                       control={control}
                       entidad={["/api/tipos/", "02", "CristalesDisenos"]}
                       error={errors.diseno}
-                      inputRef={focusSecondInput}
                       customWidth={"!w-[30.3rem]"}
                     />
                   </div>

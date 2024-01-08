@@ -373,7 +373,6 @@ const FProyectosAtenciones: React.FC<IUserFormPrps> = React.memo(
                       control={control}
                       entidad={["/api/proyectos/", "02"]}
                       error={errors.proyecto}
-                      inputRef={firstInputRef}
                       readOnly={isEditting}
                       customWidth={"!ml-[1rem] !w-[38rem] "}
                       />

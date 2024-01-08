@@ -280,7 +280,6 @@ const FMuestrariosArmazones: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={["/api/muestrarios/", "02"]}
                     error={errors.muestrario}
-                    inputRef={firstInputRef}
                     readOnly={isEditting}
                     customWidth={"!ml-[1rem] !w-[38rem] "}
                   />
