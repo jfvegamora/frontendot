@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { RadioButtonComponent, SelectInputComponent } from '..'
-import { SEXO, TIPO_CLIENTE, codigoProyecto } from '../../utils';
+import { SEXO, TIPO_CLIENTE, codigoProyecto, isExistClient } from '../../utils';
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
 import { EnumGrid as EnumClientes } from '../../views/mantenedores/MClientes';
 import axios from 'axios';
@@ -39,17 +39,6 @@ const FOTClientes:React.FC<IClientes> = ({
     const fetchCliente = async(cliente_rut:string) => {
         try {
             const cliente = await axios(`${URLBackend}/api/ot/listado/?query=13&_rut=${cliente_rut}`)
-            // console.log(cliente)
-            console.log(cliente.data)
-            console.log(typeof cliente.data)
-            console.log(Array.isArray(cliente.data))
-            console.log(cliente.data.length)
-            // onDataChange({['cliente_nombre']: cliente.data[EnumClientes.nombre]})
-            // onDataChange({['cliente_tipo']: cliente.data[EnumClientes.tipo]})
-            // onDataChange({['cliente_sexo']: cliente.data[EnumClientes.sexo]})
-            // onDataChange({['cliente_fecha_nacimiento']: cliente.data[EnumClientes.fecha_nacimiento]})
-            // onDataChange({['cliente_correo']: cliente.data[EnumClientes.correo]})
-            // onDataChange({['cliente_telefono']: cliente.data[EnumClientes.telefono]})
             if (Array.isArray(cliente.data)) {
                   const innerArray = cliente.data[0];
                   console.log(innerArray.length)
@@ -73,7 +62,7 @@ const FOTClientes:React.FC<IClientes> = ({
                       onDataChange({['cliente_region']:0})
                       onDataChange({['cliente_comuna']:0})
                       onDataChange({['cliente_provincia']:0})
-                      onDataChange({['cliente_direccion']: "  "})
+                      onDataChange({['cliente_direccion']: " "})
 
 
                       // Realizar acciones específicas para el tipo 1
@@ -92,8 +81,8 @@ const FOTClientes:React.FC<IClientes> = ({
                     console.log('Tipo 3:', cliente.data);
                     console.log(cliente.data[0])
                     setClienteData(data)
-          
-                    setExistCliente(true)
+                    
+                    isExistClient.value = true;
                     onDataChange({['cliente_nombre']: cliente.data[0][EnumClientes.nombre]})    
                     onDataChange({['cliente_sexo']: cliente.data[0][EnumClientes.sexo]})
                     onDataChange({['cliente_tipo']: cliente.data[0][EnumClientes.tipo]})

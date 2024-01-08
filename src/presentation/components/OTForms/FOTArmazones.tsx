@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react'
-import { SelectInputComponent, TextInputComponent } from '..'
 import useSWR from 'swr';
 import axios from 'axios';
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
@@ -32,9 +31,9 @@ const FOTArmazones:React.FC<IArmazones> = ({
 
     
     // const [codArmazon1, setCodArmazon1] = useState( formValues && formValues["codigo_armazon_1"] || 0);
-    const [codArmazon1, setCodArmazon1] = useState(formValues ? formValues["a1_armazon_id"] : data && data[EnumGrid.a1_armazon_id] || " ");
-    const [codArmazon2, setCodArmazon2] = useState(formValues ? formValues["a2_armazon_id"] : data && data[EnumGrid.a2_armazon_id] || " ");
-    const [codArmazon3, setCodArmazon3] = useState(formValues ? formValues["a3_armazon_id"] : data && data[EnumGrid.a3_armazon_id] || " ");
+    const [codArmazon1, setCodArmazon1] = useState(formValues ? formValues["a1_armazon_id"] : data && data[EnumGrid.a1_armazon_id] || "");
+    const [codArmazon2, setCodArmazon2] = useState(formValues ? formValues["a2_armazon_id"] : data && data[EnumGrid.a2_armazon_id] || "");
+    const [codArmazon3, setCodArmazon3] = useState(formValues ? formValues["a3_armazon_id"] : data && data[EnumGrid.a3_armazon_id] || "");
 
 
     //TODO! =========================== ENVIAR DP EN _P4 PARA VALIDAR ARMAZONES ===========================================================================
@@ -44,10 +43,11 @@ const FOTArmazones:React.FC<IArmazones> = ({
                                                    ? `${URLBackend}/api/armazones/listado/?query=01` 
                                                    : `${URLBackend}/api/armazones/listado/?query=02&_p2=${codigoProyecto.value}&_p3=${punto_venta.value}`;
 
-    const { data:armazon1 } = useSWR(`${endpoint}&_p1=${codArmazon1 !== ' ' ? codArmazon1 : "aaaa"}&_p4=${typeof A1_DP.value === 'string' ? A1_DP.value : 0}&_p5=${typeof A1_Diametro.value === 'string' ? A1_Diametro.value : ""}`, fetcher); 
-    const { data:armazon2 } = useSWR(`${endpoint}&_p1=${codArmazon2 !== ' ' ? codArmazon2 : "aaaa"}&_p4=${(tipo_de_anteojo.value === '3' ? (typeof A2_DP.value === 'string' ? A2_DP.value : 0) : A1_DP.value)}&_p5=${(tipo_de_anteojo.value === '3' ? (typeof A2_Diametro.value === 'string' ? A2_Diametro.value : "") : A1_Diametro.value)}`, fetcher);
-    const { data:armazon3 } = useSWR(`${endpoint}&_p1=${codArmazon3 !== ' ' ? codArmazon3 : "aaaa"}&_p4=${typeof A1_DP.value === 'string' ? A1_DP.value : 0}&_p5=${typeof A1_Diametro.value === 'string' ? A1_Diametro.value : ""}`, fetcher); 
-    
+    const { data:armazon1 } = useSWR( !codArmazon1.trim() === false ? (`${endpoint}&_p1=${codArmazon1 !== ' ' ? codArmazon1 : "aaaa"}&_p4=${typeof A1_DP.value === 'string' ? A1_DP.value : 0}&_p5=${typeof A1_Diametro.value === 'string' ? A1_Diametro.value : ""}`) : null, fetcher); 
+    const { data:armazon2 } = useSWR( !codArmazon2.trim() === false ? (`${endpoint}&_p1=${codArmazon2 !== ' ' ? codArmazon2 : "aaaa"}&_p4=${(tipo_de_anteojo.value === '3' ? (typeof A2_DP.value === 'string' ? A2_DP.value : 0) : A1_DP.value)}&_p5=${(tipo_de_anteojo.value === '3' ? (typeof A2_Diametro.value === 'string' ? A2_Diametro.value : "") : A1_Diametro.value)}`) : null, fetcher);
+    const { data:armazon3 } = useSWR( !codArmazon3.trim() === false ? (`${endpoint}&_p1=${codArmazon3 !== ' ' ? codArmazon3 : "aaaa"}&_p4=${typeof A1_DP.value === 'string' ? A1_DP.value : 0}&_p5=${typeof A1_Diametro.value === 'string' ? A1_Diametro.value : ""}`) : null, fetcher); 
+
+
     
     const handleInputChange = (e:any) => {
         const { name, value } = e;
@@ -125,21 +125,6 @@ const FOTArmazones:React.FC<IArmazones> = ({
     },[armazon3, codArmazon3])
     
 
-      
-  
-    // console.log(armazon2)
-    // console.log(armazon1)
-    // console.log(punto_venta.value)
-    // console.log(codArmazon1)
-    // console.log(typeof armazon1[0])
-    // console.log(armazon2[0][0])
-    // console.log(formValues)
-    // console.log(codArmazon2 && codArmazon2[0])
-    // console.log(data && data[EnumGrid.a1_armazon_id])
-
-    // console.log(permiso_armazones)
-
-    console.log(armazon2)
   return (
     <form>
         <div className='w-full frameOTForm'>

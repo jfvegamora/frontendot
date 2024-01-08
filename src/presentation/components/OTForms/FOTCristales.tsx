@@ -1,9 +1,9 @@
-import React,{useEffect} from 'react'
+import React from 'react'
 import { SelectInputComponent, TextInputComponent } from '..';
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
 import { validationOTlevel2 } from '../../utils/validationOT';
 import SelectInputTiposComponent from '../forms/SelectInputTiposComponent';
-import { A1_CR_OD, A1_CR_OI, A1_GRUPO_OD, A1_GRUPO_OI, A2_CR_OD, A2_CR_OI, A2_Diametro, A2_GRUPO_OD, A2_GRUPO_OI, clearSelectInput, setCodigosCristales, tipo_de_anteojo } from '../../utils';
+import { A1_CR_OD, A1_CR_OI, A1_GRUPO_OD, A1_GRUPO_OI, A2_CR_OD, A2_CR_OI, A2_Diametro, A2_GRUPO_OD, A2_GRUPO_OI, tipo_de_anteojo } from '../../utils';
 import TextInputInteractive from '../forms/TextInputInteractive';
 
 
@@ -55,7 +55,6 @@ const FOTCristales:React.FC<ICristales> = ({
         onDataChange({[name]:value})
 
 
-        setCodigosCristales(value)
         validationOTlevel2(name, value)
         
         // console.log(validate)

@@ -110,6 +110,8 @@ useEffect(()=>{
 
 },[defaultComuna, defaultProvincia, defaultRegion])
 
+console.log(regions)
+console.log(defaultRegion)
 
   return (
     <div className='w-full pb-2 items-center '>
