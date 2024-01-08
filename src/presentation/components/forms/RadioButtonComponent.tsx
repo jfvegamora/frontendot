@@ -93,7 +93,7 @@ const RadioButtonComponent: React.FC<IRadioButtonProps> = ({
         </div>
       ))}
       {error && (
-        <p className={`relative  labelErr ${horizontal ? "top-[0] right-[-4rem]" : "top-[-6rem] right-[-2rem]"}`}>
+        <p className={`relative  labelErr ${horizontal ? "top-[0] align-center" : "top-[-6rem] right-[-2rem]"}`}>
           {error.message}
         </p>
       )}

@@ -257,13 +257,14 @@ const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
               <div className="w-[100%] !mt-[1rem] mb-2">
                 <TextInputComponent
                   type="text"
-                  label="Código"
+                  label="Código/RBD"
                   name="codigo"
                   data={data && data[EnumGrid.codigo]}
                   control={control}
                   error={errors.codigo}
                   inputRef={firstInputRef}
-                />
+                  isOptional={true}
+                  />
               </div>
             </div>
 

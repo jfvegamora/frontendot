@@ -507,7 +507,8 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                   data={data && data[EnumGrid.precio_venta_neto]}
                   control={control}
                   error={errors.precio_venta_neto}
-                />
+                  isOptional={true}
+                  />
               </div>
               </div>
             </div>
@@ -523,7 +524,8 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                   data={data && data[EnumGrid.observaciones]}
                   control={control}
                   error={errors.observaciones}
-                />
+                  isOptional={true}
+                  />
               </div>
             </div>
           </div>

@@ -284,6 +284,7 @@ const FOftalmologos: React.FC<IUserFormPrps> = React.memo(
                     name="telefono"
                     data={data && data[EnumGrid.telefono]}
                     control={control}
+                    isOptional={true}
                   />
                 </div>
               </div>  
@@ -298,7 +299,7 @@ const FOftalmologos: React.FC<IUserFormPrps> = React.memo(
                     name="correo"
                     data={data && data[EnumGrid.correo]}
                     control={control}
-                    // onlyRead={isEditting}
+                    isOptional={true}
                   />
                 </div>
               </div>  

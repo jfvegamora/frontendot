@@ -323,7 +323,8 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                     name="telefono"
                     data={data && data[EnumGrid.telefono]}
                     control={control}
-                  />
+                    isOptional={true}
+                    />
                 </div>
               </div>
             </div>

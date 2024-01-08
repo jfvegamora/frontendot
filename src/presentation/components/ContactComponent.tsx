@@ -9,8 +9,9 @@ interface IProps{
     correo:string,
     dataNombre: any,
     dataCorreo:any,
-    dataTelefono:any
-    label:string
+    dataTelefono:any,
+    label:string,
+    isOptional?:boolean;
 }
 
 const ContactComponent:React.FC<IProps> = ({
@@ -22,7 +23,8 @@ const ContactComponent:React.FC<IProps> = ({
     dataNombre,
     dataCorreo,
     dataTelefono,
-    label
+    label,
+    isOptional,
 }) => {
   return (
     <div className=" relative mx-4 w-full flex ">
@@ -39,7 +41,8 @@ const ContactComponent:React.FC<IProps> = ({
                             data={dataNombre}
                             control={control}
                             error={errors.administrador_nombre}
-                        />
+                            isOptional={true}
+                            />
                     </div>
                 </div>
 
@@ -52,7 +55,8 @@ const ContactComponent:React.FC<IProps> = ({
                             data={dataTelefono}
                             control={control}
                             error={errors.administrador_telefono}
-                        />
+                            isOptional={true}
+                            />
                     </div>
                 </div>
 
@@ -65,7 +69,8 @@ const ContactComponent:React.FC<IProps> = ({
                             data={dataCorreo}
                             control={control}
                             error={errors.administrador_correo}
-                        />
+                            isOptional={true}
+                            />
                     </div>
                 </div>
 

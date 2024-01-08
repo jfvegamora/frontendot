@@ -396,11 +396,10 @@ const FArmazonesKardexOUT: React.FC<IUserFormPrps> = React.memo(
                       type="text"
                       label="Código FAB"
                       name="insumo_fab"
-                      // data={data && data[EnumGrid.insumo]}
                       control={control}
-                      // error={errors.insumo}
                       onlyRead={isEditting}
                       customWidth={"!w-[11rem] !ml-[-1rem] "}
+                      isOptional={true}
                     />
                       <TextInputComponent
                         type={isEditting ? "datetime" : "date"}
@@ -471,6 +470,7 @@ const FArmazonesKardexOUT: React.FC<IUserFormPrps> = React.memo(
                       entidad={["/api/almacenes/", "02"]}
                       error={errors.almacen_relacionado}
                       customWidth={"!ml-[1rem] !mt-[-0.6rem] !w-[24rem]"}                      
+                      isOptional={true}
                     />
                   </div>
                 </div>
@@ -486,7 +486,8 @@ const FArmazonesKardexOUT: React.FC<IUserFormPrps> = React.memo(
                     data={data && data[EnumGrid.observaciones]}
                     control={control}
                     error={errors.observaciones}
-                  />
+                    isOptional={true}
+                    />
                 </div>
               </div>
             </div>

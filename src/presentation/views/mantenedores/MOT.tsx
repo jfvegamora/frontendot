@@ -279,6 +279,17 @@ const MOT: React.FC = () => {
         {/* <div className="w-full bg-red-300 bottom-0">
           <span>{estadosOT}</span>
         </div> */}
+        <FOT
+          label={`${TITLES.ingreso} ${strEntidad}`}
+          closeModal={closeModal}
+          selectedRows={selectedRows}
+          setEntities={setEntities}
+          params={params}
+          isEditting={false}
+          isMOT={false}
+          
+
+        />
 
       {isModalInsert && (
         

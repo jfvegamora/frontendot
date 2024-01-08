@@ -30,13 +30,14 @@ interface ISelectInputProps {
   error?: any;
   entidad: string[];
   inputValues?: any;
-  inputRef?: any;
+  className?:string;
   readOnly?: boolean;
   customWidth?: any;
   setState?: any;
   isOT?:boolean;
   tabIndex?: number;
   isFOTcristales?:boolean;
+  isOptional?:boolean;
 }
 
 const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
@@ -51,12 +52,14 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     setHandleSearch,
     inputValues,
     handleSelectChange,
+    className,
     readOnly,
     setState,
     isOT,
     tabIndex,
     customWidth,
-    isFOTcristales
+    isFOTcristales,
+    isOptional,
   }) => {
     const dispatch = useAppDispatch()
     const [entities, setEntities] = useState([]);
@@ -175,7 +178,8 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
                     }
                   }
                 }}
-                className="custom-input py-2  cursor-pointer z-0">
+                // className="custom-input py-2  cursor-pointer z-0">
+               className={`${className ? className : "custom-input py-2  cursor-pointer z-0"}  ${readOnly ? "custom-onlyread" : ""} ${isOptional ? "custom-optional" : "custom-required" } `}> 
                 {!data && (
                   <option value={undefined} className="text-sm">
                     
