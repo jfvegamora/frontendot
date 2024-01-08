@@ -370,7 +370,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
           )}
 
           <div className="w-full">
-            <div className="mx-auto w-[70%]">
+            <div className="mx-auto w-[60%]">
                 {escritura_lectura && (
                   <button type="submit" tabIndex={1} className="userFormBtnSubmit">
                     {`${TITLES.guardar}`}

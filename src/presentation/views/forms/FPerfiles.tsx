@@ -256,7 +256,7 @@ const FPerfiles: React.FC<IFormPrps> = React.memo(
 
             <div className="items center flex !mb-2">
               <div className="input-container items-center rowForm  w-full">
-                <div className="w-full !ml-[1rem] !w-[25rem]">
+                <div className="!ml-[1rem] !w-[25rem]">
                   <RadioButtonComponent
                     control={control}
                     label="Permiso"
@@ -272,7 +272,7 @@ const FPerfiles: React.FC<IFormPrps> = React.memo(
           </div>
 
           <div className="w-full">
-            <div className="mx-auto w-[70%]">
+            <div className="mx-auto w-[60%]">
                 {escritura_lectura && (
                   <button type="submit" tabIndex={1} className="userFormBtnSubmit">
                     {`${TITLES.guardar}`}

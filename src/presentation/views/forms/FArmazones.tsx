@@ -504,7 +504,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
           </div>
 
           <div className="w-full ">
-            <div className="w-[50%] mx-auto">
+            <div className="w-[30%] mx-auto">
               {escritura_lectura && (
                 <button type="submit" tabIndex={1} className="userFormBtnSubmit">
                 {`${TITLES.guardar}`}

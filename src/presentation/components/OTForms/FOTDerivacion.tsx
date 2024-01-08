@@ -6,6 +6,7 @@ import { AppStore, useAppSelector } from '../../../redux/store';
 // import { SEXO, TIPO_CLIENTE } from '../../utils';
 import axios from 'axios';
 import { URLBackend } from '../../hooks/useCrud';
+import { Button } from '@material-tailwind/react';
 
 
 interface IDerivacion {
@@ -222,12 +223,12 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
     console.log( data && data[EnumGrid.a2_armazon_id])
     console.log( data && data[EnumGrid.a3_armazon_id])
   return (
-    <div className='useFormContainer h-[55%] w-[60%] left-[20%] top-[30%] z-30'>
+    <div className='useFormContainer useFormDerivacion h-[55%] w-[60%] left-[20%] top-[30%] z-30'>
         <div className=" flex justify-end w-full">
             <h2 className='text-2xl cursor-pointer' onClick={onClose}>X</h2>
         </div>
         <form className='text-center  !h-[80%]' onSubmit={handleSubmit(onSubmit)}>
-                <h1 className='text-2xl mt-2'>Derivacion De OT</h1>
+                <h1 className='text-2xl mt-2'>Derivación de OT</h1>
 
                 <div className="flex  items-center rowForm w-full">
                     <div className="w-[25%] ml-4">
@@ -332,7 +333,7 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
                 </div>
 
                 <div className=' w-full flex justify-end mx-[-1.5rem] h-12'>
-                    <button  type="submit" className='w-[14%] text-xl bg-red-400 text-white'>Derivar</button>
+                    <Button  type="submit" className='otActionButton bg-red-900'>Derivar</Button>
                 </div>
         </form>
 

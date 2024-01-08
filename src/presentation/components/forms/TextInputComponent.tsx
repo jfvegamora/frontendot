@@ -84,8 +84,10 @@ return (
             maxLength={maxLength}
             onBlur={(e) => handleInputChange(e)}
             ref={inputRef}
-            className={`${className ? className : "custom-input"}   ${onlyRead ? "!bg-gray-200 opacity-80 cursor-not-allowed " : ""}`}
-            tabIndex={tabIndex || 1}
+            // className={`${className ? className : "custom-input"} ${onlyRead ? "opacity-80 cursor-not-allowed" : ""}`}
+            className={`${className ? className : "custom-input"} ${onlyRead ? "custom-input-onlyread" : "custom-input"}`}
+            style={onlyRead ? { backgroundColor: "rgb(103 111 157 / 0.9)" } : {}}
+                        tabIndex={tabIndex || 1}
             placeholder={type === 'date' ? "dd-mm-yyyy" : ''}
             autoComplete="off"
             step={step ? step : 1 } 

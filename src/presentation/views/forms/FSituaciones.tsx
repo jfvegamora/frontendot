@@ -253,14 +253,17 @@ const FSituaciones: React.FC<ISituacionesFormProps> = React.memo(
               />
             </div>
           </div>
-
-
           </div>
-          {escritura_lectura && (
-            <button type="submit" tabIndex={1} className="userFormBtnSubmit">
-              {`${TITLES.guardar}`}
-            </button>
-          )}
+
+          <div className="w-full">
+            <div className="w-[70%] mx-auto">
+              {escritura_lectura && (
+                <button type="submit" tabIndex={1} className="userFormBtnSubmit">
+                  {`${TITLES.guardar}`}
+                </button>
+              )}
+            </div>
+          </div>
         </form>
         <CustomModal />
       </div>
