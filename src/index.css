@@ -223,22 +223,26 @@ select::-ms-expand {
   appearance: none;
   border-radius: 0.25rem;
   --tw-text-opacity: 1;
-  color: #676f9d;
-  background-color: #ffffff;
   min-width: unset !important;
   height: 3rem;
   white-space: pre-wrap;
   margin: 0px 0px 0px 0px !important;
 }
 
-.custom-input-optional{
-  background-color: #b0bbc4;
-  color: #2d3250;
+.custom-required {
+  color: #676f9d;
+  background-color: #ffffff;
+}
+/* .custom-input-optional{ */
+
+.custom-optional{
+  background-color: #b0bbc4 !important;
+  color: #2d3250 !important;
 }
 
-.custom-input-onlyread{
-  background-color:#2d3250;
-  color: #b0bbc4;
+.custom-onlyread{
+  background-color:#2d3250 !important;
+  color: #b0bbc4 !important;
 }
 
 .custom-input.error {
@@ -972,9 +976,6 @@ input[type="text"] {
 .flex-col div {
   min-width: auto !important;
 } /*ancho del Input para datos pequeños*/
-.flex-col input {
-  background-color: white !important;
-}
 .flex-col label {
   font-size: 16px;
 } /*color del label del input*/

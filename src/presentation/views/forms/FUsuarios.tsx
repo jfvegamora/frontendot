@@ -291,6 +291,9 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     error={errors.nombre}
                     inputRef={firstInputRef}
+                    // isOptional={}
+                    // onlyRead={}
+                    
                   />
                 </div>
               </div>

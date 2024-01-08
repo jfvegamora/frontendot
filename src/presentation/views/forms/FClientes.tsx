@@ -346,6 +346,7 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
                 </div>
               </div> 
             </div>
+            
 
             <div className="input-container items-center !mt-[1rem] rowForm !h-[19rem]">
               <div className="flex" style={{ display: 'inline'}}>
@@ -373,7 +374,7 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
                       ]}
                       error={errors.tipo}
                     />
-                    <div className="flex  absolute top-[58%] w-[50%] mr-10">
+                    <div className="flex absolute top-[58%] w-[50%] mr-10">
                       <div className="flex-col">
                         <div className="flex">
                           <div className="w-[50%]">
@@ -396,8 +397,7 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
                               error={errors.telefono}
                             />
                           </div>
-                      </div>
-
+                        </div>
                         <TextInputComponent
                           type="text"
                           label="Correo"
@@ -405,7 +405,9 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
                           data={data && data[EnumGrid.correo]}
                           control={control}
                           error={errors.correo}
+                          isOptional={true}
                         />
+
                       </div>
                     </div>
                   </div>
@@ -422,18 +424,21 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
                       defaultProvincia={data && data[EnumGrid.provincia_id]}
                       errors={errors.comuna}
                       />
-                    <div className="">
+                    
                       <TextInputComponent
-                      type="text"
-                      label="Direccion"
-                      name="direccion"
-                      className=""
-                      data={data && data[EnumGrid.direccion]}
-                      control={control}
-                      error={errors.direccion}
-                      customWidth={"!mt-[-1rem]"}
+                        type="text"
+                        label="Dirección"
+                        name="direccion"
+                        data={data && data[EnumGrid.direccion]}
+                        control={control}
+                        error={errors.direccion}
+                        customWidth={"!mt-[-1rem]"}
+                        isOptional={true}
+                        // onlyRead={true}
+                        // className="w-full"
+                        // onlyRead={false} 
                       />
-                    </div>
+                  
                   </div>
                 </div>
               </div> 
