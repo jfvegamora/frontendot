@@ -440,7 +440,7 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
             </div>
 
             <div className="flex items-center rowForm justify-center">
-              <div className="w-[50%] pt-4">
+              <div className="w-[30%] pt-4">
                 {escritura_lectura && (
                   <button type="submit" tabIndex={1} className="userFormBtnSubmit">
                     {`${TITLES.guardar}`}

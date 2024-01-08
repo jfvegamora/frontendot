@@ -171,10 +171,10 @@ const FOTReceta:React.FC<IReceta> = ({
             </div>
 
             <div className="w-full flex items-center rowForm !h-[11rem] relative ">
-                <label className='absolute z-10 top-[-5%] w-[15%] left-[36%] text-center text-2xl'>ANTEOJO 1</label>
+                <label className='absolute z-10 top-[-10%] w-[15%] left-[36%] text-center text-2xl'>ANTEOJO 1</label>
                 <div className=" w-[43%] items-center rowForm !mt-[-10rem] !h-[8rem]  ">
                     <div className="w-[90%] mx-auto flex items-center h-[9rem] relative labelForm  rounded-lg border radioComponent">
-                        <label className='labelForm w-[40%] absolute z-10 text-center -top-6 left-[30%]'>OJO DERECHO</label>
+                        <label className='labelForm w-[40%] absolute z-10 text-center -top-10 left-[30%] text-2xl'>OD</label>
                         <div className="w-[25%]">
                             <OTTextInputComponent
                                 type="number"
@@ -223,8 +223,8 @@ const FOTReceta:React.FC<IReceta> = ({
                 </div>
 
                 <div className=" w-[43%] items-center rowForm !h-[8rem]">
-                <div className="w-[90%] mx-auto flex items-center h-[9rem] relative labelForm  rounded-lg border radioComponent">
-                        <label className='labelForm w-[40%] absolute z-10 text-center -top-6 left-[30%]'>OJO IZQUIERDO</label>
+                    <div className="w-[90%] mx-auto flex items-center h-[9rem] relative labelForm  rounded-lg border radioComponent">
+                        <label className='labelForm w-[40%] absolute z-10 text-center -top-10 left-[30%] text-2xl'>OI</label>
                         <div className="w-[25%]">
                             <OTTextInputComponent
                                 type="number"
@@ -276,50 +276,44 @@ const FOTReceta:React.FC<IReceta> = ({
                                 otData={a1_oi_ad.value|| data && data[EnumGrid.a1_oi_ad]}
                                 control={control}
                                 // isOT={true}
-
                                 onlyRead={!(deshabilitarCampo.value.a1_ad && (!isEditting || (permiso_usuario_receta && permiso_usuario_receta)))}
-                            
-                                // error={errors.fecha_nacimiento}
                             />
                         </div>
-                </div>    
+                    </div>    
                 </div>
                 <div className="w-[14%] items-center ">
                     <div className="w-[70%] mx-auto">
-                            <TextInputComponent
-                                type="number"
-                                label="DP"
-                                name="a1_dp"
-                                handleChange={handleInputChange}
-                                data={formValues ? formValues["a1_dp"] : data && data[EnumGrid.a1_dp]}
-                                control={control}
-                                isOT={true}
-
-                                onlyRead={!(permiso_usuario_receta && permiso_usuario_receta)}
-                                // error={errors.fecha_nacimiento}
-                            />
+                        <TextInputComponent
+                            type="number"
+                            label="DP"
+                            name="a1_dp"
+                            handleChange={handleInputChange}
+                            data={formValues ? formValues["a1_dp"] : data && data[EnumGrid.a1_dp]}
+                            control={control}
+                            isOT={true}
+                            onlyRead={!(permiso_usuario_receta && permiso_usuario_receta)}
+                        />
                     </div>
                     <div className="w-[70%] mx-auto">
-                            <TextInputComponent
-                                type="number"
-                                label="ALT"
-                                name="a1_alt"
-                                handleChange={handleInputChange}
-                                data={formValues ? formValues["a1_alt"] : data && data[EnumGrid.a1_alt]}
-                                control={control}
-                                isOT={true}
-                                onlyRead={!(deshabilitarCampo.value.a1_alt && (!isEditting || (permiso_usuario_receta && permiso_usuario_receta)))}
-                                // error={errors.fecha_nacimiento}
-                            />
+                        <TextInputComponent
+                            type="number"
+                            label="ALT"
+                            name="a1_alt"
+                            handleChange={handleInputChange}
+                            data={formValues ? formValues["a1_alt"] : data && data[EnumGrid.a1_alt]}
+                            control={control}
+                            isOT={true}
+                            onlyRead={!(deshabilitarCampo.value.a1_alt && (!isEditting || (permiso_usuario_receta && permiso_usuario_receta)))}
+                        />
                     </div>
                 </div>
             </div>
 
             <div className="w-full flex items-center rowForm !h-[11rem] relative ">
-                <label className='absolute z-10 top-[-5%] w-[15%] left-[36%] text-center text-2xl'>ANTEOJO 2</label>
+                <label className='absolute z-10 top-[-10%] w-[15%] left-[36%] text-center text-2xl'>ANTEOJO 2</label>
                 <div className=" w-[43%] items-center  !mt-[-4rem] !h-[8rem] rowForm ">
                     <div className="w-[90%] mx-auto flex items-center  !h-[8rem] relative labelForm  rounded-lg border radioComponent">
-                        <label className='labelForm w-[40%] absolute z-10 text-center -top-6 left-[30%]'>OJO DERECHO</label>
+                        <label className='labelForm w-[40%] absolute z-10 text-center -top-10 left-[30%] text-2xl'>OD</label>
                         <div className="w-[25%]">
                             <OTTextInputComponent
                                 type="number"
@@ -368,7 +362,7 @@ const FOTReceta:React.FC<IReceta> = ({
 
                 <div className=" w-[43%] items-center rowForm !h-[8rem]">
                 <div className="w-[90%] mx-auto flex items-center h-[8rem] relative labelForm  rounded-lg border radioComponent">
-                        <label className='labelForm w-[40%] absolute z-10 text-center -top-6 left-[30%]'>OJO IZQUIERDO</label>
+                        <label className='labelForm w-[40%] absolute z-10 text-center -top-10 left-[30%] text-2xl'>OI</label>
                         <div className="w-[25%]">
                             <TextInputInteractive
                                 type="number"
@@ -434,21 +428,19 @@ const FOTReceta:React.FC<IReceta> = ({
             </div>
 
             <div className="w-full flex items-center rowForm !h-[3rem] relative ">
-            <div className="w-[104%] ml-2">
-                        <TextInputComponent
-                            type="text"
-                            label="Observaciones"
-                            name="observaciones"
-                            handleChange={handleInputChange}
-                            data={formValues ? formValues["observaciones"] : data && data[EnumGrid.observaciones]}
-                            control={control}
-                            onlyRead={isEditting}
-                            // error={errors.fecha_nacimiento}
-                        />
-                    </div>
-
+                <div className="w-[104%] ml-2">
+                    <TextInputComponent
+                        type="text"
+                        label="Observaciones"
+                        name="observaciones"
+                        handleChange={handleInputChange}
+                        data={formValues ? formValues["observaciones"] : data && data[EnumGrid.observaciones]}
+                        control={control}
+                        onlyRead={isEditting}
+                        // error={errors.fecha_nacimiento}
+                    />
+                </div>
             </div>
-
         </div>
     </form>
   )

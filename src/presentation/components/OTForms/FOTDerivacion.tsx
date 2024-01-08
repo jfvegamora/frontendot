@@ -4,8 +4,13 @@ import { SelectInputComponent, TextInputComponent } from '..';
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
 import { AppStore, useAppDispatch, useAppSelector } from '../../../redux/store';
 // import { SEXO, TIPO_CLIENTE } from '../../utils';
+<<<<<<< HEAD
 import {  updateOT } from '../../utils';
 import { fetchOT } from '../../../redux/slices/OTSlice';
+=======
+import axios from 'axios';
+import { URLBackend } from '../../hooks/useCrud';
+>>>>>>> 84f2fcbc792c840a9d4b7bb50ec0fbdfe16c261a
 import { Button } from '@material-tailwind/react';
 
 
@@ -244,12 +249,12 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
     console.log( data && data[EnumGrid.a2_armazon_id])
     console.log( data && data[EnumGrid.a3_armazon_id])
   return (
-    <div className='useFormContainer h-[55%] w-[60%] left-[20%] top-[30%] z-30'>
+    <div className='useFormContainer useFormDerivacion h-[55%] w-[60%] left-[20%] top-[30%] z-30'>
         <div className=" flex justify-end w-full">
             <h2 className='text-2xl cursor-pointer' onClick={onClose}>X</h2>
         </div>
         <form className='text-center  !h-[80%]' onSubmit={handleSubmit(onSubmit)}>
-                <h1 className='text-2xl mt-2'>Derivacion De OT</h1>
+                <h1 className='text-2xl mt-2'>Derivación de OT</h1>
 
                 <div className="flex  items-center rowForm w-full">
                     <div className="w-[25%] ml-4">
@@ -354,7 +359,7 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
                 </div>
 
                 <div className=' w-full flex justify-end mx-[-1.5rem] h-12'>
-                    <Button  type="submit" className='bg-red-900 otActionButton'>Derivar</Button>
+                    <Button  type="submit" className='otActionButton bg-red-900'>Derivar</Button>
                 </div>
         </form>
 

@@ -523,7 +523,7 @@ const FCristalesKardexIN: React.FC<IUserFormPrps> = React.memo(
           </div>
 
           <div className="w-full">
-            <div className="w-[60%] mx-auto">
+            <div className="w-[40%] mx-auto">
                 {escritura_lectura && (
                   <button type="submit" tabIndex={1} className="userFormBtnSubmit">
                     {`${TITLES.guardar}`}

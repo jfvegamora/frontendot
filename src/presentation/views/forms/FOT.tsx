@@ -1363,7 +1363,7 @@ useEffect(() => {
   
   return (
 
-    <div className='useFormContainer useFormContainerOT top-[10%] w-[94vw] relative h-[82vh] z-20'>
+    <div className='useFormContainerOT top-[0%] w-full h-[100%]'>
       <Tabs>
         <TabList className='flex items-center top-[10]'>
           <Tab className="custom-tab ">ÓPTICA</Tab>

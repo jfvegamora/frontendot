@@ -255,7 +255,8 @@ const FMuestrarios: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={"PuntosVenta"}
                     error={errors.punto_venta}
-                  />
+                    customWidth={"w-full ml-[1rem]"}
+                    />
                 </div>
               </div>
             </div>
