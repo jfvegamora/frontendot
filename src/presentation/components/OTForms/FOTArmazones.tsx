@@ -43,12 +43,14 @@ const FOTArmazones:React.FC<IArmazones> = ({
                                                    ? `${URLBackend}/api/armazones/listado/?query=01` 
                                                    : `${URLBackend}/api/armazones/listado/?query=02&_p2=${codigoProyecto.value}&_p3=${punto_venta.value}`;
 
-    const { data:armazon1 } = useSWR( !codArmazon1.trim() === false ? (`${endpoint}&_p1=${codArmazon1 !== ' ' ? codArmazon1 : "aaaa"}&_p4=${typeof A1_DP.value === 'string' ? A1_DP.value : 0}&_p5=${typeof A1_Diametro.value === 'string' ? A1_Diametro.value : ""}`) : null, fetcher); 
-    const { data:armazon2 } = useSWR( !codArmazon2.trim() === false ? (`${endpoint}&_p1=${codArmazon2 !== ' ' ? codArmazon2 : "aaaa"}&_p4=${(tipo_de_anteojo.value === '3' ? (typeof A2_DP.value === 'string' ? A2_DP.value : 0) : A1_DP.value)}&_p5=${(tipo_de_anteojo.value === '3' ? (typeof A2_Diametro.value === 'string' ? A2_Diametro.value : "") : A1_Diametro.value)}`) : null, fetcher);
-    const { data:armazon3 } = useSWR( !codArmazon3.trim() === false ? (`${endpoint}&_p1=${codArmazon3 !== ' ' ? codArmazon3 : "aaaa"}&_p4=${typeof A1_DP.value === 'string' ? A1_DP.value : 0}&_p5=${typeof A1_Diametro.value === 'string' ? A1_Diametro.value : ""}`) : null, fetcher); 
+    const { data:armazon1 } = useSWR( (codArmazon1 && !codArmazon1.trim() === false && validar_parametrizacion.value === '1' ) ? (`${endpoint}&_p1=${codArmazon1 !== ' ' ? codArmazon1.trim() : "aaaa"}&_p4=${typeof A1_DP.value === 'string' ? A1_DP.value : 0}&_p5=${typeof A1_Diametro.value === 'string' ? A1_Diametro.value : ""}`) : (`${endpoint}&_p1=${codArmazon1 !== ' ' ? codArmazon1 && codArmazon1.trim() : "aaaa"}`), fetcher); 
+    const { data:armazon2 } = useSWR( (codArmazon2 && !codArmazon2.trim() === false && validar_parametrizacion.value === '1' ) ? (`${endpoint}&_p1=${codArmazon2 !== ' ' ? codArmazon2.trim() : "aaaa"}&_p4=${(tipo_de_anteojo.value === '3' ? (typeof A2_DP.value === 'string' ? A2_DP.value : 0) : A1_DP.value)}&_p5=${(tipo_de_anteojo.value === '3' ? (typeof A2_Diametro.value === 'string' ? A2_Diametro.value : "") : A1_Diametro.value)}`) : (`${endpoint}&_p1=${codArmazon2 !== ' ' ? codArmazon2 && codArmazon2.trim() : "aaaa"}`), fetcher);
+    const { data:armazon3 } = useSWR( (codArmazon3 && !codArmazon3.trim() === false ) ? (`${endpoint}&_p1=${codArmazon3 !== ' ' ? codArmazon3.trim() : "aaaa"}&_p4=${typeof A1_DP.value === 'string' ? A1_DP.value : 0}&_p5=${typeof A1_Diametro.value === 'string' ? A1_Diametro.value : ""}`) : null , fetcher); 
 
 
-    
+
+
+
     const handleInputChange = (e:any) => {
         const { name, value } = e;
         
@@ -124,6 +126,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
 
     },[armazon3, codArmazon3])
     
+    console.log(codArmazon2)
 
   return (
     <form>

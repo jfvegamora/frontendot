@@ -4,7 +4,7 @@ import { SEXO, TIPO_CLIENTE, codigoProyecto, isExistClient } from '../../utils';
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
 import { EnumGrid as EnumClientes } from '../../views/mantenedores/MClientes';
 import axios from 'axios';
-import { validationOTlevel1, validationOTlevel2 } from '../../utils/validationOT';
+import { validationClienteComuna, validationClienteNombre, validationClienteSexo, validationClienteTelefono, validationClienteTipo, validationOTlevel1, validationOTlevel2 } from '../../utils/validationOT';
 import RegProCom from '../RegProCom';
 import { URLBackend } from '../../hooks/useCrud';
 
@@ -31,7 +31,7 @@ const FOTClientes:React.FC<IClientes> = ({
     data,
     setExistCliente,
     register,
-    isEditting
+    isEditting,
 }) => {
     const [_clienteData, setClienteData] = useState()
     const fetchCliente = async(cliente_rut:string) => {
@@ -60,6 +60,12 @@ const FOTClientes:React.FC<IClientes> = ({
                       onDataChange({['cliente_provincia']:0})
                       onDataChange({['cliente_direccion']: " "})
 
+                      validationClienteNombre("")
+                      validationClienteSexo("")
+                      validationClienteTipo("")
+                      validationClienteComuna(NaN)
+                      validationClienteTelefono("")
+
 
                     } else if (typeof mensaje === 'string' && mensaje.startsWith('ERROR:')) {
                       toast.error(cliente.data[0][0])
@@ -78,6 +84,13 @@ const FOTClientes:React.FC<IClientes> = ({
                     onDataChange({['cliente_provincia']: cliente.data[0][EnumClientes.provincia_id]})
                     onDataChange({['cliente_comuna']: cliente.data[0][EnumClientes.comuna_id]})
                     onDataChange({['cliente_direccion']: cliente.data[0][EnumClientes.direccion]})
+
+
+                    validationClienteNombre(cliente.data[0][EnumClientes.nombre])
+                    validationClienteTipo(cliente.data[0][EnumClientes.tipo])
+                    validationClienteSexo(cliente.data[0][EnumClientes.sexo])
+                    validationClienteComuna(cliente.data[0][EnumClientes.comuna_id])
+                    validationClienteTelefono(cliente.data[0][EnumClientes.telefono])
                   }
                 }
               
@@ -95,6 +108,12 @@ const FOTClientes:React.FC<IClientes> = ({
         console.log(name)
         console.log(value)
         onDataChange({ [name]: value });
+        if(name === 'Tipo'){
+            onDataChange({['cliente_tipo']: value})  
+        }
+        if(name === 'Sexo'){
+            onDataChange({['cliente_sexo']: value})
+        }
 
         validationOTlevel1(name, value);
         validationOTlevel2(name,value);
@@ -107,6 +126,8 @@ const FOTClientes:React.FC<IClientes> = ({
         }
       };
 
+
+      console.log(formValues)
 
 
     return (
@@ -264,8 +285,8 @@ const FOTClientes:React.FC<IClientes> = ({
                          defaultProvincia={formValues ? formValues["cliente_provincia"]  : data && data[EnumGrid.cliente_provincia_id]}
                          defaultComuna={formValues ? formValues["cliente_comuna"]  : data && data[EnumGrid.cliente_comuna_id]}
                          onlyRead={isEditting}
-                         
-                         
+                         onDataChange={onDataChange}
+                         isOT={true}
                         />
                     <div className="-mt-[1.3rem] w-[101%] rowForm">
                         <TextInputInteractive

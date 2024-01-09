@@ -18,6 +18,8 @@ interface IProps{
     name:string
     tabIndex?: number;
     onlyRead?:boolean;
+    isOT?:boolean;
+    onDataChange?:any;
 };
 const fetcher = (url:string) => fetch(url).then((res) => res.json());
 
@@ -27,11 +29,12 @@ const RegProCom:React.FC<IProps> = ({
     defaultComuna,
     defaultProvincia,
     register,
-    setValue,
     name,
     tabIndex,
     errors,
-    onlyRead
+    onlyRead,
+    isOT,
+    onDataChange
 }) => {
     // const firstProvinciaID = signal(null)
 
@@ -60,7 +63,7 @@ const RegProCom:React.FC<IProps> = ({
 
   const handleRegionChange = (e: { target: { value: string; }; }) => {
     const regionId = parseInt(e.target.value, 10);
-    console.log('cambio')
+    isOT ? (onDataChange({['cliente_region']: regionId})) : (null)
     setSelectedRegion(regionId);
     setSelectedProvince(0);
     if(provinces){
@@ -70,14 +73,14 @@ const RegProCom:React.FC<IProps> = ({
 
   const handleProvinceChange = (e: { target: { value: string; }; }) => {
     const provinceId = parseInt(e.target.value, 10);
-    console.log('cambio')
+    isOT ? (onDataChange({['cliente_provincia']: provinceId})) : (null)
     setSelectedProvince(provinceId);
     setSelectedCommune(0)
   };
 
   const handleCommuneChange = (e: { target: { value: string; }; }) => {
     const communeId = parseInt(e.target.value, 10);
-
+    isOT ? (onDataChange({['cliente_comuna']: communeId})) : (null)
     validationClienteComuna(communeId)
     setSelectedCommune(communeId);
   };
@@ -114,8 +117,6 @@ useEffect(()=>{
 
 },[defaultComuna, defaultProvincia, defaultRegion, validationClienteComuna])
 
-console.log(regions)
-console.log(defaultRegion)
 
   return (
     <div className='w-full pb-2 items-center '>

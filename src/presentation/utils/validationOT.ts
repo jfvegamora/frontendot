@@ -292,8 +292,7 @@ export const validationClienteComuna = (value:any) => {
     const item = validationNivel1.value.find((item: { campo: string; })=>item.campo === 'cliente_comuna')
     if(item){
         console.log(!Number.isNaN(value))
-        !Number.isNaN(value) ? (item.valor = 1) : (item.valor = 1)
-        console.log(item)
+        !Number.isNaN(value) ? (item.valor = 1) : (item.valor = 0)
     }
 
 }

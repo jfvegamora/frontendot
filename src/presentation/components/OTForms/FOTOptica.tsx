@@ -141,6 +141,8 @@ const FOTOptica:React.FC<IOptica> = ({
         }
     }
 
+    console.log(data && data[EnumGrid.resolucion_garantia_id] === 1 ? 'Aceptada' : 'Rechazada')
+
 return (
     <form action="">
         <div className='w-full frameOTForm'>
@@ -294,7 +296,7 @@ return (
             </div>
 
             <div className="w-full flex items-center rowForm !h-[17rem]">
-                <div className="w-[90%] h-[90%]  ml-8 mx-auto flex flex-col justify-around items-center ">
+                <div className="w-[90%] h-[90%]  ml-8 mx-auto flex flex-col justify-around items-center  ">
                     <div className="flex items-center w-[101%] h-[46%] mx-auto rounded-lg radioComponent relative">
                         <label className='labelForm absolute left-4 text-center top-[-20%] w-[10%]'>Garantía</label>
                         <div className="w-[35%] ml-[1rem] ">
@@ -329,7 +331,7 @@ return (
                                 label="Resolución"
                                 name="resolucion_garantia_id"
                                 // data={data ? data[EnumGrid.motivo] : formValues["motivo"]}
-                                data={formValues ? formValues["resolucion_garantia_id"] : data && data[EnumGrid.resolucion_garantia_id] === 0 ? 'Rechazada' : 'Aceptada'}
+                                data={formValues ? formValues["resolucion_garantia_id"] : data && data[EnumGrid.resolucion_garantia_id] === 1 ? 'Aceptada' : 'Rechazada'}
                                 options={["Aceptada", "Rechazada"]}
                                 // error={errors.sexo}
                                 horizontal={true}
@@ -342,11 +344,73 @@ return (
 
                     </div>
 
+                    <div className='w-full flex'>
+                    <div className="">
+                        <TextInputComponent
+                            type="number"
+                            label="N° Reporte Firma"
+                            name="numero_reporte_firma"
+                            handleChange={handleInputChange}
+                            data={formValues ? formValues["numero_reporte_firma"] : data && data[EnumGrid.numero_reporte_firma]}
+                            control={control}
+                            onlyRead={true}
+                            isOptional={true}
+                        />
+                    </div>
+                    <div className="">
+                        <TextInputComponent
+                            type="number"
+                            label="N° Reporte Atencion"
+                            name="numero_reporte_atencion"
+                            handleChange={handleInputChange}
+                            data={formValues ? formValues["numero_reporte_atencion"] : data && data[EnumGrid.numero_reporte_atencion]}
+                            control={control}
+                            onlyRead={true}
+                            isOptional={true}
+                        />
+                    </div>
+                    <div className="">
+                        <TextInputComponent
+                            type="text"
+                            label="N° OC"
+                            name="numero_orden_compra"
+                            handleChange={handleInputChange}
+                            data={formValues ? formValues["numero_orden_compra"] : data && data[EnumGrid.numero_oc]}
+                            control={control}
+                            onlyRead={true}
+                            isOptional={true}
+                            />
+                    </div>
+                    <div className="">
+                        <TextInputComponent
+                            type="number"
+                            label="N° Guia"
+                            name="numero_guia"
+                            handleChange={handleInputChange}
+                            data={formValues ? formValues["numero_guia"] : data && data[EnumGrid.numero_guia]}
+                            control={control}
+                            onlyRead={true}
+                            isOptional={true}
+                            />
+                    </div>
+                    <div className="">
+                        <TextInputComponent
+                            type="number"
+                            label="N° Factura"
+                            name="numero_factura"
+                            handleChange={handleInputChange}
+                            data={formValues ? formValues["numero_factura"] : data && data[EnumGrid.numero_factura]}
+                            control={control}
+                            onlyRead={true}
+                            isOptional={true}
+                            />
+                    </div>
+                    </div>
             
                 </div>
 
 
-                <div className="w-[35%] ml-8  mx-auto items-center grid ">
+                <div className="w-[35%] ml-8 !mt-[-4%]  mx-auto items-center grid ">
                     <div className="">
                         <TextInputComponent
                             type="number"
@@ -373,19 +437,7 @@ return (
                     </div>
                     <div className="">
                         <TextInputComponent
-                            type="number"
-                            label="N° Factura"
-                            name="numero_factura"
-                            handleChange={handleInputChange}
-                            data={formValues ? formValues["numero_factura"] : data && data[EnumGrid.numero_factura]}
-                            control={control}
-                            onlyRead={isEditting}
-                            isOptional={true}
-                            />
-                    </div>
-                    <div className="">
-                        <TextInputComponent
-                            type="number"
+                            type="text"
                             label="Folio interno mandante"
                             name="folio_interno_mandante"
                             handleChange={handleInputChange}
@@ -395,6 +447,8 @@ return (
                             isOptional={true}
                             />
                     </div>
+
+                    
                 </div>
             </div>
         </div>

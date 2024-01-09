@@ -213,6 +213,11 @@ export const clearGrupos = () => {
   A1_Diametro.value   = "";
   A2_Diametro.value   = "";
 
+  fecha_atencion_signal.value = "";
+  fecha_despacho.value        = "";
+  fecha_entrega_cliente.value = "";
+  fecha_entrega_taller.value  = "";
+
   motivo_ot.value          = false;
   isExistClient.value      = false;
   isToggleImpression.value = false;
@@ -509,6 +514,7 @@ export const updateOT =async (
   
   console.log(_estado === 40 ? (isToggleImpression.value ? 1 : 0 ) : estado_impresion)
 
+    console.log(jsonData)
   const fields = [
     `motivo=${motivo}`,
     `area=${_destino}`,
@@ -590,15 +596,26 @@ export const updateOT =async (
     (`motivo_garantia=${jsonData.motivo_garantia_id                                      !== undefined ? jsonData.motivo_garantia_id : 0 }`),
     (`folio_asociado="${jsonData.folio_asociado                                          !== undefined ? jsonData.folio_asociado : 0 }"`),
     (`resolucion_garantia=${jsonData.resolucion_garantia_id                              !== undefined ? (jsonData.resolucion_garantia_id === 'Rechazada' ? 2 :1) : 0 }`),
-    (`worktracking="${jsonData.worktracking                                              !== undefined ? jsonData.worktracking : "" }"`),
-    (`nota_venta="${jsonData.nota_venta                                                  !== undefined ? jsonData.nota_venta : "" }"`),
-    (`numero_factura="${jsonData.numero_factura                                          !== undefined ? jsonData.numero_factura : "" }"`),
-    (`folio_interno_mandante="${jsonData.folio_interno_mandante                          !== undefined ? jsonData.folio_interno_mandante : "" }"`),
+    (`worktracking="${jsonData.worktracking                                              !== undefined ? jsonData.worktracking : " " }"`),
+    (`nota_venta="${jsonData.nota_venta                                                  !== undefined ? jsonData.nota_venta : " " }"`),
+    (`numero_reporte_firma=${jsonData.numero_reporte_firma                               !== '' && jsonData.numero_reporte_firma !== undefined         ? jsonData.numero_reporte_firma : 0 }`),
+    (`numero_reporte_atencion=${jsonData.numero_reporte_atencion                         !== '' && jsonData.numero_reporte_atencion !== undefined      ? jsonData.numero_reporte_atencion : 0 }`),
+    (`numero_oc="${jsonData.numero_oc                                                    !== '' && jsonData.numero_oc !== undefined                    ? jsonData.numero_oc : " " }"`),
+    (`numero_guia=${jsonData.numero_guia                                                 !== '' && jsonData.numero_guia !== undefined                  ? jsonData.numero_guia : 0 }`),
+    (`numero_factura=${jsonData.numero_factura                                           !== '' && jsonData.numero_factura !== undefined               ? jsonData.numero_factura : 0 }`),
+    (`folio_interno_mandante="${jsonData.folio_interno_mandante                          !== '' && jsonData.folio_interno_mandante !== undefined       ? jsonData.folio_interno_mandante : "" }"`),
     (`observaciones="${jsonData.observaciones                                            !== undefined ? jsonData.observaciones : "" }"`),
     
   
   ];
+  
+  console.log(    (`numero_reporte=${jsonData.numero_reporte                                           !== '' && jsonData.numero_reporte !== undefined       ? jsonData.numero_reporte : 0 }`),
+  )
 
+  console.log(    (`numero_factura=${jsonData.numero_factura                                           !== '' && jsonData.numero_factura !== undefined       ? jsonData.numero_factura : 0 }`),  )
+
+  console.log(jsonData.numero_factura)
+  console.log(jsonData.numero_factura !== '')
   const cristales = [
     { codigo: `${A1_CR_OD.value}` },
     { codigo: `${A1_CR_OI.value}` },

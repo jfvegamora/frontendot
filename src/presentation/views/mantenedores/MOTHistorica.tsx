@@ -141,14 +141,19 @@ export enum EnumGrid {
   motivo_garantia_id = 112,
   motivo_garantia = 113,
   folio_asociado = 114,
+  
   resolucion_garantia_id = 115,
   resolucion_garantia = 116,
   worktracking = 117,
   nota_venta = 118,
-  numero_factura = 119,
-  folio_interno_mandante = 120,
-  total = 121,
-  observaciones = 122
+  numero_reporte_firma = 119,
+  numero_reporte_atencion = 120,
+  numero_oc      = 121,
+  numero_guia    = 122,
+  numero_factura = 123,
+  folio_interno_mandante = 124,
+  total = 125,
+  observaciones = 126
 }
 
 
