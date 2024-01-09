@@ -138,6 +138,7 @@ const MUsuarios: React.FC = () => {
           showDeleteButton={false}
           showPermisoOTButton={false}  
           idMenu={idMenu}
+          leftEdit={true}
           togglePermisoOTModal={togglePermisoOTModal}
           // setTotalRowIndex={setTotalRowIndex}
         />

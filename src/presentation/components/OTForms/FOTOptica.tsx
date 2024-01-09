@@ -301,7 +301,7 @@ return (
                             <SelectInputTiposComponent
                                 label="Motivo"
                                 name="motivo_garantia_id"
-                                showRefresh={true}
+                                showRefresh={false}
                                 isOT={true}
                                 handleSelectChange={handleInputChange}
                                 data={formValues ? formValues["motivo_garantia_id"] : data && data[EnumGrid.motivo_garantia_id]}

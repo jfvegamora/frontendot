@@ -239,6 +239,7 @@ select::-ms-expand {
 .custom-onlyread{
   background-color:transparent; 
   color: #b0bbc4; 
+  border-color: #f8b179;
 }
 
 .custom-input.error {

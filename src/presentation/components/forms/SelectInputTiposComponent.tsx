@@ -172,6 +172,7 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
               variant="text"
               color="blue-gray"
               className="mx2 iconRefresh"
+              // className={`"mx2 "  ${readOnly ? "iconRefresh" : ""} `}
               tabIndex={-1}
             >
               <FiRefreshCw className="h-6 w-6" />

@@ -114,6 +114,7 @@ const MProveedores: React.FC = () => {
           showEditButton          ={true}
           showDeleteButton        ={false}
           idMenu                  ={idMenu}
+          leftEdit={true}
         />
       </div>
 
