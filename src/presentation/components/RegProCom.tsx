@@ -2,6 +2,7 @@
 import React,{useEffect, useState} from 'react'
 import { Controller } from 'react-hook-form';
 import useSWR from 'swr';
+import { validationClienteComuna } from '../utils/validationOT';
 
 interface IProps{
     control:any;
@@ -76,8 +77,9 @@ const RegProCom:React.FC<IProps> = ({
 
   const handleCommuneChange = (e: { target: { value: string; }; }) => {
     const communeId = parseInt(e.target.value, 10);
+
+    validationClienteComuna(communeId)
     setSelectedCommune(communeId);
-    setValue("comuna", communeId);
   };
 
 //   console.log(defaultComuna)
@@ -103,12 +105,14 @@ useEffect(()=>{
                 console.log(defaultComuna)
                 setSelectedCommune(defaultComuna)
     
+                validationClienteComuna(defaultComuna as any)
             }
         }
     }
 
 
-},[defaultComuna, defaultProvincia, defaultRegion])
+
+},[defaultComuna, defaultProvincia, defaultRegion, validationClienteComuna])
 
 console.log(regions)
 console.log(defaultRegion)

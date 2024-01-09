@@ -687,7 +687,12 @@ input:checked + .slider:before {
 .custom-tab:focus{  
   background-color: #f9b17a; 
 }
-
+.custom-tab.react-tabs__tab--selected {
+  background-color: #f28b3d; /* Color de fondo cuando está seleccionada */
+  color: #333; /* Color de texto cuando está seleccionada */
+  font-weight: bold; /* Otras modificaciones para destacar */
+  border-bottom: 2px solid #333; /* Ejemplo de resaltado con borde inferior */
+}
 .tabFolioNumber{
   font-size: 24px;
   font-weight: bold;

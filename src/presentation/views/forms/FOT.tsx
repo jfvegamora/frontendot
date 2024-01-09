@@ -168,6 +168,26 @@ export const validationNivel1 = signal([
   { campo:"cliente_rut",
     valor: 0
   },
+  {
+    campo: "cliente_nombre",
+    valor: 0
+  },
+  {
+    campo : "cliente_tipo",
+    valor : 0
+  },
+  {
+    campo : "cliente_sexo",
+    valor : 0
+  },
+  {
+    campo : "cliente_telefono",
+    valor : 0
+  },
+  {
+    campo : "cliente_comuna",
+    valor : 0
+  },
   { campo:"fecha_atencion",
     valor: 0
   },
@@ -188,6 +208,10 @@ export const validationNivel2 = signal([
   },
   { campo: "fecha_entrega_cliente",
     valor: 0
+  },
+  {
+    campo : "establecimiento",
+    valor : 0
   },
   { campo: "a1_od_esf",
     valor: 0
@@ -405,78 +429,8 @@ const FOT:React.FC<IFOTProps> = ({
   },[])
 
 
-  // console.log('otAreas', OTAreas)
-  // console.log(OTPermissions)
-  
-
-  // const switchCasePausar = (jsonData:any) => {
-  //   let _origen = OTAreas["areaActual"];
-  //   let _destino =  OTAreas["areaActual"]
-  //   let _estado = 3;
-
-  //   let area = isEditting
-  //   ? (data && parseInt(data[EnumGrid.estado_id]))
-  //   : 1;
-
-  //   // console.log('isEditting', isEditting)
-  //   // console.log('data estado', data && data[EnumGrid.estado_id])
-
-  //   switch (area) {
-  //     case (20):
-  //       console.log('Ejecutando acción para pausar, estado numero 2');
-  //       updateOT(data, _destino, _origen, _estado);
-  //       break;
-  //     case (30):
-  //       console.log('Ejecutando acción para pausar, estado numero 3');
-  //       updateOT(data, _destino, _origen, _estado);
-  //       break;
-  //     case (40):
-  //       console.log('Ejecutando acción para pausar, estado numero 4');
-  //       updateOT(data, _destino, _origen, _estado)
-  //       break;
-  //     default:
-  //         console.log('Número no reconocido');
-  //       break;
-  //   }
-  // }
 
 
-  // const switchCaseProcesar = (_jsonData:any) => {
-  // //  console.log('hola')
-  // //  const formData = getValues
-
-  //   let _origen = OTAreas["areaActual"];
-  //   let _destino = OTAreas["areaSiguiente"];;
-  //   let _estado = 20;
-    
-
-  //   // console.log(formData)
-  //   let area = isEditting ? (data && parseInt(data[EnumGrid.estado_id])) : 10;
- 
-
-  //   switch (area) {
-  //     case 10:
-  //       console.log('Ejecutando acción para procesar, estado numero 10');
-  //       // insertOT(jsonData)
-  //       break;
-  //     case (2):
-  //       console.log('Ejecutando acción para procesar, estado numero 2');
-  //       updateOT(data, _destino, _origen, _estado);  
-  //       break;
-  //     case (3):
-  //       console.log('Ejecutando acción para procesar, estado numero 3');
-  //       updateOT(data, _destino, _origen, _estado);
-  //       break;
-  //     case (4):
-  //       console.log('Ejecutando acción para procesar, estado numero 4');
-  //       updateOT(data, _destino, _origen, _estado)
-  //       break;
-  //     default:
-  //         console.log('Número no reconocido');
-  //       break;
-  //   }
-  // }
-  
   console.log(data && data[EnumGrid.estado_id])
   //Metodo editar query04
   // const updateOT =async (
@@ -675,9 +629,6 @@ const FOT:React.FC<IFOTProps> = ({
 
   const switchCaseIngresar = async(jsonData:any, cristalesJSON:any, armazonesJSON:any) => {
     
-    console.log(typeof dioptrias_receta.value.a1_od.eje === 'number' ? dioptrias_receta.value.a1_od.eje : 0)
-
-    console.log(typeof dioptrias_receta.value.a1_oi.ad === 'number' ? dioptrias_receta.value.a1_oi.ad  : 0 )
 
 
     console.log('click')
@@ -708,7 +659,6 @@ const FOT:React.FC<IFOTProps> = ({
     
     
     console.log(_p3)
-    console.log(`/"${_p3}/"`)
 
 
   
@@ -789,7 +739,7 @@ const FOT:React.FC<IFOTProps> = ({
   }
 
 
-
+ 
   //Estados locales
   const { control, handleSubmit, setValue, register, getValues } = useForm<any>();
   const [formValues, setFormValues] = useState<FormData | any>({});
@@ -1299,36 +1249,6 @@ useEffect(()=>{
 },[data])
 
 
-
-
-// console.log(validationNivel1.value)
-// console.log(validationNivel2.value)
-// console.log(sumatoriaNivel1)
-// console.log(sumatoriaNivel2)
-
-
-
-// console.log(validationNivel2.value)
-// console.log(validationNivel1.value)
-// console.log(validationNivel2)
-// console.log(dioptrias_receta.value.a1_od)
-// console.log(dioptriasHabilitadas.value)
-// console.log(dioptrias.value)
-// console.log(a1_od_esf.value)
-// console.log(data && data[EnumGrid.estado_validacion_id])
-
-// console.log(OTPermissions)
-// console.log(permisos_campos)
-
-// const handleEsferico = () => {
-//   inputName.value = inputName.value + 1
-//   console.log(inputName.value)
-// }
-
-// console.log(validar_parametrizacion.value)
-
-// console.log(tipo_de_anteojo.value)
-// console.log(data && data[EnumGrid.validar_parametrizacion_id])
 useEffect(() => {
   const handleKeyDown = (event: KeyboardEvent) => {
     if (event.key === "Escape") {
@@ -1361,16 +1281,10 @@ useEffect(() => {
   // console.log(isMotivo)
   // console.log(isMOT)
   // console.log(data)
-  console.log(validationNivel1.value)
-  console.log(validationNivel2.value)
-
-  //PASAR DATA A FORMVALUES Y LEER FORMVALUES
   
 
-  console.log(fecha_atencion_signal.value)
-  console.log(!fecha_atencion_signal.value.trim())
-  console.log(typeof fecha_atencion_signal)
-
+  console.log(validationNivel1.value)
+  console.log(validationNivel2.value)
   
   return (
 

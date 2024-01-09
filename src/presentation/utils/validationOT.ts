@@ -3,7 +3,7 @@ import { validationNivel1, validationNivel2 } from "../views/forms/FOT";
 
 export const validationProyectos = (value:string) => {
     if(value !== ''){
-        const item = validationNivel1.value.find(item => item.campo === 'proyecto');
+        const item = validationNivel1.value.find((item: { campo: string; }) => item.campo === 'proyecto');
         if (item) {
             item.valor = 1;
         }
@@ -14,7 +14,7 @@ export const validationProyectos = (value:string) => {
 export const validationEstablecimientos = (value:number) => {
     
     if(!isNaN(value)){
-        const item = validationNivel1.value.find(item => item.campo === 'establecimiento_id')
+        const item = validationNivel1.value.find((item: { campo: string; }) => item.campo === 'establecimiento_id')
         if(item){
             item.valor = 1
         }
@@ -31,7 +31,7 @@ export const validationCliente = (value:string) => {
     }
     
     if(value == ''){
-        const item = validationNivel1.value.find((item)=> item.campo === 'cliente_rut');
+        const item = validationNivel1.value.find((item: { campo: string; })=> item.campo === 'cliente_rut');
         if (item) {
             item.valor = 0;
         }
@@ -41,13 +41,13 @@ export const validationCliente = (value:string) => {
 
 export const validationFechaAtencion = (value:string) => {
     if(value !== ''){
-        const item = validationNivel1.value.find(item => item.campo === 'fecha_atencion');
+        const item = validationNivel1.value.find((item: { campo: string; }) => item.campo === 'fecha_atencion');
         if (item) {
             item.valor = 1;
         }
     }
     if(value == ''){
-        const item = validationNivel1.value.find(item => item.campo === 'fecha_atencion');
+        const item = validationNivel1.value.find((item: { campo: string; }) => item.campo === 'fecha_atencion');
         if (item) {
             item.valor = 0;
         }
@@ -56,7 +56,7 @@ export const validationFechaAtencion = (value:string) => {
 
 export const validationPuntoVenta =(value:number) => {
     if(!isNaN(value)){
-        const item = validationNivel1.value.find(item => item.campo === 'punto_venta_id')
+        const item = validationNivel1.value.find((item: { campo: string; }) => item.campo === 'punto_venta_id')
         if(item){
             item.valor = 1
         }
@@ -65,7 +65,7 @@ export const validationPuntoVenta =(value:number) => {
 
 export const validationTipoAnteojos = (value:number) => {
     if(!isNaN(value)){
-        const item = validationNivel1.value.find(item => item.campo === 'tipo_anteojo_id')
+        const item = validationNivel1.value.find((item: { campo: string; }) => item.campo === 'tipo_anteojo_id')
         console.log(item)
         if(item){
             item.valor = 1
@@ -86,6 +86,21 @@ export const validationOTlevel1 = (name: string, value: any) => {
      case 'cliente_rut':
         validationCliente(value)
         break;
+    case 'cliente_nombre':
+            validationClienteNombre(value)
+            break;    
+    case 'Sexo':
+            validationClienteSexo(value)
+            break;    
+    case 'Tipo':
+          validationClienteTipo(value)
+            break;    
+    case 'cliente_telefono':
+            validationClienteTelefono(value)
+            break;       
+    case 'cliente_comuna':
+            validationClienteComuna(value)
+            break;    
      case 'fecha_atencion':
         validationFechaAtencion(value)
         break;
@@ -103,6 +118,7 @@ export const validationOTlevel1 = (name: string, value: any) => {
 }
 
 
+
 export const validationOTlevel2 = (name:string, value:any) => {
     switch (name) {
         case 'fecha_entrega_taller':
@@ -113,7 +129,7 @@ export const validationOTlevel2 = (name:string, value:any) => {
             break;
         case 'fecha_entrega_cliente':
             validationFechaEntregaCliente(value)
-            break;
+            break;    
         case 'a1_od_esf':
             validation_A1_OD_ESF(value)
             break;
@@ -251,6 +267,44 @@ export const validationOTlevel2 = (name:string, value:any) => {
             break;
     }
 }
+
+export const validationClienteNombre = (value:string) =>{
+    const item = validationNivel1.value.find((item: { campo: string; }) => item.campo === 'cliente_nombre');
+    if(item){
+        value !== '' ? (item.valor = 1) : (item.valor = 0)
+    }
+}
+
+export const validationClienteSexo = (value:any) =>{
+    const item = validationNivel1.value.find((item: { campo: string; })=> item.campo === 'cliente_sexo')
+    if(item){
+        value !== '' ? (item.valor = 1) : (item.valor = 0)
+    }
+}
+
+export const validationClienteTipo = (value:any) => {
+    const item = validationNivel1.value.find((item: { campo: string; })=>item.campo === 'cliente_tipo')
+    if(item){
+        value !== '' ? (item.valor = 1) : (item.valor = 0)
+    }
+}
+export const validationClienteComuna = (value:any) => {
+    const item = validationNivel1.value.find((item: { campo: string; })=>item.campo === 'cliente_comuna')
+    if(item){
+        console.log(!Number.isNaN(value))
+        !Number.isNaN(value) ? (item.valor = 1) : (item.valor = 1)
+        console.log(item)
+    }
+
+}
+
+export const validationClienteTelefono = (value:any) => {
+    const item = validationNivel1.value.find((item: { campo: string; })=>item.campo === 'cliente_telefono')
+    if(item){
+        value !== '' ? (item.valor = 1) : (item.valor = 0)
+    }
+}
+
 
 
 

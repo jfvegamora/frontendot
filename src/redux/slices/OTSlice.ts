@@ -6,6 +6,7 @@ export interface DataState {
     estadosOT: any;
     cristales: any[];
     armazones: any[];
+    derivacionColores:any
     data: any[];
     ot: any[]
 }
@@ -15,7 +16,11 @@ const initialState: DataState = {
     cristales: [],
     armazones: [],
     data: [],
-    ot: []
+    ot: [],
+    derivacionColores: {
+        Derivada: ["#FFFFFF", "#E05B16"],
+        Pendiente: ["#000000", "#E0DD79"]
+    }
 };
 
 export const fetchOT = createAsyncThunk(

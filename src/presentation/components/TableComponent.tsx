@@ -73,9 +73,11 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
     
     const [ OTPermissions, setOTPermissions] = useState("");
     const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas);
+    const OTColores:any = useAppSelector((store: AppStore) => store.OTS.derivacionColores);
     const areaActual = OTAreas["areaActual"] 
     const permissions = (area:number) => areaActual &&  OTAreas["areas"].find((permiso:any)=>permiso[1] === area)
 
+    console.log(OTColores)
     useEffect(()=>{
       // console.log('render')
       const permiso = permissions(areaActual)
@@ -235,19 +237,23 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                     // console.log("col", col);
                     const visible   = tableHead && tableHead[col].visible;
                     const alignment = tableHead && tableHead[col].alignment;
-                    const color2     = tableHead && tableHead[col].color;
+                    const color2    = tableHead && tableHead[col].color;
 
 
                   
                     // console.log(folio)
-                    // console.log(rowData[5])
+                    const coloresEstado = OTColores[rowData[3]]
+
+                    console.log(rowData[34])
                     const color = (rowData[34] === 'S' ? "bg-black" : "");
                     const type = color === 'bg-black' ? 1: 0
+                    const backgroundcolor = `bg-[${OTColores[rowData[3]][1]}]`
+                    console.log(backgroundcolor)
                   
                     return (
                       visible && (
                         <td
-                        className={`gridTableData  ${color2 ? color : ""}   ${alignment}`} 
+                        className={`gridTableData  ${color2 ? `${backgroundcolor}  !text-[${coloresEstado[0]}]` : ""}   ${alignment}`} 
                           key={col}
                           id={tableHead[col].key}
                         >

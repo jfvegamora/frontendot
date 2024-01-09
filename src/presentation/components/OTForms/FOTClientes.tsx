@@ -4,8 +4,7 @@ import { SEXO, TIPO_CLIENTE, codigoProyecto, isExistClient } from '../../utils';
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
 import { EnumGrid as EnumClientes } from '../../views/mantenedores/MClientes';
 import axios from 'axios';
-// import OTTextInputComponent from './OTTextInputComponent';
-import { validationOTlevel1 } from '../../utils/validationOT';
+import { validationOTlevel1, validationOTlevel2 } from '../../utils/validationOT';
 import RegProCom from '../RegProCom';
 import { URLBackend } from '../../hooks/useCrud';
 
@@ -35,17 +34,14 @@ const FOTClientes:React.FC<IClientes> = ({
     isEditting
 }) => {
     const [_clienteData, setClienteData] = useState()
-    // console.log(onlyRead)
     const fetchCliente = async(cliente_rut:string) => {
         try {
             const cliente = await axios(`${URLBackend}/api/ot/listado/?query=13&_rut=${cliente_rut}`)
             if (Array.isArray(cliente.data)) {
                   const innerArray = cliente.data[0];
-                  console.log(innerArray.length)
-              
+        
                   if (Array.isArray(innerArray) && innerArray.length === 1) {
                     const mensaje = innerArray[0];
-              
                     if (mensaje === 'OK') {
                       // Tipo 1 (OK)
                       console.log('Tipo 1 (OK):', cliente.data);
@@ -65,23 +61,11 @@ const FOTClientes:React.FC<IClientes> = ({
                       onDataChange({['cliente_direccion']: " "})
 
 
-                      // Realizar acciones específicas para el tipo 1
                     } else if (typeof mensaje === 'string' && mensaje.startsWith('ERROR:')) {
-                      // Tipo 2 (ERROR)
-                      console.log('Tipo 2 (ERROR):', cliente.data[0][0]);
-                      // Realizar acciones específicas para el tipo 2
                       toast.error(cliente.data[0][0])
-                    } else {
-                      // Otro tipo de respuesta o formato desconocido
-                      console.log('Respuesta desconocida:', cliente.data);
-                      // Realizar acciones para casos desconocidos o manejar el error según sea necesario
                     }
                   } else if (Array.isArray(innerArray) && innerArray.length === 17) {
-                    // Tipo 3
-                    console.log('Tipo 3:', cliente.data);
-                    console.log(cliente.data[0])
                     setClienteData(data)
-                    
                     isExistClient.value = true;
                     onDataChange({['cliente_nombre']: cliente.data[0][EnumClientes.nombre]})    
                     onDataChange({['cliente_sexo']: cliente.data[0][EnumClientes.sexo]})
@@ -94,16 +78,7 @@ const FOTClientes:React.FC<IClientes> = ({
                     onDataChange({['cliente_provincia']: cliente.data[0][EnumClientes.provincia_id]})
                     onDataChange({['cliente_comuna']: cliente.data[0][EnumClientes.comuna_id]})
                     onDataChange({['cliente_direccion']: cliente.data[0][EnumClientes.direccion]})
-                    // Realizar acciones específicas para el tipo 3
-                  } else {
-                    // Otro tipo de respuesta o formato desconocido
-                    console.log('Respuesta desconocida:', cliente.data);
-                    // Realizar acciones para casos desconocidos o manejar el error según sea necesario
                   }
-                } else {
-                  // Otro tipo de respuesta o formato desconocido
-                  console.log('Respuesta desconocida:', cliente.data);
-                  // Realizar acciones para casos desconocidos o manejar el error según sea necesario
                 }
               
               
@@ -119,28 +94,13 @@ const FOTClientes:React.FC<IClientes> = ({
         const { name, value } = e;
         console.log(name)
         console.log(value)
-        onDataChange({ [name]: value }); // Envia los datos al componente padre
+        onDataChange({ [name]: value });
 
-        validationOTlevel1(name, value)
+        validationOTlevel1(name, value);
+        validationOTlevel2(name,value);
 
         if(name === 'cliente_rut'){
-            fetchCliente(value).then((data:any)=>{
-                // setClienteData(data)
-                console.log(data)
-                // console.log(data[0][EnumClientes.nombre])
-                // setExistCliente(true)
-                // onDataChange({['cliente_nombre']: data[0][EnumClientes.nombre]})    
-                // onDataChange({['cliente_sexo']: data[0][EnumClientes.sexo]})
-                // onDataChange({['cliente_tipo']: data[0][EnumClientes.tipo]})
-                // onDataChange({['cliente_fecha_nacimiento']: data[0][EnumClientes.fecha_nacimiento]})
-                // onDataChange({['cliente_correo']: data[0][EnumClientes.correo]})
-                // onDataChange({['cliente_telefono']: data[0][EnumClientes.telefono]})
-                // onDataChange({['cliente_region']: data[0][EnumClientes.region_id]})
-                // onDataChange({['cliente_provincia']: data[0][EnumClientes.provincia_id]})
-                // onDataChange({['cliente_comuna']: data[0][EnumClientes.comuna_id]})
-                // onDataChange({['cliente_direccion']: data[0][EnumClientes.direccion]})
-
-            }).catch((error:any)=>{
+            fetchCliente(value).catch((error:any)=>{
                 setExistCliente(false)
                 console.log(error)
             })
@@ -148,21 +108,6 @@ const FOTClientes:React.FC<IClientes> = ({
       };
 
 
-    //   console.log(data)
-    //   console.log(data && data[EnumGrid.cliente_comuna_id])
-    //   console.log(data && data[EnumGrid.cliente_provincia_id])
-    //   console.log(data && data[EnumGrid.cliente_region_id])
-
-
-    //   console.log(formValues ? formValues["cliente_comuna"]  : data && data[EnumGrid.cliente_comuna_id])
-    //   console.log(formValues ? formValues["cliente_provincia"]  : data && data[EnumGrid.cliente_provincia_id])
-    //   console.log(formValues ? formValues["cliente_region"]  : data && data[EnumGrid.cliente_region_id])
-                                      //   console.log(clienteData && clienteData[0])
-    //  console.log(formValues)
-    //  console.log(inputState)
-    //  console.log(formValues && formValues["cliente_nombre"])
-    //   console.log(formValues ? formValues["cliente_tipo"]  : data && data[EnumGrid.cliente_tipo])
-    //   console.log(formValues ? formValues["cliente_nombre"]  : data && data[EnumGrid.cliente_nomnbre])
 
     return (
     <form action="">
@@ -180,7 +125,6 @@ const FOTClientes:React.FC<IClientes> = ({
                                 control={control}
                                 onlyRead={isEditting}
                                 isOT={true}
-                                // error={errors.fecha_nacimiento}
                             />
                         </div>
                     </div>
@@ -194,10 +138,8 @@ const FOTClientes:React.FC<IClientes> = ({
                                 name="cliente_nombre"
                                 handleChange={handleInputChange}
                                 data={formValues ? formValues["cliente_nombre"]  : data && data[EnumGrid.cliente_nomnbre]}
-                                // otData={clienteData  && clienteData[0] && clienteData[0][EnumClientes.nombre]}
                                 onlyRead={isEditting}
                                 isOT={true}
-                                // error={errors.fecha_nacimiento}
                             />
                         </div>
                     </div>
@@ -212,7 +154,6 @@ const FOTClientes:React.FC<IClientes> = ({
                                 data={formValues ? formValues["establecimiento_id"]  : data && data[EnumGrid.establecimiento_id]}
                                 control={control}
                                 entidad={["/api/establecimientos/", "06", codigoProyecto.value]}
-                                // error={errors.establecimiento}
                                 customWidth={"345px"}
                                 readOnly={isEditting}
                                 tabIndex={1}
@@ -234,9 +175,7 @@ const FOTClientes:React.FC<IClientes> = ({
                                     label="Sexo"
                                     name="cliente_sexo"
                                     data={formValues ? formValues["cliente_sexo"]  : data && data[EnumGrid.cliente_sexo]}
-                                
                                     options={[SEXO.masculino, SEXO.femenino, SEXO.no_aplica]}
-                                    // error={errors.sexo}
                                     // horizontal={true}
                                     onChange={handleInputChange}
                                     readOnly={isEditting}
@@ -254,8 +193,7 @@ const FOTClientes:React.FC<IClientes> = ({
                                         TIPO_CLIENTE.particular,
                                         TIPO_CLIENTE.optica
                                     ]}
-                                    // error={errors.sexo}
-                                    // horizontal={true}
+                                     // horizontal={true}
                                     onChange={handleInputChange}
                                     readOnly={isEditting}
                                 />    
@@ -274,11 +212,9 @@ const FOTClientes:React.FC<IClientes> = ({
                                     name="cliente_fecha_nacimiento"
                                     handleChange={handleInputChange}
                                     data={formValues ? formValues["cliente_fecha_nacimiento"]  : data && data[EnumGrid.cliente_fecha_nacimiento]}
-                                    // otData={clienteData && clienteData[0] && clienteData[0][EnumClientes.fecha_nacimiento]}
                                     control={control}
                                     onlyRead={isEditting}
                                     isOT={true}
-                                    // error={errors.fecha_nacimiento}
                                 />
                                 </div>
                                 <div className="w-[47%] ml-12      ">
@@ -291,8 +227,6 @@ const FOTClientes:React.FC<IClientes> = ({
                                     control={control}
                                     isOT={true}
                                     onlyRead={isEditting}
-                                    // otData={clienteData && clienteData[0] && clienteData[0][EnumClientes.telefono]}
-                                    // error={errors.fecha_nacimiento}
                                 />
                                 </div>
                             </div>
@@ -312,8 +246,6 @@ const FOTClientes:React.FC<IClientes> = ({
                                         isOT={true}
                                         onlyRead={isEditting}
                                         isOptional={true}
-                                        // otData={clienteData  && clienteData[0] && clienteData[0][EnumClientes.correo]}
-                                        // error={errors.fecha_nacimiento}
                                     />
                                 </div>
                             </div>
@@ -346,8 +278,6 @@ const FOTClientes:React.FC<IClientes> = ({
                             control={control}
                             isOT={true}
                             isOptional={true}
-                            // otData={clienteData  && clienteData[0] && clienteData[0][EnumClientes.direccion]}
-                            // error={errors.fecha_nacimiento}
                         />
                     </div>
                 </div>

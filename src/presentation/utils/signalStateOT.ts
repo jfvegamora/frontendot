@@ -505,13 +505,16 @@ export const updateOT =async (
   // let _rut = ""
   let _p3 = ""
   console.log(_origen)
+  console.log(_estado)
+  
+  console.log(_estado === 40 ? (isToggleImpression.value ? 1 : 0 ) : estado_impresion)
 
   const fields = [
     `motivo=${motivo}`,
     `area=${_destino}`,
     `estado=${_estado}`,
-    `validar_parametrizacion=${estado_validacion}`,
-    `estado_impresion=${estado_impresion}`,
+    `validar_parametrizacion="${_estado === 40 ? (isToggleValidation.value ? 1 : 0 ) : estado_validacion}"`,
+    `estado_impresion="${_estado === 40 ? (isToggleImpression.value ? 1 : 0 ) : estado_impresion}"`,
     `proyecto="${jsonData.proyecto_codigo                                                       !== undefined ? jsonData.proyecto_codigo : codigoProyecto.value}"`,
     (`establecimiento=${data && data[EnumGrid.establecimiento_id]                               !== undefined ? data[EnumGrid.establecimiento_id] : 0 }`),
     (`cliente="${!cliente_rut.value.trim()                                                      === false     ? cliente_rut.value : "" }"`),

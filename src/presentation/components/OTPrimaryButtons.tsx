@@ -30,8 +30,6 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
 }) => {
     const {escritura_lectura} = usePermission(28);
 
-    console.log(escritura_lectura)
-    console.log(areaPermissions)
 
 
     const renderButton = useCallback(
@@ -71,7 +69,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
     <div className='flex items-center   ml-[4rem] !w-[50rem]'>
         {areaPermissions && areaPermissions[0] === "1" && escritura_lectura && (
           renderButton(
-            <SiAddthis className="primaryBtnIcon mr-4" />,
+            <SiAddthis className="primaryBtnIcon " />,
             handleAddPerson!,
             BUTTON_MESSAGES.add
           )
