@@ -22,6 +22,7 @@ interface ITextInputProps {
   isOT?:boolean;
   customWidth?: any;
   isOptional?:boolean;
+  textAlign?: string;
 }
 
 const TextInputComponent: React.FC<ITextInputProps> = ({
@@ -40,7 +41,8 @@ const TextInputComponent: React.FC<ITextInputProps> = ({
   tabIndex,
   isOT,
   customWidth,
-  isOptional
+  isOptional,
+  textAlign,
 }) => {
   const [defaultValue, setDefaultValue] = useState<any>(data && data || "")
 
@@ -86,7 +88,7 @@ return (
             maxLength={maxLength}
             onBlur={(e) => handleInputChange(e)}
             ref={inputRef}
-            className={`${className ? className : "custom-input"}  ${onlyRead ? "custom-onlyread" : isOptional ? "custom-optional" : "custom-required"}`}
+            className={`${className ? className : "custom-input"}  ${onlyRead ? "custom-onlyread" : isOptional ? "custom-optional" : "custom-required"} ${textAlign && textAlign}`}
             tabIndex={tabIndex || 1}
             placeholder={type === 'date' ? "dd-mm-yyyy" : ''}
             autoComplete="off"

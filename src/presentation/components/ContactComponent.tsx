@@ -49,7 +49,7 @@ const ContactComponent:React.FC<IProps> = ({
                     <div className="w-full mr-4 !mt-4">
                         <TextInputComponent
                             type="text"
-                            label="telefono"
+                            label="Teléfono"
                             name={telefono}
                             data={dataTelefono}
                             control={control}

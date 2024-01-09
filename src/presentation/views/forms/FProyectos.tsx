@@ -409,7 +409,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                   </div>
                 </div>
 
-                <div className="input-container items-center rowForm w-[25%]">
+                <div className="input-container items-center rowForm w-[35%]">
                   <div className="w-full">
                       <SelectInputComponent
                           label="Mandante"
@@ -419,40 +419,24 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                           control={control}
                           entidad={["/api/mandantes/", "02"]}
                           error={errors.mandante}
-                          customWidth={"!w-[21rem]"}
+                          customWidth={"!w-[30rem]"}
                       />
                   </div>
                 </div>
                 <div className="input-container items-center rowForm w-[25%]">
                   <div className="w-full">
                       <SelectInputComponent
-                          label="Ejecutivo proyecto"
+                          label="Ejecutivo Proyecto"
                           name="ejecutivo_proyecto"
                           showRefresh={true}
                           data={data && data[EnumGrid.EJECUTIVO_ID]}
                           control={control}
                           entidad={["/api/usuarios/", "02"]}
                           error={errors.ejecutivo_proyecto}
-                          customWidth={"!w-[21rem]"}
+                          customWidth={"!w-[25rem]"}
                       />
                   </div>
                 </div>
-                <div className="input-container items-center rowForm w-[25%]">
-                  <div className="w-full">
-                      <SelectInputComponent
-                          label="Oftalmólogo (Canasta)"
-                          name="oftalmologo"
-                          showRefresh={true}
-                          data={data && data[EnumGrid.OFTALMOLOGO_ID]}
-                          control={control}
-                          entidad={["/api/oftalmologos/", "02"]}
-                          error={errors.oftalmologo}
-                          customWidth={"!w-[23rem]"}
-                          isOptional={true}
-                          />
-                  </div>
-                </div>
-
             </div>
             <div className="w-full items-center flex h-[80px] mt-[10px] mb-[10px]">
 
@@ -545,7 +529,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
               <div className="w-full mr-2">
                   <TextInputComponent
                     type="date"
-                    label="Fecha adjudicación"
+                    label="Fecha Adjudicación"
                     name="fecha_adjudicacion"
                     data={data && data[EnumGrid.FECHA_ADJUDICACION]}
                     control={control}
@@ -585,27 +569,13 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
               <div className="w-full mr-2">
                   <TextInputComponent
                     type="number"
-                    label="Días de entrega"
+                    label="Días entrega"
                     name="dias_entrega"
                     data={data && data[EnumGrid.DIAS_DE_ENTREGA]}
                     control={control}
                     error={errors.dias_entrega}
                   />
               </div>
-            </div>
-
-            <div className="input-container items-center rowForm w-[22%]">
-                <div className="w-full mr-2">
-                  <TextInputComponent
-                    type="number"
-                    label="% Avance"
-                    name="avance"
-                    data={data && data[EnumGrid.AVANCE]}
-                    control={control}
-                    onlyRead={true}
-                    error={errors.avance}
-                    />
-                </div> 
             </div>
            </div>  
 
@@ -628,12 +598,13 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
               <div className="w-full mr-2">
                 <TextInputComponent
                   type="number"
-                  label="Presupuesto"
+                  label="Presupuesto $"
                   name="presupuesto"
                   data={data && data[EnumGrid.PRESUPUESTO]}
                   control={control}
                   error={errors.presupuesto}
                   isOptional={true}
+                  textAlign="text-right"
                   />
               </div>          
             </div>
@@ -654,7 +625,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
               <div className="w-full mr-2">
                   <TextInputComponent
                           type="number"
-                          label="Total Facturado"
+                          label="Total Facturado $"
                           name="total_facturado"
                           data={data && data[EnumGrid.TOTAL_FACTURADO]}
                           control={control}
@@ -678,7 +649,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
               <div className="w-full mr-2">
                   <TextInputComponent
                           type="number"
-                          label="Saldo Disponible"
+                          label="Saldo Disponible $"
                           name="saldo_disponible"
                           data={data && data[EnumGrid.SALDO_DISPONIBLE]}
                           control={control}
@@ -686,6 +657,21 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                           />
               </div> 
             </div>
+            <div className="input-container items-center rowForm w-[]">
+                <div className="w-full mr-2">
+                  <TextInputComponent
+                    type="number"
+                    label="% Avance"
+                    name="avance"
+                    data={data && data[EnumGrid.AVANCE]}
+                    control={control}
+                    onlyRead={true}
+                    error={errors.avance}
+                    textAlign="text-center"
+                    />
+                </div> 
+            </div>
+
            </div>      
 
 
@@ -757,7 +743,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
             </div>
             
             <div className="w-[98%] items-center flex h-[50px] mt-[30px] mb-[25px]">
-              <div className="input-container imput-center rowForm w-[50%]">
+              <div className="input-container imput-center rowForm">
                   <div className="w-full items-center">
                       <TextInputComponent
                           type="text"
@@ -766,13 +752,29 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                           data={data && data[EnumGrid.OBSERVACIONES]}
                           control={control}
                           error={errors.observaciones}
+                          customWidth={"!w-[45rem]"}
                           isOptional={true}
                           />
                   </div>
               </div>
+              <div className="input-container items-center rowForm ">
+                  <div className="w-full">
+                      <SelectInputComponent
+                          label="Oftalmólogo (Canasta)"
+                          name="oftalmologo"
+                          showRefresh={true}
+                          data={data && data[EnumGrid.OFTALMOLOGO_ID]}
+                          control={control}
+                          entidad={["/api/oftalmologos/", "02"]}
+                          error={errors.oftalmologo}
+                          customWidth={"!w-[25rem]"}
+                          isOptional={true}
+                          />
+                  </div>
+                </div>
 
-              <div className="w-1/2 flex justify-end items-center">
-                  <div className="w-1/2 items-center">
+              <div className="w-full">
+                  <div className="w-[90%] mx-auto">
                     {escritura_lectura && (
                       <button type="submit" tabIndex={1} className="userFormBtnSubmit">
                         {`${TITLES.guardar}`}
