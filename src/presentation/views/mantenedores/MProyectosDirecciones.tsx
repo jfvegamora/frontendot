@@ -133,7 +133,8 @@ const MProyectosDirecciones: React.FC = () => {
             showEditButton={true}
             showPdfButton={true}
             idMenu={idMenu}
-          />
+            leftEdit={true}
+            />
         </div>
   
         

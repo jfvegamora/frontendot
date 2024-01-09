@@ -127,6 +127,7 @@ const MPerfiles: React.FC = () => {
           showEditButton={true}
           showDeleteButton={false}
           idMenu={idMenu}
+          leftEdit={true}
         />
       </div>
 

@@ -274,13 +274,9 @@ const MOT: React.FC = () => {
           idMenu={idMenu}
           isOT={true}
         />
-
       </div>
-   
-  
 
       {isModalInsert && (
-        
         <FOT
           label={`${TITLES.ingreso} ${strEntidad}`}
           closeModal={closeModal}
@@ -289,8 +285,6 @@ const MOT: React.FC = () => {
           params={params}
           isEditting={false}
           isMOT={false}
-          
-
         />
       )}
 

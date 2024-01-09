@@ -733,7 +733,7 @@ export const table_head_establecimientos = [
     cell: <input type="checkbox" />,
     key: "checkbox",
     visible: true,
-    width: "w-[4rem]",
+    width: "w-[5rem]",
     alignment: "flex justify-center items-center"
   },
   {
@@ -827,7 +827,7 @@ export const table_head_puntos_venta = [
     cell: <input type="checkbox" />,
     key: "checkbox",
     visible: true,
-    width: "w-[3rem]",
+    width: "w-[5rem]",
     alignment: "flex justify-center items-center"
   },
   {
@@ -893,12 +893,12 @@ export const table_head_puntos_venta = [
     width: "w-[4rem]",
   },
 ];
-export const table_head_situaciones = [
+export const table_head_muestrarios = [
   {
     cell: <input type="checkbox" />,
     key: "checkbox",
     visible: true,
-    width: "w-[4rem]",
+    width: "w-[5rem]",
     alignment: "flex justify-center items-center"
   },
   {
@@ -910,7 +910,81 @@ export const table_head_situaciones = [
     cell: "Descripción",
     key: "descripcion",
     visible: true,
-    width: "w-[25rem]",
+    alignment: "text-left"
+  },
+  {
+    cell: "Punto Venta ID",
+    key: "punto_venta_id",
+    visible: false,
+  },
+  {
+    cell: "Punto Venta",
+    key: "punto_venta",
+    visible: true,
+    alignment: "text-left"
+  },
+  {
+    cell: "",
+    key: "opciones",
+    visible: true,
+    width: "w-[4rem]",
+  },
+];
+export const table_head_vitrinas = [
+  {
+    cell: <input type="checkbox" />,
+    key: "checkbox",
+    visible: true,
+    width: "w-[5rem]",
+    alignment: "flex justify-center items-center"
+  },
+  {
+    cell: "ID",
+    key: "id",
+    visible: false,
+  },
+  {
+    cell: "Descripción",
+    key: "descripcion",
+    visible: true,
+    alignment: "text-left"
+  },
+  {
+    cell: "Punto Venta ID",
+    key: "punto_venta_id",
+    visible: false,
+  },
+  {
+    cell: "Punto Venta",
+    key: "punto_venta",
+    visible: true,
+    alignment: "text-left"
+  },
+  {
+    cell: "",
+    key: "opciones",
+    visible: true,
+    width: "w-[4rem]",
+  },
+];
+export const table_head_situaciones = [
+  {
+    cell: <input type="checkbox" />,
+    key: "checkbox",
+    visible: true,
+    width: "w-[5rem]",
+    alignment: "flex justify-center items-center"
+  },
+  {
+    cell: "ID",
+    key: "id",
+    visible: false,
+  },
+  {
+    cell: "Descripción",
+    key: "descripcion",
+    visible: true,
+    width: "w-[18rem]",
     alignment: "text-left"
   },
   {
@@ -921,10 +995,10 @@ export const table_head_situaciones = [
     alignment: "text-left"
   },
   {
-    cell: "Área",
+    cell: "Área Exclusiva",
     key: "area",
     visible: true,
-    width: "w-[8rem]",
+    width: "w-[12rem]",
     alignment: "text-left"
   },
   {
@@ -942,7 +1016,7 @@ export const table_head_accesorios = [
     cell: <input type="checkbox" />,
     key: "checkbox",
     visible: true,
-    width: "w-[3rem]",
+    width: "w-[5rem]",
     alignment: "flex justify-center items-center"
   },
   {
@@ -1364,7 +1438,7 @@ export const table_head_kardex = [
     cell: <input type="checkbox" />,
     key: "checkbox",
     visible: true,
-    width: "w-[3rem]",
+    width: "w-[5rem]",
     alignment: "flex justify-center items-center"
   },
   {
@@ -1499,7 +1573,7 @@ export const table_head_almacenes = [
     cell: <input type="checkbox" />,
     key: "checkbox",
     visible: true,
-    width: "w-[3rem]",
+    width: "w-[5rem]",
     alignment: "flex justify-center items-center"
   },
   {
@@ -1536,7 +1610,7 @@ export const table_head_marcas = [
     cell: <input type="checkbox" />,
     key: "checkbox",
     visible: true,
-    width: "w-[3rem]",
+    width: "w-[5rem]",
     alignment: "flex justify-center items-center"
   },
   {
@@ -1573,7 +1647,7 @@ export const table_head_proveedores = [
     cell: <input type="checkbox" />,
     key: "checkbox",
     visible: true,
-    width: "w-[3rem]",
+    width: "w-[5rem]",
     alignment: "flex justify-center items-center"
   },
   {
@@ -1630,7 +1704,7 @@ export const table_head_mandantes = [
     cell: <input type="checkbox" />,
     key: "checkbox",
     visible: true,
-    width: "w-[3rem]",
+    width: "w-[5rem]",
     alignment: "flex justify-center items-center"
   },
   {
@@ -1962,80 +2036,6 @@ export const table_head_proyectos = [
     visible: true,
     alignment: "text-left",
     width: "w-[12rem]",
-  },
-  {
-    cell: "",
-    key: "opciones",
-    visible: true,
-    width: "w-[4rem]",
-  },
-];
-export const table_head_muestrarios = [
-  {
-    cell: <input type="checkbox" />,
-    key: "checkbox",
-    visible: true,
-    width: "w-[3rem]",
-    alignment: "flex justify-center items-center"
-  },
-  {
-    cell: "ID",
-    key: "id",
-    visible: false,
-  },
-  {
-    cell: "Descripción",
-    key: "descripcion",
-    visible: true,
-    alignment: "text-left"
-  },
-  {
-    cell: "Punto Venta ID",
-    key: "punto_venta_id",
-    visible: false,
-  },
-  {
-    cell: "Punto Venta",
-    key: "punto_venta",
-    visible: true,
-    alignment: "text-left"
-  },
-  {
-    cell: "",
-    key: "opciones",
-    visible: true,
-    width: "w-[4rem]",
-  },
-];
-export const table_head_vitrinas = [
-  {
-    cell: <input type="checkbox" />,
-    key: "checkbox",
-    visible: true,
-    width: "w-[3rem]",
-    alignment: "flex justify-center items-center"
-  },
-  {
-    cell: "ID",
-    key: "id",
-    visible: false,
-  },
-  {
-    cell: "Descripción",
-    key: "descripcion",
-    visible: true,
-    alignment: "text-left"
-  },
-  {
-    cell: "Punto Venta ID",
-    key: "punto_venta_id",
-    visible: false,
-  },
-  {
-    cell: "Punto Venta",
-    key: "punto_venta",
-    visible: true,
-    alignment: "text-left"
   },
   {
     cell: "",
@@ -2646,7 +2646,7 @@ export const table_head_proyectos_direcciones = [
     cell: <input type="checkbox" />,
     key: "checkbox",
     visible: true,
-    width: "w-[3rem]",
+    width: "w-[5rem]",
     alignment: "flex justify-center items-center"
   },
   {
@@ -2763,7 +2763,7 @@ export const table_head_proyectos_usuarios = [
     cell: <input type="checkbox" />,
     key: "checkbox",
     visible: true,
-    width: "w-[3rem]",
+    width: "w-[5rem]",
     alignment: "flex justify-center items-center"
   },
   {
@@ -2987,7 +2987,7 @@ export const table_head_proyectos_firmas = [
     cell: <input type="checkbox" />,
     key: "checkbox",
     visible: true,
-    width: "w-[3rem]",
+    width: "w-[5rem]",
     alignment: "flex justify-center items-center"
   },
   {
@@ -3051,7 +3051,7 @@ export const table_head_oftalmologos = [
     cell: <input type="checkbox" />,
     key: "checkbox",
     visible: true,
-    width: "w-[3rem]",
+    width: "w-[5rem]",
     alignment: "flex justify-center items-center"
   },
   {
@@ -3106,7 +3106,7 @@ export const table_head_empresas = [
     cell: <input type="checkbox" />,
     key: "checkbox",
     visible: true,
-    width: "w-[3rem]",
+    width: "w-[5rem]",
     alignment: "flex justify-center items-center"
   },
   {
@@ -3184,7 +3184,7 @@ export const table_head_cargos = [
     cell: <input type="checkbox" />,
     key: "checkbox",
     visible: true,
-    width: "w-[3rem]",
+    width: "w-[5rem]",
     alignment: "flex justify-center items-center"
   },
   {
@@ -3218,7 +3218,7 @@ export const table_head_funcionalidades = [
     cell: <input type="checkbox" />,
     key: "checkbox",
     visible: true,
-    width: "w-[3rem]",
+    width: "w-[5rem]",
     alignment: "flex justify-center items-center"
   },
   {
@@ -3244,7 +3244,7 @@ export const table_head_permisos = [
     cell: <input type="checkbox" />,
     key: "checkbox",
     visible: true,
-    width: "w-[3rem]",
+    width: "w-[5rem]",
     alignment: "flex justify-center items-center"
   },
   {
@@ -3288,7 +3288,7 @@ export const table_head_perfiles = [
     cell: <input type="checkbox" />,
     key: "checkbox",
     visible: true,
-    width: "w-[3rem]",
+    width: "w-[5rem]",
     alignment: "flex justify-center items-center"
   },
   {
@@ -3332,7 +3332,7 @@ export const table_head_usuarios = [
     cell: <input type="checkbox" />,
     key: "checkbox",
     visible: true,
-    width: "w-[3rem]",
+    width: "w-[5rem]",
     alignment: "flex justify-center items-center"
   },
   {

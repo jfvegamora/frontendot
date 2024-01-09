@@ -94,8 +94,8 @@ const FOTReceta:React.FC<IReceta> = ({
                         control={control}
                         isOT={true}
                         onlyRead={isEditting}
-                        // error={errors.fecha_nacimiento}
-                    />
+                        isOptional={true}
+                        />
                 </div>
                 <div className="w-[20%] ml-4 justify-between">
                     <TextInputComponent
@@ -107,8 +107,8 @@ const FOTReceta:React.FC<IReceta> = ({
                         control={control}
                         isOT={true}
                         onlyRead={isEditting}
-                        // error={errors.fecha_nacimiento}
-                    />
+                        isOptional={true}
+                        />
                 </div>
                 <div className="w-[15%] ml-4">
                     <TextInputComponent
@@ -120,8 +120,8 @@ const FOTReceta:React.FC<IReceta> = ({
                         control={control}
                         isOT={true}
                         onlyRead={isEditting}
-                        // error={errors.fecha_nacimiento}
-                    />
+                        isOptional={true}
+                        />
                 </div>
                 <div className="w-[34%] ml-4 mb-[0.3rem]" >
                     <SelectInputComponent
@@ -137,7 +137,8 @@ const FOTReceta:React.FC<IReceta> = ({
                         // error={errors.establecimiento}
                         customWidth={"345px"}
                         readOnly={isEditting}
-                    />
+                        isOptional={true}
+                        />
                 </div>
             </div>
 

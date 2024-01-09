@@ -126,6 +126,7 @@ const MProyectosFirmas: React.FC = () => {
             showEditButton={true}
             showDeleteButton={false}
             idMenu={idMenu}
+            leftEdit={true}
 
             showExcelButton={true}
             queryExcel={strQueryExcel}
