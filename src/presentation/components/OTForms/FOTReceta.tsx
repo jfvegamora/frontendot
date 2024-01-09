@@ -409,6 +409,7 @@ const FOTReceta:React.FC<IReceta> = ({
                         data={formValues ? formValues["observaciones"] : data && data[EnumGrid.observaciones]}
                         control={control}
                         onlyRead={isEditting}
+                        isOptional={true}
                         // error={errors.fecha_nacimiento}
                     />
                 </div>

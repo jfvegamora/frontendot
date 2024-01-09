@@ -244,11 +244,11 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                     // console.log(folio)
                     const coloresEstado = OTColores[rowData[3]]
 
-                    console.log(rowData[34])
+                    // console.log(rowData[34])
                     const color = (rowData[34] === 'S' ? "bg-black" : "");
                     const type = color === 'bg-black' ? 1: 0
-                    const backgroundcolor = `bg-[${OTColores[rowData[3]][1]}]`
-                    console.log(backgroundcolor)
+                    const backgroundcolor =  isOT ? `bg-[${OTColores[rowData[3]][1]}]` : ""
+                    // console.log(backgroundcolor)
                   
                     return (
                       visible && (

@@ -300,7 +300,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
                                     control={control}
                                     onlyRead={!(permiso_usuario_armazones && permiso_areas_armazones)}
                                     isOT={true}
-                                    // error={errors.fecha_nacimiento}
+                                    isOptional={true}
                                 />
                             </div>
                             {/* <div className="w-full flex mt-6 rowForm ">

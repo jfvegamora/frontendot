@@ -18,7 +18,8 @@ interface ITextInputProps {
   inputRef?: any;
   className?:string;
   handleChange?: (data:any)=>void;
-  otData?:any
+  otData?:any;
+  isOptional?:boolean;
 }
 
 const OTTextInputComponent: React.FC<ITextInputProps> = ({
@@ -33,7 +34,8 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
   tabIndex,
   inputRef,
   className,
-  otData
+  otData,
+  isOptional
   // defaultValue:formatvalue,
 }) => {
   const [defaultValue, setDefaultValue] = useState<string>(data || "  ")
@@ -159,7 +161,8 @@ return (
           ref       ={inputRef}
           tabIndex  ={tabIndex || 1}
           readOnly  = {onlyRead}
-          className ={`${className ? className : " custom-input py-2 px-3 "} ${onlyRead ? "bg-gray-200 opacity-70 cursor-not-allowed" : ""}`}
+          // className ={`${className ? className : " custom-input py-2 px-3 "} ${onlyRead ? "bg-gray-200 opacity-70 cursor-not-allowed" : ""}`}
+          className={`${className ? className : "custom-input"}  ${onlyRead ? "custom-onlyread" : isOptional ? "custom-optional" : "custom-required"}`}
           // className={`${className ? className : "custom-input py-2 px-3"}`}
         />
       </div>

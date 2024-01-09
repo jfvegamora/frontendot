@@ -316,7 +316,8 @@ const FOTCristales:React.FC<ICristales> = ({
                                         control={control}
                                         entidad='CristalesTratamientos'
                                         customWidth={"w-full  !ml-[1rem]"}
-                                        readOnly={!(!isEditting || (permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria))}                                
+                                        readOnly={!(!isEditting || (permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria))} 
+                                        isOptional={true}                               
                                     />
                                 </div>
                             </div>
@@ -490,6 +491,7 @@ const FOTCristales:React.FC<ICristales> = ({
                                         readOnly={!((!isEditting && tipo_de_anteojo.value === '3') || (isEditting && permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria && tipo_de_anteojo.value === '3'))}
                                         customWidth={"w-full  !ml-[1rem]"}
                                         FOTcristales={true}
+                                        isOptional={true}
                                     />
                                 </div>
                             </div>
