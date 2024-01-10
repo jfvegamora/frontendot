@@ -4,10 +4,13 @@ import React, { useCallback } from 'react';
 import { SiAddthis } from 'react-icons/si';
 import { PiPrinterFill } from "react-icons/pi";
 import { ImWhatsapp } from "react-icons/im";
-import { BUTTON_MESSAGES } from '../utils';
+import { BUTTON_MESSAGES, updateOT } from '../utils';
 import { ExportCSV } from './ExportToCsv';
 import { usePermission } from '../hooks';
 import ImportToCsv from './ImportToCsv';
+import { AppStore, useAppDispatch, useAppSelector } from '../../redux/store';
+import { toast } from 'react-toastify';
+import { fetchOT } from '../../redux/slices/OTSlice';
 
 type AreaButtonsProps ={
     areaName:string;
@@ -15,6 +18,7 @@ type AreaButtonsProps ={
     params:any;
     areaActual:string;
     handleAddPerson?: () => void;
+    pkToDelete?: any
   }
 
 const strEntidad = "Ordenen de Trabajo";
@@ -26,9 +30,16 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
     areaPermissions,
     // areaActual,
     handleAddPerson,
-    params
+    params,
+    pkToDelete
 }) => {
     const {escritura_lectura} = usePermission(28);
+    const dispatch = useAppDispatch();
+    const data:any = useAppSelector((store: AppStore) => store.OTS.data)
+    const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas)
+    const User:any = useAppSelector((store: AppStore) => store.user)
+
+
 
 
 
@@ -49,6 +60,20 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
       []
     );
 
+      
+    const validationStateOT = (positionCampo:number, nameCampo:string, folios:any) => {
+      const resultadoFiltrado = data && data.filter((elemento:any) => folios.includes(elemento[1]));
+
+
+      return resultadoFiltrado.map((OT:any)=>{
+        const estado = OT[positionCampo]
+        if(estado !== nameCampo){
+          return OT[1]
+        }
+        return true
+      })
+    };
+
    
     
     const handleImpresionMasivo = () => {
@@ -59,7 +84,40 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
     }
 
     const handleProcesarMasivo = () => {
-      console.log('click')
+      const folios = pkToDelete && pkToDelete.map(({folio}:any)=>folio)
+      const result = validationStateOT(3, 'En proceso', folios)
+      console.log(result)
+      
+      if(Array.isArray(result)){
+        toast.error(`Error en OT folio: ${result.filter((folio)=>typeof folio === 'number')}`)
+      }
+
+      //TODO: SI TYPEOF RESULT ES BOOLEAN EJECUTAR UPDATEOT, SI TYPEOF RERSULT ES NUMBER EJECUTAR TOAST.ERROR
+
+      let error = [];
+
+      // console.log(pkToDelete)
+      const procesarMasivo = pkToDelete.map((ot:any)=>{
+        // console.log(ot)
+        updateOT(
+          [],
+          OTAreas["areaActual"],
+          OTAreas["areaSiguiente"],
+          20,
+          [],
+          ot,
+          [],
+          [],
+          User["id"],
+          "",
+          true
+        ).then(()=>{
+          dispatch(fetchOT({OTAreas:OTAreas["areaActual"]}))
+        })
+      })
+
+
+
     }
 
     // console.log(areaPermissions && areaPermissions[4])

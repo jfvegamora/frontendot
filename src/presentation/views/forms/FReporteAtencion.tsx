@@ -77,7 +77,7 @@ const FReporteAtencion:React.FC<IDerivacion> = ({
     
     }
 
-    const validarEstadoOT = () => {
+    const validarEstadoOT = (posicionCampo?:number, nombreCampo?:string ) => {
         console.log(OTSlice.data)
         return OTSlice.data.map((OT:any)=>{
             const estado = OT[3]

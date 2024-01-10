@@ -19,6 +19,7 @@ import { AppStore,
 import FilterButton from "../../components/FilterButton";
 import { clearData } from "../../../redux/slices/OTSlice";
 import { signal } from "@preact/signals-react";
+import { EnumGrid as EnumOT } from "./MOTHistorica";
 
 export enum EnumGrid {
   id = 1,
@@ -101,7 +102,12 @@ const MOT: React.FC = () => {
 
   useEffect(() => {
     const newPkToDelete = selectedRows.map((row: number) => ({
-      folio: OTs.data[row][EnumGrid.id],
+      folio       : OTs.data[row] && OTs.data[row][EnumGrid.id],
+      armazones   : [{codigo: OTs.data[row] && OTs.data[row][13]}, {codigo: OTs.data[row] && OTs.data[row][14]}],
+      cristales   : [{codigo: OTs.data[row] && OTs.data[row][16]}, {codigo: OTs.data[row] && OTs.data[row][17]}],
+      proyecto    : OTs.data[row] && OTs.data[row][6],
+      punto_venta : OTs.data[row] && OTs.data[row][5],
+
     }));
     console.log(newPkToDelete)
     setPkToDelete(newPkToDelete as any)
@@ -193,6 +199,7 @@ const MOT: React.FC = () => {
             showExportButton={true}
             showDeleteButton={true}
             showForwardButton={false}
+            pkToDelete={pktoDelete}
             showRefreshButton={true}
             showImportCsv={true}
             idMenu={idMenu}

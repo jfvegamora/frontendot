@@ -217,16 +217,16 @@ const MOTHistorica: React.FC = () => {
   const pkToDelete: PrimaryKey[] = [];
 
   // console.log('pktodelete', pkToDelete)
-  useEffect(() => {
-    const newPkToDelete = selectedRows.map((row: number) => ({
-      pk1: entities[row][EnumGrid.folio],
-    }));
-    newPkToDelete.forEach((newPk: { pk1: any }) => {
-      if (!pkToDelete.some((existingPk) => existingPk.pk1 === newPk.pk1)) {
-        pkToDelete.push(newPk);
-      }
-    });
-  }, [selectedRows]);
+  // useEffect(() => {
+  //   const newPkToDelete = selectedRows.map((row: number) => ({
+  //     pk1: entities[row][EnumGrid.folio],
+  //   }));
+  //   newPkToDelete.forEach((newPk: { pk1: any }) => {
+  //     if (!pkToDelete.some((existingPk) => existingPk.pk1 === newPk.pk1)) {
+  //       pkToDelete.push(newPk);
+  //     }
+  //   });
+  // }, [selectedRows]);
 
 
 
@@ -264,6 +264,10 @@ const MOTHistorica: React.FC = () => {
             { name: "_fecha_hasta", label: "Hasta", type: "date" ,styles:{with:"w-[17.3rem]  !h-[6rem]"}},
 
             { name: "_nombre", label: "Nombre", type: "text" },
+            { name: "_nombre", label: "Reporte Atencion", type: "text" },
+            { name: "_nombre", label: "Reporte Atencion", type: "text" },
+            { name: "_nombre", label: "Reporte Atencion", type: "text" },
+            { name: "_nombre", label: "Reporte Atencion", type: "text" },
             {
               name: "_estado",
               label: "OTEstado",

@@ -502,19 +502,57 @@ export const updateOT =async (
   cristalOri:any,
   armazonOri:any,
   user:any,
-  _obs?:string
+  _obs?:string,
+  isMasivo?:boolean
 )  => {
+
+  //TODO: INICIO PROCESAR MASIVO
+  if(isMasivo){
+    
+    const query = {
+      query: "04",
+      _p1:`area=${_destino}` ,
+      _p3: "",
+      _proyecto: data && data.proyecto,
+      _folio: `${data && data.folio}` ,
+      _origen: _origen.toString(),
+      _rut: ``,
+      _destino: _destino.toString(),
+      _estado:_estado.toString(), 
+      _usuario:`${user}`,
+      _situacion:"0",
+      _obs: "",
+      _cristalesJSON: JSON.stringify(data.cristales),
+      _armazonesJSON: JSON.stringify(data.armazones),
+      _punto_venta: `${data.punto_venta}`,
+      _cristalJSONOri: JSON.stringify(data.cristales),
+      _armazonJSONOri: JSON.stringify(data.armazones)
+    }
+
+    console.log(query)
+    try {
+      const response = await axios.post(`${URLBackend}/api/ot/editar/`, query)
+  
+      if(response.status === 200){
+        return toast.success('OT Editada Correctamente')
+      }else{
+        return toast.error('Error al Editar OT')
+      }
+    } catch (error) {
+      console.log(error)
+  
+    }
+    return;
+  }
+//TODO: FIN PROCESAR MASIVO
+
   let estado_impresion = 1;
   let estado_validacion = 1;
   let motivo = 1;
   // let _rut = ""
   let _p3 = ""
-  console.log(_origen)
-  console.log(_estado)
-  
-  console.log(_estado === 40 ? (isToggleImpression.value ? 1 : 0 ) : estado_impresion)
+ 
 
-    console.log(jsonData)
   const fields = [
     `motivo=${motivo}`,
     `area=${_destino}`,
@@ -609,13 +647,6 @@ export const updateOT =async (
   
   ];
   
-  console.log(    (`numero_reporte=${jsonData.numero_reporte                                           !== '' && jsonData.numero_reporte !== undefined       ? jsonData.numero_reporte : 0 }`),
-  )
-
-  console.log(    (`numero_factura=${jsonData.numero_factura                                           !== '' && jsonData.numero_factura !== undefined       ? jsonData.numero_factura : 0 }`),  )
-
-  console.log(jsonData.numero_factura)
-  console.log(jsonData.numero_factura !== '')
   const cristales = [
     { codigo: `${A1_CR_OD.value}` },
     { codigo: `${A1_CR_OI.value}` },

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form';
 // import { SelectInputComponent, TextInputComponent } from '..';
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
@@ -66,6 +66,20 @@ const FGuia:React.FC<IDerivacion> = ({
     
     
     }
+
+    useEffect(() => {
+        const handleKeyDown = (event: KeyboardEvent) => {
+          if (event.key === "Escape") {
+            closeModal()
+          }
+        };
+      
+        window.addEventListener("keydown", handleKeyDown);
+      
+        return () => {
+          window.removeEventListener("keydown", handleKeyDown);
+        };
+      }, [closeModal]);
   return (
     <div className='useFormContainer useFormDerivacion h-[55%] w-[60%] left-[20%] top-[30%] z-30'>
         <div className=" flex justify-end w-full">

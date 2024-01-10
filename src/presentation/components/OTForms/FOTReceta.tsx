@@ -159,7 +159,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 handleChange={handleInputChange}
                                 otData={data && data[EnumGrid.a1_od_esf] ||  a1_od_esf.value}
                                 control={control}
-                                onlyRead={ !(permiso_usuario_receta && permiso_areas_receta)}
+                                onlyRead={!(!isEditting || (permiso_usuario_receta && permiso_areas_receta))}
                                 textAlign="text-center"
                                 />
                         </div>
@@ -389,7 +389,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 control={control}
                                 isOT={true}
 
-                                onlyRead={!(deshabilitarCampo.value.a2_dp && (!isEditting || (permiso_usuario_receta && permiso_areas_receta)))}
+                                onlyRead={!(!deshabilitarCampo.value.a2_dp && (!isEditting || (permiso_usuario_receta && permiso_areas_receta)))}
                                 // error={errors.fecha_nacimiento}
                             />
                     </div>

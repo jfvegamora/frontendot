@@ -119,6 +119,8 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
           areaActual={areaActual}  
           handleAddPerson={handleAddPerson}
           params={params}
+          pkToDelete={pkToDelete}
+          
         />
       )
     }

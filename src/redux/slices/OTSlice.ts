@@ -64,6 +64,8 @@ const filterCodigos = (codigos:any) => {
     return codigosFiltrados;
 }
 
+
+
 const OTSlice = createSlice({
     name: 'OTSlice',
     initialState,

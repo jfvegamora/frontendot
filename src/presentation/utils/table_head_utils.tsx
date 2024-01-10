@@ -30,6 +30,28 @@ export const table_head_OT_diaria2 = [
     width: "w-[8rem]",
     color: true
   },
+  
+  {
+    cell: "Estado Imrpesion",
+    key: "estado_impresion",
+    visible: false,
+    alignment: "text-left",
+    width: "w-[12rem]"
+  },
+  {
+    cell: "Punto Venta",
+    key: "punto_venta",
+    visible: false,
+    alignment: "text-left",
+    width: "w-[12rem]"
+  },
+  {
+    cell: "Codigo Proyecto",
+    key: "codigo_proyecto",
+    visible: false,
+    alignment: "text-left",
+    width: "w-[12rem]"
+  },
   {
     cell: "Título Proyecto",
     key: "proyecto",

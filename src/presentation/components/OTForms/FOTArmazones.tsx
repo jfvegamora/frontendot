@@ -35,6 +35,10 @@ const FOTArmazones:React.FC<IArmazones> = ({
     const [codArmazon2, setCodArmazon2] = useState(formValues ? formValues["a2_armazon_id"] : data && data[EnumGrid.a2_armazon_id] || "");
     const [codArmazon3, setCodArmazon3] = useState(formValues ? formValues["a3_armazon_id"] : data && data[EnumGrid.a3_armazon_id] || "");
 
+    const [armazon1, setArmazon1] = useState([])
+    const [armazon2, setArmazon2] = useState([])
+    const [armazon3, setArmazon3] = useState([])
+
 
     //TODO! =========================== ENVIAR DP EN _P4 PARA VALIDAR ARMAZONES ===========================================================================
     //TODO! =========================== ENVIAR Diametro EN _P5 PARA VALIDAR ARMAZONES =====================================================================
@@ -43,9 +47,9 @@ const FOTArmazones:React.FC<IArmazones> = ({
                                                    ? `${URLBackend}/api/armazones/listado/?query=01` 
                                                    : `${URLBackend}/api/armazones/listado/?query=02&_p2=${codigoProyecto.value}&_p3=${punto_venta.value}`;
 
-    const { data:armazon1 } = useSWR( (codArmazon1 && !codArmazon1.trim() === false && validar_parametrizacion.value === '1' ) ? (`${endpoint}&_p1=${codArmazon1 !== ' ' ? codArmazon1.trim() : "aaaa"}&_p4=${typeof A1_DP.value === 'string' ? A1_DP.value : 0}&_p5=${typeof A1_Diametro.value === 'string' ? A1_Diametro.value : ""}`) : (`${endpoint}&_p1=${codArmazon1 !== ' ' ? codArmazon1 && codArmazon1.trim() : "aaaa"}`), fetcher); 
-    const { data:armazon2 } = useSWR( (codArmazon2 && !codArmazon2.trim() === false && validar_parametrizacion.value === '1' ) ? (`${endpoint}&_p1=${codArmazon2 !== ' ' ? codArmazon2.trim() : "aaaa"}&_p4=${(tipo_de_anteojo.value === '3' ? (typeof A2_DP.value === 'string' ? A2_DP.value : 0) : A1_DP.value)}&_p5=${(tipo_de_anteojo.value === '3' ? (typeof A2_Diametro.value === 'string' ? A2_Diametro.value : "") : A1_Diametro.value)}`) : (`${endpoint}&_p1=${codArmazon2 !== '' ? codArmazon2 && codArmazon2.trim() : "aaaa"}`), fetcher);
-    const { data:armazon3 } = useSWR( (codArmazon3 && !codArmazon3.trim() === false ) ? (`${endpoint}&_p1=${codArmazon3 !== ' ' ? codArmazon3.trim() : "aaaa"}&_p4=${typeof A1_DP.value === 'string' ? A1_DP.value : 0}&_p5=${typeof A1_Diametro.value === 'string' ? A1_Diametro.value : ""}`) : null , fetcher); 
+    // const { data:armazon1 } = useSWR( (codArmazon1 && !codArmazon1.trim() === false && validar_parametrizacion.value === '1' ) ? (`${endpoint}&_p1=${codArmazon1 !== ' ' ? codArmazon1.trim() : "aaaa"}&_p4=${typeof A1_DP.value === 'string' ? A1_DP.value : 0}&_p5=${typeof A1_Diametro.value === 'string' ? A1_Diametro.value : ""}`) : (`${endpoint}&_p1=${codArmazon1 !== ' ' ? codArmazon1 && codArmazon1.trim() : "aaaa"}`), fetcher); 
+    // const { data:armazon2 } = useSWR( (codArmazon2 && !codArmazon2.trim() === false && validar_parametrizacion.value === '1' ) ? (`${endpoint}&_p1=${codArmazon2 !== ' ' ? codArmazon2.trim() : "aaaa"}&_p4=${(tipo_de_anteojo.value === '3' ? (typeof A2_DP.value === 'string' ? A2_DP.value : 0) : A1_DP.value)}&_p5=${(tipo_de_anteojo.value === '3' ? (typeof A2_Diametro.value === 'string' ? A2_Diametro.value : "") : A1_Diametro.value)}`) : (`${endpoint}&_p1=${codArmazon2 !== '' ? codArmazon2 && codArmazon2.trim() : "aaaa"}`), fetcher);
+    // const { data:armazon3 } = useSWR( (codArmazon3 && !codArmazon3.trim() === false ) ? (`${endpoint}&_p1=${codArmazon3 !== ' ' ? codArmazon3.trim() : "aaaa"}&_p4=${typeof A1_DP.value === 'string' ? A1_DP.value : 0}&_p5=${typeof A1_Diametro.value === 'string' ? A1_Diametro.value : ""}`) : null , fetcher); 
 
 
 
@@ -71,63 +75,128 @@ const FOTArmazones:React.FC<IArmazones> = ({
     };
 
 
-    useEffect(()=>{
-        // console.log(validar_parametrizacion.value)
-        // console.log(armazon1)
-        if(validar_parametrizacion.value === '1'){
-            // console.log(armazon1)
-            // console.log(codArmazon1)
-            
-            // console.log(!codArmazon1.trim())
-            if(( codArmazon1 && !codArmazon1.trim()) && codArmazon1 !== undefined  && armazon1 && armazon1[0] && (armazon1[0].length === 3 || armazon1[0].length === 1)){
-                //? VALIDACION QUERY 02
-                toast.error(armazon1[0][0])
-                onDataChange({['a1_armazon_id']: " "}) 
+    useEffect(()=>{     
+        if (codArmazon1 !== undefined && codArmazon1 !== null && codArmazon1.trim) {
+            if(!(!codArmazon1.trim())){
+                const fetchArmazones1 = async ()=>{
+                    try {
+                        const {data} = await axios((validar_parametrizacion.value === '1' ) ? (`${endpoint}&_p1=${codArmazon1 !== ' ' ? codArmazon1.trim() : "aaaa"}&_p4=${typeof A1_DP.value === 'string' ? A1_DP.value : 0}&_p5=${typeof A1_Diametro.value === 'string' ? A1_Diametro.value : ""}`) : (`${endpoint}&_p1=${codArmazon1 !== ' ' ? codArmazon1 && codArmazon1.trim() : "aaaa"}`))
+    
+                        if(data.length === 0){
+                            toast.error('Armazon 1 no Existe')
+                            onDataChange({['a1_armazon_id']: " "})
+                            setArmazon1([])
+                        }
+    
+    
+                        if(data[0] && data[0].length === 1){
+                            toast.error(data[0][0])
+                            onDataChange({['a1_armazon_id']: " "})
+                            setArmazon1([])
+                             
+                        }
+                        
+                        if(data[0] && data[0].length === 15 ||  data.length === 1){
+                            setArmazon1(data[0])
+                        }
+    
+                    } catch (error) {
+                        console.log(error)
+                        throw error
+                    }
+                }
+                
+                fetchArmazones1()
             }
-        }else if (armazon1 && armazon1.length === 0 && codArmazon1 !== " "){
-            //? VALIDACION QUERY 01
-            toast.error('Código de Armazón 1 no existe')
-            onDataChange({['a1_armazon_id']: " "}) 
-
-        }
-        //  console.log(armazon1)   
-    },[armazon1,codArmazon1])
+        }       
+    }, [codArmazon1, validar_parametrizacion.value, endpoint, A1_DP.value, A1_Diametro.value]);
 
     useEffect(()=>{
-        if(validar_parametrizacion.value === '1'){
-            console.log(codArmazon2)
-            if(( codArmazon2 && !codArmazon2.trim()) && codArmazon2 !== undefined && armazon2 && armazon2[0] && (armazon2[0].length === 3 || armazon2[0].length === 1)){
-                console.log('render')
-                console.log(armazon2[0][0])
-                toast.error(armazon2[0][0])
-                onDataChange({['a2_armazon_id']: " "})    
-            }
-        }else if (armazon2 && armazon2.length === 0 && codArmazon2 !== " "){
-            toast.error('Código de Armazón 2 no existe')
-            onDataChange({['a2_armazon_id']: " "}) 
-        }
-
+        
     },[armazon2, codArmazon2])
 
 
 
     useEffect(()=>{
-        // console.log('render')
-        // console.log(codArmazon3)
-        if(validar_parametrizacion.value === '1'){
-            if(!( codArmazon3 && !codArmazon3.trim()) && codArmazon3 !== undefined && armazon3 && armazon3[0] && (armazon3[0].length === 3 || armazon3[0].length === 1)){
-                toast.error(armazon3[0][0])
-                onDataChange({['a3_armazon_id']: " "})    
+        if (codArmazon2 !== undefined && codArmazon2 !== null && codArmazon2.trim) {
+            if(!(!codArmazon2.trim())){
+                const fetchArmazones2 = async ()=>{
+                    try {
+                        const {data} = await axios((validar_parametrizacion.value === '1' ) ? (`${endpoint}&_p1=${codArmazon2 !== ' ' ? codArmazon2.trim() : "aaaa"}&_p4=${(tipo_de_anteojo.value === '3' ? (typeof A2_DP.value === 'string' ? A2_DP.value : 0) : A1_DP.value)}&_p5=${(tipo_de_anteojo.value === '3' ? (typeof A2_Diametro.value === 'string' ? A2_Diametro.value : "") : A1_Diametro.value)}`) : (`${endpoint}&_p1=${codArmazon2 !== '' ? codArmazon2 && codArmazon2.trim() : "aaaa"}`))
+    
+                        if(data.length === 0){
+                            toast.error('Armazon 2 no Existe')
+                            onDataChange({['a2_armazon_id']: " "})
+                            setArmazon2([])
+                        }
+    
+    
+                        if(data[0] && data[0].length === 1){
+                            toast.error(data[0][0])
+                            onDataChange({['a2_armazon_id']: " "})
+                            setArmazon2([])
+                             
+                        }
+                        
+                        if(data[0] && data[0].length === 15 ||  data.length === 1){
+                            setArmazon2(data[0])
+                        }
+    
+                    } catch (error) {
+                        console.log(error)
+                        throw error
+                    }
+                }
+                
+                fetchArmazones2()
             }
-
-        }else if (armazon3 && armazon3.length === 0 && codArmazon3 !== " "){
-            toast.error('Código de Armazón 3 no existe')
-            onDataChange({['a3_armazon_id']: " "}) 
         }
 
-    },[armazon3, codArmazon3])
+    }, [codArmazon2, validar_parametrizacion.value, endpoint, A2_DP.value, A2_Diametro.value]);
+
+
+    useEffect(()=>{
+        if (codArmazon1 !== undefined && codArmazon1 !== null && codArmazon1.trim) {
+            if(!(!codArmazon3.trim())){
+                const fetchArmazones3 = async ()=>{
+                    try {
+                        const {data} = await axios((`${endpoint}&_p1=${codArmazon3 !== ' ' ? codArmazon3.trim() : "aaaa"}&_p4=${typeof A1_DP.value === 'string' ? A1_DP.value : 0}&_p5=${typeof A1_Diametro.value === 'string' ? A1_Diametro.value : ""}`))
     
-    console.log(codArmazon2)
+                        if(data.length === 0){
+                            toast.error('Armazon 3 no Existe')
+                            onDataChange({['a3_armazon_id']: " "})
+                            setArmazon3([])
+                        }
+    
+    
+                        if(data[0] && data[0].length === 1){
+                            toast.error(data[0][0])
+                            onDataChange({['a3_armazon_id']: " "})
+                            setArmazon3([])
+                             
+                        }
+                        
+                        if(data[0] && data[0].length === 15 ||  data.length === 1){
+                            setArmazon3(data[0])
+                        }
+    
+                    } catch (error) {
+                        console.log(error)
+                        throw error
+                    }
+                }
+                
+                fetchArmazones3()
+            }
+        }
+
+    }, [codArmazon3, validar_parametrizacion.value, endpoint, A1_DP.value, A1_Diametro.value]);
+
+
+
+
+    
+    console.log(armazon1)
 
   return (
     <form>
@@ -156,43 +225,43 @@ const FOTArmazones:React.FC<IArmazones> = ({
                         <div className="w-[90%] mx-auto radioComponent">
                             <div className="ml-2 mb-2 flex justify-between ">
                                 <h2 className="textArmazonOT">Tipo:</h2>
-                                <p className="textArmazonOTDetalle">{ validar_parametrizacion.value === '1' ? armazon1 && armazon1[0] && armazon1[0][2] : armazon1 && armazon1[0] && armazon1[0][EnumArmazones.armazon_tipo]}</p>
+                                <p className="textArmazonOTDetalle">{ validar_parametrizacion.value === '1' ? armazon1[0] && armazon1[2] : armazon1 && armazon1[EnumArmazones.armazon_tipo]}</p>
                             </div>
                             <div className="ml-2 mb-2 flex justify-between">
                                 <h2 className="textArmazonOT">Marca:</h2>
-                                <p className="textArmazonOTDetalle">{validar_parametrizacion.value === '1' ? armazon1 && armazon1[0] && armazon1[0][4] : armazon1 && armazon1[0] && armazon1[0][EnumArmazones.marca]}</p>
+                                <p className="textArmazonOTDetalle">{validar_parametrizacion.value === '1' ? armazon1[0] && armazon1[4] : armazon1 && armazon1[EnumArmazones.marca]}</p>
                             </div>
                             <div className="ml-2 mb-2 flex justify-between">
                                 <h2 className="textArmazonOT">Modelo:</h2>
-                                <p className="textArmazonOTDetalle">{validar_parametrizacion.value === '1' ? armazon1 && armazon1[0] && armazon1[0][5] : armazon1 && armazon1[0] && armazon1[0][EnumArmazones.modelo]}</p>
+                                <p className="textArmazonOTDetalle">{validar_parametrizacion.value === '1' ? armazon1[0] && armazon1[5] : armazon1 && armazon1[EnumArmazones.modelo]}</p>
                             </div>
                             <div className="ml-2 mb-2 flex justify-between ">
                                 <h2 className="textArmazonOT">Color:</h2>
-                                <p className="textArmazonOTDetalle">{validar_parametrizacion.value === '1' ? armazon1 && armazon1[0] && armazon1[0][6] : armazon1 && armazon1[0] && armazon1[0][EnumArmazones.color] }</p>
+                                <p className="textArmazonOTDetalle">{validar_parametrizacion.value === '1' ? armazon1[0] && armazon1[6] : armazon1 && armazon1[EnumArmazones.color] }</p>
                             </div>
                             <div className="ml-2 mb-2 flex justify-between">
                                 <h2 className="textArmazonOT">Material:</h2>
-                                <p className="textArmazonOTDetalle">{validar_parametrizacion.value === '1' ? armazon1 && armazon1[0] && armazon1[0][8] : armazon1 && armazon1[0] && armazon1[0][EnumArmazones.armazon_material] }</p>
+                                <p className="textArmazonOTDetalle">{validar_parametrizacion.value === '1' ? armazon1[0] && armazon1[8] : armazon1 && armazon1[EnumArmazones.armazon_material] }</p>
                             </div>
                             <div className="ml-2 mb-2 flex justify-between ">
                                 <h2 className="textArmazonOT">Aro:</h2>
-                                <p className="textArmazonOTDetalle">{validar_parametrizacion.value === '1' ? armazon1 && armazon1[0] && armazon1[0][9] : armazon1 && armazon1[0] && armazon1[0][EnumArmazones.aro]}</p>
+                                <p className="textArmazonOTDetalle">{validar_parametrizacion.value === '1' ? armazon1[0] && armazon1[9] : armazon1 && armazon1[EnumArmazones.aro]}</p>
                             </div>
                             <div className="ml-2 mb-2 flex justify-between ">
                                 <h2 className="textArmazonOT">Puente:</h2>
-                                <p className="textArmazonOTDetalle">{validar_parametrizacion.value === '1' ? armazon1 && armazon1[0] && armazon1[0][10] : armazon1 && armazon1[0] && armazon1[0][EnumArmazones.puente]}</p>
+                                <p className="textArmazonOTDetalle">{validar_parametrizacion.value === '1' ? armazon1[0] && armazon1[10] : armazon1 && armazon1[EnumArmazones.puente]}</p>
                             </div>
                             <div className="ml-2 mb-2 flex justify-between ">
                                 <h2 className="textArmazonOT">Diagonal:</h2>
-                                <p className="textArmazonOTDetalle">{validar_parametrizacion.value === '1' ? armazon1 && armazon1[0] && armazon1[0][11] :armazon1 && armazon1[0] && armazon1[0][EnumArmazones.diagonal]}</p>
+                                <p className="textArmazonOTDetalle">{validar_parametrizacion.value === '1' ? armazon1[0] && armazon1[11] :armazon1 && armazon1[EnumArmazones.diagonal]}</p>
                             </div>
                             <div className="ml-2 mb-2 flex justify-between">
                                 <h2 className="textArmazonOT">Brazo:</h2>
-                                <p className="textArmazonOTDetalle">{validar_parametrizacion.value === '1' ? armazon1 && armazon1[0] && armazon1[0][12] :armazon1 && armazon1[0] && armazon1[0][EnumArmazones.brazo]}</p>
+                                <p className="textArmazonOTDetalle">{validar_parametrizacion.value === '1' ? armazon1[0] && armazon1[12] :armazon1 && armazon1[EnumArmazones.brazo]}</p>
                             </div>
                             <div className="ml-2 mb-2 flex justify-between">
                                 <h2 className="textArmazonOT">Uso:</h2>
-                                <p className="textArmazonOTDetalle">{validar_parametrizacion.value === '1' ? armazon1 && armazon1[0] && armazon1[0][14] : armazon1 && armazon1[0] && armazon1[0][EnumArmazones.armazon_uso]}</p>
+                                <p className="textArmazonOTDetalle">{validar_parametrizacion.value === '1' ? armazon1[0] && armazon1[14] : armazon1 && armazon1[EnumArmazones.armazon_uso]}</p>
                             </div>
                            
                         </div>
@@ -220,43 +289,43 @@ const FOTArmazones:React.FC<IArmazones> = ({
                         <div className="w-[90%] mx-auto radioComponent">
                             <div className="ml-2 mb-2 flex justify-between ">
                                 <h2 className="textArmazonOT">Tipo:</h2>
-                                <p className="textArmazonOTDetalle">{validar_parametrizacion.value === '1' ? armazon2 && armazon2[0] && armazon2[0][2] : armazon2 && armazon2[0] && armazon2[0][EnumArmazones.armazon_tipo]}</p>
+                                <p className="textArmazonOTDetalle">{validar_parametrizacion.value === '1' ? armazon2[0] && armazon2[2] : armazon2 &&  armazon2[EnumArmazones.armazon_tipo]}</p>
                             </div>
                             <div className="ml-2 mb-2 flex justify-between">
                                 <h2 className="textArmazonOT">Marca:</h2>
-                                <p className="textArmazonOTDetalle">{validar_parametrizacion.value === '1' ? armazon2 && armazon2[0] && armazon2[0][4] : armazon2 && armazon2[0] && armazon2[0][EnumArmazones.marca]}</p>
+                                <p className="textArmazonOTDetalle">{validar_parametrizacion.value === '1' ? armazon2[0] && armazon2[4] : armazon2 &&  armazon2[EnumArmazones.marca]}</p>
                             </div>
                             <div className="ml-2 mb-2 flex justify-between">
                                 <h2 className="textArmazonOT">Modelo:</h2>
-                                <p className="textArmazonOTDetalle">{validar_parametrizacion.value === '1' ? armazon2 && armazon2[0] && armazon2[0][5] : armazon2 && armazon2[0] && armazon2[0][EnumArmazones.modelo]}</p>
+                                <p className="textArmazonOTDetalle">{validar_parametrizacion.value === '1' ? armazon2[0] && armazon2[5] : armazon2 &&  armazon2[EnumArmazones.modelo]}</p>
                             </div>
                             <div className="ml-2 mb-2 flex justify-between ">
                                 <h2 className="textArmazonOT">Color:</h2>
-                                <p className="textArmazonOTDetalle">{validar_parametrizacion.value === '1' ? armazon2 && armazon2[0] && armazon2[0][6] : armazon2 && armazon2[0] && armazon2[0][EnumArmazones.color]}</p>
+                                <p className="textArmazonOTDetalle">{validar_parametrizacion.value === '1' ? armazon2[0] && armazon2[6] : armazon2 &&  armazon2[EnumArmazones.color]}</p>
                             </div>
                             <div className="ml-2 mb-2 flex justify-between">
                                 <h2 className="textArmazonOT">Material:</h2>
-                                <p className="textArmazonOTDetalle">{validar_parametrizacion.value === '1' ? armazon2 && armazon2[0] && armazon2[0][8] : armazon2 && armazon2[0] && armazon2[0][EnumArmazones.armazon_material]} </p>
+                                <p className="textArmazonOTDetalle">{validar_parametrizacion.value === '1' ? armazon2[0] && armazon2[8] : armazon2 &&  armazon2[EnumArmazones.armazon_material]} </p>
                             </div>
                             <div className="ml-2 mb-2 flex justify-between ">
                                 <h2 className="textArmazonOT">Aro:</h2>
-                                <p className="textArmazonOTDetalle">{validar_parametrizacion.value === '1' ? armazon2 && armazon2[0] && armazon2[0][9] : armazon2 && armazon2[0] && armazon2[0][EnumArmazones.aro]}</p>
+                                <p className="textArmazonOTDetalle">{validar_parametrizacion.value === '1' ? armazon2[0] && armazon2[9] : armazon2 &&  armazon2[EnumArmazones.aro]}</p>
                             </div>
                             <div className="ml-2 mb-2 flex justify-between ">
                                 <h2 className="textArmazonOT">Puente:</h2>
-                                <p className="textArmazonOTDetalle">{validar_parametrizacion.value === '1' ? armazon2 && armazon2[0] && armazon2[0][10] : armazon2 && armazon2[0] && armazon2[0][EnumArmazones.puente]}</p>
+                                <p className="textArmazonOTDetalle">{validar_parametrizacion.value === '1' ? armazon2[0] && armazon2[10] : armazon2 &&  armazon2[EnumArmazones.puente]}</p>
                             </div>
                             <div className="ml-2 mb-2 flex justify-between ">
                                 <h2 className="textArmazonOT">Diagonal:</h2>
-                                <p className="textArmazonOTDetalle">{validar_parametrizacion.value === '1' ? armazon2 && armazon2[0] && armazon2[0][11] : armazon2 && armazon2[0] && armazon2[0][EnumArmazones.diagonal] }</p>
+                                <p className="textArmazonOTDetalle">{validar_parametrizacion.value === '1' ? armazon2[0] && armazon2[11] : armazon2 &&  armazon2[EnumArmazones.diagonal] }</p>
                             </div>
                             <div className="ml-2 mb-2 flex justify-between">
                                 <h2 className="textArmazonOT">Brazo:</h2>
-                                <p className="textArmazonOTDetalle">{validar_parametrizacion.value === '1' ? armazon2 && armazon2[0] && armazon2[0][12] : armazon2 && armazon2[0] && armazon2[0][EnumArmazones.brazo] }</p>
+                                <p className="textArmazonOTDetalle">{validar_parametrizacion.value === '1' ? armazon2[0] && armazon2[12] : armazon2 &&  armazon2[EnumArmazones.brazo] }</p>
                             </div>
                             <div className="ml-2 mb-2 flex justify-between">
                                 <h2 className="textArmazonOT">Uso:</h2>
-                                <p className="textArmazonOTDetalle">{validar_parametrizacion.value === '1' ? armazon2 && armazon2[0] && armazon2[0][14] : armazon2 && armazon2[0] && armazon2[0][EnumArmazones.armazon_uso]}</p>
+                                <p className="textArmazonOTDetalle">{validar_parametrizacion.value === '1' ? armazon2[0] && armazon2[14] : armazon2 &&  armazon2[EnumArmazones.armazon_uso]}</p>
                             </div>
                             
                         </div>
@@ -287,43 +356,43 @@ const FOTArmazones:React.FC<IArmazones> = ({
                         <div className="w-[90%] mx-auto radioComponent">
                             <div className="ml-2 mb-2 flex justify-between ">
                                 <h2 className="textArmazonOT">Tipo:</h2>
-                                <p className="textArmazonOTDetalle">{validar_parametrizacion.value === '1' ? armazon3 && armazon3[0] && armazon3[0][2] : armazon3 && armazon3[0] && armazon3[0][EnumArmazones.armazon_tipo]}</p>
+                                <p className="textArmazonOTDetalle">{validar_parametrizacion.value === '1' ? armazon3[0] && armazon3[2] : armazon3 && armazon3[EnumArmazones.armazon_tipo]}</p>
                             </div>
                             <div className="ml-2 mb-2 flex justify-between">
                                 <h2 className="textArmazonOT">Marca:</h2>
-                                <p className="textArmazonOTDetalle">{validar_parametrizacion.value === '1' ? armazon3 && armazon3[0] && armazon3[0][4] : armazon3 && armazon3[0] && armazon3[0][EnumArmazones.marca]}</p>
+                                <p className="textArmazonOTDetalle">{validar_parametrizacion.value === '1' ? armazon3[0] && armazon3[4] : armazon3 && armazon3[EnumArmazones.marca]}</p>
                             </div>
                             <div className="ml-2 mb-2 flex justify-between">
                                 <h2 className="textArmazonOT">Modelo:</h2>
-                                <p className="textArmazonOTDetalle">{validar_parametrizacion.value === '1' ? armazon3 && armazon3[0] && armazon3[0][5] : armazon3 && armazon3[0] && armazon3[0][EnumArmazones.modelo]}</p>
+                                <p className="textArmazonOTDetalle">{validar_parametrizacion.value === '1' ? armazon3[0] && armazon3[5] : armazon3 && armazon3[EnumArmazones.modelo]}</p>
                             </div>
                             <div className="ml-2 mb-2 flex justify-between ">
                                 <h2 className="textArmazonOT">Color:</h2>
-                                <p className="textArmazonOTDetalle">{validar_parametrizacion.value === '1' ? armazon3 && armazon3[0] && armazon3[0][6] : armazon3 && armazon3[0] && armazon3[0][EnumArmazones.color]}</p>
+                                <p className="textArmazonOTDetalle">{validar_parametrizacion.value === '1' ? armazon3[0] && armazon3[6] : armazon3 && armazon3[EnumArmazones.color]}</p>
                             </div>
                             <div className="ml-2 mb-2 flex justify-between">
                                 <h2 className="textArmazonOT">Material:</h2>
-                                <p className="textArmazonOTDetalle">{validar_parametrizacion.value === '1' ? armazon3 && armazon3[0] && armazon3[0][8] : armazon3 && armazon3[0] && armazon3[0][EnumArmazones.armazon_material]}</p>
+                                <p className="textArmazonOTDetalle">{validar_parametrizacion.value === '1' ? armazon3[0] && armazon3[8] : armazon3 && armazon3[EnumArmazones.armazon_material]}</p>
                             </div>
                             <div className="ml-2 mb-2 flex justify-between ">
                                 <h2 className="textArmazonOT">Aro:</h2>
-                                <p className="textArmazonOTDetalle">{validar_parametrizacion.value === '1' ? armazon3 && armazon3[0] && armazon3[0][9] : armazon3 && armazon3[0] && armazon3[0][EnumArmazones.aro]}</p>
+                                <p className="textArmazonOTDetalle">{validar_parametrizacion.value === '1' ? armazon3[0] && armazon3[9] : armazon3 && armazon3[EnumArmazones.aro]}</p>
                             </div>
                             <div className="ml-2 mb-2 flex justify-between ">
                                 <h2 className="textArmazonOT">Puente:</h2>
-                                <p className="textArmazonOTDetalle">{validar_parametrizacion.value === '1' ? armazon3 && armazon3[0] && armazon3[0][10] : armazon3 && armazon3[0] && armazon3[0][EnumArmazones.puente]}</p>
+                                <p className="textArmazonOTDetalle">{validar_parametrizacion.value === '1' ? armazon3[0] && armazon3[10] : armazon3 && armazon3[EnumArmazones.puente]}</p>
                             </div>
                             <div className="ml-2 mb-2 flex justify-between ">
                                 <h2 className="textArmazonOT">Diagonal:</h2>
-                                <p className="textArmazonOTDetalle">{validar_parametrizacion.value === '1' ? armazon3 && armazon3[0] && armazon3[0][11] : armazon3 && armazon3[0] && armazon3[0][EnumArmazones.diagonal]}</p>
+                                <p className="textArmazonOTDetalle">{validar_parametrizacion.value === '1' ? armazon3[0] && armazon3[11] : armazon3 && armazon3[EnumArmazones.diagonal]}</p>
                             </div>
                             <div className="ml-2 mb-2 flex justify-between">
                                 <h2 className="textArmazonOT">Brazo:</h2>
-                                <p className="textArmazonOTDetalle">{validar_parametrizacion.value === '1' ? armazon3 && armazon3[0] && armazon3[0][12] : armazon3 && armazon3[0] && armazon3[0][EnumArmazones.brazo]}</p>
+                                <p className="textArmazonOTDetalle">{validar_parametrizacion.value === '1' ? armazon3[0] && armazon3[12] : armazon3 && armazon3[EnumArmazones.brazo]}</p>
                             </div>
                             <div className="ml-2 mb-2 flex justify-between">
                                 <h2 className="textArmazonOT">Uso:</h2>
-                                <p className="textArmazonOTDetalle">{validar_parametrizacion.value === '1' ? armazon3 && armazon3[0] && armazon3[0][14] : armazon3 && armazon3[0] && armazon3[0][EnumArmazones.armazon_uso]}</p>
+                                <p className="textArmazonOTDetalle">{validar_parametrizacion.value === '1' ? armazon3[0] && armazon3[14] : armazon3 && armazon3[EnumArmazones.armazon_uso]}</p>
                             </div>
                             
                         </div>

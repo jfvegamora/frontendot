@@ -874,10 +874,23 @@ const FOT:React.FC<IFOTProps> = ({
       // switchCasePausar(jsonData);
     } else if (submitAction === 'procesar') {
       // switchCaseProcesar(jsonData);
+      console.log('click')
+        updateOT(
+          jsonData,
+          OTAreaActual,
+          OTAreas["areaSiguiente"],
+          20,
+          formValues,
+          data,
+          OTSlice.cristales,
+          OTSlice.armazones,
+          User["id"].toString()
+        ).then(()=>{
+          dispatch(fetchOT({OTAreas:OTAreaActual}))
+          handleCloseForm()
+        })
       // updateOT(jsonData, OTAreaActual, OTAreaActual, 30, cristalesJSON, armazonesJSON);
-    } else if (submitAction === 'derivar'){
-      // switchCaseDerivar(jsonData)
-    } else if (submitAction === 'ingresar'){
+    }else if (submitAction === 'ingresar'){
       console.log('click')
       
       switchCaseIngresar(jsonData, cristalesJSON, armazonesJSON)
@@ -1286,6 +1299,7 @@ useEffect(() => {
   console.log(validationNivel1.value)
   console.log(validationNivel2.value)
   
+
   return (
 
     <div className='useFormContainerOT top-[0%] w-full h-[100%]'>
@@ -1362,7 +1376,7 @@ useEffect(() => {
                 isEditting && 
                 OTPermissions[6] === "1" &&
                 sumatoriaNivel1 === validationNivel1.value.length &&
-                (sumatoriaNivel2 === validationNivel2.value.length || data && data[EnumGrid.validar_parametrizacion_id] === "0" ) &&
+                // (sumatoriaNivel2 === validationNivel2.value.length || data && data[EnumGrid.validar_parametrizacion_id] === "0" ) &&
                (
                   <Button className='otActionButton bg-green-400' onClick={handleProcesarClick}>Procesar</Button>
                 )}

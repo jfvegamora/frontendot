@@ -77,6 +77,12 @@ body {
   cursor: pointer;
 }
 
+.primaryKeyHistorica{
+  display: grid;
+  grid-template-rows: repeat(3, minmax(0, 3fr));
+  grid-template-columns: repeat(2, minmax(0, 3fr));
+}
+
 select {
   /* Reset Select */
   appearance: none;
