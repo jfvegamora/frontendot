@@ -14,6 +14,13 @@ import { TITLES, table_head_OT_historica } from "../../utils";
 // import { OptionValuesMotivo } from "./MOT";
 import FOT from "../forms/FOT";
 import { AppStore, useAppSelector } from "../../../redux/store";
+import { Button } from "@material-tailwind/react";
+import { FOTDerivacion } from "../../components/OTForms";
+import FOTReporteAtencion from "../forms/FReporteAtencion";
+import FReporteAtencion from "../forms/FReporteAtencion";
+import FOrdenCompra from "../forms/FOrdenCompra";
+import FFactura from "../forms/FFactura";
+import FGuia from "../forms/FGuia";
 
 export enum EnumGrid {
   folio = 1,
@@ -167,6 +174,14 @@ type PrimaryKey = {
   pk1: number;
 };
 const MOTHistorica: React.FC = () => {
+  const [showReporteAtencion, setShowReporteAtencion] = useState(false);
+  const [showOrdenCompra, setShowOrdenCompra]         = useState(false);
+  const [showGuia, setShowGuia]                       = useState(false);
+  const [showFactura, setShowFactura]                 = useState(false);
+
+
+
+
   const [params, setParams] = useState([]);
   const OTs:any = useAppSelector((store: AppStore) => store.OTS);
 
@@ -212,6 +227,8 @@ const MOTHistorica: React.FC = () => {
       }
     });
   }, [selectedRows]);
+
+
 
 
   return (
@@ -284,7 +301,27 @@ const MOTHistorica: React.FC = () => {
 
         </div>
       </div>
+      
+      
+      {/* //TODO: BOTONES SECCION PROYECTO REPORTE ATENCION/FIRMA */}
+      <div className=" w-full h-[10%] ">
 
+         <Button color="orange" className='otActionButton mt-3 mx-10' onClick={()=>setShowReporteAtencion((prev)=>!prev)}>Reporte Atencion</Button>
+              {showReporteAtencion && <FReporteAtencion closeModal={()=>setShowReporteAtencion(false)}/>}
+         
+         <Button color="orange" className='otActionButton mt-3 mx-10' onClick={()=>setShowOrdenCompra((prev)=>!prev)}>Orden Compra</Button>
+              {showOrdenCompra && <FOrdenCompra closeModal={()=>setShowOrdenCompra(false)}/>}
+         
+         <Button color="orange" className='otActionButton mt-3 mx-10' onClick={()=>setShowFactura((prev)=>!prev)}>Asignar Factura</Button>
+              {showFactura && <FFactura closeModal={()=>setShowFactura(false)}/>}
+         
+         <Button color="orange" className='otActionButton mt-3 mx-10' onClick={()=>setShowGuia((prev)=>!prev)}>Generar Guia</Button>
+              {showGuia && <FGuia closeModal={()=>setShowGuia(false)}/>}
+      
+      </div>
+      
+      
+      
       <div className="scroll">
         <TableComponent
           handleSelectChecked={handleSelect}

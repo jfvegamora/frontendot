@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { SelectInputComponent, TextInputComponent } from '..';
+// import { SelectInputComponent, TextInputComponent } from '..';
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
 import { AppStore, useAppDispatch, useAppSelector } from '../../../redux/store';
 // import { SEXO, TIPO_CLIENTE } from '../../utils';
 import { Button } from '@material-tailwind/react';
 import { updateOT } from '../../utils';
 import { fetchOT } from '../../../redux/slices/OTSlice';
+import { SelectInputComponent, TextInputComponent } from '../../components';
+import { toast } from 'react-toastify';
 
 
 interface IDerivacion {
@@ -31,7 +33,7 @@ interface FormData{
     formValues:any
 }
 
-const FOTDerivacion:React.FC<IDerivacion> = ({
+const FReporteAtencion:React.FC<IDerivacion> = ({
     data,
     onClose,
     // formValues,
@@ -47,70 +49,85 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
 
     const onSubmit: SubmitHandler<FormData> = async(jsonData) =>{
         // fetchDerivacion(jsonData)
-        updateOT(
-            jsonData,
-            OTAreas["areaActual"],
-            jsonData.area_hasta.toString() as any,
-            40,
-            formValues,
-            data,
-            OTSlice.cristales, 
-            OTSlice.armazones,
-            UsuarioID.toString(),
-            jsonData.observaciones
-        ).then(()=>{
-            closeModal()
-            dispatch(fetchOT({OTAreas:OTAreas["areaActual"]}))
-        })
-    
+        // updateOT(
+        //     jsonData,
+        //     OTAreas["areaActual"],
+        //     jsonData.area_hasta.toString() as any,
+        //     40,
+        //     formValues,
+        //     data,
+        //     OTSlice.cristales, 
+        //     OTSlice.armazones,
+        //     UsuarioID.toString(),
+        //     jsonData.observaciones
+        // ).then(()=>{
+        //     closeModal()
+        //     dispatch(fetchOT({OTAreas:OTAreas["areaActual"]}))
+        // })
+        
+        const result = validarEstadoOT()
+        console.log(result)
+        if(Array.isArray(result)){
+            toast.error(`folio: ${result}`)
+        }
+
+        if(result){
+
+        }
     
     }
+
+    const validarEstadoOT = () => {
+        console.log(OTSlice.data)
+        return OTSlice.data.map((OT:any)=>{
+            const estado = OT[3]
+            console.log(estado)
+            if(estado !== 'Entregado'){
+                return OT[1]
+            }
+            return true
+        })
+        
+    }
+
+
+
+    useEffect(() => {
+        const handleKeyDown = (event: KeyboardEvent) => {
+          if (event.key === "Escape") {
+            closeModal()
+          }
+        };
+      
+        window.addEventListener("keydown", handleKeyDown);
+      
+        return () => {
+          window.removeEventListener("keydown", handleKeyDown);
+        };
+      }, [closeModal]);
+      
   return (
     <div className='useFormContainer useFormDerivacion h-[55%] w-[60%] left-[20%] top-[30%] z-30'>
         <div className=" flex justify-end w-full">
-            <h2 className='text-2xl cursor-pointer' onClick={onClose}>X</h2>
+            <h2 className='text-2xl cursor-pointer' onClick={closeModal}>X</h2>
         </div>
         <form className='text-center  !h-[80%]' onSubmit={handleSubmit(onSubmit)}>
-                <h1 className='text-2xl mt-2'>Derivación de OT</h1>
+                <h1 className='text-2xl mt-2'>Reporte de Atencion</h1>
 
                 <div className="flex  items-center rowForm w-full">
-                    <div className="w-[25%] ml-4">
-                        <TextInputComponent
-                            type="text"
-                            label="Folio OT"
-                            name="folio_ot"
-                            control={control}
-                            data={data && data[EnumGrid.folio]}
-                            onlyRead={true}
-                            // handleChange={handleInputChange}
-                            // data={formValues && formValues["rut"]}
-                            // error={errors.fecha_nacimiento}
-                        />
-                    </div>
-                    <div className="w-[35%] ml-4">
-                        <TextInputComponent
-                            type="text"
+                    <div className="w-[50%] ml-4">
+                        <SelectInputComponent
                             label="Proyecto"
                             name="proyecto"
+                            showRefresh={true}
+                            isOT={true}
                             control={control}
-                            data={data && data[EnumGrid.proyecto_titulo]}
-                            onlyRead={true}
-                            // handleChange={handleInputChange}
-                            // data={formValues && formValues["rut"]}
-                            // error={errors.fecha_nacimiento}
-                        />
-                    </div>
-                    <div className="w-[35%] ml-4">
-                        <TextInputComponent
-                            type="text"
-                            label="Nombre Cliente"
-                            name="nombre_cliente"
-                            control={control}
-                            data={data && data[EnumGrid.cliente_nomnbre]}
-                            onlyRead={true}
-                            // handleChange={handleInputChange}
-                            // data={formValues && formValues["rut"]}
-                            // error={errors.fecha_nacimiento}
+                            // handleSelectChange={handleInputChange}
+                            // data={formValues && formValues["proyectos"]}
+                            entidad={["/api/proyecto/", "02"]}
+                            customWidth={"w-full ml-4"}
+                            // error={errors.establecimiento}
+                            // customWidth={"345px"}
                         />
                     </div>
                 </div>
@@ -176,7 +193,7 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
                 </div>
 
                 <div className=' w-full flex justify-end mx-[-1.5rem] h-12'>
-                    <Button  type="submit" className='otActionButton bg-red-900'>Derivar</Button>
+                    <Button  type="submit" className='otActionButton bg-green-600'>Generar Reporte</Button>
                 </div>
         </form>
 
@@ -184,4 +201,4 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
   )
 }
 
-export default FOTDerivacion
+export default FReporteAtencion

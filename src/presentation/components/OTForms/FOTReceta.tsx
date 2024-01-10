@@ -392,7 +392,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 control={control}
                                 isOT={true}
 
-                                onlyRead={deshabilitarCampo.value.a2_dp}
+                                onlyRead={!(deshabilitarCampo.value.a2_dp && (!isEditting || (permiso_usuario_receta && permiso_areas_receta)))}
                                 // error={errors.fecha_nacimiento}
                             />
                     </div>

@@ -44,7 +44,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
                                                    : `${URLBackend}/api/armazones/listado/?query=02&_p2=${codigoProyecto.value}&_p3=${punto_venta.value}`;
 
     const { data:armazon1 } = useSWR( (codArmazon1 && !codArmazon1.trim() === false && validar_parametrizacion.value === '1' ) ? (`${endpoint}&_p1=${codArmazon1 !== ' ' ? codArmazon1.trim() : "aaaa"}&_p4=${typeof A1_DP.value === 'string' ? A1_DP.value : 0}&_p5=${typeof A1_Diametro.value === 'string' ? A1_Diametro.value : ""}`) : (`${endpoint}&_p1=${codArmazon1 !== ' ' ? codArmazon1 && codArmazon1.trim() : "aaaa"}`), fetcher); 
-    const { data:armazon2 } = useSWR( (codArmazon2 && !codArmazon2.trim() === false && validar_parametrizacion.value === '1' ) ? (`${endpoint}&_p1=${codArmazon2 !== ' ' ? codArmazon2.trim() : "aaaa"}&_p4=${(tipo_de_anteojo.value === '3' ? (typeof A2_DP.value === 'string' ? A2_DP.value : 0) : A1_DP.value)}&_p5=${(tipo_de_anteojo.value === '3' ? (typeof A2_Diametro.value === 'string' ? A2_Diametro.value : "") : A1_Diametro.value)}`) : (`${endpoint}&_p1=${codArmazon2 !== ' ' ? codArmazon2 && codArmazon2.trim() : "aaaa"}`), fetcher);
+    const { data:armazon2 } = useSWR( (codArmazon2 && !codArmazon2.trim() === false && validar_parametrizacion.value === '1' ) ? (`${endpoint}&_p1=${codArmazon2 !== ' ' ? codArmazon2.trim() : "aaaa"}&_p4=${(tipo_de_anteojo.value === '3' ? (typeof A2_DP.value === 'string' ? A2_DP.value : 0) : A1_DP.value)}&_p5=${(tipo_de_anteojo.value === '3' ? (typeof A2_Diametro.value === 'string' ? A2_Diametro.value : "") : A1_Diametro.value)}`) : (`${endpoint}&_p1=${codArmazon2 !== '' ? codArmazon2 && codArmazon2.trim() : "aaaa"}`), fetcher);
     const { data:armazon3 } = useSWR( (codArmazon3 && !codArmazon3.trim() === false ) ? (`${endpoint}&_p1=${codArmazon3 !== ' ' ? codArmazon3.trim() : "aaaa"}&_p4=${typeof A1_DP.value === 'string' ? A1_DP.value : 0}&_p5=${typeof A1_Diametro.value === 'string' ? A1_Diametro.value : ""}`) : null , fetcher); 
 
 
@@ -79,7 +79,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
             // console.log(codArmazon1)
             
             // console.log(!codArmazon1.trim())
-            if(!( codArmazon1 && !codArmazon1.trim()) && codArmazon1 !== undefined  && armazon1 && armazon1[0] && (armazon1[0].length === 3 || armazon1[0].length === 1)){
+            if(( codArmazon1 && !codArmazon1.trim()) && codArmazon1 !== undefined  && armazon1 && armazon1[0] && (armazon1[0].length === 3 || armazon1[0].length === 1)){
                 //? VALIDACION QUERY 02
                 toast.error(armazon1[0][0])
                 onDataChange({['a1_armazon_id']: " "}) 
@@ -95,7 +95,8 @@ const FOTArmazones:React.FC<IArmazones> = ({
 
     useEffect(()=>{
         if(validar_parametrizacion.value === '1'){
-            if(!( codArmazon2 && !codArmazon2.trim()) && codArmazon2 !== undefined && armazon2 && armazon2[0] && (armazon2[0].length === 3 || armazon2[0].length === 1)){
+            console.log(codArmazon2)
+            if(( codArmazon2 && !codArmazon2.trim()) && codArmazon2 !== undefined && armazon2 && armazon2[0] && (armazon2[0].length === 3 || armazon2[0].length === 1)){
                 console.log('render')
                 console.log(armazon2[0][0])
                 toast.error(armazon2[0][0])

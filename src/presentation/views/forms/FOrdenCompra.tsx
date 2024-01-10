@@ -1,12 +1,13 @@
 import React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { SelectInputComponent, TextInputComponent } from '..';
+// import { SelectInputComponent, TextInputComponent } from '..';
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
 import { AppStore, useAppDispatch, useAppSelector } from '../../../redux/store';
 // import { SEXO, TIPO_CLIENTE } from '../../utils';
 import { Button } from '@material-tailwind/react';
 import { updateOT } from '../../utils';
 import { fetchOT } from '../../../redux/slices/OTSlice';
+import { SelectInputComponent, TextInputComponent } from '../../components';
 
 
 interface IDerivacion {
@@ -31,7 +32,7 @@ interface FormData{
     formValues:any
 }
 
-const FOTDerivacion:React.FC<IDerivacion> = ({
+const FOrdenCompra:React.FC<IDerivacion> = ({
     data,
     onClose,
     // formValues,
@@ -184,4 +185,4 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
   )
 }
 
-export default FOTDerivacion
+export default FOrdenCompra

@@ -18,6 +18,7 @@ import { AppStore,
   useAppSelector } from "../../../redux/store";
 import FilterButton from "../../components/FilterButton";
 import { clearData } from "../../../redux/slices/OTSlice";
+import { signal } from "@preact/signals-react";
 
 export enum EnumGrid {
   id = 1,
@@ -57,6 +58,7 @@ const MOT: React.FC = () => {
   // const dispatch = useAppDispatch();
   const [params, setParams] = useState([]);
   const [_estadosOT, setEstadosOT] = useState()
+  const [ pktoDelete, setPkToDelete] = useState([]);
   // const areaActualRef = useRef(areaActual)
   // console.log(area)
   
@@ -96,21 +98,16 @@ const MOT: React.FC = () => {
   // console.log("params:", params);
   // console.log(entity)
 
-  // const pkToDelete: PrimaryKey[] = [];
 
-  // console.log('pktodelete', pkToDelete)
-  // useEffect(() => {
-  //   const newPkToDelete = selectedRows.map((row: number) => ({
-  //     pk1: entitiesOT[row][EnumGrid.id],
-  //   }));
-  //   newPkToDelete.forEach((newPk: { pk1: any }) => {
-  //     if (!pkToDelete.some((existingPk) => existingPk.pk1 === newPk.pk1)) {
-  //       pkToDelete.push(newPk);
-  //     }
-  //   });
-  // }, [selectedRows]);
+  useEffect(() => {
+    const newPkToDelete = selectedRows.map((row: number) => ({
+      folio: OTs.data[row][EnumGrid.id],
+    }));
+    console.log(newPkToDelete)
+    setPkToDelete(newPkToDelete as any)
+  }, [selectedRows]);
 
-
+  console.log(pktoDelete)
   //SWR-POLLING
   // const fetcher = (url:string) => axios.get(url).then((res)=>res.data);
   // const {data} = useSWR(`${URLBackend}/api/ot/listado/?query=01&_origen=${OTAreas["areaActual"]}`, fetcher,{

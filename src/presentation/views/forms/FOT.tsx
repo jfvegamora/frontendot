@@ -365,6 +365,7 @@ const FOT:React.FC<IFOTProps> = ({
   // const folioOT = data && data[EnumGrid.folio]
   //PERMISOS DE AREA
   const [OTPermissions, setOTPermissions] = useState("");
+  const [pktoDelete, setPkToDelete] = useState([]);
   const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas);
   const OTSlice:any = useAppSelector((store:AppStore)=>store.OTS)
   const User:any = useAppSelector((store: AppStore) => store.user);
@@ -395,6 +396,9 @@ const FOT:React.FC<IFOTProps> = ({
   let permiso_areas_resolucion_garantia  = permisosAreas && permisosAreas[4] === '1' ? true : false;
   let permiso_areas_grupo_dioptria       = permisosAreas && permisosAreas[5] === '1' ? true : false;
   let permiso_areas_receta               = permisosAreas && permisosAreas[6] === '1' ? true : false;
+
+
+
 
 
   const handleCloseForm = () => {
@@ -679,7 +683,7 @@ const FOT:React.FC<IFOTProps> = ({
     // console.log(_p55)
     // const _p66 =`${jsonData.cristal2_od_opcion_venta_id || 0},${jsonData.cristal2_marca_id || 0},${jsonData.cristal2_diseno_id || 0},${jsonData.cristal2_indice_id || 0},${jsonData.cristal2_material_id || 0},${typeof A2_Diametro.value === 'number' ? A2_Diametro.value : 0},${jsonData.cristal2_color_id || 0},${jsonData.cristal2_diametro || 0},"${A2_CR_OD.value ?? " "}","${A2_CR_OI.value ?? " "}",${jsonData.cristal2_tratamiento_adicional_id || 0}` 
     // console.log(_p66)
-    let _p1 = `${motivo},${_destino},${estado},"${estado_impresion}","${estado_validacion}", "${jsonData.proyecto_codigo}",${jsonData.establecimiento_id || 1},"${jsonData.cliente_rut || formValues.cliente.cliente_rut}" ,${jsonData.oftalmologo_id ?? 0} ,"${jsonData.fecha_atencion || fecha_atencion_signal.value}","${jsonData.fecha_entrega_taller || fecha_entrega_taller.value}","${jsonData.fecha_despacho || fecha_despacho.value}","${jsonData.fecha_entrega_cliente || fecha_entrega_cliente.value}",${jsonData.punto_venta_id || 0},${typeof jsonData.numero_receta  === 'number' ? jsonData.numero_receta  : 0},"${jsonData.fecha_receta ?? ""}",${jsonData.tipo_anteojo_id ?? 0},${typeof dioptrias_receta.value.a1_od.esf === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_od.esf) ? dioptrias_receta.value.a1_od.esf : 0 },${typeof dioptrias_receta.value.a1_od.cil === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_od.cil) ? dioptrias_receta.value.a1_od.cil : 0},${typeof dioptrias_receta.value.a1_od.eje === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_od.eje) ? dioptrias_receta.value.a1_od.eje : 0},${(typeof dioptrias_receta.value.a1_od.ad === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_od.ad)) ? dioptrias_receta.value.a1_od.ad : 0 },${typeof dioptrias_receta.value.a1_oi.esf === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_oi.esf) ? dioptrias_receta.value.a1_oi.esf  : 0},${typeof dioptrias_receta.value.a1_oi.cil === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_oi.cil) ? dioptrias_receta.value.a1_oi.cil : 0},${typeof dioptrias_receta.value.a1_oi.eje === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_oi.eje) ? dioptrias_receta.value.a1_oi.eje : 0},${typeof dioptrias_receta.value.a1_oi.ad === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_oi.ad) ? dioptrias_receta.value.a1_oi.ad  : 0 },${typeof jsonData.a1_dp === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_dp) ? A1_DP.value : 0},${typeof jsonData.a1_alt === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_alt) ? jsonData.a1_alt : 0}, "${A1_GRUPO_OD.value}" ,"${A1_GRUPO_OI.value}" ,${typeof a2_od_esf.value === 'number' ? a2_od_esf.value :  0 },${typeof a2_od_cil.value === 'number' ? a2_od_cil.value : 0 },${typeof a2_od_eje.value === 'number' ? a2_od_eje.value : 0 },${typeof a2_oi_esf.value === 'number' ? a2_oi_esf.value : 0 },${typeof a2_oi_cil.value  === 'number' ? a2_oi_cil.value : 0 },${typeof a2_oi_eje.value === 'number' ? a2_oi_eje.value : 0},${typeof jsonData.a2_dp === 'number' ? jsonData.a2_dp : 0},"${A2_GRUPO_OD.value}","${A2_GRUPO_OI.value}" ,${jsonData.a1_opcion_vta_id ?? 0},"${a1_armazon.value ?? 0}",${jsonData.a2_opcion_vta_id ?? 0},"${a2_armazon.value ?? 0 }",${jsonData.a3_opcion_vta_id ?? 0},"${a3_armazon.value?? 0}",${jsonData.cristal1_opcion_vta_id || 0},${jsonData.cristal1_marca_id || 0},${jsonData.cristal1_diseno_id || 0},${jsonData.cristal1_indice_id || 0},${jsonData.cristal1_material_id || 0},${jsonData.cristal1_tratamiento_id || 0},${jsonData.cristal1_color_id || 0},${jsonData.cristal1_diametro || 0},"${A1_CR_OD ?? " "}","${A1_CR_OI ?? " "}",${jsonData.cristal1_tratamiento_adicional_id || 0},${jsonData.cristal2_od_opcion_venta_id || 0},${jsonData.cristal2_marca_id || 0},${jsonData.cristal2_diseno_id || 0},${jsonData.cristal2_indice_id || 0},${jsonData.cristal2_material_id || 0},${typeof jsonData.cristal2_tratamiento === 'number' ? jsonData.cristal2_tratamiento : 0},${jsonData.cristal2_color_id || 0},${typeof A2_Diametro.value === 'number' ? A2_Diametro.value : 0},"${typeof A2_CR_OD.value === 'string' ? A2_CR_OD.value : ""}","${typeof A2_CR_OI.value === 'string' ? A2_CR_OI.value : " " }",${jsonData.cristal2_tratamiento_adicional_id || 0},${jsonData.motivo_garantia_id || 0},${jsonData.folio_asociado || 0},${isEditting ? 0 : jsonData.resolucion_garantia_id === 'Aceptada' ? '1' : '2'},"${jsonData.worktracking || 0}","${jsonData.nota_venta || 0}",${jsonData.numero_reporte_firma || 0},${jsonData.numero_reporte_atencion || 0},"${jsonData.numero_oc || 0}",${jsonData.numero_guia || 0},${jsonData.numero_factura || 0},"${jsonData.folio_interno_mandante || 0}",${jsonData.total || 0},"${jsonData.observaciones || ""}"`
+    let _p1 = `${motivo},${_destino},${estado},"${estado_impresion}","${estado_validacion}", "${jsonData.proyecto_codigo}",${jsonData.establecimiento_id || 1},"${jsonData.cliente_rut || formValues.cliente.cliente_rut}" ,${jsonData.oftalmologo_id ?? 0} ,"${jsonData.fecha_atencion || fecha_atencion_signal.value}","${jsonData.fecha_entrega_taller || fecha_entrega_taller.value}","${jsonData.fecha_despacho || fecha_despacho.value}","${jsonData.fecha_entrega_cliente || fecha_entrega_cliente.value}",${jsonData.punto_venta_id || 0},${typeof jsonData.numero_receta  === 'number' ? jsonData.numero_receta  : 0},"${jsonData.fecha_receta ?? ""}",${jsonData.tipo_anteojo_id ?? 0},${typeof dioptrias_receta.value.a1_od.esf === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_od.esf) ? dioptrias_receta.value.a1_od.esf : 0 },${typeof dioptrias_receta.value.a1_od.cil === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_od.cil) ? dioptrias_receta.value.a1_od.cil : 0},${typeof dioptrias_receta.value.a1_od.eje === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_od.eje) ? dioptrias_receta.value.a1_od.eje : 0},${(typeof dioptrias_receta.value.a1_od.ad === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_od.ad)) ? dioptrias_receta.value.a1_od.ad : 0 },${typeof dioptrias_receta.value.a1_oi.esf === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_oi.esf) ? dioptrias_receta.value.a1_oi.esf  : 0},${typeof dioptrias_receta.value.a1_oi.cil === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_oi.cil) ? dioptrias_receta.value.a1_oi.cil : 0},${typeof dioptrias_receta.value.a1_oi.eje === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_oi.eje) ? dioptrias_receta.value.a1_oi.eje : 0},${typeof dioptrias_receta.value.a1_oi.ad === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_oi.ad) ? dioptrias_receta.value.a1_oi.ad  : 0 },${typeof jsonData.a1_dp === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_dp) ? A1_DP.value : 0},${typeof jsonData.a1_alt === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_alt) ? jsonData.a1_alt : 0}, "${A1_GRUPO_OD.value}" ,"${A1_GRUPO_OI.value}" ,${typeof a2_od_esf.value === 'number' ? a2_od_esf.value :  0 },${typeof a2_od_cil.value === 'number' ? a2_od_cil.value : 0 },${typeof a2_od_eje.value === 'number' ? a2_od_eje.value : 0 },${typeof a2_oi_esf.value === 'number' ? a2_oi_esf.value : 0 },${typeof a2_oi_cil.value  === 'number' ? a2_oi_cil.value : 0 },${typeof a2_oi_eje.value === 'number' ? a2_oi_eje.value : 0},${typeof jsonData.a2_dp === 'number' &&  !Number.isNaN(dioptrias_receta.value.a2_dp) ? A2_DP.value : 0},"${A2_GRUPO_OD.value}","${A2_GRUPO_OI.value}" ,${jsonData.a1_opcion_vta_id ?? 0},"${a1_armazon.value ?? 0}",${jsonData.a2_opcion_vta_id ?? 0},"${a2_armazon.value ?? 0 }",${jsonData.a3_opcion_vta_id ?? 0},"${a3_armazon.value?? 0}",${jsonData.cristal1_opcion_vta_id || 0},${jsonData.cristal1_marca_id || 0},${jsonData.cristal1_diseno_id || 0},${jsonData.cristal1_indice_id || 0},${jsonData.cristal1_material_id || 0},${jsonData.cristal1_tratamiento_id || 0},${jsonData.cristal1_color_id || 0},${jsonData.cristal1_diametro || 0},"${A1_CR_OD ?? " "}","${A1_CR_OI ?? " "}",${jsonData.cristal1_tratamiento_adicional_id || 0},${jsonData.cristal2_od_opcion_venta_id || 0},${jsonData.cristal2_marca_id || 0},${jsonData.cristal2_diseno_id || 0},${jsonData.cristal2_indice_id || 0},${jsonData.cristal2_material_id || 0},${typeof jsonData.cristal2_tratamiento === 'number' ? jsonData.cristal2_tratamiento : 0},${jsonData.cristal2_color_id || 0},${typeof A2_Diametro.value === 'number' ? A2_Diametro.value : 0},"${typeof A2_CR_OD.value === 'string' ? A2_CR_OD.value : ""}","${typeof A2_CR_OI.value === 'string' ? A2_CR_OI.value : " " }",${jsonData.cristal2_tratamiento_adicional_id || 0},${jsonData.motivo_garantia_id || 0},${jsonData.folio_asociado || 0},${isEditting ? 0 : jsonData.resolucion_garantia_id === 'Aceptada' ? '1' : '2'},"${jsonData.worktracking || 0}","${jsonData.nota_venta || 0}",${jsonData.numero_reporte_firma || 0},${jsonData.numero_reporte_atencion || 0},"${jsonData.numero_oc || 0}",${jsonData.numero_guia || 0},${jsonData.numero_factura || 0},"${jsonData.folio_interno_mandante || 0}",${jsonData.total || 0},"${jsonData.observaciones || ""}"`
 
     console.log(_p1)
     // console.log(_p11)
@@ -1276,24 +1280,7 @@ useEffect(() => {
   };
 }, [closeModal]);
 
-// console.log(isEditting)
-  // console.log(data)
 
-
-
-  // console.log(OTAreaActual)
-  // console.log(OTPermissions)
-  // console.log(OTPermissions[10])
-  // console.log(OTPermissions[9])
-  // console.log(sumatoriaNivel1)
-
-
-  
-
-  // console.log(data && data[EnumGrid.estado_id])
-  // console.log(isMotivo)
-  // console.log(isMOT)
-  // console.log(data)
   
 
   console.log(validationNivel1.value)
