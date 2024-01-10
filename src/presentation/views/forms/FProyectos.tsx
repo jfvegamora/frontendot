@@ -511,6 +511,48 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
             </div>
                       
            <div className="w-full items-center flex h-[80px] mt-[30px] mb-[10px]">
+           <div className="input-container items-center rowForm w-[25%]">
+              <div className="w-full mr-2">
+                  <TextInputComponent
+                    type="number"
+                    label="Días entrega"
+                    name="dias_entrega"
+                    data={data && data[EnumGrid.DIAS_DE_ENTREGA]}
+                    control={control}
+                    error={errors.dias_entrega}
+                    textAlign="text-center"
+                    />
+              </div>
+            </div>
+
+            <div className="input-container items-center rowForm w-[12%]">
+              <div className="w-full mr-2">
+                  <TextInputComponent
+                    type="date"
+                    label="Fecha Inicio"
+                    name="fecha_inicio"
+                    data={data && data[EnumGrid.FECHA_INICIO]}
+                    control={control}
+                    error={errors.fecha_inicio}
+                    textAlign="text-center"
+                    />
+              </div>          
+            </div>
+            
+            <div className="input-container items-center rowForm w-[13%]">
+              <div className="w-full mr-2">
+                  <TextInputComponent
+                    type="date"
+                    label="Fecha Término"
+                    name="fecha_termino"
+                    data={data && data[EnumGrid.FECHA_TERMINO]}
+                    control={control}
+                    error={errors.fecha_termino}
+                    textAlign="text-center"
+                    />
+              </div>          
+            </div>
+
             <div className="input-container items-center rowForm w-full">
               <div className="w-full mr-2">
                   <TextInputComponent
@@ -535,47 +577,9 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     error={errors.fecha_adjudicacion}
                     isOptional={true}
+                    textAlign="text-center"
                     />
               </div>          
-            </div>
-
-            <div className="input-container items-center rowForm w-[12%]">
-              <div className="w-full mr-2">
-                  <TextInputComponent
-                    type="date"
-                    label="Fecha Inicio"
-                    name="fecha_inicio"
-                    data={data && data[EnumGrid.FECHA_INICIO]}
-                    control={control}
-                    error={errors.fecha_inicio}
-                  />
-              </div>          
-            </div>
-            
-            <div className="input-container items-center rowForm w-[13%]">
-              <div className="w-full mr-2">
-                  <TextInputComponent
-                    type="date"
-                    label="Fecha Término"
-                    name="fecha_termino"
-                    data={data && data[EnumGrid.FECHA_TERMINO]}
-                    control={control}
-                    error={errors.fecha_termino}
-                  />
-              </div>          
-            </div>
-
-            <div className="input-container items-center rowForm w-[25%]">
-              <div className="w-full mr-2">
-                  <TextInputComponent
-                    type="number"
-                    label="Días entrega"
-                    name="dias_entrega"
-                    data={data && data[EnumGrid.DIAS_DE_ENTREGA]}
-                    control={control}
-                    error={errors.dias_entrega}
-                  />
-              </div>
             </div>
            </div>  
 
@@ -590,6 +594,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     error={errors.cantidad_requerida}
                     isOptional={true}
+                    textAlign="text-center"
                     />
               </div>          
             </div>
@@ -617,6 +622,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                           data={data && data[EnumGrid.CANTIDAD_ATENDIDA]}
                           control={control}
                           onlyRead={true}
+                          textAlign="text-center"
                           />
               </div>          
 
@@ -630,6 +636,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                           data={data && data[EnumGrid.TOTAL_FACTURADO]}
                           control={control}
                           onlyRead={true}
+                          textAlign="text-right"
                           />
               </div>          
             </div>
@@ -642,6 +649,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                           data={data && data[EnumGrid.CANTIDAD_DISPONIBLE]}
                           control={control}
                           onlyRead={true}
+                          textAlign="text-center"
                           />
               </div> 
             </div>
@@ -654,6 +662,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                           data={data && data[EnumGrid.SALDO_DISPONIBLE]}
                           control={control}
                           onlyRead={true}
+                          textAlign="text-right"
                           />
               </div> 
             </div>

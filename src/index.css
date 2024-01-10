@@ -2,13 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-/* #ffffff
+/*
 #676f9d rgb(103 111 157 / 0.9)
 #424769 rgb(66 71 105 / 0.9)
 #2d3250 rgb(45 50 80 / 0.9)
 #f9b17a rgb(249 177 122 / 0.9) 
+*/
 
-
+/*
 MTO
 #2698bd
 */
@@ -239,7 +240,7 @@ select::-ms-expand {
 .custom-onlyread{
   background-color:transparent; 
   color: #b0bbc4; 
-  border-color: #f8b179;
+  border-color: #f8b179 !important;
 }
 
 .custom-input.error {
@@ -424,18 +425,7 @@ select::-ms-expand {
   transform: scale(1.2); 
 }
 
-.otActionButton:hover{
-  transform: scale(1.2); 
-}
-
-.otActionButton{
-  box-shadow: 0 0 10px  rgb(66 71 105 / 0.9);
-  font-size: medium;
-  /* padding: 0px 3px 0px 3px !important; */
-  padding: 15px 50px 15px 50px !important;
-}
-
-.userFormBtnSubmit:hover{
+.userFormBtnSubmit:hover, .otActionButton:hover{
   transform: scale(1.05); 
 }
 
@@ -670,6 +660,13 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 
+/*
+#676f9d rgb(103 111 157 / 0.9)
+#424769 rgb(66 71 105 / 0.9)
+#2d3250 rgb(45 50 80 / 0.9)
+#f9b17a rgb(249 177 122 / 0.9) 
+*/
+
 /*========CLASSES TABS=========*/
 .custom-tab {
   font-size: 16px;
@@ -685,14 +682,14 @@ input:checked + .slider:before {
   margin: 0.5rem 0.1rem 0 0;
 }
 
-.custom-tab:focus{  
+/* .custom-tab:focus{  
   background-color: #f9b17a; 
-}
+} */
 .custom-tab.react-tabs__tab--selected {
-  background-color: #f28b3d; /* Color de fondo cuando está seleccionada */
-  color: #333; /* Color de texto cuando está seleccionada */
-  font-weight: bold; /* Otras modificaciones para destacar */
-  border-bottom: 2px solid #333; /* Ejemplo de resaltado con borde inferior */
+  background-color: #f9b17a; 
+  color: #424769; 
+  font-weight: bold;
+  border-bottom: 2px solid #f9b17a; 
 }
 .tabFolioNumber{
   font-size: 24px;
@@ -728,6 +725,17 @@ input:checked + .slider:before {
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
   margin-top: 0px;
+}
+
+.labelAnteojo{
+position: absolute;
+z-index: 10;
+top:-10%;
+width: 15%;
+left:36%;
+text-align: center;
+font-size:x-large;
+color: white !important;
 }
 
 .textArmazonOT{
@@ -997,6 +1005,16 @@ input[type="text"] {
   margin-top: 20px;
   margin-bottom: 20px;
 }
+
+.otActionButton{
+  box-shadow: 0 0 10px  rgb(66 71 105 / 0.9);
+  font-size: medium;
+  padding: 15px 50px 15px 50px !important;
+  border-radius: 0.25rem;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
 
 /* Estilos CSS para el modal */
 .modal-content {

@@ -392,7 +392,8 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                       control={control}
                       error={errors.aro}
                       customWidth={"!w-[100%]"}
-                    />
+                      textAlign="text-center"
+                      />
                   </div>
                 </div>
 
@@ -406,6 +407,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                         control={control}
                         error={errors.puente}
                         customWidth={"!w-[100%]"}
+                        textAlign="text-center"
                         />
                   </div>
                 </div>
@@ -420,7 +422,8 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                       control={control}
                       error={errors.diagonal}
                       customWidth={"!w-[100%]"}
-                    />
+                      textAlign="text-center"
+                      />
                   </div>
                 </div>
 
@@ -434,7 +437,8 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                       control={control}
                       error={errors.brazo}
                       customWidth={"!w-[100%]"}
-                    />
+                      textAlign="text-center"
+                      />
                   </div>         
                 </div>         
             </div>
@@ -469,7 +473,8 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                           data={data && data[EnumGrid.stock_minimo]}
                           control={control}
                           error={errors.stock_minimo}
-                        />
+                          textAlign="text-right"
+                          />
                     </div>
                   </div>
 
@@ -483,7 +488,8 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                           control={control}
                           onlyRead={true}
                           tabIndex={-1}
-                        />
+                          textAlign="text-right"
+                          />
                     </div>
                   </div>
 
@@ -497,7 +503,8 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                           data={data && data[EnumGrid.stock_disponible]}
                           control={control}
                           tabIndex={-1}
-                        />
+                          textAlign="text-right"
+                          />
                     </div>
                   </div>
 

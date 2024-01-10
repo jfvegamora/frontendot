@@ -147,21 +147,9 @@ const FOTArmazones:React.FC<IArmazones> = ({
                                     onlyRead={!(permiso_usuario_armazones && permiso_areas_armazones)}
                                     isOT={true}
                                     className=''
-                                />
-                            </div>
-                            {/* <div className="w-full flex mt-6 rowForm ">
-                                <TextInputComponent
-                                    type="number"
-                                    label="Stock Actual"
-                                    name="stock_actual_1"
-                                    onlyRead={true}
-                                    handleChange={handleInputChange}
-                                    data={armazon1 && armazon1[16]}
-                                    control={control}
-                                    defaultValue={30}
-                                />
-                            </div> */}
-                            
+                                    textAlign="text-center"
+                                    />
+                            </div>                            
                         </div>
 
                         <div className="w-[90%] mx-auto radioComponent">
@@ -223,23 +211,9 @@ const FOTArmazones:React.FC<IArmazones> = ({
                                     control={control}
                                     onlyRead={!(permiso_usuario_armazones && permiso_areas_armazones)}
                                     isOT={true}
-                                    // error={errors.fecha_nacimiento}
-                                />
-                            </div>
-                            {/* <div className="w-full flex mt-6 rowForm ">
-                                <TextInputComponent
-                                    type="number"
-                                    label="Stock Actual"
-                                    name="stock_actual_2"
-                                    onlyRead={true}
-                                    handleChange={handleInputChange}
-                                    data={armazon1 && armazon1[16]}
-                                    control={control}
-                                    defaultValue={30}
-                                    // error={errors.fecha_nacimiento}
-                                />
-                            </div> */}
-                            
+                                    textAlign="text-center"
+                                    />
+                            </div>                            
                         </div>
 
                         <div className="w-[90%] mx-auto radioComponent">
@@ -304,22 +278,9 @@ const FOTArmazones:React.FC<IArmazones> = ({
                                     onlyRead={!(permiso_usuario_armazones && permiso_areas_armazones)}
                                     isOT={true}
                                     isOptional={true}
-                                />
+                                    textAlign="text-center"
+                                    />
                             </div>
-                            {/* <div className="w-full flex mt-6 rowForm ">
-                                <TextInputComponent
-                                    type="number"
-                                    label="Stock Actual"
-                                    name="stock_actual_3"
-                                    onlyRead={true}
-                                    handleChange={handleInputChange}
-                                    data={armazon1 && armazon1[16]}
-                                    control={control}
-                                    defaultValue={30}
-                                    // error={errors.fecha_nacimiento}
-                                />
-                            </div> */}
-                            
                         </div>
 
                         <div className="w-[90%] mx-auto radioComponent">

@@ -670,7 +670,7 @@ const _armazonesJSON = JSON.stringify(armazones)
     // _usuario:User["id"].toString(),
     _usuario:user,
     _situacion:"0",
-    _obs: _obs ? _obs : "ot editada desde front",
+    _obs: _obs ? _obs : "",
     _cristalesJSON,
     _armazonesJSON,
     _punto_venta: `${jsonData.punto_venta_id || data[EnumGrid.punto_venta_id]}`,

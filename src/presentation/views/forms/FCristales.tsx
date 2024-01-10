@@ -375,7 +375,8 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                   control={control}
                   error={errors.diametro}
                   customWidth={"w-[14rem] "}
-                />
+                  textAlign="text-center"
+                  />
                 
                 <TextInputComponent
                   type="number"
@@ -386,7 +387,8 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                   error={errors.esferico}
                   step={0.01}
                   customWidth={"w-[14rem]"}
-                />
+                  textAlign="text-center"
+                  />
                 <TextInputComponent
                   type="number"
                   label="Cilíndrico"
@@ -396,7 +398,8 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                   error={errors.cilindrico}
                   step={0.01}
                   customWidth={"w-[14rem]"}
-                />
+                  textAlign="text-center"
+                  />
               </div>
             </div>
             <div className="flex items-center rowForm">
@@ -407,7 +410,8 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                   data={data && data[EnumGrid.stock_minimo]}
                   control={control}
                   error={errors.stock_minimo}
-                />
+                  textAlign="text-right"
+                  />
                 <TextInputComponent
                   type="number"
                   label="Stock Reservado"
@@ -417,7 +421,8 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                   control={control}
                   onlyRead={true}
                   tabIndex={-1}
-                />
+                  textAlign="text-right"
+                  />
                 <TextInputComponent
                   type="number"
                   label="Stock Disponible"
@@ -426,7 +431,8 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                   control={control}
                   onlyRead={true}
                   tabIndex={-1}
-                />
+                  textAlign="text-right"
+                  />
             </div>
           </div>
           <div className="w-full">

@@ -144,7 +144,8 @@ const FOTCristales:React.FC<ICristales> = ({
                         data={data}
                         control={control}
                         onlyRead={!(permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria)}
-                    />  
+                        textAlign="text-center"
+                        />  
                 </div>
             </div>)
       }
@@ -257,7 +258,7 @@ const FOTCristales:React.FC<ICristales> = ({
                             <div className="w-full flex mt-6 rowForm centertDIV">
                                 <TextInputComponent
                                     control={control}
-                                    type="text"
+                                    type="number"
                                     label="Diámetro"
                                     name="cristal1_diametro"
                                     handleChange={handleInputChange}
@@ -265,7 +266,8 @@ const FOTCristales:React.FC<ICristales> = ({
                                     data={formValues ? formValues["cristal1_diametro"] : data && data[EnumGrid.cristal1_diametro]}
                                     customWidth={'w-[8rem]'}
                                     onlyRead={!(!isEditting || (permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria))}                                        // error={errors.fecha_nacimiento}
-                                />
+                                    textAlign="text-center"
+                                    />
                             </div>
 
                             <div className="w-full flex mt-6 rowForm ">
@@ -279,7 +281,8 @@ const FOTCristales:React.FC<ICristales> = ({
                                         control={control}
                                         isOT={true}
                                         onlyRead={!(!isEditting || (permiso_areas_cristales && permiso_usuario_cristales))}
-                                    />
+                                        textAlign="text-center"
+                                        />
                                 </div>
                                 <div className="!w-[50%] !pr-[1rem] !ml-[-1rem]">
                                     <TextInputInteractive
@@ -291,7 +294,8 @@ const FOTCristales:React.FC<ICristales> = ({
                                         data={ A1_CR_OI.value ||data && data[EnumGrid.cristal1_oi]}
                                         control={control}
                                         onlyRead={!(!isEditting || (permiso_areas_cristales && permiso_usuario_cristales))}
-                                    />
+                                        textAlign="text-center"
+                                        />
                                 </div>
                             </div>
 
@@ -429,7 +433,7 @@ const FOTCristales:React.FC<ICristales> = ({
                         
                             <div className="w-full flex mt-6 rowForm centertDIV">
                                 <TextInputInteractive
-                                    type="text"
+                                    type="number"
                                     label="Diámetro"
                                     name="cristal2_diametro"
                                     handleChange={handleInputChange}
@@ -438,7 +442,8 @@ const FOTCristales:React.FC<ICristales> = ({
                                     isOT={true}
                                     onlyRead={!((!isEditting && tipo_de_anteojo.value === '3') || (isEditting && permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria && tipo_de_anteojo.value === '3'))}
                                     customWidth={'w-[8rem]'}
-                                  />
+                                    textAlign="text-center"
+                                    />
                             </div>
 
                             <div className="w-full flex mt-6 rowForm ">
@@ -452,7 +457,8 @@ const FOTCristales:React.FC<ICristales> = ({
                                         control={control}
                                         isOT={true}
                                         onlyRead={!((!isEditting && tipo_de_anteojo.value === '3') || (isEditting && permiso_areas_cristales && permiso_usuario_cristales && tipo_de_anteojo.value === '3'))}
-                                    />
+                                        textAlign="text-center"
+                                        />
                                 </div>
                                 <div className="!w-[50%] !pr-[1rem] !ml-[-1rem]">
                                     <TextInputInteractive
@@ -464,7 +470,8 @@ const FOTCristales:React.FC<ICristales> = ({
                                         control={control}
                                         isOT={true}
                                         onlyRead={!((!isEditting && tipo_de_anteojo.value === '3') || (isEditting && permiso_areas_cristales && permiso_usuario_cristales && tipo_de_anteojo.value === '3'))}
-                                    />
+                                        textAlign="text-center"
+                                        />
                                 </div>
                             </div>
     

@@ -80,7 +80,7 @@ const FOTReceta:React.FC<IReceta> = ({
                         entidad={["/api/tipos/", "02","OTTipoAnteojo"]}
                         // entidad={["/api/ot/", "12","ESF", "_p3"]}
                         // error={errors.establecimiento}
-                        customWidth={"345px"}
+                        customWidth={"!ml-[1rem]"}
                         readOnly={isEditting}
                     />
                 </div>
@@ -95,6 +95,7 @@ const FOTReceta:React.FC<IReceta> = ({
                         isOT={true}
                         onlyRead={isEditting}
                         isOptional={true}
+                        textAlign="text-center"
                         />
                 </div>
                 <div className="w-[20%] ml-4 justify-between">
@@ -108,6 +109,7 @@ const FOTReceta:React.FC<IReceta> = ({
                         isOT={true}
                         onlyRead={isEditting}
                         isOptional={true}
+                        textAlign="text-right"
                         />
                 </div>
                 <div className="w-[15%] ml-4">
@@ -121,6 +123,7 @@ const FOTReceta:React.FC<IReceta> = ({
                         isOT={true}
                         onlyRead={isEditting}
                         isOptional={true}
+                        textAlign="text-center"
                         />
                 </div>
                 <div className="w-[34%] ml-4 mb-[0.3rem]" >
@@ -143,7 +146,8 @@ const FOTReceta:React.FC<IReceta> = ({
             </div>
 
             <div className="w-full flex items-center rowForm !h-[11rem] relative ">
-                <label className='absolute z-10 top-[-10%] w-[15%] left-[36%] text-center text-2xl'>ANTEOJO 1</label>
+                {/* <label className='absolute z-10 top-[-10%] w-[15%] left-[36%] text-center text-3xl'>ANTEOJO 1</label> */}
+                <label className='labelAnteojo'>ANTEOJO 1</label>
                 <div className=" w-[43%] items-center rowForm !mt-[-10rem] !h-[8rem]  ">
                     <div className="w-[90%] mx-auto flex items-center h-[9rem] relative labelForm  rounded-lg border radioComponent">
                         <label className='labelForm w-[40%] absolute z-10 text-center -top-10 left-[30%] text-2xl'>OD</label>
@@ -156,7 +160,8 @@ const FOTReceta:React.FC<IReceta> = ({
                                 otData={data && data[EnumGrid.a1_od_esf] ||  a1_od_esf.value}
                                 control={control}
                                 onlyRead={ !(permiso_usuario_receta && permiso_areas_receta)}
-                            />
+                                textAlign="text-center"
+                                />
                         </div>
                         <div className="w-[25%]">
                             <OTTextInputComponent
@@ -167,7 +172,8 @@ const FOTReceta:React.FC<IReceta> = ({
                                 otData={dioptrias_receta.value.a1_od.cil || data && data[EnumGrid.a1_od_cil]}
                                 control={control}
                                 onlyRead={!(!isEditting || (permiso_usuario_receta && permiso_areas_receta))}
-                            />
+                                textAlign="text-center"
+                                />
                         </div>
                         <div className="w-[25%]" tabIndex={-1}>
                             <OTTextInputComponent
@@ -178,7 +184,8 @@ const FOTReceta:React.FC<IReceta> = ({
                                 otData={a1_od_eje.value || data && data[EnumGrid.a1_od_eje]}
                                 control={control}
                                 onlyRead={!(!isEditting || (permiso_usuario_receta && permiso_areas_receta))}
-                            />
+                                textAlign="text-center"
+                                />
                         </div>
                         <div className="w-[25%]" tabIndex={-1}>
                             <OTTextInputComponent
@@ -189,7 +196,8 @@ const FOTReceta:React.FC<IReceta> = ({
                                 otData={ a1_od_ad.value || data && data[EnumGrid.a1_od_ad]}
                                 control={control}
                                 onlyRead={!(deshabilitarCampo.value.a1_ad && (!isEditting || (permiso_usuario_receta && permiso_areas_receta))) }
-                            />
+                                textAlign="text-center"
+                                />
                         </div>
                     </div>    
                 </div>
@@ -205,11 +213,9 @@ const FOTReceta:React.FC<IReceta> = ({
                                 handleChange={handleInputChange}
                                 otData={ a1_oi_esf.value || data && data[EnumGrid.a1_oi_esf]}
                                 control={control}
-                                // isOT={true}
-
                                 onlyRead={!(!isEditting || (permiso_usuario_receta && permiso_areas_receta))}
-                                // error={errors.fecha_nacimiento}
-                            />
+                                textAlign="text-center"
+                                />
                         </div>
                         <div className="w-[25%]">
                             <OTTextInputComponent
@@ -219,11 +225,9 @@ const FOTReceta:React.FC<IReceta> = ({
                                 handleChange={handleInputChange}
                                 otData={a1_oi_cil.value || data && data[EnumGrid.a1_oi_cil]}
                                 control={control}
-                                // isOT={true}
-
                                 onlyRead={!(!isEditting || (permiso_usuario_receta && permiso_areas_receta))}
-                                // error={errors.fecha_nacimiento}
-                            />
+                                textAlign="text-center"
+                                />
                         </div>
                         <div className="w-[25%]">
                             <OTTextInputComponent
@@ -233,11 +237,9 @@ const FOTReceta:React.FC<IReceta> = ({
                                 handleChange={handleInputChange}
                                 otData={a1_oi_eje.value || data && data[EnumGrid.a1_oi_eje]}
                                 control={control}
-                                // isOT={true}
-
                                 onlyRead={!(!isEditting || (permiso_usuario_receta && permiso_areas_receta))}
-                                // error={errors.fecha_nacimiento}permiso_usuario_receta
-                            />
+                                textAlign="text-center"
+                                />
                         </div>
                         <div className="w-[25%]">
                             <OTTextInputComponent
@@ -247,9 +249,9 @@ const FOTReceta:React.FC<IReceta> = ({
                                 handleChange={handleInputChange}
                                 otData={a1_oi_ad.value|| data && data[EnumGrid.a1_oi_ad]}
                                 control={control}
-                                // isOT={true}
                                 onlyRead={!(deshabilitarCampo.value.a1_ad && (!isEditting || (permiso_usuario_receta && permiso_areas_receta)))}
-                            />
+                                textAlign="text-center"
+                                />
                         </div>
                     </div>    
                 </div>
@@ -264,7 +266,8 @@ const FOTReceta:React.FC<IReceta> = ({
                             control={control}
                             isOT={true}
                             onlyRead={!(permiso_usuario_receta && permiso_areas_receta)}
-                        />
+                            textAlign="text-center"
+                            />
                     </div>
                     <div className="w-[70%] mx-auto">
                         <TextInputComponent
@@ -276,7 +279,8 @@ const FOTReceta:React.FC<IReceta> = ({
                             control={control}
                             isOT={true}
                             onlyRead={!(deshabilitarCampo.value.a1_alt && (!isEditting || (permiso_usuario_receta && permiso_areas_receta)))}
-                        />
+                            textAlign="text-center"
+                            />
                     </div>
                 </div>
             </div>
@@ -293,11 +297,10 @@ const FOTReceta:React.FC<IReceta> = ({
                                 name="a2_od_esf"
                                 handleChange={handleInputChange}
                                 otData={ a2_od_esf.value || data && data[EnumGrid.a2_od_esf]}
-                                // data={a2_od_esf}
                                 control={control}
                                 onlyRead={true}
-                                // error={errors.fecha_nacimiento}
-                            />
+                                textAlign="text-center"
+                                />
                         </div>
                         <div className="w-[25%]">
                             <TextInputComponent
@@ -308,25 +311,22 @@ const FOTReceta:React.FC<IReceta> = ({
                                 data={a2_od_cil ? a2_od_cil : data && data[EnumGrid.a2_od_cil]}
                                 control={control}
                                 isOT={true}
-
                                 onlyRead={true}
-                                // error={errors.fecha_nacimiento}
-                            />
+                                textAlign="text-center"
+                                />
                         </div>
                         <div className="w-[25%]">
                             <TextInputComponent
                                 type="number"
                                 label="EJE"
                                 name="a2_od_eje"
-                                
                                 handleChange={handleInputChange}
                                 data={a2_od_eje ? a2_od_eje : data && data[EnumGrid.a2_od_eje]}
                                 onlyRead={true}
                                 isOT={true}
-
                                 control={control}
-                                // error={errors.fecha_nacimiento}
-                            />
+                                textAlign="text-center"
+                                />
                         </div>
                        
                     </div>    
@@ -344,10 +344,9 @@ const FOTReceta:React.FC<IReceta> = ({
                                 data={a2_oi_esf.value || data && data[EnumGrid.a2_oi_esf]}
                                 control={control}
                                 isOT={true}
-
                                 onlyRead={true}
-                                // error={errors.fecha_nacimiento}
-                            />
+                                textAlign="text-center"
+                                />
                         </div>
                         <div className="w-[25%]">
                             <TextInputComponent
@@ -358,10 +357,9 @@ const FOTReceta:React.FC<IReceta> = ({
                                 data={a2_oi_cil ? a2_oi_cil : data && data[EnumGrid.a2_oi_cil]}
                                 control={control}
                                 isOT={true}
-
                                 onlyRead={true}
-                                // error={errors.fecha_nacimiento}
-                            />
+                                textAlign="text-center"
+                                />
                         </div>
                         <div className="w-[25%]">
                             <TextInputComponent
@@ -372,10 +370,9 @@ const FOTReceta:React.FC<IReceta> = ({
                                 data={a2_oi_eje ? a2_oi_eje : data && data[EnumGrid.a2_oi_eje]}
                                 control={control}
                                 isOT={true}
-
                                 onlyRead={true}
-                                // error={errors.fecha_nacimiento}
-                            />
+                                textAlign="text-center"
+                                />
                         </div>
                         
                 </div>    
@@ -391,10 +388,9 @@ const FOTReceta:React.FC<IReceta> = ({
                                 data={formValues ? formValues["a2_dp"] : data && data[EnumGrid.a2_dp]}
                                 control={control}
                                 isOT={true}
-
                                 onlyRead={deshabilitarCampo.value.a2_dp}
-                                // error={errors.fecha_nacimiento}
-                            />
+                                textAlign="text-center"
+                                />
                     </div>
                 </div>
             </div>
@@ -410,8 +406,8 @@ const FOTReceta:React.FC<IReceta> = ({
                         control={control}
                         onlyRead={isEditting}
                         isOptional={true}
-                        // error={errors.fecha_nacimiento}
-                    />
+                        customWidth={"!ml-[1rem] !mr-[3rem] "}
+                        />
                 </div>
             </div>
         </div>

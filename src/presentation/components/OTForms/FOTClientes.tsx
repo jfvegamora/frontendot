@@ -236,7 +236,8 @@ const FOTClientes:React.FC<IClientes> = ({
                                     control={control}
                                     onlyRead={isEditting}
                                     isOT={true}
-                                />
+                                    textAlign="text-center"
+                                    />
                                 </div>
                                 <div className="w-[47%] ml-12      ">
                                 <TextInputInteractive
