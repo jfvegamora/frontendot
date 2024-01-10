@@ -279,6 +279,22 @@ const FOftalmologos: React.FC<IUserFormPrps> = React.memo(
               <div className="input-container items-center rowForm w-full">
                 <div className="w-full">
                   <TextInputComponent
+                    type="number"
+                    label="Valor Consulta"
+                    name="valor_consulta"
+                    data={data && data[EnumGrid.valor_consulta]}
+                    control={control}
+                    error={errors.valor_consulta}
+                    textAlign="text-right"
+                  />
+                </div>
+              </div>  
+            </div>  
+
+            <div className="w-full items-center flex">
+              <div className="input-container items-center rowForm w-full">
+                <div className="w-full">
+                  <TextInputComponent
                     type="text"
                     label="Teléfono"
                     name="telefono"
@@ -300,20 +316,6 @@ const FOftalmologos: React.FC<IUserFormPrps> = React.memo(
                     data={data && data[EnumGrid.correo]}
                     control={control}
                     isOptional={true}
-                  />
-                </div>
-              </div>  
-            </div>  
-            <div className="w-full items-center flex">
-              <div className="input-container items-center rowForm w-full">
-                <div className="w-full">
-                  <TextInputComponent
-                    type="number"
-                    label="Valor Consulta"
-                    name="valor_consulta"
-                    data={data && data[EnumGrid.valor_consulta]}
-                    control={control}
-                    error={errors.valor_consulta}
                   />
                 </div>
               </div>  

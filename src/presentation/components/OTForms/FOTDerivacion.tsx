@@ -66,15 +66,17 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
     
     }
   return (
-    <div className='useFormContainer useFormDerivacion h-[55%] w-[60%] left-[20%] top-[30%] z-30'>
-        <div className=" flex justify-end w-full">
-            <h2 className='text-2xl cursor-pointer' onClick={onClose}>X</h2>
+    <div className='useFormContainer useFormDerivacion centered-div use40rem z-30'>
+        <div className="userFormBtnCloseContainer">
+            <button onClick={closeModal} className="userFormBtnClose">
+                X
+            </button>
         </div>
-        <form className='text-center  !h-[80%]' onSubmit={handleSubmit(onSubmit)}>
-                <h1 className='text-2xl mt-2'>Derivación de OT</h1>
+        <h1 className='userFormLabel'>Derivación de OT</h1>
 
-                <div className="flex  items-center rowForm w-full">
-                    <div className="w-[25%] ml-4">
+        <form className='userFormulario' onSubmit={handleSubmit(onSubmit)}>
+                <div className=" w-full flex items-center rowForm">
+                    <div className="w-[30%]">
                         <TextInputComponent
                             type="text"
                             label="Folio OT"
@@ -82,12 +84,11 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
                             control={control}
                             data={data && data[EnumGrid.folio]}
                             onlyRead={true}
-                            // handleChange={handleInputChange}
-                            // data={formValues && formValues["rut"]}
-                            // error={errors.fecha_nacimiento}
+                            textAlign="text-center"
+                            customWidth={"mt-[2rem]"}
                         />
                     </div>
-                    <div className="w-[35%] ml-4">
+                    <div className="w-[70%]">
                         <TextInputComponent
                             type="text"
                             label="Proyecto"
@@ -95,12 +96,13 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
                             control={control}
                             data={data && data[EnumGrid.proyecto_titulo]}
                             onlyRead={true}
-                            // handleChange={handleInputChange}
-                            // data={formValues && formValues["rut"]}
-                            // error={errors.fecha_nacimiento}
+                            customWidth={"mt-[2rem]"}
                         />
                     </div>
-                    <div className="w-[35%] ml-4">
+                </div>
+
+                <div className=" w-full flex items-center rowForm">
+                    <div className="w-full">
                         <TextInputComponent
                             type="text"
                             label="Nombre Cliente"
@@ -108,15 +110,13 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
                             control={control}
                             data={data && data[EnumGrid.cliente_nomnbre]}
                             onlyRead={true}
-                            // handleChange={handleInputChange}
-                            // data={formValues && formValues["rut"]}
-                            // error={errors.fecha_nacimiento}
+                            customWidth={"mt-[2rem]"}
                         />
                     </div>
                 </div>
 
-                <div className="w-full flex items-center !h-20 rowForm !mt-16">
-                    <div className="w-[25%] ml-4">
+                <div className="w-full flex items-center rowForm">
+                    <div className="w-[50%]">
                         <TextInputComponent
                             type="text"
                             label="Área desde"
@@ -124,58 +124,50 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
                             control={control}
                             data= {data && data[EnumGrid.area]}
                             onlyRead={true}
-                            // handleChange={handleInputChange}
-                            // data={formValues && formValues["rut"]}
-                            // error={errors.fecha_nacimiento}
+                            customWidth={"mt-[2rem]"}
                         />
                     </div>
-                    <div className="w-[20%] ml-7 mr-16">
+                    <div className="w-[50%]">
                         <SelectInputComponent
                             label="Área hasta"
                             name="area_hasta"
                             showRefresh={true}
                             isOT={true}
                             control={control}
-                            // handleSelectChange={handleInputChange}
-                            // data={formValues && formValues["proyectos"]}
                             entidad={["/api/tipos/", "02", "OTAreas"]}
-                            customWidth={"w-[20.8rem]"}
-                            // error={errors.establecimiento}
-                            // customWidth={"345px"}
+                            customWidth={"mr-[-1rem] mt-[2rem]"}
                         />
                     </div>
-                    <div className="w-[20%] ml-[4.8rem]    ">
+                </div>
+
+                <div className="input-container items-center rowForm ">
+                {/* <div className="w-full flex items-center rowForm"> */}
+                    <div className="w-full  ">
                         <SelectInputComponent
                             label="Situacion"
                             name="situacion"
                             showRefresh={true}
                             isOT={true}
                             control={control}
-                            // handleSelectChange={handleInputChange}
-                            // data={formValues && formValues["proyectos"]}
                             entidad={["/api/tipos/", "02", "OTSituaciones"]}
-                            // error={errors.establecimiento}
-                            customWidth={"w-[20.6rem] ml-4"}
-                            // customWidth={"345px"}
+                            customWidth={"w-[] ml-[1rem] mr-[-1rem] mt-[2rem]"}
                         />
                     </div>
                 </div>
 
                 <div className=" w-full flex items-center rowForm">
-                    <div className="w-[98%] ml-4">
+                    <div className="w-full">
                         <TextInputComponent
                             type="text"
                             label="Observaciones"
                             name="observaciones"
                             control={control}
-                            // handleChange={handleInputChange}
-                            // data={formValues && formValues["rut"]}
-                            // error={errors.fecha_nacimiento}
+                            customWidth={"mt-[2rem]"}
                         />
                     </div>
                 </div>
 
-                <div className=' w-full flex justify-end mx-[-1.5rem] h-12'>
+                <div className="flex justify-center">
                     <Button  type="submit" className='otActionButton bg-red-900'>Derivar</Button>
                 </div>
         </form>

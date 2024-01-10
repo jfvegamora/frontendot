@@ -1296,14 +1296,8 @@ useEffect(() => {
           <Tab className="custom-tab ">RECETA</Tab>
           <Tab className="custom-tab ">CRISTALES</Tab>
           <Tab className="custom-tab ">ARMAZONES</Tab>
-              <Tab className="custom-tab ">BITÁCORA</Tab>
+          <Tab className="custom-tab ">BITÁCORA</Tab>
 
-          {/* <Tab className="custom-tab ">Óptica</Tab>
-          <Tab className="custom-tab ">Cliente</Tab>
-          <Tab className="custom-tab ">Receta</Tab>
-          <Tab className="custom-tab ">Cristales</Tab>
-          <Tab className="custom-tab ">Armazones</Tab>
-          <Tab className="custom-tab ">Bitácora</Tab> */}
           <h1 className='tabFolioNumber'>Folio OT: {data && data[EnumGrid.folio]}</h1>
         </TabList>
 

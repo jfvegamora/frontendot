@@ -323,6 +323,7 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     error={errors.precio_neto}
                     isOptional={true}
+                    textAlign="text-right"
                   />
                 </div>
               </div>
@@ -335,6 +336,7 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
                     data={data && data[EnumGrid.stock_minimo]}
                     control={control}
                     error={errors.stock_minimo}
+                    textAlign="text-right"
                   />
                 </div>
               </div>
@@ -352,6 +354,7 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     onlyRead={true}
                     tabIndex={-1}
+                    textAlign="text-right"
                   />
                 </div>
               </div>
@@ -365,6 +368,7 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     onlyRead={true}
                     tabIndex={-1}
+                    textAlign="text-right"
                   />
                 </div>
               </div>

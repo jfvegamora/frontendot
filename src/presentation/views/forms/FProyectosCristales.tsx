@@ -329,6 +329,7 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                         onlyRead={isEditting}
                         inputRef={firstInputRef}
                         customWidth={"!w-[8rem] !ml-[-12px]"}
+                        textAlign="text-center"
                         />
                   </div>
                   <div className="w-[75%]">
@@ -447,7 +448,8 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                   data={data && data[EnumGrid.diametro]}
                   control={control}
                   error={errors.diametro}
-                />
+                  textAlign="text-center"
+                  />
               </div>
               <div className="">
                 <TextInputComponent
@@ -458,6 +460,7 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                   control={control}
                   error={errors.esferico_desde}
                   step={0.01}
+                  textAlign="text-center"
                   />
               </div>
               <div className="">
@@ -469,6 +472,7 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                   control={control}
                   error={errors.esferico_hasta}
                   step={0.01}
+                  textAlign="text-center"
                   />
               </div>
               </div>
@@ -483,6 +487,7 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                   error={errors.cilindrico_desde}
                   step={0.01}
                   customWidth={"!pr-[0.4rem]"}
+                  textAlign="text-center"
                   />
               </div>
               <div className="">
@@ -495,6 +500,7 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                   error={errors.cilindrico_hasta}
                   step={0.01}
                   customWidth={"!ml-[-1rem]"}
+                  textAlign="text-center"
                   />
               </div>
               <div className="">
@@ -506,6 +512,7 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                   control={control}
                   error={errors.precio_venta_neto}
                   isOptional={true}
+                  textAlign="text-right"
                   />
               </div>
               </div>

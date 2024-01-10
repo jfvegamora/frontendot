@@ -222,6 +222,7 @@ return (
                         data={formValues ? formValues["area"] : data && data[EnumGrid.area]}
                         control={control}
                         onlyRead={true}
+                        textAlign="text-center"
                     />
                 </div>
                 
@@ -234,6 +235,7 @@ return (
                         data={formValues ? formValues["estado"] : data && data[EnumGrid.estado]}
                         control={control}
                         onlyRead={true}
+                        textAlign="text-center"
                     />
                 </div>
                 
@@ -251,6 +253,7 @@ return (
                         control={control}
                         onlyRead={isEditting}
                         isOT={true}
+                        textAlign="text-center"
                     />
                 </div>
                 <div className="w-[15%]">
@@ -264,6 +267,7 @@ return (
                         onlyRead={isEditting}
                         isOT={true}
                         isOptional={true}
+                        textAlign="text-center"
                         />
                 </div>
                 <div className="w-[15%]">
@@ -277,6 +281,7 @@ return (
                         onlyRead={isEditting}
                         isOT={true}
                         isOptional={true}
+                        textAlign="text-center"
                     />
                 </div>
                 <div className="w-[15%]">
@@ -290,6 +295,7 @@ return (
                         onlyRead={isEditting}
                         isOT={true}
                         isOptional={true}
+                        textAlign="text-center"
                     />
                 </div>
             
@@ -322,7 +328,8 @@ return (
                                 data={formValues ? formValues["folio_asociado"] : data && data[EnumGrid.folio_asociado]}
                                 control={control}
                                 onlyRead={true}
-                            />
+                                textAlign="text-center"
+                                />
                         </div>
                         
                         <div className="w-[35%] mr-[1rem]">
@@ -355,7 +362,8 @@ return (
                             control={control}
                             onlyRead={true}
                             isOptional={true}
-                        />
+                            textAlign="text-center"
+                            />
                     </div>
                     <div className="">
                         <TextInputComponent
@@ -367,7 +375,8 @@ return (
                             control={control}
                             onlyRead={true}
                             isOptional={true}
-                        />
+                            textAlign="text-center"
+                            />
                     </div>
                     <div className="">
                         <TextInputComponent
@@ -379,6 +388,7 @@ return (
                             control={control}
                             onlyRead={true}
                             isOptional={true}
+                            textAlign="text-center"
                             />
                     </div>
                     <div className="">
@@ -391,6 +401,7 @@ return (
                             control={control}
                             onlyRead={true}
                             isOptional={true}
+                            textAlign="text-center"
                             />
                     </div>
                     <div className="">
@@ -403,6 +414,7 @@ return (
                             control={control}
                             onlyRead={true}
                             isOptional={true}
+                            textAlign="text-center"
                             />
                     </div>
                     </div>
@@ -421,6 +433,7 @@ return (
                             control={control}
                             onlyRead={isEditting}
                             isOptional={true}
+                            textAlign="text-center"
                             />
                     </div>
                     <div className="">
@@ -433,6 +446,7 @@ return (
                             control={control}
                             onlyRead={isEditting}
                             isOptional={true}
+                            textAlign="text-center"
                             />
                     </div>
                     <div className="">
@@ -445,6 +459,7 @@ return (
                             control={control}
                             onlyRead={isEditting}
                             isOptional={true}
+                            textAlign="text-center"
                             />
                     </div>
 
