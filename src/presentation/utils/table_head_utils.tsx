@@ -2945,6 +2945,110 @@ export const table_head_proyectos_firmas = [
     width: "w-[6rem]",
   },
 ];
+export const table_head_proyectos_docum = [
+  {
+    cell: <input type="checkbox" />,
+    key: "checkbox",
+    visible: true,
+    width: "w-[5rem]",
+    alignment: "flex justify-center items-center"
+  },
+  {
+    cell: "Proyecto",
+    key: "proyecto",
+    visible: false,
+  },
+  {
+    cell: "Título",
+    key: "titulo",
+    visible: false,
+  },
+  {
+    cell: "Fecha/Hora",
+    key: "fecha_hora",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[6rem]",
+  },
+  {
+    cell: "TipoDocID",
+    key: "tipo_doc_id",
+    visible: false,
+  },
+  {
+    cell: "Tipo Doc",
+    key: "tipo_doc",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[6rem]",
+  },
+  {
+    cell: "Número Doc",
+    key: "numero_doc",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[6rem]",
+  },
+  {
+    cell: "Fecha Doc",
+    key: "fecha_doc",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[6rem]",
+  },
+  {
+    cell: "Total Neto $",
+    key: "total_neto",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[6rem]",
+  },
+  {
+    cell: "Tipo Doc Ref ID",
+    key: "tipo_doc_ref_id",
+    visible: false,
+  },
+  {
+    cell: "Tipo Doc Ref",
+    key: "tipo_doc_ref",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[6rem]",
+  },
+  {
+    cell: "Num Doc Ref Desc",
+    key: "numero_doc_ref",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[6rem]",
+  },
+  {
+    cell: "Usuario ID",
+    key: "usuario_id",
+    visible: false,
+  },
+  {
+    cell: "Usuario",
+    key: "usuario",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[6rem]",
+  },
+  {
+    cell: "Observaciones",
+    key: "observaciones",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[10rem]",
+  },
+  {
+    cell: "",
+    key: "opciones",
+    visible: true,
+    width: "w-[4rem]",
+  },
+];
+
 export const table_head_oftalmologos = [
   {
     cell: <input type="checkbox" />,
