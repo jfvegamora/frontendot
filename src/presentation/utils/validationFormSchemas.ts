@@ -413,6 +413,19 @@ export const validationOftalmologosSchema = () =>
     valor_consulta: yup.string().required(`${msg}`),
   });
 
+  // Schema PROYECTOS DOCUM
+  export const validationProyectosDocumSchema = () =>
+  yup.object().shape({
+    proyecto      : yup.string().required(`${msg}`),
+    tipo_doc      : yup.string().required(`${msg}`),
+    numero_doc    : yup.string().required(`${msg}`),
+    fecha_doc     : yup.string().required(`${msg}`),
+    total_neto    : yup.string().required(`${msg}`),
+    tipo_doc_ref  : yup.string().required(`${msg}`),
+    numero_doc_ref: yup.string().required(`${msg}`),
+    observaciones : yup.string(),
+  });
+
 /*************** S I S T E M A ***************/
 // Schema CARGOS
 export const validationCargosSchema = () =>

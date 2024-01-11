@@ -34,6 +34,7 @@ const MProyectosPuntosVenta = lazy(()=>import("../presentation/views/mantenedore
 const MProyectosUsuarios    = lazy(()=>import("../presentation/views/mantenedores/MProyectosUsuarios"));
 const MProyectosAtenciones  = lazy(()=>import("../presentation/views/mantenedores/MProyectosAtenciones"));
 const MProyectosFirmas      = lazy(()=>import("../presentation/views/mantenedores/MProyectosFirmas"));
+const MProyectosDocum  = lazy(()=>import("../presentation/views/mantenedores/MProyectosDocum"));
 const MOftalmologos         = lazy(()=>import("../presentation/views/mantenedores/MOftalmologos"));
 
 const MCargos               = lazy(()=>import("../presentation/views/mantenedores/MCargos"));
@@ -88,6 +89,7 @@ export const PrivateRoutes = {
   PROYECTOS_DIRECCIONES : "proyectodireccionesdespacho",
   PROYECTOS_PUNTOS_VENTA: "proyectopuntosventa",
   PROYECTOS_USUARIOS    : "proyectousuarios",
+  PROYECTOS_DOCUM       : "proyectodocum",
   REPORTE_ATENCION      : "proyectoreporteatencion",
   REPORTE_FIRMAS        : "proyectoreportefirma",
   OFTALMOLOGOS          : "oftalmologos",
@@ -286,6 +288,12 @@ export const privateRoutes = [
     path                : PrivateRoutes.REPORTE_FIRMAS,
     component           : MProyectosFirmas,
     requiredPermissions : ['view_' + PrivateRoutes.REPORTE_FIRMAS]
+  },
+  {
+    id                  : "38",
+    path                : PrivateRoutes.PROYECTOS_DOCUM,
+    component           : MProyectosDocum,
+    requiredPermissions : ['view_' + PrivateRoutes.PROYECTOS_DOCUM]
   },
   {
     id                  : "21",

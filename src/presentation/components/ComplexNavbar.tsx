@@ -267,10 +267,15 @@ const navListMenuProyectos = [
     id: 15,
   },
   {
-    title: "Reporte de Firmas",
-    link: "/proyectoreportefirma",
-    id: 20,
+    title: "Documentos del Proyecto",
+    link: "/proyectodocum",
+    id: 38,
   },
+  // {
+  //   title: "Reporte de Firmas",
+  //   link: "/proyectoreportefirma",
+  //   id: 20,
+  // },
   {
     title: "Mandantes",
     link: "/mandantes",
