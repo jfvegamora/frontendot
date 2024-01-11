@@ -57,7 +57,7 @@ const FProyectosDocum: React.FC<IUserFormPrps> = React.memo(
     const schema = validationProyectosDocumSchema();
     const { showModal, CustomModal } = useModal();
     const { show } = useCustomToast();
-    const [strCodigoProyecto, setStrCodigoProyecto] = useState("");
+    const [_strCodigoProyecto, setStrCodigoProyecto] = useState("");
     const strCodigoProyecto2 = signal("")
     const [fechaHoraActual, setFechaHoraActual] = useState(fechaActual);
     const UsuarioID: any = useAppSelector((store: AppStore) => store.user?.id)
@@ -77,7 +77,6 @@ const FProyectosDocum: React.FC<IUserFormPrps> = React.memo(
       handleSubmit,
       formState: { errors },
       setValue,
-      getValues
     } = useForm({
       resolver: yupResolver(schema),
     });

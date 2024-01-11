@@ -54,7 +54,6 @@ const MProyectosDocum: React.FC = () => {
       //modal methods
       isModalInsert,
       isModalEdit,
-      isModalCopiar,
       toggleEditModal,
       toggleModalCopiar,
       openModal,

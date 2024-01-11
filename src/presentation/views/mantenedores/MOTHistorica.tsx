@@ -14,7 +14,6 @@ import { TITLES, table_head_OT_historica } from "../../utils";
 import FOT from "../forms/FOT";
 import { AppStore, useAppSelector } from "../../../redux/store";
 import { Button } from "@material-tailwind/react";
-import FReporteAtencion from "../forms/FReporteAtencion";
 import FOrdenCompra from "../forms/FOrdenCompra";
 import FFactura from "../forms/FFactura";
 import FGuia from "../forms/FGuia";
@@ -171,7 +170,6 @@ type PrimaryKey = {
   pk1: number;
 };
 const MOTHistorica: React.FC = () => {
-  const [showReporteAtencion, setShowReporteAtencion] = useState(false);
   const [showOrdenCompra, setShowOrdenCompra]         = useState(false);
   const [showGuia, setShowGuia]                       = useState(false);
   const [showFactura, setShowFactura]                 = useState(false);
@@ -317,8 +315,7 @@ const MOTHistorica: React.FC = () => {
       <div className="mantenedorHeadOT width100 !h-[4rem] !mt-8 mr-8 items-center ">
             <div className="mx-auto">
       
-              <Button color="orange" className='otActionButton mt-3 mx-10' onClick={()=>setShowReporteAtencion((prev)=>!prev)}>Reporte Atencion</Button>
-                    {showReporteAtencion && <FReporteAtencion closeModal={()=>setShowReporteAtencion(false)}/>}
+              <Button color="orange" className='otActionButton mt-3 mx-10'>Reporte Atencion</Button>
               
               <Button color="orange" className='otActionButton mt-3 mx-10' onClick={()=>setShowOrdenCompra((prev)=>!prev)}>Orden Compra</Button>
                     {showOrdenCompra && <FOrdenCompra closeModal={()=>setShowOrdenCompra(false)}/>}

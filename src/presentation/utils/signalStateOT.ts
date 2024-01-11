@@ -6,7 +6,6 @@ import { Signal, signal } from "@preact/signals-react";
 import { validationFechaDespacho, validationFechaEntregaCliente, validationFechaEntregaTaller, validation_A1_ALT, validation_A1_DP, validation_A1_OD_AD, validation_A1_OD_CILL, validation_A1_OD_EJE, validation_A1_OD_ESF, validation_A1_OI_CIL, validation_A1_OI_EJE, validation_A1_OI_ESF, validation_A2_DP, validation_A2_OD_CIL, validation_A2_OD_EJE, validation_A2_OD_ESF, validation_A2_OI_CIL, validation_A2_OI_EJE, validation_A2_OI_ESF } from "./validationOT";
 import { EnumGrid } from "../views/mantenedores/MOTHistorica";
 import { toast } from "react-toastify";
-import { SiTutanota } from "react-icons/si";
 
 
 export const dioptrias:any = signal<any>({

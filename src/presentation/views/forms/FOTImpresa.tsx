@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { AppStore, useAppSelector } from '../../../redux/store';
 import { EnumGrid } from '../mantenedores/MOTHistorica';
 
-const FOTImpresa = React.forwardRef((props:any, ref:any) => {
+const FOTImpresa = React.forwardRef((ref:any) => {
   const OT:any = useAppSelector((store:AppStore)=>store.OTS.ot)
 
 

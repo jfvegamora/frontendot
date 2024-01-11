@@ -26,13 +26,15 @@ const initialState: DataState = {
 export const fetchOT = createAsyncThunk(
     'ot/fetchOT',
     async (params:any) => {
-        const {OTAreas, searchParams} = params;
+        const {OTAreas, searchParams, historica} = params;
+
         // console.log(searchParams)
         const OTUrl = searchParams
-                                 ? `${URLBackend}/api/ot/listado/?query=14&_origen=${OTAreas}&${searchParams}` 
-                                 : `${URLBackend}/api/ot/listado/?query=14&_origen=${OTAreas}`
+                                 ? historica ? `${URLBackend}/api/othistorica/listado/?query=14&${searchParams}` :  `${URLBackend}/api/ot/listado/?query=14&_origen=${OTAreas}&${searchParams}` 
+                                 : historica ? `${URLBackend}/api/othistorica/listado/?query=14` : `${URLBackend}/api/ot/listado/?query=14&_origen=${OTAreas}`
 
-        // console.log(OTUrl)
+        console.log(OTUrl)
+
         try {
             const response = await axios.get(OTUrl);
             

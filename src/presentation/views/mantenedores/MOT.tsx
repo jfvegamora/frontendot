@@ -18,8 +18,6 @@ import { AppStore,
   useAppSelector } from "../../../redux/store";
 import FilterButton, { filterToggle } from "../../components/FilterButton";
 import { clearData } from "../../../redux/slices/OTSlice";
-import { signal } from "@preact/signals-react";
-import { EnumGrid as EnumOT } from "./MOTHistorica";
 
 export enum EnumGrid {
   id = 1,
@@ -218,7 +216,6 @@ const MOT: React.FC = () => {
               updateParams={updateParams}
               strQuery={strQuery}
               setEntities={setEntities}
-              otHistorica={true}
               primaryKeyInputs={[
                 { name: "_folio", label: "Folio", type: "text" },
                 { name: "_rut", label: "Rut", type: "text" },

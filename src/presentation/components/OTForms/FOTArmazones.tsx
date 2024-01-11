@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react'
-import useSWR from 'swr';
 import axios from 'axios';
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
 import { EnumGrid as EnumArmazones } from '../../views/mantenedores/MArmazones';
@@ -27,7 +26,6 @@ const FOTArmazones:React.FC<IArmazones> = ({
     permiso_usuario_armazones,
     permiso_areas_armazones
 }) => {
-    const fetcher = (url:string) => axios.get(url).then((res)=>res.data) as any;
 
     
     // const [codArmazon1, setCodArmazon1] = useState( formValues && formValues["codigo_armazon_1"] || 0);

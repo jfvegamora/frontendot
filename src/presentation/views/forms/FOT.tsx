@@ -366,7 +366,6 @@ const FOT:React.FC<IFOTProps> = ({
   // const folioOT = data && data[EnumGrid.folio]
   //PERMISOS DE AREA
   const [OTPermissions, setOTPermissions] = useState("");
-  const [pktoDelete, setPkToDelete] = useState([]);
   const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas);
   const OTSlice:any = useAppSelector((store:AppStore)=>store.OTS)
   const User:any = useAppSelector((store: AppStore) => store.user);
@@ -796,7 +795,7 @@ const FOT:React.FC<IFOTProps> = ({
   // const sumatoriaNivel1 = validacionNivel1.reduce((index, objeto) => index + objeto.valor, 0);
 
   const sumatoriaNivel1 = validationNivel1.value.reduce((index, objeto) => index + objeto.valor, 0);
-  const sumatoriaNivel2 = validationNivel2.value.reduce((index, objeto) => index + objeto.valor, 0)
+  // const sumatoriaNivel2 = validationNivel2.value.reduce((index, objeto) => index + objeto.valor, 0)
     
   const actualizarEstado = (campo:string, valor:number) => {
     const index = validacionNivel1.findIndex(objeto => objeto.campo === campo);
@@ -1158,13 +1157,13 @@ const FOT:React.FC<IFOTProps> = ({
     }
   };
 
-  const handlePausarClick = () => {
-    setSubmitAction('pausar');
-    console.log('click')
-    console.log(data && data[EnumGrid.proyecto_codigo])
-    console.log(formValues)
+  // const handlePausarClick = () => {
+  //   setSubmitAction('pausar');
+  //   console.log('click')
+  //   console.log(data && data[EnumGrid.proyecto_codigo])
+  //   console.log(formValues)
 
-  };
+  // };
   const handleIngresarClick = () => {
     setSubmitAction('ingresar');
   };
