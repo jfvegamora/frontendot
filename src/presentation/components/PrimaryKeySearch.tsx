@@ -149,7 +149,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
           key={groupIndex}
           className={
             primaryKeyInputs.length > 5
-              ? `${otHistorica ? "grid grid-rows-3  grid-cols-2 " : "grid grid-rows-3 grid-cols-2"} w-[40vw] h-[30vh]  items-center `
+              ? `${otHistorica ? "grid grid-rows-3  grid-cols-2 w-[100%] px-10  " : "grid grid-rows-3 grid-cols-2"} w-[40vw] h-[30vh]  items-center `
               : "flex mb-auto items-cente w-[70rem]  items-center "
           }
         >
@@ -389,7 +389,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
     return (
       <form className="primaryKeyContainer items-center relative">
         {renderInputs()}
-        <div className="w-[60px]">
+        <div className={`${otHistorica ? "ml-[-13rem] mr-20" : ""}   w-[60px] `}>
           <Tooltip content="Buscar">
               <IconButton
               tabIndex={1}

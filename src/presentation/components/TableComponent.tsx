@@ -78,6 +78,9 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
     const permissions = (area:number) => areaActual &&  OTAreas["areas"].find((permiso:any)=>permiso[1] === area)
 
     console.log(OTColores)
+
+    let derivada = [OTColores["Derivada"][1]]
+    console.log(derivada[0])
     useEffect(()=>{
       // console.log('render')
       const permiso = permissions(areaActual)
@@ -137,6 +140,28 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
     //   };
     // }, []);
     
+    const handleColorEstado = (rowData:any) => {
+
+      console.log(rowData)
+      console.log(`bg-[${derivada[0]}]`)
+
+      const color = 'red-500'
+
+      
+      switch (rowData) {
+        case 'Ingresada':
+            return 'bg-[#FFFFFF] text-[#000000]'
+        case 'En proceso':
+            return 'bg-[#FFFFFF] text-[#000000]'
+        case 'Pendiente':
+            return 'bg-[#E0DD79] text-[#000000]'
+        case 'Derivada':
+            return 'bg-[#E05B16] !text-[#FFFFFF]'
+        default:
+          break;
+      }
+      // return 'bg-[#E0DD79]'
+    }
 
     const renderTextCell = (text: string, alignment?:string, type?:number, color2?:boolean) => {
 
@@ -242,19 +267,17 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
 
                   
                     // console.log(folio)
-                    const coloresEstado = OTColores[rowData[3]]
 
                     // console.log(rowData[34])
                     const color = (rowData[34] === 'S' ? "bg-black" : "");
                     const type = color === 'bg-black' ? 1: 0
                     // const backgroundcolor =  isOT ? `bg-[${OTColores[rowData[3]][1]}]` : ""
-                    const backgroundcolor =  isOT ? `` : ""
-                    // console.log(backgroundcolor)
-                  
+                    
+
                     return (
                       visible && (
                         <td
-                        className={`gridTableData  ${color2 ? `${backgroundcolor}  !text-[${coloresEstado}]` : ""}   ${alignment}`} 
+                        className={`gridTableData  ${color2 ? handleColorEstado(rowData[4]) : ""}   ${alignment}`} 
                           key={col}
                           id={tableHead[col].key}
                         >

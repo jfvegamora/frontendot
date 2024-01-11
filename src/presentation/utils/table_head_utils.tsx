@@ -23,6 +23,14 @@ export const table_head_OT_diaria2 = [
     width: "w-[6rem]"
   },
   {
+    cell: "Estado ID",
+    key: "estado_id",
+    visible: false,
+    alignment: "text-center",
+    width: "w-[8rem]",
+    color: true
+  },
+  {
     cell: "Estado",
     key: "estado",
     visible: true,

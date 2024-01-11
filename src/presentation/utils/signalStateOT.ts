@@ -6,6 +6,7 @@ import { Signal, signal } from "@preact/signals-react";
 import { validationFechaDespacho, validationFechaEntregaCliente, validationFechaEntregaTaller, validation_A1_ALT, validation_A1_DP, validation_A1_OD_AD, validation_A1_OD_CILL, validation_A1_OD_EJE, validation_A1_OD_ESF, validation_A1_OI_CIL, validation_A1_OI_EJE, validation_A1_OI_ESF, validation_A2_DP, validation_A2_OD_CIL, validation_A2_OD_EJE, validation_A2_OD_ESF, validation_A2_OI_CIL, validation_A2_OI_EJE, validation_A2_OI_ESF } from "./validationOT";
 import { EnumGrid } from "../views/mantenedores/MOTHistorica";
 import { toast } from "react-toastify";
+import { SiTutanota } from "react-icons/si";
 
 
 export const dioptrias:any = signal<any>({
@@ -503,7 +504,8 @@ export const updateOT =async (
   armazonOri:any,
   user:any,
   _obs?:string,
-  isMasivo?:boolean
+  isMasivo?:boolean,
+  situacion?:any,
 )  => {
 
   //TODO: INICIO PROCESAR MASIVO
@@ -520,7 +522,7 @@ export const updateOT =async (
       _destino: _destino.toString(),
       _estado:_estado.toString(), 
       _usuario:`${user}`,
-      _situacion:"0",
+      _situacion: situacion || "0",
       _obs: "",
       _cristalesJSON: JSON.stringify(data.cristales),
       _armazonesJSON: JSON.stringify(data.armazones),
@@ -700,7 +702,7 @@ const _armazonesJSON = JSON.stringify(armazones)
     _estado:_estado.toString(), 
     // _usuario:User["id"].toString(),
     _usuario:user,
-    _situacion:"0",
+    _situacion:situacion || "0",
     _obs: _obs ? _obs : "",
     _cristalesJSON,
     _armazonesJSON,

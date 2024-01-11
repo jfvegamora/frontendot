@@ -55,7 +55,7 @@ const FOTOptica:React.FC<IOptica> = ({
     const _estado = data && data[EnumGrid.estado_id]
 
 
-   
+    console.log(_estado)
 
     const handleInputChange = (e:any) => {
         const { name, value } = e;

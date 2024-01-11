@@ -235,7 +235,7 @@ const MOTHistorica: React.FC = () => {
     <div className="mantenedorContainer">
       {/* <h1 className="mantenedorH1">Órdenes de Trabajo</h1> */}
 
-      <div className="mantenedorHead width90  items-center relative">
+      <div className="mantenedorHead width100  items-center relative">
         <PrimaryKeySearch
           baseUrl={strBaseUrl}
           setParams={setParams}
@@ -246,28 +246,30 @@ const MOTHistorica: React.FC = () => {
           primaryKeyInputs={[
             { name: "_folio", label: "Folio", type: "text" },
             { name: "_rut", label: "Rut", type: "text" },
+            { name: "_nombre", label: "Nombre", type: "text" },
+            
+            { name: "_nombre", label: "Reporte Atencion", type: "text" },
+            { name: "_nombre", label: "Orden de Compra", type: "text" },
+            { name: "_nombre", label: "Numero Factura", type: "text" },
+
+            { name: "_fecha_desde", label: "Desde", type: "date", styles:{with:"w-[12.3rem]  !h-[6rem]"} },
+            { name: "_fecha_hasta", label: "Hasta", type: "date" ,styles:{with:"w-[12.3rem] !h-[6rem]"}},
 
             {
               name: "_proyecto",
               label: "Proyecto",
               type: "select",
               selectUrl: "/api/proyectos/",
-            },
+            },  
             {
               name: "_establecimiento",
               label: "Establecimiento",
               type: "select",
               selectUrl: "/api/establecimientos/",
+              styles:{with:"w-[30rem] !ml-[6rem]"}
             },
 
-            { name: "_fecha_desde", label: "Desde", type: "date", styles:{with:"w-[17.3rem]  !h-[6rem]"} },
-            { name: "_fecha_hasta", label: "Hasta", type: "date" ,styles:{with:"w-[17.3rem]  !h-[6rem]"}},
 
-            { name: "_nombre", label: "Nombre", type: "text" },
-            { name: "_nombre", label: "Reporte Atencion", type: "text" },
-            { name: "_nombre", label: "Reporte Atencion", type: "text" },
-            { name: "_nombre", label: "Reporte Atencion", type: "text" },
-            { name: "_nombre", label: "Reporte Atencion", type: "text" },
             {
               name: "_estado",
               label: "OTEstado",
@@ -280,13 +282,16 @@ const MOTHistorica: React.FC = () => {
               label: "OTMotivo",
               type: "select",
               selectUrl:"/api/tipos/s",
-              tipos: "OTMotivo"
-            },              
+              tipos: "OTMotivo",
+              styles:{with:" w-[30rem] !ml-[6rem] "}
+            },  
+            { name: "_nombre", label: "Numero Guia", type: "text" }, 
+                     
               
             
           ]}
         />
-        <div className="w-[50%]  bottom-8 right-0 absolute">
+        {/* <div className="w-[50%]  bottom-8 right-0 absolute">
         <PrimaryButtonsComponent
           handleAddPerson={openModal}
           handleDeleteSelected={handleDeleteSelected}
@@ -295,7 +300,7 @@ const MOTHistorica: React.FC = () => {
           pkToDelete={pkToDelete}
           strEntidad={strEntidadExcel}
           strBaseUrl={strBaseUrl}
-          showAddButton={true}
+          showAddButton={false}
           showExportButton={true}
           showDeleteButton={true}
           showForwardButton={false}
@@ -303,12 +308,12 @@ const MOTHistorica: React.FC = () => {
           idMenu={idMenu}
         />
 
-        </div>
+        </div> */}
       </div>
       
       
       {/* //TODO: BOTONES SECCION PROYECTO REPORTE ATENCION/FIRMA */}
-      <div className=" w-full h-[10%] ">
+      <div className=" w-full h-[14%] ">
 
          <Button color="orange" className='otActionButton mt-3 mx-10' onClick={()=>setShowReporteAtencion((prev)=>!prev)}>Reporte Atencion</Button>
               {showReporteAtencion && <FReporteAtencion closeModal={()=>setShowReporteAtencion(false)}/>}

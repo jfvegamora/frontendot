@@ -42,6 +42,7 @@ import { Spinner } from '@material-tailwind/react';
 import { toast } from 'react-toastify';
 import { addToArmazones, addToCristales, clearCodigos, fetchOT } from '../../../redux/slices/OTSlice';
 import { validation_tipo_anteojo } from '../../utils/OTReceta_utils';
+import FOTPendiente from '../../components/OTForms/FOTPendiente';
 
 const FOTArmazones = lazy(()=>import('../../components/OTForms/FOTArmazones'));
 const FOTBitacora = lazy(()=>import('../../components/OTForms/FOTBitacora'));
@@ -752,6 +753,7 @@ const FOT:React.FC<IFOTProps> = ({
   const [formValues, setFormValues] = useState<FormData | any>({});
   const [showGarantia, setShowGarantia] = useState(false);
   const [showDerivacion, setShowDerivacion] = useState(false);
+  const [showPendiente, setShowPendiente]  = useState(false);
   const [_existCliente, setExistCliente] = useState(false);
   const [submitAction, setSubmitAction] = useState('');
   const [_isMotivo, setIsMotivo] = useState(false);
@@ -789,8 +791,7 @@ const FOT:React.FC<IFOTProps> = ({
   // console.log(strCodigoProyecto)
 
   //formularios
-  const onCloseGarantia = () =>setShowGarantia(false)
-  const onCloseDerivacion = () =>setShowDerivacion(false)
+ 
   
   // const sumatoriaNivel1 = validacionNivel1.reduce((index, objeto) => index + objeto.valor, 0);
 
@@ -1302,7 +1303,7 @@ useEffect(() => {
 
   return (
 
-    <div className='useFormContainerOT top-[0%] w-full h-[100%]'>
+    <div className='useFormContainerOT top-[0%]  w-full h-[100%]'>
       <Tabs>
         <TabList className='flex items-center top-[10]'>
           <Tab className="custom-tab ">ÓPTICA</Tab>
@@ -1311,8 +1312,9 @@ useEffect(() => {
           <Tab className="custom-tab ">CRISTALES</Tab>
           <Tab className="custom-tab ">ARMAZONES</Tab>
           <Tab className="custom-tab ">BITÁCORA</Tab>
-
-          <h1 className='tabFolioNumber'>Folio OT: {data && data[EnumGrid.folio]}</h1>
+          {isEditting && (
+            <h1 className='tabFolioNumber'>Folio OT: {data && data[EnumGrid.folio]}</h1>
+          )}
         </TabList>
 
 
@@ -1349,17 +1351,23 @@ useEffect(() => {
 
           {showGarantia && (
             <div>
-              <FOTGarantia data={data && data} onClose={onCloseGarantia}/>
+              <FOTGarantia data={data && data} onClose={() =>setShowGarantia(false)}/>
             </div>
           )}
 
           {showDerivacion && (
             <div>
-              <FOTDerivacion    closeModal={handleCloseForm} formValues={formValues} data={data && data} onClose={onCloseDerivacion}/>
+              <FOTDerivacion  closeModal={handleCloseForm} formValues={formValues} data={data && data} onClose={() =>setShowDerivacion(false)}/>
             </div>
           )}
 
+          {showPendiente && (
+            <div>
+              <FOTPendiente closeModal={handleCloseForm} onClose={()=>setShowPendiente(false)} data={data && data}/>
+            </div>
+          )}
 
+          
           <div className='flex items-center mx-auto mt-[1.5rem] justify-around w-1/2 '>
         
                 {isEditting && 
@@ -1388,7 +1396,7 @@ useEffect(() => {
                 isEditting &&
                 OTPermissions[7] === "1" &&
                 (
-                  <Button className='otActionButton bg-yellow-700' onClick={handlePausarClick}>Pausar</Button>
+                  <Button className='otActionButton bg-yellow-700' onClick={()=>setShowPendiente((prev)=>!prev)}>Pausar</Button>
                 )}
 
                 {OTPermissions &&

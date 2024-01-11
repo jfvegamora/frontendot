@@ -220,7 +220,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
             <IconButton
               onClick={() => fetchSelectData()}
               variant="text"
-              className="mx2 iconRefresh text-[#3f3c9b] "
+              className={`mx2  ${readOnly ? "left-[-40px] !text-black hover:!text-[#f8b179]" : "iconRefresh"}`}
               tabIndex={-1}
             >
               <FiRefreshCw className="h-6 w-6" />

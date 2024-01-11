@@ -451,6 +451,10 @@ select::-ms-expand {
   color: #f8b179 !important;
 }
 
+.estadoOT{
+  background-color: red;
+}
+
 .gridContainer {
   border-width: 1px;
   border-left-width: 2px;

@@ -99,21 +99,21 @@ const MOT: React.FC = () => {
   // console.log("params:", params);
   // console.log(entity)
 
-
   useEffect(() => {
     const newPkToDelete = selectedRows.map((row: number) => ({
-      folio       : OTs.data[row] && OTs.data[row][EnumGrid.id],
-      armazones   : [{codigo: OTs.data[row] && OTs.data[row][13]}, {codigo: OTs.data[row] && OTs.data[row][14]}],
-      cristales   : [{codigo: OTs.data[row] && OTs.data[row][16]}, {codigo: OTs.data[row] && OTs.data[row][17]}],
-      proyecto    : OTs.data[row] && OTs.data[row][6],
-      punto_venta : OTs.data[row] && OTs.data[row][5],
+      folio             : OTs.data[row] && OTs.data[row][EnumGrid.id],
+      estado_id         : OTs.data[row] && OTs.data[row][3],
+      estado_impresion  : OTs.data[row] && OTs.data[row][5],
+      armazones         : [{codigo: OTs.data[row] && OTs.data[row][14]}, {codigo: OTs.data[row] && OTs.data[row][15]}],
+      cristales         : [{codigo: OTs.data[row] && OTs.data[row][17]}, {codigo: OTs.data[row] && OTs.data[row][18]}],
+      proyecto          : OTs.data[row] && OTs.data[row][7],
+      punto_venta       : OTs.data[row] && OTs.data[row][6],
 
     }));
     console.log(newPkToDelete)
     setPkToDelete(newPkToDelete as any)
   }, [selectedRows]);
 
-  console.log(pktoDelete)
   //SWR-POLLING
   // const fetcher = (url:string) => axios.get(url).then((res)=>res.data);
   // const {data} = useSWR(`${URLBackend}/api/ot/listado/?query=01&_origen=${OTAreas["areaActual"]}`, fetcher,{

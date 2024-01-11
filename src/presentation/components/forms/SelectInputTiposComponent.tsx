@@ -23,7 +23,7 @@ interface ISelectInputProps {
   handleSelectChange?: any;
   inputName?: any;
   error?: any;
-  entidad: string;
+  entidad: any;
   inputValues?: any;
   inputRef?: any;
   readOnly?: boolean;
@@ -59,13 +59,16 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
     const stateListBox = useAppSelector((store: AppStore) => store.listBoxTipos[entidad]);
     const [entities, setEntities] = useState(stateListBox|| []);
     const [strSelectedName, _setStrSelectedName] = useState(data || undefined);
-    const inputRef = useRef(null);
+    const inputRef = useRef(null); 
 
+    const params = typeof entidad === 'string' ? entidad : `${entidad[0]}&_p2=${entidad[1]}`
+    console.log(params) 
+    console.log(`${URLBackend}/api/tipos/listado/?query=02&_p1=${params}`)
 
     const fetchData = async () => {
       try {
         if (!stateListBox || stateListBox.length < 1) {
-          const { data } = await axios(`${URLBackend}/api/tipos/listado/?query=02&_p1=${entidad}`);
+          const { data } = await axios(`${URLBackend}/api/tipos/listado/?query=02&_p1=${params}`);
           // console.log(data);
           setEntities(data);
         }
@@ -158,7 +161,7 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
       renderInput()
 
     }, [data]);
-
+   
     return (
       // <div className="flex min-w-[60px] w-full items-center mb-2 mx-4 mt-select mt-select-dropdown-up cursor-pointer ">
       <div className={`flex items-center mt-select mt-select-dropdown-up cursor-pointer ${customWidth ? customWidth : "w-[19.2rem]"}`}>
@@ -171,7 +174,7 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
               onClick={() => fetchData()}
               variant="text"
               color="blue-gray"
-              className="mx2 iconRefresh"
+              className={`mx2  ${readOnly ? "left-[-40px] !text-black hover:!text-[#f8b179]" : "iconRefresh"}`}
               // className={`"mx2 "  ${readOnly ? "iconRefresh" : ""} `}
               tabIndex={-1}
             >

@@ -388,7 +388,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 data={formValues ? formValues["a2_dp"] : data && data[EnumGrid.a2_dp]}
                                 control={control}
                                 isOT={true}
-
+                                textAlign="text-center"
                                 onlyRead={!(!deshabilitarCampo.value.a2_dp && (!isEditting || (permiso_usuario_receta && permiso_areas_receta)))}
                                 // error={errors.fecha_nacimiento}
                             />

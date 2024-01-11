@@ -16,8 +16,6 @@ interface IDerivacion {
     closeModal?:any
 }
 
-
-
 interface FormData{
     proyecto_codigo: undefined;
     folio_ot: number;
@@ -31,7 +29,7 @@ interface FormData{
     formValues:any
 }
 
-const FOTDerivacion:React.FC<IDerivacion> = ({
+const FOTPendiente:React.FC<IDerivacion> = ({
     data,
     onClose,
     // formValues,
@@ -44,14 +42,16 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
     const OTSlice:any = useAppSelector((store:AppStore)=>store.OTS)
     const dispatch = useAppDispatch();
 
+  
+
 
     const onSubmit: SubmitHandler<FormData> = async(jsonData) =>{
         // fetchDerivacion(jsonData)
         updateOT(
             jsonData,
             OTAreas["areaActual"],
-            jsonData.area_hasta.toString() as any,
-            40,
+            OTAreas["areaActual"],
+            30,
             formValues,
             data,
             OTSlice.cristales, 
@@ -74,7 +74,7 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
                 X
             </button>
         </div>
-        <h1 className='userFormLabel'>Derivación de OT</h1>
+        <h1 className='userFormLabel'>OT Pendiente</h1>
 
         <form className='userFormulario' onSubmit={handleSubmit(onSubmit)}>
                 <div className=" w-full flex items-center rowForm">
@@ -117,41 +117,18 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
                     </div>
                 </div>
 
-                <div className="w-full flex items-center rowForm">
-                    <div className="w-[50%]">
-                        <TextInputComponent
-                            type="text"
-                            label="Área desde"
-                            name="area_desde"
-                            control={control}
-                            data= {data && data[EnumGrid.area]}
-                            onlyRead={true}
-                            customWidth={"mt-[2rem]"}
-                        />
-                    </div>
-                    <div className="w-[50%]">
-                        <SelectInputComponent
-                            label="Área hasta"
-                            name="area_hasta"
-                            showRefresh={true}
-                            isOT={true}
-                            control={control}
-                            entidad={["/api/tipos/", "02", "OTAreas"]}
-                            customWidth={"mr-[-1rem] mt-[2rem]"}
-                        />
-                    </div>
-                </div>
+             
 
                 <div className="input-container items-center rowForm ">
                 {/* <div className="w-full flex items-center rowForm"> */}
                     <div className="w-full  ">
                         <SelectInputComponent
-                            label="Situacion"
+                            label="Motivo Pendiente"
                             name="situacion"
                             showRefresh={true}
                             isOT={true}
                             control={control}
-                            entidad={["/api/otsituaciones/", "02", "60"]}
+                            entidad={["/api/otmotivopendiente/", "02", OTAreas["areaActual"]]}
                             customWidth={"w-[] ml-[1rem] mr-[-1rem] mt-[2rem]"}
                         />
                     </div>
@@ -170,7 +147,7 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
                 </div>
 
                 <div className="flex justify-center">
-                    <Button  type="submit" className='otActionButton bg-red-900'>Derivar</Button>
+                    <Button  type="submit" className='otActionButton bg-yellow-700'>Pausar</Button>
                 </div>
         </form>
 
@@ -178,4 +155,4 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
   )
 }
 
-export default FOTDerivacion
+export default FOTPendiente;
