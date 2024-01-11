@@ -243,11 +243,11 @@ const subMenuParametrizacion = [
     link: "/proyectopuntosventa",
     id: 33,
   },
-  {
-    title: "Parametrización de Reporte Atención",
-    link: "/proyectoreporteatencion",
-    id: 19,
-  },
+  // {
+  //   title: "Parametrización de Reporte Atención",
+  //   link: "/proyectoreporteatencion",
+  //   id: 19,
+  // },
   {
     title: "Parametrización de Accesorios",
     link: "/proyectoaccesorios",
