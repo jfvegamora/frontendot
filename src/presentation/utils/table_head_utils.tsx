@@ -195,6 +195,41 @@ export const table_head_OT_historica = [
     width: "w-[8rem]"
   },
   {
+    cell: "N° Rep. Firma",
+    key: "num_rep_firma",
+    visible: true,
+    alignment: "text-left",
+    width: "w-[6rem]"
+  },
+  {
+    cell: "N° Rep. Atención",
+    key: "num_rep_atencion",
+    visible: true,
+    alignment: "text-left",
+    width: "w-[6rem]"
+  },
+  {
+    cell: "N° OC",
+    key: "num_oc",
+    visible: true,
+    alignment: "text-left",
+    width: "w-[6rem]"
+  },
+  {
+    cell: "N° Guía",
+    key: "num_guia",
+    visible: true,
+    alignment: "text-left",
+    width: "w-[6rem]"
+  },
+  {
+    cell: "N° Factura",
+    key: "num_factura",
+    visible: true,
+    alignment: "text-left",
+    width: "w-[6rem]"
+  },
+  {
     cell: "Título Proyecto",
     key: "proyecto",
     visible: true,
@@ -237,127 +272,6 @@ export const table_head_OT_historica = [
     visible: true,
     alignment: "text-center",
     width: "w-[8rem]"
-  },
-  //************ RECETA ANTEOJO 1 */
-  {
-    cell: "A1 OD ESF",
-    key: "a1_od_esf",
-    visible: true,
-    alignment: "text-center",
-    width: "w-[4rem]"
-  },
-  {
-    cell: "A1 OD CIL",
-    key: "a1_od_cil",
-    visible: true,
-    alignment: "text-center",
-    width: "w-[4rem]"
-  },
-  {
-    cell: "A1 OD EJE",
-    key: "a1_od_eje",
-    visible: true,
-    alignment: "text-center",
-    width: "w-[4rem]"
-  },
-  {
-    cell: "A1 OD AD",
-    key: "a1_od_ad",
-    visible: true,
-    alignment: "text-center",
-    width: "w-[4rem]"
-  },
-  {
-    cell: "A1 OI ESF",
-    key: "a1_oi_esf",
-    visible: true,
-    alignment: "text-center",
-    width: "w-[4rem]"
-  },
-  {
-    cell: "A1 OI CIL",
-    key: "a1_oi_cil",
-    visible: true,
-    alignment: "text-center",
-    width: "w-[4rem]"
-  },
-  {
-    cell: "A1 OI EJE",
-    key: "a1_oi_eje",
-    visible: true,
-    alignment: "text-center",
-    width: "w-[4rem]"
-  },
-  {
-    cell: "A1 OI AD",
-    key: "a1_oi_ad",
-    visible: true,
-    alignment: "text-center",
-    width: "w-[4rem]"
-  },
-  {
-    cell: "A1 DP",
-    key: "a1_dp",
-    visible: true,
-    alignment: "text-center",
-    width: "w-[4rem]"
-  },
-  {
-    cell: "A1 ALT",
-    key: "a1_alt",
-    visible: true,
-    alignment: "text-center",
-    width: "w-[4rem]"
-  },
-  //************ RECETA ANTEOJO 2 */  
-  {
-    cell: "A2 OD ESF",
-    key: "a2_od_esf",
-    visible: true,
-    alignment: "text-center",
-    width: "w-[4rem]"
-  },
-  {
-    cell: "A2 OD CIL",
-    key:"a2_od_cil",
-    visible: true,
-    alignment: "text-center",
-    width: "w-[4rem]"
-  },
-  {
-    cell: "A2 OD EJE",
-    key: "a2_od_eje",
-    visible: true,
-    alignment: "text-center",
-    width: "w-[4rem]"
-  },
-  {
-    cell: "A2 OI ESF",
-    key: "a2_oi_esf",
-    visible: true,
-    alignment: "text-center",
-    width: "w-[4rem]"
-  },
-  {
-    cell: "A2 OI CIL",
-    key: "a2_oi_cil",
-    visible: true,
-    alignment: "text-center",
-    width: "w-[4rem]"
-  },
-  {
-    cell: "A2 OI EJE",
-    key: "a2_oi_eje",
-    visible: true,
-    alignment: "text-center",
-    width: "w-[4rem]"
-  },
-  {
-    cell: "A2 DP",
-    key: "a2_dp",
-    visible: true,
-    alignment: "text-center",
-    width: "w-[4rem]"
   },
   //************ ARMAZONES */
   {
@@ -417,8 +331,6 @@ export const table_head_OT_historica = [
     cell: "POR VENCER",
     key: "por_vencer",
     visible: false,
-    alignment: "text-center",
-    width: "w-[10trem]"
   },
   {
     cell: "",
