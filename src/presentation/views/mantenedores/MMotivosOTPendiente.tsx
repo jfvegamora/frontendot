@@ -10,16 +10,16 @@ import {
   PrimaryKeySearch,
   TableComponent,
 } from "../../components";
-import { TITLES , table_head_situaciones } from "../../utils";
-import FSituaciones from "../forms/FSituaciones";
+import { TITLES , table_head_motivos_ot_pendiente } from "../../utils";
+import FMotivosOTPendiente from "../forms/FMotivosOTPendiente";
 
 
 
-const strEntidad = "Situaciones ";
-const strEntidadExcel = "Situaciones";
-const strBaseUrl = "/api/otsituaciones/";
+const strEntidad = "Motivos de OT Pendiente ";
+const strEntidadExcel = "Motivos_de_OT_Pendiente";
+const strBaseUrl = "/api/otmotivopendiente/";
 const strQuery = "01";
-const idMenu = 29;
+const idMenu = 39;
 
 export enum EnumGrid {
   ID = 1,
@@ -29,7 +29,7 @@ export enum EnumGrid {
 }
 
 
-const MSituaciones: React.FC = () => {
+const MMotivosOTPendiente: React.FC = () => {
   const [params, setParams] = useState([]);
   const { escritura_lectura} = usePermission(idMenu || 0 );
   
@@ -109,7 +109,7 @@ const MSituaciones: React.FC = () => {
           entidad={strEntidad}
           pkToDelete={pkToDelete}
           data={entities}
-          tableHead={table_head_situaciones}
+          tableHead={table_head_motivos_ot_pendiente}
           showEditButton={true}
           showDeleteButton={false}
           idMenu={idMenu}
@@ -118,19 +118,19 @@ const MSituaciones: React.FC = () => {
       </div>
 
       {isModalInsert && (
-        <FSituaciones
+        <FMotivosOTPendiente
           label={`${TITLES.ingreso} ${strEntidad}`}
           closeModal={closeModal}
           selectedRows={selectedRows}
           setEntities={setEntities}
+          escritura_lectura={escritura_lectura}
           params={params}
           isEditting={false}
-          escritura_lectura={escritura_lectura}
         />
       )}
 
       {isModalEdit && (
-        <FSituaciones
+        <FMotivosOTPendiente
           label={`${TITLES.edicion} ${strEntidad}`}
           closeModal={closeModal}
           selectedRows={selectedRows}
@@ -147,4 +147,4 @@ const MSituaciones: React.FC = () => {
   );
 };
 
-export default MSituaciones;
+export default MMotivosOTPendiente;

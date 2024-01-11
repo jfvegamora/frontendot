@@ -163,7 +163,12 @@ const navListMenuOT = [
     id: 37,
   },
   {
-    title: "Situaciones de derivación",
+    title: "Motivos de OT Pendiente",
+    link: "/motivootpendiente",
+    id: 39,
+  },
+  {
+    title: "Motivos de OT Derivada",
     link: "/situaciones",
     id: 29,
   },

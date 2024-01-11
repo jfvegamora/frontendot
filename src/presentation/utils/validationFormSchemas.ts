@@ -61,6 +61,12 @@ export const validationPuntosVentaSchema = () =>
     almacen    : yup.string().required(`${msg}`),
     encargado  : yup.string().required(`${msg}`),
   });
+// Schema MOTIVOS OT PENDIENTE
+export const validationMotivosOTPendienteSchema = () =>
+  yup.object().shape({
+    descripcion: yup.string().required(`${msg}`),
+    area       : yup.string().default('0'),
+  });
 // Schema SITUACIONES
 export const validationSituacionesSchema = () =>
   yup.object().shape({

@@ -874,6 +874,48 @@ export const table_head_vitrinas = [
     width: "w-[4rem]",
   },
 ];
+export const table_head_motivos_ot_pendiente = [
+  {
+    cell: <input type="checkbox" />,
+    key: "checkbox",
+    visible: true,
+    width: "w-[5rem]",
+    alignment: "flex justify-center items-center"
+  },
+  {
+    cell: "ID",
+    key: "id",
+    visible: false,
+  },
+  {
+    cell: "Descripción",
+    key: "descripcion",
+    visible: true,
+    width: "w-[18rem]",
+    alignment: "text-left"
+  },
+  {
+    cell: "ID Area",
+    key: "id_area",
+    visible: false,
+    width: "w-[9rem]",
+    alignment: "text-left"
+  },
+  {
+    cell: "Área Exclusiva",
+    key: "area",
+    visible: true,
+    width: "w-[12rem]",
+    alignment: "text-left"
+  },
+  {
+    cell: "",
+    key: "opciones",
+    visible: true,
+    width: "w-[4rem]",
+    alignment: "items-center"
+  },
+];
 export const table_head_situaciones = [
   {
     cell: <input type="checkbox" />,

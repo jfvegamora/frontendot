@@ -77,6 +77,7 @@ const FProyectosDocum: React.FC<IUserFormPrps> = React.memo(
       handleSubmit,
       formState: { errors },
       setValue,
+      getValues
     } = useForm({
       resolver: yupResolver(schema),
     });
@@ -107,15 +108,8 @@ const FProyectosDocum: React.FC<IUserFormPrps> = React.memo(
     }
 
     function transformUpdateQuery(jsonData: InputData): OutputData | null {
-      const year = fechaHoraActual.getFullYear(); // Obtiene el año de 4 dígitos
-      const month = String(fechaHoraActual.getMonth() + 1).padStart(2, '0'); // Obtiene el mes (agrega 1 ya que los meses comienzan en 0) y lo formatea a 2 dígitos
-      const day = String(fechaHoraActual.getDate()).padStart(2, '0'); // Obtiene el día y lo formatea a 2 dígitos
-
-      const fechaFormateada = `${year}/${month}/${day}`;
-      const dateHora = new Date().toLocaleTimeString();
-
       const fields = [
-        `proyecto= "${jsonData.proyecto}"`, `fecha_hora= "${fechaFormateada + " " + dateHora}"`, `tipo_doc= ${jsonData.tipo_doc}`, `numero_doc= ${jsonData.numero_doc}`, `fecha_doc= "${jsonData.fecha_doc}"`, `total_neto= ${jsonData.total_neto}`, `tipo_doc_ref= ${jsonData.tipo_doc_ref}`, `numero_doc_ref= ${jsonData.numero_doc_ref}`, `usuario= ${UsuarioID}`, `observaciones= "${jsonData.observaciones}"`,
+        `tipo_doc=${jsonData.tipo_doc}`, ` numero_doc=${jsonData.numero_doc}`, ` fecha_doc="${jsonData.fecha_doc}"`, ` total_neto=${jsonData.total_neto}`, ` tipo_doc_ref=${jsonData.tipo_doc_ref}`, ` numero_doc_ref=${jsonData.numero_doc_ref}`, ` usuario=${UsuarioID}`, ` observaciones="${jsonData.observaciones}"`,
       ];
 
       const filteredFields = fields.filter(
@@ -128,14 +122,17 @@ const FProyectosDocum: React.FC<IUserFormPrps> = React.memo(
       let _p1 = filteredFields.join(",");
       _p1 = _p1.replace(/'/g, '!');
 
+      // console.log(jsonData)
+      console.log(data)
 
-
-      return {
+      const query = {
         query: "04",
         _p1,
         _p2: jsonData.proyecto,
-        _p3: `"${fechaFormateada + " " + dateHora}"`,
-      };
+        _p3: `${ data && data[3]}`,
+      }
+      // console.log(query)
+      return query;
     }
 
     const resetTextFields = React.useCallback(() => {
@@ -266,9 +263,8 @@ const FProyectosDocum: React.FC<IUserFormPrps> = React.memo(
 
     }
 
-    // console.log('codigo proyecto', strCodigoProyecto)
-    // console.log(errors)
-    console.log(strCodigoProyecto2.value)
+    // console.log(strCodigoProyecto2.value)
+    
     const fechaFormateada = fechaHoraActual.toISOString().split('T')[0];
 
     return (
@@ -310,7 +306,7 @@ const FProyectosDocum: React.FC<IUserFormPrps> = React.memo(
                   showRefresh={true}
                   data={data && data[EnumGrid.tipo_doc_id]}
                   control={control}
-                  entidad="TipoDoc"
+                  entidad={["TipoDoc", "6,7"]}
                   customWidth={"!ml-[1rem] !w-[]"}
                   error={errors.tipo_doc}
                 />
@@ -335,13 +331,13 @@ const FProyectosDocum: React.FC<IUserFormPrps> = React.memo(
               <div className="input-container items-center rowForm  w-[50%] ">
                 <div className="w-full !mt-4">
                   <TextInputComponent
-                    type={isEditting ? "datetime" : "date"}
-                    label="Fecha Doc"
+                    // type={isEditting ? "datetime" : "date"}
+                    type={"date"}
+                    label= "Fecha Doc"
                     name="fecha_doc"
                     data={fechaFormateada ? fechaFormateada : data && data[EnumGrid.fecha_doc]}
                     control={control}
                     error={errors.fecha_doc}
-                    onlyRead={isEditting}
                     customWidth={"!mr-[1rem] w-[12rem]"}
                     textAlign="text-center"
                   />
@@ -371,7 +367,7 @@ const FProyectosDocum: React.FC<IUserFormPrps> = React.memo(
                   showRefresh={true}
                   data={data && data[EnumGrid.tipo_doc_ref_id]}
                   control={control}
-                  entidad="TipoDoc"
+                  entidad={["TipoDoc", "5,6,7"]}
                   customWidth={"!ml-[1rem] !w-[]"}
                   error={errors.tipo_doc}
                 />

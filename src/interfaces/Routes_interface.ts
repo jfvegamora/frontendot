@@ -10,6 +10,7 @@ const MClientes             = lazy(()=>import("../presentation/views/mantenedore
 const MEstablecimientos     = lazy(()=>import("../presentation/views/mantenedores/MEstablecimientos"));
 const MPuntosVenta          = lazy(()=>import("../presentation/views/mantenedores/MPuntosVenta"));
 const MSituaciones          = lazy(()=>import("../presentation/views/mantenedores/MSituaciones"));
+const MMotivosOTPendiente    = lazy(()=>import("../presentation/views/mantenedores/MMotivosOTPendiente"));
 
 const MArmazones            = lazy(()=>import("../presentation/views/mantenedores/MArmazones"));
 const MArmazonesKardex      = lazy(()=>import("../presentation/views/mantenedores/MArmazonesKardex"));
@@ -65,6 +66,7 @@ export const PrivateRoutes = {
   ESTABLECIMIENTOS      : "establecimientos",
   PUNTOS_VENTA          : "puntosventa",
   SITUACIONES           : "situaciones",
+  MOTIVOS_OT_PENDIENTE  : "motivootpendiente",
 
   //BODEGA
   ARMAZONES             : "armazones",
@@ -152,6 +154,12 @@ export const privateRoutes = [
     path                : PrivateRoutes.SITUACIONES,
     component           : MSituaciones,
     requiredPermissions : ['view_' + PrivateRoutes.SITUACIONES]
+  },
+  {
+    id                  : "39",
+    path                : PrivateRoutes.MOTIVOS_OT_PENDIENTE,
+    component           : MMotivosOTPendiente,
+    requiredPermissions : ['view_' + PrivateRoutes.MOTIVOS_OT_PENDIENTE]
   },
 
   //BODEGA

@@ -136,7 +136,7 @@ const MProyectosDocum: React.FC = () => {
             data={entities}
             strBaseUrl={strBaseUrl}
             tableHead={table_head_proyectos_docum}
-            showEditButton={true}
+            showEditButton={false}
             showPdfButton={false}
             idMenu={idMenu}
             leftEdit={true}
@@ -144,7 +144,7 @@ const MProyectosDocum: React.FC = () => {
         </div>
   
         
-        {/* {isModalInsert && ( */}
+        {isModalInsert && (
           <FProyectosDocum
             label={`${TITLES.ingreso} ${strEntidad}`}
             closeModal={closeModal}
@@ -154,7 +154,7 @@ const MProyectosDocum: React.FC = () => {
             isEditting={false}
             escritura_lectura={escritura_lectura}
             />
-        {/* )} */}
+        )}
   
         {isModalEdit && (
           <FProyectosDocum
