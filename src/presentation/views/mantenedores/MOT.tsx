@@ -16,7 +16,7 @@ import OTAreasButtons from "../../components/OTAreasButtons";
 import { AppStore, 
   useAppDispatch, 
   useAppSelector } from "../../../redux/store";
-import FilterButton from "../../components/FilterButton";
+import FilterButton, { filterToggle } from "../../components/FilterButton";
 import { clearData } from "../../../redux/slices/OTSlice";
 import { signal } from "@preact/signals-react";
 import { EnumGrid as EnumOT } from "./MOTHistorica";
@@ -186,7 +186,7 @@ const MOT: React.FC = () => {
 
       </div>
 
-        <div className="mantenedorHeadOT width100 !h-[4rem]  items-center">
+        <div className="mantenedorHeadOT width100 !h-[4rem]  items-center ">
           <PrimaryButtonsComponent
             handleAddPerson={openModal}
             handleDeleteSelected={handleDeleteSelected}
@@ -260,7 +260,7 @@ const MOT: React.FC = () => {
           </FilterButton>
         </div>
       
-      <div className="scroll !h-[30rem]">
+      <div className={`width100 scroll ${filterToggle.value ? "!mt-[13rem] !h-[25rem]" : "!mt-[1rem] !h-[40rem]"} `}>
         <TableComponent
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}

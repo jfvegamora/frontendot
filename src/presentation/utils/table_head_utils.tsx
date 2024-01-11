@@ -188,11 +188,19 @@ export const table_head_OT_historica = [
     width: "w-[6rem]"
   },
   {
+    cell: "Estado_id",
+    key: "estado_id",
+    visible: false,
+    alignment: "text-center",
+    width: "w-[8rem]"
+  },
+  {
     cell: "Estado",
     key: "estado",
     visible: true,
     alignment: "text-center",
-    width: "w-[8rem]"
+    width: "w-[8rem]",
+    color: true
   },
   {
     cell: "Título Proyecto",

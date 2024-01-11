@@ -72,9 +72,8 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
 
       return resultadoFiltrado.map((OT:any)=>{
         const estado = OT[positionCampo]
-        console.log(estado)
         if(estado !== nameCampo){
-          return [OT[1], OT[3]]
+          return [OT[1], OT[4]]
         }
         return true
       })
@@ -111,6 +110,9 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
           const result = await axios(`${strUrl}/${query}`);
 
           console.log(result)
+          if(result.status === 200){
+            toast.success(`OT Impresa: ${ot.folio}`)
+          }
           
         } catch (error) {
           console.log(error)
@@ -133,12 +135,12 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
      
       const result = validationStateOT(4, 'En proceso', folios)
       const areAllSameType = result.every((item:any) => item === true);
-
+      console.log(result)
       
       if(!areAllSameType){
         result.map((ot:any)=>{
           if(Array.isArray(ot)){
-            toast.error(`Error: folio ${ot[0]}  | estado ${ot[1]}`);
+            toast.error(`Error: folio ${ot[0]}  | ${ot[1]}`);
             return;
           }
         })

@@ -1,10 +1,9 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 
 import {
-  PrimaryButtonsComponent,
   PrimaryKeySearch,
   TableComponent,
 } from "../../components";
@@ -15,12 +14,11 @@ import { TITLES, table_head_OT_historica } from "../../utils";
 import FOT from "../forms/FOT";
 import { AppStore, useAppSelector } from "../../../redux/store";
 import { Button } from "@material-tailwind/react";
-import { FOTDerivacion } from "../../components/OTForms";
-import FOTReporteAtencion from "../forms/FReporteAtencion";
 import FReporteAtencion from "../forms/FReporteAtencion";
 import FOrdenCompra from "../forms/FOrdenCompra";
 import FFactura from "../forms/FFactura";
 import FGuia from "../forms/FGuia";
+import FilterButton, { filterToggle } from "../../components/FilterButton";
 
 export enum EnumGrid {
   folio = 1,
@@ -165,7 +163,6 @@ export enum EnumGrid {
 
 
 const strEntidad = "Orden de Trabajo Histórico";
-const strEntidadExcel = "Órdenes de trabajo";
 const strBaseUrl = "/api/othistorica/";
 const strQuery = "14";
 const idMenu = 1;
@@ -191,7 +188,6 @@ const MOTHistorica: React.FC = () => {
 
   const {
     //entities state
-    entities,
     setEntities,
     entity,
     //modal methods
@@ -199,7 +195,6 @@ const MOTHistorica: React.FC = () => {
     isModalEdit,
     toggleEditModal,
     toggleEditOTModal,
-    openModal,
     closeModal,
     //Check methods
     handleSelect,
@@ -208,7 +203,6 @@ const MOTHistorica: React.FC = () => {
     handleSelectedAll,
     //primary buttons methods
     handleDeleteSelected,
-    resetEntities,
   } = useEntityUtils(strBaseUrl, strQuery);
   // console.log("entities:", entities);
   console.log(entity)
@@ -235,103 +229,115 @@ const MOTHistorica: React.FC = () => {
     <div className="mantenedorContainer">
       {/* <h1 className="mantenedorH1">Órdenes de Trabajo</h1> */}
 
-      <div className="mantenedorHead width100  items-center relative">
-        <PrimaryKeySearch
-          baseUrl={strBaseUrl}
-          setParams={setParams}
-          updateParams={updateParams}
-          strQuery={strQuery}
-          setEntities={setEntities}
-          otHistorica={true}
-          primaryKeyInputs={[
-            { name: "_folio", label: "Folio", type: "text" },
-            { name: "_rut", label: "Rut", type: "text" },
-            { name: "_nombre", label: "Nombre", type: "text" },
-            
-            { name: "_nombre", label: "Reporte Atencion", type: "text" },
-            { name: "_nombre", label: "Orden de Compra", type: "text" },
-            { name: "_nombre", label: "Numero Factura", type: "text" },
+      <FilterButton
+        className="top-[10.5%] left-[3%]"
+        
+      >
+          <div className="mantenedorHead width100  items-center relative">
+            <PrimaryKeySearch
+              baseUrl={strBaseUrl}
+              setParams={setParams}
+              updateParams={updateParams}
+              strQuery={strQuery}
+              setEntities={setEntities}
+              otHistorica={true}
+              primaryKeyInputs={[
+                { name: "_folio", label: "Folio", type: "text" },
+                { name: "_rut", label: "Rut", type: "text" },
+                { name: "_nombre", label: "Nombre", type: "text" },
+                
+                { name: "_nombre", label: "Reporte Atencion", type: "text" },
+                { name: "_nombre", label: "Orden de Compra", type: "text" },
+                { name: "_nombre", label: "Numero Factura", type: "text" },
 
-            { name: "_fecha_desde", label: "Desde", type: "date", styles:{with:"w-[12.3rem]  !h-[6rem]"} },
-            { name: "_fecha_hasta", label: "Hasta", type: "date" ,styles:{with:"w-[12.3rem] !h-[6rem]"}},
+                { name: "_fecha_desde", label: "Desde", type: "date", styles:{with:"w-[12.3rem]  !h-[6rem]"} },
+                { name: "_fecha_hasta", label: "Hasta", type: "date" ,styles:{with:"w-[12.3rem] !h-[6rem]"}},
 
-            {
-              name: "_proyecto",
-              label: "Proyecto",
-              type: "select",
-              selectUrl: "/api/proyectos/",
-            },  
-            {
-              name: "_establecimiento",
-              label: "Establecimiento",
-              type: "select",
-              selectUrl: "/api/establecimientos/",
-              styles:{with:"w-[30rem] !ml-[6rem]"}
-            },
+                {
+                  name: "_proyecto",
+                  label: "Proyecto",
+                  type: "select",
+                  selectUrl: "/api/proyectos/",
+                },  
+                {
+                  name: "_establecimiento",
+                  label: "Establecimiento",
+                  type: "select",
+                  selectUrl: "/api/establecimientos/",
+                  styles:{with:"w-[30rem] !ml-[6rem]"}
+                },
 
 
-            {
-              name: "_estado",
-              label: "OTEstado",
-              type: "select",
-              selectUrl:"/api/tipos/s",
-              tipos: "OTEstados"
-            },              
-            {
-              name: "_motivo",
-              label: "OTMotivo",
-              type: "select",
-              selectUrl:"/api/tipos/s",
-              tipos: "OTMotivo",
-              styles:{with:" w-[30rem] !ml-[6rem] "}
-            },  
-            { name: "_nombre", label: "Numero Guia", type: "text" }, 
-                     
-              
-            
-          ]}
-        />
-        {/* <div className="w-[50%]  bottom-8 right-0 absolute">
-        <PrimaryButtonsComponent
-          handleAddPerson={openModal}
-          handleDeleteSelected={handleDeleteSelected}
-          handleRefresh={resetEntities}
-          params={params}
-          pkToDelete={pkToDelete}
-          strEntidad={strEntidadExcel}
-          strBaseUrl={strBaseUrl}
-          showAddButton={false}
-          showExportButton={true}
-          showDeleteButton={true}
-          showForwardButton={false}
-          showRefreshButton={true}
-          idMenu={idMenu}
-        />
+                {
+                  name: "_estado",
+                  label: "OTEstado",
+                  type: "select",
+                  selectUrl:"/api/tipos/s",
+                  tipos: "OTEstados"
+                },              
+                {
+                  name: "_motivo",
+                  label: "OTMotivo",
+                  type: "select",
+                  selectUrl:"/api/tipos/s",
+                  tipos: "OTMotivo",
+                  styles:{with:" w-[30rem] !ml-[6rem] "}
+                },  
+                { name: "_nombre", label: "Numero Guia", type: "text" }, 
+                        
+                  
+                
+              ]}
+            />
+            {/* <div className="w-[50%]  bottom-8 right-0 absolute">
+            <PrimaryButtonsComponent
+              handleAddPerson={openModal}
+              handleDeleteSelected={handleDeleteSelected}
+              handleRefresh={resetEntities}
+              params={params}
+              pkToDelete={pkToDelete}
+              strEntidad={strEntidadExcel}
+              strBaseUrl={strBaseUrl}
+              showAddButton={false}
+              showExportButton={true}
+              showDeleteButton={true}
+              showForwardButton={false}
+              showRefreshButton={true}
+              idMenu={idMenu}
+            />
 
-        </div> */}
-      </div>
+            </div> */}
+          </div>
+      </FilterButton>
+
       
       
       {/* //TODO: BOTONES SECCION PROYECTO REPORTE ATENCION/FIRMA */}
-      <div className=" w-full h-[14%] ">
 
-         <Button color="orange" className='otActionButton mt-3 mx-10' onClick={()=>setShowReporteAtencion((prev)=>!prev)}>Reporte Atencion</Button>
-              {showReporteAtencion && <FReporteAtencion closeModal={()=>setShowReporteAtencion(false)}/>}
-         
-         <Button color="orange" className='otActionButton mt-3 mx-10' onClick={()=>setShowOrdenCompra((prev)=>!prev)}>Orden Compra</Button>
-              {showOrdenCompra && <FOrdenCompra closeModal={()=>setShowOrdenCompra(false)}/>}
-         
-         <Button color="orange" className='otActionButton mt-3 mx-10' onClick={()=>setShowFactura((prev)=>!prev)}>Asignar Factura</Button>
-              {showFactura && <FFactura closeModal={()=>setShowFactura(false)}/>}
-         
-         <Button color="orange" className='otActionButton mt-3 mx-10' onClick={()=>setShowGuia((prev)=>!prev)}>Generar Guia</Button>
-              {showGuia && <FGuia closeModal={()=>setShowGuia(false)}/>}
+      <div className="mantenedorHeadOT width100 !h-[4rem] !mt-8 mr-8 items-center ">
+            <div className="mx-auto">
       
-      </div>
+              <Button color="orange" className='otActionButton mt-3 mx-10' onClick={()=>setShowReporteAtencion((prev)=>!prev)}>Reporte Atencion</Button>
+                    {showReporteAtencion && <FReporteAtencion closeModal={()=>setShowReporteAtencion(false)}/>}
+              
+              <Button color="orange" className='otActionButton mt-3 mx-10' onClick={()=>setShowOrdenCompra((prev)=>!prev)}>Orden Compra</Button>
+                    {showOrdenCompra && <FOrdenCompra closeModal={()=>setShowOrdenCompra(false)}/>}
+              
+              <Button color="orange" className='otActionButton mt-3 mx-10' onClick={()=>setShowFactura((prev)=>!prev)}>Asignar Factura</Button>
+                    {showFactura && <FFactura closeModal={()=>setShowFactura(false)}/>}
+              
+              <Button color="orange" className='otActionButton mt-3 mx-10' onClick={()=>setShowGuia((prev)=>!prev)}>Generar Guia</Button>
+                    {showGuia && <FGuia closeModal={()=>setShowGuia(false)}/>}
+          
+
+            </div>
+        </div>
+
+
       
       
       
-      <div className="scroll">
+      <div className={`width100 scroll ${filterToggle.value ? "!mt-[13rem] !h-[25rem]" : "!mt-[1em] !h-[40rem]"} `}>
         <TableComponent
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}

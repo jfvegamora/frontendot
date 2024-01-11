@@ -77,10 +77,9 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
     const areaActual = OTAreas["areaActual"] 
     const permissions = (area:number) => areaActual &&  OTAreas["areas"].find((permiso:any)=>permiso[1] === area)
 
-    console.log(OTColores)
 
-    let derivada = [OTColores["Derivada"][1]]
-    console.log(derivada[0])
+
+
     useEffect(()=>{
       // console.log('render')
       const permiso = permissions(areaActual)
@@ -140,37 +139,30 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
     //   };
     // }, []);
     
-    const handleColorEstado = (rowData:any) => {
-
-      console.log(rowData)
-      console.log(`bg-[${derivada[0]}]`)
-
-      const color = 'red-500'
-
-      
-      switch (rowData) {
-        case 'Ingresada':
-            return 'bg-[#FFFFFF] text-[#000000]'
-        case 'En proceso':
-            return 'bg-[#FFFFFF] text-[#000000]'
-        case 'Pendiente':
-            return 'bg-[#E0DD79] text-[#000000]'
-        case 'Derivada':
-            return 'bg-[#E05B16] !text-[#FFFFFF]'
-        default:
-          break;
+    const handleColorEstado = (rowData:any, background?:string) => {
+      try {
+        if(OTColores[rowData]){
+          return background ? `${OTColores[rowData][1]}` : `${OTColores[rowData][0]}`
+        }
+      } catch (error) {
+        console.log(error)
+        throw error;
       }
-      // return 'bg-[#E0DD79]'
     }
 
-    const renderTextCell = (text: string, alignment?:string, type?:number, color2?:boolean) => {
+
+
+
+
+    const renderTextCell = (text: string, alignment?:string, type?:number, color2?:boolean, rowData?:any) => {
 
       const cellStyle = {
-        textAlign:alignment
+        textAlign:alignment,
+        color: rowData && handleColorEstado(rowData[4])
       }
       // console.log(type)
       return(
-        <Typography variant="small" color="blue-gray" className={`gridText h-[2.7rem]  py-2  ${(type === 1 && color2) ? '!text-white': 'text-black'} `} style={cellStyle}>
+        <Typography variant="small" color="blue-gray" className={`gridText h-[2.7rem]  py-2  ${(type === 1 && color2) ? '': ( type === 1 ? '!text-white'  :'text-black')} `} style={ color2 ? cellStyle : null}>
           {text !== null && text !== undefined ? text.toString() : ""}
         </Typography>
       )
@@ -268,8 +260,9 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                   
                     // console.log(folio)
 
-                    // console.log(rowData[34])
-                    const color = (rowData[34] === 'S' ? "bg-black" : "");
+                    console.log(rowData[21])
+                    const color = (rowData[21] === 'S' ? "bg-black" : "");
+                    console.log(color)
                     const type = color === 'bg-black' ? 1: 0
                     // const backgroundcolor =  isOT ? `bg-[${OTColores[rowData[3]][1]}]` : ""
                     
@@ -277,14 +270,18 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                     return (
                       visible && (
                         <td
-                        className={`gridTableData  ${color2 ? handleColorEstado(rowData[4]) : ""}   ${alignment}`} 
+                        className={`gridTableData  ${alignment} ${color !== '' ? color : ""}`} 
                           key={col}
                           id={tableHead[col].key}
+                          style={{
+                            backgroundColor: color2 ? ( handleColorEstado(rowData[4], 'background') ): "",
+
+                          }}
                         >
                           
                           {col === 0
                             ? renderCheckboxCell(rowIndex, folio)
-                            : renderTextCell(row, '', type, color2)}
+                            : renderTextCell(row, '', type, color2, rowData)}
                         </td>
                       )
                     );

@@ -17,10 +17,10 @@ const initialState: DataState = {
     armazones: [],
     data: [],
     ot: [],
-    derivacionColores: {
-        Derivada: ["#FFFFFF", "#E05B16"],
-        Pendiente: ["#000000", "#E0DD79"]
-    }
+    derivacionColores: localStorage.getItem("OTColores")
+    ? JSON.parse(localStorage.getItem("OTColores") as string)
+    : {}
+ 
 };
 
 export const fetchOT = createAsyncThunk(
@@ -63,6 +63,29 @@ const filterCodigos = (codigos:any) => {
      const codigosFiltrados = codigos.filter((codigo:any)=> codigo.codigo !== null && codigo.codigo !== 'undefined')
     return codigosFiltrados;
 }
+
+
+export const fetchColores = createAsyncThunk(
+    'fetch/colores',
+    async()=>{
+        try {
+            const response = await axios.get(`${URLBackend}/api/tipos/listado/?query=02&_p1=OTEstados`)    
+            console.log(response)   
+            if(response.data){
+                const colores = response.data.reduce((acc:any, obj:any)=>{
+                    acc[obj[1]] = [obj[2], obj[3]]
+                    return acc      
+                },{})
+
+                return colores;
+
+            }
+        } catch (error) {
+            console.log(error)
+            throw error;
+        }
+    }
+)
 
 
 
@@ -112,6 +135,11 @@ const OTSlice = createSlice({
             state.ot = action.payload
             return state
         });
+        builder.addCase(fetchColores.fulfilled, (state,action )=>{
+            state.derivacionColores = action.payload
+            localStorage.setItem('OTColores', JSON.stringify(action.payload))
+            return state
+        })
     },
 });
 

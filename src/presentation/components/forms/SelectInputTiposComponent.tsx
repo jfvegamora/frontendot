@@ -62,8 +62,6 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
     const inputRef = useRef(null); 
 
     const params = typeof entidad === 'string' ? entidad : `${entidad[0]}&_p2=${entidad[1]}`
-    console.log(params) 
-    console.log(`${URLBackend}/api/tipos/listado/?query=02&_p1=${params}`)
 
     const fetchData = async () => {
       try {

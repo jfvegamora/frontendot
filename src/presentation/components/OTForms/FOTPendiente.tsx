@@ -69,12 +69,17 @@ const FOTPendiente:React.FC<IDerivacion> = ({
     }
   return (
     <div className='useFormContainer useFormDerivacion centered-div use40rem z-30'>
-        <div className="userFormBtnCloseContainer">
-            <button onClick={onClose} className="userFormBtnClose">
-                X
-            </button>
+        
+        <div className="userFormBtnCloseContainer flex ">
+            <div className='w-[50%] mx-auto !text-center  '>
+                <h1 className='userFormLabel mx-auto  w-full '>OT Pendiente</h1>
+            </div>
+            <div className=''>
+                <button onClick={onClose} className="userFormBtnClose">
+                    X
+                </button>
+            </div>
         </div>
-        <h1 className='userFormLabel'>OT Pendiente</h1>
 
         <form className='userFormulario' onSubmit={handleSubmit(onSubmit)}>
                 <div className=" w-full flex items-center rowForm">
