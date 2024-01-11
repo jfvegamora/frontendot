@@ -4,7 +4,6 @@ import React, { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { IconButton, Input, Tooltip } from "@material-tailwind/react";
 // import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import useCrud from "../hooks/useCrud";
 import { SelectInputComponent } from ".";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
@@ -43,7 +42,7 @@ interface PrimaryKeySearchProps {
 // ));
 
 const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
-  ({ setEntities, primaryKeyInputs, baseUrl, updateParams, description,strQuery, otHistorica }) => {
+  ({ setEntities, primaryKeyInputs, updateParams, description, otHistorica }) => {
     const { control, handleSubmit } = useForm<IPrimaryKeyState>();
     const [cilindrico, setCilindrico] = useState();
     const [inputValues, setInputValues] = useState<IPrimaryKeyState>({});
@@ -52,15 +51,15 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
     );
     const dispatch = useAppDispatch();
     const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas);
-    const { ListEntity } = useCrud(baseUrl);
+    // const { ListEntity } = useCrud(baseUrl);
     // console.log("cristalDescritpion", cristalDescritpion[3]);
     
     useEffect(() => {
       // Actualiza el estado interno cuando la prop description cambia
       setCristalDescription(description || '');
     }, [description]);
-    
-    console.log(OTAreas["areaActual"])
+    // 
+    // console.log(OTAreas["areaActual"])
     
     const handleInputChange = React.useCallback(
       (name: string, value: string) => {

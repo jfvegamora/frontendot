@@ -260,9 +260,9 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                   
                     // console.log(folio)
 
-                    console.log(rowData[21])
+                    // console.log(rowData[21])
                     const color = (rowData[21] === 'S' ? "bg-black" : "");
-                    console.log(color)
+                    // console.log(color)
                     const type = color === 'bg-black' ? 1: 0
                     // const backgroundcolor =  isOT ? `bg-[${OTColores[rowData[3]][1]}]` : ""
                     

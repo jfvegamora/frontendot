@@ -1,4 +1,4 @@
-3/************ MENU OT ************/
+/************ MENU OT ************/
 export const table_head_OT_diaria2 = [
   {
     cell: <input type="checkbox" />,
@@ -162,7 +162,7 @@ export const table_head_OT_diaria2 = [
     visible: false,
     alignment: "text-center",
     width: "w-[10trem]"
-  },
+  }
 ];
 export const table_head_OT_historica = [
   {
@@ -348,10 +348,14 @@ export const table_head_OT_historica = [
     visible: false,
   },
   {
-    cell: "",
-    key: "opciones",
-    visible: true,
-    width: "w-[4rem]",
+    cell: "POR VENCER",
+    key: "por_vencer",
+    visible: false,
+  },
+  {
+    cell: "POR VENCER",
+    key: "por_vencer",
+    visible: false,
   },
 ];
 export const table_head_OT_bitacora = [

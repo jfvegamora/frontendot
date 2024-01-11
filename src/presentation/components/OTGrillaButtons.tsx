@@ -7,7 +7,7 @@ import { usePermission } from '../hooks';
 import { BUTTON_MESSAGES } from '../utils';
 
 import { useReactToPrint } from 'react-to-print';
-import FOTImpresa from '../views/forms/FOTImpresa';
+// import FOTImpresa from '../views/forms/FOTImpresa';
 import { AppStore, useAppDispatch, useAppSelector } from '../../redux/store';
 import { fetchOTByID } from '../../redux/slices/OTSlice';
 
@@ -89,7 +89,7 @@ const OTGrillaButtons:React.FC<AreaButtonsProps> = React.memo(({ areaPermissions
                 </Tooltip>
             )}
             <div className='hidden'>
-                <FOTImpresa ref={componentRef} />
+                {/* <FOTImpresa ref={componentRef} /> */}
             </div>
         </div>
     );
