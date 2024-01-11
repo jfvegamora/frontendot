@@ -195,6 +195,13 @@ export const table_head_OT_historica = [
     width: "w-[8rem]"
   },
   {
+    cell: "Área",
+    key: "area",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[6rem]"
+  },
+  {
     cell: "N° Rep. Firma",
     key: "num_rep_firma",
     visible: true,
