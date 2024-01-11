@@ -10,6 +10,7 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import SelectInputTiposComponent from "./forms/SelectInputTiposComponent";
 import { AppStore, useAppDispatch, useAppSelector } from "../../redux/store";
 import { fetchOT } from "../../redux/slices/OTSlice";
+import { useCrud } from "../hooks";
 
 interface IPrimaryKeyState {
   [key: string]: string | number;
@@ -42,7 +43,7 @@ interface PrimaryKeySearchProps {
 // ));
 
 const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
-  ({ setEntities, primaryKeyInputs, updateParams, description, otHistorica }) => {
+  ({ setEntities, primaryKeyInputs, updateParams, description, otHistorica, baseUrl }) => {
     const { control, handleSubmit } = useForm<IPrimaryKeyState>();
     const [cilindrico, setCilindrico] = useState();
     const [inputValues, setInputValues] = useState<IPrimaryKeyState>({});
@@ -51,7 +52,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
     );
     const dispatch = useAppDispatch();
     const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas);
-    // const { ListEntity } = useCrud(baseUrl);
+    const { ListEntity } = useCrud(baseUrl);
     // console.log("cristalDescritpion", cristalDescritpion[3]);
     
     useEffect(() => {
@@ -110,12 +111,10 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
       
       data && updateParams([searchParams]);
       // console.log(data)
-      // console.log(searchParams)
-      console.log(otHistorica)
       try {
         const response = otHistorica 
                             ?  dispatch(fetchOT({OTAreas:OTAreas["areaActual"], searchParams:searchParams, historica:true}))
-                            :  dispatch(fetchOT({OTAreas:OTAreas["areaActual"], searchParams:searchParams}))
+                            :  await ListEntity(searchParams, "01")
 
 
         setEntities(response);
