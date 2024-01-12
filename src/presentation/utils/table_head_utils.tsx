@@ -2270,7 +2270,7 @@ export const table_head_vitrinas_armazones = [
     width: "w-[4rem]",
   },
 ];
-export const table_head_parametrizacion_accesorios = [
+export const table_head_proyectos_accesorios = [
   {
     cell: <input type="checkbox" />,
     key: "checkbox",
@@ -2342,6 +2342,13 @@ export const table_head_parametrizacion_accesorios = [
     key: "estado",
     visible: true,
     alignment: "text-center",
+    width: "w-[8rem]",
+  },
+  {
+    cell: "Valor Neto $",
+    key: "valor_neto",
+    visible: true,
+    alignment: "text-right",
     width: "w-[8rem]",
   },
   {

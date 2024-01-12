@@ -9,7 +9,7 @@ import {
   TableComponent,
 } from "../../components";
 import { useEntityUtils, usePermission } from "../../hooks";
-import { TITLES, table_head_parametrizacion_accesorios} from "../../utils";
+import { TITLES, table_head_proyectos_accesorios} from "../../utils";
 import FProyectosAccesorios from "../forms/FProyectosAccesorios";
 import FProyectosAccesoriosCopiar from "../forms/FProyectosAccesoriosCopiar";
 
@@ -24,7 +24,8 @@ export enum EnumGrid {
   proveedor            = 7,
   marca_id             = 8,
   marca                = 9,
-  estado               = 10
+  estado               = 10,
+  valor_neto           = 11
 }
 const strEntidad = "Parametrización de Accesorios ";
 const strEntidadExcel = "Parametrizacion_de_accesorios";
@@ -128,7 +129,7 @@ const MProyectosAccesorios: React.FC = () => {
           setSelectedRows={setSelectedRows}
           entidad={strEntidad}
           data={entities}
-          tableHead={table_head_parametrizacion_accesorios}
+          tableHead={table_head_proyectos_accesorios}
           showEditButton={true}
           showDeleteButton={false}
           idMenu={idMenu}

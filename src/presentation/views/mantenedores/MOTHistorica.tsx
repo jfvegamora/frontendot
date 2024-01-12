@@ -1,7 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState} from "react";
+import React, { useState } from "react";
 
 import {
   PrimaryKeySearch,
@@ -14,9 +14,9 @@ import { TITLES, table_head_OT_historica } from "../../utils";
 import FOT from "../forms/FOT";
 import { AppStore, useAppSelector } from "../../../redux/store";
 import { Button } from "@material-tailwind/react";
-import FOrdenCompra from "../forms/FOrdenCompra";
-import FFactura from "../forms/FFactura";
-import FGuia from "../forms/FGuia";
+import FOTOrdenCompra from "../forms/FOTOrdenCompra";
+import FOTFactura from "../forms/FOTFactura";
+import FOTGuiaDespacho from "../forms/FOTGuiaDespacho";
 import FilterButton, { filterToggle } from "../../components/FilterButton";
 
 export enum EnumGrid {
@@ -35,7 +35,7 @@ export enum EnumGrid {
   establecimiento_id = 13,
   establecimiento = 14,
 
-  
+
   cliente_rut = 15,
   cliente_nomnbre = 16,
   cliente_tipo = 17,
@@ -45,13 +45,13 @@ export enum EnumGrid {
   cliente_region_id = 21,
   cliente_region = 22,
   cliente_provincia_id = 23,
-  cliente_provincia =24,
+  cliente_provincia = 24,
   cliente_comuna_id = 25,
   cliente_comuna = 26,
   cliente_telefono = 27,
   cliente_correo = 28,
   oftalmologo_id = 29,
-  oftalmologo    = 30,
+  oftalmologo = 30,
 
   fecha_atencion = 31,
   fecha_entrega_taller = 32,
@@ -88,8 +88,8 @@ export enum EnumGrid {
   a1_opcion_vta = 63,
   a1_armazon_id = 64,
   a1_armazon = 65,
-  a2_opcion_vta_id=66,
-  a2_opcion_vta=67,
+  a2_opcion_vta_id = 66,
+  a2_opcion_vta = 67,
 
 
   a2_armazon_id = 68,
@@ -145,15 +145,15 @@ export enum EnumGrid {
   motivo_garantia_id = 112,
   motivo_garantia = 113,
   folio_asociado = 114,
-  
+
   resolucion_garantia_id = 115,
   resolucion_garantia = 116,
   worktracking = 117,
   nota_venta = 118,
   numero_reporte_firma = 119,
   numero_reporte_atencion = 120,
-  numero_oc      = 121,
-  numero_guia    = 122,
+  numero_oc = 121,
+  numero_guia = 122,
   numero_factura = 123,
   folio_interno_mandante = 124,
   total = 125,
@@ -170,15 +170,12 @@ type PrimaryKey = {
   pk1: number;
 };
 const MOTHistorica: React.FC = () => {
-  const [showOrdenCompra, setShowOrdenCompra]         = useState(false);
-  const [showGuia, setShowGuia]                       = useState(false);
-  const [showFactura, setShowFactura]                 = useState(false);
-
-
-
+  const [showOrdenCompra, setShowOrdenCompra] = useState(false);
+  const [showGuia, setShowGuia] = useState(false);
+  const [showFactura, setShowFactura] = useState(false);
 
   const [params, setParams] = useState([]);
-  const OTs:any = useAppSelector((store: AppStore) => store.OTS);
+  const OTs: any = useAppSelector((store: AppStore) => store.OTS);
 
   const updateParams = (newParams: Record<string, never>) => {
     setParams(Object.keys(newParams).map((key) => newParams[key]));
@@ -229,65 +226,41 @@ const MOTHistorica: React.FC = () => {
 
       <FilterButton
         className="top-[10.5%] left-[3%]"
-        
+
       >
-          <div className="mantenedorHead width100  items-center relative">
-            <PrimaryKeySearch
-              baseUrl={strBaseUrl}
-              setParams={setParams}
-              updateParams={updateParams}
-              strQuery={strQuery}
-              setEntities={setEntities}
-              otHistorica={true}
-              primaryKeyInputs={[
-                { name: "_folio", label: "Folio", type: "text" },
-                { name: "_rut", label: "Rut", type: "text" },
-                { name: "_nombre", label: "Nombre", type: "text" },
-                
-                { name: "_nombre", label: "Reporte Atencion", type: "text" },
-                { name: "_nombre", label: "Orden de Compra", type: "text" },
-                { name: "_nombre", label: "Numero Factura", type: "text" },
+        <div className="mantenedorHead width100  items-center relative">
+          <PrimaryKeySearch
+            baseUrl={strBaseUrl}
+            setParams={setParams}
+            updateParams={updateParams}
+            strQuery={strQuery}
+            setEntities={setEntities}
+            otHistorica={true}
+            primaryKeyInputs={[
+              { name: "_folio", label: "Folio", type: "text" },
+              { name: "_rut", label: "Rut", type: "text" },
 
-                { name: "_fecha_desde", label: "Desde", type: "date", styles:{with:"w-[12.3rem]  !h-[6rem]"} },
-                { name: "_fecha_hasta", label: "Hasta", type: "date" ,styles:{with:"w-[12.3rem] !h-[6rem]"}},
+              { name: "_numero_firma", label: "N° Reporte Firma", type: "text" },
+              { name: "_numero_reporte", label: "N° Reporte Atención", type: "text" },
 
-                {
-                  name: "_proyecto",
-                  label: "Proyecto",
-                  type: "select",
-                  selectUrl: "/api/proyectos/",
-                },  
-                {
-                  name: "_establecimiento",
-                  label: "Establecimiento",
-                  type: "select",
-                  selectUrl: "/api/establecimientos/",
-                  styles:{with:"w-[30rem] !ml-[6rem]"}
-                },
+              { name: "_numero_oc", label: "N° Orden de Compra", type: "text" },
+              { name: "_numero_factura", label: "N° Factura", type: "text" },
 
+              { name: "_nombre", label: "Nombre", type: "text" },
+              { name: "_fecha_desde", label: "Atención Desde", type: "date", styles: { with: "w-[85%] !h-[6rem]" } },
 
-                {
-                  name: "_estado",
-                  label: "OTEstado",
-                  type: "select",
-                  selectUrl:"/api/tipos/s",
-                  tipos: "OTEstados"
-                },              
-                {
-                  name: "_motivo",
-                  label: "OTMotivo",
-                  type: "select",
-                  selectUrl:"/api/tipos/s",
-                  tipos: "OTMotivo",
-                  styles:{with:" w-[30rem] !ml-[6rem] "}
-                },  
-                { name: "_nombre", label: "Numero Guia", type: "text" }, 
-                        
-                  
-                
-              ]}
-            />
-            {/* <div className="w-[50%]  bottom-8 right-0 absolute">
+              { name: "_numero_guia", label: "N° Guía", type: "text" },
+              { name: "_establecimiento", label: "Establecimiento", type: "select", selectUrl: "/api/establecimientos/", styles: { with: "w-[27rem]" } },
+
+              { name: "_estado", label: "OTEstado", type: "select", selectUrl: "/api/tipos/s", tipos: "OTEstados", styles: { with: " w-[] " } },
+              { name: "_proyecto", label: "Proyecto (?)", type: "select", selectUrl: "/api/proyectos/", styles: { with: " w-[40rem]" } },
+
+              { name: "_fecha_hasta", label: "Atención Hasta", type: "date", styles: { with: "w-[85%] !h-[6rem]" } },
+              { name: "_motivo", label: "OTMotivo", type: "select", selectUrl: "/api/tipos/s", tipos: "OTMotivo", styles: { with: " w-[] " } },
+
+            ]}
+          />
+          {/* <div className="w-[50%]  bottom-8 right-0 absolute">
             <PrimaryButtonsComponent
               handleAddPerson={openModal}
               handleDeleteSelected={handleDeleteSelected}
@@ -305,35 +278,35 @@ const MOTHistorica: React.FC = () => {
             />
 
             </div> */}
-          </div>
+        </div>
       </FilterButton>
 
-      
-      
+
+
       {/* //TODO: BOTONES SECCION PROYECTO REPORTE ATENCION/FIRMA */}
 
       <div className="mantenedorHeadOT width100 !h-[4rem] !mt-8 mr-8 items-center ">
-            <div className="mx-auto">
-      
-              <Button color="orange" className='otActionButton mt-3 mx-10'>Reporte Atencion</Button>
-              
-              <Button color="orange" className='otActionButton mt-3 mx-10' onClick={()=>setShowOrdenCompra((prev)=>!prev)}>Orden Compra</Button>
-                    {showOrdenCompra && <FOrdenCompra closeModal={()=>setShowOrdenCompra(false)}/>}
-              
-              <Button color="orange" className='otActionButton mt-3 mx-10' onClick={()=>setShowFactura((prev)=>!prev)}>Asignar Factura</Button>
-                    {showFactura && <FFactura closeModal={()=>setShowFactura(false)}/>}
-              
-              <Button color="orange" className='otActionButton mt-3 mx-10' onClick={()=>setShowGuia((prev)=>!prev)}>Generar Guia</Button>
-                    {showGuia && <FGuia closeModal={()=>setShowGuia(false)}/>}
-          
+        <div className="mx-auto">
 
-            </div>
+          <Button className='otActionButton mt-3 mx-5' style={{ backgroundColor: '#676f9d' }}>Reporte Firma</Button>
+          <Button className='otActionButton mt-3 mx-5' style={{ backgroundColor: '#676f9d' }}>Reporte Atención</Button>
+
+          <Button className='otActionButton mt-3 mx-5' style={{ backgroundColor: '#676f9d' }} onClick={() => setShowOrdenCompra((prev) => !prev)}>Asignar OC</Button>
+          {showOrdenCompra && <FOTOrdenCompra closeModal={() => setShowOrdenCompra(false)} />}
+
+          <Button className='otActionButton mt-3 mx-5' style={{ backgroundColor: '#676f9d' }} onClick={() => setShowFactura((prev) => !prev)}>Asignar Factura</Button>
+          {showFactura && <FOTFactura closeModal={() => setShowFactura(false)} />}
+
+          <Button className='otActionButton mt-3 mx-5' style={{ backgroundColor: '#676f9d' }} onClick={() => setShowGuia((prev) => !prev)}>Asignar Guía</Button>
+          {showGuia && <FOTGuiaDespacho closeModal={() => setShowGuia(false)} />}
+
         </div>
+      </div>
 
 
-      
-      
-      
+
+
+
       <div className={`width100 scroll ${filterToggle.value ? "!mt-[13rem] !h-[25rem]" : "!mt-[1em] !h-[40rem]"} `}>
         <TableComponent
           handleSelectChecked={handleSelect}
@@ -354,7 +327,7 @@ const MOTHistorica: React.FC = () => {
         />
       </div>
 
-        
+
       {isModalInsert && (
         <FOT
           label={`${TITLES.ingreso} ${strEntidad}`}

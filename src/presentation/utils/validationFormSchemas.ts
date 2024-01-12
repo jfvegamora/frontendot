@@ -334,6 +334,7 @@ export const validationParametrizacionAccesorios = () =>
     proyecto        : yup.string().required(`${msg}`),
     codigo_accesorio: yup.string().required(`${msg}`),
     estado          : yup.string().required(`${msg}`),
+    valor_neto      : yup.string(),
 });
 
 // Schema PROYECTOS ARMAZONES-CRISTALES-ACCESORIOS-USUARIOS-MUESTRARIOS-VITRINAS COPIAR

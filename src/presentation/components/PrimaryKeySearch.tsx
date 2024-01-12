@@ -148,7 +148,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
           key={groupIndex}
           className={
             primaryKeyInputs.length > 5
-              ? `${otHistorica ? "grid grid-rows-3  grid-cols-2 w-[100%] px-10  " : "grid grid-rows-3 grid-cols-2"} w-[40vw] h-[30vh]  items-center `
+              ? `${otHistorica ? "grid grid-rows-3 grid-cols-2 w-[100%] px-0" : "grid grid-rows-3 grid-cols-2"} w-[30vw] h-[30vh]  items-center `
               : "flex mb-auto items-cente w-[70rem]  items-center "
           }
         >
