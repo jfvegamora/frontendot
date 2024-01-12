@@ -147,7 +147,8 @@ const FOTPendiente:React.FC<IDerivacion> = ({
                             name="observaciones"
                             control={control}
                             customWidth={"mt-[2rem]"}
-                        />
+                            isOptional={true}
+                            />
                     </div>
                 </div>
 

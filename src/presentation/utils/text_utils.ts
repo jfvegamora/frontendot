@@ -32,13 +32,14 @@ export const TITLES = {
   nuevo: "Nuevo ",
   nueva: "Nueva ",
   editar: "Editar ",
-  guardar: "GUARDAR",
+  guardar: "Guardar",
   ingreso: "Ingreso de ",
   egreso: "Egreso de ",
   edicion: "Edición de ",
   copiar: "Copia de ",
   permisos: "Permisos copiados correctamente",
   permisosError: "Usuario ya cuenta con permisos",
+  aceptar: "ACEPTAR",
 };
 
 export const EXCEL = {

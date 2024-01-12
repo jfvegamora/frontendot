@@ -239,7 +239,7 @@ select::-ms-expand {
 }
 
 .custom-optional{
-  background-color: rgba(255, 255, 255, 0.75);
+  background-color: rgba(255, 255, 255, 0.2);
   color: #2d3250;
 }
 
@@ -1019,7 +1019,7 @@ input[type="text"] {
 .otActionButton{
   box-shadow: 0 0 10px  rgb(66 71 105 / 0.9);
   font-size: medium;
-  padding: 15px 50px 15px 50px !important;
+  padding: 15px 25px 15px 25px !important;
   border-radius: 0.25rem;
   margin-top: 20px;
   margin-bottom: 20px;

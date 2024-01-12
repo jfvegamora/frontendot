@@ -13,7 +13,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationParametrizacionAccesorios } from "../../utils/validationFormSchemas";
 import { EnumGrid } from "../mantenedores/MProyectosAccesorios";
-import {  MODAL, SUCCESS_MESSAGES, TITLES } from "../../utils";
+import { MODAL, SUCCESS_MESSAGES, TITLES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
@@ -26,9 +26,10 @@ const strBaseUrl = "/api/proyectoaccesorios/";
 const strEntidad = "Parametrización de Accesorios ";
 
 export interface InputData {
-  proyecto        : string | undefined;
+  proyecto: string | undefined;
   codigo_accesorio: string | undefined;
-  estado          : string | undefined;
+  estado: string | undefined;
+  valor_neto: string | undefined;
 }
 
 interface OutputData {
@@ -41,8 +42,9 @@ interface OutputData {
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
 
   let _p1 = ` "${jsonData.proyecto}", 
-                "${jsonData.codigo_accesorio}",  
-                 ${jsonData.estado === "Disponible" ? 1 : 2}`;
+              "${jsonData.codigo_accesorio}",  
+               ${jsonData.estado === "Disponible" ? 1 : 2},
+               ${jsonData.valor_neto}`;
   _p1 = _p1.replace(/'/g, '!');
 
   const query: OutputData = {
@@ -55,7 +57,7 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
 
 export function transformUpdateQuery(jsonData: InputData): OutputData | null {
   const fields = [
-    `estado   = ${jsonData.estado === "Disponible" ? 1 : 2}`,
+    `estado   = ${jsonData.estado === "Disponible" ? 1 : 2}, valor_neto = ${jsonData.valor_neto}`,
   ];
 
   const filteredFields = fields.filter(
@@ -95,7 +97,7 @@ const FProyectosAccesorios: React.FC<IUserFormPrps> = React.memo(
     const { show } = useCustomToast();
     const [changeCodigo, setChangeCodigo] = useState()
     const accesorioData = signal([])
-    
+
     const {
       editEntity,
       createdEntity,
@@ -117,10 +119,11 @@ const FProyectosAccesorios: React.FC<IUserFormPrps> = React.memo(
 
     const resetTextFields = React.useCallback(() => {
       setValue("codigo_accesorio", "");
+      setValue("valor_neto", "");
 
       if (firstInputRef.current) {
         const firstInput = firstInputRef.current.querySelector(
-          'input[name="nombre"]'
+          'input[name="codigo_accesorio"]'
         );
         if (firstInput) {
           firstInput.focus();
@@ -146,8 +149,8 @@ const FProyectosAccesorios: React.FC<IUserFormPrps> = React.memo(
       async (response: any, isEditting: boolean) => {
         if (response.code === "ERR_BAD_RESPONSE" || response.stack) {
           const errorMessage = isEditting
-                ? strEntidad.concat(": " + response.message)
-                : strEntidad.concat(": " + response.message)
+            ? strEntidad.concat(": " + response.message)
+            : strEntidad.concat(": " + response.message)
           show({
             message: errorMessage ? errorMessage : response.code,
             type: "error",
@@ -155,8 +158,8 @@ const FProyectosAccesorios: React.FC<IUserFormPrps> = React.memo(
 
           return;
         }
-        
-        if(response.mensaje.includes('Creado')){
+
+        if (response.mensaje.includes('Creado')) {
           toastSuccess(isEditting);
         }
         if (!blnKeep && !isEditting) {
@@ -227,36 +230,36 @@ const FProyectosAccesorios: React.FC<IUserFormPrps> = React.memo(
       },
       [editEntity, createdEntity, handleApiResponse, intId]
     );
-    const fetchArmazon = async(codigo:string | undefined) =>{
+    const fetchArmazon = async (codigo: string | undefined) => {
       try {
-          const {data} = await axios(`${URLBackend}/api/accesorios/listado/?query=01&_p1=${codigo}`)
-          accesorioData.value = data 
-          console.log(data)      
+        const { data } = await axios(`${URLBackend}/api/accesorios/listado/?query=01&_p1=${codigo}`)
+        accesorioData.value = data
+        console.log(data)
       } catch (error) {
         throw error
       }
-  }
+    }
 
-    useEffect(()=>{
-      if(changeCodigo){
-          fetchArmazon(changeCodigo)
-           .then(()=>{
-              console.log(accesorioData.value)
-             if(accesorioData.value.length >= 1){
+    useEffect(() => {
+      if (changeCodigo) {
+        fetchArmazon(changeCodigo)
+          .then(() => {
+            console.log(accesorioData.value)
+            if (accesorioData.value.length >= 1) {
               accesorioData.value = []
-             }else{
-               toast.error('Código accesorio inválido')
-               accesorioData.value = []
-             }
-           })
+            } else {
+              toast.error('Código accesorio inválido')
+              accesorioData.value = []
+            }
+          })
       }
-    },[changeCodigo])
+    }, [changeCodigo])
     useEffect(() => {
       isEditting ? focusSecondInput("estado") : focusFirstInput("proyecto");
     }, []);
 
     return (
-      <div className="useFormContainer centered-div use40rem">
+      <div className="useFormContainer centered-div use30rem">
         <div className="userFormBtnCloseContainer">
           <button onClick={closeModal} className="userFormBtnClose">
             X
@@ -267,27 +270,27 @@ const FProyectosAccesorios: React.FC<IUserFormPrps> = React.memo(
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
-          <div className="w-full flex items-center h-[4rem] ">
-            <div className="input-container items-center rowForm w-full">
-              <div className="w-full ">
-                <SelectInputComponent
-                  label="Proyecto"
-                  name="proyecto"
-                  showRefresh={true}
-                  data={data && data[EnumGrid.codigo_proyecto]}
-                  control={control}
-                  entidad={["/api/proyectos/", "02"]}
-                  error={errors.proyecto}
-                  readOnly={isEditting}
-                  customWidth={"!ml-[1rem] !w-[38rem] "}
-                />
+            <div className="w-full flex items-center h-[4rem] ">
+              <div className="input-container items-center rowForm w-full">
+                <div className="w-full ">
+                  <SelectInputComponent
+                    label="Proyecto"
+                    name="proyecto"
+                    showRefresh={true}
+                    data={data && data[EnumGrid.codigo_proyecto]}
+                    control={control}
+                    entidad={["/api/proyectos/", "02"]}
+                    error={errors.proyecto}
+                    readOnly={isEditting}
+                    customWidth={"!ml-[1rem] !w-[28rem] "}
+                  />
+                </div>
               </div>
             </div>
-          </div>
 
-            <div className="w-full flex items-center !my-8 h-[4rem]">
-                <div className="input-container items-center rowForm w-[40%]">
-                  <div className="w-full">
+            <div className="w-full flex items-center !my-4 h-[4rem]">
+              <div className="input-container items-center rowForm w-[50%]">
+                <div className="w-full">
                   <TextInputComponent
                     type="text"
                     label="Código Accesorio"
@@ -297,19 +300,36 @@ const FProyectosAccesorios: React.FC<IUserFormPrps> = React.memo(
                     error={errors.codigo_accesorio}
                     onlyRead={isEditting}
                     handleChange={setChangeCodigo}
+                    inputRef={firstInputRef}
                   />
                 </div>
               </div>
               <div className="input-container items-center rowForm w-[50%]">
                 <div className="w-full">
+                  <TextInputComponent
+                    type="number"
+                    label="Valor Neto $"
+                    name="valor_neto"
+                    data={data && data[EnumGrid.valor_neto]}
+                    control={control}
+                    error={errors.valor_neto}
+                    textAlign="text-right"
+                    />
+                </div>
+              </div>
+            </div>
+
+            <div className="w-full flex items-center !my-4 h-[4rem]">
+              <div className="input-container items-center rowForm w-[95%] ">
+                <div className="w-full">
                   <RadioButtonComponent
-                  control={control}
-                  label="Estado"
-                  name="estado"
-                  data={data && data[EnumGrid.estado]}
-                  options={["Disponible", "No disponible"]}
-                  error={errors.estado}
-                  horizontal={true}
+                    control={control}
+                    label="Estado"
+                    name="estado"
+                    data={data && data[EnumGrid.estado]}
+                    options={["Disponible", "No disponible"]}
+                    error={errors.estado}
+                    horizontal={true}
                   />
                 </div>
               </div>
@@ -318,11 +338,11 @@ const FProyectosAccesorios: React.FC<IUserFormPrps> = React.memo(
 
           <div className="w-full">
             <div className="w-[70%] mx-auto">
-                {escritura_lectura && (
-                  <button type="submit" tabIndex={1} className="userFormBtnSubmit">
-                    {`${TITLES.guardar}`}
-                  </button>
-                )}
+              {escritura_lectura && (
+                <button type="submit" tabIndex={1} className="userFormBtnSubmit">
+                  {`${TITLES.guardar}`}
+                </button>
+              )}
             </div>
           </div>
 
