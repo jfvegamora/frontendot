@@ -252,9 +252,9 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                 <tr key={rowIndex} className="overflow-hidden">
                   {rowData.map((row: any, col: number) => {
                     // console.log("col", col);
-                    const visible   = tableHead && tableHead[col].visible;
-                    const alignment = tableHead && tableHead[col].alignment;
-                    const color2    = tableHead && tableHead[col].color;
+                    const visible   = tableHead?.[col]?.visible || false;
+                    const alignment = tableHead?.[col]?.alignment || "";
+                    const color2    = tableHead?.[col]?.color || false;
 
 
                   

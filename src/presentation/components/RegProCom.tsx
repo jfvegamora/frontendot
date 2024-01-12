@@ -3,6 +3,7 @@ import React,{useEffect, useState} from 'react'
 import { Controller } from 'react-hook-form';
 import useSWR from 'swr';
 import { validationClienteComuna } from '../utils/validationOT';
+import { AppStore, useAppSelector } from '../../redux/store';
 
 interface IProps{
     control:any;
@@ -20,6 +21,8 @@ interface IProps{
     onlyRead?:boolean;
     isOT?:boolean;
     onDataChange?:any;
+    className?:string;
+    isOptional?:boolean;
 };
 const fetcher = (url:string) => fetch(url).then((res) => res.json());
 
@@ -34,25 +37,31 @@ const RegProCom:React.FC<IProps> = ({
     errors,
     onlyRead,
     isOT,
-    onDataChange
+    onDataChange,
+    className,
+    isOptional
 }) => {
     // const firstProvinciaID = signal(null)
+  const {Regiones, Provincias, Comunas}:any           = useAppSelector((store: AppStore) => store.utils);
 
-  let { data: regions } = useSWR('https://mtoopticos.cl/api/regiones/listado/?query=02', fetcher);
+//   console.log(Regiones)
   
-  const [selectedRegion, setSelectedRegion] = useState(defaultRegion || 0);
-  
-  const { data: provinces } = useSWR(
-    selectedRegion ? `https://mtoopticos.cl/api/provincias/listado/?query=02&_p1=${selectedRegion}` : null,
-    fetcher
-  );
+//   console.log(Provincias)
 
-  const [selectedProvince, setSelectedProvince] = useState(defaultProvincia || 0);
 
-  const { data: comunas } = useSWR(
-    selectedProvince ? `https://mtoopticos.cl/api/comunas/listado/?query=02&_p1=${selectedProvince}` : null,
-    fetcher
-  );
+const [selectedRegion, setSelectedRegion] = useState(defaultRegion || 0);
+
+//   const { data: provinces } = useSWR(
+    //     selectedRegion ? `https://mtoopticos.cl/api/provincias/listado/?query=02&_p1=${selectedRegion}` : null,
+    //     fetcher
+    //   );
+    
+    const [selectedProvince, setSelectedProvince] = useState(defaultProvincia || 0);
+
+//   const { data: comunas } = useSWR(
+//     selectedProvince ? `https://mtoopticos.cl/api/comunas/listado/?query=02&_p1=${selectedProvince}` : null,
+//     fetcher
+//   );
   const [selectedCommune, setSelectedCommune] = useState(defaultComuna || 0);
 
     // console.log(provinces[0][0])
@@ -66,9 +75,9 @@ const RegProCom:React.FC<IProps> = ({
     isOT ? (onDataChange({['cliente_region']: regionId})) : (null)
     setSelectedRegion(regionId);
     setSelectedProvince(0);
-    if(provinces){
-        setSelectedCommune(provinces[0][0])
-    }
+    // if(provinces){
+    //     setSelectedCommune(provinces[0][0])
+    // }
   };
 
   const handleProvinceChange = (e: { target: { value: string; }; }) => {
@@ -95,10 +104,7 @@ const RegProCom:React.FC<IProps> = ({
 // console.log(defaultComuna)
 
 useEffect(()=>{
-    console.log(defaultRegion)
-    if(defaultRegion === 0){
-        regions = []
-    }
+
     if(defaultRegion){
         setSelectedRegion(defaultRegion)
         if(defaultProvincia){
@@ -135,14 +141,16 @@ useEffect(()=>{
                             onChange={handleRegionChange}
                             tabIndex  ={tabIndex || 1}
                             disabled={onlyRead}
-                            className="custom-input py-2 px-3 cursor-pointer z-0 "
+                            // className="custom-input py-2 px-3 cursor-pointer z-0 text-center "
+                            className={`${className ? className : "custom-input py-2  cursor-pointer z-0"}  ${onlyRead ? "custom-onlyread text-center" : isOptional ? "custom-optional" : "custom-required"}`}
+
                             >
-                                {!regions && (
+                                {!Regiones && (
                                     <option value={undefined} className="text-sm">
                                         
                                     </option>
                                 )}
-                                    {regions && regions.map((region:any) => (
+                                    {Regiones && Regiones.map((region:any) => (
                                         <option key={region[0]} value={region[0]}>
                                             {region[1]}
                                         </option>
@@ -166,17 +174,25 @@ useEffect(()=>{
                             {...field}
                             value={selectedProvince} 
                             disabled={onlyRead}
+                            
                             onChange={handleProvinceChange}
                             tabIndex  ={tabIndex || 1}
-                            className="custom-input py-2 px-3 cursor-pointer z-0 "
+                            // className="custom-input py-2 px-3 cursor-pointer z-0 "
+                            className={`${className ? className : "custom-input py-2  cursor-pointer z-0"}  ${onlyRead ? "custom-onlyread" : isOptional ? "custom-optional" : "custom-required"}`}
+
                             >
                                 {/* <option value={0}>Provincia</option> */}
-                                {!provinces && (
+                                {selectedRegion === 0 && (
                                     <option value={undefined} className="text-sm">
                                         
                                     </option>
                                     )}
-                                    {provinces && provinces.map((province:any) => (
+                                    {/* {provinces && provinces.map((province:any) => (
+                                        <option key={province[0]} value={province[0]}>
+                                            {province[1]}
+                                        </option>
+                                    ))} */}
+                                    {selectedRegion !== 0 && Provincias.filter((provincia:any) => (provincia[2] === selectedRegion)).map((province:any)=>(
                                         <option key={province[0]} value={province[0]}>
                                             {province[1]}
                                         </option>
@@ -202,27 +218,31 @@ useEffect(()=>{
                                         {errors.message}
                                     </p>
                                     )}
-                                <select 
+                         <select 
                             {...register(name)}
                             value={selectedCommune} 
                             disabled={onlyRead}
+                                    
                             defaultValue={defaultComuna && defaultComuna}
                             onChange={handleCommuneChange}
                             tabIndex  ={tabIndex || 1}
-                            className="custom-input py-2 px-3 cursor-pointer z-0 "
+                            // className="custom-input py-2 px-3 cursor-pointer z-0 "
+                            className={`${className ? className : "custom-input py-2  cursor-pointer z-0"}  ${onlyRead ? "custom-onlyread" : isOptional ? "custom-optional" : "custom-required"}`}
+
                             >
                                 {/* <option value={defaultComuna ? defaultComuna : 0}>Comuna</option> */}
-                                {!comunas && (
+                                {selectedProvince === 0 && (
                                     <option value={undefined} className="text-sm">
                     
-                                </option>
+                                    </option>
                                 )}
                                 {/* <option>Comuna</option> */}
-                                    {comunas && comunas.map((comuna:any) => (
+                                {console.log(Comunas.filter((comuna:any)=>(comuna[2] === selectedProvince)).map((comuna:any)=>comuna))}
+                                    { selectedProvince !== 0 && Comunas.filter((comuna:any) => (comuna[2] === selectedProvince)).map((comuna:any)=>(
                                         <option key={comuna[0]} value={comuna[0]}>
                                             {comuna[1]}
                                         </option>
-                                    ))}
+                                ))}
                             </select>  
                         </div>
                     </div>

@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { useSelector } from "react-redux";
 import { TypedUseSelectorHook, useDispatch } from "react-redux";
-import { userReducer, funcionaliddadesReducer,ORReuder, OTAreasReducer, listBoxTiposReducer, listboxReuder } from "./slices";
+import { userReducer, funcionaliddadesReducer,ORReuder, OTAreasReducer, listBoxTiposReducer, listboxReuder, Utils } from "./slices";
 import { IUser } from "../interfaces";
 import { IFuncionalidad } from "./slices/funcionalidadesSlice";
 import { IOTAreas } from "./slices/OTAreasSlice";
@@ -11,9 +11,10 @@ export interface AppStore {
   user: IUser | null;
   funcionalidades: IFuncionalidad  | null ;
   OTAreas: IOTAreas;
-  OTS: any
+  OTS: any;
   listBoxTipos: ITiposListbox;
-  listBox: any
+  listBox: any;
+  utils: any
 }
 
 export const store = configureStore<AppStore>({
@@ -23,7 +24,8 @@ export const store = configureStore<AppStore>({
     OTAreas: OTAreasReducer,
     listBoxTipos: listBoxTiposReducer,
     listBox: listboxReuder,
-    OTS: ORReuder
+    OTS: ORReuder,
+    utils: Utils
   },
 });
 

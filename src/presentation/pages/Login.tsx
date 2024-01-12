@@ -16,6 +16,7 @@ import useCustomToast from "../hooks/useCustomToast";
 import { fetchOTAreas } from "../../redux/slices/OTAreasSlice";
 import { fetchListBoxTipos } from "../../redux/slices/ListBoxTipoSlice";
 import { fetchColores } from "../../redux/slices/OTSlice";
+import { fetchRegProCom } from "../../redux/slices/utilsSlice";
 // import ToastNotification from "../components/ToastNotification";
 
 interface LoginFormValues {
@@ -54,6 +55,7 @@ const Login: React.FC = React.memo(() => {
           dispatch(fetchOTAreas())
           dispatch(fetchListBoxTipos())
           dispatch(fetchColores())
+          dispatch(fetchRegProCom())
       
           // toast.success("Sesion Iniciada");
           show({ message: LOGIN.loginSuccess, type: "success" });

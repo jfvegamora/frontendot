@@ -121,16 +121,17 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
   }, []);
 
   const toggleEditOTModal = useCallback(async(folio:any,historica:any)=>{
-      console.log(folio)
-      console.log(historica)
-      
+      try {
       const endpoint = historica === false ? `${URLBackend}/api/ot/listado/?query=01&_folio=${folio}` : `${URLBackend}/api/othistorica/listado/?query=01&_folio=${folio}`
-      console.log(endpoint)
       const response = await axios(endpoint)
-      console.log(response.data[0])
       setEntity(response.data[0])
       dispatch(fetchOTByID({ folio: folio, OTAreas: areaActual }));
       setIsModalEdit((prev) => !prev);
+      return ''
+      } catch (error) {
+        console.log(error)
+        throw error;        
+      }
   },[])
 
   //METODO EDITAR DE LA GRILLA

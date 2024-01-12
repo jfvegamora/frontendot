@@ -154,7 +154,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
 
 
     useEffect(()=>{
-        if (codArmazon1 !== undefined && codArmazon1 !== null && codArmazon1.trim) {
+        if (codArmazon3 !== undefined && codArmazon3 !== null && codArmazon3.trim) {
             if(!(!codArmazon3.trim())){
                 const fetchArmazones3 = async ()=>{
                     try {

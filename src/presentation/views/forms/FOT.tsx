@@ -210,10 +210,6 @@ export const validationNivel2 = signal([
   { campo: "fecha_entrega_cliente",
     valor: 0
   },
-  {
-    campo : "establecimiento",
-    valor : 0
-  },
   { campo: "a1_od_esf",
     valor: 0
   },

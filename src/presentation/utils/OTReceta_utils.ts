@@ -39,6 +39,8 @@ export const validation_tipo_anteojo = () => {
     const a1_od_ad  = buscarCampo('a1_od_ad');
     const a1_oi_ad  = buscarCampo('a1_oi_ad');
     const a1_alt = buscarCampo('a1_alt');
+    const a1_dp = buscarCampo('a1_dp');
+    const a2_dp = buscarCampo('a2_dp');
 
     console.log(tipo_de_anteojo.value)
     // console.log(tipo_de_anteojo.value)
@@ -54,6 +56,12 @@ export const validation_tipo_anteojo = () => {
         if(a1_alt){
           a1_alt.valor = 1
         }
+        if(a1_dp){
+          a1_dp.valor = 0
+        }
+        if(a2_dp){
+          a2_dp.valor = 0
+        }
 
   
         deshabilitarCampo.value.a1_ad  = false
@@ -68,7 +76,9 @@ export const validation_tipo_anteojo = () => {
     }
 
     if(tipo_de_anteojo.value === '3'){
-
+      if(a1_alt){
+        a1_alt.valor = 0
+      }
       
       deshabilitarCampo.value.a2_dp  = false
       deshabilitarCampo.value.a1_alt = true
@@ -87,6 +97,13 @@ export const validation_tipo_anteojo = () => {
         if(a1_alt){
             a1_alt.valor = 0
           }
+          if(a1_dp){
+            a1_dp.valor = 0
+          }
+          if(a2_dp){
+            a2_dp.valor = 0
+          }
+  
 
       deshabilitarCampo.value.a1_ad  = true
       deshabilitarCampo.value.a1_alt = true

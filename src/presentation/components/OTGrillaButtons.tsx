@@ -10,12 +10,14 @@ import { useReactToPrint } from 'react-to-print';
 // import FOTImpresa from '../views/forms/FOTImpresa';
 import { AppStore, useAppDispatch, useAppSelector } from '../../redux/store';
 import { fetchOTByID } from '../../redux/slices/OTSlice';
+import FOTImpresa from '../views/forms/FOTImpresa';
+import { toast } from 'react-toastify';
 
 
 type AreaButtonsProps ={
     areaPermissions:string;
     id:number
-    toggleEditOTModal?: (folio: any, historica:any) => void;
+    toggleEditOTModal?:any
     folio?:number;
     entidad?:string
 }
@@ -40,11 +42,33 @@ const OTGrillaButtons:React.FC<AreaButtonsProps> = React.memo(({ areaPermissions
     const handleImpresion = async(folio:any) =>{
         console.log('click')
         console.log(folio)
-        
         try {
+
+            const loadingToast = toast.loading('Cargando...');
+
+            // Realiza la operación asíncrona
+            await new Promise((_resolve) => {
+              dispatch(fetchOTByID({ folio: folio, OTAreas: OTAreas['areaActual'] }))
+                .then(() => {
+                  // Resuelve la promesa cuando la operación está completa
+                //   setTimeout(()=>{
+                // },2000)
+                handlePrint()
+                })
+                .catch((error) => {
+                  // Manejo de errores
+                  console.error(error);
+                  // Rechaza la promesa en caso de error
+                  throw error;
+                })
+                .finally(() => {
+                  // Oculta el toast de carga cuando la operación está completa
+                  toast.dismiss(loadingToast);
+                });
+            });
+
+
             
-            dispatch(fetchOTByID({ folio: folio, OTAreas: OTAreas["areaActual"] }))
-            handlePrint()
         } catch (error) {
             
         }
@@ -60,7 +84,14 @@ const OTGrillaButtons:React.FC<AreaButtonsProps> = React.memo(({ areaPermissions
                     <IconButton
                         variant="text"
                         color="blue-gray"
-                        onClick={() => toggleEditOTModal(folio, historica)  }
+                        onClick={() => {
+                            const loadingToast = toast.loading('Cargando...');
+                            new Promise((_resolve)=>{
+                                toggleEditOTModal(folio, historica).finally(()=>{
+                                    toast.dismiss(loadingToast);
+                                }) 
+                            })
+                        } }
                     >
                         <PencilIcon className="gridIcons" />
                     </IconButton>
@@ -89,7 +120,7 @@ const OTGrillaButtons:React.FC<AreaButtonsProps> = React.memo(({ areaPermissions
                 </Tooltip>
             )}
             <div className='hidden'>
-                {/* <FOTImpresa ref={componentRef} /> */}
+                <FOTImpresa ref={componentRef} />
             </div>
         </div>
     );

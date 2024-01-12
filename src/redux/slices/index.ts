@@ -6,3 +6,4 @@ export {default as funcionaliddadesReducer} from './funcionalidadesSlice'
 export {default as listBoxTiposReducer} from './ListBoxTipoSlice';
 export {default as listboxReuder} from './listBoxSlice';
 export {default as ORReuder} from './OTSlice';
+export {default as Utils} from './utilsSlice';
