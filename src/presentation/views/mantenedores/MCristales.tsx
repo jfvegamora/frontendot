@@ -161,6 +161,8 @@ const MCristales: React.FC = () => {
                 ]}
             />
           </div>
+
+          
           <div className="w-[100%] top-[10rem] bottom-[0.8rem] right-[12rem]">
             <PrimaryButtonsComponent
               handleAddPerson={openModal}

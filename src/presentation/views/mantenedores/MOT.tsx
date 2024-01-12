@@ -205,58 +205,61 @@ const MOT: React.FC = () => {
             />
         </div>
 
-        <div>
           <FilterButton
-            className="top-[10rem] left-[3rem] !h-[2rem]"
+            className="top-[10rem] left-[3rem] !h-[2rem] "
             isOT = {true}
           >
-            <PrimaryKeySearch
-              baseUrl={strBaseUrl}
-              setParams={setParams}
-              updateParams={updateParams}
-              strQuery={strQuery}
-              setEntities={setEntities}
-              primaryKeyInputs={[
-                { name: "_folio", label: "Folio", type: "text" },
-                { name: "_rut", label: "Rut", type: "text" },
-                {
-                  name: "_estado",
-                  label: "OTEstado",
-                  type: "select",
-                  selectUrl:"/api/tipos/s",
-                  tipos: "OTEstados"
-                },              
-              {
-                    name: "_proyecto",
-                    label: "Proyecto",
-                    type: "select",
-                    selectUrl: "/api/proyectos/",
-                    styles:{with:"w-[21.6rem]"}
-                  },
-                { name: "_fecha_desde", label: "Desde", type: "date", styles:{with:"w-[19.3rem]  !h-[6rem]"} },
-                { name: "_fecha_hasta", label: "Hasta", type: "date" ,styles:{with:"w-[19.3rem]  !h-[6rem]"}},
-                // {name:"_motivo", label:"motivo",type:"radio" },
-                { name: "_nombre", label: "Nombre", type: "text" },
-                {
-                    name: "_motivo",
-                    label: "OTMotivo",
-                    type: "select",
-                    selectUrl:"/api/tipos/s",
-                    tipos: "OTMotivo"
-                  },              
-                  {
-                      name: "_establecimiento",
-                      label: "Establecimiento",
+            <div className="mantenedorHeadFlex width100  relative">
+              <div className="w-[95%] mx-auto">
+                <PrimaryKeySearch
+                  baseUrl={strBaseUrl}
+                  setParams={setParams}
+                  updateParams={updateParams}
+                  strQuery={strQuery}
+                  setEntities={setEntities}
+                  primaryKeyInputs={[
+                    { name: "_folio", label: "Folio", type: "text" },
+                    { name: "_rut", label: "Rut", type: "text" },
+                    {
+                      name: "_estado",
+                      label: "OTEstado",
                       type: "select",
-                      selectUrl: "/api/establecimientos/",
-                    },
-                
-                
-              ]}
-            />
+                      selectUrl:"/api/tipos/s",
+                      tipos: "OTEstados"
+                    },              
+                  {
+                        name: "_proyecto",
+                        label: "Proyecto",
+                        type: "select",
+                        selectUrl: "/api/proyectos/",
+                        styles:{with:"w-[21.6rem]"}
+                      },
+                    { name: "_fecha_desde", label: "Desde", type: "date", styles:{with:"w-[19.3rem]  !h-[6rem]"} },
+                    { name: "_fecha_hasta", label: "Hasta", type: "date" ,styles:{with:"w-[19.3rem]  !h-[6rem]"}},
+                    // {name:"_motivo", label:"motivo",type:"radio" },
+                    { name: "_nombre", label: "Nombre", type: "text" },
+                    {
+                        name: "_motivo",
+                        label: "OTMotivo",
+                        type: "select",
+                        selectUrl:"/api/tipos/s",
+                        tipos: "OTMotivo"
+                      },              
+                      {
+                          name: "_establecimiento",
+                          label: "Establecimiento",
+                          type: "select",
+                          selectUrl: "/api/establecimientos/",
+                        },
+                    
+                    
+                  ]}
+                />
+                </div>
+              </div>
           </FilterButton>
-        </div>
-      
+        
+    
       <div className={`width100 scroll ${filterToggle.value ? "!mt-[13rem] !h-[25rem]" : "!mt-[1rem] !h-[40rem]"} `}>
         <TableComponent
           handleSelectChecked={handleSelect}

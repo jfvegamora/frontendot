@@ -81,6 +81,28 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
       [inputValues, updateParams]
     );
 
+
+    let className = ''
+    
+    switch (baseUrl) {
+      case '/api/othistorica/':
+          className = "grid grid-rows-3 grid-cols-2  !w-[32rem] px-0 py-4 h-[35vh]  items-center"
+          break;
+      case '/api/ot/':
+          className = "grid grid-rows-3 grid-cols-2"
+          break;
+      case '/api/cristales/' :
+          className = "grid grid-rows-3 grid-cols-2 !w-[90%] px-0 py-4 h-[30vh]  items-center"
+          break;
+      default:
+          className = "flex mb-auto items-cente w-[70rem]  items-center "
+          break;
+    }
+      
+
+
+
+
     const handleSearch = React.useCallback(async (data: any) => {
       // filterToggle.value = false;
       // console.log(data)
@@ -146,11 +168,12 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
       return inputGroups.map((group, groupIndex) => (
         <div
           key={groupIndex}
-          className={
-            primaryKeyInputs.length > 5
-              ? `${otHistorica ? "grid grid-rows-3 grid-cols-2 w-[100%] px-0" : "grid grid-rows-3 grid-cols-2"} w-[30vw] h-[30vh]  items-center `
-              : "flex mb-auto items-cente w-[70rem]  items-center "
-          }
+          // className={
+          //   primaryKeyInputs.length > 5
+          //      `${otHistorica ? "grid grid-rows-3 grid-cols-2 w-[100%] px-0" : "grid grid-rows-3 grid-cols-2" } w-[30vw] h-[30vh]  items-center `
+          //     : "flex mb-auto items-cente w-[70rem]  items-center "
+          // }
+          className={className}
         >
           {group.map((input, inputIndex) => (
             <div key={inputIndex} className="items-center rowForm ">

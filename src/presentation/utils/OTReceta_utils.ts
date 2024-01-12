@@ -76,12 +76,25 @@ export const validation_tipo_anteojo = () => {
     }
 
     if(tipo_de_anteojo.value === '3'){
+      
+      if(a1_od_ad){
+        a1_od_ad.valor = 0
+      }
+      if(a1_oi_ad){
+        a1_oi_ad.valor = 0;
+      }
       if(a1_alt){
-        a1_alt.valor = 0
+        a1_alt.valor = 1
+      }
+      if(a1_dp){
+        a1_dp.valor = 0
+      }
+      if(a2_dp){
+        a2_dp.valor = 0
       }
       
       deshabilitarCampo.value.a2_dp  = false
-      deshabilitarCampo.value.a1_alt = true
+      deshabilitarCampo.value.a1_alt = false
       deshabilitarCampo.value.a1_ad  = true
       clearSelectInput.value = false;
     }
