@@ -347,16 +347,6 @@ export const table_head_OT_historica = [
     key: "por_vencer",
     visible: false,
   },
-  {
-    cell: "POR VENCER",
-    key: "por_vencer",
-    visible: false,
-  },
-  {
-    cell: "POR VENCER",
-    key: "por_vencer",
-    visible: false,
-  },
 ];
 export const table_head_OT_bitacora = [
   {
