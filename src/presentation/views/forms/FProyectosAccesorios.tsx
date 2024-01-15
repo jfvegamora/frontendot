@@ -44,8 +44,8 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
   let _p1 = ` "${jsonData.proyecto}", 
               "${jsonData.codigo_accesorio}",  
                ${jsonData.estado === "Disponible" ? 1 : 2},
-               ${jsonData.valor_neto}`;
-  _p1 = _p1.replace(/'/g, '!');
+               ${(jsonData.valor_neto && jsonData.valor_neto?.toString())?.length === 0 ? "0" : jsonData.valor_neto}`;
+               _p1 = _p1.replace(/'/g, '!');
 
   const query: OutputData = {
     query: "03",
@@ -57,7 +57,8 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
 
 export function transformUpdateQuery(jsonData: InputData): OutputData | null {
   const fields = [
-    `estado   = ${jsonData.estado === "Disponible" ? 1 : 2}, valor_neto = ${jsonData.valor_neto}`,
+    `estado   = ${jsonData.estado === "Disponible" ? 1 : 2}, 
+    valor_neto = ${(jsonData.valor_neto && jsonData.valor_neto?.toString())?.length === 0 ? "0" : jsonData.valor_neto}`,
   ];
 
   const filteredFields = fields.filter(
@@ -308,12 +309,13 @@ const FProyectosAccesorios: React.FC<IUserFormPrps> = React.memo(
                 <div className="w-full">
                   <TextInputComponent
                     type="number"
-                    label="Valor Neto $"
+                    label="$ Venta Neto"
                     name="valor_neto"
                     data={data && data[EnumGrid.valor_neto]}
                     control={control}
                     error={errors.valor_neto}
                     textAlign="text-right"
+                    isOptional={true}
                     />
                 </div>
               </div>
