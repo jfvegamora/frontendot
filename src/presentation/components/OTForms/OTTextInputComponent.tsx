@@ -2,8 +2,10 @@ import { Input } from "@material-tailwind/react";
 import React, {useEffect, useState} from "react";
 import { Controller } from "react-hook-form";
 import { 
+  a1_od_cil,
   // a1_od_cil, a1_od_eje, a1_od_esf, 
-  a2_od_cil, a2_od_eje, a2_od_esf, dioptrias_receta } from "../../utils";
+  a2_od_cil, a2_od_eje, a2_od_esf, dioptrias, dioptrias_receta } from "../../utils";
+import { toast } from "react-toastify";
 
 interface ITextInputProps {
   label: string;
@@ -21,6 +23,7 @@ interface ITextInputProps {
   otData?:any;
   isOptional?:boolean;
   textAlign?: string;
+  step?:number
 }
 
 const OTTextInputComponent: React.FC<ITextInputProps> = ({
@@ -38,34 +41,35 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
   otData,
   isOptional,
   textAlign,
+  step
 }) => {
   const [defaultValue, setDefaultValue] = useState<string>(data || "  ")
 
   let initialValue:any = 0;
-
+  let newValue = ''
   switch (name) {
     //? OJO DERECHO | ANTEOJO 1
     case 'a1_od_esf':
-        initialValue =  dioptrias_receta.value.a1_od.esf    
+        initialValue =  dioptrias_receta.value.a1_od.esf ||  " "       
       break;
     case 'a1_od_cil':
-        initialValue = dioptrias_receta.value.a1_od.cil 
+        initialValue = dioptrias_receta.value.a1_od.cil  
       break;
     case 'a1_od_eje':
-        initialValue = dioptrias_receta.value.a1_od.eje
+        initialValue = dioptrias_receta.value.a1_od.eje || " "     
         break;
     case 'a1_od_ad':
-        initialValue = dioptrias_receta.value.a1_od.ad
+        initialValue = dioptrias_receta.value.a1_od.ad || " "     
       break;
     //? OJO IZQUIERDO | ANTEOJO 1  
     case 'a1_oi_esf':
-        initialValue = dioptrias_receta.value.a1_oi.esf
+        initialValue = dioptrias_receta.value.a1_oi.esf || " "  
         break;
     case 'a1_oi_cil':
         initialValue = dioptrias_receta.value.a1_oi.cil
         break;
     case 'a1_oi_eje':
-        initialValue = dioptrias_receta.value.a1_oi.eje
+        initialValue = dioptrias_receta.value.a1_oi.eje ||  " "     
         break;
     case 'a1_oi_ad':
          initialValue = dioptrias_receta.value.a1_oi.ad
@@ -88,7 +92,7 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
 
 
 
-  const [value, setValue] = useState<string>(" ");
+  const [value, setValue] = useState<any>(" ");
   
   useEffect(() => {
     // setValue(initialValue === undefined ? "" : initialValue);
@@ -97,45 +101,89 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
 
 
 
-  
-
-
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+
     
-    let newValue = ''
+
     if (handleChange) {
-      handleChange(e.target);
+      handleChange(e.target)
+    }
+
+
+    switch (e.target.name) {
+      case 'a1_od_esf':
+        if(!dioptrias.value.ESF.some((dioptria: string) => dioptria.includes(Number(e.target.value).toFixed(2)))){
+          toast.error('Esferico no corresponde')
+          setValue("  ")
+          return;
+        }
+        break;
+      case 'a1_od_eje':
+        if(!dioptrias.value.EJE.some((dioptria: string) => dioptria.includes(parseInt(e.target.value) as any))){
+          toast.error('EJE no corresponde')
+          setValue("  ")
+          return;
+        }
+        break;
+
+      case 'a1_od_ad':
+        if(!dioptrias.value.AD.some((dioptria: string) => dioptria.includes(Number(e.target.value).toFixed(2)))){
+          setValue("  ")
+          return;
+        }
+        break;
+      case 'a1_oi_esf':
+        if(!dioptrias.value.ESF.some((dioptria: string) => dioptria.includes(Number(e.target.value).toFixed(2)))){
+          setValue("  ")
+          return;
+        }
+        break;
+      case 'a1_oi_eje':
+        if(!dioptrias.value.EJE.some((dioptria: string) => dioptria.includes(parseInt(e.target.value) as any))){
+          setValue("  ")
+          return;
+        }
+        break;
+
+      case 'a1_oi_ad':
+        if(!dioptrias.value.AD.some((dioptria: string) => dioptria.includes(Number(e.target.value).toFixed(2)))){
+          setValue("  ")
+          return;
+        }
+        break;
+      // case 'a1_od_cil':
+      //   newValue = parseInt(e.target.value) > 0 ?  (parseInt(e.target.value) * -1 ).toString() : null as any
+      //   console.log(newValue)
+      //   setValue(newValue)
+      //   break;
+
+      // case 'a1_oi_cil':
+      //   newValue = parseInt(e.target.value) > 0 ?  (parseInt(e.target.value) * -1 ).toString() : null as any
+      //   setValue(newValue)
+      //   break;
+      default:
+        break;
     }
     
-    if(e.target.name === 'a1_od_cil'){
-        newValue = parseInt(e.target.value) > 0 ?  (parseInt(e.target.value) * -1 ).toString() : null as any
-        setValue(newValue)
-        return;
-    
-     }
-    if(e.target.name === 'a1_oi_cil'){
-        newValue = parseInt(e.target.value) > 0 ?  (parseInt(e.target.value) * -1 ).toString() : null as any
-        setValue(newValue)
-        return;
-    
-     }
+ 
     newValue = e.target.value;
     console.log(e.target.name)
+    console.log(dioptrias.value.esf)
     // console.log(newValue)s
 
     setDefaultValue('v')
     setValue(newValue)
     // console.log(e.target.name)
-  
-  
-  
 
   };
  
 
-
-  
+  useEffect(()=>{
+    if(name === 'a1_od_cil'){
+      console.log(value)
+    }
+  },[])
 
 
 return (
@@ -161,6 +209,7 @@ return (
           onBlur    ={(e)=>handleInputChange(e)}
           ref       ={inputRef}
           tabIndex  ={tabIndex || 1}
+          step      ={step}
           readOnly  = {onlyRead}
           className={`${className ? className : "custom-input"}  ${onlyRead ? "custom-onlyread" : isOptional ? "custom-optional" : "custom-required"} ${textAlign && textAlign}`}
         />

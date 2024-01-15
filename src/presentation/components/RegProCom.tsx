@@ -1,7 +1,6 @@
 // import { signal } from '@preact/signals-react';
 import React,{useEffect, useState} from 'react'
 import { Controller } from 'react-hook-form';
-import useSWR from 'swr';
 import { validationClienteComuna } from '../utils/validationOT';
 import { AppStore, useAppSelector } from '../../redux/store';
 
@@ -24,7 +23,6 @@ interface IProps{
     className?:string;
     isOptional?:boolean;
 };
-const fetcher = (url:string) => fetch(url).then((res) => res.json());
 
 const RegProCom:React.FC<IProps> = ({
     control,

@@ -210,6 +210,13 @@ export const table_head_OT_historica = [
     width: "w-[6rem]"
   },
   {
+    cell: "Codigo Proyecto",
+    key: "codigo_proyecto",
+    visible: false,
+    alignment: "text-left",
+    width: "w-[12rem]"
+  },
+  {
     cell: "N° Rep. Firma",
     key: "num_rep_firma",
     visible: true,

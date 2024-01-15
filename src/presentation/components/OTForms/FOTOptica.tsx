@@ -141,8 +141,8 @@ const FOTOptica:React.FC<IOptica> = ({
         }
     }
 
-    console.log(data && data[EnumGrid.resolucion_garantia_id] === 1 ? 'Aceptada' : 'Rechazada')
-
+    // console.log(data && data[EnumGrid.resolucion_garantia_id] === 1 ? 'Aceptada' : 'Rechazada')
+console.log(codigoProyecto.value)
 return (
     <form action="">
         <div className='w-full frameOTForm'>

@@ -1,7 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import {
   PrimaryKeySearch,
@@ -12,12 +12,16 @@ import { useEntityUtils } from "../../hooks";
 import { TITLES, table_head_OT_historica } from "../../utils";
 // import { OptionValuesMotivo } from "./MOT";
 import FOT from "../forms/FOT";
-import { AppStore, useAppSelector } from "../../../redux/store";
+import { AppStore, useAppDispatch, useAppSelector } from "../../../redux/store";
 import { Button } from "@material-tailwind/react";
 import FOTOrdenCompra from "../forms/FOTOrdenCompra";
 import FOTFactura from "../forms/FOTFactura";
 import FOTGuiaDespacho from "../forms/FOTGuiaDespacho";
 import FilterButton, { filterToggle } from "../../components/FilterButton";
+import { toast } from "react-toastify";
+import axios from "axios";
+import { URLBackend } from "../../hooks/useCrud";
+import { clearData, fetchOT } from "../../../redux/slices/OTSlice";
 
 export enum EnumGrid {
   folio = 1,
@@ -162,21 +166,24 @@ export enum EnumGrid {
 
 
 const strEntidad = "Orden de Trabajo Histórico";
+// const strUrl = `${URLBackend}/api/ot/listado`
 const strBaseUrl = "/api/othistorica/";
 const strQuery = "14";
 const idMenu = 1;
 
-type PrimaryKey = {
-  pk1: number;
-};
+
 const MOTHistorica: React.FC = () => {
   const [showOrdenCompra, setShowOrdenCompra] = useState(false);
   const [showGuia, setShowGuia] = useState(false);
   const [showFactura, setShowFactura] = useState(false);
+  const [ pktoDelete, setPkToDelete] = useState([]);
+  
+  const dispatch       = useAppDispatch();
 
   const [params, setParams] = useState([]);
   const OTs: any = useAppSelector((store: AppStore) => store.OTS);
-
+  const userState: any = useAppSelector((store: AppStore) => store.user);
+  
   const updateParams = (newParams: Record<string, never>) => {
     setParams(Object.keys(newParams).map((key) => newParams[key]));
   };
@@ -200,25 +207,108 @@ const MOTHistorica: React.FC = () => {
     handleDeleteSelected,
   } = useEntityUtils(strBaseUrl, strQuery);
   // console.log("entities:", entities);
-  console.log(entity)
   // console.log("params:", params);
 
-  const pkToDelete: PrimaryKey[] = [];
+  useEffect(() => {
+    const newPkToDelete = selectedRows.map((row: number) => ({
+      folio             : OTs.data[row] && OTs.data[row][1],
+      proyecto          : OTs.data[row] && OTs.data[row][6],
+      estado            : OTs.data[row] && OTs.data[row][4],
+      reporte_firma     : OTs.data[row] && OTs.data[row][7],
+      reporte_atencion  : OTs.data[row] && OTs.data[row][8],
+      orden_compra      : OTs.data[row] && OTs.data[row][9],
+ 
 
-  // console.log('pktodelete', pkToDelete)
-  // useEffect(() => {
-  //   const newPkToDelete = selectedRows.map((row: number) => ({
-  //     pk1: entities[row][EnumGrid.folio],
-  //   }));
-  //   newPkToDelete.forEach((newPk: { pk1: any }) => {
-  //     if (!pkToDelete.some((existingPk) => existingPk.pk1 === newPk.pk1)) {
-  //       pkToDelete.push(newPk);
-  //     }
-  //   });
-  // }, [selectedRows]);
+    }));
+    console.log(newPkToDelete)
+    setPkToDelete(newPkToDelete as any)
+  }, [selectedRows]);
 
+  const folios = pktoDelete && pktoDelete.map(({folio}:any)=>folio)
 
+  
+  //TODO: ==== METODO REPORTE DE FIRMA Y ATENCION============
+  const handleReporte = async(type:number) => {
+    let resultBoton:any = []
 
+    const resultadoFiltrado = OTs.data && OTs.data.filter((elemento:any) => folios.includes(elemento[1]));
+
+    
+    //TODO: TIPO 1 REPORTE DE ATENCION
+    if(type === 1){
+      //? VALIDACIONES DEL METODO
+      resultadoFiltrado.map((ot:any)=>{
+        const estadoCOL = ot[4]
+
+        if(estadoCOL === 'Entregada'){
+          resultBoton =  [...resultBoton, [ot[1], true]]
+        }else{
+          resultBoton =  [...resultBoton, [ot[1], ot[4]]]
+        }
+
+      })
+    //TODO: TIPO 2 REPORTE FIRMA 
+    }else if (type === 2){
+      resultadoFiltrado.map((ot:any)=>{
+        const estadoCOL = ot[4]
+
+        if(estadoCOL !== 'Anulada'){
+          resultBoton =  [...resultBoton, [ot[1], true]]
+        }else{
+          resultBoton =  [...resultBoton, [ot[1], ot[4]]]
+        }
+      })
+    }
+    
+    const areAllSameType = resultBoton.every((item:any) => item[1] === true);
+
+    if(!areAllSameType){
+      resultBoton.map((ot:any)=>{
+          if(typeof ot[1] === 'string'){
+            toast.error(`Error: folio ${ot[0]}  | ${ot[1]}`);
+          }
+        } 
+      ) 
+    }else{  
+      try {
+        const query = {
+          _proyecto   :    pktoDelete[0]["proyecto"],
+          _pkToDelete :   JSON.stringify(resultBoton.map((folioOT:any)=>({folio: folioOT[0]}))),
+          _id         :   type,
+          _usuario    :   userState["id"]
+        }
+  
+  
+        const strUrl      = `${URLBackend}/api/proyectodocum/listado`
+        const queryURL    = `?query=06&_p2=${query["_proyecto"]}&_id=${query["_id"]}&_pkToDelete=${query["_pkToDelete"]}&_p4=${query["_usuario"]}`
+        const result      = await axios(`${strUrl}/${queryURL}`);
+        console.log(result)        
+        if(result.status === 200){
+          const successMessage = type === 2  
+                                         ? `Reporte firma generado: ${result.data[0][0]}`
+                                         : `Reporte de atencion generado: ${result.data[0][0]}`
+          
+          dispatch(fetchOT({historica:true, searchParams: `_proyecto=${query["_proyecto"]}`}))
+          setSelectedRows([])
+          toast.success(successMessage)
+          
+        
+      }
+
+        
+      } catch (error) {
+        console.log(error)
+        throw error;
+      }
+
+    }
+  }
+
+  useEffect(()=>{
+    dispatch(clearData())
+  },[])
+
+  
 
   return (
     <div className="mantenedorContainer">
@@ -269,17 +359,17 @@ const MOTHistorica: React.FC = () => {
       <div className="mantenedorHeadOT width100 !h-[4rem] !mt-8 mr-8 items-center ">
         <div className="mx-auto">
 
-          <Button className='otActionButton mt-3 mx-5' style={{ backgroundColor: '#676f9d' }}>Reporte Firma</Button>
-          <Button className='otActionButton mt-3 mx-5' style={{ backgroundColor: '#676f9d' }}>Reporte Atención</Button>
+          <Button className='otActionButton mt-3 mx-5' style={{ backgroundColor: '#676f9d' }} onClick={() => handleReporte(2)}>Reporte Firma</Button>
+          <Button className='otActionButton mt-3 mx-5' style={{ backgroundColor: '#676f9d' }} onClick={() => handleReporte(1)} >Reporte Atención</Button>
 
           <Button className='otActionButton mt-3 mx-5' style={{ backgroundColor: '#676f9d' }} onClick={() => setShowOrdenCompra((prev) => !prev)}>Asignar OC</Button>
-          {showOrdenCompra && <FOTOrdenCompra closeModal={() => setShowOrdenCompra(false)} />}
+          {showOrdenCompra  && <FOTOrdenCompra  pktoDelete={pktoDelete}  setSelectedRows={setSelectedRows} closeModal={() => setShowOrdenCompra(false)} />}
 
           <Button className='otActionButton mt-3 mx-5' style={{ backgroundColor: '#676f9d' }} onClick={() => setShowFactura((prev) => !prev)}>Asignar Factura</Button>
-          {showFactura && <FOTFactura closeModal={() => setShowFactura(false)} />}
+          {showFactura      && <FOTFactura      pktoDelete={pktoDelete}  setSelectedRows={setSelectedRows} closeModal={() => setShowFactura(false)} />}
 
           <Button className='otActionButton mt-3 mx-5' style={{ backgroundColor: '#676f9d' }} onClick={() => setShowGuia((prev) => !prev)}>Asignar Guía</Button>
-          {showGuia && <FOTGuiaDespacho closeModal={() => setShowGuia(false)} />}
+          {showGuia         && <FOTGuiaDespacho pktoDelete={pktoDelete } setSelectedRows={setSelectedRows} closeModal={() => setShowGuia(false)} />}
 
         </div>
       </div>
@@ -288,7 +378,7 @@ const MOTHistorica: React.FC = () => {
 
 
 
-      <div className={`width100 scroll ${filterToggle.value ? "!mt-[13rem] !h-[25rem]" : "!mt-[1em] !h-[40rem]"} `}>
+      <div className={`width100 scroll ${filterToggle.value ? "!mt-[16rem] !h-[25rem]" : "!mt-[1em] !h-[40rem]"} `}>
         <TableComponent
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
@@ -296,7 +386,7 @@ const MOTHistorica: React.FC = () => {
           toggleEditOTModal={toggleEditOTModal}
           handleDeleteSelected={handleDeleteSelected}
           selectedRows={selectedRows}
-          pkToDelete={pkToDelete}
+          pkToDelete={pktoDelete}
           setSelectedRows={setSelectedRows}
           entidad={strEntidad}
           data={OTs.data}

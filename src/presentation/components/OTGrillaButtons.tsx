@@ -13,7 +13,6 @@ import { fetchOTByID } from '../../redux/slices/OTSlice';
 import FOTImpresa from '../views/forms/FOTImpresa';
 import { toast } from 'react-toastify';
 
-
 type AreaButtonsProps ={
     areaPermissions:string;
     id:number
@@ -36,7 +35,7 @@ const OTGrillaButtons:React.FC<AreaButtonsProps> = React.memo(({ areaPermissions
 
 
   const handlePrint = useReactToPrint({
-    content: () => componentRef.current as any,
+    content: () => componentRef.current as any, 
   });
 
     const handleImpresion = async(folio:any) =>{
@@ -54,6 +53,7 @@ const OTGrillaButtons:React.FC<AreaButtonsProps> = React.memo(({ areaPermissions
                 //   setTimeout(()=>{
                 // },2000)
                 handlePrint()
+                
                 })
                 .catch((error) => {
                   // Manejo de errores

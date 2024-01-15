@@ -161,6 +161,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 control={control}
                                 onlyRead={!(!isEditting || (permiso_usuario_receta && permiso_areas_receta))}
                                 textAlign="text-center"
+                                step={0.25}
                                 />
                         </div>
                         <div className="w-[25%]">
@@ -173,6 +174,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 control={control}
                                 onlyRead={!(!isEditting || (permiso_usuario_receta && permiso_areas_receta))}
                                 textAlign="text-center"
+                                step={0.25}
                                 />
                         </div>
                         <div className="w-[25%]" tabIndex={-1}>
@@ -185,6 +187,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 control={control}
                                 onlyRead={!(!isEditting || (permiso_usuario_receta && permiso_areas_receta))}
                                 textAlign="text-center"
+                                step={1}
                                 />
                         </div>
                         <div className="w-[25%]" tabIndex={-1}>
@@ -197,6 +200,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 control={control}
                                 onlyRead={!(deshabilitarCampo.value.a1_ad && (!isEditting || (permiso_usuario_receta && permiso_areas_receta))) }
                                 textAlign="text-center"
+                                step={0.25}
                                 />
                         </div>
                     </div>    
@@ -215,6 +219,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 control={control}
                                 onlyRead={!(!isEditting || (permiso_usuario_receta && permiso_areas_receta))}
                                 textAlign="text-center"
+                                step={0.25}
                                 />
                         </div>
                         <div className="w-[25%]">
@@ -227,6 +232,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 control={control}
                                 onlyRead={!(!isEditting || (permiso_usuario_receta && permiso_areas_receta))}
                                 textAlign="text-center"
+                                step={0.25}
                                 />
                         </div>
                         <div className="w-[25%]">
@@ -239,6 +245,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 control={control}
                                 onlyRead={!(!isEditting || (permiso_usuario_receta && permiso_areas_receta))}
                                 textAlign="text-center"
+                                
                                 />
                         </div>
                         <div className="w-[25%]">
@@ -251,6 +258,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 control={control}
                                 onlyRead={!(deshabilitarCampo.value.a1_ad && (!isEditting || (permiso_usuario_receta && permiso_areas_receta)))}
                                 textAlign="text-center"
+                                step={0.25}
                                 />
                         </div>
                     </div>    

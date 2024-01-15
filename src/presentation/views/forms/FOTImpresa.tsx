@@ -6,14 +6,12 @@ const FOTImpresa = React.forwardRef((props:any, ref:any) => {
   const OT:any = useAppSelector((store:AppStore)=>store.OTS.ot)
 
 
-  console.log(OT)
-  console.log(OT[EnumGrid.estado])
 
 
 
   return (
     <div ref={ref} className='flex w-[50%] h-[50%] border-2 border-blue-500'>
-       {OT.length > 2 && (
+       {OT?.length > 2 && (
         <div>
           <h1>FOLIO OT: {OT[EnumGrid.folio]}</h1>
           <h1>{OT[EnumGrid.estado]}</h1>

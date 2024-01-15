@@ -133,10 +133,11 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
       
       data && updateParams([searchParams]);
       // console.log(data)
+      
       try {
         const response = otHistorica 
                             ?  dispatch(fetchOT({OTAreas:OTAreas["areaActual"], searchParams:searchParams, historica:true}))
-                            :  await ListEntity(searchParams, "01")
+                            :  baseUrl === '/api/ot/' ? dispatch(fetchOT({OTAreas:OTAreas["areaActual"], searchParams:searchParams, historica:false}))  :  await ListEntity(searchParams, "01")
 
 
         setEntities(response);

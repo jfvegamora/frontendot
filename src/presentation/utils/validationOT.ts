@@ -1,5 +1,6 @@
-import { dioptrias } from ".";
+import { a1_od_ad, a1_od_cil, a1_od_eje, a1_od_esf, a1_oi_ad, a1_oi_cil, a1_oi_eje, a1_oi_esf, dioptrias, dioptrias_receta } from ".";
 import { validationNivel1, validationNivel2 } from "../views/forms/FOT";
+import { transponer } from "./FOTReceta_utils";
 
 export const validationProyectos = (value:string) => {
     if(value !== ''){
@@ -66,7 +67,6 @@ export const validationPuntoVenta =(value:number) => {
 export const validationTipoAnteojos = (value:number) => {
     if(!isNaN(value)){
         const item = validationNivel1.value.find((item: { campo: string; }) => item.campo === 'tipo_anteojo_id')
-        console.log(item)
         if(item){
             item.valor = 1
         }
@@ -770,6 +770,10 @@ export const validation_A1_OI_AD = (value:string | any) => {
         const formattedValue = Number(value).toFixed(2);        
         const validate = dioptrias.value.AD.some((dioptria: string) => dioptria.includes(formattedValue));
         item && (item.valor = validate ? 1 : 0);
+        if(!validate){
+            dioptrias_receta.value.a1_oi.ad = "  ";
+            a1_oi_ad.value = "  "
+          }
       } else if (item) {
         item.valor = 0;
      }
@@ -782,6 +786,10 @@ export const validation_A1_OI_EJE = (value:string | any) => {
         const numericValue = Number(value);
         const validate = dioptrias.value.EJE.some((dioptria: any) => dioptria[0] === numericValue);
         item && (item.valor = validate ? 1 : 0);
+        if(!validate){
+            dioptrias_receta.value.a1_oi.eje = "  ";
+            a1_oi_eje.value = "  "
+          }
       } else if (item) {
         item.valor = 0;
      }
@@ -794,6 +802,7 @@ export const validation_A1_OI_CIL = (value:string | any) => {
         const formattedValue = Number(value).toFixed(2);
         const validate = dioptrias.value.CIL.some((dioptria: string) => dioptria.includes(formattedValue));
         item && (item.valor = validate ? 1 : 0);
+  
       } else if (item) {
         item.valor = 0;
      }
@@ -807,6 +816,10 @@ export const validation_A1_OI_ESF = (value:string | any) => {
         const formattedValue = Number(value).toFixed(2);
         const validate = dioptrias.value.ESF.some((dioptria: string) => dioptria.includes(formattedValue));
         item && (item.valor = validate ? 1 : 0);
+        if(!validate){
+            dioptrias_receta.value.a1_oi.esf = "  ";
+            a1_oi_esf.value = "  "
+          }
       } else if (item) {
         item.valor = 0;
       }
@@ -816,8 +829,16 @@ export const validation_A1_OD_AD = (value:string | any) => {
     const item = validationNivel2.value.find((item) => item.campo === 'a1_od_ad');
 
     if (value !== '') {
+        const valueNumber = parseInt(value)
+        if(valueNumber < 0){
+            dioptrias_receta.value.a1_od.ad = " "
+            a1_od_ad.value = " "
+        }
+
         const formattedValue = Number(value).toFixed(2);
         const validate = dioptrias.value.AD.some((dioptria: string) => dioptria.includes(formattedValue));
+        
+
         item && (item.valor = validate ? 1 : 0);
       } else if (item) {
         item.valor = 0;
@@ -833,8 +854,18 @@ export const validation_A1_OD_EJE = (value: string | any) => {
   
     if (value !== '') {
       const numericValue = Number(value);
+      
+      
       const validate = dioptrias.value.EJE.some((dioptria: any) =>numericValue === dioptria[0]);
+
+
       item && (item.valor = validate ? 1 : 0);
+      
+      
+      if(!validate){
+        dioptrias_receta.value.a1_od.eje = "  ";
+        a1_od_eje.value = "  "
+      }
     } else if (item) {
       item.valor = 0;
     }
@@ -844,9 +875,17 @@ export const validation_A1_OD_CILL = (value:string | any) => {
     const item = validationNivel2.value.find((item) => item.campo === 'a1_od_cil');
     
     if (value !== '') {
-        const formattedValue = Number(value).toFixed(2);
+        const formattedValue = Number(value).toFixed(2) as any;
         const validate = dioptrias.value.CIL.some((dioptria: string) => dioptria.includes(formattedValue));
         item && (item.valor = validate ? 1 : 0);
+        // if(formattedValue > 0){
+
+        //     transponer('a1_od_esf', 'a1_od_cil', 'a1_od_eje', 'a1_od')
+        //     dioptrias_receta.value.a1_od.cil = formattedValue * -1;
+        //     a1_od_cil.value = formattedValue * -1
+            
+        //     console.log(formattedValue)
+        // }
       } else if (item) {
         item.valor = 0;
      }
@@ -857,10 +896,21 @@ export const validation_A1_OD_ESF = (value: any) => {
 
     if (value !== '') {
       const formattedValue = Number(value).toFixed(2);
-      console.log(dioptrias.value.ESF)
+      console.log(formattedValue)
+      
       const validate = dioptrias.value.ESF.some((dioptria: string) => dioptria.includes(formattedValue));
+      const validate2 = (formattedValue as any % 0.25) === 0 ? true : false
+      
+
+      console.log(validate2)
       console.log(validate)
+      
       item && (item.valor = validate ? 1 : 0);
+      
+      if(!validate){
+        dioptrias_receta.value.a1_od.esf = "  ";
+        a1_od_esf.value = "  "
+      }
     } else if (item) {
       item.valor = 0;
     }

@@ -206,6 +206,8 @@ export const clearGrupos = () => {
   A1_CR_OD.value      = "";
   A1_CR_OI.value      = "";
 
+  A1_DP.value         = "";
+
   a1_armazon.value    = "";
   a2_armazon.value    = "";
   a3_armazon.value    = "";
@@ -385,6 +387,7 @@ const fetchDioptrias = async(proyecto:string) => {
     dioptrias.value.EJE = responseEJE.data;
     dioptrias.value.AD  = responseAD.data;
 
+    
     console.log(dioptrias.value)
   } catch (error) {
     console.log(error)
@@ -573,28 +576,28 @@ export const updateOT =async (
     (`tipo_anteojo=${!tipo_de_anteojo.value.trim()                                              === false     ? tipo_de_anteojo.value : 0 }`),
 
 
-    (`a1_od_esf=${typeof dioptrias_receta.value.a1_od.esf                                       !== 'object' ? dioptrias_receta.value.a1_od.esf : 0 }`),
-    (`a1_od_cil=${typeof dioptrias_receta.value.a1_od.cil                                       !== 'object' ? dioptrias_receta.value.a1_od.cil : 0 }`),
-    (`a1_od_eje=${typeof dioptrias_receta.value.a1_od.eje                                       !== 'object' ? dioptrias_receta.value.a1_od.eje : 0 }`),
-    (`a1_od_ad =${typeof dioptrias_receta.value.a1_od.ad                                        !== 'object' ? dioptrias_receta.value.a1_od.ad : 0 }`),
-    (`a1_oi_esf=${typeof dioptrias_receta.value.a1_oi.esf                                       !== 'object' ? dioptrias_receta.value.a1_oi.esf : 0 }`),
-    (`a1_oi_cil=${typeof dioptrias_receta.value.a1_oi.cil                                       !== 'object' ? dioptrias_receta.value.a1_oi.cil : 0 }`),
-    (`a1_oi_eje=${typeof dioptrias_receta.value.a1_oi.eje                                       !== 'object' ? dioptrias_receta.value.a1_oi.eje : 0 }`),
-    (`a1_oi_ad =${typeof dioptrias_receta.value.a1_oi.ad                                        !== 'object' ? dioptrias_receta.value.a1_oi.ad : 0 }`),
-    (`a1_dp=${jsonData.a1_dp                                                                    !== ''       ? jsonData.a1_dp : 0 }`),
-    (`a1_alt=${jsonData.a1_alt                                                                  !== ''       ? jsonData.a1_alt : 0 }`),
+    (`a1_od_esf=${typeof dioptrias_receta.value.a1_od.esf                                       !== 'object' && !Number.isNaN(dioptrias_receta.value.a1_od.esf) ? dioptrias_receta.value.a1_od.esf : null }`),
+    (`a1_od_cil=${typeof dioptrias_receta.value.a1_od.cil                                       !== 'object' && !Number.isNaN(dioptrias_receta.value.a1_od.cil) ? dioptrias_receta.value.a1_od.cil : null }`),
+    (`a1_od_eje=${typeof dioptrias_receta.value.a1_od.eje                                       !== 'object' && !Number.isNaN(dioptrias_receta.value.a1_od.eje) ? dioptrias_receta.value.a1_od.eje : null }`),
+    (`a1_od_ad =${typeof dioptrias_receta.value.a1_od.ad                                        !== 'object' && !Number.isNaN(dioptrias_receta.value.a1_od.ad)  ? dioptrias_receta.value.a1_od.ad  : null }`),
+    (`a1_oi_esf=${typeof dioptrias_receta.value.a1_oi.esf                                       !== 'object' && !Number.isNaN(dioptrias_receta.value.a1_oi.esf) ? dioptrias_receta.value.a1_oi.esf : null }`),
+    (`a1_oi_cil=${typeof dioptrias_receta.value.a1_oi.cil                                       !== 'object' && !Number.isNaN(dioptrias_receta.value.a1_oi.cil) ? dioptrias_receta.value.a1_oi.cil : null }`),
+    (`a1_oi_eje=${typeof dioptrias_receta.value.a1_oi.eje                                       !== 'object' && !Number.isNaN(dioptrias_receta.value.a1_oi.eje) ? dioptrias_receta.value.a1_oi.eje : null }`),
+    (`a1_oi_ad =${typeof dioptrias_receta.value.a1_oi.ad                                        !== 'object' && !Number.isNaN(dioptrias_receta.value.a1_oi.ad) ? dioptrias_receta.value.a1_oi.ad   : null }`),
+    (`a1_dp=${jsonData.a1_dp                                                                    !== ''       ? jsonData.a1_dp  : null }`),
+    (`a1_alt=${jsonData.a1_alt                                                                  !== ''       ? jsonData.a1_alt : null }`),
 
 
     `a1_grupo_od="${typeof A1_GRUPO_OD.value                                                    !== 'object' ? A1_GRUPO_OD.value : ""}"`,
     `a1_grupo_oI="${typeof A1_GRUPO_OI.value                                                    !== 'object' ? A1_GRUPO_OI.value : ""}"`,
     
-    (`a2_od_esf=${typeof a2_od_esf.value                                                        !== 'object' ? a2_od_esf.value : 0 }`),
-    (`a2_od_cil=${typeof a2_od_cil.value                                                        !== 'object' ? a2_od_cil.value : 0 }`),
-    (`a2_od_eje=${typeof a2_od_eje.value                                                        !== 'object' ? a2_od_eje.value : 0 }`),
-    (`a2_oi_esf=${typeof a2_oi_esf.value                                                        !== 'object' ? a2_oi_esf.value : 0 }`),
-    (`a2_oi_cil=${typeof a2_oi_cil.value                                                        !== 'object' ? a2_oi_cil.value : 0 }`),
-    (`a2_oi_eje=${typeof a2_oi_eje.value                                                        !== 'object' ? a2_oi_eje.value : 0 }`),
-    (`a2_dp=${jsonData.a2_dp                                                                    !== ''       ? jsonData.a2_dp : 0 }`),
+    (`a2_od_esf=${typeof a2_od_esf.value                                                        !== 'object' ? a2_od_esf.value : null }`),
+    (`a2_od_cil=${typeof a2_od_cil.value                                                        !== 'object' ? a2_od_cil.value : null }`),
+    (`a2_od_eje=${typeof a2_od_eje.value                                                        !== 'object' ? a2_od_eje.value : null }`),
+    (`a2_oi_esf=${typeof a2_oi_esf.value                                                        !== 'object' ? a2_oi_esf.value : null }`),
+    (`a2_oi_cil=${typeof a2_oi_cil.value                                                        !== 'object' ? a2_oi_cil.value : null }`),
+    (`a2_oi_eje=${typeof a2_oi_eje.value                                                        !== 'object' ? a2_oi_eje.value : null }`),
+    (`a2_dp=${jsonData.a2_dp                                                                    !== ''       ? jsonData.a2_dp  : null }`),
 
     
     `a2_grupo_od="${typeof A2_GRUPO_OD.value                                                    !== 'object' ? A2_GRUPO_OD.value : ""}"`,
@@ -609,7 +612,7 @@ export const updateOT =async (
     (`anteojo3_armazon="${typeof a3_armazon.value                                               !== 'object' ? a3_armazon.value : "" }"`),
 
     (`cristales1_opcion_vta=${0}`),
-    (`cristales1_marca=${typeof jsonData.cristal1_marca_id                                         === 'undefined' ? data && data[EnumGrid.cristal1_marca_id]                 : parseInt(jsonData.cristal1_marca_id)}`),
+    (`cristales1_marca=${typeof jsonData.cristal1_marca_id                                      === 'undefined' ? data && data[EnumGrid.cristal1_marca_id]                 : parseInt(jsonData.cristal1_marca_id)}`),
     (`cristales1_diseno=${typeof jsonData.cristal1_diseno_id                                    === 'undefined' ? data && data[EnumGrid.cristal1_diseno_id]                : parseInt(jsonData.cristal1_diseno_id)}`),
     (`cristales1_indice=${typeof jsonData.cristal1_indice_id                                    === 'undefined' ? data && data[EnumGrid.cristal1_indice_id]                : parseInt(jsonData.cristal1_indice_id)}`),
     (`cristales1_material=${typeof jsonData.cristal1_material_id                                === 'undefined' ? data && data[EnumGrid.cristal1_material_id]              : parseInt(jsonData.cristal1_material_id)}`),

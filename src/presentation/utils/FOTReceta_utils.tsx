@@ -52,7 +52,7 @@ export const transponer = (ESF:any, CIL:any, EJE:any,
         default:
             break;
     }
-    // console.log(dioptrias_receta.value[anteojo])
+    console.log(dioptrias_receta.value[anteojo])
 
     if(typeof dioptrias_receta.value[anteojo].cil == 'number' && typeof dioptrias_receta.value[anteojo].eje == 'number'){
         if(dioptrias_receta.value[anteojo].cil > 0 && (dioptrias_receta.value[anteojo].eje >= 0 && dioptrias_receta.value[anteojo].eje <= 180)){
@@ -82,24 +82,13 @@ export const transponer = (ESF:any, CIL:any, EJE:any,
                     dioptrias_receta.value[anteojo].eje= EJE - 90;
                 }
                 
-                // dioptrias_receta.value[anteojo].esf = ESF.value
-                // // dioptrias_receta.value[anteojo].cil = CIL.value
-                // dioptrias_receta.value[anteojo].cil = CIL.value
-                // dioptrias_receta.value[anteojo].eje = EJE.value
-                // console.log(dioptrias_receta.value[anteojo].cil)
-
-
             } else {
-                CIL.value = ""
-                dioptrias_receta.value[anteojo].cil = ""
+                CIL.value = " "
+                dioptrias_receta.value[anteojo].cil = " "
             }
         }
     }
 
-
-    // console.log(dioptrias_receta.value[anteojo])
-    // console.log(dioptrias_receta.value[anteojo].ad)
-    // console.log(!Number.isNaN(dioptrias_receta.value[anteojo].ad))
 
     if(Number.isNaN(dioptrias_receta.value[anteojo].ad)){
         if(tipo_de_anteojo.value === '3' && ESF2 && CIL2 && EJE2){
@@ -110,120 +99,6 @@ export const transponer = (ESF:any, CIL:any, EJE:any,
     }
     
     return dioptrias_receta.value[anteojo]
-
-};
-
-
-export const transponer_a2 = (ESF:any, CIL:any , EJE:any, 
-    // AD:any
-    ) => {
-   
-   
-    switch (ESF) {  
-        case 'a2_od_esf':  
-            ESF =  a2_od_esf
-            break;
-        case 'a2_oi_esf':  
-            ESF =  a2_oi_esf
-            break;
-        default:
-            break;
-    }
-
-    switch (CIL) {
-        case 'a2_od_cil':  
-            CIL =  a2_od_cil
-            break;
-        case 'a2_oi_cil':  
-            CIL =  a2_oi_cil 
-            break;
-        default:
-            break;
-    }
-
-    switch (EJE) {
-        case 'a2_od_eje':  
-            EJE =  a2_od_eje
-            break;
-        case 'a2_oi_eje':  
-            EJE =  a2_oi_eje
-            break;
-        default:
-            break;
-    }
-
-
-
-    // switch (ESF) {  
-    //     case 'a1_od_esf':  
-    //         ESF  =  dioptrias_receta.value[anteojo].esf
-    //         ESF2 =  a2_od_esf
-    //         break;
-    //     case 'a1_oi_esf':  
-    //         ESF  =  a1_oi_esf
-    //         ESF2 =  a2_oi_esf
-    //         break;
-    //     default:
-    //         break;
-    // }
-
-    // switch (CIL) {
-    //     case 'a1_od_cil':  
-    //         CIL  =  a1_od_cil
-    //         CIL2 =  a2_od_cil
-    //         break;
-    //     case 'a1_oi_cil':  
-    //         CIL  =  a1_oi_cil
-    //         CIL2 =  a2_oi_cil 
-    //         break;
-    //     default:
-    //         break;
-    // }
-
-    // switch (EJE) {
-    //     case 'a1_od_eje':  
-    //         EJE  =  a1_od_eje
-    //         EJE2 =  a2_od_eje
-    //         break;
-    //     case 'a1_oi_eje':  
-    //         EJE =   a1_oi_eje
-    //         EJE =   a2_oi_eje
-    //         break;
-    //     default:
-    //         break;
-    // }
-
-
-
-}
-
-
-
-
-
-
-export const transposicionDioptrias_A1 = (formValues:any,dioptrias_receta:any)  => {
-    // console.log(data)
-
-    // console.log(dioptrias_receta)
-    
-
-    if(formValues.hasOwnProperty('a1_od_eje') && formValues.hasOwnProperty('a1_od_cil')){
-
-        if(dioptrias_receta.a1_od.cil > 0){
-            
-            a1_od_esf.value = ((dioptrias_receta.a1_od.esf || 0 ) + dioptrias_receta.a1_od.cil)
-            a1_od_cil.value = (dioptrias_receta.a1_od.cil * -1)
-            
-            if(dioptrias_receta.a1_od.eje >= 0 && dioptrias_receta.a1_od.eje <= 90){
-                a1_od_eje.value = dioptrias_receta.a1_od.eje + 90
-            }else{
-                a1_od_eje.value = dioptrias_receta.a1_od.eje - 90
-            }
-        }
-
-    }
-
 
 };
 

@@ -1,67 +1,102 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { EnumGrid } from '../mantenedores/MOTHistorica';
 import { AppStore, useAppDispatch, useAppSelector } from '../../../redux/store';
-import { updateOT } from '../../utils';
 import { fetchOT } from '../../../redux/slices/OTSlice';
 import { TextInputComponent } from '../../components';
 import { TITLES } from "../../utils";
+import { toast } from 'react-toastify';
+import { URLBackend } from '../../hooks/useCrud';
+import axios from 'axios';
 
 
 interface IDerivacion {
     data?: any;
     onClose?: any;
     formValues?: any;
-    closeModal?: any
+    closeModal?: any;
+    pktoDelete?:any
+    setSelectedRows?:any
 }
 
 
 
-interface FormData {
-    proyecto_codigo: undefined;
-    folio_ot: number;
-    proyecto: string;
-    nombre_cliente: string;
-
-    area_desde: string;
-    area_hasta: string;
-    situacion: string
-    observaciones: string;
-    formValues: any
-}
 
 const FOTGuiaDespacho: React.FC<IDerivacion> = ({
-    data,
     onClose,
-    // formValues,
     closeModal,
-    formValues
+    pktoDelete,
+    setSelectedRows
 }) => {
-    const { control, handleSubmit } = useForm<FormData>()
-    const OTAreas: any = useAppSelector((store: AppStore) => store.OTAreas);
+    const { control, handleSubmit } = useForm<any>()
+    const [fechaHoraActual, _setFechaHoraActual]  = useState(new Date());
+
     const UsuarioID: any = useAppSelector((store: AppStore) => store.user?.id)
-    const OTSlice: any = useAppSelector((store: AppStore) => store.OTS)
     const dispatch = useAppDispatch();
 
 
-    const onSubmit: SubmitHandler<FormData> = async (jsonData) => {
-        // fetchDerivacion(jsonData)
-        updateOT(
-            jsonData,
-            OTAreas["areaActual"],
-            jsonData.area_hasta.toString() as any,
-            40,
-            formValues,
-            data,
-            OTSlice.cristales,
-            OTSlice.armazones,
-            UsuarioID.toString(),
-            jsonData.observaciones
-        ).then(() => {
-            closeModal()
-            dispatch(fetchOT({ OTAreas: OTAreas["areaActual"] }))
-        })
-    }
+    const onSubmit: SubmitHandler<any> = async (jsonData) => {
+
+        console.log(pktoDelete)
+
+        if (pktoDelete.some((OT: any) => OT["reporte_atencion"] <= 0)) {
+            pktoDelete.filter((ot:any)=> ot["reporte_atencion"] <= 0).map((ot:any)=>{
+                toast.error(`Folio: ${ot["folio"]} sin Reporte de atencion`);
+            })
+        } else {
+            const year             = fechaHoraActual.getFullYear();
+            const month            = String(fechaHoraActual.getMonth() + 1).padStart(2, '0'); 
+            const day              = String(fechaHoraActual.getDate()).padStart(2, '0'); 
+            const fechaFormateada  = `${year}/${month}/${day}`;
+            const dateHora         = new Date().toLocaleTimeString();
+            
+            try {
+             
+                const query03 = {
+                    _p1         : `"${jsonData["proyecto"]}", "${fechaFormateada + " " + dateHora}", ${4}, ${jsonData["numero_doc"]}, "${jsonData["fecha_doc"]}", ${0}, ${0}, ${0}, ${UsuarioID}, "${jsonData["observaciones"]}"    `
+                };
+
+                const query07 = {
+                    _p2         : jsonData["proyecto"],
+                    _id         : 4,
+                    _p4         : jsonData["numero_doc"],
+                    _pkToDelete : JSON.stringify(pktoDelete.map((folioOT:any)=>({folio: folioOT["folio"]})))
+                   
+                }
+            
+                console.log(query03);
+                console.log(query07);
+
+                const strUrl             = `${URLBackend}/api/proyectodocum/listado`
+                let   queryURL03         = `?query=03&_p1=${query03["_p1"]}`
+                const resultQuery03      = await axios(`${strUrl}/${queryURL03}`)
+
+
+                if(resultQuery03?.status === 200){
+                    //TODO: EJECUTAR QUERY 07 PARA ASIGNAR ORDEN DE COMPRA A OT SELECCIONADA (1 O N OTS)
+                    let   queryURL07            = `?query=07&_p2=${query07["_p2"]}&_pkToDelete=${query07["_pkToDelete"]}&_p4=${query07["_p4"]}&_id=${query07["_id"]}`
+                    const resultQuery07         = await axios(`${strUrl}/${queryURL07}`) 
+
+                    if(resultQuery07?.status === 200){
+                        toast.success('Orden de Compra generado')
+                        dispatch(fetchOT({historica:true, searchParams: `_proyecto=${jsonData["proyecto"]}`  }))
+
+                    }else{
+                        toast.error('error: Orden de compra')
+                    }
+
+                    setSelectedRows([])
+                    closeModal()
+                }
+            
+            } catch (error) {
+                console.log(error)
+                throw error   
+            }
+            
+    }}
+
+
+
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
             if (event.key === "Escape") {
@@ -75,6 +110,10 @@ const FOTGuiaDespacho: React.FC<IDerivacion> = ({
             window.removeEventListener("keydown", handleKeyDown);
         };
     }, [closeModal]);
+
+
+
+
     return (
         // <div className='useFormContainer useFormDerivacion h-[55%] w-[60%] left-[20%] top-[30%] z-30'>
         //     <div className=" flex justify-end w-full">
@@ -87,7 +126,7 @@ const FOTGuiaDespacho: React.FC<IDerivacion> = ({
                 <h1 className='userFormLabel mx-auto  w-full '>Asignación de Guía Despacho</h1>
             </div>
             <div className=''>
-                <button onClick={onClose} className="userFormBtnClose">
+                <button onClick={closeModal} className="userFormBtnClose">
                     X
                 </button>
             </div>
@@ -102,7 +141,7 @@ const FOTGuiaDespacho: React.FC<IDerivacion> = ({
                             label="Proyecto"
                             name="proyecto"
                             control={control}
-                            data={data && data[EnumGrid.proyecto_titulo]}
+                            data={pktoDelete[0] && pktoDelete[0]["proyecto"]}
                             onlyRead={true}
                         // handleChange={handleInputChange}
                         // data={formValues && formValues["rut"]}
@@ -126,6 +165,7 @@ const FOTGuiaDespacho: React.FC<IDerivacion> = ({
                             label="Fecha Doc"
                             name="fecha_doc"
                             control={control}
+                            textAlign='text-center'
                         />
                     </div>
                 </div>

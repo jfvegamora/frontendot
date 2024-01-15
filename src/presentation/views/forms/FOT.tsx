@@ -13,6 +13,7 @@ import { EnumGrid } from '../mantenedores/MOTHistorica';
 import FOTDerivacion from '../../components/OTForms/FOTDerivacion';
 import { A1_CR_OD, A1_CR_OI, A1_DP, A1_Diametro, A1_GRUPO_OD, A1_GRUPO_OI, A2_CR_OD, A2_CR_OI, A2_DP, A2_Diametro, A2_GRUPO_OD, A2_GRUPO_OI, SEXO, TIPO_CLIENTE, 
   a1_armazon, 
+  a1_od_esf, 
   a2_armazon, 
   // a1_od_ad, a1_od_cil, a1_od_eje, a1_od_esf, 
   a2_od_cil, a2_od_eje, a2_od_esf, a2_oi_cil, a2_oi_eje, a2_oi_esf, a3_armazon, armazonesJSONsignal, changeCodigoCristal_A1, changeCodigoCristal_A2, clearDioptrias,  
@@ -385,13 +386,13 @@ const FOT:React.FC<IFOTProps> = ({
   
   const permisosAreas = OTAreaActual && permissions(OTAreaActual)[6] as any
 
-  let permiso_areas_armazones            = permisosAreas && permisosAreas[0] === '1' ? true : false;
-  let permiso_areas_cristales            = permisosAreas && permisosAreas[1] === '1' ? true : false;
-  let permiso_areas_estado_impresion     = permisosAreas && permisosAreas[2] === '1' ? true : false;
-  let permiso_areas_estado_validacion    = permisosAreas && permisosAreas[3] === '1' ? true : false;
-  let permiso_areas_resolucion_garantia  = permisosAreas && permisosAreas[4] === '1' ? true : false;
-  let permiso_areas_grupo_dioptria       = permisosAreas && permisosAreas[5] === '1' ? true : false;
-  let permiso_areas_receta               = permisosAreas && permisosAreas[6] === '1' ? true : false;
+  let permiso_areas_armazones             = permisosAreas && permisosAreas[0] === '1' ? true : false;
+  let permiso_areas_cristales             = permisosAreas && permisosAreas[1] === '1' ? true : false;
+  let permiso_areas_estado_impresion      = permisosAreas && permisosAreas[2] === '1' ? true : false;
+  let permiso_areas_estado_validacion     = permisosAreas && permisosAreas[3] === '1' ? true : false;
+  let permiso_areas_resolucion_garantia   = permisosAreas && permisosAreas[4] === '1' ? true : false;
+  let permiso_areas_grupo_dioptria        = permisosAreas && permisosAreas[5] === '1' ? true : false;
+  let permiso_areas_receta                = permisosAreas && permisosAreas[6] === '1' ? true : false;
 
 
 
@@ -626,16 +627,13 @@ const FOT:React.FC<IFOTProps> = ({
   // }
 
   
-
+  console.log(A1_DP.value || 0)
   const switchCaseIngresar = async(jsonData:any, cristalesJSON:any, armazonesJSON:any) => {
     
-
-
     console.log('click')
     console.log(jsonData)
     console.log(formValues)
     
-
     // console.log(formValues.cliente.cliente_tipo)
     // console.log(jsonData.cliente_tipo)
 
@@ -645,68 +643,31 @@ const FOT:React.FC<IFOTProps> = ({
     let estado_validacion = 1;
     let motivo = 1;
 
-    console.log(isExistClient.value)
-
     let _origen = OTAreaActual.toString();
     let _destino = OTAreaActual.toString();
 
     let _p3:any = ''
     let _rut = isExistClient.value ? `${jsonData.cliente_rut || formValues.cliente.cliente_rut}` : '';
 
-    console.log(isExistClient)
-    console.log(_rut)
 
     isExistClient.value 
                      ? _p3 = [`nombre="${jsonData.cliente_nombre || formValues.cliente.cliente_nombre || ""}"`, `tipo=${jsonData.cliente_tipo || formValues.cliente.cliente_tipo === TIPO_CLIENTE.beneficiario ? "1" : jsonData.cliente_tipo || formValues.cliente.cliente_tipo   === TIPO_CLIENTE.particular ? "2" : jsonData.cliente_tipo  || formValues.cliente.cliente_tipo === TIPO_CLIENTE.optica ? "3" : "0"}`, `sexo=${jsonData.cliente_sexo || formValues.cliente.cliente_sexo === SEXO.masculino ? "1" : jsonData.cliente_sexo || formValues.cliente.cliente_sexo === SEXO.femenino ? "2" : jsonData.cliente_sexo || formValues.cliente.cliente_sexo  === SEXO.no_aplica ? "3" : "0"}` ,`fecha_nacimiento="${jsonData.cliente_fecha_nacimiento || formValues.cliente.cliente_fecha_nacimiento || ""}"`, `direccion="${jsonData.cliente_direccion || formValues.cliente.cliente_direccion || ""}"`, `comuna=${jsonData.cliente_comuna || formValues.cliente.cliente_comuna || 0}`, `telefono="${jsonData.cliente_telefono || formValues.cliente.cliente_telefono || ""}"`, `correo="${jsonData.cliente_correo || formValues.cliente.cliente_correo || ""}"`, `establecimiento=${jsonData.establecimiento_id || formValues.cliente.establecimiento_id || 0}`].map((a)=>a.split("=")).map((a)=>a.join("=")).join(',')
                      : _p3 =`"${jsonData.cliente_rut || formValues.cliente.cliente_rut || ""}","${jsonData.cliente_nombre || formValues.cliente.cliente_nombre || ""}",${jsonData.cliente_tipo || formValues.cliente.cliente_tipo === TIPO_CLIENTE.beneficiario ? "1" : jsonData.cliente_tipo || formValues.cliente.cliente_tipo   === TIPO_CLIENTE.particular ? "2" : jsonData.cliente_tipo  || formValues.cliente.cliente_tipo === TIPO_CLIENTE.optica ? "3" : "0"}, ${jsonData.cliente_sexo || formValues.cliente.cliente_sexo === SEXO.masculino ? "1" : jsonData.cliente_sexo || formValues.cliente.cliente_sexo === SEXO.femenino ? "2" : jsonData.cliente_sexo || formValues.cliente.cliente_sexo  === SEXO.no_aplica ? "3" : "0"},"${jsonData.cliente_fecha_nacimiento || formValues.cliente.cliente_fecha_nacimiento || ""}","${jsonData.cliente_direccion || formValues.cliente.cliente_direccion || ""}" ,${jsonData.cliente_comuna || formValues.cliente.cliente_comuna || 0}, "${jsonData.cliente_telefono || formValues.cliente.cliente_telefono || ""}","${jsonData.cliente_correo || formValues.cliente.cliente_correo || ""}", ${jsonData.establecimiento_id || formValues.cliente.establecimiento_id || 0}`.replace(/'/g, '!');
     
     
-    console.log(_p3)
-
-
-  
     // console.log(_p3)
 
-    // const _p11 =` "${jsonData.proyecto_codigo}",${jsonData.establecimiento_id},"${jsonData.cliente_rut || formValues.cliente.cliente_rut}" ,${jsonData.oftalmologo_id ?? 0} ,"${jsonData.fecha_atencion || fecha_atencion_signal.value}","${jsonData.fecha_entrega_taller || fecha_entrega_taller.value}","${jsonData.fecha_despacho || fecha_despacho.value}","${jsonData.fecha_entrega_cliente || fecha_entrega_cliente.value}"${jsonData.punto_venta_id || 0},${jsonData.numero_receta ?? 0},"${jsonData.fecha_receta ?? ""}",${jsonData.tipo_anteojo_id ?? 0}`;
-    // console.log(_p11)
-    // const _p22 = `${typeof dioptrias_receta.value.a1_od.esf === 'number' ? dioptrias_receta.value.a1_od.esf : 0 },${typeof dioptrias_receta.value.a1_od.cil === 'number' ? dioptrias_receta.value.a1_od.cil : 0},${typeof dioptrias_receta.value.a1_od.eje === 'number' ? dioptrias_receta.value.a1_od.eje : 0},${typeof dioptrias_receta.value.a1_od.ad === 'number' ? dioptrias_receta.value.a1_od.ad : 0 },${typeof dioptrias_receta.value.a1_oi.esf === 'number' ? dioptrias_receta.value.a1_oi.esf  : 0},${typeof dioptrias_receta.value.a1_oi.cil === 'number' ? dioptrias_receta.value.a1_oi.cil : 0},${typeof dioptrias_receta.value.a1_oi.eje === 'number' ? dioptrias_receta.value.a1_oi.eje : 0},${typeof dioptrias_receta.value.a1_oi.ad === 'number' ? dioptrias_receta.value.a1_oi.ad  : 0 },${typeof jsonData.a1_dp === 'number' ? jsonData.a1_dp : 0},${typeof jsonData.a1_alt === 'number' ? jsonData.a1_alt : 0}, ${typeof a2_od_esf.value === 'number' ? a2_od_esf.value :  0 },${typeof a2_od_cil.value === 'number' ? a2_od_cil.value : 0 },${typeof a2_od_eje.value === 'number' ? a2_od_eje.value : 0 },${typeof a2_oi_esf.value === 'number' ? a2_oi_esf.value : 0 },${typeof a2_oi_cil.value  === 'number' ? a2_oi_cil.value : 0 },${typeof a2_oi_eje.value === 'number' ? a2_oi_eje.value : 0},${jsonData.a2_dp || 0}`
-    // console.log(_p22)    
-    // const _p44 = `${jsonData.a1_opcion_vta_id ?? 0},"${a1_armazon.value ?? 0}",${jsonData.a2_opcion_vta_id ?? 0},"${a2_armazon.value ?? 0 }",${jsonData.a3_opcion_vta_id ?? 0},"${a3_armazon.value?? 0}"`
-    // console.log(_p44)
+    let _p1 = `${motivo},${_destino},${estado},"${estado_impresion}","${estado_validacion}", "${jsonData.proyecto_codigo}",${jsonData.establecimiento_id || 1},"${jsonData.cliente_rut || formValues.cliente.cliente_rut}" ,${jsonData.oftalmologo_id ?? 0} ,"${jsonData.fecha_atencion || fecha_atencion_signal.value}","${jsonData.fecha_entrega_taller || fecha_entrega_taller.value}","${jsonData.fecha_despacho || fecha_despacho.value}","${jsonData.fecha_entrega_cliente || fecha_entrega_cliente.value}",${jsonData.punto_venta_id || 0},${typeof jsonData.numero_receta  === 'number' ? jsonData.numero_receta  : 0},"${jsonData.fecha_receta ?? ""}",${jsonData.tipo_anteojo_id ?? 0},${typeof dioptrias_receta.value.a1_od.esf === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_od.esf) ? dioptrias_receta.value.a1_od.esf : 0 },${typeof dioptrias_receta.value.a1_od.cil === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_od.cil) ? dioptrias_receta.value.a1_od.cil : 0},${typeof dioptrias_receta.value.a1_od.eje === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_od.eje) ? dioptrias_receta.value.a1_od.eje : 0},${(typeof dioptrias_receta.value.a1_od.ad === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_od.ad)) ? dioptrias_receta.value.a1_od.ad : 0 },${typeof dioptrias_receta.value.a1_oi.esf === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_oi.esf) ? dioptrias_receta.value.a1_oi.esf  : 0},${typeof dioptrias_receta.value.a1_oi.cil === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_oi.cil) ? dioptrias_receta.value.a1_oi.cil : 0},${typeof dioptrias_receta.value.a1_oi.eje === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_oi.eje) ? dioptrias_receta.value.a1_oi.eje : 0},${typeof dioptrias_receta.value.a1_oi.ad === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_oi.ad) ? dioptrias_receta.value.a1_oi.ad  : 0 },${A1_DP.value || 0},${typeof jsonData.a1_alt === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_alt) ? jsonData.a1_alt : 0}, "${A1_GRUPO_OD.value}" ,"${A1_GRUPO_OI.value}" ,${typeof a2_od_esf.value === 'number' ? a2_od_esf.value :  0 },${typeof a2_od_cil.value === 'number' ? a2_od_cil.value : 0 },${typeof a2_od_eje.value === 'number' ? a2_od_eje.value : 0 },${typeof a2_oi_esf.value === 'number' ? a2_oi_esf.value : 0 },${typeof a2_oi_cil.value  === 'number' ? a2_oi_cil.value : 0 },${typeof a2_oi_eje.value === 'number' ? a2_oi_eje.value : 0},${A2_DP.value || 0},"${A2_GRUPO_OD.value}","${A2_GRUPO_OI.value}" ,${jsonData.a1_opcion_vta_id ?? 0},"${a1_armazon.value ?? 0}",${jsonData.a2_opcion_vta_id ?? 0},"${a2_armazon.value ?? 0 }",${jsonData.a3_opcion_vta_id ?? 0},"${a3_armazon.value?? 0}",${jsonData.cristal1_opcion_vta_id || 0},${jsonData.cristal1_marca_id || 0},${jsonData.cristal1_diseno_id || 0},${jsonData.cristal1_indice_id || 0},${jsonData.cristal1_material_id || 0},${jsonData.cristal1_tratamiento_id || 0},${jsonData.cristal1_color_id || 0},${jsonData.cristal1_diametro || 0},"${A1_CR_OD ?? " "}","${A1_CR_OI ?? " "}",${jsonData.cristal1_tratamiento_adicional_id || 0},${jsonData.cristal2_od_opcion_venta_id || 0},${jsonData.cristal2_marca_id || 0},${jsonData.cristal2_diseno_id || 0},${jsonData.cristal2_indice_id || 0},${jsonData.cristal2_material_id || 0},${typeof jsonData.cristal2_tratamiento === 'number' ? jsonData.cristal2_tratamiento : 0},${jsonData.cristal2_color_id || 0},${typeof A2_Diametro.value === 'number' ? A2_Diametro.value : 0},"${typeof A2_CR_OD.value === 'string' ? A2_CR_OD.value : ""}","${typeof A2_CR_OI.value === 'string' ? A2_CR_OI.value : " " }",${jsonData.cristal2_tratamiento_adicional_id || 0},${jsonData.motivo_garantia_id || 0},${jsonData.folio_asociado || 0},${isEditting ? 0 : jsonData.resolucion_garantia_id === 'Aceptada' ? '1' : '2'},"${jsonData.worktracking || 0}","${jsonData.nota_venta || 0}",${jsonData.numero_reporte_firma || 0},${jsonData.numero_reporte_atencion || 0},"${jsonData.numero_oc || 0}",${jsonData.numero_guia || 0},${jsonData.numero_factura || 0},"${jsonData.folio_interno_mandante || 0}",${jsonData.total || 0},"${jsonData.observaciones || ""}"`
 
-    //TODO| CRISTALES
-    // const _p55 = `${jsonData.cristal1_opcion_vta_id || 0},${jsonData.cristal1_marca_id || 0},${jsonData.cristal1_diseno_id || 0},${jsonData.cristal1_indice_id || 0},${jsonData.cristal1_material_id || 0},${jsonData.cristal1_tratamiento_id || 0},${jsonData.cristal1_color_id || 0},${jsonData.cristal1_diametro || 0},"${A1_CR_OD ?? " "}","${A1_CR_OI ?? " "},${jsonData.cristal1_tratamiento_adicional_id || 0} `
-    // console.log(_p55)
-    // const _p66 =`${jsonData.cristal2_od_opcion_venta_id || 0},${jsonData.cristal2_marca_id || 0},${jsonData.cristal2_diseno_id || 0},${jsonData.cristal2_indice_id || 0},${jsonData.cristal2_material_id || 0},${typeof A2_Diametro.value === 'number' ? A2_Diametro.value : 0},${jsonData.cristal2_color_id || 0},${jsonData.cristal2_diametro || 0},"${A2_CR_OD.value ?? " "}","${A2_CR_OI.value ?? " "}",${jsonData.cristal2_tratamiento_adicional_id || 0}` 
-    // console.log(_p66)
-    let _p1 = `${motivo},${_destino},${estado},"${estado_impresion}","${estado_validacion}", "${jsonData.proyecto_codigo}",${jsonData.establecimiento_id || 1},"${jsonData.cliente_rut || formValues.cliente.cliente_rut}" ,${jsonData.oftalmologo_id ?? 0} ,"${jsonData.fecha_atencion || fecha_atencion_signal.value}","${jsonData.fecha_entrega_taller || fecha_entrega_taller.value}","${jsonData.fecha_despacho || fecha_despacho.value}","${jsonData.fecha_entrega_cliente || fecha_entrega_cliente.value}",${jsonData.punto_venta_id || 0},${typeof jsonData.numero_receta  === 'number' ? jsonData.numero_receta  : 0},"${jsonData.fecha_receta ?? ""}",${jsonData.tipo_anteojo_id ?? 0},${typeof dioptrias_receta.value.a1_od.esf === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_od.esf) ? dioptrias_receta.value.a1_od.esf : 0 },${typeof dioptrias_receta.value.a1_od.cil === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_od.cil) ? dioptrias_receta.value.a1_od.cil : 0},${typeof dioptrias_receta.value.a1_od.eje === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_od.eje) ? dioptrias_receta.value.a1_od.eje : 0},${(typeof dioptrias_receta.value.a1_od.ad === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_od.ad)) ? dioptrias_receta.value.a1_od.ad : 0 },${typeof dioptrias_receta.value.a1_oi.esf === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_oi.esf) ? dioptrias_receta.value.a1_oi.esf  : 0},${typeof dioptrias_receta.value.a1_oi.cil === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_oi.cil) ? dioptrias_receta.value.a1_oi.cil : 0},${typeof dioptrias_receta.value.a1_oi.eje === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_oi.eje) ? dioptrias_receta.value.a1_oi.eje : 0},${typeof dioptrias_receta.value.a1_oi.ad === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_oi.ad) ? dioptrias_receta.value.a1_oi.ad  : 0 },${typeof jsonData.a1_dp === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_dp) ? A1_DP.value : 0},${typeof jsonData.a1_alt === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_alt) ? jsonData.a1_alt : 0}, "${A1_GRUPO_OD.value}" ,"${A1_GRUPO_OI.value}" ,${typeof a2_od_esf.value === 'number' ? a2_od_esf.value :  0 },${typeof a2_od_cil.value === 'number' ? a2_od_cil.value : 0 },${typeof a2_od_eje.value === 'number' ? a2_od_eje.value : 0 },${typeof a2_oi_esf.value === 'number' ? a2_oi_esf.value : 0 },${typeof a2_oi_cil.value  === 'number' ? a2_oi_cil.value : 0 },${typeof a2_oi_eje.value === 'number' ? a2_oi_eje.value : 0},${typeof jsonData.a2_dp === 'number' &&  !Number.isNaN(dioptrias_receta.value.a2_dp) ? A2_DP.value : 0},"${A2_GRUPO_OD.value}","${A2_GRUPO_OI.value}" ,${jsonData.a1_opcion_vta_id ?? 0},"${a1_armazon.value ?? 0}",${jsonData.a2_opcion_vta_id ?? 0},"${a2_armazon.value ?? 0 }",${jsonData.a3_opcion_vta_id ?? 0},"${a3_armazon.value?? 0}",${jsonData.cristal1_opcion_vta_id || 0},${jsonData.cristal1_marca_id || 0},${jsonData.cristal1_diseno_id || 0},${jsonData.cristal1_indice_id || 0},${jsonData.cristal1_material_id || 0},${jsonData.cristal1_tratamiento_id || 0},${jsonData.cristal1_color_id || 0},${jsonData.cristal1_diametro || 0},"${A1_CR_OD ?? " "}","${A1_CR_OI ?? " "}",${jsonData.cristal1_tratamiento_adicional_id || 0},${jsonData.cristal2_od_opcion_venta_id || 0},${jsonData.cristal2_marca_id || 0},${jsonData.cristal2_diseno_id || 0},${jsonData.cristal2_indice_id || 0},${jsonData.cristal2_material_id || 0},${typeof jsonData.cristal2_tratamiento === 'number' ? jsonData.cristal2_tratamiento : 0},${jsonData.cristal2_color_id || 0},${typeof A2_Diametro.value === 'number' ? A2_Diametro.value : 0},"${typeof A2_CR_OD.value === 'string' ? A2_CR_OD.value : ""}","${typeof A2_CR_OI.value === 'string' ? A2_CR_OI.value : " " }",${jsonData.cristal2_tratamiento_adicional_id || 0},${jsonData.motivo_garantia_id || 0},${jsonData.folio_asociado || 0},${isEditting ? 0 : jsonData.resolucion_garantia_id === 'Aceptada' ? '1' : '2'},"${jsonData.worktracking || 0}","${jsonData.nota_venta || 0}",${jsonData.numero_reporte_firma || 0},${jsonData.numero_reporte_atencion || 0},"${jsonData.numero_oc || 0}",${jsonData.numero_guia || 0},${jsonData.numero_factura || 0},"${jsonData.folio_interno_mandante || 0}",${jsonData.total || 0},"${jsonData.observaciones || ""}"`
-
-    console.log(_p1)
-    // console.log(_p11)
-    
-    
-    // if(!existCliente){
-    //    _rut = '';
-    //    _p3 =`'${jsonData.cliente_rut}','${jsonData.cliente_nombre}',${jsonData.cliente_tipo === TIPO_CLIENTE.beneficiario ? "1" : jsonData.cliente_tipo === TIPO_CLIENTE.particular ? "2" : jsonData.cliente_tipo === TIPO_CLIENTE.optica ? "3" : "0"}, ${jsonData.cliente_sexo === SEXO.masculino ? "1" : jsonData.cliente_sexo === SEXO.femenino ? "2" : jsonData.cliente_sexo === SEXO.no_aplica ? "3" : "0"},'${jsonData.cliente_fecha_nacimiento}','${jsonData.cliente_direccion}' ,${jsonData.cliente_comuna_id || 150}, '${jsonData.cliente_telefono}','${jsonData.cliente_correo}', ${jsonData.establecimiento_id}`;
-    // }
-
-    // console.log('data', jsonData)
-    // let _p1 = `${motivo},${_destino},${estado},${estado_impresion},${estado_validacion},"${jsonData.proyecto_codigo}",${jsonData.establecimiento_id},"${jsonData.cliente_rut || formValues.cliente.cliente_rut}" ,${jsonData.oftalmologo_id ?? 0} ,"${jsonData.fecha_atencion || fecha_atencion_signal.value}","${jsonData.fecha_entrega_taller || fecha_entrega_taller.value}","${jsonData.fecha_despacho || fecha_despacho.value}","${jsonData.fecha_entrega_cliente || fecha_entrega_cliente.value}",${jsonData.punto_venta_id || 0},${jsonData.numero_receta.value ?? 0},"${jsonData.fecha_receta ?? ""}",${jsonData.tipo_anteojo_id ?? 0},${a1_od_esf.value ?? 0},${a1_od_cil.value ?? 0},${a1_od_eje.value ?? 0},${a1_od_ad.value ?? 0 },${a1_oi_esf.value ?? 0},${a1_oi_cil.value ?? 0},${a1_oi_eje.value ?? 0},${a1_oi_ad.value ?? 0},${jsonData.a1_dp ?? 0},${jsonData.a1_alt ?? 0},${a1_grupo ?? 0},${a2_od_esf.value ?? 0},${a2_od_cil.value ?? 0},${a2_od_eje.value ?? 0},${a2_oi_esf.value ?? 0},${a2_oi_cil.value ?? 0},${a2_oi_eje.value ?? 0},${jsonData.a2_dp.value ?? 0},${a2_grupo ?? 0},${jsonData.a1_opcion_vta_id ?? 0},"${jsonData.a1_armazon_id ?? " "}",${jsonData.a2_opcion_vta_id ?? 0},"${jsonData.a2_armazon_id ?? " "}",${jsonData.a3_opcion_vta_id ?? 0},"${jsonData.a3_armazon_id ?? " "}",${jsonData.cristal1_opcion_vta_id || 0},${jsonData.cristal1_marca_id || 0},${jsonData.cristal1_diseno_id || 0},${jsonData.cristal1_indice_id || 0},${jsonData.cristal1_material_id || 0},${jsonData.cristal1_tratamiento_id || 0},${jsonData.cristal1_color_id || 0},${jsonData.cristal1_diametro || 0},"${jsonData.cristal1_od ?? " "}","${jsonData.cristal1_oi ?? " "}",${jsonData.cristal1_tratamiento_adicional_id || 0},${jsonData.cristal2_od_opcion_venta_id || 0},${jsonData.cristal2_marca_id || 0},${jsonData.cristal2_diseno_id || 0},${jsonData.cristal2_indice_id || 0},${jsonData.cristal2_material_id || 0},${jsonData.cristal2_tratamiento_id || 0},${jsonData.cristal2_color_id || 0},${jsonData.cristal2_diametro || 0},"${jsonData.cristal2_od ?? " "}","${jsonData.cristal2_oi ?? " "}",${jsonData.cristal2_tratamiento_adicional_id || 0},${jsonData.motivo_garantia_id || 0},${jsonData.folio_asociado || 0},${jsonData.resolucion_garantia_id || 0},${jsonData.worktracking || 0},${jsonData.nota_venta || 0},${jsonData.numero_factura || 0},${jsonData.folio_interno_mandante || 0},${jsonData.total || 0},"${jsonData.observaciones || ""}"`;
-    // _p1 = _p1.replace(/'/g, '!');
     // console.log(_p1)
-
-    // const _p3 = `'${jsonData.cliente_rut}','${jsonData.cliente_nombre}',${jsonData.cliente_tipo === TIPO_CLIENTE.beneficiario ? "1" : jsonData.cliente_tipo === TIPO_CLIENTE.particular ? "2" : jsonData.cliente_tipo === TIPO_CLIENTE.optica ? "3" : "0"}, ${jsonData.cliente_sexo === SEXO.masculino ? "1" : jsonData.cliente_sexo === SEXO.femenino ? "2" : jsonData.cliente_sexo === SEXO.no_aplica ? "3" : "0"},'${jsonData.cliente_fecha_nacimiento}','${jsonData.cliente_direccion}' ,${jsonData.cliente_comuna_id || 150}, '${jsonData.cliente_telefono}','${jsonData.cliente_correo}', ${jsonData.establecimiento_id}`;
-
-    // const cristales  = [{'codigo': A1_CR_OD.value },{'codigo': A1_CR_OI.value},{'codigo': A2_CR_OD.value},{'codigo':A2_CR_OI.value}];
-    // const armazones  = [{'codigo': a1_armazon.value },{'codigo': tipo_de_anteojo.value === '3' ?  a2_armazon.value : ""},]; 
-
-
+    // console.log(_p11)
     
-   
+    
     const query = {
       query: "03",
       _p1,
-      _p3 ,
+      // _p3:`${_p3}`,
+      _p3,
       _rut,
       _proyecto:`${jsonData.proyecto_codigo}`,
       _origen,
@@ -723,7 +684,6 @@ const FOT:React.FC<IFOTProps> = ({
     console.log(jsonData)
     // console.log(query)
   
-
     try {
       const response = await axios.post(`${URLBackend}/api/ot/crear/`, query)
       console.log(response)
@@ -731,6 +691,7 @@ const FOT:React.FC<IFOTProps> = ({
         const message = `Nuevo Folio OT: ${response.data.datos[0][0]}`
         toast.success(message)
         handleCloseForm()
+        isExistClient.value = false
       }
     } catch (error) {
       console.log(error)
@@ -916,6 +877,7 @@ const FOT:React.FC<IFOTProps> = ({
 
     //TODO: inputChangeAction 
     const key = Object.keys(data)[0] 
+    console.log(key)
     if(inputChangeActions[key]){
       console.log('render')
       inputChangeActions[key](data);
@@ -1242,6 +1204,9 @@ useEffect(()=>{
     A1_CR_OI.value =  data[EnumGrid.cristal1_oi]
 
 
+    // a1_od_esf.value = data[EnumGrid.a1_od_esf]
+
+
     a2_od_esf.value = data[EnumGrid.a2_od_esf]
     a2_od_cil.value = data[EnumGrid.a2_od_cil]
     a2_od_eje.value = data[EnumGrid.a2_od_eje]
@@ -1274,6 +1239,7 @@ useEffect(()=>{
 }
 },[data])
 
+console.log(data && data[EnumGrid.a1_dp])
 
 useEffect(() => {
   const handleKeyDown = (event: KeyboardEvent) => {

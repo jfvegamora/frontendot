@@ -21,16 +21,17 @@ const handleEstado = (area:any) => {
     dispatch(updateActualArea(area && area[1]))
     dispatch(updateNextArea(area && area[4]))
     setBotonPresionado(area && area[1]); 
+    console.log(area)
+  areaActualRef.current = area[4]
+  dispatch(fetchOT({OTAreas:area[4]}))
 }
 
 useEffect(() => {
-  if (areaActual && areaActual !== areaActualRef.current) {
-    areaActualRef.current = areaActual;
-    dispatch(fetchOT({OTAreas:areaActual})); // Llama inicialmente cuando cambia el área
-  }
 
+   ; // Llama inicialmente cuando cambia el área
+  console.log(areaActualRef)
   const interval = setInterval(() => {
-    dispatch(fetchOT(areaActualRef.current)); // Llama fetchOT cada minuto con el área actual
+    dispatch(fetchOT({OTAreas:areaActualRef.current})) // Llama fetchOT cada minuto con el área actual
   }, 60000);
 
   return () => clearInterval(interval); // Limpia el intervalo al desmontar el componente
