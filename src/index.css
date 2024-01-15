@@ -240,12 +240,12 @@ select::-ms-expand {
 
 .custom-optional{
   background-color: rgba(255, 255, 255, 0.2);
-  color: #2d3250;
+  color: rgba(255, 255, 255, 0.8);
 }
 
 .custom-onlyread{
   background-color:transparent; 
-  color: #b0bbc4; 
+  color: rgba(255, 255, 255, 0.9); 
   border-color: #f8b179 !important;
 }
 
