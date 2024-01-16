@@ -5,7 +5,7 @@ import { EnumGrid as EnumArmazones } from '../../views/mantenedores/MArmazones';
 import { validationOTlevel2 } from '../../utils/validationOT';
 import { URLBackend } from '../../hooks/useCrud';
 import { toast } from 'react-toastify';
-import { A1_DP, A1_Diametro, A2_DP, A2_Diametro, codigoProyecto, punto_venta, tipo_de_anteojo, validar_parametrizacion } from '../../utils';
+import { A1_DP, A1_Diametro, A2_DP, A2_Diametro, codigoProyecto, isToggleValidation, punto_venta, tipo_de_anteojo, validar_parametrizacion } from '../../utils';
 import TextInputInteractive from '../forms/TextInputInteractive';
 
 interface IArmazones {
@@ -214,7 +214,7 @@ console.log(typeof A1_Diametro)
                                     handleChange={handleInputChange}
                                     data={formValues ? formValues["a1_armazon_id"] : data && data[EnumGrid.a1_armazon_id]}
                                     control={control}
-                                    onlyRead={!(permiso_usuario_armazones && permiso_areas_armazones)}
+                                    onlyRead={!(permiso_usuario_armazones && permiso_areas_armazones && !isToggleValidation.value)}
                                     isOT={true}
                                     className=''
                                     textAlign="text-center"
@@ -279,7 +279,7 @@ console.log(typeof A1_Diametro)
                                     handleChange={handleInputChange}
                                     data={formValues ? formValues["a2_armazon_id"] : data && data[EnumGrid.a2_armazon_id]}
                                     control={control}
-                                    onlyRead={!(permiso_usuario_armazones && permiso_areas_armazones)}
+                                    onlyRead={!(permiso_usuario_armazones && permiso_areas_armazones && !isToggleValidation.value)}
                                     isOT={true}
                                     textAlign="text-center"
                                     />
@@ -345,7 +345,7 @@ console.log(typeof A1_Diametro)
                                     data={formValues ? formValues["a3_armazon_id"] : data && data[EnumGrid.a3_armazon_id]}
 
                                     control={control}
-                                    onlyRead={!(permiso_usuario_armazones && permiso_areas_armazones)}
+                                    onlyRead={!(permiso_usuario_armazones && permiso_areas_armazones && !isToggleValidation.value)}
                                     isOT={true}
                                     isOptional={true}
                                     textAlign="text-center"

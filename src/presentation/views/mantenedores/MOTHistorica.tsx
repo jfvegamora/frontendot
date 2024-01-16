@@ -22,6 +22,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { URLBackend } from "../../hooks/useCrud";
 import { clearData, fetchOT } from "../../../redux/slices/OTSlice";
+import StateCountBarOT from "../../components/StateCountBarOT";
 
 export enum EnumGrid {
   folio = 1,
@@ -398,7 +399,8 @@ const MOTHistorica: React.FC = () => {
         />
       </div>
 
-
+        <StateCountBarOT/>
+        
       {isModalInsert && (
         <FOT
           label={`${TITLES.ingreso} ${strEntidad}`}

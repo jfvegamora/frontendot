@@ -112,16 +112,21 @@ const OTSlice = createSlice({
         clearCodigos(state){
             state.armazones = [];
             state.cristales = [];
+        },
+        clearOTColores(state){
+            state.derivacionColores = {}
         }
     },
     extraReducers: (builder) => {
         builder.addCase(fetchOT.fulfilled, (state, action) => {
             // console.log(action.payload)
             state.estadosOT = {};
+            state.estadosOT[99] = 0;
 
             action.payload.forEach((ot:any)=>{
                 // console.log(ot)
                 const estado = ot[3];
+                const esAtrasado = ot[ot.length - 1] === 'S';
 
                 // Resto del código es igual...
                 // console.log(estado)
@@ -130,6 +135,11 @@ const OTSlice = createSlice({
                     state.estadosOT[estado]++;
                 } else {
                     state.estadosOT[estado] = 1;
+                }
+
+                
+                if (esAtrasado) {
+                    state.estadosOT[99]++;
                 }
                 return;
             })
@@ -148,5 +158,5 @@ const OTSlice = createSlice({
     },
 });
 
-export const { clearData, addToCristales, addToArmazones, clearCodigos } = OTSlice.actions;
+export const { clearData, addToCristales, addToArmazones, clearCodigos,clearOTColores } = OTSlice.actions;
 export default OTSlice.reducer;

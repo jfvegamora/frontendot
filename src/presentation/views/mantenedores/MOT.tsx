@@ -17,7 +17,8 @@ import { AppStore,
   useAppDispatch, 
   useAppSelector } from "../../../redux/store";
 import FilterButton, { filterToggle } from "../../components/FilterButton";
-import { clearData } from "../../../redux/slices/OTSlice";
+import { clearData, clearOTColores, fetchColores } from "../../../redux/slices/OTSlice";
+import StateCountBarOT from "../../components/StateCountBarOT";
 
 export enum EnumGrid {
   id = 1,
@@ -41,6 +42,8 @@ export enum OptionValuesEstado {
   Entregada = 1,
   Annulada = 2
 }
+
+
 
 
 const strEntidad = "Orden de Trabajo ";
@@ -112,6 +115,9 @@ const MOT: React.FC = () => {
     setPkToDelete(newPkToDelete as any)
   }, [selectedRows]);
 
+
+
+
   //SWR-POLLING
   // const fetcher = (url:string) => axios.get(url).then((res)=>res.data);
   // const {data} = useSWR(`${URLBackend}/api/ot/listado/?query=01&_origen=${OTAreas["areaActual"]}`, fetcher,{
@@ -160,10 +166,10 @@ const MOT: React.FC = () => {
   // console.log(OTs.data.slice(0,250))
   // console.log('selectedValue',selectedValue)
 
-  // console.log(OTs.estadosOT)
-
   useEffect(()=>{
     dispatch(clearData())
+    dispatch(clearOTColores())
+    dispatch(fetchColores())
   },[])
 
   useEffect(()=>{
@@ -171,6 +177,8 @@ const MOT: React.FC = () => {
   },[OTs.estadosOT])
 
   // console.log(estadosOT)
+
+
   return (
     <div className="mantenedorContainer">
       <div className="mt-4">
@@ -279,6 +287,44 @@ const MOT: React.FC = () => {
           isOT={true}
         />
       </div>
+
+{/* 
+      <div className="w-[80%] bg-white absolute bottom-[2%] flex">
+        {Object.keys(OTs.estadosOT).map((estadoID, index) => {
+          const estadoNombre = estadoIDNombre[estadoID];
+          const derivacionColor = OTs.derivacionColores[estadoNombre];
+
+          if (derivacionColor) {
+            const backgroundColor = derivacionColor[1];
+            const textColor = derivacionColor[0];
+
+            return (
+              <div className="flex" key={index}>
+                <p style={{ backgroundColor, color: textColor }} className="mx-2 w-[6rem] text-center">
+                  {estadoNombre}:
+                </p>
+                <label className="w-8 text-center">{OTs.estadosOT[estadoID]}</label>
+                {estadoNombre === 'Por Vencer' && (
+                <h1>hola</h1>
+                )}
+              </div>
+            );
+          }
+
+          return null; 
+        })}
+        
+        {OTs.estadosOT.hasOwnProperty(99) && (
+          <div className="w-[8rem]  flex bg-black">
+              <p className="text-center mx-auto text-white">Por vencer: </p> <label className="text-center text-white">{OTs.estadosOT[99]}</label>        
+          </div>
+        )}
+
+    </div> */}
+
+    <StateCountBarOT/>
+
+
 
       {isModalInsert && (
         <FOT

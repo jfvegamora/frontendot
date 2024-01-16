@@ -110,6 +110,7 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
       handleChange(e.target)
     }
 
+    console.log(e.target.name)
 
     switch (e.target.name) {
       case 'a1_od_esf':
@@ -129,9 +130,9 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
         break;
 
       case 'a1_od_ad':
-        if((parseFloat(e.target.value) % 0.25 !== 0)){
+        if((parseFloat(e.target.value) % 0.25 !== 0)) {
           toast.error('ADICIONAL no corresponde')
-          setValue("  ")
+          // setValue("  ")
           return;
         }
         break;
@@ -149,7 +150,7 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
         break;
 
       case 'a1_oi_ad':
-        if((parseFloat(e.target.value) % 0.25 !== 0)){
+        if((e.target.value !== '' && parseFloat(e.target.value) % 0.25 !== 0)) {
           toast.error('ADICIONAL no corresponde')
           setValue("  ")
           return;

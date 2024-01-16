@@ -562,7 +562,13 @@ export const updateOT =async (
   let motivo = 1;
   // let _rut = ""
   let _p3 = ""
- 
+  
+  console.log(_formValues)
+
+  // console.log((`cristales1_tratamiento_adicional=${_formValues && typeof _formValues["cristales"] && _formValues["cristales"]["cristal1_tratamiento_adicional_id"]      === 'undefined' ? data && data[EnumGrid.cristal1_tratamiento_adicional_id] : _formValues["cristales"] && parseInt(_formValues["cristales"]["cristal1_tratamiento_adicional_id"])}`))
+  console.log((_formValues && _formValues["cristales"] && _formValues["cristales"]["cristal1_marca_id"] !== undefined) ? true : false);
+  console.log(data && data[EnumGrid.cristal1_tratamiento_adicional_id])
+  console.log(data && data[EnumGrid.cristal1_marca_id])
 
   const fields = [
     `motivo=${motivo}`,
@@ -590,7 +596,7 @@ export const updateOT =async (
     (`a1_oi_esf=${typeof dioptrias_receta.value.a1_oi.esf                                       !== 'object' && !Number.isNaN(dioptrias_receta.value.a1_oi.esf) ? dioptrias_receta.value.a1_oi.esf : null }`),
     (`a1_oi_cil=${typeof dioptrias_receta.value.a1_oi.cil                                       !== 'object' && !Number.isNaN(dioptrias_receta.value.a1_oi.cil) ? dioptrias_receta.value.a1_oi.cil : null }`),
     (`a1_oi_eje=${typeof dioptrias_receta.value.a1_oi.eje                                       !== 'object' && !Number.isNaN(dioptrias_receta.value.a1_oi.eje) ? dioptrias_receta.value.a1_oi.eje : null }`),
-    (`a1_oi_ad =${typeof dioptrias_receta.value.a1_oi.ad                                        !== 'object' && !Number.isNaN(dioptrias_receta.value.a1_oi.ad) ? dioptrias_receta.value.a1_oi.ad   : null }`),
+    (`a1_oi_ad =${typeof dioptrias_receta.value.a1_oi.ad                                        !== 'object' && !Number.isNaN(dioptrias_receta.value.a1_oi.ad)  ? dioptrias_receta.value.a1_oi.ad  : null }`),
     (`a1_dp=${jsonData.a1_dp                                                                    !== ''       ? jsonData.a1_dp  : null }`),
     (`a1_alt=${jsonData.a1_alt                                                                  !== ''       ? jsonData.a1_alt : null }`),
 
@@ -619,19 +625,20 @@ export const updateOT =async (
     (`anteojo3_armazon="${typeof a3_armazon.value                                               !== 'object' ? a3_armazon.value : "" }"`),
 
     (`cristales1_opcion_vta=${0}`),
-    (`cristales1_marca=${typeof jsonData.cristal1_marca_id                                      === 'undefined' ? data && data[EnumGrid.cristal1_marca_id]                 : parseInt(jsonData.cristal1_marca_id)}`),
-    (`cristales1_diseno=${typeof jsonData.cristal1_diseno_id                                    === 'undefined' ? data && data[EnumGrid.cristal1_diseno_id]                : parseInt(jsonData.cristal1_diseno_id)}`),
-    (`cristales1_indice=${typeof jsonData.cristal1_indice_id                                    === 'undefined' ? data && data[EnumGrid.cristal1_indice_id]                : parseInt(jsonData.cristal1_indice_id)}`),
-    (`cristales1_material=${typeof jsonData.cristal1_material_id                                === 'undefined' ? data && data[EnumGrid.cristal1_material_id]              : parseInt(jsonData.cristal1_material_id)}`),
-    (`cristales1_tratamiento=${typeof jsonData.cristal1_tratamiento_id                          === 'undefined' ? data && data[EnumGrid.cristal1_tratamiento_id]           : parseInt(jsonData.cristal1_tratamiento_id)}`),
-    (`cristales1_color=${typeof jsonData.cristal1_color_id                                      === 'undefined' ? data && data[EnumGrid.cristal1_color_id]                 : parseInt(jsonData.cristal1_color_id) }`),
-    (`cristales1_od="${typeof A1_CR_OD.value                                                    !== 'object'    ? A1_CR_OD.value                                           : jsonData.cristal1_od}"`),
-    (`cristales1_oi="${typeof A1_CR_OI.value                                                    !== 'object'    ? A1_CR_OI.value                                           : jsonData.cristal1_oi }"`),
-    (`cristales1_tratamiento_adicional=${typeof jsonData.cristal1_tratamiento_adicional_id      === 'undefined' ? data && data[EnumGrid.cristal1_tratamiento_adicional_id] : parseInt(jsonData.cristal1_tratamiento_adicional_id)}`),
+    (`cristales1_marca=${_formValues && _formValues["cristales"] && _formValues["cristales"]["cristal1_marca_id"]                                      !== undefined ? _formValues["cristales"] && parseInt(_formValues["cristales"]["cristal1_marca_id"])                 : data && data[EnumGrid.cristal1_marca_id]}`),
+    (`cristales1_diseno=${_formValues && _formValues["cristales"] && _formValues["cristales"]["cristal1_diseno_id"]                                    !== undefined ? _formValues["cristales"] && parseInt(_formValues["cristales"]["cristal1_diseno_id"])                : data && data[EnumGrid.cristal1_diseno_id]}`),
+    (`cristales1_indice=${_formValues && _formValues["cristales"] && _formValues["cristales"]["cristal1_indice_id"]                                    !== undefined ? _formValues["cristales"] && parseInt(_formValues["cristales"]["cristal1_indice_id"])                : data && data[EnumGrid.cristal1_indice_id]}`),
+    (`cristales1_material=${_formValues && _formValues["cristales"] && _formValues["cristales"]["cristal1_material_id"]                                !== undefined ? _formValues["cristales"] && parseInt(_formValues["cristales"]["cristal1_material_id"])              : data && data[EnumGrid.cristal1_material_id]}`),
+    (`cristales1_tratamiento=${_formValues && _formValues["cristales"] && _formValues["cristales"]["cristal1_tratamiento_id"]                          !== undefined ? _formValues["cristales"] && parseInt(_formValues["cristales"]["cristal1_tratamiento_id"])           : data && data[EnumGrid.cristal1_tratamiento_id]}`),
+    (`cristales1_color=${_formValues && _formValues["cristales"] && _formValues["cristales"]["cristal1_color_id"]                                      !== undefined ? _formValues["cristales"] && parseInt(_formValues["cristales"]["cristal1_color_id"])                 : data && data[EnumGrid.cristal1_color_id]  }`),
+    (`cristales1_diametro=${_formValues && _formValues["cristales"] && _formValues["cristales"]["cristal1_diametro"]                                   !== undefined ? _formValues["cristales"] && parseInt(_formValues["cristales"]["cristal1_diametro"])                 : data && data[EnumGrid.cristal1_color_id] }`),
+    (`cristales1_od="${typeof A1_CR_OD.value                                                                                                                  !== 'object'  ? A1_CR_OD.value                                                                                      : jsonData.cristal1_od}"`),
+    (`cristales1_oi="${typeof A1_CR_OI.value                                                                                                                  !== 'object'  ? A1_CR_OI.value                                                                                      : jsonData.cristal1_oi }"`),
+    (`cristales1_tratamiento_adicional=${_formValues && _formValues["cristales"] && _formValues["cristales"]["cristal1_tratamiento_adicional_id"]      !== undefined ? _formValues["cristales"] && parseInt(_formValues["cristales"]["cristal1_tratamiento_adicional_id"]) : data && data[EnumGrid.cristal1_tratamiento_adicional_id]}`),
 
     
     (`cristales2_opcion_vta=${0}`),
-    (`cristales2_marca=${typeof jsonData.cristal2_marca_id                                      === 'undefined' ? data && data[EnumGrid.cristal2_marca_id]              : parseInt(jsonData.cristal2_marca_id)}`),
+    (`cristales2_marca=${typeof jsonData.cristal2_marca_id                                      === 'undefined' ? data && data[EnumGrid.cristal2_marca_id]                 : parseInt(jsonData.cristal2_marca_id)}`),
     (`cristales2_diseno=${typeof jsonData.cristal2_diseno_id                                    === 'undefined' ? data && data[EnumGrid.cristal2_diseno_id]                : parseInt(jsonData.cristal2_diseno_id) }`),
     (`cristales2_indice=${typeof jsonData.cristal2_indice_id                                    === 'undefined' ? data && data[EnumGrid.cristal2_indice_id]                : parseInt(jsonData.cristal2_indice_id) }`),
     (`cristales2_material=${typeof jsonData.cristal2_material_id                                === 'undefined' ? data && data[EnumGrid.cristal2_material_id]              : parseInt(jsonData.cristal2_material_id)}`),

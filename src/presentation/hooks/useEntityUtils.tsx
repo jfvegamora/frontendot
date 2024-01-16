@@ -126,7 +126,7 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
       const response = await axios(endpoint)
       setEntity(response.data[0])
       dispatch(fetchOTByID({ folio: folio, OTAreas: areaActual }));
-      setIsModalEdit((prev) => !prev);
+      setIsModalEdit(true);
       return ''
       } catch (error) {
         console.log(error)

@@ -765,7 +765,7 @@ export const validation_A1_DP = (value:string | any) => {
 
 export const validation_A1_OI_AD = (value:string | any) => {
     const item = validationNivel2.value.find((item) => item.campo === 'a1_oi_ad');
-    
+    console.log(value)
     if (value !== '') {
         const formattedValue = Number(value).toFixed(2);        
         // const validate = dioptrias.value.AD.some((dioptria: string) => dioptria.includes(formattedValue));
@@ -830,16 +830,18 @@ export const validation_A1_OI_ESF = (value:string | any) => {
 
 export const validation_A1_OD_AD = (value:string | any) => {
     const item = validationNivel2.value.find((item) => item.campo === 'a1_od_ad');
-
+    console.log(value)
     if (value !== '') {
         const formattedValue = Number(value).toFixed(2);
-        const validate = (formattedValue as any % 0.25) === 0 ? true : false
+        console.log(value)
+        const validate = ((value === '0.00' || (formattedValue as any % 0.25) === 0));
+        console.log(validate)
 
         item && (item.valor = validate ? 1 : 0);
-        if(!validate){
-            dioptrias_receta.value.a1_oi.esf = "  ";
-            a1_oi_esf.value = "  "
-          }
+        // if(!validate){
+        //     dioptrias_receta.value.a1_od.ad = "  ";
+        //     a1_od_ad.value = "  "
+        //   }
       } else if (item) {
         item.valor = 0;
      }

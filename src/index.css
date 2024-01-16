@@ -153,6 +153,7 @@ select::-ms-expand {
   height: 2rem;
 }
 
+
 .custom-select-reg::after {
   content: "\25BC";
   position: absolute;
@@ -248,6 +249,7 @@ select::-ms-expand {
   color: rgba(255, 255, 255, 0.9); 
   border-color: #f8b179 !important;
 }
+
 
 .custom-input.error {
   border-width: 3px; 

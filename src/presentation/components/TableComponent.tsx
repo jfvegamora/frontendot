@@ -13,7 +13,7 @@ import OTGrillaButtons from "./OTGrillaButtons";
 // import { ExportCSV } from "./ExportToCsv";
 
 interface ITableComponentProps<T> {
-  tableHead: { cell: JSX.Element | string; key: string; visible: boolean; width?:string; alignment?:string, color?:boolean }[];
+  tableHead: { cell: JSX.Element | string; key: string; visible: boolean; width?:string; alignment?:string, color?:boolean, background?:boolean }[];
   data?: T[];
   renderButtons?: (item: any) => React.ReactNode;
   handleSelectChecked?: (id: number) => void;
@@ -154,7 +154,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
 
 
 
-    const renderTextCell = (text: string, alignment?:string, type?:number, color2?:boolean, rowData?:any) => {
+    const renderTextCell = (text: string, alignment?:string, type?:number, color2?:boolean, rowData?:any, backgroundAtrasadas?:boolean) => {
 
       const cellStyle = {
         textAlign:alignment,
@@ -162,7 +162,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
       }
       // console.log(type)
       return(
-        <Typography variant="small" color="blue-gray" className={`gridText h-[2.7rem]  py-2  ${(type === 1 && color2) ? '': ( type === 1 ? '!text-white'  :'text-black')} `} style={ color2 ? cellStyle : null}>
+        <Typography variant="small" color="blue-gray" className={`gridText h-[2.7rem]  py-2  ${backgroundAtrasadas && '!text-white '} ${(type === 1 && color2) ? '': ( type === 1 ? ''  :'text-black')} `} style={ color2 ? cellStyle : null}>
           {text !== null && text !== undefined ? text.toString() : ""}
         </Typography>
       )
@@ -252,9 +252,10 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                 <tr key={rowIndex} className="overflow-hidden">
                   {rowData.map((row: any, col: number) => {
                     // console.log("col", col);
-                    const visible   = tableHead?.[col]?.visible || false;
-                    const alignment = tableHead?.[col]?.alignment || "";
-                    const color2    = tableHead?.[col]?.color || false;
+                    const visible             = tableHead?.[col]?.visible || false;
+                    const alignment           = tableHead?.[col]?.alignment || "";
+                    const color2              = tableHead?.[col]?.color || false;
+                    const backgroundAtrasadas = tableHead?.[col]?.background || false;
 
 
                   
@@ -270,7 +271,8 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                     return (
                       visible && (
                         <td
-                        className={`gridTableData  ${alignment} ${color !== '' ? color : ""}`} 
+                        className={`gridTableData ${backgroundAtrasadas && 'bg-black'}  ${alignment} ${""}`} 
+                        // className={`gridTableData ${backgroundAtrasadas && 'bg-black'}  ${alignment} ${color !== '' ? color : ""}`} 
                           key={col}
                           id={tableHead[col].key}
                           style={{
@@ -281,7 +283,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                           
                           {col === 0
                             ? renderCheckboxCell(rowIndex, folio)
-                            : renderTextCell(row, '', type, color2, rowData)}
+                            : renderTextCell(row, '', type, color2, rowData,backgroundAtrasadas)}
                         </td>
                       )
                     );
