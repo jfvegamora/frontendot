@@ -21,9 +21,9 @@ const handleEstado = (area:any) => {
     dispatch(updateActualArea(area && area[1]))
     dispatch(updateNextArea(area && area[4]))
     setBotonPresionado(area && area[1]); 
-    console.log(area)
-  areaActualRef.current = area[4]
-  dispatch(fetchOT({OTAreas:area[4]}))
+    console.log(area[1])
+  areaActualRef.current = area[1]
+  dispatch(fetchOT({OTAreas:area[1]}))
 }
 
 useEffect(() => {

@@ -72,13 +72,15 @@ const FOTArmazones:React.FC<IArmazones> = ({
         onDataChange({ [name]: value }); 
     };
 
+console.log(A1_Diametro.value)
+console.log(typeof A1_Diametro)
 
     useEffect(()=>{     
         if (codArmazon1 !== undefined && codArmazon1 !== null && codArmazon1.trim) {
             if(!(!codArmazon1.trim())){
                 const fetchArmazones1 = async ()=>{
                     try {
-                        const {data} = await axios((validar_parametrizacion.value === '1' ) ? (`${endpoint}&_p1=${codArmazon1 !== ' ' ? codArmazon1.trim() : "aaaa"}&_p4=${typeof A1_DP.value === 'string' ? A1_DP.value : 0}&_p5=${typeof A1_Diametro.value === 'string' ? A1_Diametro.value : ""}`) : (`${endpoint}&_p1=${codArmazon1 !== ' ' ? codArmazon1 && codArmazon1.trim() : "aaaa"}`))
+                        const {data} = await axios((validar_parametrizacion.value === '1' ) ? (`${endpoint}&_p1=${codArmazon1 !== ' ' ? codArmazon1.trim() : "aaaa"}&_p4=${typeof A1_DP.value !== 'string' ? A1_DP.value : 0}&_p5=${typeof A1_Diametro.value === 'string' ? A1_Diametro.value : ""}`) : (`${endpoint}&_p1=${codArmazon1 !== ' ' ? codArmazon1 && codArmazon1.trim() : "aaaa"}`))
     
                         if(data.length === 0){
                             toast.error('Armazon 1 no Existe')

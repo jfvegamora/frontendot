@@ -3,8 +3,11 @@ import { SelectInputComponent, TextInputComponent } from '..';
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
 import { validationOTlevel2 } from '../../utils/validationOT';
 import SelectInputTiposComponent from '../forms/SelectInputTiposComponent';
-import { A1_CR_OD, A1_CR_OI, A1_GRUPO_OD, A1_GRUPO_OI, A2_CR_OD, A2_CR_OI, A2_Diametro, A2_GRUPO_OD, A2_GRUPO_OI, tipo_de_anteojo } from '../../utils';
+import { A1_CR_OD, A1_CR_OI, A1_GRUPO_OD, A1_GRUPO_OI, A2_CR_OD, A2_CR_OI, A2_Diametro, A2_GRUPO_OD, A2_GRUPO_OI, isToggleValidation, tipo_de_anteojo } from '../../utils';
 import TextInputInteractive from '../forms/TextInputInteractive';
+import axios from 'axios';
+import { URLBackend } from '../../hooks/useCrud';
+import { toast } from 'react-toastify';
 
 
 interface ICristales {
@@ -34,20 +37,8 @@ const FOTCristales:React.FC<ICristales> = ({
     isEditting
 }) => {
     
-      // const [codCristal1OD, setCodCristal1OD] = useState(formValues ? formValues["anteojo1_cristal_OD"] : data && data[EnumGrid.cristal1_od_codigo] || 0);
-      // const [codCristal1OI, setCodCristal1OI] = useState(formValues ? formValues["anteojo1_cristal_OI"] : data && data[EnumGrid.cristal1_oi_codigo] || 0);
-      
-      // const [codCristal2OD, setCodCristal2OD] = useState(formValues ? formValues["anteojo2_cristal_OD"] : data && data[EnumGrid.cristal2_od_codigo] || 0);
-      // const [codCristal2OI, setCodCrisyal2OI] = useState(formValues ? formValues["anteojo2_cristal_OI"] : data && data[EnumGrid.cristal2_oi_codigo] || 0);
-      
-      
-      // const fetcher = (url:string) => axios.get(url).then((res)=>res.data);
-    // const { data:cristal1OD } = useSWR(`https://mtoopticos.cl/api/cristales/listado/?query=01&_p1=${codCristal1OD}`, fetcher);
-    // const { data:cristal1OI } = useSWR(`https://mtoopticos.cl/api/cristales/listado/?query=01&_p1=${codCristal1OI}`, fetcher);
-    // const { data:cristal2OD } = useSWR(`https://mtoopticos.cl/api/cristales/listado/?query=01&_p1=${codCristal2OD}`, fetcher);
-    // const { data:cristal2OI } = useSWR(`https://mtoopticos.cl/api/cristales/listado/?query=01&_p1=${codCristal2OI}`, fetcher);
     
-    const handleInputChange = (e:any) => {
+    const handleInputChange = async(e:any) => {
         const {name, value} = e;
 
         console.log(name)
@@ -57,23 +48,49 @@ const FOTCristales:React.FC<ICristales> = ({
 
         validationOTlevel2(name, value)
         
-        // console.log(validate)
-        
-    
-        
+        if(!isToggleValidation.value && isEditting){
+            //TODO: EJECUTAR LLAMADA CRISTALES QUERY 01 PARA VALIDAR SU EXISTENCIA, SI NO EXISTE LIMPIAR IMPUT                
+            switch (name) {
+                case 'cristal1_od':
+                    const {data:cristal1OD} = await axios(`${URLBackend}/api/cristales/listado/?query=01&_p1=${value.trim()}`)
 
-        // if(name === 'anteojo1_cristal_OD'){
-        //     setCodCristal1OD(value) 
-        // }
-        // if(name === 'anteojo1_cristal_OI'){
-        //     setCodCristal1OI(value) 
-        // }
-        // if(name === 'anteojo2_cristal_OD'){
-        //     setCodCristal2OD(value) 
-        // }
-        // if(name === 'anteojo2_cristal_OI'){
-        //     setCodCrisyal2OI(value) 
-        // }
+                    if(cristal1OD.length === 0){
+                        toast.error('Código de cristal no existe')
+                        A1_CR_OD.value = " "
+                    }
+                    break;
+                case 'cristal1_oi':
+                    const {data:cristal1OI} = await axios(`${URLBackend}/api/cristales/listado/?query=01&_p1=${value.trim()}`)
+
+                    if(cristal1OI.length === 0){
+                        toast.error('Código de cristal no existe')
+                        A1_CR_OI.value = " "
+                    }
+                
+                    break;
+                case 'cristal2_od':
+                    const {data:cristal2OD} = await axios(`${URLBackend}/api/cristales/listado/?query=01&_p1=${value.trim()}`)
+
+                    if(cristal2OD.length === 0){
+                        toast.error('Código de cristal no existe')
+                        A2_CR_OD.value = " "
+                    }
+                
+                    break;
+                case 'cristal2_oi':
+                    const {data:cristal2OI} = await axios(`${URLBackend}/api/cristales/listado/?query=01&_p1=${value.trim()}`)
+
+                    if(cristal2OI.length === 0){
+                        toast.error('Código de cristal no existe')
+                        A2_CR_OI.value = " "
+                    }
+                
+                    break;
+                default:
+                    break;
+            }
+
+        }
     }
 
 
@@ -151,6 +168,8 @@ const FOTCristales:React.FC<ICristales> = ({
       }
 
       console.log(A2_CR_OI.value)
+
+      console.log(isToggleValidation.value)
 
   return (
     <form>
@@ -280,7 +299,7 @@ const FOTCristales:React.FC<ICristales> = ({
                                         data={A1_CR_OD.value || data && data[EnumGrid.cristal1_od]}
                                         control={control}
                                         isOT={true}
-                                        onlyRead={!(!isEditting || (permiso_areas_cristales && permiso_usuario_cristales))}
+                                        onlyRead={!(!isEditting || (permiso_areas_cristales && permiso_usuario_cristales && !isToggleValidation.value))}
                                         textAlign="text-center"
                                         />
                                 </div>
@@ -293,7 +312,7 @@ const FOTCristales:React.FC<ICristales> = ({
                                         handleChange={handleInputChange}
                                         data={ A1_CR_OI.value ||data && data[EnumGrid.cristal1_oi]}
                                         control={control}
-                                        onlyRead={!(!isEditting || (permiso_areas_cristales && permiso_usuario_cristales))}
+                                        onlyRead={!(!isEditting || (permiso_areas_cristales && permiso_usuario_cristales && !isToggleValidation.value))}
                                         textAlign="text-center"
                                         />
                                 </div>
@@ -456,7 +475,7 @@ const FOTCristales:React.FC<ICristales> = ({
                                         data={ A2_CR_OD.value  || data && data[EnumGrid.cristal2_od]}
                                         control={control}
                                         isOT={true}
-                                        onlyRead={!((!isEditting && tipo_de_anteojo.value === '3') || (isEditting && permiso_areas_cristales && permiso_usuario_cristales && tipo_de_anteojo.value === '3'))}
+                                        onlyRead={!((!isEditting && tipo_de_anteojo.value === '3') || (isEditting && permiso_areas_cristales && permiso_usuario_cristales && tipo_de_anteojo.value === '3' && !isToggleValidation.value))}
                                         textAlign="text-center"
                                         />
                                 </div>
@@ -469,7 +488,7 @@ const FOTCristales:React.FC<ICristales> = ({
                                         data={A2_CR_OI.value || data && data[EnumGrid.cristal2_oi]}
                                         control={control}
                                         isOT={true}
-                                        onlyRead={!((!isEditting && tipo_de_anteojo.value === '3') || (isEditting && permiso_areas_cristales && permiso_usuario_cristales && tipo_de_anteojo.value === '3'))}
+                                        onlyRead={!((!isEditting && tipo_de_anteojo.value === '3') || (isEditting && permiso_areas_cristales && permiso_usuario_cristales && tipo_de_anteojo.value === '3'&& !isToggleValidation.value))}
                                         textAlign="text-center"
                                         />
                                 </div>

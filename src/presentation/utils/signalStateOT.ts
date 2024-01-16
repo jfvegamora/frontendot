@@ -372,20 +372,23 @@ export const fetchFechas = async(fecha_atencion:string, codgioProyecto:string) =
 const fetchDioptrias = async(proyecto:string) => {
   try {
 
-    const requests = [
-      axios(`${URLBackend}/api/ot/listado/?query=12&_p3=ESF&_proyecto=${proyecto}`),
-      axios(`${URLBackend}/api/ot/listado/?query=12&_p3=CIL&_proyecto=${proyecto}`),
-      axios(`${URLBackend}/api/ot/listado/?query=12&_p3=EJE&_proyecto=${proyecto}`),
-      axios(`${URLBackend}/api/ot/listado/?query=12&_p3=AD&_proyecto=${proyecto}`)
-
-    ]
+    // const requests = [
+    //   axios(`${URLBackend}/api/ot/listado/?query=12&_p3=ESF&_proyecto=${proyecto}`),
+    //   axios(`${URLBackend}/api/ot/listado/?query=12&_p3=CIL&_proyecto=${proyecto}`),
+    //   axios(`${URLBackend}/api/ot/listado/?query=12&_p3=EJE&_proyecto=${proyecto}`),
+    //   axios(`${URLBackend}/api/ot/listado/?query=12&_p3=AD&_proyecto=${proyecto}`)
+    // ]
     
-    const [responseESF, responseCIL, responseEJE, responseAD] = await Promise.all(requests);
+    // const [responseESF, responseCIL, responseEJE, responseAD] = await Promise.all(requests);
 
-    dioptrias.value.ESF = responseESF.data;
-    dioptrias.value.CIL = responseCIL.data;
-    dioptrias.value.EJE = responseEJE.data;
-    dioptrias.value.AD  = responseAD.data;
+    // dioptrias.value.ESF = responseESF.data;
+    // dioptrias.value.CIL = responseCIL.data;
+    // dioptrias.value.EJE = responseEJE.data;
+    // dioptrias.value.AD  = responseAD.data;
+    dioptrias.value.ESF = ''
+    dioptrias.value.CIL = ''
+    dioptrias.value.EJE = ''
+    dioptrias.value.AD  = ''
 
     
     console.log(dioptrias.value)
@@ -510,6 +513,10 @@ export const updateOT =async (
   situacion?:any,
 )  => {
 
+  console.log(jsonData)
+
+
+  
   //TODO: INICIO PROCESAR MASIVO
   if(isMasivo){
     

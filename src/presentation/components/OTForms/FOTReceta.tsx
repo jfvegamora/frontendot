@@ -413,7 +413,7 @@ const FOTReceta:React.FC<IReceta> = ({
                         handleChange={handleInputChange}
                         data={formValues ? formValues["observaciones"] : data && data[EnumGrid.observaciones]}
                         control={control}
-                        onlyRead={isEditting}
+                        // onlyRead={isEditting}
                         isOptional={true}
                         customWidth={"!ml-[1rem] !mr-[3rem] "}
                         />

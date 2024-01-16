@@ -113,14 +113,15 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
 
     switch (e.target.name) {
       case 'a1_od_esf':
-        if(!dioptrias.value.ESF.some((dioptria: string) => dioptria.includes(Number(e.target.value).toFixed(2)))){
+        if((parseFloat(e.target.value) % 0.25 !== 0)){
           toast.error('Esferico no corresponde')
           setValue("  ")
           return;
         }
+
         break;
       case 'a1_od_eje':
-        if(!dioptrias.value.EJE.some((dioptria: string) => dioptria.includes(parseInt(e.target.value) as any))){
+        if(!(parseInt(e.target.value) >= 0 && parseInt(e.target.value) <= 180)){
           toast.error('EJE no corresponde')
           setValue("  ")
           return;
@@ -128,26 +129,28 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
         break;
 
       case 'a1_od_ad':
-        if(!dioptrias.value.AD.some((dioptria: string) => dioptria.includes(Number(e.target.value).toFixed(2)))){
+        if((parseFloat(e.target.value) % 0.25 !== 0)){
+          toast.error('ADICIONAL no corresponde')
           setValue("  ")
           return;
         }
         break;
       case 'a1_oi_esf':
-        if(!dioptrias.value.ESF.some((dioptria: string) => dioptria.includes(Number(e.target.value).toFixed(2)))){
+        if((parseFloat(e.target.value) % 0.25 !== 0)){
           setValue("  ")
           return;
         }
         break;
       case 'a1_oi_eje':
-        if(!dioptrias.value.EJE.some((dioptria: string) => dioptria.includes(parseInt(e.target.value) as any))){
+        if(!(parseInt(e.target.value) >= 0 && parseInt(e.target.value) <= 180)){
           setValue("  ")
           return;
         }
         break;
 
       case 'a1_oi_ad':
-        if(!dioptrias.value.AD.some((dioptria: string) => dioptria.includes(Number(e.target.value).toFixed(2)))){
+        if((parseFloat(e.target.value) % 0.25 !== 0)){
+          toast.error('ADICIONAL no corresponde')
           setValue("  ")
           return;
         }
