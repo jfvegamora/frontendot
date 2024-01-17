@@ -2,6 +2,9 @@ import React, { useEffect } from 'react'
 import { AppStore, useAppDispatch, useAppSelector } from '../../../redux/store';
 import { EnumGrid } from '../mantenedores/MOTHistorica';
 import { fetchOTByID } from '../../../redux/slices/OTSlice';
+import Barcode from 'react-barcode';
+
+
 
 const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
   const dispatch = useAppDispatch();
@@ -9,19 +12,22 @@ const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
   const OT:any = useAppSelector((store:AppStore)=>store.OTS.ot)
   const User:any = useAppSelector((store:AppStore)=>store.user)
 
-
+  
   useEffect(()=>{
     dispatch(fetchOTByID({folio:2585}))
   },[])
 
-  console.log(OT)
-  console.log(OT[EnumGrid.cristal1_tratamiento_adicional] === 0 ? 'No tiene tratamiento adicional' : OT[EnumGrid.cristal1_tratamiento_adicional])
+  console.log(OT[EnumGrid.folio])
+
 
   return (
     <div ref={ref} className='flex  border-2 border-blue-500 '>
        {OT?.length > 2 && (
         <div className='  w-[90%]'>
-
+        
+        <div className="w-[110%]">
+          <Barcode value={OT[EnumGrid.folio] +'000000'} />
+        </div>
 
          
           <div className="header border-2 border-red-400 w-[110%] text-center">
