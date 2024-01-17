@@ -83,7 +83,8 @@ const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
 
 
 
-          <div className="header border-2 border-red-400  w-[110%] text-center">      
+
+          <div className="header border-2   w-[110%] text-center">      
             <div className="my-border-2 border-black w-full flex">
               <div className=' my-2 border-2 border-black w-[60%] '>
                 <p>Nombre Beneficiario:  </p>
@@ -110,13 +111,15 @@ const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
       
       
 
+
+
           <div className="w-[110%] flex justify-between">
             <h1>Anteojo 1</h1>
             <h1>Anteojo 2</h1>
           </div>
 
           <div className="w-[110%] flex justify-between">
-            <div className="grid grid-cols-5 grid-rows-3 gap-4 text-xs w-[47%] h-[25%] border-2 bg-red-400">
+            <div className="grid grid-cols-5 grid-rows-3 gap-4 text-xs w-[47%] h-[25%] border-2">
               <div className="text-center h-6"></div>
                 <div className="text-center h-6 w-6">ESF</div>
                 <div className="text-center h-6 w-6">CIL</div>
@@ -138,7 +141,7 @@ const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
                 <div className="text-center h-6 flex w-10 ml-8"> <label className='mr-2'>DP: </label> {OT[EnumGrid.a1_alt]}</div>
             </div>
 
-            <div className="grid grid-cols-5 grid-rows-3 gap-4 text-xs w-[47%] h-[25%] border-2 bg-red-400">
+            <div className="grid grid-cols-5 grid-rows-3 gap-4 text-xs w-[47%] h-[25%] border-2 ">
               <div className=" text-center h-6"></div>
                 <div className="text-center h-6 w-6">ESF</div>
                 <div className="text-center h-6 w-6">CIL</div>
@@ -159,6 +162,10 @@ const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
                 <div className="text-center h-6 flex w-10"> <label className='mr-2'>ALT: </label>{OT[EnumGrid.a2_dp]}</div>
             </div>
             </div>
+
+
+
+
 
 
             <h1 className='text-center'>Cristales</h1>
@@ -203,6 +210,10 @@ const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
               </div>
 
             </div>
+
+
+
+
 
             <h1 className='text-center'>Armazones</h1>
 
