@@ -627,9 +627,9 @@ const FOT:React.FC<IFOTProps> = ({
   // }
 
   
-  console.log(A1_DP.value || 0)
   const switchCaseIngresar = async(jsonData:any, cristalesJSON:any, armazonesJSON:any) => {
     
+    console.log(A1_DP.value || 0)
     console.log('click')
     console.log(jsonData)
     console.log(formValues)
