@@ -30,12 +30,12 @@ export const fetchOT = createAsyncThunk(
     async (params:any) => {
         const {OTAreas, searchParams, historica} = params;
 
-        // console.log(params)
+        console.log(params)
         const OTUrl = searchParams
                                  ? historica ? `${URLBackend}/api/othistorica/listado/?query=14&${searchParams}` :  `${URLBackend}/api/ot/listado/?query=14&_origen=${OTAreas}&${searchParams}` 
                                  : historica ? `${URLBackend}/api/othistorica/listado/?query=14`                 :   OTAreas ? `${URLBackend}/api/ot/listado/?query=14&_origen=${OTAreas}` : `${URLBackend}/api/ot/listado/?query=14&_proyecto=${searchParams}`
 
-        // console.log(OTUrl)
+        console.log(OTUrl)
 
         
         try {
@@ -48,6 +48,7 @@ export const fetchOT = createAsyncThunk(
         }
     }
 );
+
 
 
 export const fetchOTByID = createAsyncThunk(
@@ -75,7 +76,6 @@ export const fetchColores = createAsyncThunk(
     async()=>{
         try {
             const response = await axios.get(`${URLBackend}/api/tipos/listado/?query=02&_p1=OTEstados`)    
-            console.log(response)   
             if(response.data){
                 const colores = response.data.reduce((acc:any, obj:any)=>{
                     acc[obj[1]] = [obj[2], obj[3]]

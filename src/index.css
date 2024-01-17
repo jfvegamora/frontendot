@@ -1040,6 +1040,24 @@ input[type="text"] {
   border: 1px solid #ccc;
 }
 
+@media print {
+  .fot-impresa {
+      display: flex;
+      justify-content: space-between;
+      width: 40rem;
+      border-width: 1px;
+      border-style: solid;
+      border-color: black; /* Color azul correspondiente al código Tailwind border-blue-500 */
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 2rem;
+      margin-top: 2rem;
+      height: 20rem;
+    /* Agrega cualquier estilo adicional que desees aplicar en la impresión */
+  }
+
+}
+
 /* Estilos CSS para el fondo del modal */
 .modal-overlay {
   background-color: rgba(0, 0, 0, 0.5);

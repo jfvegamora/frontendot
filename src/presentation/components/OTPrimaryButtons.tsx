@@ -1,5 +1,5 @@
 import { IconButton, Tooltip, Button } from '@material-tailwind/react';
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 
 import { SiAddthis } from 'react-icons/si';
 import { PiPrinterFill } from "react-icons/pi";
@@ -10,9 +10,12 @@ import { usePermission } from '../hooks';
 import ImportToCsv from './ImportToCsv';
 import { AppStore, useAppDispatch, useAppSelector } from '../../redux/store';
 import { toast } from 'react-toastify';
-import { fetchOT } from '../../redux/slices/OTSlice';
+import { fetchOT, fetchOTByID } from '../../redux/slices/OTSlice';
 import axios from 'axios';
 import { URLBackend } from '../hooks/useCrud';
+import { useReactToPrint } from 'react-to-print';
+import Print from 'react-to-print';
+import FOTImpresa from '../views/forms/FOTImpresa';
 
 type AreaButtonsProps ={
     areaName:string;
@@ -41,12 +44,16 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
     const data:any = useAppSelector((store: AppStore) => store.OTS.data)
     const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas)
     const User:any = useAppSelector((store: AppStore) => store.user)
+    const componentRef          = useRef();
     
 
 
     const folios = pkToDelete && pkToDelete.map(({folio}:any)=>folio)
 
-
+    const handlePrint = useReactToPrint({
+      content: () => componentRef.current as any, 
+     
+    });
 
     const renderButton = useCallback(
       (icon: React.ReactNode, handle: () => void, tooltip: string) => (
@@ -111,6 +118,31 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
 
           console.log(result)
           if(result.status === 200){
+            //handle print
+            console.log('render')
+            const loadingToast = toast.loading('Cargando...');
+
+            // Realiza la operación asíncrona
+            await new Promise((_resolve) => {
+              dispatch(fetchOTByID({ folio: ot["folio"], OTAreas: OTAreas['areaActual'] }))
+                .then(() => {
+                  // Resuelve la promesa cuando la operación está completa
+                //   setTimeout(()=>{
+                // },2000)
+                handlePrint()
+                })
+                .catch((error) => {
+                  // Manejo de errores
+                  console.error(error);
+                  // Rechaza la promesa en caso de error
+                  throw error;
+                })
+                .finally(() => {
+                  // Oculta el toast de carga cuando la operación está completa
+                  toast.dismiss(loadingToast);
+                });
+            });
+            // handlePrint()
             toast.success(`OT Impresa: ${ot.folio}`)
           }
           
@@ -119,12 +151,12 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
           throw error;
         }
 
-
-
-
       })
       
     }
+
+
+
     const handleWhatsappMasivo = () => {
       console.log('click')
     }
@@ -216,7 +248,9 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
               onClick={handleProcesarMasivo}>Procesar</Button>
           </Tooltip>
         )}
-
+        <div className='hidden'>
+                <FOTImpresa ref={componentRef} />
+        </div>
 
     </div>
 )}

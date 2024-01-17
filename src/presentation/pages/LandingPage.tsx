@@ -4,6 +4,7 @@
 import React from "react";
 import { filterToggle } from "../components/FilterButton";
 import { AppStore, useAppSelector } from "../../redux/store";
+import FOTImpresa from "../views/forms/FOTImpresa";
 
 // import { FixedSizeList } from 'react-window';
 // import TableOTComponent from "../components/TableOTComponent";
@@ -29,14 +30,10 @@ const LandingPage: React.FC = () => {
 
 
   return (
-    <div className="mantenedorContainer">
-      {/* <div className="mt-16 scroll">
-        <TableOTComponent
-          tableHead={table_head_OT_diaria}
-          entidad={"ot"}
-          idMenu={20}
-        />
-      </div> */}
+    <div className="mantenedorContainer !h-[80rem]">
+      <div className="mt-8 h-full w-fullpt-20">
+        <FOTImpresa/>
+      </div>
     </div>
   );
 };

@@ -46,7 +46,7 @@ export enum OptionValuesEstado {
 
 
 
-const strEntidad = "Orden de Trabajo ";
+const strEntidad = " ";
 const strBaseUrl = "/api/ot/";
 const strQuery = "14";
 const idMenu = 1;
@@ -268,12 +268,13 @@ const MOT: React.FC = () => {
           </FilterButton>
         
     
-      <div className={`width100 scroll ${filterToggle.value ? "!mt-[13rem] !h-[25rem]" : "!mt-[1rem] !h-[40rem]"} `}>
+      <div className={`width100 scroll ${filterToggle.value ? "!mt-[13rem] !h-[25rem]" : "!mt-[1rem] !h-[33rem]"} `}>
         <TableComponent
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
           toggleEditModal={toggleEditModal}
           toggleEditOTModal={toggleEditOTModal}
+          pkToDelete={pktoDelete}
           handleDeleteSelected={handleDeleteSelected}
           selectedRows={selectedRows}
           // pkToDelete={pkToDelete}

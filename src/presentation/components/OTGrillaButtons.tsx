@@ -13,12 +13,14 @@ import { fetchOTByID } from '../../redux/slices/OTSlice';
 import FOTImpresa from '../views/forms/FOTImpresa';
 import { toast } from 'react-toastify';
 
+
+
 type AreaButtonsProps ={
     areaPermissions:string;
     id:number
     toggleEditOTModal?:any
     folio?:number;
-    entidad?:string
+    entidad?:string;
 }
 
 const strEntidad = "Orden de Trabajo";
@@ -36,7 +38,14 @@ const OTGrillaButtons:React.FC<AreaButtonsProps> = React.memo(({ areaPermissions
 
   const handlePrint = useReactToPrint({
     content: () => componentRef.current as any, 
-  });
+    // trigger: async (event) => { console.log(event) },
+    suppressErrors: true,
+    removeAfterPrint: true,
+});
+
+
+
+
 
     const handleImpresion = async(folio:any) =>{
         console.log('click')
@@ -44,16 +53,20 @@ const OTGrillaButtons:React.FC<AreaButtonsProps> = React.memo(({ areaPermissions
         try {
 
             const loadingToast = toast.loading('Cargando...');
-
-            // Realiza la operación asíncrona
-            await new Promise((_resolve) => {
+          
+                    
+           await new Promise((_resolve) => {
               dispatch(fetchOTByID({ folio: folio, OTAreas: OTAreas['areaActual'] }))
                 .then(() => {
                   // Resuelve la promesa cuando la operación está completa
                 //   setTimeout(()=>{
                 // },2000)
+                // window.print()
+                // window.open(pdfDoc.output('bloburl'), '_blank');
                 handlePrint()
-                
+    
+    
+
                 })
                 .catch((error) => {
                   // Manejo de errores
@@ -122,7 +135,11 @@ const OTGrillaButtons:React.FC<AreaButtonsProps> = React.memo(({ areaPermissions
             <div className='hidden'>
                 <FOTImpresa ref={componentRef} />
             </div>
+
         </div>
+
+
+
     );
 });
 

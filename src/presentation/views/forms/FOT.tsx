@@ -648,7 +648,7 @@ const FOT:React.FC<IFOTProps> = ({
 
     let _p3:any = ''
     let _rut = isExistClient.value ? `${jsonData.cliente_rut || formValues.cliente.cliente_rut}` : '';
-
+    
 
     isExistClient.value 
                      ? _p3 = [`nombre="${jsonData.cliente_nombre || formValues.cliente.cliente_nombre || ""}"`, `tipo=${jsonData.cliente_tipo || formValues.cliente.cliente_tipo === TIPO_CLIENTE.beneficiario ? "1" : jsonData.cliente_tipo || formValues.cliente.cliente_tipo   === TIPO_CLIENTE.particular ? "2" : jsonData.cliente_tipo  || formValues.cliente.cliente_tipo === TIPO_CLIENTE.optica ? "3" : "0"}`, `sexo=${jsonData.cliente_sexo || formValues.cliente.cliente_sexo === SEXO.masculino ? "1" : jsonData.cliente_sexo || formValues.cliente.cliente_sexo === SEXO.femenino ? "2" : jsonData.cliente_sexo || formValues.cliente.cliente_sexo  === SEXO.no_aplica ? "3" : "0"}` ,`fecha_nacimiento="${jsonData.cliente_fecha_nacimiento || formValues.cliente.cliente_fecha_nacimiento || ""}"`, `direccion="${jsonData.cliente_direccion || formValues.cliente.cliente_direccion || ""}"`, `comuna=${jsonData.cliente_comuna || formValues.cliente.cliente_comuna || 0}`, `telefono="${jsonData.cliente_telefono || formValues.cliente.cliente_telefono || ""}"`, `correo="${jsonData.cliente_correo || formValues.cliente.cliente_correo || ""}"`, `establecimiento=${jsonData.establecimiento_id || formValues.cliente.establecimiento_id || 0}`].map((a)=>a.split("=")).map((a)=>a.join("=")).join(',')
@@ -1256,7 +1256,7 @@ useEffect(() => {
 }, [closeModal]);
 
 
-  
+    
 
   console.log(validationNivel1.value)
   console.log(validationNivel2.value)
