@@ -54,6 +54,8 @@ export enum EnumGrid {
   OFTALMOLOGO_ID                  = 36,
   OFTALMOLOGO                     = 37,
   OBSERVACIONES                   = 38,
+  IMPRIME_QR                      = 39,
+  IMPRIME_TICKET                  = 40,
 }
 const strEntidad = "Proyecto ";
 const strEntidadExcel = "Proyectos";
