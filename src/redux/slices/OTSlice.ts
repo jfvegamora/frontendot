@@ -50,6 +50,7 @@ export const fetchOT = createAsyncThunk(
 );
 
 
+
 export const fetchOTByID = createAsyncThunk(
     'ot/fetchOTbyID',
     async(params:any) => {
@@ -75,7 +76,6 @@ export const fetchColores = createAsyncThunk(
     async()=>{
         try {
             const response = await axios.get(`${URLBackend}/api/tipos/listado/?query=02&_p1=OTEstados`)    
-            console.log(response)   
             if(response.data){
                 const colores = response.data.reduce((acc:any, obj:any)=>{
                     acc[obj[1]] = [obj[2], obj[3]]
