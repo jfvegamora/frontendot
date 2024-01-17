@@ -133,7 +133,6 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
       
       data && updateParams([searchParams]);
       // console.log(data)
-      
       try {
         const response = otHistorica 
                             ?  dispatch(fetchOT({OTAreas:OTAreas["areaActual"], searchParams:searchParams, historica:true}))
@@ -144,7 +143,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
       } catch (error) {
         return error;
       }
-    }, []);
+    }, [OTAreas["areaActual"]]);
 
     const handleKeyDown = React.useCallback(
       (e: React.KeyboardEvent<HTMLInputElement>) => {
