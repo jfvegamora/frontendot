@@ -1916,6 +1916,20 @@ export const table_head_proyectos = [
     width: "w-[12rem]",
   },
   {
+    cell: "Imprime QR",
+    key: "imprime_qr",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[4rem]",
+  },
+  {
+    cell: "Imprime Ticket Retiro",
+    key: "imprime_ticket",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[4rem]",
+  },
+  {
     cell: "",
     key: "opciones",
     visible: true,

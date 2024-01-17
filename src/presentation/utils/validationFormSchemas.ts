@@ -275,6 +275,9 @@ export const validationProyectosSchema = () =>
 
     oftalmologo           : yup.string().default("0"),
     observaciones         : yup.string(),
+
+    imprime_qr            : yup.string().required(`${msg}`),
+    imprime_ticket        : yup.string().required(`${msg}`),
   });
 
 // Schema MUESTRARIOS

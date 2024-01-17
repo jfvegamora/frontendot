@@ -462,6 +462,19 @@ return (
                             textAlign="text-center"
                             />
                     </div>
+                    <div className="">
+                        <TextInputComponent
+                            type="text"
+                            label="Reporte interno mandante"
+                            name="reporte_interno_mandante"
+                            handleChange={handleInputChange}
+                            data={formValues ? formValues["reporte_interno_mandante"] : data && data[EnumGrid.folio_interno_mandante]}
+                            control={control}
+                            onlyRead={isEditting}
+                            isOptional={true}
+                            textAlign="text-center"
+                            />
+                    </div>
 
                     
                 </div>
