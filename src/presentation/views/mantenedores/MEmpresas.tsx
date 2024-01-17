@@ -96,7 +96,7 @@ const MEmpresas: React.FC = () => {
           strBaseUrl={strBaseUrl}
           showAddButton={true}
           showExportButton={true}
-          showDeleteButton={true}
+          showDeleteButton={false}
           showForwardButton={false}
           showRefreshButton={true}
           idMenu={idMenu}
