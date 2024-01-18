@@ -22,7 +22,6 @@ interface IDerivacion {
 
 
 const FOTGuiaDespacho: React.FC<IDerivacion> = ({
-    onClose,
     closeModal,
     pktoDelete,
     setSelectedRows

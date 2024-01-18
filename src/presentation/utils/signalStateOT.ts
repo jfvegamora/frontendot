@@ -369,7 +369,7 @@ export const fetchFechas = async(fecha_atencion:string, codgioProyecto:string) =
 
 
 
-const fetchDioptrias = async(proyecto:string) => {
+const fetchDioptrias = async(_proyecto:string) => {
   try {
 
     // const requests = [

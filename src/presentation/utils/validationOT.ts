@@ -1,6 +1,5 @@
-import { a1_od_ad, a1_od_cil, a1_od_eje, a1_od_esf, a1_oi_ad, a1_oi_cil, a1_oi_eje, a1_oi_esf, dioptrias, dioptrias_receta } from ".";
+import { a1_od_eje, a1_od_esf, a1_oi_ad, a1_oi_eje, a1_oi_esf, dioptrias, dioptrias_receta } from ".";
 import { validationNivel1, validationNivel2 } from "../views/forms/FOT";
-import { transponer } from "./FOTReceta_utils";
 
 export const validationProyectos = (value:string) => {
     if(value !== ''){
@@ -784,7 +783,6 @@ export const validation_A1_OI_EJE = (value:string | any) => {
     const item = validationNivel2.value.find((item) => item.campo === 'a1_oi_eje');
     
     if (value !== '') {
-        const numericValue = Number(value);
         // const validate = dioptrias.value.EJE.some((dioptria: any) => dioptria[0] === numericValue);
         const validate = (parseInt(value) >= 0 && parseInt(value) <= 180)
         item && (item.valor = validate ? 1 : 0);

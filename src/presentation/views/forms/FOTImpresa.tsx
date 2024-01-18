@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { AppStore, useAppDispatch, useAppSelector } from '../../../redux/store';
+import { AppStore, useAppSelector } from '../../../redux/store';
 import { EnumGrid } from '../mantenedores/MOTHistorica';
-import { fetchOTByID } from '../../../redux/slices/OTSlice';
 import Barcode from 'react-barcode';
 
 
@@ -10,7 +9,6 @@ import Barcode from 'react-barcode';
 
 const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
 
-  const dispatch = useAppDispatch();
   const [logoPath, setLogoPath] = useState<string | null>(null);
   const OT:any = useAppSelector((store:AppStore)=>store.OTS.ot)
   const User:any = useAppSelector((store:AppStore)=>store.user)

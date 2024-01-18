@@ -1,5 +1,5 @@
 import { IconButton, Tooltip, Button } from '@material-tailwind/react';
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useRef } from 'react';
 
 import { SiAddthis } from 'react-icons/si';
 import { PiPrinterFill } from "react-icons/pi";
@@ -14,7 +14,6 @@ import { fetchOT, fetchOTByID } from '../../redux/slices/OTSlice';
 import axios from 'axios';
 import { URLBackend } from '../hooks/useCrud';
 import { useReactToPrint } from 'react-to-print';
-import Print from 'react-to-print';
 import FOTImpresa from '../views/forms/FOTImpresa';
 
 type AreaButtonsProps ={

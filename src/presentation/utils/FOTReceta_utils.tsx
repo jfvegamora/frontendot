@@ -1,4 +1,4 @@
-import { a1_od_esf, a1_od_cil, a1_od_eje, 
+import { 
     // a1_oi_esf, a1_oi_cil, a1_oi_eje, 
     dioptrias_receta, a2_od_esf, a2_oi_esf, a2_od_cil, a2_oi_cil, a2_od_eje, a2_oi_eje, tipo_de_anteojo } from ".";
 
