@@ -13,7 +13,7 @@ export const table_head_OT_diaria2 = [
     key: "folio",
     visible: true,
     alignment: "text-center",
-    width: "w-[10rem]",
+    width: "w-[5rem]",
     background: true
   },
   {
