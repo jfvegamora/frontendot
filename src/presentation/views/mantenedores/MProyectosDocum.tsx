@@ -97,9 +97,16 @@ const MProyectosDocum: React.FC = () => {
                   type: "select",
                   selectUrl: "/api/proyectos/", styles:{with:" !w-[33rem]"},
                 },
-                { name: "_p2", label: "Código Proyecto", type: "text", styles:{with:" !w-[9rem]"}, },
-                { name: "_p3", label: "Código Licitación", type: "text", styles:{with:" !w-[9rem]"}, },
-                { name: "_estado", label: "TipoDoc", type: "select", selectUrl: "/api/tipos", tipos: "TipoDoc", styles: { with: " w-[] " }, _p1:"1,2,3,4,5,6,7" },
+                {
+                  name: "_p4",
+                  label: "Tipo Doc",
+                  type: "select",
+                  selectUrl: "/api/tipos/",
+                  tipos: "TipoDoc", styles:{with:"!mt-[0.5rem]  w-[12rem]"},
+                },
+                { name: "_p2", label: "N° Documento", type: "text", styles:{with:" !w-[9rem]"}, _p1:"1,2,3,4,5,6,7"},
+                // { name: "_p2", label: "Código Proyecto", type: "text", styles:{with:" !w-[9rem]"}, },
+                // { name: "_p3", label: "Código Licitación", type: "text", styles:{with:" !w-[9rem]"}, },
               ]}
               />
           </div>
