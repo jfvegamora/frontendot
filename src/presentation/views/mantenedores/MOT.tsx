@@ -260,19 +260,17 @@ const MOT: React.FC = () => {
                           selectUrl: "/api/establecimientos/",
                           styles:{with:"w-[20.4rem]"}
                       },
-                    {
-                        name: "_motivo",
-                        label: "Reporte Interno Mandante",
-                        type: "text",
-                        selectUrl:"/api/tipos/",
-                        tipos: "OTMotivo",
-                        styles:{with:"w-[17rem]"}
-                      },              
                       {
-                          name: "_establecimiento",
-                          label: "Numero Envio",
+                        name: "_p2",
+                        label: "Tipo Doc",
+                        type: "select",
+                        selectUrl:"/api/tipos/",
+                        tipos: "OTNumDoc"
+                      },
+                      {
+                          name: "_p3",
+                          label: "Número Doc",
                           type: "text",
-                          selectUrl: "/api/establecimientos/",
                           styles:{with:"w-[18.4rem]"}
                       },
                     
