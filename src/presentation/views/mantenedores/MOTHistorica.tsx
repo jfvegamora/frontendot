@@ -222,7 +222,7 @@ const MOTHistorica: React.FC = () => {
   useEffect(() => {
     const newPkToDelete = selectedRows.map((row: number) => ({
       folio             : OTs.data[row] && OTs.data[row][1],
-      proyecto          : OTs.data[row] && OTs.data[row][6],
+      proyecto          : OTs.data[row] && OTs.data[row][12],
       estado            : OTs.data[row] && OTs.data[row][4],
       reporte_firma     : OTs.data[row] && OTs.data[row][7],
       reporte_atencion  : OTs.data[row] && OTs.data[row][8],
