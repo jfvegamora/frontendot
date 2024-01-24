@@ -218,11 +218,10 @@ const MOTHistorica: React.FC = () => {
   } = useEntityUtils(strBaseUrl, strQuery);
   // console.log("entities:", entities);
   // console.log("params:", params);
-
   useEffect(() => {
     const newPkToDelete = selectedRows.map((row: number) => ({
       folio             : OTs.data[row] && OTs.data[row][1],
-      proyecto          : OTs.data[row] && OTs.data[row][6],
+      proyecto          : OTs.data[row] && OTs.data[row][12],
       estado            : OTs.data[row] && OTs.data[row][4],
       reporte_firma     : OTs.data[row] && OTs.data[row][7],
       reporte_atencion  : OTs.data[row] && OTs.data[row][8],
@@ -230,7 +229,7 @@ const MOTHistorica: React.FC = () => {
  
 
     }));
-    console.log(newPkToDelete)
+    // console.log(newPkToDelete)
     setPkToDelete(newPkToDelete as any)
   }, [selectedRows]);
 

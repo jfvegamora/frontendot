@@ -1,19 +1,17 @@
-import React, {useRef, useState} from 'react';
+import React, {useRef} from 'react';
 import { IconButton, Tooltip } from '@material-tailwind/react';
 import { PencilIcon } from "@heroicons/react/24/solid";
 import { PiPrinterFill } from "react-icons/pi";
 import { ImWhatsapp } from "react-icons/im";
 import { usePermission } from '../hooks';
-import { BUTTON_MESSAGES, MODAL } from '../utils';
+import { BUTTON_MESSAGES } from '../utils';
 
 import { useReactToPrint } from 'react-to-print';
 // import FOTImpresa from '../views/forms/FOTImpresa';
 import { AppStore, useAppDispatch, useAppSelector } from '../../redux/store';
-import { clearImpression, fetchOTByID, fetchOTImpresionByID } from '../../redux/slices/OTSlice';
+import { clearImpression, fetchOTImpresionByID } from '../../redux/slices/OTSlice';
 import FOTImpresa from '../views/forms/FOTImpresa';
 import { toast } from 'react-toastify';
-import { useModal } from '../hooks/useModal';
-import { EnumGrid } from '../views/mantenedores/MOTHistorica';
 
 
 
@@ -30,10 +28,8 @@ const strEntidad = "Orden de Trabajo";
 const OTGrillaButtons:React.FC<AreaButtonsProps> = ({ areaPermissions, toggleEditOTModal,folio,entidad }) => {
     const dispatch                       = useAppDispatch();
     const componentRef                   = useRef();
-    const [isComRetiro, setisComRetiro]  = useState(false);
     const { escritura_lectura }          = usePermission(28);
     const OTAreas:any                    = useAppSelector((store: AppStore) => store.OTAreas);
-    const OT:any                         = useAppSelector((store: AppStore) => store.OTS.impresionOT);
 
 
    
@@ -46,6 +42,9 @@ const OTGrillaButtons:React.FC<AreaButtonsProps> = ({ areaPermissions, toggleEdi
     content: () => componentRef.current as any, 
     suppressErrors: true,
     removeAfterPrint: true,
+    onAfterPrint() {
+        dispatch(clearImpression())
+    },
 });
 
 
@@ -89,7 +88,7 @@ const OTGrillaButtons:React.FC<AreaButtonsProps> = ({ areaPermissions, toggleEdi
     
     // }
     const handleImpresion = async (folio: any) => {
-        dispatch(clearImpression());
+        // dispatch(clearImpression());
         console.log('click');
         console.log(folio);
         const loadingToast = toast.loading('Cargando...');
@@ -116,7 +115,6 @@ const OTGrillaButtons:React.FC<AreaButtonsProps> = ({ areaPermissions, toggleEdi
       };
       
 
-      console.log(isComRetiro)
     return (
         <div className='flex items-center'>
             {toggleEditOTModal && (
@@ -160,7 +158,7 @@ const OTGrillaButtons:React.FC<AreaButtonsProps> = ({ areaPermissions, toggleEdi
                 </Tooltip>
             )}
             <div className='hidden'>
-                <FOTImpresa ref={componentRef}  comprobanteRetiro={isComRetiro}/>
+                <FOTImpresa ref={componentRef}/>
             </div>
 
         </div>

@@ -9,32 +9,30 @@ import Barcode from 'react-barcode';
 
 
 const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
-  const OT:any = useAppSelector((store:AppStore)=>store.OTS.impresionOT);
   
+  // const [logoPath, setLogoPath] = useState<string | null>();
+  const {impresionOT:OT} = useAppSelector((store:AppStore)=>store.OTS);
   const User:any = useAppSelector((store:AppStore)=>store.user);
-  const [logoPath, setLogoPath] = useState<string | null>(null);
-
-  const {comprobanteRetiro} = _props
 
 
-  useEffect(() => {
-    const loadLogo = async () => {
-      try {
-        const dynamicLogo = await import(`../../../assets/${OT[EnumGrid.nombre_logo]}`);
-        setLogoPath(dynamicLogo.default);
-      } catch (error) {
-        console.error('Error loading logo:', error);
-        setLogoPath(null);
-      }
-    };
 
-    if (OT[EnumGrid.nombre_logo]) {
-      loadLogo();
-    }
-  }, [OT && OT[EnumGrid.nombre_logo]]);
+  // useEffect(() => {
+  //   const loadLogo = async () => {
+  //     try {
+  //       const dynamicLogo = await import(`../../../assets/${OT[EnumGrid.nombre_logo]}`);
+  //       setLogoPath(dynamicLogo.default);
+  //     } catch (error) {
+  //       console.error('Error loading logo:', error);
+  //       setLogoPath(null);
+  //     }
+  //   };
+
+  //   if (OT[EnumGrid.nombre_logo]) {
+  //     loadLogo();
+  //   }
+  // }, [OT && OT[EnumGrid.nombre_logo]]);
 
 
-  console.log(comprobanteRetiro)
 
   return (
     <div ref={ref} className='flex flex-col   border-2 border-blue-500 '>
@@ -264,8 +262,8 @@ const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
           </div>
        )} */}
 
-       {OT?.map((OT:any)=>(
-        <div className='  w-[90%] !h-[70rem] '>
+       {OT?.map((OT:any, index:number)=>(
+        <div className='  w-[90%] !h-[70rem] ' key={index}>
         
         <div className="w-[110%]">
           <Barcode value={'000000'+ OT[EnumGrid.folio]} />
@@ -273,7 +271,7 @@ const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
 
          
           <div className="header border-2 border-red-400 w-[110%] text-center">
-          {logoPath && <img src={logoPath} alt="Logo" />}
+          {/* {logoPath && <img src={logoPath} alt="Logo" />} */}
             
             <h3>FOLIO OT: {OT[EnumGrid.folio]}</h3>
             <h3>FECHA: {OT[EnumGrid.fecha_atencion]}</h3>
@@ -343,13 +341,13 @@ const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
           </div>
 
           <div className="w-[110%] flex justify-between">
-            <div className="grid grid-cols-5 grid-rows-3 gap-4 text-xs w-[47%] h-[25%] border-2">
-              <div className="text-center h-6"></div>
-                <div className="text-center h-6 w-6">ESF</div>
-                <div className="text-center h-6 w-6">CIL</div>
-                <div className="text-center h-6 w-6">EJE</div>
-                <div className="text-center h-6 w-6">AD</div>
-                <div className="text-center h-6 text-xs">OD</div>
+            <div className="grid grid-cols-5 grid-rows-3 gap-4 text-xs w-[47%]  border-2">
+              <div className="text-center h-2"></div>
+                <div className="text-center h-2 w-6 bg-red-400">ESF</div>
+                <div className="text-center h-2 w-6">CIL</div>
+                <div className="text-center h-2 w-6">EJE</div>
+                <div className="text-center h-2 w-6">AD</div>
+                <div className="text-center h-2 text-xs">OD</div>
 
 
                 <div className="text-center h-6 ">{OT[EnumGrid.a1_od_esf]}</div>
@@ -470,7 +468,7 @@ const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
 
 
 
-            {comprobanteRetiro === true && (
+            {(OT && OT[EnumGrid.imprime_ticket]) && (
               <div>
                 <h1>IMPRIMIENDO COMPROBANTE DE RETIRO</h1>
                 <p>RETIRO EN TIENDA FECHA: </p>

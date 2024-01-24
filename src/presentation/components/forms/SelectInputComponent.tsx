@@ -15,6 +15,8 @@ import axios from "axios";
 import { setDataListbox } from "../../../redux/slices/listBoxSlice";
 import { URLBackend } from "../../hooks/useCrud";
 import { clearSelectInput, punto_venta } from "../../utils";
+
+import { retry } from 'async';
 // import Select from "react-select";
 
 interface ISelectInputProps {
@@ -72,7 +74,6 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     // console.log(entidad)
     // console.log(strTableName)
     const _p1 =  entidad[2] && `_p1=${entidad[2]}`   
-    console.log( _p1)  
     // console.log(entidad)
     // if(strTableName){
     //   console.log(strTableName)
@@ -86,29 +87,56 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     // caonsole.log(strUrl2)
     
     const state = useAppSelector((store: AppStore) => store.listBox);
-    // console.log(state)
     
+    const fetchSelectData = async () => {
+      try {
+        const response = await retry(
+          async (retryCount) => {
+            try {
+              const { data } = await axios(strUrl2);
+              if(label === 'Punto de Venta'){
+                if(data){
+                  punto_venta.value = data[0][0]
+                }
+                }
+                const payload = {
+                  [label]:data
+                }
+                dispatch(setDataListbox(payload))
+                setEntities(data)
+              return data;
+            } catch (error) {
+              if (retryCount >= 3) {
+                throw error; // Reenviar el error después de 3 intentos
+              }
+              await new Promise((resolve) => setTimeout(resolve, 500)); // Esperar 1 segundo antes de reintentar
+            }
+          },
+          { retries: 4 } // Reintentar hasta 3 veces
+        );
     
-    // console.log(strUrl2)
-    
-    const fetchSelectData =async()=>{
-      const {data} = await axios(strUrl2)
-      // console.log(data)
-      if(label === 'Punto de Venta'){
-        if(data){
-          punto_venta.value = data[0][0]
-        }
+        // ... código para manejar la respuesta
+      } catch (error) {
+        console.error('Error definitivo en la petición:', error);
+        // Manejar el error definitivo, como mostrar un mensaje al usuario
       }
-      const payload = {
-        [label]:data
-      }
-      dispatch(setDataListbox(payload))
-      setEntities(data)
-    }
+    };
+    // const fetchSelectData =async()=>{
+    //   const {data} = await axios(strUrl2)
+    //   // console.log(data)
+    //   if(label === 'Punto de Venta'){
+    //     if(data){
+    //       punto_venta.value = data[0][0]
+    //     }
+    //   }
+    //   const payload = {
+    //     [label]:data
+    //   }
+    //   dispatch(setDataListbox(payload))
+    //   setEntities(data)
+    // }
 
 
-    // console.log(label)
-    // console.log(state)
     //  if(refreshToggle){
     //   // console.log('refresh')
     //   fetchSelectData()

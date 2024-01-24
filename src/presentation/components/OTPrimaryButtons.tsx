@@ -208,6 +208,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
           )
         )
         }
+       
         {areaPermissions && areaPermissions[4] === "1" && (
           <div className="mr-2">
             <ExportCSV
@@ -247,6 +248,12 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
               onClick={handleProcesarMasivo}>Procesar</Button>
           </Tooltip>
         )}
+         {areaPermissions && areaPermissions[0] === "1" && escritura_lectura && (
+          <Tooltip content={BUTTON_MESSAGES.procesar} >
+            <Button color="green" className='otActionButton mx-4' onClick={()=>{}}>Descargar Macro Excel</Button>
+          </Tooltip>
+        )
+        }
         <div className='hidden'>
                 <FOTImpresa ref={componentRef} />
         </div>

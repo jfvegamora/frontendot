@@ -22,6 +22,9 @@ export interface ITiposListbox {
     OTMotivoGarantia: [] | null;
     PuntosVentaTipos: [] | null;
     ClientesTipos: [] | null;
+
+    OTEnumDoc: [] | null;
+
     [key: string]: any | undefined;
 }
 
@@ -47,6 +50,8 @@ const initialState: ITiposListbox | null = {
     OTMotivo:                localStorage.getItem('ListBoxTipos.OTMotivo') ? JSON.parse(localStorage.getItem('ListBoxTipos.OTMotivo') as string) :null,
     OTMotivoGarantia:        localStorage.getItem('ListBoxTipos.OTMotivoGarantia') ? JSON.parse(localStorage.getItem('ListBoxTipos.OTMotivoGarantia') as string) :null,
     
+    OTEnumDoc:               localStorage.getItem('ListBoxTipos.OTEnumDoc') ? JSON.parse(localStorage.getItem('ListBoxTipos.OTEnumDoc') as string) :null,     
+
     PuntosVentaTipos:        localStorage.getItem('ListBoxTipos.PuntosVentaTipos') ? JSON.parse(localStorage.getItem('ListBoxTipos.PuntosVentaTipos') as string) :null,
     ClientesTipos:           localStorage.getItem('ListBoxTipos.ClientesTipos') ? JSON.parse(localStorage.getItem('ListBoxTipos.ClientesTipos') as string) :null
 };
@@ -62,6 +67,17 @@ const initialState: ITiposListbox | null = {
         throw error;
     }
 });
+
+
+// export const fetchEnumDoc = createAsyncThunk('enumdoc/fetch', async()=>{
+//     try {
+//         const {data} = await axios(`${URLBackend}/api/tipos/listado/?query=02&_p1=''`)
+//         return data;        
+//     } catch (error) {
+//         console.log(error)
+//         throw error;
+//     }
+// })
 
 
 
@@ -100,7 +116,6 @@ const listBoxTiposSlice = createSlice({
 
                     })
 
-                    console.log(state)
                 }
 
                 Object.keys(state).forEach((key) => {
@@ -109,6 +124,9 @@ const listBoxTiposSlice = createSlice({
 
                 return state;
             })
+        //   .addCase(fetchEnumDoc.fulfilled, (state,action)=>{
+        //     state.OTEnumDoc = action.payload
+        //   })
     }
 });
 

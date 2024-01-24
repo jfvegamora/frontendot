@@ -229,7 +229,7 @@ const MOT: React.FC = () => {
                     { name: "_rut", label: "Rut", type: "text" },
                     {
                       name: "_estado",
-                      label: "OTEstado",
+                      label: "Estado",
                       type: "select",
                       selectUrl:"/api/tipos/",
                       tipos: "OTEstados",
@@ -248,7 +248,7 @@ const MOT: React.FC = () => {
                     { name: "_nombre", label: "Nombre", type: "text" },
                     {
                         name: "_motivo",
-                        label: "OTMotivo",
+                        label: "Motivo",
                         type: "select",
                         selectUrl:"/api/tipos/",
                         tipos: "OTMotivo"
