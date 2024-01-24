@@ -31,6 +31,7 @@ export interface InputData {
   brazo       : string | undefined;
   uso         : string | undefined;
   stock_minimo: string | undefined;
+  codigo_fab  : string | undefined;
 }
 
 interface OutputData {
@@ -41,18 +42,7 @@ interface OutputData {
 }
 
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
-  let _p1 = `"${jsonData.codigo}", 
-                ${jsonData.tipo}, 
-                ${jsonData.marca}, 
-               "${jsonData.modelo}", 
-               "${jsonData.color}", 
-                ${jsonData.material || 0}, 
-                ${jsonData.aro || 0}, 
-                ${jsonData.puente || 0}, 
-                ${jsonData.diagonal || 0}, 
-                ${jsonData.brazo || 0}, 
-                ${jsonData.uso || 0}, 
-                ${jsonData.stock_minimo}`;
+  let _p1 = `"${jsonData.codigo}", ${jsonData.tipo}, ${jsonData.marca}, "${jsonData.modelo}", "${jsonData.color}", ${jsonData.material || 0}, ${jsonData.aro || 0}, ${jsonData.puente || 0}, ${jsonData.diagonal || 0}, ${jsonData.brazo || 0}, ${jsonData.uso || 0}, ${jsonData.stock_minimo}, "${jsonData.codigo_fab}"`;
   _p1 = _p1.replace(/'/g, '!');
 
 
@@ -60,7 +50,7 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
     query: "03",
     _p1,
   };
-  // console.log("query", query);
+  console.log("query", query);
   return query;
 }
 
@@ -69,17 +59,7 @@ export function transformUpdateQuery(
   primaryKey: string
 ): OutputData | null {
   const fields = [
-    `tipo         =  ${jsonData.tipo}`,
-    `marca        =  ${jsonData.marca}`,
-    `modelo       = "${jsonData.modelo}"`,
-    `color        = "${jsonData.color}"`,
-    `material     =  ${jsonData.material}`,
-    `aro          =  ${jsonData.aro}`,
-    `puente       =  ${jsonData.puente}`,
-    `diagonal     =  ${jsonData.diagonal}`,
-    `brazo        =  ${jsonData.brazo}`,
-    `uso          =  ${jsonData.uso}`,
-    `stock_minimo =  ${jsonData.stock_minimo}`,
+    `tipo =  ${jsonData.tipo}`, `marca =  ${jsonData.marca}`, `modelo = "${jsonData.modelo}"`, `color = "${jsonData.color}"`, `material =  ${jsonData.material}`, `aro =  ${jsonData.aro}`, `puente =  ${jsonData.puente}`, `diagonal =  ${jsonData.diagonal}`, `brazo =  ${jsonData.brazo}`, `uso =  ${jsonData.uso}`, `stock_minimo = ${jsonData.stock_minimo}`, `codigo_fab = "${jsonData.codigo_fab}"`,
   ];
 
   const filteredFields = fields.filter(
@@ -148,6 +128,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
       setValue("diagonal", "");
       setValue("brazo", "");
       setValue("stock_minimo", "");
+      setValue("codigo_fab", "");
 
       if (firstInputRef.current) {
         const firstInput = firstInputRef.current.querySelector(
@@ -297,9 +278,9 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                     type="text"
                     label="Código FAB"
                     name="codigo_fab"
-                    // data={data && data[EnumGrid.codigo]}
+                    data={data && data[EnumGrid.codigo_fab]}
                     control={control}
-                    // error={errors.codigo}
+                    error={errors.codigo_fab}
                     onlyRead={isEditting}
                     customWidth={"!w-[100%]"}
                     isOptional={true}

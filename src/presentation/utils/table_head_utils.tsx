@@ -1136,6 +1136,13 @@ export const table_head_armazones = [
     width: "w-[6rem]",
   },
   {
+    cell: "Código FAB",
+    key: "codigo_fab",
+    alignment: "text-left",
+    visible: true,
+    width: "w-[6rem]",
+  },
+  {
     cell: "",
     key: "opciones",
     visible: true,

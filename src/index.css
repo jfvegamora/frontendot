@@ -250,6 +250,10 @@ select::-ms-expand {
   border-color: #f8b179 !important;
 }
 
+.custom-optional-with-color {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: /* Tu nuevo color para el texto en estilo custom-optional */;
+}
 
 .custom-input.error {
   border-width: 3px; 

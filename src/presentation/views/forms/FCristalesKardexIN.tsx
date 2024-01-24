@@ -364,7 +364,7 @@ const FCristalesKardexIN: React.FC<IUserFormPrps> = React.memo(
 
 
     return (
-      <div className="useFormContainer centered-div use40rem">
+      <div className="useFormContainer centered-div use30rem">
         <div className="userFormBtnCloseContainer">
           <button onClick={closeModal} className="userFormBtnClose">
             X
@@ -376,7 +376,7 @@ const FCristalesKardexIN: React.FC<IUserFormPrps> = React.memo(
           <div className="userFormularioContainer">
 
           <div className="w-full flex items-center h-[4rem]">
-              <div className="flex input-container items-center rowForm w-[70%]  ">
+              <div className="flex input-container items-center rowForm w-[60%]  ">
                 <div className="w-full">
                   <TextInputComponent
                     type="text"
@@ -390,20 +390,9 @@ const FCristalesKardexIN: React.FC<IUserFormPrps> = React.memo(
                     customWidth={""}
                     />
                   </div> 
-                  <div className="w-full">
-                    <TextInputComponent
-                      type="text"
-                      label="Código FAB"
-                      name="insumo_fab"
-                      control={control}
-                      onlyRead={isEditting}
-                      customWidth={"!w-[11rem] "}
-                      isOptional={true}
-                      />
-                    </div> 
                 </div> 
 
-                <div className="flex input-container items-center rowForm w-[30%]  ">
+                <div className="flex input-container items-center rowForm w-[40%]  ">
                   <div className="w-full">
                     <TextInputComponent
                       type={isEditting ? "datetime" : "date"}

@@ -338,7 +338,7 @@ const FAccesoriosKardexIN: React.FC<IUserFormPrps> = React.memo(
     const fechaFormateada = fechaHoraActual.toISOString().split('T')[0];
 
     return (
-      <div className="useFormContainer centered-div use40rem">
+      <div className="useFormContainer centered-div use30rem">
         <div className="userFormBtnCloseContainer">
           <button onClick={closeModal} className="userFormBtnClose">
             X
@@ -350,7 +350,7 @@ const FAccesoriosKardexIN: React.FC<IUserFormPrps> = React.memo(
           <div className="userFormularioContainer">
 
           <div className="w-full flex items-center h-[4rem]">
-              <div className="flex input-container items-center rowForm w-[70%]  ">
+              <div className="flex input-container items-center rowForm w-[60%]  ">
                 <div className="w-full">
                   <TextInputComponent
                     type="text"
@@ -364,20 +364,9 @@ const FAccesoriosKardexIN: React.FC<IUserFormPrps> = React.memo(
                     customWidth={""}
                     />
                   </div> 
-                  <div className="w-full">
-                    <TextInputComponent
-                      type="text"
-                      label="Código FAB"
-                      name="insumo_fab"
-                      control={control}
-                      onlyRead={isEditting}
-                      customWidth={"!w-[11rem] "}
-                      isOptional={true}
-                      />
-                    </div> 
                 </div> 
 
-                <div className="flex input-container items-center rowForm w-[30%]  ">
+                <div className="flex input-container items-center rowForm w-[40%]  ">
                   <div className="w-full">
                     <TextInputComponent
                       type={isEditting ? "datetime" : "date"}
@@ -444,7 +433,7 @@ const FAccesoriosKardexIN: React.FC<IUserFormPrps> = React.memo(
                 <div className="w-full">
                     <TextInputComponent
                       type="number"
-                      label="Factura"
+                      label="N° Factura"
                       name="numero_factura"
                       data={data && data[EnumGrid.numero_factura]}
                       control={control}

@@ -90,6 +90,7 @@ export const validationArmazonesSchema = () =>
     brazo       : yup.string().required(`${msg}`),
     uso         : yup.string().required(`${msg}`),
     stock_minimo: yup.string().required(`${msg}`),
+    codigo_fab  : yup.string(),
   });
 
 // Schema ACCESORIOS

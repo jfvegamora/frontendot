@@ -34,6 +34,7 @@ export enum EnumGrid {
   stock_minimo = 19,
   stock_reservado = 20,
   stock_disponible = 21,
+  codigo_fab       = 22,
 }
 
 const strEntidad = "Armazón ";
