@@ -53,9 +53,8 @@ const FOTOrdenCompra: React.FC<IDerivacion> = ({
                 };
 
                 const query07 = {
-                    _p2         : jsonData["proyecto"],
                     _id         : 3,
-                    _p4         : jsonData["numero_doc"],
+                    _p2         : jsonData["numero_doc"],
                     _pkToDelete : JSON.stringify(pktoDelete.map((folioOT:any)=>({folio: folioOT["folio"]})))
                    
                 }
@@ -70,7 +69,7 @@ const FOTOrdenCompra: React.FC<IDerivacion> = ({
 
                 if(resultQuery03?.status === 200){
                     //TODO: EJECUTAR QUERY 07 PARA ASIGNAR ORDEN DE COMPRA A OT SELECCIONADA (1 O N OTS)
-                    let   queryURL07            = `?query=07&_p2=${query07["_p2"]}&_pkToDelete=${query07["_pkToDelete"]}&_p4=${query07["_p4"]}&_id=${query07["_id"]}`
+                    let   queryURL07            = `?query=07&_p2=${query07["_p2"]}&_pkToDelete=${query07["_pkToDelete"]}&_id=${query07["_id"]}`
                     const resultQuery07         = await axios(`${strUrl}/${queryURL07}`) 
 
                     if(resultQuery07?.status === 200){
