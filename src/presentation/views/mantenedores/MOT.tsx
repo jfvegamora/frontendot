@@ -214,11 +214,10 @@ const MOT: React.FC = () => {
         </div>
 
           <FilterButton
-            className="top-[10rem] left-[3rem] !h-[2rem] "
+            className="top-[10rem] left-[3rem]"
             isOT = {true}
           >
-            <div className="mantenedorHeadFlex width100  relative">
-              <div className="w-[95%] mx-auto">
+
                 <PrimaryKeySearch
                   baseUrl={strBaseUrl}
                   setParams={setParams}
@@ -232,25 +231,26 @@ const MOT: React.FC = () => {
                       name: "_estado",
                       label: "OTEstado",
                       type: "select",
-                      selectUrl:"/api/tipos/s",
-                      tipos: "OTEstados"
+                      selectUrl:"/api/tipos/",
+                      tipos: "OTEstados",
+                      styles:{with:"w-[20.4rem]"}
                     },              
-                  {
+                    {
                         name: "_proyecto",
                         label: "Proyecto",
                         type: "select",
                         selectUrl: "/api/proyectos/",
-                        styles:{with:"w-[21.6rem]"}
+                        styles:{with:"w-[20.4rem]"}
                       },
-                    { name: "_fecha_desde", label: "Desde", type: "date", styles:{with:"w-[19.3rem]  !h-[6rem]"} },
-                    { name: "_fecha_hasta", label: "Hasta", type: "date" ,styles:{with:"w-[19.3rem]  !h-[6rem]"}},
+                    { name: "_fecha_desde", label: "Desde", type: "date", styles:{with:"w-[18.2rem]  !h-[6rem]"} },
+                    { name: "_fecha_hasta", label: "Hasta", type: "date" ,styles:{with:"w-[18.2rem]  !h-[6rem]"}},
                     // {name:"_motivo", label:"motivo",type:"radio" },
                     { name: "_nombre", label: "Nombre", type: "text" },
                     {
                         name: "_motivo",
                         label: "OTMotivo",
                         type: "select",
-                        selectUrl:"/api/tipos/s",
+                        selectUrl:"/api/tipos/",
                         tipos: "OTMotivo"
                       },              
                       {
@@ -258,13 +258,28 @@ const MOT: React.FC = () => {
                           label: "Establecimiento",
                           type: "select",
                           selectUrl: "/api/establecimientos/",
-                        },
+                          styles:{with:"w-[20.4rem]"}
+                      },
+                    {
+                        name: "_motivo",
+                        label: "Reporte Interno Mandante",
+                        type: "text",
+                        selectUrl:"/api/tipos/",
+                        tipos: "OTMotivo",
+                        styles:{with:"w-[17rem]"}
+                      },              
+                      {
+                          name: "_establecimiento",
+                          label: "Numero Envio",
+                          type: "text",
+                          selectUrl: "/api/establecimientos/",
+                          styles:{with:"w-[18.4rem]"}
+                      },
                     
                     
                   ]}
                 />
-                </div>
-              </div>
+           
           </FilterButton>
         
     

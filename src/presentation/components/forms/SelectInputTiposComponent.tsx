@@ -63,6 +63,7 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
 
     const params = typeof entidad === 'string' ? entidad : `${entidad[0]}&_p2=${entidad[1]}`
 
+    
     const fetchData = async () => {
       try {
         if (!stateListBox || stateListBox.length < 1) {

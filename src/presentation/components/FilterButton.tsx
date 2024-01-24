@@ -10,17 +10,18 @@ interface IProps {
 }
 
 export const filterToggle = signal(false);
+export const isHovered    = signal(false);
 
 const FilterButton: React.FC<IProps> = ({
   children,
   isOT,
   className
 }) => {
-  const [isHovered, setIsHovered] = useState(false);
+  // const [isHovered, setIsHovered] = useState(false);
 
   const handleMouseEnter = () => {
     filterToggle.value = true;
-    setIsHovered(true);
+    isHovered.value = true;
   };
 
   // const handleMouseLeave = () => {

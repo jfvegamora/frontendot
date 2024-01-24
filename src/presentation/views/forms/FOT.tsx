@@ -43,6 +43,7 @@ import { toast } from 'react-toastify';
 import { addToArmazones, addToCristales, clearCodigos, fetchOT } from '../../../redux/slices/OTSlice';
 import { validation_tipo_anteojo } from '../../utils/OTReceta_utils';
 import FOTPendiente from '../../components/OTForms/FOTPendiente';
+import FOTEmpaque from './FOTEmpaque';
 
 const FOTArmazones = lazy(()=>import('../../components/OTForms/FOTArmazones'));
 const FOTBitacora = lazy(()=>import('../../components/OTForms/FOTBitacora'));
@@ -710,6 +711,7 @@ const FOT:React.FC<IFOTProps> = ({
   const [showDerivacion, setShowDerivacion] = useState(false);
   const [showPendiente, setShowPendiente]  = useState(false);
   const [_existCliente, setExistCliente] = useState(false);
+  const [isFOTEmpaque, setIsFOTEmpaque]  = useState(false);
   const [submitAction, setSubmitAction] = useState('');
   const [_isMotivo, setIsMotivo] = useState(false);
   const [_toggle, setToggle] = useState();
@@ -827,29 +829,43 @@ const FOT:React.FC<IFOTProps> = ({
         dispatch(fetchOT({OTAreas:OTAreaActual}))
         handleCloseForm()
       })
+      setSubmitAction('');
       // switchCasePausar(jsonData);
     } else if (submitAction === 'procesar') {
       // switchCaseProcesar(jsonData);
       console.log('click')
-        updateOT(
-          jsonData,
-          OTAreaActual,
-          OTAreas["areaSiguiente"],
-          20,
-          formValues,
-          data,
-          OTSlice.cristales,
-          OTSlice.armazones,
-          User["id"].toString()
-        ).then(()=>{
-          dispatch(fetchOT({OTAreas:OTAreaActual}))
-          handleCloseForm()
-        })
-      // updateOT(jsonData, OTAreaActual, OTAreaActual, 30, cristalesJSON, armazonesJSON);
+
+      console.log(OTAreaActual)
+
+      if(OTAreaActual === 100){
+        //TODO: estado true para mostrar modal empaque
+        console.log('true')
+        setIsFOTEmpaque(true)
+        //TODO: Resultado del formulario
+
+      }
+
+
+        // updateOT(
+        //   jsonData,
+        //   OTAreaActual,
+        //   OTAreas["areaSiguiente"],
+        //   20,
+        //   formValues,
+        //   data,
+        //   OTSlice.cristales,
+        //   OTSlice.armazones,
+        //   User["id"].toString()
+        // ).then(()=>{
+        //   dispatch(fetchOT({OTAreas:OTAreaActual}))
+        //   handleCloseForm()
+        // })
+        setSubmitAction('');
     }else if (submitAction === 'ingresar'){
       console.log('click')
       
       switchCaseIngresar(jsonData, cristalesJSON, armazonesJSON)
+      setSubmitAction('');
     }
 
   };
@@ -1123,6 +1139,7 @@ const FOT:React.FC<IFOTProps> = ({
   // };
   const handleIngresarClick = () => {
     setSubmitAction('ingresar');
+    
   };
 
   const handleProcesarClick = () => {
@@ -1388,7 +1405,11 @@ useEffect(() => {
                 
                 }
           </div>
+              
 
+              {isFOTEmpaque && (
+                <FOTEmpaque closeModal={()=>setIsFOTEmpaque(false)}/>
+              )}
 
       </Suspense>
       </Tabs>

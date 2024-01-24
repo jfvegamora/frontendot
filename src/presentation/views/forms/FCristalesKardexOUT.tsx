@@ -205,7 +205,7 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
         ${'0'}, 
         ${'0'}, 
         ${'0'}, 
-        ${jsonData.almacen_relacionado}, 
+        ${jsonData.almacen_relacionado || '0'}, 
        "${jsonData.observaciones}",
         ${userId}, 
        "${fechaFormateada + " " + dateHora}"`;

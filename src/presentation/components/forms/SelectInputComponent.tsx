@@ -72,7 +72,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     // console.log(entidad)
     // console.log(strTableName)
     const _p1 =  entidad[2] && `_p1=${entidad[2]}`   
-    // console.log( _p1)  
+    console.log( _p1)  
     // console.log(entidad)
     // if(strTableName){
     //   console.log(strTableName)

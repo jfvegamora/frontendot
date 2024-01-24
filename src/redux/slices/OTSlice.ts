@@ -68,7 +68,7 @@ export const fetchOTByID = createAsyncThunk(
 )
 
 export const fetchOTImpresionByID = createAsyncThunk(
-    'ot/fetchOTbyID',
+    'ot/fetchOTImpresionbyID',
     async(params:any) => {
         try {
             const {folio, OTAreas} = params;
@@ -115,7 +115,10 @@ const OTSlice = createSlice({
     initialState,
     reducers: {
         clearData(state) {
-            state.data = [];
+            state.data        = [];
+            state.ot          = [];
+            state.impresionOT = [];
+            state.estadosOT   = [];
         },
         addToCristales(state, action) {
             const codigos = filterCodigos(action.payload)
@@ -131,6 +134,9 @@ const OTSlice = createSlice({
         },
         clearOTColores(state){
             state.derivacionColores = {}
+        },
+        clearImpression(state){
+            state.impresionOT = []
         }
     },
     extraReducers: (builder) => {
@@ -166,10 +172,10 @@ const OTSlice = createSlice({
             state.ot = action.payload
             return state
         });
-        // builder.addCase(fetchOTImpresionByID.fulfilled, (state,action)=>{
-        //     state.impresionOT = [...state.impresionOT, action.payload]
-        //     return state
-        // });
+        builder.addCase(fetchOTImpresionByID.fulfilled, (state,action)=>{
+            state.impresionOT = [...state.impresionOT, action.payload]
+            return state
+        });
         builder.addCase(fetchColores.fulfilled, (state,action )=>{
             state.derivacionColores = action.payload
             localStorage.setItem('OTColores', JSON.stringify(action.payload))
@@ -178,5 +184,5 @@ const OTSlice = createSlice({
     },
 });
 
-export const { clearData, addToCristales, addToArmazones, clearCodigos,clearOTColores } = OTSlice.actions;
+export const { clearData, addToCristales, addToArmazones, clearCodigos,clearOTColores,clearImpression } = OTSlice.actions;
 export default OTSlice.reducer;

@@ -325,7 +325,7 @@ const MOTHistorica: React.FC = () => {
       {/* <h1 className="mantenedorH1">Órdenes de Trabajo</h1> */}
 
       <FilterButton
-        className="top-[10.5%] left-[3%] "
+        className="top-[10.5%] left-[3%]  w-[80%] "
 
       >
           <PrimaryKeySearch

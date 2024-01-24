@@ -86,10 +86,10 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
     
     switch (baseUrl) {
       case '/api/othistorica/':
-          className = "grid grid-rows-3 grid-cols-2  !w-[32rem] px-0 py-4 h-[35vh]  items-center"
+          className = "grid grid-rows-3 grid-cols-2  !w-[30rem] px-0 py-4 h-[35vh]  items-center"
           break;
       case '/api/ot/':
-          className = "grid grid-rows-3 grid-cols-2"
+          className = "grid grid-rows-3 grid-cols-2  !w-[40rem] px-0 py-4 h-[35vh]  items-center"
           break;
       case '/api/cristales/' :
           className = "grid grid-rows-3 grid-cols-2 !w-[90%] px-0 py-4 h-[30vh]  items-center"
@@ -288,7 +288,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                       name={input.name}
                       showRefresh={true}
                       control={control}
-                      entidad={input.tipos}
+                      entidad={input._p1 ? [input.tipos, input._p1] : input.tipos}
                       inputName={input.name}
                       inputValues={inputValues}
                       setHandleSearch={handleSearch}

@@ -182,7 +182,7 @@ const FArmazonesKardexOUT: React.FC<IUserFormPrps> = React.memo(
         ${'0'}, 
         ${'0'}, 
         ${'0'}, 
-        ${jsonData.almacen_relacionado}, 
+        ${jsonData.almacen_relacionado || '0'}, 
         "${jsonData.observaciones}", 
         ${userId}, 
         "${fechaFormateada + " " + dateHora}"`;
@@ -200,7 +200,7 @@ const FArmazonesKardexOUT: React.FC<IUserFormPrps> = React.memo(
             'es': "2",
             'motivo': jsonData.motivo_egreso,
             'cantidad': jsonData.cantidad,
-            'almacen_relacionado': jsonData.almacen_relacionado,
+            'almacen_relacionado': jsonData.almacen_relacionado || 0,
             'observaciones': jsonData.observaciones,
             'usuario': userState?.id,
           }]

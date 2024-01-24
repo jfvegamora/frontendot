@@ -99,6 +99,7 @@ const MProyectosDocum: React.FC = () => {
                 },
                 { name: "_p2", label: "Código Proyecto", type: "text", styles:{with:" !w-[9rem]"}, },
                 { name: "_p3", label: "Código Licitación", type: "text", styles:{with:" !w-[9rem]"}, },
+                { name: "_estado", label: "TipoDoc", type: "select", selectUrl: "/api/tipos", tipos: "TipoDoc", styles: { with: " w-[] " }, _p1:"1,2,3,4,5,6,7" },
               ]}
               />
           </div>
