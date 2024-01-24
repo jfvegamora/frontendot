@@ -170,6 +170,8 @@ export enum EnumGrid {
   titulo1_ticket = 131,
   titulo2_ticket = 132,
   titulo3_ticket = 133,
+  numero_envio   = 134
+
 }
 
 

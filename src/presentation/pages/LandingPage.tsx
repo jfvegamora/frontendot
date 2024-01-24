@@ -3,7 +3,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import { filterToggle } from "../components/FilterButton";
-import { AppStore, useAppSelector } from "../../redux/store";
 import FOTImpresa from "../views/forms/FOTImpresa";
 
 // import { FixedSizeList } from 'react-window';
@@ -24,8 +23,8 @@ const LandingPage: React.FC = () => {
   
 
   
-  const result = useAppSelector((store: AppStore) => store.OTS);
-  console.log(result)
+  // const result = useAppSelector((store: AppStore) => store.OTS);
+  // console.log(result)
 
 
 

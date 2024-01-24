@@ -38,7 +38,6 @@ export function useModal() {
     console.log("close");
     setIsModalOpen((prevIsModalOpen) => {
       if (prevIsModalOpen) {
-        console.log("isModalOpen", prevIsModalOpen);
         return false;
       }
       return prevIsModalOpen;

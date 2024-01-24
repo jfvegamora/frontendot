@@ -7,16 +7,15 @@ import Barcode from 'react-barcode';
 
 
 
+
 const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
 
   const [logoPath, setLogoPath] = useState<string | null>(null);
-  const OT:any = useAppSelector((store:AppStore)=>store.OTS.ot)
-  const User:any = useAppSelector((store:AppStore)=>store.user)
+  const OT:any = useAppSelector((store:AppStore)=>store.OTS.ot);
+  const User:any = useAppSelector((store:AppStore)=>store.user);
 
-  
-  // useEffect(()=>{
-  //   dispatch(fetchOTByID({folio:2585}))
-  // },[])
+  const {comprobanteRetiro} = _props
+
 
   useEffect(() => {
     const loadLogo = async () => {
@@ -32,7 +31,7 @@ const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
     if (OT[EnumGrid.nombre_logo]) {
       loadLogo();
     }
-  }, [OT[EnumGrid.nombre_logo]]);
+  }, [OT && OT[EnumGrid.nombre_logo]]);
 
 
 
@@ -244,8 +243,18 @@ const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
 
 
 
+            {comprobanteRetiro && (
+              <div>
+                <h1>IMPRIMIENDO COMPROBANTE DE RETIRO</h1>
+                <p>RETIRO EN TIENDA FECHA: </p>
+              </div>
+            )}
+
+
+
           </div>
-       )} 
+       )}
+        
     </div>
   );
 });

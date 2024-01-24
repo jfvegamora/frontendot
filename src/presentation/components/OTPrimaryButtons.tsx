@@ -108,49 +108,49 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
         return;
       }
 
+      
+      // pkToDelete.map(async(ot:any)=>{
+      //   console.log(ot)
+      //   try {
+      //     const query = `?query=06&_folio=${ot.folio}&_p2=${1}&_estado=${ot.estado_id}&_usuario=${User.id}&_origen=${OTAreas["areaActual"]}`
+      //     const result = await axios(`${strUrl}/${query}`);
 
-      pkToDelete.map(async(ot:any)=>{
-        console.log(ot)
-        try {
-          const query = `?query=06&_folio=${ot.folio}&_p2=${1}&_estado=${ot.estado_id}&_usuario=${User.id}&_origen=${OTAreas["areaActual"]}`
-          const result = await axios(`${strUrl}/${query}`);
+      //     console.log(result)
+      //     if(result.status === 200){
+      //       //handle print
+      //       console.log('render')
+      //       const loadingToast = toast.loading('Cargando...');
 
-          console.log(result)
-          if(result.status === 200){
-            //handle print
-            console.log('render')
-            const loadingToast = toast.loading('Cargando...');
-
-            // Realiza la operación asíncrona
-            await new Promise((_resolve) => {
-              dispatch(fetchOTByID({ folio: ot["folio"], OTAreas: OTAreas['areaActual'] }))
-                .then(() => {
-                  // Resuelve la promesa cuando la operación está completa
-                //   setTimeout(()=>{
-                // },2000)
-                handlePrint()
-                })
-                .catch((error) => {
-                  // Manejo de errores
-                  console.error(error);
-                  // Rechaza la promesa en caso de error
-                  throw error;
-                })
-                .finally(() => {
-                  // Oculta el toast de carga cuando la operación está completa
-                  toast.dismiss(loadingToast);
-                });
-            });
-            // handlePrint()
-            toast.success(`OT Impresa: ${ot.folio}`)
-          }
+      //       // Realiza la operación asíncrona
+      //       await new Promise((_resolve) => {
+      //         dispatch(fetchOTByID({ folio: ot["folio"], OTAreas: OTAreas['areaActual'] }))
+      //           .then(() => {
+      //             // Resuelve la promesa cuando la operación está completa
+      //           //   setTimeout(()=>{
+      //           // },2000)
+      //           handlePrint()
+      //           })
+      //           .catch((error) => {
+      //             // Manejo de errores
+      //             console.error(error);
+      //             // Rechaza la promesa en caso de error
+      //             throw error;
+      //           })
+      //           .finally(() => {
+      //             // Oculta el toast de carga cuando la operación está completa
+      //             toast.dismiss(loadingToast);
+      //           });
+      //       });
+      //       // handlePrint()
+      //       toast.success(`OT Impresa: ${ot.folio}`)
+      //     }
           
-        } catch (error) {
-          console.log(error)
-          throw error;
-        }
+      //   } catch (error) {
+      //     console.log(error)
+      //     throw error;
+      //   }
 
-      })
+      // })
       
     }
 

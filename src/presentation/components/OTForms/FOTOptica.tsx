@@ -475,6 +475,19 @@ return (
                             textAlign="text-center"
                             />
                     </div>
+                    <div className="">
+                        <TextInputComponent
+                            type="text"
+                            label="Numero Envio"
+                            name="numero_envio"
+                            handleChange={handleInputChange}
+                            data={formValues ? formValues["numero_envio"] : data && data[EnumGrid.numero_envio]}
+                            control={control}
+                            onlyRead={isEditting}
+                            isOptional={true}
+                            textAlign="text-center"
+                            />
+                    </div>
 
                     
                 </div>

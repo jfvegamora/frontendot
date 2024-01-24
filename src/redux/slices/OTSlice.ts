@@ -9,7 +9,8 @@ export interface DataState {
     derivacionColores:any
     data: any[];
     dataHistorica:any[];
-    ot: any[]
+    ot: any[],
+    impresionOT:any[]
 }
 
 const initialState: DataState = {
@@ -19,6 +20,7 @@ const initialState: DataState = {
     data: [],
     dataHistorica:[],
     ot: [],
+    impresionOT: [],
     derivacionColores: localStorage.getItem("OTColores")
     ? JSON.parse(localStorage.getItem("OTColores") as string)
     : {}
@@ -52,6 +54,20 @@ export const fetchOT = createAsyncThunk(
 
 
 export const fetchOTByID = createAsyncThunk(
+    'ot/fetchOTbyID',
+    async(params:any) => {
+        try {
+            const {folio, OTAreas} = params;
+            const response = await axios.get(`${URLBackend}/api/ot/listado/?query=01&_origen=${OTAreas}&_folio=${folio}`);
+            return response.data[0]
+        } catch (error) {
+            console.log(error)
+            throw error;
+        }
+    }
+)
+
+export const fetchOTImpresionByID = createAsyncThunk(
     'ot/fetchOTbyID',
     async(params:any) => {
         try {
@@ -150,11 +166,15 @@ const OTSlice = createSlice({
             state.ot = action.payload
             return state
         });
+        // builder.addCase(fetchOTImpresionByID.fulfilled, (state,action)=>{
+        //     state.impresionOT = [...state.impresionOT, action.payload]
+        //     return state
+        // });
         builder.addCase(fetchColores.fulfilled, (state,action )=>{
             state.derivacionColores = action.payload
             localStorage.setItem('OTColores', JSON.stringify(action.payload))
             return state
-        })
+        });
     },
 });
 

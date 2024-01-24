@@ -1,10 +1,10 @@
-import React, {useRef} from 'react';
+import React, {useRef, useState} from 'react';
 import { IconButton, Tooltip } from '@material-tailwind/react';
 import { PencilIcon } from "@heroicons/react/24/solid";
 import { PiPrinterFill } from "react-icons/pi";
 import { ImWhatsapp } from "react-icons/im";
 import { usePermission } from '../hooks';
-import { BUTTON_MESSAGES } from '../utils';
+import { BUTTON_MESSAGES, MODAL } from '../utils';
 
 import { useReactToPrint } from 'react-to-print';
 // import FOTImpresa from '../views/forms/FOTImpresa';
@@ -12,6 +12,7 @@ import { AppStore, useAppDispatch, useAppSelector } from '../../redux/store';
 import { fetchOTByID } from '../../redux/slices/OTSlice';
 import FOTImpresa from '../views/forms/FOTImpresa';
 import { toast } from 'react-toastify';
+import { useModal } from '../hooks/useModal';
 
 
 
@@ -28,9 +29,13 @@ const strEntidad = "Orden de Trabajo";
 const OTGrillaButtons:React.FC<AreaButtonsProps> = React.memo(({ areaPermissions, toggleEditOTModal,folio,entidad }) => {
     const { escritura_lectura } = usePermission(28);
     const dispatch              = useAppDispatch();
+    const { showModal, CustomModal } = useModal();
     const OTAreas:any           = useAppSelector((store: AppStore) => store.OTAreas);
     const componentRef          = useRef();
+    const [isComRetiro, setisComRetiro]       = useState(false);
 
+
+   
 
     let historica = false;
     entidad === "Orden de Trabajo Hisotrico" ? historica = true : historica = false;
@@ -50,40 +55,34 @@ const OTGrillaButtons:React.FC<AreaButtonsProps> = React.memo(({ areaPermissions
     const handleImpresion = async(folio:any) =>{
         console.log('click')
         console.log(folio)
-        try {
+        const result = await showModal(
+            'Agregar Comprobante Retiro?',
+            'SI',
+            'NO'
+        );
 
-            const loadingToast = toast.loading('Cargando...');
-          
-                    
+        console.log(result)
+        setisComRetiro(result)
+
+        try {
+           const loadingToast = toast.loading('Cargando...');                      
            await new Promise((_resolve) => {
               dispatch(fetchOTByID({ folio: folio, OTAreas: OTAreas['areaActual'] }))
                 .then(() => {
-                  // Resuelve la promesa cuando la operación está completa
-                //   setTimeout(()=>{
-                // },2000)
-                // window.print()
-                // window.open(pdfDoc.output('bloburl'), '_blank');
                 handlePrint()
-    
-    
-
                 })
                 .catch((error) => {
-                  // Manejo de errores
                   console.error(error);
-                  // Rechaza la promesa en caso de error
                   throw error;
                 })
                 .finally(() => {
-                  // Oculta el toast de carga cuando la operación está completa
                   toast.dismiss(loadingToast);
                 });
             });
-
-
             
         } catch (error) {
-            
+           console.log(error)
+           throw error; 
         }
     
     }
@@ -133,8 +132,9 @@ const OTGrillaButtons:React.FC<AreaButtonsProps> = React.memo(({ areaPermissions
                 </Tooltip>
             )}
             <div className='hidden'>
-                <FOTImpresa ref={componentRef} />
+                <FOTImpresa ref={componentRef}  comprobanteRetiro={isComRetiro}/>
             </div>
+            <CustomModal /> 
 
         </div>
 

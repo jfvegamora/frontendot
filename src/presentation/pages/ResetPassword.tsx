@@ -11,6 +11,7 @@ import bcrypt from "bcryptjs-react";
 import { TextInputComponent } from "../components";
 import { validationResetPasswordSchema } from "../utils";
 import axios from "axios";
+import { URLBackend } from "../hooks/useCrud";
 
 interface InputData {
   password: string;
@@ -55,7 +56,7 @@ const ResetPassword: React.FC = () => {
         _p3: `${""}` ,
       };
 
-      await axios.post('https://mtoopticos.cl/api/usuarios/changepasswrod/',updatePassword)
+      await axios.post(`${URLBackend}/api/usuarios/changepasswrod/`,updatePassword)
       // await editEntity(updatePassword);
 
       // console.log(response)
