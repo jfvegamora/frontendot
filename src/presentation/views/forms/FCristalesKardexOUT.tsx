@@ -195,7 +195,8 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
       /*INSERT INTO CristalesKardex 
       (fecha, cristal, almacen, es, motivo, cantidad, valor_neto, proveedor, 
         numero_factura, OT, almacen_relacionado, observaciones, usuario, fecha_mov)*/
-      let _p1 = `"${jsonData.fecha + " " + fechaHoraActual.toLocaleTimeString()}", 
+      // let _p1 = `"${jsonData.fecha + " " + fechaHoraActual.toLocaleTimeString()}", 
+      let _p1 = `"${jsonData.fecha + " " + dateHora}", 
        "${jsonData.insumo}", 
         ${jsonData.almacen}, 
         ${2}, 
