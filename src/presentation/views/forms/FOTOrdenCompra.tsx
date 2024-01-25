@@ -49,12 +49,12 @@ const FOTOrdenCompra: React.FC<IDerivacion> = ({
             try {
              
                 const query03 = {
-                    _p1         : `"${jsonData["proyecto"]}", "${fechaFormateada + " " + dateHora}", ${3}, ${jsonData["numero_doc"]}, "${jsonData["fecha_doc"]}", ${jsonData["valor_neto"]}, ${0}, ${0}, ${UsuarioID}, "${jsonData["observaciones"]}"    `
+                    _p1         : `"${jsonData["proyecto"]}", "${fechaFormateada + " " + dateHora}", ${3}, "${jsonData["numero_doc"]}", "${jsonData["fecha_doc"]}", ${jsonData["valor_neto"]}, ${0}, ${0}, ${UsuarioID}, "${jsonData["observaciones"]}"    `
                 };
 
                 const query07 = {
                     _id         : 3,
-                    _p2         : jsonData["numero_doc"],
+                    _p2         : `"${jsonData["numero_doc"]}"`,
                     _pkToDelete : JSON.stringify(pktoDelete.map((folioOT:any)=>({folio: folioOT["folio"]})))
                    
                 }

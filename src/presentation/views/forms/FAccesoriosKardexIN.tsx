@@ -197,7 +197,7 @@ const FAccesoriosKardexIN: React.FC<IUserFormPrps> = React.memo(
 
     const resetTextFields = React.useCallback(() => {
       setValue("insumo", "");
-      setValue("fecha", "");
+      // setValue("fecha", "");
       // setValue("descripcion", "");
       setValue("cantidad", "");
       setValue("numero_factura", "");

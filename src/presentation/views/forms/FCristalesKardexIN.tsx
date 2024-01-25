@@ -151,7 +151,7 @@ const FCristalesKardexIN: React.FC<IUserFormPrps> = React.memo(
 
     const resetTextFields = React.useCallback(() => {
       setValue("insumo", "");
-      setValue("fecha", "undefined");
+      // setValue("fecha", "undefined");
       // setValue("descripcion", "");
       setValue("cantidad", "");
       setValue("numero_factura", "");
