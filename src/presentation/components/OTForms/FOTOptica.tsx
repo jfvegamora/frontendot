@@ -149,7 +149,7 @@ return (
             <div className="w-full flex items-center rowForm !h-[5rem] justify-between">
                 <div className="w-[50%] mt-6 mb-8 ml-[2rem]">
                     <SelectInputComponent
-                        label="Proyecto"
+                        label="Nombre Proyecto"
                         name="proyecto_codigo"
                         showRefresh={true}
                         isOT={true}
@@ -468,7 +468,7 @@ return (
                             label="Reporte interno mandante"
                             name="reporte_interno_mandante"
                             handleChange={handleInputChange}
-                            data={formValues ? formValues["reporte_interno_mandante"] : data && data[EnumGrid.folio_interno_mandante]}
+                            data={formValues ? formValues["reporte_interno_mandante"] : data && data[EnumGrid.reporte_interno_mandante]}
                             control={control}
                             onlyRead={isEditting}
                             isOptional={true}

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import { AppStore, useAppDispatch, useAppSelector } from '../../redux/store';
 import { Button } from "@material-tailwind/react";
 import { updateActualArea, updateNextArea } from '../../redux/slices/OTAreasSlice';
@@ -7,7 +7,7 @@ import { clearData, fetchOT } from '../../redux/slices/OTSlice';
 const OTAreasButtons:React.FC = () => {
   const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas);
   const dispatch = useAppDispatch()
-  const [areaActual, setAreaActual] = useState()
+  const [_areaActual, setAreaActual] = useState()
   const areaActualRef = useRef<string | null>(null);
 
 

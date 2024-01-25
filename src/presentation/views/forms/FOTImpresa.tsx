@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { AppStore, useAppSelector } from '../../../redux/store';
 import { EnumGrid } from '../mantenedores/MOTHistorica';
 import Barcode from 'react-barcode';
@@ -28,6 +28,7 @@ const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
           setLogoPath(null);
         }
     };
+
 
 
  if (OT[EnumGrid.nombre_logo]) {
@@ -369,19 +370,19 @@ const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
                 <div className="text-center h-2 w-6 -ml-2">CIL</div>
                 <div className="text-center h-2 w-6 -ml-2">EJE</div>
                 <div className="text-center h-2 w-6 -ml-2">AD</div>
-                <div className="text-center h-2 -mt-4 text-xs ">OD</div>
+                <div className="text-center h-2 -mt-2 text-xs  ">OD</div>
 
 
-                <div className="text-center h-6 -mt-4 text-[0.60rem]">{OT[EnumGrid.a1_od_esf]}</div>
-                <div className="text-center h-6 -mt-4 text-[0.60rem]">{OT[EnumGrid.a1_od_cil]}</div>
-                <div className="text-center h-6 -mt-4 text-[0.60rem]">{OT[EnumGrid.a1_od_eje]}</div>
-                <div className="text-center h-6 -mt-4 text-[0.60rem]">{OT[EnumGrid.a1_od_ad]}</div>
+                <div className="text-center h-6 -mt-2 text-[0.60rem]">{OT[EnumGrid.a1_od_esf]}</div>
+                <div className="text-center h-6 -mt-2 text-[0.60rem]">{OT[EnumGrid.a1_od_cil]}</div>
+                <div className="text-center h-6 -mt-2 text-[0.60rem]">{OT[EnumGrid.a1_od_eje]}</div>
+                <div className="text-center h-6 -mt-2 text-[0.60rem]">{OT[EnumGrid.a1_od_ad]}</div>
                 <div className="text-center text-xs -mt-4">OI</div>  
                 <div className="text-center h-6 -mt-4 text-[0.60rem]">{OT[EnumGrid.a1_oi_esf]}</div>
                 <div className="text-center h-6 -mt-4 text-[0.60rem]">{OT[EnumGrid.a1_oi_cil]}</div>
                 <div className="text-center h-6 -mt-4 text-[0.60rem]">{OT[EnumGrid.a1_oi_eje]}</div>
                 <div className="text-center h-6 -mt-4 text-[0.60rem]">{OT[EnumGrid.a1_oi_ad]}</div>
-                <div className="text-center h-6 flex w-20 !mt-2"> <label className='mr-2 -mt-4 !text-[0.80rem] '>ALT: {OT[EnumGrid.a1_dp]}</label></div>
+                <div className="text-center h-6 flex w-20 -!mt-2"> <label className='mr-2 -mt-4 !text-[0.80rem] '>ALT: {OT[EnumGrid.a1_dp]}</label></div>
                 <div className="text-center h-6 flex w-20 ml-8 text-xs "> <label className='mr-2 -mt-4 !text-[0.80rem]'>DP: {OT[EnumGrid.a1_alt]}</label></div>
             </div>
 

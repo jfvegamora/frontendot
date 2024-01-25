@@ -14,6 +14,8 @@ import { fetchOT} from '../../redux/slices/OTSlice';
 // import { URLBackend } from '../hooks/useCrud';
 // import { useReactToPrint } from 'react-to-print';
 import FOTImpresa from '../views/forms/FOTImpresa';
+import axios from 'axios';
+import { URLBackend } from '../hooks/useCrud';
 
 type AreaButtonsProps ={
     areaName:string;
@@ -153,6 +155,26 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
       
     }
 
+    const handleDownloadMacro = async() => {
+      try {
+        const url = `${URLBackend}/api/downloadexcel/`
+        const {data} = await axios({url,
+          method: 'GET',
+          responseType: 'blob'
+        })
+        const blobUrl = window.URL.createObjectURL(new Blob([data]));
+        // Crear un enlace invisible y hacer clic en él para iniciar la descarga
+        const link = document.createElement('a');
+        link.href = blobUrl;
+        link.setAttribute('download', 'macro_ot.xlsx');
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      } catch (error) {
+        console.log(error)
+        throw error
+      }
+    }
 
 
     const handleWhatsappMasivo = () => {
@@ -249,7 +271,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
         )}
          {areaPermissions && areaPermissions[0] === "1" && escritura_lectura && (
           <Tooltip content={BUTTON_MESSAGES.procesar} >
-            <Button color="green" className='otActionButton mx-4' onClick={()=>{}}>Descargar Macro Excel</Button>
+            <Button color="green" className='otActionButton mx-4' onClick={()=>handleDownloadMacro()}>Descargar Macro Excel</Button>
           </Tooltip>
         )
         }

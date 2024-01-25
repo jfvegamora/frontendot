@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { URLBackend } from "../../presentation/hooks/useCrud";
-import { retry, tryEach } from 'async';
 
 export interface DataState {
     estadosOT: any;

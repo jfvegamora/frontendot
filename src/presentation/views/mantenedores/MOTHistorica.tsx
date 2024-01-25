@@ -162,15 +162,15 @@ export enum EnumGrid {
   numero_factura = 123,
   folio_interno_mandante = 124,
   reporte_interno_mandante = 125,
-  total = 126,
-  observaciones = 127,
-  nombre_logo = 128,
-  imprime_qr = 129,
-  imprime_ticket = 130,
-  titulo1_ticket = 131,
-  titulo2_ticket = 132,
-  titulo3_ticket = 133,
-  numero_envio   = 134
+  numero_envio   = 126,
+  total = 127,
+  observaciones = 128,
+  nombre_logo = 129,
+  imprime_qr = 130,
+  imprime_ticket = 131,
+  titulo1_ticket = 132,
+  titulo2_ticket = 133,
+  titulo3_ticket = 134,
 
 }
 
