@@ -58,7 +58,7 @@ const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
 
 
   return (
-    <div ref={ref} className='flex flex-col   border-2 border-blue-500 '>
+    <div ref={ref} className='flex flex-col h-full  border-2 border-blue-500 '>
        {/* {OT?.length > 2 && (
         <div className='  w-[90%]'>
         
@@ -483,18 +483,32 @@ const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
 
             
 
-            <h1>Notas</h1>
 
-            <div className='w-'>
-
+            <div className='flex h-20 mt-4'>
+              <h1>Notas: </h1>
+              <p>{OT[EnumGrid.observaciones]}</p>
             </div>
 
 
 
             {(OT && OT[EnumGrid.imprime_ticket]) && (
-              <div>
-                <h1>IMPRIMIENDO COMPROBANTE DE RETIRO</h1>
-                <p>RETIRO EN TIENDA FECHA: </p>
+              <div className='mt-2 !h-full'>
+                <Barcode value={'000000'+ OT[EnumGrid.folio]} />
+                <h2>Nombre: </h2>
+                <p className="border-2 border-black mx-auto ">{OT[EnumGrid.cliente_nomnbre]} </p>
+                <h2>Convenio: </h2>
+                <p className="border-2 border-black ">{OT[EnumGrid.proyecto_titulo]} </p>
+                <h2>Fecha Atencion: </h2>
+                <p className="border-2 border-black ">{OT[EnumGrid.fecha_atencion]} </p>
+                <h2>Fecha Entrega: </h2>
+                <p className="border-2 border-black ">{OT[EnumGrid.fecha_entrega_cliente]} </p>
+
+                <div className="mt-2 border-2 border-black">
+                  <h2>{OT[EnumGrid.titulo1_ticket]}</h2>
+                  <h2>{OT[EnumGrid.titulo2_ticket]}</h2>
+                  <h2>{OT[EnumGrid.titulo3_ticket]}</h2>
+                </div>
+
               </div>
             )}
 

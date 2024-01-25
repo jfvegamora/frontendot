@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect } from "react";
-import { IconButton, Tooltip, Typography } from "@material-tailwind/react";
+import { IconButton, Spinner, Tooltip, Typography } from "@material-tailwind/react";
 import { PencilIcon } from "@heroicons/react/24/solid";
 import { BsFillXSquareFill } from "react-icons/bs";
 import { BsPersonLock } from "react-icons/bs";
@@ -242,8 +242,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
           </tr>
         </thead>
         <tbody className="gridData">
-          {data &&
-            data.map((rowData: any, rowIndex: number) => {
+          {data && data.length > 0 ? (data.map((rowData: any, rowIndex: number) => {
               // const id = [3, 3];
               // console.log('rowData', rowData)
               const folio     = rowData[1]
@@ -363,7 +362,17 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                   
                 </tr>
               );
-            })}
+            })) : (
+             <tr className="h-full">
+
+                <div className=" w-[80%] mx-auto relative">
+                  {/* <Spinner className="h-[30rem] w-[10rem] left-[40rem] absolute" style={{ color: '#f39c12' }} /> */}
+                   {/* <h1>No hay datos</h1>  */}
+                </div>
+            </tr>
+            )
+            
+          }
         </tbody>
       </table>
     );
