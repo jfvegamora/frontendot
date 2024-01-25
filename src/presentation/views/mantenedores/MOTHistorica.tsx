@@ -321,10 +321,9 @@ const MOTHistorica: React.FC = () => {
 
   return (
     <div className="mantenedorContainer">
-      {/* <h1 className="mantenedorH1">Órdenes de Trabajo</h1> */}
 
       <FilterButton
-        className="top-[10.5%] left-[3%]  w-[80%] "
+        className="top-[10rem] left-[3rem]"
 
       >
           <PrimaryKeySearch
@@ -337,25 +336,21 @@ const MOTHistorica: React.FC = () => {
             primaryKeyInputs={[
               { name: "_folio", label: "Folio", type: "text" },
               { name: "_rut", label: "Rut", type: "text" },
-
-              { name: "_numero_firma", label: "N° Reporte Firma", type: "text" },
-              { name: "_numero_reporte", label: "N° Reporte Atención", type: "text" },
-
-              { name: "_numero_oc", label: "N° Orden de Compra", type: "text" },
-              { name: "_numero_factura", label: "N° Factura", type: "text" },
-
+  
+              { name: "_fecha_desde", label: "Atención Desde", type: "date", styles: { with: "w-[18.2rem]  !h-[6rem]" } },
+              { name: "_fecha_hasta", label: "Atención Hasta", type: "date", styles: { with: "w-[18.2rem]  !h-[6rem]" } },
+  
+              { name: "_estado", label: "Estado", type: "select", selectUrl: "/api/tipos/", tipos: "OTEstados", styles: { with: "w-[20.4rem]" }},
+              { name: "_establecimiento", label: "Establecimiento", type: "select", selectUrl: "/api/establecimientos/", styles: { with: "w-[20.4rem]" }},
+  
               { name: "_nombre", label: "Nombre", type: "text" },
-              { name: "_fecha_desde", label: "Atención Desde", type: "date", styles: { with: "w-[85%] !h-[6rem]" } },
-
-              { name: "_numero_guia", label: "N° Guía", type: "text" },
-              { name: "_establecimiento", label: "Establecimiento", type: "select", selectUrl: "/api/establecimientos/", styles: { with: "w-[27rem]" } },
-
-              { name: "_estado", label: "OTEstado", type: "select", selectUrl: "/api/tipos/s", tipos: "OTEstados", styles: { with: " w-[] " } },
-              { name: "_proyecto", label: "Proyecto (?)", type: "select", selectUrl: "/api/proyectos/", styles: { with: " w-[40rem]" } },
-
-              { name: "_fecha_hasta", label: "Atención Hasta", type: "date", styles: { with: "w-[85%] !h-[6rem]" } },
-              { name: "_motivo", label: "OTMotivo", type: "select", selectUrl: "/api/tipos/s", tipos: "OTMotivo", styles: { with: " w-[] " } },
-
+              { name: "_motivo", label: "Motivo", type: "select", selectUrl: "/api/tipos/", tipos: "OTMotivo"},
+  
+              { name: "_p2", label: "Tipo Doc", type: "select", selectUrl: "/api/tipos/", tipos: "OTNumDoc"},
+              { name: "_p3", label: "Número Doc", type: "text", styles: { with: "w-[18.4rem]" }},
+  
+              { name: "_proyecto", label: "Proyecto", type: "select", selectUrl: "/api/proyectos/", styles: { with: "w-[30rem]" }},
+  
             ]}
           />
 

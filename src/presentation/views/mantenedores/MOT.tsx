@@ -1,7 +1,8 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState, 
+import React, {
+  useEffect, useState,
 } from "react";
 
 import {
@@ -10,12 +11,14 @@ import {
   TableComponent,
 } from "../../components";
 import { useEntityUtils, usePermission } from "../../hooks";
-import {  TITLES ,table_head_OT_diaria2 } from "../../utils";
+import { TITLES, table_head_OT_diaria2 } from "../../utils";
 import FOT from "../forms/FOT";
 import OTAreasButtons from "../../components/OTAreasButtons";
-import { AppStore, 
-  useAppDispatch, 
-  useAppSelector } from "../../../redux/store";
+import {
+  AppStore,
+  useAppDispatch,
+  useAppSelector
+} from "../../../redux/store";
 import FilterButton, { filterToggle } from "../../components/FilterButton";
 import { clearData, clearOTColores, fetchColores, fetchOT } from "../../../redux/slices/OTSlice";
 import StateCountBarOT from "../../components/StateCountBarOT";
@@ -61,12 +64,12 @@ const MOT: React.FC = () => {
   // const dispatch = useAppDispatch();
   const [params, setParams] = useState([]);
   const [_estadosOT, setEstadosOT] = useState()
-  const [ pktoDelete, setPkToDelete] = useState([]);
+  const [pktoDelete, setPkToDelete] = useState([]);
   // const areaActualRef = useRef(areaActual)
   // console.log(area)
-  
 
-  const { lectura} = usePermission(28);
+
+  const { lectura } = usePermission(28);
   // console.log(lectura)
   // let a = JSON.parse(localStorage.getItem("ListBoxTipos") as string)  
   // console.log( a["cristalDiseño"] )
@@ -103,13 +106,13 @@ const MOT: React.FC = () => {
 
   useEffect(() => {
     const newPkToDelete = selectedRows.map((row: number) => ({
-      folio             : OTs.data[row] && OTs.data[row][EnumGrid.id],
-      estado_id         : OTs.data[row] && OTs.data[row][3],
-      estado_impresion  : OTs.data[row] && OTs.data[row][5],
-      armazones         : [{codigo: OTs.data[row] && OTs.data[row][14]}, {codigo: OTs.data[row] && OTs.data[row][15]}],
-      cristales         : [{codigo: OTs.data[row] && OTs.data[row][17]}, {codigo: OTs.data[row] && OTs.data[row][18]}],
-      proyecto          : OTs.data[row] && OTs.data[row][7],
-      punto_venta       : OTs.data[row] && OTs.data[row][6],
+      folio: OTs.data[row] && OTs.data[row][EnumGrid.id],
+      estado_id: OTs.data[row] && OTs.data[row][3],
+      estado_impresion: OTs.data[row] && OTs.data[row][5],
+      armazones: [{ codigo: OTs.data[row] && OTs.data[row][14] }, { codigo: OTs.data[row] && OTs.data[row][15] }],
+      cristales: [{ codigo: OTs.data[row] && OTs.data[row][17] }, { codigo: OTs.data[row] && OTs.data[row][18] }],
+      proyecto: OTs.data[row] && OTs.data[row][7],
+      punto_venta: OTs.data[row] && OTs.data[row][6],
 
     }));
     console.log(newPkToDelete)
@@ -149,13 +152,13 @@ const MOT: React.FC = () => {
   //   console.log('render')
   //   console.log(areaActual)
   //   console.log(areaActualRef.current)
-    
+
   //   if (areaActualRef.current !== areaActual) {
   //     areaActualRef.current = areaActual; // Actualizar la referencia mutable
   //     dispatch(fetchOT(areaActual)); // Hacer la llamada inicial cuando el área cambie
   //   }
-    
-    
+
+
 
   //   const interval = setInterval(() => {
   //     console.log('render ot')
@@ -186,15 +189,15 @@ const MOT: React.FC = () => {
   // console.log(OTs.data.slice(0,250))
   // console.log('selectedValue',selectedValue)
 
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(clearData())
     dispatch(clearOTColores())
     dispatch(fetchColores())
-  },[])
+  }, [])
 
-  useEffect(()=>{
+  useEffect(() => {
     setEstadosOT(OTs.estadosOT)
-  },[OTs.estadosOT])
+  }, [OTs.estadosOT])
 
   // console.log(estadosOT)
 
@@ -208,99 +211,66 @@ const MOT: React.FC = () => {
               
         </FilterButton>
         */}
-        <OTAreasButtons/>
+        <OTAreasButtons />
 
       </div>
 
-        <div className="mantenedorHeadOT width100 !h-[4rem]  items-center ">
-          <PrimaryButtonsComponent
-            handleAddPerson={openModal}
-            handleDeleteSelected={handleDeleteSelected}
-            handleRefresh={resetEntities}
-            params={params}
-            // pkToDelete={pkToDelete}
-            // strEntidad={strEntidadExcel}
-            strBaseUrl={strBaseUrl}
-            showAddButton={true}
-            showExportButton={true}
-            showDeleteButton={true}
-            showForwardButton={false}
-            pkToDelete={pktoDelete}
-            showRefreshButton={true}
-            showImportCsv={true}
-            idMenu={idMenu}
-            isOT={true}
-            />
-        </div>
+      <div className="mantenedorHeadOT width100 !h-[4rem]  items-center ">
+        <PrimaryButtonsComponent
+          handleAddPerson={openModal}
+          handleDeleteSelected={handleDeleteSelected}
+          handleRefresh={resetEntities}
+          params={params}
+          // pkToDelete={pkToDelete}
+          // strEntidad={strEntidadExcel}
+          strBaseUrl={strBaseUrl}
+          showAddButton={true}
+          showExportButton={true}
+          showDeleteButton={true}
+          showForwardButton={false}
+          pkToDelete={pktoDelete}
+          showRefreshButton={true}
+          showImportCsv={true}
+          idMenu={idMenu}
+          isOT={true}
+        />
+      </div>
 
-          <FilterButton
-            className="top-[10rem] left-[3rem]"
-            isOT = {true}
-          >
+      <FilterButton
+        className="top-[10rem] left-[3rem]"
+        isOT={true}
+      >
 
-                <PrimaryKeySearch
-                  baseUrl={strBaseUrl}
-                  setParams={setParams}
-                  updateParams={updateParams}
-                  strQuery={strQuery}
-                  setEntities={setEntities}
-                  primaryKeyInputs={[
-                    { name: "_folio", label: "Folio", type: "text" },
-                    { name: "_rut", label: "Rut", type: "text" },
-                    {
-                      name: "_estado",
-                      label: "Estado",
-                      type: "select",
-                      selectUrl:"/api/tipos/",
-                      tipos: "OTEstados",
-                      styles:{with:"w-[20.4rem]"}
-                    },              
-                    {
-                        name: "_proyecto",
-                        label: "Proyecto",
-                        type: "select",
-                        selectUrl: "/api/proyectos/",
-                        styles:{with:"w-[20.4rem]"}
-                      },
-                    { name: "_fecha_desde", label: "Desde", type: "date", styles:{with:"w-[18.2rem]  !h-[6rem]"} },
-                    { name: "_fecha_hasta", label: "Hasta", type: "date" ,styles:{with:"w-[18.2rem]  !h-[6rem]"}},
-                    // {name:"_motivo", label:"motivo",type:"radio" },
-                    { name: "_nombre", label: "Nombre", type: "text" },
-                    {
-                        name: "_motivo",
-                        label: "Motivo",
-                        type: "select",
-                        selectUrl:"/api/tipos/",
-                        tipos: "OTMotivo"
-                      },              
-                      {
-                          name: "_establecimiento",
-                          label: "Establecimiento",
-                          type: "select",
-                          selectUrl: "/api/establecimientos/",
-                          styles:{with:"w-[20.4rem]"}
-                      },
-                      {
-                        name: "_p2",
-                        label: "Tipo Doc",
-                        type: "select",
-                        selectUrl:"/api/tipos/",
-                        tipos: "OTNumDoc"
-                      },
-                      {
-                          name: "_p3",
-                          label: "Número Doc",
-                          type: "text",
-                          styles:{with:"w-[18.4rem]"}
-                      },
-                    
-                    
-                  ]}
-                />
-           
-          </FilterButton>
-        
-    
+        <PrimaryKeySearch
+          baseUrl={strBaseUrl}
+          setParams={setParams}
+          updateParams={updateParams}
+          strQuery={strQuery}
+          setEntities={setEntities}
+          primaryKeyInputs={[
+            { name: "_folio", label: "Folio", type: "text" },
+            { name: "_rut", label: "Rut", type: "text" },
+
+            { name: "_fecha_desde", label: "Atención Desde", type: "date", styles: { with: "w-[18.2rem]  !h-[6rem]" } },
+            { name: "_fecha_hasta", label: "Atención Hasta", type: "date", styles: { with: "w-[18.2rem]  !h-[6rem]" } },
+
+            { name: "_estado", label: "Estado", type: "select", selectUrl: "/api/tipos/", tipos: "OTEstados", styles: { with: "w-[20.4rem]" }},
+            { name: "_establecimiento", label: "Establecimiento", type: "select", selectUrl: "/api/establecimientos/", styles: { with: "w-[20.4rem]" }},
+
+            { name: "_nombre", label: "Nombre", type: "text" },
+            { name: "_motivo", label: "Motivo", type: "select", selectUrl: "/api/tipos/", tipos: "OTMotivo"},
+
+            { name: "_p2", label: "Tipo Doc", type: "select", selectUrl: "/api/tipos/", tipos: "OTNumDoc"},
+            { name: "_p3", label: "Número Doc", type: "text", styles: { with: "w-[18.4rem]" }},
+
+            { name: "_proyecto", label: "Proyecto", type: "select", selectUrl: "/api/proyectos/", styles: { with: "w-[30rem]" }},
+
+          ]}
+        />
+
+      </FilterButton>
+
+
       <div className={`width100 scroll ${filterToggle.value ? "!mt-[13rem] !h-[25rem]" : "!mt-[1rem] !h-[33rem]"} `}>
         <TableComponent
           handleSelectChecked={handleSelect}
@@ -322,7 +292,7 @@ const MOT: React.FC = () => {
         />
       </div>
 
-{/* 
+      {/* 
       <div className="w-[80%] bg-white absolute bottom-[2%] flex">
         {Object.keys(OTs.estadosOT).map((estadoID, index) => {
           const estadoNombre = estadoIDNombre[estadoID];
@@ -356,7 +326,7 @@ const MOT: React.FC = () => {
 
     </div> */}
 
-    <StateCountBarOT/>
+      <StateCountBarOT />
 
 
 

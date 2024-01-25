@@ -2966,16 +2966,18 @@ export const table_head_proyectos_docum = [
     visible: false,
   },
   {
-    cell: "Título",
+    cell: "Proyecto",
     key: "titulo",
-    visible: false,
+    visible: true,
+    width: "w-[10rem]",
+    alignment: "text-left"
   },
   {
     cell: "Fecha/Hora",
     key: "fecha_hora",
     visible: true,
     alignment: "text-center",
-    width: "w-[6rem]",
+    width: "w-[8rem]",
   },
   {
     cell: "TipoDocID",
@@ -2987,7 +2989,7 @@ export const table_head_proyectos_docum = [
     key: "tipo_doc",
     visible: true,
     alignment: "text-center",
-    width: "w-[6rem]",
+    width: "w-[8rem]",
   },
   {
     cell: "Número Doc",
@@ -3001,7 +3003,7 @@ export const table_head_proyectos_docum = [
     key: "fecha_doc",
     visible: true,
     alignment: "text-center",
-    width: "w-[6rem]",
+    width: "w-[7rem]",
   },
   {
     cell: "Total Neto $",
@@ -3039,7 +3041,7 @@ export const table_head_proyectos_docum = [
     key: "usuario",
     visible: true,
     alignment: "text-center",
-    width: "w-[6rem]",
+    width: "w-[7rem]",
   },
   {
     cell: "Observaciones",
