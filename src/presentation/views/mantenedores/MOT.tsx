@@ -104,6 +104,7 @@ const MOT: React.FC = () => {
   // console.log("params:", params);
   // console.log(entity)
 
+  console.log(selectedRows)
   useEffect(() => {
     const newPkToDelete = selectedRows.map((row: number) => ({
       folio: OTs.data[row] && OTs.data[row][EnumGrid.id],

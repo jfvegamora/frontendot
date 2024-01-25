@@ -51,7 +51,7 @@ const FOTGuiaDespacho: React.FC<IDerivacion> = ({
             try {
              
                 const query03 = {
-                    _p1         : `"${jsonData["proyecto"]}", "${fechaFormateada + " " + dateHora}", ${4}, ${jsonData["numero_doc"]}, "${jsonData["fecha_doc"]}", ${0}, ${0}, ${0}, ${UsuarioID}, "${jsonData["observaciones"]}"    `
+                    _p1         : `"${pktoDelete[0]["proyecto_codigo"]}", "${fechaFormateada + " " + dateHora}", ${4}, "${jsonData["numero_doc"]}", "${jsonData["fecha_doc"]}", ${0}, ${0}, ${0}, ${UsuarioID}, "${jsonData["observaciones"]}"    `
                 };
 
                 const query07 = {
@@ -76,7 +76,7 @@ const FOTGuiaDespacho: React.FC<IDerivacion> = ({
 
                     if(resultQuery07?.status === 200){
                         toast.success('Orden de Compra generado')
-                        dispatch(fetchOT({historica:true, searchParams: `_proyecto=${jsonData["proyecto"]}`  }))
+                        dispatch(fetchOT({historica:true, searchParams: `_proyecto=${pktoDelete[0]["proyecto_codigo"]}`  }))
 
                     }else{
                         toast.error('error: Orden de compra')
