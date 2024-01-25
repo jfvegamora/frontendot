@@ -92,7 +92,7 @@ const MAccesoriosKardex: React.FC = () => {
             setEntities={setEntities}
             primaryKeyInputs={[
               { name: "_p1", label: "Código (?)", type: "text" },
-              { name: "_p5", label: "Código FAB", type: "text" },
+              // { name: "_p5", label: "Código FAB", type: "text" },
               {
                 name: "_p4",
                 label: "Almacén",

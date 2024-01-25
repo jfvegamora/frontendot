@@ -91,7 +91,7 @@ const MCristalesKardex: React.FC = () => {
 
   return (
     <div className="mantenedorContainer">
-      <div className="mantenedorHead width100">
+      <div className="mantenedorHead width100 h-[9rem]">
         <div className="w-[70%]">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
@@ -101,7 +101,7 @@ const MCristalesKardex: React.FC = () => {
             setEntities={setEntities}
             primaryKeyInputs={[
               { name: "_p1", label: "Código (?)", type: "text" },
-              { name: "_p5", label: "Código FAB", type: "text" },
+              // { name: "_p5", label: "Código FAB", type: "text" },
               {
                 name: "_p4",
                 label: "Almacén",
