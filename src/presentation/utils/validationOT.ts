@@ -799,7 +799,7 @@ export const validation_A1_OI_CIL = (value:string | any) => {
     const item = validationNivel2.value.find((item) => item.campo === 'a1_oi_cil');
     
     if (value !== '') {
-        const validate = (parseFloat(value) > 0 ) 
+        const validate = (parseFloat(value) < 0 ) 
 
         item && (item.valor = validate ? 1 : 0);
   
@@ -870,8 +870,9 @@ export const validation_A1_OD_CILL = (value:string | any) => {
     const item = validationNivel2.value.find((item) => item.campo === 'a1_od_cil');
     
     if (value !== '') {
-        item && (item.valor = parseFloat(value) > 0 ? 1 : 0);
+        item && (item.valor = parseFloat(value) < 0 ? 1 : 0);
         // }
+        console.log(item)
       } else if (item) {
         item.valor = 0;
      }

@@ -313,6 +313,16 @@ const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
               <p className='ml-4 text-xs text-center border-2 border-black w-[100%]'> {OT[EnumGrid.proyecto_titulo]}</p>
             </div>
             
+            <div className='flex px-8 my-2 w-[100%] mx-auto'>
+              <p className='-ml-4 text-xs '>Proyecto:  </p>
+              <p className='ml-4 text-xs text-center border-2 border-black w-[100%]'> {OT[EnumGrid.proyecto_titulo]}</p>
+            </div>
+            
+            <div className='flex px-8 my-2 w-[100%] mx-auto'>
+              <p className='-ml-4 text-xs '>Proyecto:  </p>
+              <p className='ml-4 text-xs text-center border-2 border-black w-[100%]'> {OT[EnumGrid.proyecto_titulo]}</p>
+            </div>
+            
             <div className="flex px-8 my-2 w-[100%] mx-auto">
               <p className='-ml-4 text-xs w-[70%]'>Punto Venta:  </p>
               <p className='ml-8 text-center border-2 border-black w-[80%]'> {OT[EnumGrid.punto_venta]}</p>
@@ -484,7 +494,7 @@ const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
             
 
 
-            <div className='flex h-20 mt-4'>
+            <div className='flex h-20 mt-4 border-2 border-black'>
               <h1>Notas: </h1>
               <p>{OT[EnumGrid.observaciones]}</p>
             </div>
@@ -492,7 +502,7 @@ const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
 
 
             {(OT && OT[EnumGrid.imprime_ticket]) && (
-              <div className='mt-2 !h-full'>
+              <div className='mt-2 !h-[104%]'>
                 <Barcode value={'000000'+ OT[EnumGrid.folio]} />
                 <h2>Nombre: </h2>
                 <p className="border-2 border-black mx-auto ">{OT[EnumGrid.cliente_nomnbre]} </p>

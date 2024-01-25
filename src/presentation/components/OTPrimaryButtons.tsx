@@ -271,7 +271,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
         )}
          {areaPermissions && areaPermissions[0] === "1" && escritura_lectura && (
           <Tooltip content={BUTTON_MESSAGES.procesar} >
-            <Button color="green" className='otActionButton mx-4' onClick={()=>handleDownloadMacro()}>Descargar Macro Excel</Button>
+            <Button color="green" className='otActionButton mx-4' onClick={()=>handleDownloadMacro()}>Macro Excel</Button>
           </Tooltip>
         )
         }

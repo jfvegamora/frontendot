@@ -33,101 +33,140 @@ export const setDioptriasReceta = (name:string, value:any) =>{
 };
 
 
+// export const validation_tipo_anteojo = () => {
+//     // console.log(tipo_de_anteojo.value)
+//     console.log('render')
+//     const a1_od_ad  = buscarCampo('a1_od_ad');
+//     const a1_oi_ad  = buscarCampo('a1_oi_ad');
+//     const a1_alt    = buscarCampo('a1_alt');
+//     const a1_dp     = buscarCampo('a1_dp');
+//     const a2_dp     = buscarCampo('a2_dp');
+
+//     console.log(tipo_de_anteojo.value)
+//     // console.log(tipo_de_anteojo.value)
+
+//     if(tipo_de_anteojo.value == '1' || tipo_de_anteojo.value == '2' || tipo_de_anteojo.value == '7'){
+        
+//         if(a1_od_ad){
+//           a1_od_ad.valor = 1
+//         }
+//         if(a1_oi_ad){
+//           a1_oi_ad.valor = 1;
+//         }
+//         if(a1_alt){
+//           a1_alt.valor = 1
+//         }
+//         if(a1_dp){
+//           a1_dp.valor = 0
+//         }
+//         if(a2_dp){
+//           a2_dp.valor = 0
+//         }
+
+  
+//         deshabilitarCampo.value.a1_ad  = false
+//         deshabilitarCampo.value.a1_alt = false
+//         deshabilitarCampo.value.a2_dp  = true
+//         clearSelectInput.value = true;
+//         A2_CR_OD.value = " ";
+//         A2_CR_OI.value = " ";
+
+
+//         // console.log(dioptriasHabilitadas.value)
+//     }
+
+//     if(tipo_de_anteojo.value === '3'){
+      
+//       if(a1_od_ad){
+//         a1_od_ad.valor = 0
+//       }
+//       if(a1_oi_ad){
+//         a1_oi_ad.valor = 0;
+//       }
+//       if(a1_alt){
+//         a1_alt.valor = 1
+//       }
+//       if(a1_dp){
+//         a1_dp.valor = 0
+//       }
+//       if(a2_dp){
+//         a2_dp.valor = 0
+//       }
+      
+//       deshabilitarCampo.value.a2_dp  = false
+//       deshabilitarCampo.value.a1_alt = false
+//       deshabilitarCampo.value.a1_ad  = true
+//       clearSelectInput.value = false;
+//     }
+
+//     if(tipo_de_anteojo.value == '4' || tipo_de_anteojo.value == '5' || tipo_de_anteojo.value == '6'){
+        
+//         if(a1_od_ad){
+//             a1_od_ad.valor = 0
+//           }
+//         if(a1_oi_ad){
+//           a1_oi_ad.valor = 0
+//         }
+//         if(a1_alt){
+//             a1_alt.valor = 0
+//           }
+//           if(a1_dp){
+//             a1_dp.valor = 0
+//           }
+//           if(a2_dp){
+//             a2_dp.valor = 0
+//           }
+  
+
+//       deshabilitarCampo.value.a1_ad  = true
+//       deshabilitarCampo.value.a1_alt = true
+//       deshabilitarCampo.value.a2_dp  = true
+//       clearSelectInput.value = false;
+//       A2_CR_OD.value = " ";
+//       A2_CR_OI.value = " ";
+//     }
+
+
+// }
+
 export const validation_tipo_anteojo = () => {
-    // console.log(tipo_de_anteojo.value)
-    console.log('render')
-    const a1_od_ad  = buscarCampo('a1_od_ad');
-    const a1_oi_ad  = buscarCampo('a1_oi_ad');
-    const a1_alt = buscarCampo('a1_alt');
-    const a1_dp = buscarCampo('a1_dp');
-    const a2_dp = buscarCampo('a2_dp');
+  const camposAValidar = [
+      'a1_od_ad', 'a1_oi_ad', 'a1_alt', 'a1_dp', 'a2_dp',
+      'a2_od_esf', 'a2_od_cil', 'a2_od_eje', 'a2_oi_esf', 'a2_oi_cil', 'a2_oi_eje', 
+      'cristal2_marca_id','cristal2_diseno_id' , 'cristal2_indice_id', 'cristal2_material_id', 
+      'cristal2_color_id',  'cristal2_tratamiento_id', 
+  ];
 
-    console.log(tipo_de_anteojo.value)
-    // console.log(tipo_de_anteojo.value)
+  const tipoDeAnteojo = tipo_de_anteojo.value;
+  console.log(tipoDeAnteojo)
 
-    if(tipo_de_anteojo.value == '1' || tipo_de_anteojo.value == '2' || tipo_de_anteojo.value == '7'){
-        
-        if(a1_od_ad){
-          a1_od_ad.valor = 1
-        }
-        if(a1_oi_ad){
-          a1_oi_ad.valor = 1;
-        }
-        if(a1_alt){
-          a1_alt.valor = 1
-        }
-        if(a1_dp){
-          a1_dp.valor = 0
-        }
-        if(a2_dp){
-          a2_dp.valor = 0
-        }
+  const mapping:any = {
+      '1': { a1_od_ad: 1, a1_oi_ad: 1, a1_alt: 1, a1_dp: 0, a2_dp: 0, a2_od_esf: 1, a2_od_cil: 1, a2_od_eje: 1, a2_oi_esf: 1, a2_oi_cil: 1, a2_oi_eje: 1 },
+      '2': { a1_od_ad: 1, a1_oi_ad: 1, a1_alt: 1, a1_dp: 0, a2_dp: 1, a2_od_esf: 1, a2_od_cil: 1, a2_od_eje: 1, a2_oi_esf: 1, a2_oi_cil: 1, a2_oi_eje: 1 },
+      '3': { a1_od_ad: 0, a1_oi_ad: 0, a1_alt: 1, a1_dp: 0, a2_dp: 0, a2_od_esf: 0, a2_od_cil: 0, a2_od_eje: 0, a2_oi_esf: 0, a2_oi_cil: 0, a2_oi_eje: 0 },
+      '4': { a1_od_ad: 0, a1_oi_ad: 0, a1_alt: 0, a1_dp: 0, a2_dp: 0, a2_od_esf: 1, a2_od_cil: 1, a2_od_eje: 1, a2_oi_esf: 1, a2_oi_cil: 1, a2_oi_eje: 1 },
+      '5': { a1_od_ad: 0, a1_oi_ad: 0, a1_alt: 0, a1_dp: 0, a2_dp: 0, a2_od_esf: 1, a2_od_cil: 1, a2_od_eje: 1, a2_oi_esf: 1, a2_oi_cil: 1, a2_oi_eje: 1 },
+      '6': { a1_od_ad: 0, a1_oi_ad: 0, a1_alt: 0, a1_dp: 0, a2_dp: 0, a2_od_esf: 1, a2_od_cil: 1, a2_od_eje: 1, a2_oi_esf: 1, a2_oi_cil: 1, a2_oi_eje: 1 },
+      '7': { a1_od_ad: 1, a1_oi_ad: 1, a1_alt: 1, a1_dp: 0, a2_dp: 0, a2_od_esf: 1, a2_od_cil: 1, a2_od_eje: 1, a2_oi_esf: 1, a2_oi_cil: 1, a2_oi_eje: 1 },
+  };
 
+  const mappedValues = mapping[tipoDeAnteojo] || {};
+
+  camposAValidar.forEach(campo => {
+      const campoObj = buscarCampo(campo);
+      if (campoObj) campoObj.valor = mappedValues[campo] || 0;
+  });
+
+  deshabilitarCampo.value.a1_ad = tipoDeAnteojo !== '1' && tipoDeAnteojo !== '2' && tipoDeAnteojo !== '7';
+  deshabilitarCampo.value.a1_alt = tipoDeAnteojo !== '1' && tipoDeAnteojo !== '2' && tipoDeAnteojo !== '7';
+  deshabilitarCampo.value.a2_dp = tipoDeAnteojo === '3' ? false : true || true;
   
-        deshabilitarCampo.value.a1_ad  = false
-        deshabilitarCampo.value.a1_alt = false
-        deshabilitarCampo.value.a2_dp  = true
-        clearSelectInput.value = true;
-        A2_CR_OD.value = " ";
-        A2_CR_OI.value = " ";
+  clearSelectInput.value = tipoDeAnteojo === '1' || tipoDeAnteojo === '2' || tipoDeAnteojo === '7';
 
 
-        // console.log(dioptriasHabilitadas.value)
-    }
-
-    if(tipo_de_anteojo.value === '3'){
-      
-      if(a1_od_ad){
-        a1_od_ad.valor = 0
-      }
-      if(a1_oi_ad){
-        a1_oi_ad.valor = 0;
-      }
-      if(a1_alt){
-        a1_alt.valor = 1
-      }
-      if(a1_dp){
-        a1_dp.valor = 0
-      }
-      if(a2_dp){
-        a2_dp.valor = 0
-      }
-      
-      deshabilitarCampo.value.a2_dp  = false
-      deshabilitarCampo.value.a1_alt = false
-      deshabilitarCampo.value.a1_ad  = true
-      clearSelectInput.value = false;
-    }
-
-    if(tipo_de_anteojo.value == '4' || tipo_de_anteojo.value == '5' || tipo_de_anteojo.value == '6'){
-        
-        if(a1_od_ad){
-            a1_od_ad.valor = 0
-          }
-        if(a1_oi_ad){
-          a1_oi_ad.valor = 0
-        }
-        if(a1_alt){
-            a1_alt.valor = 0
-          }
-          if(a1_dp){
-            a1_dp.valor = 0
-          }
-          if(a2_dp){
-            a2_dp.valor = 0
-          }
-  
-
-      deshabilitarCampo.value.a1_ad  = true
-      deshabilitarCampo.value.a1_alt = true
-      deshabilitarCampo.value.a2_dp  = true
-      clearSelectInput.value = false;
-      A2_CR_OD.value = " ";
-      A2_CR_OI.value = " ";
-    }
-
-
-}
+  A2_CR_OD.value = tipoDeAnteojo === '3' ? ' ' : A2_CR_OD.value;
+  A2_CR_OI.value = tipoDeAnteojo === '3' ? ' ' : A2_CR_OI.value;
+};
 
 
 
