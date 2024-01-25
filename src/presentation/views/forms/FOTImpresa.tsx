@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { AppStore, useAppSelector } from '../../../redux/store';
 import { EnumGrid } from '../mantenedores/MOTHistorica';
 import Barcode from 'react-barcode';
+import { getImageURL } from '../../utils';
+
 
 
 
@@ -10,9 +12,29 @@ import Barcode from 'react-barcode';
 
 const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
   
-  // const [logoPath, setLogoPath] = useState<string | null>();
+  const [logoPath, setLogoPath] = useState<string | null>();
   const {impresionOT:OT} = useAppSelector((store:AppStore)=>store.OTS);
   const User:any = useAppSelector((store:AppStore)=>store.user);
+
+    useEffect(() => {
+        const loadLogo = async () => {
+        try {
+      //  const dynamicLogo = await import(`${vite.base}/assets/${OT[EnumGrid.nombre_logo]}`);
+       const resultImage = getImageURL(OT[EnumGrid.nombre_logo]);
+       console.log(resultImage)
+      setLogoPath(resultImage);
+        } catch (error) {
+          console.error('Error loading logo:', error);
+          setLogoPath(null);
+        }
+    };
+
+
+ if (OT[EnumGrid.nombre_logo]) {
+ loadLogo();
+ }
+}, [OT && OT[EnumGrid.nombre_logo]]);
+
 
 
 
@@ -271,7 +293,7 @@ const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
 
          
           <div className="header border-2 border-red-400 w-[110%] text-center">
-          {/* {logoPath && <img src={logoPath} alt="Logo" />} */}
+          {logoPath && <img src={logoPath} alt="Logo" />}
             
             <h3>FOLIO OT: {OT[EnumGrid.folio]}</h3>
             <h3>FECHA: {OT[EnumGrid.fecha_atencion]}</h3>
@@ -341,26 +363,26 @@ const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
           </div>
 
           <div className="w-[110%] flex justify-between">
-            <div className="grid grid-cols-5 grid-rows-3 gap-4 text-xs w-[47%]  border-2">
+            <div className="grid grid-cols-5 grid-rows-3 gap-4 text-xs w-[47%]  h-[7rem]  border-2">
               <div className="text-center h-2"></div>
-                <div className="text-center h-2 w-6 bg-red-400">ESF</div>
-                <div className="text-center h-2 w-6">CIL</div>
-                <div className="text-center h-2 w-6">EJE</div>
-                <div className="text-center h-2 w-6">AD</div>
-                <div className="text-center h-2 text-xs">OD</div>
+                <div className="text-center h-2 w-6 -ml-2">ESF</div>
+                <div className="text-center h-2 w-6 -ml-2">CIL</div>
+                <div className="text-center h-2 w-6 -ml-2">EJE</div>
+                <div className="text-center h-2 w-6 -ml-2">AD</div>
+                <div className="text-center h-2 -mt-4 text-xs ">OD</div>
 
 
-                <div className="text-center h-6 ">{OT[EnumGrid.a1_od_esf]}</div>
-                <div className="text-center h-6 ">{OT[EnumGrid.a1_od_cil]}</div>
-                <div className="text-center h-6 ">{OT[EnumGrid.a1_od_eje]}</div>
-                <div className="text-center h-6 ">{OT[EnumGrid.a1_od_ad]}</div>
-                <div className="text-center text-xs">OI</div>  
-                <div className="text-center h-6">{OT[EnumGrid.a1_oi_esf]}</div>
-                <div className="text-center h-6">{OT[EnumGrid.a1_oi_cil]}</div>
-                <div className="text-center h-6">{OT[EnumGrid.a1_oi_eje]}</div>
-                <div className="text-center h-6">{OT[EnumGrid.a1_oi_ad]}</div>
-                <div className="text-center h-6 flex w-10"> <label className='mr-2'>ALT: </label>{OT[EnumGrid.a1_dp]}</div>
-                <div className="text-center h-6 flex w-10 ml-8"> <label className='mr-2'>DP: </label> {OT[EnumGrid.a1_alt]}</div>
+                <div className="text-center h-6 -mt-4 text-[0.60rem]">{OT[EnumGrid.a1_od_esf]}</div>
+                <div className="text-center h-6 -mt-4 text-[0.60rem]">{OT[EnumGrid.a1_od_cil]}</div>
+                <div className="text-center h-6 -mt-4 text-[0.60rem]">{OT[EnumGrid.a1_od_eje]}</div>
+                <div className="text-center h-6 -mt-4 text-[0.60rem]">{OT[EnumGrid.a1_od_ad]}</div>
+                <div className="text-center text-xs -mt-4">OI</div>  
+                <div className="text-center h-6 -mt-4 text-[0.60rem]">{OT[EnumGrid.a1_oi_esf]}</div>
+                <div className="text-center h-6 -mt-4 text-[0.60rem]">{OT[EnumGrid.a1_oi_cil]}</div>
+                <div className="text-center h-6 -mt-4 text-[0.60rem]">{OT[EnumGrid.a1_oi_eje]}</div>
+                <div className="text-center h-6 -mt-4 text-[0.60rem]">{OT[EnumGrid.a1_oi_ad]}</div>
+                <div className="text-center h-6 flex w-20 !mt-2"> <label className='mr-2 -mt-4 !text-[0.80rem] '>ALT: {OT[EnumGrid.a1_dp]}</label></div>
+                <div className="text-center h-6 flex w-20 ml-8 text-xs "> <label className='mr-2 -mt-4 !text-[0.80rem]'>DP: {OT[EnumGrid.a1_alt]}</label></div>
             </div>
 
             <div className="grid grid-cols-5 grid-rows-3 gap-4 text-xs w-[47%] h-[25%] border-2 ">

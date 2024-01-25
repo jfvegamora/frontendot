@@ -88,53 +88,57 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     
     const state = useAppSelector((store: AppStore) => store.listBox);
     
-    const fetchSelectData = async () => {
-      try {
-        const response = await retry(
-          async (retryCount) => {
-            try {
-              const { data } = await axios(strUrl2);
-              if(label === 'Punto de Venta'){
-                if(data){
-                  punto_venta.value = data[0][0]
-                }
-                }
-                const payload = {
-                  [label]:data
-                }
-                dispatch(setDataListbox(payload))
-                setEntities(data)
-              return data;
-            } catch (error) {
-              if (retryCount >= 3) {
-                throw error; // Reenviar el error después de 3 intentos
-              }
-              await new Promise((resolve) => setTimeout(resolve, 500)); // Esperar 1 segundo antes de reintentar
-            }
-          },
-          { retries: 4 } // Reintentar hasta 3 veces
-        );
+    // const fetchSelectData = async () => {
+    //   try {
+    //     const response = await retry(
+    //       async (retryCount) => {
+    //         try {
+    //           const { data } = await axios(strUrl2);
+    //           if(label === 'Punto de Venta'){
+    //             if(data){
+    //               punto_venta.value = data[0][0]
+    //             }
+    //             }
+    //             const payload = {
+    //               [label]:data
+    //             }
+    //             dispatch(setDataListbox(payload))
+    //             setEntities(data)
+    //           return data;
+    //         } catch (error) {
+    //           if (retryCount >= 3) {
+    //             throw error; // Reenviar el error después de 3 intentos
+    //           }
+    //           await new Promise((resolve) => setTimeout(resolve, 500)); // Esperar 1 segundo antes de reintentar
+    //         }
+    //       },
+    //       { retries: 4 } // Reintentar hasta 3 veces
+    //     );
     
-        // ... código para manejar la respuesta
-      } catch (error) {
-        console.error('Error definitivo en la petición:', error);
-        // Manejar el error definitivo, como mostrar un mensaje al usuario
+    //     // ... código para manejar la respuesta
+    //   } catch (error) {
+    //     console.error('Error definitivo en la petición:', error);
+    //     // Manejar el error definitivo, como mostrar un mensaje al usuario
+    //   }
+    // };
+    const fetchSelectData =async()=>{
+      const {data} = await axios(strUrl2)
+      // console.log(data)
+      if(label === 'Punto de Venta'){
+        if(data){
+          punto_venta.value = data[0][0]
+        }
       }
-    };
-    // const fetchSelectData =async()=>{
-    //   const {data} = await axios(strUrl2)
-    //   // console.log(data)
-    //   if(label === 'Punto de Venta'){
-    //     if(data){
-    //       punto_venta.value = data[0][0]
-    //     }
-    //   }
-    //   const payload = {
-    //     [label]:data
-    //   }
-    //   dispatch(setDataListbox(payload))
-    //   setEntities(data)
-    // }
+      const payload = {
+        [label]:data
+      }
+      dispatch(setDataListbox(payload))
+      setEntities(data)
+
+
+
+      
+    }
 
 
     //  if(refreshToggle){

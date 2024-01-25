@@ -9,3 +9,8 @@ export const clearLocalStorage = (key:string) =>{
     localStorage.removeItem(key);
 };
 
+export const getImageURL = (name:string) => {
+    console.log(new URL(`../../assets/${name}`, import.meta.url).href)
+    return new URL(`../../assets/${name}`, import.meta.url).href
+}
+

@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { URLBackend } from "../../presentation/hooks/useCrud";
+import { retry, tryEach } from 'async';
 
 export interface DataState {
     estadosOT: any;
@@ -35,15 +36,29 @@ export const fetchOT = createAsyncThunk(
         console.log(params)
         const OTUrl = searchParams
                                  ? historica ? `${URLBackend}/api/othistorica/listado/?query=14&${searchParams}` :  `${URLBackend}/api/ot/listado/?query=14&_origen=${OTAreas}&${searchParams}` 
-                                 : historica ? `${URLBackend}/api/othistorica/listado/?query=14`                 :   OTAreas ? `${URLBackend}/api/ot/listado/?query=14&_origen=${OTAreas}` : `${URLBackend}/api/ot/listado/?query=14&_proyecto=${searchParams}`
+                                 : historica ? `${URLBackend}/api/othistorica/listado/?query=14`                 :   OTAreas ? `${URLBackend}/api/ot/listado/?query=14&_origen=${OTAreas}` : `${URLBackend}/api/ot/listado/?query=14&${searchParams}`
 
         console.log(OTUrl)
 
         
         try {
-            const response = await axios.get(OTUrl);
-            
-            return response.data;
+            // const response = await axios.get(OTUrl);
+
+            let retryCount = 0;
+            const maxRetries = 3;
+          
+            while (retryCount < maxRetries) {
+              try {
+                const { data } = await axios(OTUrl);
+                return data; 
+              } catch (error) {
+                if (retryCount >= maxRetries - 1) {
+                  throw error;
+                }
+                retryCount += 1;
+                await new Promise((resolve) => setTimeout(resolve, 4000));
+              }
+            }
         } catch (error) {
             console.log(error);
             throw error;

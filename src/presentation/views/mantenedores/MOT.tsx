@@ -17,7 +17,7 @@ import { AppStore,
   useAppDispatch, 
   useAppSelector } from "../../../redux/store";
 import FilterButton, { filterToggle } from "../../components/FilterButton";
-import { clearData, clearOTColores, fetchColores } from "../../../redux/slices/OTSlice";
+import { clearData, clearOTColores, fetchColores, fetchOT } from "../../../redux/slices/OTSlice";
 import StateCountBarOT from "../../components/StateCountBarOT";
 
 export enum EnumGrid {
@@ -56,6 +56,7 @@ const MOT: React.FC = () => {
   // const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas);
   // const areaActual = OTAreas["areaActual"] 
   const OTs:any = useAppSelector((store: AppStore) => store.OTS);
+  const areaActualOT:any = useAppSelector((store: AppStore) => store.OTAreas.areaActual);
   const dispatch = useAppDispatch()
   // const dispatch = useAppDispatch();
   const [params, setParams] = useState([]);
@@ -117,7 +118,26 @@ const MOT: React.FC = () => {
 
 
 
+  console.log(params)
+  console.log()
 
+  useEffect(() => {
+
+    ; // Llama inicialmente cuando cambia el área
+  //  console.log(areaActualRef)
+   const interval = setInterval(() => {
+    if(params[0] !== ''){
+      dispatch(fetchOT({OTAreas:areaActualOT.current, searchParams:params[0]})) // Llama fetchOT cada minuto con el área actual
+      
+    }else{
+      dispatch(fetchOT({OTAreas:areaActualOT.current})) // Llama fetchOT cada minuto con el área actual
+
+    }
+   }, 60000);
+ 
+   return () => clearInterval(interval); // Limpia el intervalo al desmontar el componente
+ }, [areaActualOT, dispatch, params]);
+ 
   //SWR-POLLING
   // const fetcher = (url:string) => axios.get(url).then((res)=>res.data);
   // const {data} = useSWR(`${URLBackend}/api/ot/listado/?query=01&_origen=${OTAreas["areaActual"]}`, fetcher,{
