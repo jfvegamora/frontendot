@@ -1335,7 +1335,9 @@ export const table_head_kardex = [
   {
     cell: "Código Insumo",
     key: "insumo_id",
-    visible: false,
+    visible: true,
+    alignment: "text-center",
+    width: "w-[10rem]",
   },
   {
     cell: "Descripción",

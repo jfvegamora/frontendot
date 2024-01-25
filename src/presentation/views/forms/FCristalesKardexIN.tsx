@@ -204,9 +204,10 @@ const FCristalesKardexIN: React.FC<IUserFormPrps> = React.memo(
          throw new Error('fecha mayor a la actual')
          
        }
-     }
+     } 
     
-       let _p1 = `"${jsonData.fecha + " " + fechaHoraActual.toLocaleTimeString()}", 
+    //  let _p1 = `"${jsonData.fecha + " " + fechaHoraActual.toLocaleTimeString()}", 
+     let _p1 = `"${jsonData.fecha + " " + dateHora}", 
        "${jsonData.insumo}", 
        ${jsonData.almacen}, 
        ${1}, 
