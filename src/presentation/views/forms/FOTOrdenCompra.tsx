@@ -34,6 +34,7 @@ const FOTOrdenCompra: React.FC<IDerivacion> = ({
     const onSubmit: SubmitHandler<any> = async (jsonData) => {
 
         console.log(pktoDelete)
+        // console.log(pktoDelete[0]["proyecto_codigo"])
 
         if (pktoDelete.some((OT: any) => OT["reporte_atencion"] <= 0)) {
             pktoDelete.filter((ot:any)=> ot["reporte_atencion"] <= 0).map((ot:any)=>{
@@ -49,7 +50,7 @@ const FOTOrdenCompra: React.FC<IDerivacion> = ({
             try {
              
                 const query03 = {
-                    _p1         : `"${jsonData["proyecto"]}", "${fechaFormateada + " " + dateHora}", ${3}, "${jsonData["numero_doc"]}", "${jsonData["fecha_doc"]}", ${jsonData["valor_neto"]}, ${0}, ${0}, ${UsuarioID}, "${jsonData["observaciones"]}"    `
+                    _p1         : `"${pktoDelete[0]["proyecto_codigo"]}", "${fechaFormateada + " " + dateHora}", ${3}, "${jsonData["numero_doc"]}", "${jsonData["fecha_doc"]}", ${jsonData["valor_neto"]}, ${0}, ${0}, ${UsuarioID}, "${jsonData["observaciones"]}"    `
                 };
 
                 const query07 = {
@@ -74,7 +75,7 @@ const FOTOrdenCompra: React.FC<IDerivacion> = ({
 
                     if(resultQuery07?.status === 200){
                         toast.success('Orden de Compra generado')
-                        dispatch(fetchOT({historica:true, searchParams: `_proyecto=${jsonData["proyecto"]}`  }))
+                        dispatch(fetchOT({historica:true, searchParams: `_proyecto=${pktoDelete[0]["proyecto_codigo"]}`  }))
 
                     }else{
                         toast.error('error: Orden de compra')

@@ -25,19 +25,23 @@ const FOTFactura: React.FC<IDerivacion> = ({
     closeModal,
     pktoDelete
 }) => {
-    const { control, handleSubmit } = useForm<any>()
+    const { control, handleSubmit  } = useForm<any>()
     const [fechaHoraActual, _setFechaHoraActual]  = useState(new Date());
 
     const UsuarioID: any = useAppSelector((store: AppStore) => store.user?.id)
     const dispatch = useAppDispatch();
 
-    console.log(pktoDelete)
+    // console.log(pktoDelete)
+    // console.log(errors)    
 
     const onSubmit: SubmitHandler<any> = async (jsonData) => {
 
-        console.log(jsonData)
-        if ((pktoDelete.some((OT: any) => parseInt(OT["orden_compra"])) <= 0)) {
-            pktoDelete.filter((ot:any)=> ot["reporte_atencion"] <= 0).map((ot:any)=>{
+        // console.log(jsonData)
+        if ((pktoDelete.some((OT: any) => parseInt(OT["orden_compra"])) === '')) {
+            console.log('render')
+            console.log(pktoDelete)
+            pktoDelete.filter((ot:any)=> ot["orden_compra"] === '').map((ot:any)=>{
+                console.log('render')
                 toast.error(`Folio: ${ot["folio"]} sin Orden de Compra`);
             })
         }else{
@@ -50,7 +54,7 @@ const FOTFactura: React.FC<IDerivacion> = ({
 
             try {
                 const query03 = {
-                    _p1         : `"${jsonData["proyecto"]}", "${fechaFormateada + " " + dateHora}", ${5}, ${jsonData["numero_doc"]}, "${jsonData["fecha_doc"]}", ${jsonData["valor_neto"]}, ${0}, ${0}, ${UsuarioID}, "${jsonData["observaciones"]}"    `
+                    _p1         : `"${pktoDelete[0]["proyecto_codigo"]}", "${fechaFormateada + " " + dateHora}", ${5}, "${jsonData["numero_doc"]}", "${jsonData["fecha_doc"]}", ${jsonData["valor_neto"]}, ${0}, ${0}, ${UsuarioID}, "${jsonData["observaciones"]}"    `
                 }
 
                 const query07 = {
@@ -71,7 +75,7 @@ const FOTFactura: React.FC<IDerivacion> = ({
 
                     if(resultQuery07?.status === 200){
                         toast.success('Factura Generada')
-                        dispatch(fetchOT({historica:true, searchParams: `_proyecto=${jsonData["proyecto"]}`  }))
+                        dispatch(fetchOT({historica:true, searchParams: `_proyecto=${pktoDelete[0]["proyecto_codigo"]}`  }))
 
                     }else{
                         toast.error('error: Factura Generada')

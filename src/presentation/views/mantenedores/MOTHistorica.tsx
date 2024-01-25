@@ -219,9 +219,11 @@ const MOTHistorica: React.FC = () => {
   // console.log("entities:", entities);
   // console.log("params:", params);
   useEffect(() => {
+    console.log(selectedRows)
     const newPkToDelete = selectedRows.map((row: number) => ({
       folio             : OTs.data[row] && OTs.data[row][1],
       proyecto          : OTs.data[row] && OTs.data[row][12],
+      proyecto_codigo   : OTs.data[row] && OTs.data[row][6],
       estado            : OTs.data[row] && OTs.data[row][4],
       reporte_firma     : OTs.data[row] && OTs.data[row][7],
       reporte_atencion  : OTs.data[row] && OTs.data[row][8],
@@ -229,9 +231,10 @@ const MOTHistorica: React.FC = () => {
  
 
     }));
-    // console.log(newPkToDelete)
+    console.log('newPkToDelete:',newPkToDelete)
     setPkToDelete(newPkToDelete as any)
   }, [selectedRows]);
+
 
   const folios = pktoDelete && pktoDelete.map(({folio}:any)=>folio)
 
