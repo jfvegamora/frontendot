@@ -86,7 +86,8 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
     
     switch (baseUrl) {
       case '/api/othistorica/':
-          className = "grid grid-rows-3 grid-cols-2  !w-[30rem] px-0 py-4 h-[35vh]  items-center"
+          // className = "grid grid-rows-3 grid-cols-2  !w-[30rem] px-0 py-4 h-[35vh]  items-center"
+          className = "grid grid-rows-3 grid-cols-2  !w-[40rem] px-0 py-4 h-[35vh]  items-center"
           break;
       case '/api/ot/':
           className = "grid grid-rows-3 grid-cols-2  !w-[40rem] px-0 py-4 h-[35vh]  items-center"
@@ -411,7 +412,8 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
     return (
       <form className="primaryKeyContainer items-center relative">
         {renderInputs()}
-        <div className={`${otHistorica ? "ml-[-13rem] mr-20" : ""}   w-[60px] `}>
+        {/* <div className={`${otHistorica ? "ml-[-13rem] mr-20" : ""}   w-[60px] `}> */}
+        <div className={`w-[60px] `}>
           <Tooltip content="Buscar">
               <IconButton
               tabIndex={1}

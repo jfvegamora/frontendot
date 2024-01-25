@@ -10,10 +10,9 @@ import { usePermission } from '../hooks';
 import ImportToCsv from './ImportToCsv';
 import { AppStore, useAppDispatch, useAppSelector } from '../../redux/store';
 import { toast } from 'react-toastify';
-import { fetchOT, fetchOTByID } from '../../redux/slices/OTSlice';
-import axios from 'axios';
-import { URLBackend } from '../hooks/useCrud';
-import { useReactToPrint } from 'react-to-print';
+import { fetchOT } from '../../redux/slices/OTSlice';
+// import { URLBackend } from '../hooks/useCrud';
+// import { useReactToPrint } from 'react-to-print';
 import FOTImpresa from '../views/forms/FOTImpresa';
 
 type AreaButtonsProps ={
@@ -37,7 +36,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
     params,
     pkToDelete
 }) => {
-    const strUrl = `${URLBackend}/api/ot/listado`
+    // const strUrl = `${URLBackend}/api/ot/listado`
     const {escritura_lectura} = usePermission(28);
     const dispatch = useAppDispatch();
     const data:any = useAppSelector((store: AppStore) => store.OTS.data)
@@ -49,10 +48,10 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
 
     const folios = pkToDelete && pkToDelete.map(({folio}:any)=>folio)
 
-    const handlePrint = useReactToPrint({
-      content: () => componentRef.current as any, 
+    // const handlePrint = useReactToPrint({
+    //   content: () => componentRef.current as any, 
      
-    });
+    // });
 
     const renderButton = useCallback(
       (icon: React.ReactNode, handle: () => void, tooltip: string) => (

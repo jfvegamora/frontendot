@@ -93,7 +93,7 @@ const MProyectosDocum: React.FC = () => {
               primaryKeyInputs={[
                 {
                   name: "_p1",
-                  label: "Proyecto (?)",
+                  label: "Proyecto",
                   type: "select",
                   selectUrl: "/api/proyectos/", styles:{with:" !w-[28rem]"},
                 },

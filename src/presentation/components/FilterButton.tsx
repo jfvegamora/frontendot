@@ -1,5 +1,5 @@
 import { signal } from '@preact/signals-react';
-import React, { ReactNode, useEffect, useState } from 'react';
+import React, { ReactNode, useEffect } from 'react';
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { RxDoubleArrowLeft } from "react-icons/rx";
 
