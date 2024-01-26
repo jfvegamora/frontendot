@@ -7,6 +7,8 @@ import { TITLES } from "../../utils";
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import { URLBackend } from '../../hooks/useCrud';
+import { yupResolver } from "@hookform/resolvers/yup";
+import { validationOTOCSchema } from "../../utils/validationFormSchemas";
 
 
 interface IDerivacion {
@@ -25,7 +27,7 @@ const FOTOrdenCompra: React.FC<IDerivacion> = ({
     pktoDelete,
     setSelectedRows
 }) => {
-    const { control, handleSubmit }               = useForm<any>()
+    const { control, handleSubmit, formState: { errors }} = useForm<any>({resolver: yupResolver(validationOTOCSchema()),})
     const [fechaHoraActual, _setFechaHoraActual]  = useState(new Date());
     
     const UsuarioID: any = useAppSelector((store: AppStore) => store.user?.id)
@@ -55,7 +57,7 @@ const FOTOrdenCompra: React.FC<IDerivacion> = ({
 
                 const query07 = {
                     _id         : 3,
-                    _p2         : `"${jsonData["numero_doc"]}"`,
+                    _p2         : `${jsonData["numero_doc"]}`,
                     _pkToDelete : JSON.stringify(pktoDelete.map((folioOT:any)=>({folio: folioOT["folio"]})))
                    
                 }
@@ -91,7 +93,7 @@ const FOTOrdenCompra: React.FC<IDerivacion> = ({
             
     }}
     
-    
+    console.log('errors',errors)
     
     
     useEffect(() => {
@@ -151,7 +153,8 @@ const FOTOrdenCompra: React.FC<IDerivacion> = ({
                             label="N° Documento"
                             name="numero_doc"
                             control={control}
-                        />
+                            error={errors.numero_doc}
+                            />
                     </div>
                     <div className="w-full ">
                         <TextInputComponent
@@ -160,6 +163,7 @@ const FOTOrdenCompra: React.FC<IDerivacion> = ({
                             name="fecha_doc"
                             control={control}
                             textAlign='text-center'
+                            error={errors.fecha_doc}
                         />
                     </div>
                     <div className="w-full ml-[]">
@@ -169,6 +173,7 @@ const FOTOrdenCompra: React.FC<IDerivacion> = ({
                             name="valor_neto"
                             control={control}
                             textAlign='text-right'
+                            error={errors.valor_neto}
                         />
                     </div>
                 </div>

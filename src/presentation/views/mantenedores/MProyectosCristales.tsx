@@ -151,7 +151,7 @@ const MProyectosCristales: React.FC = () => {
         </div>
   
   
-        {isModalInsert && (
+        {/* {isModalInsert && ( */}
           <FProyectosCristales
             label={`${TITLES.ingreso} ${strEntidad}`}
             closeModal={closeModal}
@@ -161,7 +161,7 @@ const MProyectosCristales: React.FC = () => {
             isEditting={false}
             escritura_lectura={escritura_lectura}
             />
-        )}
+        {/* )} */}
   
         {isModalEdit && (
           <FProyectosCristales
