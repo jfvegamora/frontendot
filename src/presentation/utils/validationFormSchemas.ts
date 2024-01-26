@@ -22,6 +22,27 @@ export const validationOTSchema = () =>
     correo          : yup.string(),
     establecimient : yup.string().required(`${msg}`),
   });
+//Schema OTHistorica Asignacion OC
+export const validationOTOCSchema = () =>
+  yup.object().shape({
+    numero_doc      : yup.string().required(`${msg}`),
+    fecha_doc       : yup.string().required(`${msg}`),
+    valor_neto      : yup.string().required(`${msg}`),
+  });
+//Schema OTHistorica Asignacion Factura
+export const validationOTFacturaSchema = () =>
+  yup.object().shape({
+    numero_doc      : yup.string().required(`${msg}`),
+    fecha_doc       : yup.string().required(`${msg}`),
+    valor_neto      : yup.string().required(`${msg}`),
+  });
+//Schema OTHistorica Asignacion Guía Despacho
+export const validationOTGuiaSchema = () =>
+  yup.object().shape({
+    numero_doc      : yup.string().required(`${msg}`),
+    fecha_doc       : yup.string().required(`${msg}`),
+  });
+
 // Schema CLIENTES
 export const validationClientesSchema = (isEditting?:boolean) =>
   yup.object().shape({

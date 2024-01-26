@@ -7,6 +7,8 @@ import { TITLES } from "../../utils";
 import { toast } from 'react-toastify';
 import { URLBackend } from '../../hooks/useCrud';
 import axios from 'axios';
+import { yupResolver } from "@hookform/resolvers/yup";
+import { validationOTFacturaSchema } from "../../utils/validationFormSchemas";
 
 
 interface IDerivacion {
@@ -25,7 +27,8 @@ const FOTFactura: React.FC<IDerivacion> = ({
     closeModal,
     pktoDelete
 }) => {
-    const { control, handleSubmit  } = useForm<any>()
+    const { control, handleSubmit, formState: { errors }} = useForm<any>({resolver: yupResolver(validationOTFacturaSchema()),})
+    // const { control, handleSubmit  } = useForm<any>()
     const [fechaHoraActual, _setFechaHoraActual]  = useState(new Date());
 
     const UsuarioID: any = useAppSelector((store: AppStore) => store.user?.id)
@@ -160,6 +163,7 @@ const FOTFactura: React.FC<IDerivacion> = ({
                             label="N° Documento"
                             name="numero_doc"
                             control={control}
+                            error={errors.numero_doc}
                         />
                     </div>
                     <div className="w-full ">
@@ -169,6 +173,7 @@ const FOTFactura: React.FC<IDerivacion> = ({
                             name="fecha_doc"
                             control={control}
                             textAlign='text-center'
+                            error={errors.fecha_doc}
                         />
                     </div>
                     <div className="w-full ml-[]">
@@ -178,6 +183,7 @@ const FOTFactura: React.FC<IDerivacion> = ({
                             name="valor_neto"
                             control={control}
                             textAlign='text-right'
+                            error={errors.valor_neto}
                         />
                     </div>
                 </div>

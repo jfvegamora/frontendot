@@ -7,6 +7,8 @@ import { TITLES } from "../../utils";
 import { toast } from 'react-toastify';
 import { URLBackend } from '../../hooks/useCrud';
 import axios from 'axios';
+import { yupResolver } from "@hookform/resolvers/yup";
+import { validationOTGuiaSchema } from "../../utils/validationFormSchemas";
 
 
 interface IDerivacion {
@@ -14,8 +16,8 @@ interface IDerivacion {
     onClose?: any;
     formValues?: any;
     closeModal?: any;
-    pktoDelete?:any
-    setSelectedRows?:any
+    pktoDelete?: any
+    setSelectedRows?: any
 }
 
 
@@ -26,8 +28,9 @@ const FOTGuiaDespacho: React.FC<IDerivacion> = ({
     pktoDelete,
     setSelectedRows
 }) => {
-    const { control, handleSubmit } = useForm<any>()
-    const [fechaHoraActual, _setFechaHoraActual]  = useState(new Date());
+    const { control, handleSubmit, formState: { errors } } = useForm<any>({ resolver: yupResolver(validationOTGuiaSchema()), })
+    // const { control, handleSubmit } = useForm<any>()
+    const [fechaHoraActual, _setFechaHoraActual] = useState(new Date());
 
     const UsuarioID: any = useAppSelector((store: AppStore) => store.user?.id)
     const dispatch = useAppDispatch();
@@ -38,60 +41,61 @@ const FOTGuiaDespacho: React.FC<IDerivacion> = ({
         console.log(pktoDelete)
 
         if (pktoDelete.some((OT: any) => OT["reporte_atencion"] <= 0)) {
-            pktoDelete.filter((ot:any)=> ot["reporte_atencion"] <= 0).map((ot:any)=>{
+            pktoDelete.filter((ot: any) => ot["reporte_atencion"] <= 0).map((ot: any) => {
                 toast.error(`Folio: ${ot["folio"]} sin Reporte de atencion`);
             })
         } else {
-            const year             = fechaHoraActual.getFullYear();
-            const month            = String(fechaHoraActual.getMonth() + 1).padStart(2, '0'); 
-            const day              = String(fechaHoraActual.getDate()).padStart(2, '0'); 
-            const fechaFormateada  = `${year}/${month}/${day}`;
-            const dateHora         = new Date().toLocaleTimeString();
-            
+            const year = fechaHoraActual.getFullYear();
+            const month = String(fechaHoraActual.getMonth() + 1).padStart(2, '0');
+            const day = String(fechaHoraActual.getDate()).padStart(2, '0');
+            const fechaFormateada = `${year}/${month}/${day}`;
+            const dateHora = new Date().toLocaleTimeString();
+
             try {
-             
+
                 const query03 = {
-                    _p1         : `"${pktoDelete[0]["proyecto_codigo"]}", "${fechaFormateada + " " + dateHora}", ${4}, "${jsonData["numero_doc"]}", "${jsonData["fecha_doc"]}", ${0}, ${0}, ${0}, ${UsuarioID}, "${jsonData["observaciones"]}"    `
+                    _p1: `"${pktoDelete[0]["proyecto_codigo"]}", "${fechaFormateada + " " + dateHora}", ${4}, "${jsonData["numero_doc"]}", "${jsonData["fecha_doc"]}", ${0}, ${0}, ${0}, ${UsuarioID}, "${jsonData["observaciones"]}"    `
                 };
 
                 const query07 = {
-                    _id         : 4,
-                    _p2         : jsonData["numero_doc"],
-                    _pkToDelete : JSON.stringify(pktoDelete.map((folioOT:any)=>({folio: folioOT["folio"]})))
-                   
+                    _id: 4,
+                    _p2: jsonData["numero_doc"],
+                    _pkToDelete: JSON.stringify(pktoDelete.map((folioOT: any) => ({ folio: folioOT["folio"] })))
+
                 }
-            
+
                 console.log(query03);
                 console.log(query07);
 
-                const strUrl             = `${URLBackend}/api/proyectodocum/listado`
-                let   queryURL03         = `?query=03&_p1=${query03["_p1"]}`
-                const resultQuery03      = await axios(`${strUrl}/${queryURL03}`)
+                const strUrl = `${URLBackend}/api/proyectodocum/listado`
+                let queryURL03 = `?query=03&_p1=${query03["_p1"]}`
+                const resultQuery03 = await axios(`${strUrl}/${queryURL03}`)
 
 
-                if(resultQuery03?.status === 200){
+                if (resultQuery03?.status === 200) {
                     //TODO: EJECUTAR QUERY 07 PARA ASIGNAR ORDEN DE COMPRA A OT SELECCIONADA (1 O N OTS)
-                    let   queryURL07            = `?query=07&_p2=${query07["_p2"]}&_pkToDelete=${query07["_pkToDelete"]}&_id=${query07["_id"]}`
-                    const resultQuery07         = await axios(`${strUrl}/${queryURL07}`) 
+                    let queryURL07 = `?query=07&_p2=${query07["_p2"]}&_pkToDelete=${query07["_pkToDelete"]}&_id=${query07["_id"]}`
+                    const resultQuery07 = await axios(`${strUrl}/${queryURL07}`)
 
-                    if(resultQuery07?.status === 200){
+                    if (resultQuery07?.status === 200) {
                         toast.success('Orden de Compra generado')
-                        dispatch(fetchOT({historica:true, searchParams: `_proyecto=${pktoDelete[0]["proyecto_codigo"]}`  }))
+                        dispatch(fetchOT({ historica: true, searchParams: `_proyecto=${pktoDelete[0]["proyecto_codigo"]}` }))
 
-                    }else{
+                    } else {
                         toast.error('error: Orden de compra')
                     }
 
                     setSelectedRows([])
                     closeModal()
                 }
-            
+
             } catch (error) {
                 console.log(error)
-                throw error   
+                throw error
             }
-            
-    }}
+
+        }
+    }
 
 
 
@@ -118,17 +122,17 @@ const FOTGuiaDespacho: React.FC<IDerivacion> = ({
         //         <h2 className='text-2xl cursor-pointer' onClick={onClose}>X</h2>
         //     </div>
         <div className='useFormContainer useFormDerivacion centered-div use40rem z-30'>
-        
-        <div className="userFormBtnCloseContainer flex ">
-            <div className='w-[50%] mx-auto !text-center  '>
-                <h1 className='userFormLabel mx-auto  w-full '>Asignación de Guía Despacho</h1>
+
+            <div className="userFormBtnCloseContainer flex ">
+                <div className='w-[50%] mx-auto !text-center  '>
+                    <h1 className='userFormLabel mx-auto  w-full '>Asignación de Guía Despacho</h1>
+                </div>
+                <div className=''>
+                    <button onClick={closeModal} className="userFormBtnClose">
+                        X
+                    </button>
+                </div>
             </div>
-            <div className=''>
-                <button onClick={closeModal} className="userFormBtnClose">
-                    X
-                </button>
-            </div>
-        </div>
             <form className='userFormulario' onSubmit={handleSubmit(onSubmit)}>
                 {/* <h1 className='text-2xl mt-2'>Asignación de Orden de Compra</h1> */}
 
@@ -155,6 +159,7 @@ const FOTGuiaDespacho: React.FC<IDerivacion> = ({
                             label="N° Documento"
                             name="numero_doc"
                             control={control}
+                            error={errors.numero_doc}
                         />
                     </div>
                     <div className="w-full ">
@@ -164,6 +169,7 @@ const FOTGuiaDespacho: React.FC<IDerivacion> = ({
                             name="fecha_doc"
                             control={control}
                             textAlign='text-center'
+                            error={errors.fecha_doc}
                         />
                     </div>
                 </div>
@@ -176,7 +182,7 @@ const FOTGuiaDespacho: React.FC<IDerivacion> = ({
                             name="observaciones"
                             control={control}
                             isOptional={true}
-                            // handleChange={handleInputChange}
+                        // handleChange={handleInputChange}
                         // data={formValues && formValues["rut"]}
                         // error={errors.fecha_nacimiento}
                         />
