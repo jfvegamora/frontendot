@@ -104,9 +104,11 @@ const MOT: React.FC = () => {
   // console.log("params:", params);
   // console.log(entity)
 
-  console.log(selectedRows)
+
+  
   useEffect(() => {
-    const newPkToDelete = selectedRows.map((row: number) => ({
+    console.log(selectedRows)
+    const newPkToDelete = selectedRows?.map((row: number) => ({
       folio: OTs.data[row] && OTs.data[row][EnumGrid.id],
       estado_id: OTs.data[row] && OTs.data[row][3],
       estado_impresion: OTs.data[row] && OTs.data[row][5],
@@ -122,22 +124,21 @@ const MOT: React.FC = () => {
 
 
 
-  console.log(params)
-  console.log()
-
   useEffect(() => {
 
     ; // Llama inicialmente cuando cambia el área
   //  console.log(areaActualRef)
    const interval = setInterval(() => {
     if(params[0] !== ''){
+      console.log('render')
       dispatch(fetchOT({OTAreas:areaActualOT.current, searchParams:params[0]})) // Llama fetchOT cada minuto con el área actual
       
     }else{
-      dispatch(fetchOT({OTAreas:areaActualOT.current})) // Llama fetchOT cada minuto con el área actual
+      console.log('render')
+      dispatch(fetchOT({OTAreas:areaActualOT})) // Llama fetchOT cada minuto con el área actual
 
     }
-   }, 60000);
+   }, 30000);
  
    return () => clearInterval(interval); // Limpia el intervalo al desmontar el componente
  }, [areaActualOT, dispatch, params]);
@@ -212,7 +213,7 @@ const MOT: React.FC = () => {
               
         </FilterButton>
         */}
-        <OTAreasButtons />
+        <OTAreasButtons  setSelectedRows={setSelectedRows}/>
 
       </div>
 
@@ -221,9 +222,11 @@ const MOT: React.FC = () => {
           handleAddPerson={openModal}
           handleDeleteSelected={handleDeleteSelected}
           handleRefresh={resetEntities}
+          setSelectedRows={setSelectedRows}
           params={params}
           // pkToDelete={pkToDelete}
           // strEntidad={strEntidadExcel}
+          entities={OTs.data}
           strBaseUrl={strBaseUrl}
           showAddButton={true}
           showExportButton={true}

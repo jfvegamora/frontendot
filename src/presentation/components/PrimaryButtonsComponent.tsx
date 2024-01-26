@@ -27,6 +27,7 @@ interface IPrimaryButtonProps {
   handleCopiar?: any;
   handleRefresh?: () => void;
   handleAddTipe2?: () => void;
+  setSelectedRows?:any;
   customExporTooltip?:string;
   showForwardButton?: boolean;
   showAddButton?: boolean;
@@ -38,6 +39,7 @@ interface IPrimaryButtonProps {
   comilla?: boolean;
   strBaseUrl?: string;
   params?: never[];
+  entities?:any;
   strEntidad?: string;
   pkToDelete?: any;
   idMenu: number;
@@ -68,9 +70,11 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
     pkToDelete,
     comilla,
     idMenu,
+    entities,
     bln_egreso,
     isOT,
-    showCopiar
+    showCopiar,
+    setSelectedRows
   }) => {
     const { escritura_lectura } = usePermission(idMenu);
     const { CustomModal, showModal } = useModal();
@@ -88,7 +92,7 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
     useEffect(()=>{
       // console.log('render')
       const permiso = areaActual && permissions(areaActual)
-          console.log(permiso)
+          // console.log(permiso)
       setOTPermissions(permiso && permiso[5])
     },[areaActual])
 
@@ -120,6 +124,8 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
           handleAddPerson={handleAddPerson}
           params={params}
           pkToDelete={pkToDelete}
+          entities={entities}
+          setSelectedRows={setSelectedRows}
           
         />
       )

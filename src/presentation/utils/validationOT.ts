@@ -202,9 +202,8 @@ export const validationOTlevel2 = (name:string, value:any) => {
         
         
 
-
-        case 'cristal1_opcion_vta_id':
-            validation_Cristal1_opcion_vta(value)
+        case 'cristal1_marca_id':
+            validation_Cristal1_marca(value)
             break;
         case 'cristal1_diseno_id':
             validation_Cristal1_diseño(value)
@@ -221,22 +220,19 @@ export const validationOTlevel2 = (name:string, value:any) => {
         case 'cristal1_color_id':
             validation_Cristal1_color(value)
             break;
+        case 'cristal1_diametro':
+            validation_Cristal1_diametro(value)
+            break;
         case 'cristal1_od':
             validation_Cristal1_od(value)
             break;
         case 'cristal1_oi':
             validation_Cristal1_oi(value)
             break;
-        case 'cristal1_tratamiento_adicional_id':
-            validation_Cristal1_tratamiento_adicional(value)
-            break;
         
 
 
-        
-        case 'cristal2_od_opcion_venta_id':
-            validation_Cristal12_opcion_venta(value)
-            break;
+   
         case 'cristal2_diseno_id':
             validation_Cristal2_diseño(value)
             break;
@@ -257,9 +253,6 @@ export const validationOTlevel2 = (name:string, value:any) => {
             break;
         case 'cristal2_oi':
             validation_Cristal2_oi(value)
-            break;
-        case 'cristal2_tratamiento_adicional_id':
-            validation_Cristal2_tratamiento_adicionnal(value)
             break;
         
         default:
@@ -489,6 +482,35 @@ export const validation_Cristal1_od = (value:string | any) => {
     }
 }
 
+export const validation_Cristal1_diametro = (value:string | any) => {
+    if(value !== ''){
+        const item = validationNivel2.value.find(item => item.campo === 'cristal1_diametro');
+        if (item) {
+            item.valor = 1;
+        }
+    }
+    if(value == ''){
+        const item = validationNivel2.value.find(item => item.campo === 'cristal1_diametro');
+        if (item) {
+            item.valor = 0;
+        }
+    }
+}
+
+export const validation_Cristal1_marca = (value:string | any) => {
+    if(value !== ''){
+        const item = validationNivel2.value.find(item => item.campo === 'cristal1_marca_id');
+        if (item) {
+            item.valor = 1;
+        }
+    }
+    if(value == ''){
+        const item = validationNivel2.value.find(item => item.campo === 'cristal1_marca_id');
+        if (item) {
+            item.valor = 0;
+        }
+    }
+}
 export const validation_Cristal1_color = (value:string | any) => {
     if(value !== ''){
         const item = validationNivel2.value.find(item => item.campo === 'cristal1_color_id');
@@ -717,19 +739,18 @@ export const validation_A2_OD_CIL = (value:string | any) => {
 
 export const validation_A2_OD_ESF =( value:string | any) => {
     const item = validationNivel2.value.find((item) => item.campo === 'a2_od_esf');
-
+    
+    console.log(value)
     //TODO: SUMAR 1 SI EXISTE A1_OD_AD
     
     // console.log(value)
     
-    if(value !== '') {
-        const formattedValue = Number(value).toFixed(2);
-        const validate = dioptrias.value.ESF.some((dioptria: string) => dioptria.includes(formattedValue));
-        item && (item.valor = validate ? 1 : 0);
+    if(value !== '' && item) {
+        item.valor = 1;
     } else if (item) {
         item.valor = 0;
     }
-    // console.log(item)
+    console.log(item)
 }
 
 export const validation_A1_ALT = (value:string | any) => {

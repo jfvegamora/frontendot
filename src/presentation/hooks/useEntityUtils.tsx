@@ -106,7 +106,7 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
     setSelectedRows((prevSelectedRow) =>{
 
       // console.log(prevSelectedRow)
-      if(prevSelectedRow.length >= 400){
+      if(prevSelectedRow.length >= 100){
         toast.error("Ya tienes 100 elementos seleccionados")
         return prevSelectedRow;
       }

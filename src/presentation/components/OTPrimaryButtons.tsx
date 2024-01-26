@@ -1,5 +1,5 @@
 import { IconButton, Tooltip, Button } from '@material-tailwind/react';
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 
 import { SiAddthis } from 'react-icons/si';
 import { PiPrinterFill } from "react-icons/pi";
@@ -16,6 +16,7 @@ import { fetchOT} from '../../redux/slices/OTSlice';
 import FOTImpresa from '../views/forms/FOTImpresa';
 import axios from 'axios';
 import { URLBackend } from '../hooks/useCrud';
+import ErrorOTModal from './ErrorOTModal';
 
 type AreaButtonsProps ={
     areaName:string;
@@ -23,7 +24,9 @@ type AreaButtonsProps ={
     params:any;
     areaActual:string;
     handleAddPerson?: () => void;
-    pkToDelete?: any
+    pkToDelete?: any;
+    entities?:any;
+    setSelectedRows?:any
   }
 
 const strEntidad = "Ordenen de Trabajo";
@@ -36,16 +39,21 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
     // areaActual,
     handleAddPerson,
     params,
-    pkToDelete
+    pkToDelete,
+    entities,
+    setSelectedRows
 }) => {
     // const strUrl = `${URLBackend}/api/ot/listado`
-    const {escritura_lectura} = usePermission(28);
-    const dispatch = useAppDispatch();
-    const data:any = useAppSelector((store: AppStore) => store.OTS.data)
-    const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas)
-    const User:any = useAppSelector((store: AppStore) => store.user)
-    const componentRef          = useRef();
-    
+    const {escritura_lectura}                         = usePermission(28);
+    const dispatch                                    = useAppDispatch();
+    const data:any                                    = useAppSelector((store: AppStore) => store.OTS.data)
+    const OTAreas:any                                 = useAppSelector((store: AppStore) => store.OTAreas)
+    const User:any                                    = useAppSelector((store: AppStore) => store.user)
+    const componentRef                                = useRef();
+    const [isShowErrorOTModal, setIsShowErrorOTModal] = useState(false)
+    const [dataOT, setDataOT]                         = useState();
+    const [valueSearchOT, setValueSearchOT]           = useState<any>();
+    const searchOTRef                                 = useRef<any>();
 
 
     const folios = pkToDelete && pkToDelete.map(({folio}:any)=>folio)
@@ -86,8 +94,39 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
       })
     };
 
-   
-    
+
+    const handleChecked = async(folio:any) => {
+      // console.log(folio)
+      // console.log(entities)
+
+      const resultIndex = entities.findIndex((OT: any) => OT[1] === parseInt(folio));
+      const resultFolio = entities[resultIndex];
+      
+      // console.log(resultIndex);
+      // console.log(resultFolio);
+
+      if(resultIndex !== -1){
+        setSelectedRows((prev:any)=>[...prev, resultIndex])
+        setValueSearchOT(" ")
+        if(searchOTRef.current !== null){
+          searchOTRef.current.focus()
+        }
+
+        //EJECUTAR METODO PARA FOCUS DE INPUT SEARCHOT
+
+      }else{
+        const {data:dataOT} = await axios(`${URLBackend}/api/ot/listado/?query=01&_folio=${folio}`);
+        // console.log(dataOT)
+        if(dataOT){
+          setDataOT(dataOT)
+          setIsShowErrorOTModal(true)
+        }
+        
+        
+      }
+            
+    }
+
     const handleImpresionMasivo = () => {
       console.log('click')
       console.log(pkToDelete)
@@ -218,6 +257,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
       })
     }
 
+    console.log(areaPermissions)
 
     return (
     <div className='flex items-center   ml-[4rem] !w-[50rem]'>
@@ -279,6 +319,17 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
                 <FOTImpresa ref={componentRef} />
         </div>
 
+
+        {/* {areaPermissions && areaPermissions[0] === "1" && escritura_lectura && (
+        )} */}
+
+          <div>
+            <input type="text" name='searchOT' placeholder='buscar OT' ref={searchOTRef} onBlur={(e:any)=>handleChecked(e.target.value)} value={valueSearchOT} onChange={(e:any)=>setValueSearchOT(e.target.value)} />
+          </div>
+
+        {isShowErrorOTModal && (
+          <ErrorOTModal onClose={()=>setIsShowErrorOTModal(false)} data={dataOT && dataOT}/>
+        )}
     </div>
 )}
 

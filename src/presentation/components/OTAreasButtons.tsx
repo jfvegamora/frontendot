@@ -4,7 +4,14 @@ import { Button } from "@material-tailwind/react";
 import { updateActualArea, updateNextArea } from '../../redux/slices/OTAreasSlice';
 import { clearData, fetchOT } from '../../redux/slices/OTSlice';
 
-const OTAreasButtons:React.FC = () => {
+
+interface IOTAreaButtons {
+  setSelectedRows:any
+}
+
+
+
+const OTAreasButtons:React.FC<IOTAreaButtons> = ({setSelectedRows}) => {
   const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas);
   const dispatch = useAppDispatch()
   const [_areaActual, setAreaActual] = useState()
@@ -20,7 +27,8 @@ const handleEstado = (area:any) => {
     setAreaActual(area[1])
     dispatch(updateActualArea(area && area[1]))
     dispatch(updateNextArea(area && area[4]))
-    setBotonPresionado(area && area[1]); 
+    setBotonPresionado(area && area[1]);
+    setSelectedRows([]) 
   areaActualRef.current = area[1]
   dispatch(fetchOT({OTAreas:area[1]}))
 }

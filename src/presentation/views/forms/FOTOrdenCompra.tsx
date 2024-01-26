@@ -55,7 +55,7 @@ const FOTOrdenCompra: React.FC<IDerivacion> = ({
 
                 const query07 = {
                     _id         : 3,
-                    _p2         : `"${jsonData["numero_doc"]}"`,
+                    _p2         : `${jsonData["numero_doc"]}`,
                     _pkToDelete : JSON.stringify(pktoDelete.map((folioOT:any)=>({folio: folioOT["folio"]})))
                    
                 }
