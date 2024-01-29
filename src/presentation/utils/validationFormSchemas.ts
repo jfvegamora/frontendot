@@ -352,7 +352,34 @@ export const validationProyectoCristalesSchema = () =>
     precio_venta_neto : yup.string(), 
     observaciones     : yup.string(), 
   });
-  
+
+// Schema PROYECTOS GRUPOS
+export const validationProyectoGruposSchema = () =>
+  yup.object().shape({
+    proyecto          : yup.string().required(`${msg}`), 
+    cod_grupo         : yup.string().required(`${msg}`), 
+    descripcion       : yup.string().required(`${msg}`), 
+    marca             : yup.string().required(`${msg}`),
+    diseno            : yup.string().required(`${msg}`),
+    indice            : yup.string().required(`${msg}`),
+    material          : yup.string().required(`${msg}`),
+    color             : yup.string().required(`${msg}`),
+    tratamiento       : yup.string().required(`${msg}`),
+    esferico_desde    : yup.string().required(`${msg}`), 
+    cilindrico_desde  : yup.string().required(`${msg}`), 
+    esferico_hasta    : yup.string().required(`${msg}`), 
+    cilindrico_hasta  : yup.string().required(`${msg}`), 
+    diametro          : yup.string().required(`${msg}`), 
+    valor_neto_cristal: yup.string().required(`${msg}`), 
+    armazon_tipo      : yup.string(),
+    armazon_material  : yup.string(),
+    armazon_marca     : yup.string(),
+    armazon_uso       : yup.string(),
+    valor_neto_armazon: yup.string().required(`${msg}`), 
+    valor_neto_total  : yup.string().required(`${msg}`), 
+    observaciones     : yup.string(), 
+  });
+
 // Schema PROYECTOS ACCESORIOS
 export const validationParametrizacionAccesorios = () =>
   yup.object().shape({

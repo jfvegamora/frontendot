@@ -21,22 +21,22 @@ const strBaseUrl = "/api/proyectocristales/";
 const strEntidad = "Parametrización de Cristales ";
 
 export interface InputData {
-  proyecto: string | undefined;
-  cod_grupo: string | undefined;
-  descripcion: string | undefined;
-  marca: string | undefined;
-  diseno: string | undefined;
-  indice: string | undefined;
-  material: string | undefined;
-  color: string | undefined;
-  tratamiento: string | undefined;
-  esferico_desde: string | undefined;
-  cilindrico_desde: string | undefined;
-  esferico_hasta: string | undefined;
-  cilindrico_hasta: string | undefined;
-  diametro: string | undefined;
-  precio_venta_neto: string | undefined;
-  observaciones: string | undefined;
+  proyecto          : string | undefined;
+  cod_grupo         : string | undefined;
+  descripcion       : string | undefined;
+  marca             : string | undefined;
+  diseno            : string | undefined;
+  indice            : string | undefined;
+  material          : string | undefined;
+  color             : string | undefined;
+  tratamiento       : string | undefined;
+  esferico_desde 		: string | undefined;
+  cilindrico_desde 	: string | undefined;
+  esferico_hasta 		: string | undefined;
+  cilindrico_hasta 	: string | undefined;
+  diametro 	        : string | undefined;
+  precio_venta_neto : string | undefined;
+  observaciones     : string | undefined;
 }
 
 interface OutputData {
@@ -48,7 +48,7 @@ interface OutputData {
 }
 
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
-  //LA MRCA SE IGNORA. MARCA=0.
+//LA MRCA SE IGNORA. MARCA=0.
   let _p1 = `
  "${jsonData.proyecto}", 
  "${jsonData.cod_grupo}", 
@@ -84,10 +84,10 @@ export function transformUpdateQuery(jsonData: InputData): OutputData | null {
     `descripcion       ="${jsonData.descripcion}"`,
     `marca             = ${jsonData.marca}`,
     `diseno            = ${jsonData.diseno}`,
-    `indice            = ${jsonData.indice}`,
-    `material          = ${jsonData.material}`,
-    `color             = ${jsonData.color}`,
-    `tratamiento       = ${jsonData.tratamiento}`,
+    `indice            = ${jsonData.indice}`, 
+    `material          = ${jsonData.material}`, 
+    `color             = ${jsonData.color}`, 
+    `tratamiento       = ${jsonData.tratamiento}`, 
     `esferico_desde    = ${(jsonData.esferico_desde && jsonData.esferico_desde?.toString())?.length === 0 ? "0" : jsonData.esferico_desde}`,
     `cilindrico_desde  = ${(jsonData.cilindrico_desde && jsonData.cilindrico_desde?.toString())?.length === 0 ? "0" : jsonData.cilindrico_desde}`,
     `esferico_hasta    = ${(jsonData.esferico_hasta && jsonData.esferico_hasta?.toString())?.length === 0 ? "0" : jsonData.esferico_hasta}`,
@@ -161,10 +161,10 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
       setValue("precio_venta_neto", "");
       setValue("diametro", "");
       setValue("observaciones", "");
-      if (firstInputRef.current) {
-        const firstInput = firstInputRef.current.querySelector(
-          'input[name="cod_grupo"]'
-        );
+        if (firstInputRef.current) {
+          const firstInput = firstInputRef.current.querySelector(
+              'input[name="cod_grupo"]'
+            );
         if (firstInput) {
           firstInput.focus();
         }
@@ -189,8 +189,8 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
       async (response: any, isEditting: boolean) => {
         if (response.code === "ERR_BAD_RESPONSE" || response.stack) {
           const errorMessage = isEditting
-            ? strEntidad.concat(": " + response.message)
-            : strEntidad.concat(": " + response.message)
+          ? strEntidad.concat(": " + response.message)
+          : strEntidad.concat(": " + response.message)
           show({
             message: errorMessage ? errorMessage : response.code,
             type: "error",
@@ -198,8 +198,8 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
 
           return;
         }
-
-        if (response.mensaje.includes('Creado')) {
+        
+        if(response.mensaje.includes('Creado')){
           toastSuccess(isEditting);
         }
         if (!blnKeep && !isEditting) {
@@ -279,7 +279,7 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
     //     const query = "01";
     //     const primaryKey = `&_p1=${data}`;
     //     const result = await ListEntityCristales(primaryKey, query);
-
+    
     //     if (result && result[0] && result[0][3]) {
     //       setIdCristal(result[0][3]);
     //     } else {
@@ -287,7 +287,7 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
     //     }
     //   }
     // };
-
+    
 
     // useEffect(() => {
     //   setValue('data_cristal', idCristal || '');
@@ -297,23 +297,12 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
     console.log(errors)
     return (
       <div className="useFormContainer centered-div use60rem">
-        {/* <div className="userFormBtnCloseContainer">
+        <div className="userFormBtnCloseContainer">
           <button onClick={closeModal} className="userFormBtnClose">
             X
           </button>
         </div>
-        <h1 className="userFormLabel">{label}</h1> */}
-
-        <div className="userFormBtnCloseContainer flex ">
-          <div className='w-[50%] mx-auto !text-center  '>
-            <h1 className='userFormLabel mx-auto  w-full '>{label}</h1>
-          </div>
-          <div className=''>
-            <button onClick={closeModal} className="userFormBtnClose">
-              X
-            </button>
-          </div>
-        </div>
+        <h1 className="userFormLabel">{label}</h1>
 
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
@@ -332,22 +321,22 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                     error={errors.proyecto}
                     readOnly={isEditting}
                     customWidth={"!w-[29rem] !ml-[1rem] !mt-[-0.6rem]"}
-                  />
+                    />
                 </div>
                 <div className="w-[50%] flex">
                   <div className="w-[25%]">
                     <TextInputComponent
-                      type="text"
-                      label="ID Grupo"
-                      name="cod_grupo"
-                      data={data && data[EnumGrid.cod_grupo]}
-                      control={control}
-                      error={errors.cod_grupo}
-                      onlyRead={isEditting}
-                      inputRef={firstInputRef}
-                      customWidth={"!w-[8rem] !ml-[-12px]"}
-                      textAlign="text-center"
-                    />
+                        type="text"
+                        label="ID Grupo"
+                        name="cod_grupo"
+                        data={data && data[EnumGrid.cod_grupo]}
+                        control={control}
+                        error={errors.cod_grupo}
+                        onlyRead={isEditting}
+                        inputRef={firstInputRef}
+                        customWidth={"!w-[8rem] !ml-[-12px]"}
+                        textAlign="text-center"
+                        />
                   </div>
                   <div className="w-[75%]">
                     <TextInputComponent
@@ -358,7 +347,7 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                       control={control}
                       error={errors.descripcion}
                       customWidth={"!w-[20.8rem]"}
-                    />
+                      />
                   </div>
                 </div>
               </div>
@@ -366,34 +355,38 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
 
             <div className="!pt-[1rem] h-[4rem]">
               <div className="input-container items-center rowForm w-full flex">
-                <div className="!w-[33%]">
-                  <SelectInputComponent
-                    label="Marca"
-                    name="marca"
-                    showRefresh={true}
-                    data={data && data[EnumGrid.marca_id]}
-                    control={control}
-                    entidad={["/api/marcas/", "02"]}
-                    error={errors.marca}
-                    tabIndex={1}
-                    customWidth={"!w-[] !ml-[1rem]"}
-                  />
-                </div>
+                  <div className="!w-[50%]">
+                    <SelectInputComponent
+                      label="Marca"
+                      name="marca"
+                      showRefresh={true}
+                      data={data && data[EnumGrid.marca_id]}
+                      control={control}
+                      entidad={["/api/marcas/", "02"]}
+                      error={errors.marca}
+                      tabIndex={1}
+                      customWidth={"!w-[29rem] !ml-[1rem]"}
+                    />
+                  </div>
 
-                <div className="w-[33%]">
-                  <SelectInputComponent
-                    label="Diseño"
-                    name="diseno"
-                    showRefresh={true}
-                    data={data && data[EnumGrid.diseno_id]}
-                    control={control}
-                    entidad={["/api/tipos/", "02", "CristalesDisenos"]}
-                    error={errors.diseno}
-                    customWidth={"!w-[]"}
-                  />
-                </div>
+                  <div className="w-[50%]">
+                    <SelectInputComponent
+                      label="Diseño"
+                      name="diseno"
+                      showRefresh={true}
+                      data={data && data[EnumGrid.diseno_id]}
+                      control={control}
+                      entidad={["/api/tipos/", "02", "CristalesDisenos"]}
+                      error={errors.diseno}
+                      customWidth={"!w-[30.3rem]"}
+                    />
+                  </div>
+              </div>
+            </div>
 
-                <div className="!w-[33%]">
+            <div className="!pt-[1rem] h-[4rem]">
+              <div className="input-container items-center rowForm w-full flex">
+                <div className="!w-[50%]">
                   <SelectInputComponent
                     label="Índice"
                     name="indice"
@@ -402,15 +395,10 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={["/api/tipos/", "02", "CristalesIndices"]}
                     error={errors.indice}
-                    customWidth={"!w-[]"}
+                      customWidth={"!w-[29rem] !ml-[1rem]"}
                   />
                 </div>
-              </div>
-            </div>
-
-            <div className="!pt-[1rem] h-[4rem]">
-              <div className="input-container items-center rowForm w-full flex">
-                <div className="w-[33%]">
+                <div className="w-[50%]">
                   <SelectInputComponent
                     label="Material"
                     name="material"
@@ -419,31 +407,7 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={["/api/tipos/", "02", "CristalesMateriales"]}
                     error={errors.material}
-                    customWidth={"!w-[] !ml-[1rem]"}
-                  />
-                </div>
-                <div className="!w-[33%]">
-                  <SelectInputComponent
-                    label="Color"
-                    name="color"
-                    showRefresh={true}
-                    data={data && data[EnumGrid.color_id]}
-                    control={control}
-                    entidad={["/api/tipos/", "02", "CristalesColores"]}
-                    error={errors.color}
-                    customWidth={"!w-[]"}
-                  />
-                </div>
-                <div className="w-[33%]">
-                  <SelectInputComponent
-                    label="Tratamiento"
-                    name="tratamiento"
-                    showRefresh={true}
-                    data={data && data[EnumGrid.tratamiento_id]}
-                    control={control}
-                    entidad={["/api/tipos/", "02", "CristalesTratamientos"]}
-                    error={errors.tratamiento}
-                    customWidth={"!w-[]"}
+                    customWidth={"!w-[30.3rem]"}
                   />
                 </div>
               </div>
@@ -451,180 +415,131 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
 
             <div className="!pt-[1rem] h-[4rem]">
               <div className="input-container items-center rowForm w-full flex">
-                <div className="w-[50%] flex">
-                  <div className="">
-                    <TextInputComponent
-                      type="number"
-                      label="Diámetro"
-                      name="diametro"
-                      data={data && data[EnumGrid.diametro]}
-                      control={control}
-                      error={errors.diametro}
-                      textAlign="text-center"
-                    />
-                  </div>
-                  <div className="">
-                    <TextInputComponent
-                      type="number"
-                      label="ESF desde"
-                      name="esferico_desde"
-                      data={data && data[EnumGrid.esferico_desde]}
-                      control={control}
-                      error={errors.esferico_desde}
-                      step={0.01}
-                      textAlign="text-center"
-                    />
-                  </div>
-                  <div className="">
-                    <TextInputComponent
-                      type="number"
-                      label="ESF hasta"
-                      name="esferico_hasta"
-                      data={data && data[EnumGrid.esferico_hasta]}
-                      control={control}
-                      error={errors.esferico_hasta}
-                      step={0.01}
-                      textAlign="text-center"
-                    />
-                  </div>
+                <div className="!w-[50%]">
+                <SelectInputComponent
+                  label="Color"
+                  name="color"
+                  showRefresh={true}
+                  data={data && data[EnumGrid.color_id]}
+                  control={control}
+                  entidad={["/api/tipos/", "02", "CristalesColores"]}
+                  error={errors.color}
+                  customWidth={"!w-[29rem] !ml-[1rem]"}
+                  />
                 </div>
-                <div className="w-[50%] flex">
-                  <div className="">
-                    <TextInputComponent
-                      type="number"
-                      label="CIL desde"
-                      name="cilindrico_desde"
-                      data={data && data[EnumGrid.cilindrico_desde]}
-                      control={control}
-                      error={errors.cilindrico_desde}
-                      step={0.01}
-                      customWidth={"!pr-[0.4rem]"}
-                      textAlign="text-center"
-                    />
-                  </div>
-                  <div className="">
-                    <TextInputComponent
-                      type="number"
-                      label="CIL hasta"
-                      name="cilindrico_hasta"
-                      data={data && data[EnumGrid.cilindrico_hasta]}
-                      control={control}
-                      error={errors.cilindrico_hasta}
-                      step={0.01}
-                      customWidth={"!ml-[-1rem]"}
-                      textAlign="text-center"
-                    />
-                  </div>
-                  <div className="w-[70%]">
-                    <TextInputComponent
-                      type="number"
-                      label="$ Venta Neto"
-                      name="precio_venta_neto"
-                      data={data && data[EnumGrid.precio_venta_neto]}
-                      control={control}
-                      error={errors.precio_venta_neto}
-                      isOptional={false}
-                      textAlign="text-right"
-                    />
-                  </div>
-                </div>
+                <div className="w-[50%]">
+                <SelectInputComponent
+                  label="Tratamiento"
+                  name="tratamiento"
+                  showRefresh={true}
+                  data={data && data[EnumGrid.tratamiento_id]}
+                  control={control}
+                  entidad={["/api/tipos/", "02", "CristalesTratamientos"]}
+                  error={errors.tratamiento}
+                  customWidth={"!w-[30.3rem]"}
+                  />
               </div>
             </div>
+          </div>
 
-            <h1 className="userFormLabel mt-[2rem]">Parametrización de Armazones</h1>
 
-            <div className="!pt-[1rem] h-[4rem]">
-              <div className="input-container items-center rowForm w-full flex">
-                <div className="w-[20%]">
-                  <SelectInputTiposComponent
-                    label="Material"
-                    name="material_armazon"
-                    showRefresh={true}
-                    // data={data && data[EnumGrid.armazon_material_id]}
-                    control={control}
-                    entidad={"ArmazonesMaterial"}
-                    // error={errors.material}
-                    customWidth={"!w-[] !ml-[1rem]"}
+          <div className="!pt-[1rem] h-[4rem]">
+            <div className="input-container items-center rowForm w-full flex">
+            <div className="w-[50%] flex">
+              <div className="">
+                <TextInputComponent
+                  type="number"
+                  label="Diámetro"
+                  name="diametro"
+                  data={data && data[EnumGrid.diametro]}
+                  control={control}
+                  error={errors.diametro}
+                  textAlign="text-center"
                   />
-                </div>
-                <div className="w-[20%]">
-                  <SelectInputTiposComponent
-                    label="Tipo"
-                    name="tipo"
-                    showRefresh={true}
-                    // data={data && data[EnumGrid.armazon_tipo_id]}
-                    control={control}
-                    entidad={"ArmazonesTipos"}
-                    // error={errors.tipo}
-                    customWidth={"!w-[] "}
+              </div>
+              <div className="">
+                <TextInputComponent
+                  type="number"
+                  label="ESF desde"
+                  name="esferico_desde"
+                  data={data && data[EnumGrid.esferico_desde]}
+                  control={control}
+                  error={errors.esferico_desde}
+                  step={0.01}
+                  textAlign="text-center"
                   />
-                </div>
-                <div className="w-[20%]">
-                  <SelectInputComponent
-                    label="Marca"
-                    name="marca_armazon"
-                    showRefresh={true}
-                    // data={data && data[EnumGrid.marca_id]}
-                    control={control}
-                    entidad={["/api/marcas/", "02"]}
-                    // error={errors.marca}
-                    customWidth={"!w-[]"}
+              </div>
+              <div className="">
+                <TextInputComponent
+                  type="number"
+                  label="ESF hasta"
+                  name="esferico_hasta"
+                  data={data && data[EnumGrid.esferico_hasta]}
+                  control={control}
+                  error={errors.esferico_hasta}
+                  step={0.01}
+                  textAlign="text-center"
                   />
-                </div>
-                <div className="w-[20%]">
-                  <SelectInputTiposComponent
-                    label="Uso"
-                    name="uso"
-                    showRefresh={true}
-                    // data={data && data[EnumGrid.armazon_uso_id]}
-                    control={control}
-                    entidad={"ArmazonesUsos"}
-                    customWidth={"!w-[] "}
-                  // error={errors.uso}
+              </div>
+              </div>
+              <div className="w-[50%] flex">
+              <div className="">
+                <TextInputComponent
+                  type="number"
+                  label="CIL desde"
+                  name="cilindrico_desde"
+                  data={data && data[EnumGrid.cilindrico_desde]}
+                  control={control}
+                  error={errors.cilindrico_desde}
+                  step={0.01}
+                  customWidth={"!pr-[0.4rem]"}
+                  textAlign="text-center"
                   />
-                </div>
-                <div className="w-[20%]">
-                  <TextInputComponent
-                    type="number"
-                    label="$ Venta Neto"
-                    name="precio_venta_neto_armazones"
-                    // data={data && data[EnumGrid.precio_venta_neto]}
-                    control={control}
-                    error={errors.precio_venta_neto}
-                    isOptional={false}
-                    textAlign="text-right"
+              </div>
+              <div className="">
+                <TextInputComponent
+                  type="number"
+                  label="CIL hasta"
+                  name="cilindrico_hasta"
+                  data={data && data[EnumGrid.cilindrico_hasta]}
+                  control={control}
+                  error={errors.cilindrico_hasta}
+                  step={0.01}
+                  customWidth={"!ml-[-1rem]"}
+                  textAlign="text-center"
                   />
-                </div>
+              </div>
+              <div className="">
+                <TextInputComponent
+                  type="number"
+                  label="$ Venta Neto"
+                  name="precio_venta_neto"
+                  data={data && data[EnumGrid.precio_venta_neto]}
+                  control={control}
+                  error={errors.precio_venta_neto}
+                  isOptional={true}
+                  textAlign="text-right"
+                  />
+              </div>
               </div>
             </div>
+          </div>
 
-            <div className="!pt-[1rem] h-[4rem]">
-              <div className="input-container items-center rowForm w-full flex">
-                <div className="w-[80%]">
-                  <TextInputComponent
-                    type="text"
-                    label="Observaciones"
-                    name="observaciones"
-                    data={data && data[EnumGrid.observaciones]}
-                    control={control}
-                    error={errors.observaciones}
-                    isOptional={true}
+          <div className="w-full flex items-center h-[4rem]">
+            <div className="input-container items-center rowForm w-full">
+              <div className="w-full ">
+                <TextInputComponent
+                  type="text"
+                  label="Observaciones"
+                  name="observaciones"
+                  data={data && data[EnumGrid.observaciones]}
+                  control={control}
+                  error={errors.observaciones}
+                  isOptional={true}
                   />
-                </div>
-                <div className="w-[20%]">
-                  <TextInputComponent
-                    type="number"
-                    label="$ TOTAL NETO"
-                    name="total_neto"
-                    data={data && data[EnumGrid.precio_venta_neto]}
-                    control={control}
-                    error={errors.precio_venta_neto}
-                    isOptional={false}
-                    textAlign="text-right"
-                  />
-                </div>
               </div>
             </div>
+          </div>
           </div>
 
           <div className="w-full">
