@@ -9,13 +9,14 @@ import {
   PrimaryKeySearch,
   TableComponent,
 } from "../../components";
-import { TITLES, table_head_proyectos_cristales } from "../../utils";
-import FProyectosCristales from "../forms/FProyectosCristales";
+import { TITLES, table_head_proyectos_grupos } from "../../utils";
+import FProyectosGrupos from "../forms/FProyectosGrupos";
 import FProyectosCristalesCopiar from "../forms/FProyectosCristalesCopiar";
 
 const strEntidad = "Parametrización de Cristales ";
 const strEntidadExcel = "Parametrizacion_de_Cristales";
-const strBaseUrl = "/api/proyectocristales/";
+// const strBaseUrl = "/api/proyectocristales/";
+const strBaseUrl = "/api/proyectogrupos/";
 const strQuery = "01";
 const idMenu = 17;
 
@@ -42,8 +43,19 @@ export enum EnumGrid {
   esferico_hasta 		=20,
   cilindrico_desde 	=21,
   cilindrico_hasta 	=22,
-  precio_venta_neto =23,
-  observaciones     =24,
+  valor_neto_cristal=23,
+
+  armazon_tipo_id     = 24,
+  armazon_tipo        = 25,
+  armazon_material_id = 26,
+  armazon_material    = 27,
+  armazon_marca_id    = 28,
+  armazon_marca       = 29,
+  armazon_uso_id      = 30,
+  armazon_uso         = 31,
+  valor_neto_armazon  = 32,
+  valor_neto_total    = 33,  
+  observaciones       = 34,
 }
 
 
@@ -142,7 +154,7 @@ const MProyectosCristales: React.FC = () => {
             setSelectedRows={setSelectedRows}
             entidad={strEntidad}
             data={entities}
-            tableHead={table_head_proyectos_cristales}
+            tableHead={table_head_proyectos_grupos}
             showEditButton={true}
             showDeleteButton={false}
             idMenu={idMenu}
@@ -151,8 +163,8 @@ const MProyectosCristales: React.FC = () => {
         </div>
   
   
-        {/* {isModalInsert && ( */}
-          <FProyectosCristales
+        {isModalInsert && (
+          <FProyectosGrupos
             label={`${TITLES.ingreso} ${strEntidad}`}
             closeModal={closeModal}
             selectedRows={selectedRows}
@@ -161,10 +173,10 @@ const MProyectosCristales: React.FC = () => {
             isEditting={false}
             escritura_lectura={escritura_lectura}
             />
-        {/* )} */}
+         )} 
   
         {isModalEdit && (
-          <FProyectosCristales
+          <FProyectosGrupos
             label={`${TITLES.edicion} ${strEntidad}`}
             selectedRows={selectedRows}
             setEntities={setEntities}
