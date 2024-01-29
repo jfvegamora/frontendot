@@ -12,6 +12,7 @@ import { TextInputComponent } from "../components";
 import { validationResetPasswordSchema } from "../utils";
 import axios from "axios";
 import { URLBackend } from "../hooks/useCrud";
+import { Button } from "@material-tailwind/react";
 
 interface InputData {
   password: string;
@@ -36,9 +37,13 @@ const ResetPassword: React.FC = () => {
 
   const handleChange = async (data: InputData) => {
     const { password, confirmPassword } = data;
+    const toastLoading = toast.loading('Cargando...');
 
-    if (password !== confirmPassword)
-      return toast.error("Contraseñas no coinciden");
+    if (password !== confirmPassword){
+      toast.dismiss(toastLoading)
+      toast.error("Contraseñas no coinciden");
+      return;
+    }
 
     if (!token) return toast.error("redirigiendo a login");
 
@@ -60,17 +65,18 @@ const ResetPassword: React.FC = () => {
       // await editEntity(updatePassword);
 
       // console.log(response)
-
+      toast.dismiss(toastLoading)
       toast.success("Nueva contraseña creada correctamente");
       navigate("/login");
     } catch (error: any) {
+      toast.dismiss(toastLoading)
       console.log(error)
       toast.error(error);
     }
   };
 
   return (
-    <div className="loginFormContainer mt-8 mx-auto w-[90%] md:w-[50%] lg:w-[40%] xl:w-[30%] !mt-[25vh] ">
+    <div className="loginFormContainer  mx-auto w-[90%] md:w-[50%] lg:w-[40%] xl:w-[30%] !mt-[25vh] ">
           <h1 className="userFormLabel text-white pt-10 text-2xl md:text-2xl lg:text-3xl xl:text-3xl">Sistema Gestión OT</h1>
           <div className=" md:w-[100%] mt-8">
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
@@ -108,9 +114,11 @@ Nueva Contraseña</h1>
         </div>
 
         <div className="w-full mt-4">
-          <button type="submit" tabIndex={1} className="userFormBtnSubmit w-full">
-              Enviar
-          </button>
+          <div className="w-[90%] mx-auto">
+            <Button type="submit" tabIndex={1} className="userFormBtnSubmit w-full">
+                Enviar
+            </Button>
+          </div>
         </div>
         
 

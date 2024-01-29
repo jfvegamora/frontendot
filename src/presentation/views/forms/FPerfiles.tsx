@@ -13,6 +13,8 @@ import {  MODAL, SUCCESS_MESSAGES, TITLES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
+import { toast } from "react-toastify";
+import { Button } from "@material-tailwind/react";
 
 const strBaseUrl = "/api/perfiles/";
 const strEntidad = "Perfil ";
@@ -167,6 +169,7 @@ const FPerfiles: React.FC<IFormPrps> = React.memo(
 
     const handleSaveChange = React.useCallback(
       async (data: InputData, isEditting: boolean) => {
+        const toastLoading = toast.loading('Cargando...');
         try {
           const transformedData = isEditting
             ? transformUpdateQuery(data)
@@ -176,8 +179,9 @@ const FPerfiles: React.FC<IFormPrps> = React.memo(
             ? await editEntity(transformedData)
             : await createdEntity(transformedData);
           handleApiResponse(response, isEditting);
+          toast.dismiss(toastLoading)
         } catch (error: any) {
-          console.log("error form:", error);
+          toast.dismiss(toastLoading)
           show({
             message: error,
             type: "error",
@@ -207,12 +211,14 @@ const FPerfiles: React.FC<IFormPrps> = React.memo(
 
     return (
       <div className="useFormContainer centered-div use30rem">
-        <div className="userFormBtnCloseContainer">
+        <div className="userFormBtnCloseContainer flex">
+          <div className="w-[80%] mx-auto !text.center">
+                <h1 className="userFormLabel">{label}</h1>
+          </div>
           <button onClick={closeModal} className="userFormBtnClose">
             X
           </button>
         </div>
-        <h1 className="userFormLabel">{label}</h1>
 
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
@@ -272,9 +278,9 @@ const FPerfiles: React.FC<IFormPrps> = React.memo(
           <div className="w-full">
             <div className="mx-auto w-[60%]">
                 {escritura_lectura && (
-                  <button type="submit" tabIndex={1} className="userFormBtnSubmit">
+                  <Button type="submit" tabIndex={1} className="userFormBtnSubmit">
                     {`${TITLES.guardar}`}
-                  </button>
+                  </Button>
                 )}
             </div>
           </div>

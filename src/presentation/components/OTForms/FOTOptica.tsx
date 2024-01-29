@@ -11,6 +11,7 @@ import { AppStore, useAppSelector } from '../../../redux/store';
 import { URLBackend } from '../../hooks/useCrud';
 import { toast } from 'react-toastify';
 import TextInputInteractive from '../forms/TextInputInteractive';
+import { OTTextInputComponent } from '.';
 
 interface IOptica {
     control:any,
@@ -142,7 +143,7 @@ const FOTOptica:React.FC<IOptica> = ({
     }
 
     // console.log(data && data[EnumGrid.resolucion_garantia_id] === 1 ? 'Aceptada' : 'Rechazada')
-console.log(codigoProyecto.value)
+// console.log(codigoProyecto.value)
 return (
     <form action="">
         <div className='w-full frameOTForm'>

@@ -324,7 +324,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
         )} */}
 
           <div>
-            <input type="text" name='searchOT' placeholder='buscar OT' ref={searchOTRef} onBlur={(e:any)=>handleChecked(e.target.value)} value={valueSearchOT} onChange={(e:any)=>setValueSearchOT(e.target.value)} />
+            <input type="text" name='searchOT' placeholder='Buscar OT' ref={searchOTRef} onBlur={(e:any)=>handleChecked(e.target.value)} value={valueSearchOT} onChange={(e:any)=>setValueSearchOT(e.target.value)} />
           </div>
 
         {isShowErrorOTModal && (

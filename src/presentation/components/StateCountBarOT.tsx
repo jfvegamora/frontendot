@@ -15,11 +15,14 @@ export const estadoIDNombre:any = {
   }
   
   
+export interface IStateCountBar {
+  checkCount?:any
+}
 
 
-
-const StateCountBarOT:React.FC = () => {
+const StateCountBarOT:React.FC<IStateCountBar> = ({checkCount}) => {
     const OTs:any = useAppSelector((store: AppStore) => store.OTS);
+    // console.log(checkCount.value)
 
 
   return (
@@ -38,9 +41,6 @@ const StateCountBarOT:React.FC = () => {
               {estadoNombre}:
             </p>
             <label className="w-8 text-center">{OTs.estadosOT[estadoID]}</label>
-            {estadoNombre === 'Por Vencer' && (
-            <h1>hola</h1>
-            )}
           </div>
         );
       }
@@ -51,6 +51,11 @@ const StateCountBarOT:React.FC = () => {
     {OTs.estadosOT.hasOwnProperty(99) && (
       <div className="w-[8rem]  flex bg-black">
           <p className="text-center mx-auto text-white">Por vencer: </p> <label className="text-center text-white">{OTs.estadosOT[99]}</label>        
+      </div>
+    )}
+    {checkCount.value >= 1 && (
+      <div className="w-[8rem]  flex bg-orange-400 mx-10">
+          <p className="text-center mx-auto text-white">Seleccionadas: </p> <label className="text-center text-white">{checkCount.value}</label>        
       </div>
     )}
 

@@ -16,6 +16,8 @@ import useCustomToast from "../../hooks/useCustomToast";
 import { signal } from "@preact/signals-react";
 import { AppStore, useAppSelector } from "../../../redux/store";
 import SelectInputTiposComponent from "../../components/forms/SelectInputTiposComponent";
+import { Button } from "@material-tailwind/react";
+import { toast } from "react-toastify";
 
 const strBaseUrl = "/api/proyectodocum/";
 const strEntidad = "Documentación del Proyecto ";
@@ -226,6 +228,7 @@ const FProyectosDocum: React.FC<IUserFormPrps> = React.memo(
 
     const handleSaveChange = React.useCallback(
       async (data: InputData, isEditting: boolean) => {
+        const toastLoading = toast.loading('Cargando...');
         try {
           const transformedData = isEditting
             ? transformUpdateQuery(data)
@@ -235,7 +238,9 @@ const FProyectosDocum: React.FC<IUserFormPrps> = React.memo(
             ? await editEntity(transformedData)
             : await createdEntity(transformedData);
           handleApiResponse(response, isEditting);
+          toast.dismiss(toastLoading)
         } catch (error: any) {
+          toast.dismiss(toastLoading)
           show({
             message: error,
             type: "error",
@@ -268,12 +273,14 @@ const FProyectosDocum: React.FC<IUserFormPrps> = React.memo(
 
     return (
       <div className="useFormContainer centered-div use30rem">
-        <div className="userFormBtnCloseContainer">
+        <div className="userFormBtnCloseContainer flex">
+           <div className="w-[80%] mx-auto  !text.center">
+              <h1 className="userFormLabel ">{label}</h1>
+          </div>
           <button onClick={closeModal} className="userFormBtnClose">
             X
           </button>
         </div>
-        <h1 className="userFormLabel">{label}</h1>
 
         <form onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
@@ -407,9 +414,9 @@ const FProyectosDocum: React.FC<IUserFormPrps> = React.memo(
           <div className="w-full">
             <div className="w-[70%] mx-auto">
               {escritura_lectura && (
-                <button type="submit" tabIndex={1} className="userFormBtnSubmit">
+                <Button type="submit" tabIndex={1} className="userFormBtnSubmit">
                   {`${TITLES.guardar}`}
-                </button>
+                </Button>
               )}
             </div>
           </div>

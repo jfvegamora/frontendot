@@ -26,7 +26,7 @@ type AreaButtonsProps ={
 const strEntidad = "Orden de Trabajo";
 
 const OTGrillaButtons:React.FC<AreaButtonsProps> = ({ areaPermissions, toggleEditOTModal,folio,entidad }) => {
-    const dispatch                       = useAppDispatch();
+    const dispatch:any                       = useAppDispatch();
     const componentRef                   = useRef();
     const { escritura_lectura }          = usePermission(28);
     const OTAreas:any                    = useAppSelector((store: AppStore) => store.OTAreas);

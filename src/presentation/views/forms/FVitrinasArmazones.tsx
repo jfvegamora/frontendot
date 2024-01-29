@@ -21,6 +21,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { signal } from "@preact/signals-react";
 import { URLBackend } from "../../hooks/useCrud";
+import { Button } from "@material-tailwind/react";
 
 const strBaseUrl = "/api/vitrinasarmazones/";
 const strEntidad = "Parametrización de Vitrinas ";
@@ -206,7 +207,7 @@ const FVitrinasArmazones: React.FC<IUserFormPrps> = React.memo(
 
     const handleSaveChange = React.useCallback(
       async (data: InputData, isEditting: boolean) => {
-        // console.log(data);
+        const toastLoading = toast.loading('Cargando...');
         try {
           const transformedData = isEditting
             ? transformUpdateQuery(data)
@@ -216,7 +217,9 @@ const FVitrinasArmazones: React.FC<IUserFormPrps> = React.memo(
             ? await editEntity(transformedData)
             : await createdEntity(transformedData);
           handleApiResponse(response, isEditting);
+          toast.dismiss(toastLoading)
         } catch (error: any) {
+          toast.dismiss(toastLoading)
           show({
             message: error,
             type: "error",
@@ -323,9 +326,9 @@ const FVitrinasArmazones: React.FC<IUserFormPrps> = React.memo(
           <div className="w-full">
             <div className="w-[70%] mx-auto">
                 {escritura_lectura && (
-                  <button type="submit" tabIndex={1} className="userFormBtnSubmit">
+                  <Button type="submit" tabIndex={1} className="userFormBtnSubmit">
                     {`${TITLES.guardar}`}
-                  </button>
+                  </Button>
                 )}
             </div>
           </div>

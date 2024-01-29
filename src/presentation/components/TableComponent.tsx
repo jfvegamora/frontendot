@@ -221,7 +221,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
               tableHead.map((column, index) => {
                 const isVisible =
                   column.visible && (column.key !== "checkbox" || escritura_lectura || lectura);
-                return isVisible ? (
+                return isVisible && (
                   <th key={index} className={`gridHead   ${column.width || 'w-auto'}`}>
                     {column.key === "checkbox" ? (
                       <input className="checkTable"
@@ -236,7 +236,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                       // renderTextCell(column.cell as string, column.alignment)
                     )}
                   </th>
-                ) : null;
+                );
               })}
           </tr>
         </thead>
@@ -286,6 +286,14 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                       )
                     );
                   })}
+
+
+
+
+
+
+
+
 
                   {!isOT && (
                     <td className="gridTableData">
@@ -364,10 +372,6 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
             })) : (
              <tr className="h-full">
 
-                <div className=" w-[80%] mx-auto relative">
-                  {/* <Spinner className="h-[30rem] w-[10rem] left-[40rem] absolute" style={{ color: '#f39c12' }} /> */}
-                   {/* <h1>No hay datos</h1>  */}
-                </div>
             </tr>
             )
             

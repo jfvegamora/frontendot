@@ -44,6 +44,7 @@ import { addToArmazones, addToCristales, clearCodigos, fetchOT } from '../../../
 import { validation_tipo_anteojo } from '../../utils/OTReceta_utils';
 import FOTPendiente from '../../components/OTForms/FOTPendiente';
 import FOTEmpaque from './FOTEmpaque';
+import { usePermission } from '../../hooks';
 
 const FOTArmazones = lazy(()=>import('../../components/OTForms/FOTArmazones'));
 const FOTBitacora = lazy(()=>import('../../components/OTForms/FOTBitacora'));
@@ -362,6 +363,8 @@ const FOT:React.FC<IFOTProps> = ({
   // const folioOT = data && data[EnumGrid.folio]
   //PERMISOS DE AREA
   const [OTPermissions, setOTPermissions] = useState("");
+  
+  const { escritura_lectura } = usePermission(28);
   const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas);
   const OTSlice:any = useAppSelector((store:AppStore)=>store.OTS)
   const User:any = useAppSelector((store: AppStore) => store.user);
@@ -1154,8 +1157,9 @@ useEffect(() => {
           
           <div className='flex items-center mx-auto mt-[1.5rem] justify-around w-1/2 '>
         
-                {isEditting && 
-                isMOT       && 
+                {isEditting            && 
+                isMOT                  && 
+                escritura_lectura      &&
                 // isMotivo    &&  (
                   (
                     <Button className='otActionButton bg-green-400' onClick={() => setShowGarantia(prev => !prev)}>
@@ -1163,9 +1167,10 @@ useEffect(() => {
                     </Button>
                 )}
 
-                {OTPermissions && 
-                !isMOT &&
-                isEditting && 
+                {OTPermissions           && 
+                !isMOT                   &&
+                isEditting               &&
+                escritura_lectura        && 
                 OTPermissions[6] === "1" &&
                 sumatoriaNivel1 === validationNivel1.value.length &&
                 // (sumatoriaNivel2 === validationNivel2.value.length || data && data[EnumGrid.validar_parametrizacion_id] === "0" ) &&
@@ -1175,17 +1180,19 @@ useEffect(() => {
 
                 
 
-                {OTPermissions && 
-                !isMOT &&
-                isEditting &&
+                {OTPermissions           && 
+                !isMOT                   &&
+                isEditting               &&
+                escritura_lectura        &&
                 OTPermissions[7] === "1" &&
                 (
                   <Button className='otActionButton bg-yellow-700' onClick={()=>setShowPendiente((prev)=>!prev)}>Pausar</Button>
                 )}
 
-                {OTPermissions &&
-                !isMOT &&
-                isEditting &&
+                {OTPermissions           &&
+                !isMOT                   &&
+                isEditting               &&
+                escritura_lectura        &&
                 OTPermissions[8] === "1" &&
                 sumatoriaNivel1 === validationNivel1.value.length &&
                 data && data[EnumGrid.estado_id] > 1 && (
@@ -1194,7 +1201,8 @@ useEffect(() => {
 
 
                 
-                {OTPermissions &&
+                {OTPermissions           &&
+                escritura_lectura        &&
                 OTPermissions[9] === "1" && 
                 sumatoriaNivel1 === validacionNivel1.length && 
                 // (data && data[EnumGrid.estado_id] === 30 || data && data[EnumGrid.estado_id] === 40 ) && 
@@ -1202,8 +1210,9 @@ useEffect(() => {
                   <Button className='otActionButton bg-black' onClick={()=>handleAnular()}>Anular</Button>
                 )}
                 
-                {OTPermissions &&
-                !isEditting &&
+                {OTPermissions             &&
+                !isEditting                &&
+                escritura_lectura          &&
                  OTPermissions[10] === "1" &&
                  sumatoriaNivel1 === validationNivel1.value.length &&
                  (

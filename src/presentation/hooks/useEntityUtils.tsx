@@ -38,7 +38,9 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
 
   const dispatch = useAppDispatch();
   const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas);
-  const areaActual = OTAreas["areaActual"] 
+  const areaActual = OTAreas["areaActual"]
+  
+
 
   // console.log("queryutils", query);
   const refreshData = useCallback(() => {

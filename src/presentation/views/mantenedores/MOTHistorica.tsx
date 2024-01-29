@@ -23,6 +23,7 @@ import axios from "axios";
 import { URLBackend } from "../../hooks/useCrud";
 import { clearData, fetchOT } from "../../../redux/slices/OTSlice";
 import StateCountBarOT from "../../components/StateCountBarOT";
+import { signal } from "@preact/signals-react";
 
 export enum EnumGrid {
   folio = 1,
@@ -235,7 +236,7 @@ const MOTHistorica: React.FC = () => {
     setPkToDelete(newPkToDelete as any)
   }, [selectedRows]);
 
-
+  const checkCount = signal(pktoDelete.length)
   const folios = pktoDelete && pktoDelete.map(({folio}:any)=>folio)
 
   
@@ -405,7 +406,7 @@ const MOTHistorica: React.FC = () => {
         />
       </div>
 
-        <StateCountBarOT/>
+        <StateCountBarOT checkCount={checkCount}/>
         
       {isModalInsert && (
         <FOT

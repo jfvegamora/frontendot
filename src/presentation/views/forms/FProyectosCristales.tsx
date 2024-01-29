@@ -14,6 +14,8 @@ import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
 import SelectInputTiposComponent from "../../components/forms/SelectInputTiposComponent";
+import { Button } from "@material-tailwind/react";
+import { toast } from "react-toastify";
 
 const strBaseUrl = "/api/proyectocristales/";
 const strEntidad = "Parametrización de Cristales ";
@@ -246,6 +248,7 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
 
     const handleSaveChange = React.useCallback(
       async (data: InputData, isEditting: boolean) => {
+        const toastLoading = toast.loading('Cargando...');
         try {
           const transformedData = isEditting
             ? transformUpdateQuery(data)
@@ -255,7 +258,9 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
             ? await editEntity(transformedData)
             : await createdEntity(transformedData);
           handleApiResponse(response, isEditting);
+          toast.dismiss(toastLoading)
         } catch (error: any) {
+          toast.dismiss(toastLoading)
           show({
             message: error,
             type: "error",
@@ -625,9 +630,9 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
           <div className="w-full">
             <div className="w-[70%] mx-auto">
               {escritura_lectura && (
-                <button type="submit" tabIndex={1} className="userFormBtnSubmit">
+                <Button type="submit" tabIndex={1} className="userFormBtnSubmit">
                   {`${TITLES.guardar}`}
-                </button>
+                </Button>
               )}
             </div>
           </div>

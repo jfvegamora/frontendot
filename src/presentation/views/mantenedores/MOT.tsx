@@ -22,6 +22,7 @@ import {
 import FilterButton, { filterToggle } from "../../components/FilterButton";
 import { clearData, clearOTColores, fetchColores, fetchOT } from "../../../redux/slices/OTSlice";
 import StateCountBarOT from "../../components/StateCountBarOT";
+import { signal } from "@preact/signals-react";
 
 export enum EnumGrid {
   id = 1,
@@ -107,7 +108,6 @@ const MOT: React.FC = () => {
 
   
   useEffect(() => {
-    console.log(selectedRows)
     const newPkToDelete = selectedRows?.map((row: number) => ({
       folio: OTs.data[row] && OTs.data[row][EnumGrid.id],
       estado_id: OTs.data[row] && OTs.data[row][3],
@@ -118,11 +118,11 @@ const MOT: React.FC = () => {
       punto_venta: OTs.data[row] && OTs.data[row][6],
 
     }));
-    console.log(newPkToDelete)
     setPkToDelete(newPkToDelete as any)
   }, [selectedRows]);
 
 
+  const checkCount = signal(pktoDelete.length)
 
   useEffect(() => {
 
@@ -131,7 +131,7 @@ const MOT: React.FC = () => {
    const interval = setInterval(() => {
     if(params[0] !== ''){
       console.log('render')
-      dispatch(fetchOT({OTAreas:areaActualOT.current, searchParams:params[0]})) // Llama fetchOT cada minuto con el área actual
+      dispatch(fetchOT({OTAreas:areaActualOT, searchParams:params[0]})) // Llama fetchOT cada minuto con el área actual
       
     }else{
       console.log('render')
@@ -330,7 +330,7 @@ const MOT: React.FC = () => {
 
     </div> */}
 
-      <StateCountBarOT />
+      <StateCountBarOT  checkCount={checkCount}/>
 
 
 

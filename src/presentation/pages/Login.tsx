@@ -17,6 +17,8 @@ import { fetchOTAreas } from "../../redux/slices/OTAreasSlice";
 import { fetchListBoxTipos } from "../../redux/slices/ListBoxTipoSlice";
 import { fetchColores } from "../../redux/slices/OTSlice";
 import { fetchRegProCom } from "../../redux/slices/utilsSlice";
+import { toast } from "react-toastify";
+import { Button } from "@material-tailwind/react";
 // import ToastNotification from "../components/ToastNotification";
 
 interface LoginFormValues {
@@ -43,13 +45,15 @@ const Login: React.FC = React.memo(() => {
   });
 
   const handleChange: SubmitHandler<LoginFormValues> = (data) => {
+    const toastLoading = toast.loading('Cargando...');
     try {
       loginEntity(data)
-        .then((user) => {
+      .then((user) => {
           if (user.length === 0)
             return show({ message: LOGIN.loginError, type: "error" });
+          // console.log(user)
           const response: IUser = jwtDecode(user[0]);
-          console.log(response)
+          // console.log(response)
           dispatch(login(response));
           dispatch(fetchFuncionalidades());
           dispatch(fetchOTAreas())
@@ -58,11 +62,16 @@ const Login: React.FC = React.memo(() => {
           dispatch(fetchRegProCom())
       
           // toast.success("Sesion Iniciada");
+          toast.dismiss(toastLoading)
           show({ message: LOGIN.loginSuccess, type: "success" });
           navigate("/landing");
         })
-        .catch((_e) => show({ message: LOGIN.loginError, type: "error" }));
+        .catch((_e) => {
+          toast.dismiss(toastLoading)
+          show({ message: LOGIN.loginError, type: "error" })
+        });
     } catch (error: any) {
+      toast.dismiss(toastLoading)
       show({ message: LOGIN.loginError, type: "error" });
     }
   };
@@ -108,9 +117,9 @@ const Login: React.FC = React.memo(() => {
         
                 <div className="input-container items-center  mt-4">
                   <div className="w-[90%] mx-auto">
-                    <button type="submit" tabIndex={1} className="userFormBtnSubmit !mt-8">
+                    <Button type="submit" tabIndex={1} className="userFormBtnSubmit !mt-8">
                       Entrar
-                    </button>
+                    </Button>
                     <Link className="text-white block text-center !mt-[1rem]" to="/forgotpassword">Recuperar Contraseña</Link>
                   </div>
                 </div>

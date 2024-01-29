@@ -16,6 +16,8 @@ import { useCrud } from "../../hooks";
 import { EnumGrid } from "../mantenedores/MCargos";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
+import { toast } from "react-toastify";
+import { Button } from "@material-tailwind/react";
 
 const strBaseUrl = "/api/cargos/";
 const strEntidad = "Cargo ";
@@ -172,8 +174,8 @@ const FCargos: React.FC<ICargosFormProps> = React.memo(
     );
     const handleSaveChange = React.useCallback(
       async (data: ICargosInputData, isEditting: boolean) => {
-        try {
-          console.log("isEdditing:", isEditting);
+        const toastLoading = toast.loading('Cargando...');
+        try {  
           const transformedData = isEditting
             ? transformUpdateQuery(data, intId.toString())
             : transformInsertQuery(data);
@@ -182,6 +184,8 @@ const FCargos: React.FC<ICargosFormProps> = React.memo(
             ? await editEntity(transformedData)
             : await createdEntity(transformedData);
           handleApiResponse(response, isEditting);
+
+          toast.dismiss(toastLoading)
         } catch (error: any) {
           console.log("error cargos form:", error);
           show({
@@ -210,7 +214,6 @@ const FCargos: React.FC<ICargosFormProps> = React.memo(
       };
     }, [closeModal]);
 
-    console.log(data)
     return (
       <div className="useFormContainer centered-div use30rem">
         <div className="userFormBtnCloseContainer">
@@ -246,9 +249,10 @@ const FCargos: React.FC<ICargosFormProps> = React.memo(
           <div className="w-full">
             <div className="mx-auto w-[60%]">
               {escritura_lectura && (
-                <button type="submit" tabIndex={1} className="userFormBtnSubmit">
+                <Button type="submit" tabIndex={1} className="userFormBtnSubmit">
                 {`${TITLES.guardar}`}
-                </button>
+                </Button>
+                
               )}
             </div>
           </div>

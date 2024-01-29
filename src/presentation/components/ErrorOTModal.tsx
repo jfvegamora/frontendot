@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
-import { SubmitHandler, useForm } from 'react-hook-form';
+// import { SubmitHandler, useForm } from 'react-hook-form';
 // import { SEXO, TIPO_CLIENTE } from '../../utils';
-import { Button } from '@material-tailwind/react';
+// import { Button } from '@material-tailwind/react';
 import { EnumGrid } from '../views/mantenedores/MOTHistorica';
 
 
@@ -13,25 +13,13 @@ interface IDerivacion {
     closeModal?:any
 }
 
-interface FormData{
-    proyecto_codigo: undefined;
-    folio_ot: number;
-    proyecto:string;
-    nombre_cliente: string;
-
-    area_desde:string;
-    area_hasta:string;
-    situacion:string
-    observaciones:string;
-    formValues:any
-}
 
 const ErrorOTModal:React.FC<IDerivacion> = ({
     data,
     onClose,
     // formValues,
-    closeModal,
-    formValues
+    // closeModal,
+    // formValues
 }) => {
 
     useEffect(() => {

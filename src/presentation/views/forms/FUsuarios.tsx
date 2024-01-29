@@ -17,6 +17,8 @@ import { MODAL, SUCCESS_MESSAGES, TITLES } from "../../utils";
 import { useCrud, usePermission } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
+import { toast } from "react-toastify";
+import { Button } from "@material-tailwind/react";
 
 const strBaseUrl = "/api/usuarios/";
 const strEntidad = "Usuario ";
@@ -218,7 +220,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
 
     const handleSaveChange = React.useCallback(
       async (data: InputData, isEditting: boolean) => {
-        console.log(data);
+        const toastLoading = toast.loading('Cargando...');
         try {
           const transformedData = isEditting
             ? transformUpdateQuery(data, intId.toString())
@@ -227,12 +229,16 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
           const response = isEditting
             ? await editEntity(transformedData)
             : await createdEntity(transformedData);
+            
           handleApiResponse(response, isEditting);
+          toast.dismiss(toastLoading)
         } catch (error: any) {
+          toast.dismiss(toastLoading)
           show({
             message: error,
             type: "error",
           });
+          
         }
       },
       [editEntity, createdEntity, handleApiResponse, intId]
@@ -376,9 +382,9 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
           <div className="w-full">
             <div className="mx-auto w-[60%]">
                 {escritura_lectura && (
-                  <button type="submit" tabIndex={1} className="userFormBtnSubmit">
+                  <Button type="submit" tabIndex={1} className="userFormBtnSubmit">
                     {`${TITLES.guardar}`}
-                  </button>
+                  </Button>
                 )}
             </div>
           </div>

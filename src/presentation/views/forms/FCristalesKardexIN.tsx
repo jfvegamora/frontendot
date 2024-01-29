@@ -22,6 +22,7 @@ import { AppStore, useAppSelector } from "../../../redux/store";
 import useCustomToast from "../../hooks/useCustomToast";
 import {toast} from 'react-toastify'
 import { ajuste_inventario_autorizacion } from "../../components/AjusteInventario";
+import { Button } from "@material-tailwind/react";
 
 
 const strBaseUrl = "/api/cristaleskardex/";
@@ -300,6 +301,7 @@ const FCristalesKardexIN: React.FC<IUserFormPrps> = React.memo(
 
     const handleSaveChange = React.useCallback(
       async (data: InputData, isEditting: boolean) => {
+        const toastLoading = toast.loading('Cargando...');
         try {
           if (data.motivo_ingreso === '5') {
             setShowAutorizacion(true);
@@ -324,7 +326,9 @@ const FCristalesKardexIN: React.FC<IUserFormPrps> = React.memo(
             ? await editEntity(transformedData)
             : await createdEntity(transformedData);
           handleApiResponse(response, isEditting);
+          toast.dismiss(toastLoading)
         } catch (error: any) {
+          toast.dismiss(toastLoading)
           show({
             message: error,
             type: "error",
@@ -668,9 +672,9 @@ const FCristalesKardexIN: React.FC<IUserFormPrps> = React.memo(
           <div className="w-full">
             <div className="w-[40%] mx-auto">
                 {escritura_lectura && (
-                  <button type="submit" tabIndex={1} className="userFormBtnSubmit">
+                  <Button type="submit" tabIndex={1} className="userFormBtnSubmit">
                     {`${TITLES.guardar}`}
-                  </button>
+                  </Button>
                 )}
             </div>
           </div>

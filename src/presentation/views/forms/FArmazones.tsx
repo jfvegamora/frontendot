@@ -14,6 +14,8 @@ import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
 import SelectInputTiposComponent from "../../components/forms/SelectInputTiposComponent";
+import { toast } from "react-toastify";
+import { Button } from "@material-tailwind/react";
 
 const strBaseUrl = "/api/armazones/";
 const strEntidad = "Armazón ";
@@ -216,6 +218,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
 
     const handleSaveChange = React.useCallback(
       async (data: InputData, isEditting: boolean) => {
+        const toastLoading = toast.loading('Cargando...');
         try {
           const transformedData = isEditting
             ? transformUpdateQuery(data, intId.toString())
@@ -225,7 +228,11 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
             ? await editEntity(transformedData)
             : await createdEntity(transformedData);
           handleApiResponse(response, isEditting);
+          toast.dismiss(toastLoading)
+
         } catch (error: any) {
+          toast.dismiss(toastLoading)
+
           show({
             message: error,
             type: "error",
@@ -243,12 +250,14 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
 
     return (
       <div className="useFormContainer centered-div use60rem">
-        <div className="userFormBtnCloseContainer">
+        <div className="userFormBtnCloseContainer felex">
+          <div className="w-[80%] mx-auto !text.center">
+              <h1 className="userFormLabel">{label}</h1>
+          </div>
           <button onClick={closeModal} className="userFormBtnClose">
             X
           </button>
         </div>
-        <h1 className="userFormLabel">{label}</h1>
 
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))}
@@ -495,9 +504,9 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
           <div className="w-full ">
             <div className="w-[30%] mx-auto">
               {escritura_lectura && (
-                <button type="submit" tabIndex={1} className="userFormBtnSubmit">
+                <Button type="submit" tabIndex={1} className="userFormBtnSubmit">
                 {`${TITLES.guardar}`}
-                </button>
+                </Button>
               )}
             </div>
           </div>

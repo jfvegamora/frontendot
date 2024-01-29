@@ -14,6 +14,8 @@ import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
 import SelectInputTiposComponent from "../../components/forms/SelectInputTiposComponent";
+import { toast } from "react-toastify";
+import { Button } from "@material-tailwind/react";
 
 const strBaseUrl = "/api/cristales/";
 const strEntidad = "Cristal ";
@@ -225,6 +227,7 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
 
     const handleSaveChange = React.useCallback(
       async (data: InputData, isEditting: boolean) => {
+        const toastLoading = toast.loading('Cargando...');
         try {
           const transformedData = isEditting
             ? transformUpdateQuery(data, intId.toString())
@@ -234,7 +237,9 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
             ? await editEntity(transformedData)
             : await createdEntity(transformedData);
           handleApiResponse(response, isEditting);
+          toast.dismiss(toastLoading)
         } catch (error: any) {
+          toast.dismiss(toastLoading)
           show({
             message: error,
             type: "error",
@@ -253,13 +258,16 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
 
  console.log(data && typeof data[EnumGrid.stock_reservado])
     return (
-      <div className="useFormContainer centered-div use30rem">
-        <div className="userFormBtnCloseContainer">
+      <div className="useFormContainer centered-div use30rem ">
+        <div className="userFormBtnCloseContainer flex">
+          <div className="w-[50%] mx-auto !text.center">
+              <h1 className="userFormLabel">{label}</h1>
+          </div>
           <button onClick={closeModal} className="userFormBtnClose">
             X
           </button>
         </div>
-        <h1 className="userFormLabel">{label}</h1>
+        
 
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))}
@@ -436,11 +444,11 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
             </div>
           </div>
           <div className="w-full">
-            <div className="w-[70%] mx-auto">
+            <div className="w-[70%] mx-auto !-mt-4">
               {escritura_lectura && (
-                <button type="submit" tabIndex={1} className="userFormBtnSubmit">
+                <Button type="submit" tabIndex={1} className="userFormBtnSubmit">
                   {`${TITLES.guardar}`}
-                </button>
+                </Button>
               )}
             </div>
           </div>
