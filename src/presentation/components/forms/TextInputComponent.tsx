@@ -46,7 +46,7 @@ const TextInputComponent: React.FC<ITextInputProps> = ({
 }) => {
 
 
-  const defaultState = (type === 'number' && (name === 'valor_neto_total' || name === 'valor_neto_armazon')) ? 0 : " ";
+  const defaultState = (type === 'number' && (name === 'valor_neto_total' || name === 'valor_neto_armazon')) ? 0 : "";
 
 
   const [defaultValue, setDefaultValue] = useState<any>(data && data || defaultState)

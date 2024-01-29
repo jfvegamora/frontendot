@@ -65,19 +65,17 @@ const MProyectosCristales: React.FC = () => {
     const { escritura_lectura} = usePermission(idMenu || 0 );
   
     const updateParams = (newParams: Record<string, never>) => {
-      console.log(newParams)
+      // console.log(newParams)
       const queryString = Object.entries(newParams)
-      .filter(([key, value]) => value !== '')
+      .filter(([_key, value]) => value !== '')
       .map(([key, value]) => `${key}=${value}`)
       .join('&');
   
 
-      console.log(queryString)
+      // console.log(queryString)
 
-
-
-      setParams(Object.keys(newParams).map((key) => newParams[key]));
-      console.log(Object.keys(newParams).map((key) => newParams[key]))
+      setParams(queryString as any);
+      // console.log(Object.keys(newParams).map((key) => newParams[key]))
     };
 
   

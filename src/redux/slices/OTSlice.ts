@@ -32,12 +32,12 @@ export const fetchOT = createAsyncThunk(
     async (params:any) => {
         const {OTAreas, searchParams, historica} = params;
 
-        console.log(params)
+        // console.log(params)
         const OTUrl = searchParams
                                  ? historica ? `${URLBackend}/api/othistorica/listado/?query=14&${searchParams}` :  `${URLBackend}/api/ot/listado/?query=14&_origen=${OTAreas}&${searchParams}` 
                                  : historica ? `${URLBackend}/api/othistorica/listado/?query=14`                 :   OTAreas ? `${URLBackend}/api/ot/listado/?query=14&_origen=${OTAreas}` : `${URLBackend}/api/ot/listado/?query=14&${searchParams}`
 
-        console.log(OTUrl)
+        // console.log(OTUrl)
 
         
         try {
@@ -59,7 +59,7 @@ export const fetchOT = createAsyncThunk(
               }
             }
         } catch (error) {
-            console.log(error);
+            // console.log(error);
             throw error;
         }
     }
@@ -71,12 +71,12 @@ export const fetchOTByID = createAsyncThunk(
     'ot/fetchOTbyID',
     async(params:any) => {
         try {
-            const {folio, OTAreas,historica} = params;
-            console.log(historica)
+            const {folio, OTAreas} = params;
+            // console.log(historica)
             const response = await axios.get(`${URLBackend}/api/ot/listado/?query=01&_origen=${OTAreas}&_folio=${folio}`);
             return response.data[0]
         } catch (error) {
-            console.log(error)
+            // console.log(error)
             throw error;
         }
     }
@@ -90,7 +90,7 @@ export const fetchOTImpresionByID = createAsyncThunk(
             const response = await axios.get(`${URLBackend}/api/ot/listado/?query=01&_origen=${OTAreas}&_folio=${folio}`);
             return response.data[0]
         } catch (error) {
-            console.log(error)
+            // console.log(error)
             throw error;
         }
     }
@@ -117,7 +117,7 @@ export const fetchColores = createAsyncThunk(
 
             }
         } catch (error) {
-            console.log(error)
+            // console.log(error)
             throw error;
         }
     }

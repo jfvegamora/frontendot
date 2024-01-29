@@ -8,7 +8,7 @@ import {a1_od_ad, a1_od_eje, a1_od_esf, a1_oi_ad, a1_oi_cil, a1_oi_eje, a1_oi_es
     // tipo_de_anteojo 
 } from '../../utils'
 import { validationOTlevel1, validationOTlevel2 } from '../../utils/validationOT'
-import { combinaciones_validas, deshabilitarCampo, setDioptriasReceta, validation_tipo_anteojo } from '../../utils/OTReceta_utils'
+import { combinaciones_validas, deshabilitarCampo, setDioptriasReceta } from '../../utils/OTReceta_utils'
 import { OTTextInputComponent } from '.'
 import { transponer } from '../../utils/FOTReceta_utils'
 import TextInputInteractive from '../forms/TextInputInteractive'
@@ -41,8 +41,8 @@ const FOTReceta:React.FC<IReceta> = ({
         onDataChange({[name]:value})
         
         
-        console.log(name)
-        console.log(value)
+        // console.log(name)
+        // console.log(value)
         
         // validation_tipo_anteojo()
         validationOTlevel1(name, value)
@@ -53,17 +53,17 @@ const FOTReceta:React.FC<IReceta> = ({
 
 
         if(name === 'a1_od_cil' || name === 'a1_od_eje' || name === 'a1_od_ad'){
-            console.log('render')
+            // console.log('render')
             transponer('a1_od_esf', 'a1_od_cil', 'a1_od_eje', 'a1_od')
         }
 
         if(name === 'a1_oi_cil' || name === 'a1_oi_eje' || name === 'a1_oi_ad'){
-            console.log('render')
+            // console.log('render')
             transponer('a1_oi_esf', 'a1_oi_cil', 'a1_oi_eje', 'a1_oi')
         }
 
 
-        console.log(dioptrias_receta.value.a1_oi)
+        // console.log(dioptrias_receta.value.a1_oi)
     }
 
 

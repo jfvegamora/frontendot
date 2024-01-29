@@ -13,7 +13,6 @@ import { MODAL, SUCCESS_MESSAGES, TITLES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
-import SelectInputTiposComponent from "../../components/forms/SelectInputTiposComponent";
 import { Button } from "@material-tailwind/react";
 import { toast } from "react-toastify";
 
@@ -108,7 +107,7 @@ export function transformUpdateQuery(jsonData: InputData): OutputData | null {
     _p3: jsonData.cod_grupo?.toString(),
     // _p4: (jsonData.cristal && jsonData.cristal?.toString())?.length === 0 ? "0": jsonData.cristal
   };
-  console.log('query', query)
+  // console.log('query', query)
 
   return query
 }

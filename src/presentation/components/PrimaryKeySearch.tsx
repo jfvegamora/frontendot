@@ -79,7 +79,6 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
         .join('&');
         
         
-        console.log(updateParams)
         updateParams({updatedParams});
 
         
@@ -393,27 +392,27 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
       ));
     };
     
-    useEffect(() => {
-      const searchParams = {
-        _p1: inputValues._p1 || "",
-        _p2: inputValues._p2 || "",
-        _p3: inputValues._p3 || "",
-        _p4: inputValues._p4 || "",
-        _pMarca: inputValues._pMarca || "",
-        _pProveedor: inputValues._pProveedor || "",
-        _pDiseño: inputValues._pDiseño || "",
-        _pIndice: inputValues._pIndice || "",
-        _pMaterial: inputValues._pMaterial || "",
-        _pColor: inputValues._pColor || "",
-        _pTratamiento: inputValues._pTratamiento || "",
-        _pDiametro: inputValues._pDiametro || "",
-        _pEsferico: inputValues._pEsferico || "",
-        _pCilindrico: inputValues._pCilindrico || "",
-        _id: inputValues._id || "",
-      };
+    // useEffect(() => {
+    //   // const searchParams = {
+    //   //   _p1: inputValues._p1 || "",
+    //   //   _p2: inputValues._p2 || "",
+    //   //   _p3: inputValues._p3 || "",
+    //   //   _p4: inputValues._p4 || "",
+    //   //   _pMarca: inputValues._pMarca || "",
+    //   //   _pProveedor: inputValues._pProveedor || "",
+    //   //   _pDiseño: inputValues._pDiseño || "",
+    //   //   _pIndice: inputValues._pIndice || "",
+    //   //   _pMaterial: inputValues._pMaterial || "",
+    //   //   _pColor: inputValues._pColor || "",
+    //   //   _pTratamiento: inputValues._pTratamiento || "",
+    //   //   _pDiametro: inputValues._pDiametro || "",
+    //   //   _pEsferico: inputValues._pEsferico || "",
+    //   //   _pCilindrico: inputValues._pCilindrico || "",
+    //   //   _id: inputValues._id || "",
+    //   // };
 
-      // updateParams(searchParams);
-    }, [inputValues]);
+    //   // updateParams(searchParams);
+    // }, [inputValues]);
 
     return (
       <form className="primaryKeyContainer items-center relative">

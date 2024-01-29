@@ -1,4 +1,4 @@
-import { a1_od_eje, a1_od_esf, a1_oi_ad, a1_oi_eje, a1_oi_esf, dioptrias, dioptrias_receta } from ".";
+import { a1_od_eje, a1_od_esf, a1_oi_ad, a1_oi_esf, dioptrias_receta } from ".";
 import { validationNivel1, validationNivel2 } from "../views/forms/FOT";
 
 export const validationProyectos = (value:string) => {
@@ -288,7 +288,7 @@ export const validationClienteTipo = (value:any) => {
 export const validationClienteComuna = (value:any) => {
     const item = validationNivel1.value.find((item: { campo: string; })=>item.campo === 'cliente_comuna')
     if(item){
-        console.log(!Number.isNaN(value))
+        // console.log(!Number.isNaN(value))
         !Number.isNaN(value) ? (item.valor = 1) : (item.valor = 0)
     }
 
@@ -820,7 +820,7 @@ export const validation_A1_OI_EJE = (value:string | any) => {
     const item = validationNivel2.value.find((item) => item.campo === 'a1_oi_eje');
     
     if (value !== '') {
-        console.log(value)
+        // console.log(value)
         // const validate = dioptrias.value.EJE.some((dioptria: any) => dioptria[0] === numericValue);
         const validate = (parseInt(value) >= 0 && parseInt(value) <= 180)
         item && (item.valor = validate ? 1 : 0);
@@ -832,7 +832,7 @@ export const validation_A1_OI_EJE = (value:string | any) => {
         item.valor = 0;
      }
 
-     console.log(item)
+    //  console.log(item)
 }
 
 export const validation_A1_OI_CIL = (value:string | any) => {
@@ -868,7 +868,7 @@ export const validation_A1_OI_ESF = (value:string | any) => {
 
 export const validation_A1_OD_AD = (value:string | any) => {
     const item = validationNivel2.value.find((item) => item.campo === 'a1_od_ad');
-    console.log(value)
+    // console.log(value)
     // if (value !== '') {
     //     const formattedValue = Number(value).toFixed(2);
     //     console.log(value)
@@ -891,7 +891,7 @@ export const validation_A1_OD_AD = (value:string | any) => {
         } else if (item) {
           item.valor = 0;
         }
-     console.log(item)
+    //  console.log(item)
 
 }
 
@@ -919,7 +919,7 @@ export const validation_A1_OD_CILL = (value:string | any) => {
     if (value !== '') {
         item && (item.valor = parseFloat(value) < 0 ? 1 : 0);
         // }
-        console.log(item)
+        // console.log(item)
       } else if (item) {
         item.valor = 0;
      }
@@ -941,7 +941,7 @@ export const validation_A1_OD_ESF = (value: any) => {
     } else if (item) {
       item.valor = 0;
     }
-    console.log(item)
+    // console.log(item)
 }
 
 export const validationFechaEntregaCliente =(value:string) => {
@@ -975,10 +975,10 @@ export const validationFechaDespacho = (value:string) => {
 }
 
 export const validationFechaEntregaTaller =(value:string) => {
-    console.log(value)
+    // console.log(value)
     if(value !== ''){
         const item = validationNivel2.value.find(item => item.campo === 'fecha_entrega_taller');
-        console.log(item)
+        // console.log(item)
         if (item) {
             item.valor = 1;
         }

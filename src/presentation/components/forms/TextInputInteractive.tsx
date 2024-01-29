@@ -45,7 +45,7 @@ const TextInputInteractive: React.FC<ITextInputProps> = ({
   textAlign,
 }) => {
   // const [_defaultValue, setDefaultValue] = useState<any>(data && data || "")
-  const [defaultValue, setDefaultValue] = useState<any>(data || " "); // Inicializar defaultValue con el valor inicial
+  const [_defaultValue, setDefaultValue] = useState<any>(data || " "); // Inicializar defaultValue con el valor inicial
 
 
   const [value, setValue] = useState<any>(data || "");

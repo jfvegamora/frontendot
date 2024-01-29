@@ -1,7 +1,6 @@
 import { 
     // a1_oi_esf, a1_oi_cil, a1_oi_eje, 
     dioptrias_receta, a2_od_esf, a2_oi_esf, a2_od_cil, a2_oi_cil, a2_od_eje, a2_oi_eje, tipo_de_anteojo } from ".";
-import { validationNivel2 } from "../views/forms/FOT";
 import { validation_A2_OD_CIL, validation_A2_OD_EJE, validation_A2_OD_ESF } from "./validationOT";
 
 
@@ -10,7 +9,7 @@ export const transponer = (ESF:any, CIL:any, EJE:any,
     anteojo:any)  => {
     
 
-        console.log(anteojo)
+        // console.log(anteojo)
     // let cilindrico = formValues?.a1_od_cil;
     let ESF2 = null;
     let CIL2 = null;
@@ -56,12 +55,12 @@ export const transponer = (ESF:any, CIL:any, EJE:any,
         default:
             break;
     }
-    console.log(dioptrias_receta.value[anteojo])
+    // console.log(dioptrias_receta.value[anteojo])
 
     if(typeof dioptrias_receta.value[anteojo].cil == 'number' && typeof dioptrias_receta.value[anteojo].eje == 'number'){
         if(dioptrias_receta.value[anteojo].cil > 0 && (dioptrias_receta.value[anteojo].eje >= 0 && dioptrias_receta.value[anteojo].eje <= 180)){
             const confirmacion = window.confirm("Es necesario Transponer. ¿Desea continuar con la operación?");
-            console.log('1')
+            // console.log('1')
             if (confirmacion) {
                 const esfValue = isNaN(dioptrias_receta.value[anteojo].esf)
                 ? 0

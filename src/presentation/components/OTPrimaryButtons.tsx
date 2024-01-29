@@ -100,7 +100,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
       // console.log(entities)
 
       const resultIndex = entities.findIndex((OT: any) => OT[1] === parseInt(folio));
-      const resultFolio = entities[resultIndex];
+      // const resultFolio = entities[resultIndex];
       
       // console.log(resultIndex);
       // console.log(resultFolio);
@@ -128,14 +128,14 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
     }
 
     const handleImpresionMasivo = () => {
-      console.log('click')
-      console.log(pkToDelete)
+      // console.log('click')
+      // console.log(pkToDelete)
     
-      console.log(folios)
+      // console.log(folios)
       const result = validationStateOT(5, '0', folios)
       const areAllSameType = result.every((item:any) => item === true);
 
-      console.log(result)
+      // console.log(result)
 
       
       if(!areAllSameType){
@@ -210,7 +210,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
         link.click();
         document.body.removeChild(link);
       } catch (error) {
-        console.log(error)
+        // console.log(error)
         throw error
       }
     }
@@ -226,7 +226,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
      
       const result = validationStateOT(4, 'En proceso', folios)
       const areAllSameType = result.every((item:any) => item === true);
-      console.log(result)
+      // console.log(result)
       
       if(!areAllSameType){
         result.map((ot:any)=>{
@@ -257,7 +257,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
       })
     }
 
-    console.log(areaPermissions)
+    // console.log(areaPermissions)
 
     return (
     <div className='flex items-center   ml-[4rem] !w-[50rem]'>

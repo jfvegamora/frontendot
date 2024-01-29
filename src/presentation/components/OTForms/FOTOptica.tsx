@@ -11,7 +11,6 @@ import { AppStore, useAppSelector } from '../../../redux/store';
 import { URLBackend } from '../../hooks/useCrud';
 import { toast } from 'react-toastify';
 import TextInputInteractive from '../forms/TextInputInteractive';
-import { OTTextInputComponent } from '.';
 
 interface IOptica {
     control:any,
@@ -56,13 +55,13 @@ const FOTOptica:React.FC<IOptica> = ({
     const _estado = data && data[EnumGrid.estado_id]
 
 
-    console.log(_estado)
+    // console.log(_estado)
 
     const handleInputChange = (e:any) => {
         const { name, value } = e;
        
-        console.log(name)   
-        console.log(value)
+        // console.log(name)   
+        // console.log(value)
         
         
         if(name === "proyecto"){
@@ -104,13 +103,13 @@ const FOTOptica:React.FC<IOptica> = ({
                 toast.success('Resolucion cambiada')
             }
         } catch (error) {
-            console.log(error)
+            // console.log(error)
             throw error
         }
     }
 
     const handleSwitchValidation = async(event:any) => {
-        console.log(event)
+        // console.log(event)
         try { 
             const query = `?query=07&_folio=${data[EnumGrid.folio]}&_p2=${event === true ? 1 : 0}&_estado=${_estado}&_usuario=${userID}&_origen=${_origen}`
             const result = await axios(`${strUrl}/${query}`);
@@ -120,7 +119,7 @@ const FOTOptica:React.FC<IOptica> = ({
                 validar_parametrizacion.value === '1' ? isToggleValidation.value = true : isToggleValidation.value = false;
             }
         } catch (error) {
-            console.log(error)
+            // console.log(error)
             throw error
         }
     }
@@ -132,12 +131,12 @@ const FOTOptica:React.FC<IOptica> = ({
             const query = `?query=06&_folio=${data[EnumGrid.folio]}&_p2=${event === true ? 1 : 0}&_estado=${_estado}&_usuario=${userID}&_origen=${_origen}`
             const result = await axios(`${strUrl}/${query}`);
             if(result.status === 200){
-                console.log(result)
+                // console.log(result)
                 result.data[0][0]  === 1 ? isToggleImpression.value = true : isToggleImpression.value = false;
                 toast.success('Estado cambiado')
             }
         } catch (error) {
-            console.log(error)
+            // console.log(error)
             throw error
         }
     }

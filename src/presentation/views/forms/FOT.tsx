@@ -434,15 +434,11 @@ const FOT:React.FC<IFOTProps> = ({
 
 
 
-  console.log(data && data[EnumGrid.estado_id])
-
   
   const switchCaseIngresar = async(jsonData:any, cristalesJSON:any, armazonesJSON:any) => {
     
-    console.log(A1_DP.value || 0)
-    console.log('click')
-    console.log(jsonData)
-    console.log(formValues)
+    // console.log(jsonData)
+    // console.log(formValues)
     
     // console.log(formValues.cliente.cliente_tipo)
     // console.log(jsonData.cliente_tipo)
@@ -490,13 +486,13 @@ const FOT:React.FC<IFOTProps> = ({
     };
 
     // console.log('Valor de jsonData.a1_od_cil:', jsonData.a1_od_cil.value || 0);
-    console.log(formValues)
-    console.log(jsonData)
+    // console.log(formValues)
+    // console.log(jsonData)
     // console.log(query)
   
     try {
       const response = await axios.post(`${URLBackend}/api/ot/crear/`, query)
-      console.log(response)
+      // console.log(response)
       if(response.data){
         const message = `Nuevo Folio OT: ${response.data.datos[0][0]}`
         toast.success(message)
@@ -504,7 +500,7 @@ const FOT:React.FC<IFOTProps> = ({
         isExistClient.value = false
       }
     } catch (error) {
-      console.log(error)
+      // console.log(error)
       toast.error('Error al Ingresar la OT')
       handleCloseForm()
     }
@@ -543,13 +539,13 @@ const FOT:React.FC<IFOTProps> = ({
 
         const query = `?query=05&_folio=${_folio}&_estado=${_estado}&_usuario=${userID}&_origen=${_origen}`
         const result = await axios(`${strUrl}/${query}`);
-        console.log(result)
+        // console.log(result)
         if(result.status === 200){
             toast.success('OT anulada ')
         }
         handleCloseForm()
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         throw error
     }
 }
@@ -579,8 +575,8 @@ const FOT:React.FC<IFOTProps> = ({
   const onSubmit: SubmitHandler<any> = async(jsonData, _type?:any) => {
       //  console.log(submitAction)
 
-    console.log(jsonData)
-    console.log('click')
+    // console.log(jsonData)
+    // console.log('click')
     
     //! LOGICA JSON CRISTALES/ARMAZONES COMPARTIDA UPDATE + INSERT
     
@@ -622,7 +618,7 @@ const FOT:React.FC<IFOTProps> = ({
    
 
     if (submitAction === 'pausar') {
-      console.log('pausar')
+      // console.log('pausar')
 
       updateOT(
          jsonData, 
@@ -643,13 +639,13 @@ const FOT:React.FC<IFOTProps> = ({
       // switchCasePausar(jsonData);
     } else if (submitAction === 'procesar') {
       // switchCaseProcesar(jsonData);
-      console.log('click')
+      // console.log('click')
 
-      console.log(OTAreaActual)
+      // console.log(OTAreaActual)
 
       if(OTAreaActual === 100){
         //TODO: estado true para mostrar modal empaque
-        console.log('true')
+        // console.log('true')
         setIsFOTEmpaque(true)
         //TODO: Resultado del formulario
 
@@ -672,7 +668,7 @@ const FOT:React.FC<IFOTProps> = ({
         })
         setSubmitAction('');
     }else if (submitAction === 'ingresar'){
-      console.log('click')
+      // console.log('click')
       
       switchCaseIngresar(jsonData, cristalesJSON, armazonesJSON)
       setSubmitAction('');
@@ -695,23 +691,23 @@ const FOT:React.FC<IFOTProps> = ({
         ...data
       }
     }));
-    console.log(Object.keys(data)[0])
-    console.log(name)
-    console.log(data)
+    // console.log(Object.keys(data)[0])
+    // console.log(name)
+    // console.log(data)
     
 
     //TODO: inputChangeAction 
     const key = Object.keys(data)[0] 
-    console.log(key)
+    // console.log(key)
     if(inputChangeActions[key]){
-      console.log('render')
+      // console.log('render')
       inputChangeActions[key](data);
     }
 
     //todo  INICIO CRISTALES, TRAE GRUPO Y CODIGO DEPENDIENDO DE DATOS DEL CRISTAL 
      // ? ANTEOJO 1: 
     if(changeCodigoCristal_A1[key]){
-      console.log('render')
+      // console.log('render')
       const formValue = getValues()
       const {cristal1_marca_id, cristal1_diseno_id, cristal1_indice_id, cristal1_color_id , cristal1_material_id,cristal1_tratamiento_id, cristal1_diametro } = formValue;
  
@@ -724,7 +720,7 @@ const FOT:React.FC<IFOTProps> = ({
         cristal1_tratamiento_id                 !== undefined &&
         cristal1_diametro                       !== ''   
       ){
-        console.log('ejecutando llamada...')
+        // console.log('ejecutando llamada...')
         // console.log('ejecutando llamada...')
 
         const _pkToDelete1_od ={
@@ -740,7 +736,7 @@ const FOT:React.FC<IFOTProps> = ({
         }
 
 
-        console.log(_pkToDelete1_od)
+        // console.log(_pkToDelete1_od)
         
         const _pkToDelete1_oi ={
           "marca":      cristal1_marca_id,
@@ -754,7 +750,7 @@ const FOT:React.FC<IFOTProps> = ({
           "cilindrico": dioptrias_receta.value.a1_oi.cil ?? 0, 
         }
 
-        console.log(_pkToDelete1_oi)
+        // console.log(_pkToDelete1_oi)
 
 
         try {
@@ -763,10 +759,10 @@ const FOT:React.FC<IFOTProps> = ({
 
           // console.log(encodedJSON)
           
-          const {data} = await axios(`${URLBackend}/api/proyectocristales/listado/?query=06&_p2=${codigoProyecto.value}&_pkToDelete=${encodedJSON}`)
+          const {data} = await axios(`${URLBackend}/api/proyectosgrupos/listado/?query=06&_p2=${codigoProyecto.value}&_pkToDelete=${encodedJSON}`)
           
           const cristalesDATA = JSON.parse(data[0][0])
-          console.log(cristalesDATA)
+          // console.log(cristalesDATA)
           
           A1_CR_OD.value = cristalesDATA["CR_OD"].trim() || "   ";
           A1_CR_OI.value = cristalesDATA["CR_OI"].trim() || "   "
@@ -778,7 +774,7 @@ const FOT:React.FC<IFOTProps> = ({
           validation_Cristal1_od(cristalesDATA["CR_OD"])
           validation_Cristal1_oi(cristalesDATA["CR_OI"])
         } catch (error) {
-          console.log(error)
+          // console.log(error)
           throw error
         }  
       }
@@ -788,8 +784,8 @@ const FOT:React.FC<IFOTProps> = ({
     if(changeCodigoCristal_A2[key]){
       const formValue = getValues()
       const {cristal2_marca_id, cristal2_diseno_id, cristal2_indice_id, cristal2_color_id , cristal2_material_id,cristal2_tratamiento_id, cristal2_diametro } = formValue;
-      console.log(formValue.cristal2_diametro)
-      console.log(A2_Diametro.value)
+      // console.log(formValue.cristal2_diametro)
+      // console.log(A2_Diametro.value)
 
       if(cristal2_marca_id                      !== undefined &&
         cristal2_diseno_id                      !== undefined &&
@@ -799,7 +795,7 @@ const FOT:React.FC<IFOTProps> = ({
         cristal2_tratamiento_id                 !== undefined &&
         cristal2_diametro                       !== ''   
       ){
-        console.log('ejecutando llamada.....')
+        // console.log('ejecutando llamada.....')
         const _pkToDelete1_od ={
           "marca":      cristal2_marca_id,
           "diseno":     cristal2_diseno_id,
@@ -813,7 +809,7 @@ const FOT:React.FC<IFOTProps> = ({
         }
 
 
-        console.log(_pkToDelete1_od)
+        // console.log(_pkToDelete1_od)
         
         const _pkToDelete1_oi ={
           "marca":      cristal2_marca_id,
@@ -827,16 +823,16 @@ const FOT:React.FC<IFOTProps> = ({
           "cilindrico": dioptrias_receta.value.a2_oi.cil ?? 0, 
         }
 
-        console.log(_pkToDelete1_oi)
+        // console.log(_pkToDelete1_oi)
 
         try {
           const pkJSON = JSON.stringify([_pkToDelete1_od, _pkToDelete1_oi])
           const encodedJSON = encodeURIComponent(pkJSON)
 
-          const {data} = await axios(`${URLBackend}/api/proyectocristales/listado/?query=06&_p2=${codigoProyecto.value}&_pkToDelete=${encodedJSON}`)
+          const {data} = await axios(`${URLBackend}/api/proyectosgrupos/listado/?query=06&_p2=${codigoProyecto.value}&_pkToDelete=${encodedJSON}`)
           
           const cristalesDATA = JSON.parse(data[0][0])
-          console.log(cristalesDATA)
+          // console.log(cristalesDATA)
 
           A2_CR_OD.value = cristalesDATA["CR_OD"].trim() || " ";
           A2_CR_OI.value = cristalesDATA["CR_OI"].trim() || " ";
@@ -849,7 +845,7 @@ const FOT:React.FC<IFOTProps> = ({
           
         
         } catch (error) {
-          console.log(error)
+          // console.log(error)
           throw error
         }
 
@@ -858,7 +854,7 @@ const FOT:React.FC<IFOTProps> = ({
     }
 
     //TODO: DIOPTRIAS CRISTALES SI ES TIPO 3(LEJOS/CERCA)
-    console.log(tipo_de_anteojo.value)
+    // console.log(tipo_de_anteojo.value)
     if(tipo_de_anteojo.value === '3'){
       // clearInputDioptrias()
       //? OJO DERECHO
@@ -871,15 +867,11 @@ const FOT:React.FC<IFOTProps> = ({
       ){
         if(dioptrias_receta.value.a1_od.ad < 0){
           a2_od_esf.value = " ";
-          console.log('render')
           dioptrias_receta.value.a1_od.ad  = " ";
         }
          
 
         if(typeof dioptrias_receta.value.a1_od.ad !== 'object' &&  dioptrias_receta.value.a1_od.ad > 0){
-          console.log(dioptrias_receta.value.a1_od.esf)
-          console.log(dioptrias_receta.value.a1_od.ad)
-
           a2_od_esf.value = (typeof dioptrias_receta.value.a1_od.esf !== 'object' && Number.isNaN(dioptrias_receta.value.a1_od.esf) ? 0 : parseFloat(dioptrias_receta.value.a1_od.esf) ) + parseFloat(dioptrias_receta.value.a1_od.ad)
           a2_od_cil.value = (typeof dioptrias_receta.value.a1_od.cil === 'object' ? 0 : dioptrias_receta.value.a1_od.cil)
           a2_od_eje.value = (typeof dioptrias_receta.value.a1_od.eje === 'object' ? 0 : dioptrias_receta.value.a1_od.eje)
@@ -1105,8 +1097,8 @@ useEffect(() => {
 
     
 
-  console.log(validationNivel1.value)
-  console.log(validationNivel2.value)
+  // console.log(validationNivel1.value)
+  // console.log(validationNivel2.value)
   
 
 
