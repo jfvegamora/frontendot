@@ -207,14 +207,14 @@ return (
           value     ={value}
           color     ="orange"
           id        ={label}
-          onChange  ={(e)=>setValue(e.target.value)}
+          onChange  ={ onlyRead ? ()=>{}  :(e)=>setValue(e.target.value)}
           type      ={type}
-          onBlur    ={(e)=>handleInputChange(e)}
+          onBlur    ={ onlyRead ? ()=>{}  : (e)=>handleInputChange(e)}
           ref       ={inputRef}
-          tabIndex  ={tabIndex || 1}
+          tabIndex  ={onlyRead ? 0 : (tabIndex || 1)}
           step      ={step}
           readOnly  = {onlyRead}
-          className={`${className ? className : "custom-input"}  ${onlyRead ? "custom-onlyread" : isOptional ? "custom-optional" : "custom-required"} ${textAlign && textAlign}`}
+          className={`${className ? className : "custom-input"}  ${onlyRead ? "custom-onlyread cursor-not-allowed" : isOptional ? "custom-optional" : "custom-required"} ${textAlign && textAlign}`}
         />
       </div>
     )}

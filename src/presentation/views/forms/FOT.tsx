@@ -33,7 +33,7 @@ import { A1_CR_OD, A1_CR_OI, A1_DP, A1_Diametro, A1_GRUPO_OD, A1_GRUPO_OI, A2_CR
   punto_venta, 
   // reiniciarA2DioptriasReceta, 
   reiniciarDioptriasReceta, reiniciarValidationNivel1, reiniciarValidationNivel2, tipo_de_anteojo, updateOT, validar_parametrizacion } from '../../utils';
-import { validationCliente, validationClienteComuna, validationClienteNombre, validationClienteSexo, validationClienteTelefono, validationClienteTipo, validationEstablecimientos, validationFechaAtencion, validationProyectos, validationPuntoVenta, validationTipoAnteojos, validation_A2_OD_CIL, validation_A2_OD_EJE, validation_A2_OD_ESF, validation_A2_OI_CIL, validation_A2_OI_EJE, validation_A2_OI_ESF, validation_Cristal1_od, validation_Cristal1_oi, validation_Cristal2_od, validation_Cristal2_oi } from '../../utils/validationOT';
+import { validationCliente, validationClienteComuna, validationClienteNombre, validationClienteSexo, validationClienteTelefono, validationClienteTipo, validationEstablecimientos, validationFechaAtencion, validationFechaDespacho, validationFechaEntregaCliente, validationFechaEntregaTaller, validationProyectos, validationPuntoVenta, validationTipoAnteojos, validation_A1_DP, validation_A1_OD_AD, validation_A1_OD_CILL, validation_A1_OD_EJE, validation_A1_OD_ESF, validation_A1_OI_CIL, validation_A1_OI_EJE, validation_A1_OI_ESF, validation_A2_OD_CIL, validation_A2_OD_EJE, validation_A2_OD_ESF, validation_A2_OI_CIL, validation_A2_OI_EJE, validation_A2_OI_ESF, validation_Cristal1_od, validation_Cristal1_oi, validation_Cristal2_od, validation_Cristal2_oi } from '../../utils/validationOT';
 // import { inputName } from '../../components/OTForms/Otprueba';
 // import { verificaCampos } from '../../utils/OTReceta_utils';
 import { URLBackend } from '../../hooks/useCrud';
@@ -563,14 +563,14 @@ const FOT:React.FC<IFOTProps> = ({
   // const sumatoriaNivel1 = validacionNivel1.reduce((index, objeto) => index + objeto.valor, 0);
 
   const sumatoriaNivel1 = validationNivel1.value.reduce((index, objeto) => index + objeto.valor, 0);
-  // const sumatoriaNivel2 = validationNivel2.value.reduce((index, objeto) => index + objeto.valor, 0)
+  const sumatoriaNivel2 = validationNivel2.value.reduce((index, objeto) => index + objeto.valor, 0)
     
-  const actualizarEstado = (campo:string, valor:number) => {
-    const index = validacionNivel1.findIndex(objeto => objeto.campo === campo);
-    if (index !== -1) {
-        validacionNivel1[index].valor = valor;
-      }
-  }
+  // const actualizarEstado = (campo:string, valor:number) => {
+  //   const index = validacionNivel1.findIndex(objeto => objeto.campo === campo);
+  //   if (index !== -1) {
+  //       validacionNivel1[index].valor = valor;
+  //     }
+  // }
 
 
   // console.log(sumatoriaNivel1)
@@ -656,20 +656,20 @@ const FOT:React.FC<IFOTProps> = ({
       }
 
 
-        // updateOT(
-        //   jsonData,
-        //   OTAreaActual,
-        //   OTAreas["areaSiguiente"],
-        //   20,
-        //   formValues,
-        //   data,
-        //   OTSlice.cristales,
-        //   OTSlice.armazones,
-        //   User["id"].toString()
-        // ).then(()=>{
-        //   dispatch(fetchOT({OTAreas:OTAreaActual}))
-        //   handleCloseForm()
-        // })
+        updateOT(
+          jsonData,
+          OTAreaActual,
+          OTAreas["areaSiguiente"],
+          20,
+          formValues,
+          data,
+          OTSlice.cristales,
+          OTSlice.armazones,
+          User["id"].toString()
+        ).then(()=>{
+          dispatch(fetchOT({OTAreas:OTAreaActual}))
+          handleCloseForm()
+        })
         setSubmitAction('');
     }else if (submitAction === 'ingresar'){
       console.log('click')
@@ -883,6 +883,11 @@ const FOT:React.FC<IFOTProps> = ({
           a2_od_esf.value = (typeof dioptrias_receta.value.a1_od.esf !== 'object' && Number.isNaN(dioptrias_receta.value.a1_od.esf) ? 0 : parseFloat(dioptrias_receta.value.a1_od.esf) ) + parseFloat(dioptrias_receta.value.a1_od.ad)
           a2_od_cil.value = (typeof dioptrias_receta.value.a1_od.cil === 'object' ? 0 : dioptrias_receta.value.a1_od.cil)
           a2_od_eje.value = (typeof dioptrias_receta.value.a1_od.eje === 'object' ? 0 : dioptrias_receta.value.a1_od.eje)
+
+
+          validation_A2_OD_ESF(a2_od_esf.value)
+          validation_A2_OD_CIL(a2_od_cil.value)
+          validation_A2_OD_EJE(a2_od_eje.value)
         }
 
         // a2_od_cil.value = (typeof dioptrias_receta.value.a1_od.cil === 'object' ? 0 : dioptrias_receta.value.a1_od.cil)
@@ -927,7 +932,7 @@ const FOT:React.FC<IFOTProps> = ({
       validation_A2_OI_EJE(a2_oi_eje.value)
 
     }
-    actualizarEstado(Object.keys(data)[0], 1)
+    // actualizarEstado(Object.keys(data)[0], 1)
 
   };
   
@@ -979,16 +984,32 @@ if(isEditting){
   validationProyectos(data && data[EnumGrid.proyecto_codigo])
   validationEstablecimientos(data && data[EnumGrid.establecimiento_id])
   validationCliente(data && data[EnumGrid.cliente_rut])
-  validationFechaAtencion(data && data[EnumGrid.fecha_atencion])
-  validationTipoAnteojos(data && data[EnumGrid.tipo_anteojo_id])
-  validationPuntoVenta(data && data[EnumGrid.punto_venta_id])
   validationClienteNombre(data && data[EnumGrid.cliente_nomnbre])
   validationClienteTipo(data && data[EnumGrid.cliente_tipo])
   validationClienteSexo(data && data[EnumGrid.cliente_sexo])
   validationClienteTelefono(data && data[EnumGrid.cliente_sexo])
   validationClienteComuna(data && data[EnumGrid.cliente_comuna_id])
+  validationFechaAtencion(data && data[EnumGrid.fecha_atencion])
+  validationPuntoVenta(data && data[EnumGrid.punto_venta_id])
+  validationTipoAnteojos(data && data[EnumGrid.tipo_anteojo_id])
   validation_tipo_anteojo()
+  
+
+
   //VALIDACIONES NIVEL 2
+  validationFechaEntregaTaller(data && data[EnumGrid.fecha_entrega_taller])
+  validationFechaDespacho(data && data[EnumGrid.fecha_despacho])
+  validationFechaEntregaCliente(data && data[EnumGrid.fecha_entrega_cliente])
+  validation_A1_OD_ESF(data && data[EnumGrid.a1_od_esf])
+  validation_A1_OD_CILL(data && data[EnumGrid.a1_od_cil])
+  validation_A1_OD_EJE(data && data[EnumGrid.a1_od_eje])
+  validation_A1_OD_AD(data && data[EnumGrid.a1_od_ad])
+  validation_A1_OI_ESF(data && data[EnumGrid.a1_oi_esf])
+  validation_A1_OI_CIL(data && data[EnumGrid.a1_oi_cil])
+  validation_A1_OI_EJE(data && data[EnumGrid.a1_oi_eje])
+  validation_A1_DP(data && data[EnumGrid.a1_dp])  
+
+
   
 }
 
@@ -1065,7 +1086,7 @@ useEffect(()=>{
 }
 },[data])
 
-console.log(data && data[EnumGrid.a1_dp])
+// console.log(data && data[EnumGrid.a1_dp])
 
 useEffect(() => {
   const handleKeyDown = (event: KeyboardEvent) => {
@@ -1088,10 +1109,23 @@ useEffect(() => {
   console.log(validationNivel2.value)
   
 
+
+
+
+  // console.log(OTPermissions && OTPermissions[6] === '1')
+  // console.log(isMOT)
+  // console.log(isEditting)
+  // console.log(escritura_lectura)
+  // console.log(sumatoriaNivel1)
+  // console.log(sumatoriaNivel2)
+  // console.log(validationNivel1.value.length)
+  // console.log(validationNivel2.value.length)
+
+
   return (
 
     <div className='useFormContainerOT top-[0%]  w-full h-[100%]'>
-      <Tabs>
+      <Tabs>f
         <TabList className='flex items-center top-[10]'>
           <Tab className="custom-tab ">ÓPTICA</Tab>
           <Tab className="custom-tab ">CLIENTE</Tab>
@@ -1166,6 +1200,8 @@ useEffect(() => {
                       Garantia
                     </Button>
                 )}
+                
+               
 
                 {OTPermissions           && 
                 !isMOT                   &&
@@ -1173,7 +1209,7 @@ useEffect(() => {
                 escritura_lectura        && 
                 OTPermissions[6] === "1" &&
                 sumatoriaNivel1 === validationNivel1.value.length &&
-                // (sumatoriaNivel2 === validationNivel2.value.length || data && data[EnumGrid.validar_parametrizacion_id] === "0" ) &&
+                (sumatoriaNivel2 === validationNivel2.value.length || data && data[EnumGrid.validar_parametrizacion_id] === "0" ) &&
                (
                   <Button className='otActionButton bg-green-400' onClick={handleProcesarClick}>Procesar</Button>
                 )}

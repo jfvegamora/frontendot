@@ -71,7 +71,8 @@ export const fetchOTByID = createAsyncThunk(
     'ot/fetchOTbyID',
     async(params:any) => {
         try {
-            const {folio, OTAreas} = params;
+            const {folio, OTAreas,historica} = params;
+            console.log(historica)
             const response = await axios.get(`${URLBackend}/api/ot/listado/?query=01&_origen=${OTAreas}&_folio=${folio}`);
             return response.data[0]
         } catch (error) {

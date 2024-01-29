@@ -73,10 +73,16 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
     const handleSelectChange = React.useCallback(
       (name: string, value: string) => {
         setInputValues((prev) => ({ ...prev, [name]: value }));
-        updateParams({
-          ...inputValues,
-          [name]: value,
-        });
+        
+        const updatedParams = Object.keys(inputValues)
+        .map((key) => `${key}=${inputValues[key]}`)
+        .join('&');
+        
+        
+        console.log(updateParams)
+        updateParams({updatedParams});
+
+        
       },
       [inputValues, updateParams]
     );
@@ -406,7 +412,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
         _id: inputValues._id || "",
       };
 
-      updateParams(searchParams);
+      // updateParams(searchParams);
     }, [inputValues]);
 
     return (

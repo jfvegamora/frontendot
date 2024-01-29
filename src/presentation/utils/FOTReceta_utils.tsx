@@ -103,9 +103,8 @@ export const transponer = (ESF:any, CIL:any, EJE:any,
             
 
             validation_A2_OD_ESF(dioptrias_receta.value[anteojo].esf + dioptrias_receta.value[anteojo].ad)
-
-            // validation_A2_OD_CIL(CIL2.value)
-            // validation_A2_OD_EJE(EJE2.value)
+            validation_A2_OD_CIL(dioptrias_receta.value[anteojo].cil)
+            validation_A2_OD_EJE(dioptrias_receta.value[anteojo].eje)
         }
     }
     

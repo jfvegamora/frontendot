@@ -6,6 +6,7 @@ import { Signal, signal } from "@preact/signals-react";
 import { validationFechaDespacho, validationFechaEntregaCliente, validationFechaEntregaTaller, validation_A1_ALT, validation_A1_DP, validation_A1_OD_AD, validation_A1_OD_CILL, validation_A1_OD_EJE, validation_A1_OD_ESF, validation_A1_OI_CIL, validation_A1_OI_EJE, validation_A1_OI_ESF, validation_A2_DP, validation_A2_OD_CIL, validation_A2_OD_EJE, validation_A2_OD_ESF, validation_A2_OI_CIL, validation_A2_OI_EJE, validation_A2_OI_ESF } from "./validationOT";
 import { EnumGrid } from "../views/mantenedores/MOTHistorica";
 import { toast } from "react-toastify";
+import { validation_tipo_anteojo } from "./OTReceta_utils";
 
 
 export const dioptrias:any = signal<any>({
@@ -451,6 +452,7 @@ export const inputChangeActions:InputChangeActions = {
   tipo_anteojo_id: (data:any) => {
     tipo_de_anteojo.value = Object.values(data)[0] as string
     clearInputDioptrias()
+    validation_tipo_anteojo()
   },
   proyecto_codigo: (data:any) => {
     console.log('codigo')
@@ -562,13 +564,10 @@ export const updateOT =async (
   let motivo = 1;
   // let _rut = ""
   let _p3 = ""
-  
-  console.log(_formValues)
+  console.log(dioptrias_receta.value.a1_oi)
 
+  console.log(typeof dioptrias_receta.value.a1_oi.eje !== 'object' && !Number.isNaN(dioptrias_receta.value.a1_oi.eje) ? dioptrias_receta.value.a1_oi.eje : null )
   // console.log((`cristales1_tratamiento_adicional=${_formValues && typeof _formValues["cristales"] && _formValues["cristales"]["cristal1_tratamiento_adicional_id"]      === 'undefined' ? data && data[EnumGrid.cristal1_tratamiento_adicional_id] : _formValues["cristales"] && parseInt(_formValues["cristales"]["cristal1_tratamiento_adicional_id"])}`))
-  console.log((_formValues && _formValues["cristales"] && _formValues["cristales"]["cristal1_marca_id"] !== undefined) ? true : false);
-  console.log(data && data[EnumGrid.cristal1_tratamiento_adicional_id])
-  console.log(data && data[EnumGrid.cristal1_marca_id])
 
   const fields = [
     `motivo=${motivo}`,
@@ -735,12 +734,15 @@ const _armazonesJSON = JSON.stringify(armazones)
 
   };
 
+  console.log(_p1)
 
+  console.log(query)
 
 
   try {
     const response = await axios.post(`${URLBackend}/api/ot/editar/`, query)
 
+    console.log(response)
     if(response.status === 200){
       return toast.success('OT Editada Correctamente')
     }else{

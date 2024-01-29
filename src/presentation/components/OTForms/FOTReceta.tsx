@@ -44,7 +44,7 @@ const FOTReceta:React.FC<IReceta> = ({
         console.log(name)
         console.log(value)
         
-        validation_tipo_anteojo()
+        // validation_tipo_anteojo()
         validationOTlevel1(name, value)
         validationOTlevel2(name, value)
         
@@ -61,6 +61,9 @@ const FOTReceta:React.FC<IReceta> = ({
             console.log('render')
             transponer('a1_oi_esf', 'a1_oi_cil', 'a1_oi_eje', 'a1_oi')
         }
+
+
+        console.log(dioptrias_receta.value.a1_oi)
     }
 
 

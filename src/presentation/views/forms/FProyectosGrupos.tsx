@@ -14,6 +14,7 @@ import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
 import SelectInputTiposComponent from "../../components/forms/SelectInputTiposComponent";
+import { toast } from "react-toastify";
 
 const strBaseUrl = "/api/proyectogrupos/";
 const strEntidad = "Parametrización de Cristales ";
@@ -121,7 +122,9 @@ export function transformUpdateQuery(jsonData: InputData): OutputData | null {
   let _p1 = fields.join(",");
   _p1 = _p1.replace(/'/g, '!');
 
+  console.log(_p1)
 
+  console.log((jsonData.valor_neto_armazon && jsonData.valor_neto_armazon?.toString())?.length === 0 ? "0" : jsonData.valor_neto_armazon)
   const query = {
     query: "04",
     _p1,
@@ -271,6 +274,7 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
 
     const handleSaveChange = React.useCallback(
       async (data: InputData, isEditting: boolean) => {
+        const toastLoading = toast.loading('Cargando...');
         try {
           const transformedData = isEditting
             ? transformUpdateQuery(data)
@@ -280,7 +284,9 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
             ? await editEntity(transformedData)
             : await createdEntity(transformedData);
           handleApiResponse(response, isEditting);
+          toast.dismiss(toastLoading)
         } catch (error: any) {
+          toast.dismiss(toastLoading)
           show({
             message: error,
             type: "error",
@@ -314,7 +320,7 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
     // }, [idCristal, setValue]);
 
     // console.log('data', data)
-    console.log(errors)
+
     return (
       <div className="useFormContainer centered-div use60rem">
         {/* <div className="userFormBtnCloseContainer">
@@ -607,8 +613,10 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                   <TextInputComponent
                     type="number"
                     label="$ Venta Neto"
+                    // name="valor_neto_armazon"
                     name="valor_neto_armazon"
                     data={data && data[EnumGrid.valor_neto_armazon]}
+                    // data={23}
                     control={control}
                     error={errors.valor_neto_armazon}
                     isOptional={false}

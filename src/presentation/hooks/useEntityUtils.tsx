@@ -127,7 +127,8 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
       const endpoint = historica === false ? `${URLBackend}/api/ot/listado/?query=01&_folio=${folio}` : `${URLBackend}/api/othistorica/listado/?query=01&_folio=${folio}`
       const response = await axios(endpoint)
       setEntity(response.data[0])
-      dispatch(fetchOTByID({ folio: folio, OTAreas: areaActual }));
+      console.log(historica)
+      dispatch(fetchOTByID({ folio: folio, OTAreas: areaActual, historica: historica }));
       setIsModalEdit(true);
       return ''
       } catch (error) {

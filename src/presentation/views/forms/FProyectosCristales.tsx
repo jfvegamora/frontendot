@@ -293,8 +293,9 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
     //   setValue('data_cristal', idCristal || '');
     // }, [idCristal, setValue]);
 
-    // console.log('data', data)
-    console.log(errors)
+    // console.log(data)
+    // console.log(data &&  data[EnumGrid.valor_neto_armazon])
+    // console.log(errors)
     return (
       <div className="useFormContainer centered-div use60rem">
         <div className="userFormBtnCloseContainer">
@@ -514,7 +515,7 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                   type="number"
                   label="$ Venta Neto"
                   name="precio_venta_neto"
-                  data={data && data[EnumGrid.precio_venta_neto]}
+                  data={data && data[EnumGrid.valor_neto_armazon]}
                   control={control}
                   error={errors.precio_venta_neto}
                   isOptional={true}

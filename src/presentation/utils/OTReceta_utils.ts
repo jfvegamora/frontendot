@@ -17,7 +17,7 @@ export const setTipoAnteojo = (value:any) => {
           clearDioptriasA2(1)
           reiniciarA2DioptriasReceta()
         }else{
-          clearDioptriasA2(0)
+          // clearDioptriasA2(0)
         }
 };
 
@@ -33,101 +33,7 @@ export const setDioptriasReceta = (name:string, value:any) =>{
 };
 
 
-// export const validation_tipo_anteojo = () => {
-//     // console.log(tipo_de_anteojo.value)
-//     console.log('render')
-//     const a1_od_ad  = buscarCampo('a1_od_ad');
-//     const a1_oi_ad  = buscarCampo('a1_oi_ad');
-//     const a1_alt    = buscarCampo('a1_alt');
-//     const a1_dp     = buscarCampo('a1_dp');
-//     const a2_dp     = buscarCampo('a2_dp');
 
-//     console.log(tipo_de_anteojo.value)
-//     // console.log(tipo_de_anteojo.value)
-
-//     if(tipo_de_anteojo.value == '1' || tipo_de_anteojo.value == '2' || tipo_de_anteojo.value == '7'){
-        
-//         if(a1_od_ad){
-//           a1_od_ad.valor = 1
-//         }
-//         if(a1_oi_ad){
-//           a1_oi_ad.valor = 1;
-//         }
-//         if(a1_alt){
-//           a1_alt.valor = 1
-//         }
-//         if(a1_dp){
-//           a1_dp.valor = 0
-//         }
-//         if(a2_dp){
-//           a2_dp.valor = 0
-//         }
-
-  
-//         deshabilitarCampo.value.a1_ad  = false
-//         deshabilitarCampo.value.a1_alt = false
-//         deshabilitarCampo.value.a2_dp  = true
-//         clearSelectInput.value = true;
-//         A2_CR_OD.value = " ";
-//         A2_CR_OI.value = " ";
-
-
-//         // console.log(dioptriasHabilitadas.value)
-//     }
-
-//     if(tipo_de_anteojo.value === '3'){
-      
-//       if(a1_od_ad){
-//         a1_od_ad.valor = 0
-//       }
-//       if(a1_oi_ad){
-//         a1_oi_ad.valor = 0;
-//       }
-//       if(a1_alt){
-//         a1_alt.valor = 1
-//       }
-//       if(a1_dp){
-//         a1_dp.valor = 0
-//       }
-//       if(a2_dp){
-//         a2_dp.valor = 0
-//       }
-      
-//       deshabilitarCampo.value.a2_dp  = false
-//       deshabilitarCampo.value.a1_alt = false
-//       deshabilitarCampo.value.a1_ad  = true
-//       clearSelectInput.value = false;
-//     }
-
-//     if(tipo_de_anteojo.value == '4' || tipo_de_anteojo.value == '5' || tipo_de_anteojo.value == '6'){
-        
-//         if(a1_od_ad){
-//             a1_od_ad.valor = 0
-//           }
-//         if(a1_oi_ad){
-//           a1_oi_ad.valor = 0
-//         }
-//         if(a1_alt){
-//             a1_alt.valor = 0
-//           }
-//           if(a1_dp){
-//             a1_dp.valor = 0
-//           }
-//           if(a2_dp){
-//             a2_dp.valor = 0
-//           }
-  
-
-//       deshabilitarCampo.value.a1_ad  = true
-//       deshabilitarCampo.value.a1_alt = true
-//       deshabilitarCampo.value.a2_dp  = true
-//       clearSelectInput.value = false;
-//       A2_CR_OD.value = " ";
-//       A2_CR_OI.value = " ";
-//     }
-
-
-// }
 
 export const validation_tipo_anteojo = () => {
   const camposAValidar = [

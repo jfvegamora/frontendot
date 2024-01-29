@@ -35,7 +35,8 @@ const OTGrillaButtons:React.FC<AreaButtonsProps> = ({ areaPermissions, toggleEdi
    
 
     let historica = false;
-    entidad === "Orden de Trabajo Hisotrico" ? historica = true : historica = false;
+    
+    entidad === "Orden de Trabajo Histórico" ? historica = true : historica = false;
 
 
   const handlePrint = useReactToPrint({
