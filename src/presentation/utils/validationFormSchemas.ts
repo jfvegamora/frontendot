@@ -376,7 +376,7 @@ export const validationProyectoGruposSchema = () =>
     armazon_marca     : yup.string(),
     armazon_uso       : yup.string(),
     valor_neto_armazon: yup.string().required(`${msg}`), 
-    valor_neto_total  : yup.string().required(`${msg}`), 
+    // valor_neto_total  : yup.string().required(`${msg}`), 
     observaciones     : yup.string(), 
   });
 

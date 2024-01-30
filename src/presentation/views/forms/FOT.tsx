@@ -762,9 +762,9 @@ const FOT:React.FC<IFOTProps> = ({
 
           // console.log(encodedJSON)
           
-          const {data} = await axios(`${URLBackend}/api/proyectosgrupos/listado/?query=06&_p2=${codigoProyecto.value}&_pkToDelete=${encodedJSON}`)
+          const {data:cristalesDataOD} = await axios(`${URLBackend}/api/proyectosgrupos/listado/?query=06&_p2=${codigoProyecto.value}&_pkToDelete=${encodedJSON}}`)
           
-          const cristalesDATA = JSON.parse(data[0][0])
+          const cristalesDATA = JSON.parse(cristalesDataOD[0][0])
           // console.log(cristalesDATA)
           
           A1_CR_OD.value = cristalesDATA["CR_OD"].trim() || "   ";
@@ -832,9 +832,9 @@ const FOT:React.FC<IFOTProps> = ({
           const pkJSON = JSON.stringify([_pkToDelete1_od, _pkToDelete1_oi])
           const encodedJSON = encodeURIComponent(pkJSON)
 
-          const {data} = await axios(`${URLBackend}/api/proyectosgrupos/listado/?query=06&_p2=${codigoProyecto.value}&_pkToDelete=${encodedJSON}`)
+          const {data:cristalesDataOI} = await axios(`${URLBackend}/api/proyectosgrupos/listado/?query=06&_p2=${codigoProyecto.value}&_pkToDelete=${encodedJSON}}`)
           
-          const cristalesDATA = JSON.parse(data[0][0])
+          const cristalesDATA = JSON.parse(cristalesDataOI[0][0])
           // console.log(cristalesDATA)
 
           A2_CR_OD.value = cristalesDATA["CR_OD"].trim() || " ";
@@ -1039,7 +1039,7 @@ useEffect(()=>{
     punto_venta.value    = data[EnumGrid.punto_venta_id]
 
     isToggleImpression.value = data[EnumGrid.estado_impresion_id]        === '1' ? true : false
-    isToggleValidation.value = data[EnumGrid.validar_parametrizacion_id] === '1' ? true :false
+    isToggleValidation.value = data[EnumGrid.validar_parametrizacion_id] === '1' ? true : false
     tipo_de_anteojo.value = data[EnumGrid.tipo_anteojo_id].toString();
     
     fecha_atencion_signal.value = data[EnumGrid.fecha_atencion]
@@ -1179,7 +1179,7 @@ useEffect(() => {
           </TabPanel>
 
           <TabPanel> 
-            <FOTArmazones permiso_areas_armazones={permiso_areas_armazones} permiso_usuario_armazones={permiso_usuario_armazones} onlyRead={onlyRead}  data={data && data} formValues={formValues["armazones"]} control={control} onDataChange={(data:any) => handleFormChange(data , 'armazones')}  />
+            <FOTArmazones permiso_areas_armazones={permiso_areas_armazones} isEditting={isEditting} permiso_usuario_armazones={permiso_usuario_armazones} onlyRead={onlyRead}  data={data && data} formValues={formValues["armazones"]} control={control} onDataChange={(data:any) => handleFormChange(data , 'armazones')}  />
           </TabPanel>
           
 

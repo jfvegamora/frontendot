@@ -44,7 +44,7 @@ export interface InputData {
   armazon_uso         : string | undefined;
   valor_neto_armazon: string | undefined;
   
-  valor_neto_total: string | undefined;
+  // valor_neto_total: string | undefined;
   observaciones: string | undefined;
 }
 
@@ -82,7 +82,7 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
   ${validateSelect(jsonData.armazon_marca)},
   ${validateSelect(jsonData.armazon_uso)},
   ${(jsonData.valor_neto_armazon && jsonData.valor_neto_armazon?.toString())?.length === 0 ? "0" : jsonData.valor_neto_armazon},
-  ${(jsonData.valor_neto_total && jsonData.valor_neto_total?.toString())?.length === 0 ? "0" : jsonData.valor_neto_total},
+  ${(jsonData.valor_neto_armazon && jsonData.valor_neto_armazon as any) + (jsonData.valor_neto_cristal && jsonData.valor_neto_cristal)},
   "${jsonData.observaciones}"`;
 
   _p1 = _p1.replace(/'/g, '!');
@@ -188,7 +188,7 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
       setValue("valor_neto_cristal", "0");
       // setValue("diametro", "");
       setValue("valor_neto_armazon", "0");
-      setValue("valor_neto_total", "0");
+      // setValue("valor_neto_total", "0");
       setValue("observaciones", "");
       if (firstInputRef.current) {
         const firstInput = firstInputRef.current.querySelector(
@@ -307,6 +307,8 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
       setTotalNeto(totalNeto)
     }, []);
 
+
+
     // const handleCristalesDescription = async (data: any) => {
     //   if (data) {
     //     const query = "01";
@@ -329,6 +331,7 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
     // console.log('data', data)
 
     console.log(totalNeto)
+    let valorArmazones = 0
     return (
       <div className="useFormContainer centered-div use60rem">
         {/* <div className="userFormBtnCloseContainer">
@@ -629,6 +632,12 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                     error={errors.valor_neto_armazon}
                     isOptional={false}
                     textAlign="text-right"
+                    handleChange={(e)=>{
+                      console.log(e)
+                      
+
+
+                    }}
                   />
                 </div>
               </div>
@@ -655,7 +664,7 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                     // data={data && data[EnumGrid.valor_neto_total]}
                     data={totalNeto}
                     control={control}
-                    error={errors.valor_neto_total}
+                    // error={errors.valor_neto_total}
                     isOptional={false}
                     textAlign="text-right"
                   />

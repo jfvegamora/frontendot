@@ -16,6 +16,7 @@ interface IArmazones {
     onlyRead?:boolean;
     permiso_usuario_armazones:boolean;
     permiso_areas_armazones:boolean;
+    isEditting?:boolean
 }
 
 const FOTArmazones:React.FC<IArmazones> = ({
@@ -24,7 +25,8 @@ const FOTArmazones:React.FC<IArmazones> = ({
     formValues,
     data, 
     permiso_usuario_armazones,
-    permiso_areas_armazones
+    permiso_areas_armazones,
+    isEditting
 }) => {
 
     
@@ -45,8 +47,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
     //                                                ? `${URLBackend}/api/armazones/listado/?query=01` 
     //                                                : `${URLBackend}/api/armazones/listado/?query=02&_p2=${codigoProyecto.value}&_p3=${punto_venta.value}`;
 
-    const endpoint =`${URLBackend}/api/armazones/listado/?query=02&_p6=${data && data[EnumGrid.validar_parametrizacion_id]}&_p2=${codigoProyecto.value}&_p3=${punto_venta.value}`;
-
+    const endpoint =`${URLBackend}/api/armazones/listado/?query=02&_p6=${ isEditting ? (data && data[EnumGrid.validar_parametrizacion_id]) : 1 }&_p2=${codigoProyecto.value}&_p3=${punto_venta.value}`;
 
 
 
@@ -104,12 +105,26 @@ const FOTArmazones:React.FC<IArmazones> = ({
                 
                 fetchArmazones1()
             }
-        }       
+        }
+        
     }, [codArmazon1, validar_parametrizacion.value, endpoint, A1_DP.value, A1_Diametro.value]);
+    
+    useEffect(()=>{
+        if(codArmazon1 && armazon1[0] && armazon1.length > 2){
+            onDataChange({['a1_armazon_id']: armazon1[0]})
+        }        
+    },[armazon1, codArmazon1])
 
     useEffect(()=>{
-        
+        if(codArmazon2 && armazon2[0] && armazon2.length > 2){
+            onDataChange({['a2_armazon_id']: armazon2[0]})
+        }        
     },[armazon2, codArmazon2])
+    useEffect(()=>{
+        if(codArmazon3 && armazon3[0] && armazon3.length > 2){
+            onDataChange({['a3_armazon_id']: armazon3[0]})
+        }        
+    },[armazon3, codArmazon3])
 
 
 
@@ -193,6 +208,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
 
     
     console.log(armazon1)
+
 
   return (
     <form>

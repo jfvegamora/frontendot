@@ -49,10 +49,17 @@ const FOTCristales:React.FC<ICristales> = ({
         validationOTlevel2(name, value)
         
         if(!isToggleValidation.value && isEditting){
-            //TODO: EJECUTAR LLAMADA CRISTALES QUERY 01 PARA VALIDAR SU EXISTENCIA, SI NO EXISTE LIMPIAR IMPUT                
             switch (name) {
                 case 'cristal1_od':
                     const {data:cristal1OD} = await axios(`${URLBackend}/api/cristales/listado/?query=01&_p1=${value.trim()}`)
+
+                    //TODO QUERY 08/ _P2 CODIGO CRISTAL / _ID= VALIDAR_PARAMETRIZACION 
+
+                    console.log(cristal1OD)
+                    
+                    if(cristal1OD){
+                        onDataChange({['cristal1_marca_id']: 10})
+                    }
 
                     if(cristal1OD.length === 0){
                         toast.error('Código de cristal no existe')
@@ -166,10 +173,6 @@ const FOTCristales:React.FC<ICristales> = ({
                 </div>
             </div>)
       }
-
-      console.log(A2_CR_OI.value)
-
-      console.log(isToggleValidation.value)
 
   return (
     <form>

@@ -167,6 +167,20 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     // console.log('render')
     const { refreshData } = useEntityUtils(strUrl, entidad[1]);
     // console.log(state)
+
+
+  
+    if(name === 'cristal1_marca_id'){
+      console.log(data)
+    }
+
+
+    useEffect(()=>{
+      setStrSelectedName(data)
+    },[data])
+
+    
+
     const renderInput = () => (
       <Controller
           name={name}
