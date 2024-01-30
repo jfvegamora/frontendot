@@ -3,7 +3,7 @@ import { Suspense, lazy, useEffect } from "react";
 import "./App.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Route, Navigate, useNavigate } from "react-router-dom";
+import { Route, useNavigate } from "react-router-dom";
 
 import { AppStore, useAppSelector } from "./redux/store";
 import { RoutesWithNotFound } from "./presentation/utils";
@@ -12,6 +12,7 @@ import AuthGuard, {
   hasRequiredPermissions,
 } from "./presentation/guards/auth_guard";
 import { Spinner } from "@material-tailwind/react";
+import LandingPage from "./presentation/pages/LandingPage";
 
 //Lazy components
 const Login = lazy(() => import("./presentation/pages/Login"));
@@ -64,7 +65,8 @@ function App() {
             element={<ForgotPassword />}
           />
           <Route path={PublicRoutes.PROFILE} element={<ProfileUser />} />
-          <Route path="/" element={<Navigate to={PublicRoutes.LOGIN} />} />
+          {/* <Route path="/" element={<Navigate to={PublicRoutes.LOGIN} />} /> */}
+          <Route path="/" element={<LandingPage/>} />
           <Route element={<AuthGuard privateValidation={true} />}>
             {privateRoutes.map((route) => (
               <Route

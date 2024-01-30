@@ -88,6 +88,44 @@ export const combinaciones_validas = () => {
     let isCIL = typeof CIL === 'number' && !Number.isNaN(CIL);
     let isEJE = typeof EJE === 'number' && !Number.isNaN(EJE);
     
+    console.log(ESF)
+    //VALIDACION 1
+    if (typeof ESF === 'object' && typeof CIL === 'object' && typeof EJE === 'object') {
+        console.log('Ninguno de los valores es un número, agregando estado 0');
+        if(item){
+            item.valor = 0
+        }
+        return 0;
+    }
+
+    //VALIDACION 2
+    if ((isESF && !isCIL && !isEJE) || (!isESF && (isCIL && isEJE)) || (isESF && isCIL && isEJE)) {
+        console.log('Combinación válida, agregando estado 1');
+        if(item){
+            item.valor = 1
+        }
+        return 1;
+    } else {
+        if(item){
+            item.valor = 0
+        }
+        console.log('Combinaciones no válidas, agregando estado 0');
+        return 0;
+    }
+
+}
+
+
+
+
+export const combinaciones_validas_od = (ESF:any, CIL:any, EJE:any) => {
+    const item = validationNivel2.value.find(item => item.campo === 'combinaciones_validas');
+
+
+
+    let isESF = typeof parseInt(ESF) === 'string' && !Number.isNaN(ESF);
+    let isCIL = typeof parseInt(CIL) === 'number' && !Number.isNaN(CIL);
+    let isEJE = typeof parseInt(EJE) === 'number' && !Number.isNaN(EJE);
     //VALIDACION 1
     if (typeof ESF === 'object' && typeof CIL === 'object' && typeof EJE === 'object') {
         console.log('Ninguno de los valores es un número, agregando estado 0');

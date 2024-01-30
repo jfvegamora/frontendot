@@ -101,7 +101,7 @@ const FOTReceta:React.FC<IReceta> = ({
                         textAlign="text-center"
                         />
                 </div>
-                <div className="w-[20%] ml-4 justify-between">
+                {/* <div className="w-[20%] ml-4 justify-between">
                     <TextInputComponent
                         type="number"
                         label="Total $"
@@ -114,7 +114,7 @@ const FOTReceta:React.FC<IReceta> = ({
                         isOptional={true}
                         textAlign="text-right"
                         />
-                </div>
+                </div> */}
                 <div className="w-[15%] ml-4">
                     <TextInputComponent
                         type="date"

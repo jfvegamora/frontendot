@@ -33,7 +33,7 @@ import { A1_CR_OD, A1_CR_OI, A1_DP, A1_Diametro, A1_GRUPO_OD, A1_GRUPO_OI, A2_CR
   punto_venta, 
   // reiniciarA2DioptriasReceta, 
   reiniciarDioptriasReceta, reiniciarValidationNivel1, reiniciarValidationNivel2, tipo_de_anteojo, updateOT, validar_parametrizacion } from '../../utils';
-import { validationCliente, validationClienteComuna, validationClienteNombre, validationClienteSexo, validationClienteTelefono, validationClienteTipo, validationEstablecimientos, validationFechaAtencion, validationFechaDespacho, validationFechaEntregaCliente, validationFechaEntregaTaller, validationProyectos, validationPuntoVenta, validationTipoAnteojos, validation_A1_DP, validation_A1_OD_AD, validation_A1_OD_CILL, validation_A1_OD_EJE, validation_A1_OD_ESF, validation_A1_OI_CIL, validation_A1_OI_EJE, validation_A1_OI_ESF, validation_A2_OD_CIL, validation_A2_OD_EJE, validation_A2_OD_ESF, validation_A2_OI_CIL, validation_A2_OI_EJE, validation_A2_OI_ESF, validation_Cristal1_od, validation_Cristal1_oi, validation_Cristal2_od, validation_Cristal2_oi } from '../../utils/validationOT';
+import { validationCliente, validationClienteComuna, validationClienteNombre, validationClienteSexo, validationClienteTelefono, validationClienteTipo, validationEstablecimientos, validationFechaAtencion, validationFechaDespacho, validationFechaEntregaCliente, validationFechaEntregaTaller, validationProyectos, validationPuntoVenta, validationTipoAnteojos, validation_A1_DP, validation_A1_OD_AD, validation_A1_OD_CILL, validation_A1_OD_EJE, validation_A1_OD_ESF, validation_A1_OI_CIL, validation_A1_OI_EJE, validation_A1_OI_ESF, validation_A1_armazon, validation_A2_OD_CIL, validation_A2_OD_EJE, validation_A2_OD_ESF, validation_A2_OI_CIL, validation_A2_OI_EJE, validation_A2_OI_ESF, validation_A2_armazon, validation_Cristal1_color, validation_Cristal1_diametro, validation_Cristal1_diseño, validation_Cristal1_indice, validation_Cristal1_marca, validation_Cristal1_material, validation_Cristal1_od, validation_Cristal1_oi, validation_Cristal1_tratamiento, validation_Cristal2_od, validation_Cristal2_oi } from '../../utils/validationOT';
 // import { inputName } from '../../components/OTForms/Otprueba';
 // import { verificaCampos } from '../../utils/OTReceta_utils';
 import { URLBackend } from '../../hooks/useCrud';
@@ -41,7 +41,7 @@ import { URLBackend } from '../../hooks/useCrud';
 import { Spinner } from '@material-tailwind/react';
 import { toast } from 'react-toastify';
 import { addToArmazones, addToCristales, clearCodigos, fetchOT } from '../../../redux/slices/OTSlice';
-import { validation_tipo_anteojo } from '../../utils/OTReceta_utils';
+import { combinaciones_validas, combinaciones_validas_od, validation_tipo_anteojo } from '../../utils/OTReceta_utils';
 import FOTPendiente from '../../components/OTForms/FOTPendiente';
 import FOTEmpaque from './FOTEmpaque';
 import { usePermission } from '../../hooks';
@@ -576,7 +576,7 @@ const FOT:React.FC<IFOTProps> = ({
       //  console.log(submitAction)
 
     // console.log(jsonData)
-    // console.log('click')
+    console.log(formValues)
     
     //! LOGICA JSON CRISTALES/ARMAZONES COMPARTIDA UPDATE + INSERT
     
@@ -618,24 +618,27 @@ const FOT:React.FC<IFOTProps> = ({
    
 
     if (submitAction === 'pausar') {
-      // console.log('pausar')
-
-      updateOT(
-         jsonData, 
-         OTAreaActual, 
-         OTAreaActual, 
-         30,  
-         formValues, 
-         data, 
-         OTSlice.cristales, 
-         OTSlice.armazones,
-         User["id"].toString()
-      ).then(()=>{
-        console.log(OTAreaActual)
-        dispatch(fetchOT({OTAreas:OTAreaActual}))
-        handleCloseForm()
-      })
-      setSubmitAction('');
+     
+      console.log('pausar')
+     
+      console.log(formValues)
+      
+      // updateOT(
+      //    jsonData, 
+      //    OTAreaActual, 
+      //    OTAreaActual, 
+      //    30,  
+      //    formValues, 
+      //    data, 
+      //    OTSlice.cristales, 
+      //    OTSlice.armazones,
+      //    User["id"].toString()
+      // ).then(()=>{
+      //   console.log(OTAreaActual)
+      //   dispatch(fetchOT({OTAreas:OTAreaActual}))
+      //   handleCloseForm()
+      // })
+      // setSubmitAction('');
       // switchCasePausar(jsonData);
     } else if (submitAction === 'procesar') {
       // switchCaseProcesar(jsonData);
@@ -967,6 +970,7 @@ React.useEffect(() => {
 
 
 if(isEditting){
+  validation_tipo_anteojo()
   
   
   // console.log(OT)
@@ -984,7 +988,6 @@ if(isEditting){
   validationFechaAtencion(data && data[EnumGrid.fecha_atencion])
   validationPuntoVenta(data && data[EnumGrid.punto_venta_id])
   validationTipoAnteojos(data && data[EnumGrid.tipo_anteojo_id])
-  validation_tipo_anteojo()
   
 
 
@@ -999,7 +1002,29 @@ if(isEditting){
   validation_A1_OI_ESF(data && data[EnumGrid.a1_oi_esf])
   validation_A1_OI_CIL(data && data[EnumGrid.a1_oi_cil])
   validation_A1_OI_EJE(data && data[EnumGrid.a1_oi_eje])
-  validation_A1_DP(data && data[EnumGrid.a1_dp])  
+  validation_A1_DP(data && data[EnumGrid.a1_dp])
+
+  validation_A1_armazon(data && data[EnumGrid.a1_armazon_id])
+  validation_A2_armazon(data && data[EnumGrid.a2_armazon_id])
+
+
+  validation_Cristal1_marca(data && data[EnumGrid.cristal1_marca_id])
+  validation_Cristal1_diseño(data && data[EnumGrid.cristal1_diseno_id])
+  validation_Cristal1_indice(data && data[EnumGrid.cristal1_indice_id])
+  validation_Cristal1_material(data && data[EnumGrid.cristal1_material_id])
+  validation_Cristal1_tratamiento(data && data[EnumGrid.cristal1_tratamiento_id])
+  validation_Cristal1_color(data && data[EnumGrid.cristal1_color_id])
+  validation_Cristal1_diametro(data && data[EnumGrid.cristal1_diametro])
+  validation_Cristal1_od(data && data[EnumGrid.cristal1_od])
+  validation_Cristal1_oi(data && data[EnumGrid.cristal1_oi])
+
+
+  combinaciones_validas_od(
+    data && data[EnumGrid.a1_od_esf],
+    data && data[EnumGrid.a1_od_cil],
+    data && data[EnumGrid.a1_od_eje]
+  )
+    
 
 
   
@@ -1097,10 +1122,10 @@ useEffect(() => {
 
     
 
-  // console.log(validationNivel1.value)
-  // console.log(validationNivel2.value)
+  console.log(validationNivel1.value)
+  console.log(validationNivel2.value)
   
-
+  console.log(formValues)
 
 
 
@@ -1141,7 +1166,7 @@ useEffect(() => {
               <FOTOptica onlyRead={onlyRead} setIsMotivo={setIsMotivo} isEditting={isEditting} data={data && data} formValues={formValues["optica"]} control={control} setToggle={setToggle}  onDataChange={(data:any) => handleFormChange(data , 'optica')} permiso_areas_resolucion_garantia={permiso_areas_resolucion_garantia}    permisos_areas_estado_immpresion={permiso_areas_estado_impresion} permiso_areas_estado_validacion={permiso_areas_estado_validacion} permiso_usuario_estado_impresion={permiso_usuario_estado_impresion} permiso_usuario_estado_validacion={permiso_usuario_estado_validacion} permiso_usuario_resolucion_garantia={permiso_usuario_resolucion_garantia} />
             </TabPanel>
             
-          <TabPanel>
+          <TabPanel onSelect={loadFormData}>
             <FOTClientes onlyRead={onlyRead} data={data && data} isEditting={isEditting} register={register} formValues={formValues["cliente"]} control={control} onDataChange={(data:any) => handleFormChange(data , 'cliente')} setExistCliente={setExistCliente}    />
           </TabPanel>
 
@@ -1176,7 +1201,7 @@ useEffect(() => {
 
           {showPendiente && (
             <div>
-              <FOTPendiente closeModal={handleCloseForm} onClose={()=>setShowPendiente(false)} data={data && data}/>
+              <FOTPendiente closeModal={handleCloseForm} onClose={()=>setShowPendiente(false)} data={data && data} formValues={formValues}/>
             </div>
           )}
 

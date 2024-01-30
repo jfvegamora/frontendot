@@ -41,14 +41,11 @@ const FOTArmazones:React.FC<IArmazones> = ({
     //TODO! =========================== ENVIAR DP EN _P4 PARA VALIDAR ARMAZONES ===========================================================================
     //TODO! =========================== ENVIAR Diametro EN _P5 PARA VALIDAR ARMAZONES =====================================================================
 
-    const endpoint = validar_parametrizacion.value === '0' 
-                                                   ? `${URLBackend}/api/armazones/listado/?query=01` 
-                                                   : `${URLBackend}/api/armazones/listado/?query=02&_p2=${codigoProyecto.value}&_p3=${punto_venta.value}`;
+    // const endpoint = validar_parametrizacion.value === '0' 
+    //                                                ? `${URLBackend}/api/armazones/listado/?query=01` 
+    //                                                : `${URLBackend}/api/armazones/listado/?query=02&_p2=${codigoProyecto.value}&_p3=${punto_venta.value}`;
 
-    // const { data:armazon1 } = useSWR( (codArmazon1 && !codArmazon1.trim() === false && validar_parametrizacion.value === '1' ) ? (`${endpoint}&_p1=${codArmazon1 !== ' ' ? codArmazon1.trim() : "aaaa"}&_p4=${typeof A1_DP.value === 'string' ? A1_DP.value : 0}&_p5=${typeof A1_Diametro.value === 'string' ? A1_Diametro.value : ""}`) : (`${endpoint}&_p1=${codArmazon1 !== ' ' ? codArmazon1 && codArmazon1.trim() : "aaaa"}`), fetcher); 
-    // const { data:armazon2 } = useSWR( (codArmazon2 && !codArmazon2.trim() === false && validar_parametrizacion.value === '1' ) ? (`${endpoint}&_p1=${codArmazon2 !== ' ' ? codArmazon2.trim() : "aaaa"}&_p4=${(tipo_de_anteojo.value === '3' ? (typeof A2_DP.value === 'string' ? A2_DP.value : 0) : A1_DP.value)}&_p5=${(tipo_de_anteojo.value === '3' ? (typeof A2_Diametro.value === 'string' ? A2_Diametro.value : "") : A1_Diametro.value)}`) : (`${endpoint}&_p1=${codArmazon2 !== '' ? codArmazon2 && codArmazon2.trim() : "aaaa"}`), fetcher);
-    // const { data:armazon3 } = useSWR( (codArmazon3 && !codArmazon3.trim() === false ) ? (`${endpoint}&_p1=${codArmazon3 !== ' ' ? codArmazon3.trim() : "aaaa"}&_p4=${typeof A1_DP.value === 'string' ? A1_DP.value : 0}&_p5=${typeof A1_Diametro.value === 'string' ? A1_Diametro.value : ""}`) : null , fetcher); 
-
+    const endpoint =`${URLBackend}/api/armazones/listado/?query=02&_p6=${data && data[EnumGrid.validar_parametrizacion_id]}&_p2=${codigoProyecto.value}&_p3=${punto_venta.value}`;
 
 
 

@@ -55,7 +55,6 @@ const ErrorOTModal:React.FC<IDerivacion> = ({
         </div>
 
         <div className="h-[20rem] text-center">
-            {/* {data} */}
             {data && data.length > 0 ? (
               <div>
                 <h1>AREA ACTUAL: {data && data[0][EnumGrid.area]}</h1>

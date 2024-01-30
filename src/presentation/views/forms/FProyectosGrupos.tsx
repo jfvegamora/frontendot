@@ -15,6 +15,8 @@ import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
 import SelectInputTiposComponent from "../../components/forms/SelectInputTiposComponent";
 import { toast } from "react-toastify";
+import { Button } from "@material-tailwind/react";
+import TextInputInteractive from "../../components/forms/TextInputInteractive";
 
 const strBaseUrl = "/api/proyectogrupos/";
 const strEntidad = "Parametrización de Cristales ";
@@ -115,7 +117,7 @@ export function transformUpdateQuery(jsonData: InputData): OutputData | null {
     `armazon_marca     = ${validateSelect(jsonData.armazon_marca)}`,
     `armazon_uso       = ${validateSelect(jsonData.armazon_uso)}`,
     `valor_neto_armazon= ${(jsonData.valor_neto_armazon && jsonData.valor_neto_armazon?.toString())?.length === 0 ? "0" : jsonData.valor_neto_armazon}`,
-    `valor_neto_total  = ${(jsonData.valor_neto_total && jsonData.valor_neto_total?.toString())?.length === 0 ? "0" : jsonData.valor_neto_total}`,
+    `valor_neto_total  = ${(jsonData.valor_neto_cristal && jsonData.valor_neto_cristal as any) + (jsonData.valor_neto_armazon && jsonData.valor_neto_armazon)}`,
     `observaciones     ="${jsonData.observaciones}"`,
   ];
 
@@ -153,6 +155,7 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
     const schema = validationProyectoGruposSchema();
     // const [idCristal, setIdCristal] = useState('');
     const { showModal, CustomModal } = useModal();
+    const [totalNeto, setTotalNeto] = useState(0);
     const { show } = useCustomToast();
     // const {ListEntity:ListEntityCristales} = useCrud("/api/cristaleskardex/");
 
@@ -298,6 +301,10 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
 
     useEffect(() => {
       isEditting ? focusSecondInput("cod_grupo") : focusFirstInput("cod_grupo");
+
+      const totalNeto = data && (data[EnumGrid.valor_neto_cristal] +  data[EnumGrid.valor_neto_armazon])
+      // console.log(totalNeto)
+      setTotalNeto(totalNeto)
     }, []);
 
     // const handleCristalesDescription = async (data: any) => {
@@ -321,6 +328,7 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
 
     // console.log('data', data)
 
+    console.log(totalNeto)
     return (
       <div className="useFormContainer centered-div use60rem">
         {/* <div className="userFormBtnCloseContainer">
@@ -640,11 +648,12 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                   />
                 </div>
                 <div className="w-[20%]">
-                  <TextInputComponent
+                  <TextInputInteractive
                     type="number"
                     label="$ TOTAL NETO"
                     name="valor_neto_total"
-                    data={data && data[EnumGrid.valor_neto_total]}
+                    // data={data && data[EnumGrid.valor_neto_total]}
+                    data={totalNeto}
                     control={control}
                     error={errors.valor_neto_total}
                     isOptional={false}
@@ -658,9 +667,9 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
           <div className="w-full">
             <div className="w-[70%] mx-auto">
               {escritura_lectura && (
-                <button type="submit" tabIndex={1} className="userFormBtnSubmit">
+                <Button type="submit" tabIndex={1} className="userFormBtnSubmit">
                   {`${TITLES.guardar}`}
-                </button>
+                </Button>
               )}
             </div>
           </div>

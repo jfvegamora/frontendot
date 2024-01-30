@@ -76,6 +76,8 @@ const Login: React.FC = React.memo(() => {
     }
   };
 
+
+
   return (
     <div className="loginFormContainer mx-auto w-[90%] md:w-[50%] lg:w-[40%] xl:w-[30%] !mt-[25vh]">
           <h1 className="userFormLabel text-white pt-10 text-2xl md:text-2xl lg:text-3xl xl:text-3xl">Sistema Gestión OT</h1>

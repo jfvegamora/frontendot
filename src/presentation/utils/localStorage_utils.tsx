@@ -14,3 +14,17 @@ export const getImageURL = (name:string) => {
     return new URL(`../../assets/${name}`, import.meta.url).href
 }
 
+
+export function compararFechas(fechaString:string) {
+    const fechaObjeto:any = new Date(fechaString);
+  
+    const fechaActual:any = new Date();
+  
+    const diferenciaEnMilisegundos = fechaActual - fechaObjeto;
+  
+    const diferenciaEnHoras = diferenciaEnMilisegundos / (1000 * 60 * 60);
+    
+
+    return diferenciaEnHoras <= 11;
+  }
+  

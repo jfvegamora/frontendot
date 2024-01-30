@@ -1,14 +1,12 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React from "react";
+import React, { useEffect } from "react";
 import { filterToggle } from "../components/FilterButton";
-import FOTImpresa from "../views/forms/FOTImpresa";
+import { compararFechas } from "../utils";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
-// import { FixedSizeList } from 'react-window';
-// import TableOTComponent from "../components/TableOTComponent";
-// import { table_head_OT_diaria } from "../utils";
-// import FrameComponent from "../components/FrameComponent";
 export const handleContainerClick = (event:React.MouseEvent<HTMLDivElement>) => {
   if (event.target instanceof Element) {
     if (event.target.classList.contains("mantenedorContainer")) {
@@ -19,19 +17,39 @@ export const handleContainerClick = (event:React.MouseEvent<HTMLDivElement>) => 
   }
 }
 
-const LandingPage: React.FC = () => {
-  
 
-  
-  // const result = useAppSelector((store: AppStore) => store.OTS);
-  // console.log(result)
+
+
+const LandingPage: React.FC = () => {
+  const navigate = useNavigate();
+
+
+  useEffect(()=>{
+    const localStorageUser = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user") as string) : [];
+
+    if(localStorageUser["expiracion"]){
+      // console.log(localStorageUser["expiracion"])
+
+      const result = compararFechas(localStorageUser["expiracion"])
+      
+      // console.log(result)
+   
+      //todo true = aun no expirado por ende pasar
+      if(!result){
+        localStorage.removeItem('user')
+        toast.error('Sesion Expirada')
+        navigate('/login');
+      }
+    }
+
+  },[])
 
 
 
   return (
     <div className="mantenedorContainer !h-[80rem]">
       <div className="mt-8 h-full w-fullpt-20">
-        <FOTImpresa/>
+     
       </div>
     </div>
   );

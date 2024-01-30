@@ -20,21 +20,21 @@ const OTAreasButtons:React.FC<IOTAreaButtons> = ({setSelectedRows}) => {
 
 // console.log(OTAreas && OTAreas.areas)
 
-const [botonPresionado, setBotonPresionado] = useState(null);
+// const [_botonPresionado, setBotonPresionado] = useState(null);
 
 const handleEstado = (area:any) => {
     dispatch(clearData())
     setAreaActual(area[1])
     dispatch(updateActualArea(area && area[1]))
     dispatch(updateNextArea(area && area[4]))
-    setBotonPresionado(area && area[1]);
+    // setBotonPresionado(area && area[1]);
     setSelectedRows([]) 
   areaActualRef.current = area[1]
   dispatch(fetchOT({OTAreas:area[1]}))
 }
 
 
-
+// console.log(area[1])
 // console.log('otareas',OTAreas)
 const renderButtons = useMemo(() => {
   return (
@@ -46,7 +46,7 @@ const renderButtons = useMemo(() => {
             {/* <Button className='w-full text-xs h-16 text-center btnAreas' onClick={()=>handleEstado(area)}  key={area[1]}>{area[2]}</Button> */}
               <Button
                 className={`w-full text-xs h-16 text-center btnAreas ${
-                  botonPresionado === area[1] ? 'bg-tuColorPresionado btnPresionado' : 'bg-tuColorNormal'
+                  OTAreas["areaActual"] === area[1] ? 'bg-tuColorPresionado btnPresionado' : 'bg-tuColorNormal'
                 }`}
                 // className={`w-full text-xs h-16 text-center`}
                 onClick={() => handleEstado(area)}

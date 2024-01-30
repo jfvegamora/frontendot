@@ -51,6 +51,7 @@ export const ExportCSV: React.FC<Props> = ({
   let queryString =  query ? query :"";
 
   if (params) {
+    // console.log(params)
     const paramNames = [
       "_p1",
       "_p2",
@@ -68,8 +69,8 @@ export const ExportCSV: React.FC<Props> = ({
       "_pCilindrico",
       "_id",
     ];
-    queryString = params
-      .map((value: string | string[], index: number) => {
+    // queryString = params && params.slice(2)
+    queryString = params.map((value: string | string[], index: number) => {
         const paramName = paramNames[index];
         if (value.includes(`${paramName}=`)) {
           return value;
@@ -150,7 +151,7 @@ export const ExportCSV: React.FC<Props> = ({
         <IconButton variant="text" tabIndex={1} color="blue-gray" className="mx-2 primaryBtnIconButton">
         <FontAwesomeIcon icon={faDownload} className={` ${query ? "gridIcons" : "primaryBtnIcon"}`}
               onClick={() => {
-                if(!query) return setisModalInsert(true)
+                if(!query) return setisModalInsert((prev:any)=>!prev)
                 handleExportEntity()    
               }}  />
         </IconButton>
@@ -167,7 +168,7 @@ export const ExportCSV: React.FC<Props> = ({
                 <h2 className="modalTitle">{EXCEL.title}</h2>
                 <p className="modalSubTitle">{EXCEL.subTitle}</p>
 
-                <div className="flex justify-center">
+                <div className="flex justify-center z-40">
                   <button
                     onClick={() => handleExport(true)}
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mr-2 rounded"

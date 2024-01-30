@@ -516,7 +516,8 @@ export const updateOT =async (
 )  => {
 
   console.log(jsonData)
-
+  console.log(_formValues)
+  console.log(_formValues && _formValues["cristales"] && _formValues["cristales"]["cristal1_marca_id"] !== undefined ? _formValues["cristales"] && parseInt(_formValues["cristales"]["cristal1_marca_id"]): data && data[EnumGrid.cristal1_marca_id])
 
   
   //TODO: INICIO PROCESAR MASIVO
