@@ -2,7 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { AppStore, useAppSelector } from '../../../redux/store';
 import { EnumGrid } from '../mantenedores/MOTHistorica';
 import Barcode from 'react-barcode';
-import { getImageURL } from '../../utils';
+import QRCode from 'react-qr-code';
+// import QRCode from 'qrcode.react';
+
+import { formatNumberWithZeros, getImageURL } from '../../utils';
 
 
 
@@ -37,6 +40,7 @@ const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
 }, [OT && OT[EnumGrid.nombre_logo]]);
 
 
+console.log(OT && OT[EnumGrid.folio])
 
 
   // useEffect(() => {
@@ -289,7 +293,10 @@ const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
         <div className='  w-[90%] !h-[70rem] ' key={index}>
         
         <div className="w-[110%]">
-          <Barcode value={'000000'+ OT[EnumGrid.folio]} />
+          <div className="w-[60%] mx-auto">
+            {/* <Barcode value={'000000'+ OT[EnumGrid.folio]} /> */}
+            <Barcode value={formatNumberWithZeros(OT[EnumGrid.folio])} />
+          </div>
         </div>
 
          
@@ -522,11 +529,17 @@ const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
               </div>
             )}
 
-
             {(OT && OT[EnumGrid.imprime_qr] === 1) && (
               <div>
                 <h1>IMPRIMIENDO QR</h1>
                 <p>IMPRIMIENDO QR</p>
+                {/* <QRCode value={`https://www.ejemplo.com/${OT[EnumGrid.folio]}`} /> */}
+                <QRCode
+                  size={256}
+                  style={{ height: "auto", maxWidth: "100%", width: "100%" }}
+                  value={`https://www.ejemplo.com/${OT[EnumGrid.folio]}`}
+                  viewBox={`0 0 256 256`}
+                  />
               </div>
             )}
 

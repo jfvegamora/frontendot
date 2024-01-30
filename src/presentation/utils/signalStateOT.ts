@@ -758,3 +758,17 @@ const _armazonesJSON = JSON.stringify(armazones)
 
 
 
+
+export function formatNumberWithZeros(inputNumber: number): string {
+  // Convierte el número a cadena y obtén su longitud
+  const numberString = String(inputNumber);
+  const length = numberString.length;
+
+  // Calcula la cantidad de ceros necesarios
+  const zerosToAdd = Math.max(0, 10 - length);
+
+  // Concatena los ceros a la izquierda y el número original
+  const formattedNumber = '0'.repeat(zerosToAdd) + numberString;
+
+  return formattedNumber;
+}

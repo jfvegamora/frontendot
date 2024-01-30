@@ -37,6 +37,8 @@ const ErrorOTModal:React.FC<IDerivacion> = ({
       }, [onClose]);
 
   
+  // console.log(data)
+  // console.log(data.length)
 
   return (
     <div className='useFormContainer useFormDerivacion centered-div use40rem z-30 !bg-red-500'>
@@ -53,9 +55,18 @@ const ErrorOTModal:React.FC<IDerivacion> = ({
         </div>
 
         <div className="h-[20rem] text-center">
-            <h1>AREA ACTUAL: {data && data[0][EnumGrid.area]}</h1>
-            <h1>FOLIO: {data && data[0][EnumGrid.folio]}</h1>
-            <h1>ESTADO: {data && data[0][EnumGrid.estado]}</h1>
+            {/* {data} */}
+            {data && data.length > 0 ? (
+              <div>
+                <h1>AREA ACTUAL: {data && data[0][EnumGrid.area]}</h1>
+                <h1>FOLIO: {data && data[0][EnumGrid.folio]}</h1>
+                <h1>ESTADO: {data && data[0][EnumGrid.estado]}</h1>
+              </div>
+            ) : (
+              <div>
+                <h1>OT NO ENCONTRADA</h1>
+              </div>
+            )}
         </div>
    
 
