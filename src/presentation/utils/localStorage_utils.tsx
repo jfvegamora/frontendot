@@ -1,3 +1,5 @@
+import axios from "axios";
+import { URLBackend } from "../hooks/useCrud";
 
 //Guardar datos en local Storage
 export const persistLocalStorage = <T,>(key:string, value:T) => {
@@ -15,16 +17,23 @@ export const getImageURL = (name:string) => {
 }
 
 
-export function compararFechas(fechaString:string) {
+export async function compararFechas(fechaString:string) {
     const fechaObjeto:any = new Date(fechaString);
   
     const fechaActual:any = new Date();
   
     const diferenciaEnMilisegundos = fechaActual - fechaObjeto;
-  
-    const diferenciaEnHoras = diferenciaEnMilisegundos / (1000 * 60 * 60);
     
+    const {data:tiempoExpiracion} = await axios(`${URLBackend}/api/parametros/listado/?query=01&_p1=p20`)
 
-    return diferenciaEnHoras <= 11;
+    console.log(tiempoExpiracion)
+
+    if(tiempoExpiracion){
+        const diferenciaEnHoras = diferenciaEnMilisegundos / (1000 * 60 * 60);
+        return diferenciaEnHoras <= parseInt(tiempoExpiracion[0][3]);
+    }
+    
+    return false;
+
   }
   

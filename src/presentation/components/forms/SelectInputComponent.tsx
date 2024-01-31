@@ -169,11 +169,6 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     // console.log(state)
 
 
-  
-    if(name === 'cristal1_marca_id'){
-      console.log(data)
-    }
-
 
     useEffect(()=>{
       setStrSelectedName(data)
@@ -204,7 +199,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
                 ref={inputRef ? inputRef : null}
                 disabled={readOnly}
                 tabIndex  ={tabIndex || 1}
-                
+                value={strSelectedName}
                 onChange={(e) => {
                   setState && setState(e.target.value);
                   field.onChange(e);

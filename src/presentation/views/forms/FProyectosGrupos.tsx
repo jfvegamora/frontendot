@@ -17,9 +17,13 @@ import SelectInputTiposComponent from "../../components/forms/SelectInputTiposCo
 import { toast } from "react-toastify";
 import { Button } from "@material-tailwind/react";
 import TextInputInteractive from "../../components/forms/TextInputInteractive";
+import { signal } from "@preact/signals-react";
 
 const strBaseUrl = "/api/proyectogrupos/";
 const strEntidad = "Parametrización de Cristales ";
+
+export const valor_neto_armazones = signal(0);
+export const valor_neto_cristales = signal(0);
 
 export interface InputData {
   proyecto: string | undefined;
@@ -156,6 +160,8 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
     // const [idCristal, setIdCristal] = useState('');
     const { showModal, CustomModal } = useModal();
     const [totalNeto, setTotalNeto] = useState(0);
+    const [totalNetoArmazones, setTotalNetoArmazones] = useState(0)
+    const [totalNetoCristales, setTotalNetoCristales] = useState(0)
     const { show } = useCustomToast();
     // const {ListEntity:ListEntityCristales} = useCrud("/api/cristaleskardex/");
 
@@ -174,6 +180,7 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
       handleSubmit,
       formState: { errors },
       setValue,
+      getValues
     } = useForm({
       resolver: yupResolver(schema),
     });
@@ -303,9 +310,17 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
       isEditting ? focusSecondInput("cod_grupo") : focusFirstInput("cod_grupo");
 
       const totalNeto = data && (data[EnumGrid.valor_neto_cristal] +  data[EnumGrid.valor_neto_armazon])
-      // console.log(totalNeto)
       setTotalNeto(totalNeto)
     }, []);
+
+
+
+    useEffect(()=>{
+      const {valor_neto_cristal, valor_neto_armazon} = getValues()
+
+      setTotalNeto((parseInt(valor_neto_cristal) + parseInt(valor_neto_armazon)) as any)
+      
+    },[totalNetoArmazones, totalNetoCristales])
 
 
 
@@ -330,8 +345,7 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
 
     // console.log('data', data)
 
-    console.log(totalNeto)
-    let valorArmazones = 0
+
     return (
       <div className="useFormContainer centered-div use60rem">
         {/* <div className="userFormBtnCloseContainer">
@@ -562,6 +576,10 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                       error={errors.valor_neto_cristal}
                       isOptional={false}
                       textAlign="text-right"
+                      handleChange={(e)=>{ 
+                        console.log(e)
+                        setTotalNetoCristales(e)
+                      }}
                     />
                   </div>
                 </div>
@@ -632,12 +650,7 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                     error={errors.valor_neto_armazon}
                     isOptional={false}
                     textAlign="text-right"
-                    handleChange={(e)=>{
-                      console.log(e)
-                      
-
-
-                    }}
+                    handleChange={(e)=>{setTotalNetoArmazones(e)}}
                   />
                 </div>
               </div>

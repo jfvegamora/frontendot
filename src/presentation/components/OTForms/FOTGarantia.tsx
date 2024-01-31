@@ -5,6 +5,7 @@ import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
 import { AppStore, useAppSelector } from '../../../redux/store';
 import { useCrud } from '../../hooks';
 import { toast } from 'react-toastify';
+import { Button } from '@material-tailwind/react';
 
 
 interface IProps{
@@ -34,7 +35,8 @@ const FOTGarantia:React.FC<IProps> = ({
     
     const onSubmit: SubmitHandler<FormData> = async(jsonData) =>{
         console.log('jsondata', jsonData)
-        
+        const toastLoading = toast.loading('Cargando...');
+
         try {
             const query = {
                 query:"03",
@@ -48,12 +50,13 @@ const FOTGarantia:React.FC<IProps> = ({
             const nuevoFolio = result && result["datos"][0][0]
             
             
-    
+            toast.dismiss(toastLoading)
             toast.success(`Nueva OT creada con folio: ${nuevoFolio}`)
             onClose() 
         } catch (error:any) {
+            toast.dismiss(toastLoading)
+            toast.error('Error al crear garantía')
             console.log(error)
-            toast.error(error)
         } 
     }
 
@@ -142,7 +145,7 @@ const FOTGarantia:React.FC<IProps> = ({
                 </div>
 
                 <div className=' w-full flex justify-end mx-[-1.5rem]'>
-                    <button  type="submit" className='w-[14%] text-xl text-white bg-green-400'>Nueva OT</button>
+                    <Button  type="submit" className='!w-[20%] text-xl text-white !bg-green-400 userFormBtnSubmit'>Nueva OT</Button>
                 </div>
         </form>
 

@@ -28,20 +28,34 @@ const LandingPage: React.FC = () => {
     const localStorageUser = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user") as string) : [];
 
     if(localStorageUser["expiracion"]){
-      // console.log(localStorageUser["expiracion"])
+      console.log(localStorageUser["expiracion"])
 
-      const result = compararFechas(localStorageUser["expiracion"])
+      compararFechas(localStorageUser["expiracion"]).then((result)=>{
+        console.log(result)
+
+        if(result === false){
+          console.log('render')
+            localStorage.removeItem('user')
+            toast.error('Sesion Expirada')
+            navigate('/login');
+        }
+      })
       
-      // console.log(result)
    
       //todo true = aun no expirado por ende pasar
-      if(!result){
+    }
+  },[])
+
+
+  useEffect(()=>{
+    const localStorageUser = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user") as string) : [];
+    
+    if(!localStorageUser){
         localStorage.removeItem('user')
         toast.error('Sesion Expirada')
         navigate('/login');
-      }
     }
-
+    
   },[])
 
 

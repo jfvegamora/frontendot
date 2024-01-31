@@ -58,7 +58,7 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
   }) => {
     const stateListBox = useAppSelector((store: AppStore) => store.listBoxTipos[entidad]);
     const [entities, setEntities] = useState(stateListBox|| []);
-    const [strSelectedName, _setStrSelectedName] = useState(data || undefined);
+    const [strSelectedName, setStrSelectedName] = useState(data || undefined);
     const inputRef = useRef(null); 
 
     const params = typeof entidad === 'string' ? entidad : `${entidad[0]}&_p2=${entidad[1]}`
@@ -80,6 +80,10 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
     useEffect(() => {
       fetchData();
     }, [entidad, stateListBox]);
+    
+    useEffect(()=>{
+      setStrSelectedName(data)
+    },[data])
     
     const renderInput = () => (
       <Controller
@@ -108,6 +112,7 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
                 ref={inputRef}
                 disabled={readOnly}
                 tabIndex  ={tabIndex || 1}
+                value={strSelectedName}
                 onChange={(e) => {
                   field.onChange(e);
                   setState && setState(e.target.value);
@@ -136,6 +141,7 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
                     
                   </option>
                 )}
+                  
                 
                 {entities && entities.length > 1 &&
                   entities.map((option: any, index: React.Key | null | undefined) => (

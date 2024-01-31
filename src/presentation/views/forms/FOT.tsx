@@ -33,7 +33,7 @@ import { A1_CR_OD, A1_CR_OI, A1_DP, A1_Diametro, A1_GRUPO_OD, A1_GRUPO_OI, A2_CR
   punto_venta, 
   // reiniciarA2DioptriasReceta, 
   reiniciarDioptriasReceta, reiniciarValidationNivel1, reiniciarValidationNivel2, tipo_de_anteojo, updateOT, validar_parametrizacion } from '../../utils';
-import { validationCliente, validationClienteComuna, validationClienteNombre, validationClienteSexo, validationClienteTelefono, validationClienteTipo, validationEstablecimientos, validationFechaAtencion, validationFechaDespacho, validationFechaEntregaCliente, validationFechaEntregaTaller, validationProyectos, validationPuntoVenta, validationTipoAnteojos, validation_A1_DP, validation_A1_OD_AD, validation_A1_OD_CILL, validation_A1_OD_EJE, validation_A1_OD_ESF, validation_A1_OI_CIL, validation_A1_OI_EJE, validation_A1_OI_ESF, validation_A1_armazon, validation_A2_OD_CIL, validation_A2_OD_EJE, validation_A2_OD_ESF, validation_A2_OI_CIL, validation_A2_OI_EJE, validation_A2_OI_ESF, validation_A2_armazon, validation_Cristal1_color, validation_Cristal1_diametro, validation_Cristal1_diseño, validation_Cristal1_indice, validation_Cristal1_marca, validation_Cristal1_material, validation_Cristal1_od, validation_Cristal1_oi, validation_Cristal1_tratamiento, validation_Cristal2_od, validation_Cristal2_oi } from '../../utils/validationOT';
+import { validationCliente, validationClienteComuna, validationClienteNombre, validationClienteSexo, validationClienteTelefono, validationClienteTipo, validationEstablecimientos, validationFechaAtencion, validationFechaDespacho, validationFechaEntregaCliente, validationFechaEntregaTaller, validationProyectos, validationPuntoVenta, validationTipoAnteojos, validation_A1_ALT, validation_A1_DP, validation_A1_OD_AD, validation_A1_OD_CILL, validation_A1_OD_EJE, validation_A1_OD_ESF, validation_A1_OI_AD, validation_A1_OI_CIL, validation_A1_OI_EJE, validation_A1_OI_ESF, validation_A1_armazon, validation_A2_DP, validation_A2_OD_CIL, validation_A2_OD_EJE, validation_A2_OD_ESF, validation_A2_OI_CIL, validation_A2_OI_EJE, validation_A2_OI_ESF, validation_A2_armazon, validation_Cristal1_color, validation_Cristal1_diametro, validation_Cristal1_diseño, validation_Cristal1_indice, validation_Cristal1_marca, validation_Cristal1_material, validation_Cristal1_od, validation_Cristal1_oi, validation_Cristal1_tratamiento, validation_Cristal2_od, validation_Cristal2_oi } from '../../utils/validationOT';
 // import { inputName } from '../../components/OTForms/Otprueba';
 // import { verificaCampos } from '../../utils/OTReceta_utils';
 import { URLBackend } from '../../hooks/useCrud';
@@ -41,7 +41,7 @@ import { URLBackend } from '../../hooks/useCrud';
 import { Spinner } from '@material-tailwind/react';
 import { toast } from 'react-toastify';
 import { addToArmazones, addToCristales, clearCodigos, fetchOT } from '../../../redux/slices/OTSlice';
-import { combinaciones_validas, combinaciones_validas_od, validation_tipo_anteojo } from '../../utils/OTReceta_utils';
+import { combinaciones_validas_od, validation_tipo_anteojo } from '../../utils/OTReceta_utils';
 import FOTPendiente from '../../components/OTForms/FOTPendiente';
 import FOTEmpaque from './FOTEmpaque';
 import { usePermission } from '../../hooks';
@@ -139,26 +139,26 @@ interface FormData {
 }
 
 
-export const validacionNivel1 = [
-  { campo:"proyecto",
-    valor: 0
-  },
-  { campo:"establecimiento_id",
-    valor: 0
-  },
-  { campo:"cliente_rut",
-    valor: 0
-  },
-  { campo:"fecha_atencion",
-    valor: 0
-  },
-  { campo:"punto_venta_id",
-    valor: 0
-  },
-  { campo:"tipo_anteojo_id",
-    valor: 0
-  },
-]
+// export const validacionNivel1 = [
+//   { campo:"proyecto",
+//     valor: 0
+//   },
+//   { campo:"establecimiento_id",
+//     valor: 0
+//   },
+//   { campo:"cliente_rut",
+//     valor: 0
+//   },
+//   { campo:"fecha_atencion",
+//     valor: 0
+//   },
+//   { campo:"punto_venta_id",
+//     valor: 0
+//   },
+//   { campo:"tipo_anteojo_id",
+//     valor: 0
+//   },
+// ]
 
 
 export const validationNivel1 = signal([
@@ -539,7 +539,7 @@ const FOT:React.FC<IFOTProps> = ({
 
         const query = `?query=05&_folio=${_folio}&_estado=${_estado}&_usuario=${userID}&_origen=${_origen}`
         const result = await axios(`${strUrl}/${query}`);
-        // console.log(result)
+        console.log(result)
         if(result.status === 200){
             toast.success('OT anulada ')
         }
@@ -695,8 +695,8 @@ const FOT:React.FC<IFOTProps> = ({
       }
     }));
     // console.log(Object.keys(data)[0])
-    // console.log(name)
-    // console.log(data)
+    console.log(name)
+    console.log(data)
     
 
     //TODO: inputChangeAction 
@@ -707,13 +707,16 @@ const FOT:React.FC<IFOTProps> = ({
       inputChangeActions[key](data);
     }
 
+
+
+
     //todo  INICIO CRISTALES, TRAE GRUPO Y CODIGO DEPENDIENDO DE DATOS DEL CRISTAL 
      // ? ANTEOJO 1: 
     if(changeCodigoCristal_A1[key]){
       // console.log('render')
       const formValue = getValues()
       const {cristal1_marca_id, cristal1_diseno_id, cristal1_indice_id, cristal1_color_id , cristal1_material_id,cristal1_tratamiento_id, cristal1_diametro } = formValue;
- 
+      console.log(A1_Diametro.value)
 
       if(cristal1_marca_id                      !== undefined &&
         cristal1_diseno_id                      !== undefined &&
@@ -721,9 +724,10 @@ const FOT:React.FC<IFOTProps> = ({
         cristal1_color_id                       !== undefined &&
         cristal1_material_id                    !== undefined &&
         cristal1_tratamiento_id                 !== undefined &&
-        cristal1_diametro                       !== ''   
+        A1_Diametro.value                       !== ''   
       ){
-        // console.log('ejecutando llamada...')
+
+        console.log('ejecutando llamada...')
         // console.log('ejecutando llamada...')
 
         const _pkToDelete1_od ={
@@ -733,7 +737,7 @@ const FOT:React.FC<IFOTProps> = ({
           "material":   cristal1_material_id,
           "color":      cristal1_color_id,
           "tratamiento":cristal1_tratamiento_id,
-          "diametro":   cristal1_diametro,
+          "diametro":   A1_Diametro.value,
           "esferico":   dioptrias_receta.value.a1_od.esf ?? 0, 
           "cilindrico": dioptrias_receta.value.a1_od.cil ?? 0
         }
@@ -748,24 +752,24 @@ const FOT:React.FC<IFOTProps> = ({
           "material":   cristal1_material_id,
           "color":      cristal1_color_id,
           "tratamiento":cristal1_tratamiento_id,
-          "diametro":   cristal1_diametro,
+          "diametro":   A1_Diametro.value,
           "esferico":   dioptrias_receta.value.a1_oi.esf ?? 0,
           "cilindrico": dioptrias_receta.value.a1_oi.cil ?? 0, 
         }
 
-        // console.log(_pkToDelete1_oi)
+        console.log(_pkToDelete1_oi)
 
 
         try {
           const pkJSON = JSON.stringify([_pkToDelete1_od, _pkToDelete1_oi])
           const encodedJSON = encodeURIComponent(pkJSON)
 
-          // console.log(encodedJSON)
+          console.log(encodedJSON)
           
-          const {data:cristalesDataOD} = await axios(`${URLBackend}/api/proyectosgrupos/listado/?query=06&_p2=${codigoProyecto.value}&_pkToDelete=${encodedJSON}}`)
+          const {data:cristalesDataOD} = await axios(`${URLBackend}/api/proyectogrupos/listado/?query=06&_p2=${codigoProyecto.value}&_pkToDelete=${encodedJSON}`)
           
           const cristalesDATA = JSON.parse(cristalesDataOD[0][0])
-          // console.log(cristalesDATA)
+          console.log(cristalesDATA)
           
           A1_CR_OD.value = cristalesDATA["CR_OD"].trim() || "   ";
           A1_CR_OI.value = cristalesDATA["CR_OI"].trim() || "   "
@@ -832,10 +836,10 @@ const FOT:React.FC<IFOTProps> = ({
           const pkJSON = JSON.stringify([_pkToDelete1_od, _pkToDelete1_oi])
           const encodedJSON = encodeURIComponent(pkJSON)
 
-          const {data:cristalesDataOI} = await axios(`${URLBackend}/api/proyectosgrupos/listado/?query=06&_p2=${codigoProyecto.value}&_pkToDelete=${encodedJSON}}`)
+          const {data:cristalesDataOI} = await axios(`${URLBackend}/api/proyectosgrupos/listado/?query=06&_p2=${codigoProyecto.value}&_pkToDelete=${encodedJSON}`)
           
           const cristalesDATA = JSON.parse(cristalesDataOI[0][0])
-          // console.log(cristalesDATA)
+          console.log(cristalesDATA)
 
           A2_CR_OD.value = cristalesDATA["CR_OD"].trim() || " ";
           A2_CR_OI.value = cristalesDATA["CR_OI"].trim() || " ";
@@ -1002,10 +1006,26 @@ if(isEditting){
   validation_A1_OI_ESF(data && data[EnumGrid.a1_oi_esf])
   validation_A1_OI_CIL(data && data[EnumGrid.a1_oi_cil])
   validation_A1_OI_EJE(data && data[EnumGrid.a1_oi_eje])
+  validation_A1_OI_AD(data && data[EnumGrid.a1_oi_ad])
   validation_A1_DP(data && data[EnumGrid.a1_dp])
+
+  validation_A1_ALT(data && data[EnumGrid.a1_alt])
+  validation_A1_armazon(data && data[EnumGrid.a1_armazon_id])
+  validation_A2_armazon(data && data[EnumGrid.a2_armazon_id])
+
+  validation_A2_OD_ESF(data && data[EnumGrid.a2_od_esf])
+  validation_A2_OD_CIL(data && data[EnumGrid.a2_od_cil])
+  validation_A2_OD_EJE(data && data[EnumGrid.a2_od_eje])
+
+  validation_A2_OI_ESF(data && data[EnumGrid.a2_oi_esf])
+  validation_A2_OI_CIL(data && data[EnumGrid.a2_oi_cil])
+  validation_A2_OI_EJE(data && data[EnumGrid.a2_oi_eje])
+  validation_A2_DP(data && data[EnumGrid.a2_dp])
 
   validation_A1_armazon(data && data[EnumGrid.a1_armazon_id])
   validation_A2_armazon(data && data[EnumGrid.a2_armazon_id])
+
+
 
 
   validation_Cristal1_marca(data && data[EnumGrid.cristal1_marca_id])
@@ -1125,9 +1145,10 @@ useEffect(() => {
   console.log(validationNivel1.value)
   console.log(validationNivel2.value)
   
-  console.log(formValues)
+  // console.log( OTPermissions && OTPermissions[9])
 
 
+  // console.log(data && data[EnumGrid.validar_parametrizacion_id])
 
   // console.log(OTPermissions && OTPermissions[6] === '1')
   // console.log(isMOT)
@@ -1257,7 +1278,7 @@ useEffect(() => {
                 {OTPermissions           &&
                 escritura_lectura        &&
                 OTPermissions[9] === "1" && 
-                sumatoriaNivel1 === validacionNivel1.length && 
+                sumatoriaNivel1 === validationNivel1.value.length && 
                 // (data && data[EnumGrid.estado_id] === 30 || data && data[EnumGrid.estado_id] === 40 ) && 
                 (
                   <Button className='otActionButton bg-black' onClick={()=>handleAnular()}>Anular</Button>
