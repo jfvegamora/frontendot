@@ -170,7 +170,7 @@ const navListMenuOT = [
   },
   {
     title: "Motivos de OT Derivada",
-    link: "/situaciones",
+    link: "/motivootderivada",
     id: 29,
   },
 ];

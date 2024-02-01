@@ -9,17 +9,17 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import {
   MODAL,
   SUCCESS_MESSAGES,
-  validationSituacionesSchema, TITLES
+  validationMotivosOTDerivadaSchema, TITLES
 } from "../../utils";
 import { TextInputComponent } from "../../components";
 import { useCrud } from "../../hooks";
-import { EnumGrid } from "../mantenedores/MSituaciones";
+import { EnumGrid } from "../mantenedores/MMotivosOTDerivada";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
 import SelectInputTiposComponent from "../../components/forms/SelectInputTiposComponent";
 
-const strBaseUrl = "/api/otsituaciones/";
-const strEntidad = "Situaciones ";
+const strBaseUrl = "/api/otmotivoderivacion/";
+const strEntidad = "Motivos de OT Derivada ";
 // const strQuery = "01";
 
 export interface ISituacionesInputData {
@@ -72,9 +72,9 @@ console.log("update", query);
   return query;
 };
 
-const FSituaciones: React.FC<ISituacionesFormProps> = React.memo(
+const FMotivosOTDerivada: React.FC<ISituacionesFormProps> = React.memo(
   ({ closeModal, setEntities, params, data, label, isEditting, escritura_lectura }) => {
-    const schema = validationSituacionesSchema();
+    const schema = validationMotivosOTDerivadaSchema();
     const { showModal, CustomModal } = useModal();
 
     const { show } = useCustomToast();
@@ -272,4 +272,4 @@ const FSituaciones: React.FC<ISituacionesFormProps> = React.memo(
   }
 );
 
-export default FSituaciones;
+export default FMotivosOTDerivada;

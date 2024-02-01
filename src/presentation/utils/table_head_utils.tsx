@@ -845,7 +845,7 @@ export const table_head_motivos_ot_pendiente = [
     alignment: "items-center"
   },
 ];
-export const table_head_situaciones = [
+export const table_head_motivos_ot_derivada = [
   {
     cell: <input type="checkbox" />,
     key: "checkbox",

@@ -9,7 +9,7 @@ const MOTHistorica          = lazy(()=>import("../presentation/views/mantenedore
 const MClientes             = lazy(()=>import("../presentation/views/mantenedores/MClientes"));
 const MEstablecimientos     = lazy(()=>import("../presentation/views/mantenedores/MEstablecimientos"));
 const MPuntosVenta          = lazy(()=>import("../presentation/views/mantenedores/MPuntosVenta"));
-const MSituaciones          = lazy(()=>import("../presentation/views/mantenedores/MSituaciones"));
+const MMotivosOTDerivada    = lazy(()=>import("../presentation/views/mantenedores/MMotivosOTDerivada"));
 const MMotivosOTPendiente    = lazy(()=>import("../presentation/views/mantenedores/MMotivosOTPendiente"));
 
 const MArmazones            = lazy(()=>import("../presentation/views/mantenedores/MArmazones"));
@@ -65,7 +65,7 @@ export const PrivateRoutes = {
   CLIENTES              : "clientes",
   ESTABLECIMIENTOS      : "establecimientos",
   PUNTOS_VENTA          : "puntosventa",
-  SITUACIONES           : "situaciones",
+  MOTIVOS_OT_DERIVADA   : "motivootderivada",
   MOTIVOS_OT_PENDIENTE  : "motivootpendiente",
 
   //BODEGA
@@ -151,9 +151,9 @@ export const privateRoutes = [
   },
   {
     id                  : "29",
-    path                : PrivateRoutes.SITUACIONES,
-    component           : MSituaciones,
-    requiredPermissions : ['view_' + PrivateRoutes.SITUACIONES]
+    path                : PrivateRoutes.MOTIVOS_OT_DERIVADA,
+    component           : MMotivosOTDerivada,
+    requiredPermissions : ['view_' + PrivateRoutes.MOTIVOS_OT_DERIVADA]
   },
   {
     id                  : "39",

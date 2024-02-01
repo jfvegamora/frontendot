@@ -10,14 +10,14 @@ import {
   PrimaryKeySearch,
   TableComponent,
 } from "../../components";
-import { TITLES , table_head_situaciones } from "../../utils";
-import FSituaciones from "../forms/FSituaciones";
+import { TITLES , table_head_motivos_ot_derivada } from "../../utils";
+import FMotivosOTDerivada from "../forms/FMotivosOTDerivada";
 
 
 
-const strEntidad = "Situaciones ";
-const strEntidadExcel = "Situaciones";
-const strBaseUrl = "/api/otsituaciones/";
+const strEntidad = "Motivos de OT Derivada ";
+const strEntidadExcel = "Motivos_de_OT_Derivada";
+const strBaseUrl = "/api/otmotivoderivacion/";
 const strQuery = "01";
 const idMenu = 29;
 
@@ -29,7 +29,7 @@ export enum EnumGrid {
 }
 
 
-const MSituaciones: React.FC = () => {
+const MMotivosOTDerivada: React.FC = () => {
   const [params, setParams] = useState([]);
   const { escritura_lectura} = usePermission(idMenu || 0 );
   
@@ -46,8 +46,8 @@ const MSituaciones: React.FC = () => {
     setSelectedRows,
     //Modal Methds
     openModal,
-    closeModal,
     isModalInsert,
+    closeModal,
     isModalEdit,
     toggleEditModal,
     
@@ -109,7 +109,7 @@ const MSituaciones: React.FC = () => {
           entidad={strEntidad}
           pkToDelete={pkToDelete}
           data={entities}
-          tableHead={table_head_situaciones}
+          tableHead={table_head_motivos_ot_derivada}
           showEditButton={true}
           showDeleteButton={false}
           idMenu={idMenu}
@@ -118,7 +118,7 @@ const MSituaciones: React.FC = () => {
       </div>
 
       {isModalInsert && (
-        <FSituaciones
+        <FMotivosOTDerivada
           label={`${TITLES.ingreso} ${strEntidad}`}
           closeModal={closeModal}
           selectedRows={selectedRows}
@@ -130,7 +130,7 @@ const MSituaciones: React.FC = () => {
       )}
 
       {isModalEdit && (
-        <FSituaciones
+        <FMotivosOTDerivada
           label={`${TITLES.edicion} ${strEntidad}`}
           closeModal={closeModal}
           selectedRows={selectedRows}
@@ -147,4 +147,4 @@ const MSituaciones: React.FC = () => {
   );
 };
 
-export default MSituaciones;
+export default MMotivosOTDerivada;
