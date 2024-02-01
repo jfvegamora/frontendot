@@ -174,7 +174,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
       setStrSelectedName(data)
     },[data])
 
-    
+
 
     const renderInput = () => (
       <Controller

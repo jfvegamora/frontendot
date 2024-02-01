@@ -40,24 +40,24 @@ const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
 }, [OT && OT[EnumGrid.nombre_logo]]);
 
 
-console.log(OT && OT[EnumGrid.folio])
+// console.log(OT && OT[EnumGrid.folio])
 
 
-  // useEffect(() => {
-  //   const loadLogo = async () => {
-  //     try {
-  //       const dynamicLogo = await import(`../../../assets/${OT[EnumGrid.nombre_logo]}`);
-  //       setLogoPath(dynamicLogo.default);
-  //     } catch (error) {
-  //       console.error('Error loading logo:', error);
-  //       setLogoPath(null);
-  //     }
-  //   };
+  useEffect(() => {
+    const loadLogo = async () => {
+      try {
+        const dynamicLogo = await import(`../../../assets/${OT[EnumGrid.nombre_logo]}`);
+        setLogoPath(dynamicLogo.default);
+      } catch (error) {
+        console.error('Error loading logo:', error);
+        setLogoPath(null);
+      }
+    };
 
-  //   if (OT[EnumGrid.nombre_logo]) {
-  //     loadLogo();
-  //   }
-  // }, [OT && OT[EnumGrid.nombre_logo]]);
+    if (OT[EnumGrid.nombre_logo]) {
+      loadLogo();
+    }
+  }, [OT && OT[EnumGrid.nombre_logo]]);
 
 
 

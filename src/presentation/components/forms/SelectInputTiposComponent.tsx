@@ -134,7 +134,7 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
                   }
  
                 }}
-                className={`"custom-input py-2  cursor-pointer z-0"  ${readOnly ? "custom-onlyread" : isOptional ? "custom-optional" : "custom-required"} `}
+                className={`"custom-input py-2  cursor-pointer z-0"  ${readOnly ? "custom-onlyread" : isOptional ? "custom-optional-with-color" : "custom-required"} `}
                 >
                 {!data && (
                   <option value={undefined} className="text-sm">

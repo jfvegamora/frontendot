@@ -487,34 +487,42 @@ export const validation_Cristal1_tratamiento_adicional = (value:string | any) =>
 
 
 export const validation_Cristal1_oi = (value:string | any) => {
-    if(value !== ''){
-        const item = validationNivel2.value.find(item => item.campo === 'cristal1_oi');
+    const item = validationNivel2.value.find(item => item.campo === 'cristal1_oi');
+    
+
+    if(value.trim() !== ''){
         if (item) {
             item.valor = 1;
         }
     }
-    if(value == ''){
-        const item = validationNivel2.value.find(item => item.campo === 'cristal1_oi');
+    if(value.trim() === ''){
+        // const item = validationNivel2.value.find(item => item.campo === 'cristal1_oi');
         if (item) {
             item.valor = 0;
         }
-    }   
+    }
+    
+    console.log(value.trim())
+    console.log(item)
 }
 
 
 export const validation_Cristal1_od = (value:string | any) => {
+    const item = validationNivel2.value.find(item => item.campo === 'cristal1_od');
     if(value !== ''){
-        const item = validationNivel2.value.find(item => item.campo === 'cristal1_od');
         if (item) {
             item.valor = 1;
         }
     }
-    if(value == ''){
-        const item = validationNivel2.value.find(item => item.campo === 'cristal1_od');
+    if(value === ''){
+        // const item = validationNivel2.value.find(item => item.campo === 'cristal1_od');
         if (item) {
             item.valor = 0;
         }
     }
+
+    console.log(value)
+    console.log(item)
 }
 
 export const validation_Cristal1_diametro = (value:string | any) => {

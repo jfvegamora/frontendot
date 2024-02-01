@@ -244,6 +244,11 @@ select::-ms-expand {
   color: rgba(255, 255, 255, 0.8);
 }
 
+.custom-optional-listbox{
+  background-color: rgba(255, 255, 255, 0.2);
+  color: rgba(0,0,0)
+}
+
 .custom-onlyread{
   background-color:transparent; 
   color: rgba(255, 255, 255, 0.9); 
@@ -252,7 +257,7 @@ select::-ms-expand {
 
 .custom-optional-with-color {
   background-color: rgba(255, 255, 255, 0.2);
-  color: /* Tu nuevo color para el texto en estilo custom-optional */;
+   /* Tu nuevo color para el texto en estilo custom-optional */
 }
 
 .custom-input.error {

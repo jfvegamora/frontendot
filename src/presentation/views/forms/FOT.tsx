@@ -45,6 +45,7 @@ import { combinaciones_validas_od, validation_tipo_anteojo } from '../../utils/O
 import FOTPendiente from '../../components/OTForms/FOTPendiente';
 import FOTEmpaque from './FOTEmpaque';
 import { usePermission } from '../../hooks';
+import FOTAnulacion from '../../components/OTForms/FOTAnulacion';
 
 const FOTArmazones = lazy(()=>import('../../components/OTForms/FOTArmazones'));
 const FOTBitacora = lazy(()=>import('../../components/OTForms/FOTBitacora'));
@@ -516,6 +517,7 @@ const FOT:React.FC<IFOTProps> = ({
   const [showGarantia, setShowGarantia] = useState(false);
   const [showDerivacion, setShowDerivacion] = useState(false);
   const [showPendiente, setShowPendiente]  = useState(false);
+  const [showAnulacion, setShowAnulacion]  = useState(false)
   const [_existCliente, setExistCliente] = useState(false);
   const [isFOTEmpaque, setIsFOTEmpaque]  = useState(false);
   const [submitAction, setSubmitAction] = useState('');
@@ -760,6 +762,7 @@ const FOT:React.FC<IFOTProps> = ({
         console.log(_pkToDelete1_oi)
 
 
+
         try {
           const pkJSON = JSON.stringify([_pkToDelete1_od, _pkToDelete1_oi])
           const encodedJSON = encodeURIComponent(pkJSON)
@@ -770,16 +773,37 @@ const FOT:React.FC<IFOTProps> = ({
           
           const cristalesDATA = JSON.parse(cristalesDataOD[0][0])
           console.log(cristalesDATA)
-          
-          A1_CR_OD.value = cristalesDATA["CR_OD"].trim() || "   ";
-          A1_CR_OI.value = cristalesDATA["CR_OI"].trim() || "   "
-          // A1_GRUPO.value = cristalesDATA["GRUPO"]
 
-          A1_GRUPO_OD.value = cristalesDATA["GRUPO_OD"].trim() || "  "
-          A1_GRUPO_OI.value = cristalesDATA["GRUPO_OI"].trim() || "  "
+          if(cristalesDATA && cristalesDATA["ERROR"] !== ''){
+
+            console.log('hay error')
+            console.log(cristalesDATA)
+
+            toast.error(cristalesDATA["ERROR"])
+
+
+            A1_CR_OD.value = " ";
+            A1_CR_OI.value = " ";
+
+            A1_GRUPO_OD.value    = " ";
+            A1_GRUPO_OI.value    = " ";
+
+            
+
+            validation_Cristal1_od("")
+            validation_Cristal1_oi("")
+          }else{
+            A1_CR_OD.value = cristalesDATA["CR_OD"].trim() || "   ";
+            A1_CR_OI.value = cristalesDATA["CR_OI"].trim() || "   "
+            // A1_GRUPO.value = cristalesDATA["GRUPO"]
+  
+            A1_GRUPO_OD.value = cristalesDATA["GRUPO_OD"].trim() || "  "
+            A1_GRUPO_OI.value = cristalesDATA["GRUPO_OI"].trim() || "  "
+            
+            validation_Cristal1_od(cristalesDATA["CR_OD"])
+            validation_Cristal1_oi(cristalesDATA["CR_OI"])
+          }
           
-          validation_Cristal1_od(cristalesDATA["CR_OD"])
-          validation_Cristal1_oi(cristalesDATA["CR_OI"])
         } catch (error) {
           // console.log(error)
           throw error
@@ -800,7 +824,7 @@ const FOT:React.FC<IFOTProps> = ({
         cristal2_color_id                       !== undefined &&
         cristal2_material_id                    !== undefined &&
         cristal2_tratamiento_id                 !== undefined &&
-        cristal2_diametro                       !== ''   
+        A2_Diametro.value                       !== ''   
       ){
         // console.log('ejecutando llamada.....')
         const _pkToDelete1_od ={
@@ -1148,7 +1172,7 @@ useEffect(() => {
   // console.log( OTPermissions && OTPermissions[9])
 
 
-  // console.log(data && data[EnumGrid.validar_parametrizacion_id])
+  console.log(data && data[EnumGrid.cristal1_diametro])
 
   // console.log(OTPermissions && OTPermissions[6] === '1')
   // console.log(isMOT)
@@ -1226,6 +1250,11 @@ useEffect(() => {
             </div>
           )}
 
+            {showAnulacion && (
+              <div>
+                <FOTAnulacion closeModal={handleCloseForm} onClose={()=>setShowAnulacion(false)} data={data && data}/>
+              </div>
+            )}
           
           <div className='flex items-center mx-auto mt-[1.5rem] justify-around w-1/2 '>
         
@@ -1281,7 +1310,7 @@ useEffect(() => {
                 sumatoriaNivel1 === validationNivel1.value.length && 
                 // (data && data[EnumGrid.estado_id] === 30 || data && data[EnumGrid.estado_id] === 40 ) && 
                 (
-                  <Button className='otActionButton bg-black' onClick={()=>handleAnular()}>Anular</Button>
+                  <Button className='otActionButton bg-black' onClick={()=>setShowAnulacion(prev=>!prev)}> Anular</Button>
                 )}
                 
                 {OTPermissions             &&

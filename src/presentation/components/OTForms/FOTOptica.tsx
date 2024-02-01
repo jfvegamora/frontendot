@@ -60,8 +60,8 @@ const FOTOptica:React.FC<IOptica> = ({
     const handleInputChange = (e:any) => {
         const { name, value } = e;
        
-        // console.log(name)   
-        // console.log(value)
+        console.log(name)   
+        console.log(value)
         
         
         if(name === "proyecto"){
@@ -142,7 +142,7 @@ const FOTOptica:React.FC<IOptica> = ({
     }
 
     // console.log(data && data[EnumGrid.resolucion_garantia_id] === 1 ? 'Aceptada' : 'Rechazada')
-// console.log(codigoProyecto.value)
+console.log(formValues && formValues)
 return (
     <form action="">
         <div className='w-full frameOTForm'>
@@ -154,7 +154,7 @@ return (
                         showRefresh={true}
                         isOT={true}
                         handleSelectChange={handleInputChange}
-                        data={formValues ? formValues["proyecto"]  : data && data[EnumGrid.proyecto_codigo]}
+                        data={formValues ? formValues["proyecto_codigo"]  : data && data[EnumGrid.proyecto_codigo]}
                         control={control}
                         entidad={["/api/proyectos/", "07", userID]}
                         // error={errors.establecimiento}

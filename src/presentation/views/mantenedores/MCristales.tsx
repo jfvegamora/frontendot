@@ -185,7 +185,7 @@ const MCristales: React.FC = () => {
         </div>
       </FilterButton>
 
-      <div className={`width100 scroll ${filterToggle.value ? "!mt-[21rem] !h-[25rem]" : "!mt-[4rem] !h-[40rem]"} `}>
+      <div className={`width100 scroll ${filterToggle.value ? "!mt-[21rem] !h-[19rem]" : "!mt-[4rem] !h-[47rem]"} `}>
         <TableComponent
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
