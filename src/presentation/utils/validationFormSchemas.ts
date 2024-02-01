@@ -89,7 +89,7 @@ export const validationMotivosOTPendienteSchema = () =>
     area       : yup.string().default('0'),
   });
 // Schema SITUACIONES
-export const validationSituacionesSchema = () =>
+export const validationMotivosOTDerivadaSchema = () =>
   yup.object().shape({
     descripcion: yup.string().required(`${msg}`),
     area       : yup.string().default('0'),
