@@ -118,7 +118,7 @@ const OTGrillaButtons:React.FC<AreaButtonsProps> = ({ areaPermissions, toggleEdi
 
     return (
         <div className='flex items-center'>
-            {toggleEditOTModal && (
+            {areaPermissions && areaPermissions[1] === '1' && toggleEditOTModal && (
                 <Tooltip content={BUTTON_MESSAGES.edit.concat(strEntidad)}>
                     <IconButton
                         variant="text"

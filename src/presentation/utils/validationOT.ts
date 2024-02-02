@@ -1,4 +1,4 @@
-import { a1_od_eje, a1_od_esf, a1_oi_ad, a1_oi_esf, dioptrias_receta } from ".";
+import { A1_CR_OD, a1_od_eje, a1_od_esf, a1_oi_ad, a1_oi_esf, dioptrias_receta } from ".";
 import { validationNivel1, validationNivel2 } from "../views/forms/FOT";
 
 export const validationProyectos = (value:string) => {
@@ -509,12 +509,12 @@ export const validation_Cristal1_oi = (value:string | any) => {
 
 export const validation_Cristal1_od = (value:string | any) => {
     const item = validationNivel2.value.find(item => item.campo === 'cristal1_od');
-    if(value !== ''){
+    if(value.trim() !== ''){
         if (item) {
             item.valor = 1;
         }
     }
-    if(value === ''){
+    if(value.trim() === ''){
         // const item = validationNivel2.value.find(item => item.campo === 'cristal1_od');
         if (item) {
             item.valor = 0;
@@ -522,6 +522,7 @@ export const validation_Cristal1_od = (value:string | any) => {
     }
 
     console.log(value)
+    console.log(A1_CR_OD.value)
     console.log(item)
 }
 

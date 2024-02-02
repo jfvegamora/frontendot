@@ -364,6 +364,7 @@ const MOTHistorica: React.FC = () => {
 
       {/* //TODO: BOTONES SECCION PROYECTO REPORTE ATENCION/FIRMA */}
 
+
       <div className="mantenedorHeadOT width100 !h-[4rem] !mt-8 mr-8 items-center ">
         <div className="mx-auto">
 
@@ -381,6 +382,7 @@ const MOTHistorica: React.FC = () => {
 
         </div>
       </div>
+
 
 
 
