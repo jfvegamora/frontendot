@@ -13,13 +13,13 @@ import {
 } from "../../utils";
 import { TextInputComponent } from "../../components";
 import { useCrud } from "../../hooks";
-import { EnumGrid } from "../mantenedores/MMotivosOTPendiente";
+import { EnumGrid } from "../mantenedores/MMotivosOTGarantia";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
 import SelectInputTiposComponent from "../../components/forms/SelectInputTiposComponent";
 
-const strBaseUrl = "/api/otmotivopendiente/";
-const strEntidad = "Motivos de OT Pendiente ";
+const strBaseUrl = "/api/otmotivogarantia/";
+const strEntidad = "Motivos de OT en Garantía ";
 // const strQuery = "01";
 
 export interface ISituacionesInputData {
@@ -72,7 +72,7 @@ console.log("update", query);
   return query;
 };
 
-const FMotivosOTPendiente: React.FC<ISituacionesFormProps> = React.memo(
+const FMotivosOTGarantia: React.FC<ISituacionesFormProps> = React.memo(
   ({ closeModal, setEntities, params, data, label, isEditting, escritura_lectura }) => {
     const schema = validationMotivosOTSchema();
     const { showModal, CustomModal } = useModal();
@@ -272,4 +272,4 @@ const FMotivosOTPendiente: React.FC<ISituacionesFormProps> = React.memo(
   }
 );
 
-export default FMotivosOTPendiente;
+export default FMotivosOTGarantia

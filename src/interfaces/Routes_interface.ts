@@ -10,7 +10,9 @@ const MClientes             = lazy(()=>import("../presentation/views/mantenedore
 const MEstablecimientos     = lazy(()=>import("../presentation/views/mantenedores/MEstablecimientos"));
 const MPuntosVenta          = lazy(()=>import("../presentation/views/mantenedores/MPuntosVenta"));
 const MMotivosOTDerivada    = lazy(()=>import("../presentation/views/mantenedores/MMotivosOTDerivada"));
-const MMotivosOTPendiente    = lazy(()=>import("../presentation/views/mantenedores/MMotivosOTPendiente"));
+const MMotivosOTPendiente   = lazy(()=>import("../presentation/views/mantenedores/MMotivosOTPendiente"));
+const MMotivosOTGarantia    = lazy(()=>import("../presentation/views/mantenedores/MMotivosOTGarantia"));
+const MMotivosOTAnulada     = lazy(()=>import("../presentation/views/mantenedores/MMotivosOTAnulada"));
 
 const MArmazones            = lazy(()=>import("../presentation/views/mantenedores/MArmazones"));
 const MArmazonesKardex      = lazy(()=>import("../presentation/views/mantenedores/MArmazonesKardex"));
@@ -67,6 +69,8 @@ export const PrivateRoutes = {
   PUNTOS_VENTA          : "puntosventa",
   MOTIVOS_OT_DERIVADA   : "motivootderivada",
   MOTIVOS_OT_PENDIENTE  : "motivootpendiente",
+  MOTIVOS_OT_GARANTIA   : "motivootgarantia",
+  MOTIVOS_OT_ANULADA    : "motivootanulada",
 
   //BODEGA
   ARMAZONES             : "armazones",
@@ -160,6 +164,18 @@ export const privateRoutes = [
     path                : PrivateRoutes.MOTIVOS_OT_PENDIENTE,
     component           : MMotivosOTPendiente,
     requiredPermissions : ['view_' + PrivateRoutes.MOTIVOS_OT_PENDIENTE]
+  },
+  {
+    id                  : "40",
+    path                : PrivateRoutes.MOTIVOS_OT_GARANTIA,
+    component           : MMotivosOTGarantia,
+    requiredPermissions : ['view_' + PrivateRoutes.MOTIVOS_OT_GARANTIA]
+  },
+  {
+    id                  : "41",
+    path                : PrivateRoutes.MOTIVOS_OT_ANULADA,
+    component           : MMotivosOTAnulada,
+    requiredPermissions : ['view_' + PrivateRoutes.MOTIVOS_OT_ANULADA]
   },
 
   //BODEGA

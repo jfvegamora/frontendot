@@ -41,7 +41,7 @@ const FOTGarantia:React.FC<IProps> = ({
             const query = {
                 query:"03",
                 _folio: `${data[EnumGrid.folio]}`,
-                _p1:`${jsonData.motivo_garantia}, '${jsonData.observaciones}' `,
+                _p1:`${jsonData.motivo_garantia}, "${jsonData.observaciones}" `,
                 _usuario: userState?.id.toString()
             }
             console.log(query)

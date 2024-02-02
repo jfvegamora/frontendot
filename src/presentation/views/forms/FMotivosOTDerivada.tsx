@@ -9,7 +9,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import {
   MODAL,
   SUCCESS_MESSAGES,
-  validationMotivosOTDerivadaSchema, TITLES
+  validationMotivosOTSchema, TITLES
 } from "../../utils";
 import { TextInputComponent } from "../../components";
 import { useCrud } from "../../hooks";
@@ -74,7 +74,7 @@ console.log("update", query);
 
 const FMotivosOTDerivada: React.FC<ISituacionesFormProps> = React.memo(
   ({ closeModal, setEntities, params, data, label, isEditting, escritura_lectura }) => {
-    const schema = validationMotivosOTDerivadaSchema();
+    const schema = validationMotivosOTSchema();
     const { showModal, CustomModal } = useModal();
 
     const { show } = useCustomToast();

@@ -163,7 +163,14 @@ export const table_head_OT_diaria2 = [
     visible: false,
     alignment: "text-center",
     width: "w-[10trem]"
-  }
+  },
+  {
+    cell: "ESTADO VALIDACION",
+    key: "estado_validacion",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[10trem]"
+  },
 ];
 export const table_head_OT_historica = [
   {
@@ -354,6 +361,13 @@ export const table_head_OT_historica = [
     cell: "POR VENCER",
     key: "por_vencer",
     visible: false,
+  },
+  {
+    cell: "ESTADO VALIDACION",
+    key: "estado_validacion",
+    visible: false,
+    alignment: "text-center",
+    width: "w-[10trem]"
   },
 ];
 export const table_head_OT_bitacora = [
@@ -803,49 +817,7 @@ export const table_head_vitrinas = [
     width: "w-[4rem]",
   },
 ];
-export const table_head_motivos_ot_pendiente = [
-  {
-    cell: <input type="checkbox" />,
-    key: "checkbox",
-    visible: true,
-    width: "w-[5rem]",
-    alignment: "flex justify-center items-center"
-  },
-  {
-    cell: "ID",
-    key: "id",
-    visible: false,
-  },
-  {
-    cell: "Descripción",
-    key: "descripcion",
-    visible: true,
-    width: "w-[18rem]",
-    alignment: "text-left"
-  },
-  {
-    cell: "ID Area",
-    key: "id_area",
-    visible: false,
-    width: "w-[9rem]",
-    alignment: "text-left"
-  },
-  {
-    cell: "Área Exclusiva",
-    key: "area",
-    visible: true,
-    width: "w-[12rem]",
-    alignment: "text-left"
-  },
-  {
-    cell: "",
-    key: "opciones",
-    visible: true,
-    width: "w-[4rem]",
-    alignment: "items-center"
-  },
-];
-export const table_head_motivos_ot_derivada = [
+export const table_head_motivos_ot = [
   {
     cell: <input type="checkbox" />,
     key: "checkbox",
