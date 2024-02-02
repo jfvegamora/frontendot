@@ -11,15 +11,15 @@ import {
   TableComponent,
 } from "../../components";
 import { TITLES , table_head_motivos_ot } from "../../utils";
-import FMotivosOTPendiente from "../forms/FMotivosOTPendiente";
+import FMotivosOTGarantia from "../forms/FMotivosOTGarantia";
 
 
 
-const strEntidad = "Motivos de OT Pendiente ";
-const strEntidadExcel = "Motivos_de_OT_Pendiente";
-const strBaseUrl = "/api/otmotivopendiente/";
+const strEntidad = "Motivos de OT en Garantía ";
+const strEntidadExcel = "Motivos_de_OT_Garantia";
+const strBaseUrl = "/api/otmotivogarantia/";
 const strQuery = "01";
-const idMenu = 39;
+const idMenu = 40;
 
 export enum EnumGrid {
   ID = 1,
@@ -29,7 +29,7 @@ export enum EnumGrid {
 }
 
 
-const MMotivosOTPendiente: React.FC = () => {
+const MMotivosOTGarantia: React.FC = () => {
   const [params, setParams] = useState([]);
   const { escritura_lectura} = usePermission(idMenu || 0 );
   
@@ -118,7 +118,7 @@ const MMotivosOTPendiente: React.FC = () => {
       </div>
 
       {isModalInsert && (
-        <FMotivosOTPendiente
+        <FMotivosOTGarantia
           label={`${TITLES.ingreso} ${strEntidad}`}
           closeModal={closeModal}
           selectedRows={selectedRows}
@@ -130,7 +130,7 @@ const MMotivosOTPendiente: React.FC = () => {
       )}
 
       {isModalEdit && (
-        <FMotivosOTPendiente
+        <FMotivosOTGarantia
           label={`${TITLES.edicion} ${strEntidad}`}
           closeModal={closeModal}
           selectedRows={selectedRows}
@@ -147,4 +147,4 @@ const MMotivosOTPendiente: React.FC = () => {
   );
 };
 
-export default MMotivosOTPendiente;
+export default MMotivosOTGarantia;

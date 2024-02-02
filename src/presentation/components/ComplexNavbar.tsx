@@ -173,6 +173,16 @@ const navListMenuOT = [
     link: "/motivootderivada",
     id: 29,
   },
+  {
+    title: "Motivos de OT en Garantía",
+    link: "/motivootgarantia",
+    id: 40,
+  },
+  {
+    title: "Motivos de OT Anulada",
+    link: "/motivootanulada",
+    id: 41,
+  },
 ];
 
 const navListMenuBodega = [

@@ -10,7 +10,7 @@ import {
   PrimaryKeySearch,
   TableComponent,
 } from "../../components";
-import { TITLES , table_head_motivos_ot_derivada } from "../../utils";
+import { TITLES , table_head_motivos_ot } from "../../utils";
 import FMotivosOTDerivada from "../forms/FMotivosOTDerivada";
 
 
@@ -109,7 +109,7 @@ const MMotivosOTDerivada: React.FC = () => {
           entidad={strEntidad}
           pkToDelete={pkToDelete}
           data={entities}
-          tableHead={table_head_motivos_ot_derivada}
+          tableHead={table_head_motivos_ot}
           showEditButton={true}
           showDeleteButton={false}
           idMenu={idMenu}
