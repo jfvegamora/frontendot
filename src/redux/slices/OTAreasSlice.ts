@@ -33,10 +33,8 @@ const funcionalidadesSlice = createSlice({
     name: 'OTAreas',
     initialState,
     reducers: {
-        updateActualArea: (state, action) => {
-            // Actualiza el área actual en el estado
+        updateActualArea: (state, action:any) => {
             if (state) {
-                // localStorage.setItem('areaActual', JSON.stringify(action.payload))
                 return {
                     ...state,
                     areaActual: action.payload,

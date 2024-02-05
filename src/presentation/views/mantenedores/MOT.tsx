@@ -23,6 +23,7 @@ import FilterButton, { filterToggle } from "../../components/FilterButton";
 import { clearData, clearOTColores, fetchColores, fetchOT } from "../../../redux/slices/OTSlice";
 import StateCountBarOT from "../../components/StateCountBarOT";
 import { signal } from "@preact/signals-react";
+import { updateActualArea } from "../../../redux/slices/OTAreasSlice";
 
 export enum EnumGrid {
   id = 1,
@@ -130,7 +131,7 @@ const MOT: React.FC = () => {
   //  console.log(areaActualRef)
    const interval = setInterval(() => {
     if(params[0] !== ''){
-      console.log('render')
+      // console.log('render')
       dispatch(fetchOT({OTAreas:areaActualOT, searchParams:params[0]})) // Llama fetchOT cada minuto con el área actual
       
     }else{
@@ -195,6 +196,7 @@ const MOT: React.FC = () => {
     dispatch(clearData())
     dispatch(clearOTColores())
     dispatch(fetchColores())
+    dispatch(updateActualArea(undefined))
   }, [])
 
   useEffect(() => {

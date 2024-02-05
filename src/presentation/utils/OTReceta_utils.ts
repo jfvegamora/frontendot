@@ -44,7 +44,7 @@ export const validation_tipo_anteojo = () => {
   ];
 
   const tipoDeAnteojo = tipo_de_anteojo.value;
-  // console.log(tipoDeAnteojo)
+  console.log(tipoDeAnteojo)
 
   const mapping:any = {
       '1': { a1_od_ad: 1, a1_oi_ad: 1, a1_alt: 1, a1_dp: 0, a2_dp: 1, a2_od_esf: 1, a2_od_cil: 1, a2_od_eje: 1, a2_oi_esf: 1, a2_oi_cil: 1, a2_oi_eje: 1, cristal2_marca_id: 1 , cristal2_diseno_id:1, cristal2_indice_id:1, cristal2_material_id:1, cristal2_color_id:1, cristal2_diametro:1, cristal2_tratamiento_id:1, cristal2_od:1, cristal2_oi:1},

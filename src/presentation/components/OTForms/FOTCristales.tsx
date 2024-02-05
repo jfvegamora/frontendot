@@ -1,7 +1,7 @@
 import React from 'react'
 import { SelectInputComponent } from '..';
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
-import { validationOTlevel2 } from '../../utils/validationOT';
+import { validationOTlevel2, validation_Cristal1_od, validation_Cristal1_oi, validation_Cristal2_od, validation_Cristal2_oi } from '../../utils/validationOT';
 import SelectInputTiposComponent from '../forms/SelectInputTiposComponent';
 import { A1_CR_OD, A1_CR_OI, A1_GRUPO_OD, A1_GRUPO_OI, A2_CR_OD, A2_CR_OI, A2_Diametro, A2_GRUPO_OD, A2_GRUPO_OI, a2_od_esf, a2_oi_esf, dioptrias_receta, tipo_de_anteojo } from '../../utils';
 import TextInputInteractive from '../forms/TextInputInteractive';
@@ -60,27 +60,26 @@ const FOTCristales: React.FC<ICristales> = ({
                     console.log('render')
                     _p5 = A1_CR_OI.value
                     console.log(_p5)
-                    const strURLC1OD =  `${URLBackend}/api/cristales/listado/?query=02&_p1=${_p1}&_p2=${_p2}&_p4=${_p4}&_p5=${_p5}&_id=${1}}  `
-
-                        // const strURLC1OD = isEditting
-                        // ? `${URLBackend}/api/cristales/listado/?query=02&_p1=${_p1}&_p2=${_p2}&_p4=${_p4}&_p5=${_p5}&_id=${1}}  `
-                        // : `${URLBackend}/api/cristales/listado/?query=02&_p1=${_p1}&_p2=${_p2}&_p4=${_p4}`
-
-                    const { data: cristal1OD } = await axios(strURLC1OD)
-                    console.log(cristal1OD)
-                    if (cristal1OD && cristal1OD[0] && cristal1OD[0][0]) {
-                        if (typeof cristal1OD[0][0] === 'string') {
-                            A1_CR_OD.value = " ";
-                            toast.error(cristal1OD[0][0])
-                        } else {
-                            console.log('render')
-                            onDataChange({ ['cristal1_marca_id']: cristal1OD[0][0] })
-                            onDataChange({ ['cristal1_diseno_id']: cristal1OD[0][1] })
-                            onDataChange({ ['cristal1_indice_id']: cristal1OD[0][2] })
-                            onDataChange({ ['cristal1_material_id']: cristal1OD[0][3] })
-                            onDataChange({ ['cristal1_color_id']: cristal1OD[0][4] })
-                            onDataChange({ ['cristal1_tratamiento_id']: cristal1OD[0][5] })
-                            onDataChange({ ['cristal1_diametro']: cristal1OD[0][6] })
+                    const strURLC1OD =  `${URLBackend}/api/cristales/listado/?query=02&_p1=${_p1}&_p2=${_p2}&_p4=${_p4}&_p5=${_p5}`
+                                                  
+                    const {data:cristal1OD} = await axios(strURLC1OD)
+                        console.log(cristal1OD)
+                        if (cristal1OD && cristal1OD[0] && cristal1OD[0][0]) {
+                            if (typeof cristal1OD[0][0] === 'string') {
+                                validation_Cristal1_od("")
+                                onDataChange({['']: undefined})
+                                A1_CR_OD.value = " ";
+                                toast.error(cristal1OD[0][0])
+                                
+                            }else{
+                                console.log('render')
+                                onDataChange({['cristal1_marca_id']: cristal1OD[0][0]})
+                                onDataChange({['cristal1_diseno_id']: cristal1OD[0][1]})
+                                onDataChange({['cristal1_indice_id']: cristal1OD[0][2]})
+                                onDataChange({['cristal1_material_id']: cristal1OD[0][3]})
+                                onDataChange({['cristal1_color_id']: cristal1OD[0][4]})
+                                onDataChange({['cristal1_tratamiento_id']: cristal1OD[0][5]})
+                                onDataChange({['cristal1_diametro']: cristal1OD[0][6]})
 
 
                             dioptrias_receta.value.a1_od.esf = cristal1OD[0][7]
@@ -97,16 +96,15 @@ const FOTCristales: React.FC<ICristales> = ({
                 case 'cristal1_oi':
                     _p5 = A1_CR_OD.value
                     console.log(_p5)
-                    const strURLC1OI =  `${URLBackend}/api/cristales/listado/?query=02&_p1=${_p1}&_p2=${_p2}&_p4=${_p4}&_p5=${_p5}&_id=${2}`
+                    const strURLC1OI = `${URLBackend}/api/cristales/listado/?query=02&_p1=${_p1}&_p2=${_p2}&_p4=${_p4}&_p5=${_p5}`
+                                               
 
-                    // const strURLC1OI = isEditting
-                    //     ? `${URLBackend}/api/cristales/listado/?query=02&_p1=${_p1}&_p2=${_p2}&_p4=${_p4}&_p5=${_p5}&_id=${2}`
-                    //     : `${URLBackend}/api/cristales/listado/?query=02&_p1=${_p1}&_p2=${_p2}&_p4=${_p4}`
-
-                    const { data: cristal1OI } = await axios(strURLC1OI)
-
-                    if (cristal1OI && cristal1OI[0] && cristal1OI[0][0]) {
-                        if (typeof cristal1OI[0][0] === 'string') {
+                    const {data:cristal1OI} = await axios(strURLC1OI)
+                    console.log(cristal1OI)
+                    if(cristal1OI && cristal1OI[0] && cristal1OI[0][0]){
+                        if(typeof cristal1OI[0][0] === 'string'){
+                            validation_Cristal1_oi("")
+                            onDataChange({['']: null})
                             A1_CR_OI.value = " ";
                             toast.error(cristal1OI[0][0])
                         } else {
@@ -141,11 +139,14 @@ const FOTCristales: React.FC<ICristales> = ({
                     const { data: cristal2OD } = await axios(strURLC2OD)
 
                     console.log(cristal2OD)
-                    if (cristal2OD && cristal2OD[0] && cristal2OD[0][0]) {
-                        if (typeof cristal2OD[0][0] === 'string') {
+                    if(cristal2OD && cristal2OD[0] && cristal2OD[0][0]){
+                        if(typeof cristal2OD[0][0] === 'string'){
+                            validation_Cristal2_od("")
+                            onDataChange({['']: null})
                             A2_CR_OD.value = " ";
                             toast.error(cristal2OD[0][0])
-                        } else {
+
+                        }else{
                             console.log('render')
                             console.log(cristal2OD[0][0])
                             onDataChange({ ['cristal2_marca_id']: cristal2OD[0][0] })
@@ -181,6 +182,8 @@ const FOTCristales: React.FC<ICristales> = ({
                     if (cristal2OI && cristal2OI[0] && cristal2OI[0][0]) {
                         if (typeof cristal2OI[0][0]) {
                             A2_CR_OI.value = " ";
+                            validation_Cristal2_oi("")
+                            onDataChange({['']: null})
                             toast.error(cristal2OD[0][0])
                         } else {
                             onDataChange({ ['cristal2_marca_id']: cristal2OI[0][0] })
@@ -244,25 +247,26 @@ const FOTCristales: React.FC<ICristales> = ({
 
     const renderGrupo1 = (grupo: string) => {
 
-        const { label, name, data } = gruposDioptrias[grupo]()
-
-
-        return (<div className=''>
-            {/* <div className="w-[55%] mx-auto  absolute top-[-34%] left-[28%]"> */}
-            <div className="">
-                <TextInputInteractive
-                    type='text'
-                    label={label}
-                    name={name}
-                    data={data}
-                    control={control}
-                    // onlyRead={!(permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria)}
-                    onlyRead={name === 'cristal2_grupo2_oi' || name === 'cristal2_grupo2_od' ? (!((isEditting && tipo_de_anteojo.value === '3') && (isEditting && permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria && tipo_de_anteojo.value === '3'))) : !(isEditting && permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria)}
-                    textAlign="text-center"
-                />
-            </div>
-        </div>)
-    }
+        const {label, name, data} = gruposDioptrias[grupo]()
+        
+        
+       return (<div className=''>
+                {/* <div className="w-[55%] mx-auto  absolute top-[-34%] left-[28%]"> */}
+                <div className="">
+                    <TextInputInteractive   
+                        type='text'
+                        label={label}
+                        name={name}
+                        data={data}
+                        control={control}
+                        // onlyRead={!(permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria)}
+                        onlyRead={true}
+                        // onlyRead={ name === 'cristal2_grupo2_oi' || name === 'cristal2_grupo2_od' ? (!((isEditting && tipo_de_anteojo.value === '3') && (isEditting && permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria && tipo_de_anteojo.value === '3' ))) : !(isEditting && permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria)  }
+                        textAlign="text-center"
+                        />  
+                </div>
+            </div>)
+      }
 
     // console.log(tipo_de_anteojo.value)
     return (
