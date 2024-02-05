@@ -55,6 +55,7 @@ const strEntidad = " ";
 const strBaseUrl = "/api/ot/";
 const strQuery = "14";
 const idMenu = 1;
+export const paramsOT = signal('')
 
 
 const MOT: React.FC = () => {
@@ -75,11 +76,12 @@ const MOT: React.FC = () => {
   // console.log(lectura)
   // let a = JSON.parse(localStorage.getItem("ListBoxTipos") as string)  
   // console.log( a["cristalDiseño"] )
-
+  
   const updateParams = (newParams: Record<string, never>) => {
     setParams(Object.keys(newParams).map((key) => newParams[key]));
   };
-
+  
+  // console.log(paramsOT.value)
   const {
     //entities state
     // entities,
@@ -112,10 +114,12 @@ const MOT: React.FC = () => {
     const newPkToDelete = selectedRows?.map((row: number) => ({
       folio: OTs.data[row] && OTs.data[row][EnumGrid.id],
       estado_id: OTs.data[row] && OTs.data[row][3],
+      estado: OTs.data[row] && OTs.data[row][4],
       estado_impresion: OTs.data[row] && OTs.data[row][5],
       armazones: [{ codigo: OTs.data[row] && OTs.data[row][14] }, { codigo: OTs.data[row] && OTs.data[row][15] }],
       cristales: [{ codigo: OTs.data[row] && OTs.data[row][17] }, { codigo: OTs.data[row] && OTs.data[row][18] }],
-      proyecto: OTs.data[row] && OTs.data[row][7],
+      proyecto_codigo: OTs.data[row] && OTs.data[row][7],
+      proyecto: OTs.data[row] && OTs.data[row][8],
       punto_venta: OTs.data[row] && OTs.data[row][6],
 
     }));
@@ -205,6 +209,8 @@ const MOT: React.FC = () => {
 
   // console.log(estadosOT)
 
+  console.log(params)
+
 
   return (
     <div className="mantenedorContainer">
@@ -215,7 +221,7 @@ const MOT: React.FC = () => {
               
         </FilterButton>
         */}
-        <OTAreasButtons  setSelectedRows={setSelectedRows}/>
+        <OTAreasButtons  setSelectedRows={setSelectedRows} params={params} />
 
       </div>
 

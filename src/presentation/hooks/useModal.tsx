@@ -11,19 +11,26 @@ const customStyles = {
     bottom: "auto",
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
+    backgroundColor:'rgb(103 111 157 / 1)',
+    border:"none"
   },
 };
 
 export function useModal() {
   const [modalMessage, setModalMessage] = useState("");
   const [params, setParams] = useState<string[]>([]);
+  const [style, setStyle]   = useState<any>("")
   const [modalResolve, setModalResolve] = useState<(result: boolean) => void>(
     () => () => {}
     );
     const [isModalOpen, setIsModalOpen] = useState(false);
 
   const showModal = useCallback(
-    (message: string, ...props: string[]): Promise<boolean> => {
+    (message: string,style?:string, ...props: string[]): Promise<boolean> => {
+      console.log(style)
+      if(style){
+        setStyle(style)
+      }
       setModalMessage(message);
       setIsModalOpen(true);
       setParams(props);
@@ -59,6 +66,8 @@ export function useModal() {
   //     document.removeEventListener("keydown", handleKeyDown);
   //   };
   // }, [isModalOpen, modalResolve, closeModal]);
+
+  console.log(params)
   const CustomModal = useCallback(
     () => (
       <Modal
@@ -67,32 +76,36 @@ export function useModal() {
         contentLabel="Custom Modal"
         style={customStyles}
         ariaHideApp={false}
-        className="customModal"
+        className={`customModal`}
         overlayClassName="overlay"
       >
-        <h1 className="modalTitle">{modalMessage}</h1>
-
-        <div className="modalButtonContainer">
-          <button
-            tabIndex={1}
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mr-2 rounded w-[7rem]"
-            onClick={() => {
-              closeModal();
-              modalResolve(true);
-            }}
-          >
-            {params[0]}
-          </button>
-          <button
-            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 mx-2 rounded w-[7rem]"
-            onClick={() => {
-              closeModal();
-              modalResolve(false);
-            }}
-          >
-            {params[1]}
-          </button>
+        <div className={`${style}`}>
+          <h1 className="modalTitle text-white">{modalMessage}</h1>
         </div>
+
+          <div className="modalButtonContainer">
+            <button
+              tabIndex={1}
+              className="bg-orange-300 hover:bg-orange-500 text-white font-bold py-2 px-4 mr-2 rounded w-[7rem]"
+              onClick={() => {
+                closeModal();
+                modalResolve(true);
+              }}
+            >
+              {params[0]}
+            </button>
+            <button
+              className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 mx-2 rounded w-[7rem]"
+              onClick={() => {
+                closeModal();
+                modalResolve(false);
+              }}
+            >
+              {params[1]}
+            </button>
+          </div>
+
+
       </Modal>
     ),
     [isModalOpen, modalMessage, params, modalResolve, closeModal]

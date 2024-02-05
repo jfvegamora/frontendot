@@ -62,6 +62,8 @@ export function transformUpdateQuery(
   }
   let _p1 = filteredFields.join(",");
   _p1 = _p1.replace(/'/g, '!');
+
+  console.log(_p1)
   return {
     query: "04",
     _p1,

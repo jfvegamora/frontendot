@@ -21,22 +21,17 @@ type AreaButtonsProps ={
     toggleEditOTModal?:any
     folio?:number;
     entidad?:string;
+    historica?:boolean
 }
 
 const strEntidad = "Orden de Trabajo";
 
-const OTGrillaButtons:React.FC<AreaButtonsProps> = ({ areaPermissions, toggleEditOTModal,folio,entidad }) => {
+const OTGrillaButtons:React.FC<AreaButtonsProps> = ({ areaPermissions, toggleEditOTModal,folio,entidad, historica }) => {
     const dispatch:any                       = useAppDispatch();
     const componentRef                   = useRef();
     const { escritura_lectura }          = usePermission(28);
     const OTAreas:any                    = useAppSelector((store: AppStore) => store.OTAreas);
 
-
-   
-
-    let historica = false;
-    
-    entidad === "Orden de Trabajo Histórico" ? historica = true : historica = false;
 
 
   const handlePrint = useReactToPrint({
@@ -114,11 +109,24 @@ const OTGrillaButtons:React.FC<AreaButtonsProps> = ({ areaPermissions, toggleEdi
             throw error;
         }
       };
-      
+    
 
-    return (
+      console.log( (areaPermissions && areaPermissions[1] === '1'))
+      console.log(historica)
+
+      console.log( historica || (areaPermissions && areaPermissions[1] === '1')  )
+ 
+ 
+
+ return (
         <div className='flex items-center'>
-            {areaPermissions && areaPermissions[1] === '1' && toggleEditOTModal && (
+            
+            {/* { historica || (areaPermissions && areaPermissions[1] === '1')  && */}
+            {/* { historica || */}
+            { 
+            //  (areaPermissions && areaPermissions[1] === '1')  
+            //   &&
+            (
                 <Tooltip content={BUTTON_MESSAGES.edit.concat(strEntidad)}>
                     <IconButton
                         variant="text"

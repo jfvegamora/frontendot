@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
 // import { RiFileExcel2Line } from "react-icons/ri";
 
-import { IconButton, Tooltip } from "@material-tailwind/react";
+import { Button, IconButton, Tooltip } from "@material-tailwind/react";
 import { useCrud } from "../hooks";
 import { EXCEL } from "../utils";
 import useCustomToast from "../hooks/useCustomToast";
@@ -28,8 +28,10 @@ const customStyles = {
     left: "50%",
     right: "auto",
     bottom: "auto",
+    margin:'auto',
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
+    backgroundColor:'rgb(103 111 157 / 1)'
   },
 };
 
@@ -70,6 +72,7 @@ export const ExportCSV: React.FC<Props> = ({
       "_id",
     ];
     // queryString = params && params.slice(2)
+    console.log(params)
     queryString = params.map((value: string | string[], index: number) => {
         const paramName = paramNames[index];
         if (value.includes(`${paramName}=`)) {
@@ -106,8 +109,8 @@ export const ExportCSV: React.FC<Props> = ({
 
   useEffect(() => {
     if(exportAll || exportTable){
-      const primarykey = exportAll ? "" : queryString; 
-
+      const primarykey = exportAll ? "" : params; 
+      console.log(primarykey)
       exportExcel(primarykey, strEntidad)
     }
   }, [exportAll, exportTable]);
@@ -125,7 +128,7 @@ export const ExportCSV: React.FC<Props> = ({
       const primaryKey =`_p1=${entity[1]}&_p2=${entity[4]}`;
 
       const nombreExcel = `${strEntidad}_${entity[1]}_${entity[5]}_${entity[6]}`
-      // console.log('primaryKey',primaryKey)
+      console.log('primaryKey',primaryKey)
 
       const data = [{
         proyecto: `${entity[1]}`,
@@ -163,30 +166,33 @@ export const ExportCSV: React.FC<Props> = ({
                 onRequestClose={() => setisModalInsert(false)}
                 contentLabel={EXCEL.title}
                 style={customStyles}
+                // className='bg-red-500'
                 overlayClassName="overlay"
               >
-                <h2 className="modalTitle">{EXCEL.title}</h2>
-                <p className="modalSubTitle">{EXCEL.subTitle}</p>
+                <div className="w-full ">
+                  <h2 className="modalTitle w-[60%] border-n mx-auto text-white ">{EXCEL.title}</h2>
+                </div>
+                <p className="modalSubTitle !text-white">{EXCEL.subTitle}</p>
 
                 <div className="flex justify-center z-40">
-                  <button
+                  <Button
                     onClick={() => handleExport(true)}
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mr-2 rounded"
+                    className="bg-orange-400 hover:bg-orange-700 text-white font-bold py-2 px-4 mr-2 rounded"
                   >
                     {EXCEL.exportAll}
-                  </button>
-                  <button
+                  </Button>
+                  <Button
                     onClick={() => handleExport(false)}
-                    className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+                    className="bg-orange-400 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded"
                   >
                     {EXCEL.exportUnit}
-                  </button>
-                  <button
+                  </Button>
+                  <Button
                     onClick={() => setisModalInsert(false)}
                     className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 mx-2 rounded"
                   >
                     {EXCEL.cancel}
-                  </button>
+                  </Button>
                 </div>
               </Modal>
           )} 

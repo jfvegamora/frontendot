@@ -68,7 +68,7 @@ const MProyectosDocum: React.FC = () => {
       resetEntities,
     } = useEntityUtils(strBaseUrl, strQuery);
     // console.log("entities:", entities);
-    console.log("selectedRows", selectedRows);
+    // console.log("selectedRows", selectedRows);
   
     const [pkToDelete, setPkToDelete] = useState<string[]>([])
     const strParamsToDelete = '_pkToDelete' // _p3/_p1/_pkToDelete
@@ -103,7 +103,7 @@ const MProyectosDocum: React.FC = () => {
                   type: "select",
                   selectUrl: "/api/tipos/",
                   tipos: "TipoDoc", styles:{with:"!mt-[0.5rem]  w-[17rem]"},
-                  _p1:"1,2,3,4,5,6,7"
+                  _p1:"1,2,3,4,5,6,7,8"
                 },
                 { name: "_p2", label: "N° Documento", type: "text", styles:{with:" !w-[9rem]"},},
                 // { name: "_p2", label: "Código Proyecto", type: "text", styles:{with:" !w-[9rem]"}, },

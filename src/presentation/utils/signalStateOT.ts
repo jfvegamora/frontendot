@@ -515,11 +515,12 @@ export const updateOT =async (
   situacion?:any,
 )  => {
 
-  console.log(jsonData)
-  console.log(_formValues)
-  console.log(_formValues && _formValues["cristales"] && _formValues["cristales"]["cristal1_marca_id"] !== undefined ? _formValues["cristales"] && parseInt(_formValues["cristales"]["cristal1_marca_id"]): data && data[EnumGrid.cristal1_marca_id])
+  // console.log(jsonData)
+  // console.log(_formValues)
+  // console.log(data)
 
   
+  let motivo = data && data[EnumGrid.motivo] === 'Garantía' ? 2 : 1;
   //TODO: INICIO PROCESAR MASIVO
   if(isMasivo){
     
@@ -540,7 +541,8 @@ export const updateOT =async (
       _armazonesJSON: JSON.stringify(data.armazones),
       _punto_venta: `${data.punto_venta}`,
       _cristalJSONOri: JSON.stringify(data.cristales),
-      _armazonJSONOri: JSON.stringify(data.armazones)
+      _armazonJSONOri: JSON.stringify(data.armazones),
+      _motivo:  `${motivo}`
     }
 
     console.log(query)
@@ -562,13 +564,11 @@ export const updateOT =async (
 
   let estado_impresion = 1;
   let estado_validacion = 1;
-  let motivo = 1;
+  
+
   // let _rut = ""
   let _p3 = ""
-  console.log(dioptrias_receta.value.a1_oi)
 
-  console.log(typeof dioptrias_receta.value.a1_oi.eje !== 'object' && !Number.isNaN(dioptrias_receta.value.a1_oi.eje) ? dioptrias_receta.value.a1_oi.eje : null )
-  // console.log((`cristales1_tratamiento_adicional=${_formValues && typeof _formValues["cristales"] && _formValues["cristales"]["cristal1_tratamiento_adicional_id"]      === 'undefined' ? data && data[EnumGrid.cristal1_tratamiento_adicional_id] : _formValues["cristales"] && parseInt(_formValues["cristales"]["cristal1_tratamiento_adicional_id"])}`))
 
   const fields = [
     `motivo=${motivo}`,
@@ -724,22 +724,16 @@ const _armazonesJSON = JSON.stringify(armazones)
     _cristalesJSON,
     _armazonesJSON,
     _punto_venta: `${jsonData.punto_venta_id || data[EnumGrid.punto_venta_id]}`,
-
-
+    _motivo: `${motivo}`,
     // _cristalJSONOri: JSON.stringify(OTSlice.cristales),
     // _armazonJSONOri: JSON.stringify(OTSlice.armazones)
-
     _cristalJSONOri: JSON.stringify(cristalOri),
     _armazonJSONOri: JSON.stringify(armazonOri)
     
 
   };
-
-  console.log(_p1)
-
-  console.log(query)
-
-
+  // console.log(_p1)
+  // console.log(query)
   try {
     const response = await axios.post(`${URLBackend}/api/ot/editar/`, query)
 

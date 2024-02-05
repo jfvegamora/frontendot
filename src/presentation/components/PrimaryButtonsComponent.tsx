@@ -227,10 +227,9 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
                 className="primaryBtnIconButton"
                 disabled={!escritura_lectura}
                 onClick={() => {
-                  showModal(MODAL.delete, MODAL.deleteYes, MODAL.deleteNo).then(
+                  showModal(MODAL.delete, '',MODAL.deleteYes, MODAL.deleteNo).then(
                     (result) => {
                       if (result) {
-                        console.log("comilla", comilla);
                         comilla
                           ? handleDeleteSelected(pkToDelete, comilla)
                           : handleDeleteSelected(pkToDelete);

@@ -151,7 +151,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
     }
 
 
-
+    console.log(entidad)
 
 
     const renderTextCell = (text: string, alignment?:string, type?:number, color2?:boolean, rowData?:any, backgroundAtrasadas?:boolean) => {
@@ -202,7 +202,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
               folio={folio}
               toggleEditOTModal={toggleEditOTModal}
               entidad={entidad}
-              
+              historica={entidad === 'Orden de Trabajo Histórico' ? true : false}
               
             />
             </>

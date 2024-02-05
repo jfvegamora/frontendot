@@ -46,7 +46,6 @@ import FOTPendiente from '../../components/OTForms/FOTPendiente';
 import FOTEmpaque from './FOTEmpaque';
 import { usePermission } from '../../hooks';
 import FOTAnulacion from '../../components/OTForms/FOTAnulacion';
-import { updateActualArea } from '../../../redux/slices/OTAreasSlice';
 
 const FOTArmazones = lazy(()=>import('../../components/OTForms/FOTArmazones'));
 const FOTBitacora = lazy(()=>import('../../components/OTForms/FOTBitacora'));
@@ -842,7 +841,7 @@ const FOT:React.FC<IFOTProps> = ({
     if(changeCodigoCristal_A1[key]){
       // console.log('render')
       const formValue = getValues()
-      const {cristal1_marca_id, cristal1_diseno_id, cristal1_indice_id, cristal1_color_id , cristal1_material_id,cristal1_tratamiento_id, cristal1_diametro } = formValue;
+      const {cristal1_marca_id, cristal1_diseno_id, cristal1_indice_id, cristal1_color_id , cristal1_material_id,cristal1_tratamiento_id } = formValue;
       console.log(A1_Diametro.value)
       console.log(formValue)
 
@@ -940,7 +939,7 @@ const FOT:React.FC<IFOTProps> = ({
     //? ANTEOJO 2:
     if(changeCodigoCristal_A2[key]){
       const formValue = getValues()
-      const {cristal2_marca_id, cristal2_diseno_id, cristal2_indice_id, cristal2_color_id , cristal2_material_id,cristal2_tratamiento_id, cristal2_diametro } = formValue;
+      const {cristal2_marca_id, cristal2_diseno_id, cristal2_indice_id, cristal2_color_id , cristal2_material_id,cristal2_tratamiento_id } = formValue;
       // console.log(formValue.cristal2_diametro)
       // console.log(A2_Diametro.value)
 
@@ -1258,10 +1257,10 @@ useEffect(() => {
                 isEditting               &&
                 escritura_lectura        && 
                 OTPermissions[6] === "1" &&
-                sumatoriaNivel1 === validationNivel1.value.length &&
+                sumatoriaNivel1  === validationNivel1.value.length &&
                 (sumatoriaNivel2 === validationNivel2.value.length || data && data[EnumGrid.validar_parametrizacion_id] === "0" ) &&
                (
-                  <Button className='otActionButton bg-green-400' onClick={handleProcesarClick}>Procesar</Button>
+                  <Button className='otActionButton bg-green-400 hover:bg-green-700' onClick={handleProcesarClick}>Procesar</Button>
                 )}
 
                 
@@ -1272,7 +1271,7 @@ useEffect(() => {
                 escritura_lectura        &&
                 OTPermissions[7] === "1" &&
                 (
-                  <Button className='otActionButton bg-yellow-700' onClick={()=>setShowPendiente((prev)=>!prev)}>Pausar</Button>
+                  <Button className='otActionButton bg-yellow-700 hover:bg-yellow-900' onClick={()=>setShowPendiente((prev)=>!prev)}>Pausar</Button>
                 )}
 
                 {OTPermissions           &&
@@ -1280,9 +1279,9 @@ useEffect(() => {
                 isEditting               &&
                 escritura_lectura        &&
                 OTPermissions[8] === "1" &&
-                sumatoriaNivel1 === validationNivel1.value.length &&
+                sumatoriaNivel1  === validationNivel1.value.length &&
                 data && data[EnumGrid.estado_id] > 1 && (
-                  <Button className='otActionButton bg-red-900' onClick={()=>{setShowDerivacion((prev)=>!prev)}}>Derivar</Button>
+                  <Button className='otActionButton bg-red-700 hover:bg-red-900' onClick={()=>{setShowDerivacion((prev)=>!prev)}}>Derivar</Button>
                 )}
 
 
@@ -1290,7 +1289,7 @@ useEffect(() => {
                 {OTPermissions           &&
                 escritura_lectura        &&
                 OTPermissions[9] === "1" && 
-                sumatoriaNivel1 === validationNivel1.value.length && 
+                sumatoriaNivel1  === validationNivel1.value.length && 
                 // (data && data[EnumGrid.estado_id] === 30 || data && data[EnumGrid.estado_id] === 40 ) && 
                 (
                   <Button className='otActionButton bg-black' onClick={()=>setShowAnulacion(prev=>!prev)}> Anular</Button>
@@ -1300,7 +1299,7 @@ useEffect(() => {
                 !isEditting                &&
                 escritura_lectura          &&
                  OTPermissions[10] === "1" &&
-                 sumatoriaNivel1 === validationNivel1.value.length &&
+                 sumatoriaNivel1  === validationNivel1.value.length &&
                  (
                   <Button className='otActionButton bg-blue-500' onClick={handleIngresarClick}>Ingresar</Button>
                  )

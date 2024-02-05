@@ -43,6 +43,13 @@ export const validationOTGuiaSchema = () =>
     fecha_doc       : yup.string().required(`${msg}`),
   });
 
+  //Schema OT Asignacion numero envio 
+export const validationOTNumeroEnvio = () =>
+  yup.object().shape({
+    numero_doc      : yup.string().required(`${msg}`),
+    fecha_doc       : yup.string().required(`${msg}`),
+  });
+
 // Schema CLIENTES
 export const validationClientesSchema = (isEditting?:boolean) =>
   yup.object().shape({

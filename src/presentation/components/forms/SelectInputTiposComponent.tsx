@@ -114,6 +114,7 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
                 tabIndex  ={tabIndex || 1}
                 value={strSelectedName}
                 onChange={(e) => {
+                  setStrSelectedName(e.target.value)
                   field.onChange(e);
                   setState && setState(e.target.value);
                   field.onChange(e);

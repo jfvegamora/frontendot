@@ -158,7 +158,7 @@ const FOTAnulacion:React.FC<IDerivacion> = ({
                             showRefresh={true}
                             isOT={true}
                             control={control}
-                            entidad={["/api/otsituaciones/", "02", "60"]}
+                            entidad={["/api/otmotivoanulacion/", "02", "60"]}
                             customWidth={"w-[] ml-[1rem] mr-[-1rem] mt-[2rem]"}
                         />
                     </div>

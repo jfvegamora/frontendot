@@ -187,6 +187,8 @@ const FCargos: React.FC<ICargosFormProps> = React.memo(
 
           toast.dismiss(toastLoading)
         } catch (error: any) {
+          toast.dismiss(toastLoading)
+          toast.error('Error')
           console.log("error cargos form:", error);
           show({
             message: error,

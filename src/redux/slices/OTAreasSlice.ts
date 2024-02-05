@@ -22,7 +22,6 @@ export const fetchOTAreas = createAsyncThunk('OTAreas/fetchOTAreas',async()=>{
     try {
         const response = await axios.get(`${URLBackend}/api/otareas/listado/?query=01`);
         
-        console.log(response.data)
         return response.data
     } catch (error) {
         throw error
