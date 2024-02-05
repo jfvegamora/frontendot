@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { RadioButtonComponent, SelectInputComponent } from '..'
-import { SEXO, TIPO_CLIENTE, codigoProyecto, isExistClient } from '../../utils';
+import { MODAL, SEXO, TIPO_CLIENTE, codigoProyecto, isExistClient } from '../../utils';
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
 import { EnumGrid as EnumClientes } from '../../views/mantenedores/MClientes';
 import axios from 'axios';
@@ -10,6 +10,7 @@ import { URLBackend } from '../../hooks/useCrud';
 
 import { toast } from 'react-toastify';
 import TextInputInteractive from '../forms/TextInputInteractive';
+import { useModal } from '../../hooks/useModal';
 
 
 interface IClientes {
@@ -34,6 +35,13 @@ const FOTClientes:React.FC<IClientes> = ({
     isEditting,
 }) => {
     const [_clienteData, setClienteData] = useState()
+    const { showModal, CustomModal } = useModal();
+    
+    
+    
+    
+    
+    
     const fetchCliente = async(cliente_rut:string) => {
         try {
             const cliente = await axios(`${URLBackend}/api/ot/listado/?query=13&_rut=${cliente_rut}`)
@@ -68,7 +76,30 @@ const FOTClientes:React.FC<IClientes> = ({
 
 
                     } else if (typeof mensaje === 'string' && mensaje.startsWith('ERROR:')) {
-                      toast.error(cliente.data[0][0])
+                      const result = await showModal(
+                        cliente.data[0][0] + "  Desea Continuar?",
+                        "h-[7rem] mt-2",
+                        MODAL.keepYes,
+                        MODAL.kepNo
+                      );
+
+                      console.log(result)
+
+
+                      if(result){
+                        const {data} = await axios(`${URLBackend}/api/clientes/listado/?query=01&_p1=${cliente_rut}`)
+                        console.log(data)
+                        //TODO: METODO PARA PASAR DARA A INPUTS
+                      }else{
+                        //TODO: METODO PARA LIMPIAR LOS INPUTS
+                      }
+                      
+
+
+
+
+
+
                     }
                   } else if (Array.isArray(innerArray) && innerArray.length === 17) {
                     setClienteData(data)
@@ -306,6 +337,7 @@ const FOTClientes:React.FC<IClientes> = ({
 
             </div>
         </div>
+        <CustomModal/>
     </form>
   )
 }

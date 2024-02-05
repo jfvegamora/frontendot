@@ -39,9 +39,10 @@ const FOTGarantia:React.FC<IProps> = ({
 
         try {
             const query = {
-                query:"03",
-                _folio: `${data[EnumGrid.folio]}`,
-                _p1:`${jsonData.motivo_garantia}, "${jsonData.observaciones}" `,
+                query:    "03",
+                _folio:  `${data[EnumGrid.folio]}`,
+                _p1:     `"${jsonData.observaciones}"`,
+                _p2:     `${jsonData.motivo_garantia}`,
                 _usuario: userState?.id.toString()
             }
             console.log(query)
@@ -61,7 +62,7 @@ const FOTGarantia:React.FC<IProps> = ({
     }
 
     //LOGICA OT GARANTIA
-    console.log(data)
+    // console.log(data)
   return (
     <div className='useFormContainer h-[50%] w-[60%] left-[20%] top-[30%] z-30'>
         <div className=" flex justify-end w-full">

@@ -201,18 +201,21 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
                 tabIndex  ={tabIndex || 1}
                 value={strSelectedName}
                 onChange={(e) => {
+                  setStrSelectedName(e.target.value)
                   setState && setState(e.target.value);
                   field.onChange(e);
                   if(isOT){
                     handleSelectChange &&  handleSelectChange(e.target)
                   }
                   if (setHandleSearch) {
-                    const selectedValue = e.target.value.toString();;
+                    const selectedValue = e.target.value.toString();
                     handleSelectChange(name, selectedValue);
                     const inputValuesToUpdate = {
                       ...inputValues,
                       [name]: selectedValue,
                     };
+
+                    console.log('INPUTVALUES', inputValuesToUpdate)
                     if (setHandleSearch) {
                       setHandleSearch(inputValuesToUpdate);
                     }

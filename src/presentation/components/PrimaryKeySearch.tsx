@@ -11,6 +11,8 @@ import SelectInputTiposComponent from "./forms/SelectInputTiposComponent";
 import { AppStore, useAppDispatch, useAppSelector } from "../../redux/store";
 import { fetchOT } from "../../redux/slices/OTSlice";
 import { useCrud } from "../hooks";
+import { toast } from "react-toastify";
+import { paramsOT } from "../views/mantenedores/MOT";
 
 interface IPrimaryKeyState {
   [key: string]: string | number;
@@ -52,6 +54,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
     );
     const dispatch = useAppDispatch();
     const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas);
+    const OTs:any = useAppSelector((store: AppStore) => store.OTS.data);
     const { ListEntity } = useCrud(baseUrl);
     // console.log("cristalDescritpion", cristalDescritpion[3]);
     
@@ -84,6 +87,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
         console.log(updatedParams)
         
         updateParams({updatedParams});
+        paramsOT.value = updatedParams
 
         
       },
@@ -117,6 +121,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
       // filterToggle.value = false;
       // console.log(data)
       // console.log(cilindrico)
+      const toastLoading = toast.loading('Buscando...');
       if ("_pCilindrico" in data || "_pEsferico" in data) {
         data = {
           ...data,
@@ -148,12 +153,24 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                             ?  dispatch(fetchOT({OTAreas:OTAreas["areaActual"], searchParams:searchParams, historica:true}))
                             :  baseUrl === '/api/ot/' ? dispatch(fetchOT({OTAreas:OTAreas["areaActual"], searchParams:searchParams, historica:false}))  :  await ListEntity(searchParams, "01")
 
-
+        
+        toast.dismiss(toastLoading)
+        console.log('RESPONSE:',)
+        if(Array.isArray(response) && response.length === 0){
+          toast.success('Búsqueda Realizada: 0 resultados',{autoClose:1500})
+        }else{
+          // toast.success(`Busqueda Realizada: ${baseUrl === '/api/ot/' || otHistorica ?  OTs.length :   response.length } resultados`,{autoClose:1500})
+          toast.success('Busqueda Realizada',{autoClose:1500})
+        }
         setEntities(response);
       } catch (error) {
+        toast.dismiss(toastLoading)
         return error;
       }
     }, [OTAreas["areaActual"]]);
+
+
+
 
     const handleKeyDown = React.useCallback(
       (e: React.KeyboardEvent<HTMLInputElement>) => {

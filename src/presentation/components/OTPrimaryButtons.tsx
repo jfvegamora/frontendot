@@ -1,4 +1,4 @@
-import { IconButton, Tooltip, Button } from '@material-tailwind/react';
+import { IconButton, Tooltip, Button, Input } from '@material-tailwind/react';
 import React, { useCallback, useRef, useState } from 'react';
 
 import { SiAddthis } from 'react-icons/si';
@@ -17,6 +17,7 @@ import FOTImpresa from '../views/forms/FOTImpresa';
 import axios from 'axios';
 import { URLBackend } from '../hooks/useCrud';
 import ErrorOTModal from './ErrorOTModal';
+import FOTEmpaque from '../views/forms/FOTEmpaque';
 
 type AreaButtonsProps ={
     areaName:string;
@@ -51,6 +52,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
     const User:any                                    = useAppSelector((store: AppStore) => store.user)
     const componentRef                                = useRef();
     const [isShowErrorOTModal, setIsShowErrorOTModal] = useState(false)
+    const [isFOTEmpaque, setIsFOTEmpaque]             = useState(false);
     const [dataOT, setDataOT]                         = useState();
     const [valueSearchOT, setValueSearchOT]           = useState<any>();
     const searchOTRef                                 = useRef<any>();
@@ -260,7 +262,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
     // console.log(areaPermissions)
 
     return (
-    <div className='flex items-center   ml-[4rem] !w-[50rem]'>
+    <div className='flex items-center   ml-[4rem] !w-full'>
         {areaPermissions && areaPermissions[0] === "1" && escritura_lectura && (
           renderButton(
             <SiAddthis className="primaryBtnIcon " />,
@@ -309,7 +311,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
               onClick={handleProcesarMasivo}>Procesar</Button>
           </Tooltip>
         )}
-         {areaPermissions && areaPermissions[0] === "1" && escritura_lectura && (
+         {areaPermissions && areaPermissions[13] === "1" && escritura_lectura && (
           <Tooltip content={BUTTON_MESSAGES.procesar} >
             <Button color="green" className='otActionButton mx-4' onClick={()=>handleDownloadMacro()}>Macro Excel</Button>
           </Tooltip>
@@ -323,12 +325,22 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
         {/* {areaPermissions && areaPermissions[0] === "1" && escritura_lectura && (
         )} */}
 
-          <div>
-            <input type="text" name='searchOT' placeholder='Buscar OT' ref={searchOTRef} onBlur={(e:any)=>handleChecked(e.target.value)} value={valueSearchOT} onChange={(e:any)=>setValueSearchOT(e.target.value)} />
+          <div className='ml-2'>
+            <Input type="text" label='Buscar OT' name='searchOT' color='orange' ref={searchOTRef} onBlur={(e:any)=>handleChecked(e.target.value)} value={valueSearchOT} onChange={(e:any)=>setValueSearchOT(e.target.value)} />
           </div>
+
+          {areaPermissions && areaPermissions[12] === "1" && escritura_lectura && (
+          <div className='ml-2'>
+            <Button onClick={()=>setIsFOTEmpaque((prev)=>!prev)}>N° de Envio</Button>
+          </div>
+          )}
 
         {isShowErrorOTModal && (
           <ErrorOTModal onClose={()=>setIsShowErrorOTModal(false)} data={dataOT && dataOT}/>
+        )}
+
+        {isFOTEmpaque && (
+          <FOTEmpaque closeModal={()=>setIsFOTEmpaque(false)} setSelectedRows={setSelectedRows}  pktoDelete={pkToDelete} params={params}/>
         )}
     </div>
 )}

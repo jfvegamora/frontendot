@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { AppStore, useAppDispatch, useAppSelector } from '../../redux/store';
 import { Button } from "@material-tailwind/react";
 import { updateActualArea, updateNextArea } from '../../redux/slices/OTAreasSlice';
@@ -6,12 +6,13 @@ import { clearData, fetchOT } from '../../redux/slices/OTSlice';
 
 
 interface IOTAreaButtons {
-  setSelectedRows:any
+  setSelectedRows:any;
+  params: any;
 }
 
 
 
-const OTAreasButtons:React.FC<IOTAreaButtons> = ({setSelectedRows}) => {
+const OTAreasButtons:React.FC<IOTAreaButtons> = ({setSelectedRows, params}) => {
   const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas);
   const dispatch = useAppDispatch()
   const [_areaActual, setAreaActual] = useState()
@@ -22,7 +23,9 @@ const OTAreasButtons:React.FC<IOTAreaButtons> = ({setSelectedRows}) => {
 
 const [botonPresionado, setBotonPresionado] = useState(null);
 
-const handleEstado = (area:any) => {
+ 
+
+const handleEstado = useCallback((area:any) => {
     dispatch(clearData())
     setAreaActual(area[1])
     dispatch(updateActualArea(area && area[1]))
@@ -30,8 +33,14 @@ const handleEstado = (area:any) => {
     setBotonPresionado(area && area[1]);
     setSelectedRows([]) 
    areaActualRef.current = area[1]
-   dispatch(fetchOT({OTAreas:area[1]}))
-}
+
+   if(params){
+    // console.log(params)
+    dispatch(fetchOT({OTAreas:area[1], searchParams:params}))
+   }else{
+     dispatch(fetchOT({OTAreas:area[1]}))
+   }
+},[params])
 
 
 
@@ -61,7 +70,7 @@ const renderButtons = useMemo(() => {
       </div>
     ))
   );
-}, [OTAreas]);
+}, [OTAreas, params]);
 
 
 

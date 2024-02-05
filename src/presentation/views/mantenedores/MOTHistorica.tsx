@@ -24,6 +24,7 @@ import { URLBackend } from "../../hooks/useCrud";
 import { clearData, fetchOT } from "../../../redux/slices/OTSlice";
 import StateCountBarOT from "../../components/StateCountBarOT";
 import { signal } from "@preact/signals-react";
+import { ExportCSV } from "../../components/ExportToCsv";
 
 export enum EnumGrid {
   folio = 1,
@@ -380,6 +381,7 @@ const MOTHistorica: React.FC = () => {
           <Button className='otActionButton mt-3 mx-5' style={{ backgroundColor: '#676f9d' }} onClick={() => setShowGuia((prev) => !prev)}>Asignar N° Guía</Button>
           {showGuia         && <FOTGuiaDespacho pktoDelete={pktoDelete } setSelectedRows={setSelectedRows} closeModal={() => setShowGuia(false)} />}
 
+          <ExportCSV strEntidad={strEntidad} params={params} strBaseUrl={strBaseUrl}/>  
         </div>
       </div>
 
