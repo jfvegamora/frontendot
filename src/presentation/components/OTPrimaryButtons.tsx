@@ -278,6 +278,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
              strEntidad={strEntidad}
              params={params}
              strBaseUrl={strBaseUrl}
+             OTAreas={OTAreas["areaActual"]}
           />
           </div>
         )}

@@ -1,13 +1,14 @@
 import React from 'react'
 import { SelectInputComponent } from '..';
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
-import { validationOTlevel2, validation_Cristal1_od, validation_Cristal1_oi, validation_Cristal2_od, validation_Cristal2_oi } from '../../utils/validationOT';
+import { validationOTlevel2, validationOTlevel3, validation_Cristal1_od, validation_Cristal1_oi, validation_Cristal2_od, validation_Cristal2_oi } from '../../utils/validationOT';
 import SelectInputTiposComponent from '../forms/SelectInputTiposComponent';
 import { A1_CR_OD, A1_CR_OI, A1_GRUPO_OD, A1_GRUPO_OI, A2_CR_OD, A2_CR_OI, A2_Diametro, A2_GRUPO_OD, A2_GRUPO_OI, a2_od_esf, a2_oi_esf, dioptrias_receta, tipo_de_anteojo } from '../../utils';
 import TextInputInteractive from '../forms/TextInputInteractive';
 import axios from 'axios';
 import { URLBackend } from '../../hooks/useCrud';
 import { toast } from 'react-toastify';
+import { AppStore, useAppSelector } from '../../../redux/store';
 
 
 interface ICristales {
@@ -36,6 +37,7 @@ const FOTCristales: React.FC<ICristales> = ({
     permiso_usuario_grupo_dioptria,
     isEditting
 }) => {
+    const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas["areaActual"]);
 
 
     const handleInputChange = async (e: any) => {
@@ -47,6 +49,7 @@ const FOTCristales: React.FC<ICristales> = ({
 
 
         validationOTlevel2(name, value)
+        validationOTlevel3(name, value)
 
         // if (isEditting && data) {
         //     const _p1 = data[EnumGrid.proyecto_codigo]
@@ -269,6 +272,10 @@ const FOTCristales: React.FC<ICristales> = ({
       }
 
     // console.log(tipo_de_anteojo.value)
+    console.log(OTAreas)
+    
+    
+    
     return (
         <form>
             <div className='w-full flex frameOTForm'>
@@ -372,19 +379,58 @@ const FOTCristales: React.FC<ICristales> = ({
                                     </div>
                                 </div>
 
-                                <div className="w-full flex mt-6 rowForm centertDIV">
-                                    <TextInputInteractive
-                                        control={control}
-                                        type="number"
-                                        label="Diámetro"
-                                        name="cristal1_diametro"
-                                        handleChange={handleInputChange}
-                                        isOT={true}
-                                        data={formValues ? formValues["cristal1_diametro"] : data && data[EnumGrid.cristal1_diametro]}
-                                        customWidth={'w-[8rem]'}
-                                        onlyRead={!(!isEditting || (permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria))}                                        // error={errors.fecha_nacimiento}
-                                        textAlign="text-center"
-                                    />
+                                <div className="w-full  flex mt-6 rowForm centertDIV  relative">
+                                    {OTAreas === 60 && (
+                                    <div className="w-[40%] absolute -left-0">
+                                            <TextInputInteractive
+                                                type="text"
+                                                label="Validar Cristal OD"
+                                                name="validar_cristal1_od"
+                                                handleChange={handleInputChange}
+                                                // data={A1_CR_OD.value || data && data[EnumGrid.cristal1_od]}
+                                                control={control}
+                                                isOT={true}
+                                                // onlyRead={!(isEditting && (permiso_areas_cristales && permiso_usuario_cristales))}
+                                                textAlign="text-center"
+                                            />
+
+                                    </div>
+
+                                    )}
+
+                                    <div className="w-[20%] mr-2">
+                                        <TextInputInteractive
+                                            control={control}
+                                            type="number"
+                                            label="Diámetro"
+                                            name="cristal1_diametro"
+                                            handleChange={handleInputChange}
+                                            isOT={true}
+                                            data={formValues ? formValues["cristal1_diametro"] : data && data[EnumGrid.cristal1_diametro]}
+                                            customWidth={'w-[8rem]'}
+                                            onlyRead={!(!isEditting || (permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria))}                                        // error={errors.fecha_nacimiento}
+                                            textAlign="text-center"
+                                        />
+
+                                    </div>
+                                    {OTAreas === 60 && (
+                                        <div className="w-[40%] absolute right-0">
+                                            <TextInputInteractive
+                                                type="text"
+                                                label="Validar Codigo Cristal OI"
+                                                name="validar_cristal1_oi"
+                                                handleChange={handleInputChange}
+                                                // data={A1_CR_OD.value || data && data[EnumGrid.cristal1_od]}
+                                                control={control}
+                                                isOT={true}
+                                                // onlyRead={!(isEditting && (permiso_areas_cristales && permiso_usuario_cristales))}
+                                                textAlign="text-center"
+                                            />
+
+                                        </div>
+
+                                    )}
+
                                 </div>
 
                                 <div className="w-full flex mt-6 rowForm ">
@@ -548,7 +594,26 @@ const FOTCristales: React.FC<ICristales> = ({
                                     </div>
                                 </div>
 
-                                <div className="w-full flex mt-6 rowForm centertDIV">
+                                <div className="w-full flex mt-6 rowForm centertDIV relative">
+                                {OTAreas === 60 && (
+                                    <div className="w-[40%] absolute -left-0">
+                                            <TextInputInteractive
+                                                type="text"
+                                                label="Validar Cristal OD"
+                                                name="validar_cristal2_od"
+                                                handleChange={handleInputChange}
+                                                // data={A1_CR_OD.value || data && data[EnumGrid.cristal1_od]}
+                                                control={control}
+                                                isOT={true}
+                                                // onlyRead={!(isEditting && (permiso_areas_cristales && permiso_usuario_cristales))}
+                                                textAlign="text-center"
+                                            />
+
+                                    </div>
+
+                                    )}
+
+                                <div className="w-[20%] mr-2">
                                     <TextInputInteractive
                                         type="number"
                                         label="Diámetro"
@@ -561,6 +626,27 @@ const FOTCristales: React.FC<ICristales> = ({
                                         customWidth={'w-[8rem]'}
                                         textAlign="text-center"
                                     />
+                                </div>
+
+                                {OTAreas === 60 && (
+                                        <div className="w-[40%] absolute right-0">
+                                            <TextInputInteractive
+                                                type="text"
+                                                label="Validar Codigo Cristal OI"
+                                                name="validar_cristal2_oi"
+                                                handleChange={handleInputChange}
+                                                // data={A1_CR_OD.value || data && data[EnumGrid.cristal1_od]}
+                                                control={control}
+                                                isOT={true}
+                                                // onlyRead={!(isEditting && (permiso_areas_cristales && permiso_usuario_cristales))}
+                                                textAlign="text-center"
+                                            />
+
+                                        </div>
+
+                                    )}
+
+
                                 </div>
 
                                 <div className="w-full flex mt-6 rowForm ">

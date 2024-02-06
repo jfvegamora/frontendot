@@ -11,6 +11,7 @@ import { Button } from '@material-tailwind/react';
 interface IProps{
     data?:any,
     onClose:any,
+    closeModal?:any
 }
 
 interface FormData{
@@ -26,7 +27,8 @@ const strBaseUrl = "/api/othistorica/"
 
 const FOTGarantia:React.FC<IProps> = ({
     data,
-    onClose
+    onClose,
+    closeModal
 }) => {
     const {control, handleSubmit} = useForm<FormData>();
     const userState = useAppSelector((store: AppStore) => store.user);
@@ -53,7 +55,7 @@ const FOTGarantia:React.FC<IProps> = ({
             
             toast.dismiss(toastLoading)
             toast.success(`Nueva OT creada con folio: ${nuevoFolio}`)
-            onClose() 
+            closeModal()
         } catch (error:any) {
             toast.dismiss(toastLoading)
             toast.error('Error al crear garantía')
@@ -64,15 +66,22 @@ const FOTGarantia:React.FC<IProps> = ({
     //LOGICA OT GARANTIA
     // console.log(data)
   return (
-    <div className='useFormContainer h-[50%] w-[60%] left-[20%] top-[30%] z-30'>
-        <div className=" flex justify-end w-full">
-            <h2 className='text-2xl' onClick={onClose}>X</h2>
+    // <div className='useFormContainer h-[50%] w-[60%] left-[20%] top-[30%] z-30'>
+    <div className='useFormContainer useFormDerivacion centered-div use40rem z-30'>
+          <div className="userFormBtnCloseContainer flex ">
+            <div className='w-[50%] mx-auto !text-center  '>
+                <h1 className='userFormLabel mx-auto  w-full '>Nueva OT por garantía</h1>
+            </div>
+            <div className=''>
+                <button onClick={onClose} className="userFormBtnClose">
+                    X
+                </button>
+            </div>
         </div>
-        <form className='text-center' onSubmit={handleSubmit(onSubmit)}>
-                <h1 className='text-2xl mt-2'>Nueva OT por garantía</h1> 
+        <form className='userFormulario' onSubmit={handleSubmit(onSubmit)}>
 
                 <div className="flex  items-center rowForm w-full">
-                    <div className="w-[25%] ml-4">
+                    <div className="w-[30%]">
                         <TextInputComponent
                             type="text"
                             label="Folio OT"
@@ -83,9 +92,11 @@ const FOTGarantia:React.FC<IProps> = ({
                             // handleChange={handleInputChange}
                             // data={formValues && formValues["rut"]}
                             // error={errors.fecha_nacimiento}
+                            customWidth={"mt-[2rem]"}
+
                         />
                     </div>
-                    <div className="w-[35%] ml-4">
+                    <div className="w-[70%]">
                         <TextInputComponent
                             type="text"
                             label="Proyecto"
@@ -95,26 +106,29 @@ const FOTGarantia:React.FC<IProps> = ({
                             onlyRead={true}
                             // handleChange={handleInputChange}
                             // data={formValues && formValues["rut"]}
-                            // error={errors.fecha_nacimiento}
-                        />
-                    </div>
-                    <div className="w-[35%] ml-4">
-                        <TextInputComponent
-                            type="text"
-                            label="Nombre Cliente"
-                            name="nombre_cliente"
-                            control={control}
-                            data={data && data[EnumGrid.cliente_nomnbre]}
-                            onlyRead={true}
-                            // handleChange={handleInputChange}
-                            // data={formValues && formValues["rut"]}
-                            // error={errors.fecha_nacimiento}
+                            customWidth={"mt-[2rem]"}
+
                         />
                     </div>
                 </div>
 
+
                 <div className="w-full flex items-center rowForm">
-                    <div className="w-[98.5%] ml-8 !my-4">
+                    <div className="w-full">
+                            <TextInputComponent
+                                type="text"
+                                label="Nombre Cliente"
+                                name="nombre_cliente"
+                                control={control}
+                                data={data && data[EnumGrid.cliente_nomnbre]}
+                                onlyRead={true}
+                                customWidth={"mt-[2rem]"}
+                            />
+                        </div>
+                </div>
+
+                <div className="input-container items-center rowForm">
+                    <div className="w-full">
                         <SelectInputComponent
                             label="Motivo Garantia"
                             name="motivo_garantia"
@@ -126,13 +140,14 @@ const FOTGarantia:React.FC<IProps> = ({
                             // data={formValues && formValues["proyectos"]}
                             entidad={["/api/tipos/", "02", "OTMotivoGarantia"]}
                             // error={errors.establecimiento}
-                            // customWidth={"345px"}
+                            customWidth={"w-[] ml-[1rem] mr-[-1rem] mt-[2rem]"}
+
                         />
                     </div>
                 </div>
 
                 <div className=" w-full flex items-center rowForm">
-                    <div className="w-[98%] ml-4">
+                    <div className="w-full">
                         <TextInputComponent
                             type="text"
                             label="Observaciones"
@@ -141,12 +156,14 @@ const FOTGarantia:React.FC<IProps> = ({
                             // handleChange={handleInputChange}
                             // data={formValues && formValues["rut"]}
                             // error={errors.fecha_nacimiento}
+                            customWidth={"mt-[2rem]"}
+
                         />
                     </div>
                 </div>
 
-                <div className=' w-full flex justify-end mx-[-1.5rem]'>
-                    <Button  type="submit" className='!w-[20%] text-xl text-white !bg-green-400 userFormBtnSubmit'>Nueva OT</Button>
+                <div className=' flex justify-center'>
+                    <Button  type="submit" className=' !bg-green-400 otActionButton'>Nueva OT</Button>
                 </div>
         </form>
 

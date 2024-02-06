@@ -8,7 +8,6 @@ import { validationClienteComuna, validationClienteNombre, validationClienteSexo
 import RegProCom from '../RegProCom';
 import { URLBackend } from '../../hooks/useCrud';
 
-import { toast } from 'react-toastify';
 import TextInputInteractive from '../forms/TextInputInteractive';
 import { useModal } from '../../hooks/useModal';
 
@@ -39,8 +38,55 @@ const FOTClientes:React.FC<IClientes> = ({
     
     
     
+    const setDataInputs = (cliente:any) =>{
+        console.log(cliente)
+
+        if(cliente){
+            setClienteData(data)
+            isExistClient.value = true;
+            onDataChange({['cliente_nombre']: cliente.data[0][EnumClientes.nombre]})    
+            onDataChange({['cliente_sexo']: cliente.data[0][EnumClientes.sexo]})
+            onDataChange({['cliente_tipo']: cliente.data[0][EnumClientes.tipo]})
+
+            onDataChange({['cliente_fecha_nacimiento']: cliente.data[0][EnumClientes.fecha_nacimiento]})
+            onDataChange({['cliente_correo']: cliente.data[0][EnumClientes.correo]})
+            onDataChange({['cliente_telefono']: cliente.data[0][EnumClientes.telefono]})
+            onDataChange({['cliente_region']: cliente.data[0][EnumClientes.region_id]})
+            onDataChange({['cliente_provincia']: cliente.data[0][EnumClientes.provincia_id]})
+            onDataChange({['cliente_comuna']: cliente.data[0][EnumClientes.comuna_id]})
+            onDataChange({['cliente_direccion']: cliente.data[0][EnumClientes.direccion]})
+
+
+            validationClienteNombre(cliente.data[0][EnumClientes.nombre])
+            validationClienteTipo(cliente.data[0][EnumClientes.tipo])
+            validationClienteSexo(cliente.data[0][EnumClientes.sexo])
+            validationClienteComuna(cliente.data[0][EnumClientes.comuna_id])
+            validationClienteTelefono(cliente.data[0][EnumClientes.telefono])
+        }
+    }
     
-    
+    const clearInputs = ()=>{
+        onDataChange({['cliente_rut']: " "})  
+        onDataChange({['cliente_nombre']: " "})    
+        onDataChange({['cliente_sexo']: " "})
+        onDataChange({['cliente_tipo']: " "})
+        onDataChange({['cliente_fecha_nacimiento']: " "})
+        onDataChange({['cliente_correo']: " "})
+        onDataChange({['cliente_telefono']: " "})
+
+
+
+        onDataChange({['cliente_region']:0})
+        onDataChange({['cliente_comuna']:0})
+        onDataChange({['cliente_provincia']:0})
+        onDataChange({['cliente_direccion']: " "})
+
+        validationClienteNombre("")
+        validationClienteSexo("")
+        validationClienteTipo("")
+        validationClienteComuna(NaN)
+        validationClienteTelefono("")
+    }
     
     const fetchCliente = async(cliente_rut:string) => {
         try {
@@ -78,28 +124,19 @@ const FOTClientes:React.FC<IClientes> = ({
                     } else if (typeof mensaje === 'string' && mensaje.startsWith('ERROR:')) {
                       const result = await showModal(
                         cliente.data[0][0] + "  Desea Continuar?",
-                        "h-[7rem] mt-2",
+                        "h-[7rem]  mt-2",
                         MODAL.keepYes,
                         MODAL.kepNo
                       );
-
-                      console.log(result)
-
-
                       if(result){
-                        const {data} = await axios(`${URLBackend}/api/clientes/listado/?query=01&_p1=${cliente_rut}`)
-                        console.log(data)
+                        const cliente = await axios(`${URLBackend}/api/clientes/listado/?query=01&_p1=${cliente_rut}`)
                         //TODO: METODO PARA PASAR DARA A INPUTS
+                        setDataInputs(cliente)
                       }else{
                         //TODO: METODO PARA LIMPIAR LOS INPUTS
+                        clearInputs()
                       }
                       
-
-
-
-
-
-
                     }
                   } else if (Array.isArray(innerArray) && innerArray.length === 17) {
                     setClienteData(data)

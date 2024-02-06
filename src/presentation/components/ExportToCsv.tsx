@@ -19,6 +19,7 @@ type Props = {
   customExport?:boolean;
   query?:string;
   entity?:any;
+  OTAreas?:any
 };
 
 
@@ -42,7 +43,8 @@ export const ExportCSV: React.FC<Props> = ({
   strEntidad,
   query,
   entity,
-  customExport
+  customExport,
+  OTAreas
 }) => {
   const [isModalInsert, setisModalInsert] = useState(false);
   const [exportAll, setExportAll] = useState(false);
@@ -50,40 +52,40 @@ export const ExportCSV: React.FC<Props> = ({
   const { show } = useCustomToast();
 
   const { exportEntity } = useCrud(strBaseUrl || "");
-  let queryString =  query ? query :"";
+  // let queryString =  query ? query :"";
+  
+  // if (params) {
+  //   // console.log(params)
+  //   const paramNames = [
+  //     "_p1",
+  //     "_p2",
+  //     "_p3",
+  //     "_p4",
+  //     "_pMarca",
+  //     "_pProveedor",
+  //     "_pDiseño",
+  //     "_pIndice",
+  //     "_pMaterial",
+  //     "_pColor",
+  //     "_pTratamiento",
+  //     "_pDiametro",
+  //     "_pEsferico",
+  //     "_pCilindrico",
+  //     "_id",
+  //   ];
+  //   queryString = params && params.slice(2)
+  //   console.log(queryString)
+  //   queryString = params.map((value: string | string[], index: number) => {
+  //       const paramName = paramNames[index];
+  //       if (value.includes(`${paramName}=`)) {
+  //         return value;
+  //       }
+  //       return value !== "" ? `${paramName}=${value}` : "";
+  //     })
+  //     .filter((param: string) => param !== "")
+  //     .join("&");
 
-  if (params) {
-    // console.log(params)
-    const paramNames = [
-      "_p1",
-      "_p2",
-      "_p3",
-      "_p4",
-      "_pMarca",
-      "_pProveedor",
-      "_pDiseño",
-      "_pIndice",
-      "_pMaterial",
-      "_pColor",
-      "_pTratamiento",
-      "_pDiametro",
-      "_pEsferico",
-      "_pCilindrico",
-      "_id",
-    ];
-    // queryString = params && params.slice(2)
-    console.log(params)
-    queryString = params.map((value: string | string[], index: number) => {
-        const paramName = paramNames[index];
-        if (value.includes(`${paramName}=`)) {
-          return value;
-        }
-        return value !== "" ? `${paramName}=${value}` : "";
-      })
-      .filter((param: string) => param !== "")
-      .join("&");
-
-  }
+  // }
 
   const handleExport = (exportAll: boolean) => {
     setisModalInsert(false);
@@ -96,13 +98,16 @@ export const ExportCSV: React.FC<Props> = ({
     }
   };
 
+
   const exportExcel = (primaryKey:string, nombreExcel?:string,jsonData?:any) => {
-    return exportEntity(primaryKey, nombreExcel, query, jsonData, customExport)
+    return exportEntity(primaryKey, nombreExcel, query, jsonData, customExport,OTAreas)
               .then(() => {
                 show({
                   message: EXCEL.download,
                   type: "success",
                 });
+                setExportTable(false)
+
               })
               .catch((e) => console.log(e));
   }
@@ -110,8 +115,10 @@ export const ExportCSV: React.FC<Props> = ({
   useEffect(() => {
     if(exportAll || exportTable){
       const primarykey = exportAll ? "" : params; 
-      console.log(primarykey)
+      console.log(exportAll)
+      console.log(exportTable)
       exportExcel(primarykey, strEntidad)
+      // handleClear()
     }
   }, [exportAll, exportTable]);
 

@@ -2,11 +2,12 @@ import React, {useEffect, useState} from 'react'
 import axios from 'axios';
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
 import { EnumGrid as EnumArmazones } from '../../views/mantenedores/MArmazones';
-import { validationOTlevel2 } from '../../utils/validationOT';
+import { validationOTlevel2, validationOTlevel3 } from '../../utils/validationOT';
 import { URLBackend } from '../../hooks/useCrud';
 import { toast } from 'react-toastify';
 import { A1_DP, A1_Diametro, A2_DP, A2_Diametro, codigoProyecto, punto_venta, tipo_de_anteojo, validar_parametrizacion } from '../../utils';
 import TextInputInteractive from '../forms/TextInputInteractive';
+import { validationNivel3 } from '../../views/forms/FOT';
 
 interface IArmazones {
     control:any;
@@ -39,6 +40,8 @@ const FOTArmazones:React.FC<IArmazones> = ({
     const [armazon2, setArmazon2] = useState([])
     const [armazon3, setArmazon3] = useState([])
 
+    const [validarA1, setValidarA2] = useState("");
+
 
     //TODO! =========================== ENVIAR DP EN _P4 PARA VALIDAR ARMAZONES ===========================================================================
     //TODO! =========================== ENVIAR Diametro EN _P5 PARA VALIDAR ARMAZONES =====================================================================
@@ -58,6 +61,19 @@ const FOTArmazones:React.FC<IArmazones> = ({
         console.log(value)
         
         validationOTlevel2(name, value)
+        validationOTlevel3(name, value)
+       
+
+        if(name === 'validar_armazon1'){
+            const item = validationNivel3.value.find((item: { campo: string; }) => item.campo === 'validar_armazon1');
+
+            if(item && item.valor === 0){
+                toast.error('Códigos Armazon no Coincide')
+                setValidarA2(' ')
+            }
+
+        }
+
         if(name === 'a1_armazon_id'){
             setCodArmazon1(value.trim())
         }
@@ -71,13 +87,14 @@ const FOTArmazones:React.FC<IArmazones> = ({
     };
 
 
+
     useEffect(()=>{     
-        if (codArmazon1 !== undefined && codArmazon1 !== null && codArmazon1.trim) {
+        if (codArmazon1 !== undefined && codArmazon1 !== null && codArmazon1.trim && A1_Diametro.value !== "") {
             if(!(!codArmazon1.trim())){
                 const fetchArmazones1 = async ()=>{
                     try {
                        
-                        const {data} = await axios((validar_parametrizacion.value === '1' ) ? (`${endpoint}&_p1=${codArmazon1 !== ' ' ? codArmazon1.trim() : "aaaa"}&_p4=${typeof A1_DP.value === 'string' ? A1_DP.value : 0}&_p5=${typeof A1_Diametro.value === 'string' ? A1_Diametro.value : ""}`) : (`${endpoint}&_p1=${codArmazon1 !== ' ' ? codArmazon1 && codArmazon1.trim() : "aaaa"}`))
+                        const {data} = await axios((validar_parametrizacion.value === '1' ) ? (`${endpoint}&_p1=${codArmazon1 !== ' ' ? codArmazon1.trim() : "aaaa"}&_p4=${typeof A1_DP.value === 'string' ? A1_DP.value : 0}&_p5=${isEditting ? (typeof A1_Diametro.value === 'number' ? A1_Diametro.value : "" ) : (typeof A1_Diametro.value === 'string' ? A1_Diametro.value : "")}`) : (`${endpoint}&_p1=${codArmazon1 !== ' ' ? codArmazon1 && codArmazon1.trim() : "aaaa"}`))
     
                         if(data.length === 0){
                             toast.error('Armazon 1 no Existe')
@@ -107,7 +124,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
             }
         }
         
-    }, [codArmazon1, validar_parametrizacion.value, endpoint, A1_DP.value, A1_Diametro.value]);
+    }, [codArmazon1, validar_parametrizacion.value, A1_DP.value, A1_Diametro.value]);
     
     useEffect(()=>{
         if(codArmazon1 && armazon1[0] && armazon1.length > 2){
@@ -133,7 +150,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
             if(!(!codArmazon2.trim())){
                 const fetchArmazones2 = async ()=>{
                     try {
-                        const {data} = await axios((validar_parametrizacion.value === '1' ) ? (`${endpoint}&_p1=${codArmazon2 !== ' ' ? codArmazon2.trim() : "aaaa"}&_p4=${(tipo_de_anteojo.value === '3' ? (typeof A2_DP.value === 'string' ? A2_DP.value : 0) : A1_DP.value)}&_p5=${(tipo_de_anteojo.value === '3' ? (typeof A2_Diametro.value === 'string' ? A2_Diametro.value : "") : A1_Diametro.value)}`) : (`${endpoint}&_p1=${codArmazon2 !== '' ? codArmazon2 && codArmazon2.trim() : "aaaa"}`))
+                        const {data} = await axios((validar_parametrizacion.value === '1' ) ? (`${endpoint}&_p1=${codArmazon2 !== ' ' ? codArmazon2.trim() : "aaaa"}&_p4=${(tipo_de_anteojo.value === '3' ? (typeof A2_DP.value === 'string' ? A2_DP.value : 0) : A1_DP.value)}&_p5=${(tipo_de_anteojo.value === '3' ? (isEditting ? (typeof A2_Diametro.value === 'number' ? A2_Diametro.value : "" ) : (typeof A2_Diametro.value === 'string' ? A2_Diametro.value : "")) : A2_Diametro.value)}`) : (`${endpoint}&_p1=${codArmazon2 !== '' ? codArmazon2 && codArmazon2.trim() : "aaaa"}`))
     
                         if(data.length === 0){
                             toast.error('Armazon 2 no Existe')
@@ -163,7 +180,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
             }
         }
 
-    }, [codArmazon2, validar_parametrizacion.value, endpoint, A2_DP.value, A2_Diametro.value]);
+    }, [codArmazon2, validar_parametrizacion.value, A2_DP.value, A2_Diametro.value]);
 
 
     useEffect(()=>{
@@ -171,7 +188,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
             if(!(!codArmazon3.trim())){
                 const fetchArmazones3 = async ()=>{
                     try {
-                        const {data} = await axios((`${endpoint}&_p1=${codArmazon3 !== ' ' ? codArmazon3.trim() : "aaaa"}&_p4=${typeof A1_DP.value === 'string' ? A1_DP.value : 0}&_p5=${typeof A1_Diametro.value === 'string' ? A1_Diametro.value : ""}`))
+                        const {data} = await axios((`${endpoint}&_p1=${codArmazon3 !== ' ' ? codArmazon3.trim() : "aaaa"}&_p4=${typeof A1_DP.value === 'string' ? A1_DP.value : 0}&_p5=${isEditting ? (typeof A1_Diametro.value === 'number' ? A1_Diametro.value : "" ) : (typeof A1_Diametro.value === 'string' ? A1_Diametro.value : "")}`))
     
                         if(data.length === 0){
                             toast.error('Armazon 3 no Existe')
@@ -201,14 +218,14 @@ const FOTArmazones:React.FC<IArmazones> = ({
             }
         }
 
-    }, [codArmazon3, validar_parametrizacion.value, endpoint, A1_DP.value, A1_Diametro.value]);
+    }, [codArmazon3, validar_parametrizacion.value, A1_DP.value, A1_Diametro.value]);
 
 
 
 
     
     console.log(armazon1)
-
+    console.log(formValues)
 
   return (
     <form>
@@ -231,6 +248,17 @@ const FOTArmazones:React.FC<IArmazones> = ({
                                     className=''
                                     textAlign="text-center"
                                     />
+
+                                <TextInputInteractive
+                                    type="text"
+                                    label="Validar Código"
+                                    name="validar_armazon1"
+                                    handleChange={handleInputChange}
+                                    data={validarA1 && validarA1.trim()}
+                                    control={control}
+                                    isOT={true}
+                                    textAlign="text-center"
+                                />
                             </div>                            
                         </div>
 
@@ -295,6 +323,15 @@ const FOTArmazones:React.FC<IArmazones> = ({
                                     isOT={true}
                                     textAlign="text-center"
                                     />
+                                <TextInputInteractive
+                                    type="text"
+                                    label="Validar Código"
+                                    name="validar_armazon2"
+                                    handleChange={handleInputChange}
+                                    control={control}
+                                    isOT={true}
+                                    textAlign="text-center"
+                                 />
                             </div>                            
                         </div>
 

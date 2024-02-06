@@ -36,6 +36,7 @@ const useCrud = (
     query?:string,
     jsonData?:any,
     customExport?:boolean,
+    OTAreas?:any
   ) => Promise<any | undefined>;
   ListEntity: (primaryKeys: any, query: string) => Promise<any | undefined>;
   firstInputRef: any;
@@ -151,7 +152,8 @@ const useCrud = (
     strEntidad?: string,
     query?:string,
     jsonData?:any,
-    customExport?:boolean
+    customExport?:boolean,
+    OTAreas?:any
   ): Promise<void> => {
     try {
       
@@ -176,11 +178,24 @@ const useCrud = (
         })
       }else{
         //CASO DE USO 1
-        strUrl = primaryKey
-          ? `/excel/?${query ?  query : "query=01"}&${primaryKey}`
-          : `/excel/?${query ? query : "query=01"}`;
-  
-  
+        if(strEntidad?.includes('Orden')){
+          console.log('entidades OT');
+          console.log(OTAreas)
+           
+          strUrl = primaryKey
+            ? OTAreas ? `/excel/?${query ?  query : "query=14"}&_origen=${OTAreas}&${primaryKey}` :  `/excel/?${query ?  query : "query=14"}&${primaryKey}`
+            : OTAreas ?  `/excel/?${query ? query : "query=14"}&_origen=${OTAreas}`               :  `/excel/?${query ? query : "query=14"}`;
+
+
+        }else{
+          strUrl = primaryKey
+            ? `/excel/?${query ?  query : "query=01"}&${primaryKey}`
+            : `/excel/?${query ? query : "query=01"}`;
+        }
+        console.log(strUrl)
+        console.log(strEntidad)
+
+        
         response = await axiosInstance.get(strUrl, {
           responseType: "blob",
         });

@@ -15,6 +15,7 @@ import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
 import SelectInputTiposComponent from "../../components/forms/SelectInputTiposComponent";
 import { Button } from "@material-tailwind/react";
+import { toast } from "react-toastify";
 
 const strBaseUrl = "/api/muestrarios/";
 const strEntidad = "Muestrario ";
@@ -195,6 +196,7 @@ const FMuestrarios: React.FC<IUserFormPrps> = React.memo(
 
     const handleSaveChange = React.useCallback(
       async (data: InputData, isEditting: boolean) => {
+        const toastLoading = toast.loading('Cargando...');
         try {
           const transformedData = isEditting
             ? transformUpdateQuery(data, intId.toString())
@@ -204,7 +206,9 @@ const FMuestrarios: React.FC<IUserFormPrps> = React.memo(
             ? await editEntity(transformedData)
             : await createdEntity(transformedData);
           handleApiResponse(response, isEditting);
+          toast.dismiss(toastLoading)
         } catch (error: any) {
+          toast.dismiss(toastLoading)
           show({
             message: error,
             type: "error",

@@ -1,5 +1,5 @@
-import { A1_CR_OD, a1_od_eje, a1_od_esf, a1_oi_ad, a1_oi_esf, dioptrias_receta } from ".";
-import { validationNivel1, validationNivel2 } from "../views/forms/FOT";
+import { A1_CR_OD, A1_CR_OI, A2_CR_OD, A2_CR_OI, a1_armazon, a1_od_eje, a1_od_esf, a1_oi_ad, a1_oi_esf, dioptrias_receta } from ".";
+import { validationNivel1, validationNivel2, validationNivel3 } from "../views/forms/FOT";
 
 export const validationProyectos = (value:string) => {
     if(value !== ''){
@@ -264,6 +264,141 @@ export const validationOTlevel2 = (name:string, value:any) => {
             break;
     }
 }
+
+export const validationOTlevel3 = (name:string, value:any) => {
+    switch (name) {
+        case 'validar_cristal1_od':
+            validationCodigoCristal1_od(value)
+            break;
+        case 'validar_cristal1_oi':
+            validationCodigoCristal1_oi(value)
+            break
+        case 'validar_cristal2_od':
+            validationCodigoCristal2_od(value)
+            break
+        case 'validar_cristala2_oi':
+            validationCodigoCristal2_od(value)
+            break
+        case 'validar_armazon1':
+            validationCodigoArmazon_1(value) 
+            break
+        case 'validar_armazon2':
+            validationCodigoArmazon_2(value)
+            break
+        default:
+            break;
+    }
+}
+
+
+export const validationCodigoCristal1_od = (value:any) => {
+    const item = validationNivel3.value.find((item: { campo: string; }) => item.campo === 'validar_cristala1_od');
+    
+    if(item){
+        if(value === ""){
+            return item.valor = 0;
+        }
+
+        if(value === A1_CR_OD.value){
+            return item.valor = 1;
+        }else{
+            return item.valor = 0;
+        }
+
+    }
+}
+
+export const validationCodigoCristal1_oi = (value:any) => {
+    const item = validationNivel3.value.find((item: { campo: string; }) => item.campo === 'validar_cristala1_oi');
+    
+    if(item){
+        if(value === ""){
+            return item.valor = 0;
+        }
+
+        if(value === A1_CR_OI.value){
+            return item.valor = 1;
+        }else{
+            return item.valor = 0;
+        }
+
+    }
+}
+
+export const validationCodigoCristal2_od = (value:any) => {
+    const item = validationNivel3.value.find((item: { campo: string; }) => item.campo === 'validar_cristala2_od');
+    if(item){
+        if(value === ""){
+            return item.valor = 0;
+        }
+
+        if(value === A2_CR_OD.value){
+            return item.valor = 1;
+        }else{
+            return item.valor = 0;
+        }
+
+    }
+}
+
+
+export const validationCodigoCristal2_oi = (value:any) => {
+    const item = validationNivel3.value.find((item: { campo: string; }) => item.campo === 'validar_cristala2_oi');
+    if(item){
+        if(value === ""){
+            return item.valor = 0;
+        }
+
+        if(value === A2_CR_OI.value){
+            return item.valor = 1;
+        }else{
+            return item.valor = 0;
+        }
+
+    }
+}
+
+export const validationCodigoArmazon_1  = (value:any) => {
+    
+    const item = validationNivel3.value.find((item: { campo: string; }) => item.campo === 'validar_armazon1');
+    if(item){
+        if(value === ""){
+            return item.valor = 0;
+        }
+
+        if(value === a1_armazon.value){
+            return item.valor = 1;
+        }else{
+             item.valor = 0;
+             console.log('render')
+             return {
+                mensaje: 'Código Armazon 1 no coincide',
+                result: false
+             }
+        }
+
+    }
+    
+}
+
+
+export const validationCodigoArmazon_2 = (value:any) => {
+    const item = validationNivel3.value.find((item: { campo: string; }) => item.campo === 'validar_armazon2');
+    if(item){
+        if(value === ""){
+            return item.valor = 0;
+        }
+
+        if(value === a1_armazon.value){
+            return item.valor = 1;
+        }else{
+            return item.valor = 0;
+        }
+
+    }   
+}
+
+
 
 export const validationClienteNombre = (value:string) =>{
     const item = validationNivel1.value.find((item: { campo: string; }) => item.campo === 'cliente_nombre');

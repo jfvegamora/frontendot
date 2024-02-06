@@ -70,8 +70,11 @@ const TextInputInteractive: React.FC<ITextInputProps> = ({
         setDefaultValue(data)
         setValue(data)
     }
-    // setValue(data)
+    setValue(data)
   },[data])
+
+
+  console.log(data)
 
 // ...
 
@@ -91,6 +94,7 @@ return (
             id={label}
             type={type}
             value={value}
+            // color="red"
             // defaultValue={defaultValue}
             readOnly={onlyRead}
             maxLength={maxLength}
