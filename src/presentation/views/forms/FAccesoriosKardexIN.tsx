@@ -47,9 +47,10 @@ export interface InputData {
 
 interface OutputData {
   query: string;
-  _p1: string;
-  _p2?: number;
+  _p1 : string;
+  _p2?: string;
   _p3?: string;
+  _p4?: string;
 }
 
 export function transformUpdateQuery(

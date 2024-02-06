@@ -48,9 +48,10 @@ export interface InputData {
 
 interface OutputData {
   query: string;
-  _p1: string;
-  _p2?: number;
+  _p1 : string;
+  _p2?: string;
   _p3?: string;
+  _p4?: string;
 }
 
 
@@ -226,11 +227,17 @@ const FCristalesKardexIN: React.FC<IUserFormPrps> = React.memo(
      //  ${(jsonData.proveedor && jsonData.proveedor?.toString())?.length === 0 ? "0" : jsonData.proveedor}, 
     
      _p1 = _p1.replace(/'/g, '!');
-    
+     let _p2 = `"${jsonData.insumo}"`;
+     let _p3 = `${jsonData.motivo_ingreso}`;
+     let _p4 = `${jsonData.cantidad}`;
+   
      const query: OutputData = {
        query: "03",
        _p1,
-     };
+       _p2,
+       _p3,
+       _p4,
+    };
 
      
      ajuste_inventario_autorizacion.value = false
