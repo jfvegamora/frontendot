@@ -185,10 +185,15 @@ const FAccesoriosKardexIN: React.FC<IUserFormPrps> = React.memo(
       //  ${(jsonData.proveedor && jsonData.proveedor?.toString())?.length === 0 ? "0" : jsonData.proveedor}, 
      
       _p1 = _p1.replace(/'/g, '!');
-    
+      let _p2 = `"${jsonData.insumo}"`;
+      let _p3 = `${jsonData.motivo_ingreso}`;
+      let _p4 = `${jsonData.cantidad}`;
       const query = {
         query: "03",
         _p1,
+        _p2,
+        _p3,
+        _p4,
       };
       
       ajuste_inventario_autorizacion.value = false
