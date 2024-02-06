@@ -186,7 +186,7 @@ const FAccesoriosKardexIN: React.FC<IUserFormPrps> = React.memo(
       //  ${(jsonData.proveedor && jsonData.proveedor?.toString())?.length === 0 ? "0" : jsonData.proveedor}, 
      
       _p1 = _p1.replace(/'/g, '!');
-      let _p2 = `"${jsonData.insumo}"`;
+      let _p2 = `${jsonData.insumo}`;
       let _p3 = `${jsonData.motivo_ingreso}`;
       let _p4 = `${jsonData.cantidad}`;
       const query = {
@@ -198,7 +198,6 @@ const FAccesoriosKardexIN: React.FC<IUserFormPrps> = React.memo(
       };
       
       ajuste_inventario_autorizacion.value = false
-      console.log("p1", query);
     
       return query;
     }

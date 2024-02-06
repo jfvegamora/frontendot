@@ -1,4 +1,4 @@
-import { A1_CR_OD, A1_CR_OI, A2_CR_OD, A2_CR_OI, a1_armazon, a1_od_cil, a1_od_eje, a1_od_esf, a1_oi_ad, a1_oi_esf, dioptrias_receta } from ".";
+import { A1_CR_OD, A1_CR_OI, A2_CR_OD, A2_CR_OI, a1_armazon, a1_od_cil, a1_od_eje, a1_od_esf, a1_oi_ad, a1_oi_cil, a1_oi_esf, dioptrias_receta } from ".";
 import { validationNivel1, validationNivel2, validationNivel3 } from "../views/forms/FOT";
 
 export const validationProyectos = (value:string) => {
@@ -978,14 +978,19 @@ export const validation_A1_OI_EJE = (value:string | any) => {
 export const validation_A1_OI_CIL = (value:string | any) => {
     const item = validationNivel2.value.find((item) => item.campo === 'a1_oi_cil');
     
-    if (value !== '') {
-        const validate = (parseFloat(value) < 0 ) 
+        if(value !== ''){
+            const parsedValue = parseFloat(value);
 
-        item && (item.valor = validate ? 1 : 0);
-  
-      } else if (item) {
-        item.valor = 0;
-     }
+            if(parsedValue <= 0 && parsedValue % 0.25 === 0){
+                item && (item.valor = 1);
+            }else if (parsedValue > 0){
+                null
+            }else{
+                dioptrias_receta.value.a1_oi.cil = " ";
+                a1_oi_cil.value = " ";
+                item && (item.valor = 0)
+            }
+        }
     
 }
 
@@ -1042,13 +1047,13 @@ export const validation_A1_OD_CILL = (value:string | any) => {
     const item = validationNivel2.value.find((item) => item.campo === 'a1_od_cil');
     
     if (value !== '') {
-        // item && (item.valor = parseFloat(value) < 0 ? 1 : 0);
         const parsedValue = parseFloat(value);
-        const isValidValue = parsedValue >= 0 && parsedValue % 0.25 === 0; // Verifica si es mayor o igual a 0 y es múltiplo de 0.25
-        if (isValidValue) {
+
+        if (parsedValue <= 0 && parsedValue % 0.25 === 0) {
             item && (item.valor = 1);
+        }else if (parsedValue > 0){
+            null
         } else {
-            // Establecer los valores a " " cuando el valor no cumple con la validación
             dioptrias_receta.value.a1_od.cil = " ";
             a1_od_cil.value = " ";
             item && (item.valor = 0);
