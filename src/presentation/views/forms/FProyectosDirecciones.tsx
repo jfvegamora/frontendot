@@ -96,7 +96,7 @@ const FProyectosDirecciones: React.FC<IUserFormPrps> = React.memo(
     const schema = validationProyectoDireccionesSchema();
     const { showModal, CustomModal } = useModal();
     const { show } = useCustomToast();
-    const [strCodigoProyecto, setStrCodigoProyecto] = useState("");
+    const [strCodigoProyecto, setStrCodigoProyecto] = useState(data ? data[EnumGrid.proyecto] : "");
     const strCodigoProyecto2 = signal("")
 
 
@@ -250,7 +250,7 @@ const FProyectosDirecciones: React.FC<IUserFormPrps> = React.memo(
 
     }
 
-    // console.log('codigo proyecto', strCodigoProyecto)
+    console.log('codigo proyecto', strCodigoProyecto)
     // console.log(errors)
     console.log(strCodigoProyecto2.value)
     return (

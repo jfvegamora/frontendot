@@ -1,4 +1,4 @@
-import { A1_CR_OD, A1_CR_OI, A2_CR_OD, A2_CR_OI, a1_armazon, a1_od_eje, a1_od_esf, a1_oi_ad, a1_oi_esf, dioptrias_receta } from ".";
+import { A1_CR_OD, A1_CR_OI, A2_CR_OD, A2_CR_OI, a1_armazon, a1_od_cil, a1_od_eje, a1_od_esf, a1_oi_ad, a1_oi_esf, dioptrias_receta } from ".";
 import { validationNivel1, validationNivel2, validationNivel3 } from "../views/forms/FOT";
 
 export const validationProyectos = (value:string) => {
@@ -362,15 +362,14 @@ export const validationCodigoArmazon_1  = (value:any) => {
     
     const item = validationNivel3.value.find((item: { campo: string; }) => item.campo === 'validar_armazon1');
     if(item){
-        if(value === ""){
+        if(value.trim() === ""){
             return item.valor = 0;
         }
 
-        if(value === a1_armazon.value){
+        if(value.trim() === a1_armazon.value){
             return item.valor = 1;
         }else{
              item.valor = 0;
-             console.log('render')
              return {
                 mensaje: 'Código Armazon 1 no coincide',
                 result: false
@@ -1009,21 +1008,6 @@ export const validation_A1_OI_ESF = (value:string | any) => {
 
 export const validation_A1_OD_AD = (value:string | any) => {
     const item = validationNivel2.value.find((item) => item.campo === 'a1_od_ad');
-    // console.log(value)
-    // if (value !== '') {
-    //     const formattedValue = Number(value).toFixed(2);
-    //     console.log(value)
-    //     const validate = ((value === '0.00' || (formattedValue as any % 0.25) === 0));
-    //     console.log(validate)
-
-    //     item && (item.valor = validate ? 1 : 0);
-    //     // if(!validate){
-    //     //     dioptrias_receta.value.a1_od.ad = "  ";
-    //     //     a1_od_ad.value = "  "
-    //     //   }
-    //   } else if (item) {
-    //     item.valor = 0;
-    //  }
     if (value !== '') {
         const validate = (parseInt(value) >= 0)
     
@@ -1058,17 +1042,28 @@ export const validation_A1_OD_CILL = (value:string | any) => {
     const item = validationNivel2.value.find((item) => item.campo === 'a1_od_cil');
     
     if (value !== '') {
-        item && (item.valor = parseFloat(value) < 0 ? 1 : 0);
-        // }
-        // console.log(item)
-      } else if (item) {
+        // item && (item.valor = parseFloat(value) < 0 ? 1 : 0);
+        const parsedValue = parseFloat(value);
+        const isValidValue = parsedValue >= 0 && parsedValue % 0.25 === 0; // Verifica si es mayor o igual a 0 y es múltiplo de 0.25
+        if (isValidValue) {
+            item && (item.valor = 1);
+        } else {
+            // Establecer los valores a " " cuando el valor no cumple con la validación
+            dioptrias_receta.value.a1_od.cil = " ";
+            a1_od_cil.value = " ";
+            item && (item.valor = 0);
+        }
+    } else if (item) {
         item.valor = 0;
+       
      }
+
+    
 }
 
 export const validation_A1_OD_ESF = (value: any) => {
     const item = validationNivel2.value.find((item) => item.campo === 'a1_od_esf');
-
+    
     if (value !== '') {
       const formattedValue = Number(value).toFixed(2);
       const validate = (formattedValue as any % 0.25) === 0 ? true : false

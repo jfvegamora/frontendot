@@ -65,6 +65,9 @@ const validateSelect = (value: string | undefined): string => {
 };
 
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
+  const valorTotalArmazon = parseInt(jsonData.valor_neto_armazon as any)
+  const valorTotalCristal = parseInt(jsonData.valor_neto_cristal as any)
+
   let _p1 = `
  "${jsonData.proyecto}", 
  "${jsonData.cod_grupo}", 
@@ -86,7 +89,7 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
   ${validateSelect(jsonData.armazon_marca)},
   ${validateSelect(jsonData.armazon_uso)},
   ${(jsonData.valor_neto_armazon && jsonData.valor_neto_armazon?.toString())?.length === 0 ? "0" : jsonData.valor_neto_armazon},
-  ${(jsonData.valor_neto_armazon && jsonData.valor_neto_armazon as any) + (jsonData.valor_neto_cristal && jsonData.valor_neto_cristal)},
+  ${valorTotalArmazon + valorTotalCristal},
   "${jsonData.observaciones}"`;
 
   _p1 = _p1.replace(/'/g, '!');
@@ -97,11 +100,14 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
     // _p2: jsonData.cristal?.toString(),
   };
 
-  // console.log("query_insert: ", query);
+  console.log("query_insert: ", query);
   return query;
 }
 
 export function transformUpdateQuery(jsonData: InputData): OutputData | null {
+  const valorTotalArmazon = parseInt(jsonData.valor_neto_armazon as any)
+  const valorTotalCristal = parseInt(jsonData.valor_neto_cristal as any)
+
   const fields = [
     `descripcion       ="${jsonData.descripcion}"`,
     `marca             = ${jsonData.marca}`,
@@ -121,16 +127,14 @@ export function transformUpdateQuery(jsonData: InputData): OutputData | null {
     `armazon_marca     = ${validateSelect(jsonData.armazon_marca)}`,
     `armazon_uso       = ${validateSelect(jsonData.armazon_uso)}`,
     `valor_neto_armazon= ${(jsonData.valor_neto_armazon && jsonData.valor_neto_armazon?.toString())?.length === 0 ? "0" : jsonData.valor_neto_armazon}`,
-    `valor_neto_total  = ${(jsonData.valor_neto_cristal && jsonData.valor_neto_cristal as any) + (jsonData.valor_neto_armazon && jsonData.valor_neto_armazon)}`,
+    `valor_neto_total  = ${valorTotalArmazon + valorTotalCristal}`,
     `observaciones     ="${jsonData.observaciones}"`,
   ];
 
   let _p1 = fields.join(",");
   _p1 = _p1.replace(/'/g, '!');
 
-  console.log(_p1)
 
-  console.log((jsonData.valor_neto_armazon && jsonData.valor_neto_armazon?.toString())?.length === 0 ? "0" : jsonData.valor_neto_armazon)
   const query = {
     query: "04",
     _p1,
@@ -138,7 +142,6 @@ export function transformUpdateQuery(jsonData: InputData): OutputData | null {
     _p3: jsonData.cod_grupo?.toString(),
     // _p4: (jsonData.cristal && jsonData.cristal?.toString())?.length === 0 ? "0": jsonData.cristal
   };
-  console.log('query', query)
 
   return query
 }

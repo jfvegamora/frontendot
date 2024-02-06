@@ -69,7 +69,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
 
             if(item && item.valor === 0){
                 toast.error('Códigos Armazon no Coincide')
-                setValidarA2(' ')
+                setValidarA2('   ')
             }
 
         }
@@ -254,7 +254,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
                                     label="Validar Código"
                                     name="validar_armazon1"
                                     handleChange={handleInputChange}
-                                    data={validarA1 && validarA1.trim()}
+                                    data={validarA1 && validarA1}
                                     control={control}
                                     isOT={true}
                                     textAlign="text-center"
