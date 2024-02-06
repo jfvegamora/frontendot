@@ -47,9 +47,10 @@ export interface InputData {
 
 interface OutputData {
   query: string;
-  _p1: string;
-  _p2?: number;
+  _p1 : string;
+  _p2?: string;
   _p3?: string;
+  _p4?: string;
 }
 
 
@@ -279,11 +280,17 @@ const FArmazonesKardexIN: React.FC<IUserFormPrps> = React.memo(
       }]
 
       _p1 = _p1.replace(/'/g, '!');
+      let _p2 = `"${jsonData.insumo}"`;
+      let _p3 = `${jsonData.motivo_ingreso}`;
+      let _p4 = `${jsonData.cantidad}`;
       
       const query = {
         query: "03",
         _p1,
         _pkToDelete:JSON.stringify(kardex),
+        _p2,
+        _p3,
+        _p4,
       };
 
       ajuste_inventario_autorizacion.value = false
