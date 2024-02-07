@@ -1191,13 +1191,13 @@ useEffect(() => {
 
 
 
-// console.log(permiso_area_verificar_cristal)
-// console.log(permiso_area_verificar_armazon)
+console.log(permiso_area_verificar_cristal)
+console.log(permiso_area_verificar_armazon)
 
 
 
 
-
+console.log(((permiso_area_verificar_cristal && permiso_area_verificar_armazon ) && sumatoriaNivel3 === validationNivel3.value.length))
 
 
 
@@ -1318,7 +1318,7 @@ useEffect(() => {
                 sumatoriaNivel1  === validationNivel1.value.length &&
                 (sumatoriaNivel2 === validationNivel2.value.length || data && data[EnumGrid.validar_parametrizacion_id] === "0" ) &&
                 (
-                  (OTAreaActual === 60 && sumatoriaNivel3 === validationNivel3.value.length) || 
+                  ((permiso_area_verificar_cristal && permiso_area_verificar_armazon ) && sumatoriaNivel3 === validationNivel3.value.length) || 
                   (OTAreaActual !== 60)
                 ) && 
                (
