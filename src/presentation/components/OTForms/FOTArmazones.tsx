@@ -146,7 +146,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
     },[armazon3, codArmazon3])
 
 
-    console.log(tipo_de_anteojo.value)
+    // console.log(tipo_de_anteojo.value)
 
     useEffect(()=>{
         if (codArmazon2 !== undefined && codArmazon2 !== null && codArmazon2.trim && (tipo_de_anteojo.value === '3' ? (A2_Diametro.value !== '') : (A1_Diametro.value !== '')) ) {

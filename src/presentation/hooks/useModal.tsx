@@ -67,7 +67,7 @@ export function useModal() {
   //   };
   // }, [isModalOpen, modalResolve, closeModal]);
 
-  console.log(params)
+  // console.log(params)
   const CustomModal = useCallback(
     () => (
       <Modal

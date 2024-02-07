@@ -66,13 +66,13 @@ const FOTClientes:React.FC<IClientes> = ({
     }
     
     const clearInputs = ()=>{
-        onDataChange({['cliente_rut']: " "})  
-        onDataChange({['cliente_nombre']: " "})    
+        onDataChange({['cliente_rut']: ""})  
+        onDataChange({['cliente_nombre']: ""})    
         onDataChange({['cliente_sexo']: " "})
         onDataChange({['cliente_tipo']: " "})
-        onDataChange({['cliente_fecha_nacimiento']: " "})
-        onDataChange({['cliente_correo']: " "})
-        onDataChange({['cliente_telefono']: " "})
+        onDataChange({['cliente_fecha_nacimiento']: ""})
+        onDataChange({['cliente_correo']: ""})
+        onDataChange({['cliente_telefono']: ""})
 
 
 
@@ -100,19 +100,19 @@ const FOTClientes:React.FC<IClientes> = ({
                       // Tipo 1 (OK)
                       console.log('Tipo 1 (OK):', cliente.data);
                       
-                      onDataChange({['cliente_nombre']: " "})    
-                      onDataChange({['cliente_sexo']: " "})
-                      onDataChange({['cliente_tipo']: " "})
-                      onDataChange({['cliente_fecha_nacimiento']: " "})
-                      onDataChange({['cliente_correo']: " "})
-                      onDataChange({['cliente_telefono']: " "})
+                      onDataChange({['cliente_nombre']: ""})    
+                      onDataChange({['cliente_sexo']: ""})
+                      onDataChange({['cliente_tipo']: ""})
+                      onDataChange({['cliente_fecha_nacimiento']: ""})
+                      onDataChange({['cliente_correo']: ""})
+                      onDataChange({['cliente_telefono']: ""})
 
 
 
                       onDataChange({['cliente_region']:0})
                       onDataChange({['cliente_comuna']:0})
                       onDataChange({['cliente_provincia']:0})
-                      onDataChange({['cliente_direccion']: " "})
+                      onDataChange({['cliente_direccion']: ""})
 
                       validationClienteNombre("")
                       validationClienteSexo("")
@@ -188,7 +188,7 @@ const FOTClientes:React.FC<IClientes> = ({
         validationOTlevel2(name,value);
 
         if(name === 'cliente_rut'){
-            fetchCliente(value).catch((error:any)=>{
+            fetchCliente(value.trim()).catch((error:any)=>{
                 setExistCliente(false)
                 console.log(error)
             })
