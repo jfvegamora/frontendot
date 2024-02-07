@@ -418,7 +418,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                         />
 
                                     </div>
-                                    {OTAreas === 60 && (
+                                    {permiso_area_verificar_cristal && (
                                         <div className="w-[40%] absolute right-0">
                                             <TextInputInteractive
                                                 type="text"
@@ -512,7 +512,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                             showRefresh={true}
                                             isOT={true}
                                             handleSelectChange={handleInputChange}
-                                            data={formValues ? formValues["cristal2_marca_id"] : data && data[EnumGrid.cristal2_indice_id]}
+                                            data={formValues && formValues["cristal2_marca_id"] ? formValues["cristal2_marca_id"] : data && data[EnumGrid.cristal2_indice_id]}
                                             control={control}
                                             entidad={["/api/marcas/", "02"]}
                                             readOnly={!((!isEditting && tipo_de_anteojo.value === '3') || (isEditting && permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria && tipo_de_anteojo.value === '3'))}
@@ -526,7 +526,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                             showRefresh={true}
                                             isOT={true}
                                             handleSelectChange={handleInputChange}
-                                            data={formValues ? formValues["cristal2_diseno_id"] : data && data[EnumGrid.cristal2_diseno_id]}
+                                            data={formValues && formValues["cristal2_diseno_id"] ? formValues["cristal2_diseno_id"] : data && data[EnumGrid.cristal2_diseno_id]}
                                             control={control}
                                             entidad={"CristalesDisenos"}
                                             FOTcristales={true}
@@ -543,7 +543,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                             showRefresh={true}
                                             isOT={true}
                                             handleSelectChange={handleInputChange}
-                                            data={formValues ? formValues["cristal2_indice_id"] : data && data[EnumGrid.cristal2_indice_id]}
+                                            data={formValues && formValues["cristal2_indice_id"] ? formValues["cristal2_indice_id"] : data && data[EnumGrid.cristal2_indice_id]}
                                             control={control}
                                             entidad={"CristalesIndices"}
                                             FOTcristales={true}
@@ -558,7 +558,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                             showRefresh={true}
                                             isOT={true}
                                             handleSelectChange={handleInputChange}
-                                            data={formValues ? formValues["cristal2_material_id"] : data && data[EnumGrid.cristal2_material_id]}
+                                            data={formValues && formValues["cristal2_material_id"] ? formValues["cristal2_material_id"] : data && data[EnumGrid.cristal2_material_id]}
                                             control={control}
                                             FOTcristales={true}
                                             entidad={"CristalesMateriales"}
@@ -575,7 +575,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                             showRefresh={true}
                                             isOT={true}
                                             handleSelectChange={handleInputChange}
-                                            data={formValues ? formValues["cristal2_color_id"] : data && data[EnumGrid.cristal2_color_id]}
+                                            data={formValues && formValues["cristal2_color_id"] ? formValues["cristal2_color_id"] : data && data[EnumGrid.cristal2_color_id]}
                                             control={control}
                                             FOTcristales={true}
                                             entidad={"CristalesColores"}
@@ -601,7 +601,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                 </div>
 
                                 <div className="w-full flex mt-6 rowForm centertDIV relative">
-                                {OTAreas === 60 && (
+                                {permiso_area_verificar_cristal && (tipo_de_anteojo === '3' as any) && (
                                     <div className="w-[40%] absolute -left-0">
                                             <TextInputInteractive
                                                 type="text"
@@ -635,7 +635,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                     />
                                 </div>
 
-                                {OTAreas === 60 && (
+                                {permiso_area_verificar_cristal && (tipo_de_anteojo === '3' as any) && (
                                         <div className="w-[40%] absolute right-0">
                                             <TextInputInteractive
                                                 type="text"

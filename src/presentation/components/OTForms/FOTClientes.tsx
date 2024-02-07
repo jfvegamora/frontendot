@@ -121,7 +121,8 @@ const FOTClientes:React.FC<IClientes> = ({
                       validationClienteTelefono("")
 
 
-                    } else if (typeof mensaje === 'string' && mensaje.startsWith('ERROR:')) {
+                    } else if (typeof mensaje === 'string' && mensaje.startsWith('ADVERTENCIA:')) {
+                        console.log('render')
                       const result = await showModal(
                         cliente.data[0][0] + "  Desea Continuar?",
                         "h-[7rem]  mt-2",
