@@ -280,7 +280,7 @@ const FArmazonesKardexIN: React.FC<IUserFormPrps> = React.memo(
       }]
 
       _p1 = _p1.replace(/'/g, '!');
-      let _p2 = `"${jsonData.insumo}"`;
+      let _p2 = `${jsonData.insumo}`;
       let _p3 = `${jsonData.motivo_ingreso}`;
       let _p4 = `${jsonData.cantidad}`;
       
