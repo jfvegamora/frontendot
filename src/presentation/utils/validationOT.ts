@@ -1,4 +1,4 @@
-import { A1_CR_OD, A1_CR_OI, A2_CR_OD, A2_CR_OI, a1_armazon, a1_od_cil, a1_od_eje, a1_od_esf, a1_oi_ad, a1_oi_cil, a1_oi_esf, dioptrias_receta } from ".";
+import { A1_CR_OD, A1_CR_OI, A2_CR_OD, A2_CR_OI, a1_armazon, a1_od_cil, a1_od_eje, a1_od_esf, a1_oi_ad, a1_oi_cil, a1_oi_eje, a1_oi_esf, dioptrias_receta } from ".";
 import { validationNivel1, validationNivel2, validationNivel3 } from "../views/forms/FOT";
 
 export const validationProyectos = (value:string) => {
@@ -292,24 +292,26 @@ export const validationOTlevel3 = (name:string, value:any) => {
 
 
 export const validationCodigoCristal1_od = (value:any) => {
-    const item = validationNivel3.value.find((item: { campo: string; }) => item.campo === 'validar_cristala1_od');
+    const item = validationNivel3.value.find((item: { campo: string; }) => item.campo === 'validar_cristal1_od');
     
     if(item){
         if(value === ""){
-            return item.valor = 0;
+             item.valor = 0;
         }
 
         if(value === A1_CR_OD.value){
-            return item.valor = 1;
+             item.valor = 1;
         }else{
-            return item.valor = 0;
+             item.valor = 0;
         }
 
     }
+
+
 }
 
 export const validationCodigoCristal1_oi = (value:any) => {
-    const item = validationNivel3.value.find((item: { campo: string; }) => item.campo === 'validar_cristala1_oi');
+    const item = validationNivel3.value.find((item: { campo: string; }) => item.campo === 'validar_cristal1_oi');
     
     if(item){
         if(value === ""){
@@ -325,9 +327,13 @@ export const validationCodigoCristal1_oi = (value:any) => {
     }
 }
 
-export const validationCodigoCristal2_od = (value:any) => {
-    const item = validationNivel3.value.find((item: { campo: string; }) => item.campo === 'validar_cristala2_od');
+export const validationCodigoCristal2_od = (value:any, validar?:boolean) => {
+    const item = validationNivel3.value.find((item: { campo: string; }) => item.campo === 'validar_cristal2_od');
     if(item){
+        if(validar){
+            return item.valor = 1
+        }
+        
         if(value === ""){
             return item.valor = 0;
         }
@@ -339,11 +345,13 @@ export const validationCodigoCristal2_od = (value:any) => {
         }
 
     }
+
+    
 }
 
 
 export const validationCodigoCristal2_oi = (value:any) => {
-    const item = validationNivel3.value.find((item: { campo: string; }) => item.campo === 'validar_cristala2_oi');
+    const item = validationNivel3.value.find((item: { campo: string; }) => item.campo === 'validar_cristal2_oi');
     if(item){
         if(value === ""){
             return item.valor = 0;
@@ -824,18 +832,19 @@ export const validation_A2_opcion_venta = (value:string | any) => {
 }
 
 export const validation_A2_armazon = (value:string | any) => {
+    const item = validationNivel2.value.find(item => item.campo === 'a2_armazon_id');
+
     if(value !== ''){
-        const item = validationNivel2.value.find(item => item.campo === 'a2_armazon_id');
         if (item) {
             item.valor = 1;
         }
     }
     if(value == ''){
-        const item = validationNivel2.value.find(item => item.campo === 'a2_armazon_id');
         if (item) {
             item.valor = 0;
         }
     }
+
 }
 
 
@@ -960,13 +969,14 @@ export const validation_A1_OI_EJE = (value:string | any) => {
     const item = validationNivel2.value.find((item) => item.campo === 'a1_oi_eje');
     
     if (value !== '') {
-        // console.log(value)
-        // const validate = dioptrias.value.EJE.some((dioptria: any) => dioptria[0] === numericValue);
-        const validate = (parseInt(value) >= 0 && parseInt(value) <= 180)
+        const parseValue = parseFloat(value)
+        const validate = (parseValue >= 0 && parseValue <= 180 && parseValue % 0.25 === 0 ) 
+
+
         item && (item.valor = validate ? 1 : 0);
         if(!validate){
-            // dioptrias_receta.value.a1_oi.eje = "  ";
-            // a1_oi_eje.value = "  "
+            dioptrias_receta.value.a1_oi.eje = "  ";
+            a1_oi_eje.value = " ";
           }
       } else if (item) {
         item.valor = 0;
@@ -1030,8 +1040,9 @@ export const validation_A1_OD_EJE = (value: string | any) => {
     const item = validationNivel2.value.find((item) => item.campo === 'a1_od_eje');
   
     if (value !== '') {
-    const validate = (parseInt(value) >= 0 && parseInt(value) <= 180)
-
+    const parseValue = parseFloat(value)    
+    const validate = (parseValue >= 0 && parseValue <= 180 && parseValue % 0.25 === 0 ) 
+    
       item && (item.valor = validate ? 1 : 0);
       
       if(!validate){

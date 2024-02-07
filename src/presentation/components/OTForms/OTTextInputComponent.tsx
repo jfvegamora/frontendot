@@ -113,13 +113,24 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
 
     switch (e.target.name) {
       case 'a1_od_esf':
-        if((parseFloat(e.target.value) % 0.25 !== 0)){
-          toast.error('Esferico no corresponde')
+        if((Number(e.target.value).toFixed(2) as any % 0.25 !== 0)){
+          toast.error('Esferico ojo derecho no corresponde')
           setValue("  ")
           return;
-        }
+         }
 
         break;
+      case 'a1_od_cil':
+       const parsedValueOD = Number(e.target.value).toFixed(2) as any
+       
+       if(parsedValueOD >0){
+          null
+        }else if(!(parsedValueOD <=0 && parsedValueOD % 0.25 === 0)){
+          toast.error('Cilindrico ojo derecho no corresponde')
+          setValue("  ")
+        }
+       
+       break;
       case 'a1_od_eje':
         if(!(parseInt(e.target.value) >= 0 && parseInt(e.target.value) <= 180)){
           toast.error('EJE no corresponde')
@@ -136,10 +147,17 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
         }
         break;
       case 'a1_oi_esf':
-        if((parseFloat(e.target.value) % 0.25 !== 0)){
+        if((Number(e.target.value).toFixed(2) as any % 0.25 !== 0)){
+          toast.error('Esferico ojo izquierdo no corresponde')
           setValue("  ")
           return;
-        }
+         }
+        break;
+      case 'a1_oi_cil':
+        const parsedValueOI = Number(e.target.value).toFixed(2) as any;
+
+        
+      
         break;
       case 'a1_oi_eje':
         if(!(parseInt(e.target.value) >= 0 && parseInt(e.target.value) <= 180)){

@@ -1,13 +1,10 @@
 import React from 'react'
 import { SelectInputComponent } from '..';
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
-import { validationOTlevel2, validationOTlevel3, validation_Cristal1_od, validation_Cristal1_oi, validation_Cristal2_od, validation_Cristal2_oi } from '../../utils/validationOT';
+import { validationOTlevel2, validationOTlevel3,  } from '../../utils/validationOT';
 import SelectInputTiposComponent from '../forms/SelectInputTiposComponent';
-import { A1_CR_OD, A1_CR_OI, A1_GRUPO_OD, A1_GRUPO_OI, A2_CR_OD, A2_CR_OI, A2_Diametro, A2_GRUPO_OD, A2_GRUPO_OI, a2_od_esf, a2_oi_esf, dioptrias_receta, tipo_de_anteojo } from '../../utils';
+import { A1_CR_OD, A1_CR_OI, A1_GRUPO_OD, A1_GRUPO_OI, A2_CR_OD, A2_CR_OI, A2_Diametro, A2_GRUPO_OD, A2_GRUPO_OI, tipo_de_anteojo } from '../../utils';
 import TextInputInteractive from '../forms/TextInputInteractive';
-import axios from 'axios';
-import { URLBackend } from '../../hooks/useCrud';
-import { toast } from 'react-toastify';
 import { AppStore, useAppSelector } from '../../../redux/store';
 
 

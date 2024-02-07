@@ -33,7 +33,7 @@ import { A1_CR_OD, A1_CR_OI, A1_DP, A1_Diametro, A1_GRUPO_OD, A1_GRUPO_OI, A2_CR
   punto_venta, 
   // reiniciarA2DioptriasReceta, 
   reiniciarDioptriasReceta, reiniciarValidationNivel1, reiniciarValidationNivel2, tipo_de_anteojo, updateOT, validar_parametrizacion } from '../../utils';
-import { validationCliente, validationClienteComuna, validationClienteNombre, validationClienteSexo, validationClienteTelefono, validationClienteTipo, validationEstablecimientos, validationFechaAtencion, validationFechaDespacho, validationFechaEntregaCliente, validationFechaEntregaTaller, validationProyectos, validationPuntoVenta, validationTipoAnteojos, validation_A1_ALT, validation_A1_DP, validation_A1_OD_AD, validation_A1_OD_CILL, validation_A1_OD_EJE, validation_A1_OD_ESF, validation_A1_OI_AD, validation_A1_OI_CIL, validation_A1_OI_EJE, validation_A1_OI_ESF, validation_A1_armazon, validation_A2_DP, validation_A2_OD_CIL, validation_A2_OD_EJE, validation_A2_OD_ESF, validation_A2_OI_CIL, validation_A2_OI_EJE, validation_A2_OI_ESF, validation_A2_armazon, validation_Cristal1_color, validation_Cristal1_diametro, validation_Cristal1_diseño, validation_Cristal1_indice, validation_Cristal1_marca, validation_Cristal1_material, validation_Cristal1_od, validation_Cristal1_oi, validation_Cristal1_tratamiento, validation_Cristal2_od, validation_Cristal2_oi } from '../../utils/validationOT';
+import { validationCliente, validationClienteComuna, validationClienteNombre, validationClienteSexo, validationClienteTelefono, validationClienteTipo, validationCodigoCristal2_od, validationCodigoCristal2_oi, validationEstablecimientos, validationFechaAtencion, validationFechaDespacho, validationFechaEntregaCliente, validationFechaEntregaTaller, validationProyectos, validationPuntoVenta, validationTipoAnteojos, validation_A1_ALT, validation_A1_DP, validation_A1_OD_AD, validation_A1_OD_CILL, validation_A1_OD_EJE, validation_A1_OD_ESF, validation_A1_OI_AD, validation_A1_OI_CIL, validation_A1_OI_EJE, validation_A1_OI_ESF, validation_A1_armazon, validation_A2_DP, validation_A2_OD_CIL, validation_A2_OD_EJE, validation_A2_OD_ESF, validation_A2_OI_CIL, validation_A2_OI_EJE, validation_A2_OI_ESF, validation_A2_armazon, validation_Cristal1_color, validation_Cristal1_diametro, validation_Cristal1_diseño, validation_Cristal1_indice, validation_Cristal1_marca, validation_Cristal1_material, validation_Cristal1_od, validation_Cristal1_oi, validation_Cristal1_tratamiento, validation_Cristal2_color, validation_Cristal2_diametro, validation_Cristal2_diseño, validation_Cristal2_indice, validation_Cristal2_material, validation_Cristal2_od, validation_Cristal2_oi, validation_Cristal2_tratamiento, validation_cristal2_marca } from '../../utils/validationOT';
 // import { inputName } from '../../components/OTForms/Otprueba';
 // import { verificaCampos } from '../../utils/OTReceta_utils';
 import { URLBackend } from '../../hooks/useCrud';
@@ -541,7 +541,7 @@ const FOT:React.FC<IFOTProps> = ({
     
       validation_A1_ALT(data && data[EnumGrid.a1_alt])
       validation_A1_armazon(data && data[EnumGrid.a1_armazon_id])
-      validation_A2_armazon(data && data[EnumGrid.a2_armazon_id])
+      // validation_A2_armazon(data && data[EnumGrid.a2_armazon_id])
     
       validation_A2_OD_ESF(data && data[EnumGrid.a2_od_esf])
       validation_A2_OD_CIL(data && data[EnumGrid.a2_od_cil])
@@ -553,11 +553,10 @@ const FOT:React.FC<IFOTProps> = ({
       validation_A2_DP(data && data[EnumGrid.a2_dp])
     
       validation_A1_armazon(data && data[EnumGrid.a1_armazon_id])
-      validation_A2_armazon(data && data[EnumGrid.a2_armazon_id])
-    
-    
-    
-    
+      
+      
+      
+      
       validation_Cristal1_marca(data && data[EnumGrid.cristal1_marca_id])
       validation_Cristal1_diseño(data && data[EnumGrid.cristal1_diseno_id])
       validation_Cristal1_indice(data && data[EnumGrid.cristal1_indice_id])
@@ -574,9 +573,25 @@ const FOT:React.FC<IFOTProps> = ({
         data && data[EnumGrid.a1_od_cil],
         data && data[EnumGrid.a1_od_eje]
       )
+
+      console.log(data && data[EnumGrid.tipo_anteojo_id])
+
+      validationCodigoCristal2_od("0",true)
+      validationCodigoCristal2_oi("0")
+
+      if(data && data[EnumGrid.tipo_anteojo_id] === 3){
+        validation_A2_armazon(data && data[EnumGrid.a2_armazon_id])
         
-    
-    
+        validation_cristal2_marca(data && data[EnumGrid.cristal2_marca_id])
+        validation_Cristal2_diseño(data && data[EnumGrid.cristal2_diseno_id])    
+        validation_Cristal2_indice(data && data[EnumGrid.cristal2_indice_id])
+        validation_Cristal2_material(data && data[EnumGrid.cristal2_material_id])
+        validation_Cristal2_tratamiento(data && data[EnumGrid.cristal2_tratamiento_id])
+        validation_Cristal2_color(data && data[EnumGrid.cristal2_color_id])
+        validation_Cristal2_diametro(data && data[EnumGrid.cristal2_diametro])
+        validation_Cristal2_od(data && data[EnumGrid.cristal2_od])
+        validation_Cristal2_oi(data && data[EnumGrid.cristal2_oi])
+      }
       
     }
   },[])
@@ -1159,10 +1174,12 @@ useEffect(() => {
 }, [closeModal]);
 
 
-    
+  console.log()
 
   console.log(validationNivel1.value)
+  
   console.log(validationNivel2.value)
+
   console.log(validationNivel3.value)
 
   // console.log( OTPermissions && OTPermissions[9])

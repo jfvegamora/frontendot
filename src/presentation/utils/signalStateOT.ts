@@ -348,11 +348,13 @@ export const fetchFechas = async(fecha_atencion:string, codgioProyecto:string) =
       //  console.log(data[0])
        const parsedData = JSON.parse(data[0]); // Parsear la cadena JSON a objeto
 
+       console.log(codigoProyecto)
+       
         console.log(parsedData);
         // console.log(parsedData.fecha_entrega_taller);
         // console.log(parsedData.fecha_despacho);
         // console.log(parsedData.fecha_entrega_cliente)
-       fecha_atencion_signal.value         = fecha_atencion;
+       fecha_atencion_signal.value   = fecha_atencion;
        fecha_entrega_taller.value    = parsedData.fecha_entrega_taller
        fecha_despacho.value          = parsedData.fecha_despacho
        fecha_entrega_cliente.value   = parsedData.fecha_entrega_cliente
@@ -515,11 +517,15 @@ export const updateOT =async (
   situacion?:any,
 )  => {
 
-  // console.log(jsonData)
-  // console.log(_formValues)
-  // console.log(data)
+  console.log(jsonData)
+  console.log(_formValues)
+  console.log(data)
 
-  
+  console.log((`numero_oc="${jsonData.numero_oc  !== '' && jsonData.numero_oc !== undefined  ? jsonData.numero_oc : " " }"`))
+
+  console.log(data && data[EnumGrid.observaciones])
+  console.log(_formValues["receta"] && _formValues["receta"]["observaciones"] ? _formValues["receta"]["observaciones"] : data && data[EnumGrid.observaciones])
+
   let motivo = data && data[EnumGrid.motivo] === 'Garantía' ? 2 : 1;
   //TODO: INICIO PROCESAR MASIVO
   if(isMasivo){
@@ -562,8 +568,8 @@ export const updateOT =async (
   }
 //TODO: FIN PROCESAR MASIVO
 
-  let estado_impresion = 1;
-  let estado_validacion = 1;
+  let estado_impresion = data && data[EnumGrid.estado_impresion_id];
+  let estado_validacion = data && data[EnumGrid.validar_parametrizacion_id];
   
 
   // let _rut = ""
@@ -649,19 +655,20 @@ export const updateOT =async (
     (`cristales2_tratamiento_adicional=${typeof jsonData.cristal2_tratamiento_adicional_id                                                               === 'undefined' ? data && data[EnumGrid.cristal2_tratamiento_adicional_id] : parseInt(jsonData.cristal2_tratamiento_adicional_id)}`),
     
     
-    (`motivo_garantia=${jsonData.motivo_garantia_id                                                                                                      !== undefined ? jsonData.motivo_garantia_id : 0 }`),
-    (`folio_asociado="${jsonData.folio_asociado                                                                                                          !== undefined ? jsonData.folio_asociado : 0 }"`),
-    (`resolucion_garantia=${jsonData.resolucion_garantia_id                                                                                              !== undefined ? (jsonData.resolucion_garantia_id === 'Rechazada' ? 2 :1) : 0 }`),
-    (`worktracking="${jsonData.worktracking                                                                                                              !== undefined ? jsonData.worktracking : " " }"`),
-    (`nota_venta="${jsonData.nota_venta                                                                                                                  !== undefined ? jsonData.nota_venta : " " }"`),
-    (`numero_reporte_firma=${jsonData.numero_reporte_firma                                                                                               !== '' && jsonData.numero_reporte_firma !== undefined         ? jsonData.numero_reporte_firma : 0 }`),
-    (`numero_reporte_atencion=${jsonData.numero_reporte_atencion                                                                                         !== '' && jsonData.numero_reporte_atencion !== undefined      ? jsonData.numero_reporte_atencion : 0 }`),
-    (`numero_oc="${jsonData.numero_oc                                                                                                                    !== '' && jsonData.numero_oc !== undefined                    ? jsonData.numero_oc : " " }"`),
-    (`numero_guia=${jsonData.numero_guia                                                                                                                 !== '' && jsonData.numero_guia !== undefined                  ? jsonData.numero_guia : 0 }`),
-    (`numero_factura=${jsonData.numero_factura                                                                                                           !== '' && jsonData.numero_factura !== undefined               ? jsonData.numero_factura : 0 }`),
-    (`folio_interno_mandante="${jsonData.folio_interno_mandante                                                                                          !== '' && jsonData.folio_interno_mandante !== undefined       ? jsonData.folio_interno_mandante : "" }"`),
-    (`reporte_interno_mandante="${jsonData.reporte_interno_mandante                                                                                      !== '' && jsonData.reporte_interno_mandante !== undefined     ? jsonData.reporte_interno_mandante : "" }"`),
-    (`observaciones="${jsonData.observaciones                                                                                                            !== undefined ? jsonData.observaciones : "" }"`),
+    (`motivo_garantia=${data && data[EnumGrid.motivo_garantia_id]                                                                                        ? data && data[EnumGrid.motivo_garantia_id]       : 0 }`),
+    (`folio_asociado="${data && data[EnumGrid.folio_asociado]                                                                                            ? data && data[EnumGrid.folio_asociado]           : "" }"`),
+    // (`resolucion_garantia=${data && data[EnumGrid.resolucion_garantia_id]                                                                                !== undefined ? (jsonData.resolucion_garantia_id === 'Rechazada' ? 2 :1) : 0 }`),
+    (`resolucion_garantia=${data && data[EnumGrid.resolucion_garantia_id]                                                                                ? data && data[EnumGrid.resolucion_garantia_id]   : 0 }`),
+    (`worktracking="${data && data[EnumGrid.worktracking]                                                                                                ? data && data[EnumGrid.worktracking]             : "" }"`),
+    (`nota_venta="${data && data[EnumGrid.nota_venta]                                                                                                    ? data && data[EnumGrid.nota_venta]               : "" }"`),
+    (`numero_reporte_firma=${data && data[EnumGrid.numero_reporte_firma]                                                                                 ? data && data[EnumGrid.numero_reporte_firma]     : 0 }`),
+    (`numero_reporte_atencion=${data && data[EnumGrid.numero_reporte_atencion]                                                                           ? data && data[EnumGrid.numero_reporte_atencion]  : 0 }`),
+    (`numero_oc="${data && data[EnumGrid.numero_oc]                                                                                                      ? data && data[EnumGrid.numero_oc]                : "" }"`),
+    (`numero_guia=${data && data[EnumGrid.numero_guia]                                                                                                   ? data && data[EnumGrid.numero_guia]              : 0 }`),
+    (`numero_factura=${data && data[EnumGrid.numero_factura]                                                                                             ? data && data[EnumGrid.numero_factura]           : 0 }`),
+    (`folio_interno_mandante="${data && data[EnumGrid.folio_interno_mandante]                                                                            ? data && data[EnumGrid.folio_interno_mandante]   : "" }"`),
+    (`reporte_interno_mandante="${data && data[EnumGrid.reporte_interno_mandante]                                                                        ? data && data[EnumGrid.reporte_interno_mandante] : "" }"`),
+    (`observaciones="${_formValues["receta"] && _formValues["receta"]["observaciones"]                                                                   ? _formValues["receta"]["observaciones"]          : data && data[EnumGrid.observaciones]}"`),
     
   
   ];
@@ -733,11 +740,11 @@ const _armazonesJSON = JSON.stringify(armazones)
 
   };
   // console.log(_p1)
-  // console.log(query)
+  console.log(query)
   try {
     const response = await axios.post(`${URLBackend}/api/ot/editar/`, query)
 
-    console.log(response)
+    // console.log(response)
     if(response.status === 200){
       return toast.success('OT Editada Correctamente')
     }else{

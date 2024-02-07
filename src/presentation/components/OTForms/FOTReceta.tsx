@@ -37,6 +37,7 @@ const FOTReceta:React.FC<IReceta> = ({
 }) => {
     const handleInputChange = (e:any) => {
         let {name, value} = e;
+        console.log(name)
         setDioptriasReceta(name, value)
         onDataChange({[name]:value})
         
@@ -418,6 +419,7 @@ const FOTReceta:React.FC<IReceta> = ({
                         control={control}
                         // onlyRead={isEditting}
                         isOptional={true}
+                        isOT={true}
                         customWidth={"!ml-[1rem] !mr-[3rem] "}
                         />
                 </div>

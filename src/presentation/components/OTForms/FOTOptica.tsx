@@ -64,7 +64,7 @@ const FOTOptica:React.FC<IOptica> = ({
         console.log(value)
         
         
-        if(name === "proyecto"){
+        if(name === "proyecto_codigo"){
             setStrCodigoProyecto(value)
         }
 
