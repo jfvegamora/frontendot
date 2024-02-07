@@ -98,7 +98,6 @@ const FOTClientes:React.FC<IClientes> = ({
                     const mensaje = innerArray[0];
                     if (mensaje === 'OK') {
                       // Tipo 1 (OK)
-                      console.log('Tipo 1 (OK):', cliente.data);
                       
                       onDataChange({['cliente_nombre']: " "})    
                       onDataChange({['cliente_sexo']: " "})
@@ -122,7 +121,6 @@ const FOTClientes:React.FC<IClientes> = ({
 
 
                     } else if (typeof mensaje === 'string' && mensaje.startsWith('ADVERTENCIA:')) {
-                        console.log('render')
                       const result = await showModal(
                         cliente.data[0][0] + "  Desea Continuar?",
                         "h-[7rem]  mt-2",

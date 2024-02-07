@@ -392,7 +392,7 @@ const FOT:React.FC<IFOTProps> = ({
 
 
   const permisosAreas = OTAreaActual && permissions(OTAreaActual)[6] as any
-  console.log(permisosAreas && permisosAreas)
+  console.log(permisosAreas && permiso_usuario_verificar_cristal)
 
   let permiso_areas_armazones             = permisosAreas && permisosAreas[0] === '1' ? true : false;
   let permiso_areas_cristales             = permisosAreas && permisosAreas[1] === '1' ? true : false;
