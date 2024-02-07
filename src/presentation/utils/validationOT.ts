@@ -333,7 +333,7 @@ export const validationCodigoCristal2_od = (value:any, validar?:boolean) => {
         if(validar){
             return item.valor = 1
         }
-        
+
         if(value === ""){
             return item.valor = 0;
         }
@@ -350,9 +350,13 @@ export const validationCodigoCristal2_od = (value:any, validar?:boolean) => {
 }
 
 
-export const validationCodigoCristal2_oi = (value:any) => {
+export const validationCodigoCristal2_oi = (value:any, validar?:boolean) => {
     const item = validationNivel3.value.find((item: { campo: string; }) => item.campo === 'validar_cristal2_oi');
     if(item){
+        if(validar){
+            return item.valor = 1;
+        }
+
         if(value === ""){
             return item.valor = 0;
         }
@@ -389,9 +393,13 @@ export const validationCodigoArmazon_1  = (value:any) => {
 }
 
 
-export const validationCodigoArmazon_2 = (value:any) => {
+export const validationCodigoArmazon_2 = (value:any, validar?:boolean) => {
     const item = validationNivel3.value.find((item: { campo: string; }) => item.campo === 'validar_armazon2');
     if(item){
+        if(validar){
+            return item.valor = 1;
+        }
+
         if(value === ""){
             return item.valor = 0;
         }

@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 import { A1_DP, A1_Diametro, A2_DP, A2_Diametro, codigoProyecto, punto_venta, tipo_de_anteojo, validar_parametrizacion } from '../../utils';
 import TextInputInteractive from '../forms/TextInputInteractive';
 import { validationNivel3 } from '../../views/forms/FOT';
+import { AppStore, useAppSelector } from '../../../redux/store';
 
 interface IArmazones {
     control:any;
@@ -29,6 +30,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
     permiso_areas_armazones,
     isEditting
 }) => {
+    const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas["areaActual"]);
 
     
     // const [codArmazon1, setCodArmazon1] = useState( formValues && formValues["codigo_armazon_1"] || 0);
@@ -144,9 +146,10 @@ const FOTArmazones:React.FC<IArmazones> = ({
     },[armazon3, codArmazon3])
 
 
+    console.log(tipo_de_anteojo.value)
 
     useEffect(()=>{
-        if (codArmazon2 !== undefined && codArmazon2 !== null && codArmazon2.trim) {
+        if (codArmazon2 !== undefined && codArmazon2 !== null && codArmazon2.trim && (tipo_de_anteojo.value === '3' ? (A2_Diametro.value !== '') : (A1_Diametro.value !== '')) ) {
             if(!(!codArmazon2.trim())){
                 const fetchArmazones2 = async ()=>{
                     try {
@@ -248,7 +251,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
                                     className=''
                                     textAlign="text-center"
                                     />
-
+                            {OTAreas === 60 && (
                                 <TextInputInteractive
                                     type="text"
                                     label="Validar Código"
@@ -259,6 +262,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
                                     isOT={true}
                                     textAlign="text-center"
                                 />
+                            )}
                             </div>                            
                         </div>
 
@@ -323,15 +327,17 @@ const FOTArmazones:React.FC<IArmazones> = ({
                                     isOT={true}
                                     textAlign="text-center"
                                     />
-                                <TextInputInteractive
-                                    type="text"
-                                    label="Validar Código"
-                                    name="validar_armazon2"
-                                    handleChange={handleInputChange}
-                                    control={control}
-                                    isOT={true}
-                                    textAlign="text-center"
-                                 />
+                                     {OTAreas === 60 && (
+                                         <TextInputInteractive
+                                             type="text"
+                                             label="Validar Código"
+                                             name="validar_armazon2"
+                                             handleChange={handleInputChange}
+                                             control={control}
+                                             isOT={true}
+                                             textAlign="text-center"
+                                          />
+                                     )}    
                             </div>                            
                         </div>
 

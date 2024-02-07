@@ -33,7 +33,7 @@ import { A1_CR_OD, A1_CR_OI, A1_DP, A1_Diametro, A1_GRUPO_OD, A1_GRUPO_OI, A2_CR
   punto_venta, 
   // reiniciarA2DioptriasReceta, 
   reiniciarDioptriasReceta, reiniciarValidationNivel1, reiniciarValidationNivel2, tipo_de_anteojo, updateOT, validar_parametrizacion } from '../../utils';
-import { validationCliente, validationClienteComuna, validationClienteNombre, validationClienteSexo, validationClienteTelefono, validationClienteTipo, validationCodigoCristal2_od, validationCodigoCristal2_oi, validationEstablecimientos, validationFechaAtencion, validationFechaDespacho, validationFechaEntregaCliente, validationFechaEntregaTaller, validationProyectos, validationPuntoVenta, validationTipoAnteojos, validation_A1_ALT, validation_A1_DP, validation_A1_OD_AD, validation_A1_OD_CILL, validation_A1_OD_EJE, validation_A1_OD_ESF, validation_A1_OI_AD, validation_A1_OI_CIL, validation_A1_OI_EJE, validation_A1_OI_ESF, validation_A1_armazon, validation_A2_DP, validation_A2_OD_CIL, validation_A2_OD_EJE, validation_A2_OD_ESF, validation_A2_OI_CIL, validation_A2_OI_EJE, validation_A2_OI_ESF, validation_A2_armazon, validation_Cristal1_color, validation_Cristal1_diametro, validation_Cristal1_diseño, validation_Cristal1_indice, validation_Cristal1_marca, validation_Cristal1_material, validation_Cristal1_od, validation_Cristal1_oi, validation_Cristal1_tratamiento, validation_Cristal2_color, validation_Cristal2_diametro, validation_Cristal2_diseño, validation_Cristal2_indice, validation_Cristal2_material, validation_Cristal2_od, validation_Cristal2_oi, validation_Cristal2_tratamiento, validation_cristal2_marca } from '../../utils/validationOT';
+import { validationCliente, validationClienteComuna, validationClienteNombre, validationClienteSexo, validationClienteTelefono, validationClienteTipo, validationCodigoArmazon_2, validationCodigoCristal2_od, validationCodigoCristal2_oi, validationEstablecimientos, validationFechaAtencion, validationFechaDespacho, validationFechaEntregaCliente, validationFechaEntregaTaller, validationProyectos, validationPuntoVenta, validationTipoAnteojos, validation_A1_ALT, validation_A1_DP, validation_A1_OD_AD, validation_A1_OD_CILL, validation_A1_OD_EJE, validation_A1_OD_ESF, validation_A1_OI_AD, validation_A1_OI_CIL, validation_A1_OI_EJE, validation_A1_OI_ESF, validation_A1_armazon, validation_A2_DP, validation_A2_OD_CIL, validation_A2_OD_EJE, validation_A2_OD_ESF, validation_A2_OI_CIL, validation_A2_OI_EJE, validation_A2_OI_ESF, validation_A2_armazon, validation_Cristal1_color, validation_Cristal1_diametro, validation_Cristal1_diseño, validation_Cristal1_indice, validation_Cristal1_marca, validation_Cristal1_material, validation_Cristal1_od, validation_Cristal1_oi, validation_Cristal1_tratamiento, validation_Cristal2_color, validation_Cristal2_diametro, validation_Cristal2_diseño, validation_Cristal2_indice, validation_Cristal2_material, validation_Cristal2_od, validation_Cristal2_oi, validation_Cristal2_tratamiento, validation_cristal2_marca } from '../../utils/validationOT';
 // import { inputName } from '../../components/OTForms/Otprueba';
 // import { verificaCampos } from '../../utils/OTReceta_utils';
 import { URLBackend } from '../../hooks/useCrud';
@@ -331,7 +331,7 @@ export const validationNivel3 = signal([
   { campo:"validar_cristal2_od",
     valor: 0
   },
-  { campo:"validar_cristala2_oi",
+  { campo:"validar_cristal2_oi",
     valor: 0
   },
   { campo:"validar_armazon1",
@@ -384,10 +384,15 @@ const FOT:React.FC<IFOTProps> = ({
   let permiso_usuario_resolucion_garantia = permisosCampos && permisosCampos[4] === "1" ? true : false;
   let permiso_usuario_grupo_dioptria      = permisosCampos && permisosCampos[5] === "1" ? true : false;
   let permiso_usuario_receta              = permisosCampos && permisosCampos[6] === "1" ? true : false;
+  let permiso_usuario_verificar_cristal   = permisosCampos && permisosCampos[7] === "1" ? true : false;
+  let permiso_usuario_verificar_armazon   = permisosCampos && permisosCampos[8] === "1" ? true : false;
 
 
-  
+ 
+
+
   const permisosAreas = OTAreaActual && permissions(OTAreaActual)[6] as any
+  console.log(permisosAreas && permisosAreas)
 
   let permiso_areas_armazones             = permisosAreas && permisosAreas[0] === '1' ? true : false;
   let permiso_areas_cristales             = permisosAreas && permisosAreas[1] === '1' ? true : false;
@@ -396,7 +401,10 @@ const FOT:React.FC<IFOTProps> = ({
   let permiso_areas_resolucion_garantia   = permisosAreas && permisosAreas[4] === '1' ? true : false;
   let permiso_areas_grupo_dioptria        = permisosAreas && permisosAreas[5] === '1' ? true : false;
   let permiso_areas_receta                = permisosAreas && permisosAreas[6] === '1' ? true : false;
+  let permiso_area_verificar_cristal      = permisosAreas && permisosAreas[7] === '1' ? true : false;
+  let permiso_area_verificar_armazon      = permisosAreas && permisosAreas[8] === "1" ? true : false;
 
+  // 100001100
 
 
 
@@ -577,7 +585,8 @@ const FOT:React.FC<IFOTProps> = ({
       console.log(data && data[EnumGrid.tipo_anteojo_id])
 
       validationCodigoCristal2_od("0",true)
-      validationCodigoCristal2_oi("0")
+      validationCodigoCristal2_oi("0",true)
+      validationCodigoArmazon_2("0", true)
 
       if(data && data[EnumGrid.tipo_anteojo_id] === 3){
         validation_A2_armazon(data && data[EnumGrid.a2_armazon_id])
@@ -1173,8 +1182,23 @@ useEffect(() => {
   };
 }, [closeModal]);
 
+console.log(permiso_usuario_verificar_cristal)
+console.log(permiso_usuario_verificar_armazon)
 
-  console.log()
+
+
+console.log(permiso_area_verificar_cristal)
+console.log(permiso_area_verificar_armazon)
+
+
+
+
+
+
+
+
+
+  console.log(formValues)
 
   console.log(validationNivel1.value)
   
@@ -1232,7 +1256,7 @@ useEffect(() => {
           </TabPanel>
 
           <TabPanel>
-            <FOTCristales permiso_usuario_grupo_dioptria={permiso_usuario_grupo_dioptria} permiso_areas_grupo_dioptria={permiso_areas_grupo_dioptria} permiso_areas_cristales={permiso_areas_cristales}  permiso_usuario_cristales={permiso_usuario_cristales} onlyRead={onlyRead} isEditting={isEditting} data={data && data}  formValues={formValues["cristales"]} control={control} onDataChange={(data:any) => handleFormChange(data , 'cristales')}   /> 
+            <FOTCristales permiso_area_verificar_cristal={permiso_area_verificar_cristal} permiso_usuario_verificar_cristal={permiso_usuario_verificar_cristal} permiso_usuario_grupo_dioptria={permiso_usuario_grupo_dioptria} permiso_areas_grupo_dioptria={permiso_areas_grupo_dioptria} permiso_areas_cristales={permiso_areas_cristales}  permiso_usuario_cristales={permiso_usuario_cristales} onlyRead={onlyRead} isEditting={isEditting} data={data && data}  formValues={formValues["cristales"]} control={control} onDataChange={(data:any) => handleFormChange(data , 'cristales')}   /> 
           </TabPanel>
 
           <TabPanel> 
