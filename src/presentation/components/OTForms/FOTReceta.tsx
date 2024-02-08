@@ -11,6 +11,7 @@ import { validationOTlevel1, validationOTlevel2 } from '../../utils/validationOT
 import { combinaciones_validas, deshabilitarCampo, setDioptriasReceta } from '../../utils/OTReceta_utils'
 import { OTTextInputComponent } from '.'
 import { transponer } from '../../utils/FOTReceta_utils'
+import TextInputInteractive from '../forms/TextInputInteractive'
 
 // export const inputName = signal(0)
 
@@ -268,7 +269,7 @@ const FOTReceta:React.FC<IReceta> = ({
                 </div>
                 <div className="w-[14%] items-center ">
                     <div className="w-[70%] mx-auto">
-                        <TextInputComponent
+                        <TextInputInteractive
                             type="number"
                             label="DP"
                             name="a1_dp"
@@ -281,7 +282,7 @@ const FOTReceta:React.FC<IReceta> = ({
                             />
                     </div>
                     <div className="w-[70%] mx-auto">
-                        <TextInputComponent
+                        <TextInputInteractive
                             type="number"
                             label="ALT"
                             name="a1_alt"
@@ -391,7 +392,7 @@ const FOTReceta:React.FC<IReceta> = ({
 
                 <div className="w-[14%] items-center ">
                     <div className="w-[70%] mx-auto">
-                            <TextInputComponent
+                            <TextInputInteractive
                                 type="number"
                                 label="DP"
                                 name="a2_dp"

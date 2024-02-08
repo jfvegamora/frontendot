@@ -280,54 +280,58 @@ export const clearDioptriasA2 = (valor:any) => {
 
 };
 
-export const clearInputDioptrias = () => {
-     //? A1-OJO-DERECHO
-     dioptrias_receta.value.a1_od.esf = " ";
-     dioptrias_receta.value.a1_od.cil = " ";
-     dioptrias_receta.value.a1_od.eje = " ";
-     dioptrias_receta.value.a1_od.ad  = " ";
+// export const clearInputDioptrias = () => {
+//      //? A1-OJO-DERECHO
+//      dioptrias_receta.value.a1_od.esf = " ";
+//      dioptrias_receta.value.a1_od.cil = " ";
+//      dioptrias_receta.value.a1_od.eje = " ";
+//      dioptrias_receta.value.a1_od.ad  = " ";
      
-     dioptrias_receta.value.a1_oi.esf  = " ";
-     dioptrias_receta.value.a1_oi.cil  = " ";
-     dioptrias_receta.value.a1_oi.eje  = " ";
-     dioptrias_receta.value.a1_oi.ad   = " ";
+//      dioptrias_receta.value.a1_oi.esf  = " ";
+//      dioptrias_receta.value.a1_oi.cil  = " ";
+//      dioptrias_receta.value.a1_oi.eje  = " ";
+//      dioptrias_receta.value.a1_oi.ad   = " ";
      
 
-     //? A2-OJO-DERECHO
-     a2_od_esf.value = "  ";
-     a2_od_cil.value = "  ";
-     a2_od_eje.value = "  ";
 
-     a2_oi_esf.value = "  ";
-     a2_oi_cil.value = "  ";
-     a2_oi_eje.value = "  ";
+//      //? A2-OJO-DERECHO
+//      a2_od_esf.value = "  ";
+//      a2_od_cil.value = "  ";
+//      a2_od_eje.value = "  ";
 
-
-
-     //TODO: VALIDACION DE CAMPOS
-     validation_A1_OD_ESF(undefined);
-     validation_A1_OD_CILL(undefined);
-     validation_A1_OD_EJE(undefined);
-     validation_A1_OD_AD(undefined);
-
-     validation_A1_OI_ESF(undefined);
-     validation_A1_OI_CIL(undefined);
-     validation_A1_OI_EJE(undefined);
-
-     validation_A1_ALT(undefined);
-     validation_A1_DP(undefined);
+//      a2_oi_esf.value = "  ";
+//      a2_oi_cil.value = "  ";
+//      a2_oi_eje.value = "  ";
 
 
-     validation_A2_OD_ESF(undefined);
-     validation_A2_OD_CIL(undefined);
-     validation_A2_OD_EJE(undefined);
 
-     validation_A2_OI_ESF(undefined);
-     validation_A2_OI_CIL(undefined);
-     validation_A2_OI_EJE(undefined);
 
-     validation_A2_DP(undefined);
-}
+
+
+//      //TODO: VALIDACION DE CAMPOS
+//      validation_A1_OD_ESF(undefined);
+//      validation_A1_OD_CILL(undefined);
+//      validation_A1_OD_EJE(undefined);
+//      validation_A1_OD_AD(undefined);
+
+//      validation_A1_OI_ESF(undefined);
+//      validation_A1_OI_CIL(undefined);
+//      validation_A1_OI_EJE(undefined);
+
+//      validation_A1_ALT(undefined);
+//      validation_A1_DP(undefined);
+
+
+//      validation_A2_OD_ESF(undefined);
+//      validation_A2_OD_CIL(undefined);
+//      validation_A2_OD_EJE(undefined);
+
+//      validation_A2_OI_ESF(undefined);
+//      validation_A2_OI_CIL(undefined);
+//      validation_A2_OI_EJE(undefined);
+
+//      validation_A2_DP(undefined);
+// }
 
 
 export function validarValor(str:string) {
@@ -454,7 +458,7 @@ export const inputChangeActions:InputChangeActions = {
   },
   tipo_anteojo_id: (data:any) => {
     tipo_de_anteojo.value = Object.values(data)[0] as string
-    clearInputDioptrias()
+    // clearInputDioptrias()
     validation_tipo_anteojo()
   },
   proyecto_codigo: (data:any) => {

@@ -101,7 +101,7 @@ const FOTClientes:React.FC<IClientes> = ({
                     const mensaje = innerArray[0];
                     if (mensaje === 'OK') {
                       // Tipo 1 (OK)
-                      
+                      isExistClient.value = false;
                       onDataChange({['cliente_nombre']: ""})    
                       onDataChange({['cliente_sexo']: ""})
                       onDataChange({['cliente_tipo']: ""})
@@ -122,15 +122,9 @@ const FOTClientes:React.FC<IClientes> = ({
                       validationClienteTipo("")
                       validationClienteComuna(NaN)
                       validationClienteTelefono("")
-
+                        
 
                     } else if (typeof mensaje === 'string' && mensaje.startsWith('ADVERTENCIA:')) {
-                    //   const result = await showModal(
-                    //     cliente.data[0][0] + "  Desea Continuar?",
-                    //     "h-[7rem]  mt-2",
-                    //     MODAL.keepYes,
-                    //     MODAL.kepNo
-                    //   );
                       const result = confirm(`${cliente.data[0][0]}, ¿Desea Continuar?`)
                       console.log(result)
                       if(result){

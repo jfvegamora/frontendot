@@ -215,7 +215,6 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
                       [name]: selectedValue,
                     };
 
-                    console.log('INPUTVALUES', inputValuesToUpdate)
                     if (setHandleSearch) {
                       setHandleSearch(inputValuesToUpdate);
                     }

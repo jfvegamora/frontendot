@@ -725,29 +725,78 @@ const FOT:React.FC<IFOTProps> = ({
   const [_changeboolean, setChangeboolean] = useState(false)
 
 
-
- 
-  // console.log(strCodigoProyecto)
-
-  //formularios
- 
-  
-  // const sumatoriaNivel1 = validacionNivel1.reduce((index, objeto) => index + objeto.valor, 0);
-
   const sumatoriaNivel1 = validationNivel1.value.reduce((index, objeto) => index + objeto.valor, 0);
   const sumatoriaNivel2 = validationNivel2.value.reduce((index, objeto) => index + objeto.valor, 0)
   const sumatoriaNivel3 = validationNivel3.value.reduce((index,objecto) => index + objecto.valor, 0);  
-  // const actualizarEstado = (campo:string, valor:number) => {
-  //   const index = validacionNivel1.findIndex(objeto => objeto.campo === campo);
-  //   if (index !== -1) {
-  //       validacionNivel1[index].valor = valor;
-  //     }
-  // }
+ 
 
 
-  // console.log(sumatoriaNivel1)
+  const clearInputDioptrias = () => {
+    //? A1-OJO-DERECHO
+    dioptrias_receta.value.a1_od.esf = " ";
+    dioptrias_receta.value.a1_od.cil = " ";
+    dioptrias_receta.value.a1_od.eje = " ";
+    dioptrias_receta.value.a1_od.ad  = " ";
+    
+    dioptrias_receta.value.a1_oi.esf  = " ";
+    dioptrias_receta.value.a1_oi.cil  = " ";
+    dioptrias_receta.value.a1_oi.eje  = " ";
+    dioptrias_receta.value.a1_oi.ad   = " ";
+    
 
-  //submit boton pausar
+    handleFormChange({"a1_alt": ''} , 'receta')
+    handleFormChange({"a1_dp": ''} , 'receta')
+    handleFormChange({"a2_dp": ''} , 'receta')
+
+    handleFormChange({"cristal1_marca_id": ' '} , 'cristales')
+    handleFormChange({"cristal1_marca_id": false} , 'cristales')
+    
+    // onDataChange({[name]:value})
+
+    //? A2-OJO-DERECHO
+    a2_od_esf.value = "  ";
+    a2_od_cil.value = "  ";
+    a2_od_eje.value = "  ";
+
+    a2_oi_esf.value = "  ";
+    a2_oi_cil.value = "  ";
+    a2_oi_eje.value = "  ";
+
+
+
+
+
+
+    //TODO: VALIDACION DE CAMPOS
+    validation_A1_OD_ESF(undefined);
+    validation_A1_OD_CILL(undefined);
+    validation_A1_OD_EJE(undefined);
+    validation_A1_OD_AD(undefined);
+
+    validation_A1_OI_ESF(undefined);
+    validation_A1_OI_CIL(undefined);
+    validation_A1_OI_EJE(undefined);
+
+    validation_A1_ALT(undefined);
+    validation_A1_DP(undefined);
+
+
+    validation_A2_OD_ESF(undefined);
+    validation_A2_OD_CIL(undefined);
+    validation_A2_OD_EJE(undefined);
+
+    validation_A2_OI_ESF(undefined);
+    validation_A2_OI_CIL(undefined);
+    validation_A2_OI_EJE(undefined);
+
+    validation_A2_DP(undefined);
+}
+
+
+
+
+
+
   const onSubmit: SubmitHandler<any> = async(jsonData, _type?:any) => {
       //  console.log(submitAction)
 
@@ -872,18 +921,24 @@ const FOT:React.FC<IFOTProps> = ({
       }
     }));
     // console.log(Object.keys(data)[0])
-    // console.log(name)
-    // console.log(data)
+    console.log(name)
+    console.log(data)
     
+    console.log(formValues)
 
     //TODO: inputChangeAction 
     const key = Object.keys(data)[0] 
-    // console.log(key)
+    console.log(key)
+
+    if(key === 'tipo_anteojo_id'){
+      clearInputDioptrias()
+    }
+
+
     if(inputChangeActions[key]){
       // console.log('render')
       inputChangeActions[key](data);
     }
-
 
 
 
