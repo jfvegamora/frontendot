@@ -273,11 +273,7 @@ const FOTCristales: React.FC<ICristales> = ({
       }
 
     // console.log(tipo_de_anteojo.value)
-    console.log(formValues)
-    console.log(data && data[EnumGrid.cristal2_tratamiento_id])
-   console.log(formValues && formValues["cristal2_tratamiento_id"] ? formValues["cristal2_tratamiento_id"] : data && data[EnumGrid.cristal2_tratamiento_id])
-    
-    
+
     return (
         <form>
             <div className='w-full flex frameOTForm'>
@@ -294,7 +290,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                             showRefresh={true}
                                             isOT={true}
                                             handleSelectChange={handleInputChange}
-                                            data={formValues && formValues["cristal2_marca_id"] ? formValues["cristal2_marca_id"] : data && data[EnumGrid.cristal1_marca_id]}
+                                            data={formValues && formValues["cristal1_marca_id"] ? formValues["cristal1_marca_id"] : data && data[EnumGrid.cristal1_marca_id]}
                                             control={control}
                                             entidad={["/api/marcas/", "02"]}
                                             // error={errors.establecimiento}
@@ -510,7 +506,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                             showRefresh={true}
                                             isOT={true}
                                             handleSelectChange={handleInputChange}
-                                            data={formValues && formValues["cristal2_marca_id"] ? formValues["cristal2_marca_id"] : data && data[EnumGrid.cristal2_indice_id]}
+                                            data={formValues && formValues["cristal2_marca_id"] ? formValues["cristal2_marca_id"] : data && data[EnumGrid.cristal2_marca_id]}
                                             control={control}
                                             entidad={["/api/marcas/", "02"]}
                                             readOnly={!((!isEditting && tipo_de_anteojo.value === '3') || (isEditting && permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria && tipo_de_anteojo.value === '3'))}
