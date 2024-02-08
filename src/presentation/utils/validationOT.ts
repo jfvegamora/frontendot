@@ -927,17 +927,24 @@ export const validation_A2_OD_ESF =( value:string | any) => {
 }
 
 export const validation_A1_ALT = (value:string | any) => {
+    const item = validationNivel2.value.find((item) => item.campo === 'a1_alt');
+    
+    console.log(value)
+    
     if (value !== '') {
-        const item = validationNivel2.value.find((item) => item.campo === 'a1_alt');
         if (item) {
           item.valor = 1;
         };
       } else {
-        const item = validationNivel2.value.find((item) => item.campo === 'a1_alt');
         if (item) {
           item.valor = 0;
         };
     }
+
+
+    console.log(item)
+
+
 };
 
 export const validation_A1_DP = (value:string | any) => {
@@ -1064,18 +1071,19 @@ export const validation_A1_OD_EJE = (value: string | any) => {
                 dioptrias_receta.value.a1_od.eje = "  ";
                 a1_od_eje.value = "  ";
                 if(item){
-                    item.valor = 0
+                    return item.valor = 0
                 }  
                 
                 console.log(item)
+                return
             }
-        if(item){
-            item.valor = 1;
-        }
+            if(item){
+                item.valor = 1;
+            }
           
       }else{
         if(!(parseValue % 0.25 === 0)){
-            dioptrias_receta.value.a1_od.eje = "  ";
+                dioptrias_receta.value.a1_od.eje = "  ";
                 a1_od_eje.value = "  ";
                 if(item){
                     item.valor = 0
@@ -1094,7 +1102,7 @@ export const validation_A1_OD_EJE = (value: string | any) => {
       item.valor = 0;
     }
 
-
+    console.log(item)
 
 
   };
@@ -1138,7 +1146,7 @@ export const validation_A1_OD_ESF = (value: any) => {
     } else if (item) {
       item.valor = 0;
     }
-    // console.log(item)
+    console.log(item)
 }
 
 export const validationFechaEntregaCliente =(value:string) => {

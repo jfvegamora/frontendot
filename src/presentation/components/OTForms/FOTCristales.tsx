@@ -274,6 +274,10 @@ const FOTCristales: React.FC<ICristales> = ({
 
     // console.log(tipo_de_anteojo.value)
 
+    // console.log(A2_CR_OD.value.trim())
+    // console.log(data && data[EnumGrid.cristal2_od])
+
+
     return (
         <form>
             <div className='w-full flex frameOTForm'>

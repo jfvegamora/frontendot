@@ -2,6 +2,7 @@ import { Input } from "@material-tailwind/react";
 import React, {useEffect, useState} from "react";
 import { Controller } from "react-hook-form";
 import { 
+  a1_od_esf,
   // a1_od_cil, a1_od_eje, a1_od_esf, 
   a2_od_cil, a2_od_eje, a2_od_esf, dioptrias, dioptrias_receta } from "../../utils";
 import { toast } from "react-toastify";
@@ -137,13 +138,13 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
 
         if(Number(e.target.value).toFixed(2) as any >= 0 &&  Number(e.target.value).toFixed(2) as any <= 180){
           if(!(parseFloat(e.target.value) as any % 0.25 === 0)){
-            setValue(" ")
+            setValue("  ")
             toast.error('Esferico ojo derecho no corresponde')
           }
         }else{
           if(!(parseFloat(e.target.value) as any % 0.25 === 0)){
             toast.error('Esferico ojo derecho no corresponde')
-            setValue(" ")
+            setValue("  ")
           }
         }
 
@@ -206,8 +207,7 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
     
  
     newValue = e.target.value;
-    console.log(e.target.name)
-    console.log(dioptrias.value.esf)
+  
     // console.log(newValue)s
 
     setDefaultValue('v')
@@ -218,7 +218,10 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
  
 
   useEffect(()=>{
-    if(name === 'a1_od_cil'){
+    if(name === 'a1_od_esf'){
+      console.log(a1_od_esf.value)
+      console.log(dioptrias_receta.value.a1_od.esf)
+
       console.log(value)
     }
   },[])

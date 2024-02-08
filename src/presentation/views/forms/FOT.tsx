@@ -655,8 +655,8 @@ const FOT:React.FC<IFOTProps> = ({
     console.log(jsonData.cliente_tipo || formValues.cliente.cliente_tipo === TIPO_CLIENTE.beneficiario ? "1" : jsonData.cliente_tipo || formValues.cliente.cliente_tipo   === TIPO_CLIENTE.particular ? "2" : jsonData.cliente_tipo  || formValues.cliente.cliente_tipo === TIPO_CLIENTE.optica ? "3" : "0")
 
     isExistClient.value 
-                     ? _p3 = [`nombre="${jsonData.cliente_nombre || formValues.cliente.cliente_nombre || ""}"`, `tipo=${formValues?.cliente.cliente_tipo === TIPO_CLIENTE.beneficiario ? "1" : formValues?.cliente.cliente_tipo === TIPO_CLIENTE.particular ? "2" : formValues?.cliente.cliente_tipo === TIPO_CLIENTE.optica ? "3" : "0"}`, `sexo=${formValues?.cliente.cliente_sexo === SEXO.masculino ? "1" : formValues?.cliente.cliente_sexo === SEXO.femenino ? "2" : formValues?.cliente.cliente_sexo === SEXO.no_aplica ? "3"  : "0"}` ,`fecha_nacimiento="${jsonData.cliente_fecha_nacimiento || formValues.cliente.cliente_fecha_nacimiento || ""}"`, `direccion="${jsonData.cliente_direccion || formValues.cliente.cliente_direccion || ""}"`, `comuna=${jsonData.cliente_comuna || formValues.cliente.cliente_comuna || 0}`, `telefono="${jsonData.cliente_telefono || formValues.cliente.cliente_telefono || ""}"`, `correo="${jsonData.cliente_correo || formValues.cliente.cliente_correo || ""}"`, `establecimiento=${jsonData.establecimiento_id || formValues.cliente.establecimiento_id || 0}`].map((a)=>a.split("=")).map((a)=>a.join("=")).join(',')
-                     : _p3 =`"${jsonData.cliente_rut.trim() || formValues.cliente.cliente_rut.trim() || ""}","${jsonData.cliente_nombre || formValues.cliente.cliente_nombre || ""}",${jsonData.cliente_tipo || formValues.cliente.cliente_tipo === TIPO_CLIENTE.beneficiario ? "1" : jsonData.cliente_tipo || formValues.cliente.cliente_tipo   === TIPO_CLIENTE.particular ? "2" : jsonData.cliente_tipo  || formValues.cliente.cliente_tipo === TIPO_CLIENTE.optica ? "3" : "0"}, ${jsonData.cliente_sexo || formValues.cliente.cliente_sexo === SEXO.masculino ? "1" : jsonData.cliente_sexo || formValues.cliente.cliente_sexo === SEXO.femenino ? "2" : jsonData.cliente_sexo || formValues.cliente.cliente_sexo  === SEXO.no_aplica ? "3" : "0"},"${jsonData.cliente_fecha_nacimiento || formValues.cliente.cliente_fecha_nacimiento || ""}","${jsonData.cliente_direccion || formValues.cliente.cliente_direccion || ""}" ,${jsonData.cliente_comuna || formValues.cliente.cliente_comuna || 0}, "${jsonData.cliente_telefono || formValues.cliente.cliente_telefono || ""}","${jsonData.cliente_correo || formValues.cliente.cliente_correo || ""}", ${jsonData.establecimiento_id || formValues.cliente.establecimiento_id || 0}`.replace(/'/g, '!');
+                     ? _p3 = [`nombre="${jsonData.cliente_nombre.trim() || formValues.cliente.cliente_nombre.trim() || ""}"`, `tipo=${formValues?.cliente.cliente_tipo === TIPO_CLIENTE.beneficiario ? "1" : formValues?.cliente.cliente_tipo === TIPO_CLIENTE.particular ? "2" : formValues?.cliente.cliente_tipo === TIPO_CLIENTE.optica ? "3" : "0"}`, `sexo=${formValues?.cliente.cliente_sexo === SEXO.masculino ? "1" : formValues?.cliente.cliente_sexo === SEXO.femenino ? "2" : formValues?.cliente.cliente_sexo === SEXO.no_aplica ? "3"  : "0"}` ,`fecha_nacimiento="${jsonData.cliente_fecha_nacimiento || formValues.cliente.cliente_fecha_nacimiento || ""}"`, `direccion="${jsonData.cliente_direccion.trim() || formValues.cliente.cliente_direccion.trim() || ""}"`, `comuna=${jsonData.cliente_comuna || formValues.cliente.cliente_comuna || 0}`, `telefono="${jsonData.cliente_telefono.trim() || formValues.cliente.cliente_telefono.trim() || ""}"`, `correo="${jsonData.cliente_correo.trim() || formValues.cliente.cliente_correo.trim() || ""}"`, `establecimiento=${jsonData.establecimiento_id || formValues.cliente.establecimiento_id || 0}`].map((a)=>a.split("=")).map((a)=>a.join("=")).join(',')
+                     : _p3 =`"${jsonData.cliente_rut.trim() || formValues.cliente.cliente_rut.trim() || ""}","${jsonData.cliente_nombre.trim() || formValues.cliente.cliente_nombre.trim() || ""}",${jsonData.cliente_tipo || formValues.cliente.cliente_tipo === TIPO_CLIENTE.beneficiario ? "1" : jsonData.cliente_tipo || formValues.cliente.cliente_tipo   === TIPO_CLIENTE.particular ? "2" : jsonData.cliente_tipo  || formValues.cliente.cliente_tipo === TIPO_CLIENTE.optica ? "3" : "0"}, ${jsonData.cliente_sexo || formValues.cliente.cliente_sexo === SEXO.masculino ? "1" : jsonData.cliente_sexo || formValues.cliente.cliente_sexo === SEXO.femenino ? "2" : jsonData.cliente_sexo || formValues.cliente.cliente_sexo  === SEXO.no_aplica ? "3" : "0"},"${jsonData.cliente_fecha_nacimiento || formValues.cliente.cliente_fecha_nacimiento || ""}","${jsonData.cliente_direccion.trim() || formValues.cliente.cliente_direccion.trim() || ""}" ,${jsonData.cliente_comuna || formValues.cliente.cliente_comuna || 0}, "${jsonData.cliente_telefono.trim() || formValues.cliente.cliente_telefono.trim() || ""}","${jsonData.cliente_correo.trim() || formValues.cliente.cliente_correo.trim() || ""}", ${jsonData.establecimiento_id || formValues.cliente.establecimiento_id || 0}`.replace(/'/g, '!');
     
     
     // console.log(_p3)
@@ -893,8 +893,6 @@ const FOT:React.FC<IFOTProps> = ({
       // console.log('render')
       const formValue = getValues()
       const {cristal1_marca_id, cristal1_diseno_id, cristal1_indice_id, cristal1_color_id , cristal1_material_id,cristal1_tratamiento_id } = formValue;
-      console.log(A1_Diametro.value)
-      console.log(formValue)
 
       if(cristal1_marca_id                      !== undefined &&
         cristal1_diseno_id                      !== undefined &&
@@ -1172,7 +1170,9 @@ React.useEffect(() => {
 
 
 
-
+React.useEffect(()=>{
+  console.log('cambio')
+},[validationNivel2])
 
 
 
@@ -1220,7 +1220,6 @@ useEffect(() => {
   console.log(validationNivel3.value)
 
   // console.log( OTPermissions && OTPermissions[9])
-
 
 
   // console.log(OTPermissions && OTPermissions[6] === '1')

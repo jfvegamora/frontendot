@@ -1,6 +1,6 @@
 import { 
     // a1_oi_esf, a1_oi_cil, a1_oi_eje, 
-    dioptrias_receta, a2_od_esf, a2_oi_esf, a2_od_cil, a2_oi_cil, a2_od_eje, a2_oi_eje, tipo_de_anteojo } from ".";
+    dioptrias_receta, a2_od_esf, a2_oi_esf, a2_od_cil, a2_oi_cil, a2_od_eje, a2_oi_eje, tipo_de_anteojo, a1_od_esf } from ".";
 import { validation_A2_OD_CIL, validation_A2_OD_EJE, validation_A2_OD_ESF } from "./validationOT";
 
 
@@ -55,7 +55,7 @@ export const transponer = (ESF:any, CIL:any, EJE:any,
         default:
             break;
     }
-    console.log(dioptrias_receta.value[anteojo].cil)
+    // console.log(dioptrias_receta.value[anteojo].cil)
 
     if(typeof dioptrias_receta.value[anteojo].cil == 'number' && typeof dioptrias_receta.value[anteojo].eje == 'number'){
         if(dioptrias_receta.value[anteojo].cil > 0 && (dioptrias_receta.value[anteojo].eje >= 0 && dioptrias_receta.value[anteojo].eje <= 180)){
@@ -66,12 +66,16 @@ export const transponer = (ESF:any, CIL:any, EJE:any,
                 ? 0
                 : dioptrias_receta.value[anteojo].esf;
 
-                // console.log(parseInt(esfValue))
-                // console.log(dioptrias_receta.value[anteojo].cil)
+                console.log(parseFloat(esfValue))
+                console.log(parseFloat(dioptrias_receta.value[anteojo].cil))
                 
-                dioptrias_receta.value[anteojo].esf = parseInt(esfValue) + dioptrias_receta.value[anteojo].cil;
+                dioptrias_receta.value[anteojo].esf = parseFloat(esfValue) + parseFloat(dioptrias_receta.value[anteojo].cil)
+                if(anteojo === 'a1_od'){
+                    a1_od_esf.value = parseFloat(esfValue) + parseFloat(dioptrias_receta.value[anteojo].cil)
+                }
                 
                 // dioptrias_receta.value[anteojo].cil = 0;
+                console.log(dioptrias_receta.value[anteojo].esf)
 
                 dioptrias_receta.value[anteojo].cil = (CIL * -1);
 
@@ -96,7 +100,9 @@ export const transponer = (ESF:any, CIL:any, EJE:any,
     
     if(Number.isNaN(dioptrias_receta.value[anteojo].ad)){
         if(tipo_de_anteojo.value === '3' && ESF2 && CIL2 && EJE2){
-            ESF2.value = dioptrias_receta.value[anteojo].esf + dioptrias_receta.value[anteojo].ad;
+
+            
+            ESF2.value = parseFloat(dioptrias_receta.value[anteojo].esf) + parseFloat(dioptrias_receta.value[anteojo].ad);
             CIL2.value = dioptrias_receta.value[anteojo].cil   
             EJE2.value = dioptrias_receta.value[anteojo].eje  
             

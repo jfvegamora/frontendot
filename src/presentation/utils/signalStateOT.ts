@@ -204,10 +204,11 @@ export const clearGrupos = () => {
 
   A1_CR_OD.value      = "";
   A1_CR_OI.value      = "";
-  A1_CR_OD.value      = "";
-  A1_CR_OI.value      = "";
+  A2_CR_OD.value      = "";
+  A2_CR_OI.value      = "";
 
   A1_DP.value         = "";
+  A2_DP.value         = "";
 
   a1_armazon.value    = "";
   a2_armazon.value    = "";
@@ -388,10 +389,10 @@ const fetchDioptrias = async(_proyecto:string) => {
     // dioptrias.value.CIL = responseCIL.data;
     // dioptrias.value.EJE = responseEJE.data;
     // dioptrias.value.AD  = responseAD.data;
-    dioptrias.value.ESF = ''
-    dioptrias.value.CIL = ''
-    dioptrias.value.EJE = ''
-    dioptrias.value.AD  = ''
+    // dioptrias.value.ESF = ''
+    // dioptrias.value.CIL = ''
+    // dioptrias.value.EJE = ''
+    // dioptrias.value.AD  = ''
 
     
     console.log(dioptrias.value)
@@ -457,9 +458,8 @@ export const inputChangeActions:InputChangeActions = {
     validation_tipo_anteojo()
   },
   proyecto_codigo: (data:any) => {
-    console.log('codigo')
     codigoProyecto.value = (Object.values(data)[0] as string);
-    fetchDioptrias(Object.values(data)[0] as string)    
+    
   },
   punto_venta_id: (data:any) => {
     punto_venta.value = (Object.values(data)[0] as string);
@@ -576,6 +576,8 @@ export const updateOT =async (
   let _p3 = ""
 
 
+
+
   const fields = [
     `motivo=${motivo}`,
     `area=${_destino}`,
@@ -603,8 +605,8 @@ export const updateOT =async (
     (`a1_oi_cil=${typeof dioptrias_receta.value.a1_oi.cil                                                                                                !== 'object' && !Number.isNaN(dioptrias_receta.value.a1_oi.cil) ? dioptrias_receta.value.a1_oi.cil : null }`),
     (`a1_oi_eje=${typeof dioptrias_receta.value.a1_oi.eje                                                                                                !== 'object' && !Number.isNaN(dioptrias_receta.value.a1_oi.eje) ? dioptrias_receta.value.a1_oi.eje : null }`),
     (`a1_oi_ad =${typeof dioptrias_receta.value.a1_oi.ad                                                                                                 !== 'object' && !Number.isNaN(dioptrias_receta.value.a1_oi.ad)  ? dioptrias_receta.value.a1_oi.ad  : null }`),
-    (`a1_dp=${jsonData.a1_dp                                                                                                                             !== ''       ? jsonData.a1_dp  : null }`),
-    (`a1_alt=${jsonData.a1_alt                                                                                                                           !== ''       ? jsonData.a1_alt : null }`),
+    (`a1_dp=${_formValues && _formValues["receta"]  && _formValues["receta"]["a1_dp"]                                                                    !== undefined ? _formValues["receta"] && parseInt(_formValues["receta"]["a1_dp"])  : data && data[EnumGrid.a1_dp]}`),
+    (`a1_alt=${_formValues && _formValues["receta"] && _formValues["receta"]["a1_alt"]                                                                   !== undefined ? _formValues["receta"] && parseInt(_formValues["receta"]["a1_alt"]) : data && data[EnumGrid.a1_alt]}`),
 
 
     `a1_grupo_od="${typeof A1_GRUPO_OD.value                                                                                                             !== 'object' ? A1_GRUPO_OD.value : ""}"`,
