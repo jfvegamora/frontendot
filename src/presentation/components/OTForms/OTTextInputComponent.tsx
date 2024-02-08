@@ -2,9 +2,10 @@ import { Input } from "@material-tailwind/react";
 import React, {useEffect, useState} from "react";
 import { Controller } from "react-hook-form";
 import { 
+  a1_od_eje,
   a1_od_esf,
   // a1_od_cil, a1_od_eje, a1_od_esf, 
-  a2_od_cil, a2_od_eje, a2_od_esf, dioptrias, dioptrias_receta } from "../../utils";
+  a2_od_cil, a2_od_eje, a2_od_esf, a2_oi_cil, a2_oi_eje, a2_oi_esf, dioptrias, dioptrias_receta } from "../../utils";
 import { toast } from "react-toastify";
 
 interface ITextInputProps {
@@ -47,7 +48,7 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
 }) => {
   const [defaultValue, setDefaultValue] = useState<string>(data || "  ")
 
-  let initialValue:any = 0;
+  let initialValue:any = "";
   let newValue = ''
   switch (name) {
     //? OJO DERECHO | ANTEOJO 1
@@ -87,6 +88,16 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
     case 'a2_od_eje':
        initialValue = a2_od_eje.value
        break;
+
+    case 'a2_oi_esf':
+       initialValue = a2_oi_esf.value
+       break;
+    case 'a2_oi_cil':
+       initialValue = a2_oi_cil.value
+       break;
+    case 'a2_oi_eje':
+      initialValue = a2_oi_eje.value
+      break;
     default:
       break;
   }
@@ -106,13 +117,13 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 
-    
+  
 
     if (handleChange) {
       handleChange(e.target)
     }
+    console.log(e.target.value)
 
-    console.log(e.target.name)
 
     switch (e.target.name) {
       case 'a1_od_esf':
@@ -135,11 +146,15 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
        
        break;
       case 'a1_od_eje':
-
+        
         if(Number(e.target.value).toFixed(2) as any >= 0 &&  Number(e.target.value).toFixed(2) as any <= 180){
           if(!(parseFloat(e.target.value) as any % 0.25 === 0)){
-            setValue("  ")
+            console.log('render')
+            setValue('')
+                      
             toast.error('Esferico ojo derecho no corresponde')
+          }else{
+            
           }
         }else{
           if(!(parseFloat(e.target.value) as any % 0.25 === 0)){
@@ -217,14 +232,11 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
   };
  
 
-  useEffect(()=>{
-    if(name === 'a1_od_esf'){
-      console.log(a1_od_esf.value)
-      console.log(dioptrias_receta.value.a1_od.esf)
+  // useEffect(()=>{
+  //   if(name === 'a2_oi_esf'){
 
-      console.log(value)
-    }
-  },[])
+  //   }
+  // },[])
 
 
 return (
@@ -242,6 +254,7 @@ return (
           {...field}
           error     = {error ? true : false }
           label     ={label}
+          defaultValue={initialValue}
           value     ={value}
           color     ="orange"
           id        ={label}

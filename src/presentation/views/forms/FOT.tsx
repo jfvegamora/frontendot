@@ -1009,8 +1009,8 @@ const FOT:React.FC<IFOTProps> = ({
           "color":      cristal2_color_id,
           "tratamiento":cristal2_tratamiento_id,
           "diametro":   A2_Diametro.value,
-          "esferico":   dioptrias_receta.value.a2_od.esf ?? 0, 
-          "cilindrico": dioptrias_receta.value.a2_od.cil ?? 0
+          "esferico":   a2_od_esf.value ?? 0, 
+          "cilindrico": a2_od_cil.value ?? 0
         }
 
 
@@ -1024,8 +1024,8 @@ const FOT:React.FC<IFOTProps> = ({
           "color":      cristal2_color_id,
           "tratamiento":cristal2_tratamiento_id,
           "diametro":   A2_Diametro.value,
-          "esferico":   dioptrias_receta.value.a2_oi.esf ?? 0,
-          "cilindrico": dioptrias_receta.value.a2_oi.cil ?? 0, 
+          "esferico":   a2_oi_esf.value ?? 0,
+          "cilindrico": a2_oi_cil.value ?? 0, 
         }
 
         // console.log(_pkToDelete1_oi)
@@ -1220,7 +1220,7 @@ useEffect(() => {
   console.log(validationNivel3.value)
 
   // console.log( OTPermissions && OTPermissions[9])
-
+  // console.log(dioptrias_receta.value.a2_oi.esf)
 
   // console.log(OTPermissions && OTPermissions[6] === '1')
   // console.log(isMOT)
