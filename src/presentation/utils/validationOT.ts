@@ -1060,15 +1060,25 @@ export const validation_A1_OD_EJE = (value: string | any) => {
     
     
       if(parseValue >= 0 && parseValue <= 180){
-          if(parseValue % 0.25 === 0){
-            dioptrias_receta.value.a1_od.eje = "  ";
-            a1_od_eje.value = "  ";
-            if(item){
-                item.valor = 0
-            }            
-          }
-
+          if(!(parseValue % 0.25 === 0)){
+                dioptrias_receta.value.a1_od.eje = "  ";
+                a1_od_eje.value = "  ";
+                if(item){
+                    item.valor = 0
+                }           
+            }
+        if(item){
+            item.valor = 1;
+        }
           
+      }else{
+        if(!(parseValue % 0.25 === 0)){
+            dioptrias_receta.value.a1_od.eje = "  ";
+                a1_od_eje.value = "  ";
+                if(item){
+                    item.valor = 0
+                }  
+        }
       }
     
     

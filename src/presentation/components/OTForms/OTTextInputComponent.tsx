@@ -134,16 +134,12 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
       case 'a1_od_eje':
 
         if(Number(e.target.value).toFixed(2) as any >= 0 &&  Number(e.target.value).toFixed(2) as any <= 180){
-          console.log('render')
-          console.log(Number(e.target.value).toFixed(2))
-
-
-          if(!(parseInt(e.target.value) as any % 0.25 === 0)){
+          if(!(parseFloat(e.target.value) as any % 0.25 === 0)){
             setValue(" ")
             toast.error('Esferico ojo derecho no corresponde')
           }
         }else{
-          if(parseInt(e.target.value) as any % 0.25 === 0){
+          if(!(parseFloat(e.target.value) as any % 0.25 === 0)){
             toast.error('Esferico ojo derecho no corresponde')
             setValue(" ")
           }
