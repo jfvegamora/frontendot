@@ -60,10 +60,8 @@ export const validation_tipo_anteojo = () => {
 
   camposAValidar.forEach(campo => {
       const campoObj = buscarCampo(campo);
-      console.log(campoObj)
       if (campoObj) campoObj.valor = mappedValues[campo] || 0;
 
-      console.log(campoObj)
   });
 
   deshabilitarCampo.value.a1_ad = tipoDeAnteojo !== '1' && tipoDeAnteojo !== '2' && tipoDeAnteojo !== '7';

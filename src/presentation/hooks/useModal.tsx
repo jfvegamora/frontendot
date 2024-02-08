@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-empty-function */
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect, useRef } from "react";
 import Modal from "react-modal";
 
 const customStyles = {
@@ -19,7 +19,9 @@ const customStyles = {
 export function useModal() {
   const [modalMessage, setModalMessage] = useState("");
   const [params, setParams] = useState<string[]>([]);
-  const [style, setStyle]   = useState<any>("")
+  const [style, setStyle]   = useState<any>("");
+  const firstButtonRef =  useRef<HTMLButtonElement>(null);
+
   const [modalResolve, setModalResolve] = useState<(result: boolean) => void>(
     () => () => {}
     );
@@ -27,7 +29,6 @@ export function useModal() {
 
   const showModal = useCallback(
     (message: string,style?:string, ...props: string[]): Promise<boolean> => {
-      console.log(style)
       if(style){
         setStyle(style)
       }
@@ -35,8 +36,11 @@ export function useModal() {
       setIsModalOpen(true);
       setParams(props);
 
+
       return new Promise<boolean>((resolve) => {
-        setModalResolve(() => resolve);
+        setModalResolve(() => {
+        return resolve
+      });
       });
     },
     []
@@ -51,21 +55,15 @@ export function useModal() {
     });
   }, []);
 
-  // useEffect(() => {
-  //   const handleKeyDown = (event: KeyboardEvent) => {
-  //     if (isModalOpen && event.key === "Enter") {
-  //       // Ejecuta la lógica aquí (por ejemplo, cierra el modal y resuelve la promesa)
-  //       closeModal();
-  //       modalResolve(true);
-  //     }
-  //   };
 
-  //   document.addEventListener("keydown", handleKeyDown);
+  useEffect(() => {
+    // Cuando el modal se renderiza, movemos el foco al primer botón
+    if(firstButtonRef.current){
+      firstButtonRef.current.focus();
+    }
+  }, []);
 
-  //   return () => {
-  //     document.removeEventListener("keydown", handleKeyDown);
-  //   };
-  // }, [isModalOpen, modalResolve, closeModal]);
+
 
   // console.log(params)
   const CustomModal = useCallback(
@@ -78,6 +76,7 @@ export function useModal() {
         ariaHideApp={false}
         className={`customModal`}
         overlayClassName="overlay"
+        // ref={ref}
       >
         <div className={`${style}`}>
           <h1 className="modalTitle text-white">{modalMessage}</h1>
@@ -85,6 +84,7 @@ export function useModal() {
 
           <div className="modalButtonContainer">
             <button
+              ref={firstButtonRef}
               tabIndex={1}
               className="bg-orange-300 hover:bg-orange-500 text-white font-bold py-2 px-4 mr-2 rounded w-[7rem]"
               onClick={() => {

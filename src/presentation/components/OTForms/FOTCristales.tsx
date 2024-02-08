@@ -274,10 +274,8 @@ const FOTCristales: React.FC<ICristales> = ({
 
     // console.log(tipo_de_anteojo.value)
     console.log(formValues)
-    console.log(data && data[EnumGrid.cristal1_marca_id])
-    console.log(formValues ? formValues["cristal1_marca_id"] : data && data[EnumGrid.cristal1_marca_id])
-    console.log(formValues && formValues["cristal2_marca_id"] ? formValues["cristal2_marca_id"] : data && data[EnumGrid.cristal1_marca_id]);
-
+    console.log(data && data[EnumGrid.cristal2_tratamiento_id])
+   console.log(formValues && formValues["cristal2_tratamiento_id"] ? formValues["cristal2_tratamiento_id"] : data && data[EnumGrid.cristal2_tratamiento_id])
     
     
     return (
@@ -664,7 +662,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                             label="Codigo Cristal OD"
                                             name="cristal2_od"
                                             handleChange={handleInputChange}
-                                            data={A2_CR_OD.value || data && data[EnumGrid.cristal2_od]}
+                                            data={A2_CR_OD.value.trim() || data && data[EnumGrid.cristal2_od]}
                                             control={control}
                                             isOT={true}
                                             onlyRead={!((isEditting && tipo_de_anteojo.value === '3') && (isEditting && permiso_areas_cristales && permiso_usuario_cristales && tipo_de_anteojo.value === '3'))}
@@ -677,7 +675,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                             label="Codigo Cristal OI"
                                             name="cristal2_oi"
                                             handleChange={handleInputChange}
-                                            data={A2_CR_OI.value || data && data[EnumGrid.cristal2_oi]}
+                                            data={A2_CR_OI.value.trim() || data && data[EnumGrid.cristal2_oi]}
                                             control={control}
                                             isOT={true}
                                             onlyRead={!((isEditting && tipo_de_anteojo.value === '3') && (isEditting && permiso_areas_cristales && permiso_usuario_cristales && tipo_de_anteojo.value === '3'))}

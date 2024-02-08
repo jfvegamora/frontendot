@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { RadioButtonComponent, SelectInputComponent } from '..'
 import { MODAL, SEXO, TIPO_CLIENTE, codigoProyecto, isExistClient } from '../../utils';
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
@@ -36,10 +36,13 @@ const FOTClientes:React.FC<IClientes> = ({
     const [_clienteData, setClienteData] = useState()
     const { showModal, CustomModal } = useModal();
     
+
+    const inputRef = useRef<HTMLInputElement>(null);
+    const modalRef = useRef<HTMLInputElement>(null);
     
     
     const setDataInputs = (cliente:any) =>{
-        console.log(cliente)
+        // console.log(cliente)
 
         if(cliente){
             setClienteData(data)
@@ -105,7 +108,8 @@ const FOTClientes:React.FC<IClientes> = ({
                       onDataChange({['cliente_fecha_nacimiento']: ""})
                       onDataChange({['cliente_correo']: ""})
                       onDataChange({['cliente_telefono']: ""})
-
+                      onDataChange({['cliente_sexo']: " "})
+                      onDataChange({['cliente_tipo']: " "})
 
 
                       onDataChange({['cliente_region']:0})
@@ -121,12 +125,14 @@ const FOTClientes:React.FC<IClientes> = ({
 
 
                     } else if (typeof mensaje === 'string' && mensaje.startsWith('ADVERTENCIA:')) {
-                      const result = await showModal(
-                        cliente.data[0][0] + "  Desea Continuar?",
-                        "h-[7rem]  mt-2",
-                        MODAL.keepYes,
-                        MODAL.kepNo
-                      );
+                    //   const result = await showModal(
+                    //     cliente.data[0][0] + "  Desea Continuar?",
+                    //     "h-[7rem]  mt-2",
+                    //     MODAL.keepYes,
+                    //     MODAL.kepNo
+                    //   );
+                      const result = confirm(`${cliente.data[0][0]}, ¿Desea Continuar?`)
+                      console.log(result)
                       if(result){
                         const cliente = await axios(`${URLBackend}/api/clientes/listado/?query=01&_p1=${cliente_rut}`)
                         //TODO: METODO PARA PASAR DARA A INPUTS
@@ -188,13 +194,11 @@ const FOTClientes:React.FC<IClientes> = ({
         if(name === 'cliente_rut'){
             fetchCliente(value.trim()).catch((error:any)=>{
                 setExistCliente(false)
-                console.log(error)
+                // console.log(error)
             })
         }
       };
 
-
-      console.log(formValues)
 
 
     return (
@@ -206,6 +210,7 @@ const FOTClientes:React.FC<IClientes> = ({
                         <div className="w-full !mt-4">
                             <TextInputInteractive
                                 type="text"
+                                inputRef={inputRef}
                                 label="Rut"
                                 name="cliente_rut"
                                 handleChange={handleInputChange}
@@ -373,7 +378,9 @@ const FOTClientes:React.FC<IClientes> = ({
 
             </div>
         </div>
-        <CustomModal/>
+
+        <CustomModal
+        />
     </form>
   )
 }

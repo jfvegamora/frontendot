@@ -11,7 +11,6 @@ import { validationOTlevel1, validationOTlevel2 } from '../../utils/validationOT
 import { combinaciones_validas, deshabilitarCampo, setDioptriasReceta } from '../../utils/OTReceta_utils'
 import { OTTextInputComponent } from '.'
 import { transponer } from '../../utils/FOTReceta_utils'
-import TextInputInteractive from '../forms/TextInputInteractive'
 
 // export const inputName = signal(0)
 
@@ -66,7 +65,6 @@ const FOTReceta:React.FC<IReceta> = ({
 
         // console.log(dioptrias_receta.value.a1_oi)
     }
-
 
   return (
     <form>
@@ -348,14 +346,14 @@ const FOTReceta:React.FC<IReceta> = ({
                 <div className="w-[90%] mx-auto flex items-center h-[8rem] relative labelForm  rounded-lg border radioComponent">
                         <label className='labelForm w-[40%] absolute z-10 text-center -top-10 left-[30%] text-2xl'>OI</label>
                         <div className="w-[25%]">
-                            <TextInputInteractive
+                            <OTTextInputComponent
                                 type="number"
                                 label="ESF"
                                 name="a2_oi_esf"
                                 handleChange={handleInputChange}
                                 data={a2_oi_esf.value || data && data[EnumGrid.a2_oi_esf]}
                                 control={control}
-                                isOT={true}
+                                // isOT={true}
                                 onlyRead={true}
                                 textAlign="text-center"
                                 />
