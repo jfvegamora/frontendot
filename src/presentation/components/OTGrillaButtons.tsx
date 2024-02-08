@@ -111,11 +111,6 @@ const OTGrillaButtons:React.FC<AreaButtonsProps> = ({ areaPermissions, toggleEdi
       };
     
 
-      console.log( (areaPermissions && areaPermissions[1] === '1'))
-      console.log(historica)
-
-      console.log( historica || (areaPermissions && areaPermissions[1] === '1')  )
- 
  
 
  return (

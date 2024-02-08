@@ -3,6 +3,8 @@
 import { Input } from "@material-tailwind/react";
 import React, {useEffect, useState} from "react";
 import { Controller } from "react-hook-form";
+// import debounce from "lodash/debounce"
+import debounce from 'lodash/debounce'
 
 interface ITextInputProps {
   label: string;
@@ -13,7 +15,7 @@ interface ITextInputProps {
   control: any;
   data?: any;
   error?: any;
-  inputRef?: any;
+  inputRef?: React.RefObject<HTMLInputElement>;
   className?:string;
   handleChange?: (data:any)=>void;
   maxLength?:number;
@@ -34,7 +36,7 @@ const TextInputInteractive: React.FC<ITextInputProps> = ({
   onlyRead,
   data,
   error,
-  inputRef,
+  inputRef, // Modificación aquí
   className,
   maxLength,
   step,
@@ -42,16 +44,14 @@ const TextInputInteractive: React.FC<ITextInputProps> = ({
   isOT,
   customWidth,
   isOptional,
-  textAlign,
+  textAlign
 }) => {
   // const [_defaultValue, setDefaultValue] = useState<any>(data && data || "")
   const [_defaultValue, setDefaultValue] = useState<any>(data || " "); // Inicializar defaultValue con el valor inicial
-
+  // const inputRef = useRef<HTMLInputElement>(null);
 
   const [value, setValue] = useState<any>(data || "");
 
-
-  
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (handleChange) {
       if(isOT){
@@ -73,8 +73,11 @@ const TextInputInteractive: React.FC<ITextInputProps> = ({
     setValue(data)
   },[data])
 
+  const handleDebounceInputChange = debounce((newValue: any) => {
+    handleInputChange(newValue); // Llama a la función original handleInputChange
+  }, 200);
 
-  console.log(data)
+  // console.log(data)
 
 // ...
 
@@ -98,9 +101,11 @@ return (
             // defaultValue={defaultValue}
             readOnly={onlyRead}
             maxLength={maxLength}
-            onBlur={(e) => handleInputChange(e)}
+            onBlur={(e) => handleDebounceInputChange(e)}
             onChange={(e)=> {
                 setValue(e.target.value)
+                // handleDebounceInputChange(e)
+                // handleInputChange(e)
             }}
             ref={inputRef}
             className={`${className ? className : "custom-input"}  ${onlyRead ? "custom-onlyread" : isOptional ? "custom-optional" : "custom-required"} ${textAlign && textAlign}`}

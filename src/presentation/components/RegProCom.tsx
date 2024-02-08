@@ -106,10 +106,8 @@ useEffect(()=>{
     if(defaultRegion){
         setSelectedRegion(defaultRegion)
         if(defaultProvincia){
-            console.log(defaultProvincia)
             setSelectedProvince(defaultProvincia)
             if(defaultComuna){
-                console.log(defaultComuna)
                 setSelectedCommune(defaultComuna)
     
                 validationClienteComuna(defaultComuna as any)
@@ -136,6 +134,7 @@ useEffect(()=>{
                         <select 
                             {...field}
                             value={selectedRegion} 
+                            defaultValue={defaultRegion && defaultRegion}
                             onChange={handleRegionChange}
                             tabIndex  ={tabIndex || 1}
                             disabled={onlyRead}
@@ -235,7 +234,6 @@ useEffect(()=>{
                                     </option>
                                 )}
                                 {/* <option>Comuna</option> */}
-                                {console.log(Comunas.filter((comuna:any)=>(comuna[2] === selectedProvince)).map((comuna:any)=>comuna))}
                                     { selectedProvince !== 0 && Comunas.filter((comuna:any) => (comuna[2] === selectedProvince)).map((comuna:any)=>(
                                         <option key={comuna[0]} value={comuna[0]}>
                                             {comuna[1]}
