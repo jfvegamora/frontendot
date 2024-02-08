@@ -1065,7 +1065,9 @@ export const validation_A1_OD_EJE = (value: string | any) => {
                 a1_od_eje.value = "  ";
                 if(item){
                     item.valor = 0
-                }           
+                }  
+                
+                console.log(item)
             }
         if(item){
             item.valor = 1;
@@ -1078,6 +1080,10 @@ export const validation_A1_OD_EJE = (value: string | any) => {
                 if(item){
                     item.valor = 0
                 }  
+        }
+
+        if(item){
+            item.valor = 0
         }
       }
     

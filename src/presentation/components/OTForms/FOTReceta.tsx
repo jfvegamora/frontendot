@@ -190,6 +190,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 onlyRead={!(!isEditting || (permiso_usuario_receta && permiso_areas_receta))}
                                 textAlign="text-center"
                                 step={1}
+                                onDataChange={onDataChange}
                                 />
                         </div>
                         <div className="w-[25%]" tabIndex={-1}>

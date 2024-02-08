@@ -23,6 +23,7 @@ interface ITextInputProps {
   isOptional?:boolean;
   textAlign?: string;
   step?:number
+  onDataChange?:any
 }
 
 const OTTextInputComponent: React.FC<ITextInputProps> = ({
@@ -40,7 +41,8 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
   otData,
   isOptional,
   textAlign,
-  step
+  step,
+  onDataChange
 }) => {
   const [defaultValue, setDefaultValue] = useState<string>(data || "  ")
 
