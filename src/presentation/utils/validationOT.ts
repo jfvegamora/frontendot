@@ -1051,15 +1051,36 @@ export const validation_A1_OD_EJE = (value: string | any) => {
     const parseValue = parseFloat(value)    
     const validate = (parseValue >= 0 && parseValue <= 180 && parseValue % 0.25 === 0 ) 
     
-      item && (item.valor = validate ? 1 : 0);
+    //   item && (item.valor = validate ? 1 : 0);
       
-      if(!validate){
-        dioptrias_receta.value.a1_od.eje = "  ";
-        a1_od_eje.value = "  "
+    //   if(!validate){
+    //     dioptrias_receta.value.a1_od.eje = "  ";
+    //     a1_od_eje.value = "  "
+    //   }
+    
+    
+      if(parseValue >= 0 && parseValue <= 180){
+          if(parseValue % 0.25 === 0){
+            dioptrias_receta.value.a1_od.eje = "  ";
+            a1_od_eje.value = "  ";
+            if(item){
+                item.valor = 0
+            }            
+          }
+
+          
       }
+    
+    
+    
+    
     } else if (item) {
       item.valor = 0;
     }
+
+
+
+
   };
 
 export const validation_A1_OD_CILL = (value:string | any) => {
