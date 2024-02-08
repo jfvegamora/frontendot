@@ -131,6 +131,7 @@ const FOTClientes:React.FC<IClientes> = ({
                         const cliente = await axios(`${URLBackend}/api/clientes/listado/?query=01&_p1=${cliente_rut}`)
                         //TODO: METODO PARA PASAR DARA A INPUTS
                         setDataInputs(cliente)
+                        isExistClient.value = true;
                       }else{
                         //TODO: METODO PARA LIMPIAR LOS INPUTS
                         clearInputs()

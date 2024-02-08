@@ -656,7 +656,7 @@ const FOT:React.FC<IFOTProps> = ({
 
     isExistClient.value 
                      ? _p3 = [`nombre="${jsonData.cliente_nombre.trim() || formValues.cliente.cliente_nombre.trim() || ""}"`, `tipo=${formValues?.cliente.cliente_tipo === TIPO_CLIENTE.beneficiario ? "1" : formValues?.cliente.cliente_tipo === TIPO_CLIENTE.particular ? "2" : formValues?.cliente.cliente_tipo === TIPO_CLIENTE.optica ? "3" : "0"}`, `sexo=${formValues?.cliente.cliente_sexo === SEXO.masculino ? "1" : formValues?.cliente.cliente_sexo === SEXO.femenino ? "2" : formValues?.cliente.cliente_sexo === SEXO.no_aplica ? "3"  : "0"}` ,`fecha_nacimiento="${jsonData.cliente_fecha_nacimiento || formValues.cliente.cliente_fecha_nacimiento || ""}"`, `direccion="${jsonData.cliente_direccion.trim() || formValues.cliente.cliente_direccion.trim() || ""}"`, `comuna=${jsonData.cliente_comuna || formValues.cliente.cliente_comuna || 0}`, `telefono="${jsonData.cliente_telefono.trim() || formValues.cliente.cliente_telefono.trim() || ""}"`, `correo="${jsonData.cliente_correo.trim() || formValues.cliente.cliente_correo.trim() || ""}"`, `establecimiento=${jsonData.establecimiento_id || formValues.cliente.establecimiento_id || 0}`].map((a)=>a.split("=")).map((a)=>a.join("=")).join(',')
-                     : _p3 =`"${jsonData.cliente_rut.trim() || formValues.cliente.cliente_rut.trim() || ""}","${jsonData.cliente_nombre.trim() || formValues.cliente.cliente_nombre.trim() || ""}",${jsonData.cliente_tipo || formValues.cliente.cliente_tipo === TIPO_CLIENTE.beneficiario ? "1" : jsonData.cliente_tipo || formValues.cliente.cliente_tipo   === TIPO_CLIENTE.particular ? "2" : jsonData.cliente_tipo  || formValues.cliente.cliente_tipo === TIPO_CLIENTE.optica ? "3" : "0"}, ${jsonData.cliente_sexo || formValues.cliente.cliente_sexo === SEXO.masculino ? "1" : jsonData.cliente_sexo || formValues.cliente.cliente_sexo === SEXO.femenino ? "2" : jsonData.cliente_sexo || formValues.cliente.cliente_sexo  === SEXO.no_aplica ? "3" : "0"},"${jsonData.cliente_fecha_nacimiento || formValues.cliente.cliente_fecha_nacimiento || ""}","${jsonData.cliente_direccion.trim() || formValues.cliente.cliente_direccion.trim() || ""}" ,${jsonData.cliente_comuna || formValues.cliente.cliente_comuna || 0}, "${jsonData.cliente_telefono.trim() || formValues.cliente.cliente_telefono.trim() || ""}","${jsonData.cliente_correo.trim() || formValues.cliente.cliente_correo.trim() || ""}", ${jsonData.establecimiento_id || formValues.cliente.establecimiento_id || 0}`.replace(/'/g, '!');
+                     : _p3 =`"${jsonData.cliente_rut.trim() || formValues.cliente.cliente_rut.trim() || ""}","${jsonData.cliente_nombre.trim() || formValues.cliente.cliente_nombre.trim() || ""}",${formValues?.cliente.cliente_tipo === TIPO_CLIENTE.beneficiario ? "1" : formValues?.cliente.cliente_tipo === TIPO_CLIENTE.particular ? "2" : formValues?.cliente.cliente_tipo === TIPO_CLIENTE.optica ? "3" : "0"}, ${formValues?.cliente.cliente_sexo === SEXO.masculino ? "1" : formValues?.cliente.cliente_sexo === SEXO.femenino ? "2" : formValues?.cliente.cliente_sexo === SEXO.no_aplica ? "3"  : "0"},"${jsonData.cliente_fecha_nacimiento || formValues.cliente.cliente_fecha_nacimiento || ""}","${formValues.cliente.cliente_direccion.trim() || ""}" ,${jsonData.cliente_comuna || formValues.cliente.cliente_comuna || 0}, "${jsonData.cliente_telefono.trim() || formValues.cliente.cliente_telefono.trim() || ""}","${jsonData.cliente_correo.trim() || formValues.cliente.cliente_correo.trim() || ""}", ${jsonData.establecimiento_id || formValues.cliente.establecimiento_id || 0}`.replace(/'/g, '!');
     
     
     // console.log(_p3)
@@ -748,8 +748,16 @@ const FOT:React.FC<IFOTProps> = ({
     handleFormChange({"a1_dp": ''} , 'receta')
     handleFormChange({"a2_dp": ''} , 'receta')
 
-    handleFormChange({"cristal1_marca_id": ' '} , 'cristales')
+    // handleFormChange({"cristal1_marca_id": ' '} , 'cristales')
     handleFormChange({"cristal1_marca_id": false} , 'cristales')
+    handleFormChange({"cristal1_diseno_id": false} , 'cristales')
+    handleFormChange({"cristal1_indice_id": false} , 'cristales')
+    handleFormChange({"cristal1_material_id": false} , 'cristales')
+    handleFormChange({"cristal1_color_id": false} , 'cristales')
+    handleFormChange({"cristal1_tratamiento_id": false} , 'cristales')
+    handleFormChange({"cristal1_diametro": false} , 'cristales')
+
+    
     
     // onDataChange({[name]:value})
 
