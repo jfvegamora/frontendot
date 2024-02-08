@@ -104,12 +104,11 @@ return (
             onBlur={(e) => handleDebounceInputChange(e)}
             onChange={(e)=> {
                 setValue(e.target.value)
-                // handleDebounceInputChange(e)
-                // handleInputChange(e)
             }}
+            
             ref={inputRef}
-            className={`${className ? className : "custom-input"}  ${onlyRead ? "custom-onlyread" : isOptional ? "custom-optional" : "custom-required"} ${textAlign && textAlign}`}
-            tabIndex={tabIndex || 1}
+            className={`${className ? className : "custom-input"}  ${onlyRead ? "custom-onlyread cursor-not-allowed" : isOptional ? "custom-optional" : "custom-required"} ${textAlign && textAlign}`}
+            tabIndex={onlyRead ? 0 : (tabIndex || 1)}
             placeholder={type === 'date' ? "dd-mm-yyyy" : ''}
             autoComplete="off"
             step={step ? step : 1 } 
