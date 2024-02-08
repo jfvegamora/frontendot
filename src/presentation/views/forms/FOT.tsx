@@ -1323,13 +1323,13 @@ useEffect(() => {
                 !isMOT                   &&
                 isEditting               &&
                 escritura_lectura        && 
-                OTPermissions[6] === "1" &&
+                // OTPermissions[6] === "1" &&
                 sumatoriaNivel1  === validationNivel1.value.length &&
                 (sumatoriaNivel2 === validationNivel2.value.length || data && data[EnumGrid.validar_parametrizacion_id] === "0" ) &&
-                (
-                  ((permiso_area_verificar_cristal && permiso_area_verificar_armazon ) && sumatoriaNivel3 === validationNivel3.value.length) || 
-                  (OTAreaActual !== 60)
-                ) && 
+                // (
+                //   ((permiso_area_verificar_cristal && permiso_area_verificar_armazon ) && sumatoriaNivel3 === validationNivel3.value.length) || 
+                //   (OTAreaActual !== 60)
+                // ) && 
                (
                   <Button className='otActionButton bg-green-400 hover:bg-green-700' onClick={handleProcesarClick}>Procesar</Button>
                 )}
