@@ -55,9 +55,10 @@ export const transponer = (ESF:any, CIL:any, EJE:any,
         default:
             break;
     }
-    // console.log(dioptrias_receta.value[anteojo].cil)
+    console.log(dioptrias_receta.value[anteojo].cil)
+    console.log(dioptrias_receta.value[anteojo].eje)
 
-    if(typeof dioptrias_receta.value[anteojo].cil == 'number' && typeof dioptrias_receta.value[anteojo].eje == 'number'){
+    if(typeof dioptrias_receta.value[anteojo].cil === 'number' && typeof dioptrias_receta.value[anteojo].eje === 'number'){
         if(dioptrias_receta.value[anteojo].cil > 0 && (dioptrias_receta.value[anteojo].eje >= 0 && dioptrias_receta.value[anteojo].eje <= 180)){
             const confirmacion = window.confirm("Es necesario Transponer. ¿Desea continuar con la operación?");
             // console.log('1')
@@ -66,26 +67,23 @@ export const transponer = (ESF:any, CIL:any, EJE:any,
                 ? 0
                 : dioptrias_receta.value[anteojo].esf;
 
-                console.log(parseFloat(esfValue))
-                console.log(parseFloat(dioptrias_receta.value[anteojo].cil))
                 
                 dioptrias_receta.value[anteojo].esf = parseFloat(esfValue) + parseFloat(dioptrias_receta.value[anteojo].cil)
+
                 if(anteojo === 'a1_od'){
                     a1_od_esf.value = parseFloat(esfValue) + parseFloat(dioptrias_receta.value[anteojo].cil)
                 }
                 
-                // dioptrias_receta.value[anteojo].cil = 0;
-                console.log(dioptrias_receta.value[anteojo].esf)
 
                 dioptrias_receta.value[anteojo].cil = (CIL * -1);
 
-
-                
                 if (dioptrias_receta.value[anteojo].eje >= 0 && dioptrias_receta.value[anteojo].eje <= 90) {
-                    // console.log('render')
+                    console.log('render')
+                    
+                    console.log(EJE.value)
                     dioptrias_receta.value[anteojo].eje= EJE + 90;
                 } else {
-                    // console.log('render')
+                    console.log('render')
                     dioptrias_receta.value[anteojo].eje= EJE - 90;
                 }
                 
@@ -97,15 +95,23 @@ export const transponer = (ESF:any, CIL:any, EJE:any,
     }
 
     
+    console.log(Number.isNaN(dioptrias_receta.value[anteojo].ad))
+    
     
     if(Number.isNaN(dioptrias_receta.value[anteojo].ad)){
         if(tipo_de_anteojo.value === '3' && ESF2 && CIL2 && EJE2){
 
             
             ESF2.value = parseFloat(dioptrias_receta.value[anteojo].esf) + parseFloat(dioptrias_receta.value[anteojo].ad);
-            CIL2.value = dioptrias_receta.value[anteojo].cil   
-            EJE2.value = dioptrias_receta.value[anteojo].eje  
-            
+            // CIL2.value = dioptrias_receta.value[anteojo].cil   
+            // EJE2.value = dioptrias_receta.value[anteojo].eje  
+           CIL2.value =  (CIL * -1)
+           EJE2.value = EJE
+
+           console.log(ESF2.value)
+           console.log(CIL2.value)
+           console.log(EJE2.value)
+
 
             validation_A2_OD_ESF(dioptrias_receta.value[anteojo].esf + dioptrias_receta.value[anteojo].ad)
             validation_A2_OD_CIL(dioptrias_receta.value[anteojo].cil)

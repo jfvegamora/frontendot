@@ -1,4 +1,4 @@
-import { A1_CR_OD, A1_CR_OI, A2_CR_OD, A2_CR_OI, a1_armazon, a1_od_cil, a1_od_eje, a1_od_esf, a1_oi_ad, a1_oi_cil, a1_oi_eje, a1_oi_esf, dioptrias_receta } from ".";
+import { A1_CR_OD, A1_CR_OI, A2_CR_OD, A2_CR_OI, a1_armazon, a1_od_ad, a1_od_cil, a1_od_eje, a1_od_esf, a1_oi_ad, a1_oi_cil, a1_oi_eje, a1_oi_esf, dioptrias_receta } from ".";
 import { validationNivel1, validationNivel2, validationNivel3 } from "../views/forms/FOT";
 
 export const validationProyectos = (value:string) => {
@@ -1039,15 +1039,21 @@ export const validation_A1_OI_ESF = (value:string | any) => {
 export const validation_A1_OD_AD = (value:string | any) => {
     const item = validationNivel2.value.find((item) => item.campo === 'a1_od_ad');
     if (value !== '') {
-        const validate = (parseInt(value) >= 0)
-    
-          item && (item.valor = validate ? 1 : 0);
-          
-        } else if (item) {
-          item.valor = 0;
-        }
-    //  console.log(item)
+        const parseValue = parseFloat(value)
 
+        if(!(parseValue >= 0.25 && parseValue <= 4)){
+            item && (item.valor = 0)
+            dioptrias_receta.value.a1_od.ad = " ";
+            a1_od_ad.value = " ";
+            return 
+        }
+
+        item && (item.valor = 1)
+    } else {
+          item && (item.valor = 0)
+          dioptrias_receta.value.a1_od.ad = " ";
+          a1_od_ad.value = " ";
+    }
 }
 
 
@@ -1056,25 +1062,15 @@ export const validation_A1_OD_EJE = (value: string | any) => {
   
     if (value !== '') {
     const parseValue = parseFloat(value)    
-    const validate = (parseValue >= 0 && parseValue <= 180 && parseValue % 0.25 === 0 ) 
-    
-    //   item && (item.valor = validate ? 1 : 0);
-      
-    //   if(!validate){
-    //     dioptrias_receta.value.a1_od.eje = "  ";
-    //     a1_od_eje.value = "  "
-    //   }
-    
     
       if(parseValue >= 0 && parseValue <= 180){
           if(!(parseValue % 0.25 === 0)){
                 dioptrias_receta.value.a1_od.eje = "  ";
                 a1_od_eje.value = "  ";
                 if(item){
-                    return item.valor = 0
+                  item.valor = 0
                 }  
                 
-                console.log(item)
                 return
             }
             if(item){
@@ -1082,21 +1078,13 @@ export const validation_A1_OD_EJE = (value: string | any) => {
             }
           
       }else{
-        if(!(parseValue % 0.25 === 0)){
-                dioptrias_receta.value.a1_od.eje = "  ";
-                a1_od_eje.value = "  ";
+            dioptrias_receta.value.a1_od.eje = "  ";
+            a1_od_eje.value = "  ";
                 if(item){
                     item.valor = 0
                 }  
-        }
-
-        if(item){
-            item.valor = 0
-        }
-      }
-    
-    
-    
+                
+      } 
     
     } else if (item) {
       item.valor = 0;

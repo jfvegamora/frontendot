@@ -141,6 +141,8 @@ const FOTOptica:React.FC<IOptica> = ({
         }
     }
 
+    const fechaHoraActual = new Date()
+    const fechaFormateada = fechaHoraActual.toISOString().split('T')[0];
     // console.log(data && data[EnumGrid.resolucion_garantia_id] === 1 ? 'Aceptada' : 'Rechazada')
 console.log(formValues && formValues)
 return (
@@ -249,7 +251,7 @@ return (
                         label="Fecha atención"
                         name="fecha_atencion"
                         handleChange={handleInputChange}
-                        data={data && data[EnumGrid.fecha_atencion] || (formValues && formValues["fecha_atencion"])}
+                        data={fechaFormateada   || data && data[EnumGrid.fecha_atencion] || (formValues && formValues["fecha_atencion"])}
                         control={control}
                         onlyRead={isEditting}
                         isOT={true}
@@ -262,7 +264,7 @@ return (
                         label="Fecha taller"
                         name="fecha_entrega_taller"
                         handleChange={handleInputChange}
-                        data={(data && data[EnumGrid.fecha_entrega_taller]) || (formValues && formValues["fecha_entrega_taller"]) || fecha_entrega_taller }
+                        data={(fecha_entrega_taller.value || data && data[EnumGrid.fecha_entrega_taller]) || (formValues && formValues["fecha_entrega_taller"]) }
                         control={control}
                         onlyRead={isEditting}
                         isOT={true}
@@ -276,7 +278,7 @@ return (
                         label="Fecha despacho"
                         name="fecha_despacho"
                         handleChange={handleInputChange}
-                        data={(data && data[EnumGrid.fecha_despacho]) || (formValues && formValues["fecha_entrega_taller"]) || fecha_despacho}
+                        data={(fecha_despacho.value || data && data[EnumGrid.fecha_despacho]) || (formValues && formValues["fecha_entrega_taller"])}
                         control={control}
                         onlyRead={isEditting}
                         isOT={true}
@@ -290,7 +292,7 @@ return (
                         label="Fecha entrega cliente"
                         name="fecha_entrega_cliente"
                         handleChange={handleInputChange}
-                        data={(data && data[EnumGrid.fecha_entrega_cliente]) || (formValues && formValues["fecha_entrega_taller"]) || fecha_entrega_cliente}
+                        data={(fecha_entrega_cliente.value || data && data[EnumGrid.fecha_entrega_cliente]) || (formValues && formValues["fecha_entrega_taller"])}
                         control={control}
                         onlyRead={isEditting}
                         isOT={true}

@@ -48,7 +48,7 @@ const FOTReceta:React.FC<IReceta> = ({
         // validation_tipo_anteojo()
         validationOTlevel1(name, value)
         validationOTlevel2(name, value)
-        
+        onDataChange({[name]:value})
         
         combinaciones_validas()
 
@@ -56,11 +56,13 @@ const FOTReceta:React.FC<IReceta> = ({
         if(name === 'a1_od_cil' || name === 'a1_od_eje' || name === 'a1_od_ad'){
             // console.log('render')
             transponer('a1_od_esf', 'a1_od_cil', 'a1_od_eje', 'a1_od')
+            onDataChange({[name]:value})
         }
 
         if(name === 'a1_oi_cil' || name === 'a1_oi_eje' || name === 'a1_oi_ad'){
             // console.log('render')
             transponer('a1_oi_esf', 'a1_oi_cil', 'a1_oi_eje', 'a1_oi')
+            onDataChange({[name]:value})
         }
 
 
@@ -315,27 +317,25 @@ const FOTReceta:React.FC<IReceta> = ({
                                 />
                         </div>
                         <div className="w-[25%]">
-                            <TextInputComponent
+                            <OTTextInputComponent
                                 type="number"
                                 label="CIL"
                                 name="a2_od_cil"
                                 handleChange={handleInputChange}
-                                data={a2_od_cil ? a2_od_cil : data && data[EnumGrid.a2_od_cil]}
+                                otData={a2_od_cil ? a2_od_cil : data && data[EnumGrid.a2_od_cil]}
                                 control={control}
-                                isOT={true}
                                 onlyRead={true}
                                 textAlign="text-center"
                                 />
                         </div>
                         <div className="w-[25%]">
-                            <TextInputComponent
+                            <OTTextInputComponent
                                 type="number"
                                 label="EJE"
                                 name="a2_od_eje"
                                 handleChange={handleInputChange}
-                                data={a2_od_eje ? a2_od_eje : data && data[EnumGrid.a2_od_eje]}
+                                otData={a2_od_eje ? a2_od_eje : data && data[EnumGrid.a2_od_eje]}
                                 onlyRead={true}
-                                isOT={true}
                                 control={control}
                                 textAlign="text-center"
                                 />

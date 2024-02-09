@@ -14,6 +14,7 @@ import FOTDerivacion from '../../components/OTForms/FOTDerivacion';
 import { A1_CR_OD, A1_CR_OI, A1_DP, A1_Diametro, A1_GRUPO_OD, A1_GRUPO_OI, A2_CR_OD, A2_CR_OI, A2_DP, A2_Diametro, A2_GRUPO_OD, A2_GRUPO_OI, SEXO, TIPO_CLIENTE, 
   a1_armazon, 
   a1_od_cil, 
+  a1_od_eje, 
   a1_od_esf, 
   a2_armazon, 
   // a1_od_ad, a1_od_cil, a1_od_eje, a1_od_esf, 
@@ -366,7 +367,8 @@ const FOT:React.FC<IFOTProps> = ({
   // const folioOT = data && data[EnumGrid.folio]
   //PERMISOS DE AREA
   const [OTPermissions, setOTPermissions] = useState("");
-  
+  const [selectedTab, setSelectedTab] = useState(0);
+
   const { escritura_lectura } = usePermission(28);
   const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas);
   const OTSlice:any = useAppSelector((store:AppStore)=>store.OTS)
@@ -976,6 +978,86 @@ const FOT:React.FC<IFOTProps> = ({
 
 
 
+     //TODO: DIOPTRIAS CRISTALES SI ES TIPO 3(LEJOS/CERCA)
+    // console.log(tipo_de_anteojo.value)
+    if(tipo_de_anteojo.value === '3'){
+      // clearInputDioptrias()
+      //? OJO DERECHO
+      if(
+        Object.keys(data)[0] === 'a1_od_esf' ||
+        Object.keys(data)[0] === 'a1_od_cil' ||
+        Object.keys(data)[0] === 'a1_od_eje' ||
+        Object.keys(data)[0] === 'a1_od_ad'  ||
+        tipo_de_anteojo.value === '3'
+      ){
+        if(dioptrias_receta.value.a1_od.ad < 0){
+          a2_od_esf.value = " ";
+          dioptrias_receta.value.a1_od.ad  = " ";
+        }
+         
+
+        if(typeof dioptrias_receta.value.a1_od.ad !== 'object' &&  dioptrias_receta.value.a1_od.ad > 0){
+          a2_od_esf.value = (typeof dioptrias_receta.value.a1_od.esf !== 'object' && Number.isNaN(dioptrias_receta.value.a1_od.esf) ? 0 : parseFloat(dioptrias_receta.value.a1_od.esf) ) + parseFloat(dioptrias_receta.value.a1_od.ad)
+          a2_od_cil.value = (typeof dioptrias_receta.value.a1_od.cil === 'object' ? 0 : dioptrias_receta.value.a1_od.cil)
+          a2_od_eje.value = (typeof dioptrias_receta.value.a1_od.eje === 'object' ? 0 : dioptrias_receta.value.a1_od.eje)
+
+
+          console.log(a1_od_eje.value)
+          console.log(dioptrias_receta.value.a1_od.eje)
+          console.log(formValues["receta"])
+
+          console.log((typeof dioptrias_receta.value.a1_od.esf !== 'object' && Number.isNaN(dioptrias_receta.value.a1_od.esf) ? 0 : parseFloat(dioptrias_receta.value.a1_od.esf) ) + parseFloat(dioptrias_receta.value.a1_od.ad))
+
+          validation_A2_OD_ESF(a2_od_esf.value)
+          validation_A2_OD_CIL(a2_od_cil.value)
+          validation_A2_OD_EJE(a2_od_eje.value)
+        }
+
+        // a2_od_cil.value = (typeof dioptrias_receta.value.a1_od.cil === 'object' ? 0 : dioptrias_receta.value.a1_od.cil)
+        // a2_od_eje.value = (typeof dioptrias_receta.value.a1_od.eje === 'object' ? 0 : dioptrias_receta.value.a1_od.eje)
+
+      }
+      //? OJO IZQUIERDO
+      if(
+        Object.keys(data)[0] === 'a1_oi_esf' ||
+        Object.keys(data)[0] === 'a1_oi_cil' ||
+        Object.keys(data)[0] === 'a1_oi_eje' ||
+        Object.keys(data)[0] === 'a1_oi_ad'  ||
+        tipo_de_anteojo.value === '3'
+      ){
+        if(dioptrias_receta.value.a1_od.ad < 0){
+          a2_od_esf.value = " ";
+          console.log('render')
+          dioptrias_receta.value.a1_od.ad  = " ";
+        }
+
+        
+        if(typeof dioptrias_receta.value.a1_oi.ad !== 'object' && dioptrias_receta.value.a1_oi.ad > 0){
+          
+          
+          a2_oi_esf.value = (typeof dioptrias_receta.value.a1_oi.esf !== 'object' && Number.isNaN(dioptrias_receta.value.a1_oi.esf) ? 0 : parseFloat(dioptrias_receta.value.a1_oi.esf)) + parseFloat(dioptrias_receta.value.a1_oi.ad)
+          a2_oi_eje.value = (typeof dioptrias_receta.value.a1_oi.eje === 'object' ? 0 : dioptrias_receta.value.a1_oi.eje)
+          a2_oi_cil.value = (typeof dioptrias_receta.value.a1_oi.cil === 'object' ? 0 : dioptrias_receta.value.a1_oi.cil);
+          
+          console.log( a2_oi_esf.value = (typeof dioptrias_receta.value.a1_oi.esf !== 'object' && Number.isNaN(dioptrias_receta.value.a1_oi.esf) ? 0 : parseFloat(dioptrias_receta.value.a1_oi.esf)) + parseFloat(dioptrias_receta.value.a1_oi.ad))
+        }
+
+      }
+
+
+      // let transponer1Ejecutado = false;
+      validation_A2_OD_ESF(a2_od_esf.value)
+      validation_A2_OD_CIL(a2_od_cil.value)
+      validation_A2_OD_EJE(a2_od_eje.value)
+
+
+      validation_A2_OI_ESF(a2_oi_esf.value)
+      validation_A2_OI_CIL(a2_oi_cil.value)
+      validation_A2_OI_EJE(a2_oi_eje.value)
+
+    }
+
+
     //todo  INICIO CRISTALES, TRAE GRUPO Y CODIGO DEPENDIENDO DE DATOS DEL CRISTAL 
      // ? ANTEOJO 1: 
     if(changeCodigoCristal_A1[key]){
@@ -991,7 +1073,7 @@ const FOT:React.FC<IFOTProps> = ({
         cristal1_color_id                       !== undefined &&
         cristal1_material_id                    !== undefined &&
         cristal1_tratamiento_id                 !== undefined &&
-        A1_Diametro.value                       !==  ''        &&
+        A1_Diametro.value                       !== ''        &&
         dioptrias_receta.value.a1_od.esf        !== ' '       &&
         dioptrias_receta.value.a1_od.cil        !== ' '       
       ){
@@ -1079,21 +1161,22 @@ const FOT:React.FC<IFOTProps> = ({
     }
 
     //? ANTEOJO 2:
+    console.log(a2_oi_esf.value)
     if(changeCodigoCristal_A2[key]){
       const formValue = getValues()
       const {cristal2_marca_id, cristal2_diseno_id, cristal2_indice_id, cristal2_color_id , cristal2_material_id,cristal2_tratamiento_id } = formValue;
       // console.log(formValue.cristal2_diametro)
-      // console.log(A2_Diametro.value)
-
       if(cristal2_marca_id                      !== undefined &&
         cristal2_diseno_id                      !== undefined &&
         cristal2_indice_id                      !== undefined && 
         cristal2_color_id                       !== undefined &&
         cristal2_material_id                    !== undefined &&
         cristal2_tratamiento_id                 !== undefined &&
-        A2_Diametro.value                       !== ''   
-      ){
-        // console.log('ejecutando llamada.....')
+        A2_Diametro.value                       !== ''        &&
+        a2_od_esf.value                         !== ''        &&
+        a2_oi_esf.value                         !== ''        
+        ){
+        console.log('ejecutando llamada.....')
         const _pkToDelete1_od ={
           "marca":      cristal2_marca_id,
           "diseno":     cristal2_diseno_id,
@@ -1107,7 +1190,7 @@ const FOT:React.FC<IFOTProps> = ({
         }
 
 
-        // console.log(_pkToDelete1_od)
+        console.log(_pkToDelete1_od)
         
         const _pkToDelete1_oi ={
           "marca":      cristal2_marca_id,
@@ -1121,7 +1204,7 @@ const FOT:React.FC<IFOTProps> = ({
           "cilindrico": a2_oi_cil.value ?? 0, 
         }
 
-        // console.log(_pkToDelete1_oi)
+        console.log(_pkToDelete1_oi)
 
         try {
           const pkJSON = JSON.stringify([_pkToDelete1_od, _pkToDelete1_oi])
@@ -1132,16 +1215,27 @@ const FOT:React.FC<IFOTProps> = ({
           const cristalesDATA = JSON.parse(cristalesDataOI[0][0])
           console.log(cristalesDATA)
 
-          A2_CR_OD.value = cristalesDATA["CR_OD"].trim() || " ";
-          A2_CR_OI.value = cristalesDATA["CR_OI"].trim() || " ";
+          if(cristalesDATA && cristalesDATA["ERROR"] !== ''){
+            A2_CR_OD.value    = " ";
+            A2_CR_OI.value    = " ";
 
-          A2_GRUPO_OD.value = cristalesDATA["GRUPO_OD"];
-          A2_GRUPO_OI.value = cristalesDATA["GRUPO_OI"];
+            A2_GRUPO_OD.value = " ";
+            A2_GRUPO_OI.value = " ";
 
-          validation_Cristal2_od(cristalesDATA["CR_OD"]);
-          validation_Cristal2_oi(cristalesDATA["CR_OI"]);
-          
-        
+
+            validation_Cristal2_od("")
+            validation_Cristal2_oi("")
+          }else{
+            A2_CR_OD.value = cristalesDATA["CR_OD"].trim() || " ";
+            A2_CR_OI.value = cristalesDATA["CR_OI"].trim() || " ";
+  
+            A2_GRUPO_OD.value = cristalesDATA["GRUPO_OD"];
+            A2_GRUPO_OI.value = cristalesDATA["GRUPO_OI"];
+  
+            validation_Cristal2_od(cristalesDATA["CR_OD"]);
+            validation_Cristal2_oi(cristalesDATA["CR_OI"]);             
+
+          }  
         } catch (error) {
           // console.log(error)
           throw error
@@ -1151,77 +1245,7 @@ const FOT:React.FC<IFOTProps> = ({
 
     }
 
-    //TODO: DIOPTRIAS CRISTALES SI ES TIPO 3(LEJOS/CERCA)
-    // console.log(tipo_de_anteojo.value)
-    if(tipo_de_anteojo.value === '3'){
-      // clearInputDioptrias()
-      //? OJO DERECHO
-      if(
-        Object.keys(data)[0] === 'a1_od_esf' ||
-        Object.keys(data)[0] === 'a1_od_cil' ||
-        Object.keys(data)[0] === 'a1_od_eje' ||
-        Object.keys(data)[0] === 'a1_od_ad'  ||
-        tipo_de_anteojo.value === '3'
-      ){
-        if(dioptrias_receta.value.a1_od.ad < 0){
-          a2_od_esf.value = " ";
-          dioptrias_receta.value.a1_od.ad  = " ";
-        }
-         
-
-        if(typeof dioptrias_receta.value.a1_od.ad !== 'object' &&  dioptrias_receta.value.a1_od.ad > 0){
-          a2_od_esf.value = (typeof dioptrias_receta.value.a1_od.esf !== 'object' && Number.isNaN(dioptrias_receta.value.a1_od.esf) ? 0 : parseFloat(dioptrias_receta.value.a1_od.esf) ) + parseFloat(dioptrias_receta.value.a1_od.ad)
-          a2_od_cil.value = (typeof dioptrias_receta.value.a1_od.cil === 'object' ? 0 : dioptrias_receta.value.a1_od.cil)
-          a2_od_eje.value = (typeof dioptrias_receta.value.a1_od.eje === 'object' ? 0 : dioptrias_receta.value.a1_od.eje)
-
-          console.log((typeof dioptrias_receta.value.a1_od.esf !== 'object' && Number.isNaN(dioptrias_receta.value.a1_od.esf) ? 0 : parseFloat(dioptrias_receta.value.a1_od.esf) ) + parseFloat(dioptrias_receta.value.a1_od.ad))
-
-          validation_A2_OD_ESF(a2_od_esf.value)
-          validation_A2_OD_CIL(a2_od_cil.value)
-          validation_A2_OD_EJE(a2_od_eje.value)
-        }
-
-        // a2_od_cil.value = (typeof dioptrias_receta.value.a1_od.cil === 'object' ? 0 : dioptrias_receta.value.a1_od.cil)
-        // a2_od_eje.value = (typeof dioptrias_receta.value.a1_od.eje === 'object' ? 0 : dioptrias_receta.value.a1_od.eje)
-
-      }
-      //? OJO IZQUIERDO
-      if(
-        Object.keys(data)[0] === 'a1_oi_esf' ||
-        Object.keys(data)[0] === 'a1_oi_cil' ||
-        Object.keys(data)[0] === 'a1_oi_eje' ||
-        Object.keys(data)[0] === 'a1_oi_ad'  ||
-        tipo_de_anteojo.value === '3'
-      ){
-        if(dioptrias_receta.value.a1_od.ad < 0){
-          a2_od_esf.value = " ";
-          console.log('render')
-          dioptrias_receta.value.a1_od.ad  = " ";
-        }
-
-        
-        if(typeof dioptrias_receta.value.a1_oi.ad !== 'object' && dioptrias_receta.value.a1_oi.ad > 0){
-          a2_oi_esf.value = (typeof dioptrias_receta.value.a1_oi.esf !== 'object' && Number.isNaN(dioptrias_receta.value.a1_oi.esf) ? 0 : parseFloat(dioptrias_receta.value.a1_oi.esf)) + parseFloat(dioptrias_receta.value.a1_oi.ad)
-          a2_oi_eje.value = (typeof dioptrias_receta.value.a1_oi.eje === 'object' ? 0 : dioptrias_receta.value.a1_oi.eje)
-          a2_oi_cil.value = (typeof dioptrias_receta.value.a1_oi.cil === 'object' ? 0 : dioptrias_receta.value.a1_oi.cil);
-          
-          console.log( a2_oi_esf.value = (typeof dioptrias_receta.value.a1_oi.esf !== 'object' && Number.isNaN(dioptrias_receta.value.a1_oi.esf) ? 0 : parseFloat(dioptrias_receta.value.a1_oi.esf)) + parseFloat(dioptrias_receta.value.a1_oi.ad))
-        }
-
-      }
-
-
-      // let transponer1Ejecutado = false;
-      validation_A2_OD_ESF(a2_od_esf.value)
-      validation_A2_OD_CIL(a2_od_cil.value)
-      validation_A2_OD_EJE(a2_od_eje.value)
-
-
-      validation_A2_OI_ESF(a2_oi_esf.value)
-      validation_A2_OI_CIL(a2_oi_cil.value)
-      validation_A2_OI_EJE(a2_oi_eje.value)
-
-    }
+   
     // actualizarEstado(Object.keys(data)[0], 1)
 
   };
@@ -1264,8 +1288,87 @@ React.useEffect(() => {
 
 
 React.useEffect(()=>{
-  console.log('cambio')
-},[validationNivel2])
+
+  // const getDioptriasA2 = (data:any) => {
+  //   if(tipo_de_anteojo.value === '3'){
+  //     // clearInputDioptrias()
+  //     //? OJO DERECHO
+  //     if(
+  //       Object.keys(data)[0] === 'a1_od_esf' ||
+  //       Object.keys(data)[0] === 'a1_od_cil' ||
+  //       Object.keys(data)[0] === 'a1_od_eje' ||
+  //       Object.keys(data)[0] === 'a1_od_ad'  ||
+  //       tipo_de_anteojo.value === '3'
+  //     ){
+  //       if(dioptrias_receta.value.a1_od.ad < 0){
+  //         a2_od_esf.value = " ";
+  //         dioptrias_receta.value.a1_od.ad  = " ";
+  //       }
+         
+  
+  //       if(typeof dioptrias_receta.value.a1_od.ad !== 'object' &&  dioptrias_receta.value.a1_od.ad > 0){
+  //         a2_od_esf.value = (typeof dioptrias_receta.value.a1_od.esf !== 'object' && Number.isNaN(dioptrias_receta.value.a1_od.esf) ? 0 : parseFloat(dioptrias_receta.value.a1_od.esf) ) + parseFloat(dioptrias_receta.value.a1_od.ad)
+  //         // a2_od_cil.value = (typeof dioptrias_receta.value.a1_od.cil === 'object' ? 0 : dioptrias_receta.value.a1_od.cil)
+  //         // a2_od_eje.value = (typeof dioptrias_receta.value.a1_od.eje === 'object' ? 0 : dioptrias_receta.value.a1_od.eje)
+  //         a2_od_cil.value = (typeof dioptrias_receta.value.a1_od.cil === 'object' ? 0 : (a1_od_cil.value * -1))
+  //         a2_od_eje.value = (typeof dioptrias_receta.value.a1_od.eje === 'object' ? 0 : a1_od_eje.value )
+  //         console.log(a1_od_eje.value)
+  //         console.log(dioptrias_receta.value.a1_od.eje)
+  
+  //         console.log((typeof dioptrias_receta.value.a1_od.esf !== 'object' && Number.isNaN(dioptrias_receta.value.a1_od.esf) ? 0 : parseFloat(dioptrias_receta.value.a1_od.esf) ) + parseFloat(dioptrias_receta.value.a1_od.ad))
+  
+  //         validation_A2_OD_ESF(a2_od_esf.value)
+  //         validation_A2_OD_CIL(a2_od_cil.value)
+  //         validation_A2_OD_EJE(a2_od_eje.value)
+  //       }
+  
+  //       // a2_od_cil.value = (typeof dioptrias_receta.value.a1_od.cil === 'object' ? 0 : dioptrias_receta.value.a1_od.cil)
+  //       // a2_od_eje.value = (typeof dioptrias_receta.value.a1_od.eje === 'object' ? 0 : dioptrias_receta.value.a1_od.eje)
+  
+  //     }
+  //     //? OJO IZQUIERDO
+  //     if(
+  //       Object.keys(data)[0] === 'a1_oi_esf' ||
+  //       Object.keys(data)[0] === 'a1_oi_cil' ||
+  //       Object.keys(data)[0] === 'a1_oi_eje' ||
+  //       Object.keys(data)[0] === 'a1_oi_ad'  ||
+  //       tipo_de_anteojo.value === '3'
+  //     ){
+  //       if(dioptrias_receta.value.a1_od.ad < 0){
+  //         a2_od_esf.value = " ";
+  //         console.log('render')
+  //         dioptrias_receta.value.a1_od.ad  = " ";
+  //       }
+  
+        
+  //       if(typeof dioptrias_receta.value.a1_oi.ad !== 'object' && dioptrias_receta.value.a1_oi.ad > 0){
+          
+          
+  //         a2_oi_esf.value = (typeof dioptrias_receta.value.a1_oi.esf !== 'object' && Number.isNaN(dioptrias_receta.value.a1_oi.esf) ? 0 : parseFloat(dioptrias_receta.value.a1_oi.esf)) + parseFloat(dioptrias_receta.value.a1_oi.ad)
+  //         a2_oi_eje.value = (typeof dioptrias_receta.value.a1_oi.eje === 'object' ? 0 : dioptrias_receta.value.a1_oi.eje)
+  //         a2_oi_cil.value = (typeof dioptrias_receta.value.a1_oi.cil === 'object' ? 0 : dioptrias_receta.value.a1_oi.cil);
+          
+  //         console.log( a2_oi_esf.value = (typeof dioptrias_receta.value.a1_oi.esf !== 'object' && Number.isNaN(dioptrias_receta.value.a1_oi.esf) ? 0 : parseFloat(dioptrias_receta.value.a1_oi.esf)) + parseFloat(dioptrias_receta.value.a1_oi.ad))
+  //       }
+  
+  //     }
+  
+  
+  //     // let transponer1Ejecutado = false;
+  //     validation_A2_OD_ESF(a2_od_esf.value)
+  //     validation_A2_OD_CIL(a2_od_cil.value)
+  //     validation_A2_OD_EJE(a2_od_eje.value)
+  
+  
+  //     validation_A2_OI_ESF(a2_oi_esf.value)
+  //     validation_A2_OI_CIL(a2_oi_cil.value)
+  //     validation_A2_OI_EJE(a2_oi_eje.value)
+  
+  //   }
+
+  // }
+  console.log(dioptrias_receta.value.a1_od.eje)
+},[tipo_de_anteojo.value, dioptrias_receta.value])
 
 
 
@@ -1287,6 +1390,23 @@ useEffect(() => {
     window.removeEventListener("keydown", handleKeyDown);
   };
 }, [closeModal]);
+
+
+useEffect(() => {
+  const handleKeyDown = (event:KeyboardEvent) => {
+    if (event.ctrlKey && event.key === 'ArrowRight') {
+      setSelectedTab((prevTab) => (prevTab + 1) % 6);
+    } else if (event.ctrlKey && event.key === 'ArrowLeft') {
+      setSelectedTab((prevTab) => (prevTab - 1 + 6) % 6); 
+    }
+  };
+
+  window.addEventListener('keydown', handleKeyDown);
+
+  return () => {
+    window.removeEventListener('keydown', handleKeyDown);
+  };
+}, []);
 
 // console.log(permiso_usuario_verificar_cristal)
 // console.log(permiso_usuario_verificar_armazon)
@@ -1312,23 +1432,10 @@ useEffect(() => {
 
   console.log(validationNivel3.value)
 
-  // console.log( OTPermissions && OTPermissions[9])
-  // console.log(dioptrias_receta.value.a2_oi.esf)
-
-  // console.log(OTPermissions && OTPermissions[6] === '1')
-  // console.log(isMOT)
-  // console.log(isEditting)
-  // console.log(escritura_lectura)
-  // console.log(sumatoriaNivel1)
-  // console.log(sumatoriaNivel2)
-  // console.log(validationNivel1.value.length)
-  // console.log(validationNivel2.value.length)
-
-
   return (
 
     <div className='useFormContainerOT top-[0%]  w-full h-[100%]'>
-      <Tabs>f
+      <Tabs selectedIndex={selectedTab} onSelect={(index) => setSelectedTab(index)}>
         <TabList className='flex items-center top-[10]'>
           <Tab className="custom-tab ">ÓPTICA</Tab>
           <Tab className="custom-tab ">CLIENTE</Tab>
@@ -1418,10 +1525,10 @@ useEffect(() => {
                 // OTPermissions[6] === "1" &&
                 sumatoriaNivel1  === validationNivel1.value.length &&
                 (sumatoriaNivel2 === validationNivel2.value.length || data && data[EnumGrid.validar_parametrizacion_id] === "0" ) &&
-                // (
-                //   ((permiso_area_verificar_cristal && permiso_area_verificar_armazon ) && sumatoriaNivel3 === validationNivel3.value.length) || 
-                //   (OTAreaActual !== 60)
-                // ) && 
+                (
+                  ((permiso_area_verificar_cristal && permiso_area_verificar_armazon ) && sumatoriaNivel3 === validationNivel3.value.length) || 
+                  (OTAreaActual !== 60)
+                ) && 
                (
                   <Button className='otActionButton bg-green-400 hover:bg-green-700' onClick={handleProcesarClick}>Procesar</Button>
                 )}

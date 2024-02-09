@@ -228,11 +228,11 @@ useEffect(()=>{
 
                             >
                                 {/* <option value={defaultComuna ? defaultComuna : 0}>Comuna</option> */}
-                                {selectedProvince === 0 && (
+               
                                     <option value={undefined} className="text-sm">
                     
                                     </option>
-                                )}
+     
                                 {/* <option>Comuna</option> */}
                                     { selectedProvince !== 0 && Comunas.filter((comuna:any) => (comuna[2] === selectedProvince)).map((comuna:any)=>(
                                         <option key={comuna[0]} value={comuna[0]}>

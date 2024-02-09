@@ -350,20 +350,14 @@ export const fetchFechas = async(fecha_atencion:string, codgioProyecto:string) =
   console.log('ejecutando')
   try {
        const {data} = await axios(`${URLBackend}/api/ot/listado/?query=11&_proyecto=${codgioProyecto}&_fecha_desde=${fecha_atencion}`)
-      //  console.log(data[0])
        const parsedData = JSON.parse(data[0]); // Parsear la cadena JSON a objeto
 
-       console.log(codigoProyecto)
-       
-        console.log(parsedData);
-        // console.log(parsedData.fecha_entrega_taller);
-        // console.log(parsedData.fecha_despacho);
-        // console.log(parsedData.fecha_entrega_cliente)
        fecha_atencion_signal.value   = fecha_atencion;
        fecha_entrega_taller.value    = parsedData.fecha_entrega_taller
        fecha_despacho.value          = parsedData.fecha_despacho
        fecha_entrega_cliente.value   = parsedData.fecha_entrega_cliente
 
+  
        validationFechaEntregaCliente(fecha_entrega_cliente.value)
        validationFechaDespacho(fecha_despacho.value)
        validationFechaEntregaTaller(fecha_entrega_taller.value)
@@ -496,10 +490,15 @@ export const changeCodigoCristal_A2:any = {
   cristal2_color_id:true,
   cristal2_tratamiento_id:true,
   cristal2_diametro:true,
-  a2_od_esf:true,
-  a2_od_cil:true,
-  a2_oi_esf:true,
-  a2_oi_cil:true
+  a1_od_esf:true,
+  a1_od_cil:true,
+  a1_oi_esf:true,
+  a1_oi_cil:true
+
+  // a2_od_esf:true,
+  // a2_od_cil:true,
+  // a2_oi_esf:true,
+  // a2_oi_cil:true
 }
 
 

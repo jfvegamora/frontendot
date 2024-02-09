@@ -342,9 +342,14 @@ function NavListMenuOT({ userPermission }: { userPermission: number[] }) {
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
-  const triggers = {
-    onMouseEnter: () => setIsMenuOpen(true),
-    onMouseLeave: () => setIsMenuOpen(false),
+  // const triggers = {
+  //   onMouseEnter: () => setIsMenuOpen(true),
+  //   onMouseLeave: () => setIsMenuOpen(false),
+  // };
+
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
   };
 
   const renderItems = navListMenuOT.map(({ title, link, id }) => {
@@ -376,10 +381,10 @@ function NavListMenuOT({ userPermission }: { userPermission: number[] }) {
   return (
     <React.Fragment>
       <Menu open={isMenuOpen} handler={setIsMenuOpen}>
-        <MenuHandler>
+        <MenuHandler onClick={toggleMenu}>
           <Typography as="a" href="#" variant="h6" className="font-normal">
             <MenuItem
-              {...triggers}
+              // {...triggers}
               className="hidden items-center gap-2 font-menu lg:flex lg:rounded-full"
             >
               <FontAwesomeIcon icon={faGlasses} size="xl" /> VENTAS{" "}  
@@ -388,7 +393,7 @@ function NavListMenuOT({ userPermission }: { userPermission: number[] }) {
           </Typography>
         </MenuHandler>
         <MenuList
-          {...triggers}
+          // {...triggers}
           className="hidden w-[36rem] grid-cols-7 gap-3 overflow-visible lg:grid"
         >
           <Card
@@ -420,10 +425,15 @@ function NavListMenuBodega({ userPermission }: { userPermission: number[] }) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const navigate = useNavigate();
 
-  const triggers = {
-    onMouseEnter: () => setIsMenuOpen(true),
-    onMouseLeave: () => setIsMenuOpen(false),
+  // const triggers = {
+  //   onMouseEnter: () => setIsMenuOpen(true),
+  //   onMouseLeave: () => setIsMenuOpen(false),
+  // };
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
   };
+
 
   const renderItems = navListMenuBodega.map(({ title, link, id }) => {
     const hasPermission = userPermission.includes(id);
@@ -454,10 +464,10 @@ function NavListMenuBodega({ userPermission }: { userPermission: number[] }) {
   return (
     <React.Fragment>
       <Menu open={isMenuOpen} handler={setIsMenuOpen}>
-        <MenuHandler>
+        <MenuHandler onClick={toggleMenu}>
           <Typography as="a" href="#" variant="h6" className="font-normal">
             <MenuItem
-              {...triggers}
+              // {...triggers}
               className="hidden items-center gap-2 font-menu lg:flex lg:rounded-full"
             >
               <FontAwesomeIcon icon={faWarehouse} size="xl" /> BODEGA{" "}  
@@ -469,7 +479,7 @@ function NavListMenuBodega({ userPermission }: { userPermission: number[] }) {
           </Typography>
         </MenuHandler>
         <MenuList
-          {...triggers}
+          // {...triggers}
           className="hidden w-[36rem] grid-cols-7 gap-3 overflow-visible lg:grid"
         >
           <Card
@@ -503,9 +513,14 @@ function NavListMenuProyectos({ userPermission }: { userPermission: number[] }) 
 
   const navigate = useNavigate();
 
-  const triggers = {
-    onMouseEnter: () => setIsMenuOpen(true),
-    onMouseLeave: () => setIsMenuOpen(false),
+  // const triggers = {
+  //   onMouseEnter: () => setIsMenuOpen(true),
+  //   onMouseLeave: () => setIsMenuOpen(false),
+  // };
+
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
   };
 
   const renderItems = navListMenuProyectos.map(({ title, link, id, subMenu }:any) => {
@@ -576,10 +591,10 @@ function NavListMenuProyectos({ userPermission }: { userPermission: number[] }) 
   return (
     <React.Fragment>
       <Menu open={isMenuOpen} handler={setIsMenuOpen}>
-        <MenuHandler>
+        <MenuHandler onClick={toggleMenu}>
           <Typography as="a" href="#" variant="h6" className="font-normal">
             <MenuItem
-              {...triggers}
+              // {...triggers}
               className="hidden items-center gap-2 font-menu lg:flex lg:rounded-full"
             >
               <FontAwesomeIcon icon={faWallet} size="xl" /> ADMINISTRACIÓN{" "}
@@ -594,7 +609,7 @@ function NavListMenuProyectos({ userPermission }: { userPermission: number[] }) 
           </Typography>
         </MenuHandler>
         <MenuList
-          {...triggers}
+          // {...triggers}
           className="hidden w-[36rem] grid-cols-7 gap-3 overflow-visible lg:grid"
         >
           <Card
@@ -661,10 +676,15 @@ function NavListMenuSistema({ userPermission }: { userPermission: number[] }) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const navigate = useNavigate();
 
-  const triggers = {
-    onMouseEnter: () => setIsMenuOpen(true),
-    onMouseLeave: () => setIsMenuOpen(false),
+  // const triggers = {
+  //   onMouseEnter: () => setIsMenuOpen(true),
+  //   onMouseLeave: () => setIsMenuOpen(false),
+  // };
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
   };
+
 
   const renderItems = navListMenuSistema.map(({ title, link, id }) => {
     const hasPermission = userPermission.includes(id);
@@ -695,10 +715,10 @@ function NavListMenuSistema({ userPermission }: { userPermission: number[] }) {
   return (
     <React.Fragment>
       <Menu open={isMenuOpen} handler={setIsMenuOpen}>
-        <MenuHandler>
+      <MenuHandler onClick={toggleMenu}>
           <Typography as="a" href="#" variant="h6" className="font-normal">
             <MenuItem
-              {...triggers}
+              // {...triggers}
               className="hidden items-center gap-2 font-menu lg:flex lg:rounded-full"
             >
               <FontAwesomeIcon icon={faGears} size="xl" /> SISTEMA{" "}  
@@ -710,7 +730,7 @@ function NavListMenuSistema({ userPermission }: { userPermission: number[] }) {
           </Typography>
         </MenuHandler>
         <MenuList
-          {...triggers}
+          // {...triggers}
           className="hidden w-[36rem] grid-cols-7 gap-3 overflow-visible lg:grid"
         >
           <Card

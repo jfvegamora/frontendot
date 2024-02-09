@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import axios from 'axios';
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
 import { EnumGrid as EnumArmazones } from '../../views/mantenedores/MArmazones';
-import { validationOTlevel2, validationOTlevel3 } from '../../utils/validationOT';
+import { validationOTlevel2, validationOTlevel3, validation_A1_armazon, validation_A2_armazon } from '../../utils/validationOT';
 import { URLBackend } from '../../hooks/useCrud';
 import { toast } from 'react-toastify';
 import { A1_DP, A1_Diametro, A2_DP, A2_Diametro, codigoProyecto, punto_venta, tipo_de_anteojo, validar_parametrizacion } from '../../utils';
@@ -61,6 +61,36 @@ const FOTArmazones:React.FC<IArmazones> = ({
         
         console.log(name)
         console.log(value)
+
+
+        if (
+            (name === 'a1_armazon_id' && (value.trim() === codArmazon2 || value.trim() === codArmazon3)) ||
+            (name === 'a2_armazon_id' && (value.trim() === codArmazon1 || value.trim() === codArmazon3)) ||
+            (name === 'a3_armazon_id' && (value.trim() === codArmazon1 || value.trim() === codArmazon2))
+        ) {
+            switch (name) {
+                case 'a1_armazon_id':
+                    onDataChange({['a1_armazon_id']: " "})
+                    setCodArmazon1(" ")
+                    validation_A1_armazon("")
+                    break;
+                case 'a2_armazon_id':
+                    onDataChange({['a2_armazon_id']: " "})
+                    setCodArmazon2(" ")
+                    validation_A2_armazon("")
+                    break;
+                case 'a3_armazon_id':
+                    onDataChange({['a3_armazon_id']: " "})
+                    setCodArmazon3(" ")
+                    
+                    break;
+                default:
+                    break;
+            }
+            toast.error('Los códigos de los armazones no pueden ser iguales entre sí.');
+            return; 
+        }
+
         
         validationOTlevel2(name, value)
         validationOTlevel3(name, value)
