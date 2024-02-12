@@ -12,7 +12,6 @@ export const clearLocalStorage = (key:string) =>{
 };
 
 export const getImageURL = (name:string) => {
-    console.log(new URL(`../../assets/${name}`, import.meta.url).href)
     return new URL(`../../assets/${name}`, import.meta.url).href
 }
 
@@ -26,7 +25,6 @@ export async function compararFechas(fechaString:string) {
     
     const {data:tiempoExpiracion} = await axios(`${URLBackend}/api/parametros/listado/?query=01&_p1=p20`)
 
-    console.log(tiempoExpiracion)
 
     if(tiempoExpiracion){
         const diferenciaEnHoras = diferenciaEnMilisegundos / (1000 * 60 * 60);

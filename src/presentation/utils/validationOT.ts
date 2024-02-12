@@ -74,7 +74,7 @@ export const validationTipoAnteojos = (value:number) => {
 
 
 export const validationOTlevel1 = (name: string, value: any) => {
-    console.log(name)
+    // console.log(name)
     switch (name) {
       case 'proyecto_codigo':
         validationProyectos(value)
@@ -590,7 +590,7 @@ export const validation_Cristal2_diseño = (value:string | any ) =>{
 }
 export const validation_cristal2_marca = (value:string | any ) =>{
     
-    console.log(value)
+    // console.log(value)
     if(value !== ''){
         const item = validationNivel2.value.find(item => item.campo === 'cristal2_marca_id');
         if (item) {
@@ -929,7 +929,7 @@ export const validation_A2_OD_ESF =( value:string | any) => {
 export const validation_A1_ALT = (value:string | any) => {
     const item = validationNivel2.value.find((item) => item.campo === 'a1_alt');
     
-    console.log(value)
+    // console.log(value)
     
     if (value !== '') {
         if (item) {
@@ -942,7 +942,7 @@ export const validation_A1_ALT = (value:string | any) => {
     }
 
 
-    console.log(item)
+    // console.log(item)
 
 
 };
@@ -965,7 +965,7 @@ export const validation_A1_DP = (value:string | any) => {
 
 export const validation_A1_OI_AD = (value:string | any) => {
     const item = validationNivel2.value.find((item) => item.campo === 'a1_oi_ad');
-    console.log(value)
+    // console.log(value)
     if (value !== '') {
         const formattedValue = Number(value).toFixed(2);        
         // const validate = dioptrias.value.AD.some((dioptria: string) => dioptria.includes(formattedValue));
@@ -1103,7 +1103,7 @@ export const validation_A1_OD_EJE = (value: string | any) => {
       item.valor = 0;
     }
 
-    console.log(item)
+    // console.log(item)
 
 
   };
@@ -1147,7 +1147,7 @@ export const validation_A1_OD_ESF = (value: any) => {
     } else if (item) {
       item.valor = 0;
     }
-    console.log(item)
+    // console.log(item)
 }
 
 export const validationFechaEntregaCliente =(value:string) => {

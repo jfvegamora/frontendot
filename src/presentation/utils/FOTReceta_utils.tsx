@@ -57,7 +57,7 @@ export const transponer = (ESF:any, CIL:any, EJE:any,
     }
     console.log(dioptrias_receta.value[anteojo].cil)
     console.log(dioptrias_receta.value[anteojo].eje)
-    console.log(EJE.value)
+    console.log()
 
 
     if(typeof dioptrias_receta.value[anteojo].cil === 'number' && typeof dioptrias_receta.value[anteojo].eje === 'number'){

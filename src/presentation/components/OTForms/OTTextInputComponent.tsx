@@ -42,11 +42,10 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
 }) => {
   const [defaultValue, setDefaultValue] = useState<string>(otData || " ")
 
-
-  const[reder, setRender] = useState(false);
+  const[_reder, setRender] = useState(false);
 
   let initialValue:any = "";
-  let newValue = ''
+  // let newValue = ''
   switch (name) {
     //? OJO DERECHO | ANTEOJO 1
     case 'a1_od_esf':
@@ -119,7 +118,7 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
     if (handleChange) {
       handleChange(e.target)
     }
-    console.log(e.target.value)
+    // console.log(e.target.value)
 
 
     switch (e.target.name) {
@@ -230,11 +229,11 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
  
  
   if(name === 'a1_oi_eje'){
-    console.log(value)
+    // console.log(value)
   }
  
   if(name === 'a1_od_eje'){
-    console.log(value)
+    // console.log(value)
   }
 
 

@@ -1,11 +1,11 @@
-import React,{useState} from 'react'
+import React,{useEffect, useState} from 'react'
 import { RadioButtonComponent, SelectInputComponent, TextInputComponent } from '..'
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
 // import { Switch , switchButton} from "@material-tailwind/react";
 import Switch from "react-switch";
 import axios from 'axios';
 import { validationOTlevel1, validationOTlevel2 } from '../../utils/validationOT';
-import { codigoProyecto, fecha_despacho, fecha_entrega_cliente, fecha_entrega_taller, fetchFechas, isToggleImpression, isToggleValidation, motivo_ot, validar_parametrizacion } from '../../utils';
+import { codigoProyecto, fecha_atencion_signal, fecha_despacho, fecha_entrega_cliente, fecha_entrega_taller, fetchFechas, isToggleImpression, isToggleValidation, motivo_ot, punto_venta, validar_parametrizacion } from '../../utils';
 import SelectInputTiposComponent from '../forms/SelectInputTiposComponent';
 import { AppStore, useAppSelector } from '../../../redux/store';
 import { URLBackend } from '../../hooks/useCrud';
@@ -60,8 +60,8 @@ const FOTOptica:React.FC<IOptica> = ({
     const handleInputChange = (e:any) => {
         const { name, value } = e;
        
-        console.log(name)   
-        console.log(value)
+        // console.log(name)   
+        // console.log(value)
         
         
         if(name === "proyecto_codigo"){
@@ -70,6 +70,8 @@ const FOTOptica:React.FC<IOptica> = ({
 
         if(name === 'fecha_atencion'){
             fetchFechas(value, strCodigoProyecto)
+            onDataChange({ [name]: value });   
+
         }   
 
 
@@ -141,10 +143,19 @@ const FOTOptica:React.FC<IOptica> = ({
         }
     }
 
-    const fechaHoraActual = new Date()
-    const fechaFormateada = fechaHoraActual.toISOString().split('T')[0];
-    // console.log(data && data[EnumGrid.resolucion_garantia_id] === 1 ? 'Aceptada' : 'Rechazada')
-console.log(formValues && formValues)
+    
+
+
+    
+useEffect(()=>{
+    fetchFechas(fecha_atencion_signal.value, codigoProyecto.value)
+    onDataChange({ [' ']: ' ' }); 
+        
+},[codigoProyecto.value, fecha_atencion_signal.value])
+
+// console.log(permiso_usuario_estado_impresion)
+// console.log(permisos_areas_estado_immpresion)
+
 return (
     <form action="">
         <div className='w-full frameOTForm'>
@@ -156,7 +167,8 @@ return (
                         showRefresh={true}
                         isOT={true}
                         handleSelectChange={handleInputChange}
-                        data={formValues ? formValues["proyecto_codigo"]  : data && data[EnumGrid.proyecto_codigo]}
+                        // data={codigoProyecto.value || formValues && formValues["proyecto_codigo"] ? formValues["proyecto_codigo"]  : data && data[EnumGrid.proyecto_codigo]}
+                        data={codigoProyecto.value ||  (data && data[EnumGrid.proyecto_codigo])}
                         control={control}
                         entidad={["/api/proyectos/", "07", userID]}
                         // error={errors.establecimiento}
@@ -191,7 +203,7 @@ return (
                         showRefresh={true}
                         isOT={true}
                         handleSelectChange={handleInputChange}
-                        data={formValues ? formValues["punto_venta_id"] : data && data[EnumGrid.punto_venta_id]}
+                        data={punto_venta.value || data && data[EnumGrid.punto_venta_id]}
                         // data={data && data[EnumGrid.establecimiento_id]}
                         control={control}
                         entidad={["/api/puntosventa/", "06", codigoProyecto.value]}
@@ -251,7 +263,7 @@ return (
                         label="Fecha atención"
                         name="fecha_atencion"
                         handleChange={handleInputChange}
-                        data={fechaFormateada   || data && data[EnumGrid.fecha_atencion] || (formValues && formValues["fecha_atencion"])}
+                        data={fecha_atencion_signal.value   || data && data[EnumGrid.fecha_atencion] || (formValues && formValues["fecha_atencion"])}
                         control={control}
                         onlyRead={isEditting}
                         isOT={true}

@@ -3,7 +3,7 @@ import axios from "axios";
 import { URLBackend } from "../hooks/useCrud";
 
 import { Signal, signal } from "@preact/signals-react";
-import { validationFechaDespacho, validationFechaEntregaCliente, validationFechaEntregaTaller, validation_A1_ALT, validation_A1_DP, validation_A1_OD_AD, validation_A1_OD_CILL, validation_A1_OD_EJE, validation_A1_OD_ESF, validation_A1_OI_CIL, validation_A1_OI_EJE, validation_A1_OI_ESF, validation_A2_DP, validation_A2_OD_CIL, validation_A2_OD_EJE, validation_A2_OD_ESF, validation_A2_OI_CIL, validation_A2_OI_EJE, validation_A2_OI_ESF } from "./validationOT";
+import { validationFechaDespacho, validationFechaEntregaCliente, validationFechaEntregaTaller } from "./validationOT";
 import { EnumGrid } from "../views/mantenedores/MOTHistorica";
 import { toast } from "react-toastify";
 import { validation_tipo_anteojo } from "./OTReceta_utils";
@@ -179,8 +179,8 @@ export const reiniciarValidationNivel1 = () => {
 };
 
 export const actualizarVariable = (name: string, value: any) => {
-    console.log('name', name)
-    console.log('value', value)
+    // console.log('name', name)
+    // console.log('value', value)
     switch (name) {
         case 'a1_od_esf':
             a1_od_esf.value = value
@@ -249,8 +249,9 @@ export const clearDioptrias = () => {
     a2_oi_cil.value = undefined,
     a2_oi_eje.value = undefined
 
-    tipo_de_anteojo.value = ""
+    tipo_de_anteojo.value         = ""
     validar_parametrizacion.value = "",
+    codigoProyecto.value          = ""
 
     dioptriasHabilitadas.value.a1_ad = true
     dioptriasHabilitadas.value.a1_alt = true
@@ -268,7 +269,7 @@ export const clearDioptriasA2 = (valor:any) => {
         'a2_oi_eje',
     ]
 
-    console.log(valor)
+    // console.log(valor)
     campos.forEach((campo) =>{
         const elemento = buscarCampo(campo)
         if(elemento){
@@ -347,9 +348,13 @@ export function validarValor(str:string) {
 
 
 export const fetchFechas = async(fecha_atencion:string, codgioProyecto:string) => {
-  console.log('ejecutando')
+  // console.log('ejecutando')
   try {
        const {data} = await axios(`${URLBackend}/api/ot/listado/?query=11&_proyecto=${codgioProyecto}&_fecha_desde=${fecha_atencion}`)
+      //  console.log(data)
+       if(data && data[0] === undefined){
+        return ;
+       }
        const parsedData = JSON.parse(data[0]); // Parsear la cadena JSON a objeto
 
        fecha_atencion_signal.value   = fecha_atencion;
@@ -364,41 +369,41 @@ export const fetchFechas = async(fecha_atencion:string, codgioProyecto:string) =
       
       return data         
   } catch (error) {
-    console.log('fetchFechasError:', error);
+    // console.log('fetchFechasError:', error);
     throw error
   }
 }
 
 
 
-const fetchDioptrias = async(_proyecto:string) => {
-  try {
+// const fetchDioptrias = async(_proyecto:string) => {
+//   try {
 
-    // const requests = [
-    //   axios(`${URLBackend}/api/ot/listado/?query=12&_p3=ESF&_proyecto=${proyecto}`),
-    //   axios(`${URLBackend}/api/ot/listado/?query=12&_p3=CIL&_proyecto=${proyecto}`),
-    //   axios(`${URLBackend}/api/ot/listado/?query=12&_p3=EJE&_proyecto=${proyecto}`),
-    //   axios(`${URLBackend}/api/ot/listado/?query=12&_p3=AD&_proyecto=${proyecto}`)
-    // ]
+//     // const requests = [
+//     //   axios(`${URLBackend}/api/ot/listado/?query=12&_p3=ESF&_proyecto=${proyecto}`),
+//     //   axios(`${URLBackend}/api/ot/listado/?query=12&_p3=CIL&_proyecto=${proyecto}`),
+//     //   axios(`${URLBackend}/api/ot/listado/?query=12&_p3=EJE&_proyecto=${proyecto}`),
+//     //   axios(`${URLBackend}/api/ot/listado/?query=12&_p3=AD&_proyecto=${proyecto}`)
+//     // ]
     
-    // const [responseESF, responseCIL, responseEJE, responseAD] = await Promise.all(requests);
+//     // const [responseESF, responseCIL, responseEJE, responseAD] = await Promise.all(requests);
 
-    // dioptrias.value.ESF = responseESF.data;
-    // dioptrias.value.CIL = responseCIL.data;
-    // dioptrias.value.EJE = responseEJE.data;
-    // dioptrias.value.AD  = responseAD.data;
-    // dioptrias.value.ESF = ''
-    // dioptrias.value.CIL = ''
-    // dioptrias.value.EJE = ''
-    // dioptrias.value.AD  = ''
+//     // dioptrias.value.ESF = responseESF.data;
+//     // dioptrias.value.CIL = responseCIL.data;
+//     // dioptrias.value.EJE = responseEJE.data;
+//     // dioptrias.value.AD  = responseAD.data;
+//     // dioptrias.value.ESF = ''
+//     // dioptrias.value.CIL = ''
+//     // dioptrias.value.EJE = ''
+//     // dioptrias.value.AD  = ''
 
     
-    console.log(dioptrias.value)
-  } catch (error) {
-    console.log(error)
-    throw error
-  }
-}
+//     // console.log(dioptrias.value)
+//   } catch (error) {
+//     // console.log(error)
+//     throw error
+//   }
+// }
 
 
 type InputChangeActions = {
@@ -520,14 +525,12 @@ export const updateOT =async (
   situacion?:any,
 )  => {
 
-  console.log(jsonData)
-  console.log(_formValues)
-  console.log(data)
+  // console.log(jsonData)
+  // console.log(_formValues)
+  // console.log(data)
 
-  console.log((`numero_oc="${jsonData.numero_oc  !== '' && jsonData.numero_oc !== undefined  ? jsonData.numero_oc : " " }"`))
 
-  console.log(data && data[EnumGrid.observaciones])
-  console.log(_formValues["receta"] && _formValues["receta"]["observaciones"] ? _formValues["receta"]["observaciones"] : data && data[EnumGrid.observaciones])
+  
 
   let motivo = data && data[EnumGrid.motivo] === 'Garantía' ? 2 : 1;
   //TODO: INICIO PROCESAR MASIVO
@@ -554,7 +557,7 @@ export const updateOT =async (
       _motivo:  `${motivo}`
     }
 
-    console.log(query)
+    // console.log(query)
     try {
       const response = await axios.post(`${URLBackend}/api/ot/editar/`, query)
   
@@ -564,7 +567,7 @@ export const updateOT =async (
         return toast.error('Error al Editar OT')
       }
     } catch (error) {
-      console.log(error)
+      // console.log(error)
   
     }
     return;
@@ -577,7 +580,6 @@ export const updateOT =async (
 
   // let _rut = ""
   let _p3 = ""
-
 
 
 
@@ -603,7 +605,7 @@ export const updateOT =async (
     (`a1_od_esf=${typeof dioptrias_receta.value.a1_od.esf                                                                                                !== 'object' && !Number.isNaN(dioptrias_receta.value.a1_od.esf) ? dioptrias_receta.value.a1_od.esf : null }`),
     (`a1_od_cil=${typeof dioptrias_receta.value.a1_od.cil                                                                                                !== 'object' && !Number.isNaN(dioptrias_receta.value.a1_od.cil) ? dioptrias_receta.value.a1_od.cil : null }`),
     (`a1_od_eje=${typeof dioptrias_receta.value.a1_od.eje                                                                                                !== 'object' && !Number.isNaN(dioptrias_receta.value.a1_od.eje) ? dioptrias_receta.value.a1_od.eje : null }`),
-    (`a1_od_ad =${typeof dioptrias_receta.value.a1_od.ad                                                                                                 !== 'object' && !Number.isNaN(dioptrias_receta.value.a1_od.ad)  ? dioptrias_receta.value.a1_od.ad  : null }`),
+    (`a1_od_ad =${tipo_de_anteojo.value === '3'                                                                                                          ? ((typeof dioptrias_receta.value.a1_od.ad !== 'object' && !Number.isNaN(dioptrias_receta.value.a1_od.ad)) ? dioptrias_receta.value.a1_od.ad  : 0 ) : ((typeof dioptrias_receta.value.a1_od.ad !== 'string' && !Number.isNaN(dioptrias_receta.value.a1_od.ad)) ) ? dioptrias_receta.value.a1_od.ad  : 0}`),
     (`a1_oi_esf=${typeof dioptrias_receta.value.a1_oi.esf                                                                                                !== 'object' && !Number.isNaN(dioptrias_receta.value.a1_oi.esf) ? dioptrias_receta.value.a1_oi.esf : null }`),
     (`a1_oi_cil=${typeof dioptrias_receta.value.a1_oi.cil                                                                                                !== 'object' && !Number.isNaN(dioptrias_receta.value.a1_oi.cil) ? dioptrias_receta.value.a1_oi.cil : null }`),
     (`a1_oi_eje=${typeof dioptrias_receta.value.a1_oi.eje                                                                                                !== 'object' && !Number.isNaN(dioptrias_receta.value.a1_oi.eje) ? dioptrias_receta.value.a1_oi.eje : null }`),
@@ -696,7 +698,7 @@ export const updateOT =async (
   const _cristalesJSON = JSON.stringify(cristales)
   const armazones = [
     { codigo: `${a1_armazon.value}` },
-    { codigo: `${a1_armazon.value}` },
+    { codigo: `${a2_armazon.value}` },
   ]
     .map(item => {
       const numero = parseFloat(item.codigo);
@@ -713,10 +715,15 @@ const _armazonesJSON = JSON.stringify(armazones)
                           .filter((prev)=>prev[1] !== 'undefined')
                           .map((parts) => parts.join('='));
   
-    console.log(_estado)
+    // console.log(_estado)
 
   let _p1 = filteredFields.join(',');    
   _p1 = _p1.replace(/'/g, '!');
+
+
+    // console.log(_estado)
+    // console.log(_origen)
+    // console.log(_destino)
 
   const query = {
     query: "04",
@@ -745,7 +752,7 @@ const _armazonesJSON = JSON.stringify(armazones)
 
   };
   // console.log(_p1)
-  console.log(query)
+  // console.log(query)
   try {
     const response = await axios.post(`${URLBackend}/api/ot/editar/`, query)
 
@@ -756,7 +763,7 @@ const _armazonesJSON = JSON.stringify(armazones)
       return toast.error('Error al Editar OT')
     }
   } catch (error) {
-    console.log(error)
+    // console.log(error)
 
   }
 

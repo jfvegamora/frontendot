@@ -179,8 +179,8 @@ const useCrud = (
       }else{
         //CASO DE USO 1
         if(strEntidad?.includes('Orden')){
-          console.log('entidades OT');
-          console.log(OTAreas)
+          // console.log('entidades OT');
+          // console.log(OTAreas)
            
           strUrl = primaryKey
             ? OTAreas ? `/excel/?${query ?  query : "query=14"}&_origen=${OTAreas}&${primaryKey}` :  `/excel/?${query ?  query : "query=14"}&${primaryKey}`
@@ -192,8 +192,8 @@ const useCrud = (
             ? `/excel/?${query ?  query : "query=01"}&${primaryKey}`
             : `/excel/?${query ? query : "query=01"}`;
         }
-        console.log(strUrl)
-        console.log(strEntidad)
+        // console.log(strUrl)
+        // console.log(strEntidad)
 
         
         response = await axiosInstance.get(strUrl, {
@@ -237,15 +237,15 @@ const useCrud = (
     primaryKeys: any,
     query: any
   ): Promise<any | undefined> => {
-    console.log(query)
-    console.log(primaryKeys)
+    // console.log(query)
+    // console.log(primaryKeys)
     
-    const searchUrl = baseUrl === 'https://mtoopticos.cl/api/tipos/'
+    const searchUrl = baseUrl === 'https://gestionprod.mtoopticos.cl/api/tipos/'
       ? `${baseUrl}listado/?query=${query === undefined ? "01" : query}&${primaryKeys || '_p1=OTMotivoGarantia'}`
       : `${baseUrl}listado/?query=${query === undefined ? "01" : query}${primaryKeys === "" ? "&_limit=100" : (`&${primaryKeys}`)}`;
 
     try {
-      console.log("searchUrl", searchUrl);  
+      // console.log("searchUrl", searchUrl);  
       const response = await axiosInstance.get(searchUrl);
       return response.data;
     } catch (error) {
@@ -284,7 +284,7 @@ const useCrud = (
       console.log(pk[0])
       
       const newUrl = `/eliminar/?query=05&${pk[0]}`
-      console.log(newUrl)
+      // console.log(newUrl)
       const response = await axiosInstance.delete(newUrl);
       return response.data;
 

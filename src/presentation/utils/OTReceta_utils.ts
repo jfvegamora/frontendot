@@ -44,7 +44,7 @@ export const validation_tipo_anteojo = () => {
   ];
 
   const tipoDeAnteojo = tipo_de_anteojo.value;
-  console.log(tipoDeAnteojo)
+//   console.log(tipoDeAnteojo)
 
   const mapping:any = {
       '1': { a1_od_ad: 1, a1_oi_ad: 1, a1_alt: 1, a1_dp: 0, a2_dp: 1, a2_od_esf: 1, a2_od_cil: 1, a2_od_eje: 1, a2_oi_esf: 1, a2_oi_cil: 1, a2_oi_eje: 1, cristal2_marca_id: 1 , cristal2_diseno_id:1, cristal2_indice_id:1, cristal2_material_id:1, cristal2_color_id:1, cristal2_diametro:1, cristal2_tratamiento_id:1, cristal2_od:1, cristal2_oi:1, a2_armazon_id:1 },
@@ -89,10 +89,10 @@ export const combinaciones_validas = () => {
     let isCIL = typeof CIL === 'number' && !Number.isNaN(CIL);
     let isEJE = typeof EJE === 'number' && !Number.isNaN(EJE);
     
-    console.log(ESF)
+    // console.log(ESF)
     //VALIDACION 1
     if (typeof ESF === 'object' && typeof CIL === 'object' && typeof EJE === 'object') {
-        console.log('Ninguno de los valores es un número, agregando estado 0');
+        // console.log('Ninguno de los valores es un número, agregando estado 0');
         if(item){
             item.valor = 0
         }
@@ -101,7 +101,7 @@ export const combinaciones_validas = () => {
 
     //VALIDACION 2
     if ((isESF && !isCIL && !isEJE) || (!isESF && (isCIL && isEJE)) || (isESF && isCIL && isEJE)) {
-        console.log('Combinación válida, agregando estado 1');
+        // console.log('Combinación válida, agregando estado 1');
         if(item){
             item.valor = 1
         }
@@ -110,7 +110,7 @@ export const combinaciones_validas = () => {
         if(item){
             item.valor = 0
         }
-        console.log('Combinaciones no válidas, agregando estado 0');
+        // console.log('Combinaciones no válidas, agregando estado 0');
         return 0;
     }
 
@@ -129,7 +129,7 @@ export const combinaciones_validas_od = (ESF:any, CIL:any, EJE:any) => {
     let isEJE = typeof parseInt(EJE) === 'number' && !Number.isNaN(EJE);
     //VALIDACION 1
     if (typeof ESF === 'object' && typeof CIL === 'object' && typeof EJE === 'object') {
-        console.log('Ninguno de los valores es un número, agregando estado 0');
+        // console.log('Ninguno de los valores es un número, agregando estado 0');
         if(item){
             item.valor = 0
         }
@@ -138,7 +138,7 @@ export const combinaciones_validas_od = (ESF:any, CIL:any, EJE:any) => {
 
     //VALIDACION 2
     if ((isESF && !isCIL && !isEJE) || (!isESF && (isCIL && isEJE)) || (isESF && isCIL && isEJE)) {
-        console.log('Combinación válida, agregando estado 1');
+        // console.log('Combinación válida, agregando estado 1');
         if(item){
             item.valor = 1
         }
@@ -147,7 +147,7 @@ export const combinaciones_validas_od = (ESF:any, CIL:any, EJE:any) => {
         if(item){
             item.valor = 0
         }
-        console.log('Combinaciones no válidas, agregando estado 0');
+        // console.log('Combinaciones no válidas, agregando estado 0');
         return 0;
     }
 

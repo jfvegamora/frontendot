@@ -13,9 +13,6 @@ import { EnumGrid } from '../mantenedores/MOTHistorica';
 import FOTDerivacion from '../../components/OTForms/FOTDerivacion';
 import { A1_CR_OD, A1_CR_OI, A1_DP, A1_Diametro, A1_GRUPO_OD, A1_GRUPO_OI, A2_CR_OD, A2_CR_OI, A2_DP, A2_Diametro, A2_GRUPO_OD, A2_GRUPO_OI, SEXO, TIPO_CLIENTE, 
   a1_armazon, 
-  a1_od_cil, 
-  a1_od_eje, 
-  a1_od_esf, 
   a2_armazon, 
   // a1_od_ad, a1_od_cil, a1_od_eje, a1_od_esf, 
   a2_od_cil, a2_od_eje, a2_od_esf, a2_oi_cil, a2_oi_eje, a2_oi_esf, a3_armazon, armazonesJSONsignal, changeCodigoCristal_A1, changeCodigoCristal_A2, clearDioptrias,  
@@ -389,7 +386,7 @@ const FOT:React.FC<IFOTProps> = ({
   let permiso_usuario_grupo_dioptria      = permisosCampos && permisosCampos[5] === "1" ? true : false;
   let permiso_usuario_receta              = permisosCampos && permisosCampos[6] === "1" ? true : false;
   let permiso_usuario_verificar_cristal   = permisosCampos && permisosCampos[7] === "1" ? true : false;
-  let permiso_usuario_verificar_armazon   = permisosCampos && permisosCampos[8] === "1" ? true : false;
+  // let permiso_usuario_verificar_armazon   = permisosCampos && permisosCampos[8] === "1" ? true : false;
 
 
  
@@ -483,7 +480,6 @@ const FOT:React.FC<IFOTProps> = ({
   
       A1_DP.value = data[EnumGrid.a1_dp]
       A2_DP.value = data[EnumGrid.a2_dp]
-      console.log(A1_DP.value)
       
       a1_armazon.value = data[EnumGrid.a1_armazon_id]
       a2_armazon.value = data[EnumGrid.a2_armazon_id]
@@ -615,8 +611,8 @@ const FOT:React.FC<IFOTProps> = ({
   
   const switchCaseIngresar = async(jsonData:any, cristalesJSON:any, armazonesJSON:any) => {
     
-    console.log(jsonData)
-    console.log(formValues)
+    // console.log(jsonData)
+    // console.log(formValues)
  
 
 
@@ -632,18 +628,18 @@ const FOT:React.FC<IFOTProps> = ({
     let _p3:any = ''
     let _rut = isExistClient.value ? `${jsonData.cliente_rut || formValues.cliente.cliente_rut}` : '';
     
-    console.log(A1_Diametro.value)
-    console.log(typeof A1_Diametro.value === 'number' ? A1_Diametro.value : 0)
+    // console.log(A1_Diametro.value)
+    // console.log(typeof A1_Diametro.value === 'number' ? A1_Diametro.value : 0)
 
-    console.log(jsonData.a1_altf)
-
-
-    console.log(typeof formValues["receta"]["a1_alt"] === 'string' ? formValues["receta"]["a1_alt"] : 0)
+    // console.log(jsonData.a1_altf)
 
 
-    console.log(
-      formValues?.cliente.cliente_tipo === TIPO_CLIENTE.beneficiario ? "1" : formValues?.cliente.cliente_tipo === TIPO_CLIENTE.particular ? "2" : formValues?.cliente.cliente_tipo === TIPO_CLIENTE.optica ? "3" : "0"
-    );
+    // console.log(typeof formValues["receta"]["a1_alt"] === 'string' ? formValues["receta"]["a1_alt"] : 0)
+
+
+    // console.log(
+    //   formValues?.cliente.cliente_tipo === TIPO_CLIENTE.beneficiario ? "1" : formValues?.cliente.cliente_tipo === TIPO_CLIENTE.particular ? "2" : formValues?.cliente.cliente_tipo === TIPO_CLIENTE.optica ? "3" : "0"
+    // );
 
     // console.log(
     //   formValues?.cliente.cliente_sexo === 'Masculino' === "1" :
@@ -652,11 +648,11 @@ const FOT:React.FC<IFOTProps> = ({
     //   "0"
     // )
 
-      console.log(
-        formValues?.cliente.cliente_sexo === SEXO.masculino ? "1" : formValues?.cliente.cliente_sexo === SEXO.femenino ? "2" : formValues?.cliente.cliente_sexo === SEXO.no_aplica ? "3"  : "0" 
-      )
+      // console.log(
+      //   formValues?.cliente.cliente_sexo === SEXO.masculino ? "1" : formValues?.cliente.cliente_sexo === SEXO.femenino ? "2" : formValues?.cliente.cliente_sexo === SEXO.no_aplica ? "3"  : "0" 
+      // )
 
-    console.log(jsonData.cliente_tipo || formValues.cliente.cliente_tipo === TIPO_CLIENTE.beneficiario ? "1" : jsonData.cliente_tipo || formValues.cliente.cliente_tipo   === TIPO_CLIENTE.particular ? "2" : jsonData.cliente_tipo  || formValues.cliente.cliente_tipo === TIPO_CLIENTE.optica ? "3" : "0")
+    // console.log(jsonData.cliente_tipo || formValues.cliente.cliente_tipo === TIPO_CLIENTE.beneficiario ? "1" : jsonData.cliente_tipo || formValues.cliente.cliente_tipo   === TIPO_CLIENTE.particular ? "2" : jsonData.cliente_tipo  || formValues.cliente.cliente_tipo === TIPO_CLIENTE.optica ? "3" : "0")
 
     isExistClient.value 
                      ? _p3 = [`nombre="${jsonData.cliente_nombre.trim() || formValues.cliente.cliente_nombre.trim() || ""}"`, `tipo=${formValues?.cliente.cliente_tipo === TIPO_CLIENTE.beneficiario ? "1" : formValues?.cliente.cliente_tipo === TIPO_CLIENTE.particular ? "2" : formValues?.cliente.cliente_tipo === TIPO_CLIENTE.optica ? "3" : "0"}`, `sexo=${formValues?.cliente.cliente_sexo === SEXO.masculino ? "1" : formValues?.cliente.cliente_sexo === SEXO.femenino ? "2" : formValues?.cliente.cliente_sexo === SEXO.no_aplica ? "3"  : "0"}` ,`fecha_nacimiento="${jsonData.cliente_fecha_nacimiento || formValues.cliente.cliente_fecha_nacimiento || ""}"`, `direccion="${jsonData.cliente_direccion.trim() || formValues.cliente.cliente_direccion.trim() || ""}"`, `comuna=${jsonData.cliente_comuna || formValues.cliente.cliente_comuna || 0}`, `telefono="${jsonData.cliente_telefono.trim() || formValues.cliente.cliente_telefono.trim() || ""}"`, `correo="${jsonData.cliente_correo.trim() || formValues.cliente.cliente_correo.trim() || ""}"`, `establecimiento=${jsonData.establecimiento_id || formValues.cliente.establecimiento_id || 0}`].map((a)=>a.split("=")).map((a)=>a.join("=")).join(',')
@@ -837,7 +833,7 @@ const FOT:React.FC<IFOTProps> = ({
       //  console.log(submitAction)
 
     // console.log(jsonData)
-    console.log(formValues)
+    // console.log(formValues)
     
     //! LOGICA JSON CRISTALES/ARMAZONES COMPARTIDA UPDATE + INSERT
     
@@ -850,7 +846,8 @@ const FOT:React.FC<IFOTProps> = ({
         ]
           .map(item => {
             const numero = parseFloat(item.codigo);
-            if (!isNaN(numero) && numero !== 0 &&numero !== null) {
+            console.log(numero)
+            if (!isNaN(numero) && numero !== 0 && numero !== null) {
               return { 'codigo': `${numero}` };
             }
             return null; 
@@ -881,9 +878,9 @@ const FOT:React.FC<IFOTProps> = ({
 
     if (submitAction === 'pausar') {
      
-      console.log('pausar')
+      // console.log('pausar')
      
-      console.log(formValues)
+      // console.log(formValues)
       
       // updateOT(
       //    jsonData, 
@@ -957,14 +954,14 @@ const FOT:React.FC<IFOTProps> = ({
       }
     }));
     // console.log(Object.keys(data)[0])
-    console.log(name)
-    console.log(data)
+    // console.log(name)
+    // console.log(data)
     
-    console.log(formValues)
+    // console.log(formValues)
 
     //TODO: inputChangeAction 
     const key = Object.keys(data)[0] 
-    console.log(key)
+    // console.log(key)
 
     if(key === 'tipo_anteojo_id'){
       clearInputDioptrias()
@@ -990,10 +987,10 @@ const FOT:React.FC<IFOTProps> = ({
         Object.keys(data)[0] === 'a1_od_ad'  ||
         tipo_de_anteojo.value === '3'
       ){
-        if(dioptrias_receta.value.a1_od.ad < 0){
-          a2_od_esf.value = " ";
-          dioptrias_receta.value.a1_od.ad  = " ";
-        }
+        // if(dioptrias_receta.value.a1_od.ad < 0){
+        //   a2_od_esf.value = " ";
+        //   dioptrias_receta.value.a1_od.ad  = " ";
+        // }
          
 
         if(typeof dioptrias_receta.value.a1_od.ad !== 'object' &&  dioptrias_receta.value.a1_od.ad > 0){
@@ -1002,11 +999,11 @@ const FOT:React.FC<IFOTProps> = ({
           a2_od_eje.value = (typeof dioptrias_receta.value.a1_od.eje === 'object' ? 0 : dioptrias_receta.value.a1_od.eje)
 
 
-          console.log(a1_od_eje.value)
-          console.log(dioptrias_receta.value.a1_od.eje)
-          console.log(formValues["receta"])
+          // console.log(a1_od_eje.value)
+          // console.log(dioptrias_receta.value.a1_od.eje)
+          // console.log(formValues["receta"])
 
-          console.log((typeof dioptrias_receta.value.a1_od.esf !== 'object' && Number.isNaN(dioptrias_receta.value.a1_od.esf) ? 0 : parseFloat(dioptrias_receta.value.a1_od.esf) ) + parseFloat(dioptrias_receta.value.a1_od.ad))
+          // console.log((typeof dioptrias_receta.value.a1_od.esf !== 'object' && Number.isNaN(dioptrias_receta.value.a1_od.esf) ? 0 : parseFloat(dioptrias_receta.value.a1_od.esf) ) + parseFloat(dioptrias_receta.value.a1_od.ad))
 
           validation_A2_OD_ESF(a2_od_esf.value)
           validation_A2_OD_CIL(a2_od_cil.value)
@@ -1039,7 +1036,7 @@ const FOT:React.FC<IFOTProps> = ({
           a2_oi_eje.value = (typeof dioptrias_receta.value.a1_oi.eje === 'object' ? 0 : dioptrias_receta.value.a1_oi.eje)
           a2_oi_cil.value = (typeof dioptrias_receta.value.a1_oi.cil === 'object' ? 0 : dioptrias_receta.value.a1_oi.cil);
           
-          console.log( a2_oi_esf.value = (typeof dioptrias_receta.value.a1_oi.esf !== 'object' && Number.isNaN(dioptrias_receta.value.a1_oi.esf) ? 0 : parseFloat(dioptrias_receta.value.a1_oi.esf)) + parseFloat(dioptrias_receta.value.a1_oi.ad))
+          // console.log( a2_oi_esf.value = (typeof dioptrias_receta.value.a1_oi.esf !== 'object' && Number.isNaN(dioptrias_receta.value.a1_oi.esf) ? 0 : parseFloat(dioptrias_receta.value.a1_oi.esf)) + parseFloat(dioptrias_receta.value.a1_oi.ad))
         }
 
       }
@@ -1065,7 +1062,7 @@ const FOT:React.FC<IFOTProps> = ({
       const formValue = getValues()
       const {cristal1_marca_id, cristal1_diseno_id, cristal1_indice_id, cristal1_color_id , cristal1_material_id,cristal1_tratamiento_id } = formValue;
       
-      console.log(A1_Diametro.value)
+      // console.log(A1_Diametro.value)
 
       if(cristal1_marca_id                      !== undefined &&
         cristal1_diseno_id                      !== undefined &&
@@ -1078,7 +1075,7 @@ const FOT:React.FC<IFOTProps> = ({
         dioptrias_receta.value.a1_od.cil        !== ' '       
       ){
 
-        console.log('ejecutando llamada...')
+        // console.log('ejecutando llamada...')
         // console.log('ejecutando llamada...')
 
         const _pkToDelete1_od ={
@@ -1108,7 +1105,7 @@ const FOT:React.FC<IFOTProps> = ({
           "cilindrico": dioptrias_receta.value.a1_oi.cil ?? 0, 
         }
 
-        console.log(_pkToDelete1_oi)
+        // console.log(_pkToDelete1_oi)
 
 
 
@@ -1116,17 +1113,17 @@ const FOT:React.FC<IFOTProps> = ({
           const pkJSON = JSON.stringify([_pkToDelete1_od, _pkToDelete1_oi])
           const encodedJSON = encodeURIComponent(pkJSON)
 
-          console.log(encodedJSON)
+          // console.log(encodedJSON)
           
           const {data:cristalesDataOD} = await axios(`${URLBackend}/api/proyectogrupos/listado/?query=06&_p2=${codigoProyecto.value}&_pkToDelete=${encodedJSON}`)
           
           const cristalesDATA = JSON.parse(cristalesDataOD[0][0])
-          console.log(cristalesDATA)
+          // console.log(cristalesDATA)
 
           if(cristalesDATA && cristalesDATA["ERROR"] !== ''){
 
-            console.log('hay error')
-            console.log(cristalesDATA)
+            // console.log('hay error')
+            // console.log(cristalesDATA)
 
             toast.error(cristalesDATA["ERROR"])
 
@@ -1161,7 +1158,7 @@ const FOT:React.FC<IFOTProps> = ({
     }
 
     //? ANTEOJO 2:
-    console.log(a2_oi_esf.value)
+    // console.log(a2_oi_esf.vsalue)
     if(changeCodigoCristal_A2[key]){
       const formValue = getValues()
       const {cristal2_marca_id, cristal2_diseno_id, cristal2_indice_id, cristal2_color_id , cristal2_material_id,cristal2_tratamiento_id } = formValue;
@@ -1176,7 +1173,7 @@ const FOT:React.FC<IFOTProps> = ({
         a2_od_esf.value                         !== ''        &&
         a2_oi_esf.value                         !== ''        
         ){
-        console.log('ejecutando llamada.....')
+        // console.log('ejecutando llamada.....')
         const _pkToDelete1_od ={
           "marca":      cristal2_marca_id,
           "diseno":     cristal2_diseno_id,
@@ -1190,7 +1187,7 @@ const FOT:React.FC<IFOTProps> = ({
         }
 
 
-        console.log(_pkToDelete1_od)
+        // console.log(_pkToDelete1_od)
         
         const _pkToDelete1_oi ={
           "marca":      cristal2_marca_id,
@@ -1204,7 +1201,7 @@ const FOT:React.FC<IFOTProps> = ({
           "cilindrico": a2_oi_cil.value ?? 0, 
         }
 
-        console.log(_pkToDelete1_oi)
+        // console.log(_pkToDelete1_oi)
 
         try {
           const pkJSON = JSON.stringify([_pkToDelete1_od, _pkToDelete1_oi])
@@ -1213,10 +1210,10 @@ const FOT:React.FC<IFOTProps> = ({
           const {data:cristalesDataOI} = await axios(`${URLBackend}/api/proyectogrupos/listado/?query=06&_p2=${codigoProyecto.value}&_pkToDelete=${encodedJSON}`)
           
           const cristalesDATA = JSON.parse(cristalesDataOI[0][0])
-          console.log(cristalesDATA)
+          // console.log(cristalesDATA)
 
           if(cristalesDATA && cristalesDATA["ERROR"] !== ''){
-            A2_CR_OD.value    = " ";
+            A2_CR_OD.value    = " ";selectedTab
             A2_CR_OI.value    = " ";
 
             A2_GRUPO_OD.value = " ";
@@ -1392,7 +1389,7 @@ useEffect(() => {
 }, [closeModal]);
 
 
-useEffect(() => {
+useEffect(() => {  
   const handleKeyDown = (event:KeyboardEvent) => {
     if (event.ctrlKey && event.key === 'ArrowRight') {
       setSelectedTab((prevTab) => (prevTab + 1) % 6);
@@ -1407,6 +1404,12 @@ useEffect(() => {
     window.removeEventListener('keydown', handleKeyDown);
   };
 }, []);
+
+useEffect(()=>{
+    const fechaHoraActual = new Date()
+    const fechaFormateada = fechaHoraActual.toISOString().split('T')[0];
+    fecha_atencion_signal.value = fechaFormateada
+},[])
 
 // console.log(permiso_usuario_verificar_cristal)
 // console.log(permiso_usuario_verificar_armazon)
@@ -1426,11 +1429,11 @@ useEffect(() => {
 
   // console.log(formValues)
 
-  console.log(validationNivel1.value)
+  // console.log(validationNivel1.value)
   
-  console.log(validationNivel2.value)
+  // console.log(validationNivel2.value)
 
-  console.log(validationNivel3.value)
+  // console.log(validationNivel3.value)
 
   return (
 

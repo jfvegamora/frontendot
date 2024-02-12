@@ -5,7 +5,7 @@ import { validationOTlevel2, validationOTlevel3,  } from '../../utils/validation
 import SelectInputTiposComponent from '../forms/SelectInputTiposComponent';
 import { A1_CR_OD, A1_CR_OI, A1_GRUPO_OD, A1_GRUPO_OI, A2_CR_OD, A2_CR_OI, A2_Diametro, A2_GRUPO_OD, A2_GRUPO_OI, tipo_de_anteojo } from '../../utils';
 import TextInputInteractive from '../forms/TextInputInteractive';
-import { AppStore, useAppSelector } from '../../../redux/store';
+// import { AppStore, useAppSelector } from '../../../redux/store';
 
 
 interface ICristales {
@@ -38,7 +38,7 @@ const FOTCristales: React.FC<ICristales> = ({
     permiso_area_verificar_cristal,
     isEditting
 }) => {
-    const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas["areaActual"]);
+    // const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas["areaActual"]);
 
 
     const handleInputChange = async (e: any) => {

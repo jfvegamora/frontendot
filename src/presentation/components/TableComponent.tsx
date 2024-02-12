@@ -151,7 +151,6 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
     }
 
 
-    console.log(entidad)
 
 
     const renderTextCell = (text: string, alignment?:string, type?:number, color2?:boolean, rowData?:any, backgroundAtrasadas?:boolean) => {

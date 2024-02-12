@@ -10,8 +10,6 @@ import { toast } from "react-toastify";
 export const handleContainerClick = (event:React.MouseEvent<HTMLDivElement>) => {
   if (event.target instanceof Element) {
     if (event.target.classList.contains("mantenedorContainer")) {
-      // Hacer algo cuando se hace clic dentro de "mantenedorContainer"
-      console.log("Clic dentro de mantenedorContainer");
       filterToggle.value = false
     }
   }
@@ -28,14 +26,11 @@ const LandingPage: React.FC = () => {
     const localStorageUser = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user") as string) : [];
 
     if(localStorageUser["expiracion"]){
-      console.log(localStorageUser["expiracion"])
 
       compararFechas(localStorageUser["expiracion"]).then((result)=>{
-        console.log(result)
 
         if(result === false){
           console.log('render')
-            localStorage.removeItem('user')
             toast.error('Sesion Expirada')
             navigate('/login');
         }
@@ -51,7 +46,6 @@ const LandingPage: React.FC = () => {
     const localStorageUser = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user") as string) : [];
     
     if(!localStorageUser){
-        localStorage.removeItem('user')
         toast.error('Sesion Expirada')
         navigate('/login');
     }

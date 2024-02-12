@@ -111,7 +111,8 @@ export const PrivateRoutes = {
 
 
   //landingpage
-  LANDING               : "landing"
+  LANDING               : "",
+  LANDINGPAGE           : "landing"
 };
 
 export const privateRoutes = [
@@ -119,6 +120,12 @@ export const privateRoutes = [
   {
     id                  : "1",
     path                : PrivateRoutes.LANDING,
+    component           : Landing,
+    requiredPermissions : ['view_' + PrivateRoutes.OT]
+  },
+  {
+    id                  : "1",
+    path                : PrivateRoutes.LANDINGPAGE,
     component           : Landing,
     requiredPermissions : ['view_' + PrivateRoutes.OT]
   },

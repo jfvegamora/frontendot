@@ -2,7 +2,7 @@ import React from 'react'
 import { SelectInputComponent, TextInputComponent } from '..'
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica'
 // import {a1_od_ad, a1_od_cil, a1_od_eje, a1_od_esf, a1_oi_ad, a1_oi_cil, a1_oi_eje, a1_oi_esf, a2_od_cil, a2_od_eje, a2_od_esf, a2_oi_cil, a2_oi_eje, a2_oi_esf, dioptriasHabilitadas, dioptrias_receta, onchangeDioptrias } from '../../utils'
-import {a1_od_ad, a1_od_eje, a1_od_esf, a1_oi_ad, a1_oi_cil, a1_oi_eje, a1_oi_esf, a2_od_cil, a2_od_eje, a2_od_esf, a2_oi_cil, a2_oi_eje, a2_oi_esf,
+import {a1_od_ad, a1_od_eje, a1_od_esf, a1_oi_ad, a1_oi_esf, a2_od_cil, a2_od_eje, a2_od_esf, a2_oi_cil, a2_oi_eje, a2_oi_esf,
     dioptrias_receta, 
     // dioptrias_receta, 
     // tipo_de_anteojo 
@@ -71,8 +71,9 @@ const FOTReceta:React.FC<IReceta> = ({
         // console.log(dioptrias_receta.value.a1_oi)
     }
 
-    console.log(dioptrias_receta.value.a1_oi.eje)
+    console.log(dioptrias_receta.value.a1_od.ad)
 
+    
   return (
     <form>
         <div className="w-full frameOTForm">
