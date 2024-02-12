@@ -1,7 +1,7 @@
 import { 
     // a1_oi_esf, a1_oi_cil, a1_oi_eje, 
     dioptrias_receta, a2_od_esf, a2_oi_esf, a2_od_cil, a2_oi_cil, a2_od_eje, a2_oi_eje, tipo_de_anteojo, a1_od_esf } from ".";
-import { validation_A2_OD_CIL, validation_A2_OD_EJE, validation_A2_OD_ESF } from "./validationOT";
+import { validation_A1_OD_CILL, validation_A1_OI_CIL, validation_A2_OD_CIL, validation_A2_OD_EJE, validation_A2_OD_ESF } from "./validationOT";
 
 
 export const transponer = (ESF:any, CIL:any, EJE:any, 
@@ -57,6 +57,8 @@ export const transponer = (ESF:any, CIL:any, EJE:any,
     }
     console.log(dioptrias_receta.value[anteojo].cil)
     console.log(dioptrias_receta.value[anteojo].eje)
+    console.log(EJE.value)
+
 
     if(typeof dioptrias_receta.value[anteojo].cil === 'number' && typeof dioptrias_receta.value[anteojo].eje === 'number'){
         if(dioptrias_receta.value[anteojo].cil > 0 && (dioptrias_receta.value[anteojo].eje >= 0 && dioptrias_receta.value[anteojo].eje <= 180)){
@@ -81,12 +83,15 @@ export const transponer = (ESF:any, CIL:any, EJE:any,
                     console.log('render')
                     
                     console.log(EJE.value)
-                    dioptrias_receta.value[anteojo].eje= EJE + 90;
+                    dioptrias_receta.value[anteojo].eje= dioptrias_receta.value[anteojo].eje + 90;
                 } else {
                     console.log('render')
-                    dioptrias_receta.value[anteojo].eje= EJE - 90;
+                    dioptrias_receta.value[anteojo].eje= dioptrias_receta.value[anteojo].eje - 90;
                 }
                 
+                console.log(dioptrias_receta.value.a1_oi.eje)
+
+
             } else {
                 CIL.value = " "
                 dioptrias_receta.value[anteojo].cil = " "
@@ -97,6 +102,11 @@ export const transponer = (ESF:any, CIL:any, EJE:any,
     
     console.log(Number.isNaN(dioptrias_receta.value[anteojo].ad))
     
+    if(anteojo === 'a1_od'){
+        validation_A1_OD_CILL(dioptrias_receta.value.a1_od.cil)
+    }else{
+        validation_A1_OI_CIL(dioptrias_receta.value.a1_oi.cil)
+    }
     
     if(Number.isNaN(dioptrias_receta.value[anteojo].ad)){
         if(tipo_de_anteojo.value === '3' && ESF2 && CIL2 && EJE2){

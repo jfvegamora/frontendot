@@ -1287,88 +1287,88 @@ React.useEffect(() => {
 
 
 
-React.useEffect(()=>{
+// React.useEffect(()=>{
 
-  // const getDioptriasA2 = (data:any) => {
-  //   if(tipo_de_anteojo.value === '3'){
-  //     // clearInputDioptrias()
-  //     //? OJO DERECHO
-  //     if(
-  //       Object.keys(data)[0] === 'a1_od_esf' ||
-  //       Object.keys(data)[0] === 'a1_od_cil' ||
-  //       Object.keys(data)[0] === 'a1_od_eje' ||
-  //       Object.keys(data)[0] === 'a1_od_ad'  ||
-  //       tipo_de_anteojo.value === '3'
-  //     ){
-  //       if(dioptrias_receta.value.a1_od.ad < 0){
-  //         a2_od_esf.value = " ";
-  //         dioptrias_receta.value.a1_od.ad  = " ";
-  //       }
+//   // const getDioptriasA2 = (data:any) => {
+//   //   if(tipo_de_anteojo.value === '3'){
+//   //     // clearInputDioptrias()
+//   //     //? OJO DERECHO
+//   //     if(
+//   //       Object.keys(data)[0] === 'a1_od_esf' ||
+//   //       Object.keys(data)[0] === 'a1_od_cil' ||
+//   //       Object.keys(data)[0] === 'a1_od_eje' ||
+//   //       Object.keys(data)[0] === 'a1_od_ad'  ||
+//   //       tipo_de_anteojo.value === '3'
+//   //     ){
+//   //       if(dioptrias_receta.value.a1_od.ad < 0){
+//   //         a2_od_esf.value = " ";
+//   //         dioptrias_receta.value.a1_od.ad  = " ";
+//   //       }
          
   
-  //       if(typeof dioptrias_receta.value.a1_od.ad !== 'object' &&  dioptrias_receta.value.a1_od.ad > 0){
-  //         a2_od_esf.value = (typeof dioptrias_receta.value.a1_od.esf !== 'object' && Number.isNaN(dioptrias_receta.value.a1_od.esf) ? 0 : parseFloat(dioptrias_receta.value.a1_od.esf) ) + parseFloat(dioptrias_receta.value.a1_od.ad)
-  //         // a2_od_cil.value = (typeof dioptrias_receta.value.a1_od.cil === 'object' ? 0 : dioptrias_receta.value.a1_od.cil)
-  //         // a2_od_eje.value = (typeof dioptrias_receta.value.a1_od.eje === 'object' ? 0 : dioptrias_receta.value.a1_od.eje)
-  //         a2_od_cil.value = (typeof dioptrias_receta.value.a1_od.cil === 'object' ? 0 : (a1_od_cil.value * -1))
-  //         a2_od_eje.value = (typeof dioptrias_receta.value.a1_od.eje === 'object' ? 0 : a1_od_eje.value )
-  //         console.log(a1_od_eje.value)
-  //         console.log(dioptrias_receta.value.a1_od.eje)
+//   //       if(typeof dioptrias_receta.value.a1_od.ad !== 'object' &&  dioptrias_receta.value.a1_od.ad > 0){
+//   //         a2_od_esf.value = (typeof dioptrias_receta.value.a1_od.esf !== 'object' && Number.isNaN(dioptrias_receta.value.a1_od.esf) ? 0 : parseFloat(dioptrias_receta.value.a1_od.esf) ) + parseFloat(dioptrias_receta.value.a1_od.ad)
+//   //         // a2_od_cil.value = (typeof dioptrias_receta.value.a1_od.cil === 'object' ? 0 : dioptrias_receta.value.a1_od.cil)
+//   //         // a2_od_eje.value = (typeof dioptrias_receta.value.a1_od.eje === 'object' ? 0 : dioptrias_receta.value.a1_od.eje)
+//   //         a2_od_cil.value = (typeof dioptrias_receta.value.a1_od.cil === 'object' ? 0 : (a1_od_cil.value * -1))
+//   //         a2_od_eje.value = (typeof dioptrias_receta.value.a1_od.eje === 'object' ? 0 : a1_od_eje.value )
+//   //         console.log(a1_od_eje.value)
+//   //         console.log(dioptrias_receta.value.a1_od.eje)
   
-  //         console.log((typeof dioptrias_receta.value.a1_od.esf !== 'object' && Number.isNaN(dioptrias_receta.value.a1_od.esf) ? 0 : parseFloat(dioptrias_receta.value.a1_od.esf) ) + parseFloat(dioptrias_receta.value.a1_od.ad))
+//   //         console.log((typeof dioptrias_receta.value.a1_od.esf !== 'object' && Number.isNaN(dioptrias_receta.value.a1_od.esf) ? 0 : parseFloat(dioptrias_receta.value.a1_od.esf) ) + parseFloat(dioptrias_receta.value.a1_od.ad))
   
-  //         validation_A2_OD_ESF(a2_od_esf.value)
-  //         validation_A2_OD_CIL(a2_od_cil.value)
-  //         validation_A2_OD_EJE(a2_od_eje.value)
-  //       }
+//   //         validation_A2_OD_ESF(a2_od_esf.value)
+//   //         validation_A2_OD_CIL(a2_od_cil.value)
+//   //         validation_A2_OD_EJE(a2_od_eje.value)
+//   //       }
   
-  //       // a2_od_cil.value = (typeof dioptrias_receta.value.a1_od.cil === 'object' ? 0 : dioptrias_receta.value.a1_od.cil)
-  //       // a2_od_eje.value = (typeof dioptrias_receta.value.a1_od.eje === 'object' ? 0 : dioptrias_receta.value.a1_od.eje)
+//   //       // a2_od_cil.value = (typeof dioptrias_receta.value.a1_od.cil === 'object' ? 0 : dioptrias_receta.value.a1_od.cil)
+//   //       // a2_od_eje.value = (typeof dioptrias_receta.value.a1_od.eje === 'object' ? 0 : dioptrias_receta.value.a1_od.eje)
   
-  //     }
-  //     //? OJO IZQUIERDO
-  //     if(
-  //       Object.keys(data)[0] === 'a1_oi_esf' ||
-  //       Object.keys(data)[0] === 'a1_oi_cil' ||
-  //       Object.keys(data)[0] === 'a1_oi_eje' ||
-  //       Object.keys(data)[0] === 'a1_oi_ad'  ||
-  //       tipo_de_anteojo.value === '3'
-  //     ){
-  //       if(dioptrias_receta.value.a1_od.ad < 0){
-  //         a2_od_esf.value = " ";
-  //         console.log('render')
-  //         dioptrias_receta.value.a1_od.ad  = " ";
-  //       }
+//   //     }
+//   //     //? OJO IZQUIERDO
+//   //     if(
+//   //       Object.keys(data)[0] === 'a1_oi_esf' ||
+//   //       Object.keys(data)[0] === 'a1_oi_cil' ||
+//   //       Object.keys(data)[0] === 'a1_oi_eje' ||
+//   //       Object.keys(data)[0] === 'a1_oi_ad'  ||
+//   //       tipo_de_anteojo.value === '3'
+//   //     ){
+//   //       if(dioptrias_receta.value.a1_od.ad < 0){
+//   //         a2_od_esf.value = " ";
+//   //         console.log('render')
+//   //         dioptrias_receta.value.a1_od.ad  = " ";
+//   //       }
   
         
-  //       if(typeof dioptrias_receta.value.a1_oi.ad !== 'object' && dioptrias_receta.value.a1_oi.ad > 0){
+//   //       if(typeof dioptrias_receta.value.a1_oi.ad !== 'object' && dioptrias_receta.value.a1_oi.ad > 0){
           
           
-  //         a2_oi_esf.value = (typeof dioptrias_receta.value.a1_oi.esf !== 'object' && Number.isNaN(dioptrias_receta.value.a1_oi.esf) ? 0 : parseFloat(dioptrias_receta.value.a1_oi.esf)) + parseFloat(dioptrias_receta.value.a1_oi.ad)
-  //         a2_oi_eje.value = (typeof dioptrias_receta.value.a1_oi.eje === 'object' ? 0 : dioptrias_receta.value.a1_oi.eje)
-  //         a2_oi_cil.value = (typeof dioptrias_receta.value.a1_oi.cil === 'object' ? 0 : dioptrias_receta.value.a1_oi.cil);
+//   //         a2_oi_esf.value = (typeof dioptrias_receta.value.a1_oi.esf !== 'object' && Number.isNaN(dioptrias_receta.value.a1_oi.esf) ? 0 : parseFloat(dioptrias_receta.value.a1_oi.esf)) + parseFloat(dioptrias_receta.value.a1_oi.ad)
+//   //         a2_oi_eje.value = (typeof dioptrias_receta.value.a1_oi.eje === 'object' ? 0 : dioptrias_receta.value.a1_oi.eje)
+//   //         a2_oi_cil.value = (typeof dioptrias_receta.value.a1_oi.cil === 'object' ? 0 : dioptrias_receta.value.a1_oi.cil);
           
-  //         console.log( a2_oi_esf.value = (typeof dioptrias_receta.value.a1_oi.esf !== 'object' && Number.isNaN(dioptrias_receta.value.a1_oi.esf) ? 0 : parseFloat(dioptrias_receta.value.a1_oi.esf)) + parseFloat(dioptrias_receta.value.a1_oi.ad))
-  //       }
+//   //         console.log( a2_oi_esf.value = (typeof dioptrias_receta.value.a1_oi.esf !== 'object' && Number.isNaN(dioptrias_receta.value.a1_oi.esf) ? 0 : parseFloat(dioptrias_receta.value.a1_oi.esf)) + parseFloat(dioptrias_receta.value.a1_oi.ad))
+//   //       }
   
-  //     }
-  
-  
-  //     // let transponer1Ejecutado = false;
-  //     validation_A2_OD_ESF(a2_od_esf.value)
-  //     validation_A2_OD_CIL(a2_od_cil.value)
-  //     validation_A2_OD_EJE(a2_od_eje.value)
+//   //     }
   
   
-  //     validation_A2_OI_ESF(a2_oi_esf.value)
-  //     validation_A2_OI_CIL(a2_oi_cil.value)
-  //     validation_A2_OI_EJE(a2_oi_eje.value)
+//   //     // let transponer1Ejecutado = false;
+//   //     validation_A2_OD_ESF(a2_od_esf.value)
+//   //     validation_A2_OD_CIL(a2_od_cil.value)
+//   //     validation_A2_OD_EJE(a2_od_eje.value)
   
-  //   }
+  
+//   //     validation_A2_OI_ESF(a2_oi_esf.value)
+//   //     validation_A2_OI_CIL(a2_oi_cil.value)
+//   //     validation_A2_OI_EJE(a2_oi_eje.value)
+  
+//   //   }
 
-  // }
-  console.log(dioptrias_receta.value.a1_od.eje)
-},[tipo_de_anteojo.value, dioptrias_receta.value])
+//   // }
+//   console.log(dioptrias_receta.value.a1_od.eje)
+// },[tipo_de_anteojo.value, dioptrias_receta.value])
 
 
 

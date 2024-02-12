@@ -985,14 +985,27 @@ export const validation_A1_OI_EJE = (value:string | any) => {
     
     if (value !== '') {
         const parseValue = parseFloat(value)
-        const validate = (parseValue >= 0 && parseValue <= 180 && parseValue % 0.25 === 0 ) 
 
+        if(parseValue>= 0 && parseValue <= 180){
+            if(!(parseValue % 0.25 === 0)){
+                dioptrias_receta.value.a1_oi.eje = " "
+                a1_oi_eje.value = " "
+                if(item){
+                    item.valor = 0
+                }
+                return
+            }
 
-        item && (item.valor = validate ? 1 : 0);
-        if(!validate){
-            dioptrias_receta.value.a1_oi.eje = "  ";
+            if(item){
+                return item.valor = 1;
+            }
+        }else{
+            dioptrias_receta.value.a1_oi.eje = " ";
             a1_oi_eje.value = " ";
-          }
+            if(item){
+                item.valor = 0
+            }
+        }
       } else if (item) {
         item.valor = 0;
      }
@@ -1074,7 +1087,7 @@ export const validation_A1_OD_EJE = (value: string | any) => {
                 return
             }
             if(item){
-                item.valor = 1;
+                return item.valor = 1;
             }
           
       }else{

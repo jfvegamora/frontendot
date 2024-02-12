@@ -40,33 +40,36 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
   textAlign,
   step,
 }) => {
-  const [defaultValue, setDefaultValue] = useState<string>(otData || "  ")
+  const [defaultValue, setDefaultValue] = useState<string>(otData || " ")
+
+
+  const[reder, setRender] = useState(false);
 
   let initialValue:any = "";
   let newValue = ''
   switch (name) {
     //? OJO DERECHO | ANTEOJO 1
     case 'a1_od_esf':
-        initialValue =  dioptrias_receta.value.a1_od.esf ||  " "       
+        initialValue =  dioptrias_receta.value.a1_od.esf        
       break;
     case 'a1_od_cil':
         initialValue = dioptrias_receta.value.a1_od.cil  
       break;
     case 'a1_od_eje':
-        initialValue = dioptrias_receta.value.a1_od.eje || " "     
+        initialValue = dioptrias_receta.value.a1_od.eje      
         break;
     case 'a1_od_ad':
-        initialValue = dioptrias_receta.value.a1_od.ad || " "     
+        initialValue = dioptrias_receta.value.a1_od.ad     
       break;
     //? OJO IZQUIERDO | ANTEOJO 1  
     case 'a1_oi_esf':
-        initialValue = dioptrias_receta.value.a1_oi.esf || " "  
+        initialValue = dioptrias_receta.value.a1_oi.esf  
         break;
     case 'a1_oi_cil':
         initialValue = dioptrias_receta.value.a1_oi.cil
         break;
     case 'a1_oi_eje':
-        initialValue = dioptrias_receta.value.a1_oi.eje ||  " "     
+        initialValue = dioptrias_receta.value.a1_oi.eje     
         break;
     case 'a1_oi_ad':
          initialValue = dioptrias_receta.value.a1_oi.ad
@@ -140,7 +143,10 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
        
        break;
       case 'a1_od_eje':
-        
+        if (parseFloat(e.target.value) === 0) {
+          return;
+        }
+      
         if(Number(e.target.value).toFixed(2) as any >= 0 &&  Number(e.target.value).toFixed(2) as any <= 180){
           if(!(parseFloat(e.target.value) as any % 0.25 === 0)){
             console.log('render')
@@ -148,7 +154,7 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
                       
             toast.error('Esferico ojo derecho no corresponde')
           }else{
-              null 
+              null               
           }
         }else{
             toast.error('Esferico ojo derecho no corresponde')
@@ -207,27 +213,37 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
         break;
     }
     
- 
-    newValue = e.target.value;
-  
-    // console.log(newValue)s
-
     setDefaultValue('v')
-    setValue(newValue)
-    // console.log(e.target.name)
+    setValue(otData)
 
   };
  
 
-  // useEffect(()=>{
-  //   if(name === 'a2_oi_esf'){
+  useEffect(()=>{
+    if(name === 'a1_od_eje'){
+      console.log(value)
+    }
 
-  //   }
-  // },[])
+    setRender((prev)=>!prev)
+  },[dioptrias_receta.value.a1_od.cil, dioptrias_receta.value.a1_oi.cil])
+ 
+ 
+ 
+  if(name === 'a1_oi_eje'){
+    console.log(value)
+  }
+ 
+  if(name === 'a1_od_eje'){
+    console.log(value)
+  }
 
 
-
-
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Tab") {
+      e.preventDefault(); // Prevenir el comportamiento predeterminado del evento "tab"
+      // Aquí puedes agregar cualquier lógica adicional que desees ejecutar cuando se presiona la tecla "tab"
+    }
+  };
 
 return (
   <div
@@ -252,6 +268,8 @@ return (
           type      ={type}
           onBlur    ={ onlyRead ? ()=>{}  : (e)=>handleInputChange(e)}
           ref       ={inputRef}
+          // tabIndex  ={onlyRead ? 0 : (tabIndex || 1)}
+          onKeyDown={handleKeyDown}
           tabIndex  ={onlyRead ? 0 : (tabIndex || 1)}
           step      ={step}
           readOnly  = {onlyRead}

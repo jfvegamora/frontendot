@@ -65,9 +65,13 @@ const FOTReceta:React.FC<IReceta> = ({
             onDataChange({[name]:value})
         }
 
+        onDataChange({[name]:value})
+        console.log(dioptrias_receta.value.a1_od.cil)
 
         // console.log(dioptrias_receta.value.a1_oi)
     }
+
+    console.log(dioptrias_receta.value.a1_oi.eje)
 
   return (
     <form>
@@ -193,7 +197,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 onlyRead={!(!isEditting || (permiso_usuario_receta && permiso_areas_receta))}
                                 textAlign="text-center"
                                 step={1}
-                                onDataChange={onDataChange}
+                                // onDataChange={onDataChange}
                                 />
                         </div>
                         <div className="w-[25%]" tabIndex={-1}>
@@ -234,7 +238,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 label="CIL"
                                 name="a1_oi_cil"
                                 handleChange={handleInputChange}
-                                otData={a1_oi_cil.value || data && data[EnumGrid.a1_oi_cil]}
+                                otData={dioptrias_receta.value.a1_oi.cil || data && data[EnumGrid.a1_oi_cil]}
                                 control={control}
                                 onlyRead={!(!isEditting || (permiso_usuario_receta && permiso_areas_receta))}
                                 textAlign="text-center"
@@ -247,7 +251,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 label="EJE"
                                 name="a1_oi_eje"
                                 handleChange={handleInputChange}
-                                otData={a1_oi_eje.value || data && data[EnumGrid.a1_oi_eje]}
+                                otData={dioptrias_receta.value.a1_oi.eje || data && data[EnumGrid.a1_oi_eje]}
                                 control={control}
                                 onlyRead={!(!isEditting || (permiso_usuario_receta && permiso_areas_receta))}
                                 textAlign="text-center"
