@@ -30,6 +30,14 @@ const FOTArmazones:React.FC<IArmazones> = ({
     permiso_areas_armazones,
     isEditting
 }) => {
+    
+    useEffect(()=>{
+        if(isEditting){
+            punto_venta.value = data?.[EnumGrid.punto_venta_id]
+        }
+    },[])
+    
+    
     const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas["areaActual"]);
 
     
@@ -54,7 +62,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
 
     const endpoint =`${URLBackend}/api/armazones/listado/?query=02&_p6=${ isEditting ? (data && data[EnumGrid.validar_parametrizacion_id]) : 1 }&_p2=${codigoProyecto.value}&_p3=${punto_venta.value}`;
 
-
+    // console.log(punto_venta.value)
 
     const handleInputChange = (e:any) => {
         const { name, value } = e;
@@ -72,15 +80,19 @@ const FOTArmazones:React.FC<IArmazones> = ({
                 case 'a1_armazon_id':
                     onDataChange({['a1_armazon_id']: " "})
                     setCodArmazon1(" ")
+                    setArmazon1([])
                     validation_A1_armazon("")
                     break;
                 case 'a2_armazon_id':
                     onDataChange({['a2_armazon_id']: " "})
                     setCodArmazon2(" ")
+                    setArmazon2([])
                     validation_A2_armazon("")
                     break;
                 case 'a3_armazon_id':
                     onDataChange({['a3_armazon_id']: " "})
+                    setCodArmazon3(" ")
+                    setArmazon3([])
                     setCodArmazon3(" ")
                     
                     break;
@@ -125,8 +137,8 @@ const FOTArmazones:React.FC<IArmazones> = ({
             if(!(!codArmazon1.trim())){
                 const fetchArmazones1 = async ()=>{
                     try {
-                       
-                        const {data} = await axios((validar_parametrizacion.value === '1' ) ? (`${endpoint}&_p1=${codArmazon1 !== ' ' ? codArmazon1.trim() : "aaaa"}&_p4=${isEditting ? (typeof A1_DP.value === 'number' ? A1_DP.value : 0) : (typeof A1_DP.value === 'string' ? A1_DP.value : 0)}&_p5=${isEditting ? (typeof A1_Diametro.value === 'number' ? A1_Diametro.value : "" ) : (typeof A1_Diametro.value === 'string' ? A1_Diametro.value : "")}`) : (`${endpoint}&_p1=${codArmazon1 !== ' ' ? codArmazon1 && codArmazon1.trim() : "aaaa"}`))
+                       console.log(A1_Diametro.value)
+                        const {data} = await axios((validar_parametrizacion.value === '1' ) ? (`${endpoint}&_p1=${codArmazon1 !== ' ' ? codArmazon1.trim() : "aaaa"}&_p4=${typeof A1_DP.value === 'number' ? (typeof A1_DP.value === 'number' ? A1_DP.value : 0) : (typeof A1_DP.value === 'string' ? A1_DP.value : 0)}&_p5=${typeof A1_Diametro.value === 'number' ? (typeof A1_Diametro.value === 'number' ? A1_Diametro.value : "" ) : (typeof A1_Diametro.value === 'string' ? A1_Diametro.value : "")}`) : (`${endpoint}&_p1=${codArmazon1 !== ' ' ? codArmazon1 && codArmazon1.trim() : "aaaa"}`))
     
                         if(data.length === 0){
                             toast.error('Armazon 1 no Existe')
@@ -184,7 +196,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
                 const fetchArmazones2 = async ()=>{
                     try {
                         console.log(A2_DP.value)
-                        const {data} = await axios((validar_parametrizacion.value === '1' ) ? (`${endpoint}&_p1=${codArmazon2 !== ' ' ? codArmazon2.trim() : "aaaa"}&_p4=${(tipo_de_anteojo.value === '3' ? (isEditting ? (typeof A2_DP.value === 'number' ? A2_DP.value : 0) : (typeof A2_DP.value === 'string' ? A2_DP.value : 0)) : A1_DP.value)}&_p5=${isEditting ? (typeof A1_Diametro.value === 'number' ? A1_Diametro.value : "" ) : (typeof A1_Diametro.value === 'string' ? A1_Diametro.value : "")}`) : (`${endpoint}&_p1=${codArmazon2 !== '' ? codArmazon2 && codArmazon2.trim() : "aaaa"}`))
+                        const {data} = await axios((validar_parametrizacion.value === '1' ) ? (`${endpoint}&_p1=${codArmazon2 !== ' ' ? codArmazon2.trim() : "aaaa"}&_p4=${(tipo_de_anteojo.value === '3' ? (typeof A2_DP.value === 'number' ? (typeof A2_DP.value === 'number' ? A2_DP.value : 0) : (typeof A2_DP.value === 'string' ? A2_DP.value : 0)) : A1_DP.value)}&_p5=${tipo_de_anteojo.value === '3' ? (typeof A2_Diametro.value === 'number' ? (typeof A2_Diametro.value === 'number' ? A2_Diametro.value : "" ) : (typeof A2_Diametro.value === 'string' ? A2_Diametro.value : "")) : (typeof A1_Diametro.value === 'number' ? (typeof A1_Diametro.value === 'number' ? A1_Diametro.value : "" ) : (typeof A1_Diametro.value === 'string' ? A1_Diametro.value : "")) }`) : (`${endpoint}&_p1=${codArmazon2 !== '' ? codArmazon2 && codArmazon2.trim() : "aaaa"}`))
     
                         if(data.length === 0){
                             toast.error('Armazon 2 no Existe')

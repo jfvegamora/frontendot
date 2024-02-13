@@ -2,8 +2,10 @@ import React from 'react'
 import { SelectInputComponent, TextInputComponent } from '..'
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica'
 // import {a1_od_ad, a1_od_cil, a1_od_eje, a1_od_esf, a1_oi_ad, a1_oi_cil, a1_oi_eje, a1_oi_esf, a2_od_cil, a2_od_eje, a2_od_esf, a2_oi_cil, a2_oi_eje, a2_oi_esf, dioptriasHabilitadas, dioptrias_receta, onchangeDioptrias } from '../../utils'
-import {a1_od_ad, a1_od_eje, a1_od_esf, a1_oi_ad, a1_oi_esf, a2_od_cil, a2_od_eje, a2_od_esf, a2_oi_cil, a2_oi_eje, a2_oi_esf,
-    dioptrias_receta, 
+import {A1_ALT, A1_DP, A2_DP, a1_od_ad, a1_od_eje, a1_od_esf, a1_oi_ad, a1_oi_esf, a2_od_cil, a2_od_eje, a2_od_esf, a2_oi_cil, a2_oi_eje, a2_oi_esf,
+    dioptrias_receta,
+    oftalmologo_id,
+    tipo_de_anteojo, 
     // dioptrias_receta, 
     // tipo_de_anteojo 
 } from '../../utils'
@@ -65,13 +67,13 @@ const FOTReceta:React.FC<IReceta> = ({
             onDataChange({[name]:value})
         }
 
-        onDataChange({[name]:value})
-        console.log(dioptrias_receta.value.a1_od.cil)
+        // onDataChange({[name]:value})
+        // console.log(dioptrias_receta.value.a1_od.cil)
 
         // console.log(dioptrias_receta.value.a1_oi)
     }
 
-    console.log(dioptrias_receta.value.a1_od.ad)
+    console.log(A1_ALT.value)
 
     
   return (
@@ -85,7 +87,7 @@ const FOTReceta:React.FC<IReceta> = ({
                         showRefresh={true}
                         isOT={true}
                         handleSelectChange={handleInputChange}
-                        data={formValues ? formValues["tipo_anteojo_id"] : data && data[EnumGrid.tipo_anteojo_id]}
+                        data={tipo_de_anteojo.value || data && data[EnumGrid.tipo_anteojo_id]}
                         control={control}
                         entidad={["/api/tipos/", "02","OTTipoAnteojo"]}
                         // entidad={["/api/ot/", "12","ESF", "_p3"]}
@@ -143,7 +145,7 @@ const FOTReceta:React.FC<IReceta> = ({
                         showRefresh={true}
                         isOT={true}
                         handleSelectChange={handleInputChange}
-                        data={formValues ? formValues["oftalmologo_id"] : data && data[EnumGrid.oftalmologo_id]}
+                        data={ oftalmologo_id.value || data && data[EnumGrid.oftalmologo_id]}
                         control={control}
                         entidad={["/api/oftalmologos/", "02"]}
                         // entidad={["/api/ot/", "12","ESF", "_p3"]}
@@ -281,7 +283,7 @@ const FOTReceta:React.FC<IReceta> = ({
                             label="DP"
                             name="a1_dp"
                             handleChange={handleInputChange}
-                            data={formValues ? formValues["a1_dp"] : data && data[EnumGrid.a1_dp]}
+                            data={A1_DP.value ||  data && data[EnumGrid.a1_dp]}
                             control={control}
                             isOT={true}
                             onlyRead={!(permiso_usuario_receta && permiso_areas_receta)}
@@ -294,7 +296,7 @@ const FOTReceta:React.FC<IReceta> = ({
                             label="ALT"
                             name="a1_alt"
                             handleChange={handleInputChange}
-                            data={formValues ? formValues["a1_alt"] : data && data[EnumGrid.a1_alt]}
+                            data={A1_ALT.value || data && data[EnumGrid.a1_alt]}
                             control={control}
                             isOT={true}
                             onlyRead={!(deshabilitarCampo.value.a1_alt && (!isEditting || (permiso_usuario_receta && permiso_areas_receta)))}
@@ -402,7 +404,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 label="DP"
                                 name="a2_dp"
                                 handleChange={handleInputChange}
-                                data={formValues ? formValues["a2_dp"] : data && data[EnumGrid.a2_dp]}
+                                data={A2_DP.value || data && data[EnumGrid.a2_dp]}
                                 control={control}
                                 isOT={true}
                                 textAlign="text-center"

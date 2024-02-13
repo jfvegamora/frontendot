@@ -4,7 +4,7 @@ import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
 // import { Switch , switchButton} from "@material-tailwind/react";
 import Switch from "react-switch";
 import axios from 'axios';
-import { validationOTlevel1, validationOTlevel2 } from '../../utils/validationOT';
+import { validationFechaAtencion, validationOTlevel1, validationOTlevel2, validationPuntoVenta } from '../../utils/validationOT';
 import { codigoProyecto, fecha_atencion_signal, fecha_despacho, fecha_entrega_cliente, fecha_entrega_taller, fetchFechas, isToggleImpression, isToggleValidation, motivo_ot, punto_venta, validar_parametrizacion } from '../../utils';
 import SelectInputTiposComponent from '../forms/SelectInputTiposComponent';
 import { AppStore, useAppSelector } from '../../../redux/store';
@@ -149,7 +149,12 @@ const FOTOptica:React.FC<IOptica> = ({
     
 useEffect(()=>{
     fetchFechas(fecha_atencion_signal.value, codigoProyecto.value)
-    onDataChange({ [' ']: ' ' }); 
+    onDataChange({ [' ']: ' ' });
+    
+    // console.log(punto_venta.value)
+
+    validationFechaAtencion(fecha_atencion_signal.value)
+    validationPuntoVenta(punto_venta.value as any)
         
 },[codigoProyecto.value, fecha_atencion_signal.value])
 
