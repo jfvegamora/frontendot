@@ -39,7 +39,7 @@ const FOTReceta:React.FC<IReceta> = ({
 }) => {
 
     const firstInputRef   = useRef<HTMLInputElement | null>(null);
-    
+    const secondInputRef  = useRef<HTMLInputElement | null>(null);
 
 
     const handleInputChange = async(e:any) => {
@@ -70,7 +70,7 @@ const FOTReceta:React.FC<IReceta> = ({
 
         if(name === 'a1_oi_cil' || name === 'a1_oi_eje' || name === 'a1_oi_ad'){
             // console.log('render')
-            transponer('a1_oi_esf', 'a1_oi_cil', 'a1_oi_eje', 'a1_oi')
+            transponer('a1_oi_esf', 'a1_oi_cil', 'a1_oi_eje', 'a1_oi', secondInputRef)
             onDataChange({[name]:value})
         }
 
@@ -280,6 +280,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 onlyRead={!(deshabilitarCampo.value.a1_ad && (!isEditting || (permiso_usuario_receta && permiso_areas_receta)))}
                                 textAlign="text-center"
                                 step={0.25}
+                                inputRef={secondInputRef}
                                 />
                         </div>
                     </div>    

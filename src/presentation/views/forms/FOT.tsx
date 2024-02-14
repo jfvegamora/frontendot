@@ -1095,6 +1095,10 @@ const FOT:React.FC<IFOTProps> = ({
         // console.log('ejecutando llamada...')
         // console.log('ejecutando llamada...')
 
+        if(dioptrias_receta.value.a1_od.cil > 0 || dioptrias_receta.value.a1_oi.cil > 0){
+          return;
+        }
+
         const _pkToDelete1_od ={
           "marca":      cristal1_marca_id       || data?.[EnumGrid.cristal1_marca_id],
           "diseno":     cristal1_diseno_id      || data?.[EnumGrid.cristal1_diseno_id],
@@ -1224,6 +1228,8 @@ const FOT:React.FC<IFOTProps> = ({
           }
   
           // console.log(_pkToDelete1_oi)
+
+
   
           try {
             const pkJSON = JSON.stringify([_pkToDelete1_od, _pkToDelete1_oi])

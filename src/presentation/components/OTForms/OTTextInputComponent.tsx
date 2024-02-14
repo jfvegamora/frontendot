@@ -2,6 +2,8 @@ import { Input } from "@material-tailwind/react";
 import React, {useEffect, useState} from "react";
 import { Controller } from "react-hook-form";
 import { 
+  a1_od_esf,
+  a1_oi_esf,
   // a1_od_cil, a1_od_eje, a1_od_esf, 
   a2_od_cil, a2_od_eje, a2_od_esf, a2_oi_cil, a2_oi_eje, a2_oi_esf, dioptrias_receta } from "../../utils";
 import { toast } from "react-toastify";
@@ -125,6 +127,7 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
       case 'a1_od_esf':
         if((Number(e.target.value).toFixed(2) as any % 0.25 !== 0)){
           toast.error('Esferico ojo derecho no corresponde')
+          a1_od_esf.value = "  "
           setValue("  ")
           return;
          }
@@ -137,6 +140,7 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
           null
         }else if(!(parsedValueOD <=0 && parsedValueOD % 0.25 === 0)){
           toast.error('Cilindrico ojo derecho no corresponde')
+          dioptrias_receta.value.a1_od.cil = " "
           setValue("  ")
         }
        
@@ -152,11 +156,13 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
             setValue('  ')
                       
             toast.error('Esferico ojo derecho no corresponde')
+            dioptrias_receta.value.a1_od.eje = " "
           }else{
               null               
           }
         }else{
             toast.error('Esferico ojo derecho no corresponde')
+            dioptrias_receta.value.a1_od.eje = " "
             setValue("  ")
 
         }
@@ -165,6 +171,7 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
       case 'a1_od_ad':
         if(!(parseFloat(e.target.value) >= 0.25 && parseFloat(e.target.value) <= 4)) {
             toast.error('Adicional ojo derecho no corresponde')
+            dioptrias_receta.value.a1_od.ad = "  "
             setValue("  ")
             return;
         }
@@ -173,6 +180,7 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
       case 'a1_oi_esf':
         if((Number(e.target.value).toFixed(2) as any % 0.25 !== 0)){
           toast.error('Esferico ojo izquierdo no corresponde')
+          a1_oi_esf.value = " "
           setValue("  ")
           return;
          }
@@ -184,12 +192,14 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
           null
         }else if(!(parsedValueOI <= 0 && parsedValueOI % 0.25 === 0)){
           toast.error('Cilindrico ojo izquierdo no corresponde')  
+          dioptrias_receta.value.a1_oi.cil = "  "
           setValue("  ")
         }
         break;
       case 'a1_oi_eje':
         if(Number(e.target.value).toFixed(2) as any >= 0 && Number(e.target.value).toFixed(2) as any <= 180){
           if(!(parseFloat(e.target.value) as any % 0.25 === 0)){
+            dioptrias_receta.value.a1_oi.eje = "  "
             setValue(' ')
             toast.error('Esferico ojo izquierdo no corresponde')
           }else{
@@ -197,6 +207,7 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
           }
         }else{
           toast.error('Esferico ojo izquierdo no corresponde')
+          dioptrias_receta.value.a1_oi.eje = "  "
           setValue(" ")
         }
         break;
@@ -204,6 +215,7 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
       case 'a1_oi_ad':
         if(!(parseFloat(e.target.value) >= 0.25 && parseFloat(e.target.value) <= 4)) {
           toast.error('Adicional ojo izquierdo no corresponde')
+          dioptrias_receta.value.a1_oi.ad = "  "
           setValue("  ")
           return;
         }

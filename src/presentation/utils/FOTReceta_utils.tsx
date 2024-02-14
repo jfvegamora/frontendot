@@ -80,31 +80,24 @@ export const transponer = (ESF:any, CIL:any, EJE:any,
                 dioptrias_receta.value[anteojo].cil = (CIL * -1);
 
                 if (dioptrias_receta.value[anteojo].eje >= 0 && dioptrias_receta.value[anteojo].eje <= 90) {
-                    console.log('render')
                     
-                    console.log(EJE.value)
-                    dioptrias_receta.value[anteojo].eje= dioptrias_receta.value[anteojo].eje + 90;
+                    dioptrias_receta.value[anteojo].eje = dioptrias_receta.value[anteojo].eje + 90;
                 } else {
-                    console.log('render')
-                    dioptrias_receta.value[anteojo].eje= dioptrias_receta.value[anteojo].eje - 90;
+                    dioptrias_receta.value[anteojo].eje = dioptrias_receta.value[anteojo].eje - 90;
                 }
                 
-                console.log(dioptrias_receta.value.a1_oi.eje)
-                const focusFirstInput = (strInputName: string) => {
-                    console.log('render')
+              
                   if(inputRef.current) {
-                    
-                    const firstInput = inputRef.current.querySelector(`input[name=${strInputName}]`);
+                    const firstInput = inputRef.current.querySelector(`input[name=${anteojo + "_ad"}]`);
               
                     if (firstInput) {
                       (firstInput as HTMLInputElement).focus();
                     }
                   }    
-                };
+              
             
                 
-                focusFirstInput('a1_od_ad')
-
+                
 
             } else {
                 CIL.value = " "
@@ -114,7 +107,7 @@ export const transponer = (ESF:any, CIL:any, EJE:any,
     }
     
 
-    console.log(Number.isNaN(dioptrias_receta.value[anteojo].ad))
+    // console.log(dioptrias_receta.value[anteojo].ad)
     
     if(anteojo === 'a1_od'){
         validation_A1_OD_CILL(dioptrias_receta.value.a1_od.cil)
