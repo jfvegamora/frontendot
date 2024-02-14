@@ -11,11 +11,8 @@ import { Button } from '@material-tailwind/react';
 import FOTGarantia from '../../components/OTForms/FOTGarantia';
 import { EnumGrid } from '../mantenedores/MOTHistorica';
 import FOTDerivacion from '../../components/OTForms/FOTDerivacion';
-import { A1_CR_OD, A1_CR_OI, A1_DP, A1_Diametro, A1_GRUPO_OD, A1_GRUPO_OI, A2_CR_OD, A2_CR_OI, A2_DP, A2_Diametro, A2_GRUPO_OD, A2_GRUPO_OI, SEXO, TIPO_CLIENTE, 
+import { A1_ALT, A1_CR_OD, A1_CR_OI, A1_DP, A1_Diametro, A1_GRUPO_OD, A1_GRUPO_OI, A2_CR_OD, A2_CR_OI, A2_DP, A2_Diametro, A2_GRUPO_OD, A2_GRUPO_OI, SEXO, TIPO_CLIENTE, 
   a1_armazon, 
-  a1_od_cil, 
-  a1_od_eje, 
-  a1_od_esf, 
   a2_armazon, 
   // a1_od_ad, a1_od_cil, a1_od_eje, a1_od_esf, 
   a2_od_cil, a2_od_eje, a2_od_esf, a2_oi_cil, a2_oi_eje, a2_oi_esf, a3_armazon, armazonesJSONsignal, changeCodigoCristal_A1, changeCodigoCristal_A2, clearDioptrias,  
@@ -33,9 +30,10 @@ import { A1_CR_OD, A1_CR_OI, A1_DP, A1_Diametro, A1_GRUPO_OD, A1_GRUPO_OI, A2_CR
   isToggleImpression, 
   isToggleValidation, 
   motivo_ot, 
+  oftalmologo_id, 
   punto_venta, 
   // reiniciarA2DioptriasReceta, 
-  reiniciarDioptriasReceta, reiniciarValidationNivel1, reiniciarValidationNivel2, tipo_de_anteojo, updateOT, validar_parametrizacion } from '../../utils';
+  reiniciarDioptriasReceta, reiniciarValidationNivel1, reiniciarValidationNivel2, reiniciarValidationNivel3, tipo_de_anteojo, updateOT, validar_parametrizacion } from '../../utils';
 import { validationCliente, validationClienteComuna, validationClienteNombre, validationClienteSexo, validationClienteTelefono, validationClienteTipo, validationCodigoArmazon_2, validationCodigoCristal2_od, validationCodigoCristal2_oi, validationEstablecimientos, validationFechaAtencion, validationFechaDespacho, validationFechaEntregaCliente, validationFechaEntregaTaller, validationProyectos, validationPuntoVenta, validationTipoAnteojos, validation_A1_ALT, validation_A1_DP, validation_A1_OD_AD, validation_A1_OD_CILL, validation_A1_OD_EJE, validation_A1_OD_ESF, validation_A1_OI_AD, validation_A1_OI_CIL, validation_A1_OI_EJE, validation_A1_OI_ESF, validation_A1_armazon, validation_A2_DP, validation_A2_OD_CIL, validation_A2_OD_EJE, validation_A2_OD_ESF, validation_A2_OI_CIL, validation_A2_OI_EJE, validation_A2_OI_ESF, validation_A2_armazon, validation_Cristal1_color, validation_Cristal1_diametro, validation_Cristal1_diseño, validation_Cristal1_indice, validation_Cristal1_marca, validation_Cristal1_material, validation_Cristal1_od, validation_Cristal1_oi, validation_Cristal1_tratamiento, validation_Cristal2_color, validation_Cristal2_diametro, validation_Cristal2_diseño, validation_Cristal2_indice, validation_Cristal2_material, validation_Cristal2_od, validation_Cristal2_oi, validation_Cristal2_tratamiento, validation_cristal2_marca } from '../../utils/validationOT';
 // import { inputName } from '../../components/OTForms/Otprueba';
 // import { verificaCampos } from '../../utils/OTReceta_utils';
@@ -206,10 +204,10 @@ export const validationNivel2 = signal([
     valor: 0
   },
   { campo: "a1_od_ad",
-    valor: 0
+    valor: 1
   },
   { campo: "a1_oi_ad",
-    valor: 0
+    valor: 1
   },
   { campo: "a1_oi_esf",
     valor: 0
@@ -389,7 +387,7 @@ const FOT:React.FC<IFOTProps> = ({
   let permiso_usuario_grupo_dioptria      = permisosCampos && permisosCampos[5] === "1" ? true : false;
   let permiso_usuario_receta              = permisosCampos && permisosCampos[6] === "1" ? true : false;
   let permiso_usuario_verificar_cristal   = permisosCampos && permisosCampos[7] === "1" ? true : false;
-  let permiso_usuario_verificar_armazon   = permisosCampos && permisosCampos[8] === "1" ? true : false;
+  // let permiso_usuario_verificar_armazon   = permisosCampos && permisosCampos[8] === "1" ? true : false;
 
 
  
@@ -419,6 +417,7 @@ const FOT:React.FC<IFOTProps> = ({
       reiniciarDioptriasReceta();
       reiniciarValidationNivel2();
       reiniciarValidationNivel1();
+      reiniciarValidationNivel3();
       clearGrupos();
       dispatch(clearCodigos())
       clearSelectInput.value = false;
@@ -440,7 +439,8 @@ const FOT:React.FC<IFOTProps> = ({
       fecha_despacho.value = data[EnumGrid.fecha_despacho]
       fecha_entrega_cliente.value = data[EnumGrid.fecha_entrega_cliente]
   
-      cliente_rut.value = data[EnumGrid.cliente_rut]
+      cliente_rut.value    = data[EnumGrid.cliente_rut]
+      oftalmologo_id.value = data[EnumGrid.oftalmologo_id]
   
       // if(isEditting){
       //   validation_tipo_anteojo()
@@ -450,6 +450,7 @@ const FOT:React.FC<IFOTProps> = ({
       dioptrias_receta.value.a1_od.cil = data[EnumGrid.a1_od_cil]
       dioptrias_receta.value.a1_od.eje = data[EnumGrid.a1_od_eje]
       dioptrias_receta.value.a1_od.ad  = data[EnumGrid.a1_od_ad]
+      
   
       dioptrias_receta.value.a1_oi.esf = data[EnumGrid.a1_oi_esf]
       dioptrias_receta.value.a1_oi.cil = data[EnumGrid.a1_oi_cil]
@@ -477,13 +478,14 @@ const FOT:React.FC<IFOTProps> = ({
       A1_GRUPO_OI.value = data[EnumGrid.a1_grupo_oI]
       A2_GRUPO_OD.value = data[EnumGrid.a2_grupo_od]
       A2_GRUPO_OI.value = data[EnumGrid.a2_grupo_oi]
+
+      A1_ALT.value = data[EnumGrid.a1_alt]
   
       A1_Diametro.value = data[EnumGrid.cristal1_diametro]
       A2_Diametro.value = data[EnumGrid.cristal2_diametro]
   
       A1_DP.value = data[EnumGrid.a1_dp]
       A2_DP.value = data[EnumGrid.a2_dp]
-      console.log(A1_DP.value)
       
       a1_armazon.value = data[EnumGrid.a1_armazon_id]
       a2_armazon.value = data[EnumGrid.a2_armazon_id]
@@ -493,6 +495,10 @@ const FOT:React.FC<IFOTProps> = ({
       A1_CR_OI.value   = data[EnumGrid.cristal1_oi]
       A2_CR_OD.value   = data[EnumGrid.cristal2_od] 
       A2_CR_OI.value   = data[EnumGrid.cristal2_oi] 
+
+
+      // console.log(A2_CR_OD.value)
+      // console.log(punto_venta.value)
   
   }
   },[data])
@@ -615,8 +621,8 @@ const FOT:React.FC<IFOTProps> = ({
   
   const switchCaseIngresar = async(jsonData:any, cristalesJSON:any, armazonesJSON:any) => {
     
-    console.log(jsonData)
-    console.log(formValues)
+    // console.log(jsonData)
+    // console.log(formValues)
  
 
 
@@ -632,18 +638,18 @@ const FOT:React.FC<IFOTProps> = ({
     let _p3:any = ''
     let _rut = isExistClient.value ? `${jsonData.cliente_rut || formValues.cliente.cliente_rut}` : '';
     
-    console.log(A1_Diametro.value)
-    console.log(typeof A1_Diametro.value === 'number' ? A1_Diametro.value : 0)
+    // console.log(A1_Diametro.value)
+    // console.log(typeof A1_Diametro.value === 'number' ? A1_Diametro.value : 0)
 
-    console.log(jsonData.a1_altf)
-
-
-    console.log(typeof formValues["receta"]["a1_alt"] === 'string' ? formValues["receta"]["a1_alt"] : 0)
+    // console.log(jsonData.a1_altf)
 
 
-    console.log(
-      formValues?.cliente.cliente_tipo === TIPO_CLIENTE.beneficiario ? "1" : formValues?.cliente.cliente_tipo === TIPO_CLIENTE.particular ? "2" : formValues?.cliente.cliente_tipo === TIPO_CLIENTE.optica ? "3" : "0"
-    );
+    // console.log(typeof formValues["receta"]["a1_alt"] === 'string' ? formValues["receta"]["a1_alt"] : 0)
+
+
+    // console.log(
+    //   formValues?.cliente.cliente_tipo === TIPO_CLIENTE.beneficiario ? "1" : formValues?.cliente.cliente_tipo === TIPO_CLIENTE.particular ? "2" : formValues?.cliente.cliente_tipo === TIPO_CLIENTE.optica ? "3" : "0"
+    // );
 
     // console.log(
     //   formValues?.cliente.cliente_sexo === 'Masculino' === "1" :
@@ -652,11 +658,11 @@ const FOT:React.FC<IFOTProps> = ({
     //   "0"
     // )
 
-      console.log(
-        formValues?.cliente.cliente_sexo === SEXO.masculino ? "1" : formValues?.cliente.cliente_sexo === SEXO.femenino ? "2" : formValues?.cliente.cliente_sexo === SEXO.no_aplica ? "3"  : "0" 
-      )
+      // console.log(
+      //   formValues?.cliente.cliente_sexo === SEXO.masculino ? "1" : formValues?.cliente.cliente_sexo === SEXO.femenino ? "2" : formValues?.cliente.cliente_sexo === SEXO.no_aplica ? "3"  : "0" 
+      // )
 
-    console.log(jsonData.cliente_tipo || formValues.cliente.cliente_tipo === TIPO_CLIENTE.beneficiario ? "1" : jsonData.cliente_tipo || formValues.cliente.cliente_tipo   === TIPO_CLIENTE.particular ? "2" : jsonData.cliente_tipo  || formValues.cliente.cliente_tipo === TIPO_CLIENTE.optica ? "3" : "0")
+    // console.log(jsonData.cliente_tipo || formValues.cliente.cliente_tipo === TIPO_CLIENTE.beneficiario ? "1" : jsonData.cliente_tipo || formValues.cliente.cliente_tipo   === TIPO_CLIENTE.particular ? "2" : jsonData.cliente_tipo  || formValues.cliente.cliente_tipo === TIPO_CLIENTE.optica ? "3" : "0")
 
     isExistClient.value 
                      ? _p3 = [`nombre="${jsonData.cliente_nombre.trim() || formValues.cliente.cliente_nombre.trim() || ""}"`, `tipo=${formValues?.cliente.cliente_tipo === TIPO_CLIENTE.beneficiario ? "1" : formValues?.cliente.cliente_tipo === TIPO_CLIENTE.particular ? "2" : formValues?.cliente.cliente_tipo === TIPO_CLIENTE.optica ? "3" : "0"}`, `sexo=${formValues?.cliente.cliente_sexo === SEXO.masculino ? "1" : formValues?.cliente.cliente_sexo === SEXO.femenino ? "2" : formValues?.cliente.cliente_sexo === SEXO.no_aplica ? "3"  : "0"}` ,`fecha_nacimiento="${jsonData.cliente_fecha_nacimiento || formValues.cliente.cliente_fecha_nacimiento || ""}"`, `direccion="${jsonData.cliente_direccion.trim() || formValues.cliente.cliente_direccion.trim() || ""}"`, `comuna=${jsonData.cliente_comuna || formValues.cliente.cliente_comuna || 0}`, `telefono="${jsonData.cliente_telefono.trim() || formValues.cliente.cliente_telefono.trim() || ""}"`, `correo="${jsonData.cliente_correo.trim() || formValues.cliente.cliente_correo.trim() || ""}"`, `establecimiento=${jsonData.establecimiento_id || formValues.cliente.establecimiento_id || 0}`].map((a)=>a.split("=")).map((a)=>a.join("=")).join(',')
@@ -665,7 +671,7 @@ const FOT:React.FC<IFOTProps> = ({
     
     // console.log(_p3)
 
-    let _p1 = `${motivo},${_destino},${estado},"${estado_impresion}","${validar_parametrizacion_id}", "${jsonData.proyecto_codigo}",${jsonData.establecimiento_id || 1},"${jsonData.cliente_rut.trim() || formValues.cliente.cliente_rut.trim()}" ,${jsonData.oftalmologo_id ?? 0} ,"${jsonData.fecha_atencion || fecha_atencion_signal.value}","${jsonData.fecha_entrega_taller || fecha_entrega_taller.value}","${jsonData.fecha_despacho || fecha_despacho.value}","${jsonData.fecha_entrega_cliente || fecha_entrega_cliente.value}",${jsonData.punto_venta_id || 0},${formValues?.receta.numero_receta || 0},"${jsonData.fecha_receta ?? ""}",${jsonData.tipo_anteojo_id ?? 0},${typeof dioptrias_receta.value.a1_od.esf === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_od.esf) ? dioptrias_receta.value.a1_od.esf : 0 },${typeof dioptrias_receta.value.a1_od.cil === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_od.cil) ? dioptrias_receta.value.a1_od.cil : 0},${typeof dioptrias_receta.value.a1_od.eje === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_od.eje) ? dioptrias_receta.value.a1_od.eje : 0},${(typeof dioptrias_receta.value.a1_od.ad === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_od.ad)) ? dioptrias_receta.value.a1_od.ad : 0 },${typeof dioptrias_receta.value.a1_oi.esf === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_oi.esf) ? dioptrias_receta.value.a1_oi.esf  : 0},${typeof dioptrias_receta.value.a1_oi.cil === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_oi.cil) ? dioptrias_receta.value.a1_oi.cil : 0},${typeof dioptrias_receta.value.a1_oi.eje === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_oi.eje) ? dioptrias_receta.value.a1_oi.eje : 0},${typeof dioptrias_receta.value.a1_oi.ad === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_oi.ad) ? dioptrias_receta.value.a1_oi.ad  : 0 },${A1_DP.value || 0},${formValues["receta"]["a1_alt"] > 0  ? formValues["receta"]["a1_alt"] : 0}, "${A1_GRUPO_OD.value}" ,"${A1_GRUPO_OI.value}" ,${typeof a2_od_esf.value === 'number' ? a2_od_esf.value :  0 },${typeof a2_od_cil.value === 'number' ? a2_od_cil.value : 0 },${typeof a2_od_eje.value === 'number' ? a2_od_eje.value : 0 },${typeof a2_oi_esf.value === 'number' ? a2_oi_esf.value : 0 },${typeof a2_oi_cil.value  === 'number' ? a2_oi_cil.value : 0 },${typeof a2_oi_eje.value === 'number' ? a2_oi_eje.value : 0},${A2_DP.value || 0},"${A2_GRUPO_OD.value}","${A2_GRUPO_OI.value}" ,${jsonData.a1_opcion_vta_id ?? 0},"${a1_armazon.value ?? 0}",${jsonData.a2_opcion_vta_id ?? 0},"${a2_armazon.value ?? 0 }",${jsonData.a3_opcion_vta_id ?? 0},"${a3_armazon.value?? 0}",${jsonData.cristal1_opcion_vta_id || 0},${jsonData.cristal1_marca_id || 0},${jsonData.cristal1_diseno_id || 0},${jsonData.cristal1_indice_id || 0},${jsonData.cristal1_material_id || 0},${jsonData.cristal1_tratamiento_id || 0},${jsonData.cristal1_color_id || 0},${(typeof A1_Diametro.value === 'string' && A1_Diametro.value !== "" ) ? A1_Diametro.value : 0},"${A1_CR_OD ?? " "}","${A1_CR_OI ?? " "}",${jsonData.cristal1_tratamiento_adicional_id || 0},${jsonData.cristal2_od_opcion_venta_id || 0},${jsonData.cristal2_marca_id || 0},${jsonData.cristal2_diseno_id || 0},${jsonData.cristal2_indice_id || 0},${jsonData.cristal2_material_id || 0},${jsonData.cristal2_tratamiento_id || 0},${jsonData.cristal2_color_id || 0},${(typeof A2_Diametro.value === 'string' && A2_Diametro.value !== "" ) ? A2_Diametro.value : 0},"${typeof A2_CR_OD.value === 'string' ? A2_CR_OD.value : ""}","${typeof A2_CR_OI.value === 'string' ? A2_CR_OI.value : " " }",${jsonData.cristal2_tratamiento_adicional_id || 0},${jsonData.motivo_garantia_id || 0},${jsonData.folio_asociado || 0},${isEditting ? 0 : jsonData.resolucion_garantia_id === 'Aceptada' ? '1' : '2'},"${jsonData.worktracking || 0}","${jsonData.nota_venta || 0}",${jsonData.numero_reporte_firma || 0},"${jsonData.numero_reporte_atencion || 0}","${jsonData.numero_orden_compra || 0}",${jsonData.numero_guia || 0},${jsonData.numero_factura || 0},"${jsonData.folio_interno_mandante || 0}","${jsonData.reporte_interno_mandante || 0}","${jsonData.numero_envio || 0}" ,${jsonData.total || 0},"${jsonData.observaciones || ""}",${estado_validacion}`
+    let _p1 = `${motivo},${_destino},${estado},"${estado_impresion}","${validar_parametrizacion_id}", "${jsonData.proyecto_codigo}",${jsonData.establecimiento_id || 1},"${jsonData.cliente_rut.trim() || formValues.cliente.cliente_rut.trim()}" ,${jsonData.oftalmologo_id ?? 0} ,"${jsonData.fecha_atencion || fecha_atencion_signal.value}","${jsonData.fecha_entrega_taller || fecha_entrega_taller.value}","${jsonData.fecha_despacho || fecha_despacho.value}","${jsonData.fecha_entrega_cliente || fecha_entrega_cliente.value}",${punto_venta.value || 0},${formValues?.receta.numero_receta || 0},"${jsonData.fecha_receta ?? ""}",${jsonData.tipo_anteojo_id ?? 0},${typeof dioptrias_receta.value.a1_od.esf === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_od.esf) ? dioptrias_receta.value.a1_od.esf : 0 },${typeof dioptrias_receta.value.a1_od.cil === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_od.cil) ? dioptrias_receta.value.a1_od.cil : 0},${typeof dioptrias_receta.value.a1_od.eje === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_od.eje) ? dioptrias_receta.value.a1_od.eje : 0},${(typeof dioptrias_receta.value.a1_od.ad === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_od.ad)) ? dioptrias_receta.value.a1_od.ad : 0 },${typeof dioptrias_receta.value.a1_oi.esf === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_oi.esf) ? dioptrias_receta.value.a1_oi.esf  : 0},${typeof dioptrias_receta.value.a1_oi.cil === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_oi.cil) ? dioptrias_receta.value.a1_oi.cil : 0},${typeof dioptrias_receta.value.a1_oi.eje === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_oi.eje) ? dioptrias_receta.value.a1_oi.eje : 0},${typeof dioptrias_receta.value.a1_oi.ad === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_oi.ad) ? dioptrias_receta.value.a1_oi.ad  : 0 },${A1_DP.value || 0},${formValues["receta"]["a1_alt"] > 0  ? formValues["receta"]["a1_alt"] : 0}, "${A1_GRUPO_OD.value}" ,"${A1_GRUPO_OI.value}" ,${typeof a2_od_esf.value === 'number' ? a2_od_esf.value :  0 },${typeof a2_od_cil.value === 'number' ? a2_od_cil.value : 0 },${typeof a2_od_eje.value === 'number' ? a2_od_eje.value : 0 },${typeof a2_oi_esf.value === 'number' ? a2_oi_esf.value : 0 },${typeof a2_oi_cil.value  === 'number' ? a2_oi_cil.value : 0 },${typeof a2_oi_eje.value === 'number' ? a2_oi_eje.value : 0},${A2_DP.value || 0},"${A2_GRUPO_OD.value}","${A2_GRUPO_OI.value}" ,${jsonData.a1_opcion_vta_id ?? 0},"${a1_armazon.value ?? 0}",${jsonData.a2_opcion_vta_id ?? 0},"${a2_armazon.value ?? 0 }",${jsonData.a3_opcion_vta_id ?? 0},"${a3_armazon.value?? 0}",${jsonData.cristal1_opcion_vta_id || 0},${jsonData.cristal1_marca_id || 0},${jsonData.cristal1_diseno_id || 0},${jsonData.cristal1_indice_id || 0},${jsonData.cristal1_material_id || 0},${jsonData.cristal1_tratamiento_id || 0},${jsonData.cristal1_color_id || 0},${(typeof A1_Diametro.value === 'string' && A1_Diametro.value !== "" ) ? A1_Diametro.value : 0},"${A1_CR_OD ?? " "}","${A1_CR_OI ?? " "}",${jsonData.cristal1_tratamiento_adicional_id || 0},${jsonData.cristal2_od_opcion_venta_id || 0},${jsonData.cristal2_marca_id || 0},${jsonData.cristal2_diseno_id || 0},${jsonData.cristal2_indice_id || 0},${jsonData.cristal2_material_id || 0},${jsonData.cristal2_tratamiento_id || 0},${jsonData.cristal2_color_id || 0},${(typeof A2_Diametro.value === 'string' && A2_Diametro.value !== "" ) ? A2_Diametro.value : 0},"${typeof A2_CR_OD.value === 'string' ? A2_CR_OD.value : ""}","${typeof A2_CR_OI.value === 'string' ? A2_CR_OI.value : " " }",${jsonData.cristal2_tratamiento_adicional_id || 0},${jsonData.motivo_garantia_id || 0},${jsonData.folio_asociado || 0},${isEditting ? 0 : jsonData.resolucion_garantia_id === 'Aceptada' ? '1' : '2'},"${jsonData.worktracking || 0}","${jsonData.nota_venta || 0}",${jsonData.numero_reporte_firma || 0},"${jsonData.numero_reporte_atencion || 0}","${jsonData.numero_orden_compra || 0}",${jsonData.numero_guia || 0},${jsonData.numero_factura || 0},"${jsonData.folio_interno_mandante || 0}","${jsonData.reporte_interno_mandante || 0}","${jsonData.numero_envio || 0}" ,${jsonData.total || 0},"${jsonData.observaciones || ""}",${estado_validacion}`
     // let _p1 = `${motivo},${_destino},${estado},"${estado_impresion}","${estado_validacion}", "${jsonData.proyecto_codigo}",${jsonData.establecimiento_id || 1},"${jsonData.cliente_rut.trim() || formValues.cliente.cliente_rut.trim()}" ,${jsonData.oftalmologo_id ?? 0} ,"${jsonData.fecha_atencion || fecha_atencion_signal.value}","${jsonData.fecha_entrega_taller || fecha_entrega_taller.value}","${jsonData.fecha_despacho || fecha_despacho.value}","${jsonData.fecha_entrega_cliente || fecha_entrega_cliente.value}",${jsonData.punto_venta_id || 0},${typeof jsonData.numero_receta  === 'number' ? jsonData.numero_receta  : 0},"${jsonData.fecha_receta ?? ""}",${jsonData.tipo_anteojo_id ?? 0},${typeof dioptrias_receta.value.a1_od.esf === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_od.esf) ? dioptrias_receta.value.a1_od.esf : 0 },${typeof dioptrias_receta.value.a1_od.cil === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_od.cil) ? dioptrias_receta.value.a1_od.cil : 0},${typeof dioptrias_receta.value.a1_od.eje === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_od.eje) ? dioptrias_receta.value.a1_od.eje : 0},${(typeof dioptrias_receta.value.a1_od.ad === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_od.ad)) ? dioptrias_receta.value.a1_od.ad : 0 },${typeof dioptrias_receta.value.a1_oi.esf === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_oi.esf) ? dioptrias_receta.value.a1_oi.esf  : 0},${typeof dioptrias_receta.value.a1_oi.cil === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_oi.cil) ? dioptrias_receta.value.a1_oi.cil : 0},${typeof dioptrias_receta.value.a1_oi.eje === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_oi.eje) ? dioptrias_receta.value.a1_oi.eje : 0},${typeof dioptrias_receta.value.a1_oi.ad === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_oi.ad) ? dioptrias_receta.value.a1_oi.ad  : 0 },${A1_DP.value || 0},${formValues["receta"]["a1_alt"] > 0  ? formValues["receta"]["a1_alt"] : 0}, "${A1_GRUPO_OD.value}" ,"${A1_GRUPO_OI.value}" ,${typeof a2_od_esf.value === 'number' ? a2_od_esf.value :  0 },${typeof a2_od_cil.value === 'number' ? a2_od_cil.value : 0 },${typeof a2_od_eje.value === 'number' ? a2_od_eje.value : 0 },${typeof a2_oi_esf.value === 'number' ? a2_oi_esf.value : 0 },${typeof a2_oi_cil.value  === 'number' ? a2_oi_cil.value : 0 },${typeof a2_oi_eje.value === 'number' ? a2_oi_eje.value : 0},${A2_DP.value || 0},"${A2_GRUPO_OD.value}","${A2_GRUPO_OI.value}" ,${jsonData.a1_opcion_vta_id ?? 0},"${a1_armazon.value ?? 0}",${jsonData.a2_opcion_vta_id ?? 0},"${a2_armazon.value ?? 0 }",${jsonData.a3_opcion_vta_id ?? 0},"${a3_armazon.value?? 0}",${jsonData.cristal1_opcion_vta_id || 0},${jsonData.cristal1_marca_id || 0},${jsonData.cristal1_diseno_id || 0},${jsonData.cristal1_indice_id || 0},${jsonData.cristal1_material_id || 0},${jsonData.cristal1_tratamiento_id || 0},${jsonData.cristal1_color_id || 0},${typeof A1_Diametro.value === 'string' ? A1_Diametro.value : 0},"${A1_CR_OD ?? " "}","${A1_CR_OI ?? " "}",${jsonData.cristal1_tratamiento_adicional_id || 0},${jsonData.cristal2_od_opcion_venta_id || 0},${jsonData.cristal2_marca_id || 0},${jsonData.cristal2_diseno_id || 0},${jsonData.cristal2_indice_id || 0},${jsonData.cristal2_material_id || 0},${typeof jsonData.cristal2_tratamiento === 'number' ? jsonData.cristal2_tratamiento : 0},${jsonData.cristal2_color_id || 0},${(typeof A2_Diametro.value === 'string' && A2_Diametro.value !== "" ) ? A2_Diametro.value : 0},"${typeof A2_CR_OD.value === 'string' ? A2_CR_OD.value : ""}","${typeof A2_CR_OI.value === 'string' ? A2_CR_OI.value : " " }",${jsonData.cristal2_tratamiento_adicional_id || 0},${jsonData.motivo_garantia_id || 0},${jsonData.folio_asociado || 0},${isEditting ? 0 : jsonData.resolucion_garantia_id === 'Aceptada' ? '1' : '2'},"${jsonData.worktracking || 0}","${jsonData.nota_venta || 0}",${jsonData.numero_reporte_firma || 0},"${jsonData.numero_reporte_atencion || 0}","${"prueba numero OC"}",${jsonData.numero_guia || 0},${jsonData.numero_factura || 0},"${jsonData.folio_interno_mandante || 0}","${jsonData.reporte_interno_mandante || 0}","${jsonData.numero_envio || 0}" ,${jsonData.total || 0},"${jsonData.observaciones || ""}",${1}`
 
     // console.log(_p1)
@@ -723,6 +729,8 @@ const FOT:React.FC<IFOTProps> = ({
   const [showAnulacion, setShowAnulacion]  = useState(false)
   const [_existCliente, setExistCliente] = useState(false);
   const [isFOTEmpaque, setIsFOTEmpaque]  = useState(false);
+  const [errorGrupoDioptriaA1, setErrorGrupoDioptriaA1] = useState('');
+  const [errorGrupoDioptriaA2, setErrorGrupoDioptriaA2] = useState('');
   const [submitAction, setSubmitAction] = useState('');
   const [_isMotivo, setIsMotivo] = useState(false);
   const [_toggle, setToggle] = useState();
@@ -802,7 +810,6 @@ const FOT:React.FC<IFOTProps> = ({
 
 
 
-
     //TODO: VALIDACION DE CAMPOS
     validation_A1_OD_ESF(undefined);
     validation_A1_OD_CILL(undefined);
@@ -837,7 +844,7 @@ const FOT:React.FC<IFOTProps> = ({
       //  console.log(submitAction)
 
     // console.log(jsonData)
-    console.log(formValues)
+    // console.log(formValues)
     
     //! LOGICA JSON CRISTALES/ARMAZONES COMPARTIDA UPDATE + INSERT
     
@@ -850,7 +857,8 @@ const FOT:React.FC<IFOTProps> = ({
         ]
           .map(item => {
             const numero = parseFloat(item.codigo);
-            if (!isNaN(numero) && numero !== 0 &&numero !== null) {
+            console.log(numero)
+            if (!isNaN(numero) && numero !== 0 && numero !== null) {
               return { 'codigo': `${numero}` };
             }
             return null; 
@@ -881,9 +889,9 @@ const FOT:React.FC<IFOTProps> = ({
 
     if (submitAction === 'pausar') {
      
-      console.log('pausar')
+      // console.log('pausar')
      
-      console.log(formValues)
+      // console.log(formValues)
       
       // updateOT(
       //    jsonData, 
@@ -945,35 +953,37 @@ const FOT:React.FC<IFOTProps> = ({
 
 
 
+
+
   //Persistencia de datos
-  const handleFormChange = async(data: any, name: string) => {
+  const handleFormChange = async(dataForm: any, name: string) => {
     setChangeboolean((prev)=>!prev);
-
-    setFormValues((prevFormValues: any) => ({
-      ...prevFormValues,
-      [name]: {
-        ...prevFormValues[name],
-        ...data
-      }
-    }));
-    // console.log(Object.keys(data)[0])
-    console.log(name)
-    console.log(data)
-    
-    console.log(formValues)
-
-    //TODO: inputChangeAction 
-    const key = Object.keys(data)[0] 
-    console.log(key)
+    const key = Object.keys(dataForm)[0] 
+    // console.log(key)
 
     if(key === 'tipo_anteojo_id'){
       clearInputDioptrias()
     }
 
+    setFormValues((prevFormValues: any) => ({
+      ...prevFormValues,
+      [name]: {
+        ...prevFormValues[name],
+        ...dataForm
+      }
+    }));
+    // console.log(Object.keys(data)[0])
+    // console.log(name)
+    // console.log(data)
+    
+    // console.log(formValues)
+
+    //TODO: inputChangeAction 
+
 
     if(inputChangeActions[key]){
       // console.log('render')
-      inputChangeActions[key](data);
+      inputChangeActions[key](dataForm);
     }
 
 
@@ -984,16 +994,16 @@ const FOT:React.FC<IFOTProps> = ({
       // clearInputDioptrias()
       //? OJO DERECHO
       if(
-        Object.keys(data)[0] === 'a1_od_esf' ||
-        Object.keys(data)[0] === 'a1_od_cil' ||
-        Object.keys(data)[0] === 'a1_od_eje' ||
-        Object.keys(data)[0] === 'a1_od_ad'  ||
+        Object.keys(dataForm)[0] === 'a1_od_esf' ||
+        Object.keys(dataForm)[0] === 'a1_od_cil' ||
+        Object.keys(dataForm)[0] === 'a1_od_eje' ||
+        Object.keys(dataForm)[0] === 'a1_od_ad'  ||
         tipo_de_anteojo.value === '3'
       ){
-        if(dioptrias_receta.value.a1_od.ad < 0){
-          a2_od_esf.value = " ";
-          dioptrias_receta.value.a1_od.ad  = " ";
-        }
+        // if(dioptrias_receta.value.a1_od.ad < 0){
+        //   a2_od_esf.value = " ";
+        //   dioptrias_receta.value.a1_od.ad  = " ";
+        // }
          
 
         if(typeof dioptrias_receta.value.a1_od.ad !== 'object' &&  dioptrias_receta.value.a1_od.ad > 0){
@@ -1002,11 +1012,11 @@ const FOT:React.FC<IFOTProps> = ({
           a2_od_eje.value = (typeof dioptrias_receta.value.a1_od.eje === 'object' ? 0 : dioptrias_receta.value.a1_od.eje)
 
 
-          console.log(a1_od_eje.value)
-          console.log(dioptrias_receta.value.a1_od.eje)
-          console.log(formValues["receta"])
+          // console.log(a1_od_eje.value)
+          // console.log(dioptrias_receta.value.a1_od.eje)
+          // console.log(formValues["receta"])
 
-          console.log((typeof dioptrias_receta.value.a1_od.esf !== 'object' && Number.isNaN(dioptrias_receta.value.a1_od.esf) ? 0 : parseFloat(dioptrias_receta.value.a1_od.esf) ) + parseFloat(dioptrias_receta.value.a1_od.ad))
+          // console.log((typeof dioptrias_receta.value.a1_od.esf !== 'object' && Number.isNaN(dioptrias_receta.value.a1_od.esf) ? 0 : parseFloat(dioptrias_receta.value.a1_od.esf) ) + parseFloat(dioptrias_receta.value.a1_od.ad))
 
           validation_A2_OD_ESF(a2_od_esf.value)
           validation_A2_OD_CIL(a2_od_cil.value)
@@ -1019,10 +1029,10 @@ const FOT:React.FC<IFOTProps> = ({
       }
       //? OJO IZQUIERDO
       if(
-        Object.keys(data)[0] === 'a1_oi_esf' ||
-        Object.keys(data)[0] === 'a1_oi_cil' ||
-        Object.keys(data)[0] === 'a1_oi_eje' ||
-        Object.keys(data)[0] === 'a1_oi_ad'  ||
+        Object.keys(dataForm)[0] === 'a1_oi_esf' ||
+        Object.keys(dataForm)[0] === 'a1_oi_cil' ||
+        Object.keys(dataForm)[0] === 'a1_oi_eje' ||
+        Object.keys(dataForm)[0] === 'a1_oi_ad'  ||
         tipo_de_anteojo.value === '3'
       ){
         if(dioptrias_receta.value.a1_od.ad < 0){
@@ -1039,7 +1049,7 @@ const FOT:React.FC<IFOTProps> = ({
           a2_oi_eje.value = (typeof dioptrias_receta.value.a1_oi.eje === 'object' ? 0 : dioptrias_receta.value.a1_oi.eje)
           a2_oi_cil.value = (typeof dioptrias_receta.value.a1_oi.cil === 'object' ? 0 : dioptrias_receta.value.a1_oi.cil);
           
-          console.log( a2_oi_esf.value = (typeof dioptrias_receta.value.a1_oi.esf !== 'object' && Number.isNaN(dioptrias_receta.value.a1_oi.esf) ? 0 : parseFloat(dioptrias_receta.value.a1_oi.esf)) + parseFloat(dioptrias_receta.value.a1_oi.ad))
+          // console.log( a2_oi_esf.value = (typeof dioptrias_receta.value.a1_oi.esf !== 'object' && Number.isNaN(dioptrias_receta.value.a1_oi.esf) ? 0 : parseFloat(dioptrias_receta.value.a1_oi.esf)) + parseFloat(dioptrias_receta.value.a1_oi.ad))
         }
 
       }
@@ -1057,37 +1067,39 @@ const FOT:React.FC<IFOTProps> = ({
 
     }
 
-
+    console.log(key)
     //todo  INICIO CRISTALES, TRAE GRUPO Y CODIGO DEPENDIENDO DE DATOS DEL CRISTAL 
      // ? ANTEOJO 1: 
     if(changeCodigoCristal_A1[key]){
-      // console.log('render')
+      console.log('render')
       const formValue = getValues()
       const {cristal1_marca_id, cristal1_diseno_id, cristal1_indice_id, cristal1_color_id , cristal1_material_id,cristal1_tratamiento_id } = formValue;
       
-      console.log(A1_Diametro.value)
 
-      if(cristal1_marca_id                      !== undefined &&
-        cristal1_diseno_id                      !== undefined &&
-        cristal1_indice_id                      !== undefined && 
-        cristal1_color_id                       !== undefined &&
-        cristal1_material_id                    !== undefined &&
-        cristal1_tratamiento_id                 !== undefined &&
-        A1_Diametro.value                       !== ''        &&
-        dioptrias_receta.value.a1_od.esf        !== ' '       &&
-        dioptrias_receta.value.a1_od.cil        !== ' '       
+
+      if((cristal1_marca_id                       !== undefined  || data?.[EnumGrid.cristal1_marca_id]    !== undefined) &&
+         (cristal1_diseno_id                      !== undefined  || data?.[EnumGrid.cristal1_diseno_id]   !== undefined) &&
+         (cristal1_indice_id                      !== undefined  || data?.[EnumGrid.cristal1_indice_id]   !== undefined) && 
+         (cristal1_color_id                       !== undefined  || data?.[EnumGrid.cristal1_color_id]    !== undefined) &&
+         (cristal1_material_id                    !== undefined  || data?.[EnumGrid.cristal1_material_id] !== undefined) &&
+         (cristal1_tratamiento_id                 !== undefined  || data?.[EnumGrid.cristal1_tratamiento_id] !== undefined)&&
+        A1_Diametro.value                         !== ''        &&
+        dioptrias_receta.value.a1_od.esf          !== ' '       &&
+        dioptrias_receta.value.a1_od.cil          !== ' '       &&
+        dioptrias_receta.value.a1_oi.esf          !== ' '       &&
+        dioptrias_receta.value.a1_oi.cil          !== ' '
       ){
 
-        console.log('ejecutando llamada...')
+        // console.log('ejecutando llamada...')
         // console.log('ejecutando llamada...')
 
         const _pkToDelete1_od ={
-          "marca":      cristal1_marca_id,
-          "diseno":     cristal1_diseno_id,
-          "indice":     cristal1_indice_id,
-          "material":   cristal1_material_id,
-          "color":      cristal1_color_id,
-          "tratamiento":cristal1_tratamiento_id,
+          "marca":      cristal1_marca_id       || data?.[EnumGrid.cristal1_marca_id],
+          "diseno":     cristal1_diseno_id      || data?.[EnumGrid.cristal1_diseno_id],
+          "indice":     cristal1_indice_id      || data?.[EnumGrid.cristal1_indice_id],
+          "material":   cristal1_material_id    || data?.[EnumGrid.cristal1_material_id],
+          "color":      cristal1_color_id       || data?.[EnumGrid.cristal1_color_id],
+          "tratamiento":cristal1_tratamiento_id || data?.[EnumGrid.cristal1_tratamiento_id],
           "diametro":   A1_Diametro.value,
           "esferico":   dioptrias_receta.value.a1_od.esf ?? 0, 
           "cilindrico": dioptrias_receta.value.a1_od.cil ?? 0
@@ -1097,12 +1109,12 @@ const FOT:React.FC<IFOTProps> = ({
         // console.log(_pkToDelete1_od)
         
         const _pkToDelete1_oi ={
-          "marca":      cristal1_marca_id,
-          "diseno":     cristal1_diseno_id,
-          "indice":     cristal1_indice_id,
-          "material":   cristal1_material_id,
-          "color":      cristal1_color_id,
-          "tratamiento":cristal1_tratamiento_id,
+          "marca":      cristal1_marca_id       || data?.[EnumGrid.cristal1_marca_id],
+          "diseno":     cristal1_diseno_id      || data?.[EnumGrid.cristal1_diseno_id],
+          "indice":     cristal1_indice_id      || data?.[EnumGrid.cristal1_indice_id],
+          "material":   cristal1_material_id    || data?.[EnumGrid.cristal1_material_id],
+          "color":      cristal1_color_id       || data?.[EnumGrid.cristal1_color_id],
+          "tratamiento":cristal1_tratamiento_id || data?.[EnumGrid.cristal1_tratamiento_id],
           "diametro":   A1_Diametro.value,
           "esferico":   dioptrias_receta.value.a1_oi.esf ?? 0,
           "cilindrico": dioptrias_receta.value.a1_oi.cil ?? 0, 
@@ -1116,32 +1128,35 @@ const FOT:React.FC<IFOTProps> = ({
           const pkJSON = JSON.stringify([_pkToDelete1_od, _pkToDelete1_oi])
           const encodedJSON = encodeURIComponent(pkJSON)
 
-          console.log(encodedJSON)
+          // console.log(encodedJSON)
           
           const {data:cristalesDataOD} = await axios(`${URLBackend}/api/proyectogrupos/listado/?query=06&_p2=${codigoProyecto.value}&_pkToDelete=${encodedJSON}`)
           
           const cristalesDATA = JSON.parse(cristalesDataOD[0][0])
-          console.log(cristalesDATA)
+          // console.log(cristalesDATA)
 
           if(cristalesDATA && cristalesDATA["ERROR"] !== ''){
+            setErrorGrupoDioptriaA1(cristalesDATA["ERROR"]);
+            // console.log('hay error')
+            // console.log(cristalesDATA)
+            //   console.log('render')
+            //   toast.error(cristalesDATA["ERROR"])
 
-            console.log('hay error')
-            console.log(cristalesDATA)
-
-            toast.error(cristalesDATA["ERROR"])
+            // // toast.error(cristalesDATA["ERROR"])
 
 
-            A1_CR_OD.value = " ";
-            A1_CR_OI.value = " ";
+            // A1_CR_OD.value = " ";
+            // A1_CR_OI.value = " ";
 
-            A1_GRUPO_OD.value    = " ";
-            A1_GRUPO_OI.value    = " ";
+            // A1_GRUPO_OD.value    = " ";
+            // A1_GRUPO_OI.value    = " ";
 
             
 
-            validation_Cristal1_od("")
-            validation_Cristal1_oi("")
+            // validation_Cristal1_od("")
+            // validation_Cristal1_oi("")
           }else{
+            // console.log(cristalesDATA)
             A1_CR_OD.value = cristalesDATA["CR_OD"].trim() || "   ";
             A1_CR_OI.value = cristalesDATA["CR_OI"].trim() || "   "
             // A1_GRUPO.value = cristalesDATA["GRUPO"]
@@ -1151,6 +1166,7 @@ const FOT:React.FC<IFOTProps> = ({
             
             validation_Cristal1_od(cristalesDATA["CR_OD"])
             validation_Cristal1_oi(cristalesDATA["CR_OI"])
+            setChangeboolean((prev)=>!prev)
           }
           
         } catch (error) {
@@ -1161,90 +1177,105 @@ const FOT:React.FC<IFOTProps> = ({
     }
 
     //? ANTEOJO 2:
-    console.log(a2_oi_esf.value)
-    if(changeCodigoCristal_A2[key]){
-      const formValue = getValues()
-      const {cristal2_marca_id, cristal2_diseno_id, cristal2_indice_id, cristal2_color_id , cristal2_material_id,cristal2_tratamiento_id } = formValue;
-      // console.log(formValue.cristal2_diametro)
-      if(cristal2_marca_id                      !== undefined &&
-        cristal2_diseno_id                      !== undefined &&
-        cristal2_indice_id                      !== undefined && 
-        cristal2_color_id                       !== undefined &&
-        cristal2_material_id                    !== undefined &&
-        cristal2_tratamiento_id                 !== undefined &&
-        A2_Diametro.value                       !== ''        &&
-        a2_od_esf.value                         !== ''        &&
-        a2_oi_esf.value                         !== ''        
-        ){
-        console.log('ejecutando llamada.....')
-        const _pkToDelete1_od ={
-          "marca":      cristal2_marca_id,
-          "diseno":     cristal2_diseno_id,
-          "indice":     cristal2_indice_id,
-          "material":   cristal2_material_id,
-          "color":      cristal2_color_id,
-          "tratamiento":cristal2_tratamiento_id,
-          "diametro":   A2_Diametro.value,
-          "esferico":   a2_od_esf.value ?? 0, 
-          "cilindrico": a2_od_cil.value ?? 0
-        }
-
-
-        console.log(_pkToDelete1_od)
-        
-        const _pkToDelete1_oi ={
-          "marca":      cristal2_marca_id,
-          "diseno":     cristal2_diseno_id,
-          "indice":     cristal2_indice_id,
-          "material":   cristal2_material_id,
-          "color":      cristal2_color_id,
-          "tratamiento":cristal2_tratamiento_id,
-          "diametro":   A2_Diametro.value,
-          "esferico":   a2_oi_esf.value ?? 0,
-          "cilindrico": a2_oi_cil.value ?? 0, 
-        }
-
-        console.log(_pkToDelete1_oi)
-
-        try {
-          const pkJSON = JSON.stringify([_pkToDelete1_od, _pkToDelete1_oi])
-          const encodedJSON = encodeURIComponent(pkJSON)
-
-          const {data:cristalesDataOI} = await axios(`${URLBackend}/api/proyectogrupos/listado/?query=06&_p2=${codigoProyecto.value}&_pkToDelete=${encodedJSON}`)
+    // console.log(a2_oi_esf.vsalue)
+    if(tipo_de_anteojo.value === '3'){
+      if(changeCodigoCristal_A2[key]){
+        const formValue = getValues()
+        const {cristal2_marca_id, cristal2_diseno_id, cristal2_indice_id, cristal2_color_id , cristal2_material_id,cristal2_tratamiento_id } = formValue;
+        // console.log(formValue.cristal2_diametro)
+        if(cristal2_marca_id                      !== undefined   || data?.[EnumGrid.cristal2_marca_id]          !== undefined &&
+          cristal2_diseno_id                      !== undefined   || data?.[EnumGrid.cristal2_diseno_id]         !== undefined &&
+          cristal2_indice_id                      !== undefined   || data?.[EnumGrid.cristal2_indice_id]         !== undefined && 
+          cristal2_color_id                       !== undefined   || data?.[EnumGrid.cristal2_color_id]          !== undefined &&
+          cristal2_material_id                    !== undefined   || data?.[EnumGrid.cristal2_material_id]       !== undefined &&
+          cristal2_tratamiento_id                 !== undefined   || data?.[EnumGrid.cristal1_tratamiento_id]    !== undefined &&
+          A2_Diametro.value                       !== ''        &&
+          a2_od_esf.value                         !== ''        &&
+          a2_oi_esf.value                         !== ''        
+          ){
+          // console.log('ejecutando llamada.....')
+          const _pkToDelete1_od ={
+            "marca":      cristal2_marca_id        || data?.[EnumGrid.cristal2_marca_id],
+            "diseno":     cristal2_diseno_id       || data?.[EnumGrid.cristal2_diseno_id],
+            "indice":     cristal2_indice_id       || data?.[EnumGrid.cristal2_indice_id],
+            "material":   cristal2_material_id     || data?.[EnumGrid.cristal2_material_id],
+            "color":      cristal2_color_id        || data?.[EnumGrid.cristal2_color_id],
+            "tratamiento":cristal2_tratamiento_id  || data?.[EnumGrid.cristal2_tratamiento_id],
+            "diametro":   A2_Diametro.value,
+            "esferico":   a2_od_esf.value ?? 0, 
+            "cilindrico": a2_od_cil.value ?? 0
+          }
+  
+  
+          // console.log(_pkToDelete1_od)
           
-          const cristalesDATA = JSON.parse(cristalesDataOI[0][0])
-          console.log(cristalesDATA)
-
-          if(cristalesDATA && cristalesDATA["ERROR"] !== ''){
-            A2_CR_OD.value    = " ";
-            A2_CR_OI.value    = " ";
-
-            A2_GRUPO_OD.value = " ";
-            A2_GRUPO_OI.value = " ";
-
-
-            validation_Cristal2_od("")
-            validation_Cristal2_oi("")
-          }else{
-            A2_CR_OD.value = cristalesDATA["CR_OD"].trim() || " ";
-            A2_CR_OI.value = cristalesDATA["CR_OI"].trim() || " ";
+          const _pkToDelete1_oi ={
+            "marca":      cristal2_marca_id          || data?.[EnumGrid.cristal2_marca_id],
+            "diseno":     cristal2_diseno_id         || data?.[EnumGrid.cristal2_diseno_id],
+            "indice":     cristal2_indice_id         || data?.[EnumGrid.cristal2_indice_id],
+            "material":   cristal2_material_id       || data?.[EnumGrid.cristal2_material_id],
+            "color":      cristal2_color_id          || data?.[EnumGrid.cristal2_color_id],
+            "tratamiento":cristal2_tratamiento_id    || data?.[EnumGrid.cristal2_tratamiento_id],
+            "diametro":   A2_Diametro.value,
+            "esferico":   a2_oi_esf.value ?? 0,
+            "cilindrico": a2_oi_cil.value ?? 0, 
+          }
   
-            A2_GRUPO_OD.value = cristalesDATA["GRUPO_OD"];
-            A2_GRUPO_OI.value = cristalesDATA["GRUPO_OI"];
+          // console.log(_pkToDelete1_oi)
   
-            validation_Cristal2_od(cristalesDATA["CR_OD"]);
-            validation_Cristal2_oi(cristalesDATA["CR_OI"]);             
-
-          }  
-        } catch (error) {
-          // console.log(error)
-          throw error
+          try {
+            const pkJSON = JSON.stringify([_pkToDelete1_od, _pkToDelete1_oi])
+            const encodedJSON = encodeURIComponent(pkJSON)
+  
+            const {data:cristalesDataOI} = await axios(`${URLBackend}/api/proyectogrupos/listado/?query=06&_p2=${codigoProyecto.value}&_pkToDelete=${encodedJSON}`)
+            
+            const cristalesDATA = JSON.parse(cristalesDataOI[0][0])
+            console.log(cristalesDATA)
+  
+            if(cristalesDATA && cristalesDATA["ERROR"] !== ''){
+              console.log('render')
+              setErrorGrupoDioptriaA2(cristalesDATA["ERROR"])
+             
+  
+             // let count = 0
+              
+              // if(count > 0){
+              //   toast.error(cristalesDATA["ERROR"])
+              //   count ++
+              // }
+  
+  
+              // A2_CR_OD.value    = " ";
+              // A2_CR_OI.value    = " ";
+  
+              // A2_GRUPO_OD.value = " ";
+              // A2_GRUPO_OI.value = " ";
+  
+  
+              // validation_Cristal2_od("")
+              // validation_Cristal2_oi("")
+            }else{
+              A2_CR_OD.value = cristalesDATA["CR_OD"].trim() || " ";
+              A2_CR_OI.value = cristalesDATA["CR_OI"].trim() || " ";
+    
+              A2_GRUPO_OD.value = cristalesDATA["GRUPO_OD"];
+              A2_GRUPO_OI.value = cristalesDATA["GRUPO_OI"];
+    
+              validation_Cristal2_od(cristalesDATA["CR_OD"]);
+              validation_Cristal2_oi(cristalesDATA["CR_OI"]);             
+  
+              setChangeboolean((prev)=>!prev)
+            }  
+          } catch (error) {
+            // console.log(error)
+            throw error
+          }
+  
         }
-
+  
       }
-
+  
     }
-
    
     // actualizarEstado(Object.keys(data)[0], 1)
 
@@ -1391,8 +1422,45 @@ useEffect(() => {
   };
 }, [closeModal]);
 
+useEffect(() => {
+  if (errorGrupoDioptriaA1 !== '') {
+    console.log('render');
+    toast.error(errorGrupoDioptriaA1);
+
+    A1_CR_OD.value = " ";
+    A1_CR_OI.value = " ";
+
+    A1_GRUPO_OD.value = " ";
+    A1_GRUPO_OI.value = "";
+
+    validation_Cristal1_od("");
+    validation_Cristal1_oi("");
+    setChangeboolean((prev)=>!prev)
+    // setErrorGrupoDioptriaA1("");
+  
+  }
+}, [errorGrupoDioptriaA1]);
+
 
 useEffect(() => {
+  if (errorGrupoDioptriaA2 !== '') {
+    console.log('render');
+    toast.error(errorGrupoDioptriaA2);
+
+    A2_CR_OD.value = " ";
+    A2_CR_OI.value = " ";
+
+    A2_GRUPO_OD.value = " ";
+    A2_GRUPO_OI.value = "";
+
+    validation_Cristal2_od("");
+    validation_Cristal2_oi("");
+    // setErrorGrupoDioptriaA2("");
+  }
+}, [errorGrupoDioptriaA2]);
+
+
+useEffect(() => {  
   const handleKeyDown = (event:KeyboardEvent) => {
     if (event.ctrlKey && event.key === 'ArrowRight') {
       setSelectedTab((prevTab) => (prevTab + 1) % 6);
@@ -1407,6 +1475,12 @@ useEffect(() => {
     window.removeEventListener('keydown', handleKeyDown);
   };
 }, []);
+
+useEffect(()=>{
+    const fechaHoraActual = new Date()
+    const fechaFormateada = fechaHoraActual.toISOString().split('T')[0];
+    fecha_atencion_signal.value = fechaFormateada
+},[])
 
 // console.log(permiso_usuario_verificar_cristal)
 // console.log(permiso_usuario_verificar_armazon)

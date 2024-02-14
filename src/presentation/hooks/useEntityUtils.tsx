@@ -86,9 +86,7 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
   //Metodo Check aLL
   const handleSelectedAll = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>, row?: any) => {
-      console.log(row)
       const selectedRowsLimited = event.target.checked ? row.slice(0, 500) : [];
-      console.log(selectedRowsLimited)
       setSelectedRows(selectedRowsLimited);
     },
     [entities]
@@ -104,7 +102,7 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
   //METODO CHECK INDIVIDUAL
   const handleSelect = useCallback((rowIndex: number): void => {
     // console.log("id handleselect", id);
-    console.log(rowIndex)
+    // console.log(rowIndex)
     setSelectedRows((prevSelectedRow) =>{
 
       // console.log(prevSelectedRow)
@@ -127,12 +125,12 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
       const endpoint = historica === false ? `${URLBackend}/api/ot/listado/?query=01&_folio=${folio}` : `${URLBackend}/api/othistorica/listado/?query=01&_folio=${folio}`
       const response = await axios(endpoint)
       setEntity(response.data[0])
-      console.log(historica)
+      // console.log(historica)
       dispatch(fetchOTByID({ folio: folio, OTAreas: areaActual, historica: historica }));
       setIsModalEdit(true);
       return ''
       } catch (error) {
-        console.log(error)
+        // console.log(error)
         throw error;        
       }
   },[])
@@ -142,8 +140,8 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
   const toggleEditModal = useCallback(
     (rowIndex?: number) => {
       setIsModalEdit((prev) => !prev);
-      const test = rowIndex && entities[rowIndex]
-      console.log(test)
+      // const test = rowIndex && entities[rowIndex]
+      // console.log(test)
       if (rowIndex !== undefined) {
         rowIndex >= 0
           ? (setSelectedRows([rowIndex]), setEntity(entities[rowIndex]))
@@ -187,7 +185,7 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
     async (rowData?: any, comilla?: string) => {
       if (selectedRows.length >= 1) {
         try {
-          console.log("comilla", comilla);
+          // console.log("comilla", comilla);
           const response = await deleteAllEntity([rowData, comilla]);
           const errorDelete = response?.response?.data?.error;
           if (errorDelete) {
@@ -195,7 +193,7 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
           } else {
             setEntities((prev) => {
               const positionsToRemove = selectedRows;
-              console.log("positiontoRemove", positionsToRemove);
+              // console.log("positiontoRemove", positionsToRemove);
               const removedEntities = [];
 
               const filteredEntities = prev.filter((entity, index) => {
@@ -215,7 +213,7 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
           }
         } catch (error: any) {
           toast.error(error.message);
-          console.log(error);
+          // console.log(error);
           return error;
         }
       }
@@ -226,11 +224,11 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
   const deleteIndiidual = useCallback(async(pkToDelete:any)=>{
     try {
         console.log(pkToDelete)
-        const response = await deleteAllEntity(pkToDelete);
+        // const response = await deleteAllEntity(pkToDelete);
 
-        console.log(response)
+        // console.log(response)
     } catch (error) {
-      console.log('delete individual error:', error)
+      // console.log('delete individual error:', error)
       throw error
     }
   },[])

@@ -66,19 +66,19 @@ function App() {
           />
           <Route path={PublicRoutes.PROFILE} element={<ProfileUser />} />
           {/* <Route path="/" element={<Navigate to={PublicRoutes.LOGIN} />} /> */}
-          <Route path="/" element={<LandingPage/>} />
           <Route element={<AuthGuard privateValidation={true} />}>
-            {privateRoutes.map((route) => (
-              <Route
-                key={route.path}
-                path={route.path}
-                element={
-                  permisosID && hasRequiredPermissions(route.id, permisosID) ? (
-                    <route.component />
-                  ) : null
-                }
-              />
-            ))}
+            <Route path="/" element={<LandingPage/>} />
+              {privateRoutes.map((route) => (
+                <Route
+                  key={route.path}
+                  path={route.path}
+                  element={
+                    permisosID && hasRequiredPermissions(route.id, permisosID) ? (
+                      <route.component />
+                    ) : null
+                  }
+                />
+              ))}
           </Route>
         </RoutesWithNotFound>
       </Suspense>

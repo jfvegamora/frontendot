@@ -225,11 +225,16 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
                 className={`${className ? className : "custom-input py-2  cursor-pointer z-0"} ${readOnly ? "custom-onlyread" : isOptional ? "custom-optional-with-color" : "custom-required"}`}>
 
                  {/* className={`${className ? className : "custom-input py-2  cursor-pointer z-0"}  ${readOnly ? "custom-onlyread" : ""} ${isOptional ? "custom-optional" : "custom-required" } `}>  */}
-                {!data && (
+                
                   <option value={undefined} className="text-sm">
                     
                   </option>
-                )}
+              
+                {/* {!data && (
+                  <option value={undefined} className="text-sm">
+                    
+                  </option>
+                )} */}
                 {entities &&
                   entities.map((option: any, index) => (
                     <option

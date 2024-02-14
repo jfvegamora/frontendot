@@ -139,7 +139,6 @@ const MOT: React.FC = () => {
       dispatch(fetchOT({OTAreas:areaActualOT, searchParams:params[0]})) // Llama fetchOT cada minuto con el área actual
       
     }else{
-      console.log('render')
       dispatch(fetchOT({OTAreas:areaActualOT})) // Llama fetchOT cada minuto con el área actual
 
     }
@@ -209,7 +208,6 @@ const MOT: React.FC = () => {
 
   // console.log(estadosOT)
 
-  console.log(params)
 
 
   return (

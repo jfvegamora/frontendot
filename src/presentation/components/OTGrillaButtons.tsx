@@ -26,7 +26,7 @@ type AreaButtonsProps ={
 
 const strEntidad = "Orden de Trabajo";
 
-const OTGrillaButtons:React.FC<AreaButtonsProps> = ({ areaPermissions, toggleEditOTModal,folio,entidad, historica }) => {
+const OTGrillaButtons:React.FC<AreaButtonsProps> = ({ areaPermissions, toggleEditOTModal,folio, historica }) => {
     const dispatch:any                       = useAppDispatch();
     const componentRef                   = useRef();
     const { escritura_lectura }          = usePermission(28);

@@ -1,6 +1,7 @@
 import { signal } from '@preact/signals-react';
 import axios from 'axios';
 import React, { useState, useEffect, useRef } from 'react';
+import { URLBackend } from '../../hooks/useCrud';
 
 export const inputName = signal(0);
 export const entities = signal([]);
@@ -12,7 +13,7 @@ const Otprueba: React.FC = () => {
 
   const fetchEntities = async () => {
     try {
-      const { data } = await axios('https://mtoopticos.cl/api/tipos/listado/?query=02&_p1=CristalesDisenos');
+      const { data } = await axios(`${URLBackend}/api/tipos/listado/?query=02&_p1=CristalesDisenos`);
       entities.value = data;
       setEntities2(data)
     } catch (error) {

@@ -134,7 +134,7 @@ useEffect(()=>{
                         <select 
                             {...field}
                             value={selectedRegion} 
-                            defaultValue={defaultRegion && defaultRegion}
+                            // defaultValue={defaultRegion && defaultRegion}
                             onChange={handleRegionChange}
                             tabIndex  ={tabIndex || 1}
                             disabled={onlyRead}

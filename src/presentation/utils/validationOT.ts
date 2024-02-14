@@ -74,7 +74,7 @@ export const validationTipoAnteojos = (value:number) => {
 
 
 export const validationOTlevel1 = (name: string, value: any) => {
-    console.log(name)
+    // console.log(name)
     switch (name) {
       case 'proyecto_codigo':
         validationProyectos(value)
@@ -470,18 +470,23 @@ export const validation_Cristal2_tratamiento_adicionnal = (value:string | any) =
 }
 
 export const validation_Cristal2_oi = (value:string | any ) => {
+
+    console.log(value)
+    const item = validationNivel2.value.find(item => item.campo === 'cristal2_oi');
+
     if(value !== ''){
-        const item = validationNivel2.value.find(item => item.campo === 'cristal2_oi');
         if (item) {
             item.valor = 1;
         }
     }
     if(value == ''){
-        const item = validationNivel2.value.find(item => item.campo === 'cristal2_oi');
+        // const item = validationNivel2.value.find(item => item.campo === 'cristal2_oi');
         if (item) {
             item.valor = 0;
         }
     } 
+
+    console.log(item)
 }
  
 export const validation_Cristal2_od = (value:string | any ) =>{
@@ -590,7 +595,7 @@ export const validation_Cristal2_diseño = (value:string | any ) =>{
 }
 export const validation_cristal2_marca = (value:string | any ) =>{
     
-    console.log(value)
+    // console.log(value)
     if(value !== ''){
         const item = validationNivel2.value.find(item => item.campo === 'cristal2_marca_id');
         if (item) {
@@ -640,12 +645,12 @@ export const validation_Cristal1_oi = (value:string | any) => {
     const item = validationNivel2.value.find(item => item.campo === 'cristal1_oi');
     
 
-    if(value && value.trim() !== ''){
+    if(value !== ''){
         if (item) {
             item.valor = 1;
         }
     }
-    if(value && value.trim() === ''){
+    if(value === ''){
         // const item = validationNivel2.value.find(item => item.campo === 'cristal1_oi');
         if (item) {
             item.valor = 0;
@@ -657,20 +662,22 @@ export const validation_Cristal1_oi = (value:string | any) => {
 
 export const validation_Cristal1_od = (value:string | any) => {
     const item = validationNivel2.value.find(item => item.campo === 'cristal1_od');
-
-    if(value && value.trim() !== ''){
+    
+    // console.log(value)
+    
+    if(value !== ''){
         if (item) {
             item.valor = 1;
         }
     }
-    if(value && value.trim() === ''){
+    if(value === ''){
         // const item = validationNivel2.value.find(item => item.campo === 'cristal1_od');
         if (item) {
             item.valor = 0;
         }
     }
 
-
+    // console.log(item)
 }
 
 export const validation_Cristal1_diametro = (value:string | any) => {
@@ -929,7 +936,7 @@ export const validation_A2_OD_ESF =( value:string | any) => {
 export const validation_A1_ALT = (value:string | any) => {
     const item = validationNivel2.value.find((item) => item.campo === 'a1_alt');
     
-    console.log(value)
+    // console.log(value)
     
     if (value !== '') {
         if (item) {
@@ -942,7 +949,7 @@ export const validation_A1_ALT = (value:string | any) => {
     }
 
 
-    console.log(item)
+    // console.log(item)
 
 
 };
@@ -963,21 +970,21 @@ export const validation_A1_DP = (value:string | any) => {
     }
 }
 
-export const validation_A1_OI_AD = (value:string | any) => {
-    const item = validationNivel2.value.find((item) => item.campo === 'a1_oi_ad');
-    console.log(value)
-    if (value !== '') {
-        const formattedValue = Number(value).toFixed(2);        
-        // const validate = dioptrias.value.AD.some((dioptria: string) => dioptria.includes(formattedValue));
-        const validate = (formattedValue as any % 0.25) === 0 ? true : false
-        item && (item.valor = validate ? 1 : 0);
-        if(!validate){
-            dioptrias_receta.value.a1_oi.ad = "  ";
-            a1_oi_ad.value = "  "
-          }
-      } else if (item) {
-        item.valor = 0;
-     }
+export const validation_A1_OI_AD = (_value:string | any) => {
+    // const item = validationNivel2.value.find((item) => item.campo === 'a1_oi_ad');
+    // // console.log(value)
+    // if (value !== '') {
+    //     const formattedValue = Number(value).toFixed(2);        
+    //     // const validate = dioptrias.value.AD.some((dioptria: string) => dioptria.includes(formattedValue));
+    //     const validate = (formattedValue as any % 0.25) === 0 ? true : false
+    //     item && (item.valor = validate ? 1 : 0);
+    //     if(!validate){
+    //         dioptrias_receta.value.a1_oi.ad = "  ";
+    //         a1_oi_ad.value = "  "
+    //       }
+    //   } else if (item) {
+    //     item.valor = 0;
+    //  }
 }
 
 export const validation_A1_OI_EJE = (value:string | any) => {
@@ -1049,24 +1056,27 @@ export const validation_A1_OI_ESF = (value:string | any) => {
       }
 }
 
-export const validation_A1_OD_AD = (value:string | any) => {
-    const item = validationNivel2.value.find((item) => item.campo === 'a1_od_ad');
-    if (value !== '') {
-        const parseValue = parseFloat(value)
+export const validation_A1_OD_AD = (_value:string | any) => {
+    // const item = validationNivel2.value.find((item) => item.campo === 'a1_od_ad');
+    // console.log(value)
+    // if (value !== '') {
+    //     const parseValue = parseFloat(value)
 
-        if(!(parseValue >= 0.25 && parseValue <= 4)){
-            item && (item.valor = 0)
-            dioptrias_receta.value.a1_od.ad = " ";
-            a1_od_ad.value = " ";
-            return 
-        }
+    //     if(!(parseValue >= 0.25 && parseValue <= 4)){
+    //         item && (item.valor = 0)
+    //         dioptrias_receta.value.a1_od.ad = " ";
+    //         a1_od_ad.value = " ";
+    //         return 
+    //     }
 
-        item && (item.valor = 1)
-    } else {
-          item && (item.valor = 0)
-          dioptrias_receta.value.a1_od.ad = " ";
-          a1_od_ad.value = " ";
-    }
+    //     item && (item.valor = 1)
+    // } else {
+    //       item && (item.valor = 0)
+    //       dioptrias_receta.value.a1_od.ad = " ";
+    //       a1_od_ad.value = " ";
+    // }
+
+    // console.log(item)
 }
 
 
@@ -1103,7 +1113,7 @@ export const validation_A1_OD_EJE = (value: string | any) => {
       item.valor = 0;
     }
 
-    console.log(item)
+    // console.log(item)
 
 
   };
@@ -1147,7 +1157,7 @@ export const validation_A1_OD_ESF = (value: any) => {
     } else if (item) {
       item.valor = 0;
     }
-    console.log(item)
+    // console.log(item)
 }
 
 export const validationFechaEntregaCliente =(value:string) => {

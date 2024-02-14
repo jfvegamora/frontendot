@@ -1,6 +1,6 @@
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 import { RadioButtonComponent, SelectInputComponent } from '..'
-import { MODAL, SEXO, TIPO_CLIENTE, codigoProyecto, isExistClient } from '../../utils';
+import { SEXO, TIPO_CLIENTE, codigoProyecto, isExistClient } from '../../utils';
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
 import { EnumGrid as EnumClientes } from '../../views/mantenedores/MClientes';
 import axios from 'axios';
@@ -9,7 +9,7 @@ import RegProCom from '../RegProCom';
 import { URLBackend } from '../../hooks/useCrud';
 
 import TextInputInteractive from '../forms/TextInputInteractive';
-import { useModal } from '../../hooks/useModal';
+// import { useModal } from '../../hooks/useModal';
 
 
 interface IClientes {
@@ -34,11 +34,11 @@ const FOTClientes:React.FC<IClientes> = ({
     isEditting,
 }) => {
     const [_clienteData, setClienteData] = useState()
-    const { showModal, CustomModal } = useModal();
+    // const { _showModal, CustomModal } = useModal();
     
 
-    const inputRef = useRef<HTMLInputElement>(null);
-    const modalRef = useRef<HTMLInputElement>(null);
+    // const inputRef = useRef<HTMLInputElement>(null);
+    // const modalRef = useRef<HTMLInputElement>(null);
     
     
     const setDataInputs = (cliente:any) =>{
@@ -187,7 +187,7 @@ const FOTClientes:React.FC<IClientes> = ({
         validationOTlevel2(name,value);
 
         if(name === 'cliente_rut'){
-            fetchCliente(value.trim()).catch((error:any)=>{
+            fetchCliente(value.trim()).catch((_error:any)=>{
                 setExistCliente(false)
                 // console.log(error)
             })
@@ -205,7 +205,6 @@ const FOTClientes:React.FC<IClientes> = ({
                         <div className="w-full !mt-4">
                             <TextInputInteractive
                                 type="text"
-                                inputRef={inputRef}
                                 label="Rut"
                                 name="cliente_rut"
                                 handleChange={handleInputChange}
@@ -374,8 +373,7 @@ const FOTClientes:React.FC<IClientes> = ({
             </div>
         </div>
 
-        <CustomModal
-        />
+      
     </form>
   )
 }

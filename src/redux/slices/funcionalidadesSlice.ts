@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { URLBackend } from "../../presentation/hooks/useCrud";
 
 export interface IFuncionalidad {
     id:string;
@@ -13,7 +14,7 @@ const initialState:IFuncionalidad | null = localStorage.getItem("Funcionalidades
 
 export const fetchFuncionalidades = createAsyncThunk('funcionalidades/fetchFuncionalidades', async ()=>{
     try {
-        const response = await axios.get('https://mtoopticos.cl/api/funcionalidades/listado/?query=01');
+        const response = await axios.get(`${URLBackend}/api/funcionalidades/listado/?query=01`);
         return response.data;        
     } catch (error) {
         throw error

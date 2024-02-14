@@ -54,7 +54,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
     );
     const dispatch = useAppDispatch();
     const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas);
-    const OTs:any = useAppSelector((store: AppStore) => store.OTS.data);
+    // const OTs:any = useAppSelector((store: AppStore) => store.OTS.data);
     const { ListEntity } = useCrud(baseUrl);
     // console.log("cristalDescritpion", cristalDescritpion[3]);
     
@@ -155,7 +155,6 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
 
         
         toast.dismiss(toastLoading)
-        console.log('RESPONSE:',)
         if(Array.isArray(response) && response.length === 0){
           toast.success('Búsqueda Realizada: 0 resultados',{autoClose:1500})
         }else{

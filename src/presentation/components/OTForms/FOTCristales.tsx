@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { SelectInputComponent } from '..';
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
 import { validationOTlevel2, validationOTlevel3,  } from '../../utils/validationOT';
 import SelectInputTiposComponent from '../forms/SelectInputTiposComponent';
 import { A1_CR_OD, A1_CR_OI, A1_GRUPO_OD, A1_GRUPO_OI, A2_CR_OD, A2_CR_OI, A2_Diametro, A2_GRUPO_OD, A2_GRUPO_OI, tipo_de_anteojo } from '../../utils';
 import TextInputInteractive from '../forms/TextInputInteractive';
-import { AppStore, useAppSelector } from '../../../redux/store';
+// import { AppStore, useAppSelector } from '../../../redux/store';
 
 
 interface ICristales {
@@ -38,7 +38,7 @@ const FOTCristales: React.FC<ICristales> = ({
     permiso_area_verificar_cristal,
     isEditting
 }) => {
-    const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas["areaActual"]);
+    // const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas["areaActual"]);
 
 
     const handleInputChange = async (e: any) => {
@@ -274,9 +274,15 @@ const FOTCristales: React.FC<ICristales> = ({
 
     // console.log(tipo_de_anteojo.value)
 
-    // console.log(A2_CR_OD.value.trim())
-    // console.log(data && data[EnumGrid.cristal2_od])
+    // console.log(A2_CR_OD.value)
+    // console.log(data?.[EnumGrid.cristal2_od])
 
+    useEffect(()=>{
+        A2_CR_OD.value = data?.[EnumGrid.cristal2_od]
+        A2_CR_OI.value = data?.[EnumGrid.cristal2_oi]
+    },[])
+    // console.log(data && data[EnumGrid.cristal2_od])
+    
 
     return (
         <form>
@@ -662,7 +668,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                             label="Codigo Cristal OD"
                                             name="cristal2_od"
                                             handleChange={handleInputChange}
-                                            data={A2_CR_OD.value.trim() || data && data[EnumGrid.cristal2_od]}
+                                            data={A2_CR_OD.value || data && data[EnumGrid.cristal2_od]}
                                             control={control}
                                             isOT={true}
                                             onlyRead={!((isEditting && tipo_de_anteojo.value === '3') && (isEditting && permiso_areas_cristales && permiso_usuario_cristales && tipo_de_anteojo.value === '3'))}
@@ -675,7 +681,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                             label="Codigo Cristal OI"
                                             name="cristal2_oi"
                                             handleChange={handleInputChange}
-                                            data={A2_CR_OI.value.trim() || data && data[EnumGrid.cristal2_oi]}
+                                            data={A2_CR_OI.value || data && data[EnumGrid.cristal2_oi]}
                                             control={control}
                                             isOT={true}
                                             onlyRead={!((isEditting && tipo_de_anteojo.value === '3') && (isEditting && permiso_areas_cristales && permiso_usuario_cristales && tipo_de_anteojo.value === '3'))}

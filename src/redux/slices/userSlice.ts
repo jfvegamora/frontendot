@@ -25,7 +25,6 @@ export const userSlice = createSlice({
     login: (_state, action:PayloadAction<IUser>) => {
         const userData = action.payload;
         _state = userData;
-        console.log(userData)
         localStorage.setItem(UserKey, JSON.stringify(userData))
         return userData;
     },
