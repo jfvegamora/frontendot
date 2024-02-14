@@ -107,6 +107,7 @@ const MAccesorios: React.FC = () => {
                 label: "Almacén",
                 type: "select",
                 selectUrl: "/api/almacenes/", styles:{with:"!w-[14rem]"},
+                _p1:"3"
               },
               ]}
           />

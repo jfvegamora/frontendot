@@ -157,6 +157,7 @@ const MCristales: React.FC = () => {
                   label: "Almacén",
                   type: "select",
                   selectUrl: "/api/almacenes/", styles:{with:"!mt-[1.2rem] !w-[19rem]"},
+                  _p1: "2"
                 },
                 ]}
             />
