@@ -238,12 +238,12 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
   }
 
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Tab") {
-      e.preventDefault(); // Prevenir el comportamiento predeterminado del evento "tab"
-      // Aquí puedes agregar cualquier lógica adicional que desees ejecutar cuando se presiona la tecla "tab"
-    }
-  };
+  // const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  //   if (e.key === "Tab") {
+  //     e.preventDefault(); // Prevenir el comportamiento predeterminado del evento "tab"
+  //     // Aquí puedes agregar cualquier lógica adicional que desees ejecutar cuando se presiona la tecla "tab"
+  //   }
+  // };
 
 return (
   <div
@@ -268,9 +268,9 @@ return (
           type      ={type}
           onBlur    ={ onlyRead ? ()=>{}  : (e)=>handleInputChange(e)}
           ref       ={inputRef}
-          // tabIndex  ={onlyRead ? 0 : (tabIndex || 1)}
-          onKeyDown={handleKeyDown}
           tabIndex  ={onlyRead ? 0 : (tabIndex || 1)}
+          // onKeyDown={handleKeyDown}
+          // tabIndex  ={onlyRead ? 0 : (tabIndex || 1)}
           step      ={step}
           readOnly  = {onlyRead}
           className={`${className ? className : "custom-input"}  ${onlyRead ? "custom-onlyread cursor-not-allowed" : isOptional ? "custom-optional" : "custom-required"} ${textAlign && textAlign}`}

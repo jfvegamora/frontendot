@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { SelectInputComponent, TextInputComponent } from '..'
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica'
 // import {a1_od_ad, a1_od_cil, a1_od_eje, a1_od_esf, a1_oi_ad, a1_oi_cil, a1_oi_eje, a1_oi_esf, a2_od_cil, a2_od_eje, a2_od_esf, a2_oi_cil, a2_oi_eje, a2_oi_esf, dioptriasHabilitadas, dioptrias_receta, onchangeDioptrias } from '../../utils'
@@ -35,7 +35,12 @@ const FOTReceta:React.FC<IReceta> = ({
     isEditting,
     permiso_usuario_receta
 }) => {
-    const handleInputChange = (e:any) => {
+
+    const firstInputRef   = useRef<HTMLInputElement | null>(null);
+    
+
+
+    const handleInputChange = async(e:any) => {
         let {name, value} = e;
         console.log(name)
         setDioptriasReceta(name, value)
@@ -55,7 +60,9 @@ const FOTReceta:React.FC<IReceta> = ({
 
         if(name === 'a1_od_cil' || name === 'a1_od_eje' || name === 'a1_od_ad'){
             // console.log('render')
-            transponer('a1_od_esf', 'a1_od_cil', 'a1_od_eje', 'a1_od')
+            
+            transponer('a1_od_esf', 'a1_od_cil', 'a1_od_eje', 'a1_od',firstInputRef)
+            
             onDataChange({[name]:value})
         }
 
@@ -211,6 +218,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 onlyRead={!(deshabilitarCampo.value.a1_ad && (!isEditting || (permiso_usuario_receta && permiso_areas_receta))) }
                                 textAlign="text-center"
                                 step={0.25}
+                                inputRef={firstInputRef}
                                 />
                         </div>
                     </div>    

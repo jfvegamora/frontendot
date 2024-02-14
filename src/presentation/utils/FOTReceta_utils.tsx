@@ -6,7 +6,7 @@ import { validation_A1_OD_CILL, validation_A1_OI_CIL, validation_A2_OD_CIL, vali
 
 export const transponer = (ESF:any, CIL:any, EJE:any, 
     // AD:any, 
-    anteojo:any)  => {
+    anteojo:any, inputRef?:any)  => {
     
 
         // console.log(anteojo)
@@ -90,6 +90,20 @@ export const transponer = (ESF:any, CIL:any, EJE:any,
                 }
                 
                 console.log(dioptrias_receta.value.a1_oi.eje)
+                const focusFirstInput = (strInputName: string) => {
+                    console.log('render')
+                  if(inputRef.current) {
+                    
+                    const firstInput = inputRef.current.querySelector(`input[name=${strInputName}]`);
+              
+                    if (firstInput) {
+                      (firstInput as HTMLInputElement).focus();
+                    }
+                  }    
+                };
+            
+                
+                focusFirstInput('a1_od_ad')
 
 
             } else {
@@ -98,8 +112,8 @@ export const transponer = (ESF:any, CIL:any, EJE:any,
             }
         }
     }
-
     
+
     console.log(Number.isNaN(dioptrias_receta.value[anteojo].ad))
     
     if(anteojo === 'a1_od'){
