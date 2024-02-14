@@ -1471,7 +1471,7 @@ useEffect(() => {
 useEffect(() => {  
   const handleKeyDown = (event:KeyboardEvent) => {
     if (event.ctrlKey && event.key === 'ArrowRight') {
-      setSelectedTab((prevTab) => (prevTab + 1) % 6);
+      setSelectedTab((prevTab) => (prevTab + 1 + 6) % 6 );
     } else if (event.ctrlKey && event.key === 'ArrowLeft') {
       setSelectedTab((prevTab) => (prevTab - 1 + 6) % 6); 
     }
