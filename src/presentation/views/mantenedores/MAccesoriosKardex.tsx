@@ -97,7 +97,9 @@ const MAccesoriosKardex: React.FC = () => {
                 name: "_p4",
                 label: "Almacén",
                 type: "select",
-                selectUrl: "/api/almacenes/", styles:{with:" !w-[14rem]"},
+                selectUrl: "/api/almacenes/", 
+                styles:{with:" !w-[14rem]"},
+                _p1: "3"
               },
               { name: "_p2", label: "Desde", type: "date" },
               { name: "_p3", label: "Hasta", type: "date" },

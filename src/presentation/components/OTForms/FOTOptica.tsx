@@ -268,7 +268,7 @@ return (
                         label="Fecha atención"
                         name="fecha_atencion"
                         handleChange={handleInputChange}
-                        data={fecha_atencion_signal.value   || data && data[EnumGrid.fecha_atencion] || (formValues && formValues["fecha_atencion"])}
+                        data={ (isEditting ? data && data[EnumGrid.fecha_atencion] : fecha_atencion_signal.value) || (formValues && formValues["fecha_atencion"])}
                         control={control}
                         onlyRead={isEditting}
                         isOT={true}

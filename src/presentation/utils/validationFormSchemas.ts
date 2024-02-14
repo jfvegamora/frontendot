@@ -82,12 +82,14 @@ export const validationEstablecimientosSchema = (isEditting:boolean) =>
 // Schema PUNTOS DE VENTA
 export const validationPuntosVentaSchema = () =>
   yup.object().shape({
-    descripcion: yup.string().required(`${msg}`),
-    tipo       : yup.string().required(`${msg}`),
-    direccion  : yup.string(),
-    telefono   : yup.string(),
-    almacen    : yup.string().required(`${msg}`),
-    encargado  : yup.string().required(`${msg}`),
+    descripcion          : yup.string().required(`${msg}`),
+    tipo                 : yup.string().required(`${msg}`),
+    direccion            : yup.string(),
+    telefono             : yup.string(),
+    almacen_armazones    : yup.string().required(`${msg}`),
+    almacen_cristales    : yup.string().required(`${msg}`),
+    almacen_accesorios   : yup.string().required(`${msg}`),
+    encargado            : yup.string().required(`${msg}`),
   });
 // Schema MOTIVOS OT PENDIENTE - DERIVADAS - GARANTIA - ANULACION
 export const validationMotivosOTSchema = () =>
@@ -226,6 +228,7 @@ export const validationAlmacenesSchema = () =>
   yup.object().shape({
     descripcion: yup.string().required(`${msg}`),
     tipo       : yup.string().required(`${msg}`),
+    categoria  : yup.string().required(`${msg}`)
   });
 
 // Schema MARCAS

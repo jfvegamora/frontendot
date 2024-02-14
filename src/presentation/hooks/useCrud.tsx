@@ -257,10 +257,11 @@ const useCrud = (
   const createdEntity = async (entityData: any): Promise<any | undefined> => {
     try {
       const response = await axiosInstance.post("/crear/", entityData);
+      console.log(response)
       return response.data;
     } catch (error:any) {
-          const errorMessage = JSON.parse(error.request.responseText).error;
-          const mensajeError = procesarMensajeError(errorMessage);
+          // console.log(error.response.data.Error)
+          const mensajeError = procesarMensajeError(error.response.data.Error);
           return new Error(mensajeError)
     }
   };
@@ -269,8 +270,10 @@ const useCrud = (
     try {
       const response = await axiosInstance.post(`/editar/`, entityData);
       return response.data;
-    } catch (error) {
-      return error;
+    } catch (error:any) {
+      // return error;
+      const mensajeError = procesarMensajeError(error.response.data.Error);
+      return new Error(mensajeError)
     }
   };
 
@@ -288,37 +291,11 @@ const useCrud = (
       const response = await axiosInstance.delete(newUrl);
       return response.data;
 
-      // const intPk = pk[0].map((item: any) => Object.keys(item).length);
-      // const pkQueryParam = encodeURIComponent(JSON.stringify(pk[0]));
-      // const valoresPk1Obj1 = pk[0].map(
-
-      //   (objeto: { pk1: any }) => `"${objeto.pk1}"`
-        
-      // );
-
-      // console.log('valoresPk1Obj1', valoresPk1Obj1)
-      // console.log('valoresPk1Obj1', pkQueryParam)
-      // const p3Value = valoresPk1Obj1.map((val:any) => `'${val.replace(/"/g, '')}'`).join(',');
-
-      // // `&_${strPDelete}=${}`
-
-
-      // // console.log(p3Value)
-
-      // const url =
-      //   intPk[0] > 1 || pk[1] 
-      //     ? `/eliminar/?query=05&_pkToDelete=${pkQueryParam}`
-      //     :  !isNaN(parseInt(valoresPk1Obj1[0])) && /^\d+$/.test(valoresPk1Obj1[0])
-      //          ? (`/eliminar/?query=05&_p1=${valoresPk1Obj1}`)//caso cubierto
-      //          : (`/eliminar/?query=05&_p3=${encodeURIComponent(p3Value)}`)
-
-
-      // console.log("url", url);
-
-      // const response = await axiosInstance.delete(url);
-      // return response.data;
-    } catch (error) {
-      return error;
+    } catch (error:any) {
+      console.log(error.response.data.Error)
+      // return error;
+      // const mensajeError = procesarMensajeError(error.response.data.Error);
+      return new Error(error.response.data.Error)
     }
   };
 

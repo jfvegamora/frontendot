@@ -462,7 +462,7 @@ const FCristalesKardexIN: React.FC<IUserFormPrps> = React.memo(
                     showRefresh={true}
                     data={data && data[EnumGrid.almacen_id]}
                     control={control}
-                    entidad={["/api/almacenes/", "02"]}
+                    entidad={["/api/almacenes/", "02", "2"]}
                     error={errors.almacen}
                     customWidth={"!ml-[1rem] !mt-[-0.6rem]"}
                     />

@@ -49,6 +49,15 @@ const FOTCristales: React.FC<ICristales> = ({
         onDataChange({ [name]: value })
 
 
+        if(name === 'validar_cristal1_od'){
+            console.log(value)
+            console.log(A1_CR_OD.value)
+
+            
+
+
+        }
+
         validationOTlevel2(name, value)
         validationOTlevel3(name, value)
 
@@ -278,8 +287,10 @@ const FOTCristales: React.FC<ICristales> = ({
     // console.log(data?.[EnumGrid.cristal2_od])
 
     useEffect(()=>{
-        A2_CR_OD.value = data?.[EnumGrid.cristal2_od]
-        A2_CR_OI.value = data?.[EnumGrid.cristal2_oi]
+        if(isEditting){
+            A2_CR_OD.value = data?.[EnumGrid.cristal2_od]
+            A2_CR_OI.value = data?.[EnumGrid.cristal2_oi]
+        }
     },[])
     // console.log(data && data[EnumGrid.cristal2_od])
     

@@ -149,6 +149,7 @@ const FProyectosPuntosVentaCopiar: React.FC<IUserFormPrps> = React.memo(
         if (!blnKeep && !isEditting) {
           const result = await showModal(
             MODAL.keep,
+            '',
             MODAL.keepYes,
             MODAL.kepNo
           );

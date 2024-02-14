@@ -19,12 +19,14 @@ const strBaseUrl = "/api/puntosventa/";
 const strEntidad = "Punto de Venta ";
 
 export interface InputData {
-  descripcion: string | undefined;
-  tipo       : string | undefined;
-  direccion  : string | undefined;
-  almacen    : string | undefined;
-  encargado  : string | undefined;
-  telefono   : string | undefined;
+  descripcion          : string | undefined;
+  tipo                 : string | undefined;
+  direccion            : string | undefined;
+  almacen_armazones    : string | undefined;
+  almacen_cristales    : string | undefined;
+  almacen_accesorios   : string | undefined;
+  encargado            : string | undefined;
+  telefono             : string | undefined;
 }
 
 interface OutputData {
@@ -39,7 +41,9 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
               "${jsonData.direccion}", 
               "${jsonData.telefono}", 
                ${jsonData.encargado}, 
-               ${jsonData.almacen}`;
+               ${jsonData.almacen_armazones},
+               ${jsonData.almacen_cristales},
+               ${jsonData.almacen_accesorios}`;
 
   _p1 = _p1.replace(/'/g, '!');     
 
@@ -56,12 +60,14 @@ export function transformUpdateQuery(
   primaryKey: string
 ): OutputData | null {
   const fields = [
-    `tipo       = ${jsonData.tipo}`,
-    `descripcion="${jsonData.descripcion}"`,
-    `direccion  ="${jsonData.direccion}"`,
-    `telefono   ="${jsonData.telefono}"`,
-    `encargado  = ${jsonData.encargado}`,
-    `almacen    = ${jsonData.almacen}`,
+    `tipo                  = ${jsonData.tipo}`,
+    `descripcion           ="${jsonData.descripcion}"`,
+    `direccion             ="${jsonData.direccion}"`,
+    `telefono              ="${jsonData.telefono}"`,
+    `encargado             = ${jsonData.encargado}`,
+    `almacen_armazones     = ${jsonData.almacen_armazones}`,
+    `almacen_cristales     = ${jsonData.almacen_cristales}`,
+    `almacen_accesorios    = ${jsonData.almacen_accesorios}`,
   ];
 
   const filteredFields = fields.filter(
@@ -166,6 +172,7 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
         if (!blnKeep && !isEditting) {
           const result = await showModal(
             MODAL.keep,
+            '',
             MODAL.keepYes,
             MODAL.kepNo
           );
@@ -233,13 +240,16 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
 
     return (
       <div className="useFormContainer centered-div w-[30vw]">
-        <div className="userFormBtnCloseContainer">
-          <button onClick={closeModal} className="userFormBtnClose">
-            X
-          </button>
+        <div className="userFormBtnCloseContainer flex ">
+            <div className='w-[90%] mx-auto !text-center  '>
+                <h1 className='userFormLabel mx-auto  w-full '>{label}</h1>
+            </div>
+            <div className=''>
+                <button onClick={closeModal} className="userFormBtnClose">
+                    X
+                </button>
+            </div>
         </div>
-        <h1 className="userFormLabel">{label}</h1>
-
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))}
           className="userFormulario">
@@ -289,13 +299,41 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
           <div className="input-container items-center rowForm ">
               <div className="w-full ">
                 <SelectInputComponent
-                  label="Almacén"
-                  name="almacen"
+                  label="Almacén Armazones"
+                  name="almacen_armazones"
                   showRefresh={true}
-                  data={data && data[EnumGrid.almacen_id]}
+                  data={data && data[EnumGrid.almacen_armazones_id]}
                   control={control}
-                  entidad={["/api/almacenes/", "02"]}
-                  error={errors.almacen}
+                  entidad={["/api/almacenes/", "02", "1"]}
+                  error={errors.almacen_armazones}
+                  customWidth={"w-full ml-4"}
+                />
+              </div>
+          </div>
+          <div className="input-container items-center rowForm ">
+              <div className="w-full ">
+                <SelectInputComponent
+                  label="Almacén Cristales"
+                  name="almacen_cristales"
+                  showRefresh={true}
+                  data={data && data[EnumGrid.almacen_cristales_id]}
+                  control={control}
+                  entidad={["/api/almacenes/", "02", "2"]}
+                  error={errors.almacen_cristales}
+                  customWidth={"w-full ml-4"}
+                />
+              </div>
+          </div>
+          <div className="input-container items-center rowForm ">
+              <div className="w-full ">
+                <SelectInputComponent
+                  label="Almacén Accesorios"
+                  name="almacen_accesorios"
+                  showRefresh={true}
+                  data={data && data[EnumGrid.almacen_accesorios_id]}
+                  control={control}
+                  entidad={["/api/almacenes/", "02", "3"]}
+                  error={errors.almacen_accesorios}
                   customWidth={"w-full ml-4"}
                 />
               </div>

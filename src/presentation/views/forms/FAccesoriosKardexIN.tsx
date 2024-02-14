@@ -32,7 +32,7 @@ export interface InputData {
   descripcion         : string | undefined;
   fecha               : string | undefined;
   // es                  : string | undefined;
-  motivo_ingreso              : string | undefined;
+  motivo_ingreso      : string | undefined;
   cantidad            : string | undefined;
   almacen             : string | undefined;
   numero_factura      : string | undefined;
@@ -433,7 +433,7 @@ const FAccesoriosKardexIN: React.FC<IUserFormPrps> = React.memo(
                     showRefresh={true}
                     data={data && data[EnumGrid.almacen_id]}
                     control={control}
-                    entidad={["/api/almacenes/", "02"]}
+                    entidad={["/api/almacenes/", "02", "3"]}
                     error={errors.almacen}
                     customWidth={"!ml-[1rem] !mt-[-0.6rem]"}
                     />

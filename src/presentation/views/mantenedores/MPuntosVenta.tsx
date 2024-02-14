@@ -21,8 +21,12 @@ export enum EnumGrid {
   telefono = 6,
   encargado_id = 7,
   encargado = 8,
-  almacen_id = 9,
-  almacen = 10,
+  almacen_armazones_id = 9,
+  almacen_armazones = 10,
+  almacen_cristales_id = 11,
+  almacen_cristales = 12,
+  almacen_accesorios_id = 13,
+  almacen_accesorios = 14,
 }
 
 const strEntidad = "Punto de Venta ";

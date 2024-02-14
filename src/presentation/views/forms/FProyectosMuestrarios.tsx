@@ -306,23 +306,23 @@
 //               </div>
 //             </div>
 
-//             <div className="w-full flex items-center !my-4 h-[4rem]">
-//               <div className="input-container items-center rowForm w-full">
-//                 <div className="w-full">
-//                   <SelectInputComponent
-//                     label="Muestrario"
-//                     name="almacen"
-//                     showRefresh={true}
-//                     data={data && data[EnumGrid.almacen_id]}
-//                     control={control}
-//                     entidad={["/api/almacenes/", "02", "1"]} //excluye almacenes tipo 1: Bodega
-//                     error={errors.almacen}
-//                     readOnly={isEditting}
-//                     customWidth={"!ml-[1rem] "}
-//                     />
-//                   </div>
-//               </div>
-//             </div>
+            // <div className="w-full flex items-center !my-4 h-[4rem]">
+            //   <div className="input-container items-center rowForm w-full">
+            //     <div className="w-full">
+            //       <SelectInputComponent
+            //         label="Muestrario"
+            //         name="almacen"
+            //         showRefresh={true}
+            //         data={data && data[EnumGrid.almacen_id]}
+            //         control={control}
+            //         entidad={["/api/almacenes/", "02", "1"]} //excluye almacenes tipo 1: Bodega
+            //         error={errors.almacen}
+            //         readOnly={isEditting}
+            //         customWidth={"!ml-[1rem] "}
+            //         />
+            //       </div>
+            //   </div>
+            // </div>
 
 //             <div className="w-full flex items-center h-[4rem] ml-[1rem]">
 //               <div className="input-container items-center rowForm w-[25%]">

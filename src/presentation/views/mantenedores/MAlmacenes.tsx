@@ -66,8 +66,8 @@ const MAlmacenes: React.FC = () => {
 
   return (
     <div className="mantenedorContainer">
-      <div className="mantenedorHead width70">
-        <div className="w-[60%]">
+      <div className="mantenedorHead width80">
+        <div className="w-[80%]">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
             setParams={setParams}
@@ -80,7 +80,17 @@ const MAlmacenes: React.FC = () => {
                 label     : "Tipo",
                 type      : "select",
                 selectUrl : "/api/tipos/",
-                tipos     : "AlmacenesTipos"
+                tipos     : "AlmacenesTipos",
+                styles    :  {with:" !w-[16rem]"}
+              },
+              {
+                name      : "_p3",
+                label     : "Categoría",
+                type      : "select",
+                selectUrl : "/api/tipos/",
+                tipos     : "AlmacenesCategorias",
+                styles    :  {with:" !w-[16rem]"}
+
               },
             ]}
           />
@@ -123,7 +133,7 @@ const MAlmacenes: React.FC = () => {
         />
       </div>
 
-
+  
       {isModalInsert && (
         <FAlmacenes
           label={`${TITLES.ingreso} ${strEntidad}`}

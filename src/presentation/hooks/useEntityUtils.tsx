@@ -187,7 +187,9 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
         try {
           // console.log("comilla", comilla);
           const response = await deleteAllEntity([rowData, comilla]);
-          const errorDelete = response?.response?.data?.error;
+          // console.log(response)
+          const errorDelete = response.message;
+          // console.log(errorDelete)
           if (errorDelete) {
             toast.error(errorDelete);
           } else {

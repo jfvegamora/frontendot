@@ -21,6 +21,7 @@ const strEntidad = "Almacén ";
 export interface InputData {
   descripcion: string | undefined;
   tipo       : string | undefined;
+  categoria  : string | undefined;
 }
 
 interface OutputData {
@@ -31,7 +32,8 @@ interface OutputData {
 
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
   let _p1 = `"${jsonData.descripcion}", 
-               ${jsonData.tipo}`;
+               ${jsonData.tipo},
+               ${jsonData.categoria}`;
 
   _p1 = _p1.replace(/'/g, '!');
 
@@ -50,6 +52,8 @@ export function transformUpdateQuery(
   const fields = [
     `descripcion="${jsonData.descripcion}"`,
     `tipo       = ${jsonData.tipo}`,
+    `categoria  = ${jsonData.categoria}`,
+
   ];
 
   const filteredFields = fields.filter(
@@ -255,6 +259,22 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
                     data={data && data[EnumGrid.tipo_almacen_id]}
                     control={control}
                     entidad={"AlmacenesTipos"}
+                    error={errors.tipo}
+                    customWidth={"!w-full ml-4"}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="w-full flex items-center h-[4rem]">
+              <div className="input-container items-center rowForm w-full">
+                <div className="w-full ">
+                  <SelectInputTiposComponent
+                    label="Categoría"
+                    name="categoria"
+                    showRefresh={true}
+                    data={data && data[EnumGrid.tipo_almacen_id]}
+                    control={control}
+                    entidad={"AlmacenesCategorias"}
                     error={errors.tipo}
                     customWidth={"!w-full ml-4"}
                   />

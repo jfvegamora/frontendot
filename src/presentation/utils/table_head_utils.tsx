@@ -689,7 +689,8 @@ export const table_head_puntos_venta = [
     cell: "Descripción",
     key: "descripcion",
     visible: true,
-    alignment: "text-left"
+    alignment: "text-left",
+    width: "w-[14rem]",
   },
   {
     cell: "Tipo Id",
@@ -700,19 +701,22 @@ export const table_head_puntos_venta = [
     cell: "Tipo",
     key: "tipo",
     visible: true,
-    alignment: "text-left"
+    alignment: "text-left",
+    width: "w-[12rem]",
   },
   {
     cell: "Dirección",
     key: "direccion",
     visible: true,
-    alignment: "text-left"
+    alignment: "text-left",
+    width: "w-[12rem]",
   },
   {
     cell: "Teléfono",
     key: "telefono",
     visible: true,
-    alignment: "text-center"
+    alignment: "text-center",
+    width: "w-[10rem]",
   },
   {
     cell: "Encargado Id",
@@ -723,18 +727,44 @@ export const table_head_puntos_venta = [
     cell: "Encargado",
     key: "encargado",
     visible: true,
-    alignment: "text-left"
+    alignment: "text-left",
+    width: "w-[10rem]",
   },
   {
-    cell: "Almacén Id",
-    key: "almacen_id",
+    cell: "Almacén armazones id",
+    key: "almacen_armazones_id",
     visible: false,
   },
   {
-    cell: "Almacén de Consumo",
-    key: "almacen",
+    cell: "Almacén de Armazones",
+    key: "almacen_armazones",
     visible: true,
-    alignment: "text-left"
+    alignment: "text-left",
+    width: "w-[12rem]",
+  },
+  {
+    cell: "Almacén cristales id",
+    key: "almacen_cristales_id",
+    visible: false,
+  },
+  {
+    cell: "Almacén de Cristales",
+    key: "almacen_cristales",
+    visible: true,
+    alignment: "text-left",
+    width: "w-[12rem]",
+  },
+  {
+    cell: "Almacén accesorios id",
+    key: "almacen_accesorios_id",
+    visible: false,
+  },
+  {
+    cell: "Almacén de Accesorios",
+    key: "almacen_accesorios",
+    visible: true,
+    alignment: "text-left",
+    width: "w-[14rem]",
   },
   {
     cell: "",
@@ -1454,6 +1484,18 @@ export const table_head_almacenes = [
   {
     cell: "Tipo Almacén",
     key: "tipo_almacen",
+    visible: true,
+    alignment: "text-left"
+  },
+  {
+    cell: "Categoria_id",
+    key: "categoria_id",
+    visible: false,
+    alignment: "text-left"
+  },
+  {
+    cell: "Categoría",
+    key: "categoria",
     visible: true,
     alignment: "text-left"
   },

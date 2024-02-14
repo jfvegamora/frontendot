@@ -100,6 +100,7 @@ const MArmazonesKardex: React.FC = () => {
                 label: "Almacenes",
                 type: "select",
                 selectUrl: "/api/almacenes/", styles:{with:" !w-[14rem]"},
+                _p1: "1"
               },
               { name: "_p2", label: "Desde", type: "date" },
               { name: "_p3", label: "Hasta", type: "date" },
