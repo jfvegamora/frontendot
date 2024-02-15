@@ -736,7 +736,7 @@ export const table_head_puntos_venta = [
     visible: false,
   },
   {
-    cell: "Almacén de Armazones",
+    cell: "Almacén de Consumo Armazones",
     key: "almacen_armazones",
     visible: true,
     alignment: "text-left",
@@ -748,7 +748,7 @@ export const table_head_puntos_venta = [
     visible: false,
   },
   {
-    cell: "Almacén de Cristales",
+    cell: "Almacén de Consumo Cristales",
     key: "almacen_cristales",
     visible: true,
     alignment: "text-left",
@@ -760,7 +760,7 @@ export const table_head_puntos_venta = [
     visible: false,
   },
   {
-    cell: "Almacén de Accesorios",
+    cell: "Almacén de Consumo Accesorios",
     key: "almacen_accesorios",
     visible: true,
     alignment: "text-left",
@@ -3305,7 +3305,6 @@ export const table_head_proyectos_docum = [
     width: "w-[4rem]",
   },
 ];
-
 export const table_head_oftalmologos = [
   {
     cell: <input type="checkbox" />,
