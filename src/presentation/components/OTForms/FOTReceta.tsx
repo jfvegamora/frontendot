@@ -38,6 +38,8 @@ const FOTReceta:React.FC<IReceta> = ({
     permiso_usuario_receta
 }) => {
 
+    const [isRender, setIsRender] = useState(false);
+
     const firstInputRef   = useRef<HTMLInputElement | null>(null);
     const secondInputRef  = useRef<HTMLInputElement | null>(null);
 
@@ -80,7 +82,7 @@ const FOTReceta:React.FC<IReceta> = ({
         // console.log(dioptrias_receta.value.a1_oi)
     }
 
-    console.log(A1_ALT.value)
+    console.log(isRender)
 
     
   return (
@@ -266,6 +268,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 control={control}
                                 onlyRead={!(!isEditting || (permiso_usuario_receta && permiso_areas_receta))}
                                 textAlign="text-center"
+                                renderComponent={setIsRender}
                                 
                                 />
                         </div>
