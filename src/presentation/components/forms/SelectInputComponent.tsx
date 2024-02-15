@@ -123,11 +123,11 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     // };
     const fetchSelectData =async()=>{
       const {data} = await axios(strUrl2)
-      if(label === 'Punto de Venta'){
-        if(data && data[0]){
-          punto_venta.value = data[0][0]
-        }
-      }
+      // if(label === 'Punto de Venta'){
+      //   if(data && data[0]){
+      //     punto_venta.value = data[0][0]
+      //   }
+      // }
       const payload = {
         [label]:data
       }

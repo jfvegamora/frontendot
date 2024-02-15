@@ -1085,7 +1085,8 @@ export const validation_A1_OD_EJE = (value: string | any) => {
   
     if (value !== '') {
     const parseValue = parseFloat(value)    
-    
+    console.log(parseValue)
+
       if(parseValue >= 0 && parseValue <= 180){
           if(!(parseValue % 0.25 === 0)){
                 dioptrias_receta.value.a1_od.eje = "  ";
@@ -1113,7 +1114,7 @@ export const validation_A1_OD_EJE = (value: string | any) => {
       item.valor = 0;
     }
 
-    // console.log(item)
+    console.log(item)
 
 
   };

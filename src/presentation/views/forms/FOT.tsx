@@ -1189,17 +1189,25 @@ const FOT:React.FC<IFOTProps> = ({
         const formValue = getValues()
         const {cristal2_marca_id, cristal2_diseno_id, cristal2_indice_id, cristal2_color_id , cristal2_material_id,cristal2_tratamiento_id } = formValue;
         // console.log(formValue.cristal2_diametro)
-        if(cristal2_marca_id                      !== undefined   || data?.[EnumGrid.cristal2_marca_id]          !== undefined &&
-          cristal2_diseno_id                      !== undefined   || data?.[EnumGrid.cristal2_diseno_id]         !== undefined &&
-          cristal2_indice_id                      !== undefined   || data?.[EnumGrid.cristal2_indice_id]         !== undefined && 
-          cristal2_color_id                       !== undefined   || data?.[EnumGrid.cristal2_color_id]          !== undefined &&
-          cristal2_material_id                    !== undefined   || data?.[EnumGrid.cristal2_material_id]       !== undefined &&
-          cristal2_tratamiento_id                 !== undefined   || data?.[EnumGrid.cristal1_tratamiento_id]    !== undefined &&
-          A2_Diametro.value                       !== ''        &&
-          a2_od_esf.value                         !== ''        &&
-          a2_oi_esf.value                         !== ''        
+
+        console.log(A2_Diametro.value)
+        console.log(a2_od_esf.value)
+        console.log(a2_oi_esf.value)
+
+        console.log(dioptrias_receta.value.a2_od.esf)
+        console.log(dioptrias_receta.value.a2_od.cil)
+
+        if((cristal2_marca_id                      !== undefined   || data?.[EnumGrid.cristal2_marca_id]          !== undefined) &&
+          (cristal2_diseno_id                      !== undefined   || data?.[EnumGrid.cristal2_diseno_id]         !== undefined) &&
+          (cristal2_indice_id                      !== undefined   || data?.[EnumGrid.cristal2_indice_id]         !== undefined) && 
+          (cristal2_color_id                       !== undefined   || data?.[EnumGrid.cristal2_color_id]          !== undefined) &&
+          (cristal2_material_id                    !== undefined   || data?.[EnumGrid.cristal2_material_id]       !== undefined) &&
+          (cristal2_tratamiento_id                 !== undefined   || data?.[EnumGrid.cristal2_tratamiento_id]    !== undefined) &&
+          A2_Diametro.value                       !== ''           &&
+          dioptrias_receta.value.a2_od.esf        !== ' '          &&
+          dioptrias_receta.value.a2_od.cil        !== ' '        
           ){
-          // console.log('ejecutando llamada.....')
+          console.log('ejecutando llamada.....')
           const _pkToDelete1_od ={
             "marca":      cristal2_marca_id        || data?.[EnumGrid.cristal2_marca_id],
             "diseno":     cristal2_diseno_id       || data?.[EnumGrid.cristal2_diseno_id],

@@ -161,6 +161,14 @@ useEffect(()=>{
 // console.log(permiso_usuario_estado_impresion)
 // console.log(permisos_areas_estado_immpresion)
 
+useEffect(()=>{
+    if(data){
+        punto_venta.value = data?.[EnumGrid.punto_venta_id]
+    }
+},[])
+
+// console.log(punto_venta.value)
+
 return (
     <form action="">
         <div className='w-full frameOTForm'>
