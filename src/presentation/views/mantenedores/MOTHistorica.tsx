@@ -369,16 +369,16 @@ const MOTHistorica: React.FC = () => {
       <div className="mantenedorHeadOT width100 !h-[4rem] !mt-8 mr-8 items-center ">
         <div className="mx-auto">
 
-          <Button className='otActionButton mt-3 mx-5' style={{ backgroundColor: '#676f9d' }} onClick={() => handleReporte(2)}>Asignar N° Rep. Firma</Button>
-          <Button className='otActionButton mt-3 mx-5' style={{ backgroundColor: '#676f9d' }} onClick={() => handleReporte(1)} >Asignar N° Rep. Atención</Button>
+          <Button className='otActionButton mt-3 mx-5' style={{ backgroundColor: '#676f9d' }} onClick={() => handleReporte(2)}>N° Rep. Firma</Button>
+          <Button className='otActionButton mt-3 mx-5' style={{ backgroundColor: '#676f9d' }} onClick={() => handleReporte(1)} >N° Rep. Atención</Button>
 
-          <Button className='otActionButton mt-3 mx-5' style={{ backgroundColor: '#676f9d' }} onClick={() => setShowOrdenCompra((prev) => !prev)}>Asignar N° OC</Button>
+          <Button className='otActionButton mt-3 mx-5' style={{ backgroundColor: '#676f9d' }} onClick={() => setShowOrdenCompra((prev) => !prev)}>N° OC</Button>
           {showOrdenCompra  && <FOTOrdenCompra  pktoDelete={pktoDelete}  setSelectedRows={setSelectedRows} closeModal={() => setShowOrdenCompra(false)} />}
 
-          <Button className='otActionButton mt-3 mx-5' style={{ backgroundColor: '#676f9d' }} onClick={() => setShowFactura((prev) => !prev)}>Asignar N° Factura</Button>
+          <Button className='otActionButton mt-3 mx-5' style={{ backgroundColor: '#676f9d' }} onClick={() => setShowFactura((prev) => !prev)}>N° Factura</Button>
           {showFactura      && <FOTFactura      pktoDelete={pktoDelete}  setSelectedRows={setSelectedRows} closeModal={() => setShowFactura(false)} />}
 
-          <Button className='otActionButton mt-3 mx-5' style={{ backgroundColor: '#676f9d' }} onClick={() => setShowGuia((prev) => !prev)}>Asignar N° Guía</Button>
+          <Button className='otActionButton mt-3 mx-5' style={{ backgroundColor: '#676f9d' }} onClick={() => setShowGuia((prev) => !prev)}>N° Guía</Button>
           {showGuia         && <FOTGuiaDespacho pktoDelete={pktoDelete } setSelectedRows={setSelectedRows} closeModal={() => setShowGuia(false)} />}
 
           <ExportCSV strEntidad={strEntidad} params={params} strBaseUrl={strBaseUrl}/>  
