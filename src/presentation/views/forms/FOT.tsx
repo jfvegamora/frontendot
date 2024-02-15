@@ -695,6 +695,7 @@ const FOT:React.FC<IFOTProps> = ({
       _obs:"OT INGRESADA",
       _cristalesJSON: cristalesJSON,
       _armazonesJSON: armazonesJSON,
+      _punto_venta:`${jsonData.punto_venta_id}`,
     };
 
     // console.log('Valor de jsonData.a1_od_cil:', jsonData.a1_od_cil.value || 0);
@@ -1596,7 +1597,7 @@ useEffect(()=>{
                 // isMotivo    &&  (
                   (
                     <Button className='otActionButton bg-green-400' onClick={() => setShowGarantia(prev => !prev)}>
-                      Garantia
+                      Garantía
                     </Button>
                 )}
                 
