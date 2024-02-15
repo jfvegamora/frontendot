@@ -2,11 +2,14 @@ import { Input } from "@material-tailwind/react";
 import React, {useEffect, useState} from "react";
 import { Controller } from "react-hook-form";
 import { 
+  a1_od_eje,
   a1_od_esf,
+  a1_oi_eje,
   a1_oi_esf,
   // a1_od_cil, a1_od_eje, a1_od_esf, 
   a2_od_cil, a2_od_eje, a2_od_esf, a2_oi_cil, a2_oi_eje, a2_oi_esf, dioptrias_receta } from "../../utils";
 import { toast } from "react-toastify";
+import { validation_A1_OD_EJE, validation_A1_OI_EJE } from "../../utils/validationOT";
 
 interface ITextInputProps {
   label: string;
@@ -23,7 +26,8 @@ interface ITextInputProps {
   otData?:any;
   isOptional?:boolean;
   textAlign?: string;
-  step?:number
+  step?:number;
+  renderComponent?:any
 }
 
 const OTTextInputComponent: React.FC<ITextInputProps> = ({
@@ -41,10 +45,11 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
   isOptional,
   textAlign,
   step,
+  renderComponent
 }) => {
   const [defaultValue, setDefaultValue] = useState<string>(otData || " ")
 
-  const[_reder, setRender] = useState(false);
+  const[render, setRender] = useState(false);
 
   let initialValue:any = "";
   // let newValue = ''
@@ -146,32 +151,28 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
        
        break;
       case 'a1_od_eje':
-        console.log(e.target.value)
-        if (parseFloat(e.target.value) === 0) {
-          return;
-        }
-      
         if(Number(e.target.value).toFixed(2) as any >= 0 &&  Number(e.target.value).toFixed(2) as any <= 180){
           if(!(parseFloat(e.target.value) as any % 0.25 === 0)){
-            
-            setValue(' ')
-            toast.error('Esferico ojo derecho no corresponde')
             dioptrias_receta.value.a1_od.eje = " "
-            console.log('render')
+            setValue(' ')
+            setRender((prev)=>!prev)  
+            validation_A1_OD_EJE("")
+            toast.error('Esferico ojo derecho no corresponde')
+            return
           }else{
-            console.log(e.target.value)
-            setValue(e.target.value)
-            dioptrias_receta.value.a1_od_eje = e.target.value  as any             
-            console.log('render')
+            setRender((prev)=>!prev)             
+            validation_A1_OD_EJE(e.target.value)
+            return
           }
         }else{
-            toast.error('Esferico ojo derecho no corresponde')
-            dioptrias_receta.value.a1_od.eje = " "
-            setValue("  ")
-
+          toast.error('Esferico ojo derecho no corresponde')
+          dioptrias_receta.value.a1_od.eje = "  "
+          a1_od_eje.value = " "
+          setRender((prev)=>!prev)  
+          setValue("  ")
+          validation_A1_OD_EJE("")
+          return
         }
-
-        break;
       case 'a1_od_ad':
         if(!(parseFloat(e.target.value) >= 0.25 && parseFloat(e.target.value) <= 4)) {
             toast.error('Adicional ojo derecho no corresponde')
@@ -205,17 +206,23 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
           if(!(parseFloat(e.target.value) as any % 0.25 === 0)){
             dioptrias_receta.value.a1_oi.eje = "  "
             setValue(' ')
+            setRender((prev)=>!prev)
+            validation_A1_OI_EJE("")
             toast.error('Esferico ojo izquierdo no corresponde')
+            return;
           }else{
-            null
+            setRender((prev)=>!prev)
+            validation_A1_OI_EJE(e.target.value)
+            return;
           }
         }else{
           toast.error('Esferico ojo izquierdo no corresponde')
           dioptrias_receta.value.a1_oi.eje = "  "
+          a1_oi_eje.value = " "
           setValue(" ")
+          validation_A1_OI_EJE("")
+          return;
         }
-        break;
-
       case 'a1_oi_ad':
         if(!(parseFloat(e.target.value) >= 0.25 && parseFloat(e.target.value) <= 4)) {
           toast.error('Adicional ojo izquierdo no corresponde')
@@ -235,23 +242,24 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
  
 
   useEffect(()=>{
-    if(name === 'a1_od_eje'){
-      console.log(value)
-    }
+    // if(name === 'a1_od_eje'){
+    //   console.log(value)
+    // }
 
     setRender((prev)=>!prev)
   },[dioptrias_receta.value.a1_od.cil, dioptrias_receta.value.a1_oi.cil])
  
- 
- 
-  if(name === 'a1_oi_eje'){
-    // console.log(value)
-  }
- 
-  if(name === 'a1_od_eje'){
-    // console.log(value)
-  }
+  
+  useEffect(() => {
+    // Ejecutar renderComponent cuando sea necesario
+    if (renderComponent) {
+      renderComponent((prev:any) => !prev);
+      // console.log('render')
+    }
+  }, [dioptrias_receta.value.a1_od.eje, render]); // Cambiar esta dependencia según lo que desees observar
 
+
+  // console.log(render)
 
   // const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
   //   if (e.key === "Tab") {
