@@ -5,7 +5,7 @@ import { EnumGrid as EnumArmazones } from '../../views/mantenedores/MArmazones';
 import { validationOTlevel2, validationOTlevel3, validation_A1_armazon, validation_A2_armazon } from '../../utils/validationOT';
 import { URLBackend } from '../../hooks/useCrud';
 import { toast } from 'react-toastify';
-import { A1_DP, A1_Diametro, A2_DP, A2_Diametro, codigoProyecto, punto_venta, tipo_de_anteojo, validar_parametrizacion } from '../../utils';
+import { A1_DP, A1_Diametro, A2_DP, A2_Diametro, a1_armazon, codigoProyecto, punto_venta, tipo_de_anteojo, validar_parametrizacion } from '../../utils';
 import TextInputInteractive from '../forms/TextInputInteractive';
 import { validationNivel3 } from '../../views/forms/FOT';
 import { AppStore, useAppSelector } from '../../../redux/store';
@@ -50,7 +50,12 @@ const FOTArmazones:React.FC<IArmazones> = ({
     const [armazon2, setArmazon2] = useState([])
     const [armazon3, setArmazon3] = useState([])
 
+    const [render, setRender] = useState(false)
+
     const [validarA1, setValidarA2] = useState("");
+
+
+    
 
 
     //TODO! =========================== ENVIAR DP EN _P4 PARA VALIDAR ARMAZONES ===========================================================================
@@ -72,22 +77,25 @@ const FOTArmazones:React.FC<IArmazones> = ({
 
 
         if (
-            (name === 'a1_armazon_id' && (value.trim() === codArmazon2 || value.trim() === codArmazon3)) ||
-            (name === 'a2_armazon_id' && (value.trim() === codArmazon1 || value.trim() === codArmazon3)) ||
-            (name === 'a3_armazon_id' && (value.trim() === codArmazon1 || value.trim() === codArmazon2))
+            (name === 'a1_armazon_id' && (value !== " " && value !== '') && (value.trim() === codArmazon2 || value.trim() === codArmazon3)) ||
+            (name === 'a2_armazon_id' && (value !== " " && value !== '') && (value.trim() === codArmazon1 || value.trim() === codArmazon3)) ||
+            (name === 'a3_armazon_id' && (value !== " " && value !== '') && (value.trim() === codArmazon1 || value.trim() === codArmazon2))
         ) {
             switch (name) {
                 case 'a1_armazon_id':
+                    toast.error(`Código Armazon 1 no puede ser igual a Código ${codArmazon3 === codArmazon2 ? 'Armazon 3': 'Armazon 2'}`);
                     onDataChange({['a1_armazon_id']: " "})
+                    a1_armazon.value = ""
                     setCodArmazon1(" ")
                     setArmazon1([])
                     validation_A1_armazon("")
-                    break;
+                    return
                 case 'a2_armazon_id':
                     onDataChange({['a2_armazon_id']: " "})
                     setCodArmazon2(" ")
                     setArmazon2([])
                     validation_A2_armazon("")
+                    toast.error(`Código Armazon 2 no puede ser igual a Código ${codArmazon1 === codArmazon3 ? 'Armazon 3': 'Armazon 1'}`);
                     break;
                 case 'a3_armazon_id':
                     onDataChange({['a3_armazon_id']: " "})
@@ -99,7 +107,8 @@ const FOTArmazones:React.FC<IArmazones> = ({
                 default:
                     break;
             }
-            toast.error('Los códigos de los armazones no pueden ser iguales entre sí.');
+            // toast.error('Los códigos de los armazones no pueden ser iguales entre sí.');
+            setRender((prev)=>!prev)
             return; 
         }
 
@@ -287,11 +296,11 @@ const FOTArmazones:React.FC<IArmazones> = ({
                                     label="Código Armazón 1"
                                     name="a1_armazon_id"
                                     handleChange={handleInputChange}
-                                    data={formValues ? formValues["a1_armazon_id"] : data && data[EnumGrid.a1_armazon_id]}
+                                    data={formValues  && formValues["a1_armazon_id"] ? formValues["a1_armazon_id"] : data && data[EnumGrid.a1_armazon_id]}
+                                    // data={a1_armazon.value || data && data[EnumGrid.a1_armazon_id]}
                                     control={control}
                                     onlyRead={!(permiso_usuario_armazones && permiso_areas_armazones)}
                                     isOT={true}
-                                    className=''
                                     textAlign="text-center"
                                     />
                             {OTAreas === 60 && (

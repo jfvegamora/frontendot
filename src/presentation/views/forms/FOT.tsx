@@ -11,7 +11,7 @@ import { Button } from '@material-tailwind/react';
 import FOTGarantia from '../../components/OTForms/FOTGarantia';
 import { EnumGrid } from '../mantenedores/MOTHistorica';
 import FOTDerivacion from '../../components/OTForms/FOTDerivacion';
-import { A1_ALT, A1_CR_OD, A1_CR_OI, A1_DP, A1_Diametro, A1_GRUPO_OD, A1_GRUPO_OI, A2_CR_OD, A2_CR_OI, A2_DP, A2_Diametro, A2_GRUPO_OD, A2_GRUPO_OI, SEXO, TIPO_CLIENTE, 
+import { A1_ALT, A1_CR_OD, A1_CR_OI, A1_DP, A1_Diametro, A1_GRUPO_OD, A1_GRUPO_OI, A2_CR_OD, A2_CR_OI, A2_DP, A2_Diametro, A2_GRUPO_OD, A2_GRUPO_OI, MODAL, SEXO, TIPO_CLIENTE, 
   a1_armazon, 
   a2_armazon, 
   // a1_od_ad, a1_od_cil, a1_od_eje, a1_od_esf, 
@@ -47,6 +47,7 @@ import FOTPendiente from '../../components/OTForms/FOTPendiente';
 import FOTEmpaque from './FOTEmpaque';
 import { usePermission } from '../../hooks';
 import FOTAnulacion from '../../components/OTForms/FOTAnulacion';
+import { useModal } from '../../hooks/useModal';
 
 const FOTArmazones = lazy(()=>import('../../components/OTForms/FOTArmazones'));
 const FOTBitacora = lazy(()=>import('../../components/OTForms/FOTBitacora'));
@@ -366,6 +367,7 @@ const FOT:React.FC<IFOTProps> = ({
   //PERMISOS DE AREA
   const [OTPermissions, setOTPermissions] = useState("");
   const [selectedTab, setSelectedTab] = useState(0);
+  const { showModal, CustomModal } = useModal();
 
   const { escritura_lectura } = usePermission(28);
   const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas);
@@ -672,8 +674,18 @@ const FOT:React.FC<IFOTProps> = ({
     
     
     // console.log(_p3)
+    console.log(typeof dioptrias_receta.value.a1_oi.ad !== 'string' &&  !Number.isNaN(dioptrias_receta.value.a1_oi.ad) ? dioptrias_receta.value.a1_oi.ad  : 0 )
+    console.log(dioptrias_receta.value.a1_oi.ad)
 
-    let _p1 = `${motivo},${_destino},${estado},"${estado_impresion}","${validar_parametrizacion_id}", "${jsonData.proyecto_codigo}",${jsonData.establecimiento_id || 1},"${jsonData.cliente_rut.trim() || formValues.cliente.cliente_rut.trim()}" ,${jsonData.oftalmologo_id ?? 0} ,"${jsonData.fecha_atencion || fecha_atencion_signal.value}","${jsonData.fecha_entrega_taller || fecha_entrega_taller.value}","${jsonData.fecha_despacho || fecha_despacho.value}","${jsonData.fecha_entrega_cliente || fecha_entrega_cliente.value}",${punto_venta.value || 0},${formValues?.receta.numero_receta || 0},"${jsonData.fecha_receta ?? ""}",${jsonData.tipo_anteojo_id ?? 0},${typeof dioptrias_receta.value.a1_od.esf === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_od.esf) ? dioptrias_receta.value.a1_od.esf : 0 },${typeof dioptrias_receta.value.a1_od.cil === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_od.cil) ? dioptrias_receta.value.a1_od.cil : 0},${typeof dioptrias_receta.value.a1_od.eje === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_od.eje) ? dioptrias_receta.value.a1_od.eje : 0},${(typeof dioptrias_receta.value.a1_od.ad === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_od.ad)) ? dioptrias_receta.value.a1_od.ad : 0 },${typeof dioptrias_receta.value.a1_oi.esf === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_oi.esf) ? dioptrias_receta.value.a1_oi.esf  : 0},${typeof dioptrias_receta.value.a1_oi.cil === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_oi.cil) ? dioptrias_receta.value.a1_oi.cil : 0},${typeof dioptrias_receta.value.a1_oi.eje === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_oi.eje) ? dioptrias_receta.value.a1_oi.eje : 0},${typeof dioptrias_receta.value.a1_oi.ad === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_oi.ad) ? dioptrias_receta.value.a1_oi.ad  : 0 },${A1_DP.value || 0},${formValues["receta"]["a1_alt"] > 0  ? formValues["receta"]["a1_alt"] : 0}, "${A1_GRUPO_OD.value}" ,"${A1_GRUPO_OI.value}" ,${typeof a2_od_esf.value === 'number' ? a2_od_esf.value :  0 },${typeof a2_od_cil.value === 'number' ? a2_od_cil.value : 0 },${typeof a2_od_eje.value === 'number' ? a2_od_eje.value : 0 },${typeof a2_oi_esf.value === 'number' ? a2_oi_esf.value : 0 },${typeof a2_oi_cil.value  === 'number' ? a2_oi_cil.value : 0 },${typeof a2_oi_eje.value === 'number' ? a2_oi_eje.value : 0},${A2_DP.value || 0},"${A2_GRUPO_OD.value}","${A2_GRUPO_OI.value}" ,${jsonData.a1_opcion_vta_id ?? 0},"${a1_armazon.value ?? 0}",${jsonData.a2_opcion_vta_id ?? 0},"${a2_armazon.value ?? 0 }",${jsonData.a3_opcion_vta_id ?? 0},"${a3_armazon.value?? 0}",${jsonData.cristal1_opcion_vta_id || 0},${jsonData.cristal1_marca_id || 0},${jsonData.cristal1_diseno_id || 0},${jsonData.cristal1_indice_id || 0},${jsonData.cristal1_material_id || 0},${jsonData.cristal1_tratamiento_id || 0},${jsonData.cristal1_color_id || 0},${(typeof A1_Diametro.value === 'string' && A1_Diametro.value !== "" ) ? A1_Diametro.value : 0},"${A1_CR_OD ?? " "}","${A1_CR_OI ?? " "}",${jsonData.cristal1_tratamiento_adicional_id || 0},${jsonData.cristal2_od_opcion_venta_id || 0},${jsonData.cristal2_marca_id || 0},${jsonData.cristal2_diseno_id || 0},${jsonData.cristal2_indice_id || 0},${jsonData.cristal2_material_id || 0},${jsonData.cristal2_tratamiento_id || 0},${jsonData.cristal2_color_id || 0},${(typeof A2_Diametro.value === 'string' && A2_Diametro.value !== "" ) ? A2_Diametro.value : 0},"${typeof A2_CR_OD.value === 'string' ? A2_CR_OD.value : ""}","${typeof A2_CR_OI.value === 'string' ? A2_CR_OI.value : " " }",${jsonData.cristal2_tratamiento_adicional_id || 0},${jsonData.motivo_garantia_id || 0},${jsonData.folio_asociado || 0},${isEditting ? 0 : jsonData.resolucion_garantia_id === 'Aceptada' ? '1' : '2'},"${jsonData.worktracking || 0}","${jsonData.nota_venta || 0}",${jsonData.numero_reporte_firma || 0},"${jsonData.numero_reporte_atencion || 0}","${jsonData.numero_orden_compra || 0}",${jsonData.numero_guia || 0},${jsonData.numero_factura || 0},"${jsonData.folio_interno_mandante || 0}","${jsonData.reporte_interno_mandante || 0}","${jsonData.numero_envio || 0}" ,${jsonData.total || 0},"${jsonData.observaciones || ""}","${estado_validacion}"`
+
+    console.log((typeof A2_Diametro.value === 'string' && A2_Diametro.value.trim() !== "" ) ? A2_Diametro.value : 0)
+    console.log(A2_Diametro.value)
+
+
+    console.log((typeof A1_Diametro.value === 'string' && A1_Diametro.value.trim() !== "" ) ? A1_Diametro.value : 0)
+    console.log(A1_Diametro.value)
+
+    let _p1 = `${motivo},${_destino},${estado},"${estado_impresion}","${validar_parametrizacion_id}", "${jsonData.proyecto_codigo}",${jsonData.establecimiento_id || 1},"${jsonData.cliente_rut.trim() || formValues.cliente.cliente_rut.trim()}" ,${jsonData.oftalmologo_id ?? 0} ,"${jsonData.fecha_atencion || fecha_atencion_signal.value}","${jsonData.fecha_entrega_taller || fecha_entrega_taller.value}","${jsonData.fecha_despacho || fecha_despacho.value}","${jsonData.fecha_entrega_cliente || fecha_entrega_cliente.value}",${punto_venta.value || 0},${formValues?.receta.numero_receta || 0},"${jsonData.fecha_receta ?? ""}",${jsonData.tipo_anteojo_id ?? 0},${typeof dioptrias_receta.value.a1_od.esf === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_od.esf) ? dioptrias_receta.value.a1_od.esf : 0 },${typeof dioptrias_receta.value.a1_od.cil === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_od.cil) ? dioptrias_receta.value.a1_od.cil : 0},${typeof dioptrias_receta.value.a1_od.eje === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_od.eje) ? dioptrias_receta.value.a1_od.eje : 0},${(typeof dioptrias_receta.value.a1_od.ad === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_od.ad)) ? dioptrias_receta.value.a1_od.ad : 0 },${typeof dioptrias_receta.value.a1_oi.esf === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_oi.esf) ? dioptrias_receta.value.a1_oi.esf  : 0},${typeof dioptrias_receta.value.a1_oi.cil === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_oi.cil) ? dioptrias_receta.value.a1_oi.cil : 0},${typeof dioptrias_receta.value.a1_oi.eje === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_oi.eje) ? dioptrias_receta.value.a1_oi.eje : 0},${typeof dioptrias_receta.value.a1_oi.ad !== 'string' &&  !Number.isNaN(dioptrias_receta.value.a1_oi.ad) ? dioptrias_receta.value.a1_oi.ad  : 0 },${A1_DP.value.trim() || 0},${formValues["receta"]["a1_alt"] > 0  ? formValues["receta"]["a1_alt"] : 0}, "${A1_GRUPO_OD.value.trim()}" ,"${A1_GRUPO_OI.value.trim()}" ,${typeof a2_od_esf.value === 'number' ? a2_od_esf.value :  0 },${typeof a2_od_cil.value === 'number' ? a2_od_cil.value : 0 },${typeof a2_od_eje.value === 'number' ? a2_od_eje.value : 0 },${typeof a2_oi_esf.value === 'number' ? a2_oi_esf.value : 0 },${typeof a2_oi_cil.value  === 'number' ? a2_oi_cil.value : 0 },${typeof a2_oi_eje.value === 'number' ? a2_oi_eje.value : 0},${A2_DP.value.trim() || 0},"${A2_GRUPO_OD.value.trim()}","${A2_GRUPO_OI.value.trim()}" ,${jsonData.a1_opcion_vta_id ?? 0},"${a1_armazon.value.trim() ?? 0}",${jsonData.a2_opcion_vta_id ?? 0},"${a2_armazon.value.trim() ?? 0 }",${jsonData.a3_opcion_vta_id ?? 0},"${a3_armazon.value.trim() ?? 0}",${jsonData.cristal1_opcion_vta_id || 0},${jsonData.cristal1_marca_id || 0},${jsonData.cristal1_diseno_id || 0},${jsonData.cristal1_indice_id || 0},${jsonData.cristal1_material_id || 0},${jsonData.cristal1_tratamiento_id || 0},${jsonData.cristal1_color_id || 0},${(typeof A1_Diametro.value === 'string' && A1_Diametro.value.trim() !== "" ) ? A1_Diametro.value : 0},"${A1_CR_OD.value.trim() ?? ""}","${A1_CR_OI.value.trim() ?? ""}",${jsonData.cristal1_tratamiento_adicional_id || 0},${jsonData.cristal2_od_opcion_venta_id || 0},${jsonData.cristal2_marca_id || 0},${jsonData.cristal2_diseno_id || 0},${jsonData.cristal2_indice_id || 0},${jsonData.cristal2_material_id || 0},${jsonData.cristal2_tratamiento_id || 0},${jsonData.cristal2_color_id || 0},${(typeof A2_Diametro.value === 'string' && A2_Diametro.value.trim() !== "" ) ? A2_Diametro.value : 0},"${typeof A2_CR_OD.value === 'string' ? A2_CR_OD.value.trim() : ""}","${typeof A2_CR_OI.value === 'string' ? A2_CR_OI.value.trim() : " " }",${jsonData.cristal2_tratamiento_adicional_id || 0},${jsonData.motivo_garantia_id || 0},${jsonData.folio_asociado || 0},${isEditting ? 0 : jsonData.resolucion_garantia_id === 'Aceptada' ? '1' : '2'},"${jsonData.worktracking || 0}","${jsonData.nota_venta || 0}",${jsonData.numero_reporte_firma || 0},"${jsonData.numero_reporte_atencion || 0}","${jsonData.numero_orden_compra || 0}",${jsonData.numero_guia || 0},${jsonData.numero_factura || 0},"${jsonData.folio_interno_mandante || 0}","${jsonData.reporte_interno_mandante || 0}","${jsonData.numero_envio || 0}" ,${jsonData.total || 0},"${jsonData.observaciones || ""}","${estado_validacion}"`
     // let _p1 = `${motivo},${_destino},${estado},"${estado_impresion}","${estado_validacion}", "${jsonData.proyecto_codigo}",${jsonData.establecimiento_id || 1},"${jsonData.cliente_rut.trim() || formValues.cliente.cliente_rut.trim()}" ,${jsonData.oftalmologo_id ?? 0} ,"${jsonData.fecha_atencion || fecha_atencion_signal.value}","${jsonData.fecha_entrega_taller || fecha_entrega_taller.value}","${jsonData.fecha_despacho || fecha_despacho.value}","${jsonData.fecha_entrega_cliente || fecha_entrega_cliente.value}",${jsonData.punto_venta_id || 0},${typeof jsonData.numero_receta  === 'number' ? jsonData.numero_receta  : 0},"${jsonData.fecha_receta ?? ""}",${jsonData.tipo_anteojo_id ?? 0},${typeof dioptrias_receta.value.a1_od.esf === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_od.esf) ? dioptrias_receta.value.a1_od.esf : 0 },${typeof dioptrias_receta.value.a1_od.cil === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_od.cil) ? dioptrias_receta.value.a1_od.cil : 0},${typeof dioptrias_receta.value.a1_od.eje === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_od.eje) ? dioptrias_receta.value.a1_od.eje : 0},${(typeof dioptrias_receta.value.a1_od.ad === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_od.ad)) ? dioptrias_receta.value.a1_od.ad : 0 },${typeof dioptrias_receta.value.a1_oi.esf === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_oi.esf) ? dioptrias_receta.value.a1_oi.esf  : 0},${typeof dioptrias_receta.value.a1_oi.cil === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_oi.cil) ? dioptrias_receta.value.a1_oi.cil : 0},${typeof dioptrias_receta.value.a1_oi.eje === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_oi.eje) ? dioptrias_receta.value.a1_oi.eje : 0},${typeof dioptrias_receta.value.a1_oi.ad === 'number' &&  !Number.isNaN(dioptrias_receta.value.a1_oi.ad) ? dioptrias_receta.value.a1_oi.ad  : 0 },${A1_DP.value || 0},${formValues["receta"]["a1_alt"] > 0  ? formValues["receta"]["a1_alt"] : 0}, "${A1_GRUPO_OD.value}" ,"${A1_GRUPO_OI.value}" ,${typeof a2_od_esf.value === 'number' ? a2_od_esf.value :  0 },${typeof a2_od_cil.value === 'number' ? a2_od_cil.value : 0 },${typeof a2_od_eje.value === 'number' ? a2_od_eje.value : 0 },${typeof a2_oi_esf.value === 'number' ? a2_oi_esf.value : 0 },${typeof a2_oi_cil.value  === 'number' ? a2_oi_cil.value : 0 },${typeof a2_oi_eje.value === 'number' ? a2_oi_eje.value : 0},${A2_DP.value || 0},"${A2_GRUPO_OD.value}","${A2_GRUPO_OI.value}" ,${jsonData.a1_opcion_vta_id ?? 0},"${a1_armazon.value ?? 0}",${jsonData.a2_opcion_vta_id ?? 0},"${a2_armazon.value ?? 0 }",${jsonData.a3_opcion_vta_id ?? 0},"${a3_armazon.value?? 0}",${jsonData.cristal1_opcion_vta_id || 0},${jsonData.cristal1_marca_id || 0},${jsonData.cristal1_diseno_id || 0},${jsonData.cristal1_indice_id || 0},${jsonData.cristal1_material_id || 0},${jsonData.cristal1_tratamiento_id || 0},${jsonData.cristal1_color_id || 0},${typeof A1_Diametro.value === 'string' ? A1_Diametro.value : 0},"${A1_CR_OD ?? " "}","${A1_CR_OI ?? " "}",${jsonData.cristal1_tratamiento_adicional_id || 0},${jsonData.cristal2_od_opcion_venta_id || 0},${jsonData.cristal2_marca_id || 0},${jsonData.cristal2_diseno_id || 0},${jsonData.cristal2_indice_id || 0},${jsonData.cristal2_material_id || 0},${typeof jsonData.cristal2_tratamiento === 'number' ? jsonData.cristal2_tratamiento : 0},${jsonData.cristal2_color_id || 0},${(typeof A2_Diametro.value === 'string' && A2_Diametro.value !== "" ) ? A2_Diametro.value : 0},"${typeof A2_CR_OD.value === 'string' ? A2_CR_OD.value : ""}","${typeof A2_CR_OI.value === 'string' ? A2_CR_OI.value : " " }",${jsonData.cristal2_tratamiento_adicional_id || 0},${jsonData.motivo_garantia_id || 0},${jsonData.folio_asociado || 0},${isEditting ? 0 : jsonData.resolucion_garantia_id === 'Aceptada' ? '1' : '2'},"${jsonData.worktracking || 0}","${jsonData.nota_venta || 0}",${jsonData.numero_reporte_firma || 0},"${jsonData.numero_reporte_atencion || 0}","${"prueba numero OC"}",${jsonData.numero_guia || 0},${jsonData.numero_factura || 0},"${jsonData.folio_interno_mandante || 0}","${jsonData.reporte_interno_mandante || 0}","${jsonData.numero_envio || 0}" ,${jsonData.total || 0},"${jsonData.observaciones || ""}",${1}`
 
     // console.log(_p1)
@@ -695,7 +707,7 @@ const FOT:React.FC<IFOTProps> = ({
       _obs:"OT INGRESADA",
       _cristalesJSON: cristalesJSON,
       _armazonesJSON: armazonesJSON,
-      _punto_venta:`${jsonData.punto_venta_id}`,
+      _punto_venta:`${punto_venta.value}`,
     };
 
     // console.log('Valor de jsonData.a1_od_cil:', jsonData.a1_od_cil.value || 0);
@@ -705,18 +717,62 @@ const FOT:React.FC<IFOTProps> = ({
   
     try {
       const response = await axios.post(`${URLBackend}/api/ot/crear/`, query)
-      // console.log(response)
-      if(response.data){
-        const message = `Nuevo Folio OT: ${response.data.datos[0][0]}`
-        toast.success(message)
-        handleCloseForm()
-        isExistClient.value = false
+      console.log(response)
+      const message = `Nuevo Folio OT: ${response.data.datos[0][0]}`
+
+      if(response.status === 200){
+
+
+        const result = await showModal(
+          MODAL.keep,
+          '',
+          MODAL.keepYes,
+          MODAL.kepNo
+        );
+
+        console.log(result)
+
+        if(result){
+          let clearCliente = true
+          //limpiar inputs
+          clearDioptrias();
+          reiniciarDioptriasReceta();
+          reiniciarValidationNivel2();
+          reiniciarValidationNivel1();
+          reiniciarValidationNivel3();
+          clearGrupos();
+          dispatch(clearCodigos())
+          clearAllInputsOT(clearCliente)
+          clearSelectInput.value = false;
+          toast.success(message)
+          
+          return
+
+
+        }else{
+          toast.success(message)
+          handleCloseForm()
+          isExistClient.value = false
+        }
+        
       }
+      
+      
+      
+      // if(response.data){
+      //   const message = `Nuevo Folio OT: ${response.data.datos[0][0]}`
+      //   toast.success(message)
+      //   handleCloseForm()
+      //   isExistClient.value = false
+      // }
     } catch (error) {
       // console.log(error)
       toast.error('Error al Ingresar la OT')
       handleCloseForm()
     }
+
+
+    console.log()
     return query;
     // return
   }
@@ -746,7 +802,7 @@ const FOT:React.FC<IFOTProps> = ({
  
 
 
-  const clearInputDioptrias = () => {
+  const clearAllInputsOT = (clearCliente?:boolean) => {
     //? A1-OJO-DERECHO
     dioptrias_receta.value.a1_od.esf = " ";
     dioptrias_receta.value.a1_od.cil = " ";
@@ -757,10 +813,26 @@ const FOT:React.FC<IFOTProps> = ({
     dioptrias_receta.value.a1_oi.cil  = " ";
     dioptrias_receta.value.a1_oi.eje  = " ";
     dioptrias_receta.value.a1_oi.ad   = " ";
-    
 
-    handleFormChange({"a1_alt": ''} , 'receta')
-    handleFormChange({"a1_dp": ''} , 'receta')
+    A1_DP.value = " ";
+    A2_DP.value = " ";
+    A1_ALT.value = "  ";
+    if(clearCliente){
+      handleFormChange({"cliente_rut": ' '} , 'cliente')
+      handleFormChange({"cliente_nombre": ' '} , 'cliente')
+      handleFormChange({"cliente_sexo": ' '} , 'cliente')
+      handleFormChange({"cliente_tipo": ' '} , 'cliente')
+      handleFormChange({"cliente_fecha_nacimiento": ""} , 'cliente')
+      handleFormChange({"cliente_correo": ''} , 'cliente')
+      handleFormChange({"cliente_telefono": ''} , 'cliente')
+      handleFormChange({"cliente_region": 0} , 'cliente')
+      handleFormChange({"cliente_comuna": 0} , 'cliente')
+      handleFormChange({"cliente_provincia": 0} , 'cliente')
+      handleFormChange({"cliente_direccion": ""} , 'cliente')
+    }
+
+    handleFormChange({"a1_alt": ' '} , 'receta')
+    handleFormChange({"a1_dp": ' '} , 'receta')
 
     // handleFormChange({"cristal1_marca_id": ' '} , 'cristales')
     handleFormChange({"cristal1_marca_id": false} , 'cristales')
@@ -770,8 +842,10 @@ const FOT:React.FC<IFOTProps> = ({
     handleFormChange({"cristal1_color_id": false} , 'cristales')
     handleFormChange({"cristal1_tratamiento_id": false} , 'cristales')
     handleFormChange({"cristal1_tratamiento_adicional_id": false} , 'cristales')
-    handleFormChange({"cristal1_diametro": ''} , 'cristales')
-
+    handleFormChange({"cristal1_diametro": ' '} , 'cristales')
+    handleFormChange({"criststal1_od": ' '} , 'cristales')
+    handleFormChange({"criststal1_oi": ' '} , 'cristales')
+    
     A1_CR_OD.value     = "  ";
     A1_CR_OI.value     = "  ";
     A1_GRUPO_OD.value  = "  ";
@@ -798,7 +872,7 @@ const FOT:React.FC<IFOTProps> = ({
     handleFormChange({"cristal2_color_id": false} , 'cristales')
     handleFormChange({"cristal2_tratamiento_id": false} , 'cristales')
     handleFormChange({"cristal2_tratamiento_adicional_id": false} , 'cristales')
-    handleFormChange({"cristal2_diametro": ''} , 'cristales')
+    handleFormChange({"cristal2_diametro": ' '} , 'cristales')
 
 
     A2_CR_OD.value    = "  ";
@@ -927,12 +1001,13 @@ const FOT:React.FC<IFOTProps> = ({
 
       }
 
+        let estado = OTAreaActual === 100 ? 50 : 20
 
         updateOT(
           jsonData,
           OTAreaActual,
           OTAreas["areaSiguiente"],
-          20,
+          estado,
           formValues,
           data,
           OTSlice.cristales,
@@ -961,11 +1036,12 @@ const FOT:React.FC<IFOTProps> = ({
   //Persistencia de datos
   const handleFormChange = async(dataForm: any, name: string) => {
     setChangeboolean((prev)=>!prev);
+    let clearCliente = false
     const key = Object.keys(dataForm)[0] 
     // console.log(key)
 
     if(key === 'tipo_anteojo_id'){
-      clearInputDioptrias()
+      clearAllInputsOT(clearCliente)
     }
 
     setFormValues((prevFormValues: any) => ({
@@ -1675,6 +1751,7 @@ useEffect(()=>{
                 <FOTEmpaque closeModal={()=>setIsFOTEmpaque(false)}/>
               )}
 
+              <CustomModal/>
       </Suspense>
       </Tabs>
     </div>

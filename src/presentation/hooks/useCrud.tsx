@@ -237,15 +237,15 @@ const useCrud = (
     primaryKeys: any,
     query: any
   ): Promise<any | undefined> => {
-    // console.log(query)
-    // console.log(primaryKeys)
+    console.log(query)
+    console.log(primaryKeys)
     
     const searchUrl = baseUrl === 'https://gestionprod.mtoopticos.cl/api/tipos/'
       ? `${baseUrl}listado/?query=${query === undefined ? "01" : query}&${primaryKeys || '_p1=OTMotivoGarantia'}`
       : `${baseUrl}listado/?query=${query === undefined ? "01" : query}${primaryKeys === "" ? "&_limit=100" : (`&${primaryKeys}`)}`;
 
     try {
-      // console.log("searchUrl", searchUrl);  
+      console.log("searchUrl", searchUrl);  
       const response = await axiosInstance.get(searchUrl);
       return response.data;
     } catch (error) {

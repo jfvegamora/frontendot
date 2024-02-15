@@ -21,12 +21,13 @@ type AreaButtonsProps ={
     toggleEditOTModal?:any
     folio?:number;
     entidad?:string;
-    historica?:boolean
+    historica?:boolean;
+    estado?:number
 }
 
 const strEntidad = "Orden de Trabajo";
 
-const OTGrillaButtons:React.FC<AreaButtonsProps> = ({ areaPermissions, toggleEditOTModal,folio, historica }) => {
+const OTGrillaButtons:React.FC<AreaButtonsProps> = ({ areaPermissions, toggleEditOTModal,folio, historica,estado }) => {
     const dispatch:any                       = useAppDispatch();
     const componentRef                   = useRef();
     const { escritura_lectura }          = usePermission(28);
@@ -129,7 +130,7 @@ const OTGrillaButtons:React.FC<AreaButtonsProps> = ({ areaPermissions, toggleEdi
                         onClick={() => {
                             const loadingToast = toast.loading('Cargando...');
                             new Promise((_resolve)=>{
-                                toggleEditOTModal(folio, historica).finally(()=>{
+                                toggleEditOTModal(folio, historica,estado).finally(()=>{
                                     toast.dismiss(loadingToast);
                                 }) 
                             })

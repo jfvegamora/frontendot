@@ -49,6 +49,7 @@ const TextInputInteractive: React.FC<ITextInputProps> = ({
   // const [_defaultValue, setDefaultValue] = useState<any>(data && data || "")
   const [_defaultValue, setDefaultValue] = useState<any>(data || " "); // Inicializar defaultValue con el valor inicial
   // const inputRef = useRef<HTMLInputElement>(null);
+  const[render, setRender] = useState(false);
 
   const [value, setValue] = useState<any>(data || "");
 
@@ -56,12 +57,15 @@ const TextInputInteractive: React.FC<ITextInputProps> = ({
     if (handleChange) {
       if(isOT){
         handleChange(e.target)
+        setRender((prev)=>!prev)
       }else{
         handleChange(e.target.value)
+        setRender((prev)=>!prev)
       }
     }   
 
     setValue(e.target.value)
+    setRender((prev)=>!prev)
 
   };
   
@@ -69,6 +73,8 @@ const TextInputInteractive: React.FC<ITextInputProps> = ({
     if(data){
         setDefaultValue(data)
         setValue(data)
+        setRender((prev)=>!prev)
+
     }
     setValue(data)
   },[data])
@@ -104,6 +110,7 @@ return (
             onBlur={(e) => handleDebounceInputChange(e)}
             onChange={(e)=> {
                 setValue(e.target.value)
+                setRender((prev)=>!prev)
             }}
             
             ref={inputRef}

@@ -38,9 +38,9 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
 
   const dispatch = useAppDispatch();
   const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas);
+  const OTData:any = useAppSelector((store: AppStore) => store.OTS);
   const areaActual = OTAreas["areaActual"]
   
-
 
   // console.log("queryutils", query);
   const refreshData = useCallback(() => {
@@ -120,9 +120,14 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
     );
   }, []);
 
-  const toggleEditOTModal = useCallback(async(folio:any,historica:any)=>{
+  const toggleEditOTModal = useCallback(async(folio:any,historica:any, estado?:any)=>{
       try {
-      const endpoint = historica === false ? `${URLBackend}/api/ot/listado/?query=01&_folio=${folio}` : `${URLBackend}/api/othistorica/listado/?query=01&_folio=${folio}`
+
+        console.log(folio)
+        console.log(estado)
+
+
+      const endpoint = historica === false ? `${URLBackend}/api/ot/listado/?query=01&_folio=${folio}&_estado${estado}` : `${URLBackend}/api/othistorica/listado/?query=01&_folio=${folio}&_estado=${estado}`
       const response = await axios(endpoint)
       setEntity(response.data[0])
       // console.log(historica)

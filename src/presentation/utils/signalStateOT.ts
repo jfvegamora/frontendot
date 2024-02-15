@@ -177,6 +177,10 @@ export const reiniciarValidationNivel1 = () => {
     validationNivel1.value.forEach((item) => {
       item.valor = 0;
     });
+
+
+
+    // console.log(validationNivel1)
 };
 export const reiniciarValidationNivel3 = () => {
     validationNivel3.value.forEach((item) => {

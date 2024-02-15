@@ -167,7 +167,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
       )
     };
 
-    const renderCheckboxCell = (id: number, folio:number) => {
+    const renderCheckboxCell = (id: number, folio:number, estado?:any) => {
       // console.log(folio)
       return (
         <>
@@ -202,6 +202,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
               toggleEditOTModal={toggleEditOTModal}
               entidad={entidad}
               historica={entidad === 'Orden de Trabajo Histórico' ? true : false}
+              estado={estado}
               
             />
             </>
@@ -211,6 +212,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
       )
   };
   // console.log(data)
+  console.log(pkToDelete)
  
     return (
       <table className="gridContainer">
@@ -244,6 +246,13 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
               // const id = [3, 3];
               // console.log('rowData', rowData)
               const folio     = rowData[1]
+
+              let estado = ""
+
+              if(isOT){
+                estado = rowData[3]
+              }
+
             
               return (
                 <tr key={rowIndex} className="overflow-hidden">
@@ -279,7 +288,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                         >
                           
                           {col === 0
-                            ? renderCheckboxCell(rowIndex, folio)
+                            ? renderCheckboxCell(rowIndex, folio, estado)
                             : renderTextCell(row, '', type, color2, rowData,backgroundAtrasadas)}
                         </td>
                       )
