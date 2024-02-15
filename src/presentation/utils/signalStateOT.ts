@@ -262,7 +262,7 @@ export const clearDioptrias = () => {
     a2_oi_eje.value = undefined
 
     tipo_de_anteojo.value         = ""
-    validar_parametrizacion.value = "",
+    validar_parametrizacion.value = "1",
     codigoProyecto.value          = ""
 
     dioptriasHabilitadas.value.a1_ad = true

@@ -82,7 +82,9 @@ const FOTReceta:React.FC<IReceta> = ({
         // console.log(dioptrias_receta.value.a1_oi)
     }
 
-    console.log(isRender)
+    // console.log(isRender)
+
+
 
     
   return (
@@ -106,12 +108,12 @@ const FOTReceta:React.FC<IReceta> = ({
                     />
                 </div>
                 <div className="w-[20%] ">
-                    <TextInputComponent
+                    <TextInputInteractive
                         type="number"
                         label="Numero de receta"
                         name="numero_receta"
                         handleChange={handleInputChange}
-                        data={formValues ? formValues["numero_receta"] : data && data[EnumGrid.numero_receta]}
+                        data={formValues && formValues["numero_receta"] ? formValues["numero_receta"] : data && data[EnumGrid.numero_receta]}
                         control={control}
                         isOT={true}
                         onlyRead={isEditting}
@@ -134,7 +136,7 @@ const FOTReceta:React.FC<IReceta> = ({
                         />
                 </div> */}
                 <div className="w-[15%] ml-4">
-                    <TextInputComponent
+                    <TextInputInteractive
                         type="date"
                         label="Fecha receta"
                         name="fecha_receta"
@@ -429,7 +431,7 @@ const FOTReceta:React.FC<IReceta> = ({
 
             <div className="w-full flex items-center rowForm !h-[3rem] relative ">
                 <div className="w-[104%] ml-2">
-                    <TextInputComponent
+                    <TextInputInteractive
                         type="text"
                         label="Observaciones"
                         name="observaciones"

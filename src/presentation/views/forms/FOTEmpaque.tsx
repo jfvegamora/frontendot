@@ -49,7 +49,7 @@ const FOTEmpaque: React.FC<IFOTEmpaque> = ({
 
             try {
                 const query03 = {
-                    _p1: `"${pktoDelete[0]["proyecto_codigo"]}", "${fechaFormateada + " " + dateHora}", ${tipoDocumento}, "${jsonData["numero_doc"]}", "${jsonData["fecha_doc"]}", ${0}, ${0}, ${0}, ${UsuarioID}, "${jsonData["observaciones"]}"    `
+                    _p1: `"${pktoDelete[0] && pktoDelete[0]["proyecto_codigo"]}", "${fechaFormateada + " " + dateHora}", ${tipoDocumento}, "${jsonData["numero_doc"]}", "${jsonData["fecha_doc"]}", ${0}, ${0}, ${0}, ${UsuarioID}, "${jsonData["observaciones"]}"    `
                 }
                 const strUrl           = `${URLBackend}/api/proyectodocum/listado`
                 let   queryURL03       = `?query=03&_p1=${query03["_p1"]}`

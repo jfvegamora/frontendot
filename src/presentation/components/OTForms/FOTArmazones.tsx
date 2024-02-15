@@ -142,11 +142,14 @@ const FOTArmazones:React.FC<IArmazones> = ({
 
 
     useEffect(()=>{     
-        if (codArmazon1 !== undefined && codArmazon1 !== null && codArmazon1.trim && A1_Diametro.value !== "") {
+        console.log(codArmazon1)
+        console.log(A1_Diametro.value.toString().trim())
+        if (codArmazon1 !== undefined && codArmazon1 !== null && codArmazon1.trim && typeof A1_Diametro?.value.toString() === 'string' && A1_Diametro.value.toString().trim() !== "") {
             if(!(!codArmazon1.trim())){
                 const fetchArmazones1 = async ()=>{
                     try {
                        console.log(A1_Diametro.value)
+                       console.log(validar_parametrizacion.value)
                         const {data} = await axios((validar_parametrizacion.value === '1' ) ? (`${endpoint}&_p1=${codArmazon1 !== ' ' ? codArmazon1.trim() : "aaaa"}&_p4=${typeof A1_DP.value === 'number' ? (typeof A1_DP.value === 'number' ? A1_DP.value : 0) : (typeof A1_DP.value === 'string' ? A1_DP.value : 0)}&_p5=${typeof A1_Diametro.value === 'number' ? (typeof A1_Diametro.value === 'number' ? A1_Diametro.value : "" ) : (typeof A1_Diametro.value === 'string' ? A1_Diametro.value : "")}`) : (`${endpoint}&_p1=${codArmazon1 !== ' ' ? codArmazon1 && codArmazon1.trim() : "aaaa"}`))
     
                         if(data.length === 0){
@@ -200,11 +203,12 @@ const FOTArmazones:React.FC<IArmazones> = ({
     // console.log(tipo_de_anteojo.value)
 
     useEffect(()=>{
-        if (codArmazon2 !== undefined && codArmazon2 !== null && codArmazon2.trim && (tipo_de_anteojo.value === '3' ? (A2_Diametro.value !== '') : (A1_Diametro.value !== '')) ) {
+        if (codArmazon2 !== undefined && codArmazon2 !== null && codArmazon2.trim && (tipo_de_anteojo.value === '3' ? (typeof A2_Diametro?.value.toString() === 'string' && A2_Diametro.value.toString().trim() !== "") : (typeof A1_Diametro?.value.toString() === 'string' && A1_Diametro.value.toString().trim() !== "")) ) {
             if(!(!codArmazon2.trim())){
                 const fetchArmazones2 = async ()=>{
                     try {
                         console.log(A2_DP.value)
+                        console.log(validar_parametrizacion.value)
                         const {data} = await axios((validar_parametrizacion.value === '1' ) ? (`${endpoint}&_p1=${codArmazon2 !== ' ' ? codArmazon2.trim() : "aaaa"}&_p4=${(tipo_de_anteojo.value === '3' ? (typeof A2_DP.value === 'number' ? (typeof A2_DP.value === 'number' ? A2_DP.value : 0) : (typeof A2_DP.value === 'string' ? A2_DP.value : 0)) : A1_DP.value)}&_p5=${tipo_de_anteojo.value === '3' ? (typeof A2_Diametro.value === 'number' ? (typeof A2_Diametro.value === 'number' ? A2_Diametro.value : "" ) : (typeof A2_Diametro.value === 'string' ? A2_Diametro.value : "")) : (typeof A1_Diametro.value === 'number' ? (typeof A1_Diametro.value === 'number' ? A1_Diametro.value : "" ) : (typeof A1_Diametro.value === 'string' ? A1_Diametro.value : "")) }`) : (`${endpoint}&_p1=${codArmazon2 !== '' ? codArmazon2 && codArmazon2.trim() : "aaaa"}`))
     
                         if(data.length === 0){
@@ -239,7 +243,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
 
 
     useEffect(()=>{
-        if (codArmazon3 !== undefined && codArmazon3 !== null && codArmazon3.trim && A1_Diametro.value !== "") {
+        if (codArmazon3 !== undefined && codArmazon3 !== null && codArmazon3.trim && typeof A1_Diametro?.value.toString() === 'string' && A1_Diametro.value.toString().trim() !== "") {
             if(!(!codArmazon3.trim())){
                 const fetchArmazones3 = async ()=>{
                     try {
