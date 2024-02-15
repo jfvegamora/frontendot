@@ -153,7 +153,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
 
 
 
-    const renderTextCell = (text: string, alignment?:string, type?:number, color2?:boolean, rowData?:any, backgroundAtrasadas?:boolean) => {
+    const renderTextCell = (text: string, alignment?:string, type?:number, color2?:boolean, rowData?:any, backgroundAtrasadas?:boolean, color?:any) => {
 
       const cellStyle = {
         textAlign:alignment,
@@ -161,7 +161,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
       }
       // console.log(type)
       return(
-        <Typography variant="small" color="blue-gray" className={`gridText h-[2.7rem]  py-2  ${backgroundAtrasadas && '!text-white '} ${(type === 1 && color2) ? '': ( type === 1 ? ''  :'text-black')} `} style={ color2 ? cellStyle : null}>
+        <Typography variant="small" color="blue-gray" className={`gridText h-[2.7rem]  py-2  ${(backgroundAtrasadas && color) ? '!text-white ' : 'text-black'} ${(type === 1 && color2) ? '': ( type === 1 ? ''  :'text-black')} `} style={ color2 ? cellStyle : null}>
           {text !== null && text !== undefined ? text.toString() : ""}
         </Typography>
       )
@@ -212,7 +212,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
       )
   };
   // console.log(data)
-  console.log(pkToDelete)
+  // console.log(pkToDelete)
  
     return (
       <table className="gridContainer">
@@ -270,14 +270,14 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                     // console.log(rowData[21])
                     const color = (rowData[21] === 'S' ? "bg-black" : "");
                     // console.log(color)
-                    const type = color === 'bg-black' ? 1: 0
+                    const type = color === 'bg-black' ? 1 : 0
                     // const backgroundcolor =  isOT ? `bg-[${OTColores[rowData[3]][1]}]` : ""
                     
 
                     return (
                       visible && (
                         <td
-                        className={`gridTableData ${backgroundAtrasadas && 'bg-black'}  ${alignment} ${""}`} 
+                        className={`gridTableData ${backgroundAtrasadas && color}   ${alignment} ${""}`} 
                         // className={`gridTableData ${backgroundAtrasadas && 'bg-black'}  ${alignment} ${color !== '' ? color : ""}`} 
                           key={col}
                           id={tableHead[col].key}
@@ -289,7 +289,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                           
                           {col === 0
                             ? renderCheckboxCell(rowIndex, folio, estado)
-                            : renderTextCell(row, '', type, color2, rowData,backgroundAtrasadas)}
+                            : renderTextCell(row, '', type, color2, rowData,backgroundAtrasadas, color)}
                         </td>
                       )
                     );

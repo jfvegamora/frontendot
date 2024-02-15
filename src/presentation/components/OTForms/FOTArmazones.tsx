@@ -5,7 +5,7 @@ import { EnumGrid as EnumArmazones } from '../../views/mantenedores/MArmazones';
 import { validationOTlevel2, validationOTlevel3, validation_A1_armazon, validation_A2_armazon } from '../../utils/validationOT';
 import { URLBackend } from '../../hooks/useCrud';
 import { toast } from 'react-toastify';
-import { A1_DP, A1_Diametro, A2_DP, A2_Diametro, a1_armazon, codigoProyecto, punto_venta, tipo_de_anteojo, validar_parametrizacion } from '../../utils';
+import { A1_DP, A1_Diametro, A2_DP, A2_Diametro, a1_armazon, codigoProyecto, punto_venta, tipo_de_anteojo, validar_armazon1, validar_parametrizacion } from '../../utils';
 import TextInputInteractive from '../forms/TextInputInteractive';
 import { validationNivel3 } from '../../views/forms/FOT';
 import { AppStore, useAppSelector } from '../../../redux/store';
@@ -52,7 +52,6 @@ const FOTArmazones:React.FC<IArmazones> = ({
 
     const [render, setRender] = useState(false)
 
-    const [validarA1, setValidarA2] = useState("");
 
 
     
@@ -74,7 +73,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
         
         console.log(name)
         console.log(value)
-
+        onDataChange({ [name]: value }); 
 
         if (
             (name === 'a1_armazon_id' && (value !== " " && value !== '') && (value.trim() === codArmazon2 || value.trim() === codArmazon3)) ||
@@ -121,8 +120,20 @@ const FOTArmazones:React.FC<IArmazones> = ({
             const item = validationNivel3.value.find((item: { campo: string; }) => item.campo === 'validar_armazon1');
 
             if(item && item.valor === 0){
+                onDataChange({ [name]: "  " }); 
+                validar_armazon1.value = "  ";
                 toast.error('Códigos Armazon no Coincide')
-                setValidarA2('   ')
+                setRender((prev)=>!prev)
+            }
+
+        }
+        if(name === 'validar_armazon2'){
+            const item = validationNivel3.value.find((item: { campo: string; }) => item.campo === 'validar_armazon2');
+
+            if(item && item.valor === 0){
+                toast.error('Códigos Armazon no Coincide')
+                onDataChange({['validar_armazon2']: " "})
+                // setValidarA2('')
             }
 
         }
@@ -136,20 +147,21 @@ const FOTArmazones:React.FC<IArmazones> = ({
         if(name === 'a3_armazon_id'){
             setCodArmazon3(value.trim())
         }
-        onDataChange({ [name]: value }); 
+        // onDataChange({ [name]: value }); 
     };
 
 
+    // console.log(formValues)
 
     useEffect(()=>{     
-        console.log(codArmazon1)
-        console.log(A1_Diametro.value.toString().trim())
+        // console.log(codArmazon1)
+        // console.log(A1_Diametro.value.toString().trim())
         if (codArmazon1 !== undefined && codArmazon1 !== null && codArmazon1.trim && typeof A1_Diametro?.value.toString() === 'string' && A1_Diametro.value.toString().trim() !== "") {
             if(!(!codArmazon1.trim())){
                 const fetchArmazones1 = async ()=>{
                     try {
-                       console.log(A1_Diametro.value)
-                       console.log(validar_parametrizacion.value)
+                    //    console.log(A1_Diametro.value)
+                    //    console.log(validar_parametrizacion.value)
                         const {data} = await axios((validar_parametrizacion.value === '1' ) ? (`${endpoint}&_p1=${codArmazon1 !== ' ' ? codArmazon1.trim() : "aaaa"}&_p4=${typeof A1_DP.value === 'number' ? (typeof A1_DP.value === 'number' ? A1_DP.value : 0) : (typeof A1_DP.value === 'string' ? A1_DP.value : 0)}&_p5=${typeof A1_Diametro.value === 'number' ? (typeof A1_Diametro.value === 'number' ? A1_Diametro.value : "" ) : (typeof A1_Diametro.value === 'string' ? A1_Diametro.value : "")}`) : (`${endpoint}&_p1=${codArmazon1 !== ' ' ? codArmazon1 && codArmazon1.trim() : "aaaa"}`))
     
                         if(data.length === 0){
@@ -283,8 +295,8 @@ const FOTArmazones:React.FC<IArmazones> = ({
 
 
     
-    console.log(armazon1)
-    console.log(formValues)
+    // console.log(armazon1)
+    // console.log(formValues)
 
   return (
     <form>
@@ -313,7 +325,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
                                     label="Validar Código"
                                     name="validar_armazon1"
                                     handleChange={handleInputChange}
-                                    data={validarA1 && validarA1}
+                                    data={validar_armazon1.value ? validar_armazon1.value : formValues  && formValues["validar_armazon1"] && formValues["validar_armazon1"] }
                                     control={control}
                                     isOT={true}
                                     textAlign="text-center"
@@ -389,6 +401,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
                                              label="Validar Código"
                                              name="validar_armazon2"
                                              handleChange={handleInputChange}
+                                             data={formValues  && formValues["validar_armazon2"] && formValues["validar_armazon2"]}
                                              control={control}
                                              isOT={true}
                                              textAlign="text-center"

@@ -451,7 +451,7 @@ return (
 
                 <div className="w-[35%] ml-8 !mt-[-4%]  mx-auto items-center grid ">
                     <div className="">
-                        <TextInputComponent
+                        <TextInputInteractive
                             type="number"
                             label="N° Worktracking"
                             name="worktracking"
@@ -464,7 +464,7 @@ return (
                             />
                     </div>
                     <div className="">
-                        <TextInputComponent
+                        <TextInputInteractive
                             type="number"
                             label="Nota de Venta"
                             name="nota_venta"
@@ -477,7 +477,7 @@ return (
                             />
                     </div>
                     <div className="">
-                        <TextInputComponent
+                        <TextInputInteractive
                             type="text"
                             label="Folio interno mandante"
                             name="folio_interno_mandante"
@@ -490,7 +490,7 @@ return (
                             />
                     </div>
                     <div className="">
-                        <TextInputComponent
+                        <TextInputInteractive
                             type="text"
                             label="Reporte interno mandante"
                             name="reporte_interno_mandante"
@@ -503,7 +503,7 @@ return (
                             />
                     </div>
                     <div className="">
-                        <TextInputComponent
+                        <TextInputInteractive
                             type="text"
                             label="Numero Envio"
                             name="numero_envio"

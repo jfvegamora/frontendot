@@ -28,6 +28,7 @@ const StateCountBarOT:React.FC<IStateCountBar> = ({checkCount}) => {
   return (
     <div className="w-[80%] bg-white absolute bottom-[2%] flex">
     {Object.keys(OTs.estadosOT).map((estadoID, index) => {
+      console.log(estadoID)
       const estadoNombre = estadoIDNombre[estadoID];
       const derivacionColor = OTs.derivacionColores[estadoNombre];
 

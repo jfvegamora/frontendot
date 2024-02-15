@@ -93,6 +93,9 @@ export const isExistClient      = signal(false);
 export const isToggleImpression = signal<any>(false);
 export const isToggleValidation = signal<any>(false);
 
+//VALIDACIONES
+
+export const validar_armazon1 = signal("");
 
 
 // export type DioptriasReceta = {
