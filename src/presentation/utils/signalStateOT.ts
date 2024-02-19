@@ -96,6 +96,12 @@ export const isToggleValidation = signal<any>(false);
 //VALIDACIONES
 
 export const validar_armazon1 = signal("");
+export const validar_armazon2 = signal("");
+
+export const validar_cristal1_od = signal("");
+export const validar_cristal1_oi = signal("");
+export const validar_cristal2_od = signal("");
+export const validar_cristal2_oi = signal("");
 
 
 // export type DioptriasReceta = {
@@ -209,6 +215,10 @@ export const buscarCampo = (campo: string) => {
     return validationNivel2.value.find((item) => item.campo === campo);
 };
 
+export const buscarCampoNivel3 = (campo:string) => {
+  return validationNivel3.value.find((item)=>item.campo === campo);
+}
+
 export const clearGrupos = () => {
   A1_GRUPO_OD.value   = "";
   A1_GRUPO_OI.value   = "";
@@ -223,6 +233,13 @@ export const clearGrupos = () => {
   A1_DP.value         = "";
   A2_DP.value         = "";
   A1_ALT.value        = "";
+
+  validar_armazon1.value    = "";
+  validar_armazon2.value    = "";
+  validar_cristal1_od.value = "";
+  validar_cristal1_oi.value = "";
+  validar_cristal2_od.value = "";
+  validar_cristal2_oi.value = "";
 
   a1_armazon.value    = "";
   a2_armazon.value    = "";
@@ -647,7 +664,7 @@ export const updateOT =async (
     (`a2_oi_esf=${typeof a2_oi_esf.value                                                                                                                 !== 'object' ? a2_oi_esf.value : null }`),
     (`a2_oi_cil=${typeof a2_oi_cil.value                                                                                                                 !== 'object' ? a2_oi_cil.value : null }`),
     (`a2_oi_eje=${typeof a2_oi_eje.value                                                                                                                 !== 'object' ? a2_oi_eje.value : null }`),
-    (`a2_dp=${jsonData.a2_dp                                                                                                                             !== ''       ? jsonData.a2_dp  : null }`),
+    (`a2_dp=${_formValues && _formValues["receta"] && _formValues["receta"]["a2_dp"]                                                                     !== undefined ? _formValues["receta"] && parseInt(_formValues["receta"]["a2_dp"]) : data && data[EnumGrid.a2_dp]}`),
 
     
     `a2_grupo_od="${typeof A2_GRUPO_OD.value                                                                                                             !== 'object' ? A2_GRUPO_OD.value : ""}"`,
@@ -681,8 +698,8 @@ export const updateOT =async (
     (`cristales2_material=${typeof jsonData.cristal2_material_id                                                                                         === 'undefined' ? data && data[EnumGrid.cristal2_material_id]              : parseInt(jsonData.cristal2_material_id)}`),
     (`cristales2_tratamiento=${typeof jsonData.cristal2_tratamiento_id                                                                                   === 'undefined' ? data && data[EnumGrid.cristal2_tratamiento_id]           : parseInt(jsonData.cristal2_tratamiento_id) }`),
     (`cristales2_color=${typeof jsonData.cristal2_color_id                                                                                               === 'undefined' ? data && data[EnumGrid.cristal2_color_id]                 : parseInt(jsonData.cristal2_color_id)}`),
-    (`cristales2_od="${typeof A2_CR_OD.value                                                                                                             !== 'object'    ? A2_CR_OD.value                                           : jsonData.cristal2_od}"`),
-    (`cristales2_oi="${typeof A2_CR_OI.value                                                                                                             !== 'object'    ? A2_CR_OI.value                                           : jsonData.cristal2_oi}"`),
+    (`cristales2_od="${typeof A2_CR_OD.value                                                                                                             !== 'object'    ? A2_CR_OD.value                                           : _formValues["cristales"] && parseInt(_formValues["cristales"]["cristal2_od"])}"`),
+    (`cristales2_oi="${typeof A2_CR_OI.value                                                                                                             !== 'object'    ? A2_CR_OI.value                                           : _formValues["cristales"] && parseInt(_formValues["cristales"]["cristal2_oi"])}"`),
     (`cristales2_tratamiento_adicional=${typeof jsonData.cristal2_tratamiento_adicional_id                                                               === 'undefined' ? data && data[EnumGrid.cristal2_tratamiento_adicional_id] : parseInt(jsonData.cristal2_tratamiento_adicional_id)}`),
     
     

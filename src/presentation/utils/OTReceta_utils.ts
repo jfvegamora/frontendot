@@ -1,5 +1,5 @@
 import { signal } from "@preact/signals-react"
-import { A2_CR_OD, A2_CR_OI, DioptriasReceta, buscarCampo,  clearDioptriasA2, clearSelectInput, dioptrias_receta, reiniciarA2DioptriasReceta, tipo_de_anteojo } from "."
+import { A2_CR_OD, A2_CR_OI, DioptriasReceta, buscarCampo,  buscarCampoNivel3,  clearDioptriasA2, clearSelectInput, dioptrias_receta, reiniciarA2DioptriasReceta, tipo_de_anteojo } from "."
 import { validationNivel2 } from "../views/forms/FOT"
 
 
@@ -43,8 +43,38 @@ export const validation_tipo_anteojo = () => {
       'cristal2_color_id', 'cristal2_diametro' ,'cristal2_tratamiento_id', 'cristal2_od', 'cristal2_oi', 'a2_armazon_id'
   ];
 
+  
+
   const tipoDeAnteojo = tipo_de_anteojo.value;
+
+
 //   console.log(tipoDeAnteojo)
+
+
+    const camposValidarNivel3 = [
+        'validar_cristal1_od', 'validar_cristal1_oi', 'validar_cristal2_od', 'validar_cristal2_oi', 'validar_armazon1', 'validar_armazon2'
+    ]
+
+    const mappingNivel3:any = {
+        '1': {validar_cristal1_od:0,validar_cristal1_oi:0, validar_cristal2_od:1, validar_cristal2_oi:1,validar_armazon1:0, validar_armazon2:1},
+        '2': {validar_cristal1_od:0,validar_cristal1_oi:0, validar_cristal2_od:1, validar_cristal2_oi:1,validar_armazon1:0, validar_armazon2:1},
+        '3': {validar_cristal1_od:0,validar_cristal1_oi:0, validar_cristal2_od:0, validar_cristal2_oi:0,validar_armazon1:0, validar_armazon2:0},
+        '4': {validar_cristal1_od:0,validar_cristal1_oi:0, validar_cristal2_od:1, validar_cristal2_oi:0,validar_armazon1:0, validar_armazon2:0},
+        '5': {validar_cristal1_od:0,validar_cristal1_oi:0, validar_cristal2_od:1, validar_cristal2_oi:1,validar_armazon1:0, validar_armazon2:1},
+        '6': {validar_cristal1_od:0,validar_cristal1_oi:0, validar_cristal2_od:1, validar_cristal2_oi:1,validar_armazon1:0, validar_armazon2:1},
+        '7': {validar_cristal1_od:0,validar_cristal1_oi:0, validar_cristal2_od:1, validar_cristal2_oi:1,validar_armazon1:0, validar_armazon2:1},
+    }
+
+
+    const mappedValuesNivel3 = mappingNivel3[tipoDeAnteojo] || {};
+
+    camposValidarNivel3.forEach((campo)=>{
+        const campoObjNivel3 = buscarCampoNivel3(campo);
+        if(campoObjNivel3) campoObjNivel3.valor = mappedValuesNivel3[campo] || 0;
+    })
+
+
+
 
   const mapping:any = {
       '1': { a1_od_ad: 1, a1_oi_ad: 1, a1_alt: 1, a1_dp: 0, a2_dp: 1, a2_od_esf: 1, a2_od_cil: 1, a2_od_eje: 1, a2_oi_esf: 1, a2_oi_cil: 1, a2_oi_eje: 1, cristal2_marca_id: 1 , cristal2_diseno_id:1, cristal2_indice_id:1, cristal2_material_id:1, cristal2_color_id:1, cristal2_diametro:1, cristal2_tratamiento_id:1, cristal2_od:1, cristal2_oi:1, a2_armazon_id:1 },

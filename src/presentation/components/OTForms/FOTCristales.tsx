@@ -3,8 +3,10 @@ import { SelectInputComponent } from '..';
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
 import { validationOTlevel2, validationOTlevel3,  } from '../../utils/validationOT';
 import SelectInputTiposComponent from '../forms/SelectInputTiposComponent';
-import { A1_CR_OD, A1_CR_OI, A1_GRUPO_OD, A1_GRUPO_OI, A2_CR_OD, A2_CR_OI, A2_Diametro, A2_GRUPO_OD, A2_GRUPO_OI, tipo_de_anteojo } from '../../utils';
+import { A1_CR_OD, A1_CR_OI, A1_GRUPO_OD, A1_GRUPO_OI, A2_CR_OD, A2_CR_OI, A2_Diametro, A2_GRUPO_OD, A2_GRUPO_OI, tipo_de_anteojo, validar_cristal1_od, validar_cristal1_oi, validar_cristal2_od, validar_cristal2_oi } from '../../utils';
 import TextInputInteractive from '../forms/TextInputInteractive';
+import { OTTextInputComponent } from '.';
+import { validationNivel3 } from '../../views/forms/FOT';
 // import { AppStore, useAppSelector } from '../../../redux/store';
 
 
@@ -46,20 +48,29 @@ const FOTCristales: React.FC<ICristales> = ({
 
         console.log(name)
         console.log(value)
-        onDataChange({ [name]: value })
-
-
-        if(name === 'validar_cristal1_od'){
-            console.log(value)
-            console.log(A1_CR_OD.value)
-
-            
-
-
-        }
+        onDataChange({ [name]: value.trim() })
 
         validationOTlevel2(name, value)
         validationOTlevel3(name, value)
+
+        if(name === 'validar_cristal1_od'){
+            validar_cristal1_od.value = value.trim();
+        }
+
+        if(name === 'validar_cristal1_oi'){
+            validar_cristal1_oi.value = value.trim(); 
+        }
+
+        if(name === 'validar_cristal2_od'){
+            validar_cristal2_od.value = value.trim(); 
+        }
+        if(name === 'validar_cristal2_oi'){
+            validar_cristal2_oi.value = value.trim(); 
+        }
+
+
+
+
 
         // if (isEditting && data) {
         //     const _p1 = data[EnumGrid.proyecto_codigo]
@@ -283,17 +294,16 @@ const FOTCristales: React.FC<ICristales> = ({
 
     // console.log(tipo_de_anteojo.value)
 
-    // console.log(A2_CR_OD.value)
+    console.log(A2_CR_OD.value)
     // console.log(data?.[EnumGrid.cristal2_od])
 
-    useEffect(()=>{
-        if(isEditting){
-            A2_CR_OD.value = data?.[EnumGrid.cristal2_od]
-            A2_CR_OI.value = data?.[EnumGrid.cristal2_oi]
-        }
-    },[])
+    // useEffect(()=>{
+    //     if(isEditting ){
+    //         A2_CR_OD.value = data?.[EnumGrid.cristal2_od]
+    //         A2_CR_OI.value = data?.[EnumGrid.cristal2_oi]
+    //     }
+    // },[])
     // console.log(data && data[EnumGrid.cristal2_od])
-    
 
     return (
         <form>
@@ -401,14 +411,14 @@ const FOTCristales: React.FC<ICristales> = ({
                                 <div className="w-full  flex mt-6 rowForm centertDIV  relative">
                                     {permiso_area_verificar_cristal && (
                                     <div className="w-[40%] absolute -left-0">
-                                            <TextInputInteractive
+                                            <OTTextInputComponent
                                                 type="text"
                                                 label="Validar Cristal OD"
                                                 name="validar_cristal1_od"
                                                 handleChange={handleInputChange}
-                                                data={formValues && formValues["validar_cristal1_od"]}
+                                                otData={ validar_cristal1_od.value ? validar_cristal1_od.value :  formValues && formValues["validar_cristal1_od"]}
                                                 control={control}
-                                                isOT={true}
+                                                // isOT={true}
                                                 onlyRead={!(permiso_usuario_verificar_cristal)}
                                                 // onlyRead={!(isEditting && (permiso_areas_cristales && permiso_usuario_cristales))}
                                                 textAlign="text-center"
@@ -435,14 +445,14 @@ const FOTCristales: React.FC<ICristales> = ({
                                     </div>
                                     {permiso_area_verificar_cristal && (
                                         <div className="w-[40%] absolute right-0">
-                                            <TextInputInteractive
+                                            <OTTextInputComponent
                                                 type="text"
                                                 label="Validar Codigo Cristal OI"
                                                 name="validar_cristal1_oi"
                                                 handleChange={handleInputChange}
-                                                data={formValues && formValues["validar_cristal1_oi"]}
+                                                otData={ validar_cristal1_oi.value ? validar_cristal1_oi.value  : formValues && formValues["validar_cristal1_oi"]}
                                                 control={control}
-                                                isOT={true}
+                                                // isOT={true}
                                                 onlyRead={!(permiso_usuario_verificar_cristal)}
                                                 // onlyRead={!(isEditting && (permiso_areas_cristales && permiso_usuario_cristales))}
                                                 textAlign="text-center"
@@ -616,16 +626,16 @@ const FOTCristales: React.FC<ICristales> = ({
                                 </div>
 
                                 <div className="w-full flex mt-6 rowForm centertDIV relative">
-                                {permiso_area_verificar_cristal && (tipo_de_anteojo === '3' as any) && (
+                                {permiso_area_verificar_cristal && (tipo_de_anteojo.value === '3' as any) && (
                                     <div className="w-[40%] absolute -left-0">
-                                            <TextInputInteractive
+                                            <OTTextInputComponent
                                                 type="text"
                                                 label="Validar Cristal OD"
                                                 name="validar_cristal2_od"
                                                 handleChange={handleInputChange}
-                                                data={formValues && formValues["validar_cristal2_od"]}
+                                                otData={validar_cristal2_od.value ? validar_cristal2_od.value : formValues && formValues["validar_cristal2_od"]}
                                                 control={control}
-                                                isOT={true}
+                                                // isOT={true}
                                                 onlyRead={!(permiso_usuario_verificar_cristal)}
                                                 // onlyRead={!(isEditting && (permiso_areas_cristales && permiso_usuario_cristales))}
                                                 textAlign="text-center"
@@ -650,16 +660,16 @@ const FOTCristales: React.FC<ICristales> = ({
                                     />
                                 </div>
 
-                                {permiso_area_verificar_cristal && (tipo_de_anteojo === '3' as any) && (
+                                {permiso_area_verificar_cristal && (tipo_de_anteojo.value === '3' as any) && (
                                         <div className="w-[40%] absolute right-0">
-                                            <TextInputInteractive
+                                            <OTTextInputComponent
                                                 type="text"
                                                 label="Validar Codigo Cristal OI"
                                                 name="validar_cristal2_oi"
                                                 handleChange={handleInputChange}
-                                                data={formValues && formValues["validar_cristal2_oi"]}
+                                                otData={ validar_cristal2_oi.value ? validar_cristal2_oi.value : formValues && formValues["validar_cristal2_oi"]}
                                                 control={control}
-                                                isOT={true}
+                                                // isOT={true}
                                                 onlyRead={!(permiso_usuario_verificar_cristal)}
                                                 // onlyRead={!(isEditting && (permiso_areas_cristales && permiso_usuario_cristales))}
                                                 textAlign="text-center"
@@ -679,7 +689,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                             label="Codigo Cristal OD"
                                             name="cristal2_od"
                                             handleChange={handleInputChange}
-                                            data={A2_CR_OD.value || data && data[EnumGrid.cristal2_od]}
+                                            data={A2_CR_OD.value === ' ' ?  data && data[EnumGrid.cristal2_od] : A2_CR_OD.value}
                                             control={control}
                                             isOT={true}
                                             onlyRead={!((isEditting && tipo_de_anteojo.value === '3') && (isEditting && permiso_areas_cristales && permiso_usuario_cristales && tipo_de_anteojo.value === '3'))}
@@ -692,7 +702,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                             label="Codigo Cristal OI"
                                             name="cristal2_oi"
                                             handleChange={handleInputChange}
-                                            data={A2_CR_OI.value || data && data[EnumGrid.cristal2_oi]}
+                                            data={A2_CR_OI.value === ' ' ? data && data[EnumGrid.cristal2_oi] : A2_CR_OI.value}
                                             control={control}
                                             isOT={true}
                                             onlyRead={!((isEditting && tipo_de_anteojo.value === '3') && (isEditting && permiso_areas_cristales && permiso_usuario_cristales && tipo_de_anteojo.value === '3'))}

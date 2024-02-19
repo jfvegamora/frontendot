@@ -2,12 +2,18 @@ import { Input } from "@material-tailwind/react";
 import React, {useEffect, useState} from "react";
 import { Controller } from "react-hook-form";
 import { 
+  A1_CR_OD,
+  A1_CR_OI,
+  A2_CR_OD,
+  A2_CR_OI,
+  a1_armazon,
   a1_od_eje,
   a1_od_esf,
   a1_oi_eje,
   a1_oi_esf,
+  a2_armazon,
   // a1_od_cil, a1_od_eje, a1_od_esf, 
-  a2_od_cil, a2_od_eje, a2_od_esf, a2_oi_cil, a2_oi_eje, a2_oi_esf, dioptrias_receta } from "../../utils";
+  a2_od_cil, a2_od_eje, a2_od_esf, a2_oi_cil, a2_oi_eje, a2_oi_esf, a3_armazon, dioptrias_receta, validar_armazon1, validar_armazon2, validar_cristal1_od, validar_cristal1_oi, validar_cristal2_od, validar_cristal2_oi } from "../../utils";
 import { toast } from "react-toastify";
 import { validation_A1_OD_EJE, validation_A1_OI_EJE } from "../../utils/validationOT";
 
@@ -100,6 +106,34 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
        break;
     case 'a2_oi_eje':
       initialValue = a2_oi_eje.value
+      break;
+    //? VALIDACIONES
+    case 'validar_armazon1':
+      initialValue = validar_armazon1.value
+      break;
+    case 'validar_armazon2':
+      initialValue = validar_armazon2.value
+      break;
+    case 'validar_cristal1_od':
+      initialValue = validar_cristal1_od.value;
+      break
+    case 'validar_cristal1_oi':
+      initialValue = validar_cristal1_oi.value;
+      break;
+    case 'validar_cristal2_od':
+      initialValue = validar_cristal2_od.value;
+      break;
+    case 'validar_cristal2_oi':
+      initialValue = validar_cristal2_oi.value;
+      break;
+    case 'a1_armazon_id':
+      initialValue = a1_armazon.value;
+      break;
+    case 'a2_armazon_id':
+      initialValue = a2_armazon.value;
+      break;
+    case 'a3_armazon_id':
+      initialValue = a3_armazon.value;
       break;
     default:
       break;
@@ -229,6 +263,58 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
           dioptrias_receta.value.a1_oi.ad = "  "
           setValue("  ")
           return;
+        }
+        break;
+      
+      case 'validar_armazon1':
+        if(a1_armazon.value.trim() !== validar_armazon1.value.trim()){
+          setValue(' ')
+          validar_armazon1.value = " "
+        }
+        break;
+      case 'validar_armazon2':
+        if(a2_armazon.value.trim() !== validar_armazon2.value.trim()){
+          setValue(' ')
+          validar_armazon2.value = " "
+        }
+        break;
+
+      case 'validar_cristal1_od':
+        if(A1_CR_OD.value.trim() !== validar_cristal1_od.value.trim()){
+          if(value.trim() !== ''){
+            toast.error('Códigos Cristal Ojo Derecho no coinciden')
+            setValue(' ')
+            validar_cristal1_od.value = " "
+          }
+        }
+        break;
+      case 'validar_cristal1_oi':
+        if(A1_CR_OI.value.trim() !== validar_cristal1_oi.value.trim()){
+          if(value.trim() !== ''){
+            toast.error('Códigos Cristal Ojo Izquierdo no Coinciden')
+            setValue(' ')
+            validar_cristal1_oi.value = " "
+          }
+        }
+        break;
+      case 'validar_cristal2_oi':
+        if(A2_CR_OI.value.trim() !== validar_cristal2_oi.value.trim()){
+          if(value.trim() !== ""){
+            toast.error('Códigos Cristal Ojo Izquierdo no Coinciden')
+            setValue(' ')
+            validar_cristal2_oi.value = " "
+          }
+        }
+        break;
+      case 'validar_cristal2_od':
+        if(A2_CR_OD.value.trim() !== validar_cristal2_od.value.trim()){
+
+          if(value.trim() !== ""){
+            toast.error('Códigos Cristal Ojo Derecho no Coinciden')
+            setValue(' ')
+            validar_cristal2_od.value = " "
+          }
+
         }
         break;
       default:

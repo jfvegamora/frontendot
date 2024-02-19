@@ -1,4 +1,4 @@
-import { A1_CR_OD, A1_CR_OI, A2_CR_OD, A2_CR_OI, a1_armazon, a1_od_ad, a1_od_cil, a1_od_eje, a1_od_esf, a1_oi_ad, a1_oi_cil, a1_oi_eje, a1_oi_esf, dioptrias_receta } from ".";
+import { A1_CR_OD, A1_CR_OI, A2_CR_OD, A2_CR_OI, a1_armazon, a1_od_ad, a1_od_cil, a1_od_eje, a1_od_esf, a1_oi_ad, a1_oi_cil, a1_oi_eje, a1_oi_esf, a2_armazon, dioptrias_receta, validar_armazon2 } from ".";
 import { validationNivel1, validationNivel2, validationNivel3 } from "../views/forms/FOT";
 
 export const validationProyectos = (value:string) => {
@@ -266,6 +266,9 @@ export const validationOTlevel2 = (name:string, value:any) => {
 }
 
 export const validationOTlevel3 = (name:string, value:any) => {
+    
+    console.log(name)
+    
     switch (name) {
         case 'validar_cristal1_od':
             validationCodigoCristal1_od(value)
@@ -276,8 +279,8 @@ export const validationOTlevel3 = (name:string, value:any) => {
         case 'validar_cristal2_od':
             validationCodigoCristal2_od(value)
             break
-        case 'validar_cristala2_oi':
-            validationCodigoCristal2_od(value)
+        case 'validar_cristal2_oi':
+            validationCodigoCristal2_oi(value)
             break
         case 'validar_armazon1':
             validationCodigoArmazon_1(value) 
@@ -294,6 +297,7 @@ export const validationOTlevel3 = (name:string, value:any) => {
 export const validationCodigoCristal1_od = (value:any) => {
     const item = validationNivel3.value.find((item: { campo: string; }) => item.campo === 'validar_cristal1_od');
     
+
     if(item){
         if(value === ""){
              item.valor = 0;
@@ -330,19 +334,24 @@ export const validationCodigoCristal1_oi = (value:any) => {
 export const validationCodigoCristal2_od = (value:any, validar?:boolean) => {
     const item = validationNivel3.value.find((item: { campo: string; }) => item.campo === 'validar_cristal2_od');
     if(item){
+
+        console.log(value)
+        console.log(A2_CR_OD.value)
         if(validar){
-            return item.valor = 1
+             item.valor = 1
         }
 
         if(value === ""){
-            return item.valor = 0;
+             item.valor = 0;
         }
 
         if(value === A2_CR_OD.value){
-            return item.valor = 1;
+             item.valor = 1;
         }else{
-            return item.valor = 0;
+             item.valor = 0;
         }
+
+        console.log(item)
 
     }
 
@@ -353,20 +362,23 @@ export const validationCodigoCristal2_od = (value:any, validar?:boolean) => {
 export const validationCodigoCristal2_oi = (value:any, validar?:boolean) => {
     const item = validationNivel3.value.find((item: { campo: string; }) => item.campo === 'validar_cristal2_oi');
     if(item){
+
+        console.log(value)
         if(validar){
-            return item.valor = 1;
+             item.valor = 1;
         }
 
         if(value === ""){
-            return item.valor = 0;
+             item.valor = 0;
         }
 
         if(value === A2_CR_OI.value){
-            return item.valor = 1;
+             item.valor = 1;
         }else{
-            return item.valor = 0;
+             item.valor = 0;
         }
 
+        console.log(item)
     }
 }
 
@@ -382,10 +394,7 @@ export const validationCodigoArmazon_1  = (value:any) => {
             return item.valor = 1;
         }else{
              item.valor = 0;
-             return {
-                mensaje: 'Código Armazon 1 no coincide',
-                result: false
-             }
+
         }
 
     }
@@ -396,21 +405,21 @@ export const validationCodigoArmazon_1  = (value:any) => {
 export const validationCodigoArmazon_2 = (value:any, validar?:boolean) => {
     const item = validationNivel3.value.find((item: { campo: string; }) => item.campo === 'validar_armazon2');
     if(item){
-        if(validar){
-            return item.valor = 1;
+    console.log(value)
+        if(value.trim() === ""){
+            console.log(value)
+            item.valor = 0
         }
 
-        if(value === ""){
-            return item.valor = 0;
-        }
-
-        if(value === a1_armazon.value){
-            return item.valor = 1;
+        if(value.trim() === a2_armazon.value ){
+            console.log(value)
+            item.valor = 1;
         }else{
-            return item.valor = 0;
+            console.log(value)
+            item.valor = 0
         }
-
-    }   
+   }
+    console.log(item)
 }
 
 

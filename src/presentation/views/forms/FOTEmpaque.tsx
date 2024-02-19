@@ -98,6 +98,8 @@ const FOTEmpaque: React.FC<IFOTEmpaque> = ({
             window.removeEventListener("keydown", handleKeyDown);
         };
     }, [closeModal]);
+
+    // console.log('render')
     return (
         // <div className='useFormContainer useFormDerivacion h-[55%] w-[60%] left-[20%] top-[30%] z-30'>
         //     <div className=" flex justify-end w-full">
@@ -125,7 +127,7 @@ const FOTEmpaque: React.FC<IFOTEmpaque> = ({
                             label="Proyecto"
                             name="proyecto"
                             control={control}
-                            data={pktoDelete[0] && pktoDelete[0]["proyecto"]}
+                            data={pktoDelete && pktoDelete[0] && pktoDelete[0]["proyecto"]}
                             onlyRead={true}
                         // handleChange={handleInputChange}
                         // data={formValues && formValues["rut"]}

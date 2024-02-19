@@ -33,7 +33,7 @@ import { A1_ALT, A1_CR_OD, A1_CR_OI, A1_DP, A1_Diametro, A1_GRUPO_OD, A1_GRUPO_O
   oftalmologo_id, 
   punto_venta, 
   // reiniciarA2DioptriasReceta, 
-  reiniciarDioptriasReceta, reiniciarValidationNivel1, reiniciarValidationNivel2, reiniciarValidationNivel3, tipo_de_anteojo, updateOT, validar_parametrizacion } from '../../utils';
+  reiniciarDioptriasReceta, reiniciarValidationNivel1, reiniciarValidationNivel2, reiniciarValidationNivel3, tipo_de_anteojo, updateOT, validar_armazon1, validar_parametrizacion } from '../../utils';
 import { validationCliente, validationClienteComuna, validationClienteNombre, validationClienteSexo, validationClienteTelefono, validationClienteTipo, validationCodigoArmazon_2, validationCodigoCristal2_od, validationCodigoCristal2_oi, validationEstablecimientos, validationFechaAtencion, validationFechaDespacho, validationFechaEntregaCliente, validationFechaEntregaTaller, validationProyectos, validationPuntoVenta, validationTipoAnteojos, validation_A1_ALT, validation_A1_DP, validation_A1_OD_AD, validation_A1_OD_CILL, validation_A1_OD_EJE, validation_A1_OD_ESF, validation_A1_OI_AD, validation_A1_OI_CIL, validation_A1_OI_EJE, validation_A1_OI_ESF, validation_A1_armazon, validation_A2_DP, validation_A2_OD_CIL, validation_A2_OD_EJE, validation_A2_OD_ESF, validation_A2_OI_CIL, validation_A2_OI_EJE, validation_A2_OI_ESF, validation_A2_armazon, validation_Cristal1_color, validation_Cristal1_diametro, validation_Cristal1_diseño, validation_Cristal1_indice, validation_Cristal1_marca, validation_Cristal1_material, validation_Cristal1_od, validation_Cristal1_oi, validation_Cristal1_tratamiento, validation_Cristal2_color, validation_Cristal2_diametro, validation_Cristal2_diseño, validation_Cristal2_indice, validation_Cristal2_material, validation_Cristal2_od, validation_Cristal2_oi, validation_Cristal2_tratamiento, validation_cristal2_marca } from '../../utils/validationOT';
 // import { inputName } from '../../components/OTForms/Otprueba';
 // import { verificaCampos } from '../../utils/OTReceta_utils';
@@ -499,7 +499,7 @@ const FOT:React.FC<IFOTProps> = ({
       A2_CR_OI.value   = data[EnumGrid.cristal2_oi] 
 
 
-      // console.log(A2_CR_OD.value)
+      console.log(A2_CR_OD.value)
       // console.log(punto_venta.value)
   
   }
@@ -596,9 +596,9 @@ const FOT:React.FC<IFOTProps> = ({
       )
 
 
-      validationCodigoCristal2_od("0",true)
-      validationCodigoCristal2_oi("0",true)
-      validationCodigoArmazon_2("0", true)
+      // validationCodigoCristal2_od("0",true)
+      // validationCodigoCristal2_oi("0",true)
+      // validationCodigoArmazon_2("0", true)
 
       if(data && data[EnumGrid.tipo_anteojo_id] === 3){
         validation_A2_armazon(data && data[EnumGrid.a2_armazon_id])
@@ -883,10 +883,11 @@ const FOT:React.FC<IFOTProps> = ({
     a2_oi_cil.value = "  ";
     a2_oi_eje.value = "  ";
 
-    handleFormChange({"a2_dp": ''} , 'receta')
+    handleFormChange({"a2_dp": ' '} , 'receta')
 
     // handleFormChange({"cristal1_marca_id": ' '} , 'cristales')
     handleFormChange({"cristal2_marca_id": false} , 'cristales')
+    handleFormChange({"cristal2_marca_id": undefined} , 'cristales')
     handleFormChange({"cristal2_diseno_id": false} , 'cristales')
     handleFormChange({"cristal2_indice_id": false} , 'cristales')
     handleFormChange({"cristal2_material_id": false} , 'cristales')
@@ -894,6 +895,10 @@ const FOT:React.FC<IFOTProps> = ({
     handleFormChange({"cristal2_tratamiento_id": false} , 'cristales')
     handleFormChange({"cristal2_tratamiento_adicional_id": false} , 'cristales')
     handleFormChange({"cristal2_diametro": ' '} , 'cristales')
+
+    handleFormChange({"cristal2_od": ' '} , 'cristales')
+    handleFormChange({"cristal2_oi": ' '} , 'cristales')
+
 
 
     A2_CR_OD.value    = "  ";
@@ -1015,13 +1020,13 @@ const FOT:React.FC<IFOTProps> = ({
 
       // console.log(OTAreaActual)
 
-      if(OTAreaActual === 100){
-        //TODO: estado true para mostrar modal empaque
-        // console.log('true')
-        setIsFOTEmpaque(true)
-        //TODO: Resultado del formulario
+      // if(OTAreaActual === 100){
+      //   //TODO: estado true para mostrar modal empaque
+      //   // console.log('true')
+      //   setIsFOTEmpaque(true)
+      //   //TODO: Resultado del formulario
 
-      }
+      // }
 
         let estado = OTAreaActual === 100 ? 50 : 20
 
@@ -1289,12 +1294,10 @@ const FOT:React.FC<IFOTProps> = ({
         const {cristal2_marca_id, cristal2_diseno_id, cristal2_indice_id, cristal2_color_id , cristal2_material_id,cristal2_tratamiento_id } = formValue;
         // console.log(formValue.cristal2_diametro)
 
-        console.log(A2_Diametro.value)
-        console.log(a2_od_esf.value)
-        console.log(a2_oi_esf.value)
+        // console.log(A2_Diametro.value)
+        // console.log(a2_od_esf.value)
+        // console.log(a2_oi_esf.value)
 
-        console.log(dioptrias_receta.value.a2_od.esf)
-        console.log(dioptrias_receta.value.a2_od.cil)
 
         if((cristal2_marca_id                      !== undefined   || data?.[EnumGrid.cristal2_marca_id]          !== undefined) &&
           (cristal2_diseno_id                      !== undefined   || data?.[EnumGrid.cristal2_diseno_id]         !== undefined) &&
@@ -1302,9 +1305,11 @@ const FOT:React.FC<IFOTProps> = ({
           (cristal2_color_id                       !== undefined   || data?.[EnumGrid.cristal2_color_id]          !== undefined) &&
           (cristal2_material_id                    !== undefined   || data?.[EnumGrid.cristal2_material_id]       !== undefined) &&
           (cristal2_tratamiento_id                 !== undefined   || data?.[EnumGrid.cristal2_tratamiento_id]    !== undefined) &&
-          A2_Diametro.value.trim()                       !== ''           &&
-          dioptrias_receta.value.a2_od.esf        !== ' '          &&
-          dioptrias_receta.value.a2_od.cil        !== ' '        
+          (A2_Diametro.value.trim()                 !== ''           ) &&
+          // dioptrias_receta.value.a2_od.esf         !== '  '          &&
+          // dioptrias_receta.value.a2_od.cil         !== '  '        
+          (a2_od_esf.value                          !== '  ')        &&
+          (a2_od_cil.value                          !== '  ')        
           ){
           console.log('ejecutando llamada.....')
           const _pkToDelete1_od ={
@@ -1320,7 +1325,7 @@ const FOT:React.FC<IFOTProps> = ({
           }
   
   
-          // console.log(_pkToDelete1_od)
+          console.log(_pkToDelete1_od)
           
           const _pkToDelete1_oi ={
             "marca":      cristal2_marca_id          || data?.[EnumGrid.cristal2_marca_id],
@@ -1334,13 +1339,15 @@ const FOT:React.FC<IFOTProps> = ({
             "cilindrico": a2_oi_cil.value ?? 0, 
           }
   
-          // console.log(_pkToDelete1_oi)
+          console.log(_pkToDelete1_oi)
 
 
   
           try {
             const pkJSON = JSON.stringify([_pkToDelete1_od, _pkToDelete1_oi])
             const encodedJSON = encodeURIComponent(pkJSON)
+
+            console.log(A2_Diametro.value.trim())
   
             const {data:cristalesDataOI} = await axios(`${URLBackend}/api/proyectogrupos/listado/?query=06&_p2=${codigoProyecto.value}&_pkToDelete=${encodedJSON}`)
             
@@ -1350,26 +1357,8 @@ const FOT:React.FC<IFOTProps> = ({
             if(cristalesDATA && cristalesDATA["ERROR"] !== ''){
               console.log('render')
               setErrorGrupoDioptriaA2(cristalesDATA["ERROR"])
-             
-  
-             // let count = 0
-              
-              // if(count > 0){
-              //   toast.error(cristalesDATA["ERROR"])
-              //   count ++
-              // }
-  
-  
-              // A2_CR_OD.value    = " ";
-              // A2_CR_OI.value    = " ";
-  
-              // A2_GRUPO_OD.value = " ";
-              // A2_GRUPO_OI.value = " ";
-  
-  
-              // validation_Cristal2_od("")
-              // validation_Cristal2_oi("")
             }else{
+              console.log('render')
               A2_CR_OD.value = cristalesDATA["CR_OD"].trim() || " ";
               A2_CR_OI.value = cristalesDATA["CR_OI"].trim() || " ";
     
@@ -1537,6 +1526,7 @@ useEffect(() => {
   };
 }, [closeModal]);
 
+
 useEffect(() => {
   if (errorGrupoDioptriaA1 !== '') {
     console.log('render');
@@ -1597,6 +1587,13 @@ useEffect(()=>{
     fecha_atencion_signal.value = fechaFormateada
 },[])
 
+
+
+// useEffect(()=>{
+//   setChangeboolean((prev)=>!prev)
+//   console.log('render')
+// },[validar_armazon1.value])
+
 // console.log(permiso_usuario_verificar_cristal)
 // console.log(permiso_usuario_verificar_armazon)
 
@@ -1613,7 +1610,8 @@ useEffect(()=>{
 
 
 
-  console.log(formValues)
+
+  // console.log(formValues)
 
   console.log(fecha_atencion_signal.value)
 
@@ -1663,7 +1661,7 @@ useEffect(()=>{
           </TabPanel>
 
           <TabPanel> 
-            <FOTArmazones permiso_areas_armazones={permiso_areas_armazones} isEditting={isEditting} permiso_usuario_armazones={permiso_usuario_armazones} onlyRead={onlyRead}  data={data && data} formValues={formValues["armazones"]} control={control} onDataChange={(data:any) => handleFormChange(data , 'armazones')}  />
+            <FOTArmazones setSelectedTab={setSelectedTab} permiso_areas_armazones={permiso_areas_armazones} isEditting={isEditting} permiso_usuario_armazones={permiso_usuario_armazones} onlyRead={onlyRead}  data={data && data} formValues={formValues["armazones"]} control={control} onDataChange={(data:any) => handleFormChange(data , 'armazones')}  />
           </TabPanel>
           
 
@@ -1715,7 +1713,7 @@ useEffect(()=>{
                 escritura_lectura        && 
                 // OTPermissions[6] === "1" &&
                 sumatoriaNivel1  === validationNivel1.value.length &&
-                (sumatoriaNivel2 === validationNivel2.value.length || data && data[EnumGrid.validar_parametrizacion_id] === "0" ) &&
+               (sumatoriaNivel2  === validationNivel2.value.length || data && data[EnumGrid.validar_parametrizacion_id] === "0" ) &&
                 (
                   ((permiso_area_verificar_cristal && permiso_area_verificar_armazon ) && sumatoriaNivel3 === validationNivel3.value.length) || 
                   (OTAreaActual !== 60)
