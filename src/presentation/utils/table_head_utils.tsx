@@ -1702,7 +1702,7 @@ export const table_head_proyectos = [
     key: "titulo",
     visible: true,
     alignment: "text-left",
-    width: "w-[16rem]",
+    width: "w-[24rem]",
   },
   {
     cell: "Param Cristales",
