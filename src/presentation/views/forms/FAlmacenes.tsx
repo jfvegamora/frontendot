@@ -272,10 +272,10 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
                     label="Categoría"
                     name="categoria"
                     showRefresh={true}
-                    data={data && data[EnumGrid.tipo_almacen_id]}
+                    data={data && data[EnumGrid.categoria_id]}
                     control={control}
                     entidad={"AlmacenesCategorias"}
-                    error={errors.tipo}
+                    error={errors.categoria}
                     customWidth={"!w-full ml-4"}
                   />
                 </div>

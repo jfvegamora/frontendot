@@ -1474,12 +1474,14 @@ export const table_head_almacenes = [
     cell: "Descripción",
     key: "descripcion",
     visible: true,
-    alignment: "text-left"
+    alignment: "text-left",
+    width: "w-[22rem]",
   },
   {
     cell: "Tipo Almacén ID",
     key: "tipo_almacen_id",
     visible: false,
+    width: "w-[10rem]",
   },
   {
     cell: "Tipo Almacén",
@@ -1497,7 +1499,8 @@ export const table_head_almacenes = [
     cell: "Categoría",
     key: "categoria",
     visible: true,
-    alignment: "text-left"
+    alignment: "text-left",
+    width: "w-[10rem]",
   },
   {
     cell: "",

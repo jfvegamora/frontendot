@@ -17,6 +17,8 @@ export enum EnumGrid {
   descripcion = 2,
   tipo_almacen_id = 3,
   tipo_almacen = 4,
+  categoria_id = 5,
+  categoria = 6,
 }
 
 const strEntidad = "Almacén ";
