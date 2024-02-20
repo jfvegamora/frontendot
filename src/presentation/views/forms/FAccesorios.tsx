@@ -310,7 +310,7 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
                     showRefresh={true}
                     data={data && data[EnumGrid.marca_id]}
                     control={control}
-                    entidad={["/api/marcas/", "02"]}
+                    entidad={["/api/marcas/", "02", "3"]}
                     error={errors.marca}
                     customWidth={"!ml-[1rem] !w-[19rem]"}
                     />

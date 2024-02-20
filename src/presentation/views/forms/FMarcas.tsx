@@ -13,6 +13,7 @@ import { MODAL, SUCCESS_MESSAGES, TITLES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
+import SelectInputTiposComponent from "../../components/forms/SelectInputTiposComponent";
 
 const strBaseUrl = "/api/marcas/";
 const strEntidad = "Marca ";
@@ -20,6 +21,7 @@ const strEntidad = "Marca ";
 export interface InputData {
   nombre   : string | undefined;
   proveedor: string | undefined;
+  categoria  : string | undefined;
 }
 
 interface OutputData {
@@ -33,7 +35,7 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
   //   alert(ERROR_MESSAGES.passwordNotMatch);
   // }
 
-  let _p1 = `"${jsonData.nombre}", ${jsonData.proveedor}`;
+  let _p1 = `"${jsonData.nombre}", ${jsonData.proveedor}, ${jsonData.categoria || 0}`;
 
   _p1 = _p1.replace(/'/g, '!');
 
@@ -50,8 +52,9 @@ export function transformUpdateQuery(
   primaryKey: string
 ): OutputData | null {
   const fields = [
-    `nombre   ="${jsonData.nombre}"`,
-    `proveedor=${jsonData.proveedor}`,
+    `nombre    = "${jsonData.nombre}"`,
+    `proveedor = ${jsonData.proveedor}`,
+    `categoria = ${jsonData.categoria || 0}`,
   ];
 
   const filteredFields = fields.filter(
@@ -264,6 +267,25 @@ const FMarcas: React.FC<IUserFormPrps> = React.memo(
                 </div>
               </div>
             </div>
+
+            <div className="w-full flex items-center h-[4rem]">
+              <div className="input-container items-center rowForm w-full">
+                <div className="w-full ">
+                <SelectInputTiposComponent
+                    label="Categoría"
+                    name="categoria"
+                    showRefresh={true}
+                    data={data && data[EnumGrid.categoria_id]}
+                    control={control}
+                    entidad={"TipoInsumo"}
+                    error={errors.categoria}
+                    customWidth={"!w-full ml-4"}
+                    isOptional={true}
+                    />
+                </div>
+              </div>
+            </div>
+
           </div>
 
           <div className="w-full">

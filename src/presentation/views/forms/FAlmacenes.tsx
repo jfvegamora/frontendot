@@ -274,7 +274,7 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
                     showRefresh={true}
                     data={data && data[EnumGrid.categoria_id]}
                     control={control}
-                    entidad={"AlmacenesCategorias"}
+                    entidad={"TipoInsumo"}
                     error={errors.categoria}
                     customWidth={"!w-full ml-4"}
                   />

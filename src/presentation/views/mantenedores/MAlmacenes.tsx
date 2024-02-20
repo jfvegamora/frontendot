@@ -90,7 +90,7 @@ const MAlmacenes: React.FC = () => {
                 label     : "Categoría",
                 type      : "select",
                 selectUrl : "/api/tipos/",
-                tipos     : "AlmacenesCategorias",
+                tipos     : "TipoInsumo",
                 styles    :  {with:" !w-[16rem]"}
 
               },

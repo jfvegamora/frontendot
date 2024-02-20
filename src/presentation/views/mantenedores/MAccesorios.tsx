@@ -101,6 +101,7 @@ const MAccesorios: React.FC = () => {
                 label: "Marca",
                 type: "select",
                 selectUrl: "/api/marcas/", styles:{with:"!w-[14rem]"},
+                _p1:"3"
               },
               {
                 name: "_p4",

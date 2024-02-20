@@ -904,7 +904,7 @@ export const table_head_accesorios = [
     key: "codigo",
     visible: true,
     alignment: "text-left",
-    width: "w-[9rem]",
+    width: "w-[10rem]",
   },
   {
     cell: "Descripción",
@@ -1003,7 +1003,7 @@ export const table_head_armazones = [
     key: "codigo",
     alignment: "text-left",
     visible: true,
-    width: "w-[9rem]",
+    width: "w-[10rem]",
   },
   {
     cell: "Armazon Tipo ID",
@@ -1164,7 +1164,7 @@ export const table_head_cristales = [
     key: "codigo",
     visible: true,
     alignment: "text-left",
-    width: "w-[9rem]",
+    width: "w-[10rem]",
   },
   {
     cell: "Marca ID",
@@ -1538,6 +1538,19 @@ export const table_head_marcas = [
     key: "proveedor",
     visible: true,
     alignment: "text-left",
+  },
+  {
+    cell: "Categoria_id",
+    key: "categoria_id",
+    visible: false,
+    alignment: "text-left"
+  },
+  {
+    cell: "Categoría",
+    key: "categoria",
+    visible: true,
+    alignment: "text-left",
+    width: "w-[10rem]",
   },
   {
     cell: "",

@@ -352,7 +352,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                       showRefresh={true}
                       data={data && data[EnumGrid.marca_id]}
                       control={control}
-                      entidad={["/api/marcas/", "02"]}
+                      entidad={["/api/marcas/", "02", "1"]}
                       error={errors.marca}
                       customWidth={"!w-[17rem]"}
                       />
