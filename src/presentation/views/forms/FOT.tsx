@@ -628,11 +628,11 @@ const FOT:React.FC<IFOTProps> = ({
  
 
 
-    let estado = 10;
-    let estado_impresion = 0;
-    let validar_parametrizacion_id = 1;
-    let motivo = 1;
-    let estado_validacion = sumatoriaNivel2  === validationNivel2.value.length ? 1 : 0
+    let estado                      = 10;
+    let estado_impresion            = 0;
+    let validar_parametrizacion_id  = 1;
+    let motivo                      = 1;
+    let estado_validacion           = sumatoriaNivel2  === validationNivel2.value.length ? 1 : 0
 
     console.log(estado_validacion)
 
@@ -1435,6 +1435,9 @@ React.useEffect(() => {
 }, [submitAction]);
 
 
+React.useEffect(()=>{
+  console.log(formValues)
+},[a2_od_esf.value])
 
 
 // React.useEffect(()=>{

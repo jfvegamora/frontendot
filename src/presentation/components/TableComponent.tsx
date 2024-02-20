@@ -167,6 +167,9 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
       )
     };
 
+
+    console.log(data)
+
     const renderCheckboxCell = (id: number, folio:number, estado?:any) => {
       // console.log(folio)
       return (
@@ -242,6 +245,9 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
           </tr>
         </thead>
         <tbody className="gridData">
+          
+        
+    
           {data && data.length > 0 ? (data.map((rowData: any, rowIndex: number) => {
               // const id = [3, 3];
               // console.log('rowData', rowData)

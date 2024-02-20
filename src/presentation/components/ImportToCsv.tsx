@@ -11,6 +11,7 @@ import { signal } from '@preact/signals-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUpload } from '@fortawesome/free-solid-svg-icons';
 import { AppStore, useAppSelector } from '../../redux/store';
+import { excelOTValidationStructure } from '../utils';
 
 export const resultExcelTypes = signal({})
 
@@ -108,16 +109,21 @@ const ImportToCsv:React.FC<ImportProps> = ({
   
   const onDrop = useCallback(async(acceptedFiles:any) => {
     setIsOpen((prev)=>!prev)  
-    const formData = new FormData();        
+    const formData = new FormData();
+    
+    
     const result = await excelTypes(strEntidad)
-    console.log('result tipos excel', result)
+    console.log('result tipos excel', JSON.parse(result["resul"]))
     resultExcelTypes.value = result
     
     // console.log(acceptedFiles[0])
     
-    
+    console.log(acceptedFiles)
+
+
     const validate = await  handleFileUpload(acceptedFiles[0], JSON.parse(result["resul"]))
     
+
     await handleValidacion(validate["numberOfElements"] || 0)
 
 
@@ -130,8 +136,9 @@ const ImportToCsv:React.FC<ImportProps> = ({
         setIsOpen(true)
         setCurrentStage("Errores")
       }
-    },1000)
+    },500)
     
+    console.log(validate["blob"])
     
     if(validate["blob"] && validate["numberOfElements"]){   
       formData.append('file', validate["blob"], 'modified_file.xls');
@@ -139,6 +146,15 @@ const ImportToCsv:React.FC<ImportProps> = ({
       formData.append('entidad', JSON.stringify(strEntidad));
       formData.append('userID',JSON.stringify(userState?.id));
 
+      const formData2:any = {
+        file                 : validate["blob"],
+        positions_to_remove  : JSON.stringify(PositionToRemove[strEntidad as "Clientes"]),
+        entidad              : JSON.stringify(strEntidad),
+        userID               : JSON.stringify(userState?.id)
+      }
+
+      console.log(formData)
+      console.log(formData2)
       // await handleValidacion(validate["numberOfElements"] || 0)
       const url = `${URLBackend.value}/api/excel/import/`
       console.log(url)
@@ -150,16 +166,16 @@ const ImportToCsv:React.FC<ImportProps> = ({
       //ETAPA CONFIRMACION
       .then(data => {
         console.log(data)
-        console.log('data, error', data["Errors"])
-        if(data["Errors"]){
-          const errors = data["Errors"].map((error:any)=>{
-            const a = error.split(',')[0]
-            const b = error.split(',')[1]
-            const c = error.split(',')[2]
-            return [a,c,b]
-          })
+        console.log('data, error', data["Error"])
+        if(data["Error"]){
+          // const errors = data["Errors"].map((error:any)=>{
+          //   const a = error.split(',')[0]
+          //   const b = error.split(',')[1]
+          //   const c = error.split(',')[2]
+          //   return [a,c,b]
+          // })
           setCurrentStage("Errores")
-          setErrors((_prev:any)=>errors)
+          setErrors((_prev:any)=>data["Error"])
           setIsOpen(true)
           a = true;
         }
@@ -172,8 +188,8 @@ const ImportToCsv:React.FC<ImportProps> = ({
             setTimeout(async()=>{
                 setCurrentStage('Almacenamiento')
                 await handleAlmacenamiento(validate["numberOfElements"] || 0);
-              },2000)
-          },2000)
+              },500)
+          },500)
         }
 
        })

@@ -100,8 +100,9 @@ const useCrud = (
       const table_name = {
         table_name : tableName
       }
-      // console.log(table_name)
+      console.log(table_name)
       const result = await axios.post(`${URLBackend}/api/typesexcel/`, table_name)
+      console.log(result)
       return result.data
     } catch (error) {
       console.log(error)

@@ -104,6 +104,23 @@ export const validar_cristal2_od = signal("");
 export const validar_cristal2_oi = signal("");
 
 
+
+export const excelOTValidationStructure = signal([
+  [ 'proyecto', 'varchar(20)', 'NO', 20, 7 ],
+  [ 'establecimiento', 'int', 'NO', null, 9 ],
+  [ 'cliente', 'varchar(10)', 'NO', 10, 10 ],
+  [ 'fecha_atencion', 'date', 'NO', null, 20 ],
+  [ 'punto_venta', 'int', 'NO', null, 24 ],
+  [ 'cristales1_marca', 'int', 'YES', null, 56 ],
+  [ 'cristales1_diseno', 'int', 'YES', null, 58 ],
+  [ 'cristales1_indice', 'int', 'YES', null, 60 ],
+  [ 'cristales1_material', 'int', 'YES', null,62 ],
+  [ 'cristales1_tratamiento', 'int', 'YES', null,64 ],
+  [ 'cristales1_color', 'int', 'YES', null,66 ],
+  [ 'cristales1_diametro', 'int', 'YES', null,68 ],
+])
+
+
 // export type DioptriasReceta = {
 //     a1_od: { esf: number | any; cil: number | any; eje: number | any; ad: number | any };
 //     a1_oi: { esf: number | any; cil: number | any; eje: number | any; ad: number | any };

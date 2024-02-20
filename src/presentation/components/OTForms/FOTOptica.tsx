@@ -148,7 +148,7 @@ const FOTOptica:React.FC<IOptica> = ({
 
     
 useEffect(()=>{
-    fetchFechas(fecha_atencion_signal.value, codigoProyecto.value)
+    fetchFechas((isEditting ? data?.[EnumGrid.fecha_atencion] : fecha_atencion_signal.value), codigoProyecto.value)
     onDataChange({ [' ']: ' ' });
     
     // console.log(punto_venta.value)

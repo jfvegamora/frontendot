@@ -18,10 +18,17 @@ const ModalImpor:React.FC<ModalImportProps> = ({
     errors
 }) => {
 
+
     // console.log('errors', errors)
     let transformedErrors:any[] = [];
-    if(errors){
+    // console.log(errors)
 
+    // console.log(typeof errors)
+    // console.log(typeof errors)
+
+    if(errors && typeof errors === 'string'){
+        transformedErrors =  [["", "", errors]]
+    }else if (errors && typeof errors === 'object'){
         transformedErrors = errors.map((error:any)=>{
             let b = error[2]
             console.log(b)
@@ -43,8 +50,9 @@ const ModalImpor:React.FC<ModalImportProps> = ({
             return ["","",b]
         })
     }
+ 
 
-    // console.log(transformedErrors)
+    console.log(transformedErrors)
 
    return (
     <div className='w-[90%] border border-black mx-auto h-[80%] left-20 z-20 bg-white absolute top-[10%] '>
