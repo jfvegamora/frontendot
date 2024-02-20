@@ -236,6 +236,7 @@ export const validationMarcasSchema = () =>
   yup.object().shape({
     nombre   : yup.string().required(`${msg}`),
     proveedor: yup.string().required(`${msg}`),
+    categoria  : yup.string(),
   });
 // Schema PROVEEDORES
 export const validationProveedoresSchema = () =>

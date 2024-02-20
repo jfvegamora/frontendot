@@ -127,6 +127,7 @@ const MCristales: React.FC = () => {
                   label: "Marca",
                   type: "select",
                   selectUrl: "/api/marcas/", styles:{with:" !w-[19rem]"},
+                  _p1: "2"
                 },
               
                 {

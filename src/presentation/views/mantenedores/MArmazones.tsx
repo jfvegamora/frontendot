@@ -100,6 +100,8 @@ const MArmazones: React.FC = () => {
               label: "Marca",
               type: "select",
               selectUrl: "/api/marcas/", styles:{with:"!w-[14rem]"},
+              _p1: "1"
+
             },
             {
               name: "_p4",

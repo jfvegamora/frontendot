@@ -17,6 +17,8 @@ export enum EnumGrid {
   nombre = 2,
   proveedor_id = 3,
   proveedor = 4,
+  categoria_id = 5,
+  categoria = 6,
 }
 
 const strEntidad = "Marca ";
@@ -67,8 +69,8 @@ const MMarcas: React.FC = () => {
 
   return (
     <div className="mantenedorContainer">
-      <div className="mantenedorHead width70">
-        <div className="w-[60%]">
+      <div className="mantenedorHead width80">
+        <div className="w-[80%]">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
             setParams={setParams}
@@ -81,6 +83,14 @@ const MMarcas: React.FC = () => {
                 label: "Proveedor",
                 type: "select",
                 selectUrl: "/api/proveedores/",
+              },
+              {
+                name      : "_p3",
+                label     : "Categoría",
+                type      : "select",
+                selectUrl : "/api/tipos/",
+                tipos     : "TipoInsumo",
+                // styles    :  {with:" !w-[16rem]"}
               },
             ]}
           />
