@@ -13,6 +13,7 @@ import { fetchOT } from "../../redux/slices/OTSlice";
 import { useCrud } from "../hooks";
 import { toast } from "react-toastify";
 import { paramsOT } from "../views/mantenedores/MOT";
+import { sesionExpirada } from "../../redux/slices/userSlice";
 
 interface IPrimaryKeyState {
   [key: string]: string | number;
@@ -57,7 +58,6 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
     // const OTs:any = useAppSelector((store: AppStore) => store.OTS.data);
     const { ListEntity } = useCrud(baseUrl);
     // console.log("cristalDescritpion", cristalDescritpion[3]);
-    
     useEffect(() => {
       // Actualiza el estado interno cuando la prop description cambia
       setCristalDescription(description || '');
@@ -68,6 +68,8 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
     const handleInputChange = React.useCallback(
       (name: string, value: string) => {
         // console.log(name)
+      
+        console.log('render')
         setInputValues((prev) => ({ ...prev, [name]: value }));
         // console.log(inputValues)
       },
@@ -76,6 +78,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
 
     const handleSelectChange = React.useCallback(
       (name: string, value: string) => {
+      
         setInputValues((prev) => ({ ...prev, [name]: value }));
         
         console.log(inputValues)
@@ -121,6 +124,8 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
       // filterToggle.value = false;
       // console.log(data)
       // console.log(cilindrico)
+      console.log(data)
+      console.log('render')
       const toastLoading = toast.loading('Buscando...');
       if ("_pCilindrico" in data || "_pEsferico" in data) {
         data = {
@@ -181,7 +186,10 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
       [handleSubmit, handleSearch]
     );
 
-    const handleBlur = React.useCallback(() => {
+    const handleBlur = React.useCallback((e:any) => {
+      if(e.target.value === ''){
+        return;
+      }
       handleSubmit(handleSearch)();
     }, []);
 
@@ -446,7 +454,12 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                 // className="primaryKeyIconButton items-center ml-2 mr-16  "
                 className="primaryKeyIconButton ml-2 mr-2"
                 type="submit"
-                onClick={handleSubmit(handleSearch)}
+                onClick={(e)=>{
+                  e.preventDefault()
+                  const result = sesionExpirada()
+                  console.log(result)
+                  return handleSubmit(handleSearch)()
+                }}
               >
                 {/* <MemoizedMagnifyingGlassIcon /> */}
                 {/* <MagnifyingGlassIcon className="primaryKeyIcon" se} /> */}

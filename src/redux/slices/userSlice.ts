@@ -12,7 +12,8 @@ const initialState:IUser | null = localStorage.getItem("user")
       correo: "",
       estado: 0,
       permisos: 0,
-      permisos_campos:''
+      permisos_campos:'',
+      ultimoMovimiento: new Date().getTime()
     };
 
 
@@ -24,17 +25,43 @@ export const userSlice = createSlice({
   reducers: {
     login: (_state, action:PayloadAction<IUser>) => {
         const userData = action.payload;
-        _state = userData;
-        localStorage.setItem(UserKey, JSON.stringify(userData))
-        return userData;
+        _state = {...userData, ultimoMovimiento: new Date().getTime()};
+        localStorage.setItem(UserKey, JSON.stringify({...userData, ultimoMovimiento: new Date().getTime()}))
+        return {...userData, ultimoMovimiento: new Date().getTime()};
     },
     logout: (_state) => {
       localStorage.removeItem(UserKey);
       localStorage.removeItem('Funcionalidades');
       return null;
     },
+    actualizarUltimoMovimiento: ():any=> {
+      console.log('render')
+      return {...initialState, ultimoMovimiento2: new Date().getTime()};
+    }
   },
 });
 
-export const { login, logout } = userSlice.actions;
+export const { login, logout, actualizarUltimoMovimiento } = userSlice.actions;
 export default userSlice.reducer;
+
+
+export const sesionExpirada = () => {
+  let horaInicioSesion = JSON.parse(localStorage.getItem('user') && localStorage.getItem('user') as any)
+  console.log(horaInicioSesion.ultimoMovimiento)
+  if (horaInicioSesion.ultimoMovimiento) {
+    const tiempoTranscurrido = new Date().getTime() - horaInicioSesion.ultimoMovimiento;
+    console.log(tiempoTranscurrido)
+    const minutosTranscurridos = tiempoTranscurrido / (10000 * 60);
+    console.log(minutosTranscurridos)
+    if (minutosTranscurridos < 15) {
+      // Actualizar la hora de inicio de sesión en Redux
+      console.log('render')
+      actualizarUltimoMovimiento()
+      return true; 
+    } else {
+      return false;
+    }
+  }
+
+  return true;
+};

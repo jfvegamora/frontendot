@@ -49,7 +49,7 @@ const StateCountBarOT:React.FC<IStateCountBar> = ({checkCount}) => {
       return null; 
     })}
     
-    {OTs.estadosOT.hasOwnProperty(99) && (
+    {OTs.estadosOT.hasOwnProperty(99) &&  (OTs.estadosOT[99] > 0 as any) && (
       <div className="w-[8rem]  flex bg-black">
           <p className="text-center mx-auto text-white">Por vencer: </p> <label className="text-center text-white">{OTs.estadosOT[99]}</label>        
       </div>

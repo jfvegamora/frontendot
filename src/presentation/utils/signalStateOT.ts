@@ -536,10 +536,10 @@ export const changeCodigoCristal_A2:any = {
   cristal2_color_id:true,
   cristal2_tratamiento_id:true,
   cristal2_diametro:true,
-  a1_od_esf:true,
-  a1_od_cil:true,
-  a1_oi_esf:true,
-  a1_oi_cil:true,
+  // a1_od_esf:true,
+  // a1_od_cil:true,
+  // a1_oi_esf:true,
+  // a1_oi_cil:true,
 
   a2_od_esf:true,
   a2_od_cil:true,
@@ -617,8 +617,12 @@ export const updateOT =async (
 
   let estado_impresion = data && data[EnumGrid.estado_impresion_id];
   let estado_validacion = data && data[EnumGrid.validar_parametrizacion_id];
-  
+  console.log(A2_CR_OI.value)
+  console.log(typeof A2_CR_OI.value)
+  console.log(data?.[EnumGrid.cristal2_oi])
+  console.log(typeof A2_CR_OI.value   !== 'object'    ? A2_CR_OI.value  : _formValues["cristales"] && parseInt(_formValues["cristales"]["cristal2_oi"]))
 
+  console.log()
   // let _rut = ""
   let _p3 = ""
 
@@ -698,8 +702,8 @@ export const updateOT =async (
     (`cristales2_material=${typeof jsonData.cristal2_material_id                                                                                         === 'undefined' ? data && data[EnumGrid.cristal2_material_id]              : parseInt(jsonData.cristal2_material_id)}`),
     (`cristales2_tratamiento=${typeof jsonData.cristal2_tratamiento_id                                                                                   === 'undefined' ? data && data[EnumGrid.cristal2_tratamiento_id]           : parseInt(jsonData.cristal2_tratamiento_id) }`),
     (`cristales2_color=${typeof jsonData.cristal2_color_id                                                                                               === 'undefined' ? data && data[EnumGrid.cristal2_color_id]                 : parseInt(jsonData.cristal2_color_id)}`),
-    (`cristales2_od="${typeof A2_CR_OD.value                                                                                                             !== 'object'    ? A2_CR_OD.value                                           : _formValues["cristales"] && parseInt(_formValues["cristales"]["cristal2_od"])}"`),
-    (`cristales2_oi="${typeof A2_CR_OI.value                                                                                                             !== 'object'    ? A2_CR_OI.value                                           : _formValues["cristales"] && parseInt(_formValues["cristales"]["cristal2_oi"])}"`),
+    (`cristales2_od="${A2_CR_OD.value.trim()                                                                                                             === ''          ? data?.[EnumGrid.cristal2_od]                             : (A2_CR_OD.value.trim() || _formValues["cristales"] && parseInt(_formValues["cristales"]["cristal2_od"]))}"`),
+    (`cristales2_oi="${A2_CR_OI.value.trim()                                                                                                             === ''          ? data?.[EnumGrid.cristal2_oi]                             : (A2_CR_OI.value.trim() || _formValues["cristales"] && parseInt(_formValues["cristales"]["cristal2_oi"]))}"`),
     (`cristales2_tratamiento_adicional=${typeof jsonData.cristal2_tratamiento_adicional_id                                                               === 'undefined' ? data && data[EnumGrid.cristal2_tratamiento_adicional_id] : parseInt(jsonData.cristal2_tratamiento_adicional_id)}`),
     
     

@@ -76,12 +76,16 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     const _p1 =  entidad[2] && `_p1=${entidad[2]}`   
     // console.log(entidad)
     // if(strTableName){
-    //   console.log(strTableName)
+      console.log(strTableName)
     // }
 
     const strUrl2 = strTableName ? `${URLBackend}${entidad[0]}listado/?query=${entidad[1]}&${strTableName}`
                                  : `${URLBackend}${entidad[0]}listado/?query=${entidad[1]}`;
 
+
+  if(name === 'punto_venta_id'){
+    console.log(strUrl2)
+  }
 
 
     // caonsole.log(strUrl2)
@@ -123,11 +127,11 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     // };
     const fetchSelectData =async()=>{
       const {data} = await axios(strUrl2)
-      // if(label === 'Punto de Venta'){
-      //   if(data && data[0]){
-      //     punto_venta.value = data[0][0]
-      //   }
-      // }
+      if(label === 'Punto de Venta'){
+        if(data && data[0]){
+          punto_venta.value = data[0][0]
+        }
+      }
       const payload = {
         [label]:data
       }

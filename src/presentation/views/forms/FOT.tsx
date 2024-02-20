@@ -1189,7 +1189,7 @@ const FOT:React.FC<IFOTProps> = ({
          (cristal1_color_id                       !== undefined  || data?.[EnumGrid.cristal1_color_id]    !== undefined) &&
          (cristal1_material_id                    !== undefined  || data?.[EnumGrid.cristal1_material_id] !== undefined) &&
          (cristal1_tratamiento_id                 !== undefined  || data?.[EnumGrid.cristal1_tratamiento_id] !== undefined)&&
-        A1_Diametro.value.trim()                  !== ''        &&
+        A1_Diametro.value.toString().trim()                  !== ''        &&
         dioptrias_receta.value.a1_od.esf          !== ' '       &&
         dioptrias_receta.value.a1_od.cil          !== ' '       &&
         dioptrias_receta.value.a1_oi.esf          !== ' '       &&
@@ -1288,15 +1288,30 @@ const FOT:React.FC<IFOTProps> = ({
 
     //? ANTEOJO 2:
     // console.log(a2_oi_esf.vsalue)
+
+    console.log(key)
+    if(changeCodigoCristal_A2[key]){
+      console.log('render')
+      if(tipo_de_anteojo.value === '3'){
+        console.log('render')
+      }
+    }
+
+
     if(tipo_de_anteojo.value === '3'){
-      if(changeCodigoCristal_A2[key]){
+      console.log(key)
+      console.log('render')
+      if(changeCodigoCristal_A2[key] ){
         const formValue = getValues()
         const {cristal2_marca_id, cristal2_diseno_id, cristal2_indice_id, cristal2_color_id , cristal2_material_id,cristal2_tratamiento_id } = formValue;
-        // console.log(formValue.cristal2_diametro)
+        console.log(formValue)
 
-        // console.log(A2_Diametro.value)
+        console.log(A2_Diametro.value.toString())
         // console.log(a2_od_esf.value)
         // console.log(a2_oi_esf.value)
+
+        console.log(dioptrias_receta.value.a2_od.esf)
+        console.log(dioptrias_receta.value.a2_od.cil)
 
 
         if((cristal2_marca_id                      !== undefined   || data?.[EnumGrid.cristal2_marca_id]          !== undefined) &&
@@ -1305,11 +1320,11 @@ const FOT:React.FC<IFOTProps> = ({
           (cristal2_color_id                       !== undefined   || data?.[EnumGrid.cristal2_color_id]          !== undefined) &&
           (cristal2_material_id                    !== undefined   || data?.[EnumGrid.cristal2_material_id]       !== undefined) &&
           (cristal2_tratamiento_id                 !== undefined   || data?.[EnumGrid.cristal2_tratamiento_id]    !== undefined) &&
-          (A2_Diametro.value.trim()                 !== ''           ) &&
-          // dioptrias_receta.value.a2_od.esf         !== '  '          &&
-          // dioptrias_receta.value.a2_od.cil         !== '  '        
-          (a2_od_esf.value                          !== '  ')        &&
-          (a2_od_cil.value                          !== '  ')        
+          (A2_Diametro.value.toString().trim()     !== ''           ) &&
+          dioptrias_receta.value.a2_od.esf         !== '  '          &&
+          dioptrias_receta.value.a2_od.cil         !== '  '        
+          // (a2_od_esf.value                          !== '  ')        &&
+          // (a2_od_cil.value                          !== '  ')        
           ){
           console.log('ejecutando llamada.....')
           const _pkToDelete1_od ={
@@ -1347,7 +1362,7 @@ const FOT:React.FC<IFOTProps> = ({
             const pkJSON = JSON.stringify([_pkToDelete1_od, _pkToDelete1_oi])
             const encodedJSON = encodeURIComponent(pkJSON)
 
-            console.log(A2_Diametro.value.trim())
+          
   
             const {data:cristalesDataOI} = await axios(`${URLBackend}/api/proyectogrupos/listado/?query=06&_p2=${codigoProyecto.value}&_pkToDelete=${encodedJSON}`)
             
