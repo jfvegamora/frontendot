@@ -587,6 +587,11 @@ export const updateOT =async (
   // console.log(_formValues)
   // console.log(data)
 
+  let folio = data?.[EnumGrid.folio]
+
+  console.log(folio)
+  console.log(_estado)
+
 
   
 
@@ -620,7 +625,7 @@ export const updateOT =async (
       const response = await axios.post(`${URLBackend}/api/ot/editar/`, query)
   
       if(response.status === 200){
-        return toast.success('OT Editada Correctamente')
+        return toast.success(`OT ${_estado === 20 ? 'Procesada' : 'Pausada'} Correctamente, Folio: ${folio}`)
       }else{
         return toast.error('Error al Editar OT')
       }

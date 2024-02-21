@@ -19,26 +19,26 @@ const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
   const {impresionOT:OT} = useAppSelector((store:AppStore)=>store.OTS);
   const User:any = useAppSelector((store:AppStore)=>store.user);
 
-    useEffect(() => {
-        const loadLogo = async () => {
-        try {
-      //  const dynamicLogo = await import(`${vite.base}/assets/${OT[EnumGrid.nombre_logo]}`);
-       const resultImage = getImageURL(OT[EnumGrid.nombre_logo]);
-       console.log(resultImage)
-      setLogoPath(resultImage);
-        } catch (error) {
-          console.error('Error loading logo:', error);
-          setLogoPath(null);
-        }
-    };
+  // useEffect(() => {
+  //   const loadLogo = async () => {
+  //       try {
+  //     //  const dynamicLogo = await import(`${vite.base}/assets/${OT[EnumGrid.nombre_logo]}`);
+  //      const resultImage = getImageURL(OT[0] && OT[0][EnumGrid.nombre_logo]);
+  //      console.log(resultImage)
+  //       setLogoPath(resultImage);
+  //       } catch (error) {
+  //         console.error('Error loading logo:', error);
+  //         setLogoPath(null);
+  //       }
+  //   };
 
 
+  //   if(OT[0] && OT[0][EnumGrid.nombre_logo]) {
+  //     console.log('render')
+  //     loadLogo();
+  //   }
 
- if (OT[EnumGrid.nombre_logo]) {
- loadLogo();
- }
-}, [OT && OT[EnumGrid.nombre_logo]]);
-
+  // }, [OT[0] && OT[0][EnumGrid.nombre_logo]]);
 
 // console.log(OT && OT[EnumGrid.folio])
 
@@ -46,7 +46,7 @@ const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
   useEffect(() => {
     const loadLogo = async () => {
       try {
-        const dynamicLogo = await import(`../../../assets/${OT[EnumGrid.nombre_logo]}`);
+        const dynamicLogo = await import(`../../../assets/${OT[0][EnumGrid.nombre_logo]}`); 
         setLogoPath(dynamicLogo.default);
       } catch (error) {
         console.error('Error loading logo:', error);
@@ -54,11 +54,13 @@ const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
       }
     };
 
-    if (OT[EnumGrid.nombre_logo]) {
+    if (OT[0] && OT[0][EnumGrid.nombre_logo]) {
       loadLogo();
     }
-  }, [OT && OT[EnumGrid.nombre_logo]]);
+  }, []);
 
+
+  // console.log(lo)
 
 
   return (
@@ -67,22 +69,34 @@ const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
        {OT?.map((OT:any, index:number)=>(
         <div className='  w-[90%] !h-[70rem] ' key={index}>
         
-        <div className="w-[110%]">
-          <div className="w-[60%] mx-auto">
+        <div className="w-[110%] relative  !h-[8%]">
+          <div className="w-[90%] mr-8  mx-auto">
             {/* <Barcode value={'000000'+ OT[EnumGrid.folio]} /> */}
-            <Barcode value={formatNumberWithZeros(OT[EnumGrid.folio])} />
+            <Barcode height={45} width={3} textAlign='right'  value={formatNumberWithZeros(OT[EnumGrid.folio])} />
+            <h3 className='absolute bottom-2 left-2'>{'22/22/2024'}</h3>
+
           </div>
         </div>
 
+          {logoPath && (
+            <div className="w-full !-mt-2">
+              <img src={logoPath} alt="Logo" className='w-[90%] ml-8' />
+            </div>
+          )}
          
-          <div className="header border-2 border-red-400 w-[110%] text-center">
-          {logoPath && <img src={logoPath} alt="Logo" />}
-            
-            <h3>FOLIO OT: {OT[EnumGrid.folio]}</h3>
-            <h3>FECHA: {OT[EnumGrid.fecha_atencion]}</h3>
+          <div className="header border-2 border-red-400 w-[110%] text-center !mt-4">
+            <div className="w-full">
+              <h3 className='text-[3rem]'>OT: {OT[EnumGrid.folio]}</h3>
+            </div>
+
+            <div className="w-full flex justify-between">
+              {/* <h3>FECHA ATENCIÓN: {OT[EnumGrid.fecha_atencion]}</h3> */}
+              <p>FECHA ATENCIÓN:</p>
+              <p>{OT[EnumGrid.fecha_atencion]}</p>
+            </div>
+
           </div>
           
-
      
           <div className="header border-2 border-red-400  w-[110%] text-center2">       
             <div className='flex px-8  my-2 w-[100%] mx-auto'>

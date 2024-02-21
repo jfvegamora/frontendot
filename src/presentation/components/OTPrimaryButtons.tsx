@@ -225,8 +225,12 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
 
 
     const handleProcesarMasivo = () => {
-     
-      const result = validationStateOT(4, 'En proceso', folios)
+      
+      console.log(OTAreas["areaActual"])
+
+      let condition = OTAreas["areaActual"] === 50 ? 'Ingresada' : 'En proceso';
+
+      const result = validationStateOT(4, condition, folios)
       const areAllSameType = result.every((item:any) => item === true);
       // console.log(result)
       
