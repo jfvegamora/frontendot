@@ -168,7 +168,6 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
     };
 
 
-    console.log(data)
 
     const renderCheckboxCell = (id: number, folio:number, estado?:any) => {
       // console.log(folio)

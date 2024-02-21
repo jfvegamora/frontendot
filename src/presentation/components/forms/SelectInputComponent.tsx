@@ -76,16 +76,12 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     const _p1 =  entidad[2] && `_p1=${entidad[2]}`   
     // console.log(entidad)
     // if(strTableName){
-      console.log(strTableName)
+
     // }
 
     const strUrl2 = strTableName ? `${URLBackend}${entidad[0]}listado/?query=${entidad[1]}&${strTableName}`
                                  : `${URLBackend}${entidad[0]}listado/?query=${entidad[1]}`;
 
-
-  if(name === 'punto_venta_id'){
-    console.log(strUrl2)
-  }
 
 
     // caonsole.log(strUrl2)
