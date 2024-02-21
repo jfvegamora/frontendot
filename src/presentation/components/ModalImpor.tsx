@@ -17,6 +17,9 @@ const ModalImpor:React.FC<ModalImportProps> = ({
     onClose,
     errors
 }) => {
+    const stopPropagation = (e: React.MouseEvent<HTMLDivElement>) => {
+        e.stopPropagation();
+    };
 
 
     // console.log('errors', errors)
@@ -53,34 +56,36 @@ const ModalImpor:React.FC<ModalImportProps> = ({
  
 
     console.log(transformedErrors)
+    console.log(titleState)
 
    return (
-    <div className='w-[90%] border border-black mx-auto h-[80%] left-20 z-20 bg-white absolute top-[10%] '>
-            <div className='h-[60vh]  w-full'>
-                <h1 className='absolute right-0 text-5xl' onClick={()=>onClose()}>X</h1>
-                <h1 className='text-xl text-center'>{titleState}</h1>
+    <div className='w-[50%] border border-black mx-auto  left-[22rem] z-50  absolute top-[20%] cursor-default ' onClick={stopPropagation} style={{backgroundColor:'rgb(103 111 157 / 1)'}}>
+            <div className='h-[10%]  w-full'>
+                <h1 className='absolute right-0 text-5xl cursor-pointer userFormBtnClose top-0' onClick={()=>onClose()}>X</h1>
+                <h1 className='text-xl text-center text-white '>Importando</h1>
 
-                <div className="w-[70%] mx-auto my-12 p-4">
+                <div className="w-[70%] mx-auto my-6 p-4">
                     <Progress 
                     value={Math.floor(progress)} 
                     label="Completed" 
-                    color="green"
+                    color={titleState === 'Errores' ? 'red' : 'orange'}
                     size="lg"
                     className='h-20'
                     />
 
                 </div>
 
-            <div className=' mt-[7rem] h-[45vh] overflow-y-auto'>
-                    {titleState === "Errores" && (
-                        <TableComponent
+                {titleState === "Errores" && (
+            <div className=' mt-[7rem]  overflow-y-auto bg-white'>
+                    <TableComponent
                         idMenu={26}
                         entidad='progres bar'
                         tableHead={table_head_errors}
                         data={transformedErrors}
                         />
-                    )}
             </div>
+                        
+                    )}
 
         </div>
        
