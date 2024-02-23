@@ -2114,13 +2114,6 @@ export const table_head_muestrarios_armazones = [
     width: "w-[7rem]",
   },
   {
-    cell: "Stock Disponible",
-    key: "stock_disponible",
-    visible: true,
-    alignment: "text-center",
-    width: "w-[7rem]",
-  },
-  {
     cell: "",
     key: "opciones",
     visible: true,
@@ -2282,13 +2275,6 @@ export const table_head_vitrinas_armazones = [
   {
     cell: "Stock Mínimo",
     key: "stock_minimo",
-    visible: true,
-    alignment: "text-center",
-    width: "w-[7rem]",
-  },
-  {
-    cell: "Stock Disponible",
-    key: "stock_disponible",
     visible: true,
     alignment: "text-center",
     width: "w-[7rem]",

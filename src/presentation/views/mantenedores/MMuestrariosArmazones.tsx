@@ -38,7 +38,6 @@ export enum EnumGrid {
   uso_id              = 21,
   uso                 = 22,
   stock_minimo        = 23,
-  stock_disponible    = 24,
 }
 const strEntidad = "Parametrización de Muestrarios ";
 const strEntidadExcel = "Parametrizacion_de_muestrarios";
