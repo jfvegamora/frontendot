@@ -247,8 +247,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
       isEditting ? focusSecondInput("tipo") : focusFirstInput("codigo");
     }, []);
 
-    console.log(errors)
-
+   
     return (
       <div className="useFormContainer centered-div use60rem">
         <div className="userFormBtnCloseContainer felex">

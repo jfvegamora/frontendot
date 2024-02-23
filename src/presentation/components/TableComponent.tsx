@@ -10,7 +10,11 @@ import {ExportToPDF} from "./ExportToPDF";
 import { ExportCSV } from "./ExportToCsv";
 import { AppStore, useAppSelector } from "../../redux/store";
 import OTGrillaButtons from "./OTGrillaButtons";
+import { signal } from "@preact/signals-react";
 // import { ExportCSV } from "./ExportToCsv";
+
+
+// const lowArmazonesStock = signal(false)
 
 interface ITableComponentProps<T> {
   tableHead: { cell: JSX.Element | string; key: string; visible: boolean; width?:string; alignment?:string, color?:boolean, background?:boolean }[];
@@ -37,6 +41,7 @@ interface ITableComponentProps<T> {
   strEntidad?: string;
   queryExcel?:any;
   setTotalRowIndex?:any;
+  params?:any;
   togglePermisoOTModal?:() => void;
   leftEdit?:boolean;
 }
@@ -65,7 +70,8 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
     queryExcel,
     isOT,
     togglePermisoOTModal,
-    leftEdit
+    leftEdit,
+    params
     //  setTotalRowIndex
   }) => {
     const { escritura_lectura, lectura} = usePermission(idMenu || 0 );
@@ -144,6 +150,8 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
         if(OTColores[rowData]){
           return background ? `${OTColores[rowData][1]}` : `${OTColores[rowData][0]}`
         }
+
+        return  background ? `black` : 'red'
       } catch (error) {
         console.log(error)
         throw error;
@@ -153,19 +161,22 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
 
 
 
-    const renderTextCell = (text: string, alignment?:string, type?:number, color2?:boolean, rowData?:any, backgroundAtrasadas?:boolean, color?:any) => {
+    const renderTextCell = (text: string, alignment?:string, type?:number, color2?:boolean, rowData?:any, backgroundAtrasadas?:boolean, color?:any, lowArmazonesStock?:any) => {
 
       const cellStyle = {
         textAlign:alignment,
-        color: rowData && handleColorEstado(rowData[4])
+        color: isOT ? (rowData &&  handleColorEstado(rowData[4])) : (rowData &&  handleColorEstado(rowData[1], 'background  ')),
+        // backgroundColor: isOT ? '' : (lowArmazonesStock ?  'yellow' : '')
       }
       // console.log(type)
+      
       return(
-        <Typography variant="small" color="blue-gray" className={`gridText h-[2.7rem]  py-2  ${(backgroundAtrasadas && color) ? '!text-white ' : 'text-black'} ${(type === 1 && color2) ? '': ( type === 1 ? ''  :'text-black')} `} style={ color2 ? cellStyle : null}>
+        <Typography variant="small" color="blue-gray" className={`gridText h-[2.7rem]  py-2  ${(backgroundAtrasadas && color || lowArmazonesStock && color2) ? '!text-white ' : 'text-black'} ${(type === 1 && color2) ? '': ( type === 1 ? ''  :'text-black')} `} style={ color2 ? cellStyle : null}>
           {text !== null && text !== undefined ? text.toString() : ""}
         </Typography>
       )
     };
+    let lowArmazonesStock = false;
 
 
 
@@ -249,7 +260,20 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
     
           {data && data.length > 0 ? (data.map((rowData: any, rowIndex: number) => {
               // const id = [3, 3];
-              console.log('x', rowData[18])
+              
+              if(params && params[0] === ''){
+
+                let stockDisponibe   = parseInt(rowData[18])
+                let stockMinimo      = parseInt(rowData[16])
+                lowArmazonesStock =  (stockDisponibe <= stockMinimo) ? true : false
+ 
+                          
+              }else{
+                lowArmazonesStock = false;
+              }
+
+
+
               const folio     = rowData[1]
               
               let estado = ""
@@ -257,6 +281,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
               if(isOT){
                 estado = rowData[3]
               }
+
 
               
             
@@ -268,8 +293,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                     const alignment           = tableHead?.[col]?.alignment || "";
                     const color2              = tableHead?.[col]?.color || false;
                     const backgroundAtrasadas = tableHead?.[col]?.background || false;
-
-
+                    
                   
                     // console.log(folio)
 
@@ -288,14 +312,14 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                           key={col}
                           id={tableHead[col].key}
                           style={{
-                            backgroundColor: color2 ? ( handleColorEstado(rowData[4], 'background') ): "",
-
+                            backgroundColor: isOT ? (color2 ? ( handleColorEstado( rowData[4], 'background') ): "") : ( lowArmazonesStock && color2 ? (handleColorEstado(rowData[1])) : ""),
+                            // backgroundColor:'blue'
                           }}
                         >
                           
                           {col === 0
                             ? renderCheckboxCell(rowIndex, folio, estado)
-                            : renderTextCell(row, '', type, color2, rowData,backgroundAtrasadas, color)}
+                            : renderTextCell(row, '', type, color2, rowData,backgroundAtrasadas, color, lowArmazonesStock)}
                         </td>
                       )
                     );

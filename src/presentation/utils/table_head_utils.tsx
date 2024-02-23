@@ -1004,6 +1004,8 @@ export const table_head_armazones = [
     alignment: "text-left",
     visible: true,
     width: "w-[10rem]",
+    color: true,
+    background:true
   },
   {
     cell: "Armazon Tipo ID",
