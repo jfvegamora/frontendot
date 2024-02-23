@@ -171,30 +171,16 @@ const FOTArmazones:React.FC<IArmazones> = ({
             if(!(!codArmazon1.trim())){
                 const fetchArmazones1 = async ()=>{
                     try {
-                    //    console.log(A1_Diametro.value)
-                    //    console.log(validar_parametrizacion.value)
                         const {data} = await axios((validar_parametrizacion.value === '1' ) ? (`${endpoint}&_p1=${codArmazon1 !== ' ' ? codArmazon1.trim() : "aaaa"}&_p4=${typeof A1_DP.value === 'number' ? (typeof A1_DP.value === 'number' ? A1_DP.value : 0) : (typeof A1_DP.value === 'string' ? A1_DP.value : 0)}&_p5=${typeof A1_Diametro.value === 'number' ? (typeof A1_Diametro.value === 'number' ? A1_Diametro.value : "" ) : (typeof A1_Diametro.value === 'string' ? A1_Diametro.value : "")}`) : (`${endpoint}&_p1=${codArmazon1 !== ' ' ? codArmazon1 && codArmazon1.trim() : "aaaa"}`))
-    
-                        if(data.length === 0){
-                            toast.error('Armazon 1 no Existe')
+                        // console.log(data[0])
+                        if(data && data[0] && data[0][0] === 'ERROR'){
+                            toast.error(data[0][1])
                             onDataChange({['a1_armazon_id']: " "})
                             setArmazon1([])
-                        }
-    
-    
-                        if(data[0] && data[0].length === 1){
-                            toast.error(data[0][0])
-                            onDataChange({['a1_armazon_id']: " "})
-                            setArmazon1([])
-                             
-                        }
-                        
-                        if(data[0] && data[0].length === 15 ||  data.length === 1){
+                        }else{
                             setArmazon1(data[0])
                         }
-    
                     } catch (error) {
-                        console.log(error)
                         throw error
                     }
                 }
@@ -204,6 +190,8 @@ const FOTArmazones:React.FC<IArmazones> = ({
         }
         
     }, [codArmazon1, validar_parametrizacion.value, A1_DP.value, A1_Diametro.value]);
+
+
     
     useEffect(()=>{
         if(codArmazon1 && armazon1[0] && armazon1.length > 2){
@@ -230,28 +218,15 @@ const FOTArmazones:React.FC<IArmazones> = ({
             if(!(!codArmazon2.trim())){
                 const fetchArmazones2 = async ()=>{
                     try {
-                        console.log(A2_DP.value)
-                        console.log(validar_parametrizacion.value)
                         const {data} = await axios((validar_parametrizacion.value === '1' ) ? (`${endpoint}&_p1=${codArmazon2 !== ' ' ? codArmazon2.trim() : "aaaa"}&_p4=${(tipo_de_anteojo.value === '3' ? (typeof A2_DP.value === 'number' ? (typeof A2_DP.value === 'number' ? A2_DP.value : 0) : (typeof A2_DP.value === 'string' ? A2_DP.value : 0)) : A1_DP.value)}&_p5=${tipo_de_anteojo.value === '3' ? (typeof A2_Diametro.value === 'number' ? (typeof A2_Diametro.value === 'number' ? A2_Diametro.value : "" ) : (typeof A2_Diametro.value === 'string' ? A2_Diametro.value : "")) : (typeof A1_Diametro.value === 'number' ? (typeof A1_Diametro.value === 'number' ? A1_Diametro.value : "" ) : (typeof A1_Diametro.value === 'string' ? A1_Diametro.value : "")) }`) : (`${endpoint}&_p1=${codArmazon2 !== '' ? codArmazon2 && codArmazon2.trim() : "aaaa"}`))
-    
-                        if(data.length === 0){
-                            toast.error('Armazon 2 no Existe')
+
+                        if(data && data[0] && data[0][0] === 'ERROR'){
+                            toast.error(data[0][1])
                             onDataChange({['a2_armazon_id']: " "})
-                            setArmazon2([])
-                        }
-    
-    
-                        if(data[0] && data[0].length === 1){
-                            toast.error(data[0][0])
-                            onDataChange({['a2_armazon_id']: " "})
-                            setArmazon2([])
-                             
-                        }
-                        
-                        if(data[0] && data[0].length === 15 ||  data.length === 1){
+                            setArmazon1([])
+                        }else{
                             setArmazon2(data[0])
                         }
-    
                     } catch (error) {
                         console.log(error)
                         throw error
@@ -272,23 +247,36 @@ const FOTArmazones:React.FC<IArmazones> = ({
                     try {
                         // const {data} = await axios((`${endpoint}&_p1=${codArmazon3 !== ' ' ? codArmazon3.trim() : "aaaa"}&_p4=${typeof A1_DP.value === 'string' ? A1_DP.value : 0}&_p5=${isEditting ? (typeof A1_Diametro.value === 'number' ? A1_Diametro.value : "" ) : (typeof A1_Diametro.value === 'string' ? A1_Diametro.value : "")}`))
                         const {data} = await axios((validar_parametrizacion.value === '1' ) ? (`${endpoint}&_p1=${codArmazon3 !== ' ' ? codArmazon3.trim() : "aaaa"}&_p4=${isEditting ? (typeof A1_DP.value === 'number' ? A1_DP.value : 0) : (typeof A1_DP.value === 'string' ? A1_DP.value : 0)}&_p5=${isEditting ? (typeof A1_Diametro.value === 'number' ? A1_Diametro.value : "" ) : (typeof A1_Diametro.value === 'string' ? A1_Diametro.value : "")}`) : (`${endpoint}&_p1=${codArmazon3 !== ' ' ? codArmazon3 && codArmazon3.trim() : ""}`))
-                        if(data.length === 0){
-                            toast.error('Armazon 3 no Existe')
-                            onDataChange({['a3_armazon_id']: " "})
-                            setArmazon3([])
-                        }
-    
-    
-                        if(data[0] && data[0].length === 1){
-                            toast.error(data[0][0])
-                            onDataChange({['a3_armazon_id']: " "})
-                            setArmazon3([])
-                             
-                        }
                         
-                        if(data[0] && data[0].length === 15 ||  data.length === 1){
+                        
+                        if(data && data[0] && data[0][0] === 'ERROR'){
+                            toast.error(data[0][1])
+                            onDataChange({['a1_armazon_id']: " "})
+                            setArmazon3([])
+                        }else{
                             setArmazon3(data[0])
                         }
+                        
+                        
+                        
+                        
+                        // if(data.length === 0){
+                        //     toast.error('Armazon 3 no Existe')
+                        //     onDataChange({['a3_armazon_id']: " "})
+                        //     setArmazon3([])
+                        // }
+    
+    
+                        // if(data[0] && data[0].length === 1){
+                        //     toast.error(data[0][0])
+                        //     onDataChange({['a3_armazon_id']: " "})
+                        //     setArmazon3([])
+                             
+                        // }
+                        
+                        // if(data[0] && data[0].length === 15 ||  data.length === 1){
+                        //     setArmazon3(data[0])
+                        // }
     
                     } catch (error) {
                         console.log(error)
