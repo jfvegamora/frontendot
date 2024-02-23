@@ -185,7 +185,17 @@ const FArmazonesKardexIN: React.FC<IUserFormPrps> = React.memo(
 
     const handleApiResponse = React.useCallback(
       async (response: any, isEditting: boolean) => {
-        if (response.code === "ERR_BAD_RESPONSE" || response.stack) {
+        if (response.code === "ERR_BAD_RESPONSE" || response.stack || response.hasOwnProperty('Error:')) {
+          
+          if(response.hasOwnProperty('Error:')){
+            show({
+              message: response["Error:"],
+              type:'error'
+            })
+            return;
+          }
+          
+          
           const errorMessage = isEditting
           ? strEntidad.concat(": " + response.message)
           : strEntidad.concat(": " + response.message)
