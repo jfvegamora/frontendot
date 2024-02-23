@@ -99,6 +99,7 @@ const FOTEmpaque: React.FC<IFOTEmpaque> = ({
         };
     }, [closeModal]);
 
+    const fechaFormateada = fechaHoraActual.toISOString().split('T')[0];
     // console.log('render')
     return (
         // <div className='useFormContainer useFormDerivacion h-[55%] w-[60%] left-[20%] top-[30%] z-30'>
@@ -152,6 +153,7 @@ const FOTEmpaque: React.FC<IFOTEmpaque> = ({
                             label="Fecha Doc"
                             name="fecha_doc"
                             control={control}
+                            data={fechaFormateada}
                             textAlign='text-center'
                             error={errors.fecha_doc}
                         />

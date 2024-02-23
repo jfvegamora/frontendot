@@ -257,13 +257,21 @@ const useCrud = (
 
   const createdEntity = async (entityData: any): Promise<any | undefined> => {
     try {
+      console.log(entityData)
       const response = await axiosInstance.post("/crear/", entityData);
       console.log(response)
       return response.data;
+
     } catch (error:any) {
-          // console.log(error.response.data.Error)
-          const mensajeError = procesarMensajeError(error.response.data.Error);
-          return new Error(mensajeError)
+          console.log(error)
+          if(error.response.data.Error){
+            const mensajeError = procesarMensajeError(error.response.data.Error);
+            console.log(mensajeError)
+            return new Error(mensajeError)
+          }else{
+            console.log(error.response.data)
+            return error.response.data
+          }
     }
   };
 

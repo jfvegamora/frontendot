@@ -249,15 +249,16 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
     
           {data && data.length > 0 ? (data.map((rowData: any, rowIndex: number) => {
               // const id = [3, 3];
-              // console.log('rowData', rowData)
+              console.log('x', rowData[18])
               const folio     = rowData[1]
-
+              
               let estado = ""
-
+              
               if(isOT){
                 estado = rowData[3]
               }
 
+              
             
               return (
                 <tr key={rowIndex} className="overflow-hidden">
