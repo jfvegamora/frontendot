@@ -1,5 +1,5 @@
 import { signal } from "@preact/signals-react"
-import { A2_CR_OD, A2_CR_OI, DioptriasReceta, buscarCampo,  buscarCampoNivel3,  clearDioptriasA2, clearSelectInput, dioptrias_receta, reiniciarA2DioptriasReceta, tipo_de_anteojo } from "."
+import { A2_CR_OD, A2_CR_OI, DioptriasReceta, a2_armazon, buscarCampo,  buscarCampoNivel3,  clearDioptriasA2, clearSelectInput, dioptrias_receta, reiniciarA2DioptriasReceta, tipo_de_anteojo } from "."
 import { validationNivel2 } from "../views/forms/FOT"
 
 
@@ -55,14 +55,15 @@ export const validation_tipo_anteojo = () => {
         'validar_cristal1_od', 'validar_cristal1_oi', 'validar_cristal2_od', 'validar_cristal2_oi', 'validar_armazon1', 'validar_armazon2'
     ]
 
+    // console.log(a2_armazon.value.trim())
     const mappingNivel3:any = {
-        '1': {validar_cristal1_od:0,validar_cristal1_oi:0, validar_cristal2_od:1, validar_cristal2_oi:1,validar_armazon1:0, validar_armazon2:1},
-        '2': {validar_cristal1_od:0,validar_cristal1_oi:0, validar_cristal2_od:1, validar_cristal2_oi:1,validar_armazon1:0, validar_armazon2:1},
+        '1': {validar_cristal1_od:0,validar_cristal1_oi:0, validar_cristal2_od:1, validar_cristal2_oi:1,validar_armazon1:0, validar_armazon2:(a2_armazon.value.trim() !== '' ? 0  : 1)},
+        '2': {validar_cristal1_od:0,validar_cristal1_oi:0, validar_cristal2_od:1, validar_cristal2_oi:1,validar_armazon1:0, validar_armazon2:(a2_armazon.value.trim() !== '' ? 0  : 1)},
         '3': {validar_cristal1_od:0,validar_cristal1_oi:0, validar_cristal2_od:0, validar_cristal2_oi:0,validar_armazon1:0, validar_armazon2:0},
-        '4': {validar_cristal1_od:0,validar_cristal1_oi:0, validar_cristal2_od:1, validar_cristal2_oi:0,validar_armazon1:0, validar_armazon2:0},
-        '5': {validar_cristal1_od:0,validar_cristal1_oi:0, validar_cristal2_od:1, validar_cristal2_oi:1,validar_armazon1:0, validar_armazon2:1},
-        '6': {validar_cristal1_od:0,validar_cristal1_oi:0, validar_cristal2_od:1, validar_cristal2_oi:1,validar_armazon1:0, validar_armazon2:1},
-        '7': {validar_cristal1_od:0,validar_cristal1_oi:0, validar_cristal2_od:1, validar_cristal2_oi:1,validar_armazon1:0, validar_armazon2:1},
+        '4': {validar_cristal1_od:0,validar_cristal1_oi:0, validar_cristal2_od:1, validar_cristal2_oi:0,validar_armazon1:0, validar_armazon2:(a2_armazon.value.trim() !== '' ? 0  : 1)},
+        '5': {validar_cristal1_od:0,validar_cristal1_oi:0, validar_cristal2_od:1, validar_cristal2_oi:1,validar_armazon1:0, validar_armazon2:(a2_armazon.value.trim() !== '' ? 0  : 1)},
+        '6': {validar_cristal1_od:0,validar_cristal1_oi:0, validar_cristal2_od:1, validar_cristal2_oi:1,validar_armazon1:0, validar_armazon2:(a2_armazon.value.trim() !== '' ? 0  : 1)},
+        '7': {validar_cristal1_od:0,validar_cristal1_oi:0, validar_cristal2_od:1, validar_cristal2_oi:1,validar_armazon1:0, validar_armazon2:(a2_armazon.value.trim() !== '' ? 0  : 1)},
     }
 
 
