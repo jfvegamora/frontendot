@@ -76,7 +76,7 @@ const MArmazonesKardex: React.FC = () => {
   
   useEffect(() => {    
     const newPkToDelete = selectedRows.map((row: number) => 
-     `{"pk1":"${entities[row][EnumGrid.insumo]}", "pk2":"${entities[row][EnumGrid.fecha]}"}`);
+     `{"pk1":"${entities[row][EnumGrid.insumo]}", "pk2":"${entities[row][EnumGrid.fecha]}", "pk3":"${entities[row][EnumGrid.almacen_id]}"}`);
     const combinedPks = newPkToDelete.join(',');
     console.log(pkToDelete)
 
@@ -119,7 +119,7 @@ const MArmazonesKardex: React.FC = () => {
           strBaseUrl={strBaseUrl}
           showAddButton={true}
           showExportButton={true}
-          showDeleteButton={true}
+          showDeleteButton={false}
           showForwardButton={false}
           showRefreshButton={true}
           comilla={true}

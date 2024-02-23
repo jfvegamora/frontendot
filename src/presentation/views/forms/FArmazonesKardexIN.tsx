@@ -274,23 +274,34 @@ const FArmazonesKardexIN: React.FC<IUserFormPrps> = React.memo(
       "${fechaFormateada + " " + dateHora}"`;
 
       //  ${(jsonData.proveedor && jsonData.proveedor?.toString())?.length === 0 ? "0" : jsonData.proveedor}, 
+      // const kardex = [{
+      //   'es': "1",
+      //   'motivo': jsonData.motivo_ingreso
+      // }]
       const kardex = [{
-        'es': "1",
-        'motivo': jsonData.motivo_ingreso
+        'insumo'              : jsonData.insumo,
+        'fecha'               : jsonData.fecha + " " + dateHora,
+        'almacen'             : jsonData.almacen,
+        'es'                  : "1",
+        'motivo'              : jsonData.motivo_ingreso,
+        'cantidad'            : jsonData.cantidad,
+        'almacen_relacionado' : 0,
+        'observaciones'       : jsonData.observaciones,
+        'usuario'             : userState?.id,
       }]
 
       _p1 = _p1.replace(/'/g, '!');
-      let _p2 = `${jsonData.insumo}`;
-      let _p3 = `${jsonData.motivo_ingreso}`;
-      let _p4 = `${jsonData.cantidad}`;
+      // let _p2 = `${jsonData.insumo}`;
+      // let _p3 = `${jsonData.motivo_ingreso}`;
+      // let _p4 = `${jsonData.cantidad}`;
       
       const query = {
         query: "03",
         _p1,
         _pkToDelete:JSON.stringify(kardex),
-        _p2,
-        _p3,
-        _p4,
+        // _p2,
+        // _p3,
+        // _p4,
       };
 
       ajuste_inventario_autorizacion.value = false
