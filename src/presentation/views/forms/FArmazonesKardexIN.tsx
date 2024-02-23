@@ -25,7 +25,7 @@ import AjusteInventario, { ajuste_inventario_autorizacion } from "../../componen
 import { Button } from "@material-tailwind/react";
 
 const strBaseUrl = "/api/armazoneskardex/";
-const strEntidad = "Kardex de Cristal ";
+const strEntidad = "Kardex de Armazón ";
 
 export interface InputData {
   insumo              : string | undefined;

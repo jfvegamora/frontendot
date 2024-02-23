@@ -175,6 +175,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
                         // console.log(data[0])
                         if(data && data[0] && data[0][0] === 'ERROR'){
                             toast.error(data[0][1])
+                            a1_armazon.value = " "
                             onDataChange({['a1_armazon_id']: " "})
                             setArmazon1([])
                         }else{
@@ -222,6 +223,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
 
                         if(data && data[0] && data[0][0] === 'ERROR'){
                             toast.error(data[0][1])
+                            a2_armazon.value = " "
                             onDataChange({['a2_armazon_id']: " "})
                             setArmazon1([])
                         }else{
@@ -251,7 +253,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
                         
                         if(data && data[0] && data[0][0] === 'ERROR'){
                             toast.error(data[0][1])
-                            onDataChange({['a1_armazon_id']: " "})
+                            onDataChange({['a3_armazon_id']: " "})
                             setArmazon3([])
                         }else{
                             setArmazon3(data[0])
