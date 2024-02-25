@@ -82,7 +82,7 @@ const MArmazones: React.FC = () => {
   return (
     <div className="mantenedorContainer">
       <div className="mantenedorHead width100 !h-[6rem]">
-      <div className="w-[70%] ">
+      <div className="w-[80%] ">
         <PrimaryKeySearch
           baseUrl={strBaseUrl}
           setParams={setParams}
@@ -90,13 +90,13 @@ const MArmazones: React.FC = () => {
           setEntities={setEntities}
           primaryKeyInputs={[
             { name: "_p1", label: "Código", type: "text", styles:{with:"!w-[9rem]"} },
-            { name: "_p5", label: "Código FAB", type: "text", styles:{with:"!w-[9rem]"} },
+            // { name: "_p5", label: "Código FAB", type: "text", styles:{with:"!w-[9rem]"} },
             { name: "_p2", label: "Modelo", type: "text", styles:{with:"!w-[9rem]"} },
             {
               name: "_p3",
               label: "Marca",
               type: "select",
-              selectUrl: "/api/marcas/", styles:{with:"!w-[14rem]"},
+              selectUrl: "/api/marcas/", styles:{with:"!w-[10rem]"},
               _p1: "1"
 
             },
@@ -104,14 +104,14 @@ const MArmazones: React.FC = () => {
               name: "_p4",
               label: "Almacenes",
               type: "select",
-              selectUrl: "/api/almacenes/", styles:{with:"!w-[14rem]"},
+              selectUrl: "/api/almacenes/", styles:{with:"!w-[20rem]"},
               _p1: "1"
             },
         ]}
         />
       </div>
 
-        <div className="w-[25%] px-2">
+        <div className="w-[20%] px-2">
           <PrimaryButtonsComponent
             handleAddPerson={openModal}
             handleDeleteSelected={handleDeleteSelected}

@@ -10,7 +10,7 @@ import {
 } from "../../components";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import {  validationKardexOUTSchema } from "../../utils/validationFormSchemas";
+import { validationKardexOUTSchema } from "../../utils/validationFormSchemas";
 import { EnumGrid } from "../mantenedores/MArmazonesKardex";
 import {
   MODAL,
@@ -20,7 +20,7 @@ import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import { AppStore, useAppSelector } from "../../../redux/store";
 import useCustomToast from "../../hooks/useCustomToast";
-import {toast} from 'react-toastify'
+import { toast } from 'react-toastify'
 import AjusteInventario, { ajuste_inventario_autorizacion } from "../../components/AjusteInventario";
 import { Button } from "@material-tailwind/react";
 
@@ -28,21 +28,21 @@ const strBaseUrl = "/api/armazoneskardex/";
 const strEntidad = "Kardex de Armazón ";
 
 export interface InputData {
-  insumo             : string | undefined;
+  insumo: string | undefined;
   // descripcion         : string | undefined;
-  fecha               : string | undefined;
+  fecha: string | undefined;
   // es                  : string | undefined;
-  motivo_egreso              : string | undefined;
-  cantidad            : string | undefined;
-  almacen             : string | undefined;
+  motivo_egreso: string | undefined;
+  cantidad: string | undefined;
+  almacen: string | undefined;
   // numero_factura      : string | undefined;
   // proveedor           : string | undefined;
   // valor_neto          : string | undefined;
   // ot                  : string | undefined;
-  almacen_relacionado : string | undefined;
-  observaciones       : string | undefined;
-  usuario             : string | undefined;
-  fecha_mov           : string | undefined;
+  almacen_relacionado: string | undefined;
+  observaciones: string | undefined;
+  usuario: string | undefined;
+  fecha_mov: string | undefined;
 }
 
 interface OutputData {
@@ -55,9 +55,9 @@ interface OutputData {
 export function transformUpdateQuery(
   // jsonData: InputData
   // ,primaryKey: string
-  ): OutputData | null {
+): OutputData | null {
   // const fields = [
-    //   `almacen            = ${jsonData.almacen}`,
+  //   `almacen            = ${jsonData.almacen}`,
   //   `es                 = ${
   //     jsonData.es === MOTIVO_KARDEX.entrada
   //       ? 1
@@ -87,10 +87,10 @@ export function transformUpdateQuery(
   // const _p1 = filteredFields.join(",");
 
   // return {
-    //   query: "04",
-    //   _p1,
-    //   _p2: jsonData.cristal,
-    //   _p3: jsonData.fecha,
+  //   query: "04",
+  //   _p1,
+  //   _p2: jsonData.cristal,
+  //   _p3: jsonData.fecha,
   // };
   return null;
 }
@@ -144,11 +144,11 @@ const FArmazonesKardexOUT: React.FC<IUserFormPrps> = React.memo(
     } = useForm({
       resolver: yupResolver(schema),
     });
-    
-    function transformInsertQuery(jsonData: InputData, userId?:number): OutputData | null {
+
+    function transformInsertQuery(jsonData: InputData, userId?: number): OutputData | null {
       setFechaHoraActual(new Date())
 
-      if(jsonData.motivo_egreso === '5'){
+      if (jsonData.motivo_egreso === '5') {
         console.log('pedir autorizacion')
         setShowAutorizacion(true)
 
@@ -158,68 +158,55 @@ const FArmazonesKardexOUT: React.FC<IUserFormPrps> = React.memo(
       const year = fechaHoraActual.getFullYear(); // Obtiene el año de 4 dígitos
       const month = String(fechaHoraActual.getMonth() + 1).padStart(2, '0'); // Obtiene el mes (agrega 1 ya que los meses comienzan en 0) y lo formatea a 2 dígitos
       const day = String(fechaHoraActual.getDate()).padStart(2, '0'); // Obtiene el día y lo formatea a 2 dígitos
-    
+
       const fechaFormateada = `${year}/${month}/${day}`;
       const dateHora = new Date().toLocaleTimeString();
-      
-      if(jsonData.fecha){
-        if(fechaHoraActual <= new Date(jsonData.fecha as string)){
+
+      if (jsonData.fecha) {
+        if (fechaHoraActual <= new Date(jsonData.fecha as string)) {
           toast.error('Fecha mayor a la actual')
           throw new Error('fecha mayor a la actual')
-          
+
         }
       }
-    
+
       /*INSERT INTO CristalesKardex 
       (fecha, cristal, almacen, es, motivo, cantidad, valor_neto, proveedor, 
         numero_factura, OT, almacen_relacionado, observaciones, usuario, fecha_mov)*/
-        // let _p1 = `"${jsonData.fecha + " " + fechaHoraActual.toLocaleTimeString()}", 
-        let _p1 = `"${jsonData.fecha + " " + dateHora}", 
-        "${jsonData.insumo}", 
-        ${jsonData.almacen}, 
-        ${2}, 
-        ${jsonData.motivo_egreso}, 
-        ${jsonData.cantidad}, 
-        ${'0'}, 
-        ${'0'}, 
-        ${'0'}, 
-        ${'0'}, 
-        ${jsonData.almacen_relacionado || '0'}, 
-        "${jsonData.observaciones}", 
-        ${userId}, 
-        "${fechaFormateada + " " + dateHora}"`;
+      // let _p1 = `"${jsonData.fecha + " " + fechaHoraActual.toLocaleTimeString()}", 
+      let _p1 = `"${jsonData.fecha + " " + dateHora}", "${jsonData.insumo}", ${jsonData.almacen}, ${2}, ${jsonData.motivo_egreso}, ${jsonData.cantidad},${'0'}, ${'0'}, ${'0'}, ${'0'}, ${jsonData.almacen_relacionado || '0'}, "${jsonData.observaciones}", ${userId}, "${fechaFormateada + " " + dateHora}"`;
 
-        let kardex = []
+      let kardex = []
 
-    
-        // ${(jsonData.almacen_relacionado && jsonData.almacen_relacionado?.toString())?.length === 0 ? "0" : jsonData.almacen_relacionado}, 
-        // 
-       if(jsonData.motivo_egreso === "2"){  
-          kardex = [{
-            // 'fecha': jsonData.fecha + " " +fechaHoraActual.toLocaleTimeString(),
-            'fecha': jsonData.fecha + " " + dateHora,
-            'insumo': jsonData.insumo,
-            'almacen': jsonData.almacen,
-            'es': "2",
-            'motivo': jsonData.motivo_egreso,
-            'cantidad': jsonData.cantidad,
-            'almacen_relacionado': jsonData.almacen_relacionado || 0,
-            'observaciones': jsonData.observaciones,
-            'usuario': userState?.id,
-          }]
-       }else{
-         kardex = [{
+
+      // ${(jsonData.almacen_relacionado && jsonData.almacen_relacionado?.toString())?.length === 0 ? "0" : jsonData.almacen_relacionado}, 
+      // 
+      // if (jsonData.motivo_egreso === "2") {
+        kardex = [{
+          // 'fecha': jsonData.fecha + " " +fechaHoraActual.toLocaleTimeString(),
+          'fecha': jsonData.fecha + " " + dateHora,
+          'insumo': jsonData.insumo,
+          'almacen': jsonData.almacen,
           'es': "2",
-          'motivo': jsonData.motivo_egreso
+          'motivo': jsonData.motivo_egreso,
+          'cantidad': jsonData.cantidad,
+          'almacen_relacionado': jsonData.almacen_relacionado || 0,
+          'observaciones': jsonData.observaciones,
+          'usuario': userState?.id,
         }]
-       }   
-      
+      // } else {
+      //   kardex = [{
+      //     'es': "2",
+      //     'motivo': jsonData.motivo_egreso,
+      //   }]
+      // }
+
       _p1 = _p1.replace(/'/g, '!');
-    
+
       const query = {
         query: "03",
         _p1,
-        _pkToDelete:JSON.stringify(kardex),
+        _pkToDelete: JSON.stringify(kardex),
       };
       console.log("query INSERT ", query);
       ajuste_inventario_autorizacion.value = false;
@@ -261,27 +248,27 @@ const FArmazonesKardexOUT: React.FC<IUserFormPrps> = React.memo(
     const handleApiResponse = React.useCallback(
       async (response: any, isEditting: boolean) => {
         if (response.code === "ERR_BAD_RESPONSE" || response.stack || response.hasOwnProperty('Error:')) {
-          
-          if(response.hasOwnProperty('Error:')){
+
+          if (response.hasOwnProperty('Error:')) {
             show({
               message: response["Error:"],
-              type:'error'
+              type: 'error'
             })
             return;
           }
 
           const errorMessage = isEditting
-          ? strEntidad.concat(": " + response.message)
-          : strEntidad.concat(": " + response.message)
+            ? strEntidad.concat(": " + response.message)
+            : strEntidad.concat(": " + response.message)
           show({
             message: errorMessage ? errorMessage : response.code,
             type: "error",
           });
-          
+
           return;
         }
-        
-        if(response.mensaje.includes('Creado')){
+
+        if (response.mensaje.includes('Creado')) {
           toastSuccess(isEditting);
         }
         if (!blnKeep && !isEditting) {
@@ -373,7 +360,7 @@ const FArmazonesKardexOUT: React.FC<IUserFormPrps> = React.memo(
     // }, []);
     useEffect(() => {
       isEditting ? focusSecondInput("es") : focusFirstInput("insumo");
-      if(!showAutorizacion){
+      if (!showAutorizacion) {
         ajuste_inventario_autorizacion.value = false
       }
     }, []);
@@ -389,62 +376,62 @@ const FArmazonesKardexOUT: React.FC<IUserFormPrps> = React.memo(
 
         <form onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
-          {showAutorizacion && (
-                <div className="relative top-0">
-                  <AjusteInventario onSubmit={handleAutorizacionSubmit} />
-                </div>
-              )}
+            {showAutorizacion && (
+              <div className="relative top-0">
+                <AjusteInventario onSubmit={handleAutorizacionSubmit} />
+              </div>
+            )}
 
             <div className="w-full flex items-center h-[4rem]">
               <div className="flex input-container items-center rowForm w-[60%]  ">
-              <div className="w-full">
-                    <TextInputComponent
-                      type="text"
-                      label="Código"
-                      name="insumo"
-                      data={data && data[EnumGrid.insumo]}
-                      control={control}
-                      error={errors.insumo}
-                      inputRef={firstInputRef}
-                      onlyRead={isEditting}
-                      customWidth={""}
-                      />
-                </div> 
-              </div> 
+                <div className="w-full">
+                  <TextInputComponent
+                    type="text"
+                    label="Código"
+                    name="insumo"
+                    data={data && data[EnumGrid.insumo]}
+                    control={control}
+                    error={errors.insumo}
+                    inputRef={firstInputRef}
+                    onlyRead={isEditting}
+                    customWidth={""}
+                  />
+                </div>
+              </div>
 
               <div className="flex input-container items-center rowForm w-[40%]  ">
                 <div className="w-full">
-                      <TextInputComponent
-                        type={isEditting ? "datetime" : "date"}
-                        label="Fecha"
-                        name="fecha"
-                        data={ fechaFormateada ? fechaFormateada : data && data[EnumGrid.fecha]}
-                        control={control}
-                        error={errors.fecha}
-                        onlyRead={isEditting}
-                        customWidth={" "}
-                        textAlign="text-center"
-                        />
-                    </div> 
+                  <TextInputComponent
+                    type={isEditting ? "datetime" : "date"}
+                    label="Fecha"
+                    name="fecha"
+                    data={fechaFormateada ? fechaFormateada : data && data[EnumGrid.fecha]}
+                    control={control}
+                    error={errors.fecha}
+                    onlyRead={isEditting}
+                    customWidth={" "}
+                    textAlign="text-center"
+                  />
                 </div>
+              </div>
             </div>
 
             <div className="w-full flex items-center h-[4rem]">
-              <div className="input-container items-center rowForm w-[65%]  ">
+              <div className="input-container items-center rowForm w-[60%]  ">
                 <div className="w-full !mt-4">
-                    <SelectInputComponent
-                      label="Motivo Egreso"
-                      name="motivo_egreso"
-                      showRefresh={true}
-                      data={data && data[EnumGrid.motivo_id]}
-                      control={control}
-                      entidad={["/api/kardexmotivos/", "02"]}
-                      error={errors.motivo_egreso}
-                      customWidth={"!ml-[1rem] !mt-[-0.6rem]"}                      
-                    />
+                  <SelectInputComponent
+                    label="Motivo Egreso"
+                    name="motivo_egreso"
+                    showRefresh={true}
+                    data={data && data[EnumGrid.motivo_id]}
+                    control={control}
+                    entidad={["/api/kardexmotivos/", "02"]}
+                    error={errors.motivo_egreso}
+                    customWidth={"!ml-[1rem] !mt-[-0.6rem]"}
+                  />
                 </div>
               </div>
-              <div className="input-container items-center rowForm w-[35%]  ">
+              <div className="input-container items-center rowForm w-[40%]  ">
                 <div className="w-full">
                   <TextInputComponent
                     type="number"
@@ -454,41 +441,44 @@ const FArmazonesKardexOUT: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     error={errors.cantidad}
                     textAlign="text-right"
-                    />
+                  />
                 </div>
               </div>
             </div>
 
             <div className="w-full flex items-center h-[4rem]">
-                <div className="input-container items-center rowForm w-[50%]  ">
-                  <div className="w-full">
-                    <SelectInputComponent
-                      label="Almacén"
-                      name="almacen"
-                      showRefresh={true}
-                      data={data && data[EnumGrid.almacen_id]}
-                      control={control}
-                      entidad={["/api/almacenes/", "02", "1"]}
-                      error={errors.almacen}
-                      customWidth={"!ml-[1rem] w-full"}                      
-                    />
-                  </div>
+              <div className="input-container items-center rowForm w-[100%]  ">
+                <div className="w-full">
+                  <SelectInputComponent
+                    label="Almacén"
+                    name="almacen"
+                    showRefresh={true}
+                    data={data && data[EnumGrid.almacen_id]}
+                    control={control}
+                    entidad={["/api/almacenes/", "02", "1"]}
+                    error={errors.almacen}
+                    customWidth={"!ml-[1rem] w-full"}
+                  />
                 </div>
-                <div className="input-container items-center rowForm w-[50%]  ">
-                  <div className="w-full">
-                    <SelectInputComponent
-                      label="Almacén Traspaso"
-                      name="almacen_relacionado"
-                      showRefresh={true}
-                      data={data && data[EnumGrid.almacen_relacionado_id]}
-                      control={control}
-                      entidad={["/api/almacenes/", "02", "1"]}
-                      error={errors.almacen_relacionado}
-                      customWidth={"!ml-[1rem] w-full"}                      
-                      isOptional={true}
-                    />
-                  </div>
+              </div>
+            </div>
+
+            <div className="w-full flex items-center h-[4rem]">
+              <div className="input-container items-center rowForm w-[100%]  ">
+                <div className="w-full">
+                  <SelectInputComponent
+                    label="Almacén Traspaso"
+                    name="almacen_relacionado"
+                    showRefresh={true}
+                    data={data && data[EnumGrid.almacen_relacionado_id]}
+                    control={control}
+                    entidad={["/api/almacenes/", "02", "1"]}
+                    error={errors.almacen_relacionado}
+                    customWidth={"!ml-[1rem] w-full"}
+                    isOptional={true}
+                  />
                 </div>
+              </div>
             </div>
 
             <div className="w-full flex items-center h-[4rem]">
@@ -502,20 +492,20 @@ const FArmazonesKardexOUT: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     error={errors.observaciones}
                     isOptional={true}
-                    />
+                  />
                 </div>
               </div>
             </div>
           </div>
-            
+
           <div className="w-full">
             <div className="w-[40%] mx-auto">
               {escritura_lectura && (
-                  <Button type="submit" tabIndex={1} className="userFormBtnSubmit">
+                <Button type="submit" tabIndex={1} className="userFormBtnSubmit">
                   {`${TITLES.guardar}`}
-                  </Button>
-                )}
-            </div>  
+                </Button>
+              )}
+            </div>
           </div>
 
         </form>
