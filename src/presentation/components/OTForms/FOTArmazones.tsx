@@ -78,6 +78,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
         console.log(value)
 
         onDataChange({ [name]: value.trim() }); 
+        setRender((prev)=>!prev)
 
         if (
             (name === 'a1_armazon_id' && (value !== " " && value !== '') && (value.trim() === codArmazon2 || value.trim() === codArmazon3)) ||
@@ -111,7 +112,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
                     break;
             }
             // toast.error('Los códigos de los armazones no pueden ser iguales entre sí.');
-            setRender((prev)=>!prev)
+            // setRender((prev)=>!prev)
             return; 
         }
 
@@ -161,17 +162,37 @@ const FOTArmazones:React.FC<IArmazones> = ({
         onDataChange({ [name]: value.trim() }); 
     };
 
-
     // console.log(formValues)
 
+
+    console.log(codArmazon1)
+    console.log(!(!codArmazon1.trim()))
+
+
+
     useEffect(()=>{     
-        // console.log(codArmazon1)
+        console.log(codArmazon1)
+        console.log(a1_armazon.value)
+
         // console.log(A1_Diametro.value.toString().trim())
+        
         if (codArmazon1 !== undefined && codArmazon1 !== null && codArmazon1.trim && typeof A1_Diametro?.value.toString() === 'string' && A1_Diametro.value.toString().trim() !== "") {
             if(!(!codArmazon1.trim())){
                 const fetchArmazones1 = async ()=>{
                     try {
-                        const {data} = await axios((validar_parametrizacion.value === '1' ) ? (`${endpoint}&_p1=${codArmazon1 !== ' ' ? codArmazon1.trim() : "aaaa"}&_p4=${typeof A1_DP.value === 'number' ? (typeof A1_DP.value === 'number' ? A1_DP.value : 0) : (typeof A1_DP.value === 'string' ? A1_DP.value : 0)}&_p5=${typeof A1_Diametro.value === 'number' ? (typeof A1_Diametro.value === 'number' ? A1_Diametro.value : "" ) : (typeof A1_Diametro.value === 'string' ? A1_Diametro.value : "")}`) : (`${endpoint}&_p1=${codArmazon1 !== ' ' ? codArmazon1 && codArmazon1.trim() : "aaaa"}`))
+                        console.log('render')
+                        const {data} = await axios((validar_parametrizacion.value === '1' ) 
+                                                               ? (`${endpoint
+                                                                                    }&_p1=${codArmazon1 !== ' ' ? codArmazon1.trim() : "aaaa"
+                                                                                    }&_p4=${
+                                                                                        typeof A1_DP.value === 'number' 
+                                                                                        ? (typeof A1_DP.value === 'number' ? A1_DP.value : 0) 
+                                                                                        : (typeof A1_DP.value === 'string' ? A1_DP.value : 0)
+                                                                                    }&_p5=${
+                                                                                        typeof A1_Diametro.value === 'number' 
+                                                                                        ? (typeof A1_Diametro.value === 'number' ? A1_Diametro.value : "" ) 
+                                                                                        : (typeof A1_Diametro.value === 'string' ? A1_Diametro.value : "")}`) 
+                                                               : (`${endpoint}&_p1=${codArmazon1 !== ' ' ? codArmazon1 && codArmazon1.trim() : "aaaa"}`))
                         // console.log(data[0])
                         if(data && data[0] && data[0][0] === 'ERROR'){
                             toast.error(data[0][1])
@@ -190,7 +211,10 @@ const FOTArmazones:React.FC<IArmazones> = ({
             }
         }
         
-    }, [codArmazon1, validar_parametrizacion.value, A1_DP.value, A1_Diametro.value]);
+    }, [codArmazon1, validar_parametrizacion.value, A1_DP.value, A1_Diametro.value, a1_armazon.value]);
+
+
+
 
 
     
@@ -210,6 +234,11 @@ const FOTArmazones:React.FC<IArmazones> = ({
             onDataChange({['a3_armazon_id']: armazon3[0]})
         }        
     },[armazon3, codArmazon3])
+
+
+
+
+
 
 
     // console.log(tipo_de_anteojo.value)

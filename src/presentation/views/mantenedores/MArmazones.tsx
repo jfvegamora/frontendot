@@ -79,6 +79,10 @@ const MArmazones: React.FC = () => {
     setPkToDelete([`${strParamsToDelete}=${combinedPks}`]);
   }, [selectedRows]);
 
+
+  console.log(params)
+
+
   return (
     <div className="mantenedorContainer">
       <div className="mantenedorHead width100 !h-[6rem]">
@@ -147,6 +151,7 @@ const MArmazones: React.FC = () => {
           showEditButton={true}
           showDeleteButton={false}
           idMenu={idMenu}
+          params={params}
           leftEdit={true}
         />
       </div>
