@@ -64,15 +64,15 @@ const FOTArmazones:React.FC<IArmazones> = ({
 
 
     const fetchArmazones1 = async (inputName:string, codArmazon:string)=>{
-        
         let dp         = 0
         let diametro   = 0
         let señal      = ''
-
+        
         if(codArmazon.trim() === ''){
             return;
         }
-
+        const toastLoading = toast.loading('Cargando...');
+        
         switch (inputName) {
             case 'a1_armazon_id':
                  dp        = A1_DP.value as any
@@ -143,6 +143,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
                     setArmazon3([])
                     setCodArmazon3(" ")
                 }
+                toast.dismiss(toastLoading)
                 return;
             }else{
                 if(data[0]){
@@ -164,6 +165,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
                     }
                 }
             }
+            toast.dismiss(toastLoading)
 
             switch (inputName) {
                     case 'a1_armazon_id':
@@ -203,8 +205,9 @@ const FOTArmazones:React.FC<IArmazones> = ({
                         break;
             }
         
-            
+            toast.dismiss(toastLoading)
         } catch (error) {
+            toast.dismiss(toastLoading)
             throw error
         }
     }

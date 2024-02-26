@@ -37,7 +37,7 @@ const customStyles = {
 };
 
 
-export const ExportCSV: React.FC<Props> = ({
+const ExportToCsv: React.FC<Props> = ({
   strBaseUrl,
   params,
   strEntidad,
@@ -155,6 +155,8 @@ export const ExportCSV: React.FC<Props> = ({
     }
   }
 
+
+  console.log('render')
   return (
     <>
       <Tooltip content="Exportar">
@@ -206,3 +208,6 @@ export const ExportCSV: React.FC<Props> = ({
     </>
   );
 };
+
+
+export default ExportToCsv;

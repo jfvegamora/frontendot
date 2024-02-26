@@ -7,7 +7,7 @@ import { BsPersonLock } from "react-icons/bs";
 import { usePermission } from "../hooks";
 import { BUTTON_MESSAGES } from "../utils";
 import {ExportToPDF} from "./ExportToPDF";
-import { ExportCSV } from "./ExportToCsv";
+import  ExportCSV  from "./ExportToCsv";
 import { AppStore, useAppSelector } from "../../redux/store";
 import OTGrillaButtons from "./OTGrillaButtons";
 import { signal } from "@preact/signals-react";
@@ -385,20 +385,20 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                           <ExportToPDF proyecto_codigo={rowData[1]} establecimiento_id={rowData[4]} strBaseUrl={strBaseUrl}/>
                         )}
                         
-                        {escritura_lectura && showExcelButton && (
+                        {/* {escritura_lectura && showExcelButton && (
                           <div
                            onClick={()=>{
                              toggleExcel && toggleExcel(rowIndex)
                            }}
                           >
-                            <ExportCSV
+                            <ExportCSVe
                               strEntidad={strEntidad}
                               strBaseUrl={strBaseUrl}
                               query={queryExcel}
                               entity={rowData}
                             />
                           </div>
-                        )}
+                        )} */}
 
                     </div>
                     

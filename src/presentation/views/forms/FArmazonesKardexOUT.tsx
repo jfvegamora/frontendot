@@ -146,13 +146,18 @@ const FArmazonesKardexOUT: React.FC<IUserFormPrps> = React.memo(
       resolver: yupResolver(schema),
     });
 
-    function transformInsertQuery(jsonData: InputData, userId?: number): OutputData | null {
+    function transformInsertQuery(jsonData: InputData, userId?: number): OutputData | any {
       setFechaHoraActual(new Date())
+
+      if(jsonData.almacen === jsonData.almacen_relacionado){
+        toast.error('Almacén de origen y destino deben ser diferentes')
+        throw new Error('error')
+   
+      }
 
       if (jsonData.motivo_egreso === '5') {
         console.log('pedir autorizacion')
         setShowAutorizacion(true)
-
       }
 
 

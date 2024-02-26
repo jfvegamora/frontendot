@@ -1,20 +1,21 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useCallback, useEffect, useState } from "react";
+import React, { Suspense, useCallback, useEffect, useState } from "react";
 // import { AiOutlineForward, AiFillDelete } from "react-icons/ai";
 import { IconButton, Tooltip } from "@material-tailwind/react";
 // import { SiAddthis } from "react-icons/si";
 // import { FiRefreshCw } from "react-icons/fi";
 import { usePermission } from "../hooks";
 import { BUTTON_MESSAGES, MODAL } from "../utils";
-import { ExportCSV } from "./ExportToCsv";
+// import { ExportToCsv } from "./ExportToCsv";
 import { useModal } from "../hooks/useModal";
 // import { CgInsertAfterR, CgInsertBeforeR } from "react-icons/cg";
-import ImportToCsv from "./ImportToCsv";
+// import ImportToCsv from "./ImportToCsv";
 import { AppStore, useAppSelector } from "../../redux/store";
 import OTPrimaryButtons from "./OTPrimaryButtons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faClone, faArrowsRotate, faTrash, faArrowRightToBracket, faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { ExportCustomCSV } from "./ExportCustomToCsv";
+// import ExportToCsv from "./ExportToCsv";
 
 
 interface IPrimaryButtonProps {
@@ -47,6 +48,9 @@ interface IPrimaryButtonProps {
   isOT?:boolean;
   showCopiar?: boolean;
 }
+
+const ExportToCsv   = React.lazy(()=>import('./ExportToCsv'))
+const ImportToCsv   = React.lazy(()=>import('./ImportToCsv'))
  
 const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
   ({
@@ -187,14 +191,15 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
             handleRefresh!,
             BUTTON_MESSAGES.refresh
           )}
-
-        {showExportButton && (
-          <ExportCSV
-            strEntidad={strEntidad}
-            params={params}
-            strBaseUrl={strBaseUrl}
-          />
-        )}
+        <Suspense>
+          {showExportButton && (
+            <ExportToCsv
+              strEntidad={strEntidad}
+              params={params}
+              strBaseUrl={strBaseUrl}
+            />
+          )}
+        </Suspense>
 
        
 
@@ -211,11 +216,13 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
         )}
 
 
-
         
-        {showImportCsv && escritura_lectura && (
-          <ImportToCsv strEntidad={strEntidad}/>
-        )}
+        <Suspense>
+          {showImportCsv && escritura_lectura && (
+            <ImportToCsv strEntidad={strEntidad}/>
+          )}
+        </Suspense>
+        
 
         {showDeleteButton && escritura_lectura && handleDeleteSelected && (
           <>

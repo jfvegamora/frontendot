@@ -172,7 +172,15 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
     }, [setValue, firstInputRef]);
     
     function transformInsertQuery(jsonData: InputData, userId?:number): OutputData | null {
+
       
+      if(jsonData.almacen === jsonData.almacen_relacionado){
+        toast.error('Almacén de origen y destino deben ser diferentes')
+        throw new Error('error')
+   
+      }
+
+
       if(jsonData.motivo_egreso === '5'){
         console.log('pedir autorizacion')
         setShowAutorizacion(true)

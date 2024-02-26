@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {
+  Suspense,
   useEffect, useState,
 } from "react";
 
@@ -12,16 +13,16 @@ import {
 } from "../../components";
 import { useEntityUtils, usePermission } from "../../hooks";
 import { TITLES, table_head_OT_diaria2 } from "../../utils";
-import FOT from "../forms/FOT";
-import OTAreasButtons from "../../components/OTAreasButtons";
+// import FOT from "../forms/FOT";
+// import OTAreasButtons from "../../components/OTAreasButtons";
 import {
   AppStore,
   useAppDispatch,
   useAppSelector
 } from "../../../redux/store";
-import FilterButton, { filterToggle } from "../../components/FilterButton";
+import { filterToggle } from "../../components/FilterButton";
 import { clearData, clearOTColores, fetchColores, fetchOT } from "../../../redux/slices/OTSlice";
-import StateCountBarOT from "../../components/StateCountBarOT";
+// import StateCountBarOT from "../../components/StateCountBarOT";
 import { signal } from "@preact/signals-react";
 import { updateActualArea } from "../../../redux/slices/OTAreasSlice";
 
@@ -57,6 +58,10 @@ const strQuery = "14";
 const idMenu = 1;
 export const paramsOT = signal('')
 
+const FOT               = React.lazy(()=>import('../forms/FOT'))
+const FilterButton      = React.lazy(()=>import('../../components/FilterButton')) 
+const StateCountBarOT   = React.lazy(()=>import('../../components/StateCountBarOT')) 
+const OTAreasButtons    = React.lazy(()=>import('../../components/OTAreasButtons')) 
 
 const MOT: React.FC = () => {
   // const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas);
@@ -146,54 +151,7 @@ const MOT: React.FC = () => {
  
    return () => clearInterval(interval); // Limpia el intervalo al desmontar el componente
  }, [areaActualOT, dispatch, params]);
- 
-  //SWR-POLLING
-  // const fetcher = (url:string) => axios.get(url).then((res)=>res.data);
-  // const {data} = useSWR(`${URLBackend}/api/ot/listado/?query=01&_origen=${OTAreas["areaActual"]}`, fetcher,{
-  //   refreshInterval: 10000
-  // });
 
-  // console.log('data cambiada', validar_parametrizacion.value)
-  // useEffect(()=>{
-  //   console.log('render')
-  //   console.log(areaActual)
-  //   console.log(areaActualRef.current)
-
-  //   if (areaActualRef.current !== areaActual) {
-  //     areaActualRef.current = areaActual; // Actualizar la referencia mutable
-  //     dispatch(fetchOT(areaActual)); // Hacer la llamada inicial cuando el área cambie
-  //   }
-
-
-
-  //   const interval = setInterval(() => {
-  //     console.log('render ot')
-  //     dispatch(fetchOT(areaActualRef.current)); // Usar el área actual de la referencia mutable
-  //   }, 60000);
-
-  // // Limpia el intervalo en la limpieza del efecto
-  //   return () => clearInterval(interval);
-  // },[]);
-
-  // console.log(OTs)
-  // console.log(entity)
-
-  // useEffect(()=>{
-  //   if(data && data.length > 0){
-  //     // toast.success( 'nueva OT')
-  //     // const newData = data.slice(0,6)
-  //     console.time('LLAMADA A API')
-  //     setEntitiesOT(data)
-  //     setEntities(data)
-  //     // setRenderEntities(newData)
-  //   }
-  // },[data]);
-
-  // const handleSelectedChange = (e:any) => {
-  //   setSelectedValue(e.target.value)
-  // }
-  // console.log(OTs.data.slice(0,250))
-  // console.log('selectedValue',selectedValue)
 
   useEffect(() => {
     dispatch(clearData())
@@ -219,7 +177,10 @@ const MOT: React.FC = () => {
               
         </FilterButton>
         */}
-        <OTAreasButtons  setSelectedRows={setSelectedRows} params={params} />
+
+        <Suspense>
+          <OTAreasButtons  setSelectedRows={setSelectedRows} params={params} />
+        </Suspense>
 
       </div>
 
@@ -246,39 +207,42 @@ const MOT: React.FC = () => {
         />
       </div>
 
-      <FilterButton
-        className="top-[10rem] left-[3rem]"
-        isOT={true}
-      >
+      <Suspense>
+          <FilterButton
+            className="top-[10rem] left-[3rem]"
+            isOT={true}
+          >
 
-        <PrimaryKeySearch
-          baseUrl={strBaseUrl}
-          setParams={setParams}
-          updateParams={updateParams}
-          strQuery={strQuery}
-          setEntities={setEntities}
-          primaryKeyInputs={[
-            { name: "_folio", label: "Folio", type: "text" },
-            { name: "_rut", label: "Rut", type: "text" },
+            <PrimaryKeySearch
+              baseUrl={strBaseUrl}
+              setParams={setParams}
+              updateParams={updateParams}
+              strQuery={strQuery}
+              setEntities={setEntities}
+              primaryKeyInputs={[
+                { name: "_folio", label: "Folio", type: "text" },
+                { name: "_rut", label: "Rut", type: "text" },
 
-            { name: "_fecha_desde", label: "Atención Desde", type: "date", styles: { with: "w-[18.2rem]  !h-[6rem]" } },
-            { name: "_fecha_hasta", label: "Atención Hasta", type: "date", styles: { with: "w-[18.2rem]  !h-[6rem]" } },
+                { name: "_fecha_desde", label: "Atención Desde", type: "date", styles: { with: "w-[18.2rem]  !h-[6rem]" } },
+                { name: "_fecha_hasta", label: "Atención Hasta", type: "date", styles: { with: "w-[18.2rem]  !h-[6rem]" } },
 
-            { name: "_estado", label: "Estado", type: "select", selectUrl: "/api/tipos/", tipos: "OTEstados", styles: { with: "w-[20.4rem]" }},
-            { name: "_establecimiento", label: "Establecimiento", type: "select", selectUrl: "/api/establecimientos/", styles: { with: "w-[20.4rem]" }},
+                { name: "_estado", label: "Estado", type: "select", selectUrl: "/api/tipos/", tipos: "OTEstados", styles: { with: "w-[20.4rem]" }},
+                { name: "_establecimiento", label: "Establecimiento", type: "select", selectUrl: "/api/establecimientos/", styles: { with: "w-[20.4rem]" }},
 
-            { name: "_nombre", label: "Nombre", type: "text" },
-            { name: "_motivo", label: "Motivo", type: "select", selectUrl: "/api/tipos/", tipos: "OTMotivo"},
+                { name: "_nombre", label: "Nombre", type: "text" },
+                { name: "_motivo", label: "Motivo", type: "select", selectUrl: "/api/tipos/", tipos: "OTMotivo"},
 
-            { name: "_p2", label: "Tipo Doc", type: "select", selectUrl: "/api/tipos/", tipos: "OTNumDoc"},
-            { name: "_p3", label: "Número Doc", type: "text", styles: { with: "w-[18.4rem]" }},
+                { name: "_p2", label: "Tipo Doc", type: "select", selectUrl: "/api/tipos/", tipos: "OTNumDoc"},
+                { name: "_p3", label: "Número Doc", type: "text", styles: { with: "w-[18.4rem]" }},
 
-            { name: "_proyecto", label: "Proyecto", type: "select", selectUrl: "/api/proyectos/", styles: { with: "w-[30rem]" }},
+                { name: "_proyecto", label: "Proyecto", type: "select", selectUrl: "/api/proyectos/", styles: { with: "w-[30rem]" }},
 
-          ]}
-        />
+              ]}
+            />
 
-      </FilterButton>
+          </FilterButton>
+      </Suspense>
+
 
 
       <div className={`width100 scroll ${filterToggle.value ? "!mt-[13rem] !h-[25rem]" : "!mt-[1rem] !h-[27rem]"} `}>
@@ -336,35 +300,39 @@ const MOT: React.FC = () => {
 
     </div> */}
 
-      <StateCountBarOT  checkCount={checkCount}/>
+      <Suspense>
+        <StateCountBarOT  checkCount={checkCount}/>
+      </Suspense>
 
-
-
-      {isModalInsert && (
-        <FOT
-          label={`${TITLES.ingreso} ${strEntidad}`}
-          closeModal={closeModal}
-          selectedRows={selectedRows}
-          setEntities={setEntities}
-          params={params}
-          isEditting={false}
-          isMOT={false}
-        />
-      )}
-
-      {isModalEdit && (
-        <FOT
-          label={`${TITLES.edicion} ${strEntidad}`}
-          selectedRows={selectedRows}
-          setEntities={setEntities}
-          params={params}
-          data={entity}
-          closeModal={closeModal}
-          isEditting={true}
-          onlyRead={lectura}
-          isMOT={false}
-        />
-      )}
+      <Suspense>
+        {isModalInsert && (
+          <FOT
+            label={`${TITLES.ingreso} ${strEntidad}`}
+            closeModal={closeModal}
+            selectedRows={selectedRows}
+            setEntities={setEntities}
+            params={params}
+            isEditting={false}
+            isMOT={false}
+          />
+        )}
+      </Suspense>
+      
+      <Suspense>
+        {isModalEdit && (
+          <FOT
+            label={`${TITLES.edicion} ${strEntidad}`}
+            selectedRows={selectedRows}
+            setEntities={setEntities}
+            params={params}
+            data={entity}
+            closeModal={closeModal}
+            isEditting={true}
+            onlyRead={lectura}
+            isMOT={false}
+          />
+        )}
+      </Suspense>
     </div>
   );
 };

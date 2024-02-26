@@ -262,6 +262,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                               value={cilindrico}
                               onChange={(e) => {
                                 field.onChange(e);
+                                handleInputChange('_pCilindrico', e.target.value);
                                 setCilindrico(e.target.value as any);
                               }}
                               onKeyDown={handleKeyDown}

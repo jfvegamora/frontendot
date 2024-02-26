@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {Suspense, useRef} from 'react';
 import { IconButton, Tooltip } from '@material-tailwind/react';
 import { PencilIcon } from "@heroicons/react/24/solid";
 import { PiPrinterFill } from "react-icons/pi";
@@ -10,7 +10,7 @@ import { useReactToPrint } from 'react-to-print';
 // import FOTImpresa from '../views/forms/FOTImpresa';
 import { AppStore, useAppDispatch, useAppSelector } from '../../redux/store';
 import { clearImpression, fetchOTImpresionByID } from '../../redux/slices/OTSlice';
-import FOTImpresa from '../views/forms/FOTImpresa';
+// import FOTImpresa from '../views/forms/FOTImpresa';
 import { toast } from 'react-toastify';
 
 
@@ -26,6 +26,8 @@ type AreaButtonsProps ={
 }
 
 const strEntidad = "Orden de Trabajo";
+const FOTImpresa = React.lazy(()=>import('../views/forms/FOTImpresa'));
+
 
 const OTGrillaButtons:React.FC<AreaButtonsProps> = ({ areaPermissions, toggleEditOTModal,folio, historica,estado }) => {
     const dispatch:any                       = useAppDispatch();
@@ -162,9 +164,12 @@ const OTGrillaButtons:React.FC<AreaButtonsProps> = ({ areaPermissions, toggleEdi
                     </IconButton>
                 </Tooltip>
             )}
-            <div className='hidden'>
-                <FOTImpresa ref={componentRef}/>
-            </div>
+            <Suspense>
+                <div className='hidden'>
+                    <FOTImpresa ref={componentRef}/>
+                </div>
+
+            </Suspense>
 
         </div>
 

@@ -1,11 +1,10 @@
 import { IconButton, Tooltip, Button, Input } from '@material-tailwind/react';
-import React, { useCallback, useRef, useState } from 'react';
+import React, { Suspense, useCallback, useRef, useState } from 'react';
 
 import { SiAddthis } from 'react-icons/si';
 import { PiPrinterFill } from "react-icons/pi";
 import { ImWhatsapp } from "react-icons/im";
 import { BUTTON_MESSAGES, updateOT } from '../utils';
-import { ExportCSV } from './ExportToCsv';
 import { usePermission } from '../hooks';
 import ImportToCsv from './ImportToCsv';
 import { AppStore, useAppDispatch, useAppSelector } from '../../redux/store';
@@ -13,7 +12,8 @@ import { toast } from 'react-toastify';
 import { fetchOT} from '../../redux/slices/OTSlice';
 // import { URLBackend } from '../hooks/useCrud';
 // import { useReactToPrint } from 'react-to-print';
-import FOTImpresa from '../views/forms/FOTImpresa';
+// import FOTImpresa from '../views/forms/FOTImpresa';
+// import { ExportCSV } from './ExportToCsv';
 import axios from 'axios';
 import { URLBackend } from '../hooks/useCrud';
 import ErrorOTModal from './ErrorOTModal';
@@ -32,6 +32,10 @@ type AreaButtonsProps ={
 
 const strEntidad = "Ordenen de Trabajo";
 const strBaseUrl = "/api/ot/";
+
+const FOTImpresa  = React.lazy(()=>import('../views/forms/FOTImpresa'));
+const ExportCSV   = React.lazy(()=>import('./ExportToCsv'))
+// const ExportCSV  = React.lazy(()=>import('));
 
 
 const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
@@ -276,16 +280,19 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
         )
         }
        
-        {areaPermissions && areaPermissions[4] === "1" && (
-          <div className="mr-2">
-            <ExportCSV
-             strEntidad={strEntidad}
-             params={params}
-             strBaseUrl={strBaseUrl}
-             OTAreas={OTAreas["areaActual"]}
-          />
-          </div>
-        )}
+       <Suspense>
+          {areaPermissions && areaPermissions[4] === "1" && (
+            <div className="mr-2">
+              <ExportCSV
+              strEntidad={strEntidad}
+              params={params}
+              strBaseUrl={strBaseUrl}
+              OTAreas={OTAreas["areaActual"]}
+            />
+            </div>
+          )}
+       </Suspense>
+
         {areaPermissions && areaPermissions[3] === "1" && escritura_lectura && (
           <ImportToCsv
            strEntidad={strEntidad}
@@ -322,9 +329,11 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
           </Tooltip>
         )
         }
-        <div className='hidden'>
-                <FOTImpresa ref={componentRef} />
-        </div>
+        <Suspense>
+          <div className='hidden'>
+            <FOTImpresa ref={componentRef} />
+          </div>
+        </Suspense>
 
 
         {/* {areaPermissions && areaPermissions[0] === "1" && escritura_lectura && (
