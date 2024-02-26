@@ -686,9 +686,10 @@ const FOT:React.FC<IFOTProps> = ({
     const query = {
       query: "03",
       _p1,
-      // _p3:`${_p3}`,
+      // _p3:'',
+      _p3:`${_p3}`,
       _p2:`${jsonData.tipo_anteojo_id}`,
-      _p3,
+      // _p3,
       _rut: _rut.trim(),
       _proyecto:`${jsonData.proyecto_codigo}`,
       _origen,
