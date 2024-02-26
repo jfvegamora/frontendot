@@ -48,8 +48,9 @@ export interface InputData {
 interface OutputData {
   query: string;
   _p1: string;
-  _p2?: any;
-  _p3?: string;
+  _pkToDelete: string;
+  // _p2?: any;
+  // _p3?: string;
 }
 
 export function transformUpdateQuery(
@@ -176,14 +177,10 @@ const FArmazonesKardexOUT: React.FC<IUserFormPrps> = React.memo(
       // let _p1 = `"${jsonData.fecha + " " + fechaHoraActual.toLocaleTimeString()}", 
       let _p1 = `"${jsonData.fecha + " " + dateHora}", "${jsonData.insumo}", ${jsonData.almacen}, ${2}, ${jsonData.motivo_egreso}, ${jsonData.cantidad},${'0'}, ${'0'}, ${'0'}, ${'0'}, ${jsonData.almacen_relacionado || '0'}, "${jsonData.observaciones}", ${userId}, "${fechaFormateada + " " + dateHora}"`;
 
-      let kardex = []
-
-
       // ${(jsonData.almacen_relacionado && jsonData.almacen_relacionado?.toString())?.length === 0 ? "0" : jsonData.almacen_relacionado}, 
       // 
       // if (jsonData.motivo_egreso === "2") {
-        kardex = [{
-          // 'fecha': jsonData.fecha + " " +fechaHoraActual.toLocaleTimeString(),
+    const  kardex = [{
           'fecha': jsonData.fecha + " " + dateHora,
           'insumo': jsonData.insumo,
           'almacen': jsonData.almacen,
@@ -203,7 +200,7 @@ const FArmazonesKardexOUT: React.FC<IUserFormPrps> = React.memo(
 
       _p1 = _p1.replace(/'/g, '!');
 
-      const query = {
+      const query: OutputData = {
         query: "03",
         _p1,
         _pkToDelete: JSON.stringify(kardex),
