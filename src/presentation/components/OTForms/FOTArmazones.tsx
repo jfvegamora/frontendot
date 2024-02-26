@@ -61,6 +61,139 @@ const FOTArmazones:React.FC<IArmazones> = ({
 
 
     //TODO! =========================== ENVIAR DP EN _P4 PARA VALIDAR ARMAZONES ===========================================================================
+
+
+    const fetchArmazones1 = async (inputName:string, codArmazon:string)=>{
+        
+        console.log(inputName)
+        let dp         = 0
+        let diametro   = 0
+        let señal      = ''
+
+        if(codArmazon.trim() === ''){
+            return;
+        }
+        
+
+        switch (inputName) {
+            case 'a1_armazon_id':
+                 dp        = A1_DP.value as any
+                 diametro  = A1_Diametro.value as any
+                 señal     = a1_armazon.value as any
+                break
+            case 'a2_armazon_id':
+                dp         = A2_DP.value as any
+                diametro   = A2_Diametro.value as any
+                señal      = a2_armazon.value as any
+                break;
+            case 'a3_Armazon_id':
+                dp         = A1_DP.value as any
+                diametro   = A1_Diametro as any
+                señal      = a3_armazon.value
+                break;
+            default:
+                break;
+        }    
+
+        console.log(codArmazon)
+        console.log(dp)
+        console.log(diametro)
+
+
+
+
+        try {
+            console.log('render')
+            const {data} = await axios((validar_parametrizacion.value === '1' ) 
+                                                   ? (`${endpoint
+                                                                        }&_p1=${codArmazon !== ' ' ? codArmazon.trim() : "aaaa"
+                                                                        }&_p4=${
+                                                                            tipo_de_anteojo.value === '3'
+                                                                            ? (  
+                                                                                typeof dp === 'number' 
+                                                                                    ? (typeof dp === 'number' ? dp : 0) 
+                                                                                    : (typeof dp === 'string' ? dp: 0)
+                                                                            )
+                                                                            : (
+                                                                                typeof A1_DP.value === 'number' 
+                                                                                    ? (typeof A1_DP.value === 'number' ? A1_DP.value : 0) 
+                                                                                    : (typeof A1_DP.value === 'string' ? A1_DP.value : 0)
+                                                                            )
+
+                                                                        }&_p5=${
+                                                                            tipo_de_anteojo.value === '3'
+                                                                            ? (
+                                                                                typeof diametro=== 'number' 
+                                                                                    ? (typeof diametro === 'number' ? diametro :  "" ) 
+                                                                                    : (typeof diametro === 'string' ? diametro : "")
+                                                                            )
+                                                                            : (
+                                                                                typeof A1_Diametro.value === 'number' 
+                                                                                    ? (typeof A1_Diametro.value === 'number' ? A1_Diametro.value :  "" ) 
+                                                                                    : (typeof A1_Diametro.value === 'string' ? A1_Diametro.value : "")
+                                                                            )
+                                                                        }`) 
+                                                   : (`${endpoint}&_p1=${codArmazon !== ' ' ? codArmazon && codArmazon.trim() : "aaaa"}`))
+            // console.log(data[0])
+            if(data && data[0] && data[0][0] === 'ERROR'){
+                toast.error(data[0][1])
+                señal = " "
+                onDataChange({[inputName]: " "})
+                if(inputName === 'a1_armazon_id'){
+                    setArmazon1([])
+                    setCodArmazon1(" ")
+                }
+
+                if(inputName === 'a2_armazon_id'){
+                    setArmazon2([])
+                    setCodArmazon2(" ")
+                }
+
+                if(inputName === 'a3_armazon_id'){
+                    setArmazon3([])
+                    setCodArmazon3(" ")
+                }
+            }else{
+                if(data[0]){
+                    onDataChange({[inputName]:data[0][0]})
+                    if(inputName === 'a1_armazon_id'){
+                        setArmazon1(data[0])
+                        console.log(data[0][0])
+                        setCodArmazon1(data[0][0])
+                        a1_armazon.value = data[0][0]
+                    }
+    
+                    if(inputName === 'a2_armazon_id'){
+                        setArmazon2(data[0])
+                        setCodArmazon2(data[0][0])
+                        a2_armazon.value = data[0][0]
+                    }
+    
+                    if(inputName === 'a3_armazon_id'){
+                        setArmazon3(data[0])
+                    }
+                }
+            }
+        } catch (error) {
+            throw error
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     //TODO! =========================== ENVIAR Diametro EN _P5 PARA VALIDAR ARMAZONES =====================================================================
 
     // const endpoint = validar_parametrizacion.value === '0' 
@@ -76,26 +209,49 @@ const FOTArmazones:React.FC<IArmazones> = ({
         
         console.log(name)
         console.log(value)
+        onDataChange({ [name]: value.trim() });
 
-        onDataChange({ [name]: value.trim() }); 
-        setRender((prev)=>!prev)
+        if(name === 'a1_armazon_id'){
+            a1_armazon.value = value.trim()
+            setCodArmazon1(value.trim())
+        }
+        if(name === 'a2_armazon_id'){
+            a2_armazon.value = value.trim()
+            setCodArmazon2(value.trim())
+        }
+        if(name === 'a3_armazon_id'){
+            a3_armazon.value = value.trim()
+            setCodArmazon3(value.trim())
+        }
 
+        // setRender((prev)=>!prev)
+
+        
+        
+        console.log(codArmazon1)
+        console.log(codArmazon2)
+        console.log(codArmazon3)
+        console.log(a1_armazon.value)
+        console.log(a2_armazon.value)
         if (
-            (name === 'a1_armazon_id' && (value !== " " && value !== '') && (value.trim() === codArmazon2 || value.trim() === codArmazon3)) ||
-            (name === 'a2_armazon_id' && (value !== " " && value !== '') && (value.trim() === codArmazon1 || value.trim() === codArmazon3)) ||
-            (name === 'a3_armazon_id' && (value !== " " && value !== '') && (value.trim() === codArmazon1 || value.trim() === codArmazon2))
+            (name === 'a1_armazon_id' && (value !== " " && value !== '') && (value.trim() === a2_armazon.value || value.trim() === a3_armazon.value)) ||
+            (name === 'a2_armazon_id' && (value !== " " && value !== '') && (value.trim() === a1_armazon.value || value.trim() === a3_armazon.value)) ||
+            (name === 'a3_armazon_id' && (value !== " " && value !== '') && (value.trim() === a1_armazon.value || value.trim() === a2_armazon.value))
         ) {
+            console.log('name')
             switch (name) {
                 case 'a1_armazon_id':
                     toast.error(`Código Armazon 1 no puede ser igual a Código ${codArmazon3 === codArmazon2 ? 'Armazon 3': 'Armazon 2'}`);
                     onDataChange({['a1_armazon_id']: " "})
-                    a1_armazon.value = ""
+                    a1_armazon.value = " "
                     setCodArmazon1(" ")
                     setArmazon1([])
                     validation_A1_armazon("")
+                    console.log('render')
                     return
                 case 'a2_armazon_id':
                     onDataChange({['a2_armazon_id']: " "})
+                    a2_armazon.value = " "
                     setCodArmazon2(" ")
                     setArmazon2([])
                     validation_A2_armazon("")
@@ -116,6 +272,29 @@ const FOTArmazones:React.FC<IArmazones> = ({
             return; 
         }
 
+          
+        if(name === 'a1_armazon_id' || name === 'a2_armazon_id' || 'a3_armazon_id'){
+            fetchArmazones1(name, value)
+            switch (name) {
+                case 'a1_armazon_id':
+                    if(value.trim() === ''){
+                        setArmazon1([])
+                    }
+                    break;
+                case 'a2_armazon_id':
+                    if(value.trim() === ''){
+                        setArmazon2([])
+                    }
+                    break;
+                case 'a3_armazon_id':
+                    if(value.trim() === ''){
+                        setArmazon3([])
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
         
         validationOTlevel2(name, value)
         validationOTlevel3(name, value)
@@ -150,68 +329,55 @@ const FOTArmazones:React.FC<IArmazones> = ({
 
         }
 
-        if(name === 'a1_armazon_id'){
-            setCodArmazon1(value.trim())
-        }
-        if(name === 'a2_armazon_id'){
-            setCodArmazon2(value.trim())
-        }
-        if(name === 'a3_armazon_id'){
-            setCodArmazon3(value.trim())
-        }
+        
         onDataChange({ [name]: value.trim() }); 
     };
 
     // console.log(formValues)
 
 
-    console.log(codArmazon1)
-    console.log(!(!codArmazon1.trim()))
+    // useEffect(()=>{     
+    //     console.log(codArmazon1)
+    //     console.log(a1_armazon.value)
 
-
-
-    useEffect(()=>{     
-        console.log(codArmazon1)
-        console.log(a1_armazon.value)
-
-        // console.log(A1_Diametro.value.toString().trim())
+    //     // console.log(A1_Diametro.value.toString().trim())
         
-        if (codArmazon1 !== undefined && codArmazon1 !== null && codArmazon1.trim && typeof A1_Diametro?.value.toString() === 'string' && A1_Diametro.value.toString().trim() !== "") {
-            if(!(!codArmazon1.trim())){
-                const fetchArmazones1 = async ()=>{
-                    try {
-                        console.log('render')
-                        const {data} = await axios((validar_parametrizacion.value === '1' ) 
-                                                               ? (`${endpoint
-                                                                                    }&_p1=${codArmazon1 !== ' ' ? codArmazon1.trim() : "aaaa"
-                                                                                    }&_p4=${
-                                                                                        typeof A1_DP.value === 'number' 
-                                                                                        ? (typeof A1_DP.value === 'number' ? A1_DP.value : 0) 
-                                                                                        : (typeof A1_DP.value === 'string' ? A1_DP.value : 0)
-                                                                                    }&_p5=${
-                                                                                        typeof A1_Diametro.value === 'number' 
-                                                                                        ? (typeof A1_Diametro.value === 'number' ? A1_Diametro.value : "" ) 
-                                                                                        : (typeof A1_Diametro.value === 'string' ? A1_Diametro.value : "")}`) 
-                                                               : (`${endpoint}&_p1=${codArmazon1 !== ' ' ? codArmazon1 && codArmazon1.trim() : "aaaa"}`))
-                        // console.log(data[0])
-                        if(data && data[0] && data[0][0] === 'ERROR'){
-                            toast.error(data[0][1])
-                            a1_armazon.value = " "
-                            onDataChange({['a1_armazon_id']: " "})
-                            setArmazon1([])
-                        }else{
-                            setArmazon1(data[0])
-                        }
-                    } catch (error) {
-                        throw error
-                    }
-                }
+    //     if (codArmazon1 !== undefined && codArmazon1 !== null && codArmazon1.trim && typeof A1_Diametro?.value.toString() === 'string' && A1_Diametro.value.toString().trim() !== "") {
+    //         if(!(!codArmazon1.trim())){
+    //             const fetchArmazones1 = async ()=>{
+    //                 try {
+    //                     console.log('render')
+    //                     const {data} = await axios((validar_parametrizacion.value === '1' ) 
+    //                                                            ? (`${endpoint
+    //                                                                                 }&_p1=${codArmazon1 !== ' ' ? codArmazon1.trim() : "aaaa"
+    //                                                                                 }&_p4=${
+    //                                                                                     typeof A1_DP.value === 'number' 
+    //                                                                                     ? (typeof A1_DP.value === 'number' ? A1_DP.value : 0) 
+    //                                                                                     : (typeof A1_DP.value === 'string' ? A1_DP.value : 0)
+    //                                                                                 }&_p5=${
+    //                                                                                     typeof A1_Diametro.value === 'number' 
+    //                                                                                     ? (typeof A1_Diametro.value === 'number' ? A1_Diametro.value : "" ) 
+    //                                                                                     : (typeof A1_Diametro.value === 'string' ? A1_Diametro.value : "")}`) 
+    //                                                            : (`${endpoint}&_p1=${codArmazon1 !== ' ' ? codArmazon1 && codArmazon1.trim() : "aaaa"}`))
+    //                     // console.log(data[0])
+    //                     if(data && data[0] && data[0][0] === 'ERROR'){
+    //                         toast.error(data[0][1])
+    //                         a1_armazon.value = " "
+    //                         onDataChange({['a1_armazon_id']: " "})
+    //                         setArmazon1([])
+    //                     }else{
+    //                         setArmazon1(data[0])
+    //                     }
+    //                 } catch (error) {
+    //                     throw error
+    //                 }
+    //             }
                 
-                fetchArmazones1()
-            }
-        }
+    //             fetchArmazones1()
+    //         }
+    //     }
         
-    }, [codArmazon1, validar_parametrizacion.value, A1_DP.value, A1_Diametro.value, a1_armazon.value]);
+    // }, [codArmazon1, validar_parametrizacion.value, A1_DP.value, A1_Diametro.value, a1_armazon.value]);
 
 
 
@@ -221,21 +387,31 @@ const FOTArmazones:React.FC<IArmazones> = ({
     useEffect(()=>{
         if(codArmazon1 && armazon1[0] && armazon1.length > 2){
             onDataChange({['a1_armazon_id']: armazon1[0]})
-        }        
+        }
+        
+        // fetchArmazones1('a1_armazon_id', codArmazon1)
     },[armazon1, codArmazon1])
 
     useEffect(()=>{
         if(codArmazon2 && armazon2[0] && armazon2.length > 2){
             onDataChange({['a2_armazon_id']: armazon2[0]})
-        }        
+        }
+        // fetchArmazones1('a2_armazon_id', codArmazon2)        
     },[armazon2, codArmazon2])
     useEffect(()=>{
         if(codArmazon3 && armazon3[0] && armazon3.length > 2){
             onDataChange({['a3_armazon_id']: armazon3[0]})
         }        
+        // fetchArmazones1('a3_armazon_id', codArmazon3)
     },[armazon3, codArmazon3])
 
 
+
+    useEffect(()=>{
+        fetchArmazones1('a1_armazon_id', codArmazon1)
+        fetchArmazones1('a2_armazon_id', codArmazon2) 
+        fetchArmazones1('a3_armazon_id', codArmazon3)
+    },[])
 
 
 
@@ -243,83 +419,97 @@ const FOTArmazones:React.FC<IArmazones> = ({
 
     // console.log(tipo_de_anteojo.value)
 
-    useEffect(()=>{
-        if (codArmazon2 !== undefined && codArmazon2 !== null && codArmazon2.trim && (tipo_de_anteojo.value === '3' ? (typeof A2_Diametro?.value.toString() === 'string' && A2_Diametro.value.toString().trim() !== "") : (typeof A1_Diametro?.value.toString() === 'string' && A1_Diametro.value.toString().trim() !== "")) ) {
-            if(!(!codArmazon2.trim())){
-                const fetchArmazones2 = async ()=>{
-                    try {
-                        const {data} = await axios((validar_parametrizacion.value === '1' ) ? (`${endpoint}&_p1=${codArmazon2 !== ' ' ? codArmazon2.trim() : "aaaa"}&_p4=${(tipo_de_anteojo.value === '3' ? (typeof A2_DP.value === 'number' ? (typeof A2_DP.value === 'number' ? A2_DP.value : 0) : (typeof A2_DP.value === 'string' ? A2_DP.value : 0)) : A1_DP.value)}&_p5=${tipo_de_anteojo.value === '3' ? (typeof A2_Diametro.value === 'number' ? (typeof A2_Diametro.value === 'number' ? A2_Diametro.value : "" ) : (typeof A2_Diametro.value === 'string' ? A2_Diametro.value : "")) : (typeof A1_Diametro.value === 'number' ? (typeof A1_Diametro.value === 'number' ? A1_Diametro.value : "" ) : (typeof A1_Diametro.value === 'string' ? A1_Diametro.value : "")) }`) : (`${endpoint}&_p1=${codArmazon2 !== '' ? codArmazon2 && codArmazon2.trim() : "aaaa"}`))
+    // useEffect(()=>{
+    //     if (codArmazon2 !== undefined && codArmazon2 !== null && codArmazon2.trim && (tipo_de_anteojo.value === '3' ? (typeof A2_Diametro?.value.toString() === 'string' && A2_Diametro.value.toString().trim() !== "") : (typeof A1_Diametro?.value.toString() === 'string' && A1_Diametro.value.toString().trim() !== "")) ) {
+    //         if(!(!codArmazon2.trim())){
+    //             const fetchArmazones2 = async ()=>{
+    //                 try {
+    //                     const {data} = await axios((validar_parametrizacion.value === '1' ) 
+    //                                                     ? (`${endpoint}&_p1=${codArmazon2 !== ' ' ? codArmazon2.trim() : "aaaa"
+    //                                                                 }&_p4=${(tipo_de_anteojo.value === '3' 
+    //                                                                                  ? (typeof A2_DP.value === 'number' ? (typeof A2_DP.value === 'number' ? A2_DP.value : 0) : (typeof A2_DP.value === 'string' ? A2_DP.value : 0)) 
+    //                                                                                  : A1_DP.value)
+    //                                                                 }&_p5=${tipo_de_anteojo.value === '3' 
+    //                                                                                  ? (typeof A2_Diametro.value === 'number' ? (typeof A2_Diametro.value === 'number' ? A2_Diametro.value : "" ) : (typeof A2_Diametro.value === 'string' ? A2_Diametro.value : "")) 
+    //                                                                                  : (typeof A1_Diametro.value === 'number' ? (typeof A1_Diametro.value === 'number' ? A1_Diametro.value : "" ) : (typeof A1_Diametro.value === 'string' ? A1_Diametro.value : "")) }`) 
+    //                                                     : (`${endpoint}&_p1=${codArmazon2 !== '' ? codArmazon2 && codArmazon2.trim() : "aaaa"}`))
 
-                        if(data && data[0] && data[0][0] === 'ERROR'){
-                            toast.error(data[0][1])
-                            a2_armazon.value = " "
-                            onDataChange({['a2_armazon_id']: " "})
-                            setArmazon1([])
-                        }else{
-                            setArmazon2(data[0])
-                        }
-                    } catch (error) {
-                        console.log(error)
-                        throw error
-                    }
-                }
+    //                     if(data && data[0] && data[0][0] === 'ERROR'){
+    //                         // toast.error(data[0][1])
+    //                         a2_armazon.value = " "
+    //                         onDataChange({['a2_armazon_id']: " "})
+    //                         setArmazon1([])
+    //                     }else{
+    //                         setArmazon2(data[0])
+    //                     }
+    //                 } catch (error) {
+    //                     console.log(error)
+    //                     throw error
+    //                 }
+    //             }
                 
-                fetchArmazones2()
-            }
-        }
+    //             fetchArmazones2()
+    //         }
+    //     }
 
-    }, [codArmazon2, validar_parametrizacion.value, A2_DP.value, A2_Diametro.value]);
+    // }, [codArmazon2, validar_parametrizacion.value, A2_DP.value, A2_Diametro.value]);
 
 
-    useEffect(()=>{
-        if (codArmazon3 !== undefined && codArmazon3 !== null && codArmazon3.trim && typeof A1_Diametro?.value.toString() === 'string' && A1_Diametro.value.toString().trim() !== "") {
-            if(!(!codArmazon3.trim())){
-                const fetchArmazones3 = async ()=>{
-                    try {
-                        // const {data} = await axios((`${endpoint}&_p1=${codArmazon3 !== ' ' ? codArmazon3.trim() : "aaaa"}&_p4=${typeof A1_DP.value === 'string' ? A1_DP.value : 0}&_p5=${isEditting ? (typeof A1_Diametro.value === 'number' ? A1_Diametro.value : "" ) : (typeof A1_Diametro.value === 'string' ? A1_Diametro.value : "")}`))
-                        const {data} = await axios((validar_parametrizacion.value === '1' ) ? (`${endpoint}&_p1=${codArmazon3 !== ' ' ? codArmazon3.trim() : "aaaa"}&_p4=${isEditting ? (typeof A1_DP.value === 'number' ? A1_DP.value : 0) : (typeof A1_DP.value === 'string' ? A1_DP.value : 0)}&_p5=${isEditting ? (typeof A1_Diametro.value === 'number' ? A1_Diametro.value : "" ) : (typeof A1_Diametro.value === 'string' ? A1_Diametro.value : "")}`) : (`${endpoint}&_p1=${codArmazon3 !== ' ' ? codArmazon3 && codArmazon3.trim() : ""}`))
+    // useEffect(()=>{
+    //     if (codArmazon3 !== undefined && codArmazon3 !== null && codArmazon3.trim && typeof A1_Diametro?.value.toString() === 'string' && A1_Diametro.value.toString().trim() !== "") {
+    //         if(!(!codArmazon3.trim())){
+    //             const fetchArmazones3 = async ()=>{
+    //                 try {
+    //                     // const {data} = await axios((`${endpoint}&_p1=${codArmazon3 !== ' ' ? codArmazon3.trim() : "aaaa"}&_p4=${typeof A1_DP.value === 'string' ? A1_DP.value : 0}&_p5=${isEditting ? (typeof A1_Diametro.value === 'number' ? A1_Diametro.value : "" ) : (typeof A1_Diametro.value === 'string' ? A1_Diametro.value : "")}`))
+    //                     const {data} = await axios((validar_parametrizacion.value === '1' ) 
+    //                                                             ? (`${endpoint}&_p1=${codArmazon3 !== ' ' ? codArmazon3.trim() : "aaaa"
+    //                                                                       }&_p4=${isEditting 
+    //                                                                                ? (typeof A1_DP.value === 'number' ? A1_DP.value : 0) 
+    //                                                                                : (typeof A1_DP.value === 'string' ? A1_DP.value : 0)
+    //                                                                       }&_p5=${isEditting ? (typeof A1_Diametro.value === 'number' ? A1_Diametro.value : "" ) : (typeof A1_Diametro.value === 'string' ? A1_Diametro.value : "")}`) 
+    //                                                             : (`${endpoint}&_p1=${codArmazon3 !== ' ' ? codArmazon3 && codArmazon3.trim() : ""}`))
                         
                         
-                        if(data && data[0] && data[0][0] === 'ERROR'){
-                            toast.error(data[0][1])
-                            onDataChange({['a3_armazon_id']: " "})
-                            setArmazon3([])
-                        }else{
-                            setArmazon3(data[0])
-                        }
+    //                     if(data && data[0] && data[0][0] === 'ERROR'){
+    //                         toast.error(data[0][1])
+    //                         onDataChange({['a3_armazon_id']: " "})
+    //                         setArmazon3([])
+    //                     }else{
+    //                         setArmazon3(data[0])
+    //                     }
                         
                         
                         
                         
-                        // if(data.length === 0){
-                        //     toast.error('Armazon 3 no Existe')
-                        //     onDataChange({['a3_armazon_id']: " "})
-                        //     setArmazon3([])
-                        // }
+    //                     // if(data.length === 0){
+    //                     //     toast.error('Armazon 3 no Existe')
+    //                     //     onDataChange({['a3_armazon_id']: " "})
+    //                     //     setArmazon3([])
+    //                     // }
     
     
-                        // if(data[0] && data[0].length === 1){
-                        //     toast.error(data[0][0])
-                        //     onDataChange({['a3_armazon_id']: " "})
-                        //     setArmazon3([])
+    //                     // if(data[0] && data[0].length === 1){
+    //                     //     toast.error(data[0][0])
+    //                     //     onDataChange({['a3_armazon_id']: " "})
+    //                     //     setArmazon3([])
                              
-                        // }
+    //                     // }
                         
-                        // if(data[0] && data[0].length === 15 ||  data.length === 1){
-                        //     setArmazon3(data[0])
-                        // }
+    //                     // if(data[0] && data[0].length === 15 ||  data.length === 1){
+    //                     //     setArmazon3(data[0])
+    //                     // }
     
-                    } catch (error) {
-                        console.log(error)
-                        throw error
-                    }
-                }
+    //                 } catch (error) {
+    //                     console.log(error)
+    //                     throw error
+    //                 }
+    //             }
                 
-                fetchArmazones3()
-            }
-        }
+    //             fetchArmazones3()
+    //         }
+    //     }
 
-    }, [codArmazon3, validar_parametrizacion.value, A1_DP.value, A1_Diametro.value]);
+    // }, [codArmazon3, validar_parametrizacion.value, A1_DP.value, A1_Diametro.value]);
 
 
 
@@ -327,6 +517,10 @@ const FOTArmazones:React.FC<IArmazones> = ({
     
     // console.log(armazon1)
     // console.log(formValues)
+
+    console.log(codArmazon1)
+    console.log(a1_armazon.value)
+    console.log(formValues && formValues["a1_armazon_id"])
 
   return (
     <form>
@@ -614,3 +808,69 @@ readOnly={!(permiso_usuario_armazones && permiso_areas_armazones)}
     // useEffect(()=>{
     //     setDataArmazon1(armazon1)
     // },[codArmazon1])
+
+
+
+
+
+    // const fetchArmazones1 = async (inputName:string, codArmazon:string)=>{
+        
+    //     console.log(inputName)
+    //     let dp         = 0
+    //     let diametro   = 0
+
+    //     if(codArmazon.trim() === ''){
+    //         return;
+    //     }
+        
+
+    //     switch (inputName) {
+    //         case 'a1_armazon_id':
+    //              dp        = A1_DP.value as any
+    //              diametro  = A1_Diametro.value as any
+    //             break
+    //         case 'a2_armazon_id':
+    //             dp         = A2_DP.value as any
+    //             diametro   = A2_Diametro.value as any
+    //             break;
+    //         default:
+    //             break;
+    //     }    
+
+    //     console.log(codArmazon)
+    //     console.log(dp)
+    //     console.log(diametro)
+
+
+
+
+    //     try {
+    //         console.log('render')
+    //         const {data} = await axios((validar_parametrizacion.value === '1' ) 
+    //                                                ? (`${endpoint
+    //                                                                     }&_p1=${codArmazon1 !== ' ' ? codArmazon1.trim() : "aaaa"
+    //                                                                     }&_p4=${
+    //                                                                         typeof A1_DP.value === 'number' 
+    //                                                                         ? (typeof A1_DP.value === 'number' ? A1_DP.value : 0) 
+    //                                                                         : (typeof A1_DP.value === 'string' ? A1_DP.value : 0)
+    //                                                                     }&_p5=${
+    //                                                                         typeof A1_Diametro.value === 'number' 
+    //                                                                         ? (typeof A1_Diametro.value === 'number' ? A1_Diametro.value : "" ) 
+    //                                                                         : (typeof A1_Diametro.value === 'string' ? A1_Diametro.value : "")}`) 
+    //                                                : (`${endpoint}&_p1=${codArmazon1 !== ' ' ? codArmazon1 && codArmazon1.trim() : "aaaa"}`))
+    //         // console.log(data[0])
+    //         if(data && data[0] && data[0][0] === 'ERROR'){
+    //             toast.error(data[0][1])
+    //             a1_armazon.value = " "
+    //             onDataChange({['a1_armazon_id']: " "})
+    //             setArmazon1([])
+    //         }else{
+    //             setArmazon1(data[0])
+    //         }
+    //     } catch (error) {
+    //         throw error
+    //     }
+    // }
+
+
+
