@@ -29,16 +29,10 @@ const strEntidad = "Kardex de Armazón ";
 
 export interface InputData {
   insumo: string | undefined;
-  // descripcion         : string | undefined;
   fecha: string | undefined;
-  // es                  : string | undefined;
   motivo_egreso: string | undefined;
   cantidad: string | undefined;
   almacen: string | undefined;
-  // numero_factura      : string | undefined;
-  // proveedor           : string | undefined;
-  // valor_neto          : string | undefined;
-  // ot                  : string | undefined;
   almacen_relacionado: string | undefined;
   observaciones: string | undefined;
   usuario: string | undefined;
@@ -49,50 +43,9 @@ interface OutputData {
   query: string;
   _p1: string;
   _pkToDelete: string;
-  // _p2?: any;
-  // _p3?: string;
 }
 
-export function transformUpdateQuery(
-  // jsonData: InputData
-  // ,primaryKey: string
-): OutputData | null {
-  // const fields = [
-  //   `almacen            = ${jsonData.almacen}`,
-  //   `es                 = ${
-  //     jsonData.es === MOTIVO_KARDEX.entrada
-  //       ? 1
-  //       : jsonData.es === MOTIVO_KARDEX.salida
-  //       ? 2
-  //       : 0
-  //   }`,
-  //   `motivo             = ${jsonData.motivo}`,
-  //   `cantidad           = ${jsonData.cantidad}`,
-  //   `valor_neto         = ${jsonData.valor_neto}`,
-  //   `proveedor          = ${jsonData.proveedor}`,
-  //   `numero_factura     = ${jsonData.numero_factura}`,
-  //   `ot                 = ${jsonData.ot}`,
-  //   `almacen_relacionado= ${jsonData.almacen_relacionado}`,
-  //   `observaciones      ='${jsonData.observaciones}'`,
-  //   `usuario            = ${jsonData.usuario}`,
-  //   `fecha_mov          ='${jsonData.fecha_mov}'`,
-  // ];
-
-  // const filteredFields = fields.filter(
-  //   (field) => field !== null && field !== ""
-  // );
-
-  // if (filteredFields.length === 0) {
-  //   return null;
-  // }
-  // const _p1 = filteredFields.join(",");
-
-  // return {
-  //   query: "04",
-  //   _p1,
-  //   _p2: jsonData.cristal,
-  //   _p3: jsonData.fecha,
-  // };
+export function transformUpdateQuery(): OutputData | null {
   return null;
 }
 
@@ -136,7 +89,6 @@ const FArmazonesKardexOUT: React.FC<IUserFormPrps> = React.memo(
       focusSecondInput,
     } = useCrud(strBaseUrl);
     const [blnKeep, setblnKeep] = useState(false);
-    // const intId = data && data[EnumGrid.cristal];
     const {
       control,
       handleSubmit,
@@ -171,34 +123,22 @@ const FArmazonesKardexOUT: React.FC<IUserFormPrps> = React.memo(
         }
       }
 
-      /*INSERT INTO CristalesKardex 
-      (fecha, cristal, almacen, es, motivo, cantidad, valor_neto, proveedor, 
-        numero_factura, OT, almacen_relacionado, observaciones, usuario, fecha_mov)*/
-      // let _p1 = `"${jsonData.fecha + " " + fechaHoraActual.toLocaleTimeString()}", 
       let _p1 = `"${jsonData.fecha + " " + dateHora}", "${jsonData.insumo}", ${jsonData.almacen}, ${2}, ${jsonData.motivo_egreso}, ${jsonData.cantidad},${'0'}, ${'0'}, ${'0'}, ${'0'}, ${jsonData.almacen_relacionado || '0'}, "${jsonData.observaciones}", ${userId}, "${fechaFormateada + " " + dateHora}"`;
 
-      // ${(jsonData.almacen_relacionado && jsonData.almacen_relacionado?.toString())?.length === 0 ? "0" : jsonData.almacen_relacionado}, 
-      // 
-      // if (jsonData.motivo_egreso === "2") {
-    const  kardex = [{
-          'fecha': jsonData.fecha + " " + dateHora,
-          'insumo': jsonData.insumo,
-          'almacen': jsonData.almacen,
-          'es': "2",
-          'motivo': jsonData.motivo_egreso,
-          'cantidad': jsonData.cantidad,
-          'almacen_relacionado': jsonData.almacen_relacionado || 0,
-          'observaciones': jsonData.observaciones,
-          'usuario': userState?.id,
-        }]
-      // } else {
-      //   kardex = [{
-      //     'es': "2",
-      //     'motivo': jsonData.motivo_egreso,
-      //   }]
-      // }
-
       _p1 = _p1.replace(/'/g, '!');
+
+      const kardex = [{
+        'fecha': jsonData.fecha + " " + dateHora,
+        'insumo': jsonData.insumo,
+        'almacen': jsonData.almacen,
+        'es': "2",
+        'motivo': jsonData.motivo_egreso,
+        'cantidad': jsonData.cantidad,
+        'almacen_relacionado': jsonData.almacen_relacionado || 0,
+        'observaciones': jsonData.observaciones,
+        'usuario': userState?.id,
+      }]
+
 
       const query: OutputData = {
         query: "03",
@@ -212,11 +152,8 @@ const FArmazonesKardexOUT: React.FC<IUserFormPrps> = React.memo(
 
     const resetTextFields = React.useCallback(() => {
       setValue("insumo", "");
-      // setValue("fecha", "undefined");
-      // setValue("descripcion", "");
       setValue("cantidad", "");
       setValue("observaciones", "");
-      // setValue("almacen_relacionado", "0");
 
       if (firstInputRef.current) {
         const firstInput = firstInputRef.current.querySelector(
@@ -284,7 +221,6 @@ const FArmazonesKardexOUT: React.FC<IUserFormPrps> = React.memo(
             updateNewEntity();
           }
 
-          // toastSuccess(isEditting);
         }
 
         if (isEditting) {
@@ -335,7 +271,6 @@ const FArmazonesKardexOUT: React.FC<IUserFormPrps> = React.memo(
             ? transformUpdateQuery()
             : transformInsertQuery(data, userState?.id);
 
-          // console.log(transformedData)
           const response = isEditting
             ? await editEntity(transformedData)
             : await createdEntity(transformedData);
@@ -352,9 +287,6 @@ const FArmazonesKardexOUT: React.FC<IUserFormPrps> = React.memo(
       [editEntity, createdEntity, handleApiResponse]
     );
 
-    // useEffect(() => {
-    //   focusFirstInput("codigo");
-    // }, []);
     useEffect(() => {
       isEditting ? focusSecondInput("es") : focusFirstInput("insumo");
       if (!showAutorizacion) {
