@@ -65,7 +65,6 @@ const FOTArmazones:React.FC<IArmazones> = ({
 
     const fetchArmazones1 = async (inputName:string, codArmazon:string)=>{
         
-        console.log(inputName)
         let dp         = 0
         let diametro   = 0
         let señal      = ''
@@ -73,7 +72,6 @@ const FOTArmazones:React.FC<IArmazones> = ({
         if(codArmazon.trim() === ''){
             return;
         }
-        
 
         switch (inputName) {
             case 'a1_armazon_id':
@@ -95,15 +93,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
                 break;
         }    
 
-        console.log(codArmazon)
-        console.log(dp)
-        console.log(diametro)
-
-
-
-
         try {
-            console.log('render')
             const {data} = await axios((validar_parametrizacion.value === '1' ) 
                                                    ? (`${endpoint
                                                                         }&_p1=${codArmazon !== ' ' ? codArmazon.trim() : "aaaa"
@@ -153,12 +143,12 @@ const FOTArmazones:React.FC<IArmazones> = ({
                     setArmazon3([])
                     setCodArmazon3(" ")
                 }
+                return;
             }else{
                 if(data[0]){
                     onDataChange({[inputName]:data[0][0]})
                     if(inputName === 'a1_armazon_id'){
                         setArmazon1(data[0])
-                        console.log(data[0][0])
                         setCodArmazon1(data[0][0])
                         a1_armazon.value = data[0][0]
                     }
@@ -174,24 +164,50 @@ const FOTArmazones:React.FC<IArmazones> = ({
                     }
                 }
             }
+
+            switch (inputName) {
+                    case 'a1_armazon_id':
+                        if(a1_armazon.value.trim() === a2_armazon.value.trim() || a1_armazon.value.trim() === a3_armazon.value.trim() ){
+                            toast.error(`Código Armazon 1 no puede ser igual a Código ${a1_armazon.value.trim() === a2_armazon.value.trim() ? 'Armazon 2': 'Armazon 3'}`);
+                            onDataChange({['a1_armazon_id']: " "})
+                            a1_armazon.value = " "
+                            setCodArmazon1(" ")
+                            setArmazon1([])
+                            validation_A1_armazon("")
+                            console.log('render')
+                            return;
+                        }
+                        return
+                    case 'a2_armazon_id':
+                        if(a2_armazon.value.trim() === a1_armazon.value.trim() || a2_armazon.value.trim() === a3_armazon.value.trim()){
+                            toast.error(`Código Armazon 2 no puede ser igual a Código ${a2_armazon.value.trim() === a1_armazon.value.trim() ? 'Armazon 1': 'Armazon 3'}`);
+                            onDataChange({['a2_armazon_id']: " "})
+                            a2_armazon.value = " "
+                            setCodArmazon2(" ")
+                            setArmazon2([])
+                            validation_A2_armazon("")
+                            return;
+                        }
+                        return;
+                    case 'a3_armazon_id':
+                        if(a3_armazon.value.trim() === a1_armazon.value.trim() || a3_armazon.value.trim() === a2_armazon.value.trim()){
+                            toast.error(`Código Armazon 3 no puede ser igual a Código ${a3_armazon.value.trim() === a1_armazon.value.trim() ? 'Armazon 1': 'Armazon 2'}`);
+                            onDataChange({['a3_armazon_id']: " "})
+                            setCodArmazon3(" ")
+                            setArmazon3([])
+                            setCodArmazon3(" ")
+                            return
+                        }
+                        return;
+                    default:
+                        break;
+            }
+        
+            
         } catch (error) {
             throw error
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     //TODO! =========================== ENVIAR Diametro EN _P5 PARA VALIDAR ARMAZONES =====================================================================
@@ -226,53 +242,6 @@ const FOTArmazones:React.FC<IArmazones> = ({
 
         // setRender((prev)=>!prev)
 
-        
-        
-        console.log(codArmazon1)
-        console.log(codArmazon2)
-        console.log(codArmazon3)
-        console.log(a1_armazon.value)
-        console.log(a2_armazon.value)
-        if (
-            (name === 'a1_armazon_id' && (value !== " " && value !== '') && (value.trim() === a2_armazon.value || value.trim() === a3_armazon.value)) ||
-            (name === 'a2_armazon_id' && (value !== " " && value !== '') && (value.trim() === a1_armazon.value || value.trim() === a3_armazon.value)) ||
-            (name === 'a3_armazon_id' && (value !== " " && value !== '') && (value.trim() === a1_armazon.value || value.trim() === a2_armazon.value))
-        ) {
-            console.log('name')
-            switch (name) {
-                case 'a1_armazon_id':
-                    toast.error(`Código Armazon 1 no puede ser igual a Código ${codArmazon3 === codArmazon2 ? 'Armazon 3': 'Armazon 2'}`);
-                    onDataChange({['a1_armazon_id']: " "})
-                    a1_armazon.value = " "
-                    setCodArmazon1(" ")
-                    setArmazon1([])
-                    validation_A1_armazon("")
-                    console.log('render')
-                    return
-                case 'a2_armazon_id':
-                    onDataChange({['a2_armazon_id']: " "})
-                    a2_armazon.value = " "
-                    setCodArmazon2(" ")
-                    setArmazon2([])
-                    validation_A2_armazon("")
-                    toast.error(`Código Armazon 2 no puede ser igual a Código ${codArmazon1 === codArmazon3 ? 'Armazon 3': 'Armazon 1'}`);
-                    break;
-                case 'a3_armazon_id':
-                    onDataChange({['a3_armazon_id']: " "})
-                    setCodArmazon3(" ")
-                    setArmazon3([])
-                    setCodArmazon3(" ")
-                    
-                    break;
-                default:
-                    break;
-            }
-            // toast.error('Los códigos de los armazones no pueden ser iguales entre sí.');
-            // setRender((prev)=>!prev)
-            return; 
-        }
-
-          
         if(name === 'a1_armazon_id' || name === 'a2_armazon_id' || 'a3_armazon_id'){
             fetchArmazones1(name, value)
             switch (name) {
@@ -295,6 +264,50 @@ const FOTArmazones:React.FC<IArmazones> = ({
                     break;
             }
         }
+        
+
+
+        // if (
+        //     (name === 'a1_armazon_id' && (value !== " " && value !== '') && (value.trim() === a2_armazon.value || value.trim() === a3_armazon.value)) ||
+        //     (name === 'a2_armazon_id' && (value !== " " && value !== '') && (value.trim() === a1_armazon.value || value.trim() === a3_armazon.value)) ||
+        //     (name === 'a3_armazon_id' && (value !== " " && value !== '') && (value.trim() === a1_armazon.value || value.trim() === a2_armazon.value))
+        // ) {
+        //     console.log('name')
+        //     switch (name) {
+        //         case 'a1_armazon_id':
+        //             toast.error(`Código Armazon 1 no puede ser igual a Código ${codArmazon3 === codArmazon2 ? 'Armazon 3': 'Armazon 2'}`);
+        //             onDataChange({['a1_armazon_id']: " "})
+        //             a1_armazon.value = " "
+        //             setCodArmazon1(" ")
+        //             setArmazon1([])
+        //             validation_A1_armazon("")
+        //             console.log('render')
+        //             return
+        //         case 'a2_armazon_id':
+        //             onDataChange({['a2_armazon_id']: " "})
+        //             a2_armazon.value = " "
+        //             setCodArmazon2(" ")
+        //             setArmazon2([])
+        //             validation_A2_armazon("")
+        //             toast.error(`Código Armazon 2 no puede ser igual a Código ${codArmazon1 === codArmazon3 ? 'Armazon 3': 'Armazon 1'}`);
+        //             break;
+        //         case 'a3_armazon_id':
+        //             onDataChange({['a3_armazon_id']: " "})
+        //             setCodArmazon3(" ")
+        //             setArmazon3([])
+        //             setCodArmazon3(" ")
+                    
+        //             break;
+        //         default:
+        //             break;
+        //     }
+        //     // toast.error('Los códigos de los armazones no pueden ser iguales entre sí.');
+        //     // setRender((prev)=>!prev)
+        //     return; 
+        // }
+
+          
+        
         
         validationOTlevel2(name, value)
         validationOTlevel3(name, value)
