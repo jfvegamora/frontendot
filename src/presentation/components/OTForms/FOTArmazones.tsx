@@ -531,10 +531,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
     // console.log(armazon1)
     // console.log(formValues)
 
-    console.log(codArmazon1)
-    console.log(a1_armazon.value)
-    console.log(formValues && formValues["a1_armazon_id"])
-
+  
   return (
     <form>
         <div className='w-full frameOTForm'>

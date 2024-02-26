@@ -4,6 +4,10 @@ import { EnumGrid } from '../mantenedores/MOTHistorica';
 import Barcode from 'react-barcode';
 import QRCode from 'react-qr-code';
 // import QRCode from 'qrcode.react';
+import LogoMaster   from '../../../assets/logo_master01.jpg';
+import LogoMTO      from '../../../assets/logo_mto01.jpg';
+import LogoOptilab  from '../../../assets/logo_optilab01.jpg';
+
 
 import { formatNumberWithZeros, getImageURL } from '../../utils';
 
@@ -16,8 +20,10 @@ import { formatNumberWithZeros, getImageURL } from '../../utils';
 const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
   
   const [logoPath, setLogoPath] = useState<string | null>();
+  const [pathLogo, setPathLogo] = useState('');
   const {impresionOT:OT} = useAppSelector((store:AppStore)=>store.OTS);
   const User:any = useAppSelector((store:AppStore)=>store.user);
+  let PathLogo = ''
 
   // useEffect(() => {
   //   const loadLogo = async () => {
@@ -44,29 +50,69 @@ const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
 
 
   useEffect(() => {
-    const loadLogo = async () => {
-      try {
-        const dynamicLogo = await import(`../../../assets/${OT[0][EnumGrid.nombre_logo]}`); 
-        setLogoPath(dynamicLogo.default);
-      } catch (error) {
-        console.error('Error loading logo:', error);
-        setLogoPath(null);
-      }
-    };
-    console.log(OT[0] && OT[0][EnumGrid.nombre_logo])
+    // const loadLogo = async () => {
+    //   try {
+    //     const dynamicLogo = await import(`../../../assets/${OT[0][EnumGrid.nombre_logo]}`); 
+    //     setLogoPath(dynamicLogo.default);
+    //   } catch (error) {
+    //     console.error('Error loading logo:', error);
+    //     setLogoPath(null);
+    //   }
+    // };
+    // console.log(OT[0] && OT[0][EnumGrid.nombre_logo])
 
-    if (OT[0] && OT[0][EnumGrid.nombre_logo]) {
-      console.log('render')
-      loadLogo();
-    }
+    // if (OT[0] && OT[0][EnumGrid.nombre_logo]) {
+    //   console.log('render')
+    //   loadLogo();
+    // }
+
+      console.log(OT[0])
+      console.log(OT[0] && OT[0][EnumGrid.nombre_logo])
+      
+      if(OT[0] && OT[0][EnumGrid.nombre_logo]){
+        console.log(OT[0] && OT[0][EnumGrid.nombre_logo])
+
+        switch (OT[0] && OT[0][EnumGrid.nombre_logo]) {
+          case 'logo_mto01.jpg':
+              setLogoPath(LogoMTO)
+              setPathLogo(LogoMTO)
+            
+            break;
+        
+          default:
+            break;
+        }
+      }
+
+      console.log(pathLogo)
   }, [OT[0]]);
 
-  // console.log(OT[0] && OT[0][EnumGrid.nombre_logo])
+
+  
+  // if(OT[0] && OT[0][EnumGrid.nombre_logo]){
+  //   console.log(OT[0] && OT[0][EnumGrid.nombre_logo])
+
+  //   switch (OT[0] && OT[0][EnumGrid.nombre_logo]) {
+  //     case 'logo_mto01.jpg':
+  //         setLogoPath(LogoMTO)
+        
+  //       break;
+    
+  //     default:
+  //       break;
+  //   }
+  // }
+  
+  
+  console.log(OT[0] && OT[0][EnumGrid.nombre_logo])
+  
   // console.log(logoPath)
   console.log(OT[0] && OT[0][EnumGrid.imprime_ticket])
   // console.log(new Date().toLocaleTimeString())
 
   const fechaHora = new Date().toLocaleTimeString()
+
+  console.log(pathLogo)
 
   return (
     <div ref={ref} className='flex flex-col h-full  border-2 border-blue-500 '>
@@ -82,16 +128,21 @@ const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
 
           </div>
         </div>
-
-          {logoPath && (
+{/* 
+          {pathLogo.trim() !== '' && (
             <div className="w-full !-mt-6 z-20">
-              <img src={logoPath} alt="Logo" className='w-[90%] ml-8' />
+              <img src={pathLogo}  alt="Logo" className='w-[90%] ml-8' />
             </div>
-          )}
+          )} */}
          
           <div className="header  w-[110%] text-center !-mt-7 border-black border-b-2">
-            <div className="w-full flex justify-around">
-              <p className='text-[3rem]'>OT:</p>
+            <div className="w-full flex justify-around  ">
+              {pathLogo.trim() !== '' && (
+                <div className="w-[70%] top-0 left-0 z-20 ">
+                  <img src={pathLogo}  alt="Logo" className='w-[90%] ml-8' />
+                </div>
+              )}
+              <div className="mb-2"></div>
               <p className='text-[3rem]'>{OT[EnumGrid.folio]}</p>
               {/* <h3 className='text-[3rem]'>OT: {OT[EnumGrid.folio]}</h3> */}
             </div>

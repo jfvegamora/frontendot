@@ -241,12 +241,14 @@ const FCristalesKardexIN: React.FC<IUserFormPrps> = React.memo(
 
      
      ajuste_inventario_autorizacion.value = false
-     console.log("p1", query);
+    //  console.log("p1", query);
     
      return query;
     }
     const handleApiResponse = React.useCallback(
       async (response: any, isEditting: boolean) => {
+
+        // console.log(response)
         if (response.code === "ERR_BAD_RESPONSE" || response.stack || response.hasOwnProperty('Error:')) {
           
           if(response.hasOwnProperty('Error:')){

@@ -248,7 +248,7 @@ const FArmazonesKardexOUT: React.FC<IUserFormPrps> = React.memo(
     const handleApiResponse = React.useCallback(
       async (response: any, isEditting: boolean) => {
         if (response.code === "ERR_BAD_RESPONSE" || response.stack || response.hasOwnProperty('Error:')) {
-
+          
           if (response.hasOwnProperty('Error:')) {
             show({
               message: response["Error:"],
