@@ -30,17 +30,13 @@ const strEntidad = "Kardex de Cristal ";
 
 export interface InputData {
   insumo              : string | undefined;
-  // descripcion         : string | undefined;
   fecha               : string | undefined;
-  // es                  : string | undefined;
   motivo_ingreso              : string | undefined;
   cantidad            : string | undefined;
   almacen             : string | undefined;
   numero_factura      : string | undefined;
   proveedor           : string | null | undefined;
   valor_neto          : string | undefined;
-  // ot                  : string | undefined;
-  // almacen_relacionado : string | undefined;
   observaciones       : string | undefined;
   usuario             : string | undefined;
   fecha_mov           : string | undefined;
@@ -49,52 +45,11 @@ export interface InputData {
 interface OutputData {
   query: string;
   _p1 : string;
-  _p2?: string;
-  _p3?: string;
-  _p4?: string;
+  _pkToDelete: string;
 }
 
 
-export function transformUpdateQuery(
-  // jsonData: InputData
-  // ,primaryKey: string
-  ): OutputData | null {
-  // const fields = [
-    //   `almacen            = ${jsonData.almacen}`,
-  //   `es                 = ${
-  //     jsonData.es === MOTIVO_KARDEX.entrada
-  //       ? 1
-  //       : jsonData.es === MOTIVO_KARDEX.salida
-  //       ? 2
-  //       : 0
-  //   }`,
-  //   `motivo             = ${jsonData.motivo}`,
-  //   `cantidad           = ${jsonData.cantidad}`,
-  //   `valor_neto         = ${jsonData.valor_neto}`,
-  //   `proveedor          = ${jsonData.proveedor}`,
-  //   `numero_factura     = ${jsonData.numero_factura}`,
-  //   `ot                 = ${jsonData.ot}`,
-  //   `almacen_relacionado= ${jsonData.almacen_relacionado}`,
-  //   `observaciones      ='${jsonData.observaciones}'`,
-  //   `usuario            = ${jsonData.usuario}`,
-  //   `fecha_mov          ='${jsonData.fecha_mov}'`,
-  // ];
-
-  // const filteredFields = fields.filter(
-  //   (field) => field !== null && field !== ""
-  // );
-
-  // if (filteredFields.length === 0) {
-  //   return null;
-  // }
-  // const _p1 = filteredFields.join(",");
-  
-  // return {
-  //   query: "04",
-  //   _p1,
-  //   _p2: jsonData.cristal,
-  //   _p3: jsonData.fecha,
-  // };
+export function transformUpdateQuery(): OutputData | null {
   return null;
 }
 
@@ -123,14 +78,6 @@ const FCristalesKardexIN: React.FC<IUserFormPrps> = React.memo(
 
     const [_showAutorizacion, setShowAutorizacion] = useState(false);
     const [_isAutorizacionValida, setIsAutorizacionValida] = useState(false);
-
-    // const handleAutorizacionSubmit = async (_data: any) => {
-    //   try {
-    //     setIsAutorizacionValida(true);
-    //   } catch (error) {
-    //     setIsAutorizacionValida(false);
-    //   }
-    // };
 
     const {
       editEntity,
@@ -224,19 +171,24 @@ const FCristalesKardexIN: React.FC<IUserFormPrps> = React.memo(
        ${userId}, 
       "${fechaFormateada + " " +dateHora}"`;
     
-     //  ${(jsonData.proveedor && jsonData.proveedor?.toString())?.length === 0 ? "0" : jsonData.proveedor}, 
-    
+     const kardex = [{
+      'insumo'              : jsonData.insumo,
+      'fecha'               : jsonData.fecha + " " + dateHora,
+      'almacen'             : jsonData.almacen,
+      'es'                  : "1",
+      'motivo'              : jsonData.motivo_ingreso,
+      'cantidad'            : jsonData.cantidad,
+      'almacen_relacionado' : 0,
+      'observaciones'       : jsonData.observaciones,
+      'usuario'             : userState?.id,
+    }]
+  
      _p1 = _p1.replace(/'/g, '!');
-     let _p2 = `${jsonData.insumo}`;
-     let _p3 = `${jsonData.motivo_ingreso}`;
-     let _p4 = `${jsonData.cantidad}`;
    
      const query: OutputData = {
        query: "03",
        _p1,
-       _p2,
-       _p3,
-       _p4,
+       _pkToDelete:JSON.stringify(kardex),
     };
 
      
@@ -289,7 +241,6 @@ const FCristalesKardexIN: React.FC<IUserFormPrps> = React.memo(
             updateNewEntity();
           }
 
-          // toastSuccess(isEditting);
         }
 
         if (isEditting) {
@@ -357,33 +308,10 @@ const FCristalesKardexIN: React.FC<IUserFormPrps> = React.memo(
       [editEntity, createdEntity, handleApiResponse]
     );
 
-    // useEffect(() => {
-    //   focusFirstInput("codigo");
-    // }, []);
     useEffect(() => {
       isEditting ? focusSecondInput("es") : focusFirstInput("insumo");
     }, []);
 
-    // const handleCristales = (data:number) => {
-    //   // console.log('traer description', data)
-    //   const primaryKey = `_p1=${data}`
-    //   try {
-    //     if(data){
-    //       ListEntity(primaryKey, "01")
-    //       .then((data)=>{
-    //         setCristalDescription(data[0][3])
-    //       })
-    //       .catch((e)=>{
-    //         console.log(e)
-    //       })
-    //     }
-    //   } catch (error) {
-    //     console.log(error)
-    //   }
-    // }
-
-    // console.log('cristalDescritpion',cristalDescritpion)
-    // console.log(errors)
     const fechaFormateada = fechaHoraActual.toISOString().split('T')[0];
 
 

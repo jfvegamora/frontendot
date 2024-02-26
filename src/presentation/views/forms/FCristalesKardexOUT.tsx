@@ -49,8 +49,9 @@ export interface InputData {
 interface OutputData {
   query: string;
   _p1: string;
-  _p2?: number;
-  _p3?: string;
+  _pkToDelete: string;
+  // _p2?: number;
+  // _p3?: string;
 }
 
 
@@ -214,11 +215,26 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
     
         // ${(jsonData.almacen_relacionado && jsonData.almacen_relacionado?.toString())?.length === 0 ? "0" : jsonData.almacen_relacionado}, 
         // 
-       _p1 = _p1.replace(/'/g, '!');
+
+      const  kardex = [{
+          // 'fecha': jsonData.fecha + " " +fechaHoraActual.toLocaleTimeString(),
+          'fecha': jsonData.fecha + " " + dateHora,
+          'insumo': jsonData.insumo,
+          'almacen': jsonData.almacen,
+          'es': "2",
+          'motivo': jsonData.motivo_egreso,
+          'cantidad': jsonData.cantidad,
+          'almacen_relacionado': jsonData.almacen_relacionado || 0,
+          'observaciones': jsonData.observaciones,
+          'usuario': userState?.id,
+        }]
+
+        _p1 = _p1.replace(/'/g, '!');
       
       const query: OutputData = {
         query: "03",
         _p1,
+        _pkToDelete: JSON.stringify(kardex),
       };
       
       ajuste_inventario_autorizacion.value = false

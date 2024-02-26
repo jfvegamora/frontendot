@@ -942,27 +942,6 @@ export const table_head_accesorios = [
     width: "w-[6rem]",
   },
   {
-    cell: "Total Ingresos",
-    key: "ingresos",
-    visible: false,
-    alignment: "text-right",
-    width: "w-[6rem]",
-  },
-  {
-    cell: "Total Egresos",
-    key: "egresos",
-    visible: false,
-    alignment: "text-right",
-    width: "w-[6rem]",
-  },
-  {
-    cell: "Stock Actual",
-    key: "stock_actual",
-    visible: true,
-    alignment: "text-right",
-    width: "w-[6rem]",
-  },
-  {
     cell: "Stock Mínimo",
     key: "stock_minimo",
     visible: true,
