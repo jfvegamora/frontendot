@@ -33,12 +33,9 @@ export enum EnumGrid {
   diametro = 16,
   esferico = 17,
   cilindrico = 18,
-  tot_ingresos=19,
-  tot_egresos=20,
-  tot_=21,
-  stock_minimo=22,
-  stock_reservado = 23,
-  stock_disponible = 24,
+  stock_minimo=19,
+  stock_reservado = 20,
+  stock_disponible = 21,
 }
 
 const strEntidad = "Cristal ";
@@ -102,7 +99,7 @@ const MCristales: React.FC = () => {
               setEntities={setEntities}
               primaryKeyInputs={[
                 { name: "_p1", label: "Código", type: "text", styles:{with:"!w-[17rem]"}},
-                { name: "_p2", label: "Código FAB", type: "text", styles:{with:"!w-[17rem]"}},
+                // { name: "_p2", label: "Código FAB", type: "text", styles:{with:"!w-[17rem]"}},
                 
                 {
                   name: "_pIndice",
