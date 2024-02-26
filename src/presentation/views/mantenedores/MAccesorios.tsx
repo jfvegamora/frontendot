@@ -94,7 +94,7 @@ const MAccesorios: React.FC = () => {
             setEntities={setEntities}
             primaryKeyInputs={[
               { name: "_p1", label: "Código", type: "text", styles:{with:"!w-[10rem]"}},
-              { name: "_p5", label: "Código FAB", type: "text", styles:{with:"!w-[10rem]"}},
+              // { name: "_p5", label: "Código FAB", type: "text", styles:{with:"!w-[10rem]"}},
               { name: "_p2", label: "Descripción", type: "text", styles:{with:"!w-[10rem]"} },
               {
                 name: "_p3",
