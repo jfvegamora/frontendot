@@ -372,7 +372,7 @@ const FAccesoriosKardexOUT: React.FC<IUserFormPrps> = React.memo(
             </div>
 
             <div className="w-full flex items-center h-[4rem]">
-              <div className="input-container items-center rowForm w-[50%]  ">
+              <div className="input-container items-center rowForm w-[100%]  ">
                 <div className="w-full">
                   <SelectInputComponent
                     label="Almacén"
@@ -386,7 +386,9 @@ const FAccesoriosKardexOUT: React.FC<IUserFormPrps> = React.memo(
                   />
                 </div>
               </div>
-              <div className="input-container items-center rowForm w-[50%]  ">
+            </div>
+            <div className="w-full flex items-center h-[4rem]">
+              <div className="input-container items-center rowForm w-[100%]  ">
                 <div className="w-full">
                   <SelectInputComponent
                     label="Almacén Traspaso"
