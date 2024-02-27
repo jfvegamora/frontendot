@@ -49,7 +49,7 @@ const TextInputInteractive: React.FC<ITextInputProps> = ({
   // const [_defaultValue, setDefaultValue] = useState<any>(data && data || "")
   const [_defaultValue, setDefaultValue] = useState<any>(data || " "); // Inicializar defaultValue con el valor inicial
   // const inputRef = useRef<HTMLInputElement>(null);
-  const[render, setRender] = useState(false);
+  const[_render, setRender] = useState(false);
 
   const [value, setValue] = useState<any>(data || "");
 

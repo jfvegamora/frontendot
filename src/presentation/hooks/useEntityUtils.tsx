@@ -38,7 +38,7 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
 
   const dispatch = useAppDispatch();
   const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas);
-  const OTData:any = useAppSelector((store: AppStore) => store.OTS);
+  // const OTData:any = useAppSelector((store: AppStore) => store.OTS);
   const areaActual = OTAreas["areaActual"]
   
 

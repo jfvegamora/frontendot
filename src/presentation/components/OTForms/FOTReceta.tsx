@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { SelectInputComponent, TextInputComponent } from '..'
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica'
 // import {a1_od_ad, a1_od_cil, a1_od_eje, a1_od_esf, a1_oi_ad, a1_oi_cil, a1_oi_eje, a1_oi_esf, a2_od_cil, a2_od_eje, a2_od_esf, a2_oi_cil, a2_oi_eje, a2_oi_esf, dioptriasHabilitadas, dioptrias_receta, onchangeDioptrias } from '../../utils'
@@ -38,7 +38,7 @@ const FOTReceta:React.FC<IReceta> = ({
     permiso_usuario_receta
 }) => {
 
-    const [isRender, setIsRender] = useState(false);
+    const [_isRender, setIsRender] = useState(false);
 
     const firstInputRef   = useRef<HTMLInputElement | null>(null);
     const secondInputRef  = useRef<HTMLInputElement | null>(null);
