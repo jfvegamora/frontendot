@@ -343,7 +343,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                   </div>
                 </div>
 
-                <div className="input-container items-center rowForm w-[25%]">
+                <div className="input-container items-center rowForm w-[20%]">
                   <div className="w-full !mt-4">
                 <SelectInputComponent
                       label="Marca"
@@ -353,12 +353,12 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                       control={control}
                       entidad={["/api/marcas/", "02", "1"]}
                       error={errors.marca}
-                      customWidth={"!w-[17rem]"}
+                      customWidth={"!w-[12rem] !ml-4"}
                       />
                   </div>
                 </div>
 
-                <div className="input-container items-center rowForm w-[15%]">
+                <div className="input-container items-center rowForm w-[20%]">
                   <div className="w-full !mt-4">
                     <TextInputComponent
                       type="text"
@@ -372,7 +372,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                   </div>
                 </div>
 
-                <div className="input-container items-center rowForm w-[15%]">
+                <div className="input-container items-center rowForm w-[10%]">
                   <div className="w-full !mt-4">
                     <TextInputComponent
                       type="number"
@@ -387,7 +387,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                   </div>
                 </div>
 
-                <div className="input-container items-center rowForm w-[15%]">
+                <div className="input-container items-center rowForm w-[10%]">
                   <div className="w-full !mt-4">
                       <TextInputComponent
                         type="number"
@@ -402,7 +402,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                   </div>
                 </div>
 
-                <div className="input-container items-center rowForm w-[15%]">
+                <div className="input-container items-center rowForm w-[10%]">
                   <div className="w-full !mt-4">
                     <TextInputComponent
                       type="number"
@@ -417,7 +417,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                   </div>
                 </div>
 
-                <div className="input-container items-center rowForm w-[15%]">
+                <div className="input-container items-center rowForm w-[10%]">
                   <div className="w-full !mt-4">
                     <TextInputComponent
                       type="number"
@@ -439,7 +439,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
 
             <div className="w-full flex items-center  h-[5rem] ">
 
-                <div className="input-container items-center rowForm w-[41.5%]  ">
+                <div className="input-container items-center rowForm w-[20%]  ">
                     <div className="w-full">
                       <SelectInputTiposComponent
                       label="Uso"
@@ -448,7 +448,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                       data={data && data[EnumGrid.armazon_uso_id]}
                       control={control}
                       entidad={"ArmazonesUsos"}
-                      customWidth={"!w-[25rem] !ml-4"}
+                      customWidth={"!w-[12rem] !ml-4"}
                       error={errors.uso}
                       />
                     </div>
@@ -472,9 +472,24 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                     <div className="w-full">
                         <TextInputComponent
                           type="number"
-                          label="Stock Reservado"
-                          name="stock_resrvado"
-                          data={data && data[EnumGrid.stock_reservado]}
+                          label="Cantidad Exhibida"
+                          name="cantidad_exhibida"
+                          data={data && data[EnumGrid.cantidad_exhibida]}
+                          control={control}
+                          onlyRead={true}
+                          tabIndex={-1}
+                          textAlign="text-right"
+                          />
+                    </div>
+                  </div>
+
+                  <div className="input-container items-center rowForm w-[20%]  ">
+                    <div className="w-full">
+                        <TextInputComponent
+                          type="number"
+                          label="Cantidad Reservada"
+                          name="cantidad_reservada"
+                          data={data && data[EnumGrid.cantidad_reservada]}
                           control={control}
                           onlyRead={true}
                           tabIndex={-1}

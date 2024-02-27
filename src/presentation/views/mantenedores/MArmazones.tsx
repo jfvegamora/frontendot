@@ -28,10 +28,11 @@ export enum EnumGrid {
   brazo = 13,
   armazon_uso_id = 14,
   armazon_uso = 15,
-  stock_minimo = 16,
-  stock_reservado = 17,
-  stock_disponible = 18,
-  codigo_fab       = 19,
+  cantidad_exhibida = 16,
+  cantidad_reservada = 17,
+  stock_minimo = 18,
+  stock_disponible = 19,
+  codigo_fab       = 20,
 }
 
 const strEntidad = "Armazón ";
