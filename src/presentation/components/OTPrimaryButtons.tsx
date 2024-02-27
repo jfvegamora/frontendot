@@ -17,7 +17,7 @@ import { fetchOT} from '../../redux/slices/OTSlice';
 import axios from 'axios';
 import { URLBackend } from '../hooks/useCrud';
 import ErrorOTModal from './ErrorOTModal';
-import FOTEmpaque from '../views/forms/FOTEmpaque';
+// import FOTEmpaque from '../views/forms/FOTEmpaque';
 
 type AreaButtonsProps ={
     areaName:string;
@@ -35,6 +35,7 @@ const strBaseUrl = "/api/ot/";
 
 const FOTImpresa  = React.lazy(()=>import('../views/forms/FOTImpresa'));
 const ExportCSV   = React.lazy(()=>import('./ExportToCsv'))
+const FOTEmpaque  = React.lazy(()=>import('../views/forms/FOTEmpaque'))
 // const ExportCSV  = React.lazy(()=>import('));
 
 
@@ -353,9 +354,12 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
           <ErrorOTModal onClose={()=>setIsShowErrorOTModal(false)} data={dataOT && dataOT}/>
         )}
 
-        {isFOTEmpaque && (
-          <FOTEmpaque closeModal={()=>setIsFOTEmpaque(false)} setSelectedRows={setSelectedRows}  pktoDelete={pkToDelete} params={params}/>
-        )}
+
+          <Suspense>
+            {isFOTEmpaque && (
+              <FOTEmpaque closeModal={()=>setIsFOTEmpaque(false)} setSelectedRows={setSelectedRows}  pktoDelete={pkToDelete} params={params}/>
+            )}
+          </Suspense>
     </div>
 )}
 
