@@ -263,8 +263,8 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
               
               if(params && params[0] === ''){
 
-                let stockDisponibe   = parseInt(rowData[18])
-                let stockMinimo      = parseInt(rowData[16])
+                let stockDisponibe   = parseInt(rowData[19])
+                let stockMinimo      = parseInt(rowData[18])
                 lowArmazonesStock =  (stockDisponibe <= stockMinimo) ? true : false
  
                           
