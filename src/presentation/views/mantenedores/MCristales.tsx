@@ -33,7 +33,7 @@ export enum EnumGrid {
   diametro = 16,
   esferico = 17,
   cilindrico = 18,
-  stock_minimo=19,
+  stock_minimo = 19,
   stock_reservado = 20,
   stock_disponible = 21,
 }
@@ -47,7 +47,7 @@ const idMenu = 7;
 
 const MCristales: React.FC = () => {
   const [params, setParams] = useState([]);
-  const { escritura_lectura} = usePermission(idMenu || 0 );
+  const { escritura_lectura } = usePermission(idMenu || 0);
 
   const updateParams = (newParams: Record<string, never>) => {
     setParams(Object.keys(newParams).map((key) => newParams[key]));
@@ -77,8 +77,8 @@ const MCristales: React.FC = () => {
 
   const [pkToDelete, setPkToDelete] = useState<string[]>([])
   const strParamsToDelete = '_p1' // _p3/_p1/_pkToDelete
-   
-  useEffect(() => {    
+
+  useEffect(() => {
     const newPkToDelete = selectedRows.map((row: number) => `'${entities[row][EnumGrid.codigo]}'`);
     const combinedPks = newPkToDelete.join(',');
 
@@ -88,7 +88,7 @@ const MCristales: React.FC = () => {
   // console.log(filterToggle.value)
 
   return (
-    <div className="mantenedorContainer"  onClick={handleContainerClick}>
+    <div className="mantenedorContainer" onClick={handleContainerClick}>
       <FilterButton>
         <div className="mantenedorHeadFlex width100 relative ">
           <div className="w-[95%] mx-auto ">
@@ -98,41 +98,41 @@ const MCristales: React.FC = () => {
               updateParams={updateParams}
               setEntities={setEntities}
               primaryKeyInputs={[
-                { name: "_p1", label: "Código", type: "text", styles:{with:"!w-[17rem]"}},
+                { name: "_p1", label: "Código", type: "text", styles: { with: "!w-[17rem]" } },
                 // { name: "_p2", label: "Código FAB", type: "text", styles:{with:"!w-[17rem]"}},
-                
+
                 {
                   name: "_pIndice",
                   label: "Indice",
                   type: "select",
                   selectUrl: "/api/tipos/",
-                  tipos: "CristalesIndices", styles:{with:" !w-[19rem]"},
+                  tipos: "CristalesIndices", styles: { with: " !w-[19rem]" },
                 },
-              
+
                 {
                   name: "_pMaterial",
                   label: "Material",
                   type: "select",
                   selectUrl: "/api/tipos/",
-                  tipos: "CristalesMateriales", styles:{with:"!mt-[0.5rem] !w-[19rem]"},
+                  tipos: "CristalesMateriales", styles: { with: "!mt-[0.5rem] !w-[19rem]" },
                 },
 
-                { name: "_pDiametro", label: "Diámetro", type: "number", styles:{with:"!mt-[-0.1rem] !w-[17rem]"}},
-                { name: "_pEsferico",   label: "Esférico", type: "number", styles:{with:""} },
+                { name: "_pDiametro", label: "Diámetro", type: "number", styles: { with: "!mt-[-0.1rem] !w-[17rem]" } },
+                { name: "_pEsferico", label: "Esférico", type: "number", styles: { with: "" } },
                 {
                   name: "_pMarca",
                   label: "Marca",
                   type: "select",
-                  selectUrl: "/api/marcas/", styles:{with:" !w-[19rem]"},
+                  selectUrl: "/api/marcas/", styles: { with: " !w-[19rem]" },
                   _p1: "2"
                 },
-              
+
                 {
                   name: "_pDiseno",
                   label: "Diseño",
                   type: "select",
                   selectUrl: "/api/tipos/",
-                  tipos: "CristalesDisenos", styles:{with:"!mt-[0.5rem]  w-[19rem]"},
+                  tipos: "CristalesDisenos", styles: { with: "!mt-[0.5rem]  w-[19rem]" },
                 },
 
                 {
@@ -140,28 +140,36 @@ const MCristales: React.FC = () => {
                   label: "Color",
                   type: "select",
                   selectUrl: "/api/tipos/",
-                  tipos: "CristalesColores", styles:{with:"!mt-[0.5rem] !w-[19rem]"},
+                  tipos: "CristalesColores", styles: { with: "!mt-[0.5rem] !w-[19rem]" },
                 },
                 {
                   name: "_pTratamiento",
                   label: "Tratamiento",
                   type: "select",
                   selectUrl: "/api/tipos/",
-                  tipos: "CristalesTratamientos", styles:{with:"!mt-[0.5rem] !w-[19rem]"},
+                  tipos: "CristalesTratamientos", styles: { with: "!mt-[0.5rem] !w-[19rem]" },
                 },
 
                 {
                   name: "_p4",
                   label: "Almacén",
                   type: "select",
-                  selectUrl: "/api/almacenes/", styles:{with:"!mt-[1.2rem] !w-[19rem]"},
+                  selectUrl: "/api/almacenes/", styles: { with: "!mt-[1.2rem] !w-[19rem]" },
                   _p1: "2"
                 },
-                ]}
+
+                {
+                  name: "_p5",
+                  label: "Stock",
+                  type: "select",
+                  selectUrl: "/api/tipos/",
+                  tipos: "Stock", styles: { with: "!mt-[0.5rem] !w-[12rem]" },
+                },
+              ]}
             />
           </div>
 
-          
+
           <div className="w-[100%] top-[10rem] bottom-[0.8rem] right-[12rem]">
             <PrimaryButtonsComponent
               handleAddPerson={openModal}

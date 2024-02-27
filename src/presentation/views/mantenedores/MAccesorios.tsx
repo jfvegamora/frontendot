@@ -13,18 +13,18 @@ import FAccesorios from "../forms/FAccesorios";
 import { TITLES, table_head_accesorios } from "../../utils";
 
 export enum EnumGrid {
-  codigo           = 1,
-  descripcion      = 2,
-  marca_id         = 3,
-  marca            = 4,
-  proveedor_id     = 5,
-  proveedor        = 6,
-  precio_neto      = 7,
-  totsl_ingresos   = 8,
-  total_egresos    = 9,
-  stock_actual     = 10,
-  stock_minimo     = 11,
-  stock_reservado  = 12,
+  codigo = 1,
+  descripcion = 2,
+  marca_id = 3,
+  marca = 4,
+  proveedor_id = 5,
+  proveedor = 6,
+  precio_neto = 7,
+  totsl_ingresos = 8,
+  total_egresos = 9,
+  stock_actual = 10,
+  stock_minimo = 11,
+  stock_reservado = 12,
   stock_disponible = 13
 }
 
@@ -39,7 +39,7 @@ const idMenu = 9;
 // }
 const MAccesorios: React.FC = () => {
   const [params, setParams] = useState([]);
-  const { escritura_lectura} = usePermission(idMenu || 0 );
+  const { escritura_lectura } = usePermission(idMenu || 0);
 
   const updateParams = (newParams: Record<string, never>) => {
     setParams(Object.keys(newParams).map((key) => newParams[key]));
@@ -72,14 +72,14 @@ const MAccesorios: React.FC = () => {
   //NUEVA ELIMINNACION
   const [pkToDelete, setPkToDelete] = useState<string[]>([])
   const strParamsToDelete = '_p1'
-  
-  useEffect(() => {    
+
+  useEffect(() => {
     const newPkToDelete = selectedRows.map((row: number) => `'${entities[row][EnumGrid.codigo]}'`);
     const combinedPks = newPkToDelete.join(',');
 
     setPkToDelete([`${strParamsToDelete}="${combinedPks}"`]);
   }, [selectedRows]);
-  
+
   // console.log(pkToDelete)
 
 
@@ -93,47 +93,55 @@ const MAccesorios: React.FC = () => {
             updateParams={updateParams}
             setEntities={setEntities}
             primaryKeyInputs={[
-              { name: "_p1", label: "Código", type: "text", styles:{with:"!w-[10rem]"}},
+              { name: "_p1", label: "Código", type: "text", styles: { with: "!w-[10rem]" } },
               // { name: "_p5", label: "Código FAB", type: "text", styles:{with:"!w-[10rem]"}},
-              { name: "_p2", label: "Descripción", type: "text", styles:{with:"!w-[10rem]"} },
+              { name: "_p2", label: "Descripción", type: "text", styles: { with: "!w-[10rem]" } },
               {
                 name: "_p3",
                 label: "Marca",
                 type: "select",
-                selectUrl: "/api/marcas/", styles:{with:"!w-[14rem]"},
-                _p1:"3"
+                selectUrl: "/api/marcas/", styles: { with: "!w-[14rem]" },
+                _p1: "3"
               },
               {
                 name: "_p4",
                 label: "Almacén",
                 type: "select",
-                selectUrl: "/api/almacenes/", styles:{with:"!w-[14rem]"},
-                _p1:"3"
+                selectUrl: "/api/almacenes/", styles: { with: "!w-[14rem]" },
+                _p1: "3"
               },
-              ]}
+
+              {
+                name: "_p5",
+                label: "Stock",
+                type: "select",
+                selectUrl: "/api/tipos/",
+                tipos: "Stock", styles: { with: "!mt-[0.5rem] !w-[12rem]" },
+              },
+            ]}
           />
 
         </div>
         <div className="w-[30%] px-2 relative -right-[58rem] ">
-            <PrimaryButtonsComponent
-              handleAddPerson={openModal}
-              handleDeleteSelected={handleDeleteSelected}
-              handleRefresh={resetEntities}
-              params={params}
-              comilla={false}
-              pkToDelete={pkToDelete}
-              strEntidad={strEntidadExcel}
-              strBaseUrl={strBaseUrl}
-              showAddButton={true}
-              showExportButton={true}
-              showDeleteButton={true}
-              showForwardButton={false}
-              showRefreshButton={true}
-              showImportCsv={true}
-              idMenu={idMenu}
-            />
+          <PrimaryButtonsComponent
+            handleAddPerson={openModal}
+            handleDeleteSelected={handleDeleteSelected}
+            handleRefresh={resetEntities}
+            params={params}
+            comilla={false}
+            pkToDelete={pkToDelete}
+            strEntidad={strEntidadExcel}
+            strBaseUrl={strBaseUrl}
+            showAddButton={true}
+            showExportButton={true}
+            showDeleteButton={true}
+            showForwardButton={false}
+            showRefreshButton={true}
+            showImportCsv={true}
+            idMenu={idMenu}
+          />
 
-          </div>
+        </div>
       </div>
 
       <div className="width100 scroll">
@@ -154,7 +162,7 @@ const MAccesorios: React.FC = () => {
           leftEdit={true}
         />
       </div>
- 
+
       {isModalInsert && (
         <FAccesorios
           label={`${TITLES.ingreso} ${strEntidad}`}
