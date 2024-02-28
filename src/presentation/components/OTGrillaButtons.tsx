@@ -7,11 +7,12 @@ import { usePermission } from '../hooks';
 import { BUTTON_MESSAGES } from '../utils';
 
 import { useReactToPrint } from 'react-to-print';
-// import FOTImpresa from '../views/forms/FOTImpresa';
+import FOTImpresa from '../views/forms/FOTImpresa';
 import { AppStore, useAppDispatch, useAppSelector } from '../../redux/store';
 import { clearImpression, fetchOTImpresionByID } from '../../redux/slices/OTSlice';
 // import FOTImpresa from '../views/forms/FOTImpresa';
 import { toast } from 'react-toastify';
+import FOTTicketImpresion from '../views/forms/FOTTicketImpresion';
 
 
 
@@ -26,19 +27,30 @@ type AreaButtonsProps ={
 }
 
 const strEntidad = "Orden de Trabajo";
-const FOTImpresa = React.lazy(()=>import('../views/forms/FOTImpresa'));
+// const FOTImpresa = React.lazy(()=>import('../views/forms/FOTImpresa'));
 
 
 const OTGrillaButtons:React.FC<AreaButtonsProps> = ({ areaPermissions, toggleEditOTModal,folio, historica,estado }) => {
-    const dispatch:any                       = useAppDispatch();
-    const componentRef                   = useRef();
+    const dispatch:any                   = useAppDispatch();
+    const componentRef                   = useRef<any>(null);
+    const SecondcomponentRef             = useRef<any>(null);
     const { escritura_lectura }          = usePermission(28);
     const OTAreas:any                    = useAppSelector((store: AppStore) => store.OTAreas);
 
 
 
   const handlePrint = useReactToPrint({
-    content: () => componentRef.current as any, 
+    // content: ():any => (
+    //     <>
+    //         {componentRef.current}
+    //         {/* {'\x1D\x56\x41'} */}
+    //         {/* {SecondcomponentRef.current} */}
+    //     </> 
+    // ),
+    content: () => {return (
+        componentRef.current
+        // SecondcomponentRef.current
+    )},
     suppressErrors: true,
     removeAfterPrint: true,
     onAfterPrint() {
@@ -167,6 +179,7 @@ const OTGrillaButtons:React.FC<AreaButtonsProps> = ({ areaPermissions, toggleEdi
             <Suspense>
                 <div className='hidden'>
                     <FOTImpresa ref={componentRef}/>
+                    <FOTTicketImpresion ref={SecondcomponentRef}/>
                 </div>
 
             </Suspense>

@@ -7,10 +7,10 @@ import { BsPersonLock } from "react-icons/bs";
 import { usePermission } from "../hooks";
 import { BUTTON_MESSAGES } from "../utils";
 import {ExportToPDF} from "./ExportToPDF";
-import  ExportCSV  from "./ExportToCsv";
+// import  ExportCSV  from "./ExportToCsv";
 import { AppStore, useAppSelector } from "../../redux/store";
 import OTGrillaButtons from "./OTGrillaButtons";
-import { signal } from "@preact/signals-react";
+// import { signal } from "@preact/signals-react";
 // import { ExportCSV } from "./ExportToCsv";
 
 
@@ -55,19 +55,19 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
     handleSelectedCheckedAll,
     toggleEditModal,
     toggleEditOTModal,
-    toggleExcel,
+    // toggleExcel,
     handleDeleteSelected,
     selectedRows,
     showEditButton,
     showDeleteButton,
     showPdfButton,
-    showExcelButton,
+    // showExcelButton,
     showPermisoOTButton,
     pkToDelete,
     idMenu,
     strBaseUrl,
-    strEntidad,
-    queryExcel,
+    // strEntidad,
+    // queryExcel,
     isOT,
     togglePermisoOTModal,
     leftEdit,

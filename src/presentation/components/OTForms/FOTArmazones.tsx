@@ -6,7 +6,7 @@ import { validationOTlevel2, validationOTlevel3, validation_A1_armazon, validati
 import { URLBackend } from '../../hooks/useCrud';
 import { toast } from 'react-toastify';
 import { A1_DP, A1_Diametro, A2_DP, A2_Diametro, a1_armazon, a2_armazon, a3_armazon, codigoProyecto, punto_venta, tipo_de_anteojo, validar_armazon1, validar_armazon2, validar_parametrizacion } from '../../utils';
-import TextInputInteractive from '../forms/TextInputInteractive';
+// import TextInputInteractive from '../forms/TextInputInteractive';
 import { validationNivel3 } from '../../views/forms/FOT';
 import { AppStore, useAppSelector } from '../../../redux/store';
 import { OTTextInputComponent } from '.';
@@ -31,7 +31,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
     permiso_usuario_armazones,
     permiso_areas_armazones,
     isEditting,
-    setSelectedTab
+    // setSelectedTab
 }) => {
     
     useEffect(()=>{
@@ -53,7 +53,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
     const [armazon2, setArmazon2] = useState([])
     const [armazon3, setArmazon3] = useState([])
 
-    const [render, setRender] = useState(false)
+    // const [render, setRender] = useState(false)
 
 
 
@@ -66,7 +66,6 @@ const FOTArmazones:React.FC<IArmazones> = ({
     const fetchArmazones1 = async (inputName:string, codArmazon:string)=>{
         let dp         = 0
         let diametro   = 0
-        let señal      = ''
         
         if(codArmazon.trim() === ''){
             return;
@@ -77,17 +76,15 @@ const FOTArmazones:React.FC<IArmazones> = ({
             case 'a1_armazon_id':
                  dp        = A1_DP.value as any
                  diametro  = A1_Diametro.value as any
-                 señal     = a1_armazon.value as any
                 break
             case 'a2_armazon_id':
                 dp         = A2_DP.value as any
                 diametro   = A2_Diametro.value as any
-                señal      = a2_armazon.value as any
+                // let _señal      = a2_armazon.value as any
                 break;
             case 'a3_Armazon_id':
                 dp         = A1_DP.value as any
                 diametro   = A1_Diametro as any
-                señal      = a3_armazon.value
                 break;
             default:
                 break;
@@ -127,7 +124,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
             // console.log(data[0])
             if(data && data[0] && data[0][0] === 'ERROR'){
                 toast.error(data[0][1])
-                señal = " "
+                // _señal = " "
                 onDataChange({[inputName]: " "})
                 if(inputName === 'a1_armazon_id'){
                     setArmazon1([])

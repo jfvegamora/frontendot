@@ -4,12 +4,12 @@ import { EnumGrid } from '../mantenedores/MOTHistorica';
 import Barcode from 'react-barcode';
 import QRCode from 'react-qr-code';
 // import QRCode from 'qrcode.react';
-import LogoMaster   from '../../../assets/logo_master01.jpg';
+// import LogoMaster   from '../../../assets/logo_master01.jpg';
 import LogoMTO      from '../../../assets/logo_mto01.jpg';
-import LogoOptilab  from '../../../assets/logo_optilab01.jpg';
+// import LogoOptilab  from '../../../assets/logo_optilab01.jpg';
 
 
-import { formatNumberWithZeros, getImageURL } from '../../utils';
+import { formatNumberWithZeros } from '../../utils';
 
 const CutComponent = () => {
   return (
@@ -17,15 +17,25 @@ const CutComponent = () => {
   );
 };
 
+// const CutComponent = () => {
+//   const cutCodePartial = String.fromCharCode(29, 86, 65);
+//   return (
+//     <div
+//       dangerouslySetInnerHTML={{
+//         __html: cutCodePartial,
+//       }}
+//     />
+//   );
+// };
 
 
 const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
   
-  const [logoPath, setLogoPath] = useState<string | null>();
+  const [_logoPath, setLogoPath] = useState<string | null>();
   const [pathLogo, setPathLogo] = useState('');
   const {impresionOT:OT} = useAppSelector((store:AppStore)=>store.OTS);
   const User:any = useAppSelector((store:AppStore)=>store.user);
-  let PathLogo = ''
+  // let PathLogo = ''
 
 
 
@@ -167,7 +177,7 @@ const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
               <div className="flex justify-around">
                 <p className='-ml-10 text-[0.80rem] w-[40%] font-bold'>Pto Vta:</p>
                 <p className='-ml-6 text-xs w-[60%]'></p>
-                <p className='!ml-10 text-xs  w-[80%] text-left right-0 absolute'> {OT[EnumGrid.punto_venta]}</p>
+                <p className='!ml-10 text-[0.85rem]  w-[80%] text-left right-0 absolute'> {OT[EnumGrid.punto_venta]}</p>
               </div>
               <div className="border-b-[1px] border-black w-[80%] absolute right-0"></div>
             </div>
@@ -175,7 +185,7 @@ const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
             <div className="px-8 ml-2 my-2 w-[100%] mx-auto items-center relative">
               <div className="flex justify-around text-left">
                 <p className='-ml-6 text-[0.80rem] !mt-2 font-bold  w-[5rem]'>Asesor Op:  </p>
-                <p className='!ml-[0.5rem] text-left text-xs w-[90%]'> {User["nombre"]}</p>
+                <p className='!ml-[0.5rem] text-[0.85rem] text-left  w-[90%]'> {User["nombre"]}</p>
               </div>
               <div className="border-b-[1px] border-black w-[74%] absolute right-0"></div>
             </div>
@@ -244,13 +254,13 @@ const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
               <div className='border-b-2 border-black w-[40%] text-center items-center'>
                 <div className="flex justify-around">
                   <p className='-ml-2 text-xs font-bold w-[40%]'>Rut:  </p>
-                  <p className=' text-[0.80rem] text-left  w-[8rem] text-gray-700'> {OT[EnumGrid.cliente_rut]}</p>
+                  <p className=' text-[0.85rem] text-left  w-[8rem] text-gray-700'> {OT[EnumGrid.cliente_rut]}</p>
                 </div>
               </div>
               <div className='border-b-2 border-black w-[49%]  !mr-4'>
                 <div className="flex text-left">
                   <p className='text-[0.80rem] font-bold'>Teléfono:  </p>
-                  <p className='text-xs text-gray-700'> {OT[EnumGrid.cliente_telefono]}</p>
+                  <p className='text-[0.85rem] text-gray-700'> {OT[EnumGrid.cliente_telefono]}</p>
                 </div>
               </div>
             </div>
@@ -359,16 +369,19 @@ const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
                     <p className='border-b-2  border-black'>{OT[EnumGrid.cristal2_oi]}</p>
                   </div>
 
-                  <div className='ml-2'>
+                  <div className=''>
                       <p className='text-sm'>
                         {OT[EnumGrid.cristal2_od] && (
                           <>
                           {OT[EnumGrid.cristal2_marca]},&nbsp; {OT[EnumGrid.cristal2_diseno]}, &nbsp;{OT[EnumGrid.cristal2_indice]},
                           &nbsp;{OT[EnumGrid.cristal2_material]},&nbsp; {OT[EnumGrid.cristal2_color]}, &nbsp;{OT[EnumGrid.cristal2_tratamiento]},
                           &nbsp;{OT[EnumGrid.cristal2_diametro]},&nbsp; { OT[EnumGrid.cristal2_tratamiento_adicional] && (
-                                                                                      <span className='font-bold'>
-                                                                                        Trat. Adic: {OT[EnumGrid.cristal2_tratamiento_adicional]}
-                                                                                      </span>
+                                                                                      <>
+                                                                                        <span className='font-bold'>
+                                                                                          Trat. Adic: 
+                                                                                        </span>
+                                                                                        {OT[EnumGrid.cristal2_tratamiento_adicional]}
+                                                                                      </>
                                                                                     )}
                           </>
                         )}
@@ -397,10 +410,10 @@ const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
                 </p>
               </div>
               
-              <div className="w-[49.9%] border-l-[1px] border-black">
-              <h1 className='font-bold ml-4'>Armazon 2</h1>
+              <div className="w-[49.9%] border-l-[1px]  border-black">
+                <h1 className='font-bold ml-4'>Armazon 2</h1>
                 <p className='border-b-2   border-black text-center'>{OT[EnumGrid.a2_armazon_id]}</p>
-                <p className="text-sm ml-4">
+                <p className="text-sm ml-2">
                   {OT[EnumGrid.a2_armazon]}
                 </p>
               </div>
@@ -429,6 +442,8 @@ const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
               </div>
             )}
 
+   
+            {/* <span dangerouslySetInnerHTML={{ __html: '\x1D\x56\x00' }} /> */}
             <CutComponent/>
 
 
@@ -485,3 +500,6 @@ const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
 });
 // export default React.memo(FOTImpresa);
 export default FOTImpresa
+
+
+

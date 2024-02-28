@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { SelectInputComponent } from '..';
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
 import { validationOTlevel2, validationOTlevel3,  } from '../../utils/validationOT';
@@ -6,7 +6,7 @@ import SelectInputTiposComponent from '../forms/SelectInputTiposComponent';
 import { A1_CR_OD, A1_CR_OI, A1_GRUPO_OD, A1_GRUPO_OI, A2_CR_OD, A2_CR_OI, A2_Diametro, A2_GRUPO_OD, A2_GRUPO_OI, tipo_de_anteojo, validar_cristal1_od, validar_cristal1_oi, validar_cristal2_od, validar_cristal2_oi } from '../../utils';
 import TextInputInteractive from '../forms/TextInputInteractive';
 import { OTTextInputComponent } from '.';
-import { validationNivel3 } from '../../views/forms/FOT';
+// import { validationNivel3 } from '../../views/forms/FOT';
 // import { AppStore, useAppSelector } from '../../../redux/store';
 
 

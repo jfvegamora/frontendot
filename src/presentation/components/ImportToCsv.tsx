@@ -11,7 +11,7 @@ import { signal } from '@preact/signals-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUpload } from '@fortawesome/free-solid-svg-icons';
 import { AppStore, useAppSelector } from '../../redux/store';
-import { excelOTValidationStructure } from '../utils';
+// import { excelOTValidationStructure } from '../utils';
 
 export const resultExcelTypes = signal({})
 
