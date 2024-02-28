@@ -13,6 +13,8 @@ import { clearImpression, fetchOTImpresionByID } from '../../redux/slices/OTSlic
 // import FOTImpresa from '../views/forms/FOTImpresa';
 import { toast } from 'react-toastify';
 import FOTTicketImpresion from '../views/forms/FOTTicketImpresion';
+import { URLBackend } from '../hooks/useCrud';
+import axios from 'axios';
 
 
 
@@ -108,12 +110,11 @@ const OTGrillaButtons:React.FC<AreaButtonsProps> = ({ areaPermissions, toggleEdi
       
             // Llama a fetchOTImpresionByID y espera a que se complete
             toast.dismiss(loadingToast);
-           dispatch(fetchOTImpresionByID({ folio: folio, OTAreas: OTAreas['areaActual'] })).then(()=>{
-            
-            console.log(OT["impresionOT"])
-            handlePrint()
-          });
-      
+           dispatch(fetchOTImpresionByID({ folio: folio, OTAreas: OTAreas['areaActual'] }));
+
+
+          const response = await axios.get(`${URLBackend}/api/ot/listado/?query=01&_origen=${OTAreas}&_folio=${folio}`);
+          console.log(response)
           
         //   Promise.all(()=>{
         //     dispatch(fetchOTImpresionByID({ folio: folio, OTAreas: OTAreas['areaActual'] }))
@@ -124,7 +125,7 @@ const OTGrillaButtons:React.FC<AreaButtonsProps> = ({ areaPermissions, toggleEdi
           // Después de que fetchOTImpresionByID se haya completado, muestra el modal
           
           // Después de mostrar el modal, llama a handlePrint
-        //   handlePrint();
+          handlePrint();
         } catch (error) {
             console.error(error);
             toast.dismiss(loadingToast);
