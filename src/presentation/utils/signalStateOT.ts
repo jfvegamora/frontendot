@@ -620,8 +620,8 @@ export const updateOT =async (
       _cristalesJSON: JSON.stringify(data.cristales),
       _armazonesJSON: JSON.stringify(data.armazones),
       _punto_venta: `${data.punto_venta}`,
-      _cristalesJSONOri: JSON.stringify(data.cristales),
-      _armazonesJSONOri: JSON.stringify(data.armazones),
+      _cristalJSONOri: JSON.stringify(data.cristales),
+      _armazonJSONOri: JSON.stringify(data.armazones),
       _motivo:  `${motivo}`
     }
 
@@ -818,8 +818,8 @@ const _armazonesJSON = JSON.stringify(armazones)
     _motivo: `${motivo}`,
     // _cristalJSONOri: JSON.stringify(OTSlice.cristales),
     // _armazonJSONOri: JSON.stringify(OTSlice.armazones)
-    _cristalesJSONOri: JSON.stringify(cristalOri),
-    _armazonesJSONOri: JSON.stringify(armazonOri)
+    _cristalJSONOri: JSON.stringify(cristalOri),
+    _armazonJSONOri: JSON.stringify(armazonOri)
     
 
   };

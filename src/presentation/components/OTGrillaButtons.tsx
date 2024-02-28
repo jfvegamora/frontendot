@@ -15,6 +15,7 @@ import { toast } from 'react-toastify';
 import FOTTicketImpresion from '../views/forms/FOTTicketImpresion';
 import { URLBackend } from '../hooks/useCrud';
 import axios from 'axios';
+import { EnumGrid } from '../views/mantenedores/MOTHistorica';
 
 
 
@@ -58,11 +59,17 @@ const OTGrillaButtons:React.FC<AreaButtonsProps> = ({ areaPermissions, toggleEdi
     removeAfterPrint: true,
     onAfterPrint() {
         dispatch(clearImpression())
+        imprimirComprobanteRetiro()
     },
 });
 
 
 
+const handleComprobantePrint = useReactToPrint({
+    content: () => SecondcomponentRef.current,
+    suppressErrors: true,
+    removeAfterPrint: true,
+})
 
 
     // const handleImpresion = async(folio:any) =>{
@@ -101,6 +108,21 @@ const OTGrillaButtons:React.FC<AreaButtonsProps> = ({ areaPermissions, toggleEdi
     //     }
     
     // }
+
+    const imprimirComprobanteRetiro = async() => {
+        const {data, status} = await axios.get(`${URLBackend}/api/ot/listado/?query=01&_origen=${OTAreas}&_folio=${folio}`);
+        console.log(data[0] && data[0][EnumGrid.imprime_ticket])
+        console.log(status)
+        if(data[0] && data[0][EnumGrid.imprime_ticket]){
+            console.log('imprmiendo')
+            await dispatch(fetchOTImpresionByID({ folio: folio, OTAreas: OTAreas['areaActual'] }));
+            handleComprobantePrint()
+
+        }
+
+
+    }
+    
     const handleImpresion = async (folio: any) => {
         // dispatch(clearImpression());
         console.log('click');
@@ -109,13 +131,12 @@ const OTGrillaButtons:React.FC<AreaButtonsProps> = ({ areaPermissions, toggleEdi
         try {
       
             // Llama a fetchOTImpresionByID y espera a que se complete
-            toast.dismiss(loadingToast);
-           dispatch(fetchOTImpresionByID({ folio: folio, OTAreas: OTAreas['areaActual'] }));
+        toast.dismiss(loadingToast);
+        await dispatch(fetchOTImpresionByID({ folio: folio, OTAreas: OTAreas['areaActual'] }));
 
 
-          const response = await axios.get(`${URLBackend}/api/ot/listado/?query=01&_origen=${OTAreas}&_folio=${folio}`);
-          console.log(response)
-          
+        
+        handlePrint();
         //   Promise.all(()=>{
         //     dispatch(fetchOTImpresionByID({ folio: folio, OTAreas: OTAreas['areaActual'] }))
         //   }).then(()=>{
@@ -125,7 +146,6 @@ const OTGrillaButtons:React.FC<AreaButtonsProps> = ({ areaPermissions, toggleEdi
           // Después de que fetchOTImpresionByID se haya completado, muestra el modal
           
           // Después de mostrar el modal, llama a handlePrint
-          handlePrint();
         } catch (error) {
             console.error(error);
             toast.dismiss(loadingToast);

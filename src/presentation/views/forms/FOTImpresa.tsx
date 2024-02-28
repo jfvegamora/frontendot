@@ -444,7 +444,7 @@ const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
 
 
 
-            {(OT && OT[EnumGrid.imprime_ticket]) && (
+            {/* {(OT && OT[EnumGrid.imprime_ticket]) && (
               <div className='mt-2'>
                 <Barcode marginLeft={50} height={45} width={2.5} textAlign='right' value={formatNumberWithZeros(OT[EnumGrid.folio])} />
                 <div className="w-full text-center">
@@ -483,7 +483,7 @@ const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
                 </div>
 
               </div>
-            )}
+            )} */}
             {/* <CutComponent/> */}
 {/* 
             {(OT && OT[EnumGrid.imprime_qr] === 1) && (
