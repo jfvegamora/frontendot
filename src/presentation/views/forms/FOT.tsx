@@ -1180,7 +1180,7 @@ const FOT:React.FC<IFOTProps> = ({
     if(changeCodigoCristal_A1[key]){
       console.log('render')
       const formValue = getValues()
-      const {cristal1_marca_id, cristal1_diseno_id, cristal1_indice_id, cristal1_color_id , cristal1_material_id,cristal1_tratamiento_id, punto_venta } = formValue;
+      const {cristal1_marca_id, cristal1_diseno_id, cristal1_indice_id, cristal1_color_id , cristal1_material_id,cristal1_tratamiento_id } = formValue;
       
 
 
@@ -1190,7 +1190,7 @@ const FOT:React.FC<IFOTProps> = ({
          (cristal1_color_id                       !== undefined  || data?.[EnumGrid.cristal1_color_id]    !== undefined) &&
          (cristal1_material_id                    !== undefined  || data?.[EnumGrid.cristal1_material_id] !== undefined) &&
          (cristal1_tratamiento_id                 !== undefined  || data?.[EnumGrid.cristal1_tratamiento_id] !== undefined)&&
-        A1_Diametro.value.toString().trim()                  !== ''        &&
+        A1_Diametro.value.toString().trim()       !== ''        &&
         dioptrias_receta.value.a1_od.esf          !== ' '       &&
         dioptrias_receta.value.a1_od.cil          !== ' '       &&
         dioptrias_receta.value.a1_oi.esf          !== ' '       &&
@@ -1214,7 +1214,8 @@ const FOT:React.FC<IFOTProps> = ({
           "diametro":   A1_Diametro.value,
           "esferico":   dioptrias_receta.value.a1_od.esf ?? 0, 
           "cilindrico": dioptrias_receta.value.a1_od.cil ?? 0,
-          "punto_venta": punto_venta || data?.[EnumGrid.punto_venta],
+          // "punto_venta": punto_venta || data?.[EnumGrid.punto_venta] ,
+          "punto_venta": punto_venta.value,
         }
 
 
@@ -1230,7 +1231,7 @@ const FOT:React.FC<IFOTProps> = ({
           "diametro":   A1_Diametro.value,
           "esferico":   dioptrias_receta.value.a1_oi.esf ?? 0,
           "cilindrico": dioptrias_receta.value.a1_oi.cil ?? 0, 
-          "punto_venta": punto_venta || data?.[EnumGrid.punto_venta],
+          "punto_venta": punto_venta.value,
         }
 
         console.log(_pkToDelete1_oi)
@@ -1306,7 +1307,7 @@ const FOT:React.FC<IFOTProps> = ({
       console.log('render')
       if(changeCodigoCristal_A2[key] ){
         const formValue = getValues()
-        const {cristal2_marca_id, cristal2_diseno_id, cristal2_indice_id, cristal2_color_id , cristal2_material_id,cristal2_tratamiento_id, punto_venta } = formValue;
+        const {cristal2_marca_id, cristal2_diseno_id, cristal2_indice_id, cristal2_color_id , cristal2_material_id,cristal2_tratamiento_id } = formValue;
         console.log(formValue)
 
         console.log(A2_Diametro.value.toString())
@@ -1340,7 +1341,7 @@ const FOT:React.FC<IFOTProps> = ({
             "diametro":   A2_Diametro.value,
             "esferico":   a2_od_esf.value ?? 0, 
             "cilindrico": a2_od_cil.value ?? 0,
-            "punto_venta": punto_venta || data?.[EnumGrid.punto_venta],
+            "punto_venta": punto_venta.value,
           }
   
   
@@ -1356,7 +1357,7 @@ const FOT:React.FC<IFOTProps> = ({
             "diametro":   A2_Diametro.value,
             "esferico":   a2_oi_esf.value ?? 0,
             "cilindrico": a2_oi_cil.value ?? 0, 
-            "punto_venta": punto_venta || data?.[EnumGrid.punto_venta],
+            "punto_venta": punto_venta.value,
           }
   
           console.log(_pkToDelete1_oi)
