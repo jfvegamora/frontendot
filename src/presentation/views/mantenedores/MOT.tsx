@@ -301,9 +301,9 @@ const MOT: React.FC = () => {
 
     </div> */}
 
-      <Suspense>
+  
         <StateCountBarOT  checkCount={checkCount}/>
-      </Suspense>
+ 
 
       <Suspense>
         {isModalInsert && (

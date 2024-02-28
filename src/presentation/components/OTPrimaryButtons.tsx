@@ -9,7 +9,7 @@ import { usePermission } from '../hooks';
 import ImportToCsv from './ImportToCsv';
 import { AppStore, useAppDispatch, useAppSelector } from '../../redux/store';
 import { toast } from 'react-toastify';
-import { fetchOT} from '../../redux/slices/OTSlice';
+import { clearImpression, fetchOT, fetchOTByID, fetchOTImpresionByID} from '../../redux/slices/OTSlice';
 // import { URLBackend } from '../hooks/useCrud';
 // import { useReactToPrint } from 'react-to-print';
 // import FOTImpresa from '../views/forms/FOTImpresa';
@@ -17,6 +17,9 @@ import { fetchOT} from '../../redux/slices/OTSlice';
 import axios from 'axios';
 import { URLBackend } from '../hooks/useCrud';
 import ErrorOTModal from './ErrorOTModal';
+import { useReactToPrint } from 'react-to-print';
+import FOTTicketImpresion from '../views/forms/FOTTicketImpresion';
+import { EnumGrid } from '../views/mantenedores/MOTHistorica';
 // import FOTEmpaque from '../views/forms/FOTEmpaque';
 
 type AreaButtonsProps ={
@@ -55,20 +58,38 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
     const data:any                                    = useAppSelector((store: AppStore) => store.OTS.data)
     const OTAreas:any                                 = useAppSelector((store: AppStore) => store.OTAreas)
     const User:any                                    = useAppSelector((store: AppStore) => store.user)
-    const componentRef                                = useRef();
+    const componentRef                                = useRef<any>(null);
+    const SecondcomponentRef                          = useRef<any>(null);
     const [isShowErrorOTModal, setIsShowErrorOTModal] = useState(false)
     const [isFOTEmpaque, setIsFOTEmpaque]             = useState(false);
     const [dataOT, setDataOT]                         = useState();
     const [valueSearchOT, setValueSearchOT]           = useState<any>();
     const searchOTRef                                 = useRef<any>();
 
-
     const folios = pkToDelete && pkToDelete.map(({folio}:any)=>folio)
 
-    // const handlePrint = useReactToPrint({
-    //   content: () => componentRef.current as any, 
+    const handlePrint = useReactToPrint({
+      content: () => componentRef.current as any, 
+      suppressErrors: true,
+      removeAfterPrint: true,
+      onAfterPrint(){
+        // imprimirComprobanteRetiro()
+        dispatch(clearImpression())
+      }
      
-    // });
+    });
+
+    
+    const handleComprobantePrint = useReactToPrint({
+      content: () => SecondcomponentRef.current,
+      suppressErrors: true,
+      removeAfterPrint: true,
+      onAfterPrint(){
+          dispatch(clearImpression())
+      }
+    })
+
+
 
     const renderButton = useCallback(
       (icon: React.ReactNode, handle: () => void, tooltip: string) => (
@@ -87,6 +108,30 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
       []
     );
 
+    const imprimirComprobanteRetiro = async() => {
+      const loadingToast = toast.loading('Imprimiendo Comprobante Retiro...');
+
+      pkToDelete.map(async(OT:any)=>{
+        try {
+            const {data, status} = await axios.get(`${URLBackend}/api/ot/listado/?query=01&_origen=${OTAreas['areaActual']}&_folio=${OT.folio}`);
+            console.log(data[0] && data[0][EnumGrid.imprime_ticket])
+            console.log(status)
+            if(data[0] && data[0][EnumGrid.imprime_ticket]){
+                console.log('imprmiendo')
+                await dispatch(fetchOTImpresionByID({ folio: OT.folio, OTAreas: OTAreas['areaActual'] }));
+                handleComprobantePrint()
+    
+            }
+            toast.dismiss(loadingToast);
+        } catch (error) {
+            toast.dismiss(loadingToast);
+            throw error
+        }
+
+
+      })
+
+    }
       
     const validationStateOT = (positionCampo:number, nameCampo:string, folios:any) => {
       const resultadoFiltrado = data && data.filter((elemento:any) => folios.includes(elemento[1]));
@@ -134,7 +179,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
             
     }
 
-    const handleImpresionMasivo = () => {
+    const handleImpresionMasivo = async() => {
       // console.log('click')
       // console.log(pkToDelete)
     
@@ -155,7 +200,56 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
         return;
       }
 
-      
+      console.log(pkToDelete)
+      const printWithConfirmation = async (index:number) => {
+        if (index >= pkToDelete.length) return;
+
+        const OT = pkToDelete[index];
+
+        try {
+            const loadingToast = toast.loading('Imprimiendo...');
+            await dispatch(fetchOTImpresionByID({ folio: OT.folio, OTAreas: OTAreas['areaActual'] }));
+            const confirmación = await confirm(`Presione 'Aceptar' para imprimir la OT:${OT.folio}`);
+            if (confirmación) {
+                handlePrint();
+            } else {
+                console.log('Usuario canceló la impresión');
+            }
+            toast.dismiss(loadingToast);
+            console.log('render');
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+
+        // Procesar el siguiente elemento después de esperar un poco para permitir que el navegador actualice la UI
+        setTimeout(async () => {
+            await printWithConfirmation(index + 1);
+        }, 100);
+    };
+
+    // Llamar a la función para iniciar el proceso
+    await printWithConfirmation(0);
+    //   for (const OT of pkToDelete) {
+    //     try {
+    //       const loadingToast = toast.loading('Imprimiendo...');
+    //         await dispatch(fetchOTImpresionByID({ folio: OT.folio, OTAreas: OTAreas['areaActual'] }))
+    //         const confirmación = confirm(`Presione 'Aceptar' para imprimir la OT:${OT.folio}`);
+    //         if (confirmación) {
+    //              handlePrint();
+    //         } else {
+    //             console.log('Usuario canceló la impresión');
+    //             // return;
+    //         }
+    //         toast.dismiss(loadingToast);
+    //         console.log('render');
+    //     } catch (error) {
+    //       // toast.dismiss(loadingToast);
+    //         console.log(error);
+    //         throw error;
+    //     }
+    // }
+      console.log('render')     
       // pkToDelete.map(async(ot:any)=>{
       //   console.log(ot)
       //   try {
@@ -264,8 +358,11 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
           true
         ).then(()=>{
           dispatch(fetchOT({OTAreas:OTAreas["areaActual"]}))
+          setSelectedRows([])
         })
       })
+
+      toast.success('OTs Procesadas Correctamente')
     }
 
     // console.log(areaPermissions)
@@ -333,6 +430,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
         <Suspense>
           <div className='hidden'>
             <FOTImpresa ref={componentRef} />
+            <FOTTicketImpresion ref={SecondcomponentRef}/>
           </div>
         </Suspense>
 

@@ -39,26 +39,14 @@ const OTGrillaButtons:React.FC<AreaButtonsProps> = ({ areaPermissions, toggleEdi
     const SecondcomponentRef             = useRef<any>(null);
     const { escritura_lectura }          = usePermission(28);
     const OTAreas:any                    = useAppSelector((store: AppStore) => store.OTAreas);
-    const OT:any                    = useAppSelector((store: AppStore) => store.OTS);
 
 
 
   const handlePrint = useReactToPrint({
-    // content: ():any => (
-    //     <>
-    //         {componentRef.current}
-    //         {/* {'\x1D\x56\x41'} */}
-    //         {/* {SecondcomponentRef.current} */}
-    //     </> 
-    // ),
-    content: () => {return (
-        componentRef.current
-        // SecondcomponentRef.current
-    )},
+    content: () => componentRef.current,
     suppressErrors: true,
     removeAfterPrint: true,
     onAfterPrint() {
-        dispatch(clearImpression())
         imprimirComprobanteRetiro()
     },
 });
@@ -69,6 +57,9 @@ const handleComprobantePrint = useReactToPrint({
     content: () => SecondcomponentRef.current,
     suppressErrors: true,
     removeAfterPrint: true,
+    onAfterPrint(){
+        dispatch(clearImpression())
+    }
 })
 
 
@@ -110,14 +101,22 @@ const handleComprobantePrint = useReactToPrint({
     // }
 
     const imprimirComprobanteRetiro = async() => {
-        const {data, status} = await axios.get(`${URLBackend}/api/ot/listado/?query=01&_origen=${OTAreas}&_folio=${folio}`);
-        console.log(data[0] && data[0][EnumGrid.imprime_ticket])
-        console.log(status)
-        if(data[0] && data[0][EnumGrid.imprime_ticket]){
-            console.log('imprmiendo')
-            await dispatch(fetchOTImpresionByID({ folio: folio, OTAreas: OTAreas['areaActual'] }));
-            handleComprobantePrint()
+        const loadingToast = toast.loading('Imprimiendo Comprobante Retiro...');
 
+        try {
+            const {data, status} = await axios.get(`${URLBackend}/api/ot/listado/?query=01&_origen=${OTAreas}&_folio=${folio}`);
+            console.log(data[0] && data[0][EnumGrid.imprime_ticket])
+            console.log(status)
+            if(data[0] && data[0][EnumGrid.imprime_ticket]){
+                console.log('imprmiendo')
+                await dispatch(fetchOTImpresionByID({ folio: folio, OTAreas: OTAreas['areaActual'] }));
+                handleComprobantePrint()
+    
+            }
+            toast.dismiss(loadingToast);
+        } catch (error) {
+            toast.dismiss(loadingToast);
+            throw error
         }
 
 
@@ -127,25 +126,12 @@ const handleComprobantePrint = useReactToPrint({
         // dispatch(clearImpression());
         console.log('click');
         console.log(folio);
-        const loadingToast = toast.loading('Cargando...');
+        const loadingToast = toast.loading('Imprimiendo...');
         try {
-      
-            // Llama a fetchOTImpresionByID y espera a que se complete
-        toast.dismiss(loadingToast);
-        await dispatch(fetchOTImpresionByID({ folio: folio, OTAreas: OTAreas['areaActual'] }));
-
-
+          await dispatch(fetchOTImpresionByID({ folio: folio, OTAreas: OTAreas['areaActual'] }));
         
-        handlePrint();
-        //   Promise.all(()=>{
-        //     dispatch(fetchOTImpresionByID({ folio: folio, OTAreas: OTAreas['areaActual'] }))
-        //   }).then(()=>{
-        //     console.log('ejecutando luego de promesa')
-        //   })
-        
-          // Después de que fetchOTImpresionByID se haya completado, muestra el modal
-          
-          // Después de mostrar el modal, llama a handlePrint
+          handlePrint();
+          toast.dismiss(loadingToast);
         } catch (error) {
             console.error(error);
             toast.dismiss(loadingToast);

@@ -153,6 +153,7 @@ const OTSlice = createSlice({
         },
         clearImpression(state){
             state.impresionOT = []
+            state.ot          = []
         }
     },
     extraReducers: (builder) => {
@@ -190,6 +191,7 @@ const OTSlice = createSlice({
         });
         builder.addCase(fetchOTImpresionByID.fulfilled, (state,action)=>{
             state.impresionOT = [...state.impresionOT, action.payload]
+            state.ot          = [...state.ot, action.payload]
             return state
         });
         builder.addCase(fetchColores.fulfilled, (state,action )=>{
