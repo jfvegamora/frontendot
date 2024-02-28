@@ -82,14 +82,14 @@ const FOTArmazones:React.FC<IArmazones> = ({
                 diametro   = A2_Diametro.value as any
                 // let _señal      = a2_armazon.value as any
                 break;
-            case 'a3_Armazon_id':
+            case 'a3_armazon_id':
                 dp         = A1_DP.value as any
-                diametro   = A1_Diametro as any
+                diametro   = A1_Diametro.value as any
                 break;
             default:
                 break;
         }    
-
+  
         try {
             const {data} = await axios((validar_parametrizacion.value === '1' ) 
                                                    ? (`${endpoint
@@ -110,7 +110,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
                                                                         }&_p5=${
                                                                             tipo_de_anteojo.value === '3'
                                                                             ? (
-                                                                                typeof diametro=== 'number' 
+                                                                                typeof diametro === 'number' 
                                                                                     ? (typeof diametro === 'number' ? diametro :  "" ) 
                                                                                     : (typeof diametro === 'string' ? diametro : "")
                                                                             )
