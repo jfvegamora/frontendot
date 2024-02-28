@@ -260,8 +260,8 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
     
           {data && data.length > 0 ? (data.map((rowData: any, rowIndex: number) => {
               // const id = [3, 3];
-              
-              if(params && params[0] === ''){
+                // console.log(params)
+              if( (params && params["_p5"] !== '')  ||  params && params[0] === ''){
 
                 let stockDisponibe   = parseInt(rowData[19])
                 let stockMinimo      = parseInt(rowData[18])
@@ -271,8 +271,6 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
               }else{
                 lowArmazonesStock = false;
               }
-
-
 
               const folio     = rowData[1]
               
@@ -298,7 +296,8 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                     // console.log(folio)
 
                     // console.log(rowData[21])
-                    const color = (rowData[21] === 'S' ? "bg-black" : "");
+
+                    const color = ( isOT ? rowData[21] === 'S' ? "bg-black" : "" : "");
                     // console.log(color)
                     const type = color === 'bg-black' ? 1 : 0
                     // const backgroundcolor =  isOT ? `bg-[${OTColores[rowData[3]][1]}]` : ""
