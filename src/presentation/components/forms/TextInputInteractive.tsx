@@ -54,6 +54,8 @@ const TextInputInteractive: React.FC<ITextInputProps> = ({
   const [value, setValue] = useState<any>(data || "");
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target)
+
     if (handleChange) {
       if(isOT){
         handleChange(e.target)

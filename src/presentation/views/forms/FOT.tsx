@@ -415,7 +415,7 @@ const FOT:React.FC<IFOTProps> = ({
 
   const handleCloseForm = () => {
       closeModal();
-      clearDioptrias();
+      clearDioptrias(true);
       reiniciarDioptriasReceta();
       reiniciarValidationNivel2();
       reiniciarValidationNivel1();
@@ -737,7 +737,7 @@ const FOT:React.FC<IFOTProps> = ({
           clearSelectInput.value = false;
           toast.success(message)
           reiniciarValidationNivel2();
-          setSelectedTab(0)
+          setSelectedTab(1)
           
           return
 
@@ -761,7 +761,7 @@ const FOT:React.FC<IFOTProps> = ({
     } catch (error) {
       // console.log(error)
       toast.error('Error al Ingresar la OT')
-      handleCloseForm()
+      // handleCloseForm()
     }
 
 
@@ -994,41 +994,7 @@ const FOT:React.FC<IFOTProps> = ({
 
     if (submitAction === 'pausar') {
      
-      // console.log('pausar')
-     
-      // console.log(formValues)
-      
-      // updateOT(
-      //    jsonData, 
-      //    OTAreaActual, 
-      //    OTAreaActual, 
-      //    30,  
-      //    formValues, 
-      //    data, 
-      //    OTSlice.cristales, 
-      //    OTSlice.armazones,
-      //    User["id"].toString()
-      // ).then(()=>{
-      //   console.log(OTAreaActual)
-      //   dispatch(fetchOT({OTAreas:OTAreaActual}))
-      //   handleCloseForm()
-      // })
-      // setSubmitAction('');
-      // switchCasePausar(jsonData);
     } else if (submitAction === 'procesar') {
-      // switchCaseProcesar(jsonData);
-      // console.log('click')
-
-      // console.log(OTAreaActual)
-
-      // if(OTAreaActual === 100){
-      //   //TODO: estado true para mostrar modal empaque
-      //   // console.log('true')
-      //   setIsFOTEmpaque(true)
-      //   //TODO: Resultado del formulario
-
-      // }
-
         let estado = OTAreaActual === 100 ? 50 : 20
 
         updateOT(
@@ -1259,16 +1225,18 @@ const FOT:React.FC<IFOTProps> = ({
             // // toast.error(cristalesDATA["ERROR"])
 
 
-            // A1_CR_OD.value = " ";
-            // A1_CR_OI.value = " ";
+            A1_CR_OD.value = " ";
+            A1_CR_OI.value = " ";
 
-            // A1_GRUPO_OD.value    = " ";
-            // A1_GRUPO_OI.value    = " ";
+            A1_GRUPO_OD.value    = " ";
+            A1_GRUPO_OI.value    = " ";
 
             
 
-            // validation_Cristal1_od("")
-            // validation_Cristal1_oi("")
+            validation_Cristal1_od("")
+            validation_Cristal1_oi("")
+            // setErrorGrupoDioptriaA1("")
+            // setErrorGrupoDioptriaA1('')
           }else{
             // console.log(cristalesDATA)
             A1_CR_OD.value = cristalesDATA["CR_OD"].trim() || "   ";
@@ -1282,7 +1250,7 @@ const FOT:React.FC<IFOTProps> = ({
             validation_Cristal1_oi(cristalesDATA["CR_OI"])
             setChangeboolean((prev)=>!prev)
           }
-          
+
         } catch (error) {
           // console.log(error)
           throw error
@@ -1552,7 +1520,7 @@ useEffect(() => {
 
 
 useEffect(() => {
-  if (errorGrupoDioptriaA1 !== '') {
+  if (errorGrupoDioptriaA1) {
     console.log('render');
     toast.error(errorGrupoDioptriaA1);
 
@@ -1564,8 +1532,8 @@ useEffect(() => {
 
     validation_Cristal1_od("");
     validation_Cristal1_oi("");
-    setChangeboolean((prev)=>!prev)
-    // setErrorGrupoDioptriaA1("");
+    // setChangeboolean((prev)=>!prev)
+    setErrorGrupoDioptriaA1("");
   
   }
 }, [errorGrupoDioptriaA1]);

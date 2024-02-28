@@ -36,6 +36,7 @@ const OTGrillaButtons:React.FC<AreaButtonsProps> = ({ areaPermissions, toggleEdi
     const SecondcomponentRef             = useRef<any>(null);
     const { escritura_lectura }          = usePermission(28);
     const OTAreas:any                    = useAppSelector((store: AppStore) => store.OTAreas);
+    const OT:any                    = useAppSelector((store: AppStore) => store.OTS);
 
 
 
@@ -105,17 +106,25 @@ const OTGrillaButtons:React.FC<AreaButtonsProps> = ({ areaPermissions, toggleEdi
         const loadingToast = toast.loading('Cargando...');
         try {
       
-          // Llama a fetchOTImpresionByID y espera a que se complete
-          await dispatch(fetchOTImpresionByID({ folio: folio, OTAreas: OTAreas['areaActual'] }));
+            // Llama a fetchOTImpresionByID y espera a que se complete
+            toast.dismiss(loadingToast);
+           dispatch(fetchOTImpresionByID({ folio: folio, OTAreas: OTAreas['areaActual'] })).then(()=>{
+            
+            console.log(OT["impresionOT"])
+            handlePrint()
+          });
       
-          toast.dismiss(loadingToast);
           
-          
+        //   Promise.all(()=>{
+        //     dispatch(fetchOTImpresionByID({ folio: folio, OTAreas: OTAreas['areaActual'] }))
+        //   }).then(()=>{
+        //     console.log('ejecutando luego de promesa')
+        //   })
         
           // Después de que fetchOTImpresionByID se haya completado, muestra el modal
           
           // Después de mostrar el modal, llama a handlePrint
-          handlePrint();
+        //   handlePrint();
         } catch (error) {
             console.error(error);
             toast.dismiss(loadingToast);

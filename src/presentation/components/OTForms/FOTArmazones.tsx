@@ -242,7 +242,8 @@ const FOTArmazones:React.FC<IArmazones> = ({
 
         // setRender((prev)=>!prev)
 
-        if(name === 'a1_armazon_id' || name === 'a2_armazon_id' || 'a3_armazon_id'){
+        if((name === 'a1_armazon_id' || name === 'a2_armazon_id' || 'a3_armazon_id') ){
+            console.log('render')
             fetchArmazones1(name, value)
             switch (name) {
                 case 'a1_armazon_id':
@@ -264,60 +265,31 @@ const FOTArmazones:React.FC<IArmazones> = ({
                     break;
             }
         }
-        
-
-
-        // if (
-        //     (name === 'a1_armazon_id' && (value !== " " && value !== '') && (value.trim() === a2_armazon.value || value.trim() === a3_armazon.value)) ||
-        //     (name === 'a2_armazon_id' && (value !== " " && value !== '') && (value.trim() === a1_armazon.value || value.trim() === a3_armazon.value)) ||
-        //     (name === 'a3_armazon_id' && (value !== " " && value !== '') && (value.trim() === a1_armazon.value || value.trim() === a2_armazon.value))
-        // ) {
-        //     console.log('name')
-        //     switch (name) {
-        //         case 'a1_armazon_id':
-        //             toast.error(`Código Armazon 1 no puede ser igual a Código ${codArmazon3 === codArmazon2 ? 'Armazon 3': 'Armazon 2'}`);
-        //             onDataChange({['a1_armazon_id']: " "})
-        //             a1_armazon.value = " "
-        //             setCodArmazon1(" ")
-        //             setArmazon1([])
-        //             validation_A1_armazon("")
-        //             console.log('render')
-        //             return
-        //         case 'a2_armazon_id':
-        //             onDataChange({['a2_armazon_id']: " "})
-        //             a2_armazon.value = " "
-        //             setCodArmazon2(" ")
-        //             setArmazon2([])
-        //             validation_A2_armazon("")
-        //             toast.error(`Código Armazon 2 no puede ser igual a Código ${codArmazon1 === codArmazon3 ? 'Armazon 3': 'Armazon 1'}`);
-        //             break;
-        //         case 'a3_armazon_id':
-        //             onDataChange({['a3_armazon_id']: " "})
-        //             setCodArmazon3(" ")
-        //             setArmazon3([])
-        //             setCodArmazon3(" ")
-                    
-        //             break;
-        //         default:
-        //             break;
-        //     }
-        //     // toast.error('Los códigos de los armazones no pueden ser iguales entre sí.');
-        //     // setRender((prev)=>!prev)
-        //     return; 
-        // }
-
           
         
         
         validationOTlevel2(name, value)
-        validationOTlevel3(name, value)
+        
        
 
+        
+
+        
+        onDataChange({ [name]: value.trim() }); 
+    };
+
+    const handleInputValidationChange = (e:any) => {
+        const { name, value } = e;
+
+        console.log(name)
+        console.log(value)
+        validationOTlevel3(name, value)
         if(name === 'validar_armazon1'){
+            console.log('render')
             validar_armazon1.value = value.trim()
             if(value.trim() !== ''){
                 const item = validationNivel3.value.find((item: { campo: string; }) => item.campo === 'validar_armazon1');
-    
+                
                 if(item && item.valor === 0){
                     toast.error('Códigos Armazon 1 no Coincide')
                     validar_armazon1.value = "";
@@ -342,10 +314,8 @@ const FOTArmazones:React.FC<IArmazones> = ({
 
         }
 
-        
         onDataChange({ [name]: value.trim() }); 
-    };
-
+    }
     // console.log(formValues)
 
 
@@ -540,26 +510,30 @@ const FOTArmazones:React.FC<IArmazones> = ({
                 <div className='flex !h-[29rem] !ml-[1rem]'>
                     <div className="w-[90%] mx-auto ">
                         <div className="w-[90%] ml-4 flex items-center">
-                            <div className="w-full flex mt-6 rowForm ">
-                                <OTTextInputComponent
-                                    type="text"
-                                    label="Código Armazón 1"
-                                    name="a1_armazon_id"
-                                    handleChange={handleInputChange}
-                                    otData={ a1_armazon.value ? a1_armazon.value :  formValues  && formValues["a1_armazon_id"] ? formValues["a1_armazon_id"] : data && data[EnumGrid.a1_armazon_id]}
-                                    // data={a1_armazon.value || data && data[EnumGrid.a1_armazon_id]}
-                                    control={control}
-                                    onlyRead={!(permiso_usuario_armazones && permiso_areas_armazones)}
-                                    // isOT={true}
-                                    textAlign="text-center"
-                                    />
+                            <div className="w-full flex !mt-2 rowForm ">
+                                <div className="-mt-[0.40rem]">
+                                    <OTTextInputComponent
+                                        type="text"
+                                        label="Código Armazón 1"
+                                        name="a1_armazon_id"
+                                        handleChange={handleInputChange}
+                                        otData={ a1_armazon.value ? a1_armazon.value :  formValues  && formValues["a1_armazon_id"] ? formValues["a1_armazon_id"] : data && data[EnumGrid.a1_armazon_id]}
+                                        // data={a1_armazon.value || data && data[EnumGrid.a1_armazon_id]}
+                                        control={control}
+                                        onlyRead={!(permiso_usuario_armazones && permiso_areas_armazones)}
+                                        // isOT={true}
+                                        textAlign="text-center"
+                                        className=''
+                                        />
+
+                                </div>
                             {OTAreas === 60 && (
                                 <div className="-mt-[0.35rem]">
                                     <OTTextInputComponent
                                         type="text"
                                         label="Validar Código"
                                         name="validar_armazon1"
-                                        handleChange={handleInputChange}
+                                        handleChange={handleInputValidationChange}
                                         otData={validar_armazon1.value ? validar_armazon1.value : formValues  && formValues["validar_armazon1"] && formValues["validar_armazon1"] }
                                         control={control}
                                         // isOT={true}
@@ -620,6 +594,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
                     <div className="w-[90%] mx-auto ">
                         <div className="w-[90%] ml-4 flex items-center">
                             <div className="w-full flex mt-6 rowForm ">
+                            <div className="-mt-[0.40rem]">
                                 <OTTextInputComponent
                                     type="text"
                                     label="Código Armazón 2"
@@ -631,6 +606,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
                                     // isOT={true}
                                     textAlign="text-center"
                                     />
+                            </div>
 
                                 {OTAreas === 60 && (
                                     <div className="-mt-[0.35rem]">
@@ -638,7 +614,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
                                             type="text"
                                             label="Validar Código"
                                             name="validar_armazon2"
-                                            handleChange={handleInputChange}
+                                            handleChange={handleInputValidationChange}
                                             otData={validar_armazon2.value ? validar_armazon2.value : formValues  && formValues["validar_armazon2"] && formValues["validar_armazon2"]}
                                             control={control}
                                            //  isOT={true}

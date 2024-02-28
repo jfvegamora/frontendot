@@ -264,11 +264,7 @@ export const clearGrupos = () => {
 
   A1_Diametro.value   = "";
   A2_Diametro.value   = "";
-
-  fecha_atencion_signal.value = "";
-  fecha_despacho.value        = "";
-  fecha_entrega_cliente.value = "";
-  fecha_entrega_taller.value  = "";
+  
   oftalmologo_id.value        = "";
 
   motivo_ot.value          = false;
@@ -278,7 +274,7 @@ export const clearGrupos = () => {
 }
 
 
-export const clearDioptrias = () => {
+export const clearDioptrias = (closeForm?:boolean) => {
 
     a1_od_esf.value = undefined,
     a1_od_cil.value = undefined,
@@ -298,9 +294,18 @@ export const clearDioptrias = () => {
     a2_oi_cil.value = undefined,
     a2_oi_eje.value = undefined
 
-    tipo_de_anteojo.value         = ""
-    validar_parametrizacion.value = "1",
-    codigoProyecto.value          = ""
+    tipo_de_anteojo.value          = ""
+    validar_parametrizacion.value  = "1"
+    
+    
+    if(closeForm){
+      codigoProyecto.value           = ""
+      fecha_atencion_signal.value    = "";
+      fecha_despacho.value           = "";
+      fecha_entrega_cliente.value    = "";
+      fecha_entrega_taller.value     = "";
+    }
+
 
     dioptriasHabilitadas.value.a1_ad = true
     dioptriasHabilitadas.value.a1_alt = true

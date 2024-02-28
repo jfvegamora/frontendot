@@ -88,6 +88,7 @@ export const fetchOTImpresionByID = createAsyncThunk(
         try {
             const {folio, OTAreas} = params;
             const response = await axios.get(`${URLBackend}/api/ot/listado/?query=01&_origen=${OTAreas}&_folio=${folio}`);
+            console.log(response)
             return response.data[0]
         } catch (error) {
             // console.log(error)

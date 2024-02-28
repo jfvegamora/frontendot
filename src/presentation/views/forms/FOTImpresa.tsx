@@ -131,8 +131,8 @@ const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
                 </div>
               )}
               <div className="mt-2"></div>
-              {/* <p className='text-[3rem] -mt-4'>{OT[EnumGrid.folio]}</p> */}
-              <p className='text-[2.5rem] -mt-3 mb-2 mr-6'>{999999}</p>
+              <p className='text-[2.5rem] -mt-3 mb-2 mr-6'>{OT[EnumGrid.folio]}</p>
+              {/* <p className='text-[2.5rem] -mt-3 mb-2 mr-6'>{999999}</p> */}
               {/* <h3 className='text-[3rem]'>OT: {OT[EnumGrid.folio]}</h3> */}
             </div>
 
@@ -143,9 +143,9 @@ const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
                 <p>{parsedDate(OT[EnumGrid.fecha_atencion])}</p>
 
               </div>
-              <div className="w-1/2">
+              <div className="w-1/2 mt-1">
                 <p className='font-bold'>F. ENTREGA:</p>
-                <p>{parsedDate(OT[EnumGrid.fecha_entrega_cliente])}</p>
+                <p>{parsedDate(OT[EnumGrid.fecha_entrega_taller])}</p>
               </div>
             </div>
 
@@ -177,7 +177,7 @@ const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
               <div className="flex justify-around">
                 <p className='-ml-10 text-[0.80rem] w-[40%] font-bold'>Pto Vta:</p>
                 <p className='-ml-6 text-xs w-[60%]'></p>
-                <p className='!ml-10 text-[0.85rem]  w-[80%] text-left right-0 absolute'> {OT[EnumGrid.punto_venta]}</p>
+                <p className='!ml-10 text-sm  w-[80%] text-left right-0 absolute'> {OT[EnumGrid.punto_venta]}</p>
               </div>
               <div className="border-b-[1px] border-black w-[80%] absolute right-0"></div>
             </div>
@@ -185,7 +185,7 @@ const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
             <div className="px-8 ml-2 my-2 w-[100%] mx-auto items-center relative">
               <div className="flex justify-around text-left">
                 <p className='-ml-6 text-[0.80rem] !mt-2 font-bold  w-[5rem]'>Asesor Op:  </p>
-                <p className='!ml-[0.5rem] text-[0.85rem] text-left  w-[90%]'> {User["nombre"]}</p>
+                <p className='!ml-[0.5rem] text-sm text-left  w-[90%]'> {User["nombre"]}</p>
               </div>
               <div className="border-b-[1px] border-black w-[74%] absolute right-0"></div>
             </div>
@@ -235,16 +235,10 @@ const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
             {/* <h1 className='w-[60%] !-ml-4'>Datos Beneficiario: </h1> */}
 
           <div className="px-8 my-2 w-[100%] mx-auto items-center relative">
-              {/* <div className="relative h-10 !-mt-2" >
-                <p className='!ml-2  text-xs text-left absolute -left-[1.8rem] top-[-1rem]  w-full font-bold'>Beneficiario: </p>
-                <p className='ml-8 text-left w-[120%] top-[0.5rem] left-[-3.3rem] bottom-0 absolute text-xs  '>{OT[EnumGrid.cliente_nomnbre]}</p>
-              </div>
-              <div className="border-b-[1px] border-black w-[97%] absolute right-0"></div> */}
-          
-            <div className="flex justify-around text-center relative !-mt-4">
-                <p className='-ml-[3.5rem] text-[0.80rem] w-[30%] !mt-2 font-bold'>Beneficiario:  </p>
-                <p className='-ml-6 text-xs w-[60%]'></p>
-                <p className='ml-8 text-left text-xs  absolute left-[1.5rem]  w-[85%] '>{OT[EnumGrid.cliente_nomnbre]}</p>
+            <div className="flex justify-around text-center relative !-mt-4 w-[20rem] !h-auto">
+                <p className='-ml-6 text-[0.80rem] w-[25%] !mt-2 font-bold'>Beneficiario:  </p>
+                {/* <p className='-ml-6 text-xs w-[60%] bg-blue-500'></p> */}
+                <p className='ml-4 text-left text-xs   !h-auto !w-[20rem] '>{OT[EnumGrid.cliente_nomnbre]}</p>
               </div>
             <div className="border-b-[1px] border-black w-[72%] -bottom-1 absolute right-0"></div>
           </div>
@@ -254,13 +248,13 @@ const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
               <div className='border-b-2 border-black w-[40%] text-center items-center'>
                 <div className="flex justify-around">
                   <p className='-ml-2 text-xs font-bold w-[40%]'>Rut:  </p>
-                  <p className=' text-[0.85rem] text-left  w-[8rem] text-gray-700'> {OT[EnumGrid.cliente_rut]}</p>
+                  <p className=' text-sm text-left  w-[8rem] text-gray-700'> {OT[EnumGrid.cliente_rut]}</p>
                 </div>
               </div>
               <div className='border-b-2 border-black w-[49%]  !mr-4'>
                 <div className="flex text-left">
                   <p className='text-[0.80rem] font-bold'>Teléfono:  </p>
-                  <p className='text-[0.85rem] text-gray-700'> {OT[EnumGrid.cliente_telefono]}</p>
+                  <p className='text-sm text-gray-700'> {OT[EnumGrid.cliente_telefono]}</p>
                 </div>
               </div>
             </div>
@@ -299,7 +293,7 @@ const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
                 <div className="text-center h-6 flex w-20 ml-8 mt-7 text-xs ">  <label className='mr-2 -mt-4 !text-[0.80rem] font-bold'>DP: {OT[EnumGrid.a1_alt]}</label></div>
             </div>
 
-              <div className="grid grid-cols-5 grid-rows-3 gap-4 text-xs w-[46.6%] h-[5rem] border-black border-l-[1px]  !mr-2">
+              <div className="grid grid-cols-5 grid-rows-3 gap-4 text-xs w-[46.3%] h-[5rem] border-black border-l-[1px]  !mr-2">
                   <div className=" text-center h-2"></div>
                   <div className="text-center h-2 w-6 -ml-2 font-bold ">ESF</div>
                   <div className="text-center h-2 w-6 -ml-2 font-bold pl-2">CIL</div>
@@ -430,7 +424,9 @@ const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
 
             {(OT && OT[EnumGrid.imprime_qr] === 1) && (
               <div>
-                <h1 className='font-bold mb-2 ml-4'>CUIDA TUS LENTES, ESCANEA CÓDIGO QR</h1>
+                <div className="w-full text-center">
+                  <h1 className='font-bold mb-2 ml-4'>CUIDA TUS LENTES, ESCANEA CÓDIGO QR</h1>
+                </div>
              
                 {/* <QRCode value={`https://www.ejemplo.com/${OT[EnumGrid.folio]}`} /> */}
                 <QRCode
@@ -450,25 +446,38 @@ const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
 
             {(OT && OT[EnumGrid.imprime_ticket]) && (
               <div className='mt-2'>
-                <Barcode marginLeft={45} height={45} width={2.5} textAlign='right' value={formatNumberWithZeros(OT[EnumGrid.folio])} />
-                <h3 className='font-bold mb-2 ml-4'>{OT[EnumGrid.titulo1_ticket]}</h3>
+                <Barcode marginLeft={50} height={45} width={2.5} textAlign='right' value={formatNumberWithZeros(OT[EnumGrid.folio])} />
+                <div className="w-full text-center">
+                  <h3 className='font-bold mb-2 ml-4 '>{OT[EnumGrid.titulo1_ticket]}</h3>
+                </div>
 
-                <h2 className='font-bold text-xl ml-4'>Nombre: </h2>
-                <p className="border-b-2 mt-2 mb-2 ml-4 border-black mx-auto ">{OT[EnumGrid.cliente_nomnbre]} </p>
-                <h2 className='font-bold text-xl ml-4'>Convenio: </h2>
-                <p className="border-b-2 mt-2 mb-2 ml-4 border-black mx-auto ">{OT[EnumGrid.proyecto_titulo]} </p>
-                <div className="w-full flex">
-                  <div className="w-[40%] ml-4">
-                    <h2 className='font-bold text-xl'>Fecha Atencion: </h2>
-                    <p className="border-b-2 mt-2 mb-2 border-black mx-auto ">{OT[EnumGrid.fecha_atencion]} </p>
+                <div className="w-full ">
+                  <div className="!h-auto">
+                    <h2 className='font-bold text-xl ml-4 w-full'>Nombre: </h2>
+                    <p className="border-b-2   ml-4 border-black mx-auto -mt-2">{OT[EnumGrid.cliente_nomnbre]} </p> 
+                  </div>
+                </div>
+                
+                <div className="w-full !-mt-2">
+                  <div className="h-auto">
+                      <h2 className='font-bold text-xl ml-4 w-full'>Convenio: </h2>
+                      <p className="border-b-2  ml-4 border-black mx-auto -mt-2 ">{OT[EnumGrid.proyecto_titulo]} </p>
+                  </div>
+                </div>
+                
+                
+                <div className="w-full flex justify-around !-mt-2">
+                  <div className="w-[40%] ml-2">
+                    <h2 className='font-bold text-lg'>Fecha Atencion: </h2>
+                    <p className="border-b-2 -mt-2 mb-2 border-black mx-auto ">{parsedDate(OT[EnumGrid.fecha_atencion])} </p>
                   </div>
                   <div className="w-[40%] ml-4 ">
-                    <h2 className='font-bold text-xl'>Fecha Entrega: </h2>
-                    <p className="border-b-2 mt-2 mb-2 border-black mx-auto ">{OT[EnumGrid.fecha_entrega_cliente]} </p>
+                    <h2 className='font-bold text-lg'>Fecha Entrega: </h2>
+                    <p className="border-b-2 -mt-2  border-black mx-auto ">{parsedDate(OT[EnumGrid.fecha_entrega_cliente])} </p>
                   </div>
                 </div>
 
-                <div className="!mt-4 font-bold border-2 ml-4 border-black">
+                <div className="!-mt-2 font-bold border-2 ml-4 border-black text-center">
                   <h2>{OT[EnumGrid.titulo2_ticket]}</h2>
                   <h2>{OT[EnumGrid.titulo3_ticket]}</h2>
                 </div>
