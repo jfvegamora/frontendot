@@ -801,7 +801,7 @@ const _armazonesJSON = JSON.stringify(armazones)
     query: "04",
     _p1,
     _p3: _p3 || "",
-    _proyecto: `${jsonData.proyecto_codigo || codigoProyecto.value}`,
+    _proyecto: `${codigoProyecto.value}`,
     _folio: `${data && data[EnumGrid.folio]}` ,
     // _origen : _origen.toString(),
     _origen : _origen.toString(),

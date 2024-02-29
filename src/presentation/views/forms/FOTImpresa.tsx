@@ -53,8 +53,6 @@ const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
     //   loadLogo();
     // }
 
-      console.log(OT[0])
-      console.log(OT[0] && OT[0][EnumGrid.nombre_logo])
       
       if(OT[0] && OT[0][EnumGrid.nombre_logo]){
         console.log(OT[0] && OT[0][EnumGrid.nombre_logo])
@@ -78,7 +76,6 @@ const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
   
 
   
-  console.log(OT[0] && OT[0][EnumGrid.cristal1_tratamiento_adicional] )
   
   // console.log(logoPath)
   // console.log(OT[0] && OT[0][EnumGrid.imprime_ticket])
@@ -89,8 +86,8 @@ const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
   // console.log(pathLogo)
 
   return (
-    <div ref={ref} className='flex flex-col h-full  border-2 border-blue-500 '>
-        <div className='  w-[90%] !h-[70rem] '>
+    <div ref={ref} className='flex flex-col !h-auto  '>
+        <div className='w-[90%] !h-[70rem]'>
         
         <div className="w-[110%] relative  !h-[8%]">
           <div className="w-[90%] mr-7  mx-auto">
@@ -402,18 +399,17 @@ const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
             
 
 
-            <div className='flex h-20  mt-2 ml-4 border-2 border-black'>
+            <div className='flex   mt-2 ml-4 border-2 border-black'>
               <h1>Notas: </h1>
               <p>{OT[0] && OT[0][EnumGrid.observaciones]}</p>
             </div>
 
             {(OT[0] && OT[0] && OT[0][EnumGrid.imprime_qr] === 1) && (
-              <div>
+              <div className="!h-auto ">
                 <div className="w-full text-center">
                   <h1 className='font-bold mb-2 ml-4'>CUIDA TUS LENTES, ESCANEA CÓDIGO QR</h1>
                 </div>
              
-                {/* <QRCode value={`https://www.ejemplo.com/${OT[EnumGrid.folio]}`} /> */}
                 <QRCode
                   size={50}
                   style={{ height: "auto", maxWidth: "100%", width: "40%", margin:"auto" }}
