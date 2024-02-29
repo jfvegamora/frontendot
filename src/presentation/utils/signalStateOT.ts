@@ -596,7 +596,7 @@ export const getGrupoCristales_A2 = async(formValue:any, data:any, setErrorGrupo
     "color":      cristal2_color_id        || data?.[EnumGrid.cristal2_color_id],
     "tratamiento":cristal2_tratamiento_id  || data?.[EnumGrid.cristal2_tratamiento_id],
     "diametro":   A2_Diametro.value,
-    "esferico":   dioptrias_receta.value.a2_od.esf ?? 0, 
+    "esferico":   a2_od_esf.value ?? 0, 
     "cilindrico": a2_od_cil.value ?? 0,
     "punto_venta": punto_venta.value,
   }
