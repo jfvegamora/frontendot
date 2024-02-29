@@ -815,6 +815,7 @@ export const updateOT =async (
     const query = {
       query: "04",
       _p1:`area=${_destino}` ,
+      _p2: tipo_de_anteojo.value,
       _p3: "",
       _proyecto: data && data.proyecto,
       _folio: `${data && data.folio}` ,
@@ -978,7 +979,7 @@ export const updateOT =async (
   const _cristalesJSON = JSON.stringify(cristales)
   const armazones = [
     { codigo: `${a1_armazon.value}` },
-    { codigo: `${tipo_de_anteojo.value !== '3' ? a2_armazon.value : ''}` },
+    { codigo: `${a2_armazon.value}` },
   ]
     .map(item => {
       const numero = parseFloat(item.codigo);
@@ -1008,6 +1009,7 @@ const _armazonesJSON = JSON.stringify(armazones)
   const query = {
     query: "04",
     _p1,
+    _p2:tipo_de_anteojo.value,
     _p3: _p3 || "",
     _proyecto: `${codigoProyecto.value}`,
     _folio: `${data && data[EnumGrid.folio]}` ,
