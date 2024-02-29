@@ -977,7 +977,7 @@ const FOT:React.FC<IFOTProps> = ({
         const armazones = [
             { codigo: `${a1_armazon.value}` },
             { codigo: `${ tipo_de_anteojo.value === '3' ? a2_armazon.value : ''}` },
-            { codigo: `${a3_armazon.value}` },
+            { codigo: `${ tipo_de_anteojo.value === '3' ? a3_armazon.value : ''}` },
           ]
             .map(item => {
               const numero = parseFloat(item.codigo);
