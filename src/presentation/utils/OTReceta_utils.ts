@@ -102,8 +102,8 @@ export const validation_tipo_anteojo = () => {
   clearSelectInput.value = tipoDeAnteojo === '1' || tipoDeAnteojo === '2' || tipoDeAnteojo === '7';
 
 
-  A2_CR_OD.value = tipoDeAnteojo === '3' ? ' ' : A2_CR_OD.value;
-  A2_CR_OI.value = tipoDeAnteojo === '3' ? ' ' : A2_CR_OI.value;
+//   A2_CR_OD.value = tipoDeAnteojo === '3' ? ' ' : A2_CR_OD.value;
+//   A2_CR_OI.value = tipoDeAnteojo === '3' ? ' ' : A2_CR_OI.value;
 };
 
 

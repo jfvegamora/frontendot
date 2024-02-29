@@ -14,9 +14,9 @@ const FOTTicketImpresion =  React.forwardRef((_props:any, ref:any) => {
 
     // console.log(OT)
     return (
-    <div ref={ref}>
+    <div ref={ref} className=''>
         {(
-             <div className='mt-2 mr-4'>
+             <div className='mt-2 mr-6'>
              <Barcode marginLeft={50} height={45} width={2.5} textAlign='right' value={formatNumberWithZeros(OT[0] && OT[0][EnumGrid.folio])} />
              <div className="w-full text-center">
                <h3 className='font-bold mb-2 ml-4 '>{OT[0] && OT[0][EnumGrid.titulo1_ticket]}</h3>

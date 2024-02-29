@@ -3,7 +3,7 @@ import axios from "axios";
 import { URLBackend } from "../hooks/useCrud";
 
 import { Signal, signal } from "@preact/signals-react";
-import { validationFechaDespacho, validationFechaEntregaCliente, validationFechaEntregaTaller } from "./validationOT";
+import { validationFechaDespacho, validationFechaEntregaCliente, validationFechaEntregaTaller, validation_Cristal2_od, validation_Cristal2_oi } from "./validationOT";
 import { EnumGrid } from "../views/mantenedores/MOTHistorica";
 import { toast } from "react-toastify";
 import { validation_tipo_anteojo } from "./OTReceta_utils";
@@ -569,6 +569,93 @@ export const changeCodigoCristal_A2:any = {
   a2_oi_cil:true
 }
 
+
+export const getGrupoCristales_A2 = async(formValue:any, data:any, setErrorGrupoDioptriaA2:any, setChangeboolean:any) => {
+
+  const {cristal2_marca_id, cristal2_diseno_id, cristal2_indice_id, cristal2_color_id , cristal2_material_id,cristal2_tratamiento_id } = formValue;
+
+
+  if((cristal2_marca_id                    !== undefined   || data?.[EnumGrid.cristal2_marca_id]          !== undefined) &&
+  (cristal2_diseno_id                      !== undefined   || data?.[EnumGrid.cristal2_diseno_id]         !== undefined) &&
+  (cristal2_indice_id                      !== undefined   || data?.[EnumGrid.cristal2_indice_id]         !== undefined) && 
+  (cristal2_color_id                       !== undefined   || data?.[EnumGrid.cristal2_color_id]          !== undefined) &&
+  (cristal2_material_id                    !== undefined   || data?.[EnumGrid.cristal2_material_id]       !== undefined) &&
+  (cristal2_tratamiento_id                 !== undefined   || data?.[EnumGrid.cristal2_tratamiento_id]    !== undefined) &&
+  (A2_Diametro.value.toString().trim()     !== ''           ) &&
+  dioptrias_receta.value.a2_od.esf         !== '  '          &&
+  dioptrias_receta.value.a2_od.cil         !== '  '        
+  // (a2_od_esf.value                          !== '  ')        &&
+  // (a2_od_cil.value                          !== '  ')        
+  ){
+  console.log('ejecutando llamada.....')
+  const _pkToDelete1_od ={
+    "marca":      cristal2_marca_id        || data?.[EnumGrid.cristal2_marca_id],
+    "diseno":     cristal2_diseno_id       || data?.[EnumGrid.cristal2_diseno_id],
+    "indice":     cristal2_indice_id       || data?.[EnumGrid.cristal2_indice_id],
+    "material":   cristal2_material_id     || data?.[EnumGrid.cristal2_material_id],
+    "color":      cristal2_color_id        || data?.[EnumGrid.cristal2_color_id],
+    "tratamiento":cristal2_tratamiento_id  || data?.[EnumGrid.cristal2_tratamiento_id],
+    "diametro":   A2_Diametro.value,
+    "esferico":   dioptrias_receta.value.a2_od.esf ?? 0, 
+    "cilindrico": a2_od_cil.value ?? 0,
+    "punto_venta": punto_venta.value,
+  }
+
+
+  console.log(_pkToDelete1_od)
+  
+  const _pkToDelete1_oi ={
+    "marca":      cristal2_marca_id          || data?.[EnumGrid.cristal2_marca_id],
+    "diseno":     cristal2_diseno_id         || data?.[EnumGrid.cristal2_diseno_id],
+    "indice":     cristal2_indice_id         || data?.[EnumGrid.cristal2_indice_id],
+    "material":   cristal2_material_id       || data?.[EnumGrid.cristal2_material_id],
+    "color":      cristal2_color_id          || data?.[EnumGrid.cristal2_color_id],
+    "tratamiento":cristal2_tratamiento_id    || data?.[EnumGrid.cristal2_tratamiento_id],
+    "diametro":   A2_Diametro.value,
+    "esferico":   a2_oi_esf.value ?? 0,
+    "cilindrico": a2_oi_cil.value ?? 0, 
+    "punto_venta": punto_venta.value,
+  }
+
+  console.log(_pkToDelete1_oi)
+
+
+
+  try {
+    const pkJSON = JSON.stringify([_pkToDelete1_od, _pkToDelete1_oi])
+    const encodedJSON = encodeURIComponent(pkJSON)
+
+  
+
+    const {data:cristalesDataOI} = await axios(`${URLBackend}/api/proyectogrupos/listado/?query=06&_p2=${codigoProyecto.value}&_pkToDelete=${encodedJSON}`)
+    
+    const cristalesDATA = JSON.parse(cristalesDataOI[0][0])
+    console.log(cristalesDATA)
+
+    if(cristalesDATA && cristalesDATA["ERROR"] !== ''){
+      console.log('render')
+      return setErrorGrupoDioptriaA2(cristalesDATA["ERROR"])
+    }else{
+      console.log('render')
+      A2_CR_OD.value = cristalesDATA["CR_OD"].trim();
+      A2_CR_OI.value = cristalesDATA["CR_OI"].trim();
+
+      A2_GRUPO_OD.value = cristalesDATA["GRUPO_OD"];
+      A2_GRUPO_OI.value = cristalesDATA["GRUPO_OI"];
+
+      validation_Cristal2_od(cristalesDATA["CR_OD"]);
+      validation_Cristal2_oi(cristalesDATA["CR_OI"]);             
+
+      setChangeboolean((prev:boolean)=>!prev)
+    }  
+  } catch (error) {
+    // console.log(error)
+    throw error
+  }
+
+}
+
+}
 
 
 
