@@ -976,7 +976,7 @@ const FOT:React.FC<IFOTProps> = ({
           
         const armazones = [
             { codigo: `${a1_armazon.value}` },
-            { codigo: `${a2_armazon.value}` },
+            { codigo: `${ tipo_de_anteojo.value === '3' ? a2_armazon.value : ''}` },
             { codigo: `${a3_armazon.value}` },
           ]
             .map(item => {
@@ -1268,30 +1268,10 @@ const FOT:React.FC<IFOTProps> = ({
     }
 
     //? ANTEOJO 2:
-    // console.log(a2_oi_esf.vsalue)
-
- 
-
-
     if(tipo_de_anteojo.value === '3'){
-      console.log(key)
-      console.log('render')
       if(changeCodigoCristal_A2[key] ){
         const formValue = getValues()
-        // const {cristal2_marca_id, cristal2_diseno_id, cristal2_indice_id, cristal2_color_id , cristal2_material_id,cristal2_tratamiento_id } = formValue;
-        console.log(formValue)
-
         getGrupoCristales_A2(formValue, data, setErrorGrupoDioptriaA2, setChangeboolean)
-        console.log(A2_Diametro.value.toString())
-        // console.log(a2_od_esf.value)
-        // console.log(a2_oi_esf.value)
-
-        console.log(dioptrias_receta.value.a2_od.esf)
-        console.log(dioptrias_receta.value.a2_od.cil)
-
-
-
-
         // if((cristal2_marca_id                      !== undefined   || data?.[EnumGrid.cristal2_marca_id]          !== undefined) &&
         //   (cristal2_diseno_id                      !== undefined   || data?.[EnumGrid.cristal2_diseno_id]         !== undefined) &&
         //   (cristal2_indice_id                      !== undefined   || data?.[EnumGrid.cristal2_indice_id]         !== undefined) && 
@@ -1371,12 +1351,10 @@ const FOT:React.FC<IFOTProps> = ({
         //   }
   
         // }
-  
       }
   
     }
    
-    // actualizarEstado(Object.keys(data)[0], 1)
 
   };
   

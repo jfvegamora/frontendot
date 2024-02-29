@@ -1,4 +1,4 @@
-import { A1_CR_OD, A1_CR_OI, A2_CR_OD, A2_CR_OI, a1_armazon, a1_od_cil, a1_od_eje, a1_od_esf, a1_oi_cil, a1_oi_eje, a1_oi_esf, a2_armazon, dioptrias_receta } from ".";
+import { A1_CR_OD, A1_CR_OI, A2_CR_OD, A2_CR_OI, a1_armazon, a1_od_cil, a1_od_eje, a1_od_esf, a1_oi_cil, a1_oi_eje, a1_oi_esf, a2_armazon, dioptrias_receta, tipo_de_anteojo } from ".";
 import { validationNivel1, validationNivel2, validationNivel3 } from "../views/forms/FOT";
 
 export const validationProyectos = (value:string) => {
@@ -404,6 +404,8 @@ export const validationCodigoArmazon_1  = (value:any) => {
 
 export const validationCodigoArmazon_2 = (value:any, _validar?:boolean) => {
     const item = validationNivel3.value.find((item: { campo: string; }) => item.campo === 'validar_armazon2');
+
+  
     if(item){
     console.log(value)
         if(value.trim() === ""){
@@ -857,6 +859,11 @@ export const validation_A2_opcion_venta = (value:string | any) => {
 
 export const validation_A2_armazon = (value:string | any) => {
     const item = validationNivel2.value.find(item => item.campo === 'a2_armazon_id');
+    
+    if(tipo_de_anteojo.value !== '3'){
+        return;
+    }
+
 
     if(value !== ''){
         if (item) {
