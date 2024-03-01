@@ -107,6 +107,8 @@ export const validar_cristal2_oi = signal("");
 
 export const procesarRender     = signal(40);
 
+// fechaHoraActual
+
 
 
 export const excelOTValidationStructure = signal([

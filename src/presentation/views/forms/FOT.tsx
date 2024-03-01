@@ -1751,10 +1751,11 @@ useEffect(()=>{
                   <Button className='otActionButton bg-black' onClick={()=>setShowAnulacion(prev=>!prev)}> Anular</Button>
                 )}
                 
-                {OTPermissions             &&
-                (!isEditting || (data && data[EnumGrid.area_id] === 40 && data && data[EnumGrid.motivo_garantia_id] === 2 ) )  &&
-                escritura_lectura          &&
-                // OTPermissions[10] === "1" &&
+                {OTPermissions         &&
+                !isEditting             &&
+                // (!isEditting || (data && data[EnumGrid.area_id] === 40 && data && data[EnumGrid.motivo_garantia_id] === 2 ) )  &&
+                escritura_lectura      &&
+                OTPermissions[10] === "1" &&
                  sumatoriaNivel1  === validationNivel1.value.length &&
                  (
                   <Button className='otActionButton bg-blue-500' onClick={handleIngresarClick}>Ingresar</Button>

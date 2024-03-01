@@ -405,6 +405,9 @@ export const validationCodigoArmazon_1  = (value:any) => {
 export const validationCodigoArmazon_2 = (value:any, _validar?:boolean) => {
     const item = validationNivel3.value.find((item: { campo: string; }) => item.campo === 'validar_armazon2');
 
+    if(tipo_de_anteojo.value !== '3'){
+        return;
+    }
   
     if(item){
     console.log(value)

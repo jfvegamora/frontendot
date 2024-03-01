@@ -48,7 +48,9 @@ const FOTOrdenCompra: React.FC<IDerivacion> = ({
             // const day              = String(fechaHoraActual.getDate()).padStart(2, '0'); 
             // const fechaFormateada  = `${year}/${month}/${day}`;
             // const dateHora         = new Date().toLocaleTimeString();
-            
+
+
+            const toastLoading = toast.loading('Cargando...');
             try {
              
                 const query03 = {
@@ -74,8 +76,9 @@ const FOTOrdenCompra: React.FC<IDerivacion> = ({
                     //TODO: EJECUTAR QUERY 07 PARA ASIGNAR ORDEN DE COMPRA A OT SELECCIONADA (1 O N OTS)
                     let   queryURL07            = `?query=07&_p2=${query07["_p2"]}&_pkToDelete=${query07["_pkToDelete"]}&_id=${query07["_id"]}`
                     const resultQuery07         = await axios(`${strUrl}/${queryURL07}`) 
-
+                    toast.dismiss(toastLoading)
                     if(resultQuery07?.status === 200){
+                        // toast.dismiss(toastLoading)
                         toast.success('Orden de Compra generado')
                         dispatch(fetchOT({historica:true, searchParams: `_proyecto=${pktoDelete[0]["proyecto_codigo"]}`  }))
 
@@ -87,6 +90,7 @@ const FOTOrdenCompra: React.FC<IDerivacion> = ({
                 }
             
             } catch (error) {
+                toast.dismiss(toastLoading)
                 console.log(error)
                 throw error   
             }

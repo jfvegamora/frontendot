@@ -286,6 +286,7 @@ const MOTHistorica: React.FC = () => {
         } 
       ) 
     }else{  
+        const toastLoading = toast.loading('Cargando...');
       try {
         const query = {
           _proyecto   :    pktoDelete[0]["proyecto_codigo"],
@@ -298,7 +299,7 @@ const MOTHistorica: React.FC = () => {
         const strUrl      = `${URLBackend}/api/proyectodocum/listado`
         const queryURL    = `?query=06&_p2=${query["_proyecto"]}&_id=${query["_id"]}&_pkToDelete=${query["_pkToDelete"]}&_p4=${query["_usuario"]}`
         const result      = await axios(`${strUrl}/${queryURL}`);
-        console.log(result)        
+        // console.log(result)        
         if(result.status === 200){
           const successMessage = type === 2  
                                          ? `Reporte firma generado: ${result.data[0][0]}`
@@ -306,6 +307,7 @@ const MOTHistorica: React.FC = () => {
           
           dispatch(fetchOT({historica:true, searchParams: `_proyecto=${query["_proyecto"]}`}))
           setSelectedRows([])
+          toast.dismiss(toastLoading)
           toast.success(successMessage)
           
         
@@ -313,6 +315,7 @@ const MOTHistorica: React.FC = () => {
 
         
       } catch (error) {
+        toast.dismiss(toastLoading)
         console.log(error)
         throw error;
       }

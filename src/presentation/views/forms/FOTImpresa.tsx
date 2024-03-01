@@ -417,8 +417,8 @@ const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
               {OT[0] && OT[0][EnumGrid.fecha_receta] && (
                 
                 <div className='flex w-full'>
-                  <p className='ml-2 font-bold'>F. Receta:</p>
-                  <p className='ml-4'>{parsedDate(OT[0] && OT[0][EnumGrid.fecha_receta])}</p>
+                  <p className='ml-2 font-bold'>N. Receta:</p>
+                  <p className='ml-4'>{parsedDate(OT[0] && OT[0][EnumGrid.numero_receta])}</p>
                 </div>
               )}
 
