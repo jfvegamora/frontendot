@@ -200,15 +200,51 @@ export function reiniciarDioptriasReceta() {
   }
 
 
-export const reiniciarValidationNivel2 = () => {
+export const reiniciarValidationNivel2 = (keepForm?:boolean) => {
     validationNivel2.value.forEach((item) => {
       item.valor = 0;
     });
+
+    if(keepForm){
+      const notClearCampos = new Set([
+        'fecha_entrega_taller',
+        'fecha_despacho',
+        'fecha_entrega_cliente',
+      ])
+
+      validationNivel2.value.forEach((item) => {
+        if (notClearCampos.has(item.campo)) {
+            item.valor = 1;
+        }
+      });
+      return
+    }
+
+
 };
-export const reiniciarValidationNivel1 = () => {
+
+
+export const reiniciarValidationNivel1 = (keepForm?:boolean) => {
     validationNivel1.value.forEach((item) => {
       item.valor = 0;
     });
+
+    if(keepForm){
+      const notClearCampos = new Set([
+        'proyecto',
+        'fecha_atencion',
+        'punto_venta_id'
+      ])
+
+      validationNivel1.value.forEach((item)=>{
+        if(notClearCampos.has(item.campo)){
+          item.valor = 1
+        }
+      })
+      return
+    }
+
+    
 
 
 

@@ -417,6 +417,8 @@ const FOT:React.FC<IFOTProps> = ({
 
 
   const handleCloseForm = () => {
+      
+
       closeModal();
       clearDioptrias(true);
       reiniciarDioptriasReceta();
@@ -729,17 +731,18 @@ const FOT:React.FC<IFOTProps> = ({
 
         if(result){
           let clearCliente = true
+          let keepForm = true;
           //limpiar inputs
           clearDioptrias();
           reiniciarDioptriasReceta();
-          reiniciarValidationNivel1();
+          reiniciarValidationNivel1(keepForm);
           reiniciarValidationNivel3();
           clearGrupos();
           dispatch(clearCodigos())
           clearAllInputsOT(clearCliente)
           clearSelectInput.value = false;
           toast.success(message)
-          reiniciarValidationNivel2();
+          reiniciarValidationNivel2(keepForm);
           setSelectedTab(1)
           
           return

@@ -539,7 +539,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                             handleSelectChange={handleInputChange}
                                             data={formValues && formValues["cristal2_marca_id"] ? formValues["cristal2_marca_id"] : data && data[EnumGrid.cristal2_marca_id]}
                                             control={control}
-                                            entidad={["/api/marcas/", "02"]}
+                                            entidad={["/api/marcas/", "02", "2"]}
                                             readOnly={!((!isEditting && tipo_de_anteojo.value === '3') || (isEditting && permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria && tipo_de_anteojo.value === '3'))}
                                             isFOTcristales={true}
                                         />
