@@ -128,12 +128,12 @@ const FArmazonesKardexOUT: React.FC<IUserFormPrps> = React.memo(
         }
       }
 
-      let _p1 = `"${jsonData.fecha + " " + dateHora}", "${jsonData.insumo}", ${jsonData.almacen}, ${2}, ${jsonData.motivo_egreso}, ${jsonData.cantidad},${'0'}, ${'0'}, ${'0'}, ${'0'}, ${jsonData.almacen_relacionado || '0'}, "${jsonData.observaciones}", ${userId}, "${fechaFormateada + " " + dateHora}"`;
+      let _p1 = `"${jsonData.insumo}", ${jsonData.almacen}, ${2}, ${jsonData.motivo_egreso}, ${jsonData.cantidad},${'0'}, ${'0'}, ${'0'}, ${'0'}, ${jsonData.almacen_relacionado || '0'}, "${jsonData.observaciones}", ${userId}`;
 
       _p1 = _p1.replace(/'/g, '!');
 
       const kardex = [{
-        'fecha': jsonData.fecha + " " + dateHora,
+        'fecha': jsonData.fecha,
         'insumo': jsonData.insumo,
         'almacen': jsonData.almacen,
         'es': "2",

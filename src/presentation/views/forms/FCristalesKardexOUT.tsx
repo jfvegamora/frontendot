@@ -143,7 +143,7 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
         }
       }
 
-      let _p1 = `"${jsonData.fecha + " " + dateHora}", 
+      let _p1 = ` 
        "${jsonData.insumo}", 
         ${jsonData.almacen}, 
         ${2}, 
@@ -155,13 +155,12 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
         ${'0'}, 
         ${jsonData.almacen_relacionado || '0'}, 
        "${jsonData.observaciones}",
-        ${userId}, 
-       "${fechaFormateada + " " + dateHora}"`;
+        ${userId}`;
 
       _p1 = _p1.replace(/'/g, '!');
 
       const kardex = [{
-        'fecha': jsonData.fecha + " " + dateHora,
+        'fecha': jsonData.fecha,
         'insumo': jsonData.insumo,
         'almacen': jsonData.almacen,
         'es': "2",

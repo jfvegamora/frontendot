@@ -156,7 +156,7 @@ const FCristalesKardexIN: React.FC<IUserFormPrps> = React.memo(
      } 
     
     //  let _p1 = `"${jsonData.fecha + " " + fechaHoraActual.toLocaleTimeString()}", 
-     let _p1 = `"${jsonData.fecha + " " + dateHora}", 
+     let _p1 = ` 
        "${jsonData.insumo}", 
        ${jsonData.almacen}, 
        ${1}, 
@@ -168,12 +168,11 @@ const FCristalesKardexIN: React.FC<IUserFormPrps> = React.memo(
        ${'0'}, 
        ${'0'}, 
       "${jsonData.observaciones}",
-       ${userId}, 
-      "${fechaFormateada + " " +dateHora}"`;
+       ${userId}`;
     
      const kardex = [{
       'insumo'              : jsonData.insumo,
-      'fecha'               : jsonData.fecha + " " + dateHora,
+      'fecha'               : jsonData.fecha,
       'almacen'             : jsonData.almacen,
       'es'                  : "1",
       'motivo'              : jsonData.motivo_ingreso,
