@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { AppStore, useAppDispatch, useAppSelector } from '../../../redux/store';
 import { fetchOT } from '../../../redux/slices/OTSlice';
@@ -28,7 +28,7 @@ const FOTOrdenCompra: React.FC<IDerivacion> = ({
     setSelectedRows
 }) => {
     const { control, handleSubmit, formState: { errors }} = useForm<any>({resolver: yupResolver(validationOTOCSchema()),})
-    const [fechaHoraActual, _setFechaHoraActual]  = useState(new Date());
+    // const [fechaHoraActual, _setFechaHoraActual]  = useState(new Date());
     
     const UsuarioID: any = useAppSelector((store: AppStore) => store.user?.id)
     const dispatch       = useAppDispatch();

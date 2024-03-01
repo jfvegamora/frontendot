@@ -1,5 +1,5 @@
 import { signal } from "@preact/signals-react"
-import { A2_CR_OD, A2_CR_OI, DioptriasReceta, a2_armazon, buscarCampo,  buscarCampoNivel3,  clearDioptriasA2, clearSelectInput, dioptrias_receta, reiniciarA2DioptriasReceta, tipo_de_anteojo } from "."
+import { DioptriasReceta, buscarCampo,  buscarCampoNivel3,  clearDioptriasA2, clearSelectInput, dioptrias_receta, reiniciarA2DioptriasReceta, tipo_de_anteojo } from "."
 import { validationNivel2 } from "../views/forms/FOT"
 
 

@@ -202,12 +202,12 @@ const FArmazonesKardexIN: React.FC<IUserFormPrps> = React.memo(
 
       }
 
-      const year = fechaHoraActual.getFullYear(); // Obtiene el año de 4 dígitos
-      const month = String(fechaHoraActual.getMonth() + 1).padStart(2, '0'); // Obtiene el mes (agrega 1 ya que los meses comienzan en 0) y lo formatea a 2 dígitos
-      const day = String(fechaHoraActual.getDate()).padStart(2, '0'); // Obtiene el día y lo formatea a 2 dígitos
+      // const year = fechaHoraActual.getFullYear(); // Obtiene el año de 4 dígitos
+      // const month = String(fechaHoraActual.getMonth() + 1).padStart(2, '0'); // Obtiene el mes (agrega 1 ya que los meses comienzan en 0) y lo formatea a 2 dígitos
+      // const day = String(fechaHoraActual.getDate()).padStart(2, '0'); // Obtiene el día y lo formatea a 2 dígitos
 
-      const fechaFormateada = `${year}/${month}/${day}`;
-      const dateHora = new Date().toLocaleTimeString();
+      // const fechaFormateada = `${year}/${month}/${day}`;
+      // const dateHora = new Date().toLocaleTimeString();
 
       if (jsonData.fecha) {
         if (fechaHoraActual < new Date(jsonData.fecha as string)) {

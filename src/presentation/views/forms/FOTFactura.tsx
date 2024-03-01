@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { AppStore, useAppDispatch, useAppSelector } from '../../../redux/store';
 import { fetchOT } from '../../../redux/slices/OTSlice';
@@ -29,7 +29,7 @@ const FOTFactura: React.FC<IDerivacion> = ({
 }) => {
     const { control, handleSubmit, formState: { errors }} = useForm<any>({resolver: yupResolver(validationOTFacturaSchema()),})
     // const { control, handleSubmit  } = useForm<any>()
-    const [fechaHoraActual, _setFechaHoraActual]  = useState(new Date());
+    // const [fechaHoraActual, _setFechaHoraActual]  = useState(new Date());
 
     const UsuarioID: any = useAppSelector((store: AppStore) => store.user?.id)
     const dispatch = useAppDispatch();

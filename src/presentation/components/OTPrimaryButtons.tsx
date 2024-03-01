@@ -9,7 +9,7 @@ import { usePermission } from '../hooks';
 import ImportToCsv from './ImportToCsv';
 import { AppStore, useAppDispatch, useAppSelector } from '../../redux/store';
 import { toast } from 'react-toastify';
-import { clearImpression, fetchOT, fetchOTByID, fetchOTImpresionByID} from '../../redux/slices/OTSlice';
+import { clearImpression, fetchOT, fetchOTImpresionByID} from '../../redux/slices/OTSlice';
 // import { URLBackend } from '../hooks/useCrud';
 // import { useReactToPrint } from 'react-to-print';
 // import FOTImpresa from '../views/forms/FOTImpresa';
@@ -73,8 +73,8 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
       suppressErrors: true,
       removeAfterPrint: true,
       onAfterPrint(){
-        // imprimirComprobanteRetiro()
-        dispatch(clearImpression())
+        imprimirComprobanteRetiro()
+        // dispatch(clearImpression())
       }
      
     });
