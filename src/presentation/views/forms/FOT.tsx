@@ -33,6 +33,7 @@ import { A1_ALT, A1_CR_OD, A1_CR_OI, A1_DP, A1_Diametro, A1_GRUPO_OD, A1_GRUPO_O
   isToggleValidation, 
   motivo_ot, 
   oftalmologo_id, 
+  procesarRender, 
   punto_venta, 
   // reiniciarA2DioptriasReceta, 
   reiniciarDioptriasReceta, reiniciarValidationNivel1, reiniciarValidationNivel2, reiniciarValidationNivel3, tipo_de_anteojo, updateOT, validar_parametrizacion } from '../../utils';
@@ -1015,10 +1016,25 @@ const FOT:React.FC<IFOTProps> = ({
         })
         setSubmitAction('');
     }else if (submitAction === 'ingresar'){
-      // console.log('click')
       
-      switchCaseIngresar(jsonData, cristalesJSON, armazonesJSON)
+      console.log(isEditting)
+      
+      if(!isEditting){
+        console.log('render')
+        switchCaseIngresar(jsonData, cristalesJSON, armazonesJSON)
+      }else{
+        console.log('render')
+        // updateOT(
+        //   jsonData,
+        //   OTAreaActual,
+        //   60,
+        //   10,
+
+        // )
+      }
+      
       setSubmitAction('');
+      console.log('click')
     }
 
   };
@@ -1591,7 +1607,9 @@ useEffect(()=>{
 
   // console.log(formValues)
 
-  console.log(fecha_atencion_signal.value)
+  console.log(data && data[EnumGrid.area_id])
+  console.log(data && data[EnumGrid.motivo_garantia_id])
+  
 
   console.log(validationNivel1.value)
   
@@ -1679,7 +1697,7 @@ useEffect(()=>{
                 // isMotivo    &&  (
                   (
                     <Button className='otActionButton bg-green-400' onClick={() => setShowGarantia(prev => !prev)}>
-                      Garantía
+                      Post Venta
                     </Button>
                 )}
                 
@@ -1689,8 +1707,9 @@ useEffect(()=>{
                 !isMOT                   &&
                 isEditting               &&
                 escritura_lectura        && 
-                OTPermissions[6] === "1" &&
+                // OTPermissions[6] === "1" &&
                 sumatoriaNivel1  === validationNivel1.value.length &&
+               (data && data[EnumGrid.area_id] > procesarRender.value) &&
                (sumatoriaNivel2  === validationNivel2.value.length || data && data[EnumGrid.validar_parametrizacion_id] === "0" ) &&
                 (
                   ((permiso_area_verificar_cristal && permiso_area_verificar_armazon ) && sumatoriaNivel3 === validationNivel3.value.length) || 
@@ -1733,9 +1752,9 @@ useEffect(()=>{
                 )}
                 
                 {OTPermissions             &&
-                !isEditting                &&
+                (!isEditting || (data && data[EnumGrid.area_id] === 40 && data && data[EnumGrid.motivo_garantia_id] === 2 ) )  &&
                 escritura_lectura          &&
-                OTPermissions[10] === "1" &&
+                // OTPermissions[10] === "1" &&
                  sumatoriaNivel1  === validationNivel1.value.length &&
                  (
                   <Button className='otActionButton bg-blue-500' onClick={handleIngresarClick}>Ingresar</Button>

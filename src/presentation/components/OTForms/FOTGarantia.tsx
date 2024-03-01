@@ -18,7 +18,7 @@ interface FormData{
     folio_ot: number;
     proyecto:string;
     nombre_cliente: string;
-    motivo_garantia:string;
+    motivo_post_venta:string;
     observaciones:string,
     onClose:any
 }
@@ -44,7 +44,7 @@ const FOTGarantia:React.FC<IProps> = ({
                 query:    "03",
                 _folio:  `${data[EnumGrid.folio]}`,
                 _p1:     `"${jsonData.observaciones}"`,
-                _p2:     `${jsonData.motivo_garantia}`,
+                _p2:     `${jsonData.motivo_post_venta}`,
                 _usuario: userState?.id.toString()
             }
             console.log(query)
@@ -70,7 +70,7 @@ const FOTGarantia:React.FC<IProps> = ({
     <div className='useFormContainer useFormDerivacion centered-div use40rem z-30'>
           <div className="userFormBtnCloseContainer flex ">
             <div className='w-[50%] mx-auto !text-center  '>
-                <h1 className='userFormLabel mx-auto  w-full '>Nueva OT por garantía</h1>
+                <h1 className='userFormLabel mx-auto  w-full '>Nueva OT Post Venta</h1>
             </div>
             <div className=''>
                 <button onClick={onClose} className="userFormBtnClose">
@@ -130,8 +130,8 @@ const FOTGarantia:React.FC<IProps> = ({
                 <div className="input-container items-center rowForm">
                     <div className="w-full">
                         <SelectInputComponent
-                            label="Motivo Garantia"
-                            name="motivo_garantia"
+                            label="Motivo Post Venta"
+                            name="motivo_post_venta"
                             showRefresh={true}
                             isOT={true}
                             control={control}

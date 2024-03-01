@@ -105,6 +105,10 @@ export const validar_cristal2_oi = signal("");
 
 
 
+export const procesarRender     = signal(40);
+
+
+
 export const excelOTValidationStructure = signal([
   [ 'proyecto', 'varchar(20)', 'NO', 20, 7 ],
   [ 'establecimiento', 'int', 'NO', null, 9 ],
