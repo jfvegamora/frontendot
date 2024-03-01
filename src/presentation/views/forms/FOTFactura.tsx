@@ -48,16 +48,16 @@ const FOTFactura: React.FC<IDerivacion> = ({
                 toast.error(`Folio: ${ot["folio"]} sin Orden de Compra`);
             })
         }else{
-            const year             = fechaHoraActual.getFullYear();
-            const month            = String(fechaHoraActual.getMonth() + 1).padStart(2, '0'); 
-            const day              = String(fechaHoraActual.getDate()).padStart(2, '0'); 
-            const fechaFormateada  = `${year}/${month}/${day}`;
-            const dateHora         = new Date().toLocaleTimeString();
+            // const year             = fechaHoraActual.getFullYear();
+            // const month            = String(fechaHoraActual.getMonth() + 1).padStart(2, '0'); 
+            // const day              = String(fechaHoraActual.getDate()).padStart(2, '0'); 
+            // const fechaFormateada  = `${year}/${month}/${day}`;
+            // const dateHora         = new Date().toLocaleTimeString();
             
 
             try {
                 const query03 = {
-                    _p1         : `"${pktoDelete[0]["proyecto_codigo"]}", "${fechaFormateada + " " + dateHora}", ${5}, "${jsonData["numero_doc"]}", "${jsonData["fecha_doc"]}", ${jsonData["valor_neto"]}, ${0}, ${0}, ${UsuarioID}, "${jsonData["observaciones"]}"    `
+                    _p1         : `"${pktoDelete[0]["proyecto_codigo"]}", ${5}, "${jsonData["numero_doc"]}", "${jsonData["fecha_doc"]}", ${jsonData["valor_neto"]}, ${0}, ${0}, ${UsuarioID}, "${jsonData["observaciones"]}"    `
                 }
 
                 const query07 = {
