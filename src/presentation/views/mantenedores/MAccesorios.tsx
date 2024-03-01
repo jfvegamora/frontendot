@@ -157,6 +157,7 @@ const MAccesorios: React.FC = () => {
           showDeleteButton={false}
           idMenu={idMenu}
           leftEdit={true}
+          params={params}
         />
       </div>
 

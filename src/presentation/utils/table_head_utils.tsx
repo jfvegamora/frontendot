@@ -905,6 +905,7 @@ export const table_head_accesorios = [
     visible: true,
     alignment: "text-left",
     width: "w-[10rem]",
+    color:true
   },
   {
     cell: "Descripción",
@@ -1132,6 +1133,7 @@ export const table_head_cristales = [
     visible: true,
     alignment: "text-left",
     width: "w-[10rem]",
+    color:true
   },
   {
     cell: "Marca ID",

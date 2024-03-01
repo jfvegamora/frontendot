@@ -638,7 +638,9 @@ export const getGrupoCristales_A1 = async(formValue:any, data:any, setErrorGrupo
           
           const cristalesDATA = JSON.parse(cristalesDataOD[0][0])
           // console.log(cristalesDATA)
-
+          if(tipo_de_anteojo.value === '3' && isEditting){
+            getGrupoCristales_A2(formValue, data, setErrorGrupoDioptriaA2, setChangeboolean)
+          }
           if(cristalesDATA && cristalesDATA["ERROR"] !== ''){
             setErrorGrupoDioptriaA1(cristalesDATA["ERROR"]);
             // console.log('hay error')
@@ -675,9 +677,7 @@ export const getGrupoCristales_A1 = async(formValue:any, data:any, setErrorGrupo
             setChangeboolean((prev:boolean)=>!prev)
 
             // console.log(key)
-            if(tipo_de_anteojo.value === '3' && isEditting){
-              getGrupoCristales_A2(formValue, data, setErrorGrupoDioptriaA2, setChangeboolean)
-            }
+            
 
 
 
@@ -724,7 +724,7 @@ export const getGrupoCristales_A2 = async(formValue:any, data:any, setErrorGrupo
 
 
   console.log(_pkToDelete1_od)
-  
+  console.log(dioptrias_receta.value.a2_od.esf)
   const _pkToDelete1_oi ={
     "marca":      cristal2_marca_id          || data?.[EnumGrid.cristal2_marca_id],
     "diseno":     cristal2_diseno_id         || data?.[EnumGrid.cristal2_diseno_id],

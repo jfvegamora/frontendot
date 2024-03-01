@@ -254,7 +254,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                           defaultValue=""
                           render={({ field }) => (
                             <Input
-                              color="blue"
+                              color="orange"
                               tabIndex={1}
                               className={`${input?.styles?.with || "!w-[8rem]"} !h-12 !mt-3`}
                               {...field}

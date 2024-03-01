@@ -117,13 +117,13 @@ const MCristales: React.FC = () => {
                   tipos: "CristalesMateriales", styles: { with: "!mt-[0.5rem] !w-[19rem]" },
                 },
 
-                { name: "_pDiametro", label: "Diámetro", type: "number", styles: { with: "!mt-[-0.1rem] !w-[17rem]" } },
+                { name: "_pDiametro", label: "Diámetro", type: "number", styles: { with: "!mt-[-1rem] !w-[17rem]" } },
                 { name: "_pEsferico", label: "Esférico", type: "number", styles: { with: "" } },
                 {
                   name: "_pMarca",
                   label: "Marca",
                   type: "select",
-                  selectUrl: "/api/marcas/", styles: { with: " !w-[19rem]" },
+                  selectUrl: "/api/marcas/", styles: { with: " !w-[19rem] !mt-2" },
                   _p1: "2"
                 },
 
@@ -208,6 +208,7 @@ const MCristales: React.FC = () => {
           showDeleteButton={false}
           idMenu={idMenu}
           leftEdit={true}
+          params={params}
         />
       </div>
 

@@ -10,6 +10,11 @@ import {ExportToPDF} from "./ExportToPDF";
 // import  ExportCSV  from "./ExportToCsv";
 import { AppStore, useAppSelector } from "../../redux/store";
 import OTGrillaButtons from "./OTGrillaButtons";
+
+import { EnumGrid as EnumArmazones } from "../views/mantenedores/MArmazones";
+import { EnumGrid as EnumCristales } from "../views/mantenedores/MCristales";
+import { EnumGrid as EnumAccesorios } from "../views/mantenedores/MAccesorios";
+
 // import { signal } from "@preact/signals-react";
 // import { ExportCSV } from "./ExportToCsv";
 
@@ -82,8 +87,21 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
     const OTColores:any = useAppSelector((store: AppStore) => store.OTS.derivacionColores);
     const areaActual = OTAreas["areaActual"] 
     const permissions = (area:number) => areaActual &&  OTAreas["areas"].find((permiso:any)=>permiso[1] === area)
+    let enumGird:any = {}
 
-
+    switch (entidad) {
+      case 'Armazón ':
+        enumGird = EnumArmazones
+        break;
+      case 'Cristal ':
+        enumGird = EnumCristales
+        break
+      case 'Accesorio ':
+        enumGird = EnumAccesorios
+        break
+      default:
+        break;
+    }
 
 
     useEffect(()=>{
@@ -261,13 +279,15 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
           {data && data.length > 0 ? (data.map((rowData: any, rowIndex: number) => {
               // const id = [3, 3];
                 // console.log(params)
+             
               if( (params && params["_p5"] !== '')  ||  params && params[0] === ''){
 
-                let stockDisponibe   = parseInt(rowData[19])
-                let stockMinimo      = parseInt(rowData[18])
+
+                let stockDisponibe   = parseInt(rowData[enumGird.stock_disponible])
+                let stockMinimo      = parseInt(rowData[enumGird.stock_minimo])
                 lowArmazonesStock =  (stockDisponibe <= stockMinimo) ? true : false
- 
-                          
+                console.log(stockDisponibe)
+                console.log(lowArmazonesStock)     
               }else{
                 lowArmazonesStock = false;
               }
