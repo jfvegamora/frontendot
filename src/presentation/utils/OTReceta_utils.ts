@@ -60,7 +60,7 @@ export const validation_tipo_anteojo = () => {
         '1': {validar_cristal1_od:0,validar_cristal1_oi:0, validar_cristal2_od:1, validar_cristal2_oi:1,validar_armazon1:0, validar_armazon2:1},
         '2': {validar_cristal1_od:0,validar_cristal1_oi:0, validar_cristal2_od:1, validar_cristal2_oi:1,validar_armazon1:0, validar_armazon2:1},
         '3': {validar_cristal1_od:0,validar_cristal1_oi:0, validar_cristal2_od:0, validar_cristal2_oi:0,validar_armazon1:0, validar_armazon2:0},
-        '4': {validar_cristal1_od:0,validar_cristal1_oi:0, validar_cristal2_od:1, validar_cristal2_oi:0,validar_armazon1:0, validar_armazon2:1},
+        '4': {validar_cristal1_od:0,validar_cristal1_oi:0, validar_cristal2_od:1, validar_cristal2_oi:1,validar_armazon1:0, validar_armazon2:1},
         '5': {validar_cristal1_od:0,validar_cristal1_oi:0, validar_cristal2_od:1, validar_cristal2_oi:1,validar_armazon1:0, validar_armazon2:1},
         '6': {validar_cristal1_od:0,validar_cristal1_oi:0, validar_cristal2_od:1, validar_cristal2_oi:1,validar_armazon1:0, validar_armazon2:1},
         '7': {validar_cristal1_od:0,validar_cristal1_oi:0, validar_cristal2_od:1, validar_cristal2_oi:1,validar_armazon1:0, validar_armazon2:1},

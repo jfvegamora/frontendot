@@ -841,7 +841,7 @@ export const updateOT =async (
   // console.log(jsonData)
   // console.log(_formValues)
   // console.log(data)
-
+  const toastLoading = toast.loading('Cargando...');
   let folio = data?.[EnumGrid.folio]
 
   console.log(folio)
@@ -881,11 +881,14 @@ export const updateOT =async (
       const response = await axios.post(`${URLBackend}/api/ot/editar/`, query)
   
       if(response.status === 200){
+        toast.dismiss(toastLoading)
         return toast.success(`OT ${_estado === 20 ? 'Procesada' : 'Pausada'} Correctamente, Folio: ${data.folio}`)
       }else{
+        toast.dismiss(toastLoading)
         return toast.error('Error al Editar OT')
       }
     } catch (error) {
+      toast.dismiss(toastLoading)
       return toast.error(error as any)
       // console.log(error)
   
@@ -1080,14 +1083,18 @@ const _armazonesJSON = JSON.stringify(armazones)
   // console.log(query)
   try {
     const response = await axios.post(`${URLBackend}/api/ot/editar/`, query)
-
-    // console.log(response)
+    console.log(response)
     if(response.status === 200){
+      toast.dismiss(toastLoading)
       return toast.success('OT Editada Correctamente')
     }else{
+    toast.dismiss(toastLoading)
+
       return toast.error('Error al Editar OT')
     }
   } catch (error) {
+    toast.dismiss(toastLoading)
+    
     // console.log(error)
 
   }
