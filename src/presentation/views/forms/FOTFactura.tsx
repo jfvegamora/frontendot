@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { AppStore, useAppDispatch, useAppSelector } from '../../../redux/store';
 import { fetchOT } from '../../../redux/slices/OTSlice';
@@ -27,7 +27,8 @@ const FOTFactura: React.FC<IDerivacion> = ({
     closeModal,
     pktoDelete
 }) => {
-    const { control, handleSubmit, formState: { errors }} = useForm<any>({resolver: yupResolver(validationOTFacturaSchema()),})
+    const { control, handleSubmit, formState: { errors }} = useForm<any>({resolver: yupResolver(validationOTFacturaSchema()),});
+    const [fechaHoraActual, _setFechaHoraActual] = useState(new Date());
     // const { control, handleSubmit  } = useForm<any>()
     // const [fechaHoraActual, _setFechaHoraActual]  = useState(new Date());
 
@@ -120,6 +121,9 @@ const FOTFactura: React.FC<IDerivacion> = ({
             window.removeEventListener("keydown", handleKeyDown);
         };
     }, [closeModal]);
+
+    const fechaFormateada = fechaHoraActual.toISOString().split('T')[0];
+
     return (
         // <div className='useFormContainer useFormDerivacion h-[55%] w-[60%] left-[20%] top-[30%] z-30'>
         //     <div className=" flex justify-end w-full">
@@ -172,6 +176,7 @@ const FOTFactura: React.FC<IDerivacion> = ({
                             label="Fecha Doc"
                             name="fecha_doc"
                             control={control}
+                            data={fechaFormateada}
                             textAlign='text-center'
                             error={errors.fecha_doc}
                         />

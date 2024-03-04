@@ -854,12 +854,15 @@ export const updateOT =async (
   //TODO: INICIO PROCESAR MASIVO
   if(isMasivo){
     
+    console.log(data.proyecto_codigo)
+    console.log(data)
+
     const query = {
       query: "04",
       _p1:`area=${_destino}` ,
-      _p2: tipo_de_anteojo.value,
+      _p2: data && data.tipo_anteojo.toString(),
       _p3: "",
-      _proyecto: data && data.proyecto,
+      _proyecto: data && data.proyecto_codigo,
       _folio: `${data && data.folio}` ,
       _origen: _origen.toString(),
       _rut: ``,
@@ -876,12 +879,12 @@ export const updateOT =async (
       _motivo:  `${motivo}`
     }
 
-    // console.log(query)
+    console.log(query)
     try {
       const response = await axios.post(`${URLBackend}/api/ot/editar/`, query)
   
       if(response.status === 200){
-        return toast.success(`OT ${_estado === 20 ? 'Procesada' : 'Pausada'} Correctamente, Folio: ${folio}`)
+        return toast.success(`OT ${_estado === 20 ? 'Procesada' : 'Pausada'} Correctamente, Folio: ${data.folio}`)
       }else{
         return toast.error('Error al Editar OT')
       }

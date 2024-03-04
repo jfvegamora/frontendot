@@ -121,11 +121,12 @@ const MOT: React.FC = () => {
       estado_id: OTs.data[row] && OTs.data[row][3],
       estado: OTs.data[row] && OTs.data[row][4],
       estado_impresion: OTs.data[row] && OTs.data[row][5],
-      armazones: [{ codigo: OTs.data[row] && OTs.data[row][14] }, { codigo: OTs.data[row] && OTs.data[row][15] }],
-      cristales: [{ codigo: OTs.data[row] && OTs.data[row][17] }, { codigo: OTs.data[row] && OTs.data[row][18] }],
+      armazones: [{ codigo: OTs.data[row] && OTs.data[row][15] }, { codigo: OTs.data[row] && OTs.data[row][16] }],
+      cristales: [{ codigo: OTs.data[row] && OTs.data[row][18] }, { codigo: OTs.data[row] && OTs.data[row][19] }],
       proyecto_codigo: OTs.data[row] && OTs.data[row][7],
       proyecto: OTs.data[row] && OTs.data[row][8],
       punto_venta: OTs.data[row] && OTs.data[row][6],
+      tipo_anteojo: OTs.data[row] && OTs.data[row][13]
 
     }));
     setPkToDelete(newPkToDelete as any)

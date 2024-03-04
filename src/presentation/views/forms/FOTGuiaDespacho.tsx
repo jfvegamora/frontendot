@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { AppStore, useAppDispatch, useAppSelector } from '../../../redux/store';
 import { fetchOT } from '../../../redux/slices/OTSlice';
@@ -28,7 +28,8 @@ const FOTGuiaDespacho: React.FC<IDerivacion> = ({
     pktoDelete,
     setSelectedRows
 }) => {
-    const { control, handleSubmit, formState: { errors } } = useForm<any>({ resolver: yupResolver(validationOTGuiaSchema()), })
+    const { control, handleSubmit, formState: { errors } } = useForm<any>({ resolver: yupResolver(validationOTGuiaSchema()), });
+    const [fechaHoraActual, _setFechaHoraActual] = useState(new Date());
     // const { control, handleSubmit } = useForm<any>()
     // const [fechaHoraActual, _setFechaHoraActual] = useState(new Date());
 
@@ -113,6 +114,7 @@ const FOTGuiaDespacho: React.FC<IDerivacion> = ({
         };
     }, [closeModal]);
 
+    const fechaFormateada = fechaHoraActual.toISOString().split('T')[0];
 
 
 
@@ -168,6 +170,7 @@ const FOTGuiaDespacho: React.FC<IDerivacion> = ({
                             label="Fecha Doc"
                             name="fecha_doc"
                             control={control}
+                            data={fechaFormateada}
                             textAlign='text-center'
                             error={errors.fecha_doc}
                         />

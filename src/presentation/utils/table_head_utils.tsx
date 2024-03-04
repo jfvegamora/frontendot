@@ -99,6 +99,13 @@ export const table_head_OT_diaria2 = [
     width: "w-[8rem]"
   },
   {
+    cell: "Tipo Anteojo ID ",
+    key: "tipo_anteojo_id",
+    visible: false,
+    alignment: "text-center",
+    width: "w-[8rem]"
+  },
+  {
     cell: "Tipo Anteojo ",
     key: "tipo_anteojo",
     visible: true,

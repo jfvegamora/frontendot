@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { AppStore, useAppDispatch, useAppSelector } from '../../../redux/store';
 import { fetchOT } from '../../../redux/slices/OTSlice';
@@ -27,7 +27,8 @@ const FOTOrdenCompra: React.FC<IDerivacion> = ({
     pktoDelete,
     setSelectedRows
 }) => {
-    const { control, handleSubmit, formState: { errors }} = useForm<any>({resolver: yupResolver(validationOTOCSchema()),})
+    const { control, handleSubmit, formState: { errors }} = useForm<any>({resolver: yupResolver(validationOTOCSchema()),});
+    const [fechaHoraActual, _setFechaHoraActual] = useState(new Date());
     // const [fechaHoraActual, _setFechaHoraActual]  = useState(new Date());
     
     const UsuarioID: any = useAppSelector((store: AppStore) => store.user?.id)
@@ -97,9 +98,10 @@ const FOTOrdenCompra: React.FC<IDerivacion> = ({
             
     }}
     
-    console.log('errors',errors)
+    // console.log('errors',errors)
     
-    
+    const fechaFormateada = fechaHoraActual.toISOString().split('T')[0];
+
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
             if (event.key === "Escape") {
@@ -165,6 +167,7 @@ const FOTOrdenCompra: React.FC<IDerivacion> = ({
                             type="date"
                             label="Fecha Doc"
                             name="fecha_doc"
+                            data={fechaFormateada}
                             control={control}
                             textAlign='text-center'
                             error={errors.fecha_doc}
