@@ -856,7 +856,7 @@ export const updateOT =async (
  
     const query = {
       query: "04",
-      _p1:`area=${_destino}` ,
+      _p1:`area=${_destino}, estado=${'20'}`,
       _p2: data && data.tipo_anteojo.toString(),
       _p3: "",
       _proyecto: data && data.proyecto_codigo,
@@ -864,8 +864,8 @@ export const updateOT =async (
       _origen: _origen.toString(),
       _rut: ``,
       _destino: _destino.toString(),
-      _estado:_estado.toString(), 
-      _usuario:`${user}`,
+      _estado: '20', 
+      _usuario:`${  user}`,
       _situacion: situacion || "0",
       _obs: "",
       _cristalesJSON: JSON.stringify(data.cristales),
@@ -876,7 +876,7 @@ export const updateOT =async (
       _motivo:  `${motivo}`
     }
 
-    // console.log(query)
+    console.log(query)
     try {
       const response = await axios.post(`${URLBackend}/api/ot/editar/`, query)
   
