@@ -608,7 +608,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
                                     />
                             </div>
 
-                                {OTAreas === 60 && (
+                                {(OTAreas === 60 && tipo_de_anteojo.value === '3' ) && (
                                     <div className="-mt-[0.35rem]">
                                         <OTTextInputComponent
                                             type="text"
