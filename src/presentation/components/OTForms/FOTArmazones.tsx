@@ -617,6 +617,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
                                             handleChange={handleInputValidationChange}
                                             otData={validar_armazon2.value ? validar_armazon2.value : formValues  && formValues["validar_armazon2"] && formValues["validar_armazon2"]}
                                             control={control}
+                                            onlyRead={tipo_de_anteojo.value === '3' ? false : true}
                                            //  isOT={true}
                                             textAlign="text-center"
                                          />
