@@ -853,10 +853,7 @@ export const updateOT =async (
   let motivo = data && data[EnumGrid.motivo] === 'Garantía' ? 2 : 1;
   //TODO: INICIO PROCESAR MASIVO
   if(isMasivo){
-    
-    console.log(data.proyecto_codigo)
-    console.log(data)
-
+ 
     const query = {
       query: "04",
       _p1:`area=${_destino}` ,
@@ -879,7 +876,7 @@ export const updateOT =async (
       _motivo:  `${motivo}`
     }
 
-    console.log(query)
+    // console.log(query)
     try {
       const response = await axios.post(`${URLBackend}/api/ot/editar/`, query)
   
@@ -889,6 +886,7 @@ export const updateOT =async (
         return toast.error('Error al Editar OT')
       }
     } catch (error) {
+      return toast.error(error as any)
       // console.log(error)
   
     }
