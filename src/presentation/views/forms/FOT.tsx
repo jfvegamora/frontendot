@@ -51,6 +51,7 @@ import FOTEmpaque from './FOTEmpaque';
 import { usePermission } from '../../hooks';
 import FOTAnulacion from '../../components/OTForms/FOTAnulacion';
 import { useModal } from '../../hooks/useModal';
+import { paramsOT } from '../mantenedores/MOT';
 
 const FOTArmazones = lazy(()=>import('../../components/OTForms/FOTArmazones'));
 const FOTBitacora = lazy(()=>import('../../components/OTForms/FOTBitacora'));
@@ -1002,7 +1003,7 @@ const FOT:React.FC<IFOTProps> = ({
      
     } else if (submitAction === 'procesar') {
         let estado = OTAreaActual === 100 ? 50 : 20
-
+        console.log(paramsOT.value)
         updateOT(
           jsonData,
           OTAreaActual,
@@ -1014,7 +1015,12 @@ const FOT:React.FC<IFOTProps> = ({
           OTSlice.armazones,
           User["id"].toString()
         ).then(()=>{
-          dispatch(fetchOT({OTAreas:OTAreaActual}))
+          if(paramsOT.value !== ''){
+            dispatch(fetchOT({OTAreas:OTAreaActual, searchParams: paramsOT.value}))
+          }else{
+            dispatch(fetchOT({OTAreas:OTAreaActual}))
+          }
+
           handleCloseForm()
         })
         setSubmitAction('');

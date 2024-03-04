@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { URLBackend } from "../../presentation/hooks/useCrud";
+// import { toast } from "react-toastify";
 
 export interface DataState {
     estadosOT: any;
@@ -49,6 +50,7 @@ export const fetchOT = createAsyncThunk(
             while (retryCount < maxRetries) {
               try {
                 const { data } = await axios(OTUrl);
+                // toast.success('Busqueda realizada')
                 return data; 
               } catch (error) {
                 if (retryCount >= maxRetries - 1) {
@@ -58,6 +60,7 @@ export const fetchOT = createAsyncThunk(
                 await new Promise((resolve) => setTimeout(resolve, 4000));
               }
             }
+            
         } catch (error) {
             // console.log(error);
             throw error;

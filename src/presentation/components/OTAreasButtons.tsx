@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { AppStore, useAppDispatch, useAppSelector } from '../../redux/store';
 import { Button } from "@material-tailwind/react";
 import { updateActualArea, updateNextArea } from '../../redux/slices/OTAreasSlice';
@@ -25,10 +25,11 @@ const [botonPresionado, setBotonPresionado] = useState(null);
 
  
 
-const handleEstado = useCallback((area:any) => {
+const handleEstado =(area:any) => {
     dispatch(clearData())
-    setAreaActual(area[1])
+    setAreaActual(area[1]) 
     dispatch(updateActualArea(area && area[1]))
+    // dispatch(updateActualArea(area && area[1]))
     dispatch(updateNextArea(area && area[4]))
     setBotonPresionado(area && area[1]);
     setSelectedRows([]) 
@@ -40,10 +41,13 @@ const handleEstado = useCallback((area:any) => {
    }else{
      dispatch(fetchOT({OTAreas:area[1]}))
    }
-},[params])
+}
 
 
 
+// useEffect(()=>{
+//   dispatch(updateActualArea(_areaActual)) 
+// },[_areaActual])
 
 
 // console.log(area[1])

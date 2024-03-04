@@ -13,7 +13,7 @@ import { fetchOT } from "../../redux/slices/OTSlice";
 import { useCrud } from "../hooks";
 import { toast } from "react-toastify";
 import { paramsOT } from "../views/mantenedores/MOT";
-import { sesionExpirada } from "../../redux/slices/userSlice";
+// import { sesionExpirada } from "../../redux/slices/userSlice";
 
 interface IPrimaryKeyState {
   [key: string]: string | number;
@@ -64,18 +64,19 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
     }, [description]);
     // 
     // console.log(OTAreas["areaActual"])
+    const updatedParams = Object.keys(inputValues)
+        .map((key) => `${key}=${inputValues[key]}`)
+        .join('&');
     
-    const handleInputChange = React.useCallback(
-      (name: string, value: string) => {
+    const handleInputChange = (name: string, value: string) => {
         // console.log(name)
-      
-        console.log('render')
+        // console.log(value)
+        // console.log('render')
         setInputValues((prev) => ({ ...prev, [name]: value }));
-        // console.log(inputValues)
-      },
-      [inputValues, updateParams]
-    );
-
+        updateParams(inputValues)
+        // console.log(updatedParams)
+      }
+  
     const handleSelectChange = React.useCallback(
       (name: string, value: string) => {
       
@@ -83,9 +84,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
         
         console.log(inputValues)
 
-        const updatedParams = Object.keys(inputValues)
-        .map((key) => `${key}=${inputValues[key]}`)
-        .join('&');
+        
         
         console.log(updatedParams)
         
@@ -121,12 +120,21 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
 
 
     const handleSearch = React.useCallback(async (data: any) => {
-      // filterToggle.value = false;
-      // console.log(data)
-      // console.log(cilindrico)
-      console.log(data)
-      console.log('render')
       const toastLoading = toast.loading('Buscando...');
+      // filterToggle.value = false;
+      console.log(data)
+      // console.log(cilindrico)
+      
+      if(baseUrl === '/api/othistorica/' || baseUrl === '/api/ot/'){
+        const filtersOT = Object.entries(data)
+        .filter((campos)=> campos[1] !== '' && campos[1] !== undefined)
+        .map((campos:any) => `${campos[0]}=${campos[1]}`)
+        .join('&')
+        // console.log(filtersOT)
+        paramsOT.value = filtersOT
+      }
+
+
       if ("_pCilindrico" in data || "_pEsferico" in data) {
         data = {
           ...data,
@@ -152,21 +160,26 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
         .join("&");
       
       data && updateParams([searchParams]);
-      // console.log(data)
+      // console.log(searchParams)
+      // console.log(OTAreas["areaActual"])
+      
       try {
         const response = otHistorica 
                             ?  dispatch(fetchOT({OTAreas:OTAreas["areaActual"], searchParams:searchParams, historica:true}))
                             :  baseUrl === '/api/ot/' ? dispatch(fetchOT({OTAreas:OTAreas["areaActual"], searchParams:searchParams, historica:false}))  :  await ListEntity(searchParams, "01")
 
         
-        toast.dismiss(toastLoading)
+        
         if(Array.isArray(response) && response.length === 0){
           toast.success('Búsqueda Realizada: 0 resultados',{autoClose:1500})
-        }else{
-          // toast.success(`Busqueda Realizada: ${baseUrl === '/api/ot/' || otHistorica ?  OTs.length :   response.length } resultados`,{autoClose:1500})
-          toast.success('Busqueda Realizada',{autoClose:1500})
         }
-        setEntities(response);
+        
+        toast.dismiss(toastLoading)
+        if(baseUrl !== '/api/othistorica/' && baseUrl !== '/api/ot/'){
+          setEntities(response)
+        }
+
+        toast.success('Busqueda Realizada',{autoClose:1500})
       } catch (error) {
         toast.dismiss(toastLoading)
         return error;
@@ -457,8 +470,8 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                 type="submit"
                 onClick={(e)=>{
                   e.preventDefault()
-                  const result = sesionExpirada()
-                  console.log(result)
+                  // const result = sesionExpirada()
+                  // console.log(result)
                   return handleSubmit(handleSearch)()
                 }}
               >

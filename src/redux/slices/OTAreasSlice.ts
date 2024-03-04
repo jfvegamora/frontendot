@@ -34,6 +34,7 @@ const funcionalidadesSlice = createSlice({
     reducers: {
         updateActualArea: (state, action:any) => {
             if (state) {
+                console.log(action.payload)
                 return {
                     ...state,
                     areaActual: action.payload,
