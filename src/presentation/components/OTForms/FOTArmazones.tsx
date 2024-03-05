@@ -5,9 +5,8 @@ import { EnumGrid as EnumArmazones } from '../../views/mantenedores/MArmazones';
 import { validationOTlevel2, validationOTlevel3, validation_A1_armazon, validation_A2_armazon } from '../../utils/validationOT';
 import { URLBackend } from '../../hooks/useCrud';
 import { toast } from 'react-toastify';
-import { A1_DP, A1_Diametro, A2_DP, A2_Diametro, a1_armazon, a2_armazon, a3_armazon, codigoProyecto, punto_venta, tipo_de_anteojo, validar_armazon1, validar_armazon2, validar_parametrizacion } from '../../utils';
+import { A1_DP, A1_Diametro, A2_DP, A2_Diametro, a1_armazon, a2_armazon, a3_armazon, codigoProyecto, punto_venta, tipo_de_anteojo, validar_armazon1, validar_armazon2, validar_parametrizacion, validationNivel3 } from '../../utils';
 // import TextInputInteractive from '../forms/TextInputInteractive';
-import { validationNivel3 } from '../../views/forms/FOT';
 import { AppStore, useAppSelector } from '../../../redux/store';
 import { OTTextInputComponent } from '.';
 
@@ -49,9 +48,9 @@ const FOTArmazones:React.FC<IArmazones> = ({
     const [codArmazon2, setCodArmazon2] = useState(formValues ? formValues["a2_armazon_id"] : data && data[EnumGrid.a2_armazon_id] || "");
     const [codArmazon3, setCodArmazon3] = useState(formValues ? formValues["a3_armazon_id"] : data && data[EnumGrid.a3_armazon_id] || "");
 
-    const [armazon1, setArmazon1] = useState([])
-    const [armazon2, setArmazon2] = useState([])
-    const [armazon3, setArmazon3] = useState([])
+    const [armazon1, setArmazon1] = useState<any>([])
+    const [armazon2, setArmazon2] = useState<any>([])
+    const [armazon3, setArmazon3] = useState<any>([])
 
     // const [render, setRender] = useState(false)
 
@@ -66,10 +65,13 @@ const FOTArmazones:React.FC<IArmazones> = ({
     const fetchArmazones1 = async (inputName:string, codArmazon:string)=>{
         let dp         = 0
         let diametro   = 0
+        console.log(codArmazon)
         
-        if(codArmazon.trim() === ''){
+
+        if(codArmazon && codArmazon.trim() === ''){
             return;
         }
+
         const toastLoading = toast.loading('Cargando...');
         
         switch (inputName) {
@@ -93,7 +95,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
         try {
             const {data} = await axios((validar_parametrizacion.value === '1' ) 
                                                    ? (`${endpoint
-                                                                        }&_p1=${codArmazon !== ' ' ? codArmazon.trim() : "aaaa"
+                                                                        }&_p1=${codArmazon && codArmazon !== ' ' ? codArmazon.trim() : "aaaa"
                                                                         }&_p4=${
                                                                             tipo_de_anteojo.value === '3'
                                                                             ? (  
@@ -146,18 +148,21 @@ const FOTArmazones:React.FC<IArmazones> = ({
                 if(data[0]){
                     onDataChange({[inputName]:data[0][0]})
                     if(inputName === 'a1_armazon_id'){
+                        localStorage.setItem('a1_armazon', data[0])
                         setArmazon1(data[0])
                         setCodArmazon1(data[0][0])
                         a1_armazon.value = data[0][0]
                     }
     
                     if(inputName === 'a2_armazon_id'){
+                        localStorage.setItem('a2_armazon', data[0])
                         setArmazon2(data[0])
                         setCodArmazon2(data[0][0])
                         a2_armazon.value = data[0][0]
                     }
     
                     if(inputName === 'a3_armazon_id'){
+                        localStorage.setItem('a3_armazon', data[0])
                         setArmazon3(data[0])
                     }
                 }
@@ -270,10 +275,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
         
         validationOTlevel2(name, value)
         
-       
-
-        
-
+    
         
         onDataChange({ [name]: value.trim() }); 
     };
@@ -391,14 +393,27 @@ const FOTArmazones:React.FC<IArmazones> = ({
 
 
     useEffect(()=>{
-        fetchArmazones1('a1_armazon_id', codArmazon1)
-        fetchArmazones1('a2_armazon_id', codArmazon2) 
-        fetchArmazones1('a3_armazon_id', codArmazon3)
+
+
+        localStorage.getItem('a1_armazon') 
+                              ? setArmazon1(localStorage.getItem('a1_armazon')?.split(','))
+                              : fetchArmazones1('a1_armazon_id', codArmazon1)
+
+
+        localStorage.getItem('a2_armazon')
+                              ? setArmazon2(localStorage.getItem('a2_armazon')?.split(','))
+                              : fetchArmazones1('a2_armazon_id', codArmazon2) 
+
+        localStorage.getItem('a3_armazon')
+                              ? setArmazon3(localStorage.getItem('a3_armazon')?.split(','))
+                              : fetchArmazones1('a3_armazon_id', codArmazon3)
+
+      
     },[])
 
 
-
-
+    console.log(armazon1)
+    console.log(armazon2)
 
     // console.log(tipo_de_anteojo.value)
 

@@ -1,6 +1,5 @@
 import { signal } from "@preact/signals-react"
-import { DioptriasReceta, buscarCampo,  buscarCampoNivel3,  clearDioptriasA2, clearSelectInput, dioptrias_receta, reiniciarA2DioptriasReceta, tipo_de_anteojo } from "."
-import { validationNivel2 } from "../views/forms/FOT"
+import { DioptriasReceta, buscarCampo,  buscarCampoNivel3,  clearDioptriasA2, clearSelectInput, dioptrias_receta, reiniciarA2DioptriasReceta, tipo_de_anteojo, validationNivel2 } from "."
 
 
 export const deshabilitarCampo = signal({

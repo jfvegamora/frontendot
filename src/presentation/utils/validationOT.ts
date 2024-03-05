@@ -1,5 +1,4 @@
-import { A1_CR_OD, A1_CR_OI, A2_CR_OD, A2_CR_OI, a1_armazon, a1_od_cil, a1_od_eje, a1_od_esf, a1_oi_cil, a1_oi_eje, a1_oi_esf, a2_armazon, dioptrias_receta, tipo_de_anteojo } from ".";
-import { validationNivel1, validationNivel2, validationNivel3 } from "../views/forms/FOT";
+import { A1_CR_OD, A1_CR_OI, A2_CR_OD, A2_CR_OI, a1_armazon, a1_od_cil, a1_od_eje, a1_od_esf, a1_oi_cil, a1_oi_eje, a1_oi_esf, a2_armazon, dioptrias_receta, tipo_de_anteojo, validationNivel1, validationNivel2, validationNivel3 } from ".";
 
 export const validationProyectos = (value:string) => {
     if(value !== ''){

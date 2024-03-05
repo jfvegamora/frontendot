@@ -1,4 +1,3 @@
-import { validationNivel1, validationNivel2, validationNivel3 } from "../views/forms/FOT";
 import axios from "axios";
 import { URLBackend } from "../hooks/useCrud";
 
@@ -109,6 +108,205 @@ export const procesarRender     = signal(40);
 
 // fechaHoraActual
 
+export const validationNivel1 = signal([
+  { campo:"proyecto",
+    valor: 0
+  },
+  { campo:"establecimiento_id",
+    valor: 0
+  },
+  { campo:"cliente_rut",
+    valor: 0
+  },
+  {
+    campo: "cliente_nombre",
+    valor: 0
+  },
+  {
+    campo : "cliente_tipo",
+    valor : 0
+  },
+  {
+    campo : "cliente_sexo",
+    valor : 0
+  },
+  {
+    campo : "cliente_telefono",
+    valor : 0
+  },
+  {
+    campo : "cliente_comuna",
+    valor : 0
+  },
+  { campo:"fecha_atencion",
+    valor: 0
+  },
+  { campo:"punto_venta_id",
+    valor: 0
+  },
+  { campo:"tipo_anteojo_id",
+    valor: 0
+  },
+]);
+
+export const validationNivel2 = signal([
+  { campo: "fecha_entrega_taller",
+    valor: 0
+  },
+  { campo: "fecha_despacho",
+    valor: 0
+  },
+  { campo: "fecha_entrega_cliente",
+    valor: 0
+  },
+  { campo: "a1_od_esf",
+    valor: 0
+  },
+  { campo: "a1_od_cil",
+    valor: 0
+  },
+  { campo: "a1_od_eje",
+    valor: 0
+  },
+  { campo: "a1_od_ad",
+    valor: 1
+  },
+  { campo: "a1_oi_ad",
+    valor: 1
+  },
+  { campo: "a1_oi_esf",
+    valor: 0
+  },
+  { campo: "a1_oi_cil",
+    valor: 0
+  },
+  { campo: "a1_oi_eje",
+    valor: 0
+  },
+  { campo: "a1_dp",
+    valor: 0
+  },
+  { campo: "a1_alt",
+    valor: 0
+  },
+  { campo:'combinaciones_validas',
+    valor: 0
+  },
+  { campo: "a2_od_esf",
+    valor: 0
+  },
+  { campo: "a2_od_cil",
+    valor: 0
+  },
+  { campo: "a2_od_eje",
+    valor: 0
+  },
+  { campo: "a2_oi_esf",
+    valor: 0
+  },
+  { campo: "a2_oi_cil",
+    valor: 0
+  },
+  { campo: "a2_oi_eje",
+    valor: 0
+  },
+  { campo: "a2_dp",
+    valor: 0
+  },
+
+
+  //A2_GRUPO
+  { campo: "a1_armazon_id",
+    valor: 0
+  },
+  { campo: "a2_armazon_id",
+    valor: 0
+  },
+
+
+
+ 
+  { campo: "cristal1_marca_id",
+    valor: 0
+  },
+  { campo: "cristal1_diseno_id",
+    valor: 0
+  },
+  { campo: "cristal1_indice_id",
+    valor: 0
+  },
+  { campo: "cristal1_material_id",
+    valor: 0
+  },
+  { campo: "cristal1_tratamiento_id",
+    valor: 0
+  },
+  { campo: "cristal1_color_id",
+    valor: 0
+  },
+  { campo: "cristal1_diametro",
+    valor: 0
+  },
+
+  { campo: "cristal1_od",
+    valor: 0
+  },
+  { campo: "cristal1_oi",
+    valor: 0
+  },
+ 
+
+
+  
+  { campo: "cristal2_marca_id",
+    valor: 0
+  },
+  { campo: "cristal2_diseno_id",
+    valor: 0
+  },
+  { campo: "cristal2_indice_id",
+    valor: 0
+  },
+  { campo: "cristal2_material_id",
+    valor: 0
+  },
+  { campo: "cristal2_tratamiento_id",
+    valor: 0
+  },
+  { campo: "cristal2_color_id",
+    valor: 0
+  },
+  { campo: "cristal2_diametro",
+    valor: 0
+  },
+  { campo: "cristal2_od",
+    valor: 0
+  },
+  { campo: "cristal2_oi",
+    valor: 0
+  }
+])
+
+export const validationNivel3 = signal([
+  { campo:"validar_cristal1_od",
+    valor: 0
+  },
+  { campo:"validar_cristal1_oi",
+    valor: 0
+  },
+  { campo:"validar_cristal2_od",
+    valor: 0
+  },
+  { campo:"validar_cristal2_oi",
+    valor: 0
+  },
+  { campo:"validar_armazon1",
+    valor: 0
+  },
+  { campo:"validar_armazon2",
+    valor: 0
+  },
+])
 
 
 export const excelOTValidationStructure = signal([
@@ -199,6 +397,77 @@ export function reiniciarDioptriasReceta() {
     dioptrias_receta.value.a2_oi.eje.value = undefined;
   }
 
+export const getDatosOT = (data:any) => {
+  codigoProyecto.value = data[EnumGrid.proyecto_codigo]
+      punto_venta.value    = data[EnumGrid.punto_venta_id]
+  
+      isToggleImpression.value = data[EnumGrid.estado_impresion_id]        === '1' ? true : false
+      isToggleValidation.value = data[EnumGrid.validar_parametrizacion_id] === '1' ? true : false
+      tipo_de_anteojo.value = data[EnumGrid.tipo_anteojo_id].toString();
+      
+      fecha_atencion_signal.value = data[EnumGrid.fecha_atencion]
+      fecha_entrega_taller.value = data[EnumGrid.fecha_entrega_taller]
+      fecha_despacho.value = data[EnumGrid.fecha_despacho]
+      fecha_entrega_cliente.value = data[EnumGrid.fecha_entrega_cliente]
+  
+      cliente_rut.value    = data[EnumGrid.cliente_rut]
+      oftalmologo_id.value = data[EnumGrid.oftalmologo_id]
+  
+      // if(isEditting){
+      //   validation_tipo_anteojo()
+      // }
+  
+      dioptrias_receta.value.a1_od.esf = data[EnumGrid.a1_od_esf]
+      dioptrias_receta.value.a1_od.cil = data[EnumGrid.a1_od_cil]
+      dioptrias_receta.value.a1_od.eje = data[EnumGrid.a1_od_eje]
+      dioptrias_receta.value.a1_od.ad  = data[EnumGrid.a1_od_ad]
+      
+  
+      dioptrias_receta.value.a1_oi.esf = data[EnumGrid.a1_oi_esf]
+      dioptrias_receta.value.a1_oi.cil = data[EnumGrid.a1_oi_cil]
+      dioptrias_receta.value.a1_oi.eje = data[EnumGrid.a1_oi_eje]
+      dioptrias_receta.value.a1_oi.ad  = data[EnumGrid.a1_oi_ad]
+  
+  
+      A1_CR_OD.value =  data[EnumGrid.cristal1_od]
+      A1_CR_OI.value =  data[EnumGrid.cristal1_oi]
+  
+  
+      // a1_od_esf.value = data[EnumGrid.a1_od_esf]
+  
+  
+      a2_od_esf.value = data[EnumGrid.a2_od_esf]
+      a2_od_cil.value = data[EnumGrid.a2_od_cil]
+      a2_od_eje.value = data[EnumGrid.a2_od_eje]
+  
+  
+      a2_oi_esf.value = data[EnumGrid.a2_oi_esf]
+      a2_oi_cil.value = data[EnumGrid.a2_oi_cil]
+      a2_oi_eje.value = data[EnumGrid.a2_oi_eje]
+  
+      A1_GRUPO_OD.value = data[EnumGrid.a1_grupo_od] 
+      A1_GRUPO_OI.value = data[EnumGrid.a1_grupo_oI]
+      A2_GRUPO_OD.value = data[EnumGrid.a2_grupo_od]
+      A2_GRUPO_OI.value = data[EnumGrid.a2_grupo_oi]
+
+      A1_ALT.value = data[EnumGrid.a1_alt]
+  
+      A1_Diametro.value = data[EnumGrid.cristal1_diametro]
+      A2_Diametro.value = data[EnumGrid.cristal2_diametro]
+  
+      A1_DP.value = data[EnumGrid.a1_dp]
+      A2_DP.value = data[EnumGrid.a2_dp]
+      
+      a1_armazon.value = data[EnumGrid.a1_armazon_id]
+      a2_armazon.value = data[EnumGrid.a2_armazon_id]
+      a3_armazon.value = data[EnumGrid.a3_armazon_id]
+  
+      A1_CR_OD.value   = data[EnumGrid.cristal1_od]
+      A1_CR_OI.value   = data[EnumGrid.cristal1_oi]
+      A2_CR_OD.value   = data[EnumGrid.cristal2_od] 
+      A2_CR_OI.value   = data[EnumGrid.cristal2_oi] 
+
+}
 
 export const reiniciarValidationNivel2 = (keepForm?:boolean) => {
     validationNivel2.value.forEach((item) => {
@@ -255,6 +524,13 @@ export const reiniciarValidationNivel3 = () => {
       item.valor = 0;
     });
 };
+
+export const clearArmazonesData = () =>{
+  localStorage.removeItem('a1_armazon')
+  localStorage.removeItem('a2_armazon')
+  localStorage.removeItem('a3_armazon')
+  return;
+}
 
 export const actualizarVariable = (name: string, value: any) => {
     // console.log('name', name)
@@ -868,11 +1144,11 @@ export const updateOT =async (
       _usuario:`${  user}`,
       _situacion: situacion || "0",
       _obs: "",
-      _cristalesJSON: JSON.stringify(data.cristales),
-      _armazonesJSON: JSON.stringify(data.armazones),
-      _punto_venta: `${data.punto_venta}`,
       _cristalJSONOri: JSON.stringify(data.cristales),
       _armazonJSONOri: JSON.stringify(data.armazones),
+      _punto_venta: `${data.punto_venta}`,
+      _cristalJSONNew: JSON.stringify(data.cristales),
+      _armazonJSONNew: JSON.stringify(data.armazones),
       _motivo:  `${motivo}`
     }
 
@@ -1022,7 +1298,7 @@ export const updateOT =async (
     })
     .filter(item => item !== null);
 
-  const _cristalesJSON = JSON.stringify(cristales)
+  const _cristalJSONNew = JSON.stringify(cristales)
   const armazones = [
     { codigo: `${a1_armazon.value}` },
     { codigo: `${a2_armazon.value}` },
@@ -1035,7 +1311,7 @@ export const updateOT =async (
       return null; 
     })
     .filter(item => item !== null);
-const _armazonesJSON = JSON.stringify(armazones)
+const _armazonJSONNew = JSON.stringify(armazones)
 
   const filteredFields = fields
                           .map((a)=>a.split('='))
@@ -1048,10 +1324,6 @@ const _armazonesJSON = JSON.stringify(armazones)
   _p1 = _p1.replace(/'/g, '!');
 
 
-    // console.log(_estado)
-    // console.log(_origen)
-    // console.log(_destino)
-
   const query = {
     query: "04",
     _p1,
@@ -1059,28 +1331,22 @@ const _armazonesJSON = JSON.stringify(armazones)
     _p3: _p3 || "",
     _proyecto: `${codigoProyecto.value}`,
     _folio: `${data && data[EnumGrid.folio]}` ,
-    // _origen : _origen.toString(),
     _origen : _origen.toString(),
     _rut: `${cliente_rut.value}`,
     _destino: _destino.toString(),
     _estado:_estado.toString(), 
-    // _usuario:User["id"].toString(),
     _usuario:user,
     _situacion:situacion || "0",
     _obs: _obs ? _obs : "",
-    _cristalesJSON,
-    _armazonesJSON,
+    _cristalJSONNew,
+    _armazonJSONNew,
     _punto_venta: `${jsonData.punto_venta_id || data[EnumGrid.punto_venta_id]}`,
     _motivo: `${motivo}`,
-    // _cristalJSONOri: JSON.stringify(OTSlice.cristales),
-    // _armazonJSONOri: JSON.stringify(OTSlice.armazones)
     _cristalJSONOri: JSON.stringify(cristalOri),
     _armazonJSONOri: JSON.stringify(armazonOri)
-    
-
   };
-  // console.log(_p1)
-  // console.log(query)
+
+
   try {
     const response = await axios.post(`${URLBackend}/api/ot/editar/`, query)
     console.log(response)
@@ -1101,6 +1367,8 @@ const _armazonesJSON = JSON.stringify(armazones)
 
 
 }
+
+
 
 
 

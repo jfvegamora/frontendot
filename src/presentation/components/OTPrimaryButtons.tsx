@@ -3,6 +3,7 @@ import React, { Suspense, useCallback, useRef, useState } from 'react';
 
 import { SiAddthis } from 'react-icons/si';
 import { PiPrinterFill } from "react-icons/pi";
+import { PiMicrosoftExcelLogoFill } from "react-icons/pi";
 import { ImWhatsapp } from "react-icons/im";
 import { BUTTON_MESSAGES, updateOT } from '../utils';
 import { usePermission } from '../hooks';
@@ -10,10 +11,7 @@ import ImportToCsv from './ImportToCsv';
 import { AppStore, useAppDispatch, useAppSelector } from '../../redux/store';
 import { toast } from 'react-toastify';
 import { clearImpression, fetchOT, fetchOTImpresionByID} from '../../redux/slices/OTSlice';
-// import { URLBackend } from '../hooks/useCrud';
-// import { useReactToPrint } from 'react-to-print';
-// import FOTImpresa from '../views/forms/FOTImpresa';
-// import { ExportCSV } from './ExportToCsv';
+
 import axios from 'axios';
 import { URLBackend } from '../hooks/useCrud';
 import ErrorOTModal from './ErrorOTModal';
@@ -56,6 +54,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
     const {escritura_lectura}                         = usePermission(28);
     const dispatch                                    = useAppDispatch();
     const data:any                                    = useAppSelector((store: AppStore) => store.OTS.data)
+    const OTs: any = useAppSelector((store: AppStore) => store.OTS);
     const OTAreas:any                                 = useAppSelector((store: AppStore) => store.OTAreas)
     const User:any                                    = useAppSelector((store: AppStore) => store.user)
     const componentRef                                = useRef<any>(null);
@@ -65,6 +64,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
     const [dataOT, setDataOT]                         = useState();
     const [valueSearchOT, setValueSearchOT]           = useState<any>();
     const searchOTRef                                 = useRef<any>();
+    const userState: any = useAppSelector((store: AppStore) => store.user);
 
     const folios = pkToDelete && pkToDelete.map(({folio}:any)=>folio)
 
@@ -365,7 +365,79 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
       toast.success('OTs Procesadas Correctamente')
     }
 
-    // console.log(areaPermissions)
+
+
+
+
+    console.log(areaPermissions && areaPermissions[14])
+
+
+    
+    const handleReporteFirma = async() => {
+      let resultBoton:any = []
+  
+      if(pkToDelete.length < 1){
+        toast.error('No Hay OT Seleccionada')
+        return;
+      }
+      
+      console.log(pkToDelete)
+     
+      const resultadoFiltrado = OTs.data && OTs.data.filter((elemento:any) => folios.includes(elemento[1])); 
+     
+      resultadoFiltrado.map((ot:any)=>{
+        const estadoCOL = ot[4]
+  
+        if(estadoCOL !== 'Anulada'){
+           resultBoton =  [...resultBoton, [ot[1], true]]
+        }else{
+            resultBoton =  [...resultBoton, [ot[1], ot[4]]]
+        }
+      })
+      
+      
+      const areAllSameType = resultBoton.every((item:any) => item[1] === true);
+  
+      if(!areAllSameType){
+        resultBoton.map((ot:any)=>{
+            if(typeof ot[1] === 'string'){
+              toast.error(`Error: folio ${ot[0]}  | ${ot[1]}`);
+            }
+          } 
+        ) 
+      }else{  
+          const toastLoading = toast.loading('Cargando...');
+        try {
+          const query = {
+            _proyecto   :    pkToDelete[0]["proyecto_codigo"],
+            _pkToDelete :   JSON.stringify(resultBoton.map((folioOT:any)=>({folio: folioOT[0]}))),
+            _id         :   2,
+            _usuario    :   userState["id"]
+          }
+    
+    
+          const strUrl      = `${URLBackend}/api/proyectodocum/listado`
+          const queryURL    = `?query=06&_p2=${query["_proyecto"]}&_id=${query["_id"]}&_pkToDelete=${query["_pkToDelete"]}&_p4=${query["_usuario"]}`
+          const result      = await axios(`${strUrl}/${queryURL}`);
+          console.log(result)        
+          if(result.status === 200){
+            const successMessage = `Reporte firma generado: ${result.data[0][0]}`
+
+            dispatch(fetchOT({searchParams: `_proyecto=${query["_proyecto"]}`}))
+            setSelectedRows([])
+            toast.dismiss(toastLoading)
+            toast.success(successMessage)
+        }
+        } catch (error) {
+          toast.dismiss(toastLoading)
+          console.log(error)
+          throw error;
+        }
+      }
+    }
+
+
+
 
     return (
     <div className='flex items-center   ml-[4rem] !w-full'>
@@ -414,6 +486,20 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
             BUTTON_MESSAGES.Whatsapp
           )
         )}
+
+      {areaPermissions && areaPermissions[13] === "1" && escritura_lectura && (
+          <Tooltip content={'Descargar Plantilla Excel'} >
+            <IconButton 
+              className='primaryBtnIconButton'
+              variant='text'
+              color="blue-gray"
+            >
+              <PiMicrosoftExcelLogoFill className='primaryBtnIcon' onClick={()=>handleDownloadMacro()} />
+
+            </IconButton>
+            {/* <Button color="green" className='otActionButton mx-4' >Macro Excel</Button> */}
+          </Tooltip>
+        )}
         {areaPermissions && areaPermissions[6] === '1' && escritura_lectura && (
           <Tooltip content={BUTTON_MESSAGES.procesar}>
               {/* <button className='bg-green-400 mx-4 transition-transform transform hover:scale-110 active:scale-95 w-[10rem] h-[2.5rem]  text-white '  */}
@@ -421,12 +507,24 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
               onClick={handleProcesarMasivo}>Procesar</Button>
           </Tooltip>
         )}
-         {areaPermissions && areaPermissions[13] === "1" && escritura_lectura && (
-          <Tooltip content={BUTTON_MESSAGES.procesar} >
-            <Button color="green" className='otActionButton mx-4' onClick={()=>handleDownloadMacro()}>Macro Excel</Button>
+
+        {areaPermissions && areaPermissions[12] === "1" && escritura_lectura && (
+          <Tooltip content='Generar Número de Envío'>
+              <Button className='otActionButton ml-4'  onClick={()=>setIsFOTEmpaque((prev)=>!prev)}>N° de Envio</Button>
           </Tooltip>
-        )
-        }
+          )}
+
+
+         
+
+        {areaPermissions && areaPermissions[14] === '1' && escritura_lectura && (
+          <Tooltip content={'Generar Reporte de Firmas'}>
+            <Button className='otActionButton mt-3 mx-5' style={{ backgroundColor: '#676f9d' }} onClick={() => handleReporteFirma()}>N° Rep. Firma</Button>  
+          </Tooltip>
+        )}
+
+
+
         <Suspense>
           <div className='hidden'>
             <FOTImpresa ref={componentRef} />
@@ -442,11 +540,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
             <Input type="text" label='Buscar OT' name='searchOT' color='orange' ref={searchOTRef} onBlur={(e:any)=>handleChecked(e.target.value)} value={valueSearchOT} onChange={(e:any)=>setValueSearchOT(e.target.value)} />
           </div>
 
-          {areaPermissions && areaPermissions[12] === "1" && escritura_lectura && (
-          <div className='ml-2'>
-            <Button onClick={()=>setIsFOTEmpaque((prev)=>!prev)}>N° de Envio</Button>
-          </div>
-          )}
+          
 
         {isShowErrorOTModal && (
           <ErrorOTModal onClose={()=>setIsShowErrorOTModal(false)} data={dataOT && dataOT}/>

@@ -30,6 +30,7 @@ type AreaButtonsProps ={
 }
 
 const strEntidad = "Orden de Trabajo";
+
 // const FOTImpresa = React.lazy(()=>import('../views/forms/FOTImpresa'));
 
 
@@ -47,6 +48,7 @@ const OTGrillaButtons:React.FC<AreaButtonsProps> = ({ areaPermissions, toggleEdi
     suppressErrors: true,
     removeAfterPrint: true,
     onAfterPrint() {
+        
         imprimirComprobanteRetiro()
     },
 });

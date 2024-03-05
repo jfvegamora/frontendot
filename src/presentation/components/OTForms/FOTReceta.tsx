@@ -300,7 +300,7 @@ const FOTReceta:React.FC<IReceta> = ({
                             data={A1_DP.value ||  data && data[EnumGrid.a1_dp]}
                             control={control}
                             isOT={true}
-                            onlyRead={!(permiso_usuario_receta && permiso_areas_receta)}
+                            onlyRead={!(!isEditting || (permiso_usuario_receta && permiso_areas_receta))}
                             textAlign="text-center"
                             />
                     </div>

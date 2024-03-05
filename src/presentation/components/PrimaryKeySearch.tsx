@@ -8,11 +8,12 @@ import { SelectInputComponent } from ".";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import SelectInputTiposComponent from "./forms/SelectInputTiposComponent";
-import { AppStore, useAppDispatch, useAppSelector } from "../../redux/store";
+import { useAppDispatch } from "../../redux/store";
 import { fetchOT } from "../../redux/slices/OTSlice";
 import { useCrud } from "../hooks";
 import { toast } from "react-toastify";
 import { paramsOT } from "../views/mantenedores/MOT";
+import { areaActualOT } from "./OTAreasButtons";
 // import { sesionExpirada } from "../../redux/slices/userSlice";
 
 interface IPrimaryKeyState {
@@ -54,7 +55,8 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
       description || ""
     );
     const dispatch = useAppDispatch();
-    const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas);
+    // const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas);
+
     // const OTs:any = useAppSelector((store: AppStore) => store.OTS.data);
     const { ListEntity } = useCrud(baseUrl);
     // console.log("cristalDescritpion", cristalDescritpion[3]);
@@ -114,12 +116,11 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
           className = "flex mb-auto items-cente w-[70rem]  items-center "
           break;
     }
-      
 
 
 
 
-    const handleSearch = React.useCallback(async (data: any) => {
+    const handleSearch = async (data: any) => {
       const toastLoading = toast.loading('Buscando...');
       // filterToggle.value = false;
       console.log(data)
@@ -161,12 +162,11 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
       
       data && updateParams([searchParams]);
       // console.log(searchParams)
-      // console.log(OTAreas["areaActual"])
-      
+
       try {
         const response = otHistorica 
-                            ?  dispatch(fetchOT({OTAreas:OTAreas["areaActual"], searchParams:searchParams, historica:true}))
-                            :  baseUrl === '/api/ot/' ? dispatch(fetchOT({OTAreas:OTAreas["areaActual"], searchParams:searchParams, historica:false}))  :  await ListEntity(searchParams, "01")
+                            ?  dispatch(fetchOT({OTAreas:areaActualOT.value, searchParams:searchParams, historica:true}))
+                            :  baseUrl === '/api/ot/' ? dispatch(fetchOT({OTAreas:areaActualOT.value, searchParams:searchParams, historica:false}))  :  await ListEntity(searchParams, "01")
 
         
         
@@ -184,7 +184,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
         toast.dismiss(toastLoading)
         return error;
       }
-    }, [OTAreas["areaActual"]]);
+    };
 
 
 

@@ -1,14 +1,17 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import { AppStore, useAppDispatch, useAppSelector } from '../../redux/store';
 import { Button } from "@material-tailwind/react";
 import { updateActualArea, updateNextArea } from '../../redux/slices/OTAreasSlice';
 import { clearData, fetchOT } from '../../redux/slices/OTSlice';
+import { signal } from '@preact/signals-react';
 
 
 interface IOTAreaButtons {
   setSelectedRows:any;
   params: any;
 }
+
+export const areaActualOT = signal('')
 
 
 
@@ -29,6 +32,7 @@ const handleEstado =(area:any) => {
     dispatch(clearData())
     setAreaActual(area[1]) 
     dispatch(updateActualArea(area && area[1]))
+    areaActualOT.value = area && area[1]
     // dispatch(updateActualArea(area && area[1]))
     dispatch(updateNextArea(area && area[4]))
     setBotonPresionado(area && area[1]);

@@ -185,6 +185,86 @@ const strBaseUrl = "/api/othistorica/";
 const strQuery = "14";
 const idMenu = 1;
 
+// export const handleReporte = async(type:number, pktoDelete:any, OTs:any, folios:any) => {
+//   let resultBoton:any = []
+
+//   if(pktoDelete.length < 1){
+//     return;
+//   }
+  
+//   console.log(pktoDelete)
+//   const resultadoFiltrado = OTs.data && OTs.data.filter((elemento:any) => folios.includes(elemento[1]));
+
+  
+//   //TODO: TIPO 1 REPORTE DE ATENCION
+//   if(type === 1){
+//     //? VALIDACIONES DEL METODO
+//     resultadoFiltrado.map((ot:any)=>{
+//       const estadoCOL = ot[4]
+
+//       if(estadoCOL === 'Entregada'){
+//         resultBoton =  [...resultBoton, [ot[1], true]]
+//       }else{
+//         resultBoton =  [...resultBoton, [ot[1], ot[4]]]
+//       }
+
+//     })
+//   //TODO: TIPO 2 REPORTE FIRMA 
+//   }else if (type === 2){
+//     resultadoFiltrado.map((ot:any)=>{
+//       const estadoCOL = ot[4]
+
+//       if(estadoCOL !== 'Anulada'){
+//         resultBoton =  [...resultBoton, [ot[1], true]]
+//       }else{
+//         resultBoton =  [...resultBoton, [ot[1], ot[4]]]
+//       }
+//     })
+//   }
+  
+//   const areAllSameType = resultBoton.every((item:any) => item[1] === true);
+
+//   if(!areAllSameType){
+//     resultBoton.map((ot:any)=>{
+//         if(typeof ot[1] === 'string'){
+//           toast.error(`Error: folio ${ot[0]}  | ${ot[1]}`);
+//         }
+//       } 
+//     ) 
+//   }else{  
+//       const toastLoading = toast.loading('Cargando...');
+//     try {
+//       const query = {
+//         _proyecto   :    pktoDelete[0]["proyecto_codigo"],
+//         _pkToDelete :   JSON.stringify(resultBoton.map((folioOT:any)=>({folio: folioOT[0]}))),
+//         _id         :   type,
+//         _usuario    :   userState["id"]
+//       }
+
+
+//       const strUrl      = `${URLBackend}/api/proyectodocum/listado`
+//       const queryURL    = `?query=06&_p2=${query["_proyecto"]}&_id=${query["_id"]}&_pkToDelete=${query["_pkToDelete"]}&_p4=${query["_usuario"]}`
+//       const result      = await axios(`${strUrl}/${queryURL}`);
+//       // console.log(result)        
+//       if(result.status === 200){
+//         const successMessage = type === 2  
+//                                        ? `Reporte firma generado: ${result.data[0][0]}`
+//                                        : `Reporte de atencion generado: ${result.data[0][0]}`
+        
+//         dispatch(fetchOT({historica:true, searchParams: `_proyecto=${query["_proyecto"]}`}))
+//         setSelectedRows([])
+//         toast.dismiss(toastLoading)
+//         toast.success(successMessage)
+//     }
+//     } catch (error) {
+//       toast.dismiss(toastLoading)
+//       console.log(error)
+//       throw error;
+//     }
+//   }
+// }
+
+
 
 const MOTHistorica: React.FC = () => {
   const [showOrdenCompra, setShowOrdenCompra] = useState(false);
@@ -247,6 +327,11 @@ const MOTHistorica: React.FC = () => {
   const handleReporte = async(type:number) => {
     let resultBoton:any = []
 
+    if(pktoDelete.length < 1){
+      return;
+    }
+    
+    console.log(pktoDelete)
     const resultadoFiltrado = OTs.data && OTs.data.filter((elemento:any) => folios.includes(elemento[1]));
 
     
@@ -309,17 +394,12 @@ const MOTHistorica: React.FC = () => {
           setSelectedRows([])
           toast.dismiss(toastLoading)
           toast.success(successMessage)
-          
-        
       }
-
-        
       } catch (error) {
         toast.dismiss(toastLoading)
         console.log(error)
         throw error;
       }
-
     }
   }
 
@@ -374,7 +454,7 @@ const MOTHistorica: React.FC = () => {
       <div className="mantenedorHeadOT width100 !h-[4rem] !mt-8 mr-8 items-center ">
         <div className="mx-auto">
 
-          <Button className='otActionButton mt-3 mx-5' style={{ backgroundColor: '#676f9d' }} onClick={() => handleReporte(2)}>N° Rep. Firma</Button>
+          {/* <Button className='otActionButton mt-3 mx-5' style={{ backgroundColor: '#676f9d' }} onClick={() => handleReporte(2)}>N° Rep. Firma</Button> */}
           <Button className='otActionButton mt-3 mx-5' style={{ backgroundColor: '#676f9d' }} onClick={() => handleReporte(1)} >N° Rep. Atención</Button>
 
           <Button className='otActionButton mt-3 mx-5' style={{ backgroundColor: '#676f9d' }} onClick={() => setShowOrdenCompra((prev) => !prev)}>N° OC</Button>
