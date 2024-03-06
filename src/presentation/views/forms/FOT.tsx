@@ -105,16 +105,17 @@ const FOT:React.FC<IFOTProps> = ({
   //PERMISOS DE CAMPOS
   const permisosCampos           = useAppSelector((store: AppStore) => store.user?.permisos_campos);
 
-  let permiso_usuario_armazones           = permisosCampos && (data && data[EnumGrid.bodega_procesado] === 0)  ? (permisosCampos[0] === "1" ? true : false) : false;
+  let permiso_usuario_armazones           = permisosCampos && isEditting  ? (data && data[EnumGrid.bodega_procesado] === 0 ?  (permisosCampos[0] === "1" ? true : false) : false) : (permisosCampos[0] === "1" ? true : false)
   let permiso_usuario_cristales           = permisosCampos && permisosCampos[1] === "1" ? true : false;
   let permiso_usuario_estado_impresion    = permisosCampos && permisosCampos[2] === "1" ? true : false;
   let permiso_usuario_estado_validacion   = permisosCampos && permisosCampos[3] === "1" ? true : false;
   let permiso_usuario_resolucion_garantia = permisosCampos && permisosCampos[4] === "1" ? true : false;
-  let permiso_usuario_grupo_dioptria      = permisosCampos && (data && data[EnumGrid.bodega_procesado] === 0)  ? (permisosCampos[5] === "1" ? true : false) : false;
-  let permiso_usuario_receta              = permisosCampos && (data && data[EnumGrid.bodega_procesado] === 0)  ? (permisosCampos[6] === "1" ? true : false) : false;
+  let permiso_usuario_grupo_dioptria      = permisosCampos && isEditting ?  (data && data[EnumGrid.bodega_procesado] === 0  ? (permisosCampos[5] === "1" ? true : false) : false) : (permisosCampos[5] === "1" ? true : false)
+  let permiso_usuario_receta              = permisosCampos && isEditting ?  (data && data[EnumGrid.bodega_procesado] === 0  ? (permisosCampos[6] === "1" ? true : false) : false) : (permisosCampos[6] === "1" ? true : false)
   let permiso_usuario_verificar_cristal   = permisosCampos && permisosCampos[7] === "1" ? true : false;
   // let permiso_usuario_verificar_armazon   = permisosCampos && permisosCampos[8] === "1" ? true : false;
 
+  console.log(permisosCampos && permisosCampos[0])
 
   const permisosAreas = OTAreaActual && permissions(OTAreaActual)[6] as any
   // console.log(permisosAreas && permiso_usuario_verificar_cristal)
