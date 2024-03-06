@@ -353,7 +353,7 @@ const FArmazonesKardexOUT: React.FC<IUserFormPrps> = React.memo(
             </div>
 
             <div className="w-full flex items-center h-[4rem]">
-            <div className="input-container items-center rowForm w-[100%]  ">
+              <div className="input-container items-center rowForm w-[100%]  ">
                 <div className="w-full">
                   <SelectInputComponent
                     label="Motivo Egreso"
