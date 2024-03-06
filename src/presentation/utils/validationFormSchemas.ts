@@ -210,6 +210,7 @@ export const validationKardexOUTSchema = () =>
     observaciones        : yup.string(),
     usuario              : yup.string(),
     fecha_mov            : yup.string(),
+    ot                   : yup.string(),
     almacen_relacionado  : yup.string().test({
                             test: function(value) {
                               const motivoEgreso = this.resolve(yup.ref('motivo_egreso'));
