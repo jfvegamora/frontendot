@@ -537,7 +537,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
         )} */}
 
           <div className='ml-2'>
-            <Input type="text" label='Buscar OT' name='searchOT' color='orange' ref={searchOTRef} onBlur={(e:any)=>handleChecked(e.target.value)} value={valueSearchOT} onChange={(e:any)=>setValueSearchOT(e.target.value)} />
+            <Input type="text" label='Buscar OT' name='searchOT' className='text-xl' color='orange' ref={searchOTRef} onBlur={(e:any)=>handleChecked(e.target.value)} value={valueSearchOT} onChange={(e:any)=>setValueSearchOT(e.target.value)} />
           </div>
 
           

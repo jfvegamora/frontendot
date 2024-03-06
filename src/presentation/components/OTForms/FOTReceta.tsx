@@ -85,7 +85,8 @@ const FOTReceta:React.FC<IReceta> = ({
     // console.log(isRender)
 
 
-
+    console.log(permiso_usuario_receta)
+    console.log(permiso_areas_receta)
     
   return (
     <form>

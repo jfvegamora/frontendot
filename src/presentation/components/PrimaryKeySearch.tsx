@@ -457,10 +457,10 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
     // }, [inputValues]);
 
     return (
-      <form className="primaryKeyContainer items-center relative">
+      <form className="primaryKeyContainer items-center relative ">
         {renderInputs()}
         {/* <div className={`${otHistorica ? "ml-[-13rem] mr-20" : ""}   w-[60px] `}> */}
-        <div className={`w-[60px] `}>
+        <div className={`w-[80px] h-[50px] absolute  ${baseUrl === '/api/ot/' ? 'left-[84rem]' : ''} `}>
           <Tooltip content="Buscar">
               <IconButton
               tabIndex={1}
@@ -475,9 +475,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                   return handleSubmit(handleSearch)()
                 }}
               >
-                {/* <MemoizedMagnifyingGlassIcon /> */}
-                {/* <MagnifyingGlassIcon className="primaryKeyIcon" se} /> */}
-                <FontAwesomeIcon icon={faMagnifyingGlass} className="primaryKeyIcon"/>
+                <FontAwesomeIcon icon={faMagnifyingGlass} className="primaryKeyIcon w-full  !mt-2"/>
             </IconButton>
           </Tooltip>
         </div>

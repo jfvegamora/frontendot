@@ -52,9 +52,9 @@ body {
   font-size:medium;
 }
 
-.labelInput label, .labelInput input{
+/* .labelInput label, .labelInput input{
   font-size:medium !important;
-}
+} */
 
 .font-menu{
   color: #424769;

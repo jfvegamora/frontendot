@@ -224,20 +224,21 @@ const MOT: React.FC = () => {
                 { name: "_folio", label: "Folio", type: "text" },
                 { name: "_rut", label: "Rut", type: "text" },
 
-                { name: "_fecha_desde", label: "Atención Desde", type: "date", styles: { with: "w-[18.2rem]  !h-[6rem]" } },
-                { name: "_fecha_hasta", label: "Atención Hasta", type: "date", styles: { with: "w-[18.2rem]  !h-[6rem]" } },
+                { name: "_fecha_desde", label: "Atención Desde", type: "date", styles: { with: "w-[8rem]  !h-[6rem]" } },
+                { name: "_fecha_hasta", label: "Atención Hasta", type: "date", styles: { with: "w-[8rem]  !h-[6rem] !absolute left-[10rem]" } },
+                { name: "_usuario", label: "Usuario", type: "select",selectUrl: "/api/usuarios/", styles: { with: "w-[20.4rem]  !h-[6rem] !absolute top-[10rem] left-[20rem]" } },
 
-                { name: "_estado", label: "Estado", type: "select", selectUrl: "/api/tipos/", tipos: "OTEstados", styles: { with: "w-[20.4rem]" }},
+                { name: "_estado", label: "Estado", type: "select", selectUrl: "/api/tipos/", tipos: "OTEstados", styles: { with: "w-[20.4rem] absolute left-0" }},
                 { name: "_establecimiento", label: "Establecimiento", type: "select", selectUrl: "/api/establecimientos/", styles: { with: "w-[20.4rem]" }},
 
                 { name: "_nombre", label: "Nombre", type: "text" },
-                { name: "_motivo", label: "Motivo", type: "select", selectUrl: "/api/tipos/", tipos: "OTMotivo"},
+                { name: "_motivo", label: "Motivo", type: "select", selectUrl: "/api/tipos/", tipos: "OTMotivo", styles: { with: "w-[20.4rem]" }},
 
                 { name: "_p2", label: "Tipo Doc", type: "select", selectUrl: "/api/tipos/", tipos: "OTNumDoc", styles:{with: 'w-[20.4rem]'}},
-                { name: "_p3", label: "Número Doc", type: "text", styles: { with: "w-[18.4rem]" }},
+                { name: "_p3", label: "Número Doc", type: "text", styles: { with: "w-[19rem]" }},
 
                 { name: "_proyecto", label: "Proyecto", type: "select", selectUrl: "/api/proyectos/", styles: { with: "w-[20.4rem]" }},
-                { name: "_punto_venta", label: "Punto Venta", type: "select", selectUrl: "/api/puntosventa/", styles: { with: "w-[20.4rem]" }},
+                { name: "_punto_venta", label: "Punto Venta", type: "select", selectUrl: "/api/puntosventa/", styles: { with: "w-[20.4rem] absolute left-[20rem] !top-[6.5rem]" }},
 
               ]}
             />

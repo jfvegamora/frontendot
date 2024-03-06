@@ -287,6 +287,7 @@ const FOTCristales: React.FC<ICristales> = ({
                         onlyRead={true}
                         // onlyRead={ name === 'cristal2_grupo2_oi' || name === 'cristal2_grupo2_od' ? (!((isEditting && tipo_de_anteojo.value === '3') && (isEditting && permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria && tipo_de_anteojo.value === '3' ))) : !(isEditting && permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria)  }
                         textAlign="text-center"
+                        className='!text-2xl custom-input !w-[17rem]'
                         />  
                 </div>
             </div>)
@@ -422,6 +423,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                                 onlyRead={!(permiso_usuario_verificar_cristal)}
                                                 // onlyRead={!(isEditting && (permiso_areas_cristales && permiso_usuario_cristales))}
                                                 textAlign="text-center"
+                                                className='!text-xl custom-input !w-[12rem]'
                                             />
 
                                     </div>
@@ -437,7 +439,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                             handleChange={handleInputChange}
                                             isOT={true}
                                             data={formValues && formValues["cristal1_diametro"] ? formValues["cristal1_diametro"] : data && data[EnumGrid.cristal1_diametro]}
-                                            customWidth={'w-[8rem]'}
+                                            customWidth={'w-[8rem] !mr-2'}
                                             onlyRead={!(!isEditting || (permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria))}                                        // error={errors.fecha_nacimiento}
                                             textAlign="text-center"
                                         />
@@ -456,6 +458,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                                 onlyRead={!(permiso_usuario_verificar_cristal)}
                                                 // onlyRead={!(isEditting && (permiso_areas_cristales && permiso_usuario_cristales))}
                                                 textAlign="text-center"
+                                                className='!text-xl custom-input !w-[12rem]'
                                             />
 
                                         </div>
@@ -476,6 +479,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                             isOT={true}
                                             onlyRead={!(isEditting && (permiso_areas_cristales && permiso_usuario_cristales))}
                                             textAlign="text-center"
+                                            className='!text-xl custom-input !w-[17rem]'
                                         />
                                     </div>
                                     <div className="!w-[50%] !pr-[1rem] !ml-[-1rem]">
@@ -489,6 +493,8 @@ const FOTCristales: React.FC<ICristales> = ({
                                             control={control}
                                             onlyRead={!(isEditting && (permiso_areas_cristales && permiso_usuario_cristales))}
                                             textAlign="text-center"
+                                            className='!text-xl custom-input !w-[17rem]'
+
                                         />
                                     </div>
                                 </div>
@@ -639,6 +645,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                                 onlyRead={!(permiso_usuario_verificar_cristal)}
                                                 // onlyRead={!(isEditting && (permiso_areas_cristales && permiso_usuario_cristales))}
                                                 textAlign="text-center"
+                                                className='!text-xl custom-input !w-[12rem]'
                                             />
 
                                     </div>
@@ -657,6 +664,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                         onlyRead={!((!isEditting && tipo_de_anteojo.value === '3') || (isEditting && permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria && tipo_de_anteojo.value === '3'))}
                                         customWidth={'w-[8rem]'}
                                         textAlign="text-center"
+                                        
                                     />
                                 </div>
 
@@ -673,6 +681,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                                 onlyRead={!(permiso_usuario_verificar_cristal)}
                                                 // onlyRead={!(isEditting && (permiso_areas_cristales && permiso_usuario_cristales))}
                                                 textAlign="text-center"
+                                                className='!text-xl custom-input !w-[12rem]'
                                             />
 
                                         </div>
@@ -694,6 +703,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                             isOT={true}
                                             onlyRead={!((isEditting && tipo_de_anteojo.value === '3') && (isEditting && permiso_areas_cristales && permiso_usuario_cristales && tipo_de_anteojo.value === '3'))}
                                             textAlign="text-center"
+                                            className='!text-xl custom-input !w-[17rem]'
                                         />
                                     </div>
                                     <div className="!w-[50%] !pr-[1rem] !ml-[-1rem]">
@@ -707,6 +717,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                             isOT={true}
                                             onlyRead={!((isEditting && tipo_de_anteojo.value === '3') && (isEditting && permiso_areas_cristales && permiso_usuario_cristales && tipo_de_anteojo.value === '3'))}
                                             textAlign="text-center"
+                                            className='!text-xl custom-input !w-[17rem]'
                                         />
                                     </div>
                                 </div>

@@ -48,9 +48,11 @@ const OTGrillaButtons:React.FC<AreaButtonsProps> = ({ areaPermissions, toggleEdi
     suppressErrors: true,
     removeAfterPrint: true,
     onAfterPrint() {
-        
         imprimirComprobanteRetiro()
     },
+    onBeforePrint(){
+        console.log('render')
+    }
 });
 
 
@@ -65,42 +67,6 @@ const handleComprobantePrint = useReactToPrint({
 })
 
 
-    // const handleImpresion = async(folio:any) =>{
-    //     console.log('click')
-    //     console.log(folio)
-    //     const result = await showModal(
-    //         'Agregar Comprobante Retiro?',
-    //         'SI',
-    //         'NO'
-    //     );
-
-    //     console.log(result)
-    //     setisComRetiro(result)
-
-    //     try {
-    //        const loadingToast = toast.loading('Cargando...');                      
-    //        await new Promise((_resolve) => {
-    //           dispatch(fetchOTImpresionByID({ folio: folio, OTAreas: OTAreas['areaActual'] }))
-    //             .then(() => {
-    //                 handlePrint()
-
-    //             })
-    //             .catch((error) => {
-    //                 console.error(error);
-    //                 throw error;
-    //             })
-    //             .finally(() => {
-    //                 toast.dismiss(loadingToast);
-    //                 dispatch(clearImpression())
-    //             });
-    //         });
-            
-    //     } catch (error) {
-    //        console.log(error)
-    //        throw error; 
-    //     }
-    
-    // }
 
     const imprimirComprobanteRetiro = async() => {
         const loadingToast = toast.loading('Imprimiendo Comprobante Retiro...');

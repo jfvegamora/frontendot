@@ -229,8 +229,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
         const { name, value } = e;
         
 
-        console.log(name)
-        console.log(value)
+
         onDataChange({ [name]: value.trim() });
 
         if(name === 'a1_armazon_id'){
@@ -249,7 +248,6 @@ const FOTArmazones:React.FC<IArmazones> = ({
         // setRender((prev)=>!prev)
 
         if((name === 'a1_armazon_id' || name === 'a2_armazon_id' || 'a3_armazon_id') ){
-            console.log('render')
             fetchArmazones1(name, value)
             switch (name) {
                 case 'a1_armazon_id':
@@ -540,7 +538,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
                                         onlyRead={!(permiso_usuario_armazones && permiso_areas_armazones)}
                                         // isOT={true}
                                         textAlign="text-center"
-                                        className=''
+                                        className='!text-xl custom-input '
                                         />
 
                                 </div>
@@ -555,6 +553,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
                                         control={control}
                                         // isOT={true}
                                         textAlign="text-center"
+                                        className='!text-xl custom-input '
                                     />
                                 </div>
                             )}
@@ -622,6 +621,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
                                     onlyRead={!(permiso_usuario_armazones && permiso_areas_armazones )}
                                     // isOT={true}
                                     textAlign="text-center"
+                                    className='!text-xl custom-input '
                                     />
                             </div>
 
@@ -637,6 +637,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
                                             onlyRead={tipo_de_anteojo.value === '3' ? false : true}
                                            //  isOT={true}
                                             textAlign="text-center"
+                                            className='!text-xl custom-input '
                                          />
                                     </div>
                                      )}    
@@ -705,6 +706,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
                                     // isOT={true}
                                     isOptional={true}
                                     textAlign="text-center"
+                                    className='!text-xl custom-input '
                                     />
                             </div>
                         </div>

@@ -41,6 +41,14 @@ const LandingPage: React.FC = () => {
     }
   },[])
 
+  // useEffect(()=>{
+  //     fetch('https://gestiondev.mtoopticos.cl/api/establecimientos/listado/protegida?query=02',{
+  //       headers: 
+  //     })
+  //        .then(res=>res.json())
+  //        .then(res=>console.log(res))
+  //        .catch((e)=>console.error(e))
+  // },[])
 
   useEffect(()=>{
     const localStorageUser = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user") as string) : [];

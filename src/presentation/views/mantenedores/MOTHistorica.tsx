@@ -175,7 +175,8 @@ export enum EnumGrid {
   titulo3_ticket = 134,
   lugar_despacho = 135,
   estado_validacion = 136,
-  rbd_establecimiento = 137
+  rbd_establecimiento = 137,
+  bodega_procesado    = 138
 }
 
 

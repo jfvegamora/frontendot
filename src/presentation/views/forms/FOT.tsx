@@ -105,18 +105,15 @@ const FOT:React.FC<IFOTProps> = ({
   //PERMISOS DE CAMPOS
   const permisosCampos           = useAppSelector((store: AppStore) => store.user?.permisos_campos);
 
-  let permiso_usuario_armazones           = permisosCampos && permisosCampos[0] === "1" ? true : false;
+  let permiso_usuario_armazones           = permisosCampos && (data && data[EnumGrid.bodega_procesado] === 0)  ? (permisosCampos[0] === "1" ? true : false) : false;
   let permiso_usuario_cristales           = permisosCampos && permisosCampos[1] === "1" ? true : false;
   let permiso_usuario_estado_impresion    = permisosCampos && permisosCampos[2] === "1" ? true : false;
   let permiso_usuario_estado_validacion   = permisosCampos && permisosCampos[3] === "1" ? true : false;
   let permiso_usuario_resolucion_garantia = permisosCampos && permisosCampos[4] === "1" ? true : false;
-  let permiso_usuario_grupo_dioptria      = permisosCampos && permisosCampos[5] === "1" ? true : false;
-  let permiso_usuario_receta              = permisosCampos && permisosCampos[6] === "1" ? true : false;
+  let permiso_usuario_grupo_dioptria      = permisosCampos && (data && data[EnumGrid.bodega_procesado] === 0)  ? (permisosCampos[5] === "1" ? true : false) : false;
+  let permiso_usuario_receta              = permisosCampos && (data && data[EnumGrid.bodega_procesado] === 0)  ? (permisosCampos[6] === "1" ? true : false) : false;
   let permiso_usuario_verificar_cristal   = permisosCampos && permisosCampos[7] === "1" ? true : false;
   // let permiso_usuario_verificar_armazon   = permisosCampos && permisosCampos[8] === "1" ? true : false;
-
-
- 
 
 
   const permisosAreas = OTAreaActual && permissions(OTAreaActual)[6] as any
@@ -131,10 +128,6 @@ const FOT:React.FC<IFOTProps> = ({
   let permiso_areas_receta                = permisosAreas && permisosAreas[6] === '1' ? true : false;
   let permiso_area_verificar_cristal      = permisosAreas && permisosAreas[7] === '1' ? true : false;
   let permiso_area_verificar_armazon      = permisosAreas && permisosAreas[8] === "1" ? true : false;
-
-  // 100001100
-
-
 
 
   const handleCloseForm = () => {

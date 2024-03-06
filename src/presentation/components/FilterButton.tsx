@@ -68,7 +68,7 @@ const FilterButton: React.FC<IProps> = ({
       </div>
       {filterToggle.value && (
         <RxDoubleArrowLeft onClick={()=>handleMouseEnter()} 
-        className={`${isOT ? "top-[10rem] " : "top-[6.5rem] "} text-[#f39c12] hover:bg-gray-200  rounded-xl cursor-pointer w-[4rem] absolute h-[4rem] right-4`}/>
+        className={`${isOT ? "top-[10rem] " : "top-[6.5rem] "} text-[#f39c12] hover:bg-gray-200  rounded-xl cursor-pointer w-[4rem] absolute h-[4rem] ${isOT ? "right-[35rem]" : "right-4"} `}/>
       )}
     </div>
   );
