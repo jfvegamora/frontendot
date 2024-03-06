@@ -51,9 +51,11 @@ const Login: React.FC = React.memo(() => {
       .then((user) => {
           if (user.length === 0)
             return show({ message: LOGIN.loginError, type: "error" });
-          // console.log(user)
+          console.log(user)
           const response: IUser = jwtDecode(user[0]);
-          // console.log(response)
+          const usuario = {...response, token: user[0]}
+          console.log(usuario)
+          console.log(response)
           dispatch(login(response));
           dispatch(fetchFuncionalidades());
           dispatch(fetchOTAreas())

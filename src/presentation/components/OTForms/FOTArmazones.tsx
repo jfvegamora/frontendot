@@ -95,7 +95,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
         try {
             const {data} = await axios((validar_parametrizacion.value === '1' ) 
                                                    ? (`${endpoint
-                                                                        }&_p1=${codArmazon && codArmazon !== ' ' ? codArmazon.trim() : "aaaa"
+                                                                        }&_p1=${codArmazon && codArmazon.trim() !== '' ? codArmazon.trim() : ""
                                                                         }&_p4=${
                                                                             tipo_de_anteojo.value === '3'
                                                                             ? (  
@@ -122,7 +122,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
                                                                                     : (typeof A1_Diametro.value === 'string' ? A1_Diametro.value : "")
                                                                             )
                                                                         }`) 
-                                                   : (`${endpoint}&_p1=${codArmazon !== ' ' ? codArmazon && codArmazon.trim() : "aaaa"}`))
+                                                   : (`${endpoint}&_p1=${codArmazon && codArmazon.trim() !== '' ? codArmazon : ''}`))
             // console.log(data[0])
             if(data && data[0] && data[0][0] === 'ERROR'){
                 toast.error(data[0][1])
@@ -228,6 +228,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
     const handleInputChange = (e:any) => {
         const { name, value } = e;
         
+
         console.log(name)
         console.log(value)
         onDataChange({ [name]: value.trim() });
@@ -394,26 +395,27 @@ const FOTArmazones:React.FC<IArmazones> = ({
 
     useEffect(()=>{
 
-
+    if(codArmazon1 && codArmazon1.trim() !== ''){
         localStorage.getItem('a1_armazon') 
                               ? setArmazon1(localStorage.getItem('a1_armazon')?.split(','))
                               : fetchArmazones1('a1_armazon_id', codArmazon1)
+    }
 
-
+    if(codArmazon2 && codArmazon2.trim() !== ''){
         localStorage.getItem('a2_armazon')
                               ? setArmazon2(localStorage.getItem('a2_armazon')?.split(','))
                               : fetchArmazones1('a2_armazon_id', codArmazon2) 
+    }
 
+
+    if(codArmazon3 && codArmazon3.trim() !== ''){
         localStorage.getItem('a3_armazon')
                               ? setArmazon3(localStorage.getItem('a3_armazon')?.split(','))
                               : fetchArmazones1('a3_armazon_id', codArmazon3)
+    }
 
       
     },[])
-
-
-    console.log(armazon1)
-    console.log(armazon2)
 
     // console.log(tipo_de_anteojo.value)
 

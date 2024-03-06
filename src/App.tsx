@@ -13,6 +13,7 @@ import AuthGuard, {
 } from "./presentation/guards/auth_guard";
 import { Spinner } from "@material-tailwind/react";
 import LandingPage from "./presentation/pages/LandingPage";
+import FReservarArmazones from "./presentation/views/forms/FReservarArmazones";
 
 //Lazy components
 const Login = lazy(() => import("./presentation/pages/Login"));
@@ -68,6 +69,7 @@ function App() {
           {/* <Route path="/" element={<Navigate to={PublicRoutes.LOGIN} />} /> */}
           <Route element={<AuthGuard privateValidation={true} />}>
             <Route path="/" element={<LandingPage/>} />
+            <Route path="/terreno" element={<FReservarArmazones/>} />
               {privateRoutes.map((route) => (
                 <Route
                   key={route.path}
