@@ -37,6 +37,7 @@ export interface InputData {
   observaciones: string | undefined;
   usuario: string | undefined;
   fecha_mov: string | undefined;
+  ot: string | undefined;
 }
 
 interface OutputData {
@@ -101,10 +102,10 @@ const FArmazonesKardexOUT: React.FC<IUserFormPrps> = React.memo(
     function transformInsertQuery(jsonData: InputData, userId?: number): OutputData | any {
       setFechaHoraActual(new Date())
 
-      if(jsonData.almacen === jsonData.almacen_relacionado){
+      if (jsonData.almacen === jsonData.almacen_relacionado) {
         toast.error('Almacén de origen y destino deben ser diferentes')
         throw new Error('error')
-   
+
       }
 
       if (jsonData.motivo_egreso === '5') {
@@ -128,7 +129,7 @@ const FArmazonesKardexOUT: React.FC<IUserFormPrps> = React.memo(
         }
       }
 
-      let _p1 = `"${jsonData.insumo}", ${jsonData.almacen}, ${2}, ${jsonData.motivo_egreso}, ${jsonData.cantidad},${'0'}, ${'0'}, ${'0'}, ${'0'}, ${jsonData.almacen_relacionado || '0'}, "${jsonData.observaciones}", ${userId}`;
+      let _p1 = `"${jsonData.insumo}", ${jsonData.almacen}, ${2}, ${jsonData.motivo_egreso}, ${jsonData.cantidad},${'0'}, ${'0'}, ${'0'}, ${jsonData.ot || '0'}, ${jsonData.almacen_relacionado || '0'}, "${jsonData.observaciones}", ${userId}`;
 
       _p1 = _p1.replace(/'/g, '!');
 
@@ -159,6 +160,7 @@ const FArmazonesKardexOUT: React.FC<IUserFormPrps> = React.memo(
       setValue("insumo", "");
       setValue("cantidad", "");
       setValue("observaciones", "");
+      setValue("ot", "");
 
       if (firstInputRef.current) {
         const firstInput = firstInputRef.current.querySelector(
@@ -187,7 +189,7 @@ const FArmazonesKardexOUT: React.FC<IUserFormPrps> = React.memo(
     const handleApiResponse = React.useCallback(
       async (response: any, isEditting: boolean) => {
         if (response.code === "ERR_BAD_RESPONSE" || response.stack || response.hasOwnProperty('Error:')) {
-          
+
           if (response.hasOwnProperty('Error:')) {
             show({
               message: response["Error:"],
@@ -351,8 +353,8 @@ const FArmazonesKardexOUT: React.FC<IUserFormPrps> = React.memo(
             </div>
 
             <div className="w-full flex items-center h-[4rem]">
-              <div className="input-container items-center rowForm w-[60%]  ">
-                <div className="w-full !mt-4">
+            <div className="input-container items-center rowForm w-[100%]  ">
+                <div className="w-full">
                   <SelectInputComponent
                     label="Motivo Egreso"
                     name="motivo_egreso"
@@ -361,11 +363,14 @@ const FArmazonesKardexOUT: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={["/api/kardexmotivos/", "02"]}
                     error={errors.motivo_egreso}
-                    customWidth={"!ml-[1rem] !mt-[-0.6rem]"}
+                    customWidth={"!ml-[1rem] w-full"}
                   />
                 </div>
               </div>
-              <div className="input-container items-center rowForm w-[40%]  ">
+            </div>
+
+            <div className="w-full flex items-center h-[4rem]">
+              <div className="input-container items-center rowForm w-[50%]  ">
                 <div className="w-full">
                   <TextInputComponent
                     type="number"
@@ -378,7 +383,24 @@ const FArmazonesKardexOUT: React.FC<IUserFormPrps> = React.memo(
                   />
                 </div>
               </div>
+
+              <div className="input-container items-center rowForm w-[50%]  ">
+                <div className="w-full">
+                  <TextInputComponent
+                    type="number"
+                    label="N° OT"
+                    name="ot"
+                    data={data && data[EnumGrid.ot]}
+                    control={control}
+                    error={errors.ot}
+                    isOptional={true}
+                    textAlign="text-right"
+                  />
+                </div>
+              </div>
             </div>
+
+
 
             <div className="w-full flex items-center h-[4rem]">
               <div className="input-container items-center rowForm w-[100%]  ">
@@ -401,7 +423,7 @@ const FArmazonesKardexOUT: React.FC<IUserFormPrps> = React.memo(
               <div className="input-container items-center rowForm w-[100%]  ">
                 <div className="w-full">
                   <SelectInputComponent
-                    label="Almacén Traspaso"
+                    label="Almacén Destino"
                     name="almacen_relacionado"
                     showRefresh={true}
                     data={data && data[EnumGrid.almacen_relacionado_id]}
