@@ -460,7 +460,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
       <form className="primaryKeyContainer items-center relative ">
         {renderInputs()}
         {/* <div className={`${otHistorica ? "ml-[-13rem] mr-20" : ""}   w-[60px] `}> */}
-        <div className={`w-[80px] h-[50px] absolute  ${baseUrl === '/api/ot/' ? 'left-[84rem]' : ''} `}>
+        <div className={`w-[80px] h-[50px]   ${baseUrl === '/api/ot/' ? 'absolute left-[84rem]' : ''} `}>
           <Tooltip content="Buscar">
               <IconButton
               tabIndex={1}

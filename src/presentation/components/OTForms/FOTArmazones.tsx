@@ -227,10 +227,16 @@ const FOTArmazones:React.FC<IArmazones> = ({
 
     const handleInputChange = (e:any) => {
         const { name, value } = e;
+
+        console.log(name)
+        console.log(value)
         
-
-
         onDataChange({ [name]: value.trim() });
+        if(value.trim() === ''){
+            return;
+        }
+        console.log(value)
+
 
         if(name === 'a1_armazon_id'){
             a1_armazon.value = value.trim()
@@ -516,6 +522,8 @@ const FOTArmazones:React.FC<IArmazones> = ({
     // console.log(armazon1)
     // console.log(formValues)
 
+    console.log(permiso_areas_armazones)
+    console.log(permiso_usuario_armazones)
   
   return (
     <form>
@@ -535,7 +543,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
                                         otData={ a1_armazon.value ? a1_armazon.value :  formValues  && formValues["a1_armazon_id"] ? formValues["a1_armazon_id"] : data && data[EnumGrid.a1_armazon_id]}
                                         // data={a1_armazon.value || data && data[EnumGrid.a1_armazon_id]}
                                         control={control}
-                                        onlyRead={!(permiso_usuario_armazones && permiso_areas_armazones)}
+                                        onlyRead={!(!isEditting || (permiso_usuario_armazones && permiso_areas_armazones))}
                                         // isOT={true}
                                         textAlign="text-center"
                                         className='!text-xl custom-input '
@@ -618,7 +626,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
                                     handleChange={handleInputChange}
                                     otData={ a2_armazon.value ? a2_armazon.value   : formValues ? formValues["a2_armazon_id"] : data && data[EnumGrid.a2_armazon_id]}
                                     control={control}
-                                    onlyRead={!(permiso_usuario_armazones && permiso_areas_armazones )}
+                                    onlyRead={!(!isEditting || (permiso_usuario_armazones && permiso_areas_armazones ))}
                                     // isOT={true}
                                     textAlign="text-center"
                                     className='!text-xl custom-input '
@@ -702,7 +710,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
                                     handleChange={handleInputChange}
                                     otData={ a3_armazon.value ? a3_armazon.value  : formValues ? formValues["a3_armazon_id"] : data && data[EnumGrid.a3_armazon_id]}
                                     control={control}
-                                    onlyRead={!(permiso_usuario_armazones && permiso_areas_armazones )}
+                                    onlyRead={!(!isEditting || (permiso_usuario_armazones && permiso_areas_armazones ))}
                                     // isOT={true}
                                     isOptional={true}
                                     textAlign="text-center"
