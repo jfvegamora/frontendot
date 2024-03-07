@@ -5,8 +5,11 @@ import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
 import { AppStore, useAppDispatch, useAppSelector } from '../../../redux/store';
 // import { SEXO, TIPO_CLIENTE } from '../../utils';
 import { Button } from '@material-tailwind/react';
-import { updateOT } from '../../utils';
+import { punto_venta, secondProcessBodega, updateOT } from '../../utils';
 import { fetchOT } from '../../../redux/slices/OTSlice';
+import axios from 'axios';
+import { URLBackend } from '../../hooks/useCrud';
+import { toast } from 'react-toastify';
 
 
 interface IDerivacion {
@@ -44,29 +47,108 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
     const OTSlice:any = useAppSelector((store:AppStore)=>store.OTS)
     const dispatch = useAppDispatch();
 
+    console.log(formValues)
+    const { 
+        validar_cristal1_od,
+        validar_cristal1_oi, 
+        validar_cristal2_od,
+        validar_cristal2_oi
+    } = formValues?.["cristales"] || {}
+
+    const insumoCristales = [
+        validar_cristal1_od,
+        validar_cristal1_oi,
+        validar_cristal2_od,
+        validar_cristal2_oi
+    ]
+    
+    const {
+        validar_armazon1,
+        validar_armazon2
+    } = formValues?.["armazones"] || {}
+
+    const insumoArmazones = [
+        validar_armazon1,
+        validar_armazon2
+    ]
+
+
 
     const onSubmit: SubmitHandler<FormData> = async(jsonData) =>{
         // fetchDerivacion(jsonData)
-        updateOT(
-            jsonData,
-            OTAreas["areaActual"],
-            jsonData.area_hasta.toString() as any,
-            40,
-            formValues,
-            data,
-            OTSlice.cristales, 
-            OTSlice.armazones,
-            UsuarioID.toString(),
-            jsonData.observaciones,
-            false,
-            jsonData.situacion
-        ).then(()=>{
-            closeModal()
-            dispatch(fetchOT({OTAreas:OTAreas["areaActual"]}))
-        })
+        let promiseResponses:any = {}
+        // console.log(secondProcessBodega.value)
+
+        if(secondProcessBodega.value){
+            const cristalesJSON = insumoCristales
+                                            .filter((insumo)=> insumo && insumo.trim() !== '')
+                                            .map((insumo)=>(
+                                                {
+                                                    folio       : data && data[EnumGrid.folio],
+                                                    punto_venta : punto_venta.value,
+                                                    insumo      : insumo
+                                                }
+                                            ))
     
+    
+            const armazonesJSON = insumoArmazones
+                                            .filter((insumo) => insumo && insumo.trim() !== '')
+                                            .map((insumo)=>(
+                                                {
+                                                    folio        : data && data[EnumGrid.folio],
+                                                    punto_venta  : punto_venta.value,
+                                                    insumo       : insumo
+                                                }
+                                            ))
+    
+            const promesas = [
+                axios(`${URLBackend}/api/cristaleskardex/listado/?query=06&_pkToDelete=${JSON.stringify(cristalesJSON)}`),
+                axios(`${URLBackend}/api/armazoneskardex/listado/?query=06&_pkToDelete=${JSON.stringify(armazonesJSON)}`)
+            ]
+    
+            promiseResponses = await Promise.all(promesas)
+    
+            
+            for (const response of promiseResponses) {
+                const [status, message] = response.data[0];
+                if (status !== 0) {
+                    toast.error(message,{
+                        autoClose: 6500
+                    });
+                    
+                }
+    
+            }
+        }
+
+
+
+        if(!secondProcessBodega.value || (promiseResponses[0]?.data[0][0] === 0 && promiseResponses[1]?.data[0][0] === 0)){
+            updateOT(
+                jsonData,
+                OTAreas["areaActual"],
+                jsonData.area_hasta.toString() as any,
+                40,
+                formValues,
+                data,
+                OTSlice.cristales, 
+                OTSlice.armazones,
+                UsuarioID.toString(),
+                jsonData.observaciones,
+                false,
+                jsonData.situacion
+            ).then(()=>{
+                closeModal()
+                dispatch(fetchOT({OTAreas:OTAreas["areaActual"]}))
+            })
+        }
     
     }
+
+
+
+
+
   return (
     <div className='useFormContainer useFormDerivacion centered-div use40rem z-30'>
         <div className="userFormBtnCloseContainer flex">

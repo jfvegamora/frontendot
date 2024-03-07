@@ -103,7 +103,7 @@ export const validar_cristal2_od = signal("");
 export const validar_cristal2_oi = signal("");
 
 
-
+export const secondProcessBodega = signal(false)
 export const procesarRender     = signal(40);
 
 // fechaHoraActual
@@ -584,6 +584,7 @@ export const clearGrupos = () => {
   A2_Diametro.value   = "";
   
   oftalmologo_id.value        = "";
+  secondProcessBodega.value       = false;
 
   motivo_ot.value          = false;
   isExistClient.value      = false;
