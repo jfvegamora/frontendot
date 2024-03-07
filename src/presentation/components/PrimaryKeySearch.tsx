@@ -6,7 +6,7 @@ import { IconButton, Input, Tooltip } from "@material-tailwind/react";
 // import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { SelectInputComponent } from ".";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { faArrowsRotate, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import SelectInputTiposComponent from "./forms/SelectInputTiposComponent";
 import { useAppDispatch } from "../../redux/store";
 import { fetchOT } from "../../redux/slices/OTSlice";
@@ -14,11 +14,13 @@ import { useCrud } from "../hooks";
 import { toast } from "react-toastify";
 import { paramsOT } from "../views/mantenedores/MOT";
 import { areaActualOT } from "./OTAreasButtons";
+import { signal } from "@preact/signals-react";
 // import { sesionExpirada } from "../../redux/slices/userSlice";
 
 interface IPrimaryKeyState {
   [key: string]: string | number;
 }
+
 
 interface PrimaryKeySearchProps {
   setEntities: any;
@@ -46,10 +48,12 @@ interface PrimaryKeySearchProps {
 //   <MagnifyingGlassIcon className="primaryKeyIcon" />
 // ));
 
+export const resetFilters = signal(false)
+
 const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
   ({ setEntities, primaryKeyInputs, updateParams, description, otHistorica, baseUrl }) => {
-    const { control, handleSubmit } = useForm<IPrimaryKeyState>();
     const [cilindrico, setCilindrico] = useState();
+    const { control, handleSubmit, setValue } = useForm<IPrimaryKeyState>();
     const [inputValues, setInputValues] = useState<IPrimaryKeyState>({});
     const [cristalDescritpion, setCristalDescription] = useState(
       description || ""
@@ -64,8 +68,30 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
       // Actualiza el estado interno cuando la prop description cambia
       setCristalDescription(description || '');
     }, [description]);
-    // 
-    // console.log(OTAreas["areaActual"])
+
+
+
+    // const handleRefresh = () => {
+    //     console.log(primaryKeyInputs)
+    //     // setValue('_rut', '')
+    //     console.log(inputValues)
+    //     // setInputValues({_rut: ''})
+    //     const mapping = primaryKeyInputs.reduce((acc:any, filtroBusqueda:any) => {
+    //       acc[filtroBusqueda.name]= '';
+    //       setInputValues({ ...inputValues, [filtroBusqueda.name]: '' });
+    //       setValue(filtroBusqueda.name, '');
+    //       return acc;
+    //   }, {});
+
+    //     console.log(mapping)
+    //     resetFilters.value = !resetFilters.value
+    //     handleSearch(mapping)  
+    // }
+
+
+
+
+
     const updatedParams = Object.keys(inputValues)
         .map((key) => `${key}=${inputValues[key]}`)
         .join('&');
@@ -124,6 +150,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
       const toastLoading = toast.loading('Buscando...');
       // filterToggle.value = false;
       console.log(data)
+      console.log(paramsOT.value)
       // console.log(cilindrico)
       
       if(baseUrl === '/api/othistorica/' || baseUrl === '/api/ot/'){
@@ -131,7 +158,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
         .filter((campos)=> campos[1] !== '' && campos[1] !== undefined)
         .map((campos:any) => `${campos[0]}=${campos[1]}`)
         .join('&')
-        // console.log(filtersOT)
+        // console.log(filtersOT)e
         paramsOT.value = filtersOT
       }
 
@@ -153,6 +180,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
         }
       }
 
+      console.log(data)
       const searchParams = Object.entries(data)
         .map(([key, value]: any) =>
           key === "" || value ? ( key.includes('_proyecto') ? `${key}=${encodeURIComponent(value)}` :`${key}=${encodeURIComponent(value)}`) : "" 
@@ -161,7 +189,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
         .join("&");
       
       data && updateParams([searchParams]);
-      // console.log(searchParams)
+      console.log(searchParams)
 
       try {
         const response = otHistorica 
@@ -460,7 +488,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
       <form className="primaryKeyContainer items-center relative ">
         {renderInputs()}
         {/* <div className={`${otHistorica ? "ml-[-13rem] mr-20" : ""}   w-[60px] `}> */}
-        <div className={`w-[80px] h-[50px]   ${baseUrl === '/api/ot/' ? 'absolute left-[84rem]' : ''} `}>
+        <div className={`w-[80px] h-[50px]  ${baseUrl === '/api/ot/' ? 'absolute left-[84rem]' : ''} `}>
           <Tooltip content="Buscar">
               <IconButton
               tabIndex={1}
@@ -479,6 +507,26 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
             </IconButton>
           </Tooltip>
         </div>
+
+        {/* <div className={`w-[80px] h-[50px]  ${baseUrl === '/api/ot/' ? 'absolute left-[84rem] bottom-[11rem]' : ''} `}>
+          <Tooltip content="Refrescar">
+              <IconButton
+              tabIndex={1}
+                variant="text"
+                color="blue-gray"
+                // className="primaryKeyIconButton items-center ml-2 mr-16  "
+                className="primaryBtnIconButton mt-1 ml-2 mr-2"
+                type="submit"
+                onClick={(e)=>{
+                  e.preventDefault()
+                 return handleRefresh()
+                }}
+              >
+                <FontAwesomeIcon icon={faArrowsRotate} className="primaryBtnIcon w-full  !mt-2"/>
+            </IconButton>
+          </Tooltip>
+        </div> */}
+
         {description && (
           <input
             className="mx-8 w-[44rem] border-none absolute bottom-[-2rem] left-[-2rem]"

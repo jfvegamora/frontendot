@@ -56,7 +56,8 @@ const strEntidad = " ";
 const strBaseUrl = "/api/ot/";
 const strQuery = "14";
 const idMenu = 1;
-export const paramsOT = signal('')
+export const paramsOT     = signal('')
+
 
 const FOT               = React.lazy(()=>import('../forms/FOT'))
 const FilterButton      = React.lazy(()=>import('../../components/FilterButton')) 
@@ -168,6 +169,10 @@ const MOT: React.FC = () => {
   // console.log(estadosOT)
 
 
+  console.log(params)
+
+
+
 
   return (
     <div className="mantenedorContainer">
@@ -206,6 +211,7 @@ const MOT: React.FC = () => {
           idMenu={idMenu}
           isOT={true}
         />
+
       </div>
 
       <Suspense>

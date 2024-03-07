@@ -5,8 +5,9 @@ import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
 import { AppStore, useAppDispatch, useAppSelector } from '../../../redux/store';
 // import { SEXO, TIPO_CLIENTE } from '../../utils';
 import { Button } from '@material-tailwind/react';
-import { updateOT } from '../../utils';
+import { updateOT, validationPendienteOTSchema } from '../../utils';
 import { fetchOT } from '../../../redux/slices/OTSlice';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 
 interface IDerivacion {
@@ -36,7 +37,10 @@ const FOTPendiente:React.FC<IDerivacion> = ({
     closeModal,
     formValues
 }) => {
-    const {control, handleSubmit} = useForm<FormData>()
+    const schema = validationPendienteOTSchema()
+    const {control, handleSubmit, formState:{errors}} = useForm<any>({
+        resolver: yupResolver(schema)
+    })
     const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas);
     const UsuarioID:any = useAppSelector((store:AppStore)=> store.user?.id)
     const OTSlice:any = useAppSelector((store:AppStore)=>store.OTS)
@@ -135,6 +139,7 @@ const FOTPendiente:React.FC<IDerivacion> = ({
                             control={control}
                             entidad={["/api/otmotivopendiente/", "02", OTAreas["areaActual"]]}
                             customWidth={"w-[] ml-[1rem] mr-[-1rem] mt-[2rem]"}
+                            error={errors.situacion}
                         />
                     </div>
                 </div>

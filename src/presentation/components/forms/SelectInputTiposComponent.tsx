@@ -11,6 +11,7 @@ import axios from "axios";
 import { AppStore, useAppSelector } from "../../../redux/store";
 import { URLBackend } from "../../hooks/useCrud";
 import { clearSelectInput } from "../../utils";
+import { resetFilters } from "../PrimaryKeySearch";
 
 interface ISelectInputProps {
   label: string;
@@ -58,7 +59,7 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
   }) => {
     const stateListBox = useAppSelector((store: AppStore) => store.listBoxTipos[entidad]);
     const [entities, setEntities] = useState(stateListBox|| []);
-    const [strSelectedName, setStrSelectedName] = useState(data || undefined);
+    const [strSelectedName, setStrSelectedName] = useState(data || inputValues || undefined);
     const inputRef = useRef(null); 
 
     const params = typeof entidad === 'string' ? entidad : `${entidad[0]}&_p2=${entidad[1]}`
@@ -84,6 +85,19 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
     useEffect(()=>{
       setStrSelectedName(data)
     },[data])
+
+    if(name === '_p5'){
+      console.log(inputValues)
+      console.log(Object.values(inputValues))
+    }
+
+    useEffect(()=>{
+
+      if(inputValues){
+        Object.values(inputValues).map((filtrobusqueda)=>setStrSelectedName(filtrobusqueda))
+      }
+      // setStrSelectedName(Object.values(inputValues)[0])
+    },[resetFilters.value])
     
     const renderInput = () => (
       <Controller

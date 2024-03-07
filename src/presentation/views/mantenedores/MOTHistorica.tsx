@@ -408,6 +408,8 @@ const MOTHistorica: React.FC = () => {
     dispatch(clearData())
   },[])
 
+
+
   
 
   return (

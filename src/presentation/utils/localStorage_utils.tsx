@@ -16,6 +16,12 @@ export const getImageURL = (name:string) => {
 }
 
 
+export const validateRut = (rut:string) => {
+    const regex = new RegExp(/^[0-9]+[-|‐]{1}[0-9kK]{1}$/);
+    return regex.test(rut);
+  };
+  
+
 export async function compararFechas(fechaString:string) {
     const fechaObjeto:any = new Date(fechaString);
   
