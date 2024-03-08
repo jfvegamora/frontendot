@@ -15,11 +15,12 @@ export const getImageURL = (name:string) => {
     return new URL(`../../assets/${name}`, import.meta.url).href
 }
 
-
 export const validateRut = (rut:string) => {
-    const regex = new RegExp(/^[0-9]+[-|‐]{1}[0-9kK]{1}$/);
+    console.log(rut)
+    const regex = new RegExp(/^[0-9]{1,8}[-]{1}[0-9kK]{1}$/);
+
     return regex.test(rut);
-  };
+};
   
 
 export async function compararFechas(fechaString:string) {
