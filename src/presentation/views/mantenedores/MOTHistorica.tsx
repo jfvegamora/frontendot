@@ -9,7 +9,7 @@ import {
 } from "../../components";
 import { useEntityUtils } from "../../hooks";
 // import FUsuarios from "../forms/FUsuarios";
-import { TITLES, table_head_OT_historica } from "../../utils";
+import { MODAL, TITLES, table_head_OT_historica } from "../../utils";
 // import { OptionValuesMotivo } from "./MOT";
 import FOT from "../forms/FOT";
 import { AppStore, useAppDispatch, useAppSelector } from "../../../redux/store";
@@ -25,6 +25,7 @@ import { clearData, fetchOT } from "../../../redux/slices/OTSlice";
 import StateCountBarOT from "../../components/StateCountBarOT";
 import { signal } from "@preact/signals-react";
 import  ExportCSV  from "../../components/ExportToCsv";
+import { useModal } from "../../hooks/useModal";
 
 export enum EnumGrid {
   folio = 1,
@@ -272,6 +273,7 @@ const MOTHistorica: React.FC = () => {
   const [showGuia, setShowGuia] = useState(false);
   const [showFactura, setShowFactura] = useState(false);
   const [ pktoDelete, setPkToDelete] = useState([]);
+  const { showModal, CustomModal } = useModal();
   
   const dispatch       = useAppDispatch();
 
@@ -307,16 +309,20 @@ const MOTHistorica: React.FC = () => {
     console.log(selectedRows)
     const newPkToDelete = selectedRows.map((row: number) => ({
       folio             : OTs.data[row] && OTs.data[row][1],
-      proyecto          : OTs.data[row] && OTs.data[row][12],
+      proyecto          : OTs.data[row] && OTs.data[row][13],
       proyecto_codigo   : OTs.data[row] && OTs.data[row][6],
       estado            : OTs.data[row] && OTs.data[row][4],
-      reporte_firma     : OTs.data[row] && OTs.data[row][7],
-      reporte_atencion  : OTs.data[row] && OTs.data[row][8],
-      orden_compra      : OTs.data[row] && OTs.data[row][9],
+      reporte_firma     : OTs.data[row] && OTs.data[row][8],
+      reporte_atencion  : OTs.data[row] && OTs.data[row][9],
+      orden_compra      : OTs.data[row] && OTs.data[row][10],
+      numero_guia       : OTs.data[row] && OTs.data[row][12],
+      numero_factura    : OTs.data[row] && OTs.data[row][11]
  
 
-    }));
-    console.log('newPkToDelete:',newPkToDelete)
+    })); 
+
+    // console.log(OTs.data)
+    // console.log('newPkToDelete:',newPkToDelete)
     setPkToDelete(newPkToDelete as any)
   }, [selectedRows]);
 
@@ -329,11 +335,28 @@ const MOTHistorica: React.FC = () => {
     let resultBoton:any = []
 
     if(pktoDelete.length < 1){
-      return;
+      return toast.error('No Hay OT Seleccionada')
     }
+
+    console.log(params[0])                               
+
     
-    console.log(pktoDelete)
+    console.log(pktoDelete) 
     const resultadoFiltrado = OTs.data && OTs.data.filter((elemento:any) => folios.includes(elemento[1]));
+    
+    if(parseInt(pktoDelete[0]["reporte_atencion"]) !== 0){
+      const result = await showModal(
+          `OT: ${pktoDelete[0]["folio"]} Tiene Reporte de atención asignado, ¿Desea agregar uno nuevo? `,
+          '', 
+          MODAL.keepYes,
+          MODAL.kepNo
+        );
+
+      if(!result){
+          return;
+      }
+  }
+
 
     
     //TODO: TIPO 1 REPORTE DE ATENCION
@@ -391,7 +414,8 @@ const MOTHistorica: React.FC = () => {
                                          ? `Reporte firma generado: ${result.data[0][0]}`
                                          : `Reporte de atencion generado: ${result.data[0][0]}`
           
-          dispatch(fetchOT({historica:true, searchParams: `_proyecto=${query["_proyecto"]}`}))
+
+          dispatch(fetchOT({historica:true, searchParams: params[0] }))
           setSelectedRows([])
           toast.dismiss(toastLoading)
           toast.success(successMessage)
@@ -458,15 +482,15 @@ const MOTHistorica: React.FC = () => {
         <div className="mx-auto">
 
           {/* <Button className='otActionButton mt-3 mx-5' style={{ backgroundColor: '#676f9d' }} onClick={() => handleReporte(2)}>N° Rep. Firma</Button> */}
-          <Button className='otActionButton mt-3 mx-5' style={{ backgroundColor: '#676f9d' }} onClick={() => handleReporte(1)} >N° Rep. Atención</Button>
+          <Button className='otActionButton mt-3 mx-5'  onClick={() => handleReporte(1)} >N° Rep. Atención</Button>
 
-          <Button className='otActionButton mt-3 mx-5' style={{ backgroundColor: '#676f9d' }} onClick={() => setShowOrdenCompra((prev) => !prev)}>N° OC</Button>
+          <Button className='otActionButton mt-3 mx-5'  onClick={() => setShowOrdenCompra((prev) => !prev)}>N° OC</Button>
           {showOrdenCompra  && <FOTOrdenCompra  pktoDelete={pktoDelete}  setSelectedRows={setSelectedRows} closeModal={() => setShowOrdenCompra(false)} />}
 
-          <Button className='otActionButton mt-3 mx-5' style={{ backgroundColor: '#676f9d' }} onClick={() => setShowFactura((prev) => !prev)}>N° Factura</Button>
+          <Button className='otActionButton mt-3 mx-5'  onClick={() => setShowFactura((prev) => !prev)}>N° Factura</Button>
           {showFactura      && <FOTFactura      pktoDelete={pktoDelete}  setSelectedRows={setSelectedRows} closeModal={() => setShowFactura(false)} />}
 
-          <Button className='otActionButton mt-3 mx-5' style={{ backgroundColor: '#676f9d' }} onClick={() => setShowGuia((prev) => !prev)}>N° Guía</Button>
+          <Button className='otActionButton mt-3 mx-5'  onClick={() => setShowGuia((prev) => !prev)}>N° Guía</Button>
           {showGuia         && <FOTGuiaDespacho pktoDelete={pktoDelete } setSelectedRows={setSelectedRows} closeModal={() => setShowGuia(false)} />}
 
           <ExportCSV strEntidad={strEntidad} params={params} strBaseUrl={strBaseUrl}/>  
@@ -524,6 +548,8 @@ const MOTHistorica: React.FC = () => {
           isMOT={true}
         />
       )}
+
+      <CustomModal />
     </div>
   );
 };

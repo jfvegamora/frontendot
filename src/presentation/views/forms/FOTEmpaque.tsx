@@ -3,11 +3,12 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { AppStore, useAppDispatch, useAppSelector } from '../../../redux/store';
 import { fetchOT } from '../../../redux/slices/OTSlice';
 import { TextInputComponent } from '../../components';
-import { TITLES, validationOTNumeroEnvio } from "../../utils";
+import { MODAL, TITLES, validationOTNumeroEnvio } from "../../utils";
 import { toast } from 'react-toastify';
 import { URLBackend } from '../../hooks/useCrud';
 import axios from 'axios';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useModal } from '../../hooks/useModal';
 
 
 interface IFOTEmpaque {
@@ -28,13 +29,41 @@ const FOTEmpaque: React.FC<IFOTEmpaque> = ({
 }) => {
     const { control, handleSubmit, formState: { errors } } = useForm<any>({ resolver: yupResolver(validationOTNumeroEnvio()), })
     const [fechaHoraActual, _setFechaHoraActual]  = useState(new Date());
+    const { showModal, CustomModal } = useModal();
 
     const UsuarioID: any = useAppSelector((store: AppStore) => store.user?.id)
     const dispatch = useAppDispatch();
 
     const onSubmit: SubmitHandler<any> = async (jsonData) => {
 
-        console.log(jsonData)
+        if(pktoDelete.length < 1){
+            return toast.error('No Hay OT Seleccionada')
+        }
+
+        if(parseInt(jsonData.numero_doc) <= 0){
+            return toast.error('Número de documento debe ser mayor a 0')
+        }
+
+
+        if(parseInt(pktoDelete[0]["numero_reporte_firma"]) !== 0){
+            return toast.error(`OT ${pktoDelete[0]["folio"]} ya tiene un reporte de firma asignado `)
+        }
+
+        if(parseInt(pktoDelete[0]["numero_envio"]) !== 0){
+            const result = await showModal(
+                `OT: ${pktoDelete[0]["folio"]} Tiene Número de envio asignado, ¿Desea agregar uno nuevo? `,
+                '', 
+                MODAL.keepYes,
+                MODAL.kepNo
+              );
+
+            if(!result){
+                return;
+            }
+        }
+
+
+
         if ((pktoDelete.some((OT: any) => OT.estado_id !== 20 ))) {            
             pktoDelete.filter((ot:any)=> ot.estado_id !== 20).map((ot:any)=>{
                 toast.error(`Folio: ${ot["folio"]} estado: ${ot["estado"]} `);
@@ -69,7 +98,7 @@ const FOTEmpaque: React.FC<IFOTEmpaque> = ({
 
                         if(resultQuery07?.status === 200){
                             toast.success('Numero de envío generado')
-                            dispatch(fetchOT({OTAreas:100, searchParams:params}))
+                            dispatch(fetchOT({OTAreas:90, searchParams:params}))
 
                         }else{
                             toast.error('Error: Numero de envío')
@@ -88,6 +117,7 @@ const FOTEmpaque: React.FC<IFOTEmpaque> = ({
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
             if (event.key === "Escape") {
+                setSelectedRows([])
                 closeModal()
             }
         };
@@ -102,10 +132,6 @@ const FOTEmpaque: React.FC<IFOTEmpaque> = ({
     const fechaFormateada = fechaHoraActual.toISOString().split('T')[0];
     // console.log('render')
     return (
-        // <div className='useFormContainer useFormDerivacion h-[55%] w-[60%] left-[20%] top-[30%] z-30'>
-        //     <div className=" flex justify-end w-full">
-        //         <h2 className='text-2xl cursor-pointer' onClick={onClose}>X</h2>
-        //     </div>
         <div className='useFormContainer useFormDerivacion centered-div use40rem z-30'>
         
         <div className="userFormBtnCloseContainer flex ">
@@ -181,6 +207,7 @@ const FOTEmpaque: React.FC<IFOTEmpaque> = ({
                         </button>
                     </div>
                 </div>
+                <CustomModal />
             </form>
 
         </div>

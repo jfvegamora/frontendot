@@ -104,6 +104,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
         updateParams(inputValues)
         // console.log(updatedParams)
       }
+      
   
     const handleSelectChange = React.useCallback(
       (name: string, value: string) => {

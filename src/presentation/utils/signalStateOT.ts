@@ -593,6 +593,27 @@ export const clearGrupos = () => {
 }
 
 
+export const  validarNumeroDocumento = (data:any) => {
+    if(!data){
+      return toast.error('No hay informacion de OT')
+    }
+
+    const reporte_firma = data[EnumGrid.numero_reporte_firma]
+    const numero_envio  = data[EnumGrid.numero_envio]
+
+    let reporteFirma = parseInt(reporte_firma) > 0;
+    let numeroEnvio  = parseInt(numero_envio)  > 0;
+
+    if ((numeroEnvio && !reporteFirma) || (!numeroEnvio && reporteFirma)) {
+      return true
+    }else{
+      toast.error('OT debe tener Numero de envío o Reporte de Fírmas')
+      return false
+    }
+}
+
+
+
 export const clearDioptrias = (closeForm?:boolean) => {
 
     a1_od_esf.value = undefined,
