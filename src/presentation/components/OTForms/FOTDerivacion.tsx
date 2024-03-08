@@ -5,8 +5,13 @@ import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
 import { AppStore, useAppDispatch, useAppSelector } from '../../../redux/store';
 // import { SEXO, TIPO_CLIENTE } from '../../utils';
 import { Button } from '@material-tailwind/react';
-import { updateOT } from '../../utils';
+import { MODAL, punto_venta, secondProcessBodega, tipo_de_anteojo, updateOT, validationMotivosOTSchema, validationNivel3 } from '../../utils';
 import { fetchOT } from '../../../redux/slices/OTSlice';
+import axios from 'axios';
+import { URLBackend } from '../../hooks/useCrud';
+import { toast } from 'react-toastify';
+import { useModal } from '../../hooks/useModal';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 
 interface IDerivacion {
@@ -38,35 +43,142 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
     closeModal,
     formValues
 }) => {
-    const {control, handleSubmit} = useForm<FormData>()
+    const schema = validationMotivosOTSchema()
+
+    const {control, handleSubmit, formState:{errors}} = useForm<any>({
+        resolver: yupResolver(schema)
+    })
+    const { showModal, CustomModal } = useModal();
     const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas);
     const UsuarioID:any = useAppSelector((store:AppStore)=> store.user?.id)
     const OTSlice:any = useAppSelector((store:AppStore)=>store.OTS)
     const dispatch = useAppDispatch();
 
+    const { 
+        validar_cristal1_od,
+        validar_cristal1_oi, 
+        validar_cristal2_od,
+        validar_cristal2_oi
+    } = formValues?.["cristales"] || {}
+
+    const insumoCristales = [
+        validar_cristal1_od,
+        validar_cristal1_oi,
+        validar_cristal2_od,
+        validar_cristal2_oi
+    ]
+    
+    const {
+        validar_armazon1,
+        validar_armazon2
+    } = formValues?.["armazones"] || {}
+
+    const insumoArmazones = [
+        validar_armazon1,
+        validar_armazon2
+    ]
+    const sumatoriaNivel3 = validationNivel3.value.reduce((index,objecto) => index + objecto.valor, 0);  
+
+
 
     const onSubmit: SubmitHandler<FormData> = async(jsonData) =>{
         // fetchDerivacion(jsonData)
-        updateOT(
-            jsonData,
-            OTAreas["areaActual"],
-            jsonData.area_hasta.toString() as any,
-            40,
-            formValues,
-            data,
-            OTSlice.cristales, 
-            OTSlice.armazones,
-            UsuarioID.toString(),
-            jsonData.observaciones,
-            false,
-            jsonData.situacion
-        ).then(()=>{
-            closeModal()
-            dispatch(fetchOT({OTAreas:OTAreas["areaActual"]}))
-        })
+        let promiseResponses:any = {}
+        let validarCamposVacios = false
+        let isDerivacion        = false
+
+        // console.log(secondProcessBodega.value)
+        // console.log(validationNivel3.value)
+        // console.log(OTAreas["areaActual"])
+      
+        // console.log(secondProcessBodega.value)
+
+        if(secondProcessBodega.value){
+
+            validarCamposVacios = tipo_de_anteojo.value === '3' ? (sumatoriaNivel3  === 0 ? true : false ) : (sumatoriaNivel3 === 3 ? true : false)
     
+
+            if(validarCamposVacios && OTAreas["areaActual"] === 60){
+                const result = await showModal(
+                    'Campos vacios, Quiere Continuar?',
+                    '', 
+                    MODAL.keepYes,
+                    MODAL.kepNo
+                  );
+
+                if(result){
+                    isDerivacion = true
+                }
+            }
+
+            const cristalesJSON = insumoCristales
+                                            .filter((insumo)=> insumo && insumo.trim() !== '')
+                                            .map((insumo)=>(
+                                                {
+                                                    folio       : data && data[EnumGrid.folio],
+                                                    punto_venta : punto_venta.value,
+                                                    insumo      : insumo
+                                                }
+                                            ))
+    
+    
+            const armazonesJSON = insumoArmazones
+                                            .filter((insumo) => insumo && insumo.trim() !== '')
+                                            .map((insumo)=>(
+                                                {
+                                                    folio        : data && data[EnumGrid.folio],
+                                                    punto_venta  : punto_venta.value,
+                                                    insumo       : insumo
+                                                }
+                                            ))
+    
+            const promesas = [
+                axios(`${URLBackend}/api/cristaleskardex/listado/?query=06&_pkToDelete=${JSON.stringify(cristalesJSON)}`),
+                axios(`${URLBackend}/api/armazoneskardex/listado/?query=06&_pkToDelete=${JSON.stringify(armazonesJSON)}`)
+            ]
+    
+            promiseResponses = await Promise.all(promesas)
+    
+            
+            for (const response of promiseResponses) {
+                const [status, message] = response.data[0];
+                if (status !== 0) {
+                    toast.error(message,{
+                        autoClose: 6500
+                    });
+                    
+                }
+    
+            }
+        }
+
+
+
+        if(  isDerivacion  ||  !secondProcessBodega.value || (promiseResponses[0]?.data[0][0] === 0 && promiseResponses[1]?.data[0][0] === 0)){
+            updateOT(
+                jsonData,
+                OTAreas["areaActual"],
+                jsonData.area_hasta.toString() as any,
+                40,
+                formValues,
+                data,
+                OTSlice.cristales, 
+                OTSlice.armazones,
+                UsuarioID.toString(),
+                jsonData.observaciones,
+                false,
+                jsonData.situacion
+            ).then(()=>{
+                closeModal()
+                dispatch(fetchOT({OTAreas:OTAreas["areaActual"]}))
+            })
+        }
     
     }
+
+
+
+
   return (
     <div className='useFormContainer useFormDerivacion centered-div use40rem z-30'>
         <div className="userFormBtnCloseContainer flex">
@@ -142,6 +254,8 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
                             control={control}
                             entidad={["/api/tipos/", "02", "OTAreas"]}
                             customWidth={"mr-[-1rem] mt-[2rem]"}
+                            error={errors.area_hasta}
+
                         />
                     </div>
                 </div>
@@ -157,6 +271,7 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
                             control={control}
                             entidad={["/api/otmotivoderivacion/", "02", "60"]}
                             customWidth={"w-[] ml-[1rem] mr-[-1rem] mt-[2rem]"}
+                            error={errors.situacion}
                         />
                     </div>
                 </div>
@@ -177,6 +292,8 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
                 <div className="flex justify-center">
                     <Button  type="submit" className='otActionButton bg-red-900'>Derivar</Button>
                 </div>
+
+                <CustomModal />
         </form>
 
     </div>

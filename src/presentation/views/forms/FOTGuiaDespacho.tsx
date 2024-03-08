@@ -3,12 +3,14 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { AppStore, useAppDispatch, useAppSelector } from '../../../redux/store';
 import { fetchOT } from '../../../redux/slices/OTSlice';
 import { TextInputComponent } from '../../components';
-import { TITLES } from "../../utils";
+import { MODAL, TITLES } from "../../utils";
 import { toast } from 'react-toastify';
 import { URLBackend } from '../../hooks/useCrud';
 import axios from 'axios';
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationOTGuiaSchema } from "../../utils/validationFormSchemas";
+import { useModal } from '../../hooks/useModal';
+import { paramsOT } from '../mantenedores/MOT';
 
 
 interface IDerivacion {
@@ -35,22 +37,39 @@ const FOTGuiaDespacho: React.FC<IDerivacion> = ({
 
     const UsuarioID: any = useAppSelector((store: AppStore) => store.user?.id)
     const dispatch = useAppDispatch();
+    const { showModal, CustomModal } = useModal();
 
 
     const onSubmit: SubmitHandler<any> = async (jsonData) => {
+        if(pktoDelete.length < 1){
+            return toast.error('No Hay OT Seleccionada')
+        }
 
-        console.log(pktoDelete)
+        if(jsonData["numero_doc"] <= 0){
+            return toast.error('Numero de documento debe ser mayor a 0')
+        }
+
+
+        if(parseInt(pktoDelete[0]["numero_guia"]) !== 0){
+            const result = await showModal(
+                `OT: ${pktoDelete[0]["folio"]} Tiene Reporte de atención asignado, ¿Desea agregar uno nuevo? `,
+                '', 
+                MODAL.keepYes,
+                MODAL.kepNo
+              );
+      
+            if(!result){
+                return;
+            }
+        }
+
 
         if (pktoDelete.some((OT: any) => OT["reporte_atencion"] <= 0)) {
             pktoDelete.filter((ot: any) => ot["reporte_atencion"] <= 0).map((ot: any) => {
                 toast.error(`Folio: ${ot["folio"]} sin Reporte de atencion`);
             })
         } else {
-            // const year = fechaHoraActual.getFullYear();
-            // const month = String(fechaHoraActual.getMonth() + 1).padStart(2, '0');
-            // const day = String(fechaHoraActual.getDate()).padStart(2, '0');
-            // const fechaFormateada = `${year}/${month}/${day}`;
-            // const dateHora = new Date().toLocaleTimeString();
+         
 
             try {
 
@@ -80,7 +99,7 @@ const FOTGuiaDespacho: React.FC<IDerivacion> = ({
 
                     if (resultQuery07?.status === 200) {
                         toast.success('Orden de Compra generado')
-                        dispatch(fetchOT({ historica: true, searchParams: `_proyecto=${pktoDelete[0]["proyecto_codigo"]}` }))
+                        dispatch(fetchOT({ historica: true, searchParams: paramsOT.value}))
 
                     } else {
                         toast.error('error: Orden de compra')
@@ -197,6 +216,7 @@ const FOTGuiaDespacho: React.FC<IDerivacion> = ({
                             {`${TITLES.aceptar}`}
                         </button>
                     </div>
+                    <CustomModal/>
                 </div>
 
             </form>

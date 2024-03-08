@@ -94,8 +94,13 @@ export const validationPuntosVentaSchema = () =>
 // Schema MOTIVOS OT PENDIENTE - DERIVADAS - GARANTIA - ANULACION
 export const validationMotivosOTSchema = () =>
   yup.object().shape({
-    descripcion: yup.string().required(`${msg}`),
-    area       : yup.string().default('0'),
+    situacion  : yup.string().required(`${msg}`),
+    area_hasta : yup.string().required(`${msg}`),
+  });
+export const validationPendienteOTSchema = () =>
+  yup.object().shape({
+    situacion  : yup.string().required(`${msg}`),
+    // area_hasta : yup.string().required(`${msg}`),
   });
 
 /*************** B O D E G A ***************/

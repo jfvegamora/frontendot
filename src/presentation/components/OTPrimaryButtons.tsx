@@ -5,7 +5,7 @@ import { SiAddthis } from 'react-icons/si';
 import { PiPrinterFill } from "react-icons/pi";
 import { PiMicrosoftExcelLogoFill } from "react-icons/pi";
 import { ImWhatsapp } from "react-icons/im";
-import { BUTTON_MESSAGES, updateOT } from '../utils';
+import { BUTTON_MESSAGES, MODAL, updateOT } from '../utils';
 import { usePermission } from '../hooks';
 import ImportToCsv from './ImportToCsv';
 import { AppStore, useAppDispatch, useAppSelector } from '../../redux/store';
@@ -18,6 +18,7 @@ import ErrorOTModal from './ErrorOTModal';
 import { useReactToPrint } from 'react-to-print';
 import FOTTicketImpresion from '../views/forms/FOTTicketImpresion';
 import { EnumGrid } from '../views/mantenedores/MOTHistorica';
+import { useModal } from '../hooks/useModal';
 // import FOTEmpaque from '../views/forms/FOTEmpaque';
 
 type AreaButtonsProps ={
@@ -64,6 +65,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
     const [dataOT, setDataOT]                         = useState();
     const [valueSearchOT, setValueSearchOT]           = useState<any>();
     const searchOTRef                                 = useRef<any>();
+    const { showModal, CustomModal }                  = useModal();
     const userState: any = useAppSelector((store: AppStore) => store.user);
 
     const folios = pkToDelete && pkToDelete.map(({folio}:any)=>folio)
@@ -369,10 +371,6 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
 
 
 
-    console.log(areaPermissions && areaPermissions[14])
-
-
-    
     const handleReporteFirma = async() => {
       let resultBoton:any = []
   
@@ -380,8 +378,30 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
         toast.error('No Hay OT Seleccionada')
         return;
       }
-      
+
       console.log(pkToDelete)
+
+      if(parseInt(pkToDelete[0]["numero_envio"]) !== 0){
+        return toast.error(`OT ${pkToDelete[0]["folio"]} ya tiene un número de envío asignado `)
+      }
+
+      if(parseInt(pkToDelete[0]["numero_reporte_firma"]) !== 0){
+        const result = await showModal(
+          `OT: ${pkToDelete[0]["folio"]} Tiene Reporte de Firmas asignado, ¿Desea agregar uno nuevo? `,
+          '', 
+          MODAL.keepYes,
+          MODAL.kepNo
+        );
+
+
+        if(!result){
+          setSelectedRows([])
+          return
+        }
+
+      }
+      
+      console.log('render')
      
       const resultadoFiltrado = OTs.data && OTs.data.filter((elemento:any) => folios.includes(elemento[1])); 
      
@@ -450,8 +470,8 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
         )
         }
        
-       <Suspense>
-          {areaPermissions && areaPermissions[4] === "1" && (
+       {/* <Suspense> */}
+          {areaPermissions && areaPermissions[3] === "1" && escritura_lectura && (
             <div className="mr-2">
               <ExportCSV
               strEntidad={strEntidad}
@@ -461,9 +481,9 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
             />
             </div>
           )}
-       </Suspense>
+       {/* </Suspense> */}
 
-        {areaPermissions && areaPermissions[3] === "1" && escritura_lectura && (
+        {areaPermissions && areaPermissions[4] === "1" && escritura_lectura && (
           <ImportToCsv
            strEntidad={strEntidad}
           //  params={params}
@@ -519,7 +539,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
 
         {areaPermissions && areaPermissions[14] === '1' && escritura_lectura && (
           <Tooltip content={'Generar Reporte de Firmas'}>
-            <Button className='otActionButton mt-3 mx-5' style={{ backgroundColor: '#676f9d' }} onClick={() => handleReporteFirma()}>N° Rep. Firma</Button>  
+            <Button className='otActionButton mt-3 mx-5'onClick={() => handleReporteFirma()}>N° Rep. Firma</Button>  
           </Tooltip>
         )}
 
@@ -552,6 +572,11 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
               <FOTEmpaque closeModal={()=>setIsFOTEmpaque(false)} setSelectedRows={setSelectedRows}  pktoDelete={pkToDelete} params={params}/>
             )}
           </Suspense>
+            
+        <Suspense>
+          <CustomModal />
+        </Suspense>
+
     </div>
 )}
 

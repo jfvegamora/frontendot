@@ -49,6 +49,7 @@ export enum OptionValuesEstado {
   Annulada = 2
 }
 
+const checkCount = signal(0)
 
 
 
@@ -56,7 +57,8 @@ const strEntidad = " ";
 const strBaseUrl = "/api/ot/";
 const strQuery = "14";
 const idMenu = 1;
-export const paramsOT = signal('')
+export const paramsOT     = signal('')
+
 
 const FOT               = React.lazy(()=>import('../forms/FOT'))
 const FilterButton      = React.lazy(()=>import('../../components/FilterButton')) 
@@ -116,6 +118,7 @@ const MOT: React.FC = () => {
 
   
   useEffect(() => {
+
     const newPkToDelete = selectedRows?.map((row: number) => ({
       folio: OTs.data[row] && OTs.data[row][EnumGrid.id],
       estado_id: OTs.data[row] && OTs.data[row][3],
@@ -126,14 +129,20 @@ const MOT: React.FC = () => {
       proyecto_codigo: OTs.data[row] && OTs.data[row][7],
       proyecto: OTs.data[row] && OTs.data[row][8],
       punto_venta: OTs.data[row] && OTs.data[row][6],
-      tipo_anteojo: OTs.data[row] && OTs.data[row][13]
-
+      tipo_anteojo: OTs.data[row] && OTs.data[row][13],
+      numero_envio: OTs.data[row] && OTs.data[row][24],
+      numero_reporte_firma: OTs.data[row] && OTs.data[row][25],
+      numero_reporte_atencion: OTs.data[row] && OTs.data[row][26],
+      numero_orden_compra: OTs.data[row] && OTs.data[row][27],
+      numero_factura: OTs.data[row] && OTs.data[row][28],
+      numero_guia: OTs.data[row] && OTs.data[row][29],
     }));
+
     setPkToDelete(newPkToDelete as any)
+    checkCount.value = pktoDelete.length
   }, [selectedRows]);
 
 
-  const checkCount = signal(pktoDelete.length)
 
   useEffect(() => {
 
@@ -166,6 +175,10 @@ const MOT: React.FC = () => {
   }, [OTs.estadosOT])
 
   // console.log(estadosOT)
+
+
+  console.log(params)
+
 
 
 
@@ -206,6 +219,7 @@ const MOT: React.FC = () => {
           idMenu={idMenu}
           isOT={true}
         />
+
       </div>
 
       <Suspense>
@@ -248,7 +262,7 @@ const MOT: React.FC = () => {
 
 
 
-      <div className={`width100 scroll ${filterToggle.value ? "!mt-[13rem] !h-[25rem]" : "!mt-[1rem] !h-[27rem]"} `}>
+      <div className={`width100 scroll ${filterToggle.value ? "!mt-[13rem] !h-[25rem]" : "!mt-[1rem] !h-[29rem]"} `}>
       
         <TableComponent
           handleSelectChecked={handleSelect}
@@ -304,7 +318,7 @@ const MOT: React.FC = () => {
 
     </div> */}
 
-  
+
         <StateCountBarOT  checkCount={checkCount}/>
  
 

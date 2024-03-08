@@ -287,7 +287,7 @@ const FOTCristales: React.FC<ICristales> = ({
                         onlyRead={true}
                         // onlyRead={ name === 'cristal2_grupo2_oi' || name === 'cristal2_grupo2_od' ? (!((isEditting && tipo_de_anteojo.value === '3') && (isEditting && permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria && tipo_de_anteojo.value === '3' ))) : !(isEditting && permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria)  }
                         textAlign="text-center"
-                        className='!text-2xl custom-input !w-[17rem]'
+                        className='!text-base custom-input !w-[17rem]'
                         />  
                 </div>
             </div>)
@@ -295,7 +295,8 @@ const FOTCristales: React.FC<ICristales> = ({
 
     // console.log(tipo_de_anteojo.value)
 
-    console.log(A2_CR_OD.value)
+    console.log(permiso_areas_grupo_dioptria)
+    console.log(permiso_usuario_grupo_dioptria)
     // console.log(data?.[EnumGrid.cristal2_od])
 
     useEffect(()=>{

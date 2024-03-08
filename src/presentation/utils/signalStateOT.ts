@@ -103,7 +103,7 @@ export const validar_cristal2_od = signal("");
 export const validar_cristal2_oi = signal("");
 
 
-
+export const secondProcessBodega = signal(false)
 export const procesarRender     = signal(40);
 
 // fechaHoraActual
@@ -584,12 +584,34 @@ export const clearGrupos = () => {
   A2_Diametro.value   = "";
   
   oftalmologo_id.value        = "";
+  secondProcessBodega.value       = false;
 
   motivo_ot.value          = false;
   isExistClient.value      = false;
   isToggleImpression.value = false;
   isToggleValidation.value = false;
 }
+
+
+export const  validarNumeroDocumento = (data:any) => {
+    if(!data){
+      return toast.error('No hay informacion de OT')
+    }
+
+    const reporte_firma = data[EnumGrid.numero_reporte_firma]
+    const numero_envio  = data[EnumGrid.numero_envio]
+
+    let reporteFirma = parseInt(reporte_firma) > 0;
+    let numeroEnvio  = parseInt(numero_envio)  > 0;
+
+    if ((numeroEnvio && !reporteFirma) || (!numeroEnvio && reporteFirma)) {
+      return true
+    }else{
+      toast.error('OT debe tener Numero de envío o Reporte de Fírmas')
+      return false
+    }
+}
+
 
 
 export const clearDioptrias = (closeForm?:boolean) => {

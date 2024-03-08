@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { RadioButtonComponent, SelectInputComponent } from '..'
-import { SEXO, TIPO_CLIENTE, codigoProyecto, isExistClient } from '../../utils';
+import { SEXO, TIPO_CLIENTE, codigoProyecto, isExistClient, validateRut } from '../../utils';
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
 import { EnumGrid as EnumClientes } from '../../views/mantenedores/MClientes';
 import axios from 'axios';
@@ -9,6 +9,7 @@ import RegProCom from '../RegProCom';
 import { URLBackend } from '../../hooks/useCrud';
 
 import TextInputInteractive from '../forms/TextInputInteractive';
+import { toast } from 'react-toastify';
 // import { useModal } from '../../hooks/useModal';
 
 
@@ -181,6 +182,20 @@ const FOTClientes:React.FC<IClientes> = ({
         }
         if(name === 'Sexo'){
             onDataChange({['cliente_sexo']: value})
+        }
+
+        if(name === 'cliente_rut'){
+            const response = validateRut(value)
+            console.log(response)
+            if(!response){
+                toast.error('Rut no válido')
+                onDataChange({['cliente_rut']:''})
+            }else{
+                onDataChange({['cliente_rut']: value.slice(0, -1)  + value.slice(-1).toUpperCase()})
+                console.log(value)
+
+                console.log(value.slice(0, -1)  + value.slice(-1).toUpperCase())
+            }
         }
 
         validationOTlevel1(name, value);

@@ -3,12 +3,14 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { AppStore, useAppDispatch, useAppSelector } from '../../../redux/store';
 import { fetchOT } from '../../../redux/slices/OTSlice';
 import { TextInputComponent } from '../../components';
-import { TITLES } from "../../utils";
+import { MODAL, TITLES } from "../../utils";
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import { URLBackend } from '../../hooks/useCrud';
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationOTOCSchema } from "../../utils/validationFormSchemas";
+import { useModal } from '../../hooks/useModal';
+import { paramsOT } from '../mantenedores/MOT';
 
 
 interface IDerivacion {
@@ -33,22 +35,41 @@ const FOTOrdenCompra: React.FC<IDerivacion> = ({
     
     const UsuarioID: any = useAppSelector((store: AppStore) => store.user?.id)
     const dispatch       = useAppDispatch();
+    const { showModal, CustomModal } = useModal();
+  
 
     const onSubmit: SubmitHandler<any> = async (jsonData) => {
 
-        console.log(pktoDelete)
-        // console.log(pktoDelete[0]["proyecto_codigo"])
+        if(pktoDelete.length < 1){
+            return toast.error('No Hay OT Seleccionada')
+        }
+
+        if(jsonData["numero_doc"] <= 0){
+            return toast.error('Número de documento debe ser mayor a 0')
+        }
+
+        if(jsonData["valor_neto"] <= 0){
+            return toast.error('Valor neto debe ser mayor a 0')
+        }
+
+        if(parseInt(pktoDelete[0]["orden_compra"]) !== 0){
+            const result = await showModal(
+                `OT: ${pktoDelete[0]["folio"]} Tiene Reporte de atención asignado, ¿Desea agregar uno nuevo? `,
+                '', 
+                MODAL.keepYes,
+                MODAL.kepNo
+              );
+      
+            if(!result){
+                return;
+            }
+        }
 
         if (pktoDelete.some((OT: any) => OT["reporte_atencion"] <= 0)) {
             pktoDelete.filter((ot:any)=> ot["reporte_atencion"] <= 0).map((ot:any)=>{
                 toast.error(`Folio: ${ot["folio"]} sin Reporte de atencion`);
             })
         } else {
-            // const year             = fechaHoraActual.getFullYear();
-            // const month            = String(fechaHoraActual.getMonth() + 1).padStart(2, '0'); 
-            // const day              = String(fechaHoraActual.getDate()).padStart(2, '0'); 
-            // const fechaFormateada  = `${year}/${month}/${day}`;
-            // const dateHora         = new Date().toLocaleTimeString();
 
 
             const toastLoading = toast.loading('Cargando...');
@@ -64,9 +85,6 @@ const FOTOrdenCompra: React.FC<IDerivacion> = ({
                     _pkToDelete : JSON.stringify(pktoDelete.map((folioOT:any)=>({folio: folioOT["folio"]})))
                    
                 }
-            
-                console.log(query03);
-                console.log(query07);
 
                 const strUrl             = `${URLBackend}/api/proyectodocum/listado`
                 let   queryURL03         = `?query=03&_p1=${query03["_p1"]}`
@@ -81,7 +99,7 @@ const FOTOrdenCompra: React.FC<IDerivacion> = ({
                     if(resultQuery07?.status === 200){
                         // toast.dismiss(toastLoading)
                         toast.success('Orden de Compra generado')
-                        dispatch(fetchOT({historica:true, searchParams: `_proyecto=${pktoDelete[0]["proyecto_codigo"]}`  }))
+                        dispatch(fetchOT({historica:true, searchParams: paramsOT.value  }))
 
                     }else{
                         toast.error('error: Orden de compra')
@@ -105,6 +123,7 @@ const FOTOrdenCompra: React.FC<IDerivacion> = ({
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
             if (event.key === "Escape") {
+                setSelectedRows([])
                 closeModal()
             }
         };
@@ -205,6 +224,7 @@ const FOTOrdenCompra: React.FC<IDerivacion> = ({
                             {`${TITLES.aceptar}`}
                         </button>
                     </div>
+                <CustomModal />
                 </div>
 
             </form>
