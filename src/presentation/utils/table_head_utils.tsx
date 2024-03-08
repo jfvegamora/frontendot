@@ -41,7 +41,7 @@ export const table_head_OT_diaria2 = [
   },
   
   {
-    cell: "Estado Imrpesion",
+    cell: "Estado Impresion",
     key: "estado_impresion",
     visible: false,
     alignment: "text-left",
@@ -178,6 +178,48 @@ export const table_head_OT_diaria2 = [
     alignment: "text-center",
     width: "w-[10trem]"
   },
+  {
+    cell: "N° Envío",
+    key: "num_envio",
+    visible: true,
+    alignment: "text-left",
+    width: "w-[6rem]"
+  },
+  {
+    cell: "N° Rep. Firma",
+    key: "num_rep_firma",
+    visible: true,
+    alignment: "text-left",
+    width: "w-[6rem]"
+  },
+  {
+    cell: "N° Rep. Atención",
+    key: "num_rep_atencion",
+    visible: true,
+    alignment: "text-left",
+    width: "w-[6rem]"
+  },
+  {
+    cell: "N° OC",
+    key: "num_oc",
+    visible: true,
+    alignment: "text-left",
+    width: "w-[6rem]"
+  },
+  {
+    cell: "N° Factura",
+    key: "num_factura",
+    visible: true,
+    alignment: "text-left",
+    width: "w-[6rem]"
+  },
+  {
+    cell: "N° Guía",
+    key: "num_guia",
+    visible: true,
+    alignment: "text-left",
+    width: "w-[6rem]"
+  },
 ];
 export const table_head_OT_historica = [
   {
@@ -232,6 +274,13 @@ export const table_head_OT_historica = [
     width: "w-[12rem]"
   },
   {
+    cell: "N° Envío",
+    key: "num_envio",
+    visible: true,
+    alignment: "text-left",
+    width: "w-[6rem]"
+  },
+  {
     cell: "N° Rep. Firma",
     key: "num_rep_firma",
     visible: true,
@@ -253,15 +302,15 @@ export const table_head_OT_historica = [
     width: "w-[6rem]"
   },
   {
-    cell: "N° Guía",
-    key: "num_guia",
+    cell: "N° Factura",
+    key: "num_factura",
     visible: true,
     alignment: "text-left",
     width: "w-[6rem]"
   },
   {
-    cell: "N° Factura",
-    key: "num_factura",
+    cell: "N° Guía",
+    key: "num_guia",
     visible: true,
     alignment: "text-left",
     width: "w-[6rem]"
