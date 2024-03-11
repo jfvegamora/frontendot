@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { AppStore, useAppSelector } from '../../../redux/store';
 import { EnumGrid } from '../mantenedores/MOTHistorica';
 import Barcode from 'react-barcode';
-import QRCode from 'react-qr-code';
+// import QRCode from 'react-qr-code';
 // import QRCode from 'qrcode.react';
 // import LogoMaster   from '../../../assets/logo_master01.jpg';
 import LogoMTO      from '../../../assets/logo_mto01.jpg';
@@ -431,7 +431,7 @@ const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
 
             </div>
 
-            {(OT[0] && OT[0] && OT[0][EnumGrid.imprime_qr] === 1) && (
+            {/* {(OT[0] && OT[0] && OT[0][EnumGrid.imprime_qr] === 1) && (
               <div className="!h-auto ">
                 <div className="w-full text-center">
                   <h1 className='font-bold mb-2 ml-4'>CUIDA TUS LENTES, ESCANEA CÓDIGO QR</h1>
@@ -446,7 +446,7 @@ const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
               </div>
             )}
 
-   
+    */}
             {/* <span dangerouslySetInnerHTML={{ __html: '\x1D\x56\x00' }} /> */}
 
 

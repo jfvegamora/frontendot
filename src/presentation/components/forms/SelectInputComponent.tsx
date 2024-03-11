@@ -17,6 +17,7 @@ import { URLBackend } from "../../hooks/useCrud";
 import { clearSelectInput, punto_venta } from "../../utils";
 
 import { retry } from 'async';
+import { resetFilters } from "../PrimaryKeySearch";
 // import Select from "react-select";
 
 interface ISelectInputProps {
@@ -70,14 +71,10 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     const strTableName = entidad[2] && `_p1=${entidad[2]}`
     const inputRef = useRef(null);
     const { ListEntity } = useCrud(strUrl);
-    // console.log(strUrl)
-    // console.log(entidad)
-    // console.log(strTableName)
-    const _p1 =  entidad[2] && `_p1=${entidad[2]}`   
-    // console.log(entidad)
-    // if(strTableName){
+    const cleanFilters = {};
+    const { refreshData } = useEntityUtils(strUrl, entidad[1]);
 
-    // }
+    const _p1 =  entidad[2] && `_p1=${entidad[2]}`   
 
     const strUrl2 = strTableName ? `${URLBackend}${entidad[0]}listado/?query=${entidad[1]}&${strTableName}`
                                  : `${URLBackend}${entidad[0]}listado/?query=${entidad[1]}`;
@@ -88,39 +85,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     
     const state = useAppSelector((store: AppStore) => store.listBox);
     
-    // const fetchSelectData = async () => {
-    //   try {
-    //     const response = await retry(
-    //       async (retryCount) => {
-    //         try {
-    //           const { data } = await axios(strUrl2);
-    //           if(label === 'Punto de Venta'){
-    //             if(data){
-    //               punto_venta.value = data[0][0]
-    //             }
-    //             }
-    //             const payload = {
-    //               [label]:data
-    //             }
-    //             dispatch(setDataListbox(payload))
-    //             setEntities(data)
-    //           return data;
-    //         } catch (error) {
-    //           if (retryCount >= 3) {
-    //             throw error; // Reenviar el error después de 3 intentos
-    //           }
-    //           await new Promise((resolve) => setTimeout(resolve, 500)); // Esperar 1 segundo antes de reintentar
-    //         }
-    //       },
-    //       { retries: 4 } // Reintentar hasta 3 veces
-    //     );
-    
-    //     // ... código para manejar la respuesta
-    //   } catch (error) {
-    //     console.error('Error definitivo en la petición:', error);
-    //     // Manejar el error definitivo, como mostrar un mensaje al usuario
-    //   }
-    // };
+
     const fetchSelectData =async()=>{
       const {data} = await axios(strUrl2)
       if(label === 'Punto de Venta'){
@@ -139,12 +104,6 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
       
     }
 
-
-    //  if(refreshToggle){
-    //   // console.log('refresh')
-    //   fetchSelectData()
-    //  }
-    
     React.useEffect(()=>{
       if(!state.hasOwnProperty(label)){
         // console.log('no se encuentra')
@@ -161,19 +120,17 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
         fetchSelectData()
         // console.log('cambio')
     },[strUrl2])
-    // console.log(refreshToggle)
-    // console.log(state)
-    // console.log(label)
-    // console.log('render')
-    const { refreshData } = useEntityUtils(strUrl, entidad[1]);
-    // console.log(state)
 
 
-
-    useEffect(()=>{
+    React.useEffect(()=>{
       setStrSelectedName(data)
     },[data])
 
+    React.useEffect(()=>{
+      if(resetFilters.value === true){
+          setStrSelectedName('')
+        }
+   },[resetFilters.value])
 
 
     const renderInput = () => (

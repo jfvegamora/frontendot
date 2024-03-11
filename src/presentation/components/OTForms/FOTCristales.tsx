@@ -14,6 +14,7 @@ interface ICristales {
     control: any,
     onDataChange: any,
     formValues: any,
+    formValuesCompleto?:any
     data: any,
     onlyRead?: boolean,
     a2Grupo?: any,
@@ -38,7 +39,8 @@ const FOTCristales: React.FC<ICristales> = ({
     permiso_usuario_grupo_dioptria,
     permiso_usuario_verificar_cristal,
     permiso_area_verificar_cristal,
-    isEditting
+    isEditting,
+    formValuesCompleto
 }) => {
     // const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas["areaActual"]);
 
@@ -68,172 +70,7 @@ const FOTCristales: React.FC<ICristales> = ({
             validar_cristal2_oi.value = value.trim(); 
         }
 
-
-
-
-
-        // if (isEditting && data) {
-        //     const _p1 = data[EnumGrid.proyecto_codigo]
-        //     const _p2 = value.trim()
-        //     const _p4 = data[EnumGrid.validar_parametrizacion_id]
-
-        //     let _p5 = ''
-
-        //     switch (name) {
-        //         case 'cristal1_od':
-        //             console.log('render')
-        //             _p5 = A1_CR_OI.value
-        //             console.log(_p5)
-        //             const strURLC1OD =  `${URLBackend}/api/cristales/listado/?query=02&_p1=${_p1}&_p2=${_p2}&_p4=${_p4}&_p5=${_p5}`
-                                                  
-        //             const {data:cristal1OD} = await axios(strURLC1OD)
-        //                 console.log(cristal1OD)
-        //                 if (cristal1OD && cristal1OD[0] && cristal1OD[0][0]) {
-        //                     if (typeof cristal1OD[0][0] === 'string') {
-        //                         validation_Cristal1_od("")
-        //                         onDataChange({['']: undefined})
-        //                         A1_CR_OD.value = " ";
-        //                         toast.error(cristal1OD[0][0])
-                                
-        //                     }else{
-        //                         console.log('render')
-        //                         onDataChange({['cristal1_marca_id']: cristal1OD[0][0]})
-        //                         onDataChange({['cristal1_diseno_id']: cristal1OD[0][1]})
-        //                         onDataChange({['cristal1_indice_id']: cristal1OD[0][2]})
-        //                         onDataChange({['cristal1_material_id']: cristal1OD[0][3]})
-        //                         onDataChange({['cristal1_color_id']: cristal1OD[0][4]})
-        //                         onDataChange({['cristal1_tratamiento_id']: cristal1OD[0][5]})
-        //                         onDataChange({['cristal1_diametro']: cristal1OD[0][6]})
-
-
-        //                     dioptrias_receta.value.a1_od.esf = cristal1OD[0][7]
-        //                     dioptrias_receta.value.a1_od.cil = cristal1OD[0][8]
-
-
-        //                 }
-
-        //             }
-
-
-
-        //             break;
-        //         case 'cristal1_oi':
-        //             _p5 = A1_CR_OD.value
-        //             console.log(_p5)
-        //             const strURLC1OI = `${URLBackend}/api/cristales/listado/?query=02&_p1=${_p1}&_p2=${_p2}&_p4=${_p4}&_p5=${_p5}`
-                                               
-
-        //             const {data:cristal1OI} = await axios(strURLC1OI)
-        //             console.log(cristal1OI)
-        //             if(cristal1OI && cristal1OI[0] && cristal1OI[0][0]){
-        //                 if(typeof cristal1OI[0][0] === 'string'){
-        //                     validation_Cristal1_oi("")
-        //                     onDataChange({['']: null})
-        //                     A1_CR_OI.value = " ";
-        //                     toast.error(cristal1OI[0][0])
-        //                 } else {
-        //                     onDataChange({ ['cristal1_marca_id']: cristal1OI[0][0] })
-        //                     onDataChange({ ['cristal1_diseno_id']: cristal1OI[0][1] })
-        //                     onDataChange({ ['cristal1_indice_id']: cristal1OI[0][2] })
-        //                     onDataChange({ ['cristal1_material_id']: cristal1OI[0][3] })
-        //                     onDataChange({ ['cristal1_color_id']: cristal1OI[0][4] })
-        //                     onDataChange({ ['cristal1_tratamiento_id']: cristal1OI[0][5] })
-        //                     onDataChange({ ['cristal1_diametro']: cristal1OI[0][6] })
-
-
-        //                     dioptrias_receta.value.a1_oi.esf = cristal1OI[0][7]
-        //                     dioptrias_receta.value.a1_oi.cil = cristal1OI[0][8]
-        //                 }
-        //             }
-
-        //             if (cristal1OI && cristal1OI[0][0] === null) {
-        //                 A1_CR_OI.value = " "
-        //                 toast.error('Cristal no existe')
-        //             }
-        //             break;
-
-
-        //         case 'cristal2_od':
-        //             console.log('render')
-        //             _p5 = A2_CR_OI.value
-        //             const strURLC2OD = isEditting
-        //                 ? `${URLBackend}/api/cristales/listado/?query=02&_p1=${_p1}&_p2=${_p2}&_p4=${_p4}&_p5=${_p5}`
-        //                 : `${URLBackend}/api/cristales/listado/?query=02&_p1=${_p1}&_p2=${_p2}&_p4=${_p4}`
-
-        //             const { data: cristal2OD } = await axios(strURLC2OD)
-
-        //             console.log(cristal2OD)
-        //             if(cristal2OD && cristal2OD[0] && cristal2OD[0][0]){
-        //                 if(typeof cristal2OD[0][0] === 'string'){
-        //                     validation_Cristal2_od("")
-        //                     onDataChange({['']: null})
-        //                     A2_CR_OD.value = " ";
-        //                     toast.error(cristal2OD[0][0])
-
-        //                 }else{
-        //                     console.log('render')
-        //                     console.log(cristal2OD[0][0])
-        //                     onDataChange({ ['cristal2_marca_id']: cristal2OD[0][0] })
-        //                     onDataChange({ ['cristal2_diseno_id']: cristal2OD[0][1] })
-        //                     onDataChange({ ['cristal2_indice_id']: cristal2OD[0][2] })
-        //                     onDataChange({ ['cristal2_material_id']: cristal2OD[0][3] })
-        //                     onDataChange({ ['cristal2_color_id']: cristal2OD[0][4] })
-        //                     onDataChange({ ['cristal2_tratamiento_id']: cristal2OD[0][5] })
-        //                     onDataChange({ ['cristal2_diametro']: cristal2OD[0][6] })
-
-
-        //                     a2_od_esf.value = cristal2OD[0][7]
-        //                     dioptrias_receta.value.a1_od.cil = cristal2OD[0][8]
-
-        //                 }
-
-
-        //             }
-        //             if (cristal2OD && cristal2OD[0][0] === null) {
-        //                 A2_CR_OD.value = " "
-        //                 toast.error('Cristal no existe')
-        //             }
-        //             break;
-        //         case 'cristal2_oi':
-        //             _p5 = A2_CR_OD.value
-        //             const strURLC2OI = isEditting
-        //                 ? `${URLBackend}/api/cristales/listado/?query=02&_p1=${_p1}&_p2=${_p2}&_p4=${_p4}&_p5=${_p5}`
-        //                 : `${URLBackend}/api/cristales/listado/?query=02&_p1=${_p1}&_p2=${_p2}&_p4=${_p4}`
-
-        //             const { data: cristal2OI } = await axios(strURLC2OI)
-
-        //             console.log(cristal2OI)
-        //             if (cristal2OI && cristal2OI[0] && cristal2OI[0][0]) {
-        //                 if (typeof cristal2OI[0][0]) {
-        //                     A2_CR_OI.value = " ";
-        //                     validation_Cristal2_oi("")
-        //                     onDataChange({['']: null})
-        //                     toast.error(cristal2OD[0][0])
-        //                 } else {
-        //                     onDataChange({ ['cristal2_marca_id']: cristal2OI[0][0] })
-        //                     onDataChange({ ['cristal2_diseno_id']: cristal2OI[0][1] })
-        //                     onDataChange({ ['cristal2_indice_id']: cristal2OI[0][2] })
-        //                     onDataChange({ ['cristal2_material_id']: cristal2OI[0][3] })
-        //                     onDataChange({ ['cristal2_color_id']: cristal2OI[0][4] })
-        //                     onDataChange({ ['cristal2_tratamiento_id']: cristal2OI[0][5] })
-        //                     onDataChange({ ['cristal2_diametro']: cristal2OI[0][6] })
-
-        //                     a2_oi_esf.value = cristal2OI[0][7]
-        //                     // diopt]]] = cristal2OI[0][8]    
-        //                 }
-
-        //             }
-
-        //             if (cristal2OI && cristal2OI[0][0] === null) {
-        //                 A2_CR_OI.value = " "
-        //                 toast.error('Cristal no existe')
-        //             }
-        //             break;
-        //         default:
-        //             break;
-        //     }
-
-        // }
+        console.log(formValuesCompleto)
     }
 
 

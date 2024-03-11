@@ -49,6 +49,7 @@ interface PrimaryKeySearchProps {
 // ));
 
 export const resetFilters = signal(false)
+export const filterTextValue = signal('')
 
 const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
   ({ setEntities, primaryKeyInputs, updateParams, description, otHistorica, baseUrl }) => {
@@ -71,24 +72,21 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
 
 
 
-    // const handleRefresh = () => {
-    //     console.log(primaryKeyInputs)
-    //     // setValue('_rut', '')
-    //     console.log(inputValues)
-    //     // setInputValues({_rut: ''})
-    //     const mapping = primaryKeyInputs.reduce((acc:any, filtroBusqueda:any) => {
-    //       acc[filtroBusqueda.name]= '';
-    //       setInputValues({ ...inputValues, [filtroBusqueda.name]: '' });
-    //       setValue(filtroBusqueda.name, '');
-    //       return acc;
-    //   }, {});
-
-    //     console.log(mapping)
-    //     resetFilters.value = !resetFilters.value
-    //     handleSearch(mapping)  
-    // }
-
-
+    const handleRefresh = () => {
+        const mapping = primaryKeyInputs.reduce((acc:any, filtroBusqueda:any) => {
+          acc[filtroBusqueda.name]= '';
+          setInputValues({ ...inputValues, [filtroBusqueda.name]: '' });
+          setValue(filtroBusqueda.name, '');
+          return acc;
+      }, {});
+        resetFilters.value = true
+        filterTextValue.value = ''
+        handleSearch(mapping)
+        setInputValues(mapping)
+        setTimeout(()=>{
+          resetFilters.value = false
+        },1000)  
+    }
 
 
 
@@ -108,19 +106,8 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
   
     const handleSelectChange = React.useCallback(
       (name: string, value: string) => {
-      
         setInputValues((prev) => ({ ...prev, [name]: value }));
-        
-        console.log(inputValues)
-
-        
-        
-        console.log(updatedParams)
-        
         updateParams({updatedParams});
-        paramsOT.value = updatedParams
-
-        
       },
       [inputValues, updateParams]
     );
@@ -149,10 +136,6 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
 
     const handleSearch = async (data: any) => {
       const toastLoading = toast.loading('Buscando...');
-      // filterToggle.value = false;
-      console.log(data)
-      console.log(paramsOT.value)
-      // console.log(cilindrico)
       
       if(baseUrl === '/api/othistorica/' || baseUrl === '/api/ot/'){
         const filtersOT = Object.entries(data)
@@ -170,7 +153,6 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
         };
       }
 
-      // console.log('data search', data)
       
       if(primaryKeyInputs[1]){
         if(primaryKeyInputs[1]["type"] === "date" && primaryKeyInputs[2]["type"] === "date"){
@@ -181,7 +163,6 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
         }
       }
 
-      console.log(data)
       const searchParams = Object.entries(data)
         .map(([key, value]: any) =>
           key === "" || value ? ( key.includes('_proyecto') ? `${key}=${encodeURIComponent(value)}` :`${key}=${encodeURIComponent(value)}`) : "" 
@@ -335,7 +316,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                             {...field}
                             type={input.type}
                             label={input.label}
-                            value={inputValues[input.name] || ""}
+                            value={inputValues[input.name]}
                             onChange={(e) => {
                               field.onChange(e);
                               handleInputChange(input.name, e.target.value);
@@ -438,7 +419,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                       {...field}
                       type={input.type}
                       label={input.label}
-                      value={inputValues[input.name] || ""}
+                      value={inputValues[input.name]}
                       onChange={(e) => {
                         field.onChange(e);
                         handleInputChange(input.name, e.target.value);
@@ -509,7 +490,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
           </Tooltip>
         </div>
 
-        {/* <div className={`w-[80px] h-[50px]  ${baseUrl === '/api/ot/' ? 'absolute left-[84rem] bottom-[11rem]' : ''} `}>
+        <div className={`w-[80px] h-[50px]  ${baseUrl === '/api/ot/' ? 'absolute left-[84rem] bottom-[11rem]' : ''} `}>
           <Tooltip content="Refrescar">
               <IconButton
               tabIndex={1}
@@ -526,7 +507,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                 <FontAwesomeIcon icon={faArrowsRotate} className="primaryBtnIcon w-full  !mt-2"/>
             </IconButton>
           </Tooltip>
-        </div> */}
+        </div>
 
         {description && (
           <input

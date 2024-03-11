@@ -1,6 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { URLBackend } from "../../presentation/hooks/useCrud";
+import { EnumGrid } from "../../presentation/views/mantenedores/MOTHistorica";
+import { validarImpresion } from "../../presentation/utils";
 // import { toast } from "react-toastify";
 
 export interface DataState {
@@ -24,8 +26,16 @@ const initialState: DataState = {
     impresionOT: [],
     derivacionColores: localStorage.getItem("OTColores")
     ? JSON.parse(localStorage.getItem("OTColores") as string)
-    : {}
- 
+    :  {
+        Ingresada: [ '#000000', '#FFFFFF' ],
+        'En proceso': [ '#000000', '#FFFFFF' ],
+        Pendiente: [ '#000000', '#FFFF00' ],
+        Derivada: [ '#FFFFFF', '#FF0000' ],
+        Entregada: [ '#000000', '#FFFFFF' ],
+        Cerrada: [ '#000000', '#FFFFFF' ],
+        Facturada: [ '#000000', '#FFFFFF' ],
+        Anulada: [ '#FFFFFF', '#808080' ]
+      }
 };
 
 export const fetchOT = createAsyncThunk(
@@ -95,7 +105,7 @@ export const fetchOTImpresionByID = createAsyncThunk(
         try {
             const {folio, OTAreas} = params;
             const response = await axios.get(`${URLBackend}/api/ot/listado/?query=01&_origen=${OTAreas}&_folio=${folio}`);
-            console.log(response)
+            validarImpresion.value = response.data[0][EnumGrid.estado_impresion_id]
             return response.data[0]
         } catch (error) {
             // console.log(error)
@@ -161,11 +171,14 @@ const OTSlice = createSlice({
         clearImpression(state){
             state.impresionOT = []
             state.ot          = []
+            
+            //lamar a la query para cambiar campo de la OT
+
         }
     },
     extraReducers: (builder) => {
         builder.addCase(fetchOT.fulfilled, (state, action) => {
-            // console.log(action.payload)
+            console.log(action.payload)
             state.estadosOT = {};
             state.estadosOT[99] = 0;
 
@@ -203,6 +216,7 @@ const OTSlice = createSlice({
         });
         builder.addCase(fetchColores.fulfilled, (state,action )=>{
             state.derivacionColores = action.payload
+            console.log(action.payload)
             localStorage.setItem('OTColores', JSON.stringify(action.payload))
             return state
         });

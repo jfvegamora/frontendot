@@ -234,7 +234,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
               entidad={entidad}
               historica={entidad === 'Orden de Trabajo Histórico' ? true : false}
               estado={estado}
-              
+
             />
             </>
           )}
@@ -244,7 +244,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
   };
   // console.log(data)
   // console.log(pkToDelete)
- 
+  
     return (
       <table className="gridContainer">
         <thead className="gridTop">

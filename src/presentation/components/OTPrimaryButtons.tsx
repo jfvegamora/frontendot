@@ -19,6 +19,7 @@ import { useReactToPrint } from 'react-to-print';
 import FOTTicketImpresion from '../views/forms/FOTTicketImpresion';
 import { EnumGrid } from '../views/mantenedores/MOTHistorica';
 import { useModal } from '../hooks/useModal';
+import { paramsOT } from '../views/mantenedores/MOT';
 // import FOTEmpaque from '../views/forms/FOTEmpaque';
 
 type AreaButtonsProps ={
@@ -38,6 +39,20 @@ const strBaseUrl = "/api/ot/";
 const FOTImpresa  = React.lazy(()=>import('../views/forms/FOTImpresa'));
 const ExportCSV   = React.lazy(()=>import('./ExportToCsv'))
 const FOTEmpaque  = React.lazy(()=>import('../views/forms/FOTEmpaque'))
+
+
+export const validationStateOT = (positionCampo:number, nameCampo:string, folios:any, data:any) => {
+  const resultadoFiltrado = data && data.filter((elemento:any) => folios.includes(elemento[1]));
+
+
+  return resultadoFiltrado.map((OT:any)=>{
+    const estado = OT[positionCampo]
+    if(estado !== nameCampo){
+      return [OT[1], OT[4]]
+    }
+    return true
+  })
+};
 // const ExportCSV  = React.lazy(()=>import('));
 
 
@@ -135,18 +150,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
 
     }
       
-    const validationStateOT = (positionCampo:number, nameCampo:string, folios:any) => {
-      const resultadoFiltrado = data && data.filter((elemento:any) => folios.includes(elemento[1]));
-
-
-      return resultadoFiltrado.map((OT:any)=>{
-        const estado = OT[positionCampo]
-        if(estado !== nameCampo){
-          return [OT[1], OT[4]]
-        }
-        return true
-      })
-    };
+    
 
 
     const handleChecked = async(folio:any) => {
@@ -186,7 +190,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
       // console.log(pkToDelete)
     
       // console.log(folios)
-      const result = validationStateOT(5, '0', folios)
+      const result = validationStateOT(5, '0', folios, data)
       const areAllSameType = result.every((item:any) => item === true);
 
       // console.log(result)
@@ -331,7 +335,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
 
       let condition = OTAreas["areaActual"] === 50 ? 'Ingresada' : 'En proceso';
 
-      const result = validationStateOT(4, condition, folios)
+      const result = validationStateOT(4, condition, folios, data)
       const areAllSameType = result.every((item:any) => item === true);
       // console.log(result)
       
@@ -359,12 +363,12 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
           "",
           true
         ).then(()=>{
-          dispatch(fetchOT({OTAreas:OTAreas["areaActual"]}))
+          dispatch(fetchOT({OTAreas:OTAreas["areaActual"],searchParams: paramsOT.value}))
           setSelectedRows([])
         })
       })
 
-      toast.success('OTs Procesadas Correctamente')
+      // toast.success('OTs Procesadas Correctamente')
     }
 
 

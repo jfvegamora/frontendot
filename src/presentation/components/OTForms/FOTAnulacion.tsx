@@ -8,6 +8,7 @@ import { Button } from '@material-tailwind/react';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import { URLBackend } from '../../hooks/useCrud';
+import { A1_CR_OD, A1_CR_OI, A2_CR_OD, A2_CR_OI, a1_armazon, a2_armazon } from '../../utils';
 
 
 interface IDerivacion {
@@ -35,6 +36,7 @@ interface FormData{
 const FOTAnulacion:React.FC<IDerivacion> = ({
     data,
     onClose,
+    closeModal
     // formValues,
 }) => {
     const {control, handleSubmit} = useForm<FormData>()
@@ -51,16 +53,29 @@ const FOTAnulacion:React.FC<IDerivacion> = ({
             const _estado = data && data[EnumGrid.estado_id]
             const userID =  UsuarioID
             const _origen = OTAreas["areaActual"]
+
+
+            const armazones = [
+               {codigo: a1_armazon.value},
+               {codigo: a2_armazon.value}
+            ].filter((armazon)=>armazon.codigo !== '')
+
+            
+            const cristales = [
+                {codigo: A1_CR_OD.value},
+                {codigo: A1_CR_OI.value},
+                {codigo: A2_CR_OD.value},
+                {codigo: A2_CR_OI.value}
+            ].filter((cristal) => cristal.codigo !== '')
+
       
-              console.log('click')
-      
-              const query = `?query=05&_folio=${_folio}&_estado=${_estado}&_usuario=${userID}&_origen=${_origen}`
+              const query = `?query=05&_folio=${_folio}&_estado=${_estado}&_usuario=${userID}&_origen=${_origen}&_situacion=${_jsonData.situacion}&_cristalJSONOri=${JSON.stringify(cristales)}&_armazonJSONOri=${JSON.stringify(armazones)}`
               const result = await axios(`${strUrl}/${query}`);
-              console.log(result)
               if(result.status === 200){
                   toast.success('OT anulada ')
               }
               onClose()
+              closeModal()
           } catch (error) {
               // console.log(error)
               throw error
@@ -124,30 +139,6 @@ const FOTAnulacion:React.FC<IDerivacion> = ({
                     </div>
                 </div>
 
-                <div className="w-full flex items-center rowForm">
-                    <div className="w-[50%]">
-                        <TextInputComponent
-                            type="text"
-                            label="Área desde"
-                            name="area_desde"
-                            control={control}
-                            data= {data && data[EnumGrid.area]}
-                            onlyRead={true}
-                            customWidth={"mt-[2rem]"}
-                        />
-                    </div>
-                    <div className="w-[50%]">
-                        <SelectInputComponent
-                            label="Área hasta"
-                            name="area_hasta"
-                            showRefresh={true}
-                            isOT={true}
-                            control={control}
-                            entidad={["/api/tipos/", "02", "OTAreas"]}
-                            customWidth={"mr-[-1rem] mt-[2rem]"}
-                        />
-                    </div>
-                </div>
 
                 <div className="input-container items-center rowForm ">
                 {/* <div className="w-full flex items-center rowForm"> */}

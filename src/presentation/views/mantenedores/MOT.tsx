@@ -66,29 +66,18 @@ const StateCountBarOT   = React.lazy(()=>import('../../components/StateCountBarO
 const OTAreasButtons    = React.lazy(()=>import('../../components/OTAreasButtons')) 
 
 const MOT: React.FC = () => {
-  // const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas);
-  // const areaActual = OTAreas["areaActual"] 
   const OTs:any = useAppSelector((store: AppStore) => store.OTS);
   const areaActualOT:any = useAppSelector((store: AppStore) => store.OTAreas.areaActual);
   const dispatch = useAppDispatch()
-  // const dispatch = useAppDispatch();
   const [params, setParams] = useState([]);
   const [_estadosOT, setEstadosOT] = useState()
   const [pktoDelete, setPkToDelete] = useState([]);
-  // const areaActualRef = useRef(areaActual)
-  // console.log(area)
-
-
   const { lectura } = usePermission(28);
-  // console.log(lectura)
-  // let a = JSON.parse(localStorage.getItem("ListBoxTipos") as string)  
-  // console.log( a["cristalDiseño"] )
   
   const updateParams = (newParams: Record<string, never>) => {
     setParams(Object.keys(newParams).map((key) => newParams[key]));
   };
   
-  // console.log(paramsOT.value)
   const {
     //entities state
     // entities,
@@ -145,21 +134,14 @@ const MOT: React.FC = () => {
 
 
   useEffect(() => {
-
-    ; // Llama inicialmente cuando cambia el área
-  //  console.log(areaActualRef)
    const interval = setInterval(() => {
     if(params[0] !== ''){
-      // console.log('render')
-      dispatch(fetchOT({OTAreas:areaActualOT, searchParams:params[0]})) // Llama fetchOT cada minuto con el área actual
-      
+      dispatch(fetchOT({OTAreas:areaActualOT, searchParams:params[0]})) 
     }else{
-      dispatch(fetchOT({OTAreas:areaActualOT})) // Llama fetchOT cada minuto con el área actual
-
+      dispatch(fetchOT({OTAreas:areaActualOT}))
     }
-   }, 30000);
- 
-   return () => clearInterval(interval); // Limpia el intervalo al desmontar el componente
+   }, 60000);
+   return () => clearInterval(interval);
  }, [areaActualOT, dispatch, params]);
 
 
@@ -177,21 +159,11 @@ const MOT: React.FC = () => {
   // console.log(estadosOT)
 
 
-  console.log(params)
-
-
 
 
   return (
     <div className="mantenedorContainer">
       <div className="mt-4">
-        {/* <FilterButton
-          isOT={true}
-        >
-              
-        </FilterButton>
-        */}
-
         <Suspense>
           <OTAreasButtons  setSelectedRows={setSelectedRows} params={params} />
         </Suspense>

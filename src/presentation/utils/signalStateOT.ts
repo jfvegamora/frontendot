@@ -103,6 +103,8 @@ export const validar_cristal2_od = signal("");
 export const validar_cristal2_oi = signal("");
 
 
+export const validarImpresion = signal(null)
+
 export const secondProcessBodega = signal(false)
 export const procesarRender     = signal(40);
 
@@ -607,7 +609,10 @@ export const  validarNumeroDocumento = (data:any) => {
     if ((numeroEnvio && !reporteFirma) || (!numeroEnvio && reporteFirma)) {
       return true
     }else{
-      toast.error('OT debe tener Numero de envío o Reporte de Fírmas')
+      const response = confirm('OT debe tener Numero de envío o Reporte de Fírmas, ¿está segúro de continuar igualmente?')
+      if(response){
+        return true
+      }
       return false
     }
 }

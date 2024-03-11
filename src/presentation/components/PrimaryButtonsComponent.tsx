@@ -13,7 +13,7 @@ import { useModal } from "../hooks/useModal";
 import { AppStore, useAppSelector } from "../../redux/store";
 import OTPrimaryButtons from "./OTPrimaryButtons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus, faClone, faArrowsRotate, faTrash, faArrowRightToBracket, faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faClone, faTrash, faArrowRightToBracket, faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { ExportCustomCSV } from "./ExportCustomToCsv";
 // import ExportToCsv from "./ExportToCsv";
 
@@ -58,13 +58,13 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
     // handlePageSize,
     handleAddPerson,
     handleCopiar,
-    handleRefresh,
+    // handleRefresh,
     toggleEditModal,
     // showForwardButton
     showCustomExportButton,
     customExporTooltip,
     showAddButton,
-    showRefreshButton,
+    // showRefreshButton,
     showDeleteButton,
     showImportCsv,
     strBaseUrl,
@@ -185,12 +185,12 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
           </>
         )}
 
-        {showRefreshButton &&
+        {/* {showRefreshButton &&
           renderButton(
             <FontAwesomeIcon icon={faArrowsRotate} className="primaryBtnIcon" />,
             handleRefresh!,
             BUTTON_MESSAGES.refresh
-          )}
+          )} */}
         <Suspense>
           {showExportButton && (
             <ExportToCsv

@@ -8,6 +8,7 @@ import { Button } from '@material-tailwind/react';
 import { updateOT, validationPendienteOTSchema } from '../../utils';
 import { fetchOT } from '../../../redux/slices/OTSlice';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { paramsOT } from '../../views/mantenedores/MOT';
 
 
 interface IDerivacion {
@@ -66,7 +67,7 @@ const FOTPendiente:React.FC<IDerivacion> = ({
             jsonData.situacion
         ).then(()=>{
             closeModal()
-            dispatch(fetchOT({OTAreas:OTAreas["areaActual"]}))
+            dispatch(fetchOT({OTAreas:OTAreas["areaActual"], searchParams: paramsOT.value}))
         })
     
     

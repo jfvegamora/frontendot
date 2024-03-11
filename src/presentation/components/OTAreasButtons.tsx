@@ -47,15 +47,6 @@ const handleEstado =(area:any) => {
    }
 }
 
-
-
-// useEffect(()=>{
-//   dispatch(updateActualArea(_areaActual)) 
-// },[_areaActual])
-
-
-// console.log(area[1])
-// console.log('otareas',OTAreas)
 const renderButtons = useMemo(() => {
   return (
     OTAreas &&

@@ -174,8 +174,8 @@ const FOTClientes:React.FC<IClientes> = ({
     
     const handleInputChange = (e:any) => {
         const { name, value } = e;
-        console.log(name)
-        console.log(value)
+        // console.log(name)
+        // console.log(value)
         onDataChange({ [name]: value });
         if(name === 'Tipo'){
             onDataChange({['cliente_tipo']: value})  
@@ -186,15 +186,15 @@ const FOTClientes:React.FC<IClientes> = ({
 
         if(name === 'cliente_rut'){
             const response = validateRut(value)
-            console.log(response)
+            // console.log(response)
             if(!response){
                 toast.error('Rut no válido')
                 onDataChange({['cliente_rut']:''})
             }else{
                 onDataChange({['cliente_rut']: value.slice(0, -1)  + value.slice(-1).toUpperCase()})
-                console.log(value)
+                // console.log(value)
 
-                console.log(value.slice(0, -1)  + value.slice(-1).toUpperCase())
+                // console.log(value.slice(0, -1)  + value.slice(-1).toUpperCase())
             }
         }
 

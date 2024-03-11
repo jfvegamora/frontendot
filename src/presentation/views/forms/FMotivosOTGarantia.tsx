@@ -25,8 +25,8 @@ const strEntidad = "Motivos de OT en Garantía ";
 // const strQuery = "01";
 
 export interface ISituacionesInputData {
-  descripcion: string | undefined;
-  area:   string | undefined;
+  situacion: string | undefined;
+  area_hasta:   string | undefined;
 }
 
 interface ISituacionesFormProps {
@@ -48,7 +48,7 @@ interface OutputData {
 const transformInsertQuery = (
   jsonData: ISituacionesInputData
 ): OutputData | null => {
-  let  _p1 = `"${jsonData.descripcion}", ${jsonData.area || 0} `;
+  let  _p1 = `"${jsonData.situacion}", ${jsonData.area_hasta || 0} `;
   _p1 = _p1.replace(/'/g, '!');
   const query: OutputData = {
     query: "03",
@@ -62,7 +62,7 @@ const transformUpdateQuery = (
   jsonData: ISituacionesInputData,
   primaryKey: string
 ): OutputData | null => {
-  let _p1 = `descripcion="${jsonData.descripcion}", area=${jsonData.area || 0}`;
+  let _p1 = `descripcion="${jsonData.situacion}", area=${jsonData.area_hasta || 0}`;
 
   _p1 = _p1.replace(/'/g, '!');
   const query = {
@@ -101,7 +101,7 @@ const FMotivosOTGarantia: React.FC<ISituacionesFormProps> = React.memo(
     });
 
     const resetTextFields = React.useCallback(() => {
-      setValue("descripcion", "");
+      setValue("situacion", "");
       if (firstInputRef.current) {
         const firstInput = firstInputRef.current.querySelector(
           'input[name="nombre"]'
@@ -238,7 +238,7 @@ const FMotivosOTGarantia: React.FC<ISituacionesFormProps> = React.memo(
                 name="descripcion"
                 data={data && data[EnumGrid.descripcion]}
                 control={control}
-                error={errors.descripcion}
+                error={errors.situacion}
                 inputRef={firstInputRef}
               />
             </div>
@@ -254,7 +254,7 @@ const FMotivosOTGarantia: React.FC<ISituacionesFormProps> = React.memo(
                 control={control}
                 entidad={"OTAreas"}
                 customWidth={"!w-full ml-4"}
-                error={errors.area}
+                error={errors.area_hasta}
                 isOptional={true}
                 />
             </div>

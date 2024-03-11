@@ -93,10 +93,11 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
 
     useEffect(()=>{
 
-      if(inputValues){
-        Object.values(inputValues).map((filtrobusqueda)=>setStrSelectedName(filtrobusqueda))
-      }
-      // setStrSelectedName(Object.values(inputValues)[0])
+      // if(inputValues){
+      //   Object.values(inputValues).map((filtrobusqueda)=>setStrSelectedName(filtrobusqueda))
+      // }
+     
+      setStrSelectedName('')
     },[resetFilters.value])
     
     const renderInput = () => (
@@ -131,7 +132,7 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
                   setStrSelectedName(e.target.value)
                   field.onChange(e);
                   setState && setState(e.target.value);
-                  field.onChange(e);
+                  // field.onChange(e);
                   if(isOT){
                     handleSelectChange &&  handleSelectChange(e.target)
                   }

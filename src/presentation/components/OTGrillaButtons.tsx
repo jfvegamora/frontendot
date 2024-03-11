@@ -4,18 +4,21 @@ import { PencilIcon } from "@heroicons/react/24/solid";
 import { PiPrinterFill } from "react-icons/pi";
 import { ImWhatsapp } from "react-icons/im";
 import { usePermission } from '../hooks';
-import { BUTTON_MESSAGES } from '../utils';
+import { BUTTON_MESSAGES, isToggleImpression } from '../utils';
 
 import { useReactToPrint } from 'react-to-print';
 import FOTImpresa from '../views/forms/FOTImpresa';
 import { AppStore, useAppDispatch, useAppSelector } from '../../redux/store';
-import { clearImpression, fetchOTImpresionByID } from '../../redux/slices/OTSlice';
+import { clearImpression, fetchOT, fetchOTImpresionByID } from '../../redux/slices/OTSlice';
 // import FOTImpresa from '../views/forms/FOTImpresa';
 import { toast } from 'react-toastify';
 import FOTTicketImpresion from '../views/forms/FOTTicketImpresion';
 import { URLBackend } from '../hooks/useCrud';
 import axios from 'axios';
 import { EnumGrid } from '../views/mantenedores/MOTHistorica';
+// import { validationStateOT } from './OTPrimaryButtons';
+import FOTTicketQRImpresion from '../views/forms/FOTTicketQRImpresion';
+import { paramsOT } from '../views/mantenedores/MOT';
 
 
 
@@ -30,30 +33,60 @@ type AreaButtonsProps ={
 }
 
 const strEntidad = "Orden de Trabajo";
-
+const strUrl = `${URLBackend}/api/ot/listado`
 // const FOTImpresa = React.lazy(()=>import('../views/forms/FOTImpresa'));
-
+export  const setEstadoImpresion = async(folio:any,_estado:any, userID:any, _origen:any) => {
+    try {
+        const query = `?query=06&_folio=${folio}&_p2=${1}&_estado=${_estado}&_usuario=${userID}&_origen=${_origen}`
+        const result = await axios(`${strUrl}/${query}`);
+        console.log(result)
+        if(result.status === 200){
+            // console.log(result)
+            result.data[0][0]  === 1 ? isToggleImpression.value = true : isToggleImpression.value = false;
+            toast.success('Estado cambiado')
+        }
+    } catch (error) {
+        // console.log(error)
+        throw error
+    }
+}
 
 const OTGrillaButtons:React.FC<AreaButtonsProps> = ({ areaPermissions, toggleEditOTModal,folio, historica,estado }) => {
     const dispatch:any                   = useAppDispatch();
     const componentRef                   = useRef<any>(null);
     const SecondcomponentRef             = useRef<any>(null);
+    const QRComponentRef                 = useRef<any>(null);
     const { escritura_lectura }          = usePermission(28);
     const OTAreas:any                    = useAppSelector((store: AppStore) => store.OTAreas);
+    const OTdata:any                     = useAppSelector((store: AppStore) => store.OTS.data)
+    const user:any                       = useAppSelector((store: AppStore) => store.user)
+    
+    const OT                 = OTdata.filter((ot:any)=>ot[1] === folio)[0]
+    const QR                 = 30
+    const TICKET             = 31
 
 
+
+ 
 
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
     suppressErrors: true,
     removeAfterPrint: true,
     onAfterPrint() {
-        imprimirComprobanteRetiro()
+        if(OT[QR] === 0 && OT[TICKET] === 0){
+            dispatch(clearImpression())
+            return;
+        }
+
+        if(OT[TICKET] === 1){
+            imprimirComprobanteRetiro('TICKETRETIRO')
+        }
+        return;
     },
-    onBeforePrint(){
-        console.log('render')
-    }
+
 });
+
 
 
 
@@ -62,23 +95,41 @@ const handleComprobantePrint = useReactToPrint({
     suppressErrors: true,
     removeAfterPrint: true,
     onAfterPrint(){
-        dispatch(clearImpression())
+        if(OT[QR] === 1){
+            imprimirComprobanteRetiro('QR')
+            return;
+        }else{
+            dispatch(clearImpression())
+            return;
+        }
     }
 })
 
 
+const handleQRPrint = useReactToPrint({
+    content: () => QRComponentRef.current,
+    removeAfterPrint: true,
+    onAfterPrint(){
+        dispatch(clearImpression())
+        setEstadoImpresion(folio,estado, user.id, OTAreas["areaActual"]).then(()=>{
+            dispatch(fetchOT({OTAreas:OTAreas["areaActual"], searchParams: paramsOT.value}))
+        })
+        return;
+    }
 
-    const imprimirComprobanteRetiro = async() => {
+})
+
+
+
+const imprimirComprobanteRetiro = async(tipoComprobante?:string) => {
         const loadingToast = toast.loading('Imprimiendo Comprobante Retiro...');
 
         try {
-            const {data, status} = await axios.get(`${URLBackend}/api/ot/listado/?query=01&_origen=${OTAreas}&_folio=${folio}`);
-            console.log(data[0] && data[0][EnumGrid.imprime_ticket])
-            console.log(status)
+            const {data} = await axios.get(`${URLBackend}/api/ot/listado/?query=01&_origen=${OTAreas}&_folio=${folio}`);
             if(data[0] && data[0][EnumGrid.imprime_ticket]){
-                console.log('imprmiendo')
+                // console.log('imprmiendo')
                 await dispatch(fetchOTImpresionByID({ folio: folio, OTAreas: OTAreas['areaActual'] }));
-                handleComprobantePrint()
+                tipoComprobante === 'QR' ? handleQRPrint() : handleComprobantePrint()
     
             }
             toast.dismiss(loadingToast);
@@ -91,14 +142,20 @@ const handleComprobantePrint = useReactToPrint({
     }
     
     const handleImpresion = async (folio: any) => {
-        // dispatch(clearImpression());
-        console.log('click');
-        console.log(folio);
+        // dispatch(clearImpression());        
+        const OT                 = OTdata.filter((ot:any)=>ot[1] === folio)[0]
+        const estado_impresion   = 5
+
+        if(OT[estado_impresion] === '1'){
+            return toast.error(`OT: ${folio} ya fue Impresa anteriormente`)
+        }
+
+        
         const loadingToast = toast.loading('Imprimiendo...');
         try {
           await dispatch(fetchOTImpresionByID({ folio: folio, OTAreas: OTAreas['areaActual'] }));
-        
-          handlePrint();
+            
+          handlePrint();    
           toast.dismiss(loadingToast);
         } catch (error) {
             console.error(error);
@@ -164,6 +221,7 @@ const handleComprobantePrint = useReactToPrint({
                 <div className='hidden'>
                     <FOTImpresa ref={componentRef}/>
                     <FOTTicketImpresion ref={SecondcomponentRef}/>
+                    <FOTTicketQRImpresion ref={QRComponentRef}/>
                 </div>
 
             </Suspense>
