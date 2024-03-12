@@ -2,13 +2,12 @@ import { configureStore } from "@reduxjs/toolkit";
 import { useSelector } from "react-redux";
 import { TypedUseSelectorHook, useDispatch } from "react-redux";
 import { userReducer, funcionaliddadesReducer,ORReuder, OTAreasReducer, listBoxTiposReducer, listboxReuder, Utils } from "./slices";
-import { IUser } from "../interfaces";
 import { IFuncionalidad } from "./slices/funcionalidadesSlice";
 import { IOTAreas } from "./slices/OTAreasSlice";
 import { ITiposListbox } from "./slices/ListBoxTipoSlice";
 
 export interface AppStore {
-  user: IUser | null;
+  user: any | null;
   funcionalidades: IFuncionalidad  | null ;
   OTAreas: IOTAreas;
   OTS: any;

@@ -4,7 +4,7 @@ import { Scanner } from '@yudiel/react-qr-scanner';
 const QrScannerInput = () => {
     return (
         <Scanner
-            onResult={(text, result) => console.log(text, result)}
+            onResult={(_text, result) => alert(result)}
             onError={(error) => console.log(error?.message)}
         />
     );

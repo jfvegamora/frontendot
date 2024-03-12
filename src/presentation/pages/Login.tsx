@@ -10,7 +10,6 @@ import { TextInputComponent } from "../components";
 import { useAppDispatch } from "../../redux/store";
 import { useCrud } from "../hooks";
 import { login } from "../../redux/slices/userSlice";
-import { IUser } from "../../interfaces";
 import { fetchFuncionalidades } from "../../redux/slices/funcionalidadesSlice";
 import useCustomToast from "../hooks/useCustomToast";
 import { fetchOTAreas } from "../../redux/slices/OTAreasSlice";
@@ -30,6 +29,8 @@ const Login: React.FC = React.memo(() => {
   const strBaseUrl = "/api/usuarios/";
   // const strQuery = "06";
   const schema = validationLoginSchema();
+
+  
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { show } = useCustomToast();
@@ -52,11 +53,11 @@ const Login: React.FC = React.memo(() => {
           if (user.length === 0)
             return show({ message: LOGIN.loginError, type: "error" });
           console.log(user)
-          const response: IUser = jwtDecode(user[0]);
+          const response:any = jwtDecode(user[0]);
           const usuario = {...response, token: user[0]}
           console.log(usuario)
           console.log(response)
-          dispatch(login(response));
+          dispatch(login(usuario));
           dispatch(fetchFuncionalidades());
           dispatch(fetchOTAreas())
           dispatch(fetchListBoxTipos())

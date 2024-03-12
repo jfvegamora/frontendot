@@ -4,16 +4,16 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect } from "react";
-import { SelectInputComponent, TextInputComponent } from "../../components";
+import {  TextInputComponent } from "../../components";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationEstablecimientosSchema } from "../../utils/validationFormSchemas";
 import { EnumGrid } from "../mantenedores/MEstablecimientos";
-import { MODAL, SUCCESS_MESSAGES, TITLES } from "../../utils";
+import { MODAL, SUCCESS_MESSAGES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
-import RegProCom from "../../components/RegProCom";
+// import RegProCom from "../../components/RegProCom";
 import SelectInputTiposComponent from "../../components/forms/SelectInputTiposComponent";
 
 const strBaseUrl = "/api/establecimientos/";
@@ -62,7 +62,7 @@ interface IUserFormPrps {
 }
 
 const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
-  ({ closeModal, setEntities, params, label, data, isEditting, escritura_lectura }) => {
+  ({ closeModal, setEntities, params, data, isEditting, escritura_lectura }) => {
     const schema = validationEstablecimientosSchema(isEditting);
     const { show } = useCustomToast();
 
@@ -81,7 +81,7 @@ const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
       handleSubmit,
       formState: { errors },
       setValue,
-      register
+      // register
     } = useForm({
       resolver: yupResolver(schema),
     });

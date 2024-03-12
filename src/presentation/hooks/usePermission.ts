@@ -14,8 +14,8 @@ export const usePermission = (id:number): UserPermissions => {
 
   const permisos = userState?.permisos[id] || [];
 
-  const escritura_lectura = permisos.some((permiso) => parseInt(permiso.permiso_tipo) === Escritura);
-  const lectura = permisos.some((permiso) => parseInt(permiso.permiso_tipo) === Lectura);
+  const escritura_lectura = permisos.some((permiso:any) => parseInt(permiso.permiso_tipo) === Escritura);
+  const lectura = permisos.some((permiso:any) => parseInt(permiso.permiso_tipo) === Lectura);
 
   return { escritura_lectura, lectura };
 };

@@ -24,7 +24,7 @@ const initialState: DataState = {
     dataHistorica:[],
     ot: [],
     impresionOT: [],
-    derivacionColores: localStorage.getItem("OTColores")
+    derivacionColores: localStorage.getItem('OTColores')
     ? JSON.parse(localStorage.getItem("OTColores") as string)
     :  {
         Ingresada: [ '#000000', '#FFFFFF' ],

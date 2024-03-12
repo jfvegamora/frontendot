@@ -84,11 +84,15 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
     
     const [ OTPermissions, setOTPermissions] = useState("");
     const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas);
-    const OTColores:any = useAppSelector((store: AppStore) => store.OTS.derivacionColores);
+    const OTColores:any = useAppSelector((store: AppStore) => store.OTS.derivacionColores) || JSON.parse(localStorage.getItem('OTColores') as string);
+    const OTColores2:any = useAppSelector((store: AppStore) => store.OTS);
     const areaActual = OTAreas["areaActual"] 
     const permissions = (area:number) => areaActual &&  OTAreas["areas"].find((permiso:any)=>permiso[1] === area)
     let enumGird:any = {}
 
+    console.log(OTColores)
+    console.log(OTColores2)
+    console.log(JSON.parse(localStorage.getItem('OTColores') as string))
     switch (entidad) {
       case 'Armazón ':
         enumGird = EnumArmazones
@@ -168,6 +172,9 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
         if(OTColores[rowData]){
           return background ? `${OTColores[rowData][1]}` : `${OTColores[rowData][0]}`
         }
+
+        console.log(OTColores)
+        console.log(rowData)
 
         return  background ? `black` : 'red'
       } catch (error) {

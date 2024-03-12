@@ -1,7 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { IUser } from "../../interfaces";
 
-const initialState:IUser | null = localStorage.getItem("user")
+const initialState:any | null = localStorage.getItem("user")
    ? JSON.parse(localStorage.getItem("user") as string)
    : {
       id: 0,
@@ -23,7 +22,7 @@ export const userSlice = createSlice({
   name: "UserReducer",
   initialState,
   reducers: {
-    login: (_state, action:PayloadAction<IUser>) => {
+    login: (_state, action:PayloadAction<any>) => {
         const userData = action.payload;
         _state = {...userData, ultimoMovimiento: new Date().getTime()};
         localStorage.setItem(UserKey, JSON.stringify({...userData, ultimoMovimiento: new Date().getTime()}))

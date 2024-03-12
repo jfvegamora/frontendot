@@ -5,13 +5,15 @@
 import { useRef } from "react";
 import axios, { AxiosInstance } from "axios";
 import { signal } from "@preact/signals-react";
+import { dataFetcher } from "./utils_fetcher";
+import { AppStore, useAppSelector } from "../../redux/store";
 // import useSWR from "swr";
 
 // PRODUCCION
 //  export const URLBackend = signal('https://mtoopticos.cl');
- export const URLBackend = signal('https://gestionprod.mtoopticos.cl');
+//  export const URLBackend = signal('https://gestionprod.mtoopticos.cl');
 // DESARROLLO
-// export const URLBackend = signal('https://gestiondev.mtoopticos.cl');
+export const URLBackend = signal('https://gestiondev.mtoopticos.cl');
 
 export const baseURL = (params:string) => {
   return params.startsWith("http") ? params : `${URLBackend}${params}`;
@@ -43,11 +45,15 @@ const useCrud = (
   secondInputRef: any;
 } => {
   const baseUrl = baseURL(apiBaseUrl)
+  const usuario:any = useAppSelector((store:AppStore)=> store.user)
+
+
 
   const axiosInstance: AxiosInstance = axios.create({
     baseURL: baseUrl,
     headers: {
       "Content-Type": "application/json",
+      'Authorization': usuario.token, 
     },
   });
 
@@ -248,6 +254,9 @@ const useCrud = (
     try {
       console.log("searchUrl", searchUrl);  
       const response = await axiosInstance.get(searchUrl);
+      // const test = await axiosInstance.get('https://gestiondev.mtoopticos.cl/api/establecimientos/listado/protegida?query=02')
+      // console.log(test)
+      
       return response.data;
     } catch (error) {
       console.log(error)

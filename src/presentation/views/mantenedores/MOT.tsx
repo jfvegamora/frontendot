@@ -147,7 +147,7 @@ const MOT: React.FC = () => {
 
   useEffect(() => {
     dispatch(clearData())
-    dispatch(clearOTColores())
+    // dispatch(clearOTColores())
     dispatch(fetchColores())
     dispatch(updateActualArea(undefined))
   }, [])
