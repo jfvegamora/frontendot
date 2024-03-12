@@ -78,14 +78,15 @@ const MEstablecimientos: React.FC = () => {
   // console.log('entities', entities)
   return (
     <div className="mantenedorContainer">
-      <div className="mantenedorHead width90">
-        <div className="w-[70%]">
+      <div className="mantenedorHead width100">
+        <div className="w-[80%]">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
             setParams={setParams}
             updateParams={updateParams}
             setEntities={setEntities}
             primaryKeyInputs={[
+              { name: "_p4", label: "Código/RBD", type: "text" },
               { name: "_p1", label: "Establecimiento", type: "text" },
               {
                 name: "_p2",

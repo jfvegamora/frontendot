@@ -648,7 +648,7 @@ export const table_head_establecimientos = [
     visible: false,
   },
   {
-    cell: "Código",
+    cell: "Código/RBD",
     key: "codigo",
     visible: true,
     alignment: "text-center",
