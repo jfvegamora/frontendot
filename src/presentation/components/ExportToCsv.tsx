@@ -11,6 +11,9 @@ import { EXCEL } from "../utils";
 import useCustomToast from "../hooks/useCustomToast";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDownload } from '@fortawesome/free-solid-svg-icons';
+import axios from "axios";
+import { EnumGrid } from "../views/mantenedores/MProyectosDocum";
+import { URLBackend } from "../hooks/useCrud";
 
 type Props = {
   strBaseUrl?: any;
@@ -52,6 +55,7 @@ const ExportToCsv: React.FC<Props> = ({
   const { show } = useCustomToast();
 
   const { exportEntity } = useCrud(strBaseUrl || "");
+  const EnumGird = EnumGrid
   // let queryString =  query ? query :"";
   
   // if (params) {
@@ -124,14 +128,14 @@ const ExportToCsv: React.FC<Props> = ({
 
 
 
-  const handleExportEntity = () => {
-    console.log('ejecutando caso de uso 2'); 
+  const handleExportEntity = async() => {
+    // console.log('ejecutando caso de uso 2'); 
 
-    console.log('query', query)
-    console.log(strEntidad)
+    // console.log('query', query)
+    // console.log(strEntidad)
     
     if(entity){
-      console.log(entity)
+      // console.log(entity)
       const primaryKey =`_p1=${entity[1]}&_p2=${entity[4]}`;
 
       const nombreExcel = `${strEntidad}_${entity[1]}_${entity[5]}_${entity[6]}`
@@ -147,16 +151,28 @@ const ExportToCsv: React.FC<Props> = ({
       //   fecha_desde:"2023-11-16",
       //   fecha_hasta:"2023-11-21"
       // }]
-
-      console.log(data)
       const jsonData = JSON.stringify(data);
 
+      // console.log(data)
+      // console.log(nombreExcel)
+      // console.log(jsonData)
       exportExcel(primaryKey, nombreExcel, jsonData)
+      const _p1 = entity[EnumGird.proyecto]
+      const _p2 = entity[EnumGird.tipo_doc_id]
+      const _p3 = entity[EnumGird.numero_doc]
+
+      try {
+        const {data} = await axios(`${URLBackend}/api/tipos/listado/?query=08&_p1=${_p1}&_p2=${_p2}&_p3=${_p3}`)
+        console.log(data)
+      } catch (error) {
+        console.log(error)
+      }
+
     }
   }
 
-
-  console.log('render')
+  // console.log(query)
+  // console.log('render')
   return (
     <>
       <Tooltip content="Exportar">

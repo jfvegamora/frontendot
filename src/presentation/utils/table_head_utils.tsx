@@ -3237,6 +3237,7 @@ export const table_head_proyectos_docum = [
     cell: "TipoDocID",
     key: "tipo_doc_id",
     visible: false,
+    excelIndividual:true
   },
   {
     cell: "Tipo Doc",

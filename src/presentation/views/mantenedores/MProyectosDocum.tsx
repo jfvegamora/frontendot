@@ -146,6 +146,7 @@ const MProyectosDocum: React.FC = () => {
             tableHead={table_head_proyectos_docum}
             showEditButton={false}
             showPdfButton={false}
+            showExcelButton={true}
             idMenu={idMenu}
             leftEdit={true}
             />

@@ -5,7 +5,7 @@
 import { useRef } from "react";
 import axios, { AxiosInstance } from "axios";
 import { signal } from "@preact/signals-react";
-import { dataFetcher } from "./utils_fetcher";
+// import { dataFetcher } from "./utils_fetcher";
 import { AppStore, useAppSelector } from "../../redux/store";
 // import useSWR from "swr";
 

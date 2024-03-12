@@ -312,7 +312,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
         // Crear un enlace invisible y hacer clic en él para iniciar la descarga
         const link = document.createElement('a');
         link.href = blobUrl;
-        link.setAttribute('download', 'macro_ot.xlsx');
+        link.setAttribute('download', 'macro_ot.xlsm');
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
