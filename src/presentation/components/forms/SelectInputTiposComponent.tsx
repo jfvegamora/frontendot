@@ -92,13 +92,11 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
     }
 
     useEffect(()=>{
-
-      // if(inputValues){
-      //   Object.values(inputValues).map((filtrobusqueda)=>setStrSelectedName(filtrobusqueda))
-      // }
-     
-      setStrSelectedName('')
+      if(resetFilters.value === true){
+        setStrSelectedName('')
+      }
     },[resetFilters.value])
+
     
     const renderInput = () => (
       <Controller

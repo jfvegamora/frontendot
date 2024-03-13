@@ -348,7 +348,9 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
     // }, [idCristal, setValue]);
 
     // console.log('data', data)
-
+    console.log(data)
+    console.log(data && data[24])
+    console.log(data && data[EnumGrid.armazon_tipo_id])
 
     return (
       <div className="useFormContainer centered-div use60rem">

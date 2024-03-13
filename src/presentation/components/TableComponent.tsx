@@ -84,7 +84,8 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
   }) => {
     const { escritura_lectura, lectura} = usePermission(idMenu || 0 );
     const [rowIds, setRowIds] = useState<number[]>([]);
-    
+    const [pageSize, setPagesize]       = useState(100)
+    const [pageNumber, setPageNumebr ]  = useState(1)
     const [ OTPermissions, setOTPermissions] = useState("");
     const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas);
     const OTColores:any = useAppSelector((store: AppStore) => store.OTS.derivacionColores) || JSON.parse(localStorage.getItem('OTColores') as string);
@@ -93,6 +94,8 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
     const permissions = (area:number) => areaActual &&  OTAreas["areas"].find((permiso:any)=>permiso[1] === area)
     
     let enumGird:any = {}
+    const startIndex = (pageNumber - 1) * pageSize;
+    const endIndex = pageNumber * pageSize;
     
     // console.log(entidad)
     
@@ -196,8 +199,10 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
 
       )
   };
+
   
     return (
+    <div className="gridCointainer">
       <table className="gridContainer">
         <thead className="gridTop">
           <tr>
@@ -224,7 +229,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
           </tr>
         </thead>
         <tbody className="gridData">
-          {data && data.length > 0 ? (data.map((rowData: any, rowIndex: number) => {
+          {data && data.length > 0 ? (data.slice(startIndex,endIndex).map((rowData: any, rowIndex: number) => {
             let excelIndividual = false
               if((params && params["_p5"] !== '')  ||  params && params[0] === ''){
                 let stockDisponibe    = parseInt(rowData[enumGird.stock_disponible])
@@ -359,6 +364,16 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
           }
         </tbody>
       </table>
+      <div className=" w-[18rem] flex  ">
+            <div className="">
+              <button onClick={()=>setPageNumebr((prev)=>prev-1)}>Anterior</button>
+            </div>
+            <div className="  mr-10 text-center">
+                <button className="ml-10 text" onClick={()=>setPageNumebr((prev)=>prev + 1)}>Siguiente</button>
+            </div>
+
+          </div>
+      </div>
     );
   }
 );

@@ -130,7 +130,11 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
 
       pkToDelete.map(async(OT:any)=>{
         try {
-            const {data, status} = await axios.get(`${URLBackend}/api/ot/listado/?query=01&_origen=${OTAreas['areaActual']}&_folio=${OT.folio}`);
+            const {data, status} = await axios.get(`${URLBackend}/api/ot/listado/?query=01&_origen=${OTAreas['areaActual']}&_folio=${OT.folio}`,{
+              headers: {
+                 'Authorization': User.token, 
+               }
+         });
             console.log(data[0] && data[0][EnumGrid.imprime_ticket])
             console.log(status)
             if(data[0] && data[0][EnumGrid.imprime_ticket]){
@@ -173,7 +177,11 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
         //EJECUTAR METODO PARA FOCUS DE INPUT SEARCHOT
 
       }else{
-        const {data:dataOT} = await axios(`${URLBackend}/api/ot/listado/?query=01&_folio=${folio}`);
+        const {data:dataOT} = await axios(`${URLBackend}/api/ot/listado/?query=01&_folio=${folio}`,{
+          headers: {
+             'Authorization': User.token, 
+           }
+        });
         // console.log(dataOT)
         if(dataOT){
           setDataOT(dataOT)
@@ -306,7 +314,10 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
         const url = `${URLBackend}/api/downloadexcel/`
         const {data} = await axios({url,
           method: 'GET',
-          responseType: 'blob'
+          responseType: 'blob',
+          headers: {
+            'Authorization': User.token, 
+          }
         })
         const blobUrl = window.URL.createObjectURL(new Blob([data]));
         // Crear un enlace invisible y hacer clic en él para iniciar la descarga
@@ -442,7 +453,11 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
     
           const strUrl      = `${URLBackend}/api/proyectodocum/listado`
           const queryURL    = `?query=06&_p2=${query["_proyecto"]}&_id=${query["_id"]}&_pkToDelete=${query["_pkToDelete"]}&_p4=${query["_usuario"]}`
-          const result      = await axios(`${strUrl}/${queryURL}`);
+          const result      = await axios(`${strUrl}/${queryURL}`,{
+            headers:  {
+              'Authorization': User.token, 
+            }
+          });
           console.log(result)        
           if(result.status === 200){
             const successMessage = `Reporte firma generado: ${result.data[0][0]}`

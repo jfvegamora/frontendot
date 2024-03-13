@@ -7,7 +7,7 @@ import { usePermission } from '../hooks';
 import { BUTTON_MESSAGES, isToggleImpression } from '../utils';
 
 import { useReactToPrint } from 'react-to-print';
-import FOTImpresa from '../views/forms/FOTImpresa';
+// import FOTImpresa from '../views/forms/FOTImpresa';
 import { AppStore, useAppDispatch, useAppSelector } from '../../redux/store';
 import { clearImpression, fetchOT, fetchOTImpresionByID } from '../../redux/slices/OTSlice';
 // import FOTImpresa from '../views/forms/FOTImpresa';
@@ -34,11 +34,15 @@ type AreaButtonsProps ={
 
 const strEntidad = "Orden de Trabajo";
 const strUrl = `${URLBackend}/api/ot/listado`
-// const FOTImpresa = React.lazy(()=>import('../views/forms/FOTImpresa'));
+const FOTImpresa = React.lazy(()=>import('../views/forms/FOTImpresa'));
 export  const setEstadoImpresion = async(folio:any,_estado:any, userID:any, _origen:any) => {
     try {
-        const query = `?query=06&_folio=${folio}&_p2=${1}&_estado=${_estado}&_usuario=${userID}&_origen=${_origen}`
-        const result = await axios(`${strUrl}/${query}`);
+        const query = `?query=06&_folio=${folio}&_p2=${1}&_estado=${_estado}&_usuario=${userID.id}&_origen=${_origen}`
+        const result = await axios(`${strUrl}/${query}`,{
+            headers: {
+               'Authorization': userID.token, 
+             }
+       });
         console.log(result)
         if(result.status === 200){
             // console.log(result)
@@ -111,7 +115,7 @@ const handleQRPrint = useReactToPrint({
     removeAfterPrint: true,
     onAfterPrint(){
         dispatch(clearImpression())
-        setEstadoImpresion(folio,estado, user.id, OTAreas["areaActual"]).then(()=>{
+        setEstadoImpresion(folio,estado, user, OTAreas["areaActual"]).then(()=>{
             dispatch(fetchOT({OTAreas:OTAreas["areaActual"], searchParams: paramsOT.value}))
         })
         return;
@@ -125,7 +129,11 @@ const imprimirComprobanteRetiro = async(tipoComprobante?:string) => {
         const loadingToast = toast.loading('Imprimiendo Comprobante Retiro...');
 
         try {
-            const {data} = await axios.get(`${URLBackend}/api/ot/listado/?query=01&_origen=${OTAreas}&_folio=${folio}`);
+            const {data} = await axios.get(`${URLBackend}/api/ot/listado/?query=01&_origen=${OTAreas}&_folio=${folio}`,{
+                headers: {
+                   'Authorization': user.token, 
+                 }
+           });
             if(data[0] && data[0][EnumGrid.imprime_ticket]){
                 // console.log('imprmiendo')
                 await dispatch(fetchOTImpresionByID({ folio: folio, OTAreas: OTAreas['areaActual'] }));
@@ -220,10 +228,17 @@ const imprimirComprobanteRetiro = async(tipoComprobante?:string) => {
             <Suspense>
                 <div className='hidden'>
                     <FOTImpresa ref={componentRef}/>
-                    <FOTTicketImpresion ref={SecondcomponentRef}/>
-                    <FOTTicketQRImpresion ref={QRComponentRef}/>
                 </div>
-
+            </Suspense>
+            <Suspense>
+                <div className='hidden'>
+                <FOTTicketQRImpresion ref={QRComponentRef}/>
+                </div>
+            </Suspense>
+            <Suspense>
+                <div className='hidden'>
+                <FOTTicketImpresion ref={SecondcomponentRef}/>
+                </div>
             </Suspense>
 
         </div>

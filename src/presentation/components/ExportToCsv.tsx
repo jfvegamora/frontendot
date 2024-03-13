@@ -14,6 +14,7 @@ import { faDownload } from '@fortawesome/free-solid-svg-icons';
 import axios from "axios";
 import { EnumGrid } from "../views/mantenedores/MProyectosDocum";
 import { URLBackend } from "../hooks/useCrud";
+import { AppStore, useAppSelector } from "../../redux/store";
 
 type Props = {
   strBaseUrl?: any;
@@ -53,6 +54,7 @@ const ExportToCsv: React.FC<Props> = ({
   const [exportAll, setExportAll] = useState(false);
   const [exportTable, setExportTable] = useState(false);
   const { show } = useCustomToast();
+  const {token} = useAppSelector((store:AppStore)=> store.user)
 
   const { exportEntity } = useCrud(strBaseUrl || "");
   const EnumGird = EnumGrid
@@ -162,7 +164,11 @@ const ExportToCsv: React.FC<Props> = ({
       const _p3 = entity[EnumGird.numero_doc]
 
       try {
-        const {data} = await axios(`${URLBackend}/api/tipos/listado/?query=08&_p1=${_p1}&_p2=${_p2}&_p3=${_p3}`)
+        const {data} = await axios(`${URLBackend}/api/tipos/listado/?query=08&_p1=${_p1}&_p2=${_p2}&_p3=${_p3}`,{
+          headers: {
+             'Authorization': token, 
+           }
+     })
         console.log(data)
       } catch (error) {
         console.log(error)

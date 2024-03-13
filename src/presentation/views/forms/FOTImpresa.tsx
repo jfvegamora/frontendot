@@ -31,11 +31,6 @@ const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
   const User:any = useAppSelector((store:AppStore)=>store.user);
   // let PathLogo = ''
 
-
-
-
-
-
   useEffect(() => {
     // const loadLogo = async () => {
     //   try {
@@ -78,7 +73,7 @@ const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
   
   
   // console.log(logoPath)
-  console.log(OT[0] && OT[0][EnumGrid.lugar_despacho])
+
   // console.log(new Date().toLocaleTimeString())
 
   const fechaHora = new Date().toLocaleTimeString()

@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { signal } from '@preact/signals-react';
+import { AppStore, useAppSelector } from '../../redux/store';
 
 
 export const ajuste_inventario_autorizacion = signal(false)
@@ -17,6 +18,7 @@ const AjusteInventario:React.FC<Props> = ({
     onSubmit
 }) => {
     const {control, handleSubmit} = useForm()
+    const {token} = useAppSelector((store:AppStore)=> store.user)
     // console.log(URLBackend.value)
 
     const submit = async(jsonData:any) => {
@@ -25,7 +27,11 @@ const AjusteInventario:React.FC<Props> = ({
         const codigo = Object.values(jsonData)[0]
         // console.log(codigo)
         try {
-            const {data} = await axios(`${URLBackend}/api/parametros/listado/?query=02&_p1=${codigo}`)
+            const {data} = await axios(`${URLBackend}/api/parametros/listado/?query=02&_p1=${codigo}`,{
+                 headers: {
+                    'Authorization': token, 
+                  }
+            })
             const validacionExitosa = data[0] && data[0][0] === codigo;
             if(validacionExitosa){
                 toast.success('codigo correcto')

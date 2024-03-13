@@ -296,6 +296,9 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
     // console.log(data)
     // console.log(data &&  data[EnumGrid.valor_neto_armazon])
     // console.log(errors)
+
+
+    console.log(data && data)
     return (
       <div className="useFormContainer centered-div use60rem">
         <div className="userFormBtnCloseContainer">
