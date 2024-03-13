@@ -42,12 +42,12 @@ export interface InputData {
   diametro: string | undefined;
   valor_neto_cristal: string | undefined;
 
-  armazon_tipo        : string | undefined;
-  armazon_material    : string | undefined;
-  armazon_marca       : string | undefined;
-  armazon_uso         : string | undefined;
+  armazon_tipo: string | undefined;
+  armazon_material: string | undefined;
+  armazon_marca: string | undefined;
+  armazon_uso: string | undefined;
   valor_neto_armazon: string | undefined;
-  
+
   // valor_neto_total: string | undefined;
   observaciones: string | undefined;
 }
@@ -157,7 +157,7 @@ interface IUserFormPrps {
   escritura_lectura?: boolean;
 }
 
-const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
+const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
   ({ closeModal, setEntities, params, label, data, isEditting, escritura_lectura }) => {
     const schema = validationProyectoGruposSchema();
     // const [idCristal, setIdCristal] = useState('');
@@ -313,18 +313,18 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
     useEffect(() => {
       isEditting ? focusSecondInput("cod_grupo") : focusFirstInput("cod_grupo");
 
-      const totalNeto = data && (data[EnumGrid.valor_neto_cristal] +  data[EnumGrid.valor_neto_armazon])
+      const totalNeto = data && (data[EnumGrid.valor_neto_cristal] + data[EnumGrid.valor_neto_armazon])
       setTotalNeto(totalNeto)
     }, []);
 
 
 
-    useEffect(()=>{
-      const {valor_neto_cristal, valor_neto_armazon} = getValues()
+    useEffect(() => {
+      const { valor_neto_cristal, valor_neto_armazon } = getValues()
 
       setTotalNeto((parseInt(valor_neto_cristal) + parseInt(valor_neto_armazon)) as any)
-      
-    },[totalNetoArmazones, totalNetoCristales])
+
+    }, [totalNetoArmazones, totalNetoCristales])
 
 
 
@@ -580,7 +580,7 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                       error={errors.valor_neto_cristal}
                       isOptional={false}
                       textAlign="text-right"
-                      handleChange={(e)=>{ 
+                      handleChange={(e) => {
                         console.log(e)
                         setTotalNetoCristales(e)
                       }}
@@ -595,7 +595,7 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
             <div className="!pt-[1rem] h-[4rem]">
               <div className="input-container items-center rowForm w-full flex">
                 <div className="w-[20%]">
-                <SelectInputTiposComponent
+                  <SelectInputTiposComponent
                     label="Tipo"
                     name="armazon_tipo"
                     showRefresh={true}
@@ -607,7 +607,7 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                   />
                 </div>
                 <div className="w-[20%]">
-                <SelectInputTiposComponent
+                  <SelectInputTiposComponent
                     label="Material"
                     name="armazon_material"
                     showRefresh={true}
@@ -625,7 +625,7 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                     showRefresh={true}
                     data={data && data[EnumGrid.armazon_marca_id]}
                     control={control}
-                    entidad={["/api/marcas/", "02"]}
+                    entidad={["/api/marcas/", "02", "1"]}
                     error={errors.armazon_marca}
                     customWidth={"!w-[]"}
                   />
@@ -639,7 +639,7 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={"ArmazonesUsos"}
                     customWidth={"!w-[] "}
-                  error={errors.armazon_uso}
+                    error={errors.armazon_uso}
                   />
                 </div>
                 <div className="w-[20%]">
@@ -654,7 +654,7 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                     error={errors.valor_neto_armazon}
                     isOptional={false}
                     textAlign="text-right"
-                    handleChange={(e)=>{setTotalNetoArmazones(e)}}
+                    handleChange={(e) => { setTotalNetoArmazones(e) }}
                   />
                 </div>
               </div>
@@ -708,4 +708,4 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
   }
 );
 
-export default FProyectosCristales;
+export default FProyectosGrupos;
