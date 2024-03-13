@@ -2728,7 +2728,7 @@ export const table_head_proyectos_grupos = [
   {
     cell: "Armazon Tipo ID",
     key: "armazon_tipo_id",
-    visible: true,
+    visible: false,
   },
   {
     cell: "Armazón Tipo",
@@ -2740,7 +2740,7 @@ export const table_head_proyectos_grupos = [
   {
     cell: "Armazon Material ID",
     key: "armazon_material_id",
-    visible: true,
+    visible: false,
   },
   {
     cell: "Armazón Material",
@@ -2752,7 +2752,7 @@ export const table_head_proyectos_grupos = [
   {
     cell: "Armazon Marca ID",
     key: "armazon_marca_id",
-    visible: true,
+    visible: false,
   },
   {
     cell: "Armazón Marca",
@@ -2764,7 +2764,7 @@ export const table_head_proyectos_grupos = [
   {
     cell: "Armazon Uso ID",
     key: "armazon_uso_id",
-    visible: true,
+    visible: false,
   },
   {
     cell: "Armazón Uso",
