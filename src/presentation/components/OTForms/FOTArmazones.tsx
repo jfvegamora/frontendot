@@ -221,7 +221,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
     //                                                ? `${URLBackend}/api/armazones/listado/?query=01` 
     //                                                : `${URLBackend}/api/armazones/listado/?query=02&_p2=${codigoProyecto.value}&_p3=${punto_venta.value}`;
 
-    const endpoint =`${URLBackend}/api/armazones/listado/?query=02&_p6=${ isEditting ? (data && data[EnumGrid.validar_parametrizacion_id]) : 1 }&_p2=${codigoProyecto.value}&_p3=${punto_venta.value}`;
+    const endpoint =`${URLBackend}/api/armazones/listado/?query=02&_id=${permiso_areas_armazones === true ? 1 : 0}&_p6=${ isEditting ? (data && data[EnumGrid.validar_parametrizacion_id]) : 1 }&_p2=${codigoProyecto.value}&_p3=${punto_venta.value}`;
 
     // console.log(punto_venta.value)
 

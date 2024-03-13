@@ -12,3 +12,10 @@ export const decodeToken = (token: string) => {
     return "token no valido";
   }
 };
+
+
+
+
+export const handleError = (error:string) => {
+    console.log(error)
+}

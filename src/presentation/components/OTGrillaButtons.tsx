@@ -12,13 +12,14 @@ import { AppStore, useAppDispatch, useAppSelector } from '../../redux/store';
 import { clearImpression, fetchOT, fetchOTImpresionByID } from '../../redux/slices/OTSlice';
 // import FOTImpresa from '../views/forms/FOTImpresa';
 import { toast } from 'react-toastify';
-import FOTTicketImpresion from '../views/forms/FOTTicketImpresion';
+// import FOTTicketImpresion from '../views/forms/FOTTicketImpresion';
 import { URLBackend } from '../hooks/useCrud';
 import axios from 'axios';
 import { EnumGrid } from '../views/mantenedores/MOTHistorica';
 // import { validationStateOT } from './OTPrimaryButtons';
-import FOTTicketQRImpresion from '../views/forms/FOTTicketQRImpresion';
+// import FOTTicketQRImpresion from '../views/forms/FOTTicketQRImpresion';
 import { paramsOT } from '../views/mantenedores/MOT';
+// import ReactDOM from 'react-dom';
 
 
 
@@ -34,7 +35,12 @@ type AreaButtonsProps ={
 
 const strEntidad = "Orden de Trabajo";
 const strUrl = `${URLBackend}/api/ot/listado`
-const FOTImpresa = React.lazy(()=>import('../views/forms/FOTImpresa'));
+
+const FOTImpresa             = React.lazy(()=>import('../views/forms/FOTImpresa'));
+const FOTTicketQRImpresion   = React.lazy(()=>import('../views/forms/FOTTicketQRImpresion'));
+const FOTTicketImpresion     = React.lazy(()=>import('../views/forms/FOTTicketImpresion'));
+
+
 export  const setEstadoImpresion = async(folio:any,_estado:any, userID:any, _origen:any) => {
     try {
         const query = `?query=06&_folio=${folio}&_p2=${1}&_estado=${_estado}&_usuario=${userID.id}&_origen=${_origen}`
@@ -62,14 +68,24 @@ const OTGrillaButtons:React.FC<AreaButtonsProps> = ({ areaPermissions, toggleEdi
     const QRComponentRef                 = useRef<any>(null);
     const { escritura_lectura }          = usePermission(28);
     const OTAreas:any                    = useAppSelector((store: AppStore) => store.OTAreas);
-    const OTdata:any                     = useAppSelector((store: AppStore) => store.OTS.data)
-    const user:any                       = useAppSelector((store: AppStore) => store.user)
+    const OTdata:any                     = useAppSelector((store: AppStore) => store.OTS.data);
+    const user:any                       = useAppSelector((store: AppStore) => store.user);
+
+
+    const [isFotImpresa, setIsFotImpresa]      = React.useState(false);
+    const [isFotTicketQR, setisFotTicketQR]     = React.useState(false);
+    const [isFotTicketRetiro, setisFotTicketRetiro]    = React.useState(false);
+    
     
     const OT                 = OTdata.filter((ot:any)=>ot[1] === folio)[0]
     const QR                 = 30
     const TICKET             = 31
 
-
+const resetImpresionStates = () => {
+    setIsFotImpresa(false)
+    setisFotTicketQR(false)
+    setisFotTicketRetiro(false)
+}
 
  
 
@@ -79,11 +95,14 @@ const OTGrillaButtons:React.FC<AreaButtonsProps> = ({ areaPermissions, toggleEdi
     removeAfterPrint: true,
     onAfterPrint() {
         if(OT[QR] === 0 && OT[TICKET] === 0){
+            resetImpresionStates()
             dispatch(clearImpression())
             return;
         }
 
         if(OT[TICKET] === 1){
+            setisFotTicketRetiro(true)
+            setisFotTicketQR(true)
             imprimirComprobanteRetiro('TICKETRETIRO')
         }
         return;
@@ -100,9 +119,11 @@ const handleComprobantePrint = useReactToPrint({
     removeAfterPrint: true,
     onAfterPrint(){
         if(OT[QR] === 1){
+            setisFotTicketQR(true)
             imprimirComprobanteRetiro('QR')
             return;
         }else{
+            resetImpresionStates()
             dispatch(clearImpression())
             return;
         }
@@ -114,6 +135,7 @@ const handleQRPrint = useReactToPrint({
     content: () => QRComponentRef.current,
     removeAfterPrint: true,
     onAfterPrint(){
+        resetImpresionStates()
         dispatch(clearImpression())
         setEstadoImpresion(folio,estado, user, OTAreas["areaActual"]).then(()=>{
             dispatch(fetchOT({OTAreas:OTAreas["areaActual"], searchParams: paramsOT.value}))
@@ -126,6 +148,7 @@ const handleQRPrint = useReactToPrint({
 
 
 const imprimirComprobanteRetiro = async(tipoComprobante?:string) => {
+    
         const loadingToast = toast.loading('Imprimiendo Comprobante Retiro...');
 
         try {
@@ -137,7 +160,13 @@ const imprimirComprobanteRetiro = async(tipoComprobante?:string) => {
             if(data[0] && data[0][EnumGrid.imprime_ticket]){
                 // console.log('imprmiendo')
                 await dispatch(fetchOTImpresionByID({ folio: folio, OTAreas: OTAreas['areaActual'] }));
-                tipoComprobante === 'QR' ? handleQRPrint() : handleComprobantePrint()
+                tipoComprobante === 'QR' ? (
+                    setisFotTicketQR(true),
+                    handleQRPrint()
+                ) : (
+                    setisFotTicketRetiro(true),
+                    handleComprobantePrint()
+                )
     
             }
             toast.dismiss(loadingToast);
@@ -150,7 +179,8 @@ const imprimirComprobanteRetiro = async(tipoComprobante?:string) => {
     }
     
     const handleImpresion = async (folio: any) => {
-        // dispatch(clearImpression());        
+        // dispatch(clearImpression());
+        setIsFotImpresa(true)        
         const OT                 = OTdata.filter((ot:any)=>ot[1] === folio)[0]
         const estado_impresion   = 5
 
@@ -225,21 +255,31 @@ const imprimirComprobanteRetiro = async(tipoComprobante?:string) => {
                     </IconButton>
                 </Tooltip>
             )}
-            <Suspense>
-                <div className='hidden'>
-                    <FOTImpresa ref={componentRef}/>
-                </div>
-            </Suspense>
-            <Suspense>
-                <div className='hidden'>
-                <FOTTicketQRImpresion ref={QRComponentRef}/>
-                </div>
-            </Suspense>
-            <Suspense>
-                <div className='hidden'>
-                <FOTTicketImpresion ref={SecondcomponentRef}/>
-                </div>
-            </Suspense>
+                {isFotImpresa && (
+                     <Suspense>
+                        <div className='hidden'>
+                             <FOTImpresa ref={componentRef}/>
+                        </div>
+                    </Suspense>                
+                )}
+
+                {isFotTicketQR && (
+                    <Suspense>
+                        <div className='hidden'>
+                        <FOTTicketQRImpresion ref={QRComponentRef}/>
+                        </div>
+                    </Suspense>
+                )}
+
+                {isFotTicketRetiro && (
+                    <Suspense>
+                        <div className='hidden'>
+                        <FOTTicketImpresion ref={SecondcomponentRef}/>
+                        </div>
+                    </Suspense>
+                )}
+            
+           
 
         </div>
 

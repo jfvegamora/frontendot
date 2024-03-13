@@ -12,6 +12,7 @@ import { AppStore, useAppSelector } from "../../../redux/store";
 import { URLBackend } from "../../hooks/useCrud";
 import { clearSelectInput } from "../../utils";
 import { resetFilters } from "../PrimaryKeySearch";
+// import { handleError } from "../../utils/jwt_utils";
 
 interface ISelectInputProps {
   label: string;
@@ -72,7 +73,8 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
           // console.log(data);
           setEntities(data);
         }
-      } catch (error) {
+      } catch (error:any) {
+        // handleError(error)
         console.log('FETCH-TIPOS', error);
         throw error;
       }

@@ -38,6 +38,9 @@ const initialState: DataState = {
       }
 };
 
+
+const limit = 0
+
 export const fetchOT = createAsyncThunk(
     'ot/fetchOT',
     async (params:any) => {
@@ -45,8 +48,8 @@ export const fetchOT = createAsyncThunk(
 
         // console.log(params)
         const OTUrl = searchParams
-                                 ? historica ? `${URLBackend}/api/othistorica/listado/?query=14&${searchParams}` :  `${URLBackend}/api/ot/listado/?query=14&_origen=${OTAreas}&${searchParams}` 
-                                 : historica ? `${URLBackend}/api/othistorica/listado/?query=14`                 :   OTAreas ? `${URLBackend}/api/ot/listado/?query=14&_origen=${OTAreas}` : `${URLBackend}/api/ot/listado/?query=14&${searchParams}`
+                                 ? historica ? `${URLBackend}/api/othistorica/listado/?query=14&${searchParams}&_limit=${limit}` :  `${URLBackend}/api/ot/listado/?query=14&_origen=${OTAreas}&${searchParams}&_limit=${limit}` 
+                                 : historica ? `${URLBackend}/api/othistorica/listado/?query=14&_limit=${limit}`                 :   OTAreas ? `${URLBackend}/api/ot/listado/?query=14&_origen=${OTAreas}&_limit=${limit}` : `${URLBackend}/api/ot/listado/?query=14&${searchParams}&_limit=${limit}`
 
         // console.log(OTUrl)
 
@@ -64,7 +67,6 @@ export const fetchOT = createAsyncThunk(
                         'Authorization' : `${token}`
                     }
                 });
-                // toast.success('Busqueda realizada')
                 return data; 
               } catch (error) {
                 if (retryCount >= maxRetries - 1) {

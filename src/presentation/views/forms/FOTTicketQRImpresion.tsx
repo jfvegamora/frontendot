@@ -16,6 +16,7 @@ const FOTTicketQRImpresion =  React.forwardRef((_props:any, ref:any) => {
 
 
     // console.log(OT)
+    console.log('render')
     return (
     <div ref={ref} className=''>
         {(
