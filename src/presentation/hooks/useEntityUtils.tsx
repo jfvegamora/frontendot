@@ -86,7 +86,7 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
   //Metodo Check aLL
   const handleSelectedAll = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>, row?: any) => {
-      const selectedRowsLimited = event.target.checked ? row.slice(0, 500) : [];
+      const selectedRowsLimited = event.target.checked ? row.slice(0, 600) : [];
       setSelectedRows(selectedRowsLimited);
     },
     [entities]

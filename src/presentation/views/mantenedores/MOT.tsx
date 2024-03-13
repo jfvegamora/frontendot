@@ -21,7 +21,7 @@ import {
   useAppSelector
 } from "../../../redux/store";
 import { filterToggle } from "../../components/FilterButton";
-import { clearData, clearOTColores, fetchColores, fetchOT } from "../../../redux/slices/OTSlice";
+import { clearData, fetchColores, fetchOT } from "../../../redux/slices/OTSlice";
 // import StateCountBarOT from "../../components/StateCountBarOT";
 import { signal } from "@preact/signals-react";
 import { updateActualArea } from "../../../redux/slices/OTAreasSlice";
