@@ -293,10 +293,14 @@ export const validationOTlevel3 = (name:string, value:any) => {
 }
 
 
-export const validationCodigoCristal1_od = (value:any) => {
+export const validationCodigoCristal1_od = (value:any, alreadyValidate?:boolean) => {
     const item = validationNivel3.value.find((item: { campo: string; }) => item.campo === 'validar_cristal1_od');
     
-
+    if(alreadyValidate && item){
+        item.valor = 1;
+        return;
+    }
+    
     if(item){
         if(value === ""){
              item.valor = 0;
@@ -313,9 +317,14 @@ export const validationCodigoCristal1_od = (value:any) => {
 
 }
 
-export const validationCodigoCristal1_oi = (value:any) => {
+export const validationCodigoCristal1_oi = (value:any, alreadyValidate?:boolean) => {
     const item = validationNivel3.value.find((item: { campo: string; }) => item.campo === 'validar_cristal1_oi');
     
+    if(alreadyValidate && item){
+        item.valor = 1
+        return;
+    }
+
     if(item){
         if(value === ""){
             return item.valor = 0;
@@ -333,9 +342,6 @@ export const validationCodigoCristal1_oi = (value:any) => {
 export const validationCodigoCristal2_od = (value:any, validar?:boolean) => {
     const item = validationNivel3.value.find((item: { campo: string; }) => item.campo === 'validar_cristal2_od');
     if(item){
-
-        console.log(value)
-        console.log(A2_CR_OD.value)
         if(validar){
              item.valor = 1
         }
@@ -381,9 +387,14 @@ export const validationCodigoCristal2_oi = (value:any, validar?:boolean) => {
     }
 }
 
-export const validationCodigoArmazon_1  = (value:any) => {
+export const validationCodigoArmazon_1  = (value:any, alreadyValidate?:boolean) => {
     
     const item = validationNivel3.value.find((item: { campo: string; }) => item.campo === 'validar_armazon1');
+    if(alreadyValidate && item){
+        item.valor = 1;
+        return;
+    }
+    
     if(item){
         if(value.trim() === ""){
             return item.valor = 0;
@@ -401,13 +412,18 @@ export const validationCodigoArmazon_1  = (value:any) => {
 }
 
 
-export const validationCodigoArmazon_2 = (value:any, _validar?:boolean) => {
+export const validationCodigoArmazon_2 = (value:any, validar?:boolean) => {
     const item = validationNivel3.value.find((item: { campo: string; }) => item.campo === 'validar_armazon2');
 
-    if(tipo_de_anteojo.value !== '3'){
+    if(item && validar){
+        item.valor = 1;
         return;
     }
   
+    if(tipo_de_anteojo.value !== '3'){
+        return;
+    }
+
     if(item){
     console.log(value)
         if(value.trim() === ""){

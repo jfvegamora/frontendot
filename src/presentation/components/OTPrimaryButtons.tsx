@@ -20,6 +20,7 @@ import FOTTicketImpresion from '../views/forms/FOTTicketImpresion';
 import { EnumGrid } from '../views/mantenedores/MOTHistorica';
 import { useModal } from '../hooks/useModal';
 import { paramsOT } from '../views/mantenedores/MOT';
+import { signal } from '@preact/signals-react';
 // import FOTEmpaque from '../views/forms/FOTEmpaque';
 
 type AreaButtonsProps ={
@@ -32,13 +33,15 @@ type AreaButtonsProps ={
     entities?:any;
     setSelectedRows?:any
   }
-
+  
+export const dataOTSignal = signal([])
 const strEntidad = "Ordenen de Trabajo";
 const strBaseUrl = "/api/ot/";
 
-const FOTImpresa  = React.lazy(()=>import('../views/forms/FOTImpresa'));
-const ExportCSV   = React.lazy(()=>import('./ExportToCsv'))
-const FOTEmpaque  = React.lazy(()=>import('../views/forms/FOTEmpaque'))
+const FOTImpresa        = React.lazy(()=>import('../views/forms/FOTImpresa'));
+const ExportCSV         = React.lazy(()=>import('./ExportToCsv'))
+const FOTEmpaque        = React.lazy(()=>import('../views/forms/FOTEmpaque'));
+const FOTValidarBodega  = React.lazy(()=>import('../components/OTForms/FOTValidarBodega'))
 
 
 export const validationStateOT = (positionCampo:number, nameCampo:string, folios:any, data:any) => {
@@ -77,8 +80,10 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
     const SecondcomponentRef                          = useRef<any>(null);
     const [isShowErrorOTModal, setIsShowErrorOTModal] = useState(false)
     const [isFOTEmpaque, setIsFOTEmpaque]             = useState(false);
+    const [isFOTValidarBodega, setIsFOTValidarBodega] = useState(false);
     const [dataOT, setDataOT]                         = useState();
     const [valueSearchOT, setValueSearchOT]           = useState<any>();
+    const [valueConfirmOT, setValueConfirmOT]         = useState<any>()
     const searchOTRef                                 = useRef<any>();
     const { showModal, CustomModal }                  = useModal();
     const userState: any = useAppSelector((store: AppStore) => store.user);
@@ -158,14 +163,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
 
 
     const handleChecked = async(folio:any) => {
-      // console.log(folio)
-      // console.log(entities)
-
       const resultIndex = entities.findIndex((OT: any) => OT[1] === parseInt(folio));
-      // const resultFolio = entities[resultIndex];
-      
-      // console.log(resultIndex);
-      // console.log(resultFolio);
 
       if(resultIndex !== -1){
         setSelectedRows((prev:any)=>[...prev, resultIndex])
@@ -173,7 +171,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
         if(searchOTRef.current !== null){
           searchOTRef.current.focus()
         }
-
+        return resultIndex
         //EJECUTAR METODO PARA FOCUS DE INPUT SEARCHOT
 
       }else{
@@ -182,16 +180,17 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
              'Authorization': User.token, 
            }
         });
-        // console.log(dataOT)
+
         if(dataOT){
           setDataOT(dataOT)
           setIsShowErrorOTModal(true)
         }
-        
-        
+
+        return dataOT
       }
-            
     }
+
+
 
     const handleImpresionMasivo = async() => {
       // console.log('click')
@@ -477,6 +476,43 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
 
 
 
+    const handleProcesarConfirm = async(folio:any) => {
+      try {
+          console.log(folio)
+        const result = await axios(`${URLBackend}/api/ot/listado/?query=01&_folio=${folio}`,{
+          headers: {
+            'Authorization': User.token, 
+          }
+        });
+
+        console.log(result)
+
+        if(result.data.length === 0){
+          setValueConfirmOT('')
+          setIsFOTValidarBodega(false)
+          return toast.error(`OT ${folio}: No existe`)
+        }
+
+        if(result.status !== 200 || result?.data[0][EnumGrid.area_id] !== 60){
+          setValueConfirmOT('')
+          return toast.error(`OT ${folio}: No se encuentra en esta área`)
+        }
+
+        dataOTSignal.value = result.data 
+        console.log(result)
+
+        setIsFOTValidarBodega(true)
+      } catch (error:any) {
+        console.log(error)
+        toast.error(error)
+        setIsFOTValidarBodega(false)
+      }
+
+
+    }
+
+
+
 
     return (
     <div className='flex items-center   ml-[4rem] !w-full'>
@@ -571,12 +607,22 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
           </div>
         </Suspense>
 
+        {isFOTValidarBodega && (
+          <Suspense>
+            <FOTValidarBodega/>
+          </Suspense>
+        )}
+
 
         {/* {areaPermissions && areaPermissions[0] === "1" && escritura_lectura && (
         )} */}
 
           <div className='ml-2'>
             <Input type="text" label='Buscar OT' name='searchOT' className='text-xl' color='orange' ref={searchOTRef} onBlur={(e:any)=>handleChecked(e.target.value)} value={valueSearchOT} onChange={(e:any)=>setValueSearchOT(e.target.value)} />
+          </div>
+
+          <div className="ml-2">
+          <Input type="text" label='Procesar OT' name='ProcesarOT' className='text-xl' color='orange' ref={searchOTRef} value={valueConfirmOT} onChange={(e:any)=>{handleProcesarConfirm(e.target.value),setValueConfirmOT(e.target.value)}} />
           </div>
 
           

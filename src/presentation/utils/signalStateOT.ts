@@ -1139,6 +1139,7 @@ export const updateOT =async (
   _obs?:string,
   isMasivo?:boolean,
   situacion?:any,
+  isValidateBodega?:boolean
 )  => {
 
   // console.log(jsonData)
@@ -1156,14 +1157,16 @@ export const updateOT =async (
   let motivo = data && data[EnumGrid.motivo] === 'Garantía' ? 2 : 1;
   //TODO: INICIO PROCESAR MASIVO
   if(isMasivo){
- 
+    console.log('render')
+    console.log(data)
+
     const query = {
       query: "04",
       _p1:`area=${_destino}, estado=${'20'}`,
-      _p2: data && data.tipo_anteojo.toString(),
+      _p2: isValidateBodega ? data[EnumGrid.tipo_anteojo_id].toString() : data && data.tipo_anteojo,
       _p3: "",
-      _proyecto: data && data.proyecto_codigo,
-      _folio: `${data && data.folio}` ,
+      _proyecto: isValidateBodega ? data[EnumGrid.proyecto_codigo] : data && data.proyecto_codigo,
+      _folio: isValidateBodega ? data[EnumGrid.folio].toString() : `${data && data.folio}` ,
       _origen: _origen.toString(),
       _rut: ``,
       _destino: _destino.toString(),
@@ -1171,9 +1174,9 @@ export const updateOT =async (
       _usuario:`${  user}`,
       _situacion: situacion || "0",
       _obs: "",
-      _cristalJSONOri: JSON.stringify(data.cristales),
-      _armazonJSONOri: JSON.stringify(data.armazones),
-      _punto_venta: `${data.punto_venta}`,
+      _cristalJSONOri:isValidateBodega ? JSON.stringify(cristalOri) : JSON.stringify(data.cristales),
+      _armazonJSONOri: isValidateBodega ? JSON.stringify(armazonOri) : JSON.stringify(data.armazones),
+      _punto_venta: isValidateBodega ? data[EnumGrid.punto_venta_id].toString() : `${data.punto_venta}`,
       _cristalJSONNew: JSON.stringify(data.cristales),
       _armazonJSONNew: JSON.stringify(data.armazones),
       _motivo:  `${motivo}`
@@ -1202,12 +1205,7 @@ export const updateOT =async (
 
   let estado_impresion = data && data[EnumGrid.estado_impresion_id];
   let estado_validacion = data && data[EnumGrid.validar_parametrizacion_id];
-  console.log(A2_CR_OI.value)
-  console.log(typeof A2_CR_OI.value)
-  console.log(data?.[EnumGrid.cristal2_oi])
-  console.log(typeof A2_CR_OI.value   !== 'object'    ? A2_CR_OI.value  : _formValues["cristales"] && parseInt(_formValues["cristales"]["cristal2_oi"]))
 
-  console.log()
   // let _rut = ""
   let _p3 = ""
 
@@ -1229,7 +1227,7 @@ export const updateOT =async (
     (`punto_venta=${jsonData.punto_venta_id                                                                                                              !== undefined ? jsonData.punto_venta_id : data[EnumGrid.punto_venta_id] }`),
     (`numero_receta=${data && data[EnumGrid.numero_receta]                                                                                               !== undefined ? data[EnumGrid.numero_receta] : 0 }`),
     (`fecha_receta="${jsonData.fecha_receta                                                                                                              !== undefined ? jsonData.fecha_receta : "" }"`),
-    (`tipo_anteojo=${!tipo_de_anteojo.value.trim()                                                                                                       === false     ? tipo_de_anteojo.value : 0 }`),
+    (`tipo_anteojo=${!tipo_de_anteojo.value                                                                                                       === false     ? tipo_de_anteojo.value : 0 }`),
 
 
     (`a1_od_esf=${typeof dioptrias_receta.value.a1_od.esf                                                                                                !== 'object' && !Number.isNaN(dioptrias_receta.value.a1_od.esf) ? dioptrias_receta.value.a1_od.esf : null }`),
@@ -1354,7 +1352,7 @@ const _armazonJSONNew = JSON.stringify(armazones)
   const query = {
     query: "04",
     _p1,
-    _p2:tipo_de_anteojo.value,
+    _p2:tipo_de_anteojo.value.toString(),
     _p3: _p3 || "",
     _proyecto: `${codigoProyecto.value}`,
     _folio: `${data && data[EnumGrid.folio]}` ,
@@ -1373,6 +1371,7 @@ const _armazonJSONNew = JSON.stringify(armazones)
     _armazonJSONOri: JSON.stringify(armazonOri)
   };
 
+  console.log(query)
 
   try {
     const response = await axios.post(`${URLBackend}/api/ot/editar/`, query)
@@ -1397,7 +1396,30 @@ const _armazonJSONNew = JSON.stringify(armazones)
 
 
 
-
+	      
+// {
+//   query: '04',
+//   _p1: 
+//     'motivo=1,area=70,estado=20,validar_parametrizacion="0",estado_impresion="",proyecto="",establecimiento=109,cliente="",fecha_atencion="",fecha_entrega_taller="",fecha_despacho="",fecha_entrega_cliente="",punto_venta=10,numero_receta=1301,fecha_receta="",tipo_anteojo=0,a1_od_esf=null,a1_od_cil=null,a1_od_eje=null,a1_oi_esf=null,a1_oi_cil=null,a1_oi_eje=null,a1_oi_ad =null,a1_dp=60,a1_alt=0,a1_grupo_od="",a1_grupo_oI="",a2_dp=52,a2_grupo_od="",a2_grupo_oI="",anteojo1_opcion_vta=0,anteojo1_armazon="",anteojo2_opcion_vta=0,anteojo2_armazon="",anteojo3_opcion_vta=0,anteojo3_armazon="",cristales1_opcion_vta=0,cristales1_marca=1,cristales1_diseno=1,cristales1_indice=2,cristales1_material=1,cristales1_tratamiento=1,cristales1_color=1,cristales1_diametro=65,cristales1_od="",cristales1_oi="",cristales1_tratamiento_adicional=0,cristales2_opcion_vta=0,cristales2_marca=0,cristales2_diseno=0,cristales2_indice=0,cristales2_material=0,cristales2_tratamiento=0,cristales2_color=0,cristales2_od="",cristales2_oi="0",cristales2_tratamiento_adicional=0,motivo_garantia=0,folio_asociado="",resolucion_garantia=0,worktracking="0",nota_venta="0",numero_reporte_firma=0,numero_reporte_atencion=0,numero_oc="0",numero_guia=1800,numero_factura=1301,folio_interno_mandante="8769",reporte_interno_mandante="0",observaciones="0"',
+//   _p2: '',
+//   _p3: '',
+//   _proyecto: '',
+//   _folio: '3188',
+//   _origen: '60',
+//   _rut: '',
+//   _destino: '70',
+//   _estado: '20',
+//   _usuario: '98',
+//   _situacion: '0',
+//   _obs: '',
+//   _cristalJSONNew: '[]',
+//   _armazonJSONNew: '[]',
+//   _punto_venta: '10',
+//   _motivo: '1',
+//   _cristalJSONOri: 
+//     '"[{\"codigo\":\"100010001680\"},{\"codigo\":\"100010003240\"}]"',
+//   _armazonJSONOri: '"[{\"codigo\":\"20000001001\"}]"'
+// }
 
 
 export function formatNumberWithZeros(inputNumber: number): string {

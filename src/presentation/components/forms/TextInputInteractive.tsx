@@ -25,6 +25,7 @@ interface ITextInputProps {
   customWidth?: any;
   isOptional?:boolean;
   textAlign?: string;
+  validarBodega?:boolean
 }
 
 const TextInputInteractive: React.FC<ITextInputProps> = ({
@@ -44,7 +45,8 @@ const TextInputInteractive: React.FC<ITextInputProps> = ({
   isOT,
   customWidth,
   isOptional,
-  textAlign
+  textAlign,
+  validarBodega
 }) => {
   // const [_defaultValue, setDefaultValue] = useState<any>(data && data || "")
   const [_defaultValue, setDefaultValue] = useState<any>(data || " "); // Inicializar defaultValue con el valor inicial
@@ -81,9 +83,9 @@ const TextInputInteractive: React.FC<ITextInputProps> = ({
     setValue(data)
   },[data])
 
-  const handleDebounceInputChange = debounce((newValue: any) => {
-    handleInputChange(newValue); // Llama a la función original handleInputChange
-  }, 200);
+  // const handleDebounceInputChange = debounce((newValue: any) => {
+  //   handleInputChange(newValue); // Llama a la función original handleInputChange
+  // }, 200);
 
   // console.log(data)
 
@@ -109,10 +111,15 @@ return (
             // defaultValue={defaultValue}
             readOnly={onlyRead}
             maxLength={maxLength}
-            onBlur={(e) => handleDebounceInputChange(e)}
+            onBlur={(e) =>  {
+              handleInputChange(e)
+            }}
             onChange={(e)=> {
                 setValue(e.target.value)
                 setRender((prev)=>!prev)
+                if(validarBodega){
+                  handleInputChange(e as any)  
+                }
             }}
             
             ref={inputRef}

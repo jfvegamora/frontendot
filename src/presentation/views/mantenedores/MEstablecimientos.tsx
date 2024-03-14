@@ -10,6 +10,8 @@ import {
 } from "../../components";
 import { useEntityUtils, usePermission } from "../../hooks";
 import FEstablecimientos from "../forms/FEstablecimientos";
+import FEstablecimientos2 from "../forms/FEstablecimientos2";
+
 import { TITLES, table_head_establecimientos } from "../../utils";
 
 export enum EnumGrid {
@@ -146,7 +148,7 @@ const MEstablecimientos: React.FC = () => {
 
 
       {isModalInsert && (
-      <FEstablecimientos
+      <FEstablecimientos2
         label={`${TITLES.ingreso} ${strEntidad}`}
         closeModal={closeModal}
         selectedRows={selectedRows}
@@ -158,7 +160,7 @@ const MEstablecimientos: React.FC = () => {
       )}
 
       {isModalEdit && (
-        <FEstablecimientos
+        <FEstablecimientos2
           label={`${TITLES.edicion} ${strEntidad}`}
           selectedRows={selectedRows}
           setEntities={setEntities}

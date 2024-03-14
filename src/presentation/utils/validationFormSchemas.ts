@@ -22,6 +22,22 @@ export const validationOTSchema = () =>
     correo          : yup.string(),
     establecimient : yup.string().required(`${msg}`),
   });
+
+//Schema
+export const validationBodegaSchema = () => 
+  yup.object().shape({
+    a1_od           : yup.string().required(`${msg}`),
+    a1_oi           : yup.string().required(`${msg}`),
+    a1_armazon      : yup.string().required(`${msg}`),
+    a2_od           : yup.string().required(`${msg}`),
+    a2_oi           : yup.string().required(`${msg}`),
+    a2_armazon      : yup.string().required(`${msg}`),
+  })
+
+
+
+
+
 //Schema OTHistorica Asignacion OC
 export const validationOTOCSchema = () =>
   yup.object().shape({

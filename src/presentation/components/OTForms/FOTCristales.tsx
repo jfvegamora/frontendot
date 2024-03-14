@@ -132,8 +132,8 @@ const FOTCristales: React.FC<ICristales> = ({
 
     // console.log(tipo_de_anteojo.value)
 
-    console.log(permiso_areas_grupo_dioptria)
-    console.log(permiso_usuario_grupo_dioptria)
+    console.log(permiso_areas_cristales)
+    console.log(permiso_usuario_cristales)
     // console.log(data?.[EnumGrid.cristal2_od])
 
     useEffect(()=>{

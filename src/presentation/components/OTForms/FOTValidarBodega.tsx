@@ -1,0 +1,347 @@
+import { yupResolver } from '@hookform/resolvers/yup';
+import React from 'react'
+import { useForm } from 'react-hook-form';
+import { A1_CR_OD, A1_CR_OI, A2_CR_OD, A2_CR_OI, a1_armazon, a2_armazon, codigoProyecto, tipo_de_anteojo, updateOT, validationBodegaSchema, validationNivel3 } from '../../utils';
+import TextInputInteractive from '../forms/TextInputInteractive';
+import { dataOTSignal } from '../OTPrimaryButtons';
+import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
+import { toast } from 'react-toastify';
+import { validationCodigoArmazon_1, validationCodigoArmazon_2, validationCodigoCristal1_od, validationCodigoCristal1_oi, validationCodigoCristal2_od, validationCodigoCristal2_oi } from '../../utils/validationOT';
+import { Button } from '@material-tailwind/react';
+import { AppStore, useAppSelector } from '../../../redux/store';
+
+
+const focusFirstInput = (strInputName: string,ref:any) => {
+      const firstInput = ref.current.querySelector(`input[name=${strInputName}]`);
+      if (firstInput) {
+        (firstInput as HTMLInputElement).focus();
+      } 
+};
+
+
+
+const FOTValidarBodega:React.FC = () => {
+    const [formValues, setFormValues] = React.useState();
+    const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas);
+    const OTSlice:any = useAppSelector((store:AppStore)=>store.OTS)
+    const UsuarioID:any = useAppSelector((store:AppStore)=> store.user?.id)
+
+    const schema          = validationBodegaSchema()
+    const OT              = dataOTSignal.value[0];
+    const alreadyValidate = true;
+
+    console.log(OT[EnumGrid.tipo_anteojo_id])
+    
+    const inputsRef = {
+        a1_od:         React.useRef<any>(null),
+        a1_oi:         React.useRef<any>(null),
+        a1_armazon:    React.useRef<any>(null),
+        a2_od:         React.useRef<any>(null),
+        a2_oi:         React.useRef<any>(null),
+        a2_armazon:    React.useRef<any>(null),
+    }
+
+
+
+    const armazones = ([{codigo: OT && OT[EnumGrid.a1_armazon_id]}, {codigo: OT[EnumGrid.tipo_anteojo_id] === '3' ? (OT && OT[EnumGrid.a2_armazon_id]) : ('')}] as any).filter((codigo:any)=>codigo.codigo !== '')
+
+    const cristales = ([{codigo: OT && OT[EnumGrid.cristal1_od]}, {codigo:OT && OT[EnumGrid.cristal1_oi]}, {codigo: ( OT[EnumGrid.tipo_anteojo_id] === '3' ? (OT && OT[EnumGrid.cristal2_od]) : ('') )} , {codigo: OT[EnumGrid.tipo_anteojo_id] === '3' ? (OT && OT[EnumGrid.cristal2_oi]): ('')}]).filter((codigo:any)=>codigo.codigo !== '')
+    
+
+    console.log(armazones)
+    console.log(cristales)
+
+    // const {focusFirstInput} = useCrud('')
+
+    const {
+        control,
+        handleSubmit,
+        formState: { errors },
+        getValues
+      } = useForm({
+        resolver: yupResolver(schema),
+    });
+
+
+    const values = getValues()
+    
+
+    
+    const handleInputChange = (e:any) => {
+        const {name, value} = e;
+
+        console.log(name)
+        console.log(value)
+
+
+        setFormValues((prevFormValues: any) => ({
+            ...prevFormValues,
+            [name]: value
+        }));
+       
+
+        if(name === 'a1_od'){
+            if(value === OT[EnumGrid.cristal1_od] && value.length >= 11){
+                validationCodigoCristal1_od(value,alreadyValidate)
+                focusFirstInput('a1_oi',inputsRef["a1_oi"] )
+            }else{
+                if(value.length <= 11) return;
+                toast.error('Anteojo 1, Código cristal OD no son iguales')
+                setFormValues({[name]: ''} as any)
+            }        
+        }
+
+        if(name === 'a1_oi'){
+            if(value === OT[EnumGrid.cristal1_oi] && value.length >= 11){
+                validationCodigoCristal1_oi(value, alreadyValidate)
+                focusFirstInput('a1_armazon', inputsRef["a1_armazon"])
+            }else{
+                if(value.length <= 11)return;
+                toast.error('Anteojo 1, Código cristal OI no son iguales')
+                setFormValues({[name]: ''} as any)
+            }
+        }
+
+        if(name === 'a1_armazon'){
+            if(value === OT[EnumGrid.a1_armazon_id] && value.length >= 11){
+                validationCodigoArmazon_1(value, alreadyValidate)
+                if(OT && OT[EnumGrid.tipo_anteojo_id] === '3'){
+                    focusFirstInput('a2_od', inputsRef["a2_od"])
+                }
+                
+            }else{
+                if(value.lenght <= 11) return;
+                toast.error('Anteojo1, Código armazon 1 no son iguales')
+                setFormValues({[name]:''} as any)
+            }
+        }
+
+
+
+
+
+
+
+        console.log(name)
+        console.log(value)
+        console.log(OT[EnumGrid.a1_armazon_id])
+
+        console.log(value === OT[EnumGrid.a1_armazon_id])
+
+    }
+    
+    
+    
+    
+    if(dataOTSignal.value === 0 as any){
+        return(
+            <>
+        
+            </>
+        )
+    }
+
+
+    React.useEffect(()=>{
+        if(OT){
+            A1_CR_OD.value  = OT[EnumGrid.cristal1_od]
+            A1_CR_OI.value  = OT[EnumGrid.cristal1_oi]
+            A2_CR_OD.value  = OT[EnumGrid.cristal2_od]
+            A2_CR_OI.value  = OT[EnumGrid.cristal2_od]
+
+            a1_armazon.value = OT[EnumGrid.a1_armazon_id]
+            a2_armazon.value = OT[EnumGrid.a2_armazon_id]
+
+            tipo_de_anteojo.value = OT[EnumGrid.tipo_anteojo_id]
+            tipo_de_anteojo.value.toString()
+            codigoProyecto.value = OT[EnumGrid.proyecto_codigo]
+        }
+        
+        if(OT && OT[EnumGrid.tipo_anteojo_id] !== '3'){
+            console.log('render')
+            validationCodigoArmazon_2('', true)
+            validationCodigoCristal2_od('', true)
+            validationCodigoCristal2_oi('', true)
+        }
+        focusFirstInput('a1_od', inputsRef["a1_od"])
+    },[])
+
+    const sumatoriaNivel3 = validationNivel3.value.reduce((index,objecto) => index + objecto.valor, 0);  
+    
+    const onSubmit = (e:any) => {
+        e.preventDefault();
+        console.log('render')
+
+
+        // updateOT(
+        //     {},
+        //     OTAreas["areaActual"],
+        //     OTAreas["areaSiguiente"],
+        //     20,
+        //     formValues,
+        //     OT,
+        //     cristales,
+        //     armazones,
+        //     UsuarioID.toString(),
+        //     '',
+        //     true,
+        //     '',
+
+        // )
+
+        updateOT(
+            [],
+            OTAreas["areaActual"],
+            OTAreas["areaSiguiente"],
+            20,
+            [],
+            OT,
+            cristales,
+            armazones,
+            UsuarioID.toString(),
+            "",
+            true,
+            '',
+            true
+          )
+    }
+
+
+    // console.log(formValues && formValues)
+    // console.log(OT[EnumGrid.a1_armazon_id])
+    return (
+        <div className=" bg-[#676f9d] mx-auto xl:w-[90%] xl:left-[30rem]  absolute top-10 left-auto right-auto rounded-xl shadow-md overflow-hidden      sm:w-[25rem]    md:max-w-[35rem] z-20">
+          <h1 className='text-center text-2xl text-white'>Folio: {OT[EnumGrid.folio]}</h1>
+          <form 
+            className="p-8 space-y-6"
+            // onSubmit={handleSubmit((data:any)=>onSubmit(data))}
+            // onSubmit={handleSubmit((data) => onSubmit(data))}
+            // onSubmit={handleSubmit(onSubmit)}
+          >
+            <div className="">
+                <h1 className='text-center text-white'>Anteojo 1</h1>
+                <div className='rowForm  !h-[4rem]'>
+                <label className='text-sm absolute left-[3rem] top-[4.5rem]'>1231231</label>
+                <TextInputInteractive
+                    type='text'
+                    label='OD'
+                    name='a1_od'
+                    handleChange={handleInputChange}
+                    control={control}
+                    isOT={true}
+                    data={formValues && formValues["a1_od"]}
+                    textAlign='text-left'
+                    error={errors.a1_od}
+                    inputRef={inputsRef.a1_od}
+                    validarBodega={true}
+                />
+                </div>
+                <div className='rowForm  !h-[4rem]'>
+                <label className='text-sm absolute left-[3rem] top-[9.2rem]'>1231231</label>    
+                <TextInputInteractive
+                    type='text'
+                    label='OI'
+                    name='a1_oi'
+                    handleChange={handleInputChange}
+                    control={control}
+                    isOT={true}
+                    data={formValues && formValues["a1_oi"]}
+                    textAlign='text-left'
+                    error={errors.a1_oi}
+                    inputRef={inputsRef.a1_oi}
+                    validarBodega={true}
+                />
+                </div>
+                <div className='rowForm '>
+                <label className='text-sm absolute left-[3rem] top-[13.7rem]'>1231231</label>      
+                <TextInputInteractive
+                    type='text'
+                    label='Armazon 1'
+                    name='a1_armazon'
+                    handleChange={handleInputChange}
+                    isOT={true}
+                    data={formValues && formValues["a1_armazon"]}
+                    control={control}
+                    textAlign='text-left'
+                    error={errors.a1_armazon}
+                    inputRef={inputsRef.a1_armazon}
+                    validarBodega={true}
+                />
+                </div>
+            </div>
+
+
+            {OT && OT[EnumGrid.tipo_anteojo_id] === '3' && (
+                <div className="">
+                <h1 className='text-center text-white'>Anteojo 2</h1>
+                <div className='rowForm !h-[4rem] '>
+                <label className='text-sm absolute left-[3rem] top-[19.9rem]'>1231231</label>    
+                <TextInputInteractive
+                    type='text'
+                    label='OD'
+                    name='a2_od'
+                    handleChange={handleInputChange}
+                    isOT={true}
+                    data={formValues && formValues["a2_od"]}
+                    control={control}
+                    textAlign='text-left'
+                    error={errors.a2_od}
+                    inputRef={inputsRef.a2_od}
+                    validarBodega={true}
+                    onlyRead={OT && OT[EnumGrid.tipo_anteojo_id] === 3 ? false : true}
+                />
+                </div>
+                <div className='rowForm !h-[4rem] '>
+                <label className='text-sm absolute left-[3rem] top-[25rem]'>1231231</label>    
+                <TextInputInteractive
+                    type='text'
+                    label='OI'
+                    name='a2_oi'
+                    handleChange={handleInputChange}
+                    isOT={true}
+                    data={formValues && formValues["a2_oi"]}
+                    control={control}
+                    textAlign='text-left'
+                    error={errors.a2_oi}
+                    inputRef={inputsRef.a2_oi}
+                    validarBodega={true}
+                    onlyRead={OT && OT[EnumGrid.tipo_anteojo_id] === 3 ? false : true}
+                />
+                </div>
+                <div className='rowForm !h-[4rem] '>
+                <label className='text-sm absolute left-[3rem] top-[29.5rem]'>1231231</label>    
+                <TextInputInteractive
+                    type='text'
+                    label='Armazon 2'
+                    name='a2_armazon'
+                    handleChange={handleInputChange}
+                    isOT={true}
+                    data={formValues && formValues["a2_armazon"]}
+                    control={control}
+                    textAlign='text-left'
+                    error={errors.a2_armazon}
+                    inputRef={inputsRef.a2_armazon}
+                    validarBodega={true}
+                    onlyRead={OT && OT[EnumGrid.tipo_anteojo_id] === 3 ? false : true}
+                />
+                </div>
+            </div>
+            )}
+            
+            
+
+                {sumatoriaNivel3 === validationNivel3.value.length && (
+                    <Button className='otActionButton bg-green-400 hover:bg-green-700' type='submit'  onClick={(e) =>onSubmit(e)}>Procesar</Button>
+                )}
+            
+
+            <div>
+            </div>
+            <div>
+            </div>
+          </form>
+        </div>
+      );
+}
+
+export default FOTValidarBodega

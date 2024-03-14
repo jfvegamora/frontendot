@@ -84,6 +84,7 @@ const useCrud = (
       
       const firstInput = firstInputRef.current.querySelector(`input[name=${strInputName}]`);
 
+      console.log(firstInput)
       if (firstInput) {
         (firstInput as HTMLInputElement).focus();
       }
