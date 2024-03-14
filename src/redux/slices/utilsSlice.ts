@@ -1,36 +1,47 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 
 
-const fetchData = async (endpoint:string) => {
-  const response = await fetch(endpoint);
-  const data = await response.json();
-  return data;
+const fetchData = async (endpoint:string,token:string) => {
+  try {
+    console.log(endpoint)
+    console.log(token)
+    const response = await axios(endpoint,{
+      headers: {
+         'Authorization': token, 
+       }
+  });
+  console.log(response)
+    return response.data;
+  } catch (error) {
+    console.log(error)
+  }
 };
 
 // Defin
 
 const initialState = {
-  Regiones:   localStorage.getItem("regiones") ? JSON.parse(localStorage.getItem("regiones") as string): [],
-  Provincias: localStorage.getItem("provincias") ? JSON.parse(localStorage.getItem("provincias") as string): [],
-  Comunas:    localStorage.getItem("comunas") ? JSON.parse(localStorage.getItem("comunas") as string): [],
+  Regiones:   localStorage.getItem("regiones") ? JSON.parse(localStorage.getItem("regiones") as string) : [],
+  Provincias: localStorage.getItem("provincias") ? JSON.parse(localStorage.getItem("provincias") as string) : [],
+  Comunas:    localStorage.getItem("comunas") ? JSON.parse(localStorage.getItem("comunas") as string) : [],
 
 };
 
-export const fetchRegProCom = createAsyncThunk('regiones/provincias/counas', async() => {
+export const fetchRegProCom = createAsyncThunk('regiones/provincias/counas', async(token:any) => {
   try {
     const endpoint1 = "https://gestiondev.mtoopticos.cl/api/tipos/listado/?query=02&_p1=Regiones";
     const endpoint2 = "https://gestiondev.mtoopticos.cl/api/tipos/listado/?query=02&_p1=Provincias";
     const endpoint3 = "https://gestiondev.mtoopticos.cl/api/tipos/listado/?query=02&_p1=Comunas";
 
     const [regiones, provincias, comunas] = await Promise.all([
-      fetchData(endpoint1),
-      fetchData(endpoint2),
-      fetchData(endpoint3),
+      fetchData(endpoint1,token),
+      fetchData(endpoint2,token),
+      fetchData(endpoint3,token),
     ]);
-
+    console.log(regiones)
     return {regiones, provincias, comunas}
   } catch (error) {
-    
+    console.log(error)
   }
 })
 

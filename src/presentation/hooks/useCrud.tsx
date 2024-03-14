@@ -53,7 +53,7 @@ const useCrud = (
     baseURL: baseUrl,
     headers: {
       "Content-Type": "application/json",
-      'Authorization': usuario.token, 
+      'Authorization': usuario?.token || "", 
     },
   });
 

@@ -57,9 +57,14 @@ const initialState: ITiposListbox | null = {
 };
   
 
-  export const fetchListBoxTipos = createAsyncThunk('listBox/fetchListBoxTipos', async () => {
+  export const fetchListBoxTipos = createAsyncThunk('listBox/fetchListBoxTipos', async (token:any) => {
     try {
-        const {data} = await axios(`${URLBackend}/api/tipos/listado/?query=02`)
+        const {data} = await axios(`${URLBackend}/api/tipos/listado/?query=02`,{
+            headers: {
+               'Authorization': token, 
+             }
+       })
+       console.log(data)
         return data
     } catch (error) {
         throw error;

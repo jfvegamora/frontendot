@@ -84,8 +84,8 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
   }) => {
     const { escritura_lectura, lectura} = usePermission(idMenu || 0 );
     const [rowIds, setRowIds] = useState<number[]>([]);
-    const [pageSize, setPagesize]       = useState(500)
-    const [pageNumber, setPageNumebr ]  = useState(1)
+    // const [pageSize, _setPagesize]       = useState(500)
+    // const [pageNumber, _setPageNumebr ]  = useState(1)
     const [ OTPermissions, setOTPermissions] = useState("");
     const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas);
     const OTColores:any = useAppSelector((store: AppStore) => store.OTS.derivacionColores) || JSON.parse(localStorage.getItem('OTColores') as string);
@@ -94,8 +94,8 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
     const permissions = (area:number) => areaActual &&  OTAreas["areas"].find((permiso:any)=>permiso[1] === area)
     
     let enumGird:any = {}
-    const startIndex = (pageNumber - 1) * pageSize;
-    const endIndex = pageNumber * pageSize;
+    // const startIndex = (pageNumber - 1) * pageSize;
+    // const endIndex = pageNumber * pageSize;
     
     switch (entidad) {
       case 'Armazón ':
@@ -135,6 +135,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
         if(OTColores[rowData]){
           return background ? `${OTColores[rowData][1]}` : `${OTColores[rowData][0]}`
         }
+        console.log('render')
         return  background ? `black` : 'red'
       } catch (error) {
         console.log(error)
@@ -361,15 +362,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
           }
         </tbody>
       </table>
-      {/* <div className=" w-[18rem] flex  ">
-            <div className="">
-              <button onClick={()=>setPageNumebr((prev)=>prev-1)}>Anterior</button>
-            </div>
-            <div className="  mr-10 text-center">
-                <button className="ml-10 text" onClick={()=>setPageNumebr((prev)=>prev + 1)}>Siguiente</button>
-            </div>
 
-          </div> */}
       </div>
     );
   }

@@ -58,11 +58,11 @@ const Login: React.FC = React.memo(() => {
           console.log(usuario)
           console.log(response)
           dispatch(login(usuario));
-          dispatch(fetchFuncionalidades());
-          dispatch(fetchOTAreas())
-          dispatch(fetchListBoxTipos())
-          dispatch(fetchColores())
-          dispatch(fetchRegProCom())
+          dispatch(fetchFuncionalidades(usuario.token));
+          dispatch(fetchOTAreas(usuario.token))
+          dispatch(fetchListBoxTipos(usuario.token))
+          dispatch(fetchColores(usuario.token))
+          dispatch(fetchRegProCom(usuario.token))
       
           // toast.success("Sesion Iniciada");
           toast.dismiss(toastLoading)

@@ -12,9 +12,13 @@ const initialState:IFuncionalidad | null = localStorage.getItem("Funcionalidades
    ? JSON.parse(localStorage.getItem("Funcionalidades") as string)
    : []
 
-export const fetchFuncionalidades = createAsyncThunk('funcionalidades/fetchFuncionalidades', async ()=>{
+export const fetchFuncionalidades = createAsyncThunk('funcionalidades/fetchFuncionalidades', async (token:any)=>{
     try {
-        const response = await axios.get(`${URLBackend}/api/funcionalidades/listado/?query=01`);
+        const response = await axios.get(`${URLBackend}/api/funcionalidades/listado/?query=01`,{
+            headers: {
+               'Authorization': token, 
+             }
+       });
         return response.data;        
     } catch (error) {
         throw error

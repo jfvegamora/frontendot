@@ -73,6 +73,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     const { ListEntity } = useCrud(strUrl);
     const cleanFilters = {};
     const { refreshData } = useEntityUtils(strUrl, entidad[1]);
+    const {token} = useAppSelector((store: AppStore) => store.user);
 
     const _p1 =  entidad[2] && `_p1=${entidad[2]}`   
 
@@ -87,7 +88,11 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     
 
     const fetchSelectData =async()=>{
-      const {data} = await axios(strUrl2)
+      const {data} = await axios(strUrl2,{
+        headers: {
+           'Authorization': token, 
+         }
+   })
       if(label === 'Punto de Venta'){
         if(data && data[0]){
           punto_venta.value = data[0][0]

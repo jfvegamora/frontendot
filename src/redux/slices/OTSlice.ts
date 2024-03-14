@@ -124,9 +124,13 @@ const filterCodigos = (codigos:any) => {
 
 export const fetchColores = createAsyncThunk(
     'fetch/colores',
-    async()=>{
+    async(token:any)=>{
         try {
-            const response = await axios.get(`${URLBackend}/api/tipos/listado/?query=02&_p1=OTEstados`)    
+            const response = await axios.get(`${URLBackend}/api/tipos/listado/?query=02&_p1=OTEstados`,{
+                headers: {
+                   'Authorization': token, 
+                 }
+           })    
             if(response.data){
                 const colores = response.data.reduce((acc:any, obj:any)=>{
                     acc[obj[1]] = [obj[2], obj[3]]

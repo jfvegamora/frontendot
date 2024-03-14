@@ -62,14 +62,18 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
     const [entities, setEntities] = useState(stateListBox|| []);
     const [strSelectedName, setStrSelectedName] = useState(data  || undefined);
     const inputRef = useRef(null); 
-
+    const {token} = useAppSelector((store: AppStore) => store.user);
     const params = typeof entidad === 'string' ? entidad : `${entidad[0]}&_p2=${entidad[1]}`
 
     
     const fetchData = async () => {
       try {
         if (!stateListBox || stateListBox.length < 1) {
-          const { data } = await axios(`${URLBackend}/api/tipos/listado/?query=02&_p1=${params}`);
+          const { data } = await axios(`${URLBackend}/api/tipos/listado/?query=02&_p1=${params}`,{
+            headers: {
+               'Authorization': token, 
+             }
+       });
           // console.log(data);
           setEntities(data);
         }

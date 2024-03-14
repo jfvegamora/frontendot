@@ -18,9 +18,13 @@ const initialState: IOTAreas | null = {
   };
   
 
-export const fetchOTAreas = createAsyncThunk('OTAreas/fetchOTAreas',async()=>{
+export const fetchOTAreas = createAsyncThunk('OTAreas/fetchOTAreas',async(token:any)=>{
     try {
-        const response = await axios.get(`${URLBackend}/api/otareas/listado/?query=01`);
+        const response = await axios.get(`${URLBackend}/api/otareas/listado/?query=01`,{
+            headers: {
+               'Authorization': token, 
+             }
+       });
         
         return response.data
     } catch (error) {

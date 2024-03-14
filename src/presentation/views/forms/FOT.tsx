@@ -858,6 +858,11 @@ useEffect(()=>{
 
 
 
+console.log(permiso_areas_armazones)
+console.log(permiso_usuario_armazones)
+
+
+
   console.log(validationNivel1.value)
   
   console.log(validationNivel2.value)

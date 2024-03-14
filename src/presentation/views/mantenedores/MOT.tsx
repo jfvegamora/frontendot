@@ -25,6 +25,7 @@ import { clearData, fetchColores, fetchOT } from "../../../redux/slices/OTSlice"
 // import StateCountBarOT from "../../components/StateCountBarOT";
 import { signal } from "@preact/signals-react";
 import { updateActualArea } from "../../../redux/slices/OTAreasSlice";
+// import axios from "axios";
 
 export enum EnumGrid {
   id = 1,
@@ -67,6 +68,7 @@ const OTAreasButtons    = React.lazy(()=>import('../../components/OTAreasButtons
 
 const MOT: React.FC = () => {
   const OTs:any = useAppSelector((store: AppStore) => store.OTS);
+  const {token}:any = useAppSelector((store: AppStore) => store.user);
   const areaActualOT:any = useAppSelector((store: AppStore) => store.OTAreas.areaActual);
   const dispatch = useAppDispatch()
   const [params, setParams] = useState([]);
@@ -148,7 +150,7 @@ const MOT: React.FC = () => {
   useEffect(() => {
     dispatch(clearData())
     // dispatch(clearOTColores())
-    dispatch(fetchColores())
+    dispatch(fetchColores(token))
     dispatch(updateActualArea(undefined))
   }, [])
 
@@ -157,6 +159,7 @@ const MOT: React.FC = () => {
   }, [OTs.estadosOT])
 
   // console.log(estadosOT)
+
 
 
 

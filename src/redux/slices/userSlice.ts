@@ -44,23 +44,3 @@ export const { login, logout, actualizarUltimoMovimiento } = userSlice.actions;
 export default userSlice.reducer;
 
 
-export const sesionExpirada = () => {
-  let horaInicioSesion = JSON.parse(localStorage.getItem('user') && localStorage.getItem('user') as any)
-  console.log(horaInicioSesion.ultimoMovimiento)
-  if (horaInicioSesion.ultimoMovimiento) {
-    const tiempoTranscurrido = new Date().getTime() - horaInicioSesion.ultimoMovimiento;
-    console.log(tiempoTranscurrido)
-    const minutosTranscurridos = tiempoTranscurrido / (10000 * 60);
-    console.log(minutosTranscurridos)
-    if (minutosTranscurridos < 15) {
-      // Actualizar la hora de inicio de sesión en Redux
-      console.log('render')
-      actualizarUltimoMovimiento()
-      return true; 
-    } else {
-      return false;
-    }
-  }
-
-  return true;
-};
