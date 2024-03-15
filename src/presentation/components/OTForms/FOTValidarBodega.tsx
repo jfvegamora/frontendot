@@ -50,9 +50,9 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
         a2_armazon:    React.useRef<any>(null),
     }
 
-    const armazones = ([{codigo: OT && OT[EnumGrid.a1_armazon_id]}, {codigo: OT && OT[EnumGrid.tipo_anteojo_id] === '3' ? (OT && OT[EnumGrid.a2_armazon_id]) : ('')}] as any).filter((codigo:any)=>codigo.codigo !== '')
+    const armazones = ([{codigo: OT && OT[EnumGrid.a1_armazon_id]}, {codigo: OT && OT[EnumGrid.tipo_anteojo_id] === 3 ? (OT && OT[EnumGrid.a2_armazon_id]) : ('')}] as any).filter((codigo:any)=>codigo.codigo !== '')
 
-    const cristales = ([{codigo: OT && OT[EnumGrid.cristal1_od]}, {codigo:OT && OT[EnumGrid.cristal1_oi]}, {codigo: ( OT &&OT[EnumGrid.tipo_anteojo_id] === '3' ? (OT && OT[EnumGrid.cristal2_od]) : ('') )} , {codigo: OT && OT[EnumGrid.tipo_anteojo_id] === '3' ? (OT && OT[EnumGrid.cristal2_oi]): ('')}]).filter((codigo:any)=>codigo.codigo !== '')
+    const cristales = ([{codigo: OT && OT[EnumGrid.cristal1_od]}, {codigo:OT && OT[EnumGrid.cristal1_oi]}, {codigo: ( OT &&OT[EnumGrid.tipo_anteojo_id] === 3 ? (OT && OT[EnumGrid.cristal2_od]) : ('') )} , {codigo: OT && OT[EnumGrid.tipo_anteojo_id] === 3 ? (OT && OT[EnumGrid.cristal2_oi]): ('')}]).filter((codigo:any)=>codigo.codigo !== '')
 
     const {
         control,
@@ -71,9 +71,6 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
     const handleInputChange = (e:any) => {
         const {name, value} = e;
 
-        console.log(name)
-        console.log(value)
-
 
         setFormValues((prevFormValues: any) => ({
             ...prevFormValues,
@@ -91,6 +88,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                     focusFirstInput('a1_oi',inputsRef["a1_oi"] )
                 }else{
                     if(value.length <= 11) return;
+                    console.log('render')
                     validationCodigoCristal1_od('')
                     toast.error('Anteojo 1, Código cristal OD no son iguales')
                     setFormValues({[name]: ''} as any)
@@ -259,6 +257,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
         setOT(dataOTSignal.value[0])
     },[dataOTSignal.value])
 
+    console.log(validationNivel3.value)
 
     return (
         <div className=" bg-[#676f9d] mx-auto xl:w-[90%] xl:left-[30rem]  absolute top-10 left-auto right-auto rounded-xl shadow-md overflow-hidden lg:left-[20rem]     sm:w-[25rem]    md:max-w-[35rem] z-20">

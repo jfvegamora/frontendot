@@ -909,7 +909,7 @@ console.log(permiso_usuario_armazones)
           </TabPanel>
 
           <TabPanel> 
-            <FOTArmazones setSelectedTab={setSelectedTab} permiso_areas_armazones={permiso_areas_armazones} isEditting={isEditting} permiso_usuario_armazones={permiso_usuario_armazones} onlyRead={onlyRead}  data={data && data} formValues={formValues["armazones"]} control={control} onDataChange={(data:any) => handleFormChange(data , 'armazones')}  />
+            <FOTArmazones  formValuesCompleto={formValues} setSelectedTab={setSelectedTab} permiso_areas_armazones={permiso_areas_armazones} isEditting={isEditting} permiso_usuario_armazones={permiso_usuario_armazones} onlyRead={onlyRead}  data={data && data} formValues={formValues["armazones"]} control={control} onDataChange={(data:any) => handleFormChange(data , 'armazones')}  />
           </TabPanel>
           
 
@@ -1008,7 +1008,7 @@ console.log(permiso_usuario_armazones)
                 // (!isEditting || (data && data[EnumGrid.area_id] === 40 && data && data[EnumGrid.motivo_garantia_id] === 2 ) )  &&
                 escritura_lectura      &&
                 OTPermissions[10] === "1" &&
-                 sumatoriaNivel1  === validationNivel1.value.length &&
+                 sumatoriaNivel2  === validationNivel2.value.length &&
                  (
                   <Button className='otActionButton bg-blue-500' onClick={handleIngresarClick}>Ingresar</Button>
                  )

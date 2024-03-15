@@ -1163,7 +1163,7 @@ export const updateOT =async (
     const query = {
       query: "04",
       _p1:`area=${_destino}, estado=${'20'}`,
-      _p2: isValidateBodega ? data[EnumGrid.tipo_anteojo_id].toString() : data && data.tipo_anteojo,
+      _p2: isValidateBodega ? data[EnumGrid.tipo_anteojo_id].toString() : data && data.tipo_anteojo.toString(),
       _p3: "",
       _proyecto: isValidateBodega ? data[EnumGrid.proyecto_codigo] : data && data.proyecto_codigo,
       _folio: isValidateBodega ? data[EnumGrid.folio].toString() : `${data && data.folio}` ,
@@ -1174,11 +1174,11 @@ export const updateOT =async (
       _usuario:`${  user}`,
       _situacion: situacion || "0",
       _obs: "",
-      _cristalJSONOri:isValidateBodega ? JSON.stringify(cristalOri) : JSON.stringify(data.cristales),
-      _armazonJSONOri: isValidateBodega ? JSON.stringify(armazonOri) : JSON.stringify(data.armazones),
-      _punto_venta: isValidateBodega ? data[EnumGrid.punto_venta_id].toString() : `${data.punto_venta}`,
-      _cristalJSONNew: JSON.stringify(data.cristales),
-      _armazonJSONNew: JSON.stringify(data.armazones),
+      _cristalJSONOri: isValidateBodega ? JSON.stringify(cristalOri)                 : JSON.stringify(data.cristales),
+      _armazonJSONOri: isValidateBodega ? JSON.stringify(armazonOri)                 : JSON.stringify(data.armazones),
+      _punto_venta:    isValidateBodega ? data[EnumGrid.punto_venta_id].toString()   : `${data.punto_venta}`,
+      _cristalJSONNew: isValidateBodega ? JSON.stringify(cristalOri)                 : JSON.stringify(data.cristales),
+      _armazonJSONNew: isValidateBodega ? JSON.stringify(armazonOri)                 : JSON.stringify(data.armazones),
       _motivo:  `${motivo}`
     }
 
