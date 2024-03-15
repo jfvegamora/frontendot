@@ -1134,6 +1134,20 @@ export const table_head_armazones = [
     width: "w-[6rem]",
   },
   {
+    cell: "DP Mínima",
+    key: "dp_minima",
+    alignment: "text-right",
+    visible: true,
+    width: "w-[6rem]",
+  },
+  {
+    cell: "DP Máxima",
+    key: "dp_maxima",
+    alignment: "text-right",
+    visible: true,
+    width: "w-[6rem]",
+  },
+  {
     cell: "Cantidad Exhibida",
     key: "cantidad_exhibida",
     visible: true,
