@@ -164,7 +164,7 @@ const ExportToCsv: React.FC<Props> = ({
       const _p3 = entity[EnumGird.numero_doc]
 
       try {
-        const {data} = await axios(`${URLBackend}/api/proyectodocum/listado/?query=08&_p1=${_p1}&_p2=${_p2}&_p3=${_p3}`,{
+        const {data} = await axios(`${URLBackend}/api/proyectodocum/excel/?query=08&_p1=${_p1}&_p2=${_p2}&_p3=${_p3}`,{
           headers: {
              'Authorization': token, 
            }
