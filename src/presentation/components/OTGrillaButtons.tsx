@@ -19,6 +19,7 @@ import { EnumGrid } from '../views/mantenedores/MOTHistorica';
 // import { validationStateOT } from './OTPrimaryButtons';
 // import FOTTicketQRImpresion from '../views/forms/FOTTicketQRImpresion';
 import { paramsOT } from '../views/mantenedores/MOT';
+import { EnumAreas } from './OTPrimaryButtons';
 // import ReactDOM from 'react-dom';
 
 
@@ -70,6 +71,9 @@ const OTGrillaButtons:React.FC<AreaButtonsProps> = ({ areaPermissions, toggleEdi
     const OTAreas:any                    = useAppSelector((store: AppStore) => store.OTAreas);
     const OTdata:any                     = useAppSelector((store: AppStore) => store.OTS.data);
     const user:any                       = useAppSelector((store: AppStore) => store.user);
+
+
+    const permisos_usuario_areas = user.permisos_areas[EnumAreas[OTAreas["areaActual"]]]
 
 
     const [isFotImpresa, setIsFotImpresa]      = React.useState(false);
@@ -149,7 +153,7 @@ const handleQRPrint = useReactToPrint({
 
 const imprimirComprobanteRetiro = async(tipoComprobante?:string) => {
     
-        const loadingToast = toast.loading('Imprimiendo Comprobante Retiro...');
+        const loadingToast = toast.loading(`Imprimiendo ${tipoComprobante === 'QR' ? 'Código QR' : 'Ticket de retiro' }...`);
 
         try {
             const {data} = await axios.get(`${URLBackend}/api/ot/listado/?query=01&_origen=${OTAreas}&_folio=${folio}`,{
@@ -233,7 +237,7 @@ const imprimirComprobanteRetiro = async(tipoComprobante?:string) => {
                     </IconButton>
                 </Tooltip>
             )}
-            {areaPermissions && areaPermissions[2] === "1" && escritura_lectura && (
+            {areaPermissions && areaPermissions[2] === "1" && permisos_usuario_areas === '1' && (
                 <Tooltip content={BUTTON_MESSAGES.edit.concat(strEntidad)}>
                     <IconButton
                         variant="text"
@@ -245,7 +249,7 @@ const imprimirComprobanteRetiro = async(tipoComprobante?:string) => {
                     </IconButton>
                 </Tooltip>
             )}
-            {areaPermissions && areaPermissions[5] === "1" && escritura_lectura && (
+            {areaPermissions && areaPermissions[5] === "1" && permisos_usuario_areas === '1' && (
                 <Tooltip content={BUTTON_MESSAGES.edit.concat(strEntidad)}>
                     <IconButton
                         variant="text"

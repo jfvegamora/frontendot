@@ -15,6 +15,8 @@ import { Spinner } from "@material-tailwind/react";
 import LandingPage from "./presentation/pages/LandingPage";
 import FReservarArmazones from "./presentation/views/forms/FReservarArmazones";
 
+import jwtDecode from "jwt-decode";
+
 // import { clearLocalStorage } from "./redux/slices/ListBoxTipoSlice";
 //Lazy components
 const Login = lazy(() => import("./presentation/pages/Login"));
@@ -74,6 +76,39 @@ const AuthHOC = ({children}:any) => {
   return  children 
 };
 
+
+
+
+const validarExpirationToken = (token:string) => {
+  console.log(token)
+
+  const tokenDecode:any = jwtDecode(token)
+  const apiTime:any   = new Date(tokenDecode["expiracion"])
+  const currentDate:any = new Date();
+
+
+  console.log(tokenDecode["expiracion"])
+  console.log(currentDate)
+
+  const apiTimeString = '2024-03-15T11:45:3 0.688547-03:00';
+
+  const timeDifference = currentDate - apiTime;
+
+  const hoursDifference = timeDifference / (1000 * 60 * 60);
+
+  const isGreaterThan72Hours = hoursDifference > 72;
+
+  console.log(isGreaterThan72Hours);
+}
+
+
+
+
+
+
+
+
+
 function App() {
   const userState = useAppSelector((store: AppStore) => store.user);
   const navigate = useNavigate();
@@ -101,6 +136,8 @@ function App() {
     }
   }, []);
 
+  validarExpirationToken(userState.token)
+  
   
   return (
 

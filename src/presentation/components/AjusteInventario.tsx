@@ -6,6 +6,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { signal } from '@preact/signals-react';
 import { AppStore, useAppSelector } from '../../redux/store';
+import { handleAxiosError } from '../utils';
 
 
 export const ajuste_inventario_autorizacion = signal(false)
@@ -49,6 +50,7 @@ const AjusteInventario:React.FC<Props> = ({
                         
         } catch (error) {
             console.log('ERROR AJUSTE INVENTARIO AUTORIZACION:', error)
+            handleAxiosError(error)
             throw error
         }
     }

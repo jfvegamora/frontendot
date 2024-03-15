@@ -42,3 +42,8 @@ export async function compararFechas(fechaString:string) {
 
   }
   
+
+
+export const handleAxiosError = (error:any) => {
+    console.log(error)
+}

@@ -5,8 +5,7 @@ import { SiAddthis } from 'react-icons/si';
 import { PiPrinterFill } from "react-icons/pi";
 import { PiMicrosoftExcelLogoFill } from "react-icons/pi";
 import { ImWhatsapp } from "react-icons/im";
-import { BUTTON_MESSAGES, MODAL, updateOT } from '../utils';
-import { usePermission } from '../hooks';
+import { BUTTON_MESSAGES, MODAL, reiniciarValidationNivel3, updateOT } from '../utils';
 import ImportToCsv from './ImportToCsv';
 import { AppStore, useAppDispatch, useAppSelector } from '../../redux/store';
 import { toast } from 'react-toastify';
@@ -21,6 +20,7 @@ import { EnumGrid } from '../views/mantenedores/MOTHistorica';
 import { useModal } from '../hooks/useModal';
 import { paramsOT } from '../views/mantenedores/MOT';
 import { signal } from '@preact/signals-react';
+import { focusFirstInput } from '../components/OTForms/FOTValidarBodega';
 // import FOTEmpaque from '../views/forms/FOTEmpaque';
 
 type AreaButtonsProps ={
@@ -41,7 +41,20 @@ const strBaseUrl = "/api/ot/";
 const FOTImpresa        = React.lazy(()=>import('../views/forms/FOTImpresa'));
 const ExportCSV         = React.lazy(()=>import('./ExportToCsv'))
 const FOTEmpaque        = React.lazy(()=>import('../views/forms/FOTEmpaque'));
-const FOTValidarBodega  = React.lazy(()=>import('../components/OTForms/FOTValidarBodega'))
+const FOTValidarBodega  = React.lazy(()=>import('../components/OTForms/FOTValidarBodega'));
+
+export const EnumAreas:any = {
+  10: 1,
+  20: 2,
+  30: 3,
+  40: 4,
+  50: 5,
+  60: 6,
+  70: 7,
+  80: 8,
+  90: 9,
+  100: 10
+}
 
 
 export const validationStateOT = (positionCampo:number, nameCampo:string, folios:any, data:any) => {
@@ -70,7 +83,6 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
     setSelectedRows
 }) => {
     // const strUrl = `${URLBackend}/api/ot/listado`
-    const {escritura_lectura}                         = usePermission(28);
     const dispatch                                    = useAppDispatch();
     const data:any                                    = useAppSelector((store: AppStore) => store.OTS.data)
     const OTs: any = useAppSelector((store: AppStore) => store.OTS);
@@ -80,6 +92,8 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
     const SecondcomponentRef                          = useRef<any>(null);
     const [isShowErrorOTModal, setIsShowErrorOTModal] = useState(false)
     const [isFOTEmpaque, setIsFOTEmpaque]             = useState(false);
+    const [isFOTImpresa, setIsFOTImpresa]             = useState(false);
+    const [isFotTicketRetiro, setisFotTicketRetiro]   = useState(false);
     const [isFOTValidarBodega, setIsFOTValidarBodega] = useState(false);
     const [dataOT, setDataOT]                         = useState();
     const [valueSearchOT, setValueSearchOT]           = useState<any>();
@@ -88,6 +102,16 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
     const { showModal, CustomModal }                  = useModal();
     const userState: any = useAppSelector((store: AppStore) => store.user);
 
+    const refFocusInput                               = React.useRef<any>(null);
+
+    const permisos_usuario_areas = User.permisos_areas[EnumAreas[OTAreas["areaActual"]]]
+
+    console.log(permisos_usuario_areas)
+    // console.log(EnumAreas[20])
+
+
+
+
     const folios = pkToDelete && pkToDelete.map(({folio}:any)=>folio)
 
     const handlePrint = useReactToPrint({
@@ -95,6 +119,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
       suppressErrors: true,
       removeAfterPrint: true,
       onAfterPrint(){
+        setisFotTicketRetiro(true)
         imprimirComprobanteRetiro()
         // dispatch(clearImpression())
       }
@@ -107,10 +132,22 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
       suppressErrors: true,
       removeAfterPrint: true,
       onAfterPrint(){
+          setIsFOTImpresa(false)
+          setisFotTicketRetiro(false)
           dispatch(clearImpression())
       }
     })
 
+
+    React.useEffect(()=>{
+      console.log(isFOTValidarBodega)
+      if(!isFOTValidarBodega){
+        console.log('render')
+        focusFirstInput('ProcesarOT',refFocusInput)
+        reiniciarValidationNivel3()
+        setValueConfirmOT('')
+      }
+    },[isFOTValidarBodega, focusFirstInput])
 
 
     const renderButton = useCallback(
@@ -130,6 +167,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
       []
     );
 
+    
     const imprimirComprobanteRetiro = async() => {
       const loadingToast = toast.loading('Imprimiendo Comprobante Retiro...');
 
@@ -195,6 +233,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
     const handleImpresionMasivo = async() => {
       // console.log('click')
       // console.log(pkToDelete)
+      setIsFOTImpresa(true)
     
       // console.log(folios)
       const result = validationStateOT(5, '0', folios, data)
@@ -213,36 +252,70 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
         return;
       }
 
-      console.log(pkToDelete)
-      const printWithConfirmation = async (index:number) => {
-        if (index >= pkToDelete.length) return;
+        console.log(pkToDelete)
 
-        const OT = pkToDelete[index];
+      pkToDelete.forEach((_OT:any)=>{
+        return new Promise((resolve:any)=>{
+           handlePrint()
+           resolve() 
+          })
+      })
 
-        try {
-            const loadingToast = toast.loading('Imprimiendo...');
-            await dispatch(fetchOTImpresionByID({ folio: OT.folio, OTAreas: OTAreas['areaActual'] }));
-            const confirmación = await confirm(`Presione 'Aceptar' para imprimir la OT:${OT.folio}`);
-            if (confirmación) {
-                handlePrint();
-            } else {
-                console.log('Usuario canceló la impresión');
-            }
-            toast.dismiss(loadingToast);
-            console.log('render');
-        } catch (error) {
-            console.log(error);
-            throw error;
-        }
+      // async function handlePrintSequentially() {
+      //   for (let i = 0; i < pkToDelete.length; i++) {
+      //     const OT = pkToDelete[i];
+      
+      //     try {
+      //       const loadingToast = toast.loading('Imprimiendo...');
+      //       await dispatch(fetchOTImpresionByID({ folio: OT.folio, OTAreas: OTAreas['areaActual'] }));
+      //       await handlePrint(); // Esperar a que handlePrint() se resuelva
+      //       toast.dismiss(loadingToast);
+      //     } catch (error) {
+      //       console.log(error);
+      //       throw error;
+      //     }
+      //   }
+      // }
+      // Llamar la función para comenzar el proceso
+      // handlePrintSequentially();
+      // Llamar la función por primera vez para comenzar el proceso
+      
+      
+    //   const printWithConfirmation = async (index:number) => {
+    //     if (index >= pkToDelete.length) return;
 
-        // Procesar el siguiente elemento después de esperar un poco para permitir que el navegador actualice la UI
-        setTimeout(async () => {
-            await printWithConfirmation(index + 1);
-        }, 100);
-    };
+    //     const OT = pkToDelete[index];
+
+    //     try {
+    //         const loadingToast = toast.loading('Imprimiendo...');
+    //         await dispatch(fetchOTImpresionByID({ folio: OT.folio, OTAreas: OTAreas['areaActual'] }));
+    //         const confirmación = await confirm(`Presione 'Aceptar' para imprimir la OT:${OT.folio}`);
+    //         if (confirmación) {
+    //             handlePrint();
+    //         } else {
+    //             console.log('Usuario canceló la impresión');
+    //         }
+    //         toast.dismiss(loadingToast);
+    //         console.log('render');
+    //     } catch (error) {
+    //         console.log(error);
+    //         throw error;
+    //     }
+
+    //     // Procesar el siguiente elemento después de esperar un poco para permitir que el navegador actualice la UI
+    //     setTimeout(async () => {
+    //         await printWithConfirmation(index + 1);
+    //     }, 100);
+    // };
+
+
+
+
+
+
 
     // Llamar a la función para iniciar el proceso
-    await printWithConfirmation(0);
+    // await printWithConfirmation(0);
     //   for (const OT of pkToDelete) {
     //     try {
     //       const loadingToast = toast.loading('Imprimiendo...');
@@ -499,7 +572,6 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
         }
 
         dataOTSignal.value = result.data 
-        console.log(result)
 
         setIsFOTValidarBodega(true)
       } catch (error:any) {
@@ -512,11 +584,9 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
     }
 
 
-
-
     return (
     <div className='flex items-center   ml-[4rem] !w-full'>
-        {areaPermissions && areaPermissions[0] === "1" && escritura_lectura && (
+        { (areaPermissions && areaPermissions[0] === "1" ) && (permisos_usuario_areas === '1') && (
           renderButton(
             <SiAddthis className="primaryBtnIcon " />,
             handleAddPerson!,
@@ -526,7 +596,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
         }
        
        {/* <Suspense> */}
-          {areaPermissions && areaPermissions[3] === "1" && escritura_lectura && (
+          {areaPermissions && areaPermissions[3] === "1" && permisos_usuario_areas === '1' && (
             <div className="mr-2">
               <ExportCSV
               strEntidad={strEntidad}
@@ -538,7 +608,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
           )}
        {/* </Suspense> */}
 
-        {areaPermissions && areaPermissions[4] === "1" && escritura_lectura && (
+        {areaPermissions && areaPermissions[4] === "1" && permisos_usuario_areas === '1' && (
           <ImportToCsv
            strEntidad={strEntidad}
           //  params={params}
@@ -546,7 +616,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
         />
         )}
 
-        {areaPermissions && areaPermissions[2] === '1' && escritura_lectura && (
+        {areaPermissions && areaPermissions[2] === '1' && permisos_usuario_areas === '1' && (
           renderButton(
             <PiPrinterFill className="primaryBtnIcon" />,
             handleImpresionMasivo!,
@@ -554,7 +624,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
           )
         )}
 
-        {areaPermissions && areaPermissions[5] === '1' && escritura_lectura && (
+        {areaPermissions && areaPermissions[5] === '1' && permisos_usuario_areas === '1' && (
           renderButton(
             <ImWhatsapp className="primaryBtnIcon" />,
             handleWhatsappMasivo!,
@@ -562,7 +632,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
           )
         )}
 
-      {areaPermissions && areaPermissions[13] === "1" && escritura_lectura && (
+      {areaPermissions && areaPermissions[13] === "1" && permisos_usuario_areas ===  '1' && (
           <Tooltip content={'Descargar Plantilla Excel'} >
             <IconButton 
               className='primaryBtnIconButton'
@@ -575,7 +645,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
             {/* <Button color="green" className='otActionButton mx-4' >Macro Excel</Button> */}
           </Tooltip>
         )}
-        {areaPermissions && areaPermissions[6] === '1' && escritura_lectura && (
+        {areaPermissions && areaPermissions[6] === '1' && permisos_usuario_areas === '1' && (
           <Tooltip content={BUTTON_MESSAGES.procesar}>
               {/* <button className='bg-green-400 mx-4 transition-transform transform hover:scale-110 active:scale-95 w-[10rem] h-[2.5rem]  text-white '  */}
               <Button color="green" className='otActionButton'
@@ -583,7 +653,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
           </Tooltip>
         )}
 
-        {areaPermissions && areaPermissions[12] === "1" && escritura_lectura && (
+        {areaPermissions && areaPermissions[12] === "1" && permisos_usuario_areas === '1' && (
           <Tooltip content='Generar Número de Envío'>
               <Button className='otActionButton ml-4'  onClick={()=>setIsFOTEmpaque((prev)=>!prev)}>N° de Envio</Button>
           </Tooltip>
@@ -592,24 +662,32 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
 
          
 
-        {areaPermissions && areaPermissions[14] === '1' && escritura_lectura && (
+        {areaPermissions && areaPermissions[14] === '1' && permisos_usuario_areas === '1' && (
           <Tooltip content={'Generar Reporte de Firmas'}>
             <Button className='otActionButton mt-3 mx-5'onClick={() => handleReporteFirma()}>N° Rep. Firma</Button>  
           </Tooltip>
         )}
 
+        {isFotTicketRetiro && (
+          <Suspense>
+            <div className="hidden">
+              <FOTTicketImpresion ref={SecondcomponentRef}/>
+            </div>
+          </Suspense>
+        )}  
 
 
-        <Suspense>
-          <div className='hidden'>
-            <FOTImpresa ref={componentRef} />
-            <FOTTicketImpresion ref={SecondcomponentRef}/>
-          </div>
-        </Suspense>
+        {isFOTImpresa && (
+          <Suspense>
+            <div className="hidden">
+              <FOTImpresa ref={componentRef} />
+            </div>
+          </Suspense>
+        )}
 
         {isFOTValidarBodega && (
           <Suspense>
-            <FOTValidarBodega/>
+            <FOTValidarBodega handleClose={()=>setIsFOTValidarBodega(false)}/>
           </Suspense>
         )}
 
@@ -621,9 +699,11 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
             <Input type="text" label='Buscar OT' name='searchOT' className='text-xl' color='orange' ref={searchOTRef} onBlur={(e:any)=>handleChecked(e.target.value)} value={valueSearchOT} onChange={(e:any)=>setValueSearchOT(e.target.value)} />
           </div>
 
+          {areaPermissions && areaPermissions[15] === '1' && permisos_usuario_areas === '1' && (
           <div className="ml-2">
-          <Input type="text" label='Procesar OT' name='ProcesarOT' className='text-xl' color='orange' ref={searchOTRef} value={valueConfirmOT} onChange={(e:any)=>{handleProcesarConfirm(e.target.value),setValueConfirmOT(e.target.value)}} />
+            <Input ref={refFocusInput} type="text" label='Procesar OT' name='ProcesarOT' className='text-xl' color='orange'  value={valueConfirmOT} onChange={(e:any)=>{handleProcesarConfirm(e.target.value),setValueConfirmOT(e.target.value)}} />
           </div>
+          )}
 
           
 

@@ -295,7 +295,10 @@ export const validationOTlevel3 = (name:string, value:any) => {
 
 export const validationCodigoCristal1_od = (value:any, alreadyValidate?:boolean) => {
     const item = validationNivel3.value.find((item: { campo: string; }) => item.campo === 'validar_cristal1_od');
-    
+    if(item && value.trim() === ''){
+        item.valor = 0;
+        return;
+    }
     if(alreadyValidate && item){
         item.valor = 1;
         return;
@@ -320,6 +323,10 @@ export const validationCodigoCristal1_od = (value:any, alreadyValidate?:boolean)
 export const validationCodigoCristal1_oi = (value:any, alreadyValidate?:boolean) => {
     const item = validationNivel3.value.find((item: { campo: string; }) => item.campo === 'validar_cristal1_oi');
     
+    if(item && value.trim() === ''){
+        item.valor = 0;
+        return;
+    }
     if(alreadyValidate && item){
         item.valor = 1
         return;
@@ -341,6 +348,17 @@ export const validationCodigoCristal1_oi = (value:any, alreadyValidate?:boolean)
 
 export const validationCodigoCristal2_od = (value:any, validar?:boolean) => {
     const item = validationNivel3.value.find((item: { campo: string; }) => item.campo === 'validar_cristal2_od');
+    if(item && value.trim() === ''){
+        item.valor = 0
+        return
+    }
+    
+    if(item && validar){
+        item.valor = 1;
+        return;
+    }
+  
+    
     if(item){
         if(validar){
              item.valor = 1
@@ -366,6 +384,18 @@ export const validationCodigoCristal2_od = (value:any, validar?:boolean) => {
 
 export const validationCodigoCristal2_oi = (value:any, validar?:boolean) => {
     const item = validationNivel3.value.find((item: { campo: string; }) => item.campo === 'validar_cristal2_oi');
+    
+    if(item && value.trim() === ''){
+        item.valor = 0;
+        return;
+    }
+    
+    if(item && validar){
+        item.valor = 1;
+        return;
+    }
+  
+    
     if(item){
 
         console.log(value)
@@ -414,7 +444,10 @@ export const validationCodigoArmazon_1  = (value:any, alreadyValidate?:boolean) 
 
 export const validationCodigoArmazon_2 = (value:any, validar?:boolean) => {
     const item = validationNivel3.value.find((item: { campo: string; }) => item.campo === 'validar_armazon2');
-
+    if(item && value.trim() === ''){
+        item.valor = 0
+        return
+    }
     if(item && validar){
         item.valor = 1;
         return;
