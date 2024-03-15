@@ -7,7 +7,7 @@ import Modal from "react-modal";
 
 import { Button, IconButton, Tooltip } from "@material-tailwind/react";
 import { useCrud } from "../hooks";
-import { EXCEL } from "../utils";
+import { EXCEL, handleAxiosError } from "../utils";
 import useCustomToast from "../hooks/useCustomToast";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDownload } from '@fortawesome/free-solid-svg-icons';
@@ -171,6 +171,7 @@ const ExportToCsv: React.FC<Props> = ({
      })
         console.log(data)
       } catch (error) {
+        handleAxiosError(error)
         console.log(error)
       }
 

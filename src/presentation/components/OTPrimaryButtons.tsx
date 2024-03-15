@@ -6,7 +6,6 @@ import { PiPrinterFill } from "react-icons/pi";
 import { PiMicrosoftExcelLogoFill } from "react-icons/pi";
 import { ImWhatsapp } from "react-icons/im";
 import { BUTTON_MESSAGES, MODAL, reiniciarValidationNivel3, updateOT } from '../utils';
-import { usePermission } from '../hooks';
 import ImportToCsv from './ImportToCsv';
 import { AppStore, useAppDispatch, useAppSelector } from '../../redux/store';
 import { toast } from 'react-toastify';
@@ -84,7 +83,6 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
     setSelectedRows
 }) => {
     // const strUrl = `${URLBackend}/api/ot/listado`
-    const {escritura_lectura}                         = usePermission(28);
     const dispatch                                    = useAppDispatch();
     const data:any                                    = useAppSelector((store: AppStore) => store.OTS.data)
     const OTs: any = useAppSelector((store: AppStore) => store.OTS);
@@ -244,19 +242,19 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
       // console.log(result)
 
       
-      // if(!areAllSameType){
-      //   result.map((ot:any)=>{
-      //     if(Array.isArray(ot)){
-      //       toast.error(`Error: folio ${ot[0]}  | ya impresa`);
-      //       return;
-      //     }
-      //   })
-      //   return;
-      // }
+      if(!areAllSameType){
+        result.map((ot:any)=>{
+          if(Array.isArray(ot)){
+            toast.error(`Error: folio ${ot[0]}  | ya impresa`);
+            return;
+          }
+        })
+        return;
+      }
 
         console.log(pkToDelete)
 
-      pkToDelete.forEach((OT:any)=>{
+      pkToDelete.forEach((_OT:any)=>{
         return new Promise((resolve:any)=>{
            handlePrint()
            resolve() 
@@ -574,7 +572,6 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
         }
 
         dataOTSignal.value = result.data 
-        console.log(result)
 
         setIsFOTValidarBodega(true)
       } catch (error:any) {

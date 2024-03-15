@@ -30,7 +30,6 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
 }) => {
     const [formValues, setFormValues] = React.useState();
     const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas);
-    const OTSlice:any = useAppSelector((store:AppStore)=>store.OTS)
     const UsuarioID:any = useAppSelector((store:AppStore)=> store.user?.id)
     const [OT, setOT] = React.useState(dataOTSignal.value[0])
 
@@ -56,18 +55,12 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
 
     const {
         control,
-        handleSubmit,
         formState: { errors },
-        getValues
+        
       } = useForm({
         resolver: yupResolver(schema),
     });
 
-
-    const values = getValues()
-    
-
-    
     const handleInputChange = (e:any) => {
         const {name, value} = e;
 
@@ -258,7 +251,6 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
     },[dataOTSignal.value])
 
     console.log(validationNivel3.value)
-
     return (
         <div className=" bg-[#676f9d] mx-auto xl:w-[90%] xl:left-[30rem]  absolute top-10 left-auto right-auto rounded-xl shadow-md overflow-hidden lg:left-[20rem]     sm:w-[25rem]    md:max-w-[35rem] z-20">
          <div className="absolute right-0 userFormBtnCloseContainer">
@@ -279,7 +271,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                 <div className="">
                 <h1 className='text-center text-white'>Anteojo 1</h1>
                 <div className='rowForm  !h-[4rem]'>
-                <label className='text-sm absolute left-[3rem] top-[4.5rem]'>1231231</label>
+                <label className='text-lg absolute  left-[3rem] top-[4.2rem]'>{OT[EnumGrid.cristal1_od]}</label>
                 <TextInputInteractive
                     type='text'
                     label='OD'
@@ -295,7 +287,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                 />
                 </div>
                 <div className='rowForm  !h-[4rem]'>
-                <label className='text-sm absolute left-[3rem] top-[9.2rem]'>1231231</label>    
+                <label className='text-lg absolute left-[3rem] top-[9rem]'>{OT[EnumGrid.cristal1_oi]}</label>    
                 <TextInputInteractive
                     type='text'
                     label='OI'
@@ -311,7 +303,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                 />
                 </div>
                 <div className='rowForm '>
-                <label className='text-sm absolute left-[3rem] top-[13.7rem]'>1231231</label>      
+                <label className='text-lg absolute left-[3rem] top-[13.5rem]'>{OT[EnumGrid.a1_armazon_id]}</label>      
                 <TextInputInteractive
                     type='text'
                     label='Armazon 1'
@@ -334,7 +326,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                 <div className="">
                 <h1 className='text-center text-white'>Anteojo 2</h1>
                 <div className='rowForm !h-[4rem] '>
-                <label className='text-sm absolute left-[3rem] top-[19.9rem]'>1231231</label>    
+                <label className='text-lg absolute left-[3rem] top-[19.7rem]'>{OT[EnumGrid.cristal2_od]}</label>    
                 <TextInputInteractive
                     type='text'
                     label='OD'
@@ -351,7 +343,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                 />
                 </div>
                 <div className='rowForm !h-[4rem] '>
-                <label className='text-sm absolute left-[3rem] top-[25rem]'>1231231</label>    
+                <label className='text-lg absolute left-[3rem] top-[24.7rem]'>{OT[EnumGrid.cristal2_oi]}</label>    
                 <TextInputInteractive
                     type='text'
                     label='OI'
@@ -368,7 +360,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                 />
                 </div>
                 <div className='rowForm !h-[4rem] '>
-                <label className='text-sm absolute left-[3rem] top-[29.5rem]'>1231231</label>    
+                <label className='text-lg absolute left-[3rem] top-[29.3rem]'>{OT[EnumGrid.a2_armazon_id]}</label>    
                 <TextInputInteractive
                     type='text'
                     label='Armazon 2'

@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import axios from 'axios';
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
-import { EnumGrid as EnumArmazones } from '../../views/mantenedores/MArmazones';
 import { validationOTlevel2, validationOTlevel3, validation_A1_armazon, validation_A2_armazon } from '../../utils/validationOT';
 import { URLBackend } from '../../hooks/useCrud';
 import { toast } from 'react-toastify';
@@ -58,7 +57,6 @@ const FOTArmazones:React.FC<IArmazones> = ({
     // const [render, setRender] = useState(false)
 
 
-    console.log(formValuesCompleto)
 
     const {
         cristal1_marca_id,
@@ -212,11 +210,14 @@ const FOTArmazones:React.FC<IArmazones> = ({
                 if(inputName === 'a1_armazon_id'){
                     setArmazon1([])
                     setCodArmazon1(" ")
+                    validation_A1_armazon('')
+                    
                 }
 
                 if(inputName === 'a2_armazon_id'){
                     setArmazon2([])
                     setCodArmazon2(" ")
+                    validation_A2_armazon('')
                 }
 
                 if(inputName === 'a3_armazon_id'){

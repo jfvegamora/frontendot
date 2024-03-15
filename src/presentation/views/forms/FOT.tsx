@@ -858,8 +858,6 @@ useEffect(()=>{
 
 
 
-console.log(permiso_areas_armazones)
-console.log(permiso_usuario_armazones)
 
 
 
