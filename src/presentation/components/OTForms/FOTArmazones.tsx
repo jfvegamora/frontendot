@@ -50,6 +50,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
     const [codArmazon2, setCodArmazon2] = useState(formValues ? formValues["a2_armazon_id"] : data && data[EnumGrid.a2_armazon_id] || "");
     const [codArmazon3, setCodArmazon3] = useState(formValues ? formValues["a3_armazon_id"] : data && data[EnumGrid.a3_armazon_id] || "");
 
+
     const [armazon1, setArmazon1] = useState<any>([])
     const [armazon2, setArmazon2] = useState<any>([])
     const [armazon3, setArmazon3] = useState<any>([])
@@ -126,12 +127,6 @@ const FOTArmazones:React.FC<IArmazones> = ({
         "punto_venta": punto_venta.value,
       }
     
-
-    console.log(_pkToDelete2_od)
-    console.log(_pkToDelete2_oi)
-    
-
-
     //TODO! =========================== ENVIAR DP EN _P4 PARA VALIDAR ARMAZONES ===========================================================================
 
 
