@@ -1188,7 +1188,7 @@ export const updateOT =async (
   
       if(response.status === 200){
         toast.dismiss(toastLoading)
-        return toast.success(`OT ${_estado === 20 ? 'Procesada' : 'Pausada'} Correctamente, Folio: ${data.folio}`)
+        return toast.success(`OT ${_estado === 20 ? 'Procesada' : 'Pausada'} Correctamente, Folio:  ${ isValidateBodega ? data[EnumGrid.folio] : data.folio}`)
       }else{
         toast.dismiss(toastLoading)
         return toast.error('Error al Editar OT')

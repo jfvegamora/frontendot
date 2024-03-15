@@ -149,7 +149,7 @@ const handleQRPrint = useReactToPrint({
 
 const imprimirComprobanteRetiro = async(tipoComprobante?:string) => {
     
-        const loadingToast = toast.loading('Imprimiendo Comprobante Retiro...');
+        const loadingToast = toast.loading(`Imprimiendo ${tipoComprobante === 'QR' ? 'Código QR' : 'Ticket de retiro' }...`);
 
         try {
             const {data} = await axios.get(`${URLBackend}/api/ot/listado/?query=01&_origen=${OTAreas}&_folio=${folio}`,{

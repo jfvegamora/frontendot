@@ -5,7 +5,7 @@ import { SiAddthis } from 'react-icons/si';
 import { PiPrinterFill } from "react-icons/pi";
 import { PiMicrosoftExcelLogoFill } from "react-icons/pi";
 import { ImWhatsapp } from "react-icons/im";
-import { BUTTON_MESSAGES, MODAL, updateOT } from '../utils';
+import { BUTTON_MESSAGES, MODAL, reiniciarValidationNivel3, updateOT } from '../utils';
 import { usePermission } from '../hooks';
 import ImportToCsv from './ImportToCsv';
 import { AppStore, useAppDispatch, useAppSelector } from '../../redux/store';
@@ -21,6 +21,7 @@ import { EnumGrid } from '../views/mantenedores/MOTHistorica';
 import { useModal } from '../hooks/useModal';
 import { paramsOT } from '../views/mantenedores/MOT';
 import { signal } from '@preact/signals-react';
+import { focusFirstInput } from '../components/OTForms/FOTValidarBodega';
 // import FOTEmpaque from '../views/forms/FOTEmpaque';
 
 type AreaButtonsProps ={
@@ -88,6 +89,8 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
     const { showModal, CustomModal }                  = useModal();
     const userState: any = useAppSelector((store: AppStore) => store.user);
 
+    const refFocusInput                               = React.useRef<any>(null)
+
     const folios = pkToDelete && pkToDelete.map(({folio}:any)=>folio)
 
     const handlePrint = useReactToPrint({
@@ -112,6 +115,16 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
     })
 
 
+    React.useEffect(()=>{
+      console.log(isFOTValidarBodega)
+      if(!isFOTValidarBodega){
+        console.log('render')
+        focusFirstInput('ProcesarOT',refFocusInput)
+        reiniciarValidationNivel3()
+        setValueConfirmOT('')
+      }
+    },[isFOTValidarBodega, focusFirstInput])
+
 
     const renderButton = useCallback(
       (icon: React.ReactNode, handle: () => void, tooltip: string) => (
@@ -130,6 +143,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
       []
     );
 
+    
     const imprimirComprobanteRetiro = async() => {
       const loadingToast = toast.loading('Imprimiendo Comprobante Retiro...');
 
@@ -203,46 +217,75 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
       // console.log(result)
 
       
-      if(!areAllSameType){
-        result.map((ot:any)=>{
-          if(Array.isArray(ot)){
-            toast.error(`Error: folio ${ot[0]}  | ya impresa`);
-            return;
-          }
-        })
-        return;
-      }
+      // if(!areAllSameType){
+      //   result.map((ot:any)=>{
+      //     if(Array.isArray(ot)){
+      //       toast.error(`Error: folio ${ot[0]}  | ya impresa`);
+      //       return;
+      //     }
+      //   })
+      //   return;
+      // }
 
       console.log(pkToDelete)
-      const printWithConfirmation = async (index:number) => {
-        if (index >= pkToDelete.length) return;
 
-        const OT = pkToDelete[index];
-
-        try {
+      async function handlePrintSequentially() {
+        for (let i = 0; i < pkToDelete.length; i++) {
+          const OT = pkToDelete[i];
+          try {
             const loadingToast = toast.loading('Imprimiendo...');
             await dispatch(fetchOTImpresionByID({ folio: OT.folio, OTAreas: OTAreas['areaActual'] }));
             const confirmación = await confirm(`Presione 'Aceptar' para imprimir la OT:${OT.folio}`);
             if (confirmación) {
-                handlePrint();
+              handlePrint();
             } else {
-                console.log('Usuario canceló la impresión');
+              console.log('Usuario canceló la impresión');
             }
             toast.dismiss(loadingToast);
-            console.log('render');
-        } catch (error) {
+          } catch (error) {
             console.log(error);
             throw error;
+          }
         }
+      }
 
-        // Procesar el siguiente elemento después de esperar un poco para permitir que el navegador actualice la UI
-        setTimeout(async () => {
-            await printWithConfirmation(index + 1);
-        }, 100);
-    };
+      handlePrintSequentially()
+      
+    //   const printWithConfirmation = async (index:number) => {
+    //     if (index >= pkToDelete.length) return;
+
+    //     const OT = pkToDelete[index];
+
+    //     try {
+    //         const loadingToast = toast.loading('Imprimiendo...');
+    //         await dispatch(fetchOTImpresionByID({ folio: OT.folio, OTAreas: OTAreas['areaActual'] }));
+    //         const confirmación = await confirm(`Presione 'Aceptar' para imprimir la OT:${OT.folio}`);
+    //         if (confirmación) {
+    //             handlePrint();
+    //         } else {
+    //             console.log('Usuario canceló la impresión');
+    //         }
+    //         toast.dismiss(loadingToast);
+    //         console.log('render');
+    //     } catch (error) {
+    //         console.log(error);
+    //         throw error;
+    //     }
+
+    //     // Procesar el siguiente elemento después de esperar un poco para permitir que el navegador actualice la UI
+    //     setTimeout(async () => {
+    //         await printWithConfirmation(index + 1);
+    //     }, 100);
+    // };
+
+
+
+
+
+
 
     // Llamar a la función para iniciar el proceso
-    await printWithConfirmation(0);
+    // await printWithConfirmation(0);
     //   for (const OT of pkToDelete) {
     //     try {
     //       const loadingToast = toast.loading('Imprimiendo...');
@@ -512,6 +555,8 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
     }
 
 
+    console.log(areaPermissions && areaPermissions[15])
+    console.log(areaPermissions && areaPermissions[16])
 
 
     return (
@@ -609,7 +654,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
 
         {isFOTValidarBodega && (
           <Suspense>
-            <FOTValidarBodega/>
+            <FOTValidarBodega handleClose={()=>setIsFOTValidarBodega(false)}/>
           </Suspense>
         )}
 
@@ -621,9 +666,11 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
             <Input type="text" label='Buscar OT' name='searchOT' className='text-xl' color='orange' ref={searchOTRef} onBlur={(e:any)=>handleChecked(e.target.value)} value={valueSearchOT} onChange={(e:any)=>setValueSearchOT(e.target.value)} />
           </div>
 
+          {areaPermissions && areaPermissions[15] === '1' && (
           <div className="ml-2">
-          <Input type="text" label='Procesar OT' name='ProcesarOT' className='text-xl' color='orange' ref={searchOTRef} value={valueConfirmOT} onChange={(e:any)=>{handleProcesarConfirm(e.target.value),setValueConfirmOT(e.target.value)}} />
+            <Input ref={refFocusInput} type="text" label='Procesar OT' name='ProcesarOT' className='text-xl' color='orange'  value={valueConfirmOT} onChange={(e:any)=>{handleProcesarConfirm(e.target.value),setValueConfirmOT(e.target.value)}} />
           </div>
+          )}
 
           
 
