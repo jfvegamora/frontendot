@@ -316,15 +316,32 @@ const FOTArmazones:React.FC<IArmazones> = ({
         console.log(value)
         
         onDataChange({ [name]: value.trim() });
-        if(value.trim() === ''){
-            return;
-        }
+     
         console.log(value)
 
+
+
+
+        if(value.trim() === ''){
+            switch (name) {
+                case 'a1_armazon_id':
+                    setArmazon1([])
+                    validation_A1_armazon("")
+                    break;
+                case 'a2_armazon_id':
+                    setArmazon2([])
+                    validation_A2_armazon("")
+                    break;
+                default:
+                    break;
+            }
+            return;
+        }
 
         if(name === 'a1_armazon_id'){
             a1_armazon.value = value.trim()
             setCodArmazon1(value.trim())
+            console.log('render')
         }
         if(name === 'a2_armazon_id'){
             a2_armazon.value = value.trim()
@@ -343,11 +360,14 @@ const FOTArmazones:React.FC<IArmazones> = ({
                 case 'a1_armazon_id':
                     if(value.trim() === ''){
                         setArmazon1([])
+                        validation_A1_armazon("")
+                        console.log('render')
                     }
                     break;
                 case 'a2_armazon_id':
                     if(value.trim() === ''){
                         setArmazon2([])
+                        validation_A2_armazon("")
                     }
                     break;
                 case 'a3_armazon_id':
@@ -366,7 +386,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
         
     
         
-        onDataChange({ [name]: value.trim() }); 
+        // onDataChange({ [name]: value.trim() }); 
     };
 
     const handleInputValidationChange = (e:any) => {

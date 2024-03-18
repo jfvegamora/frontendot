@@ -23,7 +23,7 @@ export const validateRut = (rut:string) => {
 };
   
 
-export async function compararFechas(fechaString:string) {
+export async function compararFechas(fechaString:string, token?:string) {
     const fechaObjeto:any = new Date(fechaString);
   
     const fechaActual:any = new Date();
@@ -32,12 +32,10 @@ export async function compararFechas(fechaString:string) {
     
     const {data:tiempoExpiracion} = await axios(`${URLBackend}/api/parametros/listado/?query=01&_p1=p20`)
 
-
     if(tiempoExpiracion){
         const diferenciaEnHoras = diferenciaEnMilisegundos / (1000 * 60 * 60);
         return diferenciaEnHoras <= parseInt(tiempoExpiracion[0][3]);
-    }
-    
+    }    
     return false;
 
   }

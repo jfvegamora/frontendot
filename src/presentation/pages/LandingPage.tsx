@@ -1,12 +1,12 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect } from "react";
+import React from "react";
 import { filterToggle } from "../components/FilterButton";
-import { compararFechas } from "../utils";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import { useIndexedDB } from "../hooks/useIndexedDB";
+// import { compararFechas } from "../utils";
+// import { useNavigate } from "react-router-dom";
+// import { toast } from "react-toastify";
+// import { useIndexedDB } from "../hooks/useIndexedDB";
 
 export const handleContainerClick = (event:React.MouseEvent<HTMLDivElement>) => {
   if (event.target instanceof Element) {
@@ -18,7 +18,7 @@ export const handleContainerClick = (event:React.MouseEvent<HTMLDivElement>) => 
 
 
 const LandingPage: React.FC = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   // const { db, addToStore, getAllFromStore, deleteFromStore } = useIndexedDB('mi_base_de_datos', 1, 'mi_tienda');
 
 
@@ -51,34 +51,34 @@ const LandingPage: React.FC = () => {
   //   }
   // },[navigator.onLine])
 
-  useEffect(()=>{
-    const localStorageUser = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user") as string) : [];
+  // useEffect(()=>{
+  //   const localStorageUser = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user") as string) : [];
 
-    if(localStorageUser["expiracion"]){
+  //   if(localStorageUser["expiracion"]){
 
-      compararFechas(localStorageUser["expiracion"]).then((result)=>{
+  //     compararFechas(localStorageUser["expiracion"]).then((result)=>{
 
-        if(result === false){
-          console.log('render')
-            toast.error('Sesion Expirada')
-            navigate('/login');
-        }
-      })
+  //       if(result === false){
+  //         console.log('render')
+  //           toast.error('Sesion Expirada')
+  //           navigate('/login');
+  //       }
+  //     })
       
    
-      //todo true = aun no expirado por ende pasar
-    }
-  },[])
+  //     //todo true = aun no expirado por ende pasar
+  //   }
+  // },[])
 
-  useEffect(()=>{
-    const localStorageUser = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user") as string) : [];
+  // useEffect(()=>{
+  //   const localStorageUser = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user") as string) : [];
     
-    if(!localStorageUser){
-        toast.error('Sesion Expirada')
-        navigate('/login');
-    }
+  //   if(!localStorageUser){
+  //       toast.error('Sesion Expirada')
+  //       navigate('/login');
+  //   }
     
-  },[])
+  // },[])
 
 
 

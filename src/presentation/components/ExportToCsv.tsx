@@ -132,44 +132,52 @@ const ExportToCsv: React.FC<Props> = ({
 
   const handleExportEntity = async() => {
     console.log('ejecutando caso de uso 2'); 
-
-    // console.log('query', query)
-    // console.log(strEntidad)
-    
     if(entity){
-      // console.log(entity)
       const primaryKey =`_p1=${entity[1]}&_p2=${entity[4]}`;
 
       const nombreExcel = `${strEntidad}_${entity[1]}_${entity[5]}_${entity[6]}`
-      console.log('primaryKey',primaryKey)
 
       const data = [{
         proyecto: `${entity[1]}`,
         fecha_desde: `${entity[5]}`,
         fecha_hasta: `${entity[6]}`
       }]
-      // const data = [{
-      //   proyecto:"P01-2233Q1",
-      //   fecha_desde:"2023-11-16",
-      //   fecha_hasta:"2023-11-21"
-      // }]
+
       const jsonData = JSON.stringify(data);
 
-      // console.log(data)
-      // console.log(nombreExcel)
-      // console.log(jsonData)
       exportExcel(primaryKey, nombreExcel, jsonData)
       const _p1 = entity[EnumGird.proyecto]
       const _p2 = entity[EnumGird.tipo_doc_id]
       const _p3 = entity[EnumGird.numero_doc]
 
       try {
-        const {data} = await axios(`${URLBackend}/api/proyectodocum/excel/?query=08&_p1=${_p1}&_p2=${_p2}&_p3=${_p3}`,{
+        const {data} = await axios(`${URLBackend}/api/proyectodocum/excelindividual/?query=08&_p1=${_p1}&_p2=${_p2}&_p3=${_p3}`,{
           headers: {
              'Authorization': token, 
-           }
-     })
-        console.log(data)
+           },
+           responseType: "blob"
+        })
+
+        const fileURL:string = URL.createObjectURL(
+          new Blob([data], { type: "application/vnd.ms-excel" })
+        );
+        const currentDate = new Date();
+        const formattedDate = currentDate
+          .toLocaleDateString("es-ES", {
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+          })
+          .split("/")
+          .reverse()
+          .join("-");
+  
+          const link: HTMLAnchorElement = document.createElement("a");
+          link.href = fileURL;
+          link.setAttribute("download", `${strEntidad}_${formattedDate}.xls`);
+          document.body.appendChild(link);
+          link.click();
+          URL.revokeObjectURL(fileURL);
       } catch (error) {
         handleAxiosError(error)
         console.log(error)

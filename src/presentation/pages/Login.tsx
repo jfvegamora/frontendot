@@ -65,14 +65,15 @@ const Login: React.FC = React.memo(() => {
           dispatch(fetchRegProCom(usuario.token))
       
           // toast.success("Sesion Iniciada");
-          toast.dismiss(toastLoading)
-          show({ message: LOGIN.loginSuccess, type: "success" });
+          // show({ message: LOGIN.loginSuccess, type: "success" });
           navigate("/landing");
+          toast.dismiss(toastLoading)
         })
         .catch((_e) => {
           toast.dismiss(toastLoading)
           show({ message: LOGIN.loginError, type: "error" })
         });
+        // toast.dismiss(toastLoading)
     } catch (error: any) {
       toast.dismiss(toastLoading)
       show({ message: LOGIN.loginError, type: "error" });

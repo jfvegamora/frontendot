@@ -5,7 +5,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Route, useNavigate } from "react-router-dom";
 
-import { AppStore, useAppSelector } from "./redux/store";
+import { AppStore, useAppDispatch, useAppSelector } from "./redux/store";
 import { RoutesWithNotFound } from "./presentation/utils";
 import { PublicRoutes, privateRoutes } from "./interfaces";
 import AuthGuard, {
@@ -26,27 +26,18 @@ const ForgotPassword = lazy(() => import("./presentation/pages/ForgotPassword"))
 const ProfileUser = lazy(() => import("./presentation/pages/ProfileUser"));
 
 import axios from 'axios';
+import { logout } from "./redux/slices/userSlice";
 // import Interceptor from 'axios-interceptor';
 
 const AuthHOC = ({children}:any) => {
   const [_isAuthorized, setIsAuthorized] = React.useState(true);
   const {token} = useAppSelector((store: AppStore) => store.user) || "";
-  // const navigate = useNavigate();
-  // const dispatch = useAppDispatch();
-  // console.log(token)
 
   useEffect(() => {
-    // const handleUnauthorized = () => {
-    //   setIsAuthorized(false);
-    //   navigate('/login'); // Redirect to login on unauthorized access
-    // };
-
-    // Interceptor para las respuestas HTTP
     const authInterceptor = axios.interceptors
 
     const request = authInterceptor.request.use((config:any) => {
       console.log(config)
-      config.headers.Authorization = `${token}`;
       return config;
     });
 
@@ -57,15 +48,9 @@ const AuthHOC = ({children}:any) => {
       console.log(e)
       if(e.request.status === 401){
         console.log(e.request)
-        // dispatch(clearLocalStorage())
-        // clearStorage('user')
-        // dispatch(clearLocalStorage())
-        // navigate('/login')
       }
     });
 
-    // axios.interceptors.request.use(authInterceptor.request);
-    // axios.interceptors.response.use(authInterceptor.response);
     setIsAuthorized(true)
     return () => {  
       authInterceptor.request.eject(request)
@@ -80,43 +65,40 @@ const AuthHOC = ({children}:any) => {
 
 
 const validarExpirationToken = (token:string) => {
-  console.log(token)
-
+  // console.log(token)
   const tokenDecode:any = jwtDecode(token)
   const apiTime:any   = new Date(tokenDecode["expiracion"])
   const currentDate:any = new Date();
 
-
-  console.log(tokenDecode["expiracion"])
-  console.log(currentDate)
-
-  const apiTimeString = '2024-03-15T11:45:3 0.688547-03:00';
-
-  const timeDifference = currentDate - apiTime;
-
+  const timeDifference = currentDate.getTime() - apiTime.getTime();
   const hoursDifference = timeDifference / (1000 * 60 * 60);
-
   const isGreaterThan72Hours = hoursDifference > 72;
 
-  console.log(isGreaterThan72Hours);
+  return isGreaterThan72Hours;
 }
-
-
-
-
-
-
-
 
 
 function App() {
   const userState = useAppSelector((store: AppStore) => store.user);
   const navigate = useNavigate();
+  const dispatch = useAppDispatch()
 
   const permisosID = userState && Object.keys(userState?.permisos);
   // console.log('permmisosID', permisosID)
 
+  useEffect(() => {
+    if(userState && userState.token){
+      axios.defaults.headers.common['Authorization'] = userState.token ? `Bearer ${userState.token}` : ''; // Establece el token en el encabezado de autorización
+      const expirado = validarExpirationToken(userState?.token)
+      if(expirado === true){
+        navigate("/login")
+        dispatch(logout())
+      }
+    }
+  }, [userState?.token || '']); 
+
   const redirectToLogin = () => {
+    dispatch(logout())
     navigate(`/login`);
     return null;
   };
@@ -130,14 +112,29 @@ function App() {
       currentRoute &&
       !hasRequiredPermissions(currentRoute?.id, permisosID)
     ) {
-      // console.log("no tiene permisos");
-      console.log('render')
       redirectToLogin();
     }
   }, []);
 
-  validarExpirationToken(userState.token)
+
+  useEffect(()=>{
+    if(userState && userState.token){
+    const fetchPrueba = async() => {
+      const result = await axios('https://gestiondev.mtoopticos.cl/api/establecimientos/listado/protegida?query=02',{
+        headers:{
+          Authorization: userState.token
+        }
+      })
   
+      console.log(result)  
+    };
+    fetchPrueba();
+  }
+  },[userState?.token])
+
+
+
+
   
   return (
 
