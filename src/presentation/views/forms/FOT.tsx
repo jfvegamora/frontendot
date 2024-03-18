@@ -128,6 +128,9 @@ const FOT:React.FC<IFOTProps> = ({
   // let permiso_usuario_verificar_armazon   = permisosCampos && permisosCampos[8] === "1" ? true : false;
 
 
+  console.log(permiso_usuario_armazones)
+
+
   //? VARIABLE QUE DETECTA SI LA OT YA SE HA PROCESADO 1 VEC DESDE BODEGAINSUMO
   secondProcessBodega.value = (data && data[EnumGrid.bodega_procesado] === 1) ? true : false;
 
@@ -135,6 +138,7 @@ const FOT:React.FC<IFOTProps> = ({
   const permisosAreas = OTAreaActual && permissions(OTAreaActual)[6] as any
   // console.log(permisosAreas && permiso_usuario_verificar_cristal)
 
+  
   let permiso_areas_armazones             = permisosAreas && permisosAreas[0] === '1' ? true : false;
   let permiso_areas_cristales             = permisosAreas && permisosAreas[1] === '1' ? true : false;
   let permiso_areas_estado_impresion      = permisosAreas && permisosAreas[2] === '1' ? true : false;
@@ -144,8 +148,11 @@ const FOT:React.FC<IFOTProps> = ({
   let permiso_areas_receta                = permisosAreas && permisosAreas[6] === '1' ? true : false;
   let permiso_area_verificar_cristal      = permisosAreas && permisosAreas[7] === '1' ? true : false;
   let permiso_area_verificar_armazon      = permisosAreas && permisosAreas[8] === "1" ? true : false;
-
+  
   // console.log(permiso_areas_grupo_dioptria)
+  console.log(permisosAreas && permisosAreas[0])
+  console.log(permiso_areas_armazones)
+
 
 
   const handleCloseForm = () => {
@@ -859,7 +866,7 @@ useEffect(()=>{
 
 
 
-
+  
 
   console.log(validationNivel1.value)
   

@@ -25,6 +25,7 @@ export const fetchOTAreas = createAsyncThunk('OTAreas/fetchOTAreas',async(token:
                'Authorization': token, 
              }
        });
+       console.log(response)
         
         return response.data
     } catch (error) {

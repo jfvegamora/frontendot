@@ -99,6 +99,7 @@ const listBoxTiposSlice = createSlice({
               if (key.startsWith("ListBoxTipos.")) {
                 localStorage.removeItem(key);
               }
+              localStorage.removeItem(key)
             });
           },
     },

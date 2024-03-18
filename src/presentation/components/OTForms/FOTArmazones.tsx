@@ -22,6 +22,21 @@ interface IArmazones {
     setSelectedTab?:any
 }
 
+const empty_pkToDelete = {
+    "marca"       : '',
+    "diseno"      : '',
+    "indice"      : '',
+    "material"    : '',
+    "color"       : '',
+    "tratamiento" : '',
+    "diametro"    : '',
+    "esferico"    : '',
+    "cilindrico"  : '',
+    "punto_venta" : ''
+}
+
+
+
 const FOTArmazones:React.FC<IArmazones> = ({
     control,
     onDataChange,
@@ -127,6 +142,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
     
     //TODO! =========================== ENVIAR DP EN _P4 PARA VALIDAR ARMAZONES ===========================================================================
 
+    console.log(validar_parametrizacion.value)
 
     const fetchArmazones1 = async (inputName:string, codArmazon:string)=>{
         
@@ -201,7 +217,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
                                                                                     : (typeof A1_Diametro.value === 'string' ? A1_Diametro.value : "")
                                                                             )
                                                                         }&_pkToDelete=${encodedJSON}`) 
-                                                   : (`${endpoint}&_p1=${codArmazon && codArmazon.trim() !== '' ? codArmazon : ''}`))
+                                                   : (`${endpoint}&_pkToDelete=${encodeURIComponent(JSON.stringify([empty_pkToDelete, empty_pkToDelete]))}&_p1=${codArmazon && codArmazon.trim() !== '' ? codArmazon : ''}`))
             // console.log(data[0])
             if(data && data[0] && data[0][0] === 'ERROR'){
                 toast.error(data[0][1])

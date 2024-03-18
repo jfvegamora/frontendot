@@ -29,37 +29,37 @@ import axios from 'axios';
 import { logout } from "./redux/slices/userSlice";
 // import Interceptor from 'axios-interceptor';
 
-const AuthHOC = ({children}:any) => {
-  const [_isAuthorized, setIsAuthorized] = React.useState(true);
-  const {token} = useAppSelector((store: AppStore) => store.user) || "";
+// const AuthHOC = ({children}:any) => {
+//   const [_isAuthorized, setIsAuthorized] = React.useState(true);
+//   const {token} = useAppSelector((store: AppStore) => store.user) || "";
 
-  useEffect(() => {
-    const authInterceptor = axios.interceptors
+//   useEffect(() => {
+//     const authInterceptor = axios.interceptors
 
-    const request = authInterceptor.request.use((config:any) => {
-      console.log(config)
-      return config;
-    });
+//     const request = authInterceptor.request.use((config:any) => {
+//       console.log(config)
+//       return config;
+//     });
 
-    const response = authInterceptor.response.use((response:any) => {
-      console.log(response)
-      return response;
-    },(e)=>{
-      console.log(e)
-      if(e.request.status === 401){
-        console.log(e.request)
-      }
-    });
+//     const response = authInterceptor.response.use((response:any) => {
+//       console.log(response)
+//       return response;
+//     },(e)=>{
+//       console.log(e)
+//       if(e.request.status === 401){
+//         console.log(e.request)
+//       }
+//     });
 
-    setIsAuthorized(true)
-    return () => {  
-      authInterceptor.request.eject(request)
-      authInterceptor.request.eject(response)
-    };
-  }, []);
+//     setIsAuthorized(true)
+//     return () => {  
+//       authInterceptor.request.eject(request)
+//       authInterceptor.request.eject(response)
+//     };
+//   }, []);
 
-  return  children 
-};
+//   return  children 
+// };
 
 
 
@@ -86,16 +86,16 @@ function App() {
   const permisosID = userState && Object.keys(userState?.permisos);
   // console.log('permmisosID', permisosID)
 
-  useEffect(() => {
-    if(userState && userState.token){
-      axios.defaults.headers.common['Authorization'] = userState.token ? `Bearer ${userState.token}` : ''; // Establece el token en el encabezado de autorización
-      const expirado = validarExpirationToken(userState?.token)
-      if(expirado === true){
-        navigate("/login")
-        dispatch(logout())
-      }
-    }
-  }, [userState?.token || '']); 
+  // useEffect(() => {
+  //   if(userState && userState.token){
+  //     axios.defaults.headers.common['Authorization'] = userState.token ? `Bearer ${userState.token}` : ''; // Establece el token en el encabezado de autorización
+  //     const expirado = validarExpirationToken(userState?.token)
+  //     if(expirado === true){
+  //       navigate("/login")
+  //       dispatch(logout())
+  //     }
+  //   }
+  // }, [userState?.token || '']); 
 
   const redirectToLogin = () => {
     dispatch(logout())
@@ -117,20 +117,20 @@ function App() {
   }, []);
 
 
-  useEffect(()=>{
-    if(userState && userState.token){
-    const fetchPrueba = async() => {
-      const result = await axios('https://gestiondev.mtoopticos.cl/api/establecimientos/listado/protegida?query=02',{
-        headers:{
-          Authorization: userState.token
-        }
-      })
+  // useEffect(()=>{
+  //   if(userState && userState.token){
+  //   const fetchPrueba = async() => {
+  //     const result = await axios('https://gestiondev.mtoopticos.cl/api/establecimientos/listado/protegida?query=02',{
+  //       headers:{
+  //         Authorization: userState.token
+  //       }
+  //     })
   
-      console.log(result)  
-    };
-    fetchPrueba();
-  }
-  },[userState?.token])
+  //     console.log(result)  
+  //   };
+  //   fetchPrueba();
+  // }
+  // },[userState?.token])
 
 
 
@@ -138,7 +138,7 @@ function App() {
   
   return (
 
-    <AuthHOC>
+    // <AuthHOC>
       <div className="App">
         {/* <Suspense fallback={<><Spinner className="h-12 w-12"/></>}> */}
         <Suspense fallback={<div className="flex items-center justify-center h-screen"><Spinner className="h-12 w-12" style={{ color: '#f39c12' }} /></div>}>
@@ -175,7 +175,7 @@ function App() {
           </RoutesWithNotFound>
         </Suspense>
       </div>
-    </AuthHOC>
+    // </AuthHOC>
   );
 }
 
