@@ -507,7 +507,8 @@ function NavListMenuBodega({ userPermission }: { userPermission: number[] }) {
 
 function NavListMenuProyectos({ userPermission }: { userPermission: number[] }) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-  const [openMenu, setOpenMenu] = React.useState(false);
+  const [openMenuParametrizacion, setOpenMenuParametrizacion] = React.useState(false);
+  const [openMenuOTMotivos, setOpenMenuOTMotivos]             = React.useState(false);
 
   const navigate = useNavigate();
 
@@ -620,8 +621,8 @@ function NavListMenuProyectos({ userPermission }: { userPermission: number[] }) 
 
             <Menu
               placement="right-start"
-              open={openMenu}
-              handler={setOpenMenu}
+              open={openMenuParametrizacion}
+              handler={setOpenMenuParametrizacion}
               allowHover
               offset={15}
             >
@@ -654,8 +655,8 @@ function NavListMenuProyectos({ userPermission }: { userPermission: number[] }) 
 
             <Menu
               placement="right-start"
-              open={openMenu}
-              handler={setOpenMenu}
+              open={openMenuOTMotivos}
+              handler={setOpenMenuOTMotivos}
               allowHover
               offset={15}
             >
