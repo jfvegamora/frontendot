@@ -15,7 +15,7 @@ import {
   MenuItem,
   Avatar,
   Card,
-  IconButton, 
+  IconButton,
 } from "@material-tailwind/react";
 import { toast } from "react-toastify";
 import {
@@ -35,7 +35,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronDown, faGlasses, faWarehouse, faGears, faWallet, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
 
-export const strNavTitle  = signal("");
+export const strNavTitle = signal("");
 // profile menu component
 
 function ProfileMenu() {
@@ -54,7 +54,7 @@ function ProfileMenu() {
     {
       label: "Cerrar Sesión",
       icon: PowerIcon,
-      action: () => {},
+      action: () => { },
     },
   ];
 
@@ -63,66 +63,65 @@ function ProfileMenu() {
       {userState && (
         <p className="m-auto font-menu pr-1">{userState.nombre}</p>
       )}
-    <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
-      <MenuHandler>
-        <Button
-          variant="text" 
-          color="blue-gray"
-          className="flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5 lg:ml-auto"
-        >
-          <Avatar
-            variant="circular"
-            size="sm"
-            alt="tania andrew"
-            className="border border-blue-500 p-0.5"
-            src={avatarImage}
-          />
-          <FontAwesomeIcon icon={faChevronDown} />  
+      <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
+        <MenuHandler>
+          <Button
+            variant="text"
+            color="blue-gray"
+            className="flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5 lg:ml-auto"
+          >
+            <Avatar
+              variant="circular"
+              size="sm"
+              alt="tania andrew"
+              className="border border-blue-500 p-0.5"
+              src={avatarImage}
+            />
+            <FontAwesomeIcon icon={faChevronDown} />
 
-        </Button>
-      </MenuHandler>
-      <MenuList className="p-1">
-        {profileMenuItems.map(({ label, icon, action }, key) => {
-          const isLastItem = key === profileMenuItems.length - 1;
-          return (
-            <MenuItem
-              key={label}
-              onClick={() => {
-                if (typeof action === "string") {
-                  console.log("action:", action);
-                  return navigate(action);
-                }
-                if (typeof action === "function") {
-                  toast.success("Sesion cerrada");
-                  dispatch(logout());
-                  dispatch(clearLocalStorage())
-                  navigate("/login");
-                }
-                closeMenu();
-              }}
-              className={`flex items-center gap-2 rounded ${
-                isLastItem
+          </Button>
+        </MenuHandler>
+        <MenuList className="p-1">
+          {profileMenuItems.map(({ label, icon, action }, key) => {
+            const isLastItem = key === profileMenuItems.length - 1;
+            return (
+              <MenuItem
+                key={label}
+                onClick={() => {
+                  if (typeof action === "string") {
+                    console.log("action:", action);
+                    return navigate(action);
+                  }
+                  if (typeof action === "function") {
+                    toast.success("Sesion cerrada");
+                    dispatch(logout());
+                    dispatch(clearLocalStorage())
+                    navigate("/login");
+                  }
+                  closeMenu();
+                }}
+                className={`flex items-center gap-2 rounded ${isLastItem
                   ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
                   : ""
-              }`}
-            >
-              {React.createElement(icon, {
-                className: `h-4 w-4 ${isLastItem ? "text-red-500" : ""}`,
-                strokeWidth: 2,
-              })}
-              <Typography
-                as="span"
-                variant="small"
-                className="font-normal"
-                color={isLastItem ? "red" : "inherit"}
+                  }`}
               >
-                {label}
-              </Typography>
-            </MenuItem>
-          );
-        })}
-      </MenuList>
-    </Menu>
+                {React.createElement(icon, {
+                  className: `h-4 w-4 ${isLastItem ? "text-red-500" : ""}`,
+                  strokeWidth: 2,
+                })}
+                <Typography
+                  as="span"
+                  variant="small"
+                  className="font-normal"
+                  color={isLastItem ? "red" : "inherit"}
+                >
+                  {label}
+                </Typography>
+              </MenuItem>
+            );
+          })}
+        </MenuList>
+      </Menu>
     </div>
   );
 }
@@ -134,7 +133,7 @@ const navListMenuOT = [
     id: 28,
   },
   {
-    title: "OT Histórica",
+    title: "OT Archivo",
     link: "/othistorica",
     id: 1,
   },
@@ -143,49 +142,14 @@ const navListMenuOT = [
     link: "/clientes",
     id: 2,
   },
-  {
-    title: "Establecimientos",
-    link: "/establecimientos",
-    id: 3,
-  },
-  {
-    title: "Puntos de Venta",
-    link: "/puntosventa",
-    id: 4,
-  },
-  {
-    title: "Muestrarios",
-    link: "/muestrarios",
-    id: 36,
-  },
-  {
-    title: "Vitrinas",
-    link: "/vitrinas",
-    id: 37,
-  },
-  {
-    title: "Motivos de OT Pendiente",
-    link: "/motivootpendiente",
-    id: 39,
-  },
-  {
-    title: "Motivos de OT Derivada",
-    link: "/motivootderivada",
-    id: 29,
-  },
-  {
-    title: "Motivos de OT en Garantía",
-    link: "/motivootgarantia",
-    id: 40,
-  },
-  {
-    title: "Motivos de OT Anulada",
-    link: "/motivootanulada",
-    id: 41,
-  },
 ];
 
 const navListMenuBodega = [
+  {
+    title: "Almacenes",
+    link: "/almacenes",
+    id: 11,
+  },
   {
     title: "Armazones",
     link: "/armazones",
@@ -215,11 +179,6 @@ const navListMenuBodega = [
     title: "Kardex de Accesorios",
     link: "/kardexaccesorios",
     id: 10,
-  },
-  {
-    title: "Almacenes",
-    link: "/almacenes",
-    id: 11,
   },
   {
     title: "Marcas",
@@ -276,14 +235,37 @@ const subMenuParametrizacion = [
   },
 ];
 
+const subMenuMotivosOT = [
+  {
+    title: "Motivos de OT Pendiente",
+    link: "/motivootpendiente",
+    id: 39,
+  },
+  {
+    title: "Motivos de OT Derivada",
+    link: "/motivootderivada",
+    id: 29,
+  },
+  {
+    title: "Motivos de OT en Garantía",
+    link: "/motivootgarantia",
+    id: 40,
+  },
+  {
+    title: "Motivos de OT Anulada",
+    link: "/motivootanulada",
+    id: 41,
+  },
+];
+
 const navListMenuProyectos = [
   {
-    title: "Proyectos",
+    title: "Convenios",
     link: "/proyectos",
     id: 15,
   },
   {
-    title: "Documentos del Proyecto",
+    title: "Documentos del Convenio",
     link: "/proyectodocum",
     id: 38,
   },
@@ -293,9 +275,24 @@ const navListMenuProyectos = [
   //   id: 20,
   // },
   {
+    title: "Empresas",
+    link: "/empresas",
+    id: 27,
+  },
+  {
+    title: "Establecimientos",
+    link: "/establecimientos",
+    id: 3,
+  },
+  {
     title: "Mandantes",
     link: "/mandantes",
     id: 14,
+  },
+  {
+    title: "Muestrarios",
+    link: "/muestrarios",
+    id: 36,
   },
   {
     title: "Oftalmólogos",
@@ -303,9 +300,14 @@ const navListMenuProyectos = [
     id: 21,
   },
   {
-    title: "Empresas",
-    link: "/empresas",
-    id: 27,
+    title: "Puntos de Venta",
+    link: "/puntosventa",
+    id: 4,
+  },
+  {
+    title: "Vitrinas",
+    link: "/vitrinas",
+    id: 37,
   },
 ];
 
@@ -357,9 +359,8 @@ function NavListMenuOT({ userPermission }: { userPermission: number[] }) {
     return (
       <MenuItem
         key={id}
-        className={`flex items-center gap-2 rounded ${
-          hasPermission ? "" : "text-gray-400 cursor-not-allowed"
-        }`}
+        className={`flex items-center gap-2 rounded ${hasPermission ? "" : "text-gray-400 cursor-not-allowed"
+          }`}
         onClick={() => {
           if (hasPermission) {
             strNavTitle.value = title
@@ -387,8 +388,8 @@ function NavListMenuOT({ userPermission }: { userPermission: number[] }) {
               // {...triggers}
               className="hidden items-center gap-2 font-menu lg:flex lg:rounded-full"
             >
-              <FontAwesomeIcon icon={faGlasses} size="xl" /> VENTAS{" "}  
-              <FontAwesomeIcon icon={faChevronDown} strokeWidth={2} className={`h-3 w-3 transition-transform ${isMenuOpen ? "rotate-180" : "" }`}/>  
+              <FontAwesomeIcon icon={faGlasses} size="xl" /> VENTAS{" "}
+              <FontAwesomeIcon icon={faChevronDown} strokeWidth={2} className={`h-3 w-3 transition-transform ${isMenuOpen ? "rotate-180" : ""}`} />
             </MenuItem>
           </Typography>
         </MenuHandler>
@@ -440,9 +441,8 @@ function NavListMenuBodega({ userPermission }: { userPermission: number[] }) {
     return (
       <MenuItem
         key={id}
-        className={`flex items-center gap-2 rounded ${
-          hasPermission ? "" : "text-gray-400 cursor-not-allowed"
-        }`}
+        className={`flex items-center gap-2 rounded ${hasPermission ? "" : "text-gray-400 cursor-not-allowed"
+          }`}
         onClick={() => {
           if (hasPermission) {
             navigate(link);
@@ -470,11 +470,10 @@ function NavListMenuBodega({ userPermission }: { userPermission: number[] }) {
               // {...triggers}
               className="hidden items-center gap-2 font-menu lg:flex lg:rounded-full"
             >
-              <FontAwesomeIcon icon={faWarehouse} size="xl" /> BODEGA{" "}  
-              <FontAwesomeIcon icon={faChevronDown} strokeWidth={2} 
-                  className={`h-3 w-3 transition-transform ${
-                  isMenuOpen ? "rotate-180" : ""
-                }`}/>  
+              <FontAwesomeIcon icon={faWarehouse} size="xl" /> BODEGA{" "}
+              <FontAwesomeIcon icon={faChevronDown} strokeWidth={2}
+                className={`h-3 w-3 transition-transform ${isMenuOpen ? "rotate-180" : ""
+                  }`} />
             </MenuItem>
           </Typography>
         </MenuHandler>
@@ -497,7 +496,7 @@ function NavListMenuBodega({ userPermission }: { userPermission: number[] }) {
         </MenuList>
       </Menu>
       <MenuItem className="flex items-center gap-2 text-blue-gray-900 lg:hidden">
-        <FontAwesomeIcon icon={faWarehouse} /> BODEGA{" "}  
+        <FontAwesomeIcon icon={faWarehouse} /> BODEGA{" "}
       </MenuItem>
       <ul className="ml-6 flex w-full flex-col gap-1 lg:hidden">
         {renderItems}
@@ -505,7 +504,6 @@ function NavListMenuBodega({ userPermission }: { userPermission: number[] }) {
     </React.Fragment>
   );
 }
-
 
 function NavListMenuProyectos({ userPermission }: { userPermission: number[] }) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -523,44 +521,42 @@ function NavListMenuProyectos({ userPermission }: { userPermission: number[] }) 
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const renderItems = navListMenuProyectos.map(({ title, link, id, subMenu }:any) => {
+  const renderItems = navListMenuProyectos.map(({ title, link, id, subMenu }: any) => {
     const hasPermission = userPermission.includes(id);
 
     const renderSubMenu = subMenu
-      ? subMenu.map(({ title: subMenuTitle, link: subMenuLink, id: subMenuId }:any) => {
-          const subMenuHasPermission = userPermission.includes(subMenuId);
-          return (
-  
-            <MenuItem
-              key={subMenuId}
-              className={`flex !bg-red-500  left-[30rem] items-center gap-2 rounded ${
-                subMenuHasPermission ? "" : "text-gray-400 cursor-not-allowed"
+      ? subMenu.map(({ title: subMenuTitle, link: subMenuLink, id: subMenuId }: any) => {
+        const subMenuHasPermission = userPermission.includes(subMenuId);
+        return (
+
+          <MenuItem
+            key={subMenuId}
+            className={`flex !bg-red-500  left-[30rem] items-center gap-2 rounded ${subMenuHasPermission ? "" : "text-gray-400 cursor-not-allowed"
               }`}
-              onClick={() => {
-                if (subMenuHasPermission) {
-                  navigate(subMenuLink);
-                  strNavTitle.value = subMenuTitle;
-                }
-              }}
+            onClick={() => {
+              if (subMenuHasPermission) {
+                navigate(subMenuLink);
+                strNavTitle.value = subMenuTitle;
+              }
+            }}
+          >
+            <Typography
+              as="span"
+              variant="small"
+              className={`font-normal ${subMenuHasPermission ? "" : "text-gray-400"}`}
             >
-              <Typography
-                as="span"
-                variant="small"
-                className={`font-normal ${subMenuHasPermission ? "" : "text-gray-400"}`}
-              >
-                {subMenuTitle}
-              </Typography>
-            </MenuItem>
-          );
-        })
+              {subMenuTitle}
+            </Typography>
+          </MenuItem>
+        );
+      })
       : null;
 
     return (
       <React.Fragment key={id}>
         <MenuItem
-          className={`flex items-center gap-2 rounded ${
-            hasPermission ? "" : "text-gray-400 cursor-not-allowed"
-          }`}
+          className={`flex items-center gap-2 rounded ${hasPermission ? "" : "text-gray-400 cursor-not-allowed"
+            }`}
           onClick={() => {
             if (hasPermission) {
               navigate(link);
@@ -597,13 +593,12 @@ function NavListMenuProyectos({ userPermission }: { userPermission: number[] }) 
               // {...triggers}
               className="hidden items-center gap-2 font-menu lg:flex lg:rounded-full"
             >
-              <FontAwesomeIcon icon={faWallet} size="xl" /> ADMINISTRACIÓN{" "}
+              <FontAwesomeIcon icon={faWallet} size="xl" /> PROYECTOS{" "}
               <FontAwesomeIcon
                 icon={faChevronDown}
                 strokeWidth={2}
-                className={`h-3 w-3 transition-transform ${
-                  isMenuOpen ? "rotate-180" : ""
-                }`}
+                className={`h-3 w-3 transition-transform ${isMenuOpen ? "rotate-180" : ""
+                  }`}
               />
             </MenuItem>
           </Typography>
@@ -621,51 +616,82 @@ function NavListMenuProyectos({ userPermission }: { userPermission: number[] }) 
             <img className="imgNavBar" src={imagen}></img>
           </Card>
           <ul className="col-span-4 flex w-full flex-col gap-1">
-  
-            
-              <Menu
-                placement="right-start"
-                open={openMenu}
-                handler={setOpenMenu}
-                allowHover
-                offset={15}
+
+
+            <Menu
+              placement="right-start"
+              open={openMenu}
+              handler={setOpenMenu}
+              allowHover
+              offset={15}
             >
               <MenuHandler className="flex items-center justify-between" >
                 <MenuItem>
-                Parametrización <FontAwesomeIcon icon={faChevronRight} />  
-
+                  Parametrización <FontAwesomeIcon icon={faChevronRight} />
                 </MenuItem>
               </MenuHandler>
               <MenuList>
-              {subMenuParametrizacion.map(({title, id, link})=>{
-                const hasPermission = userPermission.includes(id);
-                return(
-                <MenuItem
-                className={`flex items-center gap-2 rounded ${
-                  hasPermission ? "" : "text-gray-400 cursor-not-allowed"
-                }`}
-                 key={id}
-                 onClick={() => {
-                  if (hasPermission) {
-                    navigate(link);
-                    strNavTitle.value = title;
-                  }
-                }}
-                >
-                  {title}
-                </MenuItem>
-                )
-
+                {subMenuParametrizacion.map(({ title, id, link }) => {
+                  const hasPermission = userPermission.includes(id);
+                  return (
+                    <MenuItem
+                      className={`flex items-center gap-2 rounded ${hasPermission ? "" : "text-gray-400 cursor-not-allowed"
+                        }`}
+                      key={id}
+                      onClick={() => {
+                        if (hasPermission) {
+                          navigate(link);
+                          strNavTitle.value = title;
+                        }
+                      }}
+                    >
+                      {title}
+                    </MenuItem>
+                  )
                 })}
-
-            </MenuList>
+              </MenuList>
             </Menu>
+
+            <Menu
+              placement="right-start"
+              open={openMenu}
+              handler={setOpenMenu}
+              allowHover
+              offset={15}
+            >
+              <MenuHandler className="flex items-center justify-between" >
+                <MenuItem>
+                  Motivos de OT <FontAwesomeIcon icon={faChevronRight} />
+                </MenuItem>
+              </MenuHandler>
+              <MenuList>
+                {subMenuMotivosOT.map(({ title, id, link }) => {
+                  const hasPermission = userPermission.includes(id);
+                  return (
+                    <MenuItem
+                      className={`flex items-center gap-2 rounded ${hasPermission ? "" : "text-gray-400 cursor-not-allowed"
+                        }`}
+                      key={id}
+                      onClick={() => {
+                        if (hasPermission) {
+                          navigate(link);
+                          strNavTitle.value = title;
+                        }
+                      }}
+                    >
+                      {title}
+                    </MenuItem>
+                  )
+                })}
+              </MenuList>
+            </Menu>
+            
             {renderItems}
           </ul>
         </MenuList>
       </Menu>
       <MenuItem className="flex items-center gap-2 text-blue-gray-900 lg:hidden">
-        <FontAwesomeIcon icon={faWallet} /> ADMINISTRACIÓN{" "}
+        <FontAwesomeIcon icon={faWallet} /> PROYECTOS{" "}
       </MenuItem>
       <ul className="ml-6 flex w-full flex-col gap-1 lg:hidden">{renderItems}</ul>
     </React.Fragment>
@@ -691,9 +717,8 @@ function NavListMenuSistema({ userPermission }: { userPermission: number[] }) {
     return (
       <MenuItem
         key={id}
-        className={`flex items-center gap-2 rounded ${
-          hasPermission ? "" : "text-gray-400 cursor-not-allowed"
-        }`}
+        className={`flex items-center gap-2 rounded ${hasPermission ? "" : "text-gray-400 cursor-not-allowed"
+          }`}
         onClick={() => {
           if (hasPermission) {
             navigate(link);
@@ -715,17 +740,16 @@ function NavListMenuSistema({ userPermission }: { userPermission: number[] }) {
   return (
     <React.Fragment>
       <Menu open={isMenuOpen} handler={setIsMenuOpen}>
-      <MenuHandler onClick={toggleMenu}>
+        <MenuHandler onClick={toggleMenu}>
           <Typography as="a" href="#" variant="h6" className="font-normal">
             <MenuItem
               // {...triggers}
               className="hidden items-center gap-2 font-menu lg:flex lg:rounded-full"
             >
-              <FontAwesomeIcon icon={faGears} size="xl" /> SISTEMA{" "}  
-              <FontAwesomeIcon icon={faChevronDown} strokeWidth={2} 
-                  className={`h-3 w-3 transition-transform ${
-                  isMenuOpen ? "rotate-180" : ""
-                }`}/>  
+              <FontAwesomeIcon icon={faGears} size="xl" /> SISTEMA{" "}
+              <FontAwesomeIcon icon={faChevronDown} strokeWidth={2}
+                className={`h-3 w-3 transition-transform ${isMenuOpen ? "rotate-180" : ""
+                  }`} />
             </MenuItem>
           </Typography>
         </MenuHandler>
@@ -747,7 +771,7 @@ function NavListMenuSistema({ userPermission }: { userPermission: number[] }) {
         </MenuList>
       </Menu>
       <MenuItem className="flex items-center gap-2 text-blue-gray-900 lg:hidden">
-        <FontAwesomeIcon icon={faGears} /> SISTEMA{" "}  
+        <FontAwesomeIcon icon={faGears} /> SISTEMA{" "}
       </MenuItem>
       <ul className="ml-6 flex w-full flex-col gap-1 lg:hidden">
         {renderItems}
@@ -783,20 +807,20 @@ export default function ComplexNavbar() {
   const location = useLocation();
   const [_titulo, setTitulo] = useState('');
   const [isNavOpen, setIsNavOpen] = React.useState(false);
-  
-  
+
+
   const toggleIsNavOpen = () => setIsNavOpen((cur) => !cur);
-  
+
   React.useEffect(() => {
     window.addEventListener(
       "resize",
       () => window.innerWidth >= 960 && setIsNavOpen(false)
-      );
+    );
   }, []);
-  
-  React.useEffect(()=>{
+
+  React.useEffect(() => {
     const nuevoTitulo = location.pathname.split('/').pop();
-    if(nuevoTitulo){
+    if (nuevoTitulo) {
       const tituloConPrimeraLetraMayuscula = nuevoTitulo.charAt(0).toUpperCase() + nuevoTitulo.slice(1);
       setTitulo(tituloConPrimeraLetraMayuscula || '');
 
@@ -810,7 +834,7 @@ export default function ComplexNavbar() {
           <div className="relative mx-auto flex items-center text-blue-gray-900">
             <div className="w-[40%] ml-2 cursor-pointer mantenedor-titulo">
               <Typography className="w-[50%] text-xl h-[2.5rem] overflow ">
-              {strNavTitle}
+                {strNavTitle}
 
               </Typography>
             </div>
