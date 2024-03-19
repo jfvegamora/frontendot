@@ -186,8 +186,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
       control,
       handleSubmit,
       formState: { errors },
-      setValue,
-      getValues
+      setValue
     } = useForm({
       resolver: yupResolver(schema),
     });
@@ -330,12 +329,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
       isEditting ? focusSecondInput("nombre") : focusFirstInput("nombre");
     }, []);
 
-    // console.log(escritura_lectura)
-
-    console.log(data && data[EnumGrid.permiso_editar_validar_armazones])
-    console.log(data && data[EnumGrid.permiso_editar_validar_armazones_id])
-    // console.log(data)
-    console.log(errors)
+  
 
     const handleChange = (e:any) => {
       console.log(e)
@@ -346,7 +340,6 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
         [name]:value
       }))
     }
-    console.log(formValues)
     
     return (
       <div className="useFormContainer centered-div  !w-[70rem] !h-[45rem]">
@@ -446,8 +439,8 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
 
             <Tabs>
               <TabList className="flex ml-4">
-                <Tab className="custom-tab !h-14">Permisos Áreas</Tab>
-                <Tab className="custom-tab !h-14">Permisos Campos</Tab>
+                <Tab className="custom-tab !h-14 !w-[13rem]">Permisos Áreas</Tab>
+                <Tab className="custom-tab !h-14 !w-[13rem]">Permisos Campos</Tab>
               </TabList>
 
               <TabPanel>

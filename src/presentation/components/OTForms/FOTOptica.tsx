@@ -138,30 +138,16 @@ const FOTOptica:React.FC<IOptica> = ({
                 toast.success('Estado cambiado')
             }
         } catch (error) {
-            // console.log(error)
             throw error
         }
     }
-
-    
-
-
     
 useEffect(()=>{
     fetchFechas((isEditting ? data?.[EnumGrid.fecha_atencion] : fecha_atencion_signal.value), codigoProyecto.value)
     onDataChange({ [' ']: ' ' });
-    
-    // console.log(punto_venta.value)
-
     validationFechaAtencion(fecha_atencion_signal.value)
     validationPuntoVenta(punto_venta.value as any)
-        
 },[codigoProyecto.value, fecha_atencion_signal.value])
-
-// console.log(permiso_usuario_estado_impresion)
-// console.log(permisos_areas_estado_immpresion)
-
-// console.log(punto_venta.value)
 
 return (
     <form action="">

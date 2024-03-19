@@ -543,13 +543,6 @@ const FOT:React.FC<IFOTProps> = ({
 
 
   const onSubmit: SubmitHandler<any> = async(jsonData, _type?:any) => {
-      //  console.log(submitAction)
-
-    // console.log(jsonData)
-    // console.log(formValues)
-    
-    //! LOGICA JSON CRISTALES/ARMAZONES COMPARTIDA UPDATE + INSERT
-    
         //? ========================================
         const cristales = [
           { codigo: `${A1_CR_OD.value}` },
@@ -586,8 +579,6 @@ const FOT:React.FC<IFOTProps> = ({
 
         const armazonesJSON = JSON.stringify(armazones)
         armazonesJSONsignal.value = armazones
-          
-   
 
     if (submitAction === 'pausar') {
      
@@ -643,8 +634,6 @@ const FOT:React.FC<IFOTProps> = ({
     setChangeboolean((prev)=>!prev);
     let clearCliente = false
     const key = Object.keys(dataForm)[0] 
-    // console.log(key)
-
     if(key === 'tipo_anteojo_id'){
       clearAllInputsOT(clearCliente)
     }
@@ -659,16 +648,12 @@ const FOT:React.FC<IFOTProps> = ({
  
     //TODO: inputChangeAction 
     if(inputChangeActions[key]){
-      // console.log('render')
       inputChangeActions[key](dataForm);
     }
 
 
-
-     //TODO: DIOPTRIAS CRISTALES SI ES TIPO 3(LEJOS/CERCA)
-    // console.log(tipo_de_anteojo.value)
+    //TODO: DIOPTRIAS CRISTALES SI ES TIPO 3(LEJOS/CERCA)
     if(tipo_de_anteojo.value === '3'){
-      // clearInputDioptrias()
       //? OJO DERECHO
       if(
         Object.keys(dataForm)[0] === 'a1_od_esf' ||
@@ -677,32 +662,14 @@ const FOT:React.FC<IFOTProps> = ({
         Object.keys(dataForm)[0] === 'a1_od_ad'  ||
         tipo_de_anteojo.value === '3'
       ){
-        // if(dioptrias_receta.value.a1_od.ad < 0){
-        //   a2_od_esf.value = " ";
-        //   dioptrias_receta.value.a1_od.ad  = " ";
-        // }
-         
-
         if(typeof dioptrias_receta.value.a1_od.ad !== 'object' &&  dioptrias_receta.value.a1_od.ad > 0){
           a2_od_esf.value = (typeof dioptrias_receta.value.a1_od.esf !== 'object' && Number.isNaN(dioptrias_receta.value.a1_od.esf) ? 0 : parseFloat(dioptrias_receta.value.a1_od.esf) ) + parseFloat(dioptrias_receta.value.a1_od.ad)
           a2_od_cil.value = (typeof dioptrias_receta.value.a1_od.cil === 'object' ? 0 : dioptrias_receta.value.a1_od.cil)
           a2_od_eje.value = (typeof dioptrias_receta.value.a1_od.eje === 'object' ? 0 : dioptrias_receta.value.a1_od.eje)
-
-
-          // console.log(a1_od_eje.value)
-          // console.log(dioptrias_receta.value.a1_od.eje)
-          // console.log(formValues["receta"])
-
-          // console.log((typeof dioptrias_receta.value.a1_od.esf !== 'object' && Number.isNaN(dioptrias_receta.value.a1_od.esf) ? 0 : parseFloat(dioptrias_receta.value.a1_od.esf) ) + parseFloat(dioptrias_receta.value.a1_od.ad))
-
           validation_A2_OD_ESF(a2_od_esf.value)
           validation_A2_OD_CIL(a2_od_cil.value)
           validation_A2_OD_EJE(a2_od_eje.value)
         }
-
-        // a2_od_cil.value = (typeof dioptrias_receta.value.a1_od.cil === 'object' ? 0 : dioptrias_receta.value.a1_od.cil)
-        // a2_od_eje.value = (typeof dioptrias_receta.value.a1_od.eje === 'object' ? 0 : dioptrias_receta.value.a1_od.eje)
-
       }
       //? OJO IZQUIERDO
       if(
@@ -717,31 +684,20 @@ const FOT:React.FC<IFOTProps> = ({
           console.log('render')
           dioptrias_receta.value.a1_od.ad  = " ";
         }
-
-        
         if(typeof dioptrias_receta.value.a1_oi.ad !== 'object' && dioptrias_receta.value.a1_oi.ad > 0){
-          
-          
           a2_oi_esf.value = (typeof dioptrias_receta.value.a1_oi.esf !== 'object' && Number.isNaN(dioptrias_receta.value.a1_oi.esf) ? 0 : parseFloat(dioptrias_receta.value.a1_oi.esf)) + parseFloat(dioptrias_receta.value.a1_oi.ad)
           a2_oi_eje.value = (typeof dioptrias_receta.value.a1_oi.eje === 'object' ? 0 : dioptrias_receta.value.a1_oi.eje)
           a2_oi_cil.value = (typeof dioptrias_receta.value.a1_oi.cil === 'object' ? 0 : dioptrias_receta.value.a1_oi.cil);
-          
-          // console.log( a2_oi_esf.value = (typeof dioptrias_receta.value.a1_oi.esf !== 'object' && Number.isNaN(dioptrias_receta.value.a1_oi.esf) ? 0 : parseFloat(dioptrias_receta.value.a1_oi.esf)) + parseFloat(dioptrias_receta.value.a1_oi.ad))
         }
-
       }
 
-
-      // let transponer1Ejecutado = false;
       validation_A2_OD_ESF(a2_od_esf.value)
       validation_A2_OD_CIL(a2_od_cil.value)
       validation_A2_OD_EJE(a2_od_eje.value)
 
-
       validation_A2_OI_ESF(a2_oi_esf.value)
       validation_A2_OI_CIL(a2_oi_cil.value)
       validation_A2_OI_EJE(a2_oi_eje.value)
-
     }
 
      // ? CODIGO CRISTALES Y GRUPO ANTEOJO 1: 
@@ -819,6 +775,35 @@ useEffect(() => {
     setErrorGrupoDioptriaA1("");
   
   }
+
+  // if(errorGrupoDioptriaA1 !== '' || errorGrupoDioptriaA2 !== ''){
+  //   toast.error(errorGrupoDioptriaA1 ? errorGrupoDioptriaA1 : errorGrupoDioptriaA2)
+  
+  //   if(errorGrupoDioptriaA1 !== ''){
+      
+  //     A1_CR_OD.value = " ";
+  //     A1_CR_OI.value = " ";
+  
+  //     A1_GRUPO_OD.value = "";
+  //     A1_GRUPO_OI.value = "";
+  
+  //     validation_Cristal1_od("");
+  //     validation_Cristal1_oi("");
+  //     // setChangeboolean((prev)=>!prev)
+  //     setErrorGrupoDioptriaA1("");
+  //   }
+  // }else{
+      
+  //     A2_CR_OD.value = " ";
+  //     A2_CR_OI.value = " ";
+  
+  //     A2_GRUPO_OD.value = " ";
+  //     A2_GRUPO_OI.value = " ";
+  
+  //     validation_Cristal2_od("");
+  //     validation_Cristal2_oi("");
+  // }
+  
 }, [errorGrupoDioptriaA1]);
 
 
@@ -838,41 +823,35 @@ useEffect(() => {
     // setErrorGrupoDioptriaA2("");
   }
 }, [errorGrupoDioptriaA2]);
+ 
 
 
-useEffect(() => {  
-  const handleKeyDown = (event:KeyboardEvent) => {
-    if (event.ctrlKey && event.key === 'ArrowRight') {
-      setSelectedTab((prevTab) => (prevTab + 1 + 6) % 6 );
-    } else if (event.ctrlKey && event.key === 'ArrowLeft') {
-      setSelectedTab((prevTab) => (prevTab - 1 + 6) % 6); 
-    }
-  };
-
-  window.addEventListener('keydown', handleKeyDown);
-
-  return () => {
-    window.removeEventListener('keydown', handleKeyDown);
-  };
-}, []);
 
 useEffect(()=>{
     const fechaHoraActual = new Date()
     const fechaFormateada = fechaHoraActual.toISOString().split('T')[0];
     fecha_atencion_signal.value = fechaFormateada
+
+    const handleKeyDown = (event:KeyboardEvent) => {
+      if (event.ctrlKey && event.key === 'ArrowRight') {
+        setSelectedTab((prevTab) => (prevTab + 1 + 6) % 6 );
+      } else if (event.ctrlKey && event.key === 'ArrowLeft') {
+        setSelectedTab((prevTab) => (prevTab - 1 + 6) % 6); 
+      }
+    };
+  
+    window.addEventListener('keydown', handleKeyDown);
+  
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
 },[])
 
-
-
-
-
+  // console.log(validationNivel1.value)
   
+  // console.log(validationNivel2.value)
 
-  console.log(validationNivel1.value)
-  
-  console.log(validationNivel2.value)
-
-  console.log(validationNivel3.value)
+  // console.log(validationNivel3.value)
 
   return (
 

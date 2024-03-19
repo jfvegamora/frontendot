@@ -9,7 +9,7 @@ import { BUTTON_MESSAGES, MODAL, reiniciarValidationNivel3, updateOT } from '../
 import ImportToCsv from './ImportToCsv';
 import { AppStore, useAppDispatch, useAppSelector } from '../../redux/store';
 import { toast } from 'react-toastify';
-import { clearImpression, fetchOT, fetchOTImpresionByID} from '../../redux/slices/OTSlice';
+import { clearImpression, fetchOT, fetchOTByID, fetchOTImpresionByID} from '../../redux/slices/OTSlice';
 
 import axios from 'axios';
 import { URLBackend } from '../hooks/useCrud';
@@ -82,7 +82,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
     entities,
     setSelectedRows
 }) => {
-    // const strUrl = `${URLBackend}/api/ot/listado`
+    const strUrl = `${URLBackend}/api/ot/listado`
     const dispatch                                    = useAppDispatch();
     const data:any                                    = useAppSelector((store: AppStore) => store.OTS.data)
     const OTs: any = useAppSelector((store: AppStore) => store.OTS);
@@ -242,24 +242,23 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
       // console.log(result)
 
       
-      if(!areAllSameType){
-        result.map((ot:any)=>{
-          if(Array.isArray(ot)){
-            toast.error(`Error: folio ${ot[0]}  | ya impresa`);
-            return;
-          }
-        })
-        return;
-      }
+      // if(!areAllSameType){
+      //   result.map((ot:any)=>{
+      //     if(Array.isArray(ot)){
+      //       toast.error(`Error: folio ${ot[0]}  | ya impresa`);
+      //       return;
+      //     }
+      //   })
+      //   return;
+      // }
 
-        console.log(pkToDelete)
 
-      pkToDelete.forEach((_OT:any)=>{
-        return new Promise((resolve:any)=>{
-           handlePrint()
-           resolve() 
-          })
-      })
+      // pkToDelete.forEach((_OT:any)=>{
+      //   return new Promise((resolve:any)=>{
+      //      handlePrint()
+      //      resolve() 
+      //     })
+      // })
 
       // async function handlePrintSequentially() {
       //   for (let i = 0; i < pkToDelete.length; i++) {
@@ -281,32 +280,32 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
       // Llamar la función por primera vez para comenzar el proceso
       
       
-    //   const printWithConfirmation = async (index:number) => {
-    //     if (index >= pkToDelete.length) return;
+      const printWithConfirmation = async (index:number) => {
+        if (index >= pkToDelete.length) return;
 
-    //     const OT = pkToDelete[index];
+        const OT = pkToDelete[index];
 
-    //     try {
-    //         const loadingToast = toast.loading('Imprimiendo...');
-    //         await dispatch(fetchOTImpresionByID({ folio: OT.folio, OTAreas: OTAreas['areaActual'] }));
-    //         const confirmación = await confirm(`Presione 'Aceptar' para imprimir la OT:${OT.folio}`);
-    //         if (confirmación) {
-    //             handlePrint();
-    //         } else {
-    //             console.log('Usuario canceló la impresión');
-    //         }
-    //         toast.dismiss(loadingToast);
-    //         console.log('render');
-    //     } catch (error) {
-    //         console.log(error);
-    //         throw error;
-    //     }
+        try {
+            const loadingToast = toast.loading('Imprimiendo...');
+            await dispatch(fetchOTImpresionByID({ folio: OT.folio, OTAreas: OTAreas['areaActual'] }));
+            const confirmación = await confirm(`Presione 'Aceptar' para imprimir la OT:${OT.folio}`);
+            if (confirmación) {
+                handlePrint();
+            } else {
+                console.log('Usuario canceló la impresión');
+            }
+            toast.dismiss(loadingToast);
+            console.log('render');
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
 
-    //     // Procesar el siguiente elemento después de esperar un poco para permitir que el navegador actualice la UI
-    //     setTimeout(async () => {
-    //         await printWithConfirmation(index + 1);
-    //     }, 100);
-    // };
+        // Procesar el siguiente elemento después de esperar un poco para permitir que el navegador actualice la UI
+        setTimeout(async () => {
+            await printWithConfirmation(index + 1);
+        }, 100);
+    };
 
 
 
@@ -315,27 +314,31 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
 
 
     // Llamar a la función para iniciar el proceso
-    // await printWithConfirmation(0);
-    //   for (const OT of pkToDelete) {
-    //     try {
-    //       const loadingToast = toast.loading('Imprimiendo...');
-    //         await dispatch(fetchOTImpresionByID({ folio: OT.folio, OTAreas: OTAreas['areaActual'] }))
-    //         const confirmación = confirm(`Presione 'Aceptar' para imprimir la OT:${OT.folio}`);
-    //         if (confirmación) {
-    //              handlePrint();
-    //         } else {
-    //             console.log('Usuario canceló la impresión');
-    //             // return;
-    //         }
-    //         toast.dismiss(loadingToast);
-    //         console.log('render');
-    //     } catch (error) {
-    //       // toast.dismiss(loadingToast);
-    //         console.log(error);
-    //         throw error;
-    //     }
-    // }
-      console.log('render')     
+    await printWithConfirmation(0);
+      for (const OT of pkToDelete) {
+        try {
+          const loadingToast = toast.loading('Imprimiendo...');
+            await dispatch(fetchOTImpresionByID({ folio: OT.folio, OTAreas: OTAreas['areaActual'] }))
+            const confirmación = confirm(`Presione 'Aceptar' para imprimir la OT:${OT.folio}`);
+            if (confirmación) {
+                 handlePrint();
+            } else {
+                console.log('Usuario canceló la impresión');
+                // return;
+            }
+            toast.dismiss(loadingToast);
+            console.log('render');
+            return;
+        } catch (error) {
+          // toast.dismiss(loadingToast);
+            console.log(error);
+            throw error;
+        }
+    }
+    // printWithConfirmation()
+
+
+      // console.log('render')     
       // pkToDelete.map(async(ot:any)=>{
       //   console.log(ot)
       //   try {
@@ -455,9 +458,6 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
     }
 
 
-
-
-
     const handleReporteFirma = async() => {
       let resultBoton:any = []
   
@@ -494,14 +494,12 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
      
       resultadoFiltrado.map((ot:any)=>{
         const estadoCOL = ot[4]
-  
         if(estadoCOL !== 'Anulada'){
            resultBoton =  [...resultBoton, [ot[1], true]]
         }else{
             resultBoton =  [...resultBoton, [ot[1], ot[4]]]
         }
       })
-      
       
       const areAllSameType = resultBoton.every((item:any) => item[1] === true);
   
@@ -521,7 +519,6 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
             _id         :   2,
             _usuario    :   userState["id"]
           }
-    
     
           const strUrl      = `${URLBackend}/api/proyectodocum/listado`
           const queryURL    = `?query=06&_p2=${query["_proyecto"]}&_id=${query["_id"]}&_pkToDelete=${query["_pkToDelete"]}&_p4=${query["_usuario"]}`
