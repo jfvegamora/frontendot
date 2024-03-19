@@ -427,8 +427,8 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                   />
                 </div>
               </div>
-              <div className="input-container items-center rowForm w-[15%]">
-                <div className="w-full">
+              <div className="input-container items-center rowForm w-[18%]">
+                <div className="w-full ">
                   <SelectInputComponent
                     label="Ejecutivo Proyecto"
                     name="ejecutivo_proyecto"
@@ -437,7 +437,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={["/api/usuarios/", "02"]}
                     error={errors.ejecutivo_proyecto}
-                    customWidth={"!w-[15rem]"}
+                    customWidth={"!w-[19rem]"}
                   />
                 </div>
               </div>

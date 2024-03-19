@@ -533,6 +533,28 @@ export const validationUsusariosSchema = () =>
     telefono: yup.string(),
     correo  : yup.string().required(`${msg}`),
     estado  : yup.string().required(`${msg}`),
+
+    permiso_venta              : yup.string().required(`${msg}`),
+    permiso_bodega             : yup.string().required(`${msg}`),
+    permiso_biselado           : yup.string().required(`${msg}`),
+    permiso_montaje            : yup.string().required(`${msg}`),
+    permiso_bodega_prod_term   : yup.string().required(`${msg}`),
+    permiso_empaque            : yup.string().required(`${msg}`),
+    permiso_adquisiciones      : yup.string().required(`${msg}`),
+    permiso_calculo            : yup.string().required(`${msg}`),
+    permiso_control            : yup.string().required(`${msg}`),
+    permiso_proyecto           : yup.string().required(`${msg}`),
+    
+    
+    permiso_editar_armazon                   : yup.string().required(`${msg}`),
+    permiso_editar_estado_impresion          : yup.string().required(`${msg}`),
+    permiso_editar_validar_parametrizacion   : yup.string().required(`${msg}`),
+    permiso_editar_resolucion_garantia       : yup.string().required(`${msg}`),
+    permiso_editar_grupo_dioptria            : yup.string().required(`${msg}`),
+    permiso_editar_receta                    : yup.string().required(`${msg}`),
+    permiso_editar_validar_cristales         : yup.string().required(`${msg}`),
+    permiso_editar_validar_armazones         : yup.string().required(`${msg}`),
+
   });
 
 export const validationProfileUserSchema = () =>

@@ -14,13 +14,56 @@ import FUsuariosOT from "../forms/FUsuariosOT";
 import { TITLES, table_head_usuarios } from "../../utils";
 
 export enum EnumGrid {
-  id = 1,
-  nombre = 2,
-  telefono = 3,
-  correo = 4,
-  estado = 5,
-  cargo_id = 6,
-  cargo = 7,
+  id        = 1,
+  nombre    = 2,
+  telefono  = 3,
+  correo    = 4,
+  estado    = 5,
+  cargo_id  = 6,
+  cargo     = 7,
+  //? PERMISOS AREAS
+  permiso_proyecto_id             = 8,
+  permiso_proyecto                = 9,
+  permiso_adquisiciones_id        = 10,
+  permiso_adquisiciones           = 11,
+  permiso_calculo_id              = 12,
+  permiso_calculo                 = 13,
+  permiso_control_id              = 14,
+  permiso_control                 = 15,
+  permiso_venta_id                = 16,
+  permiso_venta                   = 17,
+  permiso_bodega_insumo_id        = 18,
+  permiso_bodega_insumo           = 19,
+  permiso_taller_biselado_id      = 20,
+  permiso_Taller_biselado         = 21,
+  permiso_taller_montaje_id       = 22,
+  permiso_taller_montaje          = 23,
+  permiso_bodega_p_terminados_id  = 24,
+  permiso_bodega_p_terminados     = 25,
+  permiso_empaque_id              = 26,
+  permiso_empaque                 = 27,
+  permisos_campos                 = 28,
+  //? PERMISOS CAMPOS - EDITAR CAMPOS OT
+  permiso_editar_armazon_id                  = 29,
+  permiso_editar_armazon                     = 30,
+  permiso_editar_cristal_id                  = 31,
+  permiso_editar_cristal                     = 32,
+  permiso_editar_estado_impresion_id         = 33,
+  permiso_editar_estado_impresion            = 34,
+  permiso_editar_validar_parametrizacion_id  = 35,
+  permiso_editar_validar_parametrizacion     = 36,
+  permiso_editar_resolucion_garantia_id      = 37,
+  permiso_editar_resolucion_garantia         = 38,
+  permiso_editar_grupo_dioptria_id           = 39,
+  permiso_editar_grupo_dioptria              = 40,
+  permiso_editar_receta_id                   = 41,
+  permiso_editar_receta                      = 42,
+  permiso_editar_validar_cristales_id        = 43,
+  permiso_editar_validar_cristales           = 44,
+  permiso_editar_validar_armazones_id        = 45,
+  permiso_editar_validar_armazones           = 46,
+
+
 }
 const strEntidad = "Usuario ";
 const strEntidadExcel = "Usuarios";
@@ -143,7 +186,8 @@ const MUsuarios: React.FC = () => {
           // setTotalRowIndex={setTotalRowIndex}
         />
       </div>
-
+          
+ 
       
       {isModalInsert && (
         <FUsuarios

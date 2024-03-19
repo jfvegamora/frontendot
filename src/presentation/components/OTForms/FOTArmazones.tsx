@@ -154,7 +154,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
         // const pkJSON = JSON.stringify([_pkToDelete1_od, _pkToDelete1_oi])
         // const encodedJSON = encodeURIComponent(pkJSON)
         
-        console.log(codArmazon)
+        // console.log(codArmazon)
         
 
         if(codArmazon && codArmazon.trim() === ''){

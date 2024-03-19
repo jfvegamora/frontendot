@@ -231,6 +231,7 @@ return (
                         horizontal={true}
                         readOnly={true}
                         onChange={handleInputChange}
+                        isOT={true}
                     />                    
                 </div>
 
@@ -365,6 +366,7 @@ return (
                                 horizontal={true}
                                 readOnly={!(permiso_usuario_resolucion_garantia && permiso_areas_resolucion_garantia) ||  motivo_ot.value}
                                 onChange={handleInputChange}
+                                isOT={true}
                                 
                             />  
                         </div>

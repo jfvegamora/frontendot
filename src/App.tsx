@@ -86,16 +86,16 @@ function App() {
   const permisosID = userState && Object.keys(userState?.permisos);
   // console.log('permmisosID', permisosID)
 
-  // useEffect(() => {
-  //   if(userState && userState.token){
-  //     axios.defaults.headers.common['Authorization'] = userState.token ? `Bearer ${userState.token}` : ''; // Establece el token en el encabezado de autorización
-  //     const expirado = validarExpirationToken(userState?.token)
-  //     if(expirado === true){
-  //       navigate("/login")
-  //       dispatch(logout())
-  //     }
-  //   }
-  // }, [userState?.token || '']); 
+  useEffect(() => {
+    if(userState && userState.token){
+      axios.defaults.headers.common['Authorization'] = userState.token ? `Bearer ${userState.token}` : ''; // Establece el token en el encabezado de autorización
+      const expirado = validarExpirationToken(userState?.token)
+      if(expirado === true){
+        navigate("/login")
+        dispatch(logout())
+      }
+    }
+  }, [userState?.token || '']); 
 
   const redirectToLogin = () => {
     dispatch(logout())

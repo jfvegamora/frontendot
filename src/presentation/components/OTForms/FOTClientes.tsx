@@ -281,6 +281,7 @@ const FOTClientes:React.FC<IClientes> = ({
                                     // horizontal={true}
                                     onChange={handleInputChange}
                                     readOnly={isEditting}
+                                    isOT={true}
                                 />    
                             </div>
                             <div className="w-[40%] ml-10">
@@ -298,6 +299,7 @@ const FOTClientes:React.FC<IClientes> = ({
                                      // horizontal={true}
                                     onChange={handleInputChange}
                                     readOnly={isEditting}
+                                    isOT={true}
                                 />    
                             </div>
                         </div>

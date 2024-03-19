@@ -308,12 +308,10 @@ const useCrud = (
       const newUrl = `/eliminar/?query=05&${pk[0]}`
       // console.log(newUrl)
       const response = await axiosInstance.delete(newUrl);
+      console.log(response)
       return response.data;
 
     } catch (error:any) {
-      console.log(error.response.data.Error)
-      // return error;
-      // const mensajeError = procesarMensajeError(error.response.data.Error);
       return new Error(error.response.data.Error)
     }
   };

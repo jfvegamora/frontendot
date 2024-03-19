@@ -13,6 +13,7 @@ interface IRadioButtonProps {
   onChange?: (value: any) => void;
   readOnly?: boolean;
   tabIndex?: number;
+  isOT?:boolean;
 }
 
 const RadioButtonComponent: React.FC<IRadioButtonProps> = ({
@@ -27,6 +28,7 @@ const RadioButtonComponent: React.FC<IRadioButtonProps> = ({
   onChange,
   readOnly,
   tabIndex,
+  isOT
 }) => {
 
 
@@ -46,15 +48,14 @@ const RadioButtonComponent: React.FC<IRadioButtonProps> = ({
   }, [data]);
 
 
-
   return (
     <div
       className={`w-full px-8 py-0 mt-2 relative mx-2 border-[1px] radioComponent flex   ${
         horizontal ? "justify-arround ml-1 !h-[3rem] " : "flex-col justify-between"
       } rounded-lg ${error && "border border-red-400"}`}
     >
-      <label className="absolute z-20 text-base top-[-21px] left-[1rem] labelInput !w-[10rem]">
-        <span className="ml-[2px] text-[16px]">{label}</span>
+      <label className={`absolute z-20   bg-[${isOT ? '#424769' : '#676f9d'}] ${isOT ? "!w-[4rem] text-base top-[-0.9rem]" : "!w-[10rem] text-left top-[-1.2rem]"}  left-[1rem] labelInput  `}>
+        <span className="ml-[2px] text-[16px] text-left ">{label}</span>
       </label>
       {options.map((option, index) => (
         <div className={` ${horizontal ? "  w-full" : "w-full "} py-0 flex textOption `} key={index}>
@@ -80,7 +81,7 @@ const RadioButtonComponent: React.FC<IRadioButtonProps> = ({
                       setValue(option);
                       field.onChange(option);
                     }
-                    if (onChange) {
+                    if (typeof onChange === 'function') {
                       onChange({name:label, value:option});
                     }
                   }}
@@ -93,7 +94,7 @@ const RadioButtonComponent: React.FC<IRadioButtonProps> = ({
         </div>
       ))}
       {error && (
-        <p className={`relative  labelErr ${horizontal ? "top-[0] align-center" : "top-[-6rem] right-[-2rem]"}`}>
+        <p className={`relative  labelErr ${horizontal ? "top-[0] align-center" : "top-[-5.7rem] text-base text-center right-[-2rem]"}`}>
           {error.message}
         </p>
       )}
