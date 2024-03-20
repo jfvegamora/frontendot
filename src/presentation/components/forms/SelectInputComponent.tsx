@@ -145,7 +145,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
           defaultValue={strSelectedName}
           render={({ field }) => (
             <div className={`custom-select border-[1px] rounded-lg !h-[3rem] relative ${error ? 'border-red-500' : 'border-[#f8b179]'}  `}>
-              <div className="top-[-0.1rem]   left-3.5 absolute w-1/2 z-10">
+              <div className="top-[-0.1rem] sm:top-[2rem]   left-3.5 absolute w-1/2 z-10">
                 <label htmlFor={label} className=" relative">
                   {label}
                 </label>

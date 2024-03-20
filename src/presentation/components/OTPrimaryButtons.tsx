@@ -9,7 +9,7 @@ import { BUTTON_MESSAGES, MODAL, reiniciarValidationNivel3, updateOT } from '../
 import ImportToCsv from './ImportToCsv';
 import { AppStore, useAppDispatch, useAppSelector } from '../../redux/store';
 import { toast } from 'react-toastify';
-import { clearImpression, fetchOT, fetchOTByID, fetchOTImpresionByID} from '../../redux/slices/OTSlice';
+import { clearImpression, fetchOT, fetchOTImpresionByID} from '../../redux/slices/OTSlice';
 
 import axios from 'axios';
 import { URLBackend } from '../hooks/useCrud';
@@ -82,7 +82,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
     entities,
     setSelectedRows
 }) => {
-    const strUrl = `${URLBackend}/api/ot/listado`
+    // const strUrl = `${URLBackend}/api/ot/listado`
     const dispatch                                    = useAppDispatch();
     const data:any                                    = useAppSelector((store: AppStore) => store.OTS.data)
     const OTs: any = useAppSelector((store: AppStore) => store.OTS);
@@ -236,8 +236,8 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
       setIsFOTImpresa(true)
     
       // console.log(folios)
-      const result = validationStateOT(5, '0', folios, data)
-      const areAllSameType = result.every((item:any) => item === true);
+      // const result = validationStateOT(5, '0', folios, data)
+      // const areAllSameType = result.every((item:any) => item === true);
 
       // console.log(result)
 

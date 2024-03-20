@@ -9,7 +9,7 @@ import {
   TableComponent,
 } from "../../components";
 import { useEntityUtils, usePermission } from "../../hooks";
-import FEstablecimientos from "../forms/FEstablecimientos";
+// import FEstablecimientos from "../forms/FEstablecimientos";
 import FEstablecimientos2 from "../forms/FEstablecimientos2";
 
 import { TITLES, table_head_establecimientos } from "../../utils";
@@ -75,7 +75,7 @@ const MEstablecimientos: React.FC = () => {
     setPkToDelete([`${strParamsToDelete}=${combinedPks}`]);
   }, [selectedRows]);
 
-  console.log(pkToDelete)
+  // console.log(pkToDelete)
 
   // console.log('entities', entities)
   return (

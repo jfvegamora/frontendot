@@ -8,9 +8,14 @@ import React, { useState, useEffect } from 'react';
 
 //@ts-ignore
 import Quagga from 'quagga';
-import { Input } from '@material-tailwind/react';
+import { Button, Input } from '@material-tailwind/react';
 // import { MdOutlineQrCodeScanner } from "react-icons/md";
 import { signal } from '@preact/signals-react';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { validationReservaArmazonesSchema } from '../../utils';
+import { SelectInputComponent, TextInputComponent } from '../../components';
+import { AppStore, useAppSelector } from '../../../redux/store';
 
 
 export const Armazones:any = {
@@ -55,7 +60,7 @@ const Scanner:React.FC<any> = ({setBarcode,focusInput,setIsScanning}) => {
 
   return (
     <div>
-      <div id="scanner-container" style={{ width: 400, height: 200 }} />
+      <div id="scanner-container" className='absolute top-[8.6rem] right-20' style={{ width: 350, height: 100 }} />
     </div>
   );
 };
@@ -69,6 +74,20 @@ const FReservarArmazones = () => {
   const [isScanning, setIsScanning]   = useState(false);
   const [barcode, setBarcode]         = useState('');
   const [focusInput, setFocusInput]   = useState('');
+  const schema                        = validationReservaArmazonesSchema();
+  const userID:any                    = useAppSelector((store: AppStore) => store.user?.id);
+
+  const {
+    control,
+    register,
+    handleSubmit,
+    formState: {errors},
+    setValue,
+  } = useForm({
+    resolver: yupResolver(schema)
+  })
+
+
 
   const inputRefs:any= {
     Armazon1: React.useRef<any>(1),
@@ -86,26 +105,93 @@ const FReservarArmazones = () => {
 
   };
 
+  const handleSaveChange = (jsonData:any) =>{
+      console.log(jsonData)
+  }
+
   const handleInputChange = (ref:any) => {
     console.log(`Valor cambiado en el input ${ref.name}`);
   };
 
-  console.log(Object.keys(inputRefs))
-  console.log(focusInput)
-
+  console.log(errors)
 
     return (
-        <form className="max-w-md mx-auto px-6">
+        <form className=" max-w-md mx-auto px-6" onSubmit={handleSubmit((data)=> handleSaveChange(data))}>
           <div className="mb-4">
             <label htmlFor="nombre" className="block text-gray-700 text-sm font-bold mb-2">Proyecto</label>
             <select name="" id=""></select>
           </div>
 
+          <div className=" mt-20 ">
+            <div className="w-full !mb-5">
+              <SelectInputComponent
+                  label='Nombre Proyecto'
+                  name='proyecto'
+                  showRefresh={true}
+                  // handleSelectChange={}
+                  control={control}
+                  entidad={["/api/proyectos/", "07", userID]}
+                  customWidth={"w-[27.3rem]"}
+              />
+            </div>
+            <div className="w-full !mb-5">
+              <SelectInputComponent
+                  label='Punto de Venta'
+                  name='punto_venta_id'
+                  showRefresh={true}
+                  // handleSelectChange={}
+                  control={control}
+                  entidad={["/api/proyectos/", "07", userID]}
+                  customWidth={"w-[27.3rem]"}
+              />
+            </div>
+            <div className="w-full !mb-7">
+              <SelectInputComponent
+                  label='Tipo de Anteojo'
+                  name='tipo_anteojo'
+                  showRefresh={true}
+                  // handleSelectChange={}
+                  control={control}
+                  entidad={["/api/tipos/", "02", "OTTipoAnteojo"]}
+                  customWidth={"w-[27.3rem]"}
+                  error={errors.tipo_anteojo}
+              />
+            </div>
+          </div>
 
-          <div className='mt-20'>
+          <div className="w-full  !mt-5 !-mb-4 flex rowForm">
+            <div className="w-[60%]  !-ml-4">
+              <TextInputComponent
+                type='number'
+                label='Numero de Receta'
+                name="numero_receta"
+                control={control}
+                textAlign='text-right'
+                error={errors.numero_receta}
+              
+              />
+            </div>
+            <div className="w-[40%] ml-5 ">
+              <TextInputComponent
+                type='number'
+                label='DP'
+                name="dp"
+                control={control}
+                textAlign='text-right'
+                error={errors.dp}
+              
+              />
+            </div>
+          </div>
+
+
+
+
+          <div className='!mt-10'>
             {Object.keys(inputRefs).map((key:any, index) => (
               <div className="mt-10" key={index}>
                   <Input
+                  {...register}
                     key={index}
                     label={key}
                     color='orange'
@@ -120,40 +206,13 @@ const FReservarArmazones = () => {
             ))}
           </div>
 
-
-            {/* <button onClick={(e)=>{
-              e.preventDefault()
-              setIsScanning(true)
-              
-            }}>scanner</button> */}
-
             <h1>Resultado : {barcode}</h1>
-          <div className="flex items-center justify-between">
-            <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Reservar</button>
-          </div>
+      
         {isScanning &&  <Scanner setBarcode={setBarcode} focusInput={focusInput} setIsScanning={setIsScanning}/> }
-
-
-        {/* <div className="w-[100%] flex left-0 h-auto bg-orange-400 absolute bottom-0">
-            <h1>Pagina 1</h1>
-            <h1>Pagina 2</h1> 
-
-            {focusInput !== '' && (
-              <MdOutlineQrCodeScanner 
-                    className='w-[6rem] text-[5.5rem] bg-orange-400 mx-auto !-mt-8 rounded-2xl' 
-                    onClick={()=>{
-                      alert('click')
-                      setIsScanning(true)
-                      
-                    }}
-              />
-            )}
-
             
-            <h1>Pagina 3</h1>
-            <h1>Pagina 4</h1>
-        </div> */}
-         
+            <div className="w-full">
+              <Button type='submit'>Reservar</Button>
+            </div>
         </form>
 );
 }

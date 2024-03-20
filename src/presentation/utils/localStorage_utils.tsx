@@ -23,7 +23,7 @@ export const validateRut = (rut:string) => {
 };
   
 
-export async function compararFechas(fechaString:string, token?:string) {
+export async function compararFechas(fechaString:string, _token?:string) {
     const fechaObjeto:any = new Date(fechaString);
   
     const fechaActual:any = new Date();

@@ -136,7 +136,22 @@ export const validationArmazonesSchema = () =>
     uso         : yup.string().required(`${msg}`),
     stock_minimo: yup.string().required(`${msg}`),
     codigo_fab  : yup.string(),
+    dp_minima   : yup.string(),
+    dp_maxima   : yup.string()
   });
+
+//Schema Reserva Armazones
+export const validationReservaArmazonesSchema = () => 
+  yup.object().shape({
+    numero_receta : yup.string().required(`${msg}`),
+    dp            : yup.string().required(`${msg}`),
+    tipo_anteojo  : yup.string().required(`${msg}`),
+    Armazon1      : yup.string().required(`${msg}`),
+    Armazon3      : yup.string().required(`${msg}`),
+    Armazon2      : yup.string().required(`${msg}`),
+  })
+
+
 
 // Schema ACCESORIOS
 export const validationAccesoriosSchema = () =>

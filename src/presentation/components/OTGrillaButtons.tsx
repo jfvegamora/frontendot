@@ -3,7 +3,7 @@ import { IconButton, Tooltip } from '@material-tailwind/react';
 import { PencilIcon } from "@heroicons/react/24/solid";
 import { PiPrinterFill } from "react-icons/pi";
 import { ImWhatsapp } from "react-icons/im";
-import { usePermission } from '../hooks';
+// import { usePermission } from '../hooks';
 import { BUTTON_MESSAGES, isToggleImpression } from '../utils';
 
 import { useReactToPrint } from 'react-to-print';
@@ -67,7 +67,7 @@ const OTGrillaButtons:React.FC<AreaButtonsProps> = ({ areaPermissions, toggleEdi
     const componentRef                   = useRef<any>(null);
     const SecondcomponentRef             = useRef<any>(null);
     const QRComponentRef                 = useRef<any>(null);
-    const { escritura_lectura }          = usePermission(28);
+    // const { escritura_lectura }          = usePermission(28);
     const OTAreas:any                    = useAppSelector((store: AppStore) => store.OTAreas);
     const OTdata:any                     = useAppSelector((store: AppStore) => store.OTS.data);
     const user:any                       = useAppSelector((store: AppStore) => store.user);
