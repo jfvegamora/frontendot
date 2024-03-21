@@ -82,7 +82,6 @@ const FReservarArmazones = () => {
     register,
     handleSubmit,
     formState: {errors},
-    setValue,
   } = useForm({
     resolver: yupResolver(schema)
   })
