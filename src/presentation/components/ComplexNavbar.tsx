@@ -194,31 +194,6 @@ const navListMenuBodega = [
 
 const subMenuParametrizacion = [
   {
-    title: "Parametrización de Muestrarios",
-    link: "/muestrariosarmazones",
-    id: 16,
-  },
-  {
-    title: "Parametrización de Vitrinas",
-    link: "/vitrinasarmazones",
-    id: 35,
-  },
-  {
-    title: "Parametrización de Grupos",
-    link: "/proyectocristales",
-    id: 17,
-  },
-  {
-    title: "Parametrización de Puntos de Venta",
-    link: "/proyectopuntosventa",
-    id: 33,
-  },
-  // {
-  //   title: "Parametrización de Reporte Atención",
-  //   link: "/proyectoreporteatencion",
-  //   id: 19,
-  // },
-  {
     title: "Parametrización de Accesorios",
     link: "/proyectoaccesorios",
     id: 30,
@@ -229,6 +204,26 @@ const subMenuParametrizacion = [
     id: 18,
   },
   {
+    title: "Parametrización de Grupos",
+    link: "/proyectocristales",
+    id: 17,
+  },
+  {
+    title: "Parametrización de Muestrarios",
+    link: "/muestrariosarmazones",
+    id: 16,
+  },
+  {
+    title: "Parametrización de Puntos de Venta",
+    link: "/proyectopuntosventa",
+    id: 33,
+  },
+  {
+    title: "Parametrización de Vitrinas",
+    link: "/vitrinasarmazones",
+    id: 35,
+  },
+  {
     title: "Parametrización de Usuarios",
     link: "/proyectousuarios",
     id: 34,
@@ -237,9 +232,9 @@ const subMenuParametrizacion = [
 
 const subMenuMotivosOT = [
   {
-    title: "Motivos de OT Pendiente",
-    link: "/motivootpendiente",
-    id: 39,
+    title: "Motivos de OT Anulada",
+    link: "/motivootanulada",
+    id: 41,
   },
   {
     title: "Motivos de OT Derivada",
@@ -247,14 +242,14 @@ const subMenuMotivosOT = [
     id: 29,
   },
   {
-    title: "Motivos de OT en Garantía",
-    link: "/motivootgarantia",
-    id: 40,
+    title: "Motivos de OT Pendiente",
+    link: "/motivootpendiente",
+    id: 39,
   },
   {
-    title: "Motivos de OT Anulada",
-    link: "/motivootanulada",
-    id: 41,
+    title: "Motivos de OT Post-venta",
+    link: "/motivootgarantia",
+    id: 40,
   },
 ];
 
@@ -265,7 +260,7 @@ const navListMenuProyectos = [
     id: 15,
   },
   {
-    title: "Documentos del Convenio",
+    title: "Documentos",
     link: "/proyectodocum",
     id: 38,
   },
