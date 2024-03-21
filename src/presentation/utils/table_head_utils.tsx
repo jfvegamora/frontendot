@@ -3220,6 +3220,98 @@ export const table_head_proyectos_firmas = [
     width: "w-[6rem]",
   },
 ];
+export const table_head_reserva_armazones = [
+  {
+    cell: <input type="checkbox" />,
+    key: "checkbox",
+    visible: true,
+    width: "w-[5rem]",
+    alignment: "flex justify-center items-center"
+  },
+  {
+    cell: "Rut",
+    key: "rut",
+    visible: true,
+    width: "w-[10rem]",
+    alignment: "text-left"
+  },
+  {
+    cell: "Proyecto",
+    key: "proyecto",
+    visible: false,
+  },
+  {
+    cell: "Proyecto",
+    key: "titulo",
+    visible: true,
+    width: "w-[10rem]",
+    alignment: "text-left"
+  },
+  {
+    cell: "Punto venta id",
+    key: "punto_venta_id",
+    visible: false,
+  },
+  {
+    cell: "Punto_venta",
+    key: "punto_venta",
+    visible: true,
+    width: "w-[10rem]",
+    alignment: "text-left"
+  },
+  {
+    cell: "Tipo Anteojo id",
+    key: "tipo_anteojo_id",
+    visible: false,
+  },
+  {
+    cell: "Tipo Anteojo",
+    key: "tipo_anteojo_id",
+    visible: true,
+    width: "w-[10rem]",
+    alignment: "text-left"
+  },
+  {
+    cell: "DP",
+    key: "dp",
+    visible: true,
+    width: "w-[10rem]",
+    alignment: "text-left"
+  },
+  {
+    cell: "Armazon 1",
+    key: "cod_armazon_1",
+    visible: true,
+  },
+  {
+    cell: "Armazon 2",
+    key: "cod_armazon_2",
+    visible: true,
+    width: "w-[10rem]",
+    alignment: "text-left"
+  },
+  {
+    cell: "Armazon 3",
+    key: "cod_armazon_3",
+    visible: true,
+    width: "w-[10rem]",
+    alignment: "text-left"
+  },
+  {
+    cell: "Usuario ID",
+    key: "usuario_id",
+    visible: false,
+  },
+  {
+    cell: "Usuario",
+    key: "usuario",
+    visible: true,
+    width: "w-[10rem]",
+    alignment: "text-left"
+  },
+
+
+]
 export const table_head_proyectos_docum = [
   {
     cell: <input type="checkbox" />,

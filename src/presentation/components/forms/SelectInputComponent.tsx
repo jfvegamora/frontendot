@@ -41,6 +41,7 @@ interface ISelectInputProps {
   tabIndex?: number;
   isFOTcristales?:boolean;
   isOptional?:boolean;
+  onlyFirstOption?:boolean
 }
 
 const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
@@ -63,6 +64,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     customWidth,
     isFOTcristales,
     isOptional,
+    onlyFirstOption
   }) => {
     const dispatch = useAppDispatch()
     const [entities, setEntities] = useState([]);
@@ -145,7 +147,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
           defaultValue={strSelectedName}
           render={({ field }) => (
             <div className={`custom-select border-[1px] rounded-lg !h-[3rem] relative ${error ? 'border-red-500' : 'border-[#f8b179]'}  `}>
-              <div className="top-[-0.1rem] sm:top-[2rem]   left-3.5 absolute w-1/2 z-10">
+              <div className="top-[-0.1rem]    left-3.5 absolute w-1/2 z-10">
                 <label htmlFor={label} className=" relative">
                   {label}
                 </label>
@@ -187,10 +189,12 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
                 className={`${className ? className : "custom-input py-2  cursor-pointer z-0"} ${readOnly ? "custom-onlyread" : isOptional ? "custom-optional-with-color" : "custom-required"}`}>
 
                  {/* className={`${className ? className : "custom-input py-2  cursor-pointer z-0"}  ${readOnly ? "custom-onlyread" : ""} ${isOptional ? "custom-optional" : "custom-required" } `}>  */}
-                
-                  <option value={undefined} className="text-sm">
-                    
-                  </option>
+
+                  {!onlyFirstOption &&(
+                    <option value={undefined} className="text-sm">
+                      
+                    </option>
+                  )}
               
                 {/* {!data && (
                   <option value={undefined} className="text-sm">

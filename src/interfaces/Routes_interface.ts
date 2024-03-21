@@ -33,12 +33,13 @@ const MVitrinasArmazones    = lazy(()=>import("../presentation/views/mantenedore
 const MProyectosAccesorios  = lazy(()=>import("../presentation/views/mantenedores/MProyectosAccesorios"));
 const MProyectosCristales   = lazy(()=>import("../presentation/views/mantenedores/MProyectosCristales"));
 const MProyectosDirecciones = lazy(()=>import("../presentation/views/mantenedores/MProyectosDirecciones"));
-const MProyectosPuntosVenta = lazy(()=>import("../presentation/views/mantenedores/MProyectosPuntosVenta"));
+// const MProyectosPuntosVenta = lazy(()=>import("../presentation/views/mantenedores/MProyectosPuntosVenta"));
 const MProyectosUsuarios    = lazy(()=>import("../presentation/views/mantenedores/MProyectosUsuarios"));
 const MProyectosAtenciones  = lazy(()=>import("../presentation/views/mantenedores/MProyectosAtenciones"));
 const MProyectosFirmas      = lazy(()=>import("../presentation/views/mantenedores/MProyectosFirmas"));
-const MProyectosDocum  = lazy(()=>import("../presentation/views/mantenedores/MProyectosDocum"));
+const MProyectosDocum       = lazy(()=>import("../presentation/views/mantenedores/MProyectosDocum"));
 const MOftalmologos         = lazy(()=>import("../presentation/views/mantenedores/MOftalmologos"));
+const MReservaArmazones     = lazy(()=>import("../presentation/views/mantenedores/MReservaArmazones"));
 
 const MCargos               = lazy(()=>import("../presentation/views/mantenedores/MCargos"));
 const MFuncionalidades      = lazy(()=>import("../presentation/views/mantenedores/MFuncionalidades"));
@@ -98,6 +99,7 @@ export const PrivateRoutes = {
   PROYECTOS_DOCUM       : "proyectodocum",
   REPORTE_ATENCION      : "proyectoreporteatencion",
   REPORTE_FIRMAS        : "proyectoreportefirma",
+  RESERVA_ARMAZONES     : "reservaarmazones",
   OFTALMOLOGOS          : "oftalmologos",
 
   //MENU SISTEMA
@@ -296,12 +298,12 @@ export const privateRoutes = [
     component           : MProyectosDirecciones,
     requiredPermissions : ['view_' + PrivateRoutes.PROYECTOS_DIRECCIONES]
   },
-  {
-    id                  : "33",
-    path                : PrivateRoutes.PROYECTOS_PUNTOS_VENTA,
-    component           : MProyectosPuntosVenta,
-    requiredPermissions : ['view_' + PrivateRoutes.PROYECTOS_PUNTOS_VENTA]
-  },
+  // {
+  //   id                  : "33",
+  //   path                : PrivateRoutes.PROYECTOS_PUNTOS_VENTA,
+  //   component           : MProyectosPuntosVenta,
+  //   requiredPermissions : ['view_' + PrivateRoutes.PROYECTOS_PUNTOS_VENTA]
+  // },
   {
     id                  : "34",
     path                : PrivateRoutes.PROYECTOS_USUARIOS,
@@ -331,6 +333,12 @@ export const privateRoutes = [
     path                : PrivateRoutes.OFTALMOLOGOS,
     component           : MOftalmologos,
     requiredPermissions : ['view_' + PrivateRoutes.OFTALMOLOGOS]
+  },
+  {
+    id                  : "42",
+    path                : PrivateRoutes.RESERVA_ARMAZONES,
+    component           : MReservaArmazones,
+    requiredPermissions : ['view_' + PrivateRoutes.RESERVA_ARMAZONES]
   },
 
 

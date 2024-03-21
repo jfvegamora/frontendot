@@ -213,11 +213,11 @@ const subMenuParametrizacion = [
     link: "/muestrariosarmazones",
     id: 16,
   },
-  {
-    title: "Parametrización de Puntos de Venta",
-    link: "/proyectopuntosventa",
-    id: 33,
-  },
+  // {
+  //   title: "Parametrización de Puntos de Venta",
+  //   link: "/proyectopuntosventa",
+  //   id: 33,
+  // },
   {
     title: "Parametrización de Vitrinas",
     link: "/vitrinasarmazones",
@@ -300,11 +300,17 @@ const navListMenuProyectos = [
     id: 4,
   },
   {
+    title: "Reserva de Armazones",
+    link: "/reservaarmazones",
+    id: 42,
+  },
+  {
     title: "Vitrinas",
     link: "/vitrinas",
     id: 37,
   },
 ];
+
 
 const navListMenuSistema = [
   {

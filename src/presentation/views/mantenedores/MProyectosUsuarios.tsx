@@ -133,7 +133,17 @@ const MProyectosUsuarios: React.FC = () => {
           idMenu={idMenu}
           leftEdit={true}
         />
-      </div>      
+      </div>     
+
+       <FProyectosUsuarios
+          label={`${TITLES.ingreso} ${strEntidad}`}
+          closeModal={closeModal}
+          selectedRows={selectedRows}
+          setEntities={setEntities}
+          params={params}
+          isEditting={false}
+          escritura_lectura={escritura_lectura}
+        /> 
 
       {isModalInsert && (
         <FProyectosUsuarios

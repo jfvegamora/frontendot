@@ -18,6 +18,9 @@ import { SelectInputComponent, TextInputComponent } from '../../components';
 import { AppStore, useAppSelector } from '../../../redux/store';
 
 
+
+//!INSERT: PROYECTO-RUT-PUNTOVENTA-TIPOANTEOJO-DP-A1-2-3-USERID
+
 export const Armazones:any = {
   Armazon1: signal(''),
   Armazon2: signal(''),
@@ -35,8 +38,15 @@ const Scanner:React.FC<any> = ({setBarcode,focusInput,setIsScanning}) => {
         target: document.getElementById('scanner-container'),
       },
       decoder: {
-        readers: ['ean_reader'],
-      },
+        // readers: ['ean_reader'],
+        minCodeLength: 20,
+        multiple: false,
+        readers: {
+          ean_reader: {
+            aggressive: true, // Mayor precisión para EAN-11
+          },
+        },
+      }
     }, (err:any) => {
       if (err) {
         console.error(err);
@@ -60,7 +70,7 @@ const Scanner:React.FC<any> = ({setBarcode,focusInput,setIsScanning}) => {
 
   return (
     <div>
-      <div id="scanner-container" className='absolute top-[8.6rem] right-20' style={{ width: 350, height: 100 }} />
+      <div id="scanner-container" className='absolute top-[8.6rem] right-[-1.5rem] !z-20' style={{ width: 350, height: 20 }} autoFocus/>
     </div>
   );
 };
@@ -82,7 +92,7 @@ const FReservarArmazones = () => {
     register,
     handleSubmit,
     formState: {errors},
-  } = useForm({
+  } = useForm<any>({
     resolver: yupResolver(schema)
   })
 
@@ -114,6 +124,15 @@ const FReservarArmazones = () => {
 
   console.log(errors)
 
+
+
+  // Object.keys(inputRefs).map((key:any, index) =>{
+  //   console.log(key)
+  //   console.log(errors)
+  //   console.log(errors[key])
+
+  //   console.log(Armazones[key].value)
+  // } )
     return (
         <form className=" max-w-md mx-auto px-6" onSubmit={handleSubmit((data)=> handleSaveChange(data))}>
           <div className="mb-4">
@@ -121,30 +140,33 @@ const FReservarArmazones = () => {
             <select name="" id=""></select>
           </div>
 
-          <div className=" mt-20 ">
-            <div className="w-full !mb-5">
+          <div className=" mt-20">
+            <div className="w-full !mb-5 rowForm">
               <SelectInputComponent
                   label='Nombre Proyecto'
                   name='proyecto'
                   showRefresh={true}
                   // handleSelectChange={}
+                  onlyFirstOption={true}
+                  readOnly={true}
                   control={control}
                   entidad={["/api/proyectos/", "07", userID]}
                   customWidth={"w-[27.3rem]"}
               />
             </div>
-            <div className="w-full !mb-5">
+            <div className="w-full !mb-5 rowForm">
               <SelectInputComponent
                   label='Punto de Venta'
                   name='punto_venta_id'
                   showRefresh={true}
+                  onlyFirstOption={true}
                   // handleSelectChange={}
                   control={control}
                   entidad={["/api/proyectos/", "07", userID]}
                   customWidth={"w-[27.3rem]"}
               />
             </div>
-            <div className="w-full !mb-7">
+            <div className="w-full !mb-7 rowForm">
               <SelectInputComponent
                   label='Tipo de Anteojo'
                   name='tipo_anteojo'
@@ -158,19 +180,19 @@ const FReservarArmazones = () => {
             </div>
           </div>
 
-          <div className="w-full  !mt-5 !-mb-4 flex rowForm">
-            <div className="w-[60%]  !-ml-4">
+          <div className="w-[26rem]  !mt-5  flex rowForm">
+            <div className="w-[65%]  !-ml-4">
               <TextInputComponent
                 type='number'
-                label='Numero de Receta'
-                name="numero_receta"
+                label='Rut Beneficiario'
+                name="rut_beneficiario"
                 control={control}
                 textAlign='text-right'
-                error={errors.numero_receta}
+                error={errors.rut_beneficiario}
               
               />
             </div>
-            <div className="w-[40%] ml-5 ">
+            <div className="w-[45%] !ml-15 ">
               <TextInputComponent
                 type='number'
                 label='DP'
@@ -188,17 +210,18 @@ const FReservarArmazones = () => {
 
           <div className='!mt-10'>
             {Object.keys(inputRefs).map((key:any, index) => (
-              <div className="mt-10" key={index}>
+              <div className="mt-10 rowForm" key={index}>
                   <Input
                   {...register}
                     key={index}
                     label={key}
                     color='orange'
-                    className='className="shadow appearance-none border bg-white rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" '
+                    className="shadow appearance-none border bg-white rounded  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline !w-[25rem]"
                     ref={inputRefs[key] }
                     value={Armazones[key]}
                     name={key}
                     onFocus={() => handleFocus(key)}
+                    // error={errors[key]}
                     onChange={() => handleInputChange(inputRefs[key].current)}
                   />
               </div>
@@ -210,7 +233,7 @@ const FReservarArmazones = () => {
         {isScanning &&  <Scanner setBarcode={setBarcode} focusInput={focusInput} setIsScanning={setIsScanning}/> }
             
             <div className="w-full">
-              <Button type='submit'>Reservar</Button>
+              <Button color='orange' type='submit'>Reservar</Button>
             </div>
         </form>
 );

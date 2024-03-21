@@ -24,9 +24,10 @@ const strBaseUrl = "/api/proyectousuarios/";
 const strEntidad = "Parametrizacion de Usuarios ";
 
 export interface InputData {
-  proyecto  : string | undefined;
-  usuario   : string | undefined;
-  estado    : string | undefined;
+  proyecto      : string | undefined;
+  usuario       : string | undefined;
+  punto_venta   : string | undefined;
+  estado        : string | undefined;
 }
 
 interface OutputData {
@@ -285,6 +286,23 @@ const FProyectosUsuarios: React.FC<IUserFormPrps> = React.memo(
                   control={control}
                   entidad={["/api/proyectos/", "02"]}
                   error={errors.proyecto}
+                  readOnly={isEditting}
+                  customWidth={"!ml-[1rem] !w-[38rem] "}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="w-full flex items-center h-[4rem] ">
+              <div className="input-container items-center rowForm w-full">
+                <div className="w-full ">
+                <SelectInputComponent
+                  label="Punto de Venta"
+                  name="punto_venta"
+                  showRefresh={true}
+                  data={data && data[EnumGrid.codigo_proyecto]}
+                  control={control}
+                  entidad={["/api/puntosventa/", "02"]}
+                  error={errors.punto_venta}
                   readOnly={isEditting}
                   customWidth={"!ml-[1rem] !w-[38rem] "}
                   />

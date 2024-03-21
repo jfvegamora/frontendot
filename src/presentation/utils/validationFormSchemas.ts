@@ -143,12 +143,12 @@ export const validationArmazonesSchema = () =>
 //Schema Reserva Armazones
 export const validationReservaArmazonesSchema = () => 
   yup.object().shape({
-    numero_receta : yup.string().required(`${msg}`),
-    dp            : yup.string().required(`${msg}`),
-    tipo_anteojo  : yup.string().required(`${msg}`),
-    Armazon1      : yup.string().required(`${msg}`),
-    Armazon3      : yup.string().required(`${msg}`),
-    Armazon2      : yup.string().required(`${msg}`),
+    rut_beneficiario : yup.string().required(`${msg}`),
+    dp               : yup.string().required(`${msg}`),
+    tipo_anteojo     : yup.string().required(`${msg}`),
+    Armazon1         : yup.string().required(`${msg}`),
+    Armazon3         : yup.string().required(`${msg}`),
+    Armazon2         : yup.string().required(`${msg}`),
   })
 
 
@@ -460,9 +460,10 @@ export const validationParametrizacionPuntosVenta = () =>
 // Schema PROYECTOS USUARIOS
 export const validationParametrizacionUsuarios = () =>
   yup.object().shape({
-    proyecto   : yup.string().required(`${msg}`),
-    usuario    : yup.string().required(`${msg}`),
-    estado     : yup.string().required(`${msg}`),
+    proyecto    : yup.string().required(`${msg}`),
+    usuario     : yup.string().required(`${msg}`),
+    punto_venta : yup.string().required(`${msg}`),
+    estado      : yup.string().required(`${msg}`),
 });
 
 // Schema REPORTE ATENCION

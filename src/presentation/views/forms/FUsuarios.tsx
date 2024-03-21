@@ -99,10 +99,9 @@ export function transformInsertQuery(jsonData: any): any | null {
               "${jsonData.telefono}", 
               "${jsonData.correo}", 
               ${jsonData.estado === "Activo" ? 1 : 2},
-              
-              ${permisos_campos},
-              ${permisos_areas}`;
-
+              "${permisos_areas}",
+              "${permisos_campos}"
+`
   _p1 = _p1.replace(/'/g, '!');  
   const query: OutputData = {
     query: "03",
@@ -366,9 +365,6 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     error={errors.nombre}
                     inputRef={firstInputRef}
-                    // isOptional={}
-                    // onlyRead={}
-                    
                   />
                 </div>
               </div>
@@ -445,13 +441,6 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
 
               <TabPanel>
                 <div className="w-full items-center !mt-7 !mb-4  !h-[10rem]">
-
-
-
-
-
-
-
                   <div className="w-full items-center flex justify-evenly  input-container">
                       <div className="input-container items-center rowForm  w-[14%]">
                         <div className="w-full">
@@ -459,7 +448,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                             control={control}
                             label="Venta"
                             name="permiso_venta"
-                            data={formValues && formValues["VTA"] || data && data[EnumGrid.permiso_venta]}
+                            data={formValues && formValues["Venta"] || data && data[EnumGrid.permiso_venta]}
                             options={["Lectura", "Escritura"]}
                             error={errors.permiso_venta}
                             horizontal={false}
@@ -473,7 +462,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                             control={control}
                             label="Bodega Insumos"
                             name="permiso_bodega"
-                            data={formValues && formValues["BI"] || data && data[EnumGrid.permiso_bodega_insumo]}
+                            data={formValues && formValues["Bodega Insumos"] || data && data[EnumGrid.permiso_bodega_insumo]}
                             options={["Lectura", "Escritura"]}
                             error={errors.permiso_bodega}
                             horizontal={false}
@@ -487,7 +476,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                             control={control}
                             label="Taller Biselado"
                             name="permiso_biselado"
-                            data={formValues && formValues["TC"] || data && data[EnumGrid.permiso_Taller_biselado]}
+                            data={formValues && formValues["Taller Biselado"] || data && data[EnumGrid.permiso_Taller_biselado]}
                             options={["Lectura", "Escritura"]}
                             error={errors.permiso_biselado}
                             horizontal={false}
@@ -501,7 +490,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                             control={control}
                             label="Taller Montaje"
                             name="permiso_montaje"
-                            data={formValues && formValues["TM"] || data && data[EnumGrid.permiso_taller_montaje]}
+                            data={formValues && formValues["Taller Montaje"] || data && data[EnumGrid.permiso_taller_montaje]}
                             options={["Lectura", "Escritura"]}
                             error={errors.permiso_montaje}
                             horizontal={false}
@@ -515,7 +504,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                             control={control}
                             label="Bod Prod Terminados"
                             name="permiso_bodega_prod_term"
-                            data={formValues && formValues["BPT"] || data && data[EnumGrid.permiso_bodega_p_terminados]}
+                            data={formValues && formValues["Bod Prod Terminados"] || data && data[EnumGrid.permiso_bodega_p_terminados]}
                             options={["Lectura", "Escritura"]}
                             error={errors.permiso_bodega_prod_term}
                             horizontal={false}
@@ -534,7 +523,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                             control={control}
                             label="Empaque"
                             name="permiso_empaque"
-                            data={formValues && formValues["EMP"] || data && data[EnumGrid.permiso_empaque]}
+                            data={formValues && formValues["Empaque"] || data && data[EnumGrid.permiso_empaque]}
                             options={["Lectura", "Escritura"]}
                             error={errors.permiso_empaque}
                             horizontal={false}
@@ -548,7 +537,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                             control={control}
                             label="Adquisiciones"
                             name="permiso_adquisiciones"
-                            data={formValues && formValues["ADQ"] || data && data[EnumGrid.permiso_adquisiciones]}
+                            data={formValues && formValues["Adquisiciones"] || data && data[EnumGrid.permiso_adquisiciones]}
                             options={["Lectura", "Escritura"]}
                             error={errors.permiso_adquisiciones}
                             horizontal={false}
@@ -562,7 +551,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                             control={control}
                             label="Calculo"
                             name="permiso_calculo"
-                            data={formValues && formValues["CAL"] || data && data[EnumGrid.permiso_calculo]}
+                            data={formValues && formValues["Calculo"] || data && data[EnumGrid.permiso_calculo]}
                             options={["Lectura", "Escritura"]}
                             error={errors.permiso_calculo}
                             horizontal={false}
@@ -576,7 +565,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                             control={control}
                             label="Control"
                             name="permiso_control"
-                            data={formValues && formValues["CON"] || data && data[EnumGrid.permiso_control]}
+                            data={formValues && formValues["Control"] || data && data[EnumGrid.permiso_control]}
                             options={["Lectura", "Escritura"]}
                             error={errors.permiso_control}
                             horizontal={false}
@@ -590,7 +579,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                             control={control}
                             label="Proyectos"
                             name="permiso_proyecto"
-                            data={formValues && formValues["PRO"] || data && data[EnumGrid.permiso_proyecto]}
+                            data={formValues && formValues["Proyectos"] || data && data[EnumGrid.permiso_proyecto]}
                             options={["Lectura", "Escritura"]}
                             error={errors.permiso_proyecto}
                             horizontal={false}
