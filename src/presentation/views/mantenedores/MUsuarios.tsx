@@ -42,26 +42,25 @@ export enum EnumGrid {
   permiso_bodega_p_terminados     = 25,
   permiso_empaque_id              = 26,
   permiso_empaque                 = 27,
-  permisos_campos                 = 28,
   //? PERMISOS CAMPOS - EDITAR CAMPOS OT
-  permiso_editar_armazon_id                  = 29,
-  permiso_editar_armazon                     = 30,
-  permiso_editar_cristal_id                  = 31,
-  permiso_editar_cristal                     = 32,
-  permiso_editar_estado_impresion_id         = 33,
-  permiso_editar_estado_impresion            = 34,
-  permiso_editar_validar_parametrizacion_id  = 35,
-  permiso_editar_validar_parametrizacion     = 36,
-  permiso_editar_resolucion_garantia_id      = 37,
-  permiso_editar_resolucion_garantia         = 38,
-  permiso_editar_grupo_dioptria_id           = 39,
-  permiso_editar_grupo_dioptria              = 40,
-  permiso_editar_receta_id                   = 41,
-  permiso_editar_receta                      = 42,
-  permiso_editar_validar_cristales_id        = 43,
-  permiso_editar_validar_cristales           = 44,
-  permiso_editar_validar_armazones_id        = 45,
-  permiso_editar_validar_armazones           = 46,
+  permiso_editar_armazon_id                  = 28,
+  permiso_editar_armazon                     = 29,
+  permiso_editar_cristal_id                  = 30,
+  permiso_editar_cristal                     = 31,
+  permiso_editar_estado_impresion_id         = 32,
+  permiso_editar_estado_impresion            = 33,
+  permiso_editar_validar_parametrizacion_id  = 34,
+  permiso_editar_validar_parametrizacion     = 35,
+  permiso_editar_resolucion_garantia_id      = 36,
+  permiso_editar_resolucion_garantia         = 37,
+  permiso_editar_grupo_dioptria_id           = 38,
+  permiso_editar_grupo_dioptria              = 39,
+  permiso_editar_receta_id                   = 40,
+  permiso_editar_receta                      = 41,
+  permiso_editar_validar_cristales_id        = 42,
+  permiso_editar_validar_cristales           = 43,
+  permiso_editar_validar_armazones_id        = 44,
+  permiso_editar_validar_armazones           = 45,
 
 
 }
@@ -103,6 +102,7 @@ const MUsuarios: React.FC = () => {
     handleDeleteSelected,
     resetEntities,
   } = useEntityUtils(strBaseUrl, strQuery);
+
 
   useEffect(()=>{
     totalRowIndex.map((row)=>{

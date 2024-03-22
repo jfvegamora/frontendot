@@ -109,7 +109,29 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
     console.log(permisos_usuario_areas)
     // console.log(EnumAreas[20])
 
-
+    const handleImpresionMasivo = async () => {
+    //   const print = useReactToPrint({
+    //     content: () => componentRef.current as any,
+    //     suppressErrors: true,
+    //     removeAfterPrint: true,
+    //     onAfterPrint() {
+    //       setisFotTicketRetiro(true);
+    //       imprimirComprobanteRetiro();
+    //       // dispatch(clearImpression());
+    //     }
+    //   }
+    // );
+    
+    //   for (let i = 0; i < pkToDelete.length; i++) {
+    //     await print();
+    //     // Opcional: agregar un retraso para evitar que las ventanas emergentes se superpongan
+    //     await new Promise((resolve) => setTimeout(resolve, 500));
+    //   }
+    
+    //   // Acciones después de imprimir todas las boletas
+    //   //
+     handlePrint()
+    };
 
 
     const folios = pkToDelete && pkToDelete.map(({folio}:any)=>folio)
@@ -229,160 +251,67 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
     }
 
 
+    // const handlePrintRegistro = async (folio:any) => {
+    //   try {
+    //     // Realiza la carga de datos necesaria antes de la impresión
+    //     await dispatch(fetchOTImpresionByID({ folio: folio, OTAreas: OTAreas['areaActual'] }));
+    //     // Ejecuta la impresión del registro
+    //     console.log('render')
+    //     await handlePrint();
+    //     return 'hola'
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // };
 
-    const handleImpresionMasivo = async() => {
-      // console.log('click')
-      // console.log(pkToDelete)
-      setIsFOTImpresa(true)
+    // const handlePrintRegistro = async (folio:any) => {
+    //   try {
+    //     // Realiza la carga de datos necesaria antes de la impresión
+    //     await dispatch(fetchOTImpresionByID({ folio: folio, OTAreas: OTAreas['areaActual'] }));
+    //     // Devuelve una promesa que resuelve cuando la impresión se completa
+    //     return new Promise((resolve, reject) => {
+    //       // Usa un setTimeout para asegurarse de que la referencia se actualice correctamente
+    //       setTimeout(() => {
+    //         handlePrint({
+    //           content: () => componentRef.current,
+    //           suppressErrors: true,
+    //           removeAfterPrint: true,
+    //           onAfterPrint: () => resolve()
+    //         });
+    //       }, 100); // Ajusta el tiempo según sea necesario
+    //     });
+    //   } catch (error) {
+    //     console.log(error);
+    //     throw error;
+    //   }
+    // };
+
+    // const handleImpresionMasivo = async () => {
+    //   const printPromises = pkToDelete.map(async (registro:any) => {
+    //     console.log(registro)
+    //     await handlePrint({ content: () => componentRef.current as any });
+    //     // Opcional: agregar un retraso para evitar que las ventanas emergentes se superpongan
+    //     await new Promise((resolve) => setTimeout(resolve, 500));
+    //   });
     
-      // console.log(folios)
-      // const result = validationStateOT(5, '0', folios, data)
-      // const areAllSameType = result.every((item:any) => item === true);
-
-      // console.log(result)
-
-      
-      // if(!areAllSameType){
-      //   result.map((ot:any)=>{
-      //     if(Array.isArray(ot)){
-      //       toast.error(`Error: folio ${ot[0]}  | ya impresa`);
-      //       return;
-      //     }
-      //   })
-      //   return;
-      // }
+    //   await Promise.all(printPromises);
+    
+    //   // Acciones después de imprimir todas las boletas
+    //   setisFotTicketRetiro(true);
+    //   imprimirComprobanteRetiro();
+    //   // dispatch(clearImpression());
+    // };
 
 
-      // pkToDelete.forEach((_OT:any)=>{
-      //   return new Promise((resolve:any)=>{
-      //      handlePrint()
-      //      resolve() 
-      //     })
-      // })
-
-      // async function handlePrintSequentially() {
-      //   for (let i = 0; i < pkToDelete.length; i++) {
-      //     const OT = pkToDelete[i];
-      
-      //     try {
-      //       const loadingToast = toast.loading('Imprimiendo...');
-      //       await dispatch(fetchOTImpresionByID({ folio: OT.folio, OTAreas: OTAreas['areaActual'] }));
-      //       await handlePrint(); // Esperar a que handlePrint() se resuelva
-      //       toast.dismiss(loadingToast);
-      //     } catch (error) {
-      //       console.log(error);
-      //       throw error;
-      //     }
-      //   }
-      // }
-      // Llamar la función para comenzar el proceso
-      // handlePrintSequentially();
-      // Llamar la función por primera vez para comenzar el proceso
-      
-      
-      const printWithConfirmation = async (index:number) => {
-        if (index >= pkToDelete.length) return;
-
-        const OT = pkToDelete[index];
-
-        try {
-            const loadingToast = toast.loading('Imprimiendo...');
-            await dispatch(fetchOTImpresionByID({ folio: OT.folio, OTAreas: OTAreas['areaActual'] }));
-            const confirmación = await confirm(`Presione 'Aceptar' para imprimir la OT:${OT.folio}`);
-            if (confirmación) {
-                handlePrint();
-            } else {
-                console.log('Usuario canceló la impresión');
-            }
-            toast.dismiss(loadingToast);
-            console.log('render');
-        } catch (error) {
-            console.log(error);
-            throw error;
-        }
-
-        // Procesar el siguiente elemento después de esperar un poco para permitir que el navegador actualice la UI
-        setTimeout(async () => {
-            await printWithConfirmation(index + 1);
-        }, 100);
-    };
-
-
-
-
-
-
-
-    // Llamar a la función para iniciar el proceso
-    await printWithConfirmation(0);
-      for (const OT of pkToDelete) {
-        try {
-          const loadingToast = toast.loading('Imprimiendo...');
-            await dispatch(fetchOTImpresionByID({ folio: OT.folio, OTAreas: OTAreas['areaActual'] }))
-            const confirmación = confirm(`Presione 'Aceptar' para imprimir la OT:${OT.folio}`);
-            if (confirmación) {
-                 handlePrint();
-            } else {
-                console.log('Usuario canceló la impresión');
-                // return;
-            }
-            toast.dismiss(loadingToast);
-            console.log('render');
-            return;
-        } catch (error) {
-          // toast.dismiss(loadingToast);
-            console.log(error);
-            throw error;
-        }
-    }
-    // printWithConfirmation()
-
-
-      // console.log('render')     
-      // pkToDelete.map(async(ot:any)=>{
-      //   console.log(ot)
-      //   try {
-      //     const query = `?query=06&_folio=${ot.folio}&_p2=${1}&_estado=${ot.estado_id}&_usuario=${User.id}&_origen=${OTAreas["areaActual"]}`
-      //     const result = await axios(`${strUrl}/${query}`);
-
-      //     console.log(result)
-      //     if(result.status === 200){
-      //       //handle print
-      //       console.log('render')
-      //       const loadingToast = toast.loading('Cargando...');
-
-      //       // Realiza la operación asíncrona
-      //       await new Promise((_resolve) => {
-      //         dispatch(fetchOTByID({ folio: ot["folio"], OTAreas: OTAreas['areaActual'] }))
-      //           .then(() => {
-      //             // Resuelve la promesa cuando la operación está completa
-      //           //   setTimeout(()=>{
-      //           // },2000)
-      //           handlePrint()
-      //           })
-      //           .catch((error) => {
-      //             // Manejo de errores
-      //             console.error(error);
-      //             // Rechaza la promesa en caso de error
-      //             throw error;
-      //           })
-      //           .finally(() => {
-      //             // Oculta el toast de carga cuando la operación está completa
-      //             toast.dismiss(loadingToast);
-      //           });
-      //       });
-      //       // handlePrint()
-      //       toast.success(`OT Impresa: ${ot.folio}`)
-      //     }
-          
-      //   } catch (error) {
-      //     console.log(error)
-      //     throw error;
-      //   }
-
-      // })
-      
-    }
+    // const handleImpresionMasivo = async() => {
+    //   setIsFOTImpresa(true);
+    
+    //   for (let OT of pkToDelete) {
+    //     console.log(OT);
+    //     const result = await handlePrintRegistro(OT.folio);
+    //     console.log(result); // Aquí puedes ver el resultado de la impresión
+    //   }
+    // }
 
     const handleDownloadMacro = async() => {
       try {
@@ -612,6 +541,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
           //  strBaseUrl={strBaseUrl}
         />
         )}
+
 
         {areaPermissions && areaPermissions[2] === '1' && permisos_usuario_areas === '1' && (
           renderButton(

@@ -23,6 +23,7 @@ interface ITextInputProps {
   customWidth?: any;
   isOptional?:boolean;
   textAlign?: string;
+  handleFocus?:any
 }
 
 const TextInputComponent: React.FC<ITextInputProps> = ({
@@ -43,6 +44,7 @@ const TextInputComponent: React.FC<ITextInputProps> = ({
   customWidth,
   isOptional,
   textAlign,
+  handleFocus
 }) => {
 
 
@@ -96,6 +98,7 @@ return (
             // defaultValue={defaultValue}
             readOnly={onlyRead}
             maxLength={maxLength}
+            onFocus={handleFocus}
             onBlur={(e) => handleInputChange(e)}
             ref={inputRef}
             className={`${className ? className : "custom-input"}  ${onlyRead ? "custom-onlyread cursor-not-allowed" : isOptional ? "custom-optional" : "custom-required"} ${textAlign && textAlign}`}

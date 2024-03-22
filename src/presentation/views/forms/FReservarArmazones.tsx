@@ -8,7 +8,7 @@ import React, { useState, useEffect } from 'react';
 
 //@ts-ignore
 import Quagga from 'quagga';
-import { Button, Input } from '@material-tailwind/react';
+import { Button } from '@material-tailwind/react';
 // import { MdOutlineQrCodeScanner } from "react-icons/md";
 import { signal } from '@preact/signals-react';
 import { useForm } from 'react-hook-form';
@@ -39,8 +39,8 @@ const Scanner:React.FC<any> = ({setBarcode,focusInput,setIsScanning}) => {
       },
       decoder: {
         // readers: ['ean_reader'],
-        minCodeLength: 20,
-        multiple: false,
+        minCodeLength: 11,
+        // multiple: false,
         readers: {
           ean_reader: {
             aggressive: true, // Mayor precisión para EAN-11
@@ -62,7 +62,9 @@ const Scanner:React.FC<any> = ({setBarcode,focusInput,setIsScanning}) => {
   const onDetected = (result:any) => {
     if (result.codeResult) {
       setBarcode(result.codeResult.code);
-      Armazones[focusInput].value = result.codeResult.code
+      console.log(result.codeResult.code)
+      focusInput.current = result.codeResult.code
+      // Armazones[focusInput].value = result.codeResult.code
       setIsScanning(false)
       Quagga.stop()
     }
@@ -70,7 +72,7 @@ const Scanner:React.FC<any> = ({setBarcode,focusInput,setIsScanning}) => {
 
   return (
     <div>
-      <div id="scanner-container" className='absolute top-[8.6rem] right-[-1.5rem] !z-20' style={{ width: 350, height: 20 }} autoFocus/>
+      <div id="scanner-container" className='absolute top-[8.6rem] right-[-1.5rem] !z-20' style={{ width: 350, height: 200 }} autoFocus/>
     </div>
   );
 };
@@ -86,10 +88,13 @@ const FReservarArmazones = () => {
   const [focusInput, setFocusInput]   = useState('');
   const schema                        = validationReservaArmazonesSchema();
   const userID:any                    = useAppSelector((store: AppStore) => store.user?.id);
+  const armazon1                      = React.useRef(1)
+  const armazon2                      = React.useRef(2)
+  const armazon3                      = React.useRef(3)
 
   const {
     control,
-    register,
+    // register,
     handleSubmit,
     formState: {errors},
   } = useForm<any>({
@@ -118,13 +123,13 @@ const FReservarArmazones = () => {
       console.log(jsonData)
   }
 
-  const handleInputChange = (ref:any) => {
-    console.log(`Valor cambiado en el input ${ref.name}`);
-  };
+  // const handleInputChange = (ref:any) => {
+  //   console.log(`Valor cambiado en el input ${ref.name}`);
+  // };
 
   console.log(errors)
 
-
+console.log(inputRefs)
 
   // Object.keys(inputRefs).map((key:any, index) =>{
   //   console.log(key)
@@ -136,7 +141,7 @@ const FReservarArmazones = () => {
     return (
         <form className=" max-w-md mx-auto px-6" onSubmit={handleSubmit((data)=> handleSaveChange(data))}>
           <div className="mb-4">
-            <label htmlFor="nombre" className="block text-gray-700 text-sm font-bold mb-2">Proyecto</label>
+            <label htmlFor="nombre" className="block text-gray-700 text-sm font-bold mb-2">Reserva de Armazones</label>
             <select name="" id=""></select>
           </div>
 
@@ -174,20 +179,21 @@ const FReservarArmazones = () => {
                   // handleSelectChange={}
                   control={control}
                   entidad={["/api/tipos/", "02", "OTTipoAnteojo"]}
-                  customWidth={"w-[27.3rem]"}
+                  customWidth={"w-[27.3rem] "}
                   error={errors.tipo_anteojo}
               />
             </div>
           </div>
 
           <div className="w-[26rem]  !mt-5  flex rowForm">
-            <div className="w-[65%]  !-ml-4">
+            <div className="w-[65%]  text-2xl !-ml-4">
               <TextInputComponent
                 type='number'
                 label='Rut Beneficiario'
                 name="rut_beneficiario"
                 control={control}
-                textAlign='text-right'
+                textAlign='text-right !text-[2rem] !h-[3.9rem]'
+                customWidth={"!text-2xl"}
                 error={errors.rut_beneficiario}
               
               />
@@ -198,7 +204,7 @@ const FReservarArmazones = () => {
                 label='DP'
                 name="dp"
                 control={control}
-                textAlign='text-right'
+                textAlign='text-right !text-[2rem] !h-[3.9rem]'
                 error={errors.dp}
               
               />
@@ -208,8 +214,59 @@ const FReservarArmazones = () => {
 
 
 
-          <div className='!mt-10'>
-            {Object.keys(inputRefs).map((key:any, index) => (
+
+
+          <div className='!mt-5 flex flex-col justify-evenly h-[15rem]'>
+            
+              <div className="w-[26rem]   flex rowForm">
+                <div className="w-[100%]  text-2xl !-ml-4">
+                  <TextInputComponent
+                    type='number'
+                    label='Armazon 1'
+                    name="Armazon1"
+                    control={control}
+                    data={armazon1.current}
+                    textAlign='text-right !text-[2rem] !h-[3.5rem]'
+                    customWidth={"!text-2xl w-[26rem]"}
+                    error={errors.Armazon1}
+                    handleFocus={()=>handleFocus(armazon1)}
+                    
+                  
+                  />
+                </div>
+              </div>
+              <div className="w-[26rem] !mt-10   flex rowForm">
+                <div className="w-[100%]  text-2xl !-ml-4">
+                  <TextInputComponent
+                    type='number'
+                    label='Armazon 2'
+                    name="Armazon2"
+                    data={armazon2.current}
+                    control={control}
+                    textAlign='text-right !text-[2rem] !h-[3.5rem]'
+                    customWidth={"!text-2xl w-[26rem]"}
+                    error={errors.Armazon2}
+                  
+                  />
+                </div>
+              </div>
+              <div className="w-[26rem]   flex rowForm">
+                <div className="w-[100%]  text-2xl !-ml-4">
+                  <TextInputComponent
+                    type='number'
+                    label='Armazon 3'
+                    name="armazon3"
+                    data={armazon3.current}
+                    control={control}
+                    textAlign='text-right !text-[2rem] !h-[3.5rem]'
+                    customWidth={"!text-2xl w-[26rem]"}
+                    error={errors.Armazon3}
+
+                  
+                  />
+                </div>
+              </div>
+            {/* {Object.keys(inputRefs).map((key:any, index) => (
               <div className="mt-10 rowForm" key={index}>
                   <Input
                   {...register}
@@ -225,7 +282,7 @@ const FReservarArmazones = () => {
                     onChange={() => handleInputChange(inputRefs[key].current)}
                   />
               </div>
-            ))}
+            ))} */}
           </div>
 
             <h1>Resultado : {barcode}</h1>

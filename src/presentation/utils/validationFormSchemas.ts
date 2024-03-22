@@ -559,7 +559,8 @@ export const validationUsusariosSchema = () =>
     permiso_adquisiciones      : yup.string().required(`${msg}`),
     permiso_calculo            : yup.string().required(`${msg}`),
     permiso_control            : yup.string().required(`${msg}`),
-    permiso_proyecto           : yup.string().required(`${msg}`),
+    permiso_laboratorio        : yup.string().required(`${msg}`),
+    permiso_facturacion        : yup.string().required(`${msg}`),
     
     
     permiso_editar_armazon                   : yup.string().required(`${msg}`),

@@ -25,6 +25,7 @@ import { clearData, fetchColores, fetchOT } from "../../../redux/slices/OTSlice"
 // import StateCountBarOT from "../../components/StateCountBarOT";
 import { signal } from "@preact/signals-react";
 import { updateActualArea } from "../../../redux/slices/OTAreasSlice";
+// import { updateActualArea } from "../../../redux/slices/OTAreasSlice";
 // import axios from "axios";
 
 export enum EnumGrid {
@@ -57,7 +58,7 @@ const checkCount = signal(0)
 const strEntidad = " ";
 const strBaseUrl = "/api/ot/";
 const strQuery = "14";
-const idMenu = 1;
+// const idMenu = 1;
 export const paramsOT     = signal('')
 
 
@@ -69,7 +70,7 @@ const OTAreasButtons    = React.lazy(()=>import('../../components/OTAreasButtons
 const MOT: React.FC = () => {
   const OTs:any = useAppSelector((store: AppStore) => store.OTS);
   const {token}:any = useAppSelector((store: AppStore) => store.user);
-  const areaActualOT:any = useAppSelector((store: AppStore) => store.OTAreas.areaActual);
+  const areaActualOT:any = useAppSelector((store: AppStore) => store.OTAreas.areaActual) || 50;
   const dispatch = useAppDispatch()
   const [params, setParams] = useState([]);
   const [_estadosOT, setEstadosOT] = useState()
@@ -191,7 +192,7 @@ const MOT: React.FC = () => {
           pkToDelete={pktoDelete}
           showRefreshButton={true}
           showImportCsv={true}
-          idMenu={idMenu}
+          idMenu={28}
           isOT={true}
         />
 
@@ -254,7 +255,7 @@ const MOT: React.FC = () => {
           tableHead={table_head_OT_diaria2}
           showEditButton={true}
           showDeleteButton={false}
-          idMenu={idMenu}
+          idMenu={28}
           isOT={true}
         />
       </div>

@@ -73,7 +73,7 @@ const OTGrillaButtons:React.FC<AreaButtonsProps> = ({ areaPermissions, toggleEdi
     const user:any                       = useAppSelector((store: AppStore) => store.user);
 
 
-    const permisos_usuario_areas = user.permisos_areas[EnumAreas[OTAreas["areaActual"]]]
+    const permisos_usuario_areas = user.permisos_areas[EnumAreas[OTAreas["areaActual"]] || 40]
 
 
     const [isFotImpresa, setIsFotImpresa]      = React.useState(false);

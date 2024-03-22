@@ -7,7 +7,7 @@ import {
   PrimaryKeySearch,
   TableComponent,
 } from "../../components";
-import { useEntityUtils } from "../../hooks";
+import { useEntityUtils, usePermission } from "../../hooks";
 // import FUsuarios from "../forms/FUsuarios";
 import { MODAL, TITLES, table_head_OT_historica } from "../../utils";
 // import { OptionValuesMotivo } from "./MOT";
@@ -280,6 +280,11 @@ const MOTHistorica: React.FC = () => {
   const [params, setParams] = useState([]);
   const OTs: any = useAppSelector((store: AppStore) => store.OTS);
   const userState: any = useAppSelector((store: AppStore) => store.user);
+
+  const {escritura_lectura} = usePermission(idMenu)
+
+
+  console.log(escritura_lectura)
   
   const updateParams = (newParams: Record<string, never>) => {
     setParams(Object.keys(newParams).map((key) => newParams[key]));

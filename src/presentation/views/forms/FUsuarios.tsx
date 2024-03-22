@@ -41,7 +41,7 @@ export interface InputData {
   permiso_adquisiciones: string | undefined;
   permiso_calculo: string | undefined;
   permiso_control: string | undefined;
-  permiso_proyecto: string | undefined;
+  permiso_laboratorio: string | undefined;
 
 
   permiso_editar_armazon: string | undefined;
@@ -65,16 +65,17 @@ interface OutputData {
   _p3?: string;
 }
 const permiso_area= [
+  "permiso_adquisiciones",
+  "permiso_calculo",
+  'permiso_laboratorio',
+  "permiso_control",
+  'permiso_facturacion',
   "permiso_venta",
   "permiso_bodega",
   "permiso_biselado",
   "permiso_montaje",
   "permiso_bodega_prod_term",
   "permiso_empaque",
-  "permiso_adquisiciones",
-  "permiso_calculo",
-  "permiso_control",
-  "permiso_proyecto"
 ];
 
 const permiso_campo = [
@@ -93,6 +94,9 @@ export function transformInsertQuery(jsonData: any): any | null {
 
   const permisos_areas  = permiso_area.map((permiso:any)=>jsonData[permiso] === 'Lectura' ? "0" : "1").join('');
   const permisos_campos = permiso_campo.map((permiso:any) => jsonData[permiso] === 'Lectura' ? "0" : "1").join('');
+
+  console.log(permisos_areas)
+
 
   let _p1 = ` "${jsonData.nombre}", 
               ${jsonData.cargo}, 
@@ -129,7 +133,7 @@ export function transformUpdateQuery(
   ];
 
 
-  // console.log
+  console.log( `permisos_areas    = "${permiso_area.map((permiso)=>jsonData[permiso] === 'Lectura' ? "0" : "1").join('')}"`)
  
   const filteredFields = fields.filter(
     (field) => field !== null && field !== ""
@@ -339,6 +343,24 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
         [name]:value
       }))
     }
+
+    useEffect(()=>{
+      if(data){
+        setValue('permiso_editar_estado_impresion', data[EnumGrid.permiso_editar_estado_impresion_id])
+        setValue('permiso_editar_armazon', data[EnumGrid.permiso_editar_armazon_id])
+        setValue('permiso_editar_validar_parametrizacion', data[EnumGrid.permiso_editar_armazon_id])
+        setValue('permiso_editar_resolucion_garantia', data[EnumGrid.permiso_editar_resolucion_garantia_id])
+        setValue('permiso_editar_grupo_dioptria', data[EnumGrid.permiso_editar_grupo_dioptria_id])
+        setValue('permiso_editar_receta', data[EnumGrid.permiso_editar_receta_id])
+        setValue('permiso_editar_validar_cristales', data[EnumGrid.permiso_editar_validar_cristales_id])
+        setValue('permiso_editar_validar_armazones', data[EnumGrid.permiso_editar_validar_armazones_id])
+      }
+    },[data])
+    console.log(errors)
+
+    console.log( data && data[EnumGrid.permiso_editar_grupo_dioptria])
+    console.log( data && data[EnumGrid.permiso_editar_grupo_dioptria_id])
+    console.log( data && data)
     
     return (
       <div className="useFormContainer centered-div  !w-[70rem] !h-[45rem]">
@@ -414,8 +436,8 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                 </div>
               </div>
 
-              <div className="input-container items-center rowForm w-[40%]">
-                <div className="w-full">
+              <div className="input-container flex justify-around items-center rowForm w-[40%]">
+                <div className="w-[40%]">
                   <RadioButtonComponent
                     control={control}
                     label="Estado"
@@ -423,7 +445,18 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                     data={data && data[EnumGrid.estado]}
                     options={["Activo", "Suspendido"]}
                     error={errors.estado}
-                    horizontal={true}
+                    horizontal={false}
+                  />
+                </div>
+                <div className="w-[40%]">
+                  <RadioButtonComponent
+                    control={control}
+                    label="Facturacion"
+                    name="permiso_facturacion"
+                    data={formValues && formValues["Facturacion"] || data && data[EnumGrid.permiso_proyecto]}
+                    options={["Lectura", "Escritura"]}
+                    error={errors.permiso_facturacion}
+                    horizontal={false}
                   />
                 </div>
               </div>
@@ -446,7 +479,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                         <div className="w-full">
                           <RadioButtonComponent
                             control={control}
-                            label="Venta"
+                            label="Venta/Post Venta"
                             name="permiso_venta"
                             data={formValues && formValues["Venta"] || data && data[EnumGrid.permiso_venta]}
                             options={["Lectura", "Escritura"]}
@@ -563,11 +596,11 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                         <div className="w-full">
                           <RadioButtonComponent
                             control={control}
-                            label="Control"
-                            name="permiso_control"
-                            data={formValues && formValues["Control"] || data && data[EnumGrid.permiso_control]}
+                            label="Laboratorio"
+                            name="permiso_laboratorio"
+                            data={formValues && formValues["Laboratorio"] || data && data[EnumGrid.permiso_control]}
                             options={["Lectura", "Escritura"]}
-                            error={errors.permiso_control}
+                            error={errors.permiso_laboratorio}
                             horizontal={false}
                             onChange={(e:any)=>handleChange(e)}
                           />
@@ -577,11 +610,11 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                         <div className="w-full">
                           <RadioButtonComponent
                             control={control}
-                            label="Proyectos"
-                            name="permiso_proyecto"
-                            data={formValues && formValues["Proyectos"] || data && data[EnumGrid.permiso_proyecto]}
+                            label="Control"
+                            name="permiso_control"
+                            data={formValues && formValues["Control"] || data && data[EnumGrid.permiso_proyecto]}
                             options={["Lectura", "Escritura"]}
-                            error={errors.permiso_proyecto}
+                            error={errors.permiso_control}
                             horizontal={false}
                             onChange={(e:any)=>handleChange(e)}
                           />
@@ -604,7 +637,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                               control={control}
                               label="Editar Armazón"
                               name="permiso_editar_armazon"
-                              data={formValues && formValues["Editar Armazón"] || data && data[EnumGrid.permiso_editar_armazon_id]}
+                              data={formValues && formValues["Editar Armazón"] || data && data[EnumGrid.permiso_editar_armazon]}
                               options={["Lectura", "Escritura"]}
                               error={errors.permiso_editar_armazon}
                               horizontal={false}
@@ -618,7 +651,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                               control={control}
                               label="Estado Impresion"
                               name="permiso_editar_estado_impresion"
-                              data={formValues && formValues["Estado Impresion"] || data && data[EnumGrid.permiso_editar_estado_impresion_id]}
+                              data={formValues && formValues["Estado Impresion"] || data && data[EnumGrid.permiso_editar_estado_impresion]}
                               options={["Lectura", "Escritura"]}
                               error={errors.permiso_editar_estado_impresion}
                               horizontal={false}
@@ -632,7 +665,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                               control={control}
                               label="Validar Parametri"
                               name="permiso_editar_validar_parametrizacion"
-                              data={formValues && formValues["Validar Parametri"] || data && data[EnumGrid.permiso_editar_validar_parametrizacion_id]}
+                              data={formValues && formValues["Validar Parametri"] || data && data[EnumGrid.permiso_editar_validar_parametrizacion]}
                               options={["Lectura", "Escritura"]}
                               error={errors.permiso_editar_validar_parametrizacion}
                               horizontal={false}
@@ -646,7 +679,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                               control={control}
                               label="Resolución Garantía"
                               name="permiso_editar_resolucion_garantia"
-                              data={formValues && formValues["Resolución Garantía"] || data && data[EnumGrid.permiso_editar_resolucion_garantia_id]}
+                              data={formValues && formValues["Resolución Garantía"] || data && data[EnumGrid.permiso_editar_resolucion_garantia]}
                               options={["Lectura", "Escritura"]}
                               error={errors.permiso_editar_resolucion_garantia}
                               horizontal={false}
@@ -665,7 +698,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                           control={control}
                           label="Grupo Dioptria"
                           name="permiso_editar_grupo_dioptria"
-                          data={formValues && formValues["Grupo Dioptria"] || data && data[EnumGrid.permiso_editar_grupo_dioptria_id]}
+                          data={formValues && formValues["Grupo Dioptria"] || data && data[EnumGrid.permiso_editar_grupo_dioptria]}
                           options={["Lectura", "Escritura"]}
                           error={errors.permiso_editar_grupo_dioptria}
                           horizontal={false}
@@ -679,7 +712,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                           control={control}
                           label="Editar Receta"
                           name="permiso_editar_receta"
-                          data={formValues && formValues["Editar Reeta"] || data && data[EnumGrid.permiso_editar_receta_id]}
+                          data={formValues && formValues["Editar Reeta"] || data && data[EnumGrid.permiso_editar_receta]}
                           options={["Lectura", "Escritura"]}
                           error={errors.permiso_editar_receta}
                           horizontal={false}
@@ -693,7 +726,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                           control={control}
                           label="Validar Cristales"
                           name="permiso_editar_validar_cristales"
-                          data={formValues && formValues["Validar Cristales"] || data && data[EnumGrid.permiso_editar_validar_cristales_id]}
+                          data={formValues && formValues["Validar Cristales"] || data && data[EnumGrid.permiso_editar_validar_cristales]}
                           options={["Lectura", "Escritura"]}
                           error={errors.permiso_editar_validar_cristales}
                           horizontal={false}
@@ -707,7 +740,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                           control={control}
                           label="Validar Armazones"
                           name="permiso_editar_validar_armazones"
-                          data={formValues && formValues["Validar Armazones"] || data && data[EnumGrid.permiso_editar_validar_armazones_id]}
+                          data={formValues && formValues["Validar Armazones"] || data && data[EnumGrid.permiso_editar_validar_armazones]}
                           options={["Lectura", "Escritura"]}
                           error={errors.permiso_editar_validar_armazones}
                           horizontal={false}
