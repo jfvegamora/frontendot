@@ -538,6 +538,7 @@ const MOTHistorica: React.FC = () => {
           params={params}
           isEditting={false}
           isMOT={false}
+          permisos_mantenedor={escritura_lectura}
         />
       )}
 
@@ -551,6 +552,7 @@ const MOTHistorica: React.FC = () => {
           closeModal={closeModal}
           isEditting={true}
           isMOT={true}
+          permisos_mantenedor={escritura_lectura}
         />
       )}
 

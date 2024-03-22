@@ -43,6 +43,9 @@ export interface InputData {
   permiso_control: string | undefined;
   permiso_laboratorio: string | undefined;
 
+  permiso_facturacion: string | undefined;
+  permiso_post_venta:  string | undefined;
+
 
   permiso_editar_armazon: string | undefined;
   permiso_editar_estado_impresion: string | undefined;
@@ -88,11 +91,17 @@ const permiso_campo = [
   "permiso_editar_validar_armazones",
 ]
 
+const permiso_archivoOT = [
+  "permiso_facturacion",
+  "permiso_post_venta"
+]
+
 export function transformInsertQuery(jsonData: any): any | null {
 
 
-  const permisos_areas  = permiso_area.map((permiso:any)=>jsonData[permiso] === 'Lectura' ? "0" : "1").join('');
-  const permisos_campos = permiso_campo.map((permiso:any) => jsonData[permiso] === 'Lectura' ? "0" : "1").join('');
+  const permisos_areas      = permiso_area.map((permiso:any)=>jsonData[permiso] === 'Lectura' ? "0" : "1").join('');
+  const permisos_campos     = permiso_campo.map((permiso:any) => jsonData[permiso] === 'Lectura' ? "0" : "1").join('');
+  const permisos_archivoOT  = permiso_archivoOT.map((permiso:any)=>jsonData[permiso] === 'Lectura' ? "0" : "1").join('');
 
   console.log(permisos_areas)
 
@@ -102,8 +111,9 @@ export function transformInsertQuery(jsonData: any): any | null {
               "${jsonData.telefono}", 
               "${jsonData.correo}", 
               ${jsonData.estado === "Activo" ? 1 : 2},
-              "${permisos_areas}",
-              "${permisos_campos}"
+              "${permisos_archivoOT}",
+              "${permisos_campos}",
+              "${permisos_areas}"
 `
   _p1 = _p1.replace(/'/g, '!');  
   const query: OutputData = {
@@ -122,13 +132,14 @@ export function transformUpdateQuery(
 ): OutputData | null {
 
   const fields = [
-    `nombre            ="${jsonData.nombre}"`,
-    `telefono          ="${jsonData.telefono}"`,
-    `correo            ="${jsonData.correo}"`,
-    `estado            = ${jsonData.estado === "Activo" ? 1 : 2}`,
-    `cargo             = ${jsonData.cargo}`,
-    `permisos_campos   = "${insertarElementoEnPosicion(permiso_campo.map((permiso) => jsonData[permiso] === 'Lectura' ? "0" : "1").join(''),'0', 1)}"`,
-    `permisos_areas    = "${permiso_area.map((permiso)=>jsonData[permiso] === 'Lectura' ? "0" : "1").join('')}"`,
+    `nombre               ="${jsonData.nombre}"`,
+    `telefono             ="${jsonData.telefono}"`,
+    `correo               ="${jsonData.correo}"`,
+    `estado               = ${jsonData.estado === "Activo" ? 1 : 2}`,
+    `cargo                = ${jsonData.cargo}`,
+    `permisos_archivo_ot  = "${permiso_archivoOT.map((permiso)=>jsonData[permiso] === 'Lectura' ? "0" : "1").join('')}"`,
+    `permisos_campos      = "${insertarElementoEnPosicion(permiso_campo.map((permiso) => jsonData[permiso] === 'Lectura' ? "0" : "1").join(''),'0', 1)}"`,
+    `permisos_areas       = "${permiso_area.map((permiso)=>jsonData[permiso] === 'Lectura' ? "0" : "1").join('')}"`,
   ];
 
 
@@ -408,9 +419,11 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
             </div>
 
 
-            <div className="w-full items-center flex !mb-4 ">
-              <div className="input-container items-center rowForm w-[30%]">
-                <div className="w-full">
+            <div className=" items-center flex !mb-4 ">
+
+
+              <div className="input-container flex items-center rowForm w-[50%]">
+                <div className="w-[60%]">
                   <TextInputComponent
                     type="text"
                     label="Teléfono"
@@ -420,9 +433,8 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                     isOptional={true}
                     />
                 </div>
-              </div>
-              <div className="input-container items-center rowForm w-[35%]">
-                <div className="w-full">
+
+                <div className="w-[40rem] ">
                   <TextInputComponent
                     type="email"
                     label="Correo"
@@ -434,9 +446,14 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                   />
                 </div>
               </div>
+              {/* <div className="input-containe items-center rowForm w-[30%]">
+                
+              </div>
+ */}
 
-              <div className="input-container flex justify-around items-center rowForm w-[40%]">
-                <div className="w-[40%]">
+
+              <div className="input-container flex justify-between !ml-10 items-center rowForm w-[70%]">
+                <div className="w-[30%]">
                   <RadioButtonComponent
                     control={control}
                     label="Estado"
@@ -447,307 +464,324 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                     horizontal={false}
                   />
                 </div>
-                <div className="w-[40%]">
+                <div className="w-[30%]">
                   <RadioButtonComponent
                     control={control}
                     label="Facturacion"
                     name="permiso_facturacion"
-                    data={formValues && formValues["Facturacion"] || data && data[EnumGrid.permiso_proyecto]}
+                    data={formValues && formValues["Facturacion"] || data && data[EnumGrid.permiso_factura]}
                     options={["Lectura", "Escritura"]}
                     error={errors.permiso_facturacion}
                     horizontal={false}
                   />
                 </div>
+                <div className="w-[30%]">
+                  <RadioButtonComponent
+                    control={control}
+                    label="Post Venta"
+                    name="permiso_post_venta"
+                    data={formValues && formValues["Post Venta"] || data && data[EnumGrid.permiso_post_venta]}
+                    options={["Lectura", "Escritura"]}
+                    error={errors.permiso_post_venta}
+                    horizontal={false}
+                  />
+                </div>
               </div>
-
-
             </div>
 
 
 
-            <Tabs>
+            <Tabs >
               <TabList className="flex ml-4">
                 <Tab className="custom-tab !h-14 !w-[13rem]">Permisos Áreas</Tab>
                 <Tab className="custom-tab !h-14 !w-[13rem]">Permisos Campos</Tab>
               </TabList>
 
               <TabPanel>
-                <div className="w-full items-center !mt-7 !mb-4  !h-[10rem]">
-                  <div className="w-full items-center flex justify-evenly  input-container">
-                      <div className="input-container items-center rowForm  w-[14%]">
-                        <div className="w-full">
-                          <RadioButtonComponent
-                            control={control}
-                            label="Venta/Post Venta"
-                            name="permiso_venta"
-                            data={formValues && formValues["Venta"] || data && data[EnumGrid.permiso_venta]}
-                            options={["Lectura", "Escritura"]}
-                            error={errors.permiso_venta}
-                            horizontal={false}
-                            onChange={(e:any)=>handleChange(e)}
-                          />
+
+              <div className="frameOTForm">
+                  <div className="w-full items-center !mt-7 !mb-4  !h-[10rem] ">
+                    <div className="w-full items-center flex justify-evenly  input-container">
+                        <div className="input-container items-center rowForm  w-[14%]">
+                          <div className="w-full">
+                            <RadioButtonComponent
+                              control={control}
+                              label="Venta/Post Venta"
+                              name="permiso_venta"
+                              data={formValues && formValues["Venta"] || data && data[EnumGrid.permiso_venta]}
+                              options={["Lectura", "Escritura"]}
+                              error={errors.permiso_venta}
+                              horizontal={false}
+                              onChange={(e:any)=>handleChange(e)}
+                            />
+                          </div>
                         </div>
-                      </div>
-                      <div className="input-container items-center rowForm w-[14%]">
-                        <div className="w-full">
-                          <RadioButtonComponent
-                            control={control}
-                            label="Bodega Insumos"
-                            name="permiso_bodega"
-                            data={formValues && formValues["Bodega Insumos"] || data && data[EnumGrid.permiso_bodega_insumo]}
-                            options={["Lectura", "Escritura"]}
-                            error={errors.permiso_bodega}
-                            horizontal={false}
-                            onChange={(e:any)=>handleChange(e)}
-                          />
+                        <div className="input-container items-center rowForm w-[14%]">
+                          <div className="w-full">
+                            <RadioButtonComponent
+                              control={control}
+                              label="Bodega Insumos"
+                              name="permiso_bodega"
+                              data={formValues && formValues["Bodega Insumos"] || data && data[EnumGrid.permiso_bodega_insumo]}
+                              options={["Lectura", "Escritura"]}
+                              error={errors.permiso_bodega}
+                              horizontal={false}
+                              onChange={(e:any)=>handleChange(e)}
+                            />
+                          </div>
                         </div>
-                      </div>
-                      <div className="input-container items-center rowForm w-[14%]">
-                        <div className="w-full">
-                          <RadioButtonComponent
-                            control={control}
-                            label="Taller Biselado"
-                            name="permiso_biselado"
-                            data={formValues && formValues["Taller Biselado"] || data && data[EnumGrid.permiso_Taller_biselado]}
-                            options={["Lectura", "Escritura"]}
-                            error={errors.permiso_biselado}
-                            horizontal={false}
-                            onChange={(e:any)=>handleChange(e)}
-                          />
+                        <div className="input-container items-center rowForm w-[14%]">
+                          <div className="w-full">
+                            <RadioButtonComponent
+                              control={control}
+                              label="Taller Biselado"
+                              name="permiso_biselado"
+                              data={formValues && formValues["Taller Biselado"] || data && data[EnumGrid.permiso_Taller_biselado]}
+                              options={["Lectura", "Escritura"]}
+                              error={errors.permiso_biselado}
+                              horizontal={false}
+                              onChange={(e:any)=>handleChange(e)}
+                            />
+                          </div>
                         </div>
-                      </div>
-                      <div className="input-container items-center rowForm w-[14]">
-                        <div className="w-full">
-                          <RadioButtonComponent
-                            control={control}
-                            label="Taller Montaje"
-                            name="permiso_montaje"
-                            data={formValues && formValues["Taller Montaje"] || data && data[EnumGrid.permiso_taller_montaje]}
-                            options={["Lectura", "Escritura"]}
-                            error={errors.permiso_montaje}
-                            horizontal={false}
-                            onChange={(e:any)=>handleChange(e)}
-                          />
+                        <div className="input-container items-center rowForm w-[14]">
+                          <div className="w-full">
+                            <RadioButtonComponent
+                              control={control}
+                              label="Taller Montaje"
+                              name="permiso_montaje"
+                              data={formValues && formValues["Taller Montaje"] || data && data[EnumGrid.permiso_taller_montaje]}
+                              options={["Lectura", "Escritura"]}
+                              error={errors.permiso_montaje}
+                              horizontal={false}
+                              onChange={(e:any)=>handleChange(e)}
+                            />
+                          </div>
                         </div>
-                      </div>
-                      <div className="input-container items-center rowForm w-[14%]">
-                        <div className="w-full">
-                          <RadioButtonComponent
-                            control={control}
-                            label="Bod Prod Terminados"
-                            name="permiso_bodega_prod_term"
-                            data={formValues && formValues["Bod Prod Terminados"] || data && data[EnumGrid.permiso_bodega_p_terminados]}
-                            options={["Lectura", "Escritura"]}
-                            error={errors.permiso_bodega_prod_term}
-                            horizontal={false}
-                            onChange={(e:any)=>handleChange(e)}
-                          />
+                        <div className="input-container items-center rowForm w-[14%]">
+                          <div className="w-full">
+                            <RadioButtonComponent
+                              control={control}
+                              label="Bod Prod Terminados"
+                              name="permiso_bodega_prod_term"
+                              data={formValues && formValues["Bod Prod Terminados"] || data && data[EnumGrid.permiso_bodega_p_terminados]}
+                              options={["Lectura", "Escritura"]}
+                              error={errors.permiso_bodega_prod_term}
+                              horizontal={false}
+                              onChange={(e:any)=>handleChange(e)}
+                            />
+                          </div>
                         </div>
-                      </div>
+                    </div>
+                    
                   </div>
-                  
-                </div>
-                <div className="w-full items-center  !mb-4  !h-[8rem]">
-                  <div className="w-full items-center flex justify-evenly  input-container">
-                      <div className="input-container items-center rowForm  w-[14%]">
-                        <div className="w-full">
-                          <RadioButtonComponent
-                            control={control}
-                            label="Empaque"
-                            name="permiso_empaque"
-                            data={formValues && formValues["Empaque"] || data && data[EnumGrid.permiso_empaque]}
-                            options={["Lectura", "Escritura"]}
-                            error={errors.permiso_empaque}
-                            horizontal={false}
-                            onChange={(e:any)=>handleChange(e)}
-                          />
+                  <div className="w-full items-center  !mb-4  !h-[8rem]">
+                    <div className="w-full items-center flex justify-evenly  input-container">
+                        <div className="input-container items-center rowForm  w-[14%]">
+                          <div className="w-full">
+                            <RadioButtonComponent
+                              control={control}
+                              label="Empaque"
+                              name="permiso_empaque"
+                              data={formValues && formValues["Empaque"] || data && data[EnumGrid.permiso_empaque]}
+                              options={["Lectura", "Escritura"]}
+                              error={errors.permiso_empaque}
+                              horizontal={false}
+                              onChange={(e:any)=>handleChange(e)}
+                            />
+                          </div>
                         </div>
-                      </div>
-                      <div className="input-container items-center rowForm w-[14%]">
-                        <div className="w-full">
-                          <RadioButtonComponent
-                            control={control}
-                            label="Adquisiciones"
-                            name="permiso_adquisiciones"
-                            data={formValues && formValues["Adquisiciones"] || data && data[EnumGrid.permiso_adquisiciones]}
-                            options={["Lectura", "Escritura"]}
-                            error={errors.permiso_adquisiciones}
-                            horizontal={false}
-                            onChange={(e:any)=>handleChange(e)}
-                          />
+                        <div className="input-container items-center rowForm w-[14%]">
+                          <div className="w-full">
+                            <RadioButtonComponent
+                              control={control}
+                              label="Adquisiciones"
+                              name="permiso_adquisiciones"
+                              data={formValues && formValues["Adquisiciones"] || data && data[EnumGrid.permiso_adquisiciones]}
+                              options={["Lectura", "Escritura"]}
+                              error={errors.permiso_adquisiciones}
+                              horizontal={false}
+                              onChange={(e:any)=>handleChange(e)}
+                            />
+                          </div>
                         </div>
-                      </div>
-                      <div className="input-container items-center rowForm w-[14%]">
-                        <div className="w-full">
-                          <RadioButtonComponent
-                            control={control}
-                            label="Calculo"
-                            name="permiso_calculo"
-                            data={formValues && formValues["Calculo"] || data && data[EnumGrid.permiso_calculo]}
-                            options={["Lectura", "Escritura"]}
-                            error={errors.permiso_calculo}
-                            horizontal={false}
-                            onChange={(e:any)=>handleChange(e)}
-                          />
+                        <div className="input-container items-center rowForm w-[14%]">
+                          <div className="w-full">
+                            <RadioButtonComponent
+                              control={control}
+                              label="Calculo"
+                              name="permiso_calculo"
+                              data={formValues && formValues["Calculo"] || data && data[EnumGrid.permiso_calculo]}
+                              options={["Lectura", "Escritura"]}
+                              error={errors.permiso_calculo}
+                              horizontal={false}
+                              onChange={(e:any)=>handleChange(e)}
+                            />
+                          </div>
                         </div>
-                      </div>
-                      <div className="input-container items-center rowForm w-[14%]">
-                        <div className="w-full">
-                          <RadioButtonComponent
-                            control={control}
-                            label="Laboratorio"
-                            name="permiso_laboratorio"
-                            data={formValues && formValues["Laboratorio"] || data && data[EnumGrid.permiso_control]}
-                            options={["Lectura", "Escritura"]}
-                            error={errors.permiso_laboratorio}
-                            horizontal={false}
-                            onChange={(e:any)=>handleChange(e)}
-                          />
+                        <div className="input-container items-center rowForm w-[14%]">
+                          <div className="w-full">
+                            <RadioButtonComponent
+                              control={control}
+                              label="Laboratorio"
+                              name="permiso_laboratorio"
+                              data={formValues && formValues["Laboratorio"] || data && data[EnumGrid.permiso_laboratorio]}
+                              options={["Lectura", "Escritura"]}
+                              error={errors.permiso_laboratorio}
+                              horizontal={false}
+                              onChange={(e:any)=>handleChange(e)}
+                            />
+                          </div>
                         </div>
-                      </div>
-                      <div className="input-container items-center rowForm w-[14%]">
-                        <div className="w-full">
-                          <RadioButtonComponent
-                            control={control}
-                            label="Control"
-                            name="permiso_control"
-                            data={formValues && formValues["Control"] || data && data[EnumGrid.permiso_proyecto]}
-                            options={["Lectura", "Escritura"]}
-                            error={errors.permiso_control}
-                            horizontal={false}
-                            onChange={(e:any)=>handleChange(e)}
-                          />
+                        <div className="input-container items-center rowForm w-[14%]">
+                          <div className="w-full">
+                            <RadioButtonComponent
+                              control={control}
+                              label="Control"
+                              name="permiso_control"
+                              data={formValues && formValues["Control"] || data && data[EnumGrid.permiso_control]}
+                              options={["Lectura", "Escritura"]}
+                              error={errors.permiso_control}
+                              horizontal={false}
+                              onChange={(e:any)=>handleChange(e)}
+                            />
+                          </div>
                         </div>
-                      </div>
+                    </div>
+                    
                   </div>
-                  
-                </div>
+              </div>
               </TabPanel>
 
               <TabPanel>
-                <div className="w-full items-center !mt-7  !mb-4  !h-[10rem]">
+                <div className="frameOTForm">
+
+                  <div className="w-full items-center !mt-7  !mb-4  !h-[10rem] ">
 
 
 
-                    <div className="w-full items-center flex justify-evenly  input-container">
-                        <div className="input-container items-center rowForm  w-[15%]">
-                          <div className="w-full">
-                            <RadioButtonComponent
-                              control={control}
-                              label="Editar Armazón"
-                              name="permiso_editar_armazon"
-                              data={formValues && formValues["Editar Armazón"] || data && data[EnumGrid.permiso_editar_armazon]}
-                              options={["Lectura", "Escritura"]}
-                              error={errors.permiso_editar_armazon}
-                              horizontal={false}
-                              onChange={(e:any)=>handleChange(e)}
-                            />
+                      <div className="w-full items-center flex justify-evenly  input-container">
+                          <div className="input-container items-center rowForm  w-[15%]">
+                            <div className="w-full">
+                              <RadioButtonComponent
+                                control={control}
+                                label="Editar Armazón"
+                                name="permiso_editar_armazon"
+                                data={formValues && formValues["Editar Armazón"] || data && data[EnumGrid.permiso_editar_armazon]}
+                                options={["Lectura", "Escritura"]}
+                                error={errors.permiso_editar_armazon}
+                                horizontal={false}
+                                onChange={(e:any)=>handleChange(e)}
+                              />
+                            </div>
                           </div>
-                        </div>
-                        <div className="input-container items-center rowForm w-[15%]">
-                          <div className="w-full">
-                            <RadioButtonComponent
-                              control={control}
-                              label="Estado Impresion"
-                              name="permiso_editar_estado_impresion"
-                              data={formValues && formValues["Estado Impresion"] || data && data[EnumGrid.permiso_editar_estado_impresion]}
-                              options={["Lectura", "Escritura"]}
-                              error={errors.permiso_editar_estado_impresion}
-                              horizontal={false}
-                              onChange={(e:any)=>handleChange(e)}
-                            />
+                          <div className="input-container items-center rowForm w-[15%]">
+                            <div className="w-full">
+                              <RadioButtonComponent
+                                control={control}
+                                label="Estado Impresion"
+                                name="permiso_editar_estado_impresion"
+                                data={formValues && formValues["Estado Impresion"] || data && data[EnumGrid.permiso_editar_estado_impresion]}
+                                options={["Lectura", "Escritura"]}
+                                error={errors.permiso_editar_estado_impresion}
+                                horizontal={false}
+                                onChange={(e:any)=>handleChange(e)}
+                              />
+                            </div>
                           </div>
-                        </div>
-                        <div className="input-container items-center rowForm w-[15%]">
-                          <div className="w-full">
-                            <RadioButtonComponent
-                              control={control}
-                              label="Validar Parametri"
-                              name="permiso_editar_validar_parametrizacion"
-                              data={formValues && formValues["Validar Parametri"] || data && data[EnumGrid.permiso_editar_validar_parametrizacion]}
-                              options={["Lectura", "Escritura"]}
-                              error={errors.permiso_editar_validar_parametrizacion}
-                              horizontal={false}
-                              onChange={(e:any)=>handleChange(e)}
-                            />
+                          <div className="input-container items-center rowForm w-[15%]">
+                            <div className="w-full">
+                              <RadioButtonComponent
+                                control={control}
+                                label="Validar Parametri"
+                                name="permiso_editar_validar_parametrizacion"
+                                data={formValues && formValues["Validar Parametri"] || data && data[EnumGrid.permiso_editar_validar_parametrizacion]}
+                                options={["Lectura", "Escritura"]}
+                                error={errors.permiso_editar_validar_parametrizacion}
+                                horizontal={false}
+                                onChange={(e:any)=>handleChange(e)}
+                              />
+                            </div>
                           </div>
-                        </div>
-                        <div className="input-container items-center rowForm w-[15%]">
-                          <div className="w-full">
-                            <RadioButtonComponent
-                              control={control}
-                              label="Resolución Garantía"
-                              name="permiso_editar_resolucion_garantia"
-                              data={formValues && formValues["Resolución Garantía"] || data && data[EnumGrid.permiso_editar_resolucion_garantia]}
-                              options={["Lectura", "Escritura"]}
-                              error={errors.permiso_editar_resolucion_garantia}
-                              horizontal={false}
-                              onChange={(e:any)=>handleChange(e)}
-                            />
+                          <div className="input-container items-center rowForm w-[15%]">
+                            <div className="w-full">
+                              <RadioButtonComponent
+                                control={control}
+                                label="Resolución Garantía"
+                                name="permiso_editar_resolucion_garantia"
+                                data={formValues && formValues["Resolución Garantía"] || data && data[EnumGrid.permiso_editar_resolucion_garantia]}
+                                options={["Lectura", "Escritura"]}
+                                error={errors.permiso_editar_resolucion_garantia}
+                                horizontal={false}
+                                onChange={(e:any)=>handleChange(e)}
+                              />
+                            </div>
                           </div>
-                        </div>
-                    </div>
+                      </div>
 
-                </div>
-                <div className="w-full items-center  !mb-4  !h-[8rem]">
-                <div className="w-full items-center flex justify-evenly  input-container">
-                    <div className="input-container items-center rowForm  w-[15%]">
-                      <div className="w-full">
-                        <RadioButtonComponent
-                          control={control}
-                          label="Grupo Dioptria"
-                          name="permiso_editar_grupo_dioptria"
-                          data={formValues && formValues["Grupo Dioptria"] || data && data[EnumGrid.permiso_editar_grupo_dioptria]}
-                          options={["Lectura", "Escritura"]}
-                          error={errors.permiso_editar_grupo_dioptria}
-                          horizontal={false}
-                          onChange={(e:any)=>handleChange(e)}
-                        />
+                  </div>
+                  <div className="w-full items-center  !mb-4  !h-[8rem]">
+                  <div className="w-full items-center flex justify-evenly  input-container">
+                      <div className="input-container items-center rowForm  w-[15%]">
+                        <div className="w-full">
+                          <RadioButtonComponent
+                            control={control}
+                            label="Grupo Dioptria"
+                            name="permiso_editar_grupo_dioptria"
+                            data={formValues && formValues["Grupo Dioptria"] || data && data[EnumGrid.permiso_editar_grupo_dioptria]}
+                            options={["Lectura", "Escritura"]}
+                            error={errors.permiso_editar_grupo_dioptria}
+                            horizontal={false}
+                            onChange={(e:any)=>handleChange(e)}
+                          />
+                        </div>
                       </div>
-                    </div>
-                    <div className="input-container items-center rowForm w-[15%]">
-                      <div className="w-full">
-                        <RadioButtonComponent
-                          control={control}
-                          label="Editar Receta"
-                          name="permiso_editar_receta"
-                          data={formValues && formValues["Editar Reeta"] || data && data[EnumGrid.permiso_editar_receta]}
-                          options={["Lectura", "Escritura"]}
-                          error={errors.permiso_editar_receta}
-                          horizontal={false}
-                          onChange={(e:any)=>handleChange(e)}
-                        />
+                      <div className="input-container items-center rowForm w-[15%]">
+                        <div className="w-full">
+                          <RadioButtonComponent
+                            control={control}
+                            label="Editar Receta"
+                            name="permiso_editar_receta"
+                            data={formValues && formValues["Editar Reeta"] || data && data[EnumGrid.permiso_editar_receta]}
+                            options={["Lectura", "Escritura"]}
+                            error={errors.permiso_editar_receta}
+                            horizontal={false}
+                            onChange={(e:any)=>handleChange(e)}
+                          />
+                        </div>
                       </div>
-                    </div>
-                    <div className="input-container items-center rowForm w-[15%]">
-                      <div className="w-full">
-                        <RadioButtonComponent
-                          control={control}
-                          label="Validar Cristales"
-                          name="permiso_editar_validar_cristales"
-                          data={formValues && formValues["Validar Cristales"] || data && data[EnumGrid.permiso_editar_validar_cristales]}
-                          options={["Lectura", "Escritura"]}
-                          error={errors.permiso_editar_validar_cristales}
-                          horizontal={false}
-                          onChange={(e:any)=>handleChange(e)}
-                        />
+                      <div className="input-container items-center rowForm w-[15%]">
+                        <div className="w-full">
+                          <RadioButtonComponent
+                            control={control}
+                            label="Validar Cristales"
+                            name="permiso_editar_validar_cristales"
+                            data={formValues && formValues["Validar Cristales"] || data && data[EnumGrid.permiso_editar_validar_cristales]}
+                            options={["Lectura", "Escritura"]}
+                            error={errors.permiso_editar_validar_cristales}
+                            horizontal={false}
+                            onChange={(e:any)=>handleChange(e)}
+                          />
+                        </div>
                       </div>
-                    </div>
-                    <div className="input-container items-center rowForm w-[15%]">
-                      <div className="w-full">
-                        <RadioButtonComponent
-                          control={control}
-                          label="Validar Armazones"
-                          name="permiso_editar_validar_armazones"
-                          data={formValues && formValues["Validar Armazones"] || data && data[EnumGrid.permiso_editar_validar_armazones]}
-                          options={["Lectura", "Escritura"]}
-                          error={errors.permiso_editar_validar_armazones}
-                          horizontal={false}
-                          onChange={(e:any)=>handleChange(e)}
-                        />
+                      <div className="input-container items-center rowForm w-[15%]">
+                        <div className="w-full">
+                          <RadioButtonComponent
+                            control={control}
+                            label="Validar Armazones"
+                            name="permiso_editar_validar_armazones"
+                            data={formValues && formValues["Validar Armazones"] || data && data[EnumGrid.permiso_editar_validar_armazones]}
+                            options={["Lectura", "Escritura"]}
+                            error={errors.permiso_editar_validar_armazones}
+                            horizontal={false}
+                            onChange={(e:any)=>handleChange(e)}
+                          />
+                        </div>
                       </div>
-                    </div>
-                </div>
+                  </div>
+
+                  </div>
+
 
                 </div>
               </TabPanel>
@@ -757,7 +791,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
 
           </div>
 
-
+          <div className="flex items-center">
           {isEditting && (
             <div className="!w-[8rem] !flex mx-auto bg-red-400">
               <button
@@ -780,6 +814,10 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                 )}
             </div>
           </div>
+
+
+          </div>
+
 
 
         </form>

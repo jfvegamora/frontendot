@@ -67,6 +67,7 @@ interface IFOTProps {
   params?: any;
   isMOT?:boolean
   onlyRead?: boolean;
+  permisos_mantenedor?:boolean;
 }
 
 
@@ -84,7 +85,8 @@ const FOT:React.FC<IFOTProps> = ({
   data,
   isEditting,
   isMOT,
-  onlyRead
+  onlyRead,
+  permisos_mantenedor
 }) => {
     //Estados locales
     const { control, handleSubmit, setValue, register, getValues } = useForm<any>();
@@ -129,6 +131,10 @@ const FOT:React.FC<IFOTProps> = ({
 
 
   console.log(permiso_usuario_armazones)
+
+
+  console.log(permisos_mantenedor)
+
 
 
   //? VARIABLE QUE DETECTA SI LA OT YA SE HA PROCESADO 1 VEC DESDE BODEGAINSUMO
@@ -927,7 +933,7 @@ useEffect(()=>{
         
                 {isEditting            && 
                 isMOT                  && 
-                escritura_lectura      &&
+                permisos_mantenedor    &&
                 // isMotivo    &&  (
                   (
                     <Button className='otActionButton bg-green-400' onClick={() => setShowGarantia(prev => !prev)}>
