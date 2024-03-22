@@ -69,7 +69,6 @@ const permiso_area= [
   "permiso_calculo",
   'permiso_laboratorio',
   "permiso_control",
-  'permiso_facturacion',
   "permiso_venta",
   "permiso_bodega",
   "permiso_biselado",
