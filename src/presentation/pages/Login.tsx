@@ -66,14 +66,14 @@ const Login: React.FC = React.memo(() => {
       
           // toast.success("Sesion Iniciada");
           // show({ message: LOGIN.loginSuccess, type: "success" });
-          navigate("/landing");
           toast.dismiss(toastLoading)
+          navigate("/landing");
         })
         .catch((_e) => {
           toast.dismiss(toastLoading)
           show({ message: LOGIN.loginError, type: "error" })
         });
-        toast.dismiss(toastLoading)
+        // toast.dismiss(toastLoading)
     } catch (error: any) {
       toast.dismiss(toastLoading)
       show({ message: LOGIN.loginError, type: "error" });

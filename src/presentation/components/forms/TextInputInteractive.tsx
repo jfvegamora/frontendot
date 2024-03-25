@@ -26,6 +26,7 @@ interface ITextInputProps {
   isOptional?:boolean;
   textAlign?: string;
   validarBodega?:boolean
+  handleFocus?:any
 }
 
 const TextInputInteractive: React.FC<ITextInputProps> = ({
@@ -46,7 +47,8 @@ const TextInputInteractive: React.FC<ITextInputProps> = ({
   customWidth,
   isOptional,
   textAlign,
-  validarBodega
+  validarBodega,
+  handleFocus
 }) => {
   // const [_defaultValue, setDefaultValue] = useState<any>(data && data || "")
   const [_defaultValue, setDefaultValue] = useState<any>(data || " "); // Inicializar defaultValue con el valor inicial
@@ -56,8 +58,6 @@ const TextInputInteractive: React.FC<ITextInputProps> = ({
   const [value, setValue] = useState<any>(data || "");
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target)
-
     if (handleChange) {
       if(isOT){
         handleChange(e.target)
@@ -107,6 +107,7 @@ return (
             id={label}
             type={type}
             value={value}
+            onFocus={handleFocus && handleFocus}
             // color="red"
             // defaultValue={defaultValue}
             readOnly={onlyRead}

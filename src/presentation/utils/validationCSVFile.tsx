@@ -3,33 +3,26 @@ import moment from 'moment';
 
 export function validateExcelData(data:any, validationStructure:any) {
   const validationErrors = [];
-  console.log('DATA BEFORE: ', data);
-  console.log(data)
-  console.log(Object.keys(data).length)
+  // console.log('DATA BEFORE: ', data);
+  // console.log(data)
+  // console.log(Object.keys(data).length)
   // console.log(data[1][1])
-  console.log(validationStructure)
   const validationMap = validationStructure.map((validation:any)=>{
     validation[0] = validation[0].toUpperCase()
     return validation
   })
-  // console.log(validationStructure)
-  console.log(validationMap)
-
   for (let i = 0; i < Object.keys(data).length ; i++) {
     // const rowData = data?.[1][1] === 'FOLIO' ?   data[1][i] : data[i];
     const rowData = data[i]
-    console.log('ROWDATA:',rowData)
-
-
-
-
+    // console.log('ROWDATA:',rowData)
+    // console.log('POSITION')
     for (let j = 0; j < validationMap.length; j++) {
 
-      const [fieldName, fieldType, allowNull, maxLength, position] = validationMap[j];
-      let cellValue = rowData[position]; // Value from the Excel cell
-      console.log(position)
-      console.log(cellValue)
-      console.log(fieldName)
+      const [fieldName, fieldType, allowNull, maxLength] = validationMap[j];
+
+
+      // let cellValue = rowData[position]; // Value from the Excel cell
+      let cellValue = rowData[validationStructure[j][0]]; // Value from the Excel cell
        console.log('Fila:', i + 2, ' - Campo:',fieldName, ' - allowNULL:', allowNull, ' - Type:', fieldType, ' - Value:', cellValue)
       // console.log('allownull:', allowNull)      
       // console.log(cellValue.length)      
@@ -127,15 +120,6 @@ export const handleFileUpload = (file: File,columnsToDelete:string[]) => {
         const nameElement = Object.keys(firstElement)[0]
         const filteredRows = XLSX.utils.sheet_to_json(worksheet).filter((row: any) => row[nameElement])
 
-        // console.log(workbook)
-
-        // console.log(sheetName)
-        // console.log(worksheet)
-
-        // console.log(filteredRows)
-        // console.log(filteredRows[1])
-
-        // console.log(firstElement)
 
         const validationErrors = validateExcelData(filteredRows, columnsToDelete)
         console.log(validationErrors)

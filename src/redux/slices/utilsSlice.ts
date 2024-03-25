@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { URLBackend } from "../../presentation/hooks/useCrud";
 
 
 const fetchData = async (endpoint:string,token:string) => {
@@ -29,9 +30,9 @@ const initialState = {
 
 export const fetchRegProCom = createAsyncThunk('regiones/provincias/counas', async(token:any) => {
   try {
-    const endpoint1 = "https://gestiondev.mtoopticos.cl/api/tipos/listado/?query=02&_p1=Regiones";
-    const endpoint2 = "https://gestiondev.mtoopticos.cl/api/tipos/listado/?query=02&_p1=Provincias";
-    const endpoint3 = "https://gestiondev.mtoopticos.cl/api/tipos/listado/?query=02&_p1=Comunas";
+    const endpoint1 = `${URLBackend}/api/tipos/listado/?query=02&_p1=Regiones`;
+    const endpoint2 = `${URLBackend}/api/tipos/listado/?query=02&_p1=Provincias`;
+    const endpoint3 = `${URLBackend}/api/tipos/listado/?query=02&_p1=Comunas`;
 
     const [regiones, provincias, comunas] = await Promise.all([
       fetchData(endpoint1,token),

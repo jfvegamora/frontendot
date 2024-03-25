@@ -76,7 +76,7 @@ const ModalImpor:React.FC<ModalImportProps> = ({
                 </div>
 
                 {titleState === "Errores" && (
-            <div className=' mt-[7rem]  overflow-y-auto bg-white'>
+            <div className=' mt-[7rem] scroll-my-4  overflow-y-auto bg-white'>
                     <TableComponent
                         idMenu={26}
                         entidad='progres bar'

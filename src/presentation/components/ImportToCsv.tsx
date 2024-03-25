@@ -86,10 +86,13 @@ const ImportToCsv:React.FC<ImportProps> = ({
     
     
     const result = await excelTypes(strEntidad)
+    console.log(result)
     console.log('result tipos excel', JSON.parse(result["resul"]))
-    resultExcelTypes.value = result
-    
+    // resultExcelTypes.value = result
+    // 
     const validate = await  handleFileUpload(acceptedFiles[0], JSON.parse(result["resul"]))
+    // const validate = await  handleFileUpload(acceptedFiles[0], [] as any)
+    // const validate = await  handleFileUpload(acceptedFiles[0], [])
     
     await handleValidacion(validate["numberOfElements"] || 0)
 

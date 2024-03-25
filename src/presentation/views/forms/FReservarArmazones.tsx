@@ -13,9 +13,14 @@ import { Button } from '@material-tailwind/react';
 import { signal } from '@preact/signals-react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { validationReservaArmazonesSchema } from '../../utils';
+import { punto_venta, validateRut, validationReservaArmazonesSchema } from '../../utils';
 import { SelectInputComponent, TextInputComponent } from '../../components';
 import { AppStore, useAppSelector } from '../../../redux/store';
+import TextInputInteractive from '../../components/forms/TextInputInteractive';
+import { toast } from 'react-toastify';
+import { URLBackend } from '../../hooks/useCrud';
+import axios from 'axios';
+// import axios from 'axios';
 
 
 
@@ -27,9 +32,31 @@ export const Armazones:any = {
   Armazon3: signal('')
 }
 
+const codProyecto    = signal('');
+const codPuntoVenta  = signal('');
+const codDP          = signal('');
 
-const Scanner:React.FC<any> = ({setBarcode,focusInput,setIsScanning}) => {
-  
+
+const Scanner:React.FC<any> = ({setBarcode,focusInput,setIsScanning, setArmazon1, setArmazon3, setArmazon2}) => {
+  let setArmazon = (_e:any) => void
+
+  console.log(focusInput)
+
+    switch (focusInput) {
+      case 'Armazon1':
+        setArmazon = setArmazon1
+        break;
+      case 'Armazon2':
+        setArmazon = setArmazon2
+        break;
+      case 'Armazon3':
+        setArmazon = setArmazon3
+        break;
+      default:
+        break;
+    }
+
+
 
   useEffect(() => {
     Quagga.init({
@@ -38,21 +65,19 @@ const Scanner:React.FC<any> = ({setBarcode,focusInput,setIsScanning}) => {
         target: document.getElementById('scanner-container'),
       },
       decoder: {
-        // readers: ['ean_reader'],
-        minCodeLength: 11,
-        // multiple: false,
-        readers: {
-          ean_reader: {
-            aggressive: true, // Mayor precisión para EAN-11
-          },
-        },
+        readers: ['ean_reader'],
+        multiple: false,
+        numOfWorkers: 10,
+
       }
     }, (err:any) => {
       if (err) {
         console.error(err);
       } else {
+        console.log('render')
         Quagga.onDetected(onDetected);
         Quagga.start();
+        
       }
     });
 
@@ -60,22 +85,26 @@ const Scanner:React.FC<any> = ({setBarcode,focusInput,setIsScanning}) => {
   }, []);
 
   const onDetected = (result:any) => {
+    console.log(result)
     if (result.codeResult) {
       setBarcode(result.codeResult.code);
       console.log(result.codeResult.code)
-      focusInput.current = result.codeResult.code
-      // Armazones[focusInput].value = result.codeResult.code
+      // focusInput.current = result.codeResult.code
+      setArmazon(result.codeResult.code)
+      
       setIsScanning(false)
       Quagga.stop()
+      // Quagga.start()
     }
   };
 
   return (
-    <div>
-      <div id="scanner-container" className='absolute top-[8.6rem] right-[-1.5rem] !z-20' style={{ width: 350, height: 200 }} autoFocus/>
-    </div>
+    
+      <div id="scanner-container" className='absolute top-[8.6rem] right-[-1rem] !z-20' style={{ width: 350, height: 350 }} autoFocus />
+  
   );
 };
+
 
 
 
@@ -88,26 +117,95 @@ const FReservarArmazones = () => {
   const [focusInput, setFocusInput]   = useState('');
   const schema                        = validationReservaArmazonesSchema();
   const userID:any                    = useAppSelector((store: AppStore) => store.user?.id);
-  const armazon1                      = React.useRef(1)
-  const armazon2                      = React.useRef(2)
-  const armazon3                      = React.useRef(3)
+  // const armazon1                      = React.useRef('')
+  // const armazon2                      = React.useRef('')
+  // const armazon3                      = React.useRef('')
+
+
+  const [armazon1, setArmazon1]       = React.useState('');
+  const [armazon2, setArmazon2]       = React.useState('');
+  const [armazon3, setArmazon3]       = React.useState('');
+
+
+
+
 
   const {
     control,
     // register,
     handleSubmit,
     formState: {errors},
+    setValue
   } = useForm<any>({
     resolver: yupResolver(schema)
   })
 
+  const fetchValidateArmazon = async(armazon:string, codArmazon:string) => {
+      const urlbase = `${URLBackend}/api/armazones/listado/?query=02`
+      const emmtyJSON = {
+        "marca"       : '',
+        "diseno"      : '',
+        "indice"      : '',
+        "material"    : '',
+        "color"       : '',
+        "tratamiento" : '',
+        "diametro"    : '',
+        "esferico"    : '',
+        "cilindrico"  : '',
+        "punto_venta" : ''
+      }
+
+      const _id = 0 //?0 PARA QUE NO VALIDE CRSITAL Y SOLO VALIDE ARMAZON Y STOCK
+      const _p6 = 1 //? 1 VALIDAR PARAMETRIZACION
+      const _p1 = codArmazon
+      const _p2 = codProyecto.value
+      const _p3 = punto_venta.value
+      const _p4 = codDP.value
+      const _p5 = '65' //?'DIAMETRO'
+      const _pkToDelete = encodeURIComponent(JSON.stringify([emmtyJSON, emmtyJSON]))
 
 
-  const inputRefs:any= {
-    Armazon1: React.useRef<any>(1),
-    Armazon2: React.useRef<any>(2),
-    Armazon3: React.useRef<any>(3)
-  }
+      console.log(codProyecto.value)
+      console.log(codPuntoVenta.value)
+      console.log(codDP.value)
+      console.log(codArmazon)
+      console.log(punto_venta.value)
+
+      if(codArmazon !== ''){
+        try {
+          const fetchURL = `${urlbase}&_p1=${_p1}&_p2=${_p2}&_p3=${_p3}&_p4=${_p4}&_p5=${_p5}&_pkToDelete=${_pkToDelete}&_id=${_id}&_p6=${_p6}`
+          'https://gestiondev.mtoopticos.cl/api/armazones/listado/?query=02&_p1=4010000071869'
+          '&_p2=CODIGO PROYECTO&_p3=PUNTO DE VENTA&_p4=&_p5=65%_pkToDelete=[object Object]&_id=0&_p6=1'
+          console.log(fetchURL)
+          const result = await axios(fetchURL)
+          
+    
+          console.log(result)
+          console.log(armazon)
+          console.log(codArmazon)
+          console.log(result.data[0][0])
+
+          if(result.data && result.data[0] && result.data[0][0] === 'ERROR'){
+            toast.error(result.data[0][1])
+            setValue(armazon,'')
+            setArmazon1('')
+          }
+          
+        } catch (error) {
+            console.log(error)
+            toast.error('Error al validar Armazon')
+            setValue(armazon, '')
+        }
+
+      }
+  
+
+  
+    }
+
+
+
+
 
   const handleFocus = (ref:any) => {
     console.log(ref)
@@ -119,6 +217,14 @@ const FReservarArmazones = () => {
 
   };
 
+  const handleChange = (e:any) => {
+    console.log(e)
+
+    const result = validateRut(e)
+
+    console.log(result)
+  }
+
   const handleSaveChange = (jsonData:any) =>{
       console.log(jsonData)
   }
@@ -127,36 +233,82 @@ const FReservarArmazones = () => {
   //   console.log(`Valor cambiado en el input ${ref.name}`);
   // };
 
-  console.log(errors)
 
-console.log(inputRefs)
 
-  // Object.keys(inputRefs).map((key:any, index) =>{
-  //   console.log(key)
-  //   console.log(errors)
-  //   console.log(errors[key])
+React.useEffect(()=>{
+  console.log(armazon1)
+  console.log(armazon1)
+  // campos_busqueda: {'query': '02', '_id': '1', '_p6': '1', '_p2': '1801-2023', '_p3': '10', '_p1': '1001', '_p4': '60', '_p5': '65', '_pkToDelete': '[{"marca":"1","diseno":"1","indice":"2","material":"1","color":"1","tratamiento":"1","diametro":"65","esferico":-2,"cilindrico":-1,"punto_venta":10},{"marca":"1","diseno":"1","indice":"2","material":"1","color":"1","tratamiento":"1","diametro":"65","esferico":-1,"cilindrico":-2,"punto_venta":10}]'}
 
-  //   console.log(Armazones[key].value)
-  // } )
+  if(armazon1 !== ''){
+    if(armazon2 === armazon1 || armazon3 === armazon1){
+      toast.error('Códigos de Armazones no deben ser iguales')
+      setValue('Armazon1', '')
+      // armazon1.current = ''
+      setArmazon1('')
+    }else{
+      setValue('Armazon1', armazon1)
+      console.log('armazon cambiado, ejecutando validacion')
+      fetchValidateArmazon('Armazon1',armazon1)
+      
+    }
+  }
+},[armazon1])
+
+React.useEffect(()=>{
+  if(armazon2 !== ''){
+    if(armazon2 === armazon1 || armazon3 === armazon2){
+      toast.error('Códigos de Armazones no deben ser iguales')
+      setValue('Armazon2', '')
+      // armazon2 = ''
+      setArmazon2('')
+    }else{
+      setValue('Armazon2', armazon2)
+      console.log('armazon cambiado, ejecutando validacion')
+  
+    }
+
+  }
+},[armazon2])
+
+
+React.useEffect(()=>{
+  if(armazon3 !== ''){
+    if(armazon3 === armazon1 || armazon3 === armazon2){
+      toast.error('Códigos de Armazones no deben ser iguales')
+      setValue('Armazon3', '')
+      // armazon3. = ''
+      setArmazon3('')
+    }else{
+      setValue('Armazon3', armazon3)
+      console.log('armazon cambiado, ejecutando validacion')
+  
+    }
+  }
+},[armazon3])
+
     return (
         <form className=" max-w-md mx-auto px-6" onSubmit={handleSubmit((data)=> handleSaveChange(data))}>
-          <div className="mb-4">
-            <label htmlFor="nombre" className="block text-gray-700 text-sm font-bold mb-2">Reserva de Armazones</label>
-            <select name="" id=""></select>
+          <div className=" sm:w-full">
+            <h1 className="block text-white text-sm font-bold mb-2 -top-[30rem]">Reserva de Armazones</h1>
           </div>
 
-          <div className=" mt-20">
+          <div className=" mt-[9rem] !mx-auto">
             <div className="w-full !mb-5 rowForm">
               <SelectInputComponent
                   label='Nombre Proyecto'
                   name='proyecto'
                   showRefresh={true}
                   // handleSelectChange={}
-                  onlyFirstOption={true}
-                  readOnly={true}
+                  // onlyFirstOption={true}
+                  handleSelectChange={(e:any)=>{
+                    codProyecto.value = e.value;
+                  }}
+                  // readOnly={true}
+                  isOT={true}
                   control={control}
                   entidad={["/api/proyectos/", "07", userID]}
-                  customWidth={"w-[27.3rem]"}
+                  customWidth={"w-[22.5rem]"}
               />
             </div>
             <div className="w-full !mb-5 rowForm">
@@ -165,10 +317,14 @@ console.log(inputRefs)
                   name='punto_venta_id'
                   showRefresh={true}
                   onlyFirstOption={true}
-                  // handleSelectChange={}
+                  handleSelectChange={(e:any)=>{
+                    console.log(e.value)
+                    codPuntoVenta.value = e.value;
+                  }}
+                  isOT={true}
                   control={control}
-                  entidad={["/api/proyectos/", "07", userID]}
-                  customWidth={"w-[27.3rem]"}
+                  entidad={["/api/puntosventa/", "06", codProyecto.value]}
+                  customWidth={"w-[22.5rem]"}
               />
             </div>
             <div className="w-full !mb-7 rowForm">
@@ -179,21 +335,22 @@ console.log(inputRefs)
                   // handleSelectChange={}
                   control={control}
                   entidad={["/api/tipos/", "02", "OTTipoAnteojo"]}
-                  customWidth={"w-[27.3rem] "}
+                  customWidth={"w-[22.5rem] "}
                   error={errors.tipo_anteojo}
               />
             </div>
           </div>
 
-          <div className="w-[26rem]  !mt-5  flex rowForm">
-            <div className="w-[65%]  text-2xl !-ml-4">
+          <div className="w-[21rem]  !mt-5  flex rowForm">
+            <div className="w-[65%]  text-xl !-ml-4">
               <TextInputComponent
                 type='number'
                 label='Rut Beneficiario'
                 name="rut_beneficiario"
                 control={control}
-                textAlign='text-right !text-[2rem] !h-[3.9rem]'
-                customWidth={"!text-2xl"}
+                handleChange={handleChange}
+                textAlign='text-right !text-[1.7rem] !h-[3.9rem]'
+                customWidth={"!text-xl"}
                 error={errors.rut_beneficiario}
               
               />
@@ -203,6 +360,11 @@ console.log(inputRefs)
                 type='number'
                 label='DP'
                 name="dp"
+                handleChange={(e:any)=>{
+                  console.log(e.value)
+                  codDP.value = e.value
+                }}
+                isOT={true}
                 control={control}
                 textAlign='text-right !text-[2rem] !h-[3.9rem]'
                 error={errors.dp}
@@ -218,49 +380,51 @@ console.log(inputRefs)
 
           <div className='!mt-5 flex flex-col justify-evenly h-[15rem]'>
             
-              <div className="w-[26rem]   flex rowForm">
+              <div className="w-[21rem]   flex rowForm">
                 <div className="w-[100%]  text-2xl !-ml-4">
-                  <TextInputComponent
+                  <TextInputInteractive
                     type='number'
                     label='Armazon 1'
                     name="Armazon1"
                     control={control}
-                    data={armazon1.current}
+                    data={armazon1}
                     textAlign='text-right !text-[2rem] !h-[3.5rem]'
-                    customWidth={"!text-2xl w-[26rem]"}
+                    customWidth={"!text-2xl w-[21rem]"}
                     error={errors.Armazon1}
-                    handleFocus={()=>handleFocus(armazon1)}
+                    handleFocus={()=>handleFocus('Armazon1')}
                     
                   
                   />
                 </div>
               </div>
-              <div className="w-[26rem] !mt-10   flex rowForm">
+              <div className="w-[21rem] !mt-10   flex rowForm">
                 <div className="w-[100%]  text-2xl !-ml-4">
-                  <TextInputComponent
+                  <TextInputInteractive
                     type='number'
                     label='Armazon 2'
                     name="Armazon2"
-                    data={armazon2.current}
+                    data={armazon2}
                     control={control}
                     textAlign='text-right !text-[2rem] !h-[3.5rem]'
-                    customWidth={"!text-2xl w-[26rem]"}
+                    customWidth={"!text-2xl w-[21rem]"}
                     error={errors.Armazon2}
+                    handleFocus={()=>handleFocus('Armazon2')}
                   
                   />
                 </div>
               </div>
-              <div className="w-[26rem]   flex rowForm">
+              <div className="w-[21rem]   flex rowForm">
                 <div className="w-[100%]  text-2xl !-ml-4">
-                  <TextInputComponent
+                  <TextInputInteractive
                     type='number'
                     label='Armazon 3'
                     name="armazon3"
-                    data={armazon3.current}
+                    data={armazon3}
                     control={control}
                     textAlign='text-right !text-[2rem] !h-[3.5rem]'
-                    customWidth={"!text-2xl w-[26rem]"}
+                    customWidth={"!text-2xl w-[21rem]"}
                     error={errors.Armazon3}
+                    handleFocus={()=>handleFocus('Armazon3')}
 
                   
                   />
@@ -287,7 +451,14 @@ console.log(inputRefs)
 
             <h1>Resultado : {barcode}</h1>
       
-        {isScanning &&  <Scanner setBarcode={setBarcode} focusInput={focusInput} setIsScanning={setIsScanning}/> }
+        {isScanning &&  <Scanner 
+                           setBarcode={setBarcode} 
+                           focusInput={focusInput} 
+                           setIsScanning={setIsScanning} 
+                           setArmazon1={setArmazon1}
+                           setArmazon2={setArmazon2} 
+                           setArmazon3={setArmazon3} 
+        /> }
             
             <div className="w-full">
               <Button color='orange' type='submit'>Reservar</Button>
