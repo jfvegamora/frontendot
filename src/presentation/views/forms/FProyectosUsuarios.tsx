@@ -40,9 +40,7 @@ interface OutputData {
 
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
 
-  let _p1 = `"${jsonData.proyecto}", 
-              ${jsonData.usuario},  
-               ${jsonData.estado === "Disponible" ? 1 : 2}`;
+  let _p1 = `"${jsonData.proyecto}", ${jsonData.punto_venta}, ${jsonData.usuario}, ${jsonData.estado === "Disponible" ? 1 : 2}`;
 
   _p1 = _p1.replace(/'/g, '!');
 
@@ -56,6 +54,7 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
 
 export function transformUpdateQuery(jsonData: InputData): OutputData | null {
   const fields = [
+    `usuario  = ${jsonData.usuario}`,
     `estado   = ${jsonData.estado === "Disponible" ? 1 : 2}`,
   ];
 
@@ -73,7 +72,7 @@ export function transformUpdateQuery(jsonData: InputData): OutputData | null {
     query: "04",
     _p1,
     _p2: jsonData.proyecto,
-    _id: jsonData.usuario,
+    _id: jsonData.punto_venta,
   };
 // console.log("query: ", query);
   return query;
@@ -117,7 +116,7 @@ const FProyectosUsuarios: React.FC<IUserFormPrps> = React.memo(
     });
 
     const resetTextFields = React.useCallback(() => {
-      setValue("usuario", "");
+      // setValue("usuario", "");
 
       if (firstInputRef.current) {
         const firstInput = firstInputRef.current.querySelector(
@@ -299,7 +298,7 @@ const FProyectosUsuarios: React.FC<IUserFormPrps> = React.memo(
                   label="Punto de Venta"
                   name="punto_venta"
                   showRefresh={true}
-                  data={data && data[EnumGrid.codigo_proyecto]}
+                  data={data && data[EnumGrid.punto_venta_id]}
                   control={control}
                   entidad={["/api/puntosventa/", "02"]}
                   error={errors.punto_venta}
@@ -320,7 +319,7 @@ const FProyectosUsuarios: React.FC<IUserFormPrps> = React.memo(
                       control={control}
                       entidad={["/api/usuarios/", "02"]}
                       error={errors.usuario}
-                      readOnly={isEditting}
+                      // readOnly={isEditting}
                       customWidth={"!ml-[1rem] !w-[16rem]"}
                       />
                 </div>

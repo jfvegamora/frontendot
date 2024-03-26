@@ -15,12 +15,13 @@ import FProyectosUsuariosCopiar from "../forms/FProyectosUsuariosCopiar";
 
 
 export enum EnumGrid {
-  codigo_proyecto     = 1,
-  titulo_proyecto     = 2,
-  codigo_licitacion   = 3,
-  usuario_id          = 4,
-  usuario             = 5,
-  estado              = 6
+  codigo_proyecto = 1,
+  titulo_proyecto = 2,
+  punto_venta_id  = 3,
+  punto_venta     = 4,
+  usuario_id      = 5,
+  usuario         = 6,
+  estado          = 7
 }
 const strEntidad = "Parametrización de Usuarios ";
 const strEntidadExcel = "Parametrizacion_de_usuarios";
@@ -68,7 +69,7 @@ const MProyectosUsuarios: React.FC = () => {
   
   useEffect(() => {    
     const newPkToDelete = selectedRows.map((row: number) => 
-     `{"pk1":"${entities[row][EnumGrid.codigo_proyecto]}", "pk2":"${entities[row][EnumGrid.usuario_id]}"}`);
+     `{"pk1":"${entities[row][EnumGrid.codigo_proyecto]}", "pk2":"${entities[row][EnumGrid.punto_venta_id]}"}`);
     const combinedPks = newPkToDelete.join(',');
 
     setPkToDelete([`${strParamsToDelete}=[${combinedPks}]`]);
@@ -134,16 +135,6 @@ const MProyectosUsuarios: React.FC = () => {
           leftEdit={true}
         />
       </div>     
-
-       <FProyectosUsuarios
-          label={`${TITLES.ingreso} ${strEntidad}`}
-          closeModal={closeModal}
-          selectedRows={selectedRows}
-          setEntities={setEntities}
-          params={params}
-          isEditting={false}
-          escritura_lectura={escritura_lectura}
-        /> 
 
       {isModalInsert && (
         <FProyectosUsuarios
