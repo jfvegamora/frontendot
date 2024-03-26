@@ -413,10 +413,12 @@ export const validationProyectoGruposSchema = () =>
     cilindrico_hasta  : yup.string().required(`${msg}`), 
     diametro          : yup.string().required(`${msg}`), 
     valor_neto_cristal: yup.string().required(`${msg}`), 
-    armazon_tipo      : yup.string(),
+
+
+    // armazon_tipo      : yup.string(),
     armazon_material  : yup.string(),
-    armazon_marca     : yup.string(),
-    armazon_uso       : yup.string(),
+    // armazon_marca     : yup.string(),
+    // armazon_uso       : yup.string(),
     valor_neto_armazon: yup.string().required(`${msg}`), 
     // valor_neto_total  : yup.string().required(`${msg}`), 
     observaciones     : yup.string(), 

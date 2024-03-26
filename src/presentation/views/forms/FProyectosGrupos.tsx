@@ -42,10 +42,10 @@ export interface InputData {
   diametro: string | undefined;
   valor_neto_cristal: string | undefined;
 
-  armazon_tipo: string | undefined;
+  // armazon_tipo: string | undefined;
   armazon_material: string | undefined;
-  armazon_marca: string | undefined;
-  armazon_uso: string | undefined;
+  // armazon_marca: string | undefined;
+  // armazon_uso: string | undefined;
   valor_neto_armazon: string | undefined;
 
   // valor_neto_total: string | undefined;
@@ -84,10 +84,7 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
   ${(jsonData.cilindrico_desde && jsonData.cilindrico_desde?.toString())?.length === 0 ? "0" : jsonData.cilindrico_desde}, 
   ${(jsonData.cilindrico_hasta && jsonData.cilindrico_hasta?.toString())?.length === 0 ? "0" : jsonData.cilindrico_hasta}, 
   ${(jsonData.valor_neto_cristal && jsonData.valor_neto_cristal?.toString())?.length === 0 ? "0" : jsonData.valor_neto_cristal},
-  ${validateSelect(jsonData.armazon_tipo)},
   ${validateSelect(jsonData.armazon_material)},
-  ${validateSelect(jsonData.armazon_marca)},
-  ${validateSelect(jsonData.armazon_uso)},
   ${(jsonData.valor_neto_armazon && jsonData.valor_neto_armazon?.toString())?.length === 0 ? "0" : jsonData.valor_neto_armazon},
   ${valorTotalArmazon + valorTotalCristal},
   "${jsonData.observaciones}"`;
@@ -122,10 +119,10 @@ export function transformUpdateQuery(jsonData: InputData): OutputData | null {
     `cilindrico_hasta  = ${(jsonData.cilindrico_hasta && jsonData.cilindrico_hasta?.toString())?.length === 0 ? "0" : jsonData.cilindrico_hasta}`,
     `diametro          = ${(jsonData.diametro && jsonData.diametro?.toString())?.length === 0 ? "0" : jsonData.diametro}`,
     `valor_neto_cristal= ${(jsonData.valor_neto_cristal && jsonData.valor_neto_cristal?.toString())?.length === 0 ? "0" : jsonData.valor_neto_cristal}`,
-    `armazon_tipo      = ${validateSelect(jsonData.armazon_tipo)}`,
+    // `armazon_tipo      = ${validateSelect(jsonData.armazon_tipo)}`,
     `armazon_material  = ${validateSelect(jsonData.armazon_material)}`,
-    `armazon_marca     = ${validateSelect(jsonData.armazon_marca)}`,
-    `armazon_uso       = ${validateSelect(jsonData.armazon_uso)}`,
+    // `armazon_marca     = ${validateSelect(jsonData.armazon_marca)}`,
+    // `armazon_uso       = ${validateSelect(jsonData.armazon_uso)}`,
     `valor_neto_armazon= ${(jsonData.valor_neto_armazon && jsonData.valor_neto_armazon?.toString())?.length === 0 ? "0" : jsonData.valor_neto_armazon}`,
     `valor_neto_total  = ${valorTotalArmazon + valorTotalCristal}`,
     `observaciones     ="${jsonData.observaciones}"`,
