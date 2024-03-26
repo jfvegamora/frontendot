@@ -68,6 +68,7 @@ const Login: React.FC = React.memo(() => {
           // show({ message: LOGIN.loginSuccess, type: "success" });
           toast.dismiss(toastLoading)
           navigate("/landing");
+          toast.dismiss(toastLoading)
         })
         .catch((_e) => {
           toast.dismiss(toastLoading)
