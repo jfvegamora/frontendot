@@ -416,12 +416,12 @@ export const validationProyectoGruposSchema = () =>
 
 
     // armazon_tipo      : yup.string(),
-    armazon_material  : yup.string(),
+    armazon_material           : yup.string(),
     // armazon_marca     : yup.string(),
-    // armazon_uso       : yup.string(),
-    valor_neto_armazon: yup.string().required(`${msg}`), 
-    // valor_neto_total  : yup.string().required(`${msg}`), 
-    observaciones     : yup.string(), 
+    valor_neto_adulto_mayor    : yup.string(),
+    valor_neto_armazon         : yup.string().required(`${msg}`), 
+    valor_neto_total           : yup.string().required(`${msg}`), 
+    observaciones              : yup.string(), 
   });
 
 // Schema PROYECTOS ACCESORIOS

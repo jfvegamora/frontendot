@@ -109,35 +109,12 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
     console.log(permisos_usuario_areas)
     // console.log(EnumAreas[20])
 
-    const handleImpresionMasivo = async () => {
-    //   const print = useReactToPrint({
-    //     content: () => componentRef.current as any,
-    //     suppressErrors: true,
-    //     removeAfterPrint: true,
-    //     onAfterPrint() {
-    //       setisFotTicketRetiro(true);
-    //       imprimirComprobanteRetiro();
-    //       // dispatch(clearImpression());
-    //     }
-    //   }
-    // );
-    
-    //   for (let i = 0; i < pkToDelete.length; i++) {
-    //     await print();
-    //     // Opcional: agregar un retraso para evitar que las ventanas emergentes se superpongan
-    //     await new Promise((resolve) => setTimeout(resolve, 500));
-    //   }
-    
-    //   // Acciones después de imprimir todas las boletas
-    //   //
-     handlePrint()
-    };
 
 
     const folios = pkToDelete && pkToDelete.map(({folio}:any)=>folio)
 
     const handlePrint = useReactToPrint({
-      content: () => componentRef.current as any, 
+      content: () => componentRef.current, 
       suppressErrors: true,
       removeAfterPrint: true,
       onAfterPrint(){
@@ -159,6 +136,47 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
           dispatch(clearImpression())
       }
     })
+
+    
+    const handleImpresionMasivo = async () => {
+      console.log(pkToDelete)
+
+       pkToDelete.map(async(ot:any)=>{
+        try {
+          await dispatch(fetchOTImpresionByID({ folio: ot.folio, OTAreas: OTAreas['areaActual'] }))
+          handlePrint()
+          const result = confirm('imprimir el segundo?')
+          if(!result){
+            return;
+          }
+        } catch (error)  {
+            console.log(error)
+        }
+      })
+    //   const print = useReactToPrint({
+    //     content: () => componentRef.current as any,
+    //     suppressErrors: true,
+    //     removeAfterPrint: true,
+    //     onAfterPrint() {
+    //       setisFotTicketRetiro(true);
+    //       imprimirComprobanteRetiro();
+    //       // dispatch(clearImpression());
+    //     }
+    //   }
+    // );
+
+    
+    
+    //   for (let i = 0; i < pkToDelete.length; i++) {
+    //     await print();
+    //     // Opcional: agregar un retraso para evitar que las ventanas emergentes se superpongan
+    //     await new Promise((resolve) => setTimeout(resolve, 500));
+    //   }
+    
+    //   // Acciones después de imprimir todas las boletas
+    //   //
+     handlePrint()
+    };
 
 
     React.useEffect(()=>{
@@ -611,6 +629,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
             </div>
           </Suspense>
         )}
+
 
         {isFOTValidarBodega && (
           <Suspense>

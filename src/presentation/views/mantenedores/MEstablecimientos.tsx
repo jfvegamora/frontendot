@@ -9,8 +9,8 @@ import {
   TableComponent,
 } from "../../components";
 import { useEntityUtils, usePermission } from "../../hooks";
-// import FEstablecimientos from "../forms/FEstablecimientos";
-import FEstablecimientos2 from "../forms/FEstablecimientos2";
+import FEstablecimientos from "../forms/FEstablecimientos";
+// import FEstablecimientos2 from "../forms/FEstablecimientos2";
 
 import { TITLES, table_head_establecimientos } from "../../utils";
 
@@ -148,7 +148,7 @@ const MEstablecimientos: React.FC = () => {
 
 
       {isModalInsert && (
-      <FEstablecimientos2
+      <FEstablecimientos
         label={`${TITLES.ingreso} ${strEntidad}`}
         closeModal={closeModal}
         selectedRows={selectedRows}
@@ -160,7 +160,7 @@ const MEstablecimientos: React.FC = () => {
       )}
 
       {isModalEdit && (
-        <FEstablecimientos2
+        <FEstablecimientos
           label={`${TITLES.edicion} ${strEntidad}`}
           selectedRows={selectedRows}
           setEntities={setEntities}

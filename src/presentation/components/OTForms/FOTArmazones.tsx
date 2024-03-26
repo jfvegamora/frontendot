@@ -22,7 +22,7 @@ interface IArmazones {
     setSelectedTab?:any
 }
 
-const empty_pkToDelete = {
+const empty_jsonGrupo = {
     "marca"       : '',
     "diseno"      : '',
     "indice"      : '',
@@ -33,6 +33,11 @@ const empty_pkToDelete = {
     "esferico"    : '',
     "cilindrico"  : '',
     "punto_venta" : ''
+}
+
+const emppty_jsonCliente = {
+    "cliente_sexo"      : '',
+    "cliente_fecha_nax" : ''
 }
 
 
@@ -88,17 +93,23 @@ const FOTArmazones:React.FC<IArmazones> = ({
         cristal2_tratamiento_id
     } = (formValuesCompleto && formValuesCompleto["cristales"]) || {};
 
+    const {
+        cliente_sexo,
+        cliente_fecha_nacimiento
+    } = (formValuesCompleto && formValuesCompleto["cliente"]) || {};
+
+
     const _pkToDelete1_od ={
-          "marca":      cristal1_marca_id       || data?.[EnumGrid.cristal1_marca_id],
-          "diseno":     cristal1_diseno_id      || data?.[EnumGrid.cristal1_diseno_id],
-          "indice":     cristal1_indice_id      || data?.[EnumGrid.cristal1_indice_id],
-          "material":   cristal1_material_id    || data?.[EnumGrid.cristal1_material_id],
-          "color":      cristal1_color_id       || data?.[EnumGrid.cristal1_color_id],
-          "tratamiento":cristal1_tratamiento_id || data?.[EnumGrid.cristal1_tratamiento_id],
-          "diametro":   A1_Diametro.value,
-          "esferico":   dioptrias_receta.value.a1_od.esf ?? 0, 
-          "cilindrico": dioptrias_receta.value.a1_od.cil ?? 0,
-          "punto_venta": punto_venta.value,
+          "marca"             : cristal1_marca_id       || data?.[EnumGrid.cristal1_marca_id],
+          "diseno"            : cristal1_diseno_id      || data?.[EnumGrid.cristal1_diseno_id],
+          "indice"            : cristal1_indice_id      || data?.[EnumGrid.cristal1_indice_id],
+          "material"          : cristal1_material_id    || data?.[EnumGrid.cristal1_material_id],
+          "color"             : cristal1_color_id       || data?.[EnumGrid.cristal1_color_id],
+          "tratamiento"       : cristal1_tratamiento_id || data?.[EnumGrid.cristal1_tratamiento_id],
+          "diametro"          : A1_Diametro.value,
+          "esferico"          : dioptrias_receta.value.a1_od.esf ?? 0, 
+          "cilindrico"        : dioptrias_receta.value.a1_od.cil ?? 0,
+          "punto_venta"       : punto_venta.value,
     }
 
     const _pkToDelete1_oi ={
@@ -139,17 +150,26 @@ const FOTArmazones:React.FC<IArmazones> = ({
         "cilindrico": a2_oi_cil.value ?? 0, 
         "punto_venta": punto_venta.value,
       }
+
+    const _jsonCliente = {
+        "cliente_sexo"      : (cliente_sexo === 'Femenino' ? 2 : (cliente_sexo === 'Masculino') ? 2 : 3)    || data?.[EnumGrid.cliente_sexo],
+        "cliente_fecha_nac" : cliente_fecha_nacimiento || data?.[EnumGrid.cliente_fecha_nacimiento]
+    }
     
     //TODO! =========================== ENVIAR DP EN _P4 PARA VALIDAR ARMAZONES ===========================================================================
 
+   
     console.log(validar_parametrizacion.value)
 
     const fetchArmazones1 = async (inputName:string, codArmazon:string)=>{
         
-        let dp            = 0
-        let diametro      = 0
-        let pkJSON:any    = {}
-        let encodedJSON   = {}
+        let dp               = 0
+        let diametro         = 0
+        let pkJSONGrupo:any  = {}
+        let jsonGrupo        = {}
+
+        let pkJSONCliente:any = {}
+        let jsonCliente       = {}
 
         // const pkJSON = JSON.stringify([_pkToDelete1_od, _pkToDelete1_oi])
         // const encodedJSON = encodeURIComponent(pkJSON)
@@ -165,23 +185,28 @@ const FOTArmazones:React.FC<IArmazones> = ({
         
         switch (inputName) {
             case 'a1_armazon_id':
-                 dp          = A1_DP.value as any
-                 diametro    = A1_Diametro.value as any
-                 pkJSON      = JSON.stringify([_pkToDelete1_od, _pkToDelete1_oi])
-                 encodedJSON = encodeURIComponent(pkJSON)
+                 dp             = A1_DP.value as any
+                 diametro       = A1_Diametro.value as any
+                 pkJSONGrupo    = JSON.stringify([_pkToDelete1_od, _pkToDelete1_oi])
+                 pkJSONCliente  = JSON.stringify([_jsonCliente])
+                 jsonGrupo      = encodeURIComponent(pkJSONGrupo)
+                 jsonCliente    = encodeURIComponent(pkJSONCliente)
                 break
             case 'a2_armazon_id':
                 dp           = A2_DP.value as any
                 diametro     = A2_Diametro.value as any
-                pkJSON       = JSON.stringify([_pkToDelete2_od, _pkToDelete2_oi])
-                encodedJSON  = encodeURIComponent(pkJSON)
-                // let _señal      = a2_armazon.value as any
+                pkJSONGrupo  = JSON.stringify([_pkToDelete2_od, _pkToDelete2_oi])
+                pkJSONCliente  = JSON.stringify([_jsonCliente])
+                jsonGrupo    = encodeURIComponent(pkJSONGrupo)
+                jsonCliente  = encodeURIComponent(pkJSONCliente)
                 break;
             case 'a3_armazon_id':
-                dp         = A1_DP.value as any
-                diametro   = A1_Diametro.value as any
-                pkJSON      = JSON.stringify([_pkToDelete1_od, _pkToDelete1_oi])
-                encodedJSON = encodeURIComponent(pkJSON)
+                dp             = A1_DP.value as any
+                diametro       = A1_Diametro.value as any
+                pkJSONGrupo    = JSON.stringify([_pkToDelete1_od, _pkToDelete1_oi])
+                pkJSONCliente  = JSON.stringify([_jsonCliente])
+                jsonGrupo      = encodeURIComponent(pkJSONGrupo)
+                jsonCliente    = encodeURIComponent(pkJSONCliente);
                 break;
             default:
                 break;
@@ -216,8 +241,10 @@ const FOTArmazones:React.FC<IArmazones> = ({
                                                                                     ? (typeof A1_Diametro.value === 'number' ? A1_Diametro.value :  "" ) 
                                                                                     : (typeof A1_Diametro.value === 'string' ? A1_Diametro.value : "")
                                                                             )
-                                                                        }&_pkToDelete=${encodedJSON}`) 
-                                                   : (`${endpoint}&_pkToDelete=${encodeURIComponent(JSON.stringify([empty_pkToDelete, empty_pkToDelete]))}&_p1=${codArmazon && codArmazon.trim() !== '' ? codArmazon : ''}`))
+                                                                        }&_jsonGrupo=${jsonGrupo}
+                                                                        &_jsonCliente=${jsonCliente}
+                                                                        `) 
+                                                   : (`${endpoint}&_jsonGrupo=${encodeURIComponent(JSON.stringify([empty_jsonGrupo, empty_jsonGrupo]))}&_jsonCliente=${encodeURIComponent(JSON.stringify([emppty_jsonCliente]))}&_p1=${codArmazon && codArmazon.trim() !== '' ? codArmazon : ''}`))
             // console.log(data[0])
             if(data && data[0] && data[0][0] === 'ERROR'){
                 toast.error(data[0][1])

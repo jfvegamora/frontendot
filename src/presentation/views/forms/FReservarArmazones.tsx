@@ -308,7 +308,7 @@ React.useEffect(()=>{
                   isOT={true}
                   control={control}
                   entidad={["/api/proyectos/", "07", userID]}
-                  customWidth={"w-[22.5rem]"}
+                  customWidth={"w-[23.3rem]"}
               />
             </div>
             <div className="w-full !mb-5 rowForm">
@@ -324,7 +324,7 @@ React.useEffect(()=>{
                   isOT={true}
                   control={control}
                   entidad={["/api/puntosventa/", "06", codProyecto.value]}
-                  customWidth={"w-[22.5rem]"}
+                  customWidth={"w-[23.3rem]"}
               />
             </div>
             <div className="w-full !mb-7 rowForm">
@@ -335,13 +335,13 @@ React.useEffect(()=>{
                   // handleSelectChange={}
                   control={control}
                   entidad={["/api/tipos/", "02", "OTTipoAnteojo"]}
-                  customWidth={"w-[22.5rem] "}
+                  customWidth={"w-[23.3rem] "}
                   error={errors.tipo_anteojo}
               />
             </div>
           </div>
 
-          <div className="w-[21rem]  !mt-5  flex rowForm">
+          <div className="w-[22rem]  !mt-5  flex rowForm">
             <div className="w-[65%]  text-xl !-ml-4">
               <TextInputComponent
                 type='number'
@@ -380,7 +380,7 @@ React.useEffect(()=>{
 
           <div className='!mt-5 flex flex-col justify-evenly h-[15rem]'>
             
-              <div className="w-[21rem]   flex rowForm">
+              <div className="w-[22rem]   flex rowForm">
                 <div className="w-[100%]  text-2xl !-ml-4">
                   <TextInputInteractive
                     type='number'
@@ -389,7 +389,7 @@ React.useEffect(()=>{
                     control={control}
                     data={armazon1}
                     textAlign='text-right !text-[2rem] !h-[3.5rem]'
-                    customWidth={"!text-2xl w-[21rem]"}
+                    customWidth={"!text-2xl w-[22rem]"}
                     error={errors.Armazon1}
                     handleFocus={()=>handleFocus('Armazon1')}
                     
@@ -397,7 +397,7 @@ React.useEffect(()=>{
                   />
                 </div>
               </div>
-              <div className="w-[21rem] !mt-10   flex rowForm">
+              <div className="w-[22rem] !mt-10   flex rowForm">
                 <div className="w-[100%]  text-2xl !-ml-4">
                   <TextInputInteractive
                     type='number'
@@ -406,14 +406,14 @@ React.useEffect(()=>{
                     data={armazon2}
                     control={control}
                     textAlign='text-right !text-[2rem] !h-[3.5rem]'
-                    customWidth={"!text-2xl w-[21rem]"}
+                    customWidth={"!text-2xl w-[22rem]"}
                     error={errors.Armazon2}
                     handleFocus={()=>handleFocus('Armazon2')}
                   
                   />
                 </div>
               </div>
-              <div className="w-[21rem]   flex rowForm">
+              <div className="w-[22rem]   flex rowForm">
                 <div className="w-[100%]  text-2xl !-ml-4">
                   <TextInputInteractive
                     type='number'
@@ -422,7 +422,7 @@ React.useEffect(()=>{
                     data={armazon3}
                     control={control}
                     textAlign='text-right !text-[2rem] !h-[3.5rem]'
-                    customWidth={"!text-2xl w-[21rem]"}
+                    customWidth={"!text-2xl w-[22rem]"}
                     error={errors.Armazon3}
                     handleFocus={()=>handleFocus('Armazon3')}
 

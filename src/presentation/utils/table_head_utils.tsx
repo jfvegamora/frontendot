@@ -2740,18 +2740,6 @@ export const table_head_proyectos_grupos = [
     width: "w-[6rem]",
   }, 	
   {
-    cell: "Armazon Tipo ID",
-    key: "armazon_tipo_id",
-    visible: false,
-  },
-  {
-    cell: "Armazón Tipo",
-    key: "armazon_tipo",
-    visible: true,
-    alignment: "text-left",
-    width: "w-[7rem]",
-  },
-  {
     cell: "Armazon Material ID",
     key: "armazon_material_id",
     visible: false,
@@ -2764,36 +2752,28 @@ export const table_head_proyectos_grupos = [
     width: "w-[7rem]",
   },
   {
-    cell: "Armazon Marca ID",
-    key: "armazon_marca_id",
-    visible: false,
-  },
-  {
-    cell: "Armazón Marca",
-    key: "armazon_marca",
-    visible: true,
-    alignment: "text-left",
-    width: "w-[7rem]",
-  },
-  {
-    cell: "Armazon Uso ID",
-    key: "armazon_uso_id",
-    visible: false,
-  },
-  {
-    cell: "Armazón Uso",
-    key: "armazon_uso",
-    visible: true,
-    alignment: "text-left",
-    width: "w-[6rem]",
-  },
-  {
     cell: "$ Armazón",
     key: "valor_neto_armazon",
     visible: true,
     alignment: "text-right",
     width: "w-[6rem]",
-  }, 	
+  },
+
+  {
+    cell: "Adulto Mayor",
+    key: "adulto_mayor",
+    visible: true,
+    alignment: "text-right",
+    width: "w-[6rem]",
+  },
+  {
+    cell: "$ Adulto Mayor",
+    key: "adulto_mayor",
+    visible: true,
+    alignment: "text-right",
+    width: "w-[6rem]",
+  },
+
   {
     cell: "$ TOTAL",
     key: "valor_neto_total",

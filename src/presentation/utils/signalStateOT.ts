@@ -949,12 +949,16 @@ export const getGrupoCristales_A1 = async(formValue:any, data:any, setErrorGrupo
           "diametro":   A1_Diametro.value,
           "esferico":   dioptrias_receta.value.a1_od.esf ?? 0, 
           "cilindrico": dioptrias_receta.value.a1_od.cil ?? 0,
-          // "punto_venta": punto_venta || data?.[EnumGrid.punto_venta] ,
           "punto_venta": punto_venta.value,
+
+          "armazon_material"  : 0,
+          "cliente_sexo"      : 0,
+          "cliente_fecha_nac" : new Date()
+      
         }
 
 
-         console.log(_pkToDelete1_od)
+        //  console.log(_pkToDelete1_od)
         
         const _pkToDelete1_oi ={
           "marca":      cristal1_marca_id       || data?.[EnumGrid.cristal1_marca_id],
@@ -967,9 +971,15 @@ export const getGrupoCristales_A1 = async(formValue:any, data:any, setErrorGrupo
           "esferico":   dioptrias_receta.value.a1_oi.esf ?? 0,
           "cilindrico": dioptrias_receta.value.a1_oi.cil ?? 0, 
           "punto_venta": punto_venta.value,
+
+          "armazon_material"  : 0,
+          "cliente_sexo"      : 0,
+          "cliente_fecha_nac" : new Date()
+
+          
         }
 
-        console.log(_pkToDelete1_oi)
+        // console.log(_pkToDelete1_oi)
 
 
 
@@ -1053,7 +1063,7 @@ export const getGrupoCristales_A2 = async(formValue:any, data:any, setErrorGrupo
   // (a2_od_esf.value                          !== '  ')        &&
   // (a2_od_cil.value                          !== '  ')        
   ){
-  console.log('ejecutando llamada.....')
+  // console.log('ejecutando llamada.....')
   const _pkToDelete1_od ={
     "marca":      cristal2_marca_id        || data?.[EnumGrid.cristal2_marca_id],
     "diseno":     cristal2_diseno_id       || data?.[EnumGrid.cristal2_diseno_id],
@@ -1065,11 +1075,15 @@ export const getGrupoCristales_A2 = async(formValue:any, data:any, setErrorGrupo
     "esferico":   a2_od_esf.value ?? 0, 
     "cilindrico": a2_od_cil.value ?? 0,
     "punto_venta": punto_venta.value,
+
+    "armazon_material"  : '',
+    "cliente_sexo"      : '',
+    "cliente_fecha_nac" : ''
   }
 
 
-  console.log(_pkToDelete1_od)
-  console.log(dioptrias_receta.value.a2_od.esf)
+  // console.log(_pkToDelete1_od)
+  // console.log(dioptrias_receta.value.a2_od.esf)
   const _pkToDelete1_oi ={
     "marca":      cristal2_marca_id          || data?.[EnumGrid.cristal2_marca_id],
     "diseno":     cristal2_diseno_id         || data?.[EnumGrid.cristal2_diseno_id],

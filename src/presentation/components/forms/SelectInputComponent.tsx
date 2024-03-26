@@ -70,12 +70,14 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     const [entities, setEntities] = useState([]);
     const [strSelectedName, setStrSelectedName] = useState(data || undefined);
     const strUrl = entidad && entidad[0];
-    const strTableName = entidad[2] && `_p1=${entidad[2]}`
+    const strTableName = entidad[3] ? entidad[2] && `_p1=${entidad[2]}&${entidad[3]}`: entidad[2] && `_p1=${entidad[2]}`
     const inputRef = useRef(null);
     const { ListEntity } = useCrud(strUrl);
     const cleanFilters = {};
     const { refreshData } = useEntityUtils(strUrl, entidad[1]);
     const {token} = useAppSelector((store: AppStore) => store.user);
+
+
 
     const _p1 =  entidad[2] && `_p1=${entidad[2]}`   
 

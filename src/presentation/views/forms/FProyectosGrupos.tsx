@@ -15,15 +15,17 @@ import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
 import SelectInputTiposComponent from "../../components/forms/SelectInputTiposComponent";
 import { toast } from "react-toastify";
-import { Button } from "@material-tailwind/react";
+import { Button, Switch } from "@material-tailwind/react";
 import TextInputInteractive from "../../components/forms/TextInputInteractive";
 import { signal } from "@preact/signals-react";
 
 const strBaseUrl = "/api/proyectogrupos/";
 const strEntidad = "Parametrización de Cristales ";
 
-export const valor_neto_armazones = signal(0);
-export const valor_neto_cristales = signal(0);
+export const valor_neto_armazones     = signal(0);
+export const valor_neto_cristales     = signal(0);
+export const valor_neto_adulto_mayor  = signal(0);
+export const adulto_mayor             = signal(false);
 
 export interface InputData {
   proyecto: string | undefined;
@@ -48,7 +50,8 @@ export interface InputData {
   // armazon_uso: string | undefined;
   valor_neto_armazon: string | undefined;
 
-  // valor_neto_total: string | undefined;
+  valor_neto_adulto_mayor: string | undefined;
+  valor_neto_total: string | undefined;
   observaciones: string | undefined;
 }
 
@@ -65,8 +68,9 @@ const validateSelect = (value: string | undefined): string => {
 };
 
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
-  const valorTotalArmazon = parseInt(jsonData.valor_neto_armazon as any)
-  const valorTotalCristal = parseInt(jsonData.valor_neto_cristal as any)
+  const valorTotalArmazon      = parseInt(jsonData.valor_neto_armazon as any);
+  const valorTotalCristal      = parseInt(jsonData.valor_neto_cristal as any);
+  const valorTotalAdultoMayor  = parseInt(jsonData.valor_neto_adulto_mayor as any) || 0;
 
   let _p1 = `
  "${jsonData.proyecto}", 
@@ -86,7 +90,9 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
   ${(jsonData.valor_neto_cristal && jsonData.valor_neto_cristal?.toString())?.length === 0 ? "0" : jsonData.valor_neto_cristal},
   ${validateSelect(jsonData.armazon_material)},
   ${(jsonData.valor_neto_armazon && jsonData.valor_neto_armazon?.toString())?.length === 0 ? "0" : jsonData.valor_neto_armazon},
-  ${valorTotalArmazon + valorTotalCristal},
+  ${adulto_mayor.value === true ? 1 : 0},
+  ${jsonData.valor_neto_adulto_mayor === '' ? 0 : jsonData.valor_neto_adulto_mayor},
+  ${valorTotalArmazon + valorTotalCristal + valorTotalAdultoMayor},
   "${jsonData.observaciones}"`;
 
   _p1 = _p1.replace(/'/g, '!');
@@ -102,8 +108,15 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
 }
 
 export function transformUpdateQuery(jsonData: InputData): OutputData | null {
-  const valorTotalArmazon = parseInt(jsonData.valor_neto_armazon as any)
-  const valorTotalCristal = parseInt(jsonData.valor_neto_cristal as any)
+  const valorTotalArmazon      = parseInt(jsonData.valor_neto_armazon as any);
+  const valorTotalCristal      = parseInt(jsonData.valor_neto_cristal as any);
+  const valorTotalAdultoMayor  = parseInt(jsonData.valor_neto_adulto_mayor as any) || 0;
+
+  console.log(jsonData.valor_neto_adulto_mayor || 0)
+
+  console.log(valorTotalAdultoMayor)
+  console.log(valorTotalArmazon)
+  console.log(valorTotalCristal)
 
   const fields = [
     `descripcion       ="${jsonData.descripcion}"`,
@@ -121,10 +134,13 @@ export function transformUpdateQuery(jsonData: InputData): OutputData | null {
     `valor_neto_cristal= ${(jsonData.valor_neto_cristal && jsonData.valor_neto_cristal?.toString())?.length === 0 ? "0" : jsonData.valor_neto_cristal}`,
     // `armazon_tipo      = ${validateSelect(jsonData.armazon_tipo)}`,
     `armazon_material  = ${validateSelect(jsonData.armazon_material)}`,
+    `adulto_mayor      = ${adulto_mayor.value === true ? 1 : 0}`,
     // `armazon_marca     = ${validateSelect(jsonData.armazon_marca)}`,
     // `armazon_uso       = ${validateSelect(jsonData.armazon_uso)}`,
+
     `valor_neto_armazon= ${(jsonData.valor_neto_armazon && jsonData.valor_neto_armazon?.toString())?.length === 0 ? "0" : jsonData.valor_neto_armazon}`,
-    `valor_neto_total  = ${valorTotalArmazon + valorTotalCristal}`,
+    `valor_neto_adulto_mayor=${(jsonData.valor_neto_adulto_mayor && jsonData.valor_neto_adulto_mayor?.toString())?.length === 0 ? "0" : jsonData.valor_neto_adulto_mayor}`,
+    `valor_neto_total  = ${valorTotalArmazon + valorTotalCristal + valorTotalAdultoMayor}`,
     `observaciones     ="${jsonData.observaciones}"`,
   ];
 
@@ -160,8 +176,9 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
     // const [idCristal, setIdCristal] = useState('');
     const { showModal, CustomModal } = useModal();
     const [totalNeto, setTotalNeto] = useState(0);
-    const [totalNetoArmazones, setTotalNetoArmazones] = useState(0)
-    const [totalNetoCristales, setTotalNetoCristales] = useState(0)
+    const [totalNetoArmazones, setTotalNetoArmazones]      = useState(0);
+    const [totalNetoCristales, setTotalNetoCristales]      = useState(0);
+    const [totalNetoAdultoMayor, setTotalNetoAdultoMayor]  = useState(0);
     const { show } = useCustomToast();
     // const {ListEntity:ListEntityCristales} = useCrud("/api/cristaleskardex/");
 
@@ -272,6 +289,7 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
     useEffect(() => {
       const handleKeyDown = (event: KeyboardEvent) => {
         if (event.key === "Escape") {
+          adulto_mayor.value = false;
           closeModal();
         }
       };
@@ -310,18 +328,27 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
     useEffect(() => {
       isEditting ? focusSecondInput("cod_grupo") : focusFirstInput("cod_grupo");
 
-      const totalNeto = data && (data[EnumGrid.valor_neto_cristal] + data[EnumGrid.valor_neto_armazon])
+      const totalNeto = data && (data[EnumGrid.valor_neto_cristal] + data[EnumGrid.valor_neto_armazon] + data[EnumGrid.valor_neto_adulto_mayor])
       setTotalNeto(totalNeto)
+      console.log(totalNeto)
+      setValue('valor_neto_total', totalNeto)
     }, []);
 
 
 
     useEffect(() => {
-      const { valor_neto_cristal, valor_neto_armazon } = getValues()
+      const { valor_neto_cristal, valor_neto_armazon, valor_neto_adulto_mayor } = getValues()
 
-      setTotalNeto((parseInt(valor_neto_cristal) + parseInt(valor_neto_armazon)) as any)
+      console.log((parseInt(valor_neto_cristal) + parseInt(valor_neto_armazon)) + parseInt(valor_neto_adulto_mayor || '0') as any)
 
-    }, [totalNetoArmazones, totalNetoCristales])
+      console.log(parseInt(valor_neto_adulto_mayor as any))
+      console.log(parseInt(valor_neto_cristal))
+      console.log(parseInt(valor_neto_armazon))
+
+      setTotalNeto((parseInt(valor_neto_cristal) + parseInt(valor_neto_armazon)) + parseInt(valor_neto_adulto_mayor || '0') as any)
+      setValue('valor_neto_total', totalNeto as any)
+      console.log(totalNeto)
+    }, [totalNetoArmazones, totalNetoCristales, totalNetoAdultoMayor])
 
 
 
@@ -344,10 +371,11 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
     //   setValue('data_cristal', idCristal || '');
     // }, [idCristal, setValue]);
 
-    // console.log('data', data)
-    console.log(data)
-    console.log(data && data[24])
-    console.log(data && data[EnumGrid.armazon_tipo_id])
+
+    console.log(errors)
+
+    console.log(data && data[EnumGrid.valor_neto_total])
+    console.log(totalNeto)
 
     return (
       <div className="useFormContainer centered-div use60rem">
@@ -427,7 +455,7 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                     showRefresh={true}
                     data={data && data[EnumGrid.marca_id]}
                     control={control}
-                    entidad={["/api/marcas/", "02"]}
+                    entidad={["/api/marcas/", "02", "02"]}
                     error={errors.marca}
                     tabIndex={1}
                     customWidth={"!w-[] !ml-[1rem]"}
@@ -589,7 +617,12 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
               </div>
             </div>
 
-            <h1 className="userFormLabel mt-[2rem]">Parametrización de Armazones</h1>
+            <div className="w-[70%] flex items-center justify-between ml-4 ">
+              <h1 className="userFormLabel mt-[2rem] ">Armazones</h1>
+              <h1 className="userFormLabel mt-[2rem] mr-10">Usuarios</h1>
+
+            </div>
+
 
             <div className="!pt-[1rem] h-[4rem]">
               <div className="input-container items-center rowForm w-full flex">
@@ -605,7 +638,7 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                     customWidth={"!w-[] "}
                   />
                 </div> */}
-                <div className="w-[24%]">
+                <div className="w-[30%]">
                   <SelectInputTiposComponent
                     label="Material"
                     name="armazon_material"
@@ -617,7 +650,22 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                     customWidth={"!w-[] !ml-[1rem]"}
                   />
                 </div>
-                <div className="w-[17%]">
+                <div className="w-[30%]">
+                  <TextInputComponent
+                    type="number"
+                    label="$ Neto Armazón"
+                    // name="valor_neto_armazon"
+                    name="valor_neto_armazon"
+                    data={data && data[EnumGrid.valor_neto_armazon]}
+                    // data={23}
+                    control={control}
+                    error={errors.valor_neto_armazon}
+                    isOptional={false}
+                    textAlign="text-right"
+                    handleChange={(e) => { setTotalNetoArmazones(e) }}
+                  />
+                </div>
+                <div className="w-[20%] ml-[6rem]">
                   {/* <SelectInputTiposComponent
                     label="Material"
                     name="armazon_material"
@@ -628,8 +676,33 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                     error={errors.armazon_material}
                     customWidth={"!w-[] !ml-[1rem]"}
                   /> */}
+
+                    {/* <RadioButtonComponent
+                      control={control}
+                      label=""
+                      name="adulto_mayor"
+                      // data={formValues && formValues["Venta/Post Venta"] || data && data[EnumGrid.permiso_venta]}
+                      options={["Adulto Mayor"]}
+                      onChange={(e)=>{
+                        console.log(e)
+                      }}
+                      // error={errors.permiso_venta}
+                      horizontal={true}
+                      // onChange={(e:any)=>handleChange(e)}
+                    /> */}
+
+                    <div className=" items-center flex">
+                         <Switch 
+                           label="Adulto mayor" 
+                           color="orange"
+                           onChange={(e)=>{
+                              adulto_mayor.value = e.target.checked
+                           }}
+                           defaultChecked={data ? data[EnumGrid.adulto_mayor] === 0 ? false : true : false}
+                        />
+                   </div>
                 </div>
-                <div className="w-[20%]">
+                <div className="w-[30%] ml-8">
                   {/* <SelectInputComponent
                     label="Marca"
                     name="armazon_marca"
@@ -640,6 +713,21 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                     error={errors.armazon_marca}
                     customWidth={"!w-[]"}
                   /> */}
+                  <TextInputComponent
+                    type="number"
+                    label="$ Neto Adulto Mayor"
+                    // name="valor_neto_armazon"
+                    name="valor_neto_adulto_mayor"
+                    data={data && data[EnumGrid.valor_neto_adulto_mayor]}
+                    // data={23}
+                    control={control}
+                    error={errors.valor_neto_armazon}
+                    isOptional={false}
+                    textAlign="text-right"
+                    handleChange={(e) => { 
+                      setTotalNetoAdultoMayor(e) 
+                    }}
+                  />
                 </div>
                 <div className="w-[20%]">
                   {/* <SelectInputTiposComponent
@@ -653,7 +741,7 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                     error={errors.armazon_uso}
                   /> */}
                 </div>
-                <div className="w-[20%]">
+                {/* <div className="w-[20%]">
                   <TextInputComponent
                     type="number"
                     label="$ Venta Neto"
@@ -667,11 +755,11 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                     textAlign="text-right"
                     handleChange={(e) => { setTotalNetoArmazones(e) }}
                   />
-                </div>
+                </div> */}
               </div>
             </div>
 
-            <div className="!pt-[1rem] h-[4rem]">
+            <div className="!pt-[1rem] h-[4rem] mt-6">
               <div className="input-container items-center rowForm w-full flex">
                 <div className="w-[80%]">
                   <TextInputComponent
@@ -690,7 +778,7 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                     label="$ TOTAL NETO"
                     name="valor_neto_total"
                     // data={data && data[EnumGrid.valor_neto_total]}
-                    data={totalNeto}
+                    data={totalNeto || data && data[EnumGrid.valor_neto_total]}
                     control={control}
                     // error={errors.valor_neto_total}
                     isOptional={false}

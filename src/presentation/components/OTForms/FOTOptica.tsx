@@ -199,7 +199,7 @@ return (
                         data={punto_venta.value || data && data[EnumGrid.punto_venta_id]}
                         // data={data && data[EnumGrid.establecimiento_id]}
                         control={control}
-                        entidad={["/api/puntosventa/", "06", codigoProyecto.value]}
+                        entidad={["/api/puntosventa/", "06", codigoProyecto.value, `_p2=${userID}`]}
                         // error={errors.establecimiento}
                         customWidth={"345px"}
                         readOnly={isEditting}

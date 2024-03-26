@@ -4,7 +4,7 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect } from "react";
-import { TextInputComponent } from "../../components";
+import { SelectInputComponent, TextInputComponent } from "../../components";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationMuestrariosSchema } from "../../utils/validationFormSchemas";
@@ -13,7 +13,7 @@ import {  MODAL, SUCCESS_MESSAGES, TITLES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
-import SelectInputTiposComponent from "../../components/forms/SelectInputTiposComponent";
+// import SelectInputTiposComponent from "../../components/forms/SelectInputTiposComponent";
 import { Button } from "@material-tailwind/react";
 import { toast } from "react-toastify";
 
@@ -255,13 +255,14 @@ const FMuestrarios: React.FC<IUserFormPrps> = React.memo(
             <div className="w-full flex items-center h-[4rem]">
               <div className="input-container items-center rowForm w-full">
                 <div className="w-full ">
-                  <SelectInputTiposComponent
+                  <SelectInputComponent
                     label="Punto Venta"
                     name="punto_venta"
                     showRefresh={true}
                     data={data && data[EnumGrid.punto_venta_id]}
                     control={control}
-                    entidad={"PuntosVenta"}
+                    entidad={["/api/puntosventa/", "02"]}
+                    // entidad={"PuntosVenta"}
                     error={errors.punto_venta}
                     customWidth={"w-full ml-[1rem]"}
                     />
