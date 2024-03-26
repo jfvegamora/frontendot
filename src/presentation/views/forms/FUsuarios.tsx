@@ -467,9 +467,9 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                 <div className="w-[30%]">
                   <RadioButtonComponent
                     control={control}
-                    label="Facturacion"
+                    label="Documentación"
                     name="permiso_facturacion"
-                    data={formValues && formValues["Facturacion"] || data && data[EnumGrid.permiso_factura]}
+                    data={formValues && formValues["Documentacion"] || data && data[EnumGrid.permiso_factura]}
                     options={["Lectura", "Escritura"]}
                     error={errors.permiso_facturacion}
                     horizontal={false}
@@ -493,8 +493,8 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
 
             <Tabs >
               <TabList className="flex ml-4">
-                <Tab className="custom-tab !h-14 !w-[13rem]">Permisos Áreas</Tab>
-                <Tab className="custom-tab !h-14 !w-[13rem]">Permisos Campos</Tab>
+                <Tab className="custom-tab !h-14 !w-[13rem]">Permisos de Áreas</Tab>
+                <Tab className="custom-tab !h-14 !w-[13rem]">Permisos de Edición</Tab>
               </TabList>
 
               <TabPanel>

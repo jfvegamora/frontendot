@@ -107,7 +107,7 @@ const MProyectosUsuarios: React.FC = () => {
           strEntidad={strEntidadExcel}
           strBaseUrl={strBaseUrl}
           showAddButton={true}
-          showCopiar={true}
+          showCopiar={false}
           showExportButton={true}
           showDeleteButton={true}
           showForwardButton={false}

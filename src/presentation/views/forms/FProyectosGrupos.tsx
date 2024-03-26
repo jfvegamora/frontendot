@@ -596,7 +596,7 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
 
             <div className="!pt-[1rem] h-[4rem]">
               <div className="input-container items-center rowForm w-full flex">
-                <div className="w-[20%]">
+                {/* <div className="w-[20%]">
                   <SelectInputTiposComponent
                     label="Tipo"
                     name="armazon_tipo"
@@ -607,8 +607,8 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                     error={errors.armazon_tipo}
                     customWidth={"!w-[] "}
                   />
-                </div>
-                <div className="w-[20%]">
+                </div> */}
+                <div className="w-[24%]">
                   <SelectInputTiposComponent
                     label="Material"
                     name="armazon_material"
@@ -620,8 +620,20 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                     customWidth={"!w-[] !ml-[1rem]"}
                   />
                 </div>
+                <div className="w-[17%]">
+                  {/* <SelectInputTiposComponent
+                    label="Material"
+                    name="armazon_material"
+                    showRefresh={true}
+                    data={data && data[EnumGrid.armazon_material_id]}
+                    control={control}
+                    entidad={"ArmazonesMaterial"}
+                    error={errors.armazon_material}
+                    customWidth={"!w-[] !ml-[1rem]"}
+                  /> */}
+                </div>
                 <div className="w-[20%]">
-                  <SelectInputComponent
+                  {/* <SelectInputComponent
                     label="Marca"
                     name="armazon_marca"
                     showRefresh={true}
@@ -630,10 +642,10 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                     entidad={["/api/marcas/", "02", "1"]}
                     error={errors.armazon_marca}
                     customWidth={"!w-[]"}
-                  />
+                  /> */}
                 </div>
                 <div className="w-[20%]">
-                  <SelectInputTiposComponent
+                  {/* <SelectInputTiposComponent
                     label="Uso"
                     name="armazon_uso"
                     showRefresh={true}
@@ -642,7 +654,7 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                     entidad={"ArmazonesUsos"}
                     customWidth={"!w-[] "}
                     error={errors.armazon_uso}
-                  />
+                  /> */}
                 </div>
                 <div className="w-[20%]">
                   <TextInputComponent

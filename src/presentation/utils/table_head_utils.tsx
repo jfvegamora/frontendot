@@ -3757,21 +3757,35 @@ export const table_head_usuarios = [
     alignment: "text-left",
     width: "w-[10rem]",
   },
+  {
+    cell: "DOC_ID",
+    key: "permiso_doc_id",
+    visible: false,
+    alignment: "text-left",
+    width: "w-[10rem]",
+  },
+  {
+    cell: "DOC",
+    key: "permiso_doc",
+    visible: false,
+    alignment: "text-left",
+    width: "w-[10rem]",
+  },
+  {
+    cell: "POST_VENTA_ID",
+    key: "permiso_post_venta_id",
+    visible: false,
+    alignment: "text-left",
+    width: "w-[10rem]",
+  },
+  {
+    cell: "POST VENTA",
+    key: "permiso_post_venta",
+    visible: false,
+    alignment: "text-left",
+    width: "w-[10rem]",
+  },
 
-  {
-    cell: "PROY_ID",
-    key: "permiso_proy_id",
-    visible: false,
-    alignment: "text-left",
-    width: "w-[10rem]",
-  },
-  {
-    cell: "PROY",
-    key: "permiso_proy",
-    visible: false,
-    alignment: "text-left",
-    width: "w-[10rem]",
-  },
   {
     cell: "ADQ_ID",
     key: "permiso_adq_id",
@@ -3796,6 +3810,20 @@ export const table_head_usuarios = [
   {
     cell: "CAL",
     key: "permiso_cal",
+    visible: false,
+    alignment: "text-left",
+    width: "w-[10rem]",
+  },
+  {
+    cell: "LAB_ID",
+    key: "permiso_lab_id",
+    visible: false,
+    alignment: "text-left",
+    width: "w-[10rem]",
+  },
+  {
+    cell: "LAB",
+    key: "permiso_lab",
     visible: false,
     alignment: "text-left",
     width: "w-[10rem]",
@@ -3906,7 +3934,6 @@ export const table_head_usuarios = [
     alignment: "text-left",
     width: "w-[10rem]",
   },
-
   {
     cell: "editar_armazon_id",
     key: "permiso_armazon_id",
@@ -4033,6 +4060,7 @@ export const table_head_usuarios = [
     alignment: "text-left",
     width: "w-[10rem]",
   },
+ 
   {
     cell: "",
     key: "opciones",

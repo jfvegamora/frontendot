@@ -162,7 +162,16 @@ const MProyectosCristales: React.FC = () => {
           leftEdit={true}
         />
       </div>
-
+      
+      <FProyectosGrupos
+          label={`${TITLES.ingreso} ${strEntidad}`}
+          closeModal={closeModal}
+          selectedRows={selectedRows}
+          setEntities={setEntities}
+          params={params}
+          isEditting={false}
+          escritura_lectura={escritura_lectura}
+        />
 
       {isModalInsert && (
         <FProyectosGrupos
