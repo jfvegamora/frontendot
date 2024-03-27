@@ -72,6 +72,7 @@ export function transformUpdateQuery(jsonData: InputData): OutputData | null {
     query: "04",
     _p1,
     _p2: jsonData.proyecto,
+    _p3: jsonData.usuario,
     _id: jsonData.punto_venta,
   };
 // console.log("query: ", query);
@@ -319,7 +320,7 @@ const FProyectosUsuarios: React.FC<IUserFormPrps> = React.memo(
                       control={control}
                       entidad={["/api/usuarios/", "02"]}
                       error={errors.usuario}
-                      // readOnly={isEditting}
+                      readOnly={isEditting}
                       customWidth={"!ml-[1rem] !w-[16rem]"}
                       />
                 </div>

@@ -2930,7 +2930,7 @@ export const table_head_proyectos_usuarios = [
   {
     cell: "Título Proyecto",
     key: "titulo_proyecto",
-    visible: false,
+    visible: true,
     alignment: "text-left",
     width: "w-[12rem]",
   },

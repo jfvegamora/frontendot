@@ -72,6 +72,7 @@ const FOTPendiente:React.FC<IDerivacion> = ({
     
     
     }
+
   return (
     <div className='useFormContainer useFormDerivacion centered-div use40rem z-30'>
         

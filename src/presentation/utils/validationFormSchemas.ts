@@ -111,7 +111,7 @@ export const validationPuntosVentaSchema = () =>
 export const validationMotivosOTSchema = () =>
   yup.object().shape({
     situacion  : yup.string().required(`${msg}`),
-    area_hasta : yup.string().required(`${msg}`),
+    area_hasta : yup.string(),
   });
 export const validationPendienteOTSchema = () =>
   yup.object().shape({

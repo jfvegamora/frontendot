@@ -215,6 +215,9 @@ const FMotivosOTGarantia: React.FC<ISituacionesFormProps> = React.memo(
         window.removeEventListener("keydown", handleKeyDown);
       };
     }, [closeModal]);
+
+    console.log(errors)
+
     return (
       <div className="useFormContainer centered-div w-[30vw]">
         <div className="userFormBtnCloseContainer">
@@ -235,7 +238,7 @@ const FMotivosOTGarantia: React.FC<ISituacionesFormProps> = React.memo(
               <TextInputComponent
                 type="text"
                 label="Descripción"
-                name="descripcion"
+                name="situacion"
                 data={data && data[EnumGrid.descripcion]}
                 control={control}
                 error={errors.situacion}

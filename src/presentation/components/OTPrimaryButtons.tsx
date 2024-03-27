@@ -140,15 +140,17 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
     
     const handleImpresionMasivo = async () => {
       console.log(pkToDelete)
-
-       pkToDelete.map(async(ot:any)=>{
+      
+      pkToDelete.map(async(ot:any)=>{
         try {
-          await dispatch(fetchOTImpresionByID({ folio: ot.folio, OTAreas: OTAreas['areaActual'] }))
+          setIsFOTImpresa(true)
+          await dispatch(fetchOTImpresionByID({ folio: ot.folio, OTAreas: OTAreas['areaActual'] })).then(()=>handlePrint())
           handlePrint()
           const result = confirm('imprimir el segundo?')
           if(!result){
             return;
           }
+          setIsFOTImpresa(false)
         } catch (error)  {
             console.log(error)
         }
@@ -175,7 +177,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
     
     //   // Acciones después de imprimir todas las boletas
     //   //
-     handlePrint()
+    //  handlePrint()
     };
 
 

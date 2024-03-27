@@ -14,6 +14,7 @@ import FProyectosUsuarios from "../forms/FProyectosUsuarios";
 import FProyectosUsuariosCopiar from "../forms/FProyectosUsuariosCopiar";
 
 
+
 export enum EnumGrid {
   codigo_proyecto = 1,
   titulo_proyecto = 2,
@@ -23,6 +24,8 @@ export enum EnumGrid {
   usuario         = 6,
   estado          = 7
 }
+
+
 const strEntidad = "Parametrización de Usuarios ";
 const strEntidadExcel = "Parametrizacion_de_usuarios";
 const strBaseUrl = "/api/proyectousuarios/";
@@ -69,7 +72,7 @@ const MProyectosUsuarios: React.FC = () => {
   
   useEffect(() => {    
     const newPkToDelete = selectedRows.map((row: number) => 
-     `{"pk1":"${entities[row][EnumGrid.codigo_proyecto]}", "pk2":"${entities[row][EnumGrid.punto_venta_id]}"}`);
+     `{"pk1":"${entities[row][EnumGrid.codigo_proyecto]}", "pk2":"${entities[row][EnumGrid.punto_venta_id]}", "pk3":"${entities[row][EnumGrid.usuario_id]}"}`);
     const combinedPks = newPkToDelete.join(',');
 
     setPkToDelete([`${strParamsToDelete}=[${combinedPks}]`]);
@@ -87,12 +90,22 @@ const MProyectosUsuarios: React.FC = () => {
           primaryKeyInputs={[
             {
               name: "_p1",
-              label: "Proyecto (?)",
+              label: "Proyecto",
               type: "select",
-              selectUrl: "/api/proyectos/", styles:{with:" !w-[33rem]"},
+              selectUrl: "/api/proyectos/", styles:{with:" !w-[23rem]"},
             },
-            { name: "_p2", label: "Código Proyecto", type: "text", styles:{with:" !w-[9rem]"}, },
-            { name: "_p3", label: "Código Licitacion", type: "text", styles:{with:"!w-[9rem]"} },
+            {
+              name: "_p2",
+              label: "Punto de Venta",
+              type: "select",
+              selectUrl: "/api/puntosventa/", styles:{with:" !w-[18rem]"},
+            },
+            {
+              name: "_p3",
+              label: "Usuario",
+              type: "select",
+              selectUrl: "/api/usuarios/", styles:{with:" !w-[18rem]"},
+            },
           ]}
         />
       </div>

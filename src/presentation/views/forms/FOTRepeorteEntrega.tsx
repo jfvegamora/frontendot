@@ -3,7 +3,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { AppStore, useAppDispatch, useAppSelector } from '../../../redux/store';
 import { fetchOT } from '../../../redux/slices/OTSlice';
 import { TextInputComponent } from '../../components';
-import { MODAL, TITLES } from "../../utils";
+import {  TITLES } from "../../utils";
 import { toast } from 'react-toastify';
 import { URLBackend } from '../../hooks/useCrud';
 import axios from 'axios';
@@ -39,7 +39,7 @@ const FOTReporteEntrega: React.FC<Interface> = ({
 
     const UsuarioID: any = useAppSelector((store: AppStore) => store.user?.id)
     const dispatch = useAppDispatch();
-    const { showModal, CustomModal } = useModal();
+    const { CustomModal } = useModal();
 
     const fetchNumeroRepEntrega = async() => {
         try {

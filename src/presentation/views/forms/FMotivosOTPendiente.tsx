@@ -216,6 +216,9 @@ const FMotivosOTPendiente: React.FC<ISituacionesFormProps> = React.memo(
         window.removeEventListener("keydown", handleKeyDown);
       };
     }, [closeModal]);
+
+    console.log(errors)
+
     return (
       <div className="useFormContainer centered-div w-[30vw]">
         <div className="userFormBtnCloseContainer">

@@ -9,7 +9,7 @@ import {
 } from "../../components";
 import { useEntityUtils, usePermission } from "../../hooks";
 // import FUsuarios from "../forms/FUsuarios";
-import { MODAL, TITLES, table_head_OT_historica } from "../../utils";
+import { TITLES, table_head_OT_historica } from "../../utils";
 // import { OptionValuesMotivo } from "./MOT";
 import FOT from "../forms/FOT";
 import { AppStore, useAppDispatch, useAppSelector } from "../../../redux/store";
@@ -19,9 +19,9 @@ import FOTFactura from "../forms/FOTFactura";
 import FOTGuiaDespacho from "../forms/FOTGuiaDespacho";
 import FilterButton, { filterToggle } from "../../components/FilterButton";
 import { toast } from "react-toastify";
-import axios from "axios";
-import { URLBackend } from "../../hooks/useCrud";
-import { clearData, fetchOT } from "../../../redux/slices/OTSlice";
+// import axios from "axios";
+// import { URLBackend } from "../../hooks/useCrud";
+import { clearData } from "../../../redux/slices/OTSlice";
 import StateCountBarOT from "../../components/StateCountBarOT";
 import { signal } from "@preact/signals-react";
 import  ExportCSV  from "../../components/ExportToCsv";
@@ -275,13 +275,13 @@ const MOTHistorica: React.FC = () => {
   const [showFactura, setShowFactura] = useState(false);
   const [showRepEntrega, setShowRepEntrega] = useState(false);
   const [ pktoDelete, setPkToDelete] = useState([]);
-  const { showModal, CustomModal } = useModal();
+  const {  CustomModal } = useModal();
   
   const dispatch       = useAppDispatch();
 
   const [params, setParams] = useState([]);
   const OTs: any = useAppSelector((store: AppStore) => store.OTS);
-  const userState: any = useAppSelector((store: AppStore) => store.user);
+  // const userState: any = useAppSelector((store: AppStore) => store.user);
 
   const {escritura_lectura} = usePermission(idMenu)
 
@@ -334,106 +334,106 @@ const MOTHistorica: React.FC = () => {
   }, [selectedRows]);
 
   const checkCount = signal(pktoDelete.length)
-  const folios = pktoDelete && pktoDelete.map(({folio}:any)=>folio)
+  // const folios = pktoDelete && pktoDelete.map(({folio}:any)=>folio)
 
   
   //TODO: ==== METODO REPORTE DE FIRMA Y ATENCION============
-  const handleReporte = async(type:number) => {
-    let resultBoton:any = []
+  // const handleReporte = async(type:number) => {
+  //   let resultBoton:any = []
 
-    if(pktoDelete.length < 1){
-      return toast.error('No Hay OT Seleccionada')
-    }
+  //   if(pktoDelete.length < 1){
+  //     return toast.error('No Hay OT Seleccionada')
+  //   }
 
-    console.log(params[0])                               
-
-    
-    console.log(pktoDelete) 
-    const resultadoFiltrado = OTs.data && OTs.data.filter((elemento:any) => folios.includes(elemento[1]));
-    
-    if(parseInt(pktoDelete[0]["reporte_atencion"]) !== 0){
-      const result = await showModal(
-          `OT: ${pktoDelete[0]["folio"]} Tiene Reporte de atención asignado, ¿Desea agregar uno nuevo? `,
-          '', 
-          MODAL.keepYes,
-          MODAL.kepNo
-        );
-
-      if(!result){
-          return;
-      }
-  }
-
+  //   console.log(params[0])                               
 
     
-    //TODO: TIPO 1 REPORTE DE ATENCION
-    if(type === 1){
-      //? VALIDACIONES DEL METODO
-      resultadoFiltrado.map((ot:any)=>{
-        const estadoCOL = ot[4]
-
-        if(estadoCOL === 'Entregada'){
-          resultBoton =  [...resultBoton, [ot[1], true]]
-        }else{
-          resultBoton =  [...resultBoton, [ot[1], ot[4]]]
-        }
-
-      })
-    //TODO: TIPO 2 REPORTE FIRMA 
-    }else if (type === 2){
-      resultadoFiltrado.map((ot:any)=>{
-        const estadoCOL = ot[4]
-
-        if(estadoCOL !== 'Anulada'){
-          resultBoton =  [...resultBoton, [ot[1], true]]
-        }else{
-          resultBoton =  [...resultBoton, [ot[1], ot[4]]]
-        }
-      })
-    }
+  //   console.log(pktoDelete) 
+  //   const resultadoFiltrado = OTs.data && OTs.data.filter((elemento:any) => folios.includes(elemento[1]));
     
-    const areAllSameType = resultBoton.every((item:any) => item[1] === true);
+  //   if(parseInt(pktoDelete[0]["reporte_atencion"]) !== 0){
+  //     const result = await showModal(
+  //         `OT: ${pktoDelete[0]["folio"]} Tiene Reporte de atención asignado, ¿Desea agregar uno nuevo? `,
+  //         '', 
+  //         MODAL.keepYes,
+  //         MODAL.kepNo
+  //       );
 
-    if(!areAllSameType){
-      resultBoton.map((ot:any)=>{
-          if(typeof ot[1] === 'string'){
-            toast.error(`Error: folio ${ot[0]}  | ${ot[1]}`);
-          }
-        } 
-      ) 
-    }else{  
-        const toastLoading = toast.loading('Cargando...');
-      try {
-        const query = {
-          _proyecto   :    pktoDelete[0]["proyecto_codigo"],
-          _pkToDelete :   JSON.stringify(resultBoton.map((folioOT:any)=>({folio: folioOT[0]}))),
-          _id         :   type,
-          _usuario    :   userState["id"]
-        }
+  //     if(!result){
+  //         return;
+  //     }
+  // }
+
+
+    
+  //   //TODO: TIPO 1 REPORTE DE ATENCION
+  //   if(type === 1){
+  //     //? VALIDACIONES DEL METODO
+  //     resultadoFiltrado.map((ot:any)=>{
+  //       const estadoCOL = ot[4]
+
+  //       if(estadoCOL === 'Entregada'){
+  //         resultBoton =  [...resultBoton, [ot[1], true]]
+  //       }else{
+  //         resultBoton =  [...resultBoton, [ot[1], ot[4]]]
+  //       }
+
+  //     })
+  //   //TODO: TIPO 2 REPORTE FIRMA 
+  //   }else if (type === 2){
+  //     resultadoFiltrado.map((ot:any)=>{
+  //       const estadoCOL = ot[4]
+
+  //       if(estadoCOL !== 'Anulada'){
+  //         resultBoton =  [...resultBoton, [ot[1], true]]
+  //       }else{
+  //         resultBoton =  [...resultBoton, [ot[1], ot[4]]]
+  //       }
+  //     })
+  //   }
+    
+  //   const areAllSameType = resultBoton.every((item:any) => item[1] === true);
+
+  //   if(!areAllSameType){
+  //     resultBoton.map((ot:any)=>{
+  //         if(typeof ot[1] === 'string'){
+  //           toast.error(`Error: folio ${ot[0]}  | ${ot[1]}`);
+  //         }
+  //       } 
+  //     ) 
+  //   }else{  
+  //       const toastLoading = toast.loading('Cargando...');
+  //     try {
+  //       const query = {
+  //         _proyecto   :    pktoDelete[0]["proyecto_codigo"],
+  //         _pkToDelete :   JSON.stringify(resultBoton.map((folioOT:any)=>({folio: folioOT[0]}))),
+  //         _id         :   type,
+  //         _usuario    :   userState["id"]
+  //       }
   
   
-        const strUrl      = `${URLBackend}/api/proyectodocum/listado`
-        const queryURL    = `?query=06&_p2=${query["_proyecto"]}&_id=${query["_id"]}&_pkToDelete=${query["_pkToDelete"]}&_p4=${query["_usuario"]}`
-        const result      = await axios(`${strUrl}/${queryURL}`);
-        // console.log(result)        
-        if(result.status === 200){
-          const successMessage = type === 2  
-                                         ? `Reporte firma generado: ${result.data[0][0]}`
-                                         : `Reporte de atencion generado: ${result.data[0][0]}`
+  //       const strUrl      = `${URLBackend}/api/proyectodocum/listado`
+  //       const queryURL    = `?query=06&_p2=${query["_proyecto"]}&_id=${query["_id"]}&_pkToDelete=${query["_pkToDelete"]}&_p4=${query["_usuario"]}`
+  //       const result      = await axios(`${strUrl}/${queryURL}`);
+  //       // console.log(result)        
+  //       if(result.status === 200){
+  //         const successMessage = type === 2  
+  //                                        ? `Reporte firma generado: ${result.data[0][0]}`
+  //                                        : `Reporte de atencion generado: ${result.data[0][0]}`
           
 
-          dispatch(fetchOT({historica:true, searchParams: params[0] }))
-          setSelectedRows([])
-          toast.dismiss(toastLoading)
-          toast.success(successMessage)
-      }
-      } catch (error) {
-        toast.dismiss(toastLoading)
-        console.log(error)
-        throw error;
-      }
-    }
-  }
+  //         dispatch(fetchOT({historica:true, searchParams: params[0] }))
+  //         setSelectedRows([])
+  //         toast.dismiss(toastLoading)
+  //         toast.success(successMessage)
+  //     }
+  //     } catch (error) {
+  //       toast.dismiss(toastLoading)
+  //       console.log(error)
+  //       throw error;
+  //     }
+  //   }
+  // }
 
   useEffect(()=>{
     dispatch(clearData())
