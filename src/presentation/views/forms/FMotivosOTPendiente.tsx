@@ -252,7 +252,7 @@ const FMotivosOTPendiente: React.FC<ISituacionesFormProps> = React.memo(
             <div className="w-full !mt-4 ">
               <SelectInputTiposComponent
                 label="Área exclusiva"
-                name="area"
+                name="area_hasta"
                 showRefresh={true}
                 data={data && data[EnumGrid.area_id]}
                 control={control}
