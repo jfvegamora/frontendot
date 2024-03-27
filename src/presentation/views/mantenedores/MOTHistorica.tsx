@@ -26,6 +26,7 @@ import StateCountBarOT from "../../components/StateCountBarOT";
 import { signal } from "@preact/signals-react";
 import  ExportCSV  from "../../components/ExportToCsv";
 import { useModal } from "../../hooks/useModal";
+import FOTReporteEntrega from "../forms/FOTRepeorteEntrega";
 
 export enum EnumGrid {
   folio = 1,
@@ -272,6 +273,7 @@ const MOTHistorica: React.FC = () => {
   const [showOrdenCompra, setShowOrdenCompra] = useState(false);
   const [showGuia, setShowGuia] = useState(false);
   const [showFactura, setShowFactura] = useState(false);
+  const [showRepEntrega, setShowRepEntrega] = useState(false);
   const [ pktoDelete, setPkToDelete] = useState([]);
   const { showModal, CustomModal } = useModal();
   
@@ -487,15 +489,38 @@ const MOTHistorica: React.FC = () => {
         <div className="mx-auto">
 
           {/* <Button className='otActionButton mt-3 mx-5' style={{ backgroundColor: '#676f9d' }} onClick={() => handleReporte(2)}>N° Rep. Firma</Button> */}
-          <Button className='otActionButton mt-3 mx-5'  onClick={() => handleReporte(1)} >N° Rep. Atención</Button>
+          {/* <Button className='otActionButton mt-3 mx-5'  onClick={() => handleReporte(1)} >N° Rep. Entrega</Button> */}
 
-          <Button className='otActionButton mt-3 mx-5'  onClick={() => setShowOrdenCompra((prev) => !prev)}>N° OC</Button>
+          <Button className='otActionButton mt-3 mx-5'  onClick={() => {
+            if(pktoDelete.length < 1){
+              return toast.error('No hay OT Seleccionada')
+            }
+            setShowRepEntrega((prev)=>!prev)
+          }} >N° Rep. Entrega</Button>
+            {showRepEntrega && <FOTReporteEntrega pktoDelete={pktoDelete} setSelectedRows={setSelectedRows} closeModal={()=>setShowRepEntrega(false)} />}
+
+          <Button className='otActionButton mt-3 mx-5'  onClick={() => {
+            if(pktoDelete.length < 1){
+              return toast.error('No hay OT Seleccionada')
+            }
+            setShowOrdenCompra((prev) => !prev)}
+          }>N° OC</Button>
           {showOrdenCompra  && <FOTOrdenCompra  pktoDelete={pktoDelete}  setSelectedRows={setSelectedRows} closeModal={() => setShowOrdenCompra(false)} />}
 
-          <Button className='otActionButton mt-3 mx-5'  onClick={() => setShowFactura((prev) => !prev)}>N° Factura</Button>
+          <Button className='otActionButton mt-3 mx-5'  onClick={() => {
+            if(pktoDelete.length < 1){
+              return toast.error('No hay OT Seleccionada')
+            }
+            setShowFactura((prev) => !prev)
+          }}>N° Factura</Button>
           {showFactura      && <FOTFactura      pktoDelete={pktoDelete}  setSelectedRows={setSelectedRows} closeModal={() => setShowFactura(false)} />}
 
-          <Button className='otActionButton mt-3 mx-5'  onClick={() => setShowGuia((prev) => !prev)}>N° Guía</Button>
+          <Button className='otActionButton mt-3 mx-5'  onClick={() => {
+            if(pktoDelete.length < 1){
+              return toast.error('No hay OT Seleccionada')
+            }
+            setShowGuia((prev) => !prev)
+          }}>N° Guía</Button>
           {showGuia         && <FOTGuiaDespacho pktoDelete={pktoDelete } setSelectedRows={setSelectedRows} closeModal={() => setShowGuia(false)} />}
 
           <ExportCSV strEntidad={strEntidad} params={params} strBaseUrl={strBaseUrl}/>  

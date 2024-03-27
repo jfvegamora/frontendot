@@ -35,10 +35,10 @@ const empty_jsonGrupo = {
     "punto_venta" : ''
 }
 
-const emppty_jsonCliente = {
-    "cliente_sexo"      : '',
-    "cliente_fecha_nax" : ''
-}
+// const emppty_jsonCliente = {
+//     "cliente_sexo"      : '',
+//     "cliente_fecha_nax" : ''
+// }
 
 
 
@@ -93,10 +93,6 @@ const FOTArmazones:React.FC<IArmazones> = ({
         cristal2_tratamiento_id
     } = (formValuesCompleto && formValuesCompleto["cristales"]) || {};
 
-    const {
-        cliente_sexo,
-        cliente_fecha_nacimiento
-    } = (formValuesCompleto && formValuesCompleto["cliente"]) || {};
 
 
     const _pkToDelete1_od ={
@@ -151,10 +147,10 @@ const FOTArmazones:React.FC<IArmazones> = ({
         "punto_venta": punto_venta.value,
       }
 
-    const _jsonCliente = {
-        "cliente_sexo"      : (cliente_sexo === 'Femenino' ? 2 : (cliente_sexo === 'Masculino') ? 2 : 3)    || data?.[EnumGrid.cliente_sexo],
-        "cliente_fecha_nac" : cliente_fecha_nacimiento || data?.[EnumGrid.cliente_fecha_nacimiento]
-    }
+    // const _jsonCliente = {
+    //     "cliente_sexo"      : (cliente_sexo === 'Femenino' ? 2 : (cliente_sexo === 'Masculino') ? 2 : 3)    || data?.[EnumGrid.cliente_sexo],
+    //     "cliente_fecha_nac" : cliente_fecha_nacimiento || data?.[EnumGrid.cliente_fecha_nacimiento]
+    // }
     
     //TODO! =========================== ENVIAR DP EN _P4 PARA VALIDAR ARMAZONES ===========================================================================
 
@@ -168,8 +164,8 @@ const FOTArmazones:React.FC<IArmazones> = ({
         let pkJSONGrupo:any  = {}
         let jsonGrupo        = {}
 
-        let pkJSONCliente:any = {}
-        let jsonCliente       = {}
+        // let pkJSONCliente:any = {}
+        // let jsonCliente       = {}
 
         // const pkJSON = JSON.stringify([_pkToDelete1_od, _pkToDelete1_oi])
         // const encodedJSON = encodeURIComponent(pkJSON)
@@ -188,25 +184,25 @@ const FOTArmazones:React.FC<IArmazones> = ({
                  dp             = A1_DP.value as any
                  diametro       = A1_Diametro.value as any
                  pkJSONGrupo    = JSON.stringify([_pkToDelete1_od, _pkToDelete1_oi])
-                 pkJSONCliente  = JSON.stringify([_jsonCliente])
                  jsonGrupo      = encodeURIComponent(pkJSONGrupo)
-                 jsonCliente    = encodeURIComponent(pkJSONCliente)
+                //  pkJSONCliente  = JSON.stringify([_jsonCliente])
+                //  jsonCliente    = encodeURIComponent(pkJSONCliente)
                 break
             case 'a2_armazon_id':
                 dp           = A2_DP.value as any
                 diametro     = A2_Diametro.value as any
                 pkJSONGrupo  = JSON.stringify([_pkToDelete2_od, _pkToDelete2_oi])
-                pkJSONCliente  = JSON.stringify([_jsonCliente])
                 jsonGrupo    = encodeURIComponent(pkJSONGrupo)
-                jsonCliente  = encodeURIComponent(pkJSONCliente)
+                // pkJSONCliente  = JSON.stringify([_jsonCliente])
+                // jsonCliente  = encodeURIComponent(pkJSONCliente)
                 break;
             case 'a3_armazon_id':
                 dp             = A1_DP.value as any
                 diametro       = A1_Diametro.value as any
                 pkJSONGrupo    = JSON.stringify([_pkToDelete1_od, _pkToDelete1_oi])
-                pkJSONCliente  = JSON.stringify([_jsonCliente])
                 jsonGrupo      = encodeURIComponent(pkJSONGrupo)
-                jsonCliente    = encodeURIComponent(pkJSONCliente);
+                // pkJSONCliente  = JSON.stringify([_jsonCliente])
+                // jsonCliente    = encodeURIComponent(pkJSONCliente);
                 break;
             default:
                 break;
@@ -242,9 +238,8 @@ const FOTArmazones:React.FC<IArmazones> = ({
                                                                                     : (typeof A1_Diametro.value === 'string' ? A1_Diametro.value : "")
                                                                             )
                                                                         }&_jsonGrupo=${jsonGrupo}
-                                                                        &_jsonCliente=${jsonCliente}
                                                                         `) 
-                                                   : (`${endpoint}&_jsonGrupo=${encodeURIComponent(JSON.stringify([empty_jsonGrupo, empty_jsonGrupo]))}&_jsonCliente=${encodeURIComponent(JSON.stringify([emppty_jsonCliente]))}&_p1=${codArmazon && codArmazon.trim() !== '' ? codArmazon : ''}`))
+                                                   : (`${endpoint}&_jsonGrupo=${encodeURIComponent(JSON.stringify([empty_jsonGrupo, empty_jsonGrupo]))}&_p1=${codArmazon && codArmazon.trim() !== '' ? codArmazon : ''}`))
             // console.log(data[0])
             if(data && data[0] && data[0][0] === 'ERROR'){
                 toast.error(data[0][1])
@@ -521,11 +516,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
 
   
 
-    console.log(permiso_areas_armazones)
-    console.log(permiso_usuario_armazones)
-    
-
-    console.log(!isEditting)
+   
   return (
     <form>
         <div className='w-full frameOTForm'>

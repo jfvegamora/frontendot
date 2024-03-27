@@ -2759,20 +2759,20 @@ export const table_head_proyectos_grupos = [
     width: "w-[6rem]",
   },
 
-  {
-    cell: "Adulto Mayor",
-    key: "adulto_mayor",
-    visible: true,
-    alignment: "text-right",
-    width: "w-[6rem]",
-  },
-  {
-    cell: "$ Adulto Mayor",
-    key: "adulto_mayor",
-    visible: true,
-    alignment: "text-right",
-    width: "w-[6rem]",
-  },
+  // {
+  //   cell: "Adulto Mayor",
+  //   key: "adulto_mayor",
+  //   visible: true,
+  //   alignment: "text-right",
+  //   width: "w-[6rem]",
+  // },
+  // {
+  //   cell: "$ Adulto Mayor",
+  //   key: "adulto_mayor",
+  //   visible: true,
+  //   alignment: "text-right",
+  //   width: "w-[6rem]",
+  // },
 
   {
     cell: "$ TOTAL",

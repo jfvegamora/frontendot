@@ -588,8 +588,11 @@ const FOT:React.FC<IFOTProps> = ({
      
     } else if (submitAction === 'procesar') {
         let estado = OTAreaActual === 100 ? 50 : 20
-        console.log(paramsOT.value)
-
+        
+        if(data && data[EnumGrid.estado_impresion_id] !== '1'){
+          setSubmitAction('');
+          return toast.error('Debe imprmir OT antes de Procesar');
+        }
 
         if(OTAreaActual === 90){
            const result = validarNumeroDocumento(data)
@@ -598,6 +601,7 @@ const FOT:React.FC<IFOTProps> = ({
             return;
            }
         }
+        
 
         updateOT(
           jsonData,

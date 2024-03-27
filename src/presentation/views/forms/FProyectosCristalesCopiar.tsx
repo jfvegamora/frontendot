@@ -21,7 +21,7 @@ import {toast} from 'react-toastify'
 // import { toast } from "react-toastify";
 // import { signal } from "@preact/signals-react";
 
-const strBaseUrl = "/api/proyectocristales/";
+const strBaseUrl = "/api/proyectogrupos/";
 const strEntidad = "Parametrizacion de Cristales ";
 
 export interface InputData {
@@ -149,6 +149,7 @@ const FProyectosCristalesCopiar: React.FC<IUserFormPrps> = React.memo(
         if (!blnKeep && !isEditting) {
           const result = await showModal(
             MODAL.keep,
+            '',
             MODAL.keepYes,
             MODAL.kepNo
           );

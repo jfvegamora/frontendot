@@ -15,6 +15,8 @@ import { AppStore, useAppSelector } from "../../redux/store";
 // DESARROLLO
 export const URLBackend = signal('https://gestiondev.mtoopticos.cl');
 
+
+
 //CAPACITACION
 // export const URLBackend = signal('https://gestioncap.mtoopticos.cl')
 

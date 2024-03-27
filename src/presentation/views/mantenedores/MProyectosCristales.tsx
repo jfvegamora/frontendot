@@ -49,10 +49,10 @@ export enum EnumGrid {
   armazon_material_id      = 24,
   armazon_material         = 25,
   valor_neto_armazon       = 26,
-  adulto_mayor             = 27,
-  valor_neto_adulto_mayor  = 28,
-  valor_neto_total         = 29,
-  observaciones            = 30,
+
+  
+  valor_neto_total         = 27,
+  observaciones            = 28,
 }
 
 
@@ -160,15 +160,7 @@ const MProyectosCristales: React.FC = () => {
         />
       </div>
       
-      {/* <FProyectosGrupos
-          label={`${TITLES.ingreso} ${strEntidad}`}
-          closeModal={closeModal}
-          selectedRows={selectedRows}
-          setEntities={setEntities}
-          params={params}
-          isEditting={false}
-          escritura_lectura={escritura_lectura}
-        /> */}
+     
 
       {isModalInsert && (
         <FProyectosGrupos

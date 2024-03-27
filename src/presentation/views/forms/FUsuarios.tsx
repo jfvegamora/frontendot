@@ -366,12 +366,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
         setValue('permiso_editar_validar_armazones', data[EnumGrid.permiso_editar_validar_armazones_id])
       }
     },[data])
-    console.log(errors)
 
-    console.log( data && data[EnumGrid.permiso_editar_grupo_dioptria])
-    console.log( data && data[EnumGrid.permiso_editar_grupo_dioptria_id])
-    console.log( data && data)
-    
     return (
       <div className="useFormContainer centered-div  !w-[70rem] !h-[45rem]">
         <div className="userFormBtnCloseContainer flex justify-between ">
