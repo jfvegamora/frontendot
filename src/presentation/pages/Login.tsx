@@ -66,19 +66,23 @@ const Login: React.FC = React.memo(() => {
       
           // toast.success("Sesion Iniciada");
           // show({ message: LOGIN.loginSuccess, type: "success" });
-          toast.dismiss(toastLoading)
+          // toast.dismiss(toastLoading)
           navigate("/landing");
-          toast.dismiss(toastLoading)
+          // toast.dismiss(toastLoading)
         })
         .catch((_e) => {
           toast.dismiss(toastLoading)
           show({ message: LOGIN.loginError, type: "error" })
+        })
+        .finally(() => {
+          console.log('render')
+          toast.dismiss(toastLoading) 
         });
         // toast.dismiss(toastLoading)
-    } catch (error: any) {
-      toast.dismiss(toastLoading)
-      show({ message: LOGIN.loginError, type: "error" });
-    }
+      } catch (error: any) {
+        toast.dismiss(toastLoading)
+        show({ message: LOGIN.loginError, type: "error" });
+      }
   };
 
 

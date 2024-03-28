@@ -857,7 +857,7 @@ useEffect(()=>{
 
   // console.log(validationNivel1.value)
   
-  // console.log(validationNivel2.value)
+  console.log(validationNivel2.value)
 
   // console.log(validationNivel3.value)
 

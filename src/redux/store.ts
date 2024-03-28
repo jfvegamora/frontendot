@@ -23,7 +23,7 @@ export const store = configureStore<AppStore>({
     OTAreas: OTAreasReducer,
     listBoxTipos: listBoxTiposReducer,
     listBox: listboxReuder,
-    OTS: ORReuder ? ORReuder as any : null,
+    OTS: ORReuder || (()=>null),
     utils: Utils
   },
 });

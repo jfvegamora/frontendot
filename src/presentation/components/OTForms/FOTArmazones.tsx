@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react'
 import axios from 'axios';
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
-import { validationOTlevel2, validationOTlevel3, validation_A1_armazon, validation_A2_armazon } from '../../utils/validationOT';
+import { validationOTlevel2, validationOTlevel3, validation_A1_armazon, validation_A2_armazon, validation_Cristal1_od, validation_Cristal1_oi, validation_Cristal2_od, validation_Cristal2_oi } from '../../utils/validationOT';
 import { URLBackend } from '../../hooks/useCrud';
 import { toast } from 'react-toastify';
-import { A1_DP, A1_Diametro, A2_DP, A2_Diametro, a1_armazon, a2_armazon, a2_od_cil, a2_od_esf, a2_oi_cil, a2_oi_esf, a3_armazon, codigoProyecto, dioptrias_receta, punto_venta, tipo_de_anteojo, validar_armazon1, validar_armazon2, validar_parametrizacion, validationNivel3 } from '../../utils';
+import { A1_CR_OD, A1_CR_OI, A1_DP, A1_Diametro, A1_GRUPO_OD, A1_GRUPO_OI, A2_CR_OD, A2_CR_OI, A2_DP, A2_Diametro, A2_GRUPO_OD, A2_GRUPO_OI, a1_armazon, a2_armazon, a2_od_cil, a2_od_esf, a2_oi_cil, a2_oi_esf, a3_armazon, codigoProyecto, dioptrias_receta, punto_venta, tipo_de_anteojo, validar_armazon1, validar_armazon2, validar_parametrizacion, validationNivel3 } from '../../utils';
 // import TextInputInteractive from '../forms/TextInputInteractive';
 import { AppStore, useAppSelector } from '../../../redux/store';
 import { OTTextInputComponent } from '.';
@@ -171,6 +171,8 @@ const FOTArmazones:React.FC<IArmazones> = ({
         // const encodedJSON = encodeURIComponent(pkJSON)
         
         // console.log(codArmazon)
+
+        console.log(tipo_de_anteojo.value)
         
 
         if(codArmazon && codArmazon.trim() === ''){
@@ -192,7 +194,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
                 dp           = A2_DP.value as any
                 diametro     = A2_Diametro.value as any
                 pkJSONGrupo  = JSON.stringify([_pkToDelete2_od, _pkToDelete2_oi])
-                jsonGrupo    = encodeURIComponent(pkJSONGrupo)
+                jsonGrupo    = tipo_de_anteojo.value === '3' ? encodeURIComponent(pkJSONGrupo) : encodeURIComponent(JSON.stringify([_pkToDelete1_od, _pkToDelete1_oi]))
                 // pkJSONCliente  = JSON.stringify([_jsonCliente])
                 // jsonCliente  = encodeURIComponent(pkJSONCliente)
                 break;
@@ -241,14 +243,29 @@ const FOTArmazones:React.FC<IArmazones> = ({
                                                                         `) 
                                                    : (`${endpoint}&_jsonGrupo=${encodeURIComponent(JSON.stringify([empty_jsonGrupo, empty_jsonGrupo]))}&_p1=${codArmazon && codArmazon.trim() !== '' ? codArmazon : ''}`))
             // console.log(data[0])
-            if(data && data[0] && data[0][0] === 'ERROR'){
-                toast.error(data[0][1])
+            console.log(data)
+            console.log(data[0][19])
+            
+            if(data && data[0][19] !== ''){
+                console.log('hay error')
+            }
+
+            console.log('no hay error')
+            
+            if(data && data[0][19] !== ''){
+                toast.error(data[0][19])
                 // _señal = " "
                 onDataChange({[inputName]: " "})
                 if(inputName === 'a1_armazon_id'){
                     setArmazon1([])
                     setCodArmazon1(" ")
                     validation_A1_armazon('')
+                    A1_GRUPO_OD.value = ''
+                    A1_GRUPO_OI.value = ''
+                    A1_CR_OD.value = ''
+                    A1_CR_OI.value = ''
+                    validation_Cristal1_od('')
+                    validation_Cristal1_oi('')
                     
                 }
 
@@ -271,7 +288,18 @@ const FOTArmazones:React.FC<IArmazones> = ({
                         localStorage.setItem('a1_armazon', data[0])
                         setArmazon1(data[0])
                         setCodArmazon1(data[0][0])
-                        a1_armazon.value = data[0][0]
+
+                        A1_GRUPO_OD.value = data[0][15]
+                        a1_armazon.value  = data[0][0]
+                        A1_GRUPO_OI.value = data[0][16]
+
+                        A1_CR_OD.value    = data[0][17]
+                        A1_CR_OI.value    = data[0][18]
+
+
+                        validation_Cristal1_oi(data[0][17])
+                        validation_Cristal1_od(data[0][18])
+                        validation_A1_armazon(data[0][0])
                     }
     
                     if(inputName === 'a2_armazon_id'){
@@ -279,6 +307,20 @@ const FOTArmazones:React.FC<IArmazones> = ({
                         setArmazon2(data[0])
                         setCodArmazon2(data[0][0])
                         a2_armazon.value = data[0][0]
+
+                        console.log(tipo_de_anteojo.value)
+                        
+                        if(tipo_de_anteojo.value === '3'){
+                            A2_GRUPO_OD.value = data[0][15]
+                            A2_GRUPO_OI.value = data[0][16]
+
+                            A2_CR_OD.value    = data[0][17]
+                            A2_CR_OI.value    = data[0][18]
+
+                            validation_Cristal2_od(data[0][17])
+                            validation_Cristal2_oi(data[0][18])
+                            validation_A2_armazon(data[0][0])
+                        }
                     }
     
                     if(inputName === 'a3_armazon_id'){

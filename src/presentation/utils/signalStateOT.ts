@@ -152,6 +152,9 @@ export const validationNivel1 = signal([
 ]);
 
 export const validationNivel2 = signal([
+  { campo:"establecimiento_id",
+  valor: 0
+  },
   { campo: "fecha_entrega_taller",
     valor: 0
   },
@@ -1076,9 +1079,9 @@ export const getGrupoCristales_A2 = async(formValue:any, data:any, setErrorGrupo
     "cilindrico": a2_od_cil.value ?? 0,
     "punto_venta": punto_venta.value,
 
-    "armazon_material"  : '',
-    "cliente_sexo"      : '',
-    "cliente_fecha_nac" : ''
+    "armazon_material"  : 0,
+    "cliente_sexo"      : 0,
+    "cliente_fecha_nac" : new Date()
   }
 
 
@@ -1095,9 +1098,15 @@ export const getGrupoCristales_A2 = async(formValue:any, data:any, setErrorGrupo
     "esferico":   a2_oi_esf.value ?? 0,
     "cilindrico": a2_oi_cil.value ?? 0, 
     "punto_venta": punto_venta.value,
+
+    
+
+    "armazon_material"  : 0,
+    "cliente_sexo"      : 0,
+    "cliente_fecha_nac" : new Date()
   }
 
-  console.log(_pkToDelete1_oi)
+  // console.log(_pkToDelete1_oi)
 
 
 

@@ -180,15 +180,16 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
 
         
         
-        if(Array.isArray(response) && response.length === 0){
-          toast.success('Búsqueda Realizada: 0 resultados',{autoClose:1500})
-        }
+        
         
         toast.dismiss(toastLoading)
         if(baseUrl !== '/api/othistorica/' && baseUrl !== '/api/ot/'){
           setEntities(response)
         }
 
+        if(Array.isArray(response) && response.length === 0){
+          return toast.success('Búsqueda Realizada: 0 resultados',{autoClose:1500})
+        }
         toast.success('Busqueda Realizada',{autoClose:1500})
       } catch (error) {
         toast.dismiss(toastLoading)

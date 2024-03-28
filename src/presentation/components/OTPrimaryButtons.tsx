@@ -644,12 +644,12 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
         )} */}
 
           <div className='ml-2'>
-            <Input type="text" label='Buscar OT' name='searchOT' className='text-xl' color='orange' ref={searchOTRef} onBlur={(e:any)=>handleChecked(e.target.value)} value={valueSearchOT} onChange={(e:any)=>setValueSearchOT(e.target.value)} />
+            <Input type="text" label='Seleccionar OT' name='searchOT' className='text-xl' color='orange' ref={searchOTRef} onBlur={(e:any)=>handleChecked(e.target.value)} value={valueSearchOT} onChange={(e:any)=>setValueSearchOT(e.target.value)} />
           </div>
 
           {areaPermissions && areaPermissions[15] === '1' && permisos_usuario_areas === '1' && (
           <div className="ml-2">
-            <Input ref={refFocusInput} type="text" label='Procesar OT' name='ProcesarOT' className='text-xl' color='orange'  value={valueConfirmOT} onChange={(e:any)=>{handleProcesarConfirm(e.target.value),setValueConfirmOT(e.target.value)}} />
+            <Input ref={refFocusInput} type="text" label='Validar OT' name='ProcesarOT' className='text-xl' color='orange'  value={valueConfirmOT} onChange={(e:any)=>{handleProcesarConfirm(e.target.value),setValueConfirmOT(e.target.value)}} />
           </div>
           )}
 

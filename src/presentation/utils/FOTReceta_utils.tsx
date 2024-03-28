@@ -7,15 +7,9 @@ import { validation_A1_OD_CILL, validation_A1_OI_CIL, validation_A2_OD_CIL, vali
 export const transponer = (ESF:any, CIL:any, EJE:any, 
     // AD:any, 
     anteojo:any, inputRef?:any)  => {
-    
-
-        // console.log(anteojo)
-    // let cilindrico = formValues?.a1_od_cil;
     let ESF2 = null;
     let CIL2 = null;
     let EJE2 = null;
-
-    // let {cil,eje} = dioptrias_receta.value[anteojo]
 
     switch (ESF) {  
         case 'a1_od_esf':  
@@ -55,10 +49,9 @@ export const transponer = (ESF:any, CIL:any, EJE:any,
         default:
             break;
     }
-    console.log(dioptrias_receta.value[anteojo].cil)
-    console.log(dioptrias_receta.value[anteojo].eje)
-    console.log()
 
+
+    
 
     if(typeof dioptrias_receta.value[anteojo].cil === 'number' && typeof dioptrias_receta.value[anteojo].eje === 'number'){
         if(dioptrias_receta.value[anteojo].cil > 0 && (dioptrias_receta.value[anteojo].eje >= 0 && dioptrias_receta.value[anteojo].eje <= 180)){
@@ -76,7 +69,6 @@ export const transponer = (ESF:any, CIL:any, EJE:any,
                     a1_od_esf.value = parseFloat(esfValue) + parseFloat(dioptrias_receta.value[anteojo].cil)
                 }
                 
-
                 dioptrias_receta.value[anteojo].cil = (CIL * -1);
 
                 if (dioptrias_receta.value[anteojo].eje >= 0 && dioptrias_receta.value[anteojo].eje <= 90) {
@@ -85,8 +77,6 @@ export const transponer = (ESF:any, CIL:any, EJE:any,
                 } else {
                     dioptrias_receta.value[anteojo].eje = dioptrias_receta.value[anteojo].eje - 90;
                 }
-                
-              
                   if(inputRef.current) {
                     const firstInput = inputRef.current.querySelector(`input[name=${anteojo + "_ad"}]`);
               
@@ -94,11 +84,6 @@ export const transponer = (ESF:any, CIL:any, EJE:any,
                       (firstInput as HTMLInputElement).focus();
                     }
                   }    
-              
-            
-                
-                
-
             } else {
                 CIL.value = " "
                 dioptrias_receta.value[anteojo].cil = " "

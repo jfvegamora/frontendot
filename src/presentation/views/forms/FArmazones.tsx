@@ -62,8 +62,10 @@ export function transformUpdateQuery(
   jsonData: InputData,
   primaryKey: string
 ): OutputData | null {
+  
+  
   const fields = [
-    `tipo =  ${jsonData.tipo}`, `marca =  ${jsonData.marca}`, `modelo = "${jsonData.modelo}"`, `color = "${jsonData.color}"`, `material =  ${jsonData.material}`, `aro =  ${jsonData.aro}`, `puente =  ${jsonData.puente}`, `diagonal =  ${jsonData.diagonal}`, `brazo =  ${jsonData.brazo}`, `uso =  ${jsonData.uso}`, `stock_minimo = ${jsonData.stock_minimo}`, `codigo_fab = "${jsonData.codigo_fab}"`, `dp_minima = ${jsonData.dp_minima}`, `dp_maxima = ${jsonData.dp_maxima}`,
+    `tipo =  ${jsonData.tipo}`, `marca =  ${jsonData.marca}`, `modelo = "${jsonData.modelo}"`, `color = "${jsonData.color}"`, `material =  ${jsonData.material}`, `aro =  ${jsonData.aro}`, `puente =  ${jsonData.puente}`, `diagonal =  ${jsonData.diagonal}`, `brazo =  ${jsonData.brazo}`, `uso =  ${jsonData.uso}`, `stock_minimo = ${jsonData.stock_minimo}`, `codigo_fab = "${jsonData.codigo_fab}"`, `dp_minima = "${jsonData.dp_minima}"`, `dp_maxima = "${jsonData.dp_maxima}"`,
   ];
 
   const filteredFields = fields.filter(

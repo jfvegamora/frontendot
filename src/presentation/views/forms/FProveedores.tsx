@@ -120,6 +120,10 @@ const FProveedores: React.FC<IUserFormPrps> = React.memo(
       setValue("rut", "");
       setValue("nombre", "");
       setValue("telefono", "");
+
+      setValue('correo', "")
+      setValue('direccion', "")
+
       setValue("nombre", "");
       setValue("sitio_web", "");
       if (firstInputRef.current) {
