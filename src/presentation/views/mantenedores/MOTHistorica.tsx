@@ -468,12 +468,12 @@ const MOTHistorica: React.FC = () => {
               { name: "_establecimiento", label: "Establecimiento", type: "select", selectUrl: "/api/establecimientos/", styles: { with: "w-[20.4rem]" }},
   
               { name: "_nombre", label: "Nombre", type: "text" },
-              { name: "_motivo", label: "Motivo", type: "select", selectUrl: "/api/tipos/", tipos: "OTMotivo"},
+              { name: "_motivo", label: "Motivo", type: "select", selectUrl: "/api/tipos/", tipos: "OTMotivo", styles: {with:"w-[19.5rem]"}},
   
-              { name: "_p2", label: "Tipo Doc", type: "select", selectUrl: "/api/tipos/", tipos: "OTNumDoc"},
+              { name: "_p2", label: "Tipo Doc", type: "select", selectUrl: "/api/tipos/", tipos: "OTNumDoc", styles: {with: "w-[20.2rem]"}},
               { name: "_p3", label: "Número Doc", type: "text", styles: { with: "w-[18.4rem]" }},
   
-              { name: "_proyecto", label: "Proyecto (?)", type: "select", selectUrl: "/api/proyectos/", styles: { with: "w-[30rem]" }},
+              { name: "_proyecto", label: "Proyecto (?)", type: "select", selectUrl: "/api/proyectos/", styles: { with: "w-[39.8rem]" }},
   
             ]}
           />
