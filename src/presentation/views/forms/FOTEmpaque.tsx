@@ -9,6 +9,7 @@ import { URLBackend } from '../../hooks/useCrud';
 import axios from 'axios';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useModal } from '../../hooks/useModal';
+import { paramsOT } from '../mantenedores/MOT';
 
 
 interface IFOTEmpaque {
@@ -21,17 +22,20 @@ interface IFOTEmpaque {
     params?:string[]
 }
 
+const strUrl = `${URLBackend}/api/proyectodocum/listado`
+
+
 const FOTEmpaque: React.FC<IFOTEmpaque> = ({
     setSelectedRows,
     closeModal,
-    pktoDelete,
-    params
+    pktoDelete
 }) => {
     const { control, handleSubmit, formState: { errors } } = useForm<any>({ resolver: yupResolver(validationOTNumeroEnvio()), })
     const [fechaHoraActual, _setFechaHoraActual]  = useState(new Date());
     const { showModal, CustomModal } = useModal();
 
-    const UsuarioID: any = useAppSelector((store: AppStore) => store.user?.id)
+    const UsuarioID: any = useAppSelector((store: AppStore) => store.user?.id);
+    const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas.areaActual);
     const dispatch = useAppDispatch();
 
     const onSubmit: SubmitHandler<any> = async (jsonData) => {
@@ -62,57 +66,89 @@ const FOTEmpaque: React.FC<IFOTEmpaque> = ({
             }
         }
 
+        const toastLoading = toast.loading('Cargando...');
 
-
-        if ((pktoDelete.some((OT: any) => OT.estado_id !== 20 ))) {            
-            pktoDelete.filter((ot:any)=> ot.estado_id !== 20).map((ot:any)=>{
-                toast.error(`Folio: ${ot["folio"]} estado: ${ot["estado"]} `);
-            })
-        }else{
-            const year             = fechaHoraActual.getFullYear();
-            const month            = String(fechaHoraActual.getMonth() + 1).padStart(2, '0'); 
-            const day              = String(fechaHoraActual.getDate()).padStart(2, '0'); 
-            const fechaFormateada  = `${year}/${month}/${day}`;
-            const dateHora         = new Date().toLocaleTimeString();
-            const tipoDocumento    = 8;            
-
-            try {
-                const query03 = {
-                    _p1: `"${pktoDelete[0] && pktoDelete[0]["proyecto_codigo"]}", "${fechaFormateada + " " + dateHora}", ${tipoDocumento}, "${jsonData["numero_doc"]}", "${jsonData["fecha_doc"]}", ${0}, ${0}, ${0}, ${UsuarioID}, "${jsonData["observaciones"]}"    `
-                }
-                const strUrl           = `${URLBackend}/api/proyectodocum/listado`
-                let   queryURL03       = `?query=03&_p1=${query03["_p1"]}`
-                const resultQuery03    = await axios(`${strUrl}/${queryURL03}`)
-                
-               const promises =  pktoDelete.map(async(OT:any)=>{
-                    
-                    if(resultQuery03?.status === 200){
-                        const query07 = {
-                            _p2 :  jsonData["numero_doc"],
-                            _pkToDelete: JSON.stringify({folio: OT["folio"]}),
-                            _id: 8
-                        }
-
-                        let queryURL07 = `?query=07&_p2=${query07["_p2"]}&_pkToDelete=${query07["_pkToDelete"]}&_id=${query07["_id"]}`
-                        const resultQuery07 = await axios(`${strUrl}/${queryURL07}`)
-
-                        if(resultQuery07?.status === 200){
-                            toast.success('Numero de envío generado')
-                            dispatch(fetchOT({OTAreas:90, searchParams:params}))
-
-                        }else{
-                            toast.error('Error: Numero de envío')
-                        }     
-                    }
-                })
-                await Promise.all(promises);
-                setSelectedRows([])
-                closeModal()
-            } catch (error) {
-              console.log(error)
-              throw error        
+        try {
+            const query07 = {
+                _p1: `"${pktoDelete[0]["proyecto_codigo"]}", ${8}, "${jsonData["numero_doc"]}", "${jsonData["fecha_doc"]}", ${0}, ${0}, ${0}, ${UsuarioID}, "${jsonData["observaciones"]}"`,
+                _p2: jsonData["numero_doc"],
+                _p3: pktoDelete[0]["proyecto_codigo"],
+                _id: 8,
+                _pkToDelete: JSON.stringify(pktoDelete.map((folioOT: any) => ({ folio: folioOT["folio"] })))
+            };
+            let queryURL07 = `?query=07&_p1=${query07["_p1"]}&_p2=${query07["_p2"]}&_p3=${query07["_p3"]}&_pkToDelete=${query07["_pkToDelete"]}&_id=${query07["_id"]}`
+            const resultQuery07 = await axios(`${strUrl}/${queryURL07}`)
+            if (resultQuery07?.status === 200) {
+                toast.success('Número de Envío generado')
+                toast.dismiss(toastLoading)
+                dispatch(fetchOT({ OTAreas:OTAreas, searchParams: paramsOT.value}))
+            } else {
+                toast.dismiss(toastLoading)
+                toast.error('error: Número de envío')
             }
-        }}
+            setSelectedRows([])
+            closeModal()
+            toast.dismiss(toastLoading)
+            
+        } catch (error) {
+            console.log(error)
+            toast.error('Error número de Envío')
+            toast.dismiss(toastLoading)
+            throw error
+        }
+
+
+        // if ((pktoDelete.some((OT: any) => OT.estado_id !== 20 ))) {            
+        //     pktoDelete.filter((ot:any)=> ot.estado_id !== 20).map((ot:any)=>{
+        //         toast.error(`Folio: ${ot["folio"]} estado: ${ot["estado"]} `);
+        //     })
+        // }else{
+        //     const year             = fechaHoraActual.getFullYear();
+        //     const month            = String(fechaHoraActual.getMonth() + 1).padStart(2, '0'); 
+        //     const day              = String(fechaHoraActual.getDate()).padStart(2, '0'); 
+        //     const fechaFormateada  = `${year}/${month}/${day}`;
+        //     const dateHora         = new Date().toLocaleTimeString();
+        //     const tipoDocumento    = 8;            
+
+        //     try {
+        //         const query03 = {
+        //             _p1: `"${pktoDelete[0] && pktoDelete[0]["proyecto_codigo"]}", "${fechaFormateada + " " + dateHora}", ${tipoDocumento}, "${jsonData["numero_doc"]}", "${jsonData["fecha_doc"]}", ${0}, ${0}, ${0}, ${UsuarioID}, "${jsonData["observaciones"]}"    `
+        //         }
+        //         const strUrl           = `${URLBackend}/api/proyectodocum/listado`
+        //         let   queryURL03       = `?query=03&_p1=${query03["_p1"]}`
+        //         const resultQuery03    = await axios(`${strUrl}/${queryURL03}`)
+                
+        //        const promises =  pktoDelete.map(async(OT:any)=>{
+                    
+        //             if(resultQuery03?.status === 200){
+        //                 const query07 = {
+        //                     _p2 :  jsonData["numero_doc"],
+        //                     _pkToDelete: JSON.stringify({folio: OT["folio"]}),
+        //                     _id: 8
+        //                 }
+
+        //                 let queryURL07 = `?query=07&_p2=${query07["_p2"]}&_pkToDelete=${query07["_pkToDelete"]}&_id=${query07["_id"]}`
+        //                 const resultQuery07 = await axios(`${strUrl}/${queryURL07}`)
+
+        //                 if(resultQuery07?.status === 200){
+        //                     toast.success('Numero de envío generado')
+        //                     dispatch(fetchOT({OTAreas:90, searchParams:params}))
+
+        //                 }else{
+        //                     toast.error('Error: Numero de envío')
+        //                 }     
+        //             }
+        //         })
+        //         await Promise.all(promises);
+        //         setSelectedRows([])
+        //         closeModal()
+        //     } catch (error) {
+        //       console.log(error)
+        //       throw error        
+        //     }
+        // }
+    
+    }
 
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {

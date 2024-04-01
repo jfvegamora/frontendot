@@ -22,7 +22,7 @@ interface IDerivacion {
     setSelectedRows?:any;
 }
 
-
+const strUrl = `${URLBackend}/api/proyectodocum/listado`
 
 const FOTFactura: React.FC<IDerivacion> = ({
     setSelectedRows,
@@ -58,6 +58,7 @@ const FOTFactura: React.FC<IDerivacion> = ({
             return toast.error('Valor neto debe ser mayor a 0')
         }
 
+
         if(parseInt(pktoDelete[0]["numero_factura"]) !== 0){
             const result = await showModal(
                 `OT: ${pktoDelete[0]["folio"]} Tiene Factura asignada, ¿Desea agregar una nueva? `,
@@ -71,48 +72,46 @@ const FOTFactura: React.FC<IDerivacion> = ({
             }
         }
 
-        if ((pktoDelete.some((OT: any) => parseInt(OT["orden_compra"])) === '')) {
-            pktoDelete.filter((ot:any)=> ot["orden_compra"] === '').map((ot:any)=>{
+        if ((pktoDelete.some((OT: any) => parseInt(OT["orden_compra"]) as any === '' || OT["orden_compra"] === '0') )) {
+            console.log('render')
+            pktoDelete.filter((ot:any)=> ot["orden_compra"] === '' || ot["orden_compra"] === '0').map((ot:any)=>{
                 console.log('render')
                 toast.error(`Folio: ${ot["folio"]} sin Orden de Compra`);
             })
         }else{
+            const toastLoading = toast.loading('Cargando...');
             try {
-                const query03 = {
-                    _p1         : `"${pktoDelete[0]["proyecto_codigo"]}", ${5}, "${jsonData["numero_doc"]}", "${jsonData["fecha_doc"]}", ${jsonData["valor_neto"]}, ${0}, ${0}, ${UsuarioID}, "${jsonData["observaciones"]}"    `
-                }
-
                 const query07 = {
-                    _id         : 5,
+                    _p1         : `"${pktoDelete[0]["proyecto_codigo"]}", ${5}, "${jsonData["numero_doc"]}", "${jsonData["fecha_doc"]}", ${jsonData["valor_neto"]}, ${0}, ${0}, ${UsuarioID}, "${jsonData["observaciones"]}"`,
                     _p2         : jsonData["numero_doc"],
+                    _p3         : pktoDelete[0]["proyecto_codigo"],
+                    _id         : 5,
                     _pkToDelete : JSON.stringify(pktoDelete.map((folioOT:any)=>({folio: folioOT["folio"]})))
                    
                 }
-
-                const strUrl             = `${URLBackend}/api/proyectodocum/listado`
-                let   queryURL03         = `?query=03&_p1=${query03["_p1"]}`
-                const resultQuery03      = await axios(`${strUrl}/${queryURL03}`)
-
-                if(resultQuery03?.status === 200){
-                    //TODO: EJECUTAR QUERY 07 PARA ASIGNAR ORDEN DE COMPRA A OT SELECCIONADA (1 O N OTS)
-                    let   queryURL07            = `?query=07&_p2=${query07["_p2"]}&_pkToDelete=${query07["_pkToDelete"]}&_id=${query07["_id"]}`
-                    const resultQuery07         = await axios(`${strUrl}/${queryURL07}`) 
-
-                    if(resultQuery07?.status === 200){
-                        toast.success('Factura Generada')
-                        dispatch(fetchOT({historica:true, searchParams: paramsOT.value  }))
-
-                    }else{
-                        toast.error('error: Factura Generada')
-                    }
-                    setSelectedRows([])
-                    closeModal()
+                let queryURL07 = `?query=07&_p1=${query07["_p1"]}&_p2=${query07["_p2"]}&_p3=${query07["_p3"]}&_pkToDelete=${query07["_pkToDelete"]}&_id=${query07["_id"]}`
+                const resultQuery07 = await axios(`${strUrl}/${queryURL07}`)
+                if (resultQuery07?.status === 200) {
+                    toast.success('Número de Envío generado')
+                    toast.dismiss(toastLoading)
+                    dispatch(fetchOT({ historica:true, searchParams: paramsOT.value}))
+                } else {
+                    toast.dismiss(toastLoading)
+                    toast.error('error: Número de envío')
                 }
+                setSelectedRows([])
+                closeModal()
+                toast.dismiss(toastLoading)
             } catch (error) {
               console.log(error)
               throw error
             }
-        }}
+    }};
+
+
+
+
+
   
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {

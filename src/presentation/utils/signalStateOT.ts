@@ -598,27 +598,78 @@ export const clearGrupos = () => {
 }
 
 
-export const  validarNumeroDocumento = (data:any) => {
-    if(!data){
-      return toast.error('No hay informacion de OT')
-    }
+export const validarNumeroDocumento = (data: any) => {
+  if (!data) {
+      return toast.error('No hay información de OT');
+  }
 
-    const reporte_firma = data[EnumGrid.numero_reporte_firma]
-    const numero_envio  = data[EnumGrid.numero_envio]
+  const reporte_firma = data[EnumGrid.numero_reporte_firma];
+  const numero_envio = data[EnumGrid.numero_envio];
 
-    let reporteFirma = parseInt(reporte_firma) > 0;
-    let numeroEnvio  = parseInt(numero_envio)  > 0;
+  const numero_guia = data[EnumGrid.numero_guia];
 
-    if ((numeroEnvio && !reporteFirma) || (!numeroEnvio && reporteFirma)) {
-      return true
-    }else{
-      const response = confirm('OT debe tener Numero de envío o Reporte de Fírmas, ¿está segúro de continuar igualmente?')
-      if(response){
-        return true
+  const reporteFirma = parseInt(reporte_firma) > 0;
+  const numeroEnvio = parseInt(numero_envio) > 0;
+  const numeroGuia = numero_guia !== null && parseInt(numero_guia) > 0;
+
+  const confirmarContinuar = (mensaje: string, type:number) => {
+      const response = confirm(mensaje);
+      if(!response){
+        return;
       }
-      return false
+      if (!numeroGuia && type === 1) {
+          const responseGuia = confirm(`Folio:${data?.[EnumGrid.folio]} debe tener asignado un número de Guía, ¿está seguro de continuar igualmente?`);
+          return responseGuia;
+      }
+      return response;
+  };
+  if ((numeroEnvio && !reporteFirma) || (!numeroEnvio && reporteFirma)) {
+    if(!numeroGuia){
+      return confirmarContinuar(`Folio:${data?.[EnumGrid.folio]} debe tener asignado un número de Guía, ¿está seguro de continuar igualmente?`, 2);
     }
-}
+  } else {
+    return confirmarContinuar(`Folio:${data?.[EnumGrid.folio]} debe tener Numero de envío o Reporte de Fírmas, ¿está seguro de continuar igualmente?`, 1);
+  }
+};
+
+
+// export const  validarNumeroDocumento = (data:any) => {
+//     if(!data){
+//       return toast.error('No hay informacion de OT')
+//     }
+
+//     const reporte_firma = data[EnumGrid.numero_reporte_firma]
+//     const numero_envio  = data[EnumGrid.numero_envio]
+//     const numero_guia   = data[EnumGrid.numero_guia]
+
+//     let reporteFirma = parseInt(reporte_firma) > 0;
+//     let numeroEnvio  = parseInt(numero_envio)  > 0;
+
+//     let numeroGuia = (numero_guia !== null && parseInt(numero_guia) > 0 ) ? true : false
+
+
+//     if ((numeroEnvio && !reporteFirma) || (!numeroEnvio && reporteFirma)) {
+//       if(!numeroGuia){
+//         const response = confirm(`Folio:${data?.[EnumGrid.folio]} debe tener asignado un número de Guía, ¿está segúro de continuar igualmente?`) 
+//         if(!response){
+//           return false
+//         }
+//       }
+//       return true
+//     }else{
+//       const response = confirm(`Folio: ${data?.[EnumGrid.folio]} debe tener Numero de envío o Reporte de Fírmas, ¿está segúro de continuar igualmente?`)
+//       if(response){
+//           if(!numeroGuia){
+//             const response = confirm(`Folio:${data?.[EnumGrid.folio]} debe tener asignado un número de Guía, ¿está segúro de continuar igualmente?`) 
+//             if(!response){
+//               return false
+//             }
+//           return true
+//         }
+//       }
+//       return false
+//     }
+// }
 
 
 

@@ -129,14 +129,6 @@ const FOT:React.FC<IFOTProps> = ({
   let permiso_usuario_verificar_cristal   = permisosCampos && permisosCampos[7] === "1" ? true : false;
   // let permiso_usuario_verificar_armazon   = permisosCampos && permisosCampos[8] === "1" ? true : false;
 
-
-  console.log(permiso_usuario_armazones)
-
-
-  console.log(permisos_mantenedor)
-
-
-
   //? VARIABLE QUE DETECTA SI LA OT YA SE HA PROCESADO 1 VEC DESDE BODEGAINSUMO
   secondProcessBodega.value = (data && data[EnumGrid.bodega_procesado] === 1) ? true : false;
 
@@ -154,12 +146,6 @@ const FOT:React.FC<IFOTProps> = ({
   let permiso_areas_receta                = permisosAreas && permisosAreas[6] === '1' ? true : false;
   let permiso_area_verificar_cristal      = permisosAreas && permisosAreas[7] === '1' ? true : false;
   let permiso_area_verificar_armazon      = permisosAreas && permisosAreas[8] === "1" ? true : false;
-  
-  // console.log(permiso_areas_grupo_dioptria)
-  console.log(permisosAreas && permisosAreas[0])
-  console.log(permiso_areas_armazones)
-
-
 
   const handleCloseForm = () => {
       closeModal();
@@ -387,10 +373,6 @@ const FOT:React.FC<IFOTProps> = ({
   }
 
 
- 
-
-
-
   const sumatoriaNivel1 = validationNivel1.value.reduce((index, objeto) => index + objeto.valor, 0);
   const sumatoriaNivel2 = validationNivel2.value.reduce((index, objeto) => index + objeto.valor, 0)
   const sumatoriaNivel3 = validationNivel3.value.reduce((index,objecto) => index + objecto.valor, 0);  
@@ -544,8 +526,6 @@ const FOT:React.FC<IFOTProps> = ({
 
 
 
-
-
   const onSubmit: SubmitHandler<any> = async(jsonData, _type?:any) => {
         //? ========================================
         const cristales = [
@@ -589,20 +569,20 @@ const FOT:React.FC<IFOTProps> = ({
     } else if (submitAction === 'procesar') {
         let estado = OTAreaActual === 100 ? 50 : 20
         
-        if(data && data[EnumGrid.estado_impresion_id] !== '1'){
-          setSubmitAction('');
-          return toast.error('Debe imprmir OT antes de Procesar');
-        }
+        // if(data && data[EnumGrid.estado_impresion_id] !== '1'){
+        //   setSubmitAction('');
+        //   return toast.error('Debe imprmir OT antes de Procesar');
+        // }
 
         if(OTAreaActual === 90){
-           const result = validarNumeroDocumento(data)
-           console.log(result)
+           const result:any = validarNumeroDocumento(data)
            if(!result){
+            setSubmitAction('');
             return;
            }
         }
         
-
+        
         updateOT(
           jsonData,
           OTAreaActual,
@@ -857,8 +837,8 @@ useEffect(()=>{
 
   // console.log(validationNivel1.value)
   
-  console.log(validationNivel2.value)
-
+  // console.log(validationNivel2.value)
+  // console.log(data && data[EnumGrid.validar_parametrizacion_id])
   // console.log(validationNivel3.value)
 
   return (

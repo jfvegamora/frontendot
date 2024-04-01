@@ -5,7 +5,7 @@ import { SiAddthis } from 'react-icons/si';
 import { PiPrinterFill } from "react-icons/pi";
 import { PiMicrosoftExcelLogoFill } from "react-icons/pi";
 import { ImWhatsapp } from "react-icons/im";
-import { BUTTON_MESSAGES, MODAL, reiniciarValidationNivel3, updateOT } from '../utils';
+import { BUTTON_MESSAGES, reiniciarValidationNivel3, updateOT } from '../utils';
 import ImportToCsv from './ImportToCsv';
 import { AppStore, useAppDispatch, useAppSelector } from '../../redux/store';
 import { toast } from 'react-toastify';
@@ -17,7 +17,6 @@ import ErrorOTModal from './ErrorOTModal';
 import { useReactToPrint } from 'react-to-print';
 import FOTTicketImpresion from '../views/forms/FOTTicketImpresion';
 import { EnumGrid } from '../views/mantenedores/MOTHistorica';
-import { useModal } from '../hooks/useModal';
 import { paramsOT } from '../views/mantenedores/MOT';
 import { signal } from '@preact/signals-react';
 import { focusFirstInput } from '../components/OTForms/FOTValidarBodega';
@@ -42,6 +41,8 @@ const FOTImpresa        = React.lazy(()=>import('../views/forms/FOTImpresa'));
 const ExportCSV         = React.lazy(()=>import('./ExportToCsv'))
 const FOTEmpaque        = React.lazy(()=>import('../views/forms/FOTEmpaque'));
 const FOTValidarBodega  = React.lazy(()=>import('../components/OTForms/FOTValidarBodega'));
+const FOTGuiaDespacho   = React.lazy(()=>import('../views/forms/FOTGuiaDespacho'));
+const FOTReporteFirma   = React.lazy(()=>import('../views/forms/FOTReporteFirma'));
 
 export const EnumAreas:any = {
   10: 1,
@@ -85,22 +86,21 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
     // const strUrl = `${URLBackend}/api/ot/listado`
     const dispatch                                    = useAppDispatch();
     const data:any                                    = useAppSelector((store: AppStore) => store.OTS.data)
-    const OTs: any = useAppSelector((store: AppStore) => store.OTS);
     const OTAreas:any                                 = useAppSelector((store: AppStore) => store.OTAreas)
     const User:any                                    = useAppSelector((store: AppStore) => store.user)
     const componentRef                                = useRef<any>(null);
     const SecondcomponentRef                          = useRef<any>(null);
     const [isShowErrorOTModal, setIsShowErrorOTModal] = useState(false)
     const [isFOTEmpaque, setIsFOTEmpaque]             = useState(false);
+    const [isFOTGuia, setIsFOTGuia]                   = useState(false);
     const [isFOTImpresa, setIsFOTImpresa]             = useState(false);
     const [isFotTicketRetiro, setisFotTicketRetiro]   = useState(false);
     const [isFOTValidarBodega, setIsFOTValidarBodega] = useState(false);
+    const [isFOTReporteFirma, setIsFOTReporeFirma]    = useState(false);
     const [dataOT, setDataOT]                         = useState();
     const [valueSearchOT, setValueSearchOT]           = useState<any>();
     const [valueConfirmOT, setValueConfirmOT]         = useState<any>()
     const searchOTRef                                 = useRef<any>();
-    const { showModal, CustomModal }                  = useModal();
-    const userState: any = useAppSelector((store: AppStore) => store.user);
 
     const refFocusInput                               = React.useRef<any>(null);
 
@@ -366,14 +366,11 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
 
     const handleProcesarMasivo = () => {
       
-      console.log(OTAreas["areaActual"])
-
       let condition = OTAreas["areaActual"] === 50 ? 'Ingresada' : 'En proceso';
 
       const result = validationStateOT(4, condition, folios, data)
       const areAllSameType = result.every((item:any) => item === true);
-      // console.log(result)
-      
+
       if(!areAllSameType){
         result.map((ot:any)=>{
           if(Array.isArray(ot)){
@@ -383,6 +380,28 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
         })
         return;
       }
+
+      const filterPkToDeleteFirmaEnvio = pkToDelete.filter((OT:any)=> (OT.numero_envio === '0' || OT.numero_envio === null) && (OT.numero_reporte_firma === 0))
+
+      const filterPkToDeleteGuia       = pkToDelete.filter((OT:any)=> OT.numero_guia === 0)
+
+      if(filterPkToDeleteFirmaEnvio.length > 0){
+        const folios = filterPkToDeleteFirmaEnvio.map((OT:any) => OT.folio)
+        console.log(folios)
+        const resultFirmaEnvio = confirm('Los siguientes folios no tienen Número de envío o Reporte de fírmas: ' + "\n" +folios + "\n¿Desea Continuar?");
+        if(!resultFirmaEnvio){
+          return;
+        }
+      }
+
+      if(filterPkToDeleteGuia.length > 0){
+        const folios = filterPkToDeleteGuia.map((OT:any)=>OT.folio)
+        const resultFirmaEnvio = confirm('Los siguientes folios no tienen Número de Guía: '+ "\n" + folios + "\n¿Desea Continuar?");
+        if(!resultFirmaEnvio){
+          return;
+        }
+      }
+
       
       pkToDelete.map((ot:any)=>{
         updateOT(
@@ -407,91 +426,95 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
     }
 
 
-    const handleReporteFirma = async() => {
-      let resultBoton:any = []
+    // const handleReporteFirma = async() => {
+    //   let resultBoton:any = []
   
-      if(pkToDelete.length < 1){
-        toast.error('No Hay OT Seleccionada')
-        return;
-      }
+    //   if(pkToDelete.length < 1){
+    //     toast.error('No Hay OT Seleccionada')
+    //     return;
+    //   }
 
-      console.log(pkToDelete)
+    //   console.log(pkToDelete)
 
-      if(parseInt(pkToDelete[0]["numero_envio"]) !== 0){
-        return toast.error(`OT ${pkToDelete[0]["folio"]} ya tiene un número de envío asignado `)
-      }
+    //   console.log(parseInt(pkToDelete[0]["numero_envio"]) !== 0)
+    //   console.log(pkToDelete[0]["numero_envio"] !== null)
 
-      if(parseInt(pkToDelete[0]["numero_reporte_firma"]) !== 0){
-        const result = await showModal(
-          `OT: ${pkToDelete[0]["folio"]} Tiene Reporte de Firmas asignado, ¿Desea agregar uno nuevo? `,
-          '', 
-          MODAL.keepYes,
-          MODAL.kepNo
-        );
+    //   if(parseInt(pkToDelete[0]["numero_envio"]) !== 0 && pkToDelete[0]["numero_envio"] !== null){
+    //     console.log('render')
+    //     return toast.error(`OT ${pkToDelete[0]["folio"]} ya tiene un número de envío asignado `)
+    //   }
+
+    //   if(parseInt(pkToDelete[0]["numero_reporte_firma"]) !== 0){
+    //     const result = await showModal(
+    //       `OT: ${pkToDelete[0]["folio"]} Tiene Reporte de Firmas asignado, ¿Desea agregar uno nuevo? `,
+    //       '', 
+    //       MODAL.keepYes,
+    //       MODAL.kepNo
+    //     );
 
 
-        if(!result){
-          setSelectedRows([])
-          return
-        }
+    //     if(!result){
+    //       setSelectedRows([])
+    //       return
+    //     }
 
-      }
+    //   }
       
-      console.log('render')
+    //   console.log('render')
      
-      const resultadoFiltrado = OTs.data && OTs.data.filter((elemento:any) => folios.includes(elemento[1])); 
+    //   const resultadoFiltrado = OTs.data && OTs.data.filter((elemento:any) => folios.includes(elemento[1])); 
      
-      resultadoFiltrado.map((ot:any)=>{
-        const estadoCOL = ot[4]
-        if(estadoCOL !== 'Anulada'){
-           resultBoton =  [...resultBoton, [ot[1], true]]
-        }else{
-            resultBoton =  [...resultBoton, [ot[1], ot[4]]]
-        }
-      })
+    //   resultadoFiltrado.map((ot:any)=>{
+    //     const estadoCOL = ot[4]
+    //     if(estadoCOL !== 'Anulada'){
+    //        resultBoton =  [...resultBoton, [ot[1], true]]
+    //     }else{
+    //         resultBoton =  [...resultBoton, [ot[1], ot[4]]]
+    //     }
+    //   })
       
-      const areAllSameType = resultBoton.every((item:any) => item[1] === true);
+    //   const areAllSameType = resultBoton.every((item:any) => item[1] === true);
   
-      if(!areAllSameType){
-        resultBoton.map((ot:any)=>{
-            if(typeof ot[1] === 'string'){
-              toast.error(`Error: folio ${ot[0]}  | ${ot[1]}`);
-            }
-          } 
-        ) 
-      }else{  
-          const toastLoading = toast.loading('Cargando...');
-        try {
-          const query = {
-            _proyecto   :    pkToDelete[0]["proyecto_codigo"],
-            _pkToDelete :   JSON.stringify(resultBoton.map((folioOT:any)=>({folio: folioOT[0]}))),
-            _id         :   2,
-            _usuario    :   userState["id"]
-          }
+    //   if(!areAllSameType){
+    //     resultBoton.map((ot:any)=>{
+    //         if(typeof ot[1] === 'string'){
+    //           toast.error(`Error: folio ${ot[0]}  | ${ot[1]}`);
+    //         }
+    //       } 
+    //     ) 
+    //   }else{  
+    //       const toastLoading = toast.loading('Cargando...');
+    //     try {
+    //       const query = {
+    //         _proyecto   :    pkToDelete[0]["proyecto_codigo"],
+    //         _pkToDelete :   JSON.stringify(resultBoton.map((folioOT:any)=>({folio: folioOT[0]}))),
+    //         _id         :   2,
+    //         _usuario    :   userState["id"]
+    //       }
     
-          const strUrl      = `${URLBackend}/api/proyectodocum/listado`
-          const queryURL    = `?query=06&_p2=${query["_proyecto"]}&_id=${query["_id"]}&_pkToDelete=${query["_pkToDelete"]}&_p4=${query["_usuario"]}`
-          const result      = await axios(`${strUrl}/${queryURL}`,{
-            headers:  {
-              'Authorization': User.token, 
-            }
-          });
-          console.log(result)        
-          if(result.status === 200){
-            const successMessage = `Reporte firma generado: ${result.data[0][0]}`
+    //       const strUrl      = `${URLBackend}/api/proyectodocum/listado`
+    //       const queryURL    = `?query=06&_p2=${query["_proyecto"]}&_id=${query["_id"]}&_pkToDelete=${query["_pkToDelete"]}&_p4=${query["_usuario"]}`
+    //       const result      = await axios(`${strUrl}/${queryURL}`,{
+    //         headers:  {
+    //           'Authorization': User.token, 
+    //         }
+    //       });
+    //       console.log(result)        
+    //       if(result.status === 200){
+    //         const successMessage = `Reporte firma generado: ${result.data[0][0]}`
 
-            dispatch(fetchOT({searchParams: `_proyecto=${query["_proyecto"]}`}))
-            setSelectedRows([])
-            toast.dismiss(toastLoading)
-            toast.success(successMessage)
-        }
-        } catch (error) {
-          toast.dismiss(toastLoading)
-          console.log(error)
-          throw error;
-        }
-      }
-    }
+    //         dispatch(fetchOT({searchParams: `_proyecto=${query["_proyecto"]}`}))
+    //         setSelectedRows([])
+    //         toast.dismiss(toastLoading)
+    //         toast.success(successMessage)
+    //     }
+    //     } catch (error) {
+    //       toast.dismiss(toastLoading)
+    //       console.log(error)
+    //       throw error;
+    //     }
+    //   }
+    // }
 
 
 
@@ -607,13 +630,24 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
           )}
 
 
-         
-
         {areaPermissions && areaPermissions[14] === '1' && permisos_usuario_areas === '1' && (
           <Tooltip content={'Generar Reporte de Firmas'}>
-            <Button className='otActionButton mt-3 mx-5'onClick={() => handleReporteFirma()}>N° Rep. Firma</Button>  
+            <Button className='otActionButton mt-3 mx-5'onClick={() => setIsFOTReporeFirma((prev)=>!prev)}>N° Rep. Firma</Button>  
           </Tooltip>
         )}
+
+        {areaPermissions && areaPermissions[12] === "1" && permisos_usuario_areas === '1' && (
+          <Tooltip content='Generar Número de Envío'>
+              <Button className='otActionButton mr-4'  onClick={()=>{
+                if(pkToDelete.length === 0){
+                  toast.error('No hay OT seleccionada')
+                }else{
+                  setIsFOTGuia((prev)=>!prev)
+                }
+              }}>N° de Guía</Button>
+          </Tooltip>
+          )}
+
 
         {isFotTicketRetiro && (
           <Suspense>
@@ -665,11 +699,20 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
               <FOTEmpaque closeModal={()=>setIsFOTEmpaque(false)} setSelectedRows={setSelectedRows}  pktoDelete={pkToDelete} params={params}/>
             )}
           </Suspense>
-            
-        <Suspense>
-          <CustomModal />
-        </Suspense>
 
+          <Suspense>
+            {isFOTGuia && (
+              <FOTGuiaDespacho closeModal={()=>setIsFOTGuia(false)} setSelectedRows={setSelectedRows} pktoDelete={pkToDelete} params={params} />
+            )}
+          </Suspense>
+
+          <Suspense>
+            {isFOTReporteFirma && (
+              <FOTReporteFirma closeModal={()=>setIsFOTReporeFirma(false)} setSelectedRows={setSelectedRows} pkToDelete={pkToDelete} />
+            )}
+          </Suspense>
+            
+  
     </div>
 )}
 

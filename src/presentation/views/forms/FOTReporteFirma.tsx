@@ -18,48 +18,47 @@ interface Interface {
     onClose?: any;
     formValues?: any;
     closeModal?: any;
-    pktoDelete?: any
+    pkToDelete?: any
     setSelectedRows?: any
 }
-
 
 const strUrl = `${URLBackend}/api/proyectodocum/listado`
 
 
-
-
-const FOTReporteEntrega: React.FC<Interface> = ({
+const FOTReporteFirma: React.FC<Interface> = ({
     closeModal,
-    pktoDelete,
+    pkToDelete,
     setSelectedRows
 }) => {
     const { control, handleSubmit, formState: { errors }, setValue } = useForm<any>({ resolver: yupResolver(validationOTGuiaSchema()), });
     const [fechaHoraActual, _setFechaHoraActual] = useState(new Date());
 
-    const [numeroRepEntrega, setNumeroRepEntrega] = useState(null);
-    // const { control, handleSubmit } = useForm<any>()
-    // const [fechaHoraActual, _setFechaHoraActual] = useState(new Date());
+    const [numeroReporteFirma, setNumeroReporteFirma] = useState(null);
 
-    const UsuarioID: any = useAppSelector((store: AppStore) => store.user?.id)
+
+
+    const UsuarioID: any = useAppSelector((store: AppStore) => store.user?.id);
+    const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas.areaActual);
+
     const dispatch = useAppDispatch();
-    const { CustomModal, showModal } = useModal();
+    const { CustomModal,showModal } = useModal();
 
-    const fetchNumeroRepEntrega = async() => {
+    const fetchNumeroReporteFirma = async() => {
         try {
             const query = {
-              _proyecto   :   pktoDelete[0]["proyecto_codigo"],
-              _pkToDelete :   pktoDelete[0]["folio"],
-              _id         :   1,
+              _proyecto   :    pkToDelete[0]["proyecto_codigo"],
+              _pkToDelete :   pkToDelete[0]["folio"],
+              _id         :   2,
               _usuario    :   UsuarioID
             }
-      
       
             const strUrl      = `${URLBackend}/api/proyectodocum/listado`
             const queryURL    = `?query=06&_p2=${query["_proyecto"]}&_id=${query["_id"]}&_pkToDelete=${query["_pkToDelete"]}&_p4=${query["_usuario"]}`
             const result      = await axios(`${strUrl}/${queryURL}`);
 
+            console.log(result.data[0])
             if(result.status === 200){
-              setNumeroRepEntrega(result.data[0][0])
+            setNumeroReporteFirma(result.data[0][0])
               setValue('numero_doc', result.data[0][0])
             }
           } catch (error) {
@@ -77,65 +76,130 @@ const FOTReporteEntrega: React.FC<Interface> = ({
 
     React.useEffect(()=>{
         const toastLoading = toast.loading('Cargando...');
-        console.log(pktoDelete)
-        fetchNumeroRepEntrega().then(()=>{
+        console.log(pkToDelete)
+        fetchNumeroReporteFirma().then(()=>{
             toast.dismiss(toastLoading)
         })
+
+         
     },[])
 
-
     const onSubmit: SubmitHandler<any> = async (jsonData) => {
-        if(pktoDelete.length < 1){
+        if(pkToDelete.length < 1){
             return toast.error('No Hay OT Seleccionada')
         }
 
         if(jsonData["numero_doc"] <= 0){
             return toast.error('Numero de documento debe ser mayor a 0')
         }
-        
-        if(parseInt(pktoDelete[0]["numero_guia"]) !== 0){
-            const result = await showModal(
-                `OT: ${pktoDelete[0]["folio"]} Tiene Reporte de atención asignado, ¿Desea agregar uno nuevo? `,
-                '', 
-                MODAL.keepYes,
-                MODAL.kepNo
-              );
-      
-            if(!result){
-                return;
-            }
-        }
 
         const toastLoading = toast.loading('Cargando...');
 
-        try {
-            const query07 = {
-                _p1  : `"${pktoDelete[0]["proyecto_codigo"]}", ${1}, "${jsonData["numero_doc"]}", "${jsonData["fecha_doc"]}", ${0}, ${0}, ${0}, ${UsuarioID}, "${jsonData["observaciones"]}"`,
-                _p2  : jsonData["numero_doc"],
-                _p3  : pktoDelete[0]["proyecto_codigo"],
-                _id  : 1,
-                _pkToDelete: JSON.stringify(pktoDelete.map((folioOT: any) => ({ folio: folioOT["folio"] })))
+        console.log(pkToDelete)
 
+
+        if(parseInt(pkToDelete[0]["numero_envio"]) !== 0 && pkToDelete[0]["numero_envio"] !== null){
+            toast.dismiss(toastLoading)
+            return toast.error(`OT ${pkToDelete[0]["folio"]} ya tiene un número de envío asignado `)
+          }
+    
+          if(parseInt(pkToDelete[0]["numero_reporte_firma"]) !== 0){
+            const result = await showModal(
+              `OT: ${pkToDelete[0]["folio"]} Tiene Reporte de Firmas asignado, ¿Desea agregar uno nuevo? `,
+              '', 
+              MODAL.keepYes,
+              MODAL.kepNo
+            );
+    
+    
+            if(!result){
+              setSelectedRows([])
+              return
             }
+    
+          }
+
+        try {
+
+            const query07 = {
+                _p1: `"${pkToDelete[0]["proyecto_codigo"]}", ${2}, "${jsonData["numero_doc"]}", "${jsonData["fecha_doc"]}", ${0}, ${0}, ${0}, ${UsuarioID}, "${jsonData["observaciones"]}"`,
+                _p2: jsonData["numero_doc"],
+                _p3: pkToDelete[0]["proyecto_codigo"],
+                _id: 2,
+                _pkToDelete: JSON.stringify(pkToDelete.map((folioOT: any) => ({ folio: folioOT["folio"] })))
+            };
+
+            console.log(query07)
             let queryURL07 = `?query=07&_p1=${query07["_p1"]}&_p2=${query07["_p2"]}&_p3=${query07["_p3"]}&_pkToDelete=${query07["_pkToDelete"]}&_id=${query07["_id"]}`
             const resultQuery07 = await axios(`${strUrl}/${queryURL07}`)
+
             if (resultQuery07?.status === 200) {
-                toast.success('Número de Envío generado')
+                toast.success('Reporte de firmas generado')
                 toast.dismiss(toastLoading)
-                dispatch(fetchOT({ historica:true, searchParams: paramsOT.value}))
+                    dispatch(fetchOT({ OTAreas:OTAreas, searchParams: paramsOT.value}))
             } else {
                 toast.dismiss(toastLoading)
-                toast.error('error: Número de envío')
+                toast.error('error: Reporte de firmas')
             }
             setSelectedRows([])
             closeModal()
             toast.dismiss(toastLoading)
+            
+            
+            // const query03 = {
+            //     _p1: `"${pktoDelete[0]["proyecto_codigo"]}", ${1}, "${jsonData["numero_doc"]}", "${jsonData["fecha_doc"]}", ${0}, ${0}, ${0}, ${UsuarioID}, "${jsonData["observaciones"]}"    `
+            // }
+
+            // const query07 = {
+            //     _id: 1,
+            //     _p2: jsonData["numero_doc"],
+            //     _pkToDelete: JSON.stringify(pktoDelete.map((folioOT: any) => ({ folio: folioOT["folio"] })))
+
+            // }
+
+            // console.log(query03)
+            // console.log(query07)
+
+            // const strUrl = `${URLBackend}/api/proyectodocum/listado`
+            // let queryURL03 = `?query=03&_p1=${query03["_p1"]}`
+            // const resultQuery03 = await axios(`${strUrl}/${queryURL03}`)
+
+            // console.log(resultQuery03)
+            // if (resultQuery03?.status === 200) {
+            //     let queryURL07 = `?query=07&_p2=${query07["_p2"]}&_pkToDelete=${query07["_pkToDelete"]}&_id=${query07["_id"]}`
+            //         const resultQuery07 = await axios(`${strUrl}/${queryURL07}`)
+                    
+            //         console.log(resultQuery07)
+            //         if (resultQuery07?.status === 200) {
+            //             toast.success('Reporte de Entrega generado')
+            //             dispatch(fetchOT({ historica: true, searchParams: paramsOT.value}))
+            //             toast.dismiss(toastLoading)
+            //             setSelectedRows([])
+            //             closeModal()
+            //         } else {
+            //             toast.error('error: Reporte de entrega')
+                    
+            //         }
+                    
+            // }
         } catch (error) {
             toast.dismiss(toastLoading)
             console.log(error)
             throw error
         }
 
+        // if(parseInt(pktoDelete[0]["numero_guia"]) !== 0){
+        //     const result = await showModal(
+        //         `OT: ${pktoDelete[0]["folio"]} Tiene Reporte de atención asignado, ¿Desea agregar uno nuevo? `,
+        //         '', 
+        //         MODAL.keepYes,
+        //         MODAL.kepNo
+        //       );
+      
+        //     if(!result){
+        //         return;
+        //     }
+        // }
 
         
 
@@ -213,16 +277,16 @@ const FOTReporteEntrega: React.FC<Interface> = ({
 
     const fechaFormateada = fechaHoraActual.toISOString().split('T')[0];
 
-
+    console.log(numeroReporteFirma)
 
     return (
         <div className='useFormContainer useFormDerivacion centered-div use40rem z-30'>
-            {numeroRepEntrega !== null && (
+            {numeroReporteFirma !== null && (
                 <div className='useFormContainer useFormDerivacion centered-div use40rem z-30'>
 
                 <div className="userFormBtnCloseContainer flex ">
                     <div className='w-[50%] mx-auto !text-center  '>
-                        <h1 className='userFormLabel mx-auto  w-full '>Asignación Reporte de Entrega</h1>
+                        <h1 className='userFormLabel mx-auto  w-full '>Asignación Reporte de Firmas</h1>
                     </div>
                     <div className=''>
                         <button onClick={closeModal} className="userFormBtnClose">
@@ -240,7 +304,7 @@ const FOTReporteEntrega: React.FC<Interface> = ({
                                 label="Proyecto"
                                 name="proyecto"
                                 control={control}
-                                data={pktoDelete[0] && pktoDelete[0]["proyecto"]}
+                                data={pkToDelete[0] && pkToDelete[0]["proyecto"]}
                                 onlyRead={true}
                             // handleChange={handleInputChange}
                             // data={formValues && formValues["rut"]}
@@ -254,7 +318,7 @@ const FOTReporteEntrega: React.FC<Interface> = ({
                             <TextInputComponent
                                 type="number"
                                 label="N° Documento"
-                                data={numeroRepEntrega}
+                                data={numeroReporteFirma}
                                 name="numero_doc"
                                 control={control}
                                 error={errors.numero_doc}
@@ -304,7 +368,7 @@ const FOTReporteEntrega: React.FC<Interface> = ({
     )
 }
 
-export default FOTReporteEntrega;
+export default FOTReporteFirma;
 
 
 

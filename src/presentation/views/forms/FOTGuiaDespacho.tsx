@@ -18,32 +18,32 @@ interface IDerivacion {
     onClose?: any;
     formValues?: any;
     closeModal?: any;
-    pktoDelete?: any
-    setSelectedRows?: any
+    pktoDelete?: any;
+    setSelectedRows?: any;
+    params?:any
+    otArchivo?:boolean
 }
 
-
+const strUrl = `${URLBackend}/api/proyectodocum/listado`
 
 
 const FOTGuiaDespacho: React.FC<IDerivacion> = ({
     closeModal,
     pktoDelete,
-    setSelectedRows
+    setSelectedRows,
+    otArchivo
 }) => {
     const { control, handleSubmit, formState: { errors } } = useForm<any>({ resolver: yupResolver(validationOTGuiaSchema()), });
     const [fechaHoraActual, _setFechaHoraActual] = useState(new Date());
-    // const { control, handleSubmit } = useForm<any>()
-    // const [fechaHoraActual, _setFechaHoraActual] = useState(new Date());
+    const [numeroGuia, setNumeroGuia] = useState(null);
 
     const UsuarioID: any = useAppSelector((store: AppStore) => store.user?.id)
+    const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas.areaActual);
     const dispatch = useAppDispatch();
     const { showModal, CustomModal } = useModal();
 
 
     const onSubmit: SubmitHandler<any> = async (jsonData) => {
-        if(pktoDelete.length < 1){
-            return toast.error('No Hay OT Seleccionada')
-        }
 
         if(jsonData["numero_doc"] <= 0){
             return toast.error('Numero de documento debe ser mayor a 0')
@@ -52,7 +52,7 @@ const FOTGuiaDespacho: React.FC<IDerivacion> = ({
 
         if(parseInt(pktoDelete[0]["numero_guia"]) !== 0){
             const result = await showModal(
-                `OT: ${pktoDelete[0]["folio"]} Tiene Reporte de atención asignado, ¿Desea agregar uno nuevo? `,
+                `OT: ${pktoDelete[0]["folio"]} Tiene número de guia asignado, ¿Desea agregar uno nuevo? `,
                 '', 
                 MODAL.keepYes,
                 MODAL.kepNo
@@ -63,58 +63,49 @@ const FOTGuiaDespacho: React.FC<IDerivacion> = ({
             }
         }
 
-
-        if (pktoDelete.some((OT: any) => OT["reporte_atencion"] <= 0)) {
+        if(otArchivo){
+            if (pktoDelete.some((OT: any) => OT["reporte_atencion"] <= 0)) {
             pktoDelete.filter((ot: any) => ot["reporte_atencion"] <= 0).map((ot: any) => {
-                toast.error(`Folio: ${ot["folio"]} sin Reporte de atencion`);
+                return toast.error(`Folio: ${ot["folio"]} sin Reporte de atencion`);
             })
-        } else {
-         
-
+            return;        
+        }    
+        }
+            const toastLoading = toast.loading('Cargando...');
             try {
-
-                const query03 = {
-                    _p1: `"${pktoDelete[0]["proyecto_codigo"]}", ${4}, "${jsonData["numero_doc"]}", "${jsonData["fecha_doc"]}", ${0}, ${0}, ${0}, ${UsuarioID}, "${jsonData["observaciones"]}"    `
+                const query07 = {
+                    _p1: `"${pktoDelete[0]["proyecto_codigo"]}", ${4}, "${jsonData["numero_doc"]}", "${jsonData["fecha_doc"]}", ${0}, ${0}, ${0}, ${UsuarioID}, "${jsonData["observaciones"]}"`,
+                    _p2: jsonData["numero_doc"],
+                    _p3: pktoDelete[0]["proyecto_codigo"],
+                    _id: otArchivo ? 4 : 9,
+                    _pkToDelete: JSON.stringify(pktoDelete.map((folioOT: any) => ({ folio: folioOT["folio"] })))
                 };
 
-                const query07 = {
-                    _id: 4,
-                    _p2: jsonData["numero_doc"],
-                    _pkToDelete: JSON.stringify(pktoDelete.map((folioOT: any) => ({ folio: folioOT["folio"] })))
+                let queryURL07 = `?query=07&_p1=${query07["_p1"]}&_p2=${query07["_p2"]}&_p3=${query07["_p3"]}&_pkToDelete=${query07["_pkToDelete"]}&_id=${query07["_id"]}`
+                const resultQuery07 = await axios(`${strUrl}/${queryURL07}`)
 
+                if (resultQuery07?.status === 200) {
+                    toast.success('Número de Guía generado')
+                    toast.dismiss(toastLoading)
+                    otArchivo ? (
+                        dispatch(fetchOT({ historica:true, searchParams: paramsOT.value}))
+
+                    ) : (
+                        dispatch(fetchOT({ OTAreas:OTAreas, searchParams: paramsOT.value}))
+                    )
+                } else {
+                    toast.dismiss(toastLoading)
+                    toast.error('error: Número de Guía')
                 }
-
-                console.log(query03);
-                console.log(query07);
-
-                const strUrl = `${URLBackend}/api/proyectodocum/listado`
-                let queryURL03 = `?query=03&_p1=${query03["_p1"]}`
-                const resultQuery03 = await axios(`${strUrl}/${queryURL03}`)
-
-
-                if (resultQuery03?.status === 200) {
-                    //TODO: EJECUTAR QUERY 07 PARA ASIGNAR ORDEN DE COMPRA A OT SELECCIONADA (1 O N OTS)
-                    let queryURL07 = `?query=07&_p2=${query07["_p2"]}&_pkToDelete=${query07["_pkToDelete"]}&_id=${query07["_id"]}`
-                    const resultQuery07 = await axios(`${strUrl}/${queryURL07}`)
-
-                    if (resultQuery07?.status === 200) {
-                        toast.success('Orden de Compra generado')
-                        dispatch(fetchOT({ historica: true, searchParams: paramsOT.value}))
-
-                    } else {
-                        toast.error('error: Orden de compra')
-                    }
-
-                    setSelectedRows([])
-                    closeModal()
-                }
-
+                setSelectedRows([])
+                closeModal()
+                toast.dismiss(toastLoading)
             } catch (error) {
                 console.log(error)
+                toast.error('Error número de guía')
+                toast.dismiss(toastLoading)
                 throw error
             }
-
-        }
     }
 
 
@@ -138,91 +129,99 @@ const FOTGuiaDespacho: React.FC<IDerivacion> = ({
 
 
     return (
-        // <div className='useFormContainer useFormDerivacion h-[55%] w-[60%] left-[20%] top-[30%] z-30'>
-        //     <div className=" flex justify-end w-full">
-        //         <h2 className='text-2xl cursor-pointer' onClick={onClose}>X</h2>
-        //     </div>
+
         <div className='useFormContainer useFormDerivacion centered-div use40rem z-30'>
 
+            {setNumeroGuia !== null && (
+    
+            <div className='useFormContainer useFormDerivacion centered-div use40rem z-30'>
             <div className="userFormBtnCloseContainer flex ">
-                <div className='w-[50%] mx-auto !text-center  '>
-                    <h1 className='userFormLabel mx-auto  w-full '>Asignación de Guía Despacho</h1>
-                </div>
-                <div className=''>
-                    <button onClick={closeModal} className="userFormBtnClose">
-                        X
-                    </button>
+            <div className='w-[50%] mx-auto !text-center  '>
+                <h1 className='userFormLabel mx-auto  w-full '>Asignación de Guía Despacho</h1>
+            </div>
+            <div className=''>
+                <button onClick={closeModal} className="userFormBtnClose">
+                    X
+                </button>
+            </div>
+        </div>
+        <form className='userFormulario' onSubmit={handleSubmit(onSubmit)}>
+            {/* <h1 className='text-2xl mt-2'>Asignación de Orden de Compra</h1> */}
+
+            <div className="flex  items-center rowForm w-full">
+                <div className="w-[100%]">
+                    <TextInputComponent
+                        type="text"
+                        label="Proyecto"
+                        name="proyecto"
+                        control={control}
+                        data={pktoDelete[0] && pktoDelete[0]["proyecto"]}
+                        onlyRead={true}
+                    // handleChange={handleInputChange}
+                    // data={formValues && formValues["rut"]}
+                    // error={errors.fecha_nacimiento}
+                    />
                 </div>
             </div>
-            <form className='userFormulario' onSubmit={handleSubmit(onSubmit)}>
-                {/* <h1 className='text-2xl mt-2'>Asignación de Orden de Compra</h1> */}
 
-                <div className="flex  items-center rowForm w-full">
-                    <div className="w-[100%]">
-                        <TextInputComponent
-                            type="text"
-                            label="Proyecto"
-                            name="proyecto"
-                            control={control}
-                            data={pktoDelete[0] && pktoDelete[0]["proyecto"]}
-                            onlyRead={true}
-                        // handleChange={handleInputChange}
-                        // data={formValues && formValues["rut"]}
-                        // error={errors.fecha_nacimiento}
-                        />
-                    </div>
+            <div className="w-full flex items-center !h-20 rowForm !mt-16">
+                <div className="w-full ">
+                    <TextInputComponent
+                        type="number"
+                        label="N° Documento"
+                        name="numero_doc"
+                        data={numeroGuia}
+                        control={control}
+                        error={errors.numero_doc}
+                    />
                 </div>
+                <div className="w-full ">
+                    <TextInputComponent
+                        type="date"
+                        label="Fecha Doc"
+                        name="fecha_doc"
+                        control={control}
+                        data={fechaFormateada}
+                        textAlign='text-center'
+                        error={errors.fecha_doc}
+                    />
+                </div>
+            </div>
 
-                <div className="w-full flex items-center !h-20 rowForm !mt-16">
-                    <div className="w-full ">
-                        <TextInputComponent
-                            type="number"
-                            label="N° Documento"
-                            name="numero_doc"
-                            control={control}
-                            error={errors.numero_doc}
-                        />
-                    </div>
-                    <div className="w-full ">
-                        <TextInputComponent
-                            type="date"
-                            label="Fecha Doc"
-                            name="fecha_doc"
-                            control={control}
-                            data={fechaFormateada}
-                            textAlign='text-center'
-                            error={errors.fecha_doc}
-                        />
-                    </div>
-                </div>
-
-                <div className=" w-full flex items-center rowForm">
-                    <div className="w-full">
-                        <TextInputComponent
-                            type="text"
-                            label="Observaciones"
-                            name="observaciones"
-                            control={control}
-                            isOptional={true}
-                        // handleChange={handleInputChange}
-                        // data={formValues && formValues["rut"]}
-                        // error={errors.fecha_nacimiento}
-                        />
-                    </div>
-                </div>
+            <div className=" w-full flex items-center rowForm">
                 <div className="w-full">
-                    <div className="w-[40%] mx-auto">
-                        <button type="submit" tabIndex={1} className="userFormBtnSubmit">
-                            {`${TITLES.aceptar}`}
-                        </button>
-                    </div>
-                    <CustomModal/>
+                    <TextInputComponent
+                        type="text"
+                        label="Observaciones"
+                        name="observaciones"
+                        control={control}
+                        isOptional={true}
+                    // handleChange={handleInputChange}
+                    // data={formValues && formValues["rut"]}
+                    // error={errors.fecha_nacimiento}
+                    />
                 </div>
+            </div>
+            <div className="w-full">
+                <div className="w-[40%] mx-auto">
+                    <button type="submit" tabIndex={1} className="userFormBtnSubmit">
+                        {`${TITLES.aceptar}`}
+                    </button>
+                </div>
+                <CustomModal/>
+            </div>
 
-            </form>
+        </form>
+            </div>
+                
+            )}
 
         </div>
     )
 }
 
 export default FOTGuiaDespacho
+
+
+
+

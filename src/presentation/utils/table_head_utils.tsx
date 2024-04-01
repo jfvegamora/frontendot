@@ -288,8 +288,8 @@ export const table_head_OT_historica = [
     width: "w-[6rem]"
   },
   {
-    cell: "N° Rep. Atención",
-    key: "num_rep_atencion",
+    cell: "N° Rep. Entrega",
+    key: "num_rep_entrega",
     visible: true,
     alignment: "text-left",
     width: "w-[6rem]"

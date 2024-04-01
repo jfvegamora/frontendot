@@ -521,7 +521,7 @@ const MOTHistorica: React.FC = () => {
             }
             setShowGuia((prev) => !prev)
           }}>N° Guía</Button>
-          {showGuia         && <FOTGuiaDespacho pktoDelete={pktoDelete } setSelectedRows={setSelectedRows} closeModal={() => setShowGuia(false)} />}
+          {showGuia         && <FOTGuiaDespacho pktoDelete={pktoDelete } setSelectedRows={setSelectedRows} closeModal={() => setShowGuia(false)} otArchivo={true} />}
 
           <ExportCSV strEntidad={strEntidad} params={params} strBaseUrl={strBaseUrl}/>  
         </div>

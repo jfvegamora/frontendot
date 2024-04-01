@@ -22,6 +22,7 @@ interface IDerivacion {
     setSelectedRows?:any
 }
 
+const strUrl             = `${URLBackend}/api/proyectodocum/listado`
 
 
 const FOTOrdenCompra: React.FC<IDerivacion> = ({
@@ -39,6 +40,7 @@ const FOTOrdenCompra: React.FC<IDerivacion> = ({
   
 
     const onSubmit: SubmitHandler<any> = async (jsonData) => {
+        console.log(pktoDelete)
 
         if(pktoDelete.length < 1){
             return toast.error('No Hay OT Seleccionada')
@@ -74,40 +76,27 @@ const FOTOrdenCompra: React.FC<IDerivacion> = ({
 
             const toastLoading = toast.loading('Cargando...');
             try {
-             
-                const query03 = {
-                    _p1         : `"${pktoDelete[0]["proyecto_codigo"]}", ${3}, "${jsonData["numero_doc"]}", "${jsonData["fecha_doc"]}", ${jsonData["valor_neto"]}, ${0}, ${0}, ${UsuarioID}, "${jsonData["observaciones"]}"    `
-                };
-
                 const query07 = {
+                    _p1         : `"${pktoDelete[0]["proyecto_codigo"]}", ${3}, "${jsonData["numero_doc"]}", "${jsonData["fecha_doc"]}", ${jsonData["valor_neto"]}, ${0}, ${0}, ${UsuarioID}, "${jsonData["observaciones"]}"`,
+                    _p2         : jsonData["numero_doc"],
+                    _p3         : pktoDelete[0]["proyecto_codigo"],
                     _id         : 3,
-                    _p2         : `${jsonData["numero_doc"]}`,
                     _pkToDelete : JSON.stringify(pktoDelete.map((folioOT:any)=>({folio: folioOT["folio"]})))
                    
                 }
-
-                const strUrl             = `${URLBackend}/api/proyectodocum/listado`
-                let   queryURL03         = `?query=03&_p1=${query03["_p1"]}`
-                const resultQuery03      = await axios(`${strUrl}/${queryURL03}`)
-
-
-                if(resultQuery03?.status === 200){
-                    //TODO: EJECUTAR QUERY 07 PARA ASIGNAR ORDEN DE COMPRA A OT SELECCIONADA (1 O N OTS)
-                    let   queryURL07            = `?query=07&_p2=${query07["_p2"]}&_pkToDelete=${query07["_pkToDelete"]}&_id=${query07["_id"]}`
-                    const resultQuery07         = await axios(`${strUrl}/${queryURL07}`) 
+                let queryURL07 = `?query=07&_p1=${query07["_p1"]}&_p2=${query07["_p2"]}&_p3=${query07["_p3"]}&_pkToDelete=${query07["_pkToDelete"]}&_id=${query07["_id"]}`
+                const resultQuery07 = await axios(`${strUrl}/${queryURL07}`)
+                if (resultQuery07?.status === 200) {
+                    toast.success('Orden de Compra generado')
                     toast.dismiss(toastLoading)
-                    if(resultQuery07?.status === 200){
-                        // toast.dismiss(toastLoading)
-                        toast.success('Orden de Compra generado')
-                        dispatch(fetchOT({historica:true, searchParams: paramsOT.value  }))
-
-                    }else{
-                        toast.error('error: Orden de compra')
-                    }
-                    setSelectedRows([])
-                    closeModal()
+                    dispatch(fetchOT({ historica: true, searchParams: paramsOT.value}))
+                } else {
+                    toast.dismiss(toastLoading)
+                    toast.error('error: Orden de Compra')
                 }
-            
+                setSelectedRows([])
+                closeModal()
+                toast.dismiss(toastLoading)
             } catch (error) {
                 toast.dismiss(toastLoading)
                 console.log(error)

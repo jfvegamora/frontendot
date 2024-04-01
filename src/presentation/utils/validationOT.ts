@@ -10,15 +10,30 @@ export const validationProyectos = (value:string) => {
   
 };
 
-export const validationEstablecimientos = (value:number) => {
-    
-    if(!isNaN(value)){
-        const item = validationNivel1.value.find((item: { campo: string; }) => item.campo === 'establecimiento_id')
+export const validationEstablecimientos = (value:any) => {
+    const item = validationNivel1.value.find((item: { campo: string; }) => item.campo === 'establecimiento_id')
+    const item2 = validationNivel2.value.find((item: { campo: string; }) => item.campo === 'establecimiento_id')
+    if(value === ''){
+        if(item){
+            item.valor = 0
+        }
+
+        if(item2){
+            item2.valor = 0
+        }
+    }
+
+
+    if(value !== ''){
         if(item){
             item.valor = 1
         }
+        if(item2){
+            item2.valor = 1
+        }
     }
- 
+
+     
 }
 
 export const validationCliente = (value:string) => {
