@@ -4,8 +4,8 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { AppStore, useAppDispatch, useAppSelector } from '../../../redux/store';
 import 'react-tabs/style/react-tabs.css'; 
 import axios from 'axios';
-import {signal } from "@preact/signals-react";
-import { Button } from '@material-tailwind/react';
+import {signal, useSignal } from "@preact/signals-react";
+import { Button,Checkbox  } from '@material-tailwind/react';
 
 
 import FOTGarantia from '../../components/OTForms/FOTGarantia';
@@ -15,7 +15,7 @@ import { A1_ALT, A1_CR_OD, A1_CR_OI, A1_DP, A1_Diametro, A1_GRUPO_OD, A1_GRUPO_O
   a1_armazon, 
   a2_armazon, 
   // a1_od_ad, a1_od_cil, a1_od_eje, a1_od_esf, 
-  a2_od_cil, a2_od_eje, a2_od_esf, a2_oi_cil, a2_oi_eje, a2_oi_esf, a3_armazon, armazonesJSONsignal, changeCodigoCristal_A1, changeCodigoCristal_A2, clearArmazonesData, clearDioptrias,  
+  a2_od_cil, a2_od_eje, a2_od_esf, a2_oi_cil, a2_oi_eje, a2_oi_esf, a3_armazon, armazonesJSONsignal, changeCodigoCristal_A1, changeCodigoCristal_A2, checkOptica, clearArmazonesData, clearDioptrias,  
   clearGrupos,  
   clearSelectInput,  
   cristalesJSONsignal,  
@@ -72,6 +72,16 @@ interface IFOTProps {
 
 
 
+// export const checkOptica = signal(() => {
+//   const { proyecto, punto_venta_id }:any = validationNivel1.value;
+
+//   console.log(proyecto)
+//   console.log(punto_venta_id
+//     )
+//   return proyecto === 1 && punto_venta_id === 1;
+// });
+
+
 
 export const tipo_anteojo = signal(false);
 export const onlyReadReceta = signal(false);
@@ -112,6 +122,10 @@ const FOT:React.FC<IFOTProps> = ({
   const OTSlice:any = useAppSelector((store:AppStore)=>store.OTS)
   const User:any = useAppSelector((store: AppStore) => store.user);
   const dispatch = useAppDispatch()
+
+
+  
+ 
   // const OT:any = useAppSelector((store: AppStore) => store.OTS.ot);
 
   let OTAreaActual = OTAreas["areaActual"]
@@ -567,12 +581,9 @@ const FOT:React.FC<IFOTProps> = ({
     if (submitAction === 'pausar') {
      
     } else if (submitAction === 'procesar') {
+      
+      
         let estado = OTAreaActual === 100 ? 50 : 20
-        
-        // if(data && data[EnumGrid.estado_impresion_id] !== '1'){
-        //   setSubmitAction('');
-        //   return toast.error('Debe imprmir OT antes de Procesar');
-        // }
 
         if(OTAreaActual === 90){
            const result:any = validarNumeroDocumento(data)
@@ -840,15 +851,32 @@ useEffect(()=>{
   // console.log(validationNivel2.value)
   // console.log(data && data[EnumGrid.validar_parametrizacion_id])
   // console.log(validationNivel3.value)
+  console.log(checkOptica.value)
+  console.log(checkOptica)
 
   return (
 
     <div className='useFormContainerOT top-[0%]  w-full h-[100%]'>
       <Tabs selectedIndex={selectedTab} onSelect={(index) => setSelectedTab(index)}>
         <TabList className='flex items-center top-[10]'>
-          <Tab className="custom-tab ">ÓPTICA</Tab>
-          <Tab className="custom-tab ">CLIENTE</Tab>
-          <Tab className="custom-tab ">RECETA</Tab>
+          <Tab className="custom-tab items-center flex relative">
+            ÓPTICA 
+            <div className="absolute left-[5rem] pointer-events-none" aria-disabled>
+              <Checkbox color="green" defaultChecked   className="text-sm"/>
+            </div>
+          </Tab>
+          <Tab className="custom-tab items-center flex relative">
+            CLIENTE
+            <div className="absolute left-[5rem] pointer-events-none" aria-disabled>
+                <Checkbox color="green" defaultChecked   className="text-sm"/>
+            </div>
+          </Tab>
+          <Tab className="custom-tab items-center flex relative">
+           RECETA
+           <div className="absolute left-[5rem] pointer-events-none" aria-disabled>
+              <Checkbox color="green" defaultChecked   className="text-sm"/>
+            </div>
+          </Tab>
           <Tab className="custom-tab ">CRISTALES</Tab>
           <Tab className="custom-tab ">ARMAZONES</Tab>
           <Tab className="custom-tab ">BITÁCORA</Tab>
@@ -974,6 +1002,7 @@ useEffect(()=>{
                 (
                   <Button className='otActionButton bg-black' onClick={()=>setShowAnulacion(prev=>!prev)}> Anular</Button>
                 )}
+                
                 
                 {OTPermissions         &&
                 !isEditting             &&

@@ -323,7 +323,7 @@ React.useEffect(()=>{
                   }}
                   isOT={true}
                   control={control}
-                  entidad={["/api/puntosventa/", "06", codProyecto.value]}
+                  entidad={["/api/puntosventa/", "06", codProyecto.value, `_p2=${userID}`]}
                   customWidth={"w-[23.3rem]"}
               />
             </div>

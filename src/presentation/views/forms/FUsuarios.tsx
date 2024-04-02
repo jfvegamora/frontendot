@@ -58,6 +58,11 @@ export interface InputData {
 
 }
 function insertarElementoEnPosicion(arreglo:any, nuevoElemento:any, posicion:any) {
+  console.log(arreglo)
+  console.log(nuevoElemento)
+  console.log(posicion)
+
+  console.log(arreglo.slice(0, posicion) + nuevoElemento + arreglo.slice(posicion))
   return arreglo.slice(0, posicion) + nuevoElemento + arreglo.slice(posicion);
 }
 
@@ -68,10 +73,10 @@ interface OutputData {
   _p3?: string;
 }
 const permiso_area= [
+  "permiso_control",
   "permiso_adquisiciones",
   "permiso_calculo",
   'permiso_laboratorio',
-  "permiso_control",
   "permiso_venta",
   "permiso_bodega",
   "permiso_biselado",
@@ -143,9 +148,18 @@ export function transformUpdateQuery(
   ];
 
 
-  console.log( `permisos_areas    = "${permiso_area.map((permiso)=>jsonData[permiso] === 'Lectura' ? "0" : "1").join('')}"`)
+ console.log( `permisos_areas    = "${permiso_area.map((permiso)=>jsonData[permiso] === 'Lectura' ? "0" : "1").join('')}"`)
+ console.log(insertarElementoEnPosicion(permiso_campo.map((permiso) => jsonData[permiso] === 'Lectura' ? "0" : "1").join(''),'0', 1))
+  
+ console.log(permiso_campo.map((permiso) => jsonData[permiso] === 'Lectura' ? "0" : "1").join(''))
  
-  const filteredFields = fields.filter(
+ console.log(jsonData)
+
+ console.log(permiso_campo.map((permiso)=>jsonData[permiso]).join(''))
+
+
+
+ const filteredFields = fields.filter(
     (field) => field !== null && field !== ""
   );
 
@@ -162,6 +176,8 @@ export function transformUpdateQuery(
     _p2: primaryKey,
     _p3: ""
   };
+
+  console.log(query)
   return query;
 }
 
@@ -356,18 +372,50 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
 
     useEffect(()=>{
       if(data){
-        setValue('permiso_editar_estado_impresion', data[EnumGrid.permiso_editar_estado_impresion_id])
-        setValue('permiso_editar_armazon', data[EnumGrid.permiso_editar_armazon_id])
-        setValue('permiso_editar_validar_parametrizacion', data[EnumGrid.permiso_editar_armazon_id])
-        setValue('permiso_editar_resolucion_garantia', data[EnumGrid.permiso_editar_resolucion_garantia_id])
-        setValue('permiso_editar_grupo_dioptria', data[EnumGrid.permiso_editar_grupo_dioptria_id])
-        setValue('permiso_editar_receta', data[EnumGrid.permiso_editar_receta_id])
-        setValue('permiso_editar_validar_cristales', data[EnumGrid.permiso_editar_validar_cristales_id])
-        setValue('permiso_editar_validar_armazones', data[EnumGrid.permiso_editar_validar_armazones_id])
+        setValue('permiso_editar_estado_impresion', data[EnumGrid.permiso_editar_estado_impresion])
+        setValue('permiso_editar_armazon', data[EnumGrid.permiso_editar_armazon])
+        setValue('permiso_editar_validar_parametrizacion', data[EnumGrid.permiso_editar_armazon])
+        setValue('permiso_editar_resolucion_garantia', data[EnumGrid.permiso_editar_resolucion_garantia])
+        setValue('permiso_editar_grupo_dioptria', data[EnumGrid.permiso_editar_grupo_dioptria])
+        setValue('permiso_editar_receta', data[EnumGrid.permiso_editar_receta])
+        setValue('permiso_editar_validar_cristales', data[EnumGrid.permiso_editar_validar_cristales])
+        setValue('permiso_editar_validar_armazones', data[EnumGrid.permiso_editar_validar_armazones])
       }
     },[data])
 
-    return (
+
+    
+
+
+console.log(data && data[EnumGrid.permiso_editar_armazon])
+console.log(data && data[EnumGrid.permiso_editar_estado_impresion])
+console.log(data && data[EnumGrid.permiso_editar_validar_parametrizacion])
+console.log(data && data[EnumGrid.permiso_editar_resolucion_garantia])
+console.log(data && data[EnumGrid.permiso_editar_grupo_dioptria])
+console.log(data && data[EnumGrid.permiso_editar_receta])
+console.log(data && data[EnumGrid.permiso_editar_validar_cristales])
+console.log(data && data[EnumGrid.permiso_editar_validar_armazones])
+
+
+
+
+
+
+
+console.log(data && data[EnumGrid.permiso_editar_armazon_id])
+console.log(data && data[EnumGrid.permiso_editar_estado_impresion_id])
+console.log(data && data[EnumGrid.permiso_editar_validar_parametrizacion_id])
+console.log(data && data[EnumGrid.permiso_editar_resolucion_garantia_id])
+console.log(data && data[EnumGrid.permiso_editar_grupo_dioptria_id])
+console.log(data && data[EnumGrid.permiso_editar_receta_id])
+console.log(data && data[EnumGrid.permiso_editar_validar_cristales_id])
+console.log(data && data[EnumGrid.permiso_editar_validar_armazones_id])
+
+
+
+
+
+return (
       <div className="useFormContainer centered-div  !w-[70rem] !h-[45rem]">
         <div className="userFormBtnCloseContainer flex justify-between ">
           <h1 className="userFormLabel absolute left-[40%]">{label}</h1>
@@ -737,7 +785,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                             control={control}
                             label="Editar Receta"
                             name="permiso_editar_receta"
-                            data={formValues && formValues["Editar Reeta"] || data && data[EnumGrid.permiso_editar_receta]}
+                            data={formValues && formValues["Editar Receta"] || data && data[EnumGrid.permiso_editar_receta]}
                             options={["Lectura", "Escritura"]}
                             error={errors.permiso_editar_receta}
                             horizontal={false}

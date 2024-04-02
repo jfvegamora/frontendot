@@ -45,16 +45,16 @@ const FOTGuiaDespacho   = React.lazy(()=>import('../views/forms/FOTGuiaDespacho'
 const FOTReporteFirma   = React.lazy(()=>import('../views/forms/FOTReporteFirma'));
 
 export const EnumAreas:any = {
-  10: 1,
-  20: 2,
-  30: 3,
-  40: 4,
-  50: 5,
-  60: 6,
-  70: 7,
-  80: 8,
-  90: 9,
-  100: 10
+  10: 0,
+  20: 1,
+  30: 2,
+  40: 3,
+  50: 4,
+  60: 5,
+  70: 6,
+  80: 7,
+  90: 8,
+  100: 9
 }
 
 
@@ -106,6 +106,11 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
 
     const permisos_usuario_areas = User.permisos_areas[EnumAreas[OTAreas["areaActual"]]]
 
+    console.log(EnumAreas[OTAreas["areaActual"]])
+
+    console.log(OTAreas["areaActual"])
+
+    console.log(User.permisos_areas)
     console.log(permisos_usuario_areas)
     // console.log(EnumAreas[20])
 

@@ -26,18 +26,15 @@ export enum EnumGrid {
   permiso_documentacion           = 9,
   permiso_post_venta_id           = 10,
   permiso_post_venta              = 11,
-
-
-
     //? PERMISOS AREAS
-    permiso_adquisiciones_id        = 12,
-    permiso_adquisiciones           = 13,
-    permiso_calculo_id              = 14,
-    permiso_calculo                 = 15,
-    permiso_laboratorio_id          = 16,
-    permiso_laboratorio             = 17,
-    permiso_control_id              = 18,
-    permiso_control                 = 19,
+    permiso_control_id              = 12,
+    permiso_control                 = 13,
+    permiso_adquisiciones_id        = 14,
+    permiso_adquisiciones           = 15,
+    permiso_calculo_id              = 16,
+    permiso_calculo                 = 17,
+    permiso_laboratorio_id          = 18,
+    permiso_laboratorio             = 19,
     permiso_venta_id                = 20,
     permiso_venta                   = 21,
     permiso_bodega_insumo_id        = 22,

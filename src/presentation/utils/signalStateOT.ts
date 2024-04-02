@@ -151,6 +151,10 @@ export const validationNivel1 = signal([
   },
 ]);
 
+export const checkOptica = signal(()=>{
+  return 'hola'
+})
+
 export const validationNivel2 = signal([
   { campo:"establecimiento_id",
   valor: 0

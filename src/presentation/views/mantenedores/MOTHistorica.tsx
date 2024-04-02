@@ -285,9 +285,6 @@ const MOTHistorica: React.FC = () => {
 
   const {escritura_lectura} = usePermission(idMenu)
 
-
-  console.log(escritura_lectura)
-  
   const updateParams = (newParams: Record<string, never>) => {
     setParams(Object.keys(newParams).map((key) => newParams[key]));
   };
@@ -313,7 +310,6 @@ const MOTHistorica: React.FC = () => {
   // console.log("entities:", entities);
   // console.log("params:", params);
   useEffect(() => {
-    console.log(selectedRows)
     const newPkToDelete = selectedRows.map((row: number) => ({
       folio             : OTs.data[row] && OTs.data[row][1],
       proyecto          : OTs.data[row] && OTs.data[row][13],
