@@ -16,6 +16,10 @@ export const dioptrias:any = signal<any>({
 })
 
 
+
+
+
+
 export const codigoProyecto = signal("")
 
 export const a1_od_esf  = signal<any | undefined>(undefined);
@@ -151,9 +155,9 @@ export const validationNivel1 = signal([
   },
 ]);
 
-export const checkOptica = signal(()=>{
-  return 'hola'
-})
+export const checkOptica = signal(()=>'hola')
+
+export const titleSignal = signal('Sistema Gestión de OT signal')
 
 export const validationNivel2 = signal([
   { campo:"establecimiento_id",

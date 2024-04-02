@@ -794,6 +794,8 @@ function NavList() {
     setUserPermission(numbersPermission);
   }, [userState]);
 
+
+
   return (
     <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center">
       <NavListMenuOT userPermission={userPermission} />
@@ -828,6 +830,11 @@ export default function ComplexNavbar() {
 
     }
   }, [location])
+
+
+  React.useEffect(()=>{
+    document.title = strNavTitle.value || "Sistema Gestión de OT"
+  },[strNavTitle.value])
 
   return (
     <>
