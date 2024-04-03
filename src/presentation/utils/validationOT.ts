@@ -1,4 +1,4 @@
-import { A1_CR_OD, A1_CR_OI, A2_CR_OD, A2_CR_OI, a1_armazon, a1_od_cil, a1_od_eje, a1_od_esf, a1_oi_cil, a1_oi_eje, a1_oi_esf, a2_armazon, dioptrias_receta, tipo_de_anteojo, validationNivel1, validationNivel2, validationNivel3 } from ".";
+import { A1_CR_OD, A1_CR_OI, A2_CR_OD, A2_CR_OI, a1_armazon, a1_od_cil, a1_od_eje, a1_od_esf, a1_oi_cil, a1_oi_eje, a1_oi_esf, a2_armazon, dioptrias_receta, tipo_de_anteojo, validationNivel1, validationNivel3 } from ".";
 
 export const validationProyectos = (value:string) => {
     if(value !== ''){
@@ -12,7 +12,7 @@ export const validationProyectos = (value:string) => {
 
 export const validationEstablecimientos = (value:any) => {
     const item = validationNivel1.value.find((item: { campo: string; }) => item.campo === 'establecimiento_id')
-    const item2 = validationNivel2.value.find((item: { campo: string; }) => item.campo === 'establecimiento_id')
+    const item2 = validationNivel1.value.find((item: { campo: string; }) => item.campo === 'establecimiento_id')
     if(value === ''){
         if(item){
             item.valor = 0
@@ -533,13 +533,13 @@ export const validationClienteTelefono = (value:any) => {
 
 export const validation_Cristal2_tratamiento_adicionnal = (value:string | any) => {
     if(value !== ''){
-        const item = validationNivel2.value.find(item => item.campo === 'cristal2_tratamiento_adicional_id');
+        const item = validationNivel1.value.find(item => item.campo === 'cristal2_tratamiento_adicional_id');
         if (item) {
             item.valor = 1;
         }
     }
     if(value == ''){
-        const item = validationNivel2.value.find(item => item.campo === 'cristal2_tratamiento_adicional_id');
+        const item = validationNivel1.value.find(item => item.campo === 'cristal2_tratamiento_adicional_id');
         if (item) {
             item.valor = 0;
         }
@@ -549,7 +549,7 @@ export const validation_Cristal2_tratamiento_adicionnal = (value:string | any) =
 export const validation_Cristal2_oi = (value:string | any ) => {
 
     console.log(value)
-    const item = validationNivel2.value.find(item => item.campo === 'cristal2_oi');
+    const item = validationNivel1.value.find(item => item.campo === 'cristal2_oi');
 
     if(value !== ''){
         if (item) {
@@ -557,7 +557,7 @@ export const validation_Cristal2_oi = (value:string | any ) => {
         }
     }
     if(value == ''){
-        // const item = validationNivel2.value.find(item => item.campo === 'cristal2_oi');
+        // const item = validationNivel1.value.find(item => item.campo === 'cristal2_oi');
         if (item) {
             item.valor = 0;
         }
@@ -568,13 +568,13 @@ export const validation_Cristal2_oi = (value:string | any ) => {
  
 export const validation_Cristal2_od = (value:string | any ) =>{
     if(value !== ''){
-        const item = validationNivel2.value.find(item => item.campo === 'cristal2_od');
+        const item = validationNivel1.value.find(item => item.campo === 'cristal2_od');
         if (item) {
             item.valor = 1;
         }
     }
     if(value == ''){
-        const item = validationNivel2.value.find(item => item.campo === 'cristal2_od');
+        const item = validationNivel1.value.find(item => item.campo === 'cristal2_od');
         if (item) {
             item.valor = 0;
         }
@@ -582,13 +582,13 @@ export const validation_Cristal2_od = (value:string | any ) =>{
 }
 export const validation_Cristal2_diametro = (value:string | any) => {
     if(value !== ''){
-        const item = validationNivel2.value.find(item => item.campo === 'cristal2_diametro');
+        const item = validationNivel1.value.find(item => item.campo === 'cristal2_diametro');
         if (item) {
             item.valor = 1;
         }
     }
     if(value == ''){
-        const item = validationNivel2.value.find(item => item.campo === 'cristal2_diametro');
+        const item = validationNivel1.value.find(item => item.campo === 'cristal2_diametro');
         if (item) {
             item.valor = 0;
         }
@@ -597,13 +597,13 @@ export const validation_Cristal2_diametro = (value:string | any) => {
 
 export const validation_Cristal2_color = (value:string | any) => {
     if(value !== ''){
-        const item = validationNivel2.value.find(item => item.campo === 'cristal2_color_id');
+        const item = validationNivel1.value.find(item => item.campo === 'cristal2_color_id');
         if (item) {
             item.valor = 1;
         }
     }
     if(value == ''){
-        const item = validationNivel2.value.find(item => item.campo === 'cristal2_color_id');
+        const item = validationNivel1.value.find(item => item.campo === 'cristal2_color_id');
         if (item) {
             item.valor = 0;
         }
@@ -612,13 +612,13 @@ export const validation_Cristal2_color = (value:string | any) => {
 
 export const validation_Cristal2_tratamiento = (value:string | any) => {
     if(value !== ''){
-        const item = validationNivel2.value.find(item => item.campo === 'cristal2_tratamiento_id');
+        const item = validationNivel1.value.find(item => item.campo === 'cristal2_tratamiento_id');
         if (item) {
             item.valor = 1;
         }
     }
     if(value == ''){
-        const item = validationNivel2.value.find(item => item.campo === 'cristal2_tratamiento_id');
+        const item = validationNivel1.value.find(item => item.campo === 'cristal2_tratamiento_id');
         if (item) {
             item.valor = 0;
         }
@@ -627,13 +627,13 @@ export const validation_Cristal2_tratamiento = (value:string | any) => {
 
 export const validation_Cristal2_material = (value:string | any) => {
     if(value !== ''){
-        const item = validationNivel2.value.find(item => item.campo === 'cristal2_material_id');
+        const item = validationNivel1.value.find(item => item.campo === 'cristal2_material_id');
         if (item) {
             item.valor = 1;
         }
     }
     if(value == ''){
-        const item = validationNivel2.value.find(item => item.campo === 'cristal2_material_id');
+        const item = validationNivel1.value.find(item => item.campo === 'cristal2_material_id');
         if (item) {
             item.valor = 0;
         }
@@ -643,13 +643,13 @@ export const validation_Cristal2_material = (value:string | any) => {
 
 export const validation_Cristal2_indice = (value:string | any) => {
     if(value !== ''){
-        const item = validationNivel2.value.find(item => item.campo === 'cristal2_indice_id');
+        const item = validationNivel1.value.find(item => item.campo === 'cristal2_indice_id');
         if (item) {
             item.valor = 1;
         }
     }
     if(value == ''){
-        const item = validationNivel2.value.find(item => item.campo === 'cristal2_indice_id');
+        const item = validationNivel1.value.find(item => item.campo === 'cristal2_indice_id');
         if (item) {
             item.valor = 0;
         }
@@ -658,13 +658,13 @@ export const validation_Cristal2_indice = (value:string | any) => {
 
 export const validation_Cristal2_diseño = (value:string | any ) =>{
     if(value !== ''){
-        const item = validationNivel2.value.find(item => item.campo === 'cristal2_diseno_id');
+        const item = validationNivel1.value.find(item => item.campo === 'cristal2_diseno_id');
         if (item) {
             item.valor = 1;
         }
     }
     if(value == ''){
-        const item = validationNivel2.value.find(item => item.campo === 'cristal2_diseno_id');
+        const item = validationNivel1.value.find(item => item.campo === 'cristal2_diseno_id');
         if (item) {
             item.valor = 0;
         }
@@ -674,13 +674,13 @@ export const validation_cristal2_marca = (value:string | any ) =>{
     
     // console.log(value)
     if(value !== ''){
-        const item = validationNivel2.value.find(item => item.campo === 'cristal2_marca_id');
+        const item = validationNivel1.value.find(item => item.campo === 'cristal2_marca_id');
         if (item) {
             item.valor = 1;
         }
     }
     if(value == ''){
-        const item = validationNivel2.value.find(item => item.campo === 'cristal2_marca_id');
+        const item = validationNivel1.value.find(item => item.campo === 'cristal2_marca_id');
         if (item) {
             item.valor = 0;
         }
@@ -689,13 +689,13 @@ export const validation_cristal2_marca = (value:string | any ) =>{
 
 export const validation_Cristal12_opcion_venta = (value:string | any) => {
     if(value !== ''){
-        const item = validationNivel2.value.find(item => item.campo === 'cristal2_od_opcion_venta_id');
+        const item = validationNivel1.value.find(item => item.campo === 'cristal2_od_opcion_venta_id');
         if (item) {
             item.valor = 1;
         }
     }
     if(value == ''){
-        const item = validationNivel2.value.find(item => item.campo === 'cristal2_od_opcion_venta_id');
+        const item = validationNivel1.value.find(item => item.campo === 'cristal2_od_opcion_venta_id');
         if (item) {
             item.valor = 0;
         }
@@ -704,13 +704,13 @@ export const validation_Cristal12_opcion_venta = (value:string | any) => {
 
 export const validation_Cristal1_tratamiento_adicional = (value:string | any) => {
     if(value !== ''){
-        const item = validationNivel2.value.find(item => item.campo === 'cristal1_tratamiento_adicional_id');
+        const item = validationNivel1.value.find(item => item.campo === 'cristal1_tratamiento_adicional_id');
         if (item) {
             item.valor = 1;
         }
     }
     if(value == ''){
-        const item = validationNivel2.value.find(item => item.campo === 'cristal1_tratamiento_adicional_id');
+        const item = validationNivel1.value.find(item => item.campo === 'cristal1_tratamiento_adicional_id');
         if (item) {
             item.valor = 0;
         }
@@ -719,7 +719,7 @@ export const validation_Cristal1_tratamiento_adicional = (value:string | any) =>
 
 
 export const validation_Cristal1_oi = (value:string | any) => {
-    const item = validationNivel2.value.find(item => item.campo === 'cristal1_oi');
+    const item = validationNivel1.value.find(item => item.campo === 'cristal1_oi');
     
 
     if(value !== ''){
@@ -728,7 +728,7 @@ export const validation_Cristal1_oi = (value:string | any) => {
         }
     }
     if(value === ''){
-        // const item = validationNivel2.value.find(item => item.campo === 'cristal1_oi');
+        // const item = validationNivel1.value.find(item => item.campo === 'cristal1_oi');
         if (item) {
             item.valor = 0;
         }
@@ -738,7 +738,7 @@ export const validation_Cristal1_oi = (value:string | any) => {
 
 
 export const validation_Cristal1_od = (value:string | any) => {
-    const item = validationNivel2.value.find(item => item.campo === 'cristal1_od');
+    const item = validationNivel1.value.find(item => item.campo === 'cristal1_od');
     
     // console.log(value)
     
@@ -748,7 +748,7 @@ export const validation_Cristal1_od = (value:string | any) => {
         }
     }
     if(value === ''){
-        // const item = validationNivel2.value.find(item => item.campo === 'cristal1_od');
+        // const item = validationNivel1.value.find(item => item.campo === 'cristal1_od');
         if (item) {
             item.valor = 0;
         }
@@ -759,13 +759,13 @@ export const validation_Cristal1_od = (value:string | any) => {
 
 export const validation_Cristal1_diametro = (value:string | any) => {
     if(value !== ''){
-        const item = validationNivel2.value.find(item => item.campo === 'cristal1_diametro');
+        const item = validationNivel1.value.find(item => item.campo === 'cristal1_diametro');
         if (item) {
             item.valor = 1;
         }
     }
     if(value == ''){
-        const item = validationNivel2.value.find(item => item.campo === 'cristal1_diametro');
+        const item = validationNivel1.value.find(item => item.campo === 'cristal1_diametro');
         if (item) {
             item.valor = 0;
         }
@@ -775,13 +775,13 @@ export const validation_Cristal1_diametro = (value:string | any) => {
 
 export const validation_Cristal1_marca = (value:string | any) => {
     if(value !== ''){
-        const item = validationNivel2.value.find(item => item.campo === 'cristal1_marca_id');
+        const item = validationNivel1.value.find(item => item.campo === 'cristal1_marca_id');
         if (item) {
             item.valor = 1;
         }
     }
     if(value == ''){
-        const item = validationNivel2.value.find(item => item.campo === 'cristal1_marca_id');
+        const item = validationNivel1.value.find(item => item.campo === 'cristal1_marca_id');
         if (item) {
             item.valor = 0;
         }
@@ -789,13 +789,13 @@ export const validation_Cristal1_marca = (value:string | any) => {
 }
 export const validation_Cristal1_color = (value:string | any) => {
     if(value !== ''){
-        const item = validationNivel2.value.find(item => item.campo === 'cristal1_color_id');
+        const item = validationNivel1.value.find(item => item.campo === 'cristal1_color_id');
         if (item) {
             item.valor = 1;
         }
     }
     if(value == ''){
-        const item = validationNivel2.value.find(item => item.campo === 'cristal1_color_id');
+        const item = validationNivel1.value.find(item => item.campo === 'cristal1_color_id');
         if (item) {
             item.valor = 0;
         }
@@ -805,13 +805,13 @@ export const validation_Cristal1_color = (value:string | any) => {
 
 export const validation_Cristal1_material = (value:string | any) => {
     if(value !== ''){
-        const item = validationNivel2.value.find(item => item.campo === 'cristal1_material_id');
+        const item = validationNivel1.value.find(item => item.campo === 'cristal1_material_id');
         if (item) {
             item.valor = 1;
         }
     }
     if(value == ''){
-        const item = validationNivel2.value.find(item => item.campo === 'cristal1_material_id');
+        const item = validationNivel1.value.find(item => item.campo === 'cristal1_material_id');
         if (item) {
             item.valor = 0;
         }
@@ -820,13 +820,13 @@ export const validation_Cristal1_material = (value:string | any) => {
 
 export const validation_Cristal1_tratamiento = (value:string | any) => {
     if(value !== ''){
-        const item = validationNivel2.value.find(item => item.campo === 'cristal1_tratamiento_id');
+        const item = validationNivel1.value.find(item => item.campo === 'cristal1_tratamiento_id');
         if (item) {
             item.valor = 1;
         }
     }
     if(value == ''){
-        const item = validationNivel2.value.find(item => item.campo === 'cristal1_tratamiento_id');
+        const item = validationNivel1.value.find(item => item.campo === 'cristal1_tratamiento_id');
         if (item) {
             item.valor = 0;
         }
@@ -835,13 +835,13 @@ export const validation_Cristal1_tratamiento = (value:string | any) => {
 
 export const validation_Cristal1_indice = (value:string | any) => {
     if(value !== ''){
-        const item = validationNivel2.value.find(item => item.campo === 'cristal1_indice_id');
+        const item = validationNivel1.value.find(item => item.campo === 'cristal1_indice_id');
         if (item) {
             item.valor = 1;
         }
     }
     if(value == ''){
-        const item = validationNivel2.value.find(item => item.campo === 'cristal1_indice_id');
+        const item = validationNivel1.value.find(item => item.campo === 'cristal1_indice_id');
         if (item) {
             item.valor = 0;
         }
@@ -850,13 +850,13 @@ export const validation_Cristal1_indice = (value:string | any) => {
 
 export const validation_Cristal1_diseño = (value:string | any) =>{
     if(value !== ''){
-        const item = validationNivel2.value.find(item => item.campo === 'cristal1_diseno_id');
+        const item = validationNivel1.value.find(item => item.campo === 'cristal1_diseno_id');
         if (item) {
             item.valor = 1;
         }
     }
     if(value == ''){
-        const item = validationNivel2.value.find(item => item.campo === 'cristal1_diseno_id');
+        const item = validationNivel1.value.find(item => item.campo === 'cristal1_diseno_id');
         if (item) {
             item.valor = 0;
         }
@@ -865,13 +865,13 @@ export const validation_Cristal1_diseño = (value:string | any) =>{
 
 export const validation_Cristal1_opcion_vta = (value:string | any) => {
     if(value !== ''){
-        const item = validationNivel2.value.find(item => item.campo === 'cristal1_opcion_vta_id');
+        const item = validationNivel1.value.find(item => item.campo === 'cristal1_opcion_vta_id');
         if (item) {
             item.valor = 1;
         }
     }
     if(value == ''){
-        const item = validationNivel2.value.find(item => item.campo === 'fecha_entrega_cliente');
+        const item = validationNivel1.value.find(item => item.campo === 'fecha_entrega_cliente');
         if (item) {
             item.valor = 0;
         }
@@ -880,13 +880,13 @@ export const validation_Cristal1_opcion_vta = (value:string | any) => {
 
 export const validation_A1_opcion_venta = (value: string | any) => {
     if(value !== ''){
-        const item = validationNivel2.value.find(item => item.campo === 'a1_opcion_vta_id');
+        const item = validationNivel1.value.find(item => item.campo === 'a1_opcion_vta_id');
         if (item) {
             item.valor = 1;
         }
     }
     if(value == ''){
-        const item = validationNivel2.value.find(item => item.campo === 'a1_opcion_vta_id');
+        const item = validationNivel1.value.find(item => item.campo === 'a1_opcion_vta_id');
         if (item) {
             item.valor = 0;
         }
@@ -895,13 +895,13 @@ export const validation_A1_opcion_venta = (value: string | any) => {
 
 export const validation_A1_armazon = (value:string | any) => {
     if(value !== ''){
-        const item = validationNivel2.value.find(item => item.campo === 'a1_armazon_id');
+        const item = validationNivel1.value.find(item => item.campo === 'a1_armazon_id');
         if (item) {
             item.valor = 1;
         }
     }
     if(value == ''){
-        const item = validationNivel2.value.find(item => item.campo === 'a1_armazon_id');
+        const item = validationNivel1.value.find(item => item.campo === 'a1_armazon_id');
         if (item) {
             item.valor = 0;
         }
@@ -910,13 +910,13 @@ export const validation_A1_armazon = (value:string | any) => {
 
 export const validation_A2_opcion_venta = (value:string | any) => {
     if(value !== ''){
-        const item = validationNivel2.value.find(item => item.campo === 'a2_opcion_vta_id');
+        const item = validationNivel1.value.find(item => item.campo === 'a2_opcion_vta_id');
         if (item) {
             item.valor = 1;
         }
     }
     if(value == ''){
-        const item = validationNivel2.value.find(item => item.campo === 'a2_opcion_vta_id');
+        const item = validationNivel1.value.find(item => item.campo === 'a2_opcion_vta_id');
         if (item) {
             item.valor = 0;
         }
@@ -924,7 +924,7 @@ export const validation_A2_opcion_venta = (value:string | any) => {
 }
 
 export const validation_A2_armazon = (value:string | any) => {
-    const item = validationNivel2.value.find(item => item.campo === 'a2_armazon_id');
+    const item = validationNivel1.value.find(item => item.campo === 'a2_armazon_id');
     
     if(tipo_de_anteojo.value !== '3'){
         return;
@@ -946,7 +946,7 @@ export const validation_A2_armazon = (value:string | any) => {
 
 
 export const validation_A2_DP =(value:string | any) => {
-    const item = validationNivel2.value.find((item) => item.campo === 'a2_dp');
+    const item = validationNivel1.value.find((item) => item.campo === 'a2_dp');
 
     if(value !== '' && item) {
         item.valor = 1;
@@ -957,7 +957,7 @@ export const validation_A2_DP =(value:string | any) => {
 }
 
 export const validation_A2_OI_EJE = (value:string | any) => {
-    const item = validationNivel2.value.find((item) => item.campo === 'a2_oi_eje');
+    const item = validationNivel1.value.find((item) => item.campo === 'a2_oi_eje');
     // console.log(value)
     if(value !== '' && item) {
         item.valor = 1;
@@ -967,7 +967,7 @@ export const validation_A2_OI_EJE = (value:string | any) => {
 }
 
 export const validation_A2_OI_CIL = (value:string | any) => {
-    const item = validationNivel2.value.find((item) => item.campo === 'a2_oi_cil');
+    const item = validationNivel1.value.find((item) => item.campo === 'a2_oi_cil');
     if(value !== '' && item) {
         item.valor = 1;
     } else if (item) {
@@ -976,7 +976,7 @@ export const validation_A2_OI_CIL = (value:string | any) => {
 }
 
 export const validation_A2_OI_ESF =(value:string | any) => {
-    const item = validationNivel2.value.find((item) => item.campo === 'a2_oi_esf');
+    const item = validationNivel1.value.find((item) => item.campo === 'a2_oi_esf');
     if(value !== '' && item) {
         item.valor = 1;
     } else if (item) {
@@ -985,7 +985,7 @@ export const validation_A2_OI_ESF =(value:string | any) => {
 }
 
 export const validation_A2_OD_EJE = (value:string | any) => {
-    const item = validationNivel2.value.find((item) => item.campo === 'a2_od_eje');
+    const item = validationNivel1.value.find((item) => item.campo === 'a2_od_eje');
     
     if(value !== '' && item) {
         item.valor = 1;
@@ -995,7 +995,7 @@ export const validation_A2_OD_EJE = (value:string | any) => {
 }
 
 export const validation_A2_OD_CIL = (value:string | any) => {
-    const item = validationNivel2.value.find((item) => item.campo === 'a2_od_cil');
+    const item = validationNivel1.value.find((item) => item.campo === 'a2_od_cil');
     
     
     if(value !== '' && item) {
@@ -1006,7 +1006,7 @@ export const validation_A2_OD_CIL = (value:string | any) => {
 }
 
 export const validation_A2_OD_ESF =( value:string | any) => {
-    const item = validationNivel2.value.find((item) => item.campo === 'a2_od_esf');
+    const item = validationNivel1.value.find((item) => item.campo === 'a2_od_esf');
     
     if(value !== '' && item) {
         item.valor = 1;
@@ -1016,7 +1016,7 @@ export const validation_A2_OD_ESF =( value:string | any) => {
 }
 
 export const validation_A1_ALT = (value:string | any) => {
-    const item = validationNivel2.value.find((item) => item.campo === 'a1_alt');
+    const item = validationNivel1.value.find((item) => item.campo === 'a1_alt');
     
     // console.log(value)
     
@@ -1040,12 +1040,12 @@ export const validation_A1_DP = (value:string | any) => {
 
     
     if (value !== '') {
-        const item = validationNivel2.value.find((item) => item.campo === 'a1_dp');
+        const item = validationNivel1.value.find((item) => item.campo === 'a1_dp');
         if (item) {
           item.valor = 1;
         };
       } else {
-        const item = validationNivel2.value.find((item) => item.campo === 'a1_dp');
+        const item = validationNivel1.value.find((item) => item.campo === 'a1_dp');
         if (item) {
           item.valor = 0;
         };
@@ -1053,7 +1053,7 @@ export const validation_A1_DP = (value:string | any) => {
 }
 
 export const validation_A1_OI_AD = (_value:string | any) => {
-    // const item = validationNivel2.value.find((item) => item.campo === 'a1_oi_ad');
+    // const item = validationNivel1.value.find((item) => item.campo === 'a1_oi_ad');
     // // console.log(value)
     // if (value !== '') {
     //     const formattedValue = Number(value).toFixed(2);        
@@ -1070,7 +1070,7 @@ export const validation_A1_OI_AD = (_value:string | any) => {
 }
 
 export const validation_A1_OI_EJE = (value:string | any) => {
-    const item = validationNivel2.value.find((item) => item.campo === 'a1_oi_eje');
+    const item = validationNivel1.value.find((item) => item.campo === 'a1_oi_eje');
     
     if (value !== '') {
         const parseValue = parseFloat(value)
@@ -1097,7 +1097,7 @@ export const validation_A1_OI_EJE = (value:string | any) => {
 }
 
 export const validation_A1_OI_CIL = (value:string | any) => {
-    const item = validationNivel2.value.find((item) => item.campo === 'a1_oi_cil');
+    const item = validationNivel1.value.find((item) => item.campo === 'a1_oi_cil');
     
         if(value !== ''){
             const parsedValue = parseFloat(value);
@@ -1116,7 +1116,7 @@ export const validation_A1_OI_CIL = (value:string | any) => {
 }
 
 export const validation_A1_OI_ESF = (value:string | any) => {
-    const item = validationNivel2.value.find((item) => item.campo === 'a1_oi_esf');
+    const item = validationNivel1.value.find((item) => item.campo === 'a1_oi_esf');
     if (value !== '' && value !== undefined) {
         const formattedValue = Number(value).toFixed(2);
 
@@ -1141,7 +1141,7 @@ export const validation_A1_OI_ESF = (value:string | any) => {
 }
 
 export const validation_A1_OD_AD = (_value:string | any) => {
-    // const item = validationNivel2.value.find((item) => item.campo === 'a1_od_ad');
+    // const item = validationNivel1.value.find((item) => item.campo === 'a1_od_ad');
     // console.log(value)
     // if (value !== '') {
     //     const parseValue = parseFloat(value)
@@ -1165,7 +1165,7 @@ export const validation_A1_OD_AD = (_value:string | any) => {
 
 
 export const validation_A1_OD_EJE = (value: string | any) => {
-    const item = validationNivel2.value.find((item) => item.campo === 'a1_od_eje');
+    const item = validationNivel1.value.find((item) => item.campo === 'a1_od_eje');
   
     if (value !== '') {
     const parseValue = parseFloat(value)    
@@ -1195,7 +1195,7 @@ export const validation_A1_OD_EJE = (value: string | any) => {
   };
 
 export const validation_A1_OD_CILL = (value:string | any) => {
-    const item = validationNivel2.value.find((item) => item.campo === 'a1_od_cil');
+    const item = validationNivel1.value.find((item) => item.campo === 'a1_od_cil');
     
     if (value !== '') {
         const parsedValue = parseFloat(value);
@@ -1218,7 +1218,7 @@ export const validation_A1_OD_CILL = (value:string | any) => {
 }
 
 export const validation_A1_OD_ESF = (value: any) => {
-    const item = validationNivel2.value.find((item) => item.campo === 'a1_od_esf');
+    const item = validationNivel1.value.find((item) => item.campo === 'a1_od_esf');
     
     if (value !== '' && value !== undefined)  {
       const formattedValue = Number(value).toFixed(2);
@@ -1245,13 +1245,13 @@ export const validation_A1_OD_ESF = (value: any) => {
 
 export const validationFechaEntregaCliente =(value:string) => {
     if(value !== ''){
-        const item = validationNivel2.value.find(item => item.campo === 'fecha_entrega_cliente');
+        const item = validationNivel1.value.find(item => item.campo === 'fecha_entrega_cliente');
         if (item) {
             item.valor = 1;
         }
     }
     if(value == ''){
-        const item = validationNivel2.value.find(item => item.campo === 'fecha_entrega_cliente');
+        const item = validationNivel1.value.find(item => item.campo === 'fecha_entrega_cliente');
         if (item) {
             item.valor = 0;
         }
@@ -1260,13 +1260,13 @@ export const validationFechaEntregaCliente =(value:string) => {
 
 export const validationFechaDespacho = (value:string) => {
     if(value !== ''){
-        const item = validationNivel2.value.find(item => item.campo === 'fecha_despacho');
+        const item = validationNivel1.value.find(item => item.campo === 'fecha_despacho');
         if (item) {
             item.valor = 1;
         }
     }
     if(value == ''){
-        const item = validationNivel2.value.find(item => item.campo === 'fecha_despacho');
+        const item = validationNivel1.value.find(item => item.campo === 'fecha_despacho');
         if (item) {
             item.valor = 0;
         }
@@ -1276,14 +1276,14 @@ export const validationFechaDespacho = (value:string) => {
 export const validationFechaEntregaTaller =(value:string) => {
     // console.log(value)
     if(value !== ''){
-        const item = validationNivel2.value.find(item => item.campo === 'fecha_entrega_taller');
+        const item = validationNivel1.value.find(item => item.campo === 'fecha_entrega_taller');
         // console.log(item)
         if (item) {
             item.valor = 1;
         }
     }
     if(value == ''){
-        const item = validationNivel2.value.find(item => item.campo === 'fecha_entrega_taller');
+        const item = validationNivel1.value.find(item => item.campo === 'fecha_entrega_taller');
         if (item) {
             item.valor = 0;
         }

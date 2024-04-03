@@ -36,7 +36,8 @@ const customStyles = {
     margin:'auto',
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
-    backgroundColor:'rgb(103 111 157 / 1)'
+    backgroundColor:'rgb(103 111 157 / 1)',
+    zIndex: 20 
   },
 };
 

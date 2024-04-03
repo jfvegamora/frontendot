@@ -46,6 +46,7 @@ export const a2_oi_eje  = signal<any | undefined>(undefined)
 
 export const tipo_de_anteojo          = signal('');
 export const validar_parametrizacion  = signal('1');
+export const estado_validacion        = signal('1');
 
 //SEÑALES FECHA PARA GENERARLAS A PARTIR DE FECHA_ATECION/QUERY 11 SPOT
 export const fecha_atencion_signal  = signal("");
@@ -114,14 +115,210 @@ export const procesarRender     = signal(40);
 
 // fechaHoraActual
 
+// export const validationNivel1 = signal([
+//   { 
+//     campo:"proyecto",
+//     valor: 0
+//   },
+//   { 
+//     campo:"establecimiento_id",
+//     valor: 0
+//   },
+//   { 
+//     campo:"cliente_rut",
+//     valor: 0
+//   },
+//   {
+//     campo: "cliente_nombre",
+//     valor: 0
+//   },
+//   {
+//     campo : "cliente_tipo",
+//     valor : 0
+//   },
+//   {
+//     campo : "cliente_sexo",
+//     valor : 0
+//   },
+//   {
+//     campo : "cliente_telefono",
+//     valor : 0
+//   },
+//   {
+//     campo : "cliente_comuna",
+//     valor : 0
+//   },
+//   { 
+//     campo:"fecha_atencion",
+//     valor: 0
+//   },
+//   { 
+//     campo:"punto_venta_id",
+//     valor: 0
+//   },
+//   { 
+//     campo:"tipo_anteojo_id",
+//     valor: 0
+//   },
+// ]);
+
+
+
+
+// export const validationNivel2 = signal([
+//   { campo:"establecimiento_id",
+//   valor: 0
+//   },
+//   { campo: "fecha_entrega_taller",
+//     valor: 0
+//   },
+//   { campo: "fecha_despacho",
+//     valor: 0
+//   },
+//   { campo: "fecha_entrega_cliente",
+//     valor: 0
+//   },
+//   { campo: "a1_od_esf",
+//     valor: 0
+//   },
+//   { campo: "a1_od_cil",
+//     valor: 0
+//   },
+//   { campo: "a1_od_eje",
+//     valor: 0
+//   },
+//   { campo: "a1_od_ad",
+//     valor: 1
+//   },
+//   { campo: "a1_oi_ad",
+//     valor: 1
+//   },
+//   { campo: "a1_oi_esf",
+//     valor: 0
+//   },
+//   { campo: "a1_oi_cil",
+//     valor: 0
+//   },
+//   { campo: "a1_oi_eje",
+//     valor: 0
+//   },
+//   { campo: "a1_dp",
+//     valor: 0
+//   },
+//   { campo: "a1_alt",
+//     valor: 0
+//   },
+//   { campo:'combinaciones_validas',
+//     valor: 0
+//   },
+//   { campo: "a2_od_esf",
+//     valor: 0
+//   },
+//   { campo: "a2_od_cil",
+//     valor: 0
+//   },
+//   { campo: "a2_od_eje",
+//     valor: 0
+//   },
+//   { campo: "a2_oi_esf",
+//     valor: 0
+//   },
+//   { campo: "a2_oi_cil",
+//     valor: 0
+//   },
+//   { campo: "a2_oi_eje",
+//     valor: 0
+//   },
+//   { campo: "a2_dp",
+//     valor: 0
+//   },
+
+
+//   //A2_GRUPO
+//   { campo: "a1_armazon_id",
+//     valor: 0
+//   },
+//   { campo: "a2_armazon_id",
+//     valor: 0
+//   },
+
+
+
+ 
+//   { campo: "cristal1_marca_id",
+//     valor: 0
+//   },
+//   { campo: "cristal1_diseno_id",
+//     valor: 0
+//   },
+//   { campo: "cristal1_indice_id",
+//     valor: 0
+//   },
+//   { campo: "cristal1_material_id",
+//     valor: 0
+//   },
+//   { campo: "cristal1_tratamiento_id",
+//     valor: 0
+//   },
+//   { campo: "cristal1_color_id",
+//     valor: 0
+//   },
+//   { campo: "cristal1_diametro",
+//     valor: 0
+//   },
+
+//   { campo: "cristal1_od",
+//     valor: 0
+//   },
+//   { campo: "cristal1_oi",
+//     valor: 0
+//   },
+ 
+
+
+  
+//   { campo: "cristal2_marca_id",
+//     valor: 0
+//   },
+//   { campo: "cristal2_diseno_id",
+//     valor: 0
+//   },
+//   { campo: "cristal2_indice_id",
+//     valor: 0
+//   },
+//   { campo: "cristal2_material_id",
+//     valor: 0
+//   },
+//   { campo: "cristal2_tratamiento_id",
+//     valor: 0
+//   },
+//   { campo: "cristal2_color_id",
+//     valor: 0
+//   },
+//   { campo: "cristal2_diametro",
+//     valor: 0
+//   },
+//   { campo: "cristal2_od",
+//     valor: 0
+//   },
+//   { campo: "cristal2_oi",
+//     valor: 0
+//   }
+// ])
+
+
+
 export const validationNivel1 = signal([
-  { campo:"proyecto",
+  { 
+    campo:"proyecto",
     valor: 0
   },
-  { campo:"establecimiento_id",
+  { 
+    campo:"establecimiento_id",
     valor: 0
   },
-  { campo:"cliente_rut",
+  { 
+    campo:"cliente_rut",
     valor: 0
   },
   {
@@ -144,20 +341,157 @@ export const validationNivel1 = signal([
     campo : "cliente_comuna",
     valor : 0
   },
-  { campo:"fecha_atencion",
+  { 
+    campo:"fecha_atencion",
     valor: 0
   },
-  { campo:"punto_venta_id",
+  { 
+    campo:"punto_venta_id",
     valor: 0
   },
-  { campo:"tipo_anteojo_id",
+  { 
+    campo:"tipo_anteojo_id",
     valor: 0
   },
+  { campo: "fecha_entrega_taller",
+    valor: 0
+  },
+  { campo: "fecha_despacho",
+    valor: 0
+  },
+  { campo: "fecha_entrega_cliente",
+    valor: 0
+  },
+  { campo: "a1_od_esf",
+    valor: 0
+  },
+  { campo: "a1_od_cil",
+    valor: 0
+  },
+  { campo: "a1_od_eje",
+    valor: 0
+  },
+  { campo: "a1_od_ad",
+    valor: 1
+  },
+  { campo: "a1_oi_ad",
+    valor: 1
+  },
+  { campo: "a1_oi_esf",
+    valor: 0
+  },
+  { campo: "a1_oi_cil",
+    valor: 0
+  },
+  { campo: "a1_oi_eje",
+    valor: 0
+  },
+  { campo: "a1_dp",
+    valor: 0
+  },
+  { campo: "a1_alt",
+    valor: 0
+  },
+  { campo:'combinaciones_validas',
+    valor: 0
+  },
+  { campo: "a2_od_esf",
+    valor: 0
+  },
+  { campo: "a2_od_cil",
+    valor: 0
+  },
+  { campo: "a2_od_eje",
+    valor: 0
+  },
+  { campo: "a2_oi_esf",
+    valor: 0
+  },
+  { campo: "a2_oi_cil",
+    valor: 0
+  },
+  { campo: "a2_oi_eje",
+    valor: 0
+  },
+  { campo: "a2_dp",
+    valor: 0
+  },
+
+
+  //A2_GRUPO
+  { campo: "a1_armazon_id",
+    valor: 0
+  },
+  { campo: "a2_armazon_id",
+    valor: 0
+  },
+
+
+
+ 
+  { campo: "cristal1_marca_id",
+    valor: 0
+  },
+  { campo: "cristal1_diseno_id",
+    valor: 0
+  },
+  { campo: "cristal1_indice_id",
+    valor: 0
+  },
+  { campo: "cristal1_material_id",
+    valor: 0
+  },
+  { campo: "cristal1_tratamiento_id",
+    valor: 0
+  },
+  { campo: "cristal1_color_id",
+    valor: 0
+  },
+  { campo: "cristal1_diametro",
+    valor: 0
+  },
+
+  { campo: "cristal1_od",
+    valor: 0
+  },
+  { campo: "cristal1_oi",
+    valor: 0
+  },
+ 
+
+
+  
+  { campo: "cristal2_marca_id",
+    valor: 0
+  },
+  { campo: "cristal2_diseno_id",
+    valor: 0
+  },
+  { campo: "cristal2_indice_id",
+    valor: 0
+  },
+  { campo: "cristal2_material_id",
+    valor: 0
+  },
+  { campo: "cristal2_tratamiento_id",
+    valor: 0
+  },
+  { campo: "cristal2_color_id",
+    valor: 0
+  },
+  { campo: "cristal2_diametro",
+    valor: 0
+  },
+  { campo: "cristal2_od",
+    valor: 0
+  },
+  { campo: "cristal2_oi",
+    valor: 0
+  }
 ]);
 
-export const checkOptica = signal(()=>'hola')
 
-export const titleSignal = signal('Sistema Gestión de OT signal')
+
 
 export const validationNivel2 = signal([
   { campo:"establecimiento_id",
@@ -515,7 +849,10 @@ export const reiniciarValidationNivel1 = (keepForm?:boolean) => {
       const notClearCampos = new Set([
         'proyecto',
         'fecha_atencion',
-        'punto_venta_id'
+        'punto_venta_id',
+        'fecha_entrega_taller',
+        'fecha_despacho',
+        'fecha_entrega_cliente'
       ])
 
       validationNivel1.value.forEach((item)=>{
@@ -560,7 +897,7 @@ export const actualizarVariable = (name: string, value: any) => {
 
 
 export const buscarCampo = (campo: string) => {
-    return validationNivel2.value.find((item) => item.campo === campo);
+    return validationNivel1.value.find((item) => item.campo === campo);
 };
 
 export const buscarCampoNivel3 = (campo:string) => {
@@ -1064,6 +1401,14 @@ export const getGrupoCristales_A1 = async(formValue:any, data:any, setErrorGrupo
             // console.log(cristalesDATA)
             //   console.log('render')
             //   toast.error(cristalesDATA["ERROR"])
+
+            // console.log(cristalesDATA["ERROR"])
+
+
+            // if(cristalesDATA["ERROR"].includes('STOCK')){
+            //   estado_validacion.value = '1'
+            //   return;
+            // }
 
             // // toast.error(cristalesDATA["ERROR"])
 

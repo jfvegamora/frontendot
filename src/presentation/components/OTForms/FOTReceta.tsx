@@ -157,7 +157,7 @@ const FOTReceta:React.FC<IReceta> = ({
                         showRefresh={true}
                         isOT={true}
                         handleSelectChange={handleInputChange}
-                        data={ oftalmologo_id.value || data && data[EnumGrid.oftalmologo_id]}
+                        data={oftalmologo_id.value || data && data[EnumGrid.oftalmologo_id]}
                         control={control}
                         entidad={["/api/oftalmologos/", "02"]}
                         // entidad={["/api/ot/", "12","ESF", "_p3"]}
@@ -165,7 +165,7 @@ const FOTReceta:React.FC<IReceta> = ({
                         customWidth={"345px"}
                         readOnly={isEditting}
                         isOptional={true}
-                        />
+                    />
                 </div>
             </div>
 

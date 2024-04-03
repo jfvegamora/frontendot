@@ -70,7 +70,7 @@ const OTAreasButtons    = React.lazy(()=>import('../../components/OTAreasButtons
 const MOT: React.FC = () => {
   const OTs:any = useAppSelector((store: AppStore) => store.OTS);
   const {token}:any = useAppSelector((store: AppStore) => store.user);
-  const areaActualOT:any = useAppSelector((store: AppStore) => store.OTAreas.areaActual) || 50;
+  const areaActualOT:any = useAppSelector((store: AppStore) => store.OTAreas.areaActual);
   const dispatch = useAppDispatch()
   const [params, setParams] = useState([]);
   const [_estadosOT, setEstadosOT] = useState()
@@ -164,7 +164,6 @@ const MOT: React.FC = () => {
 
 
 
-
   return (
     <div className="mantenedorContainer">
       <div className="mt-4">
@@ -199,6 +198,7 @@ const MOT: React.FC = () => {
       </div>
 
       <Suspense>
+        {Number.isInteger(areaActualOT) && (
           <FilterButton
             className="top-[10rem] left-[3rem]"
             isOT={true}
@@ -234,6 +234,7 @@ const MOT: React.FC = () => {
             />
 
           </FilterButton>
+        )}
       </Suspense>
 
 

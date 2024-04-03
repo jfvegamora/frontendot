@@ -1,5 +1,5 @@
 import { signal } from "@preact/signals-react"
-import { DioptriasReceta, buscarCampo,  buscarCampoNivel3,  clearDioptriasA2, clearSelectInput, dioptrias_receta, reiniciarA2DioptriasReceta, tipo_de_anteojo, validationNivel2 } from "."
+import { DioptriasReceta, buscarCampo,  buscarCampoNivel3,  clearDioptriasA2, clearSelectInput, dioptrias_receta, reiniciarA2DioptriasReceta, tipo_de_anteojo, validationNivel1 } from "."
 
 
 export const deshabilitarCampo = signal({
@@ -81,8 +81,8 @@ export const validation_tipo_anteojo = () => {
       '2': { a1_od_ad: 1, a1_oi_ad: 1, a1_alt: 1, a1_dp: 0, a2_dp: 1, a2_od_esf: 1, a2_od_cil: 1, a2_od_eje: 1, a2_oi_esf: 1, a2_oi_cil: 1, a2_oi_eje: 1, cristal2_marca_id: 1 , cristal2_diseno_id:1, cristal2_indice_id:1, cristal2_material_id:1, cristal2_color_id:1, cristal2_diametro:1, cristal2_tratamiento_id:1, cristal2_od:1, cristal2_oi:1, a2_armazon_id:1 },
       '3': { a1_od_ad: 1, a1_oi_ad: 1, a1_alt: 1, a1_dp: 0, a2_dp: 0, a2_od_esf: 0, a2_od_cil: 0, a2_od_eje: 0, a2_oi_esf: 0, a2_oi_cil: 0, a2_oi_eje: 0, cristal2_marca_id: 0 , cristal2_diseno_id:0, cristal2_indice_id:0, cristal2_material_id:0, cristal2_color_id:0, cristal2_diametro:0, cristal2_tratamiento_id:0, cristal2_od:0, cristal2_oi:0, a2_armazon_id:0 },
       '4': { a1_od_ad: 1, a1_oi_ad: 1, a1_alt: 0, a1_dp: 0, a2_dp: 1, a2_od_esf: 1, a2_od_cil: 1, a2_od_eje: 1, a2_oi_esf: 1, a2_oi_cil: 1, a2_oi_eje: 1, cristal2_marca_id: 1 , cristal2_diseno_id:1, cristal2_indice_id:1, cristal2_material_id:1, cristal2_color_id:1, cristal2_diametro:1, cristal2_tratamiento_id:1, cristal2_od:1, cristal2_oi:1, a2_armazon_id:1 },
-      '5': { a1_od_ad: 1, a1_oi_ad: 1, a1_alt: 0, a1_dp: 0, a2_dp: 1, a2_od_esf: 1, a2_od_cil: 1, a2_od_eje: 1, a2_oi_esf: 1, a2_oi_cil: 1, a2_oi_eje: 1, cristal2_marca_id: 1 , cristal2_diseno_id:1, cristal2_indice_id:1, cristal2_material_id:1, cristal2_color_id:1, cristal2_diametro:1, cristal2_tratamiento_id:1, cristal2_od:1, cristal2_oi:1, a2_armazon_id:1 },
-      '6': { a1_od_ad: 1, a1_oi_ad: 1, a1_alt: 0, a1_dp: 0, a2_dp: 1, a2_od_esf: 1, a2_od_cil: 1, a2_od_eje: 1, a2_oi_esf: 1, a2_oi_cil: 1, a2_oi_eje: 1, cristal2_marca_id: 1 , cristal2_diseno_id:1, cristal2_indice_id:1, cristal2_material_id:1, cristal2_color_id:1, cristal2_diametro:1, cristal2_tratamiento_id:1, cristal2_od:1, cristal2_oi:1, a2_armazon_id:1 },
+      '5': { a1_od_ad: 1, a1_oi_ad: 1, a1_alt: 1, a1_dp: 0, a2_dp: 1, a2_od_esf: 1, a2_od_cil: 1, a2_od_eje: 1, a2_oi_esf: 1, a2_oi_cil: 1, a2_oi_eje: 1, cristal2_marca_id: 1 , cristal2_diseno_id:1, cristal2_indice_id:1, cristal2_material_id:1, cristal2_color_id:1, cristal2_diametro:1, cristal2_tratamiento_id:1, cristal2_od:1, cristal2_oi:1, a2_armazon_id:1 },
+      '6': { a1_od_ad: 1, a1_oi_ad: 1, a1_alt: 1, a1_dp: 0, a2_dp: 1, a2_od_esf: 1, a2_od_cil: 1, a2_od_eje: 1, a2_oi_esf: 1, a2_oi_cil: 1, a2_oi_eje: 1, cristal2_marca_id: 1 , cristal2_diseno_id:1, cristal2_indice_id:1, cristal2_material_id:1, cristal2_color_id:1, cristal2_diametro:1, cristal2_tratamiento_id:1, cristal2_od:1, cristal2_oi:1, a2_armazon_id:1 },
       '7': { a1_od_ad: 1, a1_oi_ad: 1, a1_alt: 1, a1_dp: 0, a2_dp: 1, a2_od_esf: 1, a2_od_cil: 1, a2_od_eje: 1, a2_oi_esf: 1, a2_oi_cil: 1, a2_oi_eje: 1, cristal2_marca_id: 1 , cristal2_diseno_id:1, cristal2_indice_id:1, cristal2_material_id:1, cristal2_color_id:1, cristal2_diametro:1, cristal2_tratamiento_id:1, cristal2_od:1, cristal2_oi:1, a2_armazon_id:1 },
   };
 
@@ -95,7 +95,8 @@ export const validation_tipo_anteojo = () => {
   });
 
   deshabilitarCampo.value.a1_ad = tipoDeAnteojo !== '1' && tipoDeAnteojo !== '2' && tipoDeAnteojo !== '7';
-  deshabilitarCampo.value.a1_alt = tipoDeAnteojo !== '1' && tipoDeAnteojo !== '2' && tipoDeAnteojo !== '7';
+//   deshabilitarCampo.value.a1_alt = tipoDeAnteojo !== '1' && tipoDeAnteojo !== '2' && tipoDeAnteojo !== '7';
+  deshabilitarCampo.value.a1_alt = tipoDeAnteojo === '4';
   deshabilitarCampo.value.a2_dp = tipoDeAnteojo === '3' ? false : true || true;
   
   clearSelectInput.value = tipoDeAnteojo === '1' || tipoDeAnteojo === '2' || tipoDeAnteojo === '7';
@@ -109,7 +110,7 @@ export const validation_tipo_anteojo = () => {
 
 //! CREAR COMBINACIONES_VALIDAS PARA OJO DERECHO Y OJO IZQUIERDO:
 export const combinaciones_validas = () => {
-    const item = validationNivel2.value.find(item => item.campo === 'combinaciones_validas');
+    const item = validationNivel1.value.find(item => item.campo === 'combinaciones_validas');
 
     let ESF = parseFloat(dioptrias_receta.value.a1_od.esf)
     let CIL = parseFloat(dioptrias_receta.value.a1_od.cil)
@@ -153,7 +154,7 @@ export const combinaciones_validas = () => {
 
 
 export const combinaciones_validas_od = (ESF:any, CIL:any, EJE:any) => {
-    const item = validationNivel2.value.find(item => item.campo === 'combinaciones_validas');
+    const item = validationNivel1.value.find(item => item.campo === 'combinaciones_validas');
 
 
 

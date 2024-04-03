@@ -13,12 +13,12 @@ import { AppStore, useAppSelector } from "../../redux/store";
 //  export const URLBackend = signal('https://gestionprod.mtoopticos.cl');
 
 // DESARROLLO
-export const URLBackend = signal('https://gestiondev.mtoopticos.cl');
+// export const URLBackend = signal('https://gestiondev.mtoopticos.cl');
 
 
 
 //CAPACITACION
-// export const URLBackend = signal('https://gestioncap.mtoopticos.cl')
+export const URLBackend = signal('https://gestioncap.mtoopticos.cl')
 
 
 export const baseURL = (params:string) => {
@@ -175,6 +175,7 @@ const useCrud = (
       // console.log("primaryKey", primaryKey);
       let strUrl = ''
       let response:any = {}
+      const limit = 50000;
 
       
       if(customExport && query){
@@ -203,8 +204,8 @@ const useCrud = (
 
         }else{
           strUrl = primaryKey
-            ? `/excel/?${query ?  query : "query=01"}&${primaryKey}`
-            : `/excel/?${query ? query : "query=01"}`;
+            ? `/excel/?${query ?  query : "query=01"}&${primaryKey}&_limit=${limit}`
+            : `/excel/?${query ? query : "query=01"}&_limit=${limit}`;
         }
         // console.log(strUrl)
         // console.log(strEntidad)

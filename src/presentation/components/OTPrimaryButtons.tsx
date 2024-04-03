@@ -106,13 +106,15 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
 
     const permisos_usuario_areas = User.permisos_areas[EnumAreas[OTAreas["areaActual"]]]
 
-    console.log(EnumAreas[OTAreas["areaActual"]])
 
-    console.log(OTAreas["areaActual"])
+    // console.log(EnumAreas[OTAreas["areaActual"]])
 
-    console.log(User.permisos_areas)
-    console.log(permisos_usuario_areas)
-    // console.log(EnumAreas[20])
+    // console.log(OTAreas["areaActual"])
+
+    // console.log(User.permisos_areas)
+    
+    // console.log(permisos_usuario_areas)
+    // // console.log(EnumAreas[20])
 
 
 
@@ -386,24 +388,26 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
         return;
       }
 
-      const filterPkToDeleteFirmaEnvio = pkToDelete.filter((OT:any)=> (OT.numero_envio === '0' || OT.numero_envio === null) && (OT.numero_reporte_firma === 0))
+      if(OTAreas["areaActual"] === 90){
+        const filterPkToDeleteFirmaEnvio = pkToDelete.filter((OT:any)=> (OT.numero_envio === '0' || OT.numero_envio === null) && (OT.numero_reporte_firma === 0))
 
-      const filterPkToDeleteGuia       = pkToDelete.filter((OT:any)=> OT.numero_guia === 0)
-
-      if(filterPkToDeleteFirmaEnvio.length > 0){
-        const folios = filterPkToDeleteFirmaEnvio.map((OT:any) => OT.folio)
-        console.log(folios)
-        const resultFirmaEnvio = confirm('Los siguientes folios no tienen Número de envío o Reporte de fírmas: ' + "\n" +folios + "\n¿Desea Continuar?");
-        if(!resultFirmaEnvio){
-          return;
+        const filterPkToDeleteGuia       = pkToDelete.filter((OT:any)=> OT.numero_guia === 0)
+  
+        if(filterPkToDeleteFirmaEnvio.length > 0){
+          const folios = filterPkToDeleteFirmaEnvio.map((OT:any) => OT.folio)
+          console.log(folios)
+          const resultFirmaEnvio = confirm('Los siguientes folios no tienen Número de envío o Reporte de fírmas: ' + "\n" +folios + "\n¿Desea Continuar?");
+          if(!resultFirmaEnvio){
+            return;
+          }
         }
-      }
-
-      if(filterPkToDeleteGuia.length > 0){
-        const folios = filterPkToDeleteGuia.map((OT:any)=>OT.folio)
-        const resultFirmaEnvio = confirm('Los siguientes folios no tienen Número de Guía: '+ "\n" + folios + "\n¿Desea Continuar?");
-        if(!resultFirmaEnvio){
-          return;
+  
+        if(filterPkToDeleteGuia.length > 0){
+          const folios = filterPkToDeleteGuia.map((OT:any)=>OT.folio)
+          const resultFirmaEnvio = confirm('Los siguientes folios no tienen Número de Guía: '+ "\n" + folios + "\n¿Desea Continuar?");
+          if(!resultFirmaEnvio){
+            return;
+          }
         }
       }
 
