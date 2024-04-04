@@ -53,7 +53,7 @@ export interface InputData {
   permiso_editar_resolucion_garantia: string | undefined;
   permiso_editar_grupo_dioptria: string | undefined;
   permiso_editar_receta: string | undefined;
-  permiso_editar_validar_cristales: string | undefined;
+  permiso_editar_validar_insumos: string | undefined;
   permiso_editar_validar_armazones: string | undefined;
 
 }
@@ -92,7 +92,7 @@ const permiso_campo = [
   "permiso_editar_resolucion_garantia",
   "permiso_editar_grupo_dioptria",
   "permiso_editar_receta",
-  "permiso_editar_validar_cristales",
+  "permiso_editar_validar_insumos",
   "permiso_editar_validar_armazones",
 ]
 
@@ -378,27 +378,27 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
         setValue('permiso_editar_resolucion_garantia', data[EnumGrid.permiso_editar_resolucion_garantia])
         setValue('permiso_editar_grupo_dioptria', data[EnumGrid.permiso_editar_grupo_dioptria])
         setValue('permiso_editar_receta', data[EnumGrid.permiso_editar_receta])
-        setValue('permiso_editar_validar_cristales', data[EnumGrid.permiso_editar_validar_cristales])
-        setValue('permiso_editar_validar_armazones', data[EnumGrid.permiso_editar_validar_armazones])
+        // setValue('permiso_editar_validar_insumos', data[EnumGrid.permiso_editar_validar_cristales])
+        // setValue('permiso_editar_validar_armazones', data[EnumGrid.permiso_editar_validar_armazones])
       }
     },[data])
 
 
 
-console.log(data && data)
+// console.log(data && data)
     
 
 
-console.log(data && data[EnumGrid.permiso_control])
-console.log(data && data[EnumGrid.permiso_adquisiciones])
-console.log(data && data[EnumGrid.permiso_calculo])
-console.log(data && data[EnumGrid.permiso_laboratorio])
-console.log(data && data[EnumGrid.permiso_venta])
-console.log(data && data[EnumGrid.permiso_bodega_insumo])
-console.log(data && data[EnumGrid.permiso_Taller_biselado])
-console.log(data && data[EnumGrid.permiso_taller_montaje])
-console.log(data && data[EnumGrid.permiso_bodega_p_terminados])
-console.log(data && data[EnumGrid.permiso_empaque])
+// console.log(data && data[EnumGrid.permiso_control])
+// console.log(data && data[EnumGrid.permiso_adquisiciones])
+// console.log(data && data[EnumGrid.permiso_calculo])
+// console.log(data && data[EnumGrid.permiso_laboratorio])
+// console.log(data && data[EnumGrid.permiso_venta])
+// console.log(data && data[EnumGrid.permiso_bodega_insumo])
+// console.log(data && data[EnumGrid.permiso_Taller_biselado])
+// console.log(data && data[EnumGrid.permiso_taller_montaje])
+// console.log(data && data[EnumGrid.permiso_bodega_p_terminados])
+// console.log(data && data[EnumGrid.permiso_empaque])
 
 
 
@@ -407,14 +407,14 @@ console.log(data && data[EnumGrid.permiso_empaque])
 
 
 
-console.log(data && data[EnumGrid.permiso_editar_armazon_id])
-console.log(data && data[EnumGrid.permiso_editar_estado_impresion_id])
-console.log(data && data[EnumGrid.permiso_editar_validar_parametrizacion_id])
-console.log(data && data[EnumGrid.permiso_editar_resolucion_garantia_id])
-console.log(data && data[EnumGrid.permiso_editar_grupo_dioptria_id])
-console.log(data && data[EnumGrid.permiso_editar_receta_id])
-console.log(data && data[EnumGrid.permiso_editar_validar_cristales_id])
-console.log(data && data[EnumGrid.permiso_editar_validar_armazones_id])
+// console.log(data && data[EnumGrid.permiso_editar_armazon_id])
+// console.log(data && data[EnumGrid.permiso_editar_estado_impresion_id])
+// console.log(data && data[EnumGrid.permiso_editar_validar_parametrizacion_id])
+// console.log(data && data[EnumGrid.permiso_editar_resolucion_garantia_id])
+// console.log(data && data[EnumGrid.permiso_editar_grupo_dioptria_id])
+// console.log(data && data[EnumGrid.permiso_editar_receta_id])
+// console.log(data && data[EnumGrid.permiso_editar_validar_cristales_id])
+// console.log(data && data[EnumGrid.permiso_editar_validar_armazones_id])
 
 
 
@@ -799,21 +799,21 @@ return (
                         </div>
                       </div>
                       <div className="input-container items-center rowForm w-[15%]">
-                        <div className="w-full">
+                        {/* <div className="w-full">
                           <RadioButtonComponent
                             control={control}
-                            label="Validar Cristales"
-                            name="permiso_editar_validar_cristales"
-                            data={formValues && formValues["Validar Cristales"] || data && data[EnumGrid.permiso_editar_validar_cristales]}
+                            label="Validar Insumos"
+                            name="permiso_editar_validar_insumos"
+                            data={formValues && formValues["Validar Insumos"] || data && data[EnumGrid.permiso_editar_validar_cristales]}
                             options={["Lectura", "Escritura"]}
-                            error={errors.permiso_editar_validar_cristales}
+                            error={errors.permiso_editar_validar_insumos}
                             horizontal={false}
                             onChange={(e:any)=>handleChange(e)}
                           />
-                        </div>
+                        </div> */}
                       </div>
                       <div className="input-container items-center rowForm w-[15%]">
-                        <div className="w-full">
+                        {/* <div className="w-full">
                           <RadioButtonComponent
                             control={control}
                             label="Validar Armazones"
@@ -824,7 +824,7 @@ return (
                             horizontal={false}
                             onChange={(e:any)=>handleChange(e)}
                           />
-                        </div>
+                        </div> */}
                       </div>
                   </div>
 

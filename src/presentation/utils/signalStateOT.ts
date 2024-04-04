@@ -745,6 +745,7 @@ export function reiniciarDioptriasReceta() {
   }
 
 export const getDatosOT = (data:any) => {
+  console.log(data)
   codigoProyecto.value = data[EnumGrid.proyecto_codigo]
       punto_venta.value    = data[EnumGrid.punto_venta_id]
   

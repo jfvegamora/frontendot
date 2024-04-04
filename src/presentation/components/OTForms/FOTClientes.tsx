@@ -185,7 +185,7 @@ const FOTClientes:React.FC<IClientes> = ({
         }
 
         if(name === 'cliente_rut'){
-            const response = validateRut(value)
+            const response = validateRut(value.trim())
             // console.log(response)
             if(!response){
                 toast.error('Rut no válido')

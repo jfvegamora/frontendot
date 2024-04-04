@@ -571,8 +571,8 @@ export const validationUsusariosSchema = () =>
     permiso_editar_resolucion_garantia       : yup.string().required(`${msg}`),
     permiso_editar_grupo_dioptria            : yup.string().required(`${msg}`),
     permiso_editar_receta                    : yup.string().required(`${msg}`),
-    permiso_editar_validar_cristales         : yup.string().required(`${msg}`),
-    permiso_editar_validar_armazones         : yup.string().required(`${msg}`),
+    permiso_editar_validar_insumos           : yup.string().default('Lectura'),
+    permiso_editar_validar_armazones         : yup.string().default('Lectura'),
 
   });
 
