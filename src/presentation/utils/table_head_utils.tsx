@@ -1148,6 +1148,13 @@ export const table_head_armazones = [
     width: "w-[6rem]",
   },
   {
+    cell: "Stock Mínimo",
+    key: "stock_minimo",
+    visible: true,
+    alignment: "text-right",
+    width: "w-[6rem]",
+  },
+  {
     cell: "Cantidad Exhibida",
     key: "cantidad_exhibida",
     visible: true,
@@ -1162,15 +1169,15 @@ export const table_head_armazones = [
     width: "w-[6rem]",
   },
   {
-    cell: "Stock Mínimo",
-    key: "stock_minimo",
+    cell: "Stock Disponible",
+    key: "stock_disponible",
     visible: true,
     alignment: "text-right",
     width: "w-[6rem]",
   },
   {
-    cell: "Stock Disponible",
-    key: "stock_disponible",
+    cell: "Stock Total",
+    key: "stock_total",
     visible: true,
     alignment: "text-right",
     width: "w-[6rem]",
