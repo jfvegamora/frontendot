@@ -86,7 +86,7 @@ const FOTGuiaDespacho: React.FC<IDerivacion> = ({
                 const resultQuery07 = await axios(`${strUrl}/${queryURL07}`)
 
                 if (resultQuery07?.status === 200) {
-                    toast.success('Orden de compra generado')
+                    toast.success('Guia generado')
                     toast.dismiss(toastLoading)
                     otArchivo ? (
                         dispatch(fetchOT({ historica:true, searchParams: paramsOT.value}))
@@ -96,14 +96,14 @@ const FOTGuiaDespacho: React.FC<IDerivacion> = ({
                     )
                 } else {
                     toast.dismiss(toastLoading)
-                    toast.error('error: Orden de compra')
+                    toast.error('error: Guia')
                 }
                 setSelectedRows([])
                 closeModal()
                 toast.dismiss(toastLoading)
             } catch (error) {
                 console.log(error)
-                toast.error('Error Orden de compra')
+                toast.error('Error Guia')
                 toast.dismiss(toastLoading)
                 throw error
             }

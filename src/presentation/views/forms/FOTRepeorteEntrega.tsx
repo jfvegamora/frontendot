@@ -93,9 +93,9 @@ const FOTReporteEntrega: React.FC<Interface> = ({
             return toast.error('Numero de documento debe ser mayor a 0')
         }
         
-        if(parseInt(pktoDelete[0]["numero_guia"]) !== 0){
+        if(parseInt(pktoDelete[0]["reporte_atencion"]) !== 0){
             const result = await showModal(
-                `OT: ${pktoDelete[0]["folio"]} Tiene Reporte de atención asignado, ¿Desea agregar uno nuevo? `,
+                `OT: ${pktoDelete[0]["folio"]} tiene Reporte de atención asignado  ¿Desea modificarlo? `,
                 '', 
                 MODAL.keepYes,
                 MODAL.kepNo

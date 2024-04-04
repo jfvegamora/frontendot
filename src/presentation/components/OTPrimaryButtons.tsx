@@ -379,6 +379,8 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
 
 
     const handleProcesarMasivo = () => {
+      let estado = 0
+      console.log(pkToDelete)
       
       let condition = OTAreas["areaActual"] === 50 ? 'Ingresada' : 'En proceso';
 
@@ -408,6 +410,8 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
             return;
           }
         }
+
+
   
         if(filterPkToDeleteGuia.length > 0){
           const folios = filterPkToDeleteGuia.map((OT:any)=>OT.folio)
@@ -420,11 +424,22 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
 
       
       pkToDelete.map((ot:any)=>{
+        if(OTAreas["areaActual"] === 90 || OTAreas["areaActual"] === 100){
+          if(ot.numero_envio !== '0'){
+            estado = 50
+          }
+
+          if(ot.numero_reporte_firma !== 0){
+            estado = 20
+          }
+        }
+
+
         updateOT(
           [],
           OTAreas["areaActual"],
           OTAreas["areaSiguiente"],
-          20,
+          estado,
           [],
           ot,
           [],
@@ -569,6 +584,12 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
     }
 
 
+
+    console.log(User.permisos_areas)
+    console.log(User.permisos_areas[8])
+
+
+
     return (
     <div className='flex items-center   ml-[4rem] !w-full'>
         { (areaPermissions && areaPermissions[0] === "1" ) && (permisos_usuario_areas === '1') && (
@@ -653,7 +674,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
         )}
 
         {areaPermissions && areaPermissions[12] === "1" && permisos_usuario_areas === '1' && (
-          <Tooltip content='Generar Número de Envío'>
+          <Tooltip content='Generar Número de Guía'>
               <Button className='otActionButton mr-4'  onClick={()=>{
                 if(pkToDelete.length === 0){
                   toast.error('No hay OT seleccionada')

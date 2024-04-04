@@ -49,6 +49,7 @@ import { usePermission } from '../../hooks';
 import FOTAnulacion from '../../components/OTForms/FOTAnulacion';
 import { useModal } from '../../hooks/useModal';
 import { paramsOT } from '../mantenedores/MOT';
+import { EnumAreas } from '../../components/OTPrimaryButtons';
 // import { EnumAreas } from '../../components/OTPrimaryButtons';
 
 const FOTArmazones = lazy(()=>import('../../components/OTForms/FOTArmazones'));
@@ -851,9 +852,8 @@ useEffect(()=>{
     };
 },[])
 
-  console.log(validationNivel1.value)
-  
-  console.log(permisosAreas)
+
+
   // console.log(validationNivel2.value)
   // console.log(data && data[EnumGrid.validar_parametrizacion_id])
   // console.log(validationNivel3.value)
@@ -963,7 +963,8 @@ useEffect(()=>{
                 {OTPermissions           && 
                 !isMOT                   &&
                 isEditting               &&
-                escritura_lectura        && 
+                escritura_lectura        &&
+                User.permisos_areas[EnumAreas[OTAreaActual]] === "1" && 
                 // OTPermissions[6] === "1" &&
                 // sumatoriaNivel1  === validationNivel1.value.length &&
                (data && data[EnumGrid.area_id] > procesarRender.value) &&
@@ -983,6 +984,7 @@ useEffect(()=>{
                 isEditting               &&
                 escritura_lectura        &&
                 OTPermissions[7] === "1" &&
+                User.permisos_areas[EnumAreas[OTAreaActual]] === "1" &&
                 (
                   <Button className='otActionButton bg-yellow-700 hover:bg-yellow-900' onClick={()=>setShowPendiente((prev)=>!prev)}>Pausar</Button>
                 )}
@@ -992,7 +994,8 @@ useEffect(()=>{
                 isEditting               &&
                 escritura_lectura        &&
                 OTPermissions[8] === "1" &&
-                sumatoriaNivel1  === validationNivel1.value.length &&
+                // sumatoriaNivel1  === validationNivel1.value.length &&
+                User.permisos_areas[EnumAreas[OTAreaActual]] === "1" &&
                 data && data[EnumGrid.estado_id] > 1 && (
                   <Button className='otActionButton bg-red-700 hover:bg-red-900' onClick={()=>{setShowDerivacion((prev)=>!prev)}}>Derivar</Button>
                 )}

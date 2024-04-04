@@ -5,7 +5,7 @@ import { A1_CR_OD, A1_CR_OI, A2_CR_OD, A2_CR_OI, a1_armazon, a2_armazon, codigoP
 import TextInputInteractive from '../forms/TextInputInteractive';
 import { dataOTSignal } from '../OTPrimaryButtons';
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
 import { validationCodigoArmazon_1, validationCodigoArmazon_2, validationCodigoCristal1_od, validationCodigoCristal1_oi, validationCodigoCristal2_od, validationCodigoCristal2_oi } from '../../utils/validationOT';
 import { Button } from '@material-tailwind/react';
 import { AppStore, useAppDispatch, useAppSelector } from '../../../redux/store';
@@ -83,7 +83,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                     if(value.length <= 11) return;
                     console.log('render')
                     validationCodigoCristal1_od('')
-                    toast.error('Anteojo 1, Código cristal OD no son iguales')
+                    // toast.error('Anteojo 1, Código cristal OD no son iguales')
                     setFormValues({[name]: ''} as any)
                 }        
             }
@@ -98,7 +98,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                 }else{
                     if(value.length <= 11)return;
                     validationCodigoCristal1_oi('')
-                    toast.error('Anteojo 1, Código cristal OI no son iguales')
+                    // toast.error('Anteojo 1, Código cristal OI no son iguales')
                     setFormValues({[name]: ''} as any)
                 }
             }
@@ -117,7 +117,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                 }else{
                     if(value.lenght <= 11) return;
                     validationCodigoArmazon_1('')
-                    toast.error('Anteojo1, Código armazon 1 no son iguales')
+                    // toast.error('Anteojo1, Código armazon 1 no son iguales')
                     setFormValues({[name]:''} as any)
                 }
             }
@@ -133,7 +133,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                 }else{
                     if(value.length <= 11) return;
                     validationCodigoCristal2_od('')
-                    toast.error('Anteojo 2, Código cristal OD no son iguales')
+                    // toast.error('Anteojo 2, Código cristal OD no son iguales')
                     setFormValues({[name]: ''} as any)
                 }  
             }
@@ -148,7 +148,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                 }else{
                     if(value.length <= 11)return;
                     validationCodigoCristal2_oi('')
-                    toast.error('Anteojo 2, Código cristal OI no son iguales')
+                    // toast.error('Anteojo 2, Código cristal OI no son iguales')
                     setFormValues({[name]: ''} as any)
                 }
 
@@ -167,7 +167,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                 }else{
                     if(value.lenght <= 11) return;
                     validationCodigoArmazon_2('')
-                    toast.error('Anteojo 2, Código armazon 2 no son iguales')
+                    // toast.error('Anteojo 2, Código armazon 2 no son iguales')
                     setFormValues({[name]:''} as any)
                 }
             }
