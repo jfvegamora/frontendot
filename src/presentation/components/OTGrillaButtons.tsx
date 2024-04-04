@@ -262,7 +262,7 @@ const imprimirComprobanteRetiro = async(tipoComprobante?:string) => {
                 {isFotImpresa && (
                      <Suspense>
                         <div className='hidden'>
-                             <FOTImpresa ref={componentRef}/>
+                             <FOTImpresa ref={componentRef} masivo={false}/>
                         </div>
                     </Suspense>                
                 )}

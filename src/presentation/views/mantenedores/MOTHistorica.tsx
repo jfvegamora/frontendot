@@ -318,8 +318,8 @@ const MOTHistorica: React.FC = () => {
       reporte_firma     : OTs.data[row] && OTs.data[row][8],
       reporte_atencion  : OTs.data[row] && OTs.data[row][9],
       orden_compra      : OTs.data[row] && OTs.data[row][10],
-      numero_guia       : OTs.data[row] && OTs.data[row][12],
-      numero_factura    : OTs.data[row] && OTs.data[row][11]
+      numero_guia       : OTs.data[row] && OTs.data[row][11],
+      numero_factura    : OTs.data[row] && OTs.data[row][12]
  
 
     })); 
@@ -507,17 +507,18 @@ const MOTHistorica: React.FC = () => {
             if(pktoDelete.length < 1){
               return toast.error('No hay OT Seleccionada')
             }
-            setShowFactura((prev) => !prev)
-          }}>N° Factura</Button>
-          {showFactura      && <FOTFactura      pktoDelete={pktoDelete}  setSelectedRows={setSelectedRows} closeModal={() => setShowFactura(false)} />}
+            setShowGuia((prev) => !prev)
+          }}>N° Guía</Button>
+          {showGuia         && <FOTGuiaDespacho pktoDelete={pktoDelete } setSelectedRows={setSelectedRows} closeModal={() => setShowGuia(false)} otArchivo={true} />}
 
           <Button className='otActionButton mt-3 mx-5'  onClick={() => {
             if(pktoDelete.length < 1){
               return toast.error('No hay OT Seleccionada')
             }
-            setShowGuia((prev) => !prev)
-          }}>N° Guía</Button>
-          {showGuia         && <FOTGuiaDespacho pktoDelete={pktoDelete } setSelectedRows={setSelectedRows} closeModal={() => setShowGuia(false)} otArchivo={true} />}
+            setShowFactura((prev) => !prev)
+          }}>N° Factura</Button>
+          {showFactura      && <FOTFactura      pktoDelete={pktoDelete}  setSelectedRows={setSelectedRows} closeModal={() => setShowFactura(false)} />}
+
 
           <ExportCSV strEntidad={strEntidad} params={params} strBaseUrl={strBaseUrl}/>  
         </div>

@@ -126,8 +126,8 @@ const MOT: React.FC = () => {
       numero_reporte_firma: OTs.data[row] && OTs.data[row][25],
       numero_reporte_atencion: OTs.data[row] && OTs.data[row][26],
       numero_orden_compra: OTs.data[row] && OTs.data[row][27],
-      numero_factura: OTs.data[row] && OTs.data[row][28],
-      numero_guia: OTs.data[row] && OTs.data[row][29],
+      numero_factura: OTs.data[row] && OTs.data[row][29],
+      numero_guia: OTs.data[row] && OTs.data[row][28],
     }));
 
     setPkToDelete(newPkToDelete as any)

@@ -207,19 +207,19 @@ export const table_head_OT_diaria2 = [
     width: "w-[6rem]"
   },
   {
-    cell: "N° Factura",
-    key: "num_factura",
-    visible: true,
-    alignment: "text-left",
-    width: "w-[6rem]"
-  },
-  {
     cell: "N° Guía",
     key: "num_guia",
     visible: true,
     alignment: "text-left",
     width: "w-[6rem]"
   },
+  {
+    cell: "N° Factura",
+    key: "num_factura",
+    visible: true,
+    alignment: "text-left",
+    width: "w-[6rem]"
+  }
 ];
 export const table_head_OT_historica = [
   {
@@ -302,15 +302,15 @@ export const table_head_OT_historica = [
     width: "w-[6rem]"
   },
   {
-    cell: "N° Factura",
-    key: "num_factura",
+    cell: "N° Guía",
+    key: "num_guia",
     visible: true,
     alignment: "text-left",
     width: "w-[6rem]"
   },
   {
-    cell: "N° Guía",
-    key: "num_guia",
+    cell: "N° Factura",
+    key: "num_factura",
     visible: true,
     alignment: "text-left",
     width: "w-[6rem]"

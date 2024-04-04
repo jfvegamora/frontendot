@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react'
 import axios from 'axios';
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
-import { validationOTlevel2, validationOTlevel3, validation_A1_armazon, validation_A2_armazon, validation_Cristal1_od, validation_Cristal1_oi, validation_Cristal2_od, validation_Cristal2_oi } from '../../utils/validationOT';
+import { validationOTlevel2, validation_A1_armazon, validation_A2_armazon, validation_Cristal1_od, validation_Cristal1_oi, validation_Cristal2_od, validation_Cristal2_oi } from '../../utils/validationOT';
 import { URLBackend } from '../../hooks/useCrud';
 import { toast } from 'react-toastify';
-import { A1_CR_OD, A1_CR_OI, A1_DP, A1_Diametro, A1_GRUPO_OD, A1_GRUPO_OI, A2_CR_OD, A2_CR_OI, A2_DP, A2_Diametro, A2_GRUPO_OD, A2_GRUPO_OI, a1_armazon, a2_armazon, a2_od_cil, a2_od_esf, a2_oi_cil, a2_oi_esf, a3_armazon, codigoProyecto, dioptrias_receta, punto_venta, tipo_de_anteojo, validar_armazon1, validar_armazon2, validar_parametrizacion, validationNivel3 } from '../../utils';
+import { A1_CR_OD, A1_CR_OI, A1_DP, A1_Diametro, A1_GRUPO_OD, A1_GRUPO_OI, A2_CR_OD, A2_CR_OI, A2_DP, A2_Diametro, A2_GRUPO_OD, A2_GRUPO_OI, a1_armazon, a2_armazon, a2_od_cil, a2_od_esf, a2_oi_cil, a2_oi_esf, a3_armazon, codigoProyecto, dioptrias_receta, punto_venta, tipo_de_anteojo, validar_parametrizacion } from '../../utils';
 // import TextInputInteractive from '../forms/TextInputInteractive';
-import { AppStore, useAppSelector } from '../../../redux/store';
+// import { AppStore, useAppSelector } from '../../../redux/store';
 import { OTTextInputComponent } from '.';
 
 interface IArmazones {
@@ -61,7 +61,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
     },[])
     
     
-    const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas["areaActual"]);
+    // const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas["areaActual"]);
 
     
     // const [codArmazon1, setCodArmazon1] = useState( formValues && formValues["codigo_armazon_1"] || 0);
@@ -243,14 +243,11 @@ const FOTArmazones:React.FC<IArmazones> = ({
                                                                         `) 
                                                    : (`${endpoint}&_jsonGrupo=${encodeURIComponent(JSON.stringify([empty_jsonGrupo, empty_jsonGrupo]))}&_p1=${codArmazon && codArmazon.trim() !== '' ? codArmazon : ''}`))
             // console.log(data[0])
-            console.log(data)
-            console.log(data[0][19])
-            
-            if(data && data[0][19] !== ''){
-                console.log('hay error')
-            }
+            // console.log(data)
+            // console.log(data[0][19])
 
-            console.log('no hay error')
+
+            // console.log('no hay error')
             
             if(data && data[0][19] !== ''){
                 toast.error(data[0][19])
@@ -469,44 +466,44 @@ const FOTArmazones:React.FC<IArmazones> = ({
         // onDataChange({ [name]: value.trim() }); 
     };
 
-    const handleInputValidationChange = (e:any) => {
-        const { name, value } = e;
+    // const handleInputValidationChange = (e:any) => {
+    //     const { name, value } = e;
 
-        console.log(name)
-        console.log(value)
-        validationOTlevel3(name, value)
-        if(name === 'validar_armazon1'){
-            console.log('render')
-            validar_armazon1.value = value.trim()
-            if(value.trim() !== ''){
-                const item = validationNivel3.value.find((item: { campo: string; }) => item.campo === 'validar_armazon1');
+    //     console.log(name)
+    //     console.log(value)
+    //     validationOTlevel3(name, value)
+    //     if(name === 'validar_armazon1'){
+    //         console.log('render')
+    //         validar_armazon1.value = value.trim()
+    //         if(value.trim() !== ''){
+    //             const item = validationNivel3.value.find((item: { campo: string; }) => item.campo === 'validar_armazon1');
                 
-                if(item && item.valor === 0){
-                    toast.error('Códigos Armazon 1 no Coincide')
-                    validar_armazon1.value = "";
-                    onDataChange({['validar_armazon1']: ""})
-                }
-            }
+    //             if(item && item.valor === 0){
+    //                 toast.error('Códigos Armazon 1 no Coincide')
+    //                 validar_armazon1.value = "";
+    //                 onDataChange({['validar_armazon1']: ""})
+    //             }
+    //         }
 
-        }
+    //     }
 
-        if(name === 'validar_armazon2'){
-            validar_armazon2.value = value.trim()
-            if(value.trim() !== ''){
-                const item = validationNivel3.value.find((item: { campo: string; }) => item.campo === 'validar_armazon2');
+    //     if(name === 'validar_armazon2'){
+    //         validar_armazon2.value = value.trim()
+    //         if(value.trim() !== ''){
+    //             const item = validationNivel3.value.find((item: { campo: string; }) => item.campo === 'validar_armazon2');
 
-                if(item && item.valor === 0){
-                    toast.error('Códigos Armazon 2 no Coincide')
-                    validar_armazon2.value = " ";
-                    // onDataChange({['validar_armazon2']: ""})
+    //             if(item && item.valor === 0){
+    //                 toast.error('Códigos Armazon 2 no Coincide')
+    //                 validar_armazon2.value = " ";
+    //                 // onDataChange({['validar_armazon2']: ""})
 
-                }
-            }
+    //             }
+    //         }
 
-        }
+    //     }
 
-        onDataChange({ [name]: value.trim() }); 
-    }
+    //     onDataChange({ [name]: value.trim() }); 
+    // }
 
     
     useEffect(()=>{
@@ -584,7 +581,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
                                         />
 
                                 </div>
-                            {OTAreas === 60 && (
+                            {/* {OTAreas === 60 && (
                                 <div className="-mt-[0.35rem]">
                                     <OTTextInputComponent
                                         type="text"
@@ -598,7 +595,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
                                         className='!text-xl custom-input '
                                     />
                                 </div>
-                            )}
+                            )} */}
                             </div>                            
                         </div>
 
@@ -666,7 +663,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
                                     className='!text-xl custom-input '
                                     />
                             </div>
-
+{/* 
                                 {(OTAreas === 60 && tipo_de_anteojo.value === '3' ) && (
                                     <div className="-mt-[0.35rem]">
                                         <OTTextInputComponent
@@ -682,7 +679,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
                                             className='!text-xl custom-input '
                                          />
                                     </div>
-                                     )}    
+                                     )}     */}
                             </div>                            
                         </div>
 

@@ -5,7 +5,7 @@ import { validationOTlevel2, validationOTlevel3,  } from '../../utils/validation
 import SelectInputTiposComponent from '../forms/SelectInputTiposComponent';
 import { A1_CR_OD, A1_CR_OI, A1_GRUPO_OD, A1_GRUPO_OI, A2_CR_OD, A2_CR_OI, A2_Diametro, A2_GRUPO_OD, A2_GRUPO_OI, tipo_de_anteojo, validar_cristal1_od, validar_cristal1_oi, validar_cristal2_od, validar_cristal2_oi } from '../../utils';
 import TextInputInteractive from '../forms/TextInputInteractive';
-import { OTTextInputComponent } from '.';
+// import { OTTextInputComponent } from '.';
 // import { validationNivel3 } from '../../views/forms/FOT';
 // import { AppStore, useAppSelector } from '../../../redux/store';
 
@@ -37,8 +37,8 @@ const FOTCristales: React.FC<ICristales> = ({
     permiso_areas_cristales,
     permiso_areas_grupo_dioptria,
     permiso_usuario_grupo_dioptria,
-    permiso_usuario_verificar_cristal,
-    permiso_area_verificar_cristal,
+    // permiso_usuario_verificar_cristal,
+    // permiso_area_verificar_cristal,
     isEditting,
     formValuesCompleto
 }) => {
@@ -248,7 +248,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                 </div>
 
                                 <div className="w-full  flex mt-6 rowForm centertDIV  relative">
-                                    {permiso_area_verificar_cristal && (
+                                    {/* {permiso_area_verificar_cristal && (
                                     <div className="w-[40%] absolute -left-0">
                                             <OTTextInputComponent
                                                 type="text"
@@ -266,7 +266,7 @@ const FOTCristales: React.FC<ICristales> = ({
 
                                     </div>
 
-                                    )}
+                                    )} */}
 
                                     <div className="w-[20%] mr-2">
                                         <TextInputInteractive
@@ -283,7 +283,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                         />
 
                                     </div>
-                                    {permiso_area_verificar_cristal && (
+                                    {/* {permiso_area_verificar_cristal && (
                                         <div className="w-[40%] absolute right-0">
                                             <OTTextInputComponent
                                                 type="text"
@@ -301,7 +301,7 @@ const FOTCristales: React.FC<ICristales> = ({
 
                                         </div>
 
-                                    )}
+                                    )} */}
 
                                 </div>
 
@@ -470,7 +470,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                 </div>
 
                                 <div className="w-full flex mt-6 rowForm centertDIV relative">
-                                {permiso_area_verificar_cristal && (tipo_de_anteojo.value === '3' as any) && (
+                                {/* {permiso_area_verificar_cristal && (tipo_de_anteojo.value === '3' as any) && (
                                     <div className="w-[40%] absolute -left-0">
                                             <OTTextInputComponent
                                                 type="text"
@@ -488,7 +488,7 @@ const FOTCristales: React.FC<ICristales> = ({
 
                                     </div>
 
-                                    )}
+                                    )} */}
 
                                 <div className="w-[20%] mr-2">
                                     <TextInputInteractive
@@ -506,7 +506,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                     />
                                 </div>
 
-                                {permiso_area_verificar_cristal && (tipo_de_anteojo.value === '3' as any) && (
+                                {/* {permiso_area_verificar_cristal && (tipo_de_anteojo.value === '3' as any) && (
                                         <div className="w-[40%] absolute right-0">
                                             <OTTextInputComponent
                                                 type="text"
@@ -524,7 +524,7 @@ const FOTCristales: React.FC<ICristales> = ({
 
                                         </div>
 
-                                    )}
+                                    )} */}
 
 
                                 </div>

@@ -148,20 +148,26 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
     const handleImpresionMasivo = async () => {
       console.log(pkToDelete)
       
-      pkToDelete.map(async(ot:any)=>{
+      // pkToDelete.map(async(ot:any)=>{
+      //   try {
+      //     await dispatch(fetchOTImpresionByID({ folio: ot.folio, OTAreas: OTAreas['areaActual'] }))
+      //   } catch (error)  {
+      //     console.log(error)
+      //   }
+      // })
+      // await handlePrint()
+
+      pkToDelete.forEach(async(ot:any) => {
         try {
           setIsFOTImpresa(true)
           await dispatch(fetchOTImpresionByID({ folio: ot.folio, OTAreas: OTAreas['areaActual'] })).then(()=>handlePrint())
-          handlePrint()
-          const result = confirm('imprimir el segundo?')
-          if(!result){
-            return;
-          }
-          setIsFOTImpresa(false)
         } catch (error)  {
-            console.log(error)
+          console.log(error)
         }
       })
+      handlePrint()
+      
+
     //   const print = useReactToPrint({
     //     content: () => componentRef.current as any,
     //     suppressErrors: true,
@@ -185,6 +191,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
     //   // Acciones después de imprimir todas las boletas
     //   //
     //  handlePrint()
+
     };
 
 
@@ -670,7 +677,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
         {isFOTImpresa && (
           <Suspense>
             <div className="hidden">
-              <FOTImpresa ref={componentRef} />
+              <FOTImpresa ref={componentRef} masivo={true} />
             </div>
           </Suspense>
         )}

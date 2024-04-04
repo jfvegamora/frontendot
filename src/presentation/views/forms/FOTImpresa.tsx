@@ -23,13 +23,21 @@ export const parsedDate = (date:string):any=>{
 }
 
 
-const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
+const FOTImpresa = React.forwardRef((props:any, ref:any) => {
   
   const [_logoPath, setLogoPath] = useState<string | null>();
   const [pathLogo, setPathLogo] = useState('');
   const {impresionOT:OT} = useAppSelector((store:AppStore)=>store.OTS);
   const User:any = useAppSelector((store:AppStore)=>store.user);
   // let PathLogo = ''
+
+  // console.log(props)
+
+  // console.log(props)
+
+  const { masivo} = props;
+
+  console.log(masivo)
 
   useEffect(() => {
     // const loadLogo = async () => {
@@ -80,8 +88,30 @@ const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
 
   // console.log(pathLogo)
 
+  console.log(OT)
+
+  console.log(OT[0] && OT[0][EnumGrid.imprime_qr] === 1 )
   return (
-    <div ref={ref} className={`flex flex-col  ${OT[0] && OT[0][EnumGrid.imprime_qr] === 1 ? '!h-[63rem]' : '!h-[50rem]'}   `}>
+    <>
+      {masivo === true ? 
+         (
+          // <div ref={ref} className={`flex flex-col  ${OT[0] && OT[0][EnumGrid.imprime_qr] === 1 ? '!h-[63rem]' : '!h-[50rem]'}   `}>
+          <div>
+          
+            {OT && OT.map((ot:any)=>{
+              console.log(ot[EnumGrid.folio])
+
+              return(
+                <div ref={ref} className={`flex flex-col  ${ot && ot[EnumGrid.imprime_qr] === 1 ? '!h-[63rem]' : '!h-[50rem]'}   `}>                 
+                   <h1 key={ot[EnumGrid.folio]}>{ot && ot[EnumGrid.folio]}</h1>
+                </div>
+              )
+            })}
+
+          
+          </div>
+         ) : (
+        <div ref={ref} className={`flex flex-col  ${OT[0] && OT[0][EnumGrid.imprime_qr] === 1 ? '!h-[63rem]' : '!h-[50rem]'}   `}>
         <div className='w-[90%] !h-[70rem]'>
         
         <div className="w-[110%] relative  !h-[9%] mb-4">
@@ -508,7 +538,9 @@ const FOTImpresa = React.forwardRef((_props:any, ref:any) => {
        {/* {OT?.map((OT:any, index:number)=>(
        ))} */}
         
-    </div>
+        </div>
+      )}
+    </>
   );
 });
 // export default React.memo(FOTImpresa);

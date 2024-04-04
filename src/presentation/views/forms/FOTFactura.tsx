@@ -43,9 +43,6 @@ const FOTFactura: React.FC<IDerivacion> = ({
 
     const onSubmit: SubmitHandler<any> = async (jsonData) => {
 
-        console.log(jsonData)
-        console.log(pktoDelete)
-
         if(pktoDelete.length < 1){
             return toast.error('No Hay OT Seleccionada')
         }
@@ -72,11 +69,12 @@ const FOTFactura: React.FC<IDerivacion> = ({
             }
         }
 
-        if ((pktoDelete.some((OT: any) => parseInt(OT["orden_compra"]) as any === '' || OT["orden_compra"] === '0') )) {
+        // if ((pktoDelete.some((OT: any) => parseInt(OT["numero_guia"]) as any === '' || OT["numero_guia"] === '0') )) {
+            if (pktoDelete.some((OT: any) => OT["numero_guia"] <= 0)) {
             console.log('render')
-            pktoDelete.filter((ot:any)=> ot["orden_compra"] === '' || ot["orden_compra"] === '0').map((ot:any)=>{
+            pktoDelete.filter((ot:any)=> ot["numero_guia"] <= 0).map((ot:any)=>{
                 console.log('render')
-                toast.error(`Folio: ${ot["folio"]} sin Orden de Compra`);
+                toast.error(`Folio: ${ot["folio"]} sin Número de Guia`);
             })
         }else{
             const toastLoading = toast.loading('Cargando...');
@@ -92,12 +90,12 @@ const FOTFactura: React.FC<IDerivacion> = ({
                 let queryURL07 = `?query=07&_p1=${query07["_p1"]}&_p2=${query07["_p2"]}&_p3=${query07["_p3"]}&_pkToDelete=${query07["_pkToDelete"]}&_id=${query07["_id"]}`
                 const resultQuery07 = await axios(`${strUrl}/${queryURL07}`)
                 if (resultQuery07?.status === 200) {
-                    toast.success('Número de Envío generado')
+                    toast.success('Factura Generada')
                     toast.dismiss(toastLoading)
                     dispatch(fetchOT({ historica:true, searchParams: paramsOT.value}))
                 } else {
                     toast.dismiss(toastLoading)
-                    toast.error('error: Número de envío')
+                    toast.error('error: Factura')
                 }
                 setSelectedRows([])
                 closeModal()

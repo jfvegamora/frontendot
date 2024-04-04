@@ -49,7 +49,7 @@ import { usePermission } from '../../hooks';
 import FOTAnulacion from '../../components/OTForms/FOTAnulacion';
 import { useModal } from '../../hooks/useModal';
 import { paramsOT } from '../mantenedores/MOT';
-import { EnumAreas } from '../../components/OTPrimaryButtons';
+// import { EnumAreas } from '../../components/OTPrimaryButtons';
 
 const FOTArmazones = lazy(()=>import('../../components/OTForms/FOTArmazones'));
 const FOTBitacora = lazy(()=>import('../../components/OTForms/FOTBitacora'));
@@ -163,15 +163,6 @@ const FOT:React.FC<IFOTProps> = ({
   let permiso_area_verificar_cristal      = permisosAreas && permisosAreas[7] === '1' ? true : false;
   let permiso_area_verificar_armazon      = permisosAreas && permisosAreas[8] === "1" ? true : false;
 
-
-  console.log(permisosAreas)
-  
-  console.log(EnumAreas[OTAreaActual])
-  console.log(permisosAreas[EnumAreas[OTAreaActual]])
-  
-  
-  console.log(permiso_usuario_receta)
-  console.log(permiso_areas_receta)
 
   const handleCloseForm = () => {
       closeModal();
@@ -862,6 +853,7 @@ useEffect(()=>{
 
   console.log(validationNivel1.value)
   
+  console.log(permisosAreas)
   // console.log(validationNivel2.value)
   // console.log(data && data[EnumGrid.validar_parametrizacion_id])
   // console.log(validationNivel3.value)

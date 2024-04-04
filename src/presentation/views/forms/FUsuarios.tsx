@@ -384,17 +384,22 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
     },[data])
 
 
+
+console.log(data && data)
     
 
 
-console.log(data && data[EnumGrid.permiso_editar_armazon])
-console.log(data && data[EnumGrid.permiso_editar_estado_impresion])
-console.log(data && data[EnumGrid.permiso_editar_validar_parametrizacion])
-console.log(data && data[EnumGrid.permiso_editar_resolucion_garantia])
-console.log(data && data[EnumGrid.permiso_editar_grupo_dioptria])
-console.log(data && data[EnumGrid.permiso_editar_receta])
-console.log(data && data[EnumGrid.permiso_editar_validar_cristales])
-console.log(data && data[EnumGrid.permiso_editar_validar_armazones])
+console.log(data && data[EnumGrid.permiso_control])
+console.log(data && data[EnumGrid.permiso_adquisiciones])
+console.log(data && data[EnumGrid.permiso_calculo])
+console.log(data && data[EnumGrid.permiso_laboratorio])
+console.log(data && data[EnumGrid.permiso_venta])
+console.log(data && data[EnumGrid.permiso_bodega_insumo])
+console.log(data && data[EnumGrid.permiso_Taller_biselado])
+console.log(data && data[EnumGrid.permiso_taller_montaje])
+console.log(data && data[EnumGrid.permiso_bodega_p_terminados])
+console.log(data && data[EnumGrid.permiso_empaque])
+
 
 
 

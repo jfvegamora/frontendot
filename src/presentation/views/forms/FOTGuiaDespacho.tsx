@@ -64,9 +64,10 @@ const FOTGuiaDespacho: React.FC<IDerivacion> = ({
         }
 
         if(otArchivo){
-            if (pktoDelete.some((OT: any) => OT["reporte_atencion"] <= 0)) {
-            pktoDelete.filter((ot: any) => ot["reporte_atencion"] <= 0).map((ot: any) => {
-                return toast.error(`Folio: ${ot["folio"]} sin Reporte de atencion`);
+            // if (pktoDelete.some((OT: any) => OT["orden_compra"] <= 0)) {
+            if (pktoDelete.some((OT: any) => parseInt(OT["orden_compra"]) as any === '' || OT["orden_compra"] === '0') ) {
+            pktoDelete.filter((ot: any) => ot["orden_compra"] <= 0).map((ot: any) => {
+                return toast.error(`Folio: ${ot["folio"]} sin Orden de Compra`);
             })
             return;        
         }    
@@ -85,7 +86,7 @@ const FOTGuiaDespacho: React.FC<IDerivacion> = ({
                 const resultQuery07 = await axios(`${strUrl}/${queryURL07}`)
 
                 if (resultQuery07?.status === 200) {
-                    toast.success('Número de Guía generado')
+                    toast.success('Orden de compra generado')
                     toast.dismiss(toastLoading)
                     otArchivo ? (
                         dispatch(fetchOT({ historica:true, searchParams: paramsOT.value}))
@@ -95,14 +96,14 @@ const FOTGuiaDespacho: React.FC<IDerivacion> = ({
                     )
                 } else {
                     toast.dismiss(toastLoading)
-                    toast.error('error: Número de Guía')
+                    toast.error('error: Orden de compra')
                 }
                 setSelectedRows([])
                 closeModal()
                 toast.dismiss(toastLoading)
             } catch (error) {
                 console.log(error)
-                toast.error('Error número de guía')
+                toast.error('Error Orden de compra')
                 toast.dismiss(toastLoading)
                 throw error
             }
