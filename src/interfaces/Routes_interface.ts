@@ -32,7 +32,7 @@ const MMuestrariosArmazones = lazy(()=>import("../presentation/views/mantenedore
 const MVitrinasArmazones    = lazy(()=>import("../presentation/views/mantenedores/MVitrinasArmazones"));
 const MProyectosAccesorios  = lazy(()=>import("../presentation/views/mantenedores/MProyectosAccesorios"));
 const MProyectosCristales   = lazy(()=>import("../presentation/views/mantenedores/MProyectosCristales"));
-const MProyectosDirecciones = lazy(()=>import("../presentation/views/mantenedores/MProyectosDirecciones"));
+const MProyectosDestinos    = lazy(()=>import("../presentation/views/mantenedores/MProyectosDestinos"));
 // const MProyectosPuntosVenta = lazy(()=>import("../presentation/views/mantenedores/MProyectosPuntosVenta"));
 const MProyectosUsuarios    = lazy(()=>import("../presentation/views/mantenedores/MProyectosUsuarios"));
 const MProyectosAtenciones  = lazy(()=>import("../presentation/views/mantenedores/MProyectosAtenciones"));
@@ -93,7 +93,7 @@ export const PrivateRoutes = {
   VITRINAS_ARMAZONES    : "vitrinasarmazones",
   PROYECTOS_CRISTALES   : "proyectocristales",
   PROYECTOS_ACCESORIOS  : "proyectoaccesorios",
-  PROYECTOS_DIRECCIONES : "proyectodireccionesdespacho",
+  PROYECTOS_DESTINOS    : "proyectodestinos",
   PROYECTOS_PUNTOS_VENTA: "proyectopuntosventa",
   PROYECTOS_USUARIOS    : "proyectousuarios",
   PROYECTOS_DOCUM       : "proyectodocum",
@@ -294,9 +294,9 @@ export const privateRoutes = [
   },
   {
     id                  : "18",
-    path                : PrivateRoutes.PROYECTOS_DIRECCIONES,
-    component           : MProyectosDirecciones,
-    requiredPermissions : ['view_' + PrivateRoutes.PROYECTOS_DIRECCIONES]
+    path                : PrivateRoutes.PROYECTOS_DESTINOS,
+    component           : MProyectosDestinos,
+    requiredPermissions : ['view_' + PrivateRoutes.PROYECTOS_DESTINOS]
   },
   // {
   //   id                  : "33",

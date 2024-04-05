@@ -2878,6 +2878,70 @@ export const table_head_proyectos_direcciones = [
     width: "w-[6rem]",
   },
 ];
+export const table_head_proyectos_destinos = [
+  {
+    cell: <input type="checkbox" />,
+    key: "checkbox",
+    visible: true,
+    width: "w-[5rem]",
+    alignment: "flex justify-center items-center"
+  },
+  {
+    cell: "ID",
+    key: "id",
+    visible: false,
+    alignment: "text-center",
+    width: "w-[10rem]",
+  },
+  {
+    cell: "Descripción",
+    key: "descripcion",
+    visible: true,
+    alignment: "text-left",
+    width: "w-[10rem]",
+  },
+  {
+    cell: "Código Proyecto",
+    key: "proyecto",
+    visible: false,
+    alignment: "text-center",
+    width: "w-[10rem]",
+  },
+  {
+    cell: "Título Proyecto",
+    key: "titulo",
+    visible: false,
+    alignment: "text-center",
+    width: "w-[12rem]",
+  },
+  {
+    cell: "Dirección",
+    key: "direccion",
+    visible: true,
+    alignment: "text-left",
+    width: "w-[12rem]",
+  },
+  {
+    cell: "Teléfono",
+    key: "telefono",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[8rem]",
+  },
+  {
+    cell: "Observaciones",
+    key: "observaciones",
+    visible: true,
+    alignment: "text-left",
+    width: "w-[12rem]",
+  },
+  {
+    cell: "",
+    key: "opciones",
+    visible: true,
+    width: "w-[6rem]",
+  },
+];
 export const table_head_proyectos_puntos_venta = [
   {
     cell: <input type="checkbox" />,

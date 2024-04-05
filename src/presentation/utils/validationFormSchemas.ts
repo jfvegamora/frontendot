@@ -452,6 +452,16 @@ export const validationProyectoDireccionesSchema = () =>
     observaciones   : yup.string(), 
   });
 
+// Schema PROYECTOS DESTINOS
+export const validationProyectoDestinosSchema = () =>
+  yup.object().shape({
+    descripcion     : yup.string().required(`${msg}`),
+    proyecto        : yup.string().required(`${msg}`), 
+    direccion       : yup.string(), 
+    telefono        : yup.string(),
+    observaciones   : yup.string(), 
+  });
+
 // Schema PROYECTOS PUNTOS DE VENTA
 export const validationParametrizacionPuntosVenta = () =>
   yup.object().shape({

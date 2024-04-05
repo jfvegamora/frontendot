@@ -204,8 +204,8 @@ const subMenuParametrizacion = [
     id: 30,
   },
   {
-    title: "Parametrización de Despacho",
-    link: "/proyectodireccionesdespacho",
+    title: "Parametrización de Destinos",
+    link: "/proyectodestinos",
     id: 18,
   },
   {
