@@ -48,6 +48,13 @@ const FOTEmpaque: React.FC<IFOTEmpaque> = ({
             return toast.error('Número de documento debe ser mayor a 0')
         }
 
+        const proyectoPrimero = pktoDelete[0].proyecto;
+        if (pktoDelete.some((ot:any) => ot.proyecto !== proyectoPrimero)) {
+            toast.error('OT deben pertenecer al mismo proyecto');
+            return;
+        }
+
+
 
         if(parseInt(pktoDelete[0]["numero_reporte_firma"]) !== 0){
             return toast.error(`OT ${pktoDelete[0]["folio"]} ya tiene un reporte de firma asignado `)
@@ -66,6 +73,10 @@ const FOTEmpaque: React.FC<IFOTEmpaque> = ({
             }
         }
 
+        console.log(pktoDelete)
+
+
+       
         const toastLoading = toast.loading('Cargando...');
 
         try {

@@ -64,7 +64,9 @@ const FOTPendiente:React.FC<IDerivacion> = ({
             UsuarioID.toString(),
             jsonData.observaciones,
             false,
-            jsonData.situacion
+            jsonData.situacion,
+            false,
+            'Pausada'
         ).then(()=>{
             closeModal()
             dispatch(fetchOT({OTAreas:OTAreas["areaActual"], searchParams: paramsOT.value}))

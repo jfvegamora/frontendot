@@ -88,29 +88,38 @@ const FOTImpresa = React.forwardRef((props:any, ref:any) => {
 
   // console.log(pathLogo)
 
-  console.log(OT)
+  // console.log(OT)
 
-  console.log(OT[0] && OT[0][EnumGrid.imprime_qr] === 1 )
+  // console.log(OT[0] && OT[0][EnumGrid.imprime_qr] === 1 )
   return (
     <>
       {masivo === true ? 
          (
-          // <div ref={ref} className={`flex flex-col  ${OT[0] && OT[0][EnumGrid.imprime_qr] === 1 ? '!h-[63rem]' : '!h-[50rem]'}   `}>
-          <div>
-          
+          <div ref={ref} className='flex flex-col h-[63rem]'>
             {OT && OT.map((ot:any)=>{
               console.log(ot[EnumGrid.folio])
 
               return(
-                <div ref={ref} className={`flex flex-col  ${ot && ot[EnumGrid.imprime_qr] === 1 ? '!h-[63rem]' : '!h-[50rem]'}   `}>                 
-                   <h1 key={ot[EnumGrid.folio]}>{ot && ot[EnumGrid.folio]}</h1>
+                <div className={`flex flex-col !h-[63rem]`} key={ot[EnumGrid.folio]}>                 
+                <div className={`w-[90%] !h-[70rem]`}>                 
+                   {/* <h1 key={ot[EnumGrid.folio]}>{ot && ot[EnumGrid.folio]}</h1> */}
+                   <div className="w-[110%] relative  !h-[9%] mb-4">
+                    <div className="w-[90%] mr-7  mx-auto">
+                      {/* <Barcode value={'000000'+ OT[EnumGrid.folio]} /> */}
+                      <Barcode marginLeft={45} height={25} width={2.5} textAlign='right'  value={formatNumberWithZeros(ot[0][EnumGrid.folio])} />
+                      <h3 className={`absolute ${ot[0][EnumGrid.imprime_qr] === 1 ? 'bottom-7' : 'bottom-2'} left-10`}>{fechaHora}</h3>
+
+                    </div>
+                    </div>
+                  </div>
                 </div>
               )
             })}
-
-          
           </div>
          ) : (
+
+
+          
         <div ref={ref} className={`flex flex-col  ${OT[0] && OT[0][EnumGrid.imprime_qr] === 1 ? '!h-[63rem]' : '!h-[50rem]'}   `}>
         <div className='w-[90%] !h-[70rem]'>
         

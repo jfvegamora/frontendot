@@ -93,6 +93,12 @@ const FOTReporteFirma: React.FC<Interface> = ({
             return toast.error('Numero de documento debe ser mayor a 0')
         }
 
+        const proyectoPrimero = pkToDelete[0].proyecto;
+        if (pkToDelete.some((ot:any) => ot.proyecto !== proyectoPrimero)) {
+            toast.error('OT deben pertenecer al mismo proyecto');
+            return;
+        }
+
         const toastLoading = toast.loading('Cargando...');
 
         console.log(pkToDelete)

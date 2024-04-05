@@ -30,10 +30,10 @@ import { A1_ALT, A1_CR_OD, A1_CR_OI, A1_DP, A1_Diametro, A1_GRUPO_OD, A1_GRUPO_O
   isExistClient, 
   motivo_ot, 
   oftalmologo_id, 
-  procesarRender, 
+  // procesarRender, 
   punto_venta, 
   // reiniciarA2DioptriasReceta, 
-  reiniciarDioptriasReceta, reiniciarValidationNivel1, reiniciarValidationNivel2, reiniciarValidationNivel3, secondProcessBodega, tipo_de_anteojo, updateOT, validarNumeroDocumento, validar_parametrizacion, validationNivel1, validationNivel2, validationNivel3 } from '../../utils';
+  reiniciarDioptriasReceta, reiniciarValidationNivel1, reiniciarValidationNivel2, reiniciarValidationNivel3, secondProcessBodega, tipo_de_anteojo, updateOT, validarNumeroDocumento, validar_parametrizacion, validationNivel1, validationNivel2 } from '../../utils';
 import { validationCliente, validationClienteComuna, validationClienteNombre, validationClienteSexo, validationClienteTelefono, validationClienteTipo, validationEstablecimientos, validationFechaAtencion, validationFechaDespacho, validationFechaEntregaCliente, validationFechaEntregaTaller, validationProyectos, validationPuntoVenta, validationTipoAnteojos, validation_A1_ALT, validation_A1_DP, validation_A1_OD_AD, validation_A1_OD_CILL, validation_A1_OD_EJE, validation_A1_OD_ESF, validation_A1_OI_AD, validation_A1_OI_CIL, validation_A1_OI_EJE, validation_A1_OI_ESF, validation_A1_armazon, validation_A2_DP, validation_A2_OD_CIL, validation_A2_OD_EJE, validation_A2_OD_ESF, validation_A2_OI_CIL, validation_A2_OI_EJE, validation_A2_OI_ESF, validation_A2_armazon, validation_Cristal1_color, validation_Cristal1_diametro, validation_Cristal1_diseño, validation_Cristal1_indice, validation_Cristal1_marca, validation_Cristal1_material, validation_Cristal1_od, validation_Cristal1_oi, validation_Cristal1_tratamiento, validation_Cristal2_color, validation_Cristal2_diametro, validation_Cristal2_diseño, validation_Cristal2_indice, validation_Cristal2_material, validation_Cristal2_od, validation_Cristal2_oi, validation_Cristal2_tratamiento, validation_cristal2_marca } from '../../utils/validationOT';
 // import { inputName } from '../../components/OTForms/Otprueba';
 // import { verificaCampos } from '../../utils/OTReceta_utils';
@@ -162,7 +162,7 @@ const FOT:React.FC<IFOTProps> = ({
   let permiso_areas_grupo_dioptria        = permisosAreas && permisosAreas[5] === '1' ? true : false;
   let permiso_areas_receta                = permisosAreas && permisosAreas[6] === '1' ? true : false;
   let permiso_area_verificar_cristal      = permisosAreas && permisosAreas[7] === '1' ? true : false;
-  let permiso_area_verificar_armazon      = permisosAreas && permisosAreas[8] === "1" ? true : false;
+  // let permiso_area_verificar_armazon      = permisosAreas && permisosAreas[8] === "1" ? true : false;
 
 
   const handleCloseForm = () => {
@@ -394,7 +394,7 @@ const FOT:React.FC<IFOTProps> = ({
 
   const sumatoriaNivel1 = validationNivel1.value.reduce((index, objeto) => index + objeto.valor, 0);
   const sumatoriaNivel2 = validationNivel2.value.reduce((index, objeto) => index + objeto.valor, 0)
-  const sumatoriaNivel3 = validationNivel3.value.reduce((index,objecto) => index + objecto.valor, 0);  
+  // const sumatoriaNivel3 = validationNivel3.value.reduce((index,objecto) => index + objecto.valor, 0);  
  
 
 
@@ -734,9 +734,9 @@ const FOT:React.FC<IFOTProps> = ({
     
   };
 
-  const handleProcesarClick = () => {
-    setSubmitAction('procesar');
-  };
+  // const handleProcesarClick = () => {
+  //   setSubmitAction('procesar');
+  // };
 
 
 
@@ -959,7 +959,7 @@ useEffect(()=>{
                 )}
                 
                
-
+{/* 
                 {OTPermissions           && 
                 !isMOT                   &&
                 isEditting               &&
@@ -977,7 +977,9 @@ useEffect(()=>{
                   <Button className='otActionButton bg-green-400 hover:bg-green-700' onClick={handleProcesarClick}>Procesar</Button>
                 )}
 
-                
+                 */}
+
+
 
                 {OTPermissions           && 
                 !isMOT                   &&

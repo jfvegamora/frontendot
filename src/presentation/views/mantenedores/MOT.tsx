@@ -51,7 +51,7 @@ export enum OptionValuesEstado {
   Annulada = 2
 }
 
-const checkCount = signal(0)
+export const checkCount = signal(0)
 
 
 

@@ -52,6 +52,8 @@ const FilterButton: React.FC<IProps> = ({
     };
   }, []);
 
+  console.log(filterToggle.value)
+
   return (
     <div className={`fixed ${className ? className : "top-[4rem] left-5"} z-[13] items-center bg-yellow-300`}>
       <MagnifyingGlassIcon
