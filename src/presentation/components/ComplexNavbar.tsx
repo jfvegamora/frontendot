@@ -144,6 +144,42 @@ const navListMenuOT = [
   },
 ];
 
+const subMenuParametrizacionBodega = [
+  {
+    title: "Parametrización de Accesorios",
+    link: "/proyectoaccesorios",
+    id: 30,
+  },
+  {
+    title: "Parametrización de Muestrarios",
+    link: "/muestrariosarmazones",
+    id: 16,
+  },
+  {
+    title: "Parametrización de Vitrinas",
+    link: "/vitrinasarmazones",
+    id: 35,
+  },
+]
+
+const subMenuKardexBodega = [
+  {
+    title: "Kardex de Armazones",
+    link: "/kardexarmazones",
+    id: 6,
+  },
+  {
+    title: "Kardex de Cristales",
+    link: "/kardexcristales",
+    id: 8,
+  },
+  {
+    title: "Kardex de Accesorios",
+    link: "/kardexaccesorios",
+    id: 10,
+  },
+]
+
 const navListMenuBodega = [
   {
     title: "Almacenes",
@@ -164,21 +200,6 @@ const navListMenuBodega = [
     title: "Accesorios",
     link: "/accesorios",
     id: 9,
-  },
-  {
-    title: "Kardex de Armazones",
-    link: "/kardexarmazones",
-    id: 6,
-  },
-  {
-    title: "Kardex de Cristales",
-    link: "/kardexcristales",
-    id: 8,
-  },
-  {
-    title: "Kardex de Accesorios",
-    link: "/kardexaccesorios",
-    id: 10,
   },
   {
     title: "Marcas",
