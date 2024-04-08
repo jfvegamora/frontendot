@@ -28,6 +28,8 @@ export enum EnumGrid {
   provincia = 11,
   comuna_id = 12,
   comuna = 13,
+  destino_id = 14,
+  destino = 15,
 }
 
 const strEntidad = "Establecimiento ";
@@ -88,20 +90,22 @@ const MEstablecimientos: React.FC = () => {
             updateParams={updateParams}
             setEntities={setEntities}
             primaryKeyInputs={[
-              { name: "_p4", label: "Código/RBD", type: "text" },
-              { name: "_p1", label: "Establecimiento", type: "text" },
+              { name: "_p4", label: "Código/RBD", type: "text", styles: { with: "!w-[8rem]" }, },
+              { name: "_p1", label: "Establecimiento", type: "text", styles: { with: "!w-[12rem]" }, },
               {
                 name: "_p2",
                 label: "Mandante",
                 type: "select",
                 selectUrl: "/api/mandantes/",
+                styles: { with: "!w-[18rem]" },
               },
               {
                 name      : "_p3",
                 label     : "Tipo",
                 type      : "select",
                 selectUrl : "/api/tipos/",
-                tipos     : "EstablecimientosTipos"
+                tipos     : "EstablecimientosTipos",
+                styles: { with: "!w-[18rem]" },
               },
         ]}
           />

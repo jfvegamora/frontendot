@@ -722,6 +722,18 @@ export const table_head_establecimientos = [
     width: "w-[9rem]",
   },
   {
+    cell: "Destino ID",
+    key: "destino_id",
+    visible: false,
+  },
+  {
+    cell: "Destino",
+    key: "destino",
+    visible: true,
+    alignment: "text-left",
+    width: "w-[10rem]",
+  },
+  {
     cell: "",
     key: "opciones",
     visible: true,

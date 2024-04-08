@@ -27,6 +27,7 @@ export interface InputData {
   region   : string | undefined;
   provincia: string | undefined;
   comuna   : string | undefined;
+  destino  : string | undefined;
 }
 
 interface OutputData {
@@ -37,7 +38,7 @@ interface OutputData {
 }
 
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
-  let _p1 = `"${jsonData.codigo}", "${jsonData.nombre}", ${jsonData.comuna}, ${jsonData.mandante}, ${jsonData.tipo}`;
+  let _p1 = `"${jsonData.codigo}", "${jsonData.nombre}", ${jsonData.tipo}, ${jsonData.comuna}, ${jsonData.mandante}, ${jsonData.destino}`;
   _p1 = _p1.replace(/'/g, '!');
 
   const query: OutputData = {
@@ -94,9 +95,10 @@ const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
       const fields = [
         `codigo   ="${jsonData.codigo}"`,
         `nombre   ="${jsonData.nombre}"`,
+        `tipo     = ${jsonData.tipo}`,
         `comuna   = ${jsonData.comuna || data && data[EnumGrid.comuna_id]}`,
         `mandante = ${jsonData.mandante}`,
-        `tipo     = ${jsonData.tipo}`,
+        `destino  = ${jsonData.destino}`,
       ];
     
       const filteredFields = fields.filter(
@@ -307,6 +309,21 @@ const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
                   control={control}
                   entidad={["/api/mandantes/", "02"]}
                   error={errors.mandante}
+                  customWidth={"w-full ml-[1rem]"}
+                />
+              </div>
+            </div>
+      
+            <div className="input-container items-center rowForm w-[28.2rem] ">
+              <div className="w-[100%] !mt-[1rem] mb-2">
+                <SelectInputComponent
+                  label="Destino"
+                  name="destino"
+                  showRefresh={true}
+                  data={data && data[EnumGrid.destino_id]}
+                  control={control}
+                  entidad={["/api/proyectodestinos/", "02"]}
+                  error={errors.destino}
                   customWidth={"w-full ml-[1rem]"}
                 />
               </div>

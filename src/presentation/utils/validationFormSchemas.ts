@@ -93,6 +93,7 @@ export const validationEstablecimientosSchema = (isEditting:boolean) =>
     region   : yup.string(),
     provincia: yup.string(),
     comuna   : isEditting ? yup.string() : yup.string().required(`${msg}`),
+    destino  : yup.string().required(`${msg}`),
   });
 
 // Schema PUNTOS DE VENTA
