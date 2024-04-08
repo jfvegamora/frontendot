@@ -656,6 +656,20 @@ export const validationNivel3 = signal([
 ])
 
 
+
+
+
+
+// const camposRequeridos = ['proyecto', 'punto_venta', 'fecha_atencion', 'fecha_entrega_taller'];
+
+// export const checkOptica = camposRequeridos.every(campo => {
+//   const campoEncontrado = validationNivel1.value.find((item:any) => item.campo === campo);
+//   console.log(campo)
+//   console.log(campoEncontrado)
+//   return campoEncontrado && campoEncontrado.valor === 1;
+// });
+
+
 export const excelOTValidationStructure = signal([
   [ 'proyecto', 'varchar(20)', 'NO', 20, 7 ],
   [ 'establecimiento', 'int', 'NO', null, 9 ],

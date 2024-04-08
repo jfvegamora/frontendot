@@ -88,7 +88,7 @@ const FOTImpresa = React.forwardRef((props:any, ref:any) => {
 
   // console.log(pathLogo)
 
-  // console.log(OT)
+  console.log(OT)
 
   // console.log(OT[0] && OT[0][EnumGrid.imprime_qr] === 1 )
   return (

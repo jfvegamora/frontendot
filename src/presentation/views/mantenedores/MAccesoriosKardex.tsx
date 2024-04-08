@@ -118,6 +118,7 @@ const MAccesoriosKardex: React.FC = () => {
           strBaseUrl={strBaseUrl}
           showAddButton={true}
           showExportButton={true}
+          showImportCsv={true}
           showDeleteButton={false}
           showForwardButton={false}
           showRefreshButton={true}

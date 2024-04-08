@@ -5,7 +5,7 @@ import { AppStore, useAppDispatch, useAppSelector } from '../../../redux/store';
 import 'react-tabs/style/react-tabs.css'; 
 import axios from 'axios';
 import {signal } from "@preact/signals-react";
-import { Button  } from '@material-tailwind/react';
+import { Button, Checkbox  } from '@material-tailwind/react';
 
 
 import FOTGarantia from '../../components/OTForms/FOTGarantia';
@@ -859,6 +859,28 @@ useEffect(()=>{
   // console.log(validationNivel3.value)
 
 
+const camposRequeridosOptica  = ['proyecto', 'punto_venta_id', 'fecha_atencion'];
+const camposRequeridosCliente = ['cliente_rut', 'cliente_nombre', 'cliente_tipo', 'cliente_sexo', 'cliente_telefono', 'cliente_comuna', 'establecimiento_id']
+// const camposRequeridosReceta  = ['tipo_anteojo_id', 'a1_od_esf', 'a1_od_cil', 'a1_od_eje', 'a1_od_ad', 'a1_oi_ad', 'a1']
+
+const checkOptica = camposRequeridosOptica.every(campo => {
+  const campoEncontrado = validationNivel1.value.find((item:any) => item.campo === campo);
+  return campoEncontrado && campoEncontrado.valor === 1;
+});
+
+const checkCliente = camposRequeridosCliente.every(campo => {
+  const campoEncontrado = validationNivel1.value.find((item:any) => item.campo === campo);
+  return campoEncontrado && campoEncontrado.valor === 1;
+})
+
+
+
+
+// console.log(checkCliente)
+
+// console.log(checkOptica)
+
+
   return (
 
     <div className='useFormContainerOT top-[0%]  w-full h-[100%]'>
@@ -866,15 +888,19 @@ useEffect(()=>{
         <TabList className='flex items-center top-[10]'>
           <Tab className="custom-tab items-center flex relative">
             ÓPTICA 
-            {/* <div className="absolute left-[5rem] pointer-events-none" aria-disabled>
-              <Checkbox color="green" defaultChecked   className="text-sm"/>
-            </div> */}
+            {checkOptica && (
+              <div className="absolute left-[5rem] pointer-events-none" aria-disabled>
+                <Checkbox color="green" defaultChecked   className="text-sm"/>
+              </div>
+            )}
           </Tab>
           <Tab className="custom-tab items-center flex relative">
             CLIENTE
-            {/* <div className="absolute left-[5rem] pointer-events-none" aria-disabled>
-                <Checkbox color="green" defaultChecked   className="text-sm"/>
-            </div> */}
+            {checkCliente && (
+              <div className="absolute left-[5rem] pointer-events-none" aria-disabled>
+                  <Checkbox color="green" defaultChecked   className="text-sm"/>
+              </div>
+            )}
           </Tab>
           <Tab className="custom-tab items-center flex relative">
            RECETA
@@ -1044,3 +1070,7 @@ export default FOT;
 
 
 
+// CALL spOT(33, "1, 50, 10, '0', '1', '1802-2023', 159, '24114699-5', 66, '2023-11-16', '2023-11-23', '2023-11-24', '2023-11-27', 11, 1299, '', 1, '-0,25', '-5,00', 0, 0.0, '0,00', '-6,00', 0, 0.0, 61, 0.0, 'G1', 'G1', 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, '', '', 0, 20000002053, 0, '20000002051', 0, '20000002057', 1, 1, 1, 2, 1, 1, 1, 65, '100010013490', '100010014810', 0.0, 0, 0, 0, 0, 0, 0, 0, '0', '0', 0.0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, '16','2'", 0, "nombre='ABRAHAM ANDRÉS SEPÚLVEDA ROJAS', tipo=1, sexo=3, fecha_nacimiento='0.0', direccion='0.0', comuna='182', telefono='0.0', correo='0.0', establecimiento=159", 0, '24114699-5', '', '', '', '1802-2023', 0, 50, 50, 10, 0, 98, 0,'' ,'2', '[{"codigo": "100010013490"}, {"codigo": "100010014810"}, {"codigo": "0"}, {"codigo": "0"}]', '[{"codigo": 20000002053}, {"codigo": 20000002051}]', '[{"codigo": "100010013490"}, {"codigo": "100010014810"}, {"codigo": "0"}, {"codigo": "0"}]', '[{"codigo": 20000002053}, {"codigo": 20000002051}]', 11, 0, 0);
+
+
+// SELECT * FROM OT WHERE FOLIO = 12234;

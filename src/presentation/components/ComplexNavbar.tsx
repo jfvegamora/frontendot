@@ -220,11 +220,6 @@ const navListMenuBodega = [
 
 const subMenuParametrizacion = [
   {
-    title: "Parametrización de Accesorios",
-    link: "/proyectoaccesorios",
-    id: 30,
-  },
-  {
     title: "Parametrización de Destinos",
     link: "/proyectodestinos",
     id: 18,
@@ -233,21 +228,6 @@ const subMenuParametrizacion = [
     title: "Parametrización de Grupos",
     link: "/proyectocristales",
     id: 17,
-  },
-  {
-    title: "Parametrización de Muestrarios",
-    link: "/muestrariosarmazones",
-    id: 16,
-  },
-  // {
-  //   title: "Parametrización de Puntos de Venta",
-  //   link: "/proyectopuntosventa",
-  //   id: 33,
-  // },
-  {
-    title: "Parametrización de Vitrinas",
-    link: "/vitrinasarmazones",
-    id: 35,
   },
   {
     title: "Parametrización de Usuarios",
@@ -446,6 +426,8 @@ function NavListMenuOT({ userPermission }: { userPermission: number[] }) {
 
 function NavListMenuBodega({ userPermission }: { userPermission: number[] }) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const [openMenuParametrizacionBodega, setOpenMenuParametrizacionBodega] = useState(false)
+  const [openMenuKardexBodega, setOpenMenuKardexBodega] = useState(false)
   const navigate = useNavigate();
 
   // const triggers = {
@@ -458,30 +440,78 @@ function NavListMenuBodega({ userPermission }: { userPermission: number[] }) {
   };
 
 
-  const renderItems = navListMenuBodega.map(({ title, link, id }) => {
+  const renderItems = navListMenuBodega.map(({ title, link, id, subMenu }:any) => {
     const hasPermission = userPermission.includes(id);
-    return (
-      <MenuItem
-        key={id}
-        className={`flex items-center gap-2 rounded ${hasPermission ? "" : "text-gray-400 cursor-not-allowed"
-          }`}
-        onClick={() => {
-          if (hasPermission) {
-            navigate(link);
-            strNavTitle.value = title
-          }
-        }}
-      >
-        <Typography
-          as="span"
-          variant="small"
-          className={`font-normal ${hasPermission ? "" : "text-gray-400"}`}
-        >
-          {title}
-        </Typography>
-      </MenuItem>
-    );
+     
+    const renderSubMenu = subMenu 
+       ? subMenu.map(({title: subMenuTitle, link: subMenuLink, id: subMenuId}:any) => {
+        const subMenuHasPermission = userPermission.includes(subMenuId);
+
+        return (
+          <MenuItem
+            key={id}
+            className={`flex items-center gap-2 rounded ${subMenuHasPermission ? "" : "text-gray-400 cursor-not-allowed"
+              }`}
+            onClick={() => {
+              if (subMenuHasPermission) {
+                navigate(subMenuLink);
+                strNavTitle.value = subMenuTitle
+              }
+            }}
+          >
+            <Typography
+              as="span"
+              variant="small"
+              className={`font-normal ${subMenuHasPermission ? "" : "text-gray-400"}`}
+            >
+              {subMenuTitle}
+            </Typography>
+            {renderSubMenu && renderSubMenu.length > 0 && (
+            <Menu open={isMenuOpen} handler={setIsMenuOpen}>
+              <MenuHandler>
+                <FontAwesomeIcon icon={faChevronDown} className="h-3 w-3" />
+              </MenuHandler>
+              <MenuList className="p-1">{renderSubMenu}</MenuList>
+            </Menu>
+          )}
+          </MenuItem>
+        );
+       })
+       : null; 
+
+       return (
+        <React.Fragment key={id}>
+          <MenuItem
+            className={`flex items-center gap-2 rounded ${hasPermission ? "" : "text-gray-400 cursor-not-allowed"
+              }`}
+            onClick={() => {
+              if (hasPermission) {
+                navigate(link);
+                strNavTitle.value = title;
+              }
+            }}
+          >
+            <Typography
+              as="span"
+              variant="small"
+              className={`font-normal ${hasPermission ? "" : "text-gray-400"}`}
+            >
+              {title}
+            </Typography>
+            {renderSubMenu && renderSubMenu.length > 0 && (
+              <Menu open={isMenuOpen} handler={setIsMenuOpen}>
+                <MenuHandler>
+                  <FontAwesomeIcon icon={faChevronDown} className="h-3 w-3" />
+                </MenuHandler>
+                <MenuList className="p-1">{renderSubMenu}</MenuList>
+              </Menu>
+            )}
+          </MenuItem>
+        </React.Fragment>
+      );
   });
+
+
 
   return (
     <React.Fragment>
@@ -513,7 +543,90 @@ function NavListMenuBodega({ userPermission }: { userPermission: number[] }) {
             {/* <RocketLaunchIcon strokeWidth={1} className="h-28 w-28" /> */}
           </Card>
           <ul className="col-span-4 flex w-full flex-col gap-1">
+          <Menu
+              placement="right-start"
+              open={openMenuParametrizacionBodega}
+              handler={setOpenMenuParametrizacionBodega}
+              allowHover
+              offset={15}
+            >
+              <MenuHandler className="flex items-center justify-between" >
+                <MenuItem>
+                  Kardex <FontAwesomeIcon icon={faChevronRight} />
+                </MenuItem>
+              </MenuHandler>
+              <MenuList>
+                {subMenuKardexBodega.map(({ title, id, link }) => {
+                  const hasPermission = userPermission.includes(id);
+                  return (
+                    <MenuItem
+                      className={`flex items-center gap-2 rounded ${hasPermission ? "" : "text-gray-400 cursor-not-allowed"
+                        }`}
+                      key={id}
+                      onClick={() => {
+                        if (hasPermission) {
+                          navigate(link);
+                          strNavTitle.value = title;
+                        }
+                      }}
+                    >
+                      {title}
+                    </MenuItem>
+                  )
+                })}
+              </MenuList>
+            </Menu>
+
+            <Menu
+              placement="right-start"
+              open={openMenuKardexBodega}
+              handler={setOpenMenuKardexBodega}
+              allowHover
+              offset={15}
+            >
+              <MenuHandler className="flex items-center justify-between" >
+                <MenuItem>
+                  Parametrizacion <FontAwesomeIcon icon={faChevronRight} />
+                </MenuItem>
+              </MenuHandler>
+              <MenuList>
+                {subMenuParametrizacionBodega.map(({ title, id, link }) => {
+                  const hasPermission = userPermission.includes(id);
+                  return (
+                    <MenuItem
+                      className={`flex items-center gap-2 rounded ${hasPermission ? "" : "text-gray-400 cursor-not-allowed"
+                        }`}
+                      key={id}
+                      onClick={() => {
+                        if (hasPermission) {
+                          navigate(link);
+                          strNavTitle.value = title;
+                        }
+                      }}
+                    >
+                      {title}
+                    </MenuItem>
+                  )
+                })}
+              </MenuList>
+            </Menu>
+            
+            
+            
+            
+            
+            
             {renderItems}
+            
+
+
+
+
+
+
+
+
+
           </ul>
         </MenuList>
       </Menu>
@@ -575,6 +688,10 @@ function NavListMenuProyectos({ userPermission }: { userPermission: number[] }) 
       })
       : null;
 
+    
+    
+    
+    
     return (
       <React.Fragment key={id}>
         <MenuItem
@@ -720,6 +837,13 @@ function NavListMenuProyectos({ userPermission }: { userPermission: number[] }) 
     </React.Fragment>
   );
 }
+
+
+
+
+
+
+
 
 function NavListMenuSistema({ userPermission }: { userPermission: number[] }) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);

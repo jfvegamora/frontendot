@@ -120,6 +120,7 @@ const MArmazonesKardex: React.FC = () => {
           showAddButton={true}
           showExportButton={true}
           showDeleteButton={false}
+          showImportCsv={true}
           showForwardButton={false}
           showRefreshButton={true}
           comilla={true}
