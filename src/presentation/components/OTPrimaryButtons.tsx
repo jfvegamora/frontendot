@@ -17,7 +17,7 @@ import ErrorOTModal from './ErrorOTModal';
 import { useReactToPrint } from 'react-to-print';
 import FOTTicketImpresion from '../views/forms/FOTTicketImpresion';
 import { EnumGrid } from '../views/mantenedores/MOTHistorica';
-import { paramsOT } from '../views/mantenedores/MOT';
+import { checkCount, paramsOT } from '../views/mantenedores/MOT';
 import { signal } from '@preact/signals-react';
 import { focusFirstInput } from '../components/OTForms/FOTValidarBodega';
 // import FOTEmpaque from '../views/forms/FOTEmpaque';
@@ -446,10 +446,14 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
           [],
           User["id"],
           "",
-          true
+          true,
+          0,
+          false,
+          'Procesada'
         ).then(()=>{
           dispatch(fetchOT({OTAreas:OTAreas["areaActual"],searchParams: paramsOT.value}))
           setSelectedRows([])
+          checkCount.value = 0;
         })
       })
 
@@ -582,13 +586,6 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
 
 
     }
-
-
-
-    console.log(User.permisos_areas)
-    console.log(User.permisos_areas[8])
-
-
 
     return (
     <div className='flex items-center   ml-[4rem] !w-full'>

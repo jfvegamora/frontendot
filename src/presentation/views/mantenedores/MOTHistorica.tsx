@@ -280,7 +280,13 @@ const MOTHistorica: React.FC = () => {
   const dispatch       = useAppDispatch();
 
   const [params, setParams] = useState([]);
-  const OTs: any = useAppSelector((store: AppStore) => store.OTS);
+  const OTs:any = useAppSelector((store: AppStore) => store.OTS);
+  const user:any = useAppSelector((store: AppStore) => store.user);
+
+  let permiso_documentacion = user.permisos_archivo_ot[0] === '1' ? true : false;
+  // let permiso_post_venta    = user.permisos_archivo_ot[1] === '1' ? true : false;
+
+  console.log(permiso_documentacion)
   // const userState: any = useAppSelector((store: AppStore) => store.user);
 
   const {escritura_lectura} = usePermission(idMenu)
@@ -437,7 +443,11 @@ const MOTHistorica: React.FC = () => {
 
 
 
+
+  console.log(user.permisos_archivo_ot)
   
+
+
 
   return (
     <div className="mantenedorContainer">
@@ -487,36 +497,50 @@ const MOTHistorica: React.FC = () => {
           {/* <Button className='otActionButton mt-3 mx-5' style={{ backgroundColor: '#676f9d' }} onClick={() => handleReporte(2)}>N° Rep. Firma</Button> */}
           {/* <Button className='otActionButton mt-3 mx-5'  onClick={() => handleReporte(1)} >N° Rep. Entrega</Button> */}
 
-          <Button className='otActionButton mt-3 mx-5'  onClick={() => {
-            if(pktoDelete.length < 1){
-              return toast.error('No hay OT Seleccionada')
-            }
-            setShowRepEntrega((prev)=>!prev)
-          }} >N° Rep. Entrega</Button>
-            {showRepEntrega && <FOTReporteEntrega pktoDelete={pktoDelete} setSelectedRows={setSelectedRows} closeModal={()=>setShowRepEntrega(false)} />}
+          {permiso_documentacion && (
+            <Button className='otActionButton mt-3 mx-5'  onClick={() => {
+              if(pktoDelete.length < 1){
+                return toast.error('No hay OT Seleccionada')
+              }
+              setShowRepEntrega((prev)=>!prev)
+            }} >N° Rep. Entrega</Button>
+          )}  
 
-          <Button className='otActionButton mt-3 mx-5'  onClick={() => {
-            if(pktoDelete.length < 1){
-              return toast.error('No hay OT Seleccionada')
-            }
-            setShowOrdenCompra((prev) => !prev)}
-          }>N° OC</Button>
+          {showRepEntrega && <FOTReporteEntrega pktoDelete={pktoDelete} setSelectedRows={setSelectedRows} closeModal={()=>setShowRepEntrega(false)} />}
+
+
+          {permiso_documentacion && (
+            <Button className='otActionButton mt-3 mx-5'  onClick={() => {
+              if(pktoDelete.length < 1){
+                return toast.error('No hay OT Seleccionada')
+              }
+              setShowOrdenCompra((prev) => !prev)}
+            }>N° OC</Button>
+          )}
+
           {showOrdenCompra  && <FOTOrdenCompra  pktoDelete={pktoDelete}  setSelectedRows={setSelectedRows} closeModal={() => setShowOrdenCompra(false)} />}
 
-          <Button className='otActionButton mt-3 mx-5'  onClick={() => {
-            if(pktoDelete.length < 1){
-              return toast.error('No hay OT Seleccionada')
-            }
-            setShowGuia((prev) => !prev)
-          }}>N° Guía</Button>
-          {showGuia         && <FOTGuiaDespacho pktoDelete={pktoDelete } setSelectedRows={setSelectedRows} closeModal={() => setShowGuia(false)} otArchivo={true} />}
 
-          <Button className='otActionButton mt-3 mx-5'  onClick={() => {
-            if(pktoDelete.length < 1){
-              return toast.error('No hay OT Seleccionada')
-            }
-            setShowFactura((prev) => !prev)
-          }}>N° Factura</Button>
+          {permiso_documentacion && (
+            <Button className='otActionButton mt-3 mx-5'  onClick={() => {
+              if(pktoDelete.length < 1){
+                return toast.error('No hay OT Seleccionada')
+              }
+              setShowGuia((prev) => !prev)
+            }}>N° Guía</Button>
+          )}
+
+          {showGuia && <FOTGuiaDespacho pktoDelete={pktoDelete } setSelectedRows={setSelectedRows} closeModal={() => setShowGuia(false)} otArchivo={true} />}
+
+          {permiso_documentacion && (
+            <Button className='otActionButton mt-3 mx-5'  onClick={() => {
+              if(pktoDelete.length < 1){
+                return toast.error('No hay OT Seleccionada')
+              }
+              setShowFactura((prev) => !prev)
+            }}>N° Factura</Button>
+          )}
+
           {showFactura      && <FOTFactura      pktoDelete={pktoDelete}  setSelectedRows={setSelectedRows} closeModal={() => setShowFactura(false)} />}
 
 

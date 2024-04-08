@@ -49,6 +49,12 @@ const FOTGuiaDespacho: React.FC<IDerivacion> = ({
             return toast.error('Numero de documento debe ser mayor a 0')
         }
 
+        const proyectoPrimero = pktoDelete[0].proyecto;
+        if (pktoDelete.some((ot:any) => ot.proyecto !== proyectoPrimero)) {
+            toast.error('OT deben pertenecer al mismo proyecto');
+            return;
+        }
+        
 
         if(parseInt(pktoDelete[0]["numero_guia"]) !== 0){
             const result = await showModal(
@@ -72,8 +78,11 @@ const FOTGuiaDespacho: React.FC<IDerivacion> = ({
             return;        
         }    
         }
-            const toastLoading = toast.loading('Cargando...');
-            try {
+        
+        
+        const toastLoading = toast.loading('Cargando...');
+        
+        try {
                 const query07 = {
                     _p1: `"${pktoDelete[0]["proyecto_codigo"]}", ${4}, "${jsonData["numero_doc"]}", "${jsonData["fecha_doc"]}", ${0}, ${0}, ${0}, ${UsuarioID}, "${jsonData["observaciones"]}"`,
                     _p2: jsonData["numero_doc"],

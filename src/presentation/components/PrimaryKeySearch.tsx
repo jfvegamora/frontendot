@@ -15,6 +15,7 @@ import { toast } from "react-toastify";
 import { paramsOT } from "../views/mantenedores/MOT";
 import { areaActualOT } from "./OTAreasButtons";
 import { signal } from "@preact/signals-react";
+import { filterToggle } from "./FilterButton";
 // import { sesionExpirada } from "../../redux/slices/userSlice";
 
 interface IPrimaryKeyState {
@@ -190,7 +191,9 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
         if(Array.isArray(response) && response.length === 0){
           return toast.success('Búsqueda Realizada: 0 resultados',{autoClose:1500})
         }
+      
         toast.success('Busqueda Realizada',{autoClose:1500})
+
       } catch (error) {
         toast.dismiss(toastLoading)
         return error;
@@ -481,6 +484,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                 type="submit"
                 onClick={(e)=>{
                   e.preventDefault()
+                  filterToggle.value = false;
                   // const result = sesionExpirada()
                   // console.log(result)
                   return handleSubmit(handleSearch)()
@@ -502,6 +506,8 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                 type="submit"
                 onClick={(e)=>{
                   e.preventDefault()
+                  filterToggle.value = false;
+                  console.log('render')
                  return handleRefresh()
                 }}
               >

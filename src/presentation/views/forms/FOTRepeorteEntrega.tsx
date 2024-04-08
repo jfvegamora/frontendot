@@ -11,6 +11,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { validationOTGuiaSchema } from "../../utils/validationFormSchemas";
 import { useModal } from '../../hooks/useModal';
 import { paramsOT } from '../mantenedores/MOT';
+// import { validationStateOT } from '../../components/OTPrimaryButtons';
 
 
 interface Interface {
@@ -31,7 +32,7 @@ const strUrl = `${URLBackend}/api/proyectodocum/listado`
 const FOTReporteEntrega: React.FC<Interface> = ({
     closeModal,
     pktoDelete,
-    setSelectedRows
+    setSelectedRows,
 }) => {
     const { control, handleSubmit, formState: { errors }, setValue } = useForm<any>({ resolver: yupResolver(validationOTGuiaSchema()), });
     const [fechaHoraActual, _setFechaHoraActual] = useState(new Date());
@@ -105,6 +106,35 @@ const FOTReporteEntrega: React.FC<Interface> = ({
                 return;
             }
         }
+
+        console.log(pktoDelete)
+       
+        if (pktoDelete.every((ot:any) => ot.estado !== 'Entregada')) {
+            toast.error(`OT debe estar Entregada `);
+            return;
+        }
+
+        // const proyectoPrimero = pktoDelete[0].proyecto;
+        // if (pktoDelete.some((ot:any) => ot.proyecto !== proyectoPrimero)) {
+        //     toast.error('Todos los objetos deben tener el mismo valor para la propiedad "proyecto"');
+        //     return;
+        // }
+
+        console.log(pktoDelete)
+
+        // const result = validationStateOT(4, 'in', folios, pktoDelete)
+        // const areAllSameType = result.every((item:any) => item === true);
+
+        // if(!areAllSameType){
+        //     result.map((ot:any)=>{
+        //     if(Array.isArray(ot)){
+        //         toast.error(`Error: folio ${ot[0]}  | ${ot[1]}`);
+        //         return;
+        //     }
+        //     })
+        //     return;
+        // }
+
 
         const toastLoading = toast.loading('Cargando...');
 

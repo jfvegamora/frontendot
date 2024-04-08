@@ -167,7 +167,9 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
                 UsuarioID.toString(),
                 jsonData.observaciones,
                 false,
-                jsonData.situacion
+                jsonData.situacion,
+                false,
+                'Derivada'
             ).then(()=>{
                 closeModal()
                 dispatch(fetchOT({OTAreas:OTAreas["areaActual"]}))

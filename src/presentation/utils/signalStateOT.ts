@@ -1567,7 +1567,8 @@ export const updateOT =async (
   _obs?:string,
   isMasivo?:boolean,
   situacion?:any,
-  isValidateBodega?:boolean
+  isValidateBodega?:boolean,
+  tipo_evento?:string
 )  => {
 
   // console.log(jsonData)
@@ -1616,7 +1617,9 @@ export const updateOT =async (
   
       if(response.status === 200){
         toast.dismiss(toastLoading)
-        return toast.success(`OT ${_estado === 20 ? 'Procesada' : 'Pausada'} Correctamente, Folio:  ${ isValidateBodega ? data[EnumGrid.folio] : data.folio}`)
+        return toast.success(`OT ${tipo_evento} Correctamente, Folio:  ${ isValidateBodega ? data[EnumGrid.folio] : data.folio}`,{
+          autoClose: 1000
+        })
       }else{
         toast.dismiss(toastLoading)
         return toast.error('Error al Editar OT')
@@ -1806,7 +1809,7 @@ const _armazonJSONNew = JSON.stringify(armazones)
     console.log(response)
     if(response.status === 200){
       toast.dismiss(toastLoading)
-      return toast.success('OT Editada Correctamente')
+      return toast.success(`OT ${tipo_evento} Correctamente`)
     }else{
     toast.dismiss(toastLoading)
 
