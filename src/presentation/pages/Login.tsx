@@ -50,8 +50,10 @@ const Login: React.FC = React.memo(() => {
     try {
       loginEntity(data)
       .then((user) => {
-          if (user.length === 0)
+          if (user.length === 0){
+            toast.dismiss(toastLoading)
             return show({ message: LOGIN.loginError, type: "error" });
+          }
           console.log(user)
           const response:any = jwtDecode(user[0]);
           const usuario = {...response, token: user[0]}
@@ -83,6 +85,8 @@ const Login: React.FC = React.memo(() => {
         toast.dismiss(toastLoading)
         show({ message: LOGIN.loginError, type: "error" });
       }
+
+      // toast.dismiss(toastLoading)
   };
 
 

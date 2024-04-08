@@ -854,14 +854,18 @@ useEffect(()=>{
 
 
 
-  // console.log(validationNivel2.value)
+  console.log(validationNivel1.value)
   // console.log(data && data[EnumGrid.validar_parametrizacion_id])
   // console.log(validationNivel3.value)
 
 
-const camposRequeridosOptica  = ['proyecto', 'punto_venta_id', 'fecha_atencion'];
-const camposRequeridosCliente = ['cliente_rut', 'cliente_nombre', 'cliente_tipo', 'cliente_sexo', 'cliente_telefono', 'cliente_comuna', 'establecimiento_id']
-// const camposRequeridosReceta  = ['tipo_anteojo_id', 'a1_od_esf', 'a1_od_cil', 'a1_od_eje', 'a1_od_ad', 'a1_oi_ad', 'a1']
+const camposRequeridosOptica    = ['proyecto', 'punto_venta_id', 'fecha_atencion'];
+const camposRequeridosCliente   = ['cliente_rut', 'cliente_nombre', 'cliente_tipo', 'cliente_sexo', 'cliente_telefono', 'cliente_comuna', 'establecimiento_id'];
+const camposRequeridosReceta    = ['tipo_anteojo_id', 'a1_od_esf', 'a1_od_cil', 'a1_od_eje', 'a1_od_ad', 'a1_oi_ad', 'a1_oi_esf', 'a1_oi_cil', 'a1_oi_eje', 'a1_dp', 'a1_alt', 'a2_od_esf', 'a2_od_cil', 'a2_od_eje', 'a2_oi_esf', 'a2_oi_cil', 'a2_oi_eje', 'a2_dp'];
+const camposRequeridosCristales = ['cristal1_marca_id', 'cristal1_diseno_id', 'cristal1_indice_id', 'cristal1_material_id', 'cristal1_tratamiento_id', 'cristal1_color_id', 'cristal1_diametro', 'cristal1_od', 'cristal1_oi', 'cristal2_marca_id', 'cristal2_diseno_id', 'cristal2_indice_id', 'cristal2_material_id', 'cristal2_tratamiento_id', 'cristal2_color_id', 'cristal2_diametro', 'cristal2_od', 'cristal2_oi'];
+const camposRequeridosArmazones = ['a1_armazon_id', 'a2_armazon_id'];
+
+
 
 const checkOptica = camposRequeridosOptica.every(campo => {
   const campoEncontrado = validationNivel1.value.find((item:any) => item.campo === campo);
@@ -871,9 +875,24 @@ const checkOptica = camposRequeridosOptica.every(campo => {
 const checkCliente = camposRequeridosCliente.every(campo => {
   const campoEncontrado = validationNivel1.value.find((item:any) => item.campo === campo);
   return campoEncontrado && campoEncontrado.valor === 1;
-})
+});
 
+const checkReceta = camposRequeridosReceta.every(campo => {
+  const campoEncontrado = validationNivel1.value.find((item:any) => item.campo === campo);
+  return campoEncontrado && campoEncontrado.valor === 1;
+});
 
+const checkCristales = camposRequeridosCristales.every(campo => {
+  const campoEncontrado = validationNivel1.value.find((item:any) => item.campo === campo);
+
+  console.log(campoEncontrado)
+  return campoEncontrado && campoEncontrado.valor === 1;
+});
+
+const checkArmazones = camposRequeridosArmazones.every(campo => {
+  const campoEncontrado = validationNivel1.value.find((item:any) => item.campo === campo);
+  return campoEncontrado && campoEncontrado.valor === 1;
+});
 
 
 // console.log(checkCliente)
@@ -904,12 +923,28 @@ const checkCliente = camposRequeridosCliente.every(campo => {
           </Tab>
           <Tab className="custom-tab items-center flex relative">
            RECETA
-           {/* <div className="absolute left-[5rem] pointer-events-none" aria-disabled>
-              <Checkbox color="green" defaultChecked   className="text-sm"/>
-            </div> */}
+           {checkReceta && (
+              <div className="absolute left-[5rem] pointer-events-none" aria-disabled>
+                  <Checkbox color="green" defaultChecked   className="text-sm"/>
+              </div>
+           )}
           </Tab>
-          <Tab className="custom-tab ">CRISTALES</Tab>
-          <Tab className="custom-tab ">ARMAZONES</Tab>
+          <Tab className="custom-tab items-center flex relative">
+            CRISTALES
+            {checkCristales && (
+              <div className="absolute left-[7.5rem] pointer-events-none" aria-disabled>
+                <Checkbox color="green" defaultChecked   className="text-sm"/>
+              </div>
+            )}  
+          </Tab>
+          <Tab className="custom-tab items-center flex relative">
+            ARMAZONES
+            {checkArmazones && (
+              <div className="absolute left-[7.5rem] pointer-events-none" aria-disabled>
+                <Checkbox color="green" defaultChecked   className="text-sm"/>
+              </div>
+            )}
+          </Tab>
           <Tab className="custom-tab ">BITÁCORA</Tab>
           {isEditting && (
             <h1 className='tabFolioNumber'>Folio OT: {data && data[EnumGrid.folio]}</h1>

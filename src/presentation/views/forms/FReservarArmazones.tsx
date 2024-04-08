@@ -190,6 +190,10 @@ const FReservarArmazones = () => {
             setValue(armazon,'')
             setArmazon1('')
           }
+
+
+
+
           
         } catch (error) {
             console.log(error)
@@ -225,8 +229,35 @@ const FReservarArmazones = () => {
     console.log(result)
   }
 
-  const handleSaveChange = (jsonData:any) =>{
+  const handleSaveChange = async(jsonData:any) =>{
       console.log(jsonData)
+
+      const reservaJSON = [{
+        rut           : jsonData["rut_beneficiario"]  || '',
+        proyecto      : jsonData["proyecto"]          || '',
+        punto_venta   : `${punto_venta.value}`        || '',
+        tipo_anteojo  : jsonData["tipo_anteojo"]      || '',
+        dp            : jsonData["dp"]                || '',
+        armazon_1     : jsonData["Armazon1"]          || '',
+        armazon_2     : jsonData["Armazon2"]          || '',
+        armazon_3     : jsonData["Armazon3"]          || '',
+        usuario       : `${userID}`                   || '',
+      }];
+
+      console.log(reservaJSON)
+  
+      try {
+      
+        const reservaResponse = await axios(`${URLBackend}/api/otreservaarmazones/listado/?query=03&_pkToDelete=${encodeURIComponent(JSON.stringify(reservaJSON))}`)
+
+        console.log(reservaResponse)
+      
+      
+      } catch (error) {
+        console.log(error)
+      }
+  
+  
   }
 
   // const handleInputChange = (ref:any) => {
@@ -243,9 +274,11 @@ React.useEffect(()=>{
   if(armazon1 !== ''){
     if(armazon2 === armazon1 || armazon3 === armazon1){
       toast.error('Códigos de Armazones no deben ser iguales')
-      setValue('Armazon1', '')
-      // armazon1.current = ''
-      setArmazon1('')
+      // setValue('Armazon1', '')
+      // // armazon1.current = ''
+      // setArmazon1('')
+
+      setValue('Armazon1', armazon1)
     }else{
       setValue('Armazon1', armazon1)
       console.log('armazon cambiado, ejecutando validacion')
@@ -259,9 +292,11 @@ React.useEffect(()=>{
   if(armazon2 !== ''){
     if(armazon2 === armazon1 || armazon3 === armazon2){
       toast.error('Códigos de Armazones no deben ser iguales')
-      setValue('Armazon2', '')
-      // armazon2 = ''
-      setArmazon2('')
+      // setValue('Armazon2', '')
+      // // armazon2 = ''
+      // setArmazon2('')
+
+      setValue('Armazon2', armazon2)
     }else{
       setValue('Armazon2', armazon2)
       console.log('armazon cambiado, ejecutando validacion')
@@ -276,9 +311,10 @@ React.useEffect(()=>{
   if(armazon3 !== ''){
     if(armazon3 === armazon1 || armazon3 === armazon2){
       toast.error('Códigos de Armazones no deben ser iguales')
-      setValue('Armazon3', '')
-      // armazon3. = ''
-      setArmazon3('')
+      // setValue('Armazon3', '')
+      // // armazon3. = ''
+      // setArmazon3('')
+      setValue('Armazon3', armazon3)
     }else{
       setValue('Armazon3', armazon3)
       console.log('armazon cambiado, ejecutando validacion')
