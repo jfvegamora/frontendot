@@ -36,7 +36,7 @@ export enum EnumGrid {
 }
 
 
-const MProyectosDocum: React.FC = () => {
+const MReservaArmazones: React.FC = () => {
     const [params, setParams] = useState([]);
     // const { escritura_lectura} = usePermission(idMenu || 0 );
     
@@ -84,7 +84,7 @@ const MProyectosDocum: React.FC = () => {
     return (
       <div className="mantenedorContainer">
         <div className="mantenedorHead width100">
-          <div className="w-[75%]">
+          <div className="w-[90%]">
             <PrimaryKeySearch
               baseUrl={strBaseUrl}
               setParams={setParams}
@@ -165,4 +165,4 @@ const MProyectosDocum: React.FC = () => {
     );
   };
 
-export default MProyectosDocum;
+export default MReservaArmazones;

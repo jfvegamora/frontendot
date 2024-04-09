@@ -284,12 +284,27 @@ const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
               </div>
             </div>
 
+            <div className="input-container items-center rowForm w-[28.2rem] ">
+              <div className="w-[100%] !mt-[1rem] mb-2">
+                <SelectInputTiposComponent
+                  label="TIPO ANTEOJO"
+                  name="tipo"
+                  showRefresh={true}
+                  data={data && data[EnumGrid.tipo_id]}
+                  control={control}
+                  entidad="EstablecimientosTipos"
+                  error={errors.tipo}
+                  customWidth={"!w-full ml-4"}
+                />
+              </div>
+            </div>
+
             <div className="w-full flex items-center">
               <div className="flex input-container items-center rowForm w-[60%]  ">
                 <div className="w-[100%] !mt-[1rem] mb-2">
                   <TextInputComponent
                     type="text"
-                    label="NÚMERO RECETA"
+                    label="RUT BENEFICIARIO"
                     name="nombre"
                     data={data && data[EnumGrid.nombre]}
                     control={control}
@@ -356,18 +371,6 @@ const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
               </div>
             </div>
 
-
-            <div className="input-container items-center rowForm w-[28.2rem]">
-              <div className="flex justify-center">
-                <div className="w-[50%]">
-                  {escritura_lectura && (
-                    <button type="submit" tabIndex={1} className="userFormBtnSubmit">
-                      {`ESCANEAR QR`}
-                    </button>
-                  )}
-                </div>
-              </div>
-            </div>
 
             <div className="input-container items-center rowForm w-[28.2rem]">
               <div className="flex justify-center">
