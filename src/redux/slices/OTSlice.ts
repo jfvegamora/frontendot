@@ -46,7 +46,7 @@ export const fetchOT = createAsyncThunk(
     async (params:any) => {
         const {OTAreas, searchParams, historica} = params;
 
-        // console.log(params)
+        console.log(params)
         const OTUrl = searchParams
                                  ? historica ? `${URLBackend}/api/othistorica/listado/?query=14&${searchParams}&_limit=${limit}` :  `${URLBackend}/api/ot/listado/?query=14&_origen=${OTAreas}&${searchParams}&_limit=${limit}` 
                                  : historica ? `${URLBackend}/api/othistorica/listado/?query=14&_limit=${limit}`                 :   OTAreas ? `${URLBackend}/api/ot/listado/?query=14&_origen=${OTAreas}&_limit=${limit}` : `${URLBackend}/api/ot/listado/?query=14&${searchParams}&_limit=${limit}`
@@ -92,7 +92,10 @@ export const fetchOTByID = createAsyncThunk(
         try {
             const {folio, OTAreas} = params;
             // console.log(historica)
+
             const response = await axios.get(`${URLBackend}/api/ot/listado/?query=01&_origen=${OTAreas}&_folio=${folio}`);
+            
+            
             console.log(response)
             console.log(`${URLBackend}/api/ot/listado/?query=01&_origen=${OTAreas}&_folio=${folio}`)
             return response.data[0]

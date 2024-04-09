@@ -122,11 +122,6 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
 
   const toggleEditOTModal = useCallback(async(folio:any,historica:any, estado?:any)=>{
       try {
-
-        console.log(folio)
-        console.log(estado)
-
-
       const endpoint = historica === false ? `${URLBackend}/api/ot/listado/?query=01&_folio=${folio}&_estado${estado}` : `${URLBackend}/api/othistorica/listado/?query=01&_folio=${folio}&_estado=${estado}`
       const response = await axios(endpoint)
       setEntity(response.data[0])
