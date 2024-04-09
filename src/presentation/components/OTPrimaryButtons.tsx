@@ -85,7 +85,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
 }) => {
     // const strUrl = `${URLBackend}/api/ot/listado`
     const dispatch                                    = useAppDispatch();
-    const data:any                                    = useAppSelector((store: AppStore) => store.OTS.data)
+    // const data:any                                    = useAppSelector((store: AppStore) => store.OTS.data)
     const OTAreas:any                                 = useAppSelector((store: AppStore) => store.OTAreas)
     const User:any                                    = useAppSelector((store: AppStore) => store.user)
     const componentRef                                = useRef<any>(null);
@@ -240,7 +240,6 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
                 console.log('imprmiendo')
                 await dispatch(fetchOTImpresionByID({ folio: OT.folio, OTAreas: OTAreas['areaActual'] }));
                 handleComprobantePrint()
-    
             }
             toast.dismiss(loadingToast);
         } catch (error) {
@@ -381,21 +380,38 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
     const handleProcesarMasivo = () => {
       let estado = 0
       console.log(pkToDelete)
-      
-      let condition = OTAreas["areaActual"] === 50 ? 'Ingresada' : 'En proceso';
 
-      const result = validationStateOT(4, condition, folios, data)
-      const areAllSameType = result.every((item:any) => item === true);
+      const validateEstado   = pkToDelete.every((ot:any) => ot["estado_validacion"] === '1');
+      const validateUsuario  = pkToDelete.every((ot:any) => ot["usuario_id"] === User.id);
+      const validateProyecto = pkToDelete.every((ot:any) => ot["proyecto_codigo"] === pkToDelete[0]["proyecto_codigo"]);
 
-      if(!areAllSameType){
-        result.map((ot:any)=>{
-          if(Array.isArray(ot)){
-            toast.error(`Error: folio ${ot[0]}  | ${ot[1]}`);
-            return;
-          }
-        })
+      const foliosMensaje = pkToDelete && pkToDelete.map(({folio}:any)=>folio)
+
+
+
+      console.log(validateEstado)
+
+      console.log(validateUsuario)
+
+      if(!validateUsuario){
+        console.log('render')
+        toast.error(`Folio ${foliosMensaje} no pertenece al Usuario ${User.nombre}`);
         return;
       }
+
+      if(!validateEstado){
+        return toast.error(`Folio ${folios} no está validado correctamente`);
+      }
+
+      if(!validateProyecto){
+        return toast.error(`Folio ${folios} deben pertenecer al mismo proyecto`);
+
+      }
+
+
+
+
+      console.log(validateEstado)
 
       if(OTAreas["areaActual"] === 90){
         const filterPkToDeleteFirmaEnvio = pkToDelete.filter((OT:any)=> (OT.numero_envio === '0' || OT.numero_envio === null) && (OT.numero_reporte_firma === 0))
@@ -717,7 +733,9 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
 
           {areaPermissions && areaPermissions[15] === '1' && permisos_usuario_areas === '1' && (
           <div className="ml-2">
+          
             <Input ref={refFocusInput} type="text" label='Validar OT' name='ProcesarOT' className='text-xl' color='orange'  value={valueConfirmOT} onChange={(e:any)=>{handleProcesarConfirm(e.target.value),setValueConfirmOT(e.target.value)}} />
+         
           </div>
           )}
 

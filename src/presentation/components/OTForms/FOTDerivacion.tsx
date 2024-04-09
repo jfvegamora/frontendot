@@ -12,6 +12,7 @@ import { URLBackend } from '../../hooks/useCrud';
 import { toast } from 'react-toastify';
 import { useModal } from '../../hooks/useModal';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { paramsOT } from '../../views/mantenedores/MOT';
 
 
 interface IDerivacion {
@@ -172,7 +173,7 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
                 'Derivada'
             ).then(()=>{
                 closeModal()
-                dispatch(fetchOT({OTAreas:OTAreas["areaActual"]}))
+                dispatch(fetchOT({OTAreas:OTAreas["areaActual"], searchParams: paramsOT.value}))
             })
         }
     

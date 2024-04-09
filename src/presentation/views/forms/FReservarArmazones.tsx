@@ -155,7 +155,7 @@ const FReservarArmazones = () => {
         "punto_venta" : ''
       }
 
-      const _id = 0 //?0 PARA QUE NO VALIDE CRSITAL Y SOLO VALIDE ARMAZON Y STOCK
+      const _id = 1 //? 0 PARA QUE NO VALIDE CRSITAL Y SOLO VALIDE ARMAZON Y STOCK
       const _p6 = 1 //? 1 VALIDAR PARAMETRIZACION
       const _p1 = codArmazon
       const _p2 = codProyecto.value
@@ -174,8 +174,7 @@ const FReservarArmazones = () => {
       if(codArmazon !== ''){
         try {
           const fetchURL = `${urlbase}&_p1=${_p1}&_p2=${_p2}&_p3=${_p3}&_p4=${_p4}&_p5=${_p5}&_pkToDelete=${_pkToDelete}&_id=${_id}&_p6=${_p6}`
-          'https://gestiondev.mtoopticos.cl/api/armazones/listado/?query=02&_p1=4010000071869'
-          '&_p2=CODIGO PROYECTO&_p3=PUNTO DE VENTA&_p4=&_p5=65%_pkToDelete=[object Object]&_id=0&_p6=1'
+         
           console.log(fetchURL)
           const result = await axios(fetchURL)
           
@@ -185,8 +184,8 @@ const FReservarArmazones = () => {
           console.log(codArmazon)
           console.log(result.data[0][0])
 
-          if(result.data && result.data[0] && result.data[0][0] === 'ERROR'){
-            toast.error(result.data[0][1])
+          if(result.data && result.data[0] && result.data[0][19] !== ''){
+            toast.error(result.data[0][19])
             setValue(armazon,'')
             setArmazon1('')
           }

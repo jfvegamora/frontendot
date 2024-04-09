@@ -174,7 +174,7 @@ export const table_head_OT_diaria2 = [
   {
     cell: "ESTADO VALIDACION",
     key: "estado_validacion",
-    visible: false,
+    visible: true,
     alignment: "text-center",
     width: "w-[10trem]"
   },
