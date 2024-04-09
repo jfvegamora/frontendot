@@ -900,6 +900,9 @@ const checkArmazones = camposRequeridosArmazones.every(campo => {
 // console.log(checkOptica)
 
 
+console.log(data)
+
+
   return (
 
     <div className='useFormContainerOT top-[0%]  w-full h-[100%]'>

@@ -1584,18 +1584,28 @@ export const updateOT =async (
   isValidateBodega?:boolean,
   tipo_evento?:string
 )  => {
+  console.log(data)
+
+  console.log(data["usuario_id"])
+  console.log(user)
+  
+  if(data["usuario_id"] !== user){
+    return toast.error(`Folio ${data[EnumGrid.folio]} no pertenece al Usuario`);
+  }
 
   // console.log(jsonData)
   // console.log(_formValues)
   // console.log(data)
   const toastLoading = toast.loading('Cargando...');
   let folio = data?.[EnumGrid.folio]
+  
+  
+
+
+
 
   console.log(folio)
   console.log(_estado)
-
-
-  
 
   let motivo = data && data[EnumGrid.motivo] === 'Garantía' ? 2 : 1;
   //TODO: INICIO PROCESAR MASIVO
@@ -1781,7 +1791,8 @@ export const updateOT =async (
       return null; 
     })
     .filter(item => item !== null);
-const _armazonJSONNew = JSON.stringify(armazones)
+
+  const _armazonJSONNew = JSON.stringify(armazones)
 
   const filteredFields = fields
                           .map((a)=>a.split('='))
@@ -1792,6 +1803,11 @@ const _armazonJSONNew = JSON.stringify(armazones)
 
   let _p1 = filteredFields.join(',');    
   _p1 = _p1.replace(/'/g, '!');
+
+  console.log(data)
+  console.log(user)
+
+
 
 
   const query = {

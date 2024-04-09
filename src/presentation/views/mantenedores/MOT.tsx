@@ -122,12 +122,14 @@ const MOT: React.FC = () => {
       proyecto: OTs.data[row] && OTs.data[row][8],
       punto_venta: OTs.data[row] && OTs.data[row][6],
       tipo_anteojo: OTs.data[row] && OTs.data[row][13],
+      estado_validacion : OTs.data[row] && OTs.data[row][23],
       numero_envio: OTs.data[row] && OTs.data[row][24],
       numero_reporte_firma: OTs.data[row] && OTs.data[row][25],
       numero_reporte_atencion: OTs.data[row] && OTs.data[row][26],
       numero_orden_compra: OTs.data[row] && OTs.data[row][27],
       numero_factura: OTs.data[row] && OTs.data[row][29],
       numero_guia: OTs.data[row] && OTs.data[row][28],
+      usuario_id: OTs.data[row] && OTs.data[row][32]
     }));
 
     setPkToDelete(newPkToDelete as any)
