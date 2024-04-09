@@ -172,7 +172,7 @@ export const table_head_OT_diaria2 = [
     width: "w-[10trem]"
   },
   {
-    cell: "ESTADO VALIDACION",
+    cell: "E V",
     key: "estado_validacion",
     visible: true,
     alignment: "text-center",
@@ -216,6 +216,27 @@ export const table_head_OT_diaria2 = [
   {
     cell: "N° Factura",
     key: "num_factura",
+    visible: true,
+    alignment: "text-left",
+    width: "w-[6rem]"
+  },
+  {
+    cell: "IMPRIMRI QR",
+    key: "imprimir_qr",
+    visible: false,
+    alignment: "text-left",
+    width: "w-[6rem]"
+  },
+  {
+    cell: "IMRIMIR TICKET",
+    key: "imprimir_tiquet",
+    visible: false,
+    alignment: "text-left",
+    width: "w-[6rem]"
+  },
+  {
+    cell: "USUARIO ID",
+    key: "usuario id",
     visible: true,
     alignment: "text-left",
     width: "w-[6rem]"
