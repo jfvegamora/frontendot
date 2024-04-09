@@ -6,6 +6,7 @@ import { validationFechaDespacho, validationFechaEntregaCliente, validationFecha
 import { EnumGrid } from "../views/mantenedores/MOTHistorica";
 import { toast } from "react-toastify";
 import { validation_tipo_anteojo } from "./OTReceta_utils";
+import { areaActualOT } from "../components/OTAreasButtons";
 
 
 export const dioptrias:any = signal<any>({
@@ -1586,11 +1587,21 @@ export const updateOT =async (
 )  => {
   console.log(data)
 
-  console.log(data["usuario_id"])
-  console.log(user)
+  console.log(tipo_evento)
+
+  let usuarioData = tipo_evento === 'Procesada' ? data ["usuario_id"] : parseInt(data[EnumGrid.usuario_id])
   
-  if(data["usuario_id"] !== user){
-    return toast.error(`Folio ${data[EnumGrid.folio]} no pertenece al Usuario`);
+  
+  console.log(usuarioData)
+  console.log(user)
+  console.log(areaActualOT.value)
+  
+  
+
+  if(areaActualOT.value as any === 50){
+    if(usuarioData !== parseInt(user)){
+      return toast.error(`Folio ${data[EnumGrid.folio]} no pertenece al Usuario`);
+    }
   }
 
   // console.log(jsonData)

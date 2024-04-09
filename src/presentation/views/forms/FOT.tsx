@@ -307,7 +307,6 @@ const FOT:React.FC<IFOTProps> = ({
     let motivo                      = 1;
     let estado_validacion           = sumatoriaNivel1  === validationNivel1.value.length ? 2 : 1
 
-
     let _origen = OTAreaActual.toString();
     let _destino = OTAreaActual.toString();
 

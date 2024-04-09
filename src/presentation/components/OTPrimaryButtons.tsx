@@ -381,12 +381,16 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
       let estado = 0
       console.log(pkToDelete)
 
-      const validateEstado   = pkToDelete.every((ot:any) => ot["estado_validacion"] === '1');
+      const validateEstado   = pkToDelete.every((ot:any) => ot["estado_validacion"] === '2');
       const validateUsuario  = pkToDelete.every((ot:any) => ot["usuario_id"] === User.id);
       const validateProyecto = pkToDelete.every((ot:any) => ot["proyecto_codigo"] === pkToDelete[0]["proyecto_codigo"]);
 
       const foliosMensaje = pkToDelete && pkToDelete.map(({folio}:any)=>folio)
 
+      
+            if(!validateEstado){
+              return toast.error(`Folio ${folios} no está validado correctamente`);
+            }
 
 
       console.log(validateEstado)
@@ -397,10 +401,6 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
         console.log('render')
         toast.error(`Folio ${foliosMensaje} no pertenece al Usuario ${User.nombre}`);
         return;
-      }
-
-      if(!validateEstado){
-        return toast.error(`Folio ${folios} no está validado correctamente`);
       }
 
       if(!validateProyecto){
