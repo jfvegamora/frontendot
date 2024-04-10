@@ -603,6 +603,8 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
 
     }
 
+
+    console.log(valueConfirmOT)
     return (
     <div className='flex items-center   ml-[4rem] !w-full'>
         { (areaPermissions && areaPermissions[0] === "1" ) && (permisos_usuario_areas === '1') && (
@@ -734,7 +736,10 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
           {areaPermissions && areaPermissions[15] === '1' && permisos_usuario_areas === '1' && (
           <div className="ml-2">
           
-            <Input ref={refFocusInput} type="text" label='Validar OT' name='ProcesarOT' className='text-xl' color='orange'  value={valueConfirmOT} onChange={(e:any)=>{handleProcesarConfirm(e.target.value),setValueConfirmOT(e.target.value)}} />
+            <Input ref={refFocusInput} type="text" label='Validar OT' name='ProcesarOT' className='text-xl' color='orange'  value={valueConfirmOT} onChange={(e:any)=>{
+              handleProcesarConfirm(e.target.value),
+              setValueConfirmOT(e.target.value)
+              }} />
          
           </div>
           )}
@@ -742,7 +747,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
           
 
         {isShowErrorOTModal && (
-          <ErrorOTModal onClose={()=>setIsShowErrorOTModal(false)} data={dataOT && dataOT}/>
+          <ErrorOTModal onClose={()=>setIsShowErrorOTModal(false)} data={dataOT && dataOT} valueConfirmOT={valueSearchOT}/>
         )}
 
 

@@ -56,7 +56,7 @@ const FOTOrdenCompra: React.FC<IDerivacion> = ({
 
         if(parseInt(pktoDelete[0]["orden_compra"]) !== 0){
             const result = await showModal(
-                `OT: ${pktoDelete[0]["folio"]} Tiene Reporte de atención asignado, ¿Desea agregar uno nuevo? `,
+                `OT: ${pktoDelete[0]["folio"]} Tiene Orden de compra asignado, ¿Desea agregar uno nuevo? `,
                 '', 
                 MODAL.keepYes,
                 MODAL.kepNo
@@ -69,7 +69,7 @@ const FOTOrdenCompra: React.FC<IDerivacion> = ({
 
         if (pktoDelete.some((OT: any) => OT["reporte_atencion"] <= 0)) {
             pktoDelete.filter((ot:any)=> ot["reporte_atencion"] <= 0).map((ot:any)=>{
-                toast.error(`Folio: ${ot["folio"]} sin Reporte de atencion`);
+                toast.error(`Folio: ${ot["folio"]} sin Reporte de Entrega`);
             })
         } else {
 

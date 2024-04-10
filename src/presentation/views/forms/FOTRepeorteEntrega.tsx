@@ -86,17 +86,27 @@ const FOTReporteEntrega: React.FC<Interface> = ({
 
 
     const onSubmit: SubmitHandler<any> = async (jsonData) => {
+        
+        // console.log(pktoDelete)
+        
         if(pktoDelete.length < 1){
             return toast.error('No Hay OT Seleccionada')
         }
 
-        if(jsonData["numero_doc"] <= 0){
+        console.log(jsonData["numero_doc"])
+        console.log(parseInt(jsonData["numero_doc"]) >= 0)
+        if(!(parseInt(jsonData["numero_doc"]) >= 0)){
             return toast.error('Numero de documento debe ser mayor a 0')
+        }
+
+        if (pktoDelete.every((ot:any) => ot.estado !== 'Entregada' && ot.estado !== 'Cerrada')) {
+            toast.error(`OT debe estar Entregada o Cerrada `);
+            return;
         }
         
         if(parseInt(pktoDelete[0]["reporte_atencion"]) !== 0){
             const result = await showModal(
-                `OT: ${pktoDelete[0]["folio"]} tiene Reporte de atención asignado  ¿Desea modificarlo? `,
+                `OT: ${pktoDelete[0]["folio"]} tiene Reporte de Entrega asignado  ¿Desea modificarlo? `,
                 '', 
                 MODAL.keepYes,
                 MODAL.kepNo
@@ -109,10 +119,7 @@ const FOTReporteEntrega: React.FC<Interface> = ({
 
         console.log(pktoDelete)
        
-        if (pktoDelete.every((ot:any) => ot.estado !== 'Entregada')) {
-            toast.error(`OT debe estar Entregada `);
-            return;
-        }
+      
 
         // const proyectoPrimero = pktoDelete[0].proyecto;
         // if (pktoDelete.some((ot:any) => ot.proyecto !== proyectoPrimero)) {

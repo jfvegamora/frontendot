@@ -99,7 +99,7 @@ return (
       control={control}
       defaultValue={value}
       render={({ field }) => (
-        <div className={`labelInput !mb-[1rem] !ml-[1rem] relative ${error ? 'border-red-500' : 'border-gray-500'}`}>
+        <div className={`labelInput !mb-[1rem] !ml-[1rem] relative ${error ? '!border-red-500' : 'border-gray-500'}`}>
           <Input
             {...field}
             error={error ? true : false}

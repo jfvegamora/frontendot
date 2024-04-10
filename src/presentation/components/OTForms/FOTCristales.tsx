@@ -318,6 +318,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                             onlyRead={!(isEditting && (permiso_areas_cristales && permiso_usuario_cristales))}
                                             textAlign="text-center"
                                             className='!text-xl custom-input !w-[17rem]'
+                                            error={'hola'}
                                         />
                                     </div>
                                     <div className="!w-[50%] !pr-[1rem] !ml-[-1rem]">

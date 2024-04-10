@@ -1412,22 +1412,25 @@ export const getGrupoCristales_A1 = async(formValue:any, data:any, setErrorGrupo
             getGrupoCristales_A2(formValue, data, setErrorGrupoDioptriaA2, setChangeboolean)
           }
           if(cristalesDATA && cristalesDATA["ERROR"] !== ''){
-            setErrorGrupoDioptriaA1(cristalesDATA["ERROR"]);
-            // console.log('hay error')
-            // console.log(cristalesDATA)
-            //   console.log('render')
-            //   toast.error(cristalesDATA["ERROR"])
-
-            // console.log(cristalesDATA["ERROR"])
-
-
+            
+            console.log(cristalesDATA["ERROR"])
+             
             // if(cristalesDATA["ERROR"].includes('STOCK')){
-            //   estado_validacion.value = '1'
+            //   A1_CR_OD.value = cristalesDATA["CR_OD"].trim() || "   ";
+            //   A1_CR_OI.value = cristalesDATA["CR_OI"].trim() || "   "
+            //   // A1_GRUPO.value = cristalesDATA["GRUPO"]
+    
+            //   A1_GRUPO_OD.value = cristalesDATA["GRUPO_OD"].trim() || "  "
+            //   A1_GRUPO_OI.value = cristalesDATA["GRUPO_OI"].trim() || "  "
+              
+            //   validation_Cristal1_od(cristalesDATA["CR_OD"])
+            //   validation_Cristal1_oi(cristalesDATA["CR_OI"])
+            //   setChangeboolean((prev:boolean)=>!prev)
             //   return;
             // }
 
-            // // toast.error(cristalesDATA["ERROR"])
 
+            setErrorGrupoDioptriaA1(cristalesDATA["ERROR"]);
 
             A1_CR_OD.value = " ";
             A1_CR_OI.value = " ";

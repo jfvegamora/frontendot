@@ -75,7 +75,13 @@ const MReservaArmazones: React.FC = () => {
     
     useEffect(() => {    
       const newPkToDelete = selectedRows.map((row: number) => 
-       `{"rut":"${entities[row][EnumGrid.cliente_rut]}"}`);
+       `{
+        "rut"           :"${entities[row][EnumGrid.cliente_rut]}", 
+        "punto_venta"   : ${entities[row][EnumGrid.punto_venta_id]}, 
+        "tipo_anteojo"  : ${entities[row][EnumGrid.tipo_anteojo_id]},
+        "armazon_1"     :"${entities[row][EnumGrid.cod_armazon1]}",
+        "armazon_2"     :"${entities[row][EnumGrid.cod_armazon2]}"  
+      }`);
       const combinedPks = newPkToDelete.join(',');
   
       setPkToDelete([`${strParamsToDelete}=[${combinedPks}]`]);

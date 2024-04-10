@@ -3364,13 +3364,14 @@ export const table_head_reserva_armazones = [
     cell: "DP",
     key: "dp",
     visible: true,
-    width: "w-[10rem]",
-    alignment: "text-left"
+    alignment: "text-left",
+    width: "w-[5rem]",
   },
   {
     cell: "Armazon 1",
     key: "cod_armazon_1",
     visible: true,
+    width: "w-[10rem]",
   },
   {
     cell: "Armazon 2",

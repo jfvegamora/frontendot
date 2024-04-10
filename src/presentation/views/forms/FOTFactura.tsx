@@ -47,7 +47,9 @@ const FOTFactura: React.FC<IDerivacion> = ({
             return toast.error('No Hay OT Seleccionada')
         }
 
-        if(jsonData["numero_doc"] <= 0){
+        console.log(parseInt(jsonData["numero_doc"]))
+
+        if(!(parseInt(jsonData["numero_doc"]) >= 0)){
             return toast.error('Número de documento debe ser mayor a 0');
         }
 
@@ -55,6 +57,11 @@ const FOTFactura: React.FC<IDerivacion> = ({
             return toast.error('Valor neto debe ser mayor a 0')
         }
 
+
+        if (pktoDelete.every((ot:any) => ot.estado !== 'Facturada' && ot.estado !== 'Cerrada')) {
+            toast.error(`OT debe estar Cerrada o Facturada `);
+            return;
+        }
 
         if(parseInt(pktoDelete[0]["numero_factura"]) !== 0){
             const result = await showModal(

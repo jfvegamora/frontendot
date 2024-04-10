@@ -135,10 +135,13 @@ const FReservarArmazones = () => {
     // register,
     handleSubmit,
     formState: {errors},
-    setValue
+    setValue,
+    getValues
   } = useForm<any>({
     resolver: yupResolver(schema)
   })
+
+  const formValues = getValues();
 
   const fetchValidateArmazon = async(armazon:string, codArmazon:string) => {
       const urlbase = `${URLBackend}/api/armazones/listado/?query=02`
@@ -184,11 +187,11 @@ const FReservarArmazones = () => {
           console.log(codArmazon)
           console.log(result.data[0][0])
 
-          if(result.data && result.data[0] && result.data[0][19] !== ''){
-            toast.error(result.data[0][19])
-            setValue(armazon,'')
-            setArmazon1('')
-          }
+          // if(result.data && result.data[0] && result.data[0][19] !== ''){
+          //   toast.error(result.data[0][19])
+          //   setValue(armazon,'')
+          //   setArmazon1('')
+          // }
 
 
 
@@ -205,6 +208,19 @@ const FReservarArmazones = () => {
 
   
     }
+
+
+  const clearTextInputs  = () => {
+    setValue('rut_beneficiario', '');
+    setValue('dp', '');
+    setValue('Armazon1', '');
+    setValue('Armazon2', '');
+    setValue('Armazon3', '');
+
+    setArmazon1('');
+    setArmazon2('');
+    setArmazon3('');
+  }
 
 
 
@@ -250,8 +266,18 @@ const FReservarArmazones = () => {
         const reservaResponse = await axios(`${URLBackend}/api/otreservaarmazones/listado/?query=03&_pkToDelete=${encodeURIComponent(JSON.stringify(reservaJSON))}`)
 
         console.log(reservaResponse)
-      
-      
+        // [
+        //   "ERROR",
+        //   "El RUT 191111111 ya tiene armazones reservados (4010000071869, 4010000071869, 4010000071869."
+        // ]
+        
+        if(reservaResponse["data"].length < 1){
+          clearTextInputs();
+          return toast.success('Armazones reservados correctamente')
+        }else{
+          return toast.error(reservaResponse["data"][0][1])
+        }
+
       } catch (error) {
         console.log(error)
       }
@@ -379,9 +405,10 @@ React.useEffect(()=>{
           <div className="w-[22rem]  !mt-5  flex rowForm">
             <div className="w-[65%]  text-xl !-ml-4">
               <TextInputComponent
-                type='number'
+                type='text'
                 label='Rut Beneficiario'
                 name="rut_beneficiario"
+                data={formValues && formValues["rut_beneficiario"]}
                 control={control}
                 handleChange={handleChange}
                 textAlign='text-right !text-[1.7rem] !h-[3.9rem]'
@@ -396,9 +423,9 @@ React.useEffect(()=>{
                 label='DP'
                 name="dp"
                 handleChange={(e:any)=>{
-                  console.log(e.value)
                   codDP.value = e.value
                 }}
+                data={formValues && formValues["dp"]}
                 isOT={true}
                 control={control}
                 textAlign='text-right !text-[2rem] !h-[3.9rem]'
@@ -459,6 +486,7 @@ React.useEffect(()=>{
                     textAlign='text-right !text-[2rem] !h-[3.5rem]'
                     customWidth={"!text-2xl w-[22rem]"}
                     error={errors.Armazon3}
+                    isOptional={true}
                     handleFocus={()=>handleFocus('Armazon3')}
 
                   

@@ -957,6 +957,8 @@ export default function ComplexNavbar() {
   const [_titulo, setTitulo] = useState('');
   const [isNavOpen, setIsNavOpen] = React.useState(false);
 
+  const navigate = useNavigate();
+
 
   const toggleIsNavOpen = () => setIsNavOpen((cur) => !cur);
 
@@ -984,6 +986,7 @@ export default function ComplexNavbar() {
   return (
     <>
       {userState?.nombre && (
+      
         <Navbar className=" mt-2 mx-auto max-w-screen-xl sm:scroll-mx-4  p-2 lg:rounded-full lg:pl-6 navBarBorder z-10 ">
           <div className="relative mx-auto flex items-center text-blue-gray-900">
             <div className="w-[40%] ml-2 cursor-pointer mantenedor-titulo">
@@ -992,7 +995,7 @@ export default function ComplexNavbar() {
 
               </Typography>
             </div>
-            <div className="absolute  top-2/4 left-[52%] hidden -translate-x-2/4 -translate-y-2/4 lg:block">
+            <div className="absolute  top-2/4 left-[50%] hidden -translate-x-2/4 -translate-y-2/4 lg:block">
               <NavList />
             </div>
             <IconButton
@@ -1004,10 +1007,27 @@ export default function ComplexNavbar() {
             >
               <Bars2Icon className="h-6 w-6" />
             </IconButton>
-            <ProfileMenu />
+            <div className="lg:block sm:hidden lg:absolute lg:top-[6%] lg:right-6 lg:w-[50%]">
+              <ProfileMenu />
+            </div>
           </div>
-          <Collapse open={isNavOpen} className="overflow-scroll">
-            <NavList />
+          <Collapse open={isNavOpen} className="!overflow-y-auto bg-red-400">
+            <div className=" bg-blue-400 absolute -left-[15%] top-[10%] w-[65%]    lg:hidden">
+              {/* <NavList /> */}
+              <ProfileMenu />
+            </div>
+            <ul>
+              <li
+                onClick={ () => {
+                  navigate('/terreno')
+                  // console.log('')
+                  // strNavTitle.value = 'Reserva de Armazones'
+                }
+                }
+              >
+                Reserva de Armazones
+              </li>
+            </ul>
           </Collapse>
         </Navbar>
       )}

@@ -10,13 +10,15 @@ interface IDerivacion {
     data?:any;
     onClose?: any;
     formValues?:any;
-    closeModal?:any
+    closeModal?:any;
+    valueConfirmOT?:any;
 }
 
 
 const ErrorOTModal:React.FC<IDerivacion> = ({
     data,
     onClose,
+    valueConfirmOT
     // formValues,
     // closeModal,
     // formValues
@@ -40,6 +42,8 @@ const ErrorOTModal:React.FC<IDerivacion> = ({
   // console.log(data)
   // console.log(data.length)
 
+  console.log(valueConfirmOT)
+
   return (
     <div className='useFormContainer useFormDerivacion centered-div use40rem z-30 !bg-red-500'>
         
@@ -57,13 +61,14 @@ const ErrorOTModal:React.FC<IDerivacion> = ({
         <div className="h-[20rem] text-center">
             {data && data.length > 0 ? (
               <div>
-                <h1>AREA ACTUAL: {data && data[0][EnumGrid.area]}</h1>
-                <h1>FOLIO: {data && data[0][EnumGrid.folio]}</h1>
-                <h1>ESTADO: {data && data[0][EnumGrid.estado]}</h1>
+                <h1>AREA ACTUAL  : {data && data[0][EnumGrid.area]}</h1>
+                <h1>FOLIO        : {data && data[0][EnumGrid.folio]}</h1>
+                <h1>ESTADO       : {data && data[0][EnumGrid.estado]}</h1>
               </div>
             ) : (
               <div>
-                <h1>OT NO ENCONTRADA</h1>
+                <h1>OT NO EXISTE </h1>
+                <h1>FOLIO  : { valueConfirmOT || ''}</h1>
               </div>
             )}
         </div>
