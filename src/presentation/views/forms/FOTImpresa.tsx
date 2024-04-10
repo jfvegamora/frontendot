@@ -95,17 +95,17 @@ const FOTImpresa = React.forwardRef((props:any, ref:any) => {
     <>
       {masivo === true ? 
          (
-          <div ref={ref} className='flex flex-col !h-[63rem]'>
+          <div ref={ref} className='flex flex-col !h-auto'>
             {OT && OT.map((ot:any)=>{
               console.log(ot[EnumGrid.folio])
               console.log(ot[EnumGrid.imprime_qr])
 
               return(
-                <div className={`!w-[90%] !h-[70rem]`} key={ot[EnumGrid.folio]} >                 
-                    <div className="w-[110%] !relative  !h-[9%] mb-4">
+                <div className={`!w-[90%] !h-[80rem] `} key={ot[EnumGrid.folio]} >                 
+                    <div className="w-[110%] !relative  !h-[8%] mb-4">
                       <div className="w-[90%] mr-7  mx-auto">
                         <Barcode marginLeft={45} height={25} width={2.5} textAlign='right'  value={formatNumberWithZeros(ot[EnumGrid.folio])} />
-                        <h3 className={`absolute ${ot[EnumGrid.imprime_qr] === 1 ? 'bottom-1' : 'bottom-2'} left-10`}>{fechaHora}</h3>
+                        <h3 className={`absolute ${ot[EnumGrid.imprime_qr] === 1 ? 'bottom-[2.5rem]' : 'bottom-4'} left-10`}>{fechaHora}</h3>
                       </div>
                     </div>
 
@@ -356,8 +356,47 @@ const FOTImpresa = React.forwardRef((props:any, ref:any) => {
                   </div>
 
 
+                  
+                <div className="w-[110%] flex border-black border-b-[1px] justify-between">
+                  
+                  <div className="w-[46%] ">
+                    <div className="flex">
+                      <h1 className='font-bold ml-4'>A1: </h1>&nbsp;
+                      <p className=' text-center'>{ot[EnumGrid.a1_armazon_id]}</p>
+                    </div>
+                    <p className="text-sm ml-4">
+                      {ot[EnumGrid.a1_armazon]}
+                    </p>
+                  </div>
+                  
+                  <div className="w-[49.9%] border-l-[1px]  border-black">
+                    <div className="flex">
+                      <h1 className='font-bold ml-4'>A2:</h1>&nbsp;
+                      <p className=' text-center'>{ot[EnumGrid.a2_armazon_id]}</p>
+                    </div>
+                    <p className="text-sm ml-2">
+                      {ot[EnumGrid.a2_armazon]}
+                    </p>
+                  </div>
+                </div>
 
 
+                <div className='mt-2 ml-4 border-2 border-black'>
+                  {ot[EnumGrid.fecha_receta] && (
+                    
+                    <div className='flex w-full'>
+                      <p className='ml-2 font-bold'>N. Receta:</p>
+                      <p className='ml-4'>{parsedDate(ot[EnumGrid.numero_receta])}</p>
+                    </div>
+                  )}
+
+                  {(ot[EnumGrid.observaciones] && ot[EnumGrid.observaciones].trim() !== '') && (
+                    <div className="flex w-full">
+                      <p className='ml-2'>{ot[EnumGrid.observaciones]}</p>
+                    </div>              
+                  )}
+
+                </div>
 
 
 

@@ -297,7 +297,7 @@ const FOT:React.FC<IFOTProps> = ({
 
 
 
-
+console.log(data && data[EnumGrid.lugar_despacho])
   
   const insertOT = async(jsonData:any, cristalesJSON:any, armazonesJSON:any) => {
 
