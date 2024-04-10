@@ -97,7 +97,7 @@ const MEstablecimientos: React.FC = () => {
                 label: "Mandante",
                 type: "select",
                 selectUrl: "/api/mandantes/",
-                styles: { with: "!w-[18rem]" },
+                styles: { with: "!w-[12rem]" },
               },
               {
                 name      : "_p3",
@@ -105,7 +105,15 @@ const MEstablecimientos: React.FC = () => {
                 type      : "select",
                 selectUrl : "/api/tipos/",
                 tipos     : "EstablecimientosTipos",
-                styles: { with: "!w-[18rem]" },
+                styles: { with: "!w-[12rem]" },
+              },
+              {
+                name      : "_p5",
+                label     : "Provincia",
+                type      : "select",
+                selectUrl : "/api/tipos/",
+                tipos     : "Provincias",
+                styles: { with: "!w-[12rem]" },
               },
         ]}
           />
