@@ -89,7 +89,7 @@ const FOTReporteFirma: React.FC<Interface> = ({
             return toast.error('No Hay OT Seleccionada')
         }
 
-        if(jsonData["numero_doc"] <= 0){
+        if(!(parseInt(jsonData["numero_doc"]) >= 0)){
             return toast.error('Numero de documento debe ser mayor a 0')
         }
 
@@ -101,13 +101,13 @@ const FOTReporteFirma: React.FC<Interface> = ({
 
         const toastLoading = toast.loading('Cargando...');
 
-        console.log(pkToDelete)
+        // console.log(pkToDelete)
 
 
-        if(parseInt(pkToDelete[0]["numero_envio"]) !== 0 && pkToDelete[0]["numero_envio"] !== null){
-            toast.dismiss(toastLoading)
-            return toast.error(`OT ${pkToDelete[0]["folio"]} ya tiene un número de envío asignado `)
-          }
+        // if(parseInt(pkToDelete[0]["numero_envio"]) !== 0 && pkToDelete[0]["numero_envio"] !== null){
+        //     toast.dismiss(toastLoading)
+        //     return toast.error(`OT ${pkToDelete[0]["folio"]} ya tiene un número de envío asignado `)
+        //   }
     
           if(parseInt(pkToDelete[0]["numero_reporte_firma"]) !== 0){
             const result = await showModal(

@@ -45,7 +45,8 @@ const FOTGuiaDespacho: React.FC<IDerivacion> = ({
 
     const onSubmit: SubmitHandler<any> = async (jsonData) => {
 
-        if(jsonData["numero_doc"] <= 0){
+        
+        if(!(parseInt(jsonData["numero_doc"]) >= 0)){
             return toast.error('Numero de documento debe ser mayor a 0')
         }
 

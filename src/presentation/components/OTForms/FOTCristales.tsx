@@ -66,10 +66,10 @@ const FOTCristales: React.FC<ICristales> = ({
         if(name === 'validar_cristal2_od'){
             validar_cristal2_od.value = value.trim(); 
         }
+
         if(name === 'validar_cristal2_oi'){
             validar_cristal2_oi.value = value.trim(); 
         }
-
         console.log(formValuesCompleto)
     }
 

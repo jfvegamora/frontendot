@@ -44,7 +44,7 @@ const FOTEmpaque: React.FC<IFOTEmpaque> = ({
             return toast.error('No Hay OT Seleccionada')
         }
 
-        if(parseInt(jsonData.numero_doc) <= 0){
+        if(!(parseInt(jsonData.numero_doc) >= 0)){
             return toast.error('Número de documento debe ser mayor a 0')
         }
 
@@ -56,9 +56,9 @@ const FOTEmpaque: React.FC<IFOTEmpaque> = ({
 
 
 
-        if(parseInt(pktoDelete[0]["numero_reporte_firma"]) !== 0){
-            return toast.error(`OT ${pktoDelete[0]["folio"]} ya tiene un reporte de firma asignado `)
-        }
+        // if(parseInt(pktoDelete[0]["numero_reporte_firma"]) !== 0){
+        //     return toast.error(`OT ${pktoDelete[0]["folio"]} ya tiene un reporte de firma asignado `)
+        // }
 
         if(parseInt(pktoDelete[0]["numero_envio"]) !== 0){
             const result = await showModal(
