@@ -107,6 +107,8 @@ const ImportToCsv:React.FC<ImportProps> = ({
       }
     },500)
     
+    console.log(strEntidad)
+
     if(validate["blob"] && validate["numberOfElements"]){   
       formData.append('file', validate["blob"], 'modified_file.xls');
       formData.append('positions_to_remove', JSON.stringify(PositionToRemove[strEntidad as "Clientes"]));

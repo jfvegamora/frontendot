@@ -397,7 +397,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
 
       console.log(validateUsuario)
 
-      if(!validateUsuario){
+      if(!validateUsuario && OTAreas["areaActual"] === 50){
         console.log('render')
         toast.error(`Folio ${foliosMensaje} no pertenece al Usuario ${User.nombre}`);
         return;

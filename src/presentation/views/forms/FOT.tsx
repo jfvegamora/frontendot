@@ -899,7 +899,8 @@ const checkArmazones = camposRequeridosArmazones.every(campo => {
 // console.log(checkOptica)
 
 
-console.log(data)
+console.log(data && data[EnumGrid.lugar_despacho])
+
 
 
   return (

@@ -36,7 +36,7 @@ export enum EnumGrid {
 
 
 const strEntidad = "Kardex de Armazón ";
-const strEntidadExcel = "Armazones_Kardex";
+const strEntidadExcel = "ArmazonesKardex";
 const strBaseUrl = "/api/armazoneskardex/";
 const strQuery = "01";
 const idMenu = 6;
