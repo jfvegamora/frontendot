@@ -35,7 +35,7 @@ export enum EnumGrid {
 }
 
 const strEntidad = "Kardex de Cristal ";
-const strEntidadExcel = "Cristales_Kardex";
+const strEntidadExcel = "CristalesKardex";
 const strBaseUrl = "/api/cristaleskardex/";
 const strQuery = "01";
 const idMenu = 8;
