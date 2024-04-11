@@ -20,7 +20,7 @@ export const dioptrias:any = signal<any>({
 
 
 
-
+export const clearAllCheck = signal(false);
 export const codigoProyecto = signal("")
 
 export const a1_od_esf  = signal<any | undefined>(undefined);
@@ -1414,23 +1414,26 @@ export const getGrupoCristales_A1 = async(formValue:any, data:any, setErrorGrupo
           if(cristalesDATA && cristalesDATA["ERROR"] !== ''){
             
             console.log(cristalesDATA["ERROR"])
-             
-            // if(cristalesDATA["ERROR"].includes('STOCK')){
-            //   A1_CR_OD.value = cristalesDATA["CR_OD"].trim() || "   ";
-            //   A1_CR_OI.value = cristalesDATA["CR_OI"].trim() || "   "
-            //   // A1_GRUPO.value = cristalesDATA["GRUPO"]
+            
+
+            console.log(cristalesDATA)
+            if(cristalesDATA["MSG"].includes('STOCK')){
+              A1_CR_OD.value = cristalesDATA["CR_OD"].trim() || "   ";
+              A1_CR_OI.value = cristalesDATA["CR_OI"].trim() || "   "
+              // A1_GRUPO.value = cristalesDATA["GRUPO"]
     
-            //   A1_GRUPO_OD.value = cristalesDATA["GRUPO_OD"].trim() || "  "
-            //   A1_GRUPO_OI.value = cristalesDATA["GRUPO_OI"].trim() || "  "
+              A1_GRUPO_OD.value = cristalesDATA["GRUPO_OD"].trim() || "  "
+              A1_GRUPO_OI.value = cristalesDATA["GRUPO_OI"].trim() || "  "
               
-            //   validation_Cristal1_od(cristalesDATA["CR_OD"])
-            //   validation_Cristal1_oi(cristalesDATA["CR_OI"])
-            //   setChangeboolean((prev:boolean)=>!prev)
-            //   return;
-            // }
+              validation_Cristal1_od(cristalesDATA["CR_OD"])
+              validation_Cristal1_oi(cristalesDATA["CR_OI"])
+              setChangeboolean((prev:boolean)=>!prev)
+              toast.error(cristalesDATA["MSG"])
+              return;
+            }
 
 
-            setErrorGrupoDioptriaA1(cristalesDATA["ERROR"]);
+            setErrorGrupoDioptriaA1(cristalesDATA["MSG"]);
 
             A1_CR_OD.value = " ";
             A1_CR_OI.value = " ";
