@@ -346,29 +346,36 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
     //   }
     // }
 
-    const handleDownloadMacro = async() => {
-      try {
-        const url = `${URLBackend}/api/downloadexcel/`
-        const {data} = await axios({url,
-          method: 'GET',
-          responseType: 'blob',
-          headers: {
-            'Authorization': User.token, 
-          }
-        })
-        const blobUrl = window.URL.createObjectURL(new Blob([data]));
-        // Crear un enlace invisible y hacer clic en él para iniciar la descarga
-        const link = document.createElement('a');
-        link.href = blobUrl;
-        link.setAttribute('download', 'macro_ot.xlsm');
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-      } catch (error) {
-        // console.log(error)
-        throw error
-      }
+  const handleDownloadMacro = async() => {
+    try {
+      const url = `${URLBackend}/api/downloadexcel/`;
+      const formData = new FormData();
+      formData.append('ENTIDAD', 'OT'); // Aquí agregas el valor del macro que deseas enviar
+
+      const { data } = await axios({
+        url,
+        method: 'POST', // Cambiamos de GET a POST
+        data: formData, // Enviamos el FormData que contiene el string 'macro'
+        responseType: 'blob',
+        headers: {
+          'Authorization': User.token,
+          'Content-Type': 'multipart/form-data', // Asegúrate de establecer el tipo de contenido correctamente
+        },
+      });
+
+      const blobUrl = window.URL.createObjectURL(new Blob([data]));
+      // Crear un enlace invisible y hacer clic en él para iniciar la descarga
+      const link = document.createElement('a');
+      link.href = blobUrl;
+      link.setAttribute('download', 'macro_ot.xlsm');
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      // console.log(error)
+      throw error;
     }
+  };
 
 
     const handleWhatsappMasivo = () => {

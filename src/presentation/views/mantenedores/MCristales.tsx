@@ -183,6 +183,7 @@ const MCristales: React.FC = () => {
               showAddButton={true}
               showExportButton={true}
               showDeleteButton={true}
+              showMacroButton={true}
               showForwardButton={false}
               showImportCsv={true}
               showRefreshButton={true}

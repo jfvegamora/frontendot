@@ -3,7 +3,7 @@ import { SelectInputComponent } from '..';
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
 import { validationOTlevel2, validationOTlevel3,  } from '../../utils/validationOT';
 import SelectInputTiposComponent from '../forms/SelectInputTiposComponent';
-import { A1_CR_OD, A1_CR_OI, A1_GRUPO_OD, A1_GRUPO_OI, A2_CR_OD, A2_CR_OI, A2_Diametro, A2_GRUPO_OD, A2_GRUPO_OI, tipo_de_anteojo, validar_cristal1_od, validar_cristal1_oi, validar_cristal2_od, validar_cristal2_oi } from '../../utils';
+import { A1_CR_OD, A1_CR_OI, A1_GRUPO_OD, A1_GRUPO_OI, A2_CR_OD, A2_CR_OI, A2_Diametro, A2_GRUPO_OD, A2_GRUPO_OI, tipo_de_anteojo, validacionIncompleta, validar_cristal1_od, validar_cristal1_oi, validar_cristal2_od, validar_cristal2_oi } from '../../utils';
 import TextInputInteractive from '../forms/TextInputInteractive';
 // import { OTTextInputComponent } from '.';
 // import { validationNivel3 } from '../../views/forms/FOT';
@@ -317,8 +317,8 @@ const FOTCristales: React.FC<ICristales> = ({
                                             isOT={true}
                                             onlyRead={!(isEditting && (permiso_areas_cristales && permiso_usuario_cristales))}
                                             textAlign="text-center"
-                                            className='!text-xl custom-input !w-[17rem]'
-                                            error={'hola'}
+                                            className={`!text-xl custom-input !w-[17rem]  ${validacionIncompleta.value.a1_od === true ? "!bg-red-600 opacity-60" : ""} `}
+                                            error={true}
                                         />
                                     </div>
                                     <div className="!w-[50%] !pr-[1rem] !ml-[-1rem]">
@@ -332,7 +332,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                             control={control}
                                             onlyRead={!(isEditting && (permiso_areas_cristales && permiso_usuario_cristales))}
                                             textAlign="text-center"
-                                            className='!text-xl custom-input !w-[17rem]'
+                                            className={`!text-xl custom-input !w-[17rem]  ${validacionIncompleta.value.a1_oi === true ? "!bg-red-600 opacity-60" : ""} `}
 
                                         />
                                     </div>
@@ -542,7 +542,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                             isOT={true}
                                             onlyRead={!((isEditting && tipo_de_anteojo.value === '3') && (isEditting && permiso_areas_cristales && permiso_usuario_cristales && tipo_de_anteojo.value === '3'))}
                                             textAlign="text-center"
-                                            className='!text-xl custom-input !w-[17rem]'
+                                            className={`!text-xl custom-input !w-[17rem]  ${validacionIncompleta.value.a2_od === true ? "!bg-red-600 opacity-60" : ""} `}
                                         />
                                     </div>
                                     <div className="!w-[50%] !pr-[1rem] !ml-[-1rem]">
@@ -556,7 +556,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                             isOT={true}
                                             onlyRead={!((isEditting && tipo_de_anteojo.value === '3') && (isEditting && permiso_areas_cristales && permiso_usuario_cristales && tipo_de_anteojo.value === '3'))}
                                             textAlign="text-center"
-                                            className='!text-xl custom-input !w-[17rem]'
+                                            className={`!text-xl custom-input !w-[17rem]  ${validacionIncompleta.value.a2_oi === true ? "!bg-red-600 opacity-60" : ""} `}
                                         />
                                     </div>
                                 </div>

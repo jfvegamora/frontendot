@@ -4,7 +4,7 @@ import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
 import { validationOTlevel2, validation_A1_armazon, validation_A2_armazon, validation_Cristal1_od, validation_Cristal1_oi, validation_Cristal2_od, validation_Cristal2_oi } from '../../utils/validationOT';
 import { URLBackend } from '../../hooks/useCrud';
 import { toast } from 'react-toastify';
-import { A1_CR_OD, A1_CR_OI, A1_DP, A1_Diametro, A1_GRUPO_OD, A1_GRUPO_OI, A2_CR_OD, A2_CR_OI, A2_DP, A2_Diametro, A2_GRUPO_OD, A2_GRUPO_OI, a1_armazon, a2_armazon, a2_od_cil, a2_od_esf, a2_oi_cil, a2_oi_esf, a3_armazon, codigoProyecto, dioptrias_receta, punto_venta, tipo_de_anteojo, validar_parametrizacion } from '../../utils';
+import { A1_CR_OD, A1_CR_OI, A1_DP, A1_Diametro, A1_GRUPO_OD, A1_GRUPO_OI, A2_CR_OD, A2_CR_OI, A2_DP, A2_Diametro, A2_GRUPO_OD, A2_GRUPO_OI, a1_armazon, a2_armazon, a2_od_cil, a2_od_esf, a2_oi_cil, a2_oi_esf, a3_armazon, codigoProyecto, dioptrias_receta, punto_venta, tipo_de_anteojo, validacionIncompleta, validar_parametrizacion } from '../../utils';
 // import TextInputInteractive from '../forms/TextInputInteractive';
 // import { AppStore, useAppSelector } from '../../../redux/store';
 import { OTTextInputComponent } from '.';
@@ -250,10 +250,45 @@ const FOTArmazones:React.FC<IArmazones> = ({
             // console.log('no hay error')
             
             if(data && data[0][19] !== ''){
-                toast.error(data[0][19])
+                toast.error(data[0][20])
                 // _señal = " "
                 onDataChange({[inputName]: " "})
+                console.log(data)
+
+                switch (data[0][19]) {
+                    case 'ODOI':
+                        localStorage.setItem('a1_armazon', data[0])
+                        setArmazon1(data[0])
+                        setCodArmazon1(data[0][0])
+
+                        // A1_GRUPO_OD.value = data[0][15]
+                        // a1_armazon.value  = data[0][0]
+                        // A1_GRUPO_OI.value = data[0][16]
+
+                        // A1_CR_OD.value    = data[0][17]
+                        // A1_CR_OI.value    = data[0][18]
+
+
+                        // validation_Cristal1_oi(data[0][17])
+                        // validation_Cristal1_od(data[0][18])
+                        validation_A1_armazon(data[0][0])
+
+                        validacionIncompleta.value.check = true;
+                        validacionIncompleta.value.a1_od = true;
+                        validacionIncompleta.value.a1_oi = true;
+
+                        console.log('render')
+                        toast.dismiss(toastLoading)
+                        return;
+                    default:
+                        break;
+                }
+
+
+                console.log('render')
+
                 if(inputName === 'a1_armazon_id'){
+                    console.log('render')
                     setArmazon1([])
                     setCodArmazon1(" ")
                     validation_A1_armazon('')

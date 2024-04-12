@@ -15,6 +15,9 @@ import OTPrimaryButtons from "./OTPrimaryButtons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faClone, faTrash, faArrowRightToBracket, faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { ExportCustomCSV } from "./ExportCustomToCsv";
+import { PiMicrosoftExcelLogoFill } from "react-icons/pi";
+import axios from "axios";
+import { URLBackend } from "../hooks/useCrud";
 // import ExportToCsv from "./ExportToCsv";
 
 
@@ -36,6 +39,7 @@ interface IPrimaryButtonProps {
   showDeleteButton?: boolean;
   showExportButton?: boolean;
   showCustomExportButton?:boolean;
+  showMacroButton?:boolean;
   showImportCsv?:boolean;
   comilla?: boolean;
   strBaseUrl?: string;
@@ -67,6 +71,7 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
     // showRefreshButton,
     showDeleteButton,
     showImportCsv,
+    showMacroButton,
     strBaseUrl,
     showExportButton,
     params,
@@ -85,8 +90,42 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
     const [OTPermissions, setOTPermissions] = useState("");
 
     const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas);
+    const User:any = useAppSelector((store: AppStore) => store.user);
 
     const areaActual = OTAreas["areaActual"]
+
+
+    const handleDownloadMacro = async() => {
+      try {
+        const url = `${URLBackend}/api/downloadexcel/`;
+        const formData = new FormData();
+        formData.append('ENTIDAD', strEntidad as string); // Aquí agregas el valor del macro que deseas enviar
+  
+        const { data } = await axios({
+          url,
+          method: 'POST', // Cambiamos de GET a POST
+          data: formData, // Enviamos el FormData que contiene el string 'macro'
+          responseType: 'blob',
+          headers: {
+            'Authorization': User.token,
+            'Content-Type': 'multipart/form-data', // Asegúrate de establecer el tipo de contenido correctamente
+          },
+        });
+  
+        const blobUrl = window.URL.createObjectURL(new Blob([data]));
+        // Crear un enlace invisible y hacer clic en él para iniciar la descarga
+        const link = document.createElement('a');
+        link.href = blobUrl;
+        link.setAttribute('download', `${strEntidad}_import.xlsm`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      } catch (error) {
+        // console.log(error)
+        throw error;
+      }
+    };
+  
 
     // console.log(areaActual)
     // console.log(OTAreas.areas)
@@ -222,6 +261,20 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
             <ImportToCsv strEntidad={strEntidad}/>
           )}
         </Suspense>
+
+        {showMacroButton && escritura_lectura && (
+           <Tooltip content={'Descargar Plantilla Excel'} >
+            <IconButton 
+              className='primaryBtnIconButton'
+              variant='text'
+              color="blue-gray"
+            >
+              <PiMicrosoftExcelLogoFill className='primaryBtnIcon' onClick={()=>handleDownloadMacro()} />
+
+            </IconButton>
+            {/* <Button color="green" className='otActionButton mx-4' >Macro Excel</Button> */}
+         </Tooltip>
+        )}
         
 
         {showDeleteButton && escritura_lectura && handleDeleteSelected && (

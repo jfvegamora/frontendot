@@ -20,7 +20,19 @@ export const dioptrias:any = signal<any>({
 
 
 
-export const clearAllCheck = signal(false);
+export const clearAllCheck         = signal(false);
+// export const validacionIncompleta  = signal(false);
+const countError = signal(0)
+
+export const validacionIncompleta = signal({
+  check  : false,
+  a1_od  : false,
+  a1_oi  : false,
+  a2_oi  : false,
+  a2_od  : false
+})
+
+
 export const codigoProyecto = signal("")
 
 export const a1_od_esf  = signal<any | undefined>(undefined);
@@ -952,10 +964,18 @@ export const clearGrupos = () => {
   oftalmologo_id.value        = "";
   secondProcessBodega.value       = false;
 
-  motivo_ot.value          = false;
-  isExistClient.value      = false;
-  isToggleImpression.value = false;
-  isToggleValidation.value = false;
+  motivo_ot.value              = false;
+  isExistClient.value          = false;
+  isToggleImpression.value     = false;
+  isToggleValidation.value     = false;
+  validacionIncompleta.value   = {
+    check: false,
+    a1_od: false,
+    a1_oi: false,
+    a2_od: false,
+    a2_oi: false
+  };
+  countError.value     = 0
 }
 
 
@@ -1032,6 +1052,13 @@ export const validarNumeroDocumento = (data: any) => {
 //     }
 // }
 
+const clearValidacionIncompleta = () => {
+  validacionIncompleta.value.check = false;
+  validacionIncompleta.value.a1_od = false;
+  validacionIncompleta.value.a1_oi = false;
+  validacionIncompleta.value.a2_od = false;
+  validacionIncompleta.value.a2_oi = false;
+}
 
 
 export const clearDioptrias = (closeForm?:boolean) => {
@@ -1165,12 +1192,6 @@ export const fetchFechas = async(fecha_atencion:string, codgioProyecto:string) =
   // console.log('ejecutando')
   try {
        const {data} = await axios(`${URLBackend}/api/ot/listado/?query=11&_proyecto=${codgioProyecto}&_fecha_desde=${fecha_atencion}`)
-       console.log(data)
-       if(data && data[0] === undefined){
-        console.log(data)
-        return ;
-       }
-
 
        const parsedData = JSON.parse(data[0]); // Parsear la cadena JSON a objeto
 
@@ -1179,7 +1200,6 @@ export const fetchFechas = async(fecha_atencion:string, codgioProyecto:string) =
        fecha_despacho.value          = parsedData.fecha_despacho
        fecha_entrega_cliente.value   = parsedData.fecha_entrega_cliente
 
-  
        validationFechaEntregaCliente(fecha_entrega_cliente.value)
        validationFechaDespacho(fecha_despacho.value)
        validationFechaEntregaTaller(fecha_entrega_taller.value)
@@ -1191,36 +1211,6 @@ export const fetchFechas = async(fecha_atencion:string, codgioProyecto:string) =
   }
 }
 
-
-
-// const fetchDioptrias = async(_proyecto:string) => {
-//   try {
-
-//     // const requests = [
-//     //   axios(`${URLBackend}/api/ot/listado/?query=12&_p3=ESF&_proyecto=${proyecto}`),
-//     //   axios(`${URLBackend}/api/ot/listado/?query=12&_p3=CIL&_proyecto=${proyecto}`),
-//     //   axios(`${URLBackend}/api/ot/listado/?query=12&_p3=EJE&_proyecto=${proyecto}`),
-//     //   axios(`${URLBackend}/api/ot/listado/?query=12&_p3=AD&_proyecto=${proyecto}`)
-//     // ]
-    
-//     // const [responseESF, responseCIL, responseEJE, responseAD] = await Promise.all(requests);
-
-//     // dioptrias.value.ESF = responseESF.data;
-//     // dioptrias.value.CIL = responseCIL.data;
-//     // dioptrias.value.EJE = responseEJE.data;
-//     // dioptrias.value.AD  = responseAD.data;
-//     // dioptrias.value.ESF = ''
-//     // dioptrias.value.CIL = ''
-//     // dioptrias.value.EJE = ''
-//     // dioptrias.value.AD  = ''
-
-    
-//     // console.log(dioptrias.value)
-//   } catch (error) {
-//     // console.log(error)
-//     throw error
-//   }
-// }
 
 
 type InputChangeActions = {
@@ -1413,12 +1403,11 @@ export const getGrupoCristales_A1 = async(formValue:any, data:any, setErrorGrupo
           }
 
           console.log(cristalesDATA && cristalesDATA)
-          if(cristalesDATA && cristalesDATA["ERROR"] !== ''){
-            
+          if(cristalesDATA && cristalesDATA["ERROR"] !== ''){        
             console.log(cristalesDATA["ERROR"])
-            
+                
 
-            console.log(cristalesDATA)
+            
             if(cristalesDATA["MSG"].includes('STOCK')){
               A1_CR_OD.value = cristalesDATA["CR_OD"].trim() || "   ";
               A1_CR_OI.value = cristalesDATA["CR_OI"].trim() || "   "
@@ -1431,19 +1420,41 @@ export const getGrupoCristales_A1 = async(formValue:any, data:any, setErrorGrupo
               validation_Cristal1_oi(cristalesDATA["CR_OI"])
               setChangeboolean((prev:boolean)=>!prev)
               toast.error(cristalesDATA["MSG"])
+              // validacionIncompleta.value = true;
+              validacionIncompleta.value.check = true;
 
+              switch (cristalesDATA["ERROR"]) {
+                case 'ODOI':
+                  validacionIncompleta.value.a1_od = true;
+                  validacionIncompleta.value.a1_oi = true;
+                  break;
+                case 'OI':
+                  validacionIncompleta.value.a1_od = false;
+                  validacionIncompleta.value.a1_oi = true;
+                  break;
+                case 'OD':
+                  validacionIncompleta.value.a1_od = true;
+                  validacionIncompleta.value.a1_oi = false;
+                  break;
+                default:
+                  break;
+              }
               return;
-            }
+            }    
 
+     
+              setErrorGrupoDioptriaA1(cristalesDATA["MSG"]);
 
-            setErrorGrupoDioptriaA1(cristalesDATA["MSG"]);
-
+            
+            
+            
             A1_CR_OD.value = " ";
             A1_CR_OI.value = " ";
 
             A1_GRUPO_OD.value    = " ";
             A1_GRUPO_OI.value    = " ";
-
+            validacionIncompleta.value.check = true;
+            // validacionIncompleta2
             
 
             validation_Cristal1_od("")
@@ -1452,6 +1463,7 @@ export const getGrupoCristales_A1 = async(formValue:any, data:any, setErrorGrupo
             // setErrorGrupoDioptriaA1('')
           }else{
             // console.log(cristalesDATA)
+            clearValidacionIncompleta();
             A1_CR_OD.value = cristalesDATA["CR_OD"].trim() || "   ";
             A1_CR_OI.value = cristalesDATA["CR_OI"].trim() || "   "
             // A1_GRUPO.value = cristalesDATA["GRUPO"]
@@ -1552,9 +1564,47 @@ export const getGrupoCristales_A2 = async(formValue:any, data:any, setErrorGrupo
 
     if(cristalesDATA && cristalesDATA["ERROR"] !== ''){
       console.log('render')
-      return setErrorGrupoDioptriaA2(cristalesDATA["ERROR"])
+      
+      if(cristalesDATA["MSG"].includes('STOCK')){
+        A2_CR_OD.value    = cristalesDATA["CR_OD"].trim() || " ";
+        A2_CR_OI.value    = cristalesDATA["CR_OI"].trim() || " ";
+
+        A2_GRUPO_OD.value = cristalesDATA["GRUPO_OD"].trim() || " ";
+        A2_GRUPO_OI.value = cristalesDATA["GRUPO_OI"].trim() || " ";
+
+        validation_Cristal2_od(cristalesDATA["CR_OD"])
+        validation_Cristal2_oi(cristalesDATA["CR_OI"])
+        toast.error(cristalesDATA["MSG"])
+        validacionIncompleta.value.check = true;
+        
+        switch (cristalesDATA["ERROR"]) {
+          case 'ODOI':
+            validacionIncompleta.value.a2_od = true;
+            validacionIncompleta.value.a2_oi = true;
+            break;
+          case 'OD':
+            validacionIncompleta.value.a2_od = true;
+            validacionIncompleta.value.a2_oi = false;
+            break;
+          case 'OI':
+            validacionIncompleta.value.a2_od = false;
+            validacionIncompleta.value.a2_oi = true;
+            break;
+          default:
+            break;
+        }
+        return;
+      }
+      
+        setErrorGrupoDioptriaA2(cristalesDATA["ERROR"])
+
+    
     }else{
       console.log('render')
+
+      validacionIncompleta.value.a2_od = false;
+      validacionIncompleta.value.a2_oi = false;
+      
       A2_CR_OD.value = cristalesDATA["CR_OD"].trim();
       A2_CR_OI.value = cristalesDATA["CR_OI"].trim();
 
@@ -1594,45 +1644,22 @@ export const updateOT =async (
   isValidateBodega?:boolean,
   tipo_evento?:string
 )  => {
-  console.log(data)
-
-  console.log(tipo_evento)
 
   let usuarioData = tipo_evento === 'Procesada' ? data ["usuario_id"] : parseInt(data[EnumGrid.usuario_id])
   
-  
-  console.log(usuarioData)
-  console.log(user)
-  console.log(areaActualOT.value)
-  
-  
-
   if(areaActualOT.value as any === 50){
     if(usuarioData !== parseInt(user)){
       return toast.error(`Folio ${data[EnumGrid.folio]} no pertenece al Usuario`);
     }
   }
 
-  // console.log(jsonData)
-  // console.log(_formValues)
-  // console.log(data)
   const toastLoading = toast.loading('Cargando...');
-  let folio = data?.[EnumGrid.folio]
-  
-  
-
-
-
-
-  console.log(folio)
-  console.log(_estado)
-
+  // let folio = data?.[EnumGrid.folio]
   let motivo = data && data[EnumGrid.motivo] === 'Garantía' ? 2 : 1;
+
+
   //TODO: INICIO PROCESAR MASIVO
   if(isMasivo){
-    console.log('render')
-    console.log(data)
-
     const query = {
       query: "04",
       _p1:`area=${_destino}, estado=${'20'}`,
@@ -1671,19 +1698,19 @@ export const updateOT =async (
     } catch (error) {
       toast.dismiss(toastLoading)
       return toast.error(error as any)
-      // console.log(error)
   
     }
     return;
   }
 //TODO: FIN PROCESAR MASIVO
 
+
+
+
   let estado_impresion = data && data[EnumGrid.estado_impresion_id];
   let estado_validacion = data && data[EnumGrid.validar_parametrizacion_id];
 
-  // let _rut = ""
   let _p3 = ""
-
 
 
   const fields = [
@@ -1819,16 +1846,9 @@ export const updateOT =async (
                           .filter((prev)=>prev[1] !== 'undefined')
                           .map((parts) => parts.join('='));
   
-    // console.log(_estado)
 
   let _p1 = filteredFields.join(',');    
   _p1 = _p1.replace(/'/g, '!');
-
-  console.log(data)
-  console.log(user)
-
-
-
 
   const query = {
     query: "04",
@@ -1852,8 +1872,6 @@ export const updateOT =async (
     _armazonJSONOri: JSON.stringify(armazonOri)
   };
 
-  console.log(query)
-
   try {
     const response = await axios.post(`${URLBackend}/api/ot/editar/`, query)
     console.log(response)
@@ -1867,14 +1885,9 @@ export const updateOT =async (
     }
   } catch (error) {
     toast.dismiss(toastLoading)
-    
-    // console.log(error)
 
   }
-
-
 }
-
 
 
 	      
