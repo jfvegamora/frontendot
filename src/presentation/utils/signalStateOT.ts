@@ -1411,6 +1411,8 @@ export const getGrupoCristales_A1 = async(formValue:any, data:any, setErrorGrupo
           if(tipo_de_anteojo.value === '3' && isEditting){
             getGrupoCristales_A2(formValue, data, setErrorGrupoDioptriaA2, setChangeboolean)
           }
+
+          console.log(cristalesDATA && cristalesDATA)
           if(cristalesDATA && cristalesDATA["ERROR"] !== ''){
             
             console.log(cristalesDATA["ERROR"])
@@ -1429,6 +1431,7 @@ export const getGrupoCristales_A1 = async(formValue:any, data:any, setErrorGrupo
               validation_Cristal1_oi(cristalesDATA["CR_OI"])
               setChangeboolean((prev:boolean)=>!prev)
               toast.error(cristalesDATA["MSG"])
+
               return;
             }
 

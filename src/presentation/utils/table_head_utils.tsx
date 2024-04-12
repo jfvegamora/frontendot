@@ -1246,6 +1246,13 @@ export const table_head_cristales = [
     color:true
   },
   {
+    cell: "Ubicacion",
+    key: "ubicacion",
+    visible: true,
+    alignment: "text-left",
+    width: "w-[10rem]",
+  },
+  {
     cell: "Marca ID",
     key: "marca_id",
     visible: false,

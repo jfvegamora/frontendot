@@ -217,7 +217,7 @@ const FOTClientes:React.FC<IClientes> = ({
             <div className="w-full flex items-center rowForm !h-[4rem]">
                 <div className="w-[80%]      flex mx-auto">
                     <div className="input-container items-center rowForm w-[15%]">
-                        <div className="w-full !mt-4">
+                        <div className={`w-full !mt-4  ${isEditting && "pointer-events-none"}`}>
                             <TextInputInteractive
                                 type="text"
                                 label="Rut"
