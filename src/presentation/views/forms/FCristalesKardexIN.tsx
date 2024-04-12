@@ -40,6 +40,7 @@ export interface InputData {
   observaciones       : string | undefined;
   usuario             : string | undefined;
   fecha_mov           : string | undefined;
+  ubicacion: string | undefined;
 }
 
 interface OutputData {
@@ -106,6 +107,7 @@ const FCristalesKardexIN: React.FC<IUserFormPrps> = React.memo(
       setValue("numero_factura", "");
       setValue("valor_neto", "");
       setValue("observaciones", "");
+      setValue("ubicacion", "");
       
       if (firstInputRef.current) {
         const firstInput = firstInputRef.current.querySelector(
@@ -180,6 +182,7 @@ const FCristalesKardexIN: React.FC<IUserFormPrps> = React.memo(
       'almacen_relacionado' : 0,
       'observaciones'       : jsonData.observaciones,
       'usuario'             : userState?.id,
+      'ubicacion': jsonData.ubicacion,
     }]
   
      _p1 = _p1.replace(/'/g, '!');
@@ -464,155 +467,25 @@ const FCristalesKardexIN: React.FC<IUserFormPrps> = React.memo(
                       data={data && data[EnumGrid.observaciones]}
                       control={control}
                       error={errors.observaciones}
+                      customWidth={"w-[17rem]"}
                       isOptional={true}
                       />
                   </div>
                 </div>
-            </div>
 
-            {/* <div className="w-full flex items-center h-[4rem]">
-                <div className="input-container items-center rowForm ">
-                  <div className="w-full flex">
-                    <TextInputComponent
-                      type="text"
-                      label="Código Cristal"
-                      name="insumo"
-                      data={data && data[EnumGrid.insumo]}
-                      control={control}
-                      error={errors.insumo}
-                      inputRef={firstInputRef}
-                      onlyRead={isEditting}
-                      customWidth={"!w-[11rem] "}
-                      />
-                    <TextInputComponent
-                      type="text"
-                      label="Código FAB"
-                      name="insumo_fab"
-                      control={control}
-                      onlyRead={isEditting}
-                      customWidth={"!w-[11rem] !ml-[-1rem] "}
-                      isOptional={true}
-                    />
-                      <TextInputComponent
-                        type={isEditting ? "datetime" : "date"}
-                        label="Fecha"
-                        name="fecha"
-                        data={ fechaFormateada ? fechaFormateada : data && data[EnumGrid.fecha]}
-                        control={control}
-                        error={errors.fecha}
-                        onlyRead={isEditting}
-                        customWidth={"!w-[11rem] !ml-[1rem] "}
-                        />
-                    </div> 
-                </div>
-            </div>
-
-            <div className="w-full flex items-center h-[4rem]">
-              <div className="input-container items-center rowForm w-[50%]  ">
-                <div className="w-full !mt-4">
-                  <SelectInputComponent
-                        label="Motivo Ingreso"
-                        name="motivo_ingreso"
-                        showRefresh={true}
-                        data={data && data[EnumGrid.motivo_id]}
-                        control={control}
-                        entidad={["/api/kardexmotivos/", "01"]}
-                        error={errors.motivo_ingreso}
-                        customWidth={"!ml-[1rem] !mt-[-0.6rem]"}
-                      />
-                  </div>
-              </div>
-
-              <div className="input-container items-center rowForm w-[50%]  ">
-                  <div className="w-full">
-                    <TextInputComponent
-                      type="number"
-                      label="Cantidad"
-                      name="cantidad"
-                      data={data && data[EnumGrid.entradas]}
-                      control={control}
-                      error={errors.cantidad}
-                    />
-                  </div>
-              </div>
-            </div>
-
-            <div className="w-full flex items-center h-[4rem]">
-              <div className="input-container items-center rowForm w-[50%]  ">
-                <div className="w-full !mt-4">
-                  <SelectInputComponent
-                    label="Almacén"
-                    name="almacen"
-                    showRefresh={true}
-                    data={data && data[EnumGrid.almacen_id]}
-                    control={control}
-                    entidad={["/api/almacenes/", "02"]}
-                    error={errors.almacen}
-                    customWidth={"!ml-[1rem] !mt-[-0.6rem]"}
-                    />
-                </div>
-              </div>
-              <div className="input-container items-center rowForm w-[50%]  ">
+            <div className="input-container items-center rowForm w-full  ">
                 <div className="w-full">
-                    <TextInputComponent
-                      type="number"
-                      label="Factura"
-                      name="numero_factura"
-                      data={data && data[EnumGrid.numero_factura]}
-                      control={control}
-                      error={errors.numero_factura}
-                      isOptional={true}
-                    />
+                  <TextInputComponent
+                    type="text"
+                    label="Ubicación"
+                    name="ubicacion"
+                    // data={data && data[EnumGrid.ubicacion]}
+                    control={control}
+                    isOptional={true}
+                  />
                 </div>
               </div>
-            </div> 
-
-            <div className="w-full flex items-center h-[4rem]">
-                <div className="input-container items-center rowForm w-[50%]  ">
-                  <div className="w-full !mt-4">
-                    <SelectInputComponent
-                      label="Provedor"
-                      name="proveedor"
-                      showRefresh={true}
-                      data={data && data[EnumGrid.proveedor_id]}
-                      control={control}
-                      entidad={["/api/proveedores/", "02"]}
-                      error={errors.proveedor}
-                      customWidth={"!ml-[1rem] !mt-[-0.6rem]"}                      
-                      isOptional={true}
-                    />
-                  </div>
-                </div>
-                <div className="input-container items-center rowForm w-[50%]  ">
-                    <div className="w-full">
-                    <TextInputComponent
-                      type="number"
-                      label="$ Neto Unitario"
-                      name="valor_neto"
-                      data={data && data[EnumGrid.valor_neto]}
-                      control={control}
-                      error={errors.valor_neto}
-                      isOptional={true}
-                    />
-                  </div>
-                </div>
-            </div>
-
-            <div className="w-full flex items-center h-[4rem]">
-                <div className="input-container items-center rowForm w-full  ">
-                  <div className="w-full">
-                    <TextInputComponent
-                      type="text"
-                      label="Observaciones"
-                      name="observaciones"
-                      data={data && data[EnumGrid.observaciones]}
-                      control={control}
-                      error={errors.observaciones}
-                      isOptional={true}
-                    />
-                  </div>
-                </div>
-            </div> */}
+              </div>
           </div>
 
           <div className="w-full">

@@ -997,6 +997,13 @@ export const table_head_accesorios = [
     color:true
   },
   {
+    cell: "Ubicaciones",
+    key: "ubicacion",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[7rem]",
+  },
+  {
     cell: "Descripción",
     key: "descripcion",
     visible: true,
@@ -1075,6 +1082,13 @@ export const table_head_armazones = [
     width: "w-[10rem]",
     color: true,
     background:true
+  },
+  {
+    cell: "Ubicaciones",
+    key: "ubicacion",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[7rem]",
   },
   {
     cell: "Armazon Tipo ID",
@@ -1244,6 +1258,13 @@ export const table_head_cristales = [
     alignment: "text-left",
     width: "w-[10rem]",
     color:true
+  },
+  {
+    cell: "Ubicaciones",
+    key: "ubicacion",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[7rem]",
   },
   {
     cell: "Marca ID",

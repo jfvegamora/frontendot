@@ -38,6 +38,7 @@ export interface InputData {
   usuario: string | undefined;
   fecha_mov: string | undefined;
   ot: string | undefined;
+  ubicacion: string | undefined;
 }
 
 interface OutputData {
@@ -143,6 +144,7 @@ const FArmazonesKardexOUT: React.FC<IUserFormPrps> = React.memo(
         'almacen_relacionado': jsonData.almacen_relacionado || 0,
         'observaciones': jsonData.observaciones,
         'usuario': userState?.id,
+        'ubicacion': jsonData.ubicacion,
       }]
 
 
@@ -161,6 +163,7 @@ const FArmazonesKardexOUT: React.FC<IUserFormPrps> = React.memo(
       setValue("cantidad", "");
       setValue("observaciones", "");
       setValue("ot", "");
+      setValue("ubicacion", "");
 
       if (firstInputRef.current) {
         const firstInput = firstInputRef.current.querySelector(
@@ -447,6 +450,19 @@ const FArmazonesKardexOUT: React.FC<IUserFormPrps> = React.memo(
                     data={data && data[EnumGrid.observaciones]}
                     control={control}
                     error={errors.observaciones}
+                    customWidth={"w-[17rem]"}
+                    isOptional={true}
+                  />
+                </div>
+              </div>
+
+              <div className="input-container items-center rowForm w-full  ">
+                <div className="w-full">
+                  <TextInputComponent
+                    type="text"
+                    label="Ubicación"
+                    name="ubicacion"
+                    control={control}
                     isOptional={true}
                   />
                 </div>

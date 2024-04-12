@@ -194,6 +194,7 @@ export const validationKardexINSchema = () =>
     observaciones      : yup.string(),
     usuario            : yup.string(),
     fecha_mov          : yup.string(),
+    ubicacion          : yup.string(),
 
     valor_neto         : yup.string().default("0").test({
                           test: function(value) {
@@ -248,6 +249,7 @@ export const validationKardexOUTSchema = () =>
     usuario              : yup.string(),
     fecha_mov            : yup.string(),
     ot                   : yup.string(),
+    ubicacion            : yup.string(),
     almacen_relacionado  : yup.string().test({
                             test: function(value) {
                               const motivoEgreso = this.resolve(yup.ref('motivo_egreso'));
