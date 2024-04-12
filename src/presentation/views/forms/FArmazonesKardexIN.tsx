@@ -40,6 +40,7 @@ export interface InputData {
   observaciones: string | undefined;
   usuario: string | undefined;
   fecha_mov: string | undefined;
+  ubicacion: string | undefined;
 }
 
 interface OutputData {
@@ -111,6 +112,7 @@ const FArmazonesKardexIN: React.FC<IUserFormPrps> = React.memo(
       setValue("numero_factura", "");
       setValue("valor_neto", "");
       setValue("observaciones", "");
+      setValue("ubicacion", "");
 
       if (firstInputRef.current) {
         const firstInput = firstInputRef.current.querySelector(
@@ -244,6 +246,7 @@ const FArmazonesKardexIN: React.FC<IUserFormPrps> = React.memo(
         'almacen_relacionado': 0,
         'observaciones': jsonData.observaciones,
         'usuario': userState?.id,
+        'ubicacion': jsonData.ubicacion,
       }]
 
       const query: OutputData = {
@@ -354,7 +357,7 @@ const FArmazonesKardexIN: React.FC<IUserFormPrps> = React.memo(
                     error={errors.insumo}
                     inputRef={firstInputRef}
                     onlyRead={isEditting}
-                    customWidth={""}
+                    customWidth={" w-[]"}
                   />
                 </div>
               </div>
@@ -387,7 +390,7 @@ const FArmazonesKardexIN: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={["/api/kardexmotivos/", "01"]}
                     error={errors.motivo_ingreso}
-                    customWidth={"!ml-[1rem] !mt-[-0.6rem]"}
+                    customWidth={"!ml-[1rem] !mt-[-0.6rem] w-[18rem]"}
                   />
                 </div>
               </div>
@@ -418,7 +421,7 @@ const FArmazonesKardexIN: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={["/api/almacenes/", "02", "1"]}
                     error={errors.almacen}
-                    customWidth={"!ml-[1rem] !mt-[-0.6rem]"}
+                    customWidth={"!ml-[1rem] !mt-[-0.6rem] w-[18rem]"}
                   />
                 </div>
               </div>
@@ -449,7 +452,7 @@ const FArmazonesKardexIN: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={["/api/proveedores/", "02"]}
                     error={errors.proveedor}
-                    customWidth={"!ml-[1rem] !mt-[-0.6rem]"}
+                    customWidth={"!ml-[1rem] !mt-[-0.6rem] w-[18rem]"}
                     isOptional={true}
                   />
                 </div>
@@ -480,6 +483,20 @@ const FArmazonesKardexIN: React.FC<IUserFormPrps> = React.memo(
                     data={data && data[EnumGrid.observaciones]}
                     control={control}
                     error={errors.observaciones}
+                    customWidth={"w-[17rem]"}
+                    isOptional={true}
+                  />
+                </div>
+              </div>
+
+              <div className="input-container items-center rowForm w-full  ">
+                <div className="w-full">
+                  <TextInputComponent
+                    type="text"
+                    label="Ubicación"
+                    name="ubicacion"
+                    // data={data && data[EnumGrid.ubicacion]}
+                    control={control}
                     isOptional={true}
                   />
                 </div>
