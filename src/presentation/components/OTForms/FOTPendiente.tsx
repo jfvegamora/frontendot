@@ -5,7 +5,7 @@ import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
 import { AppStore, useAppDispatch, useAppSelector } from '../../../redux/store';
 // import { SEXO, TIPO_CLIENTE } from '../../utils';
 import { Button } from '@material-tailwind/react';
-import { updateOT, validationPendienteOTSchema } from '../../utils';
+import { clearAllCheck, updateOT, validationNivel1, validationPendienteOTSchema } from '../../utils';
 import { fetchOT } from '../../../redux/slices/OTSlice';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { paramsOT } from '../../views/mantenedores/MOT';
@@ -47,11 +47,17 @@ const FOTPendiente:React.FC<IDerivacion> = ({
     const OTSlice:any = useAppSelector((store:AppStore)=>store.OTS)
     const dispatch = useAppDispatch();
 
-  
+    const sumatoriaNivel1 = validationNivel1.value.reduce((index, objeto) => index + objeto.valor, 0);
 
-
+    
+    
+    
+    
+    
     const onSubmit: SubmitHandler<FormData> = async(jsonData) =>{
         // fetchDerivacion(jsonData)
+        let estadoValidacion    = sumatoriaNivel1 === validationNivel1.value.length;
+        
         updateOT(
             jsonData,
             OTAreas["areaActual"],
@@ -66,10 +72,12 @@ const FOTPendiente:React.FC<IDerivacion> = ({
             false,
             jsonData.situacion,
             false,
-            'Pausada'
+            'Pausada',
+            estadoValidacion
         ).then(()=>{
             closeModal()
-            dispatch(fetchOT({OTAreas:OTAreas["areaActual"], searchParams: paramsOT.value}))
+            dispatch(fetchOT({OTAreas:OTAreas["areaActual"], searchParams: paramsOT.value}));
+            clearAllCheck.value = false;
         })
     
     

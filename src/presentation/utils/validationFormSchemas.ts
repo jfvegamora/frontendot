@@ -45,6 +45,13 @@ export const validationOTOCSchema = () =>
     fecha_doc       : yup.string().required(`${msg}`),
     valor_neto      : yup.string().required(`${msg}`),
   });
+
+export const validationFOTOrdenCompra = () => 
+  yup.object().shape({
+    numero_doc      : yup.string().nullable(),
+    fecha_doc      : yup.string().required(`${msg}`),
+    valor_neto     : yup.string().required(`${msg}`),
+  })
 //Schema OTHistorica Asignacion Factura
 export const validationOTFacturaSchema = () =>
   yup.object().shape({

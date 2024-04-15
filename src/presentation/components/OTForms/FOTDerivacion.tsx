@@ -5,7 +5,7 @@ import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
 import { AppStore, useAppDispatch, useAppSelector } from '../../../redux/store';
 // import { SEXO, TIPO_CLIENTE } from '../../utils';
 import { Button } from '@material-tailwind/react';
-import { MODAL, punto_venta, secondProcessBodega, tipo_de_anteojo, updateOT, validationMotivosOTSchema, validationNivel3 } from '../../utils';
+import { MODAL, punto_venta, secondProcessBodega, tipo_de_anteojo, updateOT, validationMotivosOTSchema, validationNivel1, validationNivel3 } from '../../utils';
 import { fetchOT } from '../../../redux/slices/OTSlice';
 import axios from 'axios';
 import { URLBackend } from '../../hooks/useCrud';
@@ -79,7 +79,12 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
         validar_armazon2
     ]
     const sumatoriaNivel3 = validationNivel3.value.reduce((index,objecto) => index + objecto.valor, 0);  
+    const sumatoriaNivel1 = validationNivel1.value.reduce((index, objeto) => index + objeto.valor, 0);
 
+
+    console.log(sumatoriaNivel1)
+
+    console.log(sumatoriaNivel1 === validationNivel1.value.length)
 
 
     const onSubmit: SubmitHandler<FormData> = async(jsonData) =>{
@@ -87,7 +92,7 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
         let promiseResponses:any = {}
         let validarCamposVacios = false
         let isDerivacion        = false
-
+        let estadoValidacion    = sumatoriaNivel1 === validationNivel1.value.length;
         // console.log(secondProcessBodega.value)
         // console.log(validationNivel3.value)
         // console.log(OTAreas["areaActual"])
@@ -170,7 +175,8 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
                 false,
                 jsonData.situacion,
                 false,
-                'Derivada'
+                'Derivada',
+                estadoValidacion
             ).then(()=>{
                 closeModal()
                 dispatch(fetchOT({OTAreas:OTAreas["areaActual"], searchParams: paramsOT.value}))

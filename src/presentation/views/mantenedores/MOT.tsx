@@ -133,10 +133,8 @@ const MOT: React.FC = () => {
     }));
 
     setPkToDelete(newPkToDelete as any)
-    checkCount.value = pktoDelete.length
+    checkCount.value = newPkToDelete.length
   }, [selectedRows]);
-
-
 
   useEffect(() => {
    const interval = setInterval(() => {

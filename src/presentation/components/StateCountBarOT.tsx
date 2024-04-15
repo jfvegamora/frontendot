@@ -2,6 +2,7 @@ import React from 'react'
 import { AppStore, useAppSelector } from '../../redux/store';
 
 
+
 export const estadoIDNombre:any = {
     10: 'Ingresada',
     20: 'En Proceso',
@@ -20,13 +21,19 @@ export interface IStateCountBar {
 }
 
 
+
 const StateCountBarOT:React.FC<IStateCountBar> = ({checkCount}) => {
     const OTs:any = useAppSelector((store: AppStore) => store.OTS);
+    const[stateCheckCount, setStateCheckCount] = React.useState(checkCount.value);
+
+    React.useEffect(()=>{
+      setStateCheckCount(checkCount)
+    },[checkCount])
+    
     // console.log(checkCount.value)
 
-
   return (
-    <div className="w-[80%] bg-white absolute bottom-[2%] flex">
+    <div className="w-[80%] bg-white absolute bottom-[1%]  rounded-full left-[7rem] flex">
     {Object.keys(OTs.estadosOT).map((estadoID, index) => {
       // console.log(estadoID)
       const estadoNombre = estadoIDNombre[estadoID];
@@ -38,7 +45,7 @@ const StateCountBarOT:React.FC<IStateCountBar> = ({checkCount}) => {
 
         return (
           <div className="flex" key={index}>
-            <p style={{ backgroundColor, color: textColor }} className="mx-2 w-[6rem] text-center">
+            <p style={{ backgroundColor, color: textColor }} className="mx-2 w-[6rem] text-center rounded-full">
               {estadoNombre}:
             </p>
             <label className="w-8 text-center">{OTs.estadosOT[estadoID]}</label>
@@ -54,9 +61,9 @@ const StateCountBarOT:React.FC<IStateCountBar> = ({checkCount}) => {
           <p className="text-center mx-auto text-white">Por vencer: </p> <label className="text-center text-white">{OTs.estadosOT[99]}</label>        
       </div>
     )}
-    {checkCount.value >= 1 && (
+    {stateCheckCount >= 1 && (
       <div className="w-[8rem]  flex bg-orange-400 mx-10">
-          <p className="text-center mx-auto text-white">Seleccionadas: </p> <label className="text-center text-white">{checkCount.value}</label>        
+          <p className="text-center mx-auto text-white">Seleccionadas: </p> <label className="text-center text-white">{stateCheckCount}</label>        
       </div>
     )}
 

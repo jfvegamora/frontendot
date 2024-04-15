@@ -668,6 +668,7 @@ export const validationNivel3 = signal([
   },
 ])
 
+export const sumatoriaLevel1 = validationNivel1.value.reduce((index, objeto) => index + objeto.valor, 0);
 
 
 
@@ -1324,7 +1325,7 @@ export const getGrupoCristales_A1 = async(formValue:any, data:any, setErrorGrupo
   const {cristal1_marca_id, cristal1_diseno_id, cristal1_indice_id, cristal1_color_id , cristal1_material_id,cristal1_tratamiento_id } = formValue;
 
   
-  if((cristal1_marca_id                       !== undefined  || data?.[EnumGrid.cristal1_marca_id]    !== undefined) &&
+  if((cristal1_marca_id                           !== undefined  || data?.[EnumGrid.cristal1_marca_id]    !== undefined) &&
          (cristal1_diseno_id                      !== undefined  || data?.[EnumGrid.cristal1_diseno_id]   !== undefined) &&
          (cristal1_indice_id                      !== undefined  || data?.[EnumGrid.cristal1_indice_id]   !== undefined) && 
          (cristal1_color_id                       !== undefined  || data?.[EnumGrid.cristal1_color_id]    !== undefined) &&
@@ -1464,6 +1465,7 @@ export const getGrupoCristales_A1 = async(formValue:any, data:any, setErrorGrupo
           }else{
             // console.log(cristalesDATA)
             clearValidacionIncompleta();
+            console.log('render')
             A1_CR_OD.value = cristalesDATA["CR_OD"].trim() || "   ";
             A1_CR_OI.value = cristalesDATA["CR_OI"].trim() || "   "
             // A1_GRUPO.value = cristalesDATA["GRUPO"]
@@ -1642,7 +1644,8 @@ export const updateOT =async (
   isMasivo?:boolean,
   situacion?:any,
   isValidateBodega?:boolean,
-  tipo_evento?:string
+  tipo_evento?:string,
+  validation_Complete?:boolean
 )  => {
 
   let usuarioData = tipo_evento === 'Procesada' ? data ["usuario_id"] : parseInt(data[EnumGrid.usuario_id])
@@ -1708,7 +1711,11 @@ export const updateOT =async (
 
 
   let estado_impresion = data && data[EnumGrid.estado_impresion_id];
-  let estado_validacion = data && data[EnumGrid.validar_parametrizacion_id];
+  let validar_parametrizacion = data && data[EnumGrid.validar_parametrizacion_id];
+
+  let estado_validacion           = validation_Complete === true ? 2 : 1
+
+  console.log(estado_validacion)
 
   let _p3 = ""
 
@@ -1717,7 +1724,7 @@ export const updateOT =async (
     `motivo=${motivo}`,
     `area=${_destino}`,
     `estado=${_estado}`,
-    `validar_parametrizacion="${_estado                                                                                                                  === 40        ? (isToggleValidation.value ? 1 : 0 )  : estado_validacion}"`,
+    `validar_parametrizacion="${_estado                                                                                                                  === 40        ? (isToggleValidation.value ? 1 : 0 )  : validar_parametrizacion}"`,
     `estado_impresion="${_estado                                                                                                                         === 40        ? (isToggleImpression.value ? 1 : 0 ) : estado_impresion}"`,
     `proyecto="${jsonData.proyecto_codigo                                                                                                                !== undefined ? jsonData.proyecto_codigo : codigoProyecto.value}"`,
     (`establecimiento=${data && data[EnumGrid.establecimiento_id]                                                                                        !== undefined ? data[EnumGrid.establecimiento_id] : 0 }`),
@@ -1806,6 +1813,8 @@ export const updateOT =async (
     (`folio_interno_mandante="${data && data[EnumGrid.folio_interno_mandante]                                                                            ? data && data[EnumGrid.folio_interno_mandante]   : "" }"`),
     (`reporte_interno_mandante="${data && data[EnumGrid.reporte_interno_mandante]                                                                        ? data && data[EnumGrid.reporte_interno_mandante] : "" }"`),
     (`observaciones="${_formValues["receta"] && _formValues["receta"]["observaciones"]                                                                   ? _formValues["receta"]["observaciones"]          : data && data[EnumGrid.observaciones]}"`),
+    
+    (`estado_validacion="${estado_validacion}"`),
     
   
   ];

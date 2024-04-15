@@ -5,7 +5,7 @@ import { SiAddthis } from 'react-icons/si';
 import { PiPrinterFill } from "react-icons/pi";
 import { PiMicrosoftExcelLogoFill } from "react-icons/pi";
 import { ImWhatsapp } from "react-icons/im";
-import { BUTTON_MESSAGES, reiniciarValidationNivel3, updateOT } from '../utils';
+import { BUTTON_MESSAGES, clearAllCheck, reiniciarValidationNivel3, updateOT } from '../utils';
 import ImportToCsv from './ImportToCsv';
 import { AppStore, useAppDispatch, useAppSelector } from '../../redux/store';
 import { toast } from 'react-toastify';
@@ -87,6 +87,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
     const dispatch                                    = useAppDispatch();
     // const data:any                                    = useAppSelector((store: AppStore) => store.OTS.data)
     const OTAreas:any                                 = useAppSelector((store: AppStore) => store.OTAreas)
+    // const OTs:any                                 = useAppSelector((store: AppStore) => store.OTS.data)
     const User:any                                    = useAppSelector((store: AppStore) => store.user)
     const componentRef                                = useRef<any>(null);
     const SecondcomponentRef                          = useRef<any>(null);
@@ -166,6 +167,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
         }
       })
       handlePrint()
+      clearAllCheck.value = false;
       
 
     //   const print = useReactToPrint({
@@ -477,6 +479,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
           dispatch(fetchOT({OTAreas:OTAreas["areaActual"],searchParams: paramsOT.value}))
           setSelectedRows([])
           checkCount.value = 0;
+          clearAllCheck.value = false;
         })
       })
 
@@ -728,7 +731,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
 
         {isFOTValidarBodega && (
           <Suspense>
-            <FOTValidarBodega handleClose={()=>setIsFOTValidarBodega(false)}/>
+            <FOTValidarBodega  handleClose={()=>setIsFOTValidarBodega(false)}/>
           </Suspense>
         )}
 

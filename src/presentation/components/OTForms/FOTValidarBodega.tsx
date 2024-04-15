@@ -22,11 +22,13 @@ export const focusFirstInput = (strInputName: string, ref: React.RefObject<any>)
   };
 
 interface IFOTValidarBodega{
-    handleClose?:any
+    handleClose?:any,
+    data?:any
 }
 
 const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
-    handleClose
+    handleClose,
+    data
 }) => {
     const [formValues, setFormValues] = React.useState();
     const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas);
@@ -250,7 +252,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
         setOT(dataOTSignal.value[0])
     },[dataOTSignal.value])
 
-    console.log(validationNivel3.value)
+    console.log(OT)
     return (
         <div className=" bg-[#676f9d] mx-auto xl:w-[90%] xl:left-[30rem]  absolute top-10 left-auto right-auto rounded-xl shadow-md overflow-hidden lg:left-[20rem]     sm:w-[25rem]    md:max-w-[35rem] z-20">
          <div className="absolute right-0 userFormBtnCloseContainer">

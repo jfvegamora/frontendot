@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import { URLBackend } from '../../hooks/useCrud';
 import { yupResolver } from "@hookform/resolvers/yup";
-import { validationOTOCSchema } from "../../utils/validationFormSchemas";
+import { validationFOTOrdenCompra } from "../../utils/validationFormSchemas";
 import { useModal } from '../../hooks/useModal';
 import { paramsOT } from '../mantenedores/MOT';
 
@@ -30,7 +30,7 @@ const FOTOrdenCompra: React.FC<IDerivacion> = ({
     pktoDelete,
     setSelectedRows
 }) => {
-    const { control, handleSubmit, formState: { errors }} = useForm<any>({resolver: yupResolver(validationOTOCSchema()),});
+    const { control, handleSubmit, formState: { errors }} = useForm<any>({resolver: yupResolver(validationFOTOrdenCompra()),});
     const [fechaHoraActual, _setFechaHoraActual] = useState(new Date());
     // const [fechaHoraActual, _setFechaHoraActual]  = useState(new Date());
     
@@ -40,13 +40,14 @@ const FOTOrdenCompra: React.FC<IDerivacion> = ({
   
 
     const onSubmit: SubmitHandler<any> = async (jsonData) => {
-        console.log(pktoDelete)
+        // console.log(pktoDelete)
 
         if(pktoDelete.length < 1){
             return toast.error('No Hay OT Seleccionada')
         }
 
-        if(jsonData["numero_doc"] <= 0){
+
+        if(!(parseInt(jsonData["numero_doc"]) >= 0) && !Number.isNaN(parseInt(jsonData["numero_doc"]))){
             return toast.error('Número de documento debe ser mayor a 0')
         }
 
@@ -123,6 +124,8 @@ const FOTOrdenCompra: React.FC<IDerivacion> = ({
             window.removeEventListener("keydown", handleKeyDown);
         };
     }, [closeModal]);
+
+
 
     return (
         // <div className='useFormContainer useFormDerivacion h-[55%] w-[60%] left-[20%] top-[30%] z-30'>

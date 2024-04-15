@@ -29,7 +29,7 @@ export interface ITiposListbox {
 }
 
 const initialState: ITiposListbox | null = {
-    CristalesDisenos:        localStorage.getItem("ListBoxTipos.CristalDisenos") ? JSON.parse(localStorage.getItem("ListBoxTipos.CristalDisenos") as string): [],
+    CristalesDisenos:        localStorage.getItem("ListBoxTipos.CristalesDisenos") ? JSON.parse(localStorage.getItem("ListBoxTipos.CristalesDisenos") as string): [],
     CristalesMateriales:     localStorage.getItem('ListBoxTipos.CristalesMateriales') ? JSON.parse(localStorage.getItem('ListBoxTipos.CristalesMateriales') as string) : null,
     CristalesIndices:        localStorage.getItem('ListBoxTipos.CristalesIndices') ? JSON.parse(localStorage.getItem('ListBoxTipos.CristalesIndices') as string) :null,
     CristalesColores:        localStorage.getItem('ListBoxTipos.CristalesColores') ? JSON.parse(localStorage.getItem('ListBoxTipos.CristalesColores') as string) :null,
@@ -64,7 +64,6 @@ const initialState: ITiposListbox | null = {
                'Authorization': token, 
              }
        })
-       console.log(data)
         return data
     } catch (error) {
         throw error;

@@ -53,9 +53,12 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
     ${jsonData.cilindrico}, 
     ${jsonData.stock_minimo}`;
 
+    // const pkToDelete = [{"codigo_fab" : "codigo 1"},{"codigo_fab" : "codigo 1"},{"codigo_fab" : "codigo 1"},{"codigo_fab" : "codigo 1"}]
+
   const query: OutputData = {
     query: "03",
     _p1: _p1,
+
   };
 
   return query;
@@ -259,7 +262,7 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
 
  console.log(data && typeof data[EnumGrid.stock_reservado])
     return (
-      <div className="useFormContainer centered-div use30rem ">
+      <div className="useFormContainer centered-div use40rem ">
         <div className="userFormBtnCloseContainer flex">
           <div className="w-[50%] mx-auto !text.center">
               <h1 className="userFormLabel">{label}</h1>
@@ -274,105 +277,156 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))}
           className="userFormulario">
           <div className="userFormularioContainer">
-            <div className="rowForm">
-              <TextInputComponent
-                type="text"
-                label="Código"
-                name="codigo"
-                data={data && data[EnumGrid.codigo]}
-                control={control}
-                error={errors.codigo}
-                inputRef={firstInputRef}
-                onlyRead={isEditting}
-                maxLength={20}
+            <div className="rowForm !mb-2">
+              <div className="w-[40%] mx-auto">
+                  <TextInputComponent
+                    type="text"
+                    label="Código"
+                    name="codigo"
+                    data={data && data[EnumGrid.codigo]}
+                    control={control}
+                    error={errors.codigo}
+                    inputRef={firstInputRef}
+                    onlyRead={isEditting}
+                    maxLength={20}
+                    />
+              </div>
+            </div>
+            <div className="flex rowForm items-center">
+              <div className="w-[50%]">
+                <TextInputComponent
+                  type="text"
+                  label="Código FAB"
+                  name="codigo_fab_1"
+                  // data={data && data[EnumGrid.codigo]}
+                  control={control}
+                  // error={errors.codigo}
+                  onlyRead={isEditting}
+                  maxLength={20}
+                  isOptional={true}
+                /> 
+              </div>
+              <div className="w-[50%]">
+                <TextInputComponent
+                  type="text"
+                  label="Código FAB"
+                  name="codigo_fab_2"
+                  // data={data && data[EnumGrid.codigo]}
+                  control={control}
+                  // error={errors.codigo}
+                  onlyRead={isEditting}
+                  maxLength={20}
+                  isOptional={true}
+                  />  
+              </div>
+            </div>
+            <div className="flex rowForm items-center">
+              <div className="w-[50%]">
+                <TextInputComponent
+                  type="text"
+                  label="Código FAB"
+                  name="codigo_fab_3"
+                  // data={data && data[EnumGrid.codigo]}
+                  control={control}
+                  // error={errors.codigo}
+                  onlyRead={isEditting}
+                  maxLength={20}
+                  isOptional={true}
+                  />
+              </div>
+              <div className="w-[50%]">
+                <TextInputComponent
+                  type="text"
+                  label="Código FAB"
+                  name="codigo_fab_4"
+                  // data={data && data[EnumGrid.codigo]}
+                  control={control}
+                  // error={errors.codigo}
+                  onlyRead={isEditting}
+                  maxLength={20}
+                  isOptional={true}
+                  />
+              </div>
+            </div>
+            <div className="flex rowForm items-center">
+              <div className="w-[50%]">
+                <SelectInputComponent
+                  label="Marca"
+                  name="marca"
+                  showRefresh={true}
+                  data={data && data[EnumGrid.marca_id]}
+                  control={control}
+                  entidad={["/api/marcas/", "02", "2"]}
+                  error={errors.marca}
+                  customWidth={"!ml-[1rem] !w-[19rem]"}
+                  tabIndex={1}
                 />
-            </div>
-            <div className="rowForm">
-              <TextInputComponent
-                type="text"
-                label="Código FAB"
-                name="codigo_fab"
-                // data={data && data[EnumGrid.codigo]}
-                control={control}
-                // error={errors.codigo}
-                onlyRead={isEditting}
-                maxLength={20}
-                isOptional={true}
+              </div>
+              <div className="w-[50%]">
+                <SelectInputTiposComponent
+                  label="Diseño"
+                  name="diseno"
+                  showRefresh={true}
+                  data={data && data[EnumGrid.diseno_id]}
+                  control={control}
+                  customWidth={"!ml-[1rem] !w-[19rem]"}
+                  entidad={"CristalesDisenos"}
+                  error={errors.diseno}
                 />
+              </div>
             </div>
-            <div className="rowForm">
-              <SelectInputComponent
-                label="Marca"
-                name="marca"
-                showRefresh={true}
-                data={data && data[EnumGrid.marca_id]}
-                control={control}
-                entidad={["/api/marcas/", "02", "2"]}
-                error={errors.marca}
-                customWidth={"!ml-[1rem] !w-[28rem]"}
-                tabIndex={1}
-              />
+            <div className="flex rowForm items-center">
+              <div className="w-[50%]">
+                <SelectInputTiposComponent
+                  label="Índice"
+                  name="indice"
+                  showRefresh={true}
+                  data={data && data[EnumGrid.indice_id]}
+                  control={control}
+                  customWidth={"!ml-[1rem] !w-[19rem]"}
+                  entidad={"CristalesIndices"}
+                  error={errors.indice}              
+                />
+              </div>
+              <div className="w-[50%]">
+                <SelectInputTiposComponent
+                  label="Material"
+                  name="material"
+                  showRefresh={true}
+                  data={data && data[EnumGrid.material_id]}
+                  control={control}
+                  entidad="CristalesMateriales"
+                  customWidth={"!ml-[1rem] !w-[19rem]"}
+                  error={errors.material}
+                
+                />
+              </div>
             </div>
-            <div className="rowForm">
-              <SelectInputTiposComponent
-                label="Diseño"
-                name="diseno"
-                showRefresh={true}
-                data={data && data[EnumGrid.diseno_id]}
-                control={control}
-                customWidth={"!ml-[1rem] !w-[28rem]"}
-                entidad={"CristalesDisenos"}
-                error={errors.diseno}
-              />
-            </div>
-            <div className="rowForm">
-              <SelectInputTiposComponent
-                label="Índice"
-                name="indice"
-                showRefresh={true}
-                data={data && data[EnumGrid.indice_id]}
-                control={control}
-                customWidth={"!ml-[1rem] !w-[28rem]"}
-                entidad={"CristalesIndices"}
-                error={errors.indice}              
-              />
-            </div>
-            <div className="rowForm">
-              <SelectInputTiposComponent
-                label="Material"
-                name="material"
-                showRefresh={true}
-                data={data && data[EnumGrid.material_id]}
-                control={control}
-                entidad="CristalesMateriales"
-                customWidth={"!ml-[1rem] !w-[28rem]"}
-                error={errors.material}
-              
-              />
-            </div>
-            <div className="rowForm"> 
-              <SelectInputTiposComponent
-                label="Color"
-                name="color"
-                showRefresh={true}
-                data={data && data[EnumGrid.color_id]}
-                control={control}
-                entidad="CristalesColores"
-                customWidth={"!ml-[1rem] !w-[28rem]"}
-                error={errors.color}
-              />
-            </div>
-            <div className="rowForm">
-              <SelectInputTiposComponent
-                label="Tratamiento"
-                name="tratamiento"
-                showRefresh={true}
-                data={data && data[EnumGrid.tratamiento_id]}
-                control={control}
-                entidad="CristalesTratamientos"
-                customWidth={"!ml-[1rem] !w-[28rem]"}
-                error={errors.tratamiento}
-              />
+            <div className="flex rowForm items-center"> 
+              <div className="w-[50%]">
+                  <SelectInputTiposComponent
+                    label="Color"
+                    name="color"
+                    showRefresh={true}
+                    data={data && data[EnumGrid.color_id]}
+                    control={control}
+                    entidad="CristalesColores"
+                    customWidth={"!ml-[1rem] !w-[19rem]"}
+                    error={errors.color}
+                  />
+              </div>
+              <div className="w-[50%]">
+                  <SelectInputTiposComponent
+                    label="Tratamiento"
+                    name="tratamiento"
+                    showRefresh={true}
+                    data={data && data[EnumGrid.tratamiento_id]}
+                    control={control}
+                    entidad="CristalesTratamientos"
+                    customWidth={"!ml-[1rem] !w-[19rem]"}
+                    error={errors.tratamiento}
+                  />
+              </div>
             </div>
             <div className="!mt-[0.4rem]">
               <div className="flex items-center rowForm">

@@ -147,18 +147,6 @@ export function transformUpdateQuery(
     `permisos_areas       = "${permiso_area.map((permiso)=>jsonData[permiso] === 'Lectura' ? "0" : "1").join('')}"`,
   ];
 
-
- console.log( `permisos_areas    = "${permiso_area.map((permiso)=>jsonData[permiso] === 'Lectura' ? "0" : "1").join('')}"`)
- console.log(insertarElementoEnPosicion(permiso_campo.map((permiso) => jsonData[permiso] === 'Lectura' ? "0" : "1").join(''),'0', 1))
-  
- console.log(permiso_campo.map((permiso) => jsonData[permiso] === 'Lectura' ? "0" : "1").join(''))
- 
- console.log(jsonData)
-
- console.log(permiso_campo.map((permiso)=>jsonData[permiso]).join(''))
-
-
-
  const filteredFields = fields.filter(
     (field) => field !== null && field !== ""
   );
@@ -421,7 +409,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
 
 
 return (
-      <div className="useFormContainer centered-div  !w-[70rem] !h-[45rem]">
+      <div className="useFormContainer centered-div  !w-[73rem] !h-[45rem]">
         <div className="userFormBtnCloseContainer flex justify-between ">
           <h1 className="userFormLabel absolute left-[40%]">{label}</h1>
           <button onClick={closeModal} className="userFormBtnClose">

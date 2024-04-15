@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { SelectInputComponent } from '..';
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
 import { validationOTlevel2, validationOTlevel3,  } from '../../utils/validationOT';
@@ -132,16 +132,11 @@ const FOTCristales: React.FC<ICristales> = ({
 
     // console.log(tipo_de_anteojo.value)
 
-    console.log(permiso_areas_cristales)
-    console.log(permiso_usuario_cristales)
+    // console.log(permiso_areas_cristales)
+    // console.log(permiso_usuario_cristales)
     // console.log(data?.[EnumGrid.cristal2_od])
 
-    useEffect(()=>{
-        // if(isEditting ){
-        //     A2_CR_OD.value = data?.[EnumGrid.cristal2_od]
-        //     A2_CR_OI.value = data?.[EnumGrid.cristal2_oi]
-        // }
-    },[])
+  
     // console.log(data && data[EnumGrid.cristal2_od])
 
     return (

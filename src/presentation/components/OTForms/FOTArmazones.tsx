@@ -248,36 +248,158 @@ const FOTArmazones:React.FC<IArmazones> = ({
 
 
             // console.log('no hay error')
+            console.log(data)                                                            
+            if(data && data){
+                switch (inputName) {
+                    case 'a1_armazon_id':
+                        if(data[0][0] === a2_armazon.value.trim() || data[0][0] === a3_armazon.value.trim() ){
+                            toast.error(`Código Armazon 1 no puede ser igual a Código ${data[0][0] === a2_armazon.value.trim() ? 'Armazon 2': 'Armazon 3'}`);
+                            onDataChange({['a1_armazon_id']: " "})
+                            a1_armazon.value = " "
+                            setCodArmazon1(" ")
+                            setArmazon1([])
+                            validation_A1_armazon("")
+                            console.log('render')
+                            toast.dismiss(toastLoading)
+                            return;
+                        }
+                        break
+                    case 'a2_armazon_id':
+                        if(data[0][0] === a1_armazon.value.trim() || data[0][0] === a3_armazon.value.trim()){
+                            toast.error(`Código Armazon 2 no puede ser igual a Código ${data[0][0] === a1_armazon.value.trim() ? 'Armazon 1': 'Armazon 3'}`);
+                            onDataChange({['a2_armazon_id']: " "})
+                            a2_armazon.value = " "
+                            setCodArmazon2(" ")
+                            setArmazon2([])
+                            validation_A2_armazon("")
+                            toast.dismiss(toastLoading)
+                            return;
+                        }
+                        break;
+                    case 'a3_armazon_id':
+                        if(data[0][0] === a1_armazon.value.trim() || data[0][0] === a2_armazon.value.trim()){
+                            toast.error(`Código Armazon 3 no puede ser igual a Código ${data[0][0] === a1_armazon.value.trim() ? 'Armazon 1': 'Armazon 2'}`);
+                            onDataChange({['a3_armazon_id']: " "})
+                            setCodArmazon3(" ")
+                            setArmazon3([])
+                            setCodArmazon3(" ")
+                            toast.dismiss(toastLoading)
+                            return
+                        }
+                        break;
+                    default:
+                        break;
+            }}
+
+
+            console.log(data)
             
             if(data && data[0][19] !== ''){
-                toast.error(data[0][20])
                 // _señal = " "
                 onDataChange({[inputName]: " "})
                 console.log(data)
+                console.log(inputName)
+                
 
                 switch (data[0][19]) {
                     case 'ODOI':
-                        localStorage.setItem('a1_armazon', data[0])
-                        setArmazon1(data[0])
-                        setCodArmazon1(data[0][0])
-
-                        // A1_GRUPO_OD.value = data[0][15]
-                        // a1_armazon.value  = data[0][0]
-                        // A1_GRUPO_OI.value = data[0][16]
-
-                        // A1_CR_OD.value    = data[0][17]
-                        // A1_CR_OI.value    = data[0][18]
-
-
-                        // validation_Cristal1_oi(data[0][17])
-                        // validation_Cristal1_od(data[0][18])
-                        validation_A1_armazon(data[0][0])
-
+                        //?VALIDANDO CODIGOS ARMAZONES SEAN DISTINTOS
+                        switch (inputName) {
+                            case 'a1_armazon_id':
+                                localStorage.setItem('a1_armazon', data[0])
+                                setArmazon1(data[0])
+                                setCodArmazon1(data[0][0])
+                                validation_A1_armazon(data[0][0])
+                                break;
+                            case 'a2_armazon_id':
+                                localStorage.setItem('a2_armazon',data[0])
+                                setArmazon2(data[0])
+                                setCodArmazon2(data[0][0])
+                                validation_A2_armazon(data[0][0])
+                                break;
+                            case 'a3_armazon_id':
+                                localStorage.setItem('a3_armazon', data[0])
+                                setArmazon3(data[0])
+                                setCodArmazon3(data[0][0])
+                                break;
+                            default:
+                                break;
+                        }
                         validacionIncompleta.value.check = true;
                         validacionIncompleta.value.a1_od = true;
                         validacionIncompleta.value.a1_oi = true;
 
-                        console.log('render')
+                        if(tipo_de_anteojo.value === '3'){
+                            validacionIncompleta.value.a2_od = true;
+                            validacionIncompleta.value.a2_oi = true;
+                        }
+                        toast.error(data[0][20])
+                        toast.dismiss(toastLoading)
+                        return;
+                    case 'OD':
+                        switch (inputName) {
+                            case 'a1_armazon_id':
+                                localStorage.setItem('a1_armazon', data[0])
+                                setArmazon1(data[0])
+                                setCodArmazon1(data[0][0])
+                                validation_A1_armazon(data[0][0])
+                                break;
+                            case 'a2_armazon_id':
+                                localStorage.setItem('a2_armazon',data[0])
+                                setArmazon2(data[0])
+                                setCodArmazon2(data[0][0])
+                                validation_A2_armazon(data[0][0])
+                                break;
+                            case 'a3_armazon_id':
+                                localStorage.setItem('a3_armazon', data[0])
+                                setArmazon3(data[0])
+                                setCodArmazon3(data[0][0])
+                                break;
+                            default:
+                                break;
+                        }
+                        validacionIncompleta.value.check = true;
+                        validacionIncompleta.value.a1_od = true;
+                        validacionIncompleta.value.a1_oi = false;    
+                        
+                        if(tipo_de_anteojo.value === '3'){
+                            validacionIncompleta.value.a2_od = true;
+                            validacionIncompleta.value.a2_oi = false;
+                        }
+                        toast.error(data[0][20])
+                        toast.dismiss(toastLoading)
+                        return;
+                    case 'OI':
+                        switch (inputName) {
+                            case 'a1_armazon_id':
+                                localStorage.setItem('a1_armazon', data[0])
+                                setArmazon1(data[0])
+                                setCodArmazon1(data[0][0])
+                                validation_A1_armazon(data[0][0])
+                                break;
+                            case 'a2_armazon_id':
+                                localStorage.setItem('a2_armazon',data[0])
+                                setArmazon2(data[0])
+                                setCodArmazon2(data[0][0])
+                                validation_A2_armazon(data[0][0])
+                                break;
+                            case 'a3_armazon_id':
+                                localStorage.setItem('a3_armazon', data[0])
+                                setArmazon3(data[0])
+                                setCodArmazon3(data[0][0])
+                                break;
+                            default:
+                                break;
+                        }
+                        validacionIncompleta.value.check = true;
+                        validacionIncompleta.value.a1_od = false;
+                        validacionIncompleta.value.a1_oi = true;
+
+                        if(tipo_de_anteojo.value === '3'){
+                            validacionIncompleta.value.a2_od = false;
+                            validacionIncompleta.value.a2_oi = true;
+                        }
+                        toast.error(data[0][20])
                         toast.dismiss(toastLoading)
                         return;
                     default:
@@ -363,44 +485,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
             }
             toast.dismiss(toastLoading)
 
-            switch (inputName) {
-                    case 'a1_armazon_id':
-                        if(a1_armazon.value.trim() === a2_armazon.value.trim() || a1_armazon.value.trim() === a3_armazon.value.trim() ){
-                            toast.error(`Código Armazon 1 no puede ser igual a Código ${a1_armazon.value.trim() === a2_armazon.value.trim() ? 'Armazon 2': 'Armazon 3'}`);
-                            onDataChange({['a1_armazon_id']: " "})
-                            a1_armazon.value = " "
-                            setCodArmazon1(" ")
-                            setArmazon1([])
-                            validation_A1_armazon("")
-                            console.log('render')
-                            return;
-                        }
-                        return
-                    case 'a2_armazon_id':
-                        if(a2_armazon.value.trim() === a1_armazon.value.trim() || a2_armazon.value.trim() === a3_armazon.value.trim()){
-                            toast.error(`Código Armazon 2 no puede ser igual a Código ${a2_armazon.value.trim() === a1_armazon.value.trim() ? 'Armazon 1': 'Armazon 3'}`);
-                            onDataChange({['a2_armazon_id']: " "})
-                            a2_armazon.value = " "
-                            setCodArmazon2(" ")
-                            setArmazon2([])
-                            validation_A2_armazon("")
-                            return;
-                        }
-                        return;
-                    case 'a3_armazon_id':
-                        if(a3_armazon.value.trim() === a1_armazon.value.trim() || a3_armazon.value.trim() === a2_armazon.value.trim()){
-                            toast.error(`Código Armazon 3 no puede ser igual a Código ${a3_armazon.value.trim() === a1_armazon.value.trim() ? 'Armazon 1': 'Armazon 2'}`);
-                            onDataChange({['a3_armazon_id']: " "})
-                            setCodArmazon3(" ")
-                            setArmazon3([])
-                            setCodArmazon3(" ")
-                            return
-                        }
-                        return;
-                    default:
-                        break;
-            }
-        
+           
             toast.dismiss(toastLoading)
         } catch (error) {
             toast.dismiss(toastLoading)

@@ -291,6 +291,10 @@ const FOT:React.FC<IFOTProps> = ({
         validation_Cristal2_od(data && data[EnumGrid.cristal2_od])
         validation_Cristal2_oi(data && data[EnumGrid.cristal2_oi])
       }
+
+      // getGrupoCristales_A1(formValue, data, setErrorGrupoDioptriaA1, setChangeboolean, isEditting, setErrorGrupoDioptriaA2)
+
+      getGrupoCristales_A1({},data,setErrorGrupoDioptriaA1, setChangeboolean, isEditting, setErrorGrupoDioptriaA2)
       
     }
   },[])
@@ -371,7 +375,11 @@ const FOT:React.FC<IFOTProps> = ({
           toast.success(message)
           reiniciarValidationNivel2(keepForm);
           setSelectedTab(1)
-          
+          if(paramsOT.value !== ''){
+            dispatch(fetchOT({OTAreas:OTAreaActual, searchParams: paramsOT.value}))
+          }else{
+            dispatch(fetchOT({OTAreas:OTAreaActual}))
+          }
           return
 
 
@@ -389,7 +397,6 @@ const FOT:React.FC<IFOTProps> = ({
     return query;
     // return
   }
-
 
   const sumatoriaNivel1 = validationNivel1.value.reduce((index, objeto) => index + objeto.valor, 0);
   // const sumatoriaNivel2 = validationNivel2.value.reduce((index, objeto) => index + objeto.valor, 0)
@@ -892,6 +899,31 @@ const checkArmazones = camposRequeridosArmazones.every(campo => {
   const campoEncontrado = validationNivel1.value.find((item:any) => item.campo === campo);
   return campoEncontrado && campoEncontrado.valor === 1;
 });
+
+
+
+// const camposRequeridos = {
+//   optica: ['proyecto', 'punto_venta_id', 'fecha_atencion'],
+  // cliente: ['cliente_rut', 'cliente_nombre', 'cliente_tipo', 'cliente_sexo', 'cliente_telefono', 'cliente_comuna', 'establecimiento_id'],
+//   receta: ['tipo_anteojo_id', 'a1_od_esf', 'a1_od_cil', 'a1_od_eje', 'a1_od_ad', 'a1_oi_ad', 'a1_oi_esf', 'a1_oi_cil', 'a1_oi_eje', 'a1_dp', 'a1_alt', 'a2_od_esf', 'a2_od_cil', 'a2_od_eje', 'a2_oi_esf', 'a2_oi_cil', 'a2_oi_eje', 'a2_dp'],
+//   cristales: ['cristal1_marca_id', 'cristal1_diseno_id', 'cristal1_indice_id', 'cristal1_material_id', 'cristal1_tratamiento_id', 'cristal1_color_id', 'cristal1_diametro', 'cristal1_od', 'cristal1_oi', 'cristal2_marca_id', 'cristal2_diseno_id', 'cristal2_indice_id', 'cristal2_material_id', 'cristal2_tratamiento_id', 'cristal2_color_id', 'cristal2_diametro', 'cristal2_od', 'cristal2_oi'],
+//   armazones: ['a1_armazon_id', 'a2_armazon_id']
+// };
+
+// const checks = {};
+
+// // Función para verificar los campos requeridos de un tipo específico
+// const check = (tipo) => {
+//   checks[tipo] = camposRequeridos[tipo].every(campo => {
+//     const campoEncontrado = validationNivel1.value.find((item:any) => item.campo === campo);
+//     return campoEncontrado && campoEncontrado.valor === 1;
+//   });
+// };
+
+// // Verificar los campos requeridos para cada tipo
+// for (const tipo in camposRequeridos) {
+//   check(tipo);
+// }
 
 
 // console.log(checkCliente)
