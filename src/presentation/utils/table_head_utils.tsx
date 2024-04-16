@@ -298,42 +298,42 @@ export const table_head_OT_historica = [
     cell: "N° Envío",
     key: "num_envio",
     visible: true,
-    alignment: "text-left",
+    alignment: "text-center",
     width: "w-[6rem]"
   },
   {
     cell: "N° Rep. Firma",
     key: "num_rep_firma",
     visible: true,
-    alignment: "text-left",
+    alignment: "text-center",
     width: "w-[6rem]"
   },
   {
     cell: "N° Rep. Entrega",
     key: "num_rep_entrega",
     visible: true,
-    alignment: "text-left",
+    alignment: "text-center",
     width: "w-[6rem]"
   },
   {
     cell: "N° OC",
     key: "num_oc",
     visible: true,
-    alignment: "text-left",
+    alignment: "text-center",
     width: "w-[6rem]"
   },
   {
     cell: "N° Guía",
     key: "num_guia",
     visible: true,
-    alignment: "text-left",
+    alignment: "text-center",
     width: "w-[6rem]"
   },
   {
     cell: "N° Factura",
     key: "num_factura",
     visible: true,
-    alignment: "text-left",
+    alignment: "text-center",
     width: "w-[6rem]"
   },
   {
@@ -1391,6 +1391,26 @@ export const table_head_cristales = [
     visible: true,
     alignment: "text-right",
     width: "w-[6rem]",
+  },
+  {
+    cell: "CODFAB1",
+    key: "codigo_fab_1",
+    visible: true,
+  },
+  {
+    cell: "CODFAB2",
+    key: "codigo_fab_2",
+    visible: true,
+  },
+  {
+    cell: "CODFAB3",
+    key: "codigo_fab_3",
+    visible: true,
+  },
+  {
+    cell: "CODFAB4",
+    key: "codigo_fab_4",
+    visible: true,
   },
   {
     cell: "",
