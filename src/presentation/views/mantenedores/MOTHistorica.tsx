@@ -7,7 +7,7 @@ import {
   PrimaryKeySearch,
   TableComponent,
 } from "../../components";
-import { useEntityUtils, usePermission } from "../../hooks";
+import { useEntityUtils } from "../../hooks";
 // import FUsuarios from "../forms/FUsuarios";
 import { TITLES, table_head_OT_historica } from "../../utils";
 // import { OptionValuesMotivo } from "./MOT";
@@ -283,14 +283,16 @@ const MOTHistorica: React.FC = () => {
   const [params, setParams] = useState([]);
   const OTs:any = useAppSelector((store: AppStore) => store.OTS);
   const user:any = useAppSelector((store: AppStore) => store.user);
+  console.log(user)
 
-  let permiso_documentacion = user.permisos_archivo_ot[0] === '1' ? true : false;
+  let permiso_documentacion  = user.permisos_archivo_ot[0] === '1' ? true : false; 
+  let permiso_post_venta     = user.permisos_archivo_ot[1] === '1' ? true : false; 
   // let permiso_post_venta    = user.permisos_archivo_ot[1] === '1' ? true : false;
 
   console.log(permiso_documentacion)
   // const userState: any = useAppSelector((store: AppStore) => store.user);
 
-  const {escritura_lectura} = usePermission(idMenu)
+  // const {escritura_lectura} = usePermission(idMenu)
 
   const updateParams = (newParams: Record<string, never>) => {
     setParams(Object.keys(newParams).map((key) => newParams[key]));
@@ -585,7 +587,7 @@ const MOTHistorica: React.FC = () => {
           params={params}
           isEditting={false}
           isMOT={false}
-          permisos_mantenedor={escritura_lectura}
+          permisos_mantenedor={permiso_post_venta}
         />
       )}
 
@@ -599,7 +601,7 @@ const MOTHistorica: React.FC = () => {
           closeModal={closeModal}
           isEditting={true}
           isMOT={true}
-          permisos_mantenedor={escritura_lectura}
+          permisos_mantenedor={permiso_post_venta}
         />
       )}
 

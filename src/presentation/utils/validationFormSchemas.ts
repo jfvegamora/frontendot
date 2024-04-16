@@ -187,6 +187,10 @@ export const validationCristalesSchema = () =>
     esferico    : yup.string().required(`${msg}`),
     cilindrico  : yup.string().required(`${msg}`),
     stock_minimo: yup.string().required(`${msg}`),
+    codigo_fab_1 : yup.string(),
+    codigo_fab_2 : yup.string(),
+    codigo_fab_3 : yup.string(),
+    codigo_fab_4 : yup.string(),
   });
 
 // Schema INGRESO INSUMOS KARDEX (CRISTALES-ARMAZONES-ACCESORIOS)

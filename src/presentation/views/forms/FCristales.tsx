@@ -32,16 +32,22 @@ export interface InputData {
   esferico    : string | undefined;
   cilindrico  : string | undefined;
   stock_minimo: string | undefined;
+  codigo_fab_1: string | undefined;
+  codigo_fab_2: string | undefined;
+  codigo_fab_3: string | undefined;
+  codigo_fab_4: string | undefined;
 }
 
 interface OutputData {
   query: string;
   _p1: string;
   _p2?: string;
+  _pkToDelete?: any
 }
 
-export function transformInsertQuery(jsonData: InputData): OutputData | null {
-  const _p1 = ` "${jsonData.codigo}", 
+export function transformInsertQuery(jsonData: InputData): OutputData | null | void {
+  const _p1 = ` 
+  "${jsonData.codigo}",
     ${jsonData.marca}, 
     ${jsonData.diseno}, 
     ${jsonData.indice}, 
@@ -53,11 +59,28 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
     ${jsonData.cilindrico}, 
     ${jsonData.stock_minimo}`;
 
-    // const pkToDelete = [{"codigo_fab" : "codigo 1"},{"codigo_fab" : "codigo 1"},{"codigo_fab" : "codigo 1"},{"codigo_fab" : "codigo 1"}]
+    console.log(jsonData)
+    const pkToDelete = [
+        {"codigo_fab" : jsonData.codigo_fab_1},
+        {"codigo_fab" : jsonData.codigo_fab_2},
+        {"codigo_fab" : jsonData.codigo_fab_3},
+        {"codigo_fab" : jsonData.codigo_fab_4}
+    ]
+     .filter((registro) => registro.codigo_fab !== '')
+     .map((registro) => {
+      return {
+        codigo: jsonData.codigo,
+        codigo_fab : registro.codigo_fab
+      }
+     }) 
+
+    console.log(pkToDelete)
+
 
   const query: OutputData = {
     query: "03",
     _p1: _p1,
+    _pkToDelete: encodeURIComponent(JSON.stringify(pkToDelete))
 
   };
 
@@ -89,11 +112,28 @@ export function transformUpdateQuery(
     return null;
   }
   const _p1 = filteredFields.join(",");
+
+    const pkToDelete = [
+      {"codigo_fab" : jsonData.codigo_fab_1},
+      {"codigo_fab" : jsonData.codigo_fab_2},
+      {"codigo_fab" : jsonData.codigo_fab_3},
+      {"codigo_fab" : jsonData.codigo_fab_4}
+  ]
+  .filter((registro) => registro.codigo_fab !== '')
+  .map((registro) => {
+    return {
+      codigo: jsonData.codigo,
+      codigo_fab : registro.codigo_fab
+    }
+  }); 
+
+
   console.log("primaryKey", primaryKey);
   const query = {
     query: "04",
     _p1,
     _p2: primaryKey,
+    _pkToDelete: encodeURIComponent(JSON.stringify(pkToDelete))
   };
 
   console.log(query)
@@ -143,6 +183,11 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
       setValue("esferico", "");
       setValue("cilindrico", "");
       setValue("stock_minimo", "");
+      setValue("codigo_fab_1", "");
+      setValue("codigo_fab_2", "");
+      setValue("codigo_fab_3", "");
+      setValue("codigo_fab_4", "");
+      
       if (firstInputRef.current) {
         const firstInput = firstInputRef.current.querySelector(
           'input[name="codigo"]'
@@ -292,62 +337,7 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                     />
               </div>
             </div>
-            <div className="flex rowForm items-center">
-              <div className="w-[50%]">
-                <TextInputComponent
-                  type="text"
-                  label="Código FAB"
-                  name="codigo_fab_1"
-                  // data={data && data[EnumGrid.codigo]}
-                  control={control}
-                  // error={errors.codigo}
-                  onlyRead={isEditting}
-                  maxLength={20}
-                  isOptional={true}
-                /> 
-              </div>
-              <div className="w-[50%]">
-                <TextInputComponent
-                  type="text"
-                  label="Código FAB"
-                  name="codigo_fab_2"
-                  // data={data && data[EnumGrid.codigo]}
-                  control={control}
-                  // error={errors.codigo}
-                  onlyRead={isEditting}
-                  maxLength={20}
-                  isOptional={true}
-                  />  
-              </div>
-            </div>
-            <div className="flex rowForm items-center">
-              <div className="w-[50%]">
-                <TextInputComponent
-                  type="text"
-                  label="Código FAB"
-                  name="codigo_fab_3"
-                  // data={data && data[EnumGrid.codigo]}
-                  control={control}
-                  // error={errors.codigo}
-                  onlyRead={isEditting}
-                  maxLength={20}
-                  isOptional={true}
-                  />
-              </div>
-              <div className="w-[50%]">
-                <TextInputComponent
-                  type="text"
-                  label="Código FAB"
-                  name="codigo_fab_4"
-                  // data={data && data[EnumGrid.codigo]}
-                  control={control}
-                  // error={errors.codigo}
-                  onlyRead={isEditting}
-                  maxLength={20}
-                  isOptional={true}
-                  />
-              </div>
-            </div>
+           
             <div className="flex rowForm items-center">
               <div className="w-[50%]">
                 <SelectInputComponent
@@ -496,6 +486,62 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                   tabIndex={-1}
                   textAlign="text-right"
                   />
+            </div>
+            <div className="flex rowForm items-center">
+              <div className="w-[50%]">
+                <TextInputComponent
+                  type="text"
+                  label="Código FAB"
+                  name="codigo_fab_1"
+                  data={data && data[EnumGrid.codigo_fab_1]}
+                  control={control}
+                  // error={errors.codigo}
+                  onlyRead={isEditting}
+                  maxLength={20}
+                  isOptional={true}
+                /> 
+              </div>
+              <div className="w-[50%]">
+                <TextInputComponent
+                  type="text"
+                  label="Código FAB"
+                  name="codigo_fab_2"
+                  data={data && data[EnumGrid.codigo_fab_2]}
+                  control={control}
+                  // error={errors.codigo}
+                  onlyRead={isEditting}
+                  maxLength={20}
+                  isOptional={true}
+                  />  
+              </div>
+            </div>
+            <div className="flex rowForm items-center">
+              <div className="w-[50%]">
+                <TextInputComponent
+                  type="text"
+                  label="Código FAB"
+                  name="codigo_fab_3"
+                  data={data && data[EnumGrid.codigo_fab_3]}
+                  control={control}
+                  // error={errors.codigo}
+                  onlyRead={isEditting}
+                  maxLength={20}
+                  isOptional={true}
+                  />
+              </div>
+              <div className="w-[50%]">
+                <TextInputComponent
+                  type="text"
+                  label="Código FAB"
+                  name="codigo_fab_4"
+                  data={data && data[EnumGrid.codigo_fab_4]}
+                  control={control}
+                  // error={errors.codigo}
+                  onlyRead={isEditting}
+                  maxLength={20}
+                  isOptional={true}
+                  />
+              </div>
             </div>
           </div>
           <div className="w-full">

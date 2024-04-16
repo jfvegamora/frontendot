@@ -933,6 +933,7 @@ const checkArmazones = camposRequeridosArmazones.every(campo => {
 
 console.log(data && data[EnumGrid.lugar_despacho])
 
+console.log(permisos_mantenedor)
 
 
   return (

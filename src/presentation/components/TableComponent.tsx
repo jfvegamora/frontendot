@@ -251,7 +251,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                 excelIndividual = true
               }  
 
-
+              // console.log(rowData[22])
               return (
                 <tr key={rowIndex} className="overflow-hidden">
                   {rowData.map((row: any, col: number) => {
@@ -259,7 +259,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                     const alignment             = tableHead?.[col]?.alignment       || "";
                     const color2                = tableHead?.[col]?.color           || false;
                     const backgroundAtrasadas   = tableHead?.[col]?.background      || false;
-                    const color                 = ( isOT ? rowData[21] === 'S' ? "bg-black" : "" : "");
+                    const color                 = ( isOT ? rowData[22] === 'S' ? "bg-black" : "" : "");
                     const type                  = color === 'bg-black' ? 1 : 0
 
                     return (

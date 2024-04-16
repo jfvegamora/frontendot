@@ -37,6 +37,10 @@ export enum EnumGrid {
   stock_minimo = 20,
   stock_reservado = 21,
   stock_disponible = 22,
+  codigo_fab_1   = 23,
+  codigo_fab_2   = 24,
+  codigo_fab_3   = 25,
+  codigo_fab_4   = 26,
 }
 
 const strEntidad = "Cristal ";

@@ -76,6 +76,7 @@ const FOTPendiente:React.FC<IDerivacion> = ({
             estadoValidacion
         ).then(()=>{
             closeModal()
+            console.log(paramsOT.value)
             dispatch(fetchOT({OTAreas:OTAreas["areaActual"], searchParams: paramsOT.value}));
             clearAllCheck.value = false;
         })

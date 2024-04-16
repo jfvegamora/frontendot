@@ -22,13 +22,11 @@ export const focusFirstInput = (strInputName: string, ref: React.RefObject<any>)
   };
 
 interface IFOTValidarBodega{
-    handleClose?:any,
-    data?:any
+    handleClose?:any
 }
 
 const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
-    handleClose,
-    data
+    handleClose
 }) => {
     const [formValues, setFormValues] = React.useState();
     const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas);

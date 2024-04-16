@@ -32,8 +32,15 @@ const StateCountBarOT:React.FC<IStateCountBar> = ({checkCount}) => {
     
     // console.log(checkCount.value)
 
+  
   return (
     <div className="w-[80%] bg-white absolute bottom-[1%]  rounded-full left-[7rem] flex">
+      <div className='w-[6rem] flex'>
+          <p className=" w-[4rem] text-center rounded-full">
+          {'Total'}:
+          </p>
+          <label className="w-8 text-center">{OTs.data.length}</label>
+      </div>
     {Object.keys(OTs.estadosOT).map((estadoID, index) => {
       // console.log(estadoID)
       const estadoNombre = estadoIDNombre[estadoID];
@@ -45,10 +52,12 @@ const StateCountBarOT:React.FC<IStateCountBar> = ({checkCount}) => {
 
         return (
           <div className="flex" key={index}>
-            <p style={{ backgroundColor, color: textColor }} className="mx-2 w-[6rem] text-center rounded-full">
-              {estadoNombre}:
-            </p>
-            <label className="w-8 text-center">{OTs.estadosOT[estadoID]}</label>
+            <div className='w-[10rem] flex'>
+              <p style={{ backgroundColor, color: textColor }} className="mx-2 w-[6rem] text-center rounded-full">
+                {estadoNombre}:
+              </p>
+              <label className="w-8 text-center">{OTs.estadosOT[estadoID]}</label>
+            </div>
           </div>
         );
       }
