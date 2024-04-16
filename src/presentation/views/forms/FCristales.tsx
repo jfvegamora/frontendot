@@ -187,7 +187,7 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
       setValue("codigo_fab_2", "");
       setValue("codigo_fab_3", "");
       setValue("codigo_fab_4", "");
-      
+
       if (firstInputRef.current) {
         const firstInput = firstInputRef.current.querySelector(
           'input[name="codigo"]'
@@ -496,7 +496,6 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                   data={data && data[EnumGrid.codigo_fab_1]}
                   control={control}
                   // error={errors.codigo}
-                  onlyRead={isEditting}
                   maxLength={20}
                   isOptional={true}
                 /> 
@@ -509,7 +508,6 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                   data={data && data[EnumGrid.codigo_fab_2]}
                   control={control}
                   // error={errors.codigo}
-                  onlyRead={isEditting}
                   maxLength={20}
                   isOptional={true}
                   />  
@@ -524,7 +522,6 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                   data={data && data[EnumGrid.codigo_fab_3]}
                   control={control}
                   // error={errors.codigo}
-                  onlyRead={isEditting}
                   maxLength={20}
                   isOptional={true}
                   />
@@ -537,7 +534,6 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                   data={data && data[EnumGrid.codigo_fab_4]}
                   control={control}
                   // error={errors.codigo}
-                  onlyRead={isEditting}
                   maxLength={20}
                   isOptional={true}
                   />
