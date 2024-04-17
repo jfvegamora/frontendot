@@ -152,16 +152,20 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
       _p1 = _p1.replace(/'/g, '!');
 
       const kardex = [{
-        'fecha': jsonData.fecha,
-        'insumo': jsonData.insumo,
-        'almacen': jsonData.almacen,
-        'es': "2",
-        'motivo': jsonData.motivo_egreso,
-        'cantidad': jsonData.cantidad,
+        'fecha'              : jsonData.fecha,
+        'insumo'             : jsonData.insumo,
+        'almacen'            : jsonData.almacen,
+        'es'                 : "2",
+        'motivo'             : jsonData.motivo_egreso,
+        'cantidad'           : jsonData.cantidad,
         'almacen_relacionado': jsonData.almacen_relacionado || 0,
-        'observaciones': jsonData.observaciones,
-        'usuario': userState?.id,
-        'ubicacion': jsonData.ubicacion,
+        'folio'              : jsonData.ot,
+        'factura'            : 0,
+        'proveedor'          : 0,
+        'valor_neto'         : 0,
+        'observaciones'      : jsonData.observaciones,
+        'usuario'            : userState?.id,
+        'ubicacion'          : jsonData.ubicacion,
       }]
 
       const query: OutputData = {
