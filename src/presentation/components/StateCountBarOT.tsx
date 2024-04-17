@@ -34,7 +34,7 @@ const StateCountBarOT:React.FC<IStateCountBar> = ({checkCount}) => {
 
   
   return (
-    <div className="w-[80%] bg-white absolute bottom-[1%]  rounded-full left-[7rem] flex">
+    <div className="w-[50%] bg-white absolute bottom-[1%]  rounded-full left-[24rem] flex">
       <div className='w-[6rem] flex'>
           <p className=" w-[4rem] text-center rounded-full">
           {'Total'}:

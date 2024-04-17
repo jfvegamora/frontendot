@@ -597,6 +597,7 @@ export const validationUsusariosSchema = () =>
     permiso_editar_receta                    : yup.string().required(`${msg}`),
     permiso_editar_validar_insumos           : yup.string().default('Lectura'),
     permiso_editar_validar_armazones         : yup.string().default('Lectura'),
+    permiso_editar_worktracking              : yup.string().required(`${msg}`),
 
   });
 

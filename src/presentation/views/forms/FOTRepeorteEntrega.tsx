@@ -24,7 +24,8 @@ interface Interface {
 }
 
 
-const strUrl = `${URLBackend}/api/proyectodocum/listado`
+const strUrl = `${URLBackend}/api/proyectodocum/listado`;
+const strUrlOT = `${URLBackend}/api/othistorica/listado`;
 
 
 
@@ -93,13 +94,11 @@ const FOTReporteEntrega: React.FC<Interface> = ({
             return toast.error('No Hay OT Seleccionada')
         }
 
-        console.log(jsonData["numero_doc"])
-        console.log(parseInt(jsonData["numero_doc"]) >= 0)
         if(!(parseInt(jsonData["numero_doc"]) >= 0)){
             return toast.error('Numero de documento debe ser mayor a 0')
         }
 
-        if (pktoDelete.every((ot:any) => ot.estado !== 'Entregada' && ot.estado !== 'Cerrada')) {
+        if (pktoDelete.some((ot:any) => ot.estado !== 'Entregada' && ot.estado !== 'Cerrada')) {
             toast.error(`OT debe estar Entregada o Cerrada `);
             return;
         }
@@ -157,9 +156,16 @@ const FOTReporteEntrega: React.FC<Interface> = ({
             let queryURL07 = `?query=07&_p1=${query07["_p1"]}&_p2=${query07["_p2"]}&_p3=${query07["_p3"]}&_pkToDelete=${query07["_pkToDelete"]}&_id=${query07["_id"]}`
             const resultQuery07 = await axios(`${strUrl}/${queryURL07}`)
             if (resultQuery07?.status === 200) {
-                toast.success('Número de Envío generado')
-                toast.dismiss(toastLoading)
-                dispatch(fetchOT({ historica:true, searchParams: paramsOT.value}))
+                const query06 = {
+                    _pkToDelete: JSON.stringify(pktoDelete.map((folioOT: any) => ({ folio: folioOT["folio"], estado: 60, usuario: UsuarioID})))
+                }    
+                let queryURL06 = `?query=06&&_pkToDelete=${query06["_pkToDelete"]}`
+                
+                await axios(`${strUrlOT}/${queryURL06}`).then(()=>{
+                    toast.dismiss(toastLoading)
+                    toast.success('Número de Envío generado')
+                    dispatch(fetchOT({ historica:true, searchParams: paramsOT.value}))
+                })
             } else {
                 toast.dismiss(toastLoading)
                 toast.error('error: Número de envío')

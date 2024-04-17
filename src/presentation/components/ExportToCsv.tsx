@@ -134,30 +134,56 @@ const ExportToCsv: React.FC<Props> = ({
   const handleExportEntity = async() => {
     console.log('ejecutando caso de uso 2'); 
     if(entity){
-      const primaryKey =`_p1=${entity[1]}&_p2=${entity[4]}`;
+      // const primaryKey =`_p1=${entity[1]}&_p2=${entity[4]}`;
 
-      const nombreExcel = `${strEntidad}_${entity[1]}_${entity[5]}_${entity[6]}`
+      // const nombreExcel = `${strEntidad}_${entity[1]}_${entity[5]}_${entity[6]}`
 
-      const data = [{
-        proyecto: `${entity[1]}`,
-        fecha_desde: `${entity[5]}`,
-        fecha_hasta: `${entity[6]}`
-      }]
+      // const data = [{
+      //   proyecto: `${entity[1]}`,
+      //   fecha_desde: `${entity[5]}`,
+      //   fecha_hasta: `${entity[6]}`
+      // }]
 
-      const jsonData = JSON.stringify(data);
+      // const jsonData = JSON.stringify(data);
 
-      exportExcel(primaryKey, nombreExcel, jsonData)
+      // exportExcel(primaryKey, nombreExcel, jsonData)
       const _p1 = entity[EnumGird.proyecto]
       const _p2 = entity[EnumGird.tipo_doc_id]
       const _p3 = entity[EnumGird.numero_doc]
 
+      console.log(_p1)
+      console.log(_p2)
+      console.log(_p3)
+
+      // json = {
+      //   "numero_reporte" : "",
+      //   "proyecto"       : "",
+      // }
+
+      // "numero_reporte"
+      // "query06"
+      // "proyectoreporteentrega"
+      // "proyectoreportefirma" 
+      
+      const jsonPkToDelete = [{
+        "numero_reporte" : _p3,
+        "proyecto"       : _p1
+      }]
+      const entidad = _p2 === 2 ? "proyectoreportefirma" : "proyectoreporteentrega"
+
+      // console.log(entidad)
+
+
       try {
-        const {data} = await axios(`${URLBackend}/api/proyectodocum/excelindividual/?query=08&_p1=${_p1}&_p2=${_p2}&_p3=${_p3}`,{
+        const {data} = await axios(`${URLBackend}/api/${entidad}/excelindividual/?query=06&_pkToDelete=${encodeURIComponent(JSON.stringify(jsonPkToDelete))}`,{
           headers: {
              'Authorization': token, 
            },
            responseType: "blob"
         })
+
+        // console.log(data)
+
 
         const fileURL:string = URL.createObjectURL(
           new Blob([data], { type: "application/vnd.ms-excel" })

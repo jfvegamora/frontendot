@@ -65,11 +65,17 @@ const Login: React.FC = React.memo(() => {
           dispatch(fetchListBoxTipos(usuario.token))
           dispatch(fetchColores(usuario.token))
           dispatch(fetchRegProCom(usuario.token))
-      
+          const userAgent = navigator.userAgent
+          const isMobile = /Mobi/.test(userAgent)
+
+          if(isMobile){
+            navigate("/terreno")
+          }else{
+            navigate("/landing");
+          }
           // toast.success("Sesion Iniciada");
           // show({ message: LOGIN.loginSuccess, type: "success" });
           // toast.dismiss(toastLoading)
-          navigate("/landing");
           // toast.dismiss(toastLoading)
         })
         .catch((_e) => {

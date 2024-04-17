@@ -11,6 +11,7 @@ import { AppStore, useAppSelector } from '../../../redux/store';
 import { URLBackend } from '../../hooks/useCrud';
 import { toast } from 'react-toastify';
 import TextInputInteractive from '../forms/TextInputInteractive';
+import { EnumAreas } from '../OTPrimaryButtons';
 
 interface IOptica {
     control:any,
@@ -26,7 +27,8 @@ interface IOptica {
     permiso_usuario_resolucion_garantia:boolean,
     permiso_areas_estado_validacion:boolean,
     permisos_areas_estado_immpresion:boolean,
-    permiso_areas_resolucion_garantia:boolean
+    permiso_areas_resolucion_garantia:boolean,
+    permiso_usuario_workTracking: boolean
 }
 
 
@@ -42,6 +44,7 @@ const FOTOptica:React.FC<IOptica> = ({
     permiso_usuario_estado_impresion,
     permiso_usuario_estado_validacion,
     permiso_usuario_resolucion_garantia,
+    permiso_usuario_workTracking,
 
     permiso_areas_estado_validacion,
     permisos_areas_estado_immpresion,
@@ -51,9 +54,11 @@ const FOTOptica:React.FC<IOptica> = ({
     const [_motivo, setMotivo] = useState(false)
     const [strCodigoProyecto, setStrCodigoProyecto] = useState("");
     const userID:any = useAppSelector((store: AppStore) => store.user?.id);
+    const User:any = useAppSelector((store: AppStore) => store.user);
     const _origen:any = useAppSelector((store: AppStore) => store.OTAreas.areaActual);
     const _estado = data && data[EnumGrid.estado_id]
-
+    const permisos_usuario_areas = User.permisos_areas[EnumAreas[_origen]] === '1' ? true : false
+    
 
     // console.log(_estado)
 
@@ -74,11 +79,9 @@ const FOTOptica:React.FC<IOptica> = ({
 
         }   
 
-
         if(name === 'Resolucion'){
             handleSwitchResolucion(value)
         }
-
 
         validationOTlevel1(name, value)
         validationOTlevel2(name, value)
@@ -86,10 +89,12 @@ const FOTOptica:React.FC<IOptica> = ({
         if(name === "resolucion_garantia"){
             setToggle(value)
         }
+
         if(name === "motivo"){
             setMotivo((prev)=>!prev)
             setIsMotivo((prev:any)=>!prev)
         }
+
         onDataChange({ [name]: value });        
         // Envia los datos al componente padre
     };
@@ -148,6 +153,11 @@ useEffect(()=>{
     validationFechaAtencion(fecha_atencion_signal.value)
     validationPuntoVenta(punto_venta.value as any)
 },[codigoProyecto.value, fecha_atencion_signal.value])
+
+
+
+
+// console.log(permisos_usuario_areas)
 
 return (
     <form action="">
@@ -440,8 +450,9 @@ return (
                             handleChange={handleInputChange}
                             data={formValues ? formValues["worktracking"] : data && data[EnumGrid.worktracking]}
                             control={control}
-                            onlyRead={isEditting}
+                            onlyRead={!(isEditting && (permiso_usuario_workTracking && permisos_usuario_areas))}
                             isOptional={true}
+                            isOT={true}
                             textAlign="text-center"
                             />
                     </div>

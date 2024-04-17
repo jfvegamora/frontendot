@@ -125,6 +125,7 @@ export const validarImpresion = signal(null)
 
 export const secondProcessBodega = signal(false)
 export const procesarRender     = signal(40);
+export const numero_worktracking        = signal('');
 
 // fechaHoraActual
 
@@ -976,7 +977,8 @@ export const clearGrupos = () => {
     a2_od: false,
     a2_oi: false
   };
-  countError.value     = 0
+  countError.value     = 0;
+  numero_worktracking.value = "";
 }
 
 
@@ -1230,6 +1232,9 @@ type InputChangeActions = {
 
 //TODO: ESTRUCTURA QUE SE EJECUTA EN CADA CHANGE DE LOS INPUT
 export const inputChangeActions:InputChangeActions = {
+  worktracking: (data:any) => {
+    numero_worktracking.value = Object.values(data)[0] as string;
+  },
   cristal1_od: (data:any) => {
     A1_CR_OD.value = Object.values(data)[0] as string;
   },
@@ -1325,7 +1330,7 @@ export const getGrupoCristales_A1 = async(formValue:any, data:any, setErrorGrupo
   const {cristal1_marca_id, cristal1_diseno_id, cristal1_indice_id, cristal1_color_id , cristal1_material_id,cristal1_tratamiento_id } = formValue;
 
   
-  if((cristal1_marca_id                           !== undefined  || data?.[EnumGrid.cristal1_marca_id]    !== undefined) &&
+  if(    (cristal1_marca_id                           !== undefined  || data?.[EnumGrid.cristal1_marca_id]    !== undefined) &&
          (cristal1_diseno_id                      !== undefined  || data?.[EnumGrid.cristal1_diseno_id]   !== undefined) &&
          (cristal1_indice_id                      !== undefined  || data?.[EnumGrid.cristal1_indice_id]   !== undefined) && 
          (cristal1_color_id                       !== undefined  || data?.[EnumGrid.cristal1_color_id]    !== undefined) &&
@@ -1719,6 +1724,12 @@ export const updateOT =async (
 
   let _p3 = ""
 
+  console.log(jsonData)
+  console.log(numero_worktracking.value.trim()=== ''   ? data && data[EnumGrid.worktracking]  : numero_worktracking.value )
+
+  console.log(numero_worktracking.value)
+  
+
 
   const fields = [
     `motivo=${motivo}`,
@@ -1803,7 +1814,7 @@ export const updateOT =async (
     (`folio_asociado="${data && data[EnumGrid.folio_asociado]                                                                                            ? data && data[EnumGrid.folio_asociado]           : "" }"`),
     // (`resolucion_garantia=${data && data[EnumGrid.resolucion_garantia_id]                                                                                !== undefined ? (jsonData.resolucion_garantia_id === 'Rechazada' ? 2 :1) : 0 }`),
     (`resolucion_garantia=${data && data[EnumGrid.resolucion_garantia_id]                                                                                ? data && data[EnumGrid.resolucion_garantia_id]   : 0 }`),
-    (`worktracking="${data && data[EnumGrid.worktracking]                                                                                                ? data && data[EnumGrid.worktracking]             : "" }"`),
+    (`worktracking="${numero_worktracking.value.trim()                                                                                                   === ''          ? data && data[EnumGrid.worktracking]             : numero_worktracking.value }"`),
     (`nota_venta="${data && data[EnumGrid.nota_venta]                                                                                                    ? data && data[EnumGrid.nota_venta]               : "" }"`),
     (`numero_reporte_firma=${data && data[EnumGrid.numero_reporte_firma]                                                                                 ? data && data[EnumGrid.numero_reporte_firma]     : 0 }`),
     (`numero_reporte_atencion=${data && data[EnumGrid.numero_reporte_atencion]                                                                           ? data && data[EnumGrid.numero_reporte_atencion]  : 0 }`),

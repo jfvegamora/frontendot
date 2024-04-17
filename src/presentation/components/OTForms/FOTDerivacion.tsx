@@ -9,7 +9,7 @@ import { MODAL, punto_venta, secondProcessBodega, tipo_de_anteojo, updateOT, val
 import { fetchOT } from '../../../redux/slices/OTSlice';
 import axios from 'axios';
 import { URLBackend } from '../../hooks/useCrud';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
 import { useModal } from '../../hooks/useModal';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { paramsOT } from '../../views/mantenedores/MOT';
@@ -142,20 +142,20 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
                 axios(`${URLBackend}/api/cristaleskardex/listado/?query=06&_pkToDelete=${JSON.stringify(cristalesJSON)}`),
                 axios(`${URLBackend}/api/armazoneskardex/listado/?query=06&_pkToDelete=${JSON.stringify(armazonesJSON)}`)
             ]
-    
-            promiseResponses = await Promise.all(promesas)
+            console.log(promesas)
+            // promiseResponses = await Promise.all(promesas)
     
             
-            for (const response of promiseResponses) {
-                const [status, message] = response.data[0];
-                if (status !== 0) {
-                    toast.error(message,{
-                        autoClose: 6500
-                    });
+            // for (const response of promiseResponses) {
+            //     const [status, message] = response.data[0];
+            //     if (status !== 0) {
+            //         toast.error(message,{
+            //             autoClose: 6500
+            //         });
                     
-                }
+            //     }
     
-            }
+            // }
         }
 
 

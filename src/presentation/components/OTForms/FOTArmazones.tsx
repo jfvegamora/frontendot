@@ -121,6 +121,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
         "punto_venta": punto_venta.value,
       }
 
+      
       const _pkToDelete2_od ={
         "marca":      cristal2_marca_id        || data?.[EnumGrid.cristal2_marca_id],
         "diseno":     cristal2_diseno_id       || data?.[EnumGrid.cristal2_diseno_id],

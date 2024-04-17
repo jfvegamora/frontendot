@@ -64,6 +64,8 @@ export const validationStateOT = (positionCampo:number, nameCampo:string, folios
 
   return resultadoFiltrado.map((OT:any)=>{
     const estado = OT[positionCampo]
+    console.log(estado)
+    console.log(nameCampo)
     if(estado !== nameCampo){
       return [OT[1], OT[4]]
     }

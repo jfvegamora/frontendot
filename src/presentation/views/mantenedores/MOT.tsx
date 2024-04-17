@@ -239,7 +239,7 @@ const MOT: React.FC = () => {
 
 
 
-      <div className={`width100 scroll ${filterToggle.value ? "!mt-[13rem] !h-[25rem]" : "!mt-[1rem] !h-[29rem]"} `}>
+      <div className={`width100 scroll ${filterToggle.value ? "!mt-[13rem] !h-[25rem]" : "!mt-[1rem]"} `}>
       
         <TableComponent
           handleSelectChecked={handleSelect}

@@ -144,6 +144,7 @@ const FOT:React.FC<IFOTProps> = ({
   let permiso_usuario_grupo_dioptria      = permisosCampos && isEditting ?  data && data[EnumGrid.bodega_procesado] === 0  ? (permisosCampos[5] === "1" ? true : false) : (permisosCampos[5] === "1" ? true : false) : (permisosCampos[5] === "1" ? true : false)
   let permiso_usuario_receta              = permisosCampos && isEditting ?  data && data[EnumGrid.bodega_procesado] === 0  ? (permisosCampos[6] === "1" ? true : false) : (permisosCampos[6] === "1" ? true : false) : (permisosCampos[5] === "1" ? true : false)
   let permiso_usuario_verificar_cristal   = permisosCampos && permisosCampos[7] === "1" ? true : false;
+  let permiso_usuario_workTracking        = permisosCampos && permisosCampos[9] === "1" ? true : false;
   // let permiso_usuario_verificar_armazon   = permisosCampos && permisosCampos[8] === "1" ? true : false;
 
   //? VARIABLE QUE DETECTA SI LA OT YA SE HA PROCESADO 1 VEC DESDE BODEGAINSUMO
@@ -163,6 +164,8 @@ const FOT:React.FC<IFOTProps> = ({
   let permiso_areas_receta                = permisosAreas && permisosAreas[6] === '1' ? true : false;
   let permiso_area_verificar_cristal      = permisosAreas && permisosAreas[7] === '1' ? true : false;
   // let permiso_area_verificar_armazon      = permisosAreas && permisosAreas[8] === "1" ? true : false;
+
+  console.log(permisosAreas)
 
 
   const handleCloseForm = () => {
@@ -656,7 +659,9 @@ const FOT:React.FC<IFOTProps> = ({
         ...dataForm
       }
     }));
- 
+    
+    // console.log(key)
+    // console.log(dataForm)
     //TODO: inputChangeAction 
     if(inputChangeActions[key]){
       inputChangeActions[key](dataForm);
@@ -933,7 +938,7 @@ const checkArmazones = camposRequeridosArmazones.every(campo => {
 
 console.log(data && data[EnumGrid.lugar_despacho])
 
-console.log(permisos_mantenedor)
+console.log(permiso_usuario_workTracking)
 
 
   return (
@@ -1009,7 +1014,7 @@ console.log(permisos_mantenedor)
           </button>
       </div>
             <TabPanel onSelect={loadFormData}>
-              <FOTOptica onlyRead={onlyRead} setIsMotivo={setIsMotivo} isEditting={isEditting} data={data && data} formValues={formValues["optica"]} control={control} setToggle={setToggle}  onDataChange={(data:any) => handleFormChange(data , 'optica')} permiso_areas_resolucion_garantia={permiso_areas_resolucion_garantia}    permisos_areas_estado_immpresion={permiso_areas_estado_impresion} permiso_areas_estado_validacion={permiso_areas_estado_validacion} permiso_usuario_estado_impresion={permiso_usuario_estado_impresion} permiso_usuario_estado_validacion={permiso_usuario_estado_validacion} permiso_usuario_resolucion_garantia={permiso_usuario_resolucion_garantia} />
+              <FOTOptica permiso_usuario_workTracking={permiso_usuario_workTracking} onlyRead={onlyRead} setIsMotivo={setIsMotivo} isEditting={isEditting} data={data && data} formValues={formValues["optica"]} control={control} setToggle={setToggle}  onDataChange={(data:any) => handleFormChange(data , 'optica')} permiso_areas_resolucion_garantia={permiso_areas_resolucion_garantia}    permisos_areas_estado_immpresion={permiso_areas_estado_impresion} permiso_areas_estado_validacion={permiso_areas_estado_validacion} permiso_usuario_estado_impresion={permiso_usuario_estado_impresion} permiso_usuario_estado_validacion={permiso_usuario_estado_validacion} permiso_usuario_resolucion_garantia={permiso_usuario_resolucion_garantia} />
             </TabPanel>
             
           <TabPanel onSelect={loadFormData}>

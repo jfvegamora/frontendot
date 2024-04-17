@@ -32,6 +32,7 @@ const ModalImpor:React.FC<ModalImportProps> = ({
     if(errors && typeof errors === 'string'){
         transformedErrors =  [["", "", errors]]
     }else if (errors && typeof errors === 'object'){
+        console.log(errors)
         transformedErrors = errors.map((error:any)=>{
             let b = error[2]
             console.log(b)
@@ -53,10 +54,21 @@ const ModalImpor:React.FC<ModalImportProps> = ({
             return ["","",b]
         })
     }
- 
+    
+    React.useEffect(() => {
+        const handleKeyDown = (event: KeyboardEvent) => {
+          if (event.key === "Escape") {
+            onClose();
+          }
+        };
+  
+        window.addEventListener("keydown", handleKeyDown);
+  
+        return () => {
+          window.removeEventListener("keydown", handleKeyDown);
+        };
+      }, [onClose]);
 
-    console.log(transformedErrors)
-    console.log(titleState)
 
    return (
     <div className='w-[50%] border border-black mx-auto  left-[22rem] z-50  absolute top-[20%] cursor-default ' onClick={stopPropagation} style={{backgroundColor:'rgb(103 111 157 / 1)'}}>

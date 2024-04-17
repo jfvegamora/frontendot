@@ -22,7 +22,8 @@ interface IDerivacion {
     setSelectedRows?:any;
 }
 
-const strUrl = `${URLBackend}/api/proyectodocum/listado`
+const strUrl = `${URLBackend}/api/proyectodocum/listado`;
+const strUrlOT = `${URLBackend}/api/othistorica/listado`;
 
 const FOTFactura: React.FC<IDerivacion> = ({
     setSelectedRows,
@@ -97,9 +98,18 @@ const FOTFactura: React.FC<IDerivacion> = ({
                 let queryURL07 = `?query=07&_p1=${query07["_p1"]}&_p2=${query07["_p2"]}&_p3=${query07["_p3"]}&_pkToDelete=${query07["_pkToDelete"]}&_id=${query07["_id"]}`
                 const resultQuery07 = await axios(`${strUrl}/${queryURL07}`)
                 if (resultQuery07?.status === 200) {
-                    toast.success('Factura Generada')
-                    toast.dismiss(toastLoading)
-                    dispatch(fetchOT({ historica:true, searchParams: paramsOT.value}))
+                    const query06 = {
+                        _pkToDelete: JSON.stringify(pktoDelete.map((folioOT: any) => ({ folio: folioOT["folio"], estado: 70, usuario: UsuarioID})))
+                    }    
+                    let queryURL06 = `?query=06&&_pkToDelete=${query06["_pkToDelete"]}`
+                    
+                    await axios(`${strUrlOT}/${queryURL06}`).then(()=>{
+                        toast.dismiss(toastLoading)
+                        toast.success('Factura Generada')
+                        dispatch(fetchOT({ historica:true, searchParams: paramsOT.value}))
+                    })
+                    
+                    
                 } else {
                     toast.dismiss(toastLoading)
                     toast.error('error: Factura')

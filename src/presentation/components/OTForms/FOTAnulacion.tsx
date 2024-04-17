@@ -2,13 +2,15 @@ import React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { SelectInputComponent, TextInputComponent } from '..';
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
-import { AppStore, useAppSelector } from '../../../redux/store';
+import { AppStore, useAppDispatch, useAppSelector } from '../../../redux/store';
 // import { SEXO, TIPO_CLIENTE } from '../../utils';
 import { Button } from '@material-tailwind/react';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import { URLBackend } from '../../hooks/useCrud';
 import { A1_CR_OD, A1_CR_OI, A2_CR_OD, A2_CR_OI, a1_armazon, a2_armazon } from '../../utils';
+import { paramsOT } from '../../views/mantenedores/MOT';
+import { fetchOT } from '../../../redux/slices/OTSlice';
 
 
 interface IDerivacion {
@@ -41,18 +43,19 @@ const FOTAnulacion:React.FC<IDerivacion> = ({
 }) => {
     const {control, handleSubmit} = useForm<FormData>()
     const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas);
-    const UsuarioID:any = useAppSelector((store:AppStore)=> store.user?.id)
+    const UsuarioID:any = useAppSelector((store:AppStore)=> store.user?.id);
+    const dispatch = useAppDispatch();
     // const OTSlice:any = useAppSelector((store:AppStore)=>store.OTS)
     // const dispatch = useAppDispatch();
 
 
     const onSubmit: SubmitHandler<FormData> = async(_jsonData) =>{
         try {
-            const strUrl = `${URLBackend}/api/ot/listado`
-            const _folio = data && data[EnumGrid.folio]
-            const _estado = data && data[EnumGrid.estado_id]
-            const userID =  UsuarioID
-            const _origen = OTAreas["areaActual"]
+            const strUrl   = `${URLBackend}/api/ot/listado`
+            const _folio   = data && data[EnumGrid.folio]
+            const _estado  = 80
+            const userID   = UsuarioID
+            const _origen  = OTAreas["areaActual"]
 
 
             const armazones = [
@@ -73,6 +76,7 @@ const FOTAnulacion:React.FC<IDerivacion> = ({
               const result = await axios(`${strUrl}/${query}`);
               if(result.status === 200){
                   toast.success('OT anulada ')
+                  dispatch(fetchOT({OTAreas:OTAreas["areaActual"], searchParams: paramsOT.value}));
               }
               onClose()
               closeModal()

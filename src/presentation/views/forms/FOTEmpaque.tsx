@@ -92,7 +92,10 @@ const FOTEmpaque: React.FC<IFOTEmpaque> = ({
             if (resultQuery07?.status === 200) {
                 toast.success('Número de Envío generado')
                 toast.dismiss(toastLoading)
+
                 dispatch(fetchOT({ OTAreas:OTAreas, searchParams: paramsOT.value}))
+
+
             } else {
                 toast.dismiss(toastLoading)
                 toast.error('error: Número de envío')

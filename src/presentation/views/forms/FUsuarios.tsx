@@ -94,6 +94,7 @@ const permiso_campo = [
   "permiso_editar_receta",
   "permiso_editar_validar_insumos",
   "permiso_editar_validar_armazones",
+  "permiso_editar_worktracking"
 ]
 
 const permiso_archivoOT = [
@@ -366,6 +367,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
         setValue('permiso_editar_resolucion_garantia', data[EnumGrid.permiso_editar_resolucion_garantia])
         setValue('permiso_editar_grupo_dioptria', data[EnumGrid.permiso_editar_grupo_dioptria])
         setValue('permiso_editar_receta', data[EnumGrid.permiso_editar_receta])
+        setValue('permiso_editar_worktracking', data[EnumGrid.permiso_editar_worktracking])
         // setValue('permiso_editar_validar_insumos', data[EnumGrid.permiso_editar_validar_cristales])
         // setValue('permiso_editar_validar_armazones', data[EnumGrid.permiso_editar_validar_armazones])
       }
@@ -404,8 +406,8 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
 // console.log(data && data[EnumGrid.permiso_editar_validar_cristales_id])
 // console.log(data && data[EnumGrid.permiso_editar_validar_armazones_id])
 
-
-
+console.log(data && data[EnumGrid.permiso_editar_worktracking])
+console.log(data && data)
 
 
 return (
@@ -787,18 +789,18 @@ return (
                         </div>
                       </div>
                       <div className="input-container items-center rowForm w-[15%]">
-                        {/* <div className="w-full">
+                        <div className="w-full">
                           <RadioButtonComponent
                             control={control}
-                            label="Validar Insumos"
-                            name="permiso_editar_validar_insumos"
-                            data={formValues && formValues["Validar Insumos"] || data && data[EnumGrid.permiso_editar_validar_cristales]}
+                            label="Editar WorkTracking"
+                            name="permiso_editar_worktracking"
+                            data={formValues && formValues["Editar WorkTracking"] || data && data[EnumGrid.permiso_editar_worktracking]}
                             options={["Lectura", "Escritura"]}
-                            error={errors.permiso_editar_validar_insumos}
+                            error={errors.permiso_editar_worktracking}
                             horizontal={false}
                             onChange={(e:any)=>handleChange(e)}
                           />
-                        </div> */}
+                        </div>
                       </div>
                       <div className="input-container items-center rowForm w-[15%]">
                         {/* <div className="w-full">

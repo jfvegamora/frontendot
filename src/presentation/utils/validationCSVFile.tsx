@@ -103,7 +103,7 @@ export interface ExcelUploadResult {
   errors?:any
 }
 
-export const handleFileUpload = (file: File,columnsToDelete:string[]) => {
+export const handleFileUpload = (file: File,columnsToDelete:string[], strEntidad:string) => {
   return new Promise<ExcelUploadResult>((resolve, reject) => {
     const reader = new FileReader();
     const errors:any = []
@@ -120,17 +120,22 @@ export const handleFileUpload = (file: File,columnsToDelete:string[]) => {
         const nameElement = Object.keys(firstElement)[0]
         const filteredRows = XLSX.utils.sheet_to_json(worksheet).filter((row: any) => row[nameElement])
 
+        if(strEntidad !== 'Ordenen de Trabajo'){
+          const validationErrors = validateExcelData(filteredRows, columnsToDelete)
+          console.log(validationErrors)
+  
+          if (validationErrors.length > 0) {
+            errors.push(validationErrors)
+            const logs = validationErrors.map(error => {
+              return ["", "", error]
+            })
+            resolve({errors: logs})
+          }
 
-        const validationErrors = validateExcelData(filteredRows, columnsToDelete)
-        console.log(validationErrors)
-
-        if (validationErrors.length > 0) {
-          errors.push(validationErrors)
-          const logs = validationErrors.map(error => {
-            return ["", "", error]
-          })
-          resolve({errors: logs})
+          console.log('render')
         }
+        console.log('render')
+
 
         const modifiedWorkbook = XLSX.utils.book_new();
         

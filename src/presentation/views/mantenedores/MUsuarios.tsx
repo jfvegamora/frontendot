@@ -70,9 +70,8 @@ export enum EnumGrid {
   permiso_editar_validar_cristales           = 47,
   permiso_editar_validar_armazones_id        = 48,
   permiso_editar_validar_armazones           = 49,
-
-
-
+  permiso_editar_worktracking_id             = 50,
+  permiso_editar_worktracking                = 51
 }
 
 
@@ -199,7 +198,6 @@ const MUsuarios: React.FC = () => {
           // setTotalRowIndex={setTotalRowIndex}
         />
       </div>
-          
  
       
       {isModalInsert && (

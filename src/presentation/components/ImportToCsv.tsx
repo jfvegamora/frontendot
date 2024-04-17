@@ -51,12 +51,10 @@ const ImportToCsv:React.FC<ImportProps> = ({
   }
 
 
-  const handleProgressUpdate = async (start: number, end: number, _nextStage: string, size: number) => {
-    const totalUpdates    = size;
-    const totalTime       = 2000;
-    const increment       = (end - start) / totalUpdates;
-    const timePerUpdate   = totalTime / totalUpdates;
-   
+  const handleProgressUpdate = async (start: number, end: number, _nextStage: string, _size: number) => {
+    const timePerUpdate   = 3.9603960396039604
+    const increment = 0.06
+
     for (let i = start; i <= 100; i += increment) {
       await new Promise((resolve) => {
         setTimeout(() => {
@@ -68,6 +66,39 @@ const ImportToCsv:React.FC<ImportProps> = ({
     }
     setProgress(0)
   };
+
+  
+  async function executeFetch(validate:any,numberOfElements:any) {
+    if (validate["blob"] && numberOfElements) {
+      const formData = new FormData();
+      formData.append('file', validate["blob"], 'modified_file.xls');
+      formData.append('positions_to_remove', JSON.stringify(PositionToRemove[strEntidad as "Clientes"]));
+      formData.append('entidad', JSON.stringify(strEntidad));
+      formData.append('userID', JSON.stringify(userState?.id));
+  
+      const url = `${URLBackend.value}/api/excel/import/`;
+  
+      try {
+        const response = await fetch(url, {
+          method: 'POST',
+          body: formData,
+        });
+
+      //  if (response.status === 200) {
+      //   return { success: true };
+      //  } else {
+      //   return { success: false, error: `Error ${response.status}: ${response.statusText}` };
+      //   }
+        const data = await response.json();
+        console.log(data)
+        return {data};
+      } catch (error) {
+        return { error };
+      }
+    } else {
+      return { error: "No se puede realizar la carga debido a datos faltantes." };
+    }
+  }
   
   const handleValidacion = async (size:number) => {
     await handleProgressUpdate(0, 100, 'Almacenamiento',size);
@@ -82,22 +113,20 @@ const ImportToCsv:React.FC<ImportProps> = ({
   
   const onDrop = useCallback(async(acceptedFiles:any) => {
     setIsOpen((prev)=>!prev)  
-    const formData = new FormData();
-    
-    
+    // const formData = new FormData();
     const result = await excelTypes(strEntidad)
-    console.log(result)
-    console.log('result tipos excel', JSON.parse(result["resul"]))
-    // resultExcelTypes.value = result
     // 
-    const validate = await  handleFileUpload(acceptedFiles[0], JSON.parse(result["resul"]))
-    // const validate = await  handleFileUpload(acceptedFiles[0], [] as any)
-    // const validate = await  handleFileUpload(acceptedFiles[0], [])
-    
-    await handleValidacion(validate["numberOfElements"] || 0)
+    const validate = await  handleFileUpload(acceptedFiles[0], JSON.parse(result["resul"]),strEntidad)
 
+    //?TRATAR DE EJECUTAR HANDLEVALIDACTION AL MISMO TIEMPO QUE LA LLAMADA 
+    // if(validate["errors"]){
+    //   console.log(validate)
+    //   setErrors((_prev:any)=>validate["errors"])
+    //   setProgress(100)
+    //   setIsOpen(true)
+    //   setCurrentStage("Errores")
+    // }
     setTimeout(()=>{
-      // console.log(validate["errors"])
       if(validate["errors"]){
         console.log(validate)
         setErrors((_prev:any)=>validate["errors"])
@@ -105,38 +134,80 @@ const ImportToCsv:React.FC<ImportProps> = ({
         setIsOpen(true)
         setCurrentStage("Errores")
       }
-    },500)
+    },200)
     
-    console.log(strEntidad)
+    
+    if(validate["blob"] && validate["numberOfElements"]){ 
+      
+      const [fetchResult] = await Promise.all([
+        executeFetch(validate, validate["numberOfElements"]),
+        handleValidacion(validate["numberOfElements"] || 0),
+      ]);
 
-    if(validate["blob"] && validate["numberOfElements"]){   
-      formData.append('file', validate["blob"], 'modified_file.xls');
-      formData.append('positions_to_remove', JSON.stringify(PositionToRemove[strEntidad as "Clientes"]));
-      formData.append('entidad', JSON.stringify(strEntidad));
-      formData.append('userID',JSON.stringify(userState?.id));
-
-      const url = `${URLBackend.value}/api/excel/import/`
-      fetch(url, {
-        method: 'POST',
-        body: formData,
-      })
-      .then(response =>  response.json())
-      //ETAPA CONFIRMACION
-      .then(data => {
-        if(data["Error"]){
-          setCurrentStage("Errores")
-          setErrors((_prev:any)=>data["Error"])
+      if(fetchResult.data["Error"]){
+        setCurrentStage("Errores")
+          setErrors((_prev:any)=>fetchResult.data["Error"])
           setIsOpen(true)
-        }else{
-          dispatch(fetchOT({OTAreas:OTAreas["areaActual"], searchParams: paramsOT.value}))
-          toast.success('Import Finalizado Correctamente')
-          handleClose()
-        }
-       })
-      .catch(error => {
-        console.error('Error uploading file:', error)
-        setErrors(error)  
-      });
+      }else{
+        dispatch(fetchOT({OTAreas:OTAreas["areaActual"], searchParams: paramsOT.value}))
+        toast.success('Import Finalizado Correctamente')
+        handleClose()
+      }
+
+      // if(fetchResult.success === true){
+      //   dispatch(fetchOT({OTAreas:OTAreas["areaActual"], searchParams: paramsOT.value}))
+      //     toast.success('Import Finalizado Correctamente')
+      //     handleClose()
+      // }else{
+      //   setCurrentStage("Errores")
+      //     setErrors((_prev:any)=>data["Error"])
+      //     setIsOpen(true)
+      // }
+
+      // Manejar el resultado de la validación
+      // if (validationResult.error) {
+      //   setCurrentStage("Errores");
+      //   setErrors(validationResult.error);
+      //   setIsOpen(true);
+      // } else {
+      //   // Manejar el resultado del fetch
+      //   if (fetchResult.error) {
+      //     console.error('Error uploading file:', fetchResult.error);
+      //     setErrors(fetchResult.error);
+      //   } else {
+      //     dispatch(fetchOT({ OTAreas: OTAreas["areaActual"], searchParams: paramsOT.value }));
+      //     toast.success('Import Finalizado Correctamente');
+      //     handleClose();
+      //   }
+      // }  
+      
+      // formData.append('file', validate["blob"], 'modified_file.xls');
+      // formData.append('positions_to_remove', JSON.stringify(PositionToRemove[strEntidad as "Clientes"]));
+      // formData.append('entidad', JSON.stringify(strEntidad));
+      // formData.append('userID',JSON.stringify(userState?.id));
+
+      // const url = `${URLBackend.value}/api/excel/import/`
+      // fetch(url, {
+      //   method: 'POST',
+      //   body: formData,
+      // })
+      // .then(response =>  response.json())
+      // //ETAPA CONFIRMACION
+      // .then(data => {
+      //   if(data["Error"]){
+      //     setCurrentStage("Errores")
+      //     setErrors((_prev:any)=>data["Error"])
+      //     setIsOpen(true)
+      //   }else{
+      //     dispatch(fetchOT({OTAreas:OTAreas["areaActual"], searchParams: paramsOT.value}))
+      //     toast.success('Import Finalizado Correctamente')
+      //     handleClose()
+      //   }
+      //  })
+      // .catch(error => {
+      //   console.error('Error uploading file:', error)
+      //   setErrors(error)  
+      // });
     }
   }, []);
 

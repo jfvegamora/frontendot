@@ -174,7 +174,7 @@ export const table_head_OT_diaria2 = [
   {
     cell: "E V",
     key: "estado_validacion",
-    visible: true,
+    visible: false,
     alignment: "text-center",
     width: "w-[10trem]"
   },
@@ -237,7 +237,7 @@ export const table_head_OT_diaria2 = [
   {
     cell: "USUARIO ID",
     key: "usuario id",
-    visible: true,
+    visible: false,
     alignment: "text-left",
     width: "w-[6rem]"
   }
@@ -1395,22 +1395,22 @@ export const table_head_cristales = [
   {
     cell: "CODFAB1",
     key: "codigo_fab_1",
-    visible: true,
+    visible: false,
   },
   {
     cell: "CODFAB2",
     key: "codigo_fab_2",
-    visible: true,
+    visible: false,
   },
   {
     cell: "CODFAB3",
     key: "codigo_fab_3",
-    visible: true,
+    visible: false,
   },
   {
     cell: "CODFAB4",
     key: "codigo_fab_4",
-    visible: true,
+    visible: false,
   },
   {
     cell: "",
@@ -4186,6 +4186,20 @@ export const table_head_usuarios = [
     width: "w-[10rem]",
   },
  
+  {
+    cell: "editar_editar_worktracking_id",
+    key: "permiso_editar_worktracking_id",
+    visible: false,
+    alignment: "text-left",
+    width: "w-[10rem]",
+  },
+  {
+    cell: "editar_editar_worktracking",
+    key: "permiso_editar_worktracking",
+    visible: false,
+    alignment: "text-left",
+    width: "w-[10rem]",
+  },
   {
     cell: "",
     key: "opciones",
