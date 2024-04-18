@@ -2,8 +2,9 @@ import axios from "axios"
 import { signal } from "@preact/signals-react";
 
 
-import { getArmazones, openDatabase } from "./indexedDB";
+import { getArmazones, openDatabase, setArmazones } from "./indexedDB";
 import { URLBackend } from "../hooks/useCrud"
+import { toast } from "react-toastify";
 
 
 
@@ -50,30 +51,39 @@ export const fetchReservaArmazones = async(punto_venta:string, cod_proyecto:stri
 const getLocalArmazones = async(response:any) => {
     try {
         await openDatabase();
-        const armazones = await getArmazones();
+        const armazonesLocal = await getArmazones();
 
         console.log(response)
-        console.log(armazones)
+        console.log(armazonesLocal)
 
         if(response.length === 0){
-            //?APAGAR BOTON RESERVA YA QUE SE ENTIENDE QUE NO ES BODEGA OFFLINE
             console.log('apagar boton')
-            isShowReservaButton.value = false;
+            if(armazonesLocal.length === 0){
+                //?APAGAR BOTON RESERVA YA QUE SE ENTIENDE QUE NO ES BODEGA OFFLINE
+                isShowReservaButton.value = false;
+                toast.error('No hay datos en bodega offline');
+                return;
+            }
+            return;
         }else{
             console.log('hay datos en response')
-            console.log('mostrar boton')
             isShowReservaButton.value = true;
+            if(armazonesLocal.length === 0){
+                response.forEach((armazonData:any) => {
+                    console.log(armazonData)
+                    let codArmazon = armazonData[0]
+                    let cantidad   = armazonData[1]
 
-            // if(armazones)
-
+                    setArmazones(codArmazon, cantidad).then((data) =>{
+                        console.log(data)
+                        toast.success(data as string)
+                    })
+                });
+            }else{
+                console.log('ya hay datos previos, retornando')
+                return;
+            }
         }
-
-    
-
-
-
-
-        return armazones
     } catch (error) {
         console.log('Error al obtener armazones', error)
     }

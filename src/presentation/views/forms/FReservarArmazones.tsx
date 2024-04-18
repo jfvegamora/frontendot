@@ -21,17 +21,18 @@ import { toast } from 'react-toastify';
 import { URLBackend } from '../../hooks/useCrud';
 import axios from 'axios';
 import { fetchReservaArmazones, isOnline, isShowReservaButton } from '../../utils/FReservaArmazones_utils';
+import { getArmazones } from '../../utils/indexedDB';
 // import axios from 'axios';
 
 
 
 //!INSERT: PROYECTO-RUT-PUNTOVENTA-TIPOANTEOJO-DP-A1-2-3-USERID
 
-export const Armazones:any = {
-  Armazon1: signal(''),
-  Armazon2: signal(''),
-  Armazon3: signal('')
-}
+const codArmazon1 = signal('')
+const codArmazon2 = signal('')
+const codArmazon3 = signal('')
+
+const focusInput2  = signal('');
 
 const codProyecto    = signal('');
 const codPuntoVenta  = signal('');
@@ -39,25 +40,6 @@ const codDP          = signal('');
 
 
 const Scanner:React.FC<any> = ({setBarcode,focusInput,setIsScanning, setArmazon1, setArmazon3, setArmazon2}) => {
-  let setArmazon = (_e:any) => void
-
-  console.log(focusInput)
-
-    switch (focusInput) {
-      case 'Armazon1':
-        setArmazon = setArmazon1
-        break;
-      case 'Armazon2':
-        setArmazon = setArmazon2
-        break;
-      case 'Armazon3':
-        setArmazon = setArmazon3
-        break;
-      default:
-        break;
-    }
-
-
 
   useEffect(() => {
     Quagga.init({
@@ -76,7 +58,7 @@ const Scanner:React.FC<any> = ({setBarcode,focusInput,setIsScanning, setArmazon1
         console.error(err);
       } else {
         console.log('render')
-        Quagga.onDetected(onDetected);
+        Quagga.onDetected(onDetected)
         Quagga.start();
         
       }
@@ -88,10 +70,51 @@ const Scanner:React.FC<any> = ({setBarcode,focusInput,setIsScanning, setArmazon1
   const onDetected = (result:any) => {
     console.log(result)
     if (result.codeResult) {
-      setBarcode(result.codeResult.code);
+      // setBarcode(result.codeResult.code);
       console.log(result.codeResult.code)
-      // focusInput.current = result.codeResult.code
-      setArmazon(result.codeResult.code)
+      const barcode = result.codeResult.code;   
+      console.log(focusInput)
+      
+      switch (focusInput) {
+        case 'Armazon1':
+          console.log('render')
+          setArmazon1(barcode);
+          codArmazon1.value = barcode
+          break;
+        case 'Armazon2':
+          setArmazon2(barcode);
+          console.log('render')
+          codArmazon2.value = barcode
+          break;
+        case 'Armazon3':
+          setArmazon3(barcode);
+          console.log('render')
+          codArmazon3.value = barcode
+          break;
+        default:
+          break;
+      }
+      switch (focusInput2.value) {
+        case 'Armazon1':
+          console.log('render')
+          setArmazon1(barcode);
+          codArmazon1.value = barcode
+          break;
+        case 'Armazon2':
+          setArmazon2(barcode);
+          console.log('render')
+          codArmazon2.value = barcode
+          break;
+        case 'Armazon3':
+          setArmazon3(barcode);
+          console.log('render')
+          codArmazon3.value = barcode
+          break;
+        default:
+          break;
+      }
+      
+      // setArmazon(result.codeResult.code)
       
       setIsScanning(false)
       Quagga.stop()
@@ -232,6 +255,8 @@ const FReservarArmazones = () => {
     setIsScanning(true)
 
     if(ref){
+
+      focusInput2.value = ref
       setFocusInput(ref)
     }
 
@@ -245,17 +270,48 @@ const FReservarArmazones = () => {
     console.log(result)
   }
 
-  const handleSaveChange = async(jsonData:any) =>{
-      console.log(jsonData)
-
-      isOnline.value === true ? ('') : ('')
-
+  const handleSaveChange = async (jsonData: any) => {
+    console.log(jsonData);
+    let reservaJSON;
+  
+    if (isOnline.value === true) {
+      //?SI EL TIPO DE RESERVA ES ONLINE:
+        reservaJSON = [{
+          rut: jsonData["rut_beneficiario"] || '',
+          proyecto: jsonData["proyecto"] || '',
+          punto_venta: `${punto_venta.value}` || '',
+          tipo_anteojo: jsonData["tipo_anteojo"] || '',
+          dp: jsonData["dp"] || '',
+          armazon_1: jsonData["Armazon1"] || '',
+          armazon_2: jsonData["Armazon2"] || '',
+          armazon_3: jsonData["Armazon3"] || '',
+          usuario: `${userID}` || '',
+        }];
       
-  }
+        try {
+          const reservaResponse = await axios(`${URLBackend}/api/otreservaarmazones/listado/?query=03&_pkToDelete=${encodeURIComponent(JSON.stringify(reservaJSON))}`);
+          if (reservaResponse["data"].length < 1) {
+            clearTextInputs();
+            return toast.success('Armazones reservados correctamente');
+          } else {
+            return toast.error(reservaResponse["data"][0][1]);
+          }
+        } catch (error) {
+          console.log(error);
+        }
+    } else {
+      //?SI EL TIPO DE RESERVA ES OFFLINE:
+      console.log('click')
+    }
+  };
+  
 
-React.useEffect(() => {
+  React.useEffect(() => {
   console.log('fetch')
-  fetchReservaArmazones(punto_venta.value, codProyecto.value,userID)
+  fetchReservaArmazones(punto_venta.value, codProyecto.value,userID).then(()=>{
+    const response = getArmazones().then((data)=>console.log(data))
+    // console.log(response)
+  })
 },[punto_venta.value])
 
 
@@ -316,6 +372,16 @@ React.useEffect(()=>{
     }
   }
 },[armazon3])
+
+
+console.log(armazon1)
+console.log(armazon2)
+console.log(armazon3)
+
+console.log(codArmazon1.value)
+console.log(codArmazon2.value)
+console.log(codArmazon3.value)
+
 
     return (
         <form className=" max-w-md mx-auto px-6" onSubmit={handleSubmit((data)=> handleSaveChange(data))}>
@@ -492,7 +558,6 @@ React.useEffect(()=>{
                            setArmazon2={setArmazon2} 
                            setArmazon3={setArmazon3} 
         /> }
-            
             {isShowReservaButton.value === true && (
               <div className="w-full">
                 <Button color='orange' type='submit'>Reservar</Button>

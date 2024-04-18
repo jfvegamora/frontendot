@@ -60,10 +60,10 @@ export const setArmazones = (codArmazon:string, cantidad:number):Promise<string>
                 };
             }else{
                 const newData = {
-                    cod_armazon : codArmazon,
+                    armazones_db : codArmazon,
                     cantidad    :cantidad
                 };
-                
+                console.log(newData)
                 const addRequest: IDBRequest<IDBValidKey> = objectStore.add(newData);
 
                 addRequest.onsuccess = function(_event:Event){
