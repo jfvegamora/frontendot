@@ -58,6 +58,7 @@ const getLocalArmazones = async(response:any) => {
 
         if(response.length === 0){
             console.log('apagar boton')
+            isOnline.value = true;
             if(armazonesLocal.length === 0){
                 //?APAGAR BOTON RESERVA YA QUE SE ENTIENDE QUE NO ES BODEGA OFFLINE
                 isShowReservaButton.value = false;
@@ -68,6 +69,9 @@ const getLocalArmazones = async(response:any) => {
         }else{
             console.log('hay datos en response')
             isShowReservaButton.value = true;
+            
+            isOnline.value = false;
+
             if(armazonesLocal.length === 0){
                 response.forEach((armazonData:any) => {
                     console.log(armazonData)
@@ -90,4 +94,8 @@ const getLocalArmazones = async(response:any) => {
 };
 
 
+
+export const setLocalArmazones = async() => {
+
+};
 
