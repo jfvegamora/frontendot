@@ -27,6 +27,7 @@ const ProfileUser = lazy(() => import("./presentation/pages/ProfileUser"));
 
 import axios from 'axios';
 import { logout } from "./redux/slices/userSlice";
+import MovilReservaArmazones from "./presentation/pages/MovilReservaArmazones";
 // import Interceptor from 'axios-interceptor';
 
 // const AuthHOC = ({children}:any) => {
@@ -160,6 +161,7 @@ function App() {
             <Route element={<AuthGuard privateValidation={true} />}>
               <Route path="/" element={<LandingPage/>} />
               <Route path="/terreno" element={<FReservarArmazones/>} />
+              <Route path="/movilarmazones" element={<MovilReservaArmazones/>} />
                 {privateRoutes.map((route) => (
                   <Route
                     key={route.path}

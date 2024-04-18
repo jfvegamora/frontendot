@@ -450,7 +450,7 @@ select::-ms-expand {
 }
 
 .scroll {
-  max-height: 90%;
+  max-height: 80%;
   overflow: auto;
 }
 

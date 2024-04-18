@@ -1019,7 +1019,7 @@ export default function ComplexNavbar() {
             <ul>
               <li
                 onClick={ () => {
-                  navigate('/terreno')
+                  navigate('/movilarmazones')
                   // console.log('')
                   // strNavTitle.value = 'Reserva de Armazones'
                 }

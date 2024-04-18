@@ -20,6 +20,7 @@ import TextInputInteractive from '../../components/forms/TextInputInteractive';
 import { toast } from 'react-toastify';
 import { URLBackend } from '../../hooks/useCrud';
 import axios from 'axios';
+import { fetchReservaArmazones, isOnline, isShowReservaButton } from '../../utils/FReservaArmazones_utils';
 // import axios from 'axios';
 
 
@@ -247,47 +248,15 @@ const FReservarArmazones = () => {
   const handleSaveChange = async(jsonData:any) =>{
       console.log(jsonData)
 
-      const reservaJSON = [{
-        rut           : jsonData["rut_beneficiario"]  || '',
-        proyecto      : jsonData["proyecto"]          || '',
-        punto_venta   : `${punto_venta.value}`        || '',
-        tipo_anteojo  : jsonData["tipo_anteojo"]      || '',
-        dp            : jsonData["dp"]                || '',
-        armazon_1     : jsonData["Armazon1"]          || '',
-        armazon_2     : jsonData["Armazon2"]          || '',
-        armazon_3     : jsonData["Armazon3"]          || '',
-        usuario       : `${userID}`                   || '',
-      }];
+      isOnline.value === true ? ('') : ('')
 
-      console.log(reservaJSON)
-  
-      try {
       
-        const reservaResponse = await axios(`${URLBackend}/api/otreservaarmazones/listado/?query=03&_pkToDelete=${encodeURIComponent(JSON.stringify(reservaJSON))}`)
-
-        console.log(reservaResponse)
-        // [
-        //   "ERROR",
-        //   "El RUT 191111111 ya tiene armazones reservados (4010000071869, 4010000071869, 4010000071869."
-        // ]
-        
-        if(reservaResponse["data"].length < 1){
-          clearTextInputs();
-          return toast.success('Armazones reservados correctamente')
-        }else{
-          return toast.error(reservaResponse["data"][0][1])
-        }
-
-      } catch (error) {
-        console.log(error)
-      }
-  
-  
   }
 
-  // const handleInputChange = (ref:any) => {
-  //   console.log(`Valor cambiado en el input ${ref.name}`);
-  // };
+React.useEffect(() => {
+  console.log('fetch')
+  fetchReservaArmazones(punto_venta.value, codProyecto.value,userID)
+},[punto_venta.value])
 
 
 
@@ -355,6 +324,7 @@ React.useEffect(()=>{
           </div>
 
           <div className=" mt-[9rem] !mx-auto">
+            <h1 className='text-white mx-auto'>{punto_venta.value}</h1>
             <div className="w-full !mb-5 rowForm">
               <SelectInputComponent
                   label='Nombre Proyecto'
@@ -523,9 +493,11 @@ React.useEffect(()=>{
                            setArmazon3={setArmazon3} 
         /> }
             
-            <div className="w-full">
-              <Button color='orange' type='submit'>Reservar</Button>
-            </div>
+            {isShowReservaButton.value === true && (
+              <div className="w-full">
+                <Button color='orange' type='submit'>Reservar</Button>
+              </div>
+            )}
         </form>
 );
 }

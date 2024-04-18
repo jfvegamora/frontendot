@@ -2,7 +2,8 @@ import {lazy}             from 'react';
 
 
 //landingPage
-const Landing               = lazy(()=>import("../presentation/pages/LandingPage"))
+const Landing               = lazy(()=>import("../presentation/pages/LandingPage"));
+const MovilReservaArmazones = lazy(()=>import("../presentation/pages/MovilReservaArmazones"));
 
 const MOT                   = lazy(()=>import("../presentation/views/mantenedores/MOT"));
 const MOTHistorica          = lazy(()=>import("../presentation/views/mantenedores/MOTHistorica"));
@@ -113,8 +114,9 @@ export const PrivateRoutes = {
 
 
   //landingpage
-  LANDING               : "",
-  LANDINGPAGE           : "landing"
+  LANDING                     : "",
+  LANDINGPAGE                 : "landing",
+  MOVIL_RESERVA_ARMAZONES     : "movilarmazonesreserva"
 };
 
 export const privateRoutes = [
@@ -130,6 +132,12 @@ export const privateRoutes = [
     path                : PrivateRoutes.LANDINGPAGE,
     component           : Landing,
     requiredPermissions : ['view_' + PrivateRoutes.OT]
+  },
+  {
+    id                  : "99",
+    path                : PrivateRoutes.MOVIL_RESERVA_ARMAZONES,
+    component           : MovilReservaArmazones,
+    requiredPermissions : ['view_' + PrivateRoutes.MOVIL_RESERVA_ARMAZONES]
   },
   // MENU OT
   {
