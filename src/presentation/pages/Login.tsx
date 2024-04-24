@@ -80,7 +80,8 @@ const Login: React.FC = React.memo(() => {
         })
         .catch((_e) => {
           toast.dismiss(toastLoading)
-          show({ message: LOGIN.loginError, type: "error" })
+          toast.error(_e)
+          // show({ message: LOGIN.loginError, type: "error" })
         })
         .finally(() => {
           console.log('render')

@@ -250,7 +250,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
 
             // console.log('no hay error')
             console.log(data)                                                            
-            if(data && data){
+            if(data && data[0][19] === ''){
                 switch (inputName) {
                     case 'a1_armazon_id':
                         if(data[0][0] === a2_armazon.value.trim() || data[0][0] === a3_armazon.value.trim() ){
@@ -421,18 +421,28 @@ const FOTArmazones:React.FC<IArmazones> = ({
                     A1_CR_OI.value = ''
                     validation_Cristal1_od('')
                     validation_Cristal1_oi('')
-                    
+                    toast.error(data[0][19])
                 }
 
                 if(inputName === 'a2_armazon_id'){
                     setArmazon2([])
                     setCodArmazon2(" ")
                     validation_A2_armazon('')
+                    if(tipo_de_anteojo.value === '3'){
+                        A2_GRUPO_OD.value = '',
+                        A2_GRUPO_OI.value = '',
+                        A2_CR_OD.value    = '',
+                        A2_CR_OI.value    = '',
+                        validation_Cristal2_od('')
+                        validation_Cristal2_oi('')
+                    }
+                    toast.error(data[0][19])
                 }
 
                 if(inputName === 'a3_armazon_id'){
                     setArmazon3([])
                     setCodArmazon3(" ")
+                    toast.error(data[0][19])
                 }
                 toast.dismiss(toastLoading)
                 return;
@@ -440,6 +450,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
                 if(data[0]){
                     onDataChange({[inputName]:data[0][0]})
                     if(inputName === 'a1_armazon_id'){
+                        console.log('render')
                         localStorage.setItem('a1_armazon', data[0])
                         setArmazon1(data[0])
                         setCodArmazon1(data[0][0])

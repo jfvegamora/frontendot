@@ -24,7 +24,7 @@ export const fetchReservaArmazones = async(punto_venta:string, cod_proyecto:stri
     console.log('ejecutando fetch de datos')
 
     const entidad = "almacenesstock";
-
+        
 
     const reservaJSON = {
         "proyecto"     : cod_proyecto,
@@ -50,8 +50,10 @@ export const fetchReservaArmazones = async(punto_venta:string, cod_proyecto:stri
 //? METODO ENCARGADO DE TOMAR RESPUSTA DE ALMACEN Y COMPARAR CON "DB LOCAL ARMAZONES"
 const getLocalArmazones = async(response:any) => {
     try {
-        await openDatabase();
-        const armazonesLocal = await getArmazones();
+        let armazonesLocal:any = []
+        await openDatabase().then(async(db)=>{
+            armazonesLocal = await getArmazones(db)
+        })
 
         console.log(response)
         console.log(armazonesLocal)
@@ -59,12 +61,17 @@ const getLocalArmazones = async(response:any) => {
         if(response.length === 0){
             console.log('apagar boton')
             isOnline.value = true;
-            if(armazonesLocal.length === 0){
-                //?APAGAR BOTON RESERVA YA QUE SE ENTIENDE QUE NO ES BODEGA OFFLINE
-                isShowReservaButton.value = false;
-                toast.error('No hay datos en bodega offline');
-                return;
-            }
+            isShowReservaButton.value = false;
+            toast.error('No hay datos en bodega offline', {autoClose:500});
+
+            // if(armazonesLocal.length === 0){
+            //     //?APAGAR BOTON RESERVA YA QUE SE ENTIENDE QUE NO ES BODEGA OFFLINE
+            //     isShowReservaButton.value = false;
+            //     toast.error('No hay datos en bodega offline');
+            //     return;
+            // }
+
+            
             return;
         }else{
             console.log('hay datos en response')
@@ -73,14 +80,15 @@ const getLocalArmazones = async(response:any) => {
             isOnline.value = false;
 
             if(armazonesLocal.length === 0){
-                response.forEach((armazonData:any) => {
+                let firstTime = true;
+                response.forEach(async(armazonData:any) => {
                     console.log(armazonData)
                     let codArmazon = armazonData[0]
                     let cantidad   = armazonData[1]
 
-                    setArmazones(codArmazon, cantidad).then((data) =>{
-                        console.log(data)
-                        toast.success(data as string)
+                    await openDatabase().then(async(db:IDBDatabase)=>{
+                        await setArmazones(db,codArmazon,parseInt(cantidad),firstTime)
+                        db.close()
                     })
                 });
             }else{
@@ -95,7 +103,8 @@ const getLocalArmazones = async(response:any) => {
 
 
 
-export const setLocalArmazones = async() => {
+export const setLocalArmazones = async(response:any) => {
+    console.log(response)
 
 };
 
