@@ -749,12 +749,12 @@ const FOTImpresa = React.forwardRef((props:any, ref:any) => {
               </div>
             </div>
             
-            <div className="ml-6 border-black border-2">
+            <div className="ml-6 border-black border-2 ">
               
-              <div className='px-8 ml-2  -mt-1 w-[100%] h-10  mx-auto relative '>
+              <div className='px-8 ml-2  -mt-1 w-[100%] h-[4rem]  mx-auto relative '>
                 <div className="relative h-10">
                   <p className='!-ml-6 text-[0.80rem]  w-[100%] font-bold'>Proyecto:  </p>
-                  <p className='!ml-16 text-base text-left left-[-5.5rem] bottom-0   absolute  w-[18rem]'> {OT[0] && OT[0][EnumGrid.proyecto_titulo]}</p>
+                  <p className='!ml-16 text-base text-left left-[-5.5rem] -bottom-[1.5rem]   absolute  w-[18rem]'> {OT[0] && OT[0][EnumGrid.proyecto_titulo]}</p>
                 </div>
               </div>
               

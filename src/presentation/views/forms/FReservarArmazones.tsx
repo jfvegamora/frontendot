@@ -257,7 +257,7 @@ const FReservarArmazones = () => {
           armazon_3: jsonData["Armazon3"] || '',
           usuario: `${userID}` || '',
         }];
-      
+        
         try {
           const reservaResponse = await axios(`${URLBackend}/api/otreservaarmazones/listado/?query=03&_pkToDelete=${encodeURIComponent(JSON.stringify(reservaJSON))}`);
           if (reservaResponse["data"].length < 1) {
