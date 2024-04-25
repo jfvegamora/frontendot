@@ -696,14 +696,14 @@ const FOTImpresa = React.forwardRef((props:any, ref:any) => {
                   {/* <div className="text-center h-2 text-xs -mt-2 font-bold ml-1"></div> */}
 
 
-                  <div className="text-center h-6  text-base !-ml-1  !-mt-1">{OT[0] && OT[0][EnumGrid.a2_od_esf]}</div>
-                  <div className="text-center h-6  text-base !ml-5   !-mt-1">{OT[0] && OT[0][EnumGrid.a2_od_cil]}</div>
-                  <div className="text-center h-6  text-base !ml-6   !-mt-1">{OT[0] && OT[0][EnumGrid.a2_od_eje]}</div>
+                  <div className="text-center h-6  text-lg !-ml-1  !-mt-1">{OT[0] && OT[0][EnumGrid.a2_od_esf]}</div>
+                  <div className="text-center h-6  text-lg !ml-5   !-mt-1">{OT[0] && OT[0][EnumGrid.a2_od_cil]}</div>
+                  <div className="text-center h-6  text-lg !ml-6   !-mt-1">{OT[0] && OT[0][EnumGrid.a2_od_eje]}</div>
                   <div className="text-center h-6  text-base !-ml-2"> </div>
                   <div className="text-center text-xs -mt-4 font-bold ml-1"></div>  
-                  <div className="text-center h-6 !-mt-[0.10rem] text-base !ml-5">{OT[0] && OT[0][EnumGrid.a2_oi_esf]}</div> {/*eje */}
-                  <div className="text-center h-6 !-mt-3 text-base ">{OT[0] && OT[0][EnumGrid.a2_oi_cil]}</div>
-                  <div className="text-center h-6 !-mt-3 text-base !ml-2">{OT[0] && OT[0][EnumGrid.a2_oi_eje]}</div> {/*cil */}
+                  <div className="text-center h-6 !-mt-[0.10rem] text-lg !ml-5">{OT[0] && OT[0][EnumGrid.a2_oi_eje]}</div> {/*eje */}
+                  <div className="text-center h-6 !-mt-3 text-lg ">{OT[0] && OT[0][EnumGrid.a2_oi_esf]}</div>
+                  <div className="text-center h-6 !-mt-3 text-lg !ml-5">{OT[0] && OT[0][EnumGrid.a2_oi_cil]}</div> {/*cil */}
 
                   <div className="text-center h-6 mt-1 text-sm !-ml-2"> </div>
                   <div className="text-center h-6 flex w-20 -!mt-2"> <label className='ml-4 mt-2 !text-[0.8rem] font-bold pl-2'></label></div>
