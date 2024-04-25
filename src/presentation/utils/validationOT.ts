@@ -1037,19 +1037,24 @@ export const validation_A1_ALT = (value:string | any) => {
 };
 
 export const validation_A1_DP = (value:string | any) => {
+    const item = validationNivel1.value.find((item) => item.campo === 'a1_dp');
 
-    
+    console.log(value)
+
     if (value !== '') {
-        const item = validationNivel1.value.find((item) => item.campo === 'a1_dp');
         if (item) {
-          item.valor = 1;
+            console.log('render')
+            item.valor = 1;
         };
-      } else {
-        const item = validationNivel1.value.find((item) => item.campo === 'a1_dp');
+    }else {
         if (item) {
-          item.valor = 0;
+            console.log('render')
+            item.valor = 0;
         };
     }
+
+    console.log(item)
+
 }
 
 export const validation_A1_OI_AD = (_value:string | any) => {

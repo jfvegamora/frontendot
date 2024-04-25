@@ -12,6 +12,7 @@ import { URLBackend } from '../../hooks/useCrud';
 import { toast } from 'react-toastify';
 import TextInputInteractive from '../forms/TextInputInteractive';
 import { EnumAreas } from '../OTPrimaryButtons';
+import { inputOnlyReadReserva } from '../../utils/FReservaArmazones_utils';
 
 interface IOptica {
     control:any,
@@ -176,7 +177,7 @@ return (
                         entidad={["/api/proyectos/", "07", userID]}
                         // error={errors.establecimiento}
                         customWidth={"345px"}
-                        readOnly={isEditting}
+                        readOnly={isEditting || inputOnlyReadReserva.value}
                     />
                 </div>
                 {isEditting && !onlyRead && (
@@ -212,7 +213,7 @@ return (
                         entidad={["/api/puntosventa/", "06", codigoProyecto.value, `_p2=${userID}`]}
                         // error={errors.establecimiento}
                         customWidth={"345px"}
-                        readOnly={isEditting}
+                        readOnly={isEditting || inputOnlyReadReserva.value}
                     />
                 </div>
 

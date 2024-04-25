@@ -9,11 +9,12 @@ import {A1_ALT, A1_DP, A2_DP, a1_od_ad, a1_od_eje, a1_od_esf, a1_oi_ad, a1_oi_es
     // dioptrias_receta, 
     // tipo_de_anteojo 
 } from '../../utils'
-import { validationOTlevel1, validationOTlevel2 } from '../../utils/validationOT'
+import { validationOTlevel1, validationOTlevel2, validation_A1_DP } from '../../utils/validationOT'
 import { combinaciones_validas, deshabilitarCampo, setDioptriasReceta } from '../../utils/OTReceta_utils'
 import { OTTextInputComponent } from '.'
 import { transponer } from '../../utils/FOTReceta_utils'
 import TextInputInteractive from '../forms/TextInputInteractive'
+import { inputOnlyReadReserva } from '../../utils/FReservaArmazones_utils'
 
 // export const inputName = signal(0)
 
@@ -82,8 +83,10 @@ const FOTReceta:React.FC<IReceta> = ({
         // console.log(dioptrias_receta.value.a1_oi)
     }
 
-    // console.log(isRender)
-
+        // console.log(isRender)
+    React.useEffect(()=>{
+        validation_A1_DP(A1_DP.value);
+    },[A1_DP.value])
 
     console.log(permiso_usuario_receta)
     console.log(permiso_areas_receta)
@@ -105,7 +108,7 @@ const FOTReceta:React.FC<IReceta> = ({
                         // entidad={["/api/ot/", "12","ESF", "_p3"]}
                         // error={errors.establecimiento}
                         customWidth={"!ml-[1rem]"}
-                        readOnly={isEditting}
+                        readOnly={isEditting  || inputOnlyReadReserva.value}
                     />
                 </div>
                 <div className="w-[20%] ">
@@ -301,7 +304,7 @@ const FOTReceta:React.FC<IReceta> = ({
                             data={A1_DP.value ||  data && data[EnumGrid.a1_dp]}
                             control={control}
                             isOT={true}
-                            onlyRead={!(!isEditting || (permiso_usuario_receta && permiso_areas_receta))}
+                            onlyRead={!(!isEditting || (permiso_usuario_receta && permiso_areas_receta)) || inputOnlyReadReserva.value}
                             textAlign="text-center"
                             />
                     </div>

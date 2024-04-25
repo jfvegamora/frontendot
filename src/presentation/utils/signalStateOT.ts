@@ -7,6 +7,7 @@ import { EnumGrid } from "../views/mantenedores/MOTHistorica";
 import { toast } from "react-toastify";
 import { validation_tipo_anteojo } from "./OTReceta_utils";
 import { areaActualOT } from "../components/OTAreasButtons";
+import { inputOnlyReadReserva } from "./FReservaArmazones_utils";
 
 
 export const dioptrias:any = signal<any>({
@@ -38,13 +39,13 @@ export const codigoProyecto = signal("")
 export const a1_od_esf  = signal<any | undefined>(undefined);
 export const a1_od_cil  = signal<any | undefined>(undefined);
 export const a1_od_eje  = signal<any | undefined>(undefined)
-export const a1_od_ad   = signal<any | undefined>(undefined)
+export const a1_od_ad   = signal<any | undefined>(0);
 
 
 export const a1_oi_esf  = signal<any | undefined>(undefined)
 export const a1_oi_cil  = signal<any | undefined>(undefined)
 export const a1_oi_eje  = signal<any | undefined>(undefined)
-export const a1_oi_ad   = signal<any | undefined>(undefined)
+export const a1_oi_ad   = signal<any | undefined>(0);
 
 
 export const a2_od_esf  = signal<any>(undefined)
@@ -126,6 +127,8 @@ export const validarImpresion = signal(null)
 export const secondProcessBodega = signal(false)
 export const procesarRender     = signal(40);
 export const numero_worktracking        = signal('');
+export const numero_receta              = signal('');
+
 
 // fechaHoraActual
 
@@ -844,6 +847,7 @@ export const getDatosOT = (data:any) => {
       A2_CR_OD.value   = data[EnumGrid.cristal2_od] 
       A2_CR_OI.value   = data[EnumGrid.cristal2_oi] 
 
+
 }
 
 export const reiniciarValidationNivel2 = (keepForm?:boolean) => {
@@ -979,6 +983,10 @@ export const clearGrupos = () => {
   };
   countError.value     = 0;
   numero_worktracking.value = "";
+  inputOnlyReadReserva.value = false;
+  validar_parametrizacion.value = '1'
+  codigoProyecto.value = ""
+  numero_receta.value = "";
 }
 
 
@@ -1234,6 +1242,9 @@ type InputChangeActions = {
 export const inputChangeActions:InputChangeActions = {
   worktracking: (data:any) => {
     numero_worktracking.value = Object.values(data)[0] as string;
+  },
+  numero_receta: (data:any):void => {
+    numero_receta.value = Object.values(data)[0] as string;
   },
   cristal1_od: (data:any) => {
     A1_CR_OD.value = Object.values(data)[0] as string;

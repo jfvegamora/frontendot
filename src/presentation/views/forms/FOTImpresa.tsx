@@ -642,17 +642,17 @@ const FOTImpresa = React.forwardRef((props:any, ref:any) => {
 
 
 
-          <div className="w-[110%] flex justify-between -ml-6 -mt-1 border-l-2 border black ">
-            <div className="w-[40%]  items-center flex">
+          <div className="w-[110%] flex justify-between -ml-6 -mt-1 border-l-2 border black mb-1">
+            <div className="w-[60%]  items-center flex mr-4">
               <h1 className='font-bold ml-12 '>A1</h1>
-              <span className='ml-1  !text-[0.70rem] font-bold '>ALT: {OT[0] && OT[0][EnumGrid.a1_alt]}</span>
-              <span className='ml-1  !text-[0.70rem] font-bold '>DP:  {OT[0] && OT[0][EnumGrid.a1_dp]}</span>
+              <span className='ml-1  !text-base font-bold '>ALT: {OT[0] && OT[0][EnumGrid.a1_alt]}</span>
+              <span className='ml-1  !text-base font-bold '>DP:  {OT[0] && OT[0][EnumGrid.a1_dp]}</span>
                 
             </div>
 
-            <div className="w-[40%] items-center flex">
+            <div className="w-[50%] items-center flex ml-10">
               <h1 className='font-bold '>A2</h1>
-              <span className='ml-4  !text-[0.70rem] font-bold '>DP:  {OT[0] && OT[0][EnumGrid.a2_dp]}</span>
+              <span className='ml-4  !text-base font-bold '>DP:  {OT[0] && OT[0][EnumGrid.a2_dp]}</span>
 
             </div>
 
@@ -664,7 +664,7 @@ const FOTImpresa = React.forwardRef((props:any, ref:any) => {
 
 
 
-          <div className="w-[105%] flex justify-around  ml-2 border-b-2  h-[4rem]  border-black">
+          <div className="w-[105%] flex justify-around  ml-2 border-b-2  h-[5rem]  border-black">
             <div className="grid grid-cols-5 grid-rows-3 gap-4 text-xs w-[47%]  h-[4rem] ">
               <div className="text-center h-2 mr-2"></div>
                 <div className="text-center h-2 w-6 -ml-2 font-bold">ESF</div>
@@ -687,23 +687,24 @@ const FOTImpresa = React.forwardRef((props:any, ref:any) => {
                 <div className="text-center h-6 flex w-20 ml-8 mt-7 text-xs ">  <label className='mr-2 -mt-4 !text-[0.80rem] font-bold'></label></div>
             </div>
 
-              <div className="grid grid-cols-5 grid-rows-3 gap-4 text-xs w-[46.3%] h-[4rem] border-black border-l-[1px]  !mr-2">
-                  <div className=" text-center h-2"></div>
-                  <div className="text-center h-2 w-6 -ml-2 font-bold ">ESF</div>
-                  <div className="text-center h-2 w-6 -ml-2 font-bold pl-2">CIL</div>
-                  <div className="text-center h-2 w-6 -ml-2 font-bold pl-2">EJE</div>
-                  <div className="text-center h-2 w-6 -ml-2 font-bold"> </div>
-                  <div className="text-center h-2 text-xs -mt-2 font-bold ml-1"></div>
+              <div className="grid grid-cols-3 grid-rows-3 gap-4 text-xs w-[46.3%] h-[4rem] border-black border-l-[1px]  !mr-2">
+                  {/* <div className=" text-center h-2"></div> */}
+                  <div className="text-center text-lg h-2 w-6 !ml-2 font-bold !-mt-2">ESF</div>
+                  <div className="text-center text-lg h-2 w-6 ml-4 font-bold !-mt-2 pl-2">CIL</div>
+                  <div className="text-center text-lg h-2 w-6 ml-4 font-bold !-mt-2 pl-2">EJE</div>
+                  {/* <div className="text-center h-2 w-6 -ml-2 font-bold"> </div> */}
+                  {/* <div className="text-center h-2 text-xs -mt-2 font-bold ml-1"></div> */}
 
 
-                  <div className="text-center h-6  text-sm !-ml-2">{OT[0] && OT[0][EnumGrid.a2_od_esf]}</div>
-                  <div className="text-center h-6  text-sm !-ml-2">{OT[0] && OT[0][EnumGrid.a2_od_cil]}</div>
-                  <div className="text-center h-6  text-sm !-ml-2">{OT[0] && OT[0][EnumGrid.a2_od_eje]}</div>
-                  <div className="text-center h-6  text-sm !-ml-2"> </div>
+                  <div className="text-center h-6  text-base !-ml-1  !-mt-1">{OT[0] && OT[0][EnumGrid.a2_od_esf]}</div>
+                  <div className="text-center h-6  text-base !ml-5   !-mt-1">{OT[0] && OT[0][EnumGrid.a2_od_cil]}</div>
+                  <div className="text-center h-6  text-base !ml-6   !-mt-1">{OT[0] && OT[0][EnumGrid.a2_od_eje]}</div>
+                  <div className="text-center h-6  text-base !-ml-2"> </div>
                   <div className="text-center text-xs -mt-4 font-bold ml-1"></div>  
-                  <div className="text-center h-6 mt-1 text-sm !-ml-2">{OT[0] && OT[0][EnumGrid.a2_oi_esf]}</div>
-                  <div className="text-center h-6 mt-1 text-sm !-ml-2">{OT[0] && OT[0][EnumGrid.a2_oi_cil]}</div>
-                  <div className="text-center h-6 mt-1 text-sm !-ml-2">{OT[0] && OT[0][EnumGrid.a2_oi_eje]}</div>
+                  <div className="text-center h-6 !-mt-[0.10rem] text-base !ml-5">{OT[0] && OT[0][EnumGrid.a2_oi_esf]}</div> {/*eje */}
+                  <div className="text-center h-6 !-mt-3 text-base ">{OT[0] && OT[0][EnumGrid.a2_oi_cil]}</div>
+                  <div className="text-center h-6 !-mt-3 text-base !ml-2">{OT[0] && OT[0][EnumGrid.a2_oi_eje]}</div> {/*cil */}
+
                   <div className="text-center h-6 mt-1 text-sm !-ml-2"> </div>
                   <div className="text-center h-6 flex w-20 -!mt-2"> <label className='ml-4 mt-2 !text-[0.8rem] font-bold pl-2'></label></div>
               </div>
@@ -898,6 +899,54 @@ export default FOTImpresa
 
 
 
+
+
+
+// <div className="w-[105%] flex justify-around  ml-2 border-b-2  h-[4rem]  border-black">
+// <div className="grid grid-cols-5 grid-rows-3 gap-4 text-xs w-[47%]  h-[4rem] ">
+//   <div className="text-center h-2 mr-2"></div>
+//     <div className="text-center h-2 w-6 -ml-2 font-bold">ESF</div>
+//     <div className="text-center h-2 w-6 -ml-2 font-bold">CIL</div>
+//     <div className="text-center h-2 w-6 -ml-2 font-bold">EJE</div>
+//     <div className="text-center h-2 w-6 -ml-[0.80rem] font-bold ">AD</div>
+//     <div className="text-center h-2 mt-1 text-xs font-bold">OD</div>
+
+
+//     <div className="text-center h-6 mt-1 text-sm !-ml-2">{OT[0] && OT[0][EnumGrid.a1_od_esf]}</div>
+//     <div className="text-center h-6 mt-1 text-sm !-ml-2">{OT[0] && OT[0][EnumGrid.a1_od_cil]}</div>
+//     <div className="text-center h-6 mt-1 text-sm !-ml-2">{OT[0] && OT[0][EnumGrid.a1_od_eje]}</div>
+//     <div className="text-center h-6 mt-1 text-sm !-ml-[0.80rem]">{OT[0] && OT[0][EnumGrid.a1_od_ad]}</div>
+//     <div className="text-center text-xs mt-2 font-bold">OI</div>  
+//     <div className="text-center h-6 mt-2 text-sm !-ml-2">{OT[0] && OT[0][EnumGrid.a1_oi_esf]}</div>
+//     <div className="text-center h-6 mt-2 text-sm !-ml-2">{OT[0] && OT[0][EnumGrid.a1_oi_cil]}</div>
+//     <div className="text-center h-6 mt-2 text-sm !-ml-2">{OT[0] && OT[0][EnumGrid.a1_oi_eje]}</div>
+//     <div className="text-center h-6 mt-2 text-sm !-ml-[0.80rem]">{OT[0] && OT[0][EnumGrid.a1_oi_ad]}</div>
+//     <div className="text-center h-6 flex w-20 mt-7"> <label className='mr-2 -mt-4 !text-[0.80rem] font-bold '></label></div>
+//     <div className="text-center h-6 flex w-20 ml-8 mt-7 text-xs ">  <label className='mr-2 -mt-4 !text-[0.80rem] font-bold'></label></div>
+// </div>
+
+//   <div className="grid grid-cols-4 grid-rows-3 gap-4 text-xs w-[46.3%] h-[4rem] border-black border-l-[1px]  !mr-2">
+//       {/* <div className=" text-center h-2"></div> */}
+//       <div className="text-center h-2 w-6 !ml-2 font-bold ">ESF</div>
+//       <div className="text-center h-2 w-6 ml-4 font-bold pl-2">CIL</div>
+//       <div className="text-center h-2 w-6 ml-4 font-bold pl-2">EJE</div>
+//       <div className="text-center h-2 w-6 -ml-2 font-bold"> </div>
+//       {/* <div className="text-center h-2 text-xs -mt-2 font-bold ml-1"></div> */}
+
+
+//       <div className="text-center h-6  text-sm !-ml-2">{OT[0] && OT[0][EnumGrid.a2_od_esf]}</div>
+//       <div className="text-center h-6  text-sm !-ml-2">{OT[0] && OT[0][EnumGrid.a2_od_cil]}</div>
+//       <div className="text-center h-6  text-sm !-ml-2">{OT[0] && OT[0][EnumGrid.a2_od_eje]}</div>
+//       <div className="text-center h-6  text-sm !-ml-2"> </div>
+//       <div className="text-center text-xs -mt-4 font-bold ml-1"></div>  
+//       <div className="text-center h-6 mt-1 text-sm !-ml-2">{OT[0] && OT[0][EnumGrid.a2_oi_esf]}</div>
+//       <div className="text-center h-6 mt-1 text-sm !-ml-2">{OT[0] && OT[0][EnumGrid.a2_oi_cil]}</div>
+//       <div className="text-center h-6 mt-1 text-sm !-ml-2">{OT[0] && OT[0][EnumGrid.a2_oi_eje]}</div>
+//       <div className="text-center h-6 mt-1 text-sm !-ml-2"> </div>
+//       <div className="text-center h-6 flex w-20 -!mt-2"> <label className='ml-4 mt-2 !text-[0.8rem] font-bold pl-2'></label></div>
+//   </div>
+
+// </div>
 
 
 

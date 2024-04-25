@@ -47,7 +47,9 @@ export const validation_tipo_anteojo = () => {
   const tipoDeAnteojo = tipo_de_anteojo.value;
 
 
-//   console.log(tipoDeAnteojo)
+  console.log(tipoDeAnteojo)
+
+
 
 
     const camposValidarNivel3 = [

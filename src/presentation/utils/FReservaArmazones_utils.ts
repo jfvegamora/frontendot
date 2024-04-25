@@ -5,12 +5,17 @@ import { signal } from "@preact/signals-react";
 import { getArmazones, openDatabase, setArmazones } from "./indexedDB";
 import { URLBackend } from "../hooks/useCrud"
 import { toast } from "react-toastify";
+import { EnumGrid as EnumReserva } from "../views/mantenedores/MReservaArmazones";
+import { A1_DP, a1_armazon, a2_armazon, a3_armazon, codigoProyecto, tipo_de_anteojo, validar_parametrizacion } from "./signalStateOT";
+import { validationTipoAnteojos, validation_A1_DP, validation_A1_armazon, validation_A2_armazon } from "./validationOT";
+import { validation_tipo_anteojo } from "./OTReceta_utils";
 
 
 
 //?VARIABLES GLOBLAES
 export const isOnline             = signal(false);
 export const isShowReservaButton  = signal(false);
+export const inputOnlyReadReserva = signal(false);
 
 
 
@@ -108,3 +113,74 @@ export const setLocalArmazones = async(response:any) => {
 
 };
 
+
+
+
+
+
+export const fetchReservaBeneficiario = async(rut:string) => {
+    try {
+        console.log(rut)
+
+        const response = await axios(`${URLBackend}/api/otreservaarmazones/listado/?query=01&_p1=${rut}`);
+
+        // console.log(response)
+        
+        if(response["data"].length > 0){
+            console.log('hay data')
+            const proyecto_codigo  = response["data"][0][EnumReserva["proyecto"]];
+            const proyecto_titulo  = response["data"][0][EnumReserva["proyecto_titulo"]];
+            const rut_beneficiario = response["data"][0][EnumReserva["cliente_rut"]]; 
+            
+            let mensaje = `Existe una Reserva para el rut: ${rut_beneficiario}.`;
+            
+
+            if(proyecto_codigo !== codigoProyecto.value){
+                mensaje = `Existe una Reserva para el rut: ${rut_beneficiario} para un Proyecto distinto al seleccionado: ${proyecto_titulo}.`
+            }
+
+
+            alert(mensaje)
+
+            console.log(response["data"][0][EnumReserva["cod_armazon1"]])
+            
+            codigoProyecto.value = proyecto_codigo;
+            A1_DP.value = response["data"][0][EnumReserva["dp"]];
+            validation_A1_DP(response["data"][0][EnumReserva["dp"]]);
+
+            //?VALIDACIONES ARMAZONES:
+            validar_parametrizacion.value = '2';
+            inputOnlyReadReserva.value = true;
+            tipo_de_anteojo.value = response["data"][0][EnumReserva["tipo_anteojo_id"]].toString();
+            validation_tipo_anteojo();
+            validationTipoAnteojos(response["data"][0][EnumReserva["tipo_anteojo_id"]].toString());
+            
+
+
+            //?ARMAZON 1:
+            a1_armazon.value = response["data"][0][EnumReserva["cod_armazon1"]];
+            validation_A1_armazon(response["data"][0][EnumReserva["cod_armazon1"]]);
+            
+            //?ARMAZON 2:
+            a2_armazon.value = response["data"][0][EnumReserva["cod_armazon2"]];
+            validation_A2_armazon(response["data"][0][EnumReserva["cod_armazon2"]]);
+
+
+            //?ARMAZON 3:
+            a3_armazon.value = response["data"][0][EnumReserva["cod_armazon3"]];
+
+
+
+
+            // A1_DP.value = response["data"][0][EnumReserva["dp"]]
+
+            
+            console.log(a1_armazon.value)
+
+
+        }
+
+    } catch (error) {
+        console.log(error)
+    }
+};

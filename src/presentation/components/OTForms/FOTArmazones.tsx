@@ -8,6 +8,7 @@ import { A1_CR_OD, A1_CR_OI, A1_DP, A1_Diametro, A1_GRUPO_OD, A1_GRUPO_OI, A2_CR
 // import TextInputInteractive from '../forms/TextInputInteractive';
 // import { AppStore, useAppSelector } from '../../../redux/store';
 import { OTTextInputComponent } from '.';
+import { inputOnlyReadReserva } from '../../utils/FReservaArmazones_utils';
 
 interface IArmazones {
     control:any;
@@ -415,6 +416,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
                     setArmazon1([])
                     setCodArmazon1(" ")
                     validation_A1_armazon('')
+
                     A1_GRUPO_OD.value = ''
                     A1_GRUPO_OI.value = ''
                     A1_CR_OD.value = ''
@@ -455,16 +457,18 @@ const FOTArmazones:React.FC<IArmazones> = ({
                         setArmazon1(data[0])
                         setCodArmazon1(data[0][0])
 
-                        A1_GRUPO_OD.value = data[0][15]
-                        a1_armazon.value  = data[0][0]
-                        A1_GRUPO_OI.value = data[0][16]
+                        if(!inputOnlyReadReserva.value){
+                            A1_GRUPO_OD.value = data[0][15]
+                            a1_armazon.value  = data[0][0]
+                            A1_GRUPO_OI.value = data[0][16]
+    
+                            A1_CR_OD.value    = data[0][17]
+                            A1_CR_OI.value    = data[0][18]
+                            validation_Cristal1_oi(data[0][17])
+                            validation_Cristal1_od(data[0][18])
+                        }
 
-                        A1_CR_OD.value    = data[0][17]
-                        A1_CR_OI.value    = data[0][18]
 
-
-                        validation_Cristal1_oi(data[0][17])
-                        validation_Cristal1_od(data[0][18])
                         validation_A1_armazon(data[0][0])
                     }
     
@@ -475,17 +479,20 @@ const FOTArmazones:React.FC<IArmazones> = ({
                         a2_armazon.value = data[0][0]
 
                         console.log(tipo_de_anteojo.value)
-                        
+
                         if(tipo_de_anteojo.value === '3'){
-                            A2_GRUPO_OD.value = data[0][15]
-                            A2_GRUPO_OI.value = data[0][16]
-
-                            A2_CR_OD.value    = data[0][17]
-                            A2_CR_OI.value    = data[0][18]
-
-                            validation_Cristal2_od(data[0][17])
-                            validation_Cristal2_oi(data[0][18])
-                            validation_A2_armazon(data[0][0])
+                            if(!inputOnlyReadReserva.value){
+                                A2_GRUPO_OD.value = data[0][15]
+                                A2_GRUPO_OI.value = data[0][16]
+    
+                                A2_CR_OD.value    = data[0][17]
+                                A2_CR_OI.value    = data[0][18]
+    
+                                validation_Cristal2_od(data[0][17])
+                                validation_Cristal2_oi(data[0][18])
+                                validation_A2_armazon(data[0][0])
+                            }
+                            
                         }
                     }
     
@@ -514,7 +521,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
 
 
     
-    const endpoint =`${URLBackend}/api/armazones/listado/?query=02&_id=${permiso_areas_armazones === true ? 1 : 0}&_p6=${ isEditting ? (data && data[EnumGrid.validar_parametrizacion_id]) : 1 }&_p2=${codigoProyecto.value}&_p3=${punto_venta.value}`;
+    const endpoint =`${URLBackend}/api/armazones/listado/?query=02&_id=${ inputOnlyReadReserva.value === true ? 0 : (permiso_areas_armazones === true ? 1 : 0)}&_p6=${ isEditting ? (data && data[EnumGrid.validar_parametrizacion_id]) : 1 }&_p2=${codigoProyecto.value}&_p3=${punto_venta.value}`;
 
     // console.log(punto_venta.value)
 
@@ -663,23 +670,23 @@ const FOTArmazones:React.FC<IArmazones> = ({
 
     useEffect(()=>{
 
-    if(codArmazon1 && codArmazon1.trim() !== ''){
+    if(a1_armazon.value && a1_armazon.value.trim() !== ''){
         localStorage.getItem('a1_armazon') 
                               ? setArmazon1(localStorage.getItem('a1_armazon')?.split(','))
-                              : fetchArmazones1('a1_armazon_id', codArmazon1)
+                              : fetchArmazones1('a1_armazon_id', a1_armazon.value)
     }
 
-    if(codArmazon2 && codArmazon2.trim() !== ''){
+    if(a2_armazon.value && a2_armazon.value.trim() !== ''){
         localStorage.getItem('a2_armazon')
                               ? setArmazon2(localStorage.getItem('a2_armazon')?.split(','))
-                              : fetchArmazones1('a2_armazon_id', codArmazon2) 
+                              : fetchArmazones1('a2_armazon_id', a2_armazon.value) 
     }
 
 
-    if(codArmazon3 && codArmazon3.trim() !== ''){
+    if(a3_armazon.value && a3_armazon.value.trim() !== ''){
         localStorage.getItem('a3_armazon')
                               ? setArmazon3(localStorage.getItem('a3_armazon')?.split(','))
-                              : fetchArmazones1('a3_armazon_id', codArmazon3)
+                              : fetchArmazones1('a3_armazon_id', a3_armazon.value)
     }
 
       
@@ -687,7 +694,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
 
   
 
-   
+//    console.log(a1_armazon.value)
   return (
     <form>
         <div className='w-full frameOTForm'>
@@ -706,7 +713,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
                                         otData={ a1_armazon.value ? a1_armazon.value :  formValues  && formValues["a1_armazon_id"] ? formValues["a1_armazon_id"] : data && data[EnumGrid.a1_armazon_id]}
                                         // data={a1_armazon.value || data && data[EnumGrid.a1_armazon_id]}
                                         control={control}
-                                        onlyRead={!(!isEditting || (permiso_usuario_armazones && permiso_areas_armazones))}
+                                        onlyRead={!(!isEditting || (permiso_usuario_armazones && permiso_areas_armazones) ) || inputOnlyReadReserva.value}
                                         // isOT={true}
                                         textAlign="text-center"
                                         className='!text-xl custom-input '
@@ -789,7 +796,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
                                     handleChange={handleInputChange}
                                     otData={ a2_armazon.value ? a2_armazon.value   : formValues ? formValues["a2_armazon_id"] : data && data[EnumGrid.a2_armazon_id]}
                                     control={control}
-                                    onlyRead={!(!isEditting || (permiso_usuario_armazones && permiso_areas_armazones ))}
+                                    onlyRead={!(!isEditting || (permiso_usuario_armazones && permiso_areas_armazones ))|| inputOnlyReadReserva.value}
                                     // isOT={true}
                                     textAlign="text-center"
                                     className='!text-xl custom-input '
@@ -873,7 +880,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
                                     handleChange={handleInputChange}
                                     otData={ a3_armazon.value ? a3_armazon.value  : formValues ? formValues["a3_armazon_id"] : data && data[EnumGrid.a3_armazon_id]}
                                     control={control}
-                                    onlyRead={!(!isEditting || (permiso_usuario_armazones && permiso_areas_armazones ))}
+                                    onlyRead={!(!isEditting || (permiso_usuario_armazones && permiso_areas_armazones ))|| inputOnlyReadReserva.value}
                                     // isOT={true}
                                     isOptional={true}
                                     textAlign="text-center"

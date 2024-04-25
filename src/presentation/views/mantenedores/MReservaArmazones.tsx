@@ -26,13 +26,12 @@ export enum EnumGrid {
   punto_venta            =5,
   tipo_anteojo_id        =6,
   tipo_anteojo           =7,
-  numero_receta          =8,
-  dp                     =9,
-  cod_armazon1           =10,
-  cod_armazon2           =11,
-  cod_armazon3           =12,
-  usuario_id             =13,
-  usuario                =14,
+  dp                     =8,
+  cod_armazon1           =9,
+  cod_armazon2           =10,
+  cod_armazon3           =11,
+  usuario_id             =12,
+  usuario                =13,
 }
 
 

@@ -10,6 +10,7 @@ import { URLBackend } from '../../hooks/useCrud';
 
 import TextInputInteractive from '../forms/TextInputInteractive';
 import { toast } from 'react-toastify';
+import { fetchReservaBeneficiario } from '../../utils/FReservaArmazones_utils';
 // import { useModal } from '../../hooks/useModal';
 
 
@@ -172,7 +173,7 @@ const FOTClientes:React.FC<IClientes> = ({
     }
 
     
-    const handleInputChange = (e:any) => {
+    const handleInputChange = async(e:any) => {
         const { name, value } = e;
         // console.log(name)
         // console.log(value)
@@ -196,7 +197,9 @@ const FOTClientes:React.FC<IClientes> = ({
 
                 // console.log(value.slice(0, -1)  + value.slice(-1).toUpperCase())
             }
-        }
+        };
+
+
 
         validationOTlevel1(name, value);
         validationOTlevel2(name,value);
@@ -205,7 +208,10 @@ const FOTClientes:React.FC<IClientes> = ({
             fetchCliente(value.trim()).catch((_error:any)=>{
                 setExistCliente(false)
                 // console.log(error)
-            })
+            });
+
+
+            await fetchReservaBeneficiario(value);
         }
       };
 
