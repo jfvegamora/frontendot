@@ -87,9 +87,9 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
 
     const onSubmit: SubmitHandler<FormData> = async(jsonData) =>{
         // fetchDerivacion(jsonData)
-        let promiseResponses:any = {}
+        // let promiseResponses:any = {}
         // let validarCamposVacios = false
-        let isDerivacion        = false
+        // let isDerivacion        = false
         let estadoValidacion    = sumatoriaNivel1 === validationNivel1.value.length;
         // console.log(secondProcessBodega.value)
         // console.log(validationNivel3.value)
@@ -158,28 +158,49 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
 
 
         // if(  isDerivacion  ||  !secondProcessBodega.value || (promiseResponses[0]?.data[0][0] === 0 && promiseResponses[1]?.data[0][0] === 0)){
-        if(  isDerivacion || (promiseResponses[0]?.data[0][0] === 0 && promiseResponses[1]?.data[0][0] === 0)){
-            updateOT(
-                jsonData,
-                OTAreas["areaActual"],
-                jsonData.area_hasta.toString() as any,
-                40,
-                formValues,
-                data,
-                OTSlice.cristales, 
-                OTSlice.armazones,
-                UsuarioID.toString(),
-                jsonData.observaciones,
-                false,
-                jsonData.situacion,
-                false,
-                'Derivada',
-                estadoValidacion
-            ).then(()=>{
-                closeModal()
-                dispatch(fetchOT({OTAreas:OTAreas["areaActual"], searchParams: paramsOT.value}))
-            })
-        }
+        // if(  isDerivacion || (promiseResponses[0]?.data[0][0] === 0 && promiseResponses[1]?.data[0][0] === 0)){
+        //     updateOT(
+        //         jsonData,
+        //         OTAreas["areaActual"],
+        //         jsonData.area_hasta.toString() as any,
+        //         40,
+        //         formValues,
+        //         data,
+        //         OTSlice.cristales, 
+        //         OTSlice.armazones,
+        //         UsuarioID.toString(),
+        //         jsonData.observaciones,
+        //         false,
+        //         jsonData.situacion,
+        //         false,
+        //         'Derivada',
+        //         estadoValidacion
+        //     ).then(()=>{
+        //         closeModal()
+        //         dispatch(fetchOT({OTAreas:OTAreas["areaActual"], searchParams: paramsOT.value}))
+        //     })
+        // }
+
+        updateOT(
+            jsonData,
+            OTAreas["areaActual"],
+            jsonData.area_hasta.toString() as any,
+            40,
+            formValues,
+            data,
+            OTSlice.cristales, 
+            OTSlice.armazones,
+            UsuarioID.toString(),
+            jsonData.observaciones,
+            false,
+            jsonData.situacion,
+            false,
+            'Derivada',
+            estadoValidacion
+        ).then(()=>{
+            closeModal()
+            dispatch(fetchOT({OTAreas:OTAreas["areaActual"], searchParams: paramsOT.value}))
+        })
     
     }
 
