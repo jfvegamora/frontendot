@@ -665,12 +665,3 @@ export default FReservarArmazones
 
 
 
-// SELECT fnOTReservaArmazones([{
-              
-//               "" : "",
-//               "" : "",
-//               "" : "",
-//               "" : "",
-
-                           
-// }])

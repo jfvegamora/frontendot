@@ -241,9 +241,9 @@ const FOTArmazones:React.FC<IArmazones> = ({
                                                                                     ? (typeof A1_Diametro.value === 'number' ? A1_Diametro.value :  "" ) 
                                                                                     : (typeof A1_Diametro.value === 'string' ? A1_Diametro.value : "")
                                                                             )
-                                                                        }&_jsonGrupo=${jsonGrupo}
+                                                                        }&_jsonGrupo=${jsonGrupo}&_id=${ inputOnlyReadReserva.value === true ? 0 : (permiso_areas_armazones === true ? (inputName === 'a3_armazon_id' ? 0 : 1) : 0)}
                                                                         `) 
-                                                   : (`${endpoint}&_jsonGrupo=${encodeURIComponent(JSON.stringify([empty_jsonGrupo, empty_jsonGrupo]))}&_p1=${codArmazon && codArmazon.trim() !== '' ? codArmazon : ''}`))
+                                                   : (`${endpoint}&_jsonGrupo=${encodeURIComponent(JSON.stringify([empty_jsonGrupo, empty_jsonGrupo]))}&_p1=${codArmazon && codArmazon.trim() !== '' ? codArmazon : ''}_id=${ inputOnlyReadReserva.value === true ? 0 : (permiso_areas_armazones === true ? (inputName === 'a3_armazon_id' ? 0 : 1) : 0)}`))
             // console.log(data[0])
             // console.log(data)
             // console.log(data[0][19])
@@ -521,7 +521,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
 
 
     
-    const endpoint =`${URLBackend}/api/armazones/listado/?query=02&_id=${ inputOnlyReadReserva.value === true ? 0 : (permiso_areas_armazones === true ? 1 : 0)}&_p6=${ isEditting ? (data && data[EnumGrid.validar_parametrizacion_id]) : 1 }&_p2=${codigoProyecto.value}&_p3=${punto_venta.value}`;
+    const endpoint =`${URLBackend}/api/armazones/listado/?query=02&_p6=${ isEditting ? (data && data[EnumGrid.validar_parametrizacion_id]) : 1 }&_p2=${codigoProyecto.value}&_p3=${punto_venta.value}`;
 
     // console.log(punto_venta.value)
 
