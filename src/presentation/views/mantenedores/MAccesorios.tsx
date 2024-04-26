@@ -14,16 +14,16 @@ import { TITLES, table_head_accesorios } from "../../utils";
 
 export enum EnumGrid {
   codigo = 1,
-  ubicacion = 2,
-  descripcion = 3,
-  marca_id = 4,
-  marca = 5,
-  proveedor_id = 6,
-  proveedor = 7,
-  precio_neto = 8,
-  stock_minimo = 9,
-  stock_reservado = 10,
-  stock_disponible = 11
+  descripcion = 2,
+  ubicacion = 3,
+  stock_minimo = 4,
+  stock_reservado = 5,
+  stock_disponible = 6,
+  marca_id = 7,
+  marca = 8,
+  proveedor_id = 9,
+  proveedor = 10,
+  precio_neto = 11,
 }
 
 const strEntidad = "Accesorio ";
