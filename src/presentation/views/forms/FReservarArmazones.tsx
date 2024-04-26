@@ -660,3 +660,17 @@ const handleUploadata = async() => {
 }
 
 export default FReservarArmazones
+
+
+
+
+
+// SELECT fnOTReservaArmazones([{
+              
+//               "" : "",
+//               "" : "",
+//               "" : "",
+//               "" : "",
+
+                           
+// }])
