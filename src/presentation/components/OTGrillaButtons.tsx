@@ -141,9 +141,9 @@ const handleQRPrint = useReactToPrint({
     onAfterPrint(){
         resetImpresionStates()
         dispatch(clearImpression())
-        setEstadoImpresion(folio,estado, user, OTAreas["areaActual"]).then(()=>{
-            dispatch(fetchOT({OTAreas:OTAreas["areaActual"], searchParams: paramsOT.value}))
-        })
+        // setEstadoImpresion(folio,estado, user, OTAreas["areaActual"]).then(()=>{
+        //     dispatch(fetchOT({OTAreas:OTAreas["areaActual"], searchParams: paramsOT.value}))
+        // })
         return;
     }
 
