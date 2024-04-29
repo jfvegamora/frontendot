@@ -140,6 +140,8 @@ const FReservarArmazones = () => {
 
   const fetchValidateArmazon = async(armazon:string, codArmazon:string) => {
       const urlbase = `${URLBackend}/api/armazones/listado/?query=02`
+      
+
       const emmtyJSON = {
         "marca"       : '',
         "diseno"      : '',
@@ -153,7 +155,8 @@ const FReservarArmazones = () => {
         "punto_venta" : ''
       }
 
-      const _id = 1 //? 0 PARA QUE NO VALIDE CRSITAL Y SOLO VALIDE ARMAZON Y STOCK
+
+      const _id = 0 //? 0 PARA QUE NO VALIDE CRSITAL Y SOLO VALIDE ARMAZON Y STOCK
       const _p6 = 1 //? 1 VALIDAR PARAMETRIZACION
       const _p1 = codArmazon
       const _p2 = codProyecto.value
@@ -182,14 +185,23 @@ const FReservarArmazones = () => {
           console.log(codArmazon)
           console.log(result.data[0][0])
 
-          // if(result.data && result.data[0] && result.data[0][19] !== ''){
-          //   toast.error(result.data[0][19])
-          //   setValue(armazon,'')
-          //   setArmazon1('')
-          // }
+          if(result.data && result.data[0] && result.data[0][19] !== ''){
+            toast.error(result.data[0][19])
 
-
-
+            switch (armazon) {
+              case 'Armazon1':
+                codArmazon1.value = '';
+                break;
+              case 'Armazon2':
+                codArmazon2.value = '';
+                break;
+              case 'Armazon3':
+                codArmazon3.value = '';
+                break
+              default:
+                break;
+            }
+          }
 
           
         } catch (error) {
@@ -300,16 +312,21 @@ const FReservarArmazones = () => {
                 
                 if(resultExist.value){
 
-                  const resultBeneficiario = await setReservaBeneficiario(db, jsonData, userID);
-                  console.log(resultBeneficiario)
-  
-  
+                  
+                  
                   const result_a1 = await setArmazones(db,jsonData.Armazon1 || '', 1,false)
                   console.log(result_a1)
                   const result_a2 = await setArmazones(db,jsonData.Armazon2 || '', 1,false)
                   console.log(result_a2)
                   const result_a3 = await setArmazones(db,jsonData.Armazon3 || '', 1,false)
                   console.log(result_a3)
+                 
+                 
+                  const resultBeneficiario = await setReservaBeneficiario(db, jsonData, userID);
+                  console.log(resultBeneficiario)
+                 
+                 
+                 
                   const reserva_armazones = await getArmazones(db);
                   console.log(reserva_armazones)
                 
@@ -374,6 +391,8 @@ React.useEffect(()=>{
     }else{
       setValue('Armazon2', codArmazon2.value)
       console.log('armazon cambiado, ejecutando validacion')
+
+      fetchValidateArmazon('Armazon2', codArmazon2.value)
   
     }
 
@@ -391,6 +410,7 @@ React.useEffect(()=>{
     }else{
       setValue('Armazon3', codArmazon3.value)
       console.log('armazon cambiado, ejecutando validacion')
+      fetchValidateArmazon('Armazon3', codArmazon3.value)
     }
   }
 },[codArmazon3.value])
@@ -611,7 +631,7 @@ const handleUploadata = async() => {
                     textAlign='text-right !text-[2rem] !h-[3.5rem]'
                     customWidth={"!text-2xl w-[22rem]"}
                     error={errors.Armazon3}
-                    isOptional={true}
+                    // isOptional={true}
                     handleFocus={()=>handleFocus('Armazon3')}
 
                   

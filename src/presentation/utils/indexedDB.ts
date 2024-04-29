@@ -109,6 +109,11 @@ export const setArmazones = (db:IDBDatabase,codArmazon:string, cantidad:number,f
             const existingData = (event.target as IDBRequest).result;
             
             if(existingData){
+                console.log(existingData)
+                if(existingData["stock_disponible"] <= 0){
+                    reject(`Armazon ${existingData["cod_armazon"]} sin stock disponible para reservar`)
+                }
+
                 const updatedData = {
                     ...existingData,
                     stock_disponible: parseInt(existingData.stock_disponible) -1,

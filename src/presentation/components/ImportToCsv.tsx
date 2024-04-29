@@ -149,9 +149,9 @@ const ImportToCsv:React.FC<ImportProps> = ({
           setErrors((_prev:any)=>fetchResult.data["Error"])
           setIsOpen(true)
       }else{
-        dispatch(fetchOT({OTAreas:OTAreas["areaActual"], searchParams: paramsOT.value}))
         toast.success('Import Finalizado Correctamente')
         handleClose()
+        dispatch(fetchOT({OTAreas:OTAreas["areaActual"], searchParams: paramsOT.value}))
       }
 
       // if(fetchResult.success === true){

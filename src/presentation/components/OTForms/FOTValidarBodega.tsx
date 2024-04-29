@@ -11,6 +11,7 @@ import { Button } from '@material-tailwind/react';
 import { AppStore, useAppDispatch, useAppSelector } from '../../../redux/store';
 import { fetchOT } from '../../../redux/slices/OTSlice';
 import { paramsOT } from '../../views/mantenedores/MOT';
+import { toast } from 'react-toastify';
 
 export const focusFirstInput = (strInputName: string, ref: React.RefObject<any>) => {
     if (ref.current) {
@@ -210,6 +211,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
     
     const onSubmit = (e:any) => {
         e.preventDefault();
+        const toastLoading = toast.loading('Cargando...');
         updateOT(
             [],
             OTAreas["areaActual"],
@@ -226,8 +228,12 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
             true
         ).then(()=>{
             handleClose()
+            toast.dismiss(toastLoading)
+            toast.success('OT Procesada Correctamente.')
             dispatch(fetchOT({OTAreas:OTAreas["areaActual"], searchParams: paramsOT.value}))
 
+        }).catch(()=>{
+            toast.dismiss(toastLoading);
         })
     }
 

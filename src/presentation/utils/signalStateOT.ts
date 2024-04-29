@@ -1672,7 +1672,7 @@ export const updateOT =async (
     }
   }
 
-  const toastLoading = toast.loading('Cargando...');
+  // const toastLoading = toast.loading('Cargando...');
   // let folio = data?.[EnumGrid.folio]
   let motivo = data && data[EnumGrid.motivo] === 'Garantía' ? 2 : 1;
 
@@ -1706,16 +1706,16 @@ export const updateOT =async (
       const response = await axios.post(`${URLBackend}/api/ot/editar/`, query)
   
       if(response.status === 200){
-        toast.dismiss(toastLoading)
-        return toast.success(`OT ${tipo_evento} Correctamente, Folio:  ${ isValidateBodega ? data[EnumGrid.folio] : data.folio}`,{
-          autoClose: 1000
-        })
+        // toast.dismiss(toastLoading)
+        // return toast.success(`OT ${tipo_evento} Correctamente, Folio:  ${ isValidateBodega ? data[EnumGrid.folio] : data.folio}`,{
+        //   autoClose: 1000
+        // })
       }else{
-        toast.dismiss(toastLoading)
+        // toast.dismiss(toastLoading)
         return toast.error('Error al Editar OT')
       }
     } catch (error) {
-      toast.dismiss(toastLoading)
+      // toast.dismiss(toastLoading)
       return toast.error(error as any)
   
     }
@@ -1740,6 +1740,7 @@ export const updateOT =async (
 
   console.log(numero_worktracking.value)
   
+  const toastLoading = toast.loading('Cargando...');
 
 
   const fields = [

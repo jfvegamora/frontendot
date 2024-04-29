@@ -449,7 +449,8 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
         }
       }
 
-      
+      const toastLoading = toast.loading('Cargando...');
+
       pkToDelete.map((ot:any)=>{
         if(OTAreas["areaActual"] === 90 || OTAreas["areaActual"] === 100){
           if(ot.numero_envio !== '0'){
@@ -485,7 +486,8 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
         })
       })
 
-      // toast.success('OTs Procesadas Correctamente')
+      toast.dismiss(toastLoading);
+      toast.success('OTs Procesadas Correctamente');
     }
 
 
