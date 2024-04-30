@@ -9,7 +9,7 @@ import { BUTTON_MESSAGES, isToggleImpression } from '../utils';
 import { useReactToPrint } from 'react-to-print';
 // import FOTImpresa from '../views/forms/FOTImpresa';
 import { AppStore, useAppDispatch, useAppSelector } from '../../redux/store';
-import { clearImpression, fetchOT, fetchOTImpresionByID } from '../../redux/slices/OTSlice';
+import { clearImpression, fetchOTImpresionByID } from '../../redux/slices/OTSlice';
 // import FOTImpresa from '../views/forms/FOTImpresa';
 import { toast } from 'react-toastify';
 // import FOTTicketImpresion from '../views/forms/FOTTicketImpresion';
@@ -18,7 +18,7 @@ import axios from 'axios';
 import { EnumGrid } from '../views/mantenedores/MOTHistorica';
 // import { validationStateOT } from './OTPrimaryButtons';
 // import FOTTicketQRImpresion from '../views/forms/FOTTicketQRImpresion';
-import { paramsOT } from '../views/mantenedores/MOT';
+// import { paramsOT } from '../views/mantenedores/MOT';
 import { EnumAreas } from './OTPrimaryButtons';
 // import ReactDOM from 'react-dom';
 
