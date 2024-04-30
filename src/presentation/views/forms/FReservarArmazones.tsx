@@ -234,7 +234,7 @@ const FReservarArmazones = () => {
 
 
   const handleFocus = (ref:any) => {
-    console.log(ref)
+    // console.log(ref)
     setIsScanning(true)
 
     if(ref){
@@ -245,7 +245,7 @@ const FReservarArmazones = () => {
   };
 
   const handleChange = (e:any) => {
-    console.log(e)
+    // console.log(e)
 
     const result = validateRut(e)
 
@@ -253,7 +253,7 @@ const FReservarArmazones = () => {
   }
 
   const handleSaveChange = async (jsonData: any) => {
-    console.log(jsonData);
+    // console.log(jsonData);
     let reservaJSON;
   
     if (isOnline.value === true) {
@@ -314,12 +314,10 @@ const FReservarArmazones = () => {
 
                   
                   
-                  const result_a1 = await setArmazones(db,jsonData.Armazon1 || '', 1,false)
+                  const result_a1 = await setArmazones(db,jsonData.Armazon1 || '', 1,false,'1',jsonData["tipo_anteojo"])
                   console.log(result_a1)
-                  const result_a2 = await setArmazones(db,jsonData.Armazon2 || '', 1,false)
+                  const result_a2 = await setArmazones(db,jsonData.Armazon2 || '', 1,false,'2',jsonData["tipo_anteojo"])
                   console.log(result_a2)
-                  const result_a3 = await setArmazones(db,jsonData.Armazon3 || '', 1,false)
-                  console.log(result_a3)
                  
                  
                   const resultBeneficiario = await setReservaBeneficiario(db, jsonData, userID);

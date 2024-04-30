@@ -98,7 +98,7 @@ export const setReservaBeneficiario = (db:IDBDatabase,jsonData:any, userID:strin
 
 
 //?AGREGAR ARMAZONES A DATABASE
-export const setArmazones = (db:IDBDatabase,codArmazon:string, cantidad:number,firstTime?:boolean):Promise<string> => {
+export const setArmazones = (db:IDBDatabase,codArmazon:string, cantidad:number,firstTime?:boolean, posicionArmazon?:string, tipo_anteojo?:string):Promise<string> => {
     return new Promise((resolve, reject):any => {
         const transaction: IDBTransaction = db.transaction(["reserva_armazones"], "readwrite");
         const objectStore: IDBObjectStore = transaction.objectStore("reserva_armazones");
@@ -116,8 +116,8 @@ export const setArmazones = (db:IDBDatabase,codArmazon:string, cantidad:number,f
 
                 const updatedData = {
                     ...existingData,
-                    stock_disponible: parseInt(existingData.stock_disponible) -1,
-                    stock_reservado: parseInt(existingData.stock_reservado + 1)
+                    stock_disponible: posicionArmazon === '1' ? (parseInt(existingData.stock_disponible) - 1) : (tipo_anteojo === '3' ? (parseInt(existingData.stock_disponible) - 1) : (existingData.stock_disponible)),
+                    stock_reservado:  posicionArmazon === '1' ? (parseInt(existingData.stock_reservado)  + 1) : (tipo_anteojo === '3' ? (parseInt(existingData.stock_reservado) + 1) : (existingData.stock_reservado) ) 
                 };
 
                 const updateRequest = objectStore.put(updatedData);
