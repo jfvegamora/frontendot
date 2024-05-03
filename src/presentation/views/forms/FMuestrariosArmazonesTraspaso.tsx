@@ -16,6 +16,7 @@ import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
 import { AppStore, useAppSelector } from "../../../redux/store";
+import { toast } from "react-toastify";
 // import { toast } from 'react-toastify'
 
 // import axios from "axios";
@@ -37,21 +38,21 @@ interface OutputData {
   _pkToDelete: string;
 }
 
-export function transformInsertQuery(jsonData: InputData): OutputData | null {
-  const userState = useAppSelector((store: AppStore) => store.user);
+export function transformInsertQuery(jsonData: InputData, userID:string): OutputData | null {
+  
 
   const kardex = [{
     'muestrario': jsonData.muestrario,
     'origen'    : jsonData.origen,
     'cantidad'  : jsonData.cantidad,
-    'usuario'   : userState?.id,
+    'usuario'   : userID,
   }]
 
   const query: OutputData = {
     query: "07",
-    _pkToDelete: JSON.stringify(kardex),
+    _pkToDelete:encodeURIComponent(JSON.stringify(kardex)),
   };
-  // console.log("query", query)
+  console.log("query", query)
   return query;
 }
 
@@ -75,6 +76,8 @@ const FMuestrariosArmazonesTraspaso: React.FC<IUserFormPrps> = React.memo(
     const schema = validationMuestrariosArmazonesTraspaso();
     const { showModal, CustomModal } = useModal();
     const { show } = useCustomToast();
+    const userState = useAppSelector((store: AppStore) => store.user);
+
     // const [changeCodigo, setChangeCodigo] = useState()
     // const armazonData = signal([])
 
@@ -192,16 +195,21 @@ const FMuestrariosArmazonesTraspaso: React.FC<IUserFormPrps> = React.memo(
     const handleSaveChange = React.useCallback(
       async (data: InputData, isEditting: boolean) => {
         // console.log(data);
+        const toastLoading = toast.loading('Cargando...');
         try {
           const transformedData = isEditting
             ? transformUpdateQuery(data)
-            : transformInsertQuery(data);
+            : transformInsertQuery(data, userState["id"]);
 
           const response = isEditting
             ? await editEntity(transformedData)
             : await createdEntity(transformedData);
           handleApiResponse(response, isEditting);
+          toast.dismiss(toastLoading)
+
         } catch (error: any) {
+          toast.dismiss(toastLoading)
+
           show({
             message: error,
             type: "error",

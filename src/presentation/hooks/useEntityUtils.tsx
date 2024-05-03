@@ -31,6 +31,8 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
   const [isModalEdit, setIsModalEdit] = useState<boolean>(false);
   const [isModalPermisoOT, setIsModalPermisOT] = useState<boolean>(false);
   const [isEntityProfile, setIsEntityProfile] = useState<boolean>(false);
+  const [isTraspaso, setIsTraspaso] = useState<boolean>(false);
+
   const [onDelete, setDataGrid] = useState<boolean>(false);
 
   const { showModal } = useModal();
@@ -66,6 +68,7 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
     setIsEntityProfile(false);
     setSelectedRows([]);
     setIsModalPermisOT(false);
+    setIsTraspaso(false);
   }, []);
 
   const resetEntities = () => {
@@ -150,7 +153,13 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
     },
     [entities]
   );
+  
+  const toggleTraspaso = useCallback(()=>{
+    setIsTraspaso((prev)=>!prev)
+  },[entities])
+  
   //METODO PERMISOS DE OT USUARIO DE LA GRILLA
+
   const togglePermisoOTModal = useCallback(
     (rowIndex?: number) => {
       console.log(rowIndex)
@@ -260,11 +269,14 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
     setPageSize,
     isModalInsert,
     isModalCopiar,
+    setIsTraspaso,
+    isTraspaso,
     entities,
     setEntities,
     handleRefresh,
     toggleEditModal,
     togglePermisoOTModal,
+    toggleTraspaso,
     toggleModalCopiar,
     isModalEdit,
     selectedRows,

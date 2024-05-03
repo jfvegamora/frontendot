@@ -50,6 +50,7 @@ const idMenu   = 16;
 const MMuestrariosArmazones: React.FC = () => {
   const [params, setParams] = useState([]);
   const { escritura_lectura} = usePermission(idMenu || 0 );
+  // const [isTraspaso, setIsTraspaso] = useState(false);
 
   const updateParams = (newParams: Record<string, never>) => {
     setParams(Object.keys(newParams).map((key) => newParams[key]));
@@ -61,10 +62,12 @@ const MMuestrariosArmazones: React.FC = () => {
     setEntities,
     entity,
     //modal methods
+    isTraspaso,
     isModalInsert,
     isModalEdit,
     isModalCopiar,
     toggleEditModal,
+    toggleTraspaso,
     toggleModalCopiar,
     openModal,
     closeModal,
@@ -90,6 +93,8 @@ const MMuestrariosArmazones: React.FC = () => {
 
     setPkToDelete([`${strParamsToDelete}=[${combinedPks}]`]);
   }, [selectedRows]);
+
+
 
   return (
     <div className="mantenedorContainer">
@@ -118,17 +123,19 @@ const MMuestrariosArmazones: React.FC = () => {
           handleDeleteSelected={handleDeleteSelected}
           handleRefresh={resetEntities}
           handleCopiar={toggleModalCopiar}
+          handleTraspaso={toggleTraspaso}
           params={params}
           pkToDelete={pkToDelete}
           strEntidad={strEntidadExcel}
           strBaseUrl={strBaseUrl}
           showAddButton={true}
           showCopiar={true}
-          showExportButton={true}
+          showTraspasoButton={true}
+          showExportButton={false}
           showDeleteButton={true}
           showForwardButton={false}
           showRefreshButton={true}
-          showCustomExportButton={true}
+          showCustomExportButton={false}
           customExporTooltip={"Exportar muestrarios"}
           idMenu={idMenu}
           bln_egreso={false}
@@ -183,6 +190,19 @@ const MMuestrariosArmazones: React.FC = () => {
       )}
 
       {isModalCopiar && (
+        <FMuestrariosArmazonesCopiar
+            label={`${TITLES.edicion} ${strEntidad}`}
+            selectedRows={selectedRows}
+            setEntities={setEntities}
+            params={params}
+            data={entity}
+            closeModal={closeModal}
+            isEditting={true}
+            escritura_lectura={escritura_lectura}
+        />
+      )}
+
+      {isTraspaso && (
         <FMuestrariosArmazonesTraspaso
           label={`${TITLES.copiar} ${strEntidad}`}
           closeModal={closeModal}

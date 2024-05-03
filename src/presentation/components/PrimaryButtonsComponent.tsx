@@ -31,6 +31,7 @@ interface IPrimaryButtonProps {
   handleCopiar?: any;
   handleRefresh?: () => void;
   handleAddTipe2?: () => void;
+  handleTraspaso?: () => void;
   setSelectedRows?:any;
   customExporTooltip?:string;
   showForwardButton?: boolean;
@@ -40,6 +41,7 @@ interface IPrimaryButtonProps {
   showExportButton?: boolean;
   showCustomExportButton?:boolean;
   showMacroButton?:boolean;
+  showTraspasoButton?:boolean;
   showImportCsv?:boolean;
   comilla?: boolean;
   strBaseUrl?: string;
@@ -59,6 +61,7 @@ const ImportToCsv   = React.lazy(()=>import('./ImportToCsv'))
 const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
   ({
     handleDeleteSelected,
+    handleTraspaso,
     // handlePageSize,
     handleAddPerson,
     handleCopiar,
@@ -68,7 +71,7 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
     showCustomExportButton,
     customExporTooltip,
     showAddButton,
-    // showRefreshButton,
+    showTraspasoButton,
     showDeleteButton,
     showImportCsv,
     showMacroButton,
@@ -203,6 +206,8 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
           </>
         ) : (
           <>
+          
+
             {showAddButton && escritura_lectura && (
               <>
                 {renderButton(
@@ -212,6 +217,14 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
                 )}
               </>
             )}
+
+        {showTraspasoButton && escritura_lectura && (
+            renderButton(
+              <FontAwesomeIcon icon={faArrowRightFromBracket} className="primaryBtnIcon"/>,
+              handleTraspaso!,
+              BUTTON_MESSAGES.bln_egreso
+            )
+          )}
             {showCopiar && escritura_lectura && (
               <>
                 {renderButton(
