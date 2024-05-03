@@ -9,6 +9,7 @@ import { EnumGrid as EnumReserva } from "../views/mantenedores/MReservaArmazones
 import { A1_DP, a1_armazon, a2_armazon, a3_armazon, codigoProyecto, tipo_de_anteojo, validar_parametrizacion } from "./signalStateOT";
 import { validationTipoAnteojos, validation_A1_DP, validation_A1_armazon, validation_A2_armazon } from "./validationOT";
 import { validation_tipo_anteojo } from "./OTReceta_utils";
+import { emptyDataBase } from "../views/forms/FReservarArmazones";
 
 
 
@@ -20,7 +21,7 @@ export const inputOnlyReadReserva = signal(false);
 
 
 //? FETCH DE DATOS A SPRESERVA ARMAZONES
-export const fetchReservaArmazones = async(punto_venta:string, cod_proyecto:string, usuarioID:string):Promise<any> => {
+export const fetchReservaArmazones = async(punto_venta:string, cod_proyecto:string, usuarioID:string, solo_consulta?:boolean):Promise<any> => {
     
     console.log(punto_venta)
     console.log(cod_proyecto)
@@ -40,7 +41,7 @@ export const fetchReservaArmazones = async(punto_venta:string, cod_proyecto:stri
     try {
         const response = await axios(`${URLBackend}/api/${entidad}/listado/?query=06&_pkToDelete=${encodeURIComponent(JSON.stringify(reservaJSON))}`)
         if(response){
-            await getLocalArmazones(response.data)
+            await getLocalArmazones(response.data, reservaJSON,solo_consulta)
         }
         console.log(response)
     } catch (error) {
@@ -51,7 +52,7 @@ export const fetchReservaArmazones = async(punto_venta:string, cod_proyecto:stri
 
 
 //? METODO ENCARGADO DE TOMAR RESPUSTA DE ALMACEN Y COMPARAR CON "DB LOCAL ARMAZONES"
-const getLocalArmazones = async(response:any) => {
+const getLocalArmazones = async(response:any,reservaJSON:any, solo_consulta?:boolean) => {
     try {
         let armazonesLocal:any = []
         await openDatabase().then(async(db)=>{
@@ -64,15 +65,16 @@ const getLocalArmazones = async(response:any) => {
         if(response.length === 0){
             console.log('apagar boton')
             isOnline.value = true;
-            isShowReservaButton.value = false;
-            toast.error('No hay datos en bodega offline', {autoClose:1000});
+            // isShowReservaButton.ue = false;
+            // toast.error('No hay datos en bodega offline', {autoClose:1000});
 
-            // if(armazonesLocal.length === 0){
-            //     //?APAGAR BOTON RESERVA YA QUE SE ENTIENDE QUE NO ES BODEGA OFFLINE
-            //     isShowReservaButton.value = false;
-            //     toast.error('No hay datos en bodega offline');
-            //     return;
-            // }
+            if(armazonesLocal.length === 0){
+                //?APAGAR BOTON RESERVA YA QUE SE ENTIENDE QUE NO ES BODEGA OFFLINE
+                isShowReservaButton.value = false;
+                emptyDataBase.value = true;
+                toast.error('No hay datos en bodega offline');
+                return;
+            }
 
             
             return;
@@ -81,19 +83,38 @@ const getLocalArmazones = async(response:any) => {
             isShowReservaButton.value = true;
             
             isOnline.value = false;
+            if(solo_consulta){
+                return;
+            }        
 
+            console.log('click')
             if(armazonesLocal.length === 0){
                 let firstTime = true;
                 response.forEach(async(armazonData:any) => {
                     console.log(armazonData)
-                    let codArmazon = armazonData[0]
-                    let cantidad   = armazonData[1]
+                    
+                    let codArmazon = armazonData[0];
+                    let cantidad   = armazonData[1];
+                    let aro        = armazonData[2];
+                    let puente     = armazonData[3];
+                    let diagonal   = armazonData[4];
+
+                    let data = {
+                        codArmazon,
+                        cantidad,
+                        aro,
+                        puente,
+                        diagonal
+                    }
 
                     await openDatabase().then(async(db:IDBDatabase)=>{
-                        await setArmazones(db,codArmazon,parseInt(cantidad),firstTime)
+                        await setArmazones(db,data,reservaJSON,firstTime)
+                        emptyDataBase.value = false;
                         db.close()
+
                     })
                 });
+                toast.success('Muestrario Cargado Correctamente.')
             }else{
                 console.log('ya hay datos previos, retornando')
                 return;

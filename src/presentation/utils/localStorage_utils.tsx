@@ -16,9 +16,13 @@ export const getImageURL = (name:string) => {
 }
 
 export const validateRut = (rut:string) => {
-    console.log(rut)
+    const regex2 = /-[0-9kK]$/i;  
+    const validateFormatoRut = regex2.test(rut)
+    if(!validateFormatoRut){
+      return false
+    }
+    
     const regex = new RegExp(/^[0-9]{1,8}[-]{1}[0-9kK]{1}$/);
-
     return regex.test(rut);
 };
   

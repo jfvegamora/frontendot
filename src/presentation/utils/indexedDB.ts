@@ -3,7 +3,7 @@
 import { punto_venta } from "./signalStateOT";
 
 const dbName     = "ReservaArmazones";
-const dbversion  = 4;
+const dbversion  = 5;
 
 export let db:IDBDatabase;
 
@@ -30,8 +30,8 @@ export const openDatabase = (): Promise<IDBDatabase> => {
             const objectStore = db.createObjectStore("reserva_armazones", { keyPath: "cod_armazon" });
 
             objectStore.createIndex("cod_armazon", "cod_armazon", { unique: true });
-            objectStore.createIndex("stock_reservado", "stock_reservado", { unique: false });
-            objectStore.createIndex("stock_disponible", "stock_disponible", { unique: false });
+            objectStore.createIndex("proyecto", "proyecto", { unique: false });
+            objectStore.createIndex("punto_venta", "punto_venta", { unique: false });
 
             const clienteReservaStore = db.createObjectStore("reserva_armazones_beneficiarios", {keyPath:"rut_beneficiario"});
             clienteReservaStore.createIndex("rut_beneficiario","rut_beneficiario", {unique:true});
@@ -98,12 +98,17 @@ export const setReservaBeneficiario = (db:IDBDatabase,jsonData:any, userID:strin
 
 
 //?AGREGAR ARMAZONES A DATABASE
-export const setArmazones = (db:IDBDatabase,codArmazon:string, cantidad:number,firstTime?:boolean, posicionArmazon?:string, tipo_anteojo?:string):Promise<string> => {
+export const setArmazones = (db:IDBDatabase,data:any, reservaJSON:any,firstTime?:boolean, posicionArmazon?:string, tipo_anteojo?:string):Promise<string> => {
     return new Promise((resolve, reject):any => {
         const transaction: IDBTransaction = db.transaction(["reserva_armazones"], "readwrite");
         const objectStore: IDBObjectStore = transaction.objectStore("reserva_armazones");
         
-        const request: IDBRequest<IDBValidKey> = objectStore.get(codArmazon);
+        
+        console.log(objectStore)
+        console.log(data)
+        const request: IDBRequest<IDBValidKey> = objectStore.get(data.codArmazon);
+        
+        console.log(request)
 
         request.onsuccess = function(event:Event){
             const existingData = (event.target as IDBRequest).result;
@@ -136,13 +141,21 @@ export const setArmazones = (db:IDBDatabase,codArmazon:string, cantidad:number,f
 
             }else{
                 if(firstTime){
+                    // console.log(data)
+                    // console.log(reservaJSON)
+                    
                     const newData = {
-                        cod_armazon         : codArmazon,
-                        stock_disponible    : cantidad,
+                        cod_armazon         : data.codArmazon,
+                        stock_disponible    : parseInt(data.cantidad),
                         stock_reservado     : 0,
+                        proyecto            : reservaJSON["proyecto"],
+                        punto_venta         : reservaJSON["punto_venta"],
+                        aro                 : data["aro"],
+                        puente              : data["puente"],
+                        diagonal            : data["diagonal"]
                     };
     
-                    console.log(newData)
+                    // console.log(newData)
                     const addRequest: IDBRequest<IDBValidKey> = objectStore.add(newData);
     
                     addRequest.onsuccess = function(_event:Event){
@@ -157,8 +170,8 @@ export const setArmazones = (db:IDBDatabase,codArmazon:string, cantidad:number,f
                         reject((event.target as IDBRequest).error);
                     }
                 }
-                console.log(`No existe datos para el armazon:${codArmazon}`)
-                reject(`No existe datos para el armazon:${codArmazon}`)
+                console.log(`No existe datos para el armazon:${data.codArmazon}`)
+                reject(`No existe datos para el armazon:${data.codArmazon}`)
           
 
             }
@@ -195,6 +208,31 @@ export const getArmazones = (db:IDBDatabase):Promise<any[]> => {
           };
     })
 };
+
+
+//?VALIDA EL DIAMETRO EFECTIVO DE LOS ARMAZONES ALMACENADOS LOCALMENTE
+export const validateLocalArmazon = (db:IDBDatabase, data:any) => {
+    return new Promise((resolve, reject) => {
+        const transaction:IDBTransaction              = db.transaction(["reserva_armazones"], "readonly");
+        const objectStore:IDBObjectStore              = transaction.objectStore("reserva_armazones");
+        const request: IDBRequest<IDBValidKey>        = objectStore.get(data["codArmazon"]);
+
+        request.onsuccess = function(event:Event){
+            const resultArmazon:any  = (event.target as IDBRequest).result
+            const diametroEfectivo = (resultArmazon["aro"] + resultArmazon["puente"] + resultArmazon["diagonal"] - parseInt(data["dp"])) <= 65
+            resolve(diametroEfectivo)
+
+        }   
+
+        request.onerror = function(event:Event){
+            console.log((event.target as IDBRequest).error)
+            reject((event.target as IDBRequest).error)
+            db.close()
+        }
+    })
+}
+
+
 
 
 //?Obtener datos de beneficiario

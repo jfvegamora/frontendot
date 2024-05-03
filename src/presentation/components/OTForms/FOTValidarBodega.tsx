@@ -34,8 +34,8 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
     const UsuarioID:any = useAppSelector((store:AppStore)=> store.user?.id)
     const [OT, setOT] = React.useState(dataOTSignal.value[0])
 
-    const schema          = validationBodegaSchema()
-    // const OT              = dataOTSignal.value[0];
+    const schema          = validationBodegaSchema();
+
     const alreadyValidate = true;
     const dispatch        = useAppDispatch();
 

@@ -102,6 +102,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
         if(data && data[0]){
           console.log(data[0][0])
           punto_venta.value = data[0][0]
+          setStrSelectedName(data[0][0])
         }
       }
       const payload = {
@@ -125,9 +126,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     },[state, label])
 
    React.useEffect(()=>{
-        // console.log(strTableName)
         fetchSelectData()
-        // console.log('cambio')
     },[strUrl2])
 
 
@@ -141,10 +140,6 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
         }
    },[resetFilters.value])
 
-
-   if(name === 'proyecto'){
-    console.log(strSelectedName)
-   }
 
 
     const renderInput = () => (
