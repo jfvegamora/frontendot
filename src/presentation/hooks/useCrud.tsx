@@ -13,12 +13,12 @@ import { AppStore, useAppSelector } from "../../redux/store";
 //  export const URLBackend = signal('https://gestionprod.mtoopticos.cl');
 
 // DESARROLLO
-export const URLBackend = signal('https://gestiondev.mtoopticos.cl');
+// export const URLBackend = signal('https://gestiondev.mtoopticos.cl');
 
 
 
 //CAPACITACION
-// export const URLBackend = signal('https://gestioncap.mtoopticos.cl')
+export const URLBackend = signal('https://gestioncap.mtoopticos.cl')
 
 
 export const baseURL = (params:string) => {
@@ -75,6 +75,7 @@ const useCrud = (
       };
 
       const response = await axiosInstance.post("/login/", query);
+      
       return response.data;
     } catch (error) {
       return error;

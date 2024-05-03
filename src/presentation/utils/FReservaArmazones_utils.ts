@@ -67,7 +67,7 @@ const getLocalArmazones = async(response:any) => {
             console.log('apagar boton')
             isOnline.value = true;
             isShowReservaButton.value = false;
-            toast.error('No hay datos en bodega offline', {autoClose:500});
+            toast.error('No hay datos en bodega offline', {autoClose:1000});
 
             // if(armazonesLocal.length === 0){
             //     //?APAGAR BOTON RESERVA YA QUE SE ENTIENDE QUE NO ES BODEGA OFFLINE

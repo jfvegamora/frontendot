@@ -98,7 +98,9 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
          }
    })
       if(label === 'Punto de Venta'){
+        console.log(data)
         if(data && data[0]){
+          console.log(data[0][0])
           punto_venta.value = data[0][0]
         }
       }
@@ -107,11 +109,9 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
       }
       dispatch(setDataListbox(payload))
       setEntities(data)
-
-
-
       
     }
+
 
     React.useEffect(()=>{
       if(!state.hasOwnProperty(label)){
@@ -140,6 +140,11 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
           setStrSelectedName('')
         }
    },[resetFilters.value])
+
+
+   if(name === 'proyecto'){
+    console.log(strSelectedName)
+   }
 
 
     const renderInput = () => (

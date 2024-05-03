@@ -13,7 +13,7 @@ import { Button } from '@material-tailwind/react';
 import { signal } from '@preact/signals-react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { punto_venta, validateRut, validationReservaArmazonesSchema } from '../../utils';
+import { codigoProyecto, punto_venta, validateRut, validationReservaArmazonesSchema } from '../../utils';
 import { SelectInputComponent, TextInputComponent } from '../../components';
 import { AppStore, useAppSelector } from '../../../redux/store';
 import TextInputInteractive from '../../components/forms/TextInputInteractive';
@@ -34,7 +34,7 @@ const codArmazon3 = signal('')
 
 const focusInput  = signal('');
 
-const codProyecto    = signal('');
+export const codProyecto    = signal('');
 const codPuntoVenta  = signal('');
 const codDP          = signal('');
 
@@ -95,7 +95,7 @@ const Scanner:React.FC<any> = ({setIsScanning}) => {
 
   return (
     
-      <div id="scanner-container" className='absolute top-[8.6rem] right-[-1rem] !z-20' style={{ width: 350, height: 350 }} autoFocus />
+      <div id="scanner-container" className='absolute top-[8.6rem] !right-[5rem] !z-20' style={{ width: 250, height: 350 }} autoFocus />
   
   );
 };
@@ -108,7 +108,7 @@ const Scanner:React.FC<any> = ({setIsScanning}) => {
 const FReservarArmazones = () => {
   // const [barcodeResult, setBarcodeResult] = useState('');
   const [isScanning, setIsScanning]   = useState(false);
-  const [barcode, setBarcode]         = useState('');
+  const [_barcode, setBarcode]         = useState('');
   // const [focusInput, setFocusInput]   = useState('');
   const schema                        = validationReservaArmazonesSchema();
   const userID:any                    = useAppSelector((store: AppStore) => store.user?.id);
@@ -156,7 +156,7 @@ const FReservarArmazones = () => {
       }
 
 
-      const _id = 0 //? 0 PARA QUE NO VALIDE CRSITAL Y SOLO VALIDE ARMAZON Y STOCK
+      const _id = 2//? 0 no validar nada, data armazon  / 1 valida armazon y cristal  / 2 solo valida amrazon
       const _p6 = 1 //? 1 VALIDAR PARAMETRIZACION
       const _p1 = codArmazon
       const _p2 = codProyecto.value
@@ -172,12 +172,14 @@ const FReservarArmazones = () => {
       console.log(codArmazon)
       console.log(punto_venta.value)
 
+
       if(codArmazon !== ''){
         try {
           const fetchURL = `${urlbase}&_p1=${_p1}&_p2=${_p2}&_p3=${_p3}&_p4=${_p4}&_p5=${_p5}&_pkToDelete=${_pkToDelete}&_id=${_id}&_p6=${_p6}`
          
           console.log(fetchURL)
           const result = await axios(fetchURL)
+        
           
     
           console.log(result)
@@ -234,7 +236,7 @@ const FReservarArmazones = () => {
 
 
   const handleFocus = (ref:any) => {
-    console.log(ref)
+    // console.log(ref)
     setIsScanning(true)
 
     if(ref){
@@ -245,7 +247,7 @@ const FReservarArmazones = () => {
   };
 
   const handleChange = (e:any) => {
-    console.log(e)
+    // console.log(e)
 
     const result = validateRut(e)
 
@@ -253,7 +255,7 @@ const FReservarArmazones = () => {
   }
 
   const handleSaveChange = async (jsonData: any) => {
-    console.log(jsonData);
+    // console.log(jsonData);
     let reservaJSON;
   
     if (isOnline.value === true) {
@@ -314,12 +316,10 @@ const FReservarArmazones = () => {
 
                   
                   
-                  const result_a1 = await setArmazones(db,jsonData.Armazon1 || '', 1,false)
+                  const result_a1 = await setArmazones(db,jsonData.Armazon1 || '', 1,false,'1',jsonData["tipo_anteojo"])
                   console.log(result_a1)
-                  const result_a2 = await setArmazones(db,jsonData.Armazon2 || '', 1,false)
+                  const result_a2 = await setArmazones(db,jsonData.Armazon2 || '', 1,false,'2',jsonData["tipo_anteojo"])
                   console.log(result_a2)
-                  const result_a3 = await setArmazones(db,jsonData.Armazon3 || '', 1,false)
-                  console.log(result_a3)
                  
                  
                   const resultBeneficiario = await setReservaBeneficiario(db, jsonData, userID);
@@ -352,8 +352,13 @@ const FReservarArmazones = () => {
   
 
   React.useEffect(() => {
-  // console.log('fetch')
-  fetchReservaArmazones(punto_venta.value, codProyecto.value,userID)
+  console.log('fetch')
+  console.log(punto_venta.value)
+  console.log(codProyecto.value)
+  if(punto_venta.value !== '' && codProyecto.value !== ''){
+    console.log('render')
+    fetchReservaArmazones(punto_venta.value, codProyecto.value,userID)
+  }
 },[punto_venta.value])
 
 
@@ -467,6 +472,7 @@ const handleUploadata = async() => {
         
         if (Array.isArray(response03["data"]) && response03["data"].length > 0) {
           if(response03["data"] && response03["data"][0].includes("ERROR")){
+            console.log(response03["data"][0][1])
             toast.error(response03["data"][0][1])
             return;
           } 
@@ -488,7 +494,21 @@ const handleUploadata = async() => {
 
 };
 
+useEffect(()=>{
+  const fetchProyectosUsuario = async() => {
+    // https://gestiondev.mtoopticos.cl/api/proyectos/listado/?query=07&_p1=98
+    try {
+      const response = await axios(`${URLBackend}/api/proyectos/listado/?query=07&_p1=${userID}`)
+      if(response.data[0][0]){
+        codProyecto.value    = response.data[0][0]
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
+  fetchProyectosUsuario()
+},[])
 
     return (
         <form className=" max-w-md mx-auto px-6" onSubmit={handleSubmit((data)=> handleSaveChange(data))}>
@@ -505,6 +525,7 @@ const handleUploadata = async() => {
                   label='Nombre Proyecto'
                   name='proyecto'
                   showRefresh={true}
+                  data={codigoProyecto.value}
                   // handleSelectChange={}
                   // onlyFirstOption={true}
                   handleSelectChange={(e:any)=>{
@@ -515,6 +536,7 @@ const handleUploadata = async() => {
                   control={control}
                   entidad={["/api/proyectos/", "07", userID]}
                   customWidth={"w-[23.3rem]"}
+                  onlyFirstOption={true}
               />
             </div>
             <div className="w-full !mb-5 rowForm">
@@ -657,7 +679,6 @@ const handleUploadata = async() => {
             ))} */}
           </div>
 
-            <h1>Resultado : {barcode}</h1>
       
         {isScanning &&  <Scanner 
                            setBarcode={setBarcode} 

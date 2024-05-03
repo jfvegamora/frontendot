@@ -46,19 +46,17 @@ const Login: React.FC = React.memo(() => {
   });
 
   const handleChange: SubmitHandler<LoginFormValues> = (data) => {
-    const toastLoading = toast.loading('Cargando...');
+    // const toastLoading = toast.loading('Cargando...');
     try {
       loginEntity(data)
       .then((user) => {
           if (user.length === 0){
-            toast.dismiss(toastLoading)
+            // toast.dismiss(toastLoading)
             return show({ message: LOGIN.loginError, type: "error" });
           }
           console.log(user)
           const response:any = jwtDecode(user[0]);
           const usuario = {...response, token: user[0]}
-          console.log(usuario)
-          console.log(response)
           dispatch(login(usuario));
           dispatch(fetchFuncionalidades(usuario.token));
           dispatch(fetchOTAreas(usuario.token))
@@ -67,7 +65,7 @@ const Login: React.FC = React.memo(() => {
           dispatch(fetchRegProCom(usuario.token))
           const userAgent = navigator.userAgent
           const isMobile = /Mobi/.test(userAgent)
-
+          
           if(isMobile){
             navigate("/terreno")
           }else{
@@ -76,26 +74,28 @@ const Login: React.FC = React.memo(() => {
           // navigate("/landing");
           toast.success("Sesion Iniciada");
           // show({ message: LOGIN.loginSuccess, type: "success" });
-          toast.dismiss(toastLoading)
+          // toast.dismiss(toastLoading)
           // toast.dismiss(toastLoading)
         })
         .catch((_e) => {
-          toast.dismiss(toastLoading)
+          // toast.dismiss(toastLoading)
           toast.error(_e.toString() as string)
           // show({ message: LOGIN.loginError, type: "error" })
         })
         .finally(() => {
           console.log('render')
-          toast.dismiss(toastLoading) 
+          // toast.dismiss(toastLoading) 
         });
         // toast.dismiss(toastLoading)
       } catch (error: any) {
-        toast.dismiss(toastLoading)
+        // toast.dismiss(toastLoading)
         show({ message: LOGIN.loginError, type: "error" });
       }
 
       // toast.dismiss(toastLoading)
   };
+
+
 
 
 

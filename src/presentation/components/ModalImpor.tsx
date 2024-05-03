@@ -71,7 +71,7 @@ const ModalImpor:React.FC<ModalImportProps> = ({
 
 
    return (
-    <div className='w-[50%] border border-black mx-auto  left-[22rem] z-50  absolute top-[20%] cursor-default ' onClick={stopPropagation} style={{backgroundColor:'rgb(103 111 157 / 1)'}}>
+    <div className='w-[50%] border border-black mx-auto  left-[22rem] !z-50  absolute top-[20%] cursor-default ' onClick={stopPropagation} style={{backgroundColor:'rgb(103 111 157 / 1)'}}>
             <div className='h-[10%]  w-full'>
                 <h1 className='absolute right-0 text-5xl cursor-pointer userFormBtnClose top-0' onClick={()=>onClose()}>X</h1>
                 <h1 className='text-xl text-center text-white '>Importando</h1>
@@ -88,7 +88,7 @@ const ModalImpor:React.FC<ModalImportProps> = ({
                 </div>
 
                 {titleState === "Errores" && (
-            <div className=' mt-[7rem] scroll-my-4  overflow-y-auto bg-white'>
+            <div className=' mt-[7rem] scroll-my-4  overflow-y-auto bg-white !z-50'>
                     <TableComponent
                         idMenu={26}
                         entidad='progres bar'
