@@ -213,7 +213,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                     {column.key === "checkbox" ? (
                       <input className="checkTable"
                         type="checkbox"
-                        defaultChecked={false}
+                        // defaultChecked={false}
                         checked={clearAllCheck.value}
                         onChange={(e) =>{
                           clearAllCheck.value = !clearAllCheck.value

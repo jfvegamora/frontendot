@@ -39,11 +39,9 @@ export const fetchReservaArmazones = async(punto_venta:string, cod_proyecto:stri
 
     try {
         const response = await axios(`${URLBackend}/api/${entidad}/listado/?query=06&_pkToDelete=${encodeURIComponent(JSON.stringify(reservaJSON))}`)
-        
         if(response){
             await getLocalArmazones(response.data)
         }
-
         console.log(response)
     } catch (error) {
         console.log(error)
