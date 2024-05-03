@@ -438,12 +438,12 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                 <div className="w-full flex justify-around !-mt-6 items-center">
                   {/* <h3>FECHA ATENCIÓN: {OT[EnumGrid.fecha_atencion]}</h3> */}
                   <div className="w-1/2 ml-4 mt-1 flex text-sm">
-                    <p className='font-bold'>F. ATENCIÓN:</p>&nbsp;
+                    <p className='font-bold'>ATENCIÓN:</p>&nbsp;
                     <p>{parsedDate(OT[0] && OT[0][EnumGrid.fecha_atencion])}</p>
 
                   </div>
                   <div className="w-1/2 mt-1 flex text-sm">
-                    <p className='font-bold'>F. ENTREGA:</p>&nbsp;
+                    <p className='font-bold'>ENTREGA:</p>&nbsp;
                     <p>{parsedDate(OT[0] && OT[0][EnumGrid.fecha_entrega_taller])}</p>
                   </div>
                 </div>
@@ -461,86 +461,34 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
               )}
 
               {/*************** C L I E N T E ***************/}
-              {/* <div className="ml-2 w-[100%] border-black border-2 mt-1 ">
-                <div className='px-8 ml-2 !h-auto mx-auto relative '>
-                  <div className="relative !h-auto">
-                    <span className='!-ml-6 text-xs font-bold'>Pto. Vta.:&nbsp;</span>
-                    <span className='text-base text-left'> {OT[0] && OT[0][EnumGrid.punto_venta]}</span>
-                  </div>
-                </div>
-
-                <div className='px-8 ml-2 w-[100%] !h-auto '>
-                  <div className="!h-auto -mt-2">
-                    <span className='-ml-6 text-sm font-bold'>Asesor:&nbsp;</span>
-                    <span className='text-base text-left'> {User["nombre"]} </span>
-                  </div>
-                </div>
-
-                <div className='px-8 ml-2 w-[100%] !h-auto mx-auto  relative'>
-                  <div className="relative !h-auto">
-                    <span className='-ml-6 text-sm font-bold'>Cliente:&nbsp;</span>
-                    <span className='text-base text-left'> {OT[0] && OT[0][EnumGrid.cliente_nomnbre]}</span>
-                  </div>
-                </div>
-
-                <div className=" w-full flex justify-between ml-2 ">
-                  <div className=' w-[40%] text-center items-center'>
-                    <div className="flex justify-around">
-                      <p className=' text-xs font-bold w-[40%] mt-[0.04rem] '>Rut:  </p>
-                      <p className=' text-sm text-left  w-[8rem]'> {OT[0] && OT[0][EnumGrid.cliente_rut]}</p>
-                    </div>
-                  </div>
-                  <div className=' w-[49%]  !mr-4'>
-                    <div className="flex text-left">
-                      <p className='text-[0.80rem] font-bold'>Teléfono:  </p>
-                      <p className='text-sm ml-1 '> {OT[0] && OT[0][EnumGrid.cliente_telefono]}</p>
-                    </div>
-                  </div>
-                </div>
-              </div> */}
-
               <div className="header mt-1 w-[100%] !h-auto text-center2 border-black border-2 ml-3">
                 <div className="-mt-2 border-black border-b-2 !h-auto">
                   <div className="px-8 ml-2 my-2 w-[100%] mx-auto">
                     <div className="flex text-left">
-                      <p className='-ml-6 text-[0.80rem] w-[35%]  font-bold'>Pto Vta:  </p>
-                      <p className=' text-left text-sm !h-auto !w-[20rem] '>{OT[0] && OT[0][EnumGrid.punto_venta]}</p>
+                      <p className='-ml-6 text-[0.80rem] w-[22%]  font-bold'>Pto Vta: </p>
+                      <p className=' text-left text-sm '>{OT[0] && OT[0][EnumGrid.punto_venta]}</p>
                     </div>
-                    <div className="flex justify-around text-left -mt-2">
-                      <p className='-ml-6 text-[0.80rem] !mt-2 font-bold  w-[5rem]'>Asesor Op:  </p>
-                      <p className='!ml-[0.4rem] !top-[-5rem] !mt-2  text-sm text-left  w-[90%] '> {User["nombre"]}</p>
+                    <div className="flex text-left -mt-2">
+                      <p className='-ml-6 text-[0.80rem] !mt-2 font-bold  w-[22%]'>Asesor: </p>
+                      <p className=' text-left text-sm  !mt-2'>{User["nombre"]}</p>
                     </div>
-                  </div>
-
-                  <div className="px-8 my-2 w-[100%] mx-auto items-center">
-                    <div className="flex justify-around text-left !ml-[-2rem] items-center !-mt-2 w-[23rem] !h-auto ">
-                      <p className='ml-4 text-[0.80rem] w-[25%]  font-bold'>Cliente:  </p>
-                      <p className=' text-left text-sm !h-auto !w-[20rem] '>{OT[0] && OT[0][EnumGrid.cliente_nomnbre]}</p>
+                    <div className="flex text-left -mt-2">
+                      <p className='-ml-6 text-[0.80rem] !mt-2 font-bold  w-[22%]'>Cliente: </p>
+                      <p className=' text-left text-sm !mt-2'>{OT[0] && OT[0][EnumGrid.cliente_nomnbre]}</p>
                     </div>
-                    <div className="border-b-[1px] border-black w-[72%] -bottom-1 absolute right-0"></div>
-                  </div>
-
-                  <div className=" w-full flex justify-between ml-2 ">
-                    <div className=' w-[40%] text-center items-center'>
-                      <div className="flex justify-around">
-                        <p className=' text-xs font-bold w-[40%] mt-[0.04rem] '>RUT:  </p>
-                        <p className=' text-sm text-left  w-[8rem]'> {OT[0] && OT[0][EnumGrid.cliente_rut]}</p>
-                      </div>
-                    </div>
-                    <div className=' w-[49%]  !mr-4'>
-                      <div className="flex text-left">
-                        <p className='text-[0.80rem] font-bold'>Teléfono:  </p>
-                        <p className='text-sm ml-1 '> {OT[0] && OT[0][EnumGrid.cliente_telefono]}</p>
-                      </div>
+                    <div className="flex text-left -mt-2">
+                      <p className='-ml-6 text-[0.80rem] !mt-2 font-bold  w-[22%]'>RUT: </p>
+                      <p className=' text-left text-sm !mt-2'>{OT[0] && OT[0][EnumGrid.cliente_rut]}</p>
+                      <span className='text-[0.80rem] !mt-2 font-bold'>&nbsp;&nbsp;&nbsp;CEL: </span>
+                      <span className=' text-left text-sm !mt-2'>{OT[0] && OT[0][EnumGrid.cliente_telefono]}</span>
                     </div>
                   </div>
-
                 </div>
               </div>
 
               {/*************** C R I S T A L E S ***************/}
               <div className='w-[110%] flex mt-1 justify-between border-b-2 border-black '>
-                <div className="w-[60%] ml-1 ">
+                <div className="w-[60%] ml-2 ">
                   <div className='flex text-left ml-2 w-[90%] gap-4'>
                     <h1 className=' w-[5%]  font-bold'>OD: </h1>&nbsp;
                     <span className='-ml-3 text-xl'>{OT[0] && OT[0][EnumGrid.cristal1_od]}</span>
@@ -550,7 +498,7 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                     <span className='-ml-4 text-xl'>{OT[0] && OT[0][EnumGrid.cristal1_oi]}</span>
                   </div>
 
-                  <div className='ml-1'>
+                  <div className='ml-2'>
                     <span className='text-lg'><span className='font-bold'>Diseño:</span>&nbsp;{OT[0] && OT[0][EnumGrid.cristal1_diseno]}</span><br/>
                     <span className='text-lg'><span className='font-bold'>Índice:</span>&nbsp;{OT[0] && OT[0][EnumGrid.cristal1_indice]}</span><br/>
                     <span className='text-lg'><span className='font-bold'>Material:</span>&nbsp;{OT[0] && OT[0][EnumGrid.cristal1_material]}</span><br/>
@@ -560,7 +508,6 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                     <span className='font-bold'>Diam:</span>&nbsp;{OT[0] && OT[0][EnumGrid.cristal1_diametro]}</span>
                     <br/>{OT[0] && OT[0][EnumGrid.cristal1_tratamiento_adicional] && (
                         <>
-                          {/* <span className='text-lg font-bold'>Trat. Adic:&nbsp;{OT[0] && OT[0][EnumGrid.cristal1_tratamiento_adicional]}</span> */}
                           <span className='text-lg font-bold'>Trat. Adic:</span>&nbsp;
                           <span className='text-2xl font-bold'>{OT[0] && OT[0][EnumGrid.cristal1_tratamiento_adicional]}</span>
                         </>
@@ -568,7 +515,7 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                   </div>
                 </div>
 
-                <div className="w-[60%] ml-1 ">
+                <div className="w-[60%] ">
                   <div className='flex text-left w-[90%] gap-4'>
                     <h1 className=' w-[5%]  font-bold'>OD: </h1>&nbsp;
                     <span className='-ml-3 text-xl'>{OT[0] && OT[0][EnumGrid.cristal2_od]}</span>
@@ -593,78 +540,17 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                       )}
                   </div>
                 </div>
-
               </div>
-              {/* <div className='w-[110%] flex mt-1 justify-between border-b-2 border-black '>
-                <div className="w-[47%] ml-1 ">
-                  <div className='flex text-left ml-2 w-[90%] gap-4'>
-                    <h1 className=' w-[5%]  font-bold'>OD: </h1>&nbsp;
-                    <span className='-ml-3 text-xl'>{OT[0] && OT[0][EnumGrid.cristal1_od]}</span>
-                  </div>
-                  <div className='flex mt-1 text-left ml-2 w-[90%] gap-4'>
-                    <h1 className=' w-[5%] font-bold'>OI: </h1>&nbsp;
-                    <span className='-ml-4 text-xl'>{OT[0] && OT[0][EnumGrid.cristal1_oi]}</span>
-                  </div>
-
-                  <div className='ml-1'>
-                    <p className='text-lg'>
-                    {OT[0] && OT[0][EnumGrid.cristal1_diseno]}<br/>{OT[0] && OT[0][EnumGrid.cristal1_indice]}
-                    <br/>{OT[0] && OT[0][EnumGrid.cristal1_material]},&nbsp;{OT[0] && OT[0][EnumGrid.cristal1_color]}<br/>{OT[0] && OT[0][EnumGrid.cristal1_tratamiento]}
-                    <br/>{OT[0] && OT[0][EnumGrid.cristal1_marca]}&nbsp;{OT[0] && OT[0][EnumGrid.cristal1_diametro]}<br/>{OT[0] && OT[0][EnumGrid.cristal1_tratamiento_adicional] && (
-                      // {OT[0] && OT[0][EnumGrid.cristal1_marca]},&nbsp;{OT[0] && OT[0][EnumGrid.cristal1_diseno]},&nbsp;{OT[0] && OT[0][EnumGrid.cristal1_indice]},
-                      // &nbsp;{OT[0] && OT[0][EnumGrid.cristal1_material]},&nbsp;{OT[0] && OT[0][EnumGrid.cristal1_color]},&nbsp;{OT[0] && OT[0][EnumGrid.cristal1_tratamiento]},
-                      // &nbsp;{OT[0] && OT[0][EnumGrid.cristal1_diametro]}.{OT[0] && OT[0][EnumGrid.cristal1_tratamiento_adicional] && (
-                        <>
-                          <span className='font-bold'>
-                            Trat. Adic:&nbsp;{OT[0] && OT[0][EnumGrid.cristal1_tratamiento_adicional]}
-                          </span>
-                        </>
-                      )}
-
-                    </p>
-                  </div>
-                </div>
-
-
-                <div className="w-[49.8%] border-l-[1px] border-black  ">
-                  <div className='flex  w-[90%] ml-2   text-left gap-4'>
-                    <h1 className=' w-[5%] font-bold'>OD: </h1>&nbsp;
-                    <p className='-ml-3 text-xl'>{OT[0] && OT[0][EnumGrid.cristal2_od]}</p>
-                  </div>
-                  <div className='mr-4 mt-2 flex text-left ml-2 w-[90%] gap-4'>
-                    <h1 className='w-[5%] font-bold'>OI:&nbsp;</h1>
-                    <p className='text-xl'>{OT[0] && OT[0][EnumGrid.cristal2_oi]}</p>
-                  </div>
-
-                  <div className=''>
-                    <p className='text-lg mr-1'>
-                      {OT[0] && OT[0][EnumGrid.cristal2_od] && (
-                        <>
-                          {OT[0] && OT[0][EnumGrid.cristal2_marca]},&nbsp;{OT[0] && OT[0][EnumGrid.cristal2_diseno]},&nbsp;{OT[0] && OT[0][EnumGrid.cristal2_indice]},
-                          &nbsp;{OT[0] && OT[0][EnumGrid.cristal2_material]},&nbsp;{OT[0] && OT[0][EnumGrid.cristal2_color]},&nbsp;{OT[0] && OT[0][EnumGrid.cristal2_tratamiento]},
-                          &nbsp;{OT[0] && OT[0][EnumGrid.cristal2_diametro]},&nbsp;{OT[0] && OT[0][EnumGrid.cristal2_tratamiento_adicional] && (
-                            <>
-                              <span className='font-bold'>
-                                Trat. Adic:{OT[0] && OT[0][EnumGrid.cristal2_tratamiento_adicional]}
-                              </span>
-                            </>
-                          )}
-                        </>
-                      )}
-                    </p>
-                  </div>
-                </div>
-              </div> */}
 
               {/*************** R E C E T A ***************/}
-              <div className="w-[110%] flex justify-between -ml-6 mt-1 border-l-2 border black mb-1">
-                <div className="w-[60%]  items-center flex mr-4">
-                  <h1 className='font-bold ml-8 '>A1</h1>
+              <div className="w-[100%] flex justify-between ml-3 mt-1 border-l-2 border black mb-1">
+                <div className="w-[60%]  items-center flex">
+                  <h1 className='font-bold ml-3 '>A1</h1>
                   <span className='ml-1  !text-base font-bold '>ALT: {OT[0] && OT[0][EnumGrid.a1_alt]}</span>
                   <span className='ml-3  !text-base font-bold '>DP:  {OT[0] && OT[0][EnumGrid.a1_dp]}</span>
                 </div>
 
-                <div className="w-[50%] items-center flex ml-10">
+                <div className="items-center flex ml-2">
                   <h1 className='font-bold '>A2</h1>
                   <span className='ml-4  !text-base font-bold '>DP:  {OT[0] && OT[0][EnumGrid.a2_dp]}</span>
                 </div>
@@ -701,13 +587,13 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
 
 
                   <div className="text-center h-6  text-lg !ml-4  !-mt-1">{OT[0] && OT[0][EnumGrid.a2_od_esf]}</div>
-                  <div className="text-center h-6  text-lg !ml-5   !-mt-1">{OT[0] && OT[0][EnumGrid.a2_od_cil]}</div>
-                  <div className="text-center h-6  text-lg !ml-6   !-mt-1">{OT[0] && OT[0][EnumGrid.a2_od_eje]}</div>
+                  <div className="text-center h-6  text-lg !ml-4   !-mt-1">{OT[0] && OT[0][EnumGrid.a2_od_cil]}</div>
+                  <div className="text-center h-6  text-lg !ml-4   !-mt-1">{OT[0] && OT[0][EnumGrid.a2_od_eje]}</div>
                   <div className="text-center h-6  text-base !-ml-2"> </div>
                   <div className="text-center text-xs -mt-4 font-bold ml-1"></div>
-                  <div className="text-center h-6 !mt-[0.30rem] text-lg !ml-6">{OT[0] && OT[0][EnumGrid.a2_oi_eje]}</div> {/*eje */}
+                  <div className="text-center h-6 !mt-[0.30rem] text-lg !ml-4">{OT[0] && OT[0][EnumGrid.a2_oi_eje]}</div> {/*eje */}
                   <div className="text-center h-6 !-mt-2 text-lg ml-4 ">{OT[0] && OT[0][EnumGrid.a2_oi_esf]}</div>
-                  <div className="text-center h-6 !-mt-2 text-lg !ml-5">{OT[0] && OT[0][EnumGrid.a2_oi_cil]}</div> {/*cil */}
+                  <div className="text-center h-6 !-mt-2 text-lg !ml-4">{OT[0] && OT[0][EnumGrid.a2_oi_cil]}</div> {/*cil */}
 
                   <div className="text-center h-6 mt-1 text-sm !-ml-2"> </div>
                   <div className="text-center h-6 flex w-20 -!mt-2"> <label className='ml-4 mt-2 !text-[0.8rem] font-bold pl-2'></label></div>
@@ -729,7 +615,7 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
 
                 <div className="w-[49.9%] border-l-[1px]  border-black">
                   <div className="flex">
-                    <h1 className='font-bold ml-4'>A2:</h1>&nbsp;
+                    <h1 className='font-bold ml-2'>A2:</h1>&nbsp;
                     <p className=' text-center'>{OT[0] && OT[0][EnumGrid.a2_armazon_id]}</p>
                   </div>
                   <p className="text-sm ml-2">
@@ -739,33 +625,25 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
               </div>
 
               {/*************** D E S P A C H O ***************/}
-              <div className="ml-6 border-black border-2 mt-1 ">
-                <div className='px-8 ml-2 w-[100%] !h-auto mx-auto relative '>
-                  <div className="relative !h-auto">
-                    <span className='!-ml-6 text-sm font-bold'>Proyecto:&nbsp;</span>
-                    <span className='text-base text-left'> {OT[0] && OT[0][EnumGrid.proyecto_titulo]}</span>
-                  </div>
-                </div>
-
-                <div className='px-8 ml-2 w-[100%] !h-auto '>
-                  <div className="!h-auto -mt-2">
-                    <span className='-ml-6 text-sm font-bold'>Estab:&nbsp;</span>
-                    <span className='text-base text-left'> {OT[0] && OT[0][EnumGrid.rbd_establecimiento]} {OT[0] && OT[0][EnumGrid.establecimiento]} </span>
-                  </div>
-                </div>
-
-
-                <div className='px-8 ml-2 w-[100%] !h-auto mx-auto  relative'>
-                  <div className="relative !h-auto">
-                    <span className='-ml-6 text-sm font-bold'>Comuna:&nbsp;</span>
-                    <span className='text-base text-left'> {OT[0] && OT[0][EnumGrid.cliente_comuna]}</span>
-                  </div>
-                </div>
-
-                <div className='px-8 ml-2 w-[100%] !h-auto'>
-                  <div className=" !h-auto -mt-2">
-                    <span className='-ml-6 text-sm font-bold'>Destino:&nbsp;</span>
-                    <span className='text-base text-left'> {OT[0] && OT[0][EnumGrid.lugar_despacho]}</span>
+              <div className="header mt-1 w-[100%] !h-auto text-center2 border-black border-2 ml-3">
+                <div className="-mt-2 border-black border-b-2 !h-auto">
+                  <div className="px-8 ml-2 my-2 w-[100%] mx-auto">
+                    <div className="flex text-left">
+                      <p className='-ml-6 text-[0.80rem] w-[25%]  font-bold'>Proyecto: </p>
+                      <p className=' text-left text-sm '>{OT[0] && OT[0][EnumGrid.proyecto_titulo]}</p>
+                    </div>
+                    <div className="flex text-left -mt-2">
+                      <p className='-ml-6 text-[0.80rem] !mt-2 font-bold  w-[25%]'>Estab: </p>
+                      <p className=' text-left text-sm  !mt-2'>{OT[0] && OT[0][EnumGrid.rbd_establecimiento]} {OT[0] && OT[0][EnumGrid.establecimiento]}</p>
+                    </div>
+                    <div className="flex text-left -mt-2">
+                      <p className='-ml-6 text-[0.80rem] !mt-2 font-bold  w-[25%]'>Comuna: </p>
+                      <p className=' text-left text-sm !mt-2'>{OT[0] && OT[0][EnumGrid.cliente_comuna]}</p>
+                    </div>
+                    <div className="flex text-left -mt-2">
+                      <p className='-ml-6 text-[0.80rem] !mt-2 font-bold  w-[25%]'>Destino: </p>
+                      <p className=' text-left text-sm !mt-2'>{OT[0] && OT[0][EnumGrid.lugar_despacho]}</p>
+                    </div>
                   </div>
                 </div>
               </div>

@@ -25,7 +25,8 @@ export const BUTTON_MESSAGES = {
   copiar: "Copiar",
   imprimir:"Imprimir",
   Whatsapp: "Whatsapp",
-  procesar: "Procesar"
+  procesar: "Procesar",
+  traspasar: "Traspasar"
 };
 
 export const TITLES = {

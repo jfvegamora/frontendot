@@ -12,6 +12,7 @@ import { useEntityUtils, usePermission } from "../../hooks";
 import { TITLES, table_head_muestrarios_armazones} from "../../utils";
 import FMuestrariosArmazones from "../forms/FMuestrariosArmazones";
 import FMuestrariosArmazonesCopiar from "../forms/FMuestrariosArmazonesCopiar";
+import FMuestrariosArmazonesTraspaso from "../forms/FMuestrariosArmazonesTraspaso";
 
 
 export enum EnumGrid {
@@ -182,7 +183,7 @@ const MMuestrariosArmazones: React.FC = () => {
       )}
 
       {isModalCopiar && (
-        <FMuestrariosArmazonesCopiar
+        <FMuestrariosArmazonesTraspaso
           label={`${TITLES.copiar} ${strEntidad}`}
           closeModal={closeModal}
           selectedRows={selectedRows}
