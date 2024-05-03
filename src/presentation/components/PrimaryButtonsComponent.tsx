@@ -222,7 +222,7 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
             renderButton(
               <FontAwesomeIcon icon={faArrowRightFromBracket} className="primaryBtnIcon"/>,
               handleTraspaso!,
-              BUTTON_MESSAGES.bln_egreso
+              BUTTON_MESSAGES.traspasar
             )
           )}
             {showCopiar && escritura_lectura && (
