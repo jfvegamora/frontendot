@@ -191,7 +191,7 @@ const MMuestrariosArmazones: React.FC = () => {
 
       {isModalCopiar && (
         <FMuestrariosArmazonesCopiar
-            label={`${TITLES.edicion} ${strEntidad}`}
+            label={`${TITLES.copiar} ${strEntidad}`}
             selectedRows={selectedRows}
             setEntities={setEntities}
             params={params}

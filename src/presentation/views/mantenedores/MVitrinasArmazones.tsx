@@ -127,8 +127,8 @@ const MVitrinasArmazones: React.FC = () => {
           showDeleteButton={true}
           showForwardButton={false}
           showRefreshButton={true}
-          showCustomExportButton={true}
-          customExporTooltip={"Exportar muestrarios"}
+          // showCustomExportButton={true}
+          // customExporTooltip={"Exportar muestrarios"}
           idMenu={idMenu}
           bln_egreso={false}
 

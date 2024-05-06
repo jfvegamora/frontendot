@@ -1039,6 +1039,10 @@ input[type="text"] {
   margin-bottom: 20px;
 }
 
+.otSpanLine, .otSpanLine span{
+  font-size: 1rem;
+  line-height: 1.25rem;
+}
 
 /* Estilos CSS para el modal */
 .modal-content {
