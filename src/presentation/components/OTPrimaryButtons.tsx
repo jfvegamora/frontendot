@@ -128,6 +128,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
       suppressErrors: true,
       removeAfterPrint: true,
       onAfterPrint() {
+        dispatch(clearImpression())
         console.log('Impresión finalizada'); // Mensaje en español
         return new Promise<void>((resolve) => {
           // Esperar a que la ventana de impresión se cierre (opcional)
@@ -172,7 +173,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
     const handleImpresionMasivo = async () => {
       console.log(pkToDelete);
     
-      const promesasImpresion = [];
+      // const promesasImpresion = [];
     
       for (const ot of pkToDelete) {
         try {
@@ -181,14 +182,14 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
           await dispatch(fetchOTImpresionByID({ folio: ot.folio, OTAreas: OTAreas['areaActual'] }));
     
           // Agregar la promesa de handlePrint() al array
-          promesasImpresion.push(handlePrint());
         } catch (error) {
           console.log(error);
         }
       }
-    
+      
+      handlePrint()
       // Esperar a que todas las promesas de impresión se resuelvan
-      await Promise.all(promesasImpresion);
+      // await Promise.all(promesasImpresion);
     };
 
     React.useEffect(()=>{
@@ -719,7 +720,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
         {isFOTImpresa && (
           <Suspense>
             <div className="hidden">
-              <FOTImpresa ref={componentRef} masivo={false} />
+              <FOTImpresa ref={componentRef} masivo={true} />
             </div>
           </Suspense>
         )}
@@ -736,18 +737,34 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
         )} */}
 
           <div className='ml-2'>
-            <Input type="text" label='Seleccionar OT' name='searchOT' className='text-xl' color='orange' ref={searchOTRef} onBlur={(e:any)=>handleChecked(e.target.value)} value={valueSearchOT} onChange={(e:any)=>setValueSearchOT(e.target.value)} />
+            <Input 
+              type="text" 
+              label='Seleccionar OT' 
+              name='searchOT' 
+              className='text-xl' 
+              color='orange' 
+              ref={searchOTRef} 
+              onBlur={(e:any)=>handleChecked(e.target.value)} 
+              value={valueSearchOT} 
+              onChange={(e:any)=>setValueSearchOT(e.target.value)} />
           </div>
 
           {areaPermissions && areaPermissions[15] === '1' && permisos_usuario_areas === '1' && (
-          <div className="ml-2">
-          
-            <Input ref={refFocusInput} type="text" label='Validar OT' name='ProcesarOT' className='text-xl' color='orange'  value={valueConfirmOT} onChange={(e:any)=>{
-              handleProcesarConfirm(e.target.value),
-              setValueConfirmOT(e.target.value)
-              }} />
-         
-          </div>
+            <div className="ml-2">
+              <Input 
+                ref={refFocusInput} 
+                type="text" 
+                label='Validar OT' 
+                name='ProcesarOT' 
+                className='text-xl' 
+                color='orange'  
+                value={valueConfirmOT}
+                onChange={(e:any)=>{
+                  setValueConfirmOT(e.target.value)
+                }} 
+                onBlur={(e:any)=> handleProcesarConfirm(e.target.value) } 
+                />
+            </div>
           )}
 
           
