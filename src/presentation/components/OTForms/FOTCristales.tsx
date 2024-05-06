@@ -352,7 +352,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                             handleSelectChange={handleInputChange}
                                             data={formValues && formValues["cristal1_tratamiento_adicional_id"] ? formValues["cristal1_tratamiento_adicional_id"] : data && data[EnumGrid.cristal1_tratamiento_adicional_id]}
                                             control={control}
-                                            entidad='CristalesTratamientos'
+                                            entidad='OTTratamientoAdicional'
                                             customWidth={"w-full  !ml-[1rem]"}
                                             readOnly={!(!isEditting || (permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria))}
                                             isOptional={true}
@@ -457,7 +457,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                             handleSelectChange={handleInputChange}
                                             data={formValues && formValues["cristal2_tratamiento_id"] ? formValues["cristal2_tratamiento_id"] : data && data[EnumGrid.cristal2_tratamiento_id]}
                                             control={control}
-                                            entidad={"OTTratamientoAdicional"}
+                                            entidad={"CristalesTratamientos"}
                                             customWidth={""}
                                             FOTcristales={true}
                                             readOnly={!((!isEditting && tipo_de_anteojo.value === '3') || (isEditting && permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria && tipo_de_anteojo.value === '3'))}
@@ -575,7 +575,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                             handleSelectChange={handleInputChange}
                                             data={formValues && formValues["cristal2_tratamiento_adicional_id"] ? formValues["cristal2_tratamiento_adicional_id"] : data && data[EnumGrid.cristal2_tratamiento_adicional_id]}
                                             control={control}
-                                            entidad={"CristalesTratamientos"}
+                                            entidad={"OTTratamientoAdicional"}
                                             readOnly={!((!isEditting && tipo_de_anteojo.value === '3') || (isEditting && permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria && tipo_de_anteojo.value === '3'))}
                                             customWidth={"w-full  !ml-[1rem]"}
                                             FOTcristales={true}

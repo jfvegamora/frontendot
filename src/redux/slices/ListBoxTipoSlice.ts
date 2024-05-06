@@ -20,6 +20,7 @@ export interface ITiposListbox {
     OTEstados: [] | null;
     OTMotivo: [] | null;
     OTMotivoGarantia: [] | null;
+    OTTratamientoAdicional : [] | null;
     PuntosVentaTipos: [] | null;
     ClientesTipos: [] | null;
 
@@ -49,7 +50,7 @@ const initialState: ITiposListbox | null = {
     OTEstados:               localStorage.getItem('ListBoxTipos.OTEstados') ? JSON.parse(localStorage.getItem('ListBoxTipos.OTEstados') as string) :null,
     OTMotivo:                localStorage.getItem('ListBoxTipos.OTMotivo') ? JSON.parse(localStorage.getItem('ListBoxTipos.OTMotivo') as string) :null,
     OTMotivoGarantia:        localStorage.getItem('ListBoxTipos.OTMotivoGarantia') ? JSON.parse(localStorage.getItem('ListBoxTipos.OTMotivoGarantia') as string) :null,
-    
+    OTTratamientoAdicional:  localStorage.getItem('ListBoxTipos.OTTratamientoAdicional') ? JSON.parse(localStorage.getItem('ListBoxTipos.OTTratamientoAdicional') as string) : null    ,
     OTEnumDoc:               localStorage.getItem('ListBoxTipos.OTEnumDoc') ? JSON.parse(localStorage.getItem('ListBoxTipos.OTEnumDoc') as string) :null,     
 
     PuntosVentaTipos:        localStorage.getItem('ListBoxTipos.PuntosVentaTipos') ? JSON.parse(localStorage.getItem('ListBoxTipos.PuntosVentaTipos') as string) :null,
@@ -64,6 +65,7 @@ const initialState: ITiposListbox | null = {
                'Authorization': token, 
              }
        })
+    //    console.log(data)
         return data
     } catch (error) {
         throw error;
