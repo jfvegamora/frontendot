@@ -127,12 +127,15 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
       content: () => componentRef.current, 
       suppressErrors: true,
       removeAfterPrint: true,
-      onAfterPrint(){
-        setisFotTicketRetiro(true)
-        imprimirComprobanteRetiro()
-        // dispatch(clearImpression())
-      }
-     
+      onAfterPrint() {
+        console.log('Impresión finalizada'); // Mensaje en español
+        return new Promise<void>((resolve) => {
+          // Esperar a que la ventana de impresión se cierre (opcional)
+          // Puedes comentar esta línea si no necesitas esperar el cierre
+          window.onafterprint = () => resolve();
+        });
+      },
+    
     });
 
     
@@ -148,56 +151,45 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
     })
 
     
-    const handleImpresionMasivo = async () => {
-      console.log(pkToDelete)
-      
-      // pkToDelete.map(async(ot:any)=>{
-      //   try {
-      //     await dispatch(fetchOTImpresionByID({ folio: ot.folio, OTAreas: OTAreas['areaActual'] }))
-      //   } catch (error)  {
-      //     console.log(error)
-      //   }
-      // })
-      // await handlePrint()
+    // const handleImpresionMasivo = async () => {
+    //   console.log(pkToDelete)
 
-      pkToDelete.forEach(async(ot:any) => {
-        try {
-          setIsFOTImpresa(true)
-          await dispatch(fetchOTImpresionByID({ folio: ot.folio, OTAreas: OTAreas['areaActual'] })).then(()=>handlePrint())
-        } catch (error)  {
-          console.log(error)
-        }
-      })
-      handlePrint()
-      clearAllCheck.value = false;
-      
 
-    //   const print = useReactToPrint({
-    //     content: () => componentRef.current as any,
-    //     suppressErrors: true,
-    //     removeAfterPrint: true,
-    //     onAfterPrint() {
-    //       setisFotTicketRetiro(true);
-    //       imprimirComprobanteRetiro();
-    //       // dispatch(clearImpression());
+    //   for (const ot of pkToDelete) {
+    //     try {
+    //       setIsFOTImpresa(true);
+    //       console.log(ot.folio)
+    //       await dispatch(fetchOTImpresionByID({ folio: ot.folio, OTAreas: OTAreas['areaActual'] }));
+    //       await handlePrint()          
+            
+          
+    //     } catch (error) {
+    //       console.log(error);
     //     }
     //   }
-    // );
+    // };
 
+    const handleImpresionMasivo = async () => {
+      console.log(pkToDelete);
     
+      const promesasImpresion = [];
     
-    //   for (let i = 0; i < pkToDelete.length; i++) {
-    //     await print();
-    //     // Opcional: agregar un retraso para evitar que las ventanas emergentes se superpongan
-    //     await new Promise((resolve) => setTimeout(resolve, 500));
-    //   }
+      for (const ot of pkToDelete) {
+        try {
+          setIsFOTImpresa(true);
+          console.log(ot.folio);
+          await dispatch(fetchOTImpresionByID({ folio: ot.folio, OTAreas: OTAreas['areaActual'] }));
     
-    //   // Acciones después de imprimir todas las boletas
-    //   //
-    //  handlePrint()
-
+          // Agregar la promesa de handlePrint() al array
+          promesasImpresion.push(handlePrint());
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    
+      // Esperar a que todas las promesas de impresión se resuelvan
+      await Promise.all(promesasImpresion);
     };
-
 
     React.useEffect(()=>{
       console.log(isFOTValidarBodega)
@@ -727,7 +719,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
         {isFOTImpresa && (
           <Suspense>
             <div className="hidden">
-              <FOTImpresa ref={componentRef} masivo={true} />
+              <FOTImpresa ref={componentRef} masivo={false} />
             </div>
           </Suspense>
         )}

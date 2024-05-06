@@ -111,7 +111,7 @@ export const fetchOTImpresionByID = createAsyncThunk(
     async(params:any) => {
         try {
             const {folio, OTAreas} = params;
-            const response = await axios.get(`${URLBackend}/api/ot/listado/?query=01&_origen=${OTAreas}&_folio=${folio}`);
+            const response = await axios.get(`${URLBackend}/api/ot/imprimir/?query=01&_origen=${OTAreas}&_folio=${folio}`);
             validarImpresion.value = response.data[0][EnumGrid.estado_impresion_id]
             return response.data[0]
         } catch (error) {
