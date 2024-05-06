@@ -137,7 +137,8 @@ const FOTCristales: React.FC<ICristales> = ({
     // console.log(data?.[EnumGrid.cristal2_od])
 
   
-    // console.log(data && data[EnumGrid.cristal2_od])
+    console.log(data && data[EnumGrid.cristal2_color_id])
+      console.log(data && data[EnumGrid.cristal2_diametro])
 
     return (
         <form>

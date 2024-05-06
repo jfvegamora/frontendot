@@ -179,7 +179,8 @@ export enum EnumGrid {
   estado_validacion    = 136,
   rbd_establecimiento  = 137,
   bodega_procesado     = 138,
-  usuario_id           = 139
+  usuario_id           = 139,
+  imagen_logo          = 140
 }
 
 

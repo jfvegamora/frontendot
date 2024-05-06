@@ -81,6 +81,7 @@ const Scanner:React.FC<any> = ({setIsScanning, inputsRef}) => {
           // setArmazon1(barcode);
           codArmazon1.value = barcode
           
+          
           // focusFirstInput()
           break;
         case 'Armazon2':
@@ -101,7 +102,9 @@ const Scanner:React.FC<any> = ({setIsScanning, inputsRef}) => {
 
   return (
     
-      <div id="scanner-container" className='absolute top-[8.6rem] !right-[5rem] !z-20' style={{ width: 250, height: 350 }} autoFocus />
+      <div id="scanner-container" className='absolute top-[8.6rem] !right-[5rem] !z-20' style={{ width: 250, height: 350 }} autoFocus>
+        <h1 className='text-lg text-white'>Armazon 1</h1>
+      </div>
   
   );
 };
