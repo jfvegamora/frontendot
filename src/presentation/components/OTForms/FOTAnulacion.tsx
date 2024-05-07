@@ -93,7 +93,7 @@ const FOTAnulacion:React.FC<IDerivacion> = ({
     <div className='useFormContainer useFormDerivacion centered-div use40rem z-30'>
         <div className="userFormBtnCloseContainer flex">
             <div className="w-[50%] mx-auto !text.center">
-                <h1 className='userFormLabel'>Anulacion de OT</h1>
+                <h1 className='userFormLabel'>Anulación de OT</h1>
             </div>
             <div className="">
                 <button onClick={onClose} className="userFormBtnClose">
