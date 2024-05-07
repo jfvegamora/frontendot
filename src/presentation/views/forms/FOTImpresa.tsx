@@ -1,13 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { AppStore, useAppSelector } from '../../../redux/store';
 import { EnumGrid } from '../mantenedores/MOTHistorica';
 import Barcode from 'react-barcode';
-// import QRCode from 'react-qr-code';
-// import QRCode from 'qrcode.react';
-// import LogoMaster   from '../../../assets/logo_master01.jpg';
-import LogoMTO from '../../../assets/logo_mto01.jpg';
-// import LogoOptilab  from '../../../assets/logo_optilab01.jpg';
-
 
 import { formatNumberWithZeros } from '../../utils';
 import FOTTicketImpresion from './FOTTicketImpresion';
@@ -27,20 +21,10 @@ export const parsedDate = (date: string): any => {
 
 
 const FOTImpresa = React.forwardRef((props: any, ref: any) => {
-
-  const [_logoPath, setLogoPath] = useState<string | null>();
-  const [pathLogo, setPathLogo] = useState('');
   const { impresionOT: OT } = useAppSelector((store: AppStore) => store.OTS);
   const User: any = useAppSelector((store: AppStore) => store.user);
-  // let PathLogo = ''
-
-  // console.log(props)
-
-  // console.log(props)
 
   const { masivo } = props;
-
-  // console.log(masivo)
 
 
   const fechaHora  = new Date();
@@ -53,18 +37,12 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
     <>
     {masivo === true ?
       (
-        <div ref={ref} className='flex flex-col !h-auto'>
-          {OT && OT.map((ot: any) => {
-            console.log(ot[EnumGrid.folio])
-            console.log(ot[EnumGrid.imprime_qr])
-            console.log(ot[EnumGrid.imprime_ticket])
+        <div ref={ref} className={`flex flex-col !h-auto`}>
+          {OT && OT.map((ot: any, index:any) => {
             return (
     
-              <div className={`!w-[90%] ${ot[EnumGrid.imprime_ticket] === 1 ? '!h-[180rem]' : '!h-[90rem]'}  `} key={ot[EnumGrid.folio]} >
-                
-    
-                      
-                  <div className="w-[100%] relative  !h-[5%] mb-4">
+              <div className={`!w-[90%] ${ot[EnumGrid.imprime_ticket] === 1 ? '!h-[180rem]' : '!h-[90rem]'}  ${((index > 0) && (ot[EnumGrid.imprime_ticket] === 1))  && '!-mt-[39rem]'}   ${(index > 0 ) && (ot[EnumGrid.imprime_ticket] === 0) && '!-mt-[19rem]' }`} key={ot[EnumGrid.folio]} >
+                  <div className={`w-[100%] relative  ${ot[EnumGrid.imprime_ticket] === 1 ? '!h-[2.5%]' : '!h-[5%]'} mb-4`}>
                     <div className="w-[90%] mr-7  mx-auto">
                       <Barcode marginLeft={45} height={25} width={2.5} textAlign='right' value={formatNumberWithZeros(ot[EnumGrid.folio])} />
                       <h3 className={`absolute left-3 mt-2 bottom-2`}>{fechaHoraFormateada}</h3>
@@ -76,9 +54,7 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                     <div className="w-full flex justify-around  ">
                       {true && (
                         <div className="w-[45%] top-0  -left-[2rem] z-20 ">
-                          <img src={LogoMTO} alt="Logo" className='w-[90%]  ml-2' />
                           <LogoImagenImpresion imagen64={ot[EnumGrid.imagen_logo]}/>
-                          
                         </div>
                       )}
                       <div className="mt-2"></div>
@@ -335,7 +311,6 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
     
   )
 });
-// export default React.memo(FOTImpresa);
 export default FOTImpresa
 
 
