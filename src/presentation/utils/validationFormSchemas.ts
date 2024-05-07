@@ -283,7 +283,8 @@ export const validationAlmacenesSchema = () =>
   yup.object().shape({
     descripcion: yup.string().required(`${msg}`),
     tipo: yup.string().required(`${msg}`),
-    categoria: yup.string().required(`${msg}`)
+    categoria: yup.string().required(`${msg}`),
+    usuario: yup.string().required(`${msg}`),
   });
 
 // Schema MARCAS

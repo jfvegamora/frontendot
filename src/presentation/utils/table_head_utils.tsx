@@ -1602,6 +1602,18 @@ export const table_head_almacenes = [
     width: "w-[10rem]",
   },
   {
+    cell: "Usuario_ID",
+    key: "usuario_id",
+    visible: false,
+  },
+  {
+    cell: "Encargado",
+    key: "usuario",
+    visible: true,
+    alignment: "text-left",
+    width: "w-[12rem]",
+  },
+  {
     cell: "",
     key: "opciones",
     visible: true,
