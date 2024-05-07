@@ -14,6 +14,7 @@ import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
 import SelectInputTiposComponent from "../../components/forms/SelectInputTiposComponent";
+import {SelectInputComponent} from "../../components";
 
 const strBaseUrl = "/api/almacenes/";
 const strEntidad = "Almacén ";
@@ -22,6 +23,7 @@ export interface InputData {
   descripcion: string | undefined;
   tipo       : string | undefined;
   categoria  : string | undefined;
+  usuario    : string | undefined;
 }
 
 interface OutputData {
@@ -31,9 +33,7 @@ interface OutputData {
 }
 
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
-  let _p1 = `"${jsonData.descripcion}", 
-               ${jsonData.tipo},
-               ${jsonData.categoria}`;
+  let _p1 = `"${jsonData.descripcion}", ${jsonData.tipo}, ${jsonData.categoria}, ${jsonData.usuario}`;
 
   _p1 = _p1.replace(/'/g, '!');
 
@@ -53,7 +53,7 @@ export function transformUpdateQuery(
     `descripcion="${jsonData.descripcion}"`,
     `tipo       = ${jsonData.tipo}`,
     `categoria  = ${jsonData.categoria}`,
-
+    `encargado  = ${jsonData.usuario}`,
   ];
 
   const filteredFields = fields.filter(
@@ -278,6 +278,22 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
                     error={errors.categoria}
                     customWidth={"!w-full ml-4"}
                   />
+                </div>
+              </div>
+            </div>
+            <div className="w-full flex items-center h-[4rem]">
+              <div className="input-container items-center rowForm w-full">
+                <div className="w-full ">
+                <SelectInputComponent
+                      label="Usuario"
+                      name="usuario"
+                      showRefresh={true}
+                      data={data && data[EnumGrid.usuario_id]}
+                      control={control}
+                      entidad={["/api/usuarios/", "02"]}
+                      error={errors.usuario}
+                      customWidth={"!w-full ml-4"}
+                      />
                 </div>
               </div>
             </div>

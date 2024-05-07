@@ -19,6 +19,8 @@ export enum EnumGrid {
   tipo_almacen = 4,
   categoria_id = 5,
   categoria = 6,
+  usuario_id = 7,
+  usuario = 8,
 }
 
 const strEntidad = "Almacén ";
@@ -116,7 +118,7 @@ const MAlmacenes: React.FC = () => {
         />
       </div>
 
-      <div className="width60 scroll">
+      <div className="width80 scroll">
         <TableComponent
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
