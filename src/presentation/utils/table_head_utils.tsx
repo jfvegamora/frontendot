@@ -2996,7 +2996,7 @@ export const table_head_proyectos_destinos = [
   {
     cell: "Título Proyecto",
     key: "titulo",
-    visible: false,
+    visible: true,
     alignment: "text-center",
     width: "w-[12rem]",
   },
