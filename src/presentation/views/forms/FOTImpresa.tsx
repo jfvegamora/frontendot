@@ -64,10 +64,10 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                 
     
                       
-                  <div className="w-[100%] relative  !h-[9%] mb-4">
+                  <div className="w-[100%] relative  !h-[5%] mb-4">
                     <div className="w-[90%] mr-7  mx-auto">
                       <Barcode marginLeft={45} height={25} width={2.5} textAlign='right' value={formatNumberWithZeros(ot[EnumGrid.folio])} />
-                      <h3 className={`absolute bottom-2 left-3 mt-2`}>{fechaHoraFormateada}</h3>
+                      <h3 className={`absolute left-3 mt-2 bottom-2`}>{fechaHoraFormateada}</h3>
                     </div>
                   </div>
           
@@ -77,6 +77,8 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                       {true && (
                         <div className="w-[45%] top-0  -left-[2rem] z-20 ">
                           <img src={LogoMTO} alt="Logo" className='w-[90%]  ml-2' />
+                          <LogoImagenImpresion imagen64={ot[EnumGrid.imagen_logo]}/>
+                          
                         </div>
                       )}
                       <div className="mt-2"></div>
@@ -100,7 +102,7 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                  {/*************** C L I E N T E ***************/}
                 <div className="header mt-1 w-[97%] !h-auto text-center2 border-black border-2 ml-3">
                   <div className="-mt-2 border-black border-b-2 !h-auto">
-                    <div className="px-8 ml-2 my-2 w-[100%] mx-auto">
+                    <div className="pl-6 ml-2 my-2 w-[100%] mx-auto">
                       <div className="flex text-left">
                         <p className='-ml-6 text-[0.80rem] w-[25%]  font-bold'>Pto Vta:</p>
                         <p className=' text-left text-sm '>{ot[EnumGrid.punto_venta]}</p>
@@ -114,7 +116,7 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                         <p className=' text-left text-sm !mt-2'>{ot[EnumGrid.cliente_nomnbre]}</p>
                       </div>
                       <div className="flex text-left -mt-2">
-                        <p className='-ml-6 text-[0.80rem] !mt-2 font-bold  w-[25%]'>RUT: </p>
+                        <p className='-ml-6 text-[0.80rem] !mt-2 font-bold  w-[15%]'>RUT: </p>
                         <p className=' text-left text-sm !mt-2'>{ot[EnumGrid.cliente_rut]}</p>
                         <span className='text-[0.80rem] !mt-2 font-bold'>&nbsp;&nbsp;&nbsp;CEL: </span>
                         <span className=' text-left text-sm !mt-2'>{ot[EnumGrid.cliente_telefono]}</span>
@@ -153,7 +155,7 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
 
                   {/*************** C R I S T A L E S ***************/}
                   <div className='w-[100%] flex mt-1 justify-between border-b-2 border-black'>
-                    <div className="!w-[60%] ml-2 border-r-2 border-black pr-2">
+                    <div className="!w-[55%] ml-2 border-r-2 border-black pr-2">
                       <div className='ml-2 '>
                         <span className='otSpanLineC font-bold'>D:{ot[EnumGrid.cristal1_od]}</span><br/>
                         <span className='otSpanLineC font-bold'>I:&nbsp;{ot[EnumGrid.cristal1_oi]}</span><br/>
@@ -173,7 +175,7 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                       </div>
                     </div>
           
-                    <div className="!w-[40%] ml-1">
+                    <div className="!w-[45%] ml-1">
                       <div className=''>
                         <span className='otSpanLineC font-bold'>{ot[EnumGrid.cristal2_od]}</span><br/>
                         <span className='otSpanLineC font-bold'>{ot[EnumGrid.cristal2_oi]}</span><br/>
@@ -260,7 +262,7 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                 </div>
         
                 {/*************** D E S P A C H O ***************/}
-                <div className="header mt-1 w-[100%] !h-auto text-center2 border-black border-2 ml-3">
+                <div className="header mt-1 w-[97%] !h-auto text-center2 border-black border-2 ml-3">
                   <div className="-mt-2 border-black border-b-2 !h-auto">
                     <div className="px-8 ml-2 my-2 w-[100%] mx-auto">
                       <div className="flex text-left ">
