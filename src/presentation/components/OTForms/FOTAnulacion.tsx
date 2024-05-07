@@ -8,7 +8,7 @@ import { Button } from '@material-tailwind/react';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import { URLBackend } from '../../hooks/useCrud';
-import { A1_CR_OD, A1_CR_OI, A2_CR_OD, A2_CR_OI, a1_armazon, a2_armazon } from '../../utils';
+import { A1_CR_OD, A1_CR_OI, A2_CR_OD, A2_CR_OI, a1_armazon, a2_armazon, codigoProyecto, punto_venta } from '../../utils';
 import { paramsOT } from '../../views/mantenedores/MOT';
 import { fetchOT } from '../../../redux/slices/OTSlice';
 
@@ -71,8 +71,12 @@ const FOTAnulacion:React.FC<IDerivacion> = ({
                 {codigo: A2_CR_OI.value}
             ].filter((cristal) => cristal.codigo !== '')
 
-      
-              const query = `?query=05&_folio=${_folio}&_estado=${_estado}&_usuario=${userID}&_origen=${_origen}&_situacion=${_jsonData.situacion}&_cristalJSONOri=${JSON.stringify(cristales)}&_armazonJSONOri=${JSON.stringify(armazones)}`
+            console.log(cristales)
+            console.log(codigoProyecto.value)
+            console.log(punto_venta.value)
+            
+
+              const query = `?query=05&_folio=${_folio}&_estado=${_estado}&_proyecto=${codigoProyecto.value}&_punto_venta=${punto_venta.value}&_usuario=${userID}&_origen=${_origen}&_situacion=${_jsonData.situacion}&_cristalJSONOri=${JSON.stringify(cristales)}&_armazonJSONOri=${JSON.stringify(armazones)}`
               const result = await axios(`${strUrl}/${query}`);
               if(result.status === 200){
                   toast.success('OT anulada ')

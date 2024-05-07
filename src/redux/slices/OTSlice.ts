@@ -223,6 +223,9 @@ const OTSlice = createSlice({
         builder.addCase(fetchOTImpresionByID.fulfilled, (state,action)=>{
             state.impresionOT = [...state.impresionOT, action.payload]
             state.ot          = [...state.ot, action.payload]
+
+            console.log(action.payload)
+            console.log(state.impresionOT)
             return state
         });
         builder.addCase(fetchColores.fulfilled, (state,action )=>{

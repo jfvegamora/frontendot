@@ -68,14 +68,14 @@ const StateCountBarOT   = React.lazy(()=>import('../../components/StateCountBarO
 const OTAreasButtons    = React.lazy(()=>import('../../components/OTAreasButtons')) 
 
 const MOT: React.FC = () => {
-  const OTs:any = useAppSelector((store: AppStore) => store.OTS);
-  const {token}:any = useAppSelector((store: AppStore) => store.user);
-  const areaActualOT:any = useAppSelector((store: AppStore) => store.OTAreas.areaActual);
+  const { lectura } = usePermission(28);
   const dispatch = useAppDispatch()
   const [params, setParams] = useState([]);
+  const {token}:any = useAppSelector((store: AppStore) => store.user);
+  const areaActualOT:any = useAppSelector((store: AppStore) => store.OTAreas.areaActual);
+  const OTs:any = useAppSelector((store: AppStore) => store.OTS);
   const [_estadosOT, setEstadosOT] = useState()
   const [pktoDelete, setPkToDelete] = useState([]);
-  const { lectura } = usePermission(28);
   
   const updateParams = (newParams: Record<string, never>) => {
     setParams(Object.keys(newParams).map((key) => newParams[key]));

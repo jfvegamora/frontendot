@@ -149,6 +149,7 @@ const FProyectosAccesoriosCopiar: React.FC<IUserFormPrps> = React.memo(
         if (!blnKeep && !isEditting) {
           const result = await showModal(
             MODAL.keep,
+            '',
             MODAL.keepYes,
             MODAL.kepNo
           );
@@ -195,6 +196,7 @@ const FProyectosAccesoriosCopiar: React.FC<IUserFormPrps> = React.memo(
     const handleSaveChange = React.useCallback(
       async (data: InputData, isEditting: boolean) => {
         // console.log(data);
+        const toastLoading = toast.loading('Cargando...');
         try {
           const transformedData = isEditting
             ? transformUpdateQuery(data)
@@ -204,7 +206,9 @@ const FProyectosAccesoriosCopiar: React.FC<IUserFormPrps> = React.memo(
             ? await editEntity(transformedData)
             : await createdEntity(transformedData);
           handleApiResponse(response, isEditting);
+          toast.dismiss(toastLoading)
         } catch (error: any) {
+          toast.dismiss(toastLoading)
           show({
             message: error,
             type: "error",

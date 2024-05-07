@@ -419,7 +419,7 @@ const FArmazonesKardexIN: React.FC<IUserFormPrps> = React.memo(
                     showRefresh={true}
                     data={data && data[EnumGrid.almacen_id]}
                     control={control}
-                    entidad={["/api/almacenes/", "02", "1"]}
+                    entidad={["/api/almacenes/", "02", `1&_p4=${userState.id}`]}
                     error={errors.almacen}
                     customWidth={"!ml-[1rem] !mt-[-0.6rem] w-[18rem]"}
                   />

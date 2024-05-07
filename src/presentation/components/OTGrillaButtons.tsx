@@ -195,9 +195,10 @@ const imprimirComprobanteRetiro = async(tipoComprobante?:string) => {
         
         const loadingToast = toast.loading('Imprimiendo...');
         try {
-          await dispatch(fetchOTImpresionByID({ folio: folio, OTAreas: OTAreas['areaActual'] }));
-            
-          handlePrint();    
+          await dispatch(fetchOTImpresionByID({ folio: folio, OTAreas: OTAreas['areaActual'] })).then(()=>{
+              handlePrint();    
+          });
+            console.log('render')
           toast.dismiss(loadingToast);
         } catch (error) {
             console.error(error);
@@ -262,7 +263,7 @@ const imprimirComprobanteRetiro = async(tipoComprobante?:string) => {
                 {isFotImpresa && (
                      <Suspense>
                         <div className='hidden'>
-                             <FOTImpresa ref={componentRef} masivo={false}/>
+                             <FOTImpresa ref={componentRef} masivo={true}/>
                         </div>
                     </Suspense>                
                 )}

@@ -760,9 +760,10 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
                 color='orange'  
                 value={valueConfirmOT}
                 onChange={(e:any)=>{
-                  setValueConfirmOT(e.target.value)
+                  console.log(e.target.value)
+                  setValueConfirmOT(e.target.value === '' ? e.target.value : parseInt(e.target.value))
                 }} 
-                onBlur={(e:any)=> handleProcesarConfirm(e.target.value) } 
+                onBlur={(e:any)=> handleProcesarConfirm(parseInt(e.target.value))} 
                 />
             </div>
           )}
