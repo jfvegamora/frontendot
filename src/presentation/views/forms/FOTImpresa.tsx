@@ -3,7 +3,7 @@ import { AppStore, useAppSelector } from '../../../redux/store';
 import { EnumGrid } from '../mantenedores/MOTHistorica';
 import Barcode from 'react-barcode';
 
-import { formatNumberWithZeros } from '../../utils';
+import { formatNumberWithZeros, tipo_de_anteojo } from '../../utils';
 import FOTTicketImpresion from './FOTTicketImpresion';
 import FOTTicketQRImpresion from './FOTTicketQRImpresion';
 import LogoImagenImpresion from '../../components/LogoImagenImpresion';
@@ -63,7 +63,7 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                   </div>
 
                   {/*************** F E C H A S ***************/}
-                  <div className='w-[100%] flex justify-between -mt-[1rem] ml-3'>
+                  <div className='w-[100%] flex justify-between -mt-[.5rem] ml-3'>
                     <div className="w-1/2">
                       <span className='text-xs font-bold'>ATENCIÓN:</span>&nbsp;
                       <span className='text-xs '>{ot[EnumGrid.fecha_atencion]}</span>
@@ -170,7 +170,7 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
 
                   {/*************** D I O P T R I A ***************/}
                   <div className="!w-[100%] flex ml-2 !h-auto">
-                    <div className="flex flex-col text-xs !w-[55%]">
+                    <div className="flex flex-col text-xs !w-[52%]">
 
                       <div className="w-full flex ml-3 otDioptriaTit">
                         <div className="  w-[25%] ">ESF</div>
@@ -194,38 +194,44 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                       </div>
                     </div>
 
-                    <div className="flex flex-col !w-[45%] border-black border-l-[2px]">
-                      <div className="w-full flex ml-3 otDioptriaTit">
-                        <div className="  w-[30%] ">ESF</div>
-                        <div className="  w-[30%] ">CIL</div>
-                        <div className="  w-[30%] ">EJE</div>
-                      </div>
+                    <div className="flex flex-col !w-[48%] border-black border-l-[2px]">
 
-                      <div className="w-full flex ml-2 otDioptria">
-                        <div className="w-[38%] ">{ot[EnumGrid.a2_od_esf]}</div>
-                        <div className=" w-[38%] ">{ot[EnumGrid.a2_od_cil]}</div>
-                        <div className="text-right  w-[15%]">{ot[EnumGrid.a2_od_eje]}</div>
-                      </div>
-
-                      <div className="w-full flex ml-2 otDioptria">
-                        <div className=" w-[38%] ">{ot[EnumGrid.a2_oi_esf]}</div>
-                        <div className=" w-[38%] ">{ot[EnumGrid.a2_oi_cil]}</div>
-                        <div className="text-right  w-[15%] ">{ot[EnumGrid.a2_oi_eje]}</div>
-                      </div>
+                        {ot[EnumGrid.tipo_anteojo_id] === 3 && (
+                          <>
+                          <div className="w-full flex ml-3 otDioptriaTit">
+                            <div className="  w-[30%] ">ESF</div>
+                            <div className="  w-[30%] ">CIL</div>
+                            <div className="  w-[30%] ">EJE</div>
+                          </div>
+    
+                          <div className="w-full flex ml-2 otDioptria">
+                            <div className="w-[38%] ">{ot[EnumGrid.a2_od_esf]}</div>
+                            <div className=" w-[38%] ">{ot[EnumGrid.a2_od_cil]}</div>
+                            <div className="text-right  w-[15%]">{ot[EnumGrid.a2_od_eje]}</div>
+                          </div>
+    
+                          <div className="w-full flex ml-2 otDioptria">
+                            <div className=" w-[38%] ">{ot[EnumGrid.a2_oi_esf]}</div>
+                            <div className=" w-[38%] ">{ot[EnumGrid.a2_oi_cil]}</div>
+                            <div className="text-right  w-[15%] ">{ot[EnumGrid.a2_oi_eje]}</div>
+                          </div>
+                          </>
+                        )}
+                    
                     </div>
                   </div>
 
                   {/*************** A L T U R A  -  D P ***************/}
                   <div className="w-[100%] flex -mt-1 justify-between ">
-                    <div className="w-[56%] ml-2 items-center flex">
-                      {/* <h1 className='font-bold ml-1 '>A1</h1> */}
+                    <div className="w-[52.2%] ml-2 items-center flex">
                       <span className='ml-1  !text-base font-bold '>&nbsp;ALT: {ot[EnumGrid.a1_alt]}</span>
                       <span className='ml-3  !text-base font-bold '>&nbsp;DP: {ot[EnumGrid.a1_dp]}</span>
                     </div>
 
-                    <div className="w-[45%] items-center flex ml-2 border-black border-l-[2px]">
-                      {/* <h1 className='font-bold '>A2</h1> */}
-                      <span className='ml-4  !text-base font-bold '>&nbsp;DP: {ot[EnumGrid.a2_dp]}</span>
+                    <div className="w-[47.8%] items-center flex ml-2 border-black border-l-[2px]">
+                        {ot[EnumGrid.tipo_anteojo_id] === 3 && (
+                          <span className='ml-4  !text-base font-bold '>&nbsp;DP: {ot[EnumGrid.a2_dp]}</span>
+                        )}
                     </div>
                   </div>
 

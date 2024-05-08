@@ -175,7 +175,7 @@ export function transformUpdateQuery(
     `contacto_fin_nombre        = "${jsonData.finanzas_nombre || ""}"`,
     `contacto_fin_correo        = "${jsonData.finanzas_correo || ""}"`,
     `contacto_fin_telefono      = "${jsonData.finanzas_telefono || ""}"`,
-    `oftalmologo                =  ${jsonData.oftalmologo}`,
+    `oftalmologo                =  ${jsonData.oftalmologo || 0}`,
     `observaciones              = "${jsonData.observaciones}"`,
     `imprime_qr                 =  ${jsonData.imprime_qr === "Si" ? 1 : 0}`,
     `imprime_ticket             =  ${jsonData.imprime_ticket === "Si" ? 1 : 0}`,
