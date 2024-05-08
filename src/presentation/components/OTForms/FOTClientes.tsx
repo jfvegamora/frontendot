@@ -19,7 +19,6 @@ interface IClientes {
     onDataChange: any,
     formValues: any,
     data:any,
-    setExistCliente:any,
     onlyRead?:boolean;
     register?:any
     isEditting?:boolean;
@@ -31,7 +30,6 @@ const FOTClientes:React.FC<IClientes> = ({
     onDataChange,
     formValues,
     data,
-    setExistCliente,
     register,
     isEditting,
 }) => {
@@ -205,12 +203,7 @@ const FOTClientes:React.FC<IClientes> = ({
         validationOTlevel2(name,value);
 
         if(name === 'cliente_rut'){
-            fetchCliente(value.trim()).catch((_error:any)=>{
-                setExistCliente(false)
-                // console.log(error)
-            });
-
-
+            fetchCliente(value.trim())
             await fetchReservaBeneficiario(value);
         }
       };

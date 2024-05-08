@@ -92,14 +92,26 @@ const FOT:React.FC<IFOTProps> = ({
     //Estados locales
     const { control, handleSubmit, setValue, register, getValues } = useForm<any>();
     const [formValues, setFormValues] = useState<any>({});
-    const [showGarantia, setShowGarantia]     = useState(false);
-    const [showDerivacion, setShowDerivacion] = useState(false);
-    const [showPendiente, setShowPendiente]   = useState(false);
-    const [showAnulacion, setShowAnulacion]   = useState(false)
-    const [_existCliente, setExistCliente]    = useState(false);
+
+    const [changeboolean, setChangeboolean]  = useState(false)
+    const [isMotivo, setIsMotivo]            = useState(false);
+    
     const [isFOTEmpaque, setIsFOTEmpaque]     = useState(false);
-    const [_changeboolean, setChangeboolean]  = useState(false)
-    const [_isMotivo, setIsMotivo]            = useState(false);
+
+    const [FOTBooleanStates, setFOTBooleanStates] = useState({
+      showGarantia:    false,
+      showDerivacion:  false,
+      showPendiente:   false,
+      showAnulacion:   false,
+
+      isFOTEmpaque:    false,
+
+      existCliente:    false,
+      changeBoolean:   false,
+      isMotivo:        false,
+
+    })
+
     const [errorGrupoDioptriaA1, setErrorGrupoDioptriaA1] = useState('');
     const [errorGrupoDioptriaA2, setErrorGrupoDioptriaA2] = useState('');
     const [submitAction, setSubmitAction] = useState('');
@@ -286,7 +298,7 @@ const FOT:React.FC<IFOTProps> = ({
 
       // getGrupoCristales_A1(formValue, data, setErrorGrupoDioptriaA1, setChangeboolean, isEditting, setErrorGrupoDioptriaA2)
 
-      getGrupoCristales_A1({},data,setErrorGrupoDioptriaA1, setChangeboolean, isEditting, setErrorGrupoDioptriaA2)
+      getGrupoCristales_A1({},data,setErrorGrupoDioptriaA1, setFOTBooleanStates, isEditting, setErrorGrupoDioptriaA2)
       
     }
   },[])
@@ -941,7 +953,7 @@ const checkArmazones = camposRequeridosArmazones.every(campo => {
 // console.log(checkOptica)
 
 
-console.log(data && data[EnumGrid.lugar_despacho])
+console.log(data && data[EnumGrid.cristal2_diametro])
 
 console.log(permiso_usuario_workTracking)
 
@@ -1019,11 +1031,34 @@ console.log(permiso_usuario_workTracking)
           </button>
       </div>
             <TabPanel onSelect={loadFormData}>
-              <FOTOptica permiso_usuario_workTracking={permiso_usuario_workTracking} onlyRead={onlyRead} setIsMotivo={setIsMotivo} isEditting={isEditting} data={data && data} formValues={formValues["optica"]} control={control} setToggle={setToggle}  onDataChange={(data:any) => handleFormChange(data , 'optica')} permiso_areas_resolucion_garantia={permiso_areas_resolucion_garantia}    permisos_areas_estado_immpresion={permiso_areas_estado_impresion} permiso_areas_estado_validacion={permiso_areas_estado_validacion} permiso_usuario_estado_impresion={permiso_usuario_estado_impresion} permiso_usuario_estado_validacion={permiso_usuario_estado_validacion} permiso_usuario_resolucion_garantia={permiso_usuario_resolucion_garantia} />
+              <FOTOptica 
+                control={control} 
+                data={data && data} 
+                isEditting={isEditting} 
+                onlyRead={onlyRead} 
+                formValues={formValues["optica"]} 
+                onDataChange={(data:any) => handleFormChange(data , 'optica')} 
+                setIsMotivo={setIsMotivo} 
+                setToggle={setToggle}  
+                permiso_usuario_workTracking={permiso_usuario_workTracking} 
+                permiso_areas_resolucion_garantia={permiso_areas_resolucion_garantia}    
+                permisos_areas_estado_immpresion={permiso_areas_estado_impresion} 
+                permiso_areas_estado_validacion={permiso_areas_estado_validacion} 
+                permiso_usuario_estado_impresion={permiso_usuario_estado_impresion} 
+                permiso_usuario_estado_validacion={permiso_usuario_estado_validacion} 
+                permiso_usuario_resolucion_garantia={permiso_usuario_resolucion_garantia} />
             </TabPanel>
             
           <TabPanel onSelect={loadFormData}>
-            <FOTClientes onlyRead={onlyRead} data={data && data} isEditting={isEditting} register={register} formValues={formValues["cliente"]} control={control} onDataChange={(data:any) => handleFormChange(data , 'cliente')} setExistCliente={setExistCliente}    />
+            <FOTClientes 
+              control={control} 
+              data={data && data} 
+              isEditting={isEditting} 
+              onlyRead={onlyRead} 
+              formValues={formValues["cliente"]} 
+              onDataChange={(data:any) => handleFormChange(data , 'cliente')}
+              register={register} 
+            />
           </TabPanel>
 
           <TabPanel>
@@ -1043,30 +1078,32 @@ console.log(permiso_usuario_workTracking)
             <FOTBitacora isMOT={isMOT} otData={data && data}/>
           </TabPanel>
 
-          {showGarantia && (
+          {FOTBooleanStates.showGarantia && (
             <div>
-              <FOTGarantia data={data && data} onClose={() =>setShowGarantia(false)} closeModal={handleCloseForm}/>
+              <FOTGarantia data={data && data} onClose={() =>setFOTBooleanStates((prev)=>({...prev, showPendiente:false}))} closeModal={handleCloseForm}/>
             </div>
           )}
 
-          {showDerivacion && (
+          {FOTBooleanStates.showDerivacion && (
             <div>
-              <FOTDerivacion  closeModal={handleCloseForm} formValues={formValues} data={data && data} onClose={() =>setShowDerivacion(false)}/>
+              <FOTDerivacion  closeModal={handleCloseForm} formValues={formValues} data={data && data} onClose={() =>setFOTBooleanStates((prev)=>({...prev, showDerivacion:false}))}/>
             </div>
           )}
 
-          {showPendiente && (
+          {FOTBooleanStates.showPendiente && (
             <div>
-              <FOTPendiente closeModal={handleCloseForm} onClose={()=>setShowPendiente(false)} data={data && data} formValues={formValues}/>
+              <FOTPendiente closeModal={handleCloseForm} onClose={()=>setFOTBooleanStates((prev)=>({...prev, showPendiente:false}))} data={data && data} formValues={formValues}/>
             </div>
           )}
 
-            {showAnulacion && (
+            {FOTBooleanStates.showAnulacion && (
               <div>
-                <FOTAnulacion closeModal={handleCloseForm} onClose={()=>setShowAnulacion(false)} data={data && data}/>
+                <FOTAnulacion closeModal={handleCloseForm} onClose={()=>setFOTBooleanStates((prev)=>({...prev, showAnulacion:false}))} data={data && data}/>
               </div>
             )}
           
+
+            {/*************** BOTON POST VENTA/GARANTIA ***************/}
           <div className='flex items-center mx-auto mt-[1.5rem] justify-around w-1/2 '>
         
                 {isEditting            && 
@@ -1074,11 +1111,18 @@ console.log(permiso_usuario_workTracking)
                 permisos_mantenedor    &&
                 // isMotivo    &&  (
                   (
-                    <Button className='otActionButton bg-green-400' onClick={() => setShowGarantia(prev => !prev)}>
+                    <Button className='otActionButton bg-green-400' onClick={() => {
+                      setFOTBooleanStates(prev => ({
+                        ...prev,
+                        showGarantia:!prev.showGarantia
+                      }))
+                    }}>
                       Post Venta
                     </Button>
                 )}
                 
+
+                  {/*************** BOTON PROCESAR INDIVIDUAL ***************/}
                
               {/* 
                 {OTPermissions           && 
@@ -1101,7 +1145,7 @@ console.log(permiso_usuario_workTracking)
               */}
 
 
-
+                     {/*************** BOTON PAUSAR ***************/}
                 {OTPermissions           && 
                 !isMOT                   &&
                 isEditting               &&
@@ -1109,9 +1153,16 @@ console.log(permiso_usuario_workTracking)
                 OTPermissions[7] === "1" &&
                 User.permisos_areas[EnumAreas[OTAreaActual]] === "1" &&
                 (
-                  <Button className='otActionButton bg-yellow-700 hover:bg-yellow-900' onClick={()=>setShowPendiente((prev)=>!prev)}>Pausar</Button>
+                  <Button className='otActionButton bg-yellow-700 hover:bg-yellow-900' onClick={()=>{
+                    setFOTBooleanStates((prev)=>({
+                      ...prev,
+                      showPendiente : !prev.showPendiente
+                    }))
+                  }}>Pausar</Button>
                 )}
+                
 
+                    {/*************** BOTON DERIVAR ***************/}
                 {OTPermissions           &&
                 !isMOT                   &&
                 isEditting               &&
@@ -1120,21 +1171,33 @@ console.log(permiso_usuario_workTracking)
                 // sumatoriaNivel1  === validationNivel1.value.length &&
                 User.permisos_areas[EnumAreas[OTAreaActual]] === "1" &&
                 data && data[EnumGrid.estado_id] > 1 && (
-                  <Button className='otActionButton bg-red-700 hover:bg-red-900' onClick={()=>{setShowDerivacion((prev)=>!prev)}}>Derivar</Button>
+                  <Button className='otActionButton bg-red-700 hover:bg-red-900' onClick={()=>{
+                    setFOTBooleanStates((prev)=>({
+                      ...prev,
+                      showDerivacion: !prev.showDerivacion
+                    }))
+                  }}>Derivar</Button>
                 )}
 
 
-                
+                {/*************** BOTON ANULAR ***************/}
                 {OTPermissions           &&
                 escritura_lectura        &&
                 OTPermissions[9] === "1" && 
                 sumatoriaNivel1  === validationNivel1.value.length && 
                 // (data && data[EnumGrid.estado_id] === 30 || data && data[EnumGrid.estado_id] === 40 ) && 
                 (
-                  <Button className='otActionButton bg-black' onClick={()=>setShowAnulacion(prev=>!prev)}> Anular</Button>
+                  <Button className='otActionButton bg-black' onClick={()=>{
+                    setFOTBooleanStates((prev)=>({
+                      ...prev,
+                      showAnulacion: !prev.showAnulacion
+                    }))
+                  }}> Anular</Button>
                 )}
                 
-                
+
+                {/*************** BOTON INGRESAR ***************/}
+
                 {OTPermissions         &&
                 !isEditting             &&
                 // (!isEditting || (data && data[EnumGrid.area_id] === 40 && data && data[EnumGrid.motivo_garantia_id] === 2 ) )  &&
@@ -1161,11 +1224,3 @@ console.log(permiso_usuario_workTracking)
 };
 
 export default FOT;
-
-
-
-
-// CALL spOT(33, "1, 50, 10, '0', '1', '1802-2023', 159, '24114699-5', 66, '2023-11-16', '2023-11-23', '2023-11-24', '2023-11-27', 11, 1299, '', 1, '-0,25', '-5,00', 0, 0.0, '0,00', '-6,00', 0, 0.0, 61, 0.0, 'G1', 'G1', 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, '', '', 0, 20000002053, 0, '20000002051', 0, '20000002057', 1, 1, 1, 2, 1, 1, 1, 65, '100010013490', '100010014810', 0.0, 0, 0, 0, 0, 0, 0, 0, '0', '0', 0.0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, '16','2'", 0, "nombre='ABRAHAM ANDRÉS SEPÚLVEDA ROJAS', tipo=1, sexo=3, fecha_nacimiento='0.0', direccion='0.0', comuna='182', telefono='0.0', correo='0.0', establecimiento=159", 0, '24114699-5', '', '', '', '1802-2023', 0, 50, 50, 10, 0, 98, 0,'' ,'2', '[{"codigo": "100010013490"}, {"codigo": "100010014810"}, {"codigo": "0"}, {"codigo": "0"}]', '[{"codigo": 20000002053}, {"codigo": 20000002051}]', '[{"codigo": "100010013490"}, {"codigo": "100010014810"}, {"codigo": "0"}, {"codigo": "0"}]', '[{"codigo": 20000002053}, {"codigo": 20000002051}]', 11, 0, 0);
-
-
-// SELECT * FROM OT WHERE FOLIO = 12234;

@@ -41,7 +41,7 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
             {OT && OT.map((ot: any, index: any) => {
               return (
 
-                <div className={`!w-[90%] ${ot[EnumGrid.imprime_ticket] === 1 ? '!h-[180rem]' : '!h-[90rem]'}  ${((index > 0) && (ot[EnumGrid.imprime_ticket] === 1)) && '!-mt-[39rem]'}   ${(index > 0) && (ot[EnumGrid.imprime_ticket] === 0) && '!-mt-[19rem]'}`} key={ot[EnumGrid.folio]} >
+                <div className={`!w-[90%] ${ot[EnumGrid.imprime_ticket] === 1 ? '!h-[180rem]' : '!h-[90rem]'}  ${((index > 0) && (ot[EnumGrid.imprime_ticket] === 1)) && '!-mt-[40rem]'}   ${(index > 0) && (ot[EnumGrid.imprime_ticket] === 0) && '!-mt-[19rem]'}`} key={ot[EnumGrid.folio]} >
                   <div className={`w-[100%] relative  ${ot[EnumGrid.imprime_ticket] === 1 ? '!h-[2.5%]' : '!h-[5%]'} mb-4`}>
                     <div className="w-[90%] mr-7  mx-auto">
                       <Barcode marginLeft={45} height={25} width={2.5} textAlign='right' value={formatNumberWithZeros(ot[EnumGrid.folio])} />

@@ -12,8 +12,6 @@ const FOTTicketImpresion =  React.forwardRef((_props:any, ref:any) => {
     const {impresionOT:OT} = useAppSelector((store:AppStore)=>store.OTS);
 
 
-    // console.log(OT)
-    console.log('render')
     return (
     <div ref={ref} className=''>
         {(
@@ -25,38 +23,37 @@ const FOTTicketImpresion =  React.forwardRef((_props:any, ref:any) => {
 
              <div className="w-full !-mt-4 ">
                <div className="!h-auto">
-                 <h2 className='font-bold text-base ml-4 w-full'>Nombre: </h2>
-                 <p className="border-b-2 text-sm   ml-4 border-black mx-auto -mt-2">{OT[0] && OT[0][EnumGrid.cliente_nomnbre]} </p> 
+                 <h2 className='font-bold text-lg ml-4 w-full'>Nombre: </h2>
+                 <p className="border-b-2 text-base   ml-4 border-black mx-auto -mt-2">{OT[0] && OT[0][EnumGrid.cliente_nomnbre]} </p> 
                </div>
              </div>
              
              <div className="w-full !-mt-2">
                <div className="h-auto">
-                   <h2 className='font-bold text-base ml-4 w-full'>Convenio: </h2>
-                   <p className="border-b-2 text-sm  ml-4 border-black mx-auto -mt-2 ">{OT[0] && OT[0][EnumGrid.proyecto_titulo]} </p>
+                   <h2 className='font-bold text-lg ml-4 w-full'>Convenio: </h2>
+                   <p className="border-b-2 text-base  ml-4 border-black mx-auto -mt-2 ">{OT[0] && OT[0][EnumGrid.proyecto_titulo]} </p>
                </div>
              </div>
              
              
-             <div className="w-full flex justify-around !-mt-2">
+             <div className="w-full flex justify-around !-mt-2 ml-2">
                <div className="w-[45%] ml-2">
-                 <h2 className='font-bold text-base'>Fecha Atencion: </h2>
-                 <p className="border-b-2 text-sm -mt-2 mb-2 border-black mx-auto ">{parsedDate(OT[0] && OT[0][EnumGrid.fecha_atencion])} </p>
+                 <h2 className='font-bold text-lg'>F. Atencion: </h2>
+                 <p className="border-b-2 text-base -mt-2 mb-2 border-black mx-auto ">{parsedDate(OT[0] && OT[0][EnumGrid.fecha_atencion])} </p>
                </div>
                <div className="w-[40%] ml-4 ">
-                 <h2 className='font-bold text-base'>Fecha Entrega: </h2>
-                 <p className="border-b-2 text-sm -mt-2  border-black mx-auto ">{parsedDate(OT[0] && OT[0][EnumGrid.fecha_entrega_cliente])} </p>
+                 <h2 className='font-bold text-lg'>F. Entrega: </h2>
+                 <p className="border-b-2 text-base -mt-2  border-black mx-auto ">{parsedDate(OT[0] && OT[0][EnumGrid.fecha_entrega_cliente])} </p>
                </div>
              </div>
 
-             <div className="!-mt-2 font-bold border-2 ml-4 border-black text-center">
-               <h2>{OT[0] && OT[0][EnumGrid.titulo2_ticket]}</h2>
-               <h2>{OT[0] && OT[0][EnumGrid.titulo3_ticket]}</h2>
+             <div className="!-mt-2 font-bold border-2 ml-4 w-full border-black text-center">
+               <h2 className='text-base'>{OT[0] && OT[0][EnumGrid.titulo2_ticket]}</h2>
+               <h2 className='text-base'>{OT[0] && OT[0][EnumGrid.titulo3_ticket]}</h2>
              </div>
 
            </div>
         )}
-    
     </div>
   )
 })

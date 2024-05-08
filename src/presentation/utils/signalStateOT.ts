@@ -1439,7 +1439,7 @@ export const getGrupoCristales_A1 = async(formValue:any, data:any, setErrorGrupo
               
               validation_Cristal1_od(cristalesDATA["CR_OD"])
               validation_Cristal1_oi(cristalesDATA["CR_OI"])
-              setChangeboolean((prev:boolean)=>!prev)
+              setChangeboolean((prev:any)=>({...prev, setChangeboolean: prev.setChangeboolean}))
               toast.error(cristalesDATA["MSG"])
               // validacionIncompleta.value = true;
               validacionIncompleta.value.check = true;
@@ -1825,7 +1825,7 @@ export const updateOT =async (
     (`cristales2_material=${_formValues && _formValues["cristales"]  && _formValues["cristales"]["cristal2_material_id"]                                 !== undefined ? _formValues["cristales"] && parseInt(_formValues["cristales"]["cristal2_material_id"])            :   data && data[EnumGrid.cristal2_material_id]}`),
     (`cristales2_tratamiento=${_formValues && _formValues["cristales"] && _formValues["cristales"]["cristal2_tratamiento_id"]                            !== undefined ? _formValues["cristales"] && parseInt(_formValues["cristales"]["cristal2_tratamiento_id"])         :   data && data[EnumGrid.cristal2_tratamiento_id] }`),
     (`cristales2_color=${_formValues && _formValues["cristales"] && _formValues["cristales"]["cristal2_color_id"]                                        !== undefined ? _formValues["cristales"] && parseInt(_formValues["cristales"]["cristal2_color_id"])               :   data && data[EnumGrid.cristal2_color_id]}`),
-    (`cristales2_diametro=${_formValues && _formValues["cristales"] && _formValues["cristales"]["cristal2_diametro"]                                     !== undefined ? _formValues["cristales"] && parseInt(_formValues["cristales"]["cristal2_diametro"])             :   data && data[EnumGrid.cristal2_diametro]}`),
+    (`cristales2_diametro="${_formValues && _formValues["cristales"] && _formValues["cristales"]["cristal2_diametro"]                                     !== undefined ? _formValues["cristales"] && parseInt(_formValues["cristales"]["cristal2_diametro"])               :   data && data[EnumGrid.cristal2_diametro]}"`),
     (`cristales2_od="${A2_CR_OD.value.trim()                                                                                                             === ''          ? data?.[EnumGrid.cristal2_od]                             : (A2_CR_OD.value.trim() || _formValues["cristales"] && parseInt(_formValues["cristales"]["cristal2_od"]))}"`),
     (`cristales2_oi="${A2_CR_OI.value.trim()                                                                                                             === ''          ? data?.[EnumGrid.cristal2_oi]                             : (A2_CR_OI.value.trim() || _formValues["cristales"] && parseInt(_formValues["cristales"]["cristal2_oi"]))}"`),
     (`cristales2_tratamiento_adicional=${_formValues && _formValues["cristales"] &&_formValues["cristales"]["cristal2_tratamiento_adicional_id"]         !== undefined ? _formValues["cristales"] && parseInt(_formValues["cristales"]["cristal2_tratamiento_adicional_id"]) : data && data[EnumGrid.cristal2_tratamiento_adicional_id]}`),
