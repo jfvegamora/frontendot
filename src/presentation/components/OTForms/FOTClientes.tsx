@@ -265,6 +265,7 @@ const FOTClientes:React.FC<IClientes> = ({
                                 customWidth={"345px"}
                                 readOnly={isEditting}
                                 tabIndex={1}
+                                onlyFirstOption={isEditting}
                             />
                         </div> 
                     </div>

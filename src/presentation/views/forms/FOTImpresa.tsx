@@ -189,8 +189,9 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                       <div className="otSpanLineC w-[28%] ">{ot[EnumGrid.a1_od_cil]}</div>
                       <div className="text-right otSpanLineC w-[15%] ">{ot[EnumGrid.a1_od_eje]}</div>
                       <div className="text-right otSpanLineC w-[15%] ">{parseInt(ot[EnumGrid.a1_od_ad])}</div>
-        
                     </div>
+
+
                     <div className="w-full flex !h-5 ml-2">
                       <div className="otSpanLineC w-[28%] ">{ot[EnumGrid.a1_oi_esf]}</div>
                       <div className="otSpanLineC w-[28%] ">{ot[EnumGrid.a1_oi_cil]}</div>
@@ -201,7 +202,8 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                   </div>
         
                   <div className="flex flex-col text-xs !w-[45%] border-black border-l-[2px]">
-        
+
+
                     <div className="w-full flex !h-5 ml-3">
                       <div className="text-center text-base h-2 w-[30%] font-bold">ESF</div>
                       <div className="text-center text-base h-2 w-[30%] font-bold">CIL</div>
@@ -221,6 +223,8 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                     </div>
         
                   </div>
+
+                  
                 </div>
     
                    {/*************** A L T U R A  -  D P ***************/}

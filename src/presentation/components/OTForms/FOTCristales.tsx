@@ -42,7 +42,6 @@ const FOTCristales: React.FC<ICristales> = ({
     isEditting,
     formValuesCompleto
 }) => {
-    // const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas["areaActual"]);
 
 
     const handleInputChange = async (e: any) => {
@@ -112,7 +111,6 @@ const FOTCristales: React.FC<ICristales> = ({
         
         
        return (<div className=''>
-                {/* <div className="w-[55%] mx-auto  absolute top-[-34%] left-[28%]"> */}
                 <div className="">
                     <TextInputInteractive   
                         type='text'
@@ -129,16 +127,6 @@ const FOTCristales: React.FC<ICristales> = ({
                 </div>
             </div>)
       }
-
-    // console.log(tipo_de_anteojo.value)
-
-    // console.log(permiso_areas_cristales)
-    // console.log(permiso_usuario_cristales)
-    // console.log(data?.[EnumGrid.cristal2_od])
-
-  
-    console.log(data && data[EnumGrid.cristal2_color_id])
-      console.log(data && data[EnumGrid.cristal2_diametro])
 
     return (
         <form>

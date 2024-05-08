@@ -75,24 +75,11 @@ interface IFOTProps {
 }
 
 
-
-// export const checkOptica = signal(() => {
-//   const { proyecto, punto_venta_id }:any = validationNivel1.value;
-
-//   console.log(proyecto)
-//   console.log(punto_venta_id
-//     )
-//   return proyecto === 1 && punto_venta_id === 1;
-// });
-
-
-
 export const tipo_anteojo = signal(false);
 export const onlyReadReceta = signal(false);
 export const a1Grupo = signal(0);
-
-
 export const tipo_lejos_cerca = signal(false);
+
 
 const FOT:React.FC<IFOTProps> = ({
   closeModal,
@@ -105,18 +92,18 @@ const FOT:React.FC<IFOTProps> = ({
     //Estados locales
     const { control, handleSubmit, setValue, register, getValues } = useForm<any>();
     const [formValues, setFormValues] = useState<any>({});
-    const [showGarantia, setShowGarantia] = useState(false);
+    const [showGarantia, setShowGarantia]     = useState(false);
     const [showDerivacion, setShowDerivacion] = useState(false);
-    const [showPendiente, setShowPendiente]  = useState(false);
-    const [showAnulacion, setShowAnulacion]  = useState(false)
-    const [_existCliente, setExistCliente] = useState(false);
-    const [isFOTEmpaque, setIsFOTEmpaque]  = useState(false);
+    const [showPendiente, setShowPendiente]   = useState(false);
+    const [showAnulacion, setShowAnulacion]   = useState(false)
+    const [_existCliente, setExistCliente]    = useState(false);
+    const [isFOTEmpaque, setIsFOTEmpaque]     = useState(false);
+    const [_changeboolean, setChangeboolean]  = useState(false)
+    const [_isMotivo, setIsMotivo]            = useState(false);
     const [errorGrupoDioptriaA1, setErrorGrupoDioptriaA1] = useState('');
     const [errorGrupoDioptriaA2, setErrorGrupoDioptriaA2] = useState('');
     const [submitAction, setSubmitAction] = useState('');
-    const [_isMotivo, setIsMotivo] = useState(false);
     const [_toggle, setToggle] = useState();
-    const [_changeboolean, setChangeboolean] = useState(false)
   const [OTPermissions, setOTPermissions] = useState("");
   const [selectedTab, setSelectedTab] = useState(0);
   const { showModal, CustomModal } = useModal();
@@ -498,6 +485,11 @@ const FOT:React.FC<IFOTProps> = ({
     A1_CR_OI.value     = "  ";
     A1_GRUPO_OD.value  = "  ";
     A1_GRUPO_OI.value  = "  ";
+
+    A2_GRUPO_OD.value = "";
+    A2_GRUPO_OI.value = "";
+    A2_CR_OD.value    = "";
+    A2_CR_OI.value    = "";
     
     // onDataChange({[name]:value})
 

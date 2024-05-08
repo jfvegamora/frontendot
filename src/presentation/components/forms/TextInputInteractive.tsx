@@ -50,9 +50,7 @@ const TextInputInteractive: React.FC<ITextInputProps> = ({
   validarBodega,
   handleFocus
 }) => {
-  // const [_defaultValue, setDefaultValue] = useState<any>(data && data || "")
-  const [_defaultValue, setDefaultValue] = useState<any>(data || " "); // Inicializar defaultValue con el valor inicial
-  // const inputRef = useRef<HTMLInputElement>(null);
+  const [_defaultValue, setDefaultValue] = useState<any>(data || " "); 
   const[_render, setRender] = useState(false);
 
   const [value, setValue] = useState<any>(data || "");
@@ -80,18 +78,10 @@ const TextInputInteractive: React.FC<ITextInputProps> = ({
         setRender((prev)=>!prev)
 
     }
-    setValue(data)
   },[data])
 
-  // const handleDebounceInputChange = debounce((newValue: any) => {
-  //   handleInputChange(newValue); // Llama a la función original handleInputChange
-  // }, 200);
 
-  // console.log(data)
 
-// ...
-
-// console.log(defaultValue)
 return (
   <div className={`  mr-4 rounded-xl ${customWidth ? customWidth : ""}`}>
     <Controller
@@ -108,8 +98,6 @@ return (
             type={type}
             value={value}
             onFocus={handleFocus && handleFocus}
-            // color="red"
-            // defaultValue={defaultValue}
             readOnly={onlyRead}
             maxLength={maxLength}
             onBlur={(e) =>  {

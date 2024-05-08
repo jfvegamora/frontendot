@@ -17,26 +17,11 @@ const FilterButton: React.FC<IProps> = ({
   isOT,
   className
 }) => {
-  // const [isHovered, setIsHovered] = useState(false);
 
   const handleMouseEnter = () => {
-    // if(!isHovered.value && !filterToggle.value){
-    //   filterToggle.value = true;
-    //   isHovered.value = true;
-    // }else{
-    //   filterToggle.value = false;
-    //   isHovered.value = false;
-    // }
-
     isHovered.value      =  !isHovered.value
     filterToggle.value   =  !filterToggle.value
   };
-
-
-  // const handleMouseLeave = () => {
-  //   filterToggle.value = false;
-  //   setIsHovered(false);
-  // };
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -52,14 +37,12 @@ const FilterButton: React.FC<IProps> = ({
     };
   }, []);
 
-  console.log(filterToggle.value)
 
   return (
     <div className={`fixed ${className ? className : "top-[4rem] left-5"} z-[13] items-center bg-yellow-300`}>
       <MagnifyingGlassIcon
         className={`bg-[#f39c12] w-[3rem] h-[3rem] text-white p-3 rounded-full shadow-lg top-2 absolute z-30 transition-transform transform cursor-pointer ${isHovered.value ? 'scale-110 bg-orange-700' : ''}`}
         onClick={handleMouseEnter}
-        // onMouseLeave={handleMouseLeave}
       />
       <div
         className={`${

@@ -452,12 +452,15 @@ const FOTArmazones:React.FC<IArmazones> = ({
                 if(data[0]){
                     onDataChange({[inputName]:data[0][0]})
                     if(inputName === 'a1_armazon_id'){
-                        console.log('render')
                         localStorage.setItem('a1_armazon', data[0])
                         setArmazon1(data[0])
                         setCodArmazon1(data[0][0])
 
                         if(!inputOnlyReadReserva.value){
+                            if(data[0][15] === ''){
+                                toast.dismiss(toastLoading);
+                                return;
+                            }
                             A1_GRUPO_OD.value = data[0][15]
                             a1_armazon.value  = data[0][0]
                             A1_GRUPO_OI.value = data[0][16]
@@ -478,10 +481,13 @@ const FOTArmazones:React.FC<IArmazones> = ({
                         setCodArmazon2(data[0][0])
                         a2_armazon.value = data[0][0]
 
-                        console.log(tipo_de_anteojo.value)
-
                         if(tipo_de_anteojo.value === '3'){
                             if(!inputOnlyReadReserva.value){
+                                if(data[0][15] === ''){
+                                    toast.dismiss(toastLoading);
+                                    return;
+                                }
+    
                                 A2_GRUPO_OD.value = data[0][15]
                                 A2_GRUPO_OI.value = data[0][16]
     
@@ -502,9 +508,6 @@ const FOTArmazones:React.FC<IArmazones> = ({
                     }
                 }
             }
-            toast.dismiss(toastLoading)
-
-           
             toast.dismiss(toastLoading)
         } catch (error) {
             toast.dismiss(toastLoading)

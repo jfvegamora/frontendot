@@ -140,22 +140,14 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
   }
 
 
-
-
   const [value, setValue] = useState<any>(" ");
   
   useEffect(() => {
-    // setValue(initialValue === undefined ? "" : initialValue);
     setValue(initialValue);
   }, [initialValue, defaultValue, otData]);
 
 
-
-
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-
-  
-
     if (handleChange) {
       handleChange(e.target)
     }
@@ -328,31 +320,16 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
  
 
   useEffect(()=>{
-    // if(name === 'a1_od_eje'){
-    //   console.log(value)
-    // }
-
     setRender((prev)=>!prev)
   },[dioptrias_receta.value.a1_od.cil, dioptrias_receta.value.a1_oi.cil])
  
   
   useEffect(() => {
-    // Ejecutar renderComponent cuando sea necesario
     if (renderComponent) {
       renderComponent((prev:any) => !prev);
-      // console.log('render')
     }
   }, [dioptrias_receta.value.a1_od.eje, render]); // Cambiar esta dependencia según lo que desees observar
 
-
-  // console.log(render)
-
-  // const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-  //   if (e.key === "Tab") {
-  //     e.preventDefault(); // Prevenir el comportamiento predeterminado del evento "tab"
-  //     // Aquí puedes agregar cualquier lógica adicional que desees ejecutar cuando se presiona la tecla "tab"
-  //   }
-  // };
 
 return (
   <div
@@ -369,7 +346,7 @@ return (
           {...field}
           error     = {error ? true : false }
           label     ={label}
-          defaultValue={initialValue}
+          // defaultValue={initialValue}
           value     ={value}
           color     ="orange"
           id        ={label}

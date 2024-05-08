@@ -1204,6 +1204,10 @@ export const fetchFechas = async(fecha_atencion:string, codgioProyecto:string) =
   try {
        const {data} = await axios(`${URLBackend}/api/ot/listado/?query=11&_proyecto=${codgioProyecto}&_fecha_desde=${fecha_atencion}`)
 
+       if(data && data[0] === undefined){
+        return
+       }
+
        const parsedData = JSON.parse(data[0]); // Parsear la cadena JSON a objeto
 
        fecha_atencion_signal.value   = fecha_atencion;

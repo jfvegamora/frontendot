@@ -51,11 +51,6 @@ const FOTReceta:React.FC<IReceta> = ({
         setDioptriasReceta(name, value)
         onDataChange({[name]:value})
         
-        
-        // console.log(name)
-        // console.log(value)
-        
-        // validation_tipo_anteojo()
         validationOTlevel1(name, value)
         validationOTlevel2(name, value)
         onDataChange({[name]:value})
@@ -64,32 +59,20 @@ const FOTReceta:React.FC<IReceta> = ({
 
 
         if(name === 'a1_od_cil' || name === 'a1_od_eje' || name === 'a1_od_ad'){
-            // console.log('render')
-            
             transponer('a1_od_esf', 'a1_od_cil', 'a1_od_eje', 'a1_od',firstInputRef)
-            
             onDataChange({[name]:value})
         }
 
         if(name === 'a1_oi_cil' || name === 'a1_oi_eje' || name === 'a1_oi_ad'){
-            // console.log('render')
             transponer('a1_oi_esf', 'a1_oi_cil', 'a1_oi_eje', 'a1_oi', secondInputRef)
             onDataChange({[name]:value})
         }
-
-        // onDataChange({[name]:value})
-        // console.log(dioptrias_receta.value.a1_od.cil)
-
-        // console.log(dioptrias_receta.value.a1_oi)
     }
 
-        // console.log(isRender)
     React.useEffect(()=>{
         validation_A1_DP(A1_DP.value);
     },[A1_DP.value])
 
-    console.log(permiso_usuario_receta)
-    console.log(permiso_areas_receta)
     
   return (
     <form>
@@ -109,6 +92,7 @@ const FOTReceta:React.FC<IReceta> = ({
                         // error={errors.establecimiento}
                         customWidth={"!ml-[1rem]"}
                         readOnly={isEditting  || inputOnlyReadReserva.value}
+                        onlyFirstOption={isEditting}
                     />
                 </div>
                 <div className="w-[20%] ">
@@ -125,20 +109,7 @@ const FOTReceta:React.FC<IReceta> = ({
                         textAlign="text-center"
                         />
                 </div>
-                {/* <div className="w-[20%] ml-4 justify-between">
-                    <TextInputComponent
-                        type="number"
-                        label="Total $"
-                        name="total"
-                        handleChange={handleInputChange}
-                        data={formValues ? formValues["total"] : data && data[EnumGrid.total]}
-                        control={control}
-                        isOT={true}
-                        onlyRead={isEditting}
-                        isOptional={true}
-                        textAlign="text-right"
-                        />
-                </div> */}
+                
                 <div className="w-[15%] ml-4">
                     <TextInputInteractive
                         type="date"
@@ -168,12 +139,12 @@ const FOTReceta:React.FC<IReceta> = ({
                         customWidth={"345px"}
                         readOnly={isEditting}
                         isOptional={true}
+                        onlyFirstOption={isEditting}
                     />
                 </div>
             </div>
 
             <div className="w-full flex items-center rowForm !h-[11rem] relative ">
-                {/* <label className='absolute z-10 top-[-10%] w-[15%] left-[36%] text-center text-3xl'>ANTEOJO 1</label> */}
                 <label className='labelAnteojo'>ANTEOJO 1</label>
                 <div className=" w-[43%] items-center rowForm !mt-[-10rem] !h-[8rem]  ">
                     <div className="w-[90%] mx-auto flex items-center h-[9rem] relative labelForm  rounded-lg border radioComponent">
@@ -215,7 +186,6 @@ const FOTReceta:React.FC<IReceta> = ({
                                 onlyRead={!(!isEditting || (permiso_usuario_receta && permiso_areas_receta))}
                                 textAlign="text-center"
                                 step={1}
-                                // onDataChange={onDataChange}
                                 />
                         </div>
                         <div className="w-[25%]" tabIndex={-1}>

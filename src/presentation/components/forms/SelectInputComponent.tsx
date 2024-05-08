@@ -68,7 +68,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
   }) => {
     const dispatch = useAppDispatch()
     const [entities, setEntities] = useState([]);
-    const [strSelectedName, setStrSelectedName] = useState(data || undefined);
+    const [strSelectedName, setStrSelectedName] = useState(data || '');
     const strUrl = entidad && entidad[0];
     const strTableName = entidad[3] ? entidad[2] && `_p1=${entidad[2]}&${entidad[3]}`: entidad[2] && `_p1=${entidad[2]}`
     const inputRef = useRef(null);
@@ -86,10 +86,9 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
 
 
 
-    // caonsole.log(strUrl2)
     
     const state = useAppSelector((store: AppStore) => store.listBox);
-    
+      
 
     const fetchSelectData =async()=>{
       const {data} = await axios(strUrl2,{
@@ -98,9 +97,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
          }
    })
       if(label === 'Punto de Venta'){
-        console.log(data)
         if(data && data[0]){
-          console.log(data[0][0])
           punto_venta.value = data[0][0]
           setStrSelectedName(data[0][0])
         }
@@ -116,10 +113,8 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
 
     React.useEffect(()=>{
       if(!state.hasOwnProperty(label)){
-        // console.log('no se encuentra')
         fetchSelectData()
       }else{
-        // console.log('si se encuentra')
         setEntities(state[label])
       }
 

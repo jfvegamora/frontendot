@@ -20,7 +20,6 @@ import { EnumGrid } from '../views/mantenedores/MOTHistorica';
 import { checkCount, paramsOT } from '../views/mantenedores/MOT';
 import { signal } from '@preact/signals-react';
 import { focusFirstInput } from '../components/OTForms/FOTValidarBodega';
-// import FOTEmpaque from '../views/forms/FOTEmpaque';
 
 type AreaButtonsProps ={
     areaName:string;
@@ -72,24 +71,18 @@ export const validationStateOT = (positionCampo:number, nameCampo:string, folios
     return true
   })
 };
-// const ExportCSV  = React.lazy(()=>import('));
 
 
 const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
-    // areaName,
     areaPermissions,
-    // areaActual,
     handleAddPerson,
     params,
     pkToDelete,
     entities,
     setSelectedRows
 }) => {
-    // const strUrl = `${URLBackend}/api/ot/listado`
     const dispatch                                    = useAppDispatch();
-    // const data:any                                    = useAppSelector((store: AppStore) => store.OTS.data)
     const OTAreas:any                                 = useAppSelector((store: AppStore) => store.OTAreas)
-    // const OTs:any                                 = useAppSelector((store: AppStore) => store.OTS.data)
     const User:any                                    = useAppSelector((store: AppStore) => store.user)
     const componentRef                                = useRef<any>(null);
     const SecondcomponentRef                          = useRef<any>(null);
@@ -109,19 +102,8 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
 
     const permisos_usuario_areas = User.permisos_areas[EnumAreas[OTAreas["areaActual"]]]
 
-
-    // console.log(EnumAreas[OTAreas["areaActual"]])
-
-    // console.log(OTAreas["areaActual"])
-
-    // console.log(User.permisos_areas)
-    
-    // console.log(permisos_usuario_areas)
-    // // console.log(EnumAreas[20])
-
-
-
     const folios = pkToDelete && pkToDelete.map(({folio}:any)=>folio)
+
 
     const handlePrint = useReactToPrint({
       content: () => componentRef.current, 
@@ -131,8 +113,6 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
         dispatch(clearImpression())
         console.log('Impresión finalizada'); // Mensaje en español
         return new Promise<void>((resolve) => {
-          // Esperar a que la ventana de impresión se cierre (opcional)
-          // Puedes comentar esta línea si no necesitas esperar el cierre
           window.onafterprint = () => resolve();
         });
       },
@@ -151,57 +131,39 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
       }
     })
 
-    
-    // const handleImpresionMasivo = async () => {
-    //   console.log(pkToDelete)
-
-
-    //   for (const ot of pkToDelete) {
-    //     try {
-    //       setIsFOTImpresa(true);
-    //       console.log(ot.folio)
-    //       await dispatch(fetchOTImpresionByID({ folio: ot.folio, OTAreas: OTAreas['areaActual'] }));
-    //       await handlePrint()          
-            
-          
-    //     } catch (error) {
-    //       console.log(error);
-    //     }
-    //   }
-    // };
-
     const handleImpresionMasivo = async () => {
       console.log(pkToDelete);
     
-      // const promesasImpresion = [];
-    
+
+      const primerProyectoCodigo = pkToDelete[0].proyecto_codigo;
+      const todosIguales = pkToDelete.slice(1).every((ot:any) => ot.proyecto_codigo === primerProyectoCodigo);
+
+      if(!todosIguales){
+        toast.error('Las OTs no pertenecen al mismo proyecto')
+        return;
+      }
+
       for (const ot of pkToDelete) {
         try {
           setIsFOTImpresa(true);
           console.log(ot.folio);
           await dispatch(fetchOTImpresionByID({ folio: ot.folio, OTAreas: OTAreas['areaActual'] }));
     
-          // Agregar la promesa de handlePrint() al array
         } catch (error) {
           console.log(error);
         }
       }
       
       handlePrint()
-      // Esperar a que todas las promesas de impresión se resuelvan
-      // await Promise.all(promesasImpresion);
     };
 
     React.useEffect(()=>{
-      console.log(isFOTValidarBodega)
       if(!isFOTValidarBodega){
-        console.log('render')
         focusFirstInput('ProcesarOT',refFocusInput)
         reiniciarValidationNivel3()
         setValueConfirmOT('')
       }
     },[isFOTValidarBodega, focusFirstInput])
-
 
     const renderButton = useCallback(
       (icon: React.ReactNode, handle: () => void, tooltip: string) => (
@@ -211,7 +173,6 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
             color="blue-gray"
             className="primaryBtnIconButton "
             onClick={handle}
-            // disabled={!escritura_lectura}
           >
             {icon}
           </IconButton>
@@ -262,7 +223,6 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
           searchOTRef.current.focus()
         }
         return resultIndex
-        //EJECUTAR METODO PARA FOCUS DE INPUT SEARCHOT
 
       }else{
         const {data:dataOT} = await axios(`${URLBackend}/api/ot/listado/?query=01&_folio=${folio}`,{
@@ -280,68 +240,6 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
       }
     }
 
-
-    // const handlePrintRegistro = async (folio:any) => {
-    //   try {
-    //     // Realiza la carga de datos necesaria antes de la impresión
-    //     await dispatch(fetchOTImpresionByID({ folio: folio, OTAreas: OTAreas['areaActual'] }));
-    //     // Ejecuta la impresión del registro
-    //     console.log('render')
-    //     await handlePrint();
-    //     return 'hola'
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // };
-
-    // const handlePrintRegistro = async (folio:any) => {
-    //   try {
-    //     // Realiza la carga de datos necesaria antes de la impresión
-    //     await dispatch(fetchOTImpresionByID({ folio: folio, OTAreas: OTAreas['areaActual'] }));
-    //     // Devuelve una promesa que resuelve cuando la impresión se completa
-    //     return new Promise((resolve, reject) => {
-    //       // Usa un setTimeout para asegurarse de que la referencia se actualice correctamente
-    //       setTimeout(() => {
-    //         handlePrint({
-    //           content: () => componentRef.current,
-    //           suppressErrors: true,
-    //           removeAfterPrint: true,
-    //           onAfterPrint: () => resolve()
-    //         });
-    //       }, 100); // Ajusta el tiempo según sea necesario
-    //     });
-    //   } catch (error) {
-    //     console.log(error);
-    //     throw error;
-    //   }
-    // };
-
-    // const handleImpresionMasivo = async () => {
-    //   const printPromises = pkToDelete.map(async (registro:any) => {
-    //     console.log(registro)
-    //     await handlePrint({ content: () => componentRef.current as any });
-    //     // Opcional: agregar un retraso para evitar que las ventanas emergentes se superpongan
-    //     await new Promise((resolve) => setTimeout(resolve, 500));
-    //   });
-    
-    //   await Promise.all(printPromises);
-    
-    //   // Acciones después de imprimir todas las boletas
-    //   setisFotTicketRetiro(true);
-    //   imprimirComprobanteRetiro();
-    //   // dispatch(clearImpression());
-    // };
-
-
-    // const handleImpresionMasivo = async() => {
-    //   setIsFOTImpresa(true);
-    
-    //   for (let OT of pkToDelete) {
-    //     console.log(OT);
-    //     const result = await handlePrintRegistro(OT.folio);
-    //     console.log(result); // Aquí puedes ver el resultado de la impresión
-    //   }
-    // }
 
   const handleDownloadMacro = async() => {
     try {
@@ -361,7 +259,6 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
       });
 
       const blobUrl = window.URL.createObjectURL(new Blob([data]));
-      // Crear un enlace invisible y hacer clic en él para iniciar la descarga
       const link = document.createElement('a');
       link.href = blobUrl;
       link.setAttribute('download', 'macro_ot.xlsm');
@@ -369,7 +266,6 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
       link.click();
       document.body.removeChild(link);
     } catch (error) {
-      // console.log(error)
       throw error;
     }
   };
@@ -383,26 +279,19 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
 
     const handleProcesarMasivo = () => {
       let estado = 0
-      console.log(pkToDelete)
 
       const validateEstado   = pkToDelete.every((ot:any) => ot["estado_validacion"] === '2');
       const validateUsuario  = pkToDelete.every((ot:any) => ot["usuario_id"] === User.id);
       const validateProyecto = pkToDelete.every((ot:any) => ot["proyecto_codigo"] === pkToDelete[0]["proyecto_codigo"]);
 
       const foliosMensaje = pkToDelete && pkToDelete.map(({folio}:any)=>folio)
-
       
             if(!validateEstado){
               return toast.error(`Folio ${folios} no está validado correctamente`);
             }
 
 
-      console.log(validateEstado)
-
-      console.log(validateUsuario)
-
       if(!validateUsuario && OTAreas["areaActual"] === 50){
-        console.log('render')
         toast.error(`Folio ${foliosMensaje} no pertenece al Usuario ${User.nombre}`);
         return;
       }
@@ -412,27 +301,18 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
 
       }
 
-
-
-
-      console.log(validateEstado)
-
       if(OTAreas["areaActual"] === 90){
         const filterPkToDeleteFirmaEnvio = pkToDelete.filter((OT:any)=> (OT.numero_envio === '0' || OT.numero_envio === null) && (OT.numero_reporte_firma === 0))
-
         const filterPkToDeleteGuia       = pkToDelete.filter((OT:any)=> OT.numero_guia === 0)
   
         if(filterPkToDeleteFirmaEnvio.length > 0){
           const folios = filterPkToDeleteFirmaEnvio.map((OT:any) => OT.folio)
-          console.log(folios)
           const resultFirmaEnvio = confirm('Los siguientes folios no tienen Número de envío o Reporte de fírmas: ' + "\n" +folios + "\n¿Desea Continuar?");
           if(!resultFirmaEnvio){
             return;
           }
         }
 
-
-  
         if(filterPkToDeleteGuia.length > 0){
           const folios = filterPkToDeleteGuia.map((OT:any)=>OT.folio)
           const resultFirmaEnvio = confirm('Los siguientes folios no tienen Número de Guía: '+ "\n" + folios + "\n¿Desea Continuar?");
@@ -441,7 +321,6 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
           }
         }
       }
-
       const toastLoading = toast.loading('Cargando...');
 
       pkToDelete.map((ot:any)=>{
@@ -449,12 +328,10 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
           if(ot.numero_envio !== '0'){
             estado = 50
           }
-
           if(ot.numero_reporte_firma !== 0){
             estado = 20
           }
         }
-
 
         updateOT(
           [],
@@ -484,108 +361,13 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
     }
 
 
-    // const handleReporteFirma = async() => {
-    //   let resultBoton:any = []
-  
-    //   if(pkToDelete.length < 1){
-    //     toast.error('No Hay OT Seleccionada')
-    //     return;
-    //   }
-
-    //   console.log(pkToDelete)
-
-    //   console.log(parseInt(pkToDelete[0]["numero_envio"]) !== 0)
-    //   console.log(pkToDelete[0]["numero_envio"] !== null)
-
-    //   if(parseInt(pkToDelete[0]["numero_envio"]) !== 0 && pkToDelete[0]["numero_envio"] !== null){
-    //     console.log('render')
-    //     return toast.error(`OT ${pkToDelete[0]["folio"]} ya tiene un número de envío asignado `)
-    //   }
-
-    //   if(parseInt(pkToDelete[0]["numero_reporte_firma"]) !== 0){
-    //     const result = await showModal(
-    //       `OT: ${pkToDelete[0]["folio"]} Tiene Reporte de Firmas asignado, ¿Desea agregar uno nuevo? `,
-    //       '', 
-    //       MODAL.keepYes,
-    //       MODAL.kepNo
-    //     );
-
-
-    //     if(!result){
-    //       setSelectedRows([])
-    //       return
-    //     }
-
-    //   }
-      
-    //   console.log('render')
-     
-    //   const resultadoFiltrado = OTs.data && OTs.data.filter((elemento:any) => folios.includes(elemento[1])); 
-     
-    //   resultadoFiltrado.map((ot:any)=>{
-    //     const estadoCOL = ot[4]
-    //     if(estadoCOL !== 'Anulada'){
-    //        resultBoton =  [...resultBoton, [ot[1], true]]
-    //     }else{
-    //         resultBoton =  [...resultBoton, [ot[1], ot[4]]]
-    //     }
-    //   })
-      
-    //   const areAllSameType = resultBoton.every((item:any) => item[1] === true);
-  
-    //   if(!areAllSameType){
-    //     resultBoton.map((ot:any)=>{
-    //         if(typeof ot[1] === 'string'){
-    //           toast.error(`Error: folio ${ot[0]}  | ${ot[1]}`);
-    //         }
-    //       } 
-    //     ) 
-    //   }else{  
-    //       const toastLoading = toast.loading('Cargando...');
-    //     try {
-    //       const query = {
-    //         _proyecto   :    pkToDelete[0]["proyecto_codigo"],
-    //         _pkToDelete :   JSON.stringify(resultBoton.map((folioOT:any)=>({folio: folioOT[0]}))),
-    //         _id         :   2,
-    //         _usuario    :   userState["id"]
-    //       }
-    
-    //       const strUrl      = `${URLBackend}/api/proyectodocum/listado`
-    //       const queryURL    = `?query=06&_p2=${query["_proyecto"]}&_id=${query["_id"]}&_pkToDelete=${query["_pkToDelete"]}&_p4=${query["_usuario"]}`
-    //       const result      = await axios(`${strUrl}/${queryURL}`,{
-    //         headers:  {
-    //           'Authorization': User.token, 
-    //         }
-    //       });
-    //       console.log(result)        
-    //       if(result.status === 200){
-    //         const successMessage = `Reporte firma generado: ${result.data[0][0]}`
-
-    //         dispatch(fetchOT({searchParams: `_proyecto=${query["_proyecto"]}`}))
-    //         setSelectedRows([])
-    //         toast.dismiss(toastLoading)
-    //         toast.success(successMessage)
-    //     }
-    //     } catch (error) {
-    //       toast.dismiss(toastLoading)
-    //       console.log(error)
-    //       throw error;
-    //     }
-    //   }
-    // }
-
-
-
     const handleProcesarConfirm = async(folio:any) => {
       try {
-          console.log(folio)
         const result = await axios(`${URLBackend}/api/ot/listado/?query=01&_folio=${folio}`,{
           headers: {
             'Authorization': User.token, 
           }
         });
-
-        console.log(result)
 
         if(result.data.length === 0){
           setValueConfirmOT('')
@@ -599,10 +381,8 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
         }
 
         dataOTSignal.value = result.data 
-
         setIsFOTValidarBodega(true)
       } catch (error:any) {
-        console.log(error)
         toast.error(error)
         setIsFOTValidarBodega(false)
       }
@@ -610,8 +390,6 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
 
     }
 
-
-    console.log(valueConfirmOT)
     return (
     <div className='flex items-center   ml-[4rem] !w-full'>
         { (areaPermissions && areaPermissions[0] === "1" ) && (permisos_usuario_areas === '1') && (
@@ -691,7 +469,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
 
         {areaPermissions && areaPermissions[14] === '1' && permisos_usuario_areas === '1' && (
           <Tooltip content={'Generar Reporte de Firmas'}>
-            <Button className='otActionButton mt-3 mx-5'onClick={() => setIsFOTReporeFirma((prev)=>!prev)}>N° Rep. Firma</Button>  
+            <Button className='otActionButton mt-3 mx-5 'onClick={() => setIsFOTReporeFirma((prev)=>!prev)}>N° Rep. Firma</Button>  
           </Tooltip>
         )}
 
@@ -732,10 +510,6 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
           </Suspense>
         )}
 
-
-        {/* {areaPermissions && areaPermissions[0] === "1" && escritura_lectura && (
-        )} */}
-
           <div className='ml-2'>
             <Input 
               type="text" 
@@ -760,7 +534,6 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
                 color='orange'  
                 value={valueConfirmOT}
                 onChange={(e:any)=>{
-                  console.log(e.target.value)
                   setValueConfirmOT(e.target.value === '' ? e.target.value : parseInt(e.target.value))
                 }} 
                 onBlur={(e:any)=> handleProcesarConfirm(parseInt(e.target.value))} 

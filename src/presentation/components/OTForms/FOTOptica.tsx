@@ -177,6 +177,7 @@ return (
                         entidad={["/api/proyectos/", "07", userID]}
                         // error={errors.establecimiento}
                         customWidth={"345px"}
+                        onlyFirstOption={ isEditting}
                         readOnly={isEditting || inputOnlyReadReserva.value}
                     />
                 </div>
@@ -211,7 +212,7 @@ return (
                         // data={data && data[EnumGrid.establecimiento_id]}
                         control={control}
                         entidad={["/api/puntosventa/", "06", codigoProyecto.value, `_p2=${userID}`]}
-                        // error={errors.establecimiento}
+                        onlyFirstOption={ isEditting}
                         customWidth={"345px"}
                         readOnly={isEditting || inputOnlyReadReserva.value}
                     />

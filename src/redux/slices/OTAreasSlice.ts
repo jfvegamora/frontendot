@@ -12,7 +12,6 @@ export interface IOTAreas {
 
 const initialState: IOTAreas | null = {
     areas: localStorage.getItem("OTAreas") ? JSON.parse(localStorage.getItem("OTAreas") as string): [],
-    // areaActual: localStorage.getItem('areaActual') ? JSON.parse(localStorage.getItem('areaActual') as string) : null,
     areaActual: 40,
     areaSiguiente: localStorage.getItem('areaSiguiente') ? JSON.parse(localStorage.getItem('areaSiguiente') as string) : 50,
   };
@@ -39,7 +38,6 @@ const funcionalidadesSlice = createSlice({
     reducers: {
         updateActualArea: (state, action:any) => {
             if (state) {
-                console.log(action.payload)
                 return {
                     ...state,
                     areaActual: action.payload,
