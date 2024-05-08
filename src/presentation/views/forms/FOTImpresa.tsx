@@ -3,7 +3,7 @@ import { AppStore, useAppSelector } from '../../../redux/store';
 import { EnumGrid } from '../mantenedores/MOTHistorica';
 import Barcode from 'react-barcode';
 
-import { formatNumberWithZeros, tipo_de_anteojo } from '../../utils';
+import { formatNumberWithZeros } from '../../utils';
 import FOTTicketImpresion from './FOTTicketImpresion';
 import FOTTicketQRImpresion from './FOTTicketQRImpresion';
 import LogoImagenImpresion from '../../components/LogoImagenImpresion';
