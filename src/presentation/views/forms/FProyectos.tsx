@@ -19,6 +19,7 @@ import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
 import { toast } from 'react-toastify'
 import ContactComponent from "../../components/ContactComponent";
+import ProyectoComponent from "../../components/ProyectoComponent";
 import FrameComponent from "../../components/FrameComponent";
 import { Button } from "@material-tailwind/react";
 
@@ -41,7 +42,9 @@ interface InputData {
   avance: string | undefined;
   cantidad_requerida: string | undefined;
   presupuesto: string | undefined;
-  cantidad_atendida: string | undefined;
+  cantidad_en_proceso: string | undefined;
+  total_en_proceso: string | undefined;
+  cantidad_facturada: string | undefined;
   total_facturado: string | undefined;
   cantidad_disponible: string | undefined;
   saldo_disponible: string | undefined;
@@ -250,7 +253,9 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
       setValue("fecha_termino", "");
       setValue("dias_entrega", "");
       setValue("cantidad_requerida", "");
-      setValue("cantidad_atendida", "");
+      setValue("cantidad_en_proceso", "");
+      setValue("total_en_proceso", "");
+      setValue("cantidad_facturada", "");
       setValue("total_facturado", "");
       setValue("cantidad_disponible", "");
       setValue("saldo_disponible", "");
@@ -615,12 +620,71 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
               </div>
             </div>
 
-            <div className="w-full items-center flex h-[80px] mt-[25px] mb-[10px]">
+            <div className="w-full items-center flex h-[110px] ">
+              <FrameComponent>
+                <ProyectoComponent
+                  label="Presupuesto Convenio"
+                  control={control}
+                  errors={errors}
+                  cant="Cant."
+                  total="$ Total"
+                  porcentaje="%"
+                  dataCant={data && data[EnumGrid.CANTIDAD_REQUERIDA]}
+                  dataTotal={data && data[EnumGrid.TOTAL_REQUERIDO]}
+                  dataPorcentaje='100%'
+                  isOptional={true}
+                />
+              </FrameComponent>
+              <FrameComponent>
+                <ProyectoComponent
+                  label="OT por Facturar"
+                  control={control}
+                  errors={errors}
+                  cant="Cant."
+                  total="$ Total"
+                  porcentaje="%"
+                  dataCant={data && data[EnumGrid.CANTIDAD_EN_PROCESO]}
+                  dataTotal={data && data[EnumGrid.TOTAL_EN_PROCESO]}
+                  dataPorcentaje={data && data[EnumGrid.PORC_EN_PROCESO]}
+                  isOptional={true}
+                />
+              </FrameComponent>
+              <FrameComponent>
+                <ProyectoComponent
+                  label="OT Facturadas"
+                  control={control}
+                  errors={errors}
+                  cant="Cant."
+                  total="$ Total"
+                  porcentaje="%"
+                  dataCant={data && data[EnumGrid.CANTIDAD_FACTURADA]}
+                  dataTotal={data && data[EnumGrid.TOTAL_FACTURADO]}
+                  dataPorcentaje={data && data[EnumGrid.PORC_FACTURADO]}
+                  isOptional={true}
+                />
+              </FrameComponent>
+              <FrameComponent>
+                <ProyectoComponent
+                  label="Saldo Convenio"
+                  control={control}
+                  errors={errors}
+                  cant="Cant."
+                  total="$ Total"
+                  porcentaje="%"
+                  dataCant={data && data[EnumGrid.CANTIDAD_DISPONIBLE]}
+                  dataTotal={data && data[EnumGrid.TOTAL_DISPONIBLE]}
+                  dataPorcentaje={data && data[EnumGrid.PORC_DISPONIBLE]}
+                  isOptional={true}
+                />
+              </FrameComponent>
+            </div>
+
+            {/* <div className="w-full items-center flex h-[80px] mt-[25px] mb-[10px]">
               <div className="input-container items-center rowForm w-[16%]">
                 <div className="w-full mr-2">
                   <TextInputComponent
                     type="number"
-                    label="Cantidad Requerida"
+                    label="Requerido"
                     name="cantidad_requerida"
                     data={data && data[EnumGrid.CANTIDAD_REQUERIDA]}
                     control={control}
@@ -635,7 +699,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                 <div className="w-full mr-2">
                   <TextInputComponent
                     type="number"
-                    label="Presupuesto $"
+                    label="$ Presupuesto"
                     name="presupuesto"
                     data={data && data[EnumGrid.PRESUPUESTO]}
                     control={control}
@@ -649,9 +713,9 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                 <div className="w-full mr-2">
                   <TextInputComponent
                     type="number"
-                    label="Cantidad Atendida"
-                    name="cantidad_atendida"
-                    data={data && data[EnumGrid.CANTIDAD_ATENDIDA]}
+                    label="En Proceso"
+                    name="cantidad_en_proceso"
+                    data={data && data[EnumGrid.CANTIDAD_EN_PROCESO]}
                     control={control}
                     onlyRead={true}
                     textAlign="text-center"
@@ -663,7 +727,34 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                 <div className="w-full mr-2">
                   <TextInputComponent
                     type="number"
-                    label="Total Facturado $"
+                    label="$ en Proceso"
+                    name="total_en_proceso"
+                    data={data && data[EnumGrid.TOTAL_EN_PROCESO]}
+                    control={control}
+                    onlyRead={true}
+                    textAlign="text-right"
+                  />
+                </div>
+              </div>
+              <div className="input-container items-center rowForm w-[16%]">
+                <div className="w-full mr-2">
+                  <TextInputComponent
+                    type="number"
+                    label="Facturada"
+                    name="cantidad_facturada"
+                    data={data && data[EnumGrid.CANTIDAD_FACTURADA]}
+                    control={control}
+                    onlyRead={true}
+                    textAlign="text-center"
+                  />
+                </div>
+
+              </div>
+              <div className="input-container items-center rowForm w-[16%]">
+                <div className="w-full mr-2">
+                  <TextInputComponent
+                    type="number"
+                    label="$ Facturado"
                     name="total_facturado"
                     data={data && data[EnumGrid.TOTAL_FACTURADO]}
                     control={control}
@@ -676,7 +767,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                 <div className="w-full mr-2">
                   <TextInputComponent
                     type="number"
-                    label="Cantidad Disponible"
+                    label="Disponible"
                     name="cantidad_disponible"
                     data={data && data[EnumGrid.CANTIDAD_DISPONIBLE]}
                     control={control}
@@ -689,7 +780,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                 <div className="w-full mr-2">
                   <TextInputComponent
                     type="number"
-                    label="Saldo Disponible $"
+                    label="$ Saldo"
                     name="saldo_disponible"
                     data={data && data[EnumGrid.SALDO_DISPONIBLE]}
                     control={control}
@@ -712,8 +803,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                   />
                 </div>
               </div>
-
-            </div>
+            </div> */}
 
 
             <div className="w-full items-center flex h-[90px] mt-[25px] !mb-[40px]">

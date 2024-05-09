@@ -335,8 +335,9 @@ export const validationProyectosSchema = () =>
     avance: yup.string().default("0"),
     cantidad_requerida: yup.string().default("0"),
     presupuesto: yup.string().default("0"),
-
-    cantidad_atendida: yup.string().default("0"),
+    cantidad_en_proceso: yup.string().default("0"),
+    total_en_proceso: yup.string().default("0"),
+    cantidad_facturada: yup.string().default("0"),
     total_facturado: yup.string().default("0"),
     cantidad_disponible: yup.string().default("0"),
     saldo_disponible: yup.string().default("0"),

@@ -304,7 +304,7 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
                   showRefresh={true}
                   data={data && data[EnumGrid.almacen_armazones_id]}
                   control={control}
-                  entidad={["/api/almacenes/", "02", "1"]}
+                  entidad={["/api/almacenes/", "02", `1&_p3=2`]}
                   error={errors.almacen_armazones}
                   customWidth={"w-full ml-4"}
                 />
@@ -318,7 +318,7 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
                   showRefresh={true}
                   data={data && data[EnumGrid.almacen_cristales_id]}
                   control={control}
-                  entidad={["/api/almacenes/", "02", "2"]}
+                  entidad={["/api/almacenes/", "02", `2&_p3=2`]}
                   error={errors.almacen_cristales}
                   customWidth={"w-full ml-4"}
                 />
@@ -332,7 +332,7 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
                   showRefresh={true}
                   data={data && data[EnumGrid.almacen_accesorios_id]}
                   control={control}
-                  entidad={["/api/almacenes/", "02", "3"]}
+                  entidad={["/api/almacenes/", "02", `3&_p3=2`]}
                   error={errors.almacen_accesorios}
                   customWidth={"w-full ml-4"}
                 />
