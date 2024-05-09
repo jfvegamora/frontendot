@@ -56,9 +56,12 @@ const TextInputInteractive: React.FC<ITextInputProps> = ({
   const [value, setValue] = useState<any>(data || "");
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(e)
     if (handleChange) {
+      console.log(e.target)
       if(isOT){
         handleChange(e.target)
+        console.log(e.target)
         setRender((prev)=>!prev)
       }else{
         handleChange(e.target.value)
@@ -111,9 +114,11 @@ return (
             readOnly={onlyRead}
             maxLength={maxLength}
             onBlur={(e) =>  {
+              console.log(e)
               handleInputChange(e)
             }}
             onChange={(e)=> {
+                console.log(e.target.value)
                 setValue(e.target.value)
                 setRender((prev)=>!prev)
                 if(validarBodega){

@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextInputComponent } from '.';
+import TextInputInteractive from './forms/TextInputInteractive';
 
 interface IProps{
     control:any
@@ -12,6 +12,8 @@ interface IProps{
     dataPorcentaje:any,
     label:string,
     isOptional?:boolean;
+    onlyRead?:boolean;
+    setValue?:any;
 }
 
 const ProyectoComponent:React.FC<IProps> = ({
@@ -24,7 +26,11 @@ const ProyectoComponent:React.FC<IProps> = ({
     porcentaje,
     dataPorcentaje,
     label,
+    onlyRead,
+    setValue,
+    isOptional
 }) => {
+
   return (
     <div className=" relative mx-4 w-full flex ">
         {/* <h1 className="absolute z-20 top-[-23%] labelForm w-[32%] px-2">{label}</h1> */}
@@ -33,42 +39,47 @@ const ProyectoComponent:React.FC<IProps> = ({
         </label>
                 <div className="input-container items-center rowForm w-[35%]">
                     <div className="w-[110%] mt-4 !p-0 -ml-4">
-                        <TextInputComponent
+                        <TextInputInteractive
                             type="number"
                             label="Cant."
                             name={cant}
                             data={dataCant}
                             control={control}
-                            // error={errors.cant_proyecto}
-                            isOptional={true}
+                            handleChange={(e)=>setValue('cantidad_requerida', e)}
+                            error={errors.cant_proyecto}
+                            onlyRead={onlyRead}
+                            isOptional={isOptional}
                             />
                     </div>
                 </div>
 
                 <div className="input-container items-center rowForm w-[40%]">
                     <div className="w-[120%] mt-4 -ml-8">
-                        <TextInputComponent
+                        <TextInputInteractive
                             type="number"
                             label="$ Total"
                             name={total}
                             data={dataTotal}
+                            handleChange={(e)=>setValue('presupuesto', e)}
                             control={control}
-                            // error={errors.total_proyecto}
-                            isOptional={true}
+                            error={errors.total_proyecto}
+                            onlyRead={onlyRead}
+                            isOptional={isOptional}
                             />
                     </div>
                 </div>
 
                 <div className="input-container items-center rowForm w-[35%]">
                     <div className="w-[110%] mt-4 -ml-8">
-                        <TextInputComponent
+                        <TextInputInteractive
                             type="number"
                             label="%"
                             name={porcentaje}
                             data={dataPorcentaje}
                             control={control}
-                            // error={errors.total_proyecto}
-                            isOptional={true}
+                            isOT={true}
+                            onlyRead={true}
+                            isOptional={isOptional}
                             />
                     </div>
                 </div>

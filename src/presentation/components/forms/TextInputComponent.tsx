@@ -74,8 +74,8 @@ const TextInputComponent: React.FC<ITextInputProps> = ({
   },[data])
 
 
-  if(name === 'valor_neto_total'){
-    console.log(data)
+  if(label === '$ Total'){
+    console.log(defaultValue)
   }
 
 // ...

@@ -147,10 +147,11 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
   return query;
 }
 export function transformUpdateQuery(
-  jsonData: InputData,
+  jsonData:InputData,
   primaryKey: string
 ): OutputData | null {
-  console.log(jsonData)
+
+
   const fields = [
     `codigo_licitacion          = "${jsonData.codigo_licitacion || ""}"`,
     `titulo                     = "${jsonData.titulo_proyecto}"`,
@@ -626,13 +627,15 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                   label="Presupuesto Convenio"
                   control={control}
                   errors={errors}
-                  cant="Cant."
-                  total="$ Total"
+                  cant="cantidad_requerida"
+                  total="presupuesto"
                   porcentaje="%"
                   dataCant={data && data[EnumGrid.CANTIDAD_REQUERIDA]}
                   dataTotal={data && data[EnumGrid.TOTAL_REQUERIDO]}
-                  dataPorcentaje='100%'
+                  dataPorcentaje={100}
+                  onlyRead={false}
                   isOptional={true}
+                  setValue={setValue}
                 />
               </FrameComponent>
               <FrameComponent>
@@ -647,6 +650,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                   dataTotal={data && data[EnumGrid.TOTAL_EN_PROCESO]}
                   dataPorcentaje={data && data[EnumGrid.PORC_EN_PROCESO]}
                   isOptional={true}
+                  onlyRead={true}
                 />
               </FrameComponent>
               <FrameComponent>
@@ -661,6 +665,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                   dataTotal={data && data[EnumGrid.TOTAL_FACTURADO]}
                   dataPorcentaje={data && data[EnumGrid.PORC_FACTURADO]}
                   isOptional={true}
+                  onlyRead={true}
                 />
               </FrameComponent>
               <FrameComponent>
@@ -675,6 +680,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                   dataTotal={data && data[EnumGrid.TOTAL_DISPONIBLE]}
                   dataPorcentaje={data && data[EnumGrid.PORC_DISPONIBLE]}
                   isOptional={true}
+                  onlyRead={true}
                 />
               </FrameComponent>
             </div>
