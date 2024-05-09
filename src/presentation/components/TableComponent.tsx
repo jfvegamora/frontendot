@@ -5,7 +5,7 @@ import { PencilIcon } from "@heroicons/react/24/solid";
 import { BsFillXSquareFill } from "react-icons/bs";
 import { BsPersonLock } from "react-icons/bs";
 import { usePermission } from "../hooks";
-import { BUTTON_MESSAGES, clearAllCheck } from "../utils";
+import { BUTTON_MESSAGES, clearAllCheck, clearIndividualCheck } from "../utils";
 import {ExportToPDF} from "./ExportToPDF";
 // import  ExportCSV  from "./ExportToCsv";
 import { AppStore, useAppSelector } from "../../redux/store";
@@ -161,7 +161,11 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
         <>
           <input
             checked={selectedRows && selectedRows.includes(id)}
-            onChange={() => handleSelectChecked && handleSelectChecked(id)}
+            // checked={}
+            onChange={() => {
+              clearIndividualCheck.value = !clearIndividualCheck.value 
+              handleSelectChecked && handleSelectChecked(id)
+            }}
             type="checkbox"
             className="mx-6"
             

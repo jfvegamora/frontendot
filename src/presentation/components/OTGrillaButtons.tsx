@@ -42,7 +42,7 @@ const FOTTicketQRImpresion   = React.lazy(()=>import('../views/forms/FOTTicketQR
 const FOTTicketImpresion     = React.lazy(()=>import('../views/forms/FOTTicketImpresion'));
 
 
-export  const setEstadoImpresion = async(folio:any,_estado:any, userID:any, _origen:any) => {
+export  const setEstadoImpresion = async(folio:any,_estado:any, userID:any, _origen:any, masivo?:boolean) => {
     try {
         const query = `?query=06&_folio=${folio}&_p2=${1}&_estado=${_estado}&_usuario=${userID.id}&_origen=${_origen}`
         const result = await axios(`${strUrl}/${query}`,{
@@ -51,13 +51,19 @@ export  const setEstadoImpresion = async(folio:any,_estado:any, userID:any, _ori
              }
        });
         console.log(result)
-        if(result.status === 200){
+        if(masivo){
+            return ;
+        }
+
+        if(result.status === 200 && !masivo){
             // console.log(result)
+            console.log('render')
             result.data[0][0]  === 1 ? isToggleImpression.value = true : isToggleImpression.value = false;
-            toast.success('Estado cambiado')
+            toast.success('Estado Impresión Cambiado.')
         }
     } catch (error) {
-        // console.log(error)
+        if(masivo) return;
+        toast.error('Error Estado Impresión OT.')
         throw error
     }
 }

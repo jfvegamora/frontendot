@@ -20,6 +20,7 @@ import { EnumGrid } from '../views/mantenedores/MOTHistorica';
 import { checkCount, paramsOT } from '../views/mantenedores/MOT';
 import { signal } from '@preact/signals-react';
 import { focusFirstInput } from '../components/OTForms/FOTValidarBodega';
+import { setEstadoImpresion } from './OTGrillaButtons';
 
 type AreaButtonsProps ={
     areaName:string;
@@ -32,7 +33,8 @@ type AreaButtonsProps ={
     setSelectedRows?:any
   }
   
-export const dataOTSignal = signal([])
+export const dataOTSignal = signal([]);
+export const isFinishImpression = signal(false);
 const strEntidad = "Ordenen de Trabajo";
 const strBaseUrl = "/api/ot/";
 
@@ -90,7 +92,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
     const [isFOTEmpaque, setIsFOTEmpaque]             = useState(false);
     const [isFOTGuia, setIsFOTGuia]                   = useState(false);
     const [isFOTImpresa, setIsFOTImpresa]             = useState(false);
-    const [isFotTicketRetiro, setisFotTicketRetiro]   = useState(false);
+    const [isFotTicketRetiro, _setisFotTicketRetiro]   = useState(false);
     const [isFOTValidarBodega, setIsFOTValidarBodega] = useState(false);
     const [isFOTReporteFirma, setIsFOTReporeFirma]    = useState(false);
     const [dataOT, setDataOT]                         = useState();
@@ -112,36 +114,48 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
       onAfterPrint() {
         dispatch(clearImpression())
         console.log('Impresión finalizada'); // Mensaje en español
-        return new Promise<void>((resolve) => {
-          window.onafterprint = () => resolve();
-        });
+        isFinishImpression.value = true;
       },
     
     });
 
     
-    const handleComprobantePrint = useReactToPrint({
-      content: () => SecondcomponentRef.current,
-      suppressErrors: true,
-      removeAfterPrint: true,
-      onAfterPrint(){
-          setIsFOTImpresa(false)
-          setisFotTicketRetiro(false)
-          dispatch(clearImpression())
-      }
-    })
+    // const handleComprobantePrint = useReactToPrint({
+    //   content: () => SecondcomponentRef.current,
+    //   suppressErrors: true,
+    //   removeAfterPrint: true,
+    //   onAfterPrint(){
+    //       setIsFOTImpresa(false)
+    //       setisFotTicketRetiro(false)
+    //       dispatch(clearImpression())
+    //   }
+    // })
 
-    const handleImpresionMasivo = async () => {
-      console.log(pkToDelete);
-    
-
+    const handleImpresionMasivo = async () => {      
+      const toastLoading = toast.loading('Imprimiendo OT´s.')
       const primerProyectoCodigo = pkToDelete[0].proyecto_codigo;
-      const todosIguales = pkToDelete.slice(1).every((ot:any) => ot.proyecto_codigo === primerProyectoCodigo);
+      const todosIguales          = pkToDelete.slice(1).every((ot:any) => ot.proyecto_codigo === primerProyectoCodigo);
+      const impresaAnteriormente  = pkToDelete.every((ot:any) => ot.estado_impresion === '0');
+      const validateUsuario       = pkToDelete.every((ot:any) => ot["usuario_id"] === User.id);
+
+      if(!validateUsuario){
+        toast.dismiss(toastLoading);
+        toast.error(`OT ${folios} no pertenece al Usuario ${User.nombre}`);
+        return;
+      }
+
+      
+      if(!impresaAnteriormente){
+        toast.dismiss(toastLoading);
+        return toast.error(`La OT con folio: ${pkToDelete.filter((ot:any)=> ot.estado_impresion === '1').map((ot:any)=>ot.folio)}, ya fueron impresas anteriormente.`)
+        
+      }
 
       if(!todosIguales){
         toast.error('Las OTs no pertenecen al mismo proyecto')
         return;
       }
+
 
       for (const ot of pkToDelete) {
         try {
@@ -153,8 +167,16 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
           console.log(error);
         }
       }
-      
-      handlePrint()
+
+
+        try {
+          handlePrint()
+          console.log(pkToDelete)
+          toast.dismiss(toastLoading)
+        } catch (error) {
+          toast.dismiss(toastLoading)
+          return;    
+        }
     };
 
     React.useEffect(()=>{
@@ -164,6 +186,33 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
         setValueConfirmOT('')
       }
     },[isFOTValidarBodega, focusFirstInput])
+
+
+    React.useEffect(()=>{
+      
+      if(isFinishImpression.value === true){
+        if(pkToDelete.length >= 1){
+          let masivo = true
+          pkToDelete.map((ot:any)=>{
+            try {
+                console.log(ot.folio)
+                setEstadoImpresion(ot.folio,1,User,OTAreas["areaActual"],masivo).then(()=>{
+                })            
+              } catch (error) {
+                console.log(error)
+                
+              }
+           })}
+      }
+      // toast.success('Estado Impresión Cambiado.');
+      dispatch(fetchOT({OTAreas:OTAreas["areaActual"],searchParams: paramsOT.value}))
+      clearAllCheck.value = false;
+      isFinishImpression.value = false;
+    },[isFinishImpression.value])
+
+
+
+
 
     const renderButton = useCallback(
       (icon: React.ReactNode, handle: () => void, tooltip: string) => (
@@ -182,33 +231,33 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
     );
 
     
-    const imprimirComprobanteRetiro = async() => {
-      const loadingToast = toast.loading('Imprimiendo Comprobante Retiro...');
+    // const imprimirComprobanteRetiro = async() => {
+    //   const loadingToast = toast.loading('Imprimiendo Comprobante Retiro...');
 
-      pkToDelete.map(async(OT:any)=>{
-        try {
-            const {data, status} = await axios.get(`${URLBackend}/api/ot/listado/?query=01&_origen=${OTAreas['areaActual']}&_folio=${OT.folio}`,{
-              headers: {
-                 'Authorization': User.token, 
-               }
-         });
-            console.log(data[0] && data[0][EnumGrid.imprime_ticket])
-            console.log(status)
-            if(data[0] && data[0][EnumGrid.imprime_ticket]){
-                console.log('imprmiendo')
-                await dispatch(fetchOTImpresionByID({ folio: OT.folio, OTAreas: OTAreas['areaActual'] }));
-                handleComprobantePrint()
-            }
-            toast.dismiss(loadingToast);
-        } catch (error) {
-            toast.dismiss(loadingToast);
-            throw error
-        }
+    //   pkToDelete.map(async(OT:any)=>{
+    //     try {
+    //         const {data, status} = await axios.get(`${URLBackend}/api/ot/listado/?query=01&_origen=${OTAreas['areaActual']}&_folio=${OT.folio}`,{
+    //           headers: {
+    //              'Authorization': User.token, 
+    //            }
+    //      });
+    //         console.log(data[0] && data[0][EnumGrid.imprime_ticket])
+    //         console.log(status)
+    //         if(data[0] && data[0][EnumGrid.imprime_ticket]){
+    //             console.log('imprmiendo')
+    //             await dispatch(fetchOTImpresionByID({ folio: OT.folio, OTAreas: OTAreas['areaActual'] }));
+    //             handleComprobantePrint()
+    //         }
+    //         toast.dismiss(loadingToast);
+    //     } catch (error) {
+    //         toast.dismiss(loadingToast);
+    //         throw error
+    //     }
 
 
-      })
+    //   })
 
-    }
+    // }
       
     
 
@@ -280,15 +329,16 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
     const handleProcesarMasivo = () => {
       let estado = 0
 
-      const validateEstado   = pkToDelete.every((ot:any) => ot["estado_validacion"] === '2');
-      const validateUsuario  = pkToDelete.every((ot:any) => ot["usuario_id"] === User.id);
-      const validateProyecto = pkToDelete.every((ot:any) => ot["proyecto_codigo"] === pkToDelete[0]["proyecto_codigo"]);
+      const validateEstado           = pkToDelete.every((ot:any) => ot["estado_validacion"] === '2');
+      const validateUsuario          = pkToDelete.every((ot:any) => ot["usuario_id"] === User.id);
+      const validateProyecto         = pkToDelete.every((ot:any) => ot["proyecto_codigo"] === pkToDelete[0]["proyecto_codigo"]);
+      const validateEstadoImpresion  = pkToDelete.every((ot:any)=>ot["estado_impresion"] === '1');
 
       const foliosMensaje = pkToDelete && pkToDelete.map(({folio}:any)=>folio)
       
-            if(!validateEstado){
-              return toast.error(`Folio ${folios} no está validado correctamente`);
-            }
+      if(!validateEstado){
+        return toast.error(`Folio ${folios} no está validado correctamente`);
+      }
 
 
       if(!validateUsuario && OTAreas["areaActual"] === 50){
@@ -298,8 +348,14 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
 
       if(!validateProyecto){
         return toast.error(`Folio ${folios} deben pertenecer al mismo proyecto`);
-
       }
+
+      if(!validateEstadoImpresion){
+        return toast.error(`OT ${pkToDelete.filter((ot:any)=> ot.estado_impresion === '0').map((ot:any)=>ot.folio)} no ha sido impresa.`) 
+      }
+
+
+
 
       if(OTAreas["areaActual"] === 90){
         const filterPkToDeleteFirmaEnvio = pkToDelete.filter((OT:any)=> (OT.numero_envio === '0' || OT.numero_envio === null) && (OT.numero_reporte_firma === 0))
@@ -506,7 +562,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
 
         {isFOTValidarBodega && (
           <Suspense>
-            <FOTValidarBodega  handleClose={()=>setIsFOTValidarBodega(false)}/>
+            <FOTValidarBodega pkToDelete={pkToDelete}  handleClose={()=>setIsFOTValidarBodega(false)}/>
           </Suspense>
         )}
 

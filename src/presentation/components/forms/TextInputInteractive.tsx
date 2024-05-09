@@ -72,12 +72,22 @@ const TextInputInteractive: React.FC<ITextInputProps> = ({
   };
   
   useEffect(()=>{
-    if(data){
-        setDefaultValue(data)
-        setValue(data)
-        setRender((prev)=>!prev)
+    // if(data){
+    //     setDefaultValue(data)
+    //     setValue(data)
+    //     setRender((prev)=>!prev)
 
-    }
+    // }
+    if (data !== undefined) {
+      if (data === "") {
+          setDefaultValue("");
+          setValue("");
+      } else {
+          setDefaultValue(data);
+          setValue(data);
+      }
+      setRender(prev => !prev);
+  }
   },[data])
 
 

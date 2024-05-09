@@ -51,6 +51,7 @@ import FOTAnulacion from '../../components/OTForms/FOTAnulacion';
 import { useModal } from '../../hooks/useModal';
 import { paramsOT } from '../mantenedores/MOT';
 import { EnumAreas } from '../../components/OTPrimaryButtons';
+import { usePermissionOT } from '../../hooks/usePermissionOT';
 // import { EnumAreas } from '../../components/OTPrimaryButtons';
 
 const FOTArmazones = lazy(()=>import('../../components/OTForms/FOTArmazones'));
@@ -93,8 +94,8 @@ const FOT:React.FC<IFOTProps> = ({
     const { control, handleSubmit, setValue, register, getValues } = useForm<any>();
     const [formValues, setFormValues] = useState<any>({});
 
-    const [changeboolean, setChangeboolean]  = useState(false)
-    const [isMotivo, setIsMotivo]            = useState(false);
+    const [_changeboolean, setChangeboolean]  = useState(false)
+    const [_isMotivo, setIsMotivo]            = useState(false);
     
     const [isFOTEmpaque, setIsFOTEmpaque]     = useState(false);
 
@@ -127,6 +128,7 @@ const FOT:React.FC<IFOTProps> = ({
   const dispatch = useAppDispatch()
 
 
+  const permissionsOT = usePermissionOT();
   
  
   // const OT:any = useAppSelector((store: AppStore) => store.OTS.ot);

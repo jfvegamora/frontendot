@@ -23,11 +23,13 @@ export const focusFirstInput = (strInputName: string, ref: React.RefObject<any>)
   };
 
 interface IFOTValidarBodega{
-    handleClose?:any
+    handleClose?:any,
+    pkToDelete?:any
 }
 
 const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
-    handleClose
+    handleClose,
+    pkToDelete
 }) => {
     const [formValues, setFormValues] = React.useState();
     const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas);
@@ -212,6 +214,15 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
     const onSubmit = (e:any) => {
         e.preventDefault();
         const toastLoading = toast.loading('Cargando...');
+
+
+        if(OT[EnumGrid.estado_impresion_id] === '0'){
+            toast.dismiss(toastLoading)
+            return toast.error(`OT ${pkToDelete.filter((ot:any)=> ot.estado_impresion === '0').map((ot:any)=>ot.folio)} no ha sido impresa.`) 
+          }
+    
+
+
         updateOT(
             [],
             OTAreas["areaActual"],

@@ -157,7 +157,7 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
     switch (e.target.name) {
       case 'a1_od_esf':
         if((Number(e.target.value).toFixed(2) as any % 0.25 !== 0)){
-          toast.error('Esferico ojo derecho no corresponde')
+          toast.error('Esférico OD no corresponde.')
           a1_od_esf.value = "  "
           setValue("  ")
           return;
@@ -170,7 +170,7 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
        if(parsedValueOD >0){
           null
         }else if(!(parsedValueOD <=0 && parsedValueOD % 0.25 === 0)){
-          toast.error('Cilindrico ojo derecho no corresponde')
+          toast.error('Cilindrico OD no corresponde.')
           dioptrias_receta.value.a1_od.cil = " "
           setValue("  ")
         }
@@ -183,7 +183,7 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
             setValue(' ')
             setRender((prev)=>!prev)  
             validation_A1_OD_EJE("")
-            toast.error('Esferico ojo derecho no corresponde')
+            toast.error('Esférico OD no corresponde.')
             return
           }else{
             setRender((prev)=>!prev)             
@@ -191,7 +191,7 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
             return
           }
         }else{
-          toast.error('Esferico ojo derecho no corresponde')
+          toast.error('Esférico OD no corresponde.')
           dioptrias_receta.value.a1_od.eje = "  "
           a1_od_eje.value = " "
           setRender((prev)=>!prev)  
@@ -201,7 +201,7 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
         }
       case 'a1_od_ad':
         if(!(parseFloat(e.target.value) >= 0.25 && parseFloat(e.target.value) <= 4)) {
-            toast.error('Adicional ojo derecho no corresponde')
+            toast.error('Adición OD no corresponde.')
             dioptrias_receta.value.a1_od.ad = "  "
             setValue("  ")
             return;
@@ -210,7 +210,7 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
       
       case 'a1_oi_esf':
         if((Number(e.target.value).toFixed(2) as any % 0.25 !== 0)){
-          toast.error('Esferico ojo izquierdo no corresponde')
+          toast.error('Esférico OI no corresponde.')
           a1_oi_esf.value = " "
           setValue("  ")
           return;
@@ -222,7 +222,7 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
         if(parsedValueOI > 0){
           null
         }else if(!(parsedValueOI <= 0 && parsedValueOI % 0.25 === 0)){
-          toast.error('Cilindrico ojo izquierdo no corresponde')  
+          toast.error('Cilindrico OI no corresponde.')  
           dioptrias_receta.value.a1_oi.cil = "  "
           setValue("  ")
         }
@@ -234,7 +234,7 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
             setValue(' ')
             setRender((prev)=>!prev)
             validation_A1_OI_EJE("")
-            toast.error('Esferico ojo izquierdo no corresponde')
+            toast.error('Esférico OI no corresponde.')
             return;
           }else{
             setRender((prev)=>!prev)
@@ -242,7 +242,7 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
             return;
           }
         }else{
-          toast.error('Esferico ojo izquierdo no corresponde')
+          toast.error('Esférico OI no corresponde.')
           dioptrias_receta.value.a1_oi.eje = "  "
           a1_oi_eje.value = " "
           setValue(" ")
@@ -251,7 +251,7 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
         }
       case 'a1_oi_ad':
         if(!(parseFloat(e.target.value) >= 0.25 && parseFloat(e.target.value) <= 4)) {
-          toast.error('Adicional ojo izquierdo no corresponde')
+          toast.error('Adición OI no corresponde.')
           dioptrias_receta.value.a1_oi.ad = "  "
           setValue("  ")
           return;
@@ -274,7 +274,7 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
       case 'validar_cristal1_od':
         if(A1_CR_OD.value.trim() !== validar_cristal1_od.value.trim()){
           if(value.trim() !== ''){
-            toast.error('Códigos Cristal Ojo Derecho no coinciden')
+            toast.error('Códigos Cristal OD no coinciden.')
             setValue(' ')
             validar_cristal1_od.value = " "
           }
@@ -283,7 +283,7 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
       case 'validar_cristal1_oi':
         if(A1_CR_OI.value.trim() !== validar_cristal1_oi.value.trim()){
           if(value.trim() !== ''){
-            toast.error('Códigos Cristal Ojo Izquierdo no Coinciden')
+            toast.error('Códigos Cristal OI no coinciden.')
             setValue(' ')
             validar_cristal1_oi.value = " "
           }
@@ -292,7 +292,7 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
       case 'validar_cristal2_oi':
         if(A2_CR_OI.value.trim() !== validar_cristal2_oi.value.trim()){
           if(value.trim() !== ""){
-            toast.error('Códigos Cristal Ojo Izquierdo no Coinciden')
+            toast.error('Códigos Cristal OI no coinciden.')
             setValue(' ')
             validar_cristal2_oi.value = " "
           }
@@ -302,7 +302,7 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
         if(A2_CR_OD.value.trim() !== validar_cristal2_od.value.trim()){
 
           if(value.trim() !== ""){
-            toast.error('Códigos Cristal Ojo Derecho no Coinciden')
+            toast.error('Códigos Cristal OD no coinciden.')
             setValue(' ')
             validar_cristal2_od.value = " "
           }

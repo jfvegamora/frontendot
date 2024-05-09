@@ -43,7 +43,7 @@ const rutBeneficiarioSignal  = signal('');
 const emptyBeneficiariosData = signal(true);
 
 
-const Scanner:React.FC<any> = ({setIsScanning, inputsRef}) => {
+const Scanner:React.FC<any> = ({setIsScanning}) => {
 
   useEffect(() => {
     Quagga.init({
@@ -629,12 +629,7 @@ useEffect(()=>{
   })
 },[])
 
-
-
-  console.log(emptyDataBase.value)
-  console.log(isOnline.value)
-
-  console.log(emptyBeneficiariosData.value)
+console.log(codArmazon1.value)
 
     return (
         <form className=" max-w-md mx-auto px-6" onSubmit={handleSubmit((data)=> handleSaveChange(data))}>
@@ -684,6 +679,7 @@ useEffect(()=>{
                   control={control}
                   entidad={["/api/puntosventa/", "06", codProyecto.value, `_p2=${userID}`]}
                   customWidth={"w-[23.3rem]"}
+                  
               />
             </div>
             <div className="w-full !mb-7 rowForm">

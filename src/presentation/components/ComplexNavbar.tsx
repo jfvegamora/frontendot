@@ -211,11 +211,6 @@ const navListMenuBodega = [
     link: "/proveedores",
     id: 13,
   },
-  {
-    title: "Puntos de Venta",
-    link: "/puntosventa",
-    id: 4,
-  },
 ];
 
 const subMenuParametrizacion = [
@@ -299,6 +294,11 @@ const navListMenuProyectos = [
     title: "Oftalmólogos",
     link: "/oftalmologos",
     id: 21,
+  },
+  {
+    title: "Puntos de Venta",
+    link: "/puntosventa",
+    id: 4,
   },
   {
     title: "Reserva de Armazones",

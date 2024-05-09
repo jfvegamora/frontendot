@@ -120,10 +120,12 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                     </div>
 
                     <div className="w-[45%] ml-1">
-                      <div className="">
-                        <div className='otCod font-bold'>{ot[EnumGrid.a2_armazon_id]}</div>
-                        <div className='otArmazonData'>{ot[EnumGrid.a2_armazon]}</div>
-                      </div>
+                      {ot[EnumGrid.tipo_anteojo_id] === 3 && (
+                        <div className="">
+                          <div className='otCod font-bold'>{ot[EnumGrid.a2_armazon_id]}</div>
+                          <div className='otArmazonData'>{ot[EnumGrid.a2_armazon]}</div>
+                        </div>
+                      )}
                     </div>
                   </div>
 

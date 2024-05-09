@@ -158,8 +158,8 @@ useEffect(()=>{
 
 
 
-// console.log(permisos_usuario_areas)
-
+console.log(codigoProyecto.value)
+console.log(data && data[EnumGrid.proyecto_codigo])
 return (
     <form action="">
         <div className='w-full frameOTForm'>
@@ -177,8 +177,8 @@ return (
                         entidad={["/api/proyectos/", "07", userID]}
                         // error={errors.establecimiento}
                         customWidth={"345px"}
-                        onlyFirstOption={ isEditting}
-                        readOnly={isEditting || inputOnlyReadReserva.value}
+                        // onlyFirstOption={ isEditting}
+                        // readOnly={isEditting || inputOnlyReadReserva.value}
                     />
                 </div>
                 {isEditting && !onlyRead && (
@@ -214,7 +214,7 @@ return (
                         entidad={["/api/puntosventa/", "06", codigoProyecto.value, `_p2=${userID}`]}
                         onlyFirstOption={ isEditting}
                         customWidth={"345px"}
-                        readOnly={isEditting || inputOnlyReadReserva.value}
+                        // readOnly={isEditting || inputOnlyReadReserva.value}
                     />
                 </div>
 
