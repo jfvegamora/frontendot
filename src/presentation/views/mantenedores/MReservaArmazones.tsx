@@ -114,7 +114,7 @@ const MReservaArmazones: React.FC = () => {
                     name: "_p4",
                     label: "Usuarios",
                     type: "select",
-                    selectUrl: "/api/usuarios/", styles:{with:" !w-[18rem] !-ml-4"},
+                    selectUrl: "/api/usuarios/", styles:{with:" !w-[16rem] !-ml-4"},
                 },
               ]}
               />

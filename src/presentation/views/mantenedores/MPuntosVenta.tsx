@@ -85,7 +85,7 @@ const MPuntosVenta: React.FC = () => {
             updateParams={updateParams}
             setEntities={setEntities}
             primaryKeyInputs={[
-                { name: "_p1", label: "Descripción", type: "text", styles:{with:" !w-[19rem]" }, },
+                { name: "_p1", label: "Descripción", type: "text", styles:{with:" !w-[12rem]" }, },
               {
                 name      : "_p2",
                 label     : "Tipo",

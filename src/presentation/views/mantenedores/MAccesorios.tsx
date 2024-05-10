@@ -120,7 +120,7 @@ const MAccesorios: React.FC = () => {
           />
 
         </div>
-        <div className="w-[30%] px-2 relative -right-[58rem] ">
+        <div className="w-[33%] px-2 relative -right-[58rem] ">
           <PrimaryButtonsComponent
             handleAddPerson={openModal}
             handleDeleteSelected={handleDeleteSelected}
