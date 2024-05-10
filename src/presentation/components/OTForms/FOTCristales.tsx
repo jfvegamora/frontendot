@@ -42,6 +42,10 @@ const FOTCristales: React.FC<ICristales> = ({
     isEditting,
     formValuesCompleto
 }) => {
+    const [inputsRef] = React.useState({
+        firstInputRef : React.useRef<HTMLInputElement>(null),
+        lastInputRef : React.useRef<HTMLInputElement>(null),
+    })
 
 
     const handleInputChange = async (e: any) => {
@@ -128,8 +132,32 @@ const FOTCristales: React.FC<ICristales> = ({
             </div>)
       }
 
+
+
+    const handleKeyDown: any = React.useCallback((e:KeyboardEvent) => {
+
+        const focusedElement = document.activeElement;
+        if (focusedElement instanceof HTMLInputElement) {
+            const inputName = focusedElement.name;
+            console.log(inputName)
+            console.log(document.activeElement?.localName)
+            const inputRefName =  tipo_de_anteojo.value === '3' ? 'cristal2_tratamiento_adicional_id' : 'cristal1_tratamiento_adicional_id';
+
+            if(inputName === inputRefName && e.key === 'Tab'){
+                inputsRef.firstInputRef.current?.focus()
+            }
+        }
+    
+      }, [inputsRef]);
+    
+    React.useEffect(()=>{
+        if(inputsRef.firstInputRef){
+            inputsRef.firstInputRef.current?.focus();
+        }
+    },[])
+
     return (
-        <form>
+        <form onKeyDown={handleKeyDown}>
             <div className='w-full flex frameOTForm'>
                 <div className=" w-1/2 relative !mt-[2rem] !h-[30rem] ">
                     <div className=" flex items-center radioComponent !ml-[1rem]">
@@ -150,6 +178,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                             // error={errors.establecimiento}
                                             customWidth={""}
                                             readOnly={!(!isEditting || (permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria))}
+                                            inputRef={inputsRef.firstInputRef}
                                         />
                                     </div>
                                     <div className="">
@@ -345,6 +374,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                             customWidth={"w-full  !ml-[1rem]"}
                                             readOnly={!(!isEditting || (permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria))}
                                             isOptional={true}
+                                            inputRef={ tipo_de_anteojo.value === '3' ? null : inputsRef.lastInputRef}
                                         />
                                     </div>
                                 </div>
@@ -569,6 +599,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                             customWidth={"w-full  !ml-[1rem]"}
                                             FOTcristales={true}
                                             isOptional={true}
+                                            inputRef={ tipo_de_anteojo.value === '3' ? inputsRef.lastInputRef : null }
                                         />
                                     </div>
                                 </div>

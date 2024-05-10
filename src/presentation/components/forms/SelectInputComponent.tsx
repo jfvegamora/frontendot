@@ -41,7 +41,8 @@ interface ISelectInputProps {
   tabIndex?: number;
   isFOTcristales?:boolean;
   isOptional?:boolean;
-  onlyFirstOption?:boolean
+  onlyFirstOption?:boolean;
+  inputRef?:any
 }
 
 const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
@@ -64,14 +65,14 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     customWidth,
     isFOTcristales,
     isOptional,
-    onlyFirstOption
+    onlyFirstOption,
+    inputRef
   }) => {
     const dispatch = useAppDispatch()
     const [entities, setEntities] = useState([]);
     const [strSelectedName, setStrSelectedName] = useState(data || '');
     const strUrl = entidad && entidad[0];
     const strTableName = entidad[3] ? entidad[2] && `_p1=${entidad[2]}&${entidad[3]}`: entidad[2] && `_p1=${entidad[2]}`
-    const inputRef = useRef(null);
     const { ListEntity } = useCrud(strUrl);
     const cleanFilters = {};
     const { refreshData } = useEntityUtils(strUrl, entidad[1]);
@@ -159,7 +160,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
                 {...field}
                 ref={inputRef ? inputRef : null}
                 disabled={readOnly}
-                tabIndex  ={tabIndex || 1}
+                tabIndex={tabIndex || 1}
                 value={strSelectedName}
                 onChange={(e) => {
                   setStrSelectedName(e.target.value)

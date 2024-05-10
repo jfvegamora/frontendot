@@ -51,7 +51,7 @@ import FOTAnulacion from '../../components/OTForms/FOTAnulacion';
 import { useModal } from '../../hooks/useModal';
 import { paramsOT } from '../mantenedores/MOT';
 import { EnumAreas } from '../../components/OTPrimaryButtons';
-import { usePermissionOT } from '../../hooks/usePermissionOT';
+// import { usePermissionOT } from '../../hooks/usePermissionOT';
 // import { EnumAreas } from '../../components/OTPrimaryButtons';
 
 const FOTArmazones = lazy(()=>import('../../components/OTForms/FOTArmazones'));
@@ -128,7 +128,7 @@ const FOT:React.FC<IFOTProps> = ({
   const dispatch = useAppDispatch()
 
 
-  const permissionsOT = usePermissionOT();
+  // const permissionsOT = usePermissionOT();
   
  
   // const OT:any = useAppSelector((store: AppStore) => store.OTS.ot);
@@ -965,7 +965,7 @@ console.log(permiso_usuario_workTracking)
     <div className='useFormContainerOT top-[0%]  w-full h-[100%]'>
       <Tabs selectedIndex={selectedTab} onSelect={(index) => setSelectedTab(index)}>
         <TabList className='flex items-center top-[10]'>
-          <Tab className="custom-tab items-center flex relative">
+          <Tab className="custom-tab items-center flex relative" tabIndex={"-1"}>
             ÓPTICA 
             {checkOptica && (
               <div className="absolute left-[5rem] pointer-events-none" aria-disabled>
@@ -973,7 +973,7 @@ console.log(permiso_usuario_workTracking)
               </div>
             )}
           </Tab>
-          <Tab className="custom-tab items-center flex relative">
+          <Tab className="custom-tab items-center flex relative" tabIndex={"-1"}>
             CLIENTE
             {checkCliente && (
               <div className="absolute left-[5rem] pointer-events-none" aria-disabled>
@@ -981,7 +981,7 @@ console.log(permiso_usuario_workTracking)
               </div>
             )}
           </Tab>
-          <Tab className="custom-tab items-center flex relative">
+          <Tab className="custom-tab items-center flex relative" tabIndex={"-1"}>
            RECETA
            {checkReceta && (
               <div className="absolute left-[5rem] pointer-events-none" aria-disabled>
@@ -989,7 +989,7 @@ console.log(permiso_usuario_workTracking)
               </div>
            )}
           </Tab>
-          <Tab className="custom-tab items-center flex relative">
+          <Tab className="custom-tab items-center flex relative" tabIndex={"-1"}>
             CRISTALES
             {checkCristales && (
               <div className="absolute left-[7.5rem] pointer-events-none !rounded-full" aria-disabled>
@@ -1011,7 +1011,7 @@ console.log(permiso_usuario_workTracking)
               </div>
             )}  
           </Tab>
-          <Tab className="custom-tab items-center flex relative">
+          <Tab className="custom-tab items-center flex relative" tabIndex={"-1"}>
             ARMAZONES
             {checkArmazones && (
               <div className="absolute left-[7.5rem] pointer-events-none" aria-disabled>
@@ -1028,7 +1028,7 @@ console.log(permiso_usuario_workTracking)
 
    <Suspense fallback={<div className="flex items-center justify-center h-screen"><Spinner className="h-12 w-12" style={{ color: '#f39c12' }} /></div>}>
       <div className='top-0 absolute right-3 text-2xl cursor-pointert' onClick={()=>{handleCloseForm()}}>
-          <button onClick={closeModal} className="userFormBtnClose">
+          <button onClick={closeModal} className="userFormBtnClose" tabIndex={-1}>
             X
           </button>
       </div>

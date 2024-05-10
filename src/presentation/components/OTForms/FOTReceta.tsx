@@ -43,6 +43,11 @@ const FOTReceta:React.FC<IReceta> = ({
 
     const firstInputRef   = useRef<HTMLInputElement | null>(null);
     const secondInputRef  = useRef<HTMLInputElement | null>(null);
+     
+    const [inputsRef] = useState({
+        firstInputRef : React.useRef<HTMLInputElement>(null),
+        lastInputRef : React.useRef<HTMLInputElement>(null),
+    })
 
 
     const handleInputChange = async(e:any) => {
@@ -73,9 +78,30 @@ const FOTReceta:React.FC<IReceta> = ({
         validation_A1_DP(A1_DP.value);
     },[A1_DP.value])
 
+
+
+    
+    const handleKeyDown: any = React.useCallback((e:KeyboardEvent) => {
+        const focusedElement = document.activeElement;
+        if (focusedElement instanceof HTMLInputElement) {
+            const inputName = focusedElement.name;
+            if(inputName === 'observaciones' && e.key === 'Tab'){
+                inputsRef.firstInputRef.current?.focus()
+            }
+        }
+    
+      }, [inputsRef]);
+    
+    React.useEffect(()=>{
+        if(inputsRef.firstInputRef){
+            inputsRef.firstInputRef.current?.focus();
+        }
+    },[])
+
+
     
   return (
-    <form>
+    <form onKeyDown={handleKeyDown}>
         <div className="w-full frameOTForm">
             <div className="w-full flex items-center rowForm !h-[5rem]">
                 <div className="w-[23%]  !ml-[1rem]">
@@ -93,6 +119,7 @@ const FOTReceta:React.FC<IReceta> = ({
                         customWidth={"!ml-[1rem]"}
                         readOnly={isEditting  || inputOnlyReadReserva.value}
                         onlyFirstOption={isEditting}
+                        inputRef={inputsRef.firstInputRef}
                     />
                 </div>
                 <div className="w-[20%] ">

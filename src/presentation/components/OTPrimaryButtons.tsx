@@ -5,7 +5,7 @@ import { SiAddthis } from 'react-icons/si';
 import { PiPrinterFill } from "react-icons/pi";
 import { PiMicrosoftExcelLogoFill } from "react-icons/pi";
 import { ImWhatsapp } from "react-icons/im";
-import { BUTTON_MESSAGES, clearAllCheck, reiniciarValidationNivel3, updateOT } from '../utils';
+import { BUTTON_MESSAGES, clearAllCheck, clearIndividualCheck, reiniciarValidationNivel3, updateOT } from '../utils';
 import ImportToCsv from './ImportToCsv';
 import { AppStore, useAppDispatch, useAppSelector } from '../../redux/store';
 import { toast } from 'react-toastify';
@@ -197,6 +197,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
             try {
                 console.log(ot.folio)
                 setEstadoImpresion(ot.folio,1,User,OTAreas["areaActual"],masivo).then(()=>{
+                  clearIndividualCheck.value = true;
                 })            
               } catch (error) {
                 console.log(error)

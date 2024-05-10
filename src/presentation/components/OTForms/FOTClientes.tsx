@@ -33,7 +33,12 @@ const FOTClientes:React.FC<IClientes> = ({
     register,
     isEditting,
 }) => {
-    const [_clienteData, setClienteData] = useState()
+    const [_clienteData, setClienteData] = useState();
+    
+    const [inputsRef] = useState({
+        firstInputRef : React.useRef<HTMLInputElement>(null),
+        lastInputRef : React.useRef<HTMLInputElement>(null),
+    })
     // const { _showModal, CustomModal } = useModal();
     
 
@@ -208,10 +213,27 @@ const FOTClientes:React.FC<IClientes> = ({
         }
       };
 
+    const handleKeyDown: any = React.useCallback((e:KeyboardEvent) => {
+        const focusedElement = document.activeElement;
+        if (focusedElement instanceof HTMLInputElement) {
+            const inputName = focusedElement.name;
+            console.log(inputName)
+            if(inputName === 'cliente_direccion' && e.key === 'Tab'){
+                inputsRef.lastInputRef.current?.focus()
+            }
+        }
+    
+      }, [inputsRef]);
+    
+    React.useEffect(()=>{
+        if(inputsRef.firstInputRef){
+            inputsRef.firstInputRef.current?.focus();
+        }
+    },[])
 
 
     return (
-    <form action="">
+    <form action="" onKeyDown={handleKeyDown}>
         <div className='w-full frameOTForm !h-[33rem]'>
             <div className="w-full flex items-center rowForm !h-[4rem]">
                 <div className="w-[80%]      flex mx-auto">
@@ -226,6 +248,7 @@ const FOTClientes:React.FC<IClientes> = ({
                                 control={control}
                                 onlyRead={isEditting}
                                 isOT={true}
+                                inputRef={inputsRef.firstInputRef}
                             />
                         </div>
                     </div>
@@ -259,6 +282,8 @@ const FOTClientes:React.FC<IClientes> = ({
                                 readOnly={isEditting}
                                 tabIndex={1}
                                 onlyFirstOption={isEditting}
+                                inputRef={inputsRef.lastInputRef}
+
                             />
                         </div> 
                     </div>

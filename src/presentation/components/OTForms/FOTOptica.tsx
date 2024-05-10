@@ -12,7 +12,6 @@ import { URLBackend } from '../../hooks/useCrud';
 import { toast } from 'react-toastify';
 import TextInputInteractive from '../forms/TextInputInteractive';
 import { EnumAreas } from '../OTPrimaryButtons';
-import { inputOnlyReadReserva } from '../../utils/FReservaArmazones_utils';
 
 interface IOptica {
     control:any,
@@ -59,6 +58,10 @@ const FOTOptica:React.FC<IOptica> = ({
     const _origen:any = useAppSelector((store: AppStore) => store.OTAreas.areaActual);
     const _estado = data && data[EnumGrid.estado_id]
     const permisos_usuario_areas = User.permisos_areas[EnumAreas[_origen]] === '1' ? true : false
+
+    const [inputsRef] = useState({
+        firstInputRef : React.useRef<HTMLInputElement>(null),
+    })
     
 
     // console.log(_estado)
@@ -158,10 +161,26 @@ useEffect(()=>{
 
 
 
-console.log(codigoProyecto.value)
-console.log(data && data[EnumGrid.proyecto_codigo])
+const handleKeyDown: any = React.useCallback((e:KeyboardEvent) => {
+    const focusedElement = document.activeElement;
+
+    if (focusedElement instanceof HTMLInputElement) {
+        const inputName = focusedElement.name;
+        if(inputName === 'numero_envio' && e.key === 'Tab'){
+            inputsRef.firstInputRef.current?.focus()
+        }
+    }
+
+  }, [inputsRef]);
+
+React.useEffect(()=>{
+    if(inputsRef.firstInputRef){
+        inputsRef.firstInputRef.current?.focus();
+    }
+},[])
+
 return (
-    <form action="">
+    <form action="" onKeyDown={handleKeyDown}>
         <div className='w-full frameOTForm'>
             <div className="w-full flex items-center rowForm !h-[5rem] justify-between">
                 <div className="w-[50%] mt-6 mb-8 ml-[2rem]">
@@ -174,11 +193,13 @@ return (
                         // data={codigoProyecto.value || formValues && formValues["proyecto_codigo"] ? formValues["proyecto_codigo"]  : data && data[EnumGrid.proyecto_codigo]}
                         data={codigoProyecto.value ||  (data && data[EnumGrid.proyecto_codigo])}
                         control={control}
-                        entidad={["/api/proyectos/", "07", userID]}
+                        entidad={["/api/proyectos/", "07", `${isEditting ? 0 : userID}`]}
                         // error={errors.establecimiento}
                         customWidth={"345px"}
-                        // onlyFirstOption={ isEditting}
+                        onlyFirstOption={ isEditting}
+                        inputRef={inputsRef.firstInputRef}
                         // readOnly={isEditting || inputOnlyReadReserva.value}
+                        
                     />
                 </div>
                 {isEditting && !onlyRead && (
@@ -274,6 +295,7 @@ return (
                         onlyRead={isEditting}
                         isOT={true}
                         textAlign="text-center"
+                        // inputRef={inputsRef.lastInputRef}
                     />
                 </div>
                 <div className="w-[15%]">
@@ -498,7 +520,7 @@ return (
                             />
                     </div>
                     <div className="">
-                        <TextInputInteractive
+                         <TextInputInteractive
                             type="text"
                             label="Numero Envio"
                             name="numero_envio"
@@ -506,9 +528,10 @@ return (
                             data={formValues ? formValues["numero_envio"] : data && data[EnumGrid.numero_envio]}
                             control={control}
                             onlyRead={isEditting}
+                            tabIndex={1}
                             isOptional={true}
                             textAlign="text-center"
-                            />
+                            /> 
                     </div>
 
                     

@@ -65,6 +65,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
     toggleExcel,
     handleDeleteSelected,
     selectedRows,
+    setSelectedRows,
     showEditButton,
     showDeleteButton,
     showPdfButton,
@@ -156,14 +157,28 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
     };
     let lowArmazonesStock = false;
 
+    React.useEffect(()=>{
+      console.log(clearIndividualCheck.value)
+      
+      if(clearIndividualCheck.value === true){
+        setSelectedRows([])
+        clearIndividualCheck.value = false
+      }
+
+    },[clearIndividualCheck.value])
+
     const renderCheckboxCell = (id: number, folio:number, estado?:any) => {
+
+
       return (
         <>
           <input
-            checked={selectedRows && selectedRows.includes(id)}
+            checked={
+              selectedRows && selectedRows.includes(id)
+                                                  
+            }
             // checked={}
             onChange={() => {
-              clearIndividualCheck.value = !clearIndividualCheck.value 
               handleSelectChecked && handleSelectChecked(id)
             }}
             type="checkbox"
