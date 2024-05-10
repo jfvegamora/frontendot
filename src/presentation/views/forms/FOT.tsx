@@ -197,6 +197,8 @@ const FOT:React.FC<IFOTProps> = ({
     validar_parametrizacion.value = data && data[EnumGrid.validar_parametrizacion_id] || '1'
 
     const permiso = OTAreaActual && permissions(OTAreaActual)
+    console.log(OTAreaActual)
+    console.log(permiso)
     setOTPermissions(permiso && permiso[5])
   },[OTAreaActual])
 
@@ -957,7 +959,9 @@ const checkArmazones = camposRequeridosArmazones.every(campo => {
 
 console.log(data && data[EnumGrid.cristal2_diametro])
 
-console.log(permiso_usuario_workTracking)
+console.log(OTPermissions[9])
+console.log(OTPermissions)
+
 
 
   return (

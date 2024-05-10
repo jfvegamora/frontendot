@@ -4,12 +4,12 @@ import { PencilIcon } from "@heroicons/react/24/solid";
 import { PiPrinterFill } from "react-icons/pi";
 import { ImWhatsapp } from "react-icons/im";
 // import { usePermission } from '../hooks';
-import { BUTTON_MESSAGES, isToggleImpression } from '../utils';
+import { BUTTON_MESSAGES, clearAllCheck, isToggleImpression } from '../utils';
 
 import { useReactToPrint } from 'react-to-print';
 // import FOTImpresa from '../views/forms/FOTImpresa';
 import { AppStore, useAppDispatch, useAppSelector } from '../../redux/store';
-import { clearImpression, fetchOTImpresionByID } from '../../redux/slices/OTSlice';
+import { clearImpression, fetchOT, fetchOTImpresionByID } from '../../redux/slices/OTSlice';
 // import FOTImpresa from '../views/forms/FOTImpresa';
 import { toast } from 'react-toastify';
 // import FOTTicketImpresion from '../views/forms/FOTTicketImpresion';
@@ -19,7 +19,8 @@ import { EnumGrid } from '../views/mantenedores/MOTHistorica';
 // import { validationStateOT } from './OTPrimaryButtons';
 // import FOTTicketQRImpresion from '../views/forms/FOTTicketQRImpresion';
 // import { paramsOT } from '../views/mantenedores/MOT';
-import { EnumAreas } from './OTPrimaryButtons';
+import { EnumAreas, isFinishImpression } from './OTPrimaryButtons';
+import { paramsOT } from '../views/mantenedores/MOT';
 // import ReactDOM from 'react-dom';
 
 
@@ -104,22 +105,49 @@ const resetImpresionStates = () => {
     suppressErrors: true,
     removeAfterPrint: true,
     onAfterPrint() {
-        if(OT[QR] === 0 && OT[TICKET] === 0){
-            resetImpresionStates()
-            dispatch(clearImpression())
-            return;
-        }
+        dispatch(clearImpression())
+        isFinishImpression.value = true;
+        // if(OT[QR] === 0 && OT[TICKET] === 0){
+        //     resetImpresionStates()
+        //     dispatch(clearImpression())
+        //     return;
+        // }
 
-        if(OT[TICKET] === 1){
-            setisFotTicketRetiro(true)
-            setisFotTicketQR(true)
-            imprimirComprobanteRetiro('TICKETRETIRO')
-        }
-        return;
+        // if(OT[TICKET] === 1){
+        //     setisFotTicketRetiro(true)
+        //     setisFotTicketQR(true)
+        //     imprimirComprobanteRetiro('TICKETRETIRO')
+        // }
+        // return;
     },
 
 });
 
+
+
+
+// React.useEffect(()=>{
+//     console.log(folio)
+//     if(isFinishImpression.value === true){
+//         let masivo = true
+
+
+//         //   try {
+//         //       console.log(ot.folio)
+//         //       setEstadoImpresion(ot.folio,1,User,OTAreas["areaActual"],masivo).then(()=>{
+//         //         clearIndividualCheck.value = true;
+//         //       })            
+//         //     } catch (error) {
+//         //       console.log(error)
+              
+//         //     }
+         
+//     }
+//     // toast.success('Estado Impresión Cambiado.');
+//     // dispatch(fetchOT({OTAreas:OTAreas["areaActual"],searchParams: paramsOT.value}))
+//     clearAllCheck.value = false;
+//     isFinishImpression.value = false;
+//   },[isFinishImpression.value])
 
 
 
