@@ -1906,7 +1906,7 @@ export const table_head_proyectos = [
     key: "cantidad_presupuesto",
     visible: true,
     alignment: "text-right",
-    width: "w-[8rem]",
+    width: "w-[7rem]",
   },
   {
     cell: "$ Presupuesto",
@@ -1920,14 +1920,14 @@ export const table_head_proyectos = [
     key: "porc_presupuesto",
     visible: true,
     alignment: "text-center",
-    width: "w-[6rem]",
+    width: "w-[5rem]",
   },
   {
     cell: "Cant. x Facturar",
     key: "cantidad_por_facturar",
     visible: true,
     alignment: "text-right",
-    width: "w-[8rem]",
+    width: "w-[7rem]",
   },
   {
     cell: "$ x Facturar",
@@ -1941,14 +1941,14 @@ export const table_head_proyectos = [
     key: "porc_por_facturar",
     visible: true,
     alignment: "text-center",
-    width: "w-[6rem]",
+    width: "w-[5rem]",
   },
   {
     cell: "Cant. Facturada",
     key: "cantidad_facturada",
     visible: true,
     alignment: "text-right",
-    width: "w-[8rem]",
+    width: "w-[7rem]",
   },
   {
     cell: "$ Facturado",
@@ -1962,14 +1962,14 @@ export const table_head_proyectos = [
     key: "porc_facturado",
     visible: true,
     alignment: "text-center",
-    width: "w-[6rem]",
+    width: "w-[5rem]",
   },
   {
     cell: "Cant. Saldo",
     key: "cantidad_saldo",
     visible: true,
     alignment: "text-right",
-    width: "w-[8rem]",
+    width: "w-[7rem]",
   },
   {
     cell: "$ Saldo",
@@ -1983,7 +1983,7 @@ export const table_head_proyectos = [
     key: "porc_saldo",
     visible: true,
     alignment: "text-center",
-    width: "w-[6rem]",
+    width: "w-[5rem]",
   },
   {
     cell: "Ejecutivo ID",
