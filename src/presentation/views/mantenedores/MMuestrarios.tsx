@@ -67,7 +67,7 @@ const MMuestrarios: React.FC = () => {
   return (
     <div className="mantenedorContainer">
       <div className="mantenedorHead width70">
-        <div className="w-[60%]">
+        <div className="w-[70%]">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
             setParams={setParams}

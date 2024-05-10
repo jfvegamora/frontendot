@@ -72,7 +72,7 @@ const MEmpresas: React.FC = () => {
 
   return (
     <div className="mantenedorContainer">
-      <div className="mantenedorHead width60">
+      <div className="mantenedorHead width50">
         <div className="w-[50%]">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
