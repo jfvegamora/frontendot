@@ -5,7 +5,7 @@ import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
 import Switch from "react-switch";
 import axios from 'axios';
 import { validationFechaAtencion, validationOTlevel1, validationOTlevel2, validationPuntoVenta } from '../../utils/validationOT';
-import { codigoProyecto, fecha_atencion_signal, fecha_despacho, fecha_entrega_cliente, fecha_entrega_taller, fetchFechas, isToggleImpression, isToggleValidation, motivo_ot, punto_venta, validar_parametrizacion } from '../../utils';
+import { codigoProyecto, fecha_atencion_signal, fecha_despacho, fecha_entrega_cliente, fecha_entrega_taller, fetchFechas, isToggleImpression, isToggleValidation, punto_venta, validar_parametrizacion } from '../../utils';
 import SelectInputTiposComponent from '../forms/SelectInputTiposComponent';
 import { AppStore, useAppSelector } from '../../../redux/store';
 import { URLBackend } from '../../hooks/useCrud';
@@ -44,12 +44,12 @@ const FOTOptica:React.FC<IOptica> = ({
     onlyRead,
     permiso_usuario_estado_impresion,
     permiso_usuario_estado_validacion,
-    permiso_usuario_resolucion_garantia,
+    // permiso_usuario_resolucion_garantia,
     permiso_usuario_workTracking,
 
     permiso_areas_estado_validacion,
     permisos_areas_estado_immpresion,
-    permiso_areas_resolucion_garantia
+    // permiso_areas_resolucion_garantia
 }) => {
     const strUrl = `${URLBackend}/api/ot/listado`
     const [_motivo, setMotivo] = useState(false)
@@ -378,7 +378,9 @@ return (
                                 data={formValues ? formValues["motivo_garantia_id"] : data && data[EnumGrid.motivo_garantia_id]}
                                 control={control}
                                 entidad={"OTMotivoGarantia"}
-                                // readOnly={true}
+                                readOnly={true}
+                                onlyFirstOption={true}
+                                
                            />
                         </div>
                         
@@ -409,9 +411,10 @@ return (
                                 options={["Aceptada", "Rechazada"]}
                                 // error={errors.sexo}
                                 horizontal={true}
-                                readOnly={!(permiso_usuario_resolucion_garantia && permiso_areas_resolucion_garantia) ||  motivo_ot.value}
+                                // readOnly={!(permiso_usuario_resolucion_garantia && permiso_areas_resolucion_garantia) ||  motivo_ot.value}
                                 onChange={handleInputChange}
                                 isOT={true}
+                                readOnly={true}
                                 
                             />  
                         </div>
