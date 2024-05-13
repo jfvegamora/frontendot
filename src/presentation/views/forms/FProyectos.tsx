@@ -394,7 +394,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
     }, []);
 
     return (
-      <div className="useFormContainer top-2  h-[98vh] useFormContainer70rem ">
+      <div className="useFormContainer top-2  h-[97vh] useFormContainer70rem ">
         <div className="userFormBtnCloseContainer absolute right-4">
           <button onClick={closeModal} className="userFormBtnClose">
             X
@@ -549,7 +549,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
               </div>
             </div>
 
-            <div className="w-full items-center flex h-[90px] bg-red-300 ">
+            <div className="w-full items-center flex h-[90px]  ">
               <div className="input-container items-center rowForm w-[10%] ">
                 <div className="w-full mr-2">
                   <TextInputComponent
@@ -621,8 +621,8 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                 </div>
               </div>
 
-              <div className="input-container items-center rowForm w-[23%] !mt-[30rem] absolute right-10 bottom-[20rem] ">
-                <div className="w-full mr-2 bg-red-300">
+              <div className="input-container items-center rowForm w-[23%] !mt-[30rem] absolute right-10 bottom-[28.5rem] ">
+                <div className="w-full mr-2">
                   <FrameComponent>
                     <ProyectoComponent
                       label="Presupuesto Convenio"

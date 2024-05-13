@@ -12,7 +12,7 @@ export interface IOTAreas {
 
 const initialState: IOTAreas | null = {
     areas: localStorage.getItem("OTAreas") ? JSON.parse(localStorage.getItem("OTAreas") as string): [],
-    areaActual: 40,
+    areaActual: 200,
     areaSiguiente: localStorage.getItem('areaSiguiente') ? JSON.parse(localStorage.getItem('areaSiguiente') as string) : 50,
   };
   

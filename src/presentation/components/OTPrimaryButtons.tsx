@@ -197,7 +197,6 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
           let masivo = true
           pkToDelete.map((ot:any)=>{
             try {
-                console.log(ot.folio)
                 setEstadoImpresion(ot.folio,1,User,OTAreas["areaActual"],masivo).then(()=>{
                   clearIndividualCheck.value = true;
                 })            
@@ -206,11 +205,11 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
                 
               }
            })}
+           dispatch(fetchOT({OTAreas:OTAreas["areaActual"],searchParams: paramsOT.value}))
+           clearAllCheck.value = false;
+           isFinishImpression.value = false;
       }
       // toast.success('Estado Impresión Cambiado.');
-      dispatch(fetchOT({OTAreas:OTAreas["areaActual"],searchParams: paramsOT.value}))
-      clearAllCheck.value = false;
-      isFinishImpression.value = false;
     },[isFinishImpression.value])
 
 

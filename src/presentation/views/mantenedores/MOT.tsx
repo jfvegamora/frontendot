@@ -139,6 +139,7 @@ const MOT: React.FC = () => {
   useEffect(() => {
    const interval = setInterval(() => {
     if(params[0] !== ''){
+      console.log(areaActualOT)
       dispatch(fetchOT({OTAreas:areaActualOT, searchParams:params[0]})) 
     }else{
       dispatch(fetchOT({OTAreas:areaActualOT}))
@@ -152,7 +153,7 @@ const MOT: React.FC = () => {
     dispatch(clearData())
     // dispatch(clearOTColores())
     dispatch(fetchColores(token))
-    dispatch(updateActualArea(undefined))
+    dispatch(updateActualArea(200 as any))
   }, [])
 
   useEffect(() => {
