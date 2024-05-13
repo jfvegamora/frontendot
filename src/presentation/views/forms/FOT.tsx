@@ -1195,7 +1195,7 @@ const checkArmazones = camposRequeridosArmazones.every(campo => {
                 {/*************** BOTON ANULAR ***************/}
                 {OTPermissions           &&
                 escritura_lectura        &&
-                (isMOT ? permisos_ot_historica.permiso_anular  : permiso_anular_usuario === true) && 
+                (isMOT ? permisos_ot_historica.permiso_anular  : (permiso_anular_usuario === true && OTPermissions[9] === '1'  ))  && 
                 sumatoriaNivel1  === validationNivel1.value.length && 
                 // (data && data[EnumGrid.estado_id] === 30 || data && data[EnumGrid.estado_id] === 40 ) && 
                 (
