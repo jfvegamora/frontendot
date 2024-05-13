@@ -54,7 +54,7 @@ const RadioButtonComponent: React.FC<IRadioButtonProps> = ({
         horizontal ? "justify-arround ml-1 !h-[3rem] " : "flex-col justify-between"
       } rounded-lg ${error && "border border-red-400"}`}
     >
-      <label className={`absolute z-20   bg-[${isOT ? '#424769' : '#676f9d'}] ${isOT ? "!w-[4rem] text-base top-[-0.9rem]" : "!w-[10rem] text-left top-[-1.2rem]"}  left-[1rem] labelInput  `}>
+      <label className={`absolute z-20   bg-[${isOT ? '#424769' : '#676f9d'}] ${isOT ? "!w-[4rem] text-base top-[-0.9rem]" : "!w-auto text-left top-[-1.2rem]"}  left-[1rem] labelInput  `}>
         <span className="ml-[2px] text-[16px] text-left ">{label}</span>
       </label>
       {options.map((option, index) => (

@@ -394,7 +394,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
     }, []);
 
     return (
-      <div className="useFormContainer top-2  h-[95vh] useFormContainer70rem ">
+      <div className="useFormContainer top-2  h-[98vh] useFormContainer70rem ">
         <div className="userFormBtnCloseContainer absolute right-4">
           <button onClick={closeModal} className="userFormBtnClose">
             X
@@ -549,7 +549,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
               </div>
             </div>
 
-            <div className="w-full items-center flex h-[110px]  mb-[20px]">
+            <div className="w-full items-center flex h-[90px] bg-red-300 ">
               <div className="input-container items-center rowForm w-[10%] ">
                 <div className="w-full mr-2">
                   <TextInputComponent
@@ -621,18 +621,19 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                 </div>
               </div>
 
-              <div className="input-container items-center rowForm w-[23%]">
-                <div className="w-full mr-2">
+              <div className="input-container items-center rowForm w-[23%] !mt-[30rem] absolute right-10 bottom-[20rem] ">
+                <div className="w-full mr-2 bg-red-300">
                   <FrameComponent>
                     <ProyectoComponent
                       label="Presupuesto Convenio"
+                      type="number"
                       control={control}
                       errors={errors}
                       cant="cantidad_requerida"
                       total="presupuesto"
                       porcentaje="%"
                       dataCant={data && data[EnumGrid.CANTIDAD_REQUERIDA]}
-                      dataTotal={data && data[EnumGrid.TOTAL_REQUERIDO]}
+                      dataTotal={formatCurrencyNumber(data && data[EnumGrid.TOTAL_REQUERIDO])}
                       dataPorcentaje={100}
                       onlyRead={false}
                       isOptional={true}
@@ -641,20 +642,22 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                   </FrameComponent>
                 </div>
               </div>
+
             </div>
 
             <div className="w-full items-center flex h-[110px] ">
               <FrameComponent>
                 <ProyectoComponent
                   label="OT Ingresadas"
+                  type="text"
                   control={control}
                   errors={errors}
                   cant="Cant."
                   total="$ Total"
                   porcentaje="%"
-                  dataCant={data && data[EnumGrid.CANTIDAD_DISPONIBLE]}
-                  dataTotal={formatCurrencyNumber(data && data[EnumGrid.TOTAL_DISPONIBLE])}
-                  dataPorcentaje={data && data[EnumGrid.PORC_DISPONIBLE]}
+                  dataCant={data && data[EnumGrid.CANTIDAD_INGRESADA]}
+                  dataTotal={formatCurrencyNumber(data && data[EnumGrid.TOTAL_INGRESADO])}
+                  dataPorcentaje={data && data[EnumGrid.PORC_INGRESADO]}
                   isOptional={true}
                   onlyRead={true}
                 />
@@ -662,13 +665,14 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
               <FrameComponent>
                 <ProyectoComponent
                   label="OT por Facturar"
+                  type="text"
                   control={control}
                   errors={errors}
                   cant="Cant."
                   total="$ Total"
                   porcentaje="%"
                   dataCant={data && data[EnumGrid.CANTIDAD_EN_PROCESO]}
-                  dataTotal={formatCurrencyNumber(data && data[EnumGrid.TOTAL_EN_PROCESO])}
+                  dataTotal={data && data[EnumGrid.TOTAL_EN_PROCESO]}
                   dataPorcentaje={data && data[EnumGrid.PORC_EN_PROCESO]}
                   isOptional={true}
                   onlyRead={true}
@@ -677,13 +681,14 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
               <FrameComponent>
                 <ProyectoComponent
                   label="OT Facturadas"
+                  type="text"
                   control={control}
                   errors={errors}
                   cant="Cant."
                   total="$ Total"
                   porcentaje="%"
                   dataCant={data && data[EnumGrid.CANTIDAD_FACTURADA]}
-                  dataTotal={formatCurrencyNumber(data && data[EnumGrid.TOTAL_FACTURADO])}
+                  dataTotal={data && data[EnumGrid.TOTAL_FACTURADO]}
                   dataPorcentaje={data && data[EnumGrid.PORC_FACTURADO]}
                   isOptional={true}
                   onlyRead={true}
@@ -692,13 +697,14 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
               <FrameComponent>
                 <ProyectoComponent
                   label="Saldo Convenio"
+                  type="text"
                   control={control}
                   errors={errors}
                   cant="Cant."
                   total="$ Total"
                   porcentaje="%"
                   dataCant={data && data[EnumGrid.CANTIDAD_DISPONIBLE]}
-                  dataTotal={formatCurrencyNumber(data && data[EnumGrid.TOTAL_DISPONIBLE])}
+                  dataTotal={data && data[EnumGrid.TOTAL_DISPONIBLE]}
                   dataPorcentaje={data && data[EnumGrid.PORC_DISPONIBLE]}
                   isOptional={true}
                   onlyRead={true}

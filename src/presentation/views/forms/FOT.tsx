@@ -157,7 +157,7 @@ const FOT:React.FC<IFOTProps> = ({
 
   const permisosAreas = OTAreaActual && permissions(OTAreaActual)[6] as any
   // console.log(permisosAreas && permiso_usuario_verificar_cristal)
-
+    console.log(permisosAreas.length)
   
   let permiso_areas_armazones             = permisosAreas && permisosAreas[0] === '1' ? true : false;
   let permiso_areas_cristales             = permisosAreas && permisosAreas[1] === '1' ? true : false;
@@ -169,7 +169,14 @@ const FOT:React.FC<IFOTProps> = ({
   let permiso_area_verificar_cristal      = permisosAreas && permisosAreas[7] === '1' ? true : false;
   // let permiso_area_verificar_armazon      = permisosAreas && permisosAreas[8] === "1" ? true : false;
 
-  console.log(permisosAreas)
+  // console.log(permisosAreas)
+
+
+  const permisosAreasUsuario           = useAppSelector((store: AppStore) => store.user?.permisos_areas);
+
+  let permiso_anular_usuario           = permisosAreasUsuario && permisosAreasUsuario[0] === '1' ? true : false;
+  
+
 
 
   const handleCloseForm = () => {
@@ -1188,7 +1195,7 @@ const checkArmazones = camposRequeridosArmazones.every(campo => {
                 {/*************** BOTON ANULAR ***************/}
                 {OTPermissions           &&
                 escritura_lectura        &&
-                (isMOT ? permisos_ot_historica.permiso_anular  : OTPermissions[9] === "1") && 
+                (isMOT ? permisos_ot_historica.permiso_anular  : permiso_anular_usuario === true) && 
                 sumatoriaNivel1  === validationNivel1.value.length && 
                 // (data && data[EnumGrid.estado_id] === 30 || data && data[EnumGrid.estado_id] === 40 ) && 
                 (

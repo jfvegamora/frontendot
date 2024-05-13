@@ -51,7 +51,7 @@ export interface InputData {
   permiso_editar_armazon: string | undefined;
   permiso_editar_estado_impresion: string | undefined;
   permiso_editar_validar_parametrizacion: string | undefined;
-  permiso_editar_resolucion_garantia: string | undefined;
+  // permiso_editar_resolucion_garantia: string | undefined;
   permiso_editar_grupo_dioptria: string | undefined;
   permiso_editar_receta: string | undefined;
   permiso_editar_validar_insumos: string | undefined;
@@ -59,12 +59,8 @@ export interface InputData {
 
 }
 function insertarElementoEnPosicion(arreglo:any, nuevoElemento:any, posicion:any) {
-  console.log(arreglo)
-  console.log(nuevoElemento)
-  console.log(posicion)
-
-  console.log(arreglo.slice(0, posicion) + nuevoElemento + arreglo.slice(posicion))
-  return arreglo.slice(0, posicion) + nuevoElemento + arreglo.slice(posicion);
+  const nuevoArreglo = arreglo.slice(0, posicion) + nuevoElemento + arreglo.slice(posicion)
+  return nuevoArreglo.substring(0, 4) + '0' + nuevoArreglo.substring(5);
 }
 
 interface OutputData {
@@ -139,7 +135,6 @@ export function transformUpdateQuery(
   primaryKey: string
 ): OutputData | null {
 
-  console.log(jsonData)
 
   const fields = [
     `nombre               ="${jsonData.nombre}"`,
@@ -151,7 +146,6 @@ export function transformUpdateQuery(
     `permisos_campos      = "${insertarElementoEnPosicion(permiso_campo.map((permiso) => jsonData[permiso] === 'Lectura' ? "0" : "1").join(''),'0', 1)}"`,
     `permisos_areas       = "${permiso_area.map((permiso)=>jsonData[permiso] === 'Lectura' ? "0" : "1").join('')}"`,
   ];
-
 
 
  const filteredFields = fields.filter(
@@ -304,6 +298,10 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
         window.removeEventListener("keydown", handleKeyDown);
       };
     }, [closeModal]);
+
+    React.useEffect(()=>{
+      setValue('permiso_editar_resolucion_garantia', 'Lectura')
+    },[])
 
     const handleSaveChange = React.useCallback(
       async (data: InputData, isEditting: boolean) => {
@@ -584,7 +582,7 @@ return (
                           <div className="w-full">
                             <RadioButtonComponent
                               control={control}
-                              label="Bod Prod Terminados"
+                              label="Bod Prod Term."
                               name="permiso_bodega_prod_term"
                               data={formValues && formValues["Bod Prod Terminados"] || data && data[EnumGrid.permiso_bodega_p_terminados]}
                               options={["Lectura", "Escritura"]}
@@ -631,7 +629,7 @@ return (
                           <div className="w-full">
                             <RadioButtonComponent
                               control={control}
-                              label="Calculo"
+                              label="Cálculo"
                               name="permiso_calculo"
                               data={formValues && formValues["Calculo"] || data && data[EnumGrid.permiso_calculo]}
                               options={["Lectura", "Escritura"]}
@@ -701,7 +699,7 @@ return (
                             <div className="w-full">
                               <RadioButtonComponent
                                 control={control}
-                                label="Estado Impresion"
+                                label="Estado Impresión"
                                 name="permiso_editar_estado_impresion"
                                 data={formValues && formValues["Estado Impresion"] || data && data[EnumGrid.permiso_editar_estado_impresion]}
                                 options={["Lectura", "Escritura"]}
@@ -715,7 +713,7 @@ return (
                             <div className="w-full">
                               <RadioButtonComponent
                                 control={control}
-                                label="Validar Parametri"
+                                label="Validar Param."
                                 name="permiso_editar_validar_parametrizacion"
                                 data={formValues && formValues["Validar Parametri"] || data && data[EnumGrid.permiso_editar_validar_parametrizacion]}
                                 options={["Lectura", "Escritura"]}
@@ -726,7 +724,7 @@ return (
                             </div>
                           </div>
                           <div className="input-container items-center rowForm w-[15%]">
-                            <div className="w-full">
+                            {/* <div className="w-full">
                               <RadioButtonComponent
                                 control={control}
                                 label="Resolución Garantía"
@@ -737,7 +735,7 @@ return (
                                 horizontal={false}
                                 onChange={(e:any)=>handleChange(e)}
                               />
-                            </div>
+                            </div> */}
                           </div>
                       </div>
 
@@ -748,7 +746,7 @@ return (
                         <div className="w-full">
                           <RadioButtonComponent
                             control={control}
-                            label="Grupo Dioptria"
+                            label="Grupo Dioptría"
                             name="permiso_editar_grupo_dioptria"
                             data={formValues && formValues["Grupo Dioptria"] || data && data[EnumGrid.permiso_editar_grupo_dioptria]}
                             options={["Lectura", "Escritura"]}

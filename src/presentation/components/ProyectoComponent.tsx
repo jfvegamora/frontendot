@@ -14,6 +14,7 @@ interface IProps{
     isOptional?:boolean;
     onlyRead?:boolean;
     setValue?:any;
+    type:string
 }
 
 const ProyectoComponent:React.FC<IProps> = ({
@@ -28,7 +29,8 @@ const ProyectoComponent:React.FC<IProps> = ({
     label,
     onlyRead,
     setValue,
-    isOptional
+    isOptional,
+    type
 }) => {
 
   return (
@@ -40,7 +42,8 @@ const ProyectoComponent:React.FC<IProps> = ({
                 <div className="input-container items-center rowForm w-[35%]">
                     <div className="w-[110%] mt-4 !p-0 -ml-4">
                         <TextInputInteractive
-                            type="number"
+                            type={type}
+                            className='text-center'
                             label="Cant."
                             name={cant}
                             data={dataCant}
@@ -54,9 +57,10 @@ const ProyectoComponent:React.FC<IProps> = ({
                 </div>
 
                 <div className="input-container items-center rowForm w-[40%]">
-                    <div className="w-[120%] mt-4 -ml-8">
+                    <div className="w-[120%] mt-4 -ml-8 text-center">
                         <TextInputInteractive
-                            type="number"
+                            type={type}
+                            className='text-center'
                             label="$ Total"
                             name={total}
                             data={dataTotal}
@@ -72,7 +76,8 @@ const ProyectoComponent:React.FC<IProps> = ({
                 <div className="input-container items-center rowForm w-[35%]">
                     <div className="w-[110%] mt-4 -ml-8">
                         <TextInputInteractive
-                            type="number"
+                            type={type}
+                            className='text-center'
                             label="%"
                             name={porcentaje}
                             data={dataPorcentaje}
