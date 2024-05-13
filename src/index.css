@@ -258,8 +258,8 @@ select::-ms-expand {
 }
 
 .custom-optional-with-color {
-  background-color: rgba(255, 255, 255, 0.139);
-  color: rgba(175, 175, 175, 0.663); 
+  background-color: rgba(255, 255, 255, 0.213);
+  color: rgba(62, 62, 62, 0.75); 
    /* Tu nuevo color para el texto en estilo custom-optional */
 }
 

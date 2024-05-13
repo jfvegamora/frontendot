@@ -180,14 +180,7 @@ React.useEffect(()=>{
     }
 },[])
 
-if(data){
-    console.log(data[EnumGrid.punto_venta])
-    console.log(data[EnumGrid.punto_venta_id])
-    console.log(data[EnumGrid.proyecto_codigo])
 
-    console.log(codigoProyecto.value)
-    console.log(punto_venta.value)
-}
 
 
 
@@ -379,7 +372,7 @@ return (
                                 control={control}
                                 entidad={"OTMotivoGarantia"}
                                 readOnly={true}
-                                onlyFirstOption={true}
+                                onlyFirstOption={data && data[EnumGrid.motivo] === 'Garantía'}
                                 
                            />
                         </div>
