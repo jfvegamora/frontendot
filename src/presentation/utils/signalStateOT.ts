@@ -1889,16 +1889,30 @@ export const updateOT =async (
 
   const _armazonJSONNew = JSON.stringify(armazones)
 
-  // console.log(tipo_evento)
-  // console.log(fields.map((a)=>a.split('=')).map)
 
-  const filteredFields = fields
+  console.log(data && data[EnumGrid.motivo])   
+
+  console.log(tipo_evento)
+  console.log(fields.map((a)=>a.split('=')).filter((prev)=>prev[0] !== 'resolucion_garantia'))
+  
+  
+  
+  let filteredFields = fields
                           .map((a)=>a.split('='))
                           .filter((prev)=>prev[1] !== 'undefined')
                           .map((parts) => parts.join('='));
+
+  let filteredFieldsSinResolucion:any = []
   
 
-  let _p1 = filteredFields.join(',');    
+  if(data && data[EnumGrid.motivo] === 'Garantía'){
+      if(tipo_evento === 'Pausada'){
+        filteredFieldsSinResolucion = filteredFields.map((a)=>a.split('=')).filter((a)=>a[0] !== 'resolucion_garantia').map((parts) => parts.join('='))
+      }
+  }
+
+
+  let _p1 = tipo_evento === 'Pausada' ? filteredFieldsSinResolucion.join(',')  : filteredFields.join(',');    
   _p1 = _p1.replace(/'/g, '!');
 
   const query = {

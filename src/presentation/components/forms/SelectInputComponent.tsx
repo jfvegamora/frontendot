@@ -102,7 +102,6 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
    })
       if(label === 'Punto de Venta'){
         if(data && data[0]){
-          console.log(data)
           if(!isEditting){
             punto_venta.value = data[0][0]
             setStrSelectedName(data[0][0])
@@ -143,12 +142,6 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
    },[resetFilters.value])
 
 
-   if(name === 'punto_venta_id'){
-    console.log(data)
-    console.log(strSelectedName)
-   }
-
-   console.log( )
 
 
     const renderInput = () => (

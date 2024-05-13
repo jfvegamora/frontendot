@@ -35,6 +35,7 @@ interface ISelectInputProps {
   tabIndex?: number;
   FOTcristales?:boolean;
   isOptional?:boolean;
+  onlyFirstOption?:boolean
 }
 
 
@@ -57,6 +58,7 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
     customWidth,
     FOTcristales,
     isOptional,
+    onlyFirstOption
   }) => {
     const stateListBox = useAppSelector((store: AppStore) => store.listBoxTipos[entidad]);
     const [entities, setEntities] = useState(stateListBox|| []);
@@ -156,10 +158,13 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
                 }}
                 className={`"custom-input py-2  cursor-pointer z-0"  ${readOnly ? "custom-onlyread" : isOptional ? "custom-optional-with-color" : "custom-required"} `}
                 >
+
+                  {!onlyFirstOption && (
+                    <option value={undefined} className="text-sm">
+                      
+                    </option>
+                  )}
               
-                  <option value={undefined} className="text-sm">
-                    
-                  </option>
                 
                   
                 
