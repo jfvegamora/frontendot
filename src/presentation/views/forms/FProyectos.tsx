@@ -147,7 +147,7 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
   return query;
 }
 export function transformUpdateQuery(
-  jsonData:InputData,
+  jsonData: InputData,
   primaryKey: string
 ): OutputData | null {
 
@@ -477,7 +477,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
               </div>
             </div>
 
-            <div className="w-full items-center flex h-[80px] mt-[10px] mb-[10px]">
+            <div className="w-full items-center flex h-[70px] mt-[10px] mb-[10px]">
               <div className="input-container items-center rowForm w-[14%]">
                 <div className="w-full mr-2">
                   <TextInputComponent
@@ -492,6 +492,19 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                 </div>
               </div>
 
+              <div className="input-container items-center rowForm w-[35%]">
+                <div className="w-full mr-2">
+                  <TextInputComponent
+                    type="text"
+                    label="Título"
+                    name="titulo_proyecto"
+                    data={data && data[EnumGrid.TITULO]}
+                    control={control}
+                    error={errors.titulo_proyecto}
+                  />
+                </div>
+              </div>
+
               <div className="input-container items-center rowForm w-[14%]">
                 <div className="w-full mr-2">
                   <TextInputComponent
@@ -502,19 +515,6 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     error={errors.codigo_licitacion}
                     isOptional={true}
-                  />
-                </div>
-              </div>
-
-              <div className="input-container items-center rowForm w-[35%]">
-                <div className="w-full mr-2">
-                  <TextInputComponent
-                    type="text"
-                    label="Título"
-                    name="titulo_proyecto"
-                    data={data && data[EnumGrid.TITULO]}
-                    control={control}
-                    error={errors.titulo_proyecto}
                   />
                 </div>
               </div>
@@ -548,8 +548,8 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
               </div>
             </div>
 
-            <div className="w-full items-center flex h-[80px] mt-[30px] mb-[10px]">
-              <div className="input-container items-center rowForm w-[33%]">
+            <div className="w-full items-center flex h-[110px]  mb-[20px]">
+              <div className="input-container items-center rowForm w-[10%] ">
                 <div className="w-full mr-2">
                   <TextInputComponent
                     type="number"
@@ -563,7 +563,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                 </div>
               </div>
 
-              <div className="input-container items-center rowForm w-[15%]">
+              <div className="input-container items-center rowForm w-[12%]">
                 <div className="w-full mr-2">
                   <TextInputComponent
                     type="date"
@@ -577,7 +577,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                 </div>
               </div>
 
-              <div className="input-container items-center rowForm w-[15%]">
+              <div className="input-container items-center rowForm w-[12%]">
                 <div className="w-full mr-2">
                   <TextInputComponent
                     type="date"
@@ -591,7 +591,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                 </div>
               </div>
 
-              <div className="input-container items-center rowForm w-full">
+              <div className="input-container items-center rowForm w-[29%]">
                 <div className="w-full mr-2">
                   <TextInputComponent
                     type="text"
@@ -605,7 +605,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                 </div>
               </div>
 
-              <div className="input-container items-center rowForm w-[15%]">
+              <div className="input-container items-center rowForm w-[12%]">
                 <div className="w-full mr-2">
                   <TextInputComponent
                     type="date"
@@ -619,23 +619,43 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                   />
                 </div>
               </div>
+
+              <div className="input-container items-center rowForm w-[23%]">
+                <div className="w-full mr-2">
+                  <FrameComponent>
+                    <ProyectoComponent
+                      label="Presupuesto Convenio"
+                      control={control}
+                      errors={errors}
+                      cant="cantidad_requerida"
+                      total="presupuesto"
+                      porcentaje="%"
+                      dataCant={data && data[EnumGrid.CANTIDAD_REQUERIDA]}
+                      dataTotal={data && data[EnumGrid.TOTAL_REQUERIDO]}
+                      dataPorcentaje={100}
+                      onlyRead={false}
+                      isOptional={true}
+                      setValue={setValue}
+                    />
+                  </FrameComponent>
+                </div>
+              </div>
             </div>
 
             <div className="w-full items-center flex h-[110px] ">
               <FrameComponent>
                 <ProyectoComponent
-                  label="Presupuesto Convenio"
+                  label="OT Ingresadas"
                   control={control}
                   errors={errors}
-                  cant="cantidad_requerida"
-                  total="presupuesto"
+                  cant="Cant."
+                  total="$ Total"
                   porcentaje="%"
-                  dataCant={data && data[EnumGrid.CANTIDAD_REQUERIDA]}
-                  dataTotal={data && data[EnumGrid.TOTAL_REQUERIDO]}
-                  dataPorcentaje={100}
-                  onlyRead={false}
+                  dataCant={data && data[EnumGrid.CANTIDAD_DISPONIBLE]}
+                  dataTotal={data && data[EnumGrid.TOTAL_DISPONIBLE]}
+                  dataPorcentaje={data && data[EnumGrid.PORC_DISPONIBLE]}
                   isOptional={true}
-                  setValue={setValue}
+                  onlyRead={true}
                 />
               </FrameComponent>
               <FrameComponent>
