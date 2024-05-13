@@ -28,50 +28,52 @@ export enum EnumGrid {
   permiso_documentacion           = 9,
   permiso_post_venta_id           = 10,
   permiso_post_venta              = 11,
+  permiso_anular_id               = 12,
+  permiso_anular                  = 13,
 
   //? PERMISOS AREAS
-  permiso_control_id              = 12,
-  permiso_control                 = 13,
-  permiso_adquisiciones_id        = 14,
-  permiso_adquisiciones           = 15,
-  permiso_calculo_id              = 16,
-  permiso_calculo                 = 17,
-  permiso_laboratorio_id          = 18,
-  permiso_laboratorio             = 19,
-  permiso_venta_id                = 20,
-  permiso_venta                   = 21,
-  permiso_bodega_insumo_id        = 22,
-  permiso_bodega_insumo           = 23,
-  permiso_taller_biselado_id      = 24,
-  permiso_Taller_biselado         = 25,
-  permiso_taller_montaje_id       = 26,
-  permiso_taller_montaje          = 27,
-  permiso_bodega_p_terminados_id  = 28,
-  permiso_bodega_p_terminados     = 29,
-  permiso_empaque_id              = 30,
-  permiso_empaque                 = 31,
+  permiso_control_id              = 14,
+  permiso_control                 = 15,
+  permiso_adquisiciones_id        = 16,
+  permiso_adquisiciones           = 17,
+  permiso_calculo_id              = 18,
+  permiso_calculo                 = 19,
+  permiso_laboratorio_id          = 20,
+  permiso_laboratorio             = 21,
+  permiso_venta_id                = 22,
+  permiso_venta                   = 23,
+  permiso_bodega_insumo_id        = 24,
+  permiso_bodega_insumo           = 25,
+  permiso_taller_biselado_id      = 26,
+  permiso_Taller_biselado         = 27,
+  permiso_taller_montaje_id       = 28,
+  permiso_taller_montaje          = 29,
+  permiso_bodega_p_terminados_id  = 30,
+  permiso_bodega_p_terminados     = 31,
+  permiso_empaque_id              = 32,
+  permiso_empaque                 = 33,
 
     //? PERMISOS CAMPOS - EDITAR CAMPOS OT
-  permiso_editar_armazon_id                  = 32,
-  permiso_editar_armazon                     = 33,
-  permiso_editar_cristal_id                  = 34,
-  permiso_editar_cristal                     = 35,
-  permiso_editar_estado_impresion_id         = 36,
-  permiso_editar_estado_impresion            = 37,
-  permiso_editar_validar_parametrizacion_id  = 38,
-  permiso_editar_validar_parametrizacion     = 39,
-  permiso_editar_resolucion_garantia_id      = 40,
-  permiso_editar_resolucion_garantia         = 41,
-  permiso_editar_grupo_dioptria_id           = 42,
-  permiso_editar_grupo_dioptria              = 43,
-  permiso_editar_receta_id                   = 44,
-  permiso_editar_receta                      = 45,
-  permiso_editar_validar_cristales_id        = 46,
-  permiso_editar_validar_cristales           = 47,
-  permiso_editar_validar_armazones_id        = 48,
-  permiso_editar_validar_armazones           = 49,
-  permiso_editar_worktracking_id             = 50,
-  permiso_editar_worktracking                = 51
+  permiso_editar_armazon_id                  = 34,
+  permiso_editar_armazon                     = 35,
+  permiso_editar_cristal_id                  = 36,
+  permiso_editar_cristal                     = 37,
+  permiso_editar_estado_impresion_id         = 38,
+  permiso_editar_estado_impresion            = 39,
+  permiso_editar_validar_parametrizacion_id  = 40,
+  permiso_editar_validar_parametrizacion     = 41,
+  permiso_editar_resolucion_garantia_id      = 42,
+  permiso_editar_resolucion_garantia         = 43,
+  permiso_editar_grupo_dioptria_id           = 44,
+  permiso_editar_grupo_dioptria              = 45,
+  permiso_editar_receta_id                   = 46,
+  permiso_editar_receta                      = 47,
+  permiso_editar_validar_cristales_id        = 48,
+  permiso_editar_validar_cristales           = 49,
+  permiso_editar_validar_armazones_id        = 50,
+  permiso_editar_validar_armazones           = 51,
+  permiso_editar_worktracking_id             = 52,
+  permiso_editar_worktracking                = 53
 }
 
 
@@ -198,7 +200,14 @@ const MUsuarios: React.FC = () => {
           // setTotalRowIndex={setTotalRowIndex}
         />
       </div>
- 
+      {/* <FUsuarios
+          label={`${TITLES.ingreso} ${strEntidad}`}
+          closeModal={closeModal}
+          selectedRows={selectedRows}
+          setEntities={setEntities}
+          params={params}
+          isEditting={false}
+        /> */}
       
       {isModalInsert && (
         <FUsuarios

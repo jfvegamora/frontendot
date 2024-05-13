@@ -4,7 +4,7 @@ import { PencilIcon } from "@heroicons/react/24/solid";
 import { PiPrinterFill } from "react-icons/pi";
 import { ImWhatsapp } from "react-icons/im";
 // import { usePermission } from '../hooks';
-import { BUTTON_MESSAGES, clearAllCheck, isToggleImpression } from '../utils';
+import { BUTTON_MESSAGES, clearAllCheck, clearIndividualCheck, isToggleImpression } from '../utils';
 
 import { useReactToPrint } from 'react-to-print';
 // import FOTImpresa from '../views/forms/FOTImpresa';
@@ -19,8 +19,9 @@ import { EnumGrid } from '../views/mantenedores/MOTHistorica';
 // import { validationStateOT } from './OTPrimaryButtons';
 // import FOTTicketQRImpresion from '../views/forms/FOTTicketQRImpresion';
 // import { paramsOT } from '../views/mantenedores/MOT';
-import { EnumAreas, isFinishImpression } from './OTPrimaryButtons';
+import { EnumAreas } from './OTPrimaryButtons';
 import { paramsOT } from '../views/mantenedores/MOT';
+import { signal } from '@preact/signals-react';
 // import ReactDOM from 'react-dom';
 
 
@@ -37,6 +38,8 @@ type AreaButtonsProps ={
 
 const strEntidad = "Orden de Trabajo";
 const strUrl = `${URLBackend}/api/ot/listado`
+const folioActual = signal<any>(0);
+const isFinishImpression = signal(false)
 
 const FOTImpresa             = React.lazy(()=>import('../views/forms/FOTImpresa'));
 const FOTTicketQRImpresion   = React.lazy(()=>import('../views/forms/FOTTicketQRImpresion'));
@@ -90,7 +93,6 @@ const OTGrillaButtons:React.FC<AreaButtonsProps> = ({ areaPermissions, toggleEdi
     
     const OT                 = OTdata.filter((ot:any)=>ot[1] === folio)[0]
     const QR                 = 30
-    const TICKET             = 31
 
 const resetImpresionStates = () => {
     setIsFotImpresa(false)
@@ -105,49 +107,34 @@ const resetImpresionStates = () => {
     suppressErrors: true,
     removeAfterPrint: true,
     onAfterPrint() {
-        dispatch(clearImpression())
         isFinishImpression.value = true;
-        // if(OT[QR] === 0 && OT[TICKET] === 0){
-        //     resetImpresionStates()
-        //     dispatch(clearImpression())
-        //     return;
-        // }
-
-        // if(OT[TICKET] === 1){
-        //     setisFotTicketRetiro(true)
-        //     setisFotTicketQR(true)
-        //     imprimirComprobanteRetiro('TICKETRETIRO')
-        // }
-        // return;
+        dispatch(clearImpression())
+        if(OT[QR] === 1){
+            setisFotTicketQR(true)
+        }
     },
+
 
 });
 
+React.useEffect(()=>{
+    if(isFinishImpression.value === true){
+          try {
 
-
-
-// React.useEffect(()=>{
-//     console.log(folio)
-//     if(isFinishImpression.value === true){
-//         let masivo = true
-
-
-//         //   try {
-//         //       console.log(ot.folio)
-//         //       setEstadoImpresion(ot.folio,1,User,OTAreas["areaActual"],masivo).then(()=>{
-//         //         clearIndividualCheck.value = true;
-//         //       })            
-//         //     } catch (error) {
-//         //       console.log(error)
+              setEstadoImpresion(folioActual.value,1,user,OTAreas["areaActual"],true).then(()=>{
+                clearIndividualCheck.value = true;
+                dispatch(fetchOT({OTAreas:OTAreas["areaActual"],searchParams: paramsOT.value}))
+                clearAllCheck.value = false;
+                isFinishImpression.value = false;
+                folioActual.value = false;
+              })            
+            } catch (error) {
+              console.log(error)
               
-//         //     }
+            }
          
-//     }
-//     // toast.success('Estado Impresión Cambiado.');
-//     // dispatch(fetchOT({OTAreas:OTAreas["areaActual"],searchParams: paramsOT.value}))
-//     clearAllCheck.value = false;
-//     isFinishImpression.value = false;
-//   },[isFinishImpression.value])
+    }
+  },[isFinishImpression.value])
 
 
 
@@ -277,7 +264,10 @@ const imprimirComprobanteRetiro = async(tipoComprobante?:string) => {
                     <IconButton
                         variant="text"
                         color="blue-gray"
-                        onClick={()=>handleImpresion(folio)}
+                        onClick={()=>{
+                            folioActual.value = folio;
+                            handleImpresion(folio)
+                        }}
                     >
                         <PiPrinterFill className="gridIcons" />
                         

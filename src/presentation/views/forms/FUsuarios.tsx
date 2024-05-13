@@ -45,6 +45,7 @@ export interface InputData {
 
   permiso_facturacion: string | undefined;
   permiso_post_venta:  string | undefined;
+  permiso_anulacion: string | undefined;
 
 
   permiso_editar_armazon: string | undefined;
@@ -99,7 +100,8 @@ const permiso_campo = [
 
 const permiso_archivoOT = [
   "permiso_facturacion",
-  "permiso_post_venta"
+  "permiso_post_venta",
+  "permiso_anulacion"
 ]
 
 export function transformInsertQuery(jsonData: any): any | null {
@@ -137,6 +139,8 @@ export function transformUpdateQuery(
   primaryKey: string
 ): OutputData | null {
 
+  console.log(jsonData)
+
   const fields = [
     `nombre               ="${jsonData.nombre}"`,
     `telefono             ="${jsonData.telefono}"`,
@@ -147,6 +151,8 @@ export function transformUpdateQuery(
     `permisos_campos      = "${insertarElementoEnPosicion(permiso_campo.map((permiso) => jsonData[permiso] === 'Lectura' ? "0" : "1").join(''),'0', 1)}"`,
     `permisos_areas       = "${permiso_area.map((permiso)=>jsonData[permiso] === 'Lectura' ? "0" : "1").join('')}"`,
   ];
+
+
 
  const filteredFields = fields.filter(
     (field) => field !== null && field !== ""
@@ -375,40 +381,6 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
 
 
 
-// console.log(data && data)
-    
-
-
-// console.log(data && data[EnumGrid.permiso_control])
-// console.log(data && data[EnumGrid.permiso_adquisiciones])
-// console.log(data && data[EnumGrid.permiso_calculo])
-// console.log(data && data[EnumGrid.permiso_laboratorio])
-// console.log(data && data[EnumGrid.permiso_venta])
-// console.log(data && data[EnumGrid.permiso_bodega_insumo])
-// console.log(data && data[EnumGrid.permiso_Taller_biselado])
-// console.log(data && data[EnumGrid.permiso_taller_montaje])
-// console.log(data && data[EnumGrid.permiso_bodega_p_terminados])
-// console.log(data && data[EnumGrid.permiso_empaque])
-
-
-
-
-
-
-
-
-// console.log(data && data[EnumGrid.permiso_editar_armazon_id])
-// console.log(data && data[EnumGrid.permiso_editar_estado_impresion_id])
-// console.log(data && data[EnumGrid.permiso_editar_validar_parametrizacion_id])
-// console.log(data && data[EnumGrid.permiso_editar_resolucion_garantia_id])
-// console.log(data && data[EnumGrid.permiso_editar_grupo_dioptria_id])
-// console.log(data && data[EnumGrid.permiso_editar_receta_id])
-// console.log(data && data[EnumGrid.permiso_editar_validar_cristales_id])
-// console.log(data && data[EnumGrid.permiso_editar_validar_armazones_id])
-
-console.log(data && data[EnumGrid.permiso_editar_worktracking])
-console.log(data && data)
-
 
 return (
       <div className="useFormContainer centered-div  !w-[73rem] !h-[45rem]">
@@ -425,7 +397,7 @@ return (
           <div className="userFormularioContainer !w-full ">
             
             <div className="w-full items-center flex !mb-4 ">
-              <div className="input-container   items-center  flex justify-between rowForm w-[50%]">
+              <div className="input-container   items-center  flex justify-between rowForm w-[33%]">
                 <div className="w-full !mt-4">
                   <TextInputComponent
                     type="text"
@@ -438,7 +410,7 @@ return (
                   />
                 </div>
               </div>
-              <div className="input-container items-center rowForm w-[50%]">
+              <div className="input-container items-center rowForm w-[33%]">
               <div className="w-full">
                   <SelectInputComponent
                     label="Cargo"
@@ -452,27 +424,28 @@ return (
                   />
                 </div>   
               </div>
+              <div className="input-container items-center rowForm w-[33%]">
+                <div className="w-full">
+                    <TextInputComponent
+                      type="text"
+                      label="Teléfono"
+                      name="telefono"
+                      data={data && data[EnumGrid.telefono]}
+                      control={control}
+                      isOptional={true}
+                      />
+                  </div>
+              </div>
             </div>
+
+            
             <div className="w-full items-center flex !mb-4">
             </div>
 
 
             <div className=" items-center flex !mb-4 ">
-
-
               <div className="input-container flex items-center rowForm w-[50%]">
-                <div className="w-[60%]">
-                  <TextInputComponent
-                    type="text"
-                    label="Teléfono"
-                    name="telefono"
-                    data={data && data[EnumGrid.telefono]}
-                    control={control}
-                    isOptional={true}
-                    />
-                </div>
-
-                <div className="w-[40rem] ">
+                <div className="w-[20rem] ">
                   <TextInputComponent
                     type="email"
                     label="Correo"
@@ -490,8 +463,8 @@ return (
  */}
 
 
-              <div className="input-container flex justify-between !ml-10 items-center rowForm w-[70%]">
-                <div className="w-[30%]">
+              <div className="input-container flex justify-between !ml-10 items-center rowForm w-[100%]">
+                <div className="w-[20%]">
                   <RadioButtonComponent
                     control={control}
                     label="Estado"
@@ -502,7 +475,7 @@ return (
                     horizontal={false}
                   />
                 </div>
-                <div className="w-[30%]">
+                <div className="w-[20%]">
                   <RadioButtonComponent
                     control={control}
                     label="Documentación"
@@ -513,12 +486,23 @@ return (
                     horizontal={false}
                   />
                 </div>
-                <div className="w-[30%]">
+                <div className="w-[20%]">
                   <RadioButtonComponent
                     control={control}
                     label="Post Venta"
                     name="permiso_post_venta"
                     data={formValues && formValues["Post Venta"] || data && data[EnumGrid.permiso_post_venta]}
+                    options={["Lectura", "Escritura"]}
+                    error={errors.permiso_post_venta}
+                    horizontal={false}
+                  />
+                </div>
+                <div className="w-[20%]">
+                  <RadioButtonComponent
+                    control={control}
+                    label="Anulacion"
+                    name="permiso_anulacion"
+                    data={formValues && formValues["Anulacion"] || data && data[EnumGrid.permiso_anular]}
                     options={["Lectura", "Escritura"]}
                     error={errors.permiso_post_venta}
                     horizontal={false}

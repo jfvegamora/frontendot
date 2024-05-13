@@ -18,6 +18,7 @@ import { clearSelectInput, punto_venta } from "../../utils";
 
 import { retry } from 'async';
 import { resetFilters } from "../PrimaryKeySearch";
+import { inputName } from "../OTForms/Otprueba";
 // import Select from "react-select";
 
 interface ISelectInputProps {
@@ -203,7 +204,9 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
                   entities.map((option: any, index) => (
                     <option
                       key={index}
-                      value={ isFOTcristales ? (  clearSelectInput.value ?  "" : (option[0] !== undefined ? option[0].toString() : "") )  :  (option[0] !== undefined ? option[0].toString() : "") }
+                      value={ isFOTcristales ? (  clearSelectInput.value ?  (
+                        inputName !== 'proyecto_codigo' ? "" : strSelectedName
+                      ) : (option[0] !== undefined ? option[0].toString() : "") )  :  (option[0] !== undefined ? option[0].toString() : "") }
                     >
                       { clearSelectInput.value && isFOTcristales === true ? (
                         <option value={0}> </option>

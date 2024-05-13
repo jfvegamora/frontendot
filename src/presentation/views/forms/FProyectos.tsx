@@ -13,7 +13,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { fechaActual, validationProyectosSchema } from "../../utils/validationFormSchemas";
 import { EnumGrid } from "../mantenedores/MProyectos";
-import { MODAL, SUCCESS_MESSAGES, TITLES } from "../../utils";
+import { MODAL, SUCCESS_MESSAGES, TITLES, formatCurrencyNumber } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
@@ -197,6 +197,7 @@ export function transformUpdateQuery(
 
   _p2 = _p2.replace(/'/g, '!');
 
+  console.log(jsonData)
   const query = {
     query: "04",
     _p2,
@@ -386,7 +387,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
       [editEntity, createdEntity, handleApiResponse, intId]
     );
 
-
+    console.log(data && data[EnumGrid.EJECUTIVO_ID])
 
     useEffect(() => {
       isEditting ? focusSecondInput("codigo_licitacion") : focusFirstInput("codigo_proyecto");
@@ -439,7 +440,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                     label="Ejecutivo Proyecto"
                     name="ejecutivo_proyecto"
                     showRefresh={true}
-                    data={data && data[EnumGrid.EJECUTIVO_ID]}
+                    data={data && parseInt(data[EnumGrid.EJECUTIVO_ID])}
                     control={control}
                     entidad={["/api/usuarios/", "02"]}
                     error={errors.ejecutivo_proyecto}
@@ -631,7 +632,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                   total="presupuesto"
                   porcentaje="%"
                   dataCant={data && data[EnumGrid.CANTIDAD_REQUERIDA]}
-                  dataTotal={data && data[EnumGrid.TOTAL_REQUERIDO]}
+                  dataTotal={formatCurrencyNumber(data && data[EnumGrid.TOTAL_REQUERIDO])}
                   dataPorcentaje={100}
                   onlyRead={false}
                   isOptional={true}
@@ -647,7 +648,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                   total="$ Total"
                   porcentaje="%"
                   dataCant={data && data[EnumGrid.CANTIDAD_EN_PROCESO]}
-                  dataTotal={data && data[EnumGrid.TOTAL_EN_PROCESO]}
+                  dataTotal={formatCurrencyNumber(data && data[EnumGrid.TOTAL_EN_PROCESO])}
                   dataPorcentaje={data && data[EnumGrid.PORC_EN_PROCESO]}
                   isOptional={true}
                   onlyRead={true}
@@ -662,7 +663,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                   total="$ Total"
                   porcentaje="%"
                   dataCant={data && data[EnumGrid.CANTIDAD_FACTURADA]}
-                  dataTotal={data && data[EnumGrid.TOTAL_FACTURADO]}
+                  dataTotal={formatCurrencyNumber(data && data[EnumGrid.TOTAL_FACTURADO])}
                   dataPorcentaje={data && data[EnumGrid.PORC_FACTURADO]}
                   isOptional={true}
                   onlyRead={true}
@@ -677,7 +678,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                   total="$ Total"
                   porcentaje="%"
                   dataCant={data && data[EnumGrid.CANTIDAD_DISPONIBLE]}
-                  dataTotal={data && data[EnumGrid.TOTAL_DISPONIBLE]}
+                  dataTotal={formatCurrencyNumber(data && data[EnumGrid.TOTAL_DISPONIBLE])}
                   dataPorcentaje={data && data[EnumGrid.PORC_DISPONIBLE]}
                   isOptional={true}
                   onlyRead={true}

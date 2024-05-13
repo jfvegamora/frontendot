@@ -152,20 +152,25 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
 
                     <div className="!w-[45%] ml-1">
                       <div className=''>
-                        <div className='otCod font-bold'>{ot[EnumGrid.cristal2_od]}</div>
-                        <div className='otCod font-bold'>{ot[EnumGrid.cristal2_oi]}</div>
-                        <div className='otCData '>{ot[EnumGrid.cristal2_marca]}</div>
-                        <div className='otCData '>{ot[EnumGrid.cristal2_diseno]}</div>
-                        <div className='otCData '>{ot[EnumGrid.cristal2_indice]}</div>
-                        <div className='otCData '>{ot[EnumGrid.cristal2_material]}</div>
-                        <div className='otCData '>{ot[EnumGrid.cristal2_color]}</div>
-                        <div className='otCData '>{ot[EnumGrid.cristal2_tratamiento]}</div>
-                        <div className='otCData '>{ot[EnumGrid.cristal2_diametro]}</div>
-                        {ot[EnumGrid.cristal2_tratamiento_adicional] && (
-                          <>
-                            <span className='text-[1.25rem] h-[1.25rem] font-bold'>{ot[EnumGrid.cristal2_tratamiento_adicional]}</span>
+                        {ot[EnumGrid.tipo_anteojo_id] === 3 && ( 
+                            <>
+                              <div className='otCod font-bold'>{ot[EnumGrid.cristal2_od]}</div>
+                                <div className='otCod font-bold'>{ot[EnumGrid.cristal2_oi]}</div>
+                                <div className='otCData '>{ot[EnumGrid.cristal2_marca]}</div>
+                                <div className='otCData '>{ot[EnumGrid.cristal2_diseno]}</div>
+                                <div className='otCData '>{ot[EnumGrid.cristal2_indice]}</div>
+                                <div className='otCData '>{ot[EnumGrid.cristal2_material]}</div>
+                                <div className='otCData '>{ot[EnumGrid.cristal2_color]}</div>
+                                <div className='otCData '>{ot[EnumGrid.cristal2_tratamiento]}</div>
+                                <div className='otCData '>{ot[EnumGrid.cristal2_diametro]}</div>
+                                {ot[EnumGrid.cristal2_tratamiento_adicional] && (
+                                  <>
+                                    <span className='text-[1.25rem] h-[1.25rem] font-bold'>{ot[EnumGrid.cristal2_tratamiento_adicional]}</span>
+                                  </>
+                                )}
                           </>
                         )}
+                        
                       </div>
                     </div>
                   </div>

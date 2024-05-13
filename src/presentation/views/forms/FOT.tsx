@@ -72,7 +72,7 @@ interface IFOTProps {
   params?: any;
   isMOT?:boolean
   onlyRead?: boolean;
-  permisos_mantenedor?:boolean;
+  permisos_ot_historica?:any;
 }
 
 
@@ -80,6 +80,7 @@ export const tipo_anteojo = signal(false);
 export const onlyReadReceta = signal(false);
 export const a1Grupo = signal(0);
 export const tipo_lejos_cerca = signal(false);
+export const keepForm     = signal(false);
 
 
 const FOT:React.FC<IFOTProps> = ({
@@ -88,7 +89,7 @@ const FOT:React.FC<IFOTProps> = ({
   isEditting,
   isMOT,
   onlyRead,
-  permisos_mantenedor
+  permisos_ot_historica
 }) => {
     //Estados locales
     const { control, handleSubmit, setValue, register, getValues } = useForm<any>();
@@ -182,6 +183,7 @@ const FOT:React.FC<IFOTProps> = ({
       clearGrupos();
       dispatch(clearCodigos())
       clearSelectInput.value = false;
+      keepForm.value = false;
       //limpiar codigo
   }
 
@@ -307,7 +309,25 @@ const FOT:React.FC<IFOTProps> = ({
     }
   },[])
 
+const reiniciarFormOT = (keepForm:any, message:any,clearCliente:boolean):void => {
 
+          clearDioptrias();
+          reiniciarDioptriasReceta();
+          reiniciarValidationNivel1(keepForm.value);
+          reiniciarValidationNivel3();
+          clearGrupos(keepForm.value);
+          dispatch(clearCodigos())
+          clearAllInputsOT(clearCliente)
+          clearSelectInput.value = false;
+          toast.success(message)
+          reiniciarValidationNivel2(keepForm.value);
+          setSelectedTab(1)
+          if(paramsOT.value !== ''){
+            dispatch(fetchOT({OTAreas:OTAreaActual, searchParams: paramsOT.value }))
+          }else{
+            dispatch(fetchOT({OTAreas:OTAreaActual}))
+          }
+}
 
 // console.log(data && data[EnumGrid.lugar_despacho])
   
@@ -368,6 +388,10 @@ const FOT:React.FC<IFOTProps> = ({
 
       if(response.status === 200){
 
+        if(keepForm.value === true){
+            reiniciarFormOT(keepForm.value,message, true)
+            return
+        }
 
         const result = await showModal(
           MODAL.keep,
@@ -380,27 +404,10 @@ const FOT:React.FC<IFOTProps> = ({
 
         if(result){
           let clearCliente = true
-          let keepForm = true;
+          keepForm.value = true;
           //limpiar inputs
-          clearDioptrias();
-          reiniciarDioptriasReceta();
-          reiniciarValidationNivel1(keepForm);
-          reiniciarValidationNivel3();
-          clearGrupos();
-          dispatch(clearCodigos())
-          clearAllInputsOT(clearCliente)
-          clearSelectInput.value = false;
-          toast.success(message)
-          reiniciarValidationNivel2(keepForm);
-          setSelectedTab(1)
-          if(paramsOT.value !== ''){
-            dispatch(fetchOT({OTAreas:OTAreaActual, searchParams: paramsOT.value }))
-          }else{
-            dispatch(fetchOT({OTAreas:OTAreaActual}))
-          }
+          reiniciarFormOT(keepForm.value,message,clearCliente)
           return
-
-
         }else{
           toast.success(message)
           dispatch(fetchOT({OTAreas:OTAreaActual, searchParams: paramsOT.value || ''}))
@@ -416,7 +423,6 @@ const FOT:React.FC<IFOTProps> = ({
     return query;
     // return
   }
-
   const sumatoriaNivel1 = validationNivel1.value.reduce((index, objeto) => index + objeto.valor, 0);
   // const sumatoriaNivel2 = validationNivel2.value.reduce((index, objeto) => index + objeto.valor, 0)
   // const sumatoriaNivel3 = validationNivel3.value.reduce((index,objecto) => index + objecto.valor, 0);  
@@ -916,8 +922,6 @@ const checkReceta = camposRequeridosReceta.every(campo => {
 
 const checkCristales = camposRequeridosCristales.every(campo => {
   const campoEncontrado = validationNivel1.value.find((item:any) => item.campo === campo);
-
-  console.log(campoEncontrado)
   return campoEncontrado && campoEncontrado.valor === 1;
 });
 
@@ -957,12 +961,11 @@ const checkArmazones = camposRequeridosArmazones.every(campo => {
 // console.log(checkOptica)
 
 
-console.log(data && data[EnumGrid.cristal2_diametro])
-
-console.log(OTPermissions[9])
-console.log(OTPermissions)
+console.log(isMOT)
 
 
+ 
+  console.log( permisos_ot_historica)
 
   return (
 
@@ -1112,9 +1115,9 @@ console.log(OTPermissions)
             {/*************** BOTON POST VENTA/GARANTIA ***************/}
           <div className='flex items-center mx-auto mt-[1.5rem] justify-around w-1/2 '>
         
-                {isEditting            && 
-                isMOT                  && 
-                permisos_mantenedor    &&
+                {isEditting                              && 
+                isMOT                                    && 
+                permisos_ot_historica.permiso_post_venta &&
                 // isMotivo    &&  (
                   (
                     <Button className='otActionButton bg-green-400' onClick={() => {
@@ -1189,7 +1192,7 @@ console.log(OTPermissions)
                 {/*************** BOTON ANULAR ***************/}
                 {OTPermissions           &&
                 escritura_lectura        &&
-                OTPermissions[9] === "1" && 
+                (isMOT ? permisos_ot_historica.permiso_anular  : OTPermissions[9] === "1") && 
                 sumatoriaNivel1  === validationNivel1.value.length && 
                 // (data && data[EnumGrid.estado_id] === 30 || data && data[EnumGrid.estado_id] === 40 ) && 
                 (

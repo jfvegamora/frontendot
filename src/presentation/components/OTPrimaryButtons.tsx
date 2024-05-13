@@ -35,6 +35,8 @@ type AreaButtonsProps ={
   
 export const dataOTSignal = signal([]);
 export const isFinishImpression = signal(false);
+const valueSearchOT = signal<any>('');
+const valueConfirmOT = signal<any>('');
 const strEntidad = "Ordenen de Trabajo";
 const strBaseUrl = "/api/ot/";
 
@@ -96,8 +98,8 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
     const [isFOTValidarBodega, setIsFOTValidarBodega] = useState(false);
     const [isFOTReporteFirma, setIsFOTReporeFirma]    = useState(false);
     const [dataOT, setDataOT]                         = useState();
-    const [valueSearchOT, setValueSearchOT]           = useState<any>();
-    const [valueConfirmOT, setValueConfirmOT]         = useState<any>()
+    // const [valueSearchOT, setValueSearchOT]           = useState<any>();
+    // const [valueConfirmOT, setValueConfirmOT]         = useState<any>()
     const searchOTRef                                 = useRef<any>();
 
     const refFocusInput                               = React.useRef<any>(null);
@@ -183,7 +185,8 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
       if(!isFOTValidarBodega){
         focusFirstInput('ProcesarOT',refFocusInput)
         reiniciarValidationNivel3()
-        setValueConfirmOT('')
+        valueConfirmOT.value = ''
+        // setValueConfirmOT('')
       }
     },[isFOTValidarBodega, focusFirstInput])
 
@@ -263,11 +266,17 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
 
 
     const handleChecked = async(folio:any) => {
+      console.log(folio)
+      if(folio === ''){
+        return;
+      }
       const resultIndex = entities.findIndex((OT: any) => OT[1] === parseInt(folio));
 
       if(resultIndex !== -1){
         setSelectedRows((prev:any)=>[...prev, resultIndex])
-        setValueSearchOT(" ")
+        // setValueSearchOT("")
+        valueSearchOT.value = ''
+        console.log('render')
         if(searchOTRef.current !== null){
           searchOTRef.current.focus()
         }
@@ -285,6 +294,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
           setIsShowErrorOTModal(true)
         }
 
+        console.log('render')
         return dataOT
       }
     }
@@ -426,13 +436,15 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
         });
 
         if(result.data.length === 0){
-          setValueConfirmOT('')
+          // setValueConfirmOT('')
+          valueConfirmOT.value = ''
           setIsFOTValidarBodega(false)
           return toast.error(`OT ${folio}: No existe`)
         }
 
         if(result.status !== 200 || result?.data[0][EnumGrid.area_id] !== 60){
-          setValueConfirmOT('')
+          // setValueConfirmOT('')
+          valueConfirmOT.value = '';
           return toast.error(`OT ${folio}: No se encuentra en esta área`)
         }
 
@@ -445,6 +457,8 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
 
 
     }
+
+
 
     return (
     <div className='flex items-center   ml-[4rem] !w-full'>
@@ -574,9 +588,17 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
               className='text-xl' 
               color='orange' 
               ref={searchOTRef} 
-              onBlur={(e:any)=>handleChecked(e.target.value)} 
-              value={valueSearchOT} 
-              onChange={(e:any)=>setValueSearchOT(e.target.value)} />
+              value={valueSearchOT.value as any} 
+              onChange={async(e:any)=>{
+                console.log(e.target.value)
+                if(e.target.value !== ''){
+                  setTimeout(async()=>{
+                    await handleChecked(e.target.value)
+                    valueSearchOT.value = ''
+                  },3000)
+                }
+                valueSearchOT.value = e.target.value
+              }} />
           </div>
 
           {areaPermissions && areaPermissions[15] === '1' && permisos_usuario_areas === '1' && (
@@ -588,11 +610,19 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
                 name='ProcesarOT' 
                 className='text-xl' 
                 color='orange'  
-                value={valueConfirmOT}
+                value={valueConfirmOT.value as any}
                 onChange={(e:any)=>{
-                  setValueConfirmOT(e.target.value === '' ? e.target.value : parseInt(e.target.value))
+
+                  if(e.target.value !== ''){
+                    setTimeout(async()=>{
+                      await handleProcesarConfirm(parseInt(e.target.value))
+                      valueConfirmOT.value = ''
+                    },3000)
+                  }
+
+
+                  valueConfirmOT.value = (e.target.value === '' ? e.target.value : parseInt(e.target.value))
                 }} 
-                onBlur={(e:any)=> handleProcesarConfirm(parseInt(e.target.value))} 
                 />
             </div>
           )}

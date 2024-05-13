@@ -287,7 +287,8 @@ const MOTHistorica: React.FC = () => {
   console.log(user)
 
   let permiso_documentacion  = user.permisos_archivo_ot[0] === '1' ? true : false; 
-  let permiso_post_venta     = user.permisos_archivo_ot[1] === '1' ? true : false; 
+  let permiso_post_venta     = user.permisos_archivo_ot[1] === '1' ? true : false;
+  let permiso_anular         = user.permisos_archivo_ot[2] === '1' ? true : false;  
   // let permiso_post_venta    = user.permisos_archivo_ot[1] === '1' ? true : false;
 
   console.log(permiso_documentacion)
@@ -588,7 +589,11 @@ const MOTHistorica: React.FC = () => {
           params={params}
           isEditting={false}
           isMOT={false}
-          permisos_mantenedor={permiso_post_venta}
+          permisos_ot_historica={{
+            permiso_documentacion,
+            permiso_post_venta,
+            permiso_anular
+          }}
         />
       )}
 
@@ -602,7 +607,11 @@ const MOTHistorica: React.FC = () => {
           closeModal={closeModal}
           isEditting={true}
           isMOT={true}
-          permisos_mantenedor={permiso_post_venta}
+          permisos_ot_historica={{
+            permiso_documentacion,
+            permiso_post_venta,
+            permiso_anular
+          }}
         />
       )}
 

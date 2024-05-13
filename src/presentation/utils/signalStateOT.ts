@@ -939,7 +939,7 @@ export const buscarCampoNivel3 = (campo:string) => {
   return validationNivel3.value.find((item)=>item.campo === campo);
 }
 
-export const clearGrupos = () => {
+export const clearGrupos = (keepForm?:boolean) => {
   A1_GRUPO_OD.value   = "";
   A1_GRUPO_OI.value   = "";
   A2_GRUPO_OD.value   = "";
@@ -986,8 +986,13 @@ export const clearGrupos = () => {
   numero_worktracking.value = "";
   inputOnlyReadReserva.value = false;
   validar_parametrizacion.value = '1'
-  codigoProyecto.value = ""
   numero_receta.value = "";
+  
+  if(keepForm === true){
+    codigoProyecto.value = codigoProyecto.value
+  }else{
+    codigoProyecto.value = ""
+  }
 }
 
 
@@ -1098,6 +1103,7 @@ export const clearDioptrias = (closeForm?:boolean) => {
     
     
     if(closeForm){
+      console.log('render')
       codigoProyecto.value           = ""
       fecha_atencion_signal.value    = "";
       fecha_despacho.value           = "";

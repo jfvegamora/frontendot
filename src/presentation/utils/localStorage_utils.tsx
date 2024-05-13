@@ -49,3 +49,8 @@ export async function compararFechas(fechaString:string, _token?:string) {
 export const handleAxiosError = (error:any) => {
     console.log(error)
 }
+
+
+export const formatCurrencyNumber = (number:string) => {
+    return parseInt(number.replace(/\$|\.+/g, ''),10);
+}
