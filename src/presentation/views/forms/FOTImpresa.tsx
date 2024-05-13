@@ -248,7 +248,10 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                   {/*************** A L T U R A  -  D P ***************/}
                   <div className="w-[100%] flex -mt-1 justify-between ">
                     <div className="w-[52.2%] ml-2 items-center flex">
-                      <span className='ml-1  !text-base font-bold '>&nbsp;ALT: {ot[EnumGrid.a1_alt]}</span>
+                      {ot[EnumGrid.tipo_anteojo_id] === 4 && (
+                        <span className='ml-1  !text-base font-bold '>&nbsp;ALT: {ot[EnumGrid.a1_alt]}</span>
+                      )}
+                      
                       <span className='ml-3  !text-base font-bold '>&nbsp;DP: {ot[EnumGrid.a1_dp]}</span>
                     </div>
 

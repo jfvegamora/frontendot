@@ -378,7 +378,7 @@ return (
                                 data={formValues ? formValues["motivo_garantia_id"] : data && data[EnumGrid.motivo_garantia_id]}
                                 control={control}
                                 entidad={"OTMotivoGarantia"}
-                                readOnly={true}
+                                // readOnly={true}
                            />
                         </div>
                         

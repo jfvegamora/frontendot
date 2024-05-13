@@ -52,5 +52,8 @@ export const handleAxiosError = (error:any) => {
 
 
 export const formatCurrencyNumber = (number:string) => {
+    if(number === undefined){
+        return;
+    }
     return parseInt(number.replace(/\$|\.+/g, ''),10);
 }

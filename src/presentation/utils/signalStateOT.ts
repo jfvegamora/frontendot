@@ -1889,6 +1889,9 @@ export const updateOT =async (
 
   const _armazonJSONNew = JSON.stringify(armazones)
 
+  // console.log(tipo_evento)
+  // console.log(fields.map((a)=>a.split('=')).map)
+
   const filteredFields = fields
                           .map((a)=>a.split('='))
                           .filter((prev)=>prev[1] !== 'undefined')
