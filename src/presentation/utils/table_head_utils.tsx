@@ -1937,11 +1937,11 @@ export const table_head_proyectos = [
     width: "w-[7rem]",
   },  
   {
-    cell: "% Ingresado",
+    cell: "% Ingr",
     key: "porc_ingresado",
     visible: true,
     alignment: "text-center",
-    width: "w-[6rem]",
+    width: "w-[5rem]",
   },
   {
     cell: "Cant. x Facturar",
@@ -1962,7 +1962,7 @@ export const table_head_proyectos = [
     key: "porc_por_facturar",
     visible: true,
     alignment: "text-center",
-    width: "w-[6rem]",
+    width: "w-[5rem]",
   },
   {
     cell: "Cant. Facturada",
@@ -1979,11 +1979,11 @@ export const table_head_proyectos = [
     width: "w-[7rem]",
   },
   {
-    cell: "% Facturado",
+    cell: "% Fact",
     key: "porc_facturado",
     visible: true,
     alignment: "text-center",
-    width: "w-[6rem]",
+    width: "w-[5rem]",
   },
   {
     cell: "Cant. Saldo",
