@@ -51,7 +51,7 @@ export const fetchOT = createAsyncThunk(
                                  ? historica ? `${URLBackend}/api/othistorica/listado/?query=14&${searchParams}&_limit=${limit}` :  `${URLBackend}/api/ot/listado/?query=14&_origen=${OTAreas}&${searchParams}&_limit=${limit}` 
                                  : historica ? `${URLBackend}/api/othistorica/listado/?query=14&_limit=${limit}`                 :   OTAreas ? `${URLBackend}/api/ot/listado/?query=14&_origen=${OTAreas}&_limit=${limit}` : `${URLBackend}/api/ot/listado/?query=14&${searchParams}&_limit=${limit}`
 
-        // console.log(OTUrl)
+        console.log(OTUrl)
         
         try {
 
