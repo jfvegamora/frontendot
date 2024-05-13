@@ -578,7 +578,7 @@ const MOTHistorica: React.FC = () => {
         />
       </div>
 
-        <StateCountBarOT checkCount={checkCount}/>
+        <StateCountBarOT checkCount={checkCount} isMotHistorica={true}/>
         
       {isModalInsert && (
         <FOT

@@ -961,11 +961,6 @@ const checkArmazones = camposRequeridosArmazones.every(campo => {
 // console.log(checkOptica)
 
 
-console.log(isMOT)
-
-
- 
-  console.log( permisos_ot_historica)
 
   return (
 
@@ -1117,6 +1112,7 @@ console.log(isMOT)
         
                 {isEditting                              && 
                 isMOT                                    && 
+                escritura_lectura                        &&
                 permisos_ot_historica.permiso_post_venta &&
                 // isMotivo    &&  (
                   (

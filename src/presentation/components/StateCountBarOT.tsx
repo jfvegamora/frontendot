@@ -17,12 +17,13 @@ export const estadoIDNombre:any = {
   
   
 export interface IStateCountBar {
-  checkCount?:any
+  checkCount?:any;
+  isMotHistorica?:boolean;
 }
 
 
 
-const StateCountBarOT:React.FC<IStateCountBar> = ({checkCount}) => {
+const StateCountBarOT:React.FC<IStateCountBar> = ({checkCount,isMotHistorica}) => {
     const OTs:any = useAppSelector((store: AppStore) => store.OTS);
     const[stateCheckCount, setStateCheckCount] = React.useState(checkCount.value);
 
@@ -31,10 +32,10 @@ const StateCountBarOT:React.FC<IStateCountBar> = ({checkCount}) => {
     },[checkCount])
     
     // console.log(checkCount.value)
-
+    console.log(isMotHistorica)
   
   return (
-    <div className="w-[50%] bg-white absolute bottom-[1%]  rounded-full left-[24rem] flex">
+    <div className={`${isMotHistorica ? 'w-[80%] left-[10rem]' : 'w-[50%] left-[24rem]'} bg-white absolute bottom-[1%]  rounded-full  flex`}>
       <div className='w-[6rem] flex'>
           <p className=" w-[4rem] text-center rounded-full">
           {'Total'}:

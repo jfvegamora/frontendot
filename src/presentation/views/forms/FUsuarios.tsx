@@ -500,9 +500,9 @@ return (
                 <div className="w-[20%]">
                   <RadioButtonComponent
                     control={control}
-                    label="Anulacion"
+                    label="Anulación"
                     name="permiso_anulacion"
-                    data={formValues && formValues["Anulacion"] || data && data[EnumGrid.permiso_anular]}
+                    data={formValues && formValues["Anulación"] || data && data[EnumGrid.permiso_anular]}
                     options={["Lectura", "Escritura"]}
                     error={errors.permiso_post_venta}
                     horizontal={false}

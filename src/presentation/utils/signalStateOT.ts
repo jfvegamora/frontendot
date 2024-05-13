@@ -1747,14 +1747,14 @@ export const updateOT =async (
   let _p3 = ""
 
   console.log(jsonData)
+
  
 
   console.log(jsonData.cristal2_tratamiento_adicional_id)
   console.log(_formValues)
+  console.log(_formValues["optica"] && _formValues["optica"]["Resolución"])
 
-  console.log(    (`cristales2_marca=${_formValues && _formValues["cristales"] && _formValues["cristales"]["cristal2_marca_id"]                                        !== undefined ? _formValues["cristales"] && parseInt(_formValues["cristales"]["cristal2_marca_id"])                 :   data && data[EnumGrid.cristal2_marca_id]}`),)
-  console.log(    (`cristales2_color=${_formValues && _formValues["cristales"] && _formValues["cristales"]["cristal2_color_id"]                                        !== undefined ? _formValues["cristales"] && parseInt(_formValues["cristales"]["cristal2_color_id"])               :   data && data[EnumGrid.cristal2_color_id]}`),
-)
+  console.log(    (`resolucion_garantia=${_formValues["optica"] && _formValues["optica"]["resolucion"] !== undefined  ? (_formValues["optica"]["resolucion"] === 'Aceptada'  ? 1 : _formValues["optica"]["resolucion"] === 'Rechazada' ? 2 : 0 )    : data && data[EnumGrid.resolucion_garantia_id]                                                                                ? data && data[EnumGrid.resolucion_garantia_id]   : 0 }`),)
   const toastLoading = toast.loading('Cargando...');
 
 
@@ -1841,7 +1841,7 @@ export const updateOT =async (
     (`motivo_garantia=${data && data[EnumGrid.motivo_garantia_id]                                                                                        ? data && data[EnumGrid.motivo_garantia_id]       : 0 }`),
     (`folio_asociado="${data && data[EnumGrid.folio_asociado]                                                                                            ? data && data[EnumGrid.folio_asociado]           : "" }"`),
     // (`resolucion_garantia=${data && data[EnumGrid.resolucion_garantia_id]                                                                                !== undefined ? (jsonData.resolucion_garantia_id === 'Rechazada' ? 2 :1) : 0 }`),
-    (`resolucion_garantia=${data && data[EnumGrid.resolucion_garantia_id]                                                                                ? data && data[EnumGrid.resolucion_garantia_id]   : 0 }`),
+    (`resolucion_garantia=${_formValues["optica"] && _formValues["optica"]["Resolución"]                                                                 !== undefined  ? (_formValues["optica"]["Resolución"] === 'Aceptada'  ? 1 : _formValues["optica"]["Resolución"] === 'Rechazada' ? 2 : 0 )    : data && data[EnumGrid.resolucion_garantia_id]                                                                                ? data && data[EnumGrid.resolucion_garantia_id]   : 0 }`),
     (`worktracking="${numero_worktracking.value.trim()                                                                                                   === ''          ? data && data[EnumGrid.worktracking]             : numero_worktracking.value }"`),
     (`nota_venta="${data && data[EnumGrid.nota_venta]                                                                                                    ? data && data[EnumGrid.nota_venta]               : "" }"`),
     (`numero_reporte_firma=${data && data[EnumGrid.numero_reporte_firma]                                                                                 ? data && data[EnumGrid.numero_reporte_firma]     : 0 }`),

@@ -180,6 +180,17 @@ React.useEffect(()=>{
     }
 },[])
 
+if(data){
+    console.log(data[EnumGrid.punto_venta])
+    console.log(data[EnumGrid.punto_venta_id])
+    console.log(data[EnumGrid.proyecto_codigo])
+
+    console.log(codigoProyecto.value)
+    console.log(punto_venta.value)
+}
+
+
+
 return (
     <form action="" onKeyDown={handleKeyDown}>
         <div className='w-full frameOTForm'>
@@ -194,7 +205,11 @@ return (
                         // data={codigoProyecto.value || formValues && formValues["proyecto_codigo"] ? formValues["proyecto_codigo"]  : data && data[EnumGrid.proyecto_codigo]}
                         data={codigoProyecto.value ||  (data && data[EnumGrid.proyecto_codigo])}
                         control={control}
-                        entidad={["/api/proyectos/", "07", `${isEditting ? 0 : userID}`]}
+                        entidad={
+                            isEditting
+                                   ? ["/api/proyectos/", "02"]
+                                   : ["/api/proyectos/", "07", `${isEditting ? 0 : userID}`]
+                        }
                         // error={errors.establecimiento}
                         customWidth={"345px"}
                         onlyFirstOption={ isEditting}
@@ -233,9 +248,14 @@ return (
                         data={punto_venta.value || data && data[EnumGrid.punto_venta_id]}
                         // data={data && data[EnumGrid.establecimiento_id]}
                         control={control}
-                        entidad={["/api/puntosventa/", "06", codigoProyecto.value, `_p2=${userID}`]}
+                        entidad={
+                             isEditting
+                                 ? ["/api/puntosventa/", "02"]
+                               :  ["/api/puntosventa/", "06", codigoProyecto.value, `_p2=${userID}`]
+                        }
                         onlyFirstOption={ isEditting}
                         customWidth={"345px"}
+                        isEditting={true}
                         readOnly={isEditting || inputOnlyReadReserva.value}
                     />
                 </div>
@@ -381,7 +401,11 @@ return (
                                 label="Resolución"
                                 name="resolucion_garantia_id"
                                 // data={data ? data[EnumGrid.motivo] : formValues["motivo"]}
-                                data={formValues ? formValues["resolucion_garantia_id"] : data && data[EnumGrid.resolucion_garantia_id] === 1 ? 'Aceptada' : 'Rechazada'}
+                                data={formValues ? formValues["resolucion_garantia_id"] :( 
+                                    data && data[EnumGrid.resolucion_garantia_id] === 1 
+                                                                                      ? 'Aceptada' 
+                                                                                      : data && data[EnumGrid.resolucion_garantia_id] === 2  ? 'Rechazada' : ''
+                                )}
                                 options={["Aceptada", "Rechazada"]}
                                 // error={errors.sexo}
                                 horizontal={true}

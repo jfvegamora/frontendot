@@ -183,21 +183,38 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                         <div className="  w-[25%] ">ESF</div>
                         <div className="  w-[25%] ">CIL</div>
                         <div className="  w-[20%] ">EJE</div>
-                        <div className="  w-[20%] ">AD</div>
+                        {
+                        ot[EnumGrid.tipo_anteojo_id] === 4 ||
+                        ot[EnumGrid.tipo_anteojo_id] === 3 ||
+                        ot[EnumGrid.tipo_anteojo_id]  === 5 && (
+                          <div className="  w-[20%] ">AD</div>
+                        ) 
+                        
+                        }
                       </div>
 
                       <div className="w-full flex ml-2 otDioptria">
                         <div className="text-right w-[25%] ">{ot[EnumGrid.a1_od_esf]}</div>
                         <div className="text-right w-[25%] ">{ot[EnumGrid.a1_od_cil]}</div>
                         <div className="text-center w-[20%] ">{ot[EnumGrid.a1_od_eje]}</div>
-                        <div className="text-right w-[20%] ">{ot[EnumGrid.a1_od_ad]}</div>
+                        {
+                        ot[EnumGrid.tipo_anteojo_id] === 4 ||
+                        ot[EnumGrid.tipo_anteojo_id] === 3 ||
+                        ot[EnumGrid.tipo_anteojo_id]  === 5 && (
+                          <div className="text-right w-[20%] ">{ot[EnumGrid.a1_od_ad]}</div>
+                        )}
                       </div>
 
                       <div className="w-full flex ml-2 otDioptria">
                         <div className="text-right w-[25%] ">{ot[EnumGrid.a1_oi_esf]}</div>
                         <div className="text-right w-[25%] ">{ot[EnumGrid.a1_oi_cil]}</div>
                         <div className="text-center w-[20%] ">{ot[EnumGrid.a1_oi_eje]}</div>
-                        <div className="text-right w-[20%] ">{ot[EnumGrid.a1_oi_ad]}</div>
+                        {
+                        ot[EnumGrid.tipo_anteojo_id] === 4 ||
+                        ot[EnumGrid.tipo_anteojo_id] === 3 ||
+                        ot[EnumGrid.tipo_anteojo_id]  === 5 && (
+                          <div className="text-right w-[20%] ">{ot[EnumGrid.a1_oi_ad]}</div>
+                        )}
                       </div>
                     </div>
 
