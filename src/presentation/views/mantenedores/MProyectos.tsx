@@ -33,13 +33,13 @@ export enum EnumGrid {
   PORC_REQUERIDO              = 17,
 
   
-  CANTIDAD_EN_PROCESO         = 18,
-  TOTAL_EN_PROCESO            = 19,
-  PORC_EN_PROCESO             = 20,
-
-  CANTIDAD_POR_FACTURAR       = 21,
-  TOTA_POR_FACTURAR           = 22,
-  PORC_POR_FACTURAR           = 23,
+  CANTIDAD_INGRESADA          = 18,
+  TOTAL_INGRESADO             = 19,
+  PORC_INGRESADO              = 20,
+  
+  CANTIDAD_EN_PROCESO         = 21,
+  TOTAL_EN_PROCESO            = 22,
+  PORC_EN_PROCESO             = 23,
   
   CANTIDAD_FACTURADA          = 24,
   TOTAL_FACTURADO             = 25,
