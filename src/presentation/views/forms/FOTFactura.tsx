@@ -83,6 +83,11 @@ const FOTFactura: React.FC<IDerivacion> = ({
                     toast.error(`Folio: ${OT["folio"]} sin Orden de Compra`);
                     return false
                 }
+
+                if(OT["numero_guia"] === 0){
+                    toast.error(`Folio: ${OT["folio"]} sin Número de Guia`);
+                    return false
+                }
                 return true
             })
     
@@ -91,16 +96,9 @@ const FOTFactura: React.FC<IDerivacion> = ({
             }
         }
 
+        
 
-
-        if (pktoDelete.some((OT: any) => OT["numero_guia"] <= 0)) {
-            console.log('render')
-            pktoDelete.filter((ot:any)=> ot["numero_guia"] <= 0).map((ot:any)=>{
-                console.log('render')
-                toast.error(`Folio: ${ot["folio"]} sin Número de Guia`);
-            })
-        }else{
-            const toastLoading = toast.loading('Cargando...');
+        const toastLoading = toast.loading('Cargando...');
             try {
                 const query07 = {
                     _p1         : `"${pktoDelete[0]["proyecto_codigo"]}", ${5}, "${jsonData["numero_doc"]}", "${jsonData["fecha_doc"]}", ${jsonData["valor_neto"]}, ${0}, ${0}, ${UsuarioID}, "${jsonData["observaciones"]}"`,
@@ -136,7 +134,10 @@ const FOTFactura: React.FC<IDerivacion> = ({
               console.log(error)
               throw error
             }
-    }};
+
+
+
+};
 
 
 
