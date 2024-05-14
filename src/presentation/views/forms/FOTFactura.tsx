@@ -82,13 +82,13 @@ const FOTFactura: React.FC<IDerivacion> = ({
                 toast.error(`Folio: ${OT["folio"]} sin Orden de Compra`);
                 return false
             }
-            return false
+            return true
         })
 
         if(!validateOrdenCompra){
             return 
         }
-        
+
         if (pktoDelete.some((OT: any) => OT["numero_guia"] <= 0)) {
             console.log('render')
             pktoDelete.filter((ot:any)=> ot["numero_guia"] <= 0).map((ot:any)=>{
@@ -137,7 +137,7 @@ const FOTFactura: React.FC<IDerivacion> = ({
 
 
 
-
+console.log(errors)
   
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
