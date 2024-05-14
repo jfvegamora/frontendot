@@ -107,6 +107,7 @@ const resetImpresionStates = () => {
     suppressErrors: true,
     removeAfterPrint: true,
     onAfterPrint() {
+        
         isFinishImpression.value = true;
         dispatch(clearImpression())
         if(OT[QR] === 1){
@@ -120,8 +121,8 @@ const resetImpresionStates = () => {
 React.useEffect(()=>{
     if(isFinishImpression.value === true){
           try {
-
-              setEstadoImpresion(folioActual.value,1,user,OTAreas["areaActual"],true).then(()=>{
+                console.log('render')
+               setEstadoImpresion(folioActual.value,1,user,OTAreas["areaActual"],true).then(()=>{
                 clearIndividualCheck.value = true;
                 dispatch(fetchOT({OTAreas:OTAreas["areaActual"],searchParams: paramsOT.value}))
                 clearAllCheck.value = false;
@@ -216,8 +217,13 @@ const imprimirComprobanteRetiro = async(tipoComprobante?:string) => {
         
         const loadingToast = toast.loading('Imprimiendo...');
         try {
-          await dispatch(fetchOTImpresionByID({ folio: folio, OTAreas: OTAreas['areaActual'] })).then(()=>{
-              handlePrint();    
+          await dispatch(fetchOTImpresionByID({ folio: folio, OTAreas: OTAreas['areaActual'], userID: user?.id})).then(()=>{
+              try {
+                  handlePrint();    
+                  console.log('render')
+            } catch (error) {
+                console.log('render')                
+            } 
           });
             console.log('render')
           toast.dismiss(loadingToast);

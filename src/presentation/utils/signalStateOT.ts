@@ -1942,7 +1942,9 @@ export const updateOT =async (
     console.log(response)
     if(response.status === 200){
       toast.dismiss(toastLoading)
-      return toast.success(`OT ${tipo_evento} Correctamente`)
+      return toast.success(`OT ${tipo_evento} Correctamente`, {
+        autoClose: 1000
+      })
     }else{
     toast.dismiss(toastLoading)
 

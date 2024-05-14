@@ -41,7 +41,7 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
             {OT && OT.map((ot: any, index: any) => {
               return (
 
-                <div className={`!w-[90%] ${ot[EnumGrid.imprime_ticket] === 1 ? '!h-[180rem]' : '!h-[90rem]'}  ${((index > 0) && (ot[EnumGrid.imprime_ticket] === 1)) && '!-mt-[40rem]'}   ${(index > 0) && (ot[EnumGrid.imprime_ticket] === 0) && '!-mt-[19rem]'}`} key={ot[EnumGrid.folio]} >
+                <div className={`!w-[90%] ${ot[EnumGrid.imprime_ticket] === 1 ? '!h-[180rem]' : '!h-[90rem]'}  ${((index > 0) && (ot[EnumGrid.imprime_ticket] === 1)) && '!-mt-[38rem]'}   ${(index > 0) && (ot[EnumGrid.imprime_ticket] === 0) && '!-mt-[19rem]'}`} key={ot[EnumGrid.folio]} >
                   <div className={`w-[100%] relative  ${ot[EnumGrid.imprime_ticket] === 1 ? '!h-[2.5%]' : '!h-[5%]'} mb-4`}>
                     <div className="w-[90%] mr-7  mx-auto">
                       <Barcode marginLeft={45} height={25} width={2.5} textAlign='right' value={formatNumberWithZeros(ot[EnumGrid.folio])} />
@@ -152,6 +152,9 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
 
                     <div className="!w-[45%] ml-1">
                       <div className=''>
+                        {ot[EnumGrid.tipo_anteojo_id] !== 3 && (
+                          <h1 className=" w-[10%] text-2xl text-center  translate-y-9 transform -rotate-90 ml-1">{ot[EnumGrid.tipo_anteojo]}</h1>
+                        )}
                         {ot[EnumGrid.tipo_anteojo_id] === 3 && ( 
                             <>
                               <div className='otCod font-bold'>{ot[EnumGrid.cristal2_od]}</div>

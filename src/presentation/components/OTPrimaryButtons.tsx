@@ -115,7 +115,6 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
       removeAfterPrint: true,
       onAfterPrint() {
         dispatch(clearImpression())
-        console.log('Impresión finalizada'); // Mensaje en español
         isFinishImpression.value = true;
       },
     
@@ -146,7 +145,6 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
         return;
       }
 
-      
       if(!impresaAnteriormente){
         toast.dismiss(toastLoading);
         return toast.error(`La OT con folio: ${pkToDelete.filter((ot:any)=> ot.estado_impresion === '1').map((ot:any)=>ot.folio)}, ya fueron impresas anteriormente.`)
@@ -173,7 +171,6 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
 
         try {
           handlePrint()
-          console.log(pkToDelete)
           toast.dismiss(toastLoading)
         } catch (error) {
           toast.dismiss(toastLoading)
@@ -337,7 +334,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
 
     const handleProcesarMasivo = () => {
       let estado = 0
-
+      console.log(pkToDelete)
       const validateEstado           = pkToDelete.every((ot:any) => ot["estado_validacion"] === '2');
       const validateUsuario          = pkToDelete.every((ot:any) => ot["usuario_id"] === User.id);
       const validateProyecto         = pkToDelete.every((ot:any) => ot["proyecto_codigo"] === pkToDelete[0]["proyecto_codigo"]);
@@ -349,16 +346,16 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
         return toast.error(`Folio ${folios} no está validado correctamente`);
       }
 
-
+      
       if(!validateUsuario && OTAreas["areaActual"] === 50){
         toast.error(`Folio ${foliosMensaje} no pertenece al Usuario ${User.nombre}`);
         return;
       }
-
+      
       if(!validateProyecto){
         return toast.error(`Folio ${folios} deben pertenecer al mismo proyecto`);
       }
-
+      
       if(!validateEstadoImpresion){
         return toast.error(`OT ${pkToDelete.filter((ot:any)=> ot.estado_impresion === '0').map((ot:any)=>ot.folio)} no ha sido impresa.`) 
       }
