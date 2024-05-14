@@ -76,9 +76,20 @@ const FOTFactura: React.FC<IDerivacion> = ({
                 return;
             }
         }
-
         // if ((pktoDelete.some((OT: any) => parseInt(OT["numero_guia"]) as any === '' || OT["numero_guia"] === '0') )) {
-            if (pktoDelete.some((OT: any) => OT["numero_guia"] <= 0)) {
+        const validateOrdenCompra = pktoDelete.some((OT:any)=>{
+            if(OT["orden_compra"] === '0'){
+                toast.error(`Folio: ${OT["folio"]} sin Orden de Compra`);
+                return false
+            }
+            return false
+        })
+
+        if(!validateOrdenCompra){
+            return 
+        }
+        
+        if (pktoDelete.some((OT: any) => OT["numero_guia"] <= 0)) {
             console.log('render')
             pktoDelete.filter((ot:any)=> ot["numero_guia"] <= 0).map((ot:any)=>{
                 console.log('render')

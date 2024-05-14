@@ -167,6 +167,7 @@ const FOT:React.FC<IFOTProps> = ({
 
   if(!isMOT){
     const permisosAreas = OTAreaActual && permissions(OTAreaActual)[6] as any
+    
     permiso_areas_armazones             = permisosAreas && permisosAreas[0] === '1' ? true : false;
     permiso_areas_cristales             = permisosAreas && permisosAreas[1] === '1' ? true : false;
     permiso_areas_estado_impresion      = permisosAreas && permisosAreas[2] === '1' ? true : false;
