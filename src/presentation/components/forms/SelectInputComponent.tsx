@@ -14,7 +14,7 @@ import { AppStore, useAppDispatch, useAppSelector } from "../../../redux/store";
 import axios from "axios";
 import { setDataListbox } from "../../../redux/slices/listBoxSlice";
 import { URLBackend } from "../../hooks/useCrud";
-import { clearSelectInput, punto_venta } from "../../utils";
+import { clearSelectInput, codigoProyecto, punto_venta } from "../../utils";
 
 import { retry } from 'async';
 import { resetFilters } from "../PrimaryKeySearch";
@@ -138,12 +138,17 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
 
     React.useEffect(()=>{
       if(resetFilters.value === true){
+          console.log('render')
           setStrSelectedName('')
         }
    },[resetFilters.value])
 
 
-
+if(name === 'proyecto_codigo'){
+  console.log(data)
+  console.log(strSelectedName)
+  console.log(codigoProyecto.value)
+}
 
     const renderInput = () => (
       <Controller

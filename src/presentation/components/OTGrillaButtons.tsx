@@ -4,7 +4,7 @@ import { PencilIcon } from "@heroicons/react/24/solid";
 import { PiPrinterFill } from "react-icons/pi";
 import { ImWhatsapp } from "react-icons/im";
 // import { usePermission } from '../hooks';
-import { BUTTON_MESSAGES, clearAllCheck, clearIndividualCheck, isToggleImpression } from '../utils';
+import { BUTTON_MESSAGES, clearAllCheck, clearIndividualCheck, isToggleImpression, validateSameUserImpresionOT } from '../utils';
 
 import { useReactToPrint } from 'react-to-print';
 // import FOTImpresa from '../views/forms/FOTImpresa';
@@ -205,7 +205,6 @@ const imprimirComprobanteRetiro = async(tipoComprobante?:string) => {
     }
     
     const handleImpresion = async (folio: any) => {
-        // dispatch(clearImpression());
         setIsFotImpresa(true)        
         const OT                 = OTdata.filter((ot:any)=>ot[1] === folio)[0]
         const estado_impresion   = 5
@@ -217,21 +216,20 @@ const imprimirComprobanteRetiro = async(tipoComprobante?:string) => {
         
         const loadingToast = toast.loading('Imprimiendo...');
         try {
-          await dispatch(fetchOTImpresionByID({ folio: folio, OTAreas: OTAreas['areaActual'], userID: user?.id})).then(()=>{
-              try {
-                  handlePrint();    
-                  console.log('render')
-            } catch (error) {
-                console.log('render')                
-            } 
+
+        const resultValidate = await validateSameUserImpresionOT(user.id, folio)
+        if(!resultValidate){
+            toast.dismiss(loadingToast)
+            return toast.error(`Folio ${folio} no pertenece al Usuario ${user?.nombre}`);
+        }
+
+        await dispatch(fetchOTImpresionByID({ folio: folio, OTAreas: OTAreas['areaActual'], userID: user?.id})).then(()=>{            
+               handlePrint();    
           });
-            console.log('render')
           toast.dismiss(loadingToast);
         } catch (error) {
             console.error(error);
             toast.dismiss(loadingToast);
-            // dispatch(clearImpression());
-            console.log(error);
             throw error;
         }
       };

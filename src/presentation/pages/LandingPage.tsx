@@ -80,8 +80,6 @@ const LandingPage: React.FC = () => {
     
   // },[])
 
-  let prop = 'BIFOCAL'
-  let texto = prop.toUpperCase().split("")
 
   return (
     <div className="mantenedorContainer !h-[80rem]">

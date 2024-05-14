@@ -154,24 +154,32 @@ const FOT:React.FC<IFOTProps> = ({
   console.log(data && data[EnumGrid.bodega_procesado])
   secondProcessBodega.value = (data && data[EnumGrid.bodega_procesado] === 1) ? true : false;
 
-
-  const permisosAreas = OTAreaActual && permissions(OTAreaActual)[6] as any
-  // console.log(permisosAreas && permiso_usuario_verificar_cristal)
-    console.log(permisosAreas.length)
   
-  let permiso_areas_armazones             = permisosAreas && permisosAreas[0] === '1' ? true : false;
-  let permiso_areas_cristales             = permisosAreas && permisosAreas[1] === '1' ? true : false;
-  let permiso_areas_estado_impresion      = permisosAreas && permisosAreas[2] === '1' ? true : false;
-  let permiso_areas_estado_validacion     = permisosAreas && permisosAreas[3] === '1' ? true : false;
-  let permiso_areas_resolucion_garantia   = permisosAreas && permisosAreas[4] === '1' ? true : false;
-  let permiso_areas_grupo_dioptria        = permisosAreas && permisosAreas[5] === '1' ? true : false;
-  let permiso_areas_receta                = permisosAreas && permisosAreas[6] === '1' ? true : false;
-  let permiso_area_verificar_cristal      = permisosAreas && permisosAreas[7] === '1' ? true : false;
-  // let permiso_area_verificar_armazon      = permisosAreas && permisosAreas[8] === "1" ? true : false;
+  let permiso_areas_armazones            = false;
+  let permiso_areas_cristales            = false;
+  let permiso_areas_estado_impresion     = false;
+  let permiso_areas_estado_validacion    = false;
+  let permiso_areas_resolucion_garantia  = false;
+  let permiso_areas_grupo_dioptria       = false;
+  let permiso_areas_receta               = false;
+  let permiso_area_verificar_cristal     = false;
+  
 
-  // console.log(permisosAreas)
+  if(!isMOT){
+    const permisosAreas = OTAreaActual && permissions(OTAreaActual)[6] as any
+    permiso_areas_armazones             = permisosAreas && permisosAreas[0] === '1' ? true : false;
+    permiso_areas_cristales             = permisosAreas && permisosAreas[1] === '1' ? true : false;
+    permiso_areas_estado_impresion      = permisosAreas && permisosAreas[2] === '1' ? true : false;
+    permiso_areas_estado_validacion     = permisosAreas && permisosAreas[3] === '1' ? true : false;
+    permiso_areas_resolucion_garantia   = permisosAreas && permisosAreas[4] === '1' ? true : false;
+    permiso_areas_grupo_dioptria        = permisosAreas && permisosAreas[5] === '1' ? true : false;
+    permiso_areas_receta                = permisosAreas && permisosAreas[6] === '1' ? true : false;
+    permiso_area_verificar_cristal      = permisosAreas && permisosAreas[7] === '1' ? true : false;
+    // let permiso_area_verificar_armazon      = permisosAreas && permisosAreas[8] === "1" ? true : false;
 
-
+  }
+  // console.log(permisosAreas && permiso_usuario_verificar_cristal)
+  
   const permisosAreasUsuario           = useAppSelector((store: AppStore) => store.user?.permisos_areas);
 
   let permiso_anular_usuario           = permisosAreasUsuario && permisosAreasUsuario[0] === '1' ? true : false;
@@ -317,24 +325,29 @@ const FOT:React.FC<IFOTProps> = ({
   },[])
 
 const reiniciarFormOT = (keepForm:any, message:any,clearCliente:boolean):void => {
-
-          clearDioptrias();
+          console.log(keepForm)
+          console.log(keepForm.value)
+          clearDioptrias(keepForm);
           reiniciarDioptriasReceta();
-          reiniciarValidationNivel1(keepForm.value);
+          reiniciarValidationNivel1(keepForm);
           reiniciarValidationNivel3();
-          clearGrupos(keepForm.value);
+          clearGrupos(keepForm);
           dispatch(clearCodigos())
           clearAllInputsOT(clearCliente)
           clearSelectInput.value = false;
           toast.success(message)
-          reiniciarValidationNivel2(keepForm.value);
+          reiniciarValidationNivel2(keepForm);
+
+
           setSelectedTab(1)
           if(paramsOT.value !== ''){
             dispatch(fetchOT({OTAreas:OTAreaActual, searchParams: paramsOT.value }))
           }else{
             dispatch(fetchOT({OTAreas:OTAreaActual}))
           }
-}
+
+
+        }
 
 // console.log(data && data[EnumGrid.lugar_despacho])
   
@@ -412,10 +425,12 @@ const reiniciarFormOT = (keepForm:any, message:any,clearCliente:boolean):void =>
         if(result){
           let clearCliente = true
           keepForm.value = true;
-          //limpiar inputs
+          console.log(keepForm.value)
           reiniciarFormOT(keepForm.value,message,clearCliente)
+          console.log('render')
           return
         }else{
+          console.log('render')
           toast.success(message)
           dispatch(fetchOT({OTAreas:OTAreaActual, searchParams: paramsOT.value || ''}))
           handleCloseForm()

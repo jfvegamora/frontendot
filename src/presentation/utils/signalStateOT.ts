@@ -1101,8 +1101,7 @@ export const clearDioptrias = (closeForm?:boolean) => {
     tipo_de_anteojo.value          = ""
     validar_parametrizacion.value  = "1"
     
-    
-    if(closeForm){
+    if(!closeForm){
       console.log('render')
       codigoProyecto.value           = ""
       fecha_atencion_signal.value    = "";
@@ -1998,7 +1997,28 @@ export function formatNumberWithZeros(inputNumber: number): string {
 }
 
 
+export const validateSameUserImpresionOT = async(user:any, folio:any) => {
+  try {
+    const {data} = await axios(`https://gestiondev.mtoopticos.cl/api/ot/imprimir/?query=01&_origen=50&_folio=${folio}`)
 
+     console.log(data)
+     console.log(user)
+     console.log(data[0][EnumGrid.usuario_id])
+
+
+     console.log(data[0][EnumGrid.usuario_id] === user)
+
+     if(user === data[0][EnumGrid.usuario_id]){
+      console.log('render')
+      return true
+     }else{
+      console.log('render')
+      return false
+     }
+  } catch (error) {
+     return false;
+  }
+}
 
 
 // export const getGrupoDiopptria_a1 = async(getValues:any) => {

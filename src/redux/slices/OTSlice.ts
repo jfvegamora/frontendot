@@ -107,9 +107,10 @@ export const fetchOTImpresionByID = createAsyncThunk(
             const userOT = response.data[0][EnumGrid.usuario_id]
             console.log(userOT)
             console.log(userID)
-            
+
             if(userID){
                 if(userOT !== userID){
+                    console.log('render')
                     throw `Folio ${folio} no pertenece al Usuario`
                 }
             }
@@ -211,6 +212,11 @@ const OTSlice = createSlice({
         builder.addCase(fetchOTImpresionByID.fulfilled, (state,action)=>{
             state.impresionOT = [...state.impresionOT, action.payload]
             state.ot          = [...state.ot, action.payload]
+            return state
+        });
+        builder.addCase(fetchOTImpresionByID.rejected, (state)=>{
+            console.log('render')
+            
             return state
         });
         builder.addCase(fetchColores.fulfilled, (state,action )=>{
