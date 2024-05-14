@@ -100,9 +100,20 @@ export const fetchOTImpresionByID = createAsyncThunk(
     'ot/fetchOTImpresionbyID',
     async(params:any) => {
         try {
-            const {folio, OTAreas} = params;
+            const {folio, OTAreas, userID} = params;
             const response = await axios.get(`${URLBackend}/api/ot/imprimir/?query=01&_origen=${OTAreas}&_folio=${folio}`);
             validarImpresion.value = response.data[0][EnumGrid.estado_impresion_id]
+
+            const userOT = response.data[0][EnumGrid.usuario_id]
+            console.log(userOT)
+            console.log(userID)
+            
+            if(userID){
+                if(userOT !== userID){
+                    throw `Folio ${folio} no pertenece al Usuario`
+                }
+            }
+
             return response.data[0]
         } catch (error) {
             throw error;

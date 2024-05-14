@@ -80,13 +80,15 @@ const LandingPage: React.FC = () => {
     
   // },[])
 
-
+  let prop = 'BIFOCAL'
+  let texto = prop.toUpperCase().split("")
 
   return (
     <div className="mantenedorContainer !h-[80rem]">
       <div className="mt-8 h-full w-fullpt-20">
       {/* <button onClick={()=>handleAdd()}>Agregar</button> */}
       {/* <button onClick={()=>handleGet()}>GET DATOS</button> */}
+
       </div>
     </div>
   );
