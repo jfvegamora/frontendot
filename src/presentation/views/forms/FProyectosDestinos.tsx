@@ -301,6 +301,7 @@ const FProyectoDestinos: React.FC<IUserFormPrps> = React.memo(
                     name="telefono"
                     data={data && data[EnumGrid.telefono]}
                     control={control}
+                    isOptional={true}
                   />
                 </div>
               </div>
@@ -315,6 +316,7 @@ const FProyectoDestinos: React.FC<IUserFormPrps> = React.memo(
                     name="observaciones"
                     data={data && data[EnumGrid.observaciones]}
                     control={control}
+                    isOptional={true}
                   />
                 </div>
               </div>
