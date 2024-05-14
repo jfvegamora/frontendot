@@ -45,10 +45,7 @@ const FOTGuiaDespacho: React.FC<IDerivacion> = ({
 
     const onSubmit: SubmitHandler<any> = async (jsonData) => {
 
-        
-        if(!(parseInt(jsonData["numero_doc"]) >= 0)){
-            return toast.error('Numero de documento debe ser mayor a 0')
-        }
+     
 
         const proyectoPrimero = pktoDelete[0].proyecto;
         if (pktoDelete.some((ot:any) => ot.proyecto !== proyectoPrimero)) {
@@ -72,11 +69,19 @@ const FOTGuiaDespacho: React.FC<IDerivacion> = ({
 
         if(otArchivo){
             // if (pktoDelete.some((OT: any) => OT["orden_compra"] <= 0)) {
-            if (pktoDelete.some((OT: any) => parseInt(OT["orden_compra"]) as any === '' || OT["orden_compra"] === '0') ) {
-            pktoDelete.filter((ot: any) => ot["orden_compra"] <= 0).map((ot: any) => {
-                return toast.error(`Folio: ${ot["folio"]} sin Orden de Compra`);
-            })
-            return;        
+
+            if(jsonData["numero_doc"] > 0){
+                if(!(parseInt(jsonData["numero_doc"]) >= 0)){
+                    return toast.error('Numero de documento debe ser mayor a 0')
+                }
+    
+                if (pktoDelete.some((OT: any) => parseInt(OT["orden_compra"]) as any === '' || OT["orden_compra"] === '0') ) {
+                pktoDelete.filter((ot: any) => ot["orden_compra"] <= 0).map((ot: any) => {
+                    return toast.error(`Folio: ${ot["folio"]} sin Orden de Compra`);
+                })
+                return;        
+            }
+           
         }    
         }
         

@@ -54,10 +54,6 @@ const FOTFactura: React.FC<IDerivacion> = ({
             return toast.error('Número de documento debe ser mayor a 0');
         }
 
-        if(jsonData["valor_neto"] <= 0){
-            return toast.error('Valor neto debe ser mayor a 0')
-        }
-
 
         if (pktoDelete.every((ot:any) => ot.estado !== 'Facturada' && ot.estado !== 'Cerrada')) {
             toast.error(`OT debe estar Cerrada o Facturada `);
@@ -76,18 +72,26 @@ const FOTFactura: React.FC<IDerivacion> = ({
                 return;
             }
         }
-        // if ((pktoDelete.some((OT: any) => parseInt(OT["numero_guia"]) as any === '' || OT["numero_guia"] === '0') )) {
-        const validateOrdenCompra = pktoDelete.some((OT:any)=>{
-            if(OT["orden_compra"] === '0'){
-                toast.error(`Folio: ${OT["folio"]} sin Orden de Compra`);
-                return false
-            }
-            return true
-        })
 
-        if(!validateOrdenCompra){
-            return 
+        if(jsonData["numero_doc"] > 0 ){
+            if(jsonData["valor_neto"] <= 0){
+                return toast.error('Valor neto debe ser mayor a 0')
+            }
+           
+            const validateOrdenCompra = pktoDelete.some((OT:any)=>{
+                if(OT["orden_compra"] === '0'){
+                    toast.error(`Folio: ${OT["folio"]} sin Orden de Compra`);
+                    return false
+                }
+                return true
+            })
+    
+            if(!validateOrdenCompra){
+                return 
+            }
         }
+
+
 
         if (pktoDelete.some((OT: any) => OT["numero_guia"] <= 0)) {
             console.log('render')
