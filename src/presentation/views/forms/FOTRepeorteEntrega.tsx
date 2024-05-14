@@ -143,7 +143,7 @@ const FOTReporteEntrega: React.FC<Interface> = ({
 
 
         const toastLoading = toast.loading('Cargando...');
-
+        console.log(jsonData["numero_doc"] )
         try {
             const query07 = {
                 _p1  : `"${pktoDelete[0]["proyecto_codigo"]}", ${1}, "${jsonData["numero_doc"]}", "${jsonData["fecha_doc"]}", ${0}, ${0}, ${0}, ${UsuarioID}, "${jsonData["observaciones"]}"`,
@@ -157,7 +157,7 @@ const FOTReporteEntrega: React.FC<Interface> = ({
             const resultQuery07 = await axios(`${strUrl}/${queryURL07}`)
             if (resultQuery07?.status === 200) {
                 const query06 = {
-                    _pkToDelete: JSON.stringify(pktoDelete.map((folioOT: any) => ({ folio: folioOT["folio"], estado: (jsonData["numero_doc"] === 0 ? 50 : 60), usuario: UsuarioID, observaciones: jsonData["observaciones"], boton:1})))
+                    _pkToDelete: JSON.stringify(pktoDelete.map((folioOT: any) => ({ folio: folioOT["folio"], estado: (jsonData["numero_doc"] === '0' ? 50 : 60), usuario: UsuarioID, observaciones: jsonData["observaciones"], boton:1})))
                 }    
                 let queryURL06 = `?query=06&&_pkToDelete=${query06["_pkToDelete"]}`
                 
