@@ -157,7 +157,7 @@ const FOTReporteEntrega: React.FC<Interface> = ({
             const resultQuery07 = await axios(`${strUrl}/${queryURL07}`)
             if (resultQuery07?.status === 200) {
                 const query06 = {
-                    _pkToDelete: JSON.stringify(pktoDelete.map((folioOT: any) => ({ folio: folioOT["folio"], estado: 60, usuario: UsuarioID, observaciones: jsonData["observaciones"]})))
+                    _pkToDelete: JSON.stringify(pktoDelete.map((folioOT: any) => ({ folio: folioOT["folio"], estado: 60, usuario: UsuarioID, observaciones: jsonData["observaciones"], boton:1})))
                 }    
                 let queryURL06 = `?query=06&&_pkToDelete=${query06["_pkToDelete"]}`
                 

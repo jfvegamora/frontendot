@@ -105,7 +105,7 @@ const FOTOrdenCompra: React.FC<IDerivacion> = ({
            if (resultQuery07?.status === 200) {
 
              const query06 = {
-                _pkToDelete: JSON.stringify(pktoDelete.map((folioOT: any) => ({ folio: folioOT["folio"], estado: 70, usuario: UsuarioID, observaciones: jsonData["observaciones"]})))
+                _pkToDelete: JSON.stringify(pktoDelete.map((folioOT: any) => ({ folio: folioOT["folio"], estado: 70, usuario: UsuarioID, observaciones: jsonData["observaciones"], boton:2})))
              }
              let queryURL06 = `?query=06&&_pkToDelete=${query06["_pkToDelete"]}`
 
