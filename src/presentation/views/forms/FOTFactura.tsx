@@ -22,8 +22,8 @@ interface IDerivacion {
     setSelectedRows?:any;
 }
 
-const strUrl = `${URLBackend}/api/proyectodocum/listado`;
-const strUrlOT = `${URLBackend}/api/othistorica/listado`;
+const strUrl    = `${URLBackend}/api/proyectodocum/listado`;
+const strUrlOT  = `${URLBackend}/api/othistorica/listado`;
 
 const FOTFactura: React.FC<IDerivacion> = ({
     setSelectedRows,
@@ -96,7 +96,7 @@ const FOTFactura: React.FC<IDerivacion> = ({
             }
         }
 
-        
+
 
         const toastLoading = toast.loading('Cargando...');
             try {

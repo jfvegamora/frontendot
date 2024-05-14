@@ -22,7 +22,8 @@ interface IDerivacion {
     setSelectedRows?:any
 }
 
-const strUrl             = `${URLBackend}/api/proyectodocum/listado`
+const strUrl             = `${URLBackend}/api/proyectodocum/listado`;
+const strUrlOT           = `${URLBackend}/api/othistorica/listado`;
 
 
 const FOTOrdenCompra: React.FC<IDerivacion> = ({
@@ -47,11 +48,8 @@ const FOTOrdenCompra: React.FC<IDerivacion> = ({
         }
 
 
-        if(!(parseInt(jsonData["numero_doc"]) >= 0) && !Number.isNaN(parseInt(jsonData["numero_doc"]))){
-            return toast.error('Número de documento debe ser mayor a 0')
-        }
-
-        if(jsonData["valor_neto"] <= 0){
+       
+        if(jsonData["valor_neto"] < 0){
             return toast.error('Valor neto debe ser mayor a 0')
         }
 
@@ -68,43 +66,70 @@ const FOTOrdenCompra: React.FC<IDerivacion> = ({
             }
         }
 
-        if (pktoDelete.some((OT: any) => OT["reporte_atencion"] <= 0)) {
-            pktoDelete.filter((ot:any)=> ot["reporte_atencion"] <= 0).map((ot:any)=>{
-                toast.error(`Folio: ${ot["folio"]} sin Reporte de Entrega`);
-            })
-        } else {
 
-
-            const toastLoading = toast.loading('Cargando...');
-            try {
-                const query07 = {
-                    _p1         : `"${pktoDelete[0]["proyecto_codigo"]}", ${3}, "${jsonData["numero_doc"]}", "${jsonData["fecha_doc"]}", ${jsonData["valor_neto"]}, ${0}, ${0}, ${UsuarioID}, "${jsonData["observaciones"]}"`,
-                    _p2         : jsonData["numero_doc"],
-                    _p3         : pktoDelete[0]["proyecto_codigo"],
-                    _id         : 3,
-                    _pkToDelete : JSON.stringify(pktoDelete.map((folioOT:any)=>({folio: folioOT["folio"]})))
-                   
-                }
-                let queryURL07 = `?query=07&_p1=${query07["_p1"]}&_p2=${query07["_p2"]}&_p3=${query07["_p3"]}&_pkToDelete=${query07["_pkToDelete"]}&_id=${query07["_id"]}`
-                const resultQuery07 = await axios(`${strUrl}/${queryURL07}`)
-                if (resultQuery07?.status === 200) {
-                    toast.success('Orden de Compra generado')
-                    toast.dismiss(toastLoading)
-                    dispatch(fetchOT({ historica: true, searchParams: paramsOT.value}))
-                } else {
-                    toast.dismiss(toastLoading)
-                    toast.error('error: Orden de Compra')
-                }
-                setSelectedRows([])
-                closeModal()
-                toast.dismiss(toastLoading)
-            } catch (error) {
-                toast.dismiss(toastLoading)
-                console.log(error)
-                throw error   
+       if(jsonData["valor_neto"] !== 0){
+        if(!(parseInt(jsonData["numero_doc"]) >= 0) && !Number.isNaN(parseInt(jsonData["numero_doc"]))){
+            return toast.error('Número de documento debe ser mayor a 0')
+        }
+        if(jsonData["valor_neto"] < 0){
+            return toast.error('Valor neto debe ser mayor a 0')
+        }
+        
+        const validateReporteEntre = pktoDelete.some((OT:any) => {
+            if(OT["reporte_atencion"] <= 0){
+                toast.error(`Folio: ${OT["folio"]} sin Reporte de Entrega`);
+                return false
             }
-            
-    }}
+
+           return true
+        })
+
+
+        if(!validateReporteEntre){
+            return 
+        }
+       }
+
+       const toastLoading = toast.loading('Cargando...');
+       try {
+           const query07 = {
+               _p1         : `"${pktoDelete[0]["proyecto_codigo"]}", ${3}, "${jsonData["numero_doc"]}", "${jsonData["fecha_doc"]}", ${jsonData["valor_neto"]}, ${0}, ${0}, ${UsuarioID}, "${jsonData["observaciones"]}"`,
+               _p2         : jsonData["numero_doc"],
+               _p3         : pktoDelete[0]["proyecto_codigo"],
+               _id         : 3,
+               _pkToDelete : JSON.stringify(pktoDelete.map((folioOT:any)=>({folio: folioOT["folio"]})))
+              
+           }
+           let queryURL07 = `?query=07&_p1=${query07["_p1"]}&_p2=${query07["_p2"]}&_p3=${query07["_p3"]}&_pkToDelete=${query07["_pkToDelete"]}&_id=${query07["_id"]}`
+           const resultQuery07 = await axios(`${strUrl}/${queryURL07}`)
+           if (resultQuery07?.status === 200) {
+
+             const query06 = {
+                _pkToDelete: JSON.stringify(pktoDelete.map((folioOT: any) => ({ folio: folioOT["folio"], estado: 70, usuario: UsuarioID, observaciones: jsonData["observaciones"]})))
+             }
+             let queryURL06 = `?query=06&&_pkToDelete=${query06["_pkToDelete"]}`
+
+             await axios(`${strUrlOT}/${queryURL06}`).then(()=>{
+                 toast.success('Orden de Compra generado')
+                 toast.dismiss(toastLoading)
+                 dispatch(fetchOT({ historica: true, searchParams: paramsOT.value}))
+
+             });
+
+           } else {
+               toast.dismiss(toastLoading)
+               toast.error('error: Orden de Compra')
+           }
+           setSelectedRows([])
+           closeModal()
+           toast.dismiss(toastLoading)
+       } catch (error) {
+           toast.dismiss(toastLoading)
+           console.log(error)
+           throw error   
+       }
+    
+};
     
     // console.log('errors',errors)
     

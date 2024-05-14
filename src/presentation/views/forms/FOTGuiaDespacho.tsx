@@ -24,7 +24,8 @@ interface IDerivacion {
     otArchivo?:boolean
 }
 
-const strUrl = `${URLBackend}/api/proyectodocum/listado`
+const strUrl    = `${URLBackend}/api/proyectodocum/listado`;
+const strUrlOT  = `${URLBackend}/api/othistorica/listado`;
 
 
 const FOTGuiaDespacho: React.FC<IDerivacion> = ({
@@ -101,14 +102,22 @@ const FOTGuiaDespacho: React.FC<IDerivacion> = ({
                 const resultQuery07 = await axios(`${strUrl}/${queryURL07}`)
 
                 if (resultQuery07?.status === 200) {
-                    toast.success('Guia generado')
-                    toast.dismiss(toastLoading)
-                    otArchivo ? (
-                        dispatch(fetchOT({ historica:true, searchParams: paramsOT.value}))
-
-                    ) : (
-                        dispatch(fetchOT({ OTAreas:OTAreas, searchParams: paramsOT.value}))
-                    )
+                    const query06 = {
+                        _pkToDelete: JSON.stringify(pktoDelete.map((folioOT: any) => ({ folio: folioOT["folio"], estado: 70, usuario: UsuarioID, observaciones: jsonData["observaciones"]})))
+                    }   
+                    let queryURL06 = `?query=06&&_pkToDelete=${query06["_pkToDelete"]}`
+                    
+                    await axios(`${strUrlOT}/${queryURL06}`).then(()=>{
+                        toast.success('Guia generado')
+                        toast.dismiss(toastLoading)
+                        otArchivo ? (
+                            dispatch(fetchOT({ historica:true, searchParams: paramsOT.value}))
+    
+                        ) : (
+                            dispatch(fetchOT({ OTAreas:OTAreas, searchParams: paramsOT.value}))
+                        )
+                    })
+                    
                 } else {
                     toast.dismiss(toastLoading)
                     toast.error('error: Guia')
