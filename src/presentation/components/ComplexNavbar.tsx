@@ -276,7 +276,12 @@ const subMenuMotivosOT = [
 
 const navListMenuProyectos = [
   {
-    title: "Convenios",
+    title: "Mandantes",
+    link: "/mandantes",
+    id: 14,
+  },
+  {
+    title: "Proyectos",
     link: "/proyectos",
     id: 15,
   },
@@ -289,11 +294,6 @@ const navListMenuProyectos = [
     title: "Empresas",
     link: "/empresas",
     id: 27,
-  },
-  {
-    title: "Mandantes",
-    link: "/mandantes",
-    id: 14,
   },
   {
     title: "Oftalmólogos",
