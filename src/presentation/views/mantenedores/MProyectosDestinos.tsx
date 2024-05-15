@@ -13,7 +13,7 @@ import { TITLES, table_head_proyectos_destinos } from "../../utils";
 import FProyectosDestinos from "../forms/FProyectosDestinos";
 // import FProyectosDireccionesCopiar from "../forms/FProyectosDireccionesCopiar";
 
-const strEntidad = "Parametrización de Destinos ";
+const strEntidad = "Destinos ";
 const strEntidadExcel = "Destinos";
 const strBaseUrl = "/api/proyectodestinos/";
 const strQuery = "01";
@@ -22,11 +22,10 @@ const idMenu = 18;
 export enum EnumGrid {
   id            =1,
   descripcion   =2,
-  proyecto      =3, 
-  titulo        =4, 
-  direccion     =5, 
-  telefono      =6,
-  observaciones =7, 
+  titulo        =3, 
+  direccion     =4, 
+  telefono      =5,
+  observaciones =6, 
 }
 
 
@@ -83,21 +82,15 @@ const MProyectosDestinos: React.FC = () => {
   
     return (
       <div className="mantenedorContainer">
-        <div className="mantenedorHead width90">
-          <div className="w-[75%]">
+        <div className="mantenedorHead width50">
+          <div className="w-[30%]">
             <PrimaryKeySearch
               baseUrl={strBaseUrl}
               setParams={setParams}
               updateParams={updateParams}
               setEntities={setEntities}
               primaryKeyInputs={[
-                { name: "_p1", label: "Descripción", type: "text", styles:{with:" !w-[9rem]"}, },
-                {
-                  name: "_p2",
-                  label: "Proyecto",
-                  type: "select",
-                  selectUrl: "/api/proyectos/", styles:{with:" !w-[33rem]"},
-                },
+                { name: "_p1", label: "Descripción", type: "text", styles:{with:" !w-[14rem]"}, },
               ]}
               />
           </div>
@@ -121,7 +114,7 @@ const MProyectosDestinos: React.FC = () => {
           />
         </div>
   
-        <div className="width100 scroll">
+        <div className="width70 scroll">
           <TableComponent
             handleSelectChecked={handleSelect}
             handleSelectedCheckedAll={handleSelectedAll}
