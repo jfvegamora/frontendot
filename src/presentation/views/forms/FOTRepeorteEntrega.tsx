@@ -116,32 +116,6 @@ const FOTReporteEntrega: React.FC<Interface> = ({
             }
         }
 
-        console.log(pktoDelete)
-       
-      
-
-        // const proyectoPrimero = pktoDelete[0].proyecto;
-        // if (pktoDelete.some((ot:any) => ot.proyecto !== proyectoPrimero)) {
-        //     toast.error('Todos los objetos deben tener el mismo valor para la propiedad "proyecto"');
-        //     return;
-        // }
-
-        console.log(pktoDelete)
-
-        // const result = validationStateOT(4, 'in', folios, pktoDelete)
-        // const areAllSameType = result.every((item:any) => item === true);
-
-        // if(!areAllSameType){
-        //     result.map((ot:any)=>{
-        //     if(Array.isArray(ot)){
-        //         toast.error(`Error: folio ${ot[0]}  | ${ot[1]}`);
-        //         return;
-        //     }
-        //     })
-        //     return;
-        // }
-
-
         const toastLoading = toast.loading('Cargando...');
         console.log(jsonData["numero_doc"] )
         try {

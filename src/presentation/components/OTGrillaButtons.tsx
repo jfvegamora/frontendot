@@ -114,24 +114,23 @@ const resetImpresionStates = () => {
             setisFotTicketQR(true)
         }
     },
-
-
 });
 
 React.useEffect(()=>{
     if(isFinishImpression.value === true){
           try {
+              isFinishImpression.value = false;
                 console.log('render')
                setEstadoImpresion(folioActual.value,1,user,OTAreas["areaActual"],true).then(()=>{
                 clearIndividualCheck.value = true;
                 dispatch(fetchOT({OTAreas:OTAreas["areaActual"],searchParams: paramsOT.value}))
+                console.log('render')
                 clearAllCheck.value = false;
-                isFinishImpression.value = false;
                 folioActual.value = false;
               })            
             } catch (error) {
               console.log(error)
-              
+              isFinishImpression.value = false;
             }
          
     }
