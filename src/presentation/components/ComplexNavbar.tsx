@@ -146,17 +146,17 @@ const navListMenuOT = [
 
 const subMenuParametrizacionBodega = [
   {
-    title: "Parametrización de Accesorios",
+    title: "Asignación de Accesorios",
     link: "/proyectoaccesorios",
     id: 30,
   },
   {
-    title: "Parametrización de Muestrarios",
+    title: "Asignación Armazones -> Muestrarios",
     link: "/muestrariosarmazones",
     id: 16,
   },
   {
-    title: "Parametrización de Vitrinas",
+    title: "Asignación Armazones -> Vitrinas",
     link: "/vitrinasarmazones",
     id: 35,
   },
@@ -215,19 +215,39 @@ const navListMenuBodega = [
 
 const subMenuParametrizacion = [
   {
-    title: "Parametrización de Destinos",
-    link: "/proyectodestinos",
-    id: 18,
-  },
-  {
     title: "Parametrización de Grupos",
     link: "/proyectocristales",
     id: 17,
   },
   {
+    title: "Parametrización de Puntos de Venta",
+    link: "/puntosventa",
+    id: 4,
+  },
+  {
+    title: "Parametrización de Destinos",
+    link: "/proyectodestinos",
+    id: 18,
+  },
+  {
+    title: "Parametrización de Establecimientos",
+    link: "/establecimientos",
+    id: 3,
+  },
+  {
     title: "Parametrización de Usuarios",
     link: "/proyectousuarios",
     id: 34,
+  },
+  {
+    title: "Parametrización de Muestrarios",
+    link: "/muestrarios",
+    id: 36,
+  },
+  {
+    title: "Parametrización de Vitrinas",
+    link: "/vitrinas",
+    id: 37,
   },
 ];
 
@@ -265,20 +285,10 @@ const navListMenuProyectos = [
     link: "/proyectodocum",
     id: 38,
   },
-  // {
-  //   title: "Reporte de Firmas",
-  //   link: "/proyectoreportefirma",
-  //   id: 20,
-  // },
   {
     title: "Empresas",
     link: "/empresas",
     id: 27,
-  },
-  {
-    title: "Establecimientos",
-    link: "/establecimientos",
-    id: 3,
   },
   {
     title: "Mandantes",
@@ -286,29 +296,14 @@ const navListMenuProyectos = [
     id: 14,
   },
   {
-    title: "Muestrarios",
-    link: "/muestrarios",
-    id: 36,
-  },
-  {
     title: "Oftalmólogos",
     link: "/oftalmologos",
     id: 21,
   },
   {
-    title: "Puntos de Venta",
-    link: "/puntosventa",
-    id: 4,
-  },
-  {
     title: "Reserva de Armazones",
     link: "/reservaarmazones",
     id: 42,
-  },
-  {
-    title: "Vitrinas",
-    link: "/vitrinas",
-    id: 37,
   },
 ];
 
@@ -586,7 +581,7 @@ function NavListMenuBodega({ userPermission }: { userPermission: number[] }) {
             >
               <MenuHandler className="flex items-center justify-between" >
                 <MenuItem>
-                  Parametrizacion <FontAwesomeIcon icon={faChevronRight} />
+                 Asignación <FontAwesomeIcon icon={faChevronRight} />
                 </MenuItem>
               </MenuHandler>
               <MenuList>

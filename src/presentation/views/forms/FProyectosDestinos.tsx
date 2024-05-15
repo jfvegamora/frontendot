@@ -4,7 +4,7 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect } from "react";
-import { SelectInputComponent, TextInputComponent } from "../../components";
+import { TextInputComponent } from "../../components";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationProyectoDestinosSchema } from "../../utils/validationFormSchemas";
@@ -22,7 +22,6 @@ const strEntidad = "Parametrización de Destinos ";
 
 export interface InputData {
   descripcion: string | undefined;
-  proyecto: string | undefined;
   direccion: string | undefined;
   telefono: string | undefined;
   observaciones: string | undefined;
@@ -35,7 +34,7 @@ interface OutputData {
 }
 
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
-  let _p1 = `"${jsonData.descripcion}", "${jsonData.proyecto}", "${jsonData.direccion}", "${jsonData.telefono}", "${jsonData.observaciones}"`;
+  let _p1 = `"${jsonData.descripcion}", "${jsonData.direccion}", "${jsonData.telefono}", "${jsonData.observaciones}"`;
 
   _p1 = _p1.replace(/'/g, '!');
 
@@ -253,24 +252,6 @@ const FProyectoDestinos: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     error={errors.descripcion}
                     inputRef={firstInputRef}
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div className="w-full flex items-center h-[4rem]">
-              <div className="input-container items-center rowForm w-full">
-                <div className="w-full ">
-                <SelectInputComponent
-                    label="Proyecto"
-                    name="proyecto"
-                    showRefresh={true}
-                    data={data && data[EnumGrid.proyecto]}
-                    control={control}
-                    entidad={["/api/proyectos/", "02"]}
-                    error={errors.proyecto}
-                    readOnly={isEditting}
-                    customWidth={"!w-[28rem] !ml-[1rem] !mt-[-0.6rem]"}
                   />
                 </div>
               </div>

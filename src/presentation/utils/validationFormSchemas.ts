@@ -484,7 +484,6 @@ export const validationProyectoDireccionesSchema = () =>
 export const validationProyectoDestinosSchema = () =>
   yup.object().shape({
     descripcion: yup.string().required(`${msg}`),
-    proyecto: yup.string().required(`${msg}`),
     direccion: yup.string().required(`${msg}`),
     telefono: yup.string(),
     observaciones: yup.string(),
