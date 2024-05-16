@@ -197,7 +197,7 @@ const MMuestrariosArmazones: React.FC = () => {
             params={params}
             data={entity}
             closeModal={closeModal}
-            isEditting={true}
+            isEditting={false}
             escritura_lectura={escritura_lectura}
         />
       )}

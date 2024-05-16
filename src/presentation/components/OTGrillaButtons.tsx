@@ -4,7 +4,7 @@ import { PencilIcon } from "@heroicons/react/24/solid";
 import { PiPrinterFill } from "react-icons/pi";
 import { ImWhatsapp } from "react-icons/im";
 // import { usePermission } from '../hooks';
-import { BUTTON_MESSAGES, clearAllCheck, clearIndividualCheck, isToggleImpression, validateSameUserImpresionOT } from '../utils';
+import { BUTTON_MESSAGES, clearAllCheck, clearIndividualCheck, disabledIndividualCheck, isToggleImpression, validateSameUserImpresionOT } from '../utils';
 
 import { useReactToPrint } from 'react-to-print';
 // import FOTImpresa from '../views/forms/FOTImpresa';
@@ -47,6 +47,8 @@ const FOTTicketImpresion     = React.lazy(()=>import('../views/forms/FOTTicketIm
 
 
 export  const setEstadoImpresion = async(folio:any,_estado:any, userID:any, _origen:any, masivo?:boolean) => {
+    const loadingToast = toast.loading('Cargando...');
+    
     try {
         const query = `?query=06&_folio=${folio}&_p2=${1}&_estado=${_estado}&_usuario=${userID.id}&_origen=${_origen}`
         const result = await axios(`${strUrl}/${query}`,{
@@ -55,18 +57,23 @@ export  const setEstadoImpresion = async(folio:any,_estado:any, userID:any, _ori
              }
        });
         console.log(result)
+        console.log(masivo)
+        
         if(masivo){
             return ;
         }
 
         if(result.status === 200 && !masivo){
-            // console.log(result)
-            console.log('render')
+            toast.dismiss(loadingToast);
+            disabledIndividualCheck.value = false;
             result.data[0][0]  === 1 ? isToggleImpression.value = true : isToggleImpression.value = false;
-            toast.success('Estado Impresión Cambiado.')
+            toast.success('Estado Impresión Cambiado.', {
+                autoClose: 900
+            })
         }
     } catch (error) {
         if(masivo) return;
+        toast.dismiss(loadingToast)
         toast.error('Error Estado Impresión OT.')
         throw error
     }
@@ -121,7 +128,7 @@ React.useEffect(()=>{
           try {
               isFinishImpression.value = false;
                 console.log('render')
-               setEstadoImpresion(folioActual.value,1,user,OTAreas["areaActual"],true).then(()=>{
+               setEstadoImpresion(folioActual.value,1,user,OTAreas["areaActual"],false).then(()=>{
                 clearIndividualCheck.value = true;
                 dispatch(fetchOT({OTAreas:OTAreas["areaActual"],searchParams: paramsOT.value}))
                 console.log('render')
@@ -204,11 +211,13 @@ const imprimirComprobanteRetiro = async(tipoComprobante?:string) => {
     }
     
     const handleImpresion = async (folio: any) => {
-        setIsFotImpresa(true)        
+        setIsFotImpresa(true)
+        disabledIndividualCheck.value = true;        
         const OT                 = OTdata.filter((ot:any)=>ot[1] === folio)[0]
         const estado_impresion   = 5
 
         if(OT[estado_impresion] === '1'){
+            disabledIndividualCheck.value = false;
             return toast.error(`OT: ${folio} ya fue Impresa anteriormente`)
         }
 
@@ -218,6 +227,7 @@ const imprimirComprobanteRetiro = async(tipoComprobante?:string) => {
 
         const resultValidate = await validateSameUserImpresionOT(user.id, folio)
         if(!resultValidate){
+            disabledIndividualCheck.value = false;
             toast.dismiss(loadingToast)
             return toast.error(`Folio ${folio} no pertenece al Usuario ${user?.nombre}`);
         }
@@ -228,6 +238,7 @@ const imprimirComprobanteRetiro = async(tipoComprobante?:string) => {
           toast.dismiss(loadingToast);
         } catch (error) {
             console.error(error);
+            disabledIndividualCheck.value = false;
             toast.dismiss(loadingToast);
             throw error;
         }

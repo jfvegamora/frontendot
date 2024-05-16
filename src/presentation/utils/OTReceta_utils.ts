@@ -82,9 +82,9 @@ export const validation_tipo_anteojo = () => {
       '1': { a1_od_ad: 1, a1_oi_ad: 1, a1_alt: 1, a1_dp: 0, a2_dp: 1, a2_od_esf: 1, a2_od_cil: 1, a2_od_eje: 1, a2_oi_esf: 1, a2_oi_cil: 1, a2_oi_eje: 1, cristal2_marca_id: 1 , cristal2_diseno_id:1, cristal2_indice_id:1, cristal2_material_id:1, cristal2_color_id:1, cristal2_diametro:1, cristal2_tratamiento_id:1, cristal2_od:1, cristal2_oi:1, a2_armazon_id:1 },
       '2': { a1_od_ad: 1, a1_oi_ad: 1, a1_alt: 1, a1_dp: 0, a2_dp: 1, a2_od_esf: 1, a2_od_cil: 1, a2_od_eje: 1, a2_oi_esf: 1, a2_oi_cil: 1, a2_oi_eje: 1, cristal2_marca_id: 1 , cristal2_diseno_id:1, cristal2_indice_id:1, cristal2_material_id:1, cristal2_color_id:1, cristal2_diametro:1, cristal2_tratamiento_id:1, cristal2_od:1, cristal2_oi:1, a2_armazon_id:1 },
       '3': { a1_od_ad: 1, a1_oi_ad: 1, a1_alt: 1, a1_dp: 0, a2_dp: 0, a2_od_esf: 0, a2_od_cil: 0, a2_od_eje: 0, a2_oi_esf: 0, a2_oi_cil: 0, a2_oi_eje: 0, cristal2_marca_id: 0 , cristal2_diseno_id:0, cristal2_indice_id:0, cristal2_material_id:0, cristal2_color_id:0, cristal2_diametro:0, cristal2_tratamiento_id:0, cristal2_od:0, cristal2_oi:0, a2_armazon_id:0 },
-      '4': { a1_od_ad: 1, a1_oi_ad: 1, a1_alt: 0, a1_dp: 0, a2_dp: 1, a2_od_esf: 1, a2_od_cil: 1, a2_od_eje: 1, a2_oi_esf: 1, a2_oi_cil: 1, a2_oi_eje: 1, cristal2_marca_id: 1 , cristal2_diseno_id:1, cristal2_indice_id:1, cristal2_material_id:1, cristal2_color_id:1, cristal2_diametro:1, cristal2_tratamiento_id:1, cristal2_od:1, cristal2_oi:1, a2_armazon_id:1 },
+      '4': { a1_od_ad: 1, a1_oi_ad: 1, a1_alt: 0, a1_dp: 0, a2_dp: 0, a2_od_esf: 1, a2_od_cil: 1, a2_od_eje: 1, a2_oi_esf: 1, a2_oi_cil: 1, a2_oi_eje: 1, cristal2_marca_id: 1 , cristal2_diseno_id:1, cristal2_indice_id:1, cristal2_material_id:1, cristal2_color_id:1, cristal2_diametro:1, cristal2_tratamiento_id:1, cristal2_od:1, cristal2_oi:1, a2_armazon_id:1 },
       '5': { a1_od_ad: 1, a1_oi_ad: 1, a1_alt: 1, a1_dp: 0, a2_dp: 1, a2_od_esf: 1, a2_od_cil: 1, a2_od_eje: 1, a2_oi_esf: 1, a2_oi_cil: 1, a2_oi_eje: 1, cristal2_marca_id: 1 , cristal2_diseno_id:1, cristal2_indice_id:1, cristal2_material_id:1, cristal2_color_id:1, cristal2_diametro:1, cristal2_tratamiento_id:1, cristal2_od:1, cristal2_oi:1, a2_armazon_id:1 },
-      '6': { a1_od_ad: 1, a1_oi_ad: 1, a1_alt: 1, a1_dp: 0, a2_dp: 1, a2_od_esf: 1, a2_od_cil: 1, a2_od_eje: 1, a2_oi_esf: 1, a2_oi_cil: 1, a2_oi_eje: 1, cristal2_marca_id: 1 , cristal2_diseno_id:1, cristal2_indice_id:1, cristal2_material_id:1, cristal2_color_id:1, cristal2_diametro:1, cristal2_tratamiento_id:1, cristal2_od:1, cristal2_oi:1, a2_armazon_id:1 },
+      '6': { a1_od_ad: 1, a1_oi_ad: 1, a1_alt: 0, a1_dp: 0, a2_dp: 0, a2_od_esf: 1, a2_od_cil: 1, a2_od_eje: 1, a2_oi_esf: 1, a2_oi_cil: 1, a2_oi_eje: 1, cristal2_marca_id: 1 , cristal2_diseno_id:1, cristal2_indice_id:1, cristal2_material_id:1, cristal2_color_id:1, cristal2_diametro:1, cristal2_tratamiento_id:1, cristal2_od:1, cristal2_oi:1, a2_armazon_id:1 },
       '7': { a1_od_ad: 1, a1_oi_ad: 1, a1_alt: 1, a1_dp: 0, a2_dp: 1, a2_od_esf: 1, a2_od_cil: 1, a2_od_eje: 1, a2_oi_esf: 1, a2_oi_cil: 1, a2_oi_eje: 1, cristal2_marca_id: 1 , cristal2_diseno_id:1, cristal2_indice_id:1, cristal2_material_id:1, cristal2_color_id:1, cristal2_diametro:1, cristal2_tratamiento_id:1, cristal2_od:1, cristal2_oi:1, a2_armazon_id:1 },
   };
 
@@ -98,8 +98,8 @@ export const validation_tipo_anteojo = () => {
 
   deshabilitarCampo.value.a1_ad = tipoDeAnteojo !== '1' && tipoDeAnteojo !== '2' && tipoDeAnteojo !== '7';
 //   deshabilitarCampo.value.a1_alt = tipoDeAnteojo !== '1' && tipoDeAnteojo !== '2' && tipoDeAnteojo !== '7';
-  deshabilitarCampo.value.a1_alt = tipoDeAnteojo === '4';
-  deshabilitarCampo.value.a2_dp = tipoDeAnteojo === '3' ? false : true || true;
+  deshabilitarCampo.value.a1_alt  = (tipoDeAnteojo === '4' || tipoDeAnteojo === '5' || tipoDeAnteojo === '6');
+  deshabilitarCampo.value.a2_dp   = (tipoDeAnteojo === '3' || tipoDeAnteojo === '4' || tipoDeAnteojo === '6' || tipoDeAnteojo === '5') ? false : true || true;
   
   clearSelectInput.value = tipoDeAnteojo === '1' || tipoDeAnteojo === '2' || tipoDeAnteojo === '7';
 

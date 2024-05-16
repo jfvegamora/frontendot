@@ -24,8 +24,8 @@ interface Interface {
 }
 
 
-const strUrl = `${URLBackend}/api/proyectodocum/listado`;
-const strUrlOT = `${URLBackend}/api/othistorica/listado`;
+const strUrl    = `${URLBackend}/api/proyectodocum/listado`;
+const strUrlOT  = `${URLBackend}/api/othistorica/listado`;
 
 
 
@@ -71,15 +71,8 @@ const FOTReporteEntrega: React.FC<Interface> = ({
           }      
     }
 
-
-
-
-
-
-
     React.useEffect(()=>{
         const toastLoading = toast.loading('Cargando...');
-        console.log(pktoDelete)
         fetchNumeroRepEntrega().then(()=>{
             toast.dismiss(toastLoading)
         })
@@ -127,6 +120,7 @@ const FOTReporteEntrega: React.FC<Interface> = ({
                 _pkToDelete: JSON.stringify(pktoDelete.map((folioOT: any) => ({ folio: folioOT["folio"] })))
 
             }
+
             let queryURL07 = `?query=07&_p1=${query07["_p1"]}&_p2=${query07["_p2"]}&_p3=${query07["_p3"]}&_pkToDelete=${query07["_pkToDelete"]}&_id=${query07["_id"]}`
             const resultQuery07 = await axios(`${strUrl}/${queryURL07}`)
             if (resultQuery07?.status === 200) {

@@ -46,7 +46,7 @@ export const fetchOT = createAsyncThunk(
     async (params:any) => {
         const {OTAreas, searchParams, historica} = params;
 
-        // console.log(params)
+        console.log(params)
         const OTUrl = searchParams
                                  ? historica ? `${URLBackend}/api/othistorica/listado/?query=14&${searchParams}&_limit=${limit}` :  `${URLBackend}/api/ot/listado/?query=14&_origen=${OTAreas}&${searchParams}&_limit=${limit}` 
                                  : historica ? `${URLBackend}/api/othistorica/listado/?query=14&_limit=${limit}`                 :   OTAreas ? `${URLBackend}/api/ot/listado/?query=14&_origen=${OTAreas}&_limit=${limit}` : `${URLBackend}/api/ot/listado/?query=14&${searchParams}&_limit=${limit}`
@@ -182,6 +182,9 @@ const OTSlice = createSlice({
         clearImpression(state){
             state.impresionOT = []
             state.ot          = []
+        },
+        updateEstadoImpresion(state){
+            console.log(state.impresionOT)
         }
     },
     extraReducers: (builder) => {
@@ -227,5 +230,5 @@ const OTSlice = createSlice({
     },
 });
 
-export const { clearData, addToCristales, addToArmazones, clearCodigos,clearOTColores,clearImpression } = OTSlice.actions;
+export const { clearData, addToCristales, addToArmazones, clearCodigos,clearOTColores,clearImpression,updateEstadoImpresion } = OTSlice.actions;
 export default OTSlice.reducer;

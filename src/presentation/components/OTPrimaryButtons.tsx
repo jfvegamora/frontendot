@@ -419,7 +419,9 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
       })
 
       toast.dismiss(toastLoading);
-      toast.success('OTs Procesadas Correctamente');
+      toast.success('OTs Procesadas Correctamente',{
+        autoClose: 900
+      });
     }
 
 
