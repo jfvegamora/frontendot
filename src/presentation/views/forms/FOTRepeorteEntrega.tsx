@@ -24,8 +24,8 @@ interface Interface {
 }
 
 
-const strUrl = `${URLBackend}/api/proyectodocum/listado`;
-const strUrlOT = `${URLBackend}/api/othistorica/listado`;
+const strUrl    = `${URLBackend}/api/proyectodocum/listado`;
+const strUrlOT  = `${URLBackend}/api/othistorica/listado`;
 
 
 
@@ -71,15 +71,8 @@ const FOTReporteEntrega: React.FC<Interface> = ({
           }      
     }
 
-
-
-
-
-
-
     React.useEffect(()=>{
         const toastLoading = toast.loading('Cargando...');
-        console.log(pktoDelete)
         fetchNumeroRepEntrega().then(()=>{
             toast.dismiss(toastLoading)
         })
@@ -116,32 +109,6 @@ const FOTReporteEntrega: React.FC<Interface> = ({
             }
         }
 
-        console.log(pktoDelete)
-       
-      
-
-        // const proyectoPrimero = pktoDelete[0].proyecto;
-        // if (pktoDelete.some((ot:any) => ot.proyecto !== proyectoPrimero)) {
-        //     toast.error('Todos los objetos deben tener el mismo valor para la propiedad "proyecto"');
-        //     return;
-        // }
-
-        console.log(pktoDelete)
-
-        // const result = validationStateOT(4, 'in', folios, pktoDelete)
-        // const areAllSameType = result.every((item:any) => item === true);
-
-        // if(!areAllSameType){
-        //     result.map((ot:any)=>{
-        //     if(Array.isArray(ot)){
-        //         toast.error(`Error: folio ${ot[0]}  | ${ot[1]}`);
-        //         return;
-        //     }
-        //     })
-        //     return;
-        // }
-
-
         const toastLoading = toast.loading('Cargando...');
         console.log(jsonData["numero_doc"] )
         try {
@@ -153,6 +120,7 @@ const FOTReporteEntrega: React.FC<Interface> = ({
                 _pkToDelete: JSON.stringify(pktoDelete.map((folioOT: any) => ({ folio: folioOT["folio"] })))
 
             }
+
             let queryURL07 = `?query=07&_p1=${query07["_p1"]}&_p2=${query07["_p2"]}&_p3=${query07["_p3"]}&_pkToDelete=${query07["_pkToDelete"]}&_id=${query07["_id"]}`
             const resultQuery07 = await axios(`${strUrl}/${queryURL07}`)
             if (resultQuery07?.status === 200) {

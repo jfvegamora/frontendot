@@ -3,6 +3,8 @@
 import { Input } from "@material-tailwind/react";
 import React, {useEffect, useState} from "react";
 import { Controller } from "react-hook-form";
+import { A1_DP } from "../../utils";
+import { toast } from "react-toastify";
 // import debounce from "lodash/debounce"
 // import debounce from 'lodash/debounce'
 
@@ -75,13 +77,19 @@ const TextInputInteractive: React.FC<ITextInputProps> = ({
   };
   
   useEffect(()=>{
-    // if(data){
-    //     setDefaultValue(data)
-    //     setValue(data)
-    //     setRender((prev)=>!prev)
-
-    // }
     if (data !== undefined) {
+      if(name === 'a2_dp'){
+        if(A1_DP.value !== ''){
+          if( parseInt(data) > parseInt(A1_DP.value)){
+            setValue('')
+            toast.error('DP2 debe ser menor a DP1')
+            return 
+          }
+        }
+      }
+      
+
+      
       if (data === "") {
           setDefaultValue("");
           setValue("");
@@ -92,6 +100,9 @@ const TextInputInteractive: React.FC<ITextInputProps> = ({
       setRender(prev => !prev);
   }
   },[data])
+
+
+
 
 
 

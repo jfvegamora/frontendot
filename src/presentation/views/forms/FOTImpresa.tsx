@@ -32,7 +32,6 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
   const fecha = fechaHora.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: '2-digit' });
   const fechaHoraFormateada = `${hora} ${fecha}`;
 
-
   return (
     <>
       {masivo === true ?
@@ -152,8 +151,9 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
 
                     <div className="!w-[45%] ml-1">
                       <div className=''>
+                    
                         {ot[EnumGrid.tipo_anteojo_id] !== 3 && (
-                          <h1 className=" w-[10%] text-2xl text-center  translate-y-9 transform -rotate-90 ml-1">{ot[EnumGrid.tipo_anteojo]}</h1>
+                          <h1 className={` w-[10%] text-2xl text-center ${ot[EnumGrid.tipo_anteojo].length === 10 ? 'translate-y-24' : 'translate-y-9'} transform -rotate-90 ml-1`}>{ot[EnumGrid.tipo_anteojo]}</h1>
                         )}
                         {ot[EnumGrid.tipo_anteojo_id] === 3 && ( 
                             <>
@@ -189,6 +189,7 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                         {
                         ot[EnumGrid.tipo_anteojo_id] === 4 ||
                         ot[EnumGrid.tipo_anteojo_id] === 3 ||
+                        ot[EnumGrid.tipo_anteojo_id] === 6 ||
                         ot[EnumGrid.tipo_anteojo_id]  === 5 && (
                           <div className="  w-[20%] ">AD</div>
                         ) 
@@ -203,6 +204,7 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                         {
                         ot[EnumGrid.tipo_anteojo_id] === 4 ||
                         ot[EnumGrid.tipo_anteojo_id] === 3 ||
+                        ot[EnumGrid.tipo_anteojo_id] === 6 ||
                         ot[EnumGrid.tipo_anteojo_id]  === 5 && (
                           <div className="text-right w-[20%] ">{ot[EnumGrid.a1_od_ad]}</div>
                         )}
@@ -215,6 +217,7 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                         {
                         ot[EnumGrid.tipo_anteojo_id] === 4 ||
                         ot[EnumGrid.tipo_anteojo_id] === 3 ||
+                        ot[EnumGrid.tipo_anteojo_id] === 6 ||
                         ot[EnumGrid.tipo_anteojo_id]  === 5 && (
                           <div className="text-right w-[20%] ">{ot[EnumGrid.a1_oi_ad]}</div>
                         )}
@@ -251,7 +254,10 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                   {/*************** A L T U R A  -  D P ***************/}
                   <div className="w-[100%] flex -mt-1 justify-between ">
                     <div className="w-[52.2%] ml-2 items-center flex">
-                      {ot[EnumGrid.tipo_anteojo_id] === 4 && (
+                      {ot[EnumGrid.tipo_anteojo_id] === 4 ||
+                       ot[EnumGrid.tipo_anteojo_id] === 5 ||
+                       ot[EnumGrid.tipo_anteojo_id] === 6 &&
+                      (
                         <span className='ml-1  !text-base font-bold '>&nbsp;ALT: {ot[EnumGrid.a1_alt]}</span>
                       )}
                       

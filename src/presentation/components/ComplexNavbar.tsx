@@ -753,39 +753,7 @@ function NavListMenuProyectos({ userPermission }: { userPermission: number[] }) 
           <ul className="col-span-4 flex w-full flex-col gap-1">
 
 
-            <Menu
-              placement="right-start"
-              open={openMenuParametrizacion}
-              handler={setOpenMenuParametrizacion}
-              allowHover
-              offset={15}
-            >
-              <MenuHandler className="flex items-center justify-between" >
-                <MenuItem>
-                  Parametrización <FontAwesomeIcon icon={faChevronRight} />
-                </MenuItem>
-              </MenuHandler>
-              <MenuList>
-                {subMenuParametrizacion.map(({ title, id, link }) => {
-                  const hasPermission = userPermission.includes(id);
-                  return (
-                    <MenuItem
-                      className={`flex items-center gap-2 rounded ${hasPermission ? "" : "text-gray-400 cursor-not-allowed"
-                        }`}
-                      key={id}
-                      onClick={() => {
-                        if (hasPermission) {
-                          navigate(link);
-                          strNavTitle.value = title;
-                        }
-                      }}
-                    >
-                      {title}
-                    </MenuItem>
-                  )
-                })}
-              </MenuList>
-            </Menu>
+          
 
             <Menu
               placement="right-start"
@@ -821,6 +789,41 @@ function NavListMenuProyectos({ userPermission }: { userPermission: number[] }) 
               </MenuList>
             </Menu>
             
+            <Menu
+              placement="right-start"
+              open={openMenuParametrizacion}
+              handler={setOpenMenuParametrizacion}
+              allowHover
+              offset={15}
+            >
+              <MenuHandler className="flex items-center justify-between" >
+                <MenuItem>
+                  Parametrización <FontAwesomeIcon icon={faChevronRight} />
+                </MenuItem>
+              </MenuHandler>
+              <MenuList>
+                {subMenuParametrizacion.map(({ title, id, link }) => {
+                  const hasPermission = userPermission.includes(id);
+                  return (
+                    <MenuItem
+                      className={`flex items-center gap-2 rounded ${hasPermission ? "" : "text-gray-400 cursor-not-allowed"
+                        }`}
+                      key={id}
+                      onClick={() => {
+                        if (hasPermission) {
+                          navigate(link);
+                          strNavTitle.value = title;
+                        }
+                      }}
+                    >
+                      {title}
+                    </MenuItem>
+                  )
+                })}
+              </MenuList>
+            </Menu>
+
+
             {renderItems}
           </ul>
         </MenuList>
@@ -828,7 +831,10 @@ function NavListMenuProyectos({ userPermission }: { userPermission: number[] }) 
       <MenuItem className="flex items-center gap-2 text-blue-gray-900 lg:hidden">
         <FontAwesomeIcon icon={faWallet} /> PROYECTOS{" "}
       </MenuItem>
-      <ul className="ml-6 flex w-full flex-col gap-1 lg:hidden">{renderItems}</ul>
+      <ul className="ml-6 flex w-full flex-col gap-1 lg:hidden">
+        {renderItems}
+        
+      </ul>
     </React.Fragment>
   );
 }

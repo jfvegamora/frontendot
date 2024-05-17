@@ -33,11 +33,11 @@ const FOTOrdenCompra: React.FC<IDerivacion> = ({
 }) => {
     const { control, handleSubmit, formState: { errors }} = useForm<any>({resolver: yupResolver(validationFOTOrdenCompra()),});
     const [fechaHoraActual, _setFechaHoraActual] = useState(new Date());
-    // const [fechaHoraActual, _setFechaHoraActual]  = useState(new Date());
-    
     const UsuarioID: any = useAppSelector((store: AppStore) => store.user?.id)
     const dispatch       = useAppDispatch();
     const { showModal, CustomModal } = useModal();
+
+    const folios = pktoDelete.map((OT:any)=>OT.folio);
   
 
     const onSubmit: SubmitHandler<any> = async (jsonData) => {
@@ -66,31 +66,47 @@ const FOTOrdenCompra: React.FC<IDerivacion> = ({
             }
         }
 
-
-       if(jsonData["valor_neto"] !== 0){
+       if(jsonData["valor_neto"] !== '0'){
         if(!(parseInt(jsonData["numero_doc"]) >= 0) && !Number.isNaN(parseInt(jsonData["numero_doc"]))){
             return toast.error('Número de documento debe ser mayor a 0')
         }
-        if(jsonData["valor_neto"] < 0){
+        if(jsonData["valor_neto"] < '0'){
             return toast.error('Valor neto debe ser mayor a 0')
         }
         
         const validateReporteEntre = pktoDelete.some((OT:any) => {
             if(OT["reporte_atencion"] <= 0){
-                toast.error(`Folio: ${OT["folio"]} sin Reporte de Entrega`);
+                toast.error(`Folio: ${OT["folio"]} sin Reporte de Entrega.`);
                 return false
             }
 
            return true
         })
-
-
         if(!validateReporteEntre){
             return 
         }
        }
 
+
+       if(jsonData["numero_doc"] === '0'){
+            const validateNumeroGuia = pktoDelete.some((OT:any)=>{
+                if(OT.numero_guia !== 0){
+                    return false
+                }
+                return true;
+            })
+            
+            if(!validateNumeroGuia){
+                return toast.error(`Folio: ${folios} tiene número de guía asignado.`)
+            }
+        
+        
+        }
+
+
+
        const toastLoading = toast.loading('Cargando...');
+       
        try {
            const query07 = {
                _p1         : `"${pktoDelete[0]["proyecto_codigo"]}", ${3}, "${jsonData["numero_doc"]}", "${jsonData["fecha_doc"]}", ${jsonData["valor_neto"]}, ${0}, ${0}, ${UsuarioID}, "${jsonData["observaciones"]}"`,
@@ -118,7 +134,7 @@ const FOTOrdenCompra: React.FC<IDerivacion> = ({
 
            } else {
                toast.dismiss(toastLoading)
-               toast.error('error: Orden de Compra')
+               toast.error('error: Orden de Compra.')
            }
            setSelectedRows([])
            closeModal()

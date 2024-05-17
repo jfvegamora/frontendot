@@ -47,7 +47,7 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
     _p1: jsonData.origen,
     _p2: jsonData.destino,
   };
-// console.log("query", query)
+console.log("query", query)
   return query;
 }
 
@@ -102,8 +102,6 @@ const FMuestrariosArmazonesCopiar: React.FC<IUserFormPrps> = React.memo(
     });
 
     const resetTextFields = React.useCallback(() => {
-      // setValue("codigo_armazon", "");
-
       if (firstInputRef.current) {
         const firstInput = firstInputRef.current.querySelector(
           'input[name="origen"]'
@@ -130,7 +128,6 @@ const FMuestrariosArmazonesCopiar: React.FC<IUserFormPrps> = React.memo(
 
     const handleApiResponse = React.useCallback(
       async (response: any, isEditting: boolean) => {
-        console.log(response)
         if (response.code === "ERR_BAD_RESPONSE" || response.stack) {
           const errorMessage = isEditting
           ? strEntidad.concat(": " + response.message)

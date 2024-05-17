@@ -43,10 +43,14 @@ const FOTGuiaDespacho: React.FC<IDerivacion> = ({
     const dispatch = useAppDispatch();
     const { showModal, CustomModal } = useModal();
 
+    const folios = pktoDelete.map((OT:any)=>OT.folio)
+
 
     const onSubmit: SubmitHandler<any> = async (jsonData) => {
 
-     
+     console.log(pktoDelete)
+     console.log(jsonData)
+     console.log(errors)
 
         const proyectoPrimero = pktoDelete[0].proyecto;
         if (pktoDelete.some((ot:any) => ot.proyecto !== proyectoPrimero)) {
@@ -69,24 +73,35 @@ const FOTGuiaDespacho: React.FC<IDerivacion> = ({
         }
 
         if(otArchivo){
-            // if (pktoDelete.some((OT: any) => OT["orden_compra"] <= 0)) {
-
+            
             if(jsonData["numero_doc"] > 0){
                 if(!(parseInt(jsonData["numero_doc"]) >= 0)){
                     return toast.error('Numero de documento debe ser mayor a 0')
                 }
-    
                 if (pktoDelete.some((OT: any) => parseInt(OT["orden_compra"]) as any === '' || OT["orden_compra"] === '0') ) {
                 pktoDelete.filter((ot: any) => ot["orden_compra"] <= 0).map((ot: any) => {
-                    return toast.error(`Folio: ${ot["folio"]} sin Orden de Compra`);
+                    return toast.error(`Folio: ${ot["folio"]} sin Orden de Compra asignado.`);
                 })
                 return;        
+                }
             }
-           
-        }    
+
+            if(jsonData["numero_doc"] === '0'){    
+                const validateNumeroFactura = pktoDelete.some((OT:any)=>{
+                    if(OT.numero_factura !== 0){
+                        return false;
+                    }
+                    return true;
+                })
+
+                if(!validateNumeroFactura){
+                    console.log(pktoDelete)
+                    return toast.error(`Folio: ${folios} tiene Factura asignada.`)
+                }
+            }
         }
-        
-        
+
+
         const toastLoading = toast.loading('Cargando...');
         
         try {
