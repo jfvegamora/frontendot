@@ -22,10 +22,9 @@ const idMenu = 18;
 export enum EnumGrid {
   id            =1,
   descripcion   =2,
-  titulo        =3, 
-  direccion     =4, 
-  telefono      =5,
-  observaciones =6, 
+  direccion     =3, 
+  telefono      =4,
+  observaciones =5, 
 }
 
 
