@@ -195,14 +195,14 @@ export const table_head_OT_diaria2 = [
   {
     cell: "N° Rep. Atención",
     key: "num_rep_atencion",
-    visible: true,
+    visible: false,
     alignment: "text-left",
     width: "w-[6rem]"
   },
   {
     cell: "N° OC",
     key: "num_oc",
-    visible: true,
+    visible: false,
     alignment: "text-left",
     width: "w-[6rem]"
   },
@@ -216,7 +216,7 @@ export const table_head_OT_diaria2 = [
   {
     cell: "N° Factura",
     key: "num_factura",
-    visible: true,
+    visible: false,
     alignment: "text-left",
     width: "w-[6rem]"
   },

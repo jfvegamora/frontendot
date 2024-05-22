@@ -109,10 +109,10 @@ const MEstablecimientos: React.FC = () => {
               },
               {
                 name      : "_p5",
-                label     : "Provincia",
+                label     : "Comuna",
                 type      : "select",
                 selectUrl : "/api/tipos/",
-                tipos     : "Provincias",
+                tipos     : "Comunas",
                 styles: { with: "!w-[12rem]" },
               },
         ]}
