@@ -41,6 +41,8 @@ interface IPrimaryButtonProps {
   showExportButton?: boolean;
   showCustomExportButton?:boolean;
   showMacroButton?:boolean;
+  showExcelRepFirma?:boolean;
+  showExcelRepEntrega?:boolean;
   showTraspasoButton?:boolean;
   showImportCsv?:boolean;
   comilla?: boolean;
@@ -75,6 +77,8 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
     showDeleteButton,
     showImportCsv,
     showMacroButton,
+    showExcelRepFirma,
+    showExcelRepEntrega,
     strBaseUrl,
     showExportButton,
     params,
@@ -98,11 +102,11 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
     const areaActual = OTAreas["areaActual"]
 
 
-    const handleDownloadMacro = async() => {
+    const handleDownloadMacro = async(entidad:string) => {
       try {
         const url = `${URLBackend}/api/downloadexcel/`;
         const formData = new FormData();
-        formData.append('ENTIDAD', strEntidad as string); // Aquí agregas el valor del macro que deseas enviar
+        formData.append('ENTIDAD', entidad as string); 
   
         const { data } = await axios({
           url,
@@ -119,7 +123,7 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
         // Crear un enlace invisible y hacer clic en él para iniciar la descarga
         const link = document.createElement('a');
         link.href = blobUrl;
-        link.setAttribute('download', `${strEntidad}_import.xlsm`);
+        link.setAttribute('download', `${entidad}`);
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -282,11 +286,40 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
               variant='text'
               color="blue-gray"
             >
-              <PiMicrosoftExcelLogoFill className='primaryBtnIcon' onClick={()=>handleDownloadMacro()} />
+              <PiMicrosoftExcelLogoFill className='primaryBtnIcon' onClick={()=>handleDownloadMacro('')} />
 
             </IconButton>
             {/* <Button color="green" className='otActionButton mx-4' >Macro Excel</Button> */}
          </Tooltip>
+        )}
+
+        {showExcelRepFirma && escritura_lectura && (
+          <Tooltip content={'Descargar plantilla Reporte de Firmas'} >
+              <IconButton 
+                className='primaryBtnIconButton'
+                variant='text'
+                color="blue-gray"
+              >
+                <PiMicrosoftExcelLogoFill className='primaryBtnIcon' onClick={()=>handleDownloadMacro('plantilla_reporte_firmas.xlsx')} />
+
+              </IconButton>
+              {/* <Button color="green" className='otActionButton mx-4' >Macro Excel</Button> */}
+          </Tooltip>
+        )}
+
+
+        {showExcelRepEntrega && escritura_lectura && (
+          <Tooltip content={'Descargar plantilla Reporte de Entregas'} >
+              <IconButton 
+                className='primaryBtnIconButton'
+                variant='text'
+                color="blue-gray"
+              >
+                <PiMicrosoftExcelLogoFill className='primaryBtnIcon' onClick={()=>handleDownloadMacro('plantilla_reporte_entrega.xlsx')} />
+
+              </IconButton>
+              {/* <Button color="green" className='otActionButton mx-4' >Macro Excel</Button> */}
+          </Tooltip>
         )}
         
 

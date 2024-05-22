@@ -160,7 +160,7 @@ function App() {
             {/* <Route path="/" element={<Navigate to={PublicRoutes.LOGIN} />} /> */}
             <Route element={<AuthGuard privateValidation={true} />}>
               <Route path="/" element={<LandingPage/>} />
-              <Route path="/terreno" element={<FReservarArmazones/>} />
+              <Route path="/operativo" element={<FReservarArmazones/>} />
               <Route path="/movilarmazones" element={<MovilReservaArmazones/>} />
                 {privateRoutes.map((route) => (
                   <Route

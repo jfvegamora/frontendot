@@ -162,9 +162,12 @@ const FOTReporteEntrega: React.FC<Interface> = ({
 
         //     try {
 
-        //         const query03 = {
-        //             _p1: `"${pktoDelete[0]["proyecto_codigo"]}", ${4}, "${jsonData["numero_doc"]}", "${jsonData["fecha_doc"]}", ${0}, ${0}, ${0}, ${UsuarioID}, "${jsonData["observaciones"]}"    `
-        //         };
+                // const query03 = {
+                //     _p1: `"${pktoDelete[0]["proyecto_codigo"]}", ${4}, "${jsonData["numero_doc"]}", "${jsonData["fecha_doc"]}", ${0}, ${0}, ${0}, ${UsuarioID}, "${jsonData["observaciones"]}"    `
+                // };
+
+                // "query03": "CALL spProyectosDocum(3, '_p1',   '' ,   '' ,   0,     '\"\"'   , 0, 0)",
+
 
         //         const query07 = {
         //             _id: 4,

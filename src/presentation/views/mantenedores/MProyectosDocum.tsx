@@ -125,6 +125,8 @@ const MProyectosDocum: React.FC = () => {
             showCopiar={false}
             showExportButton={true}
             showDeleteButton={true}
+            showExcelRepEntrega={true}
+            showExcelRepFirma={true}
             showForwardButton={false}
             showRefreshButton={true}
             idMenu={idMenu}

@@ -66,7 +66,6 @@ const Scanner:React.FC<any> = ({setIsScanning}) => {
         
       }
     });
-
     return () => Quagga.stop();
   }, []);
 
@@ -78,18 +77,12 @@ const Scanner:React.FC<any> = ({setIsScanning}) => {
 
       switch (focusInput.value) {
         case 'Armazon1':
-          // setArmazon1(barcode);
           codArmazon1.value = barcode
-          
-          
-          // focusFirstInput()
           break;
         case 'Armazon2':
-          // setArmazon2(barcode);
           codArmazon2.value = barcode
           break;
         case 'Armazon3':
-          // setArmazon3(barcode);
           codArmazon3.value = barcode
           break;
         default:
@@ -111,19 +104,11 @@ const Scanner:React.FC<any> = ({setIsScanning}) => {
 
 
 
-
-
-
 const FReservarArmazones = () => {
-  // const [barcodeResult, setBarcodeResult] = useState('');
   const [isScanning, setIsScanning]   = useState(false);
   const [_barcode, setBarcode]         = useState('');
-  // const [focusInput, setFocusInput]   = useState('');
   const schema                        = validationReservaArmazonesSchema();
   const userID:any                    = useAppSelector((store: AppStore) => store.user?.id);
-  // const armazon1                      = React.useRef('')
-  // const armazon2                      = React.useRef('')
-  // const armazon3                      = React.useRef('')
 
 
   const [_armazon1, setArmazon1]       = React.useState('');
@@ -363,19 +348,14 @@ const FReservarArmazones = () => {
 
 
       await openDatabase().then(async(db:IDBDatabase)=>{
-        // const transaction = db.transaction(["reserva_armazones", "reserva_armazones_beneficiarios"], "readwrite");
             try {
-         
-
                 const resultExistBeneficiario = await isExistBeneficiario(db, jsonData["rut_beneficiario"])
                 console.log(resultExistBeneficiario)
-
 
                 if(resultExistBeneficiario){
                   toast.error('Ya existe un registro para este Beneficiario')
                   return;
                 }
-
 
                 const resultExist = await isExistArmazon(db, [jsonData.Armazon1, jsonData.Armazon2, jsonData.Armazon3])
                 
@@ -446,12 +426,7 @@ const FReservarArmazones = () => {
 
 
 React.useEffect(()=>{
-  // console.log(armazon1)
-  // console.log(armazon1)
 
-  // console.log(codArmazon1.value)
-  // console.log(codArmazon2.value)
-  // console.log(codArmazon3.value)
 
   if(codArmazon1.value !== ''){
     if(codArmazon2.value === codArmazon1.value || codArmazon3.value === codArmazon1.value){
@@ -550,8 +525,6 @@ const handleUploadata = async() => {
           "disponible"  : reserva["stock_disponible"]
       }
     });
-
-
     console.log(jsonData03)
     console.log(jsonData07)
 
@@ -568,14 +541,10 @@ const handleUploadata = async() => {
           } 
         }else{
           console.log('render')
-          // if(response03["data"])
           const response07 = await axios(`${URLBackend}/api/otreservaarmazones/listado/?query=06&_pkToDelete=${encodeURIComponent(JSON.stringify(jsonData07))}`); 
-  
           console.log(response07)
-  
           await clearBaseDatos(db)
           toast.success('Reserva Cargada Correctamente')
-
         }
       } catch (error) {
         console.log(error)
@@ -602,34 +571,20 @@ useEffect(()=>{
     const armazonesData     = await getArmazones(db);
     const beneficiarioData  = await getBeneficiarios(db);
     
-
-    console.log(beneficiarioData)
-    console.log(armazonesData)
-
-    console.log(beneficiarioData.length === 0)
-
     if(beneficiarioData.length === 0){
       emptyBeneficiariosData.value = true; 
     }else{
       emptyBeneficiariosData.value = false;
     }
 
-
     if(armazonesData.length === 0){
       emptyDataBase.value       = true;
-      // isShowReservaButton.value = true;
     }else{
       emptyDataBase.value       = false;
-      // isShowReservaButton.value = false;
     }
-
-
-
-
   })
 },[])
 
-console.log(codArmazon1.value)
 
     return (
         <form className=" max-w-md mx-auto px-6" onSubmit={handleSubmit((data)=> handleSaveChange(data))}>
@@ -644,7 +599,6 @@ console.log(codArmazon1.value)
             {emptyDataBase.value === true  && isOnline.value === false && emptyBeneficiariosData.value === true && (
               <Button className='relative bottom-4 right-0 text-base' color='green' onClick={()=>fetchReservaArmazones(punto_venta.value, codProyecto.value,userID).then(emptyDataBase.value = false as any)}>Descargar Muestrario</Button>
             )}
-
 
             <div className="w-full !mb-5 rowForm">
               <SelectInputComponent

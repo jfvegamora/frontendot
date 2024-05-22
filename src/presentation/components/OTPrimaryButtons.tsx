@@ -300,7 +300,10 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
     try {
       const url = `${URLBackend}/api/downloadexcel/`;
       const formData = new FormData();
-      formData.append('ENTIDAD', 'OT'); // Aquí agregas el valor del macro que deseas enviar
+      //'MacroOT.xlsm'
+      formData.append('ENTIDAD', 'Reporte_entrega.xlsx'); // Aquí agregas el valor del macro que deseas enviar
+
+
 
       const { data } = await axios({
         url,
@@ -316,7 +319,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
       const blobUrl = window.URL.createObjectURL(new Blob([data]));
       const link = document.createElement('a');
       link.href = blobUrl;
-      link.setAttribute('download', 'macro_ot.xlsm');
+      link.setAttribute('download', 'macro_ot2.xlsx');
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -520,14 +523,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
             {/* <Button color="green" className='otActionButton mx-4' >Macro Excel</Button> */}
           </Tooltip>
         )}
-        {areaPermissions && areaPermissions[6] === '1' && permisos_usuario_areas === '1' && (
-          <Tooltip content={BUTTON_MESSAGES.procesar}>
-              {/* <button className='bg-green-400 mx-4 transition-transform transform hover:scale-110 active:scale-95 w-[10rem] h-[2.5rem]  text-white '  */}
-              <Button color="green" className='otActionButton'
-              onClick={handleProcesarMasivo}>Procesar</Button>
-          </Tooltip>
-        )}
-
+     
         {areaPermissions && areaPermissions[12] === "1" && permisos_usuario_areas === '1' && (
           <Tooltip content='Generar Número de Envío'>
               <Button className='otActionButton ml-4'  onClick={()=>setIsFOTEmpaque((prev)=>!prev)}>N° de Envio</Button>
@@ -552,6 +548,16 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
               }}>N° de Guía</Button>
           </Tooltip>
           )}
+
+
+        {areaPermissions && areaPermissions[6] === '1' && permisos_usuario_areas === '1' && (
+          <Tooltip content={BUTTON_MESSAGES.procesar}>
+              {/* <button className='bg-green-400 mx-4 transition-transform transform hover:scale-110 active:scale-95 w-[10rem] h-[2.5rem]  text-white '  */}
+              <Button color="green" className='otActionButton'
+              onClick={handleProcesarMasivo}>Procesar</Button>
+          </Tooltip>
+        )}
+
 
 
         {isFotTicketRetiro && (

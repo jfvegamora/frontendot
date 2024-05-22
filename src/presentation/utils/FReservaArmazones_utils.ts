@@ -21,16 +21,10 @@ export const inputOnlyReadReserva = signal(false);
 
 
 //? FETCH DE DATOS A SPRESERVA ARMAZONES
-export const fetchReservaArmazones = async(punto_venta:string, cod_proyecto:string, usuarioID:string, solo_consulta?:boolean):Promise<any> => {
-    
-    console.log(punto_venta)
-    console.log(cod_proyecto)
-    console.log(usuarioID)
-    
+export const fetchReservaArmazones = async(punto_venta:string, cod_proyecto:string, usuarioID:string, solo_consulta?:boolean):Promise<any> => {    
     console.log('ejecutando fetch de datos')
 
     const entidad = "almacenesstock";
-        
 
     const reservaJSON = {
         "proyecto"     : cod_proyecto,
@@ -40,16 +34,20 @@ export const fetchReservaArmazones = async(punto_venta:string, cod_proyecto:stri
 
     try {
         const response = await axios(`${URLBackend}/api/${entidad}/listado/?query=06&_pkToDelete=${encodeURIComponent(JSON.stringify(reservaJSON))}`)
+
+        if(response.data && response.data[0] && response.data[0][0] == 'ONLINE'){
+            isOnline.value = true;
+            return;
+        }
+
         if(response){
             await getLocalArmazones(response.data, reservaJSON,solo_consulta)
         }
-        console.log(response)
     } catch (error) {
         console.log(error)
     }
 
 };
-
 
 //? METODO ENCARGADO DE TOMAR RESPUSTA DE ALMACEN Y COMPARAR CON "DB LOCAL ARMAZONES"
 const getLocalArmazones = async(response:any,reservaJSON:any, solo_consulta?:boolean) => {
@@ -59,29 +57,19 @@ const getLocalArmazones = async(response:any,reservaJSON:any, solo_consulta?:boo
             armazonesLocal = await getArmazones(db)
         })
 
-        console.log(response)
-        console.log(armazonesLocal)
-
         if(response.length === 0){
-            console.log('apagar boton')
             isOnline.value = true;
-            // isShowReservaButton.ue = false;
-            // toast.error('No hay datos en bodega offline', {autoClose:1000});
-
+           
             if(armazonesLocal.length === 0){
                 //?APAGAR BOTON RESERVA YA QUE SE ENTIENDE QUE NO ES BODEGA OFFLINE
                 isShowReservaButton.value = false;
                 emptyDataBase.value = true;
-                toast.error('No hay datos en bodega offline');
+                toast.error('No se encontraron Armazones disponible para la bodega Offline.');
                 return;
             }
-
-            
             return;
         }else{
-            console.log('hay datos en response')
             isShowReservaButton.value = true;
-            
             isOnline.value = false;
             if(solo_consulta){
                 return;
@@ -91,7 +79,6 @@ const getLocalArmazones = async(response:any,reservaJSON:any, solo_consulta?:boo
             if(armazonesLocal.length === 0){
                 let firstTime = true;
                 response.forEach(async(armazonData:any) => {
-                    console.log(armazonData)
                     
                     let codArmazon = armazonData[0];
                     let cantidad   = armazonData[1];
@@ -131,10 +118,6 @@ export const setLocalArmazones = async(response:any) => {
     console.log(response)
 
 };
-
-
-
-
 
 
 export const fetchReservaBeneficiario = async(rut:string) => {
@@ -188,17 +171,9 @@ export const fetchReservaBeneficiario = async(rut:string) => {
             //?ARMAZON 3:
             a3_armazon.value = response["data"][0][EnumReserva["cod_armazon3"]];
 
-
-
-
-            // A1_DP.value = response["data"][0][EnumReserva["dp"]]
-
-            
             console.log(a1_armazon.value)
 
-
         }
-
     } catch (error) {
         console.log(error)
     }

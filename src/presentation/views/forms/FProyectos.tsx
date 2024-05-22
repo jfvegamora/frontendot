@@ -507,7 +507,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
               </div>
 
               <div className="input-container items-center rowForm w-[14%]">
-                <div className="w-full mr-2">
+                <div className="w-full mr-4">
                   <TextInputComponent
                     type="text"
                     label="Código Licitación"
@@ -621,7 +621,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                 </div>
               </div>
 
-              <div className="input-container items-center rowForm w-[23%] !mt-[30rem] absolute right-10 bottom-[28.5rem] ">
+              <div className="input-container items-center rowForm w-[23%] -translate-y-5">
                 <div className="w-full mr-2">
                   <FrameComponent>
                     <ProyectoComponent
