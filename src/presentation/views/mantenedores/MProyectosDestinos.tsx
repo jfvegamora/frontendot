@@ -113,7 +113,7 @@ const MProyectosDestinos: React.FC = () => {
           />
         </div>
   
-        <div className="width70 scroll">
+        <div className="width90 scroll">
           <TableComponent
             handleSelectChecked={handleSelect}
             handleSelectedCheckedAll={handleSelectedAll}

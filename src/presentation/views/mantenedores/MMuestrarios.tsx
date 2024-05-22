@@ -103,7 +103,7 @@ const MMuestrarios: React.FC = () => {
         />
       </div>
 
-      <div className="width60 scroll">
+      <div className="width70 scroll">
         <TableComponent
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
