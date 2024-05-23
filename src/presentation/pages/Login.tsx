@@ -67,7 +67,7 @@ const Login: React.FC = React.memo(() => {
           const isMobile = /Mobi/.test(userAgent)
           
           if(isMobile){
-            navigate("/terreno")
+            navigate("/operativo")
           }else{
             navigate("/landing");
           }

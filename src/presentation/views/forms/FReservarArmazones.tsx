@@ -20,7 +20,7 @@ import TextInputInteractive from '../../components/forms/TextInputInteractive';
 import { toast } from 'react-toastify';
 import { URLBackend } from '../../hooks/useCrud';
 import axios from 'axios';
-import { fetchReservaArmazones, isOnline } from '../../utils/FReservaArmazones_utils';
+import { fetchReservaArmazones, getLocalArmazones, isOnline } from '../../utils/FReservaArmazones_utils';
 import { clearBaseDatos, getArmazones, getBeneficiarios, isExistArmazon, isExistBeneficiario, openDatabase, setArmazones, setReservaBeneficiario, validateLocalArmazon } from '../../utils/indexedDB';
 // import { focusFirstInput } from '../../components/OTForms/FOTValidarBodega';
 // import axios from 'axios';
@@ -35,8 +35,11 @@ const codArmazon3 = signal('')
 
 const focusInput  = signal('');
 
+
+
 export const codProyecto            = signal('');
 export const emptyDataBase          = signal(true);
+export const responseArmazones      = signal<any>([]);
 const codPuntoVenta          = signal('');
 const codDP                  = signal('');
 const rutBeneficiarioSignal  = signal('');
@@ -413,15 +416,14 @@ const FReservarArmazones = () => {
   
 
   React.useEffect(() => {
-  console.log('fetch')
-  console.log(punto_venta.value)
-  console.log(codProyecto.value)
-  if(punto_venta.value !== '' && codProyecto.value !== ''){
-    console.log('render')
-    let solo_consulta = true //impide que la query 06 vurlva a llenar los datos localemnte 
-    fetchReservaArmazones(punto_venta.value, codProyecto.value,userID, solo_consulta)
-  }
-},[punto_venta.value])
+    console.log(punto_venta.value)
+    if(punto_venta.value !== '' && codProyecto.value !== ''){
+      console.log('render')
+       //impide que la query 06 vurlva a llenar los datos localemnte 
+      fetchReservaArmazones(punto_venta.value, codProyecto.value,userID, true)
+    }
+},[codProyecto.value, punto_venta.value])
+
 
 
 
@@ -585,7 +587,14 @@ useEffect(()=>{
   })
 },[])
 
+    const reservaJSON = {
+      "proyecto"     : codProyecto.value,
+      "punto_venta"  : codPuntoVenta.value,
+      "usuario"      : userID
+  }
 
+  console.log(punto_venta.value)
+    
     return (
         <form className=" max-w-md mx-auto px-6" onSubmit={handleSubmit((data)=> handleSaveChange(data))}>
 
@@ -597,7 +606,8 @@ useEffect(()=>{
 
 
             {emptyDataBase.value === true  && isOnline.value === false && emptyBeneficiariosData.value === true && (
-              <Button className='relative bottom-4 right-0 text-base' color='green' onClick={()=>fetchReservaArmazones(punto_venta.value, codProyecto.value,userID).then(emptyDataBase.value = false as any)}>Descargar Muestrario</Button>
+              // <Button className='relative bottom-4 right-0 text-base' color='green' onClick={()=>fetchReservaArmazones(punto_venta.value, codProyecto.value,userID,false).then(emptyDataBase.value = false as any)}>Descargar Muestrario</Button>
+              <Button className='relative bottom-4 right-0 text-base' color='green' onClick={()=>getLocalArmazones(reservaJSON).then(emptyDataBase.value = false as any)}>Descargar Muestrario</Button>
             )}
 
             <div className="w-full !mb-5 rowForm">
@@ -626,8 +636,7 @@ useEffect(()=>{
                   showRefresh={true}
                   onlyFirstOption={true}
                   handleSelectChange={(e:any)=>{
-                    console.log(e.value)
-                    codPuntoVenta.value = e.value;
+                    punto_venta.value = e.value
                   }}
                   isOT={true}
                   control={control}

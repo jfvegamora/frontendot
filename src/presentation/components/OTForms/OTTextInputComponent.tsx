@@ -143,6 +143,7 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
   const [value, setValue] = useState<any>(" ");
   
   useEffect(() => {
+    console.log(initialValue)
     setValue(initialValue);
   }, [initialValue, defaultValue, otData]);
 
