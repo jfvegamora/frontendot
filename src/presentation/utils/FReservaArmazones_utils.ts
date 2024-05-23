@@ -16,6 +16,10 @@ import {
   validar_parametrizacion,
 } from "./signalStateOT";
 import {
+  validationFechaDespacho,
+  validationFechaEntregaCliente,
+  validationFechaEntregaTaller,
+  validationProyectos,
   validationTipoAnteojos,
   validation_A1_DP,
   validation_A1_armazon,
@@ -63,7 +67,7 @@ export const fetchReservaArmazones = async (
       isOnline.value = false;
       if (response.data.length === 0) {
         toast.error(
-          "No se encontrarorn Armazones disponibles en Bodega OFFLINE."
+          "No se encontraron Armazones disponibles en Bodega OFFLINE."
         );
         responseArmazones.value = [];
         isDataLocal.value = false;
@@ -89,7 +93,7 @@ export const getLocalArmazones = async (reservaJSON: any) => {
   try {
     if (responseArmazones.value.length === 0) {
       return toast.error(
-        "No se encontrarorn Armazones disponibles en Bodega OFFLINE."
+        "No se encontraron Armazones disponibles en Bodega OFFLINE."
       );
     }
 
@@ -153,6 +157,11 @@ export const fetchReservaBeneficiario = async (rut: string) => {
     if (response["data"].length > 0) {
       console.log("hay data");
       const proyecto_codigo = response["data"][0][EnumReserva["proyecto"]];
+      validationProyectos(response["data"][0][EnumReserva["proyecto"]]);
+      validationFechaEntregaTaller("22");
+      validationFechaDespacho("22");
+      validationFechaEntregaCliente("22");
+
       const proyecto_titulo =
         response["data"][0][EnumReserva["proyecto_titulo"]];
       const rut_beneficiario = response["data"][0][EnumReserva["cliente_rut"]];
@@ -168,6 +177,7 @@ export const fetchReservaBeneficiario = async (rut: string) => {
       console.log(response["data"][0][EnumReserva["cod_armazon1"]]);
 
       codigoProyecto.value = proyecto_codigo;
+      punto_venta.value = response["data"][0][EnumReserva["punto_venta_id"]];
       A1_DP.value = response["data"][0][EnumReserva["dp"]];
       validation_A1_DP(response["data"][0][EnumReserva["dp"]]);
 

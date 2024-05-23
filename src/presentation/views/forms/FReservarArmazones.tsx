@@ -51,6 +51,8 @@ const emptyBeneficiariosData = signal(true);
 
 const Scanner:React.FC<any> = ({setIsScanning}) => {
 
+  console.log('render')
+
   useEffect(() => {
     Quagga.init({
       inputStream: {
@@ -61,7 +63,6 @@ const Scanner:React.FC<any> = ({setIsScanning}) => {
         readers: ['ean_reader'],
         multiple: false,
         numOfWorkers: 10,
-
       }
     }, (err:any) => {
       if (err) {
@@ -75,8 +76,9 @@ const Scanner:React.FC<any> = ({setIsScanning}) => {
     return () => Quagga.stop();
   }, []);
 
+  console.log(focusInput.value)
+
   const onDetected = (result:any) => {
-    console.log(result)
     if (result.codeResult) {
       console.log(result.codeResult.code)
       const barcode = result.codeResult.code;   
@@ -84,9 +86,11 @@ const Scanner:React.FC<any> = ({setIsScanning}) => {
       switch (focusInput.value) {
         case 'Armazon1':
           codArmazon1.value = barcode
+          // focusFirstInput('Armazon2',inputsRef.armazon_2)
           break;
         case 'Armazon2':
           codArmazon2.value = barcode
+          // focusFirstInput('Armazon3',inputsRef.armazon_3)
           break;
         case 'Armazon3':
           codArmazon3.value = barcode
@@ -95,7 +99,7 @@ const Scanner:React.FC<any> = ({setIsScanning}) => {
           break;
       }
       setIsScanning(false)
-      Quagga.stop()
+      Quagga.stop();
     }
   };
 
@@ -265,7 +269,8 @@ const FReservarArmazones = () => {
   }
 
   const handleSaveChange = async (jsonData: any) => {
-    // console.log(jsonData);
+    console.log(jsonData);
+    console.log(codPuntoVenta.value)
     let reservaJSON;
   
     if (isOnline.value === true) {
@@ -273,7 +278,7 @@ const FReservarArmazones = () => {
         reservaJSON = [{
           rut: jsonData["rut_beneficiario"] || '',
           proyecto: jsonData["proyecto"] || '',
-          punto_venta: `${punto_venta.value}` || '',
+          punto_venta: `${codPuntoVenta.value}` || '',
           tipo_anteojo: jsonData["tipo_anteojo"] || '',
           dp: jsonData["dp"] || '',
           armazon_1: jsonData["Armazon1"] || '',
@@ -558,7 +563,6 @@ useEffect(()=>{
   }
 
   
-console.log(tipo_de_anteojo.value)
 
     return (
         <form className=" max-w-md mx-auto px-6" onSubmit={handleSubmit((data)=> handleSaveChange(data))}>
@@ -678,11 +682,11 @@ console.log(tipo_de_anteojo.value)
                     name="Armazon1"
                     control={control}
                     data={codArmazon1.value}
-                    textAlign='text-right !text-[2rem] !h-[3.5rem]'
-                    customWidth={"!text-2xl w-[22rem]"}
+                    textAlign='text-right !text-[2rem] !h-[3.5rem] !custom-required'
+                    customWidth={"!text-2xl w-[22rem] !custom-required"}
                     error={errors.Armazon1}
                     handleFocus={()=>handleFocus('Armazon1')}
-                    
+                    onlyRead={true}
                   
                   />
                 </div>
@@ -701,6 +705,7 @@ console.log(tipo_de_anteojo.value)
                     error={errors.Armazon2}
                     isOptional={tipo_de_anteojo.value !== '3'}
                     handleFocus={()=>handleFocus('Armazon2')}
+                    onlyRead={true}
                   
                   />
                 </div>
@@ -711,7 +716,7 @@ console.log(tipo_de_anteojo.value)
                     type='number'
                     inputRef={inputsRef.armazon_3}
                     label='Armazón 3'
-                    name="armazon3"
+                    name="Armazon3"
                     data={codArmazon3.value}
                     control={control}
                     textAlign='text-right !text-[2rem] !h-[3.5rem]'
@@ -719,8 +724,7 @@ console.log(tipo_de_anteojo.value)
                     error={errors.Armazon3}
                     isOptional={true}
                     handleFocus={()=>handleFocus('Armazon3')}
-
-                  
+                    onlyRead={true}
                   />
                 </div>
               </div>
@@ -747,6 +751,7 @@ console.log(tipo_de_anteojo.value)
         {isScanning &&  <Scanner 
                            setBarcode={setBarcode} 
                            focusInput={focusInput} 
+                           inputsRef={inputsRef}
                            setIsScanning={setIsScanning} 
                            setArmazon1={setArmazon1}
                            setArmazon2={setArmazon2} 

@@ -915,6 +915,8 @@ useEffect(()=>{
 
 
 
+
+
   console.log(validationNivel1.value)
   // console.log(data && data[EnumGrid.validar_parametrizacion_id])
   // console.log(validationNivel3.value)

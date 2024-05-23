@@ -103,9 +103,6 @@ const TextInputInteractive: React.FC<ITextInputProps> = ({
 
 
 
-
-
-
 return (
   <div className={`  mr-4 rounded-xl ${customWidth ? customWidth : ""}`}>
     <Controller
@@ -138,7 +135,7 @@ return (
             }}
             
             ref={inputRef}
-            className={`${className ? className : "custom-input"}  ${onlyRead ? "custom-onlyread cursor-not-allowed" : isOptional ? "custom-optional" : "custom-required"} ${textAlign && textAlign}`}
+            className={`${className ? className : "custom-input"}  ${name.startsWith("Armazon") ? "!cursor-not-allowed" : ""}  ${onlyRead ? (name.startsWith("Armazon") ? '!bg-white !cursor-not-allowed' : "custom-onlyread cursor-not-allowed" )  : isOptional ?  (name.startsWith("Armazon") ? 'custom-optional !cursor-not-allowed ' : "custom-optional") : "custom-required"} ${textAlign && textAlign}`}
             tabIndex={onlyRead ? 0 : (tabIndex || 1)}
             placeholder={type === 'date' ? "dd-mm-yyyy" : ''}
             autoComplete="off"
