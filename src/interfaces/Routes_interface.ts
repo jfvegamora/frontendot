@@ -36,8 +36,8 @@ const MProyectosCristales   = lazy(()=>import("../presentation/views/mantenedore
 const MProyectosDestinos    = lazy(()=>import("../presentation/views/mantenedores/MProyectosDestinos"));
 // const MProyectosPuntosVenta = lazy(()=>import("../presentation/views/mantenedores/MProyectosPuntosVenta"));
 const MProyectosUsuarios    = lazy(()=>import("../presentation/views/mantenedores/MProyectosUsuarios"));
-const MProyectosAtenciones  = lazy(()=>import("../presentation/views/mantenedores/MProyectosAtenciones"));
-const MProyectosFirmas      = lazy(()=>import("../presentation/views/mantenedores/MProyectosFirmas"));
+// const MProyectosAtenciones  = lazy(()=>import("../presentation/views/mantenedores/MProyectosAtenciones"));
+// const MProyectosFirmas      = lazy(()=>import("../presentation/views/mantenedores/MProyectosFirmas"));
 const MProyectosDocum       = lazy(()=>import("../presentation/views/mantenedores/MProyectosDocum"));
 const MOftalmologos         = lazy(()=>import("../presentation/views/mantenedores/MOftalmologos"));
 const MReservaArmazones     = lazy(()=>import("../presentation/views/mantenedores/MReservaArmazones"));
@@ -318,18 +318,18 @@ export const privateRoutes = [
     component           : MProyectosUsuarios,
     requiredPermissions : ['view_' + PrivateRoutes.PROYECTOS_USUARIOS]
   },
-  {
-    id                  : "19",
-    path                : PrivateRoutes.REPORTE_ATENCION,
-    component           : MProyectosAtenciones,
-    requiredPermissions : ['view_' + PrivateRoutes.REPORTE_ATENCION]
-  },
-  {
-    id                  : "20",
-    path                : PrivateRoutes.REPORTE_FIRMAS,
-    component           : MProyectosFirmas,
-    requiredPermissions : ['view_' + PrivateRoutes.REPORTE_FIRMAS]
-  },
+  // {
+  //   id                  : "19",
+  //   path                : PrivateRoutes.REPORTE_ATENCION,
+  //   component           : MProyectosAtenciones,
+  //   requiredPermissions : ['view_' + PrivateRoutes.REPORTE_ATENCION]
+  // },
+  // {
+  //   id                  : "20",
+  //   path                : PrivateRoutes.REPORTE_FIRMAS,
+  //   component           : MProyectosFirmas,
+  //   requiredPermissions : ['view_' + PrivateRoutes.REPORTE_FIRMAS]
+  // },
   {
     id                  : "38",
     path                : PrivateRoutes.PROYECTOS_DOCUM,

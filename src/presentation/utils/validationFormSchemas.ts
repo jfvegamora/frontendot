@@ -32,11 +32,7 @@ export const validationBodegaSchema = () =>
     a2_od: yup.string().required(`${msg}`),
     a2_oi: yup.string().required(`${msg}`),
     a2_armazon: yup.string().required(`${msg}`),
-  })
-
-
-
-
+  });
 
 //Schema OTHistorica Asignacion OC
 export const validationOTOCSchema = () =>
@@ -51,7 +47,7 @@ export const validationFOTOrdenCompra = () =>
     numero_doc: yup.string().nullable(),
     fecha_doc: yup.string().required(`${msg}`),
     valor_neto: yup.string().required(`${msg}`),
-  })
+  });
 //Schema OTHistorica Asignacion Factura
 export const validationOTFacturaSchema = () =>
   yup.object().shape({
@@ -66,7 +62,7 @@ export const validationOTGuiaSchema = () =>
     fecha_doc: yup.string().required(`${msg}`),
   });
 
-//Schema OT Asignacion numero envio 
+//Schema OT Asignacion numero envio
 export const validationOTNumeroEnvio = () =>
   yup.object().shape({
     numero_doc: yup.string().required(`${msg}`),
@@ -145,7 +141,7 @@ export const validationArmazonesSchema = () =>
     stock_minimo: yup.string().required(`${msg}`),
     codigo_fab: yup.string(),
     dp_minima: yup.string(),
-    dp_maxima: yup.string()
+    dp_maxima: yup.string(),
   });
 
 //Schema Reserva Armazones
@@ -155,11 +151,9 @@ export const validationReservaArmazonesSchema = () =>
     dp: yup.string().required(`${msg}`),
     tipo_anteojo: yup.string().required(`${msg}`),
     Armazon1: yup.string().required(`${msg}`),
-    Armazon3: yup.string().required(`${msg}`),
-    Armazon2: yup.string().required(`${msg}`),
-  })
-
-
+    Armazon3: yup.string(),
+    Armazon2: yup.string(),
+  });
 
 // Schema ACCESORIOS
 export const validationAccesoriosSchema = () =>
@@ -207,47 +201,51 @@ export const validationKardexINSchema = () =>
     fecha_mov: yup.string(),
     ubicacion: yup.string(),
 
-    valor_neto: yup.string().default("0").test({
-      test: function (value) {
-        // Obtén el valor de 'motivo_ingreso' desde el contexto
-        const motivoIngreso = this.resolve(yup.ref('motivo_ingreso'));
+    valor_neto: yup
+      .string()
+      .default("0")
+      .test({
+        test: function (value) {
+          // Obtén el valor de 'motivo_ingreso' desde el contexto
+          const motivoIngreso = this.resolve(yup.ref("motivo_ingreso"));
 
-        // Realiza la lógica de validación basada en 'motivo_ingreso' y 'valor_neto'
-        if (motivoIngreso === '2' && !value) {
-          return this.createError({ message: `${msg}` });
-        }
+          // Realiza la lógica de validación basada en 'motivo_ingreso' y 'valor_neto'
+          if (motivoIngreso === "2" && !value) {
+            return this.createError({ message: `${msg}` });
+          }
 
-        return true;
-      }
-    }),
+          return true;
+        },
+      }),
 
+    proveedor: yup
+      .string()
+      .default("0")
+      .test({
+        test: function (value) {
+          // Obtén el valor de 'motivo_ingreso' desde el contexto
+          const motivoIngreso = this.resolve(yup.ref("motivo_ingreso"));
 
-    proveedor: yup.string().default("0").test({
-      test: function (value) {
-        // Obtén el valor de 'motivo_ingreso' desde el contexto
-        const motivoIngreso = this.resolve(yup.ref('motivo_ingreso'));
+          // Realiza la lógica de validación basada en 'motivo_ingreso' y 'proveedor'
+          if (motivoIngreso === "2" && !value) {
+            return this.createError({ message: `${msg}` });
+          }
 
-        // Realiza la lógica de validación basada en 'motivo_ingreso' y 'proveedor'
-        if (motivoIngreso === '2' && !value) {
-          return this.createError({ message: `${msg}` });
-        }
-
-        return true;
-      }
-    }),
-
+          return true;
+        },
+      }),
 
     numero_factura: yup.string().test({
       test: function (value) {
-        const motivoIngreso = this.resolve(yup.ref('motivo_ingreso'));
+        const motivoIngreso = this.resolve(yup.ref("motivo_ingreso"));
 
-        if (motivoIngreso === '2' && !value) {
+        if (motivoIngreso === "2" && !value) {
           return this.createError({ message: `${msg}` });
         }
 
         return true;
       },
-    })
+    }),
   });
 
 // Schema EGRESO INSUMOS KARDEX (CRISTALES-ARMAZONES-ACCESORIOS)
@@ -266,16 +264,16 @@ export const validationKardexOUTSchema = () =>
     ubicacion: yup.string(),
     almacen_relacionado: yup.string().test({
       test: function (value) {
-        const motivoEgreso = this.resolve(yup.ref('motivo_egreso'));
+        const motivoEgreso = this.resolve(yup.ref("motivo_egreso"));
         // console.log(motivoEgreso)
 
-        if (motivoEgreso === '2' && !value) {
+        if (motivoEgreso === "2" && !value) {
           return this.createError({ message: `${msg}` });
         }
 
         return true;
       },
-    })
+    }),
   });
 
 // Schema ALMACENES
@@ -442,7 +440,6 @@ export const validationProyectoGruposSchema = () =>
     diametro: yup.string().required(`${msg}`),
     valor_neto_cristal: yup.string().required(`${msg}`),
 
-
     // armazon_tipo      : yup.string(),
     armazon_material: yup.string(),
     // armazon_marca     : yup.string(),
@@ -468,7 +465,7 @@ export const validationProyectoParametrizacionCopiar = () =>
     destino: yup.string().required(`${msg}`),
   });
 
-// Schema PROYECTOS DIRECCIONES 
+// Schema PROYECTOS DIRECCIONES
 export const validationProyectoDireccionesSchema = () =>
   yup.object().shape({
     proyecto: yup.string().required(`${msg}`),
@@ -610,10 +607,9 @@ export const validationUsusariosSchema = () =>
     permiso_editar_resolucion_garantia: yup.string().default("Lectura"),
     permiso_editar_grupo_dioptria: yup.string().required(`${msg}`),
     permiso_editar_receta: yup.string().required(`${msg}`),
-    permiso_editar_validar_insumos: yup.string().default('Lectura'),
-    permiso_editar_validar_armazones: yup.string().default('Lectura'),
+    permiso_editar_validar_insumos: yup.string().default("Lectura"),
+    permiso_editar_validar_armazones: yup.string().default("Lectura"),
     permiso_editar_worktracking: yup.string().required(`${msg}`),
-
   });
 
 export const validationProfileUserSchema = () =>
@@ -659,15 +655,15 @@ export const validationPermisosAreasSchema = () =>
 // Schema EMPRESAS
 export const validationEmpresasSchema = () =>
   yup.object().shape({
-    rut: yup.string().default(''),
+    rut: yup.string().default(""),
     nombre: yup.string().required(`${msg}`),
     razon_social: yup.string().required(`${msg}`),
     giro: yup.string().required(`${msg}`),
-    direccion: yup.string().default(''),
-    telefono: yup.string().default(''),
-    correo: yup.string().email().default(''),
-    sitio_web: yup.string().default(''),
-    nombre_logo: yup.string().default(''),
+    direccion: yup.string().default(""),
+    telefono: yup.string().default(""),
+    correo: yup.string().email().default(""),
+    sitio_web: yup.string().default(""),
+    nombre_logo: yup.string().default(""),
   });
 
 /*************** L O G I N ***************/

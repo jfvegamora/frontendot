@@ -19,6 +19,7 @@ import { clearSelectInput, codigoProyecto, punto_venta } from "../../utils";
 import { retry } from 'async';
 import { resetFilters } from "../PrimaryKeySearch";
 import { inputName } from "../OTForms/Otprueba";
+import { codPuntoVenta } from "../../views/forms/FReservarArmazones";
 // import Select from "react-select";
 
 interface ISelectInputProps {
@@ -103,6 +104,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
       if(label === 'Punto de Venta'){
         if(data && data[0]){
           if(!isEditting && isOT){
+            codPuntoVenta.value = data[0][0]
             punto_venta.value = data[0][0]
             setStrSelectedName(data[0][0])
           }

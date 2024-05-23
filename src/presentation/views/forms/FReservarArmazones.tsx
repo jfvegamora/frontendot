@@ -13,7 +13,7 @@ import { Button } from '@material-tailwind/react';
 import { signal } from '@preact/signals-react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { codigoProyecto, punto_venta, validateRut, validationReservaArmazonesSchema } from '../../utils';
+import { codigoProyecto, punto_venta, tipo_de_anteojo, validateRut, validationReservaArmazonesSchema } from '../../utils';
 import { SelectInputComponent, TextInputComponent } from '../../components';
 import { AppStore, useAppSelector } from '../../../redux/store';
 import TextInputInteractive from '../../components/forms/TextInputInteractive';
@@ -38,9 +38,12 @@ const focusInput  = signal('');
 
 
 export const codProyecto            = signal('');
-export const emptyDataBase          = signal(true);
+export const isDataLocal            = signal(false);
 export const responseArmazones      = signal<any>([]);
-const codPuntoVenta          = signal('');
+export const armazonesLocalData     = signal<any>([]);
+
+
+export const codPuntoVenta          = signal('');
 const codDP                  = signal('');
 const rutBeneficiarioSignal  = signal('');
 const emptyBeneficiariosData = signal(true);
@@ -137,13 +140,30 @@ const FReservarArmazones = () => {
 
   const formValues = getValues();
 
+
+  const clearInputsArmazones = (armazon:string) => {
+    switch (armazon) {
+      case 'Armazon1':
+        codArmazon1.value = '';
+        break;
+      case 'Armazon2':
+        codArmazon2.value = '';
+        break;
+      case 'Armazon3':
+        codArmazon3.value = '';
+        break
+      default:
+        break;
+    }
+  }
+
   const fetchValidateArmazon = async(armazon:string, codArmazon:string) => {
       const urlbase = `${URLBackend}/api/armazones/listado/?query=02`
-      
-      //isOnline = false (bodega offline)
-      //isOnline = true (bodega online)
-      console.log(isOnline.value)
 
+      if(codDP.value === ''){
+        clearInputsArmazones(armazon)
+        return toast.error('Falta ingresar DP para validar Armazón.')
+      }
 
       if(isOnline.value === true){
         const emmtyJSON = {
@@ -159,111 +179,43 @@ const FReservarArmazones = () => {
           "punto_venta" : ''
         }
   
-  
         const _id = 2//? 0 no validar nada, data armazon  / 1 valida armazon y cristal  / 2 solo valida amrazon
         const _p6 = 1 //? 1 VALIDAR PARAMETRIZACION
         const _p1 = codArmazon
         const _p2 = codProyecto.value
-        const _p3 = punto_venta.value
+        const _p3 = codPuntoVenta.value
         const _p4 = codDP.value
         const _p5 = '65' //?'DIAMETRO'
         const _pkToDelete = encodeURIComponent(JSON.stringify([emmtyJSON, emmtyJSON]))
-  
-  
-        console.log(codProyecto.value)
-        console.log(codPuntoVenta.value)
-        console.log(codDP.value)
-        console.log(codArmazon)
-        console.log(punto_venta.value)
-  
   
         if(codArmazon !== ''){
           try {
             const fetchURL = `${urlbase}&_p1=${_p1}&_p2=${_p2}&_p3=${_p3}&_p4=${_p4}&_p5=${_p5}&_pkToDelete=${_pkToDelete}&_id=${_id}&_p6=${_p6}`
            
-            console.log(fetchURL)
             const result = await axios(fetchURL)
-      
-            console.log(result)
-            console.log(armazon)
-            console.log(codArmazon)
-            console.log(result.data[0][0])
-  
             if(result.data && result.data[0] && result.data[0][19] !== ''){
               toast.error(result.data[0][19])
-  
-              switch (armazon) {
-                case 'Armazon1':
-                  codArmazon1.value = '';
-                  break;
-                case 'Armazon2':
-                  codArmazon2.value = '';
-                  break;
-                case 'Armazon3':
-                  codArmazon3.value = '';
-                  break
-                default:
-                  break;
-              }
+              clearInputsArmazones(armazon)
             }
   
-            
           } catch (error) {
               console.log(error)
               console.log(armazon)
-              switch (armazon) {
-                case 'Armazon1':
-                  codArmazon1.value = '';
-                  break;
-                case 'Armazon2':
-                  codArmazon2.value = '';
-                  break;
-                case 'Armazon3':
-                  codArmazon3.value = '';
-                  break
-                default:
-                  break;
-              }
-              toast.error('Error al validar Armazon')
-              // setValue(armazon, '')
+              clearInputsArmazones(armazon);
+              toast.error('Error al validar Armazón.')
           }
-  
         }
       }else{
-        console.log('offline')
-
-        console.log(armazon)
-        console.log(codArmazon)
-
-
         const dataValidateArmazon = {
           codArmazon,
           punto_venta : punto_venta.value,
           proyecto    : codProyecto.value,
           dp          : codDP.value
         }
-
-        console.log(dataValidateArmazon);
-
         await openDatabase().then(async(db:IDBDatabase)=>{
           const resultValidateArmazon = await validateLocalArmazon(db, dataValidateArmazon);
-
-          console.log(resultValidateArmazon)
-
           if(!resultValidateArmazon){
-            switch (armazon) {
-              case 'Armazon1':
-                codArmazon1.value = '';
-                break;
-              case 'Armazon2':
-                codArmazon2.value = '';
-                break;
-              case 'Armazon3':
-                codArmazon3.value = '';
-                break
-              default:
-                break;
-            }
+            clearInputsArmazones(armazon)
           }
 
         })
@@ -281,9 +233,6 @@ const FReservarArmazones = () => {
     codArmazon2.value = '';
     codArmazon3.value = '';
   }
-
-
-
 
 
   const handleFocus = (ref:any) => {
@@ -384,16 +333,11 @@ const FReservarArmazones = () => {
                   
                   jsonData["proyecto"]        = codProyecto.value
                   jsonData["punto_venta_id"]  = punto_venta.value;
-                 
                   console.log(jsonData)
                   const resultBeneficiario = await setReservaBeneficiario(db, jsonData, userID);
                   console.log(resultBeneficiario)
-                 
-                 
-                 
                   const reserva_armazones = await getArmazones(db);
                   console.log(reserva_armazones)
-                
                   toast.success('Reserva guardada correctamente')
                   clearTextInputs();
                 }else{
@@ -415,16 +359,13 @@ const FReservarArmazones = () => {
   };
   
 
+
   React.useEffect(() => {
-    console.log(punto_venta.value)
     if(punto_venta.value !== '' && codProyecto.value !== ''){
       console.log('render')
-       //impide que la query 06 vurlva a llenar los datos localemnte 
-      fetchReservaArmazones(punto_venta.value, codProyecto.value,userID, true)
+      fetchReservaArmazones(codPuntoVenta.value, codProyecto.value,userID, true)
     }
 },[codProyecto.value, punto_venta.value])
-
-
 
 
 React.useEffect(()=>{
@@ -487,72 +428,88 @@ React.useEffect(()=>{
 const handleUploadata = async() => {
   console.log('click')
 
+  const resultConfirm = confirm('Desea continuar con la carga de datos?')
+
+  if(!resultConfirm){
+    return;
+  }
+
+
   await openDatabase().then(async(db:IDBDatabase)=>{
 
     const armazonesData     = await getArmazones(db);
     const beneficiarioData  = await getBeneficiarios(db);
-    
-    
+    let jsonData03 = {}
+    let jsonData07 = {}
+
     console.log(armazonesData)
     console.log(beneficiarioData)
 
-    if(beneficiarioData.length === 0){
-      toast.error('No hay reservas para cargar.')
-      return;
-    }
 
     console.log('click')
 
 
-    const jsonData03 = beneficiarioData.map((reserva:any)=>{
-      return{
-          "rut"            : reserva["rut_beneficiario"],
-          "proyecto"       : reserva["proyecto"],
-          "punto_venta"    : `${punto_venta.value}`,
-          "tipo_anteojo"   : reserva["tipo_anteojo"],
-          "dp"             : reserva["dp"],
-          "armazon_1"       : reserva["armazon_1"],
-          "armazon_2"       : reserva["armazon_2"],
-          "armazon_3"       : reserva["armazon_3"],
-          "usuario"        : `${userID}`
-      }
-    })
 
-    const jsonData07 = armazonesData.map((reserva:any)=>{
+    jsonData07 = armazonesData.map((reserva:any)=>{
       return{
-          "punto_venta" : `${punto_venta.value}`,
+          "punto_venta" : reserva["punto_venta"],
           "usuario"     : `${userID}`,
           "armazon"     : reserva["cod_armazon"],
           "reservado"   : reserva["stock_reservado"],
           "disponible"  : reserva["stock_disponible"]
       }
     });
+
+
+
     console.log(jsonData03)
     console.log(jsonData07)
 
       try {
-        const response03 = await axios(`${URLBackend}/api/otreservaarmazones/listado/?query=03&_pkToDelete=${encodeURIComponent(JSON.stringify(jsonData03))}`);
-        
-        console.log(response03)
-        
-        if (Array.isArray(response03["data"]) && response03["data"].length > 0) {
-          if(response03["data"] && response03["data"][0].includes("ERROR")){
-            console.log(response03["data"][0][1])
-            toast.error(response03["data"][0][1])
-            return;
-          } 
-        }else{
-          console.log('render')
-          const response07 = await axios(`${URLBackend}/api/otreservaarmazones/listado/?query=06&_pkToDelete=${encodeURIComponent(JSON.stringify(jsonData07))}`); 
-          console.log(response07)
-          await clearBaseDatos(db)
-          toast.success('Reserva Cargada Correctamente')
+        if(beneficiarioData.length > 0){
+            jsonData03 = beneficiarioData.map((reserva:any)=>{
+              return{
+                  "rut"            : reserva["rut_beneficiario"],
+                  "proyecto"       : reserva["proyecto"],
+                  "punto_venta"    : `${codPuntoVenta.value}`,
+                  "tipo_anteojo"   : reserva["tipo_anteojo"],
+                  "dp"             : reserva["dp"],
+                  "armazon_1"       : reserva["armazon_1"],
+                  "armazon_2"       : reserva["armazon_2"],
+                  "armazon_3"       : reserva["armazon_3"],
+                  "usuario"        : `${userID}`
+              }
+            })
+            const response03 = await axios(`${URLBackend}/api/otreservaarmazones/listado/?query=03&_pkToDelete=${encodeURIComponent(JSON.stringify(jsonData03))}`);
+            
+            console.log(response03)
+            
+            if (Array.isArray(response03["data"]) && response03["data"].length > 0) {
+              if(response03["data"] && response03["data"][0].includes("ERROR")){
+                console.log(response03["data"][0][1])
+                toast.error(response03["data"][0][1])
+                return;
+              }
         }
+        }
+        console.log('render')
+        const response07 = await axios(`${URLBackend}/api/otreservaarmazones/listado/?query=06&_pkToDelete=${encodeURIComponent(JSON.stringify(jsonData07))}`); 
+        console.log(response07)
+        isDataLocal.value = false;
+        responseArmazones.value = [];
+        await clearBaseDatos(db)
+        toast.success('Reserva Cargada Correctamente')
       } catch (error) {
         console.log(error)
       }
   })
 };
+
+
+
+
+
+
 
 useEffect(()=>{
   const fetchProyectosUsuario = async() => {
@@ -572,7 +529,12 @@ useEffect(()=>{
   openDatabase().then(async(db:IDBDatabase)=>{
     const armazonesData     = await getArmazones(db);
     const beneficiarioData  = await getBeneficiarios(db);
-    
+
+    console.log(armazonesData)
+    console.log(armazonesData.length)
+
+
+
     if(beneficiarioData.length === 0){
       emptyBeneficiariosData.value = true; 
     }else{
@@ -580,9 +542,11 @@ useEffect(()=>{
     }
 
     if(armazonesData.length === 0){
-      emptyDataBase.value       = true;
+      isDataLocal.value       = false;
     }else{
-      emptyDataBase.value       = false;
+      console.log('render')
+      armazonesLocalData.value = armazonesData
+      isDataLocal.value       = true;
     }
   })
 },[])
@@ -593,26 +557,27 @@ useEffect(()=>{
       "usuario"      : userID
   }
 
-  console.log(punto_venta.value)
-    
+  
+console.log(tipo_de_anteojo.value)
+
     return (
         <form className=" max-w-md mx-auto px-6" onSubmit={handleSubmit((data)=> handleSaveChange(data))}>
 
           <div className=" mt-[9rem] !mx-auto">
 
-            {isOnline.value === false && emptyBeneficiariosData.value === true && emptyDataBase.value === false && (
+            {isOnline.value === false && isDataLocal.value === true && (
               <Button className='relative bottom-4 right-0 text-base ' onClick={()=>handleUploadata()}>Subir Reservas</Button>
             )}
 
 
-            {emptyDataBase.value === true  && isOnline.value === false && emptyBeneficiariosData.value === true && (
-              // <Button className='relative bottom-4 right-0 text-base' color='green' onClick={()=>fetchReservaArmazones(punto_venta.value, codProyecto.value,userID,false).then(emptyDataBase.value = false as any)}>Descargar Muestrario</Button>
-              <Button className='relative bottom-4 right-0 text-base' color='green' onClick={()=>getLocalArmazones(reservaJSON).then(emptyDataBase.value = false as any)}>Descargar Muestrario</Button>
+            {isOnline.value === false && isDataLocal.value === false && (responseArmazones.value.length > 0) && (
+              // <Button className='relative bottom-4 right-0 text-base' color='green' onClick={()=>fetchReservaArmazones(punto_venta.value, codProyecto.value,userID,false).then(isDataLocal.value = false as any)}>Descargar Muestrario</Button>
+              <Button className='relative bottom-4 right-0 text-base' color='green' onClick={()=>getLocalArmazones(reservaJSON)}>Descargar Muestrario</Button>
             )}
 
             <div className="w-full !mb-5 rowForm">
               <SelectInputComponent
-                  label='Nombre Proyecto'
+                  label='Proyecto'
                   name='proyecto'
                   showRefresh={true}
                   data={codigoProyecto.value}
@@ -637,6 +602,7 @@ useEffect(()=>{
                   onlyFirstOption={true}
                   handleSelectChange={(e:any)=>{
                     punto_venta.value = e.value
+                    codPuntoVenta.value = e.value
                   }}
                   isOT={true}
                   control={control}
@@ -650,7 +616,10 @@ useEffect(()=>{
                   label='Tipo de Anteojo'
                   name='tipo_anteojo'
                   showRefresh={true}
-                  // handleSelectChange={}
+                  handleSelectChange={(e:any)=>{
+                    tipo_de_anteojo.value = e.value;
+                  }}
+                  isOT={true}
                   control={control}
                   entidad={["/api/tipos/", "02", "OTTipoAnteojo"]}
                   customWidth={"w-[23.3rem] "}
@@ -664,7 +633,7 @@ useEffect(()=>{
               <TextInputInteractive
                 type='text'
                 isOT={false}
-                label='Rut Beneficiario'
+                label='RUT Beneficiario'
                 name="rut_beneficiario"
                 data={rutBeneficiarioSignal.value || formValues && formValues["rut_beneficiario"]}
                 control={control}
@@ -705,7 +674,7 @@ useEffect(()=>{
                   <TextInputInteractive
                     type='number'
                     inputRef={inputsRef.armazon_1}
-                    label='Armazon 1'
+                    label='Armazón 1'
                     name="Armazon1"
                     control={control}
                     data={codArmazon1.value}
@@ -723,13 +692,14 @@ useEffect(()=>{
                   <TextInputInteractive
                     type='number'
                     inputRef={inputsRef.armazon_2}
-                    label='Armazon 2'
+                    label='Armazón 2'
                     name="Armazon2"
                     data={codArmazon2.value}
                     control={control}
                     textAlign='text-right !text-[2rem] !h-[3.5rem]'
                     customWidth={"!text-2xl w-[22rem]"}
                     error={errors.Armazon2}
+                    isOptional={tipo_de_anteojo.value !== '3'}
                     handleFocus={()=>handleFocus('Armazon2')}
                   
                   />
@@ -740,14 +710,14 @@ useEffect(()=>{
                   <TextInputInteractive
                     type='number'
                     inputRef={inputsRef.armazon_3}
-                    label='Armazon 3'
+                    label='Armazón 3'
                     name="armazon3"
                     data={codArmazon3.value}
                     control={control}
                     textAlign='text-right !text-[2rem] !h-[3.5rem]'
                     customWidth={"!text-2xl w-[22rem]"}
                     error={errors.Armazon3}
-                    // isOptional={true}
+                    isOptional={true}
                     handleFocus={()=>handleFocus('Armazon3')}
 
                   
@@ -782,14 +752,17 @@ useEffect(()=>{
                            setArmazon2={setArmazon2} 
                            setArmazon3={setArmazon3} 
         /> }
-            { codArmazon1.value !== '' &&
-              codArmazon2.value !== '' &&
-              codArmazon3.value !== ''  
-              && (
-              <div className="w-full">
-                <Button color='orange' type='submit'>Reservar</Button>
-              </div>
-            )}
+       {
+          (
+            tipo_de_anteojo.value === '3' 
+              ? (codArmazon1.value !== '' && codArmazon2.value !== '') 
+              : (codArmazon1.value !== '')
+          ) && (
+            <div className="w-full">
+              <Button color='orange' type='submit'>Reservar</Button>
+            </div>
+          )
+        }
         </form>
 );
 }
