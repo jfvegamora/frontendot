@@ -103,7 +103,7 @@ const MReservaArmazones: React.FC = () => {
                     type: "select",
                     selectUrl: "/api/proyectos/", styles:{with:" !w-[20rem] !-ml-4"},
                 },
-                { name: "_p1", label: "Rut", type: "text", styles:{with:" !w-[7rem] !-ml-4"}},
+                { name: "_p1", label: "RUT Benef.", type: "text", styles:{with:" !w-[7rem] !-ml-4"}},
                 {
                     name: "_p3",
                     label: "Punto de Venta",
