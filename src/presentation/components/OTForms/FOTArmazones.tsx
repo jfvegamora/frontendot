@@ -9,6 +9,7 @@ import { A1_CR_OD, A1_CR_OI, A1_DP, A1_Diametro, A1_GRUPO_OD, A1_GRUPO_OI, A2_CR
 // import { AppStore, useAppSelector } from '../../../redux/store';
 import { OTTextInputComponent } from '.';
 import { inputOnlyReadReserva } from '../../utils/FReservaArmazones_utils';
+import { signal } from '@preact/signals-react';
 
 interface IArmazones {
     control:any;
@@ -42,6 +43,12 @@ const empty_jsonGrupo = {
 // }
 
 
+export const amrazones_originales = signal<any>({
+    "a1_armazon_id": "",
+    "a2_armazon_id": ""
+})
+
+
 
 const FOTArmazones:React.FC<IArmazones> = ({
     control,
@@ -58,6 +65,10 @@ const FOTArmazones:React.FC<IArmazones> = ({
     useEffect(()=>{
         if(isEditting){
             punto_venta.value = data?.[EnumGrid.punto_venta_id]
+   
+            amrazones_originales.value.a1_armazon_id = data?.[EnumGrid.a1_armazon_id]
+            amrazones_originales.value.a2_armazon_id = data?.[EnumGrid.a2_armazon_id]
+
         }
     },[])
     
@@ -213,6 +224,24 @@ const FOTArmazones:React.FC<IArmazones> = ({
         }    
   
         try {
+
+            console.log(formValues)
+
+
+            
+            
+            console.log(codArmazon)
+            console.log(inputName)
+            
+            console.log(amrazones_originales.value[inputName])
+
+            console.log(amrazones_originales.value)
+
+
+
+            console.log(formValues === undefined ?  0 : (amrazones_originales.value[inputName] === codArmazon ? 0 : 1))
+
+
             const {data} = await axios((validar_parametrizacion.value === '1' ) 
                                                    ? (`${endpoint
                                                                         }&_p1=${codArmazon && codArmazon.trim() !== '' ? codArmazon.trim() : ""
@@ -241,9 +270,9 @@ const FOTArmazones:React.FC<IArmazones> = ({
                                                                                     ? (typeof A1_Diametro.value === 'number' ? A1_Diametro.value :  "" ) 
                                                                                     : (typeof A1_Diametro.value === 'string' ? A1_Diametro.value : "")
                                                                             )
-                                                                        }&_jsonGrupo=${jsonGrupo}&_id=${ inputOnlyReadReserva.value === true ? 0 : (permiso_areas_armazones === true ? (inputName === 'a3_armazon_id' ? 0 : (isEditting === true ? 0 : 1 )) : 0)}
+                                                                        }&_jsonGrupo=${jsonGrupo}&_id=${ inputOnlyReadReserva.value === true ? 0 : (permiso_areas_armazones === true ? (inputName === 'a3_armazon_id' ? 0 : (isEditting === true ? (formValues === undefined ?  0 : (amrazones_originales.value[inputName] === codArmazon ? 0 : 1))   : 1 )) : 0)}
                                                                         `) 
-                                                   : (`${endpoint}&_jsonGrupo=${encodeURIComponent(JSON.stringify([empty_jsonGrupo, empty_jsonGrupo]))}&_p1=${codArmazon && codArmazon.trim() !== '' ? codArmazon : ''}&_id=${ inputOnlyReadReserva.value === true ? 0 : (permiso_areas_armazones === true ? (inputName === 'a3_armazon_id' ? 0 : 0) : 0)}`))
+                                                   : (`${endpoint}&_jsonGrupo=${encodeURIComponent(JSON.stringify([empty_jsonGrupo, empty_jsonGrupo]))}&_p1=${codArmazon && codArmazon.trim() !== '' ? codArmazon : ''}&_id=${ inputOnlyReadReserva.value === true ? 0 : (permiso_areas_armazones === true ? (inputName === 'a3_armazon_id' ? 0 : (isEditting === true ? ((formValues === undefined ?  0 : (amrazones_originales.value[inputName] === codArmazon ? 0 : 1))) : 0)) : 0)}`))
             // console.log(data[0])
             // console.log(data)
             // console.log(data[0][19])
@@ -524,7 +553,8 @@ const FOTArmazones:React.FC<IArmazones> = ({
 
 
     
-    const endpoint =`${URLBackend}/api/armazones/listado/?query=02&_p6=${ isEditting ? (data && data[EnumGrid.validar_parametrizacion_id]) : 1 }&_p2=${codigoProyecto.value}&_p3=${punto_venta.value}`;
+    // const endpoint =`${URLBackend}/api/armazones/listado/?query=02&_p6=${ isEditting ? (data && data[EnumGrid.validar_parametrizacion_id]) : 1 }&_p2=${codigoProyecto.value}&_p3=${punto_venta.value}`;
+    const endpoint =`${URLBackend}/api/armazones/listado/?query=02&_p6=${ isEditting ? (validar_parametrizacion.value) : 1 }&_p2=${codigoProyecto.value}&_p3=${punto_venta.value}`;
 
     // console.log(punto_venta.value)
 
