@@ -30,6 +30,7 @@ const PositionToRemove ={
 }
 
 const strUseCrud = "/api/typesexcel";
+export const isModalOT = signal(false);
 
 const ImportToCsv:React.FC<ImportProps> = ({
   strEntidad
@@ -75,7 +76,13 @@ const ImportToCsv:React.FC<ImportProps> = ({
       formData.append('positions_to_remove', JSON.stringify(PositionToRemove[strEntidad as "Clientes"]));
       formData.append('entidad', JSON.stringify(strEntidad));
       formData.append('userID', JSON.stringify(userState?.id));
-  
+
+      console.log(strEntidad)
+      if(strEntidad === 'Ordenen de Trabajo'){
+        isModalOT.value = true
+      }
+
+
       const url = `${URLBackend.value}/api/excel/import/`;
   
       try {
@@ -145,6 +152,7 @@ const ImportToCsv:React.FC<ImportProps> = ({
       ]);
 
       if(fetchResult.data["Error"]){
+      
         setCurrentStage("Errores")
           setErrors((_prev:any)=>fetchResult.data["Error"])
           setIsOpen(true)
@@ -233,7 +241,7 @@ const ImportToCsv:React.FC<ImportProps> = ({
         
         <div className=''>
           {isOpen && (
-            <ModalImpor errors={errors} progress={progress} titleState={currentStage}  onClose={handleClose} />
+            <ModalImpor errors={errors} progress={progress} titleState={currentStage}  onClose={handleClose} isModalOT={isModalOT}/>
           )}
         </div>
       </div>
