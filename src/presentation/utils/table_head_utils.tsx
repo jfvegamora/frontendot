@@ -646,7 +646,7 @@ export const table_head_clientes = [
     key: "establecimiento",
     visible: true,
     alignment: "text-left",
-    width: "w-[9rem]",
+    width: "w-[20rem]",
   },
   {
     cell: "",

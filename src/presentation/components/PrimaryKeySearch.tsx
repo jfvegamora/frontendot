@@ -386,7 +386,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                 <div className={`input-container relative rowForm !mr-[1rem] !mt-[0.2rem] 
                               ${input.styles?.with ? input.styles.with : ""}`}>
                   {/* <label className="primaryKeyLabel items-center text-xs mt-1 absolute top-[-1rem]">{input.label}</label> */}
-                  <label className="primaryKeyLabel items-center text-base mt-1 absolute top-[-1.1rem]">{input.label}</label>
+                  <label className={`primaryKeyLabel items-center text-base mt-1 absolute top-[-1.1rem] ${input.styles?.with}`}>{input.label}</label>
                   <Controller
                     name={input.name}
                     control={control}
@@ -395,7 +395,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                       <Input
                         type="date"
                         color="orange"
-                        className="h-[3rem] w-full border border-gray-500 rounded "
+                        className={`h-[3rem] w-full border border-gray-500 rounded ${input.styles?.with}`}
                         {...field}
                         value={field.value || ""}
                         onChange={(e) => {

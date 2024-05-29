@@ -89,7 +89,7 @@ const MClientes: React.FC = () => {
 
   return (
     <div className="mantenedorContainer">
-      <div className="mantenedorHead width80">   
+      <div className="mantenedorHead width100">   
       <div className="w-[70%]">
         <PrimaryKeySearch
           baseUrl={strBaseUrl}
@@ -97,7 +97,7 @@ const MClientes: React.FC = () => {
           updateParams={updateParams}
           setEntities={setEntities}
           primaryKeyInputs={[
-            { name: "_p1", label: "RUT", type: "text", styles:{with:" !w-[8rem]"}, },
+            { name: "_p1", label: "RUT", type: "text", styles:{with:" !w-[7rem]"}, },
             {
               name: "_p2",
               label: "Nombre",
@@ -109,8 +109,16 @@ const MClientes: React.FC = () => {
               label: "Tipo",
               type: "select",
               selectUrl: "/api/tipos/",
-              tipos: "ClientesTipos", styles:{with:" !w-[14rem]"},
+              tipos: "ClientesTipos", styles:{with:" !w-[12rem]"},
             },
+            {
+              name: "_p4",
+              label: "Establecimiento",
+              type: "select",
+              selectUrl: "/api/establecimientos/",
+              styles:{with:" !w-[24rem]"},
+            },
+          
           ]}
         />
       </div> 

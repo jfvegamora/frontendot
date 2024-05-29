@@ -90,7 +90,7 @@ const MMarcas: React.FC = () => {
                 type      : "select",
                 selectUrl : "/api/tipos/",
                 tipos     : "TipoInsumo",
-                // styles    :  {with:" !w-[16rem]"}
+                styles    :  {with:" !w-[13rem]"}
               },
             ]}
           />

@@ -98,22 +98,35 @@ const MArmazones: React.FC = () => {
           updateParams={updateParams}
           setEntities={setEntities}
           primaryKeyInputs={[
-            { name: "_p1", label: "Código", type: "text", styles:{with:"!w-[9rem]"} },
+            { name: "_p1", label: "Código/Modelo/Color", type: "text", styles:{with:"!w-[11rem]"} },
             // { name: "_p5", label: "Código FAB", type: "text", styles:{with:"!w-[9rem]"} },
-            { name: "_p2", label: "Modelo", type: "text", styles:{with:"!w-[9rem]"} },
+            // { name: "_p2", label: "Modelo", type: "text", styles:{with:"!w-[9rem]"} },
+            {
+              name: "_p2",
+              label: "Tipo",
+              type: "select",
+              selectUrl: "/api/tipos/",
+              tipos: "ArmazonesTipos", styles:{with:"!w-[10rem] !-ml-[0.5rem]"},
+            },
             {
               name: "_p3",
               label: "Marca",
               type: "select",
-              selectUrl: "/api/marcas/", styles:{with:"!w-[10rem]"},
+              selectUrl: "/api/marcas/", styles:{with:"!w-[10rem] !-ml-[1rem]"},
               _p1: "1"
-
+            },
+            {
+              name: "_p6",
+              label: "Material",
+              type: "select",
+              selectUrl: "/api/tipos/",
+              tipos: "ArmazonesMaterial", styles:{with:"!w-[10rem] !-ml-[1rem]"},
             },
             {
               name: "_p4",
-              label: "Almacenes",
+              label: "Almacén",
               type: "select",
-              selectUrl: "/api/almacenes/", styles:{with:"!w-[18rem]"},
+              selectUrl: "/api/almacenes/", styles:{with:"!w-[14rem] !-ml-[1rem]"},
               _p1: "1"
             },
             {
@@ -121,7 +134,7 @@ const MArmazones: React.FC = () => {
               label: "Stock",
               type: "select",
               selectUrl: "/api/tipos/",
-              tipos: "Stock", styles:{with:"!mt-[0.5rem] !w-[12rem]"},
+              tipos: "Stock", styles:{with:"!w-[10rem] !-ml-[1rem]"},
             },
     ]}
         />

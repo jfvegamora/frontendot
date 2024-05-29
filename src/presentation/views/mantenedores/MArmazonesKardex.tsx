@@ -86,7 +86,7 @@ const MArmazonesKardex: React.FC = () => {
   return (
     <div className="mantenedorContainer">
       <div className="mantenedorHead width100">
-        <div className="w-[70%]">
+        <div className="w-[82%]">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
             setParams={setParams}
@@ -99,11 +99,11 @@ const MArmazonesKardex: React.FC = () => {
                 name: "_p4",
                 label: "Almacenes",
                 type: "select",
-                selectUrl: "/api/almacenes/", styles:{with:" !w-[14rem]"},
+                selectUrl: "/api/almacenes/", styles:{with:" !w-[26rem]"},
                 _p1: "1"
               },
               { name: "_p2", label: "Desde", type: "date" },
-              { name: "_p3", label: "Hasta", type: "date" },
+              { name: "_p3", label: "Hasta", type: "date", styles:{with:" !ml-[1rem]"}},
             ]}
           />
         </div>

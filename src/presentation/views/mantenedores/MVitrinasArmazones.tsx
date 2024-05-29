@@ -92,7 +92,7 @@ const MVitrinasArmazones: React.FC = () => {
 
   return (
     <div className="mantenedorContainer">
-      <div className="mantenedorHead width90">
+      <div className="mantenedorHead width80">
       <div className="w-[50%]">
         <PrimaryKeySearch
           baseUrl={strBaseUrl}
@@ -104,7 +104,7 @@ const MVitrinasArmazones: React.FC = () => {
               name: "_p2",
               label: "Vitrina",
               type: "select",
-              selectUrl: "/api/vitrinas/", styles:{with:" !w-[23rem]"}
+              selectUrl: "/api/vitrinas/", styles:{with:" !w-[30rem]"}
             },
             { name: "_p3", label: "Código Armazón", type: "text", styles:{with:" !w-[12rem]"}, },
             // { name: "_p3", label: "Código Licitacion", type: "text", styles:{with:" !w-[9rem]"}, },

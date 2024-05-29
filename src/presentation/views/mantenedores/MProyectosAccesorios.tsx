@@ -92,8 +92,8 @@ const MProyectosAccesorios: React.FC = () => {
                 type: "select",
                 selectUrl: "/api/proyectos/", styles:{with:" !w-[33rem]"},
               },
-              { name: "_p2", label: "Código Proyecto", type: "text", styles:{with:" !w-[9rem]"}, },
-              { name: "_p3", label: "Código Licitacion", type: "text", styles:{with:" !w-[9rem]"}, },
+              { name: "_p2", label: "Código Proyecto / Licitación", type: "text", styles:{with:" !w-[14rem]"}, },
+              // { name: "_p3", label: "Código Licitacion", type: "text", styles:{with:" !w-[9rem]"}, },
             ]}
           />
         </div>
