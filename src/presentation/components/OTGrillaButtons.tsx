@@ -218,10 +218,10 @@ const imprimirComprobanteRetiro = async(tipoComprobante?:string) => {
 
         if(OT[estado_impresion] === '1'){
             disabledIndividualCheck.value = false;
+            
             return toast.error(`OT: ${folio} ya fue Impresa anteriormente`)
         }
 
-        
         const loadingToast = toast.loading('Imprimiendo...');
         try {
 

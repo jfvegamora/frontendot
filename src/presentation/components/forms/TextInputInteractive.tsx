@@ -5,6 +5,9 @@ import React, {useEffect, useState} from "react";
 import { Controller } from "react-hook-form";
 import { A1_DP } from "../../utils";
 import { toast } from "react-toastify";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { codArmazon1, codArmazon2, codArmazon3 } from "../../views/forms/FReservarArmazones";
 // import debounce from "lodash/debounce"
 // import debounce from 'lodash/debounce'
 
@@ -29,6 +32,7 @@ interface ITextInputProps {
   textAlign?: string;
   validarBodega?:boolean
   handleFocus?:any
+  reservaArmazones?:boolean
 }
 
 const TextInputInteractive: React.FC<ITextInputProps> = ({
@@ -40,7 +44,7 @@ const TextInputInteractive: React.FC<ITextInputProps> = ({
   onlyRead,
   data,
   error,
-  inputRef, // Modificación aquí
+  inputRef, 
   className,
   maxLength,
   step,
@@ -50,17 +54,40 @@ const TextInputInteractive: React.FC<ITextInputProps> = ({
   isOptional,
   textAlign,
   validarBodega,
-  handleFocus
+  handleFocus,
+  reservaArmazones
 }) => {
   const [_defaultValue, setDefaultValue] = useState<any>(data || " "); 
   const[_render, setRender] = useState(false);
 
   const [value, setValue] = useState<any>(data || "");
 
+  
+  let armazonInput:any = '';
+
+  if(reservaArmazones){
+    switch (name) {
+      case 'Armazon1':
+        armazonInput = codArmazon1;
+        break;
+      case 'Armazon2':
+        armazonInput = codArmazon2;
+        break;
+      case 'Armazon3':
+        armazonInput = codArmazon3;
+        break;
+    
+      default:
+        break;
+    }
+
+  }
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log(e)
     if (handleChange) {
       console.log(e.target)
+      console.log(armazonInput)
       if(isOT){
         handleChange(e.target)
         console.log(e.target)
@@ -135,17 +162,28 @@ return (
             }}
             
             ref={inputRef}
-            className={`${className ? className : "custom-input"}  ${name.startsWith("Armazon") ? "!cursor-not-allowed" : ""}  ${onlyRead ? (name.startsWith("Armazon") ? '!bg-white !cursor-not-allowed' : "custom-onlyread cursor-not-allowed" )  : isOptional ?  (name.startsWith("Armazon") ? 'custom-optional !cursor-not-allowed ' : "custom-optional") : "custom-required"} ${textAlign && textAlign}`}
+            className={`${className ? className : "custom-input"}  ${name.startsWith("Armazon") ? "!cursor-not-allowed pr-10" : ""}  ${onlyRead ? (name.startsWith("Armazon") ? '!bg-white !cursor-not-allowed' : "custom-onlyread cursor-not-allowed" )  : isOptional ?  (name.startsWith("Armazon") ? 'custom-optional !cursor-not-allowed ' : "custom-optional") : "custom-required"} ${textAlign && textAlign}`}
             tabIndex={onlyRead ? 0 : (tabIndex || 1)}
             placeholder={type === 'date' ? "dd-mm-yyyy" : ''}
             autoComplete="off"
             step={step ? step : 1 } 
           />
+
           {error && (
             <p className="absolute top-0 right-[50%] labelErr">
               {error.message}
             </p>
           )}
+
+          {reservaArmazones && (
+            <FontAwesomeIcon icon={faTrash} onClick={()=>{
+              setValue('')
+              console.log('click')
+              armazonInput.value = ''
+              console.log(name)
+            }} className=" translate-x-[19rem] -translate-y-8 hover:!text-[#f8b179]"/>
+          )}
+
         </div>
       )}
     />
