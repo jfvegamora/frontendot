@@ -112,7 +112,7 @@ const MMuestrariosArmazones: React.FC = () => {
               type: "select",
               selectUrl: "/api/muestrarios/", styles:{with:" !w-[30rem]"}
             },
-            { name: "_p3", label: "Código Armazón", type: "text", styles:{with:" !w-[12rem]"}, },
+            { name: "_p3", label: "Código Armazón", type: "text", styles:{with:" !w-[10rem]"}, },
             // { name: "_p3", label: "Código Licitacion", type: "text", styles:{with:" !w-[9rem]"}, },
           ]}
         />
@@ -131,7 +131,7 @@ const MMuestrariosArmazones: React.FC = () => {
           showAddButton={true}
           showCopiar={true}
           showTraspasoButton={true}
-          showExportButton={false}
+          showExportButton={true}
           showDeleteButton={true}
           showForwardButton={false}
           showRefreshButton={true}
