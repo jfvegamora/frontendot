@@ -1,6 +1,6 @@
 import React, {useCallback, useState, useEffect} from 'react'
 import {useDropzone} from 'react-dropzone';
-import {handleFileUpload} from '../utils/validationCSVFile';
+import {executeFetchImportOT, handleFileUpload, updateErrorRows} from '../utils/validationCSVFile';
 import { useCrud } from '../hooks';
 import ModalImpor from './ModalImpor';
 import {toast} from 'react-toastify';
@@ -13,9 +13,12 @@ import { faUpload } from '@fortawesome/free-solid-svg-icons';
 import { AppStore, useAppDispatch, useAppSelector } from '../../redux/store';
 import { fetchOT } from '../../redux/slices/OTSlice';
 import { paramsOT } from '../views/mantenedores/MOT';
+import axios from 'axios';
 // import { excelOTValidationStructure } from '../utils';
 
 export const resultExcelTypes = signal({})
+export const totalImport = signal(0);
+export const restanteImport = signal(1);
 
 interface ImportProps{
   // strEntidad: string | undefined;
@@ -49,6 +52,8 @@ const ImportToCsv:React.FC<ImportProps> = ({
     setErrors([])
     setProgress(0)
     setCurrentStage("Validacion")
+    restanteImport.value = 1;
+    totalImport.value    = 0;
   }
 
 
@@ -71,37 +76,94 @@ const ImportToCsv:React.FC<ImportProps> = ({
   
   async function executeFetch(validate:any,numberOfElements:any) {
     if (validate["blob"] && numberOfElements) {
-      const formData = new FormData();
-      formData.append('file', validate["blob"], 'modified_file.xls');
-      formData.append('positions_to_remove', JSON.stringify(PositionToRemove[strEntidad as "Clientes"]));
-      formData.append('entidad', JSON.stringify(strEntidad));
-      formData.append('userID', JSON.stringify(userState?.id));
+      console.log(validate)
+      let jsonResponse:any = [];
 
-      console.log(strEntidad)
-      if(strEntidad === 'Ordenen de Trabajo'){
-        isModalOT.value = true
+      //?==============================================METODO OT =====================================================
+      totalImport.value = validate["blob"].length;
+      
+      for(let i = 0; i < validate["blob"].length; i++){
+        const formData = new FormData();
+        const libroExcel = validate["blob"][i]
+        console.log(libroExcel)
+        formData.append('file', libroExcel["blob"])
+        formData.append('positions_to_remove', JSON.stringify(PositionToRemove[strEntidad as "Clientes"]));
+        formData.append('entidad', JSON.stringify(strEntidad));
+        formData.append('userID', JSON.stringify(userState?.id));
+        formData.append('tramo',JSON.stringify(restanteImport.value) )
+        
+        if(strEntidad === 'Ordenen de Trabajo'){
+          isModalOT.value = true
+        }
+        const url = `${URLBackend.value}/api/excel/import/`;
+        try {
+          const response = await axios.post(url, formData);
+          console.log(response)
+
+          restanteImport.value = restanteImport.value + 1
+          jsonResponse.push(response.data)
+          
+          if(response.status === 200 && (i < validate["blob"].length - 1)){
+            handleValidacion(0)
+          }else{
+            setProgress(100)
+          }
+
+
+        } catch (error) {
+          jsonResponse.push(error)
+          console.log(error)
+          setProgress(100)
+          return jsonResponse
+        }
+
+      }
+      
+      console.log(jsonResponse)
+      if(jsonResponse){
+        setProgress(100)
+      }
+      const isErrorImport = jsonResponse.some((mensaje:any)=>mensaje.Error)
+
+      //?CAMBIAR A FALSE PARA DEJAR DE PROBAR
+      if(!isErrorImport){
+        executeFetchImportOT(jsonResponse,userState?.id)
       }
 
+      return jsonResponse
+      
+      //?==============================================METODO OT =====================================================
+      // formData.append('file', validate["blob"], 'modified_file.xls');
+      // formData.append('positions_to_remove', JSON.stringify(PositionToRemove[strEntidad as "Clientes"]));
+      // formData.append('entidad', JSON.stringify(strEntidad));
+      // formData.append('userID', JSON.stringify(userState?.id));
 
-      const url = `${URLBackend.value}/api/excel/import/`;
+      // console.log(validate["blob"])
+      // console.log(strEntidad)
+      // if(strEntidad === 'Ordenen de Trabajo'){
+      //   isModalOT.value = true
+      // }
+
+
+      // const url = `${URLBackend.value}/api/excel/import/`;
   
-      try {
-        const response = await fetch(url, {
-          method: 'POST',
-          body: formData,
-        });
+      // try {
+      //   const response = await fetch(url, {
+      //     method: 'POST',
+      //     body: formData,
+      //   });
 
-      //  if (response.status === 200) {
-      //   return { success: true };
-      //  } else {
-      //   return { success: false, error: `Error ${response.status}: ${response.statusText}` };
-      //   }
-        const data = await response.json();
-        console.log(data)
-        return {data};
-      } catch (error) {
-        return { error };
-      }
+      // //  if (response.status === 200) {
+      // //   return { success: true };
+      // //  } else {
+      // //   return { success: false, error: `Error ${response.status}: ${response.statusText}` };
+      // //   }
+      //   const data = await response.json();
+      //   console.log(data)
+      //   return {data};
+      // } catch (error) {
+      //   return { error };
+      // }
     } else {
       return { error: "No se puede realizar la carga debido a datos faltantes." };
     }
@@ -151,16 +213,34 @@ const ImportToCsv:React.FC<ImportProps> = ({
         handleValidacion(validate["numberOfElements"] || 0),
       ]);
 
-      if(fetchResult.data["Error"]){
-      
+      console.log(fetchResult)
+
+      const isErrorImport = fetchResult.some((mensaje:any)=>mensaje.Error)
+
+      console.log(isErrorImport);
+
+      if(isErrorImport){
         setCurrentStage("Errores")
-          setErrors((_prev:any)=>fetchResult.data["Error"])
-          setIsOpen(true)
+        setProgress(100)        
+        setErrors(fetchResult)
+        setIsOpen(true)
+        
       }else{
         toast.success('Import Finalizado Correctamente')
-        handleClose()
-        dispatch(fetchOT({OTAreas:OTAreas["areaActual"], searchParams: paramsOT.value}))
+          handleClose()
+          dispatch(fetchOT({OTAreas:OTAreas["areaActual"], searchParams: paramsOT.value}))
       }
+
+      // if(fetchResult.data["Error"]){
+      
+      //   setCurrentStage("Errores")
+      //     setErrors((_prev:any)=>fetchResult.data["Error"])
+      //     setIsOpen(true)
+      // }else{
+      //   toast.success('Import Finalizado Correctamente')
+      //   handleClose()
+      //   dispatch(fetchOT({OTAreas:OTAreas["areaActual"], searchParams: paramsOT.value}))
+      // }
 
       // if(fetchResult.success === true){
       //   dispatch(fetchOT({OTAreas:OTAreas["areaActual"], searchParams: paramsOT.value}))

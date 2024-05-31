@@ -1,5 +1,7 @@
 import * as XLSX from 'xlsx';
 import moment from 'moment';
+import { URLBackend } from '../hooks/useCrud';
+import axios from 'axios';
 
 export function validateExcelData(data:any, validationStructure:any) {
   const validationErrors = [];
@@ -98,9 +100,10 @@ export function validateExcelData(data:any, validationStructure:any) {
 }
 
 export interface ExcelUploadResult {
-  blob?: Blob;
+  blob?: any;
   numberOfElements?: number;
-  errors?:any
+  errors?:any,
+  originalBlob?:any
 }
 
 export const handleFileUpload = (file: File,columnsToDelete:string[], strEntidad:string) => {
@@ -136,24 +139,63 @@ export const handleFileUpload = (file: File,columnsToDelete:string[], strEntidad
         }
         console.log('render')
 
-
-        const modifiedWorkbook = XLSX.utils.book_new();
+        const blobs = []
+        const numeroPaginas = 300
         
-        XLSX.utils.book_append_sheet(modifiedWorkbook, XLSX.utils.json_to_sheet(filteredRows), sheetName);
+        const encabezado = filteredRows.slice(0,3)
+        const encabezado2 = filteredRows.slice(0,2)
+        const dataExcel = filteredRows.slice(3)
+
+        console.log(filteredRows)
+        console.log(encabezado)
+        console.log(encabezado2)
+        console.log(dataExcel)
 
         
-        const modifiedBlob = new Blob([XLSX.write(modifiedWorkbook, { type: 'array',bookType: 'xls' })], {
+        const numeroParticiones = Math.ceil(filteredRows.length / numeroPaginas);
+        console.log(numeroParticiones)
+        
+        let desde = 0;
+        
+        for(let i = 0; i < numeroParticiones; i++){
+          let hasta = desde + numeroPaginas;
+
+          const chunk = dataExcel.slice(desde, hasta);
+
+          console.log(chunk)
+          console.log([...encabezado, ...chunk])
+
+          // Crear un nuevo libro de trabajo para cada partición
+          const modifiedWorkbook = XLSX.utils.book_new();
+          const uniqueSheetName = `${sheetName}_${i + 1}`;
+          XLSX.utils.book_append_sheet(modifiedWorkbook, XLSX.utils.json_to_sheet([...encabezado, ...chunk]), uniqueSheetName);
+          
+          const modifiedBlob = new Blob([XLSX.write(modifiedWorkbook, { type: 'array', bookType: 'xls' })], {
+            type: 'application/vnd.ms-excel',
+          });
+
+
+          blobs.push({ blob: modifiedBlob });
+          desde = hasta 
+        }
+
+        const originalWorkbook  = XLSX.utils.book_new();
+        const originalSheetName = 'Original_import_ot';
+        
+        XLSX.utils.book_append_sheet(originalWorkbook, XLSX.utils.json_to_sheet(filteredRows), originalSheetName);
+
+        const originalBlob = new Blob([XLSX.write(originalWorkbook,{type:'array', bookType:'xls'})],{
           type: 'application/vnd.ms-excel',
-        });
+        })
 
-        
+        console.log(blobs)
+         
         const numberOfColumns = Object.keys(firstElement).length;
 
         const numberOfElements = filteredRows.length * numberOfColumns
 
 
-        // resolve(modifiedBlob)
-        resolve({blob:modifiedBlob, numberOfElements})
+        resolve({blob:blobs, numberOfElements, originalBlob: originalBlob})
         
       }
     };
@@ -166,6 +208,89 @@ export const handleFileUpload = (file: File,columnsToDelete:string[], strEntidad
   });
 };
 
+
+export const updateErrorRows = (data:any) => {
+  return data.map((item:any) => {
+    if (item.index > 1 && item.hasOwnProperty('Error')) {
+      const increment = (item.index - 1) * 100;
+      const updatedErrors = item.Error.map((errorString:any) => {
+        return errorString.replace(/Fila: (\d+)/, (_match:any, p1:any) => {
+          return `Fila: ${parseInt(p1) + increment}`;
+        });
+      });
+      return { ...item, Error: updatedErrors };
+    }
+    return item;
+  });
+};
+
+
+export const executeFetchImportOT = async(response:any, userID:any)=>{
+  console.log(response)
+  try {
+    console.log('render')
+    const jsonDataArray = response.map((item:any) => JSON.parse(item.data));
+
+    let combinedDataExcel:any = []
+    console.log(jsonDataArray)
+    
+    jsonDataArray.forEach((jsonData: any) => {
+      combinedDataExcel = combinedDataExcel.concat(jsonData);
+    });
+    
+    console.log(combinedDataExcel)
+
+    const combinedWorkbook = XLSX.utils.book_new();
+
+    const worksheet = XLSX.utils.json_to_sheet(combinedDataExcel);
+
+    XLSX.utils.book_append_sheet(combinedWorkbook, worksheet, 'CombinedSheet');
+
+    console.log(combinedWorkbook)
+
+    
+    const originalBlob = new Blob(
+      [XLSX.write(combinedWorkbook, { type: 'array', bookType: 'xlsx' })], // Cambiado de 'xls' a 'xlsx'
+      { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' } // Cambiado a 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    );
+
+
+    // const originalBlob2 = new Blob([XLSX.write(combinedWorkbook, {type:'array', bookType:'xls'})],{
+    //   type: 'application/vnd.ms-excel',
+    // })
+
+    // const fileURL = URL.createObjectURL(
+    //   originalBlob2
+    // )
+
+    // const link = document.createElement('a');
+    // link.href = fileURL
+    // link.setAttribute("download", "import_ot_test")
+    // document.body.appendChild(link)
+    // link.click();
+    // URL.revokeObjectURL(fileURL)
+    // console.log(originalBlob)
+
+    const formData = new FormData();
+    const url = `${URLBackend.value}/api/excel/importOT/`;
+
+    formData.append('file',originalBlob)
+    formData.append('userID', JSON.stringify(userID));
+
+    try {
+      const response = await axios.post(url, formData)
+      console.log(response)
+    } catch (error) {
+      console.log(error)
+    }
+
+
+
+
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 
 

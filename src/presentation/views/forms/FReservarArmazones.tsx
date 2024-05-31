@@ -29,9 +29,9 @@ import { clearBaseDatos, getArmazones, getBeneficiarios, isExistArmazon, isExist
 
 //!INSERT: PROYECTO-RUT-PUNTOVENTA-TIPOANTEOJO-DP-A1-2-3-USERID
 
-const codArmazon1 = signal('')
-const codArmazon2 = signal('')
-const codArmazon3 = signal('')
+export const codArmazon1 = signal('')
+export const codArmazon2 = signal('')
+export const codArmazon3 = signal('')
 
 const focusInput  = signal('');
 
@@ -103,10 +103,27 @@ const Scanner:React.FC<any> = ({setIsScanning}) => {
     }
   };
 
+
+  const closeScanner = () => {
+    console.log('Closing scanner');
+    Quagga.stop();
+    setIsScanning(false);
+  };
+
   return (
     
-      <div id="scanner-container" className='absolute top-[8.6rem] !right-[5rem] !z-20' style={{ width: 250, height: 350 }} autoFocus>
-        <h1 className='text-lg text-white'>Armazon 1</h1>
+      // <div id="scanner-container" className='absolute top-[8.6rem] !right-[5rem] !z-20' style={{ width: 250, height: 350 }} autoFocus>
+      <div>
+        <div
+         className='text-2xl text-white absolute top-[8.6rem] !right-[6rem] !z-30'
+         onClick={closeScanner}
+        >
+          X
+        </div>
+
+        <div id="scanner-container" className='absolute top-[8.6rem] !right-[5rem] !z-20' style={{ width: 250, height: 350 }} autoFocus>
+        </div>
+        {/* <h1 className='text-lg text-white'>Armazon 1</h1> */}
       </div>
   
   );
@@ -563,6 +580,9 @@ useEffect(()=>{
   }
 
   
+  console.log(codArmazon1.value)
+
+
 
     return (
         <form className=" max-w-md mx-auto px-6" onSubmit={handleSubmit((data)=> handleSaveChange(data))}>
@@ -687,6 +707,7 @@ useEffect(()=>{
                     error={errors.Armazon1}
                     handleFocus={()=>handleFocus('Armazon1')}
                     onlyRead={true}
+                    reservaArmazones={true}
                   
                   />
                 </div>
@@ -706,7 +727,7 @@ useEffect(()=>{
                     isOptional={tipo_de_anteojo.value !== '3'}
                     handleFocus={()=>handleFocus('Armazon2')}
                     onlyRead={true}
-                  
+                    reservaArmazones={true}  
                   />
                 </div>
               </div>
@@ -725,6 +746,7 @@ useEffect(()=>{
                     isOptional={true}
                     handleFocus={()=>handleFocus('Armazon3')}
                     onlyRead={true}
+                    reservaArmazones={true}
                   />
                 </div>
               </div>
