@@ -59,7 +59,8 @@ const strEntidad = " ";
 const strBaseUrl = "/api/ot/";
 const strQuery = "14";
 // const idMenu = 1;
-export const paramsOT     = signal('')
+export const paramsOT     = signal('');
+export const switchFetchOT = signal(true);
 
 
 const FOT               = React.lazy(()=>import('../forms/FOT'))
@@ -138,13 +139,16 @@ const MOT: React.FC = () => {
 
   useEffect(() => {
    const interval = setInterval(() => {
-    if(params[0] !== ''){
-      console.log(areaActualOT)
-      dispatch(fetchOT({OTAreas:areaActualOT, searchParams:params[0]})) 
-    }else{
-      dispatch(fetchOT({OTAreas:areaActualOT}))
+    if(switchFetchOT.value === true){
+      if(params[0] !== ''){
+        console.log(areaActualOT)
+        dispatch(fetchOT({OTAreas:areaActualOT, searchParams:params[0]})) 
+      }else{
+        dispatch(fetchOT({OTAreas:areaActualOT}))
+      }
     }
    }, 60000);
+   
    return () => clearInterval(interval);
  }, [areaActualOT, dispatch, params]);
 
@@ -215,9 +219,9 @@ const MOT: React.FC = () => {
                 { name: "_folio", label: "Folio", type: "text" },
                 { name: "_rut", label: "Rut", type: "text" },
 
-                { name: "_fecha_desde", label: "Atención Desde", type: "date", styles: { with: "w-[8rem]  !h-[6rem]" } },
-                { name: "_fecha_hasta", label: "Atención Hasta", type: "date", styles: { with: "w-[8rem]  !h-[6rem] !absolute left-[10rem]" } },
-                { name: "_usuario", label: "Usuario", type: "select",selectUrl: "/api/usuarios/", styles: { with: "w-[20.4rem]  !h-[6rem] !absolute top-[10rem] left-[20rem]" } },
+                { name: "_fecha_desde", label: "Atención Desde", type: "date", styles: { with: "w-[4rem]  !h-[3rem]", container: "w-[8rem]" } },
+                { name: "_fecha_hasta", label: "Atención Hasta", type: "date", styles: { with: "w-[4rem]  !h-[3rem]", container:"w-[8rem] translate-x-[-10rem]" } },
+                { name: "_usuario", label: "Usuario", type: "select",selectUrl: "/api/usuarios/", styles: { with: "w-[20.4rem]  !h-[6rem] !absolute top-[8.5rem] left-[20rem]" } },
 
                 { name: "_estado", label: "Estado", type: "select", selectUrl: "/api/tipos/", tipos: "OTEstados", styles: { with: "w-[20.4rem] absolute left-0" }},
                 { name: "_establecimiento", label: "Establecimiento", type: "select", selectUrl: "/api/establecimientos/", styles: { with: "w-[20.4rem]" }},
@@ -229,7 +233,7 @@ const MOT: React.FC = () => {
                 { name: "_p3", label: "Número Doc", type: "text", styles: { with: "w-[19rem]" }},
 
                 { name: "_proyecto", label: "Proyecto", type: "select", selectUrl: "/api/proyectos/", styles: { with: "w-[20.4rem]" }},
-                { name: "_punto_venta", label: "Punto Venta", type: "select", selectUrl: "/api/puntosventa/", styles: { with: "w-[20.4rem] absolute left-[20rem] !top-[6.5rem]" }},
+                { name: "_punto_venta", label: "Punto Venta", type: "select", selectUrl: "/api/puntosventa/", styles: { with: "w-[20.4rem] absolute left-[20rem] !top-[6rem]" }},
 
               ]}
             />

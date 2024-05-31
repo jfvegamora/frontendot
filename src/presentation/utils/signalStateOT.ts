@@ -591,6 +591,8 @@ export const getDatosOT = (data: any) => {
 
   // a1_od_esf.value = data[EnumGrid.a1_od_esf]
 
+  // a1_oi_esf.value = data[EnumGrid.a1_oi_esf];
+
   a2_od_esf.value = data[EnumGrid.a2_od_esf];
   a2_od_cil.value = data[EnumGrid.a2_od_cil];
   a2_od_eje.value = data[EnumGrid.a2_od_eje];

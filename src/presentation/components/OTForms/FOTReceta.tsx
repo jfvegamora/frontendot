@@ -99,7 +99,6 @@ const FOTReceta:React.FC<IReceta> = ({
     },[])
 
 
-    
   return (
     <form onKeyDown={handleKeyDown}>
         <div className="w-full frameOTForm">

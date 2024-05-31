@@ -20,6 +20,18 @@ export const parsedDate = (date: string): any => {
 }
 
 
+export const formatPlusDioptria = (dioptria:any) => {
+  dioptria = parseFloat(dioptria)
+  dioptria = dioptria.toFixed(2)
+  if(dioptria > 0){
+    dioptria = '+' + dioptria.toString()
+  }else{
+    dioptria = dioptria.toString()
+  }
+  return dioptria
+}
+
+
 const FOTImpresa = React.forwardRef((props: any, ref: any) => {
   const { impresionOT: OT } = useAppSelector((store: AppStore) => store.OTS);
   const User: any = useAppSelector((store: AppStore) => store.user);
@@ -198,8 +210,8 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                       </div>
 
                       <div className="w-full flex ml-2 otDioptria">
-                        <div className="text-right w-[25%] ">{ot[EnumGrid.a1_od_esf]}</div>
-                        <div className="text-right w-[25%] ">{ot[EnumGrid.a1_od_cil]}</div>
+                        <div className="text-right w-[25%] ">{formatPlusDioptria(ot[EnumGrid.a1_od_esf])}</div>
+                        <div className="text-right w-[25%] ">{formatPlusDioptria(ot[EnumGrid.a1_od_cil])}</div>
                         <div className="text-center w-[20%] ">{ot[EnumGrid.a1_od_eje]}</div>
                         {
                         ot[EnumGrid.tipo_anteojo_id] === 4 ||
@@ -211,8 +223,8 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                       </div>
 
                       <div className="w-full flex ml-2 otDioptria">
-                        <div className="text-right w-[25%] ">{ot[EnumGrid.a1_oi_esf]}</div>
-                        <div className="text-right w-[25%] ">{ot[EnumGrid.a1_oi_cil]}</div>
+                        <div className="text-right w-[25%] ">{formatPlusDioptria(ot[EnumGrid.a1_oi_esf])}</div>
+                        <div className="text-right w-[25%] ">{formatPlusDioptria(ot[EnumGrid.a1_oi_cil])}</div>
                         <div className="text-center w-[20%] ">{ot[EnumGrid.a1_oi_eje]}</div>
                         {
                         ot[EnumGrid.tipo_anteojo_id] === 4 ||
@@ -235,14 +247,14 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                           </div>
     
                           <div className="w-full flex ml-2 otDioptria">
-                            <div className="w-[38%] ">{ot[EnumGrid.a2_od_esf]}</div>
-                            <div className=" w-[38%] ">{ot[EnumGrid.a2_od_cil]}</div>
+                            <div className="w-[38%] ">{formatPlusDioptria(ot[EnumGrid.a2_od_esf])}</div>
+                            <div className=" w-[38%] ">{formatPlusDioptria(ot[EnumGrid.a2_od_cil])}</div>
                             <div className="text-right  w-[15%]">{ot[EnumGrid.a2_od_eje]}</div>
                           </div>
     
                           <div className="w-full flex ml-2 otDioptria">
-                            <div className=" w-[38%] ">{ot[EnumGrid.a2_oi_esf]}</div>
-                            <div className=" w-[38%] ">{ot[EnumGrid.a2_oi_cil]}</div>
+                            <div className=" w-[38%] ">{formatPlusDioptria(ot[EnumGrid.a2_oi_esf])}</div>
+                            <div className=" w-[38%] ">{formatPlusDioptria(ot[EnumGrid.a2_oi_cil])}</div>
                             <div className="text-right  w-[15%] ">{ot[EnumGrid.a2_oi_eje]}</div>
                           </div>
                           </>

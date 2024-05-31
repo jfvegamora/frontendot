@@ -32,7 +32,7 @@ interface PrimaryKeySearchProps {
     type: string;
     name: string;
     options?: string[];
-    styles?: {with:string};
+    styles?: any;
     selectUrl?: any;
     values?: any;
     tipos?: string;
@@ -383,10 +383,9 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                   </div>
               )
               ) : input.type === "date" ? (
-                <div className={`input-container relative rowForm !mr-[1rem] !mt-[0.2rem] 
-                              ${input.styles?.with ? input.styles.with : ""}`}>
+                <div className={`input-container relative rowForm !mr-[1rem] !mt-[0.2rem] ${input.styles?.container} `}>
                   {/* <label className="primaryKeyLabel items-center text-xs mt-1 absolute top-[-1rem]">{input.label}</label> */}
-                  <label className={`primaryKeyLabel items-center text-base mt-1 absolute top-[-1.1rem] ${input.styles?.with}`}>{input.label}</label>
+                  <label className={`primaryKeyLabel items-center text-base mt-1 absolute top-[-1.1rem] ${input.styles?.label}`}>{input.label}</label>
                   <Controller
                     name={input.name}
                     control={control}

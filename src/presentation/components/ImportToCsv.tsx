@@ -12,7 +12,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUpload } from '@fortawesome/free-solid-svg-icons';
 import { AppStore, useAppDispatch, useAppSelector } from '../../redux/store';
 import { fetchOT } from '../../redux/slices/OTSlice';
-import { paramsOT } from '../views/mantenedores/MOT';
+import { paramsOT, switchFetchOT } from '../views/mantenedores/MOT';
 import axios from 'axios';
 // import { excelOTValidationStructure } from '../utils';
 
@@ -70,12 +70,13 @@ const ImportToCsv:React.FC<ImportProps> = ({
         }, timePerUpdate);
       });
     }
-    setProgress(0)
+    setProgress(100)
   };
 
   
   async function executeFetch(validate:any,numberOfElements:any) {
     if (validate["blob"] && numberOfElements) {
+      switchFetchOT.value = false;
       console.log(validate)
       let jsonResponse:any = [];
 
@@ -83,6 +84,7 @@ const ImportToCsv:React.FC<ImportProps> = ({
       totalImport.value = validate["blob"].length;
       
       for(let i = 0; i < validate["blob"].length; i++){
+
         const formData = new FormData();
         const libroExcel = validate["blob"][i]
         console.log(libroExcel)
@@ -130,6 +132,7 @@ const ImportToCsv:React.FC<ImportProps> = ({
         executeFetchImportOT(jsonResponse,userState?.id)
       }
 
+      switchFetchOT.value = true;
       return jsonResponse
       
       //?==============================================METODO OT =====================================================
@@ -213,6 +216,8 @@ const ImportToCsv:React.FC<ImportProps> = ({
         handleValidacion(validate["numberOfElements"] || 0),
       ]);
 
+      console.log('render')
+
       console.log(fetchResult)
 
       const isErrorImport = fetchResult.some((mensaje:any)=>mensaje.Error)
@@ -220,8 +225,8 @@ const ImportToCsv:React.FC<ImportProps> = ({
       console.log(isErrorImport);
 
       if(isErrorImport){
-        setCurrentStage("Errores")
         setProgress(100)        
+        setCurrentStage("Errores")
         setErrors(fetchResult)
         setIsOpen(true)
         

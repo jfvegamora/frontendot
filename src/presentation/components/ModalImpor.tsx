@@ -3,6 +3,7 @@ import { Progress } from "@material-tailwind/react";
 import { TableComponent } from '.';
 import { table_head_errors } from '../utils';
 import { restanteImport, resultExcelTypes, totalImport } from './ImportToCsv';
+import * as XLSX from 'xlsx';
 
 
 interface ModalImportProps {
@@ -89,8 +90,38 @@ const ModalImpor:React.FC<ModalImportProps> = ({
       }, [onClose]);
 
 
+
+
+    console.log(importErrors)  
+
+
+    const downloadLogErrorsExcel = () => {
+      console.log('click')
+      const errorLogBook = XLSX.utils.book_new();
+
+      const hojaErrores = XLSX.utils.aoa_to_sheet(importErrors.map((error:any)=>[error[2]]))
+
+      XLSX.utils.book_append_sheet(errorLogBook, hojaErrores, 'Import Errors');
+
+      const newBlob = new Blob([XLSX.write(errorLogBook, {type:'array', bookType:'xls'})],{
+        type: 'application/vnd.ms-excel',
+      })
+
+      const fileUrl = URL.createObjectURL(
+        newBlob
+      );
+
+      const link = document.createElement('a');
+      link.href = fileUrl;
+      link.setAttribute('download', "errores_import")
+      document.body.appendChild(link)
+      link.click();
+      URL.revokeObjectURL(fileUrl)
+
+    }
+
    return (
-    <div className='w-[55%] border border-black mx-auto  left-[20rem] !z-50  absolute top-[10%] cursor-default ' onClick={stopPropagation} style={{backgroundColor:'rgb(103 111 157 / 1)'}}>
+    <div className='w-[55%] border border-black mx-auto  left-[20rem] !z-50  absolute top-[8%] cursor-default ' onClick={stopPropagation} style={{backgroundColor:'rgb(103 111 157 / 1)'}}>
             <div className='  w-full'>
                 <h1 className='absolute right-0 text-5xl cursor-pointer userFormBtnClose top-0' onClick={()=>onClose()}>X</h1>
                 <h1 className='text-xl text-center text-white '>Importando</h1>
@@ -110,17 +141,22 @@ const ModalImpor:React.FC<ModalImportProps> = ({
 
                 </div>
 
+                {titleState === 'Errores' && (
+                  <div className="bg-red-500 w-1/4 translate-x-5 translate-y-10 rounded-full">
+                    <button className='px-4 text-white' onClick={()=>downloadLogErrorsExcel()}> Descargar log errores</button>
+                  </div>
+                )}
+
                 {titleState === "Errores" && (
-            <div className=' mt-[7rem] overflow-scroll  !h-[20rem] bg-white !z-50'>
-                    <TableComponent
-                        idMenu={26}
-                        entidad='progres bar'
-                        tableHead={table_head_errors}
-                        data={importErrors}
-                        />
-            </div>
-                        
-                    )}
+                  <div className=' mt-[7rem] overflow-scroll  !h-[20rem] bg-white !z-50'>
+                          <TableComponent
+                              idMenu={26}
+                              entidad='progres bar'
+                              tableHead={table_head_errors}
+                              data={importErrors}
+                              />
+                  </div>
+                )}
 
         </div>
        
