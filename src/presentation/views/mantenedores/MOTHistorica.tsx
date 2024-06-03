@@ -472,8 +472,8 @@ const MOTHistorica: React.FC = () => {
               { name: "_folio", label: "Folio", type: "text" },
               { name: "_rut", label: "Rut", type: "text" },
   
-              { name: "_fecha_desde", label: "Atención Desde", type: "date", styles: { with: "w-[18.2rem]  !h-[6rem]" } },
-              { name: "_fecha_hasta", label: "Atención Hasta", type: "date", styles: { with: "w-[18.2rem]  !h-[6rem]" } },
+              { name: "_fecha_desde", label: "Atención Desde", type: "date", styles: { with: "w-[10rem]  !h-[3rem]", container:"w-[18rem]"  } },
+              { name: "_fecha_hasta", label: "Atención Hasta", type: "date", styles: { with: "w-[10rem]  !h-[3rem]", container:"w-[18rem]" } },
   
               { name: "_estado", label: "Estado", type: "select", selectUrl: "/api/tipos/", tipos: "OTEstados", styles: { with: "w-[20.4rem]" }},
               { name: "_establecimiento", label: "Establecimiento", type: "select", selectUrl: "/api/establecimientos/", styles: { with: "w-[20.4rem]" }},

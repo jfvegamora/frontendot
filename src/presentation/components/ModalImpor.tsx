@@ -135,10 +135,10 @@ const ModalImpor:React.FC<ModalImportProps> = ({
                     label="Completed" 
                     color={titleState === 'Errores' ? 'red' : 'orange'}
                     size="lg"
-                    className='h-20'
+                    className='h-10'
                   
                     />
-
+              
                 </div>
 
                 {titleState === 'Errores' && (

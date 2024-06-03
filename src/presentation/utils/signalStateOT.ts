@@ -2077,6 +2077,7 @@ export const updateOT = async (
 
 export function formatNumberWithZeros(inputNumber: number): string {
   // Convierte el número a cadena y obtén su longitud
+  console.log(inputNumber);
   const numberString = String(inputNumber);
   const length = numberString.length;
 
@@ -2086,13 +2087,15 @@ export function formatNumberWithZeros(inputNumber: number): string {
   // Concatena los ceros a la izquierda y el número original
   const formattedNumber = "0".repeat(zerosToAdd) + numberString;
 
+  console.log(formattedNumber);
+
   return formattedNumber;
 }
 
 export const validateSameUserImpresionOT = async (user: any, folio: any) => {
   try {
     const { data } = await axios(
-      `https://gestiondev.mtoopticos.cl/api/ot/imprimir/?query=01&_origen=50&_folio=${folio}`
+      `https://gestiondev.mtoopticos.cl/api/ot/imprimir/?query=01&_origen=50&_p1=${folio}`
     );
 
     console.log(data);

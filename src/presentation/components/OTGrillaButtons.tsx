@@ -263,6 +263,7 @@ const imprimirComprobanteRetiro = async(tipoComprobante?:string) => {
                         onClick={() => {
                             const loadingToast = toast.loading('Cargando...');
                             new Promise((_resolve)=>{
+                                console.log(estado)
                                 toggleEditOTModal(folio, historica,estado).finally(()=>{
                                     toast.dismiss(loadingToast);
                                 }) 

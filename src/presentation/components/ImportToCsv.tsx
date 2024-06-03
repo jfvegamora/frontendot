@@ -16,9 +16,12 @@ import { paramsOT, switchFetchOT } from '../views/mantenedores/MOT';
 import axios from 'axios';
 // import { excelOTValidationStructure } from '../utils';
 
-export const resultExcelTypes = signal({})
-export const totalImport = signal(0);
-export const restanteImport = signal(1);
+export const resultExcelTypes  = signal({});
+export const totalImport       = signal(0);
+export const restanteImport    = signal(1);
+export const isFetchCompleted  = signal(false);
+export const progressBar       = signal(0);
+
 
 interface ImportProps{
   // strEntidad: string | undefined;
@@ -56,21 +59,61 @@ const ImportToCsv:React.FC<ImportProps> = ({
     totalImport.value    = 0;
   }
 
+  async function executeFetchWithProgress(validate:any, numberOfElements:any) {
+    const abortController = new AbortController();
 
-  const handleProgressUpdate = async (start: number, end: number, _nextStage: string, _size: number) => {
-    const timePerUpdate   = 3.9603960396039604
+    console.log(progressBar.value)
+
+    const fetchPromise = executeFetch(validate, numberOfElements).then((result) => {
+      console.log('render')
+      isFetchCompleted.value = true;  // Mark fetch as completed
+      return result;
+    });
+
+    const [fetchResult] = await Promise.all([
+      fetchPromise,
+      handleProgressUpdate(0,100,'', numberOfElements, abortController)
+    ]);
+
+
+
+    abortController.abort();
+    return fetchResult;
+  }
+
+
+
+  const handleProgressUpdate = async (start: number, end: number, _nextStage: string, _size: number,abortController?:any) => {
+    const timePerUpdate   = 2.9603960396039604
     const increment = 0.06
 
     for (let i = start; i <= 100; i += increment) {
+      if (isFetchCompleted.value) {
+        setProgress(100)
+        return;
+      }
+
+      if(Math.round(progressBar.value) === 99 && !isFetchCompleted.value){
+        setTimeout(()=>{
+          console.log('')
+        },1000)
+        setProgress(0)
+        progressBar.value = 0;
+        i = start;
+        continue
+      }
+
+
       await new Promise((resolve) => {
         setTimeout(() => {
           const progressPercentage = Math.min((i / end) * 100, 100);
           setProgress(progressPercentage);
+          progressBar.value = progressPercentage
           resolve(null)
         }, timePerUpdate);
       });
+   
     }
-    setProgress(100)
   };
 
   
@@ -106,7 +149,7 @@ const ImportToCsv:React.FC<ImportProps> = ({
           jsonResponse.push(response.data)
           
           if(response.status === 200 && (i < validate["blob"].length - 1)){
-            handleValidacion(0)
+            // handleValidacion(0)
           }else{
             setProgress(100)
           }
@@ -121,15 +164,17 @@ const ImportToCsv:React.FC<ImportProps> = ({
 
       }
       
+
       console.log(jsonResponse)
       if(jsonResponse){
+        console.log('render')
         setProgress(100)
       }
       const isErrorImport = jsonResponse.some((mensaje:any)=>mensaje.Error)
 
       //?CAMBIAR A FALSE PARA DEJAR DE PROBAR
       if(!isErrorImport){
-        executeFetchImportOT(jsonResponse,userState?.id)
+        await executeFetchImportOT(jsonResponse,userState?.id)
       }
 
       switchFetchOT.value = true;
@@ -172,10 +217,10 @@ const ImportToCsv:React.FC<ImportProps> = ({
     }
   }
   
-  const handleValidacion = async (size:number) => {
-    await handleProgressUpdate(0, 100, 'Almacenamiento',size);
-    setProgress(100)
-  };
+  // const handleValidacion = async (size:number) => {
+  //   await handleProgressUpdate(0, 100, 'Almacenamiento',size);
+  //   setProgress(100)
+  // };
 
   useEffect(()=>{
     setErrors((prev:any)=>prev)
@@ -211,10 +256,12 @@ const ImportToCsv:React.FC<ImportProps> = ({
     
     if(validate["blob"] && validate["numberOfElements"]){ 
       
-      const [fetchResult] = await Promise.all([
-        executeFetch(validate, validate["numberOfElements"]),
-        handleValidacion(validate["numberOfElements"] || 0),
-      ]);
+      // const [fetchResult] = await Promise.all([
+      //   executeFetch(validate, validate["numberOfElements"]),
+      //   handleValidacion(validate["numberOfElements"] || 0),
+      // ]);
+
+      const fetchResult = await executeFetchWithProgress(validate, validate["numberOfElements"])
 
       console.log('render')
 

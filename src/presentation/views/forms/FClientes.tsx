@@ -352,7 +352,7 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
             <div className="input-container items-center !mt-[1rem] rowForm !h-[19rem]">
               <div className="flex" style={{ display: 'inline'}}>
                 <div className="flex">
-                  <div className="w-[50%] !mt-2 mr-10 flex !h-[8rem]">
+                  <div className="w-[50%] !mt-2 mr-10 flex !h-[9rem]">
                     <RadioButtonComponent
                       control={control}
                       label="Sexo"

@@ -168,7 +168,7 @@ const MCristales: React.FC = () => {
                   label: "Stock",
                   type: "select",
                   selectUrl: "/api/tipos/",
-                  tipos: "Stock", styles: { with: "!mt-[0.5rem] !w-[12rem]" },
+                  tipos: "Stock", styles: { with: "!mt-[0.5rem] !w-[19rem]" },
                 },
               ]}
             />

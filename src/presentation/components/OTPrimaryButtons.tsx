@@ -138,13 +138,17 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
       const todosIguales          = pkToDelete.slice(1).every((ot:any) => ot.proyecto_codigo === primerProyectoCodigo);
       const impresaAnteriormente  = pkToDelete.every((ot:any) => ot.estado_impresion === '0');
       const validateUsuario       = pkToDelete.every((ot:any) => ot["usuario_id"] === User.id);
-
+      console.log(folios)
+      const listaFolios = folios.map((num:number) => `${num}`).join(',')
+      console.log(listaFolios)
+      
       if(!validateUsuario){
         toast.dismiss(toastLoading);
         toast.error(`OT ${folios} no pertenece al Usuario ${User.nombre}`);
         return;
       }
-
+      console.log(pkToDelete)
+      console.log(impresaAnteriormente)
       if(!impresaAnteriormente){
         toast.dismiss(toastLoading);
         return toast.error(`La OT con folio: ${pkToDelete.filter((ot:any)=> ot.estado_impresion === '1').map((ot:any)=>ot.folio)}, ya fueron impresas anteriormente.`)
@@ -155,22 +159,15 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
         toast.error('Las OTs no pertenecen al mismo proyecto')
         return;
       }
+      setIsFOTImpresa(true)  
+      await dispatch(fetchOTImpresionByID({ folio: listaFolios, OTAreas: OTAreas['areaActual'] })).then(()=>{
+        console.log('render')
+        handlePrint()
+      });
 
 
-      for (const ot of pkToDelete) {
-        try {
-          setIsFOTImpresa(true);
-          console.log(ot.folio);
-          await dispatch(fetchOTImpresionByID({ folio: ot.folio, OTAreas: OTAreas['areaActual'] }));
-    
-        } catch (error) {
-          console.log(error);
-        }
-      }
 
-
-        try {
-          handlePrint()
+      try {
           toast.dismiss(toastLoading)
         } catch (error) {
           toast.dismiss(toastLoading)
@@ -413,14 +410,18 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
           0,
           false,
           'Procesada'
-        ).then(()=>{
-          dispatch(fetchOT({OTAreas:OTAreas["areaActual"],searchParams: paramsOT.value}))
-          setSelectedRows([])
-          checkCount.value = 0;
-          clearAllCheck.value = false;
-        })
+        )
+        //.then(()=>{
+        //   dispatch(fetchOT({OTAreas:OTAreas["areaActual"],searchParams: paramsOT.value}))
+        //   setSelectedRows([])
+        //   checkCount.value = 0;
+        //   clearAllCheck.value = false;
+        // })
       })
-
+      dispatch(fetchOT({OTAreas:OTAreas["areaActual"],searchParams: paramsOT.value}))
+      setSelectedRows([])
+      checkCount.value = 0;
+      clearAllCheck.value = false;
       toast.dismiss(toastLoading);
       toast.success('OTs Procesadas Correctamente',{
         autoClose: 900

@@ -43,6 +43,7 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
   // const OTData:any = useAppSelector((store: AppStore) => store.OTS);
   const areaActual = OTAreas["areaActual"]
   
+  
 
   // console.log("queryutils", query);
   const refreshData = useCallback(() => {
@@ -89,7 +90,7 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
   //Metodo Check aLL
   const handleSelectedAll = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>, row?: any) => {
-      const selectedRowsLimited = event.target.checked ? row.slice(0, 600) : [];
+      const selectedRowsLimited = event.target.checked ? row.slice(0, 200) : [];
       setSelectedRows(selectedRowsLimited);
     },
     [entities]
@@ -125,11 +126,13 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
 
   const toggleEditOTModal = useCallback(async(folio:any,historica:any, estado?:any)=>{
       try {
-      const endpoint = historica === false ? `${URLBackend}/api/ot/listado/?query=01&_folio=${folio}&_estado${estado}` : `${URLBackend}/api/othistorica/listado/?query=01&_folio=${folio}&_estado=${estado}`
+        console.log(historica)
+      const endpoint = historica === false ? `${URLBackend}/api/ot/listado/?query=01&_p1=${folio}&_estado${estado}&_p2=0` : `${URLBackend}/api/othistorica/listado/?query=01&_p1=${folio}&_estado=${estado}&_p2=0`
       const response = await axios(endpoint)
       setEntity(response.data[0])
       // console.log(historica)
-      dispatch(fetchOTByID({ folio: folio, OTAreas: areaActual, historica: historica }));
+      console.log(areaActual)
+      dispatch(fetchOTByID({ folio: folio, OTAreas: areaActual, historica: historica, estado:estado }));
       setIsModalEdit(true);
       return ''
       } catch (error) {

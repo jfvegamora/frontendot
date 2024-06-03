@@ -262,6 +262,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
               const folio             = rowData[1]
               let estado              = ""
               if(isOT){
+                console.log(rowData)
                 estado                = rowData[3]
               }
 

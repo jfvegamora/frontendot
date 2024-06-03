@@ -221,7 +221,7 @@ const MOT: React.FC = () => {
 
                 { name: "_fecha_desde", label: "Atención Desde", type: "date", styles: { with: "w-[4rem]  !h-[3rem]", container: "w-[8rem]" } },
                 { name: "_fecha_hasta", label: "Atención Hasta", type: "date", styles: { with: "w-[4rem]  !h-[3rem]", container:"w-[8rem] translate-x-[-10rem]" } },
-                { name: "_usuario", label: "Usuario", type: "select",selectUrl: "/api/usuarios/", styles: { with: "w-[20.4rem]  !h-[6rem] !absolute top-[8.5rem] left-[20rem]" } },
+                { name: "_usuario", label: "Usuario", type: "select",selectUrl: "/api/usuarios/", styles: { with: "w-[20.4rem]  !h-[6rem] !absolute top-[9.8rem] left-[20rem]" } },
 
                 { name: "_estado", label: "Estado", type: "select", selectUrl: "/api/tipos/", tipos: "OTEstados", styles: { with: "w-[20.4rem] absolute left-0" }},
                 { name: "_establecimiento", label: "Establecimiento", type: "select", selectUrl: "/api/establecimientos/", styles: { with: "w-[20.4rem]" }},

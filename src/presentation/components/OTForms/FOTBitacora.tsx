@@ -30,7 +30,7 @@ const FOTBitacora:React.FC<IBitacora> = ({
     setDataBitacora(result.data || "")
   }
 
-  // console.log('entitines', dataBitacora)
+  console.log('entitines', dataBitacora)
 
   useEffect(()=>{
     fetchData()
