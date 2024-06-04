@@ -1,6 +1,6 @@
 import React, {useCallback, useState, useEffect} from 'react'
 import {useDropzone} from 'react-dropzone';
-import {executeFetchImportOT, handleFileUpload, updateErrorRows} from '../utils/validationCSVFile';
+import {executeFetchImportOT, handleFileUpload} from '../utils/validationCSVFile';
 import { useCrud } from '../hooks';
 import ModalImpor from './ModalImpor';
 import {toast} from 'react-toastify';
@@ -83,9 +83,11 @@ const ImportToCsv:React.FC<ImportProps> = ({
 
 
 
-  const handleProgressUpdate = async (start: number, end: number, _nextStage: string, _size: number,abortController?:any) => {
-    const timePerUpdate   = 2.9603960396039604
-    const increment = 0.06
+  const handleProgressUpdate = async (start: number, end: number, _nextStage: string, _size: number,_abortController?:any) => {
+    const totalTime = 60000; // 60 seconds in milliseconds
+    const increments = 1000; // Number of increments (for smooth progress)
+    const timePerUpdate = totalTime / increments; // Time per update to achieve 60 seconds total
+    const increment = 100 / increments; // Progress increment per update
 
     for (let i = start; i <= 100; i += increment) {
       if (isFetchCompleted.value) {
@@ -268,6 +270,9 @@ const ImportToCsv:React.FC<ImportProps> = ({
       console.log(fetchResult)
 
       const isErrorImport = fetchResult.some((mensaje:any)=>mensaje.Error)
+      const axiosError    = fetchResult?.response
+
+      console.log(axiosError)
 
       console.log(isErrorImport);
 

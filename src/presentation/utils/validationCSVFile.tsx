@@ -110,6 +110,8 @@ export const handleFileUpload = (file: File,columnsToDelete:string[], strEntidad
   return new Promise<ExcelUploadResult>((resolve, reject) => {
     const reader = new FileReader();
     const errors:any = []
+    const numeroPaginas = 200
+
 
     reader.onload = (e) => {
       const target = e.target;
@@ -140,7 +142,6 @@ export const handleFileUpload = (file: File,columnsToDelete:string[], strEntidad
         console.log('render')
 
         const blobs = []
-        const numeroPaginas = 200
         
         const encabezado = filteredRows.slice(0,3)
         const encabezado2 = filteredRows.slice(0,2)

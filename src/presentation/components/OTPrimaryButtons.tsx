@@ -5,7 +5,7 @@ import { SiAddthis } from 'react-icons/si';
 import { PiPrinterFill } from "react-icons/pi";
 import { PiMicrosoftExcelLogoFill } from "react-icons/pi";
 import { ImWhatsapp } from "react-icons/im";
-import { BUTTON_MESSAGES, clearAllCheck, clearIndividualCheck, reiniciarValidationNivel3, updateOT } from '../utils';
+import { BUTTON_MESSAGES, clearAllCheck, clearIndividualCheck, disabledIndividualCheck, reiniciarValidationNivel3, updateOT } from '../utils';
 import ImportToCsv from './ImportToCsv';
 import { AppStore, useAppDispatch, useAppSelector } from '../../redux/store';
 import { toast } from 'react-toastify';
@@ -133,35 +133,43 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
     // })
 
     const handleImpresionMasivo = async () => {      
+      console.log(pkToDelete)
+      if(pkToDelete.length === 0){
+        return toast.error('No hay OTs Seleccionadas.')
+      }
+      disabledIndividualCheck.value = true;        
       const toastLoading = toast.loading('Imprimiendo OT´s.')
       const primerProyectoCodigo = pkToDelete[0].proyecto_codigo;
       const todosIguales          = pkToDelete.slice(1).every((ot:any) => ot.proyecto_codigo === primerProyectoCodigo);
       const impresaAnteriormente  = pkToDelete.every((ot:any) => ot.estado_impresion === '0');
-      const validateUsuario       = pkToDelete.every((ot:any) => ot["usuario_id"] === User.id);
-      console.log(folios)
+      // const validateUsuario       = pkToDelete.every((ot:any) => ot["usuario_id"] === User.id);
       const listaFolios = folios.map((num:number) => `${num}`).join(',')
-      console.log(listaFolios)
+      // console.log(listaFolios)
       
-      if(!validateUsuario){
-        toast.dismiss(toastLoading);
-        toast.error(`OT ${folios} no pertenece al Usuario ${User.nombre}`);
-        return;
-      }
-      console.log(pkToDelete)
-      console.log(impresaAnteriormente)
+      // if(!validateUsuario){
+      //   toast.dismiss(toastLoading);
+      //   toast.error(`OT ${folios} no pertenece al Usuario ${User.nombre}`);
+      //   return;
+      // }
+      // console.log(pkToDelete)
+      // console.log(impresaAnteriormente)
+      
       if(!impresaAnteriormente){
         toast.dismiss(toastLoading);
+        disabledIndividualCheck.value = false;        
         return toast.error(`La OT con folio: ${pkToDelete.filter((ot:any)=> ot.estado_impresion === '1').map((ot:any)=>ot.folio)}, ya fueron impresas anteriormente.`)
         
       }
 
       if(!todosIguales){
+        disabledIndividualCheck.value = false;        
         toast.error('Las OTs no pertenecen al mismo proyecto')
         return;
       }
+
       setIsFOTImpresa(true)  
       await dispatch(fetchOTImpresionByID({ folio: listaFolios, OTAreas: OTAreas['areaActual'] })).then(()=>{
-        console.log('render')
+        // console.log('render')
         handlePrint()
       });
 
@@ -169,8 +177,10 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
 
       try {
           toast.dismiss(toastLoading)
+          disabledIndividualCheck.value = false;        
         } catch (error) {
           toast.dismiss(toastLoading)
+          disabledIndividualCheck.value = false;        
           return;    
         }
     };
@@ -189,20 +199,31 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
       if(isFinishImpression.value === true){
         if(pkToDelete.length >= 1){
           let masivo = true
-          pkToDelete.map((ot:any)=>{
-            try {
-                setEstadoImpresion(ot.folio,1,User,OTAreas["areaActual"],masivo).then(()=>{
-                  clearIndividualCheck.value = true;
-                })            
-              } catch (error) {
-                console.log(error)
+            setEstadoImpresion(pkToDelete, OTAreas["areaActual"], masivo, User).then(()=>{
+            clearIndividualCheck.value = true;
+            dispatch(fetchOT({OTAreas:OTAreas["areaActual"],searchParams: paramsOT.value}))
+
+            clearAllCheck.value = false;
+            isFinishImpression.value = false;
+          // const loadingToast = toast.load ing('Cargando...')
+          // pkToDelete.map((ot:any)=>{
+          //   try {
+          //         setEstadoImpresion(ot.folio,1,User,OTAreas["areaActual"],masivo).then(()=>{
+          //         clearIndividualCheck.value = true;
+          //         dispatch(fetchOT({OTAreas:OTAreas["areaActual"],searchParams: paramsOT.value}))
+
+          //         clearAllCheck.value = false;
+          //         isFinishImpression.value = false;
+          //         // toast.success('Es')
+          //         toast.dismiss
+
+          //       })            
+          //     } catch (error) {
+          //       console.log(error)
                 
-              }
-           })}
-           dispatch(fetchOT({OTAreas:OTAreas["areaActual"],searchParams: paramsOT.value}))
-           clearAllCheck.value = false;
-           isFinishImpression.value = false;
-      }
+          //     }
+          //  })}
+      })}}
       // toast.success('Estado Impresión Cambiado.');
     },[isFinishImpression.value])
 

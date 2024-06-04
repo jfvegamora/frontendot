@@ -46,25 +46,34 @@ const FOTTicketQRImpresion   = React.lazy(()=>import('../views/forms/FOTTicketQR
 const FOTTicketImpresion     = React.lazy(()=>import('../views/forms/FOTTicketImpresion'));
 
 
-export  const setEstadoImpresion = async(folio:any,_estado:any, userID:any, _origen:any, masivo?:boolean) => {
+export  const setEstadoImpresion = async(pkToDelete?:any, origen?:any, masivo?:boolean, usuario?:any) => {
     const loadingToast = toast.loading('Cargando...');
-    
+    let estado_impresion = 1;
     try {
-        const query = `?query=06&_folio=${folio}&_p2=${1}&_estado=${_estado}&_usuario=${userID.id}&_origen=${_origen}`
+        console.log(pkToDelete)
+        const data_JSON = pkToDelete.map((ot:any)=>{
+            return {folio: `${ot.folio}`}
+        })
+
+        const query = `?query=06&_dataJSON=${encodeURIComponent(JSON.stringify(data_JSON))}&_p2=${estado_impresion}&_usuario=${usuario.id}&_origen=${origen}`
+        
         const result = await axios(`${strUrl}/${query}`,{
             headers: {
-               'Authorization': userID.token, 
+               'Authorization': usuario.token, 
              }
        });
-        console.log(result)
-        console.log(masivo)
+       toast.dismiss(loadingToast);
+    console.log(result)
         
         if(masivo){
+            clearAllCheck.value = false;
+            clearIndividualCheck.value = true;
+            console.log(masivo)
             return ;
         }
 
         if(result.status === 200 && !masivo){
-            toast.dismiss(loadingToast);
+            // toast.dismiss(loadingToast);
             disabledIndividualCheck.value = false;
             result.data[0][0]  === 1 ? isToggleImpression.value = true : isToggleImpression.value = false;
             toast.success('Estado Impresión Cambiado.', {
@@ -73,7 +82,7 @@ export  const setEstadoImpresion = async(folio:any,_estado:any, userID:any, _ori
         }
     } catch (error) {
         if(masivo) return;
-        toast.dismiss(loadingToast)
+        // toast.dismiss(loadingToast)
         toast.error('Error Estado Impresión OT.')
         throw error
     }
@@ -117,26 +126,31 @@ const resetImpresionStates = () => {
         
         isFinishImpression.value = true;
         dispatch(clearImpression())
-        if(OT[QR] === 1){
-            setisFotTicketQR(true)
-        }
     },
 });
 
 React.useEffect(()=>{
     if(isFinishImpression.value === true){
+        const toastloading = toast.loading('Cargando....')
           try {
               isFinishImpression.value = false;
                 console.log('render')
-               setEstadoImpresion(folioActual.value,1,user,OTAreas["areaActual"],false).then(()=>{
+                const pktoDelete = [{
+                    folio: folioActual.value,
+                    estado_id: 1,
+                }]
+
+                setEstadoImpresion(pktoDelete, OTAreas["areaActual"],false, user).then(()=>{
                 clearIndividualCheck.value = true;
                 dispatch(fetchOT({OTAreas:OTAreas["areaActual"],searchParams: paramsOT.value}))
                 console.log('render')
                 clearAllCheck.value = false;
                 folioActual.value = false;
+                toast.dismiss(toastloading)
               })            
             } catch (error) {
               console.log(error)
+              toast.dismiss(toastloading)
               isFinishImpression.value = false;
             }
          

@@ -14,7 +14,7 @@ const FOTTicketImpresion =  React.forwardRef((_props:any, ref:any) => {
 
     const {data} = _props;
     console.log( data )
-    console.log(data[EnumGrid.titulo1_ticket])
+    console.log(data[EnumGrid.fecha_atencion])
     return (
     <div ref={ref} className=''>
         {(
@@ -42,13 +42,13 @@ const FOTTicketImpresion =  React.forwardRef((_props:any, ref:any) => {
              <div className="w-full flex justify-around !-mt-2 ml-2">
                <div className="w-[45%] ml-2">
                  <h2 className='font-bold text-lg'>F. Atencion: </h2>
-                 {/* <p className="border-b-2 text-base -mt-2 mb-2 border-black mx-auto ">{parsedDate(data[EnumGrid.fecha_atencion])} </p> */}
-                 <p className="border-b-2 text-base -mt-2 mb-2 border-black mx-auto ">{'a'} </p>
+                 <p className="border-b-2 text-base -mt-2 mb-2 border-black mx-auto ">{parsedDate(data[EnumGrid.fecha_atencion])} </p>
+                 {/* <p className="border-b-2 text-base -mt-2 mb-2 border-black mx-auto ">{'a'} </p> */}
                </div>
                <div className="w-[40%] ml-4 ">
                  <h2 className='font-bold text-lg'>F. Entrega: </h2>
-                 {/* <p className="border-b-2 text-base -mt-2  border-black mx-auto ">{parsedDate(data[EnumGrid.fecha_entrega_cliente])} </p> */}
-                 <p className="border-b-2 text-base -mt-2  border-black mx-auto ">{'aa'} </p>
+                 <p className="border-b-2 text-base -mt-2  border-black mx-auto ">{parsedDate(data[EnumGrid.fecha_entrega_cliente])} </p>
+                 {/* <p className="border-b-2 text-base -mt-2  border-black mx-auto ">{'aa'} </p> */}
                </div>
              </div>
 
@@ -58,11 +58,7 @@ const FOTTicketImpresion =  React.forwardRef((_props:any, ref:any) => {
              </div>
 
 
-             {data && data[EnumGrid.imprime_qr] === 1 && (
-                      <div className="!mt-[8rem]">
-                        <FOTTicketQRImpresion />
-                      </div>
-                    )}
+             
            </div>
         )}
     </div>

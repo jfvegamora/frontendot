@@ -184,7 +184,7 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
             setValue(' ')
             setRender((prev)=>!prev)  
             validation_A1_OD_EJE("")
-            toast.error('Esférico OD no corresponde.')
+            toast.error('ESF OD no corresponde.')
             return
           }else{
             setRender((prev)=>!prev)             
@@ -192,7 +192,7 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
             return
           }
         }else{
-          toast.error('Esférico OD no corresponde.')
+          toast.error('ESF OD no corresponde.')
           dioptrias_receta.value.a1_od.eje = "  "
           a1_od_eje.value = " "
           setRender((prev)=>!prev)  
@@ -202,7 +202,7 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
         }
       case 'a1_od_ad':
         if(!(parseFloat(e.target.value) >= 0.25 && parseFloat(e.target.value) <= 4)) {
-            toast.error('Adición OD no corresponde.')
+            toast.error('AD OD no corresponde.')
             dioptrias_receta.value.a1_od.ad = "  "
             setValue("  ")
             return;
@@ -211,7 +211,7 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
       
       case 'a1_oi_esf':
         if((Number(e.target.value).toFixed(2) as any % 0.25 !== 0)){
-          toast.error('Esférico OI no corresponde.')
+          toast.error('ESF OI no corresponde.')
           a1_oi_esf.value = " "
           setValue("  ")
           return;
@@ -223,7 +223,7 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
         if(parsedValueOI > 0){
           null
         }else if(!(parsedValueOI <= 0 && parsedValueOI % 0.25 === 0)){
-          toast.error('Cilindrico OI no corresponde.')  
+          toast.error('CIL OI no corresponde.')  
           dioptrias_receta.value.a1_oi.cil = "  "
           setValue("  ")
         }
@@ -235,7 +235,7 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
             setValue(' ')
             setRender((prev)=>!prev)
             validation_A1_OI_EJE("")
-            toast.error('Esférico OI no corresponde.')
+            toast.error('EJE OI no corresponde.')
             return;
           }else{
             setRender((prev)=>!prev)
@@ -243,7 +243,7 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
             return;
           }
         }else{
-          toast.error('Esférico OI no corresponde.')
+          toast.error('EJE OI no corresponde.')
           dioptrias_receta.value.a1_oi.eje = "  "
           a1_oi_eje.value = " "
           setValue(" ")
@@ -252,7 +252,7 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
         }
       case 'a1_oi_ad':
         if(!(parseFloat(e.target.value) >= 0.25 && parseFloat(e.target.value) <= 4)) {
-          toast.error('Adición OI no corresponde.')
+          toast.error('AD OI no corresponde.')
           dioptrias_receta.value.a1_oi.ad = "  "
           setValue("  ")
           return;

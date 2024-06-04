@@ -8,16 +8,13 @@ import FOTTicketImpresion from './FOTTicketImpresion';
 import FOTTicketQRImpresion from './FOTTicketQRImpresion';
 import LogoImagenImpresion from '../../components/LogoImagenImpresion';
 
-export const parsedDate = (data: any): any => {
-  if (data) {
-    return data.map((date:any)=>{
-      console.log(date)
-      const partesFecha = date.split('-'); // Divide la cadena en partes usando el guion como separador
-      const año = partesFecha[0];
-      const mes = partesFecha[1];
-      const dia = partesFecha[2];
-      return `${dia}-${mes}-${año}`
-    })
+export const parsedDate = (date: string): any => {
+  if (date) {
+    const partesFecha = date.split('-'); // Divide la cadena en partes usando el guion como separador
+    const año = partesFecha[0];
+    const mes = partesFecha[1];
+    const dia = partesFecha[2];
+    return `${dia}-${mes}-${año}`
   }
 }
 
@@ -55,11 +52,12 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
             {OT && OT.map((list_ot: any) => (
               list_ot.map((ot:any, index:any)=>{
                 return(
-                  <div className={`!w-[90%] ${ot[EnumGrid.imprime_ticket] === 1 ? '!h-[180rem]' : '!h-[90rem]'}  ${((index > 0) && (ot[EnumGrid.imprime_ticket] === 1)) && '!-mt-[38rem]'}   ${(index > 0) && (ot[EnumGrid.imprime_ticket] === 0) && '!-mt-[19rem]'}`} key={ot[EnumGrid.folio]} >
-                    <div className={`w-[100%] relative  ${ot[EnumGrid.imprime_ticket] === 1 ? '!h-[2.5%]' : '!h-[5%]'} mb-4`}>
+                  // <div className={`!w-[90%] ${ot[EnumGrid.imprime_ticket] === 1 ? '!h-[180rem]' : '!h-[90rem]'}  ${((index > 0) && (ot[EnumGrid.imprime_ticket] === 1)) && '!-mt-[38rem]'}   ${(index > 0) && (ot[EnumGrid.imprime_ticket] === 0) && '!-mt-[19rem]'}`} key={ot[EnumGrid.folio]} >
+                  <div className={`!w-[90%] ${(ot[EnumGrid.imprime_ticket] === 1 || ot[EnumGrid.imprime_qr] === 1 ) ? '!h-[140.28rem]' : '!h-[70.14rem]'}`} key={ot[EnumGrid.folio]} >
+                    <div className={`w-[100%] relative  ${ot[EnumGrid.imprime_ticket] === 1 ? '!h-[3.5%]' : '!h-[7%]'} mb-4`}>
                       <div className="w-[90%] mr-7  mx-auto">
                         <Barcode marginLeft={45} height={25} width={2.5} textAlign='right' value={formatNumberWithZeros(ot[EnumGrid.folio])} />
-                        <h3 className={`absolute left-3 mt-2 bottom-2`}>{fechaHoraFormateada}</h3>
+                        <h3 className={`absolute left-3 mt-2 bottom-4`}>{fechaHoraFormateada}</h3>
                       </div>
                     </div>
   
@@ -335,7 +333,11 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                         <FOTTicketImpresion data={ot} />
                       </div>
                     )}
-  
+                    {ot && ot[EnumGrid.imprime_qr] === 1 && (
+                      <div className="!mt-[8rem]">
+                        <FOTTicketQRImpresion />
+                      </div>
+                    )}
                     
   
                   </div>
