@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Progress } from "@material-tailwind/react";
+import { IconButton, Progress, Tooltip } from "@material-tailwind/react";
 import { TableComponent } from '.';
 import { table_head_errors } from '../utils';
 import { restanteImport, resultExcelTypes, totalImport } from './ImportToCsv';
 import * as XLSX from 'xlsx';
+import { PiMicrosoftExcelLogoFill } from 'react-icons/pi';
 
 
 interface ModalImportProps {
@@ -121,8 +122,8 @@ const ModalImpor:React.FC<ModalImportProps> = ({
     }
 
    return (
-    <div className='w-[55%] border border-black mx-auto  left-[20rem] !z-50  absolute top-[8%] cursor-default ' onClick={stopPropagation} style={{backgroundColor:'rgb(103 111 157 / 1)'}}>
-            <div className='  w-full'>
+    <div className='w-[55%] border border-black mx-auto  left-[20rem] !z-50  absolute top-[5%] cursor-default ' onClick={stopPropagation} style={{backgroundColor:'rgb(103 111 157 / 1)'}}>
+            <div className='  w-full bg-blue-400 h-[15rem]'>
                 <h1 className='absolute right-0 text-5xl cursor-pointer userFormBtnClose top-0' onClick={()=>onClose()}>X</h1>
                 <h1 className='text-xl text-center text-white '>Importando</h1>
                 <div className='flex mx-auto w-1/2 '>
@@ -142,9 +143,17 @@ const ModalImpor:React.FC<ModalImportProps> = ({
                 </div>
 
                 {titleState === 'Errores' && (
-                  <div className="bg-red-500 w-1/4 translate-x-5 translate-y-10 rounded-full">
-                    <button className='px-4 text-white' onClick={()=>downloadLogErrorsExcel()}> Descargar log errores</button>
-                  </div>
+                  <Tooltip content={'Descargar Plantilla Excel'} >
+                    <IconButton 
+                      className='text-white ml-10'
+                      variant='text'
+                      color="blue-gray"
+                      >
+                      <PiMicrosoftExcelLogoFill className='primaryBtnIcon' onClick={()=>downloadLogErrorsExcel()} />
+        
+                    </IconButton>
+                    {/* <Button color="green" className='otActionButton mx-4' >Macro Excel</Button> */}
+                </Tooltip>
                 )}
 
                 {titleState === "Errores" && (

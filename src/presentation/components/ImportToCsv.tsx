@@ -56,7 +56,7 @@ const ImportToCsv:React.FC<ImportProps> = ({
     setProgress(0)
     setCurrentStage("Validacion")
     restanteImport.value = 1;
-    totalImport.value    = 0;
+    totalImport.value    = 1;
   }
 
   async function executeFetchWithProgress(validate:any, numberOfElements:any) {
@@ -147,11 +147,11 @@ const ImportToCsv:React.FC<ImportProps> = ({
           const response = await axios.post(url, formData);
           console.log(response)
 
-          restanteImport.value = restanteImport.value + 1
           jsonResponse.push(response.data)
           
           if(response.status === 200 && (i < validate["blob"].length - 1)){
             // handleValidacion(0)
+            restanteImport.value = restanteImport.value + 1
           }else{
             setProgress(100)
           }
