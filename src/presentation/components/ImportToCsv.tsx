@@ -157,9 +157,11 @@ const ImportToCsv:React.FC<ImportProps> = ({
           }
 
 
-        } catch (error) {
+        } catch (error:any) {
           jsonResponse.push(error)
-          console.log(error)
+          if(error.response){
+            return [{Error: [error.response.data.Error]}]
+          }
           setProgress(100)
           return jsonResponse
         }

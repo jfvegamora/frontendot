@@ -201,6 +201,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
           let masivo = true
             setEstadoImpresion(pkToDelete, OTAreas["areaActual"], masivo, User).then(()=>{
             clearIndividualCheck.value = true;
+
             dispatch(fetchOT({OTAreas:OTAreas["areaActual"],searchParams: paramsOT.value}))
 
             clearAllCheck.value = false;
@@ -353,7 +354,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
 
 
 
-    const handleProcesarMasivo = () => {
+    const handleProcesarMasivo = async() => {
       let estado = 0
       console.log(pkToDelete)
       const validateEstado           = pkToDelete.every((ot:any) => ot["estado_validacion"] === '2');
@@ -406,7 +407,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
       }
       const toastLoading = toast.loading('Cargando...');
 
-      pkToDelete.map((ot:any)=>{
+      const updatePromises = pkToDelete.map(async(ot:any)=>{
         if(OTAreas["areaActual"] === 90 || OTAreas["areaActual"] === 100){
           if(ot.numero_envio !== '0'){
             estado = 50
@@ -416,21 +417,21 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
           }
         }
 
-        updateOT(
-          [],
-          OTAreas["areaActual"],
-          OTAreas["areaSiguiente"],
-          estado,
-          [],
-          ot,
-          [],
-          [],
-          User["id"],
-          "",
-          true,
-          0,
-          false,
-          'Procesada'
+        await updateOT(
+            [],
+            OTAreas["areaActual"],
+            OTAreas["areaSiguiente"],
+            estado,
+            [],
+            ot,
+            [],
+            [],
+            User["id"],
+            "",
+            true,
+            0,
+            false,
+            'Procesada'
         )
         //.then(()=>{
         //   dispatch(fetchOT({OTAreas:OTAreas["areaActual"],searchParams: paramsOT.value}))
@@ -439,13 +440,16 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
         //   clearAllCheck.value = false;
         // })
       })
+
+      await Promise.all(updatePromises);
+
       dispatch(fetchOT({OTAreas:OTAreas["areaActual"],searchParams: paramsOT.value}))
       setSelectedRows([])
       checkCount.value = 0;
       clearAllCheck.value = false;
       toast.dismiss(toastLoading);
       toast.success('OTs Procesadas Correctamente',{
-        autoClose: 900
+         autoClose: 900
       });
     }
 
