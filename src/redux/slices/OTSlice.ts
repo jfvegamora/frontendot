@@ -85,7 +85,7 @@ export const fetchOTByID = createAsyncThunk(
   "ot/fetchOTbyID",
   async (params: any) => {
     try {
-      const { folio, OTAreas, historica, estado } = params;
+      const { folio, historica, estado } = params;
 
       const endpoint =
         historica === false

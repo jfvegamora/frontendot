@@ -59,26 +59,28 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null  {
     }
   }
   
-  let _p1 = `"${jsonData.rut}", 
-               "${jsonData.nombre}", 
-                ${
-                  jsonData.tipo === TIPO_CLIENTE.beneficiario
-                    ? "1": jsonData.tipo === TIPO_CLIENTE.particular
-                    ? "2": jsonData.tipo === TIPO_CLIENTE.optica
-                    ? "3": "0"
-                },
-                ${
-                  jsonData.sexo === SEXO.masculino
-                    ? "1": jsonData.sexo === SEXO.femenino
-                    ? "2": jsonData.sexo === SEXO.no_aplica
-                    ? "3": "0"
-                }, 
-               "${jsonData.fecha_nacimiento}", 
-               "${jsonData.direccion}", 
-                ${jsonData.comuna}, 
-               "${jsonData.telefono}", 
-               "${jsonData.correo}", 
-                ${jsonData.establecimiento}`;
+  // let _p1 = `"${jsonData.rut}", 
+  //              "${jsonData.nombre}", 
+  //               ${
+  //                 jsonData.tipo === TIPO_CLIENTE.beneficiario
+  //                   ? "1": jsonData.tipo === TIPO_CLIENTE.particular
+  //                   ? "2": jsonData.tipo === TIPO_CLIENTE.optica
+  //                   ? "3": "0"
+  //               },
+  //               ${
+  //                 jsonData.sexo === SEXO.masculino
+  //                   ? "1": jsonData.sexo === SEXO.femenino
+  //                   ? "2": jsonData.sexo === SEXO.no_aplica
+  //                   ? "3": "0"
+  //               }, 
+  //              "${jsonData.fecha_nacimiento}", 
+  //              "${jsonData.direccion}", 
+  //               ${jsonData.comuna}, 
+  //              "${jsonData.telefono}", 
+  //              "${jsonData.correo}", 
+  //               ${jsonData.establecimiento}`;
+ 
+  let _p1 = `"${jsonData.rut}","${jsonData.nombre}",${jsonData.tipo === TIPO_CLIENTE.beneficiario ? "1": jsonData.tipo === TIPO_CLIENTE.particular ? "2": jsonData.tipo === TIPO_CLIENTE.optica ? "3": "0"},${jsonData.sexo === SEXO.masculino ? "1": jsonData.sexo === SEXO.femenino ? "2": jsonData.sexo === SEXO.no_aplica ? "3": "0"},"${jsonData.fecha_nacimiento}","${jsonData.direccion}",${jsonData.comuna},"${jsonData.telefono}","${jsonData.correo}",${jsonData.establecimiento}`;
   _p1 = _p1.replace(/'/g, '!');
 
   const query: OutputData = {
@@ -134,23 +136,24 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
       jsonData: InputData,
       primaryKey: string
     ): OutputData | null {
-      const fields = [
-        `nombre           ="${jsonData.nombre}"`,
-        `tipo             = ${
-            jsonData.tipo === TIPO_CLIENTE.beneficiario ? 1
-          : jsonData.tipo === TIPO_CLIENTE.particular   ? 2
-          : jsonData.tipo === TIPO_CLIENTE.optica       ? 3: 0}`,
-        `sexo             = ${
-            jsonData.sexo === SEXO.masculino ? 1
-          : jsonData.sexo === SEXO.femenino  ? 2
-          : jsonData.sexo === SEXO.no_aplica ? 3: 0}`,
-        `fecha_nacimiento ="${jsonData.fecha_nacimiento}"`,
-        `direccion        ="${jsonData.direccion}"`,
-        `comuna           = ${jsonData.comuna || data && data[EnumGrid.comuna_id]}`,
-        `telefono         ="${jsonData.telefono}"`,
-        `correo           ="${jsonData.correo}"`,
-        `establecimiento  = ${jsonData.establecimiento}`,
-      ];
+      // const fields = [
+      //   `nombre           ="${jsonData.nombre}"`,
+      //   `tipo             = ${
+      //       jsonData.tipo === TIPO_CLIENTE.beneficiario ? 1
+      //     : jsonData.tipo === TIPO_CLIENTE.particular   ? 2
+      //     : jsonData.tipo === TIPO_CLIENTE.optica       ? 3: 0}`,
+      //   `sexo             = ${
+      //       jsonData.sexo === SEXO.masculino ? 1
+      //     : jsonData.sexo === SEXO.femenino  ? 2
+      //     : jsonData.sexo === SEXO.no_aplica ? 3: 0}`,
+      //   `fecha_nacimiento ="${jsonData.fecha_nacimiento}"`,
+      //   `direccion        ="${jsonData.direccion}"`,
+      //   `comuna           = ${jsonData.comuna || data && data[EnumGrid.comuna_id]}`,
+      //   `telefono         ="${jsonData.telefono}"`,
+      //   `correo           ="${jsonData.correo}"`,
+      //   `establecimiento  = ${jsonData.establecimiento}`,
+      // ];
+      const fields = [`nombre="${jsonData.nombre}"`,`tipo= ${jsonData.tipo === TIPO_CLIENTE.beneficiario ? 1 : jsonData.tipo === TIPO_CLIENTE.particular  ? 2 : jsonData.tipo === TIPO_CLIENTE.optica ? 3: 0}`,`sexo=${jsonData.sexo === SEXO.masculino ? 1 : jsonData.sexo === SEXO.femenino  ? 2 : jsonData.sexo === SEXO.no_aplica ? 3: 0}`,`fecha_nacimiento="${jsonData.fecha_nacimiento}"`,`direccion="${jsonData.direccion}"`,`comuna= ${jsonData.comuna || data && data[EnumGrid.comuna_id]}`,`telefono="${jsonData.telefono}"`,`correo="${jsonData.correo}"`,`establecimiento=${jsonData.establecimiento}`];
     
       const filteredFields = fields.filter(
         (field) => field !== null && field !== ""

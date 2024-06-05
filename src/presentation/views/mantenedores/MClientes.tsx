@@ -78,13 +78,14 @@ const MClientes: React.FC = () => {
   } = useEntityUtils(strBaseUrl, strQuery);
 
   const [pkToDelete, setPkToDelete] = useState<string[]>([])
-  const strParamsToDelete = '_p1' // _p3/_p1/_pkToDelete
   
-  useEffect(() => {    
-    const newPkToDelete = selectedRows.map((row: number) => `'${entities[row][EnumGrid.rut]}'`);
-    const combinedPks = newPkToDelete.join(',');
+  useEffect(() => { 
+    const newPkToDelete:any = selectedRows.map((row:number)=>{
+      return {rut:`${entities[row][EnumGrid.rut]}` }
+    })
+    let pkToDelete:any = `_pkToDelete=${encodeURIComponent(JSON.stringify(newPkToDelete))}` 
 
-    setPkToDelete([`${strParamsToDelete}=${combinedPks}`]);
+    setPkToDelete(pkToDelete);
   }, [selectedRows]);
 
   return (

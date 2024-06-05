@@ -12,11 +12,7 @@ import QRCode from 'react-qr-code';
 
 
 const FOTTicketQRImpresion =  React.forwardRef((_props:any, ref:any) => {
-    // const {impresionOT:OT} = useAppSelector((store:AppStore)=>store.OTS);
 
-
-    // console.log(OT)
-    console.log('render')
     return (
     <div ref={ref} className=''>
         {(

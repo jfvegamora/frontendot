@@ -1,16 +1,13 @@
 import React from 'react'
 import { EnumGrid } from '../mantenedores/MOTHistorica'
 import { formatNumberWithZeros } from '../../utils'
-import { AppStore, useAppSelector } from '../../../redux/store';
 import Barcode from 'react-barcode';
 import { parsedDate } from './FOTImpresa';
-import FOTTicketQRImpresion from './FOTTicketQRImpresion';
 
 
 
 
 const FOTTicketImpresion =  React.forwardRef((_props:any, ref:any) => {
-    const {impresionOT:OT} = useAppSelector((store:AppStore)=>store.OTS);
 
     const {data} = _props;
     console.log( data )

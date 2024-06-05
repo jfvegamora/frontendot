@@ -247,15 +247,15 @@ const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
     return (
       <div className="useFormContainer centered-div use30rem">
         <div className="userFormBtnCloseContainer">
+          <h1 className="userFormLabel -translate-x-12">{label}</h1>
           <button onClick={closeModal} className="userFormBtnClose">
             X
           </button>
         </div>
-        <h1 className="userFormLabel">{label}</h1>
 
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
-          <div className="userFormularioContainer !h-[35rem]" style={{ display: 'inline-block'}}>
+          <div className="userFormularioContainer !h-[35rem] -translate-y-6" style={{ display: 'inline-block'}}>
             <div className="input-container items-center rowForm w-[28.2rem] ">
               <div className="w-[100%] !mt-[1rem] mb-2">
                 <TextInputComponent
@@ -329,7 +329,7 @@ const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
               </div>
             </div>
       
-            <div className="input-container items-center rowForm w-[28.2rem]">
+            <div className="input-container items-center rowForm w-[27.9rem]">
               <div className="!mt-[1rem]">
                 <RegProCom
                   name="comuna"
@@ -343,7 +343,7 @@ const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
                 />
               </div>
 
-              <div className="flex justify-center">
+              <div className="flex justify-center -translate-y-2">
                 <div className="w-[50%]">
                   {escritura_lectura && (
                   <button type="submit" tabIndex={1} className="userFormBtnSubmit">

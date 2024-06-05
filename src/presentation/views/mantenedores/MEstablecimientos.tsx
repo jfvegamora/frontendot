@@ -165,8 +165,6 @@ const MEstablecimientos: React.FC = () => {
         /> }
       </div>
 
-
-
       {isModalInsert && (
       <FEstablecimientos
         label={`${TITLES.ingreso} ${strEntidad}`}

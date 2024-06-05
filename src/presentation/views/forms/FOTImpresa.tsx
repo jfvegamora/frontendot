@@ -50,7 +50,7 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
         (
           <div ref={ref} className={`flex flex-col !h-auto`}>
             {OT && OT.map((list_ot: any) => (
-              list_ot.map((ot:any, index:any)=>{
+              list_ot.map((ot:any)=>{
                 return(
                   // <div className={`!w-[90%] ${ot[EnumGrid.imprime_ticket] === 1 ? '!h-[180rem]' : '!h-[90rem]'}  ${((index > 0) && (ot[EnumGrid.imprime_ticket] === 1)) && '!-mt-[38rem]'}   ${(index > 0) && (ot[EnumGrid.imprime_ticket] === 0) && '!-mt-[19rem]'}`} key={ot[EnumGrid.folio]} >
                   <div className={`!w-[90%] ${(ot[EnumGrid.imprime_ticket] === 1 || ot[EnumGrid.imprime_qr] === 1 ) ? '!h-[140.28rem]' : '!h-[70.14rem]'}`} key={ot[EnumGrid.folio]} >

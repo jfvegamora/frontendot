@@ -198,6 +198,7 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
       if (selectedRows.length >= 1) {
         try {
           // console.log("comilla", comilla);
+          console.log(rowData)
           const response = await deleteAllEntity([rowData, comilla]);
           console.log(response)
           const errorDelete = response.message;
