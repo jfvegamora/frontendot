@@ -121,9 +121,12 @@ const ModalImpor:React.FC<ModalImportProps> = ({
 
     }
 
+
+  
+
    return (
     <div className='w-[55%] border border-black mx-auto  left-[20rem] !z-50  absolute top-[5%] cursor-default ' onClick={stopPropagation} style={{backgroundColor:'rgb(103 111 157 / 1)'}}>
-            <div className='  w-full bg-blue-400 h-[15rem]'>
+            <div className='  w-full'>
                 <h1 className='absolute right-0 text-5xl cursor-pointer userFormBtnClose top-0' onClick={()=>onClose()}>X</h1>
                 <h1 className='text-xl text-center text-white '>Importando</h1>
                 <div className='flex mx-auto w-1/2 '>

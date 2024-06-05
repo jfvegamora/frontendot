@@ -15,15 +15,39 @@ export const getImageURL = (name:string) => {
     return new URL(`../../assets/${name}`, import.meta.url).href
 }
 
-export const validateRut = (rut:string) => {
-    const regex2 = /-[0-9kK]$/i;  
-    const validateFormatoRut = regex2.test(rut)
-    if(!validateFormatoRut){
-      return false
-    }
+export const validateRut = (rut:any) => {
+    const parsedRut = rut.replace(/[."]/g, '').replace(/-/g, '')
+   
+    let suma             = 0;
+    let resto            = 0;
+    let factor           = 2;
+    let digitoValidar:any;
+    let ultimoDigitoRut  = 0;
+    let resultResto      = 0;
     
-    const regex = new RegExp(/^[0-9]{1,8}[-]{1}[0-9kK]{1}$/);
-    return regex.test(rut);
+    for (let i = parsedRut.length-1; i>0;  i--) {
+      suma = suma + (parseInt(parsedRut[i-1]) * factor)
+      factor++
+      if(factor > 7){
+        factor = 2
+      }  
+    }
+  
+    resto = suma % 11
+    resultResto = 11 - resto
+   
+    if(resultResto === 11){
+      digitoValidar = 0;
+      ultimoDigitoRut = parseInt(parsedRut[parsedRut.length - 1])
+    }else if(resultResto === 10){
+      digitoValidar = 'k';
+      ultimoDigitoRut = parsedRut[parsedRut.length - 1].toLowerCase()
+    }else{
+      digitoValidar = resultResto
+      ultimoDigitoRut = parseInt(parsedRut[parsedRut.length - 1])
+    }
+
+    return digitoValidar === ultimoDigitoRut ? true : false
 };
   
 

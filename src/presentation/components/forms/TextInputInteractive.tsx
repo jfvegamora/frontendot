@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { codArmazon1, codArmazon2, codArmazon3 } from "../../views/forms/FReservarArmazones";
+import { clearRutCliente } from "../OTForms/FOTClientes";
 // import debounce from "lodash/debounce"
 // import debounce from 'lodash/debounce'
 
@@ -115,9 +116,12 @@ const TextInputInteractive: React.FC<ITextInputProps> = ({
         }
       }
       
-
+      if(name === 'cliente_rut'){
+        console.log(data)
+      }
       
       if (data === "") {
+          console.log('render')
           setDefaultValue("");
           setValue("");
       } else {
@@ -127,6 +131,16 @@ const TextInputInteractive: React.FC<ITextInputProps> = ({
       setRender(prev => !prev);
   }
   },[data])
+
+  
+console.log(clearRutCliente.value)
+React.useEffect(()=>{
+  if(name === 'cliente_rut'){
+    console.log(clearRutCliente.value)
+    console.log(data)
+  }
+},[clearRutCliente.value])
+
 
 
 

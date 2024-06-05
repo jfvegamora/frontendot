@@ -171,16 +171,21 @@ const ImportToCsv:React.FC<ImportProps> = ({
 
       console.log(jsonResponse)
       if(jsonResponse){
-        console.log('render')
         setProgress(100)
       }
       const isErrorImport = jsonResponse.some((mensaje:any)=>mensaje.Error)
 
       //?CAMBIAR A FALSE PARA DEJAR DE PROBAR
       if(!isErrorImport){
-        await executeFetchImportOT(jsonResponse,userState?.id)
+        const resultImportOt:any = await executeFetchImportOT(jsonResponse,userState?.id)
+        if (resultImportOt?.response?.data) {
+          if(resultImportOt?.response?.data.hasOwnProperty('Error')){
+            return [{Error:[resultImportOt.response.data.Error]}]
+          }
+        }
       }
 
+      console.log(jsonResponse)
       switchFetchOT.value = true;
       return jsonResponse
       

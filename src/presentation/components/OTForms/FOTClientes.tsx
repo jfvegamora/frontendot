@@ -11,6 +11,7 @@ import { URLBackend } from '../../hooks/useCrud';
 import TextInputInteractive from '../forms/TextInputInteractive';
 import { toast } from 'react-toastify';
 import { fetchReservaBeneficiario } from '../../utils/FReservaArmazones_utils';
+import { signal } from '@preact/signals-react';
 // import { useModal } from '../../hooks/useModal';
 
 
@@ -23,6 +24,8 @@ interface IClientes {
     register?:any
     isEditting?:boolean;
 }
+
+export const clearRutCliente = signal<boolean>(false);
 
 
 const FOTClientes:React.FC<IClientes> = ({
@@ -177,6 +180,7 @@ const FOTClientes:React.FC<IClientes> = ({
 
     
     const handleInputChange = async(e:any) => {
+        clearRutCliente.value = false;
         const { name, value } = e;
         // console.log(name)
         // console.log(value)
@@ -190,10 +194,11 @@ const FOTClientes:React.FC<IClientes> = ({
 
         if(name === 'cliente_rut'){
             const response = validateRut(value.trim())
-            // console.log(response)
+            console.log(response)
             if(!response){
                 toast.error('Rut no válido')
-                onDataChange({['cliente_rut']:''})
+                clearRutCliente.value = true;
+                return onDataChange({['cliente_rut']:''})
             }else{
                 onDataChange({['cliente_rut']: value.slice(0, -1)  + value.slice(-1).toUpperCase()})
                 // console.log(value)
@@ -211,6 +216,8 @@ const FOTClientes:React.FC<IClientes> = ({
             fetchCliente(value.trim())
             await fetchReservaBeneficiario(value);
         }
+
+
       };
 
     const handleKeyDown: any = React.useCallback((e:KeyboardEvent) => {

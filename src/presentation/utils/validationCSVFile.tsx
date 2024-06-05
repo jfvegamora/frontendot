@@ -281,8 +281,9 @@ export const executeFetchImportOT = async(response:any, userID:any)=>{
     try {
       const response = await axios.post(url, formData)
       console.log(response)
-    } catch (error) {
+    } catch (error) {      
       console.log(error)
+      return error
     }
 
 
