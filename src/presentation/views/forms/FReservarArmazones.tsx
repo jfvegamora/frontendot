@@ -187,6 +187,7 @@ const FReservarArmazones = () => {
         return toast.error('Falta ingresar DP para validar Armazón.')
       }
 
+      console.log(armazon)
       if(isOnline.value === true){
         const emmtyJSON = {
           "marca"       : '',
@@ -200,9 +201,29 @@ const FReservarArmazones = () => {
           "cilindrico"  : '',
           "punto_venta" : ''
         }
+
+        let _id = 0;//? 0 no validar nada, data armazon  / 1 valida armazon y cristal  / 2 solo valida amrazon
+        let _p6 = 0;
+
+        switch (armazon) {
+          case 'Armazon1':
+            _id = 2;
+            _p6 = 1;
+            break;
+          case 'Armazon2':
+            _id = tipo_de_anteojo.value === '3' ? 2 : 0
+            _p6 = tipo_de_anteojo.value === '3' ? 1 : 0
+            break
+          case 'Armazon3':
+            _id = 0;
+            _p6 = 0;
+            break
+          default:
+            break;
+        }
   
-        const _id = 2//? 0 no validar nada, data armazon  / 1 valida armazon y cristal  / 2 solo valida amrazon
-        const _p6 = 1 //? 1 VALIDAR PARAMETRIZACION
+        // const _id = 2//? 0 no validar nada, data armazon  / 1 valida armazon y cristal  / 2 solo valida amrazon
+        // const _p6 = 1 //? 1 VALIDAR PARAMETRIZACION
         const _p1 = codArmazon
         const _p2 = codProyecto.value
         const _p3 = codPuntoVenta.value
@@ -296,15 +317,15 @@ const FReservarArmazones = () => {
     if (isOnline.value === true) {
       //?SI EL TIPO DE RESERVA ES ONLINE:
         reservaJSON = [{
-          rut: jsonData["rut_beneficiario"] || '',
-          proyecto: jsonData["proyecto"] || '',
-          punto_venta: `${codPuntoVenta.value}` || '',
-          tipo_anteojo: jsonData["tipo_anteojo"] || '',
-          dp: jsonData["dp"] || '',
-          armazon_1: jsonData["Armazon1"] || '',
-          armazon_2: jsonData["Armazon2"] || '',
-          armazon_3: jsonData["Armazon3"] || '',
-          usuario: `${userID}` || '',
+          rut            : jsonData["rut_beneficiario"]  || '',
+          proyecto       : jsonData["proyecto"]          || '',
+          punto_venta    : `${codPuntoVenta.value}`      || '',
+          tipo_anteojo   : jsonData["tipo_anteojo"]      || '',
+          dp             : jsonData["dp"]                || '',
+          armazon_1      : jsonData["Armazon1"]          || '',
+          armazon_2      : jsonData["Armazon2"]          || '',
+          armazon_3      : jsonData["Armazon3"]          || '',
+          usuario        : `${userID}`                   || '',
         }];
         
         try {
@@ -421,7 +442,8 @@ React.useEffect(()=>{
     }else{
       setValue('Armazon2', codArmazon2.value)
       console.log('armazon cambiado, ejecutando validacion')
-
+      
+      
       fetchValidateArmazon('Armazon2', codArmazon2.value)
   
     }
@@ -440,6 +462,7 @@ React.useEffect(()=>{
     }else{
       setValue('Armazon3', codArmazon3.value)
       console.log('armazon cambiado, ejecutando validacion')
+      
       fetchValidateArmazon('Armazon3', codArmazon3.value)
     }
   }

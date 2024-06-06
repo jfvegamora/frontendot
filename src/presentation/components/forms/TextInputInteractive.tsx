@@ -131,7 +131,9 @@ const TextInputInteractive: React.FC<ITextInputProps> = ({
   
 React.useEffect(()=>{
   if(name === 'cliente_rut' || name === 'rut_beneficiario'){
+    console.log(data)
     if(data === ''){
+      console.log(data)
       setValue("")
     }
   }

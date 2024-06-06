@@ -45,7 +45,8 @@ interface ISelectInputProps {
   isOptional?:boolean;
   onlyFirstOption?:boolean;
   inputRef?:any;
-  isEditting?:boolean
+  isEditting?:boolean;
+  formValues?:any;
 }
 
 const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
@@ -70,7 +71,8 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     isOptional,
     onlyFirstOption,
     inputRef,
-    isEditting
+    isEditting,
+    formValues
   }) => {
     const dispatch = useAppDispatch()
     const [entities, setEntities] = useState([]);
@@ -101,14 +103,21 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
            'Authorization': token, 
          }
    })
+
       if(label === 'Punto de Venta'){
         if(data && data[0]){
           if(!isEditting && isOT){
+            if(formValues?.["punto_venta_id"] !== undefined){
+              return;
+              }
             codPuntoVenta.value = data[0][0]
             punto_venta.value = data[0][0]
             setStrSelectedName(data[0][0])
           }
         }
+      
+      
+
       }
       const payload = {
         [label]:data
@@ -130,7 +139,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
 
    React.useEffect(()=>{
         fetchSelectData()
-    },[strUrl2])
+    },[strUrl2,data])
 
 
     React.useEffect(()=>{
@@ -143,6 +152,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
           setStrSelectedName('')
         }
    },[resetFilters.value])
+
 
 
 

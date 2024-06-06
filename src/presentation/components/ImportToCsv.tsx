@@ -56,7 +56,7 @@ const ImportToCsv:React.FC<ImportProps> = ({
     setProgress(0)
     setCurrentStage("Validacion")
     restanteImport.value = 1;
-    totalImport.value    = 1;
+    totalImport.value    = 0;
   }
 
   async function executeFetchWithProgress(validate:any, numberOfElements:any) {

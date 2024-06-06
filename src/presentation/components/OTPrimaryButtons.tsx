@@ -142,15 +142,15 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
       const primerProyectoCodigo = pkToDelete[0].proyecto_codigo;
       const todosIguales          = pkToDelete.slice(1).every((ot:any) => ot.proyecto_codigo === primerProyectoCodigo);
       const impresaAnteriormente  = pkToDelete.every((ot:any) => ot.estado_impresion === '0');
-      // const validateUsuario       = pkToDelete.every((ot:any) => ot["usuario_id"] === User.id);
+      const validateUsuario       = pkToDelete.every((ot:any) => ot["usuario_id"] === User.id);
       const listaFolios = folios.map((num:number) => `${num}`).join(',')
       // console.log(listaFolios)
       
-      // if(!validateUsuario){
-      //   toast.dismiss(toastLoading);
-      //   toast.error(`OT ${folios} no pertenece al Usuario ${User.nombre}`);
-      //   return;
-      // }
+      if(!validateUsuario){
+        toast.dismiss(toastLoading);
+        toast.error(`OT ${folios} no pertenece al Usuario ${User.nombre}`);
+        return;
+      }
       // console.log(pkToDelete)
       // console.log(impresaAnteriormente)
       

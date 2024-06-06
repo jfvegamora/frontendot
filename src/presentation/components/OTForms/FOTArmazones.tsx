@@ -236,7 +236,8 @@ const FOTArmazones:React.FC<IArmazones> = ({
             console.log(amrazones_originales.value[inputName])
 
             console.log(amrazones_originales.value)
-
+            
+            console.log(inputOnlyReadReserva.value)
 
 
             console.log(formValues === undefined ?  0 : (amrazones_originales.value[inputName] === codArmazon ? 0 : 1))
@@ -270,7 +271,8 @@ const FOTArmazones:React.FC<IArmazones> = ({
                                                                                     ? (typeof A1_Diametro.value === 'number' ? A1_Diametro.value :  "" ) 
                                                                                     : (typeof A1_Diametro.value === 'string' ? A1_Diametro.value : "")
                                                                             )
-                                                                        }&_jsonGrupo=${jsonGrupo}&_id=${ inputOnlyReadReserva.value === true ? 0 : (permiso_areas_armazones === true ? (inputName === 'a3_armazon_id' ? 0 : (isEditting === true ? (formValues === undefined ?  0 : (amrazones_originales.value[inputName] === codArmazon ? 0 : 1))   : 1 )) : 0)}
+                                                                        }&_jsonGrupo=${jsonGrupo}&_id=${
+                                                                            inputOnlyReadReserva.value === true ? 0 : (permiso_areas_armazones === true ? (inputName === 'a3_armazon_id' ? 0 : (isEditting === true ? (formValues === undefined ?  0 : (amrazones_originales.value[inputName] === codArmazon ? 0 : 1))   : ( ( tipo_de_anteojo.value === '3' && inputName === 'a2_armazon_id') ? 1 : (inputName === 'a1_armazon_id' ? 1 : 0)))) : 1)}
                                                                         `) 
                                                    : (`${endpoint}&_jsonGrupo=${encodeURIComponent(JSON.stringify([empty_jsonGrupo, empty_jsonGrupo]))}&_p1=${codArmazon && codArmazon.trim() !== '' ? codArmazon : ''}&_id=${ inputOnlyReadReserva.value === true ? 0 : (permiso_areas_armazones === true ? (inputName === 'a3_armazon_id' ? 0 : (isEditting === true ? ((formValues === undefined ?  0 : (amrazones_originales.value[inputName] === codArmazon ? 0 : 1))) : 0)) : 0)}`))
             // console.log(data[0])

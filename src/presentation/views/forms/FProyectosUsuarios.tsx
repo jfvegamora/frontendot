@@ -303,7 +303,7 @@ const FProyectosUsuarios: React.FC<IUserFormPrps> = React.memo(
                   control={control}
                   entidad={["/api/puntosventa/", "02"]}
                   error={errors.punto_venta}
-                  // readOnly={isEditting}
+                  readOnly={isEditting}
                   customWidth={"!ml-[1rem] !w-[38rem] "}
                   />
                 </div>

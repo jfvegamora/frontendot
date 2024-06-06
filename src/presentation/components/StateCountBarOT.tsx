@@ -32,7 +32,6 @@ const StateCountBarOT:React.FC<IStateCountBar> = ({checkCount,isMotHistorica}) =
     },[checkCount])
     
     // console.log(checkCount.value)
-    console.log(isMotHistorica)
   
   return (
     <div className={`${isMotHistorica ? 'w-[80%] left-[10rem]' : 'w-[50%] left-[24rem]'} bg-white absolute bottom-[1%]  rounded-full  flex`}>
@@ -72,8 +71,8 @@ const StateCountBarOT:React.FC<IStateCountBar> = ({checkCount,isMotHistorica}) =
       </div>
     )}
     {stateCheckCount >= 1 && (
-      <div className="w-[8rem]  flex bg-orange-400 mx-10">
-          <p className="text-center mx-auto text-white">Seleccionadas: </p> <label className="text-center text-white">{stateCheckCount}</label>        
+      <div className="w-[8rem]  flex mx-10">
+          <p className="text-center mx-auto ">Seleccionadas: </p> <label className="text-center ">{stateCheckCount}</label>        
       </div>
     )}
 

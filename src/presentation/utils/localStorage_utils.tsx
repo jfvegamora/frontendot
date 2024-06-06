@@ -17,6 +17,12 @@ export const getImageURL = (name:string) => {
 
 export const validateRut = (rut:any) => {
     const parsedRut = rut.replace(/[."]/g, '').replace(/-/g, '')
+    const digito_verificador  = rut[rut.length-2]
+  
+    if(digito_verificador !== '-'){
+      return false
+    }
+  
    
     let suma             = 0;
     let resto            = 0;

@@ -180,10 +180,6 @@ React.useEffect(()=>{
     }
 },[])
 
-
-
-
-
 return (
     <form action="" onKeyDown={handleKeyDown}>
         <div className='w-full frameOTForm'>
@@ -249,6 +245,7 @@ return (
                         onlyFirstOption={!isEditting}
                         customWidth={"345px"}
                         isEditting={isEditting}
+                        formValues={formValues}
                         readOnly={isEditting || inputOnlyReadReserva.value}
                     />
                 </div>

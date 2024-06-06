@@ -4,7 +4,7 @@ import { PencilIcon } from "@heroicons/react/24/solid";
 import { PiPrinterFill } from "react-icons/pi";
 import { ImWhatsapp } from "react-icons/im";
 // import { usePermission } from '../hooks';
-import { BUTTON_MESSAGES, clearAllCheck, clearIndividualCheck, disabledIndividualCheck, isToggleImpression } from '../utils';
+import { BUTTON_MESSAGES, clearAllCheck, clearIndividualCheck, disabledIndividualCheck, isToggleImpression, validateSameUserImpresionOT } from '../utils';
 
 import { useReactToPrint } from 'react-to-print';
 // import FOTImpresa from '../views/forms/FOTImpresa';
@@ -239,12 +239,12 @@ const imprimirComprobanteRetiro = async(tipoComprobante?:string) => {
         const loadingToast = toast.loading('Imprimiendo...');
         try {
 
-        // const resultValidate = await validateSameUserImpresionOT(user.id, folio)
-        // if(!resultValidate){
-        //     disabledIndividualCheck.value = false;
-        //     toast.dismiss(loadingToast)
-        //     return toast.error(`Folio ${folio} no pertenece al Usuario ${user?.nombre}`);
-        // }
+        const resultValidate = await validateSameUserImpresionOT(user.id, folio)
+        if(!resultValidate){
+            disabledIndividualCheck.value = false;
+            toast.dismiss(loadingToast)
+            return toast.error(`Folio ${folio} no pertenece al Usuario ${user?.nombre}`);
+        }
 
         await dispatch(fetchOTImpresionByID({ folio: folio, OTAreas: OTAreas['areaActual'], userID: user?.id})).then(()=>{            
                handlePrint();    
