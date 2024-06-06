@@ -22,6 +22,7 @@ import { URLBackend } from '../../hooks/useCrud';
 import axios from 'axios';
 import { fetchReservaArmazones, getLocalArmazones, isOnline } from '../../utils/FReservaArmazones_utils';
 import { clearBaseDatos, getArmazones, getBeneficiarios, isExistArmazon, isExistBeneficiario, openDatabase, setArmazones, setReservaBeneficiario, validateLocalArmazon } from '../../utils/indexedDB';
+import { clearRutCliente } from '../../components/OTForms/FOTClientes';
 // import { focusFirstInput } from '../../components/OTForms/FOTValidarBodega';
 // import axios from 'axios';
 
@@ -253,6 +254,7 @@ const FReservarArmazones = () => {
     codArmazon1.value = '';
     codArmazon2.value = '';
     codArmazon3.value = '';
+    clearRutCliente.value = !clearRutCliente.value
   }
 
 
@@ -274,9 +276,10 @@ const FReservarArmazones = () => {
 
     console.log(result)
 
-    if(!result){
+    if(!result && e?.trim() !== ''){
       setValue('rut_beneficiario', '')
-      rutBeneficiarioSignal.value = ' ';
+      rutBeneficiarioSignal.value = '';
+      clearRutCliente.value = !clearRutCliente.value
       toast.error('Rut no Válido.')
 
     }else{

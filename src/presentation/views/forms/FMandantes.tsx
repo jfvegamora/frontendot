@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationMandantesSchema } from "../../utils/validationFormSchemas";
 import { EnumGrid } from "../mantenedores/MMandantes";
-import { MODAL, SUCCESS_MESSAGES, TITLES } from "../../utils";
+import { MODAL, SUCCESS_MESSAGES, TITLES, validateRut } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
@@ -210,6 +210,16 @@ const FMandantes: React.FC<IUserFormPrps> = React.memo(
 
     const handleSaveChange = React.useCallback(
       async (data: InputData, isEditting: boolean) => {
+        
+
+        if(data["rut"]?.trim() !== ''){
+          const response = validateRut(data["rut"]?.trim());
+          if(!response){
+            toast.error('Rut no válido')
+            return setValue("rut", "");
+          }
+        }
+
         const toastLoading = toast.loading('Cargando...');
         try {
           const transformedData = isEditting

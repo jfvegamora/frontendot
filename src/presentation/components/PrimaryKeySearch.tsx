@@ -424,6 +424,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                       label={input.label}
                       value={inputValues[input.name]}
                       onChange={(e) => {
+                        console.log(e.target.value)
                         field.onChange(e);
                         handleInputChange(input.name, e.target.value);
                       }}

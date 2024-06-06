@@ -9,10 +9,11 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationProveedoresSchema } from "../../utils/validationFormSchemas";
 import { EnumGrid } from "../mantenedores/MProveedores";
-import {  MODAL, SUCCESS_MESSAGES, TITLES } from "../../utils";
+import {  MODAL, SUCCESS_MESSAGES, TITLES, validateRut } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
+import { toast } from "react-toastify";
 
 const strBaseUrl = "/api/proveedores/";
 const strEntidad = "Proveedor ";
@@ -212,6 +213,20 @@ const FProveedores: React.FC<IUserFormPrps> = React.memo(
     const handleSaveChange = React.useCallback(
       async (data: InputData, isEditting: boolean) => {
         try {
+          console.log(data)
+
+
+          if(data["rut"]?.trim() !== ''){
+            const response = validateRut(data["rut"]?.trim());
+            if(!response){
+              toast.error('Rut no válido')
+              return setValue("rut", "");
+            }
+          }
+
+
+
+
           const transformedData = isEditting
             ? transformUpdateQuery(data, intId.toString())
             : transformInsertQuery(data);
@@ -237,11 +252,11 @@ const FProveedores: React.FC<IUserFormPrps> = React.memo(
     return (
       <div className="useFormContainer centered-div use30rem">
         <div className="userFormBtnCloseContainer">
+        <h1 className="userFormLabel -translate-x-20">{label}</h1>
           <button onClick={closeModal} className="userFormBtnClose">
             X
           </button>
         </div>
-        <h1 className="userFormLabel">{label}</h1>
 
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))}

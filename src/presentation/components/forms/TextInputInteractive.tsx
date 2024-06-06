@@ -116,12 +116,8 @@ const TextInputInteractive: React.FC<ITextInputProps> = ({
         }
       }
       
-      if(name === 'cliente_rut'){
-        console.log(data)
-      }
       
       if (data === "") {
-          console.log('render')
           setDefaultValue("");
           setValue("");
       } else {
@@ -133,11 +129,11 @@ const TextInputInteractive: React.FC<ITextInputProps> = ({
   },[data])
 
   
-console.log(clearRutCliente.value)
 React.useEffect(()=>{
-  if(name === 'cliente_rut'){
-    console.log(clearRutCliente.value)
-    console.log(data)
+  if(name === 'cliente_rut' || name === 'rut_beneficiario'){
+    if(data === ''){
+      setValue("")
+    }
   }
 },[clearRutCliente.value])
 

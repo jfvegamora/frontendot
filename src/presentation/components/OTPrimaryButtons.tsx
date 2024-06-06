@@ -298,7 +298,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
         return resultIndex
 
       }else{
-        const {data:dataOT} = await axios(`${URLBackend}/api/ot/listado/?query=01&_folio=${folio}`,{
+        const {data:dataOT} = await axios(`${URLBackend}/api/ot/listado/?query=01&_p1=${folio}`,{
           headers: {
              'Authorization': User.token, 
            }
@@ -454,9 +454,10 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
     }
 
 
-    const handleProcesarConfirm = async(folio:any) => {
+    const handleProcesarConfirm = async(folio:any, toastLoading?:any) => {
       try {
-        const result = await axios(`${URLBackend}/api/ot/listado/?query=01&_folio=${folio}`,{
+        console.log(folio)
+        const result = await axios(`${URLBackend}/api/ot/listado/?query=01&_p1=${folio}`,{
           headers: {
             'Authorization': User.token, 
           }
@@ -466,18 +467,22 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
           // setValueConfirmOT('')
           valueConfirmOT.value = ''
           setIsFOTValidarBodega(false)
+          toast.dismiss(toastLoading)
           return toast.error(`OT ${folio}: No existe`)
         }
 
         if(result.status !== 200 || result?.data[0][EnumGrid.area_id] !== 60){
           // setValueConfirmOT('')
           valueConfirmOT.value = '';
+          toast.dismiss(toastLoading)
           return toast.error(`OT ${folio}: No se encuentra en esta área`)
         }
 
+        toast.dismiss(toastLoading)
         dataOTSignal.value = result.data 
         setIsFOTValidarBodega(true)
       } catch (error:any) {
+        toast.dismiss(toastLoading)
         toast.error(error)
         setIsFOTValidarBodega(false)
       }
@@ -642,10 +647,11 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
                 color='orange'  
                 value={valueConfirmOT.value as any}
                 onChange={(e:any)=>{
-
                   if(e.target.value !== ''){
+                    const toastLoading:any = toast.loading('cargando...')
                     setTimeout(async()=>{
-                      await handleProcesarConfirm(parseInt(e.target.value))
+                      console.log(e.target.value)
+                      await handleProcesarConfirm(parseInt(e.target.value), toastLoading)
                       valueConfirmOT.value = ''
                     },3000)
                   }

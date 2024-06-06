@@ -3,7 +3,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { AppStore, useAppDispatch, useAppSelector } from '../../../redux/store';
 import { fetchOT } from '../../../redux/slices/OTSlice';
 import { TextInputComponent } from '../../components';
-import { MODAL, TITLES, validationOTNumeroEnvio } from "../../utils";
+import { MODAL, TITLES, clearAllCheck, validationOTNumeroEnvio } from "../../utils";
 import { toast } from 'react-toastify';
 import { URLBackend } from '../../hooks/useCrud';
 import axios from 'axios';
@@ -92,7 +92,7 @@ const FOTEmpaque: React.FC<IFOTEmpaque> = ({
             if (resultQuery07?.status === 200) {
                 toast.success('Número de Envío generado')
                 toast.dismiss(toastLoading)
-
+                clearAllCheck.value = false;
                 dispatch(fetchOT({ OTAreas:OTAreas, searchParams: paramsOT.value}))
 
 

@@ -3,7 +3,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { AppStore, useAppDispatch, useAppSelector } from '../../../redux/store';
 import { fetchOT } from '../../../redux/slices/OTSlice';
 import { TextInputComponent } from '../../components';
-import {  MODAL, TITLES } from "../../utils";
+import {  MODAL, TITLES, clearAllCheck } from "../../utils";
 import { toast } from 'react-toastify';
 import { URLBackend } from '../../hooks/useCrud';
 import axios from 'axios';
@@ -142,7 +142,8 @@ const FOTReporteFirma: React.FC<Interface> = ({
             if (resultQuery07?.status === 200) {
                 toast.success('Reporte de firmas generado')
                 toast.dismiss(toastLoading)
-                    dispatch(fetchOT({ OTAreas:OTAreas, searchParams: paramsOT.value}))
+                clearAllCheck.value = false;
+                dispatch(fetchOT({ OTAreas:OTAreas, searchParams: paramsOT.value}))
             } else {
                 toast.dismiss(toastLoading)
                 toast.error('error: Reporte de firmas')

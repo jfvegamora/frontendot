@@ -180,7 +180,6 @@ const FOTClientes:React.FC<IClientes> = ({
 
     
     const handleInputChange = async(e:any) => {
-        clearRutCliente.value = false;
         const { name, value } = e;
         // console.log(name)
         // console.log(value)
@@ -195,9 +194,10 @@ const FOTClientes:React.FC<IClientes> = ({
         if(name === 'cliente_rut'){
             const response = validateRut(value.trim())
             console.log(response)
-            if(!response){
+            if(!response && value.trim() !== '' && !isEditting){
+                console.log('render')
                 toast.error('Rut no válido')
-                clearRutCliente.value = true;
+                clearRutCliente.value = !clearRutCliente.value;
                 return onDataChange({['cliente_rut']:''})
             }else{
                 onDataChange({['cliente_rut']: value.slice(0, -1)  + value.slice(-1).toUpperCase()})
@@ -212,7 +212,7 @@ const FOTClientes:React.FC<IClientes> = ({
         validationOTlevel1(name, value);
         validationOTlevel2(name,value);
 
-        if(name === 'cliente_rut'){
+        if(name === 'cliente_rut' && value.trim() !== '' && !isEditting){
             fetchCliente(value.trim())
             await fetchReservaBeneficiario(value);
         }

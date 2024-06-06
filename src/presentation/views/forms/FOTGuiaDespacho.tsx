@@ -3,7 +3,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { AppStore, useAppDispatch, useAppSelector } from '../../../redux/store';
 import { fetchOT } from '../../../redux/slices/OTSlice';
 import { TextInputComponent } from '../../components';
-import { MODAL, TITLES } from "../../utils";
+import { MODAL, TITLES, clearAllCheck } from "../../utils";
 import { toast } from 'react-toastify';
 import { URLBackend } from '../../hooks/useCrud';
 import axios from 'axios';
@@ -125,6 +125,7 @@ const FOTGuiaDespacho: React.FC<IDerivacion> = ({
                     await axios(`${strUrlOT}/${queryURL06}`).then(()=>{
                         toast.success('Guia generado')
                         toast.dismiss(toastLoading)
+                        clearAllCheck.value = false;
                         otArchivo ? (
                             dispatch(fetchOT({ historica:true, searchParams: paramsOT.value}))
     

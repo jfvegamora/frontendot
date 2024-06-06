@@ -4,7 +4,7 @@ import { PencilIcon } from "@heroicons/react/24/solid";
 import { PiPrinterFill } from "react-icons/pi";
 import { ImWhatsapp } from "react-icons/im";
 // import { usePermission } from '../hooks';
-import { BUTTON_MESSAGES, clearAllCheck, clearIndividualCheck, disabledIndividualCheck, isToggleImpression, validateSameUserImpresionOT } from '../utils';
+import { BUTTON_MESSAGES, clearAllCheck, clearIndividualCheck, disabledIndividualCheck, isToggleImpression } from '../utils';
 
 import { useReactToPrint } from 'react-to-print';
 // import FOTImpresa from '../views/forms/FOTImpresa';
@@ -122,11 +122,11 @@ const resetImpresionStates = () => {
     content: () => componentRef.current,
     suppressErrors: true,
     removeAfterPrint: true,
-    onAfterPrint() {
-        
+    onAfterPrint() {  
         isFinishImpression.value = true;
         dispatch(clearImpression())
     },
+    
 });
 
 React.useEffect(()=>{
@@ -198,7 +198,7 @@ const imprimirComprobanteRetiro = async(tipoComprobante?:string) => {
         const loadingToast = toast.loading(`Imprimiendo ${tipoComprobante === 'QR' ? 'Código QR' : 'Ticket de retiro' }...`);
 
         try {
-            const {data} = await axios.get(`${URLBackend}/api/ot/listado/?query=01&_origen=${OTAreas}&_folio=${folio}`,{
+            const {data} = await axios.get(`${URLBackend}/api/ot/listado/?query=01&_origen=${OTAreas}&_p1=${folio}`,{
                 headers: {
                    'Authorization': user.token, 
                  }
@@ -239,12 +239,12 @@ const imprimirComprobanteRetiro = async(tipoComprobante?:string) => {
         const loadingToast = toast.loading('Imprimiendo...');
         try {
 
-        const resultValidate = await validateSameUserImpresionOT(user.id, folio)
-        if(!resultValidate){
-            disabledIndividualCheck.value = false;
-            toast.dismiss(loadingToast)
-            return toast.error(`Folio ${folio} no pertenece al Usuario ${user?.nombre}`);
-        }
+        // const resultValidate = await validateSameUserImpresionOT(user.id, folio)
+        // if(!resultValidate){
+        //     disabledIndividualCheck.value = false;
+        //     toast.dismiss(loadingToast)
+        //     return toast.error(`Folio ${folio} no pertenece al Usuario ${user?.nombre}`);
+        // }
 
         await dispatch(fetchOTImpresionByID({ folio: folio, OTAreas: OTAreas['areaActual'], userID: user?.id})).then(()=>{            
                handlePrint();    
