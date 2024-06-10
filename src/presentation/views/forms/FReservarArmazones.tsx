@@ -9,7 +9,6 @@ import React, { useState, useEffect } from 'react';
 //@ts-ignore
 import Quagga from 'quagga';
 import { Button } from '@material-tailwind/react';
-// import { MdOutlineQrCodeScanner } from "react-icons/md";
 import { signal } from '@preact/signals-react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -23,6 +22,7 @@ import axios from 'axios';
 import { fetchReservaArmazones, getLocalArmazones, isOnline } from '../../utils/FReservaArmazones_utils';
 import { clearBaseDatos, getArmazones, getBeneficiarios, isExistArmazon, isExistBeneficiario, openDatabase, setArmazones, setReservaBeneficiario, validateLocalArmazon } from '../../utils/indexedDB';
 import { clearRutCliente } from '../../components/OTForms/FOTClientes';
+import { useNavigate } from 'react-router-dom';
 // import { focusFirstInput } from '../../components/OTForms/FOTValidarBodega';
 // import axios from 'axios';
 
@@ -30,9 +30,10 @@ import { clearRutCliente } from '../../components/OTForms/FOTClientes';
 
 //!INSERT: PROYECTO-RUT-PUNTOVENTA-TIPOANTEOJO-DP-A1-2-3-USERID
 
-export const codArmazon1 = signal('')
-export const codArmazon2 = signal('')
-export const codArmazon3 = signal('')
+export const codArmazon1      = signal('');
+export const codArmazon2      = signal('');
+export const codArmazon3      = signal('');
+export const diametro_cristal = signal('')
 
 const focusInput  = signal('');
 
@@ -52,7 +53,6 @@ const emptyBeneficiariosData = signal(true);
 
 const Scanner:React.FC<any> = ({setIsScanning}) => {
 
-  console.log('render')
 
   useEffect(() => {
     Quagga.init({
@@ -63,7 +63,7 @@ const Scanner:React.FC<any> = ({setIsScanning}) => {
       decoder: {
         readers: ['ean_reader'],
         multiple: false,
-        numOfWorkers: 10,
+        numOfWorkers: 15,
       }
     }, (err:any) => {
       if (err) {
@@ -77,11 +77,9 @@ const Scanner:React.FC<any> = ({setIsScanning}) => {
     return () => Quagga.stop();
   }, []);
 
-  console.log(focusInput.value)
 
   const onDetected = (result:any) => {
     if (result.codeResult) {
-      console.log(result.codeResult.code)
       const barcode = result.codeResult.code;   
 
       switch (focusInput.value) {
@@ -116,7 +114,7 @@ const Scanner:React.FC<any> = ({setIsScanning}) => {
       // <div id="scanner-container" className='absolute top-[8.6rem] !right-[5rem] !z-20' style={{ width: 250, height: 350 }} autoFocus>
       <div>
         <div
-         className='text-2xl text-white absolute top-[8.6rem] !right-[6rem] !z-30'
+         className='text-4xl text-[#f8b179] absolute top-[8.6rem] !right-[6rem] !z-30'
          onClick={closeScanner}
         >
           X
@@ -137,6 +135,9 @@ const FReservarArmazones = () => {
   const [_barcode, setBarcode]         = useState('');
   const schema                        = validationReservaArmazonesSchema();
   const userID:any                    = useAppSelector((store: AppStore) => store.user?.id);
+  const userAgent = navigator.userAgent
+  const isMobile = /Mobi/.test(userAgent)
+  const navigate = useNavigate()
 
 
   const [_armazon1, setArmazon1]       = React.useState('');
@@ -160,6 +161,12 @@ const FReservarArmazones = () => {
     resolver: yupResolver(schema)
   })
 
+  // React.useEffect(()=>{
+  //   if(!isMobile){
+  //     navigate('/landing')
+  //   }
+  // },[])
+
   const formValues = getValues();
 
 
@@ -180,7 +187,10 @@ const FReservarArmazones = () => {
   }
 
   const fetchValidateArmazon = async(armazon:string, codArmazon:string) => {
-      const urlbase = `${URLBackend}/api/armazones/listado/?query=02`
+      const urlbase  = `${URLBackend}/api/armazones/listado/?query=02`;
+      const urlbase2 = `${URLBackend}/api/armazones/listado/?query=02`;
+
+      let json_data = [{}]
 
       if(codDP.value === ''){
         clearInputsArmazones(armazon)
@@ -207,14 +217,50 @@ const FReservarArmazones = () => {
 
         switch (armazon) {
           case 'Armazon1':
+            json_data = [{
+              query                    : "02",
+              armazon                  : (codArmazon || '').trim(),
+              proyecto                 : codProyecto.value,
+              punto_venta              : codPuntoVenta.value,
+              dp                       : codDP.value,
+              diametro                 : diametro_cristal.value,
+              validar_parametrizacion  : 1,
+              solo_consulta            : 2,
+              tipo_anteojo             : tipo_de_anteojo.value,
+              numero_armazon           : 1
+          }]
             _id = 2;
             _p6 = 1;
             break;
           case 'Armazon2':
+            json_data = [{
+              query                    : "02",
+              armazon                  : (codArmazon || '').trim(),
+              proyecto                 : codProyecto.value,
+              punto_venta              : codPuntoVenta.value,
+              dp                       : codDP.value,
+              diametro                 : diametro_cristal.value,
+              validar_parametrizacion  : 1,
+              solo_consulta            : tipo_de_anteojo.value === '3' ? 2 : 0,
+              tipo_anteojo             : tipo_de_anteojo.value,
+              numero_armazon           : 2
+            }]
             _id = tipo_de_anteojo.value === '3' ? 2 : 0
             _p6 = tipo_de_anteojo.value === '3' ? 1 : 0
             break
           case 'Armazon3':
+            json_data = [{
+              query                    : "02",
+              armazon                  : (codArmazon || '').trim(),
+              proyecto                 : codProyecto.value,
+              punto_venta              : codPuntoVenta.value,
+              dp                       : codDP.value,
+              diametro                 : diametro_cristal.value,
+              validar_parametrizacion  : 1,
+              solo_consulta            : tipo_de_anteojo.value === '3' ? 2 : 0,
+              tipo_anteojo             : tipo_de_anteojo.value,
+              numero_armazon           : 2
+            }]
             _id = 0;
             _p6 = 0;
             break
@@ -284,10 +330,8 @@ const FReservarArmazones = () => {
     setIsScanning(true)
 
     if(ref){
-
       focusInput.value = ref
     }
-
   };
 
   const handleChange = (e:any) => {
@@ -310,21 +354,19 @@ const FReservarArmazones = () => {
   }
 
   const handleSaveChange = async (jsonData: any) => {
-    console.log(jsonData);
-    console.log(codPuntoVenta.value)
     let reservaJSON;
-  
+
     if (isOnline.value === true) {
       //?SI EL TIPO DE RESERVA ES ONLINE:
         reservaJSON = [{
           rut            : jsonData["rut_beneficiario"]  || '',
-          proyecto       : jsonData["proyecto"]          || '',
+          proyecto       : jsonData["proyecto"]          || codProyecto.value || '',
           punto_venta    : `${codPuntoVenta.value}`      || '',
           tipo_anteojo   : jsonData["tipo_anteojo"]      || '',
           dp             : jsonData["dp"]                || '',
-          armazon_1      : jsonData["Armazon1"]          || '',
-          armazon_2      : jsonData["Armazon2"]          || '',
-          armazon_3      : jsonData["Armazon3"]          || '',
+          armazon_1      : codArmazon1.value             || '',
+          armazon_2      : codArmazon2.value             || '',
+          armazon_3      : codArmazon3.value             || '',
           usuario        : `${userID}`                   || '',
         }];
         
@@ -332,6 +374,9 @@ const FReservarArmazones = () => {
           const reservaResponse = await axios(`${URLBackend}/api/otreservaarmazones/listado/?query=03&_pkToDelete=${encodeURIComponent(JSON.stringify(reservaJSON))}`);
           if (reservaResponse["data"].length < 1) {
             clearTextInputs();
+            setIsScanning(false);
+            setValue('rut_beneficiaro', '')
+            clearRutCliente.value = !clearRutCliente.value;
             return toast.success('Armazones reservados correctamente');
           } else {
             return toast.error(reservaResponse["data"][0][1]);
@@ -368,15 +413,19 @@ const FReservarArmazones = () => {
                 
                 
                 if(resultExist.value){
+                  if(jsonData.Armazon1 !== ''){
+                    await setArmazones(db,{codArmazon:jsonData.Armazon1 || ''}, 1,false,'1',jsonData["tipo_anteojo"])
+                  }
 
-                  console.log(jsonData)
-                  console.log('render')
-                  const result_a1 = await setArmazones(db,{codArmazon:jsonData.Armazon1 || ''}, 1,false,'1',jsonData["tipo_anteojo"])
-                  console.log('render')
-                  console.log(result_a1)
-                  const result_a2 = await setArmazones(db,{codArmazon:jsonData.Armazon2 || ''}, 1,false,'2',jsonData["tipo_anteojo"])
-                  console.log(result_a2)
+                  if(jsonData.Armazon2 !== ''){
+                    await setArmazones(db,{codArmazon:jsonData.Armazon2 || ''}, 1,false,'2',jsonData["tipo_anteojo"])
+                  }
                   
+                  if(jsonData.Armazon3 !== ''){
+                    await setArmazones(db,{codArmazon:jsonData.Armazon2 || ''}, 1,false,'3',jsonData["tipo_anteojo"])
+                  }
+                  
+
                   jsonData["proyecto"]        = codProyecto.value
                   jsonData["punto_venta_id"]  = punto_venta.value;
                   console.log(jsonData)
@@ -578,11 +627,6 @@ useEffect(()=>{
     const armazonesData     = await getArmazones(db);
     const beneficiarioData  = await getBeneficiarios(db);
 
-    console.log(armazonesData)
-    console.log(armazonesData.length)
-
-
-
     if(beneficiarioData.length === 0){
       emptyBeneficiariosData.value = true; 
     }else{
@@ -592,11 +636,13 @@ useEffect(()=>{
     if(armazonesData.length === 0){
       isDataLocal.value       = false;
     }else{
-      console.log('render')
       armazonesLocalData.value = armazonesData
       isDataLocal.value       = true;
     }
   })
+
+  diametro_cristal.value = localStorage.getItem('diametroCristal') ? JSON.parse(localStorage.getItem("diametroCristal") as string)[0][3] : 0;
+
 },[])
 
     const reservaJSON = {
@@ -605,15 +651,17 @@ useEffect(()=>{
       "usuario"      : userID
   }
 
+
+  React.useEffect(()=>{
+    clearTextInputs()
+    setValue('rut_beneficiario', '')
+  },[clearRutCliente])
+
   
-  console.log(codArmazon1.value)
-
-
-
     return (
-        <form className=" max-w-md mx-auto px-6" onSubmit={handleSubmit((data)=> handleSaveChange(data))}>
+        <form className=" w-screen  mx-auto px-6 !overflow-x-hidden form-container-reserva" onSubmit={handleSubmit((data)=> handleSaveChange(data))}>
 
-          <div className=" mt-[9rem] !mx-auto">
+          <div className=" mt-[6rem] !mx-auto">
 
             {isOnline.value === false && isDataLocal.value === true && (
               <Button className='relative bottom-4 right-0 text-base ' onClick={()=>handleUploadata()}>Subir Reservas</Button>
@@ -624,198 +672,206 @@ useEffect(()=>{
               // <Button className='relative bottom-4 right-0 text-base' color='green' onClick={()=>fetchReservaArmazones(punto_venta.value, codProyecto.value,userID,false).then(isDataLocal.value = false as any)}>Descargar Muestrario</Button>
               <Button className='relative bottom-4 right-0 text-base' color='green' onClick={()=>getLocalArmazones(reservaJSON)}>Descargar Muestrario</Button>
             )}
-
-            <div className="w-full !mb-5 rowForm">
-              <SelectInputComponent
-                  label='Proyecto'
-                  name='proyecto'
-                  showRefresh={true}
-                  data={codigoProyecto.value}
-                  // handleSelectChange={}
-                  // onlyFirstOption={true}
-                  handleSelectChange={(e:any)=>{
-                    codProyecto.value = e.value;
-                  }}
-                  // readOnly={true}
-                  isOT={true}
-                  control={control}
-                  entidad={["/api/proyectos/", "07", userID]}
-                  customWidth={"w-[23.3rem]"}
-                  onlyFirstOption={true}
-              />
-            </div>
-            <div className="w-full !mb-5 rowForm">
-              <SelectInputComponent
-                  label='Punto de Venta'
-                  name='punto_venta_id'
-                  showRefresh={true}
-                  onlyFirstOption={true}
-                  handleSelectChange={(e:any)=>{
-                    punto_venta.value = e.value
-                    codPuntoVenta.value = e.value
-                  }}
-                  isOT={true}
-                  control={control}
-                  entidad={["/api/puntosventa/", "06", codProyecto.value, `_p2=${userID}`]}
-                  customWidth={"w-[23.3rem]"}
-                  
-              />
-            </div>
-            <div className="w-full !mb-7 rowForm">
-              <SelectInputComponent
-                  label='Tipo de Anteojo'
-                  name='tipo_anteojo'
-                  showRefresh={true}
-                  handleSelectChange={(e:any)=>{
-                    tipo_de_anteojo.value = e.value;
-                  }}
-                  isOT={true}
-                  control={control}
-                  entidad={["/api/tipos/", "02", "OTTipoAnteojo"]}
-                  customWidth={"w-[23.3rem] "}
-                  error={errors.tipo_anteojo}
-              />
-            </div>
-          </div>
-
-          <div className="w-[22rem]  !mt-5  flex rowForm">
-            <div className="w-[65%]  text-xl !-ml-4">
-              <TextInputInteractive
-                type='text'
-                isOT={false}
-                label='RUT Beneficiario'
-                name="rut_beneficiario"
-                data={rutBeneficiarioSignal.value || formValues && formValues["rut_beneficiario"]}
-                control={control}
-                handleChange={handleChange}
-                textAlign='text-right !text-[1.7rem] !h-[3.9rem]'
-                customWidth={"!text-xl"}
-                error={errors.rut_beneficiario}
-              
-              />
-            </div>
-            <div className="w-[45%] !ml-15 ">
-              <TextInputComponent
-                type='number'
-                label='DP'
-                name="dp"
-                handleChange={(e:any)=>{
-                  codDP.value = e.value
-                }}
-                data={formValues && formValues["dp"]}
-                isOT={true}
-                control={control}
-                textAlign='text-right !text-[2rem] !h-[3.9rem]'
-                error={errors.dp}
-              
-              />
-            </div>
-          </div>
-
-
-
-
-
-
-          <div className='!mt-5 flex flex-col justify-evenly h-[15rem]'>
-            
-              <div className="w-[22rem]   flex rowForm">
-                <div className="w-[100%]  text-2xl !-ml-4">
-                  <TextInputInteractive
-                    type='number'
-                    inputRef={inputsRef.armazon_1}
-                    label='Armazón 1'
-                    name="Armazon1"
+            <div className="w-full h-[150vh] overflow-scroll">
+              <div className="w-full !mb-5 rowForm ">
+                <SelectInputComponent
+                    label='Proyecto'
+                    name='proyecto'
+                    showRefresh={true}
+                    data={codigoProyecto.value}
+                    // handleSelectChange={}
+                    // onlyFirstOption={true}
+                    handleSelectChange={(e:any)=>{
+                      codProyecto.value = e.value;
+                    }}
+                    // readOnly={true}
+                    isOT={true}
                     control={control}
-                    data={codArmazon1.value}
-                    textAlign='text-right !text-[2rem] !h-[3.5rem] !custom-required'
-                    customWidth={"!text-2xl w-[22rem] !custom-required"}
-                    error={errors.Armazon1}
-                    handleFocus={()=>handleFocus('Armazon1')}
-                    onlyRead={true}
-                    reservaArmazones={true}
+                    entidad={["/api/proyectos/", "07", userID]}
+                    customWidth={"w-[93vw]"}
+                    onlyFirstOption={true}
+                />
+              </div>
+              <div className="w-full !mb-5 rowForm">
+                <SelectInputComponent
+                    label='Punto de Venta'
+                    name='punto_venta_id'
+                    showRefresh={true}
+                    onlyFirstOption={true}
+                    handleSelectChange={(e:any)=>{
+                      punto_venta.value = e.value
+                      codPuntoVenta.value = e.value
+                    }}
+                    isOT={true}
+                    control={control}
+                    entidad={["/api/puntosventa/", "06", codProyecto.value, `_p2=${userID}`]}
+                    customWidth={"w-[93vw]"}
+                    
+                />
+              </div>
+              <div className="w-full !mb-7 rowForm">
+                <SelectInputComponent
+                    label='Tipo de Anteojo'
+                    name='tipo_anteojo'
+                    showRefresh={true}
+                    handleSelectChange={(e:any)=>{
+                      tipo_de_anteojo.value = e.value;
+                    }}
+                    isOT={true}
+                    control={control}
+                    entidad={["/api/tipos/", "02", "OTTipoAnteojo"]}
+                    customWidth={"w-[93vw] "}
+                    error={errors.tipo_anteojo}
+                />
+              </div>
+              <div className="w-[88vw]  !mt-5  flex rowForm">
+                <div className="w-[65%]  text-xl !-ml-4">
+                  <TextInputComponent
+                    type='text'
+                    // isOT={false}
+                    label='RUT Beneficiario'
+                    name="rut_beneficiario"
+                    data={rutBeneficiarioSignal.value || formValues && formValues["rut_beneficiario"]}
+                    control={control}
+                    handleChange={handleChange}
+                    textAlign='text-right !text-[1.7rem] !h-[3.9rem]'
+                    customWidth={"!text-xl w-[54vw]"}
+                    error={errors.rut_beneficiario}
+                  
+                  />
+                </div>
+                <div className="w-[30%] !ml-8   ">
+                  <TextInputComponent
+                    type='number'
+                    label='DP'
+                    name="dp"
+                    handleChange={(e:any)=>{
+                      codDP.value = e.value
+                    }}
+                    data={formValues && formValues["dp"]}
+                    isOT={true}
+                    control={control}
+                    customWidth={"w-[28vw]"}
+                    textAlign='text-right !text-[2rem] -translate-x-6 !h-[3.9rem]'
+                    error={errors.dp}
                   
                   />
                 </div>
               </div>
-              <div className="w-[22rem] !mt-10   flex rowForm">
-                <div className="w-[100%]  text-2xl !-ml-4">
-                  <TextInputInteractive
-                    type='number'
-                    inputRef={inputsRef.armazon_2}
-                    label='Armazón 2'
-                    name="Armazon2"
-                    data={codArmazon2.value}
-                    control={control}
-                    textAlign='text-right !text-[2rem] !h-[3.5rem]'
-                    customWidth={"!text-2xl w-[22rem]"}
-                    error={errors.Armazon2}
-                    isOptional={tipo_de_anteojo.value !== '3'}
-                    handleFocus={()=>handleFocus('Armazon2')}
-                    onlyRead={true}
-                    reservaArmazones={true}  
-                  />
-                </div>
-              </div>
-              <div className="w-[22rem]   flex rowForm">
-                <div className="w-[100%]  text-2xl !-ml-4">
-                  <TextInputInteractive
-                    type='number'
-                    inputRef={inputsRef.armazon_3}
-                    label='Armazón 3'
-                    name="Armazon3"
-                    data={codArmazon3.value}
-                    control={control}
-                    textAlign='text-right !text-[2rem] !h-[3.5rem]'
-                    customWidth={"!text-2xl w-[22rem]"}
-                    error={errors.Armazon3}
-                    isOptional={true}
-                    handleFocus={()=>handleFocus('Armazon3')}
-                    onlyRead={true}
-                    reservaArmazones={true}
-                  />
-                </div>
-              </div>
-            {/* {Object.keys(inputRefs).map((key:any, index) => (
-              <div className="mt-10 rowForm" key={index}>
-                  <Input
-                  {...register}
-                    key={index}
-                    label={key}
-                    color='orange'
-                    className="shadow appearance-none border bg-white rounded  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline !w-[25rem]"
-                    ref={inputRefs[key] }
-                    value={Armazones[key]}
-                    name={key}
-                    onFocus={() => handleFocus(key)}
-                    // error={errors[key]}
-                    onChange={() => handleInputChange(inputRefs[key].current)}
-                  />
-              </div>
-            ))} */}
-          </div>
 
-      
-        {isScanning &&  <Scanner 
-                           setBarcode={setBarcode} 
-                           focusInput={focusInput} 
-                           inputsRef={inputsRef}
-                           setIsScanning={setIsScanning} 
-                           setArmazon1={setArmazon1}
-                           setArmazon2={setArmazon2} 
-                           setArmazon3={setArmazon3} 
-        /> }
-       {
-          (
-            tipo_de_anteojo.value === '3' 
-              ? (codArmazon1.value !== '' && codArmazon2.value !== '') 
-              : (codArmazon1.value !== '')
-          ) && (
-            <div className="w-full">
-              <Button color='orange' type='submit'>Reservar</Button>
+              <div className='!mt-5 flex flex-col justify-evenly h-[15rem]'>
+                
+                  <div className="w-[22rem]   flex rowForm">
+                    <div className="w-[100%]  text-2xl !-ml-4">
+                      <TextInputInteractive
+                        type='number'
+                        inputRef={inputsRef.armazon_1}
+                        label='Armazón 1'
+                        name="Armazon1"
+                        control={control}
+                        data={codArmazon1.value}
+                        textAlign='pr-[5rem] !text-[1.6rem] !h-[3.5rem] !custom-required'
+                        customWidth={"!text-3xl w-[87.5vw] !custom-required"}
+                        error={errors.Armazon1}
+                        // handleFocus={()=>handleFocus('Armazon1')}
+                        // onlyRead={true}
+                        handleChange={(e)=>{
+                          codArmazon1.value = e
+                        }}
+                        reservaArmazones={true}
+                        handleFocusReservaArmazones={()=>handleFocus('Armazon1')}
+                      
+                      />
+                    </div>
+                  </div>
+                  <div className="w-[22rem] !mt-10   flex rowForm">
+                    <div className="w-[100%]  text-2xl !-ml-4">
+                      <TextInputInteractive
+                        type='number'
+                        inputRef={inputsRef.armazon_2}
+                        label='Armazón 2'
+                        name="Armazon2"
+                        data={codArmazon2.value}
+                        control={control}
+                        textAlign=' pr-[5rem] !text-[1.6rem] !h-[3.5rem]'
+                        customWidth={"!text-3xl w-[87.5vw]"}
+                        error={errors.Armazon2}
+                        isOptional={tipo_de_anteojo.value !== '3'}
+                        // handleFocus={()=>handleFocus('Armazon2')}
+                        // onlyRead={true}
+                        handleChange={(e)=>{
+                          codArmazon2.value = e
+                        }}
+                        reservaArmazones={true}
+                        handleFocusReservaArmazones={()=>handleFocus('Armazon2')}  
+                      />
+                    </div>
+                  </div>
+                  <div className="w-[22rem]   flex rowForm">
+                    <div className="w-[100%]  text-2xl !-ml-4">
+                      <TextInputInteractive
+                        type='number'
+                        inputRef={inputsRef.armazon_3}
+                        label='Armazón 3'
+                        name="Armazon3"
+                        data={codArmazon3.value}
+                        control={control}
+                        textAlign='pr-[4rem] !text-[1.6rem] !h-[3.5rem]'
+                        customWidth={"!text-3xl w-[87.5vw]"}
+                        error={errors.Armazon3}
+                        handleChange={(e)=>{
+                          console.log(e)
+                          codArmazon3.value = e
+                        }}
+                        isOptional={true}
+                        // handleFocus={()=>handleFocus('Armazon3')}
+                        // onlyRead={true}
+                        reservaArmazones={true}
+                        handleFocusReservaArmazones={()=>handleFocus('Armazon3')}
+                      />
+                    </div>
+                  </div>
+                {/* {Object.keys(inputRefs).map((key:any, index) => (
+                  <div className="mt-10 rowForm" key={index}>
+                      <Input
+                      {...register}
+                        key={index}
+                        label={key}
+                        color='orange'
+                        className="shadow appearance-none border bg-white rounded  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline !w-[25rem]"
+                        ref={inputRefs[key] }
+                        value={Armazones[key]}
+                        name={key}
+                        onFocus={() => handleFocus(key)}
+                        // error={errors[key]}
+                        onChange={() => handleInputChange(inputRefs[key].current)}
+                      />
+                  </div>
+                ))} */}
+              </div>
+              {isScanning &&  <Scanner 
+                                setBarcode={setBarcode} 
+                                focusInput={focusInput} 
+                                inputsRef={inputsRef}
+                                setIsScanning={setIsScanning} 
+                                setArmazon1={setArmazon1}
+                                setArmazon2={setArmazon2} 
+                                setArmazon3={setArmazon3} 
+              /> }
+              {
+                  (
+                    tipo_de_anteojo.value === '3' 
+                      ? (codArmazon1.value !== '' && codArmazon2.value !== '') 
+                      : (codArmazon1.value !== '')
+                  ) && (
+                    <div className="w-full">
+                      <Button color='orange' type='submit'>Reservar</Button>
+                    </div>
+                  )
+                }
             </div>
-          )
-        }
+        </div>
+
         </form>
 );
 }

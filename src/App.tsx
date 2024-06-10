@@ -73,7 +73,7 @@ const validarExpirationToken = (token:string) => {
 
   const timeDifference = currentDate.getTime() - apiTime.getTime();
   const hoursDifference = timeDifference / (1000 * 60 * 60);
-  const isGreaterThan72Hours = hoursDifference > 72;
+  const isGreaterThan72Hours = hoursDifference > 24;
 
   return isGreaterThan72Hours;
 }

@@ -44,22 +44,37 @@ function ProfileMenu() {
   const navigate = useNavigate();
   const closeMenu = () => setIsMenuOpen(false);
   const userState = useAppSelector((store: AppStore) => store.user);
+  let profileMenuItems = [];
 
-  const profileMenuItems = [
-    {
-      label: `Mi Perfil`,
-      icon: UserCircleIcon,
-      action: "/profile",
-    },
-    {
-      label: "Cerrar Sesión",
-      icon: PowerIcon,
-      action: () => { },
-    },
-  ];
+  const userAgent = navigator.userAgent
+  const isMobile = /Mobi/.test(userAgent)
+
+  if(isMobile){
+    profileMenuItems = [
+      {
+        label: "Cerrar Sesión",
+        icon: PowerIcon,
+        action: () => { },
+      },
+    ];
+  }else{
+    profileMenuItems = [
+      {
+        label: `Mi Perfil`,
+        icon: UserCircleIcon,
+        action: "/profile",
+      },
+      {
+        label: "Cerrar Sesión",
+        icon: PowerIcon,
+        action: () => { },
+      },
+    ];
+  }
+
 
   return (
-    <div className="right-0 absolute flex mx-4 justify-right items-center">
+    <div className="right-0 absolute flex mx-4 translate-x-8 justify-right items-center">
       {userState && (
         <p className="m-auto font-menu pr-1">{userState.nombre}</p>
       )}
@@ -988,7 +1003,7 @@ export default function ComplexNavbar() {
     <>
       {userState?.nombre && (
       
-        <Navbar className=" mt-2 mx-auto max-w-screen-xl sm:scroll-mx-4  p-2 lg:rounded-full lg:pl-6 navBarBorder z-10 ">
+        <Navbar className=" mt-2 mx-auto max-w-screen-xl sm:scroll-mx-4  p-2 lg:rounded-full lg:pl-6 navBarBorder z-30 ">
           <div className="relative mx-auto flex items-center text-blue-gray-900">
             <div className="w-[40%] ml-2 cursor-pointer mantenedor-titulo">
               <Typography className="w-[50%] text-xl h-[2.5rem] overflow ">
@@ -1012,7 +1027,7 @@ export default function ComplexNavbar() {
               <ProfileMenu />
             </div>
           </div>
-          <Collapse open={isNavOpen} className="!overflow-y-auto bg-red-400">
+          <Collapse open={isNavOpen} className="!overflow-y-auto">
             <div className=" bg-blue-400 absolute -left-[15%] top-[10%] w-[65%]    lg:hidden">
               {/* <NavList /> */}
               <ProfileMenu />
@@ -1021,8 +1036,6 @@ export default function ComplexNavbar() {
               <li
                 onClick={ () => {
                   navigate('/operativo')
-                  // console.log('')
-                  // strNavTitle.value = 'Reserva de Armazones'
                 }
                 }
               >

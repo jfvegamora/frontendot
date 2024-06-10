@@ -181,8 +181,8 @@ React.useEffect(()=>{
 },[])
 
 return (
-    <form action="" onKeyDown={handleKeyDown}>
-        <div className='w-full frameOTForm'>
+    <form action="" onKeyDown={handleKeyDown} className=''>
+        <div className='w-full frameOTForm !h-full'>
             <div className="w-full flex items-center rowForm !h-[5rem] justify-between">
                 <div className="w-[50%] mt-6 mb-8 ml-[2rem]">
                     <SelectInputComponent

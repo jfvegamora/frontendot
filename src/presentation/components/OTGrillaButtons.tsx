@@ -240,6 +240,7 @@ const imprimirComprobanteRetiro = async(tipoComprobante?:string) => {
         try {
 
         const resultValidate = await validateSameUserImpresionOT(user.id, folio)
+        
         if(!resultValidate){
             disabledIndividualCheck.value = false;
             toast.dismiss(loadingToast)
@@ -250,6 +251,7 @@ const imprimirComprobanteRetiro = async(tipoComprobante?:string) => {
                handlePrint();    
           });
           toast.dismiss(loadingToast);
+          disabledIndividualCheck.value = false;
         } catch (error) {
             console.error(error);
             disabledIndividualCheck.value = false;

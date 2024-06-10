@@ -7,6 +7,7 @@ import axios, { AxiosInstance } from "axios";
 import { signal } from "@preact/signals-react";
 // import { dataFetcher } from "./utils_fetcher";
 import { AppStore, useAppSelector } from "../../redux/store";
+import { toast } from "react-toastify";
 // import useSWR from "swr";
 
 // PRODUCCION
@@ -63,6 +64,7 @@ const useCrud = (
   });
 
   const loginEntity = async (data: { _p1: any; _p3: any }) => {
+    const toastLoading = toast.loading('Iniciando Sesión')
     try {
       if (!data) return "Faltan Credenciales";
 
@@ -74,9 +76,10 @@ const useCrud = (
       };
 
       const response = await axiosInstance.post("/login/", query);
-      
+      toast.dismiss(toastLoading)
       return response.data;
     } catch (error) {
+      toast.dismiss(toastLoading)
       return error;
     }
   };

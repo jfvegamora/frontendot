@@ -61,7 +61,23 @@ const FOTArmazones:React.FC<IArmazones> = ({
     formValuesCompleto
     // setSelectedTab
 }) => {
-    
+    const endpoint  =`${URLBackend}/api/armazones/listado/?query=02&_p6=${ isEditting ? (validar_parametrizacion.value) : 1 }&_p2=${codigoProyecto.value}&_p3=${punto_venta.value}`;
+    const endpoint2 =`${URLBackend}/api/armazones/editar/`; 
+    const endpoint3 =`${URLBackend}/api/armazones/listado/?query=02`; 
+
+    // const json_data = [{
+    //     armazon        : "",
+    //     proyecto       : "",
+    //     punto_venta    : "",
+    //     dp             : "",
+    //     diametro       : "",
+    //     validar_parametrizacion: "",
+    //     solo_consulta  : "",
+    //     tipo_anteojo   : "",
+    //     numero_armazon : ""
+    // }]
+
+
     useEffect(()=>{
         if(isEditting){
             punto_venta.value = data?.[EnumGrid.punto_venta_id]
@@ -177,6 +193,8 @@ const FOTArmazones:React.FC<IArmazones> = ({
         let pkJSONGrupo:any  = {}
         let jsonGrupo        = {}
 
+        let json_data        = [{}]
+
         // let pkJSONCliente:any = {}
         // let jsonCliente       = {}
 
@@ -196,6 +214,17 @@ const FOTArmazones:React.FC<IArmazones> = ({
         
         switch (inputName) {
             case 'a1_armazon_id':
+                json_data = [{
+                    armazon                 : (codArmazon || '').trim(),
+                    proyecto                : codigoProyecto.value,
+                    punto_venta             : punto_venta.value,
+                    dp                      : A1_DP.value,
+                    diametro                : A1_Diametro.value,
+                    validar_parametrizacion : (isEditting ? validar_parametrizacion.value : 1),
+                    solo_consulta           : 1,
+                    tipo_anteojo            : tipo_de_anteojo.value,
+                    numero_armazon          : 1
+                }]
                  dp             = A1_DP.value as any
                  diametro       = A1_Diametro.value as any
                  pkJSONGrupo    = JSON.stringify([_pkToDelete1_od, _pkToDelete1_oi])
@@ -204,6 +233,17 @@ const FOTArmazones:React.FC<IArmazones> = ({
                 //  jsonCliente    = encodeURIComponent(pkJSONCliente)
                 break
             case 'a2_armazon_id':
+                json_data = [{
+                    armazon      : (codArmazon || '').trim(),
+                    proyecto     : codigoProyecto.value,
+                    punto_venta  : punto_venta.value,
+                    dp           : (tipo_de_anteojo.value === '3' ? A2_DP.value       : A1_DP.value),
+                    diametro     : (tipo_de_anteojo.value === '3' ? A1_Diametro.value : A1_Diametro.value),
+                    validar_parametrizacion : (isEditting ? validar_parametrizacion.value : 1),
+                    solo_consulta : 1,
+                    tipo_anteojo : tipo_de_anteojo.value,
+                    numero_armazon: 2
+                }]
                 dp           = A2_DP.value as any
                 diametro     = A2_Diametro.value as any
                 pkJSONGrupo  = JSON.stringify([_pkToDelete2_od, _pkToDelete2_oi])
@@ -212,6 +252,17 @@ const FOTArmazones:React.FC<IArmazones> = ({
                 // jsonCliente  = encodeURIComponent(pkJSONCliente)
                 break;
             case 'a3_armazon_id':
+                json_data = [{
+                    armazon                  : (codArmazon || '').trim(),
+                    proyecto                 : codigoProyecto.value,
+                    punto_venta              : punto_venta.value,
+                    dp                       : A1_DP.value,
+                    diametro                 : A1_Diametro.value,
+                    validar_parametrizacion  : (isEditting ? validar_parametrizacion.value : 1),
+                    solo_consulta            : 1,
+                    tipo_anteojo             : tipo_de_anteojo.value,
+                    numero_armazon           : 3
+                }]
                 dp             = A1_DP.value as any
                 diametro       = A1_Diametro.value as any
                 pkJSONGrupo    = JSON.stringify([_pkToDelete1_od, _pkToDelete1_oi])
@@ -224,64 +275,50 @@ const FOTArmazones:React.FC<IArmazones> = ({
         }    
   
         try {
+            console.log(json_data)
 
-            console.log(formValues)
+            // const {data} = await axios((validar_parametrizacion.value === '1' ) 
+            //                                        ? (`${endpoint
+            //                                                             }&_p1=${codArmazon && codArmazon.trim() !== '' ? codArmazon.trim() : ""
+            //                                                             }&_p4=${
+            //                                                                 tipo_de_anteojo.value === '3'
+            //                                                                 ? (  
+            //                                                                     typeof dp === 'number' 
+            //                                                                         ? (typeof dp === 'number' ? dp : 0) 
+            //                                                                         : (typeof dp === 'string' ? dp: 0)
+            //                                                                 )
+            //                                                                 : (
+            //                                                                     typeof A1_DP.value === 'number' 
+            //                                                                         ? (typeof A1_DP.value === 'number' ? A1_DP.value : 0) 
+            //                                                                         : (typeof A1_DP.value === 'string' ? A1_DP.value : 0)
+            //                                                                 )
 
-
+            //                                                             }&_p5=${
+            //                                                                 tipo_de_anteojo.value === '3'
+            //                                                                 ? (
+            //                                                                     typeof diametro === 'number' 
+            //                                                                         ? (typeof diametro === 'number' ? diametro :  "" ) 
+            //                                                                         : (typeof diametro === 'string' ? diametro : "")
+            //                                                                 )
+            //                                                                 : (
+            //                                                                     typeof A1_Diametro.value === 'number' 
+            //                                                                         ? (typeof A1_Diametro.value === 'number' ? A1_Diametro.value :  "" ) 
+            //                                                                         : (typeof A1_Diametro.value === 'string' ? A1_Diametro.value : "")
+            //                                                                 )
+            //                                                             }&_jsonGrupo=${jsonGrupo}&_id=${
+            //                                                                 inputOnlyReadReserva.value === true ? 0 : (permiso_areas_armazones === true ? (inputName === 'a3_armazon_id' ? 0 : (isEditting === true ? (formValues === undefined ?  0 : (amrazones_originales.value[inputName] === codArmazon ? 0 : 1))   : ( ( tipo_de_anteojo.value === '3' && inputName === 'a2_armazon_id') ? 1 : (inputName === 'a1_armazon_id' ? 1 : 0)))) : 0)}
+            //                                                             `) 
+            //                                        : (`${endpoint}&_jsonGrupo=${encodeURIComponent(JSON.stringify([empty_jsonGrupo, empty_jsonGrupo]))}&_p1=${codArmazon && codArmazon.trim() !== '' ? codArmazon : ''}&_id=${ inputOnlyReadReserva.value === true ? 0 : (permiso_areas_armazones === true ? (inputName === 'a3_armazon_id' ? 0 : (isEditting === true ? ((formValues === undefined ?  0 : (amrazones_originales.value[inputName] === codArmazon ? 0 : 1))) : 0)) : 0)}`))
             
-            
-            console.log(codArmazon)
-            console.log(inputName)
-            
-            console.log(amrazones_originales.value[inputName])
-
-            console.log(amrazones_originales.value)
-            
-            console.log(inputOnlyReadReserva.value)
-
-
-            console.log(formValues === undefined ?  0 : (amrazones_originales.value[inputName] === codArmazon ? 0 : 1))
-
-
-            const {data} = await axios((validar_parametrizacion.value === '1' ) 
-                                                   ? (`${endpoint
-                                                                        }&_p1=${codArmazon && codArmazon.trim() !== '' ? codArmazon.trim() : ""
-                                                                        }&_p4=${
-                                                                            tipo_de_anteojo.value === '3'
-                                                                            ? (  
-                                                                                typeof dp === 'number' 
-                                                                                    ? (typeof dp === 'number' ? dp : 0) 
-                                                                                    : (typeof dp === 'string' ? dp: 0)
-                                                                            )
-                                                                            : (
-                                                                                typeof A1_DP.value === 'number' 
-                                                                                    ? (typeof A1_DP.value === 'number' ? A1_DP.value : 0) 
-                                                                                    : (typeof A1_DP.value === 'string' ? A1_DP.value : 0)
-                                                                            )
-
-                                                                        }&_p5=${
-                                                                            tipo_de_anteojo.value === '3'
-                                                                            ? (
-                                                                                typeof diametro === 'number' 
-                                                                                    ? (typeof diametro === 'number' ? diametro :  "" ) 
-                                                                                    : (typeof diametro === 'string' ? diametro : "")
-                                                                            )
-                                                                            : (
-                                                                                typeof A1_Diametro.value === 'number' 
-                                                                                    ? (typeof A1_Diametro.value === 'number' ? A1_Diametro.value :  "" ) 
-                                                                                    : (typeof A1_Diametro.value === 'string' ? A1_Diametro.value : "")
-                                                                            )
-                                                                        }&_jsonGrupo=${jsonGrupo}&_id=${
-                                                                            inputOnlyReadReserva.value === true ? 0 : (permiso_areas_armazones === true ? (inputName === 'a3_armazon_id' ? 0 : (isEditting === true ? (formValues === undefined ?  0 : (amrazones_originales.value[inputName] === codArmazon ? 0 : 1))   : ( ( tipo_de_anteojo.value === '3' && inputName === 'a2_armazon_id') ? 1 : (inputName === 'a1_armazon_id' ? 1 : 0)))) : 1)}
-                                                                        `) 
-                                                   : (`${endpoint}&_jsonGrupo=${encodeURIComponent(JSON.stringify([empty_jsonGrupo, empty_jsonGrupo]))}&_p1=${codArmazon && codArmazon.trim() !== '' ? codArmazon : ''}&_id=${ inputOnlyReadReserva.value === true ? 0 : (permiso_areas_armazones === true ? (inputName === 'a3_armazon_id' ? 0 : (isEditting === true ? ((formValues === undefined ?  0 : (amrazones_originales.value[inputName] === codArmazon ? 0 : 1))) : 0)) : 0)}`))
             // console.log(data[0])
             // console.log(data)
             // console.log(data[0][19])
+            const {data} = await axios(`${endpoint3}&_jsonData=${encodeURIComponent(JSON.stringify(json_data))}&_jsonGrupo=${encodeURIComponent(JSON.stringify([empty_jsonGrupo, empty_jsonGrupo]))}`)
 
+            // const {data} = await axios.post(endpoint2, json_data);
 
-            // console.log('no hay error')
-            console.log(data)                                                            
+            console.log(data)                                     
+
             if(data && data[0][19] === ''){
                 switch (inputName) {
                     case 'a1_armazon_id':
@@ -556,7 +593,6 @@ const FOTArmazones:React.FC<IArmazones> = ({
 
     
     // const endpoint =`${URLBackend}/api/armazones/listado/?query=02&_p6=${ isEditting ? (data && data[EnumGrid.validar_parametrizacion_id]) : 1 }&_p2=${codigoProyecto.value}&_p3=${punto_venta.value}`;
-    const endpoint =`${URLBackend}/api/armazones/listado/?query=02&_p6=${ isEditting ? (validar_parametrizacion.value) : 1 }&_p2=${codigoProyecto.value}&_p3=${punto_venta.value}`;
 
     // console.log(punto_venta.value)
 

@@ -5,7 +5,7 @@ import React, {useEffect, useState} from "react";
 import { Controller } from "react-hook-form";
 import { A1_DP } from "../../utils";
 import { toast } from "react-toastify";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faTrash, faCamera } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { codArmazon1, codArmazon2, codArmazon3 } from "../../views/forms/FReservarArmazones";
 import { clearRutCliente } from "../OTForms/FOTClientes";
@@ -33,7 +33,8 @@ interface ITextInputProps {
   textAlign?: string;
   validarBodega?:boolean
   handleFocus?:any
-  reservaArmazones?:boolean
+  reservaArmazones?:boolean;
+  handleFocusReservaArmazones?:any;
 }
 
 const TextInputInteractive: React.FC<ITextInputProps> = ({
@@ -56,7 +57,8 @@ const TextInputInteractive: React.FC<ITextInputProps> = ({
   textAlign,
   validarBodega,
   handleFocus,
-  reservaArmazones
+  reservaArmazones,
+  handleFocusReservaArmazones
 }) => {
   const [_defaultValue, setDefaultValue] = useState<any>(data || " "); 
   const[_render, setRender] = useState(false);
@@ -174,7 +176,7 @@ return (
             }}
             
             ref={inputRef}
-            className={`${className ? className : "custom-input"}  ${name.startsWith("Armazon") ? "!cursor-not-allowed pr-10" : ""}  ${onlyRead ? (name.startsWith("Armazon") ? '!bg-white !cursor-not-allowed' : "custom-onlyread cursor-not-allowed" )  : isOptional ?  (name.startsWith("Armazon") ? 'custom-optional !cursor-not-allowed ' : "custom-optional") : "custom-required"} ${textAlign && textAlign}`}
+            className={`${className ? className : "custom-input trans"}  ${name.startsWith("Armazon") ? "!cursor-not-allowed pr-10" : ""}  ${onlyRead ? (name.startsWith("Armazon") ? '!bg-white !cursor-not-allowed' : "custom-onlyread cursor-not-allowed" )  : isOptional ?  (name.startsWith("Armazon") ? 'custom-optional !cursor-not-allowed ' : "custom-optional") : "custom-required"} ${textAlign && textAlign}`}
             tabIndex={onlyRead ? 0 : (tabIndex || 1)}
             placeholder={type === 'date' ? "dd-mm-yyyy" : ''}
             autoComplete="off"
@@ -186,15 +188,50 @@ return (
               {error.message}
             </p>
           )}
-
+{/* 
           {reservaArmazones && (
             <FontAwesomeIcon icon={faTrash} onClick={()=>{
               setValue('')
               console.log('click')
               armazonInput.value = ''
               console.log(name)
-            }} className=" translate-x-[19rem] -translate-y-8 hover:!text-[#f8b179]"/>
+            }} className=" translate-x-[16rem] -translate-y-8 hover:!text-[#f8b179]"/>
           )}
+
+          {reservaArmazones && handleFocusReservaArmazones && (
+            <FontAwesomeIcon 
+              icon={faCamera} 
+              className="translate-x-[13rem] -translate-y-8  hover:!text-[#f8b179]"
+              onClick={()=>{
+                console.log('click')
+                handleFocusReservaArmazones(name)
+            }} />
+          )} */}
+
+
+          {reservaArmazones && (
+            <div className="w-[28%]  flex  -translate-y-10 right-0 absolute">
+              <div className="w-full">
+                <FontAwesomeIcon 
+                icon={faCamera} 
+                className=" translate-x-2 hover:!text-[#f8b179]"
+                onClick={()=>{
+                  console.log('click')
+                  handleFocusReservaArmazones(name)
+              }} />
+              </div>
+              <div className="w-full">
+                  <FontAwesomeIcon icon={faTrash} onClick={()=>{
+                  setValue('')
+                  console.log('click')
+                  armazonInput.value = ''
+                  console.log(name)
+                }} className=" translate-x-2 hover:!text-[#f8b179]"/>                
+              </div>
+            </div>
+          )}
+
+
 
         </div>
       )}

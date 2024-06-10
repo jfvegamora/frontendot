@@ -216,6 +216,48 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
 
       )
   };
+
+  // useEffect(() => {
+  //     const handleColumnMouseDown = (e: any) => {
+  //       console.log('render')
+  //       const initialX = e.clientX;
+  //       const columnId = e.target.id;
+  //       const column = document.getElementById(columnId);
+    
+  //       const handleMouseMove = (e: any) => {
+  //         if (column) {
+  //           const width = column.offsetWidth + (e.clientX - initialX);
+  //           column.style.width = `${width}px`;
+  //         }
+  //       };
+  //       console.log('render')
+  //       const handleMouseUp = () => {
+  //         document.removeEventListener('mousemove', handleMouseMove);
+  //         document.removeEventListener('mouseup', handleMouseUp);
+  //       };
+    
+  //       document.addEventListener('mousemove', handleMouseMove);
+  //       document.addEventListener('mouseup', handleMouseUp);
+  //     };
+    
+  //     const columns = document.querySelectorAll('th');
+  //     console.log('render')
+  //     columns.forEach((column) => {
+  //       column.addEventListener('mousedown', handleColumnMouseDown);
+    
+  //       return () => {
+  //         console.log('render')
+  //         column.removeEventListener('mousedown', handleColumnMouseDown);
+  //       };
+  //     });
+    
+  //     // Limpia los eventos cuando el componente se desmonta
+  //     return () => {
+  //       columns.forEach((column) => {
+  //         column.removeEventListener('mousedown', handleColumnMouseDown);
+  //       });
+  //     };
+  //   }, []);
   
     return (
     <div className="gridCointainer">

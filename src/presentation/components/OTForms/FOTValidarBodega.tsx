@@ -399,7 +399,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
             
 
                 {sumatoriaNivel3 === validationNivel3.value.length && (
-                    <Button className='otActionButton bg-green-400 hover:bg-green-700' type='submit'  onClick={(e) =>onSubmit(e)}>Procesar</Button>
+                    <Button className=' bg-green-400 hover:bg-green-700 translate-x-8' type='submit'  onClick={(e) =>onSubmit(e)}>Procesar</Button>
                 )}
             
 

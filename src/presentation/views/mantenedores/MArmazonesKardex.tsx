@@ -148,7 +148,7 @@ const MArmazonesKardex: React.FC = () => {
         />
       </div>
 
-      
+
 
       {isModalInsert && (
         <FArmazonesKardexIN

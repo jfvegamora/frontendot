@@ -922,13 +922,13 @@ useEffect(()=>{
   // console.log(validationNivel3.value)
 
 
-const camposRequeridosOptica    = ['proyecto', 'punto_venta_id', 'fecha_atencion'];
-const camposRequeridosCliente   = ['cliente_rut', 'cliente_nombre', 'cliente_tipo', 'cliente_sexo', 'cliente_telefono', 'cliente_comuna', 'establecimiento_id'];
-const camposRequeridosReceta    = ['tipo_anteojo_id', 'a1_od_esf', 'a1_od_cil', 'a1_od_eje', 'a1_od_ad', 'a1_oi_ad', 'a1_oi_esf', 'a1_oi_cil', 'a1_oi_eje', 'a1_dp', 'a1_alt', 'a2_od_esf', 'a2_od_cil', 'a2_od_eje', 'a2_oi_esf', 'a2_oi_cil', 'a2_oi_eje', 'a2_dp'];
-const camposRequeridosCristales = ['cristal1_marca_id', 'cristal1_diseno_id', 'cristal1_indice_id', 'cristal1_material_id', 'cristal1_tratamiento_id', 'cristal1_color_id', 'cristal1_diametro', 'cristal1_od', 'cristal1_oi', 'cristal2_marca_id', 'cristal2_diseno_id', 'cristal2_indice_id', 'cristal2_material_id', 'cristal2_tratamiento_id', 'cristal2_color_id', 'cristal2_diametro', 'cristal2_od', 'cristal2_oi'];
-const camposRequeridosArmazones = ['a1_armazon_id', 'a2_armazon_id'];
-
-
+  const camposRequeridosCliente   = ['cliente_rut', 'cliente_nombre', 'cliente_tipo', 'cliente_sexo', 'cliente_telefono', 'cliente_comuna', 'establecimiento_id'];
+  const camposRequeridosReceta    = ['tipo_anteojo_id', 'a1_od_esf', 'a1_od_cil', 'a1_od_eje', 'a1_od_ad', 'a1_oi_ad', 'a1_oi_esf', 'a1_oi_cil', 'a1_oi_eje', 'a1_dp', 'a1_alt', 'a2_od_esf', 'a2_od_cil', 'a2_od_eje', 'a2_oi_esf', 'a2_oi_cil', 'a2_oi_eje', 'a2_dp'];
+  const camposRequeridosCristales = ['cristal1_marca_id', 'cristal1_diseno_id', 'cristal1_indice_id', 'cristal1_material_id', 'cristal1_tratamiento_id', 'cristal1_color_id', 'cristal1_diametro', 'cristal1_od', 'cristal1_oi', 'cristal2_marca_id', 'cristal2_diseno_id', 'cristal2_indice_id', 'cristal2_material_id', 'cristal2_tratamiento_id', 'cristal2_color_id', 'cristal2_diametro', 'cristal2_od', 'cristal2_oi'];
+  const camposRequeridosArmazones = ['a1_armazon_id', 'a2_armazon_id'];
+  
+  
+  const camposRequeridosOptica    = ['proyecto', 'punto_venta_id', 'fecha_atencion'];
 
 const checkOptica = camposRequeridosOptica.every(campo => {
   const campoEncontrado = validationNivel1.value.find((item:any) => item.campo === campo);
@@ -986,10 +986,9 @@ const checkArmazones = camposRequeridosArmazones.every(campo => {
 // console.log(checkOptica)
 
 
-
   return (
 
-    <div className='useFormContainerOT top-[0%]  w-full h-[100%]'>
+    <div className='useFormContainerOT top-[0%]  w-full h-[100%] !z-40'>
       <Tabs selectedIndex={selectedTab} onSelect={(index) => setSelectedTab(index)}>
         <TabList className='flex items-center top-[10]'>
           <Tab className="custom-tab items-center flex relative" tabIndex={"-1"}>
@@ -1135,7 +1134,11 @@ const checkArmazones = camposRequeridosArmazones.every(campo => {
             {/*************** BOTON POST VENTA/GARANTIA ***************/}
           <div className='flex items-center mx-auto mt-[1.5rem] justify-around w-1/2 '>
         
-                {isEditting                              && 
+                {isEditting                              &&
+                ( data?.[EnumGrid.area_id] === 50        || 
+                  data?.[EnumGrid.area_id] === 60        ||
+                  data?.[EnumGrid.area_id] === 70    
+                )                                        && 
                 isMOT                                    && 
                 escritura_lectura                        &&
                 permisos_ot_historica.permiso_post_venta &&
@@ -1211,10 +1214,17 @@ const checkArmazones = camposRequeridosArmazones.every(campo => {
 
 
                 {/*************** BOTON ANULAR ***************/}
-                {OTPermissions           &&
-                escritura_lectura        &&
-                (isMOT ? permisos_ot_historica.permiso_anular  : (permiso_anular_usuario === true && OTPermissions[9] === '1'  ))  && 
-                sumatoriaNivel1  === validationNivel1.value.length && 
+                {OTPermissions                                                             &&
+                escritura_lectura                                                          &&
+                (isMOT ?
+                      (permisos_ot_historica.permiso_anular                                && (
+                        ( data?.[EnumGrid.area_id] === 50                                  || 
+                          data?.[EnumGrid.area_id] === 60                                  ||
+                          data?.[EnumGrid.area_id] === 70    
+                        )
+                      ))  
+                       : (permiso_anular_usuario === true && OTPermissions[9] === '1'  ))  && 
+                sumatoriaNivel1  === validationNivel1.value.length                         && 
                 // (data && data[EnumGrid.estado_id] === 30 || data && data[EnumGrid.estado_id] === 40 ) && 
                 (
                   <Button className='otActionButton bg-black' onClick={()=>{
@@ -1228,10 +1238,10 @@ const checkArmazones = camposRequeridosArmazones.every(campo => {
 
                 {/*************** BOTON INGRESAR ***************/}
 
-                {OTPermissions         &&
-                !isEditting             &&
+                {OTPermissions            &&
+                !isEditting               &&
                 // (!isEditting || (data && data[EnumGrid.area_id] === 40 && data && data[EnumGrid.motivo_garantia_id] === 2 ) )  &&
-                escritura_lectura      &&
+                escritura_lectura         &&
                 OTPermissions[10] === "1" &&
                  sumatoriaNivel1  === validationNivel1.value.length &&
                  (

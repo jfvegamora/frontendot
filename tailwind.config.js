@@ -13,7 +13,7 @@ module.exports = withMT({
         tuColorPresionado: '#f9b17a',
         tuColorNormal: 'white',
       },
-    },
+    }
   },
   plugins: [],
 });

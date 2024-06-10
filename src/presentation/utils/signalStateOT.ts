@@ -1994,22 +1994,27 @@ export const updateOT = async (
     .filter((prev) => prev[1] !== "undefined")
     .map((parts) => parts.join("="));
 
-  let filteredFieldsSinResolucion: any = [];
+  // let filteredFieldsSinResolucion: any = [];
 
-  if (data && data[EnumGrid.motivo] === "Garantía") {
-    if (tipo_evento === "Pausada") {
-      filteredFieldsSinResolucion = filteredFields
-        .map((a) => a.split("="))
-        .filter((a) => a[0] !== "resolucion_garantia")
-        .map((parts) => parts.join("="));
-    }
-  }
+  // if (data && data[EnumGrid.motivo] === "Garantía") {
+  //   if (tipo_evento === "Pausada") {
+  //     filteredFieldsSinResolucion = filteredFields
+  //       .map((a) => a.split("="))
+  //       .filter((a) => a[0] !== "resolucion_garantia")
+  //       .map((parts) => parts.join("="));
+  //   }
+  // }
 
-  let _p1 =
-    tipo_evento === "Pausada"
-      ? filteredFieldsSinResolucion.join(",")
-      : filteredFields.join(",");
+  // let _p1 =
+  //   tipo_evento === "Pausada"
+  //     ? filteredFieldsSinResolucion.join(",")
+  //     : filteredFields.join(",");
+
+  let _p1 = filteredFields.join(",");
+
   _p1 = _p1.replace(/'/g, "!");
+
+  console.log(_p1);
 
   const query = {
     query: "04",
@@ -2095,14 +2100,8 @@ export function formatNumberWithZeros(inputNumber: number): string {
 export const validateSameUserImpresionOT = async (user: any, folio: any) => {
   try {
     const { data } = await axios(
-      `https://gestiondev.mtoopticos.cl/api/ot/imprimir/?query=01&_origen=50&_p1=${folio}`
+      `${URLBackend}/api/ot/imprimir/?query=01&_origen=50&_p1=${folio}`
     );
-
-    console.log(data);
-    console.log(user);
-    console.log(data[0][EnumGrid.usuario_id]);
-
-    console.log(data[0][EnumGrid.usuario_id] === user);
 
     if (user === data[0][EnumGrid.usuario_id]) {
       console.log("render");

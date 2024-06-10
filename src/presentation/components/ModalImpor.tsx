@@ -130,7 +130,7 @@ const ModalImpor:React.FC<ModalImportProps> = ({
                 <h1 className='absolute right-0 text-5xl cursor-pointer userFormBtnClose top-0' onClick={()=>onClose()}>X</h1>
                 <h1 className='text-xl text-center text-white '>{totalImport.value === restanteImport.value ? 'Importando' :  'Validando'}</h1>
                 <div className='flex mx-auto w-1/2 '>
-                  <h1 className='text-3xl text-white text-center mx-auto'>Numero Paginas: {restanteImport.value}/{totalImport.value}</h1>
+                  <h1 className='text-3xl text-white text-center mx-auto'>Página {restanteImport.value}/{totalImport.value}</h1>
                 </div>
 
                 <div className="w-[70%] mx-auto my-6 p-4">

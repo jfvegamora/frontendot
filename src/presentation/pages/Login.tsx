@@ -7,7 +7,7 @@ import jwtDecode from "jwt-decode";
 
 import { LOGIN, validationLoginSchema } from "../utils";
 import { TextInputComponent } from "../components";
-import { useAppDispatch } from "../../redux/store";
+import { AppStore, useAppDispatch, useAppSelector } from "../../redux/store";
 import { useCrud } from "../hooks";
 import { login } from "../../redux/slices/userSlice";
 import { fetchFuncionalidades } from "../../redux/slices/funcionalidadesSlice";
@@ -27,6 +27,8 @@ interface LoginFormValues {
 
 const Login: React.FC = React.memo(() => {
   const strBaseUrl = "/api/usuarios/";
+  const userState = useAppSelector((store: AppStore) => store.user);
+
   // const strQuery = "06";
   const schema = validationLoginSchema();
 
@@ -79,8 +81,8 @@ const Login: React.FC = React.memo(() => {
         })
         .catch((_e) => {
           // toast.dismiss(toastLoading)
-          toast.error(_e.toString() as string)
-          // show({ message: LOGIN.loginError, type: "error" })
+          // toast.error(_e.toString() as string)
+          show({ message: LOGIN.loginError, type: "error" })
         })
         .finally(() => {
           console.log('render')
@@ -96,6 +98,12 @@ const Login: React.FC = React.memo(() => {
   };
 
 
+  React.useEffect(()=>{
+    console.log(userState)
+    if(userState?.id){
+      navigate('/landing')
+    }
+  },[])
 
 
 

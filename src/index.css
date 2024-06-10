@@ -499,6 +499,7 @@ select::-ms-expand {
 
 .gridHead {
   border-top-width: 1px;
+  /* width: 100%; */
   border-bottom-width: 1px;
   --tw-border-opacity: 1;
   border-color: rgb(207 216 220 / var(--tw-border-opacity));
@@ -853,7 +854,7 @@ input[type="radio"]:checked{
   margin-left: auto;
   margin-right: auto;
   position: absolute;
-  z-index: 20;
+  z-index: 40;
   border-radius: 0.5rem;
   --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.5),
     0 4px 6px -4px rgb(0 0 0 / 0.5);
@@ -1139,6 +1140,21 @@ input[type="text"] {
   .sm\:hidden {
     display: none;
   }
+}
+
+
+@media (width >= 300){
+  .userFormContainer{
+    background-color: red;
+  }
+
+}
+
+.form-container-reserva{
+  width: 100%;
+  height: 150vh; 
+  overflow-y: auto; 
+  overflow-x: hidden; 
 }
 
 /* Estilos para Firefox */
