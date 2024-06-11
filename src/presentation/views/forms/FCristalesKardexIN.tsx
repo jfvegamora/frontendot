@@ -97,6 +97,9 @@ const FCristalesKardexIN: React.FC<IUserFormPrps> = React.memo(
       setValue,
     } = useForm({
       resolver: yupResolver(schema),
+      defaultValues:{
+        proveedor: '0'
+      }
     });
 
     const resetTextFields = React.useCallback(() => {

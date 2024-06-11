@@ -10,6 +10,7 @@ import { A1_CR_OD, A1_CR_OI, A1_DP, A1_Diametro, A1_GRUPO_OD, A1_GRUPO_OI, A2_CR
 import { OTTextInputComponent } from '.';
 import { inputOnlyReadReserva } from '../../utils/FReservaArmazones_utils';
 import { signal } from '@preact/signals-react';
+import { areaActualOT } from '../OTAreasButtons';
 
 interface IArmazones {
     control:any;
@@ -61,8 +62,8 @@ const FOTArmazones:React.FC<IArmazones> = ({
     formValuesCompleto
     // setSelectedTab
 }) => {
-    const endpoint  =`${URLBackend}/api/armazones/listado/?query=02&_p6=${ isEditting ? (validar_parametrizacion.value) : 1 }&_p2=${codigoProyecto.value}&_p3=${punto_venta.value}`;
-    const endpoint2 =`${URLBackend}/api/armazones/editar/`; 
+    // const endpoint  =`${URLBackend}/api/armazones/listado/?query=02&_p6=${ isEditting ? (validar_parametrizacion.value) : 1 }&_p2=${codigoProyecto.value}&_p3=${punto_venta.value}`;
+    // const endpoint2 =`${URLBackend}/api/armazones/editar/`; 
     const endpoint3 =`${URLBackend}/api/armazones/listado/?query=02`; 
 
     // const json_data = [{
@@ -193,7 +194,8 @@ const FOTArmazones:React.FC<IArmazones> = ({
         let pkJSONGrupo:any  = {}
         let jsonGrupo        = {}
 
-        let json_data        = [{}]
+        let json_data:any    = [{}]
+
 
         // let pkJSONCliente:any = {}
         // let jsonCliente       = {}
@@ -203,7 +205,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
         
         // console.log(codArmazon)
 
-        console.log(tipo_de_anteojo.value)
+        console.log(data?.[EnumGrid.bodega_procesado])
         
 
         if(codArmazon && codArmazon.trim() === ''){
@@ -211,7 +213,8 @@ const FOTArmazones:React.FC<IArmazones> = ({
         }
 
         const toastLoading = toast.loading('Cargando...');
-        
+
+
         switch (inputName) {
             case 'a1_armazon_id':
                 json_data = [{
@@ -221,13 +224,13 @@ const FOTArmazones:React.FC<IArmazones> = ({
                     dp                      : A1_DP.value,
                     diametro                : A1_Diametro.value,
                     validar_parametrizacion : (isEditting ? validar_parametrizacion.value : 1),
-                    solo_consulta           : 1,
+                    solo_consulta           : (isEditting ? (areaActualOT as any === 10 ? 1 : (data?.[EnumGrid.bodega_procesado] === 1 ? 0 : 1)) : 1),
                     tipo_anteojo            : tipo_de_anteojo.value,
                     numero_armazon          : 1
                 }]
                  dp             = A1_DP.value as any
                  diametro       = A1_Diametro.value as any
-                 pkJSONGrupo    = JSON.stringify([_pkToDelete1_od, _pkToDelete1_oi])
+                 pkJSONGrupo    = json_data[0]?.solo_consulta === 1 ? JSON.stringify([_pkToDelete1_od, _pkToDelete1_oi]) : JSON.stringify([empty_jsonGrupo,empty_jsonGrupo])
                  jsonGrupo      = encodeURIComponent(pkJSONGrupo)
                 //  pkJSONCliente  = JSON.stringify([_jsonCliente])
                 //  jsonCliente    = encodeURIComponent(pkJSONCliente)
@@ -240,16 +243,22 @@ const FOTArmazones:React.FC<IArmazones> = ({
                     dp           : (tipo_de_anteojo.value === '3' ? A2_DP.value       : A1_DP.value),
                     diametro     : (tipo_de_anteojo.value === '3' ? A1_Diametro.value : A1_Diametro.value),
                     validar_parametrizacion : (isEditting ? validar_parametrizacion.value : 1),
-                    solo_consulta : 1,
+                    solo_consulta : (isEditting ? (areaActualOT as any === 10 ? 1 : (data?.[EnumGrid.bodega_procesado] === 1 ? 0 : 1)) : 1),
                     tipo_anteojo : tipo_de_anteojo.value,
                     numero_armazon: 2
                 }]
                 dp           = A2_DP.value as any
                 diametro     = A2_Diametro.value as any
                 pkJSONGrupo  = JSON.stringify([_pkToDelete2_od, _pkToDelete2_oi])
-                jsonGrupo    = tipo_de_anteojo.value === '3' ? encodeURIComponent(pkJSONGrupo) : encodeURIComponent(JSON.stringify([_pkToDelete1_od, _pkToDelete1_oi]))
-                // pkJSONCliente  = JSON.stringify([_jsonCliente])
-                // jsonCliente  = encodeURIComponent(pkJSONCliente)
+                jsonGrupo    = tipo_de_anteojo.value === '3' ? (
+                                               json_data[0].solo_consulta === 1 
+                                                                              ? encodeURIComponent(pkJSONGrupo)
+                                                                              : encodeURIComponent(JSON.stringify([empty_jsonGrupo,empty_jsonGrupo]))
+                                            ) : (
+                                                json_data[0].solo_consulta === 1
+                                                                               ? encodeURIComponent(JSON.stringify([_pkToDelete1_od, _pkToDelete1_oi]))
+                                                                               : encodeURIComponent(JSON.stringify([empty_jsonGrupo, empty_jsonGrupo]))
+                                            )
                 break;
             case 'a3_armazon_id':
                 json_data = [{
@@ -259,13 +268,13 @@ const FOTArmazones:React.FC<IArmazones> = ({
                     dp                       : A1_DP.value,
                     diametro                 : A1_Diametro.value,
                     validar_parametrizacion  : (isEditting ? validar_parametrizacion.value : 1),
-                    solo_consulta            : 1,
+                    solo_consulta            : (isEditting ? (areaActualOT as any === 10 ? 1 : (data?.[EnumGrid.bodega_procesado] === 1 ? 0 : 1)) : 1),
                     tipo_anteojo             : tipo_de_anteojo.value,
                     numero_armazon           : 3
                 }]
                 dp             = A1_DP.value as any
                 diametro       = A1_Diametro.value as any
-                pkJSONGrupo    = JSON.stringify([_pkToDelete1_od, _pkToDelete1_oi])
+                pkJSONGrupo    = json_data[0]?.solo_consulta === 1 ? JSON.stringify([_pkToDelete1_od, _pkToDelete1_oi]) : JSON.stringify([empty_jsonGrupo,empty_jsonGrupo])
                 jsonGrupo      = encodeURIComponent(pkJSONGrupo)
                 // pkJSONCliente  = JSON.stringify([_jsonCliente])
                 // jsonCliente    = encodeURIComponent(pkJSONCliente);
@@ -275,8 +284,10 @@ const FOTArmazones:React.FC<IArmazones> = ({
         }    
   
         try {
-            console.log(json_data)
+            console.log(dp)
+            console.log(diametro)
 
+            
             // const {data} = await axios((validar_parametrizacion.value === '1' ) 
             //                                        ? (`${endpoint
             //                                                             }&_p1=${codArmazon && codArmazon.trim() !== '' ? codArmazon.trim() : ""
@@ -308,12 +319,12 @@ const FOTArmazones:React.FC<IArmazones> = ({
             //                                                             }&_jsonGrupo=${jsonGrupo}&_id=${
             //                                                                 inputOnlyReadReserva.value === true ? 0 : (permiso_areas_armazones === true ? (inputName === 'a3_armazon_id' ? 0 : (isEditting === true ? (formValues === undefined ?  0 : (amrazones_originales.value[inputName] === codArmazon ? 0 : 1))   : ( ( tipo_de_anteojo.value === '3' && inputName === 'a2_armazon_id') ? 1 : (inputName === 'a1_armazon_id' ? 1 : 0)))) : 0)}
             //                                                             `) 
-            //                                        : (`${endpoint}&_jsonGrupo=${encodeURIComponent(JSON.stringify([empty_jsonGrupo, empty_jsonGrupo]))}&_p1=${codArmazon && codArmazon.trim() !== '' ? codArmazon : ''}&_id=${ inputOnlyReadReserva.value === true ? 0 : (permiso_areas_armazones === true ? (inputName === 'a3_armazon_id' ? 0 : (isEditting === true ? ((formValues === undefined ?  0 : (amrazones_originales.value[inputName] === codArmazon ? 0 : 1))) : 0)) : 0)}`))
+                                                //    : (`${endpoint}&_jsonGrupo=${encodeURIComponent(JSON.stringify([empty_jsonGrupo, empty_jsonGrupo]))}&_p1=${codArmazon && codArmazon.trim() !== '' ? codArmazon : ''}&_id=${ inputOnlyReadReserva.value === true ? 0 : (permiso_areas_armazones === true ? (inputName === 'a3_armazon_id' ? 0 : (isEditting === true ? ((formValues === undefined ?  0 : (amrazones_originales.value[inputName] === codArmazon ? 0 : 1))) : 0)) : 0)}`))
             
             // console.log(data[0])
             // console.log(data)
             // console.log(data[0][19])
-            const {data} = await axios(`${endpoint3}&_jsonData=${encodeURIComponent(JSON.stringify(json_data))}&_jsonGrupo=${encodeURIComponent(JSON.stringify([empty_jsonGrupo, empty_jsonGrupo]))}`)
+            const {data} = await axios(`${endpoint3}&_jsonData=${encodeURIComponent(JSON.stringify(json_data))}&_jsonGrupo=${jsonGrupo}`)
 
             // const {data} = await axios.post(endpoint2, json_data);
 
@@ -784,7 +795,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
                                         otData={ a1_armazon.value ? a1_armazon.value :  formValues  && formValues["a1_armazon_id"] ? formValues["a1_armazon_id"] : data && data[EnumGrid.a1_armazon_id]}
                                         // data={a1_armazon.value || data && data[EnumGrid.a1_armazon_id]}
                                         control={control}
-                                        onlyRead={!(!isEditting || (permiso_usuario_armazones && permiso_areas_armazones) ) || inputOnlyReadReserva.value}
+                                        onlyRead={!(!isEditting || (permiso_usuario_armazones && permiso_areas_armazones)) || inputOnlyReadReserva.value}
                                         // isOT={true}
                                         textAlign="text-center"
                                         className='!text-xl custom-input '

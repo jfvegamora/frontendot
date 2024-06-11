@@ -139,21 +139,18 @@ const FOT:React.FC<IFOTProps> = ({
   //PERMISOS DE CAMPOS
   const permisosCampos           = useAppSelector((store: AppStore) => store.user?.permisos_campos);
 
-  let permiso_usuario_armazones           = permisosCampos && isEditting  ? data && data[EnumGrid.bodega_procesado] === 0  ? (permisosCampos[0] === "1" ? true : false) : (permisosCampos[0] === "1" ? true : false) : (permisosCampos[0] === "1" ? true : false)
+  let permiso_usuario_armazones           = permisosCampos && isEditting  ? data && data[EnumGrid.bodega_procesado] === 0  ? (permisosCampos[0] === "1" ? true : false) : (OTAreaActual === 10 ? true : false) : (permisosCampos[0] === "1" ? true : false)
   let permiso_usuario_cristales           = permisosCampos && permisosCampos[1] === "1" ? true : false;
   let permiso_usuario_estado_impresion    = permisosCampos && permisosCampos[2] === "1" ? true : false;
   let permiso_usuario_estado_validacion   = permisosCampos && permisosCampos[3] === "1" ? true : false;
   let permiso_usuario_resolucion_garantia = permisosCampos && permisosCampos[4] === "1" ? true : false;
-  let permiso_usuario_grupo_dioptria      = permisosCampos && isEditting ?  data && data[EnumGrid.bodega_procesado] === 0  ? (permisosCampos[5] === "1" ? true : false) : (permisosCampos[5] === "1" ? true : false) : (permisosCampos[5] === "1" ? true : false)
-  let permiso_usuario_receta              = permisosCampos && isEditting ?  data && data[EnumGrid.bodega_procesado] === 0  ? (permisosCampos[6] === "1" ? true : false) : (permisosCampos[6] === "1" ? true : false) : (permisosCampos[5] === "1" ? true : false)
+  let permiso_usuario_grupo_dioptria      = permisosCampos && isEditting ?  data && data[EnumGrid.bodega_procesado] === 0  ? (permisosCampos[5] === "1" ? true : false) : (OTAreaActual === 10 ? true : false) : (permisosCampos[5] === "1" ? true : false)
+  let permiso_usuario_receta              = permisosCampos && isEditting ?  data && data[EnumGrid.bodega_procesado] === 0  ? (permisosCampos[6] === "1" ? true : false) : (OTAreaActual === 10 ? true : false) : (permisosCampos[5] === "1" ? true : false)
   let permiso_usuario_verificar_cristal   = permisosCampos && permisosCampos[7] === "1" ? true : false;
   let permiso_usuario_workTracking        = permisosCampos && permisosCampos[9] === "1" ? true : false;
-  // let permiso_usuario_verificar_armazon   = permisosCampos && permisosCampos[8] === "1" ? true : false;
 
   //? VARIABLE QUE DETECTA SI LA OT YA SE HA PROCESADO 1 VEC DESDE BODEGAINSUMO
-  console.log(data && data[EnumGrid.bodega_procesado])
   secondProcessBodega.value = (data && data[EnumGrid.bodega_procesado] === 1) ? true : false;
-
   
   let permiso_areas_armazones            = false;
   let permiso_areas_cristales            = false;
@@ -167,7 +164,7 @@ const FOT:React.FC<IFOTProps> = ({
 
   if(!isMOT){
     const permisosAreas = OTAreaActual && permissions(OTAreaActual)[6] as any
-    
+    console.log(permisosAreas)
     permiso_areas_armazones             = permisosAreas && permisosAreas[0] === '1' ? true : false;
     permiso_areas_cristales             = permisosAreas && permisosAreas[1] === '1' ? true : false;
     permiso_areas_estado_impresion      = permisosAreas && permisosAreas[2] === '1' ? true : false;
@@ -200,6 +197,11 @@ const FOT:React.FC<IFOTProps> = ({
       dispatch(clearCodigos())
       clearSelectInput.value = false;
       keepForm.value = false;
+      // inputOnlyReadReserva.value = false;
+      // inputOnlyReadBodegaProcesado.value = false;
+      // deshabilitarCampo.value.a1_ad       = false;
+      // deshabilitarCampo.value.a1_alt      = false;
+      // deshabilitarCampo.value.a2_dp       = false;
       //limpiar codigo
   }
 
@@ -208,15 +210,22 @@ const FOT:React.FC<IFOTProps> = ({
     if(data){
       getDatosOT(data)
     }
+
   },[data])
 
 
   React.useEffect(()=>{
     validar_parametrizacion.value = data && data[EnumGrid.validar_parametrizacion_id] || '1'
+    // if (data?.[EnumGrid.bodega_procesado] === 1 && OTAreaActual !== 10) {
+    //   console.log(OTAreaActual)
+    //   inputOnlyReadReserva.value          = true;
+    //   inputOnlyReadBodegaProcesado.value  = true;
+    //   deshabilitarCampo.value.a1_ad       = true;
+    //   deshabilitarCampo.value.a1_alt      = true;
+    //   deshabilitarCampo.value.a2_dp       = true;
 
+    // }
     const permiso = OTAreaActual && permissions(OTAreaActual)
-    console.log(OTAreaActual)
-    console.log(permiso)
     setOTPermissions(permiso && permiso[5])
   },[OTAreaActual])
 
@@ -353,7 +362,7 @@ const reiniciarFormOT = (keepForm:any, message:any,clearCliente:boolean):void =>
 // console.log(data && data[EnumGrid.lugar_despacho])
   
   const insertOT = async(jsonData:any, cristalesJSON:any, armazonesJSON:any) => {
-
+    const toastLoading = toast.loading('Cargando...')
     let estado                      = 10;
     let estado_impresion            = 0;
     let validar_parametrizacion_id  = 1;
@@ -368,7 +377,7 @@ const reiniciarFormOT = (keepForm:any, message:any,clearCliente:boolean):void =>
     
     isExistClient.value 
                      ? _p3 = [`nombre="${jsonData.cliente_nombre.trim() || formValues.cliente.cliente_nombre.trim() || ""}"`, `tipo=${formValues?.cliente.cliente_tipo === TIPO_CLIENTE.beneficiario ? "1" : formValues?.cliente.cliente_tipo === TIPO_CLIENTE.particular ? "2" : formValues?.cliente.cliente_tipo === TIPO_CLIENTE.optica ? "3" : "0"}`, `sexo=${formValues?.cliente.cliente_sexo === SEXO.masculino ? "1" : formValues?.cliente.cliente_sexo === SEXO.femenino ? "2" : formValues?.cliente.cliente_sexo === SEXO.no_aplica ? "3"  : "0"}` ,`fecha_nacimiento="${jsonData.cliente_fecha_nacimiento || formValues.cliente.cliente_fecha_nacimiento || ""}"`, `direccion="${jsonData.cliente_direccion.trim() || formValues.cliente.cliente_direccion.trim() || ""}"`, `comuna=${jsonData.cliente_comuna || formValues.cliente.cliente_comuna || 0}`, `telefono="${jsonData.cliente_telefono.trim() || formValues.cliente.cliente_telefono.trim() || ""}"`, `correo="${jsonData.cliente_correo.trim() || formValues.cliente.cliente_correo.trim() || ""}"`, `establecimiento=${jsonData.establecimiento_id || formValues.cliente.establecimiento_id || 0}`].map((a)=>a.split("=")).map((a)=>a.join("=")).join(',')
-                     : _p3 =`"${jsonData.cliente_rut.trim() || formValues.cliente.cliente_rut.trim() || ""}","${jsonData.cliente_nombre.trim() || formValues.cliente.cliente_nombre.trim() || ""}",${formValues?.cliente.cliente_tipo === TIPO_CLIENTE.beneficiario ? "1" : formValues?.cliente.cliente_tipo === TIPO_CLIENTE.particular ? "2" : formValues?.cliente.cliente_tipo === TIPO_CLIENTE.optica ? "3" : "0"}, ${formValues?.cliente.cliente_sexo === SEXO.masculino ? "1" : formValues?.cliente.cliente_sexo === SEXO.femenino ? "2" : formValues?.cliente.cliente_sexo === SEXO.no_aplica ? "3"  : "0"},"${jsonData.cliente_fecha_nacimiento || formValues.cliente.cliente_fecha_nacimiento || ""}","${formValues.cliente.cliente_direccion.trim() || ""}" ,${jsonData.cliente_comuna || formValues.cliente.cliente_comuna || 0}, "${jsonData.cliente_telefono.trim() || formValues.cliente.cliente_telefono.trim() || ""}","${jsonData.cliente_correo.trim() || formValues.cliente.cliente_correo.trim() || ""}", ${jsonData.establecimiento_id || formValues.cliente.establecimiento_id || 0}`.replace(/'/g, '!');
+                     : _p3 =`"${jsonData.cliente_rut.trim() || formValues.cliente.cliente_rut.trim() || ""}","${jsonData.cliente_nombre.trim() || formValues.cliente.cliente_nombre.trim() || ""}",${formValues?.cliente.cliente_tipo === TIPO_CLIENTE.beneficiario ? "1" : formValues?.cliente.cliente_tipo === TIPO_CLIENTE.particular ? "2" : formValues?.cliente.cliente_tipo === TIPO_CLIENTE.optica ? "3" : "0"}, ${formValues?.cliente.cliente_sexo === SEXO.masculino ? "1" : formValues?.cliente.cliente_sexo === SEXO.femenino ? "2" : formValues?.cliente.cliente_sexo === SEXO.no_aplica ? "3"  : "0"},"${jsonData.cliente_fecha_nacimiento || formValues.cliente.cliente_fecha_nacimiento || ""}","${formValues.cliente.cliente_direccion || ""}" ,${jsonData.cliente_comuna || formValues.cliente.cliente_comuna || 0}, "${jsonData.cliente_telefono || formValues.cliente.cliente_telefono.trim() || ""}","${jsonData.cliente_correo.trim() || formValues.cliente.cliente_correo.trim() || ""}", ${jsonData.establecimiento_id || formValues.cliente.establecimiento_id || 0}`.replace(/'/g, '!');
     
     
 
@@ -437,12 +446,15 @@ const reiniciarFormOT = (keepForm:any, message:any,clearCliente:boolean):void =>
           handleCloseForm()
           isExistClient.value = false
         }}
+      toast.dismiss(toastLoading)
     } catch (error) {
       // console.log(error)
+      toast.dismiss(toastLoading)
       toast.error('Error al Ingresar la OT')
       // handleCloseForm()
     }
     console.log()
+    toast.dismiss(toastLoading)
     return query;
     // return
   }

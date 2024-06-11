@@ -145,6 +145,7 @@ export const setLocalArmazones = async (response: any) => {
 };
 
 export const fetchReservaBeneficiario = async (rut: string) => {
+  const loadingToast = toast.loading("Cargando....");
   try {
     console.log(rut);
 
@@ -171,7 +172,7 @@ export const fetchReservaBeneficiario = async (rut: string) => {
       if (proyecto_codigo !== codigoProyecto.value) {
         mensaje = `Existe una Reserva para el rut: ${rut_beneficiario} para un Proyecto distinto al seleccionado: ${proyecto_titulo}.`;
       }
-
+      toast.dismiss(loadingToast);
       alert(mensaje);
 
       console.log(response["data"][0][EnumReserva["cod_armazon1"]]);
@@ -201,10 +202,11 @@ export const fetchReservaBeneficiario = async (rut: string) => {
 
       //?ARMAZON 3:
       a3_armazon.value = response["data"][0][EnumReserva["cod_armazon3"]];
-
-      console.log(a1_armazon.value);
+      toast.dismiss(loadingToast);
     }
+    toast.dismiss(loadingToast);
   } catch (error) {
+    toast.dismiss(loadingToast);
     console.log(error);
   }
 };

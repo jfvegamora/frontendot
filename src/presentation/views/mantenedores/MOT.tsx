@@ -166,7 +166,7 @@ const MOT: React.FC = () => {
   // console.log(estadosOT)
 
 
-
+  console.log(areaActualOT)
 
   return (
     <div className="mantenedorContainer">

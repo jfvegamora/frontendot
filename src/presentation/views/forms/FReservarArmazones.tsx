@@ -158,14 +158,17 @@ const FReservarArmazones = () => {
     setValue,
     getValues
   } = useForm<any>({
-    resolver: yupResolver(schema)
+    resolver: yupResolver(schema),
+    defaultValues:{
+      tipo_de_anteojo: '1'
+    }
   })
 
-  // React.useEffect(()=>{
-  //   if(!isMobile){
-  //     navigate('/landing')
-  //   }
-  // },[])
+  React.useEffect(()=>{
+    if(!isMobile){
+      navigate('/landing')
+    }
+  },[])
 
   const formValues = getValues();
 
@@ -188,9 +191,10 @@ const FReservarArmazones = () => {
 
   const fetchValidateArmazon = async(armazon:string, codArmazon:string) => {
       const urlbase  = `${URLBackend}/api/armazones/listado/?query=02`;
-      const urlbase2 = `${URLBackend}/api/armazones/listado/?query=02`;
+      // const urlbase2 = `${URLBackend}/api/armazones/listado/?query=02`;
 
       let json_data = [{}]
+      console.log(json_data)
 
       if(codDP.value === ''){
         clearInputsArmazones(armazon)
@@ -199,18 +203,18 @@ const FReservarArmazones = () => {
 
       console.log(armazon)
       if(isOnline.value === true){
-        const emmtyJSON = {
-          "marca"       : '',
-          "diseno"      : '',
-          "indice"      : '',
-          "material"    : '',
-          "color"       : '',
-          "tratamiento" : '',
-          "diametro"    : '',
-          "esferico"    : '',
-          "cilindrico"  : '',
-          "punto_venta" : ''
-        }
+        // const emmtyJSON = {
+        //   "marca"       : '',
+        //   "diseno"      : '',
+        //   "indice"      : '',
+        //   "material"    : '',
+        //   "color"       : '',
+        //   "tratamiento" : '',
+        //   "diametro"    : '',
+        //   "esferico"    : '',
+        //   "cilindrico"  : '',
+        //   "punto_venta" : ''
+        // }
 
         let _id = 0;//? 0 no validar nada, data armazon  / 1 valida armazon y cristal  / 2 solo valida amrazon
         let _p6 = 0;
@@ -223,7 +227,7 @@ const FReservarArmazones = () => {
               proyecto                 : codProyecto.value,
               punto_venta              : codPuntoVenta.value,
               dp                       : codDP.value,
-              diametro                 : diametro_cristal.value,
+              // diametro                 : diametro_cristal.value,
               validar_parametrizacion  : 1,
               solo_consulta            : 2,
               tipo_anteojo             : tipo_de_anteojo.value,
@@ -239,7 +243,7 @@ const FReservarArmazones = () => {
               proyecto                 : codProyecto.value,
               punto_venta              : codPuntoVenta.value,
               dp                       : codDP.value,
-              diametro                 : diametro_cristal.value,
+              // diametro                 : diametro_cristal.value,
               validar_parametrizacion  : 1,
               solo_consulta            : tipo_de_anteojo.value === '3' ? 2 : 0,
               tipo_anteojo             : tipo_de_anteojo.value,
@@ -255,7 +259,7 @@ const FReservarArmazones = () => {
               proyecto                 : codProyecto.value,
               punto_venta              : codPuntoVenta.value,
               dp                       : codDP.value,
-              diametro                 : diametro_cristal.value,
+              // diametro                 : diametro_cristal.value,
               validar_parametrizacion  : 1,
               solo_consulta            : tipo_de_anteojo.value === '3' ? 2 : 0,
               tipo_anteojo             : tipo_de_anteojo.value,
@@ -270,26 +274,48 @@ const FReservarArmazones = () => {
   
         // const _id = 2//? 0 no validar nada, data armazon  / 1 valida armazon y cristal  / 2 solo valida amrazon
         // const _p6 = 1 //? 1 VALIDAR PARAMETRIZACION
-        const _p1 = codArmazon
-        const _p2 = codProyecto.value
-        const _p3 = codPuntoVenta.value
-        const _p4 = codDP.value
-        const _p5 = '65' //?'DIAMETRO'
-        const _pkToDelete = encodeURIComponent(JSON.stringify([emmtyJSON, emmtyJSON]))
+        // const _p1 = codArmazon
+        // const _p2 = codProyecto.value
+        // const _p3 = codPuntoVenta.value
+        // const _p4 = codDP.value
+        // const _p5 = '65' //?'DIAMETRO'
+        // const _pkToDelete = encodeURIComponent(JSON.stringify([emmtyJSON, emmtyJSON]))
   
         if(codArmazon !== ''){
           try {
-            const fetchURL = `${urlbase}&_p1=${_p1}&_p2=${_p2}&_p3=${_p3}&_p4=${_p4}&_p5=${_p5}&_pkToDelete=${_pkToDelete}&_id=${_id}&_p6=${_p6}`
+            // const fetchURL = `${urlbase}&_p1=${_p1}&_p2=${_p2}&_p3=${_p3}&_p4=${_p4}&_p5=${_p5}&_pkToDelete=${_pkToDelete}&_id=${_id}&_p6=${_p6}`
+  
+            const fetchURL = `${urlbase}&_jsonData=${encodeURIComponent(JSON.stringify(json_data))}`
+
            
             const result = await axios(fetchURL)
             if(result.data && result.data[0] && result.data[0][19] !== ''){
+              // window.scrollTo({
+              //   top: 0,
+              //   behavior: 'smooth'
+              // });
+              console.log(_id)
+              console.log(_p6)
+              console.log('render')
               toast.error(result.data[0][19])
               clearInputsArmazones(armazon)
             }
-  
+            
+
+            switch (armazon) {
+              case 'Armazon1':
+                codArmazon1.value = result.data[0][0]
+                break;
+              case 'Armazon2':
+                codArmazon2.value = result.data[0][0]
+                break;
+              case 'Armazon3':
+                codArmazon3.value = result.data[0][0]
+                break;
+              default:
+                break;
+            }
           } catch (error) {
-              console.log(error)
-              console.log(armazon)
               clearInputsArmazones(armazon);
               toast.error('Error al validar Armazón.')
           }
@@ -641,7 +667,7 @@ useEffect(()=>{
     }
   })
 
-  diametro_cristal.value = localStorage.getItem('diametroCristal') ? JSON.parse(localStorage.getItem("diametroCristal") as string)[0][3] : 0;
+  // diametro_cristal.value = localStorage.getItem('diametroCristal') ? JSON.parse(localStorage.getItem("diametroCristal") as string)[0][3] : 70;
 
 },[])
 
@@ -694,7 +720,7 @@ useEffect(()=>{
               </div>
               <div className="w-full !mb-5 rowForm">
                 <SelectInputComponent
-                    label='Punto de Venta'
+                    label='Operativo'
                     name='punto_venta_id'
                     showRefresh={true}
                     onlyFirstOption={true}
@@ -711,9 +737,10 @@ useEffect(()=>{
               </div>
               <div className="w-full !mb-7 rowForm">
                 <SelectInputComponent
-                    label='Tipo de Anteojo'
+                    label='Tipo Anteojo'
                     name='tipo_anteojo'
                     showRefresh={true}
+                    data={1}
                     handleSelectChange={(e:any)=>{
                       tipo_de_anteojo.value = e.value;
                     }}

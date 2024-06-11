@@ -22,7 +22,7 @@ const AuthGuard: React.FC<Props> = ({ privateValidation }) => {
   const navigate = useNavigate();
 
   if (!userState?.nombre) {
-    navigate(`/${PublicRoutes.FORGOTPASSWORD}`);
+    navigate(`/${PublicRoutes.LOGIN}`);
   }
 
   const permisosIds = userState?.permisos
@@ -38,7 +38,7 @@ const AuthGuard: React.FC<Props> = ({ privateValidation }) => {
       const hasAccess = hasRequiredPermissions(currentRoute.id, permisosIds);
 
       if (!hasAccess) {
-        navigate(`/${PublicRoutes.FORGOTPASSWORD}`);
+        navigate(`/${PublicRoutes.LOGIN}`);
       }
     }
   }

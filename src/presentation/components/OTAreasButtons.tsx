@@ -11,7 +11,7 @@ interface IOTAreaButtons {
   params: any;
 }
 
-export const areaActualOT = signal('')
+export const areaActualOT = signal<any>(0);
 
 
 

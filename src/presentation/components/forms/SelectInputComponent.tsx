@@ -104,7 +104,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
          }
    })
 
-      if(label === 'Punto de Venta'){
+      if(label === 'Punto de Venta' || label === 'Operativo'){
         if(data && data[0]){
           if(!isEditting && isOT){
             if(formValues?.["punto_venta_id"] !== undefined){

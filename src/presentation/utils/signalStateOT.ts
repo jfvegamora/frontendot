@@ -27,6 +27,7 @@ export const dioptrias: any = signal<any>({
 export const clearAllCheck = signal(false);
 export const clearIndividualCheck = signal(false);
 export const disabledIndividualCheck = signal(false);
+export const inputOnlyReadBodegaProcesado = signal(false);
 // export const validacionIncompleta  = signal(false);
 const countError = signal(0);
 

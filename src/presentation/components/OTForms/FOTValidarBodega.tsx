@@ -269,7 +269,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
 
     console.log(OT)
     return (
-        <div className=" bg-[#676f9d] mx-auto xl:w-[90%] xl:left-[30rem]  absolute top-10 left-auto right-auto rounded-xl shadow-md overflow-hidden lg:left-[20rem]     sm:w-[25rem]    md:max-w-[35rem] z-20">
+        <div className=" bg-[#676f9d] mx-auto xl:w-[90%] xl:left-[30rem]  absolute top-10 left-auto right-auto rounded-xl shadow-md overflow-hidden lg:left-[20rem]     sm:w-[25rem]    md:max-w-[35rem] z-40">
          <div className="absolute right-0 userFormBtnCloseContainer">
           <h1 className='text-center text-2xl text-white mr-[12rem] mb-7'>Folio: { OT && OT[EnumGrid.folio]}</h1>
           <button onClick={handleClose} className="userFormBtnClose">

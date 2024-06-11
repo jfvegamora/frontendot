@@ -222,7 +222,7 @@ const FOTReceta:React.FC<IReceta> = ({
                                 handleChange={handleInputChange}
                                 otData={ a1_od_ad.value || data && data[EnumGrid.a1_od_ad]}
                                 control={control}
-                                onlyRead={!(deshabilitarCampo.value.a1_ad && (!isEditting || (permiso_usuario_receta && permiso_areas_receta))) }
+                                onlyRead={!(deshabilitarCampo.value.a1_ad && (!isEditting || (permiso_usuario_receta && permiso_areas_receta)))  }
                                 textAlign="text-center"
                                 step={0.25}
                                 inputRef={firstInputRef}
@@ -300,7 +300,7 @@ const FOTReceta:React.FC<IReceta> = ({
                             data={A1_DP.value ||  data && data[EnumGrid.a1_dp]}
                             control={control}
                             isOT={true}
-                            onlyRead={!(!isEditting || (permiso_usuario_receta && permiso_areas_receta)) || inputOnlyReadReserva.value}
+                            onlyRead={!(!isEditting || (permiso_usuario_receta && permiso_areas_receta))}
                             textAlign="text-center"
                             />
                     </div>
@@ -422,7 +422,9 @@ const FOTReceta:React.FC<IReceta> = ({
                                 control={control}
                                 isOT={true}
                                 textAlign="text-center"
-                                onlyRead={!(!deshabilitarCampo.value.a2_dp && (!isEditting || (permiso_usuario_receta && permiso_areas_receta)))}
+                                // onlyRead={!(deshabilitarCampo.value.a2_dp && (!isEditting || (permiso_usuario_receta && permiso_areas_receta)) )}
+                                onlyRead={!(deshabilitarCampo.value.a2_dp && (!isEditting || (permiso_usuario_receta && permiso_areas_receta)))}
+
                                 // error={errors.fecha_nacimiento}
                             />
                     </div>

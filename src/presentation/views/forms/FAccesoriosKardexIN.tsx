@@ -91,6 +91,9 @@ const FAccesoriosKardexIN: React.FC<IUserFormPrps> = React.memo(
       setValue,
     } = useForm({
       resolver: yupResolver(schema),
+      defaultValues:{
+        proveedor: '0'
+      }
     });
 
     function transformInsertQuery(jsonData: InputData, userId?: number): OutputData | null | any {

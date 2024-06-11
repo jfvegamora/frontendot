@@ -97,6 +97,9 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
       setValue,
     } = useForm({
       resolver: yupResolver(schema),
+      defaultValues:{
+        almacen_relacionado: '0'
+      }
     });
 
     const resetTextFields = React.useCallback(() => {
@@ -147,7 +150,7 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
         }
       }
 
-      let _p1 = `"${jsonData.insumo}", ${jsonData.almacen}, ${2}, ${jsonData.motivo_egreso}, ${jsonData.cantidad}, ${'0'}, ${'0'}, ${'0'}, ${jsonData.ot || '0'}, ${jsonData.almacen_relacionado || '0'}, "${jsonData.observaciones}", ${userId}`;
+      let _p1 = `"${jsonData.insumo}", ${jsonData.almacen}, ${2}, ${jsonData.motivo_egreso}, ${jsonData.cantidad}, ${'0'}, ${'0'}, ${'0'}, ${jsonData.ot || '0'}, ${jsonData.almacen_relacionado}, "${jsonData.observaciones}", ${userId}`;
 
       _p1 = _p1.replace(/'/g, '!');
 

@@ -89,6 +89,9 @@ const FAccesoriosKardexOUT: React.FC<IUserFormPrps> = React.memo(
       setValue,
     } = useForm({
       resolver: yupResolver(schema),
+      defaultValues:{
+        almacen_relacionado: '0'
+      }
     });
 
     function transformInsertQuery(jsonData: InputData, userId?: number): OutputData | null {
@@ -132,7 +135,7 @@ const FAccesoriosKardexOUT: React.FC<IUserFormPrps> = React.memo(
         ${'0'}, 
         ${'0'}, 
         ${'0'}, 
-        ${jsonData.almacen_relacionado || 0}, 
+        ${jsonData.almacen_relacionado}, 
        "${jsonData.observaciones}",
         ${userId}`;
 

@@ -23,7 +23,7 @@ interface ITextInputProps {
   customWidth?: any;
   isOptional?:boolean;
   textAlign?: string;
-  handleFocus?:any
+  handleFocus?:any;
 }
 
 const TextInputComponent: React.FC<ITextInputProps> = ({
@@ -94,7 +94,7 @@ return (
             error={error ? true : false}
             label={label}
             id={label}
-            
+
             type={type}
             // defaultValue={defaultValue}
             readOnly={onlyRead}
@@ -104,7 +104,7 @@ return (
             ref={inputRef}
             className={`${className ? className : "custom-input"}  ${onlyRead ? "custom-onlyread cursor-not-allowed" : isOptional ? "custom-optional" : "custom-required"} ${textAlign && textAlign}`}
             tabIndex={onlyRead ? 0 : (tabIndex || 1)}
-            placeholder={type === 'date' ? "dd-mm-yyyy" : ''}
+            placeholder={type === 'date' ? "dd-mm-yyyy" : ""}
             autoComplete="off"
             step={step ? step : 1 } 
           />

@@ -225,7 +225,8 @@ export const validationKardexINSchema = () =>
         test: function (value) {
           // Obtén el valor de 'motivo_ingreso' desde el contexto
           const motivoIngreso = this.resolve(yup.ref("motivo_ingreso"));
-
+          console.log(motivoIngreso);
+          console.log(value);
           // Realiza la lógica de validación basada en 'motivo_ingreso' y 'proveedor'
           if (motivoIngreso === "2" && !value) {
             return this.createError({ message: `${msg}` });
