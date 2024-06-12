@@ -77,7 +77,7 @@ const ProfileUser: React.FC = () => {
   }, []);
 
   return (
-    <div className="useFormContainer w-[80%] h-full !overflow-y-auto translate-x-7 translate-y-32    sm:bg-red-400 sm:w-[35vw] sm:mt-4 sm:top-24 sm:left-[33%]">
+    <div className="useFormContainer w-[40%] h-auto !overflow-y-auto left-[30vw] top-[11vh]  ">
       <h1 className="userFormLabel text-white mt-8">Perfil de Usuario</h1>
 
       <form onSubmit={handleSubmit((data) => handleChange(data))}>

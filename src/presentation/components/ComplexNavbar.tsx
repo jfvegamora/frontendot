@@ -145,17 +145,17 @@ const navListMenuOT = [
   {
     title: "OT Diaria",
     link: "/ot",
-    id: 28,
+    id: '28',
   },
   {
     title: "OT Archivo",
     link: "/othistorica",
-    id: 1,
+    id: '1',
   },
   {
     title: "Beneficiarios / Clientes",
     link: "/clientes",
-    id: 2,
+    id: '2',
   },
 ];
 
@@ -163,17 +163,17 @@ const subMenuParametrizacionBodega = [
   {
     title: "Asignación de Accesorios",
     link: "/proyectoaccesorios",
-    id: 30,
+    id: '30',
   },
   {
     title: "Asignación Armazones -> Muestrarios",
     link: "/muestrariosarmazones",
-    id: 16,
+    id: '16',
   },
   {
     title: "Asignación Armazones -> Vitrinas",
     link: "/vitrinasarmazones",
-    id: 35,
+    id: '35',
   },
 ]
 
@@ -181,17 +181,17 @@ const subMenuKardexBodega = [
   {
     title: "Kardex de Armazones",
     link: "/kardexarmazones",
-    id: 6,
+    id: '6',
   },
   {
     title: "Kardex de Cristales",
     link: "/kardexcristales",
-    id: 8,
+    id: '8',
   },
   {
     title: "Kardex de Accesorios",
     link: "/kardexaccesorios",
-    id: 10,
+    id: '10',
   },
 ]
 
@@ -199,32 +199,32 @@ const navListMenuBodega = [
   {
     title: "Almacenes",
     link: "/almacenes",
-    id: 11,
+    id: '11',
   },
   {
     title: "Armazones",
     link: "/armazones",
-    id: 5,
+    id: '5',
   },
   {
     title: "Cristales",
     link: "/cristales",
-    id: 7,
+    id: '7',
   },
   {
     title: "Accesorios",
     link: "/accesorios",
-    id: 9,
+    id: '9',
   },
   {
     title: "Marcas",
     link: "/marcas",
-    id: 12,
+    id: '12',
   },
   {
     title: "Proveedores",
     link: "/proveedores",
-    id: 13,
+    id: '13',
   },
 ];
 
@@ -232,37 +232,37 @@ const subMenuParametrizacion = [
   {
     title: "Parametrización de Grupos",
     link: "/proyectocristales",
-    id: 17,
+    id: '17',
   },
   {
     title: "Parametrización de Puntos de Venta",
     link: "/puntosventa",
-    id: 4,
+    id: '4',
   },
   {
     title: "Parametrización de Destinos",
     link: "/proyectodestinos",
-    id: 18,
+    id: '18',
   },
   {
     title: "Parametrización de Establecimientos",
     link: "/establecimientos",
-    id: 3,
+    id: '3',
   },
   {
     title: "Parametrización de Usuarios",
     link: "/proyectousuarios",
-    id: 34,
+    id: '34',
   },
   {
     title: "Parametrización de Muestrarios",
     link: "/muestrarios",
-    id: 36,
+    id: '36',
   },
   {
     title: "Parametrización de Vitrinas",
     link: "/vitrinas",
-    id: 37,
+    id: '37',
   },
 ];
 
@@ -270,22 +270,22 @@ const subMenuMotivosOT = [
   {
     title: "Motivos de OT Anulada",
     link: "/motivootanulada",
-    id: 41,
+    id: '41',
   },
   {
     title: "Motivos de OT Derivada",
     link: "/motivootderivada",
-    id: 29,
+    id: '29',
   },
   {
     title: "Motivos de OT Pendiente",
     link: "/motivootpendiente",
-    id: 39,
+    id: '39',
   },
   {
     title: "Motivos de OT Post-venta",
     link: "/motivootgarantia",
-    id: 40,
+    id: '40',
   },
 ];
 
@@ -293,32 +293,32 @@ const navListMenuProyectos = [
   {
     title: "Mandantes",
     link: "/mandantes",
-    id: 14,
+    id: '14',
   },
   {
     title: "Proyectos",
     link: "/proyectos",
-    id: 15,
+    id: '15',
   },
   {
     title: "Documentos",
     link: "/proyectodocum",
-    id: 38,
+    id: '38',
   },
   {
     title: "Empresas",
     link: "/empresas",
-    id: 27,
+    id: '27',
   },
   {
     title: "Oftalmólogos",
     link: "/oftalmologos",
-    id: 21,
+    id: '21',
   },
   {
     title: "Reserva de Armazones",
     link: "/reservaarmazones",
-    id: 42,
+    id: '42',
   },
 ];
 
@@ -327,32 +327,32 @@ const navListMenuSistema = [
   {
     title: "Usuarios",
     link: "/usuarios",
-    id: 24,
+    id: '24',
   },
   {
     title: "Cargos",
     link: "/cargos",
-    id: 22,
+    id: '22',
   },
   {
     title: "Funcionalidades",
     link: "/funcionalidades",
-    id: 23,
+    id: '23',
   },
   {
     title: "Permisos de Usuario",
     link: "/permisos",
-    id: 26,
+    id: '26',
   },
   {
     title: "Perfiles de Cargo",
     link: "/perfiles",
-    id: 25,
+    id: '25',
   },
 ];
 
 
-function NavListMenuOT({ userPermission }: { userPermission: number[] }) {
+function NavListMenuOT({ userPermission }: { userPermission: string[] }) {
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
@@ -367,7 +367,7 @@ function NavListMenuOT({ userPermission }: { userPermission: number[] }) {
   };
 
   const renderItems = navListMenuOT.map(({ title, link, id }) => {
-    const hasPermission = userPermission.includes(id);
+    const hasPermission = userPermission.includes(id as any);
     return (
       <MenuItem
         key={id}
@@ -434,7 +434,7 @@ function NavListMenuOT({ userPermission }: { userPermission: number[] }) {
   );
 }
 
-function NavListMenuBodega({ userPermission }: { userPermission: number[] }) {
+function NavListMenuBodega({ userPermission }: { userPermission: string[] }) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [openMenuParametrizacionBodega, setOpenMenuParametrizacionBodega] = useState(false)
   const [openMenuKardexBodega, setOpenMenuKardexBodega] = useState(false)
@@ -451,7 +451,7 @@ function NavListMenuBodega({ userPermission }: { userPermission: number[] }) {
 
 
   const renderItems = navListMenuBodega.map(({ title, link, id, subMenu }:any) => {
-    const hasPermission = userPermission.includes(id);
+    const hasPermission = userPermission.includes(id as any);
      
     const renderSubMenu = subMenu 
        ? subMenu.map(({title: subMenuTitle, link: subMenuLink, id: subMenuId}:any) => {
@@ -567,7 +567,7 @@ function NavListMenuBodega({ userPermission }: { userPermission: number[] }) {
               </MenuHandler>
               <MenuList>
                 {subMenuKardexBodega.map(({ title, id, link }) => {
-                  const hasPermission = userPermission.includes(id);
+                  const hasPermission = userPermission.includes(id as any);
                   return (
                     <MenuItem
                       className={`flex items-center gap-2 rounded ${hasPermission ? "" : "text-gray-400 cursor-not-allowed"
@@ -601,7 +601,7 @@ function NavListMenuBodega({ userPermission }: { userPermission: number[] }) {
               </MenuHandler>
               <MenuList>
                 {subMenuParametrizacionBodega.map(({ title, id, link }) => {
-                  const hasPermission = userPermission.includes(id);
+                  const hasPermission = userPermission.includes(id as any);
                   return (
                     <MenuItem
                       className={`flex items-center gap-2 rounded ${hasPermission ? "" : "text-gray-400 cursor-not-allowed"
@@ -650,7 +650,7 @@ function NavListMenuBodega({ userPermission }: { userPermission: number[] }) {
   );
 }
 
-function NavListMenuProyectos({ userPermission }: { userPermission: number[] }) {
+function NavListMenuProyectos({ userPermission }: { userPermission: string[] }) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [openMenuParametrizacion, setOpenMenuParametrizacion] = React.useState(false);
   const [openMenuOTMotivos, setOpenMenuOTMotivos]             = React.useState(false);
@@ -784,7 +784,7 @@ function NavListMenuProyectos({ userPermission }: { userPermission: number[] }) 
               </MenuHandler>
               <MenuList>
                 {subMenuMotivosOT.map(({ title, id, link }) => {
-                  const hasPermission = userPermission.includes(id);
+                  const hasPermission = userPermission.includes(id as any);
                   return (
                     <MenuItem
                       className={`flex items-center gap-2 rounded ${hasPermission ? "" : "text-gray-400 cursor-not-allowed"
@@ -818,7 +818,7 @@ function NavListMenuProyectos({ userPermission }: { userPermission: number[] }) 
               </MenuHandler>
               <MenuList>
                 {subMenuParametrizacion.map(({ title, id, link }) => {
-                  const hasPermission = userPermission.includes(id);
+                  const hasPermission = userPermission.includes(id as any);
                   return (
                     <MenuItem
                       className={`flex items-center gap-2 rounded ${hasPermission ? "" : "text-gray-400 cursor-not-allowed"
@@ -861,7 +861,7 @@ function NavListMenuProyectos({ userPermission }: { userPermission: number[] }) 
 
 
 
-function NavListMenuSistema({ userPermission }: { userPermission: number[] }) {
+function NavListMenuSistema({ userPermission }: { userPermission: string[] }) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const navigate = useNavigate();
 
@@ -876,7 +876,7 @@ function NavListMenuSistema({ userPermission }: { userPermission: number[] }) {
 
 
   const renderItems = navListMenuSistema.map(({ title, link, id }) => {
-    const hasPermission = userPermission.includes(id);
+    const hasPermission = userPermission.includes(id as any);
     return (
       <MenuItem
         key={id}
@@ -944,17 +944,16 @@ function NavListMenuSistema({ userPermission }: { userPermission: number[] }) {
 }
 
 function NavList() {
-  const [userPermission, setUserPermission] = React.useState<number[]>([]);
+  const [userPermission, setUserPermission] = React.useState<string[]>([]);
   const userState = useAppSelector((store: AppStore) => store.user);
 
   React.useEffect(() => {
     const permisosKey = userState?.permisos
-      ? Object.keys(userState.permisos)
+      ? JSON.parse(userState?.permisos).map((permiso:any)=>permiso.id.toString())
       : [];
-    const numbersPermission = permisosKey.map((str) => parseInt(str, 10));
-    setUserPermission(numbersPermission);
+    // const numbersPermission = permisosKey.map((str) => parseInt(str, 10));
+    setUserPermission(permisosKey);
   }, [userState]);
-
 
 
   return (
