@@ -84,8 +84,11 @@ function App() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch()
 
-  const permisosID = userState && Object.keys(userState?.permisos);
-  // console.log('permmisosID', permisosID)
+  // console.log(userState?.permisos)
+  const permisosID = userState?.permisos ? 
+                                       JSON.parse(userState?.permisos).map((id:any)=>(id.id).toString()) 
+                                       : []
+  console.log('permmisosID', permisosID)
 
   useEffect(() => {
     if(userState && userState.token){
@@ -134,8 +137,6 @@ function App() {
   // },[userState?.token])
 
 
-
-
   
   return (
 
@@ -162,17 +163,21 @@ function App() {
               <Route path="/" element={<LandingPage/>} />
               <Route path="/operativo" element={<FReservarArmazones/>} />
               <Route path="/movilarmazones" element={<MovilReservaArmazones/>} />
-                {privateRoutes.map((route) => (
-                  <Route
-                    key={route.path}
-                    path={route.path}
-                    element={
-                      permisosID && hasRequiredPermissions(route.id, permisosID) ? (
-                        <route.component />
-                      ) : null
-                    }
-                  />
-                ))}
+                {privateRoutes.map((route) => {
+                  return(
+                    (
+                      <Route
+                        key={route.path}
+                        path={route.path}
+                        element={
+                          permisosID && hasRequiredPermissions(route.id, permisosID) ? (
+                            <route.component />
+                          ) : null
+                        }
+                      />
+                    )
+                  )
+                })}
             </Route>
           </RoutesWithNotFound>
         </Suspense>

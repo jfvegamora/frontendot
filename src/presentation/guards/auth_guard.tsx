@@ -14,8 +14,11 @@ export const hasRequiredPermissions = (
   if (!routeId) return true;
 
   const result = userPermissions.includes(routeId);
+  console.log(routeId)
+  console.log(result)
   return result;
 };
+
 
 const AuthGuard: React.FC<Props> = ({ privateValidation }) => {
   const userState = useAppSelector((store: AppStore) => store.user);
@@ -26,18 +29,23 @@ const AuthGuard: React.FC<Props> = ({ privateValidation }) => {
   }
 
   const permisosIds = userState?.permisos
-    ? Object.keys(userState.permisos)
+    ? JSON.parse(userState.permisos).map((id_ruta:any)=>id_ruta.id.toString())
     : [];
+  console.log(JSON.parse(userState.permisos))
+  console.log(permisosIds)
 
   if (privateValidation) {
-    const currentRoute = privateRoutes.find(
-      (route) => route.path === window.location.pathname
-    );
+    const currentRoute = privateRoutes.find((route) => (route.path === (window.location.pathname).replace('/', '')))?.id;
 
-    if (currentRoute && currentRoute.id) {
-      const hasAccess = hasRequiredPermissions(currentRoute.id, permisosIds);
+    console.log(window.location.pathname)
+    console.log(privateRoutes)
+    console.log(currentRoute)
+    
+    if (currentRoute) {
+      const hasAccess = hasRequiredPermissions(currentRoute, permisosIds);
 
       if (!hasAccess) {
+        console.log('render')
         navigate(`/${PublicRoutes.LOGIN}`);
       }
     }

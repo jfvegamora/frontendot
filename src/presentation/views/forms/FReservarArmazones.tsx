@@ -164,11 +164,11 @@ const FReservarArmazones = () => {
     }
   })
 
-  React.useEffect(()=>{
-    if(!isMobile){
-      navigate('/landing')
-    }
-  },[])
+  // React.useEffect(()=>{
+  //   if(!isMobile){
+  //     navigate('/landing')
+  //   }
+  // },[])
 
   const formValues = getValues();
 

@@ -6,7 +6,7 @@
 //@ts-nocheck
 
 import { IconButton, Tooltip } from "@material-tailwind/react";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useMemo } from "react";
 import { Controller } from "react-hook-form";
 import { FiRefreshCw } from "react-icons/fi";
 import { useCrud, useEntityUtils } from "../../hooks";
@@ -78,7 +78,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     const [entities, setEntities] = useState([]);
     const [strSelectedName, setStrSelectedName] = useState(data || '');
     const strUrl = entidad && entidad[0];
-    const strTableName = entidad[3] ? entidad[2] && `_p1=${entidad[2]}&${entidad[3]}`: entidad[2] && `_p1=${entidad[2]}`
+    // const strTableName = entidad[3] ? entidad[2] && `_p1=${entidad[2]}&${entidad[3]}`: entidad[2] && `_p1=${entidad[2]}`
     const { ListEntity } = useCrud(strUrl);
     const cleanFilters = {};
     const { refreshData } = useEntityUtils(strUrl, entidad[1]);
@@ -86,10 +86,14 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
 
 
 
-    const _p1 =  entidad[2] && `_p1=${entidad[2]}`   
+    // const _p1 =  entidad[2] && `_p1=${entidad[2]}`   
 
-    const strUrl2 = strTableName ? `${URLBackend}${entidad[0]}listado/?query=${entidad[1]}&${strTableName}`
-                                 : `${URLBackend}${entidad[0]}listado/?query=${entidad[1]}`;
+    // const strUrl2 = strTableName ? `${URLBackend}${entidad[0]}listado/?query=${entidad[1]}&${strTableName}`
+    //                              : `${URLBackend}${entidad[0]}listado/?query=${entidad[1]}`;
+
+    const strTableName = React.useMemo(() => entidad[3] ? `${entidad[2] && `_p1=${entidad[2]}&${entidad[3]}`}` : `${entidad[2] && `_p1=${entidad[2]}`}`, [entidad]);
+
+    const strUrl2 = React.useMemo(() => strTableName ? `${URLBackend}${entidad[0]}listado/?query=${entidad[1]}&${strTableName}` : `${URLBackend}${entidad[0]}listado/?query=${entidad[1]}`, [strTableName, entidad]);
 
 
 
@@ -97,13 +101,16 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     const state = useAppSelector((store: AppStore) => store.listBox);
       
 
-    const fetchSelectData =async()=>{
+    const fetchSelectData =React.useCallback(async()=>{
       const {data} = await axios(strUrl2,{
         headers: {
            'Authorization': token, 
          }
-   })
+       })
 
+
+
+       console.log('render')
       if(label === 'Punto de Venta' || label === 'Operativo'){
         if(data && data[0]){
           if(!isEditting && isOT){
@@ -125,7 +132,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
       dispatch(setDataListbox(payload))
       setEntities(data)
       
-    }
+    },[strUrl2, label, token, isEditting, isOT, formValues])
 
 
     React.useEffect(()=>{
@@ -133,6 +140,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
         fetchSelectData()
       }else{
         setEntities(state[label])
+        console.log('render')
       }
 
     },[state, label])
