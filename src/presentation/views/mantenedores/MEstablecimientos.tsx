@@ -83,21 +83,21 @@ const MEstablecimientos: React.FC = () => {
   return (
     <div className="mantenedorContainer">
       <div className="mantenedorHead width100">
-        <div className="w-[80%]">
+        <div className="w-[70%]">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
             setParams={setParams}
             updateParams={updateParams}
             setEntities={setEntities}
             primaryKeyInputs={[
-              { name: "_p1", label: "Código / RBD / Nombre", type: "text", styles: { with: "!w-[12rem]" }, },
+              { name: "_p1", label: "RBD/Nombre", type: "text", styles: { with: "!w-[8rem]" }, },
               // { name: "_p1", label: "Establecimiento", type: "text", styles: { with: "!w-[12rem]" }, },
               {
                 name: "_p2",
                 label: "Mandante",
                 type: "select",
                 selectUrl: "/api/mandantes/",
-                styles: { with: "!w-[12rem]" },
+                styles: { with: "!w-[12rem] !ml-[-0.3rem]" },
               },
               {
                 name      : "_p3",
@@ -121,6 +121,13 @@ const MEstablecimientos: React.FC = () => {
                 type      : "select",
                 selectUrl : "/api/tipos/",
                 tipos     : "Comunas",
+                styles: { with: "!w-[12rem]" },
+              },
+              {
+                name: "_p6",
+                label: "Destino",
+                type: "select",
+                selectUrl: "/api/proyectodestinos/",
                 styles: { with: "!w-[12rem]" },
               },
         ]}
