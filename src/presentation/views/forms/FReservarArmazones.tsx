@@ -22,7 +22,7 @@ import axios from 'axios';
 import { fetchReservaArmazones, getLocalArmazones, isOnline } from '../../utils/FReservaArmazones_utils';
 import { clearBaseDatos, getArmazones, getBeneficiarios, isExistArmazon, isExistBeneficiario, openDatabase, setArmazones, setReservaBeneficiario, validateLocalArmazon } from '../../utils/indexedDB';
 import { clearRutCliente } from '../../components/OTForms/FOTClientes';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 // import { focusFirstInput } from '../../components/OTForms/FOTValidarBodega';
 // import axios from 'axios';
 
@@ -135,10 +135,9 @@ const FReservarArmazones = () => {
   const [isLoading, setisLoading]     = React.useState<boolean>(false);
   const schema                        = validationReservaArmazonesSchema();
   const userID:any                    = useAppSelector((store: AppStore) => store.user?.id);
-  const userAgent = navigator.userAgent
-
-  const isMobile = /Mobi/.test(userAgent)
-  const navigate = useNavigate()
+  // const userAgent = navigator.userAgent
+  // const isMobile = /Mobi/.test(userAgent)
+  // const navigate = useNavigate()
 
 
 
