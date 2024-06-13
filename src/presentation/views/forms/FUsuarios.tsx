@@ -213,6 +213,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
       setValue("nombre", "");
       setValue("telefono", "");
       setValue("correo", "");
+      setValue('permiso_post_venta', '');
       if (firstInputRef.current) {
         const firstInput = firstInputRef.current.querySelector(
           'input[name="nombre"]'
@@ -252,6 +253,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
         }
         
         if(response.mensaje.includes('Creado')){
+          setFormValues({});
           toastSuccess(isEditting);
         }
         if (!blnKeep && !isEditting) {
@@ -339,7 +341,9 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
         const response = await ListEntity(primaryKey, query);
 
         response[0][0] === "OK"
-          ? show({ message: TITLES.permisos, type: "success" })
+          ? (
+            show({ message: TITLES.permisos, type: "success" })
+          )
           : show({ message: TITLES.permisosError, type: "error" });
       } catch (error: any) {
         console.log(error);
@@ -377,7 +381,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
       }
     },[data])
 
-
+console.log(formValues)
 
 
 return (
@@ -584,7 +588,7 @@ return (
                               control={control}
                               label="Bod Prod Term."
                               name="permiso_bodega_prod_term"
-                              data={formValues && formValues["Bod Prod Terminados"] || data && data[EnumGrid.permiso_bodega_p_terminados]}
+                              data={formValues && formValues["Bod Prod Term."] || data && data[EnumGrid.permiso_bodega_p_terminados]}
                               options={["Lectura", "Escritura"]}
                               error={errors.permiso_bodega_prod_term}
                               horizontal={false}
@@ -631,7 +635,7 @@ return (
                               control={control}
                               label="Cálculo"
                               name="permiso_calculo"
-                              data={formValues && formValues["Calculo"] || data && data[EnumGrid.permiso_calculo]}
+                              data={formValues && formValues["Cálculo"] || data && data[EnumGrid.permiso_calculo]}
                               options={["Lectura", "Escritura"]}
                               error={errors.permiso_calculo}
                               horizontal={false}
@@ -701,7 +705,7 @@ return (
                                 control={control}
                                 label="Estado Impresión"
                                 name="permiso_editar_estado_impresion"
-                                data={formValues && formValues["Estado Impresion"] || data && data[EnumGrid.permiso_editar_estado_impresion]}
+                                data={formValues && formValues["Estado Impresión"] || data && data[EnumGrid.permiso_editar_estado_impresion]}
                                 options={["Lectura", "Escritura"]}
                                 error={errors.permiso_editar_estado_impresion}
                                 horizontal={false}
@@ -715,7 +719,7 @@ return (
                                 control={control}
                                 label="Validar Param."
                                 name="permiso_editar_validar_parametrizacion"
-                                data={formValues && formValues["Validar Parametri"] || data && data[EnumGrid.permiso_editar_validar_parametrizacion]}
+                                data={formValues && formValues["Validar Param."] || data && data[EnumGrid.permiso_editar_validar_parametrizacion]}
                                 options={["Lectura", "Escritura"]}
                                 error={errors.permiso_editar_validar_parametrizacion}
                                 horizontal={false}
@@ -748,7 +752,7 @@ return (
                             control={control}
                             label="Grupo Dioptría"
                             name="permiso_editar_grupo_dioptria"
-                            data={formValues && formValues["Grupo Dioptria"] || data && data[EnumGrid.permiso_editar_grupo_dioptria]}
+                            data={formValues && formValues["Grupo Dioptría"] || data && data[EnumGrid.permiso_editar_grupo_dioptria]}
                             options={["Lectura", "Escritura"]}
                             error={errors.permiso_editar_grupo_dioptria}
                             horizontal={false}
