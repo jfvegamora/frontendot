@@ -215,8 +215,8 @@ const FReservarArmazones = () => {
         //   "punto_venta" : ''
         // }
 
-        let _id = 0;//? 0 no validar nada, data armazon  / 1 valida armazon y cristal  / 2 solo valida amrazon
-        let _p6 = 0;
+        // let _id = 0;//? 0 no validar nada, data armazon  / 1 valida armazon y cristal  / 2 solo valida amrazon
+        // let _p6 = 0;
 
         switch (armazon) {
           case 'Armazon1':
