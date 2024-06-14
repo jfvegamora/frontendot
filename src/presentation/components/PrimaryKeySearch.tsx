@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
 import React, { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { IconButton, Input, Tooltip } from "@material-tailwind/react";
@@ -20,6 +21,32 @@ import { filterToggle } from "./FilterButton";
 
 interface IPrimaryKeyState {
   [key: string]: string | number;
+}
+
+export const filterSearchTitle = signal<any>({});
+export const titleSearch       = signal<any>('');
+
+export const changeFilterSearchTitle = (e:any, label:any, typeInput?:any) => {
+  
+  const newValueFilterSearch    = typeInput === 'Select' 
+                                                    ? e.target.options[e.target.selectedIndex].text
+                                                    : e.target.value  
+
+  const updatedValue            = newValueFilterSearch === ''
+                                                        ? Object.keys(filterSearchTitle.value).reduce((acc:any, key:any) => {
+                                                            if (key !== label) {
+                                                              acc[key] = filterSearchTitle.value[key];
+                                                            }
+                                                            return acc;
+                                                          }, {})
+                                                        : { ...filterSearchTitle.value, [label]: newValueFilterSearch };
+  
+  filterSearchTitle.value       = updatedValue;
+  titleSearch.value  = Object.values(filterSearchTitle.value).join(' | ');
+
+
+  console.log(titleSearch.value)
+
 }
 
 
@@ -73,7 +100,12 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
 
 
 
+
+
+
+
     const handleRefresh = () => {
+      titleSearch.value = ""
         const mapping = primaryKeyInputs.reduce((acc:any, filtroBusqueda:any) => {
           acc[filtroBusqueda.name]= '';
           setInputValues({ ...inputValues, [filtroBusqueda.name]: '' });
@@ -137,7 +169,6 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
 
     const handleSearch = async (data: any) => {
       const toastLoading = toast.loading('Buscando...');
-      
       if(baseUrl === '/api/othistorica/' || baseUrl === '/api/ot/'){
         const filtersOT = Object.entries(data)
         .filter((campos)=> campos[1] !== '' && campos[1] !== undefined)
@@ -262,6 +293,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                               onChange={(e) => {
                                 field.onChange(e);
                                 handleInputChange("_pEsferico", e.target.value);
+                                changeFilterSearchTitle(e, input.label);
                               }}
                               onKeyDown={handleKeyDown}
                               onBlur={handleBlur}
@@ -290,6 +322,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                               onChange={(e) => {
                                 field.onChange(e);
                                 handleInputChange('_pCilindrico', e.target.value);
+                                changeFilterSearchTitle(e, input.label);
                                 setCilindrico(e.target.value as any);
                               }}
                               onKeyDown={handleKeyDown}
@@ -323,6 +356,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                             value={inputValues[input.name]}
                             onChange={(e) => {
                               field.onChange(e);
+                              changeFilterSearchTitle(e, input.label);
                               handleInputChange(input.name, e.target.value);
                             }}
                             onKeyDown={handleKeyDown}
@@ -398,6 +432,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                         {...field}
                         value={field.value || ""}
                         onChange={(e) => {
+                          changeFilterSearchTitle(e, input.label);
                           field.onChange(e.target.value);
                         }}
                         onBlur={handleBlur}
@@ -426,6 +461,8 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                       onChange={(e) => {
                         console.log(e.target.value)
                         field.onChange(e);
+                        console.log(input.label)
+                        changeFilterSearchTitle(e, input?.label);
                         handleInputChange(input.name, e.target.value);
                       }}
                       onKeyDown={handleKeyDown}
@@ -447,6 +484,25 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
         </div>
       ));
     };
+
+    React.useEffect(()=>{
+      filterSearchTitle.value = {}
+      titleSearch.value = '';
+    },[window.location.pathname])
+
+    React.useEffect(()=>{
+      if(titleSearch.value === ''){
+        let title = window.location.pathname.slice(1).charAt(0).toUpperCase() + window.location.pathname.slice(2);
+        
+        if(title === 'Ot' || title === 'Othistorica'){
+          title = "Sistema Gestión de OT"
+        }
+
+        document.title = title;
+      }else{
+        document.title = titleSearch.value
+      }
+    },[titleSearch.value])
     
     // useEffect(() => {
     //   const searchParams = {
@@ -507,6 +563,8 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                 onClick={(e)=>{
                   e.preventDefault()
                   filterToggle.value = false;
+                  titleSearch.value = ''
+                  filterSearchTitle.value = {}
                   console.log('render')
                  return handleRefresh()
                 }}

@@ -17,7 +17,7 @@ import { URLBackend } from "../../hooks/useCrud";
 import { clearSelectInput, codigoProyecto, punto_venta } from "../../utils";
 
 import { retry } from 'async';
-import { resetFilters } from "../PrimaryKeySearch";
+import { changeFilterSearchTitle, filterSearchTitle, filterTextValue, resetFilters } from "../PrimaryKeySearch";
 import { inputName } from "../OTForms/Otprueba";
 import { codPuntoVenta } from "../../views/forms/FReservarArmazones";
 // import Select from "react-select";
@@ -110,7 +110,6 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
 
 
 
-       console.log('render')
       if(label === 'Punto de Venta' || label === 'Operativo'){
         if(data && data[0]){
           if(!isEditting && isOT){
@@ -140,7 +139,6 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
         fetchSelectData()
       }else{
         setEntities(state[label])
-        console.log('render')
       }
 
     },[state, label])
@@ -156,7 +154,6 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
 
     React.useEffect(()=>{
       if(resetFilters.value === true){
-          console.log('render')
           setStrSelectedName('')
         }
    },[resetFilters.value])
@@ -205,6 +202,24 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
                     };
 
                     if (setHandleSearch) {
+                      // const newValueFilterSearch                 = e.target.options[e.target.selectedIndex].text;
+
+                      // const updatedValue                         = newValueFilterSearch === '' 
+                      //                                                                       ? Object.keys(filterSearchTitle.value).reduce((acc:any, key:any)=>{
+                      //                                                                         if(key !== label){
+                      //                                                                           acc[key] = filterSearchTitle.value[key];
+                      //                                                                         }
+                      //                                                                         return acc;
+                      //                                                                       },{})
+                      //                                                                       : {...filterSearchTitle.value, [label]: newValueFilterSearch};
+
+                                                                                          
+
+
+
+
+                      // filterSearchTitle.value = updatedValue    
+                      changeFilterSearchTitle(e, label, 'Select');                                                                    
                       setHandleSearch(inputValuesToUpdate);
                     }
                   }

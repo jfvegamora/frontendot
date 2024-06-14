@@ -22,6 +22,7 @@ import axios from 'axios';
 import { fetchReservaArmazones, getLocalArmazones, isOnline } from '../../utils/FReservaArmazones_utils';
 import { clearBaseDatos, getArmazones, getBeneficiarios, isExistArmazon, isExistBeneficiario, openDatabase, setArmazones, setReservaBeneficiario, validateLocalArmazon } from '../../utils/indexedDB';
 import { clearRutCliente } from '../../components/OTForms/FOTClientes';
+import { useNavigate } from 'react-router-dom';
 // import { useNavigate } from 'react-router-dom';
 // import { focusFirstInput } from '../../components/OTForms/FOTValidarBodega';
 // import axios from 'axios';
@@ -135,9 +136,9 @@ const FReservarArmazones = () => {
   const [isLoading, setisLoading]     = React.useState<boolean>(false);
   const schema                        = validationReservaArmazonesSchema();
   const userID:any                    = useAppSelector((store: AppStore) => store.user?.id);
-  // const userAgent = navigator.userAgent
-  // const isMobile = /Mobi/.test(userAgent)
-  // const navigate = useNavigate()
+  const userAgent = navigator.userAgent
+  const isMobile = /Mobi/.test(userAgent)
+  const navigate = useNavigate()
 
 
 
@@ -162,11 +163,11 @@ const FReservarArmazones = () => {
     }
   })
 
-  // React.useEffect(()=>{
-  //   if(!isMobile){
-  //     navigate('/landing')
-  //   }
-  // },[])
+  React.useEffect(()=>{
+    if(!isMobile){
+      navigate('/landing')
+    }
+  },[])
 
   const formValues = getValues();
 
@@ -202,22 +203,6 @@ const FReservarArmazones = () => {
 
       console.log(armazon)
       if(isOnline.value === true){
-        // const emmtyJSON = {
-        //   "marca"       : '',
-        //   "diseno"      : '',
-        //   "indice"      : '',
-        //   "material"    : '',
-        //   "color"       : '',
-        //   "tratamiento" : '',
-        //   "diametro"    : '',
-        //   "esferico"    : '',
-        //   "cilindrico"  : '',
-        //   "punto_venta" : ''
-        // }
-
-        let _id = 0;//? 0 no validar nada, data armazon  / 1 valida armazon y cristal  / 2 solo valida amrazon
-        let _p6 = 0;
-
         switch (armazon) {
           case 'Armazon1':
             json_data = [{
@@ -232,8 +217,6 @@ const FReservarArmazones = () => {
               tipo_anteojo             : tipo_de_anteojo.value,
               numero_armazon           : 1
           }]
-            _id = 2;
-            _p6 = 1;
             break;
           case 'Armazon2':
             json_data = [{
@@ -248,8 +231,6 @@ const FReservarArmazones = () => {
               tipo_anteojo             : tipo_de_anteojo.value,
               numero_armazon           : 2
             }]
-            _id = tipo_de_anteojo.value === '3' ? 2 : 0
-            _p6 = tipo_de_anteojo.value === '3' ? 1 : 0
             break
           case 'Armazon3':
             json_data = [{
@@ -264,12 +245,13 @@ const FReservarArmazones = () => {
               tipo_anteojo             : tipo_de_anteojo.value,
               numero_armazon           : 2
             }]
-            _id = 0;
-            _p6 = 0;
+           
             break
           default:
             break;
         }
+
+
   
         // const _id = 2//? 0 no validar nada, data armazon  / 1 valida armazon y cristal  / 2 solo valida amrazon
         // const _p6 = 1 //? 1 VALIDAR PARAMETRIZACION
