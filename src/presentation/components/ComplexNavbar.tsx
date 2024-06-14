@@ -75,9 +75,10 @@ function ProfileMenu() {
 
   return (
     <div className="right-0 absolute flex mx-4 translate-x-8 justify-right items-center">
-      {userState && (
+      {userState && !isMobile && (
         <p className="m-auto font-menu pr-1">{userState.nombre}</p>
       )}
+    
       <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
         <MenuHandler>
           <Button
@@ -136,7 +137,11 @@ function ProfileMenu() {
             );
           })}
         </MenuList>
+
       </Menu>
+      {isMobile && (
+        <p className="m-auto font-menu pr-1">{userState.nombre}</p>
+      )}
     </div>
   );
 }

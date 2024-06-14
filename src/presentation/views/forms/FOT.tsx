@@ -929,6 +929,7 @@ useEffect(()=>{
 
 
 
+
   console.log(validationNivel1.value)
   // console.log(data && data[EnumGrid.validar_parametrizacion_id])
   // console.log(validationNivel3.value)
@@ -996,6 +997,8 @@ const checkArmazones = camposRequeridosArmazones.every(campo => {
 // console.log(checkCliente)
 
 // console.log(checkOptica)
+
+// console.log(dioptrias_receta.value)
 
 
   return (

@@ -132,7 +132,7 @@ const Scanner:React.FC<any> = ({setIsScanning}) => {
 
 const FReservarArmazones = () => {
   const [isScanning, setIsScanning]   = useState(false);
-  const [_barcode, setBarcode]         = useState('');
+  const [isLoading, setisLoading]     = React.useState<boolean>(false);
   const schema                        = validationReservaArmazonesSchema();
   const userID:any                    = useAppSelector((store: AppStore) => store.user?.id);
   // const userAgent = navigator.userAgent
@@ -140,9 +140,7 @@ const FReservarArmazones = () => {
   // const navigate = useNavigate()
 
 
-  const [_armazon1, setArmazon1]       = React.useState('');
-  const [_armazon2, setArmazon2]       = React.useState('');
-  const [_armazon3, setArmazon3]       = React.useState('');
+
 
   const inputsRef = {
     armazon_1: React.useRef<any>(null),
@@ -190,6 +188,7 @@ const FReservarArmazones = () => {
   }
 
   const fetchValidateArmazon = async(armazon:string, codArmazon:string) => {
+      setisLoading(true)
       const urlbase  = `${URLBackend}/api/armazones/listado/?query=02`;
       // const urlbase2 = `${URLBackend}/api/armazones/listado/?query=02`;
 
@@ -290,14 +289,8 @@ const FReservarArmazones = () => {
            
             const result = await axios(fetchURL)
             if(result.data && result.data[0] && result.data[0][19] !== ''){
-              // window.scrollTo({
-              //   top: 0,
-              //   behavior: 'smooth'
-              // });
-              console.log(_id)
-              console.log(_p6)
-              console.log('render')
               toast.error(result.data[0][19])
+              setisLoading(false);
               clearInputsArmazones(armazon)
             }
             
@@ -315,7 +308,9 @@ const FReservarArmazones = () => {
               default:
                 break;
             }
+            setisLoading(false);
           } catch (error) {
+              setisLoading(false);
               clearInputsArmazones(armazon);
               toast.error('Error al validar Armazón.')
           }
@@ -532,7 +527,6 @@ React.useEffect(()=>{
     if(codArmazon3.value === codArmazon1.value || codArmazon3.value === codArmazon2.value){
       toast.error('Códigos de Armazones no deben ser iguales')
       setValue('Armazon3', '')
-      setArmazon3('')
       codArmazon3.value = '';
     }else{
       setValue('Armazon3', codArmazon3.value)
@@ -682,6 +676,8 @@ useEffect(()=>{
     clearTextInputs()
     setValue('rut_beneficiario', '')
   },[clearRutCliente])
+
+
 
   
     return (
@@ -877,20 +873,14 @@ useEffect(()=>{
                 ))} */}
               </div>
               {isScanning &&  <Scanner 
-                                setBarcode={setBarcode} 
-                                focusInput={focusInput} 
-                                inputsRef={inputsRef}
-                                setIsScanning={setIsScanning} 
-                                setArmazon1={setArmazon1}
-                                setArmazon2={setArmazon2} 
-                                setArmazon3={setArmazon3} 
+                                setIsScanning={setIsScanning}   
               /> }
               {
                   (
                     tipo_de_anteojo.value === '3' 
                       ? (codArmazon1.value !== '' && codArmazon2.value !== '') 
                       : (codArmazon1.value !== '')
-                  ) && (
+                  ) && !isLoading && (
                     <div className="w-full">
                       <Button color='orange' type='submit'>Reservar</Button>
                     </div>
