@@ -7,15 +7,19 @@ import {
   A2_CR_OD,
   A2_CR_OI,
   a1_armazon,
+  a1_od_ad,
+  a1_od_cil,
   a1_od_eje,
   a1_od_esf,
+  a1_oi_ad,
+  a1_oi_cil,
   a1_oi_eje,
   a1_oi_esf,
   a2_armazon,
   // a1_od_cil, a1_od_eje, a1_od_esf, 
   a2_od_cil, a2_od_eje, a2_od_esf, a2_oi_cil, a2_oi_eje, a2_oi_esf, a3_armazon, dioptrias_receta, validar_armazon1, validar_armazon2, validar_cristal1_od, validar_cristal1_oi, validar_cristal2_od, validar_cristal2_oi } from "../../utils";
 import { toast } from "react-toastify";
-import { validation_A1_OD_EJE, validation_A1_OI_EJE } from "../../utils/validationOT";
+import { AppStore, useAppSelector } from "../../../redux/store";
 
 interface ITextInputProps {
   label: string;
@@ -54,6 +58,13 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
   renderComponent
 }) => {
   const [defaultValue, setDefaultValue] = useState<string>(otData || " ")
+  const dioptriasState = useAppSelector((store: AppStore) => store.utils?.Dioptrias);
+  
+  let ESFstate = dioptriasState[0];
+  let CILstate = dioptriasState[1];
+  let EJEstate = dioptriasState[2]
+  let ADstate  = dioptriasState[3]
+
 
   const[render, setRender] = useState(false);
 
@@ -62,7 +73,7 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
   switch (name) {
     //? OJO DERECHO | ANTEOJO 1
     case 'a1_od_esf':
-        initialValue =  dioptrias_receta.value.a1_od.esf        
+        initialValue = Number.isNaN(dioptrias_receta.value.a1_od.esf) ?  ''  :   dioptrias_receta.value.a1_od.esf        
       break;
     case 'a1_od_cil':
         initialValue = dioptrias_receta.value.a1_od.cil  
@@ -149,116 +160,157 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
 
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if(e.target?.value.trim() === ''){
+      return;
+    }
+
     if (handleChange) {
       handleChange(e.target)
     }
     // console.log(e.target.value)
+    let formatValue:any = '';
 
+    if(e.target.value?.trim() !== ''){
+      formatValue = parseFloat(e.target.value.replace(',', '.')).toFixed(2);
+    }
+
+    console.log(formatValue)
 
     switch (e.target.name) {
       case 'a1_od_esf':
-        if((Number(e.target.value).toFixed(2) as any % 0.25 !== 0)){
-          toast.error('Esférico OD no corresponde.')
-          a1_od_esf.value = "  "
-          setValue("  ")
+        const isESFODPresent = ESFstate.some((subArray:string) => subArray.includes(formatValue))
+        if(!isESFODPresent){
+          toast.error('ESF OD no válido.')
+          a1_od_esf.value = ""
+          dioptrias_receta.value.a1_od.esf = ""
+          setValue("")
           return;
-         }
+        }else{
+          if(formatValue > 0 ){
+            formatValue = '+' + formatValue;
+          }
+          dioptrias_receta.value.a1_od.esf = formatValue;
+          a1_od_esf.value = formatValue;
+          setValue(formatValue);
+        }
 
         break;
       case 'a1_od_cil':
-       const parsedValueOD = Number(e.target.value).toFixed(2) as any
-       
-       if(parsedValueOD >0){
-          null
-        }else if(!(parsedValueOD <=0 && parsedValueOD % 0.25 === 0)){
-          toast.error('Cilindrico OD no corresponde.')
-          dioptrias_receta.value.a1_od.cil = " "
-          setValue("  ")
+        const isCILODPresent = CILstate.some((subArray:string)=> subArray.includes(formatValue))
+        if(!isCILODPresent){
+          toast.error('CIL OD no válido.')
+          a1_od_cil.value = "";
+          dioptrias_receta.value.a1_od.cil = "";
+          setValue("");
+          return;
+        }else{
+          if(formatValue > 0){
+            formatValue = '+' + formatValue;
+          }
+          dioptrias_receta.value.a1_od.cil = formatValue;
+          a1_od_cil.value = formatValue;
+          setValue(formatValue);
         }
-       
+
        break;
       case 'a1_od_eje':
-        if(Number(e.target.value).toFixed(2) as any >= 0 &&  Number(e.target.value).toFixed(2) as any <= 180){
-          if(!(parseFloat(e.target.value) as any % 0.25 === 0)){
-            dioptrias_receta.value.a1_od.eje = " "
-            setValue(' ')
-            setRender((prev)=>!prev)  
-            validation_A1_OD_EJE("")
-            toast.error('ESF OD no corresponde.')
-            return
-          }else{
-            setRender((prev)=>!prev)             
-            validation_A1_OD_EJE(e.target.value)
-            return
-          }
-        }else{
-          toast.error('ESF OD no corresponde.')
-          dioptrias_receta.value.a1_od.eje = "  "
-          a1_od_eje.value = " "
-          setRender((prev)=>!prev)  
-          setValue("  ")
-          validation_A1_OD_EJE("")
-          return
-        }
+       const isEJEODPresent = EJEstate.some((subArray:number[]) => subArray[0] === parseFloat(e.target.value))
+       if(!isEJEODPresent){
+        toast.error('EJE OD no válido.')
+        a1_od_eje.value = ""
+        dioptrias_receta.value.a1_od.eje = ""
+        setValue("")
+        return;
+      }else{
+        dioptrias_receta.value.a1_od.eje = e.target.value;
+        a1_od_eje.value = e.target.value;
+        setValue(e.target.value);
+      }
+      break;
       case 'a1_od_ad':
-        if(!(parseFloat(e.target.value) >= 0.25 && parseFloat(e.target.value) <= 4)) {
-            toast.error('AD OD no corresponde.')
-            dioptrias_receta.value.a1_od.ad = "  "
-            setValue("  ")
-            return;
+        const isADODPresent = ADstate.some((subArray:string[]) => subArray.includes(formatValue))  
+        console.log(isADODPresent)
+
+        if(!isADODPresent){
+          toast.error('AD OD no válido.');
+          a1_od_ad.value = '';
+          dioptrias_receta.value.a1_od.ad = '';
+          setValue('');
+          return;
+        }else{
+          if(formatValue > 0){
+            formatValue = '+' + formatValue;
+          }
+          dioptrias_receta.value.a1_od.ad = formatValue;
+          a1_od_ad.value = formatValue;
+          setValue(formatValue)
         }
         break;
-      
       case 'a1_oi_esf':
-        if((Number(e.target.value).toFixed(2) as any % 0.25 !== 0)){
-          toast.error('ESF OI no corresponde.')
-          a1_oi_esf.value = " "
-          setValue("  ")
+        const isESFOIPrsent = ESFstate.some((subArray:string[])=> subArray.includes(formatValue))
+        if(!isESFOIPrsent){
+          toast.error('ESF OI no válido.');
+          a1_oi_esf.value = "";
+          dioptrias_receta.value.a1_oi.esf = "";
+          setValue("");
           return;
-         }
+        }else{
+          if(formatValue > 0){
+            formatValue = '+' + formatValue;
+          }
+          dioptrias_receta.value.a1_oi.esf = formatValue;
+          a1_oi_esf.value = formatValue;
+          setValue(formatValue);
+        }
         break;
       case 'a1_oi_cil':
-        const parsedValueOI = Number(e.target.value).toFixed(2) as any;
-
-        if(parsedValueOI > 0){
-          null
-        }else if(!(parsedValueOI <= 0 && parsedValueOI % 0.25 === 0)){
-          toast.error('CIL OI no corresponde.')  
-          dioptrias_receta.value.a1_oi.cil = "  "
-          setValue("  ")
+        const isCILOIPresente = CILstate.some((subArray:string[]) => subArray.includes(formatValue));
+        if(!isCILOIPresente){
+          toast.error('CIL OI no válido.');
+          a1_oi_cil.value = '';
+          dioptrias_receta.value.a1_oi.cil = '';
+          setValue('');
+          return;
+        }else{
+          if(formatValue > 0){
+            formatValue = '+' + formatValue;
+          }
+          dioptrias_receta.value.a1_oi.cil = formatValue;
+          a1_oi_cil.value  = formatValue;
+          setValue(formatValue);
         }
         break;
       case 'a1_oi_eje':
-        if(Number(e.target.value).toFixed(2) as any >= 0 && Number(e.target.value).toFixed(2) as any <= 180){
-          if(!(parseFloat(e.target.value) as any % 0.25 === 0)){
-            dioptrias_receta.value.a1_oi.eje = "  "
-            setValue(' ')
-            setRender((prev)=>!prev)
-            validation_A1_OI_EJE("")
-            toast.error('EJE OI no corresponde.')
-            return;
-          }else{
-            setRender((prev)=>!prev)
-            validation_A1_OI_EJE(e.target.value)
-            return;
-          }
-        }else{
-          toast.error('EJE OI no corresponde.')
+        const isEJEOIPresent = EJEstate.some((subArray:number[]) => subArray[0] === parseFloat(e.target.value))
+        if(!isEJEOIPresent){
+          toast.error('EJE OI no válido..')
           dioptrias_receta.value.a1_oi.eje = "  "
           a1_oi_eje.value = " "
           setValue(" ")
-          validation_A1_OI_EJE("")
-          return;
+          return; 
+        }else{
+          dioptrias_receta.value.a1_od.eje = e.target.value;
+          a1_od_eje.value = e.target.value;
+          setValue(e.target.value);
         }
+      break;
       case 'a1_oi_ad':
-        if(!(parseFloat(e.target.value) >= 0.25 && parseFloat(e.target.value) <= 4)) {
-          toast.error('AD OI no corresponde.')
-          dioptrias_receta.value.a1_oi.ad = "  "
-          setValue("  ")
+        const isADOIPresent = ADstate.some((subArray:string[]) => subArray.includes(formatValue));
+        if(!isADOIPresent){
+          toast.error('AD OI no válido.');
+          a1_oi_ad.value = '';
+          dioptrias_receta.value.a1_oi.ad = '';
+          setValue('');
           return;
+        }else{
+          if(formatValue.length > 0){
+            formatValue = '+' + formatValue;
+          }
+          dioptrias_receta.value.a1_oi.ad = formatValue;
+          a1_oi_ad.value = formatValue;
+          setValue(formatValue)
         }
         break;
-      
       case 'validar_armazon1':
         if(a1_armazon.value.trim() !== validar_armazon1.value.trim()){
           setValue(' ')
@@ -314,8 +366,8 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
         break;
     }
     
-    setDefaultValue('v')
-    setValue(otData)
+    setDefaultValue('')
+    // setValue(otData)
 
   };
  

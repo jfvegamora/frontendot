@@ -2347,6 +2347,48 @@ export const table_head_proyectos_docum = [
     width: "w-[4rem]",
   },
 ];
+
+export const table_head_proyectos_tratam_adic = [
+  {
+    cell: <input type="checkbox" />,
+    key: "checkbox",
+    visible: true,
+    width: "w-[5rem]",
+    alignment: "flex justify-center items-center"
+  },
+  {
+    cell: "proyecto ID",
+    key: "proyectoid",
+    visible: false,
+  },
+  {
+    cell: "Proyecto",
+    key: "proyecto",
+    visible: true,
+  },
+  {
+    cell: "Tratamiento Adicional ID",
+    key: "tratamiento_adiciona_id",
+    visible: false,
+  },
+  {
+    cell: "Tratamiento Adicional",
+    key: "tratamiento_adicional",
+    visible: true,
+  },
+  {
+    cell: "Valor Neto",
+    key: "valor_neto",
+    visible: true,
+  },
+  {
+    cell: "",
+    key: "opciones",
+    visible: true,
+    width: "w-[4rem]",
+  },
+
+]
 export const table_head_empresas = [
   {
     cell: <input type="checkbox" />,

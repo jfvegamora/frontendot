@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react'
-import { SelectInputComponent, TextInputComponent } from '..'
+import { SelectInputComponent } from '..'
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica'
 // import {a1_od_ad, a1_od_cil, a1_od_eje, a1_od_esf, a1_oi_ad, a1_oi_cil, a1_oi_eje, a1_oi_esf, a2_od_cil, a2_od_eje, a2_od_esf, a2_oi_cil, a2_oi_eje, a2_oi_esf, dioptriasHabilitadas, dioptrias_receta, onchangeDioptrias } from '../../utils'
 import {A1_ALT, A1_DP, A2_DP, a1_od_ad, a1_od_eje, a1_od_esf, a1_oi_ad, a1_oi_esf, a2_od_cil, a2_od_eje, a2_od_esf, a2_oi_cil, a2_oi_eje, a2_oi_esf,
@@ -177,7 +177,7 @@ const FOTReceta:React.FC<IReceta> = ({
                         <label className='labelForm w-[40%] absolute z-10 text-center -top-10 left-[30%] text-2xl'>OD</label>
                         <div className="w-[25%]">
                             <OTTextInputComponent
-                                type="number"
+                                type="text"
                                 label="ESF"
                                 name="a1_od_esf"
                                 handleChange={handleInputChange}
@@ -190,7 +190,7 @@ const FOTReceta:React.FC<IReceta> = ({
                         </div>
                         <div className="w-[25%]">
                             <OTTextInputComponent
-                                type="number"
+                                type="test"
                                 label="CIL"
                                 name="a1_od_cil"
                                 handleChange={handleInputChange}
@@ -203,7 +203,7 @@ const FOTReceta:React.FC<IReceta> = ({
                         </div>
                         <div className="w-[25%]" tabIndex={-1}>
                             <OTTextInputComponent
-                                type="number"
+                                type="text"
                                 label="EJE"
                                 name="a1_od_eje"
                                 handleChange={handleInputChange}
@@ -216,7 +216,7 @@ const FOTReceta:React.FC<IReceta> = ({
                         </div>
                         <div className="w-[25%]" tabIndex={-1}>
                             <OTTextInputComponent
-                                type="number"
+                                type="text"
                                 label="AD"
                                 name="a1_od_ad"
                                 handleChange={handleInputChange}
@@ -236,7 +236,7 @@ const FOTReceta:React.FC<IReceta> = ({
                         <label className='labelForm w-[40%] absolute z-10 text-center -top-10 left-[30%] text-2xl'>OI</label>
                         <div className="w-[25%]">
                             <OTTextInputComponent
-                                type="number"
+                                type="text"
                                 label="ESF"
                                 name="a1_oi_esf"
                                 handleChange={handleInputChange}
@@ -249,7 +249,7 @@ const FOTReceta:React.FC<IReceta> = ({
                         </div>
                         <div className="w-[25%]">
                             <OTTextInputComponent
-                                type="number"
+                                type="text"
                                 label="CIL"
                                 name="a1_oi_cil"
                                 handleChange={handleInputChange}
@@ -262,7 +262,7 @@ const FOTReceta:React.FC<IReceta> = ({
                         </div>
                         <div className="w-[25%]">
                             <OTTextInputComponent
-                                type="number"
+                                type="text"
                                 label="EJE"
                                 name="a1_oi_eje"
                                 handleChange={handleInputChange}
@@ -276,7 +276,7 @@ const FOTReceta:React.FC<IReceta> = ({
                         </div>
                         <div className="w-[25%]">
                             <OTTextInputComponent
-                                type="number"
+                                type="text"
                                 label="AD"
                                 name="a1_oi_ad"
                                 handleChange={handleInputChange}
@@ -327,7 +327,7 @@ const FOTReceta:React.FC<IReceta> = ({
                         <label className='labelForm w-[40%] absolute z-10 text-center -top-10 left-[30%] text-2xl'>OD</label>
                         <div className="w-[25%]">
                             <OTTextInputComponent
-                                type="number"
+                                type="text"
                                 label="ESF"
                                 name="a2_od_esf"
                                 handleChange={handleInputChange}
@@ -339,7 +339,7 @@ const FOTReceta:React.FC<IReceta> = ({
                         </div>
                         <div className="w-[25%]">
                             <OTTextInputComponent
-                                type="number"
+                                type="text"
                                 label="CIL"
                                 name="a2_od_cil"
                                 handleChange={handleInputChange}
@@ -351,7 +351,7 @@ const FOTReceta:React.FC<IReceta> = ({
                         </div>
                         <div className="w-[25%]">
                             <OTTextInputComponent
-                                type="number"
+                                type="text"
                                 label="EJE"
                                 name="a2_od_eje"
                                 handleChange={handleInputChange}
@@ -370,7 +370,7 @@ const FOTReceta:React.FC<IReceta> = ({
                         <label className='labelForm w-[40%] absolute z-10 text-center -top-10 left-[30%] text-2xl'>OI</label>
                         <div className="w-[25%]">
                             <OTTextInputComponent
-                                type="number"
+                                type="text"
                                 label="ESF"
                                 name="a2_oi_esf"
                                 handleChange={handleInputChange}
@@ -382,27 +382,27 @@ const FOTReceta:React.FC<IReceta> = ({
                                 />
                         </div>
                         <div className="w-[25%]">
-                            <TextInputComponent
-                                type="number"
+                            <OTTextInputComponent
+                                type="text"
                                 label="CIL"
                                 name="a2_oi_cil"
                                 handleChange={handleInputChange}
-                                data={a2_oi_cil ? a2_oi_cil : data && data[EnumGrid.a2_oi_cil]}
+                                otData={a2_oi_cil.value ||  data && data[EnumGrid.a2_oi_cil]}
                                 control={control}
-                                isOT={true}
+                                // isOT={true}
                                 onlyRead={true}
                                 textAlign="text-center"
                                 />
                         </div>
                         <div className="w-[25%]">
-                            <TextInputComponent
-                                type="number"
+                            <OTTextInputComponent
+                                type="text"
                                 label="EJE"
                                 name="a2_oi_eje"
                                 handleChange={handleInputChange}
-                                data={a2_oi_eje ? a2_oi_eje : data && data[EnumGrid.a2_oi_eje]}
+                                otData={a2_oi_eje.value || data && data[EnumGrid.a2_oi_eje]}
                                 control={control}
-                                isOT={true}
+                                // isOT={true}
                                 onlyRead={true}
                                 textAlign="text-center"
                                 />

@@ -87,7 +87,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
     const [cristalDescritpion, setCristalDescription] = useState(
       description || ""
     );
-    const dispatch = useAppDispatch();
+    const dispatch:any = useAppDispatch();
     // const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas);
 
     // const OTs:any = useAppSelector((store: AppStore) => store.OTS.data);

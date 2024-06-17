@@ -28,6 +28,9 @@ const initialState = {
   Comunas: localStorage.getItem("comunas")
     ? JSON.parse(localStorage.getItem("comunas") as string)
     : [],
+  Dioptrias: localStorage.getItem("dioptrias")
+    ? JSON.parse(localStorage.getItem("dioptrias") as string)
+    : [],
 };
 
 export const fetchRegProCom = createAsyncThunk(
@@ -50,6 +53,27 @@ export const fetchRegProCom = createAsyncThunk(
     } catch (error) {
       console.log(error);
     }
+  }
+);
+
+export const fetchDioptriaParametros = createAsyncThunk(
+  "ESF/CIL/EJE/AD",
+  async (token: string) => {
+    try {
+      const endpoint1 = `${URLBackend}/api/ot/listado/?query=12&_p3=ESF`;
+      const endpoint2 = `${URLBackend}/api/ot/listado/?query=12&_p3=CIL`;
+      const endpoint3 = `${URLBackend}/api/ot/listado/?query=12&_p3=EJE`;
+      const endpoint4 = `${URLBackend}/api/ot/listado/?query=12&_p3=AD`;
+
+      const [esf, cil, eje, ad] = await Promise.all([
+        fetchData(endpoint1, token),
+        fetchData(endpoint2, token),
+        fetchData(endpoint3, token),
+        fetchData(endpoint4, token),
+      ]);
+
+      return { esf, cil, eje, ad };
+    } catch (error) {}
   }
 );
 
@@ -79,8 +103,25 @@ export const utilsSlice = createSlice({
           JSON.stringify(action.payload["comunas"])
         );
       }
-
       return state;
+    });
+
+    builder.addCase(fetchDioptriaParametros.fulfilled, (state, action) => {
+      if (action.payload) {
+        const listDioptrias = [
+          action.payload["esf"],
+          action.payload["cil"],
+          action.payload["eje"],
+          action.payload["ad"],
+        ];
+        if (localStorage.getItem("dioptrias")) {
+          return;
+        }
+
+        state.Dioptrias = [...state.Dioptrias, ...listDioptrias];
+        localStorage.setItem("dioptrias", JSON.stringify(listDioptrias));
+        return state;
+      }
     });
   },
 });

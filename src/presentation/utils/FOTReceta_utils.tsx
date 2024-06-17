@@ -50,26 +50,28 @@ export const transponer = (ESF:any, CIL:any, EJE:any,
             break;
     }
 
-
-    
-
-    if(typeof dioptrias_receta.value[anteojo].cil === 'number' && typeof dioptrias_receta.value[anteojo].eje === 'number'){
+    if(typeof dioptrias_receta.value[anteojo].cil === 'string' && typeof dioptrias_receta.value[anteojo].eje === 'number'){
         if(dioptrias_receta.value[anteojo].cil > 0 && (dioptrias_receta.value[anteojo].eje >= 0 && dioptrias_receta.value[anteojo].eje <= 180)){
             const confirmacion = window.confirm("Es necesario Transponer. ¿Desea continuar con la operación?");
-            // console.log('1')
+            console.log('1')
             if (confirmacion) {
                 const esfValue = isNaN(dioptrias_receta.value[anteojo].esf)
                 ? 0
                 : dioptrias_receta.value[anteojo].esf;
 
-                
-                dioptrias_receta.value[anteojo].esf = parseFloat(esfValue) + parseFloat(dioptrias_receta.value[anteojo].cil)
 
-                if(anteojo === 'a1_od'){
-                    a1_od_esf.value = parseFloat(esfValue) + parseFloat(dioptrias_receta.value[anteojo].cil)
+                dioptrias_receta.value[anteojo].esf = (parseFloat(esfValue) + parseFloat(dioptrias_receta.value[anteojo].cil)).toFixed(2)
+                
+                if(dioptrias_receta.value[anteojo].esf > 0){
+                    dioptrias_receta.value[anteojo].esf = '+' + dioptrias_receta.value[anteojo].esf
                 }
                 
-                dioptrias_receta.value[anteojo].cil = (CIL * -1);
+
+                if(anteojo === 'a1_od'){
+                    a1_od_esf.value = parseFloat(esfValue) + parseFloat(dioptrias_receta.value[anteojo].cil).toFixed(2)
+                }
+                
+                dioptrias_receta.value[anteojo].cil = (CIL * -1).toFixed(2);
 
                 if (dioptrias_receta.value[anteojo].eje >= 0 && dioptrias_receta.value[anteojo].eje <= 90) {
                     
@@ -104,10 +106,20 @@ export const transponer = (ESF:any, CIL:any, EJE:any,
         if(tipo_de_anteojo.value === '3' && ESF2 && CIL2 && EJE2){
 
             
-            ESF2.value = parseFloat(dioptrias_receta.value[anteojo].esf) + parseFloat(dioptrias_receta.value[anteojo].ad);
+          ESF2.value = (parseFloat(dioptrias_receta.value[anteojo].esf) + parseFloat(dioptrias_receta.value[anteojo].ad)).toFixed(2);
+          console.log(ESF2.value)
+          if(ESF2.value > 0){
+              ESF2.value = '+' + ESF2.value;
+          
+           }
+          console.log(ESF2.value)
             // CIL2.value = dioptrias_receta.value[anteojo].cil   
             // EJE2.value = dioptrias_receta.value[anteojo].eje  
-           CIL2.value =  (CIL * -1)
+           CIL2.value =  (CIL * -1).toFixed(2)
+           if(CIL2.value > 0){
+            CIL2.value = '+' + CIL2.value
+           }
+
            EJE2.value = EJE
 
            console.log(ESF2.value)
