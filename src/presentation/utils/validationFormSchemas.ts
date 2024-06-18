@@ -502,6 +502,13 @@ export const validationParametrizacionUsuarios = () =>
     punto_venta: yup.string().required(`${msg}`),
     estado: yup.string().required(`${msg}`),
   });
+// Schema PROYECTOS TRATAMIENTO ADICIONAL
+export const validationParametrizacionTratamientoAdic = () =>
+  yup.object().shape({
+    proyecto: yup.string().required(`${msg}`),
+    tratamiento_adicional: yup.string().required(`${msg}`),
+    valor_neto: yup.string().required(`${msg}`),
+  });
 
 // Schema REPORTE ATENCION
 export const validationReporteAtencionSchema = () =>

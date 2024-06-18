@@ -11,7 +11,7 @@ import axios from "axios";
 import { AppStore, useAppSelector } from "../../../redux/store";
 import { URLBackend } from "../../hooks/useCrud";
 import { clearSelectInput } from "../../utils";
-import { resetFilters } from "../PrimaryKeySearch";
+import { changeFilterSearchTitle, resetFilters } from "../PrimaryKeySearch";
 // import { handleError } from "../../utils/jwt_utils";
 
 interface ISelectInputProps {
@@ -149,13 +149,27 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
                       ...inputValues,
                       [name]: selectedValue,
                     };
-
                     if (setHandleSearch) {
+
+
+                      // const newValueFilterSearch    = e.target.options[e.target.selectedIndex].text;
+                      // const updatedValue            = newValueFilterSearch === ''
+                      //                                                       ? Object.keys(filterSearchTitle.value).reduce((acc:any, key:any) => {
+                      //                                                           if (key !== label) {
+                      //                                                             acc[key] = filterSearchTitle.value[key];
+                      //                                                           }
+                      //                                                           return acc;
+                      //                                                         }, {})
+                      //                                                       : { ...filterSearchTitle.value, [label]: newValueFilterSearch };
+                      
+                      // filterSearchTitle.value       = updatedValue;
+                      changeFilterSearchTitle(e, label,'Select');
                       setHandleSearch(inputValuesToUpdate);
                     }
                   }
- 
                 }}
+
+
                 className={`"custom-input py-2  cursor-pointer z-0"  ${readOnly ? "custom-onlyread" : isOptional ? "custom-optional-with-color" : "custom-required"} `}
                 >
 
@@ -172,7 +186,6 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
                   entities.map((option: any, index: React.Key | null | undefined) => (
                     <option
                       key={index}
-                      
                       value={ clearSelectInput.value  && FOTcristales === true ? "" : (option[0] !== undefined ? option[0].toString() : "" )  }
                     >
                       { clearSelectInput.value  && FOTcristales === true ? (

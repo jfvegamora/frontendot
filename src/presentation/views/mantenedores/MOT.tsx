@@ -25,6 +25,7 @@ import { clearData, fetchColores, fetchOT } from "../../../redux/slices/OTSlice"
 // import StateCountBarOT from "../../components/StateCountBarOT";
 import { signal } from "@preact/signals-react";
 import { updateActualArea } from "../../../redux/slices/OTAreasSlice";
+import { fetchDioptriaParametros } from "../../../redux/slices/utilsSlice";
 // import { updateActualArea } from "../../../redux/slices/OTAreasSlice";
 // import axios from "axios";
 
@@ -157,6 +158,9 @@ const MOT: React.FC = () => {
     // dispatch(clearOTColores())
     dispatch(fetchColores(token))
     dispatch(updateActualArea(200 as any))
+    if(!localStorage.getItem('dioptrias')){
+      dispatch(fetchDioptriaParametros(token))
+    }
   }, [])
 
   useEffect(() => {

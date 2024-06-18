@@ -235,7 +235,7 @@ const navListMenuBodega = [
 
 const subMenuParametrizacion = [
   {
-    title: "Parametrización de Grupos",
+    title: "Parametrización de Cristales",
     link: "/proyectocristales",
     id: '17',
   },
@@ -268,6 +268,11 @@ const subMenuParametrizacion = [
     title: "Parametrización de Vitrinas",
     link: "/vitrinas",
     id: '37',
+  },
+  {
+    title: "Parametrización de Tratamiento Adicional",
+    link: "/proyectotratamadic",
+    id: '43',
   },
 ];
 

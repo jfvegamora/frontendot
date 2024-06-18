@@ -139,15 +139,26 @@ const FOTOptica:React.FC<IOptica> = ({
     
     const handleSwitchImpresion = async (event:any) => {
         // setIsToggleImpresion((prev)=>!prev)
+        const toastLoading = toast.loading('Cargando...')
         try {
-            const query = `?query=06&_folio=${data[EnumGrid.folio]}&_p2=${event === true ? 1 : 0}&_estado=${_estado}&_usuario=${userID}&_origen=${_origen}`
+            console.log()
+            const dataJson = [{
+                folio : data[EnumGrid.folio]
+            }]
+            const estado_impresion = event === true ? 1 : 0
+            // ? const query = `?query=06&_dataJSON=${encodeURIComponent(JSON.stringify(data_JSON))}&_p2=${estado_impresion}&_usuario=${usuario.id}&_origen=${origen}`
+            // const query = `?query=06&_folio=${data[EnumGrid.folio]}&_p2=${event === true ? 1 : 0}&_estado=${_estado}&_usuario=${userID}&_origen=${_origen}`
+            const query = `?query=06&_dataJSON=${encodeURIComponent(JSON.stringify(dataJson))}&_p2=${estado_impresion}&_usuario=${userID}&_origen=${_origen}`
             const result = await axios(`${strUrl}/${query}`);
             if(result.status === 200){
                 // console.log(result)
                 result.data[0][0]  === 1 ? isToggleImpression.value = true : isToggleImpression.value = false;
+                toast.dismiss(toastLoading)
                 toast.success('Estado cambiado')
             }
+            toast.dismiss(toastLoading)
         } catch (error) {
+            toast.dismiss(toastLoading)
             throw error
         }
     }

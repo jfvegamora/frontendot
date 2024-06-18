@@ -1786,17 +1786,19 @@ export const updateOT = async (
     `cristales1_oi="${
       typeof A1_CR_OI.value !== "object" ? A1_CR_OI.value : jsonData.cristal1_oi
     }"`,
-    `cristales1_tratamiento_adicional=${
+    `cristales1_tratamiento_adicional="${
       _formValues &&
       _formValues["cristales"] &&
       _formValues["cristales"]["cristal1_tratamiento_adicional_id"] !==
         undefined
         ? _formValues["cristales"] &&
-          parseInt(
-            _formValues["cristales"]["cristal1_tratamiento_adicional_id"]
-          )
+          _formValues["cristales"]["cristal1_tratamiento_adicional_id"] === ""
+          ? _formValues["cristales"]["cristal1_tratamiento_adicional_id"]
+          : parseInt(
+              _formValues["cristales"]["cristal1_tratamiento_adicional_id"]
+            )
         : data && data[EnumGrid.cristal1_tratamiento_adicional_id]
-    }`,
+    }"`,
     `cristales2_opcion_vta=${0}`,
     `cristales2_marca=${
       _formValues &&
@@ -1868,17 +1870,19 @@ export const updateOT = async (
           (_formValues["cristales"] &&
             parseInt(_formValues["cristales"]["cristal2_oi"]))
     }"`,
-    `cristales2_tratamiento_adicional=${
+    `cristales2_tratamiento_adicional="${
       _formValues &&
       _formValues["cristales"] &&
       _formValues["cristales"]["cristal2_tratamiento_adicional_id"] !==
         undefined
         ? _formValues["cristales"] &&
-          parseInt(
-            _formValues["cristales"]["cristal2_tratamiento_adicional_id"]
-          )
+          _formValues["cristales"]["cristal2_tratamiento_adicional_id"] === ""
+          ? _formValues["cristales"]["cristal2_tratamiento_adicional_id"]
+          : parseInt(
+              _formValues["cristales"]["cristal2_tratamiento_adicional_id"]
+            )
         : data && data[EnumGrid.cristal2_tratamiento_adicional_id]
-    }`,
+    }"`,
     `motivo_garantia=${
       data && data[EnumGrid.motivo_garantia_id]
         ? data && data[EnumGrid.motivo_garantia_id]
