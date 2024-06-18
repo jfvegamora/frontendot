@@ -2647,11 +2647,11 @@ export const table_head_proyectos_grupos = [
     width: "w-[10rem]",
   },
   {
-    cell: "Nro. Grupo",
+    cell: "ID",
     key: "cod_grupo",
     visible: true,
     alignment: "text-center",
-    width: "w-[8rem]",
+    width: "w-[4rem]",
   },
   {
     cell: "Descripción",
@@ -2668,7 +2668,7 @@ export const table_head_proyectos_grupos = [
   {
     cell: "Marca",
     key: "marca",
-    visible: true,
+    visible: false,
     width: "w-[5rem]",
   },
   {
@@ -2734,7 +2734,7 @@ export const table_head_proyectos_grupos = [
   {
     cell: "Diámetro",
     key: "diametro",
-    visible: true,
+    visible: false,
     alignment: "text-center",
     width: "w-[6rem]",
   },
