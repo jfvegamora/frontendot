@@ -183,11 +183,11 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                               <>
                                   <div className='otCod font-bold'>{ot[EnumGrid.cristal2_oi]}</div>
                                   {ot[EnumGrid.ubicacion_cristal_2_od] && (
-                                    <div className='otArmazonData translate-x-4'>{ot[EnumGrid.ubicacion_cristal_2_od]}</div>
+                                    <div className='otArmazonData'>{ot[EnumGrid.ubicacion_cristal_2_od]}</div>
                                   )}
                                   <div className='otCod font-bold'>{ot[EnumGrid.cristal2_od]}</div>
                                   {ot[EnumGrid.ubicacion_cristal_2_oi] && (
-                                    <div className='otArmazonData translate-x-4'>{ot[EnumGrid.ubicacion_cristal_2_oi]}</div>
+                                    <div className='otArmazonData'>{ot[EnumGrid.ubicacion_cristal_2_oi]}</div>
                                   )}
                                   {/* <div className='otCData '>{ot[EnumGrid.cristal2_marca]}</div> */}
                                   <div className='otCData '>{ot[EnumGrid.cristal2_diseno]}</div>
