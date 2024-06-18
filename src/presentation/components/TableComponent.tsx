@@ -17,11 +17,6 @@ import { EnumGrid as EnumAccesorios } from "../views/mantenedores/MAccesorios";
 import { EnumGrid as EnumProyectoDocum } from "../views/mantenedores/MProyectosDocum";
 import ExportToCsv from "./ExportToCsv";
 
-// import { signal } from "@preact/signals-react";
-// import { ExportCSV } from "./ExportToCsv";
-
-
-// const lowArmazonesStock = signal(false)
 
 interface ITableComponentProps<T> {
   tableHead: { cell: JSX.Element | string; key: string; visible: boolean; width?:string; alignment?:string, color?:boolean, background?:boolean, excelIndividual?:boolean }[];
@@ -69,34 +64,25 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
     showEditButton,
     showDeleteButton,
     showPdfButton,
-    // showExcelButton,
     showPermisoOTButton,
     pkToDelete,
     idMenu,
     strBaseUrl,
-    // strEntidad,
-    // queryExcel,
     isOT,
     togglePermisoOTModal,
     leftEdit,
     params,
     showExcelButton
-    //  setTotalRowIndex
   }) => {
     const { escritura_lectura, lectura} = usePermission(idMenu || 0 );
     const [rowIds, setRowIds] = useState<number[]>([]);
-    // const [pageSize, _setPagesize]       = useState(500)
-    // const [pageNumber, _setPageNumebr ]  = useState(1)
     const [ OTPermissions, setOTPermissions] = useState("");
     const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas);
     const OTColores:any = useAppSelector((store: AppStore) => store.OTS.derivacionColores) || JSON.parse(localStorage.getItem('OTColores') as string);
-    // const OTColores2:any = useAppSelector((store: AppStore) => store.OTS);
     const areaActual = OTAreas["areaActual"] 
     const permissions = (area:number) => areaActual &&  OTAreas["areas"].find((permiso:any)=>permiso[1] === area)
     
     let enumGird:any = {}
-    // const startIndex = (pageNumber - 1) * pageSize;
-    // const endIndex = pageNumber * pageSize;
     
     switch (entidad) {
       case 'Armazón ':
@@ -136,10 +122,8 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
         if(OTColores[rowData]){
           return background ? `${OTColores[rowData][1]}` : `${OTColores[rowData][0]}`
         }
-        console.log('render')
         return  background ? `black` : 'red'
       } catch (error) {
-        console.log(error)
         throw error;
       }
     }
@@ -158,18 +142,13 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
     let lowArmazonesStock = false;
 
     React.useEffect(()=>{
-      console.log(clearIndividualCheck.value)
-      
       if(clearIndividualCheck.value === true){
         setSelectedRows([])
         clearIndividualCheck.value = false
       }
-
     },[clearIndividualCheck.value])
 
     const renderCheckboxCell = (id: number, folio:number, estado?:any) => {
-
-
       return (
         <>
           <input
@@ -217,47 +196,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
       )
   };
 
-  // useEffect(() => {
-  //     const handleColumnMouseDown = (e: any) => {
-  //       console.log('render')
-  //       const initialX = e.clientX;
-  //       const columnId = e.target.id;
-  //       const column = document.getElementById(columnId);
-    
-  //       const handleMouseMove = (e: any) => {
-  //         if (column) {
-  //           const width = column.offsetWidth + (e.clientX - initialX);
-  //           column.style.width = `${width}px`;
-  //         }
-  //       };
-  //       console.log('render')
-  //       const handleMouseUp = () => {
-  //         document.removeEventListener('mousemove', handleMouseMove);
-  //         document.removeEventListener('mouseup', handleMouseUp);
-  //       };
-    
-  //       document.addEventListener('mousemove', handleMouseMove);
-  //       document.addEventListener('mouseup', handleMouseUp);
-  //     };
-    
-  //     const columns = document.querySelectorAll('th');
-  //     console.log('render')
-  //     columns.forEach((column) => {
-  //       column.addEventListener('mousedown', handleColumnMouseDown);
-    
-  //       return () => {
-  //         console.log('render')
-  //         column.removeEventListener('mousedown', handleColumnMouseDown);
-  //       };
-  //     });
-    
-  //     // Limpia los eventos cuando el componente se desmonta
-  //     return () => {
-  //       columns.forEach((column) => {
-  //         column.removeEventListener('mousedown', handleColumnMouseDown);
-  //       });
-  //     };
-  //   }, []);
+ 
   
     return (
     <div className="gridCointainer">
@@ -273,7 +212,6 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                     {column.key === "checkbox" ? (
                       <input className="checkTable"
                         type="checkbox"
-                        // defaultChecked={false}
                         checked={clearAllCheck.value}
                         onChange={(e) =>{
                           clearAllCheck.value = !clearAllCheck.value
@@ -290,7 +228,6 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
           </tr>
         </thead>
         <tbody className="gridData">
-          {/* {data && data.length > 0 ? (data.slice(startIndex,endIndex).map((rowData: any, rowIndex: number) => { */}
           {data && data.length > 0 ? (data.map((rowData: any, rowIndex: number) => {
             let excelIndividual = false
               if((params && params["_p5"] !== '')  ||  params && params[0] === ''){
@@ -310,8 +247,6 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
               if(entidad === 'Documentación del Proyecto ' && (rowData[enumGird.tipo_doc_id] === 1 || rowData[enumGird.tipo_doc_id] === 2)){
                 excelIndividual = true
               }  
-
-              // console.log(rowData[22])
               return (
                 <tr key={rowIndex} className="overflow-hidden">
                   {rowData.map((row: any, col: number) => {
@@ -326,12 +261,10 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                       visible && (
                         <td
                         className={`gridTableData ${backgroundAtrasadas && color}   ${alignment} ${""}`} 
-                        // className={`gridTableData ${backgroundAtrasadas && 'bg-black'}  ${alignment} ${color !== '' ? color : ""}`} 
                           key={col}
                           id={tableHead[col].key}
                           style={{
                             backgroundColor: isOT ? (color2 ? ( handleColorEstado( rowData[4], 'background') ): "") : ( lowArmazonesStock && color2 ? (handleColorEstado(rowData[1])) : ""),
-                            // backgroundColor:'blue'
                           }}
                         >
                           {col === 0

@@ -71,13 +71,9 @@ interface PrimaryKeySearchProps {
   otHistorica?:boolean
 }
 
-
-// const MemoizedMagnifyingGlassIcon = React.memo(() => (
-//   <MagnifyingGlassIcon className="primaryKeyIcon" />
-// ));
-
 export const resetFilters = signal(false)
 export const filterTextValue = signal('')
+
 
 const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
   ({ setEntities, primaryKeyInputs, updateParams, description, otHistorica, baseUrl }) => {
@@ -88,20 +84,11 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
       description || ""
     );
     const dispatch:any = useAppDispatch();
-    // const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas);
-
-    // const OTs:any = useAppSelector((store: AppStore) => store.OTS.data);
     const { ListEntity } = useCrud(baseUrl);
-    // console.log("cristalDescritpion", cristalDescritpion[3]);
+
     useEffect(() => {
-      // Actualiza el estado interno cuando la prop description cambia
       setCristalDescription(description || '');
     }, [description]);
-
-
-
-
-
 
 
     const handleRefresh = () => {
@@ -128,12 +115,8 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
         .join('&');
     
     const handleInputChange = (name: string, value: string) => {
-        // console.log(name)
-        // console.log(value)
-        // console.log('render')
         setInputValues((prev) => ({ ...prev, [name]: value }));
         updateParams(inputValues)
-        // console.log(updatedParams)
       }
       
   
@@ -150,7 +133,6 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
     
     switch (baseUrl) {
       case '/api/othistorica/':
-          // className = "grid grid-rows-3 grid-cols-2  !w-[30rem] px-0 py-4 h-[35vh]  items-center"
           className = "grid grid-rows-3 grid-cols-2  !w-[40rem] px-0 py-4 h-[35vh]  items-center"
           break;
       case '/api/ot/':
@@ -164,9 +146,6 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
           break;
     }
 
-
-
-
     const handleSearch = async (data: any) => {
       const toastLoading = toast.loading('Buscando...');
       if(baseUrl === '/api/othistorica/' || baseUrl === '/api/ot/'){
@@ -174,10 +153,8 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
         .filter((campos)=> campos[1] !== '' && campos[1] !== undefined)
         .map((campos:any) => `${campos[0]}=${campos[1]}`)
         .join('&')
-        // console.log(filtersOT)e
         paramsOT.value = filtersOT
       }
-
 
       if ("_pCilindrico" in data || "_pEsferico" in data) {
         data = {
@@ -185,7 +162,6 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
         };
       }
 
-      
       if(primaryKeyInputs[1]){
         if(primaryKeyInputs[1]["type"] === "date" && primaryKeyInputs[2]["type"] === "date"){
           if(new Date(data["_p2"]) > new Date(data["_p3"])){
@@ -203,16 +179,10 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
         .join("&");
       
       data && updateParams([searchParams]);
-      console.log(searchParams)
-
       try {
         const response = otHistorica 
                             ?  dispatch(fetchOT({OTAreas:areaActualOT.value, searchParams:searchParams, historica:true}))
                             :  baseUrl === '/api/ot/' ? dispatch(fetchOT({OTAreas:areaActualOT.value, searchParams:searchParams, historica:false}))  :  await ListEntity(searchParams, "01")
-
-        
-        
-        
         
         toast.dismiss(toastLoading)
         if(baseUrl !== '/api/othistorica/' && baseUrl !== '/api/ot/'){
@@ -244,13 +214,6 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
       [handleSubmit, handleSearch]
     );
 
-    const handleBlur = React.useCallback((e:any) => {
-      if(e.target.value === ''){
-        return;
-      }
-      handleSubmit(handleSearch)();
-    }, []);
-
     const renderInputs = () => {
       const inputGroups = [];
       for (let i = 0; i < primaryKeyInputs.length; i += 6) {
@@ -260,22 +223,14 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
       return inputGroups.map((group, groupIndex) => (
         <div
           key={groupIndex}
-          // className={
-          //   primaryKeyInputs.length > 5
-          //      `${otHistorica ? "grid grid-rows-3 grid-cols-2 w-[100%] px-0" : "grid grid-rows-3 grid-cols-2" } w-[30vw] h-[30vh]  items-center `
-          //     : "flex mb-auto items-cente w-[70rem]  items-center "
-          // }
           className={className}
         >
           {group.map((input, inputIndex) => (
             <div key={inputIndex} className="items-center rowForm ">
               {input.type === "number" ? (
-                // <div className={`w-[90%] items-center input-container rowForm`}>
                 <div className={`input-container ${input.styles?.with ? input.styles.with : ""}`}>
-                  {/* <div className={`-mt-2 mx-auto w-[96%]`}> */}
                   <div className={``}>
                     {input.name === "_pEsferico" ? (
-                      // <div className="grid grid-rows-1 grid-cols-2">
                       <div className="flex !w-[14rem]">
                         <Controller
                           name="_pEsferico"
@@ -286,7 +241,6 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                               color="orange"
                               tabIndex={1}
                               className={`${input?.styles?.with || "!w-[8rem] "} !h-12 !mt-3 !mr-[0.8rem]`}
-                              // className={`${input.styles?.with ? input.styles.with : ""}`}
                               {...field}
                               label={input.label}
                               value={inputValues["_pEsferico"] || ""}
@@ -296,7 +250,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                                 changeFilterSearchTitle(e, input.label);
                               }}
                               onKeyDown={handleKeyDown}
-                              onBlur={handleBlur}
+                              // onBlur={handleBlur}
                               labelProps={{
                                 style: {
                                   color: "grey",
@@ -326,7 +280,6 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                                 setCilindrico(e.target.value as any);
                               }}
                               onKeyDown={handleKeyDown}
-                              onBlur={handleBlur}
                               labelProps={{
                                 style: {
                                   color: "grey",
@@ -349,7 +302,6 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                             color="orange"
                             tabIndex={1}
                             className={`!h-12 !mt-4 `}
-                            // className=""
                             {...field}
                             type={input.type}
                             label={input.label}
@@ -360,7 +312,6 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                               handleInputChange(input.name, e.target.value);
                             }}
                             onKeyDown={handleKeyDown}
-                            onBlur={handleBlur}
                             labelProps={{
                               style: {
                                 color: "grey",
@@ -376,7 +327,6 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                   </div>
                 </div>
               ) : input.type === "select" ? (
-              // <div className={`input-container ${input.styles?.with ? input.styles.with : "!w-[20rem]"}`}>
               input.tipos ? (
                 <div className="input-container !mt-[0.4rem]">
                     <SelectInputTiposComponent
@@ -394,8 +344,6 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                 </div>
               ): (
                 <div className="input-container ">
-                    {/* <div className={` ${primaryKeyInputs.length > 4 ? "w-full" : "w-[13rem]"}`}> */}
-                    {/* <div className={`${input.styles?.with ? input.styles.with : ""} `}> */}
                     <div className="w-full ">
                           <SelectInputComponent
                             label={input.label}
@@ -418,7 +366,6 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
               )
               ) : input.type === "date" ? (
                 <div className={`input-container relative rowForm !mr-[1rem] !mt-[0.2rem] ${input.styles?.container} `}>
-                  {/* <label className="primaryKeyLabel items-center text-xs mt-1 absolute top-[-1rem]">{input.label}</label> */}
                   <label className={`primaryKeyLabel items-center text-base mt-1 absolute top-[-1.1rem] ${input.styles?.label}`}>{input.label}</label>
                   <Controller
                     name={input.name}
@@ -435,7 +382,6 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                           changeFilterSearchTitle(e, input.label);
                           field.onChange(e.target.value);
                         }}
-                        onBlur={handleBlur}
                       />
                     )}
                   />
@@ -452,21 +398,17 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                     <Input
                       color="orange"
                       tabIndex={1}
-                      // className={`${input?.styles?.with || "!w-[96%]"} !h-12 ml-2`}
                       className={`!m-0 !h-12 !mt-[0.3rem]  ${input?.styles?.with || ""}`}
                       {...field}
                       type={input.type}
                       label={input.label}
                       value={inputValues[input.name]}
                       onChange={(e) => {
-                        console.log(e.target.value)
                         field.onChange(e);
-                        console.log(input.label)
                         changeFilterSearchTitle(e, input?.label);
                         handleInputChange(input.name, e.target.value);
                       }}
                       onKeyDown={handleKeyDown}
-                      onBlur={handleBlur}
                       labelProps={{
                         style: {
                           color: "grey",
@@ -504,45 +446,20 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
       }
     },[titleSearch.value])
     
-    // useEffect(() => {
-    //   const searchParams = {
-    //     _p1: inputValues._p1 || "",
-    //     _p2: inputValues._p2 || "",
-    //     _p3: inputValues._p3 || "",
-    //     _p4: inputValues._p4 || "",
-    //     _pMarca: inputValues._pMarca || "",
-    //     _pProveedor: inputValues._pProveedor || "",
-    //     _pDiseño: inputValues._pDiseño || "",
-    //     _pIndice: inputValues._pIndice || "",
-    //     _pMaterial: inputValues._pMaterial || "",
-    //     _pColor: inputValues._pColor || "",
-    //     _pTratamiento: inputValues._pTratamiento || "",
-    //     _pDiametro: inputValues._pDiametro || "",
-    //     _pEsferico: inputValues._pEsferico || "",
-    //     _pCilindrico: inputValues._pCilindrico || "",
-    //     _id: inputValues._id || "",
-    //   };
-
-    //   updateParams(searchParams);
-    // }, [inputValues]);
-
+   
     return (
       <form className="primaryKeyContainer items-center relative ">
         {renderInputs()}
-        {/* <div className={`${otHistorica ? "ml-[-13rem] mr-20" : ""}   w-[60px] `}> */}
         <div className={`w-[80px] h-[50px]  ${baseUrl === '/api/ot/' ? 'absolute left-[84rem]' : ''} `}>
           <Tooltip content="Buscar">
               <IconButton
               tabIndex={1}
                 variant="text"
-                // className="primaryKeyIconButton items-center ml-2 mr-16  "
                 className="primaryKeyIconButton ml-2 mr-2"
                 type="submit"
                 onClick={(e)=>{
                   e.preventDefault()
                   filterToggle.value = false;
-                  // const result = sesionExpirada()
-                  // console.log(result)
                   return handleSubmit(handleSearch)()
                 }}
               >
@@ -557,7 +474,6 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
               tabIndex={1}
                 variant="text"
                 color="blue-gray"
-                // className="primaryKeyIconButton items-center ml-2 mr-16  "
                 className="primaryBtnIconButton mt-1 ml-2 mr-2"
                 type="submit"
                 onClick={(e)=>{
@@ -565,7 +481,6 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                   filterToggle.value = false;
                   titleSearch.value = ''
                   filterSearchTitle.value = {}
-                  console.log('render')
                  return handleRefresh()
                 }}
               >

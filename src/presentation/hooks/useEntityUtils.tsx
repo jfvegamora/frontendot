@@ -21,31 +21,27 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
 
   const baseUrl = baseURL(entityApiBaseUrl)
 
-  const [entity, setEntity] = useState<any | null>(null);
-  const [entities, setEntities] = useState<never[]>([]);
-  const [pageSize, setPageSize] = useState(1);
-  const [selectedRows, setSelectedRows] = useState<number[]>([]);
-  // const [intLastId, setIntLastId] = useState<number | null>(0);
-  const [isModalInsert, setisModalInsert] = useState<boolean>(false);
-  const [isModalCopiar, setisModalCopiar] = useState<boolean>(false);
-  const [isModalEdit, setIsModalEdit] = useState<boolean>(false);
+  const [entity, setEntity]                    = useState<any | null>(null);
+  const [entities, setEntities]                = useState<never[]>([]);
+  const [pageSize, setPageSize]                = useState(1);
+  const [selectedRows, setSelectedRows]        = useState<number[]>([]);
+  const [isModalInsert, setisModalInsert]      = useState<boolean>(false);
+  const [isModalCopiar, setisModalCopiar]      = useState<boolean>(false);
+  const [isModalEdit, setIsModalEdit]          = useState<boolean>(false);
   const [isModalPermisoOT, setIsModalPermisOT] = useState<boolean>(false);
-  const [isEntityProfile, setIsEntityProfile] = useState<boolean>(false);
-  const [isTraspaso, setIsTraspaso] = useState<boolean>(false);
+  const [isEntityProfile, setIsEntityProfile]  = useState<boolean>(false);
+  const [isTraspaso, setIsTraspaso]            = useState<boolean>(false);
 
   const [onDelete, setDataGrid] = useState<boolean>(false);
-
   const { showModal } = useModal();
   const { deleteAllEntity, ListEntity } = useCrud(baseUrl);
 
   const dispatch = useAppDispatch();
   const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas);
-  // const OTData:any = useAppSelector((store: AppStore) => store.OTS);
   const areaActual = OTAreas["areaActual"]
   
   
 
-  // console.log("queryutils", query);
   const refreshData = useCallback(() => {
     ListEntity("", query)
       .then((data: []) => data && setEntities([...data]))
@@ -105,49 +101,35 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
 
   //METODO CHECK INDIVIDUAL
   const handleSelect = useCallback((rowIndex: number): void => {
-    // console.log("id handleselect", id);
-    // console.log(rowIndex)
     setSelectedRows((prevSelectedRow) =>{
-
-      // console.log(prevSelectedRow)
       if(prevSelectedRow.length >= 100){
         toast.error("Ya tienes 100 elementos seleccionados")
         return prevSelectedRow;
       }
-      
       return prevSelectedRow.includes(rowIndex)
       ? prevSelectedRow.filter((selectedRow) => selectedRow !== rowIndex)
       : [...prevSelectedRow, rowIndex]
-    }
-      
-      
-    );
+    });
   }, []);
+
 
   const toggleEditOTModal = useCallback(async(folio:any,historica:any, estado?:any)=>{
       try {
-        console.log(historica)
-      const endpoint = historica === false ? `${URLBackend}/api/ot/listado/?query=01&_p1=${folio}&_estado${estado}&_p2=0` : `${URLBackend}/api/othistorica/listado/?query=01&_p1=${folio}&_estado=${estado}&_p2=0`
+      const endpoint = historica === false ? `${URLBackend}/api/ot/listado/?query=01&_p1=${folio}&_estado=${estado}&_p2=0` : `${URLBackend}/api/othistorica/listado/?query=01&_p1=${folio}&_estado=${estado}&_p2=0`
       const response = await axios(endpoint)
       setEntity(response.data[0])
-      // console.log(historica)
-      console.log(areaActual)
       dispatch(fetchOTByID({ folio: folio, OTAreas: areaActual, historica: historica, estado:estado }));
       setIsModalEdit(true);
       return ''
       } catch (error) {
-        // console.log(error)
         throw error;        
       }
   },[])
 
   //METODO EDITAR DE LA GRILLA
-
   const toggleEditModal = useCallback(
     (rowIndex?: number) => {
       setIsModalEdit((prev) => !prev);
-      // const test = rowIndex && entities[rowIndex]
-      // console.log(test)
       if (rowIndex !== undefined) {
         rowIndex >= 0
           ? (setSelectedRows([rowIndex]), setEntity(entities[rowIndex]))
@@ -162,20 +144,13 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
   },[entities])
   
   //METODO PERMISOS DE OT USUARIO DE LA GRILLA
-
   const togglePermisoOTModal = useCallback(
-    (rowIndex?: number) => {
-      console.log(rowIndex)
+    () => {
       setIsModalPermisOT((prev) => !prev);
-
-      // if (rowIndex !== undefined) {
-      //   rowIndex >= 0
-      //     ? (setSelectedRows([rowIndex]), setEntity(entities[rowIndex]))
-      //     : (setSelectedRows([]), setEntity(null));
-      // }
     },
     [entities]
   );
+
   //METODO EXCEL DE LA GRILLA
   const toggleExcel = useCallback(
     (rowIndex?: number) => {
@@ -188,29 +163,20 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
     [entities]
   );
 
-  // FACTORIZAR
-  const resetDelete = () => {
-    // console.log("entitiesresetdelete:", entities);
-  };
+  
 
   const handleDeleteSelected = useCallback(
     async (rowData?: any, comilla?: string) => {
       if (selectedRows.length >= 1) {
         try {
-          // console.log("comilla", comilla);
-          console.log(rowData)
           const response = await deleteAllEntity([rowData, comilla]);
-          console.log(response)
           const errorDelete = response.message;
-          // console.log(errorDelete)
           if (errorDelete) {
             toast.error(errorDelete);
           } else {
             setEntities((prev) => {
               const positionsToRemove = selectedRows;
-              // console.log("positiontoRemove", positionsToRemove);
               const removedEntities = [];
-
               const filteredEntities = prev.filter((entity, index) => {
                 if (positionsToRemove.includes(index)) {
                   removedEntities.push(entity);
@@ -220,7 +186,6 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
               });
               return filteredEntities;
             });
-            resetDelete();
             setSelectedRows([]);
             setPageSize(1);
             setDataGrid((prev) => !prev);
@@ -228,7 +193,6 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
           }
         } catch (error: any) {
           toast.error(error.message);
-          // console.log(error);
           return error;
         }
       }
@@ -236,34 +200,6 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
     [selectedRows, showModal]
   );
   
-  const deleteIndiidual = useCallback(async(pkToDelete:any)=>{
-    try {
-        console.log(pkToDelete)
-        // const response = await deleteAllEntity(pkToDelete);
-
-        // console.log(response)
-    } catch (error) {
-      // console.log('delete individual error:', error)
-      throw error
-    }
-  },[])
-  // useEffect(() => {
-  //   ListEntity("_id=20000", query)
-  //     .then((data: any) => {
-  //       if (data?.name === "AxiosError") {
-  //         return;
-  //       } else {
-  //         // console.log("data", data);
-  //         data &&
-  //           setEntities((prev) =>
-  //             prev ? [...prev, ...data] : data && [...data]
-  //           );
-  //       }
-  //     })
-  //     .catch((e) => {
-  //       return e;
-  //     });
-  // }, [pageSize, onDelete]);
 
   return {
     openModal,
@@ -296,6 +232,5 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
     resetEntities,
     toggleExcel,
     isModalPermisoOT,
-    deleteIndiidual
   };
 };

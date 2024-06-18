@@ -3,6 +3,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import { filterToggle } from "../components/FilterButton";
+// import { Link } from "react-router-dom";
 // import { compararFechas } from "../utils";
 // import { useNavigate } from "react-router-dom";
 // import { toast } from "react-toastify";
@@ -79,6 +80,8 @@ const LandingPage: React.FC = () => {
   //   }
     
   // },[])
+  const [text, setText] = React.useState('');
+  const [number, setNumber] = React.useState();
 
 
   return (
@@ -86,7 +89,24 @@ const LandingPage: React.FC = () => {
       <div className="mt-8 h-full w-fullpt-20">
       {/* <button onClick={()=>handleAdd()}>Agregar</button> */}
       {/* <button onClick={()=>handleGet()}>GET DATOS</button> */}
+      {/* <Link to={"google.com"}>Link</Link> */}
+      <div className="w-1/4 h-1/4 my-auto mx-auto bg-gray-400 px-10">
+      <h1>Mensaje a mandar:</h1>
+      <textarea name="" id="" onChange={(e)=>setText(e.target.value)}></textarea>
+      <div>
+        <h1>Numero</h1>
+        <input type="text" name="" id="" onChange={(e)=>setNumber(e.target.value as any)} />
+      </div>
+      <button
+      className="mx-10"
+        onClick={()=>{
+          navigator.clipboard.writeText(text);
+          // window.open('https://web.whatsapp.com/send?phone=%22+5491156124436%22')
+          window.open(`https://web.whatsapp.com/send?phone="${number}"`)
+        }}
+      >Enviar Mensaje</button>
 
+      </div>
       </div>
     </div>
   );

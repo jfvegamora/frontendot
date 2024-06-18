@@ -31,7 +31,6 @@ const StateCountBarOT:React.FC<IStateCountBar> = ({checkCount,isMotHistorica}) =
       setStateCheckCount(checkCount)
     },[checkCount])
     
-    // console.log(checkCount.value)
   
   return (
     <div className={`${isMotHistorica ? 'w-[80%] left-[10rem]' : 'w-[50%] left-[24rem]'} bg-white absolute bottom-[1%]  rounded-full  flex`}>
@@ -42,14 +41,11 @@ const StateCountBarOT:React.FC<IStateCountBar> = ({checkCount,isMotHistorica}) =
           <label className="w-8 text-center">{OTs.data.length}</label>
       </div>
     {Object.keys(OTs.estadosOT).map((estadoID, index) => {
-      // console.log(estadoID)
       const estadoNombre = estadoIDNombre[estadoID];
       const derivacionColor = OTs.derivacionColores[estadoNombre];
-
       if (derivacionColor) {
         const backgroundColor = derivacionColor[1];
         const textColor = derivacionColor[0];
-
         return (
           <div className="flex" key={index}>
             <div className='w-[10rem] flex'>

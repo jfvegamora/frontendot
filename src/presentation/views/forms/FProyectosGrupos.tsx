@@ -188,6 +188,17 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
     const resetTextFields = React.useCallback(() => {
       setValue("cod_grupo", "");
       setValue("descripcion", "");
+      setValue("diametro", "");
+      setValue("esferico_desde", "");
+      setValue("esferico_hasta", "");
+      setValue("cilindrico_desde", "");
+      setValue("cilindrico_hasta", "");
+      setTotalNetoArmazones(0)
+      setTotalNetoCristales(0)
+      setTotalNeto(0);
+      setValue("valor_neto_armazon", '0');
+      setValue("valor_neto_cristal", '0');
+      setValue("valor_neto_total", '0');      
       // setValue("esferico_desde", "");
       // setValue("esferico_hasta", "");
       // setValue("cilindrico_desde", "");
@@ -310,10 +321,11 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
 
     useEffect(() => {
       isEditting ? focusSecondInput("cod_grupo") : focusFirstInput("cod_grupo");
-
-      const totalNeto = data && (data[EnumGrid.valor_neto_cristal] + data[EnumGrid.valor_neto_armazon])
-      setTotalNeto(totalNeto)
-      setValue('valor_neto_total', totalNeto)
+      if(isEditting){
+        const totalNeto = data && (data[EnumGrid.valor_neto_cristal] + data[EnumGrid.valor_neto_armazon])
+        setTotalNeto(totalNeto)
+        setValue('valor_neto_total', totalNeto)
+      }
     }, []);
 
 
@@ -323,7 +335,6 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
 
       setTotalNeto((parseInt(valor_neto_cristal) + parseInt(valor_neto_armazon)) as any)
       setValue('valor_neto_total', totalNeto as any)
-      console.log(totalNeto)
     }, [totalNetoArmazones, totalNetoCristales])
 
 

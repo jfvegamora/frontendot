@@ -180,7 +180,13 @@ export enum EnumGrid {
   rbd_establecimiento  = 137,
   bodega_procesado     = 138,
   usuario_id           = 139,
-  imagen_logo          = 140
+  ubicacion_armazon_1               = 140,
+  ubicacion_armazon_2               = 141,
+  ubicacion_cristal_1_od            = 142,
+  ubicacion_cristal_1_oi            = 143,
+  ubicacion_cristal_2_od            = 144,
+  ubicacion_cristal_2_oi            = 145,
+  imagen_logo          = 146
 }
 
 
