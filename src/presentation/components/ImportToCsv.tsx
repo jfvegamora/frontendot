@@ -55,17 +55,17 @@ const ImportToCsv:React.FC<ImportProps> = ({
     setErrors([])
     setProgress(0)
     setCurrentStage("Validacion")
-    restanteImport.value = 1;
-    totalImport.value    = 0;
+    restanteImport.value   = 1;
+    totalImport.value      = 0;
+    isFetchCompleted.value = false;
+    progressBar.value      = 0;
   }
 
   async function executeFetchWithProgress(validate:any, numberOfElements:any) {
     const abortController = new AbortController();
 
-    console.log(progressBar.value)
 
     const fetchPromise = executeFetch(validate, numberOfElements).then((result) => {
-      console.log('render')
       isFetchCompleted.value = true;  // Mark fetch as completed
       return result;
     });
@@ -74,7 +74,6 @@ const ImportToCsv:React.FC<ImportProps> = ({
       fetchPromise,
       handleProgressUpdate(0,100,'', numberOfElements, abortController)
     ]);
-
 
 
     abortController.abort();
@@ -122,7 +121,6 @@ const ImportToCsv:React.FC<ImportProps> = ({
   async function executeFetch(validate:any,numberOfElements:any) {
     if (validate["blob"] && numberOfElements) {
       switchFetchOT.value = false;
-      console.log(validate)
       let jsonResponse:any = [];
 
       //?==============================================METODO OT =====================================================
@@ -132,7 +130,6 @@ const ImportToCsv:React.FC<ImportProps> = ({
 
         const formData = new FormData();
         const libroExcel = validate["blob"][i]
-        console.log(libroExcel)
         formData.append('file', libroExcel["blob"])
         formData.append('positions_to_remove', JSON.stringify(PositionToRemove[strEntidad as "Clientes"]));
         formData.append('entidad', JSON.stringify(strEntidad));
@@ -145,7 +142,6 @@ const ImportToCsv:React.FC<ImportProps> = ({
         const url = `${URLBackend.value}/api/excel/import/`;
         try {
           const response = await axios.post(url, formData);
-          console.log(response)
 
           jsonResponse.push(response.data)
           
@@ -170,9 +166,9 @@ const ImportToCsv:React.FC<ImportProps> = ({
       
 
       console.log(jsonResponse)
-      if(jsonResponse){
-        setProgress(100)
-      }
+      // if(jsonResponse){
+      //   setProgress(100)
+      // }
       const isErrorImport = jsonResponse.some((mensaje:any)=>mensaje.Error)
 
       //?CAMBIAR A FALSE PARA DEJAR DE PROBAR
@@ -186,7 +182,8 @@ const ImportToCsv:React.FC<ImportProps> = ({
       }
 
       console.log(jsonResponse)
-      switchFetchOT.value = true;
+      switchFetchOT.value     = true;
+      isFetchCompleted.value  = false;
       return jsonResponse
       
       //?==============================================METODO OT =====================================================
@@ -362,6 +359,23 @@ const ImportToCsv:React.FC<ImportProps> = ({
       // });
     }
   }, []);
+
+  
+    React.useEffect(() => {
+        const handleKeyDown = (event: KeyboardEvent) => {
+          if (event.key === "Escape") {
+            restanteImport.value = 1;
+            totalImport.value = 0;
+            handleClose();
+          }
+        };
+  
+        window.addEventListener("keydown", handleKeyDown);
+  
+        return () => {
+          window.removeEventListener("keydown", handleKeyDown);
+        };
+      }, [handleClose]);
 
     const {getInputProps, getRootProps} = useDropzone({
         onDrop,

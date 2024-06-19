@@ -74,21 +74,21 @@ const ModalImpor:React.FC<ModalImportProps> = ({
       }
     },[errors])
 
-    React.useEffect(() => {
-        const handleKeyDown = (event: KeyboardEvent) => {
-          if (event.key === "Escape") {
-            restanteImport.value = 1;
-            totalImport.value = 0;
-            onClose();
-          }
-        };
+    // React.useEffect(() => {
+    //     const handleKeyDown = (event: KeyboardEvent) => {
+    //       if (event.key === "Escape") {
+    //         restanteImport.value = 1;
+    //         totalImport.value = 0;
+    //         onClose();
+    //       }
+    //     };
   
-        window.addEventListener("keydown", handleKeyDown);
+    //     window.addEventListener("keydown", handleKeyDown);
   
-        return () => {
-          window.removeEventListener("keydown", handleKeyDown);
-        };
-      }, [onClose]);
+    //     return () => {
+    //       window.removeEventListener("keydown", handleKeyDown);
+    //     };
+    //   }, [onClose]);
 
 
 
@@ -125,7 +125,7 @@ const ModalImpor:React.FC<ModalImportProps> = ({
   
 
    return (
-    <div className='w-[55%] border border-black mx-auto  left-[20rem] !z-50  absolute top-[5%] cursor-default ' onClick={stopPropagation} style={{backgroundColor:'rgb(103 111 157 / 1)'}}>
+    <div className='w-[55%] rounded-xl border border-black mx-auto  left-[20rem] !z-50  absolute top-[5%] cursor-default ' onClick={stopPropagation} style={{backgroundColor:'rgb(103 111 157 / 1)'}}>
             <div className='w-full'>
                 <h1 className='absolute right-0 text-5xl cursor-pointer userFormBtnClose top-0' onClick={()=>onClose()}>X</h1>
                 <h1 className='text-xl text-center text-white '>{totalImport.value === restanteImport.value ? 'Importando' :  'Validando'}</h1>
@@ -145,7 +145,7 @@ const ModalImpor:React.FC<ModalImportProps> = ({
               
                 </div>
 
-                {titleState === 'Errores' && (
+                {/* {titleState === 'Errores' && (
                   <Tooltip content={'Descargar Plantilla Excel'} >
                     <IconButton 
                       className='text-white ml-10'
@@ -155,12 +155,11 @@ const ModalImpor:React.FC<ModalImportProps> = ({
                       <PiMicrosoftExcelLogoFill className='primaryBtnIcon' onClick={()=>downloadLogErrorsExcel()} />
         
                     </IconButton>
-                    {/* <Button color="green" className='otActionButton mx-4' >Macro Excel</Button> */}
                 </Tooltip>
-                )}
+                )} */}
 
                 {titleState === "Errores" && (
-                  <div className=' mt-[7rem] overflow-scroll  !h-[20rem] bg-white !z-50'>
+                  <div className='overflow-scroll  !h-[20rem] bg-white !z-50'>
                           <TableComponent
                               idMenu={26}
                               entidad='progres bar'

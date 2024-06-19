@@ -3,6 +3,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import { filterToggle } from "../components/FilterButton";
+import axios from "axios";
 // import { Link } from "react-router-dom";
 // import { compararFechas } from "../utils";
 // import { useNavigate } from "react-router-dom";
@@ -80,8 +81,8 @@ const LandingPage: React.FC = () => {
   //   }
     
   // // },[])
-  // const [text, setText] = React.useState('');
-  // const [number, setNumber] = React.useState();
+  const [text, setText] = React.useState('');
+  const [number, setNumber] = React.useState();
 
 
   return (
@@ -99,14 +100,21 @@ const LandingPage: React.FC = () => {
       </div>
       <button
       className="mx-10"
-        onClick={()=>{
-          navigator.clipboard.writeText(text);
-          // window.open('https://web.whatsapp.com/send?phone=%22+5491156124436%22')
-          window.open(`https://web.whatsapp.com/send?phone="${number}"`)
+        onClick={async()=>{
+          console.log(text)
+          console.log(number)
+          const body = {
+            "numero": number,
+            "mensaje": text
+          }
+          console.log(body)
+          const response = await axios.post('http://localhost:3000/enviar-mensaje', body)
+
+          console.log(response)
         }}
       >Enviar Mensaje</button>
 
-      </div> */}
+      </div>  */}
       </div>
     </div>
   );
