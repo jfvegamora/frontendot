@@ -5,6 +5,7 @@ import { table_head_errors } from '../utils';
 import { restanteImport, resultExcelTypes, totalImport } from './ImportToCsv';
 import * as XLSX from 'xlsx';
 import { PiMicrosoftExcelLogoFill } from 'react-icons/pi';
+// import { PiMicrosoftExcelLogoFill } from 'react-icons/pi';
 
 
 interface ModalImportProps {
@@ -145,7 +146,7 @@ const ModalImpor:React.FC<ModalImportProps> = ({
               
                 </div>
 
-                {/* {titleState === 'Errores' && (
+                {titleState === 'Errores' && (
                   <Tooltip content={'Descargar Plantilla Excel'} >
                     <IconButton 
                       className='text-white ml-10'
@@ -156,7 +157,7 @@ const ModalImpor:React.FC<ModalImportProps> = ({
         
                     </IconButton>
                 </Tooltip>
-                )} */}
+                )}
 
                 {titleState === "Errores" && (
                   <div className='overflow-scroll  !h-[20rem] bg-white !z-50'>

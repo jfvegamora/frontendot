@@ -91,7 +91,7 @@ const LandingPage: React.FC = () => {
       {/* <button onClick={()=>handleAdd()}>Agregar</button> */}
       {/* <button onClick={()=>handleGet()}>GET DATOS</button> */}
       {/* <Link to={"google.com"}>Link</Link> */}
-      {/* <div className="w-1/4 h-1/4 my-auto mx-auto bg-gray-400 px-10">
+      <div className="w-1/4 h-1/4 my-auto mx-auto bg-gray-400 px-10">
       <h1>Mensaje a mandar:</h1>
       <textarea name="" id="" onChange={(e)=>setText(e.target.value)}></textarea>
       <div>
@@ -114,7 +114,7 @@ const LandingPage: React.FC = () => {
         }}
       >Enviar Mensaje</button>
 
-      </div>  */}
+      </div> 
       </div>
     </div>
   );
