@@ -3,7 +3,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import { filterToggle } from "../components/FilterButton";
-import axios from "axios";
+// import axios from "axios";
 // import { Link } from "react-router-dom";
 // import { compararFechas } from "../utils";
 // import { useNavigate } from "react-router-dom";
@@ -81,8 +81,8 @@ const LandingPage: React.FC = () => {
   //   }
     
   // // },[])
-  const [text, setText] = React.useState('');
-  const [number, setNumber] = React.useState();
+  // const [text, setText] = React.useState('');
+  // const [number, setNumber] = React.useState();
 
 
   return (
@@ -91,7 +91,7 @@ const LandingPage: React.FC = () => {
       {/* <button onClick={()=>handleAdd()}>Agregar</button> */}
       {/* <button onClick={()=>handleGet()}>GET DATOS</button> */}
       {/* <Link to={"google.com"}>Link</Link> */}
-      <div className="w-1/4 h-1/4 my-auto mx-auto bg-gray-400 px-10">
+      {/* <div className="w-1/4 h-1/4 my-auto mx-auto bg-gray-400 px-10">
       <h1>Mensaje a mandar:</h1>
       <textarea name="" id="" onChange={(e)=>setText(e.target.value)}></textarea>
       <div>
@@ -114,7 +114,7 @@ const LandingPage: React.FC = () => {
         }}
       >Enviar Mensaje</button>
 
-      </div> 
+      </div>  */}
       </div>
     </div>
   );
