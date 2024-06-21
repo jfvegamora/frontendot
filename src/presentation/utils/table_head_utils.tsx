@@ -2710,7 +2710,7 @@ export const table_head_proyectos_grupos = [
   {
     cell: "Marca",
     key: "marca",
-    visible: false,
+    visible: true,
     width: "w-[5rem]",
   },
   {
@@ -2776,7 +2776,7 @@ export const table_head_proyectos_grupos = [
   {
     cell: "Diámetro",
     key: "diametro",
-    visible: false,
+    visible: true,
     alignment: "text-center",
     width: "w-[6rem]",
   },
