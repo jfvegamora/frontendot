@@ -186,7 +186,8 @@ export enum EnumGrid {
   ubicacion_cristal_1_oi            = 143,
   ubicacion_cristal_2_od            = 144,
   ubicacion_cristal_2_oi            = 145,
-  imagen_logo          = 146
+  cant_rbd                          = 146,
+  imagen_logo                       = 147
 }
 
 
@@ -475,8 +476,8 @@ const MOTHistorica: React.FC = () => {
             setEntities={setEntities}
             otHistorica={true}
             primaryKeyInputs={[
-              { name: "_folio", label: "Folio", type: "text" },
-              { name: "_rut", label: "Rut", type: "text" },
+              { name: "_folio", label: "Folio", type: "text", styles: { with: "w-[10rem]  !h-[3rem]", container:"w-[18rem]"} },
+              { name: "_rut", label: "Rut", type: "text", styles: { with: "w-[10rem]  !h-[3rem]", container:"w-[18rem]"  } },
   
               { name: "_fecha_desde", label: "Atención Desde", type: "date", styles: { with: "w-[10rem]  !h-[3rem]", container:"w-[18rem]"  } },
               { name: "_fecha_hasta", label: "Atención Hasta", type: "date", styles: { with: "w-[10rem]  !h-[3rem]", container:"w-[18rem]" } },
@@ -484,13 +485,14 @@ const MOTHistorica: React.FC = () => {
               { name: "_estado", label: "Estado", type: "select", selectUrl: "/api/tipos/", tipos: "OTEstados", styles: { with: "w-[20.4rem]" }},
               { name: "_establecimiento", label: "Establecimiento", type: "select", selectUrl: "/api/establecimientos/", styles: { with: "w-[20.4rem]" }},
   
-              { name: "_nombre", label: "Nombre", type: "text" },
-              { name: "_motivo", label: "Motivo", type: "select", selectUrl: "/api/tipos/", tipos: "OTMotivo", styles: {with:"w-[19.5rem]"}},
+              { name: "_nombre", label: "Nombre", type: "text", styles: { with: "w-[10rem]  !h-[3rem]", container:"w-[18rem]"  } },
+              { name: "_motivo", label: "Motivo", type: "select", selectUrl: "/api/tipos/", tipos: "OTMotivo", styles: {with:"w-[19.5rem]", container:"translate-y-[0.2rem]"}},
   
               { name: "_p2", label: "Tipo Doc", type: "select", selectUrl: "/api/tipos/", tipos: "OTNumDoc", styles: {with: "w-[20.2rem]"}},
-              { name: "_p3", label: "Número Doc", type: "text", styles: { with: "w-[18.4rem]" }},
+              { name: "_p3", label: "Número Doc", type: "text",  styles: { with: "w-[10rem]  !h-[3rem]", container:"w-[18rem] translate-y-[0.2rem]"  }},
   
-              { name: "_proyecto", label: "Proyecto", type: "select", selectUrl: "/api/proyectos/", styles: { with: "w-[39.8rem]" }},
+              { name: "_p1", label: "RBD", type: "text", styles: { with: "w-[10rem]  !h-[3rem]", container:"w-[18rem]"  } },
+              { name: "_proyecto", label: "Proyecto", type: "select", selectUrl: "/api/proyectos/", styles: { with: "w-[19rem]" }},
   
             ]}
           />

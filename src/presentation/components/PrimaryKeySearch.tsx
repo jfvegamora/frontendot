@@ -292,7 +292,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                         />
                       </div>
                     ) : (
-                      <div className={`input-container ${input.styles?.with ? input.styles.with : ""}`}>
+                      <div className={`input-container relative ${input.styles?.container}`}>
                         <Controller
                         name={input.name}
                         control={control}
@@ -301,7 +301,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                           <Input
                             color="orange"
                             tabIndex={1}
-                            className={`!h-12 !mt-4 `}
+                            className={`!h-12 !mt-4 ${input.styles?.with}`}
                             {...field}
                             type={input.type}
                             label={input.label}
@@ -328,7 +328,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                 </div>
               ) : input.type === "select" ? (
               input.tipos ? (
-                <div className="input-container !mt-[0.4rem]">
+                <div className={`input-container relative  ${input.styles?.container}`}>
                     <SelectInputTiposComponent
                       label={input.label}
                       name={input.name}
@@ -343,7 +343,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                     />
                 </div>
               ): (
-                <div className="input-container ">
+                <div className={`input-container relaative  ${input.styles?.container}`}>
                     <div className="w-full ">
                           <SelectInputComponent
                             label={input.label}

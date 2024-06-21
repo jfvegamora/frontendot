@@ -305,6 +305,12 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                     <div className="header mt-1 w-[97%] !h-auto text-center2 border-black border-2 ml-3">
                       <div className="-mt-2 border-black border-b-2 !h-auto">
                         <div className="pl-6 ml-2 my-2 w-[100%] mx-auto">
+                            {ot[EnumGrid.numero_reporte_atencion] && (
+                              <div className="flex text-left ">
+                                <p className='-ml-6 text-[0.80rem] !mt-2 font-bold w-[27%]'>N° Rep: </p>
+                                <p className=' text-left text-base !mt-2 font-bold'>{`${ot[EnumGrid.numero_reporte_atencion]} / ${ot[EnumGrid.cant_rbd]}`}</p>
+                              </div>
+                            )}
                           <div className="flex text-left ">
                             <p className='-ml-6 text-[0.80rem] !mt-2 font-bold w-[27%]'>Proyecto: </p>
                             {/* <span>{ot[EnumGrid.proyecto_titulo]}</span> */}

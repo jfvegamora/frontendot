@@ -509,6 +509,11 @@ export const validationParametrizacionTratamientoAdic = () =>
     tratamiento_adicional: yup.string().required(`${msg}`),
     valor_neto: yup.string().required(`${msg}`),
   });
+// Schema WHASTAPP FORM
+export const validationWhastApp = () =>
+  yup.object().shape({
+    descripcion: yup.string().required(`${msg}`),
+  });
 
 // Schema REPORTE ATENCION
 export const validationReporteAtencionSchema = () =>

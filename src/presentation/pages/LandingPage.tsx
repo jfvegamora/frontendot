@@ -5,6 +5,7 @@ import React from "react";
 import { filterToggle } from "../components/FilterButton";
 // import axios from "axios";
 // import { toast } from "react-toastify";
+// import WhastappForm from "../components/WhastappForm";
 // import axios from "axios";
 // import { Link } from "react-router-dom";
 // import { compararFechas } from "../utils";
@@ -125,7 +126,9 @@ const LandingPage: React.FC = () => {
         }}
       >Enviar Mensaje</button>
 
-      </div>  */}
+      </div> 
+
+      <WhastappForm/> */}
       </div>
     </div>
   );

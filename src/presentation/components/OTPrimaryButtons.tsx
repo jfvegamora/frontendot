@@ -21,6 +21,7 @@ import { checkCount, paramsOT } from '../views/mantenedores/MOT';
 import { signal } from '@preact/signals-react';
 import { focusFirstInput } from '../components/OTForms/FOTValidarBodega';
 import { setEstadoImpresion } from './OTGrillaButtons';
+import WhastappForm from '../components/WhastappForm';
 
 type AreaButtonsProps ={
     areaName:string;
@@ -40,10 +41,11 @@ const valueConfirmOT = signal<any>('');
 const strEntidad = "Ordenen de Trabajo";
 const strBaseUrl = "/api/ot/";
 
-const FOTImpresa        = React.lazy(()=>import('../views/forms/FOTImpresa'));
 const ExportCSV         = React.lazy(()=>import('./ExportToCsv'))
-const FOTEmpaque        = React.lazy(()=>import('../views/forms/FOTEmpaque'));
 const FOTValidarBodega  = React.lazy(()=>import('../components/OTForms/FOTValidarBodega'));
+// const FOTWhastApp       = React.lazy(()=>import('../components/WhastappForm'))
+const FOTImpresa        = React.lazy(()=>import('../views/forms/FOTImpresa'));
+const FOTEmpaque        = React.lazy(()=>import('../views/forms/FOTEmpaque'));
 const FOTGuiaDespacho   = React.lazy(()=>import('../views/forms/FOTGuiaDespacho'));
 const FOTReporteFirma   = React.lazy(()=>import('../views/forms/FOTReporteFirma'));
 
@@ -94,7 +96,8 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
     const [isFOTEmpaque, setIsFOTEmpaque]             = useState(false);
     const [isFOTGuia, setIsFOTGuia]                   = useState(false);
     const [isFOTImpresa, setIsFOTImpresa]             = useState(false);
-    const [isFotTicketRetiro, _setisFotTicketRetiro]   = useState(false);
+    const [isFotTicketRetiro, _setisFotTicketRetiro]  = useState(false);
+    const [isWhastApp, setIsWhastApp]                 = useState(false);
     const [isFOTValidarBodega, setIsFOTValidarBodega] = useState(false);
     const [isFOTReporteFirma, setIsFOTReporeFirma]    = useState(false);
     const [dataOT, setDataOT]                         = useState();
@@ -350,6 +353,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
 
     const handleWhatsappMasivo = () => {
       console.log('click')
+      setIsWhastApp((prev) => !prev)
     }
 
 
@@ -588,7 +592,13 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
               onClick={handleProcesarMasivo}>Procesar</Button>
           </Tooltip>
         )}
+        
 
+        {isWhastApp && (
+          <Suspense>
+            <WhastappForm onClose={()=>setIsWhastApp(false)}/>
+          </Suspense>
+        )}
 
 
         {isFotTicketRetiro && (
