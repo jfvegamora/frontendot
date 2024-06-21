@@ -219,8 +219,8 @@ const MOT: React.FC = () => {
               strQuery={strQuery}
               setEntities={setEntities}
               primaryKeyInputs={[
-                { name: "_folio", label: "Folio", type: "text" },
-                { name: "_rut", label: "Rut", type: "text" },
+                { name: "_folio", label: "Folio", type: "text", styles:{with: "w-[8.3vw]"} },
+                { name: "_rut", label: "Rut", type: "text", styles:{with: "w-[8.3vw]", container: " w-[8.4vw] translate-x-[-10.5vw]"} },
 
                 { name: "_fecha_desde", label: "Atención Desde", type: "date", styles: { with: "w-[4rem]  !h-[3rem]", container: "w-[8rem]" } },
                 { name: "_fecha_hasta", label: "Atención Hasta", type: "date", styles: { with: "w-[4rem]  !h-[3rem]", container:"w-[8rem] translate-x-[-10rem]" } },

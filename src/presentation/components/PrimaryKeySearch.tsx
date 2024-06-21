@@ -388,8 +388,8 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                 </div>
               ) : (
                 // Otros tipos de entrada
-              <div className={`input-container !mt-[-0.3rem] !ml-[0rem] !mr-4 !pl-[0rem] !pr-[1rem] 
-                              ${input.styles?.with ? input.styles.with : ""}`}>
+              <div className={`input-container relative rowForm !mt-[-0.3rem] !ml-[0rem] !mr-4 !pl-[0rem] !pr-[1rem] 
+                              ${input.styles?.container}`}>
                 <Controller
                   name={input.name}
                   control={control}

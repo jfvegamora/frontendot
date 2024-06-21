@@ -188,17 +188,17 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
     const resetTextFields = React.useCallback(() => {
       setValue("cod_grupo", "");
       setValue("descripcion", "");
-      setValue("diametro", "");
-      setValue("esferico_desde", "");
-      setValue("esferico_hasta", "");
-      setValue("cilindrico_desde", "");
-      setValue("cilindrico_hasta", "");
-      setTotalNetoArmazones(0)
-      setTotalNetoCristales(0)
-      setTotalNeto(0);
-      setValue("valor_neto_armazon", '0');
-      setValue("valor_neto_cristal", '0');
-      setValue("valor_neto_total", '0');      
+      // setValue("diametro", "");
+      // setValue("esferico_desde", "");
+      // setValue("esferico_hasta", "");
+      // setValue("cilindrico_desde", "");
+      // setValue("cilindrico_hasta", "");
+      // setTotalNetoArmazones(0)
+      // setTotalNetoCristales(0)
+      // setTotalNeto(0);
+      // setValue("valor_neto_armazon", '0');
+      // setValue("valor_neto_cristal", '0');
+      // setValue("valor_neto_total", '0');      
       // setValue("esferico_desde", "");
       // setValue("esferico_hasta", "");
       // setValue("cilindrico_desde", "");

@@ -4,6 +4,8 @@
 import React from "react";
 import { filterToggle } from "../components/FilterButton";
 // import axios from "axios";
+// import { toast } from "react-toastify";
+// import axios from "axios";
 // import { Link } from "react-router-dom";
 // import { compararFechas } from "../utils";
 // import { useNavigate } from "react-router-dom";
@@ -81,8 +83,8 @@ const LandingPage: React.FC = () => {
   //   }
     
   // // },[])
-  // const [text, setText] = React.useState('');
-  // const [number, setNumber] = React.useState();
+  // const [text, setText] = React.useState<any>('');
+  // const [number, setNumber] = React.useState<any>();
 
 
   return (
@@ -103,14 +105,23 @@ const LandingPage: React.FC = () => {
         onClick={async()=>{
           console.log(text)
           console.log(number)
+
+          const numbers = number?.split(',')
+
           const body = {
-            "numero": number,
+            "numero": numbers,
             "mensaje": text
           }
           console.log(body)
-          const response = await axios.post('http://localhost:3000/enviar-mensaje', body)
 
+
+          // const response = await axios.post('https://nodeexpres.onrender.com/enviar-mensaje', body)
+          // const response = await axios.post('http://localhost:3000/enviar-mensaje', body)
+          const response = await axios.post('https://nodeexpres.onrender.com/enviar-mensaje', body)
           console.log(response)
+          if(response.data?.status === 200){
+            toast.success('Mensajes enviados.')
+          }
         }}
       >Enviar Mensaje</button>
 
