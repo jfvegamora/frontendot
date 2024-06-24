@@ -92,6 +92,7 @@ const MPerfiles: React.FC = () => {
                 selectUrl: "/api/funcionalidades/",
               },
             ]}
+            classNameSearchButton=" translate-x-[5rem]"
           />
         </div>
 

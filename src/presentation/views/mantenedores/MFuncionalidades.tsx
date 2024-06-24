@@ -75,6 +75,7 @@ const MCargos: React.FC = () => {
             primaryKeyInputs={[
               { name: "_p1", label: "Funcionalidad", type: "text", styles:{with:" !w-[14rem]"} },
             ]}
+            classNameSearchButton="translate-x-[14rem]"
           />
         </div>
 

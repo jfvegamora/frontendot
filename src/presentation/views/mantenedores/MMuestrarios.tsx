@@ -80,8 +80,10 @@ const MMuestrarios: React.FC = () => {
                 label     : "Punto de Venta",
                 type      : "select",
                 selectUrl : "/api/puntosventa/",
+                styles:{with:" !w-[20rem]", container:"translate-x-[1.5rem] translate-y-[0.3rem]"}
               },
             ]}
+            classNameSearchButton=" translate-x-[5.5rem]"
           />
         </div>
 

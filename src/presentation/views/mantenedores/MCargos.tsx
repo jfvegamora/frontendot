@@ -78,6 +78,7 @@ const MCargos: React.FC = () => {
               setParams={setParams}
               setEntities={setEntities}
               primaryKeyInputs={[{ name: "_p1", label: "Cargo", type: "text", styles:{with:" !w-[14rem]"} }]}
+              classNameSearchButton="!translate-x-[10rem]"
             />
         </div>
 

@@ -88,9 +88,10 @@ const MProyectosTratamAdic: React.FC = () => {
                 label: "Tratamiento ",
                 type: "select",
                 selectUrl: "/api/tipos/",
-                tipos: "OTTratamientoAdicional", styles: { with: "" },
+                tipos: "OTTratamientoAdicional", styles: { with:" w-[16rem] translate-y-[0.4rem]" },
               },
             ]}
+             classNameSearchButton=" translate-x-[11.5rem]"
           />
         </div>
 

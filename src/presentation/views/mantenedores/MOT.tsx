@@ -26,6 +26,7 @@ import { clearData, fetchColores, fetchOT } from "../../../redux/slices/OTSlice"
 import { signal } from "@preact/signals-react";
 import { updateActualArea } from "../../../redux/slices/OTAreasSlice";
 import { fetchDioptriaParametros } from "../../../redux/slices/utilsSlice";
+// import axios from "axios";
 // import { updateActualArea } from "../../../redux/slices/OTAreasSlice";
 // import axios from "axios";
 
@@ -153,6 +154,7 @@ const MOT: React.FC = () => {
  }, [areaActualOT, dispatch, params]);
 
 
+
   useEffect(() => {
     dispatch(clearData())
     // dispatch(clearOTColores())
@@ -248,7 +250,7 @@ const MOT: React.FC = () => {
 
 
 
-      <div className={`width100 scroll ${filterToggle.value ? "!mt-[13rem] !h-[25rem]" : "!mt-[1rem] !h-[29rem]"} `}>
+      <div className={`width100 scroll ${filterToggle.value ? "!mt-[13rem] !h-[25rem]" : "!mt-[1rem] !h-auto"} `}>
       
         <TableComponent
           handleSelectChecked={handleSelect}

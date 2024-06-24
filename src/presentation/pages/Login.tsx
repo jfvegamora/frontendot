@@ -69,9 +69,9 @@ const Login: React.FC = React.memo(() => {
           const isMobile = /Mobi/.test(userAgent)
           
           if(isMobile){
-            navigate("/operativo")
+            // navigate("/operativo")
           }else{
-            navigate("/landing");
+            navigate("/ot");
           }
           // navigate("/landing");
           toast.success("Sesion Iniciada");

@@ -138,15 +138,15 @@ const MProyectos: React.FC = () => {
                 name: "_p2",
                 label: "Título",
                 type: "select",
-                selectUrl: "/api/proyectos/", styles:{with:" !w-[25rem]"},
+                selectUrl: "/api/proyectos/", styles:{with:" !w-[25rem] translate-x-[-1rem]"},
               },
-              { name: "_p3", label: "Cod. Proyecto/Licitación", type: "text", styles:{with:" !w-[12rem]"}, },
+              { name: "_p3", label: "Cod. Proyecto/Licitación", type: "text", styles:{with:"!w-[12rem]", container:"translate-x-[-2rem] translate-y-[-0.2rem]"}, },
               {
                 name: "_p4",
                 label: "Estado",
                 type: "select",
                 selectUrl: "/api/tipos/",
-                tipos: "ProyectoEstados", styles: { with: "!mt-[0.5rem] !w-[10rem]" },
+                tipos: "ProyectoEstados", styles: { with: "!w-[14rem] translate-x-[-1rem] translate-y-[0.5rem] " },
               },
             
             ]}

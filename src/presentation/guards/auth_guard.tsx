@@ -37,10 +37,6 @@ const AuthGuard: React.FC<Props> = ({ privateValidation }) => {
   if (privateValidation) {
     const currentRoute = privateRoutes.find((route) => (route.path === (window.location.pathname).replace('/', '')))?.id;
 
-    console.log(window.location.pathname)
-    console.log(privateRoutes)
-    console.log(currentRoute)
-    
     if (currentRoute) {
       const hasAccess = hasRequiredPermissions(currentRoute, permisosIds);
 

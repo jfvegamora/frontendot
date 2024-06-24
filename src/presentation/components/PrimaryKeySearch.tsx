@@ -69,6 +69,7 @@ interface PrimaryKeySearchProps {
   updateParams: any;
   description?: any;
   otHistorica?:boolean
+  classNameSearchButton?:string
 }
 
 export const resetFilters = signal(false)
@@ -76,7 +77,7 @@ export const filterTextValue = signal('')
 
 
 const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
-  ({ setEntities, primaryKeyInputs, updateParams, description, otHistorica, baseUrl }) => {
+  ({ setEntities, primaryKeyInputs, updateParams, description, otHistorica, baseUrl,classNameSearchButton }) => {
     const [cilindrico, setCilindrico] = useState();
     const { control, handleSubmit, setValue } = useForm<IPrimaryKeyState>();
     const [inputValues, setInputValues] = useState<IPrimaryKeyState>({});
@@ -448,9 +449,9 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
     
    
     return (
-      <form className="primaryKeyContainer items-center relative ">
+      <form className="primaryKeyContainer !items-center relative ">
         {renderInputs()}
-        <div className={`w-[80px] h-[50px]  ${baseUrl === '/api/ot/' ? 'absolute left-[84rem]' : ''} `}>
+        <div className={`h-auto flex ${classNameSearchButton}  ${baseUrl === '/api/ot/' ? 'absolute left-[84rem]' : ''} `}>
           <Tooltip content="Buscar">
               <IconButton
               tabIndex={1}
@@ -466,9 +467,6 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                 <FontAwesomeIcon icon={faMagnifyingGlass} className="primaryKeyIcon w-full  !mt-2"/>
             </IconButton>
           </Tooltip>
-        </div>
-
-        <div className={`w-[80px] h-[50px]  ${baseUrl === '/api/ot/' ? 'absolute left-[84rem] bottom-[11rem]' : ''} `}>
           <Tooltip content="Refrescar">
               <IconButton
               tabIndex={1}
@@ -488,6 +486,27 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
             </IconButton>
           </Tooltip>
         </div>
+{/* 
+        <div className={`w-[80px] h-[50px]  ${baseUrl === '/api/ot/' ? 'absolute left-[84rem] bottom-[11rem]' : ''} `}>
+          <Tooltip content="Refrescar">
+              <IconButton
+              tabIndex={1}
+                variant="text"
+                color="blue-gray"
+                className="primaryBtnIconButton mt-1 ml-2 mr-2"
+                type="submit"
+                onClick={(e)=>{
+                  e.preventDefault()
+                  filterToggle.value = false;
+                  titleSearch.value = ''
+                  filterSearchTitle.value = {}
+                 return handleRefresh()
+                }}
+              >
+                <FontAwesomeIcon icon={faArrowsRotate} className="primaryBtnIcon w-full  !mt-2"/>
+            </IconButton>
+          </Tooltip>
+        </div> */}
 
         {description && (
           <input

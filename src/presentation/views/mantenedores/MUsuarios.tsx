@@ -138,25 +138,31 @@ const MUsuarios: React.FC = () => {
 
     setPkToDelete([`${strParamsToDelete}=${combinedPks}`]);
   }, [selectedRows]);
- 
+  // styles:{with: "!w-[8rem]", container: " !w-[8rem] translate-x-[-10rem]"} },
   return (
     <div className="mantenedorContainer">
       <div className="mantenedorHead width60 relative">
-        <div className="w-[70%]">
+        <div className="w-[85%]">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
             setParams={setParams}
             updateParams={updateParams}
             setEntities={setEntities}
             primaryKeyInputs={[
-              { name: "_p1", label: "Nombre", type: "text" },
+              { name: "_p1", 
+                label: "Nombre", 
+                type: "text",
+                styles:{with: "-translate-y-1"}  
+              },
               {
                 name: "_p2",
                 label: "Cargos",
                 type: "select",
                 selectUrl: "/api/cargos/",
+                styles:{with: "ml-4"}
               },
             ]}
+            classNameSearchButton=" translate-x-[-7rem]"
           />
         </div>
         <div className="w-[30%]  absolute -right-4">
@@ -179,7 +185,7 @@ const MUsuarios: React.FC = () => {
         </div>
       </div>
 
-      <div className="width90 scroll">
+      <div className="width80 scroll">
         <TableComponent
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}

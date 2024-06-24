@@ -120,24 +120,17 @@ function App() {
     }
   }, []);
 
-
-  // useEffect(()=>{
-  //   if(userState && userState.token){
-  //   const fetchPrueba = async() => {
-  //     const result = await axios('https://gestiondev.mtoopticos.cl/api/establecimientos/listado/protegida?query=02',{
-  //       headers:{
-  //         Authorization: userState.token
-  //       }
-  //     })
-  
-  //     console.log(result)  
-  //   };
-  //   fetchPrueba();
-  // }
-  // },[userState?.token])
+  // setInterval(()=>{
+  //   try {
+  //     axios('https://nodeexpress2-3.onrender.com/')
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  //  }, 10 * 60 * 1000)
 
 
-  
+
+
   return (
 
     // <AuthHOC>
@@ -160,8 +153,9 @@ function App() {
             <Route path={PublicRoutes.PROFILE} element={<ProfileUser />} />
             {/* <Route path="/" element={<Navigate to={PublicRoutes.LOGIN} />} /> */}
             <Route element={<AuthGuard privateValidation={true} />}>
-              <Route path="/" element={<LandingPage/>} />
+              <Route path="/" element={<h1>Landing Page</h1>} />
               <Route path="/operativo" element={<FReservarArmazones/>} />
+              <Route path="/mensajeria" element={<LandingPage/>} />
               <Route path="/movilarmazones" element={<MovilReservaArmazones/>} />
                 {privateRoutes.map((route) => {
                   return(

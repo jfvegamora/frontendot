@@ -95,20 +95,21 @@ const MProyectosDocum: React.FC = () => {
                   name: "_p1",
                   label: "Proyecto",
                   type: "select",
-                  selectUrl: "/api/proyectos/", styles:{with:" !w-[28rem]"},
+                  selectUrl: "/api/proyectos/", styles:{with:" !w-[28rem] translate-y-[0.2rem]"},
                 },
                 {
                   name: "_p4",
                   label: "Tipo Doc",
                   type: "select",
                   selectUrl: "/api/tipos/",
-                  tipos: "TipoDoc", styles:{with:"!mt-[0.5rem]  w-[17rem]"},
+                  tipos: "TipoDoc", styles:{with:"!mt-[0.5rem]  w-[17rem] translate-y-[0.1rem]"},
                   _p1:"1,2,3,4,5,6,7,8"
                 },
                 { name: "_p2", label: "N° Documento", type: "text", styles:{with:" !w-[9rem]"},},
                 // { name: "_p2", label: "Código Proyecto", type: "text", styles:{with:" !w-[9rem]"}, },
                 // { name: "_p3", label: "Código Licitación", type: "text", styles:{with:" !w-[9rem]"}, },
               ]}
+              classNameSearchButton=" translate-x-[2rem]"
               />
           </div>
   

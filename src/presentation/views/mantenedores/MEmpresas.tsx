@@ -72,7 +72,7 @@ const MEmpresas: React.FC = () => {
 
   return (
     <div className="mantenedorContainer">
-      <div className="mantenedorHead width50">
+      <div className="mantenedorHead width60">
         <div className="w-[50%]">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
@@ -81,8 +81,9 @@ const MEmpresas: React.FC = () => {
             setEntities={setEntities}
             primaryKeyInputs={[
               { name: "_p1", label: "RUT", type: "text", styles:{with:" !w-[8rem]"}, },
-              { name: "_p3", label: "Nombre", type: "text", styles:{with:" !w-[16rem]"}, },
+              { name: "_p3", label: "Nombre", type: "text", styles:{with:" !w-[16rem]",container: "translate-x-[1rem]"}, },
             ]}
+            classNameSearchButton=" translate-x-[13rem]"
           />
         </div>
 

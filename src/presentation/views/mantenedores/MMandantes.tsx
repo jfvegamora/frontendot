@@ -79,9 +79,10 @@ const MMandantes: React.FC = () => {
             updateParams={updateParams}
             setEntities={setEntities}
             primaryKeyInputs={[
-              { name: "_p2", label: "Código", type: "number", styles:{with:"!w-[8rem] !mt-[-11%] !pr-[1rem]"}, },
-              { name: "_p1", label: "Nombre", type: "text", styles:{with:" !w-[16rem]"}, },
+              { name: "_p2", label: "Código", type: "number", styles:{with:"!w-[8rem]", container:"translate-y-[-0.8rem]"}, },
+              { name: "_p1", label: "Nombre", type: "text", styles:{with:" !w-[16rem]", container:"translate-x-[1.5rem] translate-y-[-0.1rem]"}, },
             ]}
+            classNameSearchButton=" translate-x-[8.5rem]"
           />
         </div>
 

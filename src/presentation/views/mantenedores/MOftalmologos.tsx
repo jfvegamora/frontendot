@@ -77,8 +77,9 @@ const MOftalmologos: React.FC = () => {
             setEntities={setEntities}
             primaryKeyInputs={[
               { name: "_p1", label: "RUT", type: "text", styles:{with:" !w-[8rem]"}, },
-              { name: "_p3", label: "Nombre", type: "text", styles:{with:" !w-[16rem]"}, },
+              { name: "_p3", label: "Nombre", type: "text", styles:{with:" !w-[16rem]", container: "translate-x-[1rem]"}, },
             ]}
+            classNameSearchButton=" translate-x-[10rem]"
           />
         </div>
 

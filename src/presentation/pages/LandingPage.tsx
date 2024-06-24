@@ -3,8 +3,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import { filterToggle } from "../components/FilterButton";
-// import axios from "axios";
-// import { toast } from "react-toastify";
+// import WhastappForm from "../components/WhastappForm";
+import axios from "axios";
+import { toast } from "react-toastify";
 // import WhastappForm from "../components/WhastappForm";
 // import axios from "axios";
 // import { Link } from "react-router-dom";
@@ -84,8 +85,8 @@ const LandingPage: React.FC = () => {
   //   }
     
   // // },[])
-  // const [text, setText] = React.useState<any>('');
-  // const [number, setNumber] = React.useState<any>();
+  const [text, setText] = React.useState<any>('');
+  const [number, setNumber] = React.useState<any>();
 
 
   return (
@@ -94,7 +95,7 @@ const LandingPage: React.FC = () => {
       {/* <button onClick={()=>handleAdd()}>Agregar</button> */}
       {/* <button onClick={()=>handleGet()}>GET DATOS</button> */}
       {/* <Link to={"google.com"}>Link</Link> */}
-      {/* <div className="w-1/4 h-1/4 my-auto mx-auto bg-gray-400 px-10">
+      <div className="w-1/4 h-1/4 my-auto mx-auto bg-gray-400 px-10">
       <h1>Mensaje a mandar:</h1>
       <textarea name="" id="" onChange={(e)=>setText(e.target.value)}></textarea>
       <div>
@@ -118,9 +119,9 @@ const LandingPage: React.FC = () => {
 
           // const response = await axios.post('https://nodeexpres.onrender.com/enviar-mensaje', body)
           // const response = await axios.post('http://localhost:3000/enviar-mensaje', body)
-          const response = await axios.post('https://nodeexpres.onrender.com/enviar-mensaje', body)
+          const response = await axios.post('https://nodeexpress3.onrender.com/enviar-mensaje', body)
           console.log(response)
-          if(response.data?.status === 200){
+          if(response?.status === 200){
             toast.success('Mensajes enviados.')
           }
         }}
@@ -128,7 +129,7 @@ const LandingPage: React.FC = () => {
 
       </div> 
 
-      <WhastappForm/> */}
+      {/* <WhastappForm/> */}
       </div>
     </div>
   );

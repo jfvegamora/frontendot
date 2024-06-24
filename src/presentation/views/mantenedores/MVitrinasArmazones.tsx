@@ -109,6 +109,7 @@ const MVitrinasArmazones: React.FC = () => {
             { name: "_p3", label: "Código Armazón", type: "text", styles:{with:" !w-[12rem]"}, },
             // { name: "_p3", label: "Código Licitacion", type: "text", styles:{with:" !w-[9rem]"}, },
           ]}
+          
         />
       </div>
 

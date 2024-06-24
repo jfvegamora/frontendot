@@ -80,7 +80,7 @@ const MProyectosUsuarios: React.FC = () => {
 
   return (
     <div className="mantenedorContainer">
-      <div className="mantenedorHead width100">
+      <div className="mantenedorHead width90">
       <div className="w-[75%]">
         <PrimaryKeySearch
           baseUrl={strBaseUrl}
@@ -107,6 +107,7 @@ const MProyectosUsuarios: React.FC = () => {
               selectUrl: "/api/usuarios/", styles:{with:" !w-[18rem]"},
             },
           ]}
+          classNameSearchButton=" translate-x-[2rem]"
         />
       </div>
 
