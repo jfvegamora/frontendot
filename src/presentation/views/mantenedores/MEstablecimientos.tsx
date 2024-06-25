@@ -30,6 +30,7 @@ export enum EnumGrid {
   comuna = 13,
   destino_id = 14,
   destino = 15,
+  despachar_a = 16,
 }
 
 const strEntidad = "Establecimiento ";
