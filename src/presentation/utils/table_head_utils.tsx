@@ -3163,6 +3163,13 @@ export const table_head_establecimientos = [
     width: "w-[10rem]",
   },
   {
+    cell: "Despachar a",
+    key: "despachar_a",
+    visible: true,
+    alignment: "text-left",
+    width: "w-[10rem]",
+  },
+  {
     cell: "",
     key: "opciones",
     visible: true,
