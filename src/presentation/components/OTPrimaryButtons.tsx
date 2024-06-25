@@ -21,7 +21,7 @@ import { checkCount, paramsOT } from '../views/mantenedores/MOT';
 import { signal } from '@preact/signals-react';
 import { focusFirstInput } from '../components/OTForms/FOTValidarBodega';
 import { setEstadoImpresion } from './OTGrillaButtons';
-import WhastappForm from '../components/WhastappForm';
+// import WhastappForm from '../components/WhastappForm';
 
 type AreaButtonsProps ={
     areaName:string;
@@ -34,12 +34,14 @@ type AreaButtonsProps ={
     setSelectedRows?:any
   }
   
-export const dataOTSignal = signal([]);
+export const dataOTSignal       = signal([]);
 export const isFinishImpression = signal(false);
-const valueSearchOT = signal<any>('');
+export const barCodeSignal = signal('');
+
+const valueSearchOT  = signal<any>('');
 const valueConfirmOT = signal<any>('');
-const strEntidad = "Ordenen de Trabajo";
-const strBaseUrl = "/api/ot/";
+const strEntidad     = "Ordenen de Trabajo";
+const strBaseUrl     = "/api/ot/";
 
 const ExportCSV         = React.lazy(()=>import('./ExportToCsv'))
 const FOTValidarBodega  = React.lazy(()=>import('../components/OTForms/FOTValidarBodega'));
@@ -48,6 +50,7 @@ const FOTImpresa        = React.lazy(()=>import('../views/forms/FOTImpresa'));
 const FOTEmpaque        = React.lazy(()=>import('../views/forms/FOTEmpaque'));
 const FOTGuiaDespacho   = React.lazy(()=>import('../views/forms/FOTGuiaDespacho'));
 const FOTReporteFirma   = React.lazy(()=>import('../views/forms/FOTReporteFirma'));
+const FOTWhastApp       = React.lazy(()=>import('../components/WhastappForm'));
 
 export const EnumAreas:any = {
   10: 0,
@@ -92,14 +95,16 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
     const User:any                                    = useAppSelector((store: AppStore) => store.user)
     const componentRef                                = useRef<any>(null);
     const SecondcomponentRef                          = useRef<any>(null);
-    const [isShowErrorOTModal, setIsShowErrorOTModal] = useState(false)
+    const [isShowErrorOTModal, setIsShowErrorOTModal] = useState(false);
     const [isFOTEmpaque, setIsFOTEmpaque]             = useState(false);
     const [isFOTGuia, setIsFOTGuia]                   = useState(false);
+    // const [isBarCodeProcess, setIsBarCodeProcess]     = useState(false);
     const [isFOTImpresa, setIsFOTImpresa]             = useState(false);
     const [isFotTicketRetiro, _setisFotTicketRetiro]  = useState(false);
     const [isWhastApp, setIsWhastApp]                 = useState(false);
     const [isFOTValidarBodega, setIsFOTValidarBodega] = useState(false);
     const [isFOTReporteFirma, setIsFOTReporeFirma]    = useState(false);
+    // const [barCode, setBarCode]                       = useState('')
     const [dataOT, setDataOT]                         = useState();
     // const [valueSearchOT, setValueSearchOT]           = useState<any>();
     // const [valueConfirmOT, setValueConfirmOT]         = useState<any>()
@@ -460,7 +465,6 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
 
     const handleProcesarConfirm = async(folio:any, toastLoading?:any) => {
       try {
-        console.log(folio)
         const result = await axios(`${URLBackend}/api/ot/listado/?query=01&_p1=${folio}`,{
           headers: {
             'Authorization': User.token, 
@@ -493,7 +497,6 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
 
 
     }
-
 
 
     return (
@@ -596,7 +599,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
 
         {isWhastApp && (
           <Suspense>
-            <WhastappForm onClose={()=>setIsWhastApp(false)}/>
+            <FOTWhastApp onClose={()=>setIsWhastApp(false)}/>
           </Suspense>
         )}
 
@@ -656,14 +659,53 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
                 className='text-xl' 
                 color='orange'  
                 value={valueConfirmOT.value as any}
-                onChange={(e:any)=>{
+                onChange={async(e:any)=>{
                   if(e.target.value !== ''){
-                    const toastLoading:any = toast.loading('cargando...')
-                    setTimeout(async()=>{
-                      console.log(e.target.value)
-                      await handleProcesarConfirm(parseInt(e.target.value), toastLoading)
-                      valueConfirmOT.value = ''
-                    },3000)
+                    barCodeSignal.value = e.target.value
+                    // console.log(barCodeSignal)
+                    valueConfirmOT.value = barCodeSignal.value
+                    if(barCodeSignal.value.length >= 5){
+                        const toastLoading: any = toast.loading("cargando...");
+                        // console.log(barCodeSignal.value)
+                       await handleProcesarConfirm(parseInt(barCodeSignal.value), toastLoading).then(()=>{
+                        toast.dismiss(toastLoading)
+                         valueConfirmOT.value = "";
+                       });
+                    }
+                    
+                    // if(!isBarCodeProcess){
+                    //   console.log(e.target.value)
+                    //   const toastLoading: any = toast.loading("cargando...");
+                    //   setIsBarCodeProcess(true)
+                    //   console.log(isBarCodeProcess)
+                    //   await handleProcesarConfirm(parseInt(e.target.value), toastLoading)
+                    // }
+                    // setTimeout(async()=>{
+                    //   console.log(e.target.value)
+                    //   let isProcessing = false;
+                    //   const handleBarcodeScan = async () => {
+                    //     if (!isProcessing) {
+                    //       console.log(e.target.value);
+                    //       if (e.target.value !== "") {
+                    //         const toastLoading: any = toast.loading("cargando...");
+                    //         console.log(e.target.value);
+                    //         isProcessing = true;
+                    //         await handleProcesarConfirm(parseInt(e.target.value), toastLoading);
+                    //       }
+                    //       valueConfirmOT.value = "";
+                    //     }
+                    //   };
+                      
+                    //   if(!isProcessing){
+                    //     handleBarcodeScan();
+                    //   }
+                    //   // if(e.target.value !== ''){
+                    //   //   const toastLoading:any = toast.loading('cargando...')
+                    //   //   console.log(e.target.value)
+                    //   //   await handleProcesarConfirm(parseInt(e.target.value), toastLoading)
+                    //   // }
+                    //   // valueConfirmOT.value = ''
+                    // },3000)
                   }
 
 

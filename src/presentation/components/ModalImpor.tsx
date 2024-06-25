@@ -37,10 +37,8 @@ const ModalImpor:React.FC<ModalImportProps> = ({
         transformedErrors =  [["", "", errors]]
       }else if (errors && typeof errors === 'object'){
         if(isModalOT){
-          console.log(errors)
           transformedErrors = errors.flatMap((item:any)=>{
             if(item.Error){
-              console.log(item)
               return item.Error.map((errorMSG:any)=>["", "", errorMSG])
             }
             return []
@@ -94,7 +92,6 @@ const ModalImpor:React.FC<ModalImportProps> = ({
 
 
 
-    console.log(importErrors)  
 
 
     const downloadLogErrorsExcel = () => {

@@ -1,9 +1,14 @@
 import React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Button } from '@material-tailwind/react';
+import {  Spinner, Textarea } from '@material-tailwind/react';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { TextInputComponent } from './forms';
+// import { TextInputComponent } from './forms';
+// import { FaWhatsapp } from "react-icons/fa";
 import { validationWhastApp } from '../utils';
+import axios from 'axios';
+import {signal } from '@preact/signals-react';
+import { SocialIcon } from 'react-social-icons'
+import { toast } from 'react-toastify';
 
 
 interface IDerivacion {
@@ -14,17 +19,15 @@ interface IDerivacion {
 }
 
 interface FormData{
-    proyecto_codigo: undefined;
-    folio_ot: number;
-    proyecto:string;
-    nombre_cliente: string;
-
-    area_desde:string;
-    area_hasta:string;
-    situacion:string
-    observaciones:string;
-    formValues:any
+    descripcion:string
 }
+
+let linkStatus               = 'https://nodeexpress3.onrender.com/status';
+let linkisWhastappConnected  = 'https://nodeexpress3.onrender.com/conection';
+let linkSendMessage          = 'https://nodeexpress3.onrender.com/enviar-mensaje'
+
+let isWhastAppConnected          = signal(false);
+let isLoadingWhastAppConnection  = signal(false);
 
 const WhastappForm:React.FC<IDerivacion> = ({
     data,
@@ -34,22 +37,75 @@ const WhastappForm:React.FC<IDerivacion> = ({
     // formValues
 }) => {
     const schema = validationWhastApp()
-    const {control, handleSubmit, formState:{errors}} = useForm<any>({
+    const {register, handleSubmit, formState:{errors}, setValue} = useForm<any>({
         resolver: yupResolver(schema)
     })
 
+
     
+
     
     
     const onSubmit: SubmitHandler<FormData> = async(jsonData) =>{
         console.log(jsonData) 
-        console.log(data)   
+        console.log(data) 
+        const body = {
+            "numero": ["56949018251"],
+            "mensaje": jsonData?.descripcion
+        }
+            if(!isWhastAppConnected.value){
+                fetchStatus()
+            }
+        
+        try {
+            const {data} = await axios.post(linkSendMessage, body)
+            console.log(data)
+            toast.success('Mensaje enviado correctamente.')
+            setValue('descripcion', '')
+        } catch (error) {
+            console.log(error)
+            toast.error(error as string)
+        }
+
     
     }
+
+    //?Result link status =  { isWhatsAppConnection: true }
+    //?Result whasapconec = 
+
+
+    const fetchStatus = async() => {
+        try {
+            const {data} = await axios(linkStatus);
+            if(data?.isWhatsAppConnection){
+                isWhastAppConnected.value = true;
+            }else{
+                isLoadingWhastAppConnection.value = true;
+                isWhastAppConnected.value = false;
+                const {data} = await axios(linkisWhastappConnected)
+                console.log(data)
+                if(data?.isWhatsAppConnection){
+                    isWhastAppConnected.value = true;
+                    isLoadingWhastAppConnection.value = false;
+                }
+            }
+            console.log(data)  
+            console.log(isWhastAppConnected.value)          
+        } catch (error) {
+            console.log(error)
+            return false
+        }
+    }
+
+    React.useLayoutEffect(()=>{
+        
+        fetchStatus()
+    },[])
 
 
     React.useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
+          isWhastAppConnected.value = false;
           if (event.key === "Escape") {
             onClose()
           }
@@ -62,14 +118,20 @@ const WhastappForm:React.FC<IDerivacion> = ({
         };
       }, [onClose]);
 
+    if(isLoadingWhastAppConnection.value){
+        return(
+            <Spinner/>
+        )
+    }
 
+    console.log(errors)
 
   return (
-    <div className='useFormContainer useFormDerivacion centered-div use40rem z-30 translate-y-20'>
+    <div className='useFormContainer useFormDerivacion centered-div w-[90vw] sm:w-[30vw] sm:h-[40vh] h-[35vh] z-30 translate-y-20'>
         
         <div className="userFormBtnCloseContainer flex ">
-            <div className='w-[50%] mx-auto !text-center  '>
-                <h1 className='userFormLabel mx-auto  w-full '>Enviar Mensaje</h1>
+            <div className='w-full mx-auto !text-center  '>
+                <h1 className='userFormLabel mx-auto  w-full '>Enviar WhatsApp</h1>
             </div>
             <div className=''>
                 <button onClick={onClose} className="userFormBtnClose">
@@ -78,70 +140,36 @@ const WhastappForm:React.FC<IDerivacion> = ({
             </div>
         </div>
 
-        <form className='userFormulario' onSubmit={handleSubmit(onSubmit)}>
-                <div className=" w-full flex items-center rowForm">
-                    <div className="w-[30%]">
-                        <TextInputComponent
-                            type="text"
-                            label="Folio OT"
-                            name="folio_ot"
-                            control={control}
-                            // data={data && data[EnumGrid.folio]}
-                            onlyRead={true}
-                            textAlign="text-center"
-                            customWidth={"mt-[2rem]"}
-                        />
-                    </div>
-                    <div className="w-[70%]">
-                        <TextInputComponent
-                            type="text"
-                            label="Proyecto"
-                            name="proyecto"
-                            control={control}
-                            // data={data && data[EnumGrid.proyecto_titulo]}
-                            onlyRead={true}
-                            customWidth={"mt-[2rem]"}
-                        />
-                    </div>
-                </div>
-
-                <div className=" w-full flex items-center rowForm">
-                    <div className="w-full">
-                        <TextInputComponent
-                            type="text"
-                            label="Nombre Cliente"
-                            name="nombre_cliente"
-                            control={control}
-                            // data={data && data[EnumGrid.cliente_nomnbre]}
-                            onlyRead={true}
-                            customWidth={"mt-[2rem]"}
-                        />
-                    </div>
-                </div>
-
-
-
-                <div className=" w-full flex items-center rowForm">
-                    <div className="w-full">
-                        <TextInputComponent
-                            type="text"
-                            label="Observaciones"
-                            name="observaciones"
-                            control={control}
-                            customWidth={"mt-[2rem]"}
-                            isOptional={false}
-                            error={errors}
+        {isLoadingWhastAppConnection.value ? (
+             <Spinner/>
+        ) : (
+            
+            <form className=' w-full translate-y-4 h-[12vh]' onSubmit={handleSubmit(onSubmit)}>
+                    <div className=" w-full flex items-center  rowForm">
+                        <div className="w-full">
+                             <Textarea
+                                {...register('descripcion')}
+                                name='descripcion'
+                                // type='text'
+                                className='rounded w-full !h-[8vh] bg-white border-none'
+                             />   
+                        </div>
+                        <div className="flex justify-center  !rounded-full h-1/2 w-[40%] absolute translate-x-[52vw] sm:translate-x-[20.5vw] translate-y-7">
+                        {/* <FaWhatsapp /> */}
+                        <button type="submit">
+                            <SocialIcon  
+                                url="https://www.whatsapp.com/"
                             />
+                        </button>
+    
+                            {/* <Button  type="submit"  className='rounded-full w-full bg-green-500'>s</Button> */}
+                        </div>
                     </div>
-                </div>
-                    {/* <div className="w-full ">
-                        <textarea className='w-[35vw]' name="" id=""></textarea>
-                    </div> */}
+    
+            </form>
+        )}
 
-                <div className="flex justify-center">
-                    <Button  type="submit" className='otActionButton bg-green-500'>Enviar Mensaje</Button>
-                </div>
-        </form>
+
 
     </div>
   )

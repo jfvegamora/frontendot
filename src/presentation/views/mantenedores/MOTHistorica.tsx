@@ -187,7 +187,8 @@ export enum EnumGrid {
   ubicacion_cristal_2_od            = 144,
   ubicacion_cristal_2_oi            = 145,
   cant_rbd                          = 146,
-  imagen_logo                       = 147
+  rbd_ubicacion                     = 147,
+  imagen_logo                       = 148
 }
 
 
