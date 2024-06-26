@@ -220,7 +220,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
 
                       // filterSearchTitle.value = updatedValue    
                       changeFilterSearchTitle(e, label, 'Select');                                                                    
-                      setHandleSearch(inputValuesToUpdate);
+                      // setHandleSearch(inputValuesToUpdate);
                     }
                   }
                 }}

@@ -21,7 +21,7 @@ interface ISelectInputProps {
   showRefresh?: boolean;
   data?: any;
   onChange?: (value: string) => void;
-  setHandleSearch?: (value: any) => void;
+  setHandleSearch?: any;
   handleSelectChange?: any;
   inputName?: any;
   error?: any;
@@ -145,10 +145,10 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
                   if (setHandleSearch) {
                     const selectedValue = e.target.value.toString();
                     handleSelectChange(name, selectedValue);
-                    const inputValuesToUpdate = {
-                      ...inputValues,
-                      [name]: selectedValue,
-                    };
+                    // const inputValuesToUpdate = {
+                    //   ...inputValues,
+                    //   [name]: selectedValue,
+                    // };
                     if (setHandleSearch) {
 
 
@@ -164,7 +164,7 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
                       
                       // filterSearchTitle.value       = updatedValue;
                       changeFilterSearchTitle(e, label,'Select');
-                      setHandleSearch(inputValuesToUpdate);
+                      // setHandleSearch(inputValuesToUpdate);
                     }
                   }
                 }}

@@ -69,7 +69,7 @@ const MMarcas: React.FC = () => {
 
   return (
     <div className="mantenedorContainer">
-      <div className="mantenedorHead width80">
+      <div className="mantenedorHead width70">
         <div className="w-[80%]">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
@@ -83,6 +83,7 @@ const MMarcas: React.FC = () => {
                 label: "Proveedor",
                 type: "select",
                 selectUrl: "/api/proveedores/",
+                styles:{container:"translate-x-[1.5rem] translate-y-[0.3rem]"}
               },
               {
                 name      : "_p3",
@@ -90,9 +91,10 @@ const MMarcas: React.FC = () => {
                 type      : "select",
                 selectUrl : "/api/tipos/",
                 tipos     : "TipoInsumo",
-                styles    :  {with:" !w-[13rem]"}
+                styles    :  {with:" !w-[13rem]", container:"translate-x-[0.5rem] translate-y-[0.6rem]"}
               },
             ]}
+            classNameSearchButton=" translate-x-[7rem] translate-y-[0.3rem]"
           />
         </div>
 

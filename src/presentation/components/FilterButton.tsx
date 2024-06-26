@@ -39,21 +39,21 @@ const FilterButton: React.FC<IProps> = ({
 
 
   return (
-    <div className={`fixed ${className ? className : "top-[4rem] left-5"} z-[13] items-center bg-yellow-300`}>
+    <div className={`fixed ${className ? className : "top-[4rem] left-5"} z-[13] items-center `}>
       <MagnifyingGlassIcon
         className={`bg-[#f39c12] w-[3rem] h-[3rem] text-white p-3 rounded-full shadow-lg top-2 absolute z-30 transition-transform transform cursor-pointer ${isHovered.value ? 'scale-110 bg-orange-700' : ''}`}
         onClick={handleMouseEnter}
       />
       <div
         className={`${
-          filterToggle.value ? 'w-[98vw] h-auto mx-auto' : 'w-0 -left-[70rem] absolute'
-        } transition-all duration-500 bg-white ${isOT ? "!h-[16rem] !w-[100%]" : "!h-[20rem]"} p-2 items-center rounded shadow-lg overflow-hidden`}
+          filterToggle.value ? 'w-[98vw] mx-auto' : 'w-0 translate-x-[-200rem] absolute'
+        } transition-all duration-500 bg-white ${isOT ? "!h-[35vh] !w-[95vw]" : "!h-[20rem]"} p-2 items-center rounded shadow-lg overflow-hidden`}
       >
         {children}
       </div>
       {filterToggle.value && (
         <RxDoubleArrowLeft onClick={()=>handleMouseEnter()} 
-        className={`${isOT ? "top-[10rem] " : "top-[9rem] "} text-[#f39c12] hover:bg-gray-200  rounded-xl cursor-pointer w-[4rem] absolute h-[4rem] ${isOT ? "right-[35rem]" : "right-4"} `}/>
+        className={`${isOT ? "top-[10rem] " : "top-[9rem] "} transition-all duration-500 text-[#f39c12] hover:bg-gray-200  rounded-xl cursor-pointer w-[4rem]  h-[4rem] ${isOT ? "translate-x-[85rem] translate-y-[-5rem]" : ""} `}/>
       )}
     </div>
   );

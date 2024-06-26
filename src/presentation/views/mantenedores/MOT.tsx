@@ -221,25 +221,25 @@ const MOT: React.FC = () => {
               strQuery={strQuery}
               setEntities={setEntities}
               primaryKeyInputs={[
-                { name: "_folio", label: "Folio", type: "text", styles:{with: "!w-[8rem]"} },
-                { name: "_rut", label: "Rut", type: "text", styles:{with: "!w-[8rem]", container: " !w-[8rem] translate-x-[-10rem]"} },
-
+                { name: "_folio", label: "Folio", type: "text", styles:{with: "!w-[8rem]", container:"w-[9rem]"} },
+                { name: "_rut", label: "Rut", type: "text", styles:{with: "!w-[9rem]", container: "w-[9em] translate-x-[-6rem]"} },
+                
                 { name: "_fecha_desde", label: "Atención Desde", type: "date", styles: { with: "w-[4rem]  !h-[3rem]", container: "w-[8rem]" } },
-                { name: "_fecha_hasta", label: "Atención Hasta", type: "date", styles: { with: "w-[4rem]  !h-[3rem]", container:"w-[8rem] translate-x-[-10rem]" } },
-                { name: "_usuario", label: "Usuario", type: "select",selectUrl: "/api/usuarios/", styles: { with: "w-[20.4rem]", container: "!h-[6rem] translate-x-[20rem] translate-y-[-0.7rem]" } },
-
-                { name: "_estado", label: "Estado", type: "select", selectUrl: "/api/tipos/", tipos: "OTEstados", styles: { with: "w-[20.4rem] !h-[3rem] translate-x-[-20rem]" }},
-                { name: "_nombre", label: "Nombre", type: "text" , styles:{ with: "!w-[18.4rem]  !h-[3rem]", container:"w-[8rem] translate-x-[-20rem]" } },
-                { name: "_p1", label: "RBD", type: "text" , styles:{ with: "!w-[18.4rem]  !h-[3rem]", container:"w-[8rem] translate-x-[-20rem]" } },
+                { name: "_fecha_hasta", label: "Atención Hasta", type: "date", styles: { with: "w-[9rem]  !h-[3rem]", container:"w-[9rem] translate-x-[-6rem]" } },
+                { name: "_usuario", label: "Usuario", type: "select",selectUrl: "/api/usuarios/", styles: { with: "w-[20.4rem]", container: " !w-auto !h-[6rem] translate-y-[-0.7rem]" } },
                 
-                { name: "_proyecto", label: "Proyecto", type: "select", selectUrl: "/api/proyectos/", styles: { with: "w-[20.4rem]", container: "w-[8rem] " }},
-                { name: "_motivo", label: "Motivo", type: "select", selectUrl: "/api/tipos/", tipos: "OTMotivo", styles: { with: "w-[20.4rem]" }},
+                { name: "_estado", label: "Estado", type: "select", selectUrl: "/api/tipos/", tipos: "OTEstados", styles: { with: "w-[20.4rem] !h-[3rem] translate-x-[4rem] translate-y-[-0.3rem]" }},
+                { name: "_nombre", label: "Nombre", type: "text" , styles:{ with: "!w-[18.4rem]  !h-[3rem]", container:"w-[8rem translate-x-[-11rem]" } },
+                { name: "_p1", label: "RBD", type: "text" , styles:{ with: "!w-[18.4rem]  !h-[3rem]", container:"w-[8rem] translate-x-[-7rem] " } },
                 
-                { name: "_p2", label: "Tipo Doc", type: "select", selectUrl: "/api/tipos/", tipos: "OTNumDoc", styles:{with: 'w-[20.4rem]'}},
-                { name: "_p3", label: "Número Doc", type: "text", styles: { with: "w-[18rem]" }},
+                { name: "_proyecto", label: "Proyecto", type: "select", selectUrl: "/api/proyectos/", styles: { with: "w-[20.4rem]", container: "w-[8rem] translate-x-[-11rem] " }},
+                { name: "_motivo", label: "Motivo", type: "select", selectUrl: "/api/tipos/", tipos: "OTMotivo", styles: { with: "w-[20.4rem] translate-x-[-7rem] translate-y-[0.3rem]" }},
                 
-                { name: "_establecimiento", label: "Establecimiento", type: "select", selectUrl: "/api/establecimientos/", styles: { with: "w-[20.4rem]", container: "w-[8rem] !translate-x-[-20rem]" }},
-                { name: "_punto_venta", label: "Punto Venta", type: "select", selectUrl: "/api/puntosventa/", styles: { with: "w-[20.4rem] absolute left-[20rem] !top-[6rem]" }},
+                { name: "_p2", label: "Tipo Doc", type: "select", selectUrl: "/api/tipos/", tipos: "OTNumDoc", styles:{with: 'w-[20.4rem]', container: "translate-x-[8rem] translate-y-[-0.3rem]"}},
+                { name: "_p3", label: "Número Doc", type: "text", styles: { with: "w-[18.4rem]", container:"translate-x-[12rem] translate-y-[-0.6rem]" }},
+                
+                { name: "_establecimiento", label: "Establecimiento", type: "select", selectUrl: "/api/establecimientos/", styles: { with: "w-[20.4rem]", container: "w-[8rem] translate-x-[-3rem]  translate-y-[0.3rem]" }},
+                { name: "_punto_venta", label: "Punto Venta", type: "select", selectUrl: "/api/puntosventa/", styles: { with: "w-[20.4rem] translate-x-[-18rem]  translate-y-[5rem] " }},
 
               ]}
             />
@@ -250,7 +250,7 @@ const MOT: React.FC = () => {
 
 
 
-      <div className={`width100 scroll ${filterToggle.value ? "!mt-[13rem] !h-[25rem]" : "!mt-[1rem] !h-auto"} `}>
+      <div className={`width100 scroll ${filterToggle.value ? "!mt-[13rem] !h-[25rem]" : "!mt-[1rem] !h-[61vh]"} `}>
       
         <TableComponent
           handleSelectChecked={handleSelect}

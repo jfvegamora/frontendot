@@ -137,7 +137,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
           className = "grid grid-rows-3 grid-cols-2  !w-[40rem] px-0 py-4 h-[35vh]  items-center"
           break;
       case '/api/ot/':
-          className = "grid grid-rows-3 grid-cols-2  !w-[40rem] px-0 py-4 h-[35vh]  items-center"
+          className = "grid grid-rows-3 grid-cols-2  !w-[40rem] px-0 py-4 h-[35vh]  items-center transition-all duration-500"
           break;
       case '/api/cristales/' :
           className = "grid grid-rows-3 grid-cols-2 !w-[90%] px-0 py-4 h-[30vh]  items-center"
@@ -366,7 +366,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                   </div>
               )
               ) : input.type === "date" ? (
-                <div className={`input-container relative rowForm !mr-[1rem] !mt-[0.2rem] ${input.styles?.container} `}>
+                <div className={`input-container relative  ${input.styles?.container} `}>
                   <label className={`primaryKeyLabel items-center text-base mt-1 absolute top-[-1.1rem] ${input.styles?.label}`}>{input.label}</label>
                   <Controller
                     name={input.name}
@@ -376,7 +376,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                       <Input
                         type="date"
                         color="orange"
-                        className={`h-[3rem] w-full border border-gray-500 rounded ${input.styles?.with}`}
+                        className={`h-[3rem] border border-gray-500 rounded ${input.styles?.with}`}
                         {...field}
                         value={field.value || ""}
                         onChange={(e) => {
@@ -449,14 +449,14 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
     
    
     return (
-      <form className="primaryKeyContainer !items-center relative ">
+      <form className="primaryKeyContainer !items-center relative">
         {renderInputs()}
-        <div className={`h-auto flex ${classNameSearchButton}  ${baseUrl === '/api/ot/' ? 'absolute left-[84rem]' : ''} `}>
+        <div className={`h-auto flex ${classNameSearchButton}  ${(baseUrl === '/api/ot/' || baseUrl === '/api/othistorica/' ) ? 'absolute left-[84rem] top-0 flex flex-col !py-6 !my-4 !w-[20rem] ' : ''} `}>
           <Tooltip content="Buscar">
               <IconButton
               tabIndex={1}
                 variant="text"
-                className="primaryKeyIconButton ml-2 mr-2"
+                className="primaryKeyIconButton ml-2 mr-2 mb-4"
                 type="submit"
                 onClick={(e)=>{
                   e.preventDefault()

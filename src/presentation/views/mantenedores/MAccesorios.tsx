@@ -93,19 +93,19 @@ const MAccesorios: React.FC = () => {
             primaryKeyInputs={[
               { name: "_p1", label: "Código", type: "text", styles: { with: "!w-[10rem]" } },
               // { name: "_p5", label: "Código FAB", type: "text", styles:{with:"!w-[10rem]"}},
-              { name: "_p2", label: "Descripción", type: "text", styles: { with: "!w-[10rem]" } },
+              { name: "_p2", label: "Descripción", type: "text", styles: { with: "!w-[10rem]", container: "translate-x-[1rem]" } },
               {
                 name: "_p3",
                 label: "Marca",
                 type: "select",
-                selectUrl: "/api/marcas/", styles: { with: "!w-[14rem]" },
+                selectUrl: "/api/marcas/", styles: { with: "!w-[14rem]", container:"translate-x-[2rem] translate-y-[0.3rem]" },
                 _p1: "3"
               },
               {
                 name: "_p4",
                 label: "Almacén",
                 type: "select",
-                selectUrl: "/api/almacenes/", styles: { with: "!w-[14rem]" },
+                selectUrl: "/api/almacenes/", styles: { with: "!w-[20rem]", container:"translate-x-[1rem] translate-y-[0.3rem]" },
                 _p1: "3"
               },
 
@@ -114,13 +114,14 @@ const MAccesorios: React.FC = () => {
                 label: "Stock",
                 type: "select",
                 selectUrl: "/api/tipos/",
-                tipos: "Stock", styles: { with: "!mt-[0.5rem] !w-[12rem]" },
+                tipos: "Stock", styles: { with: "!mt-[0.5rem] !w-[12rem]", container:"translate-y-[0.2rem]" },
               },
             ]}
+            classNameSearchButton=" translate-x-[2.5rem] translate-y-[0.3rem]"
           />
 
         </div>
-        <div className="w-[33%] px-2 relative -right-[58rem] ">
+        <div className="w-[33%] px-2 relative -right-[62rem] ">
           <PrimaryButtonsComponent
             handleAddPerson={openModal}
             handleDeleteSelected={handleDeleteSelected}

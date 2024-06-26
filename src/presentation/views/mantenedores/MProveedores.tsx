@@ -78,8 +78,9 @@ const MProveedores: React.FC = () => {
             setEntities     ={setEntities}
             primaryKeyInputs={[
               { name: "_p1", label: "RUT"   , type: "text", styles:{with:"!w-[10rem]"} },
-              { name: "_p3", label: "Nombre", type: "text", styles:{with:"!w-[16rem]"} },
+              { name: "_p3", label: "Nombre", type: "text", styles:{with:"!w-[16rem]", container:"translate-x-[1.5rem]"} },
             ]}
+             classNameSearchButton=" translate-x-[8rem] translate-y-[0.3rem]"
           />
         </div>
 

@@ -653,7 +653,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
             <div className="ml-2">
               <Input 
                 ref={refFocusInput} 
-                type="text" 
+                type="number" 
                 label='Validar OT' 
                 name='ProcesarOT' 
                 className='text-xl' 
@@ -670,7 +670,8 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
                        await handleProcesarConfirm(parseInt(barCodeSignal.value), toastLoading).then(()=>{
                         toast.dismiss(toastLoading)
                          valueConfirmOT.value = "";
-                       });
+                         barCodeSignal.value = "";
+                        });
                     }
                     
                     // if(!isBarCodeProcess){

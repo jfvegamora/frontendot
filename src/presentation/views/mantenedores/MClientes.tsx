@@ -103,24 +103,25 @@ const MClientes: React.FC = () => {
               name: "_p2",
               label: "Nombre",
               type: "text",
-              values: OptionValues, styles:{with:" !w-[16rem]"},
+              values: OptionValues, styles:{with:" !w-[16rem]", container:"translate-x-[1.5rem]"},
             },
             {
               name: "_p3",
               label: "Tipo",
               type: "select",
               selectUrl: "/api/tipos/",
-              tipos: "ClientesTipos", styles:{with:" !w-[12rem]"},
+              tipos: "ClientesTipos", styles:{with:" !w-[12rem]",container:"translate-x-[3rem] translate-y-[0.6rem]"},
             },
             {
               name: "_p4",
               label: "Establecimiento",
               type: "select",
               selectUrl: "/api/establecimientos/",
-              styles:{with:" !w-[24rem]"},
+              styles:{with:" !w-[29rem]", container:"translate-x-[3rem] translate-y-[0.25rem]"},
             },
           
           ]}
+          classNameSearchButton=" translate-x-[3rem] translate-y-[0.3rem]"
         />
       </div> 
 

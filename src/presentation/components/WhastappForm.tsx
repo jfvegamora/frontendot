@@ -28,6 +28,7 @@ let linkSendMessage          = 'https://nodeexpress3.onrender.com/enviar-mensaje
 
 let isWhastAppConnected          = signal(false);
 let isLoadingWhastAppConnection  = signal(false);
+let isLoadingStatus              = signal(false);
 
 const WhastappForm:React.FC<IDerivacion> = ({
     data,
@@ -78,6 +79,7 @@ const WhastappForm:React.FC<IDerivacion> = ({
         try {
             const {data} = await axios(linkStatus);
             if(data?.isWhatsAppConnection){
+                isLoadingStatus.value = false;
                 isWhastAppConnected.value = true;
             }else{
                 isLoadingWhastAppConnection.value = true;
@@ -86,6 +88,7 @@ const WhastappForm:React.FC<IDerivacion> = ({
                 console.log(data)
                 if(data?.isWhatsAppConnection){
                     isWhastAppConnected.value = true;
+                    isLoadingStatus.value = false
                     isLoadingWhastAppConnection.value = false;
                 }
             }
@@ -98,7 +101,7 @@ const WhastappForm:React.FC<IDerivacion> = ({
     }
 
     React.useLayoutEffect(()=>{
-        
+        isLoadingStatus.value = true;
         fetchStatus()
     },[])
 
@@ -118,11 +121,6 @@ const WhastappForm:React.FC<IDerivacion> = ({
         };
       }, [onClose]);
 
-    if(isLoadingWhastAppConnection.value){
-        return(
-            <Spinner/>
-        )
-    }
 
     console.log(errors)
 
@@ -140,34 +138,38 @@ const WhastappForm:React.FC<IDerivacion> = ({
             </div>
         </div>
 
-        {isLoadingWhastAppConnection.value ? (
-             <Spinner/>
-        ) : (
-            
-            <form className=' w-full translate-y-4 h-[12vh]' onSubmit={handleSubmit(onSubmit)}>
-                    <div className=" w-full flex items-center  rowForm">
+        <form className=' w-full translate-y-4 h-[12vh]' onSubmit={handleSubmit(onSubmit)}>
+            <div className=" w-full flex items-center  rowForm">
+                {(isLoadingWhastAppConnection.value || isLoadingStatus.value ) ? (
+                   <div className="w-full items-center rowForm bg-red-300">
+                       <Spinner className="h-12 w-12" style={{ color: '#f39c12' }} />
+                   </div>
+                ) : (
+                    <div>
                         <div className="w-full">
-                             <Textarea
+                            <Textarea
                                 {...register('descripcion')}
                                 name='descripcion'
                                 // type='text'
                                 className='rounded w-full !h-[8vh] bg-white border-none'
-                             />   
-                        </div>
-                        <div className="flex justify-center  !rounded-full h-1/2 w-[40%] absolute translate-x-[52vw] sm:translate-x-[20.5vw] translate-y-7">
-                        {/* <FaWhatsapp /> */}
-                        <button type="submit">
+                            />   
+                            </div>
+                            <div className="flex justify-center  !rounded-full h-1/2 w-[40%] absolute translate-x-[52vw] sm:translate-x-[20.5vw] translate-y-7">
+                            {/* <FaWhatsapp /> */}
+                            <button type="submit">
                             <SocialIcon  
                                 url="https://www.whatsapp.com/"
                             />
-                        </button>
-    
-                            {/* <Button  type="submit"  className='rounded-full w-full bg-green-500'>s</Button> */}
-                        </div>
+                            </button>
+
+                            </div>
                     </div>
-    
-            </form>
-        )}
+                    
+                )}
+           
+            </div>
+        </form>
+
 
 
 
@@ -176,3 +178,5 @@ const WhastappForm:React.FC<IDerivacion> = ({
 }
 
 export default WhastappForm;
+
+

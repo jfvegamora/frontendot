@@ -466,6 +466,7 @@ const MOTHistorica: React.FC = () => {
     <div className="mantenedorContainer">
 
       <FilterButton
+        isOT={true}
         className="top-[10rem] left-[3rem]"
 
       >
@@ -487,10 +488,10 @@ const MOTHistorica: React.FC = () => {
               { name: "_establecimiento", label: "Establecimiento", type: "select", selectUrl: "/api/establecimientos/", styles: { with: "w-[20.4rem]" }},
   
               { name: "_nombre", label: "Nombre", type: "text", styles: { with: "w-[10rem]  !h-[3rem]", container:"w-[18rem]"  } },
-              { name: "_motivo", label: "Motivo", type: "select", selectUrl: "/api/tipos/", tipos: "OTMotivo", styles: {with:"w-[19.5rem]", container:"translate-y-[0.2rem]"}},
+              { name: "_motivo", label: "Motivo", type: "select", selectUrl: "/api/tipos/", tipos: "OTMotivo", styles: {with:"w-[19.5rem]", container:"translate-y-[0.35rem]"}},
   
-              { name: "_p2", label: "Tipo Doc", type: "select", selectUrl: "/api/tipos/", tipos: "OTNumDoc", styles: {with: "w-[20.2rem]"}},
-              { name: "_p3", label: "Número Doc", type: "text",  styles: { with: "w-[10rem]  !h-[3rem]", container:"w-[18rem] translate-y-[0.2rem]"  }},
+              { name: "_p2", label: "Tipo Doc", type: "select", selectUrl: "/api/tipos/", tipos: "OTNumDoc", styles: {with: "w-[20.2rem]", container:"translate-y-[0.3rem]"}},
+              { name: "_p3", label: "Número Doc", type: "text",  styles: { with: "w-[10rem]  !h-[3rem]", container:"w-[17rem] translate-y-[0.2rem]"  }},
   
               { name: "_p1", label: "RBD", type: "text", styles: { with: "w-[10rem]  !h-[3rem]", container:"w-[18rem]"  } },
               { name: "_proyecto", label: "Proyecto", type: "select", selectUrl: "/api/proyectos/", styles: { with: "w-[19rem]" }},
