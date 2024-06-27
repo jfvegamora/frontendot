@@ -857,19 +857,6 @@ const checkArmazones = camposRequeridosArmazones.every(campo => {
   return campoEncontrado && campoEncontrado.valor === 1;
 });
 
-
-console.log(isMOT)
-console.log(permisos_ot_historica.permiso_anular)
-console.log((permisos_ot_historica.permiso_anular                                && (
-  ( data?.[EnumGrid.area_id] !== 50                                  || 
-    data?.[EnumGrid.area_id] !== 60                                  ||
-    data?.[EnumGrid.area_id] !== 70    
-  )
-)))
-console.log(data?.[EnumGrid.area_id])
-console.log(sumatoriaNivel1  === validationNivel1.value.length    )
-console.log(OTPermissions)
-console.log(escritura_lectura)
   return (
 
     <div className='useFormContainerOT top-[0%]  w-full h-[100%] !z-40'>
