@@ -91,7 +91,7 @@ const MCristalesKardex: React.FC = () => {
 
   return (
     <div className="mantenedorContainer">
-      <div className="mantenedorHead width100 h-[9rem]">
+      <div className="mantenedorHead width100">
         <div className="w-[82%]">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
@@ -113,6 +113,7 @@ const MCristalesKardex: React.FC = () => {
               { name: "_p2", label: "Desde", type: "date" },
               { name: "_p3", label: "Hasta", type: "date", styles:{with:" !ml-[1rem]"}},
             ]}
+            classNameSearchButton=" translate-x-[-0.3rem]  translate-y-[0.3rem]"
           />
         </div>
 

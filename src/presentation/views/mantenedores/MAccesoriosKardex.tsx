@@ -98,12 +98,13 @@ const MAccesoriosKardex: React.FC = () => {
                 label: "Almacén",
                 type: "select",
                 selectUrl: "/api/almacenes/", 
-                styles:{with:" !w-[26rem]"},
+                styles:{with:" !w-[26rem]", container:"translate-x-[1rem] translate-y-[0.3rem]"},
                 _p1: "3"
               },
-              { name: "_p2", label: "Desde", type: "date" },
-              { name: "_p3", label: "Hasta", type: "date", styles:{with:" !ml-[1rem]"}},
+              { name: "_p2", label: "Desde", type: "date" , styles:{container:"translate-y-[0.3rem]"}},
+              { name: "_p3", label: "Hasta", type: "date", styles:{container:"translate-y-[0.3rem] translate-x-[1rem]"}},
             ]}
+            classNameSearchButton=" translate-x-[-0.3rem]  translate-y-[0.3rem]"
           />
         </div>
 
@@ -147,8 +148,7 @@ const MAccesoriosKardex: React.FC = () => {
         />
       </div>
 
-      
-      
+ 
 
       {isModalInsert && (
         <FAccesoriosKardexIN

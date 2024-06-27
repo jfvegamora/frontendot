@@ -106,9 +106,10 @@ const MVitrinasArmazones: React.FC = () => {
               type: "select",
               selectUrl: "/api/vitrinas/", styles:{with:" !w-[30rem]"}
             },
-            { name: "_p3", label: "Código Armazón", type: "text", styles:{with:" !w-[12rem]"}, },
+            { name: "_p3", label: "Código Armazón", type: "text", styles:{with:" !w-[12rem]", container:"translate-y-[-0.2rem] translate-x-[-1rem]"}, },
             // { name: "_p3", label: "Código Licitacion", type: "text", styles:{with:" !w-[9rem]"}, },
           ]}
+          classNameSearchButton=" translate-x-[7rem] translate-y-[0.2rem]"
           
         />
       </div>

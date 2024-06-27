@@ -858,8 +858,18 @@ const checkArmazones = camposRequeridosArmazones.every(campo => {
 });
 
 
-
-
+console.log(isMOT)
+console.log(permisos_ot_historica.permiso_anular)
+console.log((permisos_ot_historica.permiso_anular                                && (
+  ( data?.[EnumGrid.area_id] !== 50                                  || 
+    data?.[EnumGrid.area_id] !== 60                                  ||
+    data?.[EnumGrid.area_id] !== 70    
+  )
+)))
+console.log(data?.[EnumGrid.area_id])
+console.log(sumatoriaNivel1  === validationNivel1.value.length    )
+console.log(OTPermissions)
+console.log(escritura_lectura)
   return (
 
     <div className='useFormContainerOT top-[0%]  w-full h-[100%] !z-40'>
@@ -1009,10 +1019,7 @@ const checkArmazones = camposRequeridosArmazones.every(campo => {
           <div className='flex items-center mx-auto mt-[1.5rem] justify-around w-1/2 '>
         
                 {isEditting                              &&
-                ( data?.[EnumGrid.area_id] === 50        || 
-                  data?.[EnumGrid.area_id] === 60        ||
-                  data?.[EnumGrid.area_id] === 70    
-                )                                        && 
+                data?.[EnumGrid.area_id] === 110         && 
                 isMOT                                    && 
                 escritura_lectura                        &&
                 permisos_ot_historica.permiso_post_venta &&
@@ -1088,17 +1095,11 @@ const checkArmazones = camposRequeridosArmazones.every(campo => {
 
 
                 {/*************** BOTON ANULAR ***************/}
-                {OTPermissions                                                             &&
-                escritura_lectura                                                          &&
-                (isMOT ?
-                      (permisos_ot_historica.permiso_anular                                && (
-                        ( data?.[EnumGrid.area_id] === 50                                  || 
-                          data?.[EnumGrid.area_id] === 60                                  ||
-                          data?.[EnumGrid.area_id] === 70    
-                        )
-                      ))  
-                       : (permiso_anular_usuario === true && OTPermissions[9] === '1'  ))  && 
-                sumatoriaNivel1  === validationNivel1.value.length                         && 
+                {escritura_lectura                                                                  &&
+                (isMOT 
+                       ? (permisos_ot_historica.permiso_anular && data?.[EnumGrid.area_id] !== 110)  
+                       : (permiso_anular_usuario === true && OTPermissions[9] === '1'  ))           && 
+                sumatoriaNivel1  === validationNivel1.value.length                                  && 
                 // (data && data[EnumGrid.estado_id] === 30 || data && data[EnumGrid.estado_id] === 40 ) && 
                 (
                   <Button className='otActionButton bg-black' onClick={()=>{

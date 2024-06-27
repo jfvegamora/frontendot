@@ -355,7 +355,7 @@ const FAccesoriosKardexOUT: React.FC<IUserFormPrps> = React.memo(
 
             <div className="w-full flex items-center h-[4rem]">
               <div className="input-container items-center rowForm w-[65%]  ">
-                <div className="w-full !mt-4">
+                <div className="w-[18rem] !mt-4">
                   <SelectInputComponent
                     label="Motivo Egreso"
                     name="motivo_egreso"
@@ -368,8 +368,8 @@ const FAccesoriosKardexOUT: React.FC<IUserFormPrps> = React.memo(
                   />
                 </div>
               </div>
-              <div className="input-container items-center rowForm w-[35%]  ">
-                <div className="w-full">
+              <div className="input-container items-center rowForm w-[38%] ">
+                <div className="w-[11rem] translate-x-[-1.2rem] ">
                   <TextInputComponent
                     type="number"
                     label="Cantidad"

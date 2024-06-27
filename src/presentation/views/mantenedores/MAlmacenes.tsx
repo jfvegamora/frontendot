@@ -85,7 +85,7 @@ const MAlmacenes: React.FC = () => {
                 type      : "select",
                 selectUrl : "/api/tipos/",
                 tipos     : "AlmacenesTipos",
-                styles    :  {with:" !w-[16rem]"}
+                styles    :  {with:" !w-[16rem]", container:"translate-x-[1rem] translate-y-[0.6rem]"}
               },
               {
                 name      : "_p3",
@@ -93,10 +93,11 @@ const MAlmacenes: React.FC = () => {
                 type      : "select",
                 selectUrl : "/api/tipos/",
                 tipos     : "TipoInsumo",
-                styles    :  {with:" !w-[16rem]"}
+                styles    :  {with:" !w-[16rem]", container:"translate-y-[0.6rem]"}
 
               },
             ]}
+            classNameSearchButton=" translate-x-[1.8rem] translate-y-[0.2rem]"
           />
         </div>
 

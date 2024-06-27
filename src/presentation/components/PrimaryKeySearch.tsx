@@ -232,7 +232,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                 <div className={`input-container ${input.styles?.with ? input.styles.with : ""}`}>
                   <div className={``}>
                     {input.name === "_pEsferico" ? (
-                      <div className="flex !w-[14rem]">
+                      <div className={`flex !w-[14rem] ${input.styles?.container}`}>
                         <Controller
                           name="_pEsferico"
                           control={control}
@@ -472,7 +472,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
               tabIndex={1}
                 variant="text"
                 color="blue-gray"
-                className="primaryBtnIconButton mt-1 ml-2 mr-2"
+                className="primaryBtnIconButton  mt-1 ml-2 mr-2"
                 type="submit"
                 onClick={(e)=>{
                   e.preventDefault()

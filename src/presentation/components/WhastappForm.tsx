@@ -8,7 +8,9 @@ import { validationWhastApp } from '../utils';
 import axios from 'axios';
 import {signal } from '@preact/signals-react';
 import { SocialIcon } from 'react-social-icons'
+import {ScaleLoader} from 'react-spinners'
 import { toast } from 'react-toastify';
+import { IoSend } from "react-icons/io5";
 
 
 interface IDerivacion {
@@ -125,11 +127,11 @@ const WhastappForm:React.FC<IDerivacion> = ({
     console.log(errors)
 
   return (
-    <div className='useFormContainer useFormDerivacion centered-div w-[90vw] sm:w-[30vw] sm:h-[40vh] h-[35vh] z-30 translate-y-20'>
+    <div className='useFormContainer useFormDerivacion centered-div w-[90vw] sm:w-[30vw] sm:h-[40vh] !h-[30vh] z-30 !translate-y-[-14rem] !translate-x-[-14rem]'>
         
         <div className="userFormBtnCloseContainer flex ">
             <div className='w-full mx-auto !text-center  '>
-                <h1 className='userFormLabel mx-auto  w-full '>Enviar WhatsApp</h1>
+                <h1 className='userFormLabel mx-auto  w-full translate-x-[0.3rem] '>Enviar WhatsApp</h1>
             </div>
             <div className=''>
                 <button onClick={onClose} className="userFormBtnClose">
@@ -138,28 +140,44 @@ const WhastappForm:React.FC<IDerivacion> = ({
             </div>
         </div>
 
-        <form className=' w-full translate-y-4 h-[12vh]' onSubmit={handleSubmit(onSubmit)}>
+        <form className=' w-full translate-y-4 h-[10vh]' onSubmit={handleSubmit(onSubmit)}>
             <div className=" w-full flex items-center  rowForm">
                 {(isLoadingWhastAppConnection.value || isLoadingStatus.value ) ? (
-                   <div className="w-full items-center rowForm bg-red-300">
-                       <Spinner className="h-12 w-12" style={{ color: '#f39c12' }} />
+                   <div className="w-full items-center !h-[8rem] mt-8 translate-y-[0.5rem] rowForm bg-white rounded-xl">
+                       {/* <Spinner className="h-12 w-12" style={{ color: '#f39c12' }} /> */}
+                       <div
+                        className='w-[13rem] mx-auto mt-5'
+                       >
+                        <h1 className='bg-[#4dc659] text-xl'>Conectando WhastApp</h1>
+                        <div className='w-1/2 mx-auto mt-2'>
+                            <ScaleLoader
+                            color="#4dc659"
+                            height={40}
+                            width={8}
+                            />
+
+                        </div>
+                       </div>
                    </div>
                 ) : (
                     <div>
-                        <div className="w-full">
+                        <div className="w-[26rem]">
                             <Textarea
                                 {...register('descripcion')}
                                 name='descripcion'
                                 // type='text'
-                                className='rounded w-full !h-[8vh] bg-white border-none'
+                                className='rounded w-full  !h-[8vh] bg-white border-none'
                             />   
                             </div>
                             <div className="flex justify-center  !rounded-full h-1/2 w-[40%] absolute translate-x-[52vw] sm:translate-x-[20.5vw] translate-y-7">
                             {/* <FaWhatsapp /> */}
-                            <button type="submit">
-                            <SocialIcon  
-                                url="https://www.whatsapp.com/"
-                            />
+                            <button 
+                              type="submit"
+                              className='bg-[#4dc659] translate-y-[-6rem] mr-6 rounded-full w-10 h-10'
+                            >
+                                <IoSend 
+                                 className='text-white mx-auto'
+                                />
                             </button>
 
                             </div>

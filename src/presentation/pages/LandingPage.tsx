@@ -4,7 +4,7 @@
 import React from "react";
 import { filterToggle } from "../components/FilterButton";
 // import WhastappForm from "../components/WhastappForm";
-import WhastappForm from "../components/WhastappForm";
+// import WhastappForm from "../components/WhastappForm";
 // import WhastappForm from "../components/WhastappForm";
 // import axios from "axios";
 // import { Link } from "react-router-dom";
@@ -126,7 +126,7 @@ const LandingPage: React.FC = () => {
 
       </div>  */}
 
-       <WhastappForm/>
+       {/* <WhastappForm/> */}
       </div>
     </div>
   );

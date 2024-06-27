@@ -108,7 +108,7 @@ export const fetchOTImpresionByID = createAsyncThunk(
       const { folio, OTAreas } = params;
       console.log(folio);
       const response2 = await axios.get(
-        `${URLBackend}/api/ot/imprimir/?query=01&_origen=${OTAreas}&_p1=${folio}&_p2=1`
+        `${URLBackend}/api/ot/imprimir/?query=02&_origen=${OTAreas}&_p1=${folio}&_p2=1`
       );
       console.log(response2?.data);
 

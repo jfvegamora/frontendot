@@ -94,9 +94,11 @@ const MCristales: React.FC = () => {
 
   return (
     <div className="mantenedorContainer" onClick={handleContainerClick}>
-      <FilterButton>
+      <FilterButton
+       
+      >
         <div className="mantenedorHeadFlex width100 relative ">
-          <div className="w-[95%] mx-auto ">
+          <div className="w-[95%] mx-auto h-[35vh] ">
             <PrimaryKeySearch
               baseUrl={strBaseUrl}
               setParams={setParams}
@@ -111,7 +113,7 @@ const MCristales: React.FC = () => {
                   label: "Indice",
                   type: "select",
                   selectUrl: "/api/tipos/",
-                  tipos: "CristalesIndices", styles: { with: " !w-[19rem]" },
+                  tipos: "CristalesIndices", styles: { with: " !w-[19rem] translate-y-[0.6rem]"},
                 },
 
                 {
@@ -119,16 +121,16 @@ const MCristales: React.FC = () => {
                   label: "Material",
                   type: "select",
                   selectUrl: "/api/tipos/",
-                  tipos: "CristalesMateriales", styles: { with: "!mt-[0.5rem] !w-[19rem]" },
+                  tipos: "CristalesMateriales", styles: { with: "translate-y-[1.5rem] !w-[19rem]" },
                 },
 
-                { name: "_pDiametro", label: "Diámetro", type: "number", styles: { with: "!mt-[-1rem] !w-[17rem]" } },
-                { name: "_pEsferico", label: "Esférico", type: "number", styles: { with: "" } },
+                { name: "_pDiametro", label: "Diámetro", type: "number", styles:{with:"!w-[17rem]", container:"translate-y-[-0.1rem]"}},
+                { name: "_pEsferico", label: "Esférico", type: "number", styles:{with: "", container:"!translate-y-[1.5rem]" } },
                 {
                   name: "_pMarca",
                   label: "Marca",
                   type: "select",
-                  selectUrl: "/api/marcas/", styles: { with: " !w-[19rem] !mt-2" },
+                  selectUrl: "/api/marcas/", styles: { with: " !w-[19rem] !mt-2", container:"translate-y-[2rem]" },
                   _p1: "2"
                 },
 
@@ -137,7 +139,7 @@ const MCristales: React.FC = () => {
                   label: "Diseño",
                   type: "select",
                   selectUrl: "/api/tipos/",
-                  tipos: "CristalesDisenos", styles: { with: "!mt-[0.5rem]  w-[19rem]" },
+                  tipos: "CristalesDisenos", styles: { with: "w-[19rem]", container:"translate-y-[0.5rem]" },
                 },
 
                 {
@@ -145,14 +147,14 @@ const MCristales: React.FC = () => {
                   label: "Color",
                   type: "select",
                   selectUrl: "/api/tipos/",
-                  tipos: "CristalesColores", styles: { with: "!mt-[0.5rem] !w-[19rem]" },
+                  tipos: "CristalesColores", styles: { with: "translate-y-[0.5rem] !w-[19rem]" },
                 },
                 {
                   name: "_pTratamiento",
                   label: "Tratamiento",
                   type: "select",
                   selectUrl: "/api/tipos/",
-                  tipos: "CristalesTratamientos", styles: { with: "!mt-[0.5rem] !w-[19rem]" },
+                  tipos: "CristalesTratamientos", styles: { with: "!mt-[0.5rem] !w-[19rem]", container:"translate-y-[0.8rem]" },
                 },
 
                 {
@@ -168,14 +170,15 @@ const MCristales: React.FC = () => {
                   label: "Stock",
                   type: "select",
                   selectUrl: "/api/tipos/",
-                  tipos: "Stock", styles: { with: "!mt-[0.5rem] !w-[19rem]" },
+                  tipos: "Stock", styles: { with: "!mt-[0.5rem] !w-[19rem]", container:"translate-y-[2rem]" },
                 },
               ]}
+               
             />
           </div>
 
 
-          <div className="w-[100%] top-[10rem] bottom-[0.8rem] right-[12rem]">
+          <div className="w-[30%]  top-[13rem] bottom-[3rem]  absolute right-[11rem]">
             <PrimaryButtonsComponent
               handleAddPerson={openModal}
               handleDeleteSelected={handleDeleteSelected}

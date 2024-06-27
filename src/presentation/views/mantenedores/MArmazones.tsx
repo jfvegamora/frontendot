@@ -90,7 +90,7 @@ const MArmazones: React.FC = () => {
 
   return (
     <div className="mantenedorContainer">
-      <div className="mantenedorHead width100 !h-[6rem]">
+      <div className="mantenedorHead width100 !h-[9rem]">
       <div className="w-[80%] ">
         <PrimaryKeySearch
           baseUrl={strBaseUrl}
@@ -98,7 +98,7 @@ const MArmazones: React.FC = () => {
           updateParams={updateParams}
           setEntities={setEntities}
           primaryKeyInputs={[
-            { name: "_p1", label: "Código/Modelo/Color", type: "text", styles:{with:"!w-[11rem]"} },
+            { name: "_p1", label: "Código/Modelo/Color", type: "text", styles:{with:"!w-[11rem]", container:"translate-y-[-2rem]"} },
             // { name: "_p5", label: "Código FAB", type: "text", styles:{with:"!w-[9rem]"} },
             // { name: "_p2", label: "Modelo", type: "text", styles:{with:"!w-[9rem]"} },
             {
@@ -106,13 +106,13 @@ const MArmazones: React.FC = () => {
               label: "Tipo",
               type: "select",
               selectUrl: "/api/tipos/",
-              tipos: "ArmazonesTipos", styles:{with:"!w-[10rem] !-ml-[0.5rem]"},
+              tipos: "ArmazonesTipos", styles:{with:"!w-[12rem]", container:"translate-y-[-1.4rem] translate-x-[1rem]"},
             },
             {
               name: "_p3",
               label: "Marca",
               type: "select",
-              selectUrl: "/api/marcas/", styles:{with:"!w-[10rem] !-ml-[1rem]"},
+              selectUrl: "/api/marcas/", styles:{with:"!w-[14rem]",container:"translate-y-[-1.7rem]"},
               _p1: "1"
             },
             {
@@ -120,13 +120,13 @@ const MArmazones: React.FC = () => {
               label: "Material",
               type: "select",
               selectUrl: "/api/tipos/",
-              tipos: "ArmazonesMaterial", styles:{with:"!w-[10rem] !-ml-[1rem]"},
+              tipos: "ArmazonesMaterial", styles:{with:"!w-[14rem]", container:"translate-y-[-1.3rem] translate-x-[-1rem]"},
             },
             {
               name: "_p4",
               label: "Almacén",
               type: "select",
-              selectUrl: "/api/almacenes/", styles:{with:"!w-[14rem] !-ml-[1rem]"},
+              selectUrl: "/api/almacenes/", styles:{with:"!w-[25rem]", container:"translate-x-[-2rem] translate-y-[-1.7rem]"},
               _p1: "1"
             },
             {
@@ -134,13 +134,14 @@ const MArmazones: React.FC = () => {
               label: "Stock",
               type: "select",
               selectUrl: "/api/tipos/",
-              tipos: "Stock", styles:{with:"!w-[10rem] !-ml-[1rem]"},
+              tipos: "Stock", styles:{with:"!w-[14rem]", container:"translate-x-[-3rem] translate-y-[-1.3rem]"},
             },
     ]}
+     classNameSearchButton=" translate-x-[-4.5rem]  translate-y-[2.3rem]"
         />
       </div>
 
-        <div className="w-[20%] px-2">
+        <div className="w-[20%] px-2 translate-y-[2rem]">
           <PrimaryButtonsComponent
             handleAddPerson={openModal}
             handleDeleteSelected={handleDeleteSelected}
@@ -181,7 +182,7 @@ const MArmazones: React.FC = () => {
           leftEdit={true}
         />
       </div>
-
+     
       {isModalInsert && (
         <FArmazones
           label={`${TITLES.ingreso} ${strEntidad}`}

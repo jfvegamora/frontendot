@@ -21,6 +21,7 @@ import { checkCount, paramsOT } from '../views/mantenedores/MOT';
 import { signal } from '@preact/signals-react';
 import { focusFirstInput } from '../components/OTForms/FOTValidarBodega';
 import { setEstadoImpresion } from './OTGrillaButtons';
+import { SocialIcon } from 'react-social-icons';
 // import WhastappForm from '../components/WhastappForm';
 
 type AreaButtonsProps ={
@@ -246,7 +247,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
           <IconButton
             variant="text"
             color="blue-gray"
-            className="primaryBtnIconButton "
+            className="primaryBtnIconButton !mx-2"
             onClick={handle}
           >
             {icon}
@@ -542,7 +543,10 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
 
         {areaPermissions && areaPermissions[5] === '1' && permisos_usuario_areas === '1' && (
           renderButton(
-            <ImWhatsapp className="primaryBtnIcon" />,
+            <SocialIcon  
+              onClick={(e)=>e.preventDefault()}  
+            url="https://www.whatsapp.com/"
+            />,
             handleWhatsappMasivo!,
             BUTTON_MESSAGES.Whatsapp
           )
@@ -591,7 +595,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
         {areaPermissions && areaPermissions[6] === '1' && permisos_usuario_areas === '1' && (
           <Tooltip content={BUTTON_MESSAGES.procesar}>
               {/* <button className='bg-green-400 mx-4 transition-transform transform hover:scale-110 active:scale-95 w-[10rem] h-[2.5rem]  text-white '  */}
-              <Button color="green" className='otActionButton'
+              <Button color="green" className='otActionButton ml-2'
               onClick={handleProcesarMasivo}>Procesar</Button>
           </Tooltip>
         )}
