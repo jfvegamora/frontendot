@@ -88,7 +88,6 @@ function App() {
   const permisosID = userState?.permisos ? 
                                        JSON.parse(userState?.permisos).map((id:any)=>(id.id).toString()) 
                                        : []
-  console.log('permmisosID', permisosID)
 
   useEffect(() => {
     if(userState && userState.token){
@@ -118,7 +117,24 @@ function App() {
     ) {
       redirectToLogin();
     }
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.ctrlKey && event.key == 'b') {
+        console.log(event.key)
+        console.log('abriendo buscador')
+        alert('abriendo buscador')
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+
   }, []);
+
+
 
   // setInterval(()=>{
   //   try {

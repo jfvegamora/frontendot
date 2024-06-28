@@ -2105,8 +2105,10 @@ export function formatNumberWithZeros(inputNumber: number): string {
 export const validateSameUserImpresionOT = async (user: any, folio: any) => {
   try {
     const { data } = await axios(
-      `${URLBackend}/api/ot/imprimir/?query=01&_origen=50&_p1=${folio}`
+      `${URLBackend}/api/ot/imprimir/?query=02&_origen=50&_p1=${folio}`
     );
+    console.log(user);
+    console.log(data);
 
     if (user === data[0][EnumGrid.usuario_id]) {
       console.log("render");

@@ -4,7 +4,6 @@ import React, { Suspense, useCallback, useRef, useState } from 'react';
 import { SiAddthis } from 'react-icons/si';
 import { PiPrinterFill } from "react-icons/pi";
 import { PiMicrosoftExcelLogoFill } from "react-icons/pi";
-import { ImWhatsapp } from "react-icons/im";
 import { BUTTON_MESSAGES, clearAllCheck, clearIndividualCheck, disabledIndividualCheck, reiniciarValidationNivel3, updateOT } from '../utils';
 import ImportToCsv from './ImportToCsv';
 import { AppStore, useAppDispatch, useAppSelector } from '../../redux/store';

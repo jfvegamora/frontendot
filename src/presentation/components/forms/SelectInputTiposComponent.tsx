@@ -49,7 +49,7 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
     error,
     entidad,
     setHandleSearch,
-    inputValues,
+    // inputValues,
     handleSelectChange,
     readOnly,
     setState,
@@ -76,7 +76,7 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
                'Authorization': token, 
              }
        });
-          // console.log(data);
+          console.log(data);
           setEntities(data);
         }
       } catch (error:any) {
@@ -94,16 +94,15 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
       setStrSelectedName(data)
     },[data])
 
-    if(name === '_p5'){
-      console.log(inputValues)
-      console.log(Object.values(inputValues))
-    }
+
 
     useEffect(()=>{
       if(resetFilters.value === true){
         setStrSelectedName('')
       }
     },[resetFilters.value])
+
+
 
     
     const renderInput = () => (
@@ -168,21 +167,14 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
                     }
                   }
                 }}
-
-
                 className={`"custom-input py-2  cursor-pointer z-0"  ${readOnly ? "custom-onlyread" : isOptional ? "custom-optional-with-color" : "custom-required"} `}
                 >
-
                   {!onlyFirstOption && (
                     <option value={undefined} className="text-sm">
                       
                     </option>
                   )}
-              
-                
-                  
-                
-                {entities && entities.length > 1 &&
+                {entities && entities.length >= 1 &&
                   entities.map((option: any, index: React.Key | null | undefined) => (
                     <option
                       key={index}

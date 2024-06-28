@@ -1,12 +1,88 @@
 import React from 'react'
 import { AppStore, useAppSelector } from '../../../redux/store';
-import { EnumGrid } from '../mantenedores/MOTHistorica';
 import Barcode from 'react-barcode';
 
 import { formatNumberWithZeros } from '../../utils';
 import FOTTicketImpresion from './FOTTicketImpresion';
 import FOTTicketQRImpresion from './FOTTicketQRImpresion';
 import LogoImagenImpresion from '../../components/LogoImagenImpresion';
+
+export enum EnumImpresion  {
+  folio                     = 0,
+  motivo                    = 1,
+  proyecto                  = 2,
+  establecimiento           = 3,
+  cliente_rut               = 4,
+  cliente_nombre            = 5,
+  comuna                    = 6,
+  cliente_telefono          = 7,
+  fecha_atencion            = 8,
+  fecha_entrega_taller      = 9,
+  fecha_entrega_cliente     = 10,
+  numero_receta             = 11,
+  tipo_anteojo_id           = 12,
+  tipo_anteojo              = 13,
+  a1_armazon_codigo         = 14,
+  a1_armazon_descripcion    = 15,
+  a2_armazon_codigo         = 16,
+  a2_armazon_descripcion    = 17,
+  cr1_diseño                = 18,
+  cr1_indice                = 19,
+  cr1_material              = 20,
+  cr1_tratamiento           = 21,
+  cr1_color                 = 22,
+  cr1_od                    = 23,
+  cr1_oi                    = 24,
+  cr1_tratamiento_adicional = 25,
+  cr2_diseño                = 26,
+  cr2_indice                = 27,
+  cr2_material              = 28,
+  cr2_tratamiento           = 29,
+  cr2_color                 = 30,
+  cr2_od                    = 31,
+  cr2_oi                    = 32,
+  cr2_tratamiento_adicional = 33,
+  numero_reporte_atencion   = 34,
+  observaciones             = 35,
+  nombre_logo               = 36,
+  imprime_qr                = 37,
+  imprime_ticket            = 38,
+  titulo_ticket_1           = 39,
+  titulo_ticket_2           = 40,
+  titulo_ticket_3           = 41,
+  lugar_despacho            = 42,
+  a1_od_esf                 = 43,
+  a1_od_cil                 = 44,
+  a1_od_eje                 = 45,
+  a1_od_ad                  = 46,
+  a1_oi_esf                 = 47,
+  a1_oi_cil                 = 48,
+  a1_oi_eje                 = 49,
+  a1_oi_ad                  = 50,
+  a1_dp                     = 51,
+  a1_alt                    = 52,
+  a2_od_esf                 = 53,
+  a2_od_cil                 = 54,
+  a2_od_eje                 = 55,
+  a2_oi_esf                 = 56,
+  a2_oi_cil                 = 57,
+  a2_oi_eje                 = 58,
+  a2_dp                     = 59,
+  a1_ubicacion              = 60,
+  a2_ubicacion              = 61,
+  cr1od_ubicacion           = 62,
+  cr1oi_ubicacion           = 63,
+  cr2od_ubicacion           = 64,
+  cr2oi_ubicacion           = 65,
+  
+  rbd                       = 66,
+  rbd_ubicacion             = 67,
+  rbd_cantidad              = 68,
+  rep_cantidad              = 69,
+  
+  imagen_logo               = 70
+
+}
 
 export const parsedDate = (date: string): any => {
   if (date) {
@@ -52,10 +128,10 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
               list_ot.map((ot:any)=>{
                 return(
                   // <div className={`!w-[90%] ${ot[EnumGrid.imprime_ticket] === 1 ? '!h-[180rem]' : '!h-[90rem]'}  ${((index > 0) && (ot[EnumGrid.imprime_ticket] === 1)) && '!-mt-[38rem]'}   ${(index > 0) && (ot[EnumGrid.imprime_ticket] === 0) && '!-mt-[19rem]'}`} key={ot[EnumGrid.folio]} >
-                  <div className={`!w-[90%] ${(ot[EnumGrid.imprime_ticket] === 1 || ot[EnumGrid.imprime_qr] === 1 ) ? '!h-[140.28rem]' : '!h-[70.14rem]'}`} key={ot[EnumGrid.folio]} >
-                    <div className={`w-[100%] relative  ${ot[EnumGrid.imprime_ticket] === 1 ? '!h-[3.5%]' : '!h-[7%]'} mb-4`}>
+                  <div className={`!w-[90%] ${(ot[EnumImpresion.imprime_ticket] === 1 || ot[EnumImpresion.imprime_qr] === 1 ) ? '!h-[140.28rem]' : '!h-[70.14rem]'}`} key={ot[EnumImpresion.folio]} >
+                    <div className={`w-[100%] relative  ${ot[EnumImpresion.imprime_ticket] === 1 ? '!h-[3.5%]' : '!h-[7%]'} mb-4`}>
                       <div className="w-[90%] mr-7  mx-auto">
-                        <Barcode marginLeft={45} height={25} width={2.5} textAlign='right' value={formatNumberWithZeros(ot[EnumGrid.folio])} />
+                        <Barcode marginLeft={45} height={25} width={2.5} textAlign='right' value={formatNumberWithZeros(ot[EnumImpresion.folio])} />
                         <h3 className={`absolute left-3 mt-2 bottom-4`}>{fechaHoraFormateada}</h3>
                       </div>
                     </div>
@@ -65,11 +141,12 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                       <div className="w-full flex justify-around  ">
                         {true && (
                           <div className="w-[50%] -mt-[0.75rem] ml-2 z-20 ">
-                            <LogoImagenImpresion imagen64={ot[EnumGrid.imagen_logo]} />
+                            <LogoImagenImpresion imagen64={ot[EnumImpresion.imagen_logo]} />
                           </div>
                         )}
                         <div className="mt-2"></div>
-                        <p className='text-[2rem] -mt-3 mr-6'>{ot[EnumGrid.folio]}</p>
+                        {/* <p className='text-[2rem] -mt-3 mr-6'>{ot[EnumImpresion.folio]}</p> */}
+                        <p className='text-[2rem] -mt-3 mr-6'>{ot[0]}</p>
                       </div>
                     </div>
   
@@ -77,12 +154,12 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                     <div className='w-[100%] flex justify-between -mt-[.5rem] ml-3'>
                       <div className="w-1/2">
                         <span className='text-xs font-bold'>ATENCIÓN:</span>&nbsp;
-                        <span className='text-xs '>{ot[EnumGrid.fecha_atencion]}</span>
+                        <span className='text-xs '>{ot[EnumImpresion.fecha_atencion]}</span>
                       </div>
   
                       <div className="w-1/2">
                         <span className='text-xs font-bold'>ENTREGA:</span>&nbsp;
-                        <span className='text-xs '>{ot[EnumGrid.fecha_entrega_taller]}</span>
+                        <span className='text-xs '>{ot[EnumImpresion.fecha_entrega_taller]}</span>
                       </div>
                     </div>
   
@@ -100,20 +177,20 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                           </div> */}
                           <div className="flex text-left -mt-2">
                             <p className='-ml-6 text-[0.80rem] !mt-2 font-bold  w-[22%]'>Cliente: </p>
-                            <p className=' text-left text-sm !mt-2'>{ot[EnumGrid.cliente_nomnbre]}</p>
+                            <p className=' text-left text-sm !mt-2'>{ot[EnumImpresion.cliente_nombre]}</p>
                           </div>
                           <div className="flex text-left -mt-2">
                             <p className='-ml-6 text-[0.80rem] !mt-2 font-bold  w-[15%]'>RUT: </p>
-                            <p className=' text-left text-sm !mt-2'>{ot[EnumGrid.cliente_rut]}</p>
+                            <p className=' text-left text-sm !mt-2'>{ot[EnumImpresion.cliente_rut]}</p>
                             <span className='text-[0.80rem] !mt-2 font-bold'>&nbsp;&nbsp;&nbsp;CEL: </span>
-                            <span className=' text-left text-sm !mt-2'>{ot[EnumGrid.cliente_telefono]}</span>
+                            <span className=' text-left text-sm !mt-2'>{ot[EnumImpresion.cliente_telefono]}</span>
                           </div>
                         </div>
                       </div>
                     </div>
   
                     {/*************** G A R A N T I A ***************/}
-                    {ot[EnumGrid.motivo] === 'Garantía' && (
+                    {ot[EnumImpresion.motivo] === 'Garantía' && (
                       <div className="px-8 my-2 w-[21rem] mx-auto items-center relative">
                         <div className="flex justify-around">
                           <h1 className=' text-4xl'>G A R A N T Í A</h1>
@@ -125,21 +202,21 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                     <div className="w-[100%] flex mt-1 justify-between border-b-2 border-black">
                       <div className="w-[55%] ml-2 border-r-2 border-black pr-2">
                         <div className="ml-2  ">
-                          <div className='otCod font-bold'>{ot[EnumGrid.a1_armazon_id]}</div>
-                          <div className='otArmazonData'>{ot[EnumGrid.a1_armazon]}</div>
-                          {ot[EnumGrid.ubicacion_armazon_1] && (
-                            <div className='otArmazonData'>{ot[EnumGrid.ubicacion_armazon_1]}</div>
+                          <div className='otCod font-bold'>{ot[EnumImpresion.a1_armazon_codigo]}</div>
+                          <div className='otArmazonData'>{ot[EnumImpresion.a1_armazon_descripcion]}</div>
+                          {ot[EnumImpresion.a1_ubicacion] && (
+                            <div className='otArmazonData'>{ot[EnumImpresion.a1_ubicacion]}</div>
                           )}
                         </div>
                       </div>
   
                       <div className="w-[45%] ml-1">
-                        {ot[EnumGrid.tipo_anteojo_id] === 3 && (
+                        {ot[EnumImpresion.tipo_anteojo] === 3 && (
                           <div className="">
-                            <div className='otCod font-bold'>{ot[EnumGrid.a2_armazon_id]}</div>
-                            <div className='otArmazonData'>{ot[EnumGrid.a2_armazon]}</div>
-                            {ot[EnumGrid.ubicacion_armazon_2] && (
-                              <div className='otArmazonData'>{ot[EnumGrid.ubicacion_armazon_2]}</div>
+                            <div className='otCod font-bold'>{ot[EnumImpresion.a2_armazon_codigo]}</div>
+                            <div className='otArmazonData'>{ot[EnumImpresion.a2_armazon_descripcion]}</div>
+                            {ot[EnumImpresion.a2_ubicacion] && (
+                              <div className='otArmazonData'>{ot[EnumImpresion.a2_ubicacion]}</div>
                             )}
                           </div>
                         )}
@@ -150,24 +227,24 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                     <div className='w-[100%] flex mt-1 justify-between border-b-2 border-black'>
                       <div className="!w-[55%] ml-2 border-r-2 border-black pr-2">
                         <div className='ml-2 '>
-                          <div className='otCod font-bold'>D:{ot[EnumGrid.cristal1_od]}</div>
-                          {ot[EnumGrid.ubicacion_cristal_1_od] && (
-                            <div className='otArmazonData translate-x-4 '>{ot[EnumGrid.ubicacion_cristal_1_od]}</div>
+                          <div className='otCod font-bold'>D:{ot[EnumImpresion.cr1_od]}</div>
+                          {ot[EnumImpresion.cr1od_ubicacion] && (
+                            <div className='otArmazonData translate-x-4 '>{ot[EnumImpresion.cr1od_ubicacion]}</div>
                           )}
-                          <div className='otCod font-bold'>I:&nbsp;{ot[EnumGrid.cristal1_oi]}</div>
-                          {ot[EnumGrid.ubicacion_cristal_1_oi] && (
-                            <div className='otArmazonData translate-x-4 '>{ot[EnumGrid.ubicacion_cristal_1_oi]}</div>
+                          <div className='otCod font-bold'>I:&nbsp;{ot[EnumImpresion.cr1_oi]}</div>
+                          {ot[EnumImpresion.cr1oi_ubicacion] && (
+                            <div className='otArmazonData translate-x-4 '>{ot[EnumImpresion.cr1oi_ubicacion]}</div>
                           )}
                           {/* <div className='otCData '><span className='font-bold'>Mar:</span>&nbsp;{ot[EnumGrid.cristal1_marca]}</div> */}
-                          <div className='otCData '><span className='font-bold'>Dis:</span>&nbsp;{ot[EnumGrid.cristal1_diseno]}</div>
-                          <div className='otCData '><span className='font-bold'>Índ:</span>&nbsp;{ot[EnumGrid.cristal1_indice]}</div>
-                          <div className='otCData '><span className='font-bold'>Mat:</span>&nbsp;{ot[EnumGrid.cristal1_material]}</div>
-                          <div className='otCData '><span className='font-bold'>Col:</span>&nbsp;{ot[EnumGrid.cristal1_color]}</div>
-                          <div className='otCData '><span className='font-bold'>Trat:</span>&nbsp;{ot[EnumGrid.cristal1_tratamiento]}</div>
+                          <div className='otCData '><span className='font-bold'>Dis:</span>&nbsp;{ot[EnumImpresion.cr1_diseño]}</div>
+                          <div className='otCData '><span className='font-bold'>Índ:</span>&nbsp;{ot[EnumImpresion.cr1_indice]}</div>
+                          <div className='otCData '><span className='font-bold'>Mat:</span>&nbsp;{ot[EnumImpresion.cr1_material]}</div>
+                          <div className='otCData '><span className='font-bold'>Col:</span>&nbsp;{ot[EnumImpresion.cr1_color]}</div>
+                          <div className='otCData '><span className='font-bold'>Trat:</span>&nbsp;{ot[EnumImpresion.cr1_tratamiento]}</div>
                           {/* <div className='otCData '><span className='font-bold'>Diam:</span>&nbsp;{ot[EnumGrid.cristal1_diametro]}</div> */}
-                          {ot[EnumGrid.cristal1_tratamiento_adicional] && (
+                          {ot[EnumImpresion.cr1_tratamiento_adicional] && (
                             <>
-                              <div className='otCData !mt-[-20px]'><span className='font-bold'>Trat. Adic:</span>&nbsp;<p className='font-bold text-[1.25rem] h-[1.25rem] inline-block'>{ot[EnumGrid.cristal1_tratamiento_adicional]}</p></div>
+                              <div className='otCData !mt-[-20px]'><span className='font-bold'>Trat. Adic:</span>&nbsp;<p className='font-bold text-[1.25rem] h-[1.25rem] inline-block'>{ot[EnumImpresion.cr1_tratamiento_adicional]}</p></div>
                             </>
                           )}
                         </div>
@@ -176,29 +253,29 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                       <div className="!w-[45%] ml-1">
                         <div className=''>
                       
-                          {ot[EnumGrid.tipo_anteojo_id] !== 3 && (
-                            <h1 className={` w-[10%] text-2xl text-center ${ot[EnumGrid.tipo_anteojo].length === 10 ? 'translate-y-24' : 'translate-y-9'} transform -rotate-90 ml-1`}>{ot[EnumGrid.tipo_anteojo]}</h1>
+                          {ot[EnumImpresion.tipo_anteojo_id] !== 3 && (
+                            <h1 className={` w-[10%] text-2xl text-center ${ot[EnumImpresion.tipo_anteojo].length === 10 ? 'translate-y-24' : 'translate-y-9'} transform -rotate-90 ml-1`}>{ot[EnumImpresion.tipo_anteojo]}</h1>
                           )}
-                          {ot[EnumGrid.tipo_anteojo_id] === 3 && ( 
+                          {ot[EnumImpresion.tipo_anteojo_id] === 3 && ( 
                               <>
-                                  <div className='otCod font-bold'>{ot[EnumGrid.cristal2_oi]}</div>
-                                  {ot[EnumGrid.ubicacion_cristal_2_oi] && (
-                                    <div className='otArmazonData'>{ot[EnumGrid.ubicacion_cristal_2_oi]}</div>
+                                  <div className='otCod font-bold'>{ot[EnumImpresion.cr2_od]}</div>
+                                  {ot[EnumImpresion.cr2od_ubicacion] && (
+                                    <div className='otArmazonData'>{ot[EnumImpresion.cr2od_ubicacion]}</div>
                                   )}
-                                  <div className='otCod font-bold'>{ot[EnumGrid.cristal2_od]}</div>
-                                  {ot[EnumGrid.ubicacion_cristal_2_od] && (
-                                    <div className='otArmazonData'>{ot[EnumGrid.ubicacion_cristal_2_od]}</div>
+                                  <div className='otCod font-bold'>{ot[EnumImpresion.cr2_oi]}</div>
+                                  {ot[EnumImpresion.cr2oi_ubicacion] && (
+                                    <div className='otArmazonData'>{ot[EnumImpresion.cr2oi_ubicacion]}</div>
                                   )}
                                   {/* <div className='otCData '>{ot[EnumGrid.cristal2_marca]}</div> */}
-                                  <div className='otCData '>{ot[EnumGrid.cristal2_diseno]}</div>
-                                  <div className='otCData '>{ot[EnumGrid.cristal2_indice]}</div>
-                                  <div className='otCData '>{ot[EnumGrid.cristal2_material]}</div>
-                                  <div className='otCData '>{ot[EnumGrid.cristal2_color]}</div>
-                                  <div className='otCData '>{ot[EnumGrid.cristal2_tratamiento]}</div>
+                                  <div className='otCData '>{ot[EnumImpresion.cr2_diseño]}</div>
+                                  <div className='otCData '>{ot[EnumImpresion.cr2_indice]}</div>
+                                  <div className='otCData '>{ot[EnumImpresion.cr2_material]}</div>
+                                  <div className='otCData '>{ot[EnumImpresion.cr2_color]}</div>
+                                  <div className='otCData '>{ot[EnumImpresion.cr2_tratamiento]}</div>
                                   {/* <div className='otCData '>{ot[EnumGrid.cristal2_diametro]}</div> */}
-                                  {ot[EnumGrid.cristal2_tratamiento_adicional] && (
+                                  {ot[EnumImpresion.cr2_tratamiento_adicional] && (
                                     <>
-                                      <span className='text-[1.25rem] h-[1.25rem] font-bold'>{ot[EnumGrid.cristal2_tratamiento_adicional]}</span>
+                                      <span className='text-[1.25rem] h-[1.25rem] font-bold'>{ot[EnumImpresion.cr2_tratamiento_adicional]}</span>
                                     </>
                                   )}
                             </>
@@ -217,10 +294,10 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                           <div className="  w-[25%] ">CIL</div>
                           <div className="  w-[20%] ">EJE</div>
                           {
-                          ot[EnumGrid.tipo_anteojo_id] === 4 ||
-                          ot[EnumGrid.tipo_anteojo_id] === 3 ||
-                          ot[EnumGrid.tipo_anteojo_id] === 6 ||
-                          ot[EnumGrid.tipo_anteojo_id]  === 5 && (
+                          ot[EnumImpresion.tipo_anteojo_id] === 4 ||
+                          ot[EnumImpresion.tipo_anteojo_id] === 3 ||
+                          ot[EnumImpresion.tipo_anteojo_id] === 6 ||
+                          ot[EnumImpresion.tipo_anteojo_id]  === 5 && (
                             <div className="  w-[20%] ">AD</div>
                           ) 
                           
@@ -228,35 +305,35 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                         </div>
   
                         <div className="w-full flex ml-2 otDioptria">
-                          <div className="text-right w-[25%] ">{formatPlusDioptria(ot[EnumGrid.a1_od_esf])}</div>
-                          <div className="text-right w-[25%] ">{formatPlusDioptria(ot[EnumGrid.a1_od_cil])}</div>
-                          <div className="text-center w-[20%] ">{ot[EnumGrid.a1_od_eje]}</div>
+                          <div className="text-right w-[25%] ">{formatPlusDioptria(ot[EnumImpresion.a1_od_esf])}</div>
+                          <div className="text-right w-[25%] ">{formatPlusDioptria(ot[EnumImpresion.a1_od_cil])}</div>
+                          <div className="text-center w-[20%] ">{ot[EnumImpresion.a1_od_eje]}</div>
                           {
-                          ot[EnumGrid.tipo_anteojo_id] === 4 ||
-                          ot[EnumGrid.tipo_anteojo_id] === 3 ||
-                          ot[EnumGrid.tipo_anteojo_id] === 6 ||
-                          ot[EnumGrid.tipo_anteojo_id]  === 5 && (
-                            <div className="text-right w-[20%] ">{ot[EnumGrid.a1_od_ad]}</div>
+                          ot[EnumImpresion.tipo_anteojo_id] === 4 ||
+                          ot[EnumImpresion.tipo_anteojo_id] === 3 ||
+                          ot[EnumImpresion.tipo_anteojo_id] === 6 ||
+                          ot[EnumImpresion.tipo_anteojo_id]  === 5 && (
+                            <div className="text-right w-[20%] ">{ot[EnumImpresion.a1_od_ad]}</div>
                           )}
                         </div>
   
                         <div className="w-full flex ml-2 otDioptria">
-                          <div className="text-right w-[25%] ">{formatPlusDioptria(ot[EnumGrid.a1_oi_esf])}</div>
-                          <div className="text-right w-[25%] ">{formatPlusDioptria(ot[EnumGrid.a1_oi_cil])}</div>
-                          <div className="text-center w-[20%] ">{ot[EnumGrid.a1_oi_eje]}</div>
+                          <div className="text-right w-[25%] ">{formatPlusDioptria(ot[EnumImpresion.a1_oi_esf])}</div>
+                          <div className="text-right w-[25%] ">{formatPlusDioptria(ot[EnumImpresion.a1_oi_cil])}</div>
+                          <div className="text-center w-[20%] ">{ot[EnumImpresion.a1_oi_eje]}</div>
                           {
-                          ot[EnumGrid.tipo_anteojo_id] === 4 ||
-                          ot[EnumGrid.tipo_anteojo_id] === 3 ||
-                          ot[EnumGrid.tipo_anteojo_id] === 6 ||
-                          ot[EnumGrid.tipo_anteojo_id]  === 5 && (
-                            <div className="text-right w-[20%] ">{ot[EnumGrid.a1_oi_ad]}</div>
+                          ot[EnumImpresion.tipo_anteojo_id] === 4 ||
+                          ot[EnumImpresion.tipo_anteojo_id] === 3 ||
+                          ot[EnumImpresion.tipo_anteojo_id] === 6 ||
+                          ot[EnumImpresion.tipo_anteojo_id]  === 5 && (
+                            <div className="text-right w-[20%] ">{ot[EnumImpresion.a1_oi_ad]}</div>
                           )}
                         </div>
                       </div>
   
                       <div className="flex flex-col !w-[48%] border-black border-l-[2px]">
   
-                          {ot[EnumGrid.tipo_anteojo_id] === 3 && (
+                          {ot[EnumImpresion.tipo_anteojo_id] === 3 && (
                             <>
                             <div className="w-full flex ml-3 otDioptriaTit">
                               <div className="  w-[30%] ">ESF</div>
@@ -265,15 +342,15 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                             </div>
       
                             <div className="w-full flex ml-2 otDioptria">
-                              <div className="w-[38%] ">{formatPlusDioptria(ot[EnumGrid.a2_od_esf])}</div>
-                              <div className=" w-[38%] ">{formatPlusDioptria(ot[EnumGrid.a2_od_cil])}</div>
-                              <div className="text-right  w-[15%]">{ot[EnumGrid.a2_od_eje]}</div>
+                              <div className="w-[38%] ">{formatPlusDioptria(ot[EnumImpresion.a2_od_esf])}</div>
+                              <div className=" w-[38%] ">{formatPlusDioptria(ot[EnumImpresion.a2_od_cil])}</div>
+                              <div className="text-right  w-[15%]">{ot[EnumImpresion.a2_od_eje]}</div>
                             </div>
       
                             <div className="w-full flex ml-2 otDioptria">
-                              <div className=" w-[38%] ">{formatPlusDioptria(ot[EnumGrid.a2_oi_esf])}</div>
-                              <div className=" w-[38%] ">{formatPlusDioptria(ot[EnumGrid.a2_oi_cil])}</div>
-                              <div className="text-right  w-[15%] ">{ot[EnumGrid.a2_oi_eje]}</div>
+                              <div className=" w-[38%] ">{formatPlusDioptria(ot[EnumImpresion.a2_oi_esf])}</div>
+                              <div className=" w-[38%] ">{formatPlusDioptria(ot[EnumImpresion.a2_oi_cil])}</div>
+                              <div className="text-right  w-[15%] ">{ot[EnumImpresion.a2_oi_eje]}</div>
                             </div>
                             </>
                           )}
@@ -284,19 +361,19 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                     {/*************** A L T U R A  -  D P ***************/}
                     <div className="w-[100%] flex -mt-1 justify-between ">
                       <div className="w-[52.2%] ml-2 items-center flex">
-                        {ot[EnumGrid.tipo_anteojo_id] === 4 ||
-                         ot[EnumGrid.tipo_anteojo_id] === 5 ||
-                         ot[EnumGrid.tipo_anteojo_id] === 6 &&
+                        {ot[EnumImpresion.tipo_anteojo_id] === 4 ||
+                         ot[EnumImpresion.tipo_anteojo_id] === 5 ||
+                         ot[EnumImpresion.tipo_anteojo_id] === 6 &&
                         (
-                          <span className='ml-1  !text-base font-bold '>&nbsp;ALT: {ot[EnumGrid.a1_alt]}</span>
+                          <span className='ml-1  !text-base font-bold '>&nbsp;ALT: {ot[EnumImpresion.a1_alt]}</span>
                         )}
                         
-                        <span className='ml-3  !text-base font-bold '>&nbsp;DP: {ot[EnumGrid.a1_dp]}</span>
+                        <span className='ml-3  !text-base font-bold '>&nbsp;DP: {ot[EnumImpresion.a1_dp]}</span>
                       </div>
   
                       <div className="w-[47.8%] items-center flex ml-2 border-black border-l-[2px]">
-                          {ot[EnumGrid.tipo_anteojo_id] === 3 && (
-                            <span className='ml-4  !text-base font-bold '>&nbsp;DP: {ot[EnumGrid.a2_dp]}</span>
+                          {ot[EnumImpresion.tipo_anteojo_id] === 3 && (
+                            <span className='ml-4  !text-base font-bold '>&nbsp;DP: {ot[EnumImpresion.a2_dp]}</span>
                           )}
                       </div>
                     </div>
@@ -304,59 +381,66 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                     {/*************** D E S P A C H O ***************/}
                     <div className="header mt-1 w-[97%] !h-auto text-center2 border-black border-2 ml-3">
                       <div className="-mt-2 border-black border-b-2 !h-auto">
-                        <div className="pl-6 ml-2 my-2 w-[100%] mx-auto">
-                            {ot[EnumGrid.numero_reporte_atencion] && (
+                        <div className="pl-6 ml-2 w-[100%] mx-auto">
+                            {ot[EnumImpresion.numero_reporte_atencion] > 0 && (
                               <div className="flex text-left ">
-                                <p className='-ml-6 text-[0.80rem] !mt-2 font-bold w-[27%]'>N° Rep: </p>
-                                <p className=' text-left text-base !mt-2 font-bold'>{`${ot[EnumGrid.numero_reporte_atencion]} / ${ot[EnumGrid.cant_rbd]}`}</p>
+                                <p className='-ml-6 text-base !mt-2 font-bold w-[27%]'>N° Rep:</p>
+                                <p className=' text-left text-base !mt-2 font-bold'>{`${ot[EnumImpresion.numero_reporte_atencion]} Tot Anteojos: ${ot[EnumImpresion.rep_cantidad]} `}</p>
                               </div>
                             )}
+                            {ot[EnumImpresion.numero_reporte_atencion] > 0 && (
+                              <div className="flex text-left ">
+                                <p className=' text-left text-base   !mt-2 font-bold translate-x-[-1.5rem]'>{`Línea: ${ot[EnumImpresion.rbd_ubicacion]} / ${ot[EnumImpresion.rbd_cantidad]} Unid / RBD: ${ot[EnumImpresion.rbd]}`}</p>
+                              </div>
+                            )}
+
+
                           <div className="flex text-left ">
                             <p className='-ml-6 text-[0.80rem] !mt-2 font-bold w-[27%]'>Proyecto: </p>
                             {/* <span>{ot[EnumGrid.proyecto_titulo]}</span> */}
-                            <p className=' text-left text-sm !mt-2'>{ot[EnumGrid.proyecto_titulo]}</p>
+                            <p className=' text-left text-sm !mt-2'>{ot[EnumImpresion.proyecto]}</p>
                           </div>
                           <div className="flex text-left -mt-2">
                             <p className='-ml-6 text-[0.80rem] !mt-2 font-bold w-[27%]'>Estab: </p>
-                            <p className=' text-left text-sm  !mt-2'>{ot[EnumGrid.rbd_establecimiento]} {ot[EnumGrid.establecimiento]}</p>
+                            <p className=' text-left text-sm  !mt-2'>{`${ot[EnumImpresion.establecimiento]}}`}</p>
                           </div>
                           <div className="flex text-left -mt-2">
                             <p className='-ml-6 text-[0.80rem] !mt-2 font-bold w-[27%]'>Comuna: </p>
-                            <p className=' text-left text-sm !mt-2'>{ot[EnumGrid.cliente_comuna]}</p>
+                            <p className=' text-left text-sm !mt-2'>{ot[EnumImpresion.comuna]}</p>
                           </div>
                           <div className="flex text-left -mt-2">
                             <p className='-ml-6 text-[0.80rem] !mt-2 font-bold w-[27%]'>Destino: </p>
-                            <p className=' text-left text-sm !mt-2 font-bold'>{ot[EnumGrid.lugar_despacho]}</p>
+                            <p className=' text-left text-sm !mt-2 font-bold'>{ot[EnumImpresion.lugar_despacho]}</p>
                           </div>
                         </div>
                       </div>
                     </div>
   
                     {/*************** O B S E R V A C I O N E S ***************/}
-                    {(ot[EnumGrid.observaciones] && ot[EnumGrid.observaciones] !== '') && (
+                    {(ot[EnumImpresion.observaciones] && ot[EnumImpresion.observaciones] !== '') && (
                       <div className='mt-0 ml-4 border-1 border-black'>
                         <div className="flex w-full">
                           <span className='ml-2 font-bold'>NOTAS:&nbsp;</span>
-                          <span className='ml-2'>{ot[EnumGrid.observaciones]}</span>
+                          <span className='ml-2'>{ot[EnumImpresion.observaciones]}</span>
                         </div>
                       </div>
                     )}
-                    {ot[EnumGrid.numero_receta] && (
+                    {ot[EnumImpresion.numero_receta] && (
                       <div className='-mt-[0.75rem] ml-4 border-1 border-black'>
                         <div className='flex w-full'>
                           <span className='ml-2 font-bold'>N° Receta:&nbsp;</span>
-                          <span className=''>{ot[EnumGrid.numero_receta]}</span>
+                          <span className=''>{ot[EnumImpresion.numero_receta]}</span>
                           {/* <p className='ml-4'>{parsedDate(OT[0] && OT[0][EnumGrid.numero_receta])}</p> */}
                         </div>
                       </div>
                     )}
   
-                    {ot[EnumGrid.imprime_ticket] === 1 && (
+                    {ot[EnumImpresion.imprime_ticket] === 1 && (
                       <div className="!mt-[50rem] ">
                         <FOTTicketImpresion data={ot} />
                       </div>
                     )}
-                    {ot && ot[EnumGrid.imprime_qr] === 1 && (
+                    {ot && ot[EnumImpresion.imprime_qr] === 1 && (
                       <div className="!mt-[8rem]">
                         <FOTTicketQRImpresion />
                       </div>

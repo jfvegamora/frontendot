@@ -4,7 +4,7 @@ import { PencilIcon } from "@heroicons/react/24/solid";
 import { PiPrinterFill } from "react-icons/pi";
 import { ImWhatsapp } from "react-icons/im";
 // import { usePermission } from '../hooks';
-import { BUTTON_MESSAGES, clearAllCheck, clearIndividualCheck, disabledIndividualCheck, isToggleImpression, validateSameUserImpresionOT } from '../utils';
+import { BUTTON_MESSAGES, clearAllCheck, clearIndividualCheck, disabledIndividualCheck, isToggleImpression, } from '../utils';
 
 import { useReactToPrint } from 'react-to-print';
 // import FOTImpresa from '../views/forms/FOTImpresa';
@@ -228,24 +228,28 @@ const imprimirComprobanteRetiro = async(tipoComprobante?:string) => {
         setIsFotImpresa(true)
         disabledIndividualCheck.value = true;        
         const OT                 = OTdata.filter((ot:any)=>ot[1] === folio)[0]
-        const estado_impresion   = 5
+        let  estado_impresion    = 5
+        let  usuario_ot          = 32
 
         if(OT[estado_impresion] === '1'){
             disabledIndividualCheck.value = false;
-            
             return toast.error(`OT: ${folio} ya fue Impresa anteriormente`)
+        }
+
+        if(OT[usuario_ot] !== user?.id){
+            return toast.error(`OT ${folio} no pertenece al Usuario ${user.nombre}`);
         }
 
         const loadingToast = toast.loading('Imprimiendo...');
         try {
 
-        const resultValidate = await validateSameUserImpresionOT(user.id, folio)
+        // const resultValidate = await validateSameUserImpresionOT(user.id, folio)
         
-        if(!resultValidate){
-            disabledIndividualCheck.value = false;
-            toast.dismiss(loadingToast)
-            return toast.error(`Folio ${folio} no pertenece al Usuario ${user?.nombre}`);
-        }
+        // if(!resultValidate){
+        //     disabledIndividualCheck.value = false;
+        //     toast.dismiss(loadingToast)
+        //     return toast.error(`Folio ${folio} no pertenece al Usuario ${user?.nombre}`);
+        // }
 
         await dispatch(fetchOTImpresionByID({ folio: folio, OTAreas: OTAreas['areaActual'], userID: user?.id})).then(()=>{            
                handlePrint();    

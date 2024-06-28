@@ -3,7 +3,7 @@ import { SelectInputComponent } from '..';
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
 import { validationOTlevel2, validationOTlevel3,  } from '../../utils/validationOT';
 import SelectInputTiposComponent from '../forms/SelectInputTiposComponent';
-import { A1_CR_OD, A1_CR_OI, A1_GRUPO_OD, A1_GRUPO_OI, A2_CR_OD, A2_CR_OI, A2_Diametro, A2_GRUPO_OD, A2_GRUPO_OI, inputOnlyReadBodegaProcesado, tipo_de_anteojo, validacionIncompleta, validar_cristal1_od, validar_cristal1_oi, validar_cristal2_od, validar_cristal2_oi } from '../../utils';
+import { A1_CR_OD, A1_CR_OI, A1_GRUPO_OD, A1_GRUPO_OI, A2_CR_OD, A2_CR_OI, A2_Diametro, A2_GRUPO_OD, A2_GRUPO_OI, codigoProyecto, inputOnlyReadBodegaProcesado, tipo_de_anteojo, validacionIncompleta, validar_cristal1_od, validar_cristal1_oi, validar_cristal2_od, validar_cristal2_oi } from '../../utils';
 import TextInputInteractive from '../forms/TextInputInteractive';
 // import { OTTextInputComponent } from '.';
 // import { validationNivel3 } from '../../views/forms/FOT';
@@ -376,7 +376,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                             handleSelectChange={handleInputChange}
                                             data={formValues && formValues["cristal1_tratamiento_adicional_id"] ? formValues["cristal1_tratamiento_adicional_id"] : data && data[EnumGrid.cristal1_tratamiento_adicional_id]}
                                             control={control}
-                                            entidad='OTTratamientoAdicional'
+                                            entidad={['OTTratamientoAdicional', codigoProyecto.value]}
                                             customWidth={"w-full  !ml-[1rem]"}
                                             readOnly={!(!isEditting || (permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria)) || inputOnlyReadBodegaProcesado.value}
                                             isOptional={true}

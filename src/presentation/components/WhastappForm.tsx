@@ -1,13 +1,12 @@
 import React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form';
-import {  Spinner, Textarea } from '@material-tailwind/react';
+import { Textarea } from '@material-tailwind/react';
 import { yupResolver } from '@hookform/resolvers/yup';
 // import { TextInputComponent } from './forms';
 // import { FaWhatsapp } from "react-icons/fa";
 import { validationWhastApp } from '../utils';
 import axios from 'axios';
 import {signal } from '@preact/signals-react';
-import { SocialIcon } from 'react-social-icons'
 import {ScaleLoader} from 'react-spinners'
 import { toast } from 'react-toastify';
 import { IoSend } from "react-icons/io5";
