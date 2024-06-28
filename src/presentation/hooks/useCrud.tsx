@@ -27,7 +27,7 @@ const useCrud = (
 ): {
   createdEntity: (entityData: any) => Promise<any | undefined>;
   verifyUserEmail: (correo: string) => Promise<any | undefined>;
-  forgotPassword: (correo: string) => Promise<any | undefined>;
+  forgotPassword: (correo: string) => Promise<any | undefined>; 
   editEntity: (entityData: any) => Promise<any | undefined>;
   excelTypes: (tableName:any) => Promise<any | undefined>;
   deleteAllEntity: (id: number[], comilla?: string) => Promise<any | undefined>;
