@@ -147,7 +147,7 @@ const WhastappForm:React.FC<IDerivacion> = ({
                        <div
                         className='w-[13rem] mx-auto mt-5'
                        >
-                        <h1 className='bg-[#4dc659] text-xl'>Conectando WhastApp</h1>
+                        <h1 className='bg-[#4dc659] text-xl'>{`${isLoadingStatus ? "Conectandose al Servidor" : "Conectando WhastApp"}`}</h1>
                         <div className='w-1/2 mx-auto mt-2'>
                             <ScaleLoader
                             color="#4dc659"

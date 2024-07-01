@@ -15,14 +15,14 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { codigoProyecto, punto_venta, tipo_de_anteojo, validateRut, validationReservaArmazonesSchema } from '../../utils';
 import { SelectInputComponent, TextInputComponent } from '../../components';
 import { AppStore, useAppSelector } from '../../../redux/store';
-import TextInputInteractive from '../../components/forms/TextInputInteractive';
 import { toast } from 'react-toastify';
 import { URLBackend } from '../../hooks/useCrud';
 import axios from 'axios';
-import { fetchReservaArmazones, getLocalArmazones, isOnline } from '../../utils/FReservaArmazones_utils';
+import { fetchReservaArmazones, getLocalArmazones, isDataLocal, isOnline, responseArmazones } from '../../utils/FReservaArmazones_utils';
 import { clearBaseDatos, getArmazones, getBeneficiarios, isExistArmazon, isExistBeneficiario, openDatabase, setArmazones, setReservaBeneficiario, validateLocalArmazon } from '../../utils/indexedDB';
-import { clearRutCliente } from '../../components/OTForms/FOTClientes';
 import { useNavigate } from 'react-router-dom';
+import { clearRutCliente } from '../../utils/FOTClientes_utils';
+
 // import { useNavigate } from 'react-router-dom';
 // import { focusFirstInput } from '../../components/OTForms/FOTValidarBodega';
 // import axios from 'axios';
@@ -41,20 +41,18 @@ const focusInput  = signal('');
 
 
 export const codProyecto            = signal('');
-export const isDataLocal            = signal(false);
-export const responseArmazones      = signal<any>([]);
+
 export const armazonesLocalData     = signal<any>([]);
-
-
 export const codPuntoVenta          = signal('');
 const codDP                  = signal('');
 const rutBeneficiarioSignal  = signal('');
 const emptyBeneficiariosData = signal(true);
 
+const TextInputInteractive = React.lazy(()=>import("../../components/forms/TextInputInteractive"))
 
 const Scanner:React.FC<any> = ({setIsScanning}) => {
-
-
+  
+  
   useEffect(() => {
     Quagga.init({
       inputStream: {

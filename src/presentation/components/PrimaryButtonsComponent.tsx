@@ -11,14 +11,15 @@ import { useModal } from "../hooks/useModal";
 // import { CgInsertAfterR, CgInsertBeforeR } from "react-icons/cg";
 // import ImportToCsv from "./ImportToCsv";
 import { AppStore, useAppSelector } from "../../redux/store";
-import OTPrimaryButtons from "./OTPrimaryButtons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faClone, faTrash, faArrowRightToBracket, faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
-import { ExportCustomCSV } from "./ExportCustomToCsv";
-import { PiMicrosoftExcelLogoFill } from "react-icons/pi";
+// import { PiMicrosoftExcelLogoFill } from "react-icons/pi";
+const PiMicrosoftExcelLogoFill = React.lazy(() => import('react-icons/pi').then(module => ({ default: module.PiMicrosoftExcelLogoFill })));
+
 import axios from "axios";
 import { URLBackend } from "../hooks/useCrud";
 // import ExportToCsv from "./ExportToCsv";
+
 
 
 interface IPrimaryButtonProps {
@@ -57,8 +58,13 @@ interface IPrimaryButtonProps {
   showCopiar?: boolean;
 }
 
-const ExportToCsv   = React.lazy(()=>import('./ExportToCsv'))
-const ImportToCsv   = React.lazy(()=>import('./ImportToCsv'))
+
+
+
+const OTPrimaryButtons  = React.lazy(()=>import("./OTPrimaryButtons"));
+const ExportCustomCSV   = React.lazy(()=>import('./ExportCustomToCsv'))
+const ExportToCsv       = React.lazy(()=>import('./ExportToCsv'))
+const ImportToCsv       = React.lazy(()=>import('./ImportToCsv'))
  
 const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
   ({
@@ -167,17 +173,19 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
 
     if(isOT){
       return (
-        <OTPrimaryButtons 
-          areaName={"name"} 
-          areaPermissions={OTPermissions} 
-          areaActual={areaActual}  
-          handleAddPerson={handleAddPerson}
-          params={params}
-          pkToDelete={pkToDelete}
-          entities={entities}
-          setSelectedRows={setSelectedRows}
-          
-        />
+        <Suspense>
+          <OTPrimaryButtons 
+            areaName={"name"} 
+            areaPermissions={OTPermissions} 
+            areaActual={areaActual}  
+            handleAddPerson={handleAddPerson}
+            params={params}
+            pkToDelete={pkToDelete}
+            entities={entities}
+            setSelectedRows={setSelectedRows}
+            
+          />
+        </Suspense>
       )
     }
       
@@ -259,17 +267,18 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
 
        
 
-         
-        {showCustomExportButton && (
-          <ExportCustomCSV
-            strEntidad={strEntidad}
-            params={params}
-            strBaseUrl={strBaseUrl}
-            customExport={true}
-            query={"queryExcel"}
-            customExporTooltip={customExporTooltip}
-          />
-        )}
+        <Suspense>
+          {showCustomExportButton && (
+            <ExportCustomCSV
+              strEntidad={strEntidad}
+              params={params}
+              strBaseUrl={strBaseUrl}
+              customExport={true}
+              query={"queryExcel"}
+              customExporTooltip={customExporTooltip}
+              />
+            )}
+        </Suspense>
 
 
         
@@ -279,48 +288,54 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
           )}
         </Suspense>
 
-        {showMacroButton && escritura_lectura && (
-           <Tooltip content={'Descargar Plantilla Excel'} >
-            <IconButton 
-              className='primaryBtnIconButton'
-              variant='text'
-              color="blue-gray"
-            >
-              <PiMicrosoftExcelLogoFill className='primaryBtnIcon' onClick={()=>handleDownloadMacro('')} />
+          <Suspense>
+            {showMacroButton && escritura_lectura && (
+              <Tooltip content={'Descargar Plantilla Excel'} >
+                <IconButton 
+                  className='primaryBtnIconButton'
+                  variant='text'
+                  color="blue-gray"
+                >
+                  <PiMicrosoftExcelLogoFill className='primaryBtnIcon' onClick={()=>handleDownloadMacro('')} />
 
-            </IconButton>
-            {/* <Button color="green" className='otActionButton mx-4' >Macro Excel</Button> */}
-         </Tooltip>
-        )}
+                </IconButton>
+                {/* <Button color="green" className='otActionButton mx-4' >Macro Excel</Button> */}
+            </Tooltip>
+            )}
+          </Suspense>
 
-        {showExcelRepFirma && escritura_lectura && (
-          <Tooltip content={'Descargar plantilla Reporte de Firmas'} >
-              <IconButton 
-                className='primaryBtnIconButton'
-                variant='text'
-                color="blue-gray"
-              >
-                <PiMicrosoftExcelLogoFill className='primaryBtnIcon' onClick={()=>handleDownloadMacro('plantilla_reporte_firmas.xlsx')} />
+        <Suspense>
+          {showExcelRepFirma && escritura_lectura && (
+            <Tooltip content={'Descargar plantilla Reporte de Firmas'} >
+                <IconButton 
+                  className='primaryBtnIconButton'
+                  variant='text'
+                  color="blue-gray"
+                >
+                  <PiMicrosoftExcelLogoFill className='primaryBtnIcon' onClick={()=>handleDownloadMacro('plantilla_reporte_firmas.xlsx')} />
 
-              </IconButton>
-              {/* <Button color="green" className='otActionButton mx-4' >Macro Excel</Button> */}
-          </Tooltip>
-        )}
+                </IconButton>
+                {/* <Button color="green" className='otActionButton mx-4' >Macro Excel</Button> */}
+            </Tooltip>
+          )}
+        </Suspense>
+        
+        <Suspense>
+          {showExcelRepEntrega && escritura_lectura && (
+            <Tooltip content={'Descargar plantilla Reporte de Entregas'} >
+                <IconButton 
+                  className='primaryBtnIconButton'
+                  variant='text'
+                  color="blue-gray"
+                >
+                  <PiMicrosoftExcelLogoFill className='primaryBtnIcon' onClick={()=>handleDownloadMacro('plantilla_reporte_entrega.xlsx')} />
 
+                </IconButton>
+                {/* <Button color="green" className='otActionButton mx-4' >Macro Excel</Button> */}
+            </Tooltip>
+          )}
+        </Suspense>
 
-        {showExcelRepEntrega && escritura_lectura && (
-          <Tooltip content={'Descargar plantilla Reporte de Entregas'} >
-              <IconButton 
-                className='primaryBtnIconButton'
-                variant='text'
-                color="blue-gray"
-              >
-                <PiMicrosoftExcelLogoFill className='primaryBtnIcon' onClick={()=>handleDownloadMacro('plantilla_reporte_entrega.xlsx')} />
-
-              </IconButton>
-              {/* <Button color="green" className='otActionButton mx-4' >Macro Excel</Button> */}
-          </Tooltip>
-        )}
         
 
         {showDeleteButton && escritura_lectura && handleDeleteSelected && (

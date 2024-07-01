@@ -8,13 +8,13 @@ import { SelectInputComponent, TextInputComponent } from "../../components";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationAccesoriosSchema } from "../../utils/validationFormSchemas";
-import { EnumGrid } from "../mantenedores/MAccesorios";
 import { TITLES, MODAL, SUCCESS_MESSAGES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
 import { toast } from "react-toastify";
 import { Button } from "@material-tailwind/react";
+import { AccesoriosEnum } from "../../Enums";
 
 const strBaseUrl = "/api/accesorios/";
 const strEntidad = "Accesorio ";
@@ -110,7 +110,7 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
       focusSecondInput,
     } = useCrud(strBaseUrl);
     const [blnKeep, setblnKeep] = useState(false);
-    const intId = data && data[EnumGrid.codigo];
+    const intId = data && data[AccesoriosEnum.codigo];
     const {
       control,
       handleSubmit,
@@ -264,7 +264,7 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
                     label="Código"
                     name="codigo"
                     maxLength={20}
-                    data={data && data[EnumGrid.codigo]}
+                    data={data && data[AccesoriosEnum.codigo]}
                     control={control}
                     error={errors.codigo}
                     inputRef={firstInputRef}
@@ -279,7 +279,7 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
                     label="Código FAB"
                     name="codigo_fab"
                     maxLength={20}
-                    data={data && data[EnumGrid.codigo]}
+                    data={data && data[AccesoriosEnum.codigo]}
                     control={control}
                     onlyRead={isEditting}
                     isOptional={true}
@@ -295,7 +295,7 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
                     type="text"
                     label="Descripción"
                     name="descripcion"
-                    data={data && data[EnumGrid.descripcion]}
+                    data={data && data[AccesoriosEnum.descripcion]}
                     control={control}
                     error={errors.descripcion}
                     inputRef={secondInputRef}
@@ -308,7 +308,7 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
                     label="Marca"
                     name="marca"
                     showRefresh={true}
-                    data={data && data[EnumGrid.marca_id]}
+                    data={data && data[AccesoriosEnum.marca_id]}
                     control={control}
                     entidad={["/api/marcas/", "02", "3"]}
                     error={errors.marca}
@@ -325,7 +325,7 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
                     type="number"
                     label="Precio Neto"
                     name="precio_neto"
-                    data={data && data[EnumGrid.precio_neto]}
+                    data={data && data[AccesoriosEnum.precio_neto]}
                     control={control}
                     error={errors.precio_neto}
                     isOptional={true}
@@ -339,7 +339,7 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
                     type="number"
                     label="Stock Mínimo"
                     name="stock_minimo"
-                    data={data && data[EnumGrid.stock_minimo]}
+                    data={data && data[AccesoriosEnum.stock_minimo]}
                     control={control}
                     error={errors.stock_minimo}
                     textAlign="text-right"
@@ -356,7 +356,7 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
                     type="number"
                     label="Stock Reservado"
                     name="stock_reservado"
-                    data={data && data[EnumGrid.stock_reservado]}
+                    data={data && data[AccesoriosEnum.stock_reservado]}
                     control={control}
                     onlyRead={true}
                     tabIndex={-1}
@@ -370,7 +370,7 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
                     type="number"
                     label="Stock Disponible"
                     name="stock_disponible"
-                    data={data && data[EnumGrid.stock_disponible]}
+                    data={data && data[AccesoriosEnum.stock_disponible]}
                     control={control}
                     onlyRead={true}
                     tabIndex={-1}

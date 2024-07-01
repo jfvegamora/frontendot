@@ -1,7 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 
 import {
   PrimaryKeySearch,
@@ -11,22 +11,43 @@ import { useEntityUtils } from "../../hooks";
 // import FUsuarios from "../forms/FUsuarios";
 import { TITLES, table_head_OT_historica } from "../../utils";
 // import { OptionValuesMotivo } from "./MOT";
-import FOT from "../forms/FOT";
 import { AppStore, useAppDispatch, useAppSelector } from "../../../redux/store";
 import { Button } from "@material-tailwind/react";
-import FOTOrdenCompra from "../forms/FOTOrdenCompra";
-import FOTFactura from "../forms/FOTFactura";
-import FOTGuiaDespacho from "../forms/FOTGuiaDespacho";
-import FilterButton, { filterToggle } from "../../components/FilterButton";
 import { toast } from "react-toastify";
 // import axios from "axios";
 // import { URLBackend } from "../../hooks/useCrud";
 import { clearData } from "../../../redux/slices/OTSlice";
-import StateCountBarOT from "../../components/StateCountBarOT";
 import { signal } from "@preact/signals-react";
-import  ExportCSV  from "../../components/ExportToCsv";
 import { useModal } from "../../hooks/useModal";
-import FOTReporteEntrega from "../forms/FOTRepeorteEntrega";
+import { filterToggle } from "../../components/FilterButton";
+
+
+
+// import ExportCSV  from "../../components/ExportToCsv";
+
+
+// import StateCountBarOT from "../../components/StateCountBarOT";
+// import FOT from "../forms/FOT";
+// import FOTFactura from "../forms/FOTFactura";
+// import FOTGuiaDespacho from "../forms/FOTGuiaDespacho";
+// import FOTOrdenCompra from "../forms/FOTOrdenCompra";
+// import FOTReporteEntrega from "../forms/FOTRepeorteEntrega";
+
+
+
+const StateCountBarOT   = React.lazy(()=>import("../../components/StateCountBarOT"));
+const FOT               = React.lazy(()=>import("../forms/FOT"));
+const FOTFactura        = React.lazy(()=>import("../forms/FOTFactura"));
+const FOTGuiaDespacho   = React.lazy(()=>import("../forms/FOTGuiaDespacho"));
+const FOTOrdenCompra    = React.lazy(()=>import("../forms/FOTOrdenCompra"));
+const FOTReporteEntrega = React.lazy(()=>import("../forms/FOTRepeorteEntrega"));
+const ExportCSV         = React.lazy(()=>import("../../components/ExportToCsv"));
+const FilterButton      = React.lazy(()=>import('../../components/FilterButton'));
+
+
+
+
+
 
 export enum EnumGrid {
   folio = 1,
@@ -465,41 +486,44 @@ const MOTHistorica: React.FC = () => {
   return (
     <div className="mantenedorContainer">
 
-      <FilterButton
-        isOT={true}
-        className="top-[10rem] left-[3rem]"
+      <Suspense>
+        <FilterButton
+          isOT={true}
+          className="top-[10rem] left-[3rem]"
 
-      >
-          <PrimaryKeySearch
-            baseUrl={strBaseUrl}
-            setParams={setParams}
-            updateParams={updateParams}
-            strQuery={strQuery}
-            setEntities={setEntities}
-            otHistorica={true}
-            primaryKeyInputs={[
-              { name: "_folio", label: "Folio", type: "text", styles: { with: "w-[10rem]  !h-[3rem]", container:"w-[18rem]"} },
-              { name: "_rut", label: "Rut", type: "text", styles: { with: "w-[10rem]  !h-[3rem]", container:"w-[18rem]"  } },
-  
-              { name: "_fecha_desde", label: "Atención Desde", type: "date", styles: { with: "w-[10rem]  !h-[3rem]", container:"w-[18rem]"  } },
-              { name: "_fecha_hasta", label: "Atención Hasta", type: "date", styles: { with: "w-[10rem]  !h-[3rem]", container:"w-[18rem]" } },
-  
-              { name: "_estado", label: "Estado", type: "select", selectUrl: "/api/tipos/", tipos: "OTEstados", styles: { with: "w-[20.4rem]" }},
-              { name: "_establecimiento", label: "Establecimiento", type: "select", selectUrl: "/api/establecimientos/", styles: { with: "w-[20.4rem]" }},
-  
-              { name: "_nombre", label: "Nombre", type: "text", styles: { with: "w-[10rem]  !h-[3rem]", container:"w-[18rem]"  } },
-              { name: "_motivo", label: "Motivo", type: "select", selectUrl: "/api/tipos/", tipos: "OTMotivo", styles: {with:"w-[19.5rem]", container:"translate-y-[0.35rem]"}},
-  
-              { name: "_p2", label: "Tipo Doc", type: "select", selectUrl: "/api/tipos/", tipos: "OTNumDoc", styles: {with: "w-[20.2rem]", container:"translate-y-[0.3rem]"}},
-              { name: "_p3", label: "Número Doc", type: "text",  styles: { with: "w-[10rem]  !h-[3rem]", container:"w-[17rem] translate-y-[0.2rem]"  }},
-  
-              { name: "_p1", label: "RBD", type: "text", styles: { with: "w-[10rem]  !h-[3rem]", container:"w-[18rem]"  } },
-              { name: "_proyecto", label: "Proyecto", type: "select", selectUrl: "/api/proyectos/", styles: { with: "w-[19rem]" }},
-  
-            ]}
-          />
+        >
+            <PrimaryKeySearch
+              baseUrl={strBaseUrl}
+              setParams={setParams}
+              updateParams={updateParams}
+              strQuery={strQuery}
+              setEntities={setEntities}
+              otHistorica={true}
+              primaryKeyInputs={[
+                { name: "_folio", label: "Folio", type: "text", styles: { with: "w-[10rem]  !h-[3rem]", container:"w-[18rem]"} },
+                { name: "_rut", label: "Rut", type: "text", styles: { with: "w-[10rem]  !h-[3rem]", container:"w-[18rem]"  } },
+    
+                { name: "_fecha_desde", label: "Atención Desde", type: "date", styles: { with: "w-[10rem]  !h-[3rem]", container:"w-[18rem]"  } },
+                { name: "_fecha_hasta", label: "Atención Hasta", type: "date", styles: { with: "w-[10rem]  !h-[3rem]", container:"w-[18rem]" } },
+    
+                { name: "_estado", label: "Estado", type: "select", selectUrl: "/api/tipos/", tipos: "OTEstados", styles: { with: "w-[20.4rem]" }},
+                { name: "_establecimiento", label: "Establecimiento", type: "select", selectUrl: "/api/establecimientos/", styles: { with: "w-[20.4rem]" }},
+    
+                { name: "_nombre", label: "Nombre", type: "text", styles: { with: "w-[10rem]  !h-[3rem]", container:"w-[18rem]"  } },
+                { name: "_motivo", label: "Motivo", type: "select", selectUrl: "/api/tipos/", tipos: "OTMotivo", styles: {with:"w-[19.5rem]", container:"translate-y-[0.35rem]"}},
+    
+                { name: "_p2", label: "Tipo Doc", type: "select", selectUrl: "/api/tipos/", tipos: "OTNumDoc", styles: {with: "w-[20.2rem]", container:"translate-y-[0.3rem]"}},
+                { name: "_p3", label: "Número Doc", type: "text",  styles: { with: "w-[10rem]  !h-[3rem]", container:"w-[17rem] translate-y-[0.2rem]"  }},
+    
+                { name: "_p1", label: "RBD", type: "text", styles: { with: "w-[10rem]  !h-[3rem]", container:"w-[18rem]"  } },
+                { name: "_proyecto", label: "Proyecto", type: "select", selectUrl: "/api/proyectos/", styles: { with: "w-[19rem]" }},
+    
+              ]}
+            />
 
-      </FilterButton>
+        </FilterButton>
+      </Suspense>
+
 
 
 
@@ -520,9 +544,9 @@ const MOTHistorica: React.FC = () => {
               setShowRepEntrega((prev)=>!prev)
             }} >N° Rep. Entrega</Button>
           )}  
-
-          {showRepEntrega && <FOTReporteEntrega pktoDelete={pktoDelete} setSelectedRows={setSelectedRows} closeModal={()=>setShowRepEntrega(false)} />}
-
+          <Suspense>
+            {showRepEntrega && <FOTReporteEntrega pktoDelete={pktoDelete} setSelectedRows={setSelectedRows} closeModal={()=>setShowRepEntrega(false)} />}
+          </Suspense>
 
           {permiso_documentacion && (
             <Button className='otActionButton mt-3 mx-5'  onClick={() => {
@@ -532,8 +556,9 @@ const MOTHistorica: React.FC = () => {
               setShowOrdenCompra((prev) => !prev)}
             }>N° OC</Button>
           )}
-
-          {showOrdenCompra  && <FOTOrdenCompra  pktoDelete={pktoDelete}  setSelectedRows={setSelectedRows} closeModal={() => setShowOrdenCompra(false)} />}
+          <Suspense>
+             {showOrdenCompra  && <FOTOrdenCompra  pktoDelete={pktoDelete}  setSelectedRows={setSelectedRows} closeModal={() => setShowOrdenCompra(false)} />}
+          </Suspense>
 
 
           {permiso_documentacion && (
@@ -544,8 +569,9 @@ const MOTHistorica: React.FC = () => {
               setShowGuia((prev) => !prev)
             }}>N° Guía</Button>
           )}
-
-          {showGuia && <FOTGuiaDespacho pktoDelete={pktoDelete } setSelectedRows={setSelectedRows} closeModal={() => setShowGuia(false)} otArchivo={true} />}
+          <Suspense>
+            {showGuia && <FOTGuiaDespacho pktoDelete={pktoDelete } setSelectedRows={setSelectedRows} closeModal={() => setShowGuia(false)} otArchivo={true} />}
+          </Suspense>
 
           {permiso_documentacion && (
             <Button className='otActionButton mt-3 mx-5'  onClick={() => {
@@ -555,11 +581,13 @@ const MOTHistorica: React.FC = () => {
               setShowFactura((prev) => !prev)
             }}>N° Factura</Button>
           )}
+          <Suspense>
+            {showFactura      && <FOTFactura      pktoDelete={pktoDelete}  setSelectedRows={setSelectedRows} closeModal={() => setShowFactura(false)} />}
+          </Suspense>
 
-          {showFactura      && <FOTFactura      pktoDelete={pktoDelete}  setSelectedRows={setSelectedRows} closeModal={() => setShowFactura(false)} />}
-
-
-          <ExportCSV strEntidad={strEntidad} params={params} strBaseUrl={strBaseUrl}/>  
+          <Suspense>
+            <ExportCSV strEntidad={strEntidad} params={params} strBaseUrl={strBaseUrl}/>  
+          </Suspense>
         </div>
       </div>
 
@@ -587,45 +615,51 @@ const MOTHistorica: React.FC = () => {
           isOT={true}
         />
       </div>
-
+      <Suspense>
         <StateCountBarOT checkCount={checkCount} isMotHistorica={true}/>
+      </Suspense>  
         
-      {isModalInsert && (
-        <FOT
-          label={`${TITLES.ingreso} ${strEntidad}`}
-          closeModal={closeModal}
-          selectedRows={selectedRows}
-          setEntities={setEntities}
-          params={params}
-          isEditting={false}
-          isMOT={false}
-          permisos_ot_historica={{
-            permiso_documentacion,
-            permiso_post_venta,
-            permiso_anular
-          }}
-        />
-      )}
 
-      {isModalEdit && (
-        <FOT
-          label={`${TITLES.edicion} ${strEntidad}`}
-          selectedRows={selectedRows}
-          setEntities={setEntities}
-          params={params}
-          data={entity}
-          closeModal={closeModal}
-          isEditting={true}
-          isMOT={true}
-          permisos_ot_historica={{
-            permiso_documentacion,
-            permiso_post_venta,
-            permiso_anular
-          }}
-        />
-      )}
+      <Suspense>
+        {isModalInsert && (
+          <FOT
+            label={`${TITLES.ingreso} ${strEntidad}`}
+            closeModal={closeModal}
+            selectedRows={selectedRows}
+            setEntities={setEntities}
+            params={params}
+            isEditting={false}
+            isMOT={false}
+            permisos_ot_historica={{
+              permiso_documentacion,
+              permiso_post_venta,
+              permiso_anular
+            }}
+          />
+        )}
 
-      <CustomModal />
+        {isModalEdit && (
+          <FOT
+            label={`${TITLES.edicion} ${strEntidad}`}
+            selectedRows={selectedRows}
+            setEntities={setEntities}
+            params={params}
+            data={entity}
+            closeModal={closeModal}
+            isEditting={true}
+            isMOT={true}
+            permisos_ot_historica={{
+              permiso_documentacion,
+              permiso_post_venta,
+              permiso_anular
+            }}
+          />
+        )}
+      </Suspense>  
+
+      <Suspense>
+        <CustomModal />
+      </Suspense>
     </div>
   );
 };

@@ -1,8 +1,7 @@
-import React, {useCallback, useState, useEffect} from 'react'
+import React, {useCallback, useState, useEffect, Suspense} from 'react'
 import {useDropzone} from 'react-dropzone';
 import {executeFetchImportOT, handleFileUpload} from '../utils/validationCSVFile';
 import { useCrud } from '../hooks';
-import ModalImpor from './ModalImpor';
 import {toast} from 'react-toastify';
 // import { TfiImport } from "react-icons/tfi";
 import { IconButton, Tooltip } from '@material-tailwind/react';
@@ -15,6 +14,11 @@ import { fetchOT } from '../../redux/slices/OTSlice';
 import { paramsOT, switchFetchOT } from '../views/mantenedores/MOT';
 import axios from 'axios';
 // import { excelOTValidationStructure } from '../utils';
+
+
+
+const ModalImport = React.lazy(()=>import("./ModalImpor"));
+
 
 export const resultExcelTypes  = signal({});
 export const totalImport       = signal(0);
@@ -397,11 +401,11 @@ const ImportToCsv:React.FC<ImportProps> = ({
         <input className='cursor-pointer'  type='file' {...getInputProps()} accept="text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
         
         
-        <div className=''>
-          {isOpen && (
-            <ModalImpor errors={errors} progress={progress} titleState={currentStage}  onClose={handleClose} isModalOT={isModalOT}/>
-          )}
-        </div>
+          <Suspense>
+            {isOpen && (
+              <ModalImport errors={errors} progress={progress} titleState={currentStage}  onClose={handleClose} isModalOT={isModalOT}/>
+            )}
+          </Suspense>    
       </div>
   )
 }

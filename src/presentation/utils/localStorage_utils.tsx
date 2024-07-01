@@ -11,9 +11,7 @@ export const clearLocalStorage = (key:string) =>{
     localStorage.removeItem(key);
 };
 
-export const getImageURL = (name:string) => {
-    return new URL(`../../assets/${name}`, import.meta.url).href
-}
+
 
 export const validateRut = (rut:any) => {
     const parsedRut = rut.replace(/[."]/g, '').replace(/-/g, '')

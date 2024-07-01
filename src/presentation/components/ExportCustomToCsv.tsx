@@ -22,7 +22,7 @@ type Props = {
 };
 
 
-export const ExportCustomCSV: React.FC<Props> = ({
+const ExportCustomCSV: React.FC<Props> = ({
   strBaseUrl,
   strEntidad,
   query,
@@ -73,4 +73,5 @@ export const ExportCustomCSV: React.FC<Props> = ({
         
     </>
   );
-};
+}
+export default ExportCustomCSV

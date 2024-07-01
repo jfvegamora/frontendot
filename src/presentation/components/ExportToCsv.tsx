@@ -12,9 +12,10 @@ import useCustomToast from "../hooks/useCustomToast";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDownload } from '@fortawesome/free-solid-svg-icons';
 import axios from "axios";
-import { EnumGrid } from "../views/mantenedores/MProyectosDocum";
+
 import { URLBackend } from "../hooks/useCrud";
 import { AppStore, useAppSelector } from "../../redux/store";
+import { ProyectosDocumEnum } from "../Enums";
 
 type Props = {
   strBaseUrl?: any;
@@ -42,6 +43,7 @@ const customStyles = {
 };
 
 
+
 const ExportToCsv: React.FC<Props> = ({
   strBaseUrl,
   params,
@@ -58,7 +60,7 @@ const ExportToCsv: React.FC<Props> = ({
   const {token} = useAppSelector((store:AppStore)=> store.user)
 
   const { exportEntity } = useCrud(strBaseUrl || "");
-  const EnumGird = EnumGrid
+  const EnumGird = ProyectosDocumEnum
   // let queryString =  query ? query :"";
   
   // if (params) {

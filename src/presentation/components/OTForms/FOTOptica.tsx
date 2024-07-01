@@ -191,6 +191,9 @@ React.useEffect(()=>{
     }
 },[])
 
+
+console.log(data && data[EnumGrid.reporte_interno_mandante])
+console.log(formValues)
 return (
     <form action="" onKeyDown={handleKeyDown} className=''>
         <div className='w-full frameOTForm !h-full'>

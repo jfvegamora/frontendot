@@ -8,10 +8,11 @@ import React, { useEffect, useState, useRef } from "react";
 import { Controller } from "react-hook-form";
 import { FiRefreshCw } from "react-icons/fi";
 import axios from "axios";
-import { AppStore, useAppSelector } from "../../../redux/store";
+import { AppStore, useAppDispatch, useAppSelector } from "../../../redux/store";
 import { URLBackend } from "../../hooks/useCrud";
 import { clearSelectInput } from "../../utils";
 import { changeFilterSearchTitle, resetFilters } from "../PrimaryKeySearch";
+import { updateDataForKey } from "../../../redux/slices/ListBoxTipoSlice";
 // import { handleError } from "../../utils/jwt_utils";
 
 interface ISelectInputProps {
@@ -61,23 +62,33 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
     onlyFirstOption
   }) => {
     const stateListBox = useAppSelector((store: AppStore) => store.listBoxTipos[entidad]);
+    const stateListBox2 = useAppSelector((store: AppStore) => store.listBoxTipos);
     const [entities, setEntities] = useState(stateListBox|| []);
     const [strSelectedName, setStrSelectedName] = useState(data  || undefined);
     const inputRef = useRef(null); 
     const {token} = useAppSelector((store: AppStore) => store.user);
     const params = typeof entidad === 'string' ? entidad : `${entidad[0]}&_p2=${entidad[1]}`
-
+    const dispatch = useAppDispatch()
     
     const fetchData = async () => {
       try {
+        console.log(stateListBox)
+        console.log(stateListBox2)
+        console.log(label)
+        console.log(entidad)
+        console.log(!stateListBox || stateListBox.length < 1)
         if (!stateListBox || stateListBox.length < 1) {
           const { data } = await axios(`${URLBackend}/api/tipos/listado/?query=02&_p1=${params}`,{
             headers: {
                'Authorization': token, 
              }
        });
+        console.log(label)
           console.log(data);
           setEntities(data);
+
+        dispatch(updateDataForKey({entidad, data}))
+          
         }
       } catch (error:any) {
         // handleError(error)

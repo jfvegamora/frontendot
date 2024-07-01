@@ -1,7 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 
 import {
   PrimaryButtonsComponent,
@@ -9,39 +9,14 @@ import {
   TableComponent,
 } from "../../components";
 import { useEntityUtils, usePermission } from "../../hooks";
-import FCristales from "../forms/FCristales";
 import { TITLES, table_head_cristales } from "../../utils";
 import FilterButton, { filterToggle } from "../../components/FilterButton";
 import { handleContainerClick } from "../../pages/LandingPage";
+import { CristalesEnum } from "../../Enums/CristalesEnum";
 
-export enum EnumGrid {
-  codigo            = 1,
-  ubicacion         = 2,
-  stock_minimo      = 3,
-  stock_reservado   = 4,
-  stock_disponible  = 5,
-  marca_id          = 6,
-  marca             = 7,
-  proveedor_id      = 8,
-  proveedor         = 9,
-  diseno_id         = 10,
-  diseno            = 11,
-  indice_id         = 12,
-  indice            = 13,
-  material_id       = 14,
-  material          = 15,
-  color_id          = 16,
-  color             = 17,
-  tratamiento_id    = 18,
-  tratamiento       = 19,
-  diametro          = 20,
-  esferico          = 21,
-  cilindrico        = 22,
-  codigo_fab_1      = 23,
-  codigo_fab_2      = 24,
-  codigo_fab_3      = 25,
-  codigo_fab_4      = 26,
-}
+
+const FCristales = React.lazy(()=>import("../forms/FCristales"))
+
 
 const strEntidad = "Cristal ";
 const strEntidadExcel = "Cristales";
@@ -84,7 +59,7 @@ const MCristales: React.FC = () => {
   const strParamsToDelete = '_p1' // _p3/_p1/_pkToDelete
 
   useEffect(() => {
-    const newPkToDelete = selectedRows.map((row: number) => `'${entities[row][EnumGrid.codigo]}'`);
+    const newPkToDelete = selectedRows.map((row: number) => `'${entities[row][CristalesEnum.codigo]}'`);
     const combinedPks = newPkToDelete.join(',');
 
     setPkToDelete([`${strParamsToDelete}=${combinedPks}`]);
@@ -231,30 +206,34 @@ const MCristales: React.FC = () => {
           escritura_lectura={escritura_lectura}
         /> */}
 
-      {isModalInsert && (
-        <FCristales
-          label={`${TITLES.ingreso} ${strEntidad}`}
-          closeModal={closeModal}
-          selectedRows={selectedRows}
-          setEntities={setEntities}
-          params={params}
-          isEditting={false}
-          escritura_lectura={escritura_lectura}
-        />
-      )}
 
-      {isModalEdit && (
-        <FCristales
-          label={`${TITLES.edicion} ${strEntidad}`}
-          selectedRows={selectedRows}
-          setEntities={setEntities}
-          params={params}
-          data={entity}
-          closeModal={closeModal}
-          isEditting={true}
-          escritura_lectura={escritura_lectura}
-        />
-      )}
+        <Suspense>
+          {isModalInsert && (
+            <FCristales
+              label={`${TITLES.ingreso} ${strEntidad}`}
+              closeModal={closeModal}
+              selectedRows={selectedRows}
+              setEntities={setEntities}
+              params={params}
+              isEditting={false}
+              escritura_lectura={escritura_lectura}
+            />
+          )}
+
+          {isModalEdit && (
+            <FCristales
+              label={`${TITLES.edicion} ${strEntidad}`}
+              selectedRows={selectedRows}
+              setEntities={setEntities}
+              params={params}
+              data={entity}
+              closeModal={closeModal}
+              isEditting={true}
+              escritura_lectura={escritura_lectura}
+            />
+          )}
+        </Suspense>
+
 
     </div>
   );

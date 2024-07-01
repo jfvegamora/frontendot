@@ -8,7 +8,8 @@ import { SelectInputComponent, TextInputComponent } from "../../components";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationCristalesSchema } from "../../utils/validationFormSchemas";
-import { EnumGrid } from "../mantenedores/MCristales";
+// import { Enu } from "../mantenedores/MCristales";
+// impport CristalesEnum
 import { MODAL, SUCCESS_MESSAGES, TITLES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
@@ -16,6 +17,7 @@ import useCustomToast from "../../hooks/useCustomToast";
 import SelectInputTiposComponent from "../../components/forms/SelectInputTiposComponent";
 import { toast } from "react-toastify";
 import { Button } from "@material-tailwind/react";
+import { CristalesEnum } from "../../Enums/CristalesEnum";
 
 const strBaseUrl = "/api/cristales/";
 const strEntidad = "Cristal ";
@@ -167,7 +169,7 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
       focusSecondInput,
     } = useCrud(strBaseUrl);
     const [blnKeep, setblnKeep] = useState(false);
-    const intId = data && data[EnumGrid.codigo];
+    const intId = data && data[CristalesEnum.codigo];
     const {
       control,
       handleSubmit,
@@ -305,7 +307,7 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
       isEditting ? focusSecondInput("marca") : focusFirstInput("codigo");
     }, []);
 
- console.log(data && typeof data[EnumGrid.stock_reservado])
+ console.log(data && typeof data[CristalesEnum.stock_reservado])
     return (
       <div className="useFormContainer centered-div use40rem ">
         <div className="userFormBtnCloseContainer flex">
@@ -328,7 +330,7 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                     type="text"
                     label="Código"
                     name="codigo"
-                    data={data && data[EnumGrid.codigo]}
+                    data={data && data[CristalesEnum.codigo]}
                     control={control}
                     error={errors.codigo}
                     inputRef={firstInputRef}
@@ -344,7 +346,7 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                   label="Marca"
                   name="marca"
                   showRefresh={true}
-                  data={data && data[EnumGrid.marca_id]}
+                  data={data && data[CristalesEnum.marca_id]}
                   control={control}
                   entidad={["/api/marcas/", "02", "2"]}
                   error={errors.marca}
@@ -357,7 +359,7 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                   label="Diseño"
                   name="diseno"
                   showRefresh={true}
-                  data={data && data[EnumGrid.diseno_id]}
+                  data={data && data[CristalesEnum.diseno_id]}
                   control={control}
                   customWidth={"!ml-[1rem] !w-[19rem]"}
                   entidad={"CristalesDisenos"}
@@ -371,7 +373,7 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                   label="Índice"
                   name="indice"
                   showRefresh={true}
-                  data={data && data[EnumGrid.indice_id]}
+                  data={data && data[CristalesEnum.indice_id]}
                   control={control}
                   customWidth={"!ml-[1rem] !w-[19rem]"}
                   entidad={"CristalesIndices"}
@@ -383,7 +385,7 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                   label="Material"
                   name="material"
                   showRefresh={true}
-                  data={data && data[EnumGrid.material_id]}
+                  data={data && data[CristalesEnum.material_id]}
                   control={control}
                   entidad="CristalesMateriales"
                   customWidth={"!ml-[1rem] !w-[19rem]"}
@@ -398,7 +400,7 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                     label="Color"
                     name="color"
                     showRefresh={true}
-                    data={data && data[EnumGrid.color_id]}
+                    data={data && data[CristalesEnum.color_id]}
                     control={control}
                     entidad="CristalesColores"
                     customWidth={"!ml-[1rem] !w-[19rem]"}
@@ -410,7 +412,7 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                     label="Tratamiento"
                     name="tratamiento"
                     showRefresh={true}
-                    data={data && data[EnumGrid.tratamiento_id]}
+                    data={data && data[CristalesEnum.tratamiento_id]}
                     control={control}
                     entidad="CristalesTratamientos"
                     customWidth={"!ml-[1rem] !w-[19rem]"}
@@ -424,7 +426,7 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                   type="number"
                   label="Diámetro"
                   name="diametro"
-                  data={data && data[EnumGrid.diametro]}
+                  data={data && data[CristalesEnum.diametro]}
                   control={control}
                   error={errors.diametro}
                   customWidth={"w-[14rem] "}
@@ -435,7 +437,7 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                   type="number"
                   label="Esférico"
                   name="esferico"
-                  data={data && data[EnumGrid.esferico]}
+                  data={data && data[CristalesEnum.esferico]}
                   control={control}
                   error={errors.esferico}
                   step={0.01}
@@ -446,7 +448,7 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                   type="number"
                   label="Cilíndrico"
                   name="cilindrico"
-                  data={data && data[EnumGrid.cilindrico]}
+                  data={data && data[CristalesEnum.cilindrico]}
                   control={control}
                   error={errors.cilindrico}
                   step={0.01}
@@ -460,7 +462,7 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                   type="number"
                   label="Stock Minimo"
                   name="stock_minimo"
-                  data={data && data[EnumGrid.stock_minimo]}
+                  data={data && data[CristalesEnum.stock_minimo]}
                   control={control}
                   error={errors.stock_minimo}
                   textAlign="text-right"
@@ -469,7 +471,7 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                   type="number"
                   label="Stock Reservado"
                   name="stock_reservado"
-                  data={data && data[EnumGrid.stock_reservado]}
+                  data={data && data[CristalesEnum.stock_reservado]}
                   // data={100000}
                   control={control}
                   onlyRead={true}
@@ -480,7 +482,7 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                   type="number"
                   label="Stock Disponible"
                   name="stock_disponible"
-                  data={data && data[EnumGrid.stock_disponible]}
+                  data={data && data[CristalesEnum.stock_disponible]}
                   control={control}
                   onlyRead={true}
                   tabIndex={-1}
@@ -493,7 +495,7 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                   type="text"
                   label="Código FAB"
                   name="codigo_fab_1"
-                  data={data && data[EnumGrid.codigo_fab_1]}
+                  data={data && data[CristalesEnum.codigo_fab_1]}
                   control={control}
                   // error={errors.codigo}
                   maxLength={20}
@@ -505,7 +507,7 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                   type="text"
                   label="Código FAB"
                   name="codigo_fab_2"
-                  data={data && data[EnumGrid.codigo_fab_2]}
+                  data={data && data[CristalesEnum.codigo_fab_2]}
                   control={control}
                   // error={errors.codigo}
                   maxLength={20}
@@ -519,7 +521,7 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                   type="text"
                   label="Código FAB"
                   name="codigo_fab_3"
-                  data={data && data[EnumGrid.codigo_fab_3]}
+                  data={data && data[CristalesEnum.codigo_fab_3]}
                   control={control}
                   // error={errors.codigo}
                   maxLength={20}
@@ -531,7 +533,7 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                   type="text"
                   label="Código FAB"
                   name="codigo_fab_4"
-                  data={data && data[EnumGrid.codigo_fab_4]}
+                  data={data && data[CristalesEnum.codigo_fab_4]}
                   control={control}
                   // error={errors.codigo}
                   maxLength={20}

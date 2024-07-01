@@ -1,7 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 
 import {
   PrimaryButtonsComponent,
@@ -9,35 +9,15 @@ import {
   TableComponent,
 } from "../../components";
 import { useEntityUtils, usePermission } from "../../hooks";
-import FArmazones from "../forms/FArmazones";
+// import FArmazones from "../forms/FArmazones";
 import { TITLES, table_head_armazones } from "../../utils";
+import { ArmazonesEnum } from "../../Enums";
 
-export enum EnumGrid {
-  codigo              = 1,
-  ubicacion           = 2,
-  stock_minimo        = 3,
-  cantidad_exhibida   = 4,
-  cantidad_reservada  = 5,
-  stock_disponible    = 6,
-  stock_total         = 7,
-  armazon_tipo_id     = 8,
-  armazon_tipo        = 9,
-  marca_id            = 10,
-  marca               = 11,
-  modelo              = 12,
-  color               = 13,
-  armazon_material_id = 14,
-  armazon_material    = 15,
-  aro                 = 16,
-  puente              = 17,
-  diagonal            = 18,
-  brazo               = 19,
-  armazon_uso_id      = 20,
-  armazon_uso         = 21,
-  dp_minima           = 22,
-  dp_maxima           = 23,
-  codigo_fab          = 24,
-}
+
+const FArmazones = React.lazy(()=>import("../forms/FArmazones"));
+
+
+
 
 const strEntidad = "Armazón ";
 const strEntidadExcel = "Armazones";
@@ -78,7 +58,7 @@ const MArmazones: React.FC = () => {
   const strParamsToDelete = '_p1' // _p3/_p1/_pkToDelete
 
   useEffect(() => {    
-    const newPkToDelete = selectedRows.map((row: number) => `'${entities[row][EnumGrid.codigo]}'`);
+    const newPkToDelete = selectedRows.map((row: number) => `'${entities[row][ArmazonesEnum.codigo]}'`);
     const combinedPks = newPkToDelete.join(',');
 
     setPkToDelete([`${strParamsToDelete}=${combinedPks}`]);
@@ -182,31 +162,33 @@ const MArmazones: React.FC = () => {
           leftEdit={true}
         />
       </div>
-     
-      {isModalInsert && (
-        <FArmazones
-          label={`${TITLES.ingreso} ${strEntidad}`}
-          closeModal={closeModal}
-          selectedRows={selectedRows}
-          setEntities={setEntities}
-          params={params}
-          isEditting={false}
-          escritura_lectura={escritura_lectura}
-        />
-      )}
 
-      {isModalEdit && (
-        <FArmazones
-          label={`${TITLES.edicion} ${strEntidad}`}
-          selectedRows={selectedRows}
-          setEntities={setEntities}
-          params={params}
-          data={entity}
-          closeModal={closeModal}
-          isEditting={true}
-          escritura_lectura={escritura_lectura}
-        />
-      )}
+      <Suspense>
+        {isModalInsert && (
+          <FArmazones
+            label={`${TITLES.ingreso} ${strEntidad}`}
+            closeModal={closeModal}
+            selectedRows={selectedRows}
+            setEntities={setEntities}
+            params={params}
+            isEditting={false}
+            escritura_lectura={escritura_lectura}
+          />
+        )}
+
+        {isModalEdit && (
+          <FArmazones
+            label={`${TITLES.edicion} ${strEntidad}`}
+            selectedRows={selectedRows}
+            setEntities={setEntities}
+            params={params}
+            data={entity}
+            closeModal={closeModal}
+            isEditting={true}
+            escritura_lectura={escritura_lectura}
+          />
+        )}
+      </Suspense>
 
     </div>
   );

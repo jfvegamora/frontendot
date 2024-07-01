@@ -8,7 +8,6 @@ import { SelectInputComponent, TextInputComponent } from "../../components";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { fechaActual, validationProyectosDocumSchema } from "../../utils/validationFormSchemas";
-import { EnumGrid } from "../mantenedores/MProyectosDocum";
 import { MODAL, SUCCESS_MESSAGES, TITLES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
@@ -18,6 +17,7 @@ import { AppStore, useAppSelector } from "../../../redux/store";
 import SelectInputTiposComponent from "../../components/forms/SelectInputTiposComponent";
 import { Button } from "@material-tailwind/react";
 import { toast } from "react-toastify";
+import { ProyectosDocumEnum } from "../../Enums";
 
 const strBaseUrl = "/api/proyectodocum/";
 const strEntidad = "Documentación del Proyecto ";
@@ -64,6 +64,7 @@ const FProyectosDocum: React.FC<IUserFormPrps> = React.memo(
     const [fechaHoraActual, setFechaHoraActual] = useState(fechaActual);
     const UsuarioID: any = useAppSelector((store: AppStore) => store.user?.id)
 
+    
 
     const {
       editEntity,
@@ -293,7 +294,7 @@ const FProyectosDocum: React.FC<IUserFormPrps> = React.memo(
                     label="Proyecto"
                     name="proyecto"
                     showRefresh={true}
-                    data={data && data[EnumGrid.proyecto]}
+                    data={data && data[ProyectosDocumEnum.proyecto]}
                     handleSelectChange={handleInputChange}
                     control={control}
                     entidad={["/api/proyectos/", "02"]}
@@ -312,7 +313,7 @@ const FProyectosDocum: React.FC<IUserFormPrps> = React.memo(
                   label="Tipo Doc"
                   name="tipo_doc"
                   showRefresh={true}
-                  data={data && data[EnumGrid.tipo_doc_id]}
+                  data={data && data[ProyectosDocumEnum.tipo_doc_id]}
                   control={control}
                   entidad={["TipoDoc", "6,7"]}
                   customWidth={"!ml-[1rem] !w-[]"}
@@ -326,7 +327,7 @@ const FProyectosDocum: React.FC<IUserFormPrps> = React.memo(
                   type="number"
                   label="Número"
                   name="numero_doc"
-                  data={data && data[EnumGrid.numero_doc]}
+                  data={data && data[ProyectosDocumEnum.numero_doc]}
                   control={control}
                   error={errors.numero_doc}
                   textAlign="text-right"
@@ -343,7 +344,7 @@ const FProyectosDocum: React.FC<IUserFormPrps> = React.memo(
                     type={"date"}
                     label= "Fecha Doc"
                     name="fecha_doc"
-                    data={fechaFormateada ? fechaFormateada : data && data[EnumGrid.fecha_doc]}
+                    data={fechaFormateada ? fechaFormateada : data && data[ProyectosDocumEnum.fecha_doc]}
                     control={control}
                     error={errors.fecha_doc}
                     customWidth={"!mr-[1rem] w-[12rem]"}
@@ -357,7 +358,7 @@ const FProyectosDocum: React.FC<IUserFormPrps> = React.memo(
                     type="number"
                     label="Neto $"
                     name="total_neto"
-                    data={data && data[EnumGrid.total_neto]}
+                    data={data && data[ProyectosDocumEnum.total_neto]}
                     control={control}
                     error={errors.total_neto}
                     textAlign="text-right"
@@ -373,7 +374,7 @@ const FProyectosDocum: React.FC<IUserFormPrps> = React.memo(
                   label="Tipo Doc Referenciado"
                   name="tipo_doc_ref"
                   showRefresh={true}
-                  data={data && data[EnumGrid.tipo_doc_ref_id]}
+                  data={data && data[ProyectosDocumEnum.tipo_doc_ref_id]}
                   control={control}
                   entidad={["TipoDoc", "5,6,7"]}
                   customWidth={"!ml-[1rem] !w-[]"}
@@ -387,7 +388,7 @@ const FProyectosDocum: React.FC<IUserFormPrps> = React.memo(
                   type="number"
                   label="Número Referenciado"
                   name="numero_doc_ref"
-                  data={data && data[EnumGrid.numero_doc_ref]}
+                  data={data && data[ProyectosDocumEnum.numero_doc_ref]}
                   control={control}
                   error={errors.numero_doc}
                   textAlign="text-right"
@@ -403,7 +404,7 @@ const FProyectosDocum: React.FC<IUserFormPrps> = React.memo(
                     type="text"
                     label="Observaciones"
                     name="observaciones"
-                    data={data && data[EnumGrid.observaciones]}
+                    data={data && data[ProyectosDocumEnum.observaciones]}
                     control={control}
                     error={errors.observaciones}
                     isOptional={true}

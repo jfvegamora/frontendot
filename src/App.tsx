@@ -12,56 +12,23 @@ import AuthGuard, {
   hasRequiredPermissions,
 } from "./presentation/guards/auth_guard";
 import { Spinner } from "@material-tailwind/react";
-import LandingPage from "./presentation/pages/LandingPage";
-import FReservarArmazones from "./presentation/views/forms/FReservarArmazones";
 
 import jwtDecode from "jwt-decode";
 
 // import { clearLocalStorage } from "./redux/slices/ListBoxTipoSlice";
 //Lazy components
-const Login = lazy(() => import("./presentation/pages/Login"));
-const Navbar = lazy(() => import("./presentation/components/ComplexNavbar"));
-const ResetPassword = lazy(() => import("./presentation/pages/ResetPassword"));
-const ForgotPassword = lazy(() => import("./presentation/pages/ForgotPassword"));
-const ProfileUser = lazy(() => import("./presentation/pages/ProfileUser"));
+const Login                  = lazy(() => import("./presentation/pages/Login"));
+const Navbar                 = lazy(() => import("./presentation/components/ComplexNavbar"));
+const ResetPassword          = lazy(() => import("./presentation/pages/ResetPassword"));
+const ForgotPassword         = lazy(() => import("./presentation/pages/ForgotPassword"));
+const ProfileUser            = lazy(() => import("./presentation/pages/ProfileUser"));
+const FReservarArmazones     = lazy(() => import("./presentation/views/forms/FReservarArmazones"));
+const MovilReservaArmazones  = lazy(() => import('./presentation/pages/MovilReservaArmazones'));
+const LandingPage            = lazy(() => import("./presentation/pages/LandingPage"));
 
 import axios from 'axios';
 import { logout } from "./redux/slices/userSlice";
-import MovilReservaArmazones from "./presentation/pages/MovilReservaArmazones";
 // import Interceptor from 'axios-interceptor';
-
-// const AuthHOC = ({children}:any) => {
-//   const [_isAuthorized, setIsAuthorized] = React.useState(true);
-//   const {token} = useAppSelector((store: AppStore) => store.user) || "";
-
-//   useEffect(() => {
-//     const authInterceptor = axios.interceptors
-
-//     const request = authInterceptor.request.use((config:any) => {
-//       console.log(config)
-//       return config;
-//     });
-
-//     const response = authInterceptor.response.use((response:any) => {
-//       console.log(response)
-//       return response;
-//     },(e)=>{
-//       console.log(e)
-//       if(e.request.status === 401){
-//         console.log(e.request)
-//       }
-//     });
-
-//     setIsAuthorized(true)
-//     return () => {  
-//       authInterceptor.request.eject(request)
-//       authInterceptor.request.eject(response)
-//     };
-//   }, []);
-
-//   return  children 
-// };
-
 
 
 
@@ -166,13 +133,13 @@ function App() {
               path={PublicRoutes.FORGOTPASSWORD}
               element={<ForgotPassword />}
             />
-            <Route path={PublicRoutes.PROFILE} element={<ProfileUser />} />
+            <Route path={PublicRoutes.PROFILE} element={<Suspense><ProfileUser /></Suspense>} />
             {/* <Route path="/" element={<Navigate to={PublicRoutes.LOGIN} />} /> */}
             <Route element={<AuthGuard privateValidation={true} />}>
-              <Route path="/" element={<h1>Landing Page</h1>} />
-              <Route path="/operativo" element={<FReservarArmazones/>} />
-              <Route path="/mensajeria" element={<LandingPage/>} />
-              <Route path="/movilarmazones" element={<MovilReservaArmazones/>} />
+              <Route path="/" element={<Suspense><LandingPage/></Suspense>} />
+              <Route path="/operativo" element={<Suspense><FReservarArmazones/></Suspense>} />
+              {/* <Route path="/mensajeria" element={<Suspense><LandingPage/></Suspense>} /> */}
+              <Route path="/movilarmazones" element={<Suspense><MovilReservaArmazones/></Suspense>} />
                 {privateRoutes.map((route) => {
                   return(
                     (

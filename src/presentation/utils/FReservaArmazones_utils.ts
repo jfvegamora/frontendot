@@ -4,7 +4,6 @@ import { signal } from "@preact/signals-react";
 import { getArmazones, openDatabase, setArmazones } from "./indexedDB";
 import { URLBackend } from "../hooks/useCrud";
 import { toast } from "react-toastify";
-import { EnumGrid as EnumReserva } from "../views/mantenedores/MReservaArmazones";
 import {
   A1_DP,
   a1_armazon,
@@ -26,15 +25,16 @@ import {
   validation_A2_armazon,
 } from "./validationOT";
 import { validation_tipo_anteojo } from "./OTReceta_utils";
-import {
-  isDataLocal,
-  responseArmazones,
-} from "../views/forms/FReservarArmazones";
+
+import { ReservaArmazonesEnum } from "../Enums";
 
 //?VARIABLES GLOBLAES
 export const isOnline = signal(false);
 export const isShowReservaButton = signal(false);
 export const inputOnlyReadReserva = signal(false);
+
+export const isDataLocal = signal(false);
+export const responseArmazones = signal<any>([]);
 
 //? FETCH DE DATOS A SPRESERVA ARMAZONES
 export const fetchReservaArmazones = async (
@@ -157,15 +157,19 @@ export const fetchReservaBeneficiario = async (rut: string) => {
 
     if (response["data"].length > 0) {
       console.log("hay data");
-      const proyecto_codigo = response["data"][0][EnumReserva["proyecto"]];
-      validationProyectos(response["data"][0][EnumReserva["proyecto"]]);
+      const proyecto_codigo =
+        response["data"][0][ReservaArmazonesEnum["proyecto"]];
+      validationProyectos(
+        response["data"][0][ReservaArmazonesEnum["proyecto"]]
+      );
       validationFechaEntregaTaller("22");
       validationFechaDespacho("22");
       validationFechaEntregaCliente("22");
 
       const proyecto_titulo =
-        response["data"][0][EnumReserva["proyecto_titulo"]];
-      const rut_beneficiario = response["data"][0][EnumReserva["cliente_rut"]];
+        response["data"][0][ReservaArmazonesEnum["proyecto_titulo"]];
+      const rut_beneficiario =
+        response["data"][0][ReservaArmazonesEnum["cliente_rut"]];
 
       let mensaje = `Existe una Reserva para el rut: ${rut_beneficiario}.`;
 
@@ -175,33 +179,41 @@ export const fetchReservaBeneficiario = async (rut: string) => {
       toast.dismiss(loadingToast);
       alert(mensaje);
 
-      console.log(response["data"][0][EnumReserva["cod_armazon1"]]);
+      console.log(response["data"][0][ReservaArmazonesEnum["cod_armazon1"]]);
 
       codigoProyecto.value = proyecto_codigo;
-      punto_venta.value = response["data"][0][EnumReserva["punto_venta_id"]];
-      A1_DP.value = response["data"][0][EnumReserva["dp"]];
-      validation_A1_DP(response["data"][0][EnumReserva["dp"]]);
+      punto_venta.value =
+        response["data"][0][ReservaArmazonesEnum["punto_venta_id"]];
+      A1_DP.value = response["data"][0][ReservaArmazonesEnum["dp"]];
+      validation_A1_DP(response["data"][0][ReservaArmazonesEnum["dp"]]);
 
       //?VALIDACIONES ARMAZONES:
       validar_parametrizacion.value = "2";
       inputOnlyReadReserva.value = true;
       tipo_de_anteojo.value =
-        response["data"][0][EnumReserva["tipo_anteojo_id"]].toString();
+        response["data"][0][ReservaArmazonesEnum["tipo_anteojo_id"]].toString();
       validation_tipo_anteojo();
       validationTipoAnteojos(
-        response["data"][0][EnumReserva["tipo_anteojo_id"]].toString()
+        response["data"][0][ReservaArmazonesEnum["tipo_anteojo_id"]].toString()
       );
 
       //?ARMAZON 1:
-      a1_armazon.value = response["data"][0][EnumReserva["cod_armazon1"]];
-      validation_A1_armazon(response["data"][0][EnumReserva["cod_armazon1"]]);
+      a1_armazon.value =
+        response["data"][0][ReservaArmazonesEnum["cod_armazon1"]];
+      validation_A1_armazon(
+        response["data"][0][ReservaArmazonesEnum["cod_armazon1"]]
+      );
 
       //?ARMAZON 2:
-      a2_armazon.value = response["data"][0][EnumReserva["cod_armazon2"]];
-      validation_A2_armazon(response["data"][0][EnumReserva["cod_armazon2"]]);
+      a2_armazon.value =
+        response["data"][0][ReservaArmazonesEnum["cod_armazon2"]];
+      validation_A2_armazon(
+        response["data"][0][ReservaArmazonesEnum["cod_armazon2"]]
+      );
 
       //?ARMAZON 3:
-      a3_armazon.value = response["data"][0][EnumReserva["cod_armazon3"]];
+      a3_armazon.value =
+        response["data"][0][ReservaArmazonesEnum["cod_armazon3"]];
       toast.dismiss(loadingToast);
     }
     toast.dismiss(loadingToast);

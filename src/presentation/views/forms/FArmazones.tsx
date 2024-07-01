@@ -8,7 +8,6 @@ import { SelectInputComponent, TextInputComponent } from "../../components";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationArmazonesSchema } from "../../utils/validationFormSchemas";
-import { EnumGrid } from "../mantenedores/MArmazones";
 import { MODAL, SUCCESS_MESSAGES, TITLES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
@@ -16,6 +15,8 @@ import useCustomToast from "../../hooks/useCustomToast";
 import SelectInputTiposComponent from "../../components/forms/SelectInputTiposComponent";
 import { toast } from "react-toastify";
 import { Button } from "@material-tailwind/react";
+import { ArmazonesEnum } from "../../Enums";
+
 
 const strBaseUrl = "/api/armazones/";
 const strEntidad = "Armazón ";
@@ -57,7 +58,6 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
   console.log("query", query);
   return query;
 }
-
 export function transformUpdateQuery(
   jsonData: InputData,
   primaryKey: string
@@ -115,7 +115,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
       focusSecondInput,
     } = useCrud(strBaseUrl);
     const [blnKeep, setblnKeep] = useState(false);
-    const intId = data && data[EnumGrid.codigo];
+    const intId = data && data[ArmazonesEnum.codigo];
     const {
       control,
       handleSubmit,
@@ -274,7 +274,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                     type="text"
                     label="Código"
                     name="codigo"
-                    data={data && data[EnumGrid.codigo]}
+                    data={data && data[ArmazonesEnum.codigo]}
                     control={control}
                     error={errors.codigo}
                     inputRef={firstInputRef}
@@ -288,7 +288,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                     type="text"
                     label="Modelo"
                     name="modelo"
-                    data={data && data[EnumGrid.modelo]}
+                    data={data && data[ArmazonesEnum.modelo]}
                     control={control}
                     error={errors.modelo}
                     customWidth={"!w-[]"}
@@ -300,7 +300,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                     type="text"
                     label="Color"
                     name="color"
-                    data={data && data[EnumGrid.color]}
+                    data={data && data[ArmazonesEnum.color]}
                     control={control}
                     error={errors.color}
                     customWidth={"!w-[]"}
@@ -314,7 +314,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                     label="Tipo"
                     name="tipo"
                     showRefresh={true}
-                    data={data && data[EnumGrid.armazon_tipo_id]}
+                    data={data && data[ArmazonesEnum.armazon_tipo_id]}
                     control={control}
                     entidad={"ArmazonesTipos"}
                     error={errors.tipo}
@@ -328,7 +328,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                     label="Marca"
                     name="marca"
                     showRefresh={true}
-                    data={data && data[EnumGrid.marca_id]}
+                    data={data && data[ArmazonesEnum.marca_id]}
                     control={control}
                     entidad={["/api/marcas/", "02", "1"]}
                     error={errors.marca}
@@ -341,7 +341,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                     label="Material"
                     name="material"
                     showRefresh={true}
-                    data={data && data[EnumGrid.armazon_material_id]}
+                    data={data && data[ArmazonesEnum.armazon_material_id]}
                     control={control}
                     entidad={"ArmazonesMaterial"}
                     error={errors.material}
@@ -356,7 +356,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                     type="number"
                     label="Aro"
                     name="aro"
-                    data={data && data[EnumGrid.aro]}
+                    data={data && data[ArmazonesEnum.aro]}
                     control={control}
                     error={errors.aro}
                     customWidth={"!w-[100%]"}
@@ -369,7 +369,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                     type="number"
                     label="Puente"
                     name="puente"
-                    data={data && data[EnumGrid.puente]}
+                    data={data && data[ArmazonesEnum.puente]}
                     control={control}
                     error={errors.puente}
                     customWidth={"!w-[100%]"}
@@ -382,7 +382,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                     type="number"
                     label="Diagonal"
                     name="diagonal"
-                    data={data && data[EnumGrid.diagonal]}
+                    data={data && data[ArmazonesEnum.diagonal]}
                     control={control}
                     error={errors.diagonal}
                     customWidth={"!w-[100%]"}
@@ -395,7 +395,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                     type="number"
                     label="Brazo"
                     name="brazo"
-                    data={data && data[EnumGrid.brazo]}
+                    data={data && data[ArmazonesEnum.brazo]}
                     control={control}
                     error={errors.brazo}
                     customWidth={"!w-[100%]"}
@@ -410,7 +410,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                     label="Uso"
                     name="uso"
                     showRefresh={true}
-                    data={data && data[EnumGrid.armazon_uso_id]}
+                    data={data && data[ArmazonesEnum.armazon_uso_id]}
                     control={control}
                     entidad={"ArmazonesUsos"}
                     customWidth={"!w-[10.5rem] translate-x-[1rem]"}
@@ -423,7 +423,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                     type="number"
                     label="Stock Mínimo"
                     name="stock_minimo"
-                    data={data && data[EnumGrid.stock_minimo]}
+                    data={data && data[ArmazonesEnum.stock_minimo]}
                     control={control}
                     customWidth={"!w-[9.5rem] translate-x-[-1rem] translate-y-[-0.3rem]"}
                     error={errors.stock_minimo}
@@ -436,7 +436,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                     type="number"
                     label="DP Minima"
                     name="dp_minima"
-                    data={data && data[EnumGrid.dp_minima]}
+                    data={data && data[ArmazonesEnum.dp_minima]}
                     control={control}
                     customWidth={"!w-[9.5rem] translate-x-[-1.9rem] translate-y-[-0.3rem]"}
                     textAlign="text-center"
@@ -449,7 +449,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                     type="number"
                     label="DP Máxima"
                     name="dp_maxima"
-                    data={data && data[EnumGrid.dp_maxima]}
+                    data={data && data[ArmazonesEnum.dp_maxima]}
                     control={control}
                     customWidth={"!w-[9.5rem] translate-x-[-2.9rem] translate-y-[-0.3rem]"}
                     textAlign="text-center"
@@ -465,7 +465,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                     type="number"
                     label="Cant. Exhibida"
                     name="cantidad_exhibida"
-                    data={data && data[EnumGrid.cantidad_exhibida]}
+                    data={data && data[ArmazonesEnum.cantidad_exhibida]}
                     control={control}
                     onlyRead={true}
                     tabIndex={-1}
@@ -480,7 +480,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                     type="number"
                     label="Cant. Reservada"
                     name="cantidad_reservada"
-                    data={data && data[EnumGrid.cantidad_reservada]}
+                    data={data && data[ArmazonesEnum.cantidad_reservada]}
                     control={control}
                     onlyRead={true}
                     tabIndex={-1}
@@ -497,7 +497,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                     label="Stock Disponible"
                     name="stock_disponible"
                     onlyRead={true}
-                    data={data && data[EnumGrid.stock_disponible]}
+                    data={data && data[ArmazonesEnum.stock_disponible]}
                     control={control}
                     tabIndex={-1}
                     customWidth={"!w-[100%]"}
@@ -512,7 +512,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                     type="text"
                     label="Código FAB"
                     name="codigo_fab"
-                    data={data && data[EnumGrid.codigo_fab]}
+                    data={data && data[ArmazonesEnum.codigo_fab]}
                     control={control}
                     error={errors.codigo_fab}
                     onlyRead={isEditting}

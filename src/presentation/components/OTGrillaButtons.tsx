@@ -1,7 +1,8 @@
 import React, {Suspense, useRef} from 'react';
 import { IconButton, Tooltip } from '@material-tailwind/react';
 import { PencilIcon } from "@heroicons/react/24/solid";
-import { PiPrinterFill } from "react-icons/pi";
+// import { PiPrinterFill } from "react-icons/pi";
+
 import { ImWhatsapp } from "react-icons/im";
 // import { usePermission } from '../hooks';
 import { BUTTON_MESSAGES, clearAllCheck, clearIndividualCheck, disabledIndividualCheck, isToggleImpression, } from '../utils';
@@ -41,6 +42,7 @@ const strUrl = `${URLBackend}/api/ot/listado`
 const folioActual = signal<any>(0);
 const isFinishImpression = signal(false)
 
+const PiPrinterFill          = React.lazy(()=>import('react-icons/pi').then(module => ({ default: module.PiPrinterFill })));
 const FOTImpresa             = React.lazy(()=>import('../views/forms/FOTImpresa'));
 const FOTTicketQRImpresion   = React.lazy(()=>import('../views/forms/FOTTicketQRImpresion'));
 const FOTTicketImpresion     = React.lazy(()=>import('../views/forms/FOTTicketImpresion'));
@@ -283,7 +285,6 @@ const imprimirComprobanteRetiro = async(tipoComprobante?:string) => {
                         onClick={() => {
                             const loadingToast = toast.loading('Cargando...');
                             new Promise((_resolve)=>{
-                                console.log(estado)
                                 toggleEditOTModal(folio, historica,estado).finally(()=>{
                                     toast.dismiss(loadingToast);
                                 }) 
@@ -295,7 +296,7 @@ const imprimirComprobanteRetiro = async(tipoComprobante?:string) => {
                 </Tooltip>
             )}
             {areaPermissions && areaPermissions[2] === "1" && permisos_usuario_areas === '1' && (
-                <Tooltip content={BUTTON_MESSAGES.edit.concat(strEntidad)}>
+                <Tooltip content={BUTTON_MESSAGES.imprimir.concat(strEntidad)}>
                     <IconButton
                         variant="text"
                         color="blue-gray"

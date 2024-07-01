@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { useEntityUtils, usePermission } from "../../hooks";
 import {
   PrimaryButtonsComponent,
@@ -10,7 +10,7 @@ import {
   TableComponent,
 } from "../../components";
 import { TITLES, table_head_proyectos_docum } from "../../utils";
-import FProyectosDocum from "../forms/FProyectosDocum";
+import { ProyectosDocumEnum } from "../../Enums";
 
 const strEntidad = "Documentación del Proyecto ";
 const strEntidadExcel = "Documentacion_del_Proyecto";
@@ -18,22 +18,10 @@ const strBaseUrl = "/api/proyectodocum/";
 const strQuery = "01";
 const idMenu = 38;
 
-export enum EnumGrid {
-  proyecto        =1, 
-  titulo          =2,
-  fecha_hora      =3,
-  tipo_doc_id     =4,
-  tipo_doc        =5,
-  numero_doc      =6,
-  fecha_doc       =7,
-  total_neto      =8,
-  tipo_doc_ref_id =9,
-  tipo_doc_ref    =10,
-  numero_doc_ref  =11,
-  usuario_id      =12,
-  usuario         =13,
-  observaciones   =14,
-}
+
+const FProyectosDocum = React.lazy(()=>import("../forms/FProyectosDocum"))
+
+
 
 
 const MProyectosDocum: React.FC = () => {
@@ -75,7 +63,7 @@ const MProyectosDocum: React.FC = () => {
     
     useEffect(() => {    
       const newPkToDelete = selectedRows.map((row: number) => 
-       `{"pk1":"${entities[row][EnumGrid.proyecto]}", "pk2":"${entities[row][EnumGrid.fecha_hora]}"}`);
+       `{"pk1":"${entities[row][ProyectosDocumEnum.proyecto]}", "pk2":"${entities[row][ProyectosDocumEnum.fecha_hora]}"}`);
       const combinedPks = newPkToDelete.join(',');
   
       setPkToDelete([`${strParamsToDelete}=[${combinedPks}]`]);
@@ -155,31 +143,32 @@ const MProyectosDocum: React.FC = () => {
             />
         </div>
   
-        
-        {isModalInsert && (
-          <FProyectosDocum
-            label={`${TITLES.ingreso} ${strEntidad}`}
-            closeModal={closeModal}
-            selectedRows={selectedRows}
-            setEntities={setEntities}
-            params={params}
-            isEditting={false}
-            escritura_lectura={escritura_lectura}
-            />
-        )}
-  
-        {isModalEdit && (
-          <FProyectosDocum
-            label={`${TITLES.edicion} ${strEntidad}`}
-            selectedRows={selectedRows}
-            setEntities={setEntities}
-            params={params}
-            data={entity}
-            closeModal={closeModal}
-            isEditting={true}
-            escritura_lectura={escritura_lectura}
-            />
-        )}
+        <Suspense>
+          {isModalInsert && (
+            <FProyectosDocum
+              label={`${TITLES.ingreso} ${strEntidad}`}
+              closeModal={closeModal}
+              selectedRows={selectedRows}
+              setEntities={setEntities}
+              params={params}
+              isEditting={false}
+              escritura_lectura={escritura_lectura}
+              />
+          )}
+    
+          {isModalEdit && (
+            <FProyectosDocum
+              label={`${TITLES.edicion} ${strEntidad}`}
+              selectedRows={selectedRows}
+              setEntities={setEntities}
+              params={params}
+              data={entity}
+              closeModal={closeModal}
+              isEditting={true}
+              escritura_lectura={escritura_lectura}
+              />
+          )}
+        </Suspense>
 
       </div>
     );

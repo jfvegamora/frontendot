@@ -1,7 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 
 import {
   PrimaryButtonsComponent,
@@ -9,22 +9,13 @@ import {
   TableComponent,
 } from "../../components";
 import { useEntityUtils, usePermission } from "../../hooks";
-import FAccesorios from "../forms/FAccesorios";
 import { TITLES, table_head_accesorios } from "../../utils";
+import { AccesoriosEnum } from "../../Enums";
 
-export enum EnumGrid {
-  codigo = 1,
-  descripcion = 2,
-  ubicacion = 3,
-  stock_minimo = 4,
-  stock_reservado = 5,
-  stock_disponible = 6,
-  marca_id = 7,
-  marca = 8,
-  proveedor_id = 9,
-  proveedor = 10,
-  precio_neto = 11,
-}
+
+const FAccesorios = React.lazy(()=>import("../forms/FAccesorios"));
+
+
 
 const strEntidad = "Accesorio ";
 const strEntidadExcel = "Accesorios";
@@ -72,7 +63,7 @@ const MAccesorios: React.FC = () => {
   const strParamsToDelete = '_p1'
 
   useEffect(() => {
-    const newPkToDelete = selectedRows.map((row: number) => `'${entities[row][EnumGrid.codigo]}'`);
+    const newPkToDelete = selectedRows.map((row: number) => `'${entities[row][AccesoriosEnum.codigo]}'`);
     const combinedPks = newPkToDelete.join(',');
 
     setPkToDelete([`${strParamsToDelete}=${combinedPks}`]);
@@ -163,30 +154,34 @@ const MAccesorios: React.FC = () => {
         />
       </div>
 
-      {isModalInsert && (
-        <FAccesorios
-          label={`${TITLES.ingreso} ${strEntidad}`}
-          closeModal={closeModal}
-          selectedRows={selectedRows}
-          setEntities={setEntities}
-          params={params}
-          isEditting={false}
-          escritura_lectura={escritura_lectura}
-        />
-      )}
 
-      {isModalEdit && (
-        <FAccesorios
-          label={`${TITLES.edicion} ${strEntidad}`}
-          selectedRows={selectedRows}
-          setEntities={setEntities}
-          params={params}
-          data={entity}
-          closeModal={closeModal}
-          isEditting={true}
-          escritura_lectura={escritura_lectura}
-        />
-      )}
+
+     <Suspense>
+        {isModalInsert && (
+          <FAccesorios
+            label={`${TITLES.ingreso} ${strEntidad}`}
+            closeModal={closeModal}
+            selectedRows={selectedRows}
+            setEntities={setEntities}
+            params={params}
+            isEditting={false}
+            escritura_lectura={escritura_lectura}
+          />
+        )}
+
+        {isModalEdit && (
+          <FAccesorios
+            label={`${TITLES.edicion} ${strEntidad}`}
+            selectedRows={selectedRows}
+            setEntities={setEntities}
+            params={params}
+            data={entity}
+            closeModal={closeModal}
+            isEditting={true}
+            escritura_lectura={escritura_lectura}
+          />
+        )}
+     </Suspense>
 
 
 

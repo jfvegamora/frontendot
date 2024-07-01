@@ -11,9 +11,8 @@ import { URLBackend } from '../../hooks/useCrud';
 import TextInputInteractive from '../forms/TextInputInteractive';
 import { toast } from 'react-toastify';
 import { fetchReservaBeneficiario } from '../../utils/FReservaArmazones_utils';
-import { signal } from '@preact/signals-react';
+import { clearRutCliente } from '../../utils/FOTClientes_utils';
 // import { useModal } from '../../hooks/useModal';
-
 
 interface IClientes {
     control:any,
@@ -25,7 +24,6 @@ interface IClientes {
     isEditting?:boolean;
 }
 
-export const clearRutCliente = signal<boolean>(false);
 
 
 const FOTClientes:React.FC<IClientes> = ({

@@ -5,26 +5,29 @@ import { SiAddthis } from 'react-icons/si';
 import { PiPrinterFill } from "react-icons/pi";
 import { PiMicrosoftExcelLogoFill } from "react-icons/pi";
 import { BUTTON_MESSAGES, clearAllCheck, clearIndividualCheck, disabledIndividualCheck, reiniciarValidationNivel3, updateOT } from '../utils';
-import ImportToCsv from './ImportToCsv';
 import { AppStore, useAppDispatch, useAppSelector } from '../../redux/store';
 import { toast } from 'react-toastify';
 import { clearImpression, fetchOT, fetchOTImpresionByID} from '../../redux/slices/OTSlice';
 
 import axios from 'axios';
 import { URLBackend } from '../hooks/useCrud';
-import ErrorOTModal from './ErrorOTModal';
 import { useReactToPrint } from 'react-to-print';
-import FOTTicketImpresion from '../views/forms/FOTTicketImpresion';
 import { EnumGrid } from '../views/mantenedores/MOTHistorica';
 import { checkCount, paramsOT } from '../views/mantenedores/MOT';
 import { signal } from '@preact/signals-react';
-import { focusFirstInput } from '../components/OTForms/FOTValidarBodega';
 import { setEstadoImpresion } from './OTGrillaButtons';
 import { SocialIcon } from 'react-social-icons';
-// import WhastappForm from '../components/WhastappForm';
+// import WhastappForm from '../components/WhastappForm'
+
+
+
+
+
+
+;
 
 type AreaButtonsProps ={
-    areaName:string;
+  areaName:string;
     areaPermissions:string;
     params:any;
     areaActual:string;
@@ -43,14 +46,19 @@ const valueConfirmOT = signal<any>('');
 const strEntidad     = "Ordenen de Trabajo";
 const strBaseUrl     = "/api/ot/";
 
-const ExportCSV         = React.lazy(()=>import('./ExportToCsv'))
-const FOTValidarBodega  = React.lazy(()=>import('../components/OTForms/FOTValidarBodega'));
+
+
+const ErrorOTModal        = React.lazy(()=>import("./ErrorOTModal"));
+const FOTTicketImpresion  = React.lazy(()=>import("../views/forms/FOTTicketImpresion"))
+const ImportToCsv         = React.lazy(()=>import("./ImportToCsv"));
+const ExportCSV           = React.lazy(()=>import('./ExportToCsv'))
+const FOTValidarBodega    = React.lazy(()=>import('../components/OTForms/FOTValidarBodega'));
 // const FOTWhastApp       = React.lazy(()=>import('../components/WhastappForm'))
-const FOTImpresa        = React.lazy(()=>import('../views/forms/FOTImpresa'));
-const FOTEmpaque        = React.lazy(()=>import('../views/forms/FOTEmpaque'));
-const FOTGuiaDespacho   = React.lazy(()=>import('../views/forms/FOTGuiaDespacho'));
-const FOTReporteFirma   = React.lazy(()=>import('../views/forms/FOTReporteFirma'));
-const FOTWhastApp       = React.lazy(()=>import('../components/WhastappForm'));
+const FOTImpresa          = React.lazy(()=>import('../views/forms/FOTImpresa'));
+const FOTEmpaque          = React.lazy(()=>import('../views/forms/FOTEmpaque'));
+const FOTGuiaDespacho     = React.lazy(()=>import('../views/forms/FOTGuiaDespacho'));
+const FOTReporteFirma     = React.lazy(()=>import('../views/forms/FOTReporteFirma'));
+const FOTWhastApp         = React.lazy(()=>import('../components/WhastappForm'));
 
 export const EnumAreas:any = {
   10: 0,
@@ -81,6 +89,14 @@ export const validationStateOT = (positionCampo:number, nameCampo:string, folios
   })
 };
 
+const focusFirstInput = (strInputName: string, ref: React.RefObject<any>) => {
+  if (ref.current) {
+    const firstInput = ref.current.querySelector(`input[name=${strInputName}]`);
+    if (firstInput) {
+      (firstInput as HTMLInputElement).focus();
+    }
+  }
+};
 
 const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
     areaPermissions,
@@ -328,7 +344,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
       const url = `${URLBackend}/api/downloadexcel/`;
       const formData = new FormData();
       //'MacroOT.xlsm'
-      formData.append('ENTIDAD', 'Reporte_entrega.xlsx'); // Aquí agregas el valor del macro que deseas enviar
+      formData.append('ENTIDAD', 'MacroOT.xlsm'); // Aquí agregas el valor del macro que deseas enviar
 
 
 
@@ -346,7 +362,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
       const blobUrl = window.URL.createObjectURL(new Blob([data]));
       const link = document.createElement('a');
       link.href = blobUrl;
-      link.setAttribute('download', 'macro_ot2.xlsx');
+      link.setAttribute('download', 'MacroOT.xlsm');
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -510,7 +526,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
         )
         }
        
-       {/* <Suspense> */}
+       <Suspense>
           {areaPermissions && areaPermissions[3] === "1" && permisos_usuario_areas === '1' && (
             <div className="mr-2">
               <ExportCSV
@@ -521,15 +537,24 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
             />
             </div>
           )}
-       {/* </Suspense> */}
+       </Suspense>
 
-        {areaPermissions && areaPermissions[4] === "1" && permisos_usuario_areas === '1' && (
-          <ImportToCsv
-           strEntidad={strEntidad}
-          //  params={params}
-          //  strBaseUrl={strBaseUrl}
-        />
-        )}
+
+
+
+          <Suspense>
+            {areaPermissions && areaPermissions[4] === "1" && permisos_usuario_areas === '1' && (
+              <Suspense>
+                <ImportToCsv
+                strEntidad={strEntidad}
+                //  params={params}
+                //  strBaseUrl={strBaseUrl}
+                />
+            </Suspense>
+              )}
+
+          </Suspense>
+ 
 
 
         {areaPermissions && areaPermissions[2] === '1' && permisos_usuario_areas === '1' && (
@@ -600,36 +625,30 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
         )}
         
 
-        {isWhastApp && (
-          <Suspense>
-            <FOTWhastApp onClose={()=>setIsWhastApp(false)}/>
-          </Suspense>
-        )}
+        <Suspense>
+          {isWhastApp && (
+              <FOTWhastApp onClose={()=>setIsWhastApp(false)}/>
+          )}
+        </Suspense>
+
+        <Suspense>
+          {isFotTicketRetiro && (
+            <FOTTicketImpresion ref={SecondcomponentRef}/>
+          )}  
+        </Suspense>
+
+        <Suspense>
+          {isFOTImpresa && (
+            <FOTImpresa ref={componentRef} masivo={true} />
+          )}
+        </Suspense>
 
 
-        {isFotTicketRetiro && (
-          <Suspense>
-            <div className="hidden">
-              <FOTTicketImpresion ref={SecondcomponentRef}/>
-            </div>
-          </Suspense>
-        )}  
-
-
-        {isFOTImpresa && (
-          <Suspense>
-            <div className="hidden">
-              <FOTImpresa ref={componentRef} masivo={true} />
-            </div>
-          </Suspense>
-        )}
-
-
+        <Suspense>
         {isFOTValidarBodega && (
-          <Suspense>
             <FOTValidarBodega pkToDelete={pkToDelete}  handleClose={()=>setIsFOTValidarBodega(false)}/>
-          </Suspense>
-        )}
+          )}
+        </Suspense>
 
           <div className='ml-2'>
             <Input 
@@ -720,10 +739,11 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
           )}
 
           
-
-        {isShowErrorOTModal && (
-          <ErrorOTModal onClose={()=>setIsShowErrorOTModal(false)} data={dataOT && dataOT} valueConfirmOT={valueSearchOT}/>
-        )}
+        <Suspense>
+          {isShowErrorOTModal && (
+            <ErrorOTModal onClose={()=>setIsShowErrorOTModal(false)} data={dataOT && dataOT} valueConfirmOT={valueSearchOT}/>
+          )}
+        </Suspense>  
 
 
           <Suspense>

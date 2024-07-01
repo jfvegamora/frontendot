@@ -10,7 +10,7 @@ interface IExportToPdf{
   strBaseUrl?:string
 }
 
-export const ExportToPDF:React.FC<IExportToPdf> = ({
+const ExportToPDF:React.FC<IExportToPdf> = ({
   proyecto_codigo,
   establecimiento_id,
   strBaseUrl
@@ -92,3 +92,4 @@ export const ExportToPDF:React.FC<IExportToPdf> = ({
         )
 };
 
+export default ExportToPDF;

@@ -10,6 +10,7 @@ import {
   TableComponent,
 } from "../../components";
 import { table_head_reserva_armazones } from "../../utils";
+import { ReservaArmazonesEnum } from "../../Enums";
 // import FProyectosDocum from "../forms/FProyectosDocum";
 
 const strEntidad = "Reserva de Armazones ";
@@ -18,21 +19,6 @@ const strBaseUrl = "/api/otreservaarmazones/";
 const strQuery = "01";
 const idMenu = 42;
 
-export enum EnumGrid {
-  cliente_rut            =1,
-  proyecto               =2, 
-  proyecto_titulo        =3,
-  punto_venta_id         =4,
-  punto_venta            =5,
-  tipo_anteojo_id        =6,
-  tipo_anteojo           =7,
-  dp                     =8,
-  cod_armazon1           =9,
-  cod_armazon2           =10,
-  cod_armazon3           =11,
-  usuario_id             =12,
-  usuario                =13,
-}
 
 
 const MReservaArmazones: React.FC = () => {
@@ -75,11 +61,11 @@ const MReservaArmazones: React.FC = () => {
     useEffect(() => {    
       const newPkToDelete = selectedRows.map((row: number) => 
        `{
-        "rut"           :"${entities[row][EnumGrid.cliente_rut]}", 
-        "punto_venta"   : ${entities[row][EnumGrid.punto_venta_id]}, 
-        "tipo_anteojo"  : ${entities[row][EnumGrid.tipo_anteojo_id]},
-        "armazon_1"     :"${entities[row][EnumGrid.cod_armazon1]}",
-        "armazon_2"     :"${entities[row][EnumGrid.cod_armazon2]}"  
+        "rut"           :"${entities[row][ReservaArmazonesEnum.cliente_rut]}", 
+        "punto_venta"   : ${entities[row][ReservaArmazonesEnum.punto_venta_id]}, 
+        "tipo_anteojo"  : ${entities[row][ReservaArmazonesEnum.tipo_anteojo_id]},
+        "armazon_1"     :"${entities[row][ReservaArmazonesEnum.cod_armazon1]}",
+        "armazon_2"     :"${entities[row][ReservaArmazonesEnum.cod_armazon2]}"  
       }`);
       const combinedPks = newPkToDelete.join(',');
   

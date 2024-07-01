@@ -1,0 +1,16 @@
+export enum ProyectosDocumEnum {
+  proyecto = 1,
+  titulo = 2,
+  fecha_hora = 3,
+  tipo_doc_id = 4,
+  tipo_doc = 5,
+  numero_doc = 6,
+  fecha_doc = 7,
+  total_neto = 8,
+  tipo_doc_ref_id = 9,
+  tipo_doc_ref = 10,
+  numero_doc_ref = 11,
+  usuario_id = 12,
+  usuario = 13,
+  observaciones = 14,
+}

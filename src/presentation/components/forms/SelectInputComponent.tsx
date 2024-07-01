@@ -85,31 +85,26 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     const {token} = useAppSelector((store: AppStore) => store.user);
 
 
+    const strTableName = React.useMemo(() => 
+                                  entidad[3] 
+                                      ? `${entidad[2] && `_p1=${entidad[2]}&${entidad[3]}`}` 
+                                      : `${entidad[2] && `_p1=${entidad[2]}`}`
+    , [entidad]);
 
-    // const _p1 =  entidad[2] && `_p1=${entidad[2]}`   
-
-    // const strUrl2 = strTableName ? `${URLBackend}${entidad[0]}listado/?query=${entidad[1]}&${strTableName}`
-    //                              : `${URLBackend}${entidad[0]}listado/?query=${entidad[1]}`;
-
-    const strTableName = React.useMemo(() => entidad[3] ? `${entidad[2] && `_p1=${entidad[2]}&${entidad[3]}`}` : `${entidad[2] && `_p1=${entidad[2]}`}`, [entidad]);
-
-    const strUrl2 = React.useMemo(() => strTableName ? `${URLBackend}${entidad[0]}listado/?query=${entidad[1]}&${strTableName}` : `${URLBackend}${entidad[0]}listado/?query=${entidad[1]}`, [strTableName, entidad]);
-
-
-
-    
+    const strUrl2 = React.useMemo(() => strTableName !== 'undefined' ? `${URLBackend}${entidad[0]}listado/?query=${entidad[1]}&${strTableName}` : `${URLBackend}${entidad[0]}listado/?query=${entidad[1]}`, [strTableName, entidad, data]);
     const state = useAppSelector((store: AppStore) => store.listBox);
       
 
     const fetchSelectData =React.useCallback(async()=>{
+      if(state.hasOwnProperty(label)){
+        return;
+      }
+
       const {data} = await axios(strUrl2,{
         headers: {
            'Authorization': token, 
          }
        })
-
-
-
       if(label === 'Punto de Venta' || label === 'Operativo'){
         if(data && data[0]){
           if(!isEditting && isOT){
@@ -119,12 +114,8 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
             codPuntoVenta.value = data[0][0]
             punto_venta.value = data[0][0]
             setStrSelectedName(data[0][0])
-          }
-        }
-      
-      
-
-      }
+            // setEntities(data[0][0])
+        }}}
       const payload = {
         [label]:data
       }
@@ -140,12 +131,11 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
       }else{
         setEntities(state[label])
       }
-
     },[state, label])
 
    React.useEffect(()=>{
-        fetchSelectData()
-    },[strUrl2,data])
+      fetchSelectData()
+    },[strUrl2, data])
 
 
     React.useEffect(()=>{

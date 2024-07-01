@@ -306,8 +306,11 @@ const MOT: React.FC = () => {
 
     </div> */}
 
-
-        <StateCountBarOT  checkCount={checkCount}/>
+        <Suspense>
+          {OTs?.data.length > 1 && (
+            <StateCountBarOT  checkCount={checkCount}/>
+          )}
+        </Suspense>
  
 
       <Suspense>
@@ -322,9 +325,7 @@ const MOT: React.FC = () => {
             isMOT={false}
           />
         )}
-      </Suspense>
-      
-      <Suspense>
+     
         {isModalEdit && (
           <FOT
             label={`${TITLES.edicion} ${strEntidad}`}

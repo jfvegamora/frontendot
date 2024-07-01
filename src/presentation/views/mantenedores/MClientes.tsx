@@ -1,7 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 
 import {
   PrimaryButtonsComponent,
@@ -9,9 +9,10 @@ import {
   TableComponent,
 } from "../../components";
 import { useEntityUtils, usePermission } from "../../hooks";
-import FClientes from "../forms/FClientes";
 import { TITLES, table_head_clientes } from "../../utils";
 
+
+const FClientes = React.lazy(()=>import("../forms/FClientes"));
 
 export enum EnumGrid {
   rut = 1,
@@ -163,30 +164,33 @@ const MClientes: React.FC = () => {
         />
       </div>
 
-      {isModalInsert && (
-        <FClientes
-          label={`${TITLES.ingreso} ${strEntidad}`}
-          closeModal={closeModal}
-          selectedRows={selectedRows}
-          setEntities={setEntities}
-          params={params}
-          isEditting={false}
-          escritura_lectura={escritura_lectura}
-        />
-      )}
+      <Suspense>
+        {isModalInsert && (
+          <FClientes
+            label={`${TITLES.ingreso} ${strEntidad}`}
+            closeModal={closeModal}
+            selectedRows={selectedRows}
+            setEntities={setEntities}
+            params={params}
+            isEditting={false}
+            escritura_lectura={escritura_lectura}
+          />
+        )}
 
-      {isModalEdit && (
-        <FClientes
-          label={`${TITLES.edicion} ${strEntidad}`}
-          selectedRows={selectedRows}
-          setEntities={setEntities}
-          params={params}
-          data={entity}
-          closeModal={closeModal}
-          isEditting={true}
-          escritura_lectura={escritura_lectura}
-        />
-      )}
+        {isModalEdit && (
+          <FClientes
+            label={`${TITLES.edicion} ${strEntidad}`}
+            selectedRows={selectedRows}
+            setEntities={setEntities}
+            params={params}
+            data={entity}
+            closeModal={closeModal}
+            isEditting={true}
+            escritura_lectura={escritura_lectura}
+          />
+        )}
+      </Suspense>
+
   
      
     

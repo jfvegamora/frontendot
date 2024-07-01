@@ -1,21 +1,23 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState, useEffect } from "react";
-import { IconButton, Tooltip, Typography } from "@material-tailwind/react";
+import React, { useState, useEffect, Suspense } from "react";
+import { IconButton, Spinner, Tooltip, Typography } from "@material-tailwind/react";
 import { PencilIcon } from "@heroicons/react/24/solid";
 import { BsFillXSquareFill } from "react-icons/bs";
 import { BsPersonLock } from "react-icons/bs";
 import { usePermission } from "../hooks";
 import { BUTTON_MESSAGES, clearAllCheck, clearIndividualCheck, disabledIndividualCheck } from "../utils";
-import {ExportToPDF} from "./ExportToPDF";
 // import  ExportCSV  from "./ExportToCsv";
 import { AppStore, useAppSelector } from "../../redux/store";
-import OTGrillaButtons from "./OTGrillaButtons";
 
-import { EnumGrid as EnumArmazones } from "../views/mantenedores/MArmazones";
-import { EnumGrid as EnumCristales } from "../views/mantenedores/MCristales";
-import { EnumGrid as EnumAccesorios } from "../views/mantenedores/MAccesorios";
-import { EnumGrid as EnumProyectoDocum } from "../views/mantenedores/MProyectosDocum";
-import ExportToCsv from "./ExportToCsv";
+import { CristalesEnum, AccesoriosEnum, ArmazonesEnum, ProyectosDocumEnum } from "../Enums";
+
+const OTGrillaButtons = React.lazy(()=>import("./OTGrillaButtons"));
+const ExportToPDF     = React.lazy(()=>import("./ExportToPDF"));
+const ExportToCsv     = React.lazy(()=>import("./ExportToCsv"));
+
+
+
+
 
 
 interface ITableComponentProps<T> {
@@ -86,16 +88,16 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
     
     switch (entidad) {
       case 'Armazón ':
-        enumGird = EnumArmazones
+        enumGird = ArmazonesEnum
         break;
       case 'Cristal ':
-        enumGird = EnumCristales
+        enumGird = CristalesEnum
         break
       case 'Accesorio ':
-        enumGird = EnumAccesorios
+        enumGird = AccesoriosEnum
         break
       case 'Documentación del Proyecto ':
-        enumGird = EnumProyectoDocum
+        enumGird = ProyectosDocumEnum
         break;
       default:
         break;
@@ -177,9 +179,9 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                           </IconButton>
                         </Tooltip>
          )}
-          {isOT && (
 
-            <>
+          {isOT && (
+            <Suspense fallback={<Spinner className="h-10 w-10 ml-4" style={{ color: '#f39c12' }} />}>
               <OTGrillaButtons
                 areaPermissions={OTPermissions}
                 id={id}
@@ -188,8 +190,8 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                 entidad={entidad}
                 historica={entidad === 'Orden de Trabajo Histórico' ? true : false}
                 estado={estado}
-              />
-            </>
+                />
+            </Suspense>
           )}
         </>
 
@@ -323,24 +325,29 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                         </Tooltip>
                       )}
                         
-                        {escritura_lectura && showPdfButton &&(     
-                          <ExportToPDF proyecto_codigo={rowData[1]} establecimiento_id={rowData[4]} strBaseUrl={strBaseUrl}/>
-                        )}
+                        <Suspense>
+                          {escritura_lectura && showPdfButton &&(     
+                            <ExportToPDF proyecto_codigo={rowData[1]} establecimiento_id={rowData[4]} strBaseUrl={strBaseUrl}/>
+                          )}
+                        </Suspense>
                         
-                        {escritura_lectura && showExcelButton && excelIndividual && (
-                          <div
-                           onClick={()=>{
-                             toggleExcel && toggleExcel(rowIndex)
-                           }}
-                          >
-                            <ExportToCsv
-                              strEntidad={entidad}
-                              strBaseUrl={strBaseUrl}
-                              query={'aasasa'}
-                              entity={rowData}
-                            />
-                          </div>
-                        )}
+
+                        <Suspense>
+                          {escritura_lectura && showExcelButton && excelIndividual && (
+                            <div
+                            onClick={()=>{
+                              toggleExcel && toggleExcel(rowIndex)
+                            }}
+                            >
+                              <ExportToCsv
+                                strEntidad={entidad}
+                                strBaseUrl={strBaseUrl}
+                                query={'aasasa'}
+                                entity={rowData}
+                              />
+                            </div>
+                          )}
+                        </Suspense>
 
                     </div>
                     
