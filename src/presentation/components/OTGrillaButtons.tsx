@@ -305,7 +305,7 @@ const imprimirComprobanteRetiro = async(tipoComprobante?:string) => {
                             handleImpresion(folio)
                         }}
                     >
-                        <PiPrinterFill className="gridIcons" />
+                        <PiPrinterFill />
                         
                     </IconButton>
                 </Tooltip>

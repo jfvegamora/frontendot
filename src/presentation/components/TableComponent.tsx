@@ -6,7 +6,6 @@ import { BsFillXSquareFill } from "react-icons/bs";
 import { BsPersonLock } from "react-icons/bs";
 import { usePermission } from "../hooks";
 import { BUTTON_MESSAGES, clearAllCheck, clearIndividualCheck, disabledIndividualCheck } from "../utils";
-// import  ExportCSV  from "./ExportToCsv";
 import { AppStore, useAppSelector } from "../../redux/store";
 
 import { CristalesEnum, AccesoriosEnum, ArmazonesEnum, ProyectosDocumEnum } from "../Enums";
@@ -143,12 +142,14 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
     };
     let lowArmazonesStock = false;
 
+
     React.useEffect(()=>{
       if(clearIndividualCheck.value === true){
         setSelectedRows([])
         clearIndividualCheck.value = false
       }
     },[clearIndividualCheck.value])
+
 
     const renderCheckboxCell = (id: number, folio:number, estado?:any) => {
       return (

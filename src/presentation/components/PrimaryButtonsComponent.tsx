@@ -14,7 +14,9 @@ import { AppStore, useAppSelector } from "../../redux/store";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faClone, faTrash, faArrowRightToBracket, faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 // import { PiMicrosoftExcelLogoFill } from "react-icons/pi";
-const PiMicrosoftExcelLogoFill = React.lazy(() => import('react-icons/pi').then(module => ({ default: module.PiMicrosoftExcelLogoFill })));
+
+
+const PiMicrosoftExcelLogoFill:any = React.lazy(() => import('react-icons/pi').then(module => ({ default: module.PiMicrosoftExcelLogoFill })));
 
 import axios from "axios";
 import { URLBackend } from "../hooks/useCrud";
