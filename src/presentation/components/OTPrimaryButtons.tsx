@@ -108,6 +108,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
 }) => {
     const dispatch                                    = useAppDispatch();
     const OTAreas:any                                 = useAppSelector((store: AppStore) => store.OTAreas)
+    const OTData:any                                  = useAppSelector((store: AppStore) => store.OTS.data)
     const User:any                                    = useAppSelector((store: AppStore) => store.user)
     const componentRef                                = useRef<any>(null);
     const SecondcomponentRef                          = useRef<any>(null);
@@ -172,6 +173,10 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
       
       if(!validateUsuario){
         toast.dismiss(toastLoading);
+        console.log('render')
+        disabledIndividualCheck.value = false;
+        clearAllCheck.value = false;
+        setSelectedRows([])
         toast.error(`OT ${folios} no pertenece al Usuario ${User.nombre}`);
         return;
       }
@@ -180,13 +185,17 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
       
       if(!impresaAnteriormente){
         toast.dismiss(toastLoading);
-        disabledIndividualCheck.value = false;        
+        disabledIndividualCheck.value = false;
+        clearAllCheck.value = false;
+        setSelectedRows([])        
         return toast.error(`La OT con folio: ${pkToDelete.filter((ot:any)=> ot.estado_impresion === '1').map((ot:any)=>ot.folio)}, ya fueron impresas anteriormente.`)
         
       }
 
       if(!todosIguales){
-        disabledIndividualCheck.value = false;        
+        disabledIndividualCheck.value = false;   
+        clearAllCheck.value = false;
+        setSelectedRows([])     
         toast.error('Las OTs no pertenecen al mismo proyecto')
         return;
       }
@@ -200,10 +209,16 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
 
 
       try {
+        setEstadoImpresion(pkToDelete,OTAreas["areaActual"], true, User).then(()=>{
           toast.dismiss(toastLoading)
-          disabledIndividualCheck.value = false;        
+          disabledIndividualCheck.value = false; 
+          clearAllCheck.value = false;
+          setSelectedRows([])
+        })       
         } catch (error) {
           toast.dismiss(toastLoading)
+          clearAllCheck.value = false;
+          setSelectedRows([])
           disabledIndividualCheck.value = false;        
           return;    
         }
@@ -306,6 +321,8 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
 
     const handleChecked = async(folio:any) => {
       console.log(folio)
+
+      console.log(OTData)
       if(folio === ''){
         return;
       }
@@ -322,12 +339,13 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
         return resultIndex
 
       }else{
-        const {data:dataOT} = await axios(`${URLBackend}/api/ot/listado/?query=01&_p1=${folio}`,{
+        const {data:dataOT} = await axios(`${URLBackend}/api/ot/listado/?query=02&_p1=${folio}`,{
           headers: {
              'Authorization': User.token, 
            }
         });
-
+        
+        console.log(dataOT)
         if(dataOT){
           setDataOT(dataOT)
           setIsShowErrorOTModal(true)
@@ -639,7 +657,9 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
 
         <Suspense>
           {isFOTImpresa && (
-            <FOTImpresa ref={componentRef} masivo={true} />
+            <div className='hidden'>
+              <FOTImpresa ref={componentRef} masivo={true} />
+            </div>
           )}
         </Suspense>
 

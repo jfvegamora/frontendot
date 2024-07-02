@@ -118,6 +118,9 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
     }, [data]);
 
 
+  
+
+
     const handleColorEstado = (rowData:any, background?:string) => {
       try {
         if(OTColores[rowData]){
@@ -159,9 +162,13 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
               selectedRows && selectedRows.includes(id)                                     
             }
             onChange={() => {
+              if(clearAllCheck.value && selectedRows?.includes(id)){
+                const newSelectedRows = selectedRows?.filter((checkId:number)=>checkId !==  id)
+                return setSelectedRows(newSelectedRows)
+              }
               handleSelectChecked && handleSelectChecked(id)
             }}
-            type="checkbox"
+            type="checkbox" 
             disabled={disabledIndividualCheck.value}
             className="mx-6"
             
@@ -217,6 +224,9 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                         type="checkbox"
                         checked={clearAllCheck.value}
                         onChange={(e) =>{
+                          console.log('click')
+                          console.log(clearAllCheck.value)
+                          console.log(disabledIndividualCheck.value)
                           clearAllCheck.value = !clearAllCheck.value
                           handleSelectedCheckedAll &&
                           handleSelectedCheckedAll(e, rowIds)

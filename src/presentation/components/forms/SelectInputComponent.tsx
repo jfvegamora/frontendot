@@ -95,18 +95,64 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     const state = useAppSelector((store: AppStore) => store.listBox);
       
 
+
+
+
     const fetchSelectData =React.useCallback(async()=>{
-      if(state.hasOwnProperty(label)){
-        return;
+      const reFetchData = {
+        'Punto de Venta':""
       }
 
+
+      // if(label === 'Punto de Venta'){
+      //   console.log(entidad)
+      //   console.log(strSelectedName)
+      //   console.log(strTableName)
+      //   console.log(!entidad[2])
+      //   console.log(Object.keys(state).some((key)=>key === 'Punto de Venta'))
+      // }
+
+
+
+
+
+      // console.log('render')
+      // console.log(state)
+      // console.log(Object.keys(state))
+      // console.log(label)
+      // console.log(state.hasOwnProperty(label))
+
+
+      // console.log(Object.keys(state).some((key)=> key === label))
+
+      
+      if(Object.keys(state).some((key)=> key === label)){
+        // console.log(label)
+        // console.log(entidad)
+        // console.log(entidad[2])
+        // // if(!entidad[2]){
+        //   console.log(label)
+        //   console.log(state)
+        //   return;
+        // }
+
+        return
+      }
+
+
+      // console.log(label)
       const {data} = await axios(strUrl2,{
         headers: {
            'Authorization': token, 
          }
        })
+
+      
+
       if(label === 'Punto de Venta' || label === 'Operativo'){
+        console.log('render')
         if(data && data[0]){
+          console.log('render')
           if(!isEditting && isOT){
             if(formValues?.["punto_venta_id"] !== undefined){
               return;
@@ -119,10 +165,11 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
       const payload = {
         [label]:data
       }
+      console.log(payload)
       dispatch(setDataListbox(payload))
       setEntities(data)
       
-    },[strUrl2, label, token, isEditting, isOT, formValues])
+    },[strUrl2, label, token, isEditting, isOT, formValues,state])
 
 
     React.useEffect(()=>{

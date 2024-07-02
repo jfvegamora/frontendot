@@ -515,7 +515,7 @@ return (
                     <div className="">
                         <TextInputInteractive
                             type="number"
-                            label="Nota de Venta"
+                            label="Nota de Venta / boleta "
                             name="nota_venta"
                             handleChange={handleInputChange}
                             data={formValues ? formValues["nota_venta"] : data && data[EnumGrid.nota_venta]}

@@ -239,7 +239,7 @@ const MOT: React.FC = () => {
                 { name: "_p3", label: "Número Doc", type: "text", styles: { with: "w-[18.4rem]", container:"translate-x-[12rem] translate-y-[-0.6rem]" }},
                 
                 { name: "_establecimiento", label: "Establecimiento", type: "select", selectUrl: "/api/establecimientos/", styles: { with: "w-[20.4rem]", container: "w-[8rem] translate-x-[-3rem]  translate-y-[0.3rem]" }},
-                { name: "_punto_venta", label: "Punto Venta", type: "select", selectUrl: "/api/puntosventa/", styles: { with: "w-[20.4rem] translate-x-[-18rem]  translate-y-[5rem] " }},
+                { name: "_punto_venta", label: "Punto de Venta", type: "select", selectUrl: "/api/puntosventa/", styles: { with: "w-[20.4rem] translate-x-[-18rem]  translate-y-[5rem] " }},
 
               ]}
             />

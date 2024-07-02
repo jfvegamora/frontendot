@@ -1,14 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { IconButton, Input, Tooltip } from "@material-tailwind/react";
 // import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import { SelectInputComponent } from ".";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowsRotate, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-import SelectInputTiposComponent from "./forms/SelectInputTiposComponent";
 import { useAppDispatch } from "../../redux/store";
 import { fetchOT } from "../../redux/slices/OTSlice";
 import { useCrud } from "../hooks";
@@ -18,6 +16,16 @@ import { areaActualOT } from "./OTAreasButtons";
 import { signal } from "@preact/signals-react";
 import { filterToggle } from "./FilterButton";
 // import { sesionExpirada } from "../../redux/slices/userSlice";
+
+
+// import SelectInputTiposComponent from "./forms/SelectInputTiposComponent";
+// import SelectInputComponent  from "./forms/SelectInputComponent";
+// SelectInputComponent
+
+const SelectInputComponent      = React.lazy(()=>import("./forms/SelectInputComponent"))
+const SelectInputTiposComponent  = React.lazy(()=>import("./forms/SelectInputTiposComponent"))
+
+
 
 interface IPrimaryKeyState {
   [key: string]: string | number;
@@ -330,6 +338,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
               ) : input.type === "select" ? (
               input.tipos ? (
                 <div className={`input-container relative  ${input.styles?.container}`}>
+                  <Suspense>
                     <SelectInputTiposComponent
                       label={input.label}
                       name={input.name}
@@ -342,10 +351,12 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                       handleSelectChange={handleSelectChange}
                       customWidth={input.styles?.with}
                     />
+                  </Suspense>
                 </div>
               ): (
                 <div className={`input-container relaative  ${input.styles?.container}`}>
                     <div className="w-full ">
+                      <Suspense>
                           <SelectInputComponent
                             label={input.label}
                             name={input.name}
@@ -362,6 +373,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                             handleSelectChange={handleSelectChange}
                             customWidth={input.styles?.with}
                           />
+                      </Suspense>
                     </div>
                   </div>
               )

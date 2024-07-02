@@ -304,8 +304,10 @@ const imprimirComprobanteRetiro = async(tipoComprobante?:string) => {
                             folioActual.value = folio;
                             handleImpresion(folio)
                         }}
-                    >
-                        <PiPrinterFill />
+                    >   
+                        <Suspense>
+                            <PiPrinterFill />
+                        </Suspense>
                         
                     </IconButton>
                 </Tooltip>

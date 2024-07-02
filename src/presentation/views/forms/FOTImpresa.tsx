@@ -4,8 +4,9 @@ import Barcode from 'react-barcode';
 
 import { formatNumberWithZeros } from '../../utils';
 import FOTTicketImpresion from './FOTTicketImpresion';
-import FOTTicketQRImpresion from './FOTTicketQRImpresion';
+// import FOTTicketQRImpresion from './FOTTicketQRImpresion';
 import LogoImagenImpresion from '../../components/LogoImagenImpresion';
+import QRCode from 'react-qr-code';
 
 export enum EnumImpresion  {
   folio                     = 0,
@@ -126,10 +127,12 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
           <div ref={ref} className={`flex flex-col !h-auto`}>
             {OT && OT.map((list_ot: any) => (
               list_ot.map((ot:any)=>{
+                console.log(ot[EnumImpresion.numero_receta])
+
                 return(
                   // <div className={`!w-[90%] ${ot[EnumGrid.imprime_ticket] === 1 ? '!h-[180rem]' : '!h-[90rem]'}  ${((index > 0) && (ot[EnumGrid.imprime_ticket] === 1)) && '!-mt-[38rem]'}   ${(index > 0) && (ot[EnumGrid.imprime_ticket] === 0) && '!-mt-[19rem]'}`} key={ot[EnumGrid.folio]} >
-                  <div className={`!w-[90%] ${(ot[EnumImpresion.imprime_ticket] === 1 || ot[EnumImpresion.imprime_qr] === 1 ) ? '!h-[140.28rem]' : '!h-[70.14rem]'}`} key={ot[EnumImpresion.folio]} >
-                    <div className={`w-[100%] relative  ${ot[EnumImpresion.imprime_ticket] === 1 ? '!h-[3.5%]' : '!h-[7%]'} mb-4`}>
+                  <div className={`!w-[90%] !h-[70.14rem] ${(ot[EnumImpresion.imprime_ticket] === 1) ? '!h-[140.28rem]' : '!h-[70.14rem]'}`} key={ot[EnumImpresion.folio]} >
+                    <div className={`w-[100%] relative !h-[7%]  ${ot[EnumImpresion.imprime_ticket] === 1 ? '!h-[3.5%]' : '!h-[3.5%]'} mb-4`}>
                       <div className="w-[90%] mr-7  mx-auto">
                         <Barcode marginLeft={45} height={25} width={2.5} textAlign='right' value={formatNumberWithZeros(ot[EnumImpresion.folio])} />
                         <h3 className={`absolute left-3 mt-2 bottom-4`}>{fechaHoraFormateada}</h3>
@@ -382,6 +385,7 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                     <div className="header mt-1 w-[97%] !h-auto text-center2 border-black border-2 ml-3">
                       <div className="-mt-2 border-black border-b-2 !h-auto">
                         <div className="pl-6 ml-2 w-[100%] mx-auto">
+                            
                             {ot[EnumImpresion.numero_reporte_atencion] > 0 && (
                               <div className="flex text-left ">
                                 <p className='-ml-6 text-base !mt-2 font-bold w-[27%]'>N° Rep:</p>
@@ -389,36 +393,47 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                               </div>
                             )}
                             {ot[EnumImpresion.numero_reporte_atencion] > 0 && (
-                              <div className="flex text-left ">
+                              <div className="flex text-left translate-y-[-0.8rem] ">
                                 {/* <p className=' text-left text-lg   !mt-2 font-bold translate-x-[-1.5rem]'>{`Línea: ${ot[EnumImpresion.rbd_ubicacion]} / ${ot[EnumImpresion.rbd_cantidad]} Unid / RBD: ${ot[EnumImpresion.rbd]}`}</p> */}
                                 <p className=' text-left text-base   !mt-2 font-bold translate-x-[-1.5rem]'>{`Línea:${ot[EnumImpresion.rbd_ubicacion]} / ${ot[EnumImpresion.rbd_cantidad]} Unid / RBD:`}<span className="font-bold text-xl">{ot[EnumImpresion.rbd]}</span></p>
                               </div>
                             )}
 
+                            {ot[EnumImpresion.numero_receta] > 0 && (
+                              <div className="flex text-left translate-y-[-1.3rem]">
+                                {/* <p className=' text-left text-lg   !mt-2 font-bold translate-x-[-1.5rem]'>{`Línea: ${ot[EnumImpresion.rbd_ubicacion]} / ${ot[EnumImpresion.rbd_cantidad]} Unid / RBD: ${ot[EnumImpresion.rbd]}`}</p> */}
+                                <p className=' text-left text-base   !mt-2 font-bold translate-x-[-1.5rem]'>N° Receta:&nbsp;</p>
+                                <p className=' text-left text-base   !mt-2 font-bold translate-x-[-1.5rem]'>{ot[EnumImpresion.numero_receta]}</p>
+                              </div>
+                            )}
 
-                          <div className="flex text-left ">
-                            <p className='-ml-6 text-[0.80rem] !mt-2 font-bold w-[27%]'>Proyecto: </p>
-                            {/* <span>{ot[EnumGrid.proyecto_titulo]}</span> */}
-                            <p className=' text-left text-sm !mt-2'>{ot[EnumImpresion.proyecto]}</p>
+                          <div className='translate-y-[-1.5rem]'>
+                            <div className="flex text-left ">
+                              <p className='-ml-6 text-[0.80rem] !mt-2 font-bold w-[27%]'>Proyecto: </p>
+                              {/* <span>{ot[EnumGrid.proyecto_titulo]}</span> */}
+                              <p className=' text-left text-sm !mt-2'>{ot[EnumImpresion.proyecto]}</p>
+                            </div>
+                            <div className="flex text-left -mt-2">
+                              <p className='-ml-6 text-[0.80rem] !mt-2 font-bold w-[27%]'>Estab: </p>
+                              <p className=' text-left text-sm  !mt-2'>{`${ot[EnumImpresion.establecimiento]}}`}</p>
+                            </div>
+                            <div className="flex text-left -mt-2">
+                              <p className='-ml-6 text-[0.80rem] !mt-2 font-bold w-[27%]'>Comuna: </p>
+                              <p className=' text-left text-sm !mt-2'>{ot[EnumImpresion.comuna]}</p>
+                            </div>
+                            <div className="flex text-left -mt-2">
+                              <p className='-ml-6 text-[0.80rem] !mt-2 font-bold w-[27%]'>Destino: </p>
+                              <p className=' text-left text-sm !mt-2 font-bold'>{ot[EnumImpresion.lugar_despacho]}</p>
+                            </div>
                           </div>
-                          <div className="flex text-left -mt-2">
-                            <p className='-ml-6 text-[0.80rem] !mt-2 font-bold w-[27%]'>Estab: </p>
-                            <p className=' text-left text-sm  !mt-2'>{`${ot[EnumImpresion.establecimiento]}}`}</p>
-                          </div>
-                          <div className="flex text-left -mt-2">
-                            <p className='-ml-6 text-[0.80rem] !mt-2 font-bold w-[27%]'>Comuna: </p>
-                            <p className=' text-left text-sm !mt-2'>{ot[EnumImpresion.comuna]}</p>
-                          </div>
-                          <div className="flex text-left -mt-2">
-                            <p className='-ml-6 text-[0.80rem] !mt-2 font-bold w-[27%]'>Destino: </p>
-                            <p className=' text-left text-sm !mt-2 font-bold'>{ot[EnumImpresion.lugar_despacho]}</p>
-                          </div>
+
+                          
                         </div>
                       </div>
                     </div>
   
                     {/*************** O B S E R V A C I O N E S ***************/}
-                    {(ot[EnumImpresion.observaciones] && ot[EnumImpresion.observaciones] !== '') && (
+                    {(ot[EnumImpresion.observaciones] && ot[EnumImpresion.observaciones] !== ' ') && (
                       <div className='mt-0 ml-4 border-1 border-black'>
                         <div className="flex w-full">
                           <span className='ml-2 font-bold'>NOTAS:&nbsp;</span>
@@ -426,14 +441,33 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                         </div>
                       </div>
                     )}
-                    {ot[EnumImpresion.numero_receta] && (
+
+
+
+                    {/* {ot[EnumImpresion.numero_receta] && ot[EnumImpresion.numero_receta] !== 0  && (
                       <div className='-mt-[0.75rem] ml-4 border-1 border-black'>
                         <div className='flex w-full'>
                           <span className='ml-2 font-bold'>N° Receta:&nbsp;</span>
                           <span className=''>{ot[EnumImpresion.numero_receta]}</span>
-                          {/* <p className='ml-4'>{parsedDate(OT[0] && OT[0][EnumGrid.numero_receta])}</p> */}
                         </div>
                       </div>
+                    )}
+                     */}
+
+
+                    {ot[EnumImpresion.imprime_qr] === 1 && (
+                           <div className="!h-auto mr-4  translate-y-[0.3rem]">
+                            <div className="w-full text-center">
+                              <h1 className='font-bold mb-2 ml-4'>CUIDA TUS LENTES, ESCANEA CÓDIGO QR</h1>
+                            </div>
+                          
+                            <QRCode
+                              size={50}
+                              style={{ height: "auto", maxWidth: "100%", width: "40%", margin:"auto" }}
+                              value={`https://www.tinyurl.com/5n78e9vd`}
+                              viewBox={`0 0 256 256`}
+                              />
+                         </div>
                     )}
   
                     {ot[EnumImpresion.imprime_ticket] === 1 && (
@@ -441,12 +475,12 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                         <FOTTicketImpresion data={ot} />
                       </div>
                     )}
-                    {ot && ot[EnumImpresion.imprime_qr] === 1 && (
+                    {/* {ot && ot[EnumImpresion.imprime_qr] === 1 && (
                       <div className="!mt-[8rem]">
                         <FOTTicketQRImpresion />
                       </div>
                     )}
-                    
+                     */}
   
                   </div>
                 )
