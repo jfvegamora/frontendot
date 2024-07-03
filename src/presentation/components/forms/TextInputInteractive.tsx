@@ -108,6 +108,15 @@ const TextInputInteractive: React.FC<ITextInputProps> = ({
   };
   
   useEffect(()=>{
+    if (data === "") {
+      console.log('render')
+      setDefaultValue("");
+      setValue("");
+  } else {
+      setDefaultValue(data);
+      setValue(data);
+
+
     if (data !== undefined) {
       if(name === 'a2_dp'){
         if(A1_DP.value !== ''){
@@ -120,15 +129,11 @@ const TextInputInteractive: React.FC<ITextInputProps> = ({
       }
       
       
-      if (data === "") {
-          setDefaultValue("");
-          setValue("");
-      } else {
-          setDefaultValue(data);
-          setValue(data);
-      }
+    
       setRender(prev => !prev);
   }
+}
+
   },[data])
 
   
@@ -142,6 +147,14 @@ React.useEffect(()=>{
   }
 },[clearRutCliente.value])
 
+
+
+
+
+if(name === 'a1_od'){
+  console.log(value)
+  console.log(data)
+}
 
 
 

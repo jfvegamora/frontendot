@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect, Suspense } from "react";
-import { IconButton, Spinner, Tooltip, Typography } from "@material-tailwind/react";
+import { IconButton, Tooltip, Typography } from "@material-tailwind/react";
 import { PencilIcon } from "@heroicons/react/24/solid";
 import { BsFillXSquareFill } from "react-icons/bs";
 import { BsPersonLock } from "react-icons/bs";
@@ -189,7 +189,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
          )}
 
           {isOT && (
-            <Suspense fallback={<Spinner className="h-10 w-10 ml-4" style={{ color: '#f39c12' }} />}>
+            <Suspense>
               <OTGrillaButtons
                 areaPermissions={OTPermissions}
                 id={id}

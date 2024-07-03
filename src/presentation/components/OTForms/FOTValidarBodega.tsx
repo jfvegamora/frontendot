@@ -3,7 +3,7 @@ import React from 'react'
 import { useForm } from 'react-hook-form';
 import { A1_CR_OD, A1_CR_OI, A2_CR_OD, A2_CR_OI, a1_armazon, a2_armazon, codigoProyecto, tipo_de_anteojo, updateOT, validationBodegaSchema, validationNivel3 } from '../../utils';
 import TextInputInteractive from '../forms/TextInputInteractive';
-import { dataOTSignal } from '../OTPrimaryButtons';
+import { dataOTSignal, valueConfirmOT } from '../OTPrimaryButtons';
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
 // import { toast } from 'react-toastify';
 import { validationCodigoArmazon_1, validationCodigoArmazon_2, validationCodigoCristal1_od, validationCodigoCristal1_oi, validationCodigoCristal2_od, validationCodigoCristal2_oi } from '../../utils/validationOT';
@@ -12,6 +12,8 @@ import { AppStore, useAppDispatch, useAppSelector } from '../../../redux/store';
 import { fetchOT } from '../../../redux/slices/OTSlice';
 import { paramsOT } from '../../views/mantenedores/MOT';
 import { toast } from 'react-toastify';
+import { OTGrillaEnum } from '../../Enums';
+import { signal } from '@preact/signals-react';
 
 export const focusFirstInput = (strInputName: string, ref: React.RefObject<any>) => {
     if (ref.current) {
@@ -21,6 +23,10 @@ export const focusFirstInput = (strInputName: string, ref: React.RefObject<any>)
       }
     }
   };
+
+
+const cr1_od_signal = signal("");
+
 
 interface IFOTValidarBodega{
     handleClose?:any,
@@ -52,21 +58,34 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
         a2_armazon:    React.useRef<any>(null),
     }
 
-    const armazones = ([{codigo: OT && OT[EnumGrid.a1_armazon_id]}, {codigo: OT && OT[EnumGrid.tipo_anteojo_id] === 3 ? (OT && OT[EnumGrid.a2_armazon_id]) : ('')}] as any).filter((codigo:any)=>codigo.codigo !== '')
+    const armazones = ([{codigo: OT && OT[OTGrillaEnum.a1_armazon_id]}, {codigo: OT && OT[OTGrillaEnum.tipo_anteojo_id] === 3 ? (OT && OT[OTGrillaEnum.a2_armazon_id]) : ('')}] as any).filter((codigo:any)=>codigo.codigo !== '')
 
-    const cristales = ([{codigo: OT && OT[EnumGrid.cristal1_od]}, {codigo:OT && OT[EnumGrid.cristal1_oi]}, {codigo: ( OT &&OT[EnumGrid.tipo_anteojo_id] === 3 ? (OT && OT[EnumGrid.cristal2_od]) : ('') )} , {codigo: OT && OT[EnumGrid.tipo_anteojo_id] === 3 ? (OT && OT[EnumGrid.cristal2_oi]): ('')}]).filter((codigo:any)=>codigo.codigo !== '')
+    const cristales = ([{codigo: OT && OT[OTGrillaEnum.cr1_od]}, {codigo:OT && OT[OTGrillaEnum.cr1_oi]}, {codigo: ( OT &&OT[OTGrillaEnum.tipo_anteojo_id] === 3 ? (OT && OT[OTGrillaEnum.cr2_od]) : ('') )} , {codigo: OT && OT[OTGrillaEnum.tipo_anteojo_id] === 3 ? (OT && OT[OTGrillaEnum.cr2_oi]): ('')}]).filter((codigo:any)=>codigo.codigo !== '')
 
     const {
         control,
         formState: { errors },
+        handleSubmit
         
       } = useForm({
         resolver: yupResolver(schema),
     });
 
     const handleInputChange = (e:any) => {
-        const {name, value} = e;
+        let {name, value} = e;
+        let formatValue:any;
+        console.log(value)
+        console.log(value.length)
+        if(value === ''){
+            return;
+        }
 
+        if(value.length >= 12){
+            const regex = /^0+/;
+            formatValue = value.replace(regex, "")
+
+        }
+        console.log(formatValue) 
 
         setFormValues((prevFormValues: any) => ({
             ...prevFormValues,
@@ -75,27 +94,35 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
         
         
             if(name === 'a1_od'){
-                if(value.trim() === ''){
+                console.log(formatValue)
+                if(formatValue === ''){
                     validationCodigoCristal1_od('')
                 }
-                if((OT && OT[EnumGrid.cristal1_od] === value) && value.length >= 11){
+
+                if((OT && OT[OTGrillaEnum.cr1_od] === formatValue) && value.length >= 11){
                     console.log('render')
-                    validationCodigoCristal1_od(value,alreadyValidate)
+                    validationCodigoCristal1_od(formatValue,alreadyValidate)
                     focusFirstInput('a1_oi',inputsRef["a1_oi"] )
                 }else{
                     if(value.length <= 11) return;
                     console.log('render')
                     validationCodigoCristal1_od('')
+                    inputsRef.a1_od.current = ''
+
                     // toast.error('Anteojo 1, Código cristal OD no son iguales')
                     setFormValues({[name]: ''} as any)
-                }        
+                    cr1_od_signal.value = ''
+                    value = ''
+                }
+                
+                console.log(formValues)
             }
     
             if(name === 'a1_oi'){
                 if(value.trim() === ''){
                     validationCodigoCristal1_oi('')
                 }
-                if(OT && OT[EnumGrid.cristal1_oi] === value && value.length >= 11){
+                if(OT && OT[OTGrillaEnum.cr1_oi] === value && value.length >= 11){
                     validationCodigoCristal1_oi(value, alreadyValidate)
                     focusFirstInput('a1_armazon', inputsRef["a1_armazon"])
                 }else{
@@ -110,7 +137,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                 if(value.trim() === ''){
                     validationCodigoArmazon_1('')
                 }
-                if((OT && OT[EnumGrid.a1_armazon_id] === value) && value.length >= 11){
+                if((OT && OT[OTGrillaEnum.a1_armazon_id] === value) && value.length >= 11){
                     validationCodigoArmazon_1(value, alreadyValidate)
                     if(OT && OT[EnumGrid.tipo_anteojo_id] === 3){
                         console.log('render')
@@ -196,7 +223,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
             a2_armazon.value = OT[EnumGrid.a2_armazon_id]
 
             tipo_de_anteojo.value = OT[EnumGrid.tipo_anteojo_id]
-            tipo_de_anteojo.value.toString()
+        
             codigoProyecto.value = OT[EnumGrid.proyecto_codigo]
         }
         
@@ -214,15 +241,14 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
     const onSubmit = (e:any) => {
         e.preventDefault();
         const toastLoading = toast.loading('Cargando...');
-
-
-        if(OT[EnumGrid.estado_impresion_id] === '0'){
+        console.log(OT)
+        console.log(OT[OTGrillaEnum.estado_impresion] === '0')
+        if(OT[OTGrillaEnum.estado_impresion] === '0'){
             toast.dismiss(toastLoading)
             return toast.error(`OT ${pkToDelete.filter((ot:any)=> ot.estado_impresion === '0').map((ot:any)=>ot.folio)} no ha sido impresa.`) 
-          }
-    
+        }
 
-
+        console.log(UsuarioID)
         updateOT(
             [],
             OTAreas["areaActual"],
@@ -232,7 +258,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
             OT,
             cristales,
             armazones,
-            UsuarioID.toString(),
+            UsuarioID,
             "",
             true,
             '',
@@ -242,8 +268,11 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
             toast.dismiss(toastLoading)
             toast.success('OT Procesada Correctamente.')
             dispatch(fetchOT({OTAreas:OTAreas["areaActual"], searchParams: paramsOT.value}))
+            valueConfirmOT.value = ""
 
-        }).catch(()=>{
+        }).catch((e)=>{
+            console.log(e)
+            console.log('error')
             toast.dismiss(toastLoading);
         })
     }
@@ -271,7 +300,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
     return (
         <div className=" bg-[#676f9d] mx-auto xl:w-[90%] xl:left-[30rem]  absolute top-10 left-auto right-auto rounded-xl shadow-md overflow-hidden lg:left-[20rem]     sm:w-[25rem]    md:max-w-[35rem] z-40">
          <div className="absolute right-0 userFormBtnCloseContainer">
-          <h1 className='text-center text-2xl text-white mr-[12rem] mb-7'>Folio: { OT && OT[EnumGrid.folio]}</h1>
+          <h1 className='text-center text-2xl text-white mr-[12rem] mb-7'>Folio: { OT && OT[OTGrillaEnum.folio]}</h1>
           <button onClick={handleClose} className="userFormBtnClose">
             X
           </button>
@@ -280,7 +309,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
         <h1 className='h-8'></h1>
           <form 
             className="p-8 space-y-6"
-            // onSubmit={handleSubmit((data:any)=>onSubmit(data))}
+            onSubmit={handleSubmit((data:any)=>onSubmit(data))}
             // onSubmit={handleSubmit((data) => onSubmit(data))}
             // onSubmit={handleSubmit(onSubmit)}
           >
@@ -288,7 +317,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                 <div className="">
                 <h1 className='text-center text-white'>Anteojo 1</h1>
                 <div className='rowForm  !h-[4rem]'>
-                <label className='text-lg absolute  left-[3rem] top-[4.2rem]'>{OT[EnumGrid.cristal1_od]}</label>
+                <label className='text-lg absolute  left-[3rem] top-[4.2rem]'>{OT[OTGrillaEnum.cr1_od]}</label>
                 <TextInputInteractive
                     type='text'
                     label='OD'
@@ -296,6 +325,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                     handleChange={handleInputChange}
                     control={control}
                     isOT={true}
+                    // defaultValue={}
                     data={formValues && formValues["a1_od"]}
                     textAlign='text-left'
                     error={errors.a1_od}
@@ -304,7 +334,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                 />
                 </div>
                 <div className='rowForm  !h-[4rem]'>
-                <label className='text-lg absolute left-[3rem] top-[9rem]'>{OT[EnumGrid.cristal1_oi]}</label>    
+                <label className='text-lg absolute left-[3rem] top-[9rem]'>{OT[OTGrillaEnum.cr1_oi]}</label>    
                 <TextInputInteractive
                     type='text'
                     label='OI'
@@ -320,7 +350,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                 />
                 </div>
                 <div className='rowForm '>
-                <label className='text-lg absolute left-[3rem] top-[13.5rem]'>{OT[EnumGrid.a1_armazon_id]}</label>      
+                <label className='text-lg absolute left-[3rem] top-[13.5rem]'>{OT[OTGrillaEnum.a1_armazon_id]}</label>      
                 <TextInputInteractive
                     type='text'
                     label='Armazon 1'
@@ -339,11 +369,11 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
         )}
 
 
-            {OT && OT[EnumGrid.tipo_anteojo_id] === 3 && (
+            {OT && OT[OTGrillaEnum.tipo_anteojo_id] === 3 && (
                 <div className="">
                 <h1 className='text-center text-white'>Anteojo 2</h1>
                 <div className='rowForm !h-[4rem] '>
-                <label className='text-lg absolute left-[3rem] top-[19.7rem]'>{OT[EnumGrid.cristal2_od]}</label>    
+                <label className='text-lg absolute left-[3rem] top-[19.7rem]'>{OT[OTGrillaEnum.cr2_od]}</label>    
                 <TextInputInteractive
                     type='text'
                     label='OD'
@@ -356,11 +386,11 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                     error={errors.a2_od}
                     inputRef={inputsRef.a2_od}
                     validarBodega={true}
-                    onlyRead={OT && OT[EnumGrid.tipo_anteojo_id] === 3 ? false : true}
+                    onlyRead={OT && OT[OTGrillaEnum.tipo_anteojo_id] === 3 ? false : true}
                 />
                 </div>
                 <div className='rowForm !h-[4rem] '>
-                <label className='text-lg absolute left-[3rem] top-[24.7rem]'>{OT[EnumGrid.cristal2_oi]}</label>    
+                <label className='text-lg absolute left-[3rem] top-[24.7rem]'>{OT[OTGrillaEnum.cr2_oi]}</label>    
                 <TextInputInteractive
                     type='text'
                     label='OI'
@@ -373,11 +403,11 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                     error={errors.a2_oi}
                     inputRef={inputsRef.a2_oi}
                     validarBodega={true}
-                    onlyRead={OT && OT[EnumGrid.tipo_anteojo_id] === 3 ? false : true}
+                    onlyRead={OT && OT[OTGrillaEnum.tipo_anteojo_id] === 3 ? false : true}
                 />
                 </div>
                 <div className='rowForm !h-[4rem] '>
-                <label className='text-lg absolute left-[3rem] top-[29.3rem]'>{OT[EnumGrid.a2_armazon_id]}</label>    
+                <label className='text-lg absolute left-[3rem] top-[29.3rem]'>{OT[OTGrillaEnum.a2_armazon_id]}</label>    
                 <TextInputInteractive
                     type='text'
                     label='Armazon 2'
@@ -390,7 +420,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                     error={errors.a2_armazon}
                     inputRef={inputsRef.a2_armazon}
                     validarBodega={true}
-                    onlyRead={OT && OT[EnumGrid.tipo_anteojo_id] === 3 ? false : true}
+                    onlyRead={OT && OT[OTGrillaEnum.tipo_anteojo_id] === 3 ? false : true}
                 />
                 </div>
             </div>

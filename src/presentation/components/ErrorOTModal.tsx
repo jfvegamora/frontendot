@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 // import { SubmitHandler, useForm } from 'react-hook-form';
 // import { SEXO, TIPO_CLIENTE } from '../../utils';
 // import { Button } from '@material-tailwind/react';
-import { EnumGrid } from '../views/mantenedores/MOTHistorica';
+import { valueSearchOT } from './OTPrimaryButtons';
 
 
 
@@ -27,6 +27,7 @@ const ErrorOTModal:React.FC<IDerivacion> = ({
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
           if (event.key === "Escape") {
+            valueSearchOT.value = ""
             onClose();
           }
         };
@@ -42,7 +43,8 @@ const ErrorOTModal:React.FC<IDerivacion> = ({
   // console.log(data)
   // console.log(data.length)
 
-  console.log(valueConfirmOT)
+  console.log(data)
+
 
   return (
     <div className='useFormContainer useFormDerivacion centered-div use40rem z-30 !bg-red-500'>
@@ -61,9 +63,8 @@ const ErrorOTModal:React.FC<IDerivacion> = ({
         <div className="h-[20rem] text-center">
             {data && data.length > 0 ? (
               <div>
-                <h1>AREA ACTUAL  : {data && data[0][EnumGrid.area]}</h1>
-                <h1>FOLIO        : {data && data[0][EnumGrid.folio]}</h1>
-                <h1>ESTADO       : {data && data[0][EnumGrid.estado]}</h1>
+                <h1>AREA ACTUAL  : {data && data[0][1]}</h1>
+                <h1>FOLIO        : {data && data[0][0]}</h1>
               </div>
             ) : (
               <div>

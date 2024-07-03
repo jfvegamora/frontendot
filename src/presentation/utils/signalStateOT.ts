@@ -16,6 +16,7 @@ import { toast } from "react-toastify";
 import { validation_tipo_anteojo } from "./OTReceta_utils";
 import { areaActualOT } from "../components/OTAreasButtons";
 import { inputOnlyReadReserva } from "./FReservaArmazones_utils";
+import { OTGrillaEnum } from "../Enums";
 
 export const dioptrias: any = signal<any>({
   ESF: [""],
@@ -1472,14 +1473,14 @@ export const updateOT = async (
       query: "04",
       _p1: `area=${_destino}, estado=${"20"}`,
       _p2: isValidateBodega
-        ? data[EnumGrid.tipo_anteojo_id].toString()
+        ? `${data[OTGrillaEnum.tipo_anteojo_id]}`
         : data && data.tipo_anteojo.toString(),
       _p3: "",
       _proyecto: isValidateBodega
-        ? data[EnumGrid.proyecto_codigo]
+        ? `${data[OTGrillaEnum.proyecto_titulo]}`
         : data && data.proyecto_codigo,
       _folio: isValidateBodega
-        ? data[EnumGrid.folio].toString()
+        ? `${data[OTGrillaEnum.folio]}`
         : `${data && data.folio}`,
       _origen: _origen.toString(),
       _rut: ``,
@@ -1495,7 +1496,7 @@ export const updateOT = async (
         ? JSON.stringify(armazonOri)
         : JSON.stringify(data.armazones),
       _punto_venta: isValidateBodega
-        ? data[EnumGrid.punto_venta_id].toString()
+        ? `${data[OTGrillaEnum.punto_venta]}`
         : `${data.punto_venta}`,
       _cristalJSONNew: isValidateBodega
         ? JSON.stringify(cristalOri)

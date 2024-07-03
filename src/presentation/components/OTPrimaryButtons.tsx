@@ -12,7 +12,6 @@ import { clearImpression, fetchOT, fetchOTImpresionByID} from '../../redux/slice
 import axios from 'axios';
 import { URLBackend } from '../hooks/useCrud';
 import { useReactToPrint } from 'react-to-print';
-import { EnumGrid } from '../views/mantenedores/MOTHistorica';
 import { checkCount, paramsOT } from '../views/mantenedores/MOT';
 import { signal } from '@preact/signals-react';
 import { setEstadoImpresion } from './OTGrillaButtons';
@@ -41,8 +40,8 @@ export const dataOTSignal       = signal([]);
 export const isFinishImpression = signal(false);
 export const barCodeSignal = signal('');
 
-const valueSearchOT  = signal<any>('');
-const valueConfirmOT = signal<any>('');
+export const valueSearchOT  = signal<any>('');
+export const valueConfirmOT = signal<any>('');
 const strEntidad     = "Ordenen de Trabajo";
 const strBaseUrl     = "/api/ot/";
 
@@ -59,6 +58,14 @@ const FOTEmpaque          = React.lazy(()=>import('../views/forms/FOTEmpaque'));
 const FOTGuiaDespacho     = React.lazy(()=>import('../views/forms/FOTGuiaDespacho'));
 const FOTReporteFirma     = React.lazy(()=>import('../views/forms/FOTReporteFirma'));
 const FOTWhastApp         = React.lazy(()=>import('../components/WhastappForm'));
+
+const FOTPendiente        = React.lazy(()=>import("./OTForms/FOTPendiente"));
+const FOTDerivacion       = React.lazy(()=>import("./OTForms/FOTDerivacion"));
+
+
+
+
+
 
 export const EnumAreas:any = {
   10: 0,
@@ -109,6 +116,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
     const dispatch                                    = useAppDispatch();
     const OTAreas:any                                 = useAppSelector((store: AppStore) => store.OTAreas)
     const OTData:any                                  = useAppSelector((store: AppStore) => store.OTS.data)
+
     const User:any                                    = useAppSelector((store: AppStore) => store.user)
     const componentRef                                = useRef<any>(null);
     const SecondcomponentRef                          = useRef<any>(null);
@@ -121,6 +129,8 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
     const [isWhastApp, setIsWhastApp]                 = useState(false);
     const [isFOTValidarBodega, setIsFOTValidarBodega] = useState(false);
     const [isFOTReporteFirma, setIsFOTReporeFirma]    = useState(false);
+    const [isFOTPendiente, setisFOTPendiente]         = useState(false);
+    const [isFOTDerivacion, setisFOTDerivacion]       = useState(false);
     // const [barCode, setBarCode]                       = useState('')
     const [dataOT, setDataOT]                         = useState();
     // const [valueSearchOT, setValueSearchOT]           = useState<any>();
@@ -400,6 +410,9 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
     const handleProcesarMasivo = async() => {
       let estado = 0
       console.log(pkToDelete)
+      if(pkToDelete.length === 0){
+        return toast.error('No hay OT seleccionada')
+      }
       const validateEstado           = pkToDelete.every((ot:any) => ot["estado_validacion"] === '2');
       const validateUsuario          = pkToDelete.every((ot:any) => ot["usuario_id"] === User.id);
       const validateProyecto         = pkToDelete.every((ot:any) => ot["proyecto_codigo"] === pkToDelete[0]["proyecto_codigo"]);
@@ -499,29 +512,30 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
 
     const handleProcesarConfirm = async(folio:any, toastLoading?:any) => {
       try {
-        const result = await axios(`${URLBackend}/api/ot/listado/?query=01&_p1=${folio}`,{
-          headers: {
-            'Authorization': User.token, 
-          }
-        });
 
-        if(result.data.length === 0){
+     
+        const dataOT = OTData.map((ot:any)=>ot).filter((filterot:any)=>filterot[1] === folio)
+
+        console.log(dataOT)
+
+
+        if(dataOT.length === 0){
           // setValueConfirmOT('')
           valueConfirmOT.value = ''
           setIsFOTValidarBodega(false)
           toast.dismiss(toastLoading)
-          return toast.error(`OT ${folio}: No existe`)
+          return toast.error(`OT ${folio}: No se encuentra en esta área.`)
         }
 
-        if(result.status !== 200 || result?.data[0][EnumGrid.area_id] !== 60){
-          // setValueConfirmOT('')
-          valueConfirmOT.value = '';
-          toast.dismiss(toastLoading)
-          return toast.error(`OT ${folio}: No se encuentra en esta área`)
-        }
+        // if(result.status !== 200 || result?.data[0][EnumGrid.area_id] !== 60){
+        //   // setValueConfirmOT('')
+        //   valueConfirmOT.value = '';
+        //   toast.dismiss(toastLoading)
+        //   return toast.error(`OT ${folio}: No se encuentra en esta área`)
+        // }
 
         toast.dismiss(toastLoading)
-        dataOTSignal.value = result.data 
+        dataOTSignal.value = dataOT 
         setIsFOTValidarBodega(true)
       } catch (error:any) {
         toast.dismiss(toastLoading)
@@ -637,8 +651,31 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
         {areaPermissions && areaPermissions[6] === '1' && permisos_usuario_areas === '1' && (
           <Tooltip content={BUTTON_MESSAGES.procesar}>
               {/* <button className='bg-green-400 mx-4 transition-transform transform hover:scale-110 active:scale-95 w-[10rem] h-[2.5rem]  text-white '  */}
-              <Button color="green" className='otActionButton ml-2'
+              <Button color="green" className='otActionButton mx-4'
               onClick={handleProcesarMasivo}>Procesar</Button>
+          </Tooltip>
+        )}
+
+        {areaPermissions && areaPermissions[6] === '1' && permisos_usuario_areas === '1' && (
+          <Tooltip content={BUTTON_MESSAGES.procesar}>
+             <Button  type="submit" className='otActionButton mx-4 bg-yellow-700' onClick={()=>{
+              if(pkToDelete.length === 0){
+                return toast.error('No hay OT seleccionada.')
+              }
+              setisFOTPendiente(true)
+             }}>Pausar</Button>  
+          </Tooltip>
+        )}
+
+        {areaPermissions && areaPermissions[6] === '1' && permisos_usuario_areas === '1' && (
+          <Tooltip content={BUTTON_MESSAGES.procesar}>
+              {/* <button className='bg-green-400 mx-4 transition-transform transform hover:scale-110 active:scale-95 w-[10rem] h-[2.5rem]  text-white '  */}
+              <Button  type="submit" className='otActionButton mx-4 bg-red-900' onClick={()=>{
+                if(pkToDelete.length === 0){
+                  return toast.error('No hay OT seleccionada.')
+                }
+                setisFOTDerivacion(true)
+              }}>Derivar</Button>
           </Tooltip>
         )}
         
@@ -680,13 +717,19 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
               ref={searchOTRef} 
               value={valueSearchOT.value as any} 
               onChange={async(e:any)=>{
-                console.log(e.target.value)
                 if(e.target.value !== ''){
-                  setTimeout(async()=>{
-                    await handleChecked(e.target.value)
-                    valueSearchOT.value = ''
-                    console.log(e.target.value)
-                  },3000)
+                  let searchValue = e.target.value
+                  
+                  if(searchValue.length >= 10){
+                    console.log(searchValue)
+                    const regex = /^0+/;
+                    valueSearchOT.value = searchValue.replace(regex, "");
+                    const toastLoading: any = toast.loading("cargando...");
+                    await handleChecked(valueSearchOT.value).then(()=>{
+                      toast.dismiss(toastLoading)
+                    })
+
+                  }
                 }
                 valueSearchOT.value = e.target.value
               }} />
@@ -701,71 +744,24 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
                 name='ProcesarOT' 
                 className='text-xl' 
                 color='orange'  
+                // value={valueConfirmOT.value as any}
                 value={valueConfirmOT.value as any}
                 onChange={async(e:any)=>{
                   if(e.target.value !== ''){
                     let validateValue = e.target.value
-                    console.log(validateValue)
-                    if(validateValue.length <= 5){
-                      console.log('render')
-                      validateValue = validateValue.toString().padStart(5, '0')
+                    clearIndividualCheck.value = true
+                    if(validateValue.length >= 10){
                       console.log(validateValue)
-                    }
-                    setTimeout(async ()=>{
-                      console.log(validateValue)
-    
-                      barCodeSignal.value = validateValue
-                      console.log(typeof e.target.value)
-                      valueConfirmOT.value = barCodeSignal.value
-                      if(barCodeSignal.value.length >= 5){
-                        console.log(barCodeSignal.value)
-                          const toastLoading: any = toast.loading("cargando...");
-                         await handleProcesarConfirm(parseInt(barCodeSignal.value), toastLoading).then(()=>{
-                          toast.dismiss(toastLoading)
-                           valueConfirmOT.value = "";
-                           barCodeSignal.value = "";
-                          });
-                      }
-                    
-                    
-                    
-                    
-                    },5000)
-
-                    
-                    // if(!isBarCodeProcess){
-                    //   console.log(e.target.value)
-                    //   const toastLoading: any = toast.loading("cargando...");
-                    //   setIsBarCodeProcess(true)
-                    //   console.log(isBarCodeProcess)
-                    //   await handleProcesarConfirm(parseInt(e.target.value), toastLoading)
-                    // }
-                    // setTimeout(async()=>{
-                    //   console.log(e.target.value)
-                    //   let isProcessing = false;
-                    //   const handleBarcodeScan = async () => {
-                    //     if (!isProcessing) {
-                    //       console.log(e.target.value);
-                    //       if (e.target.value !== "") {
-                    //         const toastLoading: any = toast.loading("cargando...");
-                    //         console.log(e.target.value);
-                    //         isProcessing = true;
-                    //         await handleProcesarConfirm(parseInt(e.target.value), toastLoading);
-                    //       }
-                    //       valueConfirmOT.value = "";
-                    //     }
-                    //   };
+                      const regex = /^0+/;
+                      valueConfirmOT.value = validateValue.replace(regex, "");
                       
-                    //   if(!isProcessing){
-                    //     handleBarcodeScan();
-                    //   }
-                    //   // if(e.target.value !== ''){
-                    //   //   const toastLoading:any = toast.loading('cargando...')
-                    //   //   console.log(e.target.value)
-                    //   //   await handleProcesarConfirm(parseInt(e.target.value), toastLoading)
-                    //   // }
-                    //   // valueConfirmOT.value = ''
-                    // },3000)
+                      const toastLoading: any = toast.loading("cargando...");
+                      await handleProcesarConfirm(parseInt(valueConfirmOT.value), toastLoading).then(()=>{
+                            toast.dismiss(toastLoading)
+                            //  valueConfirmOT.value = "";
+                            });
+
+                    }
                   }
                   valueConfirmOT.value = (e.target.value === '' ? e.target.value : parseInt(e.target.value))
                 }} 
@@ -798,6 +794,20 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
               <FOTReporteFirma closeModal={()=>setIsFOTReporeFirma(false)} setSelectedRows={setSelectedRows} pkToDelete={pkToDelete} />
             )}
           </Suspense>
+
+          <Suspense>
+            {isFOTPendiente && (
+              <FOTPendiente data={pkToDelete} onClose={()=>setisFOTPendiente(false)} isMasivo={true} />
+            )}
+          </Suspense>
+
+          <Suspense>
+            {isFOTDerivacion && (
+              <FOTDerivacion data={pkToDelete} onClose={()=>setisFOTDerivacion(false)} isMasivo={true}/>
+            )}
+          </Suspense>
+            
+
             
   
     </div>
