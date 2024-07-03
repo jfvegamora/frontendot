@@ -672,7 +672,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
 
           <div className='ml-2'>
             <Input 
-              type="text" 
+              type="number" 
               label='Seleccionar OT' 
               name='searchOT' 
               className='text-xl' 
@@ -685,6 +685,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
                   setTimeout(async()=>{
                     await handleChecked(e.target.value)
                     valueSearchOT.value = ''
+                    console.log(e.target.value)
                   },3000)
                 }
                 valueSearchOT.value = e.target.value
@@ -703,18 +704,34 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
                 value={valueConfirmOT.value as any}
                 onChange={async(e:any)=>{
                   if(e.target.value !== ''){
-                    barCodeSignal.value = e.target.value
-                    // console.log(barCodeSignal)
-                    valueConfirmOT.value = barCodeSignal.value
-                    if(barCodeSignal.value.length >= 5){
-                        const toastLoading: any = toast.loading("cargando...");
-                        // console.log(barCodeSignal.value)
-                       await handleProcesarConfirm(parseInt(barCodeSignal.value), toastLoading).then(()=>{
-                        toast.dismiss(toastLoading)
-                         valueConfirmOT.value = "";
-                         barCodeSignal.value = "";
-                        });
+                    let validateValue = e.target.value
+                    console.log(validateValue)
+                    if(validateValue.length <= 5){
+                      console.log('render')
+                      validateValue = validateValue.toString().padStart(5, '0')
+                      console.log(validateValue)
                     }
+                    setTimeout(async ()=>{
+                      console.log(validateValue)
+    
+                      barCodeSignal.value = validateValue
+                      console.log(typeof e.target.value)
+                      valueConfirmOT.value = barCodeSignal.value
+                      if(barCodeSignal.value.length >= 5){
+                        console.log(barCodeSignal.value)
+                          const toastLoading: any = toast.loading("cargando...");
+                         await handleProcesarConfirm(parseInt(barCodeSignal.value), toastLoading).then(()=>{
+                          toast.dismiss(toastLoading)
+                           valueConfirmOT.value = "";
+                           barCodeSignal.value = "";
+                          });
+                      }
+                    
+                    
+                    
+                    
+                    },5000)
+
                     
                     // if(!isBarCodeProcess){
                     //   console.log(e.target.value)
@@ -750,8 +767,6 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
                     //   // valueConfirmOT.value = ''
                     // },3000)
                   }
-
-
                   valueConfirmOT.value = (e.target.value === '' ? e.target.value : parseInt(e.target.value))
                 }} 
                 />

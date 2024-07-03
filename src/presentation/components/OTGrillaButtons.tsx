@@ -23,6 +23,7 @@ import { EnumGrid } from '../views/mantenedores/MOTHistorica';
 import { EnumAreas } from './OTPrimaryButtons';
 import { paramsOT } from '../views/mantenedores/MOT';
 import { signal } from '@preact/signals-react';
+import { PiPrinterFill } from 'react-icons/pi';
 // import ReactDOM from 'react-dom';
 
 
@@ -42,7 +43,7 @@ const strUrl = `${URLBackend}/api/ot/listado`
 const folioActual = signal<any>(0);
 const isFinishImpression = signal(false)
 
-const PiPrinterFill          = React.lazy(()=>import('react-icons/pi').then(module => ({ default: module.PiPrinterFill })));
+// const PiPrinterFill          = React.lazy(()=>import('react-icons/pi') as any)
 const FOTImpresa             = React.lazy(()=>import('../views/forms/FOTImpresa'));
 const FOTTicketQRImpresion   = React.lazy(()=>import('../views/forms/FOTTicketQRImpresion'));
 const FOTTicketImpresion     = React.lazy(()=>import('../views/forms/FOTTicketImpresion'));
@@ -78,9 +79,9 @@ export  const setEstadoImpresion = async(pkToDelete?:any, origen?:any, masivo?:b
             // toast.dismiss(loadingToast);
             disabledIndividualCheck.value = false;
             result.data[0][0]  === 1 ? isToggleImpression.value = true : isToggleImpression.value = false;
-            toast.success('Estado Impresión Cambiado.', {
-                autoClose: 900
-            })
+            // toast.success('Estado Impresión Cambiado.', {
+            //     autoClose: 900
+            // })
         }
     } catch (error) {
         if(masivo) return;
@@ -306,7 +307,7 @@ const imprimirComprobanteRetiro = async(tipoComprobante?:string) => {
                         }}
                     >   
                         <Suspense>
-                            <PiPrinterFill />
+                            <PiPrinterFill className='gridIcons' />
                         </Suspense>
                         
                     </IconButton>

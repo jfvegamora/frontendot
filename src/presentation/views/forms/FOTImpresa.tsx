@@ -389,7 +389,7 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                             {ot[EnumImpresion.numero_reporte_atencion] > 0 && (
                               <div className="flex text-left ">
                                 <p className='-ml-6 text-base !mt-2 font-bold w-[27%]'>N° Rep:</p>
-                                <p className=' text-left text-base !mt-2 font-bold'>{`${ot[EnumImpresion.numero_reporte_atencion]} Tot Anteojos: ${ot[EnumImpresion.rep_cantidad]} `}</p>
+                                <p className=' text-left text-base !mt-2 font-bold'>{`${ot[EnumImpresion.numero_reporte_atencion]} Anteojos: ${ot[EnumImpresion.rep_cantidad]} `}</p>
                               </div>
                             )}
                             {ot[EnumImpresion.numero_reporte_atencion] > 0 && (

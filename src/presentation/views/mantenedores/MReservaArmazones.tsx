@@ -60,13 +60,7 @@ const MReservaArmazones: React.FC = () => {
     
     useEffect(() => {    
       const newPkToDelete = selectedRows.map((row: number) => 
-       `{
-        "rut"           :"${entities[row][ReservaArmazonesEnum.cliente_rut]}", 
-        "punto_venta"   : ${entities[row][ReservaArmazonesEnum.punto_venta_id]}, 
-        "tipo_anteojo"  : ${entities[row][ReservaArmazonesEnum.tipo_anteojo_id]},
-        "armazon_1"     :"${entities[row][ReservaArmazonesEnum.cod_armazon1]}",
-        "armazon_2"     :"${entities[row][ReservaArmazonesEnum.cod_armazon2]}"  
-      }`);
+       `{"rut":"${entities[row][ReservaArmazonesEnum.cliente_rut]}","punto_venta":${entities[row][ReservaArmazonesEnum.punto_venta_id]},"tipo_anteojo":${entities[row][ReservaArmazonesEnum.tipo_anteojo_id]},"armazon_1":"${entities[row][ReservaArmazonesEnum.cod_armazon1]}","armazon_2":"${entities[row][ReservaArmazonesEnum.cod_armazon2]}"}`);
       const combinedPks = newPkToDelete.join(',');
   
       setPkToDelete([`${strParamsToDelete}=[${combinedPks}]`]);
