@@ -416,8 +416,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
 
 
     const handleProcesarMasivo = async() => {
-      let estado = 0
-      console.log(pkToDelete)
+      let estado = 20
       if(pkToDelete.length === 0){
         return toast.error('No hay OT seleccionada')
       }
@@ -480,7 +479,6 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
             estado = 20
           }
         }
-
         await updateOT(
             [],
             OTAreas["areaActual"],
