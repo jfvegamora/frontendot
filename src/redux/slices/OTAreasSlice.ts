@@ -30,7 +30,6 @@ export const fetchOTAreas = createAsyncThunk(
           },
         }
       );
-      console.log(response);
 
       return response.data;
     } catch (error) {

@@ -9,6 +9,7 @@ import { AppStore, useAppDispatch, useAppSelector } from '../../redux/store';
 import { toast } from 'react-toastify';
 import { clearImpression, fetchOT, fetchOTImpresionByID} from '../../redux/slices/OTSlice';
 
+
 import axios from 'axios';
 import { URLBackend } from '../hooks/useCrud';
 import { useReactToPrint } from 'react-to-print';
@@ -38,7 +39,14 @@ type AreaButtonsProps ={
   
 export const dataOTSignal       = signal([]);
 export const isFinishImpression = signal(false);
-export const barCodeSignal = signal('');
+export const barCodeSignal      = signal('');
+
+export const resultValidarBodega = signal<any>({
+  ProcesarTB:true,
+  conCristales:false,
+  sinCristales:false,
+})
+
 
 export const valueSearchOT  = signal<any>('');
 export const valueConfirmOT = signal<any>('');
@@ -547,6 +555,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
     }
 
 
+
     return (
     <div className='flex items-center   ml-[4rem] !w-full'>
         { (areaPermissions && areaPermissions[0] === "1" ) && (permisos_usuario_areas === '1') && (
@@ -656,7 +665,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
           </Tooltip>
         )}
 
-        {areaPermissions && areaPermissions[6] === '1' && permisos_usuario_areas === '1' && (
+        {areaPermissions && areaPermissions[3] === '1' && permisos_usuario_areas === '1' && (OTAreas["areaActual"] !== 60) &&  (
           <Tooltip content={BUTTON_MESSAGES.procesar}>
              <Button  type="submit" className='otActionButton mx-4 bg-yellow-700' onClick={()=>{
               if(pkToDelete.length === 0){
@@ -667,7 +676,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
           </Tooltip>
         )}
 
-        {areaPermissions && areaPermissions[6] === '1' && permisos_usuario_areas === '1' && (
+        {areaPermissions && areaPermissions[3] === '1' && permisos_usuario_areas === '1' &&  (OTAreas["areaActual"] !== 60) && (
           <Tooltip content={BUTTON_MESSAGES.procesar}>
               {/* <button className='bg-green-400 mx-4 transition-transform transform hover:scale-110 active:scale-95 w-[10rem] h-[2.5rem]  text-white '  */}
               <Button  type="submit" className='otActionButton mx-4 bg-red-900' onClick={()=>{
@@ -768,6 +777,65 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
                 />
             </div>
           )}
+
+        {areaPermissions && areaPermissions[15] === '1' && permisos_usuario_areas === '1' && ( 
+          <div className='mx-6 my-2  translate-y-[0.2rem] flex'>
+            <div className='flex'>
+              <input 
+                type="radio" 
+                id="procesar_tb" 
+                name="radioGroup" 
+                className=" mx-2 h-[1.5rem] w-[1.5rem]" 
+                value="procesar_tb"
+                checked={resultValidarBodega.value.ProcesarTB}
+                onChange={(e)=>{
+                  resultValidarBodega.value = {
+                    ProcesarTB:e.target.checked,
+                    conCristales:false,
+                    sinCristales:false
+                  }
+                }} 
+              />
+              <label htmlFor="procesar_tb" className=''>Procesar TB</label>
+            </div>
+
+          <div className="flex">
+            <input 
+                type="radio" 
+                id="con_cristales" 
+                name="radioGroup" 
+                className='mx-2 h-[1.5rem] w-[1.5rem] '
+                value="con_cristales"
+                checked={resultValidarBodega.value.conCristales}
+                onChange={(e)=>{
+                  resultValidarBodega.value = {ProcesarTB:false, conCristales: e.target.checked, sinCristales:false}
+                }}
+            />
+            <label htmlFor="con_cristales">Con Cristales</label>
+          </div>
+
+          <div className="flex">
+            <input 
+              type="radio" 
+              id="sin_cristales" 
+              name="radioGroup" 
+              className='mx-2 h-[1.5rem] w-[1.5rem]' 
+              value="sin_cristales"
+              checked={resultValidarBodega.value.sinCristales}
+              onChange={(e)=>{
+                resultValidarBodega.value = {
+                  ProcesarTB:false,
+                  conCristales:false,
+                  sinCristales:e.target.checked
+                }
+              }}
+            />
+            <label htmlFor="sin_cristales">Sin Cristales</label>
+          </div>
+          </div>
+        )}
+
+       
 
           
         <Suspense>

@@ -388,8 +388,8 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                             
                             {ot[EnumImpresion.numero_reporte_atencion] > 0 && (
                               <div className="flex text-left ">
-                                <p className='-ml-6 text-base !mt-2 font-bold w-[27%]'>N° Rep:</p>
-                                <p className=' text-left text-base !mt-2 font-bold'>{`${ot[EnumImpresion.numero_reporte_atencion]} Anteojo: ${ot[EnumImpresion.rep_cantidad]} `}</p>
+                                <p className='-ml-6 text-base !mt-2 font-bold w-[27%]'>Rep:</p>
+                                <p className=' text-left text-base !mt-2 font-bold'>{`${<span className='font-bold text-xl'>{ot[EnumImpresion.numero_reporte_atencion]}</span> } Total: ${ot[EnumImpresion.rep_cantidad]} `}</p>
                               </div>
                             )}
                             {ot[EnumImpresion.numero_reporte_atencion] > 0 && (
@@ -407,7 +407,7 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                               </div>
                             )}
 
-                          <div className='translate-y-[-1.5rem]'>
+                          <div className={`${ot[EnumImpresion.numero_reporte_atencion] > 0 ? "translate-y-[-1.5rem]" : ""}`}>
                             <div className="flex text-left ">
                               <p className='-ml-6 text-[0.80rem] !mt-2 font-bold w-[27%]'>Proyecto: </p>
                               {/* <span>{ot[EnumGrid.proyecto_titulo]}</span> */}

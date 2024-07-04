@@ -1476,7 +1476,7 @@ export const updateOT = async (
   if (isMasivo) {
     const query = {
       query: "04",
-      _p1: `area=${_destino}, estado=${"20"}`,
+      _p1: `area="${_destino}", estado="${_estado}"`,
       _p2: isValidateBodega
         ? `${data[OTGrillaEnum.tipo_anteojo_id]}`
         : data && data.tipo_anteojo.toString(),

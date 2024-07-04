@@ -22,12 +22,20 @@ const FOTTicketQRImpresion =  React.forwardRef((_props:any, ref:any) => {
                     <h1 className='font-bold mb-2 ml-4'>CUIDA TUS LENTES, ESCANEA CÓDIGO QR</h1>
                   </div>
                
-                  <QRCode
-                    size={50}
-                    style={{ height: "auto", maxWidth: "100%", width: "40%", margin:"auto" }}
-                    value={`https://www.tinyurl.com/5n78e9vd`}
-                    viewBox={`0 0 256 256`}
-                    />
+                  <div className='mx-auto translate-x-[2rem]'>
+                    <QRCode
+                      size={50}
+                      style={{ 
+                        height: "auto", 
+                        maxWidth: "100%", 
+                        width: "40%", 
+                        margin:"auto",
+                        transform: `translateX(6rem)`,
+                      }}
+                      value={`https://www.tinyurl.com/5n78e9vd`}
+                      viewBox={`0 0 256 256`}
+                      />
+                  </div>
                 </div>
               
   

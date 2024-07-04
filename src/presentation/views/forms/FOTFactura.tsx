@@ -84,10 +84,10 @@ const FOTFactura: React.FC<IDerivacion> = ({
                     return false
                 }
 
-                if(OT["numero_guia"] === 0){
-                    toast.error(`Folio: ${OT["folio"]} sin Número de Guia`);
-                    return false
-                }
+                // if(OT["numero_guia"] === 0){
+                //     toast.error(`Folio: ${OT["folio"]} sin Número de Guia`);
+                //     return false
+                // }
                 return true
             })
     

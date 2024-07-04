@@ -3,7 +3,7 @@ import { Controller } from "react-hook-form";
 
 interface IRadioButtonProps {
   label: string;
-  control: any;
+  control?: any;
   name: string;
   options: string[];
   data?: any;

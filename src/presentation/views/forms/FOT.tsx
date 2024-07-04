@@ -51,7 +51,7 @@ import { usePermission } from '../../hooks';
 import FOTAnulacion from '../../components/OTForms/FOTAnulacion';
 import { useModal } from '../../hooks/useModal';
 import { paramsOT } from '../mantenedores/MOT';
-import { EnumAreas } from '../../components/OTPrimaryButtons';
+// import { EnumAreas } from '../../components/OTPrimaryButtons';
 // import { usePermissionOT } from '../../hooks/usePermissionOT';
 // import { EnumAreas } from '../../components/OTPrimaryButtons';
 
@@ -1051,7 +1051,7 @@ const checkArmazones = camposRequeridosArmazones.every(campo => {
 
 
                      {/*************** BOTON PAUSAR ***************/}
-                {OTPermissions           && 
+                {/* {OTPermissions           && 
                 !isMOT                   &&
                 isEditting               &&
                 escritura_lectura        &&
@@ -1065,10 +1065,10 @@ const checkArmazones = camposRequeridosArmazones.every(campo => {
                     }))
                   }}>Pausar</Button>
                 )}
-                
+                 */}
 
                     {/*************** BOTON DERIVAR ***************/}
-                {OTPermissions           &&
+                {/* {OTPermissions           &&
                 !isMOT                   &&
                 isEditting               &&
                 escritura_lectura        &&
@@ -1082,7 +1082,7 @@ const checkArmazones = camposRequeridosArmazones.every(campo => {
                       showDerivacion: !prev.showDerivacion
                     }))
                   }}>Derivar</Button>
-                )}
+                )} */}
 
 
                 {/*************** BOTON ANULAR ***************/}
