@@ -969,6 +969,11 @@ export const fetchFechas = async (
 ) => {
   // console.log('ejecutando')
   try {
+    console.log(fecha_atencion);
+    console.log(codgioProyecto);
+    if (!codigoProyecto.value) {
+      return;
+    }
     const { data } = await axios(
       `${URLBackend}/api/ot/listado/?query=11&_proyecto=${codgioProyecto}&_fecha_desde=${fecha_atencion}`
     );

@@ -120,7 +120,8 @@ const FOTPendiente:React.FC<IPendiente> = ({
                 closeModal()
                 console.log(paramsOT.value)
                 dispatch(fetchOT({OTAreas:OTAreas["areaActual"], searchParams: paramsOT.value}));
-                clearAllCheck.value = false;
+                
+                
             })
         }
     
