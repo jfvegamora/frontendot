@@ -391,9 +391,9 @@ function NavListMenuOT({ userPermission }: { userPermission: string[] }) {
         }}
       >
         <Typography
-          as="span"
-          variant="small"
-          className={`font-normal ${hasPermission ? "" : "text-gray-400"}`}
+          as="a"
+          variant="h6"
+          className={`text-[1vw] ${hasPermission ? "" : "text-gray-400"}`}
         >
           {title}
         </Typography>
@@ -402,10 +402,10 @@ function NavListMenuOT({ userPermission }: { userPermission: string[] }) {
   });
 
   return (
-    <React.Fragment>
+    <div className="bg-red-400 w-[15vw]">
       <Menu open={isMenuOpen} handler={setIsMenuOpen}>
         <MenuHandler onClick={toggleMenu}>
-          <Typography as="a" href="#" variant="h6" className="font-normal">
+          <Typography as="a" href="#" variant="h4" className="text-[1vw]">
             <MenuItem
               // {...triggers}
               className="hidden items-center gap-2 font-menu lg:flex lg:rounded-full"
@@ -417,7 +417,7 @@ function NavListMenuOT({ userPermission }: { userPermission: string[] }) {
         </MenuHandler>
         <MenuList
           // {...triggers}
-          className="hidden w-[36rem] grid-cols-7 gap-3 overflow-visible lg:grid"
+          className="hidden w-[30vw] h-[30vh] grid-cols-7  gap-3 overflow-visible lg:grid"
         >
           <Card
             color="blue"
@@ -440,7 +440,7 @@ function NavListMenuOT({ userPermission }: { userPermission: string[] }) {
       <ul className="ml-6 flex w-full flex-col gap-1 lg:hidden">
         {renderItems}
       </ul>
-    </React.Fragment>
+    </div>
   );
 }
 
@@ -470,7 +470,7 @@ function NavListMenuBodega({ userPermission }: { userPermission: string[] }) {
         return (
           <MenuItem
             key={id}
-            className={`flex items-center gap-2 rounded ${subMenuHasPermission ? "" : "text-gray-400 cursor-not-allowed"
+            className={`flex text-[1vw] items-center gap-2 rounded ${subMenuHasPermission ? "" : "text-gray-400 cursor-not-allowed"
               }`}
             onClick={() => {
               if (subMenuHasPermission) {
@@ -481,8 +481,8 @@ function NavListMenuBodega({ userPermission }: { userPermission: string[] }) {
           >
             <Typography
               as="span"
-              variant="small"
-              className={`font-normal ${subMenuHasPermission ? "" : "text-gray-400"}`}
+              variant="h6"
+              className={`!text-[1vw] ${subMenuHasPermission ? "" : "text-gray-400"}`}
             >
               {subMenuTitle}
             </Typography>
@@ -500,9 +500,9 @@ function NavListMenuBodega({ userPermission }: { userPermission: string[] }) {
        : null; 
 
        return (
-        <React.Fragment key={id}>
+        <div key={id} className="">
           <MenuItem
-            className={`flex items-center gap-2 rounded ${hasPermission ? "" : "text-gray-400 cursor-not-allowed"
+            className={`flex items-center  gap-2 rounded ${hasPermission ? "" : "text-gray-400 cursor-not-allowed"
               }`}
             onClick={() => {
               if (hasPermission) {
@@ -514,7 +514,7 @@ function NavListMenuBodega({ userPermission }: { userPermission: string[] }) {
             <Typography
               as="span"
               variant="small"
-              className={`font-normal ${hasPermission ? "" : "text-gray-400"}`}
+              className={`text-[1vw] ${hasPermission ? "" : "text-gray-400"}`}
             >
               {title}
             </Typography>
@@ -527,17 +527,17 @@ function NavListMenuBodega({ userPermission }: { userPermission: string[] }) {
               </Menu>
             )}
           </MenuItem>
-        </React.Fragment>
+        </div>
       );
   });
 
 
 
   return (
-    <React.Fragment>
+    <div className="bg-green-500 w-[15vw]">
       <Menu open={isMenuOpen} handler={setIsMenuOpen}>
         <MenuHandler onClick={toggleMenu}>
-          <Typography as="a" href="#" variant="h6" className="font-normal">
+          <Typography as="a" href="#" variant="h5" className="font-[1vw]">
             <MenuItem
               // {...triggers}
               className="hidden items-center gap-2 font-menu lg:flex lg:rounded-full"
@@ -551,7 +551,7 @@ function NavListMenuBodega({ userPermission }: { userPermission: string[] }) {
         </MenuHandler>
         <MenuList
           // {...triggers}
-          className="hidden w-[36rem] grid-cols-7 gap-3 overflow-visible lg:grid"
+          className="hidden w-[35vw]  grid-cols-7 gap-3 overflow-visible lg:grid"
         >
           <Card
             color="blue"
@@ -572,15 +572,17 @@ function NavListMenuBodega({ userPermission }: { userPermission: string[] }) {
             >
               <MenuHandler className="flex items-center justify-between" >
                 <MenuItem>
-                  Kardex <FontAwesomeIcon icon={faChevronRight} />
+                <Typography className="text-[1vw] w-[15vw]">
+                  Kardex <FontAwesomeIcon icon={faChevronRight} className="translate-x-[13vw]" />
+                </Typography>
                 </MenuItem>
               </MenuHandler>
-              <MenuList>
+              <MenuList className="">
                 {subMenuKardexBodega.map(({ title, id, link }) => {
                   const hasPermission = userPermission.includes(id as any);
                   return (
                     <MenuItem
-                      className={`flex items-center gap-2 rounded ${hasPermission ? "" : "text-gray-400 cursor-not-allowed"
+                      className={`text-[1vw]  flex items-center gap-2 rounded ${hasPermission ? "" : "text-gray-400 cursor-not-allowed"
                         }`}
                       key={id}
                       onClick={() => {
@@ -606,7 +608,9 @@ function NavListMenuBodega({ userPermission }: { userPermission: string[] }) {
             >
               <MenuHandler className="flex items-center justify-between" >
                 <MenuItem>
-                 Asignación <FontAwesomeIcon icon={faChevronRight} />
+                <Typography className="text-[1vw] w-[15vw]">
+                 Asignación <FontAwesomeIcon icon={faChevronRight} className="translate-x-[11vw]"/>
+                </Typography>
                 </MenuItem>
               </MenuHandler>
               <MenuList>
@@ -614,7 +618,7 @@ function NavListMenuBodega({ userPermission }: { userPermission: string[] }) {
                   const hasPermission = userPermission.includes(id as any);
                   return (
                     <MenuItem
-                      className={`flex items-center gap-2 rounded ${hasPermission ? "" : "text-gray-400 cursor-not-allowed"
+                      className={`flex text-[1vw] items-center gap-2 rounded ${hasPermission ? "" : "text-gray-400 cursor-not-allowed"
                         }`}
                       key={id}
                       onClick={() => {
@@ -651,12 +655,12 @@ function NavListMenuBodega({ userPermission }: { userPermission: string[] }) {
         </MenuList>
       </Menu>
       <MenuItem className="flex items-center gap-2 text-blue-gray-900 lg:hidden">
-        <FontAwesomeIcon icon={faWarehouse} /> BODEGA{" "}
+      <FontAwesomeIcon icon={faWarehouse} /> BODEGA{" "}
       </MenuItem>
       <ul className="ml-6 flex w-full flex-col gap-1 lg:hidden">
         {renderItems}
       </ul>
-    </React.Fragment>
+    </div>
   );
 }
 
@@ -687,7 +691,7 @@ function NavListMenuProyectos({ userPermission }: { userPermission: string[] }) 
 
           <MenuItem
             key={subMenuId}
-            className={`flex !bg-red-500  left-[30rem] items-center gap-2 rounded ${subMenuHasPermission ? "" : "text-gray-400 cursor-not-allowed"
+            className={`flex   left-[30rem] items-center gap-2 rounded ${subMenuHasPermission ? "" : "text-gray-400 cursor-not-allowed"
               }`}
             onClick={() => {
               if (subMenuHasPermission) {
@@ -745,10 +749,10 @@ function NavListMenuProyectos({ userPermission }: { userPermission: string[] }) 
   });
 
   return (
-    <React.Fragment>
+    <div className=" w-[15vw]">
       <Menu open={isMenuOpen} handler={setIsMenuOpen}>
         <MenuHandler onClick={toggleMenu}>
-          <Typography as="a" href="#" variant="h6" className="font-normal">
+          <Typography as="a" href="#" variant="h4" className="text-[1vw]">
             <MenuItem
               // {...triggers}
               className="hidden items-center gap-2 font-menu lg:flex lg:rounded-full"
@@ -789,7 +793,10 @@ function NavListMenuProyectos({ userPermission }: { userPermission: string[] }) 
             >
               <MenuHandler className="flex items-center justify-between" >
                 <MenuItem>
-                  Motivos de OT <FontAwesomeIcon icon={faChevronRight} />
+                <Typography className="text-[1vw] w-[15vw]">
+
+                  Motivos de OT <FontAwesomeIcon icon={faChevronRight} className="translate-x-[6vw]"  />
+                </Typography>
                 </MenuItem>
               </MenuHandler>
               <MenuList>
@@ -797,7 +804,7 @@ function NavListMenuProyectos({ userPermission }: { userPermission: string[] }) 
                   const hasPermission = userPermission.includes(id as any);
                   return (
                     <MenuItem
-                      className={`flex items-center gap-2 rounded ${hasPermission ? "" : "text-gray-400 cursor-not-allowed"
+                      className={`flex text-[1vw] items-center gap-2 rounded ${hasPermission ? "" : "text-gray-400 cursor-not-allowed"
                         }`}
                       key={id}
                       onClick={() => {
@@ -823,7 +830,9 @@ function NavListMenuProyectos({ userPermission }: { userPermission: string[] }) 
             >
               <MenuHandler className="flex items-center justify-between" >
                 <MenuItem>
-                  Parametrización <FontAwesomeIcon icon={faChevronRight} />
+                <Typography className="text-[1vw] w-[15vw]">
+                  Parametrización <FontAwesomeIcon icon={faChevronRight} className="translate-x-[6.7rem]" />
+                </Typography>
                 </MenuItem>
               </MenuHandler>
               <MenuList>
@@ -860,7 +869,7 @@ function NavListMenuProyectos({ userPermission }: { userPermission: string[] }) 
         {renderItems}
         
       </ul>
-    </React.Fragment>
+    </div>
   );
 }
 
@@ -1012,15 +1021,16 @@ export default function ComplexNavbar() {
     <>
       {userState?.nombre && (
       
-        <Navbar className=" mt-2 mx-auto max-w-screen-xl sm:scroll-mx-4  p-2 lg:rounded-full lg:pl-6 navBarBorder z-30 ">
-          <div className="relative mx-auto flex items-center text-blue-gray-900">
-            <div className="w-[40%] ml-2 cursor-pointer mantenedor-titulo">
-              <Typography className="w-[50%] text-xl h-[2.5rem] overflow ">
+        // <Navbar className=" mt-2 mx-auto max-w-screen-xl sm:scroll-mx-4  p-2 lg:rounded-full lg:pl-6 navBarBorder z-30 ">
+        <Navbar className=" mt-2 mx-auto w-[77vw] sm:scroll-mx-4 h-[9vh]  p-2 lg:rounded-full lg:pl-6 navBarBorder z-30 ">
+          <div className="relative mb-10 mx-auto flex h-full items-center text-blue-gray-900">
+            <div className="w-[40%] ml-2 cursor-pointer mantenedor-titulo translate-y-[-1.4rem]">
+              <Typography className="w-[15vw] !text-[1.7vw] h-[1vh] overflow ">
                 {strNavTitle}
 
               </Typography>
             </div>
-            <div className="absolute  top-2/4 left-[50%] hidden -translate-x-2/4 -translate-y-2/4 lg:block">
+            <div className=" w-[45vw] absolute bg-blue-400  top-2/4 left-[50%] hidden -translate-x-2/4 -translate-y-2/4 lg:block">
               <NavList />
             </div>
             <IconButton

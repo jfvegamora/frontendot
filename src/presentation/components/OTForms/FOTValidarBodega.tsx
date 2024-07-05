@@ -56,7 +56,8 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
         a2_armazon:    React.useRef<any>(null),
     }
 
-   
+    const casoEjecutar = Object.keys(resultValidarBodega.value).find((key:any)=>resultValidarBodega.value[key] === true)
+
     const armazones = ([{codigo: OT && OT[OTGrillaEnum.a1_armazon_id]}, {codigo: OT && OT[OTGrillaEnum.tipo_anteojo_id] === 3 ? (OT && OT[OTGrillaEnum.a2_armazon_id]) : ('')}] as any).filter((codigo:any)=>codigo.codigo !== '')
 
     const cristales = ([{codigo: OT && OT[OTGrillaEnum.cr1_od]}, {codigo:OT && OT[OTGrillaEnum.cr1_oi]}, {codigo: ( OT &&OT[OTGrillaEnum.tipo_anteojo_id] === 3 ? (OT && OT[OTGrillaEnum.cr2_od]) : ('') )} , {codigo: OT && OT[OTGrillaEnum.tipo_anteojo_id] === 3 ? (OT && OT[OTGrillaEnum.cr2_oi]): ('')}]).filter((codigo:any)=>codigo.codigo !== '')
@@ -231,8 +232,12 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
             validationCodigoArmazon_2('32', true)
             validationCodigoCristal2_od('32', true)
             validationCodigoCristal2_oi('32', true)
+            if(casoEjecutar === 'sinCristales'){
+                validationCodigoCristal1_od('32', true)
+                validationCodigoCristal1_oi('32', true)
+            }
         }
-        focusFirstInput('a1_od', inputsRef["a1_od"])
+        focusFirstInput('a1_armazon', inputsRef["a1_armazon"])
     },[OT])
 
     const sumatoriaNivel3 = validationNivel3.value.reduce((index,objecto) => index + objecto.valor, 0);  
@@ -387,7 +392,6 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
             let observaciones;
             let situacion;
             
-            const casoEjecutar = Object.keys(resultValidarBodega.value).find((key:any)=>resultValidarBodega.value[key] === true)
             console.log(casoEjecutar)
             
 
@@ -434,7 +438,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                 case 'conCristales':
                     console.log('ejecutando con cristales')
                     destino = OTAreas["areas"].map((area:any)=>area).filter((areaAuxiliar:any)=>areaAuxiliar[1] === 60)[0][7]
-                    estado  = 30
+                    estado  = 20
                     situacion = '4'
 
                     console.log('ejecutando procesar')
@@ -469,7 +473,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                 case 'sinCristales':
                     console.log('ejecutando con cristales')
                     destino = OTAreas["areas"].map((area:any)=>area).filter((areaAuxiliar:any)=>areaAuxiliar[1] === 60)[0][7]
-                    estado  = 30
+                    estado  = 20
                     situacion = '5'
 
                     console.log('ejecutando procesar')
@@ -509,6 +513,9 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
     React.useEffect(()=>{
         reiniciarValidationNivel3()
     },[])
+
+
+        console.log(casoEjecutar)
     
     return (
         <div className=" bg-[#676f9d] mx-auto xl:w-[90%] xl:left-[35rem]  absolute top-10 left-auto right-auto rounded-xl shadow-md overflow-hidden lg:left-[20rem]     sm:w-[25rem]    md:max-w-[35rem] z-40">
@@ -546,41 +553,46 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                     validarBodega={true}
                 />
                 </div>
-                <div className='rowForm  !h-[4rem]'>
-                <label className='text-lg '>{OT[OTGrillaEnum.cr1_od]}</label>
-                <TextInputInteractive
-                    type='text'
-                    label='OD'
-                    name='a1_od'
-                    handleChange={handleInputChange}
-                    control={control}
-                    isOT={true}
-                    // defaultValue={}
-                    data={formValues && formValues["a1_od"]}
-                    textAlign='text-left'
-                    customWidth={"translate-y-[-0.6rem] translate-x-[-1rem]"}
-                    error={errors.a1_od}
-                    inputRef={inputsRef.a1_od}
-                    validarBodega={true}
-                />
-                </div>
-                <div className='rowForm  !h-[4rem]'>
-                <label className='text-lg '>{OT[OTGrillaEnum.cr1_oi]}</label>    
-                <TextInputInteractive
-                    type='text'
-                    label='OI'
-                    name='a1_oi'
-                    handleChange={handleInputChange}
-                    control={control}
-                    isOT={true}
-                    data={formValues && formValues["a1_oi"]}
-                    textAlign='text-left'
-                    customWidth={"translate-y-[-0.6rem] translate-x-[-1rem]"}
-                    error={errors.a1_oi}
-                    inputRef={inputsRef.a1_oi}
-                    validarBodega={true}
-                />
-                </div>
+                {casoEjecutar !== 'sinCristales' && (
+                    <div className='rowForm  !h-[4rem]'>
+                    <label className='text-lg '>{OT[OTGrillaEnum.cr1_od]}</label>
+                    <TextInputInteractive
+                        type='text'
+                        label='OD'
+                        name='a1_od'
+                        handleChange={handleInputChange}
+                        control={control}
+                        isOT={true}
+                        // defaultValue={}
+                        data={formValues && formValues["a1_od"]}
+                        textAlign='text-left'
+                        customWidth={"translate-y-[-0.6rem] translate-x-[-1rem]"}
+                        error={errors.a1_od}
+                        inputRef={inputsRef.a1_od}
+                        validarBodega={true}
+                    />
+                    </div>
+                )}
+
+                {casoEjecutar !== 'sinCristales' && (
+                    <div className='rowForm  !h-[4rem]'>
+                        <label className='text-lg '>{OT[OTGrillaEnum.cr1_oi]}</label>    
+                        <TextInputInteractive
+                            type='text'
+                            label='OI'
+                            name='a1_oi'
+                            handleChange={handleInputChange}
+                            control={control}
+                            isOT={true}
+                            data={formValues && formValues["a1_oi"]}
+                            textAlign='text-left'
+                            customWidth={"translate-y-[-0.6rem] translate-x-[-1rem]"}
+                            error={errors.a1_oi}
+                            inputRef={inputsRef.a1_oi}
+                            validarBodega={true}
+                        />
+                    </div>
+                )}
             </div>
         )}
 

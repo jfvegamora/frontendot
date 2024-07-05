@@ -211,6 +211,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
       }
 
       if(!todosIguales){
+        toast.dismiss(toastLoading);
         disabledIndividualCheck.value = false;   
         clearAllCheck.value = false;
         setSelectedRows([])     

@@ -14,8 +14,6 @@ export const hasRequiredPermissions = (
   if (!routeId) return true;
 
   const result = userPermissions.includes(routeId);
-  console.log(routeId)
-  console.log(result)
   return result;
 };
 
@@ -31,8 +29,6 @@ const AuthGuard: React.FC<Props> = ({ privateValidation }) => {
   const permisosIds = userState?.permisos
     ? JSON.parse(userState.permisos).map((id_ruta:any)=>id_ruta.id.toString())
     : [];
-  console.log(JSON.parse(userState.permisos))
-  console.log(permisosIds)
 
   if (privateValidation) {
     const currentRoute = privateRoutes.find((route) => (route.path === (window.location.pathname).replace('/', '')))?.id;

@@ -52,11 +52,11 @@ const renderButtons = useMemo(() => {
     OTAreas &&
     OTAreas.areas &&
     OTAreas.areas.map((area: any, index: number) => (
-      <div className="w-full" key={index}>
-        <div className="w-[8rem] items-center">  
+      <div className="w-full h-[9vh] items-center !mt-8" key={index}>
+        <div className="w-[9vw] !h-[10vh] items-center">  
             {/* <Button className='w-full text-xs h-16 text-center btnAreas' onClick={()=>handleEstado(area)}  key={area[1]}>{area[2]}</Button> */}
               <Button
-                className={`w-full text-xs h-16 text-center btnAreas ${
+                className={`w-full  h-16 text-center text-[0.9vw] btnAreas ${
                   botonPresionado === area[1] ? 'bg-tuColorPresionado btnPresionado' : 'bg-tuColorNormal'
                 }`}
                 // className={`w-full text-xs h-16 text-center`}

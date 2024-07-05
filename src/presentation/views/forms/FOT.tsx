@@ -8,9 +8,7 @@ import {signal } from "@preact/signals-react";
 import { Button, Checkbox  } from '@material-tailwind/react';
 
 
-import FOTGarantia from '../../components/OTForms/FOTGarantia';
 import { EnumGrid } from '../mantenedores/MOTHistorica';
-import FOTDerivacion from '../../components/OTForms/FOTDerivacion';
 import { A1_ALT, A1_CR_OD, A1_CR_OI, A1_DP, A1_Diametro, A1_GRUPO_OD, A1_GRUPO_OI, A2_CR_OD, A2_CR_OI, A2_DP, A2_Diametro, A2_GRUPO_OD, A2_GRUPO_OI, MODAL, SEXO, TIPO_CLIENTE, 
   a1_armazon, 
   a2_armazon, 
@@ -45,15 +43,27 @@ import { Spinner } from '@material-tailwind/react';
 import { toast } from 'react-toastify';
 import { addToArmazones, addToCristales, clearCodigos, fetchOT } from '../../../redux/slices/OTSlice';
 import { combinaciones_validas_od, validation_tipo_anteojo } from '../../utils/OTReceta_utils';
-import FOTPendiente from '../../components/OTForms/FOTPendiente';
-import FOTEmpaque from './FOTEmpaque';
 import { usePermission } from '../../hooks';
-import FOTAnulacion from '../../components/OTForms/FOTAnulacion';
+
 import { useModal } from '../../hooks/useModal';
 import { paramsOT } from '../mantenedores/MOT';
 // import { EnumAreas } from '../../components/OTPrimaryButtons';
 // import { usePermissionOT } from '../../hooks/usePermissionOT';
 // import { EnumAreas } from '../../components/OTPrimaryButtons';
+
+
+// import FOTPendiente from '../../components/OTForms/FOTPendiente';
+// import FOTEmpaque from './FOTEmpaque';
+// import FOTAnulacion from '../../components/OTForms/FOTAnulacion';
+// import FOTGarantia from '../../components/OTForms/FOTGarantia';
+// import FOTDerivacion from '../../components/OTForms/FOTDerivacion';
+
+const FOTPendiente  = lazy(()=>import("../../components/OTForms/FOTPendiente"));
+const FOTAnulacion   = lazy(()=>import("../../components/OTForms/FOTAnulacion"));
+const FOTEmpaque     = lazy(()=>import("./FOTEmpaque"));
+const FOTGarantia   = lazy(()=>import("../../components/OTForms/FOTGarantia"));
+const FOTDerivacion  = lazy(()=>import("../../components/OTForms/FOTDerivacion"));
+
 
 const FOTArmazones = lazy(()=>import('../../components/OTForms/FOTArmazones'));
 const FOTBitacora = lazy(()=>import('../../components/OTForms/FOTBitacora'));
@@ -392,6 +402,8 @@ const reiniciarFormOT = (keepForm:any, message:any,clearCliente:boolean):void =>
           let clearCliente = true
           keepForm.value = true;
           console.log(keepForm.value)
+          toast.success(message)
+          toast.dismiss(toastLoading)
           reiniciarFormOT(keepForm.value,message,clearCliente)
           return
         }else{
@@ -981,29 +993,42 @@ const checkArmazones = camposRequeridosArmazones.every(campo => {
             <FOTBitacora isMOT={isMOT} otData={data && data}/>
           </TabPanel>
 
-          {FOTBooleanStates.showGarantia && (
-            <div>
-              <FOTGarantia data={data && data} onClose={() =>setFOTBooleanStates((prev)=>({...prev, showPendiente:false}))} closeModal={handleCloseForm}/>
-            </div>
-          )}
-
-          {FOTBooleanStates.showDerivacion && (
-            <div>
-              <FOTDerivacion  closeModal={handleCloseForm} formValues={formValues} data={data && data} onClose={() =>setFOTBooleanStates((prev)=>({...prev, showDerivacion:false}))}/>
-            </div>
-          )}
-
-          {FOTBooleanStates.showPendiente && (
-            <div>
-              <FOTPendiente closeModal={handleCloseForm} onClose={()=>setFOTBooleanStates((prev)=>({...prev, showPendiente:false}))} data={data && data} formValues={formValues}/>
-            </div>
-          )}
-
+          <Suspense>
+            {FOTBooleanStates.showGarantia && (
+              <div>
+                <FOTGarantia data={data && data} onClose={() =>setFOTBooleanStates((prev)=>({...prev, showPendiente:false}))} closeModal={handleCloseForm}/>
+              </div>
+            )}
+          </Suspense>
+          <Suspense>
+            {FOTBooleanStates.showDerivacion && (
+              <div>
+                <FOTDerivacion  closeModal={handleCloseForm} formValues={formValues} data={data && data} onClose={() =>setFOTBooleanStates((prev)=>({...prev, showDerivacion:false}))}/>
+              </div>
+            )}
+          </Suspense>
+          <Suspense>
+            {FOTBooleanStates.showPendiente && (
+              <div>
+                <FOTPendiente closeModal={handleCloseForm} onClose={()=>setFOTBooleanStates((prev)=>({...prev, showPendiente:false}))} data={data && data} formValues={formValues}/>
+              </div>
+            )}
+          </Suspense>
+          <Suspense>
             {FOTBooleanStates.showAnulacion && (
               <div>
                 <FOTAnulacion closeModal={handleCloseForm} onClose={()=>setFOTBooleanStates((prev)=>({...prev, showAnulacion:false}))} data={data && data}/>
               </div>
             )}
+          </Suspense>
+
+          <Suspense>
+              {isFOTEmpaque && (
+                <FOTEmpaque closeModal={()=>setIsFOTEmpaque(false)}/>
+              )}
+          </Suspense>
+
+
           
 
             {/*************** BOTON POST VENTA/GARANTIA ***************/}
@@ -1118,9 +1143,8 @@ const checkArmazones = camposRequeridosArmazones.every(campo => {
           </div>
               
 
-              {isFOTEmpaque && (
-                <FOTEmpaque closeModal={()=>setIsFOTEmpaque(false)}/>
-              )}
+
+
 
               <CustomModal/>
       </Suspense>
