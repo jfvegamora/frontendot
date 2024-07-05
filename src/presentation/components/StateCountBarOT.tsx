@@ -1,5 +1,6 @@
 import React from 'react'
 import { AppStore, useAppSelector } from '../../redux/store';
+import { OTGrillaEnum } from '../Enums';
 
 
 
@@ -26,17 +27,35 @@ export interface IStateCountBar {
 const StateCountBarOT:React.FC<IStateCountBar> = ({checkCount,isMotHistorica}) => {
     const OTs:any = useAppSelector((store: AppStore) => store.OTS);
     const[stateCheckCount, setStateCheckCount] = React.useState(checkCount.value);
+    const[newCountAnteojos, setNewCountAnteojos] = React.useState(0);
 
     React.useEffect(()=>{
       setStateCheckCount(checkCount)
     },[checkCount])
     
+
+   console.log(OTs.data)
+   
   
+   
+   React.useEffect(()=>{
+    const newCount = OTs.data.reduce((acc:any, ot:any)=>{
+      if(ot[OTGrillaEnum.tipo_anteojo_id] === 3){
+        acc = acc + 2
+      }else{
+        acc = acc + 1
+      }
+      return acc
+    }, 0)
+    setNewCountAnteojos(newCount)
+  },[OTs.data])
+
+
   return (
-    <div className={`${isMotHistorica ? 'w-[80%] left-[10rem]' : 'w-[50%] left-[24rem]'} bg-white absolute bottom-[1%]  rounded-full  flex`}>
-      <div className='w-[6rem] flex'>
-          <p className=" w-[4rem] text-center rounded-full">
-          {'Total'}:
+    <div className={`${isMotHistorica ? 'w-[80%] left-[10rem]' : 'w-[70%] left-[18rem]'} bg-white absolute bottom-[1%]  rounded-full  flex text-[1.2vw]`}>
+      <div className='w-[10rem] flex '>
+          <p className=" w-[11rem] text-center rounded-full">
+          {'Total OT'}:
           </p>
           <label className="w-8 text-center">{OTs.data.length}</label>
       </div>
@@ -48,11 +67,11 @@ const StateCountBarOT:React.FC<IStateCountBar> = ({checkCount,isMotHistorica}) =
         const textColor = derivacionColor[0];
         return (
           <div className="flex" key={index}>
-            <div className='w-[10rem] flex'>
-              <p style={{ backgroundColor, color: textColor }} className="mx-2 w-[6rem] text-center rounded-full">
-                {estadoNombre}:
-              </p>
+            <div className='w-[15rem] flex'>
+              <p style={{ backgroundColor, color: textColor }} className="translate-y-[-0.2rem] mx-2 w-full text-center rounded-full">
+                OT {estadoNombre}s:
               <label className="w-8 text-center">{OTs.estadosOT[estadoID]}</label>
+              </p>
             </div>
           </div>
         );
@@ -66,9 +85,16 @@ const StateCountBarOT:React.FC<IStateCountBar> = ({checkCount,isMotHistorica}) =
           <p className="text-center mx-auto text-white">Por vencer: </p> <label className="text-center text-white">{OTs.estadosOT[99]}</label>        
       </div>
     )}
+
     {stateCheckCount >= 1 && (
-      <div className="w-[8rem]  flex mx-10">
-          <p className="text-center mx-auto ">Seleccionadas: </p> <label className="text-center ">{stateCheckCount}</label>        
+      <div className="w-[18rem]  flex mx-10">
+          <p className="text-center mx-auto ">OT Seleccionadas: </p> <label className="text-center ">{stateCheckCount}</label>        
+      </div>
+    )}
+
+    {newCountAnteojos > 0 && (
+      <div className='w-[18rem] flex'>
+        <p>Total Anteojos: <span>{newCountAnteojos}</span></p>
       </div>
     )}
 

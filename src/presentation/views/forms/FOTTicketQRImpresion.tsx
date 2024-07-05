@@ -19,7 +19,7 @@ const FOTTicketQRImpresion =  React.forwardRef((_props:any, ref:any) => {
 
                 <div className="!h-auto mr-4 ">
                   <div className="w-full text-center">
-                    <h1 className='font-bold mb-2 ml-4'>CUIDA TUS LENTES, ESCANEA CÓDIGO QR</h1>
+                    <h1 className='font-bold mb-2 ml-4'>CUIDA TUS LENTES, ESCANEA QR</h1>
                   </div>
                
                   <div className='mx-auto translate-x-[2rem]'>

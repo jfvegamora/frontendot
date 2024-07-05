@@ -415,7 +415,7 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                             </div>
                             <div className="flex text-left -mt-2">
                               <p className='-ml-6 text-[0.80rem] !mt-2 font-bold w-[27%]'>Estab: </p>
-                              <p className=' text-left text-sm  !mt-2'>{`${ot[EnumImpresion.establecimiento]}}`}</p>
+                              <p className=' text-left text-sm  !mt-2'>{`${ot[EnumImpresion.establecimiento]}`}</p>
                             </div>
                             <div className="flex text-left -mt-2">
                               <p className='-ml-6 text-[0.80rem] !mt-2 font-bold w-[27%]'>Comuna: </p>
@@ -458,7 +458,7 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                     {ot[EnumImpresion.imprime_qr] === 1 && (
                            <div className="!h-auto mr-4  translate-y-[0.3rem]">
                             <div className="w-full text-center">
-                              <h1 className='font-bold mb-2 ml-4'>CUIDA TUS LENTES, ESCANEA CÓDIGO QR</h1>
+                              <h1 className='font-bold mb-2 ml-4 text-sm'>CUIDA TUS LENTES, ESCANEA QR</h1>
                             </div>
                           
                             <QRCode
