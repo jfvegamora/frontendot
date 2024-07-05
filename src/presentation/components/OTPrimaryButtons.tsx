@@ -255,7 +255,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
 
     React.useEffect(()=>{
       if(isFinishImpression.value === true){
-        if(pkToDelete.length >= 1){
+        if(pkToDelete.length > 1){
           let masivo = true
             setEstadoImpresion(pkToDelete, OTAreas["areaActual"], masivo, User).then(()=>{
             clearIndividualCheck.value = true;

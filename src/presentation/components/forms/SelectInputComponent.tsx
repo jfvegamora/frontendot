@@ -122,21 +122,24 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
       if(label === 'Punto de Venta' || label === 'Operativo'){
         if(data && data[0]){
           if(!isEditting && isOT){
-            console.log(formValues)
-            console.log(data)
-            if(formValues?.["punto_venta_id"] !== undefined){
-              return;
-              }
+            // console.log(formValues)
+            // console.log(data)
+            // // if(formValues?.["punto_venta_id"] !== undefined){
+            // //   return;
+            // // }
+            // console.log(data)
             codPuntoVenta.value = data[0][0]
             punto_venta.value = data[0][0]
             setStrSelectedName(data[0][0])
             // setEntities(data[0][0])
         }}}
 
-        console.log(data)
+        // console.log(data)
       const payload = {
         [label]:data
       }
+
+
       dispatch(setDataListbox(payload))
       setEntities(data)
       

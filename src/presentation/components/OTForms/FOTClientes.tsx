@@ -390,7 +390,7 @@ const FOTClientes:React.FC<IClientes> = ({
                 </div>
 
                 <div className="w-[31%] items-center relative dirCliente">
-                    <label className='labelForm w-[25%] top-[-8%] left-[2%] pl-8 absolute z-10'>Direccion</label>
+                    <label className='labelForm w-[25%] top-[-8%] left-[2%] pl-8 absolute z-10'>Dirección</label>
                         <RegProCom
                          name="cliente_comuna"
                          control={control}

@@ -443,7 +443,7 @@ return (
                     <div className="">
                         <TextInputComponent
                             type="number"
-                            label="N° Reporte Atencion"
+                            label="N° Reporte Atención"
                             name="numero_reporte_atencion"
                             handleChange={handleInputChange}
                             data={formValues ? formValues["numero_reporte_atencion"] : data && data[EnumGrid.numero_reporte_atencion]}
@@ -456,7 +456,7 @@ return (
                     <div className="">
                         <TextInputComponent
                             type="text"
-                            label="N° OC"
+                            label="N° Órden Compra"
                             name="numero_orden_compra"
                             handleChange={handleInputChange}
                             data={formValues ? formValues["numero_orden_compra"] : data && data[EnumGrid.numero_oc]}
@@ -469,7 +469,7 @@ return (
                     <div className="">
                         <TextInputComponent
                             type="number"
-                            label="N° Guia"
+                            label="N° Guía"
                             name="numero_guia"
                             handleChange={handleInputChange}
                             data={formValues ? formValues["numero_guia"] : data && data[EnumGrid.numero_guia]}
@@ -515,7 +515,7 @@ return (
                     <div className="">
                         <TextInputInteractive
                             type="number"
-                            label="Nota de Venta / boleta "
+                            label="Nota Venta / Boleta "
                             name="nota_venta"
                             handleChange={handleInputChange}
                             data={formValues ? formValues["nota_venta"] : data && data[EnumGrid.nota_venta]}
@@ -554,7 +554,7 @@ return (
                     <div className="">
                          <TextInputInteractive
                             type="text"
-                            label="Numero Envio"
+                            label="Número Envío"
                             name="numero_envio"
                             handleChange={handleInputChange}
                             data={formValues ? formValues["numero_envio"] : data && data[EnumGrid.numero_envio]}

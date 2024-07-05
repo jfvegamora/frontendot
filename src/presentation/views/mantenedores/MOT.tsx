@@ -210,7 +210,7 @@ const MOT: React.FC = () => {
       <Suspense>
         {Number.isInteger(areaActualOT) && (areaActualOT !== 200) && (
           <FilterButton
-            className="top-[10rem] left-[3rem]"
+            className="top-[11.6rem] left-[3rem]"
             isOT={true}
           >
 

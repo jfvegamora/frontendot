@@ -237,6 +237,13 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                 validationCodigoCristal1_oi('32', true)
             }
         }
+
+        if(OT && OT[OTGrillaEnum.tipo_anteojo_id] === 3 && casoEjecutar === 'sinCristales'){
+            validationCodigoCristal1_od('32', true)
+            validationCodigoCristal1_oi('32', true)
+            validationCodigoCristal2_od('32', true)
+            validationCodigoCristal2_oi('32', true)
+        }
         focusFirstInput('a1_armazon', inputsRef["a1_armazon"])
     },[OT])
 
@@ -618,42 +625,48 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                     onlyRead={OT && OT[OTGrillaEnum.tipo_anteojo_id] === 3 ? false : true}
                 />
                 </div>
-                <div className='rowForm !h-[4rem] '>
-                <label className='text-lg'>{OT[OTGrillaEnum.cr2_od]}</label>    
-                <TextInputInteractive
-                    type='text'
-                    label='OD'
-                    name='a2_od'
-                    handleChange={handleInputChange}
-                    isOT={true}
-                    data={formValues && formValues["a2_od"]}
-                    control={control}
-                    textAlign='text-left'
-                    error={errors.a2_od}
-                    inputRef={inputsRef.a2_od}
-                    customWidth={"translate-y-[-0.6rem] translate-x-[-1rem]"}
-                    validarBodega={true}
-                    onlyRead={OT && OT[OTGrillaEnum.tipo_anteojo_id] === 3 ? false : true}
-                />
-                </div>
-                <div className='rowForm !h-[4rem] '>
-                <label className='text-lg'>{OT[OTGrillaEnum.cr2_oi]}</label>    
-                <TextInputInteractive
-                    type='text'
-                    label='OI'
-                    name='a2_oi'
-                    handleChange={handleInputChange}
-                    isOT={true}
-                    data={formValues && formValues["a2_oi"]}
-                    control={control}
-                    textAlign='text-left'
-                    customWidth={"translate-y-[-0.6rem] translate-x-[-1rem]"}
-                    error={errors.a2_oi}
-                    inputRef={inputsRef.a2_oi}
-                    validarBodega={true}
-                    onlyRead={OT && OT[OTGrillaEnum.tipo_anteojo_id] === 3 ? false : true}
-                />
-                </div>
+
+                {casoEjecutar !== 'sinCristales' && (
+                    <div className='rowForm !h-[4rem] '>
+                    <label className='text-lg'>{OT[OTGrillaEnum.cr2_od]}</label>    
+                    <TextInputInteractive
+                        type='text'
+                        label='OD'
+                        name='a2_od'
+                        handleChange={handleInputChange}
+                        isOT={true}
+                        data={formValues && formValues["a2_od"]}
+                        control={control}
+                        textAlign='text-left'
+                        error={errors.a2_od}
+                        inputRef={inputsRef.a2_od}
+                        customWidth={"translate-y-[-0.6rem] translate-x-[-1rem]"}
+                        validarBodega={true}
+                        onlyRead={OT && OT[OTGrillaEnum.tipo_anteojo_id] === 3 ? false : true}
+                    />
+                    </div>
+                )}
+                {casoEjecutar !== 'sinCristales' && (
+                    <div className='rowForm !h-[4rem] '>
+                    <label className='text-lg'>{OT[OTGrillaEnum.cr2_oi]}</label>    
+                    <TextInputInteractive
+                        type='text'
+                        label='OI'
+                        name='a2_oi'
+                        handleChange={handleInputChange}
+                        isOT={true}
+                        data={formValues && formValues["a2_oi"]}
+                        control={control}
+                        textAlign='text-left'
+                        customWidth={"translate-y-[-0.6rem] translate-x-[-1rem]"}
+                        error={errors.a2_oi}
+                        inputRef={inputsRef.a2_oi}
+                        validarBodega={true}
+                        onlyRead={OT && OT[OTGrillaEnum.tipo_anteojo_id] === 3 ? false : true}
+                    />
+                    </div>
+                )}
+                
               
             </div>
             )}

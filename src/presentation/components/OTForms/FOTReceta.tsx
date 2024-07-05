@@ -124,7 +124,7 @@ const FOTReceta:React.FC<IReceta> = ({
                 <div className="w-[20%] ">
                     <TextInputInteractive
                         type="number"
-                        label="Numero de receta"
+                        label="Número de receta"
                         name="numero_receta"
                         handleChange={handleInputChange}
                         data={formValues && formValues["numero_receta"] ? formValues["numero_receta"] : data && data[EnumGrid.numero_receta]}

@@ -56,7 +56,7 @@ const renderButtons = useMemo(() => {
         <div className="w-[9vw] !h-[10vh] items-center">  
             {/* <Button className='w-full text-xs h-16 text-center btnAreas' onClick={()=>handleEstado(area)}  key={area[1]}>{area[2]}</Button> */}
               <Button
-                className={`w-full  h-16 text-center text-[0.9vw] btnAreas ${
+                className={`w-full  h-[9vh] text-center text-[0.9vw] btnAreas ${
                   botonPresionado === area[1] ? 'bg-tuColorPresionado btnPresionado' : 'bg-tuColorNormal'
                 }`}
                 // className={`w-full text-xs h-16 text-center`}

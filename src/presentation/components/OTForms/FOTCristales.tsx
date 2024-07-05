@@ -205,7 +205,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                 <div className="w-full flex mt-6 rowForm ">
                                     <div className="!ml-[1rem]">
                                         <SelectInputTiposComponent
-                                            label='Indice'
+                                            label='Índice'
                                             name='cristal1_indice_id'
                                             showRefresh={true}
                                             isOT={true}
@@ -327,7 +327,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                     <div className="!w-[50%] !pr-[1rem]">
                                         <TextInputInteractive
                                             type="text"
-                                            label="Codigo Cristal OD"
+                                            label="Código Cristal OD"
                                             name="cristal1_od"
                                             handleChange={handleInputChange}
                                             data={A1_CR_OD.value || data && data[EnumGrid.cristal1_od]}
@@ -343,7 +343,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                     <div className="!w-[50%] !pr-[1rem] !ml-[-1rem]">
                                         <TextInputInteractive
                                             type="text"
-                                            label="Codigo Cristal OI"
+                                            label="Código Cristal OI"
                                             name="cristal1_oi"
                                             isOT={true}
                                             handleChange={handleInputChange}
@@ -428,7 +428,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                 <div className="w-full flex mt-6 rowForm">
                                     <div className="ml-[1rem]">
                                         <SelectInputTiposComponent
-                                            label="Indice"
+                                            label="Índice"
                                             name="cristal2_indice_id"
                                             showRefresh={true}
                                             isOT={true}
@@ -554,7 +554,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                     <div className="!w-[50%] !pr-[1rem]">
                                         <TextInputInteractive
                                             type="text"
-                                            label="Codigo Cristal OD"
+                                            label="Código Cristal OD"
                                             name="cristal2_od"
                                             handleChange={handleInputChange}
                                             data={A2_CR_OD.value || data && data[EnumGrid.cristal2_od] }
@@ -568,7 +568,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                     <div className="!w-[50%] !pr-[1rem] !ml-[-1rem]">
                                         <TextInputInteractive
                                             type="text"
-                                            label="Codigo Cristal OI"
+                                            label="Código Cristal OI"
                                             name="cristal2_oi"
                                             handleChange={handleInputChange}
                                             data={A2_CR_OI.value ||  data && data[EnumGrid.cristal2_oi]}

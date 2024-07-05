@@ -47,6 +47,7 @@ import { usePermission } from '../../hooks';
 
 import { useModal } from '../../hooks/useModal';
 import { paramsOT } from '../mantenedores/MOT';
+import { EnumAreas } from '../../components/OTPrimaryButtons';
 // import { EnumAreas } from '../../components/OTPrimaryButtons';
 // import { usePermissionOT } from '../../hooks/usePermissionOT';
 // import { EnumAreas } from '../../components/OTPrimaryButtons';
@@ -389,6 +390,7 @@ const reiniciarFormOT = (keepForm:any, message:any,clearCliente:boolean):void =>
       const message = `Nuevo Folio OT: ${response.data.datos[0][0]}`
       if(response.status === 200){
         if(keepForm.value === true){
+            toast.dismiss(toastLoading)
             reiniciarFormOT(keepForm.value,message, true)
             return
         }
@@ -1076,7 +1078,7 @@ const checkArmazones = camposRequeridosArmazones.every(campo => {
 
 
                      {/*************** BOTON PAUSAR ***************/}
-                {/* {OTPermissions           && 
+                {OTPermissions           && 
                 !isMOT                   &&
                 isEditting               &&
                 escritura_lectura        &&
@@ -1090,10 +1092,10 @@ const checkArmazones = camposRequeridosArmazones.every(campo => {
                     }))
                   }}>Pausar</Button>
                 )}
-                 */}
+                
 
                     {/*************** BOTON DERIVAR ***************/}
-                {/* {OTPermissions           &&
+                {OTPermissions           &&
                 !isMOT                   &&
                 isEditting               &&
                 escritura_lectura        &&
@@ -1107,7 +1109,7 @@ const checkArmazones = camposRequeridosArmazones.every(campo => {
                       showDerivacion: !prev.showDerivacion
                     }))
                   }}>Derivar</Button>
-                )} */}
+                )}
 
 
                 {/*************** BOTON ANULAR ***************/}
