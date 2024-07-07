@@ -23,7 +23,9 @@ const strEntidad = "Parametrización de Destinos ";
 export interface InputData {
   descripcion: string | undefined;
   direccion: string | undefined;
+  contacto: string | undefined;
   telefono: string | undefined;
+  correo: string | undefined;
   observaciones: string | undefined;
 }
 
@@ -34,7 +36,7 @@ interface OutputData {
 }
 
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
-  let _p1 = `"${jsonData.descripcion}", "${jsonData.direccion}", "${jsonData.telefono}", "${jsonData.observaciones}"`;
+  let _p1 = `"${jsonData.descripcion}", "${jsonData.direccion}", "${jsonData.contacto}", "${jsonData.telefono}", "${jsonData.correo}", "${jsonData.observaciones}"`;
 
   _p1 = _p1.replace(/'/g, '!');
 
@@ -53,7 +55,9 @@ export function transformUpdateQuery(
   const fields = [
     `descripcion="${jsonData.descripcion}"`,
     `direccion= "${jsonData.direccion}"`,
+    `contacto= "${jsonData.contacto}"`,
     `telefono= "${jsonData.telefono}"`,
+    `correo= "${jsonData.correo}"`,
     `observaciones= "${jsonData.observaciones}"`,
   ];
 
@@ -112,7 +116,9 @@ const FProyectoDestinos: React.FC<IUserFormPrps> = React.memo(
     const resetTextFields = React.useCallback(() => {
       setValue("descripcion", "");
       setValue("direccion", "");
+      setValue("contacto", "");
       setValue("telefono", "");
+      setValue("correo", "");
       setValue("observaciones", "");
       if (firstInputRef.current) {
         const firstInput = firstInputRef.current.querySelector(
@@ -278,9 +284,39 @@ const FProyectoDestinos: React.FC<IUserFormPrps> = React.memo(
                 <div className="w-full">
                   <TextInputComponent
                     type="text"
+                    label="Nombre Contacto"
+                    name="contacto"
+                    data={data && data[EnumGrid.contacto]}
+                    control={control}
+                    isOptional={true}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="w-full flex items-center h-[4rem]">
+              <div className="input-container items-center rowForm w-full">
+                <div className="w-full">
+                  <TextInputComponent
+                    type="text"
                     label="Teléfono"
                     name="telefono"
                     data={data && data[EnumGrid.telefono]}
+                    control={control}
+                    isOptional={true}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="w-full flex items-center h-[4rem]">
+              <div className="input-container items-center rowForm w-full">
+                <div className="w-full">
+                  <TextInputComponent
+                    type="text"
+                    label="Correo"
+                    name="correo"
+                    data={data && data[EnumGrid.correo]}
                     control={control}
                     isOptional={true}
                   />

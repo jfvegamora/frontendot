@@ -23,8 +23,10 @@ export enum EnumGrid {
   id            =1,
   descripcion   =2,
   direccion     =3, 
-  telefono      =4,
-  observaciones =5, 
+  contacto      =4,
+  telefono      =5,
+  correo        =6,
+  observaciones =7, 
 }
 
 
