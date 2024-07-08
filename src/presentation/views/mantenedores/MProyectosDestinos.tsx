@@ -80,6 +80,8 @@ const MProyectosDestinos: React.FC = () => {
   
       setPkToDelete([`${strParamsToDelete}=${combinedPks}`]);
     }, [selectedRows]);
+
+ 
   
     return (
       <div className="mantenedorContainer">
@@ -107,6 +109,7 @@ const MProyectosDestinos: React.FC = () => {
             strBaseUrl={strBaseUrl}
             showAddButton={true}
             // showCopiar={true}
+            showPDFButton={true}
             showExportButton={true}
             showDeleteButton={true}
             showForwardButton={false}
@@ -129,7 +132,6 @@ const MProyectosDestinos: React.FC = () => {
             strBaseUrl={strBaseUrl}
             tableHead={table_head_proyectos_destinos}
             showEditButton={true}
-            // showPdfButton={true}
             idMenu={idMenu}
             leftEdit={true}
             />

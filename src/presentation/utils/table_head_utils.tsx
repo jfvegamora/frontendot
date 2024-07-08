@@ -2973,7 +2973,7 @@ export const table_head_proyectos_destinos = [
     cell: "",
     key: "opciones",
     visible: true,
-    width: "w-[4rem]",
+    width: "w-[6rem]",
   },
 ];
 export const table_head_puntos_venta = [

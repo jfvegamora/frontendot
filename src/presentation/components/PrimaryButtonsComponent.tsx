@@ -20,6 +20,7 @@ const PiMicrosoftExcelLogoFill:any = React.lazy(() => import('react-icons/pi').t
 
 import axios from "axios";
 import { URLBackend } from "../hooks/useCrud";
+
 // import ExportToCsv from "./ExportToCsv";
 
 
@@ -47,6 +48,7 @@ interface IPrimaryButtonProps {
   showExcelRepFirma?:boolean;
   showExcelRepEntrega?:boolean;
   showTraspasoButton?:boolean;
+  showPDFButton?:boolean;
   showImportCsv?:boolean;
   comilla?: boolean;
   strBaseUrl?: string;
@@ -67,6 +69,8 @@ const OTPrimaryButtons  = React.lazy(()=>import("./OTPrimaryButtons"));
 const ExportCustomCSV   = React.lazy(()=>import('./ExportCustomToCsv'))
 const ExportToCsv       = React.lazy(()=>import('./ExportToCsv'))
 const ImportToCsv       = React.lazy(()=>import('./ImportToCsv'))
+const ExportToPDF       = React.lazy(()=>import('./ExportToPDF'));
+
  
 const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
   ({
@@ -86,6 +90,7 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
     showImportCsv,
     showMacroButton,
     showExcelRepFirma,
+    showPDFButton,
     showExcelRepEntrega,
     strBaseUrl,
     showExportButton,
@@ -290,6 +295,12 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
           )}
         </Suspense>
 
+        <Suspense>
+          {showPDFButton && escritura_lectura && (
+            <ExportToPDF rowData={pkToDelete}/>
+          )}
+        </Suspense>
+
           <Suspense>
             {showMacroButton && escritura_lectura && (
               <Tooltip content={'Descargar Plantilla Excel'} >
@@ -338,6 +349,7 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
           )}
         </Suspense>
 
+        
         
 
         {showDeleteButton && escritura_lectura && handleDeleteSelected && (

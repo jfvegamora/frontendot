@@ -8,7 +8,7 @@ import { usePermission } from "../hooks";
 import { BUTTON_MESSAGES, clearAllCheck, clearIndividualCheck, disabledIndividualCheck } from "../utils";
 import { AppStore, useAppSelector } from "../../redux/store";
 
-import { CristalesEnum, AccesoriosEnum, ArmazonesEnum, ProyectosDocumEnum } from "../Enums";
+import { CristalesEnum, AccesoriosEnum, ArmazonesEnum, ProyectosDocumEnum, ProyectosDestinosEnum } from "../Enums";
 
 const OTGrillaButtons = React.lazy(()=>import("./OTGrillaButtons"));
 const ExportToPDF     = React.lazy(()=>import("./ExportToPDF"));
@@ -84,7 +84,6 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
     const permissions = (area:number) => areaActual &&  OTAreas["areas"].find((permiso:any)=>permiso[1] === area)
     
     let enumGird:any = {}
-    
     switch (entidad) {
       case 'Armazón ':
         enumGird = ArmazonesEnum
@@ -97,6 +96,9 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
         break
       case 'Documentación del Proyecto ':
         enumGird = ProyectosDocumEnum
+        break;
+      case 'Destinos':
+        enumGird = ProyectosDestinosEnum
         break;
       default:
         break;
@@ -206,7 +208,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
       )
   };
 
- 
+  console.log(enumGird)
   
     return (
     <div className="gridCointainer">
@@ -338,7 +340,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                         
                         <Suspense>
                           {escritura_lectura && showPdfButton &&(     
-                            <ExportToPDF proyecto_codigo={rowData[1]} establecimiento_id={rowData[4]} strBaseUrl={strBaseUrl}/>
+                            <ExportToPDF rowData={rowData} strBaseUrl={strBaseUrl}/>
                           )}
                         </Suspense>
                         

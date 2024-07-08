@@ -1,26 +1,49 @@
-import React,{useEffect, useState} from 'react'
+import React from 'react'
 import jsPDF from 'jspdf';
-import { GrDocumentPdf } from "react-icons/gr";
 import { IconButton, Tooltip } from '@material-tailwind/react';
-import { useCrud } from '../hooks';
+import { ProyectosDestinosEnum } from '../Enums';
+import { FaRegFileLines } from "react-icons/fa6";
+import axios from 'axios';
+import { URLBackend } from '../hooks/useCrud';
+import { toast } from 'react-toastify';
+
 
 interface IExportToPdf{
-  proyecto_codigo?:string;
+  rowData?:any,
   establecimiento_id?: number;
   strBaseUrl?:string
 }
 
 const ExportToPDF:React.FC<IExportToPdf> = ({
-  proyecto_codigo,
-  establecimiento_id,
+  rowData,
   strBaseUrl
+
 }) => {
-  const [etiqueta, setEtiqueta] = useState();
-  const {ListEntity} = useCrud(strBaseUrl || '');
-
-
+  let enumGrid = {}
+  console.log(strBaseUrl)
   
+  switch (strBaseUrl) {
+    case  '/api/proyectodestinos/':
+      enumGrid = ProyectosDestinosEnum
+      break;
+  
+    default:
+      break;
+  }
 
+  console.log(enumGrid)
+  const fetchEtiquetaDespacho = async(destino_id:string) => {
+    const loadingToast = toast.loading('Cargando...')
+    try {
+      const {data} = await axios(`${URLBackend}/api/proyectodestinos/listado/?query=06&_p1=${destino_id}`)
+      toast.dismiss(loadingToast)
+      return data
+    } catch (error) {
+      toast.dismiss(loadingToast)
+      console.log(error)
+      throw new Error()
+    }
+  }
 
     // useEffect(() => {
     //   const fetchData = () => {
@@ -40,12 +63,15 @@ const ExportToPDF:React.FC<IExportToPdf> = ({
     //   fetchData();
     // }, [proyecto_codigo, establecimiento_id]);
   
-    const handleGeneratePdf = () => {
-      if (!etiqueta) return;
+    const handleGeneratePdf = async() => {
+      const destino_id = rowData[0].split('=')[1];
+      const result = await fetchEtiquetaDespacho(destino_id)
+    
+      if (!result) return;
       // console.log(etiqueta)
       const doc = new jsPDF();
 
-      
+      console.log('click')
       doc.setFontSize(32);
       
 
@@ -53,27 +79,27 @@ const ExportToPDF:React.FC<IExportToPdf> = ({
         DESTINATARIO:
 
           LUGAR DESPACHO:
-            ${etiqueta[0][0]}
+            ${result[0][1]}
           DIRECCION:
-            ${etiqueta[0][1]}
+            ${result[0][2]}
           TELEFONO:
-            ${etiqueta[0][2]}
+            ${result[0][3]}
       `;
 
       const remitente = `
-        DE:
+        REMITENTE:
 
-          EMPRESA:
-            ${etiqueta[0][3]}
+          NOMBRE:
+            ${result[0][7]}
+          DIRECCION:
+            ${result[0][9]}
           TELEFONO:
-            ${etiqueta[0][4]}
-          CORREO:
-            ${etiqueta[0][5]}
+            ${result[0][10]}
 
       `;
 
-      doc.text(destinatario, -10, 30);
-      doc.text(remitente, -10, 180);
+      doc.text(destinatario, -22, 30);
+      doc.text(remitente, -22, 180);
       doc.save('etiqueta_despacho.pdf');
     };
 
@@ -85,7 +111,7 @@ const ExportToPDF:React.FC<IExportToPdf> = ({
                     color='blue-gray'
                     onClick={handleGeneratePdf}
                   >
-                      <GrDocumentPdf className="w-8 h-8" />
+                      <FaRegFileLines className="w-8 h-8" />
                   </IconButton>
               </Tooltip>
           </>
