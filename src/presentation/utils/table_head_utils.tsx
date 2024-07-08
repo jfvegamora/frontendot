@@ -2942,11 +2942,25 @@ export const table_head_proyectos_destinos = [
     width: "w-[18rem]",
   },
   {
+    cell: "Contacto",
+    key: "contacto",
+    visible: true,
+    alignment: "text-left",
+    width: "w-[10rem]",
+  },
+  {
     cell: "Teléfono",
     key: "telefono",
     visible: true,
     alignment: "text-center",
     width: "w-[8rem]",
+  },
+  {
+    cell: "Correo",
+    key: "correo",
+    visible: true,
+    alignment: "text-left",
+    width: "w-[10rem]",
   },
   {
     cell: "Observaciones",
