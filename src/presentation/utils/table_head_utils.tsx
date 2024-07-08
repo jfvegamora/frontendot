@@ -3173,7 +3173,7 @@ export const table_head_establecimientos = [
     cell: "",
     key: "opciones",
     visible: true,
-    width: "w-[4rem]",
+    width: "w-[8rem]",
   },
 ];
 export const table_head_proyectos_usuarios = [

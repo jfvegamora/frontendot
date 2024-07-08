@@ -127,12 +127,12 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
           <div ref={ref} className={`flex flex-col !h-auto`}>
             {OT && OT.map((list_ot: any) => (
               list_ot.map((ot:any)=>{
-                console.log(ot[EnumImpresion.numero_receta])
+                // console.log(ot[EnumImpresion.imprime_ticket])
 
                 return(
                   // <div className={`!w-[90%] ${ot[EnumGrid.imprime_ticket] === 1 ? '!h-[180rem]' : '!h-[90rem]'}  ${((index > 0) && (ot[EnumGrid.imprime_ticket] === 1)) && '!-mt-[38rem]'}   ${(index > 0) && (ot[EnumGrid.imprime_ticket] === 0) && '!-mt-[19rem]'}`} key={ot[EnumGrid.folio]} >
-                  <div className={`!w-[90%] !h-[70.14rem] ${(ot[EnumImpresion.imprime_ticket] === 1) ? '!h-[140.28rem]' : '!h-[70.14rem]'}`} key={ot[EnumImpresion.folio]} >
-                    <div className={`w-[100%] relative !h-[7%]  ${ot[EnumImpresion.imprime_ticket] === 1 ? '!h-[3.5%]' : '!h-[3.5%]'} mb-4`}>
+                  <div className={`!w-[90%]  ${(ot[EnumImpresion.imprime_ticket] === 1) ? '!h-[140.28rem]' : '!h-[70.14rem]'}`} key={ot[EnumImpresion.folio]} >
+                    <div className={`w-[100%] relative  ${ot[EnumImpresion.imprime_ticket] === 1 ? '!h-[3.5%]' : '!h-[3.5%]'} mb-4`}>
                       <div className="w-[90%] mr-7  mx-auto">
                         <Barcode marginLeft={45} height={25} width={2.5} textAlign='right' value={formatNumberWithZeros(ot[EnumImpresion.folio])} />
                         <h3 className={`absolute left-3 mt-2 bottom-4`}>{fechaHoraFormateada}</h3>

@@ -145,7 +145,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
           className = "grid grid-rows-3 grid-cols-2  !w-[40rem] px-0 py-4 h-[35vh]  items-center"
           break;
       case '/api/ot/':
-          className = "grid grid-rows-3 grid-cols-2  !w-[40rem] px-0 py-4 h-[35vh]  items-center transition-all duration-500"
+          className = "grid grid-rows-3 !grid-cols-2  !w-[29vw] px-0 py-4 h-[35vh]   items-center transition-all duration-500"
           break;
       case '/api/cristales/' :
           className = "grid grid-rows-3 grid-cols-2 !w-[90%] px-0 py-4 h-[30vh]  items-center"
@@ -235,7 +235,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
           className={className}
         >
           {group.map((input, inputIndex) => (
-            <div key={inputIndex} className="items-center rowForm ">
+            <div key={inputIndex} className="items-center rowForm  !w-[15vw] ">
               {input.type === "number" ? (
                 <div className={`input-container ${input.styles?.with ? input.styles.with : ""}`}>
                   <div className={``}>
@@ -463,12 +463,12 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
     return (
       <form className="primaryKeyContainer !items-center relative">
         {renderInputs()}
-        <div className={`h-auto flex ${classNameSearchButton}  ${(baseUrl === '/api/ot/' || baseUrl === '/api/othistorica/' ) ? 'absolute left-[84rem] top-0 flex flex-col !py-6 !my-4 !w-[20rem] ' : ''} `}>
+        <div className={`h-auto flex ${classNameSearchButton}  ${(baseUrl === '/api/ot/' || baseUrl === '/api/othistorica/' ) ? 'absolute left-[89vw] top-0 flex flex-col !py-6 !my-4 !w-[4vw] ' : ''} `}>
           <Tooltip content="Buscar">
               <IconButton
               tabIndex={1}
                 variant="text"
-                className="primaryKeyIconButton ml-2 mr-2 mb-4"
+                className="primaryKeyIconButton  ml-2 mr-2 mb-4"
                 type="submit"
                 onClick={(e)=>{
                   e.preventDefault()
@@ -476,7 +476,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                   return handleSubmit(handleSearch)()
                 }}
               >
-                <FontAwesomeIcon icon={faMagnifyingGlass} className="primaryKeyIcon w-full  !mt-2"/>
+                <FontAwesomeIcon icon={faMagnifyingGlass} className="primaryKeyIcon w-full text-[1vw]  !mt-2"/>
             </IconButton>
           </Tooltip>
           <Tooltip content="Refrescar">

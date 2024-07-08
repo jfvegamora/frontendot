@@ -26,6 +26,7 @@ import { clearData, fetchColores, fetchOT } from "../../../redux/slices/OTSlice"
 import { signal } from "@preact/signals-react";
 import { updateActualArea } from "../../../redux/slices/OTAreasSlice";
 import { fetchDioptriaParametros } from "../../../redux/slices/utilsSlice";
+// import { OTGrillaEnum } from "../../Enums";
 // import axios from "axios";
 // import { updateActualArea } from "../../../redux/slices/OTAreasSlice";
 // import axios from "axios";
@@ -53,7 +54,8 @@ export enum OptionValuesEstado {
   Annulada = 2
 }
 
-export const checkCount = signal(0)
+export const checkCount = signal(0);
+export const totoalTrabajosSeleccionados = signal(0);
 
 
 
@@ -136,7 +138,22 @@ const MOT: React.FC = () => {
     }));
 
     setPkToDelete(newPkToDelete as any)
+
     checkCount.value = newPkToDelete.length
+    
+
+
+    totoalTrabajosSeleccionados.value = newPkToDelete?.reduce((acc:any,ot:any)=>{
+      if(ot["tipo_anteojo"] === 3){
+        console.log('render')
+        acc = acc + 2
+      }else{
+        acc++
+      }
+      return acc
+    },0)
+    console.log(totoalTrabajosSeleccionados.value)
+
   }, [selectedRows]);
 
   useEffect(() => {
@@ -172,10 +189,9 @@ const MOT: React.FC = () => {
   // console.log(estadosOT)
 
 
-  console.log(areaActualOT)
 
   return (
-    <div className="mantenedorContainer">
+    <div className="mantenedorContainer °bg-yellow-500">
       <div className="mt-4">
         <Suspense>
           <OTAreasButtons  setSelectedRows={setSelectedRows} params={params} />

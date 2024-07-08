@@ -1021,7 +1021,7 @@ export default function ComplexNavbar() {
       {userState?.nombre && (
       
         // <Navbar className=" mt-2 mx-auto max-w-screen-xl sm:scroll-mx-4  p-2 lg:rounded-full lg:pl-6 navBarBorder z-30 ">
-        <Navbar className=" !mb-[10rem] mt-2 mx-auto w-[90vw] sm:scroll-mx-4 h-[8vh]  p-2 lg:rounded-full lg:pl-6 navBarBorder z-30 ">
+        <Navbar className=" !mb-[10rem] mt-2 mx-auto w-[90%] sm:scroll-mx-4 sm:h-[18hv] h-[8vh]  p-2 lg:rounded-full lg:pl-6 navBarBorder z-30 ">
           <div className="relative mb-10 mx-auto flex h-full items-center text-blue-gray-900">
             <div className="w-[40%] ml-2 cursor-pointer mantenedor-titulo translate-y-[-1.4rem]">
               <Typography className="w-[15vw] !text-[1.1vw] h-[1vh] overflow ">

@@ -1,6 +1,7 @@
 import React from 'react'
 import { AppStore, useAppSelector } from '../../redux/store';
 import { OTGrillaEnum } from '../Enums';
+import { totoalTrabajosSeleccionados } from '../views/mantenedores/MOT';
 
 
 
@@ -34,10 +35,7 @@ const StateCountBarOT:React.FC<IStateCountBar> = ({checkCount,isMotHistorica}) =
     },[checkCount])
     
 
-   console.log(OTs.data)
-   
-  
-   
+    
    React.useEffect(()=>{
     const newCount = OTs.data.reduce((acc:any, ot:any)=>{
       if(ot[OTGrillaEnum.tipo_anteojo_id] === 3){
@@ -52,13 +50,16 @@ const StateCountBarOT:React.FC<IStateCountBar> = ({checkCount,isMotHistorica}) =
 
 
   return (
-    <div className={`${isMotHistorica ? 'w-[80%] left-[10rem]' : 'w-[70%] left-[18rem]'} bg-white absolute bottom-[1%]  rounded-full  flex text-[1.2vw]`}>
-      <div className='w-[10rem] flex '>
-          <p className=" w-[11rem] text-center rounded-full">
-          {'Total OT'}:
+    <>
+    <div className={`${isMotHistorica ? 'w-[80%] left-[10rem]' : 'w-[60%] left-[1vw]'} bg-white absolute bottom-[1%] h-[4.5vh]   rounded-full  flex text-[1.2vw]`}>
+      <div className='w-[7vw] flex ml-4'>
+          <p className=" text-center rounded-full">
+          {'Total OT '}:
           </p>
-          <label className="w-8 text-center">{OTs.data.length}</label>
+          <label className="text-center">{OTs.data.length}</label>
       </div>
+
+
     {Object.keys(OTs.estadosOT).map((estadoID, index) => {
       const estadoNombre = estadoIDNombre[estadoID];
       const derivacionColor = OTs.derivacionColores[estadoNombre];
@@ -66,13 +67,11 @@ const StateCountBarOT:React.FC<IStateCountBar> = ({checkCount,isMotHistorica}) =
         const backgroundColor = derivacionColor[1];
         const textColor = derivacionColor[0];
         return (
-          <div className="flex" key={index}>
-            <div className='w-[15rem] flex'>
-              <p style={{ backgroundColor, color: textColor }} className="translate-y-[-0.2rem] mx-2 w-full text-center rounded-full">
-                OT {estadoNombre}s:
-              <label className="w-8 text-center">{OTs.estadosOT[estadoID]}</label>
+            <div className='w-[8vw] h-[5vh] flex mr-4' key={index}>
+              <p style={{ backgroundColor, color: textColor }} className="translate-y-[-0.2rem] mx-2 w-full text-center rounded-2xl">
+               {estadoNombre}s:
+              <label className="text-center">{OTs.estadosOT[estadoID]}</label>
               </p>
-            </div>
           </div>
         );
       }
@@ -81,24 +80,45 @@ const StateCountBarOT:React.FC<IStateCountBar> = ({checkCount,isMotHistorica}) =
     })}
     
     {OTs.estadosOT.hasOwnProperty(99) &&  (OTs.estadosOT[99] > 0 as any) && (
-      <div className="w-[8rem]  flex bg-black">
+      <div className="w-[8vw]  flex bg-black">
           <p className="text-center mx-auto text-white">Por vencer: </p> <label className="text-center text-white">{OTs.estadosOT[99]}</label>        
       </div>
     )}
 
     {stateCheckCount >= 1 && (
-      <div className="w-[18rem]  flex mx-10">
-          <p className="text-center mx-auto ">OT Seleccionadas: </p> <label className="text-center ">{stateCheckCount}</label>        
+      <div className="w-[13vw] flex mx-2">
+          <p className="text-center">OT Seleccionadas: </p> <label className="text-center ">{stateCheckCount}</label>        
       </div>
     )}
 
+    </div>
+
+
+    <div className={`${isMotHistorica ? 'w-[80%] rigth-[10rem]' : 'w-[30%] right-[1vw]'} bg-white absolute bottom-[1%] h-[4.5vh]  rounded-full  flex text-[1.2vw]`}>
+    
     {newCountAnteojos > 0 && (
-      <div className='w-[18rem] flex'>
+      <div className='w-[10vw] flex ml-4'>
         <p>Total Anteojos: <span>{newCountAnteojos}</span></p>
       </div>
     )}
 
-</div>
+
+
+
+    {totoalTrabajosSeleccionados.value >= 1 && (
+      <div className="w-[16vw] flex mx-2">
+          <p className="text-center">Trabajos Seleccionados: </p> <label className="text-center ">{totoalTrabajosSeleccionados.value}</label>        
+      </div>
+    )}
+
+
+
+
+
+    
+
+    </div>
+    </>
   )
 }
 

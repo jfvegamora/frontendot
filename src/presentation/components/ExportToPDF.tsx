@@ -22,23 +22,23 @@ const ExportToPDF:React.FC<IExportToPdf> = ({
   
 
 
-    useEffect(() => {
-      const fetchData = () => {
-        const primaryKeys = `_p1=${proyecto_codigo}&_p2=${establecimiento_id}`;
-        const query = '06';
+    // useEffect(() => {
+    //   const fetchData = () => {
+    //     const primaryKeys = `_p1=${proyecto_codigo}&_p2=${establecimiento_id}`;
+    //     const query = '06';
   
-        ListEntity(primaryKeys, query)
-          .then((data) => {
-            setEtiqueta(data);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      };
+    //     ListEntity(primaryKeys, query)
+    //       .then((data) => {
+    //         setEtiqueta(data);
+    //       })
+    //       .catch((error) => {
+    //         console.log(error);
+    //       });
+    //   };
   
-      // Llama a fetchData cuando se monta el componente
-      fetchData();
-    }, [proyecto_codigo, establecimiento_id]);
+    //   // Llama a fetchData cuando se monta el componente
+    //   fetchData();
+    // }, [proyecto_codigo, establecimiento_id]);
   
     const handleGeneratePdf = () => {
       if (!etiqueta) return;
