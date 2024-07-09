@@ -1657,7 +1657,7 @@ export const updateOT = async (
           !Number.isNaN(dioptrias_receta.value.a1_od.ad)
           ? dioptrias_receta.value.a1_od.ad
           : 0
-        : typeof dioptrias_receta.value.a1_od.ad !== "string" &&
+        : typeof dioptrias_receta.value.a1_od.ad !== "object" &&
           !Number.isNaN(dioptrias_receta.value.a1_od.ad)
         ? dioptrias_receta.value.a1_od.ad
         : 0

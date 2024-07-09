@@ -296,7 +296,7 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
         </Suspense>
 
         <Suspense>
-          {showPDFButton && escritura_lectura && (
+          {showPDFButton && (
             <ExportToPDF rowData={pkToDelete}/>
           )}
         </Suspense>

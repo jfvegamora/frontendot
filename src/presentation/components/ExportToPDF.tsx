@@ -20,7 +20,6 @@ const ExportToPDF:React.FC<IExportToPdf> = ({
 
 }) => {
   let enumGrid = {}
-  console.log(strBaseUrl)
   
   switch (strBaseUrl) {
     case  '/api/proyectodestinos/':
@@ -92,6 +91,7 @@ const ExportToPDF:React.FC<IExportToPdf> = ({
               <Tooltip content="Etiqueta Despacho">
                   <IconButton
                     variant='text'
+                    className='primaryBtnIcon'
                     color='blue-gray'
                     onClick={handleGeneratePdf}
                   >
