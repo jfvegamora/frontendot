@@ -159,7 +159,7 @@ const MUsuarios: React.FC = () => {
                 label: "Cargos",
                 type: "select",
                 selectUrl: "/api/cargos/",
-                styles:{with: "ml-4"}
+                styles:{with: "ml-4 "}
               },
             ]}
             classNameSearchButton=" translate-x-[-7rem]"

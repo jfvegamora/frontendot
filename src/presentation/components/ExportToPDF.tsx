@@ -71,35 +71,36 @@ const ExportToPDF:React.FC<IExportToPdf> = ({
       // console.log(etiqueta)
       const doc = new jsPDF();
 
-      console.log('click')
-      doc.setFontSize(32);
-      
+
+      doc.setFontSize(28);
+
+      const titulo = `${(result[0][0]).toUpperCase()}`
 
       const destinatario = `
-        DESTINATARIO:
-
-          LUGAR DESPACHO:
-            ${result[0][1]}
-          DIRECCION:
-            ${result[0][2]}
-          TELEFONO:
-            ${result[0][3]}
+          DESTINATARIO:          
+              ${result[0][1]}
+              ${result[0][2]}
+              ${result[0][3]}
+              ${result[0][4]}
       `;
 
       const remitente = `
-        REMITENTE:
-
-          NOMBRE:
-            ${result[0][7]}
-          DIRECCION:
-            ${result[0][9]}
-          TELEFONO:
-            ${result[0][10]}
-
+          REMITENTE:
+              ${result[0][5]}
+              ${result[0][6]}
+              ${result[0][7]}
+              ${result[0][8]}
       `;
 
-      doc.text(destinatario, -22, 30);
-      doc.text(remitente, -22, 180);
+      doc.setFontSize(32)
+      doc.text(titulo, 62, 13)
+
+      doc.setFontSize(28);
+      doc.text(destinatario, -18, 30);
+
+      doc.setFontSize(18);
+      doc.text(remitente, -10, 100);
+
       doc.save('etiqueta_despacho.pdf');
     };
 

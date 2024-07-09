@@ -237,25 +237,25 @@ const MOT: React.FC = () => {
               strQuery={strQuery}
               setEntities={setEntities}
               primaryKeyInputs={[
-                { name: "_folio", label: "Folio", type: "text", styles:{with: "!w-[8rem]", container:"w-[9rem]"} },
-                { name: "_rut", label: "Rut", type: "text", styles:{with: "!w-[9rem]", container: "w-[9em] translate-x-[-6rem]"} },
+                { name: "_folio", label: "Folio", type: "text", styles:{with: "!w-[10vw] !h-[8vh] !font-[1.6vw] !text-[1.6vw]", container:"w-[10vw] !h-[8vh]"} },
+                { name: "_rut", label: "Rut", type: "text", styles:{with: "!w-[10vw] !h-[8vh] !font-[1.6vw] !text-[1.6vw]", container: "w-[10vw] !h-[8vh]  translate-x-[-4vw]"} },
                 
-                { name: "_fecha_desde", label: "Atención Desde", type: "date", styles: { with: "w-[4rem]  !h-[3rem]", container: "w-[8rem]" } },
-                { name: "_fecha_hasta", label: "Atención Hasta", type: "date", styles: { with: "w-[9rem]  !h-[3rem]", container:"w-[9rem] translate-x-[-6rem]" } },
-                { name: "_usuario", label: "Usuario", type: "select",selectUrl: "/api/usuarios/", styles: { with: "w-[20.4rem]", container: " !w-auto !h-[6rem] translate-y-[-0.7rem]" } },
+                { name: "_fecha_desde", label: "Atención Desde", type: "date", styles: { with: "w-[10vw]  !h-[3rem] !font-[1.2vw] !text-[1.2vw]", container:"w-[10vw] translate-x-[0.2vw]" } },
+                { name: "_fecha_hasta", label: "Atención Hasta", type: "date", styles: { with: "w-[10vw]  !h-[3rem] !font-[1.2vw] !text-[1.2vw]", container:"w-[10vw] translate-x-[-4vw]" } },
+                { name: "_usuario", label: "Digitador/a", type: "select",selectUrl: "/api/usuarios/", styles: { with: "w-[20.4rem]", container: " !w-auto !h-[6rem] translate-y-[2rem]" } },
                 
                 { name: "_estado", label: "Estado", type: "select", selectUrl: "/api/tipos/", tipos: "OTEstados", styles: { with: "w-[20.4rem] !h-[3rem] translate-x-[4rem] translate-y-[-0.3rem]" }},
-                { name: "_nombre", label: "Nombre", type: "text" , styles:{ with: "!w-[18.4rem]  !h-[3rem]", container:"w-[8rem translate-x-[-11rem]" } },
-                { name: "_p1", label: "RBD", type: "text" , styles:{ with: "!w-[18.4rem]  !h-[3rem]", container:"w-[8rem] translate-x-[-7rem] " } },
+                { name: "_nombre", label: "Nombre", type: "text" , styles:{ with: "!w-[18.4vw]  !h-[8vh] !font-[1.4vw] !text-[1.4vw]", container:"w-[18.4vw] !h-[8vw] translate-y-[2vw] translate-x-[-5vw] " } },
+                { name: "_p1", label: "RBD", type: "text" , styles:{ with: "!w-[18.4vw]  !h-[8vh] !font-[1.6vw] !text-[1.6vw]", container:"w-[10vw] !h-[8vh] translate-x-[-1.4vw]" } },
                 
-                { name: "_proyecto", label: "Proyecto", type: "select", selectUrl: "/api/proyectos/", styles: { with: "w-[20.4rem]", container: "w-[8rem] translate-x-[-11rem] " }},
-                { name: "_motivo", label: "Motivo", type: "select", selectUrl: "/api/tipos/", tipos: "OTMotivo", styles: { with: "w-[20.4rem] translate-x-[-7rem] translate-y-[0.3rem]" }},
+                { name: "_proyecto", label: "Proyecto", type: "select", selectUrl: "/api/proyectos/", styles: { with: "w-[20.4vw] !h-[3.5vw]", container: "w-[20vw] !h-[3.5vw] translate-x-[-5vw] " }},
+                { name: "_motivo", label: "Motivo", type: "select", selectUrl: "/api/tipos/", tipos: "OTMotivo", styles: { with: "w-[20.4vw]  translate-y-[0.3rem]", container:"w-[20vw] translate-x-[1.3vw] translate-y-[-0.3rem] !h-[3.5vw]]" }},
                 
                 { name: "_p2", label: "Tipo Doc", type: "select", selectUrl: "/api/tipos/", tipos: "OTNumDoc", styles:{with: 'w-[20.4rem]', container: "translate-x-[8rem] translate-y-[-0.3rem]"}},
                 { name: "_p3", label: "Número Doc", type: "text", styles: { with: "w-[18.4rem]", container:"translate-x-[12rem] translate-y-[-0.6rem]" }},
                 
-                { name: "_establecimiento", label: "Establecimiento", type: "select", selectUrl: "/api/establecimientos/", styles: { with: "w-[20.4rem]", container: "w-[8rem] translate-x-[-3rem]  translate-y-[0.3rem]" }},
-                { name: "_punto_venta", label: "Punto de Venta", type: "select", selectUrl: "/api/puntosventa/", styles: { with: "w-[20.4rem] translate-x-[-18rem]  translate-y-[5rem] " }},
+                { name: "_establecimiento", label: "Establecimiento", type: "select", selectUrl: "/api/establecimientos/", styles: { with: "!w-[20vw] !h-[3.5vw] ", container: "!w-[20vw] translate-x-[8vw] !z-30   !h-[3.5vw]   !translate-y-[-0.5rem]" }},
+                { name: "_punto_venta", label: "Punto de Venta", type: "select", selectUrl: "/api/puntosventa/", styles: { with: "w-[20.4vw]  translate-y-[5rem] ", container:" !w-[20vw] !translate-x-[-8vw]" }},
 
               ]}
             />

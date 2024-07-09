@@ -114,7 +114,7 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
     },[resetFilters.value])
 
 
-
+console.log(customWidth)
     
     const renderInput = () => (
       <Controller
@@ -122,7 +122,7 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
           control={control}
           defaultValue={strSelectedName}
           render={({ field }) => (
-            <div className={`custom-select border-[1px] rounded-lg !h-[3rem] relative ${error ? 'border-red-500' : 'border-[#f8b179]'}  `}>
+            <div className={`custom-select border-[1px] rounded-lg  relative ${error ? 'border-red-500' : 'border-[#f8b179]'}  `}>
               <div className="top-[-0.1rem]   left-3.5 absolute w-1/2 z-10">
                 <label
                   htmlFor={label}
@@ -178,7 +178,7 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
                     }
                   }
                 }}
-                className={`"custom-input py-2  cursor-pointer z-0"  ${readOnly ? "custom-onlyread" : isOptional ? "custom-optional-with-color" : "custom-required"} `}
+                className={`"${customWidth ? customWidth : ""}  custom-input py-2  cursor-pointer z-0"  ${readOnly ? "custom-onlyread" : isOptional ? "custom-optional-with-color" : "custom-required"} `}
                 >
                   {!onlyFirstOption && (
                     <option value={undefined} className="text-sm">

@@ -145,7 +145,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
           className = "grid grid-rows-3 grid-cols-2  !w-[40rem] px-0 py-4 h-[35vh]  items-center"
           break;
       case '/api/ot/':
-          className = "grid grid-rows-3 !grid-cols-2  !w-[29vw] px-0 py-4 h-[35vh]   items-center transition-all duration-500"
+          className = "grid grid-rows-3 !grid-cols-2  !w-[29vw] px-0  h-[35vh]   items-center transition-all duration-500"
           break;
       case '/api/cristales/' :
           className = "grid grid-rows-3 grid-cols-2 !w-[90%] px-0 py-4 h-[30vh]  items-center"
@@ -235,7 +235,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
           className={className}
         >
           {group.map((input, inputIndex) => (
-            <div key={inputIndex} className="items-center rowForm  !w-[15vw] ">
+            <div key={inputIndex} className="items-center rowForm flex justify-around  !w-[17vw] ">
               {input.type === "number" ? (
                 <div className={`input-container ${input.styles?.with ? input.styles.with : ""}`}>
                   <div className={``}>
@@ -349,13 +349,14 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                       inputValues={inputValues}
                       setHandleSearch={handleSearch}
                       handleSelectChange={handleSelectChange}
-                      customWidth={input.styles?.with}
+                      customWidth={`!h-[2.8vw] ${input.styles?.with}`}
+                    
                     />
                   </Suspense>
                 </div>
               ): (
-                <div className={`input-container relaative  ${input.styles?.container}`}>
-                    <div className="w-full ">
+                <div className={`input-container  ${input.styles?.container}`}>
+        
                       <Suspense>
                           <SelectInputComponent
                             label={input.label}
@@ -371,10 +372,10 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                             inputValues={inputValues}
                             setHandleSearch={handleSearch}
                             handleSelectChange={handleSelectChange}
-                            customWidth={input.styles?.with}
+                            customWidth={` h-[2.8vw] ${input.styles?.with}`}
+                            // className={` ${input.styles?.with}`}
                           />
                       </Suspense>
-                    </div>
                   </div>
               )
               ) : input.type === "date" ? (
@@ -401,7 +402,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                 </div>
               ) : (
                 // Otros tipos de entrada
-              <div className={`input-container relative rowForm !mt-[-0.3rem] !ml-[0rem] !mr-4 !pl-[0rem] !pr-[1rem] 
+              <div className={`input-container rowForm 
                               ${input.styles?.container}`}>
                 <Controller
                   name={input.name}
@@ -411,7 +412,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                     <Input
                       color="orange"
                       tabIndex={1}
-                      className={`!m-0 !h-12 !mt-[0.3rem]  ${input?.styles?.with || ""}`}
+                      className={`!h-[2.8vw] ${input?.styles?.with || ""}`}
                       {...field}
                       type={input.type}
                       label={input.label}

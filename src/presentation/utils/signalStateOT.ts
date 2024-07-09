@@ -1272,7 +1272,6 @@ export const getGrupoCristales_A1 = async (
       } else {
         // console.log(cristalesDATA)
         clearValidacionIncompleta();
-        console.log("render");
         A1_CR_OD.value = cristalesDATA["CR_OD"].trim() || "   ";
         A1_CR_OI.value = cristalesDATA["CR_OI"].trim() || "   ";
         // A1_GRUPO.value = cristalesDATA["GRUPO"]
@@ -1280,8 +1279,14 @@ export const getGrupoCristales_A1 = async (
         A1_GRUPO_OD.value = cristalesDATA["GRUPO_OD"].trim() || "  ";
         A1_GRUPO_OI.value = cristalesDATA["GRUPO_OI"].trim() || "  ";
 
-        validation_Cristal1_od(cristalesDATA["CR_OD"]);
-        validation_Cristal1_oi(cristalesDATA["CR_OI"]);
+        if (cristalesDATA["CR_OD"] === "") {
+          validation_Cristal1_od("32");
+          validation_Cristal1_oi("32");
+        } else {
+          validation_Cristal1_od(cristalesDATA["CR_OD"]);
+          validation_Cristal1_oi(cristalesDATA["CR_OI"]);
+        }
+
         setChangeboolean((prev: boolean) => !prev);
 
         // console.log(key)
@@ -1426,8 +1431,13 @@ export const getGrupoCristales_A2 = async (
         A2_GRUPO_OD.value = cristalesDATA["GRUPO_OD"];
         A2_GRUPO_OI.value = cristalesDATA["GRUPO_OI"];
 
-        validation_Cristal2_od(cristalesDATA["CR_OD"]);
-        validation_Cristal2_oi(cristalesDATA["CR_OI"]);
+        if (cristalesDATA["CR_OD"] === "") {
+          validation_Cristal2_od("32");
+          validation_Cristal2_oi("32");
+        } else {
+          validation_Cristal2_od(cristalesDATA["CR_OD"]);
+          validation_Cristal2_oi(cristalesDATA["CR_OI"]);
+        }
 
         setChangeboolean((prev: boolean) => !prev);
       }

@@ -11,6 +11,7 @@ import { Button, Checkbox  } from '@material-tailwind/react';
 import { EnumGrid } from '../mantenedores/MOTHistorica';
 import { A1_ALT, A1_CR_OD, A1_CR_OI, A1_DP, A1_Diametro, A1_GRUPO_OD, A1_GRUPO_OI, A2_CR_OD, A2_CR_OI, A2_DP, A2_Diametro, A2_GRUPO_OD, A2_GRUPO_OI, MODAL, SEXO, TIPO_CLIENTE, 
   a1_armazon, 
+  a1_oi_ad, 
   a2_armazon, 
   // a1_od_ad, a1_od_cil, a1_od_eje, a1_od_esf, 
   a2_od_cil, a2_od_eje, a2_od_esf, a2_oi_cil, a2_oi_eje, a2_oi_esf, a3_armazon, armazonesJSONsignal, changeCodigoCristal_A1, changeCodigoCristal_A2, clearArmazonesData, clearDioptrias,  
@@ -695,6 +696,7 @@ const reiniciarFormOT = (keepForm:any, message:any,clearCliente:boolean):void =>
       ){
         if(typeof dioptrias_receta.value.a1_od.ad !== 'object' &&  dioptrias_receta.value.a1_od.ad > 0){
           a2_od_esf.value = (typeof dioptrias_receta.value.a1_od.esf !== 'object' && Number.isNaN(dioptrias_receta.value.a1_od.esf) ? 0 : (parseFloat(dioptrias_receta.value.a1_od.esf) ) + parseFloat(dioptrias_receta.value.a1_od.ad)).toFixed(2)
+          
           if(a2_od_esf.value > 0){
             a2_od_esf.value = '+' + a2_od_esf.value
           }
@@ -714,16 +716,20 @@ const reiniciarFormOT = (keepForm:any, message:any,clearCliente:boolean):void =>
         Object.keys(dataForm)[0] === 'a1_oi_ad'  ||
         tipo_de_anteojo.value === '3'
       ){
-        if(dioptrias_receta.value.a1_od.ad < 0){
+        console.log(dioptrias_receta.value.a1_od.ad)
+
+        if(dioptrias_receta.value.a1_od.ad <= 0){
           a2_od_esf.value = "";
           dioptrias_receta.value.a1_od.ad  = "";
         }
-        if(typeof dioptrias_receta.value.a1_oi.ad !== 'object' && dioptrias_receta.value.a1_oi.ad > 0){
+
+        if((dioptrias_receta.value.a1_oi.ad !== ' ') && a1_oi_ad.value >= 0){
           a2_oi_esf.value = (typeof dioptrias_receta.value.a1_oi.esf !== 'object' && Number.isNaN(dioptrias_receta.value.a1_oi.esf) ? 0 : (parseFloat(dioptrias_receta.value.a1_oi.esf)) + parseFloat(dioptrias_receta.value.a1_oi.ad)).toFixed(2)
           if(a2_oi_esf.value > 0){
             a2_oi_esf.value = '+' + a2_oi_esf.value
           }
           a2_oi_eje.value = (typeof dioptrias_receta.value.a1_oi.eje === 'object' ? 0 : dioptrias_receta.value.a1_oi.eje)
+          console.log(a2_oi_eje.value)
           a2_oi_cil.value = (typeof dioptrias_receta.value.a1_oi.cil === 'object' ? 0 : dioptrias_receta.value.a1_oi.cil);
         }
       }

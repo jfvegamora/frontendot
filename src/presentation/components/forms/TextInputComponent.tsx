@@ -77,8 +77,10 @@ const TextInputComponent: React.FC<ITextInputProps> = ({
   if(label === '$ Total'){
     console.log(defaultValue)
   }
-
-// ...
+  if(label === '_folio'){
+    console.log(className)
+  }
+//
 // console.log(defaultValue)
 
 return (
@@ -102,7 +104,7 @@ return (
             onFocus={handleFocus}
             onBlur={(e) => handleInputChange(e)}
             ref={inputRef}
-            className={`${className ? className : "custom-input"}  ${onlyRead ? "custom-onlyread cursor-not-allowed" : isOptional ? "custom-optional" : "custom-required"} ${textAlign && textAlign}`}
+            className={`${className ? className : ""}  ${onlyRead ? "custom-onlyread cursor-not-allowed" : isOptional ? "custom-optional" : "custom-required"} ${textAlign && textAlign}`}
             tabIndex={onlyRead ? 0 : (tabIndex || 1)}
             placeholder={type === 'date' ? "dd-mm-yyyy" : ""}
             autoComplete="off"

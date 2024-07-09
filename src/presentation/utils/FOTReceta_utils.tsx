@@ -51,7 +51,7 @@ export const transponer = (ESF:any, CIL:any, EJE:any,
     }
 
     if(typeof dioptrias_receta.value[anteojo].cil === 'string' && typeof dioptrias_receta.value[anteojo].eje === 'number'){
-        if(dioptrias_receta.value[anteojo].cil > 0 && (dioptrias_receta.value[anteojo].eje >= 0 && dioptrias_receta.value[anteojo].eje <= 180)){
+        if(parseFloat(dioptrias_receta.value[anteojo].cil) > 0 && (dioptrias_receta.value[anteojo].eje >= 0 && dioptrias_receta.value[anteojo].eje <= 180)){
             const confirmacion = window.confirm("Es necesario Transponer. ¿Desea continuar con la operación?");
             console.log('1')
             if (confirmacion) {

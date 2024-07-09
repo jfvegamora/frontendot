@@ -224,7 +224,7 @@ export const validation_tipo_anteojo = () => {
       a1_oi_ad: 1,
       a1_alt: 0,
       a1_dp: 0,
-      a2_dp: 0,
+      a2_dp: 1,
       a2_od_esf: 1,
       a2_od_cil: 1,
       a2_od_eje: 1,

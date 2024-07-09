@@ -180,7 +180,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
           control={control}
           defaultValue={strSelectedName}
           render={({ field }) => (
-            <div className={`custom-select border-[1px] rounded-lg !h-[3rem] relative ${error ? 'border-red-500' : 'border-[#f8b179]'}  `}>
+            <div className={`custom-select border-[1px] rounded-lg  ${error ? 'border-red-500' : 'border-[#f8b179]'}  `}>
               <div className="top-[-0.1rem]    left-3.5 absolute w-1/2 z-10">
                 <label htmlFor={label} className=" relative">
                   {label}
@@ -196,6 +196,8 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
                 {...field}
                 ref={inputRef ? inputRef : null}
                 disabled={readOnly}
+                name={name}
+                title="select"
                 tabIndex={tabIndex || 1}
                 value={strSelectedName}
                 onChange={(e) => {
@@ -292,6 +294,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
               variant="text"
               className={`mx2  ${readOnly ? "left-[-40px] !text-black hover:!text-[#f8b179]" : "iconRefresh"}`}
               tabIndex={-1}
+              title="button_title"
             >
               <FiRefreshCw className="h-6 w-6" />
             </IconButton>

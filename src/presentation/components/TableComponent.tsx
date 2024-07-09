@@ -176,7 +176,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
             
           />
 
-          { leftEdit && showEditButton && (
+          { leftEdit && showEditButton && escritura_lectura && (
                         <Tooltip content={BUTTON_MESSAGES.edit.concat(entidad)}>
                           <IconButton
                             variant="text"

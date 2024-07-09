@@ -500,6 +500,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
                     A1_GRUPO_OI.value = ''
                     A1_CR_OD.value = ''
                     A1_CR_OI.value = ''
+                    console.log()
                     validation_Cristal1_od('')
                     validation_Cristal1_oi('')
                     toast.error(data[0][19])
@@ -546,8 +547,14 @@ const FOTArmazones:React.FC<IArmazones> = ({
     
                             A1_CR_OD.value    = data[0][17]
                             A1_CR_OI.value    = data[0][18]
-                            validation_Cristal1_oi(data[0][17])
-                            validation_Cristal1_od(data[0][18])
+
+                            if(data[0][17] === ''){
+                                validation_Cristal1_oi('32')
+                                validation_Cristal1_od('32')
+                            }else{
+                                validation_Cristal1_oi(data[0][17])
+                                validation_Cristal1_od(data[0][18])
+                            }
                         }
 
 
@@ -572,9 +579,15 @@ const FOTArmazones:React.FC<IArmazones> = ({
     
                                 A2_CR_OD.value    = data[0][17]
                                 A2_CR_OI.value    = data[0][18]
+
+                                if(data[0][17] === ''){
+                                    validation_Cristal2_od('32')
+                                    validation_Cristal2_oi('32')    
+                                }else{
+                                    validation_Cristal2_od(data[0][17])
+                                    validation_Cristal2_oi(data[0][18])
+                                }
     
-                                validation_Cristal2_od(data[0][17])
-                                validation_Cristal2_oi(data[0][18])
                                 validation_A2_armazon(data[0][0])
                             }
                             

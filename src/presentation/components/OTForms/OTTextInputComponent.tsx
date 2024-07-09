@@ -289,8 +289,8 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
           setValue(" ")
           return; 
         }else{
-          dioptrias_receta.value.a1_od.eje = e.target.value;
-          a1_od_eje.value = e.target.value;
+          dioptrias_receta.value.a1_oi.eje = e.target.value;
+          a1_oi_eje.value = e.target.value;
           setValue(e.target.value);
         }
       break;

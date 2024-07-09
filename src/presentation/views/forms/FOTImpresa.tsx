@@ -51,7 +51,7 @@ export enum EnumImpresion  {
   titulo_ticket_1           = 39,
   titulo_ticket_2           = 40,
   titulo_ticket_3           = 41,
-  lugar_despacho            = 42,
+  lugar_despacho            = 42, 
   a1_od_esf                 = 43,
   a1_od_cil                 = 44,
   a1_od_eje                 = 45,
@@ -80,8 +80,9 @@ export enum EnumImpresion  {
   rbd_ubicacion             = 67,
   rbd_cantidad              = 68,
   rep_cantidad              = 69,
-  
-  imagen_logo               = 70
+  direccion_despacho        = 70,
+
+  imagen_logo               = 71
 
 }
 
@@ -230,14 +231,24 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                     <div className='w-[100%] flex mt-1 justify-between border-b-2 border-black'>
                       <div className="!w-[55%] ml-2 border-r-2 border-black pr-2">
                         <div className='ml-2 '>
-                          <div className='otCod font-bold'>D:{ot[EnumImpresion.cr1_od]}</div>
+                          {ot[EnumImpresion.cr1_od] !== '' && (
+                            <div className='otCod font-bold'>D:{ot[EnumImpresion.cr1_od]}</div>
+                          )}
+                            
+                          
+                          
                           {ot[EnumImpresion.cr1od_ubicacion] && (
                             <div className='otArmazonData translate-x-4 '>{ot[EnumImpresion.cr1od_ubicacion]}</div>
                           )}
-                          <div className='otCod font-bold'>I:&nbsp;{ot[EnumImpresion.cr1_oi]}</div>
+
+                          {ot[EnumImpresion.cr1_oi] !== '' && (
+                            <div className='otCod font-bold'>I:&nbsp;{ot[EnumImpresion.cr1_oi]}</div>
+                          )}
+
                           {ot[EnumImpresion.cr1oi_ubicacion] && (
                             <div className='otArmazonData translate-x-4 '>{ot[EnumImpresion.cr1oi_ubicacion]}</div>
                           )}
+
                           {/* <div className='otCData '><span className='font-bold'>Mar:</span>&nbsp;{ot[EnumGrid.cristal1_marca]}</div> */}
                           <div className='otCData '><span className='font-bold'>Dis:</span>&nbsp;{ot[EnumImpresion.cr1_diseño]}</div>
                           <div className='otCData '><span className='font-bold'>Índ:</span>&nbsp;{ot[EnumImpresion.cr1_indice]}</div>
@@ -261,11 +272,15 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                           )}
                           {ot[EnumImpresion.tipo_anteojo_id] === 3 && ( 
                               <>
-                                  <div className='otCod font-bold'>{ot[EnumImpresion.cr2_od]}</div>
+                                  {ot[EnumImpresion.cr2_od] !== '' && (
+                                    <div className='otCod font-bold'>{ot[EnumImpresion.cr2_od]}</div>
+                                  )}
                                   {ot[EnumImpresion.cr2od_ubicacion] && (
                                     <div className='otArmazonData'>{ot[EnumImpresion.cr2od_ubicacion]}</div>
                                   )}
-                                  <div className='otCod font-bold'>{ot[EnumImpresion.cr2_oi]}</div>
+                                  {ot[EnumImpresion.cr2_oi] !== '' && (
+                                    <div className='otCod font-bold'>{ot[EnumImpresion.cr2_oi]}</div>
+                                  )}
                                   {ot[EnumImpresion.cr2oi_ubicacion] && (
                                     <div className='otArmazonData'>{ot[EnumImpresion.cr2oi_ubicacion]}</div>
                                   )}
@@ -424,6 +439,9 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                             <div className="flex text-left -mt-2">
                               <p className='-ml-6 text-[0.80rem] !mt-2 font-bold w-[27%]'>Destino: </p>
                               <p className=' text-left text-sm !mt-2 font-bold'>{ot[EnumImpresion.lugar_despacho]}</p>
+                            </div>
+                            <div className="flex text-left -mt-2">
+                              <p className=' text-left text-sm !mt-2 translate-x-[-1.5rem] font-bold'>{ot[EnumImpresion.direccion_despacho]}</p>
                             </div>
                           </div>
 
