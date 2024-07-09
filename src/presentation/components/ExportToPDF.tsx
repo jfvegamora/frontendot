@@ -45,24 +45,7 @@ const ExportToPDF:React.FC<IExportToPdf> = ({
     }
   }
 
-    // useEffect(() => {
-    //   const fetchData = () => {
-    //     const primaryKeys = `_p1=${proyecto_codigo}&_p2=${establecimiento_id}`;
-    //     const query = '06';
-  
-    //     ListEntity(primaryKeys, query)
-    //       .then((data) => {
-    //         setEtiqueta(data);
-    //       })
-    //       .catch((error) => {
-    //         console.log(error);
-    //       });
-    //   };
-  
-    //   // Llama a fetchData cuando se monta el componente
-    //   fetchData();
-    // }, [proyecto_codigo, establecimiento_id]);
-  
+
     const handleGeneratePdf = async() => {
       const destino_id = rowData[0].split('=')[1];
       const result = await fetchEtiquetaDespacho(destino_id)
@@ -92,13 +75,13 @@ const ExportToPDF:React.FC<IExportToPdf> = ({
               ${result[0][8]}
       `;
 
-      doc.setFontSize(32)
-      doc.text(titulo, 62, 13)
-
-      doc.setFontSize(28);
-      doc.text(destinatario, -18, 30);
+      doc.setFontSize(18)
+      doc.text(titulo, 10, 13)
 
       doc.setFontSize(18);
+      doc.text(destinatario, -15, 30);
+
+      doc.setFontSize(12);
       doc.text(remitente, -10, 100);
 
       doc.save('etiqueta_despacho.pdf');
@@ -106,13 +89,13 @@ const ExportToPDF:React.FC<IExportToPdf> = ({
 
     return (
           <>
-              <Tooltip content="Exportar a PDF">
+              <Tooltip content="Etiqueta Despacho">
                   <IconButton
                     variant='text'
                     color='blue-gray'
                     onClick={handleGeneratePdf}
                   >
-                      <FaRegFileLines className="w-8 h-8" />
+                      <FaRegFileLines className="w-10 h-10" />
                   </IconButton>
               </Tooltip>
           </>
