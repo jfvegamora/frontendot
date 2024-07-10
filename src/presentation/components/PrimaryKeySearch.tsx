@@ -349,14 +349,13 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                       inputValues={inputValues}
                       setHandleSearch={handleSearch}
                       handleSelectChange={handleSelectChange}
-                      customWidth={`!h-[2.8vw] ${input.styles?.with}`}
+                      customWidth={`h-[2.8vw] ${input.styles?.with}`}
                     
                     />
                   </Suspense>
                 </div>
               ): (
                 <div className={`input-container  ${input.styles?.container}`}>
-        
                       <Suspense>
                           <SelectInputComponent
                             label={input.label}
