@@ -110,7 +110,9 @@ export const validationPuntosVentaSchema = () =>
     almacen_cristales: yup.string().required(`${msg}`),
     almacen_accesorios: yup.string().required(`${msg}`),
     encargado: yup.string().required(`${msg}`),
+    observaciones: yup.string(),
   });
+
 // Schema MOTIVOS OT PENDIENTE - DERIVADAS - GARANTIA - ANULACION
 export const validationMotivosOTSchema = () =>
   yup.object().shape({

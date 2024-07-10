@@ -27,6 +27,7 @@ export enum EnumGrid {
   almacen_cristales = 12,
   almacen_accesorios_id = 13,
   almacen_accesorios = 14,
+  observaciones = 15,
 }
 
 const strEntidad = "Punto de Venta ";

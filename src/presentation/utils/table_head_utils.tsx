@@ -3071,6 +3071,13 @@ export const table_head_puntos_venta = [
     width: "w-[14rem]",
   },
   {
+    cell: "Observaciones",
+    key: "observaciones",
+    visible: true,
+    alignment: "text-left",
+    width: "w-[14rem]",
+  },
+  {
     cell: "",
     key: "opciones",
     visible: true,

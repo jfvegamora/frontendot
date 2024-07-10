@@ -27,6 +27,7 @@ export interface InputData {
   almacen_accesorios   : string | undefined;
   encargado            : string | undefined;
   telefono             : string | undefined;
+  observaciones        : string | undefined;
 }
 
 interface OutputData {
@@ -43,9 +44,10 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
                ${jsonData.encargado}, 
                ${jsonData.almacen_armazones},
                ${jsonData.almacen_cristales},
-               ${jsonData.almacen_accesorios}`;
+               ${jsonData.almacen_accesorios},
+              "${jsonData.observaciones}"`;
 
-  _p1 = _p1.replace(/'/g, '!');     
+    _p1 = _p1.replace(/'/g, '!');     
 
   const query: OutputData = {
     query: "03",
@@ -68,6 +70,7 @@ export function transformUpdateQuery(
     `almacen_armazones     = ${jsonData.almacen_armazones}`,
     `almacen_cristales     = ${jsonData.almacen_cristales}`,
     `almacen_accesorios    = ${jsonData.almacen_accesorios}`,
+    `observaciones         ="${jsonData.observaciones}"`,
   ];
 
   const filteredFields = fields.filter(
@@ -128,6 +131,7 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
       setValue("descripcion", "");
       setValue("direccion", "");
       setValue("telefono", "");
+      setValue("observaciones", "");
       if (firstInputRef.current) {
         const firstInput = firstInputRef.current.querySelector(
           'input[name="descripcion"]'
@@ -368,6 +372,19 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
             </div>
           </div>
         </div>
+
+        <div className="input-container items-center rowForm">
+              <div className="w-[99%] !mb-[2rem]  ">
+                <TextInputComponent
+                  type="text"
+                  label="Observaciones"
+                  name="observaciones"
+                  data={data && data[EnumGrid.observaciones]}
+                  control={control}
+                  isOptional={true}
+                  />
+              </div>
+            </div>
 
         <div className="w-full">
           <div className="w-[70%] mx-auto">
