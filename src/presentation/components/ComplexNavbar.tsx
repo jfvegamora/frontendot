@@ -162,6 +162,11 @@ const navListMenuOT = [
     link: "/clientes",
     id: '2',
   },
+  {
+    title: "Bitácora",
+    link: "/bitacora",
+    id: '44',
+  },
 ];
 
 const subMenuParametrizacionBodega = [
@@ -331,7 +336,6 @@ const navListMenuProyectos = [
     id: '42',
   },
 ];
-
 
 const navListMenuSistema = [
   {

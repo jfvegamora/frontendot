@@ -13,6 +13,9 @@ const MOTHistorica = lazy(
 const MClientes = lazy(
   () => import("../presentation/views/mantenedores/MClientes")
 );
+const MOTBitacora = lazy(
+  () => import("../presentation/views/mantenedores/MOTBitacora")
+);
 const MEstablecimientos = lazy(
   () => import("../presentation/views/mantenedores/MEstablecimientos")
 );
@@ -143,6 +146,8 @@ export const PrivateRoutes = {
   OTHISTORICA: "othistorica",
   OT: "ot",
   CLIENTES: "clientes",
+  BITACORA: "bitacora",
+
   ESTABLECIMIENTOS: "establecimientos",
   PUNTOS_VENTA: "puntosventa",
   MOTIVOS_OT_DERIVADA: "motivootderivada",
@@ -232,6 +237,12 @@ export const privateRoutes = [
     path: PrivateRoutes.CLIENTES,
     component: MClientes,
     requiredPermissions: ["view_" + PrivateRoutes.CLIENTES],
+  },
+  {
+    id: "44",
+    path: PrivateRoutes.BITACORA,
+    component: MOTBitacora,
+    requiredPermissions: ["view_" + PrivateRoutes.BITACORA],
   },
   {
     id: "3",
