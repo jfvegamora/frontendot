@@ -91,31 +91,27 @@ const MOTBitacora: React.FC = () => {
               updateParams={updateParams}
               setEntities={setEntities}
               primaryKeyInputs={[
-                { name: "_desde", label: "Desde", type: "date" },
-                // { name: "_p3", label: "Hasta", type: "date", styles:{with:""}},
-                { name: "_p3", label: "Hasta", type: "date", styles:{with:" !ml-[1rem]"}},
+                { name: "_p5", label: "Desde", type: "date" },
+                { name: "_p6", label: "Hasta", type: "date", styles:{with:" !ml-[1rem]"}},
                   {
                   name: "_p1",
                   label: "Usuario",
                   type: "select",
                   selectUrl: "/api/usuarios/", styles:{with:"!ml-[2rem]"},
-                  // selectUrl: "/api/usuarios/", styles:{with:" !w-[28rem] translate-y-[0.2rem]"},
                 },
                 {
-                  name: "_p4",
+                  name: "_p2",
                   label: "Origen",
                   type: "select",
                   selectUrl: "/api/tipos/",
                   tipos: "OTAreas", styles:{with:""},
-                  // tipos: "OTAreas", styles:{with:"!mt-[0.5rem]  w-[17rem] translate-y-[0.1rem]"},
                 },
                 {
-                  name: "_p4",
+                  name: "_p3",
                   label: "Destino",
                   type: "select",
                   selectUrl: "/api/tipos/",
                   tipos: "OTAreas", styles:{with:""},
-                  // tipos: "OTAreas", styles:{with:"!mt-[0.5rem]  w-[17rem] translate-y-[0.1rem]"},
                 },
                 {
                   name: "_p4",
@@ -123,7 +119,6 @@ const MOTBitacora: React.FC = () => {
                   type: "select",
                   selectUrl: "/api/tipos/",
                   tipos: "OTEstados", styles:{with:""},
-                  // tipos: "OTAreas", styles:{with:"!mt-[0.5rem]  w-[17rem] translate-y-[0.1rem]"},
                 },
               ]}
               classNameSearchButton=" translate-x-[2rem]"
