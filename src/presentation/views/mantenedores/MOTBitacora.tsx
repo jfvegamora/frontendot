@@ -9,27 +9,26 @@ import {
   PrimaryKeySearch,
   TableComponent,
 } from "../../components";
-import { table_head_OT_bitacora } from "../../utils";
+import { table_head_OT_bitacora_consulta } from "../../utils";
 // import { ProyectosDocumEnum } from "../../Enums";
 
 const strEntidad = "Bitácora de OT ";
 const strEntidadExcel = "bitacora_OT";
-const strBaseUrl = "/api/otbitacorahistorica/";
-const strQuery = "02";
+const strBaseUrl = "/api/otbitacoraconsulta/";
+const strQuery = "01";
 const idMenu = 44;
 
 // const FProyectosDocum = React.lazy(()=>import("../forms/FProyectosDocum"))
 
 export enum EnumGrid {
-  id = 0,
-  fecha_hora = 1,
-  usuario = 2,
-  origen = 3,
-  destino = 4,
-  folio = 5,
-  estado = 6,
-  situacion = 7,
-  observaciones = 8
+  fecha_hora    = 1,
+  usuario       = 2,
+  origen        = 3,
+  destino       = 4,
+  folio         = 5,
+  estado        = 6,
+  situacion     = 7,
+  observaciones = 8,
 }
 
 
@@ -158,7 +157,7 @@ const MOTBitacora: React.FC = () => {
             entidad={strEntidad}
             data={entities}
             strBaseUrl={strBaseUrl}
-            tableHead={table_head_OT_bitacora}
+            tableHead={table_head_OT_bitacora_consulta}
             showEditButton={false}
             showPdfButton={false}
             showExcelButton={true}

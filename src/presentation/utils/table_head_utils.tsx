@@ -655,6 +655,70 @@ export const table_head_clientes = [
     width: "w-[4rem]",
   },
 ];
+export const table_head_OT_bitacora_consulta = [
+  {
+    cell: <input type="checkbox" />,
+    key: "checkbox",
+    visible: true,
+    width: "w-[4rem]",
+    alignment: "flex justify-center items-center"
+  },
+  {
+    cell: "Fecha/Hora",
+    key: "date",
+    visible: true,
+    width: "w-[12rem]"
+  },
+  {
+    cell: "Usuario",
+    key: "usuario",
+    visible: true,
+    alignment: "text-left",
+    width: "w-[14rem]"
+  },
+  {
+    cell: "Origen",
+    key: "origen",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[10rem]"
+  },
+  {
+    cell: "Destino",
+    key: "destino",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[10rem]"
+  },
+  {
+    cell: "Folio",
+    key: "folio",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[8rem]"
+  },
+  {
+    cell: "Estado",
+    key: "estado",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[8rem]"
+  },
+  {
+    cell: "Situación",
+    key: "situacion",
+    visible: true,
+    alignment: "text-left",
+    width: "w-[10rem]"
+  },
+  {
+    cell: "Observaciones",
+    key: "observaciones",
+    visible: true,
+    alignment: "text-left",
+    width: "w-[12rem]"
+  },
+];
 
 /************ MENU BODEGA ************/
 export const table_head_almacenes = [
