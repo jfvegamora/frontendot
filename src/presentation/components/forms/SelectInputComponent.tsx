@@ -240,7 +240,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
                 }}
                 style={{}}
                 // className={`${className ? className : "custom-input py-2  cursor-pointer z-0"}  ${readOnly ? "custom-onlyread" : isOptional ? "custom-optional" : "custom-required"}`}>
-                className={`${className ? className : "custom-input py-2  cursor-pointer z-0"} ${readOnly ? "custom-onlyread" : isOptional ? "custom-optional-with-color" : "custom-required"}`}>
+                className={`${customWidth ? customWidth : "custom-input py-2  cursor-pointer z-0"} ${readOnly ? "custom-onlyread" : isOptional ? "custom-optional-with-color" : "custom-required"}`}>
 
                  {/* className={`${className ? className : "custom-input py-2  cursor-pointer z-0"}  ${readOnly ? "custom-onlyread" : ""} ${isOptional ? "custom-optional" : "custom-required" } `}>  */}
 
@@ -280,6 +280,13 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
       renderInput()
       // console.log('data', data)
     }, [data]);
+
+
+    if(name === '_establecimiento'){
+      console.log('render')
+      console.log(customWidth)
+      console.log(`${customWidth ? customWidth : "custom-input py-2  cursor-pointer z-0"} ${readOnly ? "custom-onlyread" : isOptional ? "custom-optional-with-color" : "custom-required"}`)
+    }
 
     return (
       // <div className="flex min-w-[100%] w-full items-center mx-4 mt-select mt-select-dropdown-up cursor-pointer">

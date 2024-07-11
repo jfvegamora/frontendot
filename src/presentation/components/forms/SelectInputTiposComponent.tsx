@@ -113,8 +113,10 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
       }
     },[resetFilters.value])
 
-
-console.log(customWidth)
+    if(name === '_motivo'){
+      console.log('render')
+      console.log(customWidth)
+    }
     
     const renderInput = () => (
       <Controller

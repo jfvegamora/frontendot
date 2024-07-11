@@ -129,11 +129,17 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
             {OT && OT.map((list_ot: any) => (
               list_ot.map((ot:any)=>{
                 // console.log(ot[EnumImpresion.imprime_ticket])
-
+                console.log(ot[EnumImpresion.tipo_anteojo_id])
+                console.log( 
+                  ot[EnumImpresion.tipo_anteojo_id] === 4 ||
+                  ot[EnumImpresion.tipo_anteojo_id] === 3 ||
+                  ot[EnumImpresion.tipo_anteojo_id] === 6 ||
+                  ot[EnumImpresion.tipo_anteojo_id] === 5
+                )
                 return(
                   // <div className={`!w-[90%] ${ot[EnumGrid.imprime_ticket] === 1 ? '!h-[180rem]' : '!h-[90rem]'}  ${((index > 0) && (ot[EnumGrid.imprime_ticket] === 1)) && '!-mt-[38rem]'}   ${(index > 0) && (ot[EnumGrid.imprime_ticket] === 0) && '!-mt-[19rem]'}`} key={ot[EnumGrid.folio]} >
                   <div className={`!w-[90%]  ${(ot[EnumImpresion.imprime_ticket] === 1) ? '!h-[140.28rem]' : '!h-[70.14rem]'}`} key={ot[EnumImpresion.folio]} >
-                    <div className={`w-[100%] relative  ${ot[EnumImpresion.imprime_ticket] === 1 ? '!h-[3.5%]' : '!h-[3.5%]'} mb-4`}>
+                    <div className={`w-[100%] relative  ${ot[EnumImpresion.imprime_ticket] === 1 ? '!h-[3.5%]' : '!h-[7%]'} mb-4`}>
                       <div className="w-[90%] mr-7  mx-auto">
                         <Barcode marginLeft={45} height={25} width={2.5} textAlign='right' value={formatNumberWithZeros(ot[EnumImpresion.folio])} />
                         <h3 className={`absolute left-3 mt-2 bottom-4`}>{fechaHoraFormateada}</h3>
@@ -268,7 +274,7 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                         <div className=''>
                       
                           {ot[EnumImpresion.tipo_anteojo_id] !== 3 && (
-                            <h1 className={` w-[10%] text-2xl text-center ${ot[EnumImpresion.tipo_anteojo].length === 10 ? 'translate-y-24' : 'translate-y-9'} transform -rotate-90 ml-1`}>{ot[EnumImpresion.tipo_anteojo]}</h1>
+                            <h1 className={` w-[10%] text-2xl text-center ${ot[EnumImpresion.tipo_anteojo].length === 10 ? 'translate-y-24' : 'translate-y-14'} transform -rotate-90 ml-1`}>{ot[EnumImpresion.tipo_anteojo]}</h1>
                           )}
                           {ot[EnumImpresion.tipo_anteojo_id] === 3 && ( 
                               <>
@@ -312,10 +318,11 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                           <div className="  w-[25%] ">CIL</div>
                           <div className="  w-[20%] ">EJE</div>
                           {
-                          ot[EnumImpresion.tipo_anteojo_id] === 4 ||
-                          ot[EnumImpresion.tipo_anteojo_id] === 3 ||
-                          ot[EnumImpresion.tipo_anteojo_id] === 6 ||
-                          ot[EnumImpresion.tipo_anteojo_id]  === 5 && (
+                          (ot[EnumImpresion.tipo_anteojo_id]  === 3  ||
+                          ot[EnumImpresion.tipo_anteojo_id]   === 4  ||
+                          ot[EnumImpresion.tipo_anteojo_id]   === 5  ||
+                          ot[EnumImpresion.tipo_anteojo_id]   === 6  
+                        ) && (
                             <div className="  w-[20%] ">AD</div>
                           ) 
                           
@@ -327,10 +334,10 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                           <div className="text-right w-[25%] ">{formatPlusDioptria(ot[EnumImpresion.a1_od_cil])}</div>
                           <div className="text-center w-[20%] ">{ot[EnumImpresion.a1_od_eje]}</div>
                           {
-                          ot[EnumImpresion.tipo_anteojo_id] === 4 ||
-                          ot[EnumImpresion.tipo_anteojo_id] === 3 ||
-                          ot[EnumImpresion.tipo_anteojo_id] === 6 ||
-                          ot[EnumImpresion.tipo_anteojo_id]  === 5 && (
+                          (ot[EnumImpresion.tipo_anteojo_id]  === 3  ||
+                          ot[EnumImpresion.tipo_anteojo_id]   === 4  ||
+                          ot[EnumImpresion.tipo_anteojo_id]   === 5  ||
+                          ot[EnumImpresion.tipo_anteojo_id]   === 6 ) && (
                             <div className="text-right w-[20%] ">{ot[EnumImpresion.a1_od_ad]}</div>
                           )}
                         </div>
@@ -340,10 +347,11 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                           <div className="text-right w-[25%] ">{formatPlusDioptria(ot[EnumImpresion.a1_oi_cil])}</div>
                           <div className="text-center w-[20%] ">{ot[EnumImpresion.a1_oi_eje]}</div>
                           {
-                          ot[EnumImpresion.tipo_anteojo_id] === 4 ||
-                          ot[EnumImpresion.tipo_anteojo_id] === 3 ||
-                          ot[EnumImpresion.tipo_anteojo_id] === 6 ||
-                          ot[EnumImpresion.tipo_anteojo_id]  === 5 && (
+                          (ot[EnumImpresion.tipo_anteojo_id]  === 3 ||
+                          ot[EnumImpresion.tipo_anteojo_id]   === 4 ||
+                          ot[EnumImpresion.tipo_anteojo_id]   === 5 ||
+                          ot[EnumImpresion.tipo_anteojo_id]   === 6 )
+                          && (
                             <div className="text-right w-[20%] ">{ot[EnumImpresion.a1_oi_ad]}</div>
                           )}
                         </div>
@@ -379,9 +387,9 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                     {/*************** A L T U R A  -  D P ***************/}
                     <div className="w-[100%] flex -mt-1 justify-between ">
                       <div className="w-[52.2%] ml-2 items-center flex">
-                        {ot[EnumImpresion.tipo_anteojo_id] === 4 ||
+                        {(ot[EnumImpresion.tipo_anteojo_id] === 4 ||
                          ot[EnumImpresion.tipo_anteojo_id] === 5 ||
-                         ot[EnumImpresion.tipo_anteojo_id] === 6 &&
+                         ot[EnumImpresion.tipo_anteojo_id] === 6) &&
                         (
                           <span className='ml-1  !text-base font-bold '>&nbsp;ALT: {ot[EnumImpresion.a1_alt]}</span>
                         )}

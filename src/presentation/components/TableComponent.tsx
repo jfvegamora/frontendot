@@ -208,7 +208,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
       )
   };
 
-  console.log(enumGird)
+  console.log(escritura_lectura)
   
     return (
     <div className="gridCointainer">

@@ -61,7 +61,6 @@ const MProyectosDestinos: React.FC = () => {
       resetEntities,
     } = useEntityUtils(strBaseUrl, strQuery);
     // console.log("entities:", entities);
-    console.log("selectedRows", selectedRows);
   
     const [pkToDelete, setPkToDelete] = useState<string[]>([])
     const strParamsToDelete = '_p1' // _p3/_p1/_pkToDelete

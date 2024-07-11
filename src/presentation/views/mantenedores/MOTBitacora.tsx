@@ -3,7 +3,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
 import React, { useState, useEffect } from "react";
-import { useEntityUtils, usePermission } from "../../hooks";
+import { useEntityUtils } from "../../hooks";
 import {
   PrimaryButtonsComponent,
   PrimaryKeySearch,
@@ -48,14 +48,10 @@ const MOTBitacora: React.FC = () => {
       //entities state
       entities,
       setEntities,
-      entity,
       //modal methods
-      isModalInsert,
-      isModalEdit,
       toggleEditModal,
       toggleModalCopiar,
       openModal,
-      closeModal,
       //Check methods
       handleSelect,
       selectedRows,
@@ -73,7 +69,7 @@ const MOTBitacora: React.FC = () => {
     
     useEffect(() => {    
       const newPkToDelete = selectedRows.map((row: number) => 
-       `{"fecha_desde":"", 
+       `{"fecha_desde":"${row}", 
          "fecha_hasta":""
          "usuario":""
          "origen":""
