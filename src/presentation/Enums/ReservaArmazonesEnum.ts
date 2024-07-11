@@ -12,4 +12,5 @@ export enum ReservaArmazonesEnum {
   cod_armazon3 = 11,
   usuario_id = 12,
   usuario = 13,
+  fecha_hora = 14,
 }

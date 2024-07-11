@@ -232,24 +232,8 @@ console.log(errors);
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
-            <div className="w-full flex items-center h-[4rem]">
-              <div className="input-container items-center rowForm w-full">
-                <div className="w-full">
-                  <SelectInputComponent
-                    label="Muestrario"
-                    name="muestrario"
-                    showRefresh={true}
-                    // data={data && data[EnumGrid.codigo_proyecto]}
-                    control={control}
-                    entidad={["/api/muestrarios/", "02"]}
-                    error={errors.muestrario}
-                    customWidth={"!ml-[1rem] !w-[38rem] "}
-                  />
-                </div>
-              </div>
-            </div>
 
-            <div className="w-full flex items-center !my-8 h-[4rem]">
+          <div className="w-full flex items-center !my-8 h-[4rem]">
               <div className="input-container items-center rowForm w-full flex">
                 <div className="w-[80%]">
                   <SelectInputComponent
@@ -278,6 +262,24 @@ console.log(errors);
 
               </div>
             </div>
+
+            <div className="w-full flex items-center h-[4rem]">
+              <div className="input-container items-center rowForm w-full">
+                <div className="w-full">
+                  <SelectInputComponent
+                    label="Muestrario Destino"
+                    name="muestrario"
+                    showRefresh={true}
+                    // data={data && data[EnumGrid.codigo_proyecto]}
+                    control={control}
+                    entidad={["/api/muestrarios/", "02"]}
+                    error={errors.muestrario}
+                    customWidth={"!ml-[1rem] !w-[38rem] "}
+                  />
+                </div>
+              </div>
+            </div>
+
           </div>
 
           <div className="w-full">

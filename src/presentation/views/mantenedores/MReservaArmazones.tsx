@@ -86,16 +86,19 @@ const MReservaArmazones: React.FC = () => {
                 { name: "_p1", label: "RUT Benef.", type: "text", styles:{with:" !w-[7rem] translate-x-[0.1rem]"}},
                 {
                     name: "_p3",
-                    label: "Punto de Venta",
+                    label: "Punto Venta",
                     type: "select",
-                    selectUrl: "/api/puntosventa/", styles:{with:" !w-[18rem] translate-x-[2rem] translate-y-[0.3rem]"},
+                    selectUrl: "/api/puntosventa/", styles:{with:" !w-[14rem] translate-x-[2rem] translate-y-[0.3rem]"},
                 },
                 {
                     name: "_p4",
-                    label: "Usuarios",
+                    label: "Asesor Óptico",
                     type: "select",
-                    selectUrl: "/api/usuarios/", styles:{with:" !w-[16rem] translate-x-[2rem] translate-y-[0.3rem]"},
+                    selectUrl: "/api/usuarios/", styles:{with:" !w-[12rem] translate-x-[2rem] translate-y-[0.3rem]"},
                 },
+                { name: "_p6", label: "Desde", type: "date", styles:{with:" !ml-[1rem]"}},
+                { name: "_p7", label: "Hasta", type: "date", styles:{with:" !ml-[1rem]"}},
+
               ]}
               classNameSearchButton=" translate-x-[4rem]"
               />

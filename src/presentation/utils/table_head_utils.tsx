@@ -2610,6 +2610,13 @@ export const table_head_reserva_armazones = [
     width: "w-[10rem]",
     alignment: "text-left"
   },
+  {
+    cell: "Fecha/Hora",
+    key: "fecha_hora",
+    visible: true,
+    width: "w-[12rem]",
+    alignment: "text-left"
+  },
 
 
 ]
