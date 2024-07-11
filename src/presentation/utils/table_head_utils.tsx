@@ -2525,7 +2525,7 @@ export const table_head_reserva_armazones = [
     cell: <input type="checkbox" />,
     key: "checkbox",
     visible: true,
-    width: "w-[5rem]",
+    width: "w-[4rem]",
     alignment: "flex justify-center items-center"
   },
   {
@@ -2566,9 +2566,9 @@ export const table_head_reserva_armazones = [
   },
   {
     cell: "Tipo Anteojo",
-    key: "tipo_anteojo_id",
+    key: "tipo_anteojo",
     visible: true,
-    width: "w-[5rem]",
+    width: "w-[8rem]",
     alignment: "text-left"
   },
   {
