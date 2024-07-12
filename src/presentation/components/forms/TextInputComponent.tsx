@@ -22,6 +22,7 @@ interface ITextInputProps {
   isOT?:boolean;
   customWidth?: any;
   isOptional?:boolean;
+  labelProps?:any;
   textAlign?: string;
   handleFocus?:any;
 }
@@ -44,7 +45,8 @@ const TextInputComponent: React.FC<ITextInputProps> = ({
   customWidth,
   isOptional,
   textAlign,
-  handleFocus
+  handleFocus,
+  labelProps
 }) => {
 
 
@@ -83,6 +85,7 @@ const TextInputComponent: React.FC<ITextInputProps> = ({
 //
 // console.log(defaultValue)
 
+
 return (
   <div className={`mr-4 rounded-xl ${customWidth ? customWidth : ""}`}>
     <Controller
@@ -90,11 +93,14 @@ return (
       control={control}
       defaultValue={defaultValue}
       render={({ field }) => (
-        <div className={`labelInput !mb-[1rem] !ml-[1rem] relative ${error ? 'border-red-500' : 'border-gray-500'}`}>
+        <div className={`  labelInput !mb-[1rem] !ml-[1rem] relative ${error ? 'border-red-500' : 'border-gray-500'}`}>
+          <label htmlFor={label} className={` ${labelProps ? labelProps : ""} absolute !z-20 translate-y-[-0.5vw]  translate-x-3`}>
+                  {label}
+          </label>
           <Input
             {...field}
             error={error ? true : false}
-            label={label}
+            // label={label}
             id={label}
 
             type={type}
@@ -104,7 +110,7 @@ return (
             onFocus={handleFocus}
             onBlur={(e) => handleInputChange(e)}
             ref={inputRef}
-            className={`${className ? className : ""}  ${onlyRead ? "custom-onlyread cursor-not-allowed" : isOptional ? "custom-optional" : "custom-required"} ${textAlign && textAlign}`}
+            className={`${customWidth ? customWidth : ""}  ${onlyRead ? "custom-onlyread cursor-not-allowed" : isOptional ? "custom-optional" : "custom-required"} ${textAlign && textAlign}`}
             tabIndex={onlyRead ? 0 : (tabIndex || 1)}
             placeholder={type === 'date' ? "dd-mm-yyyy" : ""}
             autoComplete="off"

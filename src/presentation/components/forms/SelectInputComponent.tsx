@@ -46,6 +46,7 @@ interface ISelectInputProps {
   onlyFirstOption?:boolean;
   inputRef?:any;
   isEditting?:boolean;
+  labelProps?:any
   formValues?:any;
 }
 
@@ -72,7 +73,8 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     onlyFirstOption,
     inputRef,
     isEditting,
-    formValues
+    formValues,
+    labelProps
   }) => {
     const dispatch = useAppDispatch()
     const [entities, setEntities] = useState([]);
@@ -180,9 +182,8 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
           control={control}
           defaultValue={strSelectedName}
           render={({ field }) => (
-            <div className={`custom-select border-[1px] rounded-lg  ${error ? 'border-red-500' : 'border-[#f8b179]'}  `}>
-              <div className="top-[-0.1rem]    left-3.5 absolute w-1/2 z-10">
-                <label htmlFor={label} className=" relative">
+            <div className={`custom-select border-[2px] rounded-lg  ${error ? 'border-red-500' : 'border-[#f8b179]'}  `}>
+                <label htmlFor={label} className={` ${labelProps ? labelProps : ""} absolute !translate-y-[-0.4vw] translate-x-3`}>
                   {label}
                 </label>
                 {error && (
@@ -190,7 +191,6 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
                     {error.message}
                  </p>
                 )}
-              </div>
 
               <select
                 {...field}
@@ -217,21 +217,6 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
 
                     if (setHandleSearch) {
                       // const newValueFilterSearch                 = e.target.options[e.target.selectedIndex].text;
-
-                      // const updatedValue                         = newValueFilterSearch === '' 
-                      //                                                                       ? Object.keys(filterSearchTitle.value).reduce((acc:any, key:any)=>{
-                      //                                                                         if(key !== label){
-                      //                                                                           acc[key] = filterSearchTitle.value[key];
-                      //                                                                         }
-                      //                                                                         return acc;
-                      //                                                                       },{})
-                      //                                                                       : {...filterSearchTitle.value, [label]: newValueFilterSearch};
-
-                                                                                          
-
-
-
-
                       // filterSearchTitle.value = updatedValue    
                       changeFilterSearchTitle(e, label, 'Select');                                                                    
                       // setHandleSearch(inputValuesToUpdate);
@@ -240,7 +225,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
                 }}
                 style={{}}
                 // className={`${className ? className : "custom-input py-2  cursor-pointer z-0"}  ${readOnly ? "custom-onlyread" : isOptional ? "custom-optional" : "custom-required"}`}>
-                className={`${customWidth ? customWidth : "custom-input py-2  cursor-pointer z-0"} ${readOnly ? "custom-onlyread" : isOptional ? "custom-optional-with-color" : "custom-required"}`}>
+                className={`${customWidth ? customWidth : "custom-input   cursor-pointer "} ${readOnly ? "custom-onlyread" : isOptional ? "custom-optional-with-color" : "custom-required"}`}>
 
                  {/* className={`${className ? className : "custom-input py-2  cursor-pointer z-0"}  ${readOnly ? "custom-onlyread" : ""} ${isOptional ? "custom-optional" : "custom-required" } `}>  */}
 
@@ -258,6 +243,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
                 {entities &&
                   entities.map((option: any, index) => (
                     <option
+    
                       key={index}
                       value={ isFOTcristales ? (  clearSelectInput.value ?  (
                         inputName !== 'proyecto_codigo' ? "" : strSelectedName

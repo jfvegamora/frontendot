@@ -29,6 +29,7 @@ interface ITextInputProps {
   step?:number;
   tabIndex?: number;
   isOT?:boolean;
+  labelProps?:any;
   customWidth?: any;
   isOptional?:boolean;
   textAlign?: string;
@@ -48,10 +49,10 @@ const TextInputInteractive: React.FC<ITextInputProps> = ({
   data,
   error,
   inputRef, 
-  className,
   maxLength,
   step,
   tabIndex,
+  labelProps,
   isOT,
   customWidth,
   isOptional,
@@ -165,11 +166,14 @@ return (
       control={control}
       defaultValue={value}
       render={({ field }) => (
-        <div className={`labelInput !mb-[1rem] !ml-[1rem] relative ${error ? '!border-red-500' : 'border-gray-500'}`}>
+        <div className={` !mb-[1rem] !ml-[1rem] relative ${error ? '!border-red-500' : 'border-gray-500'}`}>
+          <label htmlFor={label} className={` ${labelProps ? labelProps : ""} absolute !z-20 translate-y-[-0.5vw] text-[1.2vw] !font-[1.2vw] translate-x-3`}>
+                  {label}
+          </label>
           <Input
             {...field}
             error={error ? true : false}
-            label={label}
+            // label={label}
             id={label}
             type={type}
             value={value}
@@ -190,7 +194,7 @@ return (
             }}
             
             ref={inputRef}
-            className={`${className ? className : "custom-input trans"}  ${name.startsWith("Armazon") ? "!cursor-not-allowed pr-10" : ""}  ${onlyRead ? (name.startsWith("Armazon") ? '!bg-white !cursor-not-allowed' : "custom-onlyread cursor-not-allowed" )  : isOptional ?  (name.startsWith("Armazon") ? 'custom-optional !cursor-not-allowed ' : "custom-optional") : "custom-required"} ${textAlign && textAlign}`}
+            className={`${customWidth ? customWidth : "custom-input trans"}  ${name.startsWith("Armazon") ? "!cursor-not-allowed pr-10" : ""}  ${onlyRead ? (name.startsWith("Armazon") ? '!bg-white !cursor-not-allowed' : "custom-onlyread cursor-not-allowed" )  : isOptional ?  (name.startsWith("Armazon") ? 'custom-optional !cursor-not-allowed ' : "custom-optional") : "custom-required"} ${textAlign && textAlign}`}
             tabIndex={onlyRead ? 0 : (tabIndex || 1)}
             placeholder={type === 'date' ? "dd-mm-yyyy" : ''}
             autoComplete="off"

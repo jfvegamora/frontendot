@@ -37,6 +37,7 @@ interface ISelectInputProps {
   FOTcristales?:boolean;
   isOptional?:boolean;
   onlyFirstOption?:boolean
+  labelProps?:any
 }
 
 
@@ -59,7 +60,8 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
     customWidth,
     FOTcristales,
     isOptional,
-    onlyFirstOption
+    onlyFirstOption,
+    labelProps
   }) => {
     const stateListBox = useAppSelector((store: AppStore) => store.listBoxTipos[entidad]);
     const stateListBox2 = useAppSelector((store: AppStore) => store.listBoxTipos);
@@ -114,7 +116,7 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
     },[resetFilters.value])
 
     if(name === '_motivo'){
-      console.log('render')
+      console.log('renderB')
       console.log(customWidth)
     }
     
@@ -124,13 +126,8 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
           control={control}
           defaultValue={strSelectedName}
           render={({ field }) => (
-            <div className={`custom-select border-[1px] rounded-lg  relative ${error ? 'border-red-500' : 'border-[#f8b179]'}  `}>
-              <div className="top-[-0.1rem]   left-3.5 absolute w-1/2 z-10">
-                <label
-                  htmlFor={label}
-                  // className="absolute top-[-1%] left-[3%] text-sm"
-                  className="relative"
-                >
+            <div className={`custom-select border-[2px] rounded-lg  relative ${error ? 'border-red-500' : 'border-[#f8b179]'}  `}>
+                <label htmlFor={label} className={` ${labelProps ? labelProps : ""} absolute !translate-y-[-0.4vw] translate-x-3`}>
                   {label}
                 </label>
                 {error && (
@@ -138,7 +135,6 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
                     {error.message}
                  </p>
                 )}
-              </div>
 
               <select
                 {...field}

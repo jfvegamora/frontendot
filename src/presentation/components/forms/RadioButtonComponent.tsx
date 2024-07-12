@@ -14,6 +14,8 @@ interface IRadioButtonProps {
   readOnly?: boolean;
   tabIndex?: number;
   isOT?:boolean;
+  labelProps?:any
+  customWidth?:any
 }
 
 const RadioButtonComponent: React.FC<IRadioButtonProps> = ({
@@ -28,7 +30,9 @@ const RadioButtonComponent: React.FC<IRadioButtonProps> = ({
   onChange,
   readOnly,
   tabIndex,
-  isOT
+  customWidth,
+  isOT,
+  labelProps
 }) => {
 
 
@@ -54,8 +58,8 @@ const RadioButtonComponent: React.FC<IRadioButtonProps> = ({
         horizontal ? "justify-arround ml-1 !h-[3rem] " : "flex-col justify-between"
       } rounded-lg ${error && "border border-red-400"}`}
     >
-      <label className={`absolute z-20   bg-[${isOT ? '#424769' : '#676f9d'}] ${isOT ? "!w-[4rem] text-base top-[-0.9rem]" : "!w-auto text-left top-[-1.2rem]"}  left-[1rem] labelInput  `}>
-        <span className="ml-[2px] text-[16px] text-left ">{label}</span>
+      <label htmlFor={label} className={` ${labelProps ? labelProps : ""} absolute !translate-y-[-0.4vw] translate-x-3`}>
+                  {label}
       </label>
       {options.map((option, index) => (
         <div className={` ${horizontal ? "  w-full" : "w-full "} py-0 flex textOption `} key={index}>
@@ -73,7 +77,7 @@ const RadioButtonComponent: React.FC<IRadioButtonProps> = ({
                   tabIndex={tabIndex || 1}
                   disabled={readOnly}
                   checked={value === option}
-                  className={`mr-2 transform scale-150 ${field.value === option ? 'text-orange-500' : 'text-gray-500'}`}
+                  className={` ${customWidth ?  customWidth :""} mr-2 transform scale-150 ${field.value === option ? 'text-orange-500' : 'text-gray-500'}`}
                   onChange={() => {
                     // console.log(value)
                     // console.log(option)
@@ -87,7 +91,7 @@ const RadioButtonComponent: React.FC<IRadioButtonProps> = ({
                   }}
                   ref={inputRef}
                 />
-                <p className="text-[16px] w-full ">{option}</p>
+                <p className="text-[1vw] w-full ">{option}</p>
               </label>
             )}
           />

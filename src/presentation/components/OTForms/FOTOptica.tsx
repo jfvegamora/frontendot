@@ -195,9 +195,9 @@ React.useEffect(()=>{
 console.log(data && data[EnumGrid.reporte_interno_mandante])
 console.log(formValues)
 return (
-    <form action="" onKeyDown={handleKeyDown} className=''>
+    <form action="" onKeyDown={handleKeyDown} className='  h-[85vh]'>
         <div className='w-full frameOTForm !h-full'>
-            <div className="w-full flex items-center rowForm !h-[5rem] justify-between">
+            <div className="w-[95vw] flex items-center rowForm !h-[6vw]  justify-between">
                 <div className="w-[50%] mt-6 mb-8 ml-[2rem]">
                     <SelectInputComponent
                         label="Nombre Proyecto"
@@ -214,7 +214,7 @@ return (
                                    : ["/api/proyectos/", "07", `${isEditting ? 0 : userID}`]
                         }
                         // error={errors.establecimiento}
-                        customWidth={"345px"}
+                        customWidth={"!h-[2.5vw] text-[1vw]"}
                         onlyFirstOption={ isEditting}
                         inputRef={inputsRef.firstInputRef}
                         readOnly={isEditting || inputOnlyReadReserva.value}
@@ -223,14 +223,14 @@ return (
                 </div>
                 {isEditting && !onlyRead && (
                     <>
-                        <div className="w-[25%] mt-4 mb-8 ml-4 px-[1.5rem] " >
+                        <div className="w-[15vw]  ml-4 px-[1vw] text-[1.3vw]  " >
                             <div className=" items-center flex">
                                 <Switch onChange={(e)=>handleSwitchValidation(e)} checked={isToggleValidation.value} disabled={!(permiso_usuario_estado_validacion && permiso_areas_estado_validacion)}/>
                                 <label className='ml-2'>Validar Parametrización</label>
                             </div>
                         </div>
                 
-                        <div className="w-[25%] mt-4 mb-8 ml-4 px-[1.5rem] ">
+                        <div className="w-[15vw] px-[1vw] text-[1.5vw] ">
                             <div className=" items-center flex">
                                 <Switch onChange={(e)=>handleSwitchImpresion(e)} checked={isToggleImpression.value} disabled={!(permiso_usuario_estado_impresion && permisos_areas_estado_immpresion)}/>
                                 <label className='ml-2'>OT Impresa</label>
@@ -240,7 +240,7 @@ return (
                 )}
             </div>
 
-            <div className="w-full flex items-center rowForm !h-[4rem]">
+            <div className="w-full flex items-center rowForm !h-[5vw]">
                 <div className="w-[30%] ml-[2rem] -mt-[0.3rem]">
                     <SelectInputComponent
                         label="Punto de Venta"
@@ -257,7 +257,8 @@ return (
                                :  ["/api/puntosventa/", "06", codigoProyecto.value, `_p2=${userID}`]
                         }
                         onlyFirstOption={!isEditting}
-                        customWidth={"345px"}
+                        customWidth={"!h-[2.5vw] text-[1vw]"}
+                        labelProps={" bg-wite"}
                         isEditting={isEditting}
                         formValues={formValues}
                         readOnly={isEditting || inputOnlyReadReserva.value}
@@ -288,6 +289,7 @@ return (
                         data={formValues ? formValues["area"] : data && data[EnumGrid.area]}
                         control={control}
                         onlyRead={true}
+                        customWidth={"!h-[2.5vw] !text-[1vw]"}
                         textAlign="text-center"
                     />
                 </div>
@@ -301,15 +303,16 @@ return (
                         data={formValues ? formValues["estado"] : data && data[EnumGrid.estado]}
                         control={control}
                         onlyRead={true}
+                        customWidth={"!h-[2.5vw] !text-[1vw]"}
                         textAlign="text-center"
                     />
                 </div>
                 
             </div>
 
-            <div className="w-full flex items-center rowForm !h-[4rem] ">
+            <div className="w-full flex items-center rowForm !h-[5vw] ">
 
-                <div className="w-[15%] ml-4">
+                <div className="w-[20vw] ml-4">
                     <TextInputInteractive
                         type="date"
                         label="Fecha atención"
@@ -319,11 +322,13 @@ return (
                         control={control}
                         onlyRead={isEditting}
                         isOT={true}
+                        customWidth={"!h-[2.5vw] !text-[1.3vw]"}
+                        labelProps={"!translate-y-[-1.4vw]"}
                         textAlign="text-center"
                         // inputRef={inputsRef.lastInputRef}
                     />
                 </div>
-                <div className="w-[15%]">
+                <div className="w-[20vw]">
                     <TextInputInteractive
                         type="date"
                         label="Fecha taller"
@@ -334,10 +339,12 @@ return (
                         onlyRead={isEditting}
                         isOT={true}
                         isOptional={true}
+                        labelProps={"!translate-y-[-1.4vw]"}
+                        customWidth={"!h-[2.5vw] !text-[1vw]"}
                         textAlign="text-center"
                         />
                 </div>
-                <div className="w-[15%]">
+                <div className="w-[20vw]">
                     <TextInputInteractive
                         type="date"
                         label="Fecha despacho"
@@ -348,10 +355,12 @@ return (
                         onlyRead={isEditting}
                         isOT={true}
                         isOptional={true}
+                        labelProps={"!translate-y-[-1.4vw]"}
+                        customWidth={"!h-[2.5vw] !text-[1vw]"}
                         textAlign="text-center"
                     />
                 </div>
-                <div className="w-[15%]">
+                <div className="w-[20vw]">
                     <TextInputInteractive
                         type="date"
                         label="Fecha entrega cliente"
@@ -362,6 +371,8 @@ return (
                         onlyRead={isEditting}
                         isOT={true}
                         isOptional={true}
+                        labelProps={"!translate-y-[-1.4vw]"}
+                        customWidth={"!h-[2.5vw] !text-[1vw]"}
                         textAlign="text-center"
                     />
                 </div>
@@ -383,6 +394,7 @@ return (
                                 control={control}
                                 entidad={"OTMotivoGarantia"}
                                 readOnly={true}
+                                customWidth={"!h-[2.5vw] text-[1vw]"}
                                 onlyFirstOption={data && data[EnumGrid.motivo] === 'Garantía'}
                                 
                            />
@@ -397,6 +409,7 @@ return (
                                 data={formValues ? formValues["folio_asociado"] : data && data[EnumGrid.folio_asociado]}
                                 control={control}
                                 onlyRead={true}
+                                customWidth={"!h-[2.5vw] !text-[1vw]"}
                                 textAlign="text-center"
                                 />
                         </div>
@@ -426,7 +439,7 @@ return (
 
                     </div>
 
-                    <div className='w-full flex'>
+                    <div className='w-[75vw] translate-y-[2vw] flex '>
                     <div className="">
                         <TextInputComponent
                             type="number"
@@ -437,6 +450,8 @@ return (
                             control={control}
                             onlyRead={true}
                             isOptional={true}
+                            customWidth={"!h-[2.5vw] !text-[1vw]"}
+                            labelProps={"!translate-y-[-1.2vw] !text-[2vw] !font-[3vw]"}
                             textAlign="text-center"
                             />
                     </div>
@@ -450,6 +465,8 @@ return (
                             control={control}
                             onlyRead={true}
                             isOptional={true}
+                            customWidth={"!h-[2.5vw] !text-[1vw]"}
+                            labelProps={"!translate-y-[-1.2vw] !text-[1vw] !font-[2vw]"}
                             textAlign="text-center"
                             />
                     </div>
@@ -463,6 +480,8 @@ return (
                             control={control}
                             onlyRead={true}
                             isOptional={true}
+                            customWidth={"!h-[2.5vw] !text-[1vw]"}
+                            labelProps={"!translate-y-[-1.2vw] !text-[1vw] !font-[2vw]"}
                             textAlign="text-center"
                             />
                     </div>
@@ -476,6 +495,8 @@ return (
                             control={control}
                             onlyRead={true}
                             isOptional={true}
+                            customWidth={"!h-[2.5vw] !text-[1vw]"}
+                            labelProps={"!translate-y-[-1.2vw] !text-[1vw] !font-[2vw]"}
                             textAlign="text-center"
                             />
                     </div>
@@ -489,6 +510,8 @@ return (
                             control={control}
                             onlyRead={true}
                             isOptional={true}
+                            customWidth={"!h-[2.5vw] !text-[1vw]"}
+                            labelProps={"!translate-y-[-1.2vw] !text-[1vw] !font-[2vw]"}
                             textAlign="text-center"
                             />
                     </div>
@@ -497,8 +520,8 @@ return (
                 </div>
 
 
-                <div className="w-[35%] ml-8 !mt-[-4%]  mx-auto items-center grid ">
-                    <div className="">
+                <div className="!w-[35vw]  mx-auto items-center flex flex-col px-8 translate-y-[2.5vw]">
+                    <div className="w-full">
                         <TextInputInteractive
                             type="number"
                             label="N° Worktracking"
@@ -509,10 +532,12 @@ return (
                             onlyRead={!(isEditting && (permiso_usuario_workTracking && permisos_usuario_areas))}
                             isOptional={true}
                             isOT={true}
+                            customWidth={"!h-[2.5vw] !text-[1vw] !mb-4"}
+                            labelProps={"!translate-y-[-1vw] !text-[1vw] !font-[2vw]"}
                             textAlign="text-center"
                             />
                     </div>
-                    <div className="">
+                    <div className="w-full">
                         <TextInputInteractive
                             type="number"
                             label="Nota Venta / Boleta "
@@ -522,10 +547,12 @@ return (
                             control={control}
                             onlyRead={isEditting}
                             isOptional={true}
+                            customWidth={"!h-[2.5vw] !text-[1vw] !mb-4"}
+                            labelProps={"!translate-y-[-1vw] !text-[1vw] !font-[2vw]"}
                             textAlign="text-center"
                             />
                     </div>
-                    <div className="">
+                    <div className="w-full">
                         <TextInputInteractive
                             type="text"
                             label="Folio interno mandante"
@@ -535,10 +562,12 @@ return (
                             control={control}
                             onlyRead={isEditting}
                             isOptional={true}
+                            customWidth={"!h-[2.5vw] !text-[1vw] !mb-4"}
+                            labelProps={"!translate-y-[-1vw]  !text-[1vw] !font-[2vw]"}
                             textAlign="text-center"
                             />
                     </div>
-                    <div className="">
+                    <div className="w-full">
                         <TextInputInteractive
                             type="text"
                             label="Reporte interno mandante"
@@ -548,10 +577,12 @@ return (
                             control={control}
                             onlyRead={isEditting}
                             isOptional={true}
+                            customWidth={"!h-[2.5vw] !text-[1vw] !mb-4"}
+                            labelProps={"!translate-y-[-1vw] !text-[1vw] !font-[2vw]"}
                             textAlign="text-center"
                             />
                     </div>
-                    <div className="">
+                    <div className="w-full">
                          <TextInputInteractive
                             type="text"
                             label="Número Envío"
@@ -561,6 +592,8 @@ return (
                             control={control}
                             onlyRead={isEditting}
                             tabIndex={1}
+                            customWidth={"!h-[2.5vw] !text-[1vw]"}
+                            labelProps={"!translate-y-[-1vw] !text-[1vw] !font-[2vw]"}
                             isOptional={true}
                             textAlign="text-center"
                             /> 

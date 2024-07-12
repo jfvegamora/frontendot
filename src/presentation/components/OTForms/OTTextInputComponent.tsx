@@ -37,7 +37,8 @@ interface ITextInputProps {
   isOptional?:boolean;
   textAlign?: string;
   step?:number;
-  renderComponent?:any
+  renderComponent?:any;
+  labelProps?:any
 }
 
 const OTTextInputComponent: React.FC<ITextInputProps> = ({
@@ -55,7 +56,8 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
   isOptional,
   textAlign,
   step,
-  renderComponent
+  renderComponent,
+  labelProps
 }) => {
   const [defaultValue, setDefaultValue] = useState<string>(otData || " ")
   const dioptriasState = useAppSelector((store: AppStore) => store.utils?.Dioptrias);
@@ -395,10 +397,13 @@ return (
     defaultValue={initialValue}
     render={({ field }) => (
       <div className="flex flex-col  w-full">
+        <label htmlFor={label} className={` ${labelProps ? labelProps : ""} absolute !z-20 translate-y-[-0.5vw] text-[1.2vw] !font-[1.2vw] translate-x-3`}>
+                  {label}
+          </label>
         <Input
           {...field}
           error     = {error ? true : false }
-          label     ={label}
+          // label     ={label}
           // defaultValue={initialValue}
           value     ={value}
           color     ="orange"

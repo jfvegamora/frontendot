@@ -141,7 +141,7 @@ const MUsuarios: React.FC = () => {
   // styles:{with: "!w-[8rem]", container: " !w-[8rem] translate-x-[-10rem]"} },
   return (
     <div className="mantenedorContainer">
-      <div className="mantenedorHead width60 relative">
+      <div className="mantenedorHead width70 relative">
         <div className="w-[85%]">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
@@ -152,14 +152,23 @@ const MUsuarios: React.FC = () => {
               { name: "_p1", 
                 label: "Nombre", 
                 type: "text",
-                styles:{with: "-translate-y-1"}  
+                styles:{
+                  with: "!h-[2.5vw] !text-[1vw] w-full",
+                  container:"w-[35vw] !text-[2vw] translate-y-[-0.2vw]", 
+                  labelProps: "!translate-y-[0.1vw] !text-[1.3vw] !font-[2vw] !z-30"
+                }  
               },
               {
                 name: "_p2",
                 label: "Cargos",
                 type: "select",
                 selectUrl: "/api/cargos/",
-                styles:{with: "ml-4 "}
+                styles:{
+                  with: "",
+                  styles:"!h-[2.5vw] text-[1vw] w-full",
+                  container:"!w-[35vw]  text-[1vw] translate-x-[2vw]", 
+                  labelProps: "!translate-y-[-1.2vh] !text-[1.3vw] !font-[2vw]"
+                }
               },
             ]}
             classNameSearchButton=" translate-x-[-7rem]"
@@ -206,14 +215,14 @@ const MUsuarios: React.FC = () => {
           // setTotalRowIndex={setTotalRowIndex}
         />
       </div>
-      {/* <FUsuarios
+      <FUsuarios
           label={`${TITLES.ingreso} ${strEntidad}`}
           closeModal={closeModal}
           selectedRows={selectedRows}
           setEntities={setEntities}
           params={params}
           isEditting={false}
-        /> */}
+        />
       
       {isModalInsert && (
         <FUsuarios

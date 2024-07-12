@@ -130,6 +130,7 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
               list_ot.map((ot:any)=>{
                 // console.log(ot[EnumImpresion.imprime_ticket])
                 console.log(ot[EnumImpresion.tipo_anteojo_id])
+                console.log(ot[EnumImpresion.tipo_anteojo_id] === 3)
                 console.log( 
                   ot[EnumImpresion.tipo_anteojo_id] === 4 ||
                   ot[EnumImpresion.tipo_anteojo_id] === 3 ||
@@ -221,7 +222,7 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                       </div>
   
                       <div className="w-[45%] ml-1">
-                        {ot[EnumImpresion.tipo_anteojo] === 3 && (
+                        {ot[EnumImpresion.tipo_anteojo_id] === 3 && (
                           <div className="">
                             <div className='otCod font-bold'>{ot[EnumImpresion.a2_armazon_codigo]}</div>
                             <div className='otArmazonData'>{ot[EnumImpresion.a2_armazon_descripcion]}</div>

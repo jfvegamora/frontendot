@@ -385,7 +385,7 @@ console.log(formValues)
 
 
 return (
-      <div className="useFormContainer centered-div  !w-[73rem] !h-[45rem]">
+      <div className="useFormContainer !z-30 translate-y-[-13vw] translate-x-[12vw]  !w-[73vw] !h-auto">
         <div className="userFormBtnCloseContainer flex justify-between ">
           <h1 className="userFormLabel absolute left-[40%]">{label}</h1>
           <button onClick={closeModal} className="userFormBtnClose">
@@ -396,11 +396,11 @@ return (
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))}
           className="userFormulario">
-          <div className="userFormularioContainer !w-full ">
+          <div className="userFormularioContainer !w-full h-[40vw] ">
             
-            <div className="w-full items-center flex !mb-4 ">
-              <div className="input-container   items-center  flex justify-between rowForm w-[33%]">
-                <div className="w-full !mt-4">
+            <div className="w-full items-center flex !mb-4 !h-[6vw] ">
+              <div className="input-container   items-center  flex justify-between rowForm w-[33vw]">
+                <div className="w-full">
                   <TextInputComponent
                     type="text"
                     label="Nombre"
@@ -409,10 +409,12 @@ return (
                     control={control}
                     error={errors.nombre}
                     inputRef={firstInputRef}
-                  />
+                    customWidth={"!h-[2.5vw] !text-[1vw]"}
+                    labelProps={"!translate-y-[-1vw] !text-[3vw] !font-[3vw]"}
+                    />
                 </div>
               </div>
-              <div className="input-container items-center rowForm w-[33%]">
+              <div className="input-container items-center rowForm w-[33vw]">
               <div className="w-full">
                   <SelectInputComponent
                     label="Cargo"
@@ -422,11 +424,11 @@ return (
                     control={control}
                     entidad={["/api/cargos/", "02"]}
                     error={errors.cargo}
-                    customWidth={"w-full ml-[1rem]"}
+                    customWidth={"!h-[2.5vw] text-[1vw]"}
                   />
                 </div>   
               </div>
-              <div className="input-container items-center rowForm w-[33%]">
+              <div className="input-container items-center rowForm w-[33vw]">
                 <div className="w-full">
                     <TextInputComponent
                       type="text"
@@ -435,13 +437,11 @@ return (
                       data={data && data[EnumGrid.telefono]}
                       control={control}
                       isOptional={true}
+                      customWidth={"!h-[2.5vw] !text-[1vw]"}
+                      labelProps={"!translate-y-[-1.2vw] !text-[2vw] !font-[3vw]"}
                       />
                   </div>
               </div>
-            </div>
-
-            
-            <div className="w-full items-center flex !mb-4">
             </div>
 
 
