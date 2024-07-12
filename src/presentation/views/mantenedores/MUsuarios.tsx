@@ -155,7 +155,7 @@ const MUsuarios: React.FC = () => {
                 styles:{
                   with: "!h-[2.5vw] !text-[1vw] w-full",
                   container:"w-[35vw] !text-[2vw] translate-y-[-0.2vw]", 
-                  labelProps: "!translate-y-[0.1vw] !text-[1.3vw] !font-[2vw] !z-30"
+                  labelProps: "!translate-y-[0.1vw] !text-[1.2vw] !font-[2vw] !z-30"
                 }  
               },
               {
@@ -167,7 +167,7 @@ const MUsuarios: React.FC = () => {
                   with: "",
                   styles:"!h-[2.5vw] text-[1vw] w-full",
                   container:"!w-[35vw]  text-[1vw] translate-x-[2vw]", 
-                  labelProps: "!translate-y-[-1.2vh] !text-[1.3vw] !font-[2vw]"
+                  labelProps: "!translate-y-[-2vh] !text-[1.2vw] !font-[2vw]"
                 }
               },
             ]}
@@ -215,14 +215,14 @@ const MUsuarios: React.FC = () => {
           // setTotalRowIndex={setTotalRowIndex}
         />
       </div>
-      <FUsuarios
+      {/* <FUsuarios
           label={`${TITLES.ingreso} ${strEntidad}`}
           closeModal={closeModal}
           selectedRows={selectedRows}
           setEntities={setEntities}
           params={params}
           isEditting={false}
-        />
+        /> */}
       
       {isModalInsert && (
         <FUsuarios

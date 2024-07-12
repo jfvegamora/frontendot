@@ -48,6 +48,7 @@ interface ISelectInputProps {
   isEditting?:boolean;
   labelProps?:any
   formValues?:any;
+  labelContainer?:any
 }
 
 const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
@@ -74,7 +75,8 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     inputRef,
     isEditting,
     formValues,
-    labelProps
+    labelProps,
+    labelContainer
   }) => {
     const dispatch = useAppDispatch()
     const [entities, setEntities] = useState([]);
@@ -182,10 +184,12 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
           control={control}
           defaultValue={strSelectedName}
           render={({ field }) => (
-            <div className={`custom-select border-[2px] rounded-lg  ${error ? 'border-red-500' : 'border-[#f8b179]'}  `}>
-                <label htmlFor={label} className={` ${labelProps ? labelProps : ""} absolute !translate-y-[-0.4vw] translate-x-3`}>
-                  {label}
-                </label>
+            <div className={`custom-select border-[0.5px] h-[2.8vw]   rounded-lg  ${error ? 'border-red-500' : ' border-[#e6843a]'}  `}>
+                <div className={`${labelContainer ? labelContainer : ""} w-full h-4 -top-[0.8vw] absolute left-2 bg-white`}>
+                  <label htmlFor={label} className={`  ${labelProps ? labelProps : "  !translate-y-[-1.2vh] !text-[1vw] !font-[1vw]"}  !translate-y-[-0.8vw] translate-x-3`}>
+                    {label}
+                  </label>
+                </div>
                 {error && (
                   <p className="absolute z-20 top-[0.1rem] right-1 labelErr">
                     {error.message}
@@ -225,7 +229,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
                 }}
                 style={{}}
                 // className={`${className ? className : "custom-input py-2  cursor-pointer z-0"}  ${readOnly ? "custom-onlyread" : isOptional ? "custom-optional" : "custom-required"}`}>
-                className={`${customWidth ? customWidth : "custom-input   cursor-pointer "} ${readOnly ? "custom-onlyread" : isOptional ? "custom-optional-with-color" : "custom-required"}`}>
+                className={` ${customWidth ? customWidth : " custom-input   cursor-pointer "} ${readOnly ? "custom-onlyread" : isOptional ? "custom-optional-with-color" : "custom-required"}`}>
 
                  {/* className={`${className ? className : "custom-input py-2  cursor-pointer z-0"}  ${readOnly ? "custom-onlyread" : ""} ${isOptional ? "custom-optional" : "custom-required" } `}>  */}
 
@@ -267,12 +271,6 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
       // console.log('data', data)
     }, [data]);
 
-
-    if(name === '_establecimiento'){
-      console.log('render')
-      console.log(customWidth)
-      console.log(`${customWidth ? customWidth : "custom-input py-2  cursor-pointer z-0"} ${readOnly ? "custom-onlyread" : isOptional ? "custom-optional-with-color" : "custom-required"}`)
-    }
 
     return (
       // <div className="flex min-w-[100%] w-full items-center mx-4 mt-select mt-select-dropdown-up cursor-pointer">

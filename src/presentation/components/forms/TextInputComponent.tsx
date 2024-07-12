@@ -25,6 +25,7 @@ interface ITextInputProps {
   labelProps?:any;
   textAlign?: string;
   handleFocus?:any;
+  labelContainer?:any
 }
 
 const TextInputComponent: React.FC<ITextInputProps> = ({
@@ -46,7 +47,8 @@ const TextInputComponent: React.FC<ITextInputProps> = ({
   isOptional,
   textAlign,
   handleFocus,
-  labelProps
+  labelProps,
+  labelContainer
 }) => {
 
 
@@ -93,16 +95,17 @@ return (
       control={control}
       defaultValue={defaultValue}
       render={({ field }) => (
-        <div className={`  labelInput !mb-[1rem] !ml-[1rem] relative ${error ? 'border-red-500' : 'border-gray-500'}`}>
-          <label htmlFor={label} className={` ${labelProps ? labelProps : ""} absolute !z-20 translate-y-[-0.5vw]  translate-x-3`}>
-                  {label}
-          </label>
+        <div className={`  labelInput !mb-[1rem] !ml-[1rem] relative ${error ? 'border-red-500' : 'border-[#f8b179]'}`}>
+          <div className={`${labelContainer ? labelContainer : ""} w-full h-4 -top-[0.8vw] absolute left-2 bg-white`}>
+            <label htmlFor={label} className={` ${labelProps ? labelProps : ""} absolute !z-20 translate-y-[-0.5vw]  translate-x-3`}>
+                {label}
+            </label>
+          </div>
           <Input
             {...field}
             error={error ? true : false}
             // label={label}
             id={label}
-
             type={type}
             // defaultValue={defaultValue}
             readOnly={onlyRead}

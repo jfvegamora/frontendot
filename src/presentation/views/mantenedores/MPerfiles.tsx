@@ -84,12 +84,22 @@ const MPerfiles: React.FC = () => {
                 label: "Cargo",
                 type: "select",
                 selectUrl: "/api/cargos/",
+                styles:{
+                  with:"!h-[2.5vw] text-[1vw] w-full",
+                  container:"!w-[35vw]  text-[1vw] translate-x-[2vw]", 
+                  labelProps: "!translate-y-[-1.2vh] !text-[1.3vw] !font-[2vw]"
+                }
               },
               {
                 name: "_p3",
                 label: "Funcionalidad",
                 type: "select",
                 selectUrl: "/api/funcionalidades/",
+                styles:{
+                  with:"!h-[2.5vw] text-[1vw] w-full",
+                  container:"!w-[35vw]  text-[1vw] translate-x-[2vw]", 
+                  labelProps: "!translate-y-[-1.2vh] !text-[1.3vw] !font-[2vw]"
+                }
               },
             ]}
             classNameSearchButton=" translate-x-[5rem]"

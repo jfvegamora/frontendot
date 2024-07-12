@@ -31,7 +31,6 @@ const RadioButtonComponent: React.FC<IRadioButtonProps> = ({
   readOnly,
   tabIndex,
   customWidth,
-  isOT,
   labelProps
 }) => {
 

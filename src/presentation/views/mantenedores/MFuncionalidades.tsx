@@ -73,9 +73,14 @@ const MCargos: React.FC = () => {
             setParams={setParams}
             setEntities={setEntities}
             primaryKeyInputs={[
-              { name: "_p1", label: "Funcionalidad", type: "text", styles:{with:" !w-[14rem]"} },
+              { name: "_p1", label: "Funcionalidad", type: "text", 
+                styles:{
+                  with: "!h-[2.5vw] !text-[1vw] w-full",
+                  container:"w-[35vw] !text-[2vw] translate-y-[-0.2vw]", 
+                  labelProps: "!translate-y-[0.1vw] !text-[1.3vw] !font-[3vw] !z-30"
+                } },
             ]}
-            classNameSearchButton="translate-x-[14rem]"
+            classNameSearchButton="translate-x-[12vw]"
           />
         </div>
 

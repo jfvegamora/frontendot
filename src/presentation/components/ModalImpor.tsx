@@ -4,7 +4,8 @@ import { TableComponent } from '.';
 import { table_head_errors } from '../utils';
 import { restanteImport, resultExcelTypes, totalImport } from './ImportToCsv';
 import * as XLSX from 'xlsx';
-import { PiMicrosoftExcelLogoFill } from 'react-icons/pi';
+import { faDownload } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { PiMicrosoftExcelLogoFill } from 'react-icons/pi';
 
 
@@ -144,13 +145,14 @@ const ModalImpor:React.FC<ModalImportProps> = ({
                 </div>
 
                 {titleState === 'Errores' && (
-                  <Tooltip content={'Descargar Plantilla Excel'} >
+                  <Tooltip content={'Exportar Errores'} >
                     <IconButton 
                       className='text-white ml-10'
                       variant='text'
                       color="blue-gray"
                       >
-                      <PiMicrosoftExcelLogoFill className='primaryBtnIcon' onClick={()=>downloadLogErrorsExcel()} />
+                      {/* <PiMicrosoftExcelLogoFill className='primaryBtnIcon' onClick={()=>downloadLogErrorsExcel()} /> */}
+                      <FontAwesomeIcon icon={faDownload} className={` ${"primaryBtnIcon"}`} onClick={()=>downloadLogErrorsExcel()}/>
         
                     </IconButton>
                 </Tooltip>

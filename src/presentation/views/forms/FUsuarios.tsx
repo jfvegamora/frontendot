@@ -385,7 +385,7 @@ console.log(formValues)
 
 
 return (
-      <div className="useFormContainer !z-30 translate-y-[-13vw] translate-x-[12vw]  !w-[73vw] !h-auto">
+      <div className="useFormContainer !top-[15vw] !z-30 translate-y-[-16vw] translate-x-[12vw] !w-[73vw] !h-auto">
         <div className="userFormBtnCloseContainer flex justify-between ">
           <h1 className="userFormLabel absolute left-[40%]">{label}</h1>
           <button onClick={closeModal} className="userFormBtnClose">
@@ -398,7 +398,7 @@ return (
           className="userFormulario">
           <div className="userFormularioContainer !w-full h-[40vw] ">
             
-            <div className="w-full items-center flex !mb-4 !h-[6vw] ">
+            <div className="w-full items-center flex !mb-4 !h-[7vw] ">
               <div className="input-container   items-center  flex justify-between rowForm w-[33vw]">
                 <div className="w-full">
                   <TextInputComponent
@@ -409,7 +409,7 @@ return (
                     control={control}
                     error={errors.nombre}
                     inputRef={firstInputRef}
-                    customWidth={"!h-[2.5vw] !text-[1vw]"}
+                    customWidth={"!h-[2.8vw] !text-[1vw]"}
                     labelProps={"!translate-y-[-1vw] !text-[3vw] !font-[3vw]"}
                     />
                 </div>
@@ -425,6 +425,7 @@ return (
                     entidad={["/api/cargos/", "02"]}
                     error={errors.cargo}
                     customWidth={"!h-[2.5vw] text-[1vw]"}
+                    labelProps={"!translate-y-[0.1vw] !text-[1vw] !font-[3vw]"}
                   />
                 </div>   
               </div>
