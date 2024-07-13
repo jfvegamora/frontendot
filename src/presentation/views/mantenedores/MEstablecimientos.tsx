@@ -167,7 +167,7 @@ const MEstablecimientos: React.FC = () => {
           data={entities}
           tableHead={table_head_establecimientos}
           showEditButton={true}
-          showPdfButton={true}
+          // showPdfButton={true}
           showDeleteButton={false}
           idMenu={idMenu}
           // leftEdit={true}

@@ -19,7 +19,11 @@ const ExportToPDF:React.FC<IExportToPdf> = ({
 
   // const [renderDocument, setRenderDocument] = React.useState(false);
   // let enumGrid = {}
-  let id_destino = rowData && rowData[0]?.split('=')[1] || '';
+  let id_destino = ''
+
+  if(rowData && rowData[0]){
+    id_destino = rowData && rowData[0]?.split('=')[1] || '';
+  }
   
 
   const styles = StyleSheet.create({

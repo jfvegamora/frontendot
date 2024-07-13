@@ -97,7 +97,7 @@ console.log(defaultComuna)
                 control={control}
                 render={({field})=>(
                     <div className="flex min-w-[100%] w-[60%] items-center mb-2 mx-4 mt-select mt-select-dropdown-up cursor-pointer  ">
-                        <div className='custom-select !top-[-3%]  custom-select-reg relative rounded-lg !h-[3rem]'>
+                        <div className='custom-select !top-[-3%]  custom-select-reg relative rounded-lg !h-[6vh]'>
                         <label className=" labelForm text-[#f39c12] absolute left-3 z-20">Región</label>
                         <select 
                             {...field}
@@ -125,7 +125,7 @@ console.log(defaultComuna)
                 )}
             /> 
         </div>  
-        <div className="w-[93%] mb-4">
+        <div className="w-[93%] mb-4 !h-[6vh]">
             <Controller
                 name="cliente_provincia_id"
                 control={control}
@@ -165,7 +165,7 @@ console.log(defaultComuna)
                 )}
             /> 
         </div>  
-        <div className="w-[93%] mb-4">
+        <div className="w-[93%] mb-4 !h-[6vh]">
             <Controller
                 name={name}
                 control={control}

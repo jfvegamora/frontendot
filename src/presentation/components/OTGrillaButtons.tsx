@@ -231,13 +231,12 @@ const imprimirComprobanteRetiro = async(tipoComprobante?:string) => {
         setIsFotImpresa(true)
         disabledIndividualCheck.value = true;        
         const OT                 = OTdata.filter((ot:any)=>ot[1] === folio)[0]
-        let  estado_impresion    = 5
         let  usuario_ot          = 32
 
-        if(OT[estado_impresion] === '1'){
-            disabledIndividualCheck.value = false;
-            return toast.error(`OT: ${folio} ya fue Impresa anteriormente`)
-        }
+        // if(OT[estado_impresion] === '1'){
+        //     disabledIndividualCheck.value = false;
+        //     return toast.error(`OT: ${folio} ya fue Impresa anteriormente`)
+        // }
 
         if(OT[usuario_ot] !== user?.id){
             return toast.error(`OT ${folio} no pertenece al Usuario ${user.nombre}`);

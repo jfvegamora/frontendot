@@ -101,9 +101,9 @@ const FOTReceta:React.FC<IReceta> = ({
 
   return (
     <form onKeyDown={handleKeyDown}>
-        <div className="w-full frameOTForm">
-            <div className="w-full flex items-center rowForm !h-[5rem]">
-                <div className="w-[23%]  !ml-[1rem]">
+        <div className="w-full frameOTForm h-[85vh]">
+            <div className="w-full flex  items-center rowForm !h-[6vw] ">
+                <div className="w-[23vw]  !ml-[2rem]">
                     <SelectInputComponent
                         label="Tipo Anteojo"
                         name="tipo_anteojo_id"
@@ -115,10 +115,12 @@ const FOTReceta:React.FC<IReceta> = ({
                         entidad={["/api/tipos/", "02","OTTipoAnteojo"]}
                         // entidad={["/api/ot/", "12","ESF", "_p3"]}
                         // error={errors.establecimiento}
-                        customWidth={"!ml-[1rem]"}
+    
                         readOnly={isEditting  || inputOnlyReadReserva.value}
                         onlyFirstOption={isEditting}
                         inputRef={inputsRef.firstInputRef}
+                        customWidth={"!h-[2.5vw] text-[1vw]"}
+                        labelProps={"!text-[1vw]"}
                     />
                 </div>
                 <div className="w-[20%] ">
@@ -133,6 +135,8 @@ const FOTReceta:React.FC<IReceta> = ({
                         onlyRead={isEditting}
                         isOptional={true}
                         textAlign="text-center"
+                        labelProps={"!translate-y-[-1.5vw] !text-[1.4vw]"}
+                        customWidth={"!h-[2.5vw] !text-[1vw]"}
                         />
                 </div>
                 
@@ -148,6 +152,8 @@ const FOTReceta:React.FC<IReceta> = ({
                         onlyRead={isEditting}
                         isOptional={true}
                         textAlign="text-center"
+                        labelProps={"!translate-y-[-1.5vw] !text-[1.4vw]"}
+                        customWidth={"!h-[2.5vw] !text-[1vw]"}
                         />
                 </div>
                 <div className="w-[34%] ml-4 mb-[0.3rem]" >
@@ -161,21 +167,25 @@ const FOTReceta:React.FC<IReceta> = ({
                         control={control}
                         entidad={["/api/oftalmologos/", "02"]}
                         // entidad={["/api/ot/", "12","ESF", "_p3"]}
-                        // error={errors.establecimiento}
-                        customWidth={"345px"}
+                  
                         readOnly={isEditting}
                         isOptional={true}
                         onlyFirstOption={isEditting}
+                        customWidth={"!h-[2.5vw] text-[1vw]"}
+                        labelProps={"!text-[1vw]"}
                     />
                 </div>
             </div>
 
-            <div className="w-full flex items-center rowForm !h-[11rem] relative ">
-                <label className='labelAnteojo'>ANTEOJO 1</label>
-                <div className=" w-[43%] items-center rowForm !mt-[-10rem] !h-[8rem]  ">
+
+
+
+            <div className="w-full flex items-center rowForm !h-[9vw] relative  translate-y-11 ">
+                <label className='labelAnteojo !text-[1.9vw] -translate-y-11'>ANTEOJO 1</label>
+                <div className=" w-[43vw] items-center rowForm !mt-[-10rem] !h-[8rem]  ">
                     <div className="w-[90%] mx-auto flex items-center h-[9rem] relative labelForm  rounded-lg border radioComponent">
-                        <label className='labelForm w-[40%] absolute z-10 text-center -top-10 left-[30%] text-2xl'>OD</label>
-                        <div className="w-[25%]">
+                        <label className='labelForm w-[40%] absolute z-10 text-center -top-14 left-[30%] text-[2vw]'>OD</label>
+                        <div className="w-[10vw]">
                             <OTTextInputComponent
                                 type="text"
                                 label="ESF"
@@ -186,9 +196,11 @@ const FOTReceta:React.FC<IReceta> = ({
                                 onlyRead={!(!isEditting || (permiso_usuario_receta && permiso_areas_receta))}
                                 textAlign="text-center"
                                 step={0.25}
+                                labelProps={"!translate-y-[-1.5vw] !text-[1.4vw]"}
+                                className={"!h-[2.5vw] !text-[1.4vw]"}
                                 />
                         </div>
-                        <div className="w-[25%]">
+                        <div className="w-[10vw]">
                             <OTTextInputComponent
                                 type="test"
                                 label="CIL"
@@ -198,10 +210,12 @@ const FOTReceta:React.FC<IReceta> = ({
                                 control={control}
                                 onlyRead={!(!isEditting || (permiso_usuario_receta && permiso_areas_receta))}
                                 textAlign="text-center"
+                                labelProps={"!translate-y-[-1.5vw] !text-[1.4vw]"}
+                                className={"!h-[2.5vw] !text-[1.4vw]"}
                                 step={0.25}
                                 />
                         </div>
-                        <div className="w-[25%]" tabIndex={-1}>
+                        <div className="w-[10vw]" tabIndex={-1}>
                             <OTTextInputComponent
                                 type="text"
                                 label="EJE"
@@ -211,10 +225,12 @@ const FOTReceta:React.FC<IReceta> = ({
                                 control={control}
                                 onlyRead={!(!isEditting || (permiso_usuario_receta && permiso_areas_receta))}
                                 textAlign="text-center"
+                                labelProps={"!translate-y-[-1.5vw] !text-[1.4vw]"}
+                                className={"!h-[2.5vw] !text-[1.4vw]"}
                                 step={1}
                                 />
                         </div>
-                        <div className="w-[25%]" tabIndex={-1}>
+                        <div className="w-[10vw]" tabIndex={-1}>
                             <OTTextInputComponent
                                 type="text"
                                 label="AD"
@@ -226,14 +242,16 @@ const FOTReceta:React.FC<IReceta> = ({
                                 textAlign="text-center"
                                 step={0.25}
                                 inputRef={firstInputRef}
+                                labelProps={"!translate-y-[-1.5vw] !text-[1.4vw]"}
+                                className={"!h-[2.5vw] !text-[1.4vw]"}
                                 />
                         </div>
                     </div>    
                 </div>
 
-                <div className=" w-[43%] items-center rowForm !h-[8rem]">
-                    <div className="w-[90%] mx-auto flex items-center h-[9rem] relative labelForm  rounded-lg border radioComponent">
-                        <label className='labelForm w-[40%] absolute z-10 text-center -top-10 left-[30%] text-2xl'>OI</label>
+                <div className=" w-[43vw] items-center rowForm !h-[8rem]">
+                    <div className="w-[90] mx-auto flex items-center h-[9rem] relative labelForm  rounded-lg border radioComponent">
+                        <label className='labelForm w-[40%] absolute z-10 text-center -top-14 left-[30%] text-[2vw]'>OI</label>
                         <div className="w-[25%]">
                             <OTTextInputComponent
                                 type="text"
@@ -245,6 +263,8 @@ const FOTReceta:React.FC<IReceta> = ({
                                 onlyRead={!(!isEditting || (permiso_usuario_receta && permiso_areas_receta))}
                                 textAlign="text-center"
                                 step={0.25}
+                                labelProps={"!translate-y-[-1.5vw] !text-[1.4vw]"}
+                                className={"!h-[2.5vw] !text-[1.4vw]"}
                                 />
                         </div>
                         <div className="w-[25%]">
@@ -258,6 +278,8 @@ const FOTReceta:React.FC<IReceta> = ({
                                 onlyRead={!(!isEditting || (permiso_usuario_receta && permiso_areas_receta))}
                                 textAlign="text-center"
                                 step={0.25}
+                                labelProps={"!translate-y-[-1.5vw] !text-[1.4vw]"}
+                                className={"!h-[2.5vw] !text-[1.4vw]"}
                                 />
                         </div>
                         <div className="w-[25%]">
@@ -271,6 +293,8 @@ const FOTReceta:React.FC<IReceta> = ({
                                 onlyRead={!(!isEditting || (permiso_usuario_receta && permiso_areas_receta))}
                                 textAlign="text-center"
                                 renderComponent={setIsRender}
+                                labelProps={"!translate-y-[-1.5vw] !text-[1.4vw]"}
+                                className={"!h-[2.5vw] !text-[1.4vw]"}
                                 
                                 />
                         </div>
@@ -286,11 +310,13 @@ const FOTReceta:React.FC<IReceta> = ({
                                 textAlign="text-center"
                                 step={0.25}
                                 inputRef={secondInputRef}
+                                labelProps={"!translate-y-[-1.5vw] !text-[1.4vw]"}
+                                className={"!h-[2.5vw] !text-[1.4vw]"}
                                 />
                         </div>
                     </div>    
                 </div>
-                <div className="w-[14%] items-center ">
+                <div className="w-[14vw] items-center ">
                     <div className="w-[70%] mx-auto">
                         <TextInputInteractive
                             type="number"
@@ -302,9 +328,11 @@ const FOTReceta:React.FC<IReceta> = ({
                             isOT={true}
                             onlyRead={!(!isEditting || (permiso_usuario_receta && permiso_areas_receta))}
                             textAlign="text-center"
+                            labelProps={"!translate-y-[-1.5vw] !text-[1.4vw]"}
+                            customWidth={"!h-[2.5vw] !text-[1.4vw]"}
                             />
                     </div>
-                    <div className="w-[70%] mx-auto">
+                    <div className="w-[70%] mx-auto mt-10">
                         <TextInputInteractive
                             type="number"
                             label="ALT"
@@ -315,17 +343,19 @@ const FOTReceta:React.FC<IReceta> = ({
                             isOT={true}
                             onlyRead={!(deshabilitarCampo.value.a1_alt && (!isEditting || (permiso_usuario_receta && permiso_areas_receta)))}
                             textAlign="text-center"
+                            labelProps={"!translate-y-[-1.5vw] !text-[1.4vw]"}
+                            customWidth={"!h-[2.5vw] !text-[1.4vw]"}
                             />
                     </div>
                 </div>
             </div>
 
-            <div className="w-full flex items-center rowForm !h-[11rem] relative ">
-                <label className='absolute z-10 top-[-10%] w-[15%] left-[36%] text-center text-2xl'>ANTEOJO 2</label>
+            <div className="w-full flex items-center rowForm translate-y-40 !h-[9vw] relative ">
+                <label className='absolute z-10 top-[-10%] w-[15%] left-[36%] text-center text-[2vw] -translate-y-8'>ANTEOJO 2</label>
                 <div className=" w-[43%] items-center  !mt-[-4rem] !h-[8rem] rowForm ">
                     <div className="w-[90%] mx-auto flex items-center  !h-[8rem] relative labelForm  rounded-lg border radioComponent">
-                        <label className='labelForm w-[40%] absolute z-10 text-center -top-10 left-[30%] text-2xl'>OD</label>
-                        <div className="w-[25%]">
+                    <label className='labelForm w-[40%] absolute z-10 text-center -top-14 left-[30%] text-[2vw]'>OD</label>
+                    <div className="w-[25%]">
                             <OTTextInputComponent
                                 type="text"
                                 label="ESF"
@@ -335,6 +365,9 @@ const FOTReceta:React.FC<IReceta> = ({
                                 control={control}
                                 onlyRead={true}
                                 textAlign="text-center"
+                                labelProps={"!translate-y-[-1.5vw] !text-[1.4vw]"}
+                                className={"!h-[2.5vw] !text-[1.4vw]"}
+                                
                                 />
                         </div>
                         <div className="w-[25%]">
@@ -347,6 +380,8 @@ const FOTReceta:React.FC<IReceta> = ({
                                 control={control}
                                 onlyRead={true}
                                 textAlign="text-center"
+                                labelProps={"!translate-y-[-1.5vw] !text-[1.4vw]"}
+                                className={"!h-[2.5vw] !text-[1.4vw]"}
                                 />
                         </div>
                         <div className="w-[25%]">
@@ -359,6 +394,8 @@ const FOTReceta:React.FC<IReceta> = ({
                                 onlyRead={true}
                                 control={control}
                                 textAlign="text-center"
+                                labelProps={"!translate-y-[-1.5vw] !text-[1.4vw]"}
+                                className={"!h-[2.5vw] !text-[1.4vw]"}
                                 />
                         </div>
                        
@@ -379,6 +416,8 @@ const FOTReceta:React.FC<IReceta> = ({
                                 // isOT={true}
                                 onlyRead={true}
                                 textAlign="text-center"
+                                labelProps={"!translate-y-[-1.5vw] !text-[1.4vw]"}
+                                className={"!h-[2.5vw] !text-[1.4vw]"}
                                 />
                         </div>
                         <div className="w-[25%]">
@@ -392,6 +431,8 @@ const FOTReceta:React.FC<IReceta> = ({
                                 // isOT={true}
                                 onlyRead={true}
                                 textAlign="text-center"
+                                labelProps={"!translate-y-[-1.5vw] !text-[1.4vw]"}
+                                className={"!h-[2.5vw] !text-[1.4vw]"}
                                 />
                         </div>
                         <div className="w-[25%]">
@@ -405,6 +446,8 @@ const FOTReceta:React.FC<IReceta> = ({
                                 // isOT={true}
                                 onlyRead={true}
                                 textAlign="text-center"
+                                labelProps={"!translate-y-[-1.5vw] !text-[1.4vw]"}
+                                className={"!h-[2.5vw] !text-[1.4vw]"}
                                 />
                         </div>
                         
@@ -424,14 +467,15 @@ const FOTReceta:React.FC<IReceta> = ({
                                 textAlign="text-center"
                                 // onlyRead={!(deshabilitarCampo.value.a2_dp && (!isEditting || (permiso_usuario_receta && permiso_areas_receta)) )}
                                 onlyRead={!(deshabilitarCampo.value.a2_dp && (!isEditting || (permiso_usuario_receta && permiso_areas_receta)))}
-
+                                labelProps={"!translate-y-[-1.5vw] !text-[1.4vw]"}
+                                customWidth={"!h-[2.5vw] !text-[1.4vw]"}
                                 // error={errors.fecha_nacimiento}
                             />
                     </div>
                 </div>
             </div>
 
-            <div className="w-full flex items-center rowForm !h-[3rem] relative ">
+            <div className="w-full flex items-center rowForm !h-[3rem] relative  translate-y-52">
                 <div className="w-[104%] ml-2">
                     <TextInputInteractive
                         type="text"
@@ -443,7 +487,8 @@ const FOTReceta:React.FC<IReceta> = ({
                         // onlyRead={isEditting}
                         isOptional={true}
                         isOT={true}
-                        customWidth={"!ml-[1rem] !mr-[3rem] "}
+                        labelProps={"!translate-y-[-1.8vw] !text-[1.4vw]"}
+                        customWidth={"!h-[2.5vw] !text-[1vw]"}
                         />
                 </div>
             </div>

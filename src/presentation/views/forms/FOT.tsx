@@ -886,16 +886,20 @@ const checkArmazones = camposRequeridosArmazones.every(campo => {
     <div className='useFormContainerOT top-[0%]  w-full h-[100%] !z-40'>
       <Tabs selectedIndex={selectedTab} onSelect={(index) => setSelectedTab(index)}>
         <TabList className='flex items-center top-[10]'>
-          <Tab className="custom-tab items-center flex relative" tabIndex={"-1"}>
-            ÓPTICA 
+          <Tab className="custom-tab items-center  flex relative" tabIndex={"-1"}>
+            <span className='!text-[1vw]'>
+              ÓPTICA 
+            </span> 
             {checkOptica && (
-              <div className="absolute left-[5rem] pointer-events-none" aria-disabled>
+              <div className="absolute left-[7rem]  !w-[2vw] pointer-events-none" aria-disabled>
                 <Checkbox color="green" defaultChecked   className="text-sm"/>
               </div>
             )}
           </Tab>
           <Tab className="custom-tab items-center flex relative" tabIndex={"-1"}>
-            CLIENTE
+            <span className='text-[1vw]'>
+              CLIENTE
+            </span>
             {checkCliente && (
               <div className="absolute left-[5rem] pointer-events-none" aria-disabled>
                   <Checkbox color="green" defaultChecked   className="text-sm"/>
@@ -903,7 +907,9 @@ const checkArmazones = camposRequeridosArmazones.every(campo => {
             )}
           </Tab>
           <Tab className="custom-tab items-center flex relative" tabIndex={"-1"}>
-           RECETA
+            <span className='text-[1vw]'>
+              RECETA
+            </span>
            {checkReceta && (
               <div className="absolute left-[5rem] pointer-events-none" aria-disabled>
                   <Checkbox color="green" defaultChecked   className="text-sm"/>
@@ -1091,7 +1097,7 @@ const checkArmazones = camposRequeridosArmazones.every(campo => {
                 OTPermissions[7] === "1" &&
                 User.permisos_areas[EnumAreas[OTAreaActual]] === "1" &&
                 (
-                  <Button className='otActionButton bg-yellow-700 hover:bg-yellow-900' onClick={()=>{
+                  <Button className=' text-[1vw] w-[18vw] translate-y-[-2vw] bg-yellow-700 hover:bg-yellow-900' onClick={()=>{
                     setFOTBooleanStates((prev)=>({
                       ...prev,
                       showPendiente : !prev.showPendiente
@@ -1109,7 +1115,7 @@ const checkArmazones = camposRequeridosArmazones.every(campo => {
                 // sumatoriaNivel1  === validationNivel1.value.length &&
                 User.permisos_areas[EnumAreas[OTAreaActual]] === "1" &&
                 data && data[EnumGrid.estado_id] > 1 && (
-                  <Button className='otActionButton bg-red-700 hover:bg-red-900' onClick={()=>{
+                  <Button className='text-[1vw] w-[18vw] translate-y-[-2vw] bg-red-700 hover:bg-red-900' onClick={()=>{
                     setFOTBooleanStates((prev)=>({
                       ...prev,
                       showDerivacion: !prev.showDerivacion

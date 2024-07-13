@@ -237,19 +237,19 @@ const MOT: React.FC = () => {
               strQuery={strQuery}
               setEntities={setEntities}
               primaryKeyInputs={[
-                { name: "_folio", label: "Folio", type: "text", styles:{with: "!w-[10vw] !h-[6vh] !font-[1.6vw] !text-[1.6vw]", container:"w-[10vw] !h-[6vh] translate-x-[-2vw]"} },
-                { name: "_rut", label: "Rut", type: "text", styles:{with: "!w-[10vw] !h-[6vh] !font-[1.6vw] !text-[1.6vw]", container: "w-[10vw] !h-[6vh]    translate-x-[-6vw]"} },
+                { name: "_folio", label: "Folio", type: "text", styles:{with: "!w-[10vw] !h-[6vh] !font-[1.3vw] !text-[1.6vw]", container:"w-[10vw] !h-[6vh] translate-x-[-2vw]", labelProps: "!text-[1.2vw] translate-y-[1vw]"} },
+                { name: "_rut", label: "Rut", type: "text", styles:{with: "!w-[10vw] !h-[6vh] !font-[1.6vw] !text-[1.6vw]", container: "w-[10vw] !h-[6vh]    translate-x-[-6vw]",labelProps: "!text-[1.2vw] translate-y-[1vw]"} },
                 
                 { name: "_fecha_desde", label: "Atención Desde", type: "date", styles: { with: "w-[10vw]  !h-[3rem] !font-[1.2vw] !text-[1.2vw]", container:"w-[10vw] translate-x-[-2vw]" } },
                 { name: "_fecha_hasta", label: "Atención Hasta", type: "date", styles: { with: "w-[10vw]  !h-[3rem] !font-[1.2vw] !text-[1.2vw]", container:"w-[10vw] translate-x-[-6vw]" } },
                 { name: "_usuario", label: "Digitador/a", type: "select",selectUrl: "/api/usuarios/", styles: { with: "!w-[22vw]", container: " !w-[22vw] !z-30 text-[1vw] translate-x-[1.5vw] " } },
                 
                 { name: "_estado", label: "Estado", type: "select", selectUrl: "/api/tipos/", tipos: "OTEstados", styles: { with: "!w-[20.5vw] !h-[3vw]", container:" !w-[20.5vw] translate-x-[8.5vw] !h-[3vw] !z-30 text-[1vw] translate-y-[-0.3rem]" }},
-                { name: "_nombre", label: "Nombre", type: "text" , styles:{ with: "!w-[18.4vw]  !h-[6vh] !font-[1.4vw] !text-[1.4vw]", container:"w-[18.4vw] !h-[6vh]  translate-x-[-6vw] " } },
-                { name: "_p1", label: "RBD", type: "text" , styles:{ with: "!w-[18.4vw]  !h-[6vh] !font-[1.6vw] !text-[1.6vw]", container:"w-[10vw] !h-[6vh] translate-x-[-4.5vw]" } },
+                { name: "_nombre", label: "Nombre", type: "text" , styles:{ with: "!w-[18.4vw]  !h-[6vh] !font-[1.4vw] !text-[1.4vw]", container:"w-[18.4vw] !h-[6vh]  translate-x-[-6vw]",labelProps: "!text-[1.2vw] translate-y-[1vw]" } },
+                { name: "_p1", label: "RBD", type: "text" , styles:{ with: "!w-[18.4vw]  !h-[6vh] !font-[1.6vw] !text-[1.6vw]", container:"w-[10vw] !h-[6vh] translate-x-[-4.5vw]", labelProps: "!text-[1.2vw] translate-y-[1vw]" } },
                 
                 { name: "_proyecto", label: "Proyecto", type: "select", selectUrl: "/api/proyectos/", styles: { with: "w-[20.4vw]", container: "w-[20vw]  translate-x-[-6vw] !text-[1vw] " }},
-                { name: "_motivo", label: "Motivo", type: "select", selectUrl: "/api/tipos/", tipos: "OTMotivo", styles: { with: "w-[20.4vw]  translate-y-[0.3rem] !h-[3vw]", container:"w-[20vw] translate-x-[-1vw] text-[1vw] !h-[3vw] translate-y-[-0.3rem]" }},
+                { name: "_motivo", label: "Motivo", type: "select", selectUrl: "/api/tipos/", tipos: "OTMotivo", styles: { with: "w-[20.4vw]  translate-y-[0.3rem] !h-[3vw]", container:"w-[20vw] translate-x-[-1vw] text-[1vw] !h-[3vw] translate-y-[-0.3rem]", labelProps: "!text-[1.2vw] translate-y-[1vw]" }},
                 
                 { name: "_p2", label: "Tipo Doc", type: "select", selectUrl: "/api/tipos/", tipos: "OTNumDoc", styles:{with: 'w-[20.4vw] !h-[3vw]', container: "w-[20.4vw] translate-x-[13.5vw] text-[1vw] !h-[3vw] !z-30 translate-y-[-0.3rem]"}},
                 { name: "_p3", label: "Número Doc", type: "text", styles: { with: "w-[23vw]", container:"translate-x-[18.5vw] !w-[23vw] !z-30 text-[1vw]  translate-y-[-0.5vw]" }},

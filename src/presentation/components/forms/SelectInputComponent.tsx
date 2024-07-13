@@ -46,7 +46,9 @@ interface ISelectInputProps {
   onlyFirstOption?:boolean;
   inputRef?:any;
   isEditting?:boolean;
+  labelProps?:any
   formValues?:any;
+  labelContainer?:any
 }
 
 const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
@@ -72,7 +74,9 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     onlyFirstOption,
     inputRef,
     isEditting,
-    formValues
+    formValues,
+    labelProps,
+    labelContainer
   }) => {
     const dispatch = useAppDispatch()
     const [entities, setEntities] = useState([]);
@@ -180,17 +184,17 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
           control={control}
           defaultValue={strSelectedName}
           render={({ field }) => (
-            <div className={`custom-select border-[1px] rounded-lg  ${error ? 'border-red-500' : 'border-[#f8b179]'}  `}>
-              <div className="top-[-0.1rem]    left-3.5 absolute w-1/2 z-10">
-                <label htmlFor={label} className=" relative">
-                  {label}
-                </label>
+            <div className={`custom-select border-[0.5px] h-[2.8vw]   rounded-lg  ${error ? 'border-red-500' : ' border-[#e6843a]'}  `}>
+                <div className={`${labelContainer ? labelContainer : ""} w-full h-4 -top-[0.8vw] absolute left-2 bg-white`}>
+                  <label htmlFor={label} className={`  ${labelProps ? labelProps : "  !translate-y-[-1.2vh] !text-[1vw] !font-[1vw]"}  !translate-y-[-0.8vw] translate-x-3`}>
+                    {label}
+                  </label>
+                </div>
                 {error && (
                   <p className="absolute z-20 top-[0.1rem] right-1 labelErr">
                     {error.message}
                  </p>
                 )}
-              </div>
 
               <select
                 {...field}
@@ -217,21 +221,6 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
 
                     if (setHandleSearch) {
                       // const newValueFilterSearch                 = e.target.options[e.target.selectedIndex].text;
-
-                      // const updatedValue                         = newValueFilterSearch === '' 
-                      //                                                                       ? Object.keys(filterSearchTitle.value).reduce((acc:any, key:any)=>{
-                      //                                                                         if(key !== label){
-                      //                                                                           acc[key] = filterSearchTitle.value[key];
-                      //                                                                         }
-                      //                                                                         return acc;
-                      //                                                                       },{})
-                      //                                                                       : {...filterSearchTitle.value, [label]: newValueFilterSearch};
-
-                                                                                          
-
-
-
-
                       // filterSearchTitle.value = updatedValue    
                       changeFilterSearchTitle(e, label, 'Select');                                                                    
                       // setHandleSearch(inputValuesToUpdate);
@@ -240,7 +229,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
                 }}
                 style={{}}
                 // className={`${className ? className : "custom-input py-2  cursor-pointer z-0"}  ${readOnly ? "custom-onlyread" : isOptional ? "custom-optional" : "custom-required"}`}>
-                className={`${customWidth ? customWidth : "custom-input py-2  cursor-pointer z-0"} ${readOnly ? "custom-onlyread" : isOptional ? "custom-optional-with-color" : "custom-required"}`}>
+                className={` ${customWidth ? customWidth : " custom-input   cursor-pointer "} ${readOnly ? "custom-onlyread" : isOptional ? "custom-optional-with-color" : "custom-required"}`}>
 
                  {/* className={`${className ? className : "custom-input py-2  cursor-pointer z-0"}  ${readOnly ? "custom-onlyread" : ""} ${isOptional ? "custom-optional" : "custom-required" } `}>  */}
 
@@ -258,6 +247,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
                 {entities &&
                   entities.map((option: any, index) => (
                     <option
+    
                       key={index}
                       value={ isFOTcristales ? (  clearSelectInput.value ?  (
                         inputName !== 'proyecto_codigo' ? "" : strSelectedName
@@ -281,12 +271,6 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
       // console.log('data', data)
     }, [data]);
 
-
-    if(name === '_establecimiento'){
-      console.log('render')
-      console.log(customWidth)
-      console.log(`${customWidth ? customWidth : "custom-input py-2  cursor-pointer z-0"} ${readOnly ? "custom-onlyread" : isOptional ? "custom-optional-with-color" : "custom-required"}`)
-    }
 
     return (
       // <div className="flex min-w-[100%] w-full items-center mx-4 mt-select mt-select-dropdown-up cursor-pointer">

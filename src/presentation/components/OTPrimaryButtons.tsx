@@ -184,7 +184,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
       const toastLoading = toast.loading('Imprimiendo OT´s.')
       const primerProyectoCodigo = pkToDelete[0].proyecto_codigo;
       const todosIguales          = pkToDelete.slice(1).every((ot:any) => ot.proyecto_codigo === primerProyectoCodigo);
-      const impresaAnteriormente  = pkToDelete.every((ot:any) => ot.estado_impresion === '0');
+      // const impresaAnteriormente  = pkToDelete.every((ot:any) => ot.estado_impresion === '0');
       const validateUsuario       = pkToDelete.every((ot:any) => ot["usuario_id"] === User.id);
       const listaFolios = folios.map((num:number) => `${num}`).join(',')
       // console.log(listaFolios)
@@ -201,14 +201,14 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
       // console.log(pkToDelete)
       // console.log(impresaAnteriormente)
       
-      if(!impresaAnteriormente){
-        toast.dismiss(toastLoading);
-        disabledIndividualCheck.value = false;
-        clearAllCheck.value = false;
-        setSelectedRows([])        
-        return toast.error(`La OT con folio: ${pkToDelete.filter((ot:any)=> ot.estado_impresion === '1').map((ot:any)=>ot.folio)}, ya fueron impresas anteriormente.`)
+      // if(!impresaAnteriormente){
+      //   toast.dismiss(toastLoading);
+      //   disabledIndividualCheck.value = false;
+      //   clearAllCheck.value = false;
+      //   setSelectedRows([])        
+      //   return toast.error(`La OT con folio: ${pkToDelete.filter((ot:any)=> ot.estado_impresion === '1').map((ot:any)=>ot.folio)}, ya fueron impresas anteriormente.`)
         
-      }
+      // }
 
       if(!todosIguales){
         toast.dismiss(toastLoading);

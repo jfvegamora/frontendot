@@ -372,6 +372,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                             setHandleSearch={handleSearch}
                             handleSelectChange={handleSelectChange}
                             customWidth={` h-[2.8vw] ${input.styles?.with}`}
+                            labelProps={input.styles?.labelProps}
                             // className={` ${input.styles?.with}`}
                           />
                       </Suspense>
@@ -408,30 +409,35 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                   control={control}
                   defaultValue=""
                   render={({ field }) => (
-                    <Input
-                      color="orange"
-                      tabIndex={1}
-                      className={`!h-[2.8vw] ${input?.styles?.with || ""}`}
-                      {...field}
-                      type={input.type}
-                      label={input.label}
-                      value={inputValues[input.name]}
-                      onChange={(e) => {
-                        field.onChange(e);
-                        changeFilterSearchTitle(e, input?.label);
-                        handleInputChange(input.name, e.target.value);
-                      }}
-                      onKeyDown={handleKeyDown}
-                      labelProps={{
-                        style: {
-                          color: "grey",
-                          fontWeight: "normal",
-                          fontSize: "16px",
-                        },
-                      }}
-                    />
+                    <>
+                      <label
+                        htmlFor={input.label}
+                        className={`${
+                          input.styles.labelProps ? input.styles.labelProps : ""
+                        } absolute !translate-y-[-0.4vw] translate-x-3`}
+                      >
+                        {input?.label}
+                      </label>
+                      <Input
+                        color="orange"
+                        tabIndex={1}
+                        className={`!h-[2.8vw] ${input?.styles?.with || ""}`}
+                        {...field}
+                        type={input.type}
+                        // label={input.label}
+                        value={inputValues[input.name]}
+                        onChange={(e) => {
+                          field.onChange(e);
+                          changeFilterSearchTitle(e, input?.label);
+                          handleInputChange(input.name, e.target.value);
+                        }}
+                        onKeyDown={handleKeyDown}
+                      />
+                    </>
                   )}
                 />
+
+                    
             </div>
               )}
             </div>
@@ -461,7 +467,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
     
    
     return (
-      <form className="primaryKeyContainer !items-center relative">
+      <form className="primaryKeyContainer !items-center relative !text-[2vw]">
         {renderInputs()}
         <div className={`h-auto flex ${classNameSearchButton}  ${(baseUrl === '/api/ot/' || baseUrl === '/api/othistorica/' ) ? 'absolute left-[89vw] top-0 flex flex-col !py-6 !my-4 !w-[4vw] ' : ''} `}>
           <Tooltip content="Buscar">
