@@ -2411,7 +2411,6 @@ export const table_head_proyectos_docum = [
     width: "w-[4rem]",
   },
 ];
-
 export const table_head_proyectos_tratam_adic = [
   {
     cell: <input type="checkbox" />,
@@ -3032,6 +3031,18 @@ export const table_head_proyectos_destinos = [
     visible: true,
     alignment: "text-left",
     width: "w-[10rem]",
+  },
+  {
+    cell: "Proyecto Código",
+    key: "proyecto",
+    visible: false,
+  },
+  {
+    cell: "Proyecto",
+    key: "titulo",
+    visible: true,
+    width: "w-[10rem]",
+    alignment: "text-left"
   },
   {
     cell: "Observaciones",

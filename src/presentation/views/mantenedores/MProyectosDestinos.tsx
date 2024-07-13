@@ -20,13 +20,15 @@ const strQuery = "01";
 const idMenu = 18;
 
 export enum EnumGrid {
-  id            =1,
-  descripcion   =2,
-  direccion     =3, 
-  contacto      =4,
-  telefono      =5,
-  correo        =6,
-  observaciones =7, 
+  id              =1,
+  descripcion     =2,
+  direccion       =3, 
+  contacto        =4,
+  telefono        =5,
+  correo          =6,
+  proyecto_codigo =7,
+  proyecto        =8,
+  observaciones   =9, 
 }
 
 
@@ -84,15 +86,21 @@ const MProyectosDestinos: React.FC = () => {
   
     return (
       <div className="mantenedorContainer">
-        <div className="mantenedorHead width50">
-          <div className="w-[30%]">
+        <div className="mantenedorHead width90">
+          <div className="w-80%]">
             <PrimaryKeySearch
               baseUrl={strBaseUrl}
               setParams={setParams}
               updateParams={updateParams}
               setEntities={setEntities}
               primaryKeyInputs={[
-                { name: "_p1", label: "Descripción", type: "text", styles:{with:" !w-[14rem]"}, },
+                {
+                  name: "_p2",
+                  label: "Proyecto",
+                  type: "select",
+                  selectUrl: "/api/proyectos/", styles:{with:" !w-[28rem] translate-y-[0.2rem]"},
+                },
+              { name: "_p1", label: "Descripción", type: "text", styles:{with:" !w-[14rem]"}, },
               ]}
               />
           </div>
