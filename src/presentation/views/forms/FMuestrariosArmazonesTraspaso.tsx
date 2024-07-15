@@ -28,9 +28,9 @@ const strEntidad = "Traspaso de Armazones entre Almacenes";
 
 export interface InputData {
   muestrario: string;
-  origen    : string;
-  cantidad  : string;
-  usuario   : string | undefined;
+  origen: string;
+  cantidad: string;
+  usuario: string | undefined;
 }
 
 interface OutputData {
@@ -38,19 +38,19 @@ interface OutputData {
   _pkToDelete: string;
 }
 
-export function transformInsertQuery(jsonData: InputData, userID:string): OutputData | null {
-  
+export function transformInsertQuery(jsonData: InputData, userID: string): OutputData | null {
+
 
   const kardex = [{
     'muestrario': jsonData.muestrario,
-    'origen'    : jsonData.origen,
-    'cantidad'  : jsonData.cantidad,
-    'usuario'   : userID,
+    'origen': jsonData.origen,
+    'cantidad': jsonData.cantidad,
+    'usuario': userID,
   }]
 
   const query: OutputData = {
     query: "07",
-    _pkToDelete:encodeURIComponent(JSON.stringify(kardex)),
+    _pkToDelete: encodeURIComponent(JSON.stringify(kardex)),
   };
   console.log("query", query)
   return query;
@@ -218,54 +218,53 @@ const FMuestrariosArmazonesTraspaso: React.FC<IUserFormPrps> = React.memo(
       },
       [editEntity, createdEntity, handleApiResponse]
     );
-console.log(errors);
+    console.log(errors);
 
     return (
-      <div className="useFormContainer centered-div use40rem">
+      <div className="useFormContainer centered-div w-[35vw]">
         <div className="userFormBtnCloseContainer">
-          <button onClick={closeModal} className="userFormBtnClose">
+          <h1 className="userFormLabel -translate-x-[1rem]">{strEntidad}</h1>
+          <button onClick={closeModal} className="userFormBtnClose mr-4">
             X
           </button>
         </div>
-        <h1 className="userFormLabel">{strEntidad}</h1>
 
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
-
-          <div className="w-full flex items-center !my-8 h-[4rem]">
-              <div className="input-container items-center rowForm w-full flex">
-                <div className="w-[80%]">
-                  <SelectInputComponent
+          <div className="w-full flex items-center h-[4rem]">
+              <div className="input-container items-center rowForm w-[80%]  ">
+                <div className="w-full !mt-4 ml-4 ">
+                <SelectInputComponent
                     label="Almacen Origen"
                     name="origen"
                     showRefresh={true}
-                    // data={data && data[EnumGrid.codigo_proyecto]}
                     control={control}
                     entidad={["/api/almacenes/", "02", "1"]}
                     error={errors.origen}
-                    customWidth={"!ml-[1rem] !w-[] "}
+                    customWidth={"labelInput inputStyles"}
                   />
                 </div>
+              </div>
 
-                <div className="w-[20%]">
-                  <TextInputComponent
+              <div className="input-container items-center rowForm w-[20%] ">
+                <div className="w-full">
+                <TextInputComponent
                     type="number"
                     label="Cantidad"
                     name="cantidad"
-                    // data={data && data[EnumGrid.salidas]}
                     control={control}
                     error={errors.cantidad}
                     textAlign="text-right"
+                    customWidth={"labelInput inputStyles"}
                   />
                 </div>
-
               </div>
             </div>
 
             <div className="w-full flex items-center h-[4rem]">
               <div className="input-container items-center rowForm w-full">
-                <div className="w-full">
+                <div className="w-full ml-4">
                   <SelectInputComponent
                     label="Muestrario Destino"
                     name="muestrario"
@@ -274,7 +273,7 @@ console.log(errors);
                     control={control}
                     entidad={["/api/muestrarios/", "02"]}
                     error={errors.muestrario}
-                    customWidth={"!ml-[1rem] !w-[38rem] "}
+                    customWidth={"labelInput inputStyles"}
                   />
                 </div>
               </div>

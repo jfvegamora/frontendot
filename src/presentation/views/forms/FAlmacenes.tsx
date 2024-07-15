@@ -221,21 +221,20 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
     }, []);
 
     return (
-      <div className="useFormContainer centered-div w-[30vw]">
+      <div className="useFormContainer centered-div w-[35vw]">
         <div className="userFormBtnCloseContainer">
-          <button onClick={closeModal} className="userFormBtnClose">
+        <h1 className="userFormLabel -translate-x-[8rem]">{label}</h1>
+          <button onClick={closeModal} className="userFormBtnClose mr-4">
             X
           </button>
         </div>
-        <h1 className="userFormLabel">{label}</h1>
 
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
-
             <div className="w-full flex items-center h-[4rem]">
               <div className="input-container items-center rowForm w-full">
-                <div className="w-full">
+                <div className="ml-2 mr-4">
                   <TextInputComponent
                     type="text"
                     label="Descripción"
@@ -244,9 +243,8 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     error={errors.descripcion}
                     inputRef={firstInputRef}
-                    customWidth={"!h-[2.8vw] !text-[1vw]"}
-
-                  />
+                    customWidth={"labelInput inputStyles"}
+                    />
                 </div>
               </div>
             </div>
@@ -262,8 +260,8 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={"AlmacenesTipos"}
                     error={errors.tipo}
-                    customWidth={"!h-[2.8vw] !text-[1vw]"}
-                  />
+                    customWidth={"labelInput inputStyles"}
+                    />
                 </div>
               </div>
             </div>
@@ -278,8 +276,8 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={"TipoInsumo"}
                     error={errors.categoria}
-                    customWidth={"!h-[2.8vw] !text-[1vw]"}
-                  />
+                    customWidth={"labelInput inputStyles"}
+                    />
                 </div>
               </div>
             </div>
@@ -294,7 +292,7 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
                       control={control}
                       entidad={["/api/usuarios/", "02"]}
                       error={errors.usuario}
-                      customWidth={"!h-[2.8vw] !text-[1vw]"}
+                      customWidth={"labelInput inputStyles"}
                       />
                 </div>
               </div>
