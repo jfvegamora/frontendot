@@ -158,13 +158,13 @@ if(name === 'a1_od'){
 
 
 return (
-  <div className={`  mr-4 rounded-xl ${customWidth ? customWidth : ""}`}>
+  <div className={`  mx-2 rounded-xl ${customWidth ? customWidth : ""}`}>
     <Controller
       name={name}
       control={control}
       defaultValue={value}
       render={({ field }) => (
-        <div className={` !mb-[1rem] !ml-[1rem] relative ${error ? '!border-red-500' : 'border-gray-500'}`}>
+        <div className={` inputStyles relative ${error ? '!border-red-500' : 'border-gray-500'}`}>
           {/* <label htmlFor={label} className={` ${labelProps ? labelProps : ""} absolute !z-20 translate-y-[-0.5vw] text-[1.2vw] !font-[1.2vw] translate-x-3`}>
                   {label}
           </label> */}

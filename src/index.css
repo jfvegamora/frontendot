@@ -54,14 +54,20 @@ body {
 
 
 
- .labelInput label{
+.labelInput label{
   font-size:18px !important;
   /* transform: translateY(-10px) !important; */
-
 }
 
 .labelInput{
   font-size: 20px !important;
+}
+
+
+.inputStyles{
+  height: 3vw !important;
+  background-color: red;
+  /* font-size: 40px !important; */
 }
 
 

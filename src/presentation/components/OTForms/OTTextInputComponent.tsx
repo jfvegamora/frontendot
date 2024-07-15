@@ -388,7 +388,7 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
 
 return (
   <div
-  className={`${"flex items-center mb-4 mx-4  relative rounded-xl "}`}
+  className={`${"flex items-center mb-4 mx-4  relative rounded-xl inputStyles"}`}
   >
   <Controller
     name={name}

@@ -85,13 +85,13 @@ const TextInputComponent: React.FC<ITextInputProps> = ({
 
 
 return (
-  <div className={`mr-4 rounded-xl bg-gree-300 ${className ? className : ""}`}>
+  <div className={`mx-2 rounded-xl bg-gree-300 ${className ? className : ""}`}>
     <Controller
       name={name}
       control={control}
       defaultValue={defaultValue}
       render={({ field }) => (
-        <div className={`  labelInput !mb-[1rem] !ml-[1rem] relative ${error ? 'border-red-500' : 'border-[#f8b179]'}`}>
+        <div className={`  labelInput inputStyles relative ${error ? 'border-red-500' : 'border-[#f8b179]'}`}>
         
           <Input
             {...field}

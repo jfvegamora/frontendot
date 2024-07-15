@@ -97,7 +97,7 @@ console.log(defaultComuna)
                 control={control}
                 render={({field})=>(
                     <div className="flex min-w-[100%] w-[60%] items-center mb-2 mx-4 mt-select mt-select-dropdown-up cursor-pointer  ">
-                        <div className='custom-select labelInput !top-[-3%]  custom-select-reg relative rounded-lg !h-[6vh]'>
+                        <div className='inputStyles custom-select labelInput !top-[-3%]  custom-select-reg relative rounded-lg !h-[6vh]'>
                         <label className=" labelForm text-[#f39c12] absolute left-3 z-20">Región</label>
                         <select 
                             {...field}
@@ -131,7 +131,7 @@ console.log(defaultComuna)
                 control={control}
                 render={({field})=>(
                     <div className="flex min-w-[100%] w-[60%] items-center mb-2 mx-4 mt-select mt-select-dropdown-up cursor-pointer ">
-                        <div className='custom-select labelInput custom-select-reg relative rounded-lg !h-[3rem]'>
+                        <div className='inputStyles custom-select labelInput custom-select-reg relative rounded-lg !h-[3rem]'>
                         <label className="absolute !top-[-3%] text-[#f39c12] left-3 z-20">Provincia</label>
                         <select 
                             {...field}
@@ -171,7 +171,7 @@ console.log(defaultComuna)
                 control={control}
                 render={({})=>(
                     <div className="flex min-w-[100%] w-[60%] items-center mb-2 mx-4 mt-select mt-select-dropdown-up cursor-pointer ">
-                        <div className='custom-select labelInput custom-select-reg relative rounded-lg !h-[3rem]'>
+                        <div className='inputStyles custom-select labelInput custom-select-reg relative rounded-lg !h-[3rem]'>
         
                                  <label className="labelSelect absolute text-[#f39c12] !top-[-3%] left-3 z-20">Comuna</label>
                                  {errors && (
