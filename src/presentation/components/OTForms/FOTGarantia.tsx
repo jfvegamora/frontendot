@@ -58,7 +58,7 @@ const FOTGarantia:React.FC<IProps> = ({
             closeModal()
         } catch (error:any) {
             toast.dismiss(toastLoading)
-            toast.error('Error al crear garantía')
+            toast.error('Error al crear OT Post-Venta')
             console.log(error)
         } 
     }

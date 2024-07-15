@@ -264,7 +264,7 @@ const FMuestrariosArmazones: React.FC<IUserFormPrps> = React.memo(
     }, []);
 
     return (
-      <div className="useFormContainer centered-div w-[40vw]">
+      <div className="useFormContainer centered-div w-[45rem]">
         <div className="userFormBtnCloseContainer">
         <h1 className="userFormLabel -translate-x-[2rem]">{label}</h1>
           <button onClick={closeModal} className="userFormBtnClose mr-4">

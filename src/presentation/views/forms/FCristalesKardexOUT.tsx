@@ -338,7 +338,7 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
               </div>
 
               <div className="flex input-container items-center rowForm w-[40%]  ">
-                <div className="w-full">
+                <div className="w-full pr-3">
                   <TextInputComponent
                     type={isEditting ? "datetime" : "date"}
                     label="Fecha"
@@ -387,7 +387,7 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
               </div>
 
               <div className="input-container items-center rowForm w-[50%]  ">
-                <div className="w-full">
+                <div className="w-full pr-3">
                   <TextInputComponent
                     type="number"
                     label="N° OT"
@@ -454,7 +454,7 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
               </div>
 
               <div className="input-container items-center rowForm w-full  ">
-                <div className="w-full">
+                <div className="w-full pr-3">
                   <TextInputComponent
                     type="text"
                     label="Ubicación"

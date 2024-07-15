@@ -327,8 +327,8 @@ const FAccesoriosKardexIN: React.FC<IUserFormPrps> = React.memo(
           <div className="userFormularioContainer">
 
             <div className="w-full flex items-center h-[4rem]">
-              <div className="flex input-container items-center rowForm w-[60%]  ">
-                <div className="w-full ml-2">
+              <div className="flex input-container items-center rowForm w-[65%]  ">
+                <div className="w-full pl-2 pr-3">
                   <TextInputComponent
                     type="text"
                     label="Código"
@@ -343,7 +343,7 @@ const FAccesoriosKardexIN: React.FC<IUserFormPrps> = React.memo(
                 </div>
               </div>
 
-              <div className="flex input-container items-center rowForm w-[40%]  ">
+              <div className="flex input-container items-center rowForm w-[35%] pr-4 ">
                 <div className="w-full">
                   <TextInputComponent
                     type={isEditting ? "datetime" : "date"}
@@ -361,7 +361,7 @@ const FAccesoriosKardexIN: React.FC<IUserFormPrps> = React.memo(
             </div>
 
             <div className="w-full flex items-center h-[4rem]">
-              <div className="input-container items-center rowForm w-[60%]  ">
+              <div className="input-container items-center rowForm w-[65%]  ">
                 <div className="w-full !mt-4 ml-4 ">
                   <SelectInputComponent
                     label="Motivo Ingreso"
@@ -376,7 +376,7 @@ const FAccesoriosKardexIN: React.FC<IUserFormPrps> = React.memo(
                 </div>
               </div>
 
-              <div className="input-container items-center rowForm w-[40%] ">
+              <div className="input-container items-center rowForm w-[35%] pr-4">
                 <div className="w-full">
                   <TextInputComponent
                     type="number"
@@ -393,7 +393,7 @@ const FAccesoriosKardexIN: React.FC<IUserFormPrps> = React.memo(
             </div>
 
             <div className="w-full flex items-center h-[4rem]">
-              <div className="input-container items-center rowForm w-[60%]  ">
+              <div className="input-container items-center rowForm w-[65%]  ">
                 <div className="w-full !mt-4 ml-4">
                   <SelectInputComponent
                     label="Almacén"
@@ -407,7 +407,7 @@ const FAccesoriosKardexIN: React.FC<IUserFormPrps> = React.memo(
                   />
                 </div>
               </div>
-              <div className="input-container items-center rowForm w-[40%]  ">
+              <div className="input-container items-center rowForm w-[35%] pr-4 ">
                 <div className="w-full">
                   <TextInputComponent
                     type="number"
@@ -425,7 +425,7 @@ const FAccesoriosKardexIN: React.FC<IUserFormPrps> = React.memo(
             </div>
 
             <div className="w-full flex items-center h-[4rem]">
-                <div className="input-container items-center rowForm w-[60%]  ">
+                <div className="input-container items-center rowForm w-[65%]  ">
                   <div className="w-full !mt-4 ml-4">
                     <SelectInputComponent
                       label="Provedor"
@@ -440,7 +440,7 @@ const FAccesoriosKardexIN: React.FC<IUserFormPrps> = React.memo(
                       />
                   </div>
                 </div>
-                <div className="input-container items-center rowForm w-[40%]  ">
+                <div className="input-container items-center rowForm w-[35%] pr-4 ">
                     <div className="w-full">
                     <TextInputComponent
                       type="number"
@@ -458,8 +458,8 @@ const FAccesoriosKardexIN: React.FC<IUserFormPrps> = React.memo(
             </div>
 
             <div className="w-full flex items-center h-[4rem]">
-                <div className="input-container items-center rowForm w-[60%]  ">
-                  <div className="w-full ml-2">
+                <div className="input-container items-center rowForm w-[65%]  ">
+                  <div className="w-full pl-2 pr-3">
                     <TextInputComponent
                       type="text"
                       label="Observaciones"
@@ -473,7 +473,7 @@ const FAccesoriosKardexIN: React.FC<IUserFormPrps> = React.memo(
                   </div>
                 </div>
 
-            <div className="input-container items-center rowForm w-[40%]  ">
+            <div className="input-container items-center rowForm w-[35%] pr-4 ">
                 <div className="w-full">
                   <TextInputComponent
                     type="text"

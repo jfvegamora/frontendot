@@ -308,7 +308,7 @@ const FArmazonesKardexOUT: React.FC<IUserFormPrps> = React.memo(
     }, []);
 
     return (
-      <div className="useFormContainer centered-div w-[35vw]">
+      <div className="useFormContainer centered-div w-[35rem]">
         <div className="userFormBtnCloseContainer">
           <h1 className="userFormLabel -translate-x-[5rem]">{label}</h1>
           <button onClick={closeModal} className="userFormBtnClose mr-4">
@@ -342,7 +342,7 @@ const FArmazonesKardexOUT: React.FC<IUserFormPrps> = React.memo(
               </div>
 
               <div className="flex input-container items-center rowForm w-[40%]  ">
-                <div className="w-full">
+                <div className="w-full pr-3">
                   <TextInputComponent
                     type={isEditting ? "datetime" : "date"}
                     label="Fecha"
@@ -392,7 +392,7 @@ const FArmazonesKardexOUT: React.FC<IUserFormPrps> = React.memo(
               </div>
 
               <div className="input-container items-center rowForm w-[50%]  ">
-                <div className="w-full">
+                <div className="w-full pr-3">
                   <TextInputComponent
                     type="number"
                     label="N° OT"
@@ -462,7 +462,7 @@ const FArmazonesKardexOUT: React.FC<IUserFormPrps> = React.memo(
               </div>
 
               <div className="input-container items-center rowForm w-full  ">
-                <div className="w-full">
+                <div className="w-full pr-3">
                   <TextInputComponent
                     type="text"
                     label="Ubicación"

@@ -233,7 +233,7 @@ const FMuestrariosArmazonesTraspaso: React.FC<IUserFormPrps> = React.memo(
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
           <div className="w-full flex items-center h-[4rem]">
-              <div className="input-container items-center rowForm w-[80%]  ">
+              <div className="input-container items-center rowForm w-[75%]  ">
                 <div className="w-full !mt-4 ml-4 ">
                 <SelectInputComponent
                     label="Almacen Origen"
@@ -247,8 +247,8 @@ const FMuestrariosArmazonesTraspaso: React.FC<IUserFormPrps> = React.memo(
                 </div>
               </div>
 
-              <div className="input-container items-center rowForm w-[20%] ">
-                <div className="w-full">
+              <div className="input-container items-center rowForm w-[25%] ">
+                <div className="w-full pr-4">
                 <TextInputComponent
                     type="number"
                     label="Cantidad"

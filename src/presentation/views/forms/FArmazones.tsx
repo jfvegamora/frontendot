@@ -406,6 +406,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
 
             <div className="w-full  flex items-center  h-[5rem] translate-y-[-0.5rem] ">
               <div className="input-container items-center rowForm w-[100%] ml-4  ">
+                <div className="pt-4">
                   <SelectInputTiposComponent
                     label="Uso"
                     name="uso"
@@ -416,6 +417,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                     customWidth={"labelInput inputStyles"}
                     error={errors.uso}
                   />
+                  </div>
               </div>
 
               <div className="input-container items-center rowForm w-[100%] -ml-4">
@@ -434,7 +436,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
               <div className="input-container items-center rowForm w-[100%]">
                   <TextInputComponent
                     type="number"
-                    label="DP Minima"
+                    label="DP Mínima"
                     name="dp_minima"
                     data={data && data[ArmazonesEnum.dp_minima]}
                     control={control}

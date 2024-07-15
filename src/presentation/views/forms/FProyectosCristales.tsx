@@ -302,11 +302,11 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
     return (
       <div className="useFormContainer centered-div use60rem">
         <div className="userFormBtnCloseContainer">
-          <button onClick={closeModal} className="userFormBtnClose">
+        <h1 className="userFormLabel translate-x-[-5vw]">{label}</h1>
+          <button onClick={closeModal} className="userFormBtnClose mr-4">
             X
           </button>
         </div>
-        <h1 className="userFormLabel">{label}</h1>
 
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
@@ -324,7 +324,7 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                     entidad={["/api/proyectos/", "02"]}
                     error={errors.proyecto}
                     readOnly={isEditting}
-                    customWidth={"!w-[29rem] !ml-[1rem] !mt-[-0.6rem]"}
+                    customWidth={"labelInput inputStyles"}
                     />
                 </div>
                 <div className="w-[50%] flex">
@@ -338,7 +338,7 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                         error={errors.cod_grupo}
                         onlyRead={isEditting}
                         inputRef={firstInputRef}
-                        customWidth={"!w-[8rem] !ml-[-12px]"}
+                        customWidth={"labelInput inputStyles"}
                         textAlign="text-center"
                         />
                   </div>
@@ -350,7 +350,7 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                       data={data && data[EnumGrid.descripcion]}
                       control={control}
                       error={errors.descripcion}
-                      customWidth={"!w-[20.8rem]"}
+                      customWidth={"labelInput inputStyles"}
                       />
                   </div>
                 </div>
@@ -369,8 +369,8 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                       entidad={["/api/marcas/", "02"]}
                       error={errors.marca}
                       tabIndex={1}
-                      customWidth={"!w-[29rem] !ml-[1rem]"}
-                    />
+                      customWidth={"labelInput inputStyles"}
+                      />
                   </div>
 
                   <div className="w-[50%]">
@@ -382,8 +382,8 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                       control={control}
                       entidad={["/api/tipos/", "02", "CristalesDisenos"]}
                       error={errors.diseno}
-                      customWidth={"!w-[30.3rem]"}
-                    />
+                      customWidth={"labelInput inputStyles"}
+                      />
                   </div>
               </div>
             </div>
@@ -399,7 +399,7 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={["/api/tipos/", "02", "CristalesIndices"]}
                     error={errors.indice}
-                      customWidth={"!w-[29rem] !ml-[1rem]"}
+                    customWidth={"labelInput inputStyles"}
                   />
                 </div>
                 <div className="w-[50%]">
@@ -411,7 +411,7 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={["/api/tipos/", "02", "CristalesMateriales"]}
                     error={errors.material}
-                    customWidth={"!w-[30.3rem]"}
+                    customWidth={"labelInput inputStyles"}
                   />
                 </div>
               </div>
@@ -428,7 +428,7 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                   control={control}
                   entidad={["/api/tipos/", "02", "CristalesColores"]}
                   error={errors.color}
-                  customWidth={"!w-[29rem] !ml-[1rem]"}
+                  customWidth={"labelInput inputStyles"}
                   />
                 </div>
                 <div className="w-[50%]">
@@ -440,7 +440,7 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                   control={control}
                   entidad={["/api/tipos/", "02", "CristalesTratamientos"]}
                   error={errors.tratamiento}
-                  customWidth={"!w-[30.3rem]"}
+                  customWidth={"labelInput inputStyles"}
                   />
               </div>
             </div>
@@ -459,6 +459,7 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                   control={control}
                   error={errors.diametro}
                   textAlign="text-center"
+                  customWidth={"labelInput inputStyles"}
                   />
               </div>
               <div className="">
@@ -471,6 +472,7 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                   error={errors.esferico_desde}
                   step={0.01}
                   textAlign="text-center"
+                  customWidth={"labelInput inputStyles"}
                   />
               </div>
               <div className="">
@@ -483,6 +485,7 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                   error={errors.esferico_hasta}
                   step={0.01}
                   textAlign="text-center"
+                  customWidth={"labelInput inputStyles"}
                   />
               </div>
               </div>
@@ -496,8 +499,8 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                   control={control}
                   error={errors.cilindrico_desde}
                   step={0.01}
-                  customWidth={"!pr-[0.4rem]"}
                   textAlign="text-center"
+                  customWidth={"labelInput inputStyles"}
                   />
               </div>
               <div className="">
@@ -509,7 +512,7 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                   control={control}
                   error={errors.cilindrico_hasta}
                   step={0.01}
-                  customWidth={"!ml-[-1rem]"}
+                  customWidth={"labelInput inputStyles"}
                   textAlign="text-center"
                   />
               </div>
@@ -523,6 +526,7 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                   error={errors.precio_venta_neto}
                   isOptional={true}
                   textAlign="text-right"
+                  customWidth={"labelInput inputStyles"}
                   />
               </div>
               </div>
@@ -540,6 +544,7 @@ const FProyectosCristales: React.FC<IUserFormPrps> = React.memo(
                   control={control}
                   error={errors.observaciones}
                   isOptional={true}
+                  customWidth={"labelInput inputStyles"}
                   />
               </div>
             </div>

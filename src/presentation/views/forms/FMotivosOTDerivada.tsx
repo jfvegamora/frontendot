@@ -26,7 +26,7 @@ const strEntidad = "Motivos de OT Derivada ";
 
 export interface ISituacionesInputData {
   situacion: string | undefined;
-  area_hasta:   string | undefined;
+  area_hasta: string | undefined;
 }
 
 interface ISituacionesFormProps {
@@ -48,7 +48,7 @@ interface OutputData {
 const transformInsertQuery = (
   jsonData: ISituacionesInputData
 ): OutputData | null => {
-  let  _p1 = `"${jsonData.situacion}", ${jsonData.area_hasta || 0} `;
+  let _p1 = `"${jsonData.situacion}", ${jsonData.area_hasta || 0} `;
   _p1 = _p1.replace(/'/g, '!');
   const query: OutputData = {
     query: "03",
@@ -70,7 +70,7 @@ const transformUpdateQuery = (
     _p1,
     _p2: primaryKey,
   };
-console.log("update", query);
+  console.log("update", query);
   return query;
 };
 
@@ -130,8 +130,8 @@ const FMotivosOTDerivada: React.FC<ISituacionesFormProps> = React.memo(
       async (response: any, isEditting: boolean) => {
         if (response.code === "ERR_BAD_RESPONSE" || response.stack) {
           const errorMessage = isEditting
-          ? strEntidad.concat(": " + response.message)
-                : strEntidad.concat(": " + response.message)
+            ? strEntidad.concat(": " + response.message)
+            : strEntidad.concat(": " + response.message)
           show({
             message: errorMessage ? errorMessage : response.code,
             type: "error",
@@ -139,8 +139,8 @@ const FMotivosOTDerivada: React.FC<ISituacionesFormProps> = React.memo(
 
           return;
         }
-        
-        if(response.mensaje.includes('Creado')){
+
+        if (response.mensaje.includes('Creado')) {
           toastSuccess(isEditting);
         }
         if (!blnKeep && !isEditting) {
@@ -217,9 +217,9 @@ const FMotivosOTDerivada: React.FC<ISituacionesFormProps> = React.memo(
       };
     }, [closeModal]);
     return (
-      <div className="useFormContainer centered-div w-[30vw]">
+      <div className="useFormContainer centered-div w-[35rem]">
         <div className="userFormBtnCloseContainer">
-        <h1 className="userFormLabel translate-x-[-3vw]">{label}</h1>
+          <h1 className="userFormLabel translate-x-[-3vw]">{label}</h1>
           <button onClick={closeModal} className="userFormBtnClose mr-4">
             X
           </button>
@@ -227,42 +227,40 @@ const FMotivosOTDerivada: React.FC<ISituacionesFormProps> = React.memo(
 
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))}
-          className="userFormulario"
-        >
-          <div className="userFormularioCont">
-
-          <div className="input-container items-center rowForm  ">
-            <div className="w-[99%] ml-2 mb-8">
-              <TextInputComponent
-                type="text"
-                label="Descripción"
-                name="situacion"
-                data={data && data[EnumGrid.descripcion]}
-                control={control}
-                error={errors.situacion}
-                inputRef={firstInputRef}
-                customWidth={"labelInput inputStyles !w-[27.5vw]"}
-
-              />
-            </div>
-          </div>
-
-          <div className="input-container items-center rowForm  ">
-            <div className="w-full !mt-4 ml-4">
-              <SelectInputTiposComponent
-                label="Área exclusiva"
-                name="area_hasta"
-                showRefresh={true}
-                data={data && data[EnumGrid.area_id]}
-                control={control}
-                entidad={"OTAreas"}
-                error={errors.area_hasta}
-                isOptional={true}
-                customWidth={"labelInput inputStyles !w-[29.5vw]"}
+          className="userFormulario">
+          <div className="userFormularioContainer">
+            <div className="input-container items-center rowForm  ">
+              <div className="w-full mb-8 px-2">
+                <TextInputComponent
+                  type="text"
+                  label="Descripción"
+                  name="situacion"
+                  data={data && data[EnumGrid.descripcion]}
+                  control={control}
+                  error={errors.situacion}
+                  inputRef={firstInputRef}
+                  customWidth={"labelInput inputStyles"}
 
                 />
+              </div>
             </div>
-          </div>
+
+            <div className="input-container items-center rowForm  ">
+              <div className="w-full !mt-4 ml-4">
+                <SelectInputTiposComponent
+                  label="Área exclusiva"
+                  name="area_hasta"
+                  showRefresh={true}
+                  data={data && data[EnumGrid.area_id]}
+                  control={control}
+                  entidad={"OTAreas"}
+                  error={errors.area_hasta}
+                  isOptional={true}
+                  customWidth={"labelInput inputStyles"}
+
+                />
+              </div>
+            </div>
           </div>
 
           <div className="w-full">

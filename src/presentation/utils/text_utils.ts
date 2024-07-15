@@ -90,7 +90,7 @@ export const MOTIVO_KARDEX = {
 export const MOTIVO_OT = {
   todos:"Todos",
   venta: "Venta",
-  garantia: "Garantia"
+  garantia: "Garantía"
 }
 
 export const ESTADO_OT = {

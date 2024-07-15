@@ -302,7 +302,7 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
       <div className="useFormContainer centered-div use70rem h-[36vw]" >
         <div className="userFormBtnCloseContainer">
           <div className="w-[80%] mx-auto">
-          <h1 className="userFormLabel">{label}</h1>
+            <h1 className="userFormLabel">{label}</h1>
 
           </div>
           <button onClick={closeModal} className="userFormBtnClose mr-2">
@@ -315,7 +315,7 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
           <div className="userFormularioContainer  !h-[30rem]">
             <div className="input-container rowForm  !h-[4rem]">
               <div className="flex">
-                <div className="">
+                <div className="pl-4">
                   <TextInputComponent
                     type="text"
                     label="RUT"
@@ -341,7 +341,7 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
                     customWidth={"labelInput inputStyles"}
                   />
                 </div>
-                <div className="!w-[30rem] mt-[0.3rem] ">
+                <div className="!w-[30rem] mt-[0.7rem] pr-4">
                   <SelectInputComponent
                     label="Establecimiento"
                     name="establecimiento"
@@ -357,36 +357,36 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
             </div>
 
 
-            <div className="input-container items-center !mt-[1rem] rowForm !h-[19rem]">
+            <div className="input-container items-center !mt-[1rem] rowForm ">
               <div className="flex" style={{ display: 'inline' }}>
                 <div className="flex">
-                  <div className="w-[50%] !mt-2 mr-10 flex !h-[9rem]">
-                    <RadioButtonComponent
-                      control={control}
-                      label="Sexo"
-                      name="sexo"
-                      horizontal={false}
-                      data={data && data[EnumGrid.sexo]}
-                      options={[SEXO.masculino, SEXO.femenino, SEXO.no_aplica]}
-                      error={errors.sexo}
-                    />
-                    <RadioButtonComponent
-                      control={control}
-                      label="Tipo"
-                      name="tipo"
-                      horizontal={false}
-                      data={data && data[EnumGrid.tipo]}
-                      options={[
-                        TIPO_CLIENTE.beneficiario,
-                        TIPO_CLIENTE.particular,
-                        TIPO_CLIENTE.optica,
-                      ]}
-                      error={errors.tipo}
-                    />
-                    <div className="flex absolute top-[58%] w-[50%] mr-10">
+                  <div className="w-[50%] !mt-2 pl-4 pr-4 flex !h-[12rem]">
+                      <RadioButtonComponent
+                        control={control}
+                        label="Sexo"
+                        name="sexo"
+                        horizontal={false}
+                        data={data && data[EnumGrid.sexo]}
+                        options={[SEXO.masculino, SEXO.femenino, SEXO.no_aplica]}
+                        error={errors.sexo}
+                      />
+                      <RadioButtonComponent
+                        control={control}
+                        label="Tipo"
+                        name="tipo"
+                        horizontal={false}
+                        data={data && data[EnumGrid.tipo]}
+                        options={[
+                          TIPO_CLIENTE.beneficiario,
+                          TIPO_CLIENTE.particular,
+                          TIPO_CLIENTE.optica,
+                        ]}
+                        error={errors.tipo}
+                      />
+                    <div className="flex absolute top-[63%] w-[50%] mr-10">
                       <div className="flex-col">
                         <div className="flex labelInput !mt-[1rem] !mb-[1rem]">
-                        <div className="w-[50%]">
+                          <div className="w-[50%]">
                             <TextInputComponent
                               type="date"
                               label="Fecha Nacimiento"
@@ -397,7 +397,7 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
                               customWidth={"labelInput inputStyles"}
                             />
                           </div>
-                          <div className="w-[50%]">
+                          <div className="w-[50%] pr-4">
                             <TextInputComponent
                               type="text"
                               label="Teléfono"
@@ -409,8 +409,8 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
                             />
                           </div>
                         </div>
-                        <div className="labelInput !mt-[1rem]">
-                        <TextInputComponent
+                        <div className="labelInput !mt-[1rem] pr-4">
+                          <TextInputComponent
                             type="text"
                             label="Correo"
                             name="correo"
@@ -425,8 +425,8 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
                     </div>
                   </div>
 
-                  <div className="w-[40%] !mt-[.8rem] !ml-8 dirCliente ">
-                    <label className="  !top-[-1.5rem] !left-[1rem] z-10 relative">Dirección</label>
+                  <div className="w-[50%] !mt-[.8rem] !ml-8 mr-4 dirCliente ">
+                    <label className="!top-[-1.5rem] !left-[1rem] z-10 relative">Dirección</label>
                     <RegProCom
                       name="comuna"
                       control={control}
@@ -437,7 +437,7 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
                       defaultProvincia={data && data[EnumGrid.provincia_id]}
                       errors={errors.comuna}
                     />
-                    <div className="labelInput !mt-[-1rem] !mb-[1rem]">
+                    <div className="labelInput !mt-[-1rem] !mb-[1rem] pl-2 pr-4">
                       <TextInputComponent
                         type="text"
                         label="Dirección"

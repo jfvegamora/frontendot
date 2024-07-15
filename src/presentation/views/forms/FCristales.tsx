@@ -23,16 +23,16 @@ const strBaseUrl = "/api/cristales/";
 const strEntidad = "Cristal ";
 
 export interface InputData {
-  codigo      : string | undefined;
-  marca       : string | undefined;
-  diseno      : string | undefined;
-  indice      : string | undefined;
-  material    : string | undefined;
-  color       : string | undefined;
-  tratamiento : string | undefined;
-  diametro    : string | undefined;
-  esferico    : string | undefined;
-  cilindrico  : string | undefined;
+  codigo: string | undefined;
+  marca: string | undefined;
+  diseno: string | undefined;
+  indice: string | undefined;
+  material: string | undefined;
+  color: string | undefined;
+  tratamiento: string | undefined;
+  diametro: string | undefined;
+  esferico: string | undefined;
+  cilindrico: string | undefined;
   stock_minimo: string | undefined;
   codigo_fab_1: string | undefined;
   codigo_fab_2: string | undefined;
@@ -61,22 +61,22 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null | v
     ${jsonData.cilindrico}, 
     ${jsonData.stock_minimo}`;
 
-    console.log(jsonData)
-    const pkToDelete = [
-        {"codigo_fab" : jsonData.codigo_fab_1},
-        {"codigo_fab" : jsonData.codigo_fab_2},
-        {"codigo_fab" : jsonData.codigo_fab_3},
-        {"codigo_fab" : jsonData.codigo_fab_4}
-    ]
-     .filter((registro) => registro.codigo_fab !== '')
-     .map((registro) => {
+  console.log(jsonData)
+  const pkToDelete = [
+    { "codigo_fab": jsonData.codigo_fab_1 },
+    { "codigo_fab": jsonData.codigo_fab_2 },
+    { "codigo_fab": jsonData.codigo_fab_3 },
+    { "codigo_fab": jsonData.codigo_fab_4 }
+  ]
+    .filter((registro) => registro.codigo_fab !== '')
+    .map((registro) => {
       return {
         codigo: jsonData.codigo,
-        codigo_fab : registro.codigo_fab
+        codigo_fab: registro.codigo_fab
       }
-     }) 
+    })
 
-    console.log(pkToDelete)
+  console.log(pkToDelete)
 
 
   const query: OutputData = {
@@ -115,19 +115,19 @@ export function transformUpdateQuery(
   }
   const _p1 = filteredFields.join(",");
 
-    const pkToDelete = [
-      {"codigo_fab" : jsonData.codigo_fab_1},
-      {"codigo_fab" : jsonData.codigo_fab_2},
-      {"codigo_fab" : jsonData.codigo_fab_3},
-      {"codigo_fab" : jsonData.codigo_fab_4}
+  const pkToDelete = [
+    { "codigo_fab": jsonData.codigo_fab_1 },
+    { "codigo_fab": jsonData.codigo_fab_2 },
+    { "codigo_fab": jsonData.codigo_fab_3 },
+    { "codigo_fab": jsonData.codigo_fab_4 }
   ]
-  .filter((registro) => registro.codigo_fab !== '')
-  .map((registro) => {
-    return {
-      codigo: jsonData.codigo,
-      codigo_fab : registro.codigo_fab
-    }
-  }); 
+    .filter((registro) => registro.codigo_fab !== '')
+    .map((registro) => {
+      return {
+        codigo: jsonData.codigo,
+        codigo_fab: registro.codigo_fab
+      }
+    });
 
 
   console.log("primaryKey", primaryKey);
@@ -218,8 +218,8 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
       async (response: any, isEditting: boolean) => {
         if (response.code === "ERR_BAD_RESPONSE" || response.stack) {
           const errorMessage = isEditting
-                ? strEntidad.concat(": " + response.message)
-                : strEntidad.concat(": " + response.message)
+            ? strEntidad.concat(": " + response.message)
+            : strEntidad.concat(": " + response.message)
           show({
             message: errorMessage ? errorMessage : response.code,
             type: "error",
@@ -228,7 +228,7 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
           return;
         }
 
-        if(response.mensaje.includes('Creado')){
+        if (response.mensaje.includes('Creado')) {
           toastSuccess(isEditting);
         }
         if (!blnKeep && !isEditting) {
@@ -307,18 +307,18 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
       isEditting ? focusSecondInput("marca") : focusFirstInput("codigo");
     }, []);
 
- console.log(data && typeof data[CristalesEnum.stock_reservado])
+    console.log(data && typeof data[CristalesEnum.stock_reservado])
     return (
-      <div className="useFormContainer centered-div w-[40vw] h-[42vw] ">
+      <div className="useFormContainer centered-div w-[50vw] h-[42vw] ">
         <div className="userFormBtnCloseContainer flex">
           <div className="w-[50%] mx-auto !text.center">
-              <h1 className="userFormLabel">{label}</h1>
+            <h1 className="userFormLabel">{label}</h1>
           </div>
           <button onClick={closeModal} className="userFormBtnClose">
             X
           </button>
         </div>
-        
+
 
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))}
@@ -326,22 +326,22 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
           <div className="userFormularioContainer">
             <div className="rowForm !mb-2 translate-y-[-1vw]">
               <div className="w-[40%] mx-auto">
-                  <TextInputComponent
-                    type="text"
-                    label="Código"
-                    name="codigo"
-                    data={data && data[CristalesEnum.codigo]}
-                    control={control}
-                    error={errors.codigo}
-                    inputRef={firstInputRef}
-                    onlyRead={isEditting}
-                    maxLength={20}
-                    customWidth={"labelInput inputStyles"}
+                <TextInputComponent
+                  type="text"
+                  label="Código"
+                  name="codigo"
+                  data={data && data[CristalesEnum.codigo]}
+                  control={control}
+                  error={errors.codigo}
+                  inputRef={firstInputRef}
+                  onlyRead={isEditting}
+                  maxLength={20}
+                  customWidth={"labelInput inputStyles"}
 
-                    />
+                />
               </div>
             </div>
-           
+
             <div className="flex rowForm items-center mt-2">
               <div className="w-[50%] ml-4">
                 <SelectInputComponent
@@ -379,7 +379,7 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                   control={control}
                   customWidth={"labelInput inputStyles"}
                   entidad={"CristalesIndices"}
-                  error={errors.indice}              
+                  error={errors.indice}
                 />
               </div>
               <div className="w-[50%]">
@@ -392,77 +392,82 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                   entidad="CristalesMateriales"
                   customWidth={"labelInput inputStyles"}
                   error={errors.material}
-                
+
                 />
               </div>
             </div>
-            <div className="flex rowForm items-center mt-4"> 
+            <div className="flex rowForm items-center mt-4">
               <div className="w-[50%] ml-4">
-                  <SelectInputTiposComponent
-                    label="Color"
-                    name="color"
-                    showRefresh={true}
-                    data={data && data[CristalesEnum.color_id]}
-                    control={control}
-                    entidad="CristalesColores"
-                    customWidth={"labelInput inputStyles"}
-                    error={errors.color}
-                  />
+                <SelectInputTiposComponent
+                  label="Color"
+                  name="color"
+                  showRefresh={true}
+                  data={data && data[CristalesEnum.color_id]}
+                  control={control}
+                  entidad="CristalesColores"
+                  customWidth={"labelInput inputStyles"}
+                  error={errors.color}
+                />
               </div>
               <div className="w-[50%]">
-                  <SelectInputTiposComponent
-                    label="Tratamiento"
-                    name="tratamiento"
-                    showRefresh={true}
-                    data={data && data[CristalesEnum.tratamiento_id]}
-                    control={control}
-                    entidad="CristalesTratamientos"
-                    customWidth={"labelInput inputStyles"}
-                    error={errors.tratamiento}
-                  />
+                <SelectInputTiposComponent
+                  label="Tratamiento"
+                  name="tratamiento"
+                  showRefresh={true}
+                  data={data && data[CristalesEnum.tratamiento_id]}
+                  control={control}
+                  entidad="CristalesTratamientos"
+                  customWidth={"labelInput inputStyles"}
+                  error={errors.tratamiento}
+                />
               </div>
             </div>
             <div className="!mt-[0.4rem] translate-y-[0.5vw]">
               <div className="flex items-center rowForm">
-                <TextInputComponent
-                  type="number"
-                  label="Diámetro"
-                  name="diametro"
-                  data={data && data[CristalesEnum.diametro]}
-                  control={control}
-                  error={errors.diametro}
-                  textAlign="text-center"
-                  customWidth={"labelInput inputStyles"}
-
+                <div className="pl-2">
+                  <TextInputComponent
+                    type="number"
+                    label="Diámetro"
+                    name="diametro"
+                    data={data && data[CristalesEnum.diametro]}
+                    control={control}
+                    error={errors.diametro}
+                    textAlign="text-center"
+                    customWidth={"labelInput inputStyles"}
                   />
-                
-                <TextInputComponent
-                  type="number"
-                  label="Esférico"
-                  name="esferico"
-                  data={data && data[CristalesEnum.esferico]}
-                  control={control}
-                  error={errors.esferico}
-                  step={0.01}
-                  textAlign="text-center"
-                  customWidth={"labelInput inputStyles"}
+                </div>
 
+                <div className="">
+                  <TextInputComponent
+                    type="number"
+                    label="Esférico"
+                    name="esferico"
+                    data={data && data[CristalesEnum.esferico]}
+                    control={control}
+                    error={errors.esferico}
+                    step={0.01}
+                    textAlign="text-center"
+                    customWidth={"labelInput inputStyles"}
                   />
-                <TextInputComponent
-                  type="number"
-                  label="Cilíndrico"
-                  name="cilindrico"
-                  data={data && data[CristalesEnum.cilindrico]}
-                  control={control}
-                  error={errors.cilindrico}
-                  step={0.01}
-                  textAlign="text-center"
-                  customWidth={"labelInput inputStyles"}
+                </div>
 
+                <div className="pr-6">
+                  <TextInputComponent
+                    type="number"
+                    label="Cilíndrico"
+                    name="cilindrico"
+                    data={data && data[CristalesEnum.cilindrico]}
+                    control={control}
+                    error={errors.cilindrico}
+                    step={0.01}
+                    textAlign="text-center"
+                    customWidth={"labelInput inputStyles"}
                   />
+                </div>
               </div>
             </div>
             <div className="flex items-center rowForm translate-y-[1vw]">
+              <div className="pl-2">
                 <TextInputComponent
                   type="number"
                   label="Stock Minimo"
@@ -472,8 +477,9 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                   error={errors.stock_minimo}
                   textAlign="text-right"
                   customWidth={"labelInput inputStyles"}
-
-                  />
+                />
+              </div>
+              <div className="">
                 <TextInputComponent
                   type="number"
                   label="Stock Reservado"
@@ -485,8 +491,9 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                   tabIndex={-1}
                   textAlign="text-right"
                   customWidth={"labelInput inputStyles"}
-
-                  />
+                />
+              </div>
+              <div className="pr-6">
                 <TextInputComponent
                   type="number"
                   label="Stock Disponible"
@@ -497,14 +504,14 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                   tabIndex={-1}
                   textAlign="text-right"
                   customWidth={"labelInput inputStyles"}
-
-                  />
+                />
+              </div>
             </div>
             <div className="flex rowForm items-center translate-y-[2vw]">
-              <div className="w-[50%]">
+              <div className="w-[50%] pl-2">
                 <TextInputComponent
                   type="text"
-                  label="Código FAB"
+                  label="Código FAB 1"
                   name="codigo_fab_1"
                   data={data && data[CristalesEnum.codigo_fab_1]}
                   control={control}
@@ -512,14 +519,12 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                   maxLength={20}
                   isOptional={true}
                   customWidth={"labelInput inputStyles"}
-
-                  
-                /> 
+                />
               </div>
-              <div className="w-[50%]">
+              <div className="w-[50%] pr-6">
                 <TextInputComponent
                   type="text"
-                  label="Código FAB"
+                  label="Código FAB 2"
                   name="codigo_fab_2"
                   data={data && data[CristalesEnum.codigo_fab_2]}
                   control={control}
@@ -527,15 +532,14 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                   maxLength={20}
                   isOptional={true}
                   customWidth={"labelInput inputStyles"}
-
-                  />  
+                />
               </div>
             </div>
             <div className="flex rowForm items-center translate-y-[2vw] py-2">
-              <div className="w-[50%]">
+              <div className="w-[50%] pl-2">
                 <TextInputComponent
                   type="text"
-                  label="Código FAB"
+                  label="Código FAB 3"
                   name="codigo_fab_3"
                   data={data && data[CristalesEnum.codigo_fab_3]}
                   control={control}
@@ -544,12 +548,12 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                   isOptional={true}
                   customWidth={"labelInput inputStyles"}
 
-                  />
+                />
               </div>
-              <div className="w-[50%]">
+              <div className="w-[50%] pr-6">
                 <TextInputComponent
                   type="text"
-                  label="Código FAB"
+                  label="Código FAB 4"
                   name="codigo_fab_4"
                   data={data && data[CristalesEnum.codigo_fab_4]}
                   control={control}
@@ -558,14 +562,14 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                   customWidth={"labelInput inputStyles"}
 
                   isOptional={true}
-                  />
+                />
               </div>
             </div>
           </div>
           <div className="w-full">
             <div className="w-[50%] mx-auto !-mt-4 translate-y-[2vw]">
               {escritura_lectura && (
-                <Button type="submit"  tabIndex={1} className="userFormBtnSubmit">
+                <Button type="submit" tabIndex={1} className="userFormBtnSubmit">
                   {`${TITLES.guardar}`}
                 </Button>
               )}

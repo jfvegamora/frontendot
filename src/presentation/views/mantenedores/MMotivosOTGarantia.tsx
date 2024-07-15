@@ -15,8 +15,8 @@ import FMotivosOTGarantia from "../forms/FMotivosOTGarantia";
 
 
 
-const strEntidad = "Motivos de OT en Garantía ";
-const strEntidadExcel = "Motivos_de_OT_Garantia";
+const strEntidad = "Motivos de OT Post-Venta ";
+const strEntidadExcel = "Motivos_de_OT_Post_Venta";
 const strBaseUrl = "/api/otmotivogarantia/";
 const strQuery = "01";
 const idMenu = 40;

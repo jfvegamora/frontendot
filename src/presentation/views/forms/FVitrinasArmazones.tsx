@@ -262,9 +262,9 @@ const FVitrinasArmazones: React.FC<IUserFormPrps> = React.memo(
     }, []);
 
     return (
-      <div className="useFormContainer centered-div w-[40vw]">
+      <div className="useFormContainer centered-div w-[45vw]">
         <div className="userFormBtnCloseContainer">
-        <h1 className="userFormLabel -translate-x-[1rem]">{label}</h1>
+        <h1 className="userFormLabel -translate-x-[5rem]">{label}</h1>
           <button onClick={closeModal} className="userFormBtnClose mr-4">
             X
           </button>
@@ -293,7 +293,7 @@ const FVitrinasArmazones: React.FC<IUserFormPrps> = React.memo(
 
             <div className="w-full flex items-center !my-8 h-[4rem]">
               <div className="input-container items-center rowForm w-[40%]">
-                <div className="w-full">
+                <div className="w-full ml-2">
                   <TextInputComponent
                       type="text"
                       label="Código Armazón"

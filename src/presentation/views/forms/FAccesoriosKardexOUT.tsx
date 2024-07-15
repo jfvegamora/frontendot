@@ -308,7 +308,7 @@ const FAccesoriosKardexOUT: React.FC<IUserFormPrps> = React.memo(
     const fechaFormateada = fechaHoraActual.toISOString().split('T')[0];
 
     return (
-      <div className="useFormContainer centered-div use35rem">
+      <div className="useFormContainer centered-div w-[35rem]">
         <div className="userFormBtnCloseContainer">
           <h1 className="userFormLabel -translate-x-[4rem]">{label}</h1>
           <button onClick={closeModal} className="userFormBtnClose mr-4">
@@ -320,8 +320,8 @@ const FAccesoriosKardexOUT: React.FC<IUserFormPrps> = React.memo(
           <div className="userFormularioContainer">
 
             <div className="w-full flex items-center h-[4rem]">
-              <div className="flex input-container items-center rowForm w-[60%]  ">
-                <div className="w-full ml-2">
+              <div className="flex input-container items-center rowForm w-[65%]  ">
+                <div className="w-full pl-2 pr-3">
                   <TextInputComponent
                     type="text"
                     label="Código"
@@ -336,7 +336,7 @@ const FAccesoriosKardexOUT: React.FC<IUserFormPrps> = React.memo(
                 </div>
               </div>
 
-              <div className="flex input-container items-center rowForm w-[40%]  ">
+              <div className="flex input-container items-center rowForm w-[35%] pr-4 ">
                 <div className="w-full">
                   <TextInputComponent
                     type={isEditting ? "datetime" : "date"}
@@ -354,8 +354,8 @@ const FAccesoriosKardexOUT: React.FC<IUserFormPrps> = React.memo(
             </div>
 
             <div className="w-full flex items-center h-[4rem]">
-              <div className="input-container items-center rowForm w-[60%]  ">
-                <div className="w-[] !mt-4 ml-4">
+              <div className="input-container items-center rowForm w-[65%]  ">
+                <div className="w-full !mt-4 ml-4 ">
                   <SelectInputComponent
                     label="Motivo Egreso"
                     name="motivo_egreso"
@@ -368,8 +368,8 @@ const FAccesoriosKardexOUT: React.FC<IUserFormPrps> = React.memo(
                   />
                 </div>
               </div>
-              <div className="input-container items-center rowForm w-[40%] ">
-                <div className="w-[11rem] translate-x-[-1.2rem] ">
+              <div className="input-container items-center rowForm w-[35%] pr-4">
+                <div className="w-full">
                   <TextInputComponent
                     type="number"
                     label="Cantidad"
@@ -419,8 +419,8 @@ const FAccesoriosKardexOUT: React.FC<IUserFormPrps> = React.memo(
             </div>
 
             <div className="w-full flex items-center h-[4rem]">
-              <div className="input-container items-center rowForm w-full">
-                <div className="w-full ml-2">
+              <div className="input-container items-center rowForm w-[65%]">
+                <div className="w-full pl-2 pr-3">
                   <TextInputComponent
                     type="text"
                     label="Observaciones"
@@ -434,8 +434,8 @@ const FAccesoriosKardexOUT: React.FC<IUserFormPrps> = React.memo(
                 </div>
               </div>
 
-              <div className="input-container items-center rowForm w-full  ">
-                <div className="w-full">
+              <div className="input-container items-center rowForm w-[35%]  ">
+                <div className="w-full pr-4">
                   <TextInputComponent
                     type="text"
                     label="Ubicación"

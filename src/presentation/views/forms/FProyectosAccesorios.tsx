@@ -311,7 +311,7 @@ const FProyectosAccesorios: React.FC<IUserFormPrps> = React.memo(
                 </div>
               </div>
               <div className="input-container items-center rowForm w-[50%]">
-                <div className="w-full">
+                <div className="w-full pr-4">
                   <TextInputComponent
                     type="number"
                     label="$ Venta Neto"
@@ -329,7 +329,7 @@ const FProyectosAccesorios: React.FC<IUserFormPrps> = React.memo(
 
             <div className="w-full flex items-center !my-4 h-[4rem]">
               <div className="input-container items-center rowForm w-[95%] ">
-                <div className="w-full ml-2">
+                <div className="w-full ml-2 pr-2">
                   <RadioButtonComponent
                     control={control}
                     label="Estado"
