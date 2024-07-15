@@ -198,7 +198,8 @@ return (
     <form action="" onKeyDown={handleKeyDown} className='  h-[85vh]'>
         <div className='w-full frameOTForm !h-full'>
             <div className="w-[95vw] flex items-center rowForm !h-[6vw]  justify-between">
-                <div className="w-[50%] mt-6 mb-8 ml-[2rem]">
+                
+                <div className="w-[50%] mt-6 mb-8 ml-[2rem] bg-red-300">
                     <SelectInputComponent
                         label="Nombre Proyecto"
                         name="proyecto_codigo"
@@ -214,13 +215,16 @@ return (
                                    : ["/api/proyectos/", "07", `${isEditting ? 0 : userID}`]
                         }
                         // error={errors.establecimiento}
-                        customWidth={"!h-[2.5vw] text-[1vw]"}
+                        customWidth={"!h-[2.8vw] text-[1vw]"}
                         onlyFirstOption={ isEditting}
                         inputRef={inputsRef.firstInputRef}
                         readOnly={isEditting || inputOnlyReadReserva.value}
                         
                     />
                 </div>
+
+
+                
                 {isEditting && !onlyRead && (
                     <>
                         <div className="w-[15vw]  ml-4 px-[1vw] text-[1.3vw]  " >
@@ -257,7 +261,7 @@ return (
                                :  ["/api/puntosventa/", "06", codigoProyecto.value, `_p2=${userID}`]
                         }
                         onlyFirstOption={!isEditting}
-                        customWidth={"!h-[2.5vw] text-[1vw]"}
+                        customWidth={"!h-[2.8vw] text-[1vw]"}
                         labelProps={" bg-wite"}
                         isEditting={isEditting}
                         formValues={formValues}
@@ -277,6 +281,8 @@ return (
                         readOnly={true}
                         onChange={handleInputChange}
                         isOT={true}
+                        labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.4vw]"}
+                    customWidth={"!h-[2.5vw] text-[1vw]"}
                     />                    
                 </div>
 
@@ -289,7 +295,7 @@ return (
                         data={formValues ? formValues["area"] : data && data[EnumGrid.area]}
                         control={control}
                         onlyRead={true}
-                        customWidth={"!h-[2.5vw] !text-[1vw]"}
+                        customWidth={"!h-[2.8vw] !text-[1vw]"}
                         textAlign="text-center"
                     />
                 </div>
@@ -303,7 +309,7 @@ return (
                         data={formValues ? formValues["estado"] : data && data[EnumGrid.estado]}
                         control={control}
                         onlyRead={true}
-                        customWidth={"!h-[2.5vw] !text-[1vw]"}
+                        customWidth={"!h-[2.8vw] !text-[1vw]"}
                         textAlign="text-center"
                     />
                 </div>
@@ -322,8 +328,7 @@ return (
                         control={control}
                         onlyRead={isEditting}
                         isOT={true}
-                        customWidth={"!h-[2.5vw] !text-[1.3vw]"}
-                        labelProps={"!translate-y-[-1.4vw]"}
+                        customWidth={"!h-[2.8vw] !text-[1.3vw]"}
                         textAlign="text-center"
                         // inputRef={inputsRef.lastInputRef}
                     />
@@ -339,8 +344,7 @@ return (
                         onlyRead={isEditting}
                         isOT={true}
                         isOptional={true}
-                        labelProps={"!translate-y-[-1.4vw]"}
-                        customWidth={"!h-[2.5vw] !text-[1vw]"}
+                        customWidth={"!h-[2.5vw] !text-[1.3vw]"}
                         textAlign="text-center"
                         />
                 </div>
@@ -355,7 +359,6 @@ return (
                         onlyRead={isEditting}
                         isOT={true}
                         isOptional={true}
-                        labelProps={"!translate-y-[-1.4vw]"}
                         customWidth={"!h-[2.5vw] !text-[1vw]"}
                         textAlign="text-center"
                     />
@@ -371,7 +374,6 @@ return (
                         onlyRead={isEditting}
                         isOT={true}
                         isOptional={true}
-                        labelProps={"!translate-y-[-1.4vw]"}
                         customWidth={"!h-[2.5vw] !text-[1vw]"}
                         textAlign="text-center"
                     />
@@ -451,7 +453,6 @@ return (
                             onlyRead={true}
                             isOptional={true}
                             customWidth={"!h-[2.5vw] !text-[1vw]"}
-                            labelProps={"!translate-y-[-1.2vw] !text-[2vw] !font-[3vw]"}
                             textAlign="text-center"
                             />
                     </div>
@@ -466,7 +467,6 @@ return (
                             onlyRead={true}
                             isOptional={true}
                             customWidth={"!h-[2.5vw] !text-[1vw]"}
-                            labelProps={"!translate-y-[-1.2vw] !text-[1vw] !font-[2vw]"}
                             textAlign="text-center"
                             />
                     </div>
@@ -481,7 +481,6 @@ return (
                             onlyRead={true}
                             isOptional={true}
                             customWidth={"!h-[2.5vw] !text-[1vw]"}
-                            labelProps={"!translate-y-[-1.2vw] !text-[1vw] !font-[2vw]"}
                             textAlign="text-center"
                             />
                     </div>
@@ -496,7 +495,6 @@ return (
                             onlyRead={true}
                             isOptional={true}
                             customWidth={"!h-[2.5vw] !text-[1vw]"}
-                            labelProps={"!translate-y-[-1.2vw] !text-[1vw] !font-[2vw]"}
                             textAlign="text-center"
                             />
                     </div>
@@ -511,7 +509,6 @@ return (
                             onlyRead={true}
                             isOptional={true}
                             customWidth={"!h-[2.5vw] !text-[1vw]"}
-                            labelProps={"!translate-y-[-1.2vw] !text-[1vw] !font-[2vw]"}
                             textAlign="text-center"
                             />
                     </div>
@@ -533,7 +530,6 @@ return (
                             isOptional={true}
                             isOT={true}
                             customWidth={"!h-[2.5vw] !text-[1vw] !mb-4"}
-                            labelProps={"!translate-y-[-1vw] !text-[1vw] !font-[2vw]"}
                             textAlign="text-center"
                             />
                     </div>
@@ -548,7 +544,6 @@ return (
                             onlyRead={isEditting}
                             isOptional={true}
                             customWidth={"!h-[2.5vw] !text-[1vw] !mb-4"}
-                            labelProps={"!translate-y-[-1vw] !text-[1vw] !font-[2vw]"}
                             textAlign="text-center"
                             />
                     </div>
@@ -563,7 +558,6 @@ return (
                             onlyRead={isEditting}
                             isOptional={true}
                             customWidth={"!h-[2.5vw] !text-[1vw] !mb-4"}
-                            labelProps={"!translate-y-[-1vw]  !text-[1vw] !font-[2vw]"}
                             textAlign="text-center"
                             />
                     </div>
@@ -578,7 +572,6 @@ return (
                             onlyRead={isEditting}
                             isOptional={true}
                             customWidth={"!h-[2.5vw] !text-[1vw] !mb-4"}
-                            labelProps={"!translate-y-[-1vw] !text-[1vw] !font-[2vw]"}
                             textAlign="text-center"
                             />
                     </div>
@@ -593,7 +586,6 @@ return (
                             onlyRead={isEditting}
                             tabIndex={1}
                             customWidth={"!h-[2.5vw] !text-[1vw]"}
-                            labelProps={"!translate-y-[-1vw] !text-[1vw] !font-[2vw]"}
                             isOptional={true}
                             textAlign="text-center"
                             /> 

@@ -242,11 +242,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
                     </option>
                   )}
               
-                {/* {!data && (
-                  <option value={undefined} className="text-sm">
-                    
-                  </option>
-                )} */}
+         
                 {entities &&
                   entities.map((option: any, index) => (
                     <option

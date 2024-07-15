@@ -92,11 +92,7 @@ return (
       defaultValue={defaultValue}
       render={({ field }) => (
         <div className={`  labelInput !mb-[1rem] !ml-[1rem] relative ${error ? 'border-red-500' : 'border-[#f8b179]'}`}>
-          {/* <div className={`${labelContainer ? labelContainer : ""} w-[5vw] z-30 h-4 -top-[0.4vw] rounded-full absolute left-2 bg-white `}>
-            <label htmlFor={label} className={` ${labelProps ? labelProps : ""} z-20 absolute -!translate-y-[1vw] translate-x-2`}>
-                {label}
-            </label>
-          </div> */}
+        
           <Input
             {...field}
             error={error ? true : false}

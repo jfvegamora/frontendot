@@ -197,6 +197,13 @@ return (
             placeholder={type === 'date' ? "dd-mm-yyyy" : ''}
             autoComplete="off"
             step={step ? step : 1 } 
+            labelProps={{
+                   style: {
+                     color: "grey",
+                     fontWeight: "bold",
+                     fontSize: "16px"
+                  },
+                }}
           />
 
           {error && (
