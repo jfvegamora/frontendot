@@ -97,7 +97,7 @@ const StateCountBarOT:React.FC<IStateCountBar> = ({checkCount,isMotHistorica}) =
     <div className={`${isMotHistorica ? 'w-[80%] rigth-[10rem]' : 'w-[30%] right-[1vw]'} bg-white absolute bottom-[1%] h-[4.5vh]  rounded-full  flex text-[1.2vw]`}>
     
     {newCountAnteojos > 0 && (
-      <div className='w-[10vw] flex ml-4'>
+      <div className='w-[11vw] flex ml-4 '>
         <p>Total Anteojos: <span>{newCountAnteojos}</span></p>
       </div>
     )}
@@ -106,7 +106,7 @@ const StateCountBarOT:React.FC<IStateCountBar> = ({checkCount,isMotHistorica}) =
 
 
     {totoalTrabajosSeleccionados.value >= 1 && (
-      <div className="w-[16vw] flex mx-2">
+      <div className="w-[16vw] flex mx-">
           <p className="text-center">Trabajos Seleccionados: </p> <label className="text-center ">{totoalTrabajosSeleccionados.value}</label>        
       </div>
     )}
