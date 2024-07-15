@@ -254,7 +254,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
     console.log( data && data[ArmazonesEnum.cantidad_exhibida]    )
 
     return (
-      <div className="useFormContainer centered-div w-[40vw]">
+      <div className="useFormContainer centered-div w-[50vw]">
         <div className="userFormBtnCloseContainer felex">
           <div className="w-[80%] mx-auto !text.center">
             <h1 className="userFormLabel translate-x-[2rem]">{label}</h1>
@@ -295,7 +295,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                     />
               </div>
 
-              <div className="input-container items-center rowForm w-[33%]">
+              <div className="input-container items-center rowForm w-[33%] pr-4">
                   <TextInputComponent
                     type="text"
                     label="Color"
@@ -390,7 +390,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                   />
               </div>
 
-              <div className="input-container items-center rowForm w-[]">
+              <div className="input-container items-center rowForm w-[] pr-4">
                   <TextInputComponent
                     type="number"
                     label="Brazo"
@@ -444,7 +444,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                   />
               </div>
 
-              <div className="input-container items-center rowForm w-[100%]">
+              <div className="input-container items-center rowForm w-[100%] pr-4">
                   <TextInputComponent
                     type="number"
                     label="DP Máxima"
@@ -506,7 +506,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                 </div>
               </div>
 
-              <div className="input-container items-center rowForm w-[100%]  ">
+              <div className="input-container items-center rowForm w-[100%] pr-4">
                 <div className="w-full">
                   <TextInputComponent
                     type="text"
