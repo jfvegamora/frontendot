@@ -52,13 +52,19 @@ body {
   font-size:medium;
 }
 
- .labelInput label{
-  font-size:medium !important;
-} 
 
-input .label {
-  font-size: 30rem;
+
+ .labelInput label{
+  font-size:18px !important;
+  /* transform: translateY(-10px) !important; */
+
 }
+
+.labelInput{
+  font-size: 20px !important;
+}
+
+
 
 .font-menu{
   color: #424769;
@@ -148,7 +154,7 @@ select::-ms-expand {
 .custom-select::after {
   content: "\25BC";
   position: absolute;
-  top: -12px;
+  top: -19px;
   right: 40px;
   padding: 0.5em;
   margin-top: 15px;
@@ -162,7 +168,7 @@ select::-ms-expand {
 .custom-select-reg::after {
   content: "\25BC";
   position: absolute;
-  top: -12px;
+  top: -19px;
   right: 10px;
   padding: 0.5em;
   margin-top: 15px;
@@ -1155,7 +1161,9 @@ input[type="text"] {
   overflow-x: hidden; 
 }
 
-/* Estilos para Firefox */
+/* Estilos para COMPONENTES FORMULARIO */
+
+
 /* Estos estilos también se aplicarán a algunos navegadores basados en Chrome */
 /* Nota: Algunas propiedades no son soportadas en Firefox, pero no generan conflictos */
 /* Recomendación: Utiliza estilos específicos para Firefox si es necesario */

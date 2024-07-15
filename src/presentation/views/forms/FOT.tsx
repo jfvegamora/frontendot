@@ -1097,7 +1097,7 @@ const checkArmazones = camposRequeridosArmazones.every(campo => {
                 OTPermissions[7] === "1" &&
                 User.permisos_areas[EnumAreas[OTAreaActual]] === "1" &&
                 (
-                  <Button className=' text-[1vw] w-[18vw] translate-y-[-2vw] bg-yellow-700 hover:bg-yellow-900' onClick={()=>{
+                  <Button className=' text-[1vw] w-[10vw] translate-y-[-3vw] bg-yellow-700 hover:bg-yellow-900' onClick={()=>{
                     setFOTBooleanStates((prev)=>({
                       ...prev,
                       showPendiente : !prev.showPendiente
@@ -1115,7 +1115,7 @@ const checkArmazones = camposRequeridosArmazones.every(campo => {
                 // sumatoriaNivel1  === validationNivel1.value.length &&
                 User.permisos_areas[EnumAreas[OTAreaActual]] === "1" &&
                 data && data[EnumGrid.estado_id] > 1 && (
-                  <Button className='text-[1vw] w-[18vw] translate-y-[-2vw] bg-red-700 hover:bg-red-900' onClick={()=>{
+                  <Button className='text-[1vw] w-[10vw] translate-y-[-3vw] bg-red-700 hover:bg-red-900' onClick={()=>{
                     setFOTBooleanStates((prev)=>({
                       ...prev,
                       showDerivacion: !prev.showDerivacion

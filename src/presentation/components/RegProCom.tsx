@@ -97,7 +97,7 @@ console.log(defaultComuna)
                 control={control}
                 render={({field})=>(
                     <div className="flex min-w-[100%] w-[60%] items-center mb-2 mx-4 mt-select mt-select-dropdown-up cursor-pointer  ">
-                        <div className='custom-select !top-[-3%]  custom-select-reg relative rounded-lg !h-[6vh]'>
+                        <div className='custom-select labelInput !top-[-3%]  custom-select-reg relative rounded-lg !h-[6vh]'>
                         <label className=" labelForm text-[#f39c12] absolute left-3 z-20">Región</label>
                         <select 
                             {...field}
@@ -106,7 +106,7 @@ console.log(defaultComuna)
                             tabIndex  ={tabIndex || 1}
                             disabled={onlyRead}
                             // className="custom-input py-2 px-3 cursor-pointer z-0 text-center "
-                            className={`!h-[4vw] ${className ? className : "custom-input py-2  cursor-pointer z-0"}  ${onlyRead ? "custom-onlyread" : isOptional ? "custom-optional" : "custom-required"}`}
+                            className={`!h-[4vw] labelInput ${className ? className : "custom-input py-2  cursor-pointer z-0"}  ${onlyRead ? "custom-onlyread" : isOptional ? "custom-optional" : "custom-required"}`}
 
                             >
                                 {!Regiones && (
@@ -131,7 +131,7 @@ console.log(defaultComuna)
                 control={control}
                 render={({field})=>(
                     <div className="flex min-w-[100%] w-[60%] items-center mb-2 mx-4 mt-select mt-select-dropdown-up cursor-pointer ">
-                        <div className='custom-select custom-select-reg relative rounded-lg !h-[3rem]'>
+                        <div className='custom-select labelInput custom-select-reg relative rounded-lg !h-[3rem]'>
                         <label className="absolute !top-[-3%] text-[#f39c12] left-3 z-20">Provincia</label>
                         <select 
                             {...field}
@@ -140,7 +140,7 @@ console.log(defaultComuna)
                             
                             onChange={handleProvinceChange}
                             tabIndex  ={tabIndex || 1}
-                            className={`!h-[4vw] ${className ? className : "custom-input py-2  cursor-pointer z-0"}  ${onlyRead ? "custom-onlyread" : isOptional ? "custom-optional" : "custom-required"}`}
+                            className={`!h-[4vw] labelInput ${className ? className : "custom-input py-2  cursor-pointer z-0"}  ${onlyRead ? "custom-onlyread" : isOptional ? "custom-optional" : "custom-required"}`}
 
                             >
                                 {/* <option value={0}>Provincia</option> */}
@@ -171,7 +171,7 @@ console.log(defaultComuna)
                 control={control}
                 render={({})=>(
                     <div className="flex min-w-[100%] w-[60%] items-center mb-2 mx-4 mt-select mt-select-dropdown-up cursor-pointer ">
-                        <div className='custom-select custom-select-reg relative rounded-lg !h-[3rem]'>
+                        <div className='custom-select labelInput custom-select-reg relative rounded-lg !h-[3rem]'>
         
                                  <label className="labelSelect absolute text-[#f39c12] !top-[-3%] left-3 z-20">Comuna</label>
                                  {errors && (
@@ -188,7 +188,7 @@ console.log(defaultComuna)
                             onChange={handleCommuneChange}
                             tabIndex  ={tabIndex || 1}
                             // className="custom-input py-2 px-3 cursor-pointer z-0 "
-                            className={`!h-[4vw] ${className ? className : "custom-input py-2  cursor-pointer z-0"}  ${onlyRead ? "custom-onlyread" : isOptional ? "custom-optional" : "custom-required"}`}
+                            className={`!h-[4vw] labelInput ${className ? className : "custom-input py-2  cursor-pointer z-0"}  ${onlyRead ? "custom-onlyread" : isOptional ? "custom-optional" : "custom-required"}`}
 
                             >
                                 {/* <option value={defaultComuna ? defaultComuna : 0}>Comuna</option> */}

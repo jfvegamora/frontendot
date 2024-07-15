@@ -90,7 +90,7 @@ const RadioButtonComponent: React.FC<IRadioButtonProps> = ({
                   }}
                   ref={inputRef}
                 />
-                <p className="text-[1vw] w-full ">{option}</p>
+                <p className=" w-full ">{option}</p>
               </label>
             )}
           />

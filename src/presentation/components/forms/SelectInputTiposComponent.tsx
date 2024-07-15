@@ -107,7 +107,8 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
       }
     },[resetFilters.value])
 
-    if(label === 'Tipo Doc'){
+    console.log(stateListBox)
+    if(name === 'cristal1_tratamiento_adicional_id'){
       console.log('renderB')
       console.log(entities)
     }

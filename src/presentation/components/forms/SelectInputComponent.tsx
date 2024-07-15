@@ -189,7 +189,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
           render={({ field }) => (
             <div className={`custom-select border-[0.5px] h-[2.8vw]   rounded-lg  ${error ? 'border-red-500' : ' border-[#e6843a]'}  `}>
                 <div className={`${labelContainer ? labelContainer : ""} w-1/2  h-2 -top-[0.3vw]  absolute left-2`}>
-                  <label htmlFor={label} className={`  ${labelProps ? labelProps : "  !translate-y-[-1.2vh] !text-[1vw] !font-[1vw]"}  !translate-y-[-0.8vw] translate-x-3`}>
+                  <label htmlFor={label} className={`  ${labelProps ? labelProps : "  !translate-y-[-1.2vh] "}  !translate-y-[-0.8vw] translate-x-3`}>
                     {label}
                   </label>
                 </div>

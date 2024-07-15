@@ -199,7 +199,7 @@ return (
         <div className='w-full frameOTForm !h-full'>
             <div className="w-[95vw] flex items-center rowForm !h-[6vw]  justify-between">
                 
-                <div className="w-[50%] mt-6 mb-8 ml-[2rem] bg-red-300">
+                <div className="labelInput w-[50%] mt-6 mb-8 ml-[2rem]">
                     <SelectInputComponent
                         label="Nombre Proyecto"
                         name="proyecto_codigo"
@@ -215,7 +215,8 @@ return (
                                    : ["/api/proyectos/", "07", `${isEditting ? 0 : userID}`]
                         }
                         // error={errors.establecimiento}
-                        customWidth={"!h-[2.8vw] text-[1vw]"}
+                        customWidth={"!h-[2.8vw]"}
+                        // labelProps={"text-[3vw]"}
                         onlyFirstOption={ isEditting}
                         inputRef={inputsRef.firstInputRef}
                         readOnly={isEditting || inputOnlyReadReserva.value}
@@ -245,7 +246,7 @@ return (
             </div>
 
             <div className="w-full flex items-center rowForm !h-[5vw]">
-                <div className="w-[30%] ml-[2rem] -mt-[0.3rem]">
+                <div className="labelInput w-[30%] ml-[2rem] -mt-[0.3rem]">
                     <SelectInputComponent
                         label="Punto de Venta"
                         name="punto_venta_id"
@@ -261,15 +262,14 @@ return (
                                :  ["/api/puntosventa/", "06", codigoProyecto.value, `_p2=${userID}`]
                         }
                         onlyFirstOption={!isEditting}
-                        customWidth={"!h-[2.8vw] text-[1vw]"}
-                        labelProps={" bg-wite"}
+                        customWidth={"!h-[2.8vw]"}
                         isEditting={isEditting}
                         formValues={formValues}
                         readOnly={isEditting || inputOnlyReadReserva.value}
                     />
                 </div>
 
-                <div className="w-[25%] ml-4">
+                <div className="labelInput w-[25%] ml-4">
                     <RadioButtonComponent
                         control={control}
                         label="Motivo"
@@ -281,12 +281,12 @@ return (
                         readOnly={true}
                         onChange={handleInputChange}
                         isOT={true}
-                        labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.4vw]"}
-                    customWidth={"!h-[2.5vw] text-[1vw]"}
+                        labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] "}
+                        customWidth={"!h-[3vw] labelInput"}
                     />                    
                 </div>
 
-                <div className="w-[20%] ml-4">
+                <div className="w-[20%] ml-4 labelInput">
                     <TextInputComponent
                         type="text"
                         label="Área actual"
@@ -295,12 +295,12 @@ return (
                         data={formValues ? formValues["area"] : data && data[EnumGrid.area]}
                         control={control}
                         onlyRead={true}
-                        customWidth={"!h-[2.8vw] !text-[1vw]"}
+                        customWidth={"!h-[3vw] labelInput"}
                         textAlign="text-center"
                     />
                 </div>
                 
-                <div className="w-[20%] ml-4">
+                <div className="labelInput w-[20%] ml-4">
                     <TextInputComponent
                         type="text"
                         label="Estado actual"
@@ -309,7 +309,7 @@ return (
                         data={formValues ? formValues["estado"] : data && data[EnumGrid.estado]}
                         control={control}
                         onlyRead={true}
-                        customWidth={"!h-[2.8vw] !text-[1vw]"}
+                        customWidth={"!h-[3vw] labelInput"}
                         textAlign="text-center"
                     />
                 </div>
@@ -318,7 +318,7 @@ return (
 
             <div className="w-full flex items-center rowForm !h-[5vw] ">
 
-                <div className="w-[20vw] ml-4">
+                <div className="labelInput w-[20vw] ml-4">
                     <TextInputInteractive
                         type="date"
                         label="Fecha atención"
@@ -328,12 +328,12 @@ return (
                         control={control}
                         onlyRead={isEditting}
                         isOT={true}
-                        customWidth={"!h-[2.8vw] !text-[1.3vw]"}
-                        textAlign="text-center"
+                        customWidth={"!h-[3vw] labelInput"}
+                        textAlign="text-center labelInput"
                         // inputRef={inputsRef.lastInputRef}
                     />
                 </div>
-                <div className="w-[20vw]">
+                <div className="w-[20vw] labelInput ">
                     <TextInputInteractive
                         type="date"
                         label="Fecha taller"
@@ -344,11 +344,11 @@ return (
                         onlyRead={isEditting}
                         isOT={true}
                         isOptional={true}
-                        customWidth={"!h-[2.5vw] !text-[1.3vw]"}
+                        customWidth={"!h-[3vw] labelInput"}
                         textAlign="text-center"
                         />
                 </div>
-                <div className="w-[20vw]">
+                <div className="w-[20vw] labelInput">
                     <TextInputInteractive
                         type="date"
                         label="Fecha despacho"
@@ -359,11 +359,11 @@ return (
                         onlyRead={isEditting}
                         isOT={true}
                         isOptional={true}
-                        customWidth={"!h-[2.5vw] !text-[1vw]"}
+                        customWidth={"!h-[3vw] labelInput"}
                         textAlign="text-center"
                     />
                 </div>
-                <div className="w-[20vw]">
+                <div className="labelInput w-[20vw]">
                     <TextInputInteractive
                         type="date"
                         label="Fecha entrega cliente"
@@ -374,7 +374,7 @@ return (
                         onlyRead={isEditting}
                         isOT={true}
                         isOptional={true}
-                        customWidth={"!h-[2.5vw] !text-[1vw]"}
+                        customWidth={"!h-[3vw] labelInput"}
                         textAlign="text-center"
                     />
                 </div>
@@ -384,8 +384,8 @@ return (
             <div className="w-full flex items-center rowForm !h-[17rem]">
                 <div className="w-[90%] h-[90%]  ml-8 mx-auto flex flex-col justify-around items-center  ">
                     <div className="flex items-center w-[101%] h-[46%] mx-auto rounded-lg radioComponent relative">
-                        <label className='labelForm absolute left-4 text-center top-[-20%] w-[10%]'>Garantía</label>
-                        <div className="w-[35%] ml-[1rem] ">
+                        <label className='labelForm absolute left-4 text-center top-[-20%] w-[10%] '>Garantía</label>
+                        <div className="w-[35%] ml-[1rem] labelInput">
                             <SelectInputTiposComponent
                                 label="Motivo"
                                 name="motivo_garantia_id"
@@ -396,13 +396,13 @@ return (
                                 control={control}
                                 entidad={"OTMotivoGarantia"}
                                 readOnly={true}
-                                customWidth={"!h-[2.5vw] text-[1vw]"}
+                                customWidth={"!h-[2.8vw] labelInput"}
                                 onlyFirstOption={data && data[EnumGrid.motivo] === 'Garantía'}
                                 
                            />
                         </div>
                         
-                        <div className="w-[30%]">
+                        <div className="w-[30%] labelInput">
                             <TextInputComponent
                                 type="number"
                                 label="Folio Asociado"
@@ -411,12 +411,12 @@ return (
                                 data={formValues ? formValues["folio_asociado"] : data && data[EnumGrid.folio_asociado]}
                                 control={control}
                                 onlyRead={true}
-                                customWidth={"!h-[2.5vw] !text-[1vw]"}
+                                customWidth={"!h-[3vw] labelInput"}
                                 textAlign="text-center"
                                 />
                         </div>
                         
-                        <div className="w-[35%] mr-[1rem]">
+                        <div className="w-[35%] labelInput mr-[1rem]">
                             <RadioButtonComponent
                                 control={control}
                                 label="Resolución"
@@ -432,8 +432,11 @@ return (
                                 horizontal={true}
                                 // readOnly={!(permiso_usuario_resolucion_garantia && permiso_areas_resolucion_garantia) ||  motivo_ot.value}
                                 onChange={handleInputChange}
+                            
                                 isOT={true}
                                 readOnly={true}
+                                labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw]"}
+                                customWidth={"!h-[3vw] labelInput"}
                                 
                             />  
                         </div>
@@ -442,7 +445,7 @@ return (
                     </div>
 
                     <div className='w-[75vw] translate-y-[2vw] flex '>
-                    <div className="">
+                    <div className="labelInput">
                         <TextInputComponent
                             type="number"
                             label="N° Reporte Firma"
@@ -452,11 +455,11 @@ return (
                             control={control}
                             onlyRead={true}
                             isOptional={true}
-                            customWidth={"!h-[2.5vw] !text-[1vw]"}
+                            customWidth={"!h-[3vw] labelInput"}
                             textAlign="text-center"
                             />
                     </div>
-                    <div className="">
+                    <div className="labelInput">
                         <TextInputComponent
                             type="number"
                             label="N° Reporte Atención"
@@ -466,11 +469,11 @@ return (
                             control={control}
                             onlyRead={true}
                             isOptional={true}
-                            customWidth={"!h-[2.5vw] !text-[1vw]"}
+                            customWidth={"!h-[3vw] labelInput"}
                             textAlign="text-center"
                             />
                     </div>
-                    <div className="">
+                    <div className="labelInput">
                         <TextInputComponent
                             type="text"
                             label="N° Órden Compra"
@@ -480,11 +483,11 @@ return (
                             control={control}
                             onlyRead={true}
                             isOptional={true}
-                            customWidth={"!h-[2.5vw] !text-[1vw]"}
+                            customWidth={"!h-[3vw] labelInput"}
                             textAlign="text-center"
                             />
                     </div>
-                    <div className="">
+                    <div className="labelInput">
                         <TextInputComponent
                             type="number"
                             label="N° Guía"
@@ -494,11 +497,11 @@ return (
                             control={control}
                             onlyRead={true}
                             isOptional={true}
-                            customWidth={"!h-[2.5vw] !text-[1vw]"}
+                            customWidth={"!h-[3vw] labelInput"}
                             textAlign="text-center"
                             />
                     </div>
-                    <div className="">
+                    <div className="labelInput">
                         <TextInputComponent
                             type="number"
                             label="N° Factura"
@@ -508,7 +511,7 @@ return (
                             control={control}
                             onlyRead={true}
                             isOptional={true}
-                            customWidth={"!h-[2.5vw] !text-[1vw]"}
+                            customWidth={"!h-[3vw] labelInput"}
                             textAlign="text-center"
                             />
                     </div>
@@ -517,8 +520,8 @@ return (
                 </div>
 
 
-                <div className="!w-[35vw]  mx-auto items-center flex flex-col px-8 translate-y-[2.5vw]">
-                    <div className="w-full">
+                <div className="!w-[35vw] labelInput  mx-auto items-center flex flex-col px-8 translate-y-[2.5vw]">
+                    <div className="w-full labelInput">
                         <TextInputInteractive
                             type="number"
                             label="N° Worktracking"
@@ -529,11 +532,11 @@ return (
                             onlyRead={!(isEditting && (permiso_usuario_workTracking && permisos_usuario_areas))}
                             isOptional={true}
                             isOT={true}
-                            customWidth={"!h-[2.5vw] !text-[1vw] !mb-4"}
+                            customWidth={"!h-[3vw] !mb-4 labelInput"}
                             textAlign="text-center"
                             />
                     </div>
-                    <div className="w-full">
+                    <div className="w-full labelInput">
                         <TextInputInteractive
                             type="number"
                             label="Nota Venta / Boleta "
@@ -543,11 +546,11 @@ return (
                             control={control}
                             onlyRead={isEditting}
                             isOptional={true}
-                            customWidth={"!h-[2.5vw] !text-[1vw] !mb-4"}
+                            customWidth={"!h-[3vw]  !mb-4 labelInput"}
                             textAlign="text-center"
                             />
                     </div>
-                    <div className="w-full">
+                    <div className="w-full labelInput">
                         <TextInputInteractive
                             type="text"
                             label="Folio interno mandante"
@@ -557,11 +560,11 @@ return (
                             control={control}
                             onlyRead={isEditting}
                             isOptional={true}
-                            customWidth={"!h-[2.5vw] !text-[1vw] !mb-4"}
+                            customWidth={"!h-[3vw] !mb-4 labelInput"}
                             textAlign="text-center"
                             />
                     </div>
-                    <div className="w-full">
+                    <div className="w-full labelInput">
                         <TextInputInteractive
                             type="text"
                             label="Reporte interno mandante"
@@ -571,11 +574,11 @@ return (
                             control={control}
                             onlyRead={isEditting}
                             isOptional={true}
-                            customWidth={"!h-[2.5vw] !text-[1vw] !mb-4"}
+                            customWidth={"!h-[3vw] !mb-4 labelInput"}
                             textAlign="text-center"
                             />
                     </div>
-                    <div className="w-full">
+                    <div className="w-full labelInput">
                          <TextInputInteractive
                             type="text"
                             label="Número Envío"
@@ -585,7 +588,7 @@ return (
                             control={control}
                             onlyRead={isEditting}
                             tabIndex={1}
-                            customWidth={"!h-[2.5vw] !text-[1vw]"}
+                            customWidth={"!h-[3vw] labelInput"}
                             isOptional={true}
                             textAlign="text-center"
                             /> 

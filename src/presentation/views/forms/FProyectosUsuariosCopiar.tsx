@@ -218,7 +218,7 @@ const FProyectosUsuariosCopiar: React.FC<IUserFormPrps> = React.memo(
     return (
       <div className="useFormContainer centered-div w-[40vw]">
         <div className="userFormBtnCloseContainer">
-        <h1 className="userFormLabel translate-x-[-20%]">{label}</h1>
+        <h1 className="userFormLabel translate-x-[-2f0%]">{label}</h1>
           <button onClick={closeModal} className="userFormBtnClose">
             X
           </button>

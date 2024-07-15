@@ -241,9 +241,9 @@ const FOTClientes:React.FC<IClientes> = ({
     <form action="" onKeyDown={handleKeyDown}>
         <div className='w-full frameOTForm !h-[85vh] '>
             <div className="w-full flex items-center  rowForm !h-[6vw]">
-                <div className="w-[80vw]      flex mx-auto">
+                <div className="w-[80vw]      flex mx-auto translate-x-[3vw]">
                     <div className="input-container items-center rowForm w-[15%]">
-                        <div className={`w-full !mt-4  ${isEditting && "pointer-events-none"}`}>
+                        <div className={`labelInput w-full !mt-4  ${isEditting && "pointer-events-none"}`}>
                             <TextInputInteractive
                                 type="text"
                                 label="Rut"
@@ -254,13 +254,13 @@ const FOTClientes:React.FC<IClientes> = ({
                                 onlyRead={isEditting}
                                 isOT={true}
                                 inputRef={inputsRef.firstInputRef}
-                                customWidth={"!h-[3vw] !text-[1vw]"}
+                                customWidth={"!h-[3vw] labelInput"}
                                 />
                         </div>
                     </div>
 
                     <div className="input-container items-center rowForm w-[40%]">
-                        <div className="w-full !mt-4">
+                        <div className="labelInput w-full !mt-4">
                             <TextInputInteractive
                                 control={control}
                                 type="text"
@@ -270,12 +270,12 @@ const FOTClientes:React.FC<IClientes> = ({
                                 data={formValues ? formValues["cliente_nombre"]  : data && data[EnumGrid.cliente_nomnbre]}
                                 onlyRead={isEditting}
                                 isOT={true}
-                                customWidth={"!h-[3vw] !text-[1vw]"}
+                                customWidth={"!h-[3vw] labelInput"}
                             />
                         </div>
                     </div>
                     <div className="input-container items-center rowForm w-[40%]">
-                        <div className="w-full !mt-[1rem] ml-4 ">
+                        <div className="w-full !mt-5 ml-4 labelInput ">
                             <SelectInputComponent
                                 label="Establecimiento"
                                 name="establecimiento_id"
@@ -289,7 +289,7 @@ const FOTClientes:React.FC<IClientes> = ({
                                 tabIndex={1}
                                 onlyFirstOption={isEditting}
                                 inputRef={inputsRef.lastInputRef}
-                                customWidth={"!h-[3vw] text-[1vw]"}
+                                customWidth={"!h-[3vw] labelInput"}
 
                             />
                         </div> 
@@ -299,11 +299,11 @@ const FOTClientes:React.FC<IClientes> = ({
                 </div>
             </div>
 
-            <div className="w-full flex items-center rowForm !h-[20vw] translate-x-10">
+            <div className="w-full flex items-center rowForm !h-[20vw] translate-x-10 translate-y-[1vw]">
                 <div className="w-[50vw]   ml-8 items-center">
                     <div className='w-[4    0vw] mx-auto  translate-x-14 !mt-2 !mb-4 flex justify-between items-center  h-1/2'>
                         <div className="w-full flex  !ml-[5rem]">
-                            <div className="w-[40%]  ">
+                            <div className="w-[40%] labelInput  ">
                                 <RadioButtonComponent
                                     control={control}
                                     label="Sexo"
@@ -314,11 +314,11 @@ const FOTClientes:React.FC<IClientes> = ({
                                     onChange={handleInputChange}
                                     readOnly={isEditting}
                                     isOT={true}
-                                    customWidth={"!h-[2.5vw] text-[1vw]"}
-                                    labelProps={"!translate-y-[-2.4vw] !text-[1.4vw]"}
+                                    customWidth={"!h-[3vw] labelInput"}
+                                    labelProps={"!translate-y-[-2vw]"}
                                 />    
                             </div>
-                            <div className="w-[40%] ml-10">
+                            <div className="w-[40%] ml-10 labelInput">
                                 <RadioButtonComponent
                                     control={control}
                                     label="Tipo"
@@ -332,8 +332,8 @@ const FOTClientes:React.FC<IClientes> = ({
                                     ]}
                                      // horizontal={true}
                                     onChange={handleInputChange}
-                                    labelProps={"!translate-y-[-2.4vw] !text-[1.4vw]"}
-                                    customWidth={"!h-[2.5vw] text-[1vw]"}
+                                    labelProps={"!translate-y-[-2vw]"}
+                                    customWidth={"!h-[3vw] text-[1vw] labelInput"}
                                     readOnly={isEditting}
                                     isOT={true}
                                 />    
@@ -344,8 +344,8 @@ const FOTClientes:React.FC<IClientes> = ({
 
                     <div className='w-[60vw] mx-auto translate-y-11 translate-x-[-2vw] !h-[6vw] '>
                         <div className="w-full h-1/2 flex ml-[-2%]  items-center rowForm  ">
-                            <div className="mx-auto flex w-[80%]">
-                                <div className="w-[30vw] ml-10">
+                            <div className="mx-auto flex w-[80%] translate-y-[-2vw]">
+                                <div className="w-[30vw] ml-20 labelInput">
                                 <TextInputInteractive
                                     type="date"
                                     label="Fecha nacimiento"
@@ -356,10 +356,10 @@ const FOTClientes:React.FC<IClientes> = ({
                                     onlyRead={isEditting}
                                     isOT={true}
                                     textAlign="text-center"
-                                    customWidth={"!h-[3vw] !text-[1vw]"}
+                                    customWidth={"!h-[3vw] labelInput"}
                                     />
                                 </div>
-                                <div className="w-[40vw] ml-3   mr-10      ">
+                                <div className="w-[30vw] ml-3   mr-10 labelInput">
                                 <TextInputInteractive
                                     type="text"
                                     label="Teléfono"
@@ -369,15 +369,15 @@ const FOTClientes:React.FC<IClientes> = ({
                                     control={control}
                                     isOT={true}
                                     onlyRead={isEditting}
-                                    customWidth={"!h-[2.5vw] !text-[1vw]"}
+                                    customWidth={"!h-[3vw] labelInput"}
                                 />
                                 </div>
                             </div>
                         </div>
 
 
-                        <div className="w-[40vw] flex translate-x-[3.5vw] items-center rowForm translate-y-11">
-                                <div className="!w-[40vw] mx-auto ml-16">
+                        <div className="w-[47vw] flex translate-x-[3.5vw] items-center rowForm translate-y-2">
+                                <div className="!w-[47vw] mx-auto ml-24 labelInput">
                                     <TextInputInteractive
                                         type="text"
                                         label="Correo"
@@ -388,7 +388,7 @@ const FOTClientes:React.FC<IClientes> = ({
                                         isOT={true}
                                         onlyRead={isEditting}
                                         isOptional={true}
-                                    customWidth={"!h-[2.5vw] !text-[1vw]"}
+                                        customWidth={"!h-[3vw] labelInput"}
                                     />
                             </div>
                         </div>
@@ -396,8 +396,8 @@ const FOTClientes:React.FC<IClientes> = ({
                     </div>
                 </div>
 
-                <div className="w-[35vw] items-center relative dirCliente ">
-                    <label className=' text-[1.4vw] absolute translate-x-[1.4vw] translate-y-[-2vw]  z-10'>Dirección</label>
+                <div className="w-[35vw] items-center relative dirCliente   translate-y-[3vw] h-[24vw]">
+                    <label className=' text-[1.4vw] absolute translate-x-[1.4vw] labelInput translate-y-[-2vw]  z-10'>Dirección</label>
                         <RegProCom
                          name="cliente_comuna"
                          control={control}
@@ -410,7 +410,7 @@ const FOTClientes:React.FC<IClientes> = ({
                          onDataChange={onDataChange}
                          isOT={true}
                         />
-                    <div className="-mt-[1.3rem] w-[101%] rowForm">
+                    <div className="mt-5 w-[101%] rowForm labelInput">
                         <TextInputInteractive
                             type="text"
                             label="Calle, casa, villa"
@@ -421,7 +421,7 @@ const FOTClientes:React.FC<IClientes> = ({
                             control={control}
                             isOT={true}
                             isOptional={true}
-                            customWidth={"!h-[2.5vw] !text-[1vw]"}
+                            customWidth={"!h-[3vw] labelInput"}
                         />
                     </div>
                 </div>
