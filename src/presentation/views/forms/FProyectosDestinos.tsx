@@ -4,7 +4,7 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect } from "react";
-import { TextInputComponent } from "../../components";
+import { SelectInputComponent, TextInputComponent } from "../../components";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationProyectoDestinosSchema } from "../../utils/validationFormSchemas";
@@ -26,6 +26,7 @@ export interface InputData {
   contacto: string | undefined;
   telefono: string | undefined;
   correo: string | undefined;
+  proyecto: string | undefined;
   observaciones: string | undefined;
 }
 
@@ -36,7 +37,7 @@ interface OutputData {
 }
 
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
-  let _p1 = `"${jsonData.descripcion}", "${jsonData.direccion}", "${jsonData.contacto}", "${jsonData.telefono}", "${jsonData.correo}", "${jsonData.observaciones}"`;
+  let _p1 = `"${jsonData.descripcion}", "${jsonData.direccion}", "${jsonData.contacto}", "${jsonData.telefono}", "${jsonData.correo}", "${jsonData.proyecto}", "${jsonData.observaciones}"`;
 
   _p1 = _p1.replace(/'/g, '!');
 
@@ -58,6 +59,7 @@ export function transformUpdateQuery(
     `contacto= "${jsonData.contacto}"`,
     `telefono= "${jsonData.telefono}"`,
     `correo= "${jsonData.correo}"`,
+    `proyecto= "${jsonData.proyecto}"`,
     `observaciones= "${jsonData.observaciones}"`,
   ];
 
@@ -319,6 +321,23 @@ const FProyectoDestinos: React.FC<IUserFormPrps> = React.memo(
                     data={data && data[EnumGrid.correo]}
                     control={control}
                     isOptional={true}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="w-full flex items-center h-[4rem]">
+              <div className="input-container items-center rowForm w-full">
+                <div className="w-full">
+                <SelectInputComponent
+                  label="Proyecto"
+                  name="proyecto"
+                  showRefresh={true}
+                  data={data && data[EnumGrid.proyecto_codigo]}
+                  control={control}
+                  entidad={["/api/proyectos/", "02"]}
+                  error={errors.proyecto}
+                  customWidth={"!ml-[1rem] ] "}
                   />
                 </div>
               </div>
