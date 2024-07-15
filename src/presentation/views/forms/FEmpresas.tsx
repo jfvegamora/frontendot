@@ -270,7 +270,7 @@ const FEmpresas: React.FC<IUserFormPrps> = React.memo(
           <div className="w-[80%] mx-auto !text.center">
             <h1 className="userFormLabel">{label}</h1>
           </div>
-          <button onClick={closeModal} className="userFormBtnClose">
+          <button onClick={closeModal} className="userFormBtnClose mr-4">
             X
           </button>
         </div>
@@ -291,7 +291,7 @@ const FEmpresas: React.FC<IUserFormPrps> = React.memo(
                       error={errors.rut}
                       inputRef={firstInputRef}
                       isOptional={true}
-                      customWidth={"!h-[2.8vw] !text-[1vw]"}
+                      customWidth={"labelInput inputStyles"}
                       />
                   </div>
                 </div>
@@ -305,8 +305,8 @@ const FEmpresas: React.FC<IUserFormPrps> = React.memo(
                       control={control}
                       error={errors.nombre}
                       inputRef={firstInputRef}
-                      customWidth={"!h-[2.8vw] !text-[1vw]"}
-                    />
+                      customWidth={"labelInput inputStyles"}
+                      />
                   </div> 
                 </div>
               </div>
@@ -321,8 +321,8 @@ const FEmpresas: React.FC<IUserFormPrps> = React.memo(
                       data={data && data[EnumGrid.razon_social]}
                       control={control}
                       error={errors.razon_social}
-                      customWidth={"!h-[2.8vw] !text-[1vw]"}
-                    />
+                      customWidth={"labelInput inputStyles"}
+                      />
                   </div>
                 </div>
                 <div className="input-container items-center rowForm w-[50%]">
@@ -334,8 +334,8 @@ const FEmpresas: React.FC<IUserFormPrps> = React.memo(
                       data={data && data[EnumGrid.giro]}
                       control={control}
                       error={errors.giro}
-                      customWidth={"!h-[2.8vw] !text-[1vw]"}
-                    />
+                      customWidth={"labelInput inputStyles"}
+                      />
                   </div> 
                 </div>
               </div>
@@ -351,7 +351,7 @@ const FEmpresas: React.FC<IUserFormPrps> = React.memo(
                       control={control}
                       error={errors.direccion}
                       isOptional={true}
-                      customWidth={"!h-[2.8vw] !text-[1vw]"}
+                      customWidth={"labelInput inputStyles"}
                       />
                   </div>
                 </div>
@@ -365,7 +365,7 @@ const FEmpresas: React.FC<IUserFormPrps> = React.memo(
                       control={control}
                       error={errors.telefono}
                       isOptional={true}
-                      customWidth={"!h-[2.8vw] !text-[1vw]"}
+                      customWidth={"labelInput inputStyles"}
                       />
                   </div> 
                 </div>
@@ -382,7 +382,7 @@ const FEmpresas: React.FC<IUserFormPrps> = React.memo(
                       control={control}
                       error={errors.correo}
                       isOptional={true}
-                      customWidth={"!h-[2.8vw] !text-[1vw]"}
+                      customWidth={"labelInput inputStyles"}
 
                       />
                   </div>
@@ -397,7 +397,7 @@ const FEmpresas: React.FC<IUserFormPrps> = React.memo(
                       control={control}
                       error={errors.sitio_web}
                       isOptional={true}
-                      customWidth={"!h-[2.8vw] !text-[1vw]"}
+                      customWidth={"labelInput inputStyles"}
                       />
                   </div> 
                 </div>

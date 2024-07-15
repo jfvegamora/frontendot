@@ -62,12 +62,18 @@ body {
 .labelInput{
   font-size: 20px !important;
 }
+.labelInputx2{
+  font-size: 32px !important;
+}
 
 
 .inputStyles{
   height: 3vw !important;
-  /* font-size: 30rem; */
-  background-color: red;
+}
+
+.FOTArmazonesInfo{
+  font-size: 24px;
+  /* font-weight: bold; */
 }
 
 
@@ -160,7 +166,7 @@ select::-ms-expand {
 .custom-select::after {
   content: "\25BC";
   position: absolute;
-  top: -19px;
+  top: -15px;
   right: 40px;
   padding: 0.5em;
   margin-top: 15px;
@@ -174,7 +180,7 @@ select::-ms-expand {
 .custom-select-reg::after {
   content: "\25BC";
   position: absolute;
-  top: -19px;
+  top: -15px;
   right: 10px;
   padding: 0.5em;
   margin-top: 15px;

@@ -128,7 +128,7 @@ const MOftalmologos: React.FC = () => {
           leftEdit={true}
         />
       </div>
-
+ 
       {isModalInsert && (
         <FOftalmologos
           label={`${TITLES.ingreso} ${strEntidad}`}

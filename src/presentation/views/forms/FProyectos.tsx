@@ -415,7 +415,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={["/api/empresas/", "02"]}
                     error={errors.empresa_adjudicada}
-                    customWidth={"!h-[2.5vw] text-[1vw] !w-[18vw]"}
+                    customWidth={"labelInput inputStyles !w-[18vw]"}
                     />
                 </div>
               </div>
@@ -430,7 +430,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={["/api/mandantes/", "02"]}
                     error={errors.mandante}
-                    customWidth={"!h-[2.5vw] text-[1vw] !w-[23vw]"}
+                    customWidth={"labelInput inputStyles !w-[23vw]"}
                   />
                 </div>
               </div>
@@ -444,7 +444,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={["/api/usuarios/", "02"]}
                     error={errors.ejecutivo_proyecto}
-                    customWidth={"!h-[2.5vw] text-[1vw] !w-[23vw]"}
+                    customWidth={"labelInput inputStyles !w-[23vw]"}
                   />
                 </div>
               </div>
@@ -460,7 +460,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                     error={errors.imprime_qr}
                     horizontal={true}
                     labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.4vw]"}
-                    customWidth={"!h-[2.5vw] text-[1vw]"}
+                    customWidth={"labelInput inputStyles"}
                   />
                 </div>
               </div>
@@ -476,13 +476,14 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                     error={errors.imprime_ticket}
                     horizontal={true}
                     labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.4vw]"}
-                    customWidth={"!h-[2.5vw] text-[1vw]"}
+                    customWidth={"labelInput inputStyles"}
+
                   />
                 </div>
               </div>
             </div>
 
-            <div className="w-full items-center flex h-[70px] translate-y-4 mb-[10px]">
+            <div className="w-full items-center flex h-[70px] translate-y-6 mb-[10px]">
               <div className="input-container items-center rowForm w-[14%]">
                 <div className="w-full mr-2">
                   <TextInputComponent
@@ -493,7 +494,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     error={errors.codigo_proyecto}
                     onlyRead={isEditting}
-                    customWidth={"!h-[2.8vw] !text-[1vw]"}
+                    customWidth={"labelInput inputStyles"}
 
                   />
                 </div>
@@ -508,7 +509,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                     data={data && data[EnumGrid.TITULO]}
                     control={control}
                     error={errors.titulo_proyecto}
-                    customWidth={"!h-[2.8vw] !text-[1vw]"}
+                    customWidth={"labelInput inputStyles"}
 
                   />
                 </div>
@@ -524,7 +525,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     error={errors.codigo_licitacion}
                     isOptional={true}
-                    customWidth={"!h-[2.8vw] !text-[1vw]"}
+                    customWidth={"labelInput inputStyles"}
 
                   />
                 </div>
@@ -541,7 +542,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                     error={errors.param_cristales}
                     horizontal={true}
                     labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.4vw]"}
-                    customWidth={"!h-[2.5vw] text-[1vw]"}
+                    customWidth={"labelInput inputStyles"}
                   />
                 </div>
               </div>
@@ -557,13 +558,13 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                     error={errors.estado}
                     horizontal={true}
                     labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.4vw]"}
-                    customWidth={"!h-[2.5vw] text-[1vw]"}
+                    customWidth={"labelInput inputStyles"}
                   />
                 </div>
               </div>
             </div>
 
-            <div className="w-full items-center flex h-[90px]  ">
+            <div className="w-full items-center flex h-[90px] translate-y-6  ">
               <div className="input-container items-center rowForm w-[10%] ">
                 <div className="w-full mr-2">
                   <TextInputComponent
@@ -574,7 +575,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     error={errors.dias_entrega}
                     textAlign="text-center"
-                    customWidth={"!h-[2.8vw] !text-[1vw]"}
+                    customWidth={"labelInput inputStyles"}
 
                   />
                 </div>
@@ -590,7 +591,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     error={errors.fecha_inicio}
                     textAlign="text-center"
-                    customWidth={"!h-[2.8vw] !text-[1vw]"}
+                    customWidth={"labelInput inputStyles"}
 
                   />
                 </div>
@@ -606,7 +607,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     error={errors.fecha_termino}
                     textAlign="text-center"
-                    customWidth={"!h-[2.8vw] !text-[1vw]"}
+                    customWidth={"labelInput inputStyles"}
 
                   />
                 </div>
@@ -622,7 +623,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     error={errors.unidad_compra}
                     isOptional={true}
-                    customWidth={"!h-[2.8vw] !text-[1vw]"}
+                    customWidth={"labelInput inputStyles"}
 
                   />
                 </div>
@@ -639,7 +640,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                     error={errors.fecha_adjudicacion}
                     isOptional={true}
                     textAlign="text-center"
-                    customWidth={"!h-[2.8vw] !text-[1vw]"}
+                    customWidth={"labelInput inputStyles"}
 
                   />
                 </div>
@@ -669,7 +670,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
 
             </div>
 
-            <div className="w-full items-center flex h-[110px] ">
+            <div className="w-full items-center flex h-[110px] translate-y-10">
               <FrameComponent>
                 <ProyectoComponent
                   label="OT Ingresadas"
@@ -863,7 +864,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
             </div> */}
 
 
-            <div className="w-full items-center flex h-[90px] mt-[25px] !mb-[40px]">
+            <div className="w-full items-center flex h-[90px] mt-[25px] !mb-[40px] translate-y-10">
               <FrameComponent>
                 <ContactComponent
                   label="Contacto Administrativo"
@@ -940,7 +941,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                     data={data && data[EnumGrid.OBSERVACIONES]}
                     control={control}
                     error={errors.observaciones}
-                    customWidth={"!w-[45rem]"}
+                    customWidth={"labelInput inputStyles"}
                     isOptional={true}
                   />
                 </div>
@@ -955,7 +956,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={["/api/oftalmologos/", "02"]}
                     error={errors.oftalmologo}
-                    customWidth={"!w-[25rem]"}
+                    customWidth={"labelInput inputStyles"}
                     isOptional={true}
                   />
                 </div>

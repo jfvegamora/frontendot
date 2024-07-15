@@ -31,14 +31,13 @@ interface ITextInputProps {
   error?: any;
   tabIndex?: number;
   inputRef?: any;
-  className?:string;
   handleChange?: (data:any)=>void;
   otData?:any;
   isOptional?:boolean;
   textAlign?: string;
   step?:number;
   renderComponent?:any;
-  labelProps?:any
+  customWidth?:any
 }
 
 const OTTextInputComponent: React.FC<ITextInputProps> = ({
@@ -51,13 +50,12 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
   error,
   tabIndex,
   inputRef,
-  className,
   otData,
   isOptional,
   textAlign,
   step,
   renderComponent,
-  labelProps
+  customWidth
 }) => {
   const [defaultValue, setDefaultValue] = useState<string>(otData || " ")
   const dioptriasState = useAppSelector((store: AppStore) => store.utils?.Dioptrias);
@@ -388,7 +386,7 @@ const OTTextInputComponent: React.FC<ITextInputProps> = ({
 
 return (
   <div
-  className={`${"flex items-center mb-4 mx-4  relative rounded-xl inputStyles"}`}
+  className={`${" labelInput inputStyles flex items-center mb-4 mx-4  relative rounded-xl inputStyles"}`}
   >
   <Controller
     name={name}
@@ -397,13 +395,13 @@ return (
     defaultValue={initialValue}
     render={({ field }) => (
       <div className="flex flex-col  w-full">
-        <label htmlFor={label} className={` ${labelProps ? labelProps : ""} absolute !z-20 translate-y-[-0.5vw] text-[1.2vw] !font-[1.2vw] translate-x-3`}>
+        {/* <label htmlFor={label} className={` ${labelProps ? labelProps : ""} absolute !z-20 translate-y-[-0.5vw] text-[1.2vw] !font-[1.2vw] translate-x-3`}>
                   {label}
-          </label>
+          </label> */}
         <Input
           {...field}
           error     = {error ? true : false }
-          // label     ={label}
+          label     ={label}
           // defaultValue={initialValue}
           value     ={value}
           color     ="orange"
@@ -417,7 +415,7 @@ return (
           // tabIndex  ={onlyRead ? 0 : (tabIndex || 1)}
           step      ={step}
           readOnly  = {onlyRead}
-          className={`${className ? className : "custom-input"}  ${onlyRead ? "custom-onlyread cursor-not-allowed" : isOptional ? "custom-optional" : "custom-required"} ${textAlign && textAlign}`}
+          className={`${customWidth ? customWidth : "custom-input"}  ${onlyRead ? "custom-onlyread cursor-not-allowed" : isOptional ? "custom-optional" : "custom-required"} ${textAlign && textAlign}`}
         />
       </div>
     )}

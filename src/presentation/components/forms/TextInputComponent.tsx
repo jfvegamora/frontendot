@@ -107,7 +107,7 @@ return (
             onFocus={handleFocus}
             onBlur={(e) => handleInputChange(e)}
             ref={inputRef}
-            className={`${customWidth ? customWidth : ""}  ${onlyRead ? "custom-onlyread cursor-not-allowed" : isOptional ? "custom-optional" : "custom-required"} ${textAlign && textAlign}`}
+            className={` ${customWidth ? customWidth : ""}  ${onlyRead ? "custom-onlyread cursor-not-allowed" : isOptional ? "custom-optional" : "custom-required"} ${textAlign && textAlign}`}
             tabIndex={onlyRead ? 0 : (tabIndex || 1)}
             placeholder={type === 'date' ? "dd-mm-yyyy" : ""}
             autoComplete="off"

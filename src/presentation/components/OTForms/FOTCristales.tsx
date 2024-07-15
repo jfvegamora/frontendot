@@ -127,7 +127,7 @@ const FOTCristales: React.FC<ICristales> = ({
                         // onlyRead={ name === 'cristal2_grupo2_oi' || name === 'cristal2_grupo2_od' ? (!((isEditting && tipo_de_anteojo.value === '3') && (isEditting && permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria && tipo_de_anteojo.value === '3' ))) : !(isEditting && permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria)  }
                         textAlign="text-center"
                         className='!text-base custom-input !w-[17rem]'
-                        customWidth={"!h-[3vw] !text-[1vw]"}
+                        customWidth={"labelInput inputStyles"}
                         />  
                 </div>
             </div>)
@@ -159,16 +159,15 @@ const FOTCristales: React.FC<ICristales> = ({
 
 
 
-    console.log(inputOnlyReadBodegaProcesado.value)
 
 
     return (
         <form onKeyDown={handleKeyDown}>
             <div className='w-full flex frameOTForm h-[85vh]'>
-                <div className=" w-[50vw] relative !mt-[2rem] !h-[30vw]">
-                    <div className=" flex items-center radioComponent  h-[80vh] w-full !ml-[1rem]">
+                <div className=" w-[50vw] relative !mt-[2.5rem] !h-[30vw]">
+                    <div className=" flex items-center radioComponent   h-[80vh] w-[97%] !ml-[1rem]">
                         <div className="mx-auto !mt-6 w-[50vw] !h-full ">
-                            <h1 className='absolute z-10 top-[-6%] text-2xl w-[30%]  text-center !text-[#f8b179] left-[4%]'>ANTEOJO 1</h1>
+                            <h1 className='absolute z-10 top-[-6%] text-3xl font-bold w-[30%] translate-x-[2vw]  text-center !text-[#f8b179] left-[34%]'>ANTEOJO 1</h1>
                             <div className="w-full">
                                 <div className="w-full flex mt-6 rowForm justify-between ">
                                     <div className="!ml-[1rem] w-[25vw] my-2 labelInput   ">
@@ -189,7 +188,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                             labelProps={" bg-wite"}
                                         />
                                     </div>
-                                    <div className=" w-[25vw] my-2 labelInput">
+                                    <div className=" w-[25vw] my-2 }">
                                         <SelectInputTiposComponent
                                             label='Diseño'
                                             name='cristal1_diseno_id'
@@ -201,12 +200,12 @@ const FOTCristales: React.FC<ICristales> = ({
                                             control={control}
                                             readOnly={!(!isEditting || (permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria)) || inputOnlyReadBodegaProcesado.value}
                                             
-                                            customWidth={"!h-[3vw] labelInput"}
+                                            customWidth={"labelInput inputStyles"}
                                         />
                                     </div>
                                 </div>
 
-                                <div className="w-full flex rowForm labelInput ">
+                                <div className="w-full flex rowForm  ">
                                     <div className="!ml-[1rem] w-[25vw] my-2">
                                         <SelectInputTiposComponent
                                             label='Índice'
@@ -218,12 +217,12 @@ const FOTCristales: React.FC<ICristales> = ({
                                             control={control}
                                             entidad={'CristalesIndices'}
                                             readOnly={!(!isEditting || (permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria)) || inputOnlyReadBodegaProcesado.value}
-                                            customWidth={"!h-[3vw] labelInput"}
+                                            customWidth={"labelInput inputStyles"}
                                             labelProps={" bg-wite"}
                                         />
                                     </div>
 
-                                    <div className="w-[25vw] my-2 labelInput">
+                                    <div className="w-[25vw] my-2 ">
                                         <SelectInputTiposComponent
                                             label='Material'
                                             name="cristal1_material_id"
@@ -233,15 +232,15 @@ const FOTCristales: React.FC<ICristales> = ({
                                             data={formValues && formValues["cristal1_material_id"] ? formValues["cristal1_material_id"] : data && data[EnumGrid.cristal1_material_id]}
                                             control={control}
                                             entidad={'CristalesMateriales'}
-                                            customWidth={"!h-[3vw] labelInput"}
+                                            customWidth={"labelInput inputStyles"}
                                             labelProps={" bg-wite"}
                                             readOnly={!(!isEditting || (permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria)) || inputOnlyReadBodegaProcesado.value}
                                         />
                                     </div>
                                 </div>
 
-                                <div className="w-full flex mt-6 rowForm ">
-                                    <div className="!ml-[1rem] w-[25vw] my-2 labelInput">
+                                <div className="w-full flex mt-6 rowForm">
+                                    <div className="!ml-[1rem] w-[25vw] my-2 ">
                                         <SelectInputTiposComponent
                                             label='Color'
                                             name="cristal1_color_id"
@@ -251,13 +250,13 @@ const FOTCristales: React.FC<ICristales> = ({
                                             data={formValues && formValues["cristal1_color_id"] ? formValues["cristal1_color_id"] : data && data[EnumGrid.cristal1_color_id]}
                                             control={control}
                                             entidad={"CristalesColores"}
-                                            customWidth={"!h-[3vw] labelInput"}
+                                            customWidth={"labelInput inputStyles"}
                                             labelProps={" bg-wite"}
                                             readOnly={!(!isEditting || (permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria)) || inputOnlyReadBodegaProcesado.value}
                                         />
                                     </div>
 
-                                    <div className=" w-[25vw] my-2 labelInput">
+                                    <div className=" w-[25vw] my-2">
                                         <SelectInputTiposComponent
                                             label='Tratamiento'
                                             name="cristal1_tratamiento_id"
@@ -267,7 +266,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                             data={formValues && formValues["cristal1_tratamiento_id"] ? formValues["cristal1_tratamiento_id"] : data && data[EnumGrid.cristal1_tratamiento_id]}
                                             control={control}
                                             entidad={"CristalesTratamientos"}
-                                            customWidth={"!h-[3vw] labelInput"}
+                                            customWidth={"labelInput inputStyles"}
                                             labelProps={" bg-wite"}
                                             readOnly={!(!isEditting || (permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria)) || inputOnlyReadBodegaProcesado.value}
                                         />
@@ -295,7 +294,7 @@ const FOTCristales: React.FC<ICristales> = ({
 
                                     )} */}
 
-                                    <div className="w-[20%] mr-2 translate-y-3">
+                                    <div className="w-[20%] mr-2 ">
                                         <TextInputInteractive
                                             control={control}
                                             type="number"
@@ -306,7 +305,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                             data={formValues && formValues["cristal1_diametro"] ? formValues["cristal1_diametro"] : data && data[EnumGrid.cristal1_diametro]}
                                             onlyRead={!(!isEditting || (permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria)) || inputOnlyReadBodegaProcesado.value}                                        // error={errors.fecha_nacimiento}
                                             textAlign="text-center"
-                                            customWidth={"!h-[3vw] !text-[1.4vw]"}
+                                            customWidth={"labelInput inputStyles"}
                                         />
 
                                     </div>
@@ -347,7 +346,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                             textAlign="text-center"
                                             className={`!text-xl custom-input !w-[17rem]  ${validacionIncompleta.value.a1_od === true ? "!bg-red-600 opacity-60" : ""} `}
                                             error={true}
-                                            customWidth={"!h-[3vw] !text-[1.7vw]"}
+                                            customWidth={"labelInputx2 inputStyles"}
                                         />
                                     </div>
                                     <div className="!w-[50%] !pr-[1rem] !ml-[-1rem] !translate-y-4">
@@ -362,7 +361,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                             onlyRead={!(isEditting && (permiso_areas_cristales && permiso_usuario_cristales))}
                                             textAlign="text-center"
                                             className={` custom-input !w-[17rem]  ${validacionIncompleta.value.a1_oi === true ? "!bg-red-600 opacity-60" : ""} `}
-                                            customWidth={"!h-[3vw] !text-[1.7vw]"}
+                                            customWidth={"labelInputx2 inputStyles"}
                                         />
                                     </div>
                                 </div>
@@ -390,7 +389,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                             readOnly={!(!isEditting || (permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria)) || inputOnlyReadBodegaProcesado.value}
                                             isOptional={true}
                                             inputRef={ tipo_de_anteojo.value === '3' ? null : inputsRef.lastInputRef}
-                                            customWidth={"!h-[2.5vw] text-[1vw]"}
+                                            customWidth={"labelInput inputStyles"}
 
                                         />
                                     </div>
@@ -400,13 +399,13 @@ const FOTCristales: React.FC<ICristales> = ({
                     </div>
                 </div>
 
-                <div className=" w-1/2 relative !mt-[2rem] !h-[90vh] !mr-[1rem]">
-                    <div className=" flex items-center ml-2  radioComponent h-[80vh] !mr-[1rem]">
+                <div className=" w-1/2 relative !mt-[2.5rem]  !h-[90vh] ">
+                    <div className=" flex items-center ml-2  radioComponent  h-[80vh] !mr-[1rem]">
                         <div className="mx-auto !mt-6 !h-full w-[50vw]">
-                            <h1 className='absolute z-10 top-[-6%] text-2xl w-[30%] text-center !text-[#f8b179] left-[4%]'>ANTEOJO 2</h1>
+                            <h1 className='absolute z-10 top-[-5%] left-[35%] text-3xl font-bold w-[30%] text-center !text-[#f8b179]'>ANTEOJO 2</h1>
                             <div className="w-full  !-mb-4 !ml-[1rem]">
                                 <div className="w-full flex mt-6 rowForm">
-                                    <div className="!ml-[1rem] w-[25vw] my-2">
+                                    <div className="!ml-[1rem] w-[25vw] my-2 labelInput">
                                         <SelectInputComponent
                                             label="Marca"
                                             name="cristal2_marca_id"
@@ -418,11 +417,11 @@ const FOTCristales: React.FC<ICristales> = ({
                                             entidad={["/api/marcas/", "02", "2"]}
                                             readOnly={!((!isEditting && tipo_de_anteojo.value === '3') || (isEditting && permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria && tipo_de_anteojo.value === '3')) || inputOnlyReadBodegaProcesado.value}
                                             isFOTcristales={true}
-                                            customWidth={"!h-[4vw] text-[1vw]"}
+                                            customWidth={"labelInput inputStyles"}
                                             labelProps={" bg-wite"}
                                         />
                                     </div>
-                                    <div className="w-[25vw] my-4">
+                                    <div className="w-[25vw] my-2">
                                         <SelectInputTiposComponent
                                             label="Diseño"
                                             name="cristal2_diseno_id"
@@ -434,7 +433,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                             entidad={"CristalesDisenos"}
                                             FOTcristales={true}
                                             readOnly={!((!isEditting && tipo_de_anteojo.value === '3') || (isEditting && permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria && tipo_de_anteojo.value === '3')) || inputOnlyReadBodegaProcesado.value}
-                                            customWidth={"!h-[3vw] text-[1vw]"}
+                                            customWidth={"labelInput inputStyles"}
                                             labelProps={" bg-wite"}
                                         />
                                     </div>
@@ -452,7 +451,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                             control={control}
                                             entidad={"CristalesIndices"}
                                             FOTcristales={true}
-                                            customWidth={"!h-[3vw] text-[1vw]"}
+                                            customWidth={"labelInput inputStyles"}
                                             labelProps={" bg-wite"}
                                             readOnly={!((!isEditting && tipo_de_anteojo.value === '3') || (((isEditting && permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria && tipo_de_anteojo.value === '3' )))) || inputOnlyReadBodegaProcesado.value }
                                         />
@@ -469,7 +468,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                             control={control}
                                             FOTcristales={true}
                                             entidad={"CristalesMateriales"}
-                                            customWidth={"!h-[3vw] text-[1vw]"}
+                                            customWidth={"labelInput inputStyles"}
                                             labelProps={" bg-wite"}
                                             readOnly={!((!isEditting && tipo_de_anteojo.value === '3') || (isEditting && permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria && tipo_de_anteojo.value === '3')) || inputOnlyReadBodegaProcesado.value}
                                         />
@@ -488,7 +487,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                             control={control}
                                             FOTcristales={true}
                                             entidad={"CristalesColores"}
-                                            customWidth={"!h-[3vw] text-[1vw]"}
+                                            customWidth={"labelInput inputStyles"}
                                             labelProps={" bg-wite"}
                                             readOnly={!((!isEditting && tipo_de_anteojo.value === '3') || (isEditting && permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria && tipo_de_anteojo.value === '3')) || inputOnlyReadBodegaProcesado.value}
                                         />
@@ -506,7 +505,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                             entidad={"CristalesTratamientos"}
                                 
                                             FOTcristales={true}
-                                            customWidth={"!h-[3vw] text-[1vw]"}
+                                            customWidth={"labelInput inputStyles"}
                                             labelProps={" bg-wite"}
                                             readOnly={!((!isEditting && tipo_de_anteojo.value === '3') || (isEditting && permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria && tipo_de_anteojo.value === '3')) || inputOnlyReadBodegaProcesado.value}
                                         />
@@ -534,7 +533,7 @@ const FOTCristales: React.FC<ICristales> = ({
 
                                     )} */}
 
-                                <div className="w-[20%] mr-2 translate-y-3">
+                                <div className="w-[20%] mr-2 ">
                                     <TextInputInteractive
                                         type="number"
                                         label="Diámetro"
@@ -545,7 +544,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                         isOT={true}
                                         onlyRead={!((!isEditting && tipo_de_anteojo.value === '3') || (isEditting && permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria && tipo_de_anteojo.value === '3')) || inputOnlyReadBodegaProcesado.value}
                                         textAlign="text-center"
-                                            customWidth={"!h-[3vw] !text-[1.4vw]"}
+                                        customWidth={"labelInput inputStyles"}
                                         
                                     />
                                 </div>
@@ -586,7 +585,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                             onlyRead={!((isEditting && tipo_de_anteojo.value === '3') && (isEditting && permiso_areas_cristales && permiso_usuario_cristales && tipo_de_anteojo.value === '3'))}
                                             textAlign="text-center"
                                             className={`!text-xl custom-input !w-[17rem]  ${validacionIncompleta.value.a2_od === true ? "!bg-red-600 opacity-60" : ""} `}
-                                            customWidth={"!h-[3vw] !text-[1.7vw]"}
+                                            customWidth={"labelInputx2 inputStyles"}
                                             />
                                     </div>
                                     <div className="!w-[50%] !pr-[1rem] !ml-[-1rem] !translate-y-4">
@@ -601,7 +600,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                             onlyRead={!((isEditting && tipo_de_anteojo.value === '3') && (isEditting && permiso_areas_cristales && permiso_usuario_cristales && tipo_de_anteojo.value === '3'))}
                                             textAlign="text-center"
                                             className={`!text-xl custom-input !w-[17rem]  ${validacionIncompleta.value.a2_oi === true ? "!bg-red-600 opacity-60" : ""} `}
-                                            customWidth={"!h-[3vw] !text-[1.7vw]"}
+                                            customWidth={"labelInputx2 inputStyles"}
                                             />
                                     </div>
                                 </div>
@@ -630,7 +629,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                             // FOTcristales={true}
                                             isOptional={true}
                                             inputRef={ tipo_de_anteojo.value === '3' ? inputsRef.lastInputRef : null }
-                                            customWidth={"!h-[2.5vw] text-[1vw]"}
+                                            customWidth={"labelInput inputStyles"}
                                         />
                                     </div>
                                 </div>

@@ -253,7 +253,7 @@ const FOftalmologos: React.FC<IUserFormPrps> = React.memo(
           <div className="w-[80%] mx-auto !text.center">
               <h1 className="userFormLabel">{label}</h1>
           </div>
-          <button onClick={closeModal} className="userFormBtnClose">
+          <button onClick={closeModal} className="userFormBtnClose mr-4 ">
             X
           </button>
         </div>
@@ -274,8 +274,8 @@ const FOftalmologos: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     error={errors.rut}
                     inputRef={firstInputRef}
-                    customWidth={"!h-[2.8vw] !text-[1vw]"}
-                  />
+                    customWidth={"labelInput inputStyles"}
+                    />
                 </div>
               </div>  
             </div>
@@ -290,7 +290,7 @@ const FOftalmologos: React.FC<IUserFormPrps> = React.memo(
                     data={data && data[EnumGrid.nombre]}
                     control={control}
                     error={errors.nombre}
-                    customWidth={"!h-[2.8vw] !text-[1vw]"}
+                    customWidth={"labelInput inputStyles"}
                   />
                 </div>
               </div>  
@@ -307,7 +307,7 @@ const FOftalmologos: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     error={errors.valor_consulta}
                     textAlign="text-right"
-                    customWidth={"!h-[2.8vw] !text-[1vw]"}
+                    customWidth={"labelInput inputStyles"}
                   />
                 </div>
               </div>  
@@ -323,7 +323,7 @@ const FOftalmologos: React.FC<IUserFormPrps> = React.memo(
                     data={data && data[EnumGrid.telefono]}
                     control={control}
                     isOptional={true}
-                    customWidth={"!h-[2.8vw] !text-[1vw]"}
+                    customWidth={"labelInputx2 inputStyles"}
                   />
                 </div>
               </div>  
@@ -339,7 +339,7 @@ const FOftalmologos: React.FC<IUserFormPrps> = React.memo(
                     data={data && data[EnumGrid.correo]}
                     control={control}
                     isOptional={true}
-                    customWidth={"!h-[2.8vw] !text-[1vw]"}
+                    customWidth={"labelInput inputStyles"}
                   />
                 </div>
               </div>  

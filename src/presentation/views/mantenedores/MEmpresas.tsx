@@ -132,6 +132,7 @@ const MEmpresas: React.FC = () => {
         />
       </div>
 
+   
       {isModalInsert && (
         <FEmpresas
           label={`${TITLES.ingreso} ${strEntidad}`}
