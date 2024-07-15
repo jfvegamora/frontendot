@@ -36,7 +36,7 @@ export interface InputData {
   stock_minimo: string | undefined;
   codigo_fab: string | undefined;
   dp_minima: string | undefined;
-  dp_maxima: string | undefined;
+  dp_maxima: string | undefined;  
 }
 
 interface OutputData {
@@ -256,9 +256,9 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
       <div className="useFormContainer centered-div w-[40vw]">
         <div className="userFormBtnCloseContainer felex">
           <div className="w-[80%] mx-auto !text.center">
-            <h1 className="userFormLabel">{label}</h1>
+            <h1 className="userFormLabel translate-x-[2rem]">{label}</h1>
           </div>
-          <button onClick={closeModal} className="userFormBtnClose">
+          <button onClick={closeModal} className="userFormBtnClose mr-4">
             X
           </button>
         </div>
@@ -267,9 +267,8 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))}
           className="userFormulario h-[]">
           <div className=" items center">
-
             <div className="w-full   flex items-center h-[5rem]">
-              <div className="input-container w-[33%]  items-center rowForm  ">
+              <div className="input-container w-[33%]  items-center rowForm ml-2">
                   <TextInputComponent
                     type="text"
                     label="Código"
@@ -279,8 +278,8 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                     error={errors.codigo}
                     inputRef={firstInputRef}
                     onlyRead={isEditting}
-                    customWidth={"!h-[2.8vw] !text-[1vw]"}
-                  />
+                    customWidth={"labelInput inputStyles"}
+                    />
               </div>
 
               <div className="input-container items-center rowForm w-[33%]">
@@ -291,8 +290,8 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                     data={data && data[ArmazonesEnum.modelo]}
                     control={control}
                     error={errors.modelo}
-                    customWidth={"!h-[2.8vw] !text-[1vw]"}
-                  />
+                    customWidth={"labelInput inputStyles"}
+                    />
               </div>
 
               <div className="input-container items-center rowForm w-[33%]">
@@ -303,8 +302,8 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                     data={data && data[ArmazonesEnum.color]}
                     control={control}
                     error={errors.color}
-                    customWidth={"!h-[2.8vw] !text-[1vw]"}
-                  />
+                    customWidth={"labelInput inputStyles"}
+                    />
               </div>
             </div>
 
@@ -319,7 +318,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                     entidad={"ArmazonesTipos"}
                     error={errors.tipo}
                     inputRef={secondInputRef}
-                    customWidth={"!h-[2.8vw] !text-[1vw]"}
+                    customWidth={"labelInput inputStyles"}
                     />
               </div>
 
@@ -332,7 +331,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={["/api/marcas/", "02", "1"]}
                     error={errors.marca}
-                    customWidth={"!h-[2.8vw] !text-[1vw]"}
+                    customWidth={"labelInput inputStyles"}
                     />
               </div>
 
@@ -345,13 +344,13 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={"ArmazonesMaterial"}
                     error={errors.material}
-                    customWidth={"!h-[2.8vw] !text-[1vw]"}
+                    customWidth={"labelInput inputStyles"}
                     />
               </div>
             </div>
 
             <div className="w-[100%]  flex items-center h-[5rem] translate-y-[-0.5rem]">
-              <div className="input-container items-center rowForm w-[]">
+              <div className="input-container items-center rowForm ml-2">
                   <TextInputComponent
                     type="number"
                     label="Aro"
@@ -359,7 +358,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                     data={data && data[ArmazonesEnum.aro]}
                     control={control}
                     error={errors.aro}
-                    customWidth={"!h-[2.8vw] !text-[1vw]"}
+                    customWidth={"labelInput inputStyles"}
                     textAlign="text-center"
                   />
               </div>
@@ -372,7 +371,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                     data={data && data[ArmazonesEnum.puente]}
                     control={control}
                     error={errors.puente}
-                    customWidth={"!h-[2.8vw] !text-[1vw]"}
+                    customWidth={"labelInput inputStyles"}
                     textAlign="text-center"
                   />
               </div>
@@ -385,7 +384,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                     data={data && data[ArmazonesEnum.diagonal]}
                     control={control}
                     error={errors.diagonal}
-                    customWidth={"!h-[2.8vw] !text-[1vw]"}
+                    customWidth={"labelInput inputStyles"}
                     textAlign="text-center"
                   />
               </div>
@@ -398,7 +397,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                     data={data && data[ArmazonesEnum.brazo]}
                     control={control}
                     error={errors.brazo}
-                    customWidth={"!h-[2.8vw] !text-[1vw]"}
+                    customWidth={"labelInput inputStyles"}
                     textAlign="text-center"
                   />
               </div>
@@ -413,7 +412,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                     data={data && data[ArmazonesEnum.armazon_uso_id]}
                     control={control}
                     entidad={"ArmazonesUsos"}
-                    customWidth={"!h-[2.8vw] !text-[1vw]"}
+                    customWidth={"labelInput inputStyles"}
                     error={errors.uso}
                   />
               </div>
@@ -425,7 +424,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                     name="stock_minimo"
                     data={data && data[ArmazonesEnum.stock_minimo]}
                     control={control}
-                    customWidth={"!h-[2.8vw] !text-[1vw]"}
+                    customWidth={"labelInput inputStyles"}
                     error={errors.stock_minimo}
                     textAlign="text-right"
                   />
@@ -438,7 +437,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                     name="dp_minima"
                     data={data && data[ArmazonesEnum.dp_minima]}
                     control={control}
-                    customWidth={"!h-[2.8vw] !text-[1vw]"}
+                    customWidth={"labelInput inputStyles"}
                     textAlign="text-center"
                     isOptional={true}
                   />
@@ -451,7 +450,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                     name="dp_maxima"
                     data={data && data[ArmazonesEnum.dp_maxima]}
                     control={control}
-                    customWidth={"!h-[2.8vw] !text-[1vw]"}
+                    customWidth={"labelInput inputStyles"}
                     textAlign="text-center"
                     isOptional={true}
                   />
@@ -460,7 +459,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
             </div>
 
             <div className="w-full flex items-center  h-[5rem] translate-y-[-0.7rem]">
-              <div className="input-container items-center rowForm w-[100%]  ">
+              <div className="input-container items-center rowForm w-[100%] ml-2">
                   <TextInputComponent
                     type="number"
                     label="Cant. Exhibida"
@@ -469,7 +468,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     onlyRead={true}
                     tabIndex={-1}
-                    customWidth={"!h-[2.8vw] !text-[1vw]"}
+                    customWidth={"labelInput inputStyles"}
                     textAlign="text-right"
                   />
               </div>
@@ -484,7 +483,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     onlyRead={true}
                     tabIndex={-1}
-                    customWidth={"!h-[2.8vw] !text-[1vw]"}
+                    customWidth={"labelInput inputStyles"}
                     textAlign="text-right"
                   />
                 </div>
@@ -500,7 +499,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                     data={data && data[ArmazonesEnum.stock_disponible]}
                     control={control}
                     tabIndex={-1}
-                    customWidth={"!h-[2.8vw] !text-[1vw]"}
+                    customWidth={"labelInput inputStyles"}
                     textAlign="text-right"
                   />
                 </div>
@@ -516,7 +515,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     error={errors.codigo_fab}
                     onlyRead={isEditting}
-                    customWidth={"!h-[2.8vw] !text-[1vw]"}
+                    customWidth={"labelInput inputStyles"}
                     isOptional={true}
                   />
                 </div>

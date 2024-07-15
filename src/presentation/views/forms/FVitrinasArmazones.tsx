@@ -264,11 +264,11 @@ const FVitrinasArmazones: React.FC<IUserFormPrps> = React.memo(
     return (
       <div className="useFormContainer centered-div w-[40vw]">
         <div className="userFormBtnCloseContainer">
-          <button onClick={closeModal} className="userFormBtnClose">
+        <h1 className="userFormLabel -translate-x-[1rem]">{label}</h1>
+          <button onClick={closeModal} className="userFormBtnClose mr-4">
             X
           </button>
         </div>
-        <h1 className="userFormLabel">{label}</h1>
 
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
@@ -285,7 +285,7 @@ const FVitrinasArmazones: React.FC<IUserFormPrps> = React.memo(
                     entidad={["/api/vitrinas/", "02"]}
                     error={errors.vitrina}
                     readOnly={isEditting}
-                    customWidth={"!h-[2.8vw] !text-[1vw]"}
+                    customWidth={"labelInput inputStyles"}
                   />
                 </div>
               </div>
@@ -304,13 +304,12 @@ const FVitrinasArmazones: React.FC<IUserFormPrps> = React.memo(
                       inputRef={firstInputRef}
                       onlyRead={isEditting}
                       handleChange={setChangeCodigo}
-                      customWidth={"!h-[3vw] !text-[1vw] !w-[15vw]"}
-
+                      customWidth={"labelInput inputStyles"}
                   />
                 </div>
               </div>
 
-              <div className="input-container items-center rowForm w-[50%] ">
+              <div className="input-container items-center rowForm w-[55%] ">
                 <div className="w-full !ml-[1rem]">
                     <RadioButtonComponent
                     control={control}
@@ -321,7 +320,7 @@ const FVitrinasArmazones: React.FC<IUserFormPrps> = React.memo(
                     error={errors.estado}
                     horizontal={true}
                     labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.4vw]"}
-                    customWidth={"!h-[2.5vw] text-[1vw]"}
+                    customWidth={"labelInput inputStyles"}
                     />
                 </div>
               </div>

@@ -215,11 +215,11 @@ const FMuestrariosArmazonesCopiar: React.FC<IUserFormPrps> = React.memo(
     return (
       <div className="useFormContainer centered-div w-[40vw]">
         <div className="userFormBtnCloseContainer">
-          <button onClick={closeModal} className="userFormBtnClose">
+        <h1 className="userFormLabel -translate-x-[1rem]">{label}</h1>
+          <button onClick={closeModal} className="userFormBtnClose mr-4">
             X
           </button>
         </div>
-        <h1 className="userFormLabel">{label}</h1>
 
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
@@ -231,11 +231,10 @@ const FMuestrariosArmazonesCopiar: React.FC<IUserFormPrps> = React.memo(
                       label="Muestrario Origen"
                       name="origen"
                       showRefresh={true}
-                      // data={data && data[EnumGrid.codigo_proyecto]}
                       control={control}
                       entidad={["/api/muestrarios/", "02"]}
                       error={errors.origen}
-                      customWidth={"!h-[2.8vw] !text-[1vw]"}
+                      customWidth={"labelInput inputStyles"}
                       />
                   </div>
                 </div>
@@ -248,11 +247,10 @@ const FMuestrariosArmazonesCopiar: React.FC<IUserFormPrps> = React.memo(
                       label="Muestrario Destino"
                       name="destino"
                       showRefresh={true}
-                      // data={data && data[EnumGrid.codigo_proyecto]}
                       control={control}
                       entidad={["/api/muestrarios/", "02"]}
                       error={errors.destino}
-                      customWidth={"!h-[2.8vw] !text-[1vw]"}
+                      customWidth={"labelInput inputStyles"}
                       />
                   </div>
                 </div>
