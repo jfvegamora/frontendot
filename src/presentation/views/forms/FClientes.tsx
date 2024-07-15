@@ -322,6 +322,7 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
                     error={errors.rut}
                     inputRef={firstInputRef}
                     onlyRead={isEditting}
+
                   />
                 </div>
 
