@@ -253,7 +253,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
 
 
     return (
-      <div className="useFormContainer centered-div use40rem">
+      <div className="useFormContainer centered-div w-[40vw]">
         <div className="userFormBtnCloseContainer felex">
           <div className="w-[80%] mx-auto !text.center">
             <h1 className="userFormLabel">{label}</h1>
@@ -279,7 +279,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                     error={errors.codigo}
                     inputRef={firstInputRef}
                     onlyRead={isEditting}
-                    customWidth={""}
+                    customWidth={"!h-[2.8vw] !text-[1vw]"}
                   />
               </div>
 
@@ -291,7 +291,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                     data={data && data[ArmazonesEnum.modelo]}
                     control={control}
                     error={errors.modelo}
-                    customWidth={"!w-[]"}
+                    customWidth={"!h-[2.8vw] !text-[1vw]"}
                   />
               </div>
 
@@ -303,12 +303,12 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                     data={data && data[ArmazonesEnum.color]}
                     control={control}
                     error={errors.color}
-                    customWidth={"!w-[]"}
+                    customWidth={"!h-[2.8vw] !text-[1vw]"}
                   />
               </div>
             </div>
 
-            <div className="w-full   flex items-center h-[5rem]">
+            <div className="w-full   flex items-center h-[5rem] ml-4">
               <div className="input-container items-center rowForm w-[33%]  ">
                   <SelectInputTiposComponent
                     label="Tipo"
@@ -319,8 +319,8 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                     entidad={"ArmazonesTipos"}
                     error={errors.tipo}
                     inputRef={secondInputRef}
-                    customWidth={"!w-[100%] ml-[1rem]"}
-                  />
+                    customWidth={"!h-[2.8vw] !text-[1vw]"}
+                    />
               </div>
 
               <div className="input-container items-center rowForm w-[33%]">
@@ -332,8 +332,8 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={["/api/marcas/", "02", "1"]}
                     error={errors.marca}
-                    customWidth={"!w-[100%] ml-[1rem]"}
-                  />
+                    customWidth={"!h-[2.8vw] !text-[1vw]"}
+                    />
               </div>
 
               <div className="input-container items-center rowForm w-[33%]  ">
@@ -345,8 +345,8 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={"ArmazonesMaterial"}
                     error={errors.material}
-                    customWidth={"!w-[100%] ml-[1rem]"}
-                  />
+                    customWidth={"!h-[2.8vw] !text-[1vw]"}
+                    />
               </div>
             </div>
 
@@ -359,7 +359,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                     data={data && data[ArmazonesEnum.aro]}
                     control={control}
                     error={errors.aro}
-                    customWidth={"!w-[100%]"}
+                    customWidth={"!h-[2.8vw] !text-[1vw]"}
                     textAlign="text-center"
                   />
               </div>
@@ -372,7 +372,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                     data={data && data[ArmazonesEnum.puente]}
                     control={control}
                     error={errors.puente}
-                    customWidth={"!w-[100%]"}
+                    customWidth={"!h-[2.8vw] !text-[1vw]"}
                     textAlign="text-center"
                   />
               </div>
@@ -385,7 +385,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                     data={data && data[ArmazonesEnum.diagonal]}
                     control={control}
                     error={errors.diagonal}
-                    customWidth={"!w-[100%]"}
+                    customWidth={"!h-[2.8vw] !text-[1vw]"}
                     textAlign="text-center"
                   />
               </div>
@@ -398,14 +398,14 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                     data={data && data[ArmazonesEnum.brazo]}
                     control={control}
                     error={errors.brazo}
-                    customWidth={"!w-[100%]"}
+                    customWidth={"!h-[2.8vw] !text-[1vw]"}
                     textAlign="text-center"
                   />
               </div>
             </div>
 
             <div className="w-full  flex items-center  h-[5rem] translate-y-[-0.5rem] ">
-              <div className="input-container items-center rowForm w-[100%]  ">
+              <div className="input-container items-center rowForm w-[100%] ml-4  ">
                   <SelectInputTiposComponent
                     label="Uso"
                     name="uso"
@@ -413,19 +413,19 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                     data={data && data[ArmazonesEnum.armazon_uso_id]}
                     control={control}
                     entidad={"ArmazonesUsos"}
-                    customWidth={"!w-[10.5rem] translate-x-[1rem]"}
+                    customWidth={"!h-[2.8vw] !text-[1vw]"}
                     error={errors.uso}
                   />
               </div>
 
-              <div className="input-container items-center rowForm w-[100%]">
+              <div className="input-container items-center rowForm w-[100%] -ml-4">
                   <TextInputComponent
                     type="number"
                     label="Stock Mínimo"
                     name="stock_minimo"
                     data={data && data[ArmazonesEnum.stock_minimo]}
                     control={control}
-                    customWidth={"!w-[9.5rem] translate-x-[-1rem] translate-y-[-0.3rem]"}
+                    customWidth={"!h-[2.8vw] !text-[1vw]"}
                     error={errors.stock_minimo}
                     textAlign="text-right"
                   />
@@ -438,7 +438,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                     name="dp_minima"
                     data={data && data[ArmazonesEnum.dp_minima]}
                     control={control}
-                    customWidth={"!w-[9.5rem] translate-x-[-1.9rem] translate-y-[-0.3rem]"}
+                    customWidth={"!h-[2.8vw] !text-[1vw]"}
                     textAlign="text-center"
                     isOptional={true}
                   />
@@ -451,7 +451,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                     name="dp_maxima"
                     data={data && data[ArmazonesEnum.dp_maxima]}
                     control={control}
-                    customWidth={"!w-[9.5rem] translate-x-[-2.9rem] translate-y-[-0.3rem]"}
+                    customWidth={"!h-[2.8vw] !text-[1vw]"}
                     textAlign="text-center"
                     isOptional={true}
                   />
@@ -469,7 +469,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     onlyRead={true}
                     tabIndex={-1}
-                    customWidth={"!w-[100%]"}
+                    customWidth={"!h-[2.8vw] !text-[1vw]"}
                     textAlign="text-right"
                   />
               </div>
@@ -484,7 +484,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     onlyRead={true}
                     tabIndex={-1}
-                    customWidth={"!w-[100%]"}
+                    customWidth={"!h-[2.8vw] !text-[1vw]"}
                     textAlign="text-right"
                   />
                 </div>
@@ -500,7 +500,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                     data={data && data[ArmazonesEnum.stock_disponible]}
                     control={control}
                     tabIndex={-1}
-                    customWidth={"!w-[100%]"}
+                    customWidth={"!h-[2.8vw] !text-[1vw]"}
                     textAlign="text-right"
                   />
                 </div>
@@ -516,7 +516,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     error={errors.codigo_fab}
                     onlyRead={isEditting}
-                    customWidth={"!w-[100%]"}
+                    customWidth={"!h-[2.8vw] !text-[1vw]"}
                     isOptional={true}
                   />
                 </div>

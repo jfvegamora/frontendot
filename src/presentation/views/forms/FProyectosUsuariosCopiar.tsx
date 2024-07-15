@@ -216,20 +216,20 @@ const FProyectosUsuariosCopiar: React.FC<IUserFormPrps> = React.memo(
     );
 
     return (
-      <div className="useFormContainer centered-div use40rem">
+      <div className="useFormContainer centered-div w-[40vw]">
         <div className="userFormBtnCloseContainer">
+        <h1 className="userFormLabel translate-x-[-20%]">{label}</h1>
           <button onClick={closeModal} className="userFormBtnClose">
             X
           </button>
         </div>
-        <h1 className="userFormLabel">{label}</h1>
 
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
             <div className="w-full flex items-center h-[4rem]">
                 <div className="input-container items-center rowForm w-full">
-                  <div className="w-full">
+                  <div className="w-full ml-10">
                     <SelectInputComponent
                       label="Proyecto Desde"
                       name="origen"
@@ -238,15 +238,15 @@ const FProyectosUsuariosCopiar: React.FC<IUserFormPrps> = React.memo(
                       control={control}
                       entidad={["/api/proyectos/", "02"]}
                       error={errors.origen}
-                      customWidth={"!ml-[1rem] !w-[38rem] "}
-                    />
+                      customWidth={"!h-[2.5vw] text-[1vw] !w-[36vw]"}
+                      />
                   </div>
                 </div>
             </div>
 
             <div className="w-full flex items-center !my-8 h-[4rem]">
                 <div className="input-container items-center rowForm w-full">
-                  <div className="w-full">
+                  <div className="w-full ml-10">
                   <SelectInputComponent
                       label="Copiar hacia"
                       name="destino"
@@ -255,8 +255,8 @@ const FProyectosUsuariosCopiar: React.FC<IUserFormPrps> = React.memo(
                       control={control}
                       entidad={["/api/proyectos/", "02"]}
                       error={errors.destino}
-                      customWidth={"!ml-[1rem] !w-[38rem] "}
-                    />
+                      customWidth={"!h-[2.5vw] text-[1vw] !w-[36vw]"}
+                      />
                   </div>
                 </div>
 

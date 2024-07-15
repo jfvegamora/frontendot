@@ -93,18 +93,38 @@ const MArmazonesKardex: React.FC = () => {
             updateParams={updateParams}
             setEntities={setEntities}
             primaryKeyInputs={[
-              { name: "_p1", label: "Código (?)", type: "text" },
+              { name: "_p1", label: "Código (?)", type: "text", styles:{
+                with: "!h-[2.5vw] !text-[1vw] w-full",
+                container:"!w-[15vw] !text-[2vw] translate-y-[-0.2vw]", 
+                labelProps: "!translate-y-[0.1vw] !text-[1.2vw] !font-[2vw] !z-30"
+              } },
               // { name: "_p5", label: "Código FAB", type: "text" },
               {
                 name: "_p4",
                 label: "Almacenes",
                 type: "select",
-                selectUrl: "/api/almacenes/", styles:{with:" !w-[26rem]"},
+                selectUrl: "/api/almacenes/", 
+                styles:{
+                  styles:"!h-[2.5vw] text-[1vw]",
+                  container:"!w-[40vw]  text-[1vw]  translate-y-[0.3rem] translate-x-[1vw] ", 
+                  labelProps: "!translate-y-[-2vh] !text-[1vw] !font-[2vw]"
+                },
                 _p1: "1"
               },
-              { name: "_p2", label: "Desde", type: "date" },
-              { name: "_p3", label: "Hasta", type: "date", styles:{with:" !ml-[1rem]"}},
+              { name: "_p2", label: "Desde", type: "date", styles:{
+                styles:"!h-[2.5vw] text-[1vw]",
+                container:"!w-[13vw]  text-[1vw]  translate-y-[0.3rem] translate-x-[4vw] ", 
+                labelProps: "!translate-y-[-2vh] !text-[1vw] !font-[2vw]"
+              } },
+              { name: "_p3", label: "Hasta", type: "date", styles:
+                {
+                  styles:"!h-[2.5vw] text-[1vw]",
+                  container:"!w-[13vw]  text-[1vw]  translate-y-[0.3rem] translate-x-[1vw] ", 
+                  labelProps: "!translate-y-[-2vh] !text-[1vw] !font-[2vw]"
+                }},
             ]}
+            classNameSearchButton=" translate-x-[3vw]  translate-y-[0.3rem]"
+
           />
         </div>
 
@@ -148,7 +168,7 @@ const MArmazonesKardex: React.FC = () => {
         />
       </div>
 
-
+ 
 
       {isModalInsert && (
         <FArmazonesKardexIN

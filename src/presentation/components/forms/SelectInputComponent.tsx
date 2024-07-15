@@ -175,7 +175,10 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
    },[resetFilters.value])
 
 
-
+   if(name === 'Tipo Doc'){
+    console.log('renderB')
+    console.log(customWidth)
+  }
 
 
     const renderInput = () => (
@@ -185,7 +188,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
           defaultValue={strSelectedName}
           render={({ field }) => (
             <div className={`custom-select border-[0.5px] h-[2.8vw]   rounded-lg  ${error ? 'border-red-500' : ' border-[#e6843a]'}  `}>
-                <div className={`${labelContainer ? labelContainer : ""} w-full h-4 -top-[0.8vw] absolute left-2 bg-white`}>
+                <div className={`${labelContainer ? labelContainer : ""} w-1/2  h-2 -top-[0.3vw]  absolute left-2`}>
                   <label htmlFor={label} className={`  ${labelProps ? labelProps : "  !translate-y-[-1.2vh] !text-[1vw] !font-[1vw]"}  !translate-y-[-0.8vw] translate-x-3`}>
                     {label}
                   </label>
@@ -229,7 +232,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
                 }}
                 style={{}}
                 // className={`${className ? className : "custom-input py-2  cursor-pointer z-0"}  ${readOnly ? "custom-onlyread" : isOptional ? "custom-optional" : "custom-required"}`}>
-                className={` ${customWidth ? customWidth : " custom-input   cursor-pointer "} ${readOnly ? "custom-onlyread" : isOptional ? "custom-optional-with-color" : "custom-required"}`}>
+                className={` pt-3 ${customWidth ? customWidth : " custom-input   cursor-pointer "} ${readOnly ? "custom-onlyread" : isOptional ? "custom-optional-with-color" : "custom-required"}`}>
 
                  {/* className={`${className ? className : "custom-input py-2  cursor-pointer z-0"}  ${readOnly ? "custom-onlyread" : ""} ${isOptional ? "custom-optional" : "custom-required" } `}>  */}
 
@@ -272,9 +275,10 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     }, [data]);
 
 
+
     return (
       // <div className="flex min-w-[100%] w-full items-center mx-4 mt-select mt-select-dropdown-up cursor-pointer">
-      <div className={`flex items-center mt-select mt-select-dropdown-up cursor-pointer ${customWidth ? customWidth : "w-[19.2rem]"}`}>
+      <div className={`flex items-center relative mt-select mt-select-dropdown-up cursor-pointer ${customWidth ? customWidth : "w-[19.2rem]"}`}>
         {/* <label className="label-input w-1/3">{label}</label> */}
         {renderInput()}
         {/* Controller  */}

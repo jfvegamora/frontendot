@@ -135,7 +135,6 @@ const FOTReceta:React.FC<IReceta> = ({
                         onlyRead={isEditting}
                         isOptional={true}
                         textAlign="text-center"
-                        labelProps={"!translate-y-[-1.5vw] !text-[1.4vw]"}
                         customWidth={"!h-[2.5vw] !text-[1vw]"}
                         />
                 </div>
@@ -152,7 +151,6 @@ const FOTReceta:React.FC<IReceta> = ({
                         onlyRead={isEditting}
                         isOptional={true}
                         textAlign="text-center"
-                        labelProps={"!translate-y-[-1.5vw] !text-[1.4vw]"}
                         customWidth={"!h-[2.5vw] !text-[1vw]"}
                         />
                 </div>
@@ -182,7 +180,7 @@ const FOTReceta:React.FC<IReceta> = ({
 
             <div className="w-full flex items-center rowForm !h-[9vw] relative  translate-y-11 ">
                 <label className='labelAnteojo !text-[1.9vw] -translate-y-11'>ANTEOJO 1</label>
-                <div className=" w-[43vw] items-center rowForm !mt-[-10rem] !h-[8rem]  ">
+                <div className=" w-[43vw] items-center rowForm  !h-[8rem]  ">
                     <div className="w-[90%] mx-auto flex items-center h-[9rem] relative labelForm  rounded-lg border radioComponent">
                         <label className='labelForm w-[40%] absolute z-10 text-center -top-14 left-[30%] text-[2vw]'>OD</label>
                         <div className="w-[10vw]">
@@ -328,7 +326,6 @@ const FOTReceta:React.FC<IReceta> = ({
                             isOT={true}
                             onlyRead={!(!isEditting || (permiso_usuario_receta && permiso_areas_receta))}
                             textAlign="text-center"
-                            labelProps={"!translate-y-[-1.5vw] !text-[1.4vw]"}
                             customWidth={"!h-[2.5vw] !text-[1.4vw]"}
                             />
                     </div>
@@ -343,16 +340,15 @@ const FOTReceta:React.FC<IReceta> = ({
                             isOT={true}
                             onlyRead={!(deshabilitarCampo.value.a1_alt && (!isEditting || (permiso_usuario_receta && permiso_areas_receta)))}
                             textAlign="text-center"
-                            labelProps={"!translate-y-[-1.5vw] !text-[1.4vw]"}
                             customWidth={"!h-[2.5vw] !text-[1.4vw]"}
                             />
                     </div>
                 </div>
             </div>
 
-            <div className="w-full flex items-center rowForm translate-y-40 !h-[9vw] relative ">
+            <div className="w-full flex items-center rowForm translate-y-32 !h-[9vw] relative">
                 <label className='absolute z-10 top-[-10%] w-[15%] left-[36%] text-center text-[2vw] -translate-y-8'>ANTEOJO 2</label>
-                <div className=" w-[43%] items-center  !mt-[-4rem] !h-[8rem] rowForm ">
+                <div className=" w-[43%] items-center  !h-[8rem] rowForm ">
                     <div className="w-[90%] mx-auto flex items-center  !h-[8rem] relative labelForm  rounded-lg border radioComponent">
                     <label className='labelForm w-[40%] absolute z-10 text-center -top-14 left-[30%] text-[2vw]'>OD</label>
                     <div className="w-[25%]">
@@ -467,7 +463,6 @@ const FOTReceta:React.FC<IReceta> = ({
                                 textAlign="text-center"
                                 // onlyRead={!(deshabilitarCampo.value.a2_dp && (!isEditting || (permiso_usuario_receta && permiso_areas_receta)) )}
                                 onlyRead={!(deshabilitarCampo.value.a2_dp && (!isEditting || (permiso_usuario_receta && permiso_areas_receta)))}
-                                labelProps={"!translate-y-[-1.5vw] !text-[1.4vw]"}
                                 customWidth={"!h-[2.5vw] !text-[1.4vw]"}
                                 // error={errors.fecha_nacimiento}
                             />
@@ -475,7 +470,7 @@ const FOTReceta:React.FC<IReceta> = ({
                 </div>
             </div>
 
-            <div className="w-full flex items-center rowForm !h-[3rem] relative  translate-y-52">
+            <div className="w-full flex items-center rowForm !h-[3rem] relative  translate-y-40">
                 <div className="w-[104%] ml-2">
                     <TextInputInteractive
                         type="text"
@@ -487,7 +482,6 @@ const FOTReceta:React.FC<IReceta> = ({
                         // onlyRead={isEditting}
                         isOptional={true}
                         isOT={true}
-                        labelProps={"!translate-y-[-1.8vw] !text-[1.4vw]"}
                         customWidth={"!h-[2.5vw] !text-[1vw]"}
                         />
                 </div>

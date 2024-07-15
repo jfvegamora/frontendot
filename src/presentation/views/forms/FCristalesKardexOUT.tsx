@@ -309,7 +309,7 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
     }, []);
 
     return (
-      <div className="useFormContainer centered-div use30rem">
+      <div className="useFormContainer centered-div w-[30vw]">
         <div className="userFormBtnCloseContainer">
           <button onClick={closeModal} className="userFormBtnClose">
             X
@@ -332,7 +332,7 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
                     error={errors.insumo}
                     inputRef={firstInputRef}
                     onlyRead={isEditting}
-                    customWidth={""}
+                    customWidth={"!h-[3vw] !text-[1vw]"}
                   />
                 </div>
               </div>
@@ -347,7 +347,7 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     error={errors.fecha}
                     onlyRead={isEditting}
-                    customWidth={" "}
+                    customWidth={"!h-[3vw] !text-[1vw]"}
                     textAlign="text-center"
                   />
                 </div>
@@ -356,7 +356,7 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
 
             <div className="w-full flex items-center h-[4rem]">
               <div className="input-container items-center rowForm w-[100%]  ">
-                <div className="w-full">
+                <div className="w-full ml-4">
                   <SelectInputComponent
                     label="Motivo Egreso"
                     name="motivo_egreso"
@@ -365,7 +365,7 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={["/api/kardexmotivos/", "02"]}
                     error={errors.motivo_egreso}
-                    customWidth={"!ml-[1rem] w-full"}
+                    customWidth={"!h-[2.5vw] text-[1vw] !w-[17vw]"}
                   />
                 </div>
               </div>
@@ -381,7 +381,7 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
                     data={data && data[EnumGrid.salidas]}
                     control={control}
                     error={errors.cantidad}
-                    textAlign="text-right"
+                    customWidth={"!h-[3vw] !text-[1vw]"}
                   />
                 </div>
               </div>
@@ -396,7 +396,7 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     error={errors.ot}
                     isOptional={true}
-                    textAlign="text-right"
+                    customWidth={"!h-[3vw] !text-[1vw]"}
                   />
                 </div>
               </div>
@@ -404,7 +404,7 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
 
             <div className="w-full flex items-center h-[4rem]">
               <div className="input-container items-center rowForm w-[100%]  ">
-                <div className="w-full">
+                <div className="w-full ml-4">
                   <SelectInputComponent
                     label="Almacén"
                     name="almacen"
@@ -413,7 +413,7 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={["/api/almacenes/", "02", `2&_p2=${userState.id}`]}
                     error={errors.almacen}
-                    customWidth={"!ml-[1rem] w-full"}
+                    customWidth={"!h-[2.5vw] text-[1vw] !w-[17vw]"}
                   />
                 </div>
               </div>
@@ -421,7 +421,7 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
 
             <div className="w-full flex items-center h-[4rem]">
               <div className="input-container items-center rowForm w-[100%]  ">
-                <div className="w-full">
+                <div className="w-full ml-4">
                   <SelectInputComponent
                     label="Almacén Destino"
                     name="almacen_relacionado"
@@ -430,7 +430,7 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={["/api/almacenes/", "02", "2"]}
                     error={errors.almacen_relacionado}
-                    customWidth={"!ml-[1rem] w-full"}
+                    customWidth={"!h-[2.5vw] text-[1vw] !w-[17vw]"}
                     isOptional={true}
                   />
                 </div>
@@ -447,7 +447,7 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
                     data={data && data[EnumGrid.observaciones]}
                     control={control}
                     error={errors.observaciones}
-                    customWidth={"w-[17rem]"}
+                    customWidth={"!h-[3vw] !text-[1vw]"}
                     isOptional={true}
                   />
                 </div>
@@ -461,6 +461,8 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
                     name="ubicacion"
                     control={control}
                     isOptional={true}
+                    customWidth={"!h-[3vw] !text-[1vw]"}
+
                   />
                 </div>
               </div>

@@ -68,43 +68,79 @@ const MReservaArmazones: React.FC = () => {
   
     return (
       <div className="mantenedorContainer">
-        <div className="mantenedorHead width100">
-          <div className="w-[90%]">
+        <div className="mantenedorHead width100 !h-[9rem]">
+          <div className="w-[90%] -mt-10">
             <PrimaryKeySearch
               baseUrl={strBaseUrl}
               setParams={setParams}
               updateParams={updateParams}
               setEntities={setEntities}
               primaryKeyInputs={[
-                { name: "_p5", label: "Armazon", type: "text", styles:{with:" !w-[9rem]"}},
+                { name: "_p5", label: "Armazon", type: "text", 
+                  styles:{
+                    with: "!h-[2.5vw] !text-[1vw] w-full",
+                    container:"w-[10vw] !text-[2vw] -translate-y-[0.3rem]", 
+                    labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+                  }
+                },
                 {
                     name: "_p2",
                     label: "Proyecto",
                     type: "select",
-                    selectUrl: "/api/proyectos/", styles:{with:" !w-[20rem] translate-x-[1rem] translate-y-[0.3rem]"},
+                    selectUrl: "/api/proyectos/", 
+                    styles:{
+                      styles:"!h-[2.5vw] text-[1vw] w-full",
+                      container:"!w-[35vw]  text-[1vw] translate-y-[4vw] translate-x-[-10vw]", 
+                      labelProps: "!translate-y-[-3vh] !text-[1.2vw] !font-[2vw]"
+                    },
                 },
-                { name: "_p1", label: "RUT Benef.", type: "text", styles:{with:" !w-[7rem] translate-x-[0.1rem]"}},
+                { name: "_p1", label: "RUT Benef.", type: "text", 
+                  styles:{
+                    with: "!h-[2.5vw] !text-[1vw] w-full",
+                    container:"w-[10vw] !text-[2vw] -translate-y-[0.3rem] translate-x-[-15vw]", 
+                    labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+                  }},
                 {
                     name: "_p3",
                     label: "Punto Venta",
                     type: "select",
-                    selectUrl: "/api/puntosventa/", styles:{with:" !w-[14rem] translate-x-[2rem] translate-y-[0.3rem]"},
+                    selectUrl: "/api/puntosventa/", 
+                    styles:{
+                      styles:"!h-[2.5vw] text-[1vw] !w-[33vw]",
+                      container:"!w-[33vw]  text-[1vw] translate-x-[-13vw]", 
+                      labelProps: "!translate-y-[-2vh] !text-[1.2vw] !font-[2vw]"
+                    },
                 },
                 {
                     name: "_p4",
                     label: "Asesor Óptico",
                     type: "select",
-                    selectUrl: "/api/usuarios/", styles:{with:" !w-[12rem] translate-x-[2rem] translate-y-[0.3rem]"},
+                    selectUrl: "/api/usuarios/", 
+                    styles:{
+                      styles:"!h-[2.5vw] text-[1vw] w-full",
+                      container:"!w-[35vw]  text-[1vw] translate-x-[-14vw]", 
+                      labelProps: "!translate-y-[-2vh] !text-[1vw] !font-[2vw]"
+                    },
                 },
-                { name: "_p6", label: "Desde", type: "date", styles:{with:" !ml-[1rem]"}},
-                { name: "_p7", label: "Hasta", type: "date", styles:{with:" !ml-[1rem]"}},
+                { name: "_p6", label: "Desde", type: "date", 
+                  styles:{
+                    styles:"!h-[2.5vw] text-[1vw] w-full",
+                      container:"!w-[10vw]  text-[1vw] translate-x-[-15vw]", 
+                      labelProps: "!translate-y-[-2vh] !text-[1vw] !font-[2vw]"
+                  }},
+                { name: "_p7", label: "Hasta", type: "date", 
+                  styles:{
+                    styles:"!h-[2.5vw] text-[1vw] w-full",
+                    container:"!w-[10vw]  text-[1vw] translate-x-[-4vw]", 
+                    labelProps: "!translate-y-[-2vh] !text-[1vw] !font-[2vw]"
+                  }},
 
               ]}
-              classNameSearchButton=" translate-x-[4rem]"
+              classNameSearchButton=" translate-x-[-13rem] translate-y-[3.5vw]"
               />
           </div>
   
-            <div className="w-[19rem] ">
+            <div className="w-[19rem] translate-y-[2rem]">
                 <PrimaryButtonsComponent
                     handleAddPerson={openModal}
                     handleDeleteSelected={handleDeleteSelected}

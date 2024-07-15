@@ -192,7 +192,7 @@ const FFuncionalidad: React.FC<IFormProps> = React.memo(
     }, []);
 
     return (
-      <div className="useFormContainer centered-div use30rem">
+      <div className="useFormContainer centered-div w-[32vw]">
         <div className="userFormBtnCloseContainer flex">
           <div className="w-[80%] mx-auto !text.center">
             <h1 className="userFormLabel">{label}</h1>
@@ -220,6 +220,7 @@ const FFuncionalidad: React.FC<IFormProps> = React.memo(
                     control={control}
                     error={errors.descripcion}
                     inputRef={firstInputRef}
+                    customWidth={"!h-[3vw] !text-[1vw] !w-[29vw]"}
                     />
                 </div>
               </div>

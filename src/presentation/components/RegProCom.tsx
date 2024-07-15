@@ -91,7 +91,7 @@ console.log(defaultComuna)
 
   return (
     <div className='w-full pb-2 items-center '>
-        <div className="w-[93%] mb-4">
+        <div className="w-[93%] mb-4 ">
             <Controller
                 name="cliente_region_id"
                 control={control}
@@ -106,7 +106,7 @@ console.log(defaultComuna)
                             tabIndex  ={tabIndex || 1}
                             disabled={onlyRead}
                             // className="custom-input py-2 px-3 cursor-pointer z-0 text-center "
-                            className={`${className ? className : "custom-input py-2  cursor-pointer z-0"}  ${onlyRead ? "custom-onlyread" : isOptional ? "custom-optional" : "custom-required"}`}
+                            className={`!h-[4vw] ${className ? className : "custom-input py-2  cursor-pointer z-0"}  ${onlyRead ? "custom-onlyread" : isOptional ? "custom-optional" : "custom-required"}`}
 
                             >
                                 {!Regiones && (
@@ -140,7 +140,7 @@ console.log(defaultComuna)
                             
                             onChange={handleProvinceChange}
                             tabIndex  ={tabIndex || 1}
-                            className={`${className ? className : "custom-input py-2  cursor-pointer z-0"}  ${onlyRead ? "custom-onlyread" : isOptional ? "custom-optional" : "custom-required"}`}
+                            className={`!h-[4vw] ${className ? className : "custom-input py-2  cursor-pointer z-0"}  ${onlyRead ? "custom-onlyread" : isOptional ? "custom-optional" : "custom-required"}`}
 
                             >
                                 {/* <option value={0}>Provincia</option> */}
@@ -188,7 +188,7 @@ console.log(defaultComuna)
                             onChange={handleCommuneChange}
                             tabIndex  ={tabIndex || 1}
                             // className="custom-input py-2 px-3 cursor-pointer z-0 "
-                            className={`${className ? className : "custom-input py-2  cursor-pointer z-0"}  ${onlyRead ? "custom-onlyread" : isOptional ? "custom-optional" : "custom-required"}`}
+                            className={`!h-[4vw] ${className ? className : "custom-input py-2  cursor-pointer z-0"}  ${onlyRead ? "custom-onlyread" : isOptional ? "custom-optional" : "custom-required"}`}
 
                             >
                                 {/* <option value={defaultComuna ? defaultComuna : 0}>Comuna</option> */}

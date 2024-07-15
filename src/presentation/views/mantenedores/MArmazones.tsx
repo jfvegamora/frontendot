@@ -70,29 +70,42 @@ const MArmazones: React.FC = () => {
 
   return (
     <div className="mantenedorContainer">
-      <div className="mantenedorHead width100 !h-[9rem]">
-      <div className="w-[80%] ">
+      <div className="mantenedorHead width100 !h-[9.5rem]">
+      <div className="w-[80%] translate-y-[-1.8vw] ">
         <PrimaryKeySearch
           baseUrl={strBaseUrl}
           setParams={setParams}
           updateParams={updateParams}
           setEntities={setEntities}
           primaryKeyInputs={[
-            { name: "_p1", label: "Código/Modelo/Color", type: "text", styles:{with:"!w-[11rem]", container:"translate-y-[-2rem]"} },
-            // { name: "_p5", label: "Código FAB", type: "text", styles:{with:"!w-[9rem]"} },
-            // { name: "_p2", label: "Modelo", type: "text", styles:{with:"!w-[9rem]"} },
+            { name: "_p1", label: "Código/Modelo/Color", type: "text", 
+              styles:{
+                styles:"!h-[2.5vw] text-[1vw]",
+                container:"!w-[15vw]  text-[1vw] translate-y-[3.5vw] translate-x-[-1vw] ", 
+                labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+              } },
             {
               name: "_p2",
               label: "Tipo",
               type: "select",
               selectUrl: "/api/tipos/",
-              tipos: "ArmazonesTipos", styles:{with:"!w-[12rem]", container:"translate-y-[-1.4rem] translate-x-[1rem]"},
+              tipos: "ArmazonesTipos", 
+              styles:{
+                styles:"!h-[2.5vw] text-[1vw] w-full",
+                container:"!w-[20vw]  text-[1vw] translate-x-[-15.9vw] translate-y-[18%] ", 
+              labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+              },
             },
             {
               name: "_p3",
               label: "Marca",
               type: "select",
-              selectUrl: "/api/marcas/", styles:{with:"!w-[14rem]",container:"translate-y-[-1.7rem]"},
+              selectUrl: "/api/marcas/", 
+              styles:{
+                styles:"!h-[2.5vw] text-[1vw] w-full",
+                container:"!w-[20vw]  text-[1vw] translate-x-[-17vw] translate-y-[18%] ", 
+              labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+              },
               _p1: "1"
             },
             {
@@ -100,13 +113,23 @@ const MArmazones: React.FC = () => {
               label: "Material",
               type: "select",
               selectUrl: "/api/tipos/",
-              tipos: "ArmazonesMaterial", styles:{with:"!w-[14rem]", container:"translate-y-[-1.3rem] translate-x-[-1rem]"},
+              tipos: "ArmazonesMaterial", 
+              styles:{
+                styles:"!h-[2.5vw] text-[1vw] w-full",
+                container:"!w-[20vw]  text-[1vw] translate-x-[-18vw] translate-y-[18%] ", 
+              labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+              },
             },
             {
               name: "_p4",
               label: "Almacén",
               type: "select",
-              selectUrl: "/api/almacenes/", styles:{with:"!w-[25rem]", container:"translate-x-[-2rem] translate-y-[-1.7rem]"},
+              selectUrl: "/api/almacenes/", 
+              styles:{
+                styles:"!h-[2.5vw] text-[1vw] w-full",
+                container:"!w-[20vw]  text-[1vw] translate-x-[-19vw] translate-y-[18%] ", 
+              labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+              },
               _p1: "1"
             },
             {
@@ -114,10 +137,15 @@ const MArmazones: React.FC = () => {
               label: "Stock",
               type: "select",
               selectUrl: "/api/tipos/",
-              tipos: "Stock", styles:{with:"!w-[14rem]", container:"translate-x-[-3rem] translate-y-[-1.3rem]"},
+              tipos: "Stock", 
+              styles:{
+                styles:"!h-[2.5vw] text-[1vw] w-full",
+                container:"!w-[20vw]  text-[1vw] translate-x-[-17vw] translate-y-[18%] ", 
+              labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+              },
             },
     ]}
-     classNameSearchButton=" translate-x-[-4.5rem]  translate-y-[2.3rem]"
+     classNameSearchButton=" translate-x-[-5vw]  !translate-y-[4.5rem]"
         />
       </div>
 
@@ -163,6 +191,7 @@ const MArmazones: React.FC = () => {
         />
       </div>
 
+     
       <Suspense>
         {isModalInsert && (
           <FArmazones
@@ -175,6 +204,7 @@ const MArmazones: React.FC = () => {
             escritura_lectura={escritura_lectura}
           />
         )}
+      
 
         {isModalEdit && (
           <FArmazones

@@ -249,7 +249,7 @@ const FMandantes: React.FC<IUserFormPrps> = React.memo(
     // console.log('data', data)
     console.log(errors && errors)
     return (
-      <div className="useFormContainer centered-div use30rem">
+      <div className="useFormContainer centered-div w-[30vw]">
         <div className="userFormBtnCloseContainer">
           <div className="w-[80%] mx-auto !text.center">
               <h1 className="userFormLabel">{label}</h1>
@@ -262,8 +262,8 @@ const FMandantes: React.FC<IUserFormPrps> = React.memo(
 
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
-          <div className="userFormularioContainer h-[50vh]">
-            <div className="w-full flex items-center h-[3.5rem]">
+          <div className="userFormularioContainer h-[25vw]">
+            <div className="w-[29vw] flex items-center h-[4vw]">
               <div className="input-container items-center rowForm w-full">
                   <div className="w-full">
                     <TextInputComponent
@@ -275,11 +275,13 @@ const FMandantes: React.FC<IUserFormPrps> = React.memo(
                       error={errors.codigo}
                       inputRef={firstInputRef}
                       onlyRead={isEditting}
+                      customWidth={"!h-[3vw] !text-[1vw] !w-[28vw]"}
+
                     />
                   </div>
               </div>
             </div>
-            <div className="w-full flex items-center h-[3rem]">
+            <div className="w-full flex items-center h-[3vw]">
               <div className="input-container items-center rowForm w-full">
                   <div className="w-full">
                     <TextInputComponent
@@ -289,11 +291,12 @@ const FMandantes: React.FC<IUserFormPrps> = React.memo(
                       data={data && data[EnumGrid.rut]}
                       control={control}
                       error={errors.rut}
+                      customWidth={"!h-[3vw] !text-[1vw] !w-[28vw]"}
                     />
                   </div>
               </div>
             </div>
-            <div className="w-full flex items-center h-[4rem]">
+            <div className="w-full flex items-center h-[3vw]">
               <div className="input-container items-center rowForm w-full">
                   <div className="w-full">
                     <TextInputComponent
@@ -303,12 +306,13 @@ const FMandantes: React.FC<IUserFormPrps> = React.memo(
                       data={data && data[EnumGrid.nombre]}
                       control={control}
                       error={errors.nombre}
+                      customWidth={"!h-[3vw] !text-[1vw] !w-[28vw]"}
                     />
                   </div>
               </div>
             </div>
 
-            <div className="w-full flex items-center !mt-[-0.5rem] h-[4rem]">
+            <div className="w-full flex items-center translate-y-[4.5vw] h-[4rem]">
               <div className="input-container items-center rowForm w-full" >
                   <div className="w-full">
                       <RegProCom

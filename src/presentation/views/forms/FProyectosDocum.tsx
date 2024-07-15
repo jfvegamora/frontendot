@@ -275,7 +275,7 @@ const FProyectosDocum: React.FC<IUserFormPrps> = React.memo(
     const fechaFormateada = fechaHoraActual.toISOString().split('T')[0];
 
     return (
-      <div className="useFormContainer centered-div use30rem">
+      <div className="useFormContainer centered-div w-[30vw]">
         <div className="userFormBtnCloseContainer flex">
            <div className="w-[80%] mx-auto  !text.center">
               <h1 className="userFormLabel ">{label}</h1>
@@ -287,9 +287,9 @@ const FProyectosDocum: React.FC<IUserFormPrps> = React.memo(
 
         <form onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
-            <div className="w-full flex items-center h-[4rem]">
-              <div className="input-container items-center rowForm  w-[100%] ">
-                <div className="w-full !mt-4">
+            <div className="w-[30vw] flex items-center h-[4vw]">
+              <div className="input-container items-center rowForm  w-[30vw]">
+                <div className=" !mt-4 ml-8">
                   <SelectInputComponent
                     label="Proyecto"
                     name="proyecto"
@@ -300,15 +300,16 @@ const FProyectosDocum: React.FC<IUserFormPrps> = React.memo(
                     entidad={["/api/proyectos/", "02"]}
                     error={errors.proyecto}
                     readOnly={isEditting}
-                    customWidth={"!ml-[1rem] !w-[28rem]"}
+                    customWidth={"!h-[2.5vw] text-[1vw] !w-[29vw]"}
+
                   />
                 </div>
               </div>
             </div>
 
-            <div className="w-full flex items-center h-[4rem]">
-              <div className="input-container items-center rowForm  w-[50%] ">
-                <div className="w-full !mt-4">
+            <div className="w-[15vw] flex items-center h-[4vw]">
+              <div className="input-container items-center rowForm  w-[15vw] ">
+                <div className="!mt-4 ml-8">
                 <SelectInputTiposComponent
                   label="Tipo Doc"
                   name="tipo_doc"
@@ -316,13 +317,14 @@ const FProyectosDocum: React.FC<IUserFormPrps> = React.memo(
                   data={data && data[ProyectosDocumEnum.tipo_doc_id]}
                   control={control}
                   entidad={["TipoDoc", "6,7"]}
-                  customWidth={"!ml-[1rem] !w-[]"}
                   error={errors.tipo_doc}
+                  customWidth={"!h-[2.5vw] text-[1vw] !w-[15vw]"}
+
                 />
                 </div>
               </div>
-              <div className="input-container items-center rowForm  w-[50%]">
-                <div className="w-full !mt-4">
+              <div className="input-container items-center rowForm  w-[15vw]">
+                <div className=" !mt-4">
                 <TextInputComponent
                   type="number"
                   label="Número"
@@ -331,14 +333,15 @@ const FProyectosDocum: React.FC<IUserFormPrps> = React.memo(
                   control={control}
                   error={errors.numero_doc}
                   textAlign="text-right"
+                  customWidth={"!h-[3vw] !text-[1vw] !w-[12vw]"}
                   />
               </div>
               </div>
             </div>
 
-            <div className="w-full flex items-center h-[4rem]">
-              <div className="input-container items-center rowForm  w-[50%] ">
-                <div className="w-full !mt-4">
+            <div className="w-[13vw] flex items-center h-[4vw]">
+              <div className="input-container items-center rowForm  w-[13vw] ">
+                <div className="!mt-4 ml-4">
                   <TextInputComponent
                     // type={isEditting ? "datetime" : "date"}
                     type={"date"}
@@ -347,13 +350,13 @@ const FProyectosDocum: React.FC<IUserFormPrps> = React.memo(
                     data={fechaFormateada ? fechaFormateada : data && data[ProyectosDocumEnum.fecha_doc]}
                     control={control}
                     error={errors.fecha_doc}
-                    customWidth={"!mr-[1rem] w-[12rem]"}
                     textAlign="text-center"
+                    customWidth={"!h-[3vw] !text-[1vw] !w-[12.8vw]"}
                   />
                 </div>
               </div>
-              <div className="input-container items-center rowForm  w-[50%]">
-                <div className="w-full !mt-4">
+              <div className="input-container items-center rowForm  w-[13vw]">
+                <div className="!mt-4 ml-8">
                   <TextInputComponent
                     type="number"
                     label="Neto $"
@@ -362,14 +365,15 @@ const FProyectosDocum: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     error={errors.total_neto}
                     textAlign="text-right"
+                    customWidth={"!h-[3vw] !text-[1vw] !w-[12vw]"}
                     />
                 </div>
               </div>
             </div>
 
-            <div className="w-full flex items-center h-[4rem]">
-              <div className="input-container items-center rowForm  w-[50%] ">
-                <div className="w-full !mt-4">
+            <div className="w-[15vw] flex items-center h-[4vw]">
+              <div className="input-container items-center rowForm  w-[15vw] ">
+                <div className="!mt-4 ml-8">
                 <SelectInputTiposComponent
                   label="Tipo Doc Referenciado"
                   name="tipo_doc_ref"
@@ -377,13 +381,13 @@ const FProyectosDocum: React.FC<IUserFormPrps> = React.memo(
                   data={data && data[ProyectosDocumEnum.tipo_doc_ref_id]}
                   control={control}
                   entidad={["TipoDoc", "5,6,7"]}
-                  customWidth={"!ml-[1rem] !w-[]"}
+                  customWidth={"!h-[2.5vw] text-[1vw] !w-[15vw]"}
                   error={errors.tipo_doc}
                 />
                 </div>
               </div>
-              <div className="input-container items-center rowForm  w-[50%]">
-                <div className="w-full !mt-4">
+              <div className="input-container items-center rowForm  w-[15vw]">
+                <div className="!mt-4">
                 <TextInputComponent
                   type="number"
                   label="Número Referenciado"
@@ -392,14 +396,16 @@ const FProyectosDocum: React.FC<IUserFormPrps> = React.memo(
                   control={control}
                   error={errors.numero_doc}
                   textAlign="text-right"
+                  customWidth={"!h-[3vw] !text-[1vw] !w-[12vw]"}
+
                 />
               </div>
               </div>
             </div>
 
-            <div className="!pt-[1rem] h-[4rem]">
-              <div className="input-container items-center rowForm w-full flex">
-                <div className="w-full ">
+            <div className="!pt-[1rem] h-[4vw]">
+              <div className="input-container items-center rowForm w-[27vw] flex">
+                <div className="w-full ml-4 ">
                   <TextInputComponent
                     type="text"
                     label="Observaciones"
@@ -408,6 +414,8 @@ const FProyectosDocum: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     error={errors.observaciones}
                     isOptional={true}
+                    customWidth={"!h-[3vw] !text-[1vw] !w-[26.5vw]"}
+
                   />
                 </div>
               </div>
@@ -415,7 +423,7 @@ const FProyectosDocum: React.FC<IUserFormPrps> = React.memo(
           </div>
 
           <div className="w-full">
-            <div className="w-[70%] mx-auto">
+            <div className="w-[70%] mx-auto mt-8">
               {escritura_lectura && (
                 <Button type="submit" tabIndex={1} className="userFormBtnSubmit">
                   {`${TITLES.guardar}`}

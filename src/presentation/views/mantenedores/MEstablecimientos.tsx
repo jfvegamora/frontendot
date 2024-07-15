@@ -84,21 +84,30 @@ const MEstablecimientos: React.FC = () => {
   return (
     <div className="mantenedorContainer">
       <div className="mantenedorHead width100">
-        <div className="w-[70%]">
+        <div className="w-[70%] h-[7vw]">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
             setParams={setParams}
             updateParams={updateParams}
             setEntities={setEntities}
             primaryKeyInputs={[
-              { name: "_p1", label: "RBD/Nombre", type: "text", styles: { with: "!w-[8rem]" }, },
+              { name: "_p1", label: "RBD/Nombre", type: "text", 
+                styles: { 
+                  with: "!h-[2.5vw] !text-[1vw] w-full",
+                  container:"w-[15vw] !text-[2vw] translate-y-[-0.2vw]", 
+                  labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+                }, },
               // { name: "_p1", label: "Establecimiento", type: "text", styles: { with: "!w-[12rem]" }, },
               {
                 name: "_p2",
                 label: "Mandante",
                 type: "select",
                 selectUrl: "/api/mandantes/",
-                styles: { with: "!w-[12rem] !ml-[-0.3rem]" },
+                styles: { 
+                  styles:"!h-[2.5vw] text-[1vw] w-full",
+                  container:"!w-[20vw]  text-[1vw] translate-x-[0.5vw]", 
+                  labelProps: "!translate-y-[-3vh] !text-[1.2vw] !font-[2vw]"
+                },
               },
               {
                 name      : "_p3",
@@ -106,7 +115,11 @@ const MEstablecimientos: React.FC = () => {
                 type      : "select",
                 selectUrl : "/api/tipos/",
                 tipos     : "EstablecimientosTipos",
-                styles: { with: "!w-[12rem]" },
+                styles: { 
+                  styles:"!h-[2.5vw] text-[1vw] w-full",
+                  container:"!w-[15vw]  text-[1vw] translate-x-[1.7vw]", 
+                  labelProps: "!translate-y-[-3vh] !text-[1.2vw] !font-[2vw]"
+                },
               },
               {
                 name      : "_p4",
@@ -114,7 +127,11 @@ const MEstablecimientos: React.FC = () => {
                 type      : "select",
                 selectUrl : "/api/tipos/",
                 tipos     : "Provincias",
-                styles: { with: "!w-[12rem]" },
+                styles: { 
+                  styles:"!h-[2.5vw] text-[1vw] w-full",
+                  container:"!w-[15vw]  text-[1vw] translate-x-[0.5vw]", 
+                  labelProps: "!translate-y-[-3vh] !text-[1.2vw] !font-[2vw]"
+                 },
               },
               {
                 name      : "_p5",
@@ -122,36 +139,47 @@ const MEstablecimientos: React.FC = () => {
                 type      : "select",
                 selectUrl : "/api/tipos/",
                 tipos     : "Comunas",
-                styles: { with: "!w-[12rem]" },
+                styles: { 
+                  styles:"!h-[2.5vw] text-[1vw] w-full",
+                  container:"!w-[15vw]  text-[1vw] ", 
+                  labelProps: "!translate-y-[-3vh] !text-[1.2vw] !font-[2vw]"
+                },
               },
               {
                 name: "_p6",
                 label: "Destino",
                 type: "select",
                 selectUrl: "/api/proyectodestinos/",
-                styles: { with: "!w-[12rem]" },
+                styles: {
+                  styles:"!h-[2.5vw] text-[1vw] w-full",
+                  container:"!w-[20vw]  text-[1vw] translate-x-[-77vw] translate-y-[4vw]", 
+                  labelProps: "!translate-y-[-3vh] !text-[1.2vw] !font-[2vw]"
+                   },
               },
         ]}
+        classNameSearchButton=" -translate-x-[4vw] translate-y-[3.5vw]"
+
           />
         </div>
-
-        <PrimaryButtonsComponent
-          handleAddPerson={openModal}
-          handleDeleteSelected={handleDeleteSelected}
-          handleRefresh={resetEntities}
-          params={params}
-          pkToDelete={pkToDelete}
-          strEntidad={strEntidadExcel}
-          strBaseUrl={strBaseUrl}
-          showAddButton={true}
-          showExportButton={true}
-          showDeleteButton={true}
-          showForwardButton={false}
-          showRefreshButton={false}
-          showImportCsv={true}
-          comilla={false}
-          idMenu={idMenu}
-        />
+        <div className="translate-x-[11vw] translate-y-[2vw]">
+          <PrimaryButtonsComponent
+            handleAddPerson={openModal}
+            handleDeleteSelected={handleDeleteSelected}
+            handleRefresh={resetEntities}
+            params={params}
+            pkToDelete={pkToDelete}
+            strEntidad={strEntidadExcel}
+            strBaseUrl={strBaseUrl}
+            showAddButton={true}
+            showExportButton={true}
+            showDeleteButton={true}
+            showForwardButton={false}
+            showRefreshButton={false}
+            showImportCsv={true}
+            comilla={false}
+            idMenu={idMenu}
+          />
+        </div>
       </div>
 
       <div className="width100 scroll">

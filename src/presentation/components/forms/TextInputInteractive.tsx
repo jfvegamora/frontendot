@@ -29,7 +29,6 @@ interface ITextInputProps {
   step?:number;
   tabIndex?: number;
   isOT?:boolean;
-  labelProps?:any;
   customWidth?: any;
   isOptional?:boolean;
   textAlign?: string;
@@ -52,7 +51,6 @@ const TextInputInteractive: React.FC<ITextInputProps> = ({
   maxLength,
   step,
   tabIndex,
-  labelProps,
   isOT,
   customWidth,
   isOptional,
@@ -167,13 +165,13 @@ return (
       defaultValue={value}
       render={({ field }) => (
         <div className={` !mb-[1rem] !ml-[1rem] relative ${error ? '!border-red-500' : 'border-gray-500'}`}>
-          <label htmlFor={label} className={` ${labelProps ? labelProps : ""} absolute !z-20 translate-y-[-0.5vw] text-[1.2vw] !font-[1.2vw] translate-x-3`}>
+          {/* <label htmlFor={label} className={` ${labelProps ? labelProps : ""} absolute !z-20 translate-y-[-0.5vw] text-[1.2vw] !font-[1.2vw] translate-x-3`}>
                   {label}
-          </label>
+          </label> */}
           <Input
             {...field}
             error={error ? true : false}
-            // label={label}
+            label={label}
             id={label}
             type={type}
             value={value}

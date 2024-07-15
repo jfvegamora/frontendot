@@ -48,7 +48,11 @@ const ProyectoComponent:React.FC<IProps> = ({
                             name={cant}
                             data={dataCant}
                             control={control}
-                            handleChange={(e)=>setValue('cantidad_requerida', e)}
+                            handleChange={(e)=>{
+                                if(setValue){
+                                    setValue('cantidad_requerida', e)
+                                }
+                            }}
                             error={errors.cant_proyecto}
                             onlyRead={onlyRead}
                             isOptional={isOptional}
@@ -64,7 +68,11 @@ const ProyectoComponent:React.FC<IProps> = ({
                             label="$ Total"
                             name={total}
                             data={dataTotal}
-                            handleChange={(e)=>setValue('presupuesto', e)}
+                            handleChange={(e)=>{
+                                if(setValue){
+                                    setValue('presupuesto', e)
+                                }
+                            }}
                             control={control}
                             error={errors.total_proyecto}
                             onlyRead={onlyRead}

@@ -264,7 +264,7 @@ const FMuestrariosArmazones: React.FC<IUserFormPrps> = React.memo(
     }, []);
 
     return (
-      <div className="useFormContainer centered-div use40rem">
+      <div className="useFormContainer centered-div w-[40vw]">
         <div className="userFormBtnCloseContainer">
           <button onClick={closeModal} className="userFormBtnClose">
             X
@@ -277,7 +277,7 @@ const FMuestrariosArmazones: React.FC<IUserFormPrps> = React.memo(
           <div className="userFormularioContainer">
             <div className="w-full flex items-center h-[4rem] ">
               <div className="input-container items-center rowForm w-full">
-                <div className="w-full ">
+                <div className="w-full ml-4">
                   <SelectInputComponent
                     label="Muestrario"
                     name="muestrario"
@@ -287,7 +287,7 @@ const FMuestrariosArmazones: React.FC<IUserFormPrps> = React.memo(
                     entidad={["/api/muestrarios/", "02"]}
                     error={errors.muestrario}
                     readOnly={isEditting}
-                    customWidth={"!ml-[1rem] !w-[38rem] "}
+                    customWidth={"!h-[2.8vw] !text-[1vw]"}
                   />
                 </div>
               </div>
@@ -306,6 +306,8 @@ const FMuestrariosArmazones: React.FC<IUserFormPrps> = React.memo(
                       inputRef={firstInputRef}
                       onlyRead={isEditting}
                       handleChange={setChangeCodigo}
+                      customWidth={"!h-[3vw] !text-[1vw] !w-[15vw]"}
+
                   />
                 </div>
               </div>
@@ -320,6 +322,8 @@ const FMuestrariosArmazones: React.FC<IUserFormPrps> = React.memo(
                     options={["Disponible", "No disponible"]}
                     error={errors.estado}
                     horizontal={true}
+                    labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.4vw]"}
+                    customWidth={"!h-[2.5vw] text-[1vw]"}
                     />
                 </div>
               </div>

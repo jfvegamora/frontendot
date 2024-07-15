@@ -90,12 +90,23 @@ const MProyectosAccesorios: React.FC = () => {
                 name: "_p1",
                 label: "Proyecto (?)",
                 type: "select",
-                selectUrl: "/api/proyectos/", styles:{with:" !w-[30rem]"},
+                selectUrl: "/api/proyectos/", 
+                styles:{
+                  styles:"!h-[2.5vw] text-[1vw] w-full",
+                  container:"!w-[20vw]  text-[1vw] translate-x-[1vw] translate-y-[17%] ", 
+                labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+                },
               },
-              { name: "_p2", label: "Código Proyecto / Licitación", type: "text", styles:{with:" !w-[14rem]", container:"translate-x-[-1rem] translate-y-[-0.2rem]"}, },
+              { name: "_p2", label: "Código Proyecto / Licitación", type: "text", 
+                styles:{
+                  styles:"!h-[2.5vw] text-[1vw] w-full",
+                container:"!w-[20vw]  text-[1vw] !translate-x-[3vw] translate-y-[18%] mb-4 ", 
+              labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+                
+                }, },
               // { name: "_p3", label: "Código Licitacion", type: "text", styles:{with:" !w-[9rem]"}, },
             ]}
-            classNameSearchButton=" translate-x-[2rem] translate-y-[0.2rem]"
+            classNameSearchButton=" translate-x-[1vw] translate-y-[0.3rem]"
           />
         </div>
 
@@ -137,6 +148,8 @@ const MProyectosAccesorios: React.FC = () => {
           leftEdit={true}
         />
       </div>
+
+      
    
       {isModalInsert && (
         <FProyectosAccesorios

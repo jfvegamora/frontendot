@@ -274,6 +274,7 @@ const FOftalmologos: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     error={errors.rut}
                     inputRef={firstInputRef}
+                    customWidth={"!h-[2.8vw] !text-[1vw]"}
                   />
                 </div>
               </div>  
@@ -289,6 +290,7 @@ const FOftalmologos: React.FC<IUserFormPrps> = React.memo(
                     data={data && data[EnumGrid.nombre]}
                     control={control}
                     error={errors.nombre}
+                    customWidth={"!h-[2.8vw] !text-[1vw]"}
                   />
                 </div>
               </div>  
@@ -305,6 +307,7 @@ const FOftalmologos: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     error={errors.valor_consulta}
                     textAlign="text-right"
+                    customWidth={"!h-[2.8vw] !text-[1vw]"}
                   />
                 </div>
               </div>  
@@ -320,6 +323,7 @@ const FOftalmologos: React.FC<IUserFormPrps> = React.memo(
                     data={data && data[EnumGrid.telefono]}
                     control={control}
                     isOptional={true}
+                    customWidth={"!h-[2.8vw] !text-[1vw]"}
                   />
                 </div>
               </div>  
@@ -335,6 +339,7 @@ const FOftalmologos: React.FC<IUserFormPrps> = React.memo(
                     data={data && data[EnumGrid.correo]}
                     control={control}
                     isOptional={true}
+                    customWidth={"!h-[2.8vw] !text-[1vw]"}
                   />
                 </div>
               </div>  

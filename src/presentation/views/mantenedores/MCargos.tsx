@@ -83,10 +83,10 @@ const MCargos: React.FC = () => {
                     with: "",
                     styles:"!h-[2.5vw] text-[1vw] w-full",
                     container:"!w-[35vw]  text-[1vw] translate-x-[2vw]", 
-                    labelProps: "!translate-y-[-1vh] !text-[1.2vw] !font-[2vw]"
+                    labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
                   } 
                 }]}
-              classNameSearchButton="!translate-x-[10rem]"
+              classNameSearchButton="!translate-x-[8vw] translate-y-[0.2vw]"
             />
         </div>
 

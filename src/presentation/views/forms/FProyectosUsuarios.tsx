@@ -264,20 +264,20 @@ const FProyectosUsuarios: React.FC<IUserFormPrps> = React.memo(
     }, []);
 
     return (
-      <div className="useFormContainer centered-div use40rem">
+      <div className="useFormContainer centered-div w-[35vw]">
         <div className="userFormBtnCloseContainer">
+        <h1 className="userFormLabel translate-x-[-4vw]">{label}</h1>
           <button onClick={closeModal} className="userFormBtnClose">
             X
           </button>
         </div>
-        <h1 className="userFormLabel">{label}</h1>
 
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
             <div className="w-full flex items-center h-[4rem] ">
               <div className="input-container items-center rowForm w-full">
-                <div className="w-full ">
+                <div className="w-full ml-6">
                 <SelectInputComponent
                   label="Proyecto"
                   name="proyecto"
@@ -287,14 +287,14 @@ const FProyectosUsuarios: React.FC<IUserFormPrps> = React.memo(
                   entidad={["/api/proyectos/", "02"]}
                   error={errors.proyecto}
                   readOnly={isEditting}
-                  customWidth={"!ml-[1rem] !w-[38rem] "}
+                  customWidth={"!h-[2.5vw] text-[1vw] !w-[35vw]"}
                   />
                 </div>
               </div>
             </div>
             <div className="w-full flex items-center h-[4rem] ">
               <div className="input-container items-center rowForm w-full">
-                <div className="w-full ">
+                <div className="w-full ml-6">
                 <SelectInputComponent
                   label="Punto de Venta"
                   name="punto_venta"
@@ -304,14 +304,14 @@ const FProyectosUsuarios: React.FC<IUserFormPrps> = React.memo(
                   entidad={["/api/puntosventa/", "02"]}
                   error={errors.punto_venta}
                   readOnly={isEditting}
-                  customWidth={"!ml-[1rem] !w-[38rem] "}
+                  customWidth={"!h-[2.5vw] text-[1vw] !w-[35vw]"}
                   />
                 </div>
               </div>
             </div>
             <div className="w-full flex items-center !my-8 h-[4rem]">
               <div className="input-container items-center rowForm w-[45%]">
-                <div className="w-full">
+                <div className="w-full ml-10">
                   <SelectInputComponent
                       label="Usuario"
                       name="usuario"
@@ -321,7 +321,7 @@ const FProyectosUsuarios: React.FC<IUserFormPrps> = React.memo(
                       entidad={["/api/usuarios/", "02"]}
                       error={errors.usuario}
                       readOnly={isEditting}
-                      customWidth={"!ml-[1rem] !w-[16rem]"}
+                      customWidth={"!h-[2.5vw] text-[1vw] !w-[15vw]"}
                       />
                 </div>
               </div>
@@ -336,6 +336,8 @@ const FProyectosUsuarios: React.FC<IUserFormPrps> = React.memo(
                   options={["Disponible", "No disponible"]}
                   error={errors.estado}
                   horizontal={true}
+                  labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.4vw]"}
+                  customWidth={"!h-[2.5vw] text-[1vw]"}
                   />
                 </div>
               </div>

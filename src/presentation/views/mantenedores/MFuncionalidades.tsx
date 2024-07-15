@@ -77,10 +77,10 @@ const MCargos: React.FC = () => {
                 styles:{
                   with: "!h-[2.5vw] !text-[1vw] w-full",
                   container:"w-[35vw] !text-[2vw] translate-y-[-0.2vw]", 
-                  labelProps: "!translate-y-[0.1vw] !text-[1.3vw] !font-[3vw] !z-30"
+                  labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
                 } },
             ]}
-            classNameSearchButton="translate-x-[12vw]"
+            classNameSearchButton="translate-x-[12vw] translate-y-[0.2vw]"
           />
         </div>
 
@@ -119,6 +119,8 @@ const MCargos: React.FC = () => {
           leftEdit={true}
         />
       </div>
+
+   
 
       {isModalInsert && (
         <FFuncionalidad

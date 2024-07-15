@@ -74,13 +74,22 @@ const MVitrinas: React.FC = () => {
             updateParams={updateParams}
             setEntities={setEntities}
             primaryKeyInputs={[
-              { name: "_p1", label: "Descripción", type: "text" },
+              { name: "_p1", label: "Descripción", type: "text", 
+                styles:{
+                  with: "!h-[2.5vw] !text-[1vw] w-full",
+                  container:"!w-[15vw] !text-[2vw] translate-y-[-0.2vw]", 
+                  labelProps: "!translate-y-[0.1vw] !text-[1.2vw] !font-[2vw] !z-30"
+                } },
               {
                 name      : "_p2",
                 label     : "Punto de Venta",
                 type      : "select",
                 selectUrl : "/api/puntosventa/",
-                styles:{with:" !w-[20rem]", container:"translate-x-[1.5rem] translate-y-[0.3rem]"}
+                styles:{
+                  styles:"!h-[2.5vw] text-[1vw]",
+                  container:"!w-[40vw]  text-[1vw]  translate-y-[0.3rem] ", 
+                  labelProps: "!translate-y-[-2vh] !text-[1vw] !font-[2vw]"
+                }
               },
             ]}
             classNameSearchButton=" translate-x-[5.5rem]"

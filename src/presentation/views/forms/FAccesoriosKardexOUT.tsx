@@ -331,7 +331,7 @@ const FAccesoriosKardexOUT: React.FC<IUserFormPrps> = React.memo(
                     error={errors.insumo}
                     inputRef={firstInputRef}
                     onlyRead={isEditting}
-                    customWidth={""}
+                    customWidth={"!h-[3vw] !text-[1vw]"}
                   />
                 </div>
               </div>
@@ -346,7 +346,7 @@ const FAccesoriosKardexOUT: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     error={errors.fecha}
                     onlyRead={isEditting}
-                    customWidth={" "}
+                    customWidth={"!h-[3vw] !text-[1vw]"}
                     textAlign="text-center"
                   />
                 </div>
@@ -355,7 +355,7 @@ const FAccesoriosKardexOUT: React.FC<IUserFormPrps> = React.memo(
 
             <div className="w-full flex items-center h-[4rem]">
               <div className="input-container items-center rowForm w-[65%]  ">
-                <div className="w-[18rem] !mt-4">
+                <div className="w-[18rem] !mt-4 ml-4">
                   <SelectInputComponent
                     label="Motivo Egreso"
                     name="motivo_egreso"
@@ -364,7 +364,7 @@ const FAccesoriosKardexOUT: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={["/api/kardexmotivos/", "02"]}
                     error={errors.motivo_egreso}
-                    customWidth={"!ml-[1rem] !mt-[-0.6rem]"}
+                    customWidth={"!h-[2.5vw] text-[1vw] !w-[17vw]"}
                   />
                 </div>
               </div>
@@ -378,6 +378,8 @@ const FAccesoriosKardexOUT: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     error={errors.cantidad}
                     textAlign="text-right"
+                    customWidth={"!h-[3vw] !text-[1vw]"}
+
                   />
                 </div>
               </div>
@@ -385,7 +387,7 @@ const FAccesoriosKardexOUT: React.FC<IUserFormPrps> = React.memo(
 
             <div className="w-full flex items-center h-[4rem]">
               <div className="input-container items-center rowForm w-[100%]  ">
-                <div className="w-full">
+                <div className="w-full ml-4">
                   <SelectInputComponent
                     label="Almacén"
                     name="almacen"
@@ -394,14 +396,14 @@ const FAccesoriosKardexOUT: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={["/api/almacenes/", "02", `3&_p2=${userState.id}`]}
                     error={errors.almacen}
-                    customWidth={"!ml-[1rem] w-full"}
+                    customWidth={"!h-[2.5vw] text-[1vw] !w-[17vw]"}
                   />
                 </div>
               </div>
             </div>
             <div className="w-full flex items-center h-[4rem]">
               <div className="input-container items-center rowForm w-[100%]  ">
-                <div className="w-full">
+                <div className="w-full ml-4">
                   <SelectInputComponent
                     label="Almacén Traspaso"
                     name="almacen_relacionado"
@@ -410,7 +412,7 @@ const FAccesoriosKardexOUT: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={["/api/almacenes/", "02", "3"]}
                     error={errors.almacen_relacionado}
-                    customWidth={"!ml-[1rem] w-full"}
+                    customWidth={"!h-[2.5vw] text-[1vw] !w-[17vw]"}
                     isOptional={true}
                   />
                 </div>
@@ -427,7 +429,7 @@ const FAccesoriosKardexOUT: React.FC<IUserFormPrps> = React.memo(
                     data={data && data[EnumGrid.observaciones]}
                     control={control}
                     error={errors.observaciones}
-                    customWidth={"w-[17rem]"}
+                    customWidth={"!h-[3vw] !text-[1vw]"}
                     isOptional={true}
                   />
                 </div>
@@ -441,6 +443,8 @@ const FAccesoriosKardexOUT: React.FC<IUserFormPrps> = React.memo(
                     name="ubicacion"
                     control={control}
                     isOptional={true}
+                    customWidth={"!h-[3vw] !text-[1vw]"}
+
                   />
                 </div>
               </div>

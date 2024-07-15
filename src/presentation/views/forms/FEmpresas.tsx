@@ -291,6 +291,7 @@ const FEmpresas: React.FC<IUserFormPrps> = React.memo(
                       error={errors.rut}
                       inputRef={firstInputRef}
                       isOptional={true}
+                      customWidth={"!h-[2.8vw] !text-[1vw]"}
                       />
                   </div>
                 </div>
@@ -304,6 +305,7 @@ const FEmpresas: React.FC<IUserFormPrps> = React.memo(
                       control={control}
                       error={errors.nombre}
                       inputRef={firstInputRef}
+                      customWidth={"!h-[2.8vw] !text-[1vw]"}
                     />
                   </div> 
                 </div>
@@ -319,6 +321,7 @@ const FEmpresas: React.FC<IUserFormPrps> = React.memo(
                       data={data && data[EnumGrid.razon_social]}
                       control={control}
                       error={errors.razon_social}
+                      customWidth={"!h-[2.8vw] !text-[1vw]"}
                     />
                   </div>
                 </div>
@@ -331,6 +334,7 @@ const FEmpresas: React.FC<IUserFormPrps> = React.memo(
                       data={data && data[EnumGrid.giro]}
                       control={control}
                       error={errors.giro}
+                      customWidth={"!h-[2.8vw] !text-[1vw]"}
                     />
                   </div> 
                 </div>
@@ -347,6 +351,7 @@ const FEmpresas: React.FC<IUserFormPrps> = React.memo(
                       control={control}
                       error={errors.direccion}
                       isOptional={true}
+                      customWidth={"!h-[2.8vw] !text-[1vw]"}
                       />
                   </div>
                 </div>
@@ -360,6 +365,7 @@ const FEmpresas: React.FC<IUserFormPrps> = React.memo(
                       control={control}
                       error={errors.telefono}
                       isOptional={true}
+                      customWidth={"!h-[2.8vw] !text-[1vw]"}
                       />
                   </div> 
                 </div>
@@ -376,6 +382,8 @@ const FEmpresas: React.FC<IUserFormPrps> = React.memo(
                       control={control}
                       error={errors.correo}
                       isOptional={true}
+                      customWidth={"!h-[2.8vw] !text-[1vw]"}
+
                       />
                   </div>
                 </div>
@@ -389,6 +397,7 @@ const FEmpresas: React.FC<IUserFormPrps> = React.memo(
                       control={control}
                       error={errors.sitio_web}
                       isOptional={true}
+                      customWidth={"!h-[2.8vw] !text-[1vw]"}
                       />
                   </div> 
                 </div>

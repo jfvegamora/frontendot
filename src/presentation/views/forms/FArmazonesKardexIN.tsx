@@ -332,7 +332,7 @@ const FArmazonesKardexIN: React.FC<IUserFormPrps> = React.memo(
     const fechaFormateada = fechaHoraActual.toISOString().split('T')[0];
 
     return (
-      <div className="useFormContainer centered-div use30rem">
+      <div className="useFormContainer centered-div w-[30vw]">
         <div className="userFormBtnCloseContainer">
           <h1 className="userFormLabel -translate-x-5">{label}</h1>
           <button onClick={closeModal} className="userFormBtnClose">
@@ -360,7 +360,7 @@ const FArmazonesKardexIN: React.FC<IUserFormPrps> = React.memo(
                     error={errors.insumo}
                     inputRef={firstInputRef}
                     onlyRead={isEditting}
-                    customWidth={" w-[100%]"}
+                    customWidth={"!h-[3vw] !text-[1vw]"}
                   />
                 </div>
               </div>
@@ -375,7 +375,7 @@ const FArmazonesKardexIN: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     error={errors.fecha}
                     onlyRead={isEditting}
-                    customWidth={""}
+                    customWidth={"!h-[3vw] !text-[1vw]"}
                     textAlign="text-center"
                   />
                 </div>
@@ -384,7 +384,7 @@ const FArmazonesKardexIN: React.FC<IUserFormPrps> = React.memo(
 
             <div className="w-full flex items-center h-[4rem]">
               <div className="input-container items-center rowForm w-[60%]  ">
-                <div className="w-full !mt-4 ">
+                <div className="w-full !mt-4 ml-4 ">
                   <SelectInputComponent
                     label="Motivo Ingreso"
                     name="motivo_ingreso"
@@ -393,7 +393,7 @@ const FArmazonesKardexIN: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={["/api/kardexmotivos/", "01"]}
                     error={errors.motivo_ingreso}
-                    customWidth={"!ml-[1rem] !mt-[-0.6rem]"}
+                    customWidth={"!h-[2.5vw] text-[1vw] !w-[18vw]"}
                   />
                 </div>
               </div>
@@ -408,6 +408,8 @@ const FArmazonesKardexIN: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     error={errors.cantidad}
                     textAlign="text-right"
+                    customWidth={"!h-[3vw] !text-[1vw]"}
+
                   />
                 </div>
               </div>
@@ -415,7 +417,7 @@ const FArmazonesKardexIN: React.FC<IUserFormPrps> = React.memo(
 
             <div className="w-full flex items-center h-[4rem]">
               <div className="input-container items-center rowForm w-[60%]  ">
-                <div className="w-full !mt-4">
+                <div className="w-full !mt-4 ml-4">
                   <SelectInputComponent
                     label="Almacén"
                     name="almacen"
@@ -424,7 +426,7 @@ const FArmazonesKardexIN: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={["/api/almacenes/", "02", `1&_p2=${userState.id}`]}
                     error={errors.almacen}
-                    customWidth={"!ml-[1rem] !mt-[-0.6rem] w-[18rem]"}
+                    customWidth={"!h-[2.5vw] text-[1vw] !w-[18vw]"}
                   />
                 </div>
               </div>
@@ -439,6 +441,8 @@ const FArmazonesKardexIN: React.FC<IUserFormPrps> = React.memo(
                     error={errors.numero_factura}
                     isOptional={true}
                     textAlign="text-right"
+                    customWidth={"!h-[3vw] !text-[1vw]"}
+
                   />
                 </div>
               </div>
@@ -446,7 +450,7 @@ const FArmazonesKardexIN: React.FC<IUserFormPrps> = React.memo(
 
             <div className="w-full flex items-center h-[4rem]">
               <div className="input-container items-center rowForm w-[60%]  ">
-                <div className="w-full !mt-4">
+                <div className="w-full !mt-4 ml-4">
                   <SelectInputComponent
                     label="Provedor"
                     name="proveedor"
@@ -455,7 +459,7 @@ const FArmazonesKardexIN: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={["/api/proveedores/", "02"]}
                     error={errors.proveedor}
-                    customWidth={"!ml-[1rem] !mt-[-0.6rem] w-[18rem]"}
+                    customWidth={"!h-[2.5vw] text-[1vw] !w-[18vw]"}
                     isOptional={true}
                   />
                 </div>
@@ -471,6 +475,8 @@ const FArmazonesKardexIN: React.FC<IUserFormPrps> = React.memo(
                     error={errors.valor_neto}
                     isOptional={true}
                     textAlign="text-right"
+                    customWidth={"!h-[3vw] !text-[1vw]"}
+
                   />
                 </div>
               </div>
@@ -478,7 +484,7 @@ const FArmazonesKardexIN: React.FC<IUserFormPrps> = React.memo(
 
             <div className="w-full flex items-center h-[4rem]">
               <div className="input-container items-center rowForm w-full  ">
-                <div className="w-full">
+                <div className="w-[18vw]">
                   <TextInputComponent
                     type="text"
                     label="Observaciones"
@@ -486,7 +492,7 @@ const FArmazonesKardexIN: React.FC<IUserFormPrps> = React.memo(
                     data={data && data[EnumGrid.observaciones]}
                     control={control}
                     error={errors.observaciones}
-                    customWidth={"w-[17rem]"}
+                    customWidth={"!h-[3vw] !text-[1vw]"}
                     isOptional={true}
                   />
                 </div>
@@ -501,7 +507,7 @@ const FArmazonesKardexIN: React.FC<IUserFormPrps> = React.memo(
                     // data={data && data[EnumGrid.ubicacion]}
                     control={control}
                     isOptional={true}
-                    customWidth={"w-[100%] -translate-x-5"}
+                    customWidth={"!h-[3vw] !text-[1vw]"}
                   />
                 </div>
               </div>

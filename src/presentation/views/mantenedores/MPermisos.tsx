@@ -83,9 +83,9 @@ const MPermisos: React.FC = () => {
                 type: "select",
                 selectUrl: "/api/usuarios/",
                 styles:{
-                  with:"w-[20vw] !h-[2.5vw] text-[1vw] ",
-                  container:"!w-[30vw]  text-[1vw] translate-x-[2vw]", 
-                  labelProps: "!translate-y-[-1.2vh] !text-[1.1vw] !font-[2vw]"
+                  styles:"!h-[2.5vw] text-[1vw] w-full",
+                  container:"!w-[35vw]  text-[1vw] translate-x-[2vw]", 
+                  labelProps: "!translate-y-[-3vh] !text-[1.2vw] !font-[2vw]"
                 }
               },
               {
@@ -94,13 +94,13 @@ const MPermisos: React.FC = () => {
                 type: "select",
                 selectUrl: "/api/funcionalidades/",
                 styles:{
-                  with:"!w-[20vw] !h-[2.6vw] text-[1vw] w-full",
-                  container:"!w-[20vw]  text-[1vw] translate-x-[4vw]", 
-                  labelProps: "!translate-y-[-0.3vw] !text-[1vw] !font-[2vw]",
+                  styles:"!h-[2.5vw] text-[1vw] w-full",
+                  container:"!w-[35vw]  text-[1vw] translate-x-[2vw]", 
+                  labelProps: "!translate-y-[-2vh] !text-[1.2vw] !font-[2vw]"
                 }
               },
             ]}
-            classNameSearchButton="translate-x-[5rem]"
+            classNameSearchButton="translate-x-[8vw] translate-y-[0.3rem]"
           />
         </div>
 
@@ -140,7 +140,7 @@ const MPermisos: React.FC = () => {
           leftEdit={true}
         />
       </div>
-     
+
 
       {isModalInsert && (
         <FPermisos

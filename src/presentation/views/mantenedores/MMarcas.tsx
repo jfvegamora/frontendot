@@ -77,13 +77,22 @@ const MMarcas: React.FC = () => {
             updateParams={updateParams}
             setEntities={setEntities}
             primaryKeyInputs={[
-              { name: "_p1", label: "Nombre", type: "text" },
+              { name: "_p1", label: "Nombre", type: "text", 
+                styles:{
+                  styles:"!h-[2.5vw] text-[1vw] w-full",
+                  container:"!w-[20vw]  text-[1vw]", 
+                  labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+                } },
               {
                 name: "_p2",
                 label: "Proveedor",
                 type: "select",
                 selectUrl: "/api/proveedores/",
-                styles:{container:"translate-x-[1.5rem] translate-y-[0.3rem]"}
+                styles:{
+                  styles:"!h-[2.5vw] text-[1vw] w-full",
+                  container:"!w-[15vw]  text-[1vw] translate-y-[0.3rem]", 
+                  labelProps: "!translate-y-[-3vh] !text-[1.2vw] !font-[2vw]"
+                }
               },
               {
                 name      : "_p3",
@@ -91,10 +100,14 @@ const MMarcas: React.FC = () => {
                 type      : "select",
                 selectUrl : "/api/tipos/",
                 tipos     : "TipoInsumo",
-                styles    :  {with:" !w-[13rem]", container:"translate-x-[0.5rem] translate-y-[0.6rem]"}
+                styles    :  {
+                  styles:"!h-[2.5vw] text-[1vw] w-full",
+                  container:"!w-[15vw]  text-[1vw] translate-x-[-3vw] translate-y-[0.3rem]", 
+                  labelProps: "!translate-y-[-3vh] !text-[1.2vw] !font-[2vw]"
+                  }
               },
             ]}
-            classNameSearchButton=" translate-x-[7rem] translate-y-[0.3rem]"
+            classNameSearchButton=" translate-x-[-3.5vw] translate-y-[0.3rem]"
           />
         </div>
 
@@ -134,7 +147,7 @@ const MMarcas: React.FC = () => {
           leftEdit={true}
         />
       </div>
-
+    
       {isModalInsert && (
         <FMarcas
           label={`${TITLES.ingreso} ${strEntidad}`}

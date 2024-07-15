@@ -268,12 +268,14 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
                   control={control}
                   error={errors.descripcion}
                   inputRef={firstInputRef}
+                  customWidth={"!h-[3vw] !text-[1vw] !w-[27vw]"}
+
                 />
               </div>
             </div>
 
             <div className="input-container items-center rowForm">
-              <div className="w-full">
+              <div className="w-full ml-4">
                 <SelectInputTiposComponent
                   label="Tipo"
                   name="tipo"
@@ -282,8 +284,8 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
                   control={control}
                   entidad={"PuntosVentaTipos"}
                   error={errors.tipo}
-                  customWidth={"w-full ml-4"}
-                />
+                  customWidth={"!h-[2.5vw] text-[1vw] !w-[29vw]"}
+                  />
               </div>
             </div>
 
@@ -296,12 +298,14 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
                   data={data && data[EnumGrid.direccion]}
                   control={control}
                   isOptional={true}
+                  customWidth={"!h-[3vw] !text-[1vw] !w-[27vw]"}
+
                   />
               </div>
             </div>
 
           <div className="input-container items-center rowForm ">
-              <div className="w-full ">
+              <div className="w-full ml-4">
                 <SelectInputComponent
                   label="Almacén Armazones"
                   name="almacen_armazones"
@@ -310,12 +314,12 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
                   control={control}
                   entidad={["/api/almacenes/", "02", `1&_p3=2`]}
                   error={errors.almacen_armazones}
-                  customWidth={"w-full ml-4"}
+                  customWidth={"!h-[2.5vw] text-[1vw] !w-[29vw]"}
                 />
               </div>
           </div>
           <div className="input-container items-center rowForm ">
-              <div className="w-full ">
+              <div className="w-full ml-4">
                 <SelectInputComponent
                   label="Almacén Cristales"
                   name="almacen_cristales"
@@ -324,12 +328,12 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
                   control={control}
                   entidad={["/api/almacenes/", "02", `2&_p3=2`]}
                   error={errors.almacen_cristales}
-                  customWidth={"w-full ml-4"}
+                  customWidth={"!h-[2.5vw] text-[1vw] !w-[29vw]"}
                 />
               </div>
           </div>
           <div className="input-container items-center rowForm ">
-              <div className="w-full ">
+              <div className="w-full ml-4">
                 <SelectInputComponent
                   label="Almacén Accesorios"
                   name="almacen_accesorios"
@@ -338,13 +342,13 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
                   control={control}
                   entidad={["/api/almacenes/", "02", `3&_p3=2`]}
                   error={errors.almacen_accesorios}
-                  customWidth={"w-full ml-4"}
+                  customWidth={"!h-[2.5vw] text-[1vw] !w-[29vw]"}
                 />
               </div>
           </div>
 
         <div className="input-container items-center rowForm">
-            <div className="w-full mt-[1rem]">
+            <div className="w-full mt-[1rem] ml-4">
               <SelectInputComponent
                 label="Encargado"
                 name="encargado"
@@ -353,8 +357,8 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
                 control={control}
                 entidad={["/api/usuarios/", "02"]}
                 error={errors.encargado}
-                customWidth={"w-full ml-4"}
-              />
+                customWidth={"!h-[2.5vw] text-[1vw] !w-[29vw]"}
+                />
             </div>
         </div>
 
@@ -368,6 +372,8 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
                 control={control}
                 error={errors.telefono}
                 isOptional={true}
+                customWidth={"!h-[3vw] !text-[1vw] !w-[27vw]"}
+
                 />
             </div>
           </div>
@@ -382,6 +388,8 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
                   data={data && data[EnumGrid.observaciones]}
                   control={control}
                   isOptional={true}
+                  customWidth={"!h-[3vw] !text-[1vw] !w-[27vw]"}
+
                   />
               </div>
             </div>

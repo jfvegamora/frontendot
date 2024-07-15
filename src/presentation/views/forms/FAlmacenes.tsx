@@ -221,7 +221,7 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
     }, []);
 
     return (
-      <div className="useFormContainer centered-div use30rem">
+      <div className="useFormContainer centered-div w-[30vw]">
         <div className="userFormBtnCloseContainer">
           <button onClick={closeModal} className="userFormBtnClose">
             X
@@ -244,6 +244,8 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     error={errors.descripcion}
                     inputRef={firstInputRef}
+                    customWidth={"!h-[2.8vw] !text-[1vw]"}
+
                   />
                 </div>
               </div>
@@ -251,7 +253,7 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
 
             <div className="w-full flex items-center h-[4rem]">
               <div className="input-container items-center rowForm w-full">
-                <div className="w-full ">
+                <div className="w-full ml-4">
                   <SelectInputTiposComponent
                     label="Tipo"
                     name="tipo"
@@ -260,14 +262,14 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={"AlmacenesTipos"}
                     error={errors.tipo}
-                    customWidth={"!w-full ml-4"}
+                    customWidth={"!h-[2.8vw] !text-[1vw]"}
                   />
                 </div>
               </div>
             </div>
             <div className="w-full flex items-center h-[4rem]">
               <div className="input-container items-center rowForm w-full">
-                <div className="w-full ">
+                <div className="w-full ml-4">
                   <SelectInputTiposComponent
                     label="Categoría"
                     name="categoria"
@@ -276,14 +278,14 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={"TipoInsumo"}
                     error={errors.categoria}
-                    customWidth={"!w-full ml-4"}
+                    customWidth={"!h-[2.8vw] !text-[1vw]"}
                   />
                 </div>
               </div>
             </div>
             <div className="w-full flex items-center h-[4rem]">
               <div className="input-container items-center rowForm w-full">
-                <div className="w-full ">
+                <div className="w-full ml-4">
                 <SelectInputComponent
                       label="Usuario"
                       name="usuario"
@@ -292,7 +294,7 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
                       control={control}
                       entidad={["/api/usuarios/", "02"]}
                       error={errors.usuario}
-                      customWidth={"!w-full ml-4"}
+                      customWidth={"!h-[2.8vw] !text-[1vw]"}
                       />
                 </div>
               </div>

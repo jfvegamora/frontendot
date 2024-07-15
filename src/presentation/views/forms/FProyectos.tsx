@@ -406,7 +406,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
           <div className="userFormularioContainer">
             <div className="w-full items-center flex h-[80px] mt-[20px] mb-[10px]">
               <div className="input-container items-center rowForm w-[16%]">
-                <div className="w-full">
+                <div className="w-full ml-3">
                   <SelectInputComponent
                     label="Empresa Adjudicada"
                     name="empresa_adjudicada"
@@ -415,13 +415,13 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={["/api/empresas/", "02"]}
                     error={errors.empresa_adjudicada}
-                    customWidth={"!ml-[1rem] !w-[]"}
-                  />
+                    customWidth={"!h-[2.5vw] text-[1vw] !w-[18vw]"}
+                    />
                 </div>
               </div>
 
-              <div className="input-container items-center rowForm w-[30%]">
-                <div className="w-full">
+              <div className="input-container items-center rowForm w-[25%]">
+                <div className=" ml-10">
                   <SelectInputComponent
                     label="Mandante"
                     name="mandante"
@@ -430,11 +430,11 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={["/api/mandantes/", "02"]}
                     error={errors.mandante}
-                    customWidth={"!w-[26rem]"}
+                    customWidth={"!h-[2.5vw] text-[1vw] !w-[23vw]"}
                   />
                 </div>
               </div>
-              <div className="input-container items-center rowForm w-[18%]">
+              <div className="input-container items-center rowForm w-[22%]">
                 <div className="w-full ">
                   <SelectInputComponent
                     label="Ejecutivo Proyecto"
@@ -444,7 +444,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={["/api/usuarios/", "02"]}
                     error={errors.ejecutivo_proyecto}
-                    customWidth={"!w-[19rem]"}
+                    customWidth={"!h-[2.5vw] text-[1vw] !w-[23vw]"}
                   />
                 </div>
               </div>
@@ -459,6 +459,8 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                     options={["Si", "No"]}
                     error={errors.imprime_qr}
                     horizontal={true}
+                    labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.4vw]"}
+                    customWidth={"!h-[2.5vw] text-[1vw]"}
                   />
                 </div>
               </div>
@@ -473,12 +475,14 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                     options={["Si", "No"]}
                     error={errors.imprime_ticket}
                     horizontal={true}
+                    labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.4vw]"}
+                    customWidth={"!h-[2.5vw] text-[1vw]"}
                   />
                 </div>
               </div>
             </div>
 
-            <div className="w-full items-center flex h-[70px] mt-[10px] mb-[10px]">
+            <div className="w-full items-center flex h-[70px] translate-y-4 mb-[10px]">
               <div className="input-container items-center rowForm w-[14%]">
                 <div className="w-full mr-2">
                   <TextInputComponent
@@ -489,6 +493,8 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     error={errors.codigo_proyecto}
                     onlyRead={isEditting}
+                    customWidth={"!h-[2.8vw] !text-[1vw]"}
+
                   />
                 </div>
               </div>
@@ -502,6 +508,8 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                     data={data && data[EnumGrid.TITULO]}
                     control={control}
                     error={errors.titulo_proyecto}
+                    customWidth={"!h-[2.8vw] !text-[1vw]"}
+
                   />
                 </div>
               </div>
@@ -516,6 +524,8 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     error={errors.codigo_licitacion}
                     isOptional={true}
+                    customWidth={"!h-[2.8vw] !text-[1vw]"}
+
                   />
                 </div>
               </div>
@@ -530,11 +540,13 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                     options={["Por anteojo", "Por ojo"]}
                     error={errors.param_cristales}
                     horizontal={true}
+                    labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.4vw]"}
+                    customWidth={"!h-[2.5vw] text-[1vw]"}
                   />
                 </div>
               </div>
 
-              <div className="input-container items-center rowForm">
+              <div className="input-container items-center rowForm ">
                 <div className="w-full !ml-[1rem]">
                   <RadioButtonComponent
                     control={control}
@@ -544,6 +556,8 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                     options={["Abierto", "Cerrado"]}
                     error={errors.estado}
                     horizontal={true}
+                    labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.4vw]"}
+                    customWidth={"!h-[2.5vw] text-[1vw]"}
                   />
                 </div>
               </div>
@@ -560,6 +574,8 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     error={errors.dias_entrega}
                     textAlign="text-center"
+                    customWidth={"!h-[2.8vw] !text-[1vw]"}
+
                   />
                 </div>
               </div>
@@ -574,6 +590,8 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     error={errors.fecha_inicio}
                     textAlign="text-center"
+                    customWidth={"!h-[2.8vw] !text-[1vw]"}
+
                   />
                 </div>
               </div>
@@ -588,6 +606,8 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     error={errors.fecha_termino}
                     textAlign="text-center"
+                    customWidth={"!h-[2.8vw] !text-[1vw]"}
+
                   />
                 </div>
               </div>
@@ -602,6 +622,8 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     error={errors.unidad_compra}
                     isOptional={true}
+                    customWidth={"!h-[2.8vw] !text-[1vw]"}
+
                   />
                 </div>
               </div>
@@ -617,11 +639,13 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                     error={errors.fecha_adjudicacion}
                     isOptional={true}
                     textAlign="text-center"
+                    customWidth={"!h-[2.8vw] !text-[1vw]"}
+
                   />
                 </div>
               </div>
 
-              <div className="input-container items-center rowForm w-[23%] -translate-y-5">
+              <div className="input-container items-center rowForm w-[23%] translate-y-[1vw]">
                 <div className="w-full mr-2">
                   <FrameComponent>
                     <ProyectoComponent

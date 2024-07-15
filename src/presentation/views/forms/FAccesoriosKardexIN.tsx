@@ -315,7 +315,7 @@ const FAccesoriosKardexIN: React.FC<IUserFormPrps> = React.memo(
     const fechaFormateada = fechaHoraActual.toISOString().split('T')[0];
 
     return (
-      <div className="useFormContainer centered-div use30rem">
+      <div className="useFormContainer centered-div w-[30vw]">
         <div className="userFormBtnCloseContainer">
           <h1 className="userFormLabel translate-x-[-1rem]">{label}</h1>
           <button onClick={closeModal} className="userFormBtnClose">
@@ -338,8 +338,8 @@ const FAccesoriosKardexIN: React.FC<IUserFormPrps> = React.memo(
                     error={errors.insumo}
                     inputRef={firstInputRef}
                     onlyRead={isEditting}
-                    customWidth={""}
-                  />
+                    customWidth={"!h-[3vw] !text-[1vw]"}
+                    />
                 </div>
               </div>
 
@@ -353,7 +353,7 @@ const FAccesoriosKardexIN: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     error={errors.fecha}
                     onlyRead={isEditting}
-                    customWidth={""}
+                    customWidth={"!h-[3vw] !text-[1vw]"}
                     textAlign="text-center"
                   />
                 </div>
@@ -362,7 +362,7 @@ const FAccesoriosKardexIN: React.FC<IUserFormPrps> = React.memo(
 
             <div className="w-full flex items-center h-[4rem]">
               <div className="input-container items-center rowForm w-[70%]  ">
-                <div className="w-full !mt-4">
+                <div className="w-full !mt-4 ml-4">
                   <SelectInputComponent
                     label="Motivo Ingreso"
                     name="motivo_ingreso"
@@ -371,7 +371,7 @@ const FAccesoriosKardexIN: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={["/api/kardexmotivos/", "01"]}
                     error={errors.motivo_ingreso}
-                    customWidth={" w-[17rem]  !ml-[1rem] !mt-[-0.6rem]"}
+                    customWidth={"!h-[2.5vw] text-[1vw] !w-[18vw]"}
                   />
                 </div>
               </div>
@@ -386,6 +386,8 @@ const FAccesoriosKardexIN: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     error={errors.cantidad}
                     textAlign="text-right"
+                    customWidth={"!h-[3vw] !text-[1vw]"}
+
                   />
                 </div>
               </div>
@@ -393,7 +395,7 @@ const FAccesoriosKardexIN: React.FC<IUserFormPrps> = React.memo(
 
             <div className="w-full flex items-center h-[4rem]">
               <div className="input-container items-center rowForm w-[70%]  ">
-                <div className="w-full !mt-4">
+                <div className="w-full !mt-4 ml-4">
                   <SelectInputComponent
                     label="Almacén"
                     name="almacen"
@@ -402,7 +404,7 @@ const FAccesoriosKardexIN: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={["/api/almacenes/", "02", `3&_p2=${userState.id}`]}
                     error={errors.almacen}
-                    customWidth={"w-[17rem] !ml-[1rem] !mt-[-0.6rem]"}
+                    customWidth={"!h-[2.5vw] text-[1vw] !w-[18vw]"}
                   />
                 </div>
               </div>
@@ -417,6 +419,8 @@ const FAccesoriosKardexIN: React.FC<IUserFormPrps> = React.memo(
                     error={errors.numero_factura}
                     isOptional={true}
                     textAlign="text-right"
+                    customWidth={"!h-[3vw] !text-[1vw]"}
+
                   />
                 </div>
               </div>
@@ -424,7 +428,7 @@ const FAccesoriosKardexIN: React.FC<IUserFormPrps> = React.memo(
 
             <div className="w-full flex items-center h-[4rem]">
               <div className="input-container items-center rowForm w-[70%]  ">
-                <div className="w-full !mt-4">
+                <div className="w-full !mt-4 ml-4">
                   <SelectInputComponent
                     label="Provedor"
                     name="proveedor"
@@ -433,7 +437,7 @@ const FAccesoriosKardexIN: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={["/api/proveedores/", "02"]}
                     error={errors.proveedor}
-                    customWidth={"w-[17rem] !ml-[1rem] !mt-[-0.6rem]"}
+                    customWidth={"!h-[2.5vw] text-[1vw] !w-[18vw]"}
                     isOptional={true}
                   />
                 </div>
@@ -449,6 +453,8 @@ const FAccesoriosKardexIN: React.FC<IUserFormPrps> = React.memo(
                     error={errors.valor_neto}
                     isOptional={true}
                     textAlign="text-right"
+                    customWidth={"!h-[3vw] !text-[1vw]"}
+
                   />
                 </div>
               </div>
@@ -464,14 +470,15 @@ const FAccesoriosKardexIN: React.FC<IUserFormPrps> = React.memo(
                     data={data && data[EnumGrid.observaciones]}
                     control={control}
                     error={errors.observaciones}
-                    customWidth={"w-[16rem]"}
                     isOptional={true}
+                    customWidth={"!h-[3vw] !text-[1vw]"}
+
                   />
                 </div>
               </div>
 
             <div className="input-container items-center rowForm w-full  ">
-                <div className=" w-[11.2rem] translate-x-[-0.2rem]">
+                <div className=" w-[11.2rem] translate-x-[3.5vw]">
                   <TextInputComponent
                     type="text"
                     label="Ubicación"
@@ -479,6 +486,8 @@ const FAccesoriosKardexIN: React.FC<IUserFormPrps> = React.memo(
                     // data={data && data[EnumGrid.ubicacion]}
                     control={control}
                     isOptional={true}
+                    customWidth={"!h-[3vw] !text-[1vw]"}
+
                   />
                 </div>
               </div>

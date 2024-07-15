@@ -80,10 +80,20 @@ const MEmpresas: React.FC = () => {
             updateParams={updateParams}
             setEntities={setEntities}
             primaryKeyInputs={[
-              { name: "_p1", label: "RUT", type: "text", styles:{with:" !w-[8rem]"}, },
-              { name: "_p3", label: "Nombre", type: "text", styles:{with:" !w-[16rem]",container: "translate-x-[1rem]"}, },
+              { name: "_p1", label: "RUT", type: "text", 
+                styles:{
+                  styles:"!h-[2.5vw] text-[1vw]",
+                  container:"!w-[10vw]  text-[1vw] ", 
+                  labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+                }, },
+              { name: "_p3", label: "Nombre", type: "text", 
+                styles:{
+                  styles:"!h-[2.5vw] text-[1vw] w-full",
+                  container:"!w-[20vw]  text-[1vw] -translate-x-[2vw]", 
+                  labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+                }, },
             ]}
-            classNameSearchButton=" translate-x-[13rem]"
+            classNameSearchButton=" translate-x-[4vw] translate-y-[0.3rem]"
           />
         </div>
 

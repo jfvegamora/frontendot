@@ -263,8 +263,8 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                               labelProps={{
                                 style: {
                                   color: "grey",
-                                  fontWeight: "normal",
-                                  fontSize: "16px",
+                                  fontWeight: "bold",
+                                  fontSize: "18px",
                                 },
                               }}
                             />
@@ -292,8 +292,8 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                               labelProps={{
                                 style: {
                                   color: "grey",
-                                  fontWeight: "normal",
-                                  fontSize: "16px",
+                                  fontWeight: "bold",
+                                  fontSize: "18px",
                                 },
                               }}
                             />
@@ -307,28 +307,54 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                         control={control}
                         defaultValue=""
                         render={({ field }) => (
+                          <>
+                          <label
+                            htmlFor={input.label}
+                            className={`${
+                              input.styles?.labelProps ? input.styles?.labelProps : ""
+                            } absolute !translate-y-[-0.4vw] translate-x-3 !bg-white z-20`}
+                          >
+                            {input?.label}
+                          </label>
                           <Input
                             color="orange"
                             tabIndex={1}
-                            className={`!h-12 !mt-4 ${input.styles?.with}`}
+                            className={`!h-[2.8vw] ${input?.styles?.with || ""}`}
                             {...field}
                             type={input.type}
-                            label={input.label}
+                            // label={input.label}
                             value={inputValues[input.name]}
                             onChange={(e) => {
                               field.onChange(e);
-                              changeFilterSearchTitle(e, input.label);
+                              changeFilterSearchTitle(e, input?.label);
                               handleInputChange(input.name, e.target.value);
                             }}
                             onKeyDown={handleKeyDown}
-                            labelProps={{
-                              style: {
-                                color: "grey",
-                                fontWeight: "normal",
-                                fontSize: "16px",
-                              },
-                            }}
+                            labelProps={{ className: 'text-[2vw]' }}
                           />
+                        </>
+                          // <Input
+                          //   color="orange"
+                          //   tabIndex={1}
+                          //   className={`!h-12 !mt-4 ${input.styles?.with}`}
+                          //   {...field}
+                          //   type={input.type}
+                          //   label={input.label}
+                          //   value={inputValues[input.name]}
+                          //   onChange={(e) => {
+                          //     field.onChange(e);
+                          //     changeFilterSearchTitle(e, input.label);
+                          //     handleInputChange(input.name, e.target.value);
+                          //   }}
+                          //   onKeyDown={handleKeyDown}
+                          //   labelProps={{
+                          //     style: {
+                          //       color: "grey",
+                          //       fontWeight: "normal",
+                          //       fontSize: "17px",
+                          //     },
+                          //   }}
+                          // />
                         )}
                       />
                       </div>
@@ -350,7 +376,8 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                       setHandleSearch={handleSearch}
                       handleSelectChange={handleSelectChange}
                       customWidth={`h-[2.8vw] ${input.styles?.with}`}
-                    
+                      labelProps={input.styles?.labelProps}
+                  
                     />
                   </Suspense>
                 </div>
@@ -402,7 +429,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                 </div>
               ) : (
                 // Otros tipos de entrada
-              <div className={`input-container rowForm 
+              <div className={`rowForm 
                               ${input.styles?.container}`}>
                 <Controller
                   name={input.name}
@@ -413,8 +440,8 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                       <label
                         htmlFor={input.label}
                         className={`${
-                          input.styles.labelProps ? input.styles.labelProps : ""
-                        } absolute !translate-y-[-0.4vw] translate-x-3`}
+                          input.styles?.labelProps ? input.styles?.labelProps : ""
+                        } absolute !translate-y-[-0.4vw] translate-x-3 !bg-white z-20`}
                       >
                         {input?.label}
                       </label>
@@ -432,6 +459,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                           handleInputChange(input.name, e.target.value);
                         }}
                         onKeyDown={handleKeyDown}
+                        labelProps={{ className: 'text-[2vw]' }}
                       />
                     </>
                   )}

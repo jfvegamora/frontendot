@@ -385,7 +385,7 @@ console.log(formValues)
 
 
 return (
-      <div className="useFormContainer !top-[15vw] !z-30 translate-y-[-16vw] translate-x-[12vw] !w-[73vw] !h-auto">
+      <div className="useFormContainer !top-[15vw] !z-30 translate-y-[-16vw] translate-x-[12vw] !w-[77vw] !h-auto">
         <div className="userFormBtnCloseContainer flex justify-between ">
           <h1 className="userFormLabel absolute left-[40%]">{label}</h1>
           <button onClick={closeModal} className="userFormBtnClose">
@@ -410,7 +410,6 @@ return (
                     error={errors.nombre}
                     inputRef={firstInputRef}
                     customWidth={"!h-[2.8vw] !text-[1vw]"}
-                    labelProps={"!translate-y-[-1vw] !text-[3vw] !font-[3vw]"}
                     />
                 </div>
               </div>
@@ -424,8 +423,7 @@ return (
                     control={control}
                     entidad={["/api/cargos/", "02"]}
                     error={errors.cargo}
-                    customWidth={"!h-[2.5vw] text-[1vw]"}
-                    labelProps={"!translate-y-[0.1vw] !text-[1vw] !font-[3vw]"}
+                    customWidth={"!h-[2.5vw] text-[1vw] !w-[36vw]"}
                   />
                 </div>   
               </div>
@@ -438,16 +436,15 @@ return (
                       data={data && data[EnumGrid.telefono]}
                       control={control}
                       isOptional={true}
-                      customWidth={"!h-[2.5vw] !text-[1vw]"}
-                      labelProps={"!translate-y-[-1.2vw] !text-[2vw] !font-[3vw]"}
+                      customWidth={"!h-[3vw] !text-[1vw]"}
                       />
                   </div>
               </div>
             </div>
 
 
-            <div className=" items-center flex !mb-4 ">
-              <div className="input-container flex items-center rowForm w-[50%]">
+            <div className=" items-center flex">
+              <div className="input-container flex items-center rowForm w-[30vw]">
                 <div className="w-[20rem] ">
                   <TextInputComponent
                     type="email"
@@ -466,8 +463,8 @@ return (
  */}
 
 
-              <div className="input-container flex justify-between !ml-10 items-center rowForm w-[100%]">
-                <div className="w-[20%]">
+              <div className="input-container flex justify-around items-center rowForm w-[100%]">
+                <div className="w-[11vw]">
                   <RadioButtonComponent
                     control={control}
                     label="Estado"
@@ -476,9 +473,11 @@ return (
                     options={["Activo", "Suspendido"]}
                     error={errors.estado}
                     horizontal={false}
+                    labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.4vw]"}
+                    customWidth={"!h-[2.5vw] text-[1vw]"}
                   />
                 </div>
-                <div className="w-[20%]">
+                <div className="w-[11vw]">
                   <RadioButtonComponent
                     control={control}
                     label="Documentación"
@@ -487,9 +486,11 @@ return (
                     options={["Lectura", "Escritura"]}
                     error={errors.permiso_facturacion}
                     horizontal={false}
+                    labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.4vw]"}
+                    customWidth={"!h-[2.5vw] text-[1vw]"}
                   />
                 </div>
-                <div className="w-[20%]">
+                <div className="w-[11vw]">
                   <RadioButtonComponent
                     control={control}
                     label="Post Venta"
@@ -498,9 +499,11 @@ return (
                     options={["Lectura", "Escritura"]}
                     error={errors.permiso_post_venta}
                     horizontal={false}
+                    labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.4vw]"}
+                    customWidth={"!h-[2.5vw] text-[1vw]"}
                   />
                 </div>
-                <div className="w-[20%]">
+                <div className="w-[11vw]">
                   <RadioButtonComponent
                     control={control}
                     label="Anulación"
@@ -509,6 +512,8 @@ return (
                     options={["Lectura", "Escritura"]}
                     error={errors.permiso_post_venta}
                     horizontal={false}
+                    labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.4vw]"}
+                    customWidth={"!h-[2.5vw] text-[1vw]"}
                   />
                 </div>
               </div>
@@ -538,6 +543,8 @@ return (
                               error={errors.permiso_venta}
                               horizontal={false}
                               onChange={(e:any)=>handleChange(e)}
+                              labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.2vw]"}
+                              customWidth={"!h-[2.5vw] text-[1vw]"}
                             />
                           </div>
                         </div>
@@ -552,6 +559,8 @@ return (
                               error={errors.permiso_bodega}
                               horizontal={false}
                               onChange={(e:any)=>handleChange(e)}
+                              labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.2vw]"}
+                              customWidth={"!h-[2.5vw] text-[1vw]"}
                             />
                           </div>
                         </div>
@@ -566,6 +575,8 @@ return (
                               error={errors.permiso_biselado}
                               horizontal={false}
                               onChange={(e:any)=>handleChange(e)}
+                              labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.2vw]"}
+                    customWidth={"!h-[2.5vw] text-[1vw]"}
                             />
                           </div>
                         </div>
@@ -580,6 +591,8 @@ return (
                               error={errors.permiso_montaje}
                               horizontal={false}
                               onChange={(e:any)=>handleChange(e)}
+                              labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.2vw]"}
+                              customWidth={"!h-[2.5vw] text-[1vw]"}
                             />
                           </div>
                         </div>
@@ -594,6 +607,8 @@ return (
                               error={errors.permiso_bodega_prod_term}
                               horizontal={false}
                               onChange={(e:any)=>handleChange(e)}
+                              labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.2vw]"}
+                              customWidth={"!h-[2.5vw] text-[1vw]"}
                             />
                           </div>
                         </div>
@@ -613,6 +628,8 @@ return (
                               error={errors.permiso_empaque}
                               horizontal={false}
                               onChange={(e:any)=>handleChange(e)}
+                              labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.2vw]"}
+                              customWidth={"!h-[2.5vw] text-[1vw]"}
                             />
                           </div>
                         </div>
@@ -627,6 +644,8 @@ return (
                               error={errors.permiso_adquisiciones}
                               horizontal={false}
                               onChange={(e:any)=>handleChange(e)}
+                              labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.2vw]"}
+                              customWidth={"!h-[2.5vw] text-[1vw]"}
                             />
                           </div>
                         </div>
@@ -641,6 +660,8 @@ return (
                               error={errors.permiso_calculo}
                               horizontal={false}
                               onChange={(e:any)=>handleChange(e)}
+                              labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.2vw]"}
+                              customWidth={"!h-[2.5vw] text-[1vw]"}
                             />
                           </div>
                         </div>
@@ -655,6 +676,8 @@ return (
                               error={errors.permiso_laboratorio}
                               horizontal={false}
                               onChange={(e:any)=>handleChange(e)}
+                              labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.2vw]"}
+                              customWidth={"!h-[2.5vw] text-[1vw]"}
                             />
                           </div>
                         </div>
@@ -669,6 +692,8 @@ return (
                               error={errors.permiso_control}
                               horizontal={false}
                               onChange={(e:any)=>handleChange(e)}
+                              labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.2vw]"}
+                              customWidth={"!h-[2.5vw] text-[1vw]"}
                             />
                           </div>
                         </div>
@@ -697,6 +722,8 @@ return (
                                 error={errors.permiso_editar_armazon}
                                 horizontal={false}
                                 onChange={(e:any)=>handleChange(e)}
+                                labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.2vw]"}
+                              customWidth={"!h-[2.5vw] text-[1vw]"}
                               />
                             </div>
                           </div>
@@ -711,6 +738,8 @@ return (
                                 error={errors.permiso_editar_estado_impresion}
                                 horizontal={false}
                                 onChange={(e:any)=>handleChange(e)}
+                                labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.2vw]"}
+                              customWidth={"!h-[2.5vw] text-[1vw]"}
                               />
                             </div>
                           </div>
@@ -725,6 +754,8 @@ return (
                                 error={errors.permiso_editar_validar_parametrizacion}
                                 horizontal={false}
                                 onChange={(e:any)=>handleChange(e)}
+                                labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.2vw]"}
+                              customWidth={"!h-[2.5vw] text-[1vw]"}
                               />
                             </div>
                           </div>
@@ -758,6 +789,8 @@ return (
                             error={errors.permiso_editar_grupo_dioptria}
                             horizontal={false}
                             onChange={(e:any)=>handleChange(e)}
+                            labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.2vw]"}
+                              customWidth={"!h-[2.5vw] text-[1vw]"}
                           />
                         </div>
                       </div>
@@ -772,6 +805,8 @@ return (
                             error={errors.permiso_editar_receta}
                             horizontal={false}
                             onChange={(e:any)=>handleChange(e)}
+                            labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.2vw]"}
+                              customWidth={"!h-[2.5vw] text-[1vw]"}
                           />
                         </div>
                       </div>
@@ -786,6 +821,8 @@ return (
                             error={errors.permiso_editar_worktracking}
                             horizontal={false}
                             onChange={(e:any)=>handleChange(e)}
+                            labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.1vw]"}
+                              customWidth={"!h-[2.5vw] text-[1vw]"}
                           />
                         </div>
                       </div>

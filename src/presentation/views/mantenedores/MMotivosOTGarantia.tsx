@@ -77,7 +77,13 @@ const MMotivosOTGarantia: React.FC = () => {
             updateParams={updateParams}
             setParams={setParams}
             setEntities={setEntities}
-            primaryKeyInputs={[{ name: "_p1", label: "Descripción", type: "text" }]}
+            primaryKeyInputs={[{ name: "_p1", label: "Descripción", type: "text",styles:{
+              with: "!h-[2.5vw] !text-[1vw] w-full",
+              container:"w-[35vw] !text-[2vw] translate-y-[-0.2vw]", 
+              labelProps: "!translate-y-[0.1vw] !text-[1.2vw] !font-[2vw] !z-30"
+            } }]}
+            classNameSearchButton=" translate-x-[8vw] translate-y-[0.3rem]"
+
           />
         </div>
 

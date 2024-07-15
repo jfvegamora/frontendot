@@ -213,7 +213,7 @@ const FMuestrariosArmazonesCopiar: React.FC<IUserFormPrps> = React.memo(
     );
 
     return (
-      <div className="useFormContainer centered-div use40rem">
+      <div className="useFormContainer centered-div w-[40vw]">
         <div className="userFormBtnCloseContainer">
           <button onClick={closeModal} className="userFormBtnClose">
             X
@@ -226,7 +226,7 @@ const FMuestrariosArmazonesCopiar: React.FC<IUserFormPrps> = React.memo(
           <div className="userFormularioContainer">
             <div className="w-full flex items-center h-[4rem]">
                 <div className="input-container items-center rowForm w-full">
-                  <div className="w-full">
+                  <div className="w-full ml-4">
                     <SelectInputComponent
                       label="Muestrario Origen"
                       name="origen"
@@ -235,15 +235,15 @@ const FMuestrariosArmazonesCopiar: React.FC<IUserFormPrps> = React.memo(
                       control={control}
                       entidad={["/api/muestrarios/", "02"]}
                       error={errors.origen}
-                      customWidth={"!ml-[1rem] !w-[38rem] "}
-                    />
+                      customWidth={"!h-[2.8vw] !text-[1vw]"}
+                      />
                   </div>
                 </div>
             </div>
 
             <div className="w-full flex items-center !my-8 h-[4rem]">
                 <div className="input-container items-center rowForm w-full">
-                  <div className="w-full">
+                  <div className="w-full ml-4">
                     <SelectInputComponent
                       label="Muestrario Destino"
                       name="destino"
@@ -252,8 +252,8 @@ const FMuestrariosArmazonesCopiar: React.FC<IUserFormPrps> = React.memo(
                       control={control}
                       entidad={["/api/muestrarios/", "02"]}
                       error={errors.destino}
-                      customWidth={"!ml-[1rem] !w-[38rem] "}
-                    />
+                      customWidth={"!h-[2.8vw] !text-[1vw]"}
+                      />
                   </div>
                 </div>
 

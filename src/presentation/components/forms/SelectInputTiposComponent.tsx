@@ -38,6 +38,7 @@ interface ISelectInputProps {
   isOptional?:boolean;
   onlyFirstOption?:boolean
   labelProps?:any
+  labelContainer?:any
 }
 
 
@@ -61,11 +62,11 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
     FOTcristales,
     isOptional,
     onlyFirstOption,
-    labelProps
+    labelProps,
+    labelContainer
   }) => {
     const stateListBox = useAppSelector((store: AppStore) => store.listBoxTipos[entidad]);
-    const stateListBox2 = useAppSelector((store: AppStore) => store.listBoxTipos);
-    const [entities, setEntities] = useState(stateListBox|| []);
+    const [entities, _setEntities] = useState(stateListBox|| []);
     const [strSelectedName, setStrSelectedName] = useState(data  || undefined);
     const inputRef = useRef(null); 
     const {token} = useAppSelector((store: AppStore) => store.user);
@@ -74,27 +75,18 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
     
     const fetchData = async () => {
       try {
-        console.log(stateListBox)
-        console.log(stateListBox2)
-        console.log(label)
-        console.log(entidad)
-        console.log(!stateListBox || stateListBox.length < 1)
         if (!stateListBox || stateListBox.length < 1) {
           const { data } = await axios(`${URLBackend}/api/tipos/listado/?query=02&_p1=${params}`,{
             headers: {
                'Authorization': token, 
              }
        });
-        console.log(label)
-          console.log(data);
-          setEntities(data);
 
         dispatch(updateDataForKey({entidad, data}))
           
         }
       } catch (error:any) {
         // handleError(error)
-        console.log('FETCH-TIPOS', error);
         throw error;
       }
     }
@@ -115,9 +107,9 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
       }
     },[resetFilters.value])
 
-    if(name === '_motivo'){
+    if(label === 'Tipo Doc'){
       console.log('renderB')
-      console.log(customWidth)
+      console.log(entities)
     }
     
     const renderInput = () => (
@@ -126,10 +118,12 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
           control={control}
           defaultValue={strSelectedName}
           render={({ field }) => (
-            <div className={`custom-select border-[2px] rounded-lg  relative ${error ? 'border-red-500' : 'border-[#f8b179]'}  `}>
-                <label htmlFor={label} className={` ${labelProps ? labelProps : ""} absolute !translate-y-[-0.4vw] translate-x-3`}>
-                  {label}
-                </label>
+            <div className={`custom-select border-[0.5px] h-[2.8vw]  rounded-lg  relative ${error ? 'border-red-500' : 'border-[#f8b179]'}  `}>
+                 <div className={`${labelContainer ? labelContainer : ""} w-1/2 h-2 -top-[0.3vw]  absolute left-2`}>
+                  <label htmlFor={label} className={`  ${labelProps ? labelProps : "  !translate-y-[-1.2vh] !text-[1vw] !font-[1vw]"}  !translate-y-[-0.8vw] translate-x-3`}>
+                    {label}
+                  </label>
+                </div>
                 {error && (
                   <p className="absolute z-20 top-[0.1rem] right-1 labelErr">
                     {error.message}
@@ -140,6 +134,7 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
                 {...field}
                 ref={inputRef}
                 disabled={readOnly}
+                title={name}
                 tabIndex  ={tabIndex || 1}
                 value={strSelectedName}
                 onChange={(e) => {
@@ -183,7 +178,7 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
                       
                     </option>
                   )}
-                {entities && entities.length >= 1 &&
+                {entities &&
                   entities.map((option: any, index: React.Key | null | undefined) => (
                     <option
                       key={index}
@@ -208,7 +203,8 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
    
     return (
       // <div className="flex min-w-[60px] w-full items-center mb-2 mx-4 mt-select mt-select-dropdown-up cursor-pointer ">
-      <div className={`flex items-center mt-select mt-select-dropdown-up cursor-pointer ${customWidth ? customWidth : "w-[19.2rem]"}`}>
+      <div className={`flex items-center relative mt-select mt-select-dropdown-up cursor-pointer ${customWidth ? customWidth : "w-[19.2rem]"}`}>
+
         {/* <label className="label-input w-1/3">{label}</label> */}
         {renderInput()}
         {/* Controller  */}

@@ -86,22 +86,39 @@ const MPuntosVenta: React.FC = () => {
             updateParams={updateParams}
             setEntities={setEntities}
             primaryKeyInputs={[
-                { name: "_p1", label: "Descripción", type: "text", styles:{with:" !w-[12rem]" }, },
+                { name: "_p1", label: "Descripción", type: "text", 
+                  styles:{
+                    with: "!h-[2.5vw] !text-[1vw] w-full",
+                    container:"w-[15vw] !text-[2vw] translate-y-[-0.2vw]", 
+                    labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+                  }, },
               {
                 name      : "_p2",
                 label     : "Tipo",
                 type      : "select",
                 selectUrl : "/api/tipos/",
-                tipos     : "PuntosVentaTipos", styles:{with:" !w-[19rem]"},
+                tipos     : "PuntosVentaTipos", 
+                styles:{
+                  styles:"!h-[2.5vw] text-[1vw] w-full",
+                  container:"!w-[20vw]  text-[1vw] translate-x-[0.5vw]", 
+                  labelProps: "!translate-y-[-3vh] !text-[1.2vw] !font-[2vw]"
+                },
               },
               {
                 name: "_p3",
                 label: "Bodega Armazones",
                 type: "select",
-                selectUrl: "/api/almacenes/", styles:{with:"!w-[20rem]"},
+                selectUrl: "/api/almacenes/", 
+                styles:{
+                  styles:"!h-[2.5vw] text-[1vw] w-full",
+                  container:"!w-[40vw]  text-[1vw] translate-x-[0.5vw]", 
+                  labelProps: "!translate-y-[-3vh] !text-[1vw] !font-[2vw]"
+                },
                 _p1: "1"
               },
               ]}
+              classNameSearchButton=" translate-x-[12vw] translate-[-0.3rem]"
+
           />
         </div>
 

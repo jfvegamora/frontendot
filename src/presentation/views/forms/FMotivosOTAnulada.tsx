@@ -231,7 +231,7 @@ const FMotivosOTAnulada: React.FC<ISituacionesFormProps> = React.memo(
           <div className="userFormularioCont">
 
           <div className="input-container items-center rowForm  ">
-            <div className="w-[99%]">
+            <div className="w-[99%] mb-8">
               <TextInputComponent
                 type="text"
                 label="Descripción"
@@ -240,12 +240,14 @@ const FMotivosOTAnulada: React.FC<ISituacionesFormProps> = React.memo(
                 control={control}
                 error={errors.situacion}
                 inputRef={firstInputRef}
+                customWidth={"!h-[3vw] !text-[1vw] !w-[27.5vw]"}
+
               />
             </div>
           </div>
 
           <div className="input-container items-center rowForm  ">
-            <div className="w-full !mt-4 ">
+            <div className="w-full !mt-4 ml-4 ">
               <SelectInputTiposComponent
                 label="Área exclusiva"
                 name="area_hasta"
@@ -253,7 +255,7 @@ const FMotivosOTAnulada: React.FC<ISituacionesFormProps> = React.memo(
                 data={data && data[EnumGrid.area_id]}
                 control={control}
                 entidad={"OTAreas"}
-                customWidth={"!w-full ml-4"}
+                customWidth={"!h-[2.5vw] text-[1vw] !w-[30vw]"}
                 // error={errors.}
                 isOptional={true}
                 />

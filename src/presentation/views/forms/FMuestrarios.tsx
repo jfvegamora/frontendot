@@ -224,13 +224,13 @@ const FMuestrarios: React.FC<IUserFormPrps> = React.memo(
     }, []);
 
     return (
-      <div className="useFormContainer centered-div use30rem">
+      <div className="useFormContainer centered-div w-[30vw]">
         <div className="userFormBtnCloseContainer">
+        <h1 className="userFormLabel translate-x-[-30%]">{label}</h1>
           <button onClick={closeModal} className="userFormBtnClose">
             X
           </button>
         </div>
-        <h1 className="userFormLabel">{label}</h1>
 
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
@@ -247,6 +247,8 @@ const FMuestrarios: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     error={errors.descripcion}
                     inputRef={firstInputRef}
+                    customWidth={"!h-[3vw] !text-[1vw] !w-[27vw]"}
+
                   />
                 </div>
               </div>
@@ -254,7 +256,7 @@ const FMuestrarios: React.FC<IUserFormPrps> = React.memo(
 
             <div className="w-full flex items-center h-[4rem]">
               <div className="input-container items-center rowForm w-full">
-                <div className="w-full ">
+                <div className="w-full ml-4">
                   <SelectInputComponent
                     label="Punto Venta"
                     name="punto_venta"
@@ -264,7 +266,7 @@ const FMuestrarios: React.FC<IUserFormPrps> = React.memo(
                     entidad={["/api/puntosventa/", "02"]}
                     // entidad={"PuntosVenta"}
                     error={errors.punto_venta}
-                    customWidth={"w-full ml-[1rem]"}
+                    customWidth={"!h-[2.5vw] text-[1vw] !w-[29.5vw]"}
                     />
                 </div>
               </div>

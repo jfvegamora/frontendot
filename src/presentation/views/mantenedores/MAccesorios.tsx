@@ -82,21 +82,41 @@ const MAccesorios: React.FC = () => {
             updateParams={updateParams}
             setEntities={setEntities}
             primaryKeyInputs={[
-              { name: "_p1", label: "Código", type: "text", styles: { with: "!w-[10rem]" } },
+              { name: "_p1", label: "Código", type: "text", 
+                styles: { 
+                  with: "!h-[2.5vw] !text-[1vw] w-full",
+                  container:"w-[10vw] !text-[2vw] translate-y-[-0.2vw] translate-x-[-1vw]", 
+                  labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+                } },
               // { name: "_p5", label: "Código FAB", type: "text", styles:{with:"!w-[10rem]"}},
-              { name: "_p2", label: "Descripción", type: "text", styles: { with: "!w-[10rem]", container: "translate-x-[1rem]" } },
+              { name: "_p2", label: "Descripción", type: "text", 
+                styles: { 
+                  with: "!h-[2.5vw] !text-[1vw] w-full",
+                  container:"w-[17vw] !text-[2vw] translate-y-[-0.2vw] translate-x-[.05vw]", 
+                  labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+                 } },
               {
                 name: "_p3",
                 label: "Marca",
                 type: "select",
-                selectUrl: "/api/marcas/", styles: { with: "!w-[14rem]", container:"translate-x-[2rem] translate-y-[0.3rem]" },
+                selectUrl: "/api/marcas/", 
+                styles: {
+                  styles:"!h-[2.5vw] text-[1vw] w-full",
+                  container:"!w-[15vw]  text-[1vw] translate-x-[1vw] translate-y-[0.3rem]", 
+                  labelProps: "!translate-y-[-3vh] !text-[1.2vw] !font-[2vw]"
+                   },
                 _p1: "3"
               },
               {
                 name: "_p4",
                 label: "Almacén",
                 type: "select",
-                selectUrl: "/api/almacenes/", styles: { with: "!w-[20rem]", container:"translate-x-[1rem] translate-y-[0.3rem]" },
+                selectUrl: "/api/almacenes/", 
+                styles: { 
+                  styles:"!h-[2.5vw] text-[1vw] w-full",
+                  container:"!w-[15vw]  text-[1vw] translate-x-[0.5vw] translate-y-[0.3rem]", 
+                  labelProps: "!translate-y-[-3vh] !text-[1.2vw] !font-[2vw]" 
+                },
                 _p1: "3"
               },
 
@@ -105,14 +125,19 @@ const MAccesorios: React.FC = () => {
                 label: "Stock",
                 type: "select",
                 selectUrl: "/api/tipos/",
-                tipos: "Stock", styles: { with: "!mt-[0.5rem] !w-[12rem]", container:"translate-y-[0.2rem]" },
+                tipos: "Stock", 
+                styles: { 
+                  styles:"!h-[2.5vw] text-[1vw] w-full",
+                  container:"!w-[15vw]  text-[1vw] translate-x-[-0.5vw] translate-y-[0.3rem]", 
+                  labelProps: "!translate-y-[-3vh] !text-[1.2vw] !font-[2vw]"
+                },
               },
             ]}
-            classNameSearchButton=" translate-x-[2.5rem] translate-y-[0.3rem]"
+            classNameSearchButton=" translate-x-[6vw] translate-y-[0.3rem]"
           />
 
         </div>
-        <div className="w-[33%] px-2 relative -right-[62rem] ">
+        <div className="w-[17vw] translate-x-[77vw]">
           <PrimaryButtonsComponent
             handleAddPerson={openModal}
             handleDeleteSelected={handleDeleteSelected}
@@ -153,8 +178,7 @@ const MAccesorios: React.FC = () => {
           params={params}
         />
       </div>
-
-
+  
 
      <Suspense>
         {isModalInsert && (

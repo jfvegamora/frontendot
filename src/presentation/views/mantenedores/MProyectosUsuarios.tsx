@@ -92,22 +92,37 @@ const MProyectosUsuarios: React.FC = () => {
               name: "_p1",
               label: "Proyecto",
               type: "select",
-              selectUrl: "/api/proyectos/", styles:{with:" !w-[23rem]"},
+              selectUrl: "/api/proyectos/", 
+              styles:{
+                styles:"!h-[2.5vw] text-[1vw] w-full",
+                container:"!w-[25vw]  text-[1vw]", 
+                labelProps: "!translate-y-[-3vh] !text-[1.2vw] !font-[2vw]"
+              },
             },
             {
               name: "_p2",
               label: "Punto de Venta",
               type: "select",
-              selectUrl: "/api/puntosventa/", styles:{with:" !w-[18rem]"},
+              selectUrl: "/api/puntosventa/", 
+              styles:{
+                styles:"!h-[2.5vw] text-[1vw] w-full",
+                container:"!w-[25vw]  text-[1vw] translate-x-[5vw]", 
+                labelProps: "!translate-y-[-3vh] !text-[1vw] !font-[2vw]"
+              },
             },
             {
               name: "_p3",
               label: "Usuario",
               type: "select",
-              selectUrl: "/api/usuarios/", styles:{with:" !w-[18rem]"},
+              selectUrl: "/api/usuarios/", 
+              styles:{
+                styles:"!h-[2.5vw] text-[1vw] w-full",
+                container:"!w-[25vw]  text-[1vw] translate-x-[4vw]", 
+                labelProps: "!translate-y-[-3vh] !text-[1.2vw] !font-[2vw]"
+              },
             },
           ]}
-          classNameSearchButton=" translate-x-[2rem]"
+          classNameSearchButton=" translate-x-[4vw] translate-y-[0.3rem]"
         />
       </div>
 
@@ -149,6 +164,9 @@ const MProyectosUsuarios: React.FC = () => {
           leftEdit={true}
         />
       </div>     
+
++
+
 
       {isModalInsert && (
         <FProyectosUsuarios

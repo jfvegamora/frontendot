@@ -244,13 +244,13 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
 
     
     return (
-      <div className="useFormContainer centered-div use40rem">
-        <div className="userFormBtnCloseContainer">
+      <div className="useFormContainer centered-div w-[40vw]">
+        <div className="userFormBtnCloseContainer ">
+        <h1 className="userFormLabel translate-x-[-12vw]">{label}</h1>
           <button onClick={closeModal} className="userFormBtnClose">
             X
           </button>
         </div>
-        <h1 className="userFormLabel">{label}</h1>
 
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
@@ -269,6 +269,8 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
                     error={errors.codigo}
                     inputRef={firstInputRef}
                     onlyRead={isEditting}
+                    customWidth={"!h-[2.8vw] !text-[1vw]"}
+
                   />
                 </div>
               </div>
@@ -283,6 +285,8 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     onlyRead={isEditting}
                     isOptional={true}
+                    customWidth={"!h-[2.8vw] !text-[1vw]"}
+
                   />
                 </div>
               </div>
@@ -299,11 +303,13 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     error={errors.descripcion}
                     inputRef={secondInputRef}
+                    customWidth={"!h-[2.8vw] !text-[1vw]"}
+
                   />
                 </div>
               </div>
               <div className="input-container items-center rowForm  w-[50%]">
-                <div className="w-full !mt-4">
+                <div className="w-full !mt-4 ml-4">
                 <SelectInputComponent
                     label="Marca"
                     name="marca"
@@ -312,7 +318,8 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={["/api/marcas/", "02", "3"]}
                     error={errors.marca}
-                    customWidth={"!ml-[1rem] !w-[19rem]"}
+                    customWidth={"!h-[2.5vw] text-[1vw] !w-[20vw]"}
+                    
                     />
                 </div>
               </div>
@@ -330,6 +337,8 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
                     error={errors.precio_neto}
                     isOptional={true}
                     textAlign="text-right"
+                    customWidth={"!h-[2.8vw] !text-[1vw]"}
+
                   />
                 </div>
               </div>
@@ -343,6 +352,8 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     error={errors.stock_minimo}
                     textAlign="text-right"
+                    customWidth={"!h-[2.8vw] !text-[1vw]"}
+
                   />
                 </div>
               </div>
@@ -361,6 +372,8 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
                     onlyRead={true}
                     tabIndex={-1}
                     textAlign="text-right"
+                    customWidth={"!h-[2.8vw] !text-[1vw]"}
+
                   />
                 </div>
               </div>
@@ -374,6 +387,8 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     onlyRead={true}
                     tabIndex={-1}
+                    customWidth={"!h-[2.8vw] !text-[1vw]"}
+
                     textAlign="text-right"
                   />
                 </div>

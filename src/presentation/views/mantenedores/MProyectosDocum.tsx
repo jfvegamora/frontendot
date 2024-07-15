@@ -72,7 +72,7 @@ const MProyectosDocum: React.FC = () => {
     return (
       <div className="mantenedorContainer">
         <div className="mantenedorHead width100">
-          <div className="w-[75%]">
+          <div className="w-[75%] h-[3.5vw]">
             <PrimaryKeySearch
               baseUrl={strBaseUrl}
               setParams={setParams}
@@ -83,21 +83,36 @@ const MProyectosDocum: React.FC = () => {
                   name: "_p1",
                   label: "Proyecto",
                   type: "select",
-                  selectUrl: "/api/proyectos/", styles:{with:" !w-[28rem] translate-y-[0.2rem]"},
+                  selectUrl: "/api/proyectos/", 
+                  styles:{
+                      styles:"!h-[2.5vw] text-[1vw] w-full",
+                      container:"!w-[30vw]  text-[1vw] translate-x-[0.5vw]", 
+                      labelProps: "!translate-y-[-3vh] !text-[1.2vw] !font-[2vw]"
+                  },
                 },
                 {
                   name: "_p4",
                   label: "Tipo Doc",
                   type: "select",
                   selectUrl: "/api/tipos/",
-                  tipos: "TipoDoc", styles:{with:"!mt-[0.5rem]  w-[17rem] translate-y-[0.1rem]"},
+                  tipos: "TipoDoc", 
+                  styles:{
+                      styles:"!h-[2.5vw] text-[1vw] w-full",
+                      container:"!w-[35vw]  text-[1vw] translate-x-[6vw]", 
+                      labelProps: "!translate-y-[-3vh] !text-[1.2vw] !font-[2vw]"
+                  },
                   _p1:"1,2,3,4,5,6,7,8"
                 },
-                { name: "_p2", label: "N° Documento", type: "text", styles:{with:" !w-[9rem]"},},
+                { name: "_p2", label: "N° Documento", type: "text", 
+                  styles:{
+                    with: "!h-[2.5vw] !text-[1vw] w-full",
+                    container:"w-[35vw] !text-[2vw] translate-y-[-0.2vw] translate-x-[5vw]", 
+                    labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+                  },},
                 // { name: "_p2", label: "Código Proyecto", type: "text", styles:{with:" !w-[9rem]"}, },
                 // { name: "_p3", label: "Código Licitación", type: "text", styles:{with:" !w-[9rem]"}, },
               ]}
-              classNameSearchButton=" translate-x-[2rem]"
+              classNameSearchButton=" translate-x-[2vw]"
               />
           </div>
   
@@ -142,6 +157,8 @@ const MProyectosDocum: React.FC = () => {
             leftEdit={true}
             />
         </div>
+
+              
   
         <Suspense>
           {isModalInsert && (

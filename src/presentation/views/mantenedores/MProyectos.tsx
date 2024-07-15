@@ -132,24 +132,46 @@ const MProyectos: React.FC = () => {
                 name: "_p1",
                 label: "Mandante",
                 type: "select",
-                selectUrl: "/api/mandantes/", styles:{with:" !w-[15rem]"},
+                selectUrl: "/api/mandantes/", 
+                styles:{
+                  styles:"!h-[2.5vw] text-[1vw] w-full",
+                  container:"!w-[15vw]  text-[1vw] ", 
+                  labelProps: "!translate-y-[-3vh] !text-[1.2vw] !font-[2vw]"
+                },
               },
               {
                 name: "_p2",
                 label: "Título",
                 type: "select",
-                selectUrl: "/api/proyectos/", styles:{with:" !w-[25rem] translate-x-[-1rem]"},
+                selectUrl: "/api/proyectos/", 
+                styles:{
+                  styles:"!h-[2.5vw] text-[1vw] w-full",
+                  container:"!w-[15vw]  text-[1vw] translate-x-[-3vw]", 
+                  labelProps: "!translate-y-[-3vh] !text-[1.2vw] !font-[2vw]"
+                },
               },
-              { name: "_p3", label: "Cod. Proyecto/Licitación", type: "text", styles:{with:"!w-[12rem]", container:"translate-x-[-2rem] translate-y-[-0.2rem]"}, },
+              { name: "_p3", label: "Cod. Proyecto/Licitación", type: "text", 
+                styles:{
+                  with: "!h-[2.5vw] !text-[1vw] w-full",
+                  container:"w-[17vw] !text-[2vw] translate-y-[-0.2vw] translate-x-[-5vw]", 
+                  labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+                }, },
               {
                 name: "_p4",
                 label: "Estado",
                 type: "select",
                 selectUrl: "/api/tipos/",
-                tipos: "ProyectoEstados", styles: { with: "!w-[14rem] translate-x-[-1rem] translate-y-[0.5rem] " },
+                tipos: "ProyectoEstados", 
+                styles: { 
+                  styles:"!h-[2.5vw] text-[1vw] w-full",
+                  container:"!w-[20vw]  text-[1vw] translate-x-[-4vw]", 
+                  labelProps: "!translate-y-[-3vh] !text-[1.2vw] !font-[2vw]"
+                },
               },
             
             ]}
+            classNameSearchButton=" translate-x-[2vw]"
+
           />
         </div>
 
@@ -192,8 +214,7 @@ const MProyectos: React.FC = () => {
           leftEdit={true}
         />
       </div>
-    
-      
+
       {isModalInsert && (
         <FProyectos
           label={`${TITLES.ingreso} ${strEntidad}`}

@@ -218,13 +218,13 @@ const FCargos: React.FC<ICargosFormProps> = React.memo(
     }, [closeModal]);
 
     return (
-      <div className="useFormContainer centered-div use30rem">
+      <div className="useFormContainer centered-div w-[32vw]">
         <div className="userFormBtnCloseContainer">
+        <h1 className="userFormLabel translate-x-[-10vw]">{label}</h1>
           <button onClick={closeModal} className="userFormBtnClose">
             X
           </button>
         </div>
-        <h1 className="userFormLabel">{label}</h1>
 
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))}
@@ -243,6 +243,7 @@ const FCargos: React.FC<ICargosFormProps> = React.memo(
                         control={control}
                         error={errors.nombre}
                         inputRef={firstInputRef}
+                        customWidth={"!h-[3vw] !text-[1vw] !w-[29vw]"}
                       />
                     </div>
                 </div>

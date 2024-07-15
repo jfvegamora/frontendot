@@ -114,11 +114,28 @@ const MProyectosCristales: React.FC = () => {
                 name: "_p1",
                 label: "Proyecto (?)",
                 type: "select",
-                selectUrl: "/api/proyectos/", styles: { with: " !w-[33rem]" },
+                selectUrl: "/api/proyectos/", 
+                styles: { 
+                  styles:"!h-[2.5vw] text-[1vw] w-full",
+                  container:"!w-[20vw]  text-[1vw] translate-x-[0.5vw]", 
+                  labelProps: "!translate-y-[-3vh] !text-[1.2vw] !font-[2vw]"
+                },
               },
-              { name: "_p2", label: "Código Proyecto", type: "text", styles: { with: " !w-[9rem]" }, },
-              { name: "_p3", label: "Código Licitación", type: "text", styles: { with: " !w-[9rem]" }, },
+              { name: "_p2", label: "Código Proyecto", type: "text", 
+                styles: { 
+                  with: "!h-[2.5vw] !text-[1vw] w-full",
+                  container:"w-[20vw] !text-[2vw] translate-y-[-0.2vw] translate-x-[2vw]", 
+                  labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+                }, },
+              { name: "_p3", label: "Código Licitación", type: "text", 
+                styles: {
+                  with: "!h-[2.5vw] !text-[1vw] w-full",
+                  container:"w-[20vw] !text-[2vw] translate-y-[-0.2vw] translate-x-[3vw]", 
+                  labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+                  }, },
             ]}
+            classNameSearchButton=" translate-x-[2vw] translate-[-0.3rem]"
+
           />
         </div>
 
@@ -160,7 +177,7 @@ const MProyectosCristales: React.FC = () => {
         />
       </div>
       
-     
+  
 
       {isModalInsert && (
         <FProyectosGrupos

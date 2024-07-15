@@ -206,7 +206,7 @@ const FPermisos: React.FC<IFormPrps> = React.memo(
       };
     }, [closeModal]);
     return (
-      <div className="useFormContainer centered-div use30rem">
+      <div className="useFormContainer centered-div w-[30vw]">
         <div className="userFormBtnCloseContainer flex">
           <div className="w-[80%] mx-auto !text.center">
             <h1 className="userFormLabel">{label}</h1>
@@ -221,7 +221,7 @@ const FPermisos: React.FC<IFormPrps> = React.memo(
           <div className="userFormularioContainer">
             <div className="w-full items-center flex !mb-4">
               <div className="input-container items-center rowForm w-full">
-                <div className="w-full">
+                <div className="w-[22vw] ml-8">
                   <SelectInputComponent
                     label="Usuario"
                     name="usuario"
@@ -231,7 +231,7 @@ const FPermisos: React.FC<IFormPrps> = React.memo(
                     entidad={["/api/usuarios/", "02"]}
                     error={errors.usuario}
                     readOnly={isEditting}
-                    customWidth={"!ml-[1rem] "}
+                    customWidth={"!h-[2.5vw] text-[1vw] !w-[29vw]"}
                     />
                 </div>
               </div>
@@ -239,7 +239,7 @@ const FPermisos: React.FC<IFormPrps> = React.memo(
 
             <div className="w-full items-center flex !mb-4">
               <div className="input-container items-center rowForm w-full">
-                <div className="w-full">
+              <div className="w-[22vw] ml-8">
                     <SelectInputComponent
                       label="Funcionalidad"
                       name="funcionalidad"
@@ -249,7 +249,7 @@ const FPermisos: React.FC<IFormPrps> = React.memo(
                       entidad={["/api/funcionalidades/", "02"]}
                       error={errors.funcionalidad}
                       readOnly={isEditting}
-                      customWidth={"!ml-[1rem] "}
+                      customWidth={"!h-[2.5vw] text-[1vw] !w-[29vw]"}
                       />
                   </div>
                 </div>
@@ -257,7 +257,7 @@ const FPermisos: React.FC<IFormPrps> = React.memo(
             </div>
             
             <div className="items center flex !mb-2">
-              <div className="input-container items-center rowForm  w-full">
+              <div className="input-container items-center rowForm ml-6  w-full">
                 <div className="!ml-[1rem] !w-[25rem]">
                     <RadioButtonComponent
                       control={control}

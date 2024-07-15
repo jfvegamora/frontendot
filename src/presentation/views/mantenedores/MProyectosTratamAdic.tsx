@@ -82,16 +82,26 @@ const MProyectosTratamAdic: React.FC = () => {
                 label: "Proyecto",
                 type: "select",
                 selectUrl: "/api/proyectos/",
+                styles:{
+                  styles:"!h-[2.5vw] text-[1vw]",
+                  container:"!w-[40vw]  text-[1vw]  translate-y-[0.3rem] ", 
+                  labelProps: "!translate-y-[-2vh] !text-[1vw] !font-[2vw]"
+                }
               },
               {
                 name: "_p3",
                 label: "Tratamiento ",
                 type: "select",
                 selectUrl: "/api/tipos/",
-                tipos: "OTTratamientoAdicional", styles: { with:" w-[16rem] translate-y-[0.4rem]" },
+                tipos: "OTTratamientoAdicional", 
+                styles: { 
+                  styles:"!h-[2.5vw] text-[1vw]",
+                  container:"!w-[40vw]  text-[1vw] translate-x-[6vw] translate-y-[0.3rem] ", 
+                  labelProps: "!translate-y-[-2vh] !text-[1vw] !font-[2vw]"
+                },
               },
             ]}
-             classNameSearchButton=" translate-x-[11.5rem]"
+             classNameSearchButton=" translate-x-[14vw] translate-y-[0.3rem]"
           />
         </div>
 

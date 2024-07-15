@@ -78,14 +78,24 @@ const MAlmacenes: React.FC = () => {
             updateParams={updateParams}
             setEntities={setEntities}
             primaryKeyInputs={[
-              { name: "_p1", label: "Descripción", type: "text" },
+              { name: "_p1", label: "Descripción", type: "text",
+                styles:{
+                  styles:"!h-[2.5vw] text-[1vw] w-full",
+                container:"!w-[20vw]  text-[1vw] translate-y-[18%] mb-4 ", 
+              labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+                }
+               },
               {
                 name      : "_p2",
                 label     : "Tipo",
                 type      : "select",
                 selectUrl : "/api/tipos/",
                 tipos     : "AlmacenesTipos",
-                styles    :  {with:" !w-[16rem]", container:"translate-x-[1rem] translate-y-[0.6rem]"}
+                styles    :  {
+                  styles:"!h-[2.5vw] text-[1vw] w-full",
+                container:"!w-[20vw]  text-[1vw] translate-x-[1vw] translate-y-[17%] ", 
+              labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+                }
               },
               {
                 name      : "_p3",
@@ -93,11 +103,15 @@ const MAlmacenes: React.FC = () => {
                 type      : "select",
                 selectUrl : "/api/tipos/",
                 tipos     : "TipoInsumo",
-                styles    :  {with:" !w-[16rem]", container:"translate-y-[0.6rem]"}
+                styles    :  {
+                  styles:"!h-[2.5vw] text-[1vw] w-full",
+                container:"!w-[20vw]  text-[1vw] translate-x-[-0.5vw] translate-y-[18%] ", 
+              labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+                }
 
               },
             ]}
-            classNameSearchButton=" translate-x-[1.8rem] translate-y-[0.2rem]"
+            classNameSearchButton=" translate-x-[1.8vw] translate-y-[0.3rem]"
           />
         </div>
 
@@ -137,6 +151,7 @@ const MAlmacenes: React.FC = () => {
           leftEdit={true}
         />
       </div>
+
 
   
       {isModalInsert && (

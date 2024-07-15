@@ -223,7 +223,7 @@ const FMarcas: React.FC<IUserFormPrps> = React.memo(
     }, []);
 
     return (
-      <div className="useFormContainer centered-div use30rem">
+      <div className="useFormContainer centered-div w-[30vw]">
         <div className="userFormBtnCloseContainer">
           <button onClick={closeModal} className="userFormBtnClose">
             X
@@ -246,6 +246,8 @@ const FMarcas: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     error={errors.nombre}
                     inputRef={firstInputRef}
+                    customWidth={"!h-[2.8vw] !text-[1vw]"}
+
                   />
                 </div>
               </div>
@@ -253,7 +255,7 @@ const FMarcas: React.FC<IUserFormPrps> = React.memo(
 
             <div className="w-full flex items-center h-[4rem]">
               <div className="input-container items-center rowForm w-full">
-                <div className="w-full ">
+                <div className="w-full ml-4">
                   <SelectInputComponent
                     label="Proveedor"
                     name="proveedor"
@@ -262,7 +264,8 @@ const FMarcas: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={["/api/proveedores/", "02"]}
                     error={errors.proveedor}
-                    customWidth={"!ml-[1rem] !w-[28rem]"}
+                    customWidth={"!h-[2.5vw] text-[1vw] !w-[30vw]"}
+                    
                   />
                 </div>
               </div>
@@ -270,7 +273,7 @@ const FMarcas: React.FC<IUserFormPrps> = React.memo(
 
             <div className="w-full flex items-center h-[4rem]">
               <div className="input-container items-center rowForm w-full">
-                <div className="w-full ">
+                <div className="w-full ml-4">
                 <SelectInputTiposComponent
                     label="Categoría"
                     name="categoria"
@@ -279,7 +282,7 @@ const FMarcas: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={"TipoInsumo"}
                     error={errors.categoria}
-                    customWidth={"!w-full ml-4"}
+                    customWidth={"!h-[2.5vw] text-[1vw] !w-[30vw]"}
                     isOptional={true}
                     />
                 </div>

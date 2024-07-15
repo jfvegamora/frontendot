@@ -249,7 +249,7 @@ const MOT: React.FC = () => {
                 { name: "_p1", label: "RBD", type: "text" , styles:{ with: "!w-[18.4vw]  !h-[6vh] !font-[1.6vw] !text-[1.6vw]", container:"w-[10vw] !h-[6vh] translate-x-[-4.5vw]", labelProps: "!text-[1.2vw] translate-y-[1vw]" } },
                 
                 { name: "_proyecto", label: "Proyecto", type: "select", selectUrl: "/api/proyectos/", styles: { with: "w-[20.4vw]", container: "w-[20vw]  translate-x-[-6vw] !text-[1vw] " }},
-                { name: "_motivo", label: "Motivo", type: "select", selectUrl: "/api/tipos/", tipos: "OTMotivo", styles: { with: "w-[20.4vw]  translate-y-[0.3rem] !h-[3vw]", container:"w-[20vw] translate-x-[-1vw] text-[1vw] !h-[3vw] translate-y-[-0.3rem]", labelProps: "!text-[1.2vw] translate-y-[1vw]" }},
+                { name: "_motivo", label: "Motivo", type: "select", selectUrl: "/api/tipos/", tipos: "OTMotivo", styles: { with: "w-[20.4vw]  translate-y-[0.3rem] !h-[3vw]", container:"w-[20vw] translate-x-[-1vw] text-[1vw] !h-[3vw] translate-y-[-0.3rem] z-30" }},
                 
                 { name: "_p2", label: "Tipo Doc", type: "select", selectUrl: "/api/tipos/", tipos: "OTNumDoc", styles:{with: 'w-[20.4vw] !h-[3vw]', container: "w-[20.4vw] translate-x-[13.5vw] text-[1vw] !h-[3vw] !z-30 translate-y-[-0.3rem]"}},
                 { name: "_p3", label: "Número Doc", type: "text", styles: { with: "w-[23vw]", container:"translate-x-[18.5vw] !w-[23vw] !z-30 text-[1vw]  translate-y-[-0.5vw]" }},

@@ -80,7 +80,12 @@ const MCristales: React.FC = () => {
               updateParams={updateParams}
               setEntities={setEntities}
               primaryKeyInputs={[
-                { name: "_p1", label: "Código", type: "text", styles: { with: "!w-[17rem]" } },
+                { name: "_p1", label: "Código", type: "text", 
+                  styles: { 
+                    styles:"!h-[2.5vw] text-[1vw]",
+                  container:"!w-[20vw]  text-[1vw] translate-x-[-1vw] ", 
+                  labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+                  } },
                 // { name: "_p2", label: "Código FAB", type: "text", styles:{with:"!w-[17rem]"}},
 
                 {
@@ -88,7 +93,12 @@ const MCristales: React.FC = () => {
                   label: "Indice",
                   type: "select",
                   selectUrl: "/api/tipos/",
-                  tipos: "CristalesIndices", styles: { with: " !w-[19rem] translate-y-[0.6rem]"},
+                  tipos: "CristalesIndices", 
+                  styles: {
+                    styles:"!h-[2.5vw] text-[1vw] w-full",
+                    container:"!w-[20vw]  text-[1vw] -translate-x-[-0.5vw] translate-y-[18%] ", 
+                  labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+                    },
                 },
 
                 {
@@ -96,16 +106,36 @@ const MCristales: React.FC = () => {
                   label: "Material",
                   type: "select",
                   selectUrl: "/api/tipos/",
-                  tipos: "CristalesMateriales", styles: { with: "translate-y-[1.5rem] !w-[19rem]" },
+                  tipos: "CristalesMateriales", 
+                  styles: {
+                    styles:"!h-[2.5vw] text-[1vw]",
+                    container:"!w-[30vw]   text-[1vw] -translate-x-[1vw] translate-y-[18%] ", 
+                  labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+                     },
                 },
 
-                { name: "_pDiametro", label: "Diámetro", type: "number", styles:{with:"!w-[17rem]", container:"translate-y-[-0.1rem]"}},
-                { name: "_pEsferico", label: "Esférico", type: "number", styles:{with: "", container:"!translate-y-[1.5rem]" } },
+                { name: "_pDiametro", label: "Diámetro", type: "number", 
+                  styles:{
+                    styles:"!h-[2.5vw] text-[1vw]",
+                    container:"!w-[15vw]  text-[1vw] translate-x-[-0.5vw] ", 
+                    labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+                  }},
+                { name: "_pEsferico", label: "Esférico", type: "number", 
+                  styles:{
+                    styles:"!h-[2.5vw] text-[1vw]",
+                    container:"!w-[20vw]  text-[1vw] translate-x-[-1vw] ", 
+                    labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+                  } },
                 {
                   name: "_pMarca",
                   label: "Marca",
                   type: "select",
-                  selectUrl: "/api/marcas/", styles: { with: " !w-[19rem] !mt-2", container:"translate-y-[2rem]" },
+                  selectUrl: "/api/marcas/", 
+                  styles: {
+                    styles:"!h-[2.5vw] text-[1vw]",
+                    container:"!w-[30vw]   text-[1vw] -translate-x-[0.2vw] ml-2 translate-y-[1vw] ", 
+                  labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+                    },
                   _p1: "2"
                 },
 
@@ -114,7 +144,12 @@ const MCristales: React.FC = () => {
                   label: "Diseño",
                   type: "select",
                   selectUrl: "/api/tipos/",
-                  tipos: "CristalesDisenos", styles: { with: "w-[19rem]", container:"translate-y-[0.5rem]" },
+                  tipos: "CristalesDisenos", 
+                  styles: { 
+                    styles:"!h-[2.5vw] text-[1vw]",
+                    container:"!w-[30vw]   text-[1vw] -translate-x-[1vw] translate-y-[18%] ", 
+                  labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+                  },
                 },
 
                 {
@@ -122,21 +157,36 @@ const MCristales: React.FC = () => {
                   label: "Color",
                   type: "select",
                   selectUrl: "/api/tipos/",
-                  tipos: "CristalesColores", styles: { with: "translate-y-[0.5rem] !w-[19rem]" },
+                  tipos: "CristalesColores", 
+                  styles: { 
+                    styles:"!h-[2.5vw] text-[1vw]",
+                    container:"!w-[30vw]   text-[1vw] -translate-x-[1vw] translate-y-[18%] ", 
+                  labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+                  },
                 },
                 {
                   name: "_pTratamiento",
                   label: "Tratamiento",
                   type: "select",
                   selectUrl: "/api/tipos/",
-                  tipos: "CristalesTratamientos", styles: { with: "!mt-[0.5rem] !w-[19rem]", container:"translate-y-[0.8rem]" },
+                  tipos: "CristalesTratamientos", 
+                  styles: { 
+                    styles:"!h-[2.5vw] text-[1vw]",
+                    container:"!w-[30vw]   text-[1vw] -translate-x-[1vw] translate-y-[18%] ", 
+                  labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+                  },
                 },
 
                 {
                   name: "_p4",
                   label: "Almacén",
                   type: "select",
-                  selectUrl: "/api/almacenes/", styles: { with: "!mt-[1.2rem] !w-[19rem]" },
+                  selectUrl: "/api/almacenes/", 
+                  styles: { 
+                    styles:"!h-[2.5vw] text-[1vw]",
+                    container:"!w-[30vw]   text-[1vw] -translate-x-[1vw] translate-y-[18%] ", 
+                  labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+                  },
                   _p1: "2"
                 },
 
@@ -145,7 +195,12 @@ const MCristales: React.FC = () => {
                   label: "Stock",
                   type: "select",
                   selectUrl: "/api/tipos/",
-                  tipos: "Stock", styles: { with: "!mt-[0.5rem] !w-[19rem]", container:"translate-y-[2rem]" },
+                  tipos: "Stock", 
+                  styles: { 
+                    styles:"!h-[2.5vw] text-[1vw]",
+                    container:"!w-[30vw]   text-[1vw] -translate-x-[1vw] translate-y-[18%] ", 
+                  labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+                  },
                 },
               ]}
                
@@ -195,16 +250,6 @@ const MCristales: React.FC = () => {
           params={params}
         />
       </div>
-
-      {/* <FCristales
-          label={`${TITLES.ingreso} ${strEntidad}`}
-          closeModal={closeModal}
-          selectedRows={selectedRows}
-          setEntities={setEntities}
-          params={params}
-          isEditting={false}
-          escritura_lectura={escritura_lectura}
-        /> */}
 
 
         <Suspense>

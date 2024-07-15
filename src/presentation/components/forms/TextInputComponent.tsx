@@ -22,10 +22,8 @@ interface ITextInputProps {
   isOT?:boolean;
   customWidth?: any;
   isOptional?:boolean;
-  labelProps?:any;
   textAlign?: string;
   handleFocus?:any;
-  labelContainer?:any
 }
 
 const TextInputComponent: React.FC<ITextInputProps> = ({
@@ -46,9 +44,7 @@ const TextInputComponent: React.FC<ITextInputProps> = ({
   customWidth,
   isOptional,
   textAlign,
-  handleFocus,
-  labelProps,
-  labelContainer
+  handleFocus
 }) => {
 
 
@@ -89,24 +85,26 @@ const TextInputComponent: React.FC<ITextInputProps> = ({
 
 
 return (
-  <div className={`mr-4 rounded-xl ${customWidth ? customWidth : ""}`}>
+  <div className={`mr-4 rounded-xl bg-gree-300 ${className ? className : ""}`}>
     <Controller
       name={name}
       control={control}
       defaultValue={defaultValue}
       render={({ field }) => (
         <div className={`  labelInput !mb-[1rem] !ml-[1rem] relative ${error ? 'border-red-500' : 'border-[#f8b179]'}`}>
-          <div className={`${labelContainer ? labelContainer : ""} w-full h-4 -top-[0.8vw] absolute left-2 bg-white`}>
-            <label htmlFor={label} className={` ${labelProps ? labelProps : ""} absolute !z-20 translate-y-[-0.5vw]  translate-x-3`}>
+          {/* <div className={`${labelContainer ? labelContainer : ""} w-[5vw] z-30 h-4 -top-[0.4vw] rounded-full absolute left-2 bg-white `}>
+            <label htmlFor={label} className={` ${labelProps ? labelProps : ""} z-20 absolute -!translate-y-[1vw] translate-x-2`}>
                 {label}
             </label>
-          </div>
+          </div> */}
           <Input
             {...field}
             error={error ? true : false}
-            // label={label}
+            label={label}
             id={label}
+            // labelProps={{className:"!text-[1vw] bg-red-300"}}
             type={type}
+            color="orange"
             // defaultValue={defaultValue}
             readOnly={onlyRead}
             maxLength={maxLength}

@@ -104,12 +104,22 @@ const MVitrinasArmazones: React.FC = () => {
               name: "_p2",
               label: "Vitrina",
               type: "select",
-              selectUrl: "/api/vitrinas/", styles:{with:" !w-[30rem]"}
+              selectUrl: "/api/vitrinas/", 
+              styles:{
+                styles:"!h-[2.5vw] text-[1vw]",
+                  container:"!w-[40vw]  text-[1vw]  translate-y-[0.3rem] ", 
+                  labelProps: "!translate-y-[-2vh] !text-[1vw] !font-[2vw]"
+              }
             },
-            { name: "_p3", label: "Código Armazón", type: "text", styles:{with:" !w-[12rem]", container:"translate-y-[-0.2rem] translate-x-[-1rem]"}, },
+            { name: "_p3", label: "Código Armazón", type: "text", 
+              styles:{
+                with: "!h-[2.5vw] !text-[1vw] w-full",
+                container:"!w-[15vw] !text-[2vw] translate-y-[-0.2vw]", 
+                labelProps: "!translate-y-[0.1vw] !text-[1.2vw] !font-[2vw] !z-30"
+              }, },
             // { name: "_p3", label: "Código Licitacion", type: "text", styles:{with:" !w-[9rem]"}, },
           ]}
-          classNameSearchButton=" translate-x-[7rem] translate-y-[0.2rem]"
+          classNameSearchButton=" translate-x-[7vw] translate-y-[0.3rem]"
           
         />
       </div>
@@ -156,7 +166,7 @@ const MVitrinasArmazones: React.FC = () => {
         />
       </div>
    
-      
+
 
       {isModalInsert && (
         <FVitrinasArmazones

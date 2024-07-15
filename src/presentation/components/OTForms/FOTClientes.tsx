@@ -254,9 +254,8 @@ const FOTClientes:React.FC<IClientes> = ({
                                 onlyRead={isEditting}
                                 isOT={true}
                                 inputRef={inputsRef.firstInputRef}
-                                labelProps={"!translate-y-[-1.4vw]"}
-                                customWidth={"!h-[2.5vw] !text-[1vw]"}
-                            />
+                                customWidth={"!h-[3vw] !text-[1vw]"}
+                                />
                         </div>
                     </div>
 
@@ -271,8 +270,7 @@ const FOTClientes:React.FC<IClientes> = ({
                                 data={formValues ? formValues["cliente_nombre"]  : data && data[EnumGrid.cliente_nomnbre]}
                                 onlyRead={isEditting}
                                 isOT={true}
-                                labelProps={"!translate-y-[-1.4vw]"}
-                                customWidth={"!h-[2.5vw] !text-[1vw]"}
+                                customWidth={"!h-[3vw] !text-[1vw]"}
                             />
                         </div>
                     </div>
@@ -291,7 +289,7 @@ const FOTClientes:React.FC<IClientes> = ({
                                 tabIndex={1}
                                 onlyFirstOption={isEditting}
                                 inputRef={inputsRef.lastInputRef}
-                                customWidth={"!h-[2.5vw] text-[1vw]"}
+                                customWidth={"!h-[3vw] text-[1vw]"}
 
                             />
                         </div> 
@@ -344,10 +342,10 @@ const FOTClientes:React.FC<IClientes> = ({
                     </div>
 
 
-                    <div className='w-[40vw] mx-auto translate-y-11 translate-x-[-2vw] !h-[6vw] '>
+                    <div className='w-[60vw] mx-auto translate-y-11 translate-x-[-2vw] !h-[6vw] '>
                         <div className="w-full h-1/2 flex ml-[-2%]  items-center rowForm  ">
                             <div className="mx-auto flex w-[80%]">
-                                <div className="w-[44vw]">
+                                <div className="w-[30vw] ml-10">
                                 <TextInputInteractive
                                     type="date"
                                     label="Fecha nacimiento"
@@ -358,11 +356,10 @@ const FOTClientes:React.FC<IClientes> = ({
                                     onlyRead={isEditting}
                                     isOT={true}
                                     textAlign="text-center"
-                                    labelProps={"!translate-y-[-1.8vw] !text-[1.4vw]"}
-                                    customWidth={"!h-[2.5vw] !text-[1vw]"}
+                                    customWidth={"!h-[3vw] !text-[1vw]"}
                                     />
                                 </div>
-                                <div className="w-[47vw] ml-12      ">
+                                <div className="w-[40vw] ml-3   mr-10      ">
                                 <TextInputInteractive
                                     type="text"
                                     label="Teléfono"
@@ -372,7 +369,6 @@ const FOTClientes:React.FC<IClientes> = ({
                                     control={control}
                                     isOT={true}
                                     onlyRead={isEditting}
-                                    labelProps={"!translate-y-[-1.8vw] !text-[1.4vw]"}
                                     customWidth={"!h-[2.5vw] !text-[1vw]"}
                                 />
                                 </div>
@@ -381,7 +377,7 @@ const FOTClientes:React.FC<IClientes> = ({
 
 
                         <div className="w-[40vw] flex translate-x-[3.5vw] items-center rowForm translate-y-11">
-                                <div className="!w-[40vw] mx-auto">
+                                <div className="!w-[40vw] mx-auto ml-16">
                                     <TextInputInteractive
                                         type="text"
                                         label="Correo"
@@ -392,7 +388,6 @@ const FOTClientes:React.FC<IClientes> = ({
                                         isOT={true}
                                         onlyRead={isEditting}
                                         isOptional={true}
-                                        labelProps={"!translate-y-[-1.8vw] !text-[1.4vw]"}
                                     customWidth={"!h-[2.5vw] !text-[1vw]"}
                                     />
                             </div>
@@ -426,7 +421,6 @@ const FOTClientes:React.FC<IClientes> = ({
                             control={control}
                             isOT={true}
                             isOptional={true}
-                            labelProps={"!translate-y-[-1.8vw] !text-[1.4vw]"}
                             customWidth={"!h-[2.5vw] !text-[1vw]"}
                         />
                     </div>
