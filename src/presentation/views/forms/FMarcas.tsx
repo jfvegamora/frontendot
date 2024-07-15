@@ -225,19 +225,18 @@ const FMarcas: React.FC<IUserFormPrps> = React.memo(
     return (
       <div className="useFormContainer centered-div w-[30vw]">
         <div className="userFormBtnCloseContainer">
-          <button onClick={closeModal} className="userFormBtnClose">
+        <h1 className="userFormLabel translate-x-[-12vw]">{label}</h1>
+          <button onClick={closeModal} className="userFormBtnClose mr-4">
             X
           </button>
         </div>
-        <h1 className="userFormLabel">{label}</h1>
 
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
-
             <div className="w-full flex items-center h-[4rem]">
               <div className="input-container items-center rowForm w-full">
-                <div className="w-full">
+                <div className="ml-2 mr-4">
                   <TextInputComponent
                     type="text"
                     label="Nombre"
@@ -246,8 +245,7 @@ const FMarcas: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     error={errors.nombre}
                     inputRef={firstInputRef}
-                    customWidth={"!h-[2.8vw] !text-[1vw]"}
-
+                    customWidth={"labelInput inputStyles"}
                   />
                 </div>
               </div>
@@ -264,8 +262,7 @@ const FMarcas: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={["/api/proveedores/", "02"]}
                     error={errors.proveedor}
-                    customWidth={"!h-[2.5vw] text-[1vw] !w-[30vw]"}
-                    
+                    customWidth={"labelInput inputStyles"}
                   />
                 </div>
               </div>
@@ -282,7 +279,7 @@ const FMarcas: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={"TipoInsumo"}
                     error={errors.categoria}
-                    customWidth={"!h-[2.5vw] text-[1vw] !w-[30vw]"}
+                    customWidth={"labelInput inputStyles"}
                     isOptional={true}
                     />
                 </div>

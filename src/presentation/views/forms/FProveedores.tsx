@@ -253,7 +253,7 @@ const FProveedores: React.FC<IUserFormPrps> = React.memo(
       <div className="useFormContainer centered-div use30rem">
         <div className="userFormBtnCloseContainer">
         <h1 className="userFormLabel -translate-x-20">{label}</h1>
-          <button onClick={closeModal} className="userFormBtnClose">
+          <button onClick={closeModal} className="userFormBtnClose mr-4">
             X
           </button>
         </div>
@@ -265,7 +265,7 @@ const FProveedores: React.FC<IUserFormPrps> = React.memo(
             
             <div className="w-full flex items-center h-[4rem]">
               <div className="input-container items-center rowForm w-full">
-                <div className="w-full">
+                <div className="w-full px-4">
                   <TextInputComponent
                     type="text"
                     label="RUT"
@@ -275,15 +275,15 @@ const FProveedores: React.FC<IUserFormPrps> = React.memo(
                     error={errors.rut}
                     inputRef={firstInputRef}
                     isOptional={true}
+                    customWidth={"labelInput inputStyles"}
                     />
                 </div>
               </div>
             </div>
 
-
             <div className="w-full flex items-center h-[4rem]">
               <div className="input-container items-center rowForm w-full">
-                <div className="w-full">
+                <div className="w-full px-4">
                   <TextInputComponent
                     type="text"
                     label="Nombre"
@@ -291,6 +291,7 @@ const FProveedores: React.FC<IUserFormPrps> = React.memo(
                     data={data && data[EnumGrid.Nombre]}
                     control={control}
                     error={errors.nombre}
+                    customWidth={"labelInput inputStyles"}
                   />
                 </div>
               </div>
@@ -299,7 +300,7 @@ const FProveedores: React.FC<IUserFormPrps> = React.memo(
 
             <div className="w-full flex items-center h-[4rem]">
               <div className="input-container items-center rowForm w-full">
-                <div className="w-full">
+                <div className="w-full px-4">
                   <TextInputComponent
                     type="text"
                     label="Dirección"
@@ -307,6 +308,7 @@ const FProveedores: React.FC<IUserFormPrps> = React.memo(
                     data={data && data[EnumGrid.Direccion]}
                     control={control}
                     isOptional={true}
+                    customWidth={"labelInput inputStyles"}
                     />
                 </div>
               </div>
@@ -314,7 +316,7 @@ const FProveedores: React.FC<IUserFormPrps> = React.memo(
 
             <div className="w-full flex items-center h-[4rem]">
               <div className="input-container items-center rowForm w-full">
-                <div className="w-full">
+                <div className="w-full px-4">
                   <TextInputComponent
                     type="text"
                     label="Teléfono"
@@ -322,6 +324,7 @@ const FProveedores: React.FC<IUserFormPrps> = React.memo(
                     data={data && data[EnumGrid.Telefono]}
                     control={control}
                     isOptional={true}
+                    customWidth={"labelInput inputStyles"}
                     />
                 </div>
               </div>
@@ -330,7 +333,7 @@ const FProveedores: React.FC<IUserFormPrps> = React.memo(
 
             <div className="w-full flex items-center h-[4rem]">
               <div className="input-container items-center rowForm w-full">
-                <div className="w-full">
+                <div className="w-full px-4">
                   <TextInputComponent
                     type="email"
                     label="Correo"
@@ -339,6 +342,7 @@ const FProveedores: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     error={errors.correo}
                     isOptional={true}
+                    customWidth={"labelInput inputStyles"}
                     />
                 </div>
               </div>
@@ -347,7 +351,7 @@ const FProveedores: React.FC<IUserFormPrps> = React.memo(
 
             <div className="w-full flex items-center h-[4rem]">
               <div className="input-container items-center rowForm w-full">
-                <div className="w-full">
+                <div className="w-full px-4">
                   <TextInputComponent
                     type="text"
                     label="Sitio Web"
@@ -356,6 +360,7 @@ const FProveedores: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     error={errors.sitio_web}
                     isOptional={true}
+                    customWidth={"labelInput inputStyles"}
                     />
                 </div>
               </div>
