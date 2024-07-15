@@ -299,17 +299,20 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
 
 
     return (
-      <div className="useFormContainer centered-div use70rem" >
-        <div className="userFormBtnCloseContainer ">
-          <button onClick={closeModal} className="userFormBtnClose">
+      <div className="useFormContainer centered-div use70rem h-[36vw]" >
+        <div className="userFormBtnCloseContainer">
+          <div className="w-[80%] mx-auto">
+          <h1 className="userFormLabel">{label}</h1>
+
+          </div>
+          <button onClick={closeModal} className="userFormBtnClose mr-2">
             X
           </button>
         </div>
-        <h1 className="userFormLabel">{label}</h1>
 
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario ">
-          <div className="userFormularioContainer  !h-[30rem] " >
+          <div className="userFormularioContainer  !h-[30rem]">
             <div className="input-container rowForm  !h-[4rem]">
               <div className="flex">
                 <div className="">

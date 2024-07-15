@@ -190,7 +190,15 @@ const MArmazones: React.FC = () => {
           leftEdit={true}
         />
       </div>
-
+      <FArmazones
+            label={`${TITLES.ingreso} ${strEntidad}`}
+            closeModal={closeModal}
+            selectedRows={selectedRows}
+            setEntities={setEntities}
+            params={params}
+            isEditting={false}
+            escritura_lectura={escritura_lectura}
+          />
      
       <Suspense>
         {isModalInsert && (
