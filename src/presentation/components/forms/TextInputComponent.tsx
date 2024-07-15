@@ -84,6 +84,8 @@ const TextInputComponent: React.FC<ITextInputProps> = ({
 // console.log(defaultValue)
 
 
+
+
 return (
   <div className={`mx-2 rounded-xl bg-gree-300 ${className ? className : ""}`}>
     <Controller

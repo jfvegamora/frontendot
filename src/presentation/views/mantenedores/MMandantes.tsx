@@ -132,7 +132,7 @@ const MMandantes: React.FC = () => {
           leftEdit={true}
         />
       </div>
-     
+
       
       {isModalInsert && (
         <FMandantes

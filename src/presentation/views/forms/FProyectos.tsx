@@ -404,7 +404,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
 
         <form onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
-            <div className="w-full items-center flex h-[80px] mt-[20px] mb-[10px]">
+            <div className="ml-2 w-full items-center flex h-[80px] mt-[20px] mb-[10px]">
               <div className="input-container items-center rowForm w-[16%]">
                 <div className="w-full ml-3">
                   <SelectInputComponent
@@ -483,7 +483,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
               </div>
             </div>
 
-            <div className="w-full items-center flex h-[70px] translate-y-6 mb-[10px]">
+            <div className="ml-2 w-full items-center flex h-[70px] translate-y-6 mb-[10px]">
               <div className="input-container items-center rowForm w-[14%]">
                 <div className="w-full mr-2">
                   <TextInputComponent
@@ -564,7 +564,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
               </div>
             </div>
 
-            <div className="w-full items-center flex h-[90px] translate-y-6  ">
+            <div className=" ml-2 w-full items-center flex h-[90px] translate-y-6  ">
               <div className="input-container items-center rowForm w-[10%] ">
                 <div className="w-full mr-2">
                   <TextInputComponent
@@ -898,7 +898,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
               </FrameComponent>
             </div>
 
-            <div className="w-full items-center flex h-[50px] ">
+            <div className="w-full items-center flex h-[50px] translate-y-10 ">
               <FrameComponent>
                 <ContactComponent
                   label="Referente Técnico"
@@ -931,9 +931,9 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
 
             </div>
 
-            <div className="w-[98%] items-center flex h-[50px] mt-[30px] mb-[25px]">
+            <div className=" ml-2 w-[98%] items-center flex h-[50px] mt-[30px] mb-[25px] translate-y-12">
               <div className="input-container imput-center rowForm">
-                <div className="w-full items-center">
+                <div className="w-full items-center ml-2">
                   <TextInputComponent
                     type="text"
                     label="Observaciones"
@@ -941,13 +941,13 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                     data={data && data[EnumGrid.OBSERVACIONES]}
                     control={control}
                     error={errors.observaciones}
-                    customWidth={"labelInput inputStyles"}
+                    customWidth={"labelInput inputStyles !w-[25vw]"}
                     isOptional={true}
                   />
                 </div>
               </div>
               <div className="input-container items-center rowForm ">
-                <div className="w-full">
+                <div className="w-full translate-y-[0.3rem] ml-2">
                   <SelectInputComponent
                     label="Oftalmólogo (Canasta)"
                     name="oftalmologo"
@@ -963,7 +963,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
               </div>
 
               <div className="w-full">
-                <div className="w-[90%] mx-auto">
+                <div className="w-[60%] mx-auto">
                   {escritura_lectura && (
                     <Button type="submit" tabIndex={1} className="userFormBtnSubmit">
                       {`${TITLES.guardar}`}

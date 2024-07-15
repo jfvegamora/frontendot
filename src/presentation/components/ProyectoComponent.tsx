@@ -36,11 +36,11 @@ const ProyectoComponent:React.FC<IProps> = ({
   return (
     <div className=" relative mx-4 w-full flex ">
         {/* <h1 className="absolute z-20 top-[-23%] labelForm w-[32%] px-2">{label}</h1> */}
-        <label className="absolute text-sm top-[-22px] left-2  labelForm w-[60%]">
-            <span className="ml-[20px]  text-[16px]">{label}</span>
+        <label className="absolute text-sm top-[-22px] left-2   labelForm w-[60%]">
+            <span className="ml-[20px]  labelStyles">{label}</span>
         </label>
-                <div className="input-container items-center rowForm w-[35%]">
-                    <div className="w-[110%] mt-4 !p-0 -ml-4">
+                <div className="input-container items-center  rowForm w-[35%]">
+                    <div className="w-[90%] mt-4 !p-0 -ml-4">
                         <TextInputInteractive
                             type={type}
                             className='text-center'
@@ -56,12 +56,14 @@ const ProyectoComponent:React.FC<IProps> = ({
                             error={errors.cant_proyecto}
                             onlyRead={onlyRead}
                             isOptional={isOptional}
+                            customWidth={"labelInput inputStyles"}
+
                             />
                     </div>
                 </div>
 
                 <div className="input-container items-center rowForm w-[40%]">
-                    <div className="w-[120%] mt-4 -ml-8 text-center">
+                    <div className="w-[100%] mt-4 -ml-8 text-center">
                         <TextInputInteractive
                             type={type}
                             className='text-center'
@@ -77,12 +79,14 @@ const ProyectoComponent:React.FC<IProps> = ({
                             error={errors.total_proyecto}
                             onlyRead={onlyRead}
                             isOptional={isOptional}
+                            customWidth={"labelInput inputStyles"}
+
                             />
                     </div>
                 </div>
 
                 <div className="input-container items-center rowForm w-[35%]">
-                    <div className="w-[110%] mt-4 -ml-8">
+                    <div className="w-[90%] mt-4 -ml-8">
                         <TextInputInteractive
                             type={type}
                             className='text-center'
@@ -93,6 +97,8 @@ const ProyectoComponent:React.FC<IProps> = ({
                             isOT={true}
                             onlyRead={true}
                             isOptional={isOptional}
+                            customWidth={"labelInput inputStyles"}
+
                             />
                     </div>
                 </div>

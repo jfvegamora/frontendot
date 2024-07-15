@@ -238,7 +238,8 @@ const FProyectosCristalesCopiar: React.FC<IUserFormPrps> = React.memo(
                       control={control}
                       entidad={["/api/proyectos/", "02"]}
                       error={errors.origen}
-                      customWidth={"!h-[2.5vw] text-[1vw] !w-[29vw]"}
+                      customWidth={"labelInput inputStyles !w-[29vw]"}
+
                       />
                   </div>
                 </div>
@@ -255,7 +256,7 @@ const FProyectosCristalesCopiar: React.FC<IUserFormPrps> = React.memo(
                       control={control}
                       entidad={["/api/proyectos/", "02"]}
                       error={errors.destino}
-                      customWidth={"!h-[2.5vw] text-[1vw] !w-[29vw]"}
+                      customWidth={"labelInput inputStyles !w-[29vw]"}
                       />
                   </div>
                 </div>

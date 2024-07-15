@@ -176,8 +176,8 @@ const MProyectosCristales: React.FC = () => {
           leftEdit={true}
         />
       </div>
-      
-  
+ 
+ 
 
       {isModalInsert && (
         <FProyectosGrupos

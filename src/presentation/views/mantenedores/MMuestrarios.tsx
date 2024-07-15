@@ -133,6 +133,7 @@ const MMuestrarios: React.FC = () => {
           leftEdit={true}
         />
       </div>
+            
  
 
       {isModalInsert && (

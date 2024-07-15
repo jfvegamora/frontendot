@@ -275,7 +275,7 @@ const FProyectosTratamAdic: React.FC<IUserFormPrps> = React.memo(
           <div className="userFormularioContainer">
             <div className="w-full flex items-center h-[4rem] ">
               <div className="input-container items-center rowForm w-full">
-                <div className="w-full ">
+                <div className="w-full ml-8">
                 <SelectInputComponent
                   label="Proyecto"
                   name="proyecto"
@@ -285,14 +285,14 @@ const FProyectosTratamAdic: React.FC<IUserFormPrps> = React.memo(
                   entidad={["/api/proyectos/", "02"]}
                   error={errors.proyecto}
                   readOnly={isEditting}
-                  customWidth={"!ml-[1rem] !w-[100%] "}
+                  customWidth={"labelInput inputStyles !w-[35vw]"}
                   />
                 </div>
               </div>
             </div>
             <div className="w-full flex items-center h-[4rem] ">
               <div className="input-container items-center rowForm w-full">
-                <div className="w-full ">
+                <div className="w-full ml-8">
                 <SelectInputTiposComponent
                   label="Tratamiento Adicional"
                   name="tratamiento_adicional"
@@ -302,14 +302,14 @@ const FProyectosTratamAdic: React.FC<IUserFormPrps> = React.memo(
                   entidad={"OTTratamientoAdicional"}
                   error={errors.tratamiento_adicional}
                   readOnly={isEditting}
-                  customWidth={"!ml-[1rem] !w-[100%] "}
+                  customWidth={"labelInput inputStyles !w-[35vw]"}
                   />
                 </div>
               </div>
             </div>
             <div className="w-full flex items-center h-[4rem]">
               <div className="input-container items-center rowForm w-full">
-                <div className="w-full">
+                <div className="w-full translate-x-[19vw]">
                   <TextInputComponent
                       type="number"
                       label="Valor Neto"
@@ -317,7 +317,7 @@ const FProyectosTratamAdic: React.FC<IUserFormPrps> = React.memo(
                       data={data && data[EnumGrid.valor_neto]}
                       control={control}
                       error={errors.valor_neto}
-                      customWidth={" !w-[96%]"}
+                      customWidth={"labelInput inputStyles !w-[15vw]"}
                       />
                 </div>
               </div>

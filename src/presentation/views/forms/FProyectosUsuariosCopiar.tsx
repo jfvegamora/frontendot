@@ -216,10 +216,10 @@ const FProyectosUsuariosCopiar: React.FC<IUserFormPrps> = React.memo(
     );
 
     return (
-      <div className="useFormContainer centered-div w-[40vw]">
+      <div className="useFormContainer centered-div w-[35vw]">
         <div className="userFormBtnCloseContainer">
-        <h1 className="userFormLabel translate-x-[-2f0%]">{label}</h1>
-          <button onClick={closeModal} className="userFormBtnClose">
+        <h1 className="userFormLabel translate-x-[-10%]">{label}</h1>
+          <button onClick={closeModal} className="userFormBtnClose mr-4">
             X
           </button>
         </div>
@@ -238,7 +238,8 @@ const FProyectosUsuariosCopiar: React.FC<IUserFormPrps> = React.memo(
                       control={control}
                       entidad={["/api/proyectos/", "02"]}
                       error={errors.origen}
-                      customWidth={"!h-[2.5vw] text-[1vw] !w-[36vw]"}
+                      customWidth={"labelInput inputStyles !w-[33vw]"}
+                      
                       />
                   </div>
                 </div>
@@ -255,7 +256,7 @@ const FProyectosUsuariosCopiar: React.FC<IUserFormPrps> = React.memo(
                       control={control}
                       entidad={["/api/proyectos/", "02"]}
                       error={errors.destino}
-                      customWidth={"!h-[2.5vw] text-[1vw] !w-[36vw]"}
+                      customWidth={"labelInput inputStyles !w-[33vw]"}
                       />
                   </div>
                 </div>

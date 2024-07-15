@@ -131,7 +131,7 @@ const MReservaArmazones: React.FC = () => {
                 { name: "_p7", label: "Hasta", type: "date", 
                   styles:{
                     styles:"!h-[2.5vw] text-[1vw] w-full",
-                    container:"!w-[10vw]  text-[1vw] translate-x-[-4vw]", 
+                    container:"!w-[10vw]  text-[1vw] translate-x-[-2vw]", 
                     labelProps: "!translate-y-[-2vh] !text-[1vw] !font-[2vw]"
                   }},
 

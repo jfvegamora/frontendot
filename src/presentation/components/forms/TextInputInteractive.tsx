@@ -150,12 +150,6 @@ React.useEffect(()=>{
 
 
 
-if(name === 'a1_od'){
-  console.log(value)
-  console.log(data)
-}
-
-
 
 return (
   <div className={`  mx-2 rounded-xl ${customWidth ? customWidth : ""}`}>

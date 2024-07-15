@@ -156,7 +156,7 @@ const MProyectosDestinos: React.FC = () => {
             leftEdit={true}
             />
         </div>
-  
+
         
         {isModalInsert && (
           <FProyectosDestinos

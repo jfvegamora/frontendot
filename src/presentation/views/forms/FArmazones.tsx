@@ -16,6 +16,7 @@ import SelectInputTiposComponent from "../../components/forms/SelectInputTiposCo
 import { toast } from "react-toastify";
 import { Button } from "@material-tailwind/react";
 import { ArmazonesEnum } from "../../Enums";
+import TextInputInteractive from "../../components/forms/TextInputInteractive";
 
 
 const strBaseUrl = "/api/armazones/";
@@ -251,6 +252,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
       isEditting ? focusSecondInput("tipo") : focusFirstInput("codigo");
     }, []);
 
+    console.log( data && data[ArmazonesEnum.cantidad_exhibida]    )
 
     return (
       <div className="useFormContainer centered-div w-[40vw]">
@@ -461,7 +463,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
 
             <div className="w-full flex items-center  h-[5rem] translate-y-[-0.7rem]">
               <div className="input-container items-center rowForm w-[100%]  ">
-                  <TextInputComponent
+                  <TextInputInteractive
                     type="number"
                     label="Cant. Exhibida"
                     name="cantidad_exhibida"

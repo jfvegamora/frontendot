@@ -249,7 +249,7 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
                 <h1 className='userFormLabel mx-auto  w-full '>{label}</h1>
             </div>
             <div className=''>
-                <button onClick={closeModal} className="userFormBtnClose">
+                <button onClick={closeModal} className="userFormBtnClose mr-4">
                     X
                 </button>
             </div>
@@ -259,7 +259,7 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
           className="userFormulario">
           <div className="userFormularioContainer">
             <div className="input-container items-center rowForm">
-              <div className="w-[99%] !mb-[1rem]">
+              <div className="w-[99%] !mb-[1rem] ml-2">
                 <TextInputComponent
                   type="text"
                   label="Descripción"
@@ -268,7 +268,7 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
                   control={control}
                   error={errors.descripcion}
                   inputRef={firstInputRef}
-                  customWidth={"!h-[3vw] !text-[1vw] !w-[27vw]"}
+                  customWidth={"labelInput inputStyles !w-[27vw]"}
 
                 />
               </div>
@@ -284,13 +284,13 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
                   control={control}
                   entidad={"PuntosVentaTipos"}
                   error={errors.tipo}
-                  customWidth={"!h-[2.5vw] text-[1vw] !w-[29vw]"}
+                  customWidth={"labelInput inputStyles !w-[29vw]"}
                   />
               </div>
             </div>
 
             <div className="input-container items-center rowForm">
-              <div className="w-[99%] !mb-[2rem]  ">
+              <div className="w-[99%] !mb-[2rem]  ml-2">
                 <TextInputComponent
                   type="text"
                   label="Dirección"
@@ -298,14 +298,14 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
                   data={data && data[EnumGrid.direccion]}
                   control={control}
                   isOptional={true}
-                  customWidth={"!h-[3vw] !text-[1vw] !w-[27vw]"}
+                  customWidth={"labelInput inputStyles !w-[27vw]"}
 
                   />
               </div>
             </div>
 
           <div className="input-container items-center rowForm ">
-              <div className="w-full ml-4">
+              <div className="w-full ml-4 !-mt-2">
                 <SelectInputComponent
                   label="Almacén Armazones"
                   name="almacen_armazones"
@@ -314,12 +314,12 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
                   control={control}
                   entidad={["/api/almacenes/", "02", `1&_p3=2`]}
                   error={errors.almacen_armazones}
-                  customWidth={"!h-[2.5vw] text-[1vw] !w-[29vw]"}
-                />
+                  customWidth={"labelInput inputStyles !w-[29vw]"}
+                  />
               </div>
           </div>
           <div className="input-container items-center rowForm ">
-              <div className="w-full ml-4">
+              <div className="w-full ml-4 !my-2">
                 <SelectInputComponent
                   label="Almacén Cristales"
                   name="almacen_cristales"
@@ -328,8 +328,8 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
                   control={control}
                   entidad={["/api/almacenes/", "02", `2&_p3=2`]}
                   error={errors.almacen_cristales}
-                  customWidth={"!h-[2.5vw] text-[1vw] !w-[29vw]"}
-                />
+                  customWidth={"labelInput inputStyles !w-[29vw]"}
+                  />
               </div>
           </div>
           <div className="input-container items-center rowForm ">
@@ -342,8 +342,8 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
                   control={control}
                   entidad={["/api/almacenes/", "02", `3&_p3=2`]}
                   error={errors.almacen_accesorios}
-                  customWidth={"!h-[2.5vw] text-[1vw] !w-[29vw]"}
-                />
+                  customWidth={"labelInput inputStyles !w-[29vw]"}
+                  />
               </div>
           </div>
 
@@ -357,13 +357,13 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
                 control={control}
                 entidad={["/api/usuarios/", "02"]}
                 error={errors.encargado}
-                customWidth={"!h-[2.5vw] text-[1vw] !w-[29vw]"}
+                customWidth={"labelInput inputStyles !w-[29vw]"}
                 />
             </div>
         </div>
 
         <div className="input-container items-center rowForm">
-            <div className="w-[99%]">
+            <div className="w-[99%] ml-2 !mb-2">
               <TextInputComponent
                 type="text"
                 label="Teléfono"
@@ -372,7 +372,7 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
                 control={control}
                 error={errors.telefono}
                 isOptional={true}
-                customWidth={"!h-[3vw] !text-[1vw] !w-[27vw]"}
+                customWidth={"labelInput inputStyles !w-[27vw]"}
 
                 />
             </div>
@@ -380,7 +380,7 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
         </div>
 
         <div className="input-container items-center rowForm">
-              <div className="w-[99%] !mb-[2rem]  ">
+              <div className="w-[99%] !mb-[2rem] ml-2 ">
                 <TextInputComponent
                   type="text"
                   label="Observaciones"
@@ -388,7 +388,7 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
                   data={data && data[EnumGrid.observaciones]}
                   control={control}
                   isOptional={true}
-                  customWidth={"!h-[3vw] !text-[1vw] !w-[27vw]"}
+                  customWidth={"labelInput inputStyles !w-[27vw]"}
 
                   />
               </div>

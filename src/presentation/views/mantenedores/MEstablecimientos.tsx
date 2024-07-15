@@ -157,7 +157,7 @@ const MEstablecimientos: React.FC = () => {
                    },
               },
         ]}
-        classNameSearchButton=" -translate-x-[4vw] translate-y-[3.5vw]"
+        classNameSearchButton=" -translate-x-[4vw] translate-y-[4vw]"
 
           />
         </div>
@@ -201,6 +201,7 @@ const MEstablecimientos: React.FC = () => {
           // leftEdit={true}
         /> }
       </div>
+
 
       {isModalInsert && (
       <FEstablecimientos

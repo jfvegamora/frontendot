@@ -76,7 +76,7 @@ const RadioButtonComponent: React.FC<IRadioButtonProps> = ({
                   tabIndex={tabIndex || 1}
                   disabled={readOnly}
                   checked={value === option}
-                  className={` labelInput ${customWidth ?  customWidth :""} mr-2 transform scale-150 ${field.value === option ? 'text-orange-500' : 'text-gray-500'}`}
+                  className={` pt-3 labelInput ${customWidth ?  customWidth :""} mr-2 transform scale-150 ${field.value === option ? 'text-orange-500' : 'text-gray-500'}`}
                   onChange={() => {
                     // console.log(value)
                     // console.log(option)
@@ -90,7 +90,7 @@ const RadioButtonComponent: React.FC<IRadioButtonProps> = ({
                   }}
                   ref={inputRef}
                 />
-                <p className=" w-full labelInput ">{option}</p>
+                <p className=" w-full labelInput pt-3 ">{option}</p>
               </label>
             )}
           />

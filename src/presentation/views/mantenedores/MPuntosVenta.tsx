@@ -117,7 +117,7 @@ const MPuntosVenta: React.FC = () => {
                 _p1: "1"
               },
               ]}
-              classNameSearchButton=" translate-x-[12vw] translate-[-0.3rem]"
+              classNameSearchButton=" translate-x-[12vw] translate-[0.4rem]"
 
           />
         </div>

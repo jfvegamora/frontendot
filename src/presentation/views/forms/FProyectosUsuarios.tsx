@@ -287,7 +287,7 @@ const FProyectosUsuarios: React.FC<IUserFormPrps> = React.memo(
                   entidad={["/api/proyectos/", "02"]}
                   error={errors.proyecto}
                   readOnly={isEditting}
-                  customWidth={"!h-[2.5vw] text-[1vw] !w-[35vw]"}
+                  customWidth={"labelInput inputStyles !w-[35vw]"}
                   />
                 </div>
               </div>
@@ -304,14 +304,14 @@ const FProyectosUsuarios: React.FC<IUserFormPrps> = React.memo(
                   entidad={["/api/puntosventa/", "02"]}
                   error={errors.punto_venta}
                   readOnly={isEditting}
-                  customWidth={"!h-[2.5vw] text-[1vw] !w-[35vw]"}
+                  customWidth={"labelInput inputStyles !w-[35vw]"}
                   />
                 </div>
               </div>
             </div>
             <div className="w-full flex items-center !my-8 h-[4rem]">
               <div className="input-container items-center rowForm w-[45%]">
-                <div className="w-full ml-10">
+                <div className="w-full ml-6">
                   <SelectInputComponent
                       label="Usuario"
                       name="usuario"
@@ -321,13 +321,13 @@ const FProyectosUsuarios: React.FC<IUserFormPrps> = React.memo(
                       entidad={["/api/usuarios/", "02"]}
                       error={errors.usuario}
                       readOnly={isEditting}
-                      customWidth={"!h-[2.5vw] text-[1vw] !w-[15vw]"}
+                      customWidth={"labelInput inputStyles !w-[15vw]"}
                       />
                 </div>
               </div>
 
-              <div className="input-container items-center rowForm w-[50%]">
-                <div className="w-full">
+              <div className="input-container items-center rowForm w-[50%] mt-4">
+                <div className="w-full mt-4">
                   <RadioButtonComponent
                   control={control}
                   label="Estado"
@@ -335,9 +335,9 @@ const FProyectosUsuarios: React.FC<IUserFormPrps> = React.memo(
                   data={data && data[EnumGrid.estado]}
                   options={["Disponible", "No disponible"]}
                   error={errors.estado}
-                  horizontal={true}
+                  horizontal={false}
                   labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.4vw]"}
-                  customWidth={"!h-[2.5vw] text-[1vw]"}
+                  customWidth={"labelInput inputStyles"}
                   />
                 </div>
               </div>

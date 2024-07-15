@@ -239,11 +239,11 @@ const FProyectoDestinos: React.FC<IUserFormPrps> = React.memo(
     return (
       <div className="useFormContainer centered-div use30rem">
         <div className="userFormBtnCloseContainer">
-          <button onClick={closeModal} className="userFormBtnClose">
+        <h1 className="userFormLabel translate-x-[-5vw]">{label}</h1>
+          <button onClick={closeModal} className="userFormBtnClose mr-2">
             X
           </button>
         </div>
-        <h1 className="userFormLabel">{label}</h1>
 
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
@@ -251,7 +251,7 @@ const FProyectoDestinos: React.FC<IUserFormPrps> = React.memo(
 
             <div className="w-full flex items-center h-[4rem]">
               <div className="input-container items-center rowForm w-full">
-                <div className="w-full">
+                <div className="w-full ml-2">
                   <TextInputComponent
                     type="text"
                     label="Descripción"
@@ -260,6 +260,8 @@ const FProyectoDestinos: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     error={errors.descripcion}
                     inputRef={firstInputRef}
+                    customWidth={"labelInput inputStyles !w-[26vw]"}
+
                   />
                 </div>
               </div>
@@ -268,7 +270,7 @@ const FProyectoDestinos: React.FC<IUserFormPrps> = React.memo(
 
           <div className="w-full flex items-center h-[4rem]">
               <div className="input-container items-center rowForm w-full">
-                <div className="w-full">
+                <div className="w-full ml-2">
                   <TextInputComponent
                     type="text"
                     label="Dirección"
@@ -276,6 +278,8 @@ const FProyectoDestinos: React.FC<IUserFormPrps> = React.memo(
                     data={data && data[EnumGrid.direccion]}
                     control={control}
                     error={errors.direccion}
+                    customWidth={"labelInput inputStyles !w-[26vw]"}
+
                   />
                 </div>
               </div>
@@ -283,7 +287,7 @@ const FProyectoDestinos: React.FC<IUserFormPrps> = React.memo(
 
             <div className="w-full flex items-center h-[4rem]">
               <div className="input-container items-center rowForm w-full">
-                <div className="w-full">
+                <div className="w-full ml-2">
                   <TextInputComponent
                     type="text"
                     label="Nombre Contacto"
@@ -291,6 +295,8 @@ const FProyectoDestinos: React.FC<IUserFormPrps> = React.memo(
                     data={data && data[EnumGrid.contacto]}
                     control={control}
                     isOptional={true}
+                    customWidth={"labelInput inputStyles !w-[26vw]"}
+
                   />
                 </div>
               </div>
@@ -298,7 +304,7 @@ const FProyectoDestinos: React.FC<IUserFormPrps> = React.memo(
 
             <div className="w-full flex items-center h-[4rem]">
               <div className="input-container items-center rowForm w-full">
-                <div className="w-full">
+                <div className="w-full ml-2">
                   <TextInputComponent
                     type="text"
                     label="Teléfono"
@@ -306,6 +312,8 @@ const FProyectoDestinos: React.FC<IUserFormPrps> = React.memo(
                     data={data && data[EnumGrid.telefono]}
                     control={control}
                     isOptional={true}
+                    customWidth={"labelInput inputStyles !w-[26vw]"}
+
                   />
                 </div>
               </div>
@@ -313,7 +321,7 @@ const FProyectoDestinos: React.FC<IUserFormPrps> = React.memo(
 
             <div className="w-full flex items-center h-[4rem]">
               <div className="input-container items-center rowForm w-full">
-                <div className="w-full">
+                <div className="w-full ml-2">
                   <TextInputComponent
                     type="text"
                     label="Correo"
@@ -321,6 +329,8 @@ const FProyectoDestinos: React.FC<IUserFormPrps> = React.memo(
                     data={data && data[EnumGrid.correo]}
                     control={control}
                     isOptional={true}
+                    customWidth={"labelInput inputStyles !w-[26vw]"}
+
                   />
                 </div>
               </div>
@@ -328,7 +338,7 @@ const FProyectoDestinos: React.FC<IUserFormPrps> = React.memo(
 
             <div className="w-full flex items-center h-[4rem]">
               <div className="input-container items-center rowForm w-full">
-                <div className="w-full">
+                <div className="w-full ml-4">
                 <SelectInputComponent
                   label="Proyecto"
                   name="proyecto"
@@ -337,7 +347,7 @@ const FProyectoDestinos: React.FC<IUserFormPrps> = React.memo(
                   control={control}
                   entidad={["/api/proyectos/", "02"]}
                   error={errors.proyecto}
-                  customWidth={"!ml-[1rem] ] "}
+                  customWidth={"labelInput inputStyles !w-[28vw]"}
                   />
                 </div>
               </div>
@@ -345,7 +355,7 @@ const FProyectoDestinos: React.FC<IUserFormPrps> = React.memo(
 
             <div className="w-full flex items-center h-[4rem]">
               <div className="input-container items-center rowForm w-full">
-                <div className="w-full">
+                <div className="w-full ml-2">
                   <TextInputComponent
                     type="text"
                     label="Observaciones"
@@ -353,6 +363,7 @@ const FProyectoDestinos: React.FC<IUserFormPrps> = React.memo(
                     data={data && data[EnumGrid.observaciones]}
                     control={control}
                     isOptional={true}
+                    customWidth={"labelInput inputStyles !w-[26vw]"}
                   />
                 </div>
               </div>

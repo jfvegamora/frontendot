@@ -265,7 +265,7 @@ const FMandantes: React.FC<IUserFormPrps> = React.memo(
           <div className="userFormularioContainer h-[25vw]">
             <div className="w-[29vw] flex items-center h-[4vw]">
               <div className="input-container items-center rowForm w-full">
-                  <div className="w-full">
+                  <div className="w-full ml-2">
                     <TextInputComponent
                       type="number"
                       label="Código"
@@ -275,7 +275,8 @@ const FMandantes: React.FC<IUserFormPrps> = React.memo(
                       error={errors.codigo}
                       inputRef={firstInputRef}
                       onlyRead={isEditting}
-                      customWidth={"!h-[3vw] !text-[1vw] !w-[28vw]"}
+                      customWidth={"labelInput inputStyles !w-[28vw]"}
+
 
                     />
                   </div>
@@ -283,7 +284,7 @@ const FMandantes: React.FC<IUserFormPrps> = React.memo(
             </div>
             <div className="w-full flex items-center h-[3vw]">
               <div className="input-container items-center rowForm w-full">
-                  <div className="w-full">
+                  <div className="w-full ml-2">
                     <TextInputComponent
                       type="text"
                       label="RUT"
@@ -291,14 +292,14 @@ const FMandantes: React.FC<IUserFormPrps> = React.memo(
                       data={data && data[EnumGrid.rut]}
                       control={control}
                       error={errors.rut}
-                      customWidth={"!h-[3vw] !text-[1vw] !w-[28vw]"}
+                      customWidth={"labelInput inputStyles !w-[28vw]"}
                     />
                   </div>
               </div>
             </div>
             <div className="w-full flex items-center h-[3vw]">
               <div className="input-container items-center rowForm w-full">
-                  <div className="w-full">
+                  <div className="w-full ml-2">
                     <TextInputComponent
                       type="text"
                       label="Nombre"
@@ -306,7 +307,7 @@ const FMandantes: React.FC<IUserFormPrps> = React.memo(
                       data={data && data[EnumGrid.nombre]}
                       control={control}
                       error={errors.nombre}
-                      customWidth={"!h-[3vw] !text-[1vw] !w-[28vw]"}
+                      customWidth={"labelInput inputStyles !w-[28vw]"}
                     />
                   </div>
               </div>
