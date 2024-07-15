@@ -216,7 +216,8 @@ const MUsuarios: React.FC = () => {
         />
       </div>
 
-      
+    
+  
       {isModalInsert && (
         <FUsuarios
           label={`${TITLES.ingreso} ${strEntidad}`}

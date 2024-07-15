@@ -16,7 +16,6 @@ import SelectInputTiposComponent from "../../components/forms/SelectInputTiposCo
 import { toast } from "react-toastify";
 import { Button } from "@material-tailwind/react";
 import { ArmazonesEnum } from "../../Enums";
-import TextInputInteractive from "../../components/forms/TextInputInteractive";
 
 
 const strBaseUrl = "/api/armazones/";

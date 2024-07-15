@@ -409,11 +409,11 @@ return (
                     control={control}
                     error={errors.nombre}
                     inputRef={firstInputRef}
-                    customWidth={"!h-[2.8vw] !text-[1vw]"}
+                    customWidth={"labelInput inputStyles"}
                     />
                 </div>
               </div>
-              <div className="input-container items-center rowForm w-[33vw]">
+              <div className="input-container items-center rowForm w-[33vw] !mt-3">
               <div className="w-full">
                   <SelectInputComponent
                     label="Cargo"
@@ -423,8 +423,8 @@ return (
                     control={control}
                     entidad={["/api/cargos/", "02"]}
                     error={errors.cargo}
-                    customWidth={"!h-[2.5vw] text-[1vw] !w-[36vw]"}
-                  />
+                    customWidth={"labelInput inputStyles"}
+                    />
                 </div>   
               </div>
               <div className="input-container items-center rowForm w-[33vw]">
@@ -436,7 +436,7 @@ return (
                       data={data && data[EnumGrid.telefono]}
                       control={control}
                       isOptional={true}
-                      customWidth={"!h-[3vw] !text-[1vw]"}
+                      customWidth={"labelInput inputStyles"}
                       />
                   </div>
               </div>
@@ -454,6 +454,8 @@ return (
                     control={control}
                     error={errors.correo}
                     onlyRead={isEditting}
+                    customWidth={"labelInput inputStyles w-[20vw]"}
+
                   />
                 </div>
               </div>
@@ -474,8 +476,8 @@ return (
                     error={errors.estado}
                     horizontal={false}
                     labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.4vw]"}
-                    customWidth={"!h-[2.5vw] text-[1vw]"}
-                  />
+                    customWidth={"labelInput inputStyles"}
+                    />
                 </div>
                 <div className="w-[11vw]">
                   <RadioButtonComponent
@@ -487,8 +489,8 @@ return (
                     error={errors.permiso_facturacion}
                     horizontal={false}
                     labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.4vw]"}
-                    customWidth={"!h-[2.5vw] text-[1vw]"}
-                  />
+                    customWidth={"labelInput inputStyles"}
+                    />
                 </div>
                 <div className="w-[11vw]">
                   <RadioButtonComponent
@@ -500,8 +502,8 @@ return (
                     error={errors.permiso_post_venta}
                     horizontal={false}
                     labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.4vw]"}
-                    customWidth={"!h-[2.5vw] text-[1vw]"}
-                  />
+                    customWidth={"labelInput inputStyles"}
+                    />
                 </div>
                 <div className="w-[11vw]">
                   <RadioButtonComponent
@@ -513,8 +515,8 @@ return (
                     error={errors.permiso_post_venta}
                     horizontal={false}
                     labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.4vw]"}
-                    customWidth={"!h-[2.5vw] text-[1vw]"}
-                  />
+                    customWidth={"labelInput inputStyles"}
+                    />
                 </div>
               </div>
             </div>
@@ -544,8 +546,8 @@ return (
                               horizontal={false}
                               onChange={(e:any)=>handleChange(e)}
                               labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.2vw]"}
-                              customWidth={"!h-[2.5vw] text-[1vw]"}
-                            />
+                              customWidth={"labelInput inputStyles"}
+                              />
                           </div>
                         </div>
                         <div className="input-container items-center rowForm w-[14%]">
@@ -560,8 +562,8 @@ return (
                               horizontal={false}
                               onChange={(e:any)=>handleChange(e)}
                               labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.2vw]"}
-                              customWidth={"!h-[2.5vw] text-[1vw]"}
-                            />
+                              customWidth={"labelInput inputStyles"}
+                              />
                           </div>
                         </div>
                         <div className="input-container items-center rowForm w-[14%]">
@@ -576,8 +578,8 @@ return (
                               horizontal={false}
                               onChange={(e:any)=>handleChange(e)}
                               labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.2vw]"}
-                    customWidth={"!h-[2.5vw] text-[1vw]"}
-                            />
+                              customWidth={"labelInput inputStyles"}
+                              />
                           </div>
                         </div>
                         <div className="input-container items-center rowForm w-[14]">
@@ -592,8 +594,8 @@ return (
                               horizontal={false}
                               onChange={(e:any)=>handleChange(e)}
                               labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.2vw]"}
-                              customWidth={"!h-[2.5vw] text-[1vw]"}
-                            />
+                              customWidth={"labelInput inputStyles"}
+                              />
                           </div>
                         </div>
                         <div className="input-container items-center rowForm w-[14%]">
@@ -608,8 +610,8 @@ return (
                               horizontal={false}
                               onChange={(e:any)=>handleChange(e)}
                               labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.2vw]"}
-                              customWidth={"!h-[2.5vw] text-[1vw]"}
-                            />
+                              customWidth={"labelInput inputStyles"}
+                              />
                           </div>
                         </div>
                     </div>
@@ -629,8 +631,8 @@ return (
                               horizontal={false}
                               onChange={(e:any)=>handleChange(e)}
                               labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.2vw]"}
-                              customWidth={"!h-[2.5vw] text-[1vw]"}
-                            />
+                              customWidth={"labelInput inputStyles"}
+                              />
                           </div>
                         </div>
                         <div className="input-container items-center rowForm w-[14%]">
@@ -645,8 +647,8 @@ return (
                               horizontal={false}
                               onChange={(e:any)=>handleChange(e)}
                               labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.2vw]"}
-                              customWidth={"!h-[2.5vw] text-[1vw]"}
-                            />
+                              customWidth={"labelInput inputStyles"}
+                              />
                           </div>
                         </div>
                         <div className="input-container items-center rowForm w-[14%]">
@@ -661,8 +663,8 @@ return (
                               horizontal={false}
                               onChange={(e:any)=>handleChange(e)}
                               labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.2vw]"}
-                              customWidth={"!h-[2.5vw] text-[1vw]"}
-                            />
+                              customWidth={"labelInput inputStyles"}
+                              />
                           </div>
                         </div>
                         <div className="input-container items-center rowForm w-[14%]">
@@ -677,8 +679,8 @@ return (
                               horizontal={false}
                               onChange={(e:any)=>handleChange(e)}
                               labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.2vw]"}
-                              customWidth={"!h-[2.5vw] text-[1vw]"}
-                            />
+                              customWidth={"labelInput inputStyles"}
+                              />
                           </div>
                         </div>
                         <div className="input-container items-center rowForm w-[14%]">
@@ -693,8 +695,8 @@ return (
                               horizontal={false}
                               onChange={(e:any)=>handleChange(e)}
                               labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.2vw]"}
-                              customWidth={"!h-[2.5vw] text-[1vw]"}
-                            />
+                              customWidth={"labelInput inputStyles"}
+                              />
                           </div>
                         </div>
                     </div>
@@ -867,7 +869,7 @@ return (
             </div>
           )}
 
-          <div className="w-full flex !-mt-10">
+          <div className="w-full flex !-mt-6">
             <div className="mx-auto w-[30%]">
                 {escritura_lectura && (
                   <Button type="submit" tabIndex={1} className="userFormBtnSubmit">

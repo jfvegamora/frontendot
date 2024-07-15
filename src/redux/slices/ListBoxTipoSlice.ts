@@ -9,7 +9,7 @@ export interface ITiposListbox {
   CristalesColores: [] | null;
   CristalesTratamientos: [] | null;
   AlmacenesTipos: [] | null;
-  // TipoInsumos: [] | null;
+  TipoInsumo: [] | null;
   ArmazonesUsos: [] | null;
   ArmazonesMaterial: [] | null;
   ArmazonesTipos: [] | null;
@@ -119,6 +119,9 @@ const initialState: ITiposListbox | null = {
   ClientesTipos: localStorage.getItem("ListBoxTipos.ClientesTipos")
     ? JSON.parse(localStorage.getItem("ListBoxTipos.ClientesTipos") as string)
     : null,
+  TipoInsumo: localStorage.getItem("ListBoxTipos.TipoInsumo")
+    ? JSON.parse(localStorage.getItem("ListBoxTipos.TipoInsumo") as string)
+    : null,
 };
 
 export const fetchListBoxTipos = createAsyncThunk(
@@ -157,8 +160,6 @@ const listBoxTiposSlice = createSlice({
   reducers: {
     updateDataForKey: (state, action) => {
       const { entidad, data } = action.payload;
-      console.log({ entidad, data });
-      console.log(state);
       if (entidad == "OTAreas") {
         console.log(data);
         console.log(!state.hasOwnProperty(entidad));
