@@ -46,7 +46,7 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
               "${jsonData.codigo_accesorio}",  
                ${jsonData.estado === "Disponible" ? 1 : 2},
                ${(jsonData.valor_neto && jsonData.valor_neto?.toString())?.length === 0 ? "0" : jsonData.valor_neto}`;
-               _p1 = _p1.replace(/'/g, '!');
+  _p1 = _p1.replace(/'/g, '!');
 
   const query: OutputData = {
     query: "03",
@@ -264,13 +264,13 @@ const FProyectosAccesorios: React.FC<IUserFormPrps> = React.memo(
     }, []);
 
     return (
-      <div className="useFormContainer centered-div w-[30vw">
+      <div className="useFormContainer centered-div w-[30vw]">
         <div className="userFormBtnCloseContainer">
-          <button onClick={closeModal} className="userFormBtnClose">
+          <h1 className="userFormLabel">{label}</h1>
+          <button onClick={closeModal} className="userFormBtnClose mr-4">
             X
           </button>
         </div>
-        <h1 className="userFormLabel">{label}</h1>
 
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
@@ -287,7 +287,7 @@ const FProyectosAccesorios: React.FC<IUserFormPrps> = React.memo(
                     entidad={["/api/proyectos/", "02"]}
                     error={errors.proyecto}
                     readOnly={isEditting}
-                    customWidth={"!h-[2.8vw] !text-[1vw]"}
+                    customWidth={"labelInput inputStyles"}
                   />
                 </div>
               </div>
@@ -295,7 +295,7 @@ const FProyectosAccesorios: React.FC<IUserFormPrps> = React.memo(
 
             <div className="w-full flex items-center !my-4 h-[4rem]">
               <div className="input-container items-center rowForm w-[50%]">
-                <div className="w-full">
+                <div className="w-full ml-2">
                   <TextInputComponent
                     type="text"
                     label="Código Accesorio"
@@ -306,8 +306,7 @@ const FProyectosAccesorios: React.FC<IUserFormPrps> = React.memo(
                     onlyRead={isEditting}
                     handleChange={setChangeCodigo}
                     inputRef={firstInputRef}
-                    customWidth={"!h-[2.8vw] !text-[1vw]"}
-
+                    customWidth={"labelInput inputStyles"}
                   />
                 </div>
               </div>
@@ -322,16 +321,15 @@ const FProyectosAccesorios: React.FC<IUserFormPrps> = React.memo(
                     error={errors.valor_neto}
                     textAlign="text-right"
                     isOptional={true}
-                    customWidth={"!h-[2.8vw] !text-[1vw]"}
-
-                    />
+                    customWidth={"labelInput inputStyles"}
+                  />
                 </div>
               </div>
             </div>
 
             <div className="w-full flex items-center !my-4 h-[4rem]">
               <div className="input-container items-center rowForm w-[95%] ">
-                <div className="w-full">
+                <div className="w-full ml-2">
                   <RadioButtonComponent
                     control={control}
                     label="Estado"
@@ -341,7 +339,7 @@ const FProyectosAccesorios: React.FC<IUserFormPrps> = React.memo(
                     error={errors.estado}
                     horizontal={true}
                     labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.4vw]"}
-                    customWidth={"!h-[2.5vw] text-[1vw]"}
+                    customWidth={"labelInput inputStyles"}
                   />
                 </div>
               </div>

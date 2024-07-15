@@ -29,18 +29,18 @@ const strBaseUrl = "/api/clientes/";
 const strEntidad = "Cliente ";
 
 export interface InputData {
-  rut             : string | undefined;
-  nombre          : string | undefined;
-  tipo            : string | undefined;
-  sexo            : string | undefined;
+  rut: string | undefined;
+  nombre: string | undefined;
+  tipo: string | undefined;
+  sexo: string | undefined;
   fecha_nacimiento: string | undefined;
-  direccion       : string | undefined;
-  region          : string | undefined;
-  provincia       : string | undefined;
-  comuna          : string | undefined;
-  telefono        : string | undefined;
-  correo          : string | undefined;
-  establecimiento : string | undefined;
+  direccion: string | undefined;
+  region: string | undefined;
+  provincia: string | undefined;
+  comuna: string | undefined;
+  telefono: string | undefined;
+  correo: string | undefined;
+  establecimiento: string | undefined;
 }
 
 interface OutputData {
@@ -50,15 +50,15 @@ interface OutputData {
   _p3?: number;
 }
 
-export function transformInsertQuery(jsonData: InputData): OutputData | null  {
+export function transformInsertQuery(jsonData: InputData): OutputData | null {
 
-  if(jsonData.fecha_nacimiento){
-    if(fechaActual < new Date(jsonData.fecha_nacimiento as string)){
+  if (jsonData.fecha_nacimiento) {
+    if (fechaActual < new Date(jsonData.fecha_nacimiento as string)) {
       toast.error('Fecha mayor a la actual')
       throw new Error('fecha mayor a la actual')
     }
   }
-  
+
   // let _p1 = `"${jsonData.rut}", 
   //              "${jsonData.nombre}", 
   //               ${
@@ -79,8 +79,8 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null  {
   //              "${jsonData.telefono}", 
   //              "${jsonData.correo}", 
   //               ${jsonData.establecimiento}`;
- 
-  let _p1 = `"${jsonData.rut}","${jsonData.nombre}",${jsonData.tipo === TIPO_CLIENTE.beneficiario ? "1": jsonData.tipo === TIPO_CLIENTE.particular ? "2": jsonData.tipo === TIPO_CLIENTE.optica ? "3": "0"},${jsonData.sexo === SEXO.masculino ? "1": jsonData.sexo === SEXO.femenino ? "2": jsonData.sexo === SEXO.no_aplica ? "3": "0"},"${jsonData.fecha_nacimiento}","${jsonData.direccion}",${jsonData.comuna},"${jsonData.telefono}","${jsonData.correo}",${jsonData.establecimiento}`;
+
+  let _p1 = `"${jsonData.rut}","${jsonData.nombre}",${jsonData.tipo === TIPO_CLIENTE.beneficiario ? "1" : jsonData.tipo === TIPO_CLIENTE.particular ? "2" : jsonData.tipo === TIPO_CLIENTE.optica ? "3" : "0"},${jsonData.sexo === SEXO.masculino ? "1" : jsonData.sexo === SEXO.femenino ? "2" : jsonData.sexo === SEXO.no_aplica ? "3" : "0"},"${jsonData.fecha_nacimiento}","${jsonData.direccion}",${jsonData.comuna},"${jsonData.telefono}","${jsonData.correo}",${jsonData.establecimiento}`;
   _p1 = _p1.replace(/'/g, '!');
 
   const query: OutputData = {
@@ -127,12 +127,12 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
       formState: { errors },
       setValue,
       register,
-      
+
     } = useForm({
       resolver: yupResolver(schema),
     });
-    
-   function transformUpdateQuery(
+
+    function transformUpdateQuery(
       jsonData: InputData,
       primaryKey: string
     ): OutputData | null {
@@ -153,18 +153,18 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
       //   `correo           ="${jsonData.correo}"`,
       //   `establecimiento  = ${jsonData.establecimiento}`,
       // ];
-      const fields = [`nombre="${jsonData.nombre}"`,`tipo= ${jsonData.tipo === TIPO_CLIENTE.beneficiario ? 1 : jsonData.tipo === TIPO_CLIENTE.particular  ? 2 : jsonData.tipo === TIPO_CLIENTE.optica ? 3: 0}`,`sexo=${jsonData.sexo === SEXO.masculino ? 1 : jsonData.sexo === SEXO.femenino  ? 2 : jsonData.sexo === SEXO.no_aplica ? 3: 0}`,`fecha_nacimiento="${jsonData.fecha_nacimiento}"`,`direccion="${jsonData.direccion}"`,`comuna= ${jsonData.comuna || data && data[EnumGrid.comuna_id]}`,`telefono="${jsonData.telefono}"`,`correo="${jsonData.correo}"`,`establecimiento=${jsonData.establecimiento}`];
-    
+      const fields = [`nombre="${jsonData.nombre}"`, `tipo= ${jsonData.tipo === TIPO_CLIENTE.beneficiario ? 1 : jsonData.tipo === TIPO_CLIENTE.particular ? 2 : jsonData.tipo === TIPO_CLIENTE.optica ? 3 : 0}`, `sexo=${jsonData.sexo === SEXO.masculino ? 1 : jsonData.sexo === SEXO.femenino ? 2 : jsonData.sexo === SEXO.no_aplica ? 3 : 0}`, `fecha_nacimiento="${jsonData.fecha_nacimiento}"`, `direccion="${jsonData.direccion}"`, `comuna= ${jsonData.comuna || data && data[EnumGrid.comuna_id]}`, `telefono="${jsonData.telefono}"`, `correo="${jsonData.correo}"`, `establecimiento=${jsonData.establecimiento}`];
+
       const filteredFields = fields.filter(
         (field) => field !== null && field !== ""
       );
-    
+
       if (filteredFields.length === 0) {
         return null;
       }
-      let  _p1 = filteredFields.join(",");
+      let _p1 = filteredFields.join(",");
       _p1 = _p1.replace(/'/g, '!');
-    
+
       const query: OutputData = {
         query: "04",
         _p1,
@@ -208,8 +208,8 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
       async (response: any, isEditting: boolean) => {
         if (response.code === "ERR_BAD_RESPONSE" || response.stack) {
           const errorMessage = isEditting
-          ? strEntidad.concat(": " + response.message)
-          : strEntidad.concat(": " + response.message)
+            ? strEntidad.concat(": " + response.message)
+            : strEntidad.concat(": " + response.message)
           show({
             message: errorMessage ? errorMessage : response.code,
             type: "error",
@@ -217,7 +217,7 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
 
           return;
         }
-        if(response.mensaje.includes('Creado')){
+        if (response.mensaje.includes('Creado')) {
           toastSuccess(isEditting);
         }
 
@@ -289,11 +289,11 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
 
     useEffect(() => {
       isEditting ? focusSecondInput("nombre") : focusFirstInput("rut");
-      
+
     }, []);
 
     // console.log(data && data)
-    
+
     // console.log(errors.comuna)
     // console.log(getValues())
 
@@ -322,6 +322,7 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
                     error={errors.rut}
                     inputRef={firstInputRef}
                     onlyRead={isEditting}
+                    customWidth={"labelInput inputStyles"}
                   />
                 </div>
 
@@ -334,26 +335,27 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     error={errors.nombre}
                     inputRef={secondInputRef}
+                    customWidth={"labelInput inputStyles"}
                   />
                 </div>
                 <div className="!w-[30rem] mt-[0.3rem] ">
-                    <SelectInputComponent
-                        label="Establecimiento"
-                        name="establecimiento"
-                        showRefresh={true}
-                        data={data && data[EnumGrid.establecimiento_id]}
-                        control={control}
-                        entidad={["/api/establecimientos/", "02"]}
-                        error={errors.establecimiento}
-                        customWidth={"!w-[30rem]"}
-                    />
+                  <SelectInputComponent
+                    label="Establecimiento"
+                    name="establecimiento"
+                    showRefresh={true}
+                    data={data && data[EnumGrid.establecimiento_id]}
+                    control={control}
+                    entidad={["/api/establecimientos/", "02"]}
+                    error={errors.establecimiento}
+                    customWidth={"labelInput inputStyles !w-[30rem] "}
+                  />
                 </div>
-              </div> 
+              </div>
             </div>
-            
+
 
             <div className="input-container items-center !mt-[1rem] rowForm !h-[19rem]">
-              <div className="flex" style={{ display: 'inline'}}>
+              <div className="flex" style={{ display: 'inline' }}>
                 <div className="flex">
                   <div className="w-[50%] !mt-2 mr-10 flex !h-[9rem]">
                     <RadioButtonComponent
@@ -364,7 +366,7 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
                       data={data && data[EnumGrid.sexo]}
                       options={[SEXO.masculino, SEXO.femenino, SEXO.no_aplica]}
                       error={errors.sexo}
-                      />
+                    />
                     <RadioButtonComponent
                       control={control}
                       label="Tipo"
@@ -380,8 +382,8 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
                     />
                     <div className="flex absolute top-[58%] w-[50%] mr-10">
                       <div className="flex-col">
-                        <div className="flex">
-                          <div className="w-[50%]">
+                        <div className="flex labelInput !mt-[1rem] !mb-[1rem]">
+                        <div className="w-[50%]">
                             <TextInputComponent
                               type="date"
                               label="Fecha Nacimiento"
@@ -389,6 +391,7 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
                               data={data && data[EnumGrid.fecha_nacimiento]}
                               control={control}
                               error={errors.fecha_nacimiento}
+                              customWidth={"labelInput inputStyles"}
                             />
                           </div>
                           <div className="w-[50%]">
@@ -399,24 +402,27 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
                               data={data && data[EnumGrid.telefono]}
                               control={control}
                               error={errors.telefono}
+                              customWidth={"labelInput inputStyles"}
                             />
                           </div>
                         </div>
+                        <div className="labelInput !mt-[1rem]">
                         <TextInputComponent
-                          type="text"
-                          label="Correo"
-                          name="correo"
-                          data={data && data[EnumGrid.correo]}
-                          control={control}
-                          error={errors.correo}
-                          isOptional={true}
-                        />
-
+                            type="text"
+                            label="Correo"
+                            name="correo"
+                            data={data && data[EnumGrid.correo]}
+                            control={control}
+                            error={errors.correo}
+                            isOptional={true}
+                            customWidth={"labelInput inputStyles"}
+                          />
+                        </div>
                       </div>
                     </div>
                   </div>
-                    
-                  <div className="w-[40%] !mt-[.8rem] !ml-8 dirCliente ">                      
+
+                  <div className="w-[40%] !mt-[.8rem] !ml-8 dirCliente ">
                     <label className="  !top-[-1.5rem] !left-[1rem] z-10 relative">Dirección</label>
                     <RegProCom
                       name="comuna"
@@ -427,8 +433,8 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
                       defaultComuna={data && data[EnumGrid.comuna_id]}
                       defaultProvincia={data && data[EnumGrid.provincia_id]}
                       errors={errors.comuna}
-                      />
-                    
+                    />
+                    <div className="labelInput !mt-[-1rem] !mb-[1rem]">
                       <TextInputComponent
                         type="text"
                         label="Dirección"
@@ -436,16 +442,13 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
                         data={data && data[EnumGrid.direccion]}
                         control={control}
                         error={errors.direccion}
-                        customWidth={"!mt-[-1rem]"}
                         isOptional={true}
-                        // onlyRead={true}
-                        // className="w-full"
-                        // onlyRead={false} 
+                        customWidth={"labelInput inputStyles "}
                       />
-                  
+                    </div>
                   </div>
                 </div>
-              </div> 
+              </div>
             </div>
 
             <div className="flex items-center rowForm justify-center">

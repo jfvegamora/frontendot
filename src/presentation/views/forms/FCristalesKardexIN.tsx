@@ -325,10 +325,10 @@ const FCristalesKardexIN: React.FC<IUserFormPrps> = React.memo(
 
 
     return (
-      <div className="useFormContainer centered-div w-[30vw]">
+      <div className="useFormContainer centered-div w-[35vw]">
         <div className="userFormBtnCloseContainer">
-          <h1 className="userFormLabel -translate-x-20">{label}</h1>
-          <button onClick={closeModal} className="userFormBtnClose">
+          <h1 className="userFormLabel -translate-x-[5rem]">{label}</h1>
+          <button onClick={closeModal} className="userFormBtnClose mr-4">
             X
           </button>
         </div>
@@ -338,7 +338,7 @@ const FCristalesKardexIN: React.FC<IUserFormPrps> = React.memo(
 
           <div className="w-full flex items-center h-[4rem]">
               <div className="flex input-container items-center rowForm w-[60%]  ">
-                <div className="w-full">
+                <div className="w-full ml-2">
                   <TextInputComponent
                     type="text"
                     label="Código"
@@ -348,7 +348,7 @@ const FCristalesKardexIN: React.FC<IUserFormPrps> = React.memo(
                     error={errors.insumo}
                     inputRef={firstInputRef}
                     onlyRead={isEditting}
-                    customWidth={"!h-[3vw] !text-[1vw]"}
+                    customWidth={"labelInput inputStyles"}
                     />
                   </div> 
                 </div> 
@@ -363,7 +363,7 @@ const FCristalesKardexIN: React.FC<IUserFormPrps> = React.memo(
                       control={control}
                       error={errors.fecha}
                       onlyRead={isEditting}
-                      customWidth={"!h-[3vw] !text-[1vw]"}
+                      customWidth={"labelInput inputStyles"}
                       textAlign="text-center"
                       />
                   </div> 
@@ -381,7 +381,7 @@ const FCristalesKardexIN: React.FC<IUserFormPrps> = React.memo(
                         control={control}
                         entidad={["/api/kardexmotivos/", "01"]}
                         error={errors.motivo_ingreso}
-                        customWidth={"!h-[2.5vw] text-[1vw] !w-[18vw]"}
+                        customWidth={"labelInput inputStyles"}
                         />
                   </div>
               </div>
@@ -396,8 +396,7 @@ const FCristalesKardexIN: React.FC<IUserFormPrps> = React.memo(
                       control={control}
                       error={errors.cantidad}
                       textAlign="text-right"
-                      customWidth={"!h-[3vw] !text-[1vw]"}
-
+                      customWidth={"labelInput inputStyles"}
                       />
                   </div>
               </div>
@@ -414,7 +413,7 @@ const FCristalesKardexIN: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={["/api/almacenes/", "02", `2&_p2=${userState.id}`]}
                     error={errors.almacen}
-                    customWidth={"!h-[2.5vw] text-[1vw] !w-[18vw]"}
+                    customWidth={"labelInput inputStyles"}
                     />
                 </div>
               </div>
@@ -429,8 +428,7 @@ const FCristalesKardexIN: React.FC<IUserFormPrps> = React.memo(
                       error={errors.numero_factura}
                       isOptional={true}                    
                       textAlign="text-right"
-                      customWidth={"!h-[3vw] !text-[1vw]"}
-
+                      customWidth={"labelInput inputStyles"}
                     />
                 </div>
               </div>
@@ -447,7 +445,7 @@ const FCristalesKardexIN: React.FC<IUserFormPrps> = React.memo(
                       control={control}
                       entidad={["/api/proveedores/", "02"]}
                       error={errors.proveedor}
-                      customWidth={"!h-[2.5vw] text-[1vw] !w-[18vw]"}
+                      customWidth={"labelInput inputStyles"}
                       isOptional={true}
                       />
                   </div>
@@ -463,8 +461,7 @@ const FCristalesKardexIN: React.FC<IUserFormPrps> = React.memo(
                       error={errors.valor_neto}
                       isOptional={true}
                       textAlign="text-right"
-                      customWidth={"!h-[3vw] !text-[1vw]"}
-
+                      customWidth={"labelInput inputStyles"}
                       />
                   </div>
                 </div>
@@ -472,7 +469,7 @@ const FCristalesKardexIN: React.FC<IUserFormPrps> = React.memo(
 
             <div className="w-full flex items-center h-[4rem]">
                 <div className="input-container items-center rowForm w-full  ">
-                  <div className="w-full">
+                  <div className="w-full ml-2">
                     <TextInputComponent
                       type="text"
                       label="Observaciones"
@@ -480,7 +477,7 @@ const FCristalesKardexIN: React.FC<IUserFormPrps> = React.memo(
                       data={data && data[EnumGrid.observaciones]}
                       control={control}
                       error={errors.observaciones}
-                      customWidth={"!h-[3vw] !text-[1vw]"}
+                      customWidth={"labelInput inputStyles"}
                       isOptional={true}
                       />
                   </div>
@@ -495,9 +492,7 @@ const FCristalesKardexIN: React.FC<IUserFormPrps> = React.memo(
                     // data={data && data[EnumGrid.ubicacion]}
                     control={control}
                     isOptional={true}
-                    customWidth={"!h-[3vw] !text-[1vw]"}
-
-                    // customWidth={"w-full"}
+                    customWidth={"labelInput inputStyles"}
                   />
                 </div>
               </div>
