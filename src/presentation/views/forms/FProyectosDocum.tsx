@@ -275,7 +275,7 @@ const FProyectosDocum: React.FC<IUserFormPrps> = React.memo(
     const fechaFormateada = fechaHoraActual.toISOString().split('T')[0];
 
     return (
-      <div className="useFormContainer centered-div w-[30vw]">
+      <div className="useFormContainer centered-div w-[30vw] h-[33vw]">
         <div className="userFormBtnCloseContainer flex">
            <div className="w-[80%] mx-auto  !text.center">
               <h1 className="userFormLabel ">{label}</h1>
@@ -300,7 +300,7 @@ const FProyectosDocum: React.FC<IUserFormPrps> = React.memo(
                     entidad={["/api/proyectos/", "02"]}
                     error={errors.proyecto}
                     readOnly={isEditting}
-                    customWidth={"!h-[2.5vw] text-[1vw] !w-[29vw]"}
+                    customWidth={"labelInput inputStyles"}
 
                   />
                 </div>
@@ -308,7 +308,7 @@ const FProyectosDocum: React.FC<IUserFormPrps> = React.memo(
             </div>
 
             <div className="w-[15vw] flex items-center h-[4vw]">
-              <div className="input-container items-center rowForm  w-[15vw] ">
+              <div className="input-container items-center rowForm  w-[25vw] ">
                 <div className="!mt-4 ml-8">
                 <SelectInputTiposComponent
                   label="Tipo Doc"
@@ -318,7 +318,7 @@ const FProyectosDocum: React.FC<IUserFormPrps> = React.memo(
                   control={control}
                   entidad={["TipoDoc", "6,7"]}
                   error={errors.tipo_doc}
-                  customWidth={"!h-[2.5vw] text-[1vw] !w-[15vw]"}
+                  customWidth={"labelInput inputStyles w-[15vw]"}
 
                 />
                 </div>
@@ -333,7 +333,7 @@ const FProyectosDocum: React.FC<IUserFormPrps> = React.memo(
                   control={control}
                   error={errors.numero_doc}
                   textAlign="text-right"
-                  customWidth={"!h-[3vw] !text-[1vw] !w-[12vw]"}
+                  customWidth={"labelInput inputStyles !w-[10.5vw] translate-y-[-0.3rem]"}
                   />
               </div>
               </div>
@@ -341,7 +341,7 @@ const FProyectosDocum: React.FC<IUserFormPrps> = React.memo(
 
             <div className="w-[13vw] flex items-center h-[4vw]">
               <div className="input-container items-center rowForm  w-[13vw] ">
-                <div className="!mt-4 ml-4">
+                <div className="!mt-4 ml-6">
                   <TextInputComponent
                     // type={isEditting ? "datetime" : "date"}
                     type={"date"}
@@ -351,12 +351,12 @@ const FProyectosDocum: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     error={errors.fecha_doc}
                     textAlign="text-center"
-                    customWidth={"!h-[3vw] !text-[1vw] !w-[12.8vw]"}
+                    customWidth={"labelInput inputStyles !w-[13vw]"}
                   />
                 </div>
               </div>
               <div className="input-container items-center rowForm  w-[13vw]">
-                <div className="!mt-4 ml-8">
+                <div className="!mt-4 ml-16">
                   <TextInputComponent
                     type="number"
                     label="Neto $"
@@ -365,7 +365,7 @@ const FProyectosDocum: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     error={errors.total_neto}
                     textAlign="text-right"
-                    customWidth={"!h-[3vw] !text-[1vw] !w-[12vw]"}
+                    customWidth={"labelInput inputStyles !w-[10.5vw]"}
                     />
                 </div>
               </div>
@@ -381,13 +381,13 @@ const FProyectosDocum: React.FC<IUserFormPrps> = React.memo(
                   data={data && data[ProyectosDocumEnum.tipo_doc_ref_id]}
                   control={control}
                   entidad={["TipoDoc", "5,6,7"]}
-                  customWidth={"!h-[2.5vw] text-[1vw] !w-[15vw]"}
+                  customWidth={"labelInput inputStyles !w-[15vw]"}
                   error={errors.tipo_doc}
                 />
                 </div>
               </div>
               <div className="input-container items-center rowForm  w-[15vw]">
-                <div className="!mt-4">
+                <div className="!mt-4 ml-7">
                 <TextInputComponent
                   type="number"
                   label="Número Referenciado"
@@ -396,7 +396,7 @@ const FProyectosDocum: React.FC<IUserFormPrps> = React.memo(
                   control={control}
                   error={errors.numero_doc}
                   textAlign="text-right"
-                  customWidth={"!h-[3vw] !text-[1vw] !w-[12vw]"}
+                  customWidth={"labelInput inputStyles !w-[10.5vw]"}
 
                 />
               </div>
@@ -405,7 +405,7 @@ const FProyectosDocum: React.FC<IUserFormPrps> = React.memo(
 
             <div className="!pt-[1rem] h-[4vw]">
               <div className="input-container items-center rowForm w-[27vw] flex">
-                <div className="w-full ml-4 ">
+                <div className="w-full ml-6 ">
                   <TextInputComponent
                     type="text"
                     label="Observaciones"
@@ -414,7 +414,7 @@ const FProyectosDocum: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     error={errors.observaciones}
                     isOptional={true}
-                    customWidth={"!h-[3vw] !text-[1vw] !w-[26.5vw]"}
+                    customWidth={"labelInput inputStyles"}
 
                   />
                 </div>
