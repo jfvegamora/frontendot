@@ -87,7 +87,7 @@ const MProyectosDestinos: React.FC = () => {
     return (
       <div className="mantenedorContainer">
         <div className="mantenedorHead width90">
-          <div className="w-80%]">
+          <div className="w-[65vw]">
             <PrimaryKeySearch
               baseUrl={strBaseUrl}
               setParams={setParams}
@@ -108,31 +108,34 @@ const MProyectosDestinos: React.FC = () => {
                 { name: "_p1", label: "Descripción", type: "text", 
                   styles:{
                     with: "!h-[2.5vw] !text-[1vw] w-full",
-                    container:"w-[15vw] !text-[2vw] translate-y-[-0.2vw]", 
+                    container:"w-[15vw] !text-[2vw] translate-y-[-0.4rem] translate-x-[5.5vw]", 
                     labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"                 
                    }, },
               ]}
+              classNameSearchButton=" translate-x-[-3vw] translate-y-[0.3rem]"
               />
+              
           </div>
-  
-          <PrimaryButtonsComponent
-            handleAddPerson={openModal}
-            handleDeleteSelected={handleDeleteSelected}
-            handleRefresh={resetEntities}
-            handleCopiar={toggleModalCopiar}
-            params={params}
-            pkToDelete={pkToDelete}
-            strEntidad={strEntidadExcel}
-            strBaseUrl={strBaseUrl}
-            showAddButton={true}
-            // showCopiar={true}
-            showPDFButton={true}
-            showExportButton={true}
-            showDeleteButton={true}
-            showForwardButton={false}
-            showRefreshButton={true}
-            idMenu={idMenu}
-          />
+            <div className="translate-x-[1vw]">
+              <PrimaryButtonsComponent
+                handleAddPerson={openModal}
+                handleDeleteSelected={handleDeleteSelected}
+                handleRefresh={resetEntities}
+                handleCopiar={toggleModalCopiar}
+                params={params}
+                pkToDelete={pkToDelete}
+                strEntidad={strEntidadExcel}
+                strBaseUrl={strBaseUrl}
+                showAddButton={true}
+                // showCopiar={true}
+                showPDFButton={true}
+                showExportButton={true}
+                showDeleteButton={true}
+                showForwardButton={false}
+                showRefreshButton={true}
+                idMenu={idMenu}
+              />
+            </div>
         </div>
   
         <div className="width90 scroll">
