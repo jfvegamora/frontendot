@@ -247,7 +247,7 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
       <div className="useFormContainer centered-div w-[40vw]">
         <div className="userFormBtnCloseContainer ">
         <h1 className="userFormLabel translate-x-[-12vw]">{label}</h1>
-          <button onClick={closeModal} className="userFormBtnClose">
+          <button onClick={closeModal} className="userFormBtnClose mr-4">
             X
           </button>
         </div>
@@ -255,10 +255,9 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
-
             <div className="w-full flex items-center h-[4rem]">
               <div className="input-container items-center rowForm  w-[50%] ">
-                <div className="w-full !mt-4">
+                <div className="w-full ml-2">
                   <TextInputComponent
                     type="text"
                     label="Código"
@@ -269,8 +268,7 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
                     error={errors.codigo}
                     inputRef={firstInputRef}
                     onlyRead={isEditting}
-                    customWidth={"!h-[2.8vw] !text-[1vw]"}
-
+                    customWidth={"labelInput inputStyles"}
                   />
                 </div>
               </div>
@@ -285,8 +283,7 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     onlyRead={isEditting}
                     isOptional={true}
-                    customWidth={"!h-[2.8vw] !text-[1vw]"}
-
+                    customWidth={"labelInput inputStyles"}
                   />
                 </div>
               </div>
@@ -294,7 +291,7 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
 
             <div className="w-full flex items-center h-[4rem]">
               <div className="input-container items-center rowForm  w-[50%] ">
-                <div className="w-full !mt-4">
+                <div className="w-full ml-2">
                   <TextInputComponent
                     type="text"
                     label="Descripción"
@@ -303,8 +300,7 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     error={errors.descripcion}
                     inputRef={secondInputRef}
-                    customWidth={"!h-[2.8vw] !text-[1vw]"}
-
+                    customWidth={"labelInput inputStyles"}
                   />
                 </div>
               </div>
@@ -318,8 +314,7 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={["/api/marcas/", "02", "3"]}
                     error={errors.marca}
-                    customWidth={"!h-[2.5vw] text-[1vw] !w-[20vw]"}
-                    
+                    customWidth={"labelInput inputStyles"}
                     />
                 </div>
               </div>
@@ -327,7 +322,7 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
 
             <div className="w-full flex items-center h-[4rem]">
               <div className="input-container items-center rowForm w-[50%] ">
-                <div className="w-full">
+                <div className="w-full ml-2">
                   <TextInputComponent
                     type="number"
                     label="Precio Neto"
@@ -337,8 +332,7 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
                     error={errors.precio_neto}
                     isOptional={true}
                     textAlign="text-right"
-                    customWidth={"!h-[2.8vw] !text-[1vw]"}
-
+                    customWidth={"labelInput inputStyles"}
                   />
                 </div>
               </div>
@@ -352,8 +346,7 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     error={errors.stock_minimo}
                     textAlign="text-right"
-                    customWidth={"!h-[2.8vw] !text-[1vw]"}
-
+                    customWidth={"labelInput inputStyles"}
                   />
                 </div>
               </div>
@@ -362,7 +355,7 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
 
             <div className="w-full flex items-center ">
               <div className="input-container items-center rowForm w-[50%] ">
-                <div className="w-full">
+                <div className="w-full ml-2">
                   <TextInputComponent
                     type="number"
                     label="Stock Reservado"
@@ -372,8 +365,7 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
                     onlyRead={true}
                     tabIndex={-1}
                     textAlign="text-right"
-                    customWidth={"!h-[2.8vw] !text-[1vw]"}
-
+                    customWidth={"labelInput inputStyles"}
                   />
                 </div>
               </div>
@@ -387,8 +379,7 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     onlyRead={true}
                     tabIndex={-1}
-                    customWidth={"!h-[2.8vw] !text-[1vw]"}
-
+                    customWidth={"labelInput inputStyles"}
                     textAlign="text-right"
                   />
                 </div>
