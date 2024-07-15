@@ -260,7 +260,7 @@ const FOTClientes:React.FC<IClientes> = ({
                     </div>
 
                     <div className="input-container items-center rowForm w-[40%]">
-                        <div className="labelInput w-full !mt-4">
+                        <div className="labelInput w-full !mt-4 ">
                             <TextInputInteractive
                                 control={control}
                                 type="text"

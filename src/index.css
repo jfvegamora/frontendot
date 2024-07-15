@@ -66,8 +66,8 @@ body {
 
 .inputStyles{
   height: 3vw !important;
+  /* font-size: 30rem; */
   background-color: red;
-  /* font-size: 40px !important; */
 }
 
 

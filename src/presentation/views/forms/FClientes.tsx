@@ -336,7 +336,7 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
                     inputRef={secondInputRef}
                   />
                 </div>
-                <div className="!w-[30rem] mt-[0.3rem]">
+                <div className="!w-[30rem] mt-[0.3rem] ">
                     <SelectInputComponent
                         label="Establecimiento"
                         name="establecimiento"
