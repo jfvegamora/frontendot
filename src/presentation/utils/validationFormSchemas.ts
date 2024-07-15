@@ -488,7 +488,7 @@ export const validationProyectoDestinosSchema = () =>
     contacto: yup.string(),
     telefono: yup.string(),
     correo: yup.string(),
-    proyecto: yup.string().required(`${msg}`),
+    proyecto: yup.string(),
     observaciones: yup.string(),
   });
 
