@@ -123,6 +123,7 @@ const MMotivosOTAnulada: React.FC = () => {
           leftEdit={true}
         />
       </div>
++
 
       {isModalInsert && (
         <FMotivosOTAnulada

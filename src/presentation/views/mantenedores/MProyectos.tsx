@@ -146,14 +146,14 @@ const MProyectos: React.FC = () => {
                 selectUrl: "/api/proyectos/", 
                 styles:{
                   styles:"!h-[2.5vw] text-[1vw] w-full",
-                  container:"!w-[15vw]  text-[1vw] translate-x-[-3vw]", 
+                  container:"!w-[15vw]  text-[1vw] translate-x-[-2vw]", 
                   labelProps: "!translate-y-[-3vh] !text-[1.2vw] !font-[2vw]"
                 },
               },
               { name: "_p3", label: "Cod. Proyecto/Licitación", type: "text", 
                 styles:{
                   with: "!h-[2.5vw] !text-[1vw] w-full",
-                  container:"w-[17vw] !text-[2vw] translate-y-[-0.2vw] translate-x-[-5vw]", 
+                  container:"w-[17vw] !text-[2vw] translate-y-[-0.4rem] translate-x-[-3vw]", 
                   labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
                 }, },
               {
@@ -164,7 +164,7 @@ const MProyectos: React.FC = () => {
                 tipos: "ProyectoEstados", 
                 styles: { 
                   styles:"!h-[2.5vw] text-[1vw] w-full",
-                  container:"!w-[20vw]  text-[1vw] translate-x-[-4vw]", 
+                  container:"!w-[20vw]  text-[1vw] translate-x-[-2vw]", 
                   labelProps: "!translate-y-[-3vh] !text-[1.2vw] !font-[2vw]"
                 },
               },
@@ -215,15 +215,7 @@ const MProyectos: React.FC = () => {
         />
       </div>
 
-      <FProyectos
-          label={`${TITLES.ingreso} ${strEntidad}`}
-          closeModal={closeModal}
-          selectedRows={selectedRows}
-          setEntities={setEntities}
-          params={params}
-          isEditting={false}
-          escritura_lectura={escritura_lectura}
-        />
+
       {isModalInsert && (
         <FProyectos
           label={`${TITLES.ingreso} ${strEntidad}`}

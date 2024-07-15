@@ -197,7 +197,7 @@ const FFuncionalidad: React.FC<IFormProps> = React.memo(
           <div className="w-[80%] mx-auto !text.center">
             <h1 className="userFormLabel">{label}</h1>
           </div>
-          <button onClick={closeModal} className="userFormBtnClose">
+          <button onClick={closeModal} className="userFormBtnClose mr-4">
             X
           </button>
         </div>
@@ -220,7 +220,7 @@ const FFuncionalidad: React.FC<IFormProps> = React.memo(
                     control={control}
                     error={errors.descripcion}
                     inputRef={firstInputRef}
-                    customWidth={"!h-[3vw] !text-[1vw] !w-[29vw]"}
+                    customWidth={"labelInput inputStyles w-[29vw]"}
                     />
                 </div>
               </div>

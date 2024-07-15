@@ -251,6 +251,7 @@ const FArmazones: React.FC<IUserFormPrps> = React.memo(
       isEditting ? focusSecondInput("tipo") : focusFirstInput("codigo");
     }, []);
 
+    console.log( data && data[ArmazonesEnum.cantidad_exhibida]    )
 
     return (
       <div className="useFormContainer centered-div w-[40vw]">

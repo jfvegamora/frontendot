@@ -309,7 +309,7 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
 
  console.log(data && typeof data[CristalesEnum.stock_reservado])
     return (
-      <div className="useFormContainer centered-div w-[40vw] h-[40vw] ">
+      <div className="useFormContainer centered-div w-[40vw] h-[42vw] ">
         <div className="userFormBtnCloseContainer flex">
           <div className="w-[50%] mx-auto !text.center">
               <h1 className="userFormLabel">{label}</h1>
@@ -336,13 +336,13 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                     inputRef={firstInputRef}
                     onlyRead={isEditting}
                     maxLength={20}
-                    customWidth={"!h-[2.8vw] !text-[1vw]"}
+                    customWidth={"labelInput inputStyles"}
 
                     />
               </div>
             </div>
            
-            <div className="flex rowForm items-center translate-y-[-1vw]">
+            <div className="flex rowForm items-center mt-2">
               <div className="w-[50%] ml-4">
                 <SelectInputComponent
                   label="Marca"
@@ -352,7 +352,7 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                   control={control}
                   entidad={["/api/marcas/", "02", "2"]}
                   error={errors.marca}
-                  customWidth={"!h-[2.8vw] !text-[1vw]"}
+                  customWidth={"labelInput inputStyles"}
                   tabIndex={1}
                 />
               </div>
@@ -363,13 +363,13 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                   showRefresh={true}
                   data={data && data[CristalesEnum.diseno_id]}
                   control={control}
-                  customWidth={"!h-[2.8vw] !text-[1vw]"}
+                  customWidth={"labelInput inputStyles"}
                   entidad={"CristalesDisenos"}
                   error={errors.diseno}
                 />
               </div>
             </div>
-            <div className="flex rowForm items-center ">
+            <div className="flex rowForm items-center mt-4">
               <div className="w-[50%] ml-4">
                 <SelectInputTiposComponent
                   label="Índice"
@@ -377,7 +377,7 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                   showRefresh={true}
                   data={data && data[CristalesEnum.indice_id]}
                   control={control}
-                  customWidth={"!h-[2.8vw] !text-[1vw]"}
+                  customWidth={"labelInput inputStyles"}
                   entidad={"CristalesIndices"}
                   error={errors.indice}              
                 />
@@ -390,13 +390,13 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                   data={data && data[CristalesEnum.material_id]}
                   control={control}
                   entidad="CristalesMateriales"
-                  customWidth={"!h-[2.8vw] !text-[1vw]"}
+                  customWidth={"labelInput inputStyles"}
                   error={errors.material}
                 
                 />
               </div>
             </div>
-            <div className="flex rowForm items-center translate-y-[1vw]"> 
+            <div className="flex rowForm items-center mt-4"> 
               <div className="w-[50%] ml-4">
                   <SelectInputTiposComponent
                     label="Color"
@@ -405,7 +405,7 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                     data={data && data[CristalesEnum.color_id]}
                     control={control}
                     entidad="CristalesColores"
-                    customWidth={"!h-[2.8vw] !text-[1vw]"}
+                    customWidth={"labelInput inputStyles"}
                     error={errors.color}
                   />
               </div>
@@ -417,12 +417,12 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                     data={data && data[CristalesEnum.tratamiento_id]}
                     control={control}
                     entidad="CristalesTratamientos"
-                    customWidth={"!h-[2.8vw] !text-[1vw]"}
+                    customWidth={"labelInput inputStyles"}
                     error={errors.tratamiento}
                   />
               </div>
             </div>
-            <div className="!mt-[0.4rem] translate-y-[1vw]">
+            <div className="!mt-[0.4rem] translate-y-[0.5vw]">
               <div className="flex items-center rowForm">
                 <TextInputComponent
                   type="number"
@@ -432,7 +432,7 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                   control={control}
                   error={errors.diametro}
                   textAlign="text-center"
-                  customWidth={"!h-[2.8vw] !text-[1vw]"}
+                  customWidth={"labelInput inputStyles"}
 
                   />
                 
@@ -445,7 +445,7 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                   error={errors.esferico}
                   step={0.01}
                   textAlign="text-center"
-                  customWidth={"!h-[2.8vw] !text-[1vw]"}
+                  customWidth={"labelInput inputStyles"}
 
                   />
                 <TextInputComponent
@@ -457,7 +457,7 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                   error={errors.cilindrico}
                   step={0.01}
                   textAlign="text-center"
-                  customWidth={"!h-[2.8vw] !text-[1vw]"}
+                  customWidth={"labelInput inputStyles"}
 
                   />
               </div>
@@ -471,7 +471,7 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                   control={control}
                   error={errors.stock_minimo}
                   textAlign="text-right"
-                  customWidth={"!h-[2.8vw] !text-[1vw]"}
+                  customWidth={"labelInput inputStyles"}
 
                   />
                 <TextInputComponent
@@ -484,7 +484,7 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                   onlyRead={true}
                   tabIndex={-1}
                   textAlign="text-right"
-                  customWidth={"!h-[2.8vw] !text-[1vw]"}
+                  customWidth={"labelInput inputStyles"}
 
                   />
                 <TextInputComponent
@@ -496,11 +496,11 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                   onlyRead={true}
                   tabIndex={-1}
                   textAlign="text-right"
-                  customWidth={"!h-[2.8vw] !text-[1vw]"}
+                  customWidth={"labelInput inputStyles"}
 
                   />
             </div>
-            <div className="flex rowForm items-center translate-y-[1vw]">
+            <div className="flex rowForm items-center translate-y-[2vw]">
               <div className="w-[50%]">
                 <TextInputComponent
                   type="text"
@@ -511,7 +511,7 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                   // error={errors.codigo}
                   maxLength={20}
                   isOptional={true}
-                  customWidth={"!h-[2.8vw] !text-[1vw]"}
+                  customWidth={"labelInput inputStyles"}
 
                   
                 /> 
@@ -526,12 +526,12 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                   // error={errors.codigo}
                   maxLength={20}
                   isOptional={true}
-                  customWidth={"!h-[2.8vw] !text-[1vw]"}
+                  customWidth={"labelInput inputStyles"}
 
                   />  
               </div>
             </div>
-            <div className="flex rowForm items-center translate-y-[1vw]">
+            <div className="flex rowForm items-center translate-y-[2vw] py-2">
               <div className="w-[50%]">
                 <TextInputComponent
                   type="text"
@@ -542,7 +542,7 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                   // error={errors.codigo}
                   maxLength={20}
                   isOptional={true}
-                  customWidth={"!h-[2.8vw] !text-[1vw]"}
+                  customWidth={"labelInput inputStyles"}
 
                   />
               </div>
@@ -555,7 +555,7 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                   control={control}
                   // error={errors.codigo}
                   maxLength={20}
-                  customWidth={"!h-[2.8vw] !text-[1vw]"}
+                  customWidth={"labelInput inputStyles"}
 
                   isOptional={true}
                   />

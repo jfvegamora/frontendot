@@ -365,7 +365,7 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
     console.log(totalNeto)
 
     return (
-      <div className="useFormContainer centered-div w-[65vw]">
+      <div className="useFormContainer centered-div w-[67vw]">
         {/* <div className="userFormBtnCloseContainer">
           <button onClick={closeModal} className="userFormBtnClose">
             X
@@ -378,7 +378,7 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
             <h1 className='userFormLabel mx-auto  w-full '>{label}</h1>
           </div>
           <div className=''>
-            <button onClick={closeModal} className="userFormBtnClose">
+            <button onClick={closeModal} className="userFormBtnClose mr-3">
               X
             </button>
           </div>
@@ -390,7 +390,8 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
 
             <div className="!pt-[1rem] h-[4vw]">
               <div className="input-container items-center rowForm  flex">
-                <div className="w-[30vw] ml-4">
+                
+                <div className="w-[30vw] ml-4 mt-4">
                   <SelectInputComponent
                     label="Proyecto"
                     name="proyecto"
@@ -400,9 +401,12 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                     entidad={["/api/proyectos/", "02"]}
                     error={errors.proyecto}
                     readOnly={isEditting}
-                    customWidth={"!h-[2.5vw] text-[1vw] !w-[29vw]"}
+                    customWidth={"labelInput inputStyles !w-[29vw]"}
+
+                    
                   />
                 </div>
+
                 <div className="w-[40vw] flex translate-x-[-2vw] ">
                   <div className="w-[15vw]">
                     <TextInputComponent
@@ -414,11 +418,11 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                       error={errors.cod_grupo}
                       onlyRead={isEditting}
                       inputRef={firstInputRef}
-                      customWidth={"!h-[3vw] !text-[1vw] !w-[15vw]"}
+                      customWidth={"labelInput inputStyles !w-[10vw]"}
                       textAlign="text-center"
                     />
                   </div>
-                  <div className="w-[15vw] ml-10">
+                  <div className="w-[15vw] translate-x-[-4vw]">
                     <TextInputComponent
                       type="text"
                       label="Descripción"
@@ -426,8 +430,8 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                       data={data && data[EnumGrid.descripcion]}
                       control={control}
                       error={errors.descripcion}
-                      customWidth={"!h-[3vw] !text-[1vw] !w-[15vw]"}
-                    />
+                      customWidth={"labelInput inputStyles !w-[24vw]"}
+                      />
                   </div>
                 </div>
               </div>
@@ -445,7 +449,7 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                     entidad={["/api/marcas/", "02", "02"]}
                     error={errors.marca}
                     tabIndex={1}
-                    customWidth={"!h-[2.5vw] text-[1vw] !w-[22vw]"}
+                    customWidth={"labelInput inputStyles !w-[21vw]"}
                     />
                 </div>
 
@@ -458,7 +462,7 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={["/api/tipos/", "02", "CristalesDisenos"]}
                     error={errors.diseno}
-                    customWidth={"!h-[2.5vw] text-[1vw] !w-[22vw]"}
+                    customWidth={"labelInput inputStyles !w-[21vw]"}
                   />
                 </div>
 
@@ -471,13 +475,13 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={["/api/tipos/", "02", "CristalesIndices"]}
                     error={errors.indice}
-                    customWidth={"!h-[2.5vw] text-[1vw] !w-[22vw]"}
+                    customWidth={"labelInput inputStyles !w-[21vw]"}
                   />
                 </div>
               </div>
             </div>
 
-            <div className="mt-6 h-[4vw]">
+            <div className="mt-2 h-[4vw]">
               <div className="input-container items-center rowForm w-full flex">
                 <div className="w-[22vw] ml-4">
                   <SelectInputComponent
@@ -488,7 +492,7 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={["/api/tipos/", "02", "CristalesMateriales"]}
                     error={errors.material}
-                    customWidth={"!h-[2.5vw] text-[1vw] !w-[22vw]"}
+                    customWidth={"labelInput inputStyles !w-[21vw]"}
                     
                   />
                 </div>
@@ -501,7 +505,7 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={["/api/tipos/", "02", "CristalesColores"]}
                     error={errors.color}
-                    customWidth={"!h-[2.5vw] text-[1vw] !w-[22vw]"}
+                    customWidth={"labelInput inputStyles !w-[21vw]"}
                   />
                 </div>
                 <div className="w-[22vw]">
@@ -513,7 +517,7 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={["/api/tipos/", "02", "CristalesTratamientos"]}
                     error={errors.tratamiento}
-                    customWidth={"!h-[2.5vw] text-[1vw] !w-[22vw]"}
+                    customWidth={"labelInput inputStyles !w-[21vw]"}
                   />
                 </div>
               </div>
@@ -521,7 +525,7 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
 
             <div className="mt-6  h-[4rem]">
               <div className="input-container items-center rowForm w-full flex">
-                <div className="w-[50%] flex">
+                <div className="w-[50%] flex ml-2">
                   <div className="">
                     <TextInputComponent
                       type="number"
@@ -531,8 +535,8 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                       control={control}
                       error={errors.diametro}
                       textAlign="text-center"
-                      customWidth={"!h-[3vw] !text-[1vw] !w-[7vw]"}
-                    />
+                      customWidth={"labelInput inputStyles !w-[10vw]"}
+                      />
                   </div>
                   <div className="">
                     <TextInputComponent
@@ -544,7 +548,7 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                       error={errors.esferico_desde}
                       step={0.01}
                       textAlign="text-center"
-                      customWidth={"!h-[3vw] !text-[1vw] !w-[7vw]"}
+                      customWidth={"labelInput inputStyles !w-[10vw]"}
 
                     />
                   </div>
@@ -558,7 +562,7 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                       error={errors.esferico_hasta}
                       step={0.01}
                       textAlign="text-center"
-                      customWidth={"!h-[3vw] !text-[1vw] !w-[7vw]"}
+                      customWidth={"labelInput inputStyles !w-[10vw]"}
 
                     />
                   </div>
@@ -574,7 +578,7 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                       error={errors.cilindrico_desde}
                       step={0.01}
                       textAlign="text-center"
-                      customWidth={"!h-[3vw] !text-[1vw] !w-[7vw]"}
+                      customWidth={"labelInput inputStyles !w-[10vw]"}
 
                     />
                   </div>
@@ -588,7 +592,7 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                       error={errors.cilindrico_hasta}
                       step={0.01}
                       textAlign="text-center"
-                      customWidth={"!h-[3vw] !text-[1vw] !w-[7vw]"}
+                      customWidth={"labelInput inputStyles !w-[10vw]"}
 
                     />
                   </div>
@@ -602,7 +606,7 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                       error={errors.valor_neto_cristal}
                       isOptional={false}
                       textAlign="text-right"
-                      customWidth={"!h-[3vw] !text-[1vw] !w-[10vw]"}
+                      customWidth={"labelInput inputStyles !w-[10vw]"}
                       handleChange={(e) => {
                         console.log(e)
                         setTotalNetoCristales(e)
@@ -643,7 +647,7 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                       />
                    </div>
                 </div>
-                <div className="w-[85%] translate-x-[13vw]">
+                <div className="w-[85%] translate-x-[13vw] ml-6">
                    <TextInputComponent
                     type="number"
                     label="$ Neto Armazón"
@@ -656,7 +660,7 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                     isOptional={false}
                     textAlign="text-right"
                     handleChange={(e) => { setTotalNetoArmazones(e) }}
-                    customWidth={"!h-[3vw] !text-[1vw] !w-[15vw]"}
+                    customWidth={"labelInput inputStyles !w-[13vw]"}
                     />
                 </div>
               </div>
@@ -673,7 +677,7 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     error={errors.observaciones}
                     isOptional={true}
-                    customWidth={"!h-[3vw] !text-[1vw] !w-[40vw]"}
+                    customWidth={"labelInput inputStyles !w-[40vw]"}
                   />
                 </div>
                 <div className="w-[20vw] translate-x-[1.5vw]">
@@ -687,7 +691,7 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                     // error={errors.valor_neto_total}
                     isOptional={false}
                     textAlign="text-right"
-                    customWidth={"!h-[3vw] !text-[1vw] !w-[14vw]  mb-2"}
+                    customWidth={"labelInput inputStyles !w-[13vw]"}
 
                   />
                 </div>

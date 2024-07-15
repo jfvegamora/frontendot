@@ -226,8 +226,8 @@ const FMuestrarios: React.FC<IUserFormPrps> = React.memo(
     return (
       <div className="useFormContainer centered-div w-[30vw]">
         <div className="userFormBtnCloseContainer">
-        <h1 className="userFormLabel translate-x-[-30%]">{label}</h1>
-          <button onClick={closeModal} className="userFormBtnClose">
+        <h1 className="userFormLabel translate-x-[-40%]">{label}</h1>
+          <button onClick={closeModal} className="userFormBtnClose mr-4">
             X
           </button>
         </div>
@@ -238,7 +238,7 @@ const FMuestrarios: React.FC<IUserFormPrps> = React.memo(
 
             <div className="w-full flex items-center h-[4rem]">
               <div className="input-container items-center rowForm w-full">
-                <div className="w-full">
+                <div className="w-full ml-2">
                   <TextInputComponent
                     type="text"
                     label="Descripción"
@@ -247,14 +247,15 @@ const FMuestrarios: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     error={errors.descripcion}
                     inputRef={firstInputRef}
-                    customWidth={"!h-[3vw] !text-[1vw] !w-[27vw]"}
+                    customWidth={"labelInput inputStyles !w-[27vw]"}
+                    
 
                   />
                 </div>
               </div>
             </div>
 
-            <div className="w-full flex items-center h-[4rem]">
+            <div className="w-full flex items-center h-[4rem] my-5">
               <div className="input-container items-center rowForm w-full">
                 <div className="w-full ml-4">
                   <SelectInputComponent
@@ -266,7 +267,8 @@ const FMuestrarios: React.FC<IUserFormPrps> = React.memo(
                     entidad={["/api/puntosventa/", "02"]}
                     // entidad={"PuntosVenta"}
                     error={errors.punto_venta}
-                    customWidth={"!h-[2.5vw] text-[1vw] !w-[29.5vw]"}
+                    customWidth={"labelInput inputStyles !w-[29vw]"}
+
                     />
                 </div>
               </div>

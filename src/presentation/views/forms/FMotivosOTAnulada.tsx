@@ -218,11 +218,11 @@ const FMotivosOTAnulada: React.FC<ISituacionesFormProps> = React.memo(
     return (
       <div className="useFormContainer centered-div w-[30vw]">
         <div className="userFormBtnCloseContainer">
-          <button onClick={closeModal} className="userFormBtnClose">
+          <h1 className="userFormLabel translate-x-[-3vw]">{label}</h1>
+          <button onClick={closeModal} className="userFormBtnClose mr-4">
             X
           </button>
         </div>
-        <h1 className="userFormLabel">{label}</h1>
 
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))}
@@ -231,7 +231,7 @@ const FMotivosOTAnulada: React.FC<ISituacionesFormProps> = React.memo(
           <div className="userFormularioCont">
 
           <div className="input-container items-center rowForm  ">
-            <div className="w-[99%] mb-8">
+            <div className="w-[99%] mb-8 ml-2">
               <TextInputComponent
                 type="text"
                 label="Descripción"
@@ -240,7 +240,7 @@ const FMotivosOTAnulada: React.FC<ISituacionesFormProps> = React.memo(
                 control={control}
                 error={errors.situacion}
                 inputRef={firstInputRef}
-                customWidth={"!h-[3vw] !text-[1vw] !w-[27.5vw]"}
+                customWidth={"labelInput inputStyles !w-[27.5vw]"}
 
               />
             </div>
@@ -255,7 +255,7 @@ const FMotivosOTAnulada: React.FC<ISituacionesFormProps> = React.memo(
                 data={data && data[EnumGrid.area_id]}
                 control={control}
                 entidad={"OTAreas"}
-                customWidth={"!h-[2.5vw] text-[1vw] !w-[30vw]"}
+                customWidth={"labelInput inputStyles !w-[29.5vw]"}
                 // error={errors.}
                 isOptional={true}
                 />

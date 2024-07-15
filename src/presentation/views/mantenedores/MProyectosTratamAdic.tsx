@@ -141,7 +141,8 @@ const MProyectosTratamAdic: React.FC = () => {
           leftEdit={true}
         />
       </div>
-     
+            
+   
 
        {isModalInsert && (
         <FProyectosTratamAdic

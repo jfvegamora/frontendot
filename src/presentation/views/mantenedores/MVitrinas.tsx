@@ -92,7 +92,7 @@ const MVitrinas: React.FC = () => {
                 }
               },
             ]}
-            classNameSearchButton=" translate-x-[5.5rem]"
+            classNameSearchButton=" translate-x-[5.5vw] translate-y-[0.3rem]"
           />
         </div>
 
@@ -132,6 +132,7 @@ const MVitrinas: React.FC = () => {
           leftEdit={true}
         />
       </div>
+
 
 
       {isModalInsert && (

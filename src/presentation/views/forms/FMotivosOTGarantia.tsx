@@ -221,11 +221,11 @@ const FMotivosOTGarantia: React.FC<ISituacionesFormProps> = React.memo(
     return (
       <div className="useFormContainer centered-div w-[30vw]">
         <div className="userFormBtnCloseContainer">
-          <button onClick={closeModal} className="userFormBtnClose">
+        <h1 className="userFormLabel translate-x-[-2vw]">{label}</h1>
+          <button onClick={closeModal} className="userFormBtnClose mr-4">
             X
           </button>
         </div>
-        <h1 className="userFormLabel">{label}</h1>
 
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))}
@@ -234,7 +234,7 @@ const FMotivosOTGarantia: React.FC<ISituacionesFormProps> = React.memo(
           <div className="userFormularioCont">
 
           <div className="input-container items-center rowForm  ">
-            <div className="w-[99%]">
+            <div className="w-[99%] ml-2 mb-8">
               <TextInputComponent
                 type="text"
                 label="Descripción"
@@ -243,12 +243,13 @@ const FMotivosOTGarantia: React.FC<ISituacionesFormProps> = React.memo(
                 control={control}
                 error={errors.situacion}
                 inputRef={firstInputRef}
+                customWidth={"labelInput inputStyles !w-[27.5vw]"}
               />
             </div>
           </div>
 
           <div className="input-container items-center rowForm  ">
-            <div className="w-full !mt-4 ">
+            <div className="w-full !mt-4 ml-4">
               <SelectInputTiposComponent
                 label="Área exclusiva"
                 name="area_hasta"
@@ -256,7 +257,7 @@ const FMotivosOTGarantia: React.FC<ISituacionesFormProps> = React.memo(
                 data={data && data[EnumGrid.area_id]}
                 control={control}
                 entidad={"OTAreas"}
-                customWidth={"!w-full ml-4"}
+                customWidth={"labelInput inputStyles !w-[29.5vw]"}
                 error={errors.area_hasta}
                 isOptional={true}
                 />

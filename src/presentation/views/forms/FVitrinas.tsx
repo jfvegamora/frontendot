@@ -222,13 +222,13 @@ const FVitrinas: React.FC<IUserFormPrps> = React.memo(
     }, []);
 
     return (
-      <div className="useFormContainer centered-div use30rem">
+      <div className="useFormContainer centered-div w-[30vw]">
         <div className="userFormBtnCloseContainer">
+        <h1 className="userFormLabel translate-x-[-8vw]">{label}</h1>
           <button onClick={closeModal} className="userFormBtnClose">
             X
           </button>
         </div>
-        <h1 className="userFormLabel">{label}</h1>
 
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
@@ -236,7 +236,7 @@ const FVitrinas: React.FC<IUserFormPrps> = React.memo(
 
             <div className="w-full flex items-center h-[4rem]">
               <div className="input-container items-center rowForm w-full">
-                <div className="w-full">
+                <div className="w-full ml-2">
                   <TextInputComponent
                     type="text"
                     label="Descripción"
@@ -245,14 +245,16 @@ const FVitrinas: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     error={errors.descripcion}
                     inputRef={firstInputRef}
+                    customWidth={"labelInput inputStyles !w-[27vw]"}
+
                   />
                 </div>
               </div>
             </div>
 
-            <div className="w-full flex items-center h-[4rem]">
+            <div className="w-full flex items-center h-[4rem] my-5">
               <div className="input-container items-center rowForm w-full">
-                <div className="w-full ">
+                <div className="w-full ml-4">
                   <SelectInputTiposComponent
                     label="Punto Venta"
                     name="punto_venta"
@@ -261,7 +263,7 @@ const FVitrinas: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={"PuntosVenta"}
                     error={errors.punto_venta}
-                    customWidth={"w-full ml-[1rem]"}
+                    customWidth={"labelInput inputStyles !w-[29vw]"}
                     />
                 </div>
               </div>

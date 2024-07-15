@@ -231,7 +231,7 @@ const FPermisos: React.FC<IFormPrps> = React.memo(
                     entidad={["/api/usuarios/", "02"]}
                     error={errors.usuario}
                     readOnly={isEditting}
-                    customWidth={"!h-[2.5vw] text-[1vw] !w-[29vw]"}
+                    customWidth={"labelInput inputStyles w-[29vw]"}
                     />
                 </div>
               </div>
@@ -249,7 +249,7 @@ const FPermisos: React.FC<IFormPrps> = React.memo(
                       entidad={["/api/funcionalidades/", "02"]}
                       error={errors.funcionalidad}
                       readOnly={isEditting}
-                      customWidth={"!h-[2.5vw] text-[1vw] !w-[29vw]"}
+                      customWidth={"labelInput inputStyles w-[29vw]"}
                       />
                   </div>
                 </div>
@@ -267,6 +267,8 @@ const FPermisos: React.FC<IFormPrps> = React.memo(
                       options={["Lectura", "Lectura/Escritura"]}
                       error={errors.permiso}
                       horizontal={true}
+                      customWidth={"labelInput inputStyles"}
+
                     />
                 </div>
               </div>

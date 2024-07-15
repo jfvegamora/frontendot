@@ -216,7 +216,7 @@ const FPerfiles: React.FC<IFormPrps> = React.memo(
           <div className="w-[80%] mx-auto !text.center">
                 <h1 className="userFormLabel">{label}</h1>
           </div>
-          <button onClick={closeModal} className="userFormBtnClose">
+          <button onClick={closeModal} className="userFormBtnClose mr-4">
             X
           </button>
         </div>
@@ -236,7 +236,7 @@ const FPerfiles: React.FC<IFormPrps> = React.memo(
                     entidad={["/api/cargos/", "02"]}
                     error={errors.cargo}
                     readOnly={isEditting}
-                    customWidth={"!h-[2.5vw] text-[1vw] !w-[29vw]"}
+                    customWidth={"labelInput inputStyles w-[29vw]"}
                   />
                 </div>
               </div>
@@ -253,7 +253,7 @@ const FPerfiles: React.FC<IFormPrps> = React.memo(
                     entidad={["/api/funcionalidades/", "02"]}
                     error={errors.funcionalidad}
                     readOnly={isEditting}
-                    customWidth={"!h-[2.5vw] text-[1vw] !w-[29vw]"}                  
+                    customWidth={"labelInput inputStyles w-[29vw]"}
                     />
                 </div>
               </div>
@@ -270,6 +270,7 @@ const FPerfiles: React.FC<IFormPrps> = React.memo(
                     options={["Lectura", "Lectura/Escritura"]}
                     error={errors.permiso}
                     horizontal={true}
+                    customWidth={"labelInput inputStyles"}
                     />
                 </div>
               </div>

@@ -165,8 +165,6 @@ const MProyectosUsuarios: React.FC = () => {
         />
       </div>     
 
-+
-
 
       {isModalInsert && (
         <FProyectosUsuarios

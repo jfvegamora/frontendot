@@ -245,10 +245,10 @@ const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
     // console.log(firstInputRef)
 
     return (
-      <div className="useFormContainer centered-div w-[30vw]">
+      <div className="useFormContainer centered-div w-[27vw]">
         <div className="userFormBtnCloseContainer">
           <h1 className="userFormLabel -translate-x-12">{label}</h1>
-          <button onClick={closeModal} className="userFormBtnClose">
+          <button onClick={closeModal} className="userFormBtnClose mr-4">
             X
           </button>
         </div>
@@ -257,7 +257,7 @@ const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer !h-[35rem] -translate-y-6" style={{ display: 'inline-block'}}>
             <div className="input-container items-center rowForm w-[28.2rem] mb-6 ">
-              <div className="w-[100%] !mt-[1rem] mb-2">
+              <div className="w-[100%] !mt-[1rem] mb-2 ml-2">
                 <TextInputComponent
                   type="text"
                   label="Código/RBD"
@@ -267,14 +267,14 @@ const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
                   error={errors.codigo}
                   inputRef={firstInputRef}
                   isOptional={true}
-                  customWidth={"!h-[3vw] !text-[1vw] !w-[27vw]"}
+                  customWidth={"labelInput inputStyles !w-[24.5vw]"}
 
                   />
               </div>
             </div>
 
             <div className="input-container items-center rowForm w-[28.2rem] mb-8">
-              <div className="w-[100%] !mt-[1rem] mb-2">
+              <div className="w-[100%] !mt-[1rem] mb-2 ml-2">
                 <TextInputComponent
                   type="text"
                   label="Nombre"
@@ -282,7 +282,7 @@ const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
                   data={data && data[EnumGrid.nombre]}
                   control={control}
                   error={errors.nombre}
-                  customWidth={"!h-[3vw] !text-[1vw] !w-[27vw]"}
+                  customWidth={"labelInput inputStyles !w-[24.5vw]"}
 
                 />
               </div>
@@ -298,7 +298,7 @@ const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
                   control={control}
                   entidad="EstablecimientosTipos"
                   error={errors.tipo}
-                  customWidth={"!h-[2.5vw] text-[1vw] !w-[29.5vw]"}
+                  customWidth={"labelInput inputStyles !w-[26.5vw]"}
                   />
               </div>
             </div>
@@ -313,7 +313,7 @@ const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
                   control={control}
                   entidad={["/api/mandantes/", "02"]}
                   error={errors.mandante}
-                  customWidth={"!h-[2.5vw] text-[1vw] !w-[29.5vw]"}
+                  customWidth={"labelInput inputStyles !w-[26.5vw]"}
                   />
               </div>
             </div>
@@ -328,7 +328,7 @@ const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
                   control={control}
                   entidad={["/api/proyectodestinos/", "02"]}
                   error={errors.destino}
-                  customWidth={"!h-[2.5vw] text-[1vw] !w-[29.5vw]"}
+                  customWidth={"labelInput inputStyles !w-[26.5vw]"}
                   />
               </div>
             </div>
