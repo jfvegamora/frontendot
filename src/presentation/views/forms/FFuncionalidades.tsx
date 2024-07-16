@@ -211,7 +211,7 @@ const FFuncionalidad: React.FC<IFormProps> = React.memo(
 
             <div className="w-full items-center flex">
               <div className="input-container items-center rowForm w-full">
-                <div className="w-full">
+                <div className="w-full ml-4">
                   <TextInputComponent
                     type="text"
                     label="Descripción"
@@ -220,7 +220,7 @@ const FFuncionalidad: React.FC<IFormProps> = React.memo(
                     control={control}
                     error={errors.descripcion}
                     inputRef={firstInputRef}
-                    customWidth={"labelInput inputStyles w-[29vw]"}
+                    customWidth={"labelInput inputStyles !w-[28vw]"}
                     />
                 </div>
               </div>

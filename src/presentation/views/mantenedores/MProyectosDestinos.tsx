@@ -87,7 +87,7 @@ const MProyectosDestinos: React.FC = () => {
     return (
       <div className="mantenedorContainer">
         <div className="mantenedorHead width90">
-          <div className="w-[65vw]">
+          <div className="w-[65%]">
             <PrimaryKeySearch
               baseUrl={strBaseUrl}
               setParams={setParams}
@@ -100,23 +100,24 @@ const MProyectosDestinos: React.FC = () => {
                   type: "select",
                   selectUrl: "/api/proyectos/", 
                   styles:{
-                      styles:"!h-[2.5vw] text-[1vw] w-full",
-                      container:"!w-[30vw]  text-[1vw] translate-x-[0.5vw]", 
-                      labelProps: "!translate-y-[-3vh] !text-[1.2vw] !font-[2vw]"
+                    styles:"labelInput inputStyles w-[30vw]",
+                    container:"!w-[30vw]  text-[1vw] translate-x-[0.5vw]", 
+                    labelProps: "labelInput"
                   },
                 },
                 { name: "_p1", label: "Descripción", type: "text", 
                   styles:{
-                    with: "!h-[2.5vw] !text-[1vw] w-full",
-                    container:"w-[15vw] !text-[2vw] translate-y-[-0.4rem] translate-x-[5.5vw]", 
-                    labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"                 
-                   }, },
+                    with: "labelInput inputStyles w-full",
+                    container:"w-[15vw] !text-[2vw] translate-y-[-0.4rem] translate-x-[12vw]", 
+                    labelProps: "labelInput"
+                  }, },
               ]}
-              classNameSearchButton=" translate-x-[-3vw] translate-y-[0.3rem]"
+              classNameSearchButton=" translate-x-[14vw]"
               />
               
           </div>
-            <div className="translate-x-[1vw]">
+
+            <div className="w-[15%]">
               <PrimaryButtonsComponent
                 handleAddPerson={openModal}
                 handleDeleteSelected={handleDeleteSelected}
@@ -134,6 +135,8 @@ const MProyectosDestinos: React.FC = () => {
                 showForwardButton={false}
                 showRefreshButton={true}
                 idMenu={idMenu}
+                classname={"translate-x-[15vw]  !w-[15vw]"}
+
               />
             </div>
         </div>

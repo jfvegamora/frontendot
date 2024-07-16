@@ -71,7 +71,7 @@ const MArmazones: React.FC = () => {
   return (
     <div className="mantenedorContainer">
       <div className="mantenedorHead width100 !h-[9.5rem]">
-      <div className="w-[80%] translate-y-[-1.8vw] ">
+      <div className="w-[80%] translate-y-[-3vw] ">
         <PrimaryKeySearch
           baseUrl={strBaseUrl}
           setParams={setParams}
@@ -80,9 +80,9 @@ const MArmazones: React.FC = () => {
           primaryKeyInputs={[
             { name: "_p1", label: "Código/Modelo/Color", type: "text", 
               styles:{
-                styles:"!h-[2.5vw] text-[1vw]",
-                container:"!w-[15vw]  text-[1vw] translate-y-[3.5vw] translate-x-[-1vw] ", 
-                labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+                styles:"labelInput inputStyles",
+                container:"!w-[15vw]  text-[1vw] translate-y-[5vw] translate-x-[-1vw] ", 
+                labelProps: "labelInput"
               } },
             {
               name: "_p2",
@@ -91,9 +91,9 @@ const MArmazones: React.FC = () => {
               selectUrl: "/api/tipos/",
               tipos: "ArmazonesTipos", 
               styles:{
-                styles:"!h-[2.5vw] text-[1vw] w-full",
+                styles:"labelInput inputStyles",
                 container:"!w-[20vw]  text-[1vw] translate-x-[-15.9vw] translate-y-[18%] ", 
-              labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+                labelProps: "labelInput"
               },
             },
             {
@@ -102,9 +102,9 @@ const MArmazones: React.FC = () => {
               type: "select",
               selectUrl: "/api/marcas/", 
               styles:{
-                styles:"!h-[2.5vw] text-[1vw] w-full",
+                styles:"labelInput inputStyles",
                 container:"!w-[20vw]  text-[1vw] translate-x-[-17vw] translate-y-[18%] ", 
-              labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+                labelProps: "labelInput"
               },
               _p1: "1"
             },
@@ -115,9 +115,9 @@ const MArmazones: React.FC = () => {
               selectUrl: "/api/tipos/",
               tipos: "ArmazonesMaterial", 
               styles:{
-                styles:"!h-[2.5vw] text-[1vw] w-full",
+                styles:"labelInput inputStyles",
                 container:"!w-[20vw]  text-[1vw] translate-x-[-18vw] translate-y-[18%] ", 
-              labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+                labelProps: "labelInput"
               },
             },
             {
@@ -126,9 +126,9 @@ const MArmazones: React.FC = () => {
               type: "select",
               selectUrl: "/api/almacenes/", 
               styles:{
-                styles:"!h-[2.5vw] text-[1vw] w-full",
+                styles:"labelInput inputStyles",
                 container:"!w-[20vw]  text-[1vw] translate-x-[-19vw] translate-y-[18%] ", 
-              labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+                labelProps: "labelInput"
               },
               _p1: "1"
             },
@@ -139,17 +139,17 @@ const MArmazones: React.FC = () => {
               selectUrl: "/api/tipos/",
               tipos: "Stock", 
               styles:{
-                styles:"!h-[2.5vw] text-[1vw] w-full",
+                styles:"labelInput inputStyles",
                 container:"!w-[20vw]  text-[1vw] translate-x-[-17vw] translate-y-[18%] ", 
-              labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+                labelProps: "labelInput"
               },
             },
     ]}
-     classNameSearchButton=" translate-x-[-5vw]  !translate-y-[4.5rem]"
+     classNameSearchButton=" translate-x-[-14vw]  !translate-y-[5.5vw]"
         />
       </div>
 
-        <div className="w-[20%] px-2 translate-y-[2rem]">
+        <div className="w-[15%]">
           <PrimaryButtonsComponent
             handleAddPerson={openModal}
             handleDeleteSelected={handleDeleteSelected}
@@ -167,6 +167,8 @@ const MArmazones: React.FC = () => {
             showImportCsv={true}
             showRefreshButton={true}
             idMenu={idMenu}
+            classname={"translate-x-[1vw]  !w-[19vw] translate-y-[2.5vw]"}
+
           />
         </div>
       </div>

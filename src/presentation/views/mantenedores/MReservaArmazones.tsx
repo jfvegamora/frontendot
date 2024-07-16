@@ -68,8 +68,8 @@ const MReservaArmazones: React.FC = () => {
   
     return (
       <div className="mantenedorContainer">
-        <div className="mantenedorHead width100 !h-[9rem]">
-          <div className="w-[90%] -mt-10">
+        <div className="mantenedorHead width100 !h-[10rem]">
+          <div className="w-[70%] -mt-20">
             <PrimaryKeySearch
               baseUrl={strBaseUrl}
               setParams={setParams}
@@ -78,9 +78,9 @@ const MReservaArmazones: React.FC = () => {
               primaryKeyInputs={[
                 { name: "_p5", label: "Armazon", type: "text", 
                   styles:{
-                    with: "!h-[2.5vw] !text-[1vw] w-full",
+                    with: "labelInput inputStyles w-full",
                     container:"w-[10vw] !text-[2vw] -translate-y-[0.3rem]", 
-                    labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+                    labelProps: "labelInput"
                   }
                 },
                 {
@@ -89,16 +89,16 @@ const MReservaArmazones: React.FC = () => {
                     type: "select",
                     selectUrl: "/api/proyectos/", 
                     styles:{
-                      styles:"!h-[2.5vw] text-[1vw] w-full",
-                      container:"!w-[35vw]  text-[1vw] translate-y-[4vw] translate-x-[-10vw]", 
-                      labelProps: "!translate-y-[-3vh] !text-[1.2vw] !font-[2vw]"
+                      styles:"labelInput inputStyles w-[40vw]",
+                      container:"!w-[34vw]  text-[1vw] translate-y-[4vw] translate-x-[-10vw]", 
+                      labelProps: "labelInput"
                     },
                 },
                 { name: "_p1", label: "RUT Benef.", type: "text", 
                   styles:{
-                    with: "!h-[2.5vw] !text-[1vw] w-full",
+                    with: "labelInput inputStyles w-full",
                     container:"w-[10vw] !text-[2vw] -translate-y-[0.3rem] translate-x-[-15vw]", 
-                    labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+                    labelProps: "labelInput"
                   }},
                 {
                     name: "_p3",
@@ -106,9 +106,9 @@ const MReservaArmazones: React.FC = () => {
                     type: "select",
                     selectUrl: "/api/puntosventa/", 
                     styles:{
-                      styles:"!h-[2.5vw] text-[1vw] !w-[33vw]",
-                      container:"!w-[33vw]  text-[1vw] translate-x-[-13vw]", 
-                      labelProps: "!translate-y-[-2vh] !text-[1.2vw] !font-[2vw]"
+                      styles:"labelInput inputStyles",
+                      container:"!w-[40vw]  text-[1vw] translate-x-[-13vw]", 
+                      labelProps: "labelInput"
                     },
                 },
                 {
@@ -117,30 +117,30 @@ const MReservaArmazones: React.FC = () => {
                     type: "select",
                     selectUrl: "/api/usuarios/", 
                     styles:{
-                      styles:"!h-[2.5vw] text-[1vw] w-full",
-                      container:"!w-[35vw]  text-[1vw] translate-x-[-14vw]", 
-                      labelProps: "!translate-y-[-2vh] !text-[1vw] !font-[2vw]"
+                      styles:"labelInput inputStyles !w-[20rem]",
+                      container:"!w-[20vw]  text-[1vw] translate-x-[-10vw]", 
+                      labelProps: "labelInput"
                     },
                 },
                 { name: "_p6", label: "Desde", type: "date", 
                   styles:{
-                    styles:"!h-[2.5vw] text-[1vw] w-full",
-                      container:"!w-[10vw]  text-[1vw] translate-x-[-15vw]", 
-                      labelProps: "!translate-y-[-2vh] !text-[1vw] !font-[2vw]"
+                    labelProps: "labelInput",
+                    container:"!w-[10vw]  text-[1vw] translate-x-[-7vw] ", 
+                    styles:"labelInput inputStyles",
                   }},
                 { name: "_p7", label: "Hasta", type: "date", 
                   styles:{
-                    styles:"!h-[2.5vw] text-[1vw] w-full",
-                    container:"!w-[10vw]  text-[1vw] translate-x-[-2vw]", 
-                    labelProps: "!translate-y-[-2vh] !text-[1vw] !font-[2vw]"
+                    styles:"labelInput inputStyles",
+                    container:"!w-[10vw]  text-[1vw] translate-x-[-8vw]", 
+                    labelProps: "labelInput",
                   }},
 
               ]}
-              classNameSearchButton=" translate-x-[-13rem] translate-y-[3.5vw]"
+              classNameSearchButton=" translate-x-[-24vw] translate-y-[4.8vw]"
               />
           </div>
   
-            <div className="w-[19rem] translate-y-[2rem]">
+            <div className="w-[15%] translate-y-[2rem]">
                 <PrimaryButtonsComponent
                     handleAddPerson={openModal}
                     handleDeleteSelected={handleDeleteSelected}
@@ -157,6 +157,8 @@ const MReservaArmazones: React.FC = () => {
                     showForwardButton={false}
                     showRefreshButton={true}
                     idMenu={idMenu}
+                    classname={"translate-x-[17vw] !w-[10vw] "}
+
                 />
 
             </div>

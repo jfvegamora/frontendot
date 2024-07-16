@@ -85,9 +85,9 @@ const MProyectosDocum: React.FC = () => {
                   type: "select",
                   selectUrl: "/api/proyectos/", 
                   styles:{
-                      styles:"!h-[2.5vw] text-[1vw] w-full",
-                      container:"!w-[30vw]  text-[1vw] translate-x-[0.5vw]", 
-                      labelProps: "!translate-y-[-3vh] !text-[1.2vw] !font-[2vw]"
+                    styles:"labelInput inputStyles w-[25vw]",
+                    container:"!w-[30vw]  text-[1vw] translate-x-[0.5vw]", 
+                    labelProps: "labelInput"
                   },
                 },
                 {
@@ -97,44 +97,48 @@ const MProyectosDocum: React.FC = () => {
                   selectUrl: "/api/tipos/",
                   tipos: "TipoDoc", 
                   styles:{
-                      styles:"!h-[2.5vw] text-[1vw] w-full",
-                      container:"!w-[35vw]  text-[1vw] translate-x-[6vw]", 
-                      labelProps: "!translate-y-[-3vh] !text-[1.2vw] !font-[2vw]"
+                    styles:"labelInput inputStyles w-full",
+                    container:"!w-[35vw]  text-[1vw] translate-x-[8vw]", 
+                    labelProps: "labelInput"
                   },
                   _p1:"1,2,3,4,5,6,7,8"
                 },
                 { name: "_p2", label: "N° Documento", type: "text", 
                   styles:{
-                    with: "!h-[2.5vw] !text-[1vw] w-full",
-                    container:"w-[35vw] !text-[2vw] translate-y-[-0.2vw] translate-x-[5vw]", 
-                    labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+                    with: "labelInput inputStyles w-full",
+                    container:"w-[35vw] !text-[2vw] translate-y-[-0.2vw] translate-x-[7vw]", 
+                    labelProps: "labelInput"
                   },},
                 // { name: "_p2", label: "Código Proyecto", type: "text", styles:{with:" !w-[9rem]"}, },
                 // { name: "_p3", label: "Código Licitación", type: "text", styles:{with:" !w-[9rem]"}, },
               ]}
-              classNameSearchButton=" translate-x-[2vw] translate-y-[0.3rem]"
+              classNameSearchButton=" translate-x-[5vw]"
               />
           </div>
-  
-          <PrimaryButtonsComponent
-            handleAddPerson={openModal}
-            handleDeleteSelected={handleDeleteSelected}
-            handleRefresh={resetEntities}
-            handleCopiar={toggleModalCopiar}
-            params={params}
-            pkToDelete={pkToDelete}
-            strEntidad={strEntidadExcel}
-            strBaseUrl={strBaseUrl}
-            showAddButton={true}
-            showCopiar={false}
-            showExportButton={true}
-            showDeleteButton={true}
-            showExcelRepEntrega={true}
-            showExcelRepFirma={true}
-            showForwardButton={false}
-            showRefreshButton={true}
-            idMenu={idMenu}
-          />
+
+          <div className="w-[15%]">
+            <PrimaryButtonsComponent
+              handleAddPerson={openModal}
+              handleDeleteSelected={handleDeleteSelected}
+              handleRefresh={resetEntities}
+              handleCopiar={toggleModalCopiar}
+              params={params}
+              pkToDelete={pkToDelete}
+              strEntidad={strEntidadExcel}
+              strBaseUrl={strBaseUrl}
+              showAddButton={true}
+              showCopiar={false}
+              showExportButton={true}
+              showDeleteButton={true}
+              showExcelRepEntrega={true}
+              showExcelRepFirma={true}
+              showForwardButton={false}
+              showRefreshButton={true}
+              idMenu={idMenu}
+              classname={"translate-x-[6vw]  !w-[18vw]"}
+
+            />
+          </div>
         </div>
   
         <div className="width100 scroll">

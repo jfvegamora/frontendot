@@ -211,7 +211,7 @@ const FPermisos: React.FC<IFormPrps> = React.memo(
           <div className="w-[80%] mx-auto !text.center">
             <h1 className="userFormLabel">{label}</h1>
           </div>
-          <button onClick={closeModal} className="userFormBtnClose">
+          <button onClick={closeModal} className="userFormBtnClose mr-4">
             X
           </button>
         </div>

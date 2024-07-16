@@ -81,37 +81,41 @@ const MMandantes: React.FC = () => {
             primaryKeyInputs={[
               { name: "_p2", label: "Código", type: "number", 
                 styles:{
-                  with: "!h-[2.5vw] !text-[1vw] w-full",
+                  with: "labelInput inputStyles w-full",
                   container:"w-[15vw] !text-[2vw] translate-y-[-0.3rem] ", 
-                  labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+                  labelProps: "labelInput"
                 }, },
               { name: "_p1", label: "Nombre", type: "text", 
                 styles:{
-                  with: "!h-[2.5vw] !text-[1vw] w-full",
+                  with: "labelInput inputStyles w-full",
                   container:"w-[35vw] !text-[2vw]", 
-                  labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+                  labelProps: "labelInput"
                 }, },
             ]}
-            classNameSearchButton=" translate-x-[2vw] translate-y-[0.3rem]"
+            classNameSearchButton=" translate-x-[2vw]"
           />
         </div>
 
-        <PrimaryButtonsComponent
-          handleAddPerson={openModal}
-          handleDeleteSelected={handleDeleteSelected}
-          handleRefresh={resetEntities}
-          params={params}
-          pkToDelete={pkToDelete}
-          strEntidad={strEntidadExcel}
-          strBaseUrl={strBaseUrl}
-          showAddButton={true}
-          showExportButton={true}
-          showDeleteButton={true}
-          showForwardButton={false}
-          showRefreshButton={true}
-          comilla={false}
-          idMenu={idMenu}
-        />
+          <div className="w-[15%]">
+            <PrimaryButtonsComponent
+              handleAddPerson={openModal}
+              handleDeleteSelected={handleDeleteSelected}
+              handleRefresh={resetEntities}
+              params={params}
+              pkToDelete={pkToDelete}
+              strEntidad={strEntidadExcel}
+              strBaseUrl={strBaseUrl}
+              showAddButton={true}
+              showExportButton={true}
+              showDeleteButton={true}
+              showForwardButton={false}
+              showRefreshButton={true}
+              comilla={false}
+              idMenu={idMenu}
+              classname={"translate-x-[13vw]  !w-[10vw]"}
+
+            />
+          </div>
       </div>
 
       <div className="width100 scroll">

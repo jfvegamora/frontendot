@@ -265,7 +265,7 @@ const FOftalmologos: React.FC<IUserFormPrps> = React.memo(
 
             <div className="w-full items-center flex">
               <div className="input-container items-center rowForm w-full">
-                <div className="w-full">
+                <div className="w-full px-4">
                   <TextInputComponent
                     type="text"
                     label="RUT"
@@ -282,7 +282,7 @@ const FOftalmologos: React.FC<IUserFormPrps> = React.memo(
 
             <div className="w-full items-center flex">
               <div className="input-container items-center rowForm w-full">
-                <div className="w-full">
+                <div className="w-full px-4">
                   <TextInputComponent
                     type="text"
                     label="Nombre"
@@ -298,7 +298,7 @@ const FOftalmologos: React.FC<IUserFormPrps> = React.memo(
 
             <div className="w-full items-center flex">
               <div className="input-container items-center rowForm w-full">
-                <div className="w-full">
+                <div className="w-full px-4">
                   <TextInputComponent
                     type="number"
                     label="Valor Consulta"
@@ -315,7 +315,7 @@ const FOftalmologos: React.FC<IUserFormPrps> = React.memo(
 
             <div className="w-full items-center flex">
               <div className="input-container items-center rowForm w-full">
-                <div className="w-full">
+                <div className="w-full px-4">
                   <TextInputComponent
                     type="text"
                     label="Teléfono"
@@ -331,7 +331,7 @@ const FOftalmologos: React.FC<IUserFormPrps> = React.memo(
 
             <div className="w-full items-center flex">
               <div className="input-container items-center rowForm w-full">
-                <div className="w-full">
+                <div className="w-full px-4">
                   <TextInputComponent
                     type="email"
                     label="Correo"

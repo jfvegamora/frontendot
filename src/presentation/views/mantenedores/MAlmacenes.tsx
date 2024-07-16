@@ -80,9 +80,9 @@ const MAlmacenes: React.FC = () => {
             primaryKeyInputs={[
               { name: "_p1", label: "Descripción", type: "text",
                 styles:{
-                  styles:"!h-[2.5vw] text-[1vw] w-full",
-                container:"!w-[20vw]  text-[1vw] translate-y-[18%] mb-4 ", 
-              labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+                  styles:"labelInput inputStyles",
+                  container:"!w-[20vw]  text-[1vw]", 
+                  labelProps: "labelInput"
                 }
                },
               {
@@ -92,9 +92,9 @@ const MAlmacenes: React.FC = () => {
                 selectUrl : "/api/tipos/",
                 tipos     : "AlmacenesTipos",
                 styles    :  {
-                  styles:"!h-[2.5vw] text-[1vw] w-full",
-                container:"!w-[20vw]  text-[1vw] translate-x-[1vw] translate-y-[17%] ", 
-              labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+                  styles:"labelInput inputStyles",
+                  container:"!w-[20vw]  text-[1vw] translate-x-[1vw]  ", 
+                  labelProps: "labelInput"
                 }
               },
               {
@@ -104,33 +104,39 @@ const MAlmacenes: React.FC = () => {
                 selectUrl : "/api/tipos/",
                 tipos     : "TipoInsumo",
                 styles    :  {
-                  styles:"!h-[2.5vw] text-[1vw] w-full",
-                container:"!w-[20vw]  text-[1vw] translate-x-[-0.5vw] translate-y-[18%] ", 
-              labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+                  styles:"labelInput inputStyles",
+                  container:"!w-[20vw]  text-[1vw] translate-x-[-0.5vw]", 
+                  labelProps: "labelInput"
                 }
 
               },
             ]}
-            classNameSearchButton=" translate-x-[1.8vw] translate-y-[0.3rem]"
+            classNameSearchButton=" translate-x-[2vw] "
           />
         </div>
 
-        <PrimaryButtonsComponent
-          handleAddPerson={openModal}
-          handleDeleteSelected={handleDeleteSelected}
-          handleRefresh={resetEntities}
-          params={params}
-          pkToDelete={pkToDelete}
-          strEntidad={strEntidadExcel}
-          strBaseUrl={strBaseUrl}
-          showAddButton={true}
-          showExportButton={true}
-          showDeleteButton={true}
-          showForwardButton={false}
-          showRefreshButton={true}
-          comilla={false}
-          idMenu={idMenu}
-        />
+
+        <div className="w-[15%]">
+          <PrimaryButtonsComponent
+            handleAddPerson={openModal}
+            handleDeleteSelected={handleDeleteSelected}
+            handleRefresh={resetEntities}
+            params={params}
+            pkToDelete={pkToDelete}
+            strEntidad={strEntidadExcel}
+            strBaseUrl={strBaseUrl}
+            showAddButton={true}
+            showExportButton={true}
+            showDeleteButton={true}
+            showForwardButton={false}
+            showRefreshButton={true}
+            comilla={false}
+            idMenu={idMenu}
+            classname={"translate-x-[2.5vw]  !w-[14vw]"}
+
+          />
+
+        </div>
       </div>
 
       <div className="width80 scroll">
