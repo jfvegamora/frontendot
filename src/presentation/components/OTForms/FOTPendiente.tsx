@@ -152,7 +152,7 @@ const FOTPendiente:React.FC<IPendiente> = ({
                 <h1 className='userFormLabel mx-auto  w-full '>OT Pendiente</h1>
             </div>
             <div className=''>
-                <button onClick={onClose} className="userFormBtnClose">
+                <button onClick={onClose} className="userFormBtnClose mr-4">
                     X
                 </button>
             </div>
@@ -160,7 +160,7 @@ const FOTPendiente:React.FC<IPendiente> = ({
 
         <form className='userFormulario' onSubmit={handleSubmit(onSubmit)}>
                 <div className=" w-full flex items-center rowForm">
-                    <div className={`${isMasivo ? "w-[100%] " : "w-[70%] "}`}>
+                    <div className={`${isMasivo ? "w-[95%] ml-4 " : "w-[70%] ml-4 "}`}>
                         <TextInputComponent
                             type="text"
                             label="Proyecto"
@@ -168,11 +168,11 @@ const FOTPendiente:React.FC<IPendiente> = ({
                             control={control}
                             data={isMasivo ? dataPendiente && dataPendiente[0]?.proyecto  : dataPendiente && dataPendiente[EnumPendiente.proyecto_titulo]}
                             onlyRead={true}
-                            customWidth={"mt-[2rem]"}
+                            customWidth={"labelInput inputStyles"}
                         />
                     </div>
                     {!isMasivo && (
-                        <div className="w-[30%]">
+                        <div className="w-[30%] mr-4">
                             <TextInputComponent
                                 type="text"
                                 label="Folio OT"
@@ -181,14 +181,14 @@ const FOTPendiente:React.FC<IPendiente> = ({
                                 data={data && data[EnumPendiente.folio]}
                                 onlyRead={true}
                                 textAlign="text-center"
-                                customWidth={"mt-[2rem]"}
-                            />
+                                customWidth={"labelInput inputStyles"}
+                                />
                         </div>
                     )}
                 </div>
                 
                 {!isMasivo && (
-                    <div className=" w-full flex items-center rowForm">
+                    <div className=" w-full flex ml-4 items-center rowForm">
                         <div className="w-full">
                             <TextInputComponent
                                 type="text"
@@ -197,7 +197,7 @@ const FOTPendiente:React.FC<IPendiente> = ({
                                 control={control}
                                 data={data && data[EnumPendiente.cliente_nomnbre]}
                                 onlyRead={true}
-                                customWidth={"mt-[2rem]"}
+                                customWidth={"labelInput inputStyles !w-[38.5vw]"}
                             />
                         </div>
                     </div>
@@ -205,9 +205,9 @@ const FOTPendiente:React.FC<IPendiente> = ({
 
              
 
-                <div className="input-container items-center rowForm ">
+                <div className="input-container items-center mt-4 ml-4 rowForm ">
                 {/* <div className="w-full flex items-center rowForm"> */}
-                    <div className="w-full  ">
+                    <div className="w-full  ml-2 ">
                         <SelectInputComponent
                             label="Motivo Pendiente"
                             name="situacion"
@@ -215,21 +215,22 @@ const FOTPendiente:React.FC<IPendiente> = ({
                             isOT={true}
                             control={control}
                             entidad={["/api/otmotivopendiente/", "02", OTAreas["areaActual"]]}
-                            customWidth={"w-[] ml-[1rem] mr-[-1rem] mt-[2rem]"}
+                            customWidth={"labelInput inputStyles !w-[41vw]"}
                             error={errors.situacion}
                         />
                     </div>
                 </div>
 
-                <div className=" w-full flex items-center rowForm">
-                    <div className="w-full">
+                <div className=" w-full flex ml-4 items-center rowForm">
+                    <div className="w-full ">
                         <TextInputComponent
                             type="text"
                             label="Observaciones"
                             name="observaciones"
                             control={control}
-                            customWidth={"mt-[2rem]"}
                             isOptional={true}
+                            customWidth={"labelInput inputStyles !w-[38.5vw]"}
+
                             />
                     </div>
                 </div>

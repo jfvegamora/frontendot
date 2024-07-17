@@ -148,7 +148,7 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
                 <h1 className='userFormLabel'>Derivación de OT</h1>
             </div>
             <div className="">
-                <button onClick={onClose} className="userFormBtnClose">
+                <button onClick={onClose} className="userFormBtnClose mr-4">
                     X
                 </button>
             </div>
@@ -156,7 +156,7 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
 
         <form className='userFormulario' onSubmit={handleSubmit(onSubmit)}>
                 <div className=" w-full flex items-center rowForm">
-                    <div className={`${isMasivo ? "w-[100%]" : "w-[70%]"}`}>
+                    <div className={`${isMasivo ? "w-[95%] ml-4" : "w-[70%] ml-4"}`}>
                         <TextInputComponent
                             type="text"
                             label="Proyecto"
@@ -168,7 +168,7 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
                             />
                     </div>
                     {!isMasivo && (
-                        <div className="w-[30%]">
+                        <div className="w-[30%] mr-4 ">
                             <TextInputComponent
                                 type="text"
                                 label="Folio OT"
@@ -184,7 +184,7 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
                 </div>
                 
                 {!isMasivo && (
-                    <div className=" w-full flex items-center rowForm">
+                    <div className=" w-full flex ml-4 items-center rowForm">
                         <div className="w-full">
                             <TextInputComponent
                                 type="text"
@@ -193,13 +193,13 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
                                 control={control}
                                 data={data && data[EnumDerivacion.cliente_nomnbre]}
                                 onlyRead={true}
-                                customWidth={"labelInput inputStyles"}
+                                customWidth={"labelInput inputStyles !w-[38.5vw]"}
                                 />
                         </div>
                     </div>
                 )}
 
-                <div className="w-full flex items-center rowForm">
+                <div className="w-full flex !items-center ml-4 rowForm">
                     <div className="w-[50%]">
                         <TextInputComponent
                             type="text"
@@ -211,7 +211,7 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
                             customWidth={"labelInput inputStyles"}
                             />
                     </div>
-                    <div className="w-[50%] bg-red-300 ml-4">
+                    <div className="w-[50%] pt-2 mt-1 ">
                         <SelectInputComponent
                             label="Área hasta"
                             name="area_hasta"
@@ -219,13 +219,13 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
                             isOT={true}
                             control={control}
                             entidad={["/api/tipos/", "02", "OTAreas"]}
-                            customWidth={"labelInput inputStyles w-[20vw]"}
+                            customWidth={"labelInput inputStyles w-[20.5vw]"}
                             error={errors.area_hasta}
                         />
                     </div>
                 </div>
 
-                <div className="input-container items-center rowForm ">
+                <div className="input-container ml-6 mt-4 items-center rowForm ">
                 {/* <div className="w-full flex items-center rowForm"> */}
                     <div className="w-full  ">
                         <SelectInputComponent
@@ -235,14 +235,14 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
                             isOT={true}
                             control={control}
                             entidad={["/api/otmotivoderivacion/", "02", "60"]}
-                            customWidth={"w-[] ml-[1rem] mr-[-1rem] mt-[2rem]"}
+                            customWidth={"labelInput inputStyles w-[40.9vw]"}
                             error={errors.situacion}
                         />
                     </div>
                 </div>
 
                 <div className=" w-full flex items-center rowForm">
-                    <div className="w-full">
+                    <div className="w-full ml-4 mr-5">
                         <TextInputComponent
                             type="text"
                             label="Observaciones"
