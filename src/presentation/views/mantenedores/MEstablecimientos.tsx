@@ -83,8 +83,8 @@ const MEstablecimientos: React.FC = () => {
   // console.log('entities', entities)
   return (
     <div className="mantenedorContainer">
-      <div className="mantenedorHead width100">
-        <div className="w-[70%] h-[7vw]">
+      <div className="mantenedorHead width100 !h-[10vw]">
+        <div className="w-[70%] mt-[-5vw] ">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
             setParams={setParams}
@@ -93,9 +93,9 @@ const MEstablecimientos: React.FC = () => {
             primaryKeyInputs={[
               { name: "_p1", label: "RBD/Nombre", type: "text", 
                 styles: { 
-                  with: "!h-[2.5vw] !text-[1vw] w-full",
+                  with: "labelInput inputStyles w-full",
                   container:"w-[15vw] !text-[2vw] translate-y-[-0.2vw]", 
-                  labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+                  labelProps: "labelInput"
                 }, },
               // { name: "_p1", label: "Establecimiento", type: "text", styles: { with: "!w-[12rem]" }, },
               {
@@ -104,9 +104,9 @@ const MEstablecimientos: React.FC = () => {
                 type: "select",
                 selectUrl: "/api/mandantes/",
                 styles: { 
-                  styles:"!h-[2.5vw] text-[1vw] w-full",
+                  with: "labelInput inputStyles w-full",
                   container:"!w-[20vw]  text-[1vw] translate-x-[0.5vw]", 
-                  labelProps: "!translate-y-[-3vh] !text-[1.2vw] !font-[2vw]"
+                  labelProps: "labelInput"
                 },
               },
               {
@@ -116,9 +116,9 @@ const MEstablecimientos: React.FC = () => {
                 selectUrl : "/api/tipos/",
                 tipos     : "EstablecimientosTipos",
                 styles: { 
-                  styles:"!h-[2.5vw] text-[1vw] w-full",
+                  with: "labelInput inputStyles w-full",
                   container:"!w-[15vw]  text-[1vw] translate-x-[1.7vw]", 
-                  labelProps: "!translate-y-[-3vh] !text-[1.2vw] !font-[2vw]"
+                  labelProps: "labelInput"
                 },
               },
               {
@@ -128,9 +128,9 @@ const MEstablecimientos: React.FC = () => {
                 selectUrl : "/api/tipos/",
                 tipos     : "Provincias",
                 styles: { 
-                  styles:"!h-[2.5vw] text-[1vw] w-full",
+                  with: "labelInput inputStyles w-full",
                   container:"!w-[15vw]  text-[1vw] translate-x-[0.5vw]", 
-                  labelProps: "!translate-y-[-3vh] !text-[1.2vw] !font-[2vw]"
+                  labelProps: "labelInput"
                  },
               },
               {
@@ -140,9 +140,9 @@ const MEstablecimientos: React.FC = () => {
                 selectUrl : "/api/tipos/",
                 tipos     : "Comunas",
                 styles: { 
-                  styles:"!h-[2.5vw] text-[1vw] w-full",
+                  with: "labelInput inputStyles w-full",
                   container:"!w-[15vw]  text-[1vw] ", 
-                  labelProps: "!translate-y-[-3vh] !text-[1.2vw] !font-[2vw]"
+                  labelProps: "labelInput"
                 },
               },
               {
@@ -151,17 +151,17 @@ const MEstablecimientos: React.FC = () => {
                 type: "select",
                 selectUrl: "/api/proyectodestinos/",
                 styles: {
-                  styles:"!h-[2.5vw] text-[1vw] w-full",
+                  with: "labelInput inputStyles w-full",
                   container:"!w-[20vw]  text-[1vw] translate-x-[-77vw] translate-y-[4vw]", 
-                  labelProps: "!translate-y-[-3vh] !text-[1.2vw] !font-[2vw]"
+                  labelProps: "labelInput"
                    },
               },
         ]}
-        classNameSearchButton=" -translate-x-[4vw] translate-y-[4vw]"
+        classNameSearchButton=" translate-x-[-8vw] translate-y-[4.5vw]"
 
           />
         </div>
-        <div className="translate-x-[11vw] translate-y-[2vw]">
+        <div className="w-[15%]">
           <PrimaryButtonsComponent
             handleAddPerson={openModal}
             handleDeleteSelected={handleDeleteSelected}
@@ -178,6 +178,8 @@ const MEstablecimientos: React.FC = () => {
             showImportCsv={true}
             comilla={false}
             idMenu={idMenu}
+            classname={"translate-x-[16vw]  !w-[14vw] translate-y-[2vw]"}
+
           />
         </div>
       </div>

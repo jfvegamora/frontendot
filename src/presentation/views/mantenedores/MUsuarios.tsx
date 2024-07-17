@@ -153,9 +153,10 @@ const MUsuarios: React.FC = () => {
                 label: "Nombre", 
                 type: "text",
                 styles:{
-                  with: "!h-[2.5vw] !text-[1vw] w-full",
+                  with: "labelInput inputStyles w-full",
                   container:"w-[35vw] !text-[2vw] translate-y-[-0.2vw]", 
-                  labelProps: "!translate-y-[0.1vw] !text-[1.2vw] !font-[2vw] !z-30"
+                  // labelProps: "!translate-y-[0.1vw] !text-[1.2vw] !font-[2vw] !z-30"
+                  labelProps: "labelInput"
                 }  
               },
               {
@@ -165,16 +166,18 @@ const MUsuarios: React.FC = () => {
                 selectUrl: "/api/cargos/",
                 styles:{
                   with: "",
-                  styles:"!h-[2.5vw] text-[1vw] w-full",
+                  styles:"labelInput inputStyles w-full",
                   container:"!w-[35vw]  text-[1vw] translate-x-[2vw]", 
-                  labelProps: "!translate-y-[-2vh] !text-[1.2vw] !font-[2vw]"
+                  // labelProps: "!translate-y-[-2vh] !text-[1.2vw] !font-[2vw]"
+                  labelProps: "labelInput"
+
                 }
               },
             ]}
             classNameSearchButton=" translate-x-[-7rem]"
           />
         </div>
-        <div className="w-[30%]  absolute -right-4">
+        <div className="w-[15vw]">
         <PrimaryButtonsComponent
           handleAddPerson={openModal}
           handleDeleteSelected={handleDeleteSelected}
@@ -190,6 +193,7 @@ const MUsuarios: React.FC = () => {
           showRefreshButton={true}
           showImportCsv={true}
           idMenu={idMenu}
+          classname={"translate-x-[-4vw] !w-[15vw]"}
         />
         </div>
       </div>

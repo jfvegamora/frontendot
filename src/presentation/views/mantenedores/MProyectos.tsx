@@ -134,9 +134,9 @@ const MProyectos: React.FC = () => {
                 type: "select",
                 selectUrl: "/api/mandantes/", 
                 styles:{
-                  styles:"!h-[2.5vw] text-[1vw] w-full",
-                  container:"!w-[15vw]  text-[1vw] ", 
-                  labelProps: "!translate-y-[-3vh] !text-[1.2vw] !font-[2vw]"
+                  styles:"labelInput inputStyles w-[20vw]",
+                  container:"!w-[20vw]  text-[1vw] ", 
+                  labelProps: "labelInput"
                 },
               },
               {
@@ -145,16 +145,16 @@ const MProyectos: React.FC = () => {
                 type: "select",
                 selectUrl: "/api/proyectos/", 
                 styles:{
-                  styles:"!h-[2.5vw] text-[1vw] w-full",
-                  container:"!w-[15vw]  text-[1vw] translate-x-[-2vw]", 
-                  labelProps: "!translate-y-[-3vh] !text-[1.2vw] !font-[2vw]"
+                  styles:"labelInput inputStyles w-[20vw]",
+                  container:"!w-[20vw]  text-[1vw] translate-x-[2vw]", 
+                  labelProps: "labelInput"
                 },
               },
               { name: "_p3", label: "Cod. Proyecto/Licitación", type: "text", 
                 styles:{
-                  with: "!h-[2.5vw] !text-[1vw] w-full",
-                  container:"w-[17vw] !text-[2vw] translate-y-[-0.4rem] translate-x-[-3vw]", 
-                  labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+                  styles:"labelInput inputStyles w-full",
+                  container:"w-[17vw] !text-[2vw]  translate-x-[4vw]", 
+                  labelProps: "labelInput"
                 }, },
               {
                 name: "_p4",
@@ -163,9 +163,9 @@ const MProyectos: React.FC = () => {
                 selectUrl: "/api/tipos/",
                 tipos: "ProyectoEstados", 
                 styles: { 
-                  styles:"!h-[2.5vw] text-[1vw] w-full",
-                  container:"!w-[20vw]  text-[1vw] translate-x-[-2vw]", 
-                  labelProps: "!translate-y-[-3vh] !text-[1.2vw] !font-[2vw]"
+                  styles:"labelInput inputStyles w-full",
+                  container:"!w-[20vw]  text-[1vw] translate-x-[5vw]", 
+                  labelProps: "labelInput"
                 },
               },
             

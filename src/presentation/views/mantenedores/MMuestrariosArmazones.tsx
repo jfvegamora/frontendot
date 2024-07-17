@@ -99,7 +99,7 @@ const MMuestrariosArmazones: React.FC = () => {
   return (
     <div className="mantenedorContainer">
       <div className="mantenedorHead width80">
-      <div className="w-[50%]">
+      <div className="w-[75%]">
         <PrimaryKeySearch
           baseUrl={strBaseUrl}
           setParams={setParams}
@@ -112,47 +112,50 @@ const MMuestrariosArmazones: React.FC = () => {
               type: "select",
               selectUrl: "/api/muestrarios/", 
               styles:{
-                styles:"!h-[2.5vw] text-[1vw]",
-                  container:"!w-[40vw]  text-[1vw]  translate-y-[0.3rem] ", 
-                  labelProps: "!translate-y-[-2vh] !text-[1vw] !font-[2vw]"
+                styles:"labelInput inputStyles",
+                container:"!w-[40vw]  text-[1vw] ", 
+                labelProps: "labelInput"
               }
             },
             { name: "_p3", label: "Código Armazón", type: "text", 
               styles:{
-                with: "!h-[2.5vw] !text-[1vw] w-full",
-                container:"!w-[15vw] !text-[2vw] translate-y-[-0.2vw]", 
-                labelProps: "!translate-y-[0.1vw] !text-[1.2vw] !font-[2vw] !z-30"
+                styles:"labelInput inputStyles",
+                container:"!w-[15vw] translate-x-[5vw]", 
+                labelProps: "labelInput"
 
               }, },
             // { name: "_p3", label: "Código Licitacion", type: "text", styles:{with:" !w-[9rem]"}, },
           ]}
-          classNameSearchButton=" translate-x-[3.5rem] translate-y-[0.2rem]"
+          classNameSearchButton=" translate-x-[0.5vw]"
         />
       </div>
 
-        <PrimaryButtonsComponent
-          handleAddPerson={openModal}
-          handleDeleteSelected={handleDeleteSelected}
-          handleRefresh={resetEntities}
-          handleCopiar={toggleModalCopiar}
-          handleTraspaso={toggleTraspaso}
-          params={params}
-          pkToDelete={pkToDelete}
-          strEntidad={strEntidadExcel}
-          strBaseUrl={strBaseUrl}
-          showAddButton={true}
-          showCopiar={true}
-          showTraspasoButton={true}
-          showExportButton={true}
-          showDeleteButton={true}
-          showForwardButton={false}
-          showRefreshButton={true}
-          showCustomExportButton={false}
-          customExporTooltip={"Exportar muestrarios"}
-          idMenu={idMenu}
-          bln_egreso={false}
+          <div className="w-[15%]">
+            <PrimaryButtonsComponent
+              handleAddPerson={openModal}
+              handleDeleteSelected={handleDeleteSelected}
+              handleRefresh={resetEntities}
+              handleCopiar={toggleModalCopiar}
+              handleTraspaso={toggleTraspaso}
+              params={params}
+              pkToDelete={pkToDelete}
+              strEntidad={strEntidadExcel}
+              strBaseUrl={strBaseUrl}
+              showAddButton={true}
+              showCopiar={true}
+              showTraspasoButton={true}
+              showExportButton={true}
+              showDeleteButton={true}
+              showForwardButton={false}
+              showRefreshButton={true}
+              showCustomExportButton={false}
+              customExporTooltip={"Exportar muestrarios"}
+              idMenu={idMenu}
+              bln_egreso={false}
+              classname={"translate-x-[0.5vw]  !w-[20vw]"}
+            />
+          </div>-
 
-        />
       </div>
 
       <div className="width100 scroll">

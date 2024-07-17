@@ -94,9 +94,9 @@ const MProyectosUsuarios: React.FC = () => {
               type: "select",
               selectUrl: "/api/proyectos/", 
               styles:{
-                styles:"!h-[2.5vw] text-[1vw] w-full",
-                container:"!w-[25vw]  text-[1vw]", 
-                labelProps: "!translate-y-[-3vh] !text-[1.2vw] !font-[2vw]"
+                styles:"labelInput inputStyles w-[23vw]",
+                container:"!w-[23vw]  text-[1vw]", 
+                labelProps: "labelInput"
               },
             },
             {
@@ -105,9 +105,9 @@ const MProyectosUsuarios: React.FC = () => {
               type: "select",
               selectUrl: "/api/puntosventa/", 
               styles:{
-                styles:"!h-[2.5vw] text-[1vw] w-full",
+                styles:"labelInput inputStyles w-[25vw]",
                 container:"!w-[25vw]  text-[1vw] translate-x-[5vw]", 
-                labelProps: "!translate-y-[-3vh] !text-[1vw] !font-[2vw]"
+                labelProps: "labelInput"
               },
             },
             {
@@ -116,16 +116,17 @@ const MProyectosUsuarios: React.FC = () => {
               type: "select",
               selectUrl: "/api/usuarios/", 
               styles:{
-                styles:"!h-[2.5vw] text-[1vw] w-full",
-                container:"!w-[25vw]  text-[1vw] translate-x-[4vw]", 
-                labelProps: "!translate-y-[-3vh] !text-[1.2vw] !font-[2vw]"
+                styles:"labelInput inputStyles w-[20vw]",
+                container:"!w-[20vw]  text-[1vw] translate-x-[12vw]", 
+                labelProps: "labelInput"
               },
             },
           ]}
-          classNameSearchButton=" translate-x-[4vw] translate-y-[0.3rem]"
+          classNameSearchButton=" translate-x-[10vw]"
         />
       </div>
 
+      <div className="w-[15%]">
         <PrimaryButtonsComponent
           handleAddPerson={openModal}
           handleDeleteSelected={handleDeleteSelected}
@@ -142,8 +143,14 @@ const MProyectosUsuarios: React.FC = () => {
           showForwardButton={false}
           showRefreshButton={true}
           idMenu={idMenu}
+          classname={"translate-x-[10vw] !w-[12vw]"}
 
         />
+
+
+
+      </div>
+
       </div>
 
       <div className="width90 scroll">

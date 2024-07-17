@@ -101,20 +101,20 @@ const MClientes: React.FC = () => {
           primaryKeyInputs={[
             { name: "_p1", label: "RUT", type: "text", 
               styles:{
-                styles:"!h-[2.5vw] text-[1vw]",
-                  container:"!w-[10vw]  text-[1vw]  translate-y-[0.3rem] translate-x-[-3vw] ", 
-                  labelProps: "-!translate-y-[-2vh] !text-[1vw] !font-[2vw]"
-              }, },
+                styles:"labelInput inputStyles",
+                  container:"!w-[10vw]  text-[1vw] translate-x-[-4vw] ", 
+                  labelProps: "labelInput"
+                }, },
             {
               name: "_p2",
               label: "Nombre",
               type: "text",
               values: OptionValues, 
               styles:{
-                styles:"!h-[2.5vw] text-[1vw]",
-                  container:"!w-[20vw]  text-[1vw]  translate-y-[0.3rem] translate-x-[-4vw] ", 
-                  labelProps: "-!translate-y-[-2vh] !text-[1vw] !font-[2vw]"
-              },
+                styles:"labelInput inputStyles",
+                  container:"!w-[20vw]  text-[1vw] translate-x-[-7vw] ", 
+                  labelProps: "labelInput"
+                },
             },
             {
               name: "_p3",
@@ -123,9 +123,9 @@ const MClientes: React.FC = () => {
               selectUrl: "/api/tipos/",
               tipos: "ClientesTipos", 
               styles:{
-                styles:"!h-[2.5vw] text-[1vw]",
-                container:"!w-[40vw]  text-[1vw]  !translate-y-[0.4rem] translate-x-[-3vw] ", 
-                labelProps: "!translate-y-[-2vh] !text-[1vw] !font-[2vw]"
+                styles:"labelInput inputStyles",
+                container:"!w-[40vw]  text-[1vw] translate-x-[-6vw] ", 
+                labelProps: "labelInput"
               },
             },
             {
@@ -134,17 +134,18 @@ const MClientes: React.FC = () => {
               type: "select",
               selectUrl: "/api/establecimientos/",
               styles:{
-                styles:"!h-[2.5vw] text-[1vw]",
-                container:"!w-[23vw]  text-[1vw]  translate-y-[0.3rem] translate-x-[-4vw] ", 
-                labelProps: "!translate-y-[-2vh] !text-[1vw] !font-[2vw]"
+                styles:"labelInput inputStyles",
+                container:"!w-[29vw]  text-[1vw] translate-x-[-7vw] ", 
+                labelProps: "labelInput"
               },
             },
           
           ]}
-          classNameSearchButton=" translate-x-[1vw] translate-y-[0.3rem]"
+          classNameSearchButton=" translate-x-[2vw]"
         />
       </div> 
 
+      <div className="w-[15%]">
         <PrimaryButtonsComponent
           handleAddPerson={openModal}
           handleDeleteSelected={handleDeleteSelected}
@@ -160,8 +161,12 @@ const MClientes: React.FC = () => {
           showRefreshButton={true}
           showImportCsv={true}
           comilla={true}
+          classname={"translate-x-[14.5vw]  !w-[15vw]"}
+
           idMenu={idMenu}
         />
+      </div>
+
       </div>
 
       <div className="width100 scroll">

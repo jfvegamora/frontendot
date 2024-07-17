@@ -74,8 +74,8 @@ const MAccesorios: React.FC = () => {
 
   return (
     <div className="mantenedorContainer">
-      <div className="mantenedorHead width100 !h-[6rem] ">
-        <div className="w-[65%] absolute">
+      <div className="mantenedorHead width100 !h-[9rem] ">
+        <div className="w-[65%] absolute -mt-12">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
             setParams={setParams}
@@ -84,16 +84,16 @@ const MAccesorios: React.FC = () => {
             primaryKeyInputs={[
               { name: "_p1", label: "Código", type: "text", 
                 styles: { 
-                  with: "!h-[2.5vw] !text-[1vw] w-full",
-                  container:"w-[10vw] !text-[2vw] translate-y-[-0.2vw] translate-x-[-1vw]", 
-                  labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+                  with: "labelInput inputStyles w-[11vw]",
+                  container:"w-[11vw] !text-[2vw] translate-x-[-3vw]", 
+                  labelProps: "labelInput"
                 } },
               // { name: "_p5", label: "Código FAB", type: "text", styles:{with:"!w-[10rem]"}},
               { name: "_p2", label: "Descripción", type: "text", 
                 styles: { 
-                  with: "!h-[2.5vw] !text-[1vw] w-full",
-                  container:"w-[17vw] !text-[2vw] translate-y-[-0.2vw] translate-x-[.05vw]", 
-                  labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+                  with: "labelInput inputStyles w-full",
+                  container:"w-[17vw] !text-[2vw] translate-x-[-4.5vw]", 
+                  labelProps: "labelInput"
                  } },
               {
                 name: "_p3",
@@ -101,9 +101,9 @@ const MAccesorios: React.FC = () => {
                 type: "select",
                 selectUrl: "/api/marcas/", 
                 styles: {
-                  styles:"!h-[2.5vw] text-[1vw] w-full",
-                  container:"!w-[15vw]  text-[1vw] translate-x-[1vw] translate-y-[0.3rem]", 
-                  labelProps: "!translate-y-[-3vh] !text-[1.2vw] !font-[2vw]"
+                  styles:"labelInput inputStyles !w-[20rem]",
+                  container:"!w-[15vw]  text-[1vw] translate-x-[-4vw] ", 
+                  labelProps: "labelInput"
                    },
                 _p1: "3"
               },
@@ -113,9 +113,9 @@ const MAccesorios: React.FC = () => {
                 type: "select",
                 selectUrl: "/api/almacenes/", 
                 styles: { 
-                  styles:"!h-[2.5vw] text-[1vw] w-full",
-                  container:"!w-[15vw]  text-[1vw] translate-x-[0.5vw] translate-y-[0.3rem]", 
-                  labelProps: "!translate-y-[-3vh] !text-[1.2vw] !font-[2vw]" 
+                  styles:"labelInput inputStyles !w-[20rem]",
+                  container:"!w-[15vw]  text-[1vw] translate-x-[-0.5vw]", 
+                  labelProps: "labelInput"
                 },
                 _p1: "3"
               },
@@ -127,17 +127,18 @@ const MAccesorios: React.FC = () => {
                 selectUrl: "/api/tipos/",
                 tipos: "Stock", 
                 styles: { 
-                  styles:"!h-[2.5vw] text-[1vw] w-full",
-                  container:"!w-[15vw]  text-[1vw] translate-x-[-0.5vw] translate-y-[0.3rem]", 
-                  labelProps: "!translate-y-[-3vh] !text-[1.2vw] !font-[2vw]"
+                  styles:"labelInput inputStyles !w-[20rem]",
+                  container:"!w-[15vw]  text-[1vw] translate-x-[3vw]", 
+                  labelProps: "labelInput"
                 },
               },
             ]}
-            classNameSearchButton=" translate-x-[6vw] translate-y-[0.3rem]"
+            classNameSearchButton=" translate-x-[-12vw] translate-y-[4vw]"
           />
 
         </div>
-        <div className="w-[17vw] translate-x-[77vw]">
+
+        <div className="w-[15%]">
           <PrimaryButtonsComponent
             handleAddPerson={openModal}
             handleDeleteSelected={handleDeleteSelected}
@@ -154,6 +155,8 @@ const MAccesorios: React.FC = () => {
             showRefreshButton={true}
             showImportCsv={true}
             idMenu={idMenu}
+            classname={"translate-x-[78vw] translate-y-[2.5vw]  !w-[15vw]"}
+
           />
 
         </div>

@@ -116,46 +116,52 @@ const MProyectosCristales: React.FC = () => {
                 type: "select",
                 selectUrl: "/api/proyectos/", 
                 styles: { 
-                  styles:"!h-[2.5vw] text-[1vw] w-full",
-                  container:"!w-[20vw]  text-[1vw] translate-x-[0.5vw]", 
-                  labelProps: "!translate-y-[-3vh] !text-[1.2vw] !font-[2vw]"
+                  styles:"labelInput inputStyles w-[30vw]",
+                  container:"!w-[23vw]  text-[1vw] translate-x-[0.5vw]", 
+                  labelProps: "labelInput"
                 },
               },
               { name: "_p2", label: "Código Proyecto", type: "text", 
                 styles: { 
-                  with: "!h-[2.5vw] !text-[1vw] w-full",
-                  container:"w-[20vw] !text-[2vw] translate-y-[-0.2vw] translate-x-[2vw]", 
-                  labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+                  with: "labelInput inputStyles w-full",
+                  container:"w-[15vw] !text-[2vw] translate-y-[-0.2vw] translate-x-[11vw]", 
+                  labelProps: "labelInput"
                 }, },
               { name: "_p3", label: "Código Licitación", type: "text", 
                 styles: {
-                  with: "!h-[2.5vw] !text-[1vw] w-full",
-                  container:"w-[20vw] !text-[2vw] translate-y-[-0.2vw] translate-x-[3vw]", 
-                  labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+                  with: "labelInput inputStyles w-full",
+                  container:"w-[15vw] !text-[2vw] translate-y-[-0.2vw] translate-x-[10vw]", 
+                  labelProps: "labelInput"
                   }, },
             ]}
-            classNameSearchButton=" translate-x-[2vw] translate-[-0.3rem]"
+            classNameSearchButton=" translate-x-[6vw]"
 
           />
         </div>
 
-        <PrimaryButtonsComponent
-          handleAddPerson={openModal}
-          handleDeleteSelected={handleDeleteSelected}
-          handleRefresh={resetEntities}
-          handleCopiar={toggleModalCopiar}
-          params={params}
-          pkToDelete={pkToDelete}
-          strEntidad={strEntidadExcel}
-          strBaseUrl={strBaseUrl}
-          showAddButton={true}
-          showCopiar={true}
-          showExportButton={true}
-          showDeleteButton={true}
-          showForwardButton={false}
-          showRefreshButton={true}
-          idMenu={idMenu}
-        />
+
+        <div className="w-[15%]">
+          <PrimaryButtonsComponent
+            handleAddPerson={openModal}
+            handleDeleteSelected={handleDeleteSelected}
+            handleRefresh={resetEntities}
+            handleCopiar={toggleModalCopiar}
+            params={params}
+            pkToDelete={pkToDelete}
+            strEntidad={strEntidadExcel}
+            strBaseUrl={strBaseUrl}
+            showAddButton={true}
+            showCopiar={true}
+            showExportButton={true}
+            showDeleteButton={true}
+            showForwardButton={false}
+            showRefreshButton={true}
+            idMenu={idMenu}
+            classname={"translate-x-[7vw] !w-[15vw]"}
+
+          />
+        </div>
+
       </div>
 
       <div className="width100 scroll">
