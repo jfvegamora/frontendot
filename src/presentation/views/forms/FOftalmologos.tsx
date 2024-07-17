@@ -259,77 +259,88 @@ const FOftalmologos: React.FC<IUserFormPrps> = React.memo(
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
-            <div className="input-container items-center rowForm">
-              <div className="labelInputDiv">
-                <TextInputComponent
-                  type="text"
-                  label="RUT"
-                  name="rut"
-                  data={data && data[EnumGrid.rut]}
-                  control={control}
-                  error={errors.rut}
-                  inputRef={firstInputRef}
-                  customWidth={"labelInput inputStyles"}
-                />
-              </div>
+
+            <div className="w-full items-center flex">
+              <div className="input-container items-center rowForm w-full">
+                <div className="w-full px-4">
+                  <TextInputComponent
+                    type="text"
+                    label="RUT"
+                    name="rut"
+                    data={data && data[EnumGrid.rut]}
+                    control={control}
+                    error={errors.rut}
+                    inputRef={firstInputRef}
+                    customWidth={"labelInput inputStyles"}
+                    />
+                </div>
+              </div>  
             </div>
 
-            <div className="input-container items-center rowForm">
-              <div className="labelInputDiv">
-                <TextInputComponent
-                  type="text"
-                  label="Nombre"
-                  name="nombre"
-                  data={data && data[EnumGrid.nombre]}
-                  control={control}
-                  error={errors.nombre}
-                  customWidth={"labelInput inputStyles"}
-                />
-              </div>
-            </div>
+            <div className="w-full items-center flex">
+              <div className="input-container items-center rowForm w-full">
+                <div className="w-full px-4">
+                  <TextInputComponent
+                    type="text"
+                    label="Nombre"
+                    name="nombre"
+                    data={data && data[EnumGrid.nombre]}
+                    control={control}
+                    error={errors.nombre}
+                    customWidth={"labelInput inputStyles"}
+                  />
+                </div>
+              </div>  
+            </div>  
 
-            <div className="input-container items-center rowForm">
-              <div className="labelInputDiv">
-                <TextInputComponent
-                  type="number"
-                  label="Valor Consulta"
-                  name="valor_consulta"
-                  data={data && data[EnumGrid.valor_consulta]}
-                  control={control}
-                  error={errors.valor_consulta}
-                  textAlign="text-right"
-                  customWidth={"labelInput inputStyles"}
-                />
-              </div>
-            </div>
+            <div className="w-full items-center flex">
+              <div className="input-container items-center rowForm w-full">
+                <div className="w-full px-4">
+                  <TextInputComponent
+                    type="number"
+                    label="Valor Consulta"
+                    name="valor_consulta"
+                    data={data && data[EnumGrid.valor_consulta]}
+                    control={control}
+                    error={errors.valor_consulta}
+                    textAlign="text-right"
+                    customWidth={"labelInput inputStyles"}
+                  />
+                </div>
+              </div>  
+            </div>  
 
-            <div className="input-container items-center rowForm">
-              <div className="labelInputDiv">
-                <TextInputComponent
-                  type="text"
-                  label="Teléfono"
-                  name="telefono"
-                  data={data && data[EnumGrid.telefono]}
-                  control={control}
-                  isOptional={true}
-                  customWidth={"labelInputx2 inputStyles"}
-                />
-              </div>
-            </div>
+            <div className="w-full items-center flex">
+              <div className="input-container items-center rowForm w-full">
+                <div className="w-full px-4">
+                  <TextInputComponent
+                    type="text"
+                    label="Teléfono"
+                    name="telefono"
+                    data={data && data[EnumGrid.telefono]}
+                    control={control}
+                    isOptional={true}
+                    customWidth={"labelInputx2 inputStyles"}
+                  />
+                </div>
+              </div>  
+            </div>  
 
-            <div className="input-container items-center rowForm">
-              <div className="labelInputDiv">
-                <TextInputComponent
-                  type="email"
-                  label="Correo"
-                  name="correo"
-                  data={data && data[EnumGrid.correo]}
-                  control={control}
-                  isOptional={true}
-                  customWidth={"labelInput inputStyles"}
-                />
-              </div>
-            </div>
+            <div className="w-full items-center flex">
+              <div className="input-container items-center rowForm w-full">
+                <div className="w-full px-4">
+                  <TextInputComponent
+                    type="email"
+                    label="Correo"
+                    name="correo"
+                    data={data && data[EnumGrid.correo]}
+                    control={control}
+                    isOptional={true}
+                    customWidth={"labelInput inputStyles"}
+                  />
+                </div>
+              </div>  
+            </div>  
           </div>
 
           <div className="w-full">

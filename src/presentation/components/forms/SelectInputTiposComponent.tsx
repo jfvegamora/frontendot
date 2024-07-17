@@ -65,8 +65,8 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
     labelProps,
     labelContainer
   }) => {
-    const stateListBox = useAppSelector((store: AppStore) => store.listBoxTipos[entidad]);
-    const [entities, _setEntities] = useState(stateListBox|| []);
+    const stateListBox = useAppSelector((store: AppStore) => store.listBoxTipos[label]);
+    const [entities, setEntities] = useState(stateListBox|| []);
     const [strSelectedName, setStrSelectedName] = useState(data  || undefined);
     const inputRef = useRef(null); 
     const {token} = useAppSelector((store: AppStore) => store.user);
@@ -81,8 +81,7 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
                'Authorization': token, 
              }
        });
-
-        dispatch(updateDataForKey({entidad, data}))
+        dispatch(updateDataForKey({label, data}))
           
         }
       } catch (error:any) {
@@ -99,14 +98,15 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
       setStrSelectedName(data)
     },[data])
 
-
+    React.useEffect(()=>{
+      setEntities(stateListBox)
+    },[stateListBox])
 
     useEffect(()=>{
       if(resetFilters.value === true){
         setStrSelectedName('')
       }
     },[resetFilters.value])
-
 
     
     const renderInput = () => (

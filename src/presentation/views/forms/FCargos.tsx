@@ -220,7 +220,9 @@ const FCargos: React.FC<ICargosFormProps> = React.memo(
     return (
       <div className="useFormContainer centered-div w-[35rem]">
         <div className="userFormBtnCloseContainer">
-          <h1 className="userFormLabel mx-auto">{label}</h1>
+          <div className="w-[80&] mx-auto">
+            <h1 className="userFormLabel">{label}</h1>
+          </div>
           <button onClick={closeModal} className="userFormBtnClose mr-4">
             X
           </button>
@@ -230,19 +232,22 @@ const FCargos: React.FC<ICargosFormProps> = React.memo(
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))}
           className="userFormulario">
           <div className="userFormularioContainer">
-            <div className="input-container items-center rowForm">
-              <div className="labelInputDiv">
-                <TextInputComponent
-                  type="text"
-                  label="Nombre"
-                  name="nombre"
-                  data={data && data[EnumGrid.nombre]}
-                  control={control}
-                  error={errors.nombre}
-                  inputRef={firstInputRef}
-                  customWidth={"labelInput inputStyles"}
-                />
-              </div>
+
+            <div className="w-full items-center flex">
+                <div className="input-container items-center rowForm w-full">
+                    <div className="w-full ml-4">
+                      <TextInputComponent
+                        type="text"
+                        label="Nombre"
+                        name="nombre"
+                        data={data && data[EnumGrid.nombre]}
+                        control={control}
+                        error={errors.nombre}
+                        inputRef={firstInputRef}
+                        customWidth={"labelInput inputStyles !w-[28vw]"}
+                        />
+                    </div>
+                </div>
             </div>
           </div>
 

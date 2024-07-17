@@ -33,69 +33,67 @@ const ProyectoComponent: React.FC<IProps> = ({
     type
 }) => {
 
-    return (
-        <div className=" relative mx-4 w-full flex ">
-            <label className="absolute text-sm top-[-22px] left-2 frame3Options labelForm w-full">
-                <span className="ml-[20px]  labelStyles">{label}</span>
-            </label>
-            <div className="input-container items-center rowForm w-[30%] ">
-                <div className="w-full mt-4 !p-0 -ml-4">
-                    <TextInputInteractive
-                        type={type}
-                        className='text-center'
-                        label="Cant."
-                        name={cant}
-                        data={dataCant}
-                        control={control}
-                        handleChange={(e) => { if (setValue) { setValue('cantidad_requerida', e) } }}
-                        error={errors.cant_proyecto}
-                        onlyRead={onlyRead}
-                        isOptional={isOptional}
-                        customWidth={"labelInput inputStyles"}
-                    />
-                </div>
-            </div>
-
-            <div className="input-container items-center rowForm w-[40%] ">
-                <div className="w-full mt-4 -ml-6">
-                    <TextInputInteractive
-                        type={type}
-                        className='text-right'
-                        label="$ Total"
-                        name={total}
-                        data={dataTotal}
-                        handleChange={(e) => {
-                            if (setValue) {
-                                setValue('presupuesto', e)
-                            }
-                        }}
-                        control={control}
-                        error={errors.total_proyecto}
-                        onlyRead={onlyRead}
-                        isOptional={isOptional}
-                        customWidth={"labelInput inputStyles"}
-
-                    />
-                </div>
-            </div>
-
-            <div className="input-container items-center rowForm w-[30%]">
-                <div className="w-full -ml-4 ">
-                    <TextInputInteractive
-                        type={type}
-                        className='text-center'
-                        label="%"
-                        name={porcentaje}
-                        data={dataPorcentaje}
-                        control={control}
-                        isOT={true}
-                        onlyRead={true}
-                        isOptional={isOptional}
-                        customWidth={"labelInput inputStyles w-[4rem]"}
-                    />
-                </div>
-            </div>
-        </div>
+  return (
+    <><div className=" relative mx-4 w-full flex ">
+          {/* <h1 className="absolute z-20 top-[-23%] labelForm w-[32%] px-2">{label}</h1> */}
+          <label className="absolute text-sm top-[-22px] left-2   labelForm w-[100%]">
+              <span className="ml-[20px]  labelStyles">{label}</span>
+          </label>
+          <div className="input-container items-center  rowForm w-[35%]">
+              <div className="w-[90%] mt-4 !p-0 -ml-4">
+                  <TextInputInteractive
+                      type={type}
+                      className='text-center'
+                      label="Cant."
+                      name={cant}
+                      data={dataCant}
+                      control={control}
+                      handleChange={(e) => {
+                          if (setValue) {
+                              setValue('cantidad_requerida', e);
+                          }
+                      } }
+                      error={errors.cant_proyecto}
+                      onlyRead={onlyRead}
+                      isOptional={isOptional}
+                      customWidth={"labelInput inputStyles"} />
+              </div>
+          </div>
+      </div><div className="input-container items-center rowForm w-[40%] ">
+              <div className="w-full mt-4 -ml-6">
+                  <TextInputInteractive
+                      type={type}
+                      className='text-right'
+                      label="$ Total"
+                      name={total}
+                      data={dataTotal}
+                      handleChange={(e) => {
+                          if (setValue) {
+                              setValue('presupuesto', e);
+                          }
+                      } }
+                      control={control}
+                      error={errors.total_proyecto}
+                      onlyRead={onlyRead}
+                      isOptional={isOptional}
+                      customWidth={"labelInput inputStyles"} />
+              </div>
+          </div><div className="input-container items-center rowForm w-[30%]">
+              <div className="w-full -ml-4 ">
+                  <TextInputInteractive
+                      type={type}
+                      className='text-center'
+                      label="%"
+                      name={porcentaje}
+                      data={dataPorcentaje}
+                      control={control}
+                      isOT={true}
+                      onlyRead={true}
+                      isOptional={isOptional}
+                      customWidth={"labelInput inputStyles w-[4rem]"} />
+              </div>
+          </div>
+        </>
     )
 }
 

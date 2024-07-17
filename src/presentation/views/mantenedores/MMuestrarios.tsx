@@ -76,9 +76,9 @@ const MMuestrarios: React.FC = () => {
             primaryKeyInputs={[
               { name: "_p1", label: "Descripción", type: "text",
                 styles:{
-                  with: "!h-[2.5vw] !text-[1vw] w-full",
-                  container:"!w-[15vw] !text-[2vw] translate-y-[-0.2vw]", 
-                  labelProps: "!translate-y-[0.1vw] !text-[1.2vw] !font-[2vw] !z-30"
+                  with: "labelInput inputStyles w-full",
+                  container:"!w-[15vw] !text-[2vw]", 
+                  labelProps: "labelInput"
                 }
                },
               {
@@ -87,32 +87,37 @@ const MMuestrarios: React.FC = () => {
                 type      : "select",
                 selectUrl : "/api/puntosventa/",
                 styles:{
-                  styles:"!h-[2.5vw] text-[1vw]",
-                  container:"!w-[40vw]  text-[1vw]  translate-y-[0.3rem] ", 
-                  labelProps: "!translate-y-[-2vh] !text-[1vw] !font-[2vw]"
+                  styles:"labelInput inputStyles w-[25vw]",
+                  container:"!w-[25vw]  text-[1vw]", 
+                  labelProps: "labelInput"
                 }
               },
             ]}
-            classNameSearchButton=" translate-x-[5.5vw] translate-y-[0.3rem]"
+            classNameSearchButton=" translate-x-[9vw]"
           />
         </div>
 
-        <PrimaryButtonsComponent
-          handleAddPerson={openModal}
-          handleDeleteSelected={handleDeleteSelected}
-          handleRefresh={resetEntities}
-          params={params}
-          pkToDelete={pkToDelete}
-          strEntidad={strEntidadExcel}
-          strBaseUrl={strBaseUrl}
-          showAddButton={true}
-          showExportButton={true}
-          showDeleteButton={true}
-          showForwardButton={false}
-          showRefreshButton={true}
-          comilla={false}
-          idMenu={idMenu}
-        />
+        <div className="w-[15%]">
+          <PrimaryButtonsComponent
+            handleAddPerson={openModal}
+            handleDeleteSelected={handleDeleteSelected}
+            handleRefresh={resetEntities}
+            params={params}
+            pkToDelete={pkToDelete}
+            strEntidad={strEntidadExcel}
+            strBaseUrl={strBaseUrl}
+            showAddButton={true}
+            showExportButton={true}
+            showDeleteButton={true}
+            showForwardButton={false}
+            showRefreshButton={true}
+            comilla={false}
+            idMenu={idMenu}
+            classname={"translate-x-[9vw] !w-[12vw]"}
+
+          />
+        </div>
+
       </div>
 
       <div className="width70 scroll">

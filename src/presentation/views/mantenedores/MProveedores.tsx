@@ -70,7 +70,7 @@ const MProveedores: React.FC = () => {
   return (
     <div className="mantenedorContainer">
       <div className="mantenedorHead width60">
-        <div className="w-[30%]">
+        <div className="w-[60%]">
           <PrimaryKeySearch
             baseUrl         ={strBaseUrl}
             setParams       ={setParams}
@@ -79,36 +79,44 @@ const MProveedores: React.FC = () => {
             primaryKeyInputs={[
               { name: "_p1", label: "RUT"   , type: "text", 
                 styles:{
-                  styles:"!h-[2.5vw] text-[1vw] w-full",
+                  with: "labelInput inputStyles w-full",
                   container:"!w-[10vw] translate-x-[-2vw]  text-[1vw]", 
-                  labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+                  labelProps: "labelInput"
                 } },
               { name: "_p3", label: "Nombre", type: "text", 
                 styles:{
-                  styles:"!h-[2.5vw] text-[1vw] w-full",
-                  container:"!w-[20vw]  text-[1vw] -translate-x-[2vw]", 
-                  labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+                  with: "labelInput inputStyles w-full",
+                  container:"!w-[20vw]  text-[1vw] -translate-x-[4vw]", 
+                  labelProps: "labelInput"
                 } },
             ]}
-             classNameSearchButton=" translate-x-[2vw] translate-y-[0.3rem]"
+             classNameSearchButton=" translate-x-[1vw]"
           />
         </div>
 
-        <PrimaryButtonsComponent
-          handleAddPerson     ={openModal}
-          handleDeleteSelected={handleDeleteSelected}
-          handleRefresh       ={resetEntities}
-          params              ={params}
-          pkToDelete          ={pkToDelete}
-          strEntidad          ={strEntidadExcel}
-          strBaseUrl          ={strBaseUrl}
-          showAddButton       ={true}
-          showExportButton    ={true}
-          showDeleteButton    ={true}
-          showForwardButton   ={false}
-          showRefreshButton   ={true}
-          idMenu              ={idMenu}
-        />
+
+        <div className="w-[15%]">
+          <PrimaryButtonsComponent
+            handleAddPerson     ={openModal}
+            handleDeleteSelected={handleDeleteSelected}
+            handleRefresh       ={resetEntities}
+            params              ={params}
+            pkToDelete          ={pkToDelete}
+            strEntidad          ={strEntidadExcel}
+            strBaseUrl          ={strBaseUrl}
+            showAddButton       ={true}
+            showExportButton    ={true}
+            showDeleteButton    ={true}
+            showForwardButton   ={false}
+            showRefreshButton   ={true}
+            idMenu              ={idMenu}
+            classname={"translate-x-[12vw]  !w-[12vw]"}
+
+          />
+
+
+        </div>
+
       </div>
 
       <div className="width90 scroll">

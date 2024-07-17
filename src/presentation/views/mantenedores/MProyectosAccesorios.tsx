@@ -92,42 +92,49 @@ const MProyectosAccesorios: React.FC = () => {
                 type: "select",
                 selectUrl: "/api/proyectos/", 
                 styles:{
-                  styles:"!h-[2.5vw] text-[1vw] w-full",
-                  container:"!w-[20vw]  text-[1vw] translate-x-[1vw] translate-y-[17%] ", 
-                labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+                  styles:"labelInput inputStyles",
+                  container:"!w-[20vw]  text-[1vw] translate-x-[1vw] ", 
+                  labelProps: "labelInput"
                 },
               },
               { name: "_p2", label: "Código Proyecto / Licitación", type: "text", 
                 styles:{
-                  styles:"!h-[2.5vw] text-[1vw] w-full",
-                container:"!w-[20vw]  text-[1vw] !translate-x-[3vw] translate-y-[18%] mb-4 ", 
-              labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+                  styles:"labelInput inputStyles",
+                  container:"!w-[20vw]  text-[1vw] !translate-x-[3vw] translate-y-[18%] mb-4 ", 
+                  labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
                 
                 }, },
               // { name: "_p3", label: "Código Licitacion", type: "text", styles:{with:" !w-[9rem]"}, },
             ]}
-            classNameSearchButton=" translate-x-[1vw] translate-y-[0.3rem]"
+            classNameSearchButton=" translate-x-[0.5vw]"
           />
         </div>
 
-        <PrimaryButtonsComponent
-          handleAddPerson={openModal}
-          handleDeleteSelected={handleDeleteSelected}
-          handleRefresh={resetEntities}
-          handleCopiar={toggleModalCopiar}
-          params={params}
-          pkToDelete={pkToDelete}
-          strEntidad={strEntidadExcel}
-          strBaseUrl={strBaseUrl}
-          showAddButton={true}
-          showCopiar={true}
-          showExportButton={true}
-          showDeleteButton={true}
-          showForwardButton={false}
-          showRefreshButton={true}
-          idMenu={idMenu}
 
-        />
+        <div className="w-[15%]">
+          <PrimaryButtonsComponent
+            handleAddPerson={openModal}
+            handleDeleteSelected={handleDeleteSelected}
+            handleRefresh={resetEntities}
+            handleCopiar={toggleModalCopiar}
+            params={params}
+            pkToDelete={pkToDelete}
+            strEntidad={strEntidadExcel}
+            strBaseUrl={strBaseUrl}
+            showAddButton={true}
+            showCopiar={true}
+            showExportButton={true}
+            showDeleteButton={true}
+            showForwardButton={false}
+            showRefreshButton={true}
+            idMenu={idMenu}
+            classname={"translate-x-[0.5vw]  !w-[20vw]"}
+
+          />
+
+
+        </div>
+
       </div>
 
       <div className="width100 scroll">

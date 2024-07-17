@@ -75,30 +75,35 @@ const MCargos: React.FC = () => {
             primaryKeyInputs={[
               { name: "_p1", label: "Funcionalidad", type: "text", 
                 styles:{
-                  with: "!h-[2.5vw] !text-[1vw] w-full",
+                  with: "labelInput inputStyles w-full",
                   container:"w-[35vw] !text-[2vw] translate-y-[-0.2vw]", 
-                  labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+                  labelProps: "labelInput"
                 } },
             ]}
-            classNameSearchButton="translate-x-[12vw] translate-y-[0.2vw]"
+            classNameSearchButton="translate-x-[9vw]"
           />
         </div>
 
-        <PrimaryButtonsComponent
-          handleAddPerson={openModal}
-          handleDeleteSelected={handleDeleteSelected}
-          handleRefresh={resetEntities}
-          params={params}
-          pkToDelete={pkToDelete}
-          strEntidad={strEntidadExcel}
-          strBaseUrl={strBaseUrl}
-          showAddButton={true}
-          showExportButton={true}
-          showDeleteButton={false}
-          showForwardButton={false}
-          showRefreshButton={true}
-          idMenu={idMenu}
-        />
+        <div className="w-[15%]">
+          <PrimaryButtonsComponent
+            handleAddPerson={openModal}
+            handleDeleteSelected={handleDeleteSelected}
+            handleRefresh={resetEntities}
+            params={params}
+            pkToDelete={pkToDelete}
+            strEntidad={strEntidadExcel}
+            strBaseUrl={strBaseUrl}
+            showAddButton={true}
+            showExportButton={true}
+            showDeleteButton={false}
+            showForwardButton={false}
+            showRefreshButton={true}
+            idMenu={idMenu}
+            classname={"translate-x-[18vw]  !w-[10vw]"}
+
+          />
+        </div>
+
       </div>
 
       <div className="width50 scroll">

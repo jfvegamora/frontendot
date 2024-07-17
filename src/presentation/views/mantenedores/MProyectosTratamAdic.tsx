@@ -83,9 +83,9 @@ const MProyectosTratamAdic: React.FC = () => {
                 type: "select",
                 selectUrl: "/api/proyectos/",
                 styles:{
-                  styles:"!h-[2.5vw] text-[1vw]",
-                  container:"!w-[40vw]  text-[1vw]  translate-y-[0.3rem] ", 
-                  labelProps: "!translate-y-[-2vh] !text-[1vw] !font-[2vw]"
+                  styles:"labelInput inputStyles w-[30vw]",
+                  container:"!w-[30vw]  text-[1vw]  translate-y-[0.3rem] ", 
+                  labelProps: "labelInput"
                 }
               },
               {
@@ -95,32 +95,39 @@ const MProyectosTratamAdic: React.FC = () => {
                 selectUrl: "/api/tipos/",
                 tipos: "OTTratamientoAdicional", 
                 styles: { 
-                  styles:"!h-[2.5vw] text-[1vw]",
-                  container:"!w-[40vw]  text-[1vw] translate-x-[6vw] translate-y-[0.3rem] ", 
-                  labelProps: "!translate-y-[-2vh] !text-[1vw] !font-[2vw]"
+                  styles:"labelInput inputStyles w-full",
+                  container:"!w-[40vw]  text-[1vw] translate-x-[12vw] translate-y-[0.3rem] ", 
+                  labelProps: "labelInput"
                 },
               },
             ]}
-             classNameSearchButton=" translate-x-[14vw] translate-y-[0.3rem]"
+             classNameSearchButton=" translate-x-[14vw]"
           />
         </div>
 
-        <PrimaryButtonsComponent
-          handleAddPerson={openModal}
-          handleDeleteSelected={handleDeleteSelected}
-          handleRefresh={resetEntities}
-          params={params}
-          pkToDelete={pkToDelete}
-          strEntidad={strEntidadExcel}
-          strBaseUrl={strBaseUrl}
-          showAddButton={true}
-          showExportButton={false}
-          showDeleteButton={true}
-          showForwardButton={false}
-          showRefreshButton={true}
-          idMenu={idMenu}
 
-        />
+        <div className="w-[15%]">
+          <PrimaryButtonsComponent
+            handleAddPerson={openModal}
+            handleDeleteSelected={handleDeleteSelected}
+            handleRefresh={resetEntities}
+            params={params}
+            pkToDelete={pkToDelete}
+            strEntidad={strEntidadExcel}
+            strBaseUrl={strBaseUrl}
+            showAddButton={true}
+            showExportButton={false}
+            showDeleteButton={true}
+            showForwardButton={false}
+            showRefreshButton={true}
+            idMenu={idMenu}
+            classname={"translate-x-[18vw] !w-[7vw]"}
+
+          />
+
+
+        </div>
+
       </div>
 
       <div className="width70 scroll">

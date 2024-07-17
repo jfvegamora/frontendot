@@ -275,9 +275,9 @@ const FEmpresas: React.FC<IUserFormPrps> = React.memo(
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
-              <div className="flex items-center">
-              <div className="input-container items-center rowForm w-[50%]">
-                <div className="labelInputDiv">
+              <div className="w-full items-center flex">
+                <div className="input-container items-center rowForm w-[50%]">
+                  <div className="w-full pl-4">
                     <TextInputComponent
                       type="text"
                       label="RUT"
@@ -291,8 +291,8 @@ const FEmpresas: React.FC<IUserFormPrps> = React.memo(
                       />
                   </div>
                 </div>
-                <div className="input-container items-center rowForm w-[50%]">
-                <div className="labelInputDiv">
+                <div className="input-container items-center rowForm w-[50%]">   
+                  <div className="w-full pr-4">
                     <TextInputComponent
                       type="text"
                       label="Nombre"
@@ -307,9 +307,9 @@ const FEmpresas: React.FC<IUserFormPrps> = React.memo(
                 </div>
               </div>
               
-              <div className="flex items-center">
-              <div className="input-container items-center rowForm w-[50%]">
-                <div className="labelInputDiv">
+              <div className="w-full items-center flex">
+                <div className="input-container items-center rowForm w-[50%]">
+                  <div className="w-full pl-4">
                     <TextInputComponent
                       type="text"
                       label="Razón Social"
@@ -322,7 +322,7 @@ const FEmpresas: React.FC<IUserFormPrps> = React.memo(
                   </div>
                 </div>
                 <div className="input-container items-center rowForm w-[50%]">
-                <div className="labelInputDiv">
+                  <div className="w-full pr-4">
                     <TextInputComponent
                       type="text"
                       label="Giro"
@@ -336,9 +336,9 @@ const FEmpresas: React.FC<IUserFormPrps> = React.memo(
                 </div>
               </div>
               
-              <div className="flex items-center">
-              <div className="input-container items-center rowForm w-[50%]">
-                <div className="labelInputDiv">
+              <div className="w-full items-center flex">
+                <div className="input-container items-center rowForm w-[50%]">
+                  <div className="w-full pl-4">
                     <TextInputComponent
                       type="text"
                       label="Dirección"
@@ -352,7 +352,7 @@ const FEmpresas: React.FC<IUserFormPrps> = React.memo(
                   </div>
                 </div>
                 <div className="input-container items-center rowForm w-[50%]">
-                <div className="labelInputDiv">
+                  <div className="w-full pr-4">
                     <TextInputComponent
                       type="text"
                       label="Teléfono"
@@ -367,9 +367,9 @@ const FEmpresas: React.FC<IUserFormPrps> = React.memo(
                 </div>
               </div>
 
-              <div className="flex items-center">
-              <div className="input-container items-center rowForm w-[50%]">
-                <div className="labelInputDiv">
+              <div className="w-full items-center flex">
+                <div className="input-container items-center rowForm w-[50%]">
+                  <div className="w-full pl-4">
                     <TextInputComponent
                       type="email"
                       label="Correo"
@@ -384,7 +384,7 @@ const FEmpresas: React.FC<IUserFormPrps> = React.memo(
                   </div>
                 </div>
                 <div className="input-container items-center rowForm w-[50%]">
-                <div className="labelInputDiv">
+                  <div className="w-full pr-4">
                     <TextInputComponent
                       type="text"
                       label="Sitio Web"

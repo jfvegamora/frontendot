@@ -83,9 +83,9 @@ const MPermisos: React.FC = () => {
                 type: "select",
                 selectUrl: "/api/usuarios/",
                 styles:{
-                  styles:"!h-[2.5vw] text-[1vw] w-full",
+                  styles:"labelInput inputStyles w-full",
                   container:"!w-[35vw]  text-[1vw] translate-x-[2vw]", 
-                  labelProps: "!translate-y-[-3vh] !text-[1.2vw] !font-[2vw]"
+                  labelProps: "labelInput"
                 }
               },
               {
@@ -94,32 +94,36 @@ const MPermisos: React.FC = () => {
                 type: "select",
                 selectUrl: "/api/funcionalidades/",
                 styles:{
-                  styles:"!h-[2.5vw] text-[1vw] w-full",
+                  styles:"labelInput inputStyles w-full",
                   container:"!w-[35vw]  text-[1vw] translate-x-[2vw]", 
-                  labelProps: "!translate-y-[-2vh] !text-[1.2vw] !font-[2vw]"
+                  labelProps: "labelInput"
                 }
               },
             ]}
-            classNameSearchButton="translate-x-[8vw] translate-y-[0.3rem]"
+            classNameSearchButton="translate-x-[8vw]"
           />
         </div>
 
-        <PrimaryButtonsComponent
-          handleAddPerson={openModal}
-          handleDeleteSelected={handleDeleteSelected}
-          handleRefresh={resetEntities}
-          params={params}
-          pkToDelete={pkToDelete}
-          strEntidad={strEntidadExcel}
-          strBaseUrl={strBaseUrl}
-          showAddButton={true}
-          showExportButton={true}
-          showDeleteButton={true}
-          showForwardButton={false}
-          showRefreshButton={true}
-          idMenu={idMenu}
 
-        />
+         <div className="w-[15%]">
+          <PrimaryButtonsComponent
+            handleAddPerson={openModal}
+            handleDeleteSelected={handleDeleteSelected}
+            handleRefresh={resetEntities}
+            params={params}
+            pkToDelete={pkToDelete}
+            strEntidad={strEntidadExcel}
+            strBaseUrl={strBaseUrl}
+            showAddButton={true}
+            showExportButton={true}
+            showDeleteButton={true}
+            showForwardButton={false}
+            showRefreshButton={true}
+            idMenu={idMenu}
+            classname={"translate-x-[14vw] !w-[12vw]"}
+          />
+         </div>
+
       </div>
 
       <div className="width70 scroll">

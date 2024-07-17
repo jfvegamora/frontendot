@@ -205,9 +205,11 @@ const FPermisos: React.FC<IFormPrps> = React.memo(
       };
     }, [closeModal]);
     return (
-      <div className="useFormContainer centered-div w-[35rem]">
-        <div className="userFormBtnCloseContainer">
-          <h1 className="userFormLabel mx-auto">{label}</h1>
+      <div className="useFormContainer centered-div w-[30vw]">
+        <div className="userFormBtnCloseContainer flex">
+          <div className="w-[80%] mx-auto !text.center">
+            <h1 className="userFormLabel">{label}</h1>
+          </div>
           <button onClick={closeModal} className="userFormBtnClose mr-4">
             X
           </button>
