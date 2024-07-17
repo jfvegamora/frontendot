@@ -387,7 +387,6 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
       [editEntity, createdEntity, handleApiResponse, intId]
     );
 
-    console.log(data && data[EnumGrid.EJECUTIVO_ID])
 
     useEffect(() => {
       isEditting ? focusSecondInput("codigo_licitacion") : focusFirstInput("codigo_proyecto");
