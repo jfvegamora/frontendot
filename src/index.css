@@ -60,10 +60,15 @@ body {
 }
 
 .labelStyles{
-  font-size:  32px !important;
+  font-size:  18px !important;
   font-weight: bold;
 }
 
+.labelInput0{
+  font-size: 18px !important;
+  margin: 0px;
+  padding: 0px;
+}
 .labelInput{
   font-size: 20px !important;
 }
@@ -73,7 +78,28 @@ body {
 
 
 .inputStyles{
-  height: 3vw !important;
+  height: 2.7rem !important;
+}
+
+.labelInputDiv{
+  padding: 0.2rem 1rem 0.3rem 0.5rem !important;
+}
+
+.selectInputDiv{
+  margin: 0.7rem 1rem 0rem 1rem !important;
+  width: 100%;
+}
+
+.frame2Options{
+  font-size: 1.1rem;
+  left: 0px;
+  top:-24px;
+}
+
+.frame3Options{
+  font-size: 1.1rem;
+  left: -20px;
+  top:-30px;
 }
 
 .FOTArmazonesInfo{
@@ -345,7 +371,6 @@ select::-ms-expand {
   box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
   padding: 10px 10px 10px 10px;
   width: 70%;
-  height: 5vw;
   margin: 0 auto;
   margin-top: 40px !important;
   margin-bottom: 20px !important;
@@ -430,7 +455,8 @@ select::-ms-expand {
 }
 
 .primaryKeyIconButton {
-  color: orangered;;
+  color: orangered;
+  /* width: 15rem; */
   z-index: 20;
 }
 
@@ -443,8 +469,9 @@ select::-ms-expand {
 /*========CLASSES PRIMARYBUTTONS=======*/
 .primaryBtnContainer {
   display: flex;
-  width: 20vw;
+  width: 100%;
   justify-content: flex-end;
+  padding-left: 1rem;
   padding-right: 1rem;
 }
 
@@ -1042,13 +1069,14 @@ input[type="text"] {
   background-color: #f9b17a;
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding-top: 0.7rem;
+  padding-bottom: 0.7rem;
   padding-left: 1rem;
   padding-right: 1rem;
-  border-radius: 0.25rem;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  border-radius: 0.5rem;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: larger;
 }
 
 .otActionButton{
