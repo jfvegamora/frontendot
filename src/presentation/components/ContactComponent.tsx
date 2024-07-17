@@ -28,8 +28,8 @@ const ContactComponent:React.FC<IProps> = ({
   return (
     <div className=" relative mx-4 w-full flex ">
         {/* <h1 className="absolute z-20 top-[-23%] labelForm w-[32%] px-2">{label}</h1> */}
-        <label className="absolute text-sm top-[-22px] left-2  labelForm w-[32%]">
-            <span className="ml-[20px]  labelStyles">{label}</span>
+        <label className="absolute text-sm top-[-22px]  left-2  labelForm w-[55%]">
+            <span className="ml-[20px]  labelStyles ">{label}</span>
         </label>
                 <div className="input-container items-center rowForm w-[25%]">
                     <div className="w-full mr-2 !mt-4">

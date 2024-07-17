@@ -1,6 +1,5 @@
 import React, {useCallback, useState, useEffect, Suspense} from 'react'
 import {useDropzone} from 'react-dropzone';
-import {executeFetchImportOT, handleFileUpload} from '../utils/validationCSVFile';
 import { useCrud } from '../hooks';
 import {toast} from 'react-toastify';
 // import { TfiImport } from "react-icons/tfi";
@@ -15,6 +14,7 @@ import { paramsOT, switchFetchOT } from '../views/mantenedores/MOT';
 import axios from 'axios';
 // import { excelOTValidationStructure } from '../utils';
 
+import {executeFetchImportOT, handleFileUpload} from '../utils/validationCSVFile';
 
 
 const ModalImport = React.lazy(()=>import("./ModalImpor"));
