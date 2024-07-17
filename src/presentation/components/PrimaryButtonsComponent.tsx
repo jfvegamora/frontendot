@@ -60,6 +60,7 @@ interface IPrimaryButtonProps {
   bln_egreso?: boolean;
   isOT?:boolean;
   showCopiar?: boolean;
+  classname?:any
 }
 
 
@@ -103,7 +104,8 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
     bln_egreso,
     isOT,
     showCopiar,
-    setSelectedRows
+    setSelectedRows,
+    classname
   }) => {
     const { escritura_lectura } = usePermission(idMenu);
     const { CustomModal, showModal } = useModal();
@@ -200,7 +202,7 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
 
 
     return (
-      <div className="primaryBtnContainer">
+      <div className={`primaryBtnContainer ${classname ? classname : ""}`}>
         {/* {showForwardButton &&
           renderButton(
             <AiOutlineForward className="primaryBtnIcon" />,

@@ -159,14 +159,12 @@ const listBoxTiposSlice = createSlice({
   initialState,
   reducers: {
     updateDataForKey: (state, action) => {
-      const { entidad, data } = action.payload;
-      if (entidad == "OTAreas") {
-        console.log(data);
-        console.log(!state.hasOwnProperty(entidad));
-      }
+      const { data, label } = action.payload;
 
-      if (state.hasOwnProperty(entidad)) {
-        state[entidad] = data;
+      console.log({ label, data });
+
+      if (!state.hasOwnProperty(label)) {
+        state[label] = data;
       }
       console.log(state);
     },

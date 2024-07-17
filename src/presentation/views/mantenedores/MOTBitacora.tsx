@@ -82,8 +82,8 @@ const MOTBitacora: React.FC = () => {
   
     return (
       <div className="mantenedorContainer">
-        <div className="mantenedorHead width100">
-          <div className="w-[85%] h-[6vw]">
+        <div className="mantenedorHead width100 !h-[15vh]">
+          <div className="w-[85%] -mt-[4rem] ">
             <PrimaryKeySearch
               baseUrl={strBaseUrl}
               setParams={setParams}
@@ -91,15 +91,15 @@ const MOTBitacora: React.FC = () => {
               setEntities={setEntities}
               primaryKeyInputs={[
                 { name: "_p5", label: "Desde", type: "date", styles:{
-                  styles:"!h-[2.5vw] text-[1vw]",
+                  styles:"labelInput inputStyles",
                   container:"!w-[10vw]  text-[1vw]  translate-y-[0.3rem] translate-x-[-1vw] ", 
-                  labelProps: "!translate-y-[-2vh] !text-[1vw] !font-[2vw]"
+                  labelProps: "labelInput"
                 } },
                 { name: "_p6", label: "Hasta", type: "date", 
                   styles:{
-                    styles:"!h-[2.5vw] text-[1vw]",
+                    styles:"labelInput inputStyles",
                     container:"!w-[10vw]  text-[1vw]  translate-y-[0.3rem] translate-x-[0.5vw] ", 
-                    labelProps: "!translate-y-[-2vh] !text-[1vw] !font-[2vw]"
+                    labelProps: "labelInput"
                   }},
                   {
                   name: "_p1",
@@ -107,9 +107,9 @@ const MOTBitacora: React.FC = () => {
                   type: "select",
                   selectUrl: "/api/usuarios/", 
                   styles:{
-                    styles:"!h-[2.5vw] text-[1vw]",
+                    styles:"labelInput inputStyles",
                     container:"!w-[40vw]  text-[1vw]  translate-y-[0.3rem] translate-x-[1vw] ", 
-                    labelProps: "!translate-y-[-2vh] !text-[1vw] !font-[2vw]"
+                    labelProps: "labelInput"
                   },
                 },
                 {
@@ -119,9 +119,9 @@ const MOTBitacora: React.FC = () => {
                   selectUrl: "/api/tipos/",
                   tipos: "OTAreas", 
                   styles:{
-                    styles:"!h-[2.5vw] text-[1vw]",
+                    styles:"labelInput inputStyles",
                     container:"!w-[40vw]  text-[1vw]  translate-y-[0.3rem] translate-x-[1vw] ", 
-                    labelProps: "!translate-y-[-2vh] !text-[1vw] !font-[2vw]"
+                    labelProps: "labelInput"
                   },
                 },
                 {
@@ -133,7 +133,7 @@ const MOTBitacora: React.FC = () => {
                    styles:{
                     styles:"!h-[2.5vw] text-[1vw]",
                     container:"!w-[40vw]  text-[1vw]  translate-y-[0.3rem] translate-x-[1vw] ", 
-                    labelProps: "!translate-y-[-2vh] !text-[1vw] !font-[2vw]"
+                    labelProps: "labelInput"
                   },
                 },
                 {
@@ -145,15 +145,15 @@ const MOTBitacora: React.FC = () => {
                   styles:{
                     styles:"!h-[2.5vw] text-[1vw]",
                     container:"!w-[40vw]  text-[1vw]  translate-y-[0.3rem] translate-x-[1vw] ", 
-                    labelProps: "!translate-y-[-2vh] !text-[1vw] !font-[2vw]"
+                    labelProps: "labelInput"
                   },
                 },
               ]}
-              classNameSearchButton=" translate-x-[2vw] translate-y-[3.5vw]"
+              classNameSearchButton=" translate-x-[-0.5vw] translate-y-[3.5vw]"
               />
           </div>
 
-          <div className="!translate-y-[2vw] translate-x-[4vw] ">
+          <div className="w-[15%]">
             <PrimaryButtonsComponent
               handleAddPerson={openModal}
               handleDeleteSelected={handleDeleteSelected}
@@ -172,6 +172,8 @@ const MOTBitacora: React.FC = () => {
               showForwardButton={false}
               showRefreshButton={true}
               idMenu={idMenu}
+              classname={"translate-x-[9vw] translate-y-[1.5vw]  !w-[6vw]"}
+
             />
           </div>
   
