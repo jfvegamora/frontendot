@@ -394,7 +394,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
     }, []);
 
     return (
-      <div className="useFormContainer centered-div w-full">
+      <div className="useFormContainer centered-div w-full !-mt-8">
         <div className="userFormBtnCloseContainer">
           <h1 className="userFormLabel mx-auto">{label}</h1>
           <button onClick={closeModal} className="userFormBtnClose mr-4">
@@ -676,7 +676,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                   total="$ Total"
                   porcentaje="%"
                   dataCant={data && data[EnumGrid.CANTIDAD_INGRESADA]}
-                  dataTotal={formatCurrencyNumber(data && data[EnumGrid.TOTAL_INGRESADO])}
+                  dataTotal={data && data[EnumGrid.TOTAL_INGRESADO]}
                   dataPorcentaje={data && data[EnumGrid.PORC_INGRESADO]}
                   isOptional={true}
                   onlyRead={true}

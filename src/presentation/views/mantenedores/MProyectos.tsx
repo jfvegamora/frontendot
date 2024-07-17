@@ -164,14 +164,14 @@ const MProyectos: React.FC = () => {
                 tipos: "ProyectoEstados", 
                 styles: { 
                   styles:"labelInput inputStyles w-full",
-                  container:"!w-[20vw]  text-[1vw] translate-x-[5vw]", 
+                  container:"!w-[14vw]  text-[1vw] translate-x-[4vw]", 
                   labelProps: "labelInput"
                 },
               },
             
 
             ]}
-            classNameSearchButton=" translate-x-[2vw]"
+            classNameSearchButton=" translate-x-[1vw]"
 
           />
         </div>
@@ -192,6 +192,8 @@ const MProyectos: React.FC = () => {
             showRefreshButton={true}
             showImportCsv={true}
             idMenu={idMenu}
+            classname={"translate-x-[5vw]  !w-[15vw]"}
+
           />
         </div>
 

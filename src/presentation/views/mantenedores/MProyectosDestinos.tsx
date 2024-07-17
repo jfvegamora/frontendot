@@ -78,8 +78,14 @@ const MProyectosDestinos: React.FC = () => {
     useEffect(() => {    
       const newPkToDelete = selectedRows.map((row: number) => `${entities[row][EnumGrid.id]}`);
       const combinedPks = newPkToDelete.join(',');
+
+      if(newPkToDelete.length === 0){
+        setPkToDelete([]);
+      }else{
+        setPkToDelete([`${strParamsToDelete}=${combinedPks}`]);
+        
+      }
   
-      setPkToDelete([`${strParamsToDelete}=${combinedPks}`]);
     }, [selectedRows]);
 
  
@@ -108,7 +114,7 @@ const MProyectosDestinos: React.FC = () => {
                 { name: "_p1", label: "Descripción", type: "text", 
                   styles:{
                     with: "labelInput inputStyles w-full",
-                    container:"w-[15vw] !text-[2vw] translate-y-[-0.4rem] translate-x-[12vw]", 
+                    container:"w-[15vw] !text-[2vw] translate-x-[12vw]", 
                     labelProps: "labelInput"
                   }, },
               ]}

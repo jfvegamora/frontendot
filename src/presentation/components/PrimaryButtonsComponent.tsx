@@ -199,7 +199,7 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
     }
     
     
-
+console.log(pkToDelete.length === 0)
 
     return (
       <div className={`primaryBtnContainer ${classname ? classname : ""}`}>
@@ -299,8 +299,10 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
           )}
         </Suspense>
 
+          
         <Suspense>
           {showPDFButton && (
+              
               <ExportToPDF rowData={pkToDelete}/>
           )}
         </Suspense>

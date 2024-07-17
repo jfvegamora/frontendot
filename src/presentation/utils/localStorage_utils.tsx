@@ -80,8 +80,11 @@ export const handleAxiosError = (error:any) => {
 
 
 export const formatCurrencyNumber = (number:string) => {
-    if(number === undefined){
-        return;
-    }
+  console.log(number)
+  if(number === undefined){
+    return;
+  }
+  console.log(number)
+  console.log(number.replace(/\$|\.+/g, ''),10)
     return parseInt(number.replace(/\$|\.+/g, ''),10);
 }

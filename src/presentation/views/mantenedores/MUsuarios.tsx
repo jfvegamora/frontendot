@@ -220,7 +220,7 @@ const MUsuarios: React.FC = () => {
         />
       </div>
 
-    
+
   
       {isModalInsert && (
         <FUsuarios

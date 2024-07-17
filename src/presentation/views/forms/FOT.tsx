@@ -148,7 +148,10 @@ const FOT:React.FC<IFOTProps> = ({
   // const OT:any = useAppSelector((store: AppStore) => store.OTS.ot);
 
   let OTAreaActual = OTAreas["areaActual"]
+  
   const permissions = (area:number) => OTAreaActual && OTAreas["areas"].find((permiso:any)=>permiso[1] === area)
+  console.log(permissions(50))
+
   //PERMISOS DE CAMPOS
   const permisosCampos           = useAppSelector((store: AppStore) => store.user?.permisos_campos);
 
@@ -1095,9 +1098,9 @@ const checkArmazones = camposRequeridosArmazones.every(campo => {
                 isEditting               &&
                 escritura_lectura        &&
                 OTPermissions[7] === "1" &&
-                User.permisos_areas[EnumAreas[OTAreaActual]] === "1" &&
+                User.permisos_areas[EnumAreas[OTAreaActual]] !== "0" &&
                 (
-                  <Button className=' text-[1vw] w-[10vw] translate-y-[-3vw] bg-yellow-700 hover:bg-yellow-900' onClick={()=>{
+                  <Button className=' text-[1vw] w-[10vw] translate-y-[-1vw] bg-yellow-700 hover:bg-yellow-900' onClick={()=>{
                     setFOTBooleanStates((prev)=>({
                       ...prev,
                       showPendiente : !prev.showPendiente
@@ -1113,9 +1116,9 @@ const checkArmazones = camposRequeridosArmazones.every(campo => {
                 escritura_lectura        &&
                 OTPermissions[8] === "1" &&
                 // sumatoriaNivel1  === validationNivel1.value.length &&
-                User.permisos_areas[EnumAreas[OTAreaActual]] === "1" &&
+                User.permisos_areas[EnumAreas[OTAreaActual]] !== "0" &&
                 data && data[EnumGrid.estado_id] > 1 && (
-                  <Button className='text-[1vw] w-[10vw] translate-y-[-3vw] bg-red-700 hover:bg-red-900' onClick={()=>{
+                  <Button className='text-[1vw] w-[10vw] translate-y-[-1vw] bg-red-700 hover:bg-red-900' onClick={()=>{
                     setFOTBooleanStates((prev)=>({
                       ...prev,
                       showDerivacion: !prev.showDerivacion

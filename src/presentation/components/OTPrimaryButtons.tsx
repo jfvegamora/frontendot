@@ -557,7 +557,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
 
     return (
     <div className='flex items-center   ml-[4rem] !w-full'>
-        { (areaPermissions && areaPermissions[0] === "1" ) && (permisos_usuario_areas === '1') && (
+        { (areaPermissions && areaPermissions[0] === "1" ) && (permisos_usuario_areas !== '0') && (
           renderButton(
             <SiAddthis className="primaryBtnIcon " />,
             handleAddPerson!,
@@ -567,7 +567,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
         }
        
        <Suspense>
-          {areaPermissions && areaPermissions[3] === "1" && permisos_usuario_areas === '1' && (
+          {areaPermissions && areaPermissions[3] === "1" && (
             <div className="mr-2">
               <ExportCSV
               strEntidad={strEntidad}
@@ -583,7 +583,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
 
 
           <Suspense>
-            {areaPermissions && areaPermissions[4] === "1" && permisos_usuario_areas === '1' && (
+            {areaPermissions && areaPermissions[4] === "1" && permisos_usuario_areas !== '0' && (
               <Suspense>
                 <ImportToCsv
                 strEntidad={strEntidad}
@@ -597,7 +597,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
  
 
 
-        {areaPermissions && areaPermissions[2] === '1' && permisos_usuario_areas === '1' && (
+        {areaPermissions && areaPermissions[2] === '1' && permisos_usuario_areas !== '0' && (
           renderButton(
             <PiPrinterFill className="primaryBtnIcon" />,
             handleImpresionMasivo!,
@@ -605,7 +605,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
           )
         )}
 
-        {areaPermissions && areaPermissions[5] === '1' && permisos_usuario_areas === '1' && (
+        {areaPermissions && areaPermissions[5] === '1' && permisos_usuario_areas !== '0' && (
           renderButton(
             <SocialIcon  
               onClick={(e)=>e.preventDefault()}  
@@ -616,7 +616,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
           )
         )}
 
-      {areaPermissions && areaPermissions[13] === "1" && permisos_usuario_areas ===  '1' && (
+      {areaPermissions && areaPermissions[13] === "1" && permisos_usuario_areas !== '0' && (
           <Tooltip content={'Descargar Plantilla Excel'} >
             <IconButton 
               className='primaryBtnIconButton'
@@ -630,20 +630,20 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
           </Tooltip>
         )}
      
-        {areaPermissions && areaPermissions[12] === "1" && permisos_usuario_areas === '1' && (
+        {areaPermissions && areaPermissions[12] === "1" && permisos_usuario_areas !== '0' && (
           <Tooltip content='Generar Número de Envío'>
               <Button className='otActionButton ml-4'  onClick={()=>setIsFOTEmpaque((prev)=>!prev)}>N° de Envio</Button>
           </Tooltip>
           )}
 
 
-        {areaPermissions && areaPermissions[14] === '1' && permisos_usuario_areas === '1' && (
+        {areaPermissions && areaPermissions[14] === '1' && permisos_usuario_areas !== '0' && (
           <Tooltip content={'Generar Reporte de Firmas'}>
             <Button className='otActionButton mt-3 mx-5 'onClick={() => setIsFOTReporeFirma((prev)=>!prev)}>N° Rep. Firma</Button>  
           </Tooltip>
         )}
 
-        {areaPermissions && areaPermissions[12] === "1" && permisos_usuario_areas === '1' && (
+        {areaPermissions && areaPermissions[12] === "1" && permisos_usuario_areas !== '0' && (
           <Tooltip content='Generar Número de Guía'>
               <Button className='otActionButton mr-4'  onClick={()=>{
                 if(pkToDelete.length === 0){
@@ -656,15 +656,27 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
           )}
 
 
-        {areaPermissions && areaPermissions[6] === '1' && permisos_usuario_areas === '1' && (
-          <Tooltip content={BUTTON_MESSAGES.procesar}>
-              {/* <button className='bg-green-400 mx-4 transition-transform transform hover:scale-110 active:scale-95 w-[10rem] h-[2.5rem]  text-white '  */}
-              <Button color="green" className='otActionButton mx-4'
-              onClick={handleProcesarMasivo}>Procesar</Button>
-          </Tooltip>
+
+
+
+
+        {
+          areaPermissions && areaPermissions[6] === '1' && 
+          ((permisos_usuario_areas === '1' && OTAreas["areaActual"] !== 50) || (permisos_usuario_areas === '2' && OTAreas["areaActual"] === 50)) && (
+          // (permisos_usuario_areas !== '0') && (
+            <Tooltip content={BUTTON_MESSAGES.procesar}>
+                {/* <button className='bg-green-400 mx-4 transition-transform transform hover:scale-110 active:scale-95 w-[10rem] h-[2.5rem]  text-white '  */}
+                <Button color="green" className='otActionButton mx-4'
+                onClick={handleProcesarMasivo}>Procesar</Button>
+            </Tooltip>
         )}
 
-        {areaPermissions && areaPermissions[3] === '1' && permisos_usuario_areas === '1' && (OTAreas["areaActual"] !== 60) &&  (
+
+
+
+
+
+        {areaPermissions && areaPermissions[3] === '1' && permisos_usuario_areas !== '0' && (OTAreas["areaActual"] !== 60) &&  (
           <Tooltip content={BUTTON_MESSAGES.procesar}>
              <Button  type="submit" className='otActionButton mx-4 bg-yellow-700' onClick={()=>{
               if(pkToDelete.length === 0){
@@ -675,7 +687,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
           </Tooltip>
         )}
 
-        {areaPermissions && areaPermissions[3] === '1' && permisos_usuario_areas === '1' &&  (OTAreas["areaActual"] !== 60) && (
+        {areaPermissions && areaPermissions[3] === '1' && permisos_usuario_areas !== '0' &&  (OTAreas["areaActual"] !== 60) && (
           <Tooltip content={BUTTON_MESSAGES.procesar}>
               {/* <button className='bg-green-400 mx-4 transition-transform transform hover:scale-110 active:scale-95 w-[10rem] h-[2.5rem]  text-white '  */}
               <Button  type="submit" className='otActionButton mx-4 bg-red-900' onClick={()=>{
@@ -743,7 +755,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
               }} />
           </div>
 
-          {areaPermissions && areaPermissions[15] === '1' && permisos_usuario_areas === '1' && (
+          {areaPermissions && areaPermissions[15] === '1' && permisos_usuario_areas !== '0' && (
             <div className="ml-2">
               <Input 
                 ref={refFocusInput} 
@@ -777,7 +789,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
             </div>
           )}
 
-        {areaPermissions && areaPermissions[15] === '1' && permisos_usuario_areas === '1' && ( 
+        {areaPermissions && areaPermissions[15] === '1' && permisos_usuario_areas !== '0'  && ( 
           <div className='mx-6 my-2  translate-y-[0.2rem] flex'>
             <div className='flex'>
               <input 

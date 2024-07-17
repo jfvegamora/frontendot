@@ -33,6 +33,21 @@ const ProyectoComponent: React.FC<IProps> = ({
     type
 }) => {
 
+    const [formatDataTotal, setFormatDataTotal] = React.useState('')
+
+
+    React.useEffect(()=>{
+        if(dataTotal){
+            if(dataTotal?.toString().includes('$')){
+                setFormatDataTotal(dataTotal.replace(/\$/g, ''))
+            }else{
+                setFormatDataTotal(dataTotal)
+            }
+
+        }
+    },[dataTotal])
+
+
     return (
         <div className=" relative mx-4 w-full flex ">
             <label className="absolute text-sm top-[-22px] left-2 frame3Options labelForm w-full">
@@ -42,7 +57,6 @@ const ProyectoComponent: React.FC<IProps> = ({
                 <div className="w-full mt-4 !p-0 -ml-4">
                     <TextInputInteractive
                         type={type}
-                        className='text-center'
                         label="Cant."
                         name={cant}
                         data={dataCant}
@@ -51,7 +65,7 @@ const ProyectoComponent: React.FC<IProps> = ({
                         error={errors.cant_proyecto}
                         onlyRead={onlyRead}
                         isOptional={isOptional}
-                        customWidth={"labelInput inputStyles"}
+                        customWidth={"labelInput inputStyles text-right"}
                     />
                 </div>
             </div>
@@ -60,10 +74,9 @@ const ProyectoComponent: React.FC<IProps> = ({
                 <div className="w-full mt-4 -ml-6">
                     <TextInputInteractive
                         type={type}
-                        className='text-right'
                         label="$ Total"
                         name={total}
-                        data={dataTotal}
+                        data={formatDataTotal}
                         handleChange={(e) => {
                             if (setValue) {
                                 setValue('presupuesto', e)
@@ -73,17 +86,16 @@ const ProyectoComponent: React.FC<IProps> = ({
                         error={errors.total_proyecto}
                         onlyRead={onlyRead}
                         isOptional={isOptional}
-                        customWidth={"labelInput inputStyles"}
+                        customWidth={"labelInput inputStyles w-[10.5vw] text-right"}
 
                     />
                 </div>
             </div>
 
-            <div className="input-container items-center rowForm w-[30%]">
-                <div className="w-full -ml-4 ">
+            <div className="input-container items-center rowForm w-[20%] ml-1">
+                <div className="w-full ">
                     <TextInputInteractive
                         type={type}
-                        className='text-center'
                         label="%"
                         name={porcentaje}
                         data={dataPorcentaje}
@@ -91,7 +103,7 @@ const ProyectoComponent: React.FC<IProps> = ({
                         isOT={true}
                         onlyRead={true}
                         isOptional={isOptional}
-                        customWidth={"labelInput inputStyles w-[4rem]"}
+                        customWidth={"labelInput inputStyles text-center !w-[4.8vw]"}
                     />
                 </div>
             </div>

@@ -101,9 +101,9 @@ const permiso_archivoOT = [
 ]
 
 export function transformInsertQuery(jsonData: any): any | null {
-
-
-  const permisos_areas      = permiso_area.map((permiso:any)=>jsonData[permiso] === 'Lectura' ? "0" : "1").join('');
+  // const permisos_areas      = permiso_area.map((permiso:any)=>jsonData[permiso] === 'Lectura' ? "0" : "1").join('');
+  const permisos_areas      = permiso_area.map((permiso:any)=>jsonData[permiso] ===  'Procesar' ? "2" : (jsonData[permiso] === 'Lectura' ? '0' : '1')).join('');
+  
   const permisos_campos     = permiso_campo.map((permiso:any) => jsonData[permiso] === 'Lectura' ? "0" : "1").join('');
   const permisos_archivoOT  = permiso_archivoOT.map((permiso:any)=>jsonData[permiso] === 'Lectura' ? "0" : "1").join('');
 
@@ -144,7 +144,7 @@ export function transformUpdateQuery(
     `cargo                = ${jsonData.cargo}`,
     `permisos_archivo_ot  = "${permiso_archivoOT.map((permiso)=>jsonData[permiso] === 'Lectura' ? "0" : "1").join('')}"`,
     `permisos_campos      = "${insertarElementoEnPosicion(permiso_campo.map((permiso) => jsonData[permiso] === 'Lectura' ? "0" : "1").join(''),'0', 1)}"`,
-    `permisos_areas       = "${permiso_area.map((permiso)=>jsonData[permiso] === 'Lectura' ? "0" : "1").join('')}"`,
+    `permisos_areas       = "${permiso_area.map((permiso)=>jsonData[permiso] === 'Procesar' ? "2" : (jsonData[permiso] === 'Lectura' ? '0' : '1')).join('')}"`,
   ];
 
 
@@ -381,7 +381,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
       }
     },[data])
 
-console.log(formValues)
+console.log(data && data[EnumGrid.permiso_venta])
 
 
 return (
@@ -535,13 +535,13 @@ return (
                   <div className="w-full items-center !mt-7 !mb-4  !h-[10rem] ">
                     <div className="w-full items-center flex justify-evenly  input-container">
                         <div className="input-container items-center rowForm  w-[14%]">
-                          <div className="w-full">
+                          <div className="w-full translate-y-[-1vw]">
                             <RadioButtonComponent
                               control={control}
                               label="Venta/Post Venta"
                               name="permiso_venta"
                               data={formValues && formValues["Venta/Post Venta"] || data && data[EnumGrid.permiso_venta]}
-                              options={["Lectura", "Escritura"]}
+                              options={["Lectura", "Ingreso", "Procesar"]}
                               error={errors.permiso_venta}
                               horizontal={false}
                               onChange={(e:any)=>handleChange(e)}

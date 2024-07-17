@@ -2069,7 +2069,7 @@ export const table_head_proyectos = [
     key: "cantidad_presupuesto",
     visible: true,
     alignment: "text-right",
-    width: "w-[5rem]",
+    width: "w-[8rem]",
   },
   {
     cell: "$ Presupuesto",
@@ -2097,7 +2097,7 @@ export const table_head_proyectos = [
     key: "total_ingresado",
     visible: true,
     alignment: "text-right",
-    width: "w-[7rem]",
+    width: "w-[9rem]",
   },  
   {
     cell: "% Ing",
@@ -2118,7 +2118,7 @@ export const table_head_proyectos = [
     key: "total_por_facturar",
     visible: true,
     alignment: "text-right",
-    width: "w-[7rem]",
+    width: "w-[9rem]",
   },  
   {
     cell: "% x Fact",
@@ -2139,7 +2139,7 @@ export const table_head_proyectos = [
     key: "total_facturado",
     visible: true,
     alignment: "text-right",
-    width: "w-[7rem]",
+    width: "w-[9rem]",
   },
   {
     cell: "% Fact",
@@ -2160,14 +2160,14 @@ export const table_head_proyectos = [
     key: "total_saldo",
     visible: true,
     alignment: "text-right",
-    width: "w-[7rem]",
+    width: "w-[9rem]",
   },
   {
     cell: "% Saldo",
     key: "porc_saldo",
     visible: true,
     alignment: "text-center",
-    width: "w-[5rem]",
+    width: "w-[9rem]",
   },
   {
     cell: "Ejecutivo ID",

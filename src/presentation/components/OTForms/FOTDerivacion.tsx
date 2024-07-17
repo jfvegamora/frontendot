@@ -164,8 +164,8 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
                             control={control}
                             data={isMasivo ? dataDerivacion && dataDerivacion[0]?.proyecto : data && data[EnumDerivacion.proyecto_titulo]}
                             onlyRead={true}
-                            customWidth={"mt-[2rem]"}
-                        />
+                            customWidth={"labelInput inputStyles"}
+                            />
                     </div>
                     {!isMasivo && (
                         <div className="w-[30%]">
@@ -177,8 +177,8 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
                                 data={data && data[EnumDerivacion.folio]}
                                 onlyRead={true}
                                 textAlign="text-center"
-                                customWidth={"mt-[2rem]"}
-                            />
+                                customWidth={"labelInput inputStyles"}
+                                />
                         </div>
                     ) }
                 </div>
@@ -193,8 +193,8 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
                                 control={control}
                                 data={data && data[EnumDerivacion.cliente_nomnbre]}
                                 onlyRead={true}
-                                customWidth={"mt-[2rem]"}
-                            />
+                                customWidth={"labelInput inputStyles"}
+                                />
                         </div>
                     </div>
                 )}
@@ -208,10 +208,10 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
                             control={control}
                             data= {isMasivo ? (OTAreas["areas"].filter((areas:any)=>areas[1] ===  OTAreas["areaActual"])[0][2]) : data && data[EnumDerivacion.area]}
                             onlyRead={true}
-                            customWidth={"mt-[2rem]"}
-                        />
+                            customWidth={"labelInput inputStyles"}
+                            />
                     </div>
-                    <div className="w-[50%]">
+                    <div className="w-[50%] bg-red-300 ml-4">
                         <SelectInputComponent
                             label="Área hasta"
                             name="area_hasta"
@@ -219,9 +219,8 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
                             isOT={true}
                             control={control}
                             entidad={["/api/tipos/", "02", "OTAreas"]}
-                            customWidth={"mr-[-1rem] mt-[2rem]"}
+                            customWidth={"labelInput inputStyles w-[20vw]"}
                             error={errors.area_hasta}
-
                         />
                     </div>
                 </div>
@@ -249,7 +248,7 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
                             label="Observaciones"
                             name="observaciones"
                             control={control}
-                            customWidth={"mt-[2rem]"}
+                            customWidth={"labelInput inputStyles"}
                             isOptional={true}
                             />
                     </div>

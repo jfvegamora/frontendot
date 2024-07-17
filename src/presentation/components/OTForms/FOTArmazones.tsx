@@ -792,7 +792,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
 //    console.log(a1_armazon.value)
   return (
     <form>
-        <div className='w-full frameOTForm h-[85vh]'>
+        <div className='w-full frameOTForm h-[84vh]'>
             {/* <div className='w-full items-center rowForm !h-[5rem]  grid grid-cols-3'> */}
             <div className="relative !mt-[2rem] !h-[30rem] grid grid-cols-3">
                 <div className='flex !h-[29rem] !ml-[1rem]'>
@@ -834,7 +834,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
                             </div>                            
                         </div>
 
-                        <div className="w-[90%] h-[30vw] FOTArmazonesInfo  mx-auto radioComponent">
+                        <div className="w-[90%] !h-auto FOTArmazonesInfo  mx-auto radioComponent">
                             <div className="ml-2 mb-2 flex justify-between ">
                                 <h2 className="textArmazonOT">Tipo:</h2>
                                 <p className="textArmazonOTDetalle">{ validar_parametrizacion.value === '1' ? armazon1[0] && armazon1[2] : armazon1 && armazon1[2]}</p>
@@ -918,7 +918,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
                             </div>                            
                         </div>
 
-                        <div className="w-[90%] h-[30vw] FOTArmazonesInfo mx-auto radioComponent">
+                        <div className="w-[90%] !h-auto FOTArmazonesInfo mx-auto radioComponent">
                             <div className="ml-2 mb-2 flex justify-between ">
                                 <h2 className="textArmazonOT">Tipo:</h2>
                                 <p className="textArmazonOTDetalle">{validar_parametrizacion.value === '1' ? armazon2[0] && armazon2[2] : armazon2 &&  armazon2[2]}</p>
@@ -985,7 +985,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
                             </div>
                         </div>
 
-                        <div className="w-[90%] mx-auto h-[30vw] FOTArmazonesInfo radioComponent">
+                        <div className="w-[90%] mx-auto !h-auto FOTArmazonesInfo radioComponent">
                             <div className="ml-2 mb-2 flex justify-between ">
                                 <h2 className="textArmazonOT">Tipo:</h2>
                                 <p className="textArmazonOTDetalle">{validar_parametrizacion.value === '1' ? armazon3[0] && armazon3[2] : armazon3 && armazon3[2]}</p>

@@ -338,7 +338,6 @@ const MOT: React.FC = () => {
           )}
         </Suspense>
  
-
       <Suspense>
         {isModalInsert && (
           <FOT
