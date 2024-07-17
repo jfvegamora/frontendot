@@ -169,6 +169,7 @@ const MProyectos: React.FC = () => {
                 },
               },
             
+              
             ]}
             classNameSearchButton=" translate-x-[2vw]"
 
