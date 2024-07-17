@@ -69,7 +69,7 @@ const MMarcas: React.FC = () => {
 
   return (
     <div className="mantenedorContainer">
-      <div className="mantenedorHead width70">
+      <div className="mantenedorHead width80">
         <div className="w-[80%]">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
@@ -79,9 +79,9 @@ const MMarcas: React.FC = () => {
             primaryKeyInputs={[
               { name: "_p1", label: "Nombre", type: "text", 
                 styles:{
-                  styles:"!h-[2.5vw] text-[1vw] w-full",
-                  container:"!w-[20vw]  text-[1vw]", 
-                  labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+                  styles:"labelInput inputStyles w-[15vw]",
+                  container:"!w-[15vw]  text-[1vw]", 
+                  labelProps: "labelInput"
                 } },
               {
                 name: "_p2",
@@ -89,9 +89,9 @@ const MMarcas: React.FC = () => {
                 type: "select",
                 selectUrl: "/api/proveedores/",
                 styles:{
-                  styles:"!h-[2.5vw] text-[1vw] w-full",
-                  container:"!w-[15vw]  text-[1vw] translate-y-[0.3rem]", 
-                  labelProps: "!translate-y-[-3vh] !text-[1.2vw] !font-[2vw]"
+                  styles:"labelInput inputStyles w-[20vw]",
+                  container:"!w-[20vw]  text-[1vw] ", 
+                  labelProps: "labelInput"
                 }
               },
               {
@@ -101,32 +101,37 @@ const MMarcas: React.FC = () => {
                 selectUrl : "/api/tipos/",
                 tipos     : "TipoInsumo",
                 styles    :  {
-                  styles:"!h-[2.5vw] text-[1vw] w-full",
-                  container:"!w-[15vw]  text-[1vw] translate-x-[-3vw] translate-y-[0.3rem]", 
-                  labelProps: "!translate-y-[-3vh] !text-[1.2vw] !font-[2vw]"
+                  styles:"labelInput inputStyles w-[15vw]",
+                  container:"!w-[15vw]  text-[1vw] translate-x-[2vw] ", 
+                  labelProps: "labelInput"
                   }
               },
             ]}
-            classNameSearchButton=" translate-x-[-3.5vw] translate-y-[0.3rem]"
+            classNameSearchButton=" translate-x-[2vw]"
           />
         </div>
 
-        <PrimaryButtonsComponent
-          handleAddPerson={openModal}
-          handleDeleteSelected={handleDeleteSelected}
-          handleRefresh={resetEntities}
-          params={params}
-          pkToDelete={pkToDelete}
-          strEntidad={strEntidadExcel}
-          strBaseUrl={strBaseUrl}
-          showAddButton={true}
-          comilla={false}
-          showExportButton={true}
-          showDeleteButton={true}
-          showForwardButton={false}
-          showRefreshButton={true}
-          idMenu={idMenu}
-        />
+
+        <div className="w-[15vw]">
+          <PrimaryButtonsComponent
+            handleAddPerson={openModal}
+            handleDeleteSelected={handleDeleteSelected}
+            handleRefresh={resetEntities}
+            params={params}
+            pkToDelete={pkToDelete}
+            strEntidad={strEntidadExcel}
+            strBaseUrl={strBaseUrl}
+            showAddButton={true}
+            comilla={false}
+            showExportButton={true}
+            showDeleteButton={true}
+            showForwardButton={false}
+            showRefreshButton={true}
+            idMenu={idMenu}
+            classname={"translate-x-[5vw]  !w-[12vw]"}
+          />
+        </div>
+
       </div>
 
       <div className="scroll width60">

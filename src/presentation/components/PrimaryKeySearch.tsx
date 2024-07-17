@@ -151,7 +151,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
           className = "grid grid-rows-3 grid-cols-2 !w-[90%] px-0 py-4 h-[30vh]  items-center"
           break;
       default:
-          className = "flex mb-auto items-cente w-[70rem]  items-center "
+          className = "flex mb-auto items-cente w-[80vw]  items-center "
           break;
     }
 
@@ -375,7 +375,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                       inputValues={inputValues}
                       setHandleSearch={handleSearch}
                       handleSelectChange={handleSelectChange}
-                      customWidth={`h-[2.8vw] ${input.styles?.with}`}
+                      customWidth={`h-[2.8vw] ${input.styles?.styles}`}
                       labelProps={input.styles?.labelProps}
                   
                     />
@@ -398,7 +398,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                             inputValues={inputValues}
                             setHandleSearch={handleSearch}
                             handleSelectChange={handleSelectChange}
-                            customWidth={` h-[2.8vw] ${input.styles?.with}`}
+                            customWidth={` h-[2.8vw] ${input.styles?.styles}`}
                             labelProps={input.styles?.labelProps}
                             // className={` ${input.styles?.with}`}
                           />
@@ -416,7 +416,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                       <Input
                         type="date"
                         color="orange"
-                        className={`h-[3rem] border border-gray-500 rounded ${input.styles?.with}`}
+                        className={`h-[3rem] border border-gray-500 rounded ${input.styles?.styles}`}
                         {...field}
                         value={field.value || ""}
                         onChange={(e) => {
@@ -429,7 +429,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                 </div>
               ) : (
                 // Otros tipos de entrada
-              <div className={`rowForm 
+              <div className={` -mt-3
                               ${input.styles?.container}`}>
                 <Controller
                   name={input.name}
@@ -441,14 +441,14 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                         htmlFor={input.label}
                         className={`${
                           input.styles?.labelProps ? input.styles?.labelProps : ""
-                        } absolute !translate-y-[-0.4vw] translate-x-3 !bg-white z-20`}
+                        } absolute !translate-y-[-0.45vw] translate-x-3 !bg-white z-20`}
                       >
                         {input?.label}
                       </label>
                       <Input
                         color="orange"
                         tabIndex={1}
-                        className={`!h-[2.8vw] ${input?.styles?.with || ""}`}
+                        className={`  ${input?.styles?.with || ""}`}
                         {...field}
                         type={input.type}
                         // label={input.label}
@@ -459,7 +459,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                           handleInputChange(input.name, e.target.value);
                         }}
                         onKeyDown={handleKeyDown}
-                        labelProps={{ className: 'text-[2vw]' }}
+                        labelProps={{ className: 'inputStyles' }}
                       />
                     </>
                   )}
@@ -497,12 +497,12 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
     return (
       <form className="primaryKeyContainer !items-center relative !text-[2vw]">
         {renderInputs()}
-        <div className={`h-auto flex ${classNameSearchButton}  ${(baseUrl === '/api/ot/' || baseUrl === '/api/othistorica/' ) ? 'absolute left-[89vw] top-0 flex flex-col !py-6 !my-4 !w-[4vw] ' : ''} `}>
+        <div className={`h-auto !items-center w-[9vw] flex ${classNameSearchButton}  ${(baseUrl === '/api/ot/' || baseUrl === '/api/othistorica/' ) ? 'absolute left-[89vw] top-0 flex flex-col !py-6 !my-4 !w-[4vw] ' : ''} `}>
           <Tooltip content="Buscar">
               <IconButton
               tabIndex={1}
                 variant="text"
-                className="primaryKeyIconButton  ml-2 mr-2 mb-4"
+                className="primaryKeyIconButton mx-6"
                 type="submit"
                 onClick={(e)=>{
                   e.preventDefault()
@@ -510,7 +510,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                   return handleSubmit(handleSearch)()
                 }}
               >
-                <FontAwesomeIcon icon={faMagnifyingGlass} className="primaryKeyIcon w-full text-[1vw]  !mt-2"/>
+                <FontAwesomeIcon icon={faMagnifyingGlass} className="primaryKeyIcon w-full text-[1vw]"/>
             </IconButton>
           </Tooltip>
           <Tooltip content="Refrescar">
@@ -518,7 +518,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
               tabIndex={1}
                 variant="text"
                 color="blue-gray"
-                className="primaryBtnIconButton  mt-1 ml-2 mr-2"
+                className="primaryBtnIconButton z-30"
                 type="submit"
                 onClick={(e)=>{
                   e.preventDefault()
@@ -528,7 +528,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                  return handleRefresh()
                 }}
               >
-                <FontAwesomeIcon icon={faArrowsRotate} className="primaryBtnIcon w-full  !mt-2"/>
+                <FontAwesomeIcon icon={faArrowsRotate} className="primaryBtnIcon w-full"/>
             </IconButton>
           </Tooltip>
         </div>
