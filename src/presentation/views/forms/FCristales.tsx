@@ -309,23 +309,20 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
 
     console.log(data && typeof data[CristalesEnum.stock_reservado])
     return (
-      <div className="useFormContainer centered-div w-[50vw] h-[42vw] ">
-        <div className="userFormBtnCloseContainer flex">
-          <div className="w-[50%] mx-auto !text.center">
-            <h1 className="userFormLabel">{label}</h1>
-          </div>
-          <button onClick={closeModal} className="userFormBtnClose">
+      <div className="useFormContainer centered-div w-[45rem]">
+        <div className="userFormBtnCloseContainer">
+          <h1 className="userFormLabel mx-auto">{label}</h1>
+          <button onClick={closeModal} className="userFormBtnClose mr-4">
             X
           </button>
         </div>
-
 
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))}
           className="userFormulario">
           <div className="userFormularioContainer">
-            <div className="rowForm !mb-2 translate-y-[-1vw]">
-              <div className="w-[40%] mx-auto">
+            <div className="input-container items-center rowForm w-[50%]">
+              <div className="labelInputDiv">
                 <TextInputComponent
                   type="text"
                   label="Código"
@@ -337,94 +334,108 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                   onlyRead={isEditting}
                   maxLength={20}
                   customWidth={"labelInput inputStyles"}
-
                 />
               </div>
             </div>
 
-            <div className="flex rowForm items-center mt-2">
-              <div className="w-[50%] ml-4">
-                <SelectInputComponent
-                  label="Marca"
-                  name="marca"
-                  showRefresh={true}
-                  data={data && data[CristalesEnum.marca_id]}
-                  control={control}
-                  entidad={["/api/marcas/", "02", "2"]}
-                  error={errors.marca}
-                  customWidth={"labelInput inputStyles"}
-                  tabIndex={1}
-                />
+            <div className="w-full flex items-center">
+              <div className="input-container items-center rowForm w-[50%]">
+                <div className="selectInputDiv">
+                  <SelectInputComponent
+                    label="Marca"
+                    name="marca"
+                    showRefresh={true}
+                    data={data && data[CristalesEnum.marca_id]}
+                    control={control}
+                    entidad={["/api/marcas/", "02", "2"]}
+                    error={errors.marca}
+                    customWidth={"labelInput inputStyles"}
+                    tabIndex={1}
+                  />
+                </div>
               </div>
-              <div className="w-[50%]">
-                <SelectInputTiposComponent
-                  label="Diseño"
-                  name="diseno"
-                  showRefresh={true}
-                  data={data && data[CristalesEnum.diseno_id]}
-                  control={control}
-                  customWidth={"labelInput inputStyles"}
-                  entidad={"CristalesDisenos"}
-                  error={errors.diseno}
-                />
-              </div>
-            </div>
-            <div className="flex rowForm items-center mt-4">
-              <div className="w-[50%] ml-4">
-                <SelectInputTiposComponent
-                  label="Índice"
-                  name="indice"
-                  showRefresh={true}
-                  data={data && data[CristalesEnum.indice_id]}
-                  control={control}
-                  customWidth={"labelInput inputStyles"}
-                  entidad={"CristalesIndices"}
-                  error={errors.indice}
-                />
-              </div>
-              <div className="w-[50%]">
-                <SelectInputTiposComponent
-                  label="Material"
-                  name="material"
-                  showRefresh={true}
-                  data={data && data[CristalesEnum.material_id]}
-                  control={control}
-                  entidad="CristalesMateriales"
-                  customWidth={"labelInput inputStyles"}
-                  error={errors.material}
 
-                />
+              <div className="input-container items-center rowForm w-[50%]">
+                <div className="selectInputDiv">
+                  <SelectInputTiposComponent
+                    label="Diseño"
+                    name="diseno"
+                    showRefresh={true}
+                    data={data && data[CristalesEnum.diseno_id]}
+                    control={control}
+                    customWidth={"labelInput inputStyles"}
+                    entidad={"CristalesDisenos"}
+                    error={errors.diseno}
+                  />
+                </div>
               </div>
             </div>
-            <div className="flex rowForm items-center mt-4">
-              <div className="w-[50%] ml-4">
-                <SelectInputTiposComponent
-                  label="Color"
-                  name="color"
-                  showRefresh={true}
-                  data={data && data[CristalesEnum.color_id]}
-                  control={control}
-                  entidad="CristalesColores"
-                  customWidth={"labelInput inputStyles"}
-                  error={errors.color}
-                />
+
+            <div className="w-full flex items-center">
+              <div className="input-container items-center rowForm w-[50%]">
+                <div className="selectInputDiv">
+                  <SelectInputTiposComponent
+                    label="Índice"
+                    name="indice"
+                    showRefresh={true}
+                    data={data && data[CristalesEnum.indice_id]}
+                    control={control}
+                    customWidth={"labelInput inputStyles"}
+                    entidad={"CristalesIndices"}
+                    error={errors.indice}
+                  />
+                </div>
               </div>
-              <div className="w-[50%]">
-                <SelectInputTiposComponent
-                  label="Tratamiento"
-                  name="tratamiento"
-                  showRefresh={true}
-                  data={data && data[CristalesEnum.tratamiento_id]}
-                  control={control}
-                  entidad="CristalesTratamientos"
-                  customWidth={"labelInput inputStyles"}
-                  error={errors.tratamiento}
-                />
+              <div className="input-container items-center rowForm w-[50%]">
+                <div className="selectInputDiv">
+                  <SelectInputTiposComponent
+                    label="Material"
+                    name="material"
+                    showRefresh={true}
+                    data={data && data[CristalesEnum.material_id]}
+                    control={control}
+                    entidad="CristalesMateriales"
+                    customWidth={"labelInput inputStyles"}
+                    error={errors.material}
+                  />
+                </div>
               </div>
             </div>
-            <div className="!mt-[0.4rem] translate-y-[0.5vw]">
-              <div className="flex items-center rowForm">
-                <div className="pl-2">
+
+            <div className="w-full flex items-center">
+              <div className="input-container items-center rowForm w-[50%]">
+                <div className="selectInputDiv">
+                  <SelectInputTiposComponent
+                    label="Color"
+                    name="color"
+                    showRefresh={true}
+                    data={data && data[CristalesEnum.color_id]}
+                    control={control}
+                    entidad="CristalesColores"
+                    customWidth={"labelInput inputStyles"}
+                    error={errors.color}
+                  />
+                </div>
+              </div>
+              <div className="input-container items-center rowForm w-[50%]">
+                <div className="selectInputDiv">
+                  <SelectInputTiposComponent
+                    label="Tratamiento"
+                    name="tratamiento"
+                    showRefresh={true}
+                    data={data && data[CristalesEnum.tratamiento_id]}
+                    control={control}
+                    entidad="CristalesTratamientos"
+                    customWidth={"labelInput inputStyles"}
+                    error={errors.tratamiento}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="w-full flex items-center">
+              <div className="input-container items-center rowForm w-[33%]">
+                <div className="labelInputDiv">
                   <TextInputComponent
                     type="number"
                     label="Diámetro"
@@ -436,8 +447,10 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                     customWidth={"labelInput inputStyles"}
                   />
                 </div>
+              </div>
 
-                <div className="">
+              <div className="input-container items-center rowForm w-[33%]">
+                <div className="labelInputDiv">
                   <TextInputComponent
                     type="number"
                     label="Esférico"
@@ -450,8 +463,10 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                     customWidth={"labelInput inputStyles"}
                   />
                 </div>
+              </div>
 
-                <div className="pr-6">
+              <div className="input-container items-center rowForm w-[33%]">
+                <div className="labelInputDiv">
                   <TextInputComponent
                     type="number"
                     label="Cilíndrico"
@@ -466,103 +481,118 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
                 </div>
               </div>
             </div>
-            <div className="flex items-center rowForm translate-y-[1vw]">
-              <div className="pl-2">
-                <TextInputComponent
-                  type="number"
-                  label="Stock Minimo"
-                  name="stock_minimo"
-                  data={data && data[CristalesEnum.stock_minimo]}
-                  control={control}
-                  error={errors.stock_minimo}
-                  textAlign="text-right"
-                  customWidth={"labelInput inputStyles"}
-                />
+
+            <div className="w-full flex items-center">
+              <div className="input-container items-center rowForm w-[33%]">
+                <div className="labelInputDiv">
+                  <TextInputComponent
+                    type="number"
+                    label="Stock Mínimo"
+                    name="stock_minimo"
+                    data={data && data[CristalesEnum.stock_minimo]}
+                    control={control}
+                    error={errors.stock_minimo}
+                    textAlign="text-right"
+                    customWidth={"labelInput inputStyles"}
+                  />
+                </div>
               </div>
-              <div className="">
-                <TextInputComponent
-                  type="number"
-                  label="Stock Reservado"
-                  name="stock_reservado"
-                  data={data && data[CristalesEnum.stock_reservado]}
-                  // data={100000}
-                  control={control}
-                  onlyRead={true}
-                  tabIndex={-1}
-                  textAlign="text-right"
-                  customWidth={"labelInput inputStyles"}
-                />
+
+              <div className="input-container items-center rowForm w-[33%]">
+                <div className="labelInputDiv">
+                  <TextInputComponent
+                    type="number"
+                    label="Stock Reservado"
+                    name="stock_reservado"
+                    data={data && data[CristalesEnum.stock_reservado]}
+                    // data={100000}
+                    control={control}
+                    onlyRead={true}
+                    tabIndex={-1}
+                    textAlign="text-right"
+                    customWidth={"labelInput inputStyles"}
+                  />
+                </div>
               </div>
-              <div className="pr-6">
-                <TextInputComponent
-                  type="number"
-                  label="Stock Disponible"
-                  name="stock_disponible"
-                  data={data && data[CristalesEnum.stock_disponible]}
-                  control={control}
-                  onlyRead={true}
-                  tabIndex={-1}
-                  textAlign="text-right"
-                  customWidth={"labelInput inputStyles"}
-                />
+
+              <div className="input-container items-center rowForm w-[33%]">
+                <div className="labelInputDiv">
+                  <TextInputComponent
+                    type="number"
+                    label="Stock Disponible"
+                    name="stock_disponible"
+                    data={data && data[CristalesEnum.stock_disponible]}
+                    control={control}
+                    onlyRead={true}
+                    tabIndex={-1}
+                    textAlign="text-right"
+                    customWidth={"labelInput inputStyles"}
+                  />
+                </div>
               </div>
             </div>
-            <div className="flex rowForm items-center translate-y-[2vw]">
-              <div className="w-[50%] pl-2">
-                <TextInputComponent
-                  type="text"
-                  label="Código FAB 1"
-                  name="codigo_fab_1"
-                  data={data && data[CristalesEnum.codigo_fab_1]}
-                  control={control}
-                  // error={errors.codigo}
-                  maxLength={20}
-                  isOptional={true}
-                  customWidth={"labelInput inputStyles"}
-                />
+
+            <div className="w-full flex items-center">
+              <div className="input-container items-center rowForm w-[50%]">
+                <div className="labelInputDiv">
+                  <TextInputComponent
+                    type="text"
+                    label="Código FAB 1"
+                    name="codigo_fab_1"
+                    data={data && data[CristalesEnum.codigo_fab_1]}
+                    control={control}
+                    maxLength={20}
+                    isOptional={true}
+                    customWidth={"labelInput inputStyles"}
+                  />
+                </div>
               </div>
-              <div className="w-[50%] pr-6">
-                <TextInputComponent
-                  type="text"
-                  label="Código FAB 2"
-                  name="codigo_fab_2"
-                  data={data && data[CristalesEnum.codigo_fab_2]}
-                  control={control}
-                  // error={errors.codigo}
-                  maxLength={20}
-                  isOptional={true}
-                  customWidth={"labelInput inputStyles"}
-                />
+
+              <div className="input-container items-center rowForm w-[50%]">
+                <div className="labelInputDiv">
+                  <TextInputComponent
+                    type="text"
+                    label="Código FAB 2"
+                    name="codigo_fab_2"
+                    data={data && data[CristalesEnum.codigo_fab_2]}
+                    control={control}
+                    maxLength={20}
+                    isOptional={true}
+                    customWidth={"labelInput inputStyles"}
+                  />
+                </div>
               </div>
             </div>
-            <div className="flex rowForm items-center translate-y-[2vw] py-2">
-              <div className="w-[50%] pl-2">
-                <TextInputComponent
-                  type="text"
-                  label="Código FAB 3"
-                  name="codigo_fab_3"
-                  data={data && data[CristalesEnum.codigo_fab_3]}
-                  control={control}
-                  // error={errors.codigo}
-                  maxLength={20}
-                  isOptional={true}
-                  customWidth={"labelInput inputStyles"}
 
-                />
+            <div className="w-full flex items-center">
+              <div className="input-container items-center rowForm w-[50%]">
+                <div className="labelInputDiv">
+                  <TextInputComponent
+                    type="text"
+                    label="Código FAB 3"
+                    name="codigo_fab_3"
+                    data={data && data[CristalesEnum.codigo_fab_3]}
+                    control={control}
+                    maxLength={20}
+                    isOptional={true}
+                    customWidth={"labelInput inputStyles"}
+                  />
+                </div>
               </div>
-              <div className="w-[50%] pr-6">
-                <TextInputComponent
-                  type="text"
-                  label="Código FAB 4"
-                  name="codigo_fab_4"
-                  data={data && data[CristalesEnum.codigo_fab_4]}
-                  control={control}
-                  // error={errors.codigo}
-                  maxLength={20}
-                  customWidth={"labelInput inputStyles"}
 
-                  isOptional={true}
-                />
+              <div className="input-container items-center rowForm w-[50%]">
+                <div className="labelInputDiv">
+                  <TextInputComponent
+                    type="text"
+                    label="Código FAB 4"
+                    name="codigo_fab_4"
+                    data={data && data[CristalesEnum.codigo_fab_4]}
+                    control={control}
+                    maxLength={20}
+                    isOptional={true}
+                    customWidth={"labelInput inputStyles"}
+                  />
+                </div>
               </div>
             </div>
           </div>

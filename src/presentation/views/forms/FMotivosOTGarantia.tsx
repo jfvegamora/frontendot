@@ -221,7 +221,7 @@ const FMotivosOTGarantia: React.FC<ISituacionesFormProps> = React.memo(
     return (
       <div className="useFormContainer centered-div w-[35vw]">
         <div className="userFormBtnCloseContainer">
-          <h1 className="userFormLabel translate-x-[-2vw]">{label}</h1>
+          <h1 className="userFormLabel mx-auto">{label}</h1>
           <button onClick={closeModal} className="userFormBtnClose mr-4">
             X
           </button>
@@ -231,8 +231,8 @@ const FMotivosOTGarantia: React.FC<ISituacionesFormProps> = React.memo(
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))}
           className="userFormulario">
           <div className="userFormularioContainer">
-            <div className="input-container items-center rowForm  ">
-              <div className="w-full mb-8 px-2">
+          <div className="input-container items-center rowForm">
+              <div className="labelInputDiv">
                 <TextInputComponent
                   type="text"
                   label="Descripción"
@@ -246,8 +246,8 @@ const FMotivosOTGarantia: React.FC<ISituacionesFormProps> = React.memo(
               </div>
             </div>
 
-            <div className="input-container items-center rowForm  ">
-              <div className="w-full !mt-4 ml-4">
+            <div className="input-container items-center rowForm">
+              <div className="selectInputDiv">
                 <SelectInputTiposComponent
                   label="Área exclusiva"
                   name="area_hasta"

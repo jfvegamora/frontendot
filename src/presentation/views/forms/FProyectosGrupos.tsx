@@ -21,9 +21,9 @@ import { signal } from "@preact/signals-react";
 const strBaseUrl = "/api/proyectogrupos/";
 const strEntidad = "Parametrización de Cristales ";
 
-export const valor_neto_armazones     = signal(0);
-export const valor_neto_cristales     = signal(0);
-export const armazon_flexible         = signal(false);
+export const valor_neto_armazones = signal(0);
+export const valor_neto_cristales = signal(0);
+export const armazon_flexible = signal(false);
 
 export interface InputData {
   proyecto: string | undefined;
@@ -64,8 +64,8 @@ interface OutputData {
 
 
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
-  const valorTotalArmazon      = parseInt(jsonData.valor_neto_armazon as any);
-  const valorTotalCristal      = parseInt(jsonData.valor_neto_cristal as any);
+  const valorTotalArmazon = parseInt(jsonData.valor_neto_armazon as any);
+  const valorTotalCristal = parseInt(jsonData.valor_neto_cristal as any);
 
   console.log(jsonData)
 
@@ -103,8 +103,8 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
 }
 
 export function transformUpdateQuery(jsonData: InputData): OutputData | null {
-  const valorTotalArmazon      = parseInt(jsonData.valor_neto_armazon as any);
-  const valorTotalCristal      = parseInt(jsonData.valor_neto_cristal as any);
+  const valorTotalArmazon = parseInt(jsonData.valor_neto_armazon as any);
+  const valorTotalCristal = parseInt(jsonData.valor_neto_cristal as any);
 
 
   const fields = [
@@ -124,7 +124,7 @@ export function transformUpdateQuery(jsonData: InputData): OutputData | null {
     `armazon_material  = ${armazon_flexible.value === true ? "3" : "0"}`,
 
     `valor_neto_armazon= ${(jsonData.valor_neto_armazon && jsonData.valor_neto_armazon?.toString())?.length === 0 ? "0" : jsonData.valor_neto_armazon}`,
-    `valor_neto_total  = ${valorTotalArmazon + valorTotalCristal }`,
+    `valor_neto_total  = ${valorTotalArmazon + valorTotalCristal}`,
     `observaciones     ="${jsonData.observaciones}"`,
   ];
 
@@ -160,8 +160,8 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
     // const [idCristal, setIdCristal] = useState('');
     const { showModal, CustomModal } = useModal();
     const [totalNeto, setTotalNeto] = useState(0);
-    const [totalNetoArmazones, setTotalNetoArmazones]      = useState(0);
-    const [totalNetoCristales, setTotalNetoCristales]      = useState(0);
+    const [totalNetoArmazones, setTotalNetoArmazones] = useState(0);
+    const [totalNetoCristales, setTotalNetoCristales] = useState(0);
     const { show } = useCustomToast();
     // const {ListEntity:ListEntityCristales} = useCrud("/api/cristaleskardex/");
 
@@ -321,7 +321,7 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
 
     useEffect(() => {
       isEditting ? focusSecondInput("cod_grupo") : focusFirstInput("cod_grupo");
-      if(isEditting){
+      if (isEditting) {
         const totalNeto = data && (data[EnumGrid.valor_neto_cristal] + data[EnumGrid.valor_neto_armazon])
         setTotalNeto(totalNeto)
         setValue('valor_neto_total', totalNeto)
@@ -374,11 +374,9 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
         <h1 className="userFormLabel">{label}</h1> */}
 
         <div className="userFormBtnCloseContainer flex ">
-          <div className='w-[50%] mx-auto !text-center  '>
-            <h1 className='userFormLabel mx-auto  w-full '>{label}</h1>
-          </div>
+          <h1 className="userFormLabel -translate-x-[15rem]">{label}</h1>
           <div className=''>
-            <button onClick={closeModal} className="userFormBtnClose mr-3">
+            <button onClick={closeModal} className="userFormBtnClose mr-4">
               X
             </button>
           </div>
@@ -390,7 +388,7 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
 
             <div className="!pt-[1rem] h-[4vw]">
               <div className="input-container items-center rowForm  flex">
-                
+
                 <div className="w-[30vw] ml-4 mt-4">
                   <SelectInputComponent
                     label="Proyecto"
@@ -403,7 +401,7 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                     readOnly={isEditting}
                     customWidth={"labelInput inputStyles !w-[29vw]"}
 
-                    
+
                   />
                 </div>
 
@@ -431,7 +429,7 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                       control={control}
                       error={errors.descripcion}
                       customWidth={"labelInput inputStyles !w-[24vw]"}
-                      />
+                    />
                   </div>
                 </div>
               </div>
@@ -450,7 +448,7 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                     error={errors.marca}
                     tabIndex={1}
                     customWidth={"labelInput inputStyles !w-[21vw]"}
-                    />
+                  />
                 </div>
 
                 <div className="w-[22vw]">
@@ -493,7 +491,7 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                     entidad={["/api/tipos/", "02", "CristalesMateriales"]}
                     error={errors.material}
                     customWidth={"labelInput inputStyles !w-[21vw]"}
-                    
+
                   />
                 </div>
                 <div className="!w-[22vw]">
@@ -523,7 +521,7 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
               </div>
             </div>
 
-            <div className="mt-6  h-[4rem]">
+            <div className="mt-1  h-[4rem]">
               <div className="input-container items-center rowForm w-full flex">
                 <div className="w-[50%] flex ml-2">
                   <div className="">
@@ -536,7 +534,7 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                       error={errors.diametro}
                       textAlign="text-center"
                       customWidth={"labelInput inputStyles !w-[10vw]"}
-                      />
+                    />
                   </div>
                   <div className="">
                     <TextInputComponent
@@ -596,7 +594,7 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
 
                     />
                   </div>
-                  <div className="w-[70%]">
+                  <div className="w-[70%] pr-10">
                     <TextInputComponent
                       type="number"
                       label="$ Venta Neto"
@@ -606,7 +604,7 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                       error={errors.valor_neto_cristal}
                       isOptional={false}
                       textAlign="text-right"
-                      customWidth={"labelInput inputStyles !w-[10vw]"}
+                      customWidth={"labelInput inputStyles"}
                       handleChange={(e) => {
                         console.log(e)
                         setTotalNetoCristales(e)
@@ -617,58 +615,51 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
               </div>
             </div>
 
-            <div className="w-[60vw] mx-auto flex mt-2  items-center ml-4">
-              <h1 className="userFormLabel mx-auto">Armazones</h1>
-
+            <div className="w-[60vw] mx-auto flex mt-10  items-center ml-4">
+              <h1 className="userFormLabel mx-auto">Armazón</h1>
             </div>
-
-
             <div className="!pt-[1rem] h-[4rem] ">
               <div className="input-container items-center rowForm w-full flex translate-y-[-2vw]">
-      
-            
-                <div className="w-[80%] !ml-[6rem] ">
-                    <div className=" items-center flex ">
-                      <Controller
-                        name='armazon_material'
-                        control={control}
-                        render={({field})=>(
-                          <Switch 
-                            {...field}
-                            label="Armazon Flexible" 
-                            color="orange"
-                            onChange={(e)=>{
-                              armazon_flexible.value = e.target.checked
-                            }}
-                            defaultChecked={data ? data[EnumGrid.armazon_material_id] === 3 ? true : false : false}
-                         />
-                        )}
+                <div className="w-[75%] !ml-40">
+                  <div className=" items-center flex ">
+                    <Controller
+                      name='armazon_material'
+                      control={control}
+                      render={({ field }) => (
+                        <Switch
+                          {...field}
+                          label="Armazón Flexible"
+                          color="orange"
+                          onChange={(e) => {
+                            armazon_flexible.value = e.target.checked
+                          }}
+                          defaultChecked={data ? data[EnumGrid.armazon_material_id] === 3 ? true : false : false}
+                        />
+                      )}
 
-                      />
-                   </div>
+                    />
+                  </div>
                 </div>
-                <div className="w-[85%] translate-x-[13vw] ml-6">
-                   <TextInputComponent
+                <div className="w-[25%] pr-10">
+                  <TextInputComponent
                     type="number"
                     label="$ Neto Armazón"
-                    // name="valor_neto_armazon"
                     name="valor_neto_armazon"
                     data={data && data[EnumGrid.valor_neto_armazon]}
-                    // data={23}
                     control={control}
                     error={errors.valor_neto_armazon}
                     isOptional={false}
                     textAlign="text-right"
                     handleChange={(e) => { setTotalNetoArmazones(e) }}
-                    customWidth={"labelInput inputStyles !w-[13vw]"}
-                    />
+                    customWidth={"labelInput inputStyles"}
+                  />
                 </div>
               </div>
             </div>
 
             <div className=" h-[4rem]">
               <div className="input-container items-center rowForm w-full flex">
-                <div className="w-[50vw]">
+                <div className="w-[78%] ml-2">
                   <TextInputComponent
                     type="text"
                     label="Observaciones"
@@ -677,22 +668,19 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     error={errors.observaciones}
                     isOptional={true}
-                    customWidth={"labelInput inputStyles !w-[40vw]"}
+                    customWidth={"labelInput inputStyles"}
                   />
                 </div>
-                <div className="w-[20vw] translate-x-[1.5vw]">
+                <div className="w-[22%] pr-10">
                   <TextInputInteractive
                     type="number"
                     label="$ TOTAL NETO"
                     name="valor_neto_total"
-                    // data={data && data[EnumGrid.valor_neto_total]}
                     data={totalNeto || data && data[EnumGrid.valor_neto_total]}
                     control={control}
-                    // error={errors.valor_neto_total}
                     isOptional={false}
                     textAlign="text-right"
-                    customWidth={"labelInput inputStyles !w-[13vw]"}
-
+                    customWidth={"labelInput inputStyles"}
                   />
                 </div>
               </div>

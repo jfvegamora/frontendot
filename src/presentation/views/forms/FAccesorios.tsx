@@ -244,9 +244,9 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
 
     
     return (
-      <div className="useFormContainer centered-div w-[40rem]">
-        <div className="userFormBtnCloseContainer ">
-        <h1 className="userFormLabel translate-x-[-10vw]">{label}</h1>
+      <div className="useFormContainer centered-div w-[45rem]">
+        <div className="userFormBtnCloseContainer">
+          <h1 className="userFormLabel mx-auto">{label}</h1>
           <button onClick={closeModal} className="userFormBtnClose mr-4">
             X
           </button>
@@ -255,9 +255,9 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
-            <div className="w-full flex items-center h-[4rem]">
-              <div className="input-container items-center rowForm  w-[50%] ">
-                <div className="w-full ml-2">
+          <div className="w-full flex items-center">
+              <div className="input-container items-center rowForm w-[50%]">
+                <div className="labelInputDiv">
                   <TextInputComponent
                     type="text"
                     label="Código"
@@ -272,8 +272,8 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
                   />
                 </div>
               </div>
-              <div className="input-container items-center rowForm  w-[50%]">
-                <div className="w-full px-2">
+              <div className="input-container items-center rowForm w-[50%]">
+                <div className="labelInputDiv">
                 <TextInputComponent
                     type="text"
                     label="Descripción"
@@ -288,9 +288,9 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
               </div>
             </div>
 
-            <div className="w-full flex items-center h-[4rem]">
-              <div className="input-container items-center rowForm  w-[50%] ">
-                <div className="w-[21rem] ml-4">
+            <div className="w-full flex items-center">
+              <div className="input-container items-center rowForm w-[50%]">
+                <div className="selectInputDiv">
                 <SelectInputComponent
                     label="Marca"
                     name="marca"
@@ -303,8 +303,8 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
                     />
                 </div>
               </div>
-              <div className="input-container items-center rowForm  w-[50%]">
-                <div className="w-full px-2">
+              <div className="input-container items-center rowForm w-[50%]">
+                <div className="labelInputDiv">
                 <TextInputComponent
                     type="number"
                     label="Stock Mínimo"
@@ -319,9 +319,9 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
               </div>
             </div>
 
-            <div className="w-full flex items-center h-[4rem]">
-              <div className="input-container items-center rowForm w-[50%] ">
-                <div className="w-full ml-2">
+            <div className="w-full flex items-center">
+              <div className="input-container items-center rowForm w-[50%]">
+                <div className="labelInputDiv">
                   <TextInputComponent
                     type="number"
                     label="Precio Neto"
@@ -335,8 +335,8 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
                   />
                 </div>
               </div>
-              <div className="input-container items-center rowForm  w-[50%]">
-                <div className="w-full px-2">
+              <div className="input-container items-center rowForm w-[50%]">
+                <div className="labelInputDiv">
                 <TextInputComponent
                     type="text"
                     label="Código FAB"
@@ -352,10 +352,9 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
               </div>
             </div>
 
-
-            <div className="w-full flex items-center ">
-              <div className="input-container items-center rowForm w-[50%] ">
-                <div className="w-full ml-2">
+            <div className="w-full flex items-center">
+              <div className="input-container items-center rowForm w-[50%]">
+                <div className="labelInputDiv">
                   <TextInputComponent
                     type="number"
                     label="Stock Reservado"
@@ -369,8 +368,8 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
                   />
                 </div>
               </div>
-              <div className="input-container items-center rowForm  w-[50%]">
-                <div className="w-full px-2">
+              <div className="input-container items-center rowForm w-[50%]">
+                <div className="labelInputDiv">
                   <TextInputComponent
                     type="number"
                     label="Stock Disponible"

@@ -310,7 +310,7 @@ const FArmazonesKardexOUT: React.FC<IUserFormPrps> = React.memo(
     return (
       <div className="useFormContainer centered-div w-[35rem]">
         <div className="userFormBtnCloseContainer">
-          <h1 className="userFormLabel -translate-x-[5rem]">{label}</h1>
+          <h1 className="userFormLabel mx-auto">{label}</h1>
           <button onClick={closeModal} className="userFormBtnClose mr-4">
             X
           </button>
@@ -324,9 +324,9 @@ const FArmazonesKardexOUT: React.FC<IUserFormPrps> = React.memo(
               </div>
             )}
 
-            <div className="w-full flex items-center h-[4rem]">
-              <div className="flex input-container items-center rowForm w-[60%]  ">
-                <div className="w-full ml-2">
+            <div className="w-full flex items-center">
+              <div className="input-container items-center rowForm w-[65%]">
+                <div className="labelInputDiv">
                   <TextInputComponent
                     type="text"
                     label="Código"
@@ -341,8 +341,8 @@ const FArmazonesKardexOUT: React.FC<IUserFormPrps> = React.memo(
                 </div>
               </div>
 
-              <div className="flex input-container items-center rowForm w-[40%]  ">
-                <div className="w-full pr-3">
+              <div className="input-container items-center rowForm w-[35%]">
+                <div className="labelInputDiv">
                   <TextInputComponent
                     type={isEditting ? "datetime" : "date"}
                     label="Fecha"
@@ -358,9 +358,8 @@ const FArmazonesKardexOUT: React.FC<IUserFormPrps> = React.memo(
               </div>
             </div>
 
-            <div className="w-full flex items-center h-[4rem]">
-              <div className="input-container items-center rowForm w-[100%]  ">
-                <div className="w-full ml-4">
+              <div className="input-container items-center rowForm">
+                <div className="selectInputDiv">
                   <SelectInputComponent
                     label="Motivo Egreso"
                     name="motivo_egreso"
@@ -372,12 +371,11 @@ const FArmazonesKardexOUT: React.FC<IUserFormPrps> = React.memo(
                     customWidth={"labelInput inputStyles"}
                   />
                 </div>
-              </div>
             </div>
 
-            <div className="w-full flex items-center h-[4rem]">
-              <div className="input-container items-center rowForm w-[50%]  ">
-                <div className="w-full ml-2">
+            <div className="w-full flex items-center">
+              <div className="input-container items-center rowForm w-[65%]">
+                <div className="labelInputDiv">
                   <TextInputComponent
                     type="number"
                     label="Cantidad"
@@ -391,8 +389,8 @@ const FArmazonesKardexOUT: React.FC<IUserFormPrps> = React.memo(
                 </div>
               </div>
 
-              <div className="input-container items-center rowForm w-[50%]  ">
-                <div className="w-full pr-3">
+              <div className="input-container items-center rowForm w-[35%]">
+                <div className="labelInputDiv">
                   <TextInputComponent
                     type="number"
                     label="N° OT"
@@ -408,11 +406,8 @@ const FArmazonesKardexOUT: React.FC<IUserFormPrps> = React.memo(
               </div>
             </div>
 
-
-
-            <div className="w-full flex items-center h-[4rem]">
-              <div className="input-container items-center rowForm w-[100%]  ">
-                <div className="w-full ml-4">
+              <div className="input-container items-center rowForm">
+                <div className="selectInputDiv">
                   <SelectInputComponent
                     label="Almacén"
                     name="almacen"
@@ -424,12 +419,10 @@ const FArmazonesKardexOUT: React.FC<IUserFormPrps> = React.memo(
                     customWidth={"labelInput inputStyles"}
                   />
                 </div>
-              </div>
             </div>
 
-            <div className="w-full flex items-center h-[4rem]">
-              <div className="input-container items-center rowForm w-[100%]  ">
-                <div className="w-full ml-4">
+              <div className="input-container items-center rowForm">
+                <div className="selectInputDiv">
                   <SelectInputComponent
                     label="Almacén Destino"
                     name="almacen_relacionado"
@@ -441,13 +434,12 @@ const FArmazonesKardexOUT: React.FC<IUserFormPrps> = React.memo(
                     customWidth={"labelInput inputStyles"}
                     isOptional={true}
                   />
-                </div>
               </div>
             </div>
 
-            <div className="w-full flex items-center h-[4rem]">
-              <div className="input-container items-center rowForm w-full">
-                <div className="w-full ml-2">
+            <div className="w-full flex items-center">
+              <div className="input-container items-center rowForm w-[65%]">
+                <div className="labelInputDiv">
                   <TextInputComponent
                     type="text"
                     label="Observaciones"
@@ -461,8 +453,8 @@ const FArmazonesKardexOUT: React.FC<IUserFormPrps> = React.memo(
                 </div>
               </div>
 
-              <div className="input-container items-center rowForm w-full  ">
-                <div className="w-full pr-3">
+              <div className="input-container items-center rowForm w-[35%]">
+                <div className="labelInputDiv">
                   <TextInputComponent
                     type="text"
                     label="Ubicación"

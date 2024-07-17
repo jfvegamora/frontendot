@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationProveedoresSchema } from "../../utils/validationFormSchemas";
 import { EnumGrid } from "../mantenedores/MProveedores";
-import {  MODAL, SUCCESS_MESSAGES, TITLES, validateRut } from "../../utils";
+import { MODAL, SUCCESS_MESSAGES, TITLES, validateRut } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
@@ -19,11 +19,11 @@ const strBaseUrl = "/api/proveedores/";
 const strEntidad = "Proveedor ";
 
 export interface InputData {
-  nombre   : string | undefined;
-  rut      : string | undefined;
+  nombre: string | undefined;
+  rut: string | undefined;
   direccion: string | undefined;
-  telefono : string | undefined;
-  correo   : string | undefined;
+  telefono: string | undefined;
+  correo: string | undefined;
   sitio_web: string | undefined;
 }
 
@@ -41,7 +41,7 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
      "${jsonData.telefono}", 
      "${jsonData.correo}", 
      "${jsonData.sitio_web}"`;
- _p1 = _p1.replace(/'/g, '!');
+  _p1 = _p1.replace(/'/g, '!');
 
   const query: OutputData = {
     query: "03",
@@ -153,17 +153,17 @@ const FProveedores: React.FC<IUserFormPrps> = React.memo(
       async (response: any, isEditting: boolean) => {
         if (response.code === "ERR_BAD_RESPONSE" || response.stack) {
           const errorMessage = isEditting
-          ? strEntidad.concat(": " + response.message)
-                : strEntidad.concat(": " + response.message)
-                show({
+            ? strEntidad.concat(": " + response.message)
+            : strEntidad.concat(": " + response.message)
+          show({
             message: errorMessage ? errorMessage : response.code,
             type: "error",
           });
 
           return;
         }
-        
-        if(response.mensaje.includes('Creado')){
+
+        if (response.mensaje.includes('Creado')) {
           toastSuccess(isEditting);
         }
         if (!blnKeep && !isEditting) {
@@ -216,9 +216,9 @@ const FProveedores: React.FC<IUserFormPrps> = React.memo(
           console.log(data)
 
 
-          if(data["rut"]?.trim() !== ''){
+          if (data["rut"]?.trim() !== '') {
             const response = validateRut(data["rut"]?.trim());
-            if(!response){
+            if (!response) {
               toast.error('Rut no válido')
               return setValue("rut", "");
             }
@@ -250,9 +250,9 @@ const FProveedores: React.FC<IUserFormPrps> = React.memo(
     }, []);
 
     return (
-      <div className="useFormContainer centered-div use30rem">
+      <div className="useFormContainer centered-div w-[35rem]">
         <div className="userFormBtnCloseContainer">
-        <h1 className="userFormLabel -translate-x-20">{label}</h1>
+          <h1 className="userFormLabel mx-auto">{label}</h1>
           <button onClick={closeModal} className="userFormBtnClose mr-4">
             X
           </button>
@@ -262,119 +262,102 @@ const FProveedores: React.FC<IUserFormPrps> = React.memo(
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))}
           className="userFormulario">
           <div className="userFormularioContainer">
-            
-            <div className="w-full flex items-center h-[4rem]">
-              <div className="input-container items-center rowForm w-full">
-                <div className="w-full px-4">
-                  <TextInputComponent
-                    type="text"
-                    label="RUT"
-                    name="rut"
-                    data={data && data[EnumGrid.Rut]}
-                    control={control}
-                    error={errors.rut}
-                    inputRef={firstInputRef}
-                    isOptional={true}
-                    customWidth={"labelInput inputStyles"}
-                    />
-                </div>
+            <div className="input-container items-center rowForm">
+              <div className="labelInputDiv">
+                <TextInputComponent
+                  type="text"
+                  label="RUT"
+                  name="rut"
+                  data={data && data[EnumGrid.Rut]}
+                  control={control}
+                  error={errors.rut}
+                  inputRef={firstInputRef}
+                  isOptional={true}
+                  customWidth={"labelInput inputStyles"}
+                />
               </div>
             </div>
 
-            <div className="w-full flex items-center h-[4rem]">
-              <div className="input-container items-center rowForm w-full">
-                <div className="w-full px-4">
-                  <TextInputComponent
-                    type="text"
-                    label="Nombre"
-                    name="nombre"
-                    data={data && data[EnumGrid.Nombre]}
-                    control={control}
-                    error={errors.nombre}
-                    customWidth={"labelInput inputStyles"}
-                  />
-                </div>
+            <div className="input-container items-center rowForm">
+              <div className="labelInputDiv">
+                <TextInputComponent
+                  type="text"
+                  label="Nombre"
+                  name="nombre"
+                  data={data && data[EnumGrid.Nombre]}
+                  control={control}
+                  error={errors.nombre}
+                  customWidth={"labelInput inputStyles"}
+                />
               </div>
             </div>
 
-
-            <div className="w-full flex items-center h-[4rem]">
-              <div className="input-container items-center rowForm w-full">
-                <div className="w-full px-4">
-                  <TextInputComponent
-                    type="text"
-                    label="Dirección"
-                    name="direccion"
-                    data={data && data[EnumGrid.Direccion]}
-                    control={control}
-                    isOptional={true}
-                    customWidth={"labelInput inputStyles"}
-                    />
-                </div>
+            <div className="input-container items-center rowForm">
+              <div className="labelInputDiv">
+                <TextInputComponent
+                  type="text"
+                  label="Dirección"
+                  name="direccion"
+                  data={data && data[EnumGrid.Direccion]}
+                  control={control}
+                  isOptional={true}
+                  customWidth={"labelInput inputStyles"}
+                />
               </div>
             </div>
 
-            <div className="w-full flex items-center h-[4rem]">
-              <div className="input-container items-center rowForm w-full">
-                <div className="w-full px-4">
-                  <TextInputComponent
-                    type="text"
-                    label="Teléfono"
-                    name="telefono"
-                    data={data && data[EnumGrid.Telefono]}
-                    control={control}
-                    isOptional={true}
-                    customWidth={"labelInput inputStyles"}
-                    />
-                </div>
+            <div className="input-container items-center rowForm">
+              <div className="labelInputDiv">
+                <TextInputComponent
+                  type="text"
+                  label="Teléfono"
+                  name="telefono"
+                  data={data && data[EnumGrid.Telefono]}
+                  control={control}
+                  isOptional={true}
+                  customWidth={"labelInput inputStyles"}
+                />
               </div>
             </div>
 
-
-            <div className="w-full flex items-center h-[4rem]">
-              <div className="input-container items-center rowForm w-full">
-                <div className="w-full px-4">
-                  <TextInputComponent
-                    type="email"
-                    label="Correo"
-                    name="correo"
-                    data={data && data[EnumGrid.Correo]}
-                    control={control}
-                    error={errors.correo}
-                    isOptional={true}
-                    customWidth={"labelInput inputStyles"}
-                    />
-                </div>
+            <div className="input-container items-center rowForm">
+              <div className="labelInputDiv">
+                <TextInputComponent
+                  type="email"
+                  label="Correo"
+                  name="correo"
+                  data={data && data[EnumGrid.Correo]}
+                  control={control}
+                  error={errors.correo}
+                  isOptional={true}
+                  customWidth={"labelInput inputStyles"}
+                />
               </div>
             </div>
 
-
-            <div className="w-full flex items-center h-[4rem]">
-              <div className="input-container items-center rowForm w-full">
-                <div className="w-full px-4">
-                  <TextInputComponent
-                    type="text"
-                    label="Sitio Web"
-                    name="sitio_web"
-                    data={data && data[EnumGrid.Sitio_Web]}
-                    control={control}
-                    error={errors.sitio_web}
-                    isOptional={true}
-                    customWidth={"labelInput inputStyles"}
-                    />
-                </div>
+            <div className="input-container items-center rowForm">
+              <div className="labelInputDiv">
+                <TextInputComponent
+                  type="text"
+                  label="Sitio Web"
+                  name="sitio_web"
+                  data={data && data[EnumGrid.Sitio_Web]}
+                  control={control}
+                  error={errors.sitio_web}
+                  isOptional={true}
+                  customWidth={"labelInput inputStyles"}
+                />
               </div>
             </div>
-
           </div>
 
           <div className="w-full">
             <div className="w-[60%] mx-auto">
-                {escritura_lectura && (
-                  <button type="submit" tabIndex={1} className="userFormBtnSubmit">
-                    {`${TITLES.guardar}`}
-                  </button>
-                )}
+              {escritura_lectura && (
+                <button type="submit" tabIndex={1} className="userFormBtnSubmit">
+                  {`${TITLES.guardar}`}
+                </button>
+              )}
             </div>
           </div>
 

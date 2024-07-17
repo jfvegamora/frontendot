@@ -263,25 +263,21 @@ const FEmpresas: React.FC<IUserFormPrps> = React.memo(
       focusFirstInput("rut");
     }, []);
 
-    console.log('h')
     return (
       <div className="useFormContainer centered-div use50rem">
         <div className="userFormBtnCloseContainer">
-          <div className="w-[80%] mx-auto !text.center">
-            <h1 className="userFormLabel">{label}</h1>
-          </div>
+            <h1 className="userFormLabel mx-auto">{label}</h1>
           <button onClick={closeModal} className="userFormBtnClose mr-4">
             X
           </button>
         </div>
         
-
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
-              <div className="w-full items-center flex">
-                <div className="input-container items-center rowForm w-[50%]">
-                  <div className="w-full">
+              <div className="flex items-center">
+              <div className="input-container items-center rowForm w-[50%]">
+                <div className="labelInputDiv">
                     <TextInputComponent
                       type="text"
                       label="RUT"
@@ -295,8 +291,8 @@ const FEmpresas: React.FC<IUserFormPrps> = React.memo(
                       />
                   </div>
                 </div>
-                <div className="input-container items-center rowForm w-[50%]">   
-                  <div className="w-full">
+                <div className="input-container items-center rowForm w-[50%]">
+                <div className="labelInputDiv">
                     <TextInputComponent
                       type="text"
                       label="Nombre"
@@ -311,9 +307,9 @@ const FEmpresas: React.FC<IUserFormPrps> = React.memo(
                 </div>
               </div>
               
-              <div className="w-full items-center flex">
-                <div className="input-container items-center rowForm w-[50%]">
-                  <div className="w-full">
+              <div className="flex items-center">
+              <div className="input-container items-center rowForm w-[50%]">
+                <div className="labelInputDiv">
                     <TextInputComponent
                       type="text"
                       label="Razón Social"
@@ -326,7 +322,7 @@ const FEmpresas: React.FC<IUserFormPrps> = React.memo(
                   </div>
                 </div>
                 <div className="input-container items-center rowForm w-[50%]">
-                  <div className="w-full">
+                <div className="labelInputDiv">
                     <TextInputComponent
                       type="text"
                       label="Giro"
@@ -340,9 +336,9 @@ const FEmpresas: React.FC<IUserFormPrps> = React.memo(
                 </div>
               </div>
               
-              <div className="w-full items-center flex">
-                <div className="input-container items-center rowForm w-[50%]">
-                  <div className="w-full">
+              <div className="flex items-center">
+              <div className="input-container items-center rowForm w-[50%]">
+                <div className="labelInputDiv">
                     <TextInputComponent
                       type="text"
                       label="Dirección"
@@ -356,7 +352,7 @@ const FEmpresas: React.FC<IUserFormPrps> = React.memo(
                   </div>
                 </div>
                 <div className="input-container items-center rowForm w-[50%]">
-                  <div className="w-full">
+                <div className="labelInputDiv">
                     <TextInputComponent
                       type="text"
                       label="Teléfono"
@@ -371,9 +367,9 @@ const FEmpresas: React.FC<IUserFormPrps> = React.memo(
                 </div>
               </div>
 
-              <div className="w-full items-center flex">
-                <div className="input-container items-center rowForm w-[50%]">
-                  <div className="w-full">
+              <div className="flex items-center">
+              <div className="input-container items-center rowForm w-[50%]">
+                <div className="labelInputDiv">
                     <TextInputComponent
                       type="email"
                       label="Correo"
@@ -388,7 +384,7 @@ const FEmpresas: React.FC<IUserFormPrps> = React.memo(
                   </div>
                 </div>
                 <div className="input-container items-center rowForm w-[50%]">
-                  <div className="w-full">
+                <div className="labelInputDiv">
                     <TextInputComponent
                       type="text"
                       label="Sitio Web"

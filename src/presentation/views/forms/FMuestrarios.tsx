@@ -224,9 +224,9 @@ const FMuestrarios: React.FC<IUserFormPrps> = React.memo(
     }, []);
 
     return (
-      <div className="useFormContainer centered-div w-[30vw]">
+      <div className="useFormContainer centered-div w-[35rem]">
         <div className="userFormBtnCloseContainer">
-        <h1 className="userFormLabel translate-x-[-40%]">{label}</h1>
+        <h1 className="userFormLabel mx-auto">{label}</h1>
           <button onClick={closeModal} className="userFormBtnClose mr-4">
             X
           </button>
@@ -235,10 +235,8 @@ const FMuestrarios: React.FC<IUserFormPrps> = React.memo(
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
-
-            <div className="w-full flex items-center h-[4rem]">
-              <div className="input-container items-center rowForm w-full">
-                <div className="w-full ml-2">
+          <div className="input-container items-center rowForm">
+              <div className="labelInputDiv">
                   <TextInputComponent
                     type="text"
                     label="Descripción"
@@ -247,17 +245,13 @@ const FMuestrarios: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     error={errors.descripcion}
                     inputRef={firstInputRef}
-                    customWidth={"labelInput inputStyles !w-[27vw]"}
-                    
-
+                    customWidth={"labelInput inputStyles"}
                   />
-                </div>
               </div>
             </div>
 
-            <div className="w-full flex items-center h-[4rem] my-5">
-              <div className="input-container items-center rowForm w-full">
-                <div className="w-full ml-4">
+            <div className="input-container items-center rowForm">
+              <div className="selectInputDiv">
                   <SelectInputComponent
                     label="Punto Venta"
                     name="punto_venta"
@@ -267,11 +261,9 @@ const FMuestrarios: React.FC<IUserFormPrps> = React.memo(
                     entidad={["/api/puntosventa/", "02"]}
                     // entidad={"PuntosVenta"}
                     error={errors.punto_venta}
-                    customWidth={"labelInput inputStyles !w-[29vw]"}
-
+                    customWidth={"labelInput inputStyles"}
                     />
                 </div>
-              </div>
             </div>
           </div>
 

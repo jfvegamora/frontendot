@@ -12,7 +12,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationParametrizacionTratamientoAdic } from "../../utils/validationFormSchemas";
 import { EnumGrid } from "../mantenedores/MProyectosTratamAdic";
-import {  MODAL, SUCCESS_MESSAGES, TITLES } from "../../utils";
+import { MODAL, SUCCESS_MESSAGES, TITLES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
@@ -25,9 +25,9 @@ const strBaseUrl = "/api/proyectotratamadic/";
 const strEntidad = "Tratamiento Adicioanl ";
 
 export interface InputData {
-  proyecto                    : string | any;
-  tratamiento_adicional       : string | any;
-  valor_neto                  : string | any;
+  proyecto: string | any;
+  tratamiento_adicional: string | any;
+  valor_neto: string | any;
 }
 
 interface OutputData {
@@ -73,7 +73,7 @@ export function transformUpdateQuery(jsonData: InputData): OutputData | null {
     _p2: jsonData.proyecto,
     _p3: jsonData.tratamiento_adicional,
   };
-// console.log("query: ", query);
+  // console.log("query: ", query);
   return query;
 }
 
@@ -146,19 +146,19 @@ const FProyectosTratamAdic: React.FC<IUserFormPrps> = React.memo(
         console.log(response)
         if (response.code === "ERR_BAD_RESPONSE" || response.stack) {
           const errorMessage = isEditting
-          ? strEntidad.concat(": " + response.message)
-          : strEntidad.concat(": " + response.message)
+            ? strEntidad.concat(": " + response.message)
+            : strEntidad.concat(": " + response.message)
           show({
             message: errorMessage ? errorMessage : response.code,
             type: "error",
           });
-          
+
           return;
         }
-        if(response.mensaje.includes('Creado')){
+        if (response.mensaje.includes('Creado')) {
           toastSuccess(isEditting);
         }
-        
+
         if (!blnKeep && !isEditting) {
           const result = await showModal(
             MODAL.keep,
@@ -239,24 +239,24 @@ const FProyectosTratamAdic: React.FC<IUserFormPrps> = React.memo(
     //     }
     // }
 
-  //  useEffect(()=>{
-  //       if(changeCodigo){
-  //           fetchArmazon(changeCodigo)
-  //            .then(()=>{
-  //              if(armazonData.value.length >= 1){
-  //                armazonData.value = []
-  //               //  toast.error('codigo armazon existente')
-  //              }else{
-  //                toast.error('Código armazon inválido')
-  //                armazonData.value = []
-  //              }
-  //            })
-  //       }
-  //  },[changeCodigo])
-      
+    //  useEffect(()=>{
+    //       if(changeCodigo){
+    //           fetchArmazon(changeCodigo)
+    //            .then(()=>{
+    //              if(armazonData.value.length >= 1){
+    //                armazonData.value = []
+    //               //  toast.error('codigo armazon existente')
+    //              }else{
+    //                toast.error('Código armazon inválido')
+    //                armazonData.value = []
+    //              }
+    //            })
+    //       }
+    //  },[changeCodigo])
 
-    
- 
+
+
+
     useEffect(() => {
       isEditting ? focusSecondInput("estado") : focusFirstInput("proyecto");
     }, []);
@@ -264,8 +264,8 @@ const FProyectosTratamAdic: React.FC<IUserFormPrps> = React.memo(
     return (
       <div className="useFormContainer centered-div use40rem">
         <div className="userFormBtnCloseContainer">
-        <h1 className="userFormLabel">{label}</h1>
-          <button onClick={closeModal} className="userFormBtnClose">
+          <h1 className="userFormLabel mx-auto">{label}</h1>
+          <button onClick={closeModal} className="userFormBtnClose mr-4">
             X
           </button>
         </div>
@@ -273,9 +273,8 @@ const FProyectosTratamAdic: React.FC<IUserFormPrps> = React.memo(
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
-            <div className="w-full flex items-center h-[4rem] ">
-              <div className="input-container items-center rowForm w-full">
-                <div className="w-full ml-8">
+            <div className="input-container items-center rowForm">
+              <div className="selectInputDiv">
                 <SelectInputComponent
                   label="Proyecto"
                   name="proyecto"
@@ -285,14 +284,12 @@ const FProyectosTratamAdic: React.FC<IUserFormPrps> = React.memo(
                   entidad={["/api/proyectos/", "02"]}
                   error={errors.proyecto}
                   readOnly={isEditting}
-                  customWidth={"labelInput inputStyles !w-[35vw]"}
-                  />
-                </div>
+                  customWidth={"labelInput inputStyles"}
+                />
               </div>
             </div>
-            <div className="w-full flex items-center h-[4rem] ">
-              <div className="input-container items-center rowForm w-full">
-                <div className="w-full ml-8">
+            <div className="input-container items-center rowForm">
+              <div className="selectInputDiv">
                 <SelectInputTiposComponent
                   label="Tratamiento Adicional"
                   name="tratamiento_adicional"
@@ -302,37 +299,32 @@ const FProyectosTratamAdic: React.FC<IUserFormPrps> = React.memo(
                   entidad={"OTTratamientoAdicional"}
                   error={errors.tratamiento_adicional}
                   readOnly={isEditting}
-                  customWidth={"labelInput inputStyles !w-[35vw]"}
-                  />
-                </div>
+                  customWidth={"labelInput inputStyles"}
+                />
               </div>
             </div>
-            <div className="w-full flex items-center h-[4rem]">
-              <div className="input-container items-center rowForm w-full">
-                <div className="w-full translate-x-[19vw]">
-                  <TextInputComponent
-                      type="number"
-                      label="Valor Neto"
-                      name="valor_neto"
-                      data={data && data[EnumGrid.valor_neto]}
-                      control={control}
-                      error={errors.valor_neto}
-                      customWidth={"labelInput inputStyles !w-[15vw]"}
-                      />
-                </div>
+            <div className="input-container items-center rowForm">
+              <div className="labelInputDiv">
+                <TextInputComponent
+                  type="number"
+                  label="Valor Neto $"
+                  name="valor_neto"
+                  data={data && data[EnumGrid.valor_neto]}
+                  control={control}
+                  error={errors.valor_neto}
+                  customWidth={"labelInput inputStyles"}
+                />
               </div>
-
-             
             </div>
           </div>
 
           <div className="w-full">
             <div className="w-[50%] mx-auto">
-                {escritura_lectura && (
-                  <Button type="submit" tabIndex={1} className="userFormBtnSubmit">
-                    {`${TITLES.guardar}`}
-                  </Button>
-                )}
+              {escritura_lectura && (
+                <Button type="submit" tabIndex={1} className="userFormBtnSubmit">
+                  {`${TITLES.guardar}`}
+                </Button>
+              )}
             </div>
           </div>
 

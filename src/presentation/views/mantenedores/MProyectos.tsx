@@ -216,7 +216,7 @@ const MProyectos: React.FC = () => {
       </div>
 
 
-      {isModalInsert && (
+      {/* {isModalInsert && ( */}
         <FProyectos
           label={`${TITLES.ingreso} ${strEntidad}`}
           closeModal={closeModal}
@@ -226,7 +226,7 @@ const MProyectos: React.FC = () => {
           isEditting={false}
           escritura_lectura={escritura_lectura}
         />
-      )}
+      {/* )} */}
 
       {isModalEdit && (
         <FProyectos

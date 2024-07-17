@@ -19,9 +19,9 @@ const strBaseUrl = "/api/marcas/";
 const strEntidad = "Marca ";
 
 export interface InputData {
-  nombre   : string | undefined;
+  nombre: string | undefined;
   proveedor: string | undefined;
-  categoria  : string | undefined;
+  categoria: string | undefined;
 }
 
 interface OutputData {
@@ -66,7 +66,7 @@ export function transformUpdateQuery(
   }
   let _p1 = filteredFields.join(",");
   _p1 = _p1.replace(/'/g, '!');
-  
+
   return {
     query: "04",
     _p1,
@@ -139,17 +139,17 @@ const FMarcas: React.FC<IUserFormPrps> = React.memo(
       async (response: any, isEditting: boolean) => {
         if (response.code === "ERR_BAD_RESPONSE" || response.stack) {
           const errorMessage = isEditting
-          ? strEntidad.concat(": " + response.message)
-          : strEntidad.concat(": " + response.message)
+            ? strEntidad.concat(": " + response.message)
+            : strEntidad.concat(": " + response.message)
           show({
             message: errorMessage ? errorMessage : response.code,
             type: "error",
           });
-          
+
           return;
         }
-        
-        if(response.mensaje.includes('Creado')){
+
+        if (response.mensaje.includes('Creado')) {
           toastSuccess(isEditting);
         }
         if (!blnKeep && !isEditting) {
@@ -223,9 +223,9 @@ const FMarcas: React.FC<IUserFormPrps> = React.memo(
     }, []);
 
     return (
-      <div className="useFormContainer centered-div w-[30vw]">
+      <div className="useFormContainer centered-div w-[35rem]">
         <div className="userFormBtnCloseContainer">
-        <h1 className="userFormLabel translate-x-[-7vw]">{label}</h1>
+          <h1 className="userFormLabel mx-auto">{label}</h1>
           <button onClick={closeModal} className="userFormBtnClose mr-4">
             X
           </button>
@@ -234,55 +234,49 @@ const FMarcas: React.FC<IUserFormPrps> = React.memo(
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
-            <div className="w-full flex items-center h-[4rem]">
-              <div className="input-container items-center rowForm w-full">
-                <div className="ml-2 mr-4">
-                  <TextInputComponent
-                    type="text"
-                    label="Nombre"
-                    name="nombre"
-                    data={data && data[EnumGrid.nombre]}
-                    control={control}
-                    error={errors.nombre}
-                    inputRef={firstInputRef}
-                    customWidth={"labelInput inputStyles"}
-                  />
-                </div>
+            <div className="input-container items-center rowForm">
+              <div className="labelInputDiv">
+                <TextInputComponent
+                  type="text"
+                  label="Nombre"
+                  name="nombre"
+                  data={data && data[EnumGrid.nombre]}
+                  control={control}
+                  error={errors.nombre}
+                  inputRef={firstInputRef}
+                  customWidth={"labelInput inputStyles"}
+                />
               </div>
             </div>
 
-            <div className="w-full flex items-center h-[4rem]">
-              <div className="input-container items-center rowForm w-full">
-                <div className="w-full ml-4">
-                  <SelectInputComponent
-                    label="Proveedor"
-                    name="proveedor"
-                    showRefresh={true}
-                    data={data && data[EnumGrid.proveedor_id]}
-                    control={control}
-                    entidad={["/api/proveedores/", "02"]}
-                    error={errors.proveedor}
-                    customWidth={"labelInput inputStyles"}
-                  />
-                </div>
+            <div className="input-container items-center rowForm">
+              <div className="selectInputDiv">
+                <SelectInputComponent
+                  label="Proveedor"
+                  name="proveedor"
+                  showRefresh={true}
+                  data={data && data[EnumGrid.proveedor_id]}
+                  control={control}
+                  entidad={["/api/proveedores/", "02"]}
+                  error={errors.proveedor}
+                  customWidth={"labelInput inputStyles"}
+                />
               </div>
             </div>
 
-            <div className="w-full flex items-center h-[4rem]">
-              <div className="input-container items-center rowForm w-full">
-                <div className="w-full ml-4">
+            <div className="input-container items-center rowForm">
+              <div className="selectInputDiv">
                 <SelectInputTiposComponent
-                    label="Categoría"
-                    name="categoria"
-                    showRefresh={true}
-                    data={data && data[EnumGrid.categoria_id]}
-                    control={control}
-                    entidad={"TipoInsumo"}
-                    error={errors.categoria}
-                    customWidth={"labelInput inputStyles"}
-                    isOptional={true}
-                    />
-                </div>
+                  label="Categoría"
+                  name="categoria"
+                  showRefresh={true}
+                  data={data && data[EnumGrid.categoria_id]}
+                  control={control}
+                  entidad={"TipoInsumo"}
+                  error={errors.categoria}
+                  customWidth={"labelInput inputStyles"}
+                  isOptional={true}
+                />
               </div>
             </div>
 
@@ -290,11 +284,11 @@ const FMarcas: React.FC<IUserFormPrps> = React.memo(
 
           <div className="w-full">
             <div className="w-[70%] mx-auto">
-                {escritura_lectura && (
-                  <button type="submit" tabIndex={1} className="userFormBtnSubmit">
-                    {`${TITLES.guardar}`}
-                  </button>
-                )}
+              {escritura_lectura && (
+                <button type="submit" tabIndex={1} className="userFormBtnSubmit">
+                  {`${TITLES.guardar}`}
+                </button>
+              )}
             </div>
           </div>
 

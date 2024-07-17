@@ -26,13 +26,12 @@ const ContactComponent:React.FC<IProps> = ({
     label,
 }) => {
   return (
-    <div className=" relative mx-4 w-full flex ">
-        {/* <h1 className="absolute z-20 top-[-23%] labelForm w-[32%] px-2">{label}</h1> */}
-        <label className="absolute text-sm top-[-22px] left-2  labelForm w-[32%]">
-            <span className="ml-[20px]  labelStyles">{label}</span>
+    <div className=" relative mx-4 !mt-4 w-full flex ">
+        <label className="absolute text-sm left-2 frame3Options labelForm -mt-2 w-[32%]">
+            <span className="ml-[20px] labelStyles">{label}</span>
         </label>
                 <div className="input-container items-center rowForm w-[25%]">
-                    <div className="w-full mr-2 !mt-4">
+                    <div className="w-full mr-2 !-mt-3">
                         <TextInputComponent
                             type="text"
                             label="Nombre"
@@ -48,7 +47,7 @@ const ContactComponent:React.FC<IProps> = ({
                 </div>
 
                 <div className="input-container items-center rowForm w-[25%]">
-                    <div className="w-full mr-4 !mt-4">
+                    <div className="w-full mr-2 !-mt-3">
                         <TextInputComponent
                             type="text"
                             label="Teléfono"
@@ -64,7 +63,7 @@ const ContactComponent:React.FC<IProps> = ({
                 </div>
 
                 <div className="input-container items-center rowForm w-[50%]">
-                    <div className="mr-4 !mt-4">
+                    <div className="mr-6 !-mt-3">
                         <TextInputComponent
                             type="text"
                             label="Correo"

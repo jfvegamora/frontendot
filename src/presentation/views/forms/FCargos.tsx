@@ -62,9 +62,9 @@ const transformUpdateQuery = (
   primaryKey: string
 ): OutputData | null => {
   let _p1 = `nombre="${jsonData.nombre}"`;
-  
+
   _p1 = _p1.replace(/'/g, '!');
-  
+
   const query = {
     query: "04",
     _p1,
@@ -130,8 +130,8 @@ const FCargos: React.FC<ICargosFormProps> = React.memo(
       async (response: any, isEditting: boolean) => {
         if (response.code === "ERR_BAD_RESPONSE" || response.stack) {
           const errorMessage = isEditting
-          ? strEntidad.concat(": " + response.message)
-          : strEntidad.concat(": " + response.message)
+            ? strEntidad.concat(": " + response.message)
+            : strEntidad.concat(": " + response.message)
           show({
             message: errorMessage ? errorMessage : response.code,
             type: "error",
@@ -139,14 +139,14 @@ const FCargos: React.FC<ICargosFormProps> = React.memo(
 
           return;
         }
-        if(response.mensaje.includes('Creado')){
+        if (response.mensaje.includes('Creado')) {
           toastSuccess(isEditting);
         }
 
         if (!blnKeep && !isEditting) {
           const result = await showModal(
             MODAL.keep,
-            '', 
+            '',
             MODAL.keepYes,
             MODAL.kepNo
           );
@@ -176,7 +176,7 @@ const FCargos: React.FC<ICargosFormProps> = React.memo(
     const handleSaveChange = React.useCallback(
       async (data: ICargosInputData, isEditting: boolean) => {
         const toastLoading = toast.loading('Cargando...');
-        try {  
+        try {
           const transformedData = isEditting
             ? transformUpdateQuery(data, intId.toString())
             : transformInsertQuery(data);
@@ -218,9 +218,9 @@ const FCargos: React.FC<ICargosFormProps> = React.memo(
     }, [closeModal]);
 
     return (
-      <div className="useFormContainer centered-div w-[32vw]">
+      <div className="useFormContainer centered-div w-[35rem]">
         <div className="userFormBtnCloseContainer">
-        <h1 className="userFormLabel translate-x-[-vw]">{label}</h1>
+          <h1 className="userFormLabel mx-auto">{label}</h1>
           <button onClick={closeModal} className="userFormBtnClose mr-4">
             X
           </button>
@@ -228,25 +228,21 @@ const FCargos: React.FC<ICargosFormProps> = React.memo(
 
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))}
-          className="userFormulario"
-        >
+          className="userFormulario">
           <div className="userFormularioContainer">
-
-            <div className="w-full items-center flex">
-                <div className="input-container items-center rowForm w-full">
-                    <div className="w-full">
-                      <TextInputComponent
-                        type="text"
-                        label="Nombre"
-                        name="nombre"
-                        data={data && data[EnumGrid.nombre]}
-                        control={control}
-                        error={errors.nombre}
-                        inputRef={firstInputRef}
-                        customWidth={"labelInput inputStyles w-[29vw]"}
-                        />
-                    </div>
-                </div>
+            <div className="input-container items-center rowForm">
+              <div className="labelInputDiv">
+                <TextInputComponent
+                  type="text"
+                  label="Nombre"
+                  name="nombre"
+                  data={data && data[EnumGrid.nombre]}
+                  control={control}
+                  error={errors.nombre}
+                  inputRef={firstInputRef}
+                  customWidth={"labelInput inputStyles"}
+                />
+              </div>
             </div>
           </div>
 
@@ -254,9 +250,9 @@ const FCargos: React.FC<ICargosFormProps> = React.memo(
             <div className="mx-auto w-[60%]">
               {escritura_lectura && (
                 <Button type="submit" tabIndex={1} className="userFormBtnSubmit">
-                {`${TITLES.guardar}`}
+                  {`${TITLES.guardar}`}
                 </Button>
-                
+
               )}
             </div>
           </div>

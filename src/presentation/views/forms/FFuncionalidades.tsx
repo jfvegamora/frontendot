@@ -73,7 +73,7 @@ const transformUpdateQuery = (
 const FFuncionalidad: React.FC<IFormProps> = React.memo(
   ({ closeModal, setEntities, params, data, label, isEditting, escritura_lectura }) => {
     const schema = validationFuncionalidadSchema();
-    const { editEntity, createdEntity, ListEntity, firstInputRef, focusFirstInput} = useCrud(strBaseUrl);
+    const { editEntity, createdEntity, ListEntity, firstInputRef, focusFirstInput } = useCrud(strBaseUrl);
     const [blnKeep, setblnKeep] = useState(false);
     const { show } = useCustomToast();
     const { showModal, CustomModal } = useModal();
@@ -105,8 +105,8 @@ const FFuncionalidad: React.FC<IFormProps> = React.memo(
       async (response: any, isEditting: boolean) => {
         if (response.code === "ERR_BAD_RESPONSE" || response.stack) {
           const errorMessage = isEditting
-          ? strEntidad.concat(": " + response.message)
-                : strEntidad.concat(": " + response.message)
+            ? strEntidad.concat(": " + response.message)
+            : strEntidad.concat(": " + response.message)
           show({
             message: errorMessage ? errorMessage : response.code,
             type: "error",
@@ -114,8 +114,8 @@ const FFuncionalidad: React.FC<IFormProps> = React.memo(
 
           return;
         }
-        
-        if(response.mensaje.includes('Creado')){
+
+        if (response.mensaje.includes('Creado')) {
           toastSuccess(isEditting);
         }
         if (!blnKeep && !isEditting) {
@@ -161,7 +161,7 @@ const FFuncionalidad: React.FC<IFormProps> = React.memo(
             ? await editEntity(transformedData)
             : await createdEntity(transformedData);
           handleApiResponse(response, isEditting);
-         toast.dismiss(toastLoading)
+          toast.dismiss(toastLoading)
         } catch (error: any) {
           toast.dismiss(toastLoading)
           show({
@@ -192,48 +192,41 @@ const FFuncionalidad: React.FC<IFormProps> = React.memo(
     }, []);
 
     return (
-      <div className="useFormContainer centered-div w-[32vw]">
-        <div className="userFormBtnCloseContainer flex">
-          <div className="w-[80%] mx-auto !text.center">
-            <h1 className="userFormLabel">{label}</h1>
-          </div>
+      <div className="useFormContainer centered-div w-[35rem]">
+        <div className="userFormBtnCloseContainer">
+          <h1 className="userFormLabel mx-auto">{label}</h1>
           <button onClick={closeModal} className="userFormBtnClose mr-4">
             X
           </button>
         </div>
 
-
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))}
-          className="userFormulario"
-        >
+          className="userFormulario">
           <div className="userFormularioContainer">
-
-            <div className="w-full items-center flex">
-              <div className="input-container items-center rowForm w-full">
-                <div className="w-full">
-                  <TextInputComponent
-                    type="text"
-                    label="Descripción"
-                    name="descripcion"
-                    data={data && data[EnumGrid.descripcion]}
-                    control={control}
-                    error={errors.descripcion}
-                    inputRef={firstInputRef}
-                    customWidth={"labelInput inputStyles w-[29vw]"}
-                    />
-                </div>
+            <div className="input-container items-center rowForm">
+              <div className="labelInputDiv">
+                <TextInputComponent
+                  type="text"
+                  label="Descripción"
+                  name="descripcion"
+                  data={data && data[EnumGrid.descripcion]}
+                  control={control}
+                  error={errors.descripcion}
+                  inputRef={firstInputRef}
+                  customWidth={"labelInput inputStyles"}
+                />
               </div>
             </div>
           </div>
 
           <div className="w-full">
             <div className="mx-auto w-[60%]">
-                {escritura_lectura && (
-                  <Button type="submit" tabIndex={1} className="userFormBtnSubmit">
-                    {`${TITLES.guardar}`}
-                  </Button>
-                )}
+              {escritura_lectura && (
+                <Button type="submit" tabIndex={1} className="userFormBtnSubmit">
+                  {`${TITLES.guardar}`}
+                </Button>
+              )}
             </div>
           </div>
         </form>

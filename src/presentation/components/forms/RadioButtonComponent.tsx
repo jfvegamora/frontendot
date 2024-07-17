@@ -54,7 +54,7 @@ const RadioButtonComponent: React.FC<IRadioButtonProps> = ({
   return (
     <div
       className={` w-full px-8 py-0 mt-2 relative mx-2 border-[1px] radioComponent flex   ${
-        horizontal ? "justify-arround ml-1 !h-[5vw] " : "flex-col justify-between"
+        horizontal ? "justify-arround ml-1 !h-[4rem] !w-[14rem] " : "flex-col justify-between"
       } rounded-lg ${error && "border border-red-400"}`}
     >
       <label htmlFor={label} className={` ${labelProps ? labelProps : ""} absolute w-full !translate-y-[-0.4vw] translate-x-3`}>
@@ -68,7 +68,7 @@ const RadioButtonComponent: React.FC<IRadioButtonProps> = ({
             control={control}
             defaultValue={value}
             render={({ field }) => (
-              <label className="flex items-center cursor-pointer ">
+              <label className="flex items-center cursor-pointer">
                 <input
                   {...field}
                   type="radio"
@@ -78,8 +78,6 @@ const RadioButtonComponent: React.FC<IRadioButtonProps> = ({
                   checked={value === option}
                   className={` pt-3 labelInput ${customWidth ?  customWidth :""} mr-2 transform scale-150 ${field.value === option ? 'text-orange-500' : 'text-gray-500'}`}
                   onChange={() => {
-                    // console.log(value)
-                    // console.log(option)
                     if (value !== option) {
                       setValue(option);
                       field.onChange(option);
@@ -90,7 +88,7 @@ const RadioButtonComponent: React.FC<IRadioButtonProps> = ({
                   }}
                   ref={inputRef}
                 />
-                <p className=" w-full labelInput pt-3 ">{option}</p>
+                <p className=" w-full labelInput0 pt-2 ">{option}</p>
               </label>
             )}
           />

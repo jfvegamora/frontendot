@@ -221,9 +221,9 @@ const FMuestrariosArmazonesTraspaso: React.FC<IUserFormPrps> = React.memo(
     console.log(errors);
 
     return (
-      <div className="useFormContainer centered-div w-[35vw]">
+      <div className="useFormContainer centered-div w-[35rem]">
         <div className="userFormBtnCloseContainer">
-          <h1 className="userFormLabel -translate-x-[1rem]">{strEntidad}</h1>
+          <h1 className="userFormLabel mx-auto">{strEntidad}</h1>
           <button onClick={closeModal} className="userFormBtnClose mr-4">
             X
           </button>
@@ -232,10 +232,10 @@ const FMuestrariosArmazonesTraspaso: React.FC<IUserFormPrps> = React.memo(
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
-          <div className="w-full flex items-center h-[4rem]">
-              <div className="input-container items-center rowForm w-[75%]  ">
-                <div className="w-full !mt-4 ml-4 ">
-                <SelectInputComponent
+            <div className="w-full flex items-center">
+              <div className="input-container items-center rowForm w-[75%]">
+                <div className="selectInputDiv">
+                  <SelectInputComponent
                     label="Almacen Origen"
                     name="origen"
                     showRefresh={true}
@@ -247,9 +247,9 @@ const FMuestrariosArmazonesTraspaso: React.FC<IUserFormPrps> = React.memo(
                 </div>
               </div>
 
-              <div className="input-container items-center rowForm w-[25%] ">
-                <div className="w-full pr-4">
-                <TextInputComponent
+              <div className="input-container items-center rowForm w-[25%]">
+                <div className="labelInputDiv">
+                  <TextInputComponent
                     type="number"
                     label="Cantidad"
                     name="cantidad"
@@ -262,20 +262,18 @@ const FMuestrariosArmazonesTraspaso: React.FC<IUserFormPrps> = React.memo(
               </div>
             </div>
 
-            <div className="w-full flex items-center h-[4rem]">
-              <div className="input-container items-center rowForm w-full">
-                <div className="w-full ml-4">
-                  <SelectInputComponent
-                    label="Muestrario Destino"
-                    name="muestrario"
-                    showRefresh={true}
-                    // data={data && data[EnumGrid.codigo_proyecto]}
-                    control={control}
-                    entidad={["/api/muestrarios/", "02"]}
-                    error={errors.muestrario}
-                    customWidth={"labelInput inputStyles"}
-                  />
-                </div>
+            <div className="input-container items-center rowForm">
+              <div className="selectInputDiv">
+                <SelectInputComponent
+                  label="Muestrario Destino"
+                  name="muestrario"
+                  showRefresh={true}
+                  // data={data && data[EnumGrid.codigo_proyecto]}
+                  control={control}
+                  entidad={["/api/muestrarios/", "02"]}
+                  error={errors.muestrario}
+                  customWidth={"labelInput inputStyles"}
+                />
               </div>
             </div>
 

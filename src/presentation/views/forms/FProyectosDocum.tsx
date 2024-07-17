@@ -64,7 +64,7 @@ const FProyectosDocum: React.FC<IUserFormPrps> = React.memo(
     const [fechaHoraActual, setFechaHoraActual] = useState(fechaActual);
     const UsuarioID: any = useAppSelector((store: AppStore) => store.user?.id)
 
-    
+
 
     const {
       editEntity,
@@ -132,7 +132,7 @@ const FProyectosDocum: React.FC<IUserFormPrps> = React.memo(
         query: "04",
         _p1,
         _p2: jsonData.proyecto,
-        _p3: `${ data && data[3]}`,
+        _p3: `${data && data[3]}`,
       }
       // console.log(query)
       return query;
@@ -271,92 +271,85 @@ const FProyectosDocum: React.FC<IUserFormPrps> = React.memo(
     }
 
     // console.log(strCodigoProyecto2.value)
-    
+
     const fechaFormateada = fechaHoraActual.toISOString().split('T')[0];
 
     return (
-      <div className="useFormContainer centered-div w-[30vw] h-[33vw]">
-        <div className="userFormBtnCloseContainer flex">
-           <div className="w-[80%] mx-auto  !text.center">
-              <h1 className="userFormLabel ">{label}</h1>
-          </div>
-          <button onClick={closeModal} className="userFormBtnClose">
+      <div className="useFormContainer centered-div w-[40rem]">
+        <div className="userFormBtnCloseContainer">
+          <h1 className="userFormLabel mx-auto">{label}</h1>
+          <button onClick={closeModal} className="userFormBtnClose mr-4">
             X
           </button>
         </div>
 
         <form onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
-            <div className="w-[30vw] flex items-center h-[4vw]">
-              <div className="input-container items-center rowForm  w-[30vw]">
-                <div className=" !mt-4 ml-8">
-                  <SelectInputComponent
-                    label="Proyecto"
-                    name="proyecto"
-                    showRefresh={true}
-                    data={data && data[ProyectosDocumEnum.proyecto]}
-                    handleSelectChange={handleInputChange}
-                    control={control}
-                    entidad={["/api/proyectos/", "02"]}
-                    error={errors.proyecto}
-                    readOnly={isEditting}
-                    customWidth={"labelInput inputStyles"}
-
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div className="w-[15vw] flex items-center h-[4vw]">
-              <div className="input-container items-center rowForm  w-[25vw] ">
-                <div className="!mt-4 ml-8">
-                <SelectInputTiposComponent
-                  label="Tipo Doc"
-                  name="tipo_doc"
+            <div className="input-container items-center rowForm">
+              <div className="selectInputDiv">
+                <SelectInputComponent
+                  label="Proyecto"
+                  name="proyecto"
                   showRefresh={true}
-                  data={data && data[ProyectosDocumEnum.tipo_doc_id]}
+                  data={data && data[ProyectosDocumEnum.proyecto]}
+                  handleSelectChange={handleInputChange}
                   control={control}
-                  entidad={["TipoDoc", "6,7"]}
-                  error={errors.tipo_doc}
-                  customWidth={"labelInput inputStyles w-[15vw]"}
-
+                  entidad={["/api/proyectos/", "02"]}
+                  error={errors.proyecto}
+                  readOnly={isEditting}
+                  customWidth={"labelInput inputStyles"}
                 />
-                </div>
-              </div>
-              <div className="input-container items-center rowForm  w-[15vw]">
-                <div className=" !mt-4">
-                <TextInputComponent
-                  type="number"
-                  label="Número"
-                  name="numero_doc"
-                  data={data && data[ProyectosDocumEnum.numero_doc]}
-                  control={control}
-                  error={errors.numero_doc}
-                  textAlign="text-right"
-                  customWidth={"labelInput inputStyles !w-[10.5vw] translate-y-[-0.3rem]"}
-                  />
-              </div>
               </div>
             </div>
 
-            <div className="w-[13vw] flex items-center h-[4vw]">
-              <div className="input-container items-center rowForm  w-[13vw] ">
-                <div className="!mt-4 ml-6">
+            <div className="flex items-center">
+              <div className="input-container items-center rowForm w-[50%]">
+                <div className="selectInputDiv">
+                  <SelectInputTiposComponent
+                    label="Tipo Doc"
+                    name="tipo_doc"
+                    showRefresh={true}
+                    data={data && data[ProyectosDocumEnum.tipo_doc_id]}
+                    control={control}
+                    entidad={["TipoDoc", "6,7"]}
+                    error={errors.tipo_doc}
+                    customWidth={"labelInput inputStyles"}
+                  />
+                </div>
+              </div>
+              <div className="input-container items-center rowForm w-[50%]">
+                <div className="labelInputDiv">
                   <TextInputComponent
-                    // type={isEditting ? "datetime" : "date"}
+                    type="number"
+                    label="Número"
+                    name="numero_doc"
+                    data={data && data[ProyectosDocumEnum.numero_doc]}
+                    control={control}
+                    error={errors.numero_doc}
+                    textAlign="text-right"
+                    customWidth={"labelInput inputStyles"}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="flex items-center">
+              <div className="input-container items-center rowForm w-[50%]">
+                <div className="labelInputDiv">
+                  <TextInputComponent
                     type={"date"}
-                    label= "Fecha Doc"
+                    label="Fecha Doc"
                     name="fecha_doc"
                     data={fechaFormateada ? fechaFormateada : data && data[ProyectosDocumEnum.fecha_doc]}
                     control={control}
                     error={errors.fecha_doc}
                     textAlign="text-center"
-                    customWidth={"labelInput inputStyles !w-[13vw]"}
+                    customWidth={"labelInput inputStyles"}
                   />
                 </div>
               </div>
-              <div className="input-container items-center rowForm  w-[13vw]">
-                <div className="!mt-4 ml-16">
+              <div className="input-container items-center rowForm w-[50%]">
+                <div className="labelInputDiv">
                   <TextInputComponent
                     type="number"
                     label="Neto $"
@@ -365,47 +358,45 @@ const FProyectosDocum: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     error={errors.total_neto}
                     textAlign="text-right"
-                    customWidth={"labelInput inputStyles !w-[10.5vw]"}
-                    />
+                    customWidth={"labelInput inputStyles"}
+                  />
                 </div>
               </div>
             </div>
 
-            <div className="w-[15vw] flex items-center h-[4vw]">
-              <div className="input-container items-center rowForm  w-[15vw] ">
-                <div className="!mt-4 ml-8">
-                <SelectInputTiposComponent
-                  label="Tipo Doc Referenciado"
-                  name="tipo_doc_ref"
-                  showRefresh={true}
-                  data={data && data[ProyectosDocumEnum.tipo_doc_ref_id]}
-                  control={control}
-                  entidad={["TipoDoc", "5,6,7"]}
-                  customWidth={"labelInput inputStyles !w-[15vw]"}
-                  error={errors.tipo_doc}
-                />
+            <div className="flex items-center">
+              <div className="input-container items-center rowForm w-[50%]">
+                <div className="selectInputDiv">
+                  <SelectInputTiposComponent
+                    label="Tipo Doc. Referenciado"
+                    name="tipo_doc_ref"
+                    showRefresh={true}
+                    data={data && data[ProyectosDocumEnum.tipo_doc_ref_id]}
+                    control={control}
+                    entidad={["TipoDoc", "5,6,7"]}
+                    customWidth={"labelInput inputStyles"}
+                    error={errors.tipo_doc}
+                  />
                 </div>
               </div>
-              <div className="input-container items-center rowForm  w-[15vw]">
-                <div className="!mt-4 ml-7">
-                <TextInputComponent
-                  type="number"
-                  label="Número Referenciado"
-                  name="numero_doc_ref"
-                  data={data && data[ProyectosDocumEnum.numero_doc_ref]}
-                  control={control}
-                  error={errors.numero_doc}
-                  textAlign="text-right"
-                  customWidth={"labelInput inputStyles !w-[10.5vw]"}
-
-                />
-              </div>
+              <div className="input-container items-center rowForm w-[50%]">
+                <div className="labelInputDiv">
+                  <TextInputComponent
+                    type="number"
+                    label="Número Referenciado"
+                    name="numero_doc_ref"
+                    data={data && data[ProyectosDocumEnum.numero_doc_ref]}
+                    control={control}
+                    error={errors.numero_doc}
+                    textAlign="text-right"
+                    customWidth={"labelInput inputStyles"}
+                  />
+                </div>
               </div>
             </div>
 
-            <div className="!pt-[1rem] h-[4vw]">
-              <div className="input-container items-center rowForm w-[27vw] flex">
-                <div className="w-full ml-6 ">
+              <div className="input-container items-center rowForm">
+                <div className="labelInputDiv">
                   <TextInputComponent
                     type="text"
                     label="Observaciones"
@@ -415,10 +406,8 @@ const FProyectosDocum: React.FC<IUserFormPrps> = React.memo(
                     error={errors.observaciones}
                     isOptional={true}
                     customWidth={"labelInput inputStyles"}
-
                   />
                 </div>
-              </div>
             </div>
           </div>
 

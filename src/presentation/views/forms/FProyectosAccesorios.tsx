@@ -264,9 +264,9 @@ const FProyectosAccesorios: React.FC<IUserFormPrps> = React.memo(
     }, []);
 
     return (
-      <div className="useFormContainer centered-div w-[35vw]">
+      <div className="useFormContainer centered-div w-[35rem]">
         <div className="userFormBtnCloseContainer">
-          <h1 className="userFormLabel">{label}</h1>
+          <h1 className="userFormLabel mx-auto">{label}</h1>
           <button onClick={closeModal} className="userFormBtnClose mr-4">
             X
           </button>
@@ -275,9 +275,8 @@ const FProyectosAccesorios: React.FC<IUserFormPrps> = React.memo(
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
-            <div className="w-full flex items-center h-[4rem] ">
-              <div className="input-container items-center rowForm w-full">
-                <div className="w-full ml-4">
+            <div className="input-container items-center rowForm">
+                <div className="selectInputDiv">
                   <SelectInputComponent
                     label="Proyecto"
                     name="proyecto"
@@ -291,11 +290,10 @@ const FProyectosAccesorios: React.FC<IUserFormPrps> = React.memo(
                   />
                 </div>
               </div>
-            </div>
 
-            <div className="w-full flex items-center !my-4 h-[4rem]">
-              <div className="input-container items-center rowForm w-[50%]">
-                <div className="w-full ml-2">
+            <div className="w-full flex items-center !my-4">
+            <div className="input-container items-center rowForm w-[50%]">
+                <div className="labelInputDiv">
                   <TextInputComponent
                     type="text"
                     label="Código Accesorio"
@@ -311,7 +309,7 @@ const FProyectosAccesorios: React.FC<IUserFormPrps> = React.memo(
                 </div>
               </div>
               <div className="input-container items-center rowForm w-[50%]">
-                <div className="w-full pr-4">
+                <div className="labelInputDiv">
                   <TextInputComponent
                     type="number"
                     label="$ Venta Neto"
@@ -327,9 +325,8 @@ const FProyectosAccesorios: React.FC<IUserFormPrps> = React.memo(
               </div>
             </div>
 
-            <div className="w-full flex items-center !my-4 h-[4rem]">
-              <div className="input-container items-center rowForm w-[95%] ">
-                <div className="w-full ml-2 pr-2">
+            <div className="input-container items-center rowForm">
+                <div className="labelInputDiv">
                   <RadioButtonComponent
                     control={control}
                     label="Estado"
@@ -343,7 +340,6 @@ const FProyectosAccesorios: React.FC<IUserFormPrps> = React.memo(
                   />
                 </div>
               </div>
-            </div>
           </div>
 
           <div className="w-full">

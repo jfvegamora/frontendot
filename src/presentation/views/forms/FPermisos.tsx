@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationPermisosSchema } from "../../utils/validationFormSchemas";
 import { EnumGrid } from "../mantenedores/MPermisos";
-import {  MODAL, SUCCESS_MESSAGES, TITLES } from "../../utils";
+import { MODAL, SUCCESS_MESSAGES, TITLES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
@@ -37,9 +37,8 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
   //   alert(ERROR_MESSAGES.passwordNotMatch);
   // }
 
-  const _p1 = `${jsonData.usuario}, ${jsonData.funcionalidad}, ${
-    jsonData.permiso === "Lectura" ? 1 : 2
-  }`;
+  const _p1 = `${jsonData.usuario}, ${jsonData.funcionalidad}, ${jsonData.permiso === "Lectura" ? 1 : 2
+    }`;
 
   const query: OutputData = {
     query: "03",
@@ -120,16 +119,16 @@ const FPermisos: React.FC<IFormPrps> = React.memo(
       async (response: any, isEditting: boolean) => {
         if (response.code === "ERR_BAD_RESPONSE" || response.stack) {
           const errorMessage = isEditting
-          ? strEntidad.concat(": " + response.message)
-          : strEntidad.concat(": " + response.message)
+            ? strEntidad.concat(": " + response.message)
+            : strEntidad.concat(": " + response.message)
           show({
             message: errorMessage ? errorMessage : response.code,
             type: "error",
           });
-          
+
           return;
         }
-        if(response.mensaje.includes('Creado')){
+        if (response.mensaje.includes('Creado')) {
           toastSuccess(isEditting);
         }
 
@@ -206,12 +205,10 @@ const FPermisos: React.FC<IFormPrps> = React.memo(
       };
     }, [closeModal]);
     return (
-      <div className="useFormContainer centered-div w-[30vw]">
-        <div className="userFormBtnCloseContainer flex">
-          <div className="w-[80%] mx-auto !text.center">
-            <h1 className="userFormLabel">{label}</h1>
-          </div>
-          <button onClick={closeModal} className="userFormBtnClose">
+      <div className="useFormContainer centered-div w-[35rem]">
+        <div className="userFormBtnCloseContainer">
+          <h1 className="userFormLabel mx-auto">{label}</h1>
+          <button onClick={closeModal} className="userFormBtnClose mr-4">
             X
           </button>
         </div>
@@ -219,62 +216,53 @@ const FPermisos: React.FC<IFormPrps> = React.memo(
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
-            <div className="w-full items-center flex !mb-4">
-              <div className="input-container items-center rowForm w-full">
-                <div className="w-[22vw] ml-8">
-                  <SelectInputComponent
-                    label="Usuario"
-                    name="usuario"
-                    showRefresh={true}
-                    data={data && data[EnumGrid.usuario_id]}
-                    control={control}
-                    entidad={["/api/usuarios/", "02"]}
-                    error={errors.usuario}
-                    readOnly={isEditting}
-                    customWidth={"labelInput inputStyles w-[29vw]"}
-                    />
-                </div>
+            <div className="input-container items-center rowForm">
+              <div className="selectInputDiv">
+                <SelectInputComponent
+                  label="Usuario"
+                  name="usuario"
+                  showRefresh={true}
+                  data={data && data[EnumGrid.usuario_id]}
+                  control={control}
+                  entidad={["/api/usuarios/", "02"]}
+                  error={errors.usuario}
+                  readOnly={isEditting}
+                  customWidth={"labelInput inputStyles"}
+                />
               </div>
             </div>
 
-            <div className="w-full items-center flex !mb-4">
-              <div className="input-container items-center rowForm w-full">
-              <div className="w-[22vw] ml-8">
-                    <SelectInputComponent
-                      label="Funcionalidad"
-                      name="funcionalidad"
-                      showRefresh={true}
-                      data={data && data[EnumGrid.funcionalidad_id]}
-                      control={control}
-                      entidad={["/api/funcionalidades/", "02"]}
-                      error={errors.funcionalidad}
-                      readOnly={isEditting}
-                      customWidth={"labelInput inputStyles w-[29vw]"}
-                      />
-                  </div>
-                </div>
+            <div className="input-container items-center rowForm">
+              <div className="selectInputDiv">
+                <SelectInputComponent
+                  label="Funcionalidad"
+                  name="funcionalidad"
+                  showRefresh={true}
+                  data={data && data[EnumGrid.funcionalidad_id]}
+                  control={control}
+                  entidad={["/api/funcionalidades/", "02"]}
+                  error={errors.funcionalidad}
+                  readOnly={isEditting}
+                  customWidth={"labelInput inputStyles"}
+                />
               </div>
             </div>
-            
-            <div className="items center flex !mb-2">
-              <div className="input-container items-center rowForm ml-6  w-full">
-                <div className="!ml-[1rem] !w-[25rem]">
-                    <RadioButtonComponent
-                      control={control}
-                      label="Permiso"
-                      name="permiso"
-                      data={data && data[EnumGrid.permiso]}
-                      options={["Lectura", "Lectura/Escritura"]}
-                      error={errors.permiso}
-                      horizontal={true}
-                      customWidth={"labelInput inputStyles"}
+          </div>
 
-                    />
-                </div>
-              </div>
+          <div className="input-container items-center rowForm">
+            <div className="labelInputDiv">
+              <RadioButtonComponent
+                control={control}
+                label="Permiso"
+                name="permiso"
+                data={data && data[EnumGrid.permiso]}
+                options={["Lectura", "Lectura/Escritura"]}
+                error={errors.permiso}
+                horizontal={true}
+                customWidth={"labelInput inputStyles"}
+              />
             </div>
-
-          
+          </div>
 
           <div className="w-full">
             <div className="mx-auto w-[60%]">

@@ -264,10 +264,10 @@ const FProyectosUsuarios: React.FC<IUserFormPrps> = React.memo(
     }, []);
 
     return (
-      <div className="useFormContainer centered-div w-[35vw]">
+      <div className="useFormContainer centered-div w-[35rem]">
         <div className="userFormBtnCloseContainer">
-        <h1 className="userFormLabel translate-x-[-4vw]">{label}</h1>
-          <button onClick={closeModal} className="userFormBtnClose">
+        <h1 className="userFormLabel mx-auto">{label}</h1>
+          <button onClick={closeModal} className="userFormBtnClose mr-4">
             X
           </button>
         </div>
@@ -275,9 +275,8 @@ const FProyectosUsuarios: React.FC<IUserFormPrps> = React.memo(
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
-            <div className="w-full flex items-center h-[4rem] ">
-              <div className="input-container items-center rowForm w-full">
-                <div className="w-full ml-6">
+            <div className="input-container items-center rowForm w-full">
+              <div className="selectInputDiv">
                 <SelectInputComponent
                   label="Proyecto"
                   name="proyecto"
@@ -287,14 +286,12 @@ const FProyectosUsuarios: React.FC<IUserFormPrps> = React.memo(
                   entidad={["/api/proyectos/", "02"]}
                   error={errors.proyecto}
                   readOnly={isEditting}
-                  customWidth={"labelInput inputStyles !w-[35vw]"}
+                  customWidth={"labelInput inputStyles"}
                   />
                 </div>
-              </div>
             </div>
-            <div className="w-full flex items-center h-[4rem] ">
-              <div className="input-container items-center rowForm w-full">
-                <div className="w-full ml-6">
+            <div className="input-container items-center rowForm w-full">
+              <div className="selectInputDiv">
                 <SelectInputComponent
                   label="Punto de Venta"
                   name="punto_venta"
@@ -304,14 +301,13 @@ const FProyectosUsuarios: React.FC<IUserFormPrps> = React.memo(
                   entidad={["/api/puntosventa/", "02"]}
                   error={errors.punto_venta}
                   readOnly={isEditting}
-                  customWidth={"labelInput inputStyles !w-[35vw]"}
+                  customWidth={"labelInput inputStyles"}
                   />
                 </div>
-              </div>
             </div>
             <div className="w-full flex items-center !my-8 h-[4rem]">
               <div className="input-container items-center rowForm w-[45%]">
-                <div className="w-full ml-6">
+                <div className="selectInputDiv">
                   <SelectInputComponent
                       label="Usuario"
                       name="usuario"
@@ -321,7 +317,7 @@ const FProyectosUsuarios: React.FC<IUserFormPrps> = React.memo(
                       entidad={["/api/usuarios/", "02"]}
                       error={errors.usuario}
                       readOnly={isEditting}
-                      customWidth={"labelInput inputStyles !w-[15vw]"}
+                      customWidth={"labelInput inputStyles"}
                       />
                 </div>
               </div>

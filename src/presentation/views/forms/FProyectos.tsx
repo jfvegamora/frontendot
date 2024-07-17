@@ -394,34 +394,34 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
     }, []);
 
     return (
-      <div className="useFormContainer top-2  h-[97vh] useFormContainer70rem ">
-        <div className="userFormBtnCloseContainer absolute right-4">
-          <button onClick={closeModal} className="userFormBtnClose">
+      <div className="useFormContainer centered-div w-full">
+        <div className="userFormBtnCloseContainer">
+          <h1 className="userFormLabel mx-auto">{label}</h1>
+          <button onClick={closeModal} className="userFormBtnClose mr-4">
             X
           </button>
         </div>
-        <h1 className="userFormLabel">{label}</h1>
 
         <form onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
-            <div className="ml-2 w-full items-center flex h-[80px] mt-[20px] mb-[10px]">
-              <div className="input-container items-center rowForm w-[16%]">
-                <div className="w-full ml-3">
+            <div className="w-full items-center flex mt-[1rem]">
+              <div className="input-container items-center rowForm w-[20%]">
+                <div className="w-full ml-4">
                   <SelectInputComponent
-                    label="Empresa Adjudicada"
+                    label="Adjudicante"
                     name="empresa_adjudicada"
                     showRefresh={true}
                     data={data && data[EnumGrid.EMPRESA_ID]}
                     control={control}
                     entidad={["/api/empresas/", "02"]}
                     error={errors.empresa_adjudicada}
-                    customWidth={"labelInput inputStyles !w-[18vw]"}
+                    customWidth={"labelInput inputStyles"}
                     />
                 </div>
               </div>
 
               <div className="input-container items-center rowForm w-[25%]">
-                <div className=" ml-10">
+                <div className="w-full">
                   <SelectInputComponent
                     label="Mandante"
                     name="mandante"
@@ -430,27 +430,27 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={["/api/mandantes/", "02"]}
                     error={errors.mandante}
-                    customWidth={"labelInput inputStyles !w-[23vw]"}
+                    customWidth={"labelInput inputStyles"}
                   />
                 </div>
               </div>
-              <div className="input-container items-center rowForm w-[22%]">
+              <div className="input-container items-center rowForm w-[25%]">
                 <div className="w-full ">
                   <SelectInputComponent
-                    label="Ejecutivo Proyecto"
+                    label="Ejecutivo/a"
                     name="ejecutivo_proyecto"
                     showRefresh={true}
                     data={data && parseInt(data[EnumGrid.EJECUTIVO_ID])}
                     control={control}
                     entidad={["/api/usuarios/", "02"]}
                     error={errors.ejecutivo_proyecto}
-                    customWidth={"labelInput inputStyles !w-[23vw]"}
+                    customWidth={"labelInput inputStyles"}
                   />
                 </div>
               </div>
 
               <div className="input-container items-center rowForm w-[15%]">
-                <div className="w-full !ml-[1rem]">
+                <div className="w-full ml-[1rem]">
                   <RadioButtonComponent
                     control={control}
                     label="Imprime QR"
@@ -459,14 +459,14 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                     options={["Si", "No"]}
                     error={errors.imprime_qr}
                     horizontal={true}
-                    labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.4vw]"}
+                    labelProps={"frame2Options"}
                     customWidth={"labelInput inputStyles"}
                   />
                 </div>
               </div>
 
-              <div className="input-container items-center rowForm w-[15%]">
-                <div className="w-full !ml-[2rem]">
+              <div className="input-container items-center rowForm mr-[3rem] w-[15%]">
+                <div className="w-full ml-[2rem]">
                   <RadioButtonComponent
                     control={control}
                     label="Imprime Ticket Retiro"
@@ -475,17 +475,16 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                     options={["Si", "No"]}
                     error={errors.imprime_ticket}
                     horizontal={true}
-                    labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.4vw]"}
+                    labelProps={"frame2Options"}
                     customWidth={"labelInput inputStyles"}
-
                   />
                 </div>
               </div>
             </div>
 
-            <div className="ml-2 w-full items-center flex h-[70px] translate-y-6 mb-[10px]">
-              <div className="input-container items-center rowForm w-[14%]">
-                <div className="w-full mr-2">
+            <div className="w-full items-center flex mt-[1rem]">
+              <div className="input-container items-center rowForm w-[20%]">
+                <div className="w-full ml-2">
                   <TextInputComponent
                     type="text"
                     label="Código Proyecto"
@@ -495,13 +494,12 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                     error={errors.codigo_proyecto}
                     onlyRead={isEditting}
                     customWidth={"labelInput inputStyles"}
-
                   />
                 </div>
               </div>
 
               <div className="input-container items-center rowForm w-[35%]">
-                <div className="w-full mr-2">
+                <div className="w-full ml-4">
                   <TextInputComponent
                     type="text"
                     label="Título"
@@ -510,13 +508,12 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     error={errors.titulo_proyecto}
                     customWidth={"labelInput inputStyles"}
-
                   />
                 </div>
               </div>
 
-              <div className="input-container items-center rowForm w-[14%]">
-                <div className="w-full mr-4">
+              <div className="input-container items-center rowForm w-[13%]">
+                <div className="w-full ml-4 !pr-4">
                   <TextInputComponent
                     type="text"
                     label="Código Licitación"
@@ -526,7 +523,6 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                     error={errors.codigo_licitacion}
                     isOptional={true}
                     customWidth={"labelInput inputStyles"}
-
                   />
                 </div>
               </div>
@@ -541,7 +537,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                     options={["Por anteojo", "Por ojo"]}
                     error={errors.param_cristales}
                     horizontal={true}
-                    labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.4vw]"}
+                    labelProps={"frame2Options"}
                     customWidth={"labelInput inputStyles"}
                   />
                 </div>
@@ -557,16 +553,16 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                     options={["Abierto", "Cerrado"]}
                     error={errors.estado}
                     horizontal={true}
-                    labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.4vw]"}
+                    labelProps={"frame2Options"}
                     customWidth={"labelInput inputStyles"}
                   />
                 </div>
               </div>
             </div>
 
-            <div className=" ml-2 w-full items-center flex h-[90px] translate-y-6  ">
+            <div className="w-full items-center flex mt-[1rem]">
               <div className="input-container items-center rowForm w-[10%] ">
-                <div className="w-full mr-2">
+                <div className="w-full ml-4">
                   <TextInputComponent
                     type="number"
                     label="Días entrega"
@@ -582,7 +578,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
               </div>
 
               <div className="input-container items-center rowForm w-[12%]">
-                <div className="w-full mr-2">
+                <div className="w-full ml-4">
                   <TextInputComponent
                     type="date"
                     label="Fecha Inicio"
@@ -598,7 +594,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
               </div>
 
               <div className="input-container items-center rowForm w-[12%]">
-                <div className="w-full mr-2">
+                <div className="w-full ml-4">
                   <TextInputComponent
                     type="date"
                     label="Fecha Término"
@@ -646,7 +642,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                 </div>
               </div>
 
-              <div className="input-container items-center rowForm w-[23%] translate-y-[1vw]">
+              <div className="input-container items-center rowForm w-[23%] -translate-y-[0.3rem]">
                 <div className="w-full mr-2">
                   <FrameComponent>
                     <ProyectoComponent
@@ -667,10 +663,9 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                   </FrameComponent>
                 </div>
               </div>
-
             </div>
 
-            <div className="w-full items-center flex h-[110px] translate-y-10">
+            <div className="w-full items-center flex mt-[1rem]">
               <FrameComponent>
                 <ProyectoComponent
                   label="OT Ingresadas"
@@ -737,134 +732,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
               </FrameComponent>
             </div>
 
-            {/* <div className="w-full items-center flex h-[80px] mt-[25px] mb-[10px]">
-              <div className="input-container items-center rowForm w-[16%]">
-                <div className="w-full mr-2">
-                  <TextInputComponent
-                    type="number"
-                    label="Requerido"
-                    name="cantidad_requerida"
-                    data={data && data[EnumGrid.CANTIDAD_REQUERIDA]}
-                    control={control}
-                    error={errors.cantidad_requerida}
-                    isOptional={true}
-                    textAlign="text-center"
-                  />
-                </div>
-              </div>
-
-              <div className="input-container items-center rowForm w-[16%]">
-                <div className="w-full mr-2">
-                  <TextInputComponent
-                    type="number"
-                    label="$ Presupuesto"
-                    name="presupuesto"
-                    data={data && data[EnumGrid.PRESUPUESTO]}
-                    control={control}
-                    error={errors.presupuesto}
-                    isOptional={true}
-                    textAlign="text-right"
-                  />
-                </div>
-              </div>
-              <div className="input-container items-center rowForm w-[16%]">
-                <div className="w-full mr-2">
-                  <TextInputComponent
-                    type="number"
-                    label="En Proceso"
-                    name="cantidad_en_proceso"
-                    data={data && data[EnumGrid.CANTIDAD_EN_PROCESO]}
-                    control={control}
-                    onlyRead={true}
-                    textAlign="text-center"
-                  />
-                </div>
-
-              </div>
-              <div className="input-container items-center rowForm w-[16%]">
-                <div className="w-full mr-2">
-                  <TextInputComponent
-                    type="number"
-                    label="$ en Proceso"
-                    name="total_en_proceso"
-                    data={data && data[EnumGrid.TOTAL_EN_PROCESO]}
-                    control={control}
-                    onlyRead={true}
-                    textAlign="text-right"
-                  />
-                </div>
-              </div>
-              <div className="input-container items-center rowForm w-[16%]">
-                <div className="w-full mr-2">
-                  <TextInputComponent
-                    type="number"
-                    label="Facturada"
-                    name="cantidad_facturada"
-                    data={data && data[EnumGrid.CANTIDAD_FACTURADA]}
-                    control={control}
-                    onlyRead={true}
-                    textAlign="text-center"
-                  />
-                </div>
-
-              </div>
-              <div className="input-container items-center rowForm w-[16%]">
-                <div className="w-full mr-2">
-                  <TextInputComponent
-                    type="number"
-                    label="$ Facturado"
-                    name="total_facturado"
-                    data={data && data[EnumGrid.TOTAL_FACTURADO]}
-                    control={control}
-                    onlyRead={true}
-                    textAlign="text-right"
-                  />
-                </div>
-              </div>
-              <div className="input-container items-center rowForm w-[16%]">
-                <div className="w-full mr-2">
-                  <TextInputComponent
-                    type="number"
-                    label="Disponible"
-                    name="cantidad_disponible"
-                    data={data && data[EnumGrid.CANTIDAD_DISPONIBLE]}
-                    control={control}
-                    onlyRead={true}
-                    textAlign="text-center"
-                  />
-                </div>
-              </div>
-              <div className="input-container items-center rowForm w-[16%]">
-                <div className="w-full mr-2">
-                  <TextInputComponent
-                    type="number"
-                    label="$ Saldo"
-                    name="saldo_disponible"
-                    data={data && data[EnumGrid.SALDO_DISPONIBLE]}
-                    control={control}
-                    onlyRead={true}
-                    textAlign="text-right"
-                  />
-                </div>
-              </div>
-              <div className="input-container items-center rowForm w-[]">
-                <div className="w-full mr-2">
-                  <TextInputComponent
-                    type="number"
-                    label="% Avance"
-                    name="avance"
-                    data={data && data[EnumGrid.AVANCE]}
-                    control={control}
-                    onlyRead={true}
-                    error={errors.avance}
-                    textAlign="text-center"
-                  />
-                </div>
-              </div>
-            </div> */}
-
-
-            <div className="w-full items-center flex h-[90px] mt-[25px] !mb-[40px] translate-y-10">
+            <div className="w-full items-center flex !mt-[1rem]">
               <FrameComponent>
                 <ContactComponent
                   label="Contacto Administrativo"
@@ -879,8 +747,6 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                   isOptional={true}
                 />
               </FrameComponent>
-
-
 
               <FrameComponent>
                 <ContactComponent
@@ -898,7 +764,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
               </FrameComponent>
             </div>
 
-            <div className="w-full items-center flex h-[50px] translate-y-10 ">
+            <div className="w-full items-center flex !mt-[1rem]">
               <FrameComponent>
                 <ContactComponent
                   label="Referente Técnico"
@@ -927,11 +793,9 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                   isOptional={true}
                 />
               </FrameComponent>
-
-
             </div>
 
-            <div className=" ml-2 w-[98%] items-center flex h-[50px] mt-[30px] mb-[25px] translate-y-12">
+            <div className="w-full items-center flex !-mt-[1rem]">
               <div className="input-container imput-center rowForm">
                 <div className="w-full items-center ml-2">
                   <TextInputComponent
@@ -973,8 +837,6 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
               </div>
 
             </div>
-
-
           </div>
         </form>
 

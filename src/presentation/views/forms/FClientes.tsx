@@ -299,13 +299,10 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
 
 
     return (
-      <div className="useFormContainer centered-div use70rem h-[36vw]" >
+      <div className="useFormContainer centered-div w-[70rem]">
         <div className="userFormBtnCloseContainer">
-          <div className="w-[80%] mx-auto">
-            <h1 className="userFormLabel">{label}</h1>
-
-          </div>
-          <button onClick={closeModal} className="userFormBtnClose mr-2">
+          <h1 className="userFormLabel mx-auto">{label}</h1>
+          <button onClick={closeModal} className="userFormBtnClose mr-4">
             X
           </button>
         </div>
@@ -350,7 +347,7 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={["/api/establecimientos/", "02"]}
                     error={errors.establecimiento}
-                    customWidth={"labelInput inputStyles !w-[30rem] "}
+                    customWidth={"labelInput inputStyles"}
                   />
                 </div>
               </div>

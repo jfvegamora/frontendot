@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationVitrinasSchema } from "../../utils/validationFormSchemas";
 import { EnumGrid } from "../mantenedores/MVitrinas";
-import {  MODAL, SUCCESS_MESSAGES, TITLES } from "../../utils";
+import { MODAL, SUCCESS_MESSAGES, TITLES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
@@ -135,16 +135,16 @@ const FVitrinas: React.FC<IUserFormPrps> = React.memo(
       async (response: any, isEditting: boolean) => {
         if (response.code === "ERR_BAD_RESPONSE" || response.stack) {
           const errorMessage = isEditting
-          ? strEntidad.concat(": " + response.message)
-                : strEntidad.concat(": " + response.message)
-                show({
+            ? strEntidad.concat(": " + response.message)
+            : strEntidad.concat(": " + response.message)
+          show({
             message: errorMessage ? errorMessage : response.code,
             type: "error",
           });
 
           return;
         }
-        if(response.mensaje.includes('Creado')){
+        if (response.mensaje.includes('Creado')) {
           toastSuccess(isEditting);
         }
 
@@ -222,10 +222,10 @@ const FVitrinas: React.FC<IUserFormPrps> = React.memo(
     }, []);
 
     return (
-      <div className="useFormContainer centered-div w-[30vw]">
+      <div className="useFormContainer centered-div w-[35rem]">
         <div className="userFormBtnCloseContainer">
-        <h1 className="userFormLabel translate-x-[-8vw]">{label}</h1>
-          <button onClick={closeModal} className="userFormBtnClose">
+          <h1 className="userFormLabel mx-auto">{label}</h1>
+          <button onClick={closeModal} className="userFormBtnClose mr-4">
             X
           </button>
         </div>
@@ -233,39 +233,34 @@ const FVitrinas: React.FC<IUserFormPrps> = React.memo(
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
+            <div className="input-container items-center rowForm">
+              <div className="labelInputDiv">
+                <TextInputComponent
+                  type="text"
+                  label="Descripción"
+                  name="descripcion"
+                  data={data && data[EnumGrid.descripcion]}
+                  control={control}
+                  error={errors.descripcion}
+                  inputRef={firstInputRef}
+                  customWidth={"labelInput inputStyles"}
 
-            <div className="w-full flex items-center h-[4rem]">
-              <div className="input-container items-center rowForm w-full">
-                <div className="w-full ml-2">
-                  <TextInputComponent
-                    type="text"
-                    label="Descripción"
-                    name="descripcion"
-                    data={data && data[EnumGrid.descripcion]}
-                    control={control}
-                    error={errors.descripcion}
-                    inputRef={firstInputRef}
-                    customWidth={"labelInput inputStyles !w-[27vw]"}
-
-                  />
-                </div>
+                />
               </div>
             </div>
 
-            <div className="w-full flex items-center h-[4rem] my-5">
-              <div className="input-container items-center rowForm w-full">
-                <div className="w-full ml-4">
-                  <SelectInputTiposComponent
-                    label="Punto Venta"
-                    name="punto_venta"
-                    showRefresh={true}
-                    data={data && data[EnumGrid.punto_venta_id]}
-                    control={control}
-                    entidad={"PuntosVenta"}
-                    error={errors.punto_venta}
-                    customWidth={"labelInput inputStyles !w-[29vw]"}
-                    />
-                </div>
+            <div className="input-container items-center rowForm">
+              <div className="selectInputDiv">
+                <SelectInputTiposComponent
+                  label="Punto Venta"
+                  name="punto_venta"
+                  showRefresh={true}
+                  data={data && data[EnumGrid.punto_venta_id]}
+                  control={control}
+                  entidad={"PuntosVenta"}
+                  error={errors.punto_venta}
+                  customWidth={"labelInput inputStyles"}
+                />
               </div>
             </div>
           </div>
@@ -274,7 +269,7 @@ const FVitrinas: React.FC<IUserFormPrps> = React.memo(
             <div className="w-[70%] mx-auto">
               {escritura_lectura && (
                 <Button type="submit" tabIndex={1} className="userFormBtnSubmit">
-                {`${TITLES.guardar}`}
+                  {`${TITLES.guardar}`}
                 </Button>
               )}
             </div>

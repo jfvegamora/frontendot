@@ -10,7 +10,7 @@ const FrameComponent:React.FC<FrameComponentProps> = ({
     label
 }) => {
   return (
-    <div className= 'inline-block w-full h-[11vh] border-[0.5px] mx-4 radioComponent rounded-lg '>
+    <div className= 'inline-block w-full h-[4.5rem] border-[0.5px] mx-4 radioComponent rounded-lg '>
       <div className="relative w-full">
         {label && (
           <label className='absolute top-[-1.7rem] left-[1rem] text-[orange] bg w-[30%] text-left'>{label}</label>

@@ -232,46 +232,19 @@ const FProyectosPuntosVenta: React.FC<IUserFormPrps> = React.memo(
       },
       [editEntity, createdEntity, handleApiResponse, intId]
     );
-
-    // const fetchArmazon = async(codigo:string | undefined) =>{
-    //     try {
-    //         const {data} = await axios(`https://mtoopticos.cl/api/armazones/listado/?query=01&_p1=${codigo}`)
-    //         armazonData.value = data       
-    //     } catch (error) {
-    //       throw error
-    //     }
-    // }
-
-  //  useEffect(()=>{
-  //       if(changeCodigo){
-  //           fetchArmazon(changeCodigo)
-  //            .then(()=>{
-  //              if(armazonData.value.length >= 1){
-  //                armazonData.value = []
-  //               //  toast.error('codigo armazon existente')
-  //              }else{
-  //                toast.error('Código armazon inválido')
-  //                armazonData.value = []
-  //              }
-  //            })
-  //       }
-  //  },[changeCodigo])
-      
-
-    
  
     useEffect(() => {
       isEditting ? focusSecondInput("estado") : focusFirstInput("proyecto");
     }, []);
 
     return (
-      <div className="useFormContainer centered-div use40rem">
+      <div className="useFormContainer centered-div w-[35rem]">
         <div className="userFormBtnCloseContainer">
+        <h1 className="userFormLabel">{label}</h1>
           <button onClick={closeModal} className="userFormBtnClose">
             X
           </button>
         </div>
-        <h1 className="userFormLabel">{label}</h1>
 
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
@@ -288,8 +261,8 @@ const FProyectosPuntosVenta: React.FC<IUserFormPrps> = React.memo(
                     entidad={["/api/puntosventa/", "02"]}
                     error={errors.punto_venta}
                     readOnly={isEditting}
-                    customWidth={"!ml-[1rem] !w-[38rem]"}
-                  />
+                    customWidth={"labelInput inputStyles"}
+                    />
                 </div>
               </div>
             </div>
@@ -305,24 +278,10 @@ const FProyectosPuntosVenta: React.FC<IUserFormPrps> = React.memo(
                     entidad={["/api/proyectos/", "02"]}
                     error={errors.proyecto}
                     readOnly={isEditting}
-                    customWidth={"!ml-[1rem] !w-[38rem] "}
+                    customWidth={"labelInput inputStyles"}
                     />
                 </div>
               </div>
-
-              {/* <div className="input-container items-center rowForm w-[50%]">
-                <div className="w-full">
-                  <RadioButtonComponent
-                  control={control}
-                  label="Estado"
-                  name="estado"
-                  data={data && data[EnumGrid.estado]}
-                  options={["Disponible", "No disponible"]}
-                  error={errors.estado}
-                  horizontal={true}
-                  />
-                </div>
-              </div> */}
             </div>
           </div>
 

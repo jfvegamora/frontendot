@@ -211,11 +211,9 @@ const FPerfiles: React.FC<IFormPrps> = React.memo(
     }, [closeModal]);
 
     return (
-      <div className="useFormContainer centered-div w-[30vw]">
-        <div className="userFormBtnCloseContainer flex">
-          <div className="w-[80%] mx-auto !text.center">
-                <h1 className="userFormLabel">{label}</h1>
-          </div>
+      <div className="useFormContainer centered-div w-[35rem]">
+        <div className="userFormBtnCloseContainer">
+          <h1 className="userFormLabel mx-auto">{label}</h1>
           <button onClick={closeModal} className="userFormBtnClose mr-4">
             X
           </button>
@@ -224,9 +222,8 @@ const FPerfiles: React.FC<IFormPrps> = React.memo(
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
-            <div className="w-full items-center flex !mb-4">
-              <div className="input-container items-center rowForm w-full">
-                <div className="w-full ml-6">
+          <div className="input-container items-center rowForm">
+              <div className="selectInputDiv">
                   <SelectInputComponent
                     label="Cargo"
                     name="cargo"
@@ -236,14 +233,12 @@ const FPerfiles: React.FC<IFormPrps> = React.memo(
                     entidad={["/api/cargos/", "02"]}
                     error={errors.cargo}
                     readOnly={isEditting}
-                    customWidth={"labelInput inputStyles w-[29vw]"}
+                    customWidth={"labelInput inputStyles]"}
                   />
                 </div>
               </div>
-            </div>
-            <div className="w-full items-center flex !mb-4">
-              <div className="input-container items-center rowForm w-full">
-                <div className="w-full ml-6">
+              <div className="input-container items-center rowForm">
+              <div className="selectInputDiv">
                   <SelectInputComponent
                     label="Funcionalidad"
                     name="funcionalidad"
@@ -253,15 +248,13 @@ const FPerfiles: React.FC<IFormPrps> = React.memo(
                     entidad={["/api/funcionalidades/", "02"]}
                     error={errors.funcionalidad}
                     readOnly={isEditting}
-                    customWidth={"labelInput inputStyles w-[29vw]"}
+                    customWidth={"labelInput inputStyles"}
                     />
                 </div>
-              </div>
             </div>
 
-            <div className="items center flex !mb-2">
-              <div className="input-container ml-6 items-center rowForm  w-full">
-                <div className="!ml-[1rem] !w-[25rem]">
+            <div className="input-container items-center rowForm">
+              <div className="labelInputDiv">
                   <RadioButtonComponent
                     control={control}
                     label="Permiso"
@@ -273,7 +266,6 @@ const FPerfiles: React.FC<IFormPrps> = React.memo(
                     customWidth={"labelInput inputStyles"}
                     />
                 </div>
-              </div>
             </div>
           </div>
 

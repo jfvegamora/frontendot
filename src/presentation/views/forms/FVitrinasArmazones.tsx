@@ -27,9 +27,9 @@ const strBaseUrl = "/api/vitrinasarmazones/";
 const strEntidad = "Parametrización de Vitrinas ";
 
 export interface InputData {
-  vitrina       : string | undefined;
+  vitrina: string | undefined;
   codigo_armazon: string | undefined;
-  estado        : string | undefined;
+  estado: string | undefined;
 }
 
 interface OutputData {
@@ -48,7 +48,7 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
     query: "03",
     _p1,
   };
-// console.log("query", query)
+  // console.log("query", query)
   return query;
 }
 
@@ -146,19 +146,19 @@ const FVitrinasArmazones: React.FC<IUserFormPrps> = React.memo(
         console.log(response)
         if (response.code === "ERR_BAD_RESPONSE" || response.stack) {
           const errorMessage = isEditting
-          ? strEntidad.concat(": " + response.message)
-          : strEntidad.concat(": " + response.message)
+            ? strEntidad.concat(": " + response.message)
+            : strEntidad.concat(": " + response.message)
           show({
             message: errorMessage ? errorMessage : response.code,
             type: "error",
           });
-          
+
           return;
         }
-        if(response.mensaje.includes('Creado')){
+        if (response.mensaje.includes('Creado')) {
           toastSuccess(isEditting);
         }
-        
+
         if (!blnKeep && !isEditting) {
           const result = await showModal(
             MODAL.keep,
@@ -230,41 +230,41 @@ const FVitrinasArmazones: React.FC<IUserFormPrps> = React.memo(
       [editEntity, createdEntity, handleApiResponse, intId]
     );
 
-    const fetchArmazon = async(codigo:string | undefined) =>{
-        try {
-            const {data} = await axios(`${URLBackend}/api/armazones/listado/?query=01&_p1=${codigo}`)
-            armazonData.value = data       
-        } catch (error) {
-          throw error
-        }
+    const fetchArmazon = async (codigo: string | undefined) => {
+      try {
+        const { data } = await axios(`${URLBackend}/api/armazones/listado/?query=01&_p1=${codigo}`)
+        armazonData.value = data
+      } catch (error) {
+        throw error
+      }
     }
 
-   useEffect(()=>{
-        if(changeCodigo){
-            fetchArmazon(changeCodigo)
-             .then(()=>{
-               if(armazonData.value.length >= 1){
-                 armazonData.value = []
-                //  toast.error('codigo armazon existente')
-               }else{
-                 toast.error('Código armazon inválido')
-                 armazonData.value = []
-               }
-             })
-        }
-   },[changeCodigo])
-      
+    useEffect(() => {
+      if (changeCodigo) {
+        fetchArmazon(changeCodigo)
+          .then(() => {
+            if (armazonData.value.length >= 1) {
+              armazonData.value = []
+              //  toast.error('codigo armazon existente')
+            } else {
+              toast.error('Código armazon inválido')
+              armazonData.value = []
+            }
+          })
+      }
+    }, [changeCodigo])
 
-    
- 
+
+
+
     useEffect(() => {
       isEditting ? focusSecondInput("estado") : focusFirstInput("muestrario");
     }, []);
 
     return (
-      <div className="useFormContainer centered-div w-[45vw]">
+      <div className="useFormContainer centered-div w-[45rem]">
         <div className="userFormBtnCloseContainer">
-        <h1 className="userFormLabel -translate-x-[5rem]">{label}</h1>
+          <h1 className="userFormLabel mx-auto">{label}</h1>
           <button onClick={closeModal} className="userFormBtnClose mr-4">
             X
           </button>
@@ -273,45 +273,43 @@ const FVitrinasArmazones: React.FC<IUserFormPrps> = React.memo(
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
-            <div className="w-full flex items-center h-[4rem] ">
-              <div className="input-container items-center rowForm w-full">
-                <div className="w-full ml-4 ">
-                  <SelectInputComponent
-                    label="Vitrina"
-                    name="vitrina"
-                    showRefresh={true}
-                    data={data && data[EnumGrid.vitrina_id]}
+            <div className="input-container items-center rowForm">
+              <div className="selectInputDiv">
+                <SelectInputComponent
+                  label="Vitrina"
+                  name="vitrina"
+                  showRefresh={true}
+                  data={data && data[EnumGrid.vitrina_id]}
+                  control={control}
+                  entidad={["/api/vitrinas/", "02"]}
+                  error={errors.vitrina}
+                  readOnly={isEditting}
+                  customWidth={"labelInput inputStyles"}
+                />
+              </div>
+            </div>
+
+            <div className="w-full flex items-center !my-8">
+              <div className="input-container items-center rowForm w-[40%]">
+                <div className="labelInputDiv">
+                  <TextInputComponent
+                    type="text"
+                    label="Código Armazón"
+                    name="codigo_armazon"
+                    data={data && data[EnumGrid.codigo_armazon]}
                     control={control}
-                    entidad={["/api/vitrinas/", "02"]}
-                    error={errors.vitrina}
-                    readOnly={isEditting}
+                    error={errors.codigo_armazon}
+                    inputRef={firstInputRef}
+                    onlyRead={isEditting}
+                    handleChange={setChangeCodigo}
                     customWidth={"labelInput inputStyles"}
                   />
                 </div>
               </div>
-            </div>
 
-            <div className="w-full flex items-center !my-8 h-[4rem]">
-              <div className="input-container items-center rowForm w-[40%]">
-                <div className="w-full ml-2">
-                  <TextInputComponent
-                      type="text"
-                      label="Código Armazón"
-                      name="codigo_armazon"
-                      data={data && data[EnumGrid.codigo_armazon]}
-                      control={control}
-                      error={errors.codigo_armazon}
-                      inputRef={firstInputRef}
-                      onlyRead={isEditting}
-                      handleChange={setChangeCodigo}
-                      customWidth={"labelInput inputStyles"}
-                  />
-                </div>
-              </div>
-
-              <div className="input-container items-center rowForm w-[55%] ">
-                <div className="w-full !ml-[1rem]">
-                    <RadioButtonComponent
+              <div className="input-container items-center rowForm w-[60%]">
+                <div className="labelInputDiv">
+                  <RadioButtonComponent
                     control={control}
                     label="Estado"
                     name="estado"
@@ -321,7 +319,7 @@ const FVitrinasArmazones: React.FC<IUserFormPrps> = React.memo(
                     horizontal={true}
                     labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.4vw]"}
                     customWidth={"labelInput inputStyles"}
-                    />
+                  />
                 </div>
               </div>
             </div>
@@ -329,11 +327,11 @@ const FVitrinasArmazones: React.FC<IUserFormPrps> = React.memo(
 
           <div className="w-full">
             <div className="w-[70%] mx-auto">
-                {escritura_lectura && (
-                  <Button type="submit" tabIndex={1} className="userFormBtnSubmit">
-                    {`${TITLES.guardar}`}
-                  </Button>
-                )}
+              {escritura_lectura && (
+                <Button type="submit" tabIndex={1} className="userFormBtnSubmit">
+                  {`${TITLES.guardar}`}
+                </Button>
+              )}
             </div>
           </div>
 
