@@ -77,6 +77,9 @@ const ProfileUser: React.FC = () => {
     }
   }, []);
 
+
+  console.log(userState && userState)
+
   return (
     <div className="useFormContainer centered-div w-[35rem]  ">
       <h1 className="userFormLabel text-white mt-8">Perfil de Usuario</h1>
@@ -93,6 +96,7 @@ const ProfileUser: React.FC = () => {
                 control={control}
                 error={errors.nombre}
                 customWidth={"labelInput inputStyles"}
+                onlyRead={true}
                 />
             </div>
           </div>
@@ -107,6 +111,7 @@ const ProfileUser: React.FC = () => {
                 data={userState && userState.correo}
                 error={errors.correo}
                 customWidth={"labelInput inputStyles"}
+                onlyRead={true}
                 />
             </div>
           </div>
@@ -122,6 +127,7 @@ const ProfileUser: React.FC = () => {
                 entidad={["/api/cargos/", "02"]}
                 readOnly={true}
                 customWidth={"labelInput inputStyles"}
+                
                 />
             </div>
           </div>

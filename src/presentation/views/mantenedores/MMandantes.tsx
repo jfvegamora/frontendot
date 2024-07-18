@@ -112,7 +112,7 @@ const MMandantes: React.FC = () => {
               showRefreshButton={true}
               comilla={false}
               idMenu={idMenu}
-              classname={"translate-x-[13vw]  !w-[10vw]"}
+              classname={"translate-x-[12vw]  !w-[12vw]"}
 
             />
           </div>
