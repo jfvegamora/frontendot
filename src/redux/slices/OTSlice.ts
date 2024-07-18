@@ -3,7 +3,7 @@ import axios from "axios";
 import { URLBackend } from "../../presentation/hooks/useCrud";
 import { EnumGrid } from "../../presentation/views/mantenedores/MOTHistorica";
 import { validarImpresion } from "../../presentation/utils";
-import { OTGrillaEnum } from "../../presentation/Enums";
+// import { OTGrillaEnum } from "../../presentation/Enums";
 // import { toast } from "react-toastify";
 
 export interface DataState {
@@ -208,31 +208,31 @@ const OTSlice = createSlice({
       state.estadosOT = {};
       // state.estadosOT[99] = 0;
 
-      action.payload.forEach((ot: any) => {
-        console.log(ot);
-        let estadoOT = ot[OTGrillaEnum.estado_id];
-        console.log(state.estadosOT);
+      // action.payload.forEach((ot: any) => {
+      //   console.log(ot);
+      //   let estadoOT = ot[OTGrillaEnum.estado_id];
+      //   console.log(state.estadosOT);
 
-        console.log(estadoOT);
-        console.log(ot.length);
+      //   console.log(estadoOT);
+      //   console.log(ot.length);
 
-        const estado = ot[estadoOT];
-        const esAtrasado = ot[ot.length - 1] === "S";
+      //   const estado = ot[estadoOT];
+      //   const esAtrasado = ot[ot.length - 1] === "S";
 
-        console.log(esAtrasado);
-        console.log(ot[ot.length]);
-        console.log(ot[ot.length - 1]);
-        if (state.estadosOT[estado]) {
-          state.estadosOT[estado]++;
-        } else {
-          state.estadosOT[estado] = 1;
-        }
-        if (esAtrasado) {
-          state.estadosOT[99]++;
-        }
+      //   console.log(esAtrasado);
+      //   console.log(ot[ot.length]);
+      //   console.log(ot[ot.length - 1]);
+      //   if (state.estadosOT[estado]) {
+      //     state.estadosOT[estado]++;
+      //   } else {
+      //     state.estadosOT[estado] = 1;
+      //   }
+      //   if (esAtrasado) {
+      //     state.estadosOT[99]++;
+      //   }
 
-        return;
-      });
+      //   return;
+      // });
 
       // console.log(estados)
       state.data = action.payload;

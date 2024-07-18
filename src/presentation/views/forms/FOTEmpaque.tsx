@@ -207,7 +207,7 @@ const FOTEmpaque: React.FC<IFOTEmpaque> = ({
                     </div>
                 </div>
             </form>
-
+            <CustomModal/>
         </div>
     )
 }

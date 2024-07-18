@@ -36,7 +36,7 @@ const FOTOrdenCompra: React.FC<IDerivacion> = ({
     const [fechaHoraActual, _setFechaHoraActual] = useState(new Date());
     const UsuarioID: any = useAppSelector((store: AppStore) => store.user?.id)
     const dispatch = useAppDispatch();
-    const { showModal, CustomModal } = useModal();
+    const { showModal } = useModal();
 
     const folios = pktoDelete.map((OT: any) => OT.folio);
 

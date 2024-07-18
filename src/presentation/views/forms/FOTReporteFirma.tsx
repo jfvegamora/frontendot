@@ -258,6 +258,7 @@ const FOTReporteFirma: React.FC<Interface> = ({
                     </form>
                 </div>
             )}
+            <CustomModal/>
         </div>
     )
 }

@@ -27,7 +27,7 @@ const strBaseUrl = "/api/othistorica/"
 
 const FOTGarantia: React.FC<IProps> = ({
     data,
-    onClose,
+    // onClose,
     closeModal
 }) => {
     const { control, handleSubmit } = useForm<FormData>();
