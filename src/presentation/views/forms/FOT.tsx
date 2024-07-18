@@ -1100,7 +1100,7 @@ const checkArmazones = camposRequeridosArmazones.every(campo => {
                 OTPermissions[7] === "1" &&
                 User.permisos_areas[EnumAreas[OTAreaActual]] !== "0" &&
                 (
-                  <Button className=' text-[1vw] w-[10vw] translate-y-[-1vw] bg-yellow-700 hover:bg-yellow-900' onClick={()=>{
+                  <Button className=' text-[1vw] w-[10vw] translate-y-[-2.7vw] bg-yellow-700 hover:bg-yellow-900' onClick={()=>{
                     setFOTBooleanStates((prev)=>({
                       ...prev,
                       showPendiente : !prev.showPendiente
@@ -1118,7 +1118,7 @@ const checkArmazones = camposRequeridosArmazones.every(campo => {
                 // sumatoriaNivel1  === validationNivel1.value.length &&
                 User.permisos_areas[EnumAreas[OTAreaActual]] !== "0" &&
                 data && data[EnumGrid.estado_id] > 1 && (
-                  <Button className='text-[1vw] w-[10vw] translate-y-[-1vw] bg-red-700 hover:bg-red-900' onClick={()=>{
+                  <Button className='text-[1vw] w-[10vw] translate-y-[-2.7vw] bg-red-700 hover:bg-red-900' onClick={()=>{
                     setFOTBooleanStates((prev)=>({
                       ...prev,
                       showDerivacion: !prev.showDerivacion
@@ -1135,7 +1135,7 @@ const checkArmazones = camposRequeridosArmazones.every(campo => {
                 sumatoriaNivel1  === validationNivel1.value.length                                  && 
                 // (data && data[EnumGrid.estado_id] === 30 || data && data[EnumGrid.estado_id] === 40 ) && 
                 (
-                  <Button className='otActionButton bg-black' onClick={()=>{
+                  <Button className=' translate-y-[-2.7vw] text-[1vw] w-[10vw] bg-black' onClick={()=>{
                     setFOTBooleanStates((prev)=>({
                       ...prev,
                       showAnulacion: !prev.showAnulacion
@@ -1153,7 +1153,7 @@ const checkArmazones = camposRequeridosArmazones.every(campo => {
                 OTPermissions[10] === "1" &&
                  sumatoriaNivel1  === validationNivel1.value.length &&
                  (
-                  <Button className='otActionButton bg-blue-500' onClick={handleIngresarClick}>Ingresar</Button>
+                  <Button className='text-[1vw] bg-blue-500 w-[10vw] translate-y-[-2.7vw]' onClick={handleIngresarClick}>Ingresar</Button>
                  )
                 
                 }

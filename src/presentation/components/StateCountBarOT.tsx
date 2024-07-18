@@ -63,6 +63,11 @@ const StateCountBarOT:React.FC<IStateCountBar> = ({checkCount,isMotHistorica}) =
     {Object.keys(OTs.estadosOT).map((estadoID, index) => {
       const estadoNombre = estadoIDNombre[estadoID];
       const derivacionColor = OTs.derivacionColores[estadoNombre];
+      console.log(estadoNombre)
+      console.log(OTs.derivacionColores)
+      
+      console.log(OTs.estadosOT)
+      
       if (derivacionColor) {
         const backgroundColor = derivacionColor[1];
         const textColor = derivacionColor[0];

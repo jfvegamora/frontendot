@@ -3,6 +3,7 @@ import axios from "axios";
 import { URLBackend } from "../../presentation/hooks/useCrud";
 import { EnumGrid } from "../../presentation/views/mantenedores/MOTHistorica";
 import { validarImpresion } from "../../presentation/utils";
+import { OTGrillaEnum } from "../../presentation/Enums";
 // import { toast } from "react-toastify";
 
 export interface DataState {
@@ -205,11 +206,22 @@ const OTSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchOT.fulfilled, (state, action) => {
       state.estadosOT = {};
-      state.estadosOT[99] = 0;
+      // state.estadosOT[99] = 0;
 
       action.payload.forEach((ot: any) => {
-        const estado = ot[3];
+        console.log(ot);
+        let estadoOT = ot[OTGrillaEnum.estado_id];
+        console.log(state.estadosOT);
+
+        console.log(estadoOT);
+        console.log(ot.length);
+
+        const estado = ot[estadoOT];
         const esAtrasado = ot[ot.length - 1] === "S";
+
+        console.log(esAtrasado);
+        console.log(ot[ot.length]);
+        console.log(ot[ot.length - 1]);
         if (state.estadosOT[estado]) {
           state.estadosOT[estado]++;
         } else {
@@ -218,8 +230,11 @@ const OTSlice = createSlice({
         if (esAtrasado) {
           state.estadosOT[99]++;
         }
+
         return;
       });
+
+      // console.log(estados)
       state.data = action.payload;
       return state;
     });

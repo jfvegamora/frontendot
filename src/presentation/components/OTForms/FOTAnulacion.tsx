@@ -100,7 +100,7 @@ const FOTAnulacion:React.FC<IDerivacion> = ({
                 <h1 className='userFormLabel'>Anulación de OT</h1>
             </div>
             <div className="">
-                <button onClick={onClose} className="userFormBtnClose">
+                <button onClick={onClose} className="userFormBtnClose mr-4">
                     X
                 </button>
             </div>
@@ -108,7 +108,18 @@ const FOTAnulacion:React.FC<IDerivacion> = ({
 
         <form className='userFormulario' onSubmit={handleSubmit(onSubmit)}>
                 <div className=" w-full flex items-center rowForm">
-                    <div className="w-[30%]">
+                    <div className="w-[70%] ml-4">
+                        <TextInputComponent
+                            type="text"
+                            label="Proyecto"
+                            name="proyecto"
+                            control={control}
+                            data={data && data[EnumGrid.proyecto_titulo]}
+                            onlyRead={true}
+                            customWidth={"labelInput inputStyles"}
+                        />
+                    </div>
+                    <div className="w-[30%] mr-4">
                         <TextInputComponent
                             type="text"
                             label="Folio OT"
@@ -117,24 +128,13 @@ const FOTAnulacion:React.FC<IDerivacion> = ({
                             data={data && data[EnumGrid.folio]}
                             onlyRead={true}
                             textAlign="text-center"
-                            customWidth={"mt-[2rem]"}
-                        />
-                    </div>
-                    <div className="w-[70%]">
-                        <TextInputComponent
-                            type="text"
-                            label="Proyecto"
-                            name="proyecto"
-                            control={control}
-                            data={data && data[EnumGrid.proyecto_titulo]}
-                            onlyRead={true}
-                            customWidth={"mt-[2rem]"}
+                            customWidth={"labelInput inputStyles"}
                         />
                     </div>
                 </div>
 
                 <div className=" w-full flex items-center rowForm">
-                    <div className="w-full">
+                    <div className="w-full ml-4">
                         <TextInputComponent
                             type="text"
                             label="Nombre Cliente"
@@ -142,13 +142,13 @@ const FOTAnulacion:React.FC<IDerivacion> = ({
                             control={control}
                             data={data && data[EnumGrid.cliente_nomnbre]}
                             onlyRead={true}
-                            customWidth={"mt-[2rem]"}
+                            customWidth={"labelInput inputStyles !w-[38.5vw]"}
                         />
                     </div>
                 </div>
 
 
-                <div className="input-container items-center rowForm ">
+                <div className="input-container ml-5 mt-4 items-center rowForm ">
                 {/* <div className="w-full flex items-center rowForm"> */}
                     <div className="w-full  ">
                         <SelectInputComponent
@@ -158,19 +158,19 @@ const FOTAnulacion:React.FC<IDerivacion> = ({
                             isOT={true}
                             control={control}
                             entidad={["/api/otmotivoanulacion/", "02", "60"]}
-                            customWidth={"w-[] ml-[1rem] mr-[-1rem] mt-[2rem]"}
+                            customWidth={"labelInput inputStyles w-[41.2vw]"}
                         />
                     </div>
                 </div>
 
-                <div className=" w-full flex items-center rowForm">
+                <div className=" w-full flex ml-4 items-center rowForm">
                     <div className="w-full">
                         <TextInputComponent
                             type="text"
                             label="Observaciones"
                             name="observaciones"
                             control={control}
-                            customWidth={"mt-[2rem]"}
+                            customWidth={"labelInput inputStyles w-[38.5vw]"}
                             isOptional={true}
                             />
                     </div>
