@@ -315,7 +315,7 @@ return (
                 
             </div>
 
-            <div className="w-full flex items-center rowForm !h-[5vw] ">
+            <div className="w-full flex items-center rowForm !h-[5vw] ml-2 ">
 
                 <div className="labelInput w-[20vw] ml-4">
                     <TextInputInteractive

@@ -114,7 +114,7 @@ const FOTCristales: React.FC<ICristales> = ({
         const {label, name, data} = gruposDioptrias[grupo]()
         
         
-       return (<div className=''>
+       return (<div className="w-[21vw]">
                 <div className="">
                     <TextInputInteractive   
                         type='text'
@@ -126,7 +126,7 @@ const FOTCristales: React.FC<ICristales> = ({
                         onlyRead={true}
                         // onlyRead={ name === 'cristal2_grupo2_oi' || name === 'cristal2_grupo2_od' ? (!((isEditting && tipo_de_anteojo.value === '3') && (isEditting && permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria && tipo_de_anteojo.value === '3' ))) : !(isEditting && permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria)  }
                         textAlign="text-center"
-                        className='!text-base custom-input !w-[17rem]'
+                        className='!text-base custom-input !w-[15rem]'
                         customWidth={"labelInput inputStyles"}
                         />  
                 </div>
@@ -163,14 +163,15 @@ const FOTCristales: React.FC<ICristales> = ({
 
     return (
         <form onKeyDown={handleKeyDown}>
-            <div className='flex frameOTForm h-[85vh]'>
-                <div className=" w-[50vw] relative !mt-[2.5rem] !h-[80vw]">
-                    <div className=" flex items-center radioComponent   h-[80vh] w-[97%] !ml-[1rem]">
+            <div className='flex frameOTForm h-[85vh] '>
+            
+                <div className=" w-[48vw] relative !mt-[2.5rem] !h-[80vh] ">
+                    <div className=" flex items-center radioComponent   h-[75vh] w-[97%] !ml-[1rem]">
                         <div className="mx-auto !mt-6 w-[50vw] !h-full ">
                             <h1 className='absolute z-10 top-[-6%] text-3xl font-bold w-[30%] translate-x-[2vw]  text-center !text-[#f8b179] left-[34%]'>ANTEOJO 1</h1>
                             <div className="w-full">
-                                <div className="w-full flex mt-6 rowForm justify-between ">
-                                    <div className="!ml-[1rem] w-[25vw] my-2 labelInput   ">
+                                <div className="w-full flex mt-6 rowForm justify-center ">
+                                    <div className=" w-[22vw] my-2 labelInput   ">
                                         <SelectInputComponent
                                             label="Marca"
                                             name="cristal1_marca_id"
@@ -188,7 +189,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                             labelProps={" bg-wite"}
                                         />
                                     </div>
-                                    <div className=" w-[25vw] my-2 }">
+                                    <div className=" w-[22vw] my-2 ">
                                         <SelectInputTiposComponent
                                             label='Diseño'
                                             name='cristal1_diseno_id'
@@ -205,8 +206,8 @@ const FOTCristales: React.FC<ICristales> = ({
                                     </div>
                                 </div>
 
-                                <div className="w-full flex rowForm  ">
-                                    <div className="!ml-[1rem] w-[25vw] my-2">
+                                <div className="w-full flex justify-center rowForm  ">
+                                    <div className=" w-[22vw] my-2">
                                         <SelectInputTiposComponent
                                             label='Índice'
                                             name='cristal1_indice_id'
@@ -222,7 +223,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                         />
                                     </div>
 
-                                    <div className="w-[25vw] my-2 ">
+                                    <div className="w-[22vw] my-2 ">
                                         <SelectInputTiposComponent
                                             label='Material'
                                             name="cristal1_material_id"
@@ -239,8 +240,8 @@ const FOTCristales: React.FC<ICristales> = ({
                                     </div>
                                 </div>
 
-                                <div className="w-full flex mt-6 rowForm">
-                                    <div className="!ml-[1rem] w-[25vw] my-2 ">
+                                <div className="w-full flex mt-6 rowForm justify-center">
+                                    <div className=" w-[22vw] my-2 ">
                                         <SelectInputTiposComponent
                                             label='Color'
                                             name="cristal1_color_id"
@@ -256,7 +257,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                         />
                                     </div>
 
-                                    <div className=" w-[25vw] my-2">
+                                    <div className=" w-[22vw] my-2">
                                         <SelectInputTiposComponent
                                             label='Tratamiento'
                                             name="cristal1_tratamiento_id"
@@ -331,8 +332,8 @@ const FOTCristales: React.FC<ICristales> = ({
 
                                 </div>
 
-                                <div className="w-full flex mt-6 rowForm ">
-                                    <div className="!w-[50%] !pr-[1rem] !translate-y-4">
+                                <div className="w-full flex mt-6 rowForm ml-3">
+                                    <div className="!w-[47%] !pr-[1rem] !translate-y-4">
                                         <TextInputInteractive
                                             type="text"
                                             label="Código Cristal OD"
@@ -344,12 +345,12 @@ const FOTCristales: React.FC<ICristales> = ({
                                             onlyRead={!(isEditting && (permiso_areas_cristales && permiso_usuario_cristales))}
                                             // onlyRead={!(!isEditting || (permiso_areas_cristales && permiso_usuario_cristales))  || inputOnlyReadBodegaProcesado.value}
                                             textAlign="text-center"
-                                            className={`!text-xl custom-input !w-[17rem]  ${validacionIncompleta.value.a1_od === true ? "!bg-red-600 opacity-60" : ""} `}
+                                            className={`!text-xl custom-input !w-[16rem]  ${validacionIncompleta.value.a1_od === true ? "!bg-red-600 opacity-60" : ""} `}
                                             error={true}
                                             customWidth={"labelInputx2 inputStyles"}
                                         />
                                     </div>
-                                    <div className="!w-[50%] !pr-[1rem] !ml-[-1rem] !translate-y-4">
+                                    <div className="!w-[48%] !pr-[1rem] ml-1 !translate-y-4">
                                         <TextInputInteractive
                                             type="text"
                                             label="Código Cristal OI"
@@ -360,13 +361,13 @@ const FOTCristales: React.FC<ICristales> = ({
                                             control={control}
                                             onlyRead={!(isEditting && (permiso_areas_cristales && permiso_usuario_cristales))}
                                             textAlign="text-center"
-                                            className={` custom-input !w-[17rem]  ${validacionIncompleta.value.a1_oi === true ? "!bg-red-600 opacity-60" : ""} `}
+                                            className={` custom-input !w-[15rem]  ${validacionIncompleta.value.a1_oi === true ? "!bg-red-600 opacity-60" : ""} `}
                                             customWidth={"labelInputx2 inputStyles"}
                                         />
                                     </div>
                                 </div>
 
-                                <div className="w-full flex mt-6 rowForm translate-y-10">
+                                <div className="w-full flex mt-6 rowForm translate-y-10 ml-3">
                                     <div className="!w-[50%] !pr-[1rem]">
                                         {renderGrupo1("A1_GRUPO_OD")}
                                     </div>
@@ -375,7 +376,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                     </div>
                                 </div>
 
-                                <div className="w-full flex mt-6 rowForm ">
+                                <div className="w-full flex mt-6 rowForm ml-2 ">
                                     <div className="w-full !pr-[2rem] translate-y-20 translate-x-4">
                                         <SelectInputComponent
                                             label='Tratamiento adicional'
@@ -399,13 +400,13 @@ const FOTCristales: React.FC<ICristales> = ({
                     </div>
                 </div>
 
-                <div className=" w-[45vw] relative !mt-[2.5rem] !h-[80vh] ">
-                    <div className=" flex items-center ml-2  radioComponent  h-[80vh] !mr-[1rem]">
+                <div className=" w-[48vw] relative !mt-[2.5rem] !h-[80vh] ">
+                    <div className=" flex items-center ml-2  radioComponent  h-[75vh] !mr-[1rem]">
                         <div className="mx-auto !mt-6 !h-full w-[50vw]">
-                            <h1 className='absolute z-10 top-[-5%] left-[35%] text-3xl font-bold w-[30%] text-center !text-[#f8b179]'>ANTEOJO 2</h1>
-                            <div className="w-full  !-mb-4 !ml-[1rem]">
-                                <div className="w-full flex mt-6 rowForm">
-                                    <div className="!ml-[1rem] w-[25vw] my-2 labelInput">
+                            <h1 className='absolute z-10 top-[-6%] left-[35%] text-3xl font-bold w-[30%] text-center !text-[#f8b179]'>ANTEOJO 2</h1>
+                            <div className="w-[45vw] !-mt-4 !ml-[1rem]">
+                                <div className=" flex mt-6 rowForm  justify-center">
+                                    <div className=" w-[22vw] my-2 labelInput">
                                         <SelectInputComponent
                                             label="Marca"
                                             name="cristal2_marca_id"
@@ -421,7 +422,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                             labelProps={" bg-wite"}
                                         />
                                     </div>
-                                    <div className="w-[25vw] my-2">
+                                    <div className="w-[22vw] my-2">
                                         <SelectInputTiposComponent
                                             label="Diseño"
                                             name="cristal2_diseno_id"
@@ -439,8 +440,8 @@ const FOTCristales: React.FC<ICristales> = ({
                                     </div>
                                 </div>
 
-                                <div className="w-full flex mt-6 rowForm">
-                                    <div className="ml-[1rem] w-[25vw] my-2">
+                                <div className="w-full justify-center flex mt-6 rowForm">
+                                    <div className=" w-[22vw] my-2">
                                         <SelectInputTiposComponent
                                             label="Índice"
                                             name="cristal2_indice_id"
@@ -457,7 +458,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                         />
                                     </div>
 
-                                    <div className="w-[25vw] my-2">
+                                    <div className="w-[22vw] my-2">
                                         <SelectInputTiposComponent
                                             label="Material"
                                             name="cristal2_material_id"
@@ -475,8 +476,8 @@ const FOTCristales: React.FC<ICristales> = ({
                                     </div>
                                 </div>
 
-                                <div className="w-full flex mt-6 rowForm">
-                                    <div className="ml-[1rem] w-[25vw] my-2">
+                                <div className="w-full justify-center flex mt-6 rowForm">
+                                    <div className="w-[22vw] my-2">
                                         <SelectInputTiposComponent
                                             label="Color"
                                             name="cristal2_color_id"
@@ -493,7 +494,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                         />
                                     </div>
 
-                                    <div className="w-[25vw] my-2">
+                                    <div className="w-[22vw] my-2">
                                         <SelectInputTiposComponent
                                             label="Tratamiento"
                                             name="cristal2_tratamiento_id"
@@ -588,7 +589,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                             customWidth={"labelInputx2 inputStyles"}
                                             />
                                     </div>
-                                    <div className="!w-[50%] !pr-[1rem] !ml-[-1rem] !translate-y-4">
+                                    <div className="!w-[49%] !pr-[1rem] !ml-[-1rem] !translate-y-4">
                                         <TextInputInteractive
                                             type="text"
                                             label="Código Cristal OI"
@@ -637,6 +638,7 @@ const FOTCristales: React.FC<ICristales> = ({
                         </div>
                     </div>
                 </div>
+            
             </div>
         </form>
     )

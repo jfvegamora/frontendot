@@ -8,7 +8,6 @@ import { Button } from '@material-tailwind/react';
 import { clearAllCheck, clearIndividualCheck, updateOT, validationMotivosOTSchema, validationNivel1 } from '../../utils';
 import { fetchOT } from '../../../redux/slices/OTSlice';
 // import { toast } from 'react-toastify';
-import { useModal } from '../../hooks/useModal';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { paramsOT } from '../../views/mantenedores/MOT';
 import { OTGrillaEnum } from '../../Enums';
@@ -51,7 +50,6 @@ const FOTDerivacion: React.FC<IDerivacion> = ({
     const { control, handleSubmit, formState: { errors } } = useForm<any>({
         resolver: yupResolver(schema)
     })
-    const { CustomModal } = useModal();
     const OTAreas: any = useAppSelector((store: AppStore) => store.OTAreas);
     const UsuarioID: any = useAppSelector((store: AppStore) => store.user?.id)
     const OTSlice: any = useAppSelector((store: AppStore) => store.OTS)

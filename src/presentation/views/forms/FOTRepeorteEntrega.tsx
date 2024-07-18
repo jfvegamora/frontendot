@@ -45,7 +45,7 @@ const FOTReporteEntrega: React.FC<Interface> = ({
 
     const UsuarioID: any = useAppSelector((store: AppStore) => store.user?.id)
     const dispatch = useAppDispatch();
-    const { CustomModal, showModal } = useModal();
+    const { showModal } = useModal();
 
     const fetchNumeroRepEntrega = async () => {
         try {

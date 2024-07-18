@@ -3,7 +3,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import { filterToggle } from "../components/FilterButton";
-import { Table } from "react-virtualized";
 // import WhastappForm from "../components/WhastappForm";
 // import WhastappForm from "../components/WhastappForm";
 // import WhastappForm from "../components/WhastappForm";
@@ -135,40 +134,7 @@ const LandingPage: React.FC = () => {
 
 
 
-       <div className="w-[40vw] h-[60vh] border-t-2 border-black flex mt-20 mx-auto bg-green-300">
-        <div className=" w-1/2 border-r-2 border-black">
-          <h1>hola</h1>
-
-          <table  className="text-black !h-auto">
-              <thead className="!bg-white">
-                <tr className="otDioptriaTit">
-                  <th className="w-[25%] separator">ESF</th>
-                  <th className="w-[25%] separator">CIL</th>
-                  <th className="w-[25%] separator">EJE</th>
-                  <th className="w-[25%] separator">AD</th>
-                 
-                </tr>
-              </thead>
-              <tbody className="text-black">
-                <tr className="h-[3rem]">
-                  <td className="text-right text-black w-[25%] separator">+2.50</td>
-                  <td className="text-right w-[25%] separator">-1.00</td>
-                  <td className="text-right w-[25%] separator">180</td>
-                  <td className="text-right w-[25%] separator">2.50</td>
-                </tr>
-                <tr className="!mt-10 h-[5rem] bg-red-300 translate-y-[1vw]">
-                  <td className="text-right w-[25%] separator">+2.50</td>
-                  <td className="text-right w-[25%] separator">-1.00</td>
-                  <td className="text-right w-[25%] separator">180</td>
-                  <td className="text-right w-[25%] separator">2.50</td>
-                </tr>
-              </tbody>
-          </table>
-        </div>
-        <div className="bg-blue-300 w-1/2">
-          <h1>hola</h1>
-        </div>
-       </div>
+   
       </div>
     </div>
   );
