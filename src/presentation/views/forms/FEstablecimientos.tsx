@@ -15,6 +15,7 @@ import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
 import RegProCom from "../../components/RegProCom";
 import SelectInputTiposComponent from "../../components/forms/SelectInputTiposComponent";
+import { Button } from "@material-tailwind/react";
 
 const strBaseUrl = "/api/establecimientos/";
 const strEntidad = "Establecimiento ";
@@ -350,9 +351,9 @@ const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
           <div className="w-full !mb-5">
             <div className="w-[50%] mx-auto">
               {escritura_lectura && (
-                <button type="submit" tabIndex={1} className="userFormBtnSubmit">
+                <Button type="submit" tabIndex={1} className="userFormBtnSubmit">
                   {`${TITLES.guardar}`}
-                </button>
+                </Button>
               )}
             </div>
           </div>

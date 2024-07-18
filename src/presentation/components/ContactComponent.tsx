@@ -27,7 +27,7 @@ const ContactComponent:React.FC<IProps> = ({
 }) => {
   return (
     <div className=" relative mx-4 !mt-4 w-full flex ">
-        <label className="absolute text-sm left-2 frame3Options labelForm -mt-2 w-[32%]">
+        <label className="absolute text-sm left-2 frame3Options labelForm !-mt-2 w-full">
             <span className="ml-[20px] labelStyles">{label}</span>
         </label>
                 <div className="input-container items-center rowForm w-[25%]">

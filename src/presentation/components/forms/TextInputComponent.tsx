@@ -100,7 +100,7 @@ return (
             error={error ? true : false}
             label={label}
             id={label}
-            // labelProps={{className:"!text-[1vw] bg-red-300"}}
+            labelProps={{className:"-top-[0.2rem] !h-auto"}}
             type={type}
             color="orange"
             // defaultValue={defaultValue}

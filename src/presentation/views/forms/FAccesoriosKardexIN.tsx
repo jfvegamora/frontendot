@@ -91,7 +91,7 @@ const FAccesoriosKardexIN: React.FC<IUserFormPrps> = React.memo(
       setValue,
     } = useForm({
       resolver: yupResolver(schema),
-      defaultValues:{
+      defaultValues: {
         proveedor: '0'
       }
     });
@@ -326,7 +326,7 @@ const FAccesoriosKardexIN: React.FC<IUserFormPrps> = React.memo(
         <form onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
             <div className="w-full flex items-center">
-            <div className="input-container items-center rowForm w-[65%]">
+              <div className="input-container items-center rowForm w-[65%]">
                 <div className="labelInputDiv">
                   <TextInputComponent
                     type="text"
@@ -338,7 +338,7 @@ const FAccesoriosKardexIN: React.FC<IUserFormPrps> = React.memo(
                     inputRef={firstInputRef}
                     onlyRead={isEditting}
                     customWidth={"labelInput inputStyles"}
-                    />
+                  />
                 </div>
               </div>
 
@@ -360,7 +360,7 @@ const FAccesoriosKardexIN: React.FC<IUserFormPrps> = React.memo(
             </div>
 
             <div className="w-full flex items-center">
-            <div className="input-container items-center rowForm w-[65%]">
+              <div className="input-container items-center rowForm w-[65%]">
                 <div className="selectInputDiv">
                   <SelectInputComponent
                     label="Motivo Ingreso"
@@ -392,7 +392,7 @@ const FAccesoriosKardexIN: React.FC<IUserFormPrps> = React.memo(
             </div>
 
             <div className="w-full flex items-center">
-            <div className="input-container items-center rowForm w-[65%]">
+              <div className="input-container items-center rowForm w-[65%]">
                 <div className="selectInputDiv">
                   <SelectInputComponent
                     label="Almacén"
@@ -424,55 +424,55 @@ const FAccesoriosKardexIN: React.FC<IUserFormPrps> = React.memo(
             </div>
 
             <div className="w-full flex items-center">
-            <div className="input-container items-center rowForm w-[65%]">
+              <div className="input-container items-center rowForm w-[65%]">
                 <div className="selectInputDiv">
-                    <SelectInputComponent
-                      label="Provedor"
-                      name="proveedor"
-                      showRefresh={true}
-                      data={data && data[EnumGrid.proveedor_id]}
-                      control={control}
-                      entidad={["/api/proveedores/", "02"]}
-                      error={errors.proveedor}
-                      customWidth={"labelInput inputStyles"}
-                      isOptional={true}
-                      />
-                  </div>
+                  <SelectInputComponent
+                    label="Provedor"
+                    name="proveedor"
+                    showRefresh={true}
+                    data={data && data[EnumGrid.proveedor_id]}
+                    control={control}
+                    entidad={["/api/proveedores/", "02"]}
+                    error={errors.proveedor}
+                    customWidth={"labelInput inputStyles"}
+                    isOptional={true}
+                  />
                 </div>
-                <div className="input-container items-center rowForm w-[35%]">
+              </div>
+              <div className="input-container items-center rowForm w-[35%]">
                 <div className="labelInputDiv">
-                    <TextInputComponent
-                      type="number"
-                      label="$ Neto Unitario"
-                      name="valor_neto"
-                      data={data && data[EnumGrid.valor_neto]}
-                      control={control}
-                      error={errors.valor_neto}
-                      isOptional={true}
-                      textAlign="text-right"
-                      customWidth={"labelInput inputStyles"}
-                      />
-                  </div>
+                  <TextInputComponent
+                    type="number"
+                    label="$ Neto Unitario"
+                    name="valor_neto"
+                    data={data && data[EnumGrid.valor_neto]}
+                    control={control}
+                    error={errors.valor_neto}
+                    isOptional={true}
+                    textAlign="text-right"
+                    customWidth={"labelInput inputStyles"}
+                  />
                 </div>
+              </div>
             </div>
 
             <div className="w-full flex items-center">
-            <div className="input-container items-center rowForm w-[65%]">
+              <div className="input-container items-center rowForm w-[65%]">
                 <div className="labelInputDiv">
-                    <TextInputComponent
-                      type="text"
-                      label="Observaciones"
-                      name="observaciones"
-                      data={data && data[EnumGrid.observaciones]}
-                      control={control}
-                      error={errors.observaciones}
-                      customWidth={"labelInput inputStyles"}
-                      isOptional={true}
-                      />
-                  </div>
+                  <TextInputComponent
+                    type="text"
+                    label="Observaciones"
+                    name="observaciones"
+                    data={data && data[EnumGrid.observaciones]}
+                    control={control}
+                    error={errors.observaciones}
+                    customWidth={"labelInput inputStyles"}
+                    isOptional={true}
+                  />
                 </div>
+              </div>
 
-                <div className="input-container items-center rowForm w-[35%]">
+              <div className="input-container items-center rowForm w-[35%]">
                 <div className="labelInputDiv">
                   <TextInputComponent
                     type="text"
@@ -484,7 +484,7 @@ const FAccesoriosKardexIN: React.FC<IUserFormPrps> = React.memo(
                   />
                 </div>
               </div>
-              </div>
+            </div>
           </div>
 
           <div className="w-full">

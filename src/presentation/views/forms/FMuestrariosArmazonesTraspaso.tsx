@@ -17,11 +17,7 @@ import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
 import { AppStore, useAppSelector } from "../../../redux/store";
 import { toast } from "react-toastify";
-// import { toast } from 'react-toastify'
-
-// import axios from "axios";
-// import { toast } from "react-toastify";
-// import { signal } from "@preact/signals-react";
+import { Button } from "@material-tailwind/react";
 
 const strBaseUrl = "/api/muestrariosarmazones/";
 const strEntidad = "Traspaso de Armazones entre Almacenes";
@@ -281,9 +277,9 @@ const FMuestrariosArmazonesTraspaso: React.FC<IUserFormPrps> = React.memo(
           <div className="w-full !mt-5 !mb-5">
               <div className="w-[50%] mx-auto">
               {escritura_lectura && (
-                <button type="submit" tabIndex={1} className="userFormBtnSubmit">
+                <Button type="submit" tabIndex={1} className="userFormBtnSubmit">
                   {`${BUTTON_MESSAGES.traspasar}`}
-                </button>
+                </Button>
               )}
             </div>
           </div>

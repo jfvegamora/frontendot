@@ -102,7 +102,7 @@ useEffect(()=>{
                             tabIndex  ={tabIndex || 1}
                             disabled={onlyRead}
                             // className="custom-input py-2 px-3 cursor-pointer z-0 text-center "
-                            className={`!h-[4vw] labelInput ${className ? className : "custom-input py-2  cursor-pointer z-0"}  ${onlyRead ? "custom-onlyread" : isOptional ? "custom-optional" : "custom-required"}`}
+                            className={`!h-[4rem] labelInput ${className ? className : "custom-input py-2  cursor-pointer z-0"}  ${onlyRead ? "custom-onlyread" : isOptional ? "custom-optional" : "custom-required"}`}
 
                             >
                                 {!Regiones && (
