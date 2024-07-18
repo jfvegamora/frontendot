@@ -252,7 +252,7 @@ const FOTOrdenCompra: React.FC<IDerivacion> = ({
                     </div>
 
                     <div className="w-full !mt-5 !mb-5">
-                                <div className="w-[50%] mx-auto">
+                        <div className="w-[50%] mx-auto">
                             <Button type="submit" tabIndex={1} className="userFormBtnSubmit">
                                 {`${TITLES.aceptar}`}
                             </Button>
@@ -260,6 +260,7 @@ const FOTOrdenCompra: React.FC<IDerivacion> = ({
                     </div>
                 </div>
             </form>
+            <CustomModal />
         </div>
     )
 }

@@ -249,10 +249,9 @@ const FOTGuiaDespacho: React.FC<IDerivacion> = ({
                                 </div>
                             </div>
                         </div>
-
                     </form>
+                    <CustomModal />
                 </div>
-
             )}
 
         </div>
