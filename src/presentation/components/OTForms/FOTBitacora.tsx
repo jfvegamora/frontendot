@@ -36,7 +36,7 @@ const FOTBitacora:React.FC<IBitacora> = ({
     fetchData()
   },[])
   return (
-    <div className='frameOTForm bg-white '>
+    <div className='frameOTForm h-[85vh] bg-white '>
     <div className='scroll !h-[32rem]'>
         <TableComponent
             tableHead={table_head_OT_bitacora}

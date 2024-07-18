@@ -101,7 +101,7 @@ const FOTReceta:React.FC<IReceta> = ({
 
   return (
     <form onKeyDown={handleKeyDown}>
-        <div className="w-full frameOTForm h-[85vh]">
+        <div className="frameOTForm h-[85vh]">
             <div className="w-full flex  items-center rowForm !h-[6vw] ">
                 <div className="w-[23vw] labelInput !ml-[2rem] mt-2">
                     <SelectInputComponent

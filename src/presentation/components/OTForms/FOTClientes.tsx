@@ -239,7 +239,7 @@ const FOTClientes:React.FC<IClientes> = ({
 
     return (
     <form action="" onKeyDown={handleKeyDown}>
-        <div className='w-full frameOTForm !h-[85vh] '>
+        <div className='frameOTForm !h-[85vh] '>
             <div className="w-full flex items-center  rowForm !h-[6vw]">
                 <div className="w-[80vw]      flex mx-auto translate-x-[3vw]">
                     <div className="input-container items-center rowForm w-[15%]">

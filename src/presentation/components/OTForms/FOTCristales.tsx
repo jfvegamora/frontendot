@@ -163,8 +163,8 @@ const FOTCristales: React.FC<ICristales> = ({
 
     return (
         <form onKeyDown={handleKeyDown}>
-            <div className='w-full flex frameOTForm h-[85vh]'>
-                <div className=" w-[50vw] relative !mt-[2.5rem] !h-[30vw]">
+            <div className='flex frameOTForm h-[85vh]'>
+                <div className=" w-[50vw] relative !mt-[2.5rem] !h-[80vw]">
                     <div className=" flex items-center radioComponent   h-[80vh] w-[97%] !ml-[1rem]">
                         <div className="mx-auto !mt-6 w-[50vw] !h-full ">
                             <h1 className='absolute z-10 top-[-6%] text-3xl font-bold w-[30%] translate-x-[2vw]  text-center !text-[#f8b179] left-[34%]'>ANTEOJO 1</h1>
@@ -399,7 +399,7 @@ const FOTCristales: React.FC<ICristales> = ({
                     </div>
                 </div>
 
-                <div className=" w-1/2 relative !mt-[2.5rem]  !h-[90vh] ">
+                <div className=" w-[45vw] relative !mt-[2.5rem] !h-[80vh] ">
                     <div className=" flex items-center ml-2  radioComponent  h-[80vh] !mr-[1rem]">
                         <div className="mx-auto !mt-6 !h-full w-[50vw]">
                             <h1 className='absolute z-10 top-[-5%] left-[35%] text-3xl font-bold w-[30%] text-center !text-[#f8b179]'>ANTEOJO 2</h1>

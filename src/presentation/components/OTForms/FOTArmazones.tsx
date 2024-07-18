@@ -792,7 +792,7 @@ const FOTArmazones:React.FC<IArmazones> = ({
 //    console.log(a1_armazon.value)
   return (
     <form>
-        <div className='w-full frameOTForm h-[84vh]'>
+        <div className='frameOTForm h-[84vh]'>
             {/* <div className='w-full items-center rowForm !h-[5rem]  grid grid-cols-3'> */}
             <div className="relative !mt-[2rem] !h-[30rem] grid grid-cols-3">
                 <div className='flex !h-[29rem] !ml-[1rem]'>

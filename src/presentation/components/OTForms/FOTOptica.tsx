@@ -196,9 +196,8 @@ console.log(data && data[EnumGrid.reporte_interno_mandante])
 console.log(formValues)
 return (
     <form action="" onKeyDown={handleKeyDown} className='  h-[85vh]'>
-        <div className='w-full frameOTForm !h-full'>
+        <div className='frameOTForm !h-[85vh]'>
             <div className="w-[95vw] flex items-center rowForm !h-[6vw]  justify-between">
-                
                 <div className="labelInput w-[50%] mt-6 mb-8 ml-[2rem]">
                     <SelectInputComponent
                         label="Nombre Proyecto"
