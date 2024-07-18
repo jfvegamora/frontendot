@@ -1058,7 +1058,7 @@ const checkArmazones = camposRequeridosArmazones.every(campo => {
                 permisos_ot_historica.permiso_post_venta &&
                 // isMotivo    &&  (
                   (
-                    <Button className='otActionButton bg-green-400' onClick={() => {
+                    <Button className='translate-y-[-2.7vw] text-[1vw] w-[10vw] bg-green-400' onClick={() => {
                       setFOTBooleanStates(prev => ({
                         ...prev,
                         showGarantia:!prev.showGarantia
@@ -1130,7 +1130,7 @@ const checkArmazones = camposRequeridosArmazones.every(campo => {
                 {/*************** BOTON ANULAR ***************/}
                 {escritura_lectura                                                                  &&
                 (isMOT 
-                       ? (permisos_ot_historica.permiso_anular && data?.[EnumGrid.area_id] !== 110)  
+                       ? (permisos_ot_historica.permiso_anular && data?.[EnumGrid.area_id] === 110)  
                        : (permiso_anular_usuario === true && OTPermissions[9] === '1'  ))           && 
                 sumatoriaNivel1  === validationNivel1.value.length                                  && 
                 // (data && data[EnumGrid.estado_id] === 30 || data && data[EnumGrid.estado_id] === 40 ) && 
