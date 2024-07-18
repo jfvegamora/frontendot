@@ -16,29 +16,29 @@ import { handleActionOTButtons } from '../../utils/FOTPendiente_utils';
 
 
 interface IDerivacion {
-    data?:any;
+    data?: any;
     onClose?: any;
-    formValues?:any;
-    closeModal?:any;
-    isMasivo?:boolean;
+    formValues?: any;
+    closeModal?: any;
+    isMasivo?: boolean;
 }
 
 
 
-interface FormData{
+interface FormData {
     proyecto_codigo: undefined;
     folio_ot: number;
-    proyecto:string;
+    proyecto: string;
     nombre_cliente: string;
 
-    area_desde:string;
-    area_hasta:string;
-    situacion:string
-    observaciones:string;
-    formValues:any
+    area_desde: string;
+    area_hasta: string;
+    situacion: string
+    observaciones: string;
+    formValues: any
 }
 
-const FOTDerivacion:React.FC<IDerivacion> = ({
+const FOTDerivacion: React.FC<IDerivacion> = ({
     data,
     onClose,
     // formValues,
@@ -48,36 +48,36 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
 }) => {
     const schema = validationMotivosOTSchema()
 
-    const {control, handleSubmit, formState:{errors}} = useForm<any>({
+    const { control, handleSubmit, formState: { errors } } = useForm<any>({
         resolver: yupResolver(schema)
     })
     const { CustomModal } = useModal();
-    const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas);
-    const UsuarioID:any = useAppSelector((store:AppStore)=> store.user?.id)
-    const OTSlice:any = useAppSelector((store:AppStore)=>store.OTS)
+    const OTAreas: any = useAppSelector((store: AppStore) => store.OTAreas);
+    const UsuarioID: any = useAppSelector((store: AppStore) => store.user?.id)
+    const OTSlice: any = useAppSelector((store: AppStore) => store.OTS)
     const dispatch = useAppDispatch();
 
-    
-    let EnumDerivacion:any;
-    let dataDerivacion:any;
 
-    if(isMasivo){
+    let EnumDerivacion: any;
+    let dataDerivacion: any;
+
+    if (isMasivo) {
         EnumDerivacion = OTGrillaEnum
         dataDerivacion = data
-    }else{
+    } else {
         EnumDerivacion = EnumGrid
         dataDerivacion = data
     }
-    
-    
-    const onSubmit: SubmitHandler<FormData> = async(jsonData) =>{
+
+
+    const onSubmit: SubmitHandler<FormData> = async (jsonData) => {
         let estado = 40;
 
-        if(isMasivo){
+        if (isMasivo) {
             let usuarioID = data[0]["usuario_id"]
-            const folios = data.map((dataOT:any)=>dataOT.folio).join(',')
+            const folios = data.map((dataOT: any) => dataOT.folio).join(',')
 
-            const response:any = await handleActionOTButtons(
+            const response: any = await handleActionOTButtons(
                 folios,
                 estado,
                 jsonData?.situacion,
@@ -87,17 +87,17 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
                 usuarioID
             )
 
-            if(response?.status === 200){
+            if (response?.status === 200) {
                 onClose();
-                dispatch(fetchOT({OTAreas:OTAreas["areaActual"], searchParams: paramsOT.value}));
+                dispatch(fetchOT({ OTAreas: OTAreas["areaActual"], searchParams: paramsOT.value }));
                 clearAllCheck.value = false;
                 clearIndividualCheck.value = true;
             }
 
-        }else{
+        } else {
             const sumatoriaNivel1 = validationNivel1.value.reduce((index, objeto) => index + objeto.valor, 0);
-            let estadoValidacion    = sumatoriaNivel1 === validationNivel1.value.length;
-    
+            let estadoValidacion = sumatoriaNivel1 === validationNivel1.value.length;
+
             updateOT(
                 jsonData,
                 OTAreas["areaActual"],
@@ -105,7 +105,7 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
                 estado,
                 formValues,
                 data,
-                OTSlice.cristales, 
+                OTSlice.cristales,
                 OTSlice.armazones,
                 UsuarioID.toString(),
                 jsonData.observaciones,
@@ -114,155 +114,160 @@ const FOTDerivacion:React.FC<IDerivacion> = ({
                 false,
                 'Derivada',
                 estadoValidacion
-            ).then(()=>{
+            ).then(() => {
                 closeModal()
-                dispatch(fetchOT({OTAreas:OTAreas["areaActual"], searchParams: paramsOT.value}))
+                dispatch(fetchOT({ OTAreas: OTAreas["areaActual"], searchParams: paramsOT.value }))
                 clearAllCheck.value = false;
             })
         }
-        
-    
+
+
     }
 
     React.useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
-          if (event.key === "Escape") {
-            onClose();
-          }
+            if (event.key === "Escape") {
+                onClose();
+            }
         };
-  
+
         window.addEventListener("keydown", handleKeyDown);
-  
+
         return () => {
-          window.removeEventListener("keydown", handleKeyDown);
+            window.removeEventListener("keydown", handleKeyDown);
         };
-      }, [closeModal]);
+    }, [closeModal]);
 
 
     console.log(data)
-  console.log(OTAreas["areas"].filter((areas:any)=>areas[1] ===  OTAreas["areaActual"])[0][2])
-  return (
-    <div className='useFormContainer useFormDerivacion centered-div use40rem z-30'>
-        <div className="userFormBtnCloseContainer flex">
-            <div className="w-[50%] mx-auto !text.center">
-                <h1 className='userFormLabel'>Derivación de OT</h1>
-            </div>
-            <div className="">
-                <button onClick={onClose} className="userFormBtnClose mr-4">
+    console.log(OTAreas["areas"].filter((areas: any) => areas[1] === OTAreas["areaActual"])[0][2])
+    return (
+        <div className="useFormContainer centered-div w-[35rem]">
+            <div className="userFormBtnCloseContainer">
+                <h1 className="userFormLabel mx-auto">Derivación de OT</h1>
+                <button onClick={closeModal} className="userFormBtnClose mr-4">
                     X
                 </button>
             </div>
-        </div>
 
-        <form className='userFormulario' onSubmit={handleSubmit(onSubmit)}>
-                <div className=" w-full flex items-center rowForm">
-                    <div className={`${isMasivo ? "w-[95%] ml-4" : "w-[70%] ml-4"}`}>
-                        <TextInputComponent
-                            type="text"
-                            label="Proyecto"
-                            name="proyecto"
-                            control={control}
-                            data={isMasivo ? dataDerivacion && dataDerivacion[0]?.proyecto : data && data[EnumDerivacion.proyecto_titulo]}
-                            onlyRead={true}
-                            customWidth={"labelInput inputStyles"}
-                            />
+            <form className='userFormulario' onSubmit={handleSubmit(onSubmit)}>
+                <div className="userFormularioContainer">
+                    <div className="w-full flex items-center">
+                        <div className="input-container items-center rowForm w-[65%]">
+                            <div className="labelInputDiv">
+                                <TextInputComponent
+                                    type="text"
+                                    label="Proyecto"
+                                    name="proyecto"
+                                    control={control}
+                                    data={isMasivo ? dataDerivacion && dataDerivacion[0]?.proyecto : data && data[EnumDerivacion.proyecto_titulo]}
+                                    onlyRead={true}
+                                    customWidth={"labelInput inputStyles"}
+                                />
+                            </div>
+                        </div>
+                        {!isMasivo && (
+                            <div className="input-container items-center rowForm w-[35%]">
+                                <div className="labelInputDiv">
+                                    <TextInputComponent
+                                        type="text"
+                                        label="Folio OT"
+                                        name="folio_ot"
+                                        control={control}
+                                        data={data && data[EnumDerivacion.folio]}
+                                        onlyRead={true}
+                                        textAlign="text-center"
+                                        customWidth={"labelInput inputStyles"}
+                                    />
+                                </div>
+                            </div>
+                        )}
                     </div>
+
                     {!isMasivo && (
-                        <div className="w-[30%] mr-4 ">
-                            <TextInputComponent
-                                type="text"
-                                label="Folio OT"
-                                name="folio_ot"
+                        <div className="input-container items-center rowForm">
+                            <div className="labelInputDiv">
+                                <TextInputComponent
+                                    type="text"
+                                    label="Nombre Cliente"
+                                    name="nombre_cliente"
+                                    control={control}
+                                    data={data && data[EnumDerivacion.cliente_nomnbre]}
+                                    onlyRead={true}
+                                    customWidth={"labelInput inputStyles"}
+                                />
+                            </div>
+                        </div>
+                    )}
+
+                    <div className="w-full flex items-center">
+                        <div className="input-container items-center rowForm w-[50%]">
+                            <div className="labelInputDiv">
+                                <TextInputComponent
+                                    type="text"
+                                    label="Área desde"
+                                    name="area_desde"
+                                    control={control}
+                                    data={isMasivo ? (OTAreas["areas"].filter((areas: any) => areas[1] === OTAreas["areaActual"])[0][2]) : data && data[EnumDerivacion.area]}
+                                    onlyRead={true}
+                                    customWidth={"labelInput inputStyles"}
+                                />
+                            </div>
+                        </div>
+                        <div className="input-container items-center rowForm w-[50%]">
+                            <div className="selectInputDiv">
+                                <SelectInputComponent
+                                    label="Área hasta"
+                                    name="area_hasta"
+                                    showRefresh={true}
+                                    isOT={true}
+                                    control={control}
+                                    entidad={["/api/tipos/", "02", "OTAreas"]}
+                                    customWidth={"labelInput inputStyles"}
+                                    error={errors.area_hasta}
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="input-container items-center rowForm">
+                            <div className="selectInputDiv">
+                            <SelectInputComponent
+                                label="Situación"
+                                name="situacion"
+                                showRefresh={true}
+                                isOT={true}
                                 control={control}
-                                data={data && data[EnumDerivacion.folio]}
-                                onlyRead={true}
-                                textAlign="text-center"
+                                entidad={["/api/otmotivoderivacion/", "02", "60"]}
                                 customWidth={"labelInput inputStyles"}
-                                />
+                                error={errors.situacion}
+                            />
                         </div>
-                    ) }
-                </div>
-                
-                {!isMasivo && (
-                    <div className=" w-full flex ml-4 items-center rowForm">
-                        <div className="w-full">
+                    </div>
+
+                    <div className="input-container items-center rowForm">
+                            <div className="labelInputDiv">
                             <TextInputComponent
                                 type="text"
-                                label="Nombre Cliente"
-                                name="nombre_cliente"
+                                label="Observaciones"
+                                name="observaciones"
                                 control={control}
-                                data={data && data[EnumDerivacion.cliente_nomnbre]}
-                                onlyRead={true}
-                                customWidth={"labelInput inputStyles !w-[38.5vw]"}
-                                />
+                                customWidth={"labelInput inputStyles"}
+                                isOptional={true}
+                            />
                         </div>
-                    </div>
-                )}
-
-                <div className="w-full flex !items-center ml-4 rowForm">
-                    <div className="w-[50%]">
-                        <TextInputComponent
-                            type="text"
-                            label="Área desde"
-                            name="area_desde"
-                            control={control}
-                            data= {isMasivo ? (OTAreas["areas"].filter((areas:any)=>areas[1] ===  OTAreas["areaActual"])[0][2]) : data && data[EnumDerivacion.area]}
-                            onlyRead={true}
-                            customWidth={"labelInput inputStyles"}
-                            />
-                    </div>
-                    <div className="w-[50%] pt-2 mt-1 ">
-                        <SelectInputComponent
-                            label="Área hasta"
-                            name="area_hasta"
-                            showRefresh={true}
-                            isOT={true}
-                            control={control}
-                            entidad={["/api/tipos/", "02", "OTAreas"]}
-                            customWidth={"labelInput inputStyles w-[20.5vw]"}
-                            error={errors.area_hasta}
-                        />
-                    </div>
-                </div>
-
-                <div className="input-container ml-6 mt-4 items-center rowForm ">
-                {/* <div className="w-full flex items-center rowForm"> */}
-                    <div className="w-full  ">
-                        <SelectInputComponent
-                            label="Situacion"
-                            name="situacion"
-                            showRefresh={true}
-                            isOT={true}
-                            control={control}
-                            entidad={["/api/otmotivoderivacion/", "02", "60"]}
-                            customWidth={"labelInput inputStyles w-[40.9vw]"}
-                            error={errors.situacion}
-                        />
-                    </div>
-                </div>
-
-                <div className=" w-full flex items-center rowForm">
-                    <div className="w-full ml-4 mr-5">
-                        <TextInputComponent
-                            type="text"
-                            label="Observaciones"
-                            name="observaciones"
-                            control={control}
-                            customWidth={"labelInput inputStyles"}
-                            isOptional={true}
-                            />
                     </div>
                 </div>
 
                 <div className="flex justify-center">
-                    <Button  type="submit" className='otActionButton bg-red-900'>Derivar</Button>
+                    <Button type="submit" className='otActionButton bg-red-900'>Derivar</Button>
                 </div>
 
-                <CustomModal />
-        </form>
+                {/* <CustomModal /> */}
+            </form>
 
-    </div>
-  )
+        </div>
+    )
 }
 
 export default FOTDerivacion

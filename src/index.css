@@ -71,6 +71,7 @@ body {
 }
 .labelInput{
   font-size: 20px !important;
+  /* padding-top:1.7rem; */
 }
 .labelInputx2{
   font-size: 32px !important;
