@@ -3,7 +3,7 @@ export const ERROR_MESSAGES = {
   edit: "Error al editar",
   delete: "Error al eliminar",
   passwordNotMatch: "Error las contraseñas no coinciden",
-  fechaActual: "es mayor a la fecha actual"
+  fechaActual: "es mayor a la fecha actual",
 };
 
 export const SUCCESS_MESSAGES = {
@@ -22,11 +22,11 @@ export const BUTTON_MESSAGES = {
   bln_ingreso: "Ingreso",
   bln_egreso: "Egreso",
   permiso_ot: "Permisos OT",
-  copiar: "COPIAR MUESTRARIO",
-  imprimir:"Imprimir",
+  copiar: "Copiar",
+  imprimir: "Imprimir",
   Whatsapp: "Whatsapp",
   procesar: "Procesar",
-  traspasar: "TRASPASAR INVENTARIO"
+  traspasar: "Traspasar",
 };
 
 export const TITLES = {
@@ -88,13 +88,13 @@ export const MOTIVO_KARDEX = {
 };
 
 export const MOTIVO_OT = {
-  todos:"Todos",
+  todos: "Todos",
   venta: "Venta",
-  garantia: "Garantía"
-}
+  garantia: "Garantía",
+};
 
 export const ESTADO_OT = {
-  todos:"Todos",
+  todos: "Todos",
   entregada: "Entregada",
-  anulada: "Anulada"
-}
+  anulada: "Anulada",
+};
