@@ -67,7 +67,7 @@ const MVitrinas: React.FC = () => {
   return (
     <div className="mantenedorContainer">
       <div className="mantenedorHead width70">
-        <div className="w-[75%]">
+        <div className="w-[70%]">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
             setParams={setParams}
@@ -95,6 +95,7 @@ const MVitrinas: React.FC = () => {
             classNameSearchButton=" translate-x-[9vw] "
           />
         </div>
+
 
 
         <div className="w-[15vw]">

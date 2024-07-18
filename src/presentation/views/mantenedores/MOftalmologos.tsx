@@ -109,7 +109,7 @@ const MOftalmologos: React.FC = () => {
             showForwardButton={false}
             showRefreshButton={true}
             idMenu={idMenu}
-            classname={"translate-x-[18vw]  !w-[10vw]"}
+            classname={"translate-x-[17vw]  !w-[12vw]"}
 
           />
         </div>

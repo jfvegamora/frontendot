@@ -130,7 +130,7 @@ const MCristalesKardex: React.FC = () => {
                   labelProps: "labelInput"
                 }},
             ]}
-            classNameSearchButton=" translate-x-[1vw]"
+            classNameSearchButton=" translate-x-[1vw] z-30"
           />
         </div>
 
@@ -154,7 +154,7 @@ const MCristalesKardex: React.FC = () => {
             comilla={true}
             idMenu={idMenu}
             bln_egreso={true}
-            classname={"translate-x-[3vw]  !w-[15vw]"}
+            classname={"translate-x-[0.5vw] z-10  !w-[18vw]"}
 
           />
 

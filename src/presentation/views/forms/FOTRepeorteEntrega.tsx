@@ -244,6 +244,10 @@ const FOTReporteEntrega: React.FC<Interface> = ({
                         </button>
                     </div>
                 </div>
+
+
+
+                
                 <form className='userFormulario' onSubmit={handleSubmit(onSubmit)}>
                     {/* <h1 className='text-2xl mt-2'>Asignación de Orden de Compra</h1> */}
                 

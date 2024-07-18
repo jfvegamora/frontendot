@@ -121,7 +121,7 @@ const MProyectosTratamAdic: React.FC = () => {
             showForwardButton={false}
             showRefreshButton={true}
             idMenu={idMenu}
-            classname={"translate-x-[18vw] !w-[7vw]"}
+            classname={"translate-x-[18vw] !w-[9vw] "}
 
           />
 

@@ -157,7 +157,7 @@ const MEstablecimientos: React.FC = () => {
                    },
               },
         ]}
-        classNameSearchButton=" translate-x-[-8vw] translate-y-[4.5vw]"
+        classNameSearchButton=" translate-x-[-11vw] translate-y-[4.5vw]"
 
           />
         </div>
@@ -178,7 +178,7 @@ const MEstablecimientos: React.FC = () => {
             showImportCsv={true}
             comilla={false}
             idMenu={idMenu}
-            classname={"translate-x-[16vw]  !w-[14vw] translate-y-[2vw]"}
+            classname={"translate-x-[13vw]  !w-[16vw] translate-y-[2vw]"}
 
           />
         </div>

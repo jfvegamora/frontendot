@@ -108,6 +108,11 @@ body {
 }
 
 
+.separator {
+  border-right: 0.5px solid #000;
+  padding-right: 5px; 
+}
+
 
 .font-menu{
   color: #424769;
@@ -1099,17 +1104,20 @@ input[type="text"] {
   margin: 0px 0px 0px 0px !important;
 }
 
-.otDioptriaTit div{
-  font-size: 0.9rem;
+.otDioptriaTit td{
+  font-size: 1rem;
+  color: black !important;
   line-height: 1rem;
   padding: 0px 0px 0px 0px !important;
   margin: 0px 0px 0px 0px !important;
   font-weight: 700;
-  text-align: center;
+  text-align: center !important;
 }
 
-.otDioptria div{
-  font-size: 0.9rem;
+.otDioptria td{
+  font-size: 1rem;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif !important;
+  text-align: center !important;
   line-height: 1rem;
   padding: 0px 0px 0px 0px !important;
   margin: -5px 0px 0px 0px !important;
