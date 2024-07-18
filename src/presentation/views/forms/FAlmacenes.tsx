@@ -15,6 +15,7 @@ import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
 import SelectInputTiposComponent from "../../components/forms/SelectInputTiposComponent";
 import { SelectInputComponent } from "../../components";
+import { Button } from "@material-tailwind/react";
 
 const strBaseUrl = "/api/almacenes/";
 const strEntidad = "Almacén ";
@@ -293,12 +294,12 @@ const FPuntosVenta: React.FC<IUserFormPrps> = React.memo(
             </div>
           </div>
 
-          <div className="w-full">
-            <div className="w-[70%] mx-auto">
+          <div className="w-full !mt-5 !mb-5">
+              <div className="w-[50%] mx-auto">
               {escritura_lectura && (
-                <button type="submit" tabIndex={1} className="userFormBtnSubmit">
+                <Button type="submit" tabIndex={1} className="userFormBtnSubmit">
                   {`${TITLES.guardar}`}
-                </button>
+                </Button>
               )}
             </div>
           </div>

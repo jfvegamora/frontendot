@@ -16,6 +16,7 @@ import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
 import { toast } from 'react-toastify'
+import { Button } from "@material-tailwind/react";
 
 // import axios from "axios";
 // import { toast } from "react-toastify";
@@ -256,12 +257,12 @@ const FVitrinasArmazonesCopiar: React.FC<IUserFormPrps> = React.memo(
             </div>
           </div>
 
-          <div className="w-full">
-            <div className="w-[70%] mx-auto">
+          <div className="w-full !mt-5 !mb-5">
+              <div className="w-[50%] mx-auto">
               {escritura_lectura && (
-                <button type="submit" tabIndex={1} className="userFormBtnSubmit">
+                <Button type="submit" tabIndex={1} className="userFormBtnSubmit">
                   {`${BUTTON_MESSAGES.copiar}`}
-                </button>
+                </Button>
               )}
             </div>
           </div>

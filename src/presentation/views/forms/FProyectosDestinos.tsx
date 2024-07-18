@@ -248,7 +248,6 @@ const FProyectoDestinos: React.FC<IUserFormPrps> = React.memo(
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
-
             <div className="input-container items-center rowForm w-full">
               <div className="labelInputDiv">
                 <TextInputComponent
@@ -355,8 +354,8 @@ const FProyectoDestinos: React.FC<IUserFormPrps> = React.memo(
             </div>
           </div>
 
-          <div className="w-full">
-            <div className="w-[70%] mx-auto">
+          <div className="w-full !mt-5 !mb-5">
+            <div className="w-[50%] mx-auto">
               {escritura_lectura && (
                 <Button type="submit" tabIndex={1} className="userFormBtnSubmit">
                   {`${TITLES.guardar}`}

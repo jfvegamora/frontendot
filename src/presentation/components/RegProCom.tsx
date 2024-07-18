@@ -85,13 +85,9 @@ useEffect(()=>{
 
 },[defaultComuna, defaultProvincia, defaultRegion, validationClienteComuna])
 
-
-console.log(defaultComuna)
-
-
   return (
     <div className='w-full pb-2 items-center '>
-        <div className="w-[93%] mb-4 ">
+        <div className="w-[95%] -ml-2 mb-4 ">
             <Controller
                 name="cliente_region_id"
                 control={control}
@@ -106,7 +102,7 @@ console.log(defaultComuna)
                             tabIndex  ={tabIndex || 1}
                             disabled={onlyRead}
                             // className="custom-input py-2 px-3 cursor-pointer z-0 text-center "
-                            className={`!h-[4vw] labelInput ${className ? className : "custom-input py-2  cursor-pointer z-0"}  ${onlyRead ? "custom-onlyread" : isOptional ? "custom-optional" : "custom-required"}`}
+                            className={`!h-[4rem] labelInput ${className ? className : "custom-input py-2  cursor-pointer z-0"}  ${onlyRead ? "custom-onlyread" : isOptional ? "custom-optional" : "custom-required"}`}
 
                             >
                                 {!Regiones && (
@@ -125,7 +121,7 @@ console.log(defaultComuna)
                 )}
             /> 
         </div>  
-        <div className="w-[93%] mb-4 !h-[6vh]">
+        <div className="w-[95%] -ml-2 mb-4 ">
             <Controller
                 name="cliente_provincia_id"
                 control={control}
@@ -165,7 +161,7 @@ console.log(defaultComuna)
                 )}
             /> 
         </div>  
-        <div className="w-[93%] mb-4 !h-[6vh]">
+        <div className="w-[95%] -ml-2 mb-4 ">
             <Controller
                 name={name}
                 control={control}

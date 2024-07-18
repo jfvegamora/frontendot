@@ -216,6 +216,7 @@ const FMotivosOTDerivada: React.FC<ISituacionesFormProps> = React.memo(
         window.removeEventListener("keydown", handleKeyDown);
       };
     }, [closeModal]);
+
     return (
       <div className="useFormContainer centered-div w-[35rem]">
         <div className="userFormBtnCloseContainer">
@@ -240,7 +241,6 @@ const FMotivosOTDerivada: React.FC<ISituacionesFormProps> = React.memo(
                   error={errors.situacion}
                   inputRef={firstInputRef}
                   customWidth={"labelInput inputStyles"}
-
                 />
               </div>
             </div>
@@ -263,8 +263,8 @@ const FMotivosOTDerivada: React.FC<ISituacionesFormProps> = React.memo(
             </div>
           </div>
 
-          <div className="w-full">
-            <div className="w-[70%] mx-auto">
+          <div className="w-full !mt-5 !mb-5">
+            <div className="w-[50%] mx-auto">
               {escritura_lectura && (
                 <Button type="submit" tabIndex={1} className="userFormBtnSubmit">
                   {`${TITLES.guardar}`}

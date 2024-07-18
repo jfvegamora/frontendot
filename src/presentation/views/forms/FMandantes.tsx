@@ -246,8 +246,6 @@ const FMandantes: React.FC<IUserFormPrps> = React.memo(
       focusFirstInput("codigo");
     }, []);
 
-    // console.log('data', data)
-    console.log(errors && errors)
     return (
       <div className="useFormContainer centered-div w-[35rem]">
         <div className="userFormBtnCloseContainer">
@@ -259,67 +257,69 @@ const FMandantes: React.FC<IUserFormPrps> = React.memo(
 
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
-          <div className="userFormularioContainer h-[25vw]">
+          <div className="userFormularioContainer">
             <div className="input-container items-center rowForm">
               <div className="labelInputDiv">
-                  <TextInputComponent
-                    type="number"
-                    label="Código"
-                    name="codigo"
-                    data={data && data[EnumGrid.codigo]}
-                    control={control}
-                    error={errors.codigo}
-                    inputRef={firstInputRef}
-                    onlyRead={isEditting}
-                    customWidth={"labelInput inputStyles"}
-                  />
+                <TextInputComponent
+                  type="number"
+                  label="Código"
+                  name="codigo"
+                  data={data && data[EnumGrid.codigo]}
+                  control={control}
+                  error={errors.codigo}
+                  inputRef={firstInputRef}
+                  onlyRead={isEditting}
+                  customWidth={"labelInput inputStyles"}
+                />
               </div>
             </div>
+
             <div className="input-container items-center rowForm">
               <div className="labelInputDiv">
-                  <TextInputComponent
-                    type="text"
-                    label="RUT"
-                    name="rut"
-                    data={data && data[EnumGrid.rut]}
-                    control={control}
-                    error={errors.rut}
-                    customWidth={"labelInput inputStyles"}
-                  />
-                </div>
+                <TextInputComponent
+                  type="text"
+                  label="RUT"
+                  name="rut"
+                  data={data && data[EnumGrid.rut]}
+                  control={control}
+                  error={errors.rut}
+                  customWidth={"labelInput inputStyles"}
+                />
+              </div>
             </div>
+
             <div className="input-container items-center rowForm">
               <div className="labelInputDiv">
-                  <TextInputComponent
-                    type="text"
-                    label="Nombre"
-                    name="nombre"
-                    data={data && data[EnumGrid.nombre]}
-                    control={control}
-                    error={errors.nombre}
-                    customWidth={"labelInput inputStyles"}
-                  />
-                </div>
+                <TextInputComponent
+                  type="text"
+                  label="Nombre"
+                  name="nombre"
+                  data={data && data[EnumGrid.nombre]}
+                  control={control}
+                  error={errors.nombre}
+                  customWidth={"labelInput inputStyles"}
+                />
+              </div>
             </div>
 
             <div className="input-container items-center rowForm px-2">
               <div className="!mt-[1rem]">
-                  <RegProCom
-                    name="comuna"
-                    control={control}
-                    register={register}
-                    setValue={setValue}
-                    defaultRegion={data && data[EnumGrid.region_id]}
-                    defaultProvincia={data && data[EnumGrid.provincia_id]}
-                    defaultComuna={data && data[EnumGrid.comuna_id]}
-                    errors={errors.comuna}
-                  />
-                </div>
+                <RegProCom
+                  name="comuna"
+                  control={control}
+                  register={register}
+                  setValue={setValue}
+                  defaultRegion={data && data[EnumGrid.region_id]}
+                  defaultProvincia={data && data[EnumGrid.provincia_id]}
+                  defaultComuna={data && data[EnumGrid.comuna_id]}
+                  errors={errors.comuna}
+                />
+              </div>
             </div>
           </div>
 
-          <div className="w-full">
-            <div className="w-[60%] mx-auto">
+          <div className="w-full !mt-5 !mb-5">
+            <div className="w-[50%] mx-auto">
               {escritura_lectura && (
                 <Button type="submit" tabIndex={1} className="userFormBtnSubmit">
                   {`${TITLES.guardar}`}

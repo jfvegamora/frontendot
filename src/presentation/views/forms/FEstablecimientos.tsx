@@ -15,19 +15,20 @@ import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
 import RegProCom from "../../components/RegProCom";
 import SelectInputTiposComponent from "../../components/forms/SelectInputTiposComponent";
+import { Button } from "@material-tailwind/react";
 
 const strBaseUrl = "/api/establecimientos/";
 const strEntidad = "Establecimiento ";
 
 export interface InputData {
-  codigo   : string | undefined;
-  nombre   : string | undefined;
-  tipo     : string | undefined;
-  mandante : string | undefined;
-  region   : string | undefined;
+  codigo: string | undefined;
+  nombre: string | undefined;
+  tipo: string | undefined;
+  mandante: string | undefined;
+  region: string | undefined;
   provincia: string | undefined;
-  comuna   : string | undefined;
-  destino  : string | undefined;
+  comuna: string | undefined;
+  destino: string | undefined;
 }
 
 interface OutputData {
@@ -66,8 +67,8 @@ const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
   ({ closeModal, setEntities, params, label, data, isEditting, escritura_lectura }) => {
     const schema = validationEstablecimientosSchema(isEditting);
     const { show } = useCustomToast();
-    
-    
+
+
     const {
       editEntity,
       createdEntity,
@@ -87,7 +88,7 @@ const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
       resolver: yupResolver(schema),
     });
     const { showModal, CustomModal } = useModal();
-    
+
     function transformUpdateQuery(
       jsonData: InputData,
       primaryKey: string
@@ -100,17 +101,17 @@ const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
         `mandante = ${jsonData.mandante}`,
         `destino  = ${jsonData.destino}`,
       ];
-    
+
       const filteredFields = fields.filter(
         (field) => field !== null && field !== ""
       );
-    
+
       if (filteredFields.length === 0) {
         return null;
       }
       let _p1 = filteredFields.join(",");
       _p1 = _p1.replace(/'/g, '!');
-    
+
       const query: OutputData = {
         query: "04",
         _p1,
@@ -149,25 +150,25 @@ const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
 
     const handleApiResponse = React.useCallback(
       async (response: any, isEditting: boolean) => {
-        
+
         // console.log(response)
         // console.log(blnKeep)
-        
-        
+
+
         console.log(response)
         if (response.code === "ERR_BAD_RESPONSE" || response.stack) {
           const errorMessage = isEditting
-                ? strEntidad.concat(": " + response.message)
-                : strEntidad.concat(": " + response.message)
-                show({
+            ? strEntidad.concat(": " + response.message)
+            : strEntidad.concat(": " + response.message)
+          show({
             message: errorMessage ? errorMessage : response.code,
             type: "error",
           });
-          
+
           return;
         }
-        
-        if(response.mensaje.includes('Creado')){
+
+        if (response.mensaje.includes('Creado')) {
           toastSuccess(isEditting);
         }
         if (!blnKeep && !isEditting) {
@@ -241,7 +242,7 @@ const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
     useEffect(() => {
       focusFirstInput("codigo");
     }, []);
-    
+
     // console.log(firstInputRef)
 
     return (
@@ -255,8 +256,8 @@ const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
 
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
-          <div className="userFormularioContainer !h-[35rem] -translate-y-6" style={{ display: 'inline-block'}}>
-          <div className="input-container items-center rowForm w-full">
+          <div className="userFormularioContainer">
+            <div className="input-container items-center rowForm w-full">
               <div className="labelInputDiv">
                 <TextInputComponent
                   type="text"
@@ -268,8 +269,7 @@ const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
                   inputRef={firstInputRef}
                   isOptional={true}
                   customWidth={"labelInput inputStyles"}
-
-                  />
+                />
               </div>
             </div>
 
@@ -283,7 +283,6 @@ const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
                   control={control}
                   error={errors.nombre}
                   customWidth={"labelInput inputStyles"}
-
                 />
               </div>
             </div>
@@ -299,7 +298,7 @@ const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
                   entidad="EstablecimientosTipos"
                   error={errors.tipo}
                   customWidth={"labelInput inputStyles"}
-                  />
+                />
               </div>
             </div>
 
@@ -314,10 +313,10 @@ const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
                   entidad={["/api/mandantes/", "02"]}
                   error={errors.mandante}
                   customWidth={"labelInput inputStyles"}
-                  />
+                />
               </div>
             </div>
-      
+
             <div className="input-container items-center rowForm w-full">
               <div className="selectInputDiv">
                 <SelectInputComponent
@@ -329,10 +328,10 @@ const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
                   entidad={["/api/proyectodestinos/", "02"]}
                   error={errors.destino}
                   customWidth={"labelInput inputStyles"}
-                  />
+                />
               </div>
             </div>
-      
+
             <div className="input-container items-center rowForm px-2">
               <div className="!mt-[1rem]">
                 <RegProCom
@@ -346,18 +345,17 @@ const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
                   errors={errors.comuna}
                 />
               </div>
-
-              <div className="flex justify-center -translate-y-2">
-                <div className="w-[50%]">
-                  {escritura_lectura && (
-                  <button type="submit" tabIndex={1} className="userFormBtnSubmit">
-                  {`${TITLES.guardar}`}
-                  </button>
-                  )}
-              </div>
-              </div>
             </div>
+          </div>
 
+          <div className="w-full !mb-5">
+            <div className="w-[50%] mx-auto">
+              {escritura_lectura && (
+                <Button type="submit" tabIndex={1} className="userFormBtnSubmit">
+                  {`${TITLES.guardar}`}
+                </Button>
+              )}
+            </div>
           </div>
         </form>
 

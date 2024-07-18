@@ -22,18 +22,18 @@ export const BUTTON_MESSAGES = {
   bln_ingreso: "Ingreso",
   bln_egreso: "Egreso",
   permiso_ot: "Permisos OT",
-  copiar: "Copiar Muestrario",
+  copiar: "COPIAR MUESTRARIO",
   imprimir:"Imprimir",
   Whatsapp: "Whatsapp",
   procesar: "Procesar",
-  traspasar: "Traspasar Inventario"
+  traspasar: "TRASPASAR INVENTARIO"
 };
 
 export const TITLES = {
   nuevo: "Nuevo ",
   nueva: "Nueva ",
   editar: "Editar ",
-  guardar: "Guardar",
+  guardar: "GUARDAR",
   ingreso: "Ingreso de ",
   egreso: "Egreso de ",
   edicion: "Edición de ",

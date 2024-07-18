@@ -20,7 +20,7 @@ export enum EnumGrid {
   tratamiento_adicional     = 4,
   valor_neto                = 5,
 }
-const strEntidad = "Parametrizacion Tratamiento Adicional ";
+const strEntidad = "Parametrización Tratamiento Adicional ";
 const strEntidadExcel = "parametrizacion_tratamiento_adicional";
 const strBaseUrl = "/api/proyectotratamadic/";
 const strQuery = "01";

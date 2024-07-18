@@ -228,7 +228,7 @@ const FMotivosOTAnulada: React.FC<ISituacionesFormProps> = React.memo(
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))}
           className="userFormulario">
           <div className="userFormularioContainer">
-          <div className="input-container items-center rowForm">
+            <div className="input-container items-center rowForm">
               <div className="labelInputDiv">
                 <TextInputComponent
                   type="text"
@@ -259,8 +259,8 @@ const FMotivosOTAnulada: React.FC<ISituacionesFormProps> = React.memo(
             </div>
           </div>
 
-          <div className="w-full">
-            <div className="w-[70%] mx-auto">
+          <div className="w-full !mt-5 !mb-5">
+            <div className="w-[50%] mx-auto">
               {escritura_lectura && (
                 <Button type="submit" tabIndex={1} className="userFormBtnSubmit">
                   {`${TITLES.guardar}`}

@@ -366,7 +366,7 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
                       error={errors.tipo}
                     />
 
-                    <div className="flex absolute top-[63%] w-[44%] mr-10">
+                    <div className="flex absolute top-[63%] w-[50%] mr-10">
                       <div className="flex-col">
                         <div className="flex labelInput !mt-[1rem] !mb-[1rem]">
                           <div className="w-[50%]">
@@ -380,7 +380,7 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
                               customWidth={"labelInput inputStyles"}
                             />
                           </div>
-                          <div className="w-[50%] ml-4 pr-4">
+                          <div className="w-[50%] pr-4">
                             <TextInputComponent
                               type="text"
                               label="Teléfono"
@@ -392,7 +392,7 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
                             />
                           </div>
                         </div>
-                        <div className="labelInput !mt-[2rem] pr-4">
+                        <div className="labelInput !mt-[1rem] pr-4">
                           <TextInputComponent
                             type="text"
                             label="Correo"
@@ -438,8 +438,8 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
               </div>
             </div>
 
-            <div className="w-full !mt-20 !mb-5">
-            <div className="w-[25%] mx-auto">
+            <div className="w-full !mt-10 !mb-5">
+              <div className="w-[25%] mx-auto">
                 {escritura_lectura && (
                   <Button type="submit" tabIndex={1} className="userFormBtnSubmit">
                     {`${TITLES.guardar}`}

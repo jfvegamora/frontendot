@@ -20,15 +20,15 @@ const strBaseUrl = "/api/empresas/";
 const strEntidad = "Empresas ";
 
 export interface InputData {
-  rut         : string | undefined;
-  nombre      : string | undefined;
+  rut: string | undefined;
+  nombre: string | undefined;
   razon_social: string | undefined;
-  giro        : string | undefined;
-  direccion   : string | undefined;
-  telefono    : string | undefined;
-  correo      : string | undefined;
-  sitio_web   : string | undefined;
-  nombre_logo : string | undefined;
+  giro: string | undefined;
+  direccion: string | undefined;
+  telefono: string | undefined;
+  correo: string | undefined;
+  sitio_web: string | undefined;
+  nombre_logo: string | undefined;
 }
 
 interface OutputData {
@@ -46,9 +46,9 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
       "${jsonData.telefono}", 
       "${jsonData.correo}", 
       "${jsonData.sitio_web}"`;
-      
+
   _p1 = _p1.replace(/'/g, '!');
-  
+
   const query: OutputData = {
     query: "03",
     _p1
@@ -88,7 +88,7 @@ export function transformUpdateQuery(
     _p1,
     _p2: primaryKey,
   };
-console.log("query: ", query);
+  console.log("query: ", query);
   return query;
 }
 
@@ -146,7 +146,7 @@ const FEmpresas: React.FC<IUserFormPrps> = React.memo(
           firstInput.focus();
         }
       }
-    
+
     }, [setValue, firstInputRef]);
 
     const updateNewEntity = React.useCallback(async () => {
@@ -167,8 +167,8 @@ const FEmpresas: React.FC<IUserFormPrps> = React.memo(
       async (response: any, isEditting: boolean) => {
         if (response.code === "ERR_BAD_RESPONSE" || response.stack) {
           const errorMessage = isEditting
-                ? strEntidad.concat(": " + response.message)
-                : strEntidad.concat(": " + response.message)
+            ? strEntidad.concat(": " + response.message)
+            : strEntidad.concat(": " + response.message)
           show({
             message: errorMessage ? errorMessage : response.code,
             type: "error",
@@ -176,8 +176,8 @@ const FEmpresas: React.FC<IUserFormPrps> = React.memo(
 
           return;
         }
-        
-        if(response.mensaje.includes('Creado')){
+
+        if (response.mensaje.includes('Creado')) {
           toastSuccess(isEditting);
         }
         if (!blnKeep && !isEditting) {
@@ -227,11 +227,11 @@ const FEmpresas: React.FC<IUserFormPrps> = React.memo(
 
     const handleSaveChange = React.useCallback(
       async (data: InputData, isEditting: boolean) => {
-        
 
-        if(data["rut"]?.trim() !== ''){
+
+        if (data["rut"]?.trim() !== '') {
           const response = validateRut(data["rut"]?.trim());
-          if(!response){
+          if (!response) {
             toast.error('Rut no válido')
             return setValue("rut", "");
           }
@@ -266,150 +266,149 @@ const FEmpresas: React.FC<IUserFormPrps> = React.memo(
     return (
       <div className="useFormContainer centered-div use50rem">
         <div className="userFormBtnCloseContainer">
-            <h1 className="userFormLabel mx-auto">{label}</h1>
+          <h1 className="userFormLabel mx-auto">{label}</h1>
           <button onClick={closeModal} className="userFormBtnClose mr-4">
             X
           </button>
         </div>
-        
+
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
-              <div className="flex items-center">
+            <div className="flex items-center">
               <div className="input-container items-center rowForm w-[50%]">
                 <div className="labelInputDiv">
-                    <TextInputComponent
-                      type="text"
-                      label="RUT"
-                      name="rut"
-                      data={data && data[EnumGrid.rut]}
-                      control={control}
-                      error={errors.rut}
-                      inputRef={firstInputRef}
-                      isOptional={true}
-                      customWidth={"labelInput inputStyles"}
-                      />
-                  </div>
-                </div>
-                <div className="input-container items-center rowForm w-[50%]">
-                <div className="labelInputDiv">
-                    <TextInputComponent
-                      type="text"
-                      label="Nombre"
-                      name="nombre"
-                      data={data && data[EnumGrid.nombre]}
-                      control={control}
-                      error={errors.nombre}
-                      inputRef={firstInputRef}
-                      customWidth={"labelInput inputStyles"}
-                      />
-                  </div> 
+                  <TextInputComponent
+                    type="text"
+                    label="RUT"
+                    name="rut"
+                    data={data && data[EnumGrid.rut]}
+                    control={control}
+                    error={errors.rut}
+                    inputRef={firstInputRef}
+                    isOptional={true}
+                    customWidth={"labelInput inputStyles"}
+                  />
                 </div>
               </div>
-              
-              <div className="flex items-center">
               <div className="input-container items-center rowForm w-[50%]">
                 <div className="labelInputDiv">
-                    <TextInputComponent
-                      type="text"
-                      label="Razón Social"
-                      name="razon_social"
-                      data={data && data[EnumGrid.razon_social]}
-                      control={control}
-                      error={errors.razon_social}
-                      customWidth={"labelInput inputStyles"}
-                      />
-                  </div>
-                </div>
-                <div className="input-container items-center rowForm w-[50%]">
-                <div className="labelInputDiv">
-                    <TextInputComponent
-                      type="text"
-                      label="Giro"
-                      name="giro"
-                      data={data && data[EnumGrid.giro]}
-                      control={control}
-                      error={errors.giro}
-                      customWidth={"labelInput inputStyles"}
-                      />
-                  </div> 
-                </div>
-              </div>
-              
-              <div className="flex items-center">
-              <div className="input-container items-center rowForm w-[50%]">
-                <div className="labelInputDiv">
-                    <TextInputComponent
-                      type="text"
-                      label="Dirección"
-                      name="direccion"
-                      data={data && data[EnumGrid.direccion]}
-                      control={control}
-                      error={errors.direccion}
-                      isOptional={true}
-                      customWidth={"labelInput inputStyles"}
-                      />
-                  </div>
-                </div>
-                <div className="input-container items-center rowForm w-[50%]">
-                <div className="labelInputDiv">
-                    <TextInputComponent
-                      type="text"
-                      label="Teléfono"
-                      name="telefono"
-                      data={data && data[EnumGrid.telefono]}
-                      control={control}
-                      error={errors.telefono}
-                      isOptional={true}
-                      customWidth={"labelInput inputStyles"}
-                      />
-                  </div> 
-                </div>
-              </div>
-
-              <div className="flex items-center">
-              <div className="input-container items-center rowForm w-[50%]">
-                <div className="labelInputDiv">
-                    <TextInputComponent
-                      type="email"
-                      label="Correo"
-                      name="correo"
-                      data={data && data[EnumGrid.correo]}
-                      control={control}
-                      error={errors.correo}
-                      isOptional={true}
-                      customWidth={"labelInput inputStyles"}
-
-                      />
-                  </div>
-                </div>
-                <div className="input-container items-center rowForm w-[50%]">
-                <div className="labelInputDiv">
-                    <TextInputComponent
-                      type="text"
-                      label="Sitio Web"
-                      name="sitio_web"
-                      data={data && data[EnumGrid.sitio_web]}
-                      control={control}
-                      error={errors.sitio_web}
-                      isOptional={true}
-                      customWidth={"labelInput inputStyles"}
-                      />
-                  </div> 
+                  <TextInputComponent
+                    type="text"
+                    label="Nombre"
+                    name="nombre"
+                    data={data && data[EnumGrid.nombre]}
+                    control={control}
+                    error={errors.nombre}
+                    inputRef={firstInputRef}
+                    customWidth={"labelInput inputStyles"}
+                  />
                 </div>
               </div>
             </div>
 
-
-            <div className="w-full">
-              <div className="mx-auto w-[40%]">
-                {escritura_lectura && (
-                  <Button type="submit" tabIndex={1} className="userFormBtnSubmit">
-                    {`${TITLES.guardar}`}
-                  </Button>
-                )}
+            <div className="flex items-center">
+              <div className="input-container items-center rowForm w-[50%]">
+                <div className="labelInputDiv">
+                  <TextInputComponent
+                    type="text"
+                    label="Razón Social"
+                    name="razon_social"
+                    data={data && data[EnumGrid.razon_social]}
+                    control={control}
+                    error={errors.razon_social}
+                    customWidth={"labelInput inputStyles"}
+                  />
+                </div>
+              </div>
+              <div className="input-container items-center rowForm w-[50%]">
+                <div className="labelInputDiv">
+                  <TextInputComponent
+                    type="text"
+                    label="Giro"
+                    name="giro"
+                    data={data && data[EnumGrid.giro]}
+                    control={control}
+                    error={errors.giro}
+                    customWidth={"labelInput inputStyles"}
+                  />
+                </div>
               </div>
             </div>
+
+            <div className="flex items-center">
+              <div className="input-container items-center rowForm w-[50%]">
+                <div className="labelInputDiv">
+                  <TextInputComponent
+                    type="text"
+                    label="Dirección"
+                    name="direccion"
+                    data={data && data[EnumGrid.direccion]}
+                    control={control}
+                    error={errors.direccion}
+                    isOptional={true}
+                    customWidth={"labelInput inputStyles"}
+                  />
+                </div>
+              </div>
+              <div className="input-container items-center rowForm w-[50%]">
+                <div className="labelInputDiv">
+                  <TextInputComponent
+                    type="text"
+                    label="Teléfono"
+                    name="telefono"
+                    data={data && data[EnumGrid.telefono]}
+                    control={control}
+                    error={errors.telefono}
+                    isOptional={true}
+                    customWidth={"labelInput inputStyles"}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="flex items-center">
+              <div className="input-container items-center rowForm w-[50%]">
+                <div className="labelInputDiv">
+                  <TextInputComponent
+                    type="email"
+                    label="Correo"
+                    name="correo"
+                    data={data && data[EnumGrid.correo]}
+                    control={control}
+                    error={errors.correo}
+                    isOptional={true}
+                    customWidth={"labelInput inputStyles"}
+
+                  />
+                </div>
+              </div>
+              <div className="input-container items-center rowForm w-[50%]">
+                <div className="labelInputDiv">
+                  <TextInputComponent
+                    type="text"
+                    label="Sitio Web"
+                    name="sitio_web"
+                    data={data && data[EnumGrid.sitio_web]}
+                    control={control}
+                    error={errors.sitio_web}
+                    isOptional={true}
+                    customWidth={"labelInput inputStyles"}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="w-full !mt-5 !mb-5">
+            <div className="w-[40%] mx-auto">
+              {escritura_lectura && (
+                <Button type="submit" tabIndex={1} className="userFormBtnSubmit">
+                  {`${TITLES.guardar}`}
+                </Button>
+              )}
+            </div>
+          </div>
 
         </form>
 

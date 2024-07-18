@@ -325,8 +325,8 @@ const FProyectosAccesorios: React.FC<IUserFormPrps> = React.memo(
               </div>
             </div>
 
-            <div className="input-container items-center rowForm">
-                <div className="labelInputDiv">
+            <div className="input-container rowForm mx-auto w-[30rem]">
+                <div className="labelInputDiv ">
                   <RadioButtonComponent
                     control={control}
                     label="Estado"
@@ -342,8 +342,8 @@ const FProyectosAccesorios: React.FC<IUserFormPrps> = React.memo(
               </div>
           </div>
 
-          <div className="w-full">
-            <div className="w-[70%] mx-auto">
+          <div className="w-full !mt-5 !mb-5">
+            <div className="w-[50%] mx-auto">
               {escritura_lectura && (
                 <Button type="submit" tabIndex={1} className="userFormBtnSubmit">
                   {`${TITLES.guardar}`}
