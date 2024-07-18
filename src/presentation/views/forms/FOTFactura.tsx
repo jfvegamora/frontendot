@@ -195,7 +195,7 @@ const FOTFactura: React.FC<IDerivacion> = ({
                                     name="numero_doc"
                                     control={control}
                                     error={errors.numero_doc}
-                                    customWidth={"labelInput inputStyles"}
+                                    customWidth={"labelInput inputStyles text-right"}
                                 />
                             </div>
                         </div>
@@ -222,9 +222,8 @@ const FOTFactura: React.FC<IDerivacion> = ({
                                     label="Valor Neto $"
                                     name="valor_neto"
                                     control={control}
-                                    textAlign='text-right'
                                     error={errors.valor_neto}
-                                    customWidth={"labelInput inputStyles"}
+                                    customWidth={"labelInput inputStyles text-right"}
                                 />
                             </div>
                         </div>

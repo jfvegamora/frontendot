@@ -203,7 +203,7 @@ const FOTOrdenCompra: React.FC<IDerivacion> = ({
                                     name="numero_doc"
                                     control={control}
                                     error={errors.numero_doc}
-                                    customWidth={"labelInput inputStyles"}
+                                    customWidth={"labelInput inputStyles text-right"}
                                 />
                             </div>
                         </div>
