@@ -208,7 +208,7 @@ const FOTGuiaDespacho: React.FC<IDerivacion> = ({
                                             data={numeroGuia}
                                             control={control}
                                             error={errors.numero_doc}
-                                            customWidth={"labelInput inputStyles"}
+                                            customWidth={"labelInput inputStyles text-right"}
                                         />
                                     </div>
                                 </div>
