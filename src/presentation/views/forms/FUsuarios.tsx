@@ -858,14 +858,14 @@ return (
           <div className="flex items-center">
           {isEditting && (
             <div className="!w-[8rem] !flex mx-auto bg-red-400">
-              <button
+              <Button
                 type="button"
                 onClick={handlePermisos}
                 className="absolute !w-[30%] bottom-[.02rem] left-5 userFormBtnSubmit"
                 tabIndex={1}
               >
                 Copiar Permisos
-              </button>
+              </Button>
             </div>
           )}
 

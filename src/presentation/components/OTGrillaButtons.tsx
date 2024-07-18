@@ -239,6 +239,7 @@ const imprimirComprobanteRetiro = async(tipoComprobante?:string) => {
         // }
 
         if(OT[usuario_ot] !== user?.id){
+            disabledIndividualCheck.value = false;  
             return toast.error(`OT ${folio} no pertenece al Usuario ${user.nombre}`);
         }
 
@@ -295,7 +296,7 @@ const imprimirComprobanteRetiro = async(tipoComprobante?:string) => {
                     </IconButton>
                 </Tooltip>
             )}
-            {areaPermissions && areaPermissions[2] === "1" && permisos_usuario_areas === '1' && (
+            {areaPermissions && areaPermissions[2] === "1" && permisos_usuario_areas !== '0' && (
                 <Tooltip content={BUTTON_MESSAGES.imprimir.concat(strEntidad)}>
                     <IconButton
                         variant="text"
