@@ -22,11 +22,11 @@ export const BUTTON_MESSAGES = {
   bln_ingreso: "Ingreso",
   bln_egreso: "Egreso",
   permiso_ot: "Permisos OT",
-  copiar: "COPIAR MUESTRARIO",
+  copiar: "Copiar",
   imprimir:"Imprimir",
   Whatsapp: "Whatsapp",
   procesar: "Procesar",
-  traspasar: "TRASPASAR INVENTARIO"
+  traspasar: "Traspasar Inventario"
 };
 
 export const TITLES = {
