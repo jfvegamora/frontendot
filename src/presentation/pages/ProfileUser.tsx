@@ -8,6 +8,7 @@ import bcrypt from "bcryptjs-react";
 import { AppStore, useAppSelector } from "../../redux/store";
 import { useNavigate } from "react-router-dom";
 import { useCrud } from "../hooks";
+import { Button } from "@material-tailwind/react";
 
 const ProfileUser: React.FC = () => {
   const userState = useAppSelector((store: AppStore) => store.user);
@@ -77,28 +78,27 @@ const ProfileUser: React.FC = () => {
   }, []);
 
   return (
-    <div className="useFormContainer w-[40%] h-auto !overflow-y-auto left-[30vw] top-[11vh]  ">
+    <div className="useFormContainer centered-div w-[35rem]  ">
       <h1 className="userFormLabel text-white mt-8">Perfil de Usuario</h1>
 
       <form onSubmit={handleSubmit((data) => handleChange(data))}>
-
-        <div className="w-full items-center rowForm flex">
-          <div className="input-container items-center rowForm w-full">
-              <div className="w-full">
-                <TextInputComponent
-                  type="text"
-                  label="Nombre"
-                  name="nombre"
-                  data={userState && userState.nombre}
-                  control={control}
-                  error={errors.nombre}
+        <div className="userFormularioContainer">
+          <div className="input-container items-center rowForm">
+            <div className="labelInputDiv">
+              <TextInputComponent
+                type="text"
+                label="Nombre"
+                name="nombre"
+                data={userState && userState.nombre}
+                control={control}
+                error={errors.nombre}
+                customWidth={"labelInput inputStyles"}
                 />
-              </div>            
+            </div>
           </div>
-        </div>
-        <div className="w-full items-center rowForm flex">
-          <div className="input-container items-center rowForm w-full">
-            <div className="w-full">
+
+          <div className="input-container items-center rowForm">
+            <div className="labelInputDiv">
               <TextInputComponent
                 type="mail"
                 label="Correo"
@@ -106,90 +106,87 @@ const ProfileUser: React.FC = () => {
                 control={control}
                 data={userState && userState.correo}
                 error={errors.correo}
-              />
+                customWidth={"labelInput inputStyles"}
+                />
             </div>
           </div>
-        </div>
-        <div className="w-full items-center rowForm flex ">
-          <div className="input-container items-center rowForm w-full">
-            <div className="mt-2 !ml-[1rem] !mr-[1rem]">
+
+          <div className="input-container items-center rowForm ">
+            <div className="selectInputDiv">
               <SelectInputComponent
                 label="Cargo"
                 name="cargo"
-                showRefresh={false}
+                showRefresh={true}
                 data={userState && userState.cargo}
                 control={control}
                 entidad={["/api/cargos/", "02"]}
                 readOnly={true}
-                customWidth={"100%"}
-              />
-            </div>
-          </div>
-        </div>
-
-
-        <div className="w-full items-center rowForm flex">
-          <div className="input-container items-center rowForm w-full">
-            <div className="w-full">
-                <TextInputComponent
-                  type="text"
-                  label="Telefono"
-                  name="telefono"
-                  control={control}
-                  data={userState && userState.telefono}
-                  error={errors.telefono}
+                customWidth={"labelInput inputStyles"}
                 />
             </div>
           </div>
-        </div>
 
-        <div className="w-full items-center rowForm flex">
-          <div className="input-container items-center rowForm w-full">
-            <div className="w-full">
+          <div className="input-container items-center rowForm">
+            <div className="labelInputDiv">
+              <TextInputComponent
+                type="text"
+                label="Teléfono"
+                name="telefono"
+                control={control}
+                data={userState && userState.telefono}
+                error={errors.telefono}
+                customWidth={"labelInput inputStyles"}
+                />
+            </div>
+          </div>
+
+          <div className="input-container items-center rowForm">
+            <div className="labelInputDiv">
               <TextInputComponent
                 type="password"
                 label="Contraseña actual"
                 name="password"
                 control={control}
                 error={errors.password}
-              />
+                customWidth={"labelInput inputStyles"}
+                />
+            </div>
+          </div>
+
+          <div className="w-full flex items-center">
+            <div className="input-container items-center rowForm w-[50%]">
+              <div className="labelInputDiv">
+                <TextInputComponent
+                  type="password"
+                  label="Nueva contraseña"
+                  name="newPassword"
+                  control={control}
+                  error={errors.newPassword}
+                  customWidth={"labelInput inputStyles"}
+                  />
+              </div>
+            </div>
+
+            <div className="input-container items-center rowForm w-[50%]">
+              <div className="labelInputDiv">
+                <TextInputComponent
+                  type="password"
+                  label="Confirmar nueva contraseña"
+                  name="confirmNewPassword"
+                  control={control}
+                  error={errors.confirmNewPassword}
+                  customWidth={"labelInput inputStyles"}
+                  />
+              </div>
             </div>
           </div>
         </div>
-
-
-        <div className="w-full items-center flex">
-          <div className="input-container items-center rowForm w-[50%]">
-            <div className="w-full">
-              <TextInputComponent
-                type="password"
-                label="Nueva contraseña"
-                name="newPassword"
-                control={control}
-                error={errors.newPassword}
-              />
-            </div>
-          </div>
-          <div className="input-container items-center rowForm w-[50%]">
-            <div className="w-full">
-              <TextInputComponent
-                type="password"
-                label=" Confirmar nueva contraseña"
-                name="confirmNewPassword"
-                control={control}
-                error={errors.confirmNewPassword}
-              />
-            </div>
-          </div>
-        </div>
-
-
 
         <div className="w-full">
-          <div className="w-[80%] mx-auto">
-            <button type="submit" tabIndex={1} className="userFormBtnSubmit">
+          <div className="w-[50%] mx-auto">
+            <Button type="submit" tabIndex={1} className="userFormBtnSubmit">
               Guardar
-            </button>
+            </Button>
           </div>
         </div>
       </form>
