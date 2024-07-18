@@ -255,7 +255,7 @@ const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
 
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
-          <div className="userFormularioContainer !h-[35rem] -translate-y-6" style={{ display: 'inline-block' }}>
+          <div className="userFormularioContainer">
             <div className="input-container items-center rowForm w-full">
               <div className="labelInputDiv">
                 <TextInputComponent
@@ -268,7 +268,6 @@ const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
                   inputRef={firstInputRef}
                   isOptional={true}
                   customWidth={"labelInput inputStyles"}
-
                 />
               </div>
             </div>
@@ -283,7 +282,6 @@ const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
                   control={control}
                   error={errors.nombre}
                   customWidth={"labelInput inputStyles"}
-
                 />
               </div>
             </div>
@@ -346,18 +344,17 @@ const FEstablecimientos: React.FC<IUserFormPrps> = React.memo(
                   errors={errors.comuna}
                 />
               </div>
-
-              <div className="flex justify-center -translate-y-2">
-                <div className="w-[50%]">
-                  {escritura_lectura && (
-                    <button type="submit" tabIndex={1} className="userFormBtnSubmit">
-                      {`${TITLES.guardar}`}
-                    </button>
-                  )}
-                </div>
-              </div>
             </div>
+          </div>
 
+          <div className="w-full !mb-5">
+            <div className="w-[50%] mx-auto">
+              {escritura_lectura && (
+                <button type="submit" tabIndex={1} className="userFormBtnSubmit">
+                  {`${TITLES.guardar}`}
+                </button>
+              )}
+            </div>
           </div>
         </form>
 

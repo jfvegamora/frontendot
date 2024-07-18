@@ -55,7 +55,7 @@ const RadioButtonComponent: React.FC<IRadioButtonProps> = ({
   return (
     <div
       className={` w-full px-8 py-0 mt-2 relative mx-2 border-[1px] radioComponent flex   ${
-        horizontal ? `justify-arround ml-1 !h-[4rem] ${isOT ? "!w-[20vw]" : "!w-[15vw]"} ` : "flex-col justify-between"
+        horizontal ? `justify-arround ml-1 !h-[4rem] ${isOT ? "!w-[20vw]" : "!w-auto"} ` : "flex-col justify-between"
       } rounded-lg ${error && "border border-red-400"}`}
     >
       <label htmlFor={label} className={` ${labelProps ? labelProps : ""} absolute w-full !translate-y-[-0.4vw] translate-x-3`}>

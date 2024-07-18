@@ -596,8 +596,9 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
               </div>
             </div>
           </div>
-          <div className="w-full">
-            <div className="w-[50%] mx-auto !-mt-4 translate-y-[2vw]">
+          
+          <div className="w-full !mt-5 !mb-5">
+              <div className="w-[30%] mx-auto">
               {escritura_lectura && (
                 <Button type="submit" tabIndex={1} className="userFormBtnSubmit">
                   {`${TITLES.guardar}`}

@@ -20,12 +20,12 @@ const strBaseUrl = "/api/accesorios/";
 const strEntidad = "Accesorio ";
 
 export interface InputData {
-  codigo          : string | undefined;
-  descripcion     : string | undefined;
-  marca           : string | undefined;
-  precio_neto     : string | undefined;
-  stock_minimo    : string | undefined;
-  stock_reservado : string | undefined;
+  codigo: string | undefined;
+  descripcion: string | undefined;
+  marca: string | undefined;
+  precio_neto: string | undefined;
+  stock_minimo: string | undefined;
+  stock_reservado: string | undefined;
   stock_disponible: string | undefined;
 }
 
@@ -43,17 +43,17 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
                 ${jsonData.precio_neto || "0"}, 
                 ${jsonData.stock_minimo}`;
 
-  _p1 = _p1.replace(/'/g, '!'); 
+  _p1 = _p1.replace(/'/g, '!');
 
   const query: OutputData = {
-    query: "03", 
+    query: "03",
     _p1
   };
-    return query;
-  }
+  return query;
+}
 
 export function transformUpdateQuery(
-  jsonData: InputData, 
+  jsonData: InputData,
   primaryKey: number
 ): OutputData | null {
   const fields = [
@@ -76,7 +76,7 @@ export function transformUpdateQuery(
   const query = {
     query: "04",
     _p1,
-    _p2:`${primaryKey}` 
+    _p2: `${primaryKey}`
   };
   // console.log("query", query);
   return query;
@@ -155,16 +155,16 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
       async (response: any, isEditting: boolean) => {
         if (response.code === "ERR_BAD_RESPONSE" || response.stack) {
           const errorMessage = isEditting
-          ? strEntidad.concat(": " + response.message)
-          : strEntidad.concat(": " + response.message)
+            ? strEntidad.concat(": " + response.message)
+            : strEntidad.concat(": " + response.message)
           show({
             message: errorMessage ? errorMessage : response.code,
             type: "error",
           });
-          
+
           return;
         }
-        if(response.mensaje.includes('Creado')){
+        if (response.mensaje.includes('Creado')) {
           toastSuccess(isEditting);
         }
 
@@ -242,7 +242,7 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
     }, []);
 
 
-    
+
     return (
       <div className="useFormContainer centered-div w-[45rem]">
         <div className="userFormBtnCloseContainer">
@@ -255,7 +255,7 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
-          <div className="w-full flex items-center">
+            <div className="w-full flex items-center">
               <div className="input-container items-center rowForm w-[50%]">
                 <div className="labelInputDiv">
                   <TextInputComponent
@@ -274,7 +274,7 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
               </div>
               <div className="input-container items-center rowForm w-[50%]">
                 <div className="labelInputDiv">
-                <TextInputComponent
+                  <TextInputComponent
                     type="text"
                     label="Descripción"
                     name="descripcion"
@@ -291,7 +291,7 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
             <div className="w-full flex items-center">
               <div className="input-container items-center rowForm w-[50%]">
                 <div className="selectInputDiv">
-                <SelectInputComponent
+                  <SelectInputComponent
                     label="Marca"
                     name="marca"
                     showRefresh={true}
@@ -300,12 +300,12 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
                     entidad={["/api/marcas/", "02", "3"]}
                     error={errors.marca}
                     customWidth={"labelInput inputStyles"}
-                    />
+                  />
                 </div>
               </div>
               <div className="input-container items-center rowForm w-[50%]">
                 <div className="labelInputDiv">
-                <TextInputComponent
+                  <TextInputComponent
                     type="number"
                     label="Stock Mínimo"
                     name="stock_minimo"
@@ -337,7 +337,7 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
               </div>
               <div className="input-container items-center rowForm w-[50%]">
                 <div className="labelInputDiv">
-                <TextInputComponent
+                  <TextInputComponent
                     type="text"
                     label="Código FAB"
                     name="codigo_fab"
@@ -386,13 +386,13 @@ const FAccesorios: React.FC<IUserFormPrps> = React.memo(
             </div>
           </div>
 
-          <div className="w-full">
-            <div className="w-[50%] mx-auto">
-            {escritura_lectura && (
-              <Button type="submit" tabIndex={1} className="userFormBtnSubmit">
-              {`${TITLES.guardar}`}
-              </Button>
-            )}
+          <div className="w-full !mt-5 !mb-5">
+            <div className="w-[40%] mx-auto">
+              {escritura_lectura && (
+                <Button type="submit" tabIndex={1} className="userFormBtnSubmit">
+                  {`${TITLES.guardar}`}
+                </Button>
+              )}
             </div>
           </div>
         </form>

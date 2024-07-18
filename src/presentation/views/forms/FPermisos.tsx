@@ -264,8 +264,8 @@ const FPermisos: React.FC<IFormPrps> = React.memo(
             </div>
           </div>
 
-          <div className="w-full">
-            <div className="mx-auto w-[60%]">
+          <div className="w-full !mt-5 !mb-5">
+            <div className="w-[50%] mx-auto">
               <Button type="submit" tabIndex={1} className="userFormBtnSubmit">
                 {`${TITLES.guardar}`}
               </Button>

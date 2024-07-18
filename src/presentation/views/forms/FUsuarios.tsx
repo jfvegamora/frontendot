@@ -381,21 +381,16 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
       }
     }, [data])
 
-    console.log(data && data[EnumGrid.permiso_venta])
-
-
     return (
-      <div className="useFormContainer !top-[15vw] !z-30 translate-y-[-16vw] translate-x-[12vw] !w-[77vw] !h-auto">
+      <div className="useFormContainer centered-div w-[80rem]">
         <div className="userFormBtnCloseContainer flex justify-between ">
-          <h1 className="userFormLabel absolute left-[40%]">{label}</h1>
-          <button onClick={closeModal} className="userFormBtnClose">
+          <h1 className="userFormLabel mx-auto">{label}</h1>
+          <button onClick={closeModal} className="userFormBtnClose mr-4">
             X
           </button>
         </div>
 
-        <form
-          onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))}
-          className="userFormulario">
+        <form onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer !w-full">
             <div className="w-full items-center flex !mb-4">
               <div className="input-container items-center rowForm w-full">
@@ -443,7 +438,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
 
             <div className=" items-center flex">
               <div className="input-container items-center rowForm">
-                <div className="labelInputDiv w-[25rem]">
+                <div className="labelInputDiv w-[26rem]">
                   <TextInputComponent
                     type="email"
                     label="Correo"
@@ -459,7 +454,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
               </div>
 
               <div className="input-container flex justify-around items-center rowForm ">
-                <div className="w-[11rem] ml-6">
+                <div className="w-[11rem] ml-[1%]">
                   <RadioButtonComponent
                     control={control}
                     label="Estado"
@@ -472,7 +467,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                     customWidth={"labelInput inputStyles"}
                   />
                 </div>
-                <div className="w-[11rem] ml-4">
+                <div className="w-[11rem] ml-[2%]">
                   <RadioButtonComponent
                     control={control}
                     label="Documentación"
@@ -485,7 +480,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                     customWidth={"labelInput inputStyles"}
                   />
                 </div>
-                <div className="w-[11rem] ml-4">
+                <div className="w-[11rem] ml-[2%]">
                   <RadioButtonComponent
                     control={control}
                     label="Post Venta"
@@ -498,7 +493,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                     customWidth={"labelInput inputStyles"}
                   />
                 </div>
-                <div className="w-[11rem] ml-4">
+                <div className="w-[11rem] ml-[2%]">
                   <RadioButtonComponent
                     control={control}
                     label="Anulación"
@@ -513,8 +508,6 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                 </div>
               </div>
             </div>
-
-
 
             <Tabs >
               <TabList className="flex ml-4">
@@ -818,21 +811,18 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
             </Tabs>
           </div>
 
-          <div className="flex items-center mt-10 mb-10">
-            {isEditting && (
-              <div className="!w-[8rem] !flex mx-auto bg-red-400">
-                <Button
-                  type="button"
-                  onClick={handlePermisos}
-                  className="absolute !w-[30%] bottom-[.02rem] left-5 userFormBtnSubmit"
-                  tabIndex={1}
+          <div className="flex items-center mt-10 mb-10" style={{ display: 'inline' }}>
+          <div className="w-full flex !-mt-6">
+          {isEditting && (
+              <div className="!w-[8rem] !flex mx-auto">
+                <Button type="button" tabIndex={1} onClick={handlePermisos} 
+                  className="absolute !w-[20%] left-50 userFormBtnSubmit userFormBtnCopiarPermisos"
                 > COPIAR PERMISOS
                 </Button>
               </div>
             )}
 
-            <div className="w-full flex !-mt-6">
-              <div className="mx-auto w-[30%]">
+              <div className="mx-auto w-[20%]">
                 {escritura_lectura && (
                   <Button type="submit" tabIndex={1} className="userFormBtnSubmit">
                     {`${TITLES.guardar}`}

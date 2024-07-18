@@ -338,58 +338,25 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
     }, [totalNetoArmazones, totalNetoCristales])
 
 
+    // console.log(errors)
 
-    // const handleCristalesDescription = async (data: any) => {
-    //   if (data) {
-    //     const query = "01";
-    //     const primaryKey = `&_p1=${data}`;
-    //     const result = await ListEntityCristales(primaryKey, query);
-
-    //     if (result && result[0] && result[0][3]) {
-    //       setIdCristal(result[0][3]);
-    //     } else {
-    //       setIdCristal("Cristal no existe");
-    //     }
-    //   }
-    // };
-
-
-    // useEffect(() => {
-    //   setValue('data_cristal', idCristal || '');
-    // }, [idCristal, setValue]);
-
-
-    console.log(errors)
-
-    console.log(data && data[EnumGrid.valor_neto_total])
-    console.log(totalNeto)
+    // console.log(data && data[EnumGrid.valor_neto_total])
+    // console.log(totalNeto)
 
     return (
-      <div className="useFormContainer centered-div w-[67vw]">
-        {/* <div className="userFormBtnCloseContainer">
-          <button onClick={closeModal} className="userFormBtnClose">
+      <div className="useFormContainer centered-div w-[67rem]">
+        <div className="userFormBtnCloseContainer">
+          <h1 className="userFormLabel mx-auto">{label}</h1>
+          <button onClick={closeModal} className="userFormBtnClose mr-4">
             X
           </button>
         </div>
-        <h1 className="userFormLabel">{label}</h1> */}
 
-        <div className="userFormBtnCloseContainer flex ">
-          <h1 className="userFormLabel -translate-x-[15rem]">{label}</h1>
-          <div className=''>
-            <button onClick={closeModal} className="userFormBtnClose mr-4">
-              X
-            </button>
-          </div>
-        </div>
-
-        <form
-          onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
+        <form onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
-
-            <div className="!pt-[1rem] h-[4vw]">
-              <div className="input-container items-center rowForm  flex">
-
-                <div className="w-[30vw] ml-4 mt-4">
+            <div className="w-full flex items-center">
+              <div className="input-container items-center rowForm w-[33%]">
+                <div className="selectInputDiv">
                   <SelectInputComponent
                     label="Proyecto"
                     name="proyecto"
@@ -399,45 +366,46 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                     entidad={["/api/proyectos/", "02"]}
                     error={errors.proyecto}
                     readOnly={isEditting}
-                    customWidth={"labelInput inputStyles !w-[29vw]"}
-
-
+                    customWidth={"labelInput inputStyles"}
                   />
                 </div>
+              </div>
 
-                <div className="w-[40vw] flex translate-x-[-2vw] ">
-                  <div className="w-[15vw]">
-                    <TextInputComponent
-                      type="text"
-                      label="ID Grupo"
-                      name="cod_grupo"
-                      data={data && data[EnumGrid.cod_grupo]}
-                      control={control}
-                      error={errors.cod_grupo}
-                      onlyRead={isEditting}
-                      inputRef={firstInputRef}
-                      customWidth={"labelInput inputStyles !w-[10vw]"}
-                      textAlign="text-center"
-                    />
-                  </div>
-                  <div className="w-[15vw] translate-x-[-4vw]">
-                    <TextInputComponent
-                      type="text"
-                      label="Descripción"
-                      name="descripcion"
-                      data={data && data[EnumGrid.descripcion]}
-                      control={control}
-                      error={errors.descripcion}
-                      customWidth={"labelInput inputStyles !w-[24vw]"}
-                    />
-                  </div>
+              <div className="input-container items-center rowForm w-[33%]">
+                <div className="labelInputDiv">
+                  <TextInputComponent
+                    type="text"
+                    label="ID Grupo"
+                    name="cod_grupo"
+                    data={data && data[EnumGrid.cod_grupo]}
+                    control={control}
+                    error={errors.cod_grupo}
+                    onlyRead={isEditting}
+                    inputRef={firstInputRef}
+                    customWidth={"labelInput inputStyles"}
+                    textAlign="text-center"
+                  />
+                </div>
+              </div>
+
+              <div className="input-container items-center rowForm w-[33%]">
+                <div className="labelInputDiv">
+                  <TextInputComponent
+                    type="text"
+                    label="Descripción"
+                    name="descripcion"
+                    data={data && data[EnumGrid.descripcion]}
+                    control={control}
+                    error={errors.descripcion}
+                    customWidth={"labelInput inputStyles"}
+                  />
                 </div>
               </div>
             </div>
 
-            <div className="mt-10 h-[4vw] ">
-              <div className="input-container items-center rowForm w-full flex">
-                <div className="!w-[22vw] ml-4">
+            <div className="w-full flex items-center">
+              <div className="input-container items-center rowForm w-[33%]">
+                <div className="selectInputDiv">
                   <SelectInputComponent
                     label="Marca"
                     name="marca"
@@ -447,11 +415,13 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                     entidad={["/api/marcas/", "02", "02"]}
                     error={errors.marca}
                     tabIndex={1}
-                    customWidth={"labelInput inputStyles !w-[21vw]"}
+                    customWidth={"labelInput inputStyles"}
                   />
                 </div>
+              </div>
 
-                <div className="w-[22vw]">
+              <div className="input-container items-center rowForm w-[33%]">
+                <div className="selectInputDiv">
                   <SelectInputComponent
                     label="Diseño"
                     name="diseno"
@@ -460,11 +430,13 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={["/api/tipos/", "02", "CristalesDisenos"]}
                     error={errors.diseno}
-                    customWidth={"labelInput inputStyles !w-[21vw]"}
+                    customWidth={"labelInput inputStyles"}
                   />
                 </div>
+              </div>
 
-                <div className="!w-[22vw]">
+              <div className="input-container items-center rowForm w-[33%]">
+                <div className="selectInputDiv">
                   <SelectInputComponent
                     label="Índice"
                     name="indice"
@@ -473,15 +445,15 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={["/api/tipos/", "02", "CristalesIndices"]}
                     error={errors.indice}
-                    customWidth={"labelInput inputStyles !w-[21vw]"}
+                    customWidth={"labelInput inputStyles"}
                   />
                 </div>
               </div>
             </div>
 
-            <div className="mt-2 h-[4vw]">
-              <div className="input-container items-center rowForm w-full flex">
-                <div className="w-[22vw] ml-4">
+            <div className="w-full flex items-center">
+              <div className="input-container items-center rowForm w-[33%]">
+                <div className="selectInputDiv">
                   <SelectInputComponent
                     label="Material"
                     name="material"
@@ -490,11 +462,14 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={["/api/tipos/", "02", "CristalesMateriales"]}
                     error={errors.material}
-                    customWidth={"labelInput inputStyles !w-[21vw]"}
+                    customWidth={"labelInput inputStyles"}
 
                   />
                 </div>
-                <div className="!w-[22vw]">
+              </div>
+
+              <div className="input-container items-center rowForm w-[33%]">
+                <div className="selectInputDiv">
                   <SelectInputComponent
                     label="Color"
                     name="color"
@@ -503,10 +478,13 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={["/api/tipos/", "02", "CristalesColores"]}
                     error={errors.color}
-                    customWidth={"labelInput inputStyles !w-[21vw]"}
+                    customWidth={"labelInput inputStyles"}
                   />
                 </div>
-                <div className="w-[22vw]">
+              </div>
+
+              <div className="input-container items-center rowForm w-[33%]">
+                <div className="selectInputDiv">
                   <SelectInputComponent
                     label="Tratamiento"
                     name="tratamiento"
@@ -515,132 +493,139 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={["/api/tipos/", "02", "CristalesTratamientos"]}
                     error={errors.tratamiento}
-                    customWidth={"labelInput inputStyles !w-[21vw]"}
+                    customWidth={"labelInput inputStyles"}
                   />
                 </div>
               </div>
             </div>
 
-            <div className="mt-1  h-[4rem]">
-              <div className="input-container items-center rowForm w-full flex">
-                <div className="w-[50%] flex ml-2">
-                  <div className="">
-                    <TextInputComponent
-                      type="number"
-                      label="Diámetro"
-                      name="diametro"
-                      data={data && data[EnumGrid.diametro]}
-                      control={control}
-                      error={errors.diametro}
-                      textAlign="text-center"
-                      customWidth={"labelInput inputStyles !w-[10vw]"}
-                    />
-                  </div>
-                  <div className="">
-                    <TextInputComponent
-                      type="number"
-                      label="ESF desde"
-                      name="esferico_desde"
-                      data={data && data[EnumGrid.esferico_desde]}
-                      control={control}
-                      error={errors.esferico_desde}
-                      step={0.01}
-                      textAlign="text-center"
-                      customWidth={"labelInput inputStyles !w-[10vw]"}
-
-                    />
-                  </div>
-                  <div className="">
-                    <TextInputComponent
-                      type="number"
-                      label="ESF hasta"
-                      name="esferico_hasta"
-                      data={data && data[EnumGrid.esferico_hasta]}
-                      control={control}
-                      error={errors.esferico_hasta}
-                      step={0.01}
-                      textAlign="text-center"
-                      customWidth={"labelInput inputStyles !w-[10vw]"}
-
-                    />
-                  </div>
+            <div className="w-full flex items-center">
+              <div className="input-container items-center rowForm w-[20%]">
+                <div className="labelInputDiv">
+                  <TextInputComponent
+                    type="number"
+                    label="Diámetro"
+                    name="diametro"
+                    data={data && data[EnumGrid.diametro]}
+                    control={control}
+                    error={errors.diametro}
+                    textAlign="text-center"
+                    customWidth={"labelInput inputStyles"}
+                  />
                 </div>
-                <div className="w-[50%] flex">
-                  <div className="">
-                    <TextInputComponent
-                      type="number"
-                      label="CIL desde"
-                      name="cilindrico_desde"
-                      data={data && data[EnumGrid.cilindrico_desde]}
-                      control={control}
-                      error={errors.cilindrico_desde}
-                      step={0.01}
-                      textAlign="text-center"
-                      customWidth={"labelInput inputStyles !w-[10vw]"}
+              </div>
 
-                    />
-                  </div>
-                  <div className="">
-                    <TextInputComponent
-                      type="number"
-                      label="CIL hasta"
-                      name="cilindrico_hasta"
-                      data={data && data[EnumGrid.cilindrico_hasta]}
-                      control={control}
-                      error={errors.cilindrico_hasta}
-                      step={0.01}
-                      textAlign="text-center"
-                      customWidth={"labelInput inputStyles !w-[10vw]"}
+              <div className="input-container items-center rowForm w-[15%]">
+                <div className="labelInputDiv">
+                  <TextInputComponent
+                    type="number"
+                    label="ESF desde"
+                    name="esferico_desde"
+                    data={data && data[EnumGrid.esferico_desde]}
+                    control={control}
+                    error={errors.esferico_desde}
+                    step={0.25}
+                    textAlign="text-center"
+                    customWidth={"labelInput inputStyles"}
+                  />
+                </div>
+              </div>
 
-                    />
-                  </div>
-                  <div className="w-[70%] pr-10">
-                    <TextInputComponent
-                      type="number"
-                      label="$ Venta Neto"
-                      name="valor_neto_cristal"
-                      data={data && data[EnumGrid.valor_neto_cristal]}
-                      control={control}
-                      error={errors.valor_neto_cristal}
-                      isOptional={false}
-                      textAlign="text-right"
-                      customWidth={"labelInput inputStyles"}
-                      handleChange={(e) => {
-                        console.log(e)
-                        setTotalNetoCristales(e)
-                      }}
-                    />
-                  </div>
+              <div className="input-container items-center rowForm w-[15%]">
+                <div className="labelInputDiv">
+                  <TextInputComponent
+                    type="number"
+                    label="ESF hasta"
+                    name="esferico_hasta"
+                    data={data && data[EnumGrid.esferico_hasta]}
+                    control={control}
+                    error={errors.esferico_hasta}
+                    step={0.25}
+                    textAlign="text-center"
+                    customWidth={"labelInput inputStyles"}
+                  />
+                </div>
+              </div>
+
+              <div className="input-container items-center rowForm w-[15%]">
+                <div className="labelInputDiv">
+                  <TextInputComponent
+                    type="number"
+                    label="CIL desde"
+                    name="cilindrico_desde"
+                    data={data && data[EnumGrid.cilindrico_desde]}
+                    control={control}
+                    error={errors.cilindrico_desde}
+                    step={0.25}
+                    textAlign="text-center"
+                    customWidth={"labelInput inputStyles"}
+                  />
+                </div>
+              </div>
+
+              <div className="input-container items-center rowForm w-[15%]">
+                <div className="labelInputDiv">
+                  <TextInputComponent
+                    type="number"
+                    label="CIL hasta"
+                    name="cilindrico_hasta"
+                    data={data && data[EnumGrid.cilindrico_hasta]}
+                    control={control}
+                    error={errors.cilindrico_hasta}
+                    step={0.25}
+                    textAlign="text-center"
+                    customWidth={"labelInput inputStyles"}
+                  />
+                </div>
+              </div>
+
+              <div className="input-container items-center rowForm w-[20%] ">
+                <div className="labelInputDiv">
+                  <TextInputComponent
+                    type="number"
+                    label="$ Venta Neto"
+                    name="valor_neto_cristal"
+                    data={data && data[EnumGrid.valor_neto_cristal]}
+                    control={control}
+                    error={errors.valor_neto_cristal}
+                    isOptional={false}
+                    textAlign="text-right"
+                    customWidth={"labelInput inputStyles"}
+                    handleChange={(e) => {
+                      console.log(e)
+                      setTotalNetoCristales(e)
+                    }}
+                  />
                 </div>
               </div>
             </div>
 
-            <div className="w-[60vw] mx-auto flex mt-10  items-center ml-4">
+            <div className="w-full flex items-center !mt-10">
               <h1 className="userFormLabel mx-auto">Armazón</h1>
             </div>
-            <div className="!pt-[1rem] h-[4rem] ">
-              <div className="input-container items-center rowForm w-full flex translate-y-[-2vw]">
-                <div className="w-[75%] !ml-40">
-                  <div className=" items-center flex ">
-                    <Controller
-                      name='armazon_material'
-                      control={control}
-                      render={({ field }) => (
-                        <Switch
-                          {...field}
-                          label="Armazón Flexible"
-                          color="orange"
-                          onChange={(e) => {
-                            armazon_flexible.value = e.target.checked
-                          }}
-                          defaultChecked={data ? data[EnumGrid.armazon_material_id] === 3 ? true : false : false}
-                        />
-                      )}
 
-                    />
-                  </div>
+            <div className="w-full flex items-center">
+              <div className="input-container items-center rowForm mx-auto">
+                <div className="labelInputDiv">
+                  <Controller
+                    name='armazon_material'
+                    control={control}
+                    render={({ field }) => (
+                      <Switch
+                        {...field}
+                        label="Armazón Flexible"
+                        color="orange"
+                        onChange={(e) => {
+                          armazon_flexible.value = e.target.checked
+                        }}
+                        defaultChecked={data ? data[EnumGrid.armazon_material_id] === 3 ? true : false : false}
+                      />)}
+                  />
                 </div>
-                <div className="w-[25%] pr-10">
+              </div>
+
+              <div className="input-container items-center rowForm w-[20%]">
+                <div className="labelInputDiv">
                   <TextInputComponent
                     type="number"
                     label="$ Neto Armazón"
@@ -657,9 +642,9 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
               </div>
             </div>
 
-            <div className=" h-[4rem]">
-              <div className="input-container items-center rowForm w-full flex">
-                <div className="w-[78%] ml-2">
+            <div className="w-full flex items-center">
+              <div className="input-container items-center rowForm w-[80%]">
+                <div className="labelInputDiv">
                   <TextInputComponent
                     type="text"
                     label="Observaciones"
@@ -671,7 +656,10 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                     customWidth={"labelInput inputStyles"}
                   />
                 </div>
-                <div className="w-[22%] pr-10">
+              </div>
+
+              <div className="input-container items-center rowForm w-[20%]">
+                <div className="labelInputDiv">
                   <TextInputInteractive
                     type="number"
                     label="$ TOTAL NETO"
@@ -685,15 +673,15 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                 </div>
               </div>
             </div>
-          </div>
 
-          <div className="w-full">
-            <div className="w-[40%] mx-auto">
-              {escritura_lectura && (
-                <Button type="submit" tabIndex={1} className="userFormBtnSubmit">
-                  {`${TITLES.guardar}`}
-                </Button>
-              )}
+            <div className="w-full !mt-5 !mb-5">
+              <div className="w-[30%] mx-auto">
+                {escritura_lectura && (
+                  <Button type="submit" tabIndex={1} className="userFormBtnSubmit">
+                    {`${TITLES.guardar}`}
+                  </Button>
+                )}
+              </div>
             </div>
           </div>
 

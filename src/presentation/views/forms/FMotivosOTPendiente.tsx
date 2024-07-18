@@ -218,10 +218,8 @@ const FMotivosOTPendiente: React.FC<ISituacionesFormProps> = React.memo(
       };
     }, [closeModal]);
 
-    console.log(errors)
-
     return (
-      <div className="useFormContainer centered-div w-[35vw]">
+      <div className="useFormContainer centered-div w-[35rem]">
         <div className="userFormBtnCloseContainer">
           <h1 className="userFormLabel mx-auto">{label}</h1>
           <button onClick={closeModal} className="userFormBtnClose mr-4">
@@ -265,8 +263,8 @@ const FMotivosOTPendiente: React.FC<ISituacionesFormProps> = React.memo(
             </div>
           </div>
 
-          <div className="w-full">
-            <div className="w-[70%] mx-auto">
+          <div className="w-full !mt-5 !mb-5">
+            <div className="w-[50%] mx-auto">
               {escritura_lectura && (
                 <Button type="submit" tabIndex={1} className="userFormBtnSubmit">
                   {`${TITLES.guardar}`}

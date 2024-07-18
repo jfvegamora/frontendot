@@ -309,7 +309,7 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
 
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario ">
-          <div className="userFormularioContainer  !h-[30rem]">
+          <div className="userFormularioContainer !w-full">
             <div className="input-container rowForm  !h-[4rem]">
               <div className="flex">
                 <div className="pl-4">
@@ -358,28 +358,28 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
               <div className="flex" style={{ display: 'inline' }}>
                 <div className="flex">
                   <div className="w-[50%] !mt-2 pl-4 pr-4 flex !h-[12rem]">
-                      <RadioButtonComponent
-                        control={control}
-                        label="Sexo"
-                        name="sexo"
-                        horizontal={false}
-                        data={data && data[EnumGrid.sexo]}
-                        options={[SEXO.masculino, SEXO.femenino, SEXO.no_aplica]}
-                        error={errors.sexo}
-                      />
-                      <RadioButtonComponent
-                        control={control}
-                        label="Tipo"
-                        name="tipo"
-                        horizontal={false}
-                        data={data && data[EnumGrid.tipo]}
-                        options={[
-                          TIPO_CLIENTE.beneficiario,
-                          TIPO_CLIENTE.particular,
-                          TIPO_CLIENTE.optica,
-                        ]}
-                        error={errors.tipo}
-                      />
+                    <RadioButtonComponent
+                      control={control}
+                      label="Sexo"
+                      name="sexo"
+                      horizontal={false}
+                      data={data && data[EnumGrid.sexo]}
+                      options={[SEXO.masculino, SEXO.femenino, SEXO.no_aplica]}
+                      error={errors.sexo}
+                    />
+                    <RadioButtonComponent
+                      control={control}
+                      label="Tipo"
+                      name="tipo"
+                      horizontal={false}
+                      data={data && data[EnumGrid.tipo]}
+                      options={[
+                        TIPO_CLIENTE.beneficiario,
+                        TIPO_CLIENTE.particular,
+                        TIPO_CLIENTE.optica,
+                      ]}
+                      error={errors.tipo}
+                    />
                     <div className="flex absolute top-[63%] w-[50%] mr-10">
                       <div className="flex-col">
                         <div className="flex labelInput !mt-[1rem] !mb-[1rem]">
@@ -434,7 +434,7 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
                       defaultProvincia={data && data[EnumGrid.provincia_id]}
                       errors={errors.comuna}
                     />
-                    <div className="labelInput !mt-[-1rem] !mb-[1rem] pl-2 pr-4">
+                    <div className="labelInput !mt-[-1rem] !mb-[1rem] pl-0 pr-2">
                       <TextInputComponent
                         type="text"
                         label="Dirección"
@@ -451,12 +451,12 @@ const FClientes: React.FC<IUserFormPrps> = React.memo(
               </div>
             </div>
 
-            <div className="flex items-center rowForm justify-center">
-              <div className="w-[30%] pt-4">
+            <div className="w-full !mt-10 !mb-5">
+              <div className="w-[25%] mx-auto">
                 {escritura_lectura && (
-                  <button type="submit" tabIndex={1} className="userFormBtnSubmit">
-                    {`${TITLES.guardar}`}
-                  </button>
+                  <Button type="submit" tabIndex={1} className="userFormBtnSubmit">
+                   {`${TITLES.guardar}`}
+                  </Button>
                 )}
               </div>
             </div>

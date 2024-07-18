@@ -233,7 +233,7 @@ const MUsuarios: React.FC = () => {
         />
       )}
 
-      {/* {isModalEdit && ( */}
+      {isModalEdit && (
         <FUsuarios
           label={`${TITLES.edicion} ${strEntidad}`}
           selectedRows={selectedRows}
@@ -244,7 +244,7 @@ const MUsuarios: React.FC = () => {
           isEditting={true}
           // escritura_lectura={escritura_lectura}
         />
-      {/* )} */}
+      )}
  
       {isModalPermisoOT && (
         <FUsuariosOT

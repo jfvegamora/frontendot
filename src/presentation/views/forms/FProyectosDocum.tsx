@@ -269,9 +269,6 @@ const FProyectosDocum: React.FC<IUserFormPrps> = React.memo(
       console.log(strCodigoProyecto2.value)
 
     }
-
-    // console.log(strCodigoProyecto2.value)
-
     const fechaFormateada = fechaHoraActual.toISOString().split('T')[0];
 
     return (
@@ -411,8 +408,8 @@ const FProyectosDocum: React.FC<IUserFormPrps> = React.memo(
             </div>
           </div>
 
-          <div className="w-full">
-            <div className="w-[70%] mx-auto mt-8">
+          <div className="w-full !mt-5 !mb-5">
+            <div className="w-[50%] mx-auto">
               {escritura_lectura && (
                 <Button type="submit" tabIndex={1} className="userFormBtnSubmit">
                   {`${TITLES.guardar}`}

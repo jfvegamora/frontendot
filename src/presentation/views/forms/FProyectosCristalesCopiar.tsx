@@ -15,7 +15,7 @@ import { BUTTON_MESSAGES, MODAL, SUCCESS_MESSAGES } from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
-import {toast} from 'react-toastify'
+import { toast } from 'react-toastify'
 
 // import axios from "axios";
 // import { toast } from "react-toastify";
@@ -25,8 +25,8 @@ const strBaseUrl = "/api/proyectogrupos/";
 const strEntidad = "Parametrizacion de Cristales ";
 
 export interface InputData {
-  origen : string ;
-  destino: string ;
+  origen: string;
+  destino: string;
 }
 
 interface OutputData {
@@ -37,7 +37,7 @@ interface OutputData {
 
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
   console.log("jsondata: ", jsonData.origen, "-", jsonData.destino)
-  if(jsonData.origen === jsonData.destino){
+  if (jsonData.origen === jsonData.destino) {
     toast.error('Debes seleccionar distintos Proyectos.')
     throw new Error()
   }
@@ -133,19 +133,19 @@ const FProyectosCristalesCopiar: React.FC<IUserFormPrps> = React.memo(
         console.log(response)
         if (response.code === "ERR_BAD_RESPONSE" || response.stack) {
           const errorMessage = isEditting
-          ? strEntidad.concat(": " + response.message)
-          : strEntidad.concat(": " + response.message)
+            ? strEntidad.concat(": " + response.message)
+            : strEntidad.concat(": " + response.message)
           show({
             message: errorMessage ? errorMessage : response.code,
             type: "error",
           });
-          
+
           return;
         }
-        if(response.mensaje.includes('Creado')){
+        if (response.mensaje.includes('Creado')) {
           toastSuccess(isEditting);
         }
-        
+
         if (!blnKeep && !isEditting) {
           const result = await showModal(
             MODAL.keep,
@@ -216,61 +216,56 @@ const FProyectosCristalesCopiar: React.FC<IUserFormPrps> = React.memo(
     );
 
     return (
-      <div className="useFormContainer centered-div w-[30vw]">
+      <div className="useFormContainer centered-div w-[30rem]">
         <div className="userFormBtnCloseContainer">
+          <h1 className="userFormLabel mx-auto">{label}</h1>
           <button onClick={closeModal} className="userFormBtnClose">
             X
           </button>
         </div>
-        <h1 className="userFormLabel">{label}</h1>
 
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
-            <div className="w-full flex items-center h-[4rem]">
-                <div className="input-container items-center rowForm w-full">
-                  <div className="w-full ml-6">
-                    <SelectInputComponent
-                      label="Proyecto Desde"
-                      name="origen"
-                      showRefresh={true}
-                      // data={data && data[EnumGrid.codigo_proyecto]}
-                      control={control}
-                      entidad={["/api/proyectos/", "02"]}
-                      error={errors.origen}
-                      customWidth={"labelInput inputStyles !w-[29vw]"}
+            <div className="input-container items-center rowForm">
+              <div className="selectInputDiv">
+                <SelectInputComponent
+                  label="Proyecto Desde"
+                  name="origen"
+                  showRefresh={true}
+                  // data={data && data[EnumGrid.codigo_proyecto]}
+                  control={control}
+                  entidad={["/api/proyectos/", "02"]}
+                  error={errors.origen}
+                  customWidth={"labelInput inputStyles"}
 
-                      />
-                  </div>
-                </div>
+                />
+              </div>
             </div>
 
-            <div className="w-full flex items-center !my-8 h-[4rem]">
-                <div className="input-container items-center rowForm w-full">
-                  <div className="w-full ml-6">
-                  <SelectInputComponent
-                      label="Copiar hacia"
-                      name="destino"
-                      showRefresh={true}
-                      // data={data && data[EnumGrid.codigo_proyecto]}
-                      control={control}
-                      entidad={["/api/proyectos/", "02"]}
-                      error={errors.destino}
-                      customWidth={"labelInput inputStyles !w-[29vw]"}
-                      />
-                  </div>
-                </div>
-
+            <div className="input-container items-center rowForm">
+              <div className="selectInputDiv">
+                <SelectInputComponent
+                  label="Copiar hacia"
+                  name="destino"
+                  showRefresh={true}
+                  // data={data && data[EnumGrid.codigo_proyecto]}
+                  control={control}
+                  entidad={["/api/proyectos/", "02"]}
+                  error={errors.destino}
+                  customWidth={"labelInput inputStyles"}
+                />
+              </div>
             </div>
           </div>
 
-          <div className="w-full">
+          <div className="w-full !mt-5 !mb-5">
             <div className="w-[70%] mx-auto">
-                {escritura_lectura && (
-                  <button type="submit" tabIndex={1} className="userFormBtnSubmit">
-                    {`${BUTTON_MESSAGES.copiar}`}
-                  </button>
-                )}
+              {escritura_lectura && (
+                <button type="submit" tabIndex={1} className="userFormBtnSubmit">
+                  {`${BUTTON_MESSAGES.copiar}`}
+                </button>
+              )}
             </div>
           </div>
 

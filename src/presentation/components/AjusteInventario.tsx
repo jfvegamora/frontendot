@@ -37,7 +37,7 @@ const AjusteInventario:React.FC<Props> = ({
             if(validacionExitosa){
                 toast.success('codigo correcto')
             }else{
-                toast.error('codigo incorrecto')
+                toast.error('Código incorrecto')
             }
             onSubmit(jsonData, validacionExitosa);
             if(
@@ -56,7 +56,7 @@ const AjusteInventario:React.FC<Props> = ({
     }
 
 
-    console.log(ajuste_inventario_autorizacion.value)
+    // console.log(ajuste_inventario_autorizacion.value)
     
   return (
     <div className='w-[30rem] h-[13rem] useFormContainer z-30 relative top-0'>
@@ -67,7 +67,7 @@ const AjusteInventario:React.FC<Props> = ({
                 <div className="w-[45%] mx-auto">
                     <TextInputComponent
                         type='text'
-                        label='Codigo Autorización'
+                        label='Código'
                         name="codigo"
                         control={control}
                     />
