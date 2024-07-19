@@ -26,6 +26,7 @@ import { clearData, fetchColores, fetchOT } from "../../../redux/slices/OTSlice"
 import { signal } from "@preact/signals-react";
 import { updateActualArea } from "../../../redux/slices/OTAreasSlice";
 import { fetchDioptriaParametros } from "../../../redux/slices/utilsSlice";
+import { OTGrillaEnum } from "../../Enums";
 // import { OTGrillaEnum } from "../../Enums";
 // import axios from "axios";
 // import { updateActualArea } from "../../../redux/slices/OTAreasSlice";
@@ -117,24 +118,24 @@ const MOT: React.FC = () => {
   useEffect(() => {
 
     const newPkToDelete = selectedRows?.map((row: number) => ({
-      folio: OTs.data[row] && OTs.data[row][EnumGrid.id],
-      estado_id: OTs.data[row] && OTs.data[row][3],
-      estado: OTs.data[row] && OTs.data[row][4],
-      estado_impresion: OTs.data[row] && OTs.data[row][5],
-      armazones: [{ codigo: OTs.data[row] && OTs.data[row][15] }, { codigo: OTs.data[row] && OTs.data[row][16] }],
-      cristales: [{ codigo: OTs.data[row] && OTs.data[row][18] }, { codigo: OTs.data[row] && OTs.data[row][19] }],
-      proyecto_codigo: OTs.data[row] && OTs.data[row][7],
-      proyecto: OTs.data[row] && OTs.data[row][8],
-      punto_venta: OTs.data[row] && OTs.data[row][6],
-      tipo_anteojo: OTs.data[row] && OTs.data[row][13],
-      estado_validacion : OTs.data[row] && OTs.data[row][23],
-      numero_envio: OTs.data[row] && OTs.data[row][24],
-      numero_reporte_firma: OTs.data[row] && OTs.data[row][25],
-      numero_reporte_atencion: OTs.data[row] && OTs.data[row][26],
-      numero_orden_compra: OTs.data[row] && OTs.data[row][27],
-      numero_factura: OTs.data[row] && OTs.data[row][29],
-      numero_guia: OTs.data[row] && OTs.data[row][28],
-      usuario_id: OTs.data[row] && OTs.data[row][32]
+      folio: OTs.data[row] && OTs.data[row][OTGrillaEnum.folio],
+      estado_id: OTs.data[row] && OTs.data[row][OTGrillaEnum.estado_id],
+      estado: OTs.data[row] && OTs.data[row][OTGrillaEnum.estado],
+      estado_impresion: OTs.data[row] && OTs.data[row][OTGrillaEnum.estado_impresion],
+      armazones: [{ codigo: OTs.data[row] && OTs.data[row][OTGrillaEnum.a1_armazon_id] }, { codigo: OTs.data[row] && OTs.data[row][OTGrillaEnum.a2_armazon_id] }],
+      cristales: [{ codigo: OTs.data[row] && OTs.data[row][OTGrillaEnum.cr1_od] }, { codigo: OTs.data[row] && OTs.data[row][OTGrillaEnum.cr1_oi] }, { codigo: OTs.data[row] && OTs.data[row][OTGrillaEnum.cr2_od] }, { codigo: OTs.data[row] && OTs.data[row][OTGrillaEnum.cr2_oi] }],
+      proyecto_codigo: OTs.data[row] && OTs.data[row][OTGrillaEnum.proyecto_titulo],
+      proyecto: OTs.data[row] && OTs.data[row][OTGrillaEnum.proyecto],
+      punto_venta: OTs.data[row] && OTs.data[row][OTGrillaEnum.punto_venta],
+      tipo_anteojo: OTs.data[row] && OTs.data[row][OTGrillaEnum.tipo_anteojo_id],
+      estado_validacion : OTs.data[row] && OTs.data[row][OTGrillaEnum.estado_validacion],
+      numero_envio: OTs.data[row] && OTs.data[row][OTGrillaEnum.numero_envio],
+      numero_reporte_firma: OTs.data[row] && OTs.data[row][OTGrillaEnum.numero_reporte_firma],
+      numero_reporte_atencion: OTs.data[row] && OTs.data[row][OTGrillaEnum.numero_reporte_atencion],
+      numero_orden_compra: OTs.data[row] && OTs.data[row][OTGrillaEnum.numero_oc],
+      numero_factura: OTs.data[row] && OTs.data[row][OTGrillaEnum.numero_factura],
+      numero_guia: OTs.data[row] && OTs.data[row][OTGrillaEnum.numero_guia],
+      usuario_id: OTs.data[row] && OTs.data[row][OTGrillaEnum.usuario]
     }));
 
     setPkToDelete(newPkToDelete as any)
@@ -152,10 +153,10 @@ const MOT: React.FC = () => {
       }
       return acc
     },0)
-    console.log(totoalTrabajosSeleccionados.value)
 
   }, [selectedRows]);
 
+  console.log(pktoDelete)
   useEffect(() => {
    const interval = setInterval(() => {
     if(switchFetchOT.value === true){
