@@ -4,7 +4,10 @@ import { URLBackend } from "../../presentation/hooks/useCrud";
 import { EnumGrid } from "../../presentation/views/mantenedores/MOTHistorica";
 import { validarImpresion } from "../../presentation/utils";
 import { OTGrillaEnum } from "../../presentation/Enums";
+<<<<<<< HEAD
 // import { OTGrillaEnum } from "../../presentation/Enums";
+=======
+>>>>>>> 3f961c02062f433a608b1518b8221fd28dcbde1c
 // import { toast } from "react-toastify";
 
 export interface DataState {
@@ -240,37 +243,31 @@ const OTSlice = createSlice({
           acc[por_vencer]++;
         }
 
-        // Manejar el caso de estado_ot
-        acc[estado_ot] ??= 0; // Si acc[estado_ot] es undefined o null, lo inicializa a 0
-        acc[estado_ot]++;
+      action.payload.forEach((ot: any) => {
+        console.log(ot);
+        let estadoOT = ot[OTGrillaEnum.estado_id];
+        console.log(state.estadosOT);
 
-        return acc;
-      }, {});
-      // action.payload.forEach((ot: any) => {
-      //   console.log(ot);
-      //   let estadoOT = ot[OTGrillaEnum.estado_id];
-      //   console.log(state.estadosOT);
+        console.log(estadoOT);
+        console.log(ot.length);
 
-      //   console.log(estadoOT);
-      //   console.log(ot.length);
+        const estado = ot[estadoOT];
+        const esAtrasado = ot[ot.length - 1] === "S";
 
-      //   const estado = ot[estadoOT];
-      //   const esAtrasado = ot[ot.length - 1] === "S";
+        console.log(esAtrasado);
+        console.log(ot[ot.length]);
+        console.log(ot[ot.length - 1]);
+        if (state.estadosOT[estado]) {
+          state.estadosOT[estado]++;
+        } else {
+          state.estadosOT[estado] = 1;
+        }
+        if (esAtrasado) {
+          state.estadosOT[99]++;
+        }
 
-      //   console.log(esAtrasado);
-      //   console.log(ot[ot.length]);
-      //   console.log(ot[ot.length - 1]);
-      //   if (state.estadosOT[estado]) {
-      //     state.estadosOT[estado]++;
-      //   } else {
-      //     state.estadosOT[estado] = 1;
-      //   }
-      //   if (esAtrasado) {
-      //     state.estadosOT[99]++;
-      //   }
-
-      //   return;
-      // });
+        return;
+      });
 
       // console.log(estados)
       state.estadosOT = reduce;

@@ -251,7 +251,7 @@ const FOTFactura: React.FC<IDerivacion> = ({
                     </div>
                 </div>
             </form>
-            <CustomModal/>
+            <CustomModal />
         </div>
     )
 }

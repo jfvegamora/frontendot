@@ -23,10 +23,10 @@ export const BUTTON_MESSAGES = {
   bln_egreso: "Egreso",
   permiso_ot: "Permisos OT",
   copiar: "Copiar",
-  imprimir: "Imprimir",
+  imprimir:"Imprimir",
   Whatsapp: "Whatsapp",
   procesar: "Procesar",
-  traspasar: "Traspasar",
+  traspasar: "Traspasar Inventario"
 };
 
 export const TITLES = {
