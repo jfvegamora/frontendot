@@ -87,7 +87,6 @@ const FOTReporteEntrega: React.FC<Interface> = ({
 
     const onSubmit: SubmitHandler<any> = async (jsonData) => {
 
-        console.log(pktoDelete)
 
         if (pktoDelete.length < 1) {
             return toast.error('No Hay OT Seleccionada')
@@ -118,7 +117,6 @@ const FOTReporteEntrega: React.FC<Interface> = ({
         const toastLoading = toast.loading('Cargando...');
         console.log(jsonData["numero_doc"])
         try {
-            console.log('render')
             const query07 = {
                 _p1: `"${pktoDelete[0]["proyecto_codigo"]}", ${1}, "${jsonData["numero_doc"]}", "${jsonData["fecha_doc"]}", ${0}, ${0}, ${0}, ${UsuarioID}, "${jsonData["observaciones"]}"`,
                 _p2: jsonData["numero_doc"],
@@ -131,7 +129,7 @@ const FOTReporteEntrega: React.FC<Interface> = ({
             let queryURL07 = `?query=07&_p1=${query07["_p1"]}&_p2=${query07["_p2"]}&_p3=${query07["_p3"]}&_pkToDelete=${query07["_pkToDelete"]}&_id=${query07["_id"]}`
             const resultQuery07 = await axios(`${strUrl}/${queryURL07}`)
             if(resultQuery07?.status === 200){
-                toast.success('Número reporte asignado')
+                toast.success('Número reporte asignado.')
                 toast.dismiss(toastLoading)
                 clearAllCheck.value = false;
                 otArchivo ? (
@@ -170,8 +168,6 @@ const FOTReporteEntrega: React.FC<Interface> = ({
             throw error
         }
     }
-
-    console.log(errors)
 
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {

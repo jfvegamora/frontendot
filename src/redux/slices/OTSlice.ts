@@ -158,15 +158,11 @@ export const fetchColores = createAsyncThunk(
         }
       );
 
-      console.log(response);
       if (response.data) {
         const colores = response.data.reduce((acc: any, obj: any) => {
-          console.log(obj);
-
-          acc[obj[1]] = [obj[2], obj[3]];
+          acc[obj[1]] = [obj[2], obj[3], obj[4]];
           return acc;
         }, {});
-        console.log(colores);
         return colores;
       }
     } catch (error) {
@@ -240,6 +236,7 @@ const OTSlice = createSlice({
         console.log(ot);
         let estado_ot = ot[OTGrillaEnum.estado];
         let por_vencer = ot[OTGrillaEnum.por_vencer];
+        console.log(estado_ot);
         // Manejar el caso de por_vencer
         if (por_vencer === "S") {
           acc[por_vencer] ??= 0; // Si acc[por_vencer] es undefined o null, lo inicializa a 0

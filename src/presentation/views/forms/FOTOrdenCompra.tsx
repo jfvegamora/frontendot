@@ -3,7 +3,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { AppStore, useAppDispatch, useAppSelector } from '../../../redux/store';
 import { fetchOT } from '../../../redux/slices/OTSlice';
 import { TextInputComponent } from '../../components';
-import { MODAL, TITLES } from "../../utils";
+import { clearAllCheck, MODAL, TITLES } from "../../utils";
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import { URLBackend } from '../../hooks/useCrud';
@@ -20,21 +20,26 @@ interface IDerivacion {
     formValues?: any;
     closeModal?: any;
     pktoDelete?: any
-    setSelectedRows?: any
+    setSelectedRows?: any;
+    otArchivo?: boolean
+
 }
 
 const strUrl = `${URLBackend}/api/proyectodocum/listado`;
-const strUrlOT = `${URLBackend}/api/othistorica/listado`;
+// const strUrlOT = `${URLBackend}/api/othistorica/listado`;
 
 
 const FOTOrdenCompra: React.FC<IDerivacion> = ({
     closeModal,
     pktoDelete,
-    setSelectedRows
+    setSelectedRows,
+    otArchivo
 }) => {
     const { control, handleSubmit, formState: { errors } } = useForm<any>({ resolver: yupResolver(validationFOTOrdenCompra()), });
     const [fechaHoraActual, _setFechaHoraActual] = useState(new Date());
-    const UsuarioID: any = useAppSelector((store: AppStore) => store.user?.id)
+    const UsuarioID: any = useAppSelector((store: AppStore) => store.user?.id);
+    const OTAreas: any = useAppSelector((store: AppStore) => store.OTAreas.areaActual);
+
     const dispatch = useAppDispatch();
     const { showModal, CustomModal } = useModal();
 
@@ -120,18 +125,30 @@ const FOTOrdenCompra: React.FC<IDerivacion> = ({
             let queryURL07 = `?query=07&_p1=${query07["_p1"]}&_p2=${query07["_p2"]}&_p3=${query07["_p3"]}&_pkToDelete=${query07["_pkToDelete"]}&_id=${query07["_id"]}`
             const resultQuery07 = await axios(`${strUrl}/${queryURL07}`)
             if (resultQuery07?.status === 200) {
-
-                const query06 = {
-                    _pkToDelete: JSON.stringify(pktoDelete.map((folioOT: any) => ({ folio: folioOT["folio"], estado: 60, usuario: UsuarioID, observaciones: jsonData["observaciones"], boton: 2 })))
-                }
-                let queryURL06 = `?query=06&&_pkToDelete=${query06["_pkToDelete"]}`
-
-                await axios(`${strUrlOT}/${queryURL06}`).then(() => {
-                    toast.success('Orden de Compra generado')
-                    toast.dismiss(toastLoading)
+                toast.success('Número OC asignado.')
+                toast.dismiss(toastLoading)
+                clearAllCheck.value = false;
+                otArchivo ? (
                     dispatch(fetchOT({ historica: true, searchParams: paramsOT.value }))
+    
+                ) : (
+                    dispatch(fetchOT({ OTAreas: OTAreas, searchParams: paramsOT.value }))
+                )
+                setSelectedRows([])
+                closeModal()
+                toast.dismiss(toastLoading)
 
-                });
+                // const query06 = {
+                //     _pkToDelete: JSON.stringify(pktoDelete.map((folioOT: any) => ({ folio: folioOT["folio"], estado: 60, usuario: UsuarioID, observaciones: jsonData["observaciones"], boton: 2 })))
+                // }
+                // let queryURL06 = `?query=06&&_pkToDelete=${query06["_pkToDelete"]}`
+
+                // await axios(`${strUrlOT}/${queryURL06}`).then(() => {
+                //     toast.success('Orden de Compra generado')
+                //     toast.dismiss(toastLoading)
+                //     dispatch(fetchOT({ historica: true, searchParams: paramsOT.value }))
+
+                // });
 
             } else {
                 toast.dismiss(toastLoading)

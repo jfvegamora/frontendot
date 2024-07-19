@@ -141,7 +141,7 @@ const FOTGuiaDespacho: React.FC<IDerivacion> = ({
             // }
 
             if(resultQuery07?.status === 200){
-                toast.success('Número de Guía generado')
+                toast.success('Número de Guía asignado.')
                 toast.dismiss(toastLoading)
                 clearAllCheck.value = false;
                 otArchivo ? (

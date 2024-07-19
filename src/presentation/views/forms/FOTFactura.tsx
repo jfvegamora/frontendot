@@ -3,7 +3,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { AppStore, useAppDispatch, useAppSelector } from '../../../redux/store';
 import { fetchOT } from '../../../redux/slices/OTSlice';
 import { TextInputComponent } from '../../components';
-import { MODAL, TITLES } from "../../utils";
+import { clearAllCheck, MODAL, TITLES } from "../../utils";
 import { toast } from 'react-toastify';
 import { URLBackend } from '../../hooks/useCrud';
 import axios from 'axios';
@@ -21,15 +21,18 @@ interface IDerivacion {
     closeModal?: any;
     pktoDelete?: any;
     setSelectedRows?: any;
+    otArchivo?: boolean
+
 }
 
 const strUrl = `${URLBackend}/api/proyectodocum/listado`;
-const strUrlOT = `${URLBackend}/api/othistorica/listado`;
+// const strUrlOT = `${URLBackend}/api/othistorica/listado`;
 
 const FOTFactura: React.FC<IDerivacion> = ({
     setSelectedRows,
     closeModal,
-    pktoDelete
+    pktoDelete,
+    otArchivo
 }) => {
     const { control, handleSubmit, formState: { errors } } = useForm<any>({ resolver: yupResolver(validationOTFacturaSchema()), });
     const [fechaHoraActual, _setFechaHoraActual] = useState(new Date());
@@ -38,6 +41,8 @@ const FOTFactura: React.FC<IDerivacion> = ({
     // const [fechaHoraActual, _setFechaHoraActual]  = useState(new Date());
 
     const UsuarioID: any = useAppSelector((store: AppStore) => store.user?.id)
+    const OTAreas: any = useAppSelector((store: AppStore) => store.OTAreas.areaActual);
+
     const dispatch = useAppDispatch();
 
     // console.log(pktoDelete)
@@ -112,16 +117,28 @@ const FOTFactura: React.FC<IDerivacion> = ({
             let queryURL07 = `?query=07&_p1=${query07["_p1"]}&_p2=${query07["_p2"]}&_p3=${query07["_p3"]}&_pkToDelete=${query07["_pkToDelete"]}&_id=${query07["_id"]}`
             const resultQuery07 = await axios(`${strUrl}/${queryURL07}`)
             if (resultQuery07?.status === 200) {
-                const query06 = {
-                    _pkToDelete: JSON.stringify(pktoDelete.map((folioOT: any) => ({ folio: folioOT["folio"], estado: (jsonData["numero_doc"] === '0' ? 60 : 70), usuario: UsuarioID, observaciones: jsonData["observaciones"], boton: 4 })))
-                }
-                let queryURL06 = `?query=06&&_pkToDelete=${query06["_pkToDelete"]}`
-
-                await axios(`${strUrlOT}/${queryURL06}`).then(() => {
-                    toast.dismiss(toastLoading)
-                    toast.success('Factura Generada')
+                toast.success('Número factura asignado.')
+                toast.dismiss(toastLoading)
+                clearAllCheck.value = false;
+                otArchivo ? (
                     dispatch(fetchOT({ historica: true, searchParams: paramsOT.value }))
-                })
+    
+                ) : (
+                    dispatch(fetchOT({ OTAreas: OTAreas, searchParams: paramsOT.value }))
+                )
+                setSelectedRows([])
+                closeModal()
+                toast.dismiss(toastLoading)
+                // const query06 = {
+                //     _pkToDelete: JSON.stringify(pktoDelete.map((folioOT: any) => ({ folio: folioOT["folio"], estado: (jsonData["numero_doc"] === '0' ? 60 : 70), usuario: UsuarioID, observaciones: jsonData["observaciones"], boton: 4 })))
+                // }
+                // let queryURL06 = `?query=06&&_pkToDelete=${query06["_pkToDelete"]}`
+
+                // await axios(`${strUrlOT}/${queryURL06}`).then(() => {
+                //     toast.dismiss(toastLoading)
+                //     toast.success('Factura Generada')
+                //     dispatch(fetchOT({ historica: true, searchParams: paramsOT.value }))
+                // })
 
 
             } else {
