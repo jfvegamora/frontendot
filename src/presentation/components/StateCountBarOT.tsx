@@ -51,7 +51,7 @@ const StateCountBarOT:React.FC<IStateCountBar> = ({checkCount,isMotHistorica}) =
 
   return (
     <>
-    <div className={`${isMotHistorica ? 'w-[80%] left-[10rem]' : 'w-[60%] left-[1vw]'} bg-white absolute bottom-[1%] h-[4.5vh]   rounded-full  flex text-[1.2vw]`}>
+    <div className={`${isMotHistorica ? 'w-[70%] left-[1vw]' : 'w-[60%] left-[1vw]'} bg-white absolute bottom-[1%] h-[4.5vh]   rounded-full  flex text-[1.2vw]`}>
       <div className='w-[7vw] flex ml-4'>
           <p className=" text-center rounded-full">
           {'Total OT '}:
@@ -100,7 +100,7 @@ const StateCountBarOT:React.FC<IStateCountBar> = ({checkCount,isMotHistorica}) =
     </div>
 
 
-    <div className={`${isMotHistorica ? 'w-[80%] rigth-[10rem]' : 'w-[30%] right-[1vw]'} bg-white absolute bottom-[1%] h-[4.5vh]  rounded-full  flex text-[1.2vw]`}>
+    <div className={`${isMotHistorica ? 'w-[20%] right-[1vw]' : 'w-[30%] right-[1vw]'} bg-white absolute bottom-[1%] h-[4.5vh]  rounded-full  flex text-[1.2vw]`}>
     
     {newCountAnteojos > 0 && (
       <div className='w-[11vw] flex ml-4 '>

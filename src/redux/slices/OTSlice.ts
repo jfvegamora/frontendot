@@ -231,7 +231,9 @@ const OTSlice = createSlice({
     builder.addCase(fetchOT.fulfilled, (state, action) => {
       state.estadosOT = {};
       // state.estadosOT[99] = 0;
+
       const reduce = action.payload.reduce((acc: any, ot: any) => {
+        console.log(ot);
         let estado_ot = ot[OTGrillaEnum.estado];
         let por_vencer = ot[OTGrillaEnum.por_vencer];
         // Manejar el caso de por_vencer
@@ -247,6 +249,7 @@ const OTSlice = createSlice({
         return acc;
       }, {});
 
+      console.log(reduce);
       // console.log(estados)
       state.estadosOT = reduce;
       state.data = action.payload;
