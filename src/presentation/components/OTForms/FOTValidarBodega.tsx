@@ -543,8 +543,8 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
         {OT && (
                 <div className="">
                 <h1 className='text-center text-white'>Anteojo 1</h1>
-                <div className='rowForm !h-[4rem]'>
-                <label className='text-lg !translate-x-[1rem] !translate-y-[3rem] '>{OT[OTGrillaEnum.a1_armazon_id]}</label>      
+                <div className='rowForm !h-[6rem]'>
+                <label className='labelInput ml-4 !translate-y-[3rem]'>{OT[OTGrillaEnum.a1_armazon_id]}</label>      
                 <TextInputInteractive
                     type='text'
                     label='Armazon 1'
@@ -561,8 +561,8 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                 />
                 </div>
                 {casoEjecutar !== 'sinCristales' && (
-                    <div className='rowForm  !h-[4rem]'>
-                    <label className='text-lg '>{OT[OTGrillaEnum.cr1_od]}</label>
+                    <div className='rowForm  !h-[6rem]'>
+                    <label className='labelInput ml-4 '>{OT[OTGrillaEnum.cr1_od]}</label>
                     <TextInputInteractive
                         type='text'
                         label='OD'
@@ -573,7 +573,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                         // defaultValue={}
                         data={formValues && formValues["a1_od"]}
                         textAlign='text-left'
-                        customWidth={"translate-y-[-0.6rem] translate-x-[-1rem]"}
+                        customWidth={"labelInput inputStyles"}
                         error={errors.a1_od}
                         inputRef={inputsRef.a1_od}
                         validarBodega={true}
@@ -582,8 +582,8 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                 )}
 
                 {casoEjecutar !== 'sinCristales' && (
-                    <div className='rowForm  !h-[4rem]'>
-                        <label className='text-lg '>{OT[OTGrillaEnum.cr1_oi]}</label>    
+                    <div className='rowForm  !h-[6rem]'>
+                        <label className='labelInput ml-4 '>{OT[OTGrillaEnum.cr1_oi]}</label>    
                         <TextInputInteractive
                             type='text'
                             label='OI'
@@ -593,7 +593,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                             isOT={true}
                             data={formValues && formValues["a1_oi"]}
                             textAlign='text-left'
-                            customWidth={"translate-y-[-0.6rem] translate-x-[-1rem]"}
+                            customWidth={"labelInput inputStyles"}
                             error={errors.a1_oi}
                             inputRef={inputsRef.a1_oi}
                             validarBodega={true}
@@ -607,8 +607,8 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
             {OT && OT[OTGrillaEnum.tipo_anteojo_id] === 3 && (
                 <div className="">
                 <h1 className='text-center text-white'>Anteojo 2</h1>
-                <div className='rowForm !h-[4rem] '>
-                <label className='text-lg !translate-x-[1rem] !translate-y-[3rem]'>{OT[OTGrillaEnum.a2_armazon_id]}</label>    
+                <div className='rowForm !h-[6rem] '>
+                <label className='labelInput  !translate-y-[3rem] ml-4'>{OT[OTGrillaEnum.a2_armazon_id]}</label>    
                 <TextInputInteractive
                     type='text'
                     label='Armazon 2'
@@ -620,15 +620,15 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                     textAlign='text-left'
                     error={errors.a2_armazon}
                     inputRef={inputsRef.a2_armazon}
-                    customWidth={"translate-y-[-0.6rem] translate-x-[-1rem]"}
+                    customWidth={"labelInput inputStyles"}
                     validarBodega={true}
                     onlyRead={OT && OT[OTGrillaEnum.tipo_anteojo_id] === 3 ? false : true}
                 />
                 </div>
 
                 {casoEjecutar !== 'sinCristales' && (
-                    <div className='rowForm !h-[4rem] '>
-                    <label className='text-lg'>{OT[OTGrillaEnum.cr2_od]}</label>    
+                    <div className='rowForm !h-[6rem] '>
+                    <label className='labelInput ml-4'>{OT[OTGrillaEnum.cr2_od]}</label>    
                     <TextInputInteractive
                         type='text'
                         label='OD'
@@ -640,15 +640,15 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                         textAlign='text-left'
                         error={errors.a2_od}
                         inputRef={inputsRef.a2_od}
-                        customWidth={"translate-y-[-0.6rem] translate-x-[-1rem]"}
+                        customWidth={"labelInput inputStyles"}
                         validarBodega={true}
                         onlyRead={OT && OT[OTGrillaEnum.tipo_anteojo_id] === 3 ? false : true}
                     />
                     </div>
                 )}
                 {casoEjecutar !== 'sinCristales' && (
-                    <div className='rowForm !h-[4rem] '>
-                    <label className='text-lg'>{OT[OTGrillaEnum.cr2_oi]}</label>    
+                    <div className='rowForm !h-[6rem]  '>
+                    <label className='labelInput ml-4'>{OT[OTGrillaEnum.cr2_oi]}</label>    
                     <TextInputInteractive
                         type='text'
                         label='OI'
@@ -658,7 +658,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                         data={formValues && formValues["a2_oi"]}
                         control={control}
                         textAlign='text-left'
-                        customWidth={"translate-y-[-0.6rem] translate-x-[-1rem]"}
+                        customWidth={"labelInput inputStyles"}
                         error={errors.a2_oi}
                         inputRef={inputsRef.a2_oi}
                         validarBodega={true}

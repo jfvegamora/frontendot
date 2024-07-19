@@ -49,9 +49,11 @@ const StateCountBarOT:React.FC<IStateCountBar> = ({checkCount,isMotHistorica}) =
     setNewCountAnteojos(newCount)
   },[OTs.data])
 
+
+
   return (
     <>
-    <div className={`${isMotHistorica ? 'w-[70%] left-[1vw]' : 'w-[60%] left-[1vw]'} bg-white absolute bottom-[1%] h-[4.5vh]   rounded-full  flex text-[1.2vw]`}>
+    <div className={`${isMotHistorica ? 'w-[74%] left-[1vw]' : 'w-[60%] left-[1vw]'} bg-white absolute bottom-[1%] h-[4.5vh]   rounded-full  flex text-[1.2vw]`}>
       <div className='w-[7vw] flex ml-4'>
           <p className=" text-center rounded-full">
           {'Total OT '}:
@@ -70,7 +72,7 @@ const StateCountBarOT:React.FC<IStateCountBar> = ({checkCount,isMotHistorica}) =
         return (
             <div className='w-[10vw] h-[5vh] flex mr-4' key={index}>
               <p style={{ backgroundColor, color: textColor }} className="translate-y-[-0.2rem] mx-2 w-full text-center rounded-2xl">
-               {estadoID}s:
+               {/* {estadoID}s: */}
               <label className="text-center">{OTs.estadosOT[estadoID]}</label>
               </p>
           </div>
@@ -85,7 +87,7 @@ const StateCountBarOT:React.FC<IStateCountBar> = ({checkCount,isMotHistorica}) =
     
     { (OTs.estadosOT[ot_atrasadas] > 0 ) && (
       <div className="w-[10vw] h-[5vh] flex">
-          <p className="text-center w-full translate-y-[-0.2rem] rounded-2xl bg-black  mx-auto text-white">Por vencer: 
+          <p className="text-center w-full translate-y-[-0.2rem] rounded-2xl bg-black  mx-auto text-white"> 
              <label className="text-center text-white">{OTs.estadosOT[ot_atrasadas]}</label>        
           </p>
       </div>

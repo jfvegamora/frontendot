@@ -29,14 +29,14 @@ const initialState: DataState = {
   derivacionColores: localStorage.getItem("OTColores")
     ? JSON.parse(localStorage.getItem("OTColores") as string)
     : {
-        Ingresada: ["#000000", "#FFFFFF"],
-        "En proceso": ["#000000", "#FFFFFF"],
-        Pendiente: ["#000000", "#FFFF00"],
-        Derivada: ["#FFFFFF", "#FF0000"],
-        Entregada: ["#000000", "#FFFFFF"],
-        Cerrada: ["#000000", "#FFFFFF"],
-        Facturada: ["#000000", "#FFFFFF"],
-        Anulada: ["#FFFFFF", "#808080"],
+        // Ingresada: ["#000000", "#FFFFFF"],
+        // "En proceso": ["#000000", "#FFFFFF"],
+        // Pendiente: ["#000000", "#FFFF00"],
+        // Derivada: ["#FFFFFF", "#FF0000"],
+        // Entregada: ["#000000", "#FFFFFF"],
+        // Cerrada: ["#000000", "#FFFFFF"],
+        // Facturada: ["#000000", "#FFFFFF"],
+        // Anulada: ["#FFFFFF", "#808080"],
       },
 };
 
@@ -157,12 +157,16 @@ export const fetchColores = createAsyncThunk(
           },
         }
       );
+
+      console.log(response);
       if (response.data) {
         const colores = response.data.reduce((acc: any, obj: any) => {
+          console.log(obj);
+
           acc[obj[1]] = [obj[2], obj[3]];
           return acc;
         }, {});
-
+        console.log(colores);
         return colores;
       }
     } catch (error) {

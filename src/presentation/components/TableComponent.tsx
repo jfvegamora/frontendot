@@ -8,7 +8,7 @@ import { usePermission } from "../hooks";
 import { BUTTON_MESSAGES, clearAllCheck, clearIndividualCheck, disabledIndividualCheck } from "../utils";
 import { AppStore, useAppSelector } from "../../redux/store";
 
-import { CristalesEnum, AccesoriosEnum, ArmazonesEnum, ProyectosDocumEnum, ProyectosDestinosEnum } from "../Enums";
+import { CristalesEnum, AccesoriosEnum, ArmazonesEnum, ProyectosDocumEnum, ProyectosDestinosEnum, OTGrillaEnum } from "../Enums";
 
 const OTGrillaButtons = React.lazy(()=>import("./OTGrillaButtons"));
 const ExportToPDF     = React.lazy(()=>import("./ExportToPDF"));
@@ -271,9 +271,9 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                     const alignment             = tableHead?.[col]?.alignment       || "";
                     const color2                = tableHead?.[col]?.color           || false;
                     const backgroundAtrasadas   = tableHead?.[col]?.background      || false;
-                    const color                 = ( isOT ? rowData[22] === 'S' ? "bg-black" : "" : "");
+                    const color                 = ( isOT ? rowData[OTGrillaEnum.por_vencer] === 'S' ? "bg-black" : "" : "");
                     const type                  = color === 'bg-black' ? 1 : 0
-
+                    
                     return (
                       visible && (
                         <td
