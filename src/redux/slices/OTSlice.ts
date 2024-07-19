@@ -237,6 +237,7 @@ const OTSlice = createSlice({
         let estado_ot = ot[OTGrillaEnum.estado];
         let por_vencer = ot[OTGrillaEnum.por_vencer];
         console.log(estado_ot);
+
         // Manejar el caso de por_vencer
         if (por_vencer === "S") {
           acc[por_vencer] ??= 0; // Si acc[por_vencer] es undefined o null, lo inicializa a 0

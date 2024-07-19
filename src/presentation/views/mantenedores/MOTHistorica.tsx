@@ -617,7 +617,7 @@ const MOTHistorica: React.FC = () => {
             }>N° OC</Button>
           )}
           <Suspense>
-             {showOrdenCompra  && <FOTOrdenCompra  pktoDelete={pktoDelete}  setSelectedRows={setSelectedRows} closeModal={() => setShowOrdenCompra(false)} />}
+             {showOrdenCompra  && <FOTOrdenCompra otArchivo={true} pktoDelete={pktoDelete}  setSelectedRows={setSelectedRows} closeModal={() => setShowOrdenCompra(false)} />}
           </Suspense>
 
 
@@ -630,7 +630,7 @@ const MOTHistorica: React.FC = () => {
             }}>N° Guía</Button>
           )}
           <Suspense>
-            {showGuia && <FOTGuiaDespacho pktoDelete={pktoDelete } setSelectedRows={setSelectedRows} closeModal={() => setShowGuia(false)} otArchivo={true} />}
+            {showGuia && <FOTGuiaDespacho  pktoDelete={pktoDelete } setSelectedRows={setSelectedRows} closeModal={() => setShowGuia(false)} otArchivo={true} />}
           </Suspense>
 
           {permiso_documentacion && (
@@ -642,7 +642,7 @@ const MOTHistorica: React.FC = () => {
             }}>N° Factura</Button>
           )}
           <Suspense>
-            {showFactura      && <FOTFactura      pktoDelete={pktoDelete}  setSelectedRows={setSelectedRows} closeModal={() => setShowFactura(false)} />}
+            {showFactura      && <FOTFactura  otArchivo={true}     pktoDelete={pktoDelete}  setSelectedRows={setSelectedRows} closeModal={() => setShowFactura(false)} />}
           </Suspense>
 
           <Suspense>
