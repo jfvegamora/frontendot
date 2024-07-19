@@ -2,6 +2,10 @@ import { signal } from '@preact/signals-react';
 import React, { ReactNode, useEffect } from 'react';
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { RxDoubleArrowLeft } from "react-icons/rx";
+import { Switch } from '@material-tailwind/react';
+import { AppStore, useAppDispatch, useAppSelector } from '../../redux/store';
+import { fetchOT, filterOtAtrasadas } from '../../redux/slices/OTSlice';
+import { paramsOT } from '../views/mantenedores/MOT';
 
 interface IProps {
   children: ReactNode;
@@ -9,14 +13,18 @@ interface IProps {
   className?:string;
 }
 
-export const filterToggle = signal(false);
-export const isHovered    = signal(false);
+export const filterToggle    = signal(false);
+export const isHovered       = signal(false);
+export const switchAtrasadas:any = signal(false);
 
 const FilterButton: React.FC<IProps> = ({
   children,
   isOT,
   className
 }) => {
+  const OTAreas: any = useAppSelector((store: AppStore) => store.OTAreas);
+
+  const dispatch  = useAppDispatch();
 
   const handleMouseEnter = () => {
     isHovered.value      =  !isHovered.value
@@ -54,6 +62,28 @@ const FilterButton: React.FC<IProps> = ({
       {filterToggle.value && (
         <RxDoubleArrowLeft onClick={()=>handleMouseEnter()} 
         className={`${isOT ? "top-[10rem] " : "top-[10rem] "} transition-all duration-500 text-[#f39c12] hover:bg-gray-200  rounded-xl cursor-pointer w-[4rem]  h-[4rem] ${isOT ? "translate-x-[90vw] translate-y-[-5rem]" : "translate-x-[90vw] translate-y-[-5rem]"} `}/>
+      )}
+
+
+      {isOT && filterToggle.value  && (
+        <div
+                className={` labelInput inputStyles ${isOT ? "top-[10rem] " : "top-[10rem] "}  w-[4rem]  h-[4rem] ${isOT ? "translate-x-[84vw] translate-y-[-7em]" : "translate-x-[90vw] translate-y-[-5rem]"} `}
+        >
+           <label className='text-[#f39c12] labelStyles mr-4'>Atrasadas</label>
+          <Switch
+            color='orange'
+            checked={switchAtrasadas}
+            onChange={(e)=>{
+              if(e.target.checked){
+                switchAtrasadas.value = true;
+                dispatch(filterOtAtrasadas())
+              }else{
+                switchAtrasadas.value = false;
+                dispatch(fetchOT({ OTAreas: OTAreas["areaActual"], searchParams: paramsOT.value }));
+              }
+            }}
+          />
+        </div>
       )}
     </div>
   );

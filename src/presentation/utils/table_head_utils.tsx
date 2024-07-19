@@ -3002,7 +3002,7 @@ export const table_head_proyectos_destinos = [
     key: "descripcion",
     visible: true,
     alignment: "text-left",
-    width: "w-[14rem]",
+    width: "w-[28rem]",
   },
   {
     cell: "Dirección",

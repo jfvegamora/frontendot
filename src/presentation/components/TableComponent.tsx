@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState, useEffect, Suspense } from "react";
+import React, { useState, useEffect, Suspense, useMemo, useCallback } from "react";
 import { IconButton, Tooltip, Typography } from "@material-tailwind/react";
 import { PencilIcon } from "@heroicons/react/24/solid";
 import { BsFillXSquareFill } from "react-icons/bs";
@@ -83,31 +83,27 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
     const areaActual = OTAreas["areaActual"] 
     const permissions = (area:number) => areaActual &&  OTAreas["areas"].find((permiso:any)=>permiso[1] === area)
     
-    let enumGird:any = {}
-    switch (entidad) {
-      case 'Armazón ':
-        enumGird = ArmazonesEnum
-        break;
-      case 'Cristal ':
-        enumGird = CristalesEnum
-        break
-      case 'Accesorio ':
-        enumGird = AccesoriosEnum
-        break
-      case 'Documentación del Proyecto ':
-        enumGird = ProyectosDocumEnum
-        break;
-      case 'Destinos':
-        enumGird = ProyectosDestinosEnum
-        break;
-      default:
-        break;
-    }
+    let enumGird:any = useMemo(() => {
+      switch (entidad) {
+        case 'Armazón ':
+          return ArmazonesEnum;
+        case 'Cristal ':
+          return CristalesEnum;
+        case 'Accesorio ':
+          return AccesoriosEnum;
+        case 'Documentación del Proyecto ':
+          return ProyectosDocumEnum;
+        case 'Destinos':
+          return ProyectosDestinosEnum;
+        default:
+          return {};
+      }
+    }, [entidad]);
 
     useEffect(()=>{
       const permiso = permissions(areaActual)
       setOTPermissions( permiso && permiso[5])
-    },[areaActual])
+    },[areaActual, permissions])
 
     
     useEffect(() => {
@@ -123,7 +119,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
   
 
 
-    const handleColorEstado = (rowData:any, background?:string) => {
+    const handleColorEstado = useCallback((rowData:any, background?:string) => {
       try {
         if(OTColores[rowData]){
           return background ? `${OTColores[rowData][1]}` : `${OTColores[rowData][0]}`
@@ -132,9 +128,12 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
       } catch (error) {
         throw error;
       }
-    }
+    },[OTColores, isOT]);
 
-    const renderTextCell = (text: string, alignment?:string, type?:number, color2?:boolean, rowData?:any, backgroundAtrasadas?:boolean, color?:any, lowArmazonesStock?:any) => {
+
+    
+
+    const renderTextCell = useCallback((text: string, alignment?:string, type?:number, color2?:boolean, rowData?:any, backgroundAtrasadas?:boolean, color?:any, lowArmazonesStock?:any) => {
       const cellStyle = {
         textAlign:alignment,
         color: isOT ? (rowData &&  handleColorEstado(rowData[4])) : (rowData &&  handleColorEstado(rowData[1], 'background  ')),
@@ -144,7 +143,8 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
           {text !== null && text !== undefined ? text.toString() : ""}
         </Typography>
       )
-    };
+    },[handleColorEstado, isOT]);
+
     let lowArmazonesStock = false;
 
 
@@ -154,6 +154,8 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
         clearIndividualCheck.value = false
       }
     },[clearIndividualCheck.value])
+
+
 
 
     const renderCheckboxCell = (id: number, folio:number, estado?:any) => {
@@ -206,9 +208,8 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
         </>
 
       )
-  };
+    }
 
-  console.log(escritura_lectura)
   
     return (
     <div className="gridCointainer">
@@ -262,6 +263,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
               if(entidad === 'Documentación del Proyecto ' && (rowData[enumGird.tipo_doc_id] === 1 || rowData[enumGird.tipo_doc_id] === 2)){
                 excelIndividual = true
               }  
+  
               return (
                 <tr key={rowIndex} className="overflow-hidden">
                   {rowData.map((row: any, col: number) => {

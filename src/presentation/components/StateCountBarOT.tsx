@@ -23,6 +23,7 @@ export interface IStateCountBar {
   isMotHistorica?:boolean;
 }
 
+let ot_atrasadas = 'S'
 
 
 const StateCountBarOT:React.FC<IStateCountBar> = ({checkCount,isMotHistorica}) => {
@@ -48,7 +49,6 @@ const StateCountBarOT:React.FC<IStateCountBar> = ({checkCount,isMotHistorica}) =
     setNewCountAnteojos(newCount)
   },[OTs.data])
 
-
   return (
     <>
     <div className={`${isMotHistorica ? 'w-[80%] left-[10rem]' : 'w-[60%] left-[1vw]'} bg-white absolute bottom-[1%] h-[4.5vh]   rounded-full  flex text-[1.2vw]`}>
@@ -60,21 +60,17 @@ const StateCountBarOT:React.FC<IStateCountBar> = ({checkCount,isMotHistorica}) =
       </div>
 
 
+
     {Object.keys(OTs.estadosOT).map((estadoID, index) => {
-      const estadoNombre = estadoIDNombre[estadoID];
-      const derivacionColor = OTs.derivacionColores[estadoNombre];
-      console.log(estadoNombre)
-      console.log(OTs.derivacionColores)
-      
-      console.log(OTs.estadosOT)
-      
+      const derivacionColor = OTs.derivacionColores[estadoID];
       if (derivacionColor) {
         const backgroundColor = derivacionColor[1];
         const textColor = derivacionColor[0];
+
         return (
-            <div className='w-[8vw] h-[5vh] flex mr-4' key={index}>
+            <div className='w-[10vw] h-[5vh] flex mr-4' key={index}>
               <p style={{ backgroundColor, color: textColor }} className="translate-y-[-0.2rem] mx-2 w-full text-center rounded-2xl">
-               {estadoNombre}s:
+               {estadoID}s:
               <label className="text-center">{OTs.estadosOT[estadoID]}</label>
               </p>
           </div>
@@ -83,15 +79,20 @@ const StateCountBarOT:React.FC<IStateCountBar> = ({checkCount,isMotHistorica}) =
 
       return null; 
     })}
+
+
     
-    {OTs.estadosOT.hasOwnProperty(99) &&  (OTs.estadosOT[99] > 0 as any) && (
-      <div className="w-[8vw]  flex bg-black">
-          <p className="text-center mx-auto text-white">Por vencer: </p> <label className="text-center text-white">{OTs.estadosOT[99]}</label>        
+    
+    { (OTs.estadosOT[ot_atrasadas] > 0 ) && (
+      <div className="w-[10vw] h-[5vh] flex">
+          <p className="text-center w-full translate-y-[-0.2rem] rounded-2xl bg-black  mx-auto text-white">Por vencer: 
+             <label className="text-center text-white">{OTs.estadosOT[ot_atrasadas]}</label>        
+          </p>
       </div>
     )}
 
     {stateCheckCount >= 1 && (
-      <div className="w-[13vw] flex mx-2">
+      <div className="w-[15vw] flex mx-2">
           <p className="text-center">OT Seleccionadas: </p> <label className="text-center ">{stateCheckCount}</label>        
       </div>
     )}

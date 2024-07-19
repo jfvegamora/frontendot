@@ -12,6 +12,28 @@ interface IExportToPdf{
   strBaseUrl?:string
 }
 
+
+const splitTextIntoLines = (text:any, maxLength:any) => {
+  if(text){
+    const words = text?.split(' ');
+    let lines = [];
+    let currentLine = words[0];
+  
+    words.slice(1).forEach((word:any) => {
+      if (currentLine.length + word.length + 1 <= maxLength) {
+        currentLine += ` ${word}`;
+      } else {
+        lines.push(currentLine);
+        currentLine = word;
+      }
+    });
+  
+    lines.push(currentLine);
+    return lines;
+  }
+};
+
+
 const ExportToPDF:React.FC<IExportToPdf> = ({
   rowData 
 }) => {
@@ -30,11 +52,13 @@ const ExportToPDF:React.FC<IExportToPdf> = ({
     page: {
       flexDirection: 'row',
       backgroundColor: 'white',
+       wordBreak: 'break-word'
     },
     section: {
       margin: 10,
       padding: 10,
       flexGrow: 1,
+      width: 100,
     },
     title:{
       flexDirection: 'row',
@@ -42,6 +66,11 @@ const ExportToPDF:React.FC<IExportToPdf> = ({
       marginBottom:20, 
       fontWeight: 'bold', 
       textAlign: 'center', 
+      wordBreak: 'break-word',
+      whiteSpace: 'nowrap', // Wrap prevention
+      width: '100%', // Increased width
+      wrap: true
+
     },
     destinatario_section:{
       marginBottom:20
@@ -73,7 +102,6 @@ const ExportToPDF:React.FC<IExportToPdf> = ({
 
   const fetchEtiquetaDespacho = async(destino_id:string) => {
     try {
-      console.log(destino_id)
       if(destino_id === ''){
         return;
       }
@@ -88,6 +116,11 @@ const ExportToPDF:React.FC<IExportToPdf> = ({
 
 
     const renderPDF = () => {
+      const title = etiquetaData[0] ? etiquetaData[0][0] : '';
+      const titleLines = splitTextIntoLines(title, 30) || [] // Ajusta el valor 25 según tus necesidades
+      const nombreLines = splitTextIntoLines(etiquetaData[0][1], 40) || [];
+      const direccionLineas = splitTextIntoLines(etiquetaData[0][2], 40) || [];
+
       return(
         <Document>
                   <Page size={"A4"} style={styles.page}>
@@ -95,12 +128,22 @@ const ExportToPDF:React.FC<IExportToPdf> = ({
                     {etiquetaData && etiquetaData.length > 0 && etiquetaData.map((item:any, index:any) => (
                         //?TITULO PDF
                         <View key={index}>
-                          <Text style={styles.title} key={item[0]}>{item[0]}</Text>
-
+                          {/* <Text style={styles.title} key={item[0]}>{item[0]}</Text> */}
+                          {titleLines.map((line, lineIndex) => (
+                            <Text style={styles.title} key={`title-${lineIndex}`}>{line}</Text>
+                          ))}
                           <View style={styles.destinatario_section} key={'destino_section'}>
                              <Text style={styles.destinatario_title} key={'Destinatario'}>{'Destinatario:'}</Text>
-                             <Text style={styles.destinatario_campo} key={item[1]}>{item[1]}</Text>
-                             <Text style={styles.destinatario_campo} key={item[2]}>{item[2]}</Text>
+
+
+                             {nombreLines.map((line, lindeIndex)=>(
+                               <Text style={styles.destinatario_campo} key={lindeIndex}>{line}</Text>
+                             ))}
+
+                             {direccionLineas.map((line, lineIndex)=>(
+                               <Text style={styles.destinatario_campo} key={lineIndex}>{line}</Text>
+                             ))}
+
                              <Text style={styles.destinatario_campo} key={item[4]}>{item[4]}</Text>
                              <Text style={styles.destinatario_campo} key={item[3]}>{item[3]}</Text>
                           </View>
