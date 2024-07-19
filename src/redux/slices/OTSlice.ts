@@ -277,6 +277,7 @@ const OTSlice = createSlice({
     });
     builder.addCase(fetchColores.fulfilled, (state, action) => {
       state.derivacionColores = action.payload;
+      console.log(action.payload);
       localStorage.setItem("OTColores", JSON.stringify(action.payload));
       return state;
     });

@@ -605,7 +605,7 @@ const MOTHistorica: React.FC = () => {
             }} >N° Rep. Entrega</Button>
           )}  
           <Suspense>
-            {showRepEntrega && <FOTReporteEntrega pktoDelete={pktoDelete} setSelectedRows={setSelectedRows} closeModal={()=>setShowRepEntrega(false)} />}
+            {showRepEntrega && <FOTReporteEntrega otArchivo={true} pktoDelete={pktoDelete} setSelectedRows={setSelectedRows} closeModal={()=>setShowRepEntrega(false)} />}
           </Suspense>
 
           {permiso_documentacion && (

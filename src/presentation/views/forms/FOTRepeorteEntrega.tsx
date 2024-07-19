@@ -3,7 +3,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { AppStore, useAppDispatch, useAppSelector } from '../../../redux/store';
 import { fetchOT } from '../../../redux/slices/OTSlice';
 import { TextInputComponent } from '../../components';
-import { MODAL, TITLES } from "../../utils";
+import { clearAllCheck, MODAL, TITLES } from "../../utils";
 import { toast } from 'react-toastify';
 import { URLBackend } from '../../hooks/useCrud';
 import axios from 'axios';
@@ -22,11 +22,13 @@ interface Interface {
     closeModal?: any;
     pktoDelete?: any
     setSelectedRows?: any
+    otArchivo?: boolean
+
 }
 
 
 const strUrl = `${URLBackend}/api/proyectodocum/listado`;
-const strUrlOT = `${URLBackend}/api/othistorica/listado`;
+// const strUrlOT = `${URLBackend}/api/othistorica/listado`;
 
 
 
@@ -35,6 +37,7 @@ const FOTReporteEntrega: React.FC<Interface> = ({
     closeModal,
     pktoDelete,
     setSelectedRows,
+    otArchivo
 }) => {
     const { control, handleSubmit, formState: { errors }, setValue } = useForm<any>({ resolver: yupResolver(validationOTGuiaSchema()), });
     const [fechaHoraActual, _setFechaHoraActual] = useState(new Date());
@@ -44,8 +47,10 @@ const FOTReporteEntrega: React.FC<Interface> = ({
     // const [fechaHoraActual, _setFechaHoraActual] = useState(new Date());
 
     const UsuarioID: any = useAppSelector((store: AppStore) => store.user?.id)
+    const OTAreas: any = useAppSelector((store: AppStore) => store.OTAreas.areaActual);
+
     const dispatch = useAppDispatch();
-    const { showModal } = useModal();
+    const { showModal, CustomModal } = useModal();
 
     const fetchNumeroRepEntrega = async () => {
         try {
@@ -82,7 +87,7 @@ const FOTReporteEntrega: React.FC<Interface> = ({
 
     const onSubmit: SubmitHandler<any> = async (jsonData) => {
 
-        // console.log(pktoDelete)
+        console.log(pktoDelete)
 
         if (pktoDelete.length < 1) {
             return toast.error('No Hay OT Seleccionada')
@@ -113,6 +118,7 @@ const FOTReporteEntrega: React.FC<Interface> = ({
         const toastLoading = toast.loading('Cargando...');
         console.log(jsonData["numero_doc"])
         try {
+            console.log('render')
             const query07 = {
                 _p1: `"${pktoDelete[0]["proyecto_codigo"]}", ${1}, "${jsonData["numero_doc"]}", "${jsonData["fecha_doc"]}", ${0}, ${0}, ${0}, ${UsuarioID}, "${jsonData["observaciones"]}"`,
                 _p2: jsonData["numero_doc"],
@@ -124,21 +130,37 @@ const FOTReporteEntrega: React.FC<Interface> = ({
 
             let queryURL07 = `?query=07&_p1=${query07["_p1"]}&_p2=${query07["_p2"]}&_p3=${query07["_p3"]}&_pkToDelete=${query07["_pkToDelete"]}&_id=${query07["_id"]}`
             const resultQuery07 = await axios(`${strUrl}/${queryURL07}`)
-            if (resultQuery07?.status === 200) {
-                const query06 = {
-                    _pkToDelete: JSON.stringify(pktoDelete.map((folioOT: any) => ({ folio: folioOT["folio"], estado: (jsonData["numero_doc"] === '0' ? 50 : 60), usuario: UsuarioID, observaciones: jsonData["observaciones"], boton: 1 })))
-                }
-                let queryURL06 = `?query=06&&_pkToDelete=${query06["_pkToDelete"]}`
-
-                await axios(`${strUrlOT}/${queryURL06}`).then(() => {
-                    toast.dismiss(toastLoading)
-                    toast.success('Número de Envío generado')
-                    dispatch(fetchOT({ historica: true, searchParams: paramsOT.value }))
-                })
-            } else {
+            if(resultQuery07?.status === 200){
+                toast.success('Número reporte asignado')
                 toast.dismiss(toastLoading)
-                toast.error('error: Número de envío')
+                clearAllCheck.value = false;
+                otArchivo ? (
+                    dispatch(fetchOT({ historica: true, searchParams: paramsOT.value }))
+    
+                ) : (
+                    dispatch(fetchOT({ OTAreas: OTAreas, searchParams: paramsOT.value }))
+                )
+                setSelectedRows([])
+                closeModal()
+                toast.dismiss(toastLoading)
+
             }
+            // if (resultQuery07?.status === 200) {
+            //     const query06 = {
+            //         _pkToDelete: JSON.stringify(pktoDelete.map((folioOT: any) => ({ folio: folioOT["folio"], estado: (jsonData["numero_doc"] === '0' ? 50 : 60), usuario: UsuarioID, observaciones: jsonData["observaciones"], boton: 1 })))
+            //     }
+            //     let queryURL06 = `?query=06&&_pkToDelete=${query06["_pkToDelete"]}`
+
+            //     await axios(`${strUrlOT}/${queryURL06}`).then(() => {
+            //         toast.dismiss(toastLoading)
+            //         toast.success('Número de Envío generado')
+            //         closeModal();
+            //         dispatch(fetchOT({ historica: true, searchParams: paramsOT.value }))
+            //     })
+            // } else {
+            //     toast.dismiss(toastLoading)
+            //     toast.error('error: Número de envío')
+            // }
             setSelectedRows([])
             closeModal()
             toast.dismiss(toastLoading)
@@ -149,7 +171,7 @@ const FOTReporteEntrega: React.FC<Interface> = ({
         }
     }
 
-
+    console.log(errors)
 
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
@@ -249,6 +271,7 @@ const FOTReporteEntrega: React.FC<Interface> = ({
                             </div>
                         </div>
                     </form>
+                    <CustomModal/>
                 </div>
 
             )}
