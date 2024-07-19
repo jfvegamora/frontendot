@@ -544,7 +544,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                 <div className="">
                 <h1 className='text-center text-white'>Anteojo 1</h1>
                 <div className='rowForm !h-[4rem]'>
-                <label className='text-lg !translate-x-[1rem] !translate-y-[3rem]'>{OT[OTGrillaEnum.a1_armazon_id]}</label>      
+                <label className='text-lg !translate-x-[1rem] !translate-y-[3rem] '>{OT[OTGrillaEnum.a1_armazon_id]}</label>      
                 <TextInputInteractive
                     type='text'
                     label='Armazon 1'
