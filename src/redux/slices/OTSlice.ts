@@ -3,6 +3,7 @@ import axios from "axios";
 import { URLBackend } from "../../presentation/hooks/useCrud";
 import { EnumGrid } from "../../presentation/views/mantenedores/MOTHistorica";
 import { validarImpresion } from "../../presentation/utils";
+import { OTGrillaEnum } from "../../presentation/Enums";
 // import { OTGrillaEnum } from "../../presentation/Enums";
 // import { toast } from "react-toastify";
 
@@ -202,12 +203,49 @@ const OTSlice = createSlice({
     updateEstadoImpresion(state) {
       console.log(state.impresionOT);
     },
+    filterOtAtrasadas(state) {
+      const filterAtrasadas = state.data.filter(
+        (ot: any) => ot[OTGrillaEnum.por_vencer] === "S"
+      );
+
+      const reduce = filterAtrasadas.reduce((acc: any, ot: any) => {
+        let estado_ot = ot[OTGrillaEnum.estado];
+        let por_vencer = ot[OTGrillaEnum.por_vencer];
+
+        // Manejar el caso de por_vencer
+        if (por_vencer === "S") {
+          acc[por_vencer] = (acc[por_vencer] ?? 0) + 1;
+        }
+
+        // Manejar el caso de estado_ot
+        acc[estado_ot] = (acc[estado_ot] ?? 0) + 1;
+
+        return acc;
+      }, {});
+
+      state.data = filterAtrasadas;
+      state.estadosOT = reduce;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchOT.fulfilled, (state, action) => {
       state.estadosOT = {};
       // state.estadosOT[99] = 0;
+      const reduce = action.payload.reduce((acc: any, ot: any) => {
+        let estado_ot = ot[OTGrillaEnum.estado];
+        let por_vencer = ot[OTGrillaEnum.por_vencer];
+        // Manejar el caso de por_vencer
+        if (por_vencer === "S") {
+          acc[por_vencer] ??= 0; // Si acc[por_vencer] es undefined o null, lo inicializa a 0
+          acc[por_vencer]++;
+        }
 
+        // Manejar el caso de estado_ot
+        acc[estado_ot] ??= 0; // Si acc[estado_ot] es undefined o null, lo inicializa a 0
+        acc[estado_ot]++;
+
+        return acc;
+      }, {});
       // action.payload.forEach((ot: any) => {
       //   console.log(ot);
       //   let estadoOT = ot[OTGrillaEnum.estado_id];
@@ -235,6 +273,7 @@ const OTSlice = createSlice({
       // });
 
       // console.log(estados)
+      state.estadosOT = reduce;
       state.data = action.payload;
       return state;
     });
@@ -268,6 +307,7 @@ export const {
   addToArmazones,
   clearCodigos,
   clearOTColores,
+  filterOtAtrasadas,
   clearImpression,
   updateEstadoImpresion,
 } = OTSlice.actions;

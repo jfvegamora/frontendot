@@ -14,7 +14,7 @@ import { toast } from "react-toastify";
 import { paramsOT } from "../views/mantenedores/MOT";
 import { areaActualOT } from "./OTAreasButtons";
 import { signal } from "@preact/signals-react";
-import { filterToggle } from "./FilterButton";
+import { filterToggle, switchAtrasadas } from "./FilterButton";
 // import { sesionExpirada } from "../../redux/slices/userSlice";
 
 
@@ -523,6 +523,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                 onClick={(e)=>{
                   e.preventDefault()
                   filterToggle.value = false;
+                  switchAtrasadas.value = false;
                   titleSearch.value = ''
                   filterSearchTitle.value = {}
                  return handleRefresh()

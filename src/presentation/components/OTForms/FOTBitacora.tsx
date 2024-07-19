@@ -30,14 +30,13 @@ const FOTBitacora:React.FC<IBitacora> = ({
     setDataBitacora(result.data || "")
   }
 
-  console.log('entitines', dataBitacora)
 
   useEffect(()=>{
     fetchData()
   },[])
   return (
     <div className='frameOTForm h-[85vh] bg-white '>
-    <div className='scroll !h-[32rem]'>
+    <div className='scroll !h-[85vh]'>
         <TableComponent
             tableHead={table_head_OT_bitacora}
             entidad={'bitacora'}
