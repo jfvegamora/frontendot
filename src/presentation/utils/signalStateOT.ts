@@ -1911,15 +1911,17 @@ export const updateOT = async (
     }"`,
     // (`resolucion_garantia=${data && data[EnumGrid.resolucion_garantia_id]                                                                                !== undefined ? (jsonData.resolucion_garantia_id === 'Rechazada' ? 2 :1) : 0 }`),
     `resolucion_garantia=${
-      _formValues["optica"] && _formValues["optica"]["Resolución"] !== undefined
-        ? _formValues["optica"]["Resolución"] === "Aceptada"
-          ? 1
-          : _formValues["optica"]["Resolución"] === "Rechazada"
-          ? 2
-          : 0
-        : data && data[EnumGrid.resolucion_garantia_id]
-        ? data && data[EnumGrid.resolucion_garantia_id]
-        : 0
+      data && data[EnumGrid.motivo] === "Venta" ? 0 : 1
+      // : _formValues["optica"] &&
+      //   _formValues["optica"]["Resolución"] !== undefined
+      // ? _formValues["optica"]["Resolución"] === "Aceptada"
+      //   ? 1
+      //   : _formValues["optica"]["Resolución"] === "Rechazada"
+      //   ? 2
+      //   : 0
+      // : data && data[EnumGrid.resolucion_garantia_id]
+      // ? data && data[EnumGrid.resolucion_garantia_id]
+      // : 0
     }`,
     `worktracking="${
       numero_worktracking.value.trim() === ""

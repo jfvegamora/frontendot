@@ -401,7 +401,7 @@ return (
                            />
                         </div>
                         
-                        <div className="w-[30%] labelInput">
+                        <div className="w-[30%] mb-4 labelInput">
                             <TextInputComponent
                                 type="number"
                                 label="Folio Asociado"
