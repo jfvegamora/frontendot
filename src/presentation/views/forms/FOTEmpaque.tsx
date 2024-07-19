@@ -60,6 +60,7 @@ const FOTEmpaque: React.FC<IFOTEmpaque> = ({
         // if(parseInt(pktoDelete[0]["numero_reporte_firma"]) !== 0){
         //     return toast.error(`OT ${pktoDelete[0]["folio"]} ya tiene un reporte de firma asignado `)
         // }
+        console.log(pktoDelete)
 
         if (parseInt(pktoDelete[0]["numero_envio"]) !== 0) {
             const result = await showModal(
@@ -95,8 +96,6 @@ const FOTEmpaque: React.FC<IFOTEmpaque> = ({
                 toast.dismiss(toastLoading)
                 clearAllCheck.value = false;
                 dispatch(fetchOT({ OTAreas: OTAreas, searchParams: paramsOT.value }))
-
-
             } else {
                 toast.dismiss(toastLoading)
                 toast.error('error: Número de envío')

@@ -148,7 +148,7 @@ const FOTPendiente: React.FC<IPendiente> = ({
         <div className="useFormContainer centered-div w-[35rem]">
             <div className="userFormBtnCloseContainer">
                 <h1 className="userFormLabel mx-auto">OT Pendiente</h1>
-                <button onClick={closeModal} className="userFormBtnClose mr-4">
+                <button onClick={onClose} className="userFormBtnClose mr-4">
                     X
                 </button>
             </div>

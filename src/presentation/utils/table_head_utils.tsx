@@ -165,13 +165,6 @@ export const table_head_OT_diaria2 = [
     width: "w-[10rem]"
   },
   {
-    cell: "POR VENCER",
-    key: "por_vencer",
-    visible: false,
-    alignment: "text-center",
-    width: "w-[10trem]"
-  },
-  {
     cell: "E V",
     key: "estado_validacion",
     visible: false,
@@ -198,6 +191,13 @@ export const table_head_OT_diaria2 = [
     visible: false,
     alignment: "text-left",
     width: "w-[6rem]"
+  },
+  {
+    cell: "POR VENCER",
+    key: "por_vencer",
+    visible: false,
+    alignment: "text-center",
+    width: "w-[10trem]"
   },
   {
     cell: "N° OC",
@@ -240,7 +240,14 @@ export const table_head_OT_diaria2 = [
     visible: false,
     alignment: "text-left",
     width: "w-[6rem]"
-  }
+  },
+  {
+    cell: "ESTADO WHASTAPP",
+    key: "estado_wsp",
+    visible: false,
+    alignment: "text-left",
+    width: "w-[6rem]"
+  },
 ];
 export const table_head_OT_historica = [
   {

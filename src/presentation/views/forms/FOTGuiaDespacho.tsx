@@ -26,7 +26,7 @@ interface IDerivacion {
 }
 
 const strUrl = `${URLBackend}/api/proyectodocum/listado`;
-const strUrlOT = `${URLBackend}/api/othistorica/listado`;
+// const strUrlOT = `${URLBackend}/api/othistorica/listado`;
 
 
 const FOTGuiaDespacho: React.FC<IDerivacion> = ({
@@ -117,31 +117,43 @@ const FOTGuiaDespacho: React.FC<IDerivacion> = ({
             let queryURL07 = `?query=07&_p1=${query07["_p1"]}&_p2=${query07["_p2"]}&_p3=${query07["_p3"]}&_pkToDelete=${query07["_pkToDelete"]}&_id=${query07["_id"]}`
             const resultQuery07 = await axios(`${strUrl}/${queryURL07}`)
 
-            if (resultQuery07?.status === 200) {
-                const query06 = {
-                    _pkToDelete: JSON.stringify(pktoDelete.map((folioOT: any) => ({ folio: folioOT["folio"], estado: 60, usuario: UsuarioID, observaciones: jsonData["observaciones"], boton: 3 })))
-                }
-                let queryURL06 = `?query=06&&_pkToDelete=${query06["_pkToDelete"]}`
+            // if (resultQuery07?.status === 200) {
+            //     const query06 = {
+            //         _pkToDelete: JSON.stringify(pktoDelete.map((folioOT: any) => ({ folio: folioOT["folio"], estado: 60, usuario: UsuarioID, observaciones: jsonData["observaciones"], boton: 3 })))
+            //     }
+            //     let queryURL06 = `?query=06&&_pkToDelete=${query06["_pkToDelete"]}`
 
-                await axios(`${strUrlOT}/${queryURL06}`).then(() => {
-                    toast.success('Guia generado')
-                    toast.dismiss(toastLoading)
-                    clearAllCheck.value = false;
-                    otArchivo ? (
-                        dispatch(fetchOT({ historica: true, searchParams: paramsOT.value }))
+            //     await axios(`${strUrlOT}/${queryURL06}`).then(() => {
+            //         toast.success('Guia generado')
+            //         toast.dismiss(toastLoading)
+            //         clearAllCheck.value = false;
+            //         otArchivo ? (
+            //             dispatch(fetchOT({ historica: true, searchParams: paramsOT.value }))
 
-                    ) : (
-                        dispatch(fetchOT({ OTAreas: OTAreas, searchParams: paramsOT.value }))
-                    )
-                })
+            //         ) : (
+            //             dispatch(fetchOT({ OTAreas: OTAreas, searchParams: paramsOT.value }))
+            //         )
+            //     })
 
-            } else {
+            // } else {
+            //     toast.dismiss(toastLoading)
+            //     toast.error('error: Guia')
+            // }
+
+            if(resultQuery07?.status === 200){
+                toast.success('Número de Guía generado')
                 toast.dismiss(toastLoading)
-                toast.error('error: Guia')
+                clearAllCheck.value = false;
+                otArchivo ? (
+                    dispatch(fetchOT({ historica: true, searchParams: paramsOT.value }))
+    
+                ) : (
+                    dispatch(fetchOT({ OTAreas: OTAreas, searchParams: paramsOT.value }))
+                )
+                setSelectedRows([])
+                closeModal()
+                toast.dismiss(toastLoading)
             }
-            setSelectedRows([])
-            closeModal()
-            toast.dismiss(toastLoading)
         } catch (error) {
             console.log(error)
             toast.error('Error Guia')

@@ -525,7 +525,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
         console.log(casoEjecutar)
     
     return (
-        <div className=" bg-[#676f9d] mx-auto xl:w-[90%] xl:left-[35rem]  absolute top-10 left-auto right-auto rounded-xl shadow-md overflow-hidden lg:left-[20rem]     sm:w-[25rem]    md:max-w-[35rem] z-40">
+        <div className=" bg-[#676f9d] mx-auto xl:w-[90%] xl:left-[35rem]  absolute top-[-1rem] left-auto right-auto rounded-xl shadow-md overflow-hidden lg:left-[18rem]     sm:w-[25rem]    md:max-w-[35rem] z-40">
          <div className="absolute right-0 userFormBtnCloseContainer">
           <h1 className='text-center text-2xl text-white mr-[12rem] mb-7'>Folio: { OT && OT[OTGrillaEnum.folio]}</h1>
           <button onClick={handleClose} className="userFormBtnClose">
@@ -543,7 +543,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
         {OT && (
                 <div className="">
                 <h1 className='text-center text-white'>Anteojo 1</h1>
-                <div className='rowForm !h-[6rem]'>
+                <div className='rowForm !h-[5rem]'>
                 <label className='labelInput ml-4 !translate-y-[3rem]'>{OT[OTGrillaEnum.a1_armazon_id]}</label>      
                 <TextInputInteractive
                     type='text'
@@ -561,7 +561,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                 />
                 </div>
                 {casoEjecutar !== 'sinCristales' && (
-                    <div className='rowForm  !h-[6rem]'>
+                    <div className='rowForm  !h-[5rem]'>
                     <label className='labelInput ml-4 '>{OT[OTGrillaEnum.cr1_od]}</label>
                     <TextInputInteractive
                         type='text'
@@ -582,7 +582,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                 )}
 
                 {casoEjecutar !== 'sinCristales' && (
-                    <div className='rowForm  !h-[6rem]'>
+                    <div className='rowForm  !h-[5rem]'>
                         <label className='labelInput ml-4 '>{OT[OTGrillaEnum.cr1_oi]}</label>    
                         <TextInputInteractive
                             type='text'
@@ -607,7 +607,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
             {OT && OT[OTGrillaEnum.tipo_anteojo_id] === 3 && (
                 <div className="">
                 <h1 className='text-center text-white'>Anteojo 2</h1>
-                <div className='rowForm !h-[6rem] '>
+                <div className='rowForm !h-[5rem] '>
                 <label className='labelInput  !translate-y-[3rem] ml-4'>{OT[OTGrillaEnum.a2_armazon_id]}</label>    
                 <TextInputInteractive
                     type='text'
@@ -627,7 +627,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                 </div>
 
                 {casoEjecutar !== 'sinCristales' && (
-                    <div className='rowForm !h-[6rem] '>
+                    <div className='rowForm !h-[5rem] '>
                     <label className='labelInput ml-4'>{OT[OTGrillaEnum.cr2_od]}</label>    
                     <TextInputInteractive
                         type='text'
@@ -647,7 +647,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                     </div>
                 )}
                 {casoEjecutar !== 'sinCristales' && (
-                    <div className='rowForm !h-[6rem]  '>
+                    <div className='rowForm !h-[5rem]  '>
                     <label className='labelInput ml-4'>{OT[OTGrillaEnum.cr2_oi]}</label>    
                     <TextInputInteractive
                         type='text'

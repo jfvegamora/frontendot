@@ -70,7 +70,7 @@ const StateCountBarOT:React.FC<IStateCountBar> = ({checkCount,isMotHistorica}) =
         const textColor = derivacionColor[0];
 
         return (
-            <div className='w-[10vw] h-[5vh] flex mr-4' key={index}>
+            <div className='w-[8vw] h-[5vh] flex mr-4' key={index}>
               <p style={{ backgroundColor, color: textColor }} className="translate-y-[-0.2rem] mx-2 w-full text-center rounded-2xl">
                {/* {estadoID}s: */}
               <label className="text-center">{OTs.estadosOT[estadoID]}</label>
@@ -86,7 +86,7 @@ const StateCountBarOT:React.FC<IStateCountBar> = ({checkCount,isMotHistorica}) =
     
     
     { (OTs.estadosOT[ot_atrasadas] > 0 ) && (
-      <div className="w-[10vw] h-[5vh] flex">
+      <div className="w-[8vw] h-[5vh] flex">
           <p className="text-center w-full translate-y-[-0.2rem] rounded-2xl bg-black  mx-auto text-white"> 
              <label className="text-center text-white">{OTs.estadosOT[ot_atrasadas]}</label>        
           </p>
