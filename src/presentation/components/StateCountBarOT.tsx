@@ -24,6 +24,7 @@ export interface IStateCountBar {
 }
 
 let ot_atrasadas = 'S'
+let width = 'w-[6vw]'
 
 
 const StateCountBarOT:React.FC<IStateCountBar> = ({checkCount,isMotHistorica}) => {
@@ -49,20 +50,13 @@ const StateCountBarOT:React.FC<IStateCountBar> = ({checkCount,isMotHistorica}) =
     setNewCountAnteojos(newCount)
   },[OTs.data])
 
+  console.log(totoalTrabajosSeleccionados)
 
 
   return (
     <>
     <div className={`${isMotHistorica ? 'w-[74%] left-[1vw]' : 'w-[60%] left-[1vw]'} bg-white absolute bottom-[1%] h-[4.5vh]   rounded-full  flex text-[1.2vw]`}>
-      <div className='w-[7vw] flex ml-4'>
-          <p className=" text-center rounded-full">
-          {'Total OT '}:
-          </p>
-          <label className="text-center">{OTs.data.length}</label>
-      </div>
-
-
-
+      
     {Object.keys(OTs.estadosOT).map((estadoID, index) => {
       const derivacionColor = OTs.derivacionColores[estadoID];
       if (derivacionColor) {
@@ -71,7 +65,7 @@ const StateCountBarOT:React.FC<IStateCountBar> = ({checkCount,isMotHistorica}) =
         const borderColor = derivacionColor[2]
 
         return (
-            <div className='w-[8vw] h-[5vh] flex mr-4' key={index}>
+            <div className={`${width} h-[5vh] flex mr-4 `} key={index}>
               <p style={{ 
                 backgroundColor, 
                 color: textColor, 
@@ -92,16 +86,23 @@ const StateCountBarOT:React.FC<IStateCountBar> = ({checkCount,isMotHistorica}) =
     
     
     { (OTs.estadosOT[ot_atrasadas] > 0 ) && (
-      <div className="w-[8vw] h-[5vh] flex">
+      <div className={`${width} h-[5vh] flex `}>
           <p className="text-center w-full translate-y-[-0.2rem] rounded-2xl bg-black  mx-auto text-white"> 
              <label className="text-center text-white">{OTs.estadosOT[ot_atrasadas]}</label>        
           </p>
       </div>
     )}
 
+      <div className={` w-[8vw]  flex ml-4`}>
+          <p className=" text-center rounded-full">
+          {'OT Total'}:
+          </p>
+          <label className="text-center">{OTs.data.length}</label>
+      </div>
+
     {stateCheckCount >= 1 && (
-      <div className="w-[15vw] flex mx-2">
-          <p className="text-center">OT Seleccionadas: </p> <label className="text-center ">{stateCheckCount}</label>        
+      <div className="w-[8vw] flex mx-2 ">
+          <p className="text-center">Checked: </p> <label className="text-center ">{stateCheckCount}</label>        
       </div>
     )}
 
@@ -111,8 +112,8 @@ const StateCountBarOT:React.FC<IStateCountBar> = ({checkCount,isMotHistorica}) =
     <div className={`${isMotHistorica ? 'w-[20%] right-[1vw]' : 'w-[30%] right-[1vw]'} bg-white absolute bottom-[1%] h-[4.5vh]  rounded-full  flex text-[1.2vw]`}>
     
     {newCountAnteojos > 0 && (
-      <div className='w-[11vw] flex ml-4 '>
-        <p>Total Anteojos: <span>{newCountAnteojos}</span></p>
+      <div className='w-[13vw] flex ml-4 '>
+        <p>ANTEOJOS Total: <span>{newCountAnteojos}</span></p>
       </div>
     )}
 
@@ -121,7 +122,7 @@ const StateCountBarOT:React.FC<IStateCountBar> = ({checkCount,isMotHistorica}) =
 
     {totoalTrabajosSeleccionados.value >= 1 && (
       <div className="w-[16vw] flex mx-">
-          <p className="text-center">Trabajos Seleccionados: </p> <label className="text-center ">{totoalTrabajosSeleccionados.value}</label>        
+          <p className="text-center">Checked: </p> <label className="text-center ">{totoalTrabajosSeleccionados.value}</label>        
       </div>
     )}
 

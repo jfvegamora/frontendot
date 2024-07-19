@@ -20,6 +20,7 @@ import { clearData } from "../../../redux/slices/OTSlice";
 import { signal } from "@preact/signals-react";
 import { useModal } from "../../hooks/useModal";
 import { filterToggle } from "../../components/FilterButton";
+import { totoalTrabajosSeleccionados } from "./MOT";
 
 
 
@@ -360,10 +361,24 @@ const MOTHistorica: React.FC = () => {
       orden_compra      : OTs.data[row] && OTs.data[row][10],
       numero_guia       : OTs.data[row] && OTs.data[row][11],
       numero_factura    : OTs.data[row] && OTs.data[row][12]
- 
+      
 
-    })); 
 
+      
+
+    })
+  
+  
+  ); 
+  totoalTrabajosSeleccionados.value = newPkToDelete?.reduce((acc:any,ot:any)=>{
+    if(ot["tipo_anteojo"] === 3){
+      console.log('render')
+      acc = acc + 2
+    }else{
+      acc++
+    }
+    return acc
+  },0)
     // console.log(OTs.data)
     // console.log('newPkToDelete:',newPkToDelete)
     setPkToDelete(newPkToDelete as any)

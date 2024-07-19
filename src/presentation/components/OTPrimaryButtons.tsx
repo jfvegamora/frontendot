@@ -229,10 +229,12 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
 
       try {
         setEstadoImpresion(pkToDelete,OTAreas["areaActual"], true, User).then(()=>{
-          toast.dismiss(toastLoading)
-          disabledIndividualCheck.value = false; 
-          clearAllCheck.value = false;
-          setSelectedRows([])
+          dispatch(fetchOT({ OTAreas: OTAreas["areaActual"], searchParams: paramsOT.value })).then(()=>{
+            toast.dismiss(toastLoading)
+            disabledIndividualCheck.value = false; 
+            clearAllCheck.value = false;
+            setSelectedRows([])
+          })
         })       
         } catch (error) {
           toast.dismiss(toastLoading)

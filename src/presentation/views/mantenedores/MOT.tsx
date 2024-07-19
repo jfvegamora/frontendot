@@ -146,7 +146,6 @@ const MOT: React.FC = () => {
 
     totoalTrabajosSeleccionados.value = newPkToDelete?.reduce((acc:any,ot:any)=>{
       if(ot["tipo_anteojo"] === 3){
-        console.log('render')
         acc = acc + 2
       }else{
         acc++
@@ -156,7 +155,6 @@ const MOT: React.FC = () => {
 
   }, [selectedRows]);
 
-  console.log(pktoDelete)
   useEffect(() => {
    const interval = setInterval(() => {
     if(switchFetchOT.value === true){
@@ -334,7 +332,7 @@ const MOT: React.FC = () => {
     </div> */}
 
         <Suspense>
-          {OTs?.data.length > 1 && (
+          {OTs?.data.length >= 1 && (
             <StateCountBarOT  checkCount={checkCount}/>
           )}
         </Suspense>
