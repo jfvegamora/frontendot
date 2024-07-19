@@ -13,11 +13,12 @@ import { paramsOT } from '../../views/mantenedores/MOT';
 import { fetchOT } from '../../../redux/slices/OTSlice';
 
 
-interface IDerivacion {
+interface IAnulacion {
     data?:any;
     onClose?: any;
     formValues?:any;
-    closeModal?:any
+    closeModal?:any;
+    otHistorica?:any;
 }
 
 
@@ -32,13 +33,15 @@ interface FormData{
     area_hasta:string;
     situacion:string
     observaciones:string;
-    formValues:any
+    formValues:any;
+  
 }
 
-const FOTAnulacion:React.FC<IDerivacion> = ({
+const FOTAnulacion:React.FC<IAnulacion> = ({
     data,
     onClose,
-    closeModal
+    closeModal,
+    otHistorica
     // formValues,
 }) => {
     const {control, handleSubmit} = useForm<FormData>()
@@ -48,15 +51,28 @@ const FOTAnulacion:React.FC<IDerivacion> = ({
     // const OTSlice:any = useAppSelector((store:AppStore)=>store.OTS)
     // const dispatch = useAppDispatch();
 
-
     const onSubmit: SubmitHandler<FormData> = async(_jsonData) =>{
         try {
-            const strUrl   = `${URLBackend}/api/ot/listado`
+            const strUrl   = otHistorica ? `${URLBackend}/api/othistorica/listado` : `${URLBackend}/api/ot/listado`
             const _folio   = data && data[EnumGrid.folio]
             const _estado  = 80
             const userID   = UsuarioID
-            const _origen  = OTAreas["areaActual"]
+            const _origen  = otHistorica ? 110 :  OTAreas["areaActual"]
+            let pktoDeleteJSON = [{}]
 
+            if(otHistorica){
+                pktoDeleteJSON = [{
+                    query        : "05",
+                    estado      : _estado,
+                    folio       : _folio,
+                    usuario     : userID,
+                    origen      : _origen,
+                    situacion   : _jsonData.situacion,
+                    obs         : _jsonData.observaciones
+
+
+                }]
+            }
 
             const armazones = [
                {codigo: a1_armazon.value},
@@ -74,18 +90,27 @@ const FOTAnulacion:React.FC<IDerivacion> = ({
             console.log(cristales)
             console.log(codigoProyecto.value)
             console.log(punto_venta.value)
-            
+            console.log(strUrl)
 
-              const query = `?query=05&_folio=${_folio}&_estado=${_estado}&_proyecto=${codigoProyecto.value}&_punto_venta=${punto_venta.value}&_usuario=${userID}&_origen=${_origen}&_situacion=${_jsonData.situacion}&_cristalJSONOri=${JSON.stringify(cristales)}&_armazonJSONOri=${JSON.stringify(armazones)}`
+              const query = 
+                    otHistorica
+                           ?  `?query=05&_pkToDelete=${encodeURIComponent(JSON.stringify(pktoDeleteJSON))}`
+                           :  `?query=05&_folio=${_folio}&_estado=${_estado}&_proyecto=${codigoProyecto.value}&_punto_venta=${punto_venta.value}&_usuario=${userID}&_origen=${_origen}&_situacion=${_jsonData.situacion}&_cristalJSONOri=${JSON.stringify(cristales)}&_armazonJSONOri=${JSON.stringify(armazones)}`
+              
               const result = await axios(`${strUrl}/${query}`);
               if(result.status === 200){
-                  toast.success('OT anulada ')
-                  dispatch(fetchOT({OTAreas:OTAreas["areaActual"], searchParams: paramsOT.value}));
+                  otHistorica ? (
+                      dispatch(fetchOT({ historica: true, searchParams: paramsOT.value }))
+                      
+                    ) : (
+                        dispatch(fetchOT({ OTAreas: OTAreas, searchParams: paramsOT.value }))
+                    )
+                    toast.success('OT anulada ')
               }
               onClose()
               closeModal()
           } catch (error) {
-              // console.log(error)
+              console.log(error)
               throw error
           }
     
@@ -170,7 +195,7 @@ const FOTAnulacion:React.FC<IDerivacion> = ({
                             label="Observaciones"
                             name="observaciones"
                             control={control}
-                            customWidth={"labelInput inputStyles w-[38.5vw]"}
+                            customWidth={"labelInput inputStyles w-[38vw]"}
                             isOptional={true}
                             />
                     </div>

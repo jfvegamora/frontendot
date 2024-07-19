@@ -1037,7 +1037,7 @@ const FOT: React.FC<IFOTProps> = ({
           <Suspense>
             {FOTBooleanStates.showAnulacion && (
               <div>
-                <FOTAnulacion closeModal={handleCloseForm} onClose={() => setFOTBooleanStates((prev) => ({ ...prev, showAnulacion: false }))} data={data && data} />
+                <FOTAnulacion otHistorica={isMOT} closeModal={handleCloseForm} onClose={() => setFOTBooleanStates((prev) => ({ ...prev, showAnulacion: false }))} data={data && data} />
               </div>
             )}
           </Suspense>
