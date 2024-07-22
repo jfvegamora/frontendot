@@ -91,7 +91,31 @@ const MAccesoriosKardex: React.FC = () => {
             updateParams={updateParams}
             setEntities={setEntities}
             primaryKeyInputs={[
-              { name: "_p1", label: "Código (?)", type: "text", styles:{
+              {
+                name: "_p5",
+                label: "Motivo Ingreso",
+                type: "select",
+                selectUrl: "/api/kardexmotivos/", 
+                styles: { 
+                  styles:"labelInput inputStyles w-[20vw]",
+                  container:"ml-[1vw]   text-[1vw] -translate-x-[1vw] translate-y-[18%] ", 
+                  labelProps: "labelInput"
+                },
+                _p1: "01"
+              },
+              {
+                name: "_p6",
+                label: "Motivo Egreso",
+                type: "select",
+                selectUrl: "/api/kardexmotivos/", 
+                styles: { 
+                  styles:"labelInput inputStyles w-[20vw]",
+                  container:"ml-[1vw]   text-[1vw] -translate-x-[1vw] translate-y-[18%] ", 
+                  labelProps: "labelInput"
+                },
+                _p1: "02"
+              },
+            { name: "_p1", label: "Código (?)", type: "text", styles:{
                 styles:"labelInput inputStyles",
                 container:"!w-[15vw] !text-[2vw] translate-x-[-2vw]", 
                 labelProps: "labelInput"
@@ -120,6 +144,7 @@ const MAccesoriosKardex: React.FC = () => {
                   container:"!w-[12vw]  text-[1vw] translate-x-[1vw] ", 
                   labelProps: "labelInput"
                 }},
+
             ]}
             classNameSearchButton=" translate-x-[1vw] z-30"
           />
