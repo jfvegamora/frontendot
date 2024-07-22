@@ -138,6 +138,14 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
         textAlign:alignment,
         color: isOT ? (rowData &&  handleColorEstado(rowData[4])) : (rowData &&  handleColorEstado(rowData[1], 'background  ')),
       }
+
+
+      if(backgroundAtrasadas){
+         console.log(rowData)
+         console.log(text) 
+        
+      }
+
       return(
         <Typography variant="small" color="blue-gray" className={`gridText h-[2.7rem]  py-2  ${(backgroundAtrasadas && color || lowArmazonesStock && color2) ? '!text-white ' : 'text-black'} ${(type === 1 && color2) ? '': ( type === 1 ? ''  :'text-black')} `} style={ color2 ? cellStyle : null}>
           {text !== null && text !== undefined ? text.toString() : ""}
@@ -271,7 +279,15 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                     const alignment             = tableHead?.[col]?.alignment       || "";
                     const color2                = tableHead?.[col]?.color           || false;
                     const backgroundAtrasadas   = tableHead?.[col]?.background      || false;
-                    const color                 = ( isOT ? rowData[OTGrillaEnum.por_vencer] === 'S' ? "bg-black" : "" : "");
+                    const color                 = ( 
+                                                    isOT 
+                                                      ? (rowData[OTGrillaEnum.por_vencer] === 'S' && 
+                                                          ( rowData[OTGrillaEnum.estado_id] === 10 ||
+                                                            rowData[OTGrillaEnum.estado_id] === 20 ||
+                                                            rowData[OTGrillaEnum.estado_id] === 30 ||
+                                                            rowData[OTGrillaEnum.estado_id] === 40
+                                                          )) 
+                                                      ? "bg-black" : "" : "");
                     const type                  = color === 'bg-black' ? 1 : 0
                     
                     return (

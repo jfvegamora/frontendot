@@ -426,21 +426,21 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
         return toast.error('No hay OT seleccionada')
       }
       const validateEstado           = pkToDelete.every((ot:any) => ot["estado_validacion"] === '2');
-      const validateUsuario          = pkToDelete.every((ot:any) => ot["usuario_id"] === User.id);
+      // const validateUsuario          = pkToDelete.every((ot:any) => ot["usuario_id"] === User.id);
       const validateProyecto         = pkToDelete.every((ot:any) => ot["proyecto_codigo"] === pkToDelete[0]["proyecto_codigo"]);
       const validateEstadoImpresion  = pkToDelete.every((ot:any)=>ot["estado_impresion"] === '1');
 
-      const foliosMensaje = pkToDelete && pkToDelete.map(({folio}:any)=>folio)
+      // const foliosMensaje = pkToDelete && pkToDelete.map(({folio}:any)=>folio)
       
       if(!validateEstado){
         return toast.error(`Folio ${folios} no está validado correctamente`);
       }
 
       
-      if(!validateUsuario && OTAreas["areaActual"] === 50){
-        toast.error(`Folio ${foliosMensaje} no pertenece al Usuario ${User.nombre}`);
-        return;
-      }
+      // if(!validateUsuario && OTAreas["areaActual"] === 50){
+      //   toast.error(`Folio ${foliosMensaje} no pertenece al Usuario ${User.nombre}`);
+      //   return;
+      // }
       
       if(!validateProyecto){
         return toast.error(`Folio ${folios} deben pertenecer al mismo proyecto`);

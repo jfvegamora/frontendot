@@ -57,12 +57,25 @@ const StateCountBarOT:React.FC<IStateCountBar> = ({checkCount,isMotHistorica}) =
     <>
     <div className={`${isMotHistorica ? 'w-[74%] left-[1vw]' : 'w-[60%] left-[1vw]'} bg-white absolute bottom-[1%] h-[4.5vh]   rounded-full  flex text-[1.2vw]`}>
       
+    <div className={` w-[8vw]  flex ml-4 mt-1`}>
+          <p className=" text-center rounded-full">
+          {'OT Total'}:
+          </p>
+          <label className="text-center">{OTs.data.length}</label>
+    </div>
+
+
     {Object.keys(OTs.estadosOT).map((estadoID, index) => {
       const derivacionColor = OTs.derivacionColores[estadoID];
       if (derivacionColor) {
         const backgroundColor = derivacionColor[1];
         const textColor = derivacionColor[0];
         const borderColor = derivacionColor[2]
+
+        if(OTs.estadosOT[estadoID] === 0){
+          return
+        }
+        
 
         return (
             <div className={`${width} h-[5vh] flex mr-4 `} key={index}>
@@ -93,12 +106,6 @@ const StateCountBarOT:React.FC<IStateCountBar> = ({checkCount,isMotHistorica}) =
       </div>
     )}
 
-      <div className={` w-[8vw]  flex ml-4`}>
-          <p className=" text-center rounded-full">
-          {'OT Total'}:
-          </p>
-          <label className="text-center">{OTs.data.length}</label>
-      </div>
 
     {stateCheckCount >= 1 && (
       <div className="w-[8vw] flex mx-2 ">

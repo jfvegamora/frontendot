@@ -83,14 +83,19 @@ const MAccesoriosKardex: React.FC = () => {
 
   return (
     <div className="mantenedorContainer">
-      <div className="mantenedorHead width100">
-        <div className="w-[82%]">
+      <div className="mantenedorHead width100 h-[9.5rem]">
+        <div className="w-[82%] translate-y-[-2.8vw]">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
             setParams={setParams}
             updateParams={updateParams}
             setEntities={setEntities}
             primaryKeyInputs={[
+              { name: "_p1", label: "Código (?)", type: "text", styles:{
+                styles:"labelInput inputStyles",
+                container:"!w-[13vw] !text-[2vw]  translate-y-[4.5vw]  ", 
+                labelProps: "labelInput"
+              } },
               {
                 name: "_p5",
                 label: "Motivo Ingreso",
@@ -98,7 +103,7 @@ const MAccesoriosKardex: React.FC = () => {
                 selectUrl: "/api/kardexmotivos/", 
                 styles: { 
                   styles:"labelInput inputStyles w-[20vw]",
-                  container:"ml-[1vw]   text-[1vw] -translate-x-[1vw] translate-y-[18%] ", 
+                  container:"ml-[1vw]   text-[1vw] -translate-x-[14vw] translate-y-[18%] ", 
                   labelProps: "labelInput"
                 },
                 _p1: "01"
@@ -110,16 +115,12 @@ const MAccesoriosKardex: React.FC = () => {
                 selectUrl: "/api/kardexmotivos/", 
                 styles: { 
                   styles:"labelInput inputStyles w-[20vw]",
-                  container:"ml-[1vw]   text-[1vw] -translate-x-[1vw] translate-y-[18%] ", 
+                  container:"ml-[1vw]   text-[1vw] -translate-x-[12vw] translate-y-[18%] ", 
                   labelProps: "labelInput"
                 },
                 _p1: "02"
               },
-            { name: "_p1", label: "Código (?)", type: "text", styles:{
-                styles:"labelInput inputStyles",
-                container:"!w-[15vw] !text-[2vw] translate-x-[-2vw]", 
-                labelProps: "labelInput"
-              } },
+         
               // { name: "_p5", label: "Código FAB", type: "text" },
               {
                 name: "_p4",
@@ -128,26 +129,26 @@ const MAccesoriosKardex: React.FC = () => {
                 selectUrl: "/api/almacenes/", 
                 styles:{
                   styles:"labelInput inputStyles",
-                  container:"!w-[40vw]  text-[1vw] translate-x-[-2vw] ", 
+                  container:"!w-[40vw]   text-[1vw] -translate-x-[9vw] translate-y-[18%] ", 
                   labelProps: "labelInput"
                 },
                 _p1: "1"
               },
               { name: "_p2", label: "Desde", type: "date", styles:{
                 styles:"labelInput inputStyles",
-                container:"!w-[12vw]  text-[1vw]  translate-x-[5vw] ", 
+                container:"!w-[12vw]  text-[1vw] translate-x-[1vw]  translate-y-[0.3vw] ", 
                 labelProps: "labelInput"
               } },
               { name: "_p3", label: "Hasta", type: "date", styles:
                 {
                   styles:"labelInput inputStyles",
-                  container:"!w-[12vw]  text-[1vw] translate-x-[1vw] ", 
+                  container:"!w-[12vw]  text-[1vw] translate-x-[2vw] translate-y-[0.3vw]", 
                   labelProps: "labelInput"
                 }},
 
             ]}
-            classNameSearchButton=" translate-x-[1vw] z-30"
-          />
+            classNameSearchButton=" translate-x-[-13vw]  !translate-y-[5.5vw]"
+            />
         </div>
 
         <div className="w-[15%]">
@@ -169,7 +170,7 @@ const MAccesoriosKardex: React.FC = () => {
             comilla={true}
             idMenu={idMenu}
             bln_egreso={true}
-            classname={"translate-x-[0.5vw] z-10  !w-[18vw]"}
+            classname={"translate-x-[-1vw]  !w-[19vw] translate-y-[2.5vw]"}
 
           />
         </div>

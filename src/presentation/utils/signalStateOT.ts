@@ -14,7 +14,7 @@ import {
 import { EnumGrid } from "../views/mantenedores/MOTHistorica";
 import { toast } from "react-toastify";
 import { validation_tipo_anteojo } from "./OTReceta_utils";
-import { areaActualOT } from "../components/OTAreasButtons";
+// import { areaActualOT } from "../components/OTAreasButtons";
 import { inputOnlyReadReserva } from "./FReservaArmazones_utils";
 import { OTGrillaEnum } from "../Enums";
 
@@ -1465,18 +1465,18 @@ export const updateOT = async (
   tipo_evento?: string,
   validation_Complete?: boolean
 ) => {
-  let usuarioData =
-    tipo_evento === "Procesada"
-      ? data["usuario_id"]
-      : parseInt(data[EnumGrid.usuario_id]);
+  // let usuarioData =
+  //   tipo_evento === "Procesada"
+  //     ? data["usuario_id"]
+  //     : parseInt(data[EnumGrid.usuario_id]);
 
-  if ((areaActualOT.value as any) === 50) {
-    if (usuarioData !== parseInt(user)) {
-      return toast.error(
-        `Folio ${data[EnumGrid.folio]} no pertenece al Usuario`
-      );
-    }
-  }
+  // if ((areaActualOT.value as any) === 50) {
+  //   if (usuarioData !== parseInt(user)) {
+  //     return toast.error(
+  //       `Folio ${data[EnumGrid.folio]} no pertenece al Usuario`
+  //     );
+  //   }
+  // }
 
   // const toastLoading = toast.loading('Cargando...');
   // let folio = data?.[EnumGrid.folio]

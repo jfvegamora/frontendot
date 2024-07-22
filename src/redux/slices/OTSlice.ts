@@ -208,6 +208,14 @@ const OTSlice = createSlice({
         (ot: any) => ot[OTGrillaEnum.por_vencer] === "S"
       );
 
+      const initialAcc = Object.keys(state.derivacionColores).reduce(
+        (acc: any, key: any) => {
+          acc[key] = 0;
+          return acc;
+        },
+        { S: 0 }
+      );
+
       const reduce = filterAtrasadas.reduce((acc: any, ot: any) => {
         let estado_ot = ot[OTGrillaEnum.estado];
         let por_vencer = ot[OTGrillaEnum.por_vencer];
@@ -221,7 +229,7 @@ const OTSlice = createSlice({
         acc[estado_ot] = (acc[estado_ot] ?? 0) + 1;
 
         return acc;
-      }, {});
+      }, initialAcc);
 
       state.data = filterAtrasadas;
       state.estadosOT = reduce;
@@ -231,12 +239,17 @@ const OTSlice = createSlice({
     builder.addCase(fetchOT.fulfilled, (state, action) => {
       state.estadosOT = {};
       // state.estadosOT[99] = 0;
+      const initialAcc = Object.keys(state.derivacionColores).reduce(
+        (acc: any, key: any) => {
+          acc[key] = 0;
+          return acc;
+        },
+        { S: 0 }
+      );
 
       const reduce = action.payload.reduce((acc: any, ot: any) => {
-        console.log(ot);
         let estado_ot = ot[OTGrillaEnum.estado];
         let por_vencer = ot[OTGrillaEnum.por_vencer];
-        console.log(estado_ot);
 
         // Manejar el caso de por_vencer
         if (por_vencer === "S") {
@@ -249,10 +262,8 @@ const OTSlice = createSlice({
         acc[estado_ot]++;
 
         return acc;
-      }, {});
+      }, initialAcc);
 
-      console.log(reduce);
-      // console.log(estados)
       state.estadosOT = reduce;
       state.data = action.payload;
       return state;
