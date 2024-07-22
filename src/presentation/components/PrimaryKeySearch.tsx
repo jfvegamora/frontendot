@@ -96,6 +96,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
     const { ListEntity } = useCrud(baseUrl);
 
     useEffect(() => {
+      console.log(description)
       setCristalDescription(description || '');
     }, [description]);
 
@@ -717,7 +718,10 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
       }
     },[titleSearch.value])
     
-   
+  console.log(cristalDescritpion[3]
+
+
+  )
     return (
       <form className="primaryKeyContainer !items-center relative !text-[2vw]">
         {renderInputs()}
@@ -780,12 +784,16 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
         </div> */}
 
         {description && (
-            <input
-              className="mx-8 w-[28rem] text-base border-none absolute bottom-[-4.5rem] left-[35rem]"
-              readOnly={true}
-              type="text"
-              defaultValue={cristalDescritpion && cristalDescritpion[3]}
-            />
+            // <input
+            //   className="mx-8 h-auto bg-red-300 w-[28rem] text-base border-none absolute bottom-[-4.5rem] left-[35rem]"
+            //   readOnly={true}
+              
+            //   type="text"
+            //   defaultValue={cristalDescritpion && cristalDescritpion[3]}
+            // />
+
+            <span className="mx-8 h-auto  w-[28rem] text-base border-none absolute bottom-[-5rem] left-[35rem]">{cristalDescritpion && cristalDescritpion[3]}</span>
+            
         
         )}
       </form>

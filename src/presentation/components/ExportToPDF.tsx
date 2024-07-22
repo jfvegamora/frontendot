@@ -13,7 +13,7 @@ interface IExportToPdf{
 }
 
 
-const splitTextIntoLines = (text:any, maxLength:any) => {
+export const splitTextIntoLines = (text:any, maxLength:any) => {
   if(text){
     const words = text?.split(' ');
     let lines = [];

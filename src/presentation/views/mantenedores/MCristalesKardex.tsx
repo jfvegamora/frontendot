@@ -107,8 +107,8 @@ const MCristalesKardex: React.FC = () => {
                 selectUrl: "/api/kardexmotivos/", 
                 styles: { 
                   styles:"labelInput inputStyles w-[20vw]",
-                  container:"ml-[1vw] translate-x-[-1vw] translate-y-[5.5vw] ", 
-                  labelProps: "labelInput"
+                  container:"ml-[1vw] translate-x-[-1vw]  translate-y-[5.5vw] ", 
+                  labelProps: "labelInput "
                 },
                 _p1: "01"
               },
