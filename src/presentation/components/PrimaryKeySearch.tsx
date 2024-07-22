@@ -780,12 +780,12 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
         </div> */}
 
         {description && (
-          <input
-            className="mx-8 w-[44rem] border-none absolute bottom-[-2rem] left-[-2rem]"
-            readOnly={true}
-            type="text"
-            defaultValue={cristalDescritpion && cristalDescritpion[3]}
-          />
+            <input
+              className="mx-8 w-[28rem] text-base border-none absolute bottom-[-4.5rem] left-[35rem]"
+              readOnly={true}
+              type="text"
+              defaultValue={cristalDescritpion && cristalDescritpion[3]}
+            />
         
         )}
       </form>
