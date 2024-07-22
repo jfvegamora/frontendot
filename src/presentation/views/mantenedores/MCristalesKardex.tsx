@@ -100,13 +100,37 @@ const MCristalesKardex: React.FC = () => {
             updateParams={updateParams}
             setEntities={setEntities}
             primaryKeyInputs={[
+              {
+                name: "_p5",
+                label: "Motivo Ingreso",
+                type: "select",
+                selectUrl: "/api/kardexmotivos/", 
+                styles: { 
+                  styles:"labelInput inputStyles w-[20vw]",
+                  container:"ml-[1vw] translate-x-[-1vw] translate-y-[5.5vw] ", 
+                  labelProps: "labelInput"
+                },
+                _p1: "01"
+              },
+              {
+                name: "_p6",
+                label: "Motivo Egreso",
+                type: "select",
+                selectUrl: "/api/kardexmotivos/", 
+                styles: { 
+                  styles:"labelInput inputStyles w-[20vw]",
+                  container:"ml-[1vw] -translate-x-[-2vw] translate-y-[5.5vw] ", 
+                  labelProps: "labelInput"
+                },
+                _p1: "02"
+              },
+              
               { name: "_p1", label: "Código (?)", type: "text", styles:{
                 styles:"labelInput inputStyles",
-                container:"!w-[13vw] !text-[2vw]  translate-y-[4.5vw]  ", 
+                container:"!w-[13vw] -translate-x-[34vw] translate-y-[0.3vw]", 
                 labelProps: "labelInput"
               } },
-         
-              // { name: "_p5", label: "Código FAB", type: "text" },
+              
               {
                 name: "_p4",
                 label: "Almacenes",
@@ -114,46 +138,22 @@ const MCristalesKardex: React.FC = () => {
                 selectUrl: "/api/almacenes/", 
                 styles:{
                   styles:"labelInput inputStyles",
-                  container:"!w-[40vw]   text-[1vw] -translate-x-[13vw] translate-y-[18%] ", 
+                  container:"!w-[40vw] -translate-x-[32vw] translate-y-[0.3vw] ", 
                   labelProps: "labelInput"
                 },
                 _p1: "1"
               },
               { name: "_p2", label: "Desde", type: "date", styles:{
                 styles:"labelInput inputStyles",
-                container:"!w-[12vw]  text-[1vw] translate-x-[-3vw]  translate-y-[0.3vw] ", 
+                container:"!w-[12vw] -translate-x-[22vw]  translate-y-[0.3vw] ", 
                 labelProps: "labelInput"
               } },
               { name: "_p3", label: "Hasta", type: "date", styles:
                 {
                   styles:"labelInput inputStyles",
-                  container:"!w-[12vw]  text-[1vw] translate-x-[-2vw] translate-y-[0.3vw]", 
+                  container:"!w-[12vw] -translate-x-[20vw] translate-y-[0.3vw]", 
                   labelProps: "labelInput"
                 }},
-                {
-                  name: "_p5",
-                  label: "Motivo Ingreso",
-                  type: "select",
-                  selectUrl: "/api/kardexmotivos/", 
-                  styles: { 
-                    styles:"labelInput inputStyles w-[20vw]",
-                    container:"ml-[1vw]   text-[1vw] translate-x-[-1vw] translate-y-[18%] ", 
-                    labelProps: "labelInput"
-                  },
-                  _p1: "01"
-                },
-                {
-                  name: "_p6",
-                  label: "Motivo Egreso",
-                  type: "select",
-                  selectUrl: "/api/kardexmotivos/", 
-                  styles: { 
-                    styles:"labelInput inputStyles w-[20vw]",
-                    container:"ml-[1vw]   text-[1vw] -translate-x-[-2vw] translate-y-[18%] ", 
-                    labelProps: "labelInput"
-                  },
-                  _p1: "02"
-                },
 
             ]}
             classNameSearchButton=" translate-x-[-13vw]  !translate-y-[5.5vw]"

@@ -98,7 +98,7 @@ const MAccesoriosKardex: React.FC = () => {
                 selectUrl: "/api/kardexmotivos/", 
                 styles: { 
                   styles:"labelInput inputStyles w-[20vw]",
-                  container:"ml-[1vw]   text-[1vw] translate-x-[-1vw] translate-y-[5.5vw] ", 
+                  container:"ml-[1vw] translate-x-[-1vw] translate-y-[5.5vw] ", 
                   labelProps: "labelInput"
                 },
                 _p1: "01"
@@ -110,7 +110,7 @@ const MAccesoriosKardex: React.FC = () => {
                 selectUrl: "/api/kardexmotivos/", 
                 styles: { 
                   styles:"labelInput inputStyles w-[20vw]",
-                  container:"ml-[1vw]   text-[1vw] -translate-x-[-2vw] translate-y-[5.5vw] ", 
+                  container:"ml-[1vw] -translate-x-[-2vw] translate-y-[5.5vw] ", 
                   labelProps: "labelInput"
                 },
                 _p1: "02"
@@ -118,7 +118,7 @@ const MAccesoriosKardex: React.FC = () => {
               
               { name: "_p1", label: "Código (?)", type: "text", styles:{
                 styles:"labelInput inputStyles",
-                container:"!w-[13vw] !text-[2vw]  -translate-x-[34vw] translate-y-[0.3vw]", 
+                container:"!w-[13vw] -translate-x-[34vw] translate-y-[0.3vw]", 
                 labelProps: "labelInput"
               } },
               
@@ -129,23 +129,22 @@ const MAccesoriosKardex: React.FC = () => {
                 selectUrl: "/api/almacenes/", 
                 styles:{
                   styles:"labelInput inputStyles",
-                  container:"!w-[40vw]   text-[1vw] -translate-x-[32vw] translate-y-[0.3vw] ", 
+                  container:"!w-[40vw] -translate-x-[32vw] translate-y-[0.3vw] ", 
                   labelProps: "labelInput"
                 },
                 _p1: "1"
               },
               { name: "_p2", label: "Desde", type: "date", styles:{
                 styles:"labelInput inputStyles",
-                container:"!w-[12vw]  text-[1vw] -translate-x-[22vw]  translate-y-[0.3vw] ", 
+                container:"!w-[12vw] -translate-x-[22vw]  translate-y-[0.3vw] ", 
                 labelProps: "labelInput"
               } },
               { name: "_p3", label: "Hasta", type: "date", styles:
                 {
                   styles:"labelInput inputStyles",
-                  container:"!w-[12vw]  text-[1vw] -translate-x-[20vw] translate-y-[0.3vw]", 
+                  container:"!w-[12vw] -translate-x-[20vw] translate-y-[0.3vw]", 
                   labelProps: "labelInput"
                 }},
-                
 
             ]}
             classNameSearchButton=" translate-x-[-13vw]  !translate-y-[5.5vw]"
