@@ -475,22 +475,22 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                     <div className="header mt-1 w-[97%] !h-auto text-center2 border-black border-2 ml-3">
                       <div className="-mt-2 border-black border-b-2 !h-auto">
                         <div className="pl-6 ml-2 w-[100%] mx-auto br-red-300">
+
+                             {ot[EnumImpresion.numero_receta] > 0 && (
+                              <div className={`flex text-left ${ot[EnumImpresion.numero_reporte_atencion] > 0 ? "translate-y-[-1.3rem]" : "translate-y-[0.3rem]"}`}>
+                                <p className=' text-left text-base   !mt-2 font-bold translate-x-[-1.5rem]'>N° Receta:&nbsp;</p>
+                                <p className=' text-left text-base   !mt-2 font-bold translate-x-[-1.5rem]'>{ot[EnumImpresion.numero_receta]}</p>
+                              </div>
+                            )}
                             
                             {ot[EnumImpresion.numero_reporte_atencion] > 0 && (
                               <div className="flex text-left ">
                                 {/* <p className='-ml-6 text-base !mt-2 font-bold w-[27%]'>Rep:</p> */}
-                                {/* <p className=' text-left text-base !mt-2 font-bold'>
+                                 <p className=' text-left text-base !mt-2 font-bold'>
                                   Rep:
                                   <span className='font-bold text-xl'>{ot[EnumImpresion.numero_reporte_atencion]}&nbsp;</span>
                                   Total: {ot[EnumImpresion.rep_cantidad]}
                                 </p>
-
-                                <p className=' text-left text-base   !mt-2 font-bold translate-x-[-1.5rem]'>N° Receta:
-                                  <span className="font-bold text-base">{ot[EnumImpresion.numero_receta]}</span>
-                                </p> */}
-                                 <p className=' text-left text-sm   !mt-2 font-bold translate-x-[-1.5rem]'>{`Rep:${ot[EnumImpresion.numero_reporte_atencion]} / Total: ${ot[EnumImpresion.rep_cantidad]} Receta:`}<span className="font-bold text-sm">{ot[EnumImpresion.numero_receta]}</span></p>
-
-
                               </div>
                             )}
 
@@ -517,12 +517,7 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
 
 
 
-                            {/* {ot[EnumImpresion.numero_receta] > 0 && (
-                              <div className={`flex text-left ${ot[EnumImpresion.numero_reporte_atencion] > 0 ? "translate-y-[-1.3rem]" : "translate-y-[0.3rem]"}`}>
-                                <p className=' text-left text-base   !mt-2 font-bold translate-x-[-1.5rem]'>N° Receta:&nbsp;</p>
-                                <p className=' text-left text-base   !mt-2 font-bold translate-x-[-1.5rem]'>{ot[EnumImpresion.numero_receta]}</p>
-                              </div>
-                            )} */}
+                         
 
 
                           <div className={`${ot[EnumImpresion.numero_reporte_atencion] > 0 ? "translate-y-[-1.5rem]" : ""}`}>
