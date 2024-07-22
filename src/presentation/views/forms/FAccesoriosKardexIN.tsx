@@ -368,7 +368,7 @@ const FAccesoriosKardexIN: React.FC<IUserFormPrps> = React.memo(
                     showRefresh={true}
                     data={data && data[EnumGrid.motivo_id]}
                     control={control}
-                    entidad={["/api/kardexmotivos/", "01"]}
+                    entidad={["/api/kardexmotivos/", "02", "01"]}
                     error={errors.motivo_ingreso}
                     customWidth={"labelInput inputStyles"}
                   />

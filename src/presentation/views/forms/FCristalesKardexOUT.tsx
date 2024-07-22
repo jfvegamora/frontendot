@@ -361,7 +361,7 @@ const FCristalesKardexOUT: React.FC<IUserFormPrps> = React.memo(
                   showRefresh={true}
                   data={data && data[EnumGrid.motivo_id]}
                   control={control}
-                  entidad={["/api/kardexmotivos/", "02"]}
+                  entidad={["/api/kardexmotivos/", "02", "02"]}
                   error={errors.motivo_egreso}
                   customWidth={"labelInput inputStyles"}
                 />
