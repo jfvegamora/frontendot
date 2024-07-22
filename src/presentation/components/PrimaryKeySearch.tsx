@@ -151,7 +151,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
           className = "grid grid-rows-3 grid-cols-2 !w-[90%] px-0 py-4 h-[30vh]  items-center"
           break;
       default:
-          className = "flex mb-auto items-cente w-[80vw]  items-center  h-[20vh] "
+          className = "flex mb-auto items-cente w-[80vw]  items-center "
           break;
     }
 

@@ -181,7 +181,7 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                           </div> */}
                           
                           <div className="flex text-left -mt-2">
-                            <p className='-ml-6 text-[0.80rem] !mt-2 font-bold  w-[22%]'>Cliente: <span>{ot[EnumImpresion.cliente_nombre]}</span> </p>
+                            <p className='-ml-6 text-[0.80rem] !mt-2 font-bold  w-[110%]'>Cliente: <span className='font-normal'>{ot[EnumImpresion.cliente_nombre]}</span> </p>
                             {/* <p className=' text-left text-sm !mt-2'>{ot[EnumImpresion.cliente_nombre]}</p> */}
                           </div>
                           <div className="flex text-left -mt-2">
