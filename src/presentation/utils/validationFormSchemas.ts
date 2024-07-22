@@ -34,6 +34,11 @@ export const validationBodegaSchema = () =>
     a2_armazon: yup.string().required(`${msg}`),
   });
 
+export const validationEmpaqueSchema = () =>
+  yup.object().shape({
+    nombre_beneficiario: yup.string().required(`${msg}`),
+  });
+
 //Schema OTHistorica Asignacion OC
 export const validationOTOCSchema = () =>
   yup.object().shape({

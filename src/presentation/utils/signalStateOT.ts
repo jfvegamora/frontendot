@@ -1503,7 +1503,7 @@ export const updateOT = async (
       _estado: "20",
       _usuario: `${user}`,
       _situacion: situacion || "0",
-      _obs: "",
+      _obs: _obs || "",
       _cristalJSONOri: isValidateBodega
         ? JSON.stringify(cristalOri)
         : JSON.stringify(data.cristales),

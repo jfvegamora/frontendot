@@ -69,6 +69,7 @@ const FOTWhastApp         = React.lazy(()=>import('../components/WhastappForm'))
 
 const FOTPendiente        = React.lazy(()=>import("./OTForms/FOTPendiente"));
 const FOTDerivacion       = React.lazy(()=>import("./OTForms/FOTDerivacion"));
+const FOTValidarEmpaque   = React.lazy(()=>import('./OTForms/FOTValidarEmpaque'));
 
 
 
@@ -139,6 +140,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
     const [isFOTReporteFirma, setIsFOTReporeFirma]    = useState(false);
     const [isFOTPendiente, setisFOTPendiente]         = useState(false);
     const [isFOTDerivacion, setisFOTDerivacion]       = useState(false);
+    const [isFOTValidarEmpaque, setIsFOTValidarEmpaque] = useState(false);
     // const [barCode, setBarCode]                       = useState('')
     const [dataOT, setDataOT]                         = useState();
     // const [valueSearchOT, setValueSearchOT]           = useState<any>();
@@ -421,6 +423,9 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
 
     const handleProcesarMasivo = async() => {
       console.log(pkToDelete)
+
+      console.log(OTAreas["areaActual"])
+
       let estado = 20
       if(pkToDelete.length === 0){
         return toast.error('No hay OT seleccionada')
@@ -428,7 +433,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
       const validateEstado           = pkToDelete.every((ot:any) => ot["estado_validacion"] === '2');
       // const validateUsuario          = pkToDelete.every((ot:any) => ot["usuario_id"] === User.id);
       const validateProyecto         = pkToDelete.every((ot:any) => ot["proyecto_codigo"] === pkToDelete[0]["proyecto_codigo"]);
-      const validateEstadoImpresion  = pkToDelete.every((ot:any)=>ot["estado_impresion"] === '1');
+      const validateEstadoImpresion  = pkToDelete.every((ot:any) => ot["estado_impresion"] === '1');
 
       // const foliosMensaje = pkToDelete && pkToDelete.map(({folio}:any)=>folio)
       
@@ -518,6 +523,14 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
       toast.success('OTs Procesadas Correctamente',{
          autoClose: 900
       });
+    }
+
+    const handleValidarEmpaque = async() => {
+      if(pkToDelete.length === 0){
+        return toast.error('No hay OT seleccionada')
+      }
+
+      setIsFOTValidarEmpaque((prev:any)=>!prev)
     }
 
 
@@ -670,8 +683,18 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
           // (permisos_usuario_areas !== '0') && (
             <Tooltip content={BUTTON_MESSAGES.procesar}>
                 {/* <button className='bg-green-400 mx-4 transition-transform transform hover:scale-110 active:scale-95 w-[10rem] h-[2.5rem]  text-white '  */}
-                <Button color="green" className='otActionButton mx-4'
-                onClick={handleProcesarMasivo}>Procesar</Button>
+                
+               
+                  <Button 
+                    color="green" 
+                    className='otActionButton mx-4'
+                    onClick={
+                     OTAreas["areaActual"] === 100 ?  handleValidarEmpaque :  handleProcesarMasivo
+                    }
+                    >
+                      Procesar
+                  </Button>
+                
             </Tooltip>
         )}
 
@@ -887,6 +910,12 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
           <Suspense>
             {isFOTDerivacion && (
               <FOTDerivacion data={pkToDelete} onClose={()=>setisFOTDerivacion(false)} isMasivo={true}/>
+            )}
+          </Suspense>
+
+          <Suspense>
+            {isFOTValidarEmpaque && (
+              <FOTValidarEmpaque setSelectedRows={setSelectedRows}  pkToDelete={pkToDelete} onClose={()=>setIsFOTValidarEmpaque(false)} />
             )}
           </Suspense>
             

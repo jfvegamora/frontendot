@@ -474,6 +474,230 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
       ));
     };
 
+    // const renderInputs = () => {
+    //   // Agrupamos los inputs en filas de 6
+    //   const inputGroups = [];
+    //   for (let i = 0; i < primaryKeyInputs.length; i += 6) {
+    //     inputGroups.push(primaryKeyInputs.slice(i, i + 6));
+    //   }
+    
+    //   return (
+    //     <table className="table-auto w-full">
+    //       <tbody>
+    //         {inputGroups.map((group, groupIndex) => (
+    //           <tr key={groupIndex} className={className}>
+    //             {group.map((input, inputIndex) => (
+    //               <td key={inputIndex} className="px-2 py-2">
+    //                 {input.type === "number" ? (
+    //                   <div className={`input-container ${input.styles?.with ? input.styles.with : ""}`}>
+    //                     {input.name === "_pEsferico" ? (
+    //                       <div className={`flex !w-[14rem] ${input.styles?.container}`}>
+    //                         <Controller
+    //                           name="_pEsferico"
+    //                           control={control}
+    //                           defaultValue=""
+    //                           render={({ field }) => (
+    //                             <Input
+    //                               color="orange"
+    //                               tabIndex={1}
+    //                               className={`${input?.styles?.with || "!w-[8rem] "} !h-12 !mt-3 !mr-[0.8rem]`}
+    //                               {...field}
+    //                               label={input.label}
+    //                               value={inputValues["_pEsferico"] || ""}
+    //                               onChange={(e) => {
+    //                                 field.onChange(e);
+    //                                 handleInputChange("_pEsferico", e.target.value);
+    //                                 changeFilterSearchTitle(e, input.label);
+    //                               }}
+    //                               onKeyDown={handleKeyDown}
+    //                               labelProps={{
+    //                                 style: {
+    //                                   color: "grey",
+    //                                   fontWeight: "bold",
+    //                                   fontSize: "18px",
+    //                                 },
+    //                               }}
+    //                             />
+    //                           )}
+    //                         />
+    //                         <Controller
+    //                           name="_pCilindrico"
+    //                           control={control}
+    //                           defaultValue=""
+    //                           render={({ field }) => (
+    //                             <Input
+    //                               color="orange"
+    //                               tabIndex={1}
+    //                               className={`${input?.styles?.with || "!w-[8rem]"} !h-12 !mt-3`}
+    //                               {...field}
+    //                               label="Cilíndrico"
+    //                               value={cilindrico}
+    //                               onChange={(e) => {
+    //                                 field.onChange(e);
+    //                                 handleInputChange('_pCilindrico', e.target.value);
+    //                                 changeFilterSearchTitle(e, input.label);
+    //                                 setCilindrico(e.target.value as any);
+    //                               }}
+    //                               onKeyDown={handleKeyDown}
+    //                               labelProps={{
+    //                                 style: {
+    //                                   color: "grey",
+    //                                   fontWeight: "bold",
+    //                                   fontSize: "18px",
+    //                                 },
+    //                               }}
+    //                             />
+    //                           )}
+    //                         />
+    //                       </div>
+    //                     ) : (
+    //                       <div className={`input-container relative ${input.styles?.container}`}>
+    //                         <Controller
+    //                           name={input.name}
+    //                           control={control}
+    //                           defaultValue=""
+    //                           render={({ field }) => (
+    //                             <>
+    //                               <label
+    //                                 htmlFor={input.label}
+    //                                 className={`${
+    //                                   input.styles?.labelProps ? input.styles?.labelProps : ""
+    //                                 } absolute !translate-y-[-0.4vw] translate-x-3 !bg-white z-20`}
+    //                               >
+    //                                 {input?.label}
+    //                               </label>
+    //                               <Input
+    //                                 color="orange"
+    //                                 tabIndex={1}
+    //                                 className={`!h-[2.8vw] ${input?.styles?.with || ""}`}
+    //                                 {...field}
+    //                                 type={input.type}
+    //                                 value={inputValues[input.name]}
+    //                                 onChange={(e) => {
+    //                                   field.onChange(e);
+    //                                   changeFilterSearchTitle(e, input?.label);
+    //                                   handleInputChange(input.name, e.target.value);
+    //                                 }}
+    //                                 onKeyDown={handleKeyDown}
+    //                                 labelProps={{ className: 'text-[2vw]' }}
+    //                               />
+    //                             </>
+    //                           )}
+    //                         />
+    //                       </div>
+    //                     )}
+    //                   </div>
+    //                 ) : input.type === "select" ? (
+    //                   input.tipos ? (
+    //                     <div className={`input-container relative  ${input.styles?.container}`}>
+    //                       <Suspense>
+    //                         <SelectInputTiposComponent
+    //                           label={input.label}
+    //                           name={input.name}
+    //                           showRefresh={true}
+    //                           control={control}
+    //                           entidad={input._p1 ? [input.tipos, input._p1] : input.tipos}
+    //                           inputName={input.name}
+    //                           inputValues={inputValues}
+    //                           setHandleSearch={handleSearch}
+    //                           handleSelectChange={handleSelectChange}
+    //                           customWidth={`h-[2.8vw] ${input.styles?.styles}`}
+    //                           labelProps={input.styles?.labelProps}
+    //                         />
+    //                       </Suspense>
+    //                     </div>
+    //                   ) : (
+    //                     <div className={`input-container  ${input.styles?.container}`}>
+    //                       <Suspense>
+    //                         <SelectInputComponent
+    //                           label={input.label}
+    //                           name={input.name}
+    //                           showRefresh={true}
+    //                           control={control}
+    //                           entidad={
+    //                             input._p1
+    //                               ? [input.selectUrl, "02", input._p1]
+    //                               : [input.selectUrl, "02"]
+    //                           }
+    //                           inputName={input.name}
+    //                           inputValues={inputValues}
+    //                           setHandleSearch={handleSearch}
+    //                           handleSelectChange={handleSelectChange}
+    //                           customWidth={` h-[2.8vw] ${input.styles?.styles}`}
+    //                           labelProps={input.styles?.labelProps}
+    //                         />
+    //                       </Suspense>
+    //                     </div>
+    //                   )
+    //                 ) : input.type === "date" ? (
+    //                   <div className={`input-container relative  ${input.styles?.container} `}>
+    //                     <label className={`primaryKeyLabel items-center text-base mt-1 absolute top-[-1.1rem] ${input.styles?.label}`}>{input.label}</label>
+    //                     <Controller
+    //                       name={input.name}
+    //                       control={control}
+    //                       defaultValue=""
+    //                       render={({ field }) => (
+    //                         <Input
+    //                           type="date"
+    //                           color="orange"
+    //                           className={`h-[3rem] border border-gray-500 rounded ${input.styles?.styles}`}
+    //                           {...field}
+    //                           value={field.value || ""}
+    //                           onChange={(e) => {
+    //                             changeFilterSearchTitle(e, input.label);
+    //                             field.onChange(e.target.value);
+    //                           }}
+    //                         />
+    //                       )}
+    //                     />
+    //                   </div>
+    //                 ) : (
+    //                   // Otros tipos de entrada
+    //                   <div className={` -mt-3 ${input.styles?.container}`}>
+    //                     <Controller
+    //                       name={input.name}
+    //                       control={control}
+    //                       defaultValue=""
+    //                       render={({ field }) => (
+    //                         <>
+    //                           <label
+    //                             htmlFor={input.label}
+    //                             className={`${
+    //                               input.styles?.labelProps ? input.styles?.labelProps : ""
+    //                             } absolute !translate-y-[-0.45vw] translate-x-3 !bg-white z-20`}
+    //                           >
+    //                             {input?.label}
+    //                           </label>
+    //                           <Input
+    //                             color="orange"
+    //                             tabIndex={1}
+    //                             className={`  ${input?.styles?.with || ""}`}
+    //                             {...field}
+    //                             type={input.type}
+    //                             value={inputValues[input.name]}
+    //                             onChange={(e) => {
+    //                               field.onChange(e);
+    //                               changeFilterSearchTitle(e, input?.label);
+    //                               handleInputChange(input.name, e.target.value);
+    //                             }}
+    //                             onKeyDown={handleKeyDown}
+    //                             labelProps={{ className: 'inputStyles' }}
+    //                           />
+    //                         </>
+    //                       )}
+    //                     />
+    //                   </div>
+    //                 )}
+    //               </td>
+    //             ))}
+    //           </tr>
+    //         ))}
+    //       </tbody>
+    //     </table>
+    //   );
+    // };
+    
+
     React.useEffect(()=>{
       filterSearchTitle.value = {}
       titleSearch.value = '';

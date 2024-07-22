@@ -531,7 +531,6 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
           <button onClick={handleClose} className="userFormBtnClose">
             X
           </button>
-        {/* <h1>h</h1> */}
         </div>
         <h1 className='h-8'></h1>
           <form 
