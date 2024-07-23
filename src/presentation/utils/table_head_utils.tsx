@@ -17,6 +17,14 @@ export const table_head_OT_diaria2 = [
     background: true
   },
   {
+    cell: "Ubicacion",
+    key: "ubicacion",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[7rem]",
+    // background: true
+  },
+  {
     cell: "Motivo",
     key: "motivo",
     visible: true,
@@ -249,6 +257,7 @@ export const table_head_OT_diaria2 = [
     width: "w-[6rem]"
   },
 ];
+
 export const table_head_OT_historica = [
   {
     cell: <input type="checkbox" />,
@@ -455,6 +464,7 @@ export const table_head_OT_historica = [
     width: "w-[10trem]"
   },
 ];
+
 export const table_head_OT_bitacora = [
   {
     cell: <input type="checkbox" />,

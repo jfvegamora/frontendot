@@ -135,7 +135,8 @@ const MOT: React.FC = () => {
       numero_orden_compra: OTs.data[row] && OTs.data[row][OTGrillaEnum.numero_oc],
       numero_factura: OTs.data[row] && OTs.data[row][OTGrillaEnum.numero_factura],
       numero_guia: OTs.data[row] && OTs.data[row][OTGrillaEnum.numero_guia],
-      usuario_id: OTs.data[row] && OTs.data[row][OTGrillaEnum.usuario]
+      usuario_id: OTs.data[row] && OTs.data[row][OTGrillaEnum.usuario],
+      ot_ubicacion: OTs.data[row] && OTs.data[row][OTGrillaEnum.ubicacion]
     }));
 
     setPkToDelete(newPkToDelete as any)
@@ -255,7 +256,7 @@ const MOT: React.FC = () => {
                 
                 { name: "_estado", label: "Estado", type: "select", selectUrl: "/api/tipos/", tipos: "OTEstados", styles: { styles: "!w-[20vw] labelInput inputStyles", container:" !w-[20vw] translate-x-[8.5vw] !h-[3vw] !z-30 text-[1vw] translate-y-[-0.3rem]",labelProps: "labelInput" }},
                 { name: "_nombre", label: "Nombre", type: "text" , styles:{with: "labelInput inputStyles w-full",container:"!w-[29vw]   translate-x-[-6vw]",labelProps: "labelInput" } },
-                { name: "_p1", label: "RBD", type: "text" , styles:{ with:"labelInput inputStyles !w-[18vw]", container:"w-[18vw] translate-x-[-4.5vw] ml-14", labelProps: "labelInput" } },
+                { name: "_p1", label: "RBD", type: "text" , styles:{ with:"labelInput inputStyles !w-[8vw]", container:"w-[8vw] translate-x-[-7vw] ml-14", labelProps: "labelInput" } },
                 
                 { name: "_proyecto", label: "Proyecto", type: "select", selectUrl: "/api/proyectos/", styles: { styles: "!w-[20vw] labelInput inputStyles", container: "!w-[20vw]  translate-x-[-6vw] !text-[1vw] " }},
                 { name: "_motivo", label: "Motivo", type: "select", selectUrl: "/api/tipos/", tipos: "OTMotivo", styles: { styles: "!w-[20vw] labelInput inputStyles", container:"w-[20vw] translate-x-[-1vw] text-[1vw] !h-[3vw] translate-y-[-0.3rem] z-30",labelProps: "labelInput" }},
@@ -265,6 +266,7 @@ const MOT: React.FC = () => {
                 
                 { name: "_establecimiento", label: "Establecimiento", type: "select", selectUrl: "/api/establecimientos/", styles: { styles: "!w-[20vw] labelInput inputStyles", container: "!w-[25vw] translate-x-[4vw] !z-30  !text-[1vw] !translate-y-[0.3rem]",labelProps: "labelInput" }},
                 { name: "_punto_venta", label: "Punto de Venta", type: "select", selectUrl: "/api/puntosventa/", styles: { styles: "!w-[20vw] labelInput inputStyles", container:" !w-[25vw] !translate-x-[-10.5vw] !z-30 !text-[1vw] translate-y-[5.5vw]",labelProps: "labelInput" }},
+                { name: "_ubicacion", label: "Ubicación", type: "text" , styles:{ with:"labelInput inputStyles !w-[8vw]", container:"!relative w-[8vw] translate-y-[-5.7vw] translate-x-[-12vw] ml-14", labelProps: "labelInput" } },
 
               ]}
             />

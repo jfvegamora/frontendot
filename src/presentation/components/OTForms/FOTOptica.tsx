@@ -192,8 +192,7 @@ React.useEffect(()=>{
 },[])
 
 
-console.log(data && data[EnumGrid.reporte_interno_mandante])
-console.log(formValues)
+console.log(data && data[EnumGrid.ot_ubicacion])
 return (
     <form action="" onKeyDown={handleKeyDown} className='  h-[85vh]'>
         <div className='frameOTForm !h-[85vh]'>
@@ -283,6 +282,22 @@ return (
                         labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] "}
                         customWidth={"!h-[3vw] labelInput"}
                     />                    
+                </div>
+
+                
+
+                <div className="w-[20%] ml-4 labelInput">
+                    <TextInputComponent
+                        type="text"
+                        label="Ubicación"
+                        name="ubicacion"
+                        handleChange={handleInputChange}
+                        data={formValues ? formValues["ubicacion"] : data && data[EnumGrid.ot_ubicacion]}
+                        control={control}
+                        onlyRead={true}
+                        customWidth={"!h-[3vw] labelInput"}
+                        textAlign="text-center"
+                    />
                 </div>
 
                 <div className="w-[20%] ml-4 labelInput">

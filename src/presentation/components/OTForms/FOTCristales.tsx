@@ -159,7 +159,7 @@ const FOTCristales: React.FC<ICristales> = ({
 
 
 
-
+    console.log(data && data[EnumGrid.cristal1_marca_id])
 
     return (
         <form onKeyDown={handleKeyDown}>

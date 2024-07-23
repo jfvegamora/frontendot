@@ -38,6 +38,10 @@ export const validationEmpaqueSchema = () =>
   yup.object().shape({
     nombre_beneficiario: yup.string().required(`${msg}`),
   });
+export const validationUbicacionSchema = () =>
+  yup.object().shape({
+    ubicacion: yup.string().required(`${msg}`),
+  });
 
 //Schema OTHistorica Asignacion OC
 export const validationOTOCSchema = () =>

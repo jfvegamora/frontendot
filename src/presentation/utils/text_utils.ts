@@ -18,15 +18,16 @@ export const BUTTON_MESSAGES = {
   next: "Siguiente ",
   deleteAll: "Eliminar Seleccionados ",
   edit: "Editar ",
+  ubicacion: "Agregar Ubicación",
   delete: "Eliminar ",
   bln_ingreso: "Ingreso",
   bln_egreso: "Egreso",
   permiso_ot: "Permisos OT",
   copiar: "Copiar",
-  imprimir:"Imprimir",
+  imprimir: "Imprimir",
   Whatsapp: "Whatsapp",
   procesar: "Procesar",
-  traspasar: "Traspasar Inventario"
+  traspasar: "Traspasar Inventario",
 };
 
 export const TITLES = {

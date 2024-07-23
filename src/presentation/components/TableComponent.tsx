@@ -136,14 +136,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
     const renderTextCell = useCallback((text: string, alignment?:string, type?:number, color2?:boolean, rowData?:any, backgroundAtrasadas?:boolean, color?:any, lowArmazonesStock?:any) => {
       const cellStyle = {
         textAlign:alignment,
-        color: isOT ? (rowData &&  handleColorEstado(rowData[4])) : (rowData &&  handleColorEstado(rowData[1], 'background  ')),
-      }
-
-
-      if(backgroundAtrasadas){
-         console.log(rowData)
-         console.log(text) 
-        
+        color: isOT ? (rowData &&  handleColorEstado(rowData[5])) : (rowData &&  handleColorEstado(rowData[1], 'background  ')),
       }
 
       return(
@@ -265,7 +258,8 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
               const folio             = rowData[1]
               let estado              = ""
               if(isOT){
-                estado                = rowData[3]
+                console.log(rowData)
+                estado                = rowData[4]
               }
 
               if(entidad === 'Documentación del Proyecto ' && (rowData[enumGird.tipo_doc_id] === 1 || rowData[enumGird.tipo_doc_id] === 2)){
@@ -297,7 +291,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                           key={col}
                           id={tableHead[col].key}
                           style={{
-                            backgroundColor: isOT ? (color2 ? ( handleColorEstado( rowData[4], 'background') ): "") : ( lowArmazonesStock && color2 ? (handleColorEstado(rowData[1])) : ""),
+                            backgroundColor: isOT ? (color2 ? ( handleColorEstado( rowData[5], 'background') ): "") : ( lowArmazonesStock && color2 ? (handleColorEstado(rowData[1])) : ""),
                           }}
                         >
                           {col === 0

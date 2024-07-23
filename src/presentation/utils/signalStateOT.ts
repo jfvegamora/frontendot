@@ -1522,7 +1522,6 @@ export const updateOT = async (
       _motivo: `${motivo}`,
     };
 
-    console.log(query);
     try {
       const response = await axios.post(`${URLBackend}/api/ot/editar/`, query);
 
@@ -1726,20 +1725,15 @@ export const updateOT = async (
     `a2_grupo_oI="${
       typeof A2_GRUPO_OI.value !== "object" ? A2_GRUPO_OI.value : ""
     }"`,
-
-    `anteojo1_opcion_vta=${0}`,
     `anteojo1_armazon="${
       typeof a1_armazon.value !== "object" ? a1_armazon.value : ""
     }"`,
-    `anteojo2_opcion_vta=${0}`,
     `anteojo2_armazon="${
       typeof a2_armazon.value !== "object" ? a2_armazon.value : ""
     }"`,
-    `anteojo3_opcion_vta=${0}`,
     `anteojo3_armazon="${
       typeof a3_armazon.value !== "object" ? a3_armazon.value : ""
     }"`,
-    `cristales1_opcion_vta=${0}`,
     `cristales1_marca=${
       _formValues &&
       _formValues["cristales"] &&
@@ -1815,7 +1809,6 @@ export const updateOT = async (
             )
         : data && data[EnumGrid.cristal1_tratamiento_adicional_id]
     }"`,
-    `cristales2_opcion_vta=${0}`,
     `cristales2_marca=${
       _formValues &&
       _formValues["cristales"] &&

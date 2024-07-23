@@ -3,6 +3,7 @@ import React, { Suspense, useCallback, useRef, useState } from 'react';
 
 import { SiAddthis } from 'react-icons/si';
 import { PiPrinterFill } from "react-icons/pi";
+import { LuBox } from "react-icons/lu";
 import { PiMicrosoftExcelLogoFill } from "react-icons/pi";
 import { BUTTON_MESSAGES, clearAllCheck, clearIndividualCheck, disabledIndividualCheck, reiniciarValidationNivel3, updateOT } from '../utils';
 import { AppStore, useAppDispatch, useAppSelector } from '../../redux/store';
@@ -70,6 +71,7 @@ const FOTWhastApp         = React.lazy(()=>import('../components/WhastappForm'))
 const FOTPendiente        = React.lazy(()=>import("./OTForms/FOTPendiente"));
 const FOTDerivacion       = React.lazy(()=>import("./OTForms/FOTDerivacion"));
 const FOTValidarEmpaque   = React.lazy(()=>import('./OTForms/FOTValidarEmpaque'));
+const FOTUbicacion        = React.lazy(()=>import('../views/forms/FOTUbicacion'));
 
 
 
@@ -133,14 +135,15 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
     const [isFOTEmpaque, setIsFOTEmpaque]             = useState(false);
     const [isFOTGuia, setIsFOTGuia]                   = useState(false);
     // const [isBarCodeProcess, setIsBarCodeProcess]     = useState(false);
-    const [isFOTImpresa, setIsFOTImpresa]             = useState(false);
-    const [isFotTicketRetiro, _setisFotTicketRetiro]  = useState(false);
-    const [isWhastApp, setIsWhastApp]                 = useState(false);
-    const [isFOTValidarBodega, setIsFOTValidarBodega] = useState(false);
-    const [isFOTReporteFirma, setIsFOTReporeFirma]    = useState(false);
-    const [isFOTPendiente, setisFOTPendiente]         = useState(false);
-    const [isFOTDerivacion, setisFOTDerivacion]       = useState(false);
+    const [isFOTImpresa, setIsFOTImpresa]               = useState(false);
+    const [isFotTicketRetiro, _setisFotTicketRetiro]    = useState(false);
+    const [isWhastApp, setIsWhastApp]                   = useState(false);
+    const [isFOTValidarBodega, setIsFOTValidarBodega]   = useState(false);
+    const [isFOTReporteFirma, setIsFOTReporeFirma]      = useState(false);
+    const [isFOTPendiente, setisFOTPendiente]           = useState(false);
+    const [isFOTDerivacion, setisFOTDerivacion]         = useState(false);
     const [isFOTValidarEmpaque, setIsFOTValidarEmpaque] = useState(false);
+    const [isFOTUbicacion, setIsFOTUbicacion]           = useState(false);
     // const [barCode, setBarCode]                       = useState('')
     const [dataOT, setDataOT]                         = useState();
     // const [valueSearchOT, setValueSearchOT]           = useState<any>();
@@ -534,6 +537,16 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
     }
 
 
+    const handleUbicacion = async() => {
+      if(pkToDelete.length === 0){
+        return toast.error('No hay OT seleccionada')
+      }
+      
+      setIsFOTUbicacion((prev)=>!prev)
+
+    }
+
+
     const handleProcesarConfirm = async(folio:any, toastLoading?:any) => {
       try {
 
@@ -574,6 +587,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
 
     return (
     <div className='flex items-center   ml-[4rem] !w-full'>
+        
         { (areaPermissions && areaPermissions[0] === "1" ) && (permisos_usuario_areas !== '0') && (
           renderButton(
             <SiAddthis className="primaryBtnIcon " />,
@@ -581,6 +595,24 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
             BUTTON_MESSAGES.add
           )
         )
+        }
+
+        {/* { (areaPermissions && areaPermissions[0] === "1" ) && (permisos_usuario_areas !== '0') && (
+          renderButton(
+            <LuBox className="primaryBtnIcon " />,
+            handleAddPerson!,
+            BUTTON_MESSAGES.ubicacion
+          )
+        )
+        } */}
+
+        {
+          renderButton(
+            <LuBox className="primaryBtnIcon " />,
+            handleUbicacion!,
+            BUTTON_MESSAGES.ubicacion
+          )
+
         }
        
        <Suspense>
@@ -916,6 +948,12 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
           <Suspense>
             {isFOTValidarEmpaque && (
               <FOTValidarEmpaque setSelectedRows={setSelectedRows}  pkToDelete={pkToDelete} onClose={()=>setIsFOTValidarEmpaque(false)} />
+            )}
+          </Suspense>
+
+          <Suspense>
+            {isFOTUbicacion && (
+              <FOTUbicacion setSelectedRows={setSelectedRows} pkToDelete={pkToDelete} closeModal={()=>setIsFOTUbicacion(false)}/>
             )}
           </Suspense>
             
