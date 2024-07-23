@@ -66,6 +66,13 @@ const initialState: ITiposListbox | null = {
   ArmazonesUsos: localStorage.getItem("ListBoxTipos.ArmazonesUsos")
     ? JSON.parse(localStorage.getItem("ListBoxTipos.ArmazonesUsos") as string)
     : null,
+  EstablecimientosTipos: localStorage.getItem(
+    "ListBoxTipos.EstablecimientosTipos"
+  )
+    ? JSON.parse(
+        localStorage.getItem("ListBoxTipos.EstablecimientosTipos") as string
+      )
+    : null,
   ArmazonesMaterial: localStorage.getItem("ListBoxTipos.ArmazonesMaterial")
     ? JSON.parse(
         localStorage.getItem("ListBoxTipos.ArmazonesMaterial") as string

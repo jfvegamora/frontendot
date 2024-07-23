@@ -17,7 +17,7 @@ export const table_head_OT_diaria2 = [
     background: true
   },
   {
-    cell: "Ubicacion",
+    cell: "Ubicación",
     key: "ubicacion",
     visible: true,
     alignment: "text-center",

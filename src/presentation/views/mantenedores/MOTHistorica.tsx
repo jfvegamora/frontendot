@@ -496,14 +496,6 @@ const MOTHistorica: React.FC = () => {
     dispatch(clearData())
   },[])
 
-
-
-
-  console.log(user.permisos_archivo_ot)
-  
-
-
-
   return (
     <div className="mantenedorContainer">
 
@@ -524,80 +516,81 @@ const MOTHistorica: React.FC = () => {
                 { name: "_folio", label: "Folio", type: "text", 
                   styles: { 
                     with: "labelInput inputStyles w-full",
-                    container:"!w-[20vw]  text-[1vw] translate-x-[1vw] ", 
-                  labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+                    container:"w-[10vw] !h-[6vh] translate-x-[-2vw]", 
+                    labelProps: "labelInput"
                   } },
                 { name: "_rut", label: "Rut", type: "text", 
                   styles: { 
                     with: "labelInput inputStyles w-full",
-                    container:"!w-[20vw]  text-[1vw] translate-x-[-1vw] ", 
-                  labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+                    container: "w-[10vw] !h-[6vh]    translate-x-[-6vw]",
+                    labelProps: "labelInput"
                   } },
-    
-                { name: "_fecha_desde", label: "Atención Desde", type: "date", 
-                  styles: {
-                    styles:"labelInput inputStyles",
-                    container:"!w-[20vw]  text-[1vw] translate-x-[1vw] ", 
-                    labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
-                     } },
-                { name: "_fecha_hasta", label: "Atención Hasta", type: "date", 
-                  styles: {
-                    styles:"labelInput inputStyles",
-                    container:"!w-[20vw]  text-[1vw] translate-x-[-1vw] ", 
-                    labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
-                     } },
+                  { name: "_fecha_desde", label: "Atención Desde", type: "date", styles: {styles:"labelInput inputStyles",container:"w-[11vw] translate-x-[-2vw]" } },
+                  { name: "_fecha_hasta", label: "Atención Hasta", type: "date", styles: {styles:"labelInput inputStyles", container:"w-[11vw] translate-x-[-5.5vw]" } },
     
                 { name: "_estado", label: "Estado", type: "select", selectUrl: "/api/tipos/", tipos: "OTEstados", 
                   styles: { 
-                    styles:"labelInput inputStyles",
-                    container:"!w-[20vw]  text-[1vw] -translate-x-[-0.5vw] translate-y-[18%] ml-2 ", 
-                  labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+                    styles:"labelInput inputStyles w-[25vw]",
+                    container:"!w-[25vw] -translate-x-[-0.5vw] translate-y-[18%] ml-2 ", 
+                    labelProps: "labelInput"
                   }},
+
+
                 { name: "_establecimiento", label: "Establecimiento", type: "select", selectUrl: "/api/establecimientos/", 
                   styles: { 
                     styles:"labelInput inputStyles",
-                    container:"!w-[20vw]  text-[1vw] translate-x-[-1.5vw] translate-y-[18%] ", 
+                    container:"!w-[20vw]  text-[1vw] translate-x-[9.5vw] translate-y-[18%] ", 
                   labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
                   }},
     
                 { name: "_nombre", label: "Nombre", type: "text", 
                   styles: { 
                     with: "labelInput inputStyles w-full",
-                    container:"!w-[20vw]  text-[1vw] translate-x-[-1vw] ", 
+                    container:"!w-[20vw]  text-[1vw] translate-x-[-6vw] ", 
                   labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]" 
                   } },
+                { name: "_nombre", label: "Ubicacion", type: "text", 
+                  styles: { 
+                    with: "labelInput inputStyles w-full",
+                    container:"!w-[16vw]  text-[1vw] translate-x-[-3vw] ", 
+                  labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]" 
+                  } },
+
+
                 { name: "_motivo", label: "Motivo", type: "select", selectUrl: "/api/tipos/", tipos: "OTMotivo", 
                   styles: {
-                    styles:"labelInput inputStyles",
-                    container:"!w-[20vw]  text-[1vw] translate-x-[-2vw] ", 
-                  labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+                    styles:"labelInput inputStyles !w-[19.5vw]",
+                    container:"!w-[19.5vw]  text-[1vw] translate-x-[-6vw] ", 
+                    labelProps: "labelInput"
                   }},
     
                 { name: "_p2", label: "Tipo Doc", type: "select", selectUrl: "/api/tipos/", tipos: "OTNumDoc", 
                   styles: {
                     styles:"labelInput inputStyles",
-                    container:"!w-[22vw]  text-[1vw] translate-x-[-1.6vw] ml-2 ", 
+                    container:"!w-[22.5vw]  translate-x-[-2.5vw] ", 
                   labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
                   }},
-                { name: "_p3", label: "Número Doc", type: "text",  
-                  styles: { 
-                    with: "labelInput inputStyles w-full",
-                    container:"!w-[20vw]  text-[1vw] translate-x-[-2vw] ", 
-                  labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
-                  }},
-    
+                  { name: "_proyecto", label: "Proyecto", type: "select", selectUrl: "/api/proyectos/", 
+                    styles: { 
+                      styles:"labelInput inputStyles",
+                      container:"!w-[20vw]  translate-x-[13.5vw] ", 
+                      labelProps: "labelInput"
+                    }},
+          
                 { name: "_p1", label: "RBD", type: "text", 
                   styles: { 
                     with: "labelInput inputStyles w-full",
-                    container:"!w-[20vw]  text-[1vw] translate-x-[-1vw] ", 
-                  labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]" 
+                    container:"!w-[20vw]  text-[1vw] translate-x-[15vw] translate-y-[-5vw] ", 
+                    labelProps: "labelInput"
                   } },
-                { name: "_proyecto", label: "Proyecto", type: "select", selectUrl: "/api/proyectos/", 
-                  styles: { 
-                    styles:"labelInput inputStyles",
-                    container:"!w-[20vw]  text-[1vw] translate-x-[-2vw] ", 
-                  labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
-                  }},
+                  { name: "_p3", label: "Número Doc", type: "text",  
+                    styles: { 
+                      with: "labelInput inputStyles w-full",
+                      container:"!w-[16vw]  text-[1vw] translate-x-[-1vw] ", 
+                    labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
+                    }},
+      
+              
     
               ]}
             />
