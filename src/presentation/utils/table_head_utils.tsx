@@ -276,6 +276,14 @@ export const table_head_OT_historica = [
     background: true
   },
   {
+    cell: "Ubicación",
+    key: "ubicacion",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[7rem]",
+    // background: true
+  },
+  {
     cell: "Motivo",
     key: "motivo",
     visible: true,

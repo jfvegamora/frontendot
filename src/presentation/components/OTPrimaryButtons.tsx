@@ -597,6 +597,28 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
         )
         }
 
+          <Suspense>
+            {areaPermissions && areaPermissions[4] === "1" && permisos_usuario_areas !== '0' && (
+              <Suspense>
+                <ImportToCsv
+                strEntidad={strEntidad}
+                //  params={params}
+                //  strBaseUrl={strBaseUrl}
+                />
+            </Suspense>
+              )}
+
+          </Suspense>
+
+
+          {areaPermissions && areaPermissions[2] === '1' && permisos_usuario_areas !== '0' && (
+          renderButton(
+            <PiPrinterFill className="primaryBtnIcon" />,
+            handleImpresionMasivo!,
+            BUTTON_MESSAGES.imprimir
+          )
+        )}
+
         {/* { (areaPermissions && areaPermissions[0] === "1" ) && (permisos_usuario_areas !== '0') && (
           renderButton(
             <LuBox className="primaryBtnIcon " />,
@@ -629,43 +651,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
        </Suspense>
 
 
-
-
-          <Suspense>
-            {areaPermissions && areaPermissions[4] === "1" && permisos_usuario_areas !== '0' && (
-              <Suspense>
-                <ImportToCsv
-                strEntidad={strEntidad}
-                //  params={params}
-                //  strBaseUrl={strBaseUrl}
-                />
-            </Suspense>
-              )}
-
-          </Suspense>
- 
-
-
-        {areaPermissions && areaPermissions[2] === '1' && permisos_usuario_areas !== '0' && (
-          renderButton(
-            <PiPrinterFill className="primaryBtnIcon" />,
-            handleImpresionMasivo!,
-            BUTTON_MESSAGES.imprimir
-          )
-        )}
-
-        {areaPermissions && areaPermissions[5] === '1' && permisos_usuario_areas !== '0' && (
-          renderButton(
-            <SocialIcon  
-              onClick={(e)=>e.preventDefault()}  
-            url="https://www.whatsapp.com/"
-            />,
-            handleWhatsappMasivo!,
-            BUTTON_MESSAGES.Whatsapp
-          )
-        )}
-
-      {areaPermissions && areaPermissions[13] === "1" && permisos_usuario_areas !== '0' && (
+       {areaPermissions && areaPermissions[13] === "1" && permisos_usuario_areas !== '0' && (
           <Tooltip content={'Descargar Plantilla Excel'} >
             <IconButton 
               className='primaryBtnIconButton'
@@ -679,6 +665,25 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
           </Tooltip>
         )}
      
+
+       
+ 
+
+
+   
+
+        {areaPermissions && areaPermissions[5] === '1' && permisos_usuario_areas !== '0' && (
+          renderButton(
+            <SocialIcon  
+              onClick={(e)=>e.preventDefault()}  
+            url="https://www.whatsapp.com/"
+            />,
+            handleWhatsappMasivo!,
+            BUTTON_MESSAGES.Whatsapp
+          )
+        )}
+
+   
         {areaPermissions && areaPermissions[12] === "1" && permisos_usuario_areas !== '0' && (
           <Tooltip content='Generar Número de Envío'>
               <Button className='otActionButton ml-4'  onClick={()=>setIsFOTEmpaque((prev)=>!prev)}>N° de Envio</Button>

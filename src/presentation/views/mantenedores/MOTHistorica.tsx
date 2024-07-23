@@ -549,7 +549,7 @@ const MOTHistorica: React.FC = () => {
                     container:"!w-[20vw]  text-[1vw] translate-x-[-6vw] ", 
                   labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]" 
                   } },
-                { name: "_nombre", label: "Ubicacion", type: "text", 
+                { name: "_ubicacion", label: "Ubicacion", type: "text", 
                   styles: { 
                     with: "labelInput inputStyles w-full",
                     container:"!w-[16vw]  text-[1vw] translate-x-[-3vw] ", 
