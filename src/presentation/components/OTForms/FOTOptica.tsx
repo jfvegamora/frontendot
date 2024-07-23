@@ -29,6 +29,7 @@ interface IOptica {
     permiso_areas_estado_validacion:boolean,
     permisos_areas_estado_immpresion:boolean,
     permiso_areas_resolucion_garantia:boolean,
+    permiso_area_worktraking: boolean,
     permiso_usuario_workTracking: boolean
 }
 
@@ -44,6 +45,7 @@ const FOTOptica:React.FC<IOptica> = ({
     onlyRead,
     permiso_usuario_estado_impresion,
     permiso_usuario_estado_validacion,
+    permiso_area_worktraking,
     // permiso_usuario_resolucion_garantia,
     permiso_usuario_workTracking,
 
@@ -59,6 +61,10 @@ const FOTOptica:React.FC<IOptica> = ({
     const _origen:any = useAppSelector((store: AppStore) => store.OTAreas.areaActual);
     const _estado = data && data[EnumGrid.estado_id]
     const permisos_usuario_areas = User.permisos_areas[EnumAreas[_origen]] === '1' ? true : false
+
+    console.log(EnumAreas[_origen])
+    console.log(User.permisos_areas)
+    console.log(permisos_usuario_areas)
 
     const [inputsRef] = useState({
         firstInputRef : React.useRef<HTMLInputElement>(null),
@@ -191,8 +197,9 @@ React.useEffect(()=>{
     }
 },[])
 
+console.log(permisos_usuario_areas)
+console.log(permiso_usuario_workTracking)
 
-console.log(data && data[EnumGrid.ot_ubicacion])
 return (
     <form action="" onKeyDown={handleKeyDown} className='  h-[85vh]'>
         <div className='frameOTForm !h-[85vh]'>
@@ -543,7 +550,7 @@ return (
                             handleChange={handleInputChange}
                             data={formValues ? formValues["worktracking"] : data && data[EnumGrid.worktracking]}
                             control={control}
-                            onlyRead={!(isEditting && (permiso_usuario_workTracking && permisos_usuario_areas))}
+                            onlyRead={!(isEditting && (permiso_usuario_workTracking && permisos_usuario_areas && permiso_area_worktraking))}
                             isOptional={true}
                             isOT={true}
                             customWidth={"!h-[3vw] !mb-4 labelInput"}

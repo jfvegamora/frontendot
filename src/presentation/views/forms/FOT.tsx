@@ -178,10 +178,12 @@ const FOT: React.FC<IFOTProps> = ({
   let permiso_areas_grupo_dioptria = false;
   let permiso_areas_receta = false;
   let permiso_area_verificar_cristal = false;
+  let permiso_area_worktraking      = false;
 
 
   if (!isMOT) {
     const permisosAreas = OTAreaActual && permissions(OTAreaActual)[6] as any
+    console.log(permisosAreas)
     permiso_areas_armazones = permisosAreas && permisosAreas[0] === '1' ? true : false;
     permiso_areas_cristales = permisosAreas && permisosAreas[1] === '1' ? true : false;
     permiso_areas_estado_impresion = permisosAreas && permisosAreas[2] === '1' ? true : false;
@@ -190,8 +192,15 @@ const FOT: React.FC<IFOTProps> = ({
     permiso_areas_grupo_dioptria = permisosAreas && permisosAreas[5] === '1' ? true : false;
     permiso_areas_receta = permisosAreas && permisosAreas[6] === '1' ? true : false;
     permiso_area_verificar_cristal = permisosAreas && permisosAreas[7] === '1' ? true : false;
+    permiso_area_worktraking = permisosAreas && permisosAreas[9] === '1' ? true :false
     // let permiso_area_verificar_armazon      = permisosAreas && permisosAreas[8] === "1" ? true : false;
   }
+
+
+  console.log(permiso_area_worktraking)
+
+
+  // console.log(permiso)
   const permisosAreasUsuario = useAppSelector((store: AppStore) => store.user?.permisos_areas);
 
   let permiso_anular_usuario = permisosAreasUsuario && permisosAreasUsuario[0] === '1' ? true : false;
@@ -976,6 +985,7 @@ const FOT: React.FC<IFOTProps> = ({
               setIsMotivo={setIsMotivo}
               setToggle={setToggle}
               permiso_usuario_workTracking={permiso_usuario_workTracking}
+              permiso_area_worktraking = {permiso_area_worktraking}
               permiso_areas_resolucion_garantia={permiso_areas_resolucion_garantia}
               permisos_areas_estado_immpresion={permiso_areas_estado_impresion}
               permiso_areas_estado_validacion={permiso_areas_estado_validacion}

@@ -6,15 +6,18 @@ import { Button } from '@material-tailwind/react';
 
 import { TextInputComponent } from '../../components';
 import { useModal } from '../../hooks/useModal';
-import { TITLES, validationUbicacionSchema } from '../../utils';
-import { AppStore, useAppSelector } from '../../../redux/store';
+import { clearAllCheck, MODAL, TITLES, validationUbicacionSchema } from '../../utils';
+import { AppStore, useAppDispatch, useAppSelector } from '../../../redux/store';
 import { URLBackend } from '../../hooks/useCrud';
 import axios from 'axios';
+import { toast } from 'react-toastify';
+import { paramsOT } from '../mantenedores/MOT';
+import { fetchOT } from '../../../redux/slices/OTSlice';
 
 
 interface IFOTUbicacion {
     closeModal?:()=>void;
-    setSelectedRows?: ()=>void;
+    setSelectedRows?: ([])=>void;
     pkToDelete?:any
 }
 
@@ -30,6 +33,7 @@ const FOTUbicacion:React.FC<IFOTUbicacion> = ({
 
     const UsuarioID: any = useAppSelector((store: AppStore) => store.user?.id)
     const OTAreaActual: any = useAppSelector((store: AppStore) => store.OTAreas.areaActual);
+    const dispatch          = useAppDispatch();
 
     const folios = pkToDelete?.map((OT: any) => {
         return {
@@ -38,9 +42,27 @@ const FOTUbicacion:React.FC<IFOTUbicacion> = ({
         }
     });
 
+    console.log(pkToDelete)
 
     const onSubmit = async(jsonData:any) => {
 
+        const validation_Ubicacion_Previa = pkToDelete.some((OT:any)=>OT.ot_ubicacion !== '')
+
+        if(validation_Ubicacion_Previa){
+            const result = await showModal(
+                `OT: ${pkToDelete[0]["folio"]} Tiene ubicación asignada, ¿Desea agregar uno nuevo? `,
+                '',
+                MODAL.keepYes,
+                MODAL.kepNo
+            );
+
+            if (!result) {
+                return;
+            }
+        }
+
+        
+        const toastLoading = toast.loading('Cargando...')
         const query17 = {
             query: "17",
             _ubicacion : jsonData?.ubicacion,
@@ -51,22 +73,16 @@ const FOTUbicacion:React.FC<IFOTUbicacion> = ({
 
         try {
             const response = await axios.post(`${URLBackend}/api/ot/editar/`, query17);
-            console.log(response)
 
-            // if(response.status === 200){
-            //     toast.success('Número de Guía asignado.')
-            //     toast.dismiss(toastLoading)
-            //     clearAllCheck.value = false;
-            //     otArchivo ? (
-            //         dispatch(fetchOT({ historica: true, searchParams: paramsOT.value }))
-    
-            //     ) : (
-            //         dispatch(fetchOT({ OTAreas: OTAreas, searchParams: paramsOT.value }))
-            //     )
-            //     setSelectedRows([])
-            //     closeModal()
-            //     toast.dismiss(toastLoading)
-            // }
+            if(response.status === 200){
+                toast.success('Ubicacion asignada correctamente.')
+                toast.dismiss(toastLoading)
+                clearAllCheck.value = false;
+                dispatch(fetchOT({ OTAreas: OTAreaActual, searchParams: paramsOT.value }))
+                setSelectedRows && setSelectedRows([])
+                closeModal && closeModal()
+                toast.dismiss(toastLoading)
+            }
             
 
         } catch (error) {
@@ -93,7 +109,7 @@ const FOTUbicacion:React.FC<IFOTUbicacion> = ({
 
 
     return (
-        <div className="useFormContainer centered-div w-[35rem]">
+        <div className="useFormContainer centered-div w-[25rem]">
 
                 <div className="">
                     <div className="userFormBtnCloseContainer">
@@ -109,13 +125,13 @@ const FOTUbicacion:React.FC<IFOTUbicacion> = ({
                                 <div className="labelInputDiv">
                                     <TextInputComponent
                                         type="text"
-                                        label="Nombre Ubicacion"
+                                        label="Ubicación"
                                         name="ubicacion"
                                         control={control}
                                         // data={pktoDelete[0] && pktoDelete[0]["proyecto"]}
                                         // onlyRead={true}
                                         error={errors.ubicacion}
-                                        customWidth={"labelInput inputStyles"}
+                                        customWidth={"labelInput inputStyles text-center"}
                                     />
                                 </div>
                             </div>

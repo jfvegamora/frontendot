@@ -628,14 +628,14 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
         )
         } */}
 
-        {
-          renderButton(
+        {(areaPermissions && areaPermissions[3] === "1") && (
+           renderButton(
             <LuBox className="primaryBtnIcon " />,
             handleUbicacion!,
             BUTTON_MESSAGES.ubicacion
           )
+        )}
 
-        }
        
        <Suspense>
           {areaPermissions && areaPermissions[3] === "1" && (

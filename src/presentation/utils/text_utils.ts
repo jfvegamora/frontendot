@@ -18,7 +18,7 @@ export const BUTTON_MESSAGES = {
   next: "Siguiente ",
   deleteAll: "Eliminar Seleccionados ",
   edit: "Editar ",
-  ubicacion: "Agregar Ubicación",
+  ubicacion: "Asignar Ubicación",
   delete: "Eliminar ",
   bln_ingreso: "Ingreso",
   bln_egreso: "Egreso",
