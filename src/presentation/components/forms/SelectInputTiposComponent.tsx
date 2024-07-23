@@ -65,7 +65,7 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
     labelProps,
     labelContainer
   }) => {
-    const stateListBox = useAppSelector((store: AppStore) => store.listBoxTipos[label]);
+    const stateListBox = useAppSelector((store: AppStore) => store.listBoxTipos[entidad]);
     const [entities, setEntities] = useState(stateListBox|| []);
     const [strSelectedName, setStrSelectedName] = useState(data  || undefined);
     const inputRef = useRef(null); 
