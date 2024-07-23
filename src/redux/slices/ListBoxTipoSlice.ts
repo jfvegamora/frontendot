@@ -113,7 +113,13 @@ const initialState: ITiposListbox | null = {
         localStorage.getItem("ListBoxTipos.OTMotivoGarantia") as string
       )
     : null,
-  // OTTratamientoAdicional:  localStorage.getItem('ListBoxTipos.OTTratamientoAdicional') ? JSON.parse(localStorage.getItem('ListBoxTipos.OTTratamientoAdicional') as string) : null    ,
+  OTTratamientoAdicional: localStorage.getItem(
+    "ListBoxTipos.OTTratamientoAdicional"
+  )
+    ? JSON.parse(
+        localStorage.getItem("ListBoxTipos.OTTratamientoAdicional") as string
+      )
+    : null,
   OTEnumDoc: localStorage.getItem("ListBoxTipos.OTEnumDoc")
     ? JSON.parse(localStorage.getItem("ListBoxTipos.OTEnumDoc") as string)
     : null,
