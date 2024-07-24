@@ -251,6 +251,8 @@ const OTSlice = createSlice({
         let estado_ot = ot[OTGrillaEnum.estado];
         let por_vencer = ot[OTGrillaEnum.por_vencer];
 
+        console.log(ot);
+
         // Manejar el caso de por_vencer
         if (por_vencer === "S") {
           acc[por_vencer] ??= 0; // Si acc[por_vencer] es undefined o null, lo inicializa a 0
@@ -286,7 +288,6 @@ const OTSlice = createSlice({
     });
     builder.addCase(fetchColores.fulfilled, (state, action) => {
       state.derivacionColores = action.payload;
-      console.log(action.payload);
       localStorage.setItem("OTColores", JSON.stringify(action.payload));
       return state;
     });

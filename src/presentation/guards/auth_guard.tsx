@@ -37,7 +37,6 @@ const AuthGuard: React.FC<Props> = ({ privateValidation }) => {
       const hasAccess = hasRequiredPermissions(currentRoute, permisosIds);
 
       if (!hasAccess) {
-        console.log('render')
         navigate(`/${PublicRoutes.LOGIN}`);
       }
     }

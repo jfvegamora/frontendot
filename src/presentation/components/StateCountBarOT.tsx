@@ -2,6 +2,7 @@ import React from 'react'
 import { AppStore, useAppSelector } from '../../redux/store';
 import { OTGrillaEnum } from '../Enums';
 import { totoalTrabajosSeleccionados } from '../views/mantenedores/MOT';
+import { Tooltip } from '@material-tailwind/react';
 
 
 
@@ -79,15 +80,17 @@ const StateCountBarOT:React.FC<IStateCountBar> = ({checkCount,isMotHistorica}) =
 
         return (
             <div className={`${width} h-[5vh] flex mr-4 `} key={index}>
-              <p style={{ 
-                backgroundColor, 
-                color: textColor, 
-                borderColor,
-                borderWidth: '2px', 
-                }} className="translate-y-[-0.2rem] mx-2 w-full text-center rounded-2xl">
-               {/* {estadoID}s: */}
-              <label className="text-center">{OTs.estadosOT[estadoID]}</label>
-              </p>
+              <Tooltip content={estadoID}>
+                  <p style={{ 
+                    backgroundColor, 
+                    color: textColor, 
+                    borderColor,
+                    borderWidth: '2px', 
+                    }} className="translate-y-[-0.2rem] mx-2 w-full text-center rounded-2xl">
+                  {/* {estadoID}s: */}
+                  <label className="text-center">{OTs.estadosOT[estadoID]}</label>
+                  </p>
+              </Tooltip>
           </div>
         );
       }
@@ -100,9 +103,12 @@ const StateCountBarOT:React.FC<IStateCountBar> = ({checkCount,isMotHistorica}) =
     
     { (OTs.estadosOT[ot_atrasadas] > 0 ) && (
       <div className={`${width} h-[5vh] flex `}>
+        <Tooltip content="Atrasadas">
           <p className="text-center w-full translate-y-[-0.2rem] rounded-2xl bg-black  mx-auto text-white"> 
              <label className="text-center text-white">{OTs.estadosOT[ot_atrasadas]}</label>        
           </p>
+
+        </Tooltip>
       </div>
     )}
 

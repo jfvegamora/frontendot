@@ -33,7 +33,6 @@ interface IFOTValidarBodega{
 
 const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
     handleClose,
-    pkToDelete
 }) => {
     const [formValues, setFormValues] = React.useState();
     const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas);
@@ -64,9 +63,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
 
     const {
         control,
-        formState: { errors },
-        handleSubmit
-        
+        formState: { errors }        
       } = useForm({
         resolver: yupResolver(schema),
     });
@@ -251,109 +248,111 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
 
 
 
-    const onSubmit = (e:any, type?:string) => {
-        e.preventDefault();
+    // const onSubmit = (e:any, type?:string) => {
+    //     console.log('renderr')
+    //     e.preventDefault();
 
-        console.log(type)
+    //     console.log(type)
 
-        let jsondata:any   = [];
-        let origen         = OTAreas["areaActual"]
-        let formValues:any = []
-        let data           = OT
-        let cristalOri     = cristales
-        let armazonOri     = armazones
-        let user           = UsuarioID
+    //     let jsondata:any   = [];
+    //     let origen         = OTAreas["areaActual"]
+    //     let formValues:any = []
+    //     let data           = OT
+    //     let cristalOri     = cristales
+    //     let armazonOri     = armazones
+    //     let user           = UsuarioID
         
-        let destino;
-        let estado:any
+    //     let destino;
+    //     let estado:any
 
 
-        let observaciones;
-        let isMasivo; 
-        let situacion;
-        let validarBodega;
-        let validacion_complete
+    //     let observaciones;
+    //     let isMasivo; 
+    //     let situacion;
+    //     let validarBodega;
+    //     let validacion_complete
 
 
-        switch (type) {
-            case 'Procesar':
-                destino       = OTAreas["areaSiguiente"]
-                estado        = 20
+    //     switch (type) {
+    //         case 'Procesar':
+    //             destino       = OTAreas["areaSiguiente"]
+    //             estado        = 20
             
                 
-                observaciones = ''
-                isMasivo      = false
-                situacion          = '0'
-                validacion_complete = true;
+    //             observaciones = ''
+    //             isMasivo      = false
+    //             situacion          = '0'
+    //             validacion_complete = true;
             
-                break;
-            case 'cristales-externos':
-                break;
-            case 'cristales-internos':
-                break;
-            default:
-                break;
-        }
+    //             break;
+    //         case 'cristales-externos':
+    //             break;
+    //         case 'cristales-internos':
+    //             break;
+    //         default:
+    //             break;
+    //     }
 
-        updateOT(
-            jsondata,
-            origen,
-            destino,
-            estado,
-            formValues,
-            data,
-            cristalOri,
-            armazonOri,
-            user,
-            observaciones,
-            isMasivo,
-            situacion,
-            validarBodega,
-            "",
-            validacion_complete
-        )
+    //     updateOT(
+    //         jsondata,
+    //         origen,
+    //         destino,
+    //         estado,
+    //         formValues,
+    //         data,
+    //         cristalOri,
+    //         armazonOri,
+    //         user,
+    //         observaciones,
+    //         isMasivo,
+    //         situacion,
+    //         validarBodega,
+    //         "",
+    //         validacion_complete
+    //     )
 
-        const toastLoading = toast.loading('Cargando...');
-        console.log(OT)
-        console.log(OT[OTGrillaEnum.estado_impresion] === '0')
-        if(OT[OTGrillaEnum.estado_impresion] === '0'){
-            toast.dismiss(toastLoading)
-            return toast.error(`OT ${pkToDelete.filter((ot:any)=> ot.estado_impresion === '0').map((ot:any)=>ot.folio)} no ha sido impresa.`) 
-        }
+    //     const toastLoading = toast.loading('Cargando...');
+    //     console.log(OT)
+    //     console.log(OT[OTGrillaEnum.estado_impresion] === '0')
+    //     if(OT[OTGrillaEnum.estado_impresion] === '0'){
+    //         toast.dismiss(toastLoading)
+    //         return toast.error(`OT ${pkToDelete.filter((ot:any)=> ot.estado_impresion === '0').map((ot:any)=>ot.folio)} no ha sido impresa.`) 
+    //     }
 
-        console.log(UsuarioID)
-        updateOT(
-            [],
-            OTAreas["areaActual"],
-            OTAreas["areaSiguiente"],
-            20,
-            [],
-            OT,
-            cristales,
-            armazones,
-            UsuarioID,
-            "",
-            true,
-            '',
-            true
-        ).then(()=>{
-            handleClose()
-            toast.dismiss(toastLoading)
-            toast.success('OT Procesada Correctamente.')
-            dispatch(fetchOT({OTAreas:OTAreas["areaActual"], searchParams: paramsOT.value}))
-            valueConfirmOT.value = ""
+    //     let estaado_standBy = 25;
+    //     console.log(UsuarioID)
+    //     updateOT(
+    //         [],
+    //         OTAreas["areaActual"],
+    //         OTAreas["areaSiguiente"],
+    //         estaado_standBy,
+    //         [],
+    //         OT,
+    //         cristales,
+    //         armazones,
+    //         UsuarioID,
+    //         "",
+    //         true,
+    //         '',
+    //         true
+    //     ).then(()=>{
+    //         handleClose()
+    //         toast.dismiss(toastLoading)
+    //         toast.success('OT Procesada Correctamente.')
+    //         dispatch(fetchOT({OTAreas:OTAreas["areaActual"], searchParams: paramsOT.value}))
+    //         valueConfirmOT.value = ""
 
-        }).catch((e)=>{
-            console.log(e)
-            console.log('error')
-            toast.dismiss(toastLoading);
-        })
+    //     }).catch((e)=>{
+    //         console.log(e)
+    //         console.log('error')
+    //         toast.dismiss(toastLoading);
+    //     })
  
  
  
  
  
-    }
+    // }
 
 
     React.useEffect(() => {
@@ -410,7 +409,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
             switch (casoEjecutar) {
                 case 'ProcesarTB':
                     destino = OTAreas["areaSiguiente"]
-                    estado  = 20
+                    estado  = 25
                     situacion = '0'
 
                     console.log('ejecutando procesar')
@@ -445,7 +444,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                 case 'conCristales':
                     console.log('ejecutando con cristales')
                     destino = OTAreas["areas"].map((area:any)=>area).filter((areaAuxiliar:any)=>areaAuxiliar[1] === 60)[0][7]
-                    estado  = 20
+                    estado  = 30
                     situacion = '4'
 
                     console.log('ejecutando procesar')
@@ -480,7 +479,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                 case 'sinCristales':
                     console.log('ejecutando con cristales')
                     destino = OTAreas["areas"].map((area:any)=>area).filter((areaAuxiliar:any)=>areaAuxiliar[1] === 60)[0][7]
-                    estado  = 20
+                    estado  = 30
                     situacion = '5'
 
                     console.log('ejecutando procesar')
@@ -535,7 +534,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
         <h1 className='h-8'></h1>
           <form 
             className="p-8 space-y-6"
-            onSubmit={handleSubmit((data:any)=>onSubmit(data))}
+            // onSubmit={handleSubmit((data:any)=>onSubmit(data))}
             // onSubmit={handleSubmit((data) => onSubmit(data))}
             // onSubmit={handleSubmit(onSubmit)}
           >

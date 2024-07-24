@@ -2,8 +2,9 @@ import React, { useMemo, useRef, useState } from 'react';
 import { AppStore, useAppDispatch, useAppSelector } from '../../redux/store';
 import { Button } from "@material-tailwind/react";
 import { updateActualArea, updateNextArea } from '../../redux/slices/OTAreasSlice';
-import { clearData, fetchOT } from '../../redux/slices/OTSlice';
+import { clearData, fetchOT, filterOtAtrasadas } from '../../redux/slices/OTSlice';
 import { signal } from '@preact/signals-react';
+import { switchAtrasadas } from './FilterButton';
 
 
 interface IOTAreaButtons {
@@ -29,6 +30,7 @@ const [botonPresionado, setBotonPresionado] = useState(null);
  
 
 const handleEstado =(area:any) => {
+
     dispatch(clearData())
     setAreaActual(area[1]) 
     dispatch(updateActualArea(area && area[1]))
@@ -39,11 +41,21 @@ const handleEstado =(area:any) => {
     setSelectedRows([]) 
    areaActualRef.current = area[1]
 
+
+   console.log(switchAtrasadas.value)
    if(params){
     // console.log(params)
-    dispatch(fetchOT({OTAreas:area[1], searchParams:params}))
+    dispatch(fetchOT({OTAreas:area[1], searchParams:params})).then(()=>{
+      if(switchAtrasadas.value){
+        dispatch(filterOtAtrasadas())
+      }
+    })
    }else{
-     dispatch(fetchOT({OTAreas:area[1]}))
+     dispatch(fetchOT({OTAreas:area[1]})).then(()=>{
+      if(switchAtrasadas.value){
+        dispatch(filterOtAtrasadas())
+      }
+     })
    }
 }
 

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
-import React from "react";
+import React, { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigate, Link } from "react-router-dom";
@@ -17,7 +17,7 @@ import { fetchListBoxTipos } from "../../redux/slices/ListBoxTipoSlice";
 import { fetchColores } from "../../redux/slices/OTSlice";
 import { fetchRegProCom } from "../../redux/slices/utilsSlice";
 import { toast } from "react-toastify";
-import { Button } from "@material-tailwind/react";
+import { Button, Spinner } from "@material-tailwind/react";
 // import ToastNotification from "../components/ToastNotification";
 
 interface LoginFormValues {
@@ -28,6 +28,7 @@ interface LoginFormValues {
 const Login: React.FC = React.memo(() => {
   const strBaseUrl = "/api/usuarios/";
   const userState = useAppSelector((store: AppStore) => store.user);
+  const [isLoading, setIsLoading] = useState(false);
 
   // const strQuery = "06";
   const schema = validationLoginSchema();
@@ -49,6 +50,7 @@ const Login: React.FC = React.memo(() => {
 
   const handleChange: SubmitHandler<LoginFormValues> = (data) => {
     // const toastLoading = toast.loading('Cargando...');
+    setIsLoading(true)
     try {
       loginEntity(data)
       .then((user) => {
@@ -74,7 +76,9 @@ const Login: React.FC = React.memo(() => {
             navigate("/landing");
           }
           // navigate("/landing");
-          toast.success("Sesion Iniciada");
+          toast.success("Sesion Iniciada",{
+            autoClose: 500
+          });
           // show({ message: LOGIN.loginSuccess, type: "success" });
           // toast.dismiss(toastLoading)
           // toast.dismiss(toastLoading)
@@ -105,6 +109,13 @@ const Login: React.FC = React.memo(() => {
   },[])
 
 
+  if(isLoading){
+    return (
+      <div className="loginFormContainer mx-auto w-[90%] md:w-[50%] lg:w-[40%] xl:w-[30%] !mt-[18vh]">
+        <div className="flex items-center justify-center h-[20vh]"><Spinner className="h-20 w-20" style={{ color: '#f39c12' }} /></div>
+    </div>
+    )
+  }
 
   return (
     <div className="loginFormContainer mx-auto w-[90%] md:w-[50%] lg:w-[40%] xl:w-[30%] !mt-[18vh]">

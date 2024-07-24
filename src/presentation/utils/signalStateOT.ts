@@ -1500,7 +1500,7 @@ export const updateOT = async (
       _origen: _origen.toString(),
       _rut: ``,
       _destino: _destino.toString(),
-      _estado: "20",
+      _estado: _estado || "20",
       _usuario: `${user}`,
       _situacion: situacion || "0",
       _obs: _obs || "",

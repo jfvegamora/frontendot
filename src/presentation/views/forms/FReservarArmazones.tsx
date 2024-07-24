@@ -161,11 +161,11 @@ const FReservarArmazones = () => {
     }
   })
 
-  React.useEffect(()=>{
-    if(!isMobile){
-      navigate('/landing')
-    }
-  },[])
+  // React.useEffect(()=>{
+  //   if(!isMobile){
+  //     navigate('/landing')
+  //   }
+  // },[])
 
   const formValues = getValues();
 
@@ -661,12 +661,12 @@ useEffect(()=>{
 
   
     return (
-        <form className=" w-screen  mx-auto px-6 !overflow-x-hidden form-container-reserva" onSubmit={handleSubmit((data)=> handleSaveChange(data))}>
+        <form className=" w-screen bg-red-300  mx-auto px-6 !overflow-x-hidden form-container-reserva" onSubmit={handleSubmit((data)=> handleSaveChange(data))}>
 
-          <div className=" mt-[6rem] !mx-auto">
+          <div className=" mt-[20vh] !mx-auto bg-blue-500">
 
             {isOnline.value === false && isDataLocal.value === true && (
-              <Button className='relative bottom-4 right-0 text-base ' onClick={()=>handleUploadata()}>Subir Reservas</Button>
+              <Button className='absolute top-20 right-0 text-base z-30 ' onClick={()=>handleUploadata()}>Subir Reservas</Button>
             )}
 
 

@@ -20,7 +20,7 @@ import {
   useAppDispatch,
   useAppSelector
 } from "../../../redux/store";
-import { filterToggle } from "../../components/FilterButton";
+import { filterToggle, switchAtrasadas } from "../../components/FilterButton";
 import { clearData, fetchColores, fetchOT } from "../../../redux/slices/OTSlice";
 // import StateCountBarOT from "../../components/StateCountBarOT";
 import { signal } from "@preact/signals-react";

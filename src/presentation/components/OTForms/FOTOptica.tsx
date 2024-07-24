@@ -197,8 +197,6 @@ React.useEffect(()=>{
     }
 },[])
 
-console.log(permisos_usuario_areas)
-console.log(permiso_usuario_workTracking)
 
 return (
     <form action="" onKeyDown={handleKeyDown} className='  h-[85vh]'>

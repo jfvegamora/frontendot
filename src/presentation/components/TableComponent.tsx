@@ -258,7 +258,6 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
               const folio             = rowData[1]
               let estado              = ""
               if(isOT){
-                console.log(rowData)
                 estado                = rowData[4]
               }
 
@@ -276,10 +275,10 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                     const color                 = ( 
                                                     isOT 
                                                       ? (rowData[OTGrillaEnum.por_vencer] === 'S' && 
-                                                          ( rowData[OTGrillaEnum.estado_id] === 10 ||
-                                                            rowData[OTGrillaEnum.estado_id] === 20 ||
-                                                            rowData[OTGrillaEnum.estado_id] === 30 ||
-                                                            rowData[OTGrillaEnum.estado_id] === 40
+                                                          ( rowData[OTGrillaEnum.estado_id] !== 10 ||
+                                                            rowData[OTGrillaEnum.estado_id] !== 20 ||
+                                                            rowData[OTGrillaEnum.estado_id] !== 30 ||
+                                                            rowData[OTGrillaEnum.estado_id] !== 40
                                                           )) 
                                                       ? "bg-black" : "" : "");
                     const type                  = color === 'bg-black' ? 1 : 0
