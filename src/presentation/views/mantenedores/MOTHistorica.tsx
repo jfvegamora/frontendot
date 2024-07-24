@@ -528,7 +528,7 @@ const MOTHistorica: React.FC = () => {
                   { name: "_fecha_desde", label: "Atención Desde", type: "date", styles: {styles:"labelInput inputStyles",container:"w-[11vw] translate-x-[-2vw]" } },
                   { name: "_fecha_hasta", label: "Atención Hasta", type: "date", styles: {styles:"labelInput inputStyles", container:"w-[11vw] translate-x-[-5.5vw]" } },
     
-                { name: "_estado", label: "Estado", type: "select", selectUrl: "/api/tipos/", tipos: "OTEstados", 
+                { name: "_estado", label: "Estado", type: "select", selectUrl: "/api/tipos/", tipos: "OTEstadosFiltro", 
                   styles: { 
                     styles:"labelInput inputStyles w-[25vw]",
                     container:"!w-[25vw] -translate-x-[-0.5vw] translate-y-[18%] ml-2 ", 
@@ -564,7 +564,7 @@ const MOTHistorica: React.FC = () => {
                     labelProps: "labelInput"
                   }},
     
-                { name: "_p2", label: "Tipo Doc", type: "select", selectUrl: "/api/tipos/", tipos: "OTNumDoc", 
+                { name: "_p2", label: "Tipo Doc", type: "select", selectUrl: "/api/tipos/", tipos: "TipoDoc", 
                   styles: {
                     styles:"labelInput inputStyles",
                     container:"!w-[22.5vw]  translate-x-[-2.5vw] ", 

@@ -4,7 +4,7 @@ import { toast } from "react-toastify"
 
 export const handleActionOTButtons = async(
     folios:any,
-    estado:number,
+    estado:any,
     situacion:any,
     origen:any,
     destino:any,

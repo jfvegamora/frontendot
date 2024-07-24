@@ -11,6 +11,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { paramsOT } from '../../views/mantenedores/MOT';
 import { OTGrillaEnum } from '../../Enums';
 import { handleActionOTButtons } from '../../utils/FOTPendiente_utils';
+import { toast } from 'react-toastify';
 
 
 interface IPendiente {
@@ -75,8 +76,14 @@ const FOTPendiente: React.FC<IPendiente> = ({
 
     const onSubmit: SubmitHandler<FormData> = async (jsonData) => {
         // fetchDerivacion(jsonData)
-        let estado = 30;
-        console.log(data)
+        let estado = '30';
+
+
+        if(data[EnumGrid.estado_id] === 25){
+            return  toast.error(`Folio ${data[EnumGrid.folio]} se encuentra en Stand-By.`);
+        }
+
+
         if (isMasivo) {
             let usuarioID = data[0]["usuario_id"]
             const folios = data.map((dataOT: any) => dataOT.folio).join(',')

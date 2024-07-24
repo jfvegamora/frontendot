@@ -12,6 +12,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { paramsOT } from '../../views/mantenedores/MOT';
 import { OTGrillaEnum } from '../../Enums';
 import { handleActionOTButtons } from '../../utils/FOTPendiente_utils';
+import { toast } from 'react-toastify';
 
 
 interface IDerivacion {
@@ -69,7 +70,15 @@ const FOTDerivacion: React.FC<IDerivacion> = ({
 
 
     const onSubmit: SubmitHandler<FormData> = async (jsonData) => {
-        let estado = 40;
+        let estado = '40';
+
+
+        if(data[EnumGrid.estado_id] === 25){
+            return  toast.error(`Folio ${data[EnumGrid.folio]} se encuentra en Stand-By.`);
+
+        }
+
+
 
         if (isMasivo) {
             let usuarioID = data[0]["usuario_id"]

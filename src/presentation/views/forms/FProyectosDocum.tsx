@@ -308,7 +308,7 @@ const FProyectosDocum: React.FC<IUserFormPrps> = React.memo(
                     showRefresh={true}
                     data={data && data[ProyectosDocumEnum.tipo_doc_id]}
                     control={control}
-                    entidad={["TipoDoc", "6,7"]}
+                    entidad={["TipoDocForm", "6,7"]}
                     error={errors.tipo_doc}
                     customWidth={"labelInput inputStyles"}
                   />
@@ -365,12 +365,12 @@ const FProyectosDocum: React.FC<IUserFormPrps> = React.memo(
               <div className="input-container items-center rowForm w-[50%]">
                 <div className="selectInputDiv">
                   <SelectInputTiposComponent
-                    label="Tipo Doc. Referenciado"
+                    label="Tipo Doc. Ref."
                     name="tipo_doc_ref"
                     showRefresh={true}
                     data={data && data[ProyectosDocumEnum.tipo_doc_ref_id]}
                     control={control}
-                    entidad={["TipoDoc", "5,6,7"]}
+                    entidad={["TipoDocRef", "5,6,7"]}
                     customWidth={"labelInput inputStyles"}
                     error={errors.tipo_doc}
                   />

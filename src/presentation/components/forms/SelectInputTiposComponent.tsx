@@ -65,23 +65,33 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
     labelProps,
     labelContainer
   }) => {
-    const stateListBox = useAppSelector((store: AppStore) => store.listBoxTipos[entidad]);
+    const nameInputInRedux = typeof entidad === 'string' ? entidad : entidad[0];
+
+    const stateListBox = useAppSelector((store: AppStore) => store.listBoxTipos[nameInputInRedux]);
+    const stateListBox2 = useAppSelector((store: AppStore) => store.listBoxTipos);
     const [entities, setEntities] = useState(stateListBox|| []);
     const [strSelectedName, setStrSelectedName] = useState(data  || undefined);
     const inputRef = useRef(null); 
     const {token} = useAppSelector((store: AppStore) => store.user);
     const params = typeof entidad === 'string' ? entidad : `${entidad[0]}&_p2=${entidad[1]}`
     const dispatch = useAppDispatch()
-    
+
+
     const fetchData = async () => {
       try {
-        if (!stateListBox || stateListBox.length < 1) {
+        console.log(stateListBox)
+        if (true) {
           const { data } = await axios(`${URLBackend}/api/tipos/listado/?query=02&_p1=${params}`,{
             headers: {
                'Authorization': token, 
              }
        });
-        dispatch(updateDataForKey({label, data}))
+
+
+       
+
+       console.log(data)
+        dispatch(updateDataForKey({nameInputInRedux, data}))
           
         }
       } catch (error:any) {
@@ -102,12 +112,22 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
       setEntities(stateListBox)
     },[stateListBox])
 
+
     useEffect(()=>{
       if(resetFilters.value === true){
         setStrSelectedName('')
       }
     },[resetFilters.value])
 
+
+
+    console.log(stateListBox)
+    console.log(entidad)
+    console.log(typeof entidad === 'string' ? entidad : entidad[0])
+    console.log(stateListBox2)
+
+
+    console.log(params)
     
     const renderInput = () => (
       <Controller

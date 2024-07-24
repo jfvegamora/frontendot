@@ -106,7 +106,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
         'Punto de Venta':""
       }
 
-
+      console.log(state)
       
       if(Object.keys(state).some((key)=> key === label)){
         if(!entidad[2]){

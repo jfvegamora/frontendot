@@ -263,23 +263,52 @@ export const validateLocalArmazon = (db: IDBDatabase, data: any) => {
       ["reserva_armazones"],
       "readonly"
     );
+
     const objectStore: IDBObjectStore =
       transaction.objectStore("reserva_armazones");
-    const request: IDBRequest<IDBValidKey> = objectStore.get(
-      data["codArmazon"]
-    );
+    const request: IDBRequest<IDBValidKey[]> = objectStore.getAll();
+
+    // console.log(request);
+    // const request: IDBRequest<IDBValidKey> = objectStore.get(
+    //   data["codArmazon"]
+    // );
 
     request.onsuccess = function (event: Event) {
-      const resultArmazon: any = (event.target as IDBRequest).result;
+      const result: any = (event.target as IDBRequest).result;
+      const resultArmazon = result.filter(
+        (OT: any) => OT.cod_armazon.slice(-5) === data["codArmazon"]
+      );
       console.log(resultArmazon);
-      if (resultArmazon && resultArmazon.cod_armazon !== "") {
+
+      console.log(
+        resultArmazon.filter(
+          (OT: any) => OT.cod_armazon.slice(-5) === data["codArmazon"]
+        )
+      );
+
+      if (resultArmazon.length === 0) {
+        console.log("error");
+        reject("error");
+      }
+
+      if (
+        resultArmazon &&
+        resultArmazon[0] &&
+        resultArmazon[0]?.cod_armazon !== ""
+      ) {
+        console.log(resultArmazon);
         const diametroEfectivo =
-          resultArmazon["aro"] +
-            resultArmazon["puente"] +
-            resultArmazon["diagonal"] -
-            parseInt(data["dp"]) <=
+          resultArmazon[0]["aro"] +
+            resultArmazon[0]["puente"] +
+            resultArmazon[0]["diagonal"] -
+            parseInt(data["dp"]) +
+            2 <=
           65;
-        resolve(diametroEfectivo);
+
+        resolve({
+          diametroEfectivo,
+          cod_armazon: resultArmazon[0]["cod_armazon"],
+        });
       }
     };
 

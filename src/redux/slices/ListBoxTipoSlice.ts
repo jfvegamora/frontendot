@@ -172,12 +172,12 @@ const listBoxTiposSlice = createSlice({
   initialState,
   reducers: {
     updateDataForKey: (state, action) => {
-      const { data, label } = action.payload;
+      const { data, nameInputInRedux } = action.payload;
 
-      console.log({ label, data });
-
-      if (!state.hasOwnProperty(label)) {
-        state[label] = data;
+      console.log({ nameInputInRedux, data });
+      console.log(state);
+      if (!state.hasOwnProperty(nameInputInRedux)) {
+        state[nameInputInRedux] = data;
       }
       console.log(state);
     },

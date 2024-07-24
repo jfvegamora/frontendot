@@ -23,7 +23,7 @@ import { filterToggle, switchAtrasadas } from "./FilterButton";
 // SelectInputComponent
 
 const SelectInputComponent      = React.lazy(()=>import("./forms/SelectInputComponent"))
-const SelectFilterInputComponent      = React.lazy(()=>import("./forms/SelectInputComponent"))
+// const SelectFilterInputComponent      = React.lazy(()=>import("./forms/SelectInputComponent"))
 const SelectInputTiposComponent  = React.lazy(()=>import("./forms/SelectInputTiposComponent"))
 
 

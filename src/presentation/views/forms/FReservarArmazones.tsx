@@ -20,7 +20,7 @@ import { URLBackend } from '../../hooks/useCrud';
 import axios from 'axios';
 import { fetchReservaArmazones, getLocalArmazones, isDataLocal, isOnline, responseArmazones } from '../../utils/FReservaArmazones_utils';
 import { clearBaseDatos, getArmazones, getBeneficiarios, isExistArmazon, isExistBeneficiario, openDatabase, setArmazones, setReservaBeneficiario, validateLocalArmazon } from '../../utils/indexedDB';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { clearRutCliente } from '../../utils/FOTClientes_utils';
 
 // import { useNavigate } from 'react-router-dom';
@@ -134,9 +134,9 @@ const FReservarArmazones = () => {
   const [isLoading, setisLoading]     = React.useState<boolean>(false);
   const schema                        = validationReservaArmazonesSchema();
   const userID:any                    = useAppSelector((store: AppStore) => store.user?.id);
-  const userAgent = navigator.userAgent
-  const isMobile = /Mobi/.test(userAgent)
-  const navigate = useNavigate()
+  // const userAgent = navigator.userAgent
+  // const isMobile = /Mobi/.test(userAgent)
+  // const navigate = useNavigate()
 
 
 
@@ -193,6 +193,9 @@ const FReservarArmazones = () => {
 
       let json_data = [{}]
       console.log(json_data)
+      console.log(armazon)
+      console.log(codArmazon)
+      console.log(isOnline.value)
 
       if(codDP.value === ''){
         clearInputsArmazones(armazon)
@@ -274,7 +277,7 @@ const FReservarArmazones = () => {
               clearInputsArmazones(armazon)
             }
             
-
+            console.log(result)
             switch (armazon) {
               case 'Armazon1':
                 codArmazon1.value = result.data[0][0]
@@ -296,16 +299,37 @@ const FReservarArmazones = () => {
           }
         }
       }else{
+
         const dataValidateArmazon = {
           codArmazon,
-          punto_venta : punto_venta.value,
+          punto_venta : codPuntoVenta.value,
           proyecto    : codProyecto.value,
           dp          : codDP.value
         }
+        console.log(codPuntoVenta.value)
+        console.log(punto_venta.value)
+        console.log(dataValidateArmazon)
+
         await openDatabase().then(async(db:IDBDatabase)=>{
-          const resultValidateArmazon = await validateLocalArmazon(db, dataValidateArmazon);
-          if(!resultValidateArmazon){
+          const resultValidateArmazon:any = await validateLocalArmazon(db, dataValidateArmazon);
+          console.log(resultValidateArmazon)
+          if(!resultValidateArmazon["diametroEfectivo"]){
+            toast.error('Armazon no esta correctamente validado.')
             clearInputsArmazones(armazon)
+          }else{
+            switch (armazon) {
+              case 'Armazon1':
+                codArmazon1.value = resultValidateArmazon["cod_armazon"]
+                break;
+              case 'Armazon2':
+                codArmazon2.value = resultValidateArmazon["cod_armazon"]
+                break;
+              case 'Armazon3':
+                codArmazon3.value = resultValidateArmazon["cod_armazon"]
+                break;
+              default:
+                break;
+            }
           }
 
         })

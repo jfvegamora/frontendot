@@ -87,8 +87,9 @@ export const EnumAreas:any = {
   60: 5,
   70: 6,
   80: 7,
-  90: 8,
-  100: 9
+  85: 8,
+  90: 9,
+  100: 10
 }
 
 
@@ -153,7 +154,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
     const refFocusInput                               = React.useRef<any>(null);
 
     const permisos_usuario_areas = User.permisos_areas[EnumAreas[OTAreas["areaActual"]]]
-
+	  
     const folios = pkToDelete && pkToDelete.map(({folio}:any)=>folio)
 
 
@@ -196,30 +197,34 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
         let masivo          = true;
         let validarBodega   = false;
 
-        await updateOT(
-          [],
-          OTAreas["areaActual"],
-          OTAreas["areaActual"],
-          estado,
-          [],
-          pkToDelete[0],
-          [],
-          [],
-          User.id,
-          "",
-          masivo,
-          '',
-          validarBodega,
-          'Ingresar'
-        ).then(() => {
-          clearAllCheck.value = false;
-          // disabledIndividualCheck.value = true;
-          clearIndividualCheck.value = true;
-          toast.success('Estado cambiado correctamente.',{
-            autoClose: 500
-          })
-          dispatch(fetchOT({OTAreas:OTAreas["areaActual"], searchParams: paramsOT.value}))
-        })
+        await pkToDelete.map(async(OT:any)=>{
+          await updateOT(
+            [],
+            OTAreas["areaActual"],
+            OTAreas["areaActual"],
+            estado,
+            [],
+            OT,
+            [],
+            [],
+            User.id,
+            "",
+            masivo,
+            '',
+            validarBodega,
+            'Ingresar'
+          ).then(() => {
+            clearAllCheck.value = false;
+            // disabledIndividualCheck.value = true;
+            clearIndividualCheck.value = true;
+            dispatch(fetchOT({OTAreas:OTAreas["areaActual"], searchParams: paramsOT.value}))
+            
+        })    
+      })
+      toast.success('Estado cambiado correctamente.',{
+        autoClose: 500
+      })
+      
       } catch (error) {
         console.log(error)
       }
@@ -634,6 +639,9 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
     }
 
 
+    console.log(permisos_usuario_areas)
+
+    console.log(areaPermissions)
 
     return (
     <div className='flex items-center   ml-[4rem] !w-full'>
@@ -678,7 +686,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
         )
         } */}
 
-        {(areaPermissions && areaPermissions[3] === "1") && (
+        {(areaPermissions && areaPermissions[3] === "1") && (permisos_usuario_areas  === '1') && (
            renderButton(
             <LuBox className="primaryBtnIcon " />,
             handleUbicacion!,
@@ -807,6 +815,9 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
               if(pkToDelete.length === 0){
                 return toast.error('No hay OT seleccionada.')
               }
+              if(pkToDelete.some((OT:any)=> OT.estado_id === 25)){
+                return  toast.error(`Folio ${folios} se encuentra en Stand-By.`);
+              }
               setisFOTPendiente(true)
              }}>Pausar</Button>  
           </Tooltip>
@@ -820,6 +831,11 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
                 if(pkToDelete.length === 0){
                   return toast.error('No hay OT seleccionada.')
                 }
+
+                if(pkToDelete.some((OT:any)=> OT.estado_id === 25)){
+                  return  toast.error(`Folio ${folios} se encuentra en Stand-By.`);
+                }
+  
                 setisFOTDerivacion(true)
               }}>Derivar</Button>
           </Tooltip>

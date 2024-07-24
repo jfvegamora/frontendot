@@ -254,7 +254,7 @@ const MOT: React.FC = () => {
                 { name: "_fecha_hasta", label: "Atención Hasta", type: "date", styles: {styles:"labelInput inputStyles", container:"w-[11vw] translate-x-[-6vw]" } },
                 { name: "_usuario", label: "Digitador/a", type: "select",selectUrl: "/api/usuarios/", styles: { styles: "!w-[24vw] inputStyles labelInput", container: " !w-[24vw] !z-30 text-[1vw] translate-x-[0.7vw] " } },
                 
-                { name: "_estado", label: "Estado", type: "select", selectUrl: "/api/tipos/", tipos: "OTEstados", styles: { styles: "!w-[20vw] labelInput inputStyles", container:" !w-[20vw] translate-x-[8.5vw] !h-[3vw] !z-30 text-[1vw] translate-y-[-0.3rem]",labelProps: "labelInput" }},
+                { name: "_estado", label: "Estado", type: "select",selectUrl: "/api/tipos/", tipos: "OTEstadosFiltro", styles: { styles: "!w-[20vw] labelInput inputStyles", container:" !w-[20vw] translate-x-[8.5vw] !h-[3vw] !z-30 text-[1vw] translate-y-[-0.3rem]",labelProps: "labelInput" }},
                 { name: "_nombre", label: "Nombre", type: "text" , styles:{with: "labelInput inputStyles w-full",container:"!w-[29vw]   translate-x-[-6vw]",labelProps: "labelInput" } },
                 { name: "_p1", label: "RBD", type: "text" , styles:{ with:"labelInput inputStyles !w-[8vw]", container:"w-[8vw] translate-x-[-7vw] ml-14", labelProps: "labelInput" } },
                 
