@@ -470,16 +470,12 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
 
 
     const handleProcesarMasivo = async() => {
-      console.log(pkToDelete)
-
-      console.log(OTAreas["areaActual"])
-
       let estado = '20'
       if(pkToDelete.length === 0){
         return toast.error('No hay OT seleccionada')
       }
       const validateEstado           = pkToDelete.every((ot:any) => ot["estado_validacion"] === '2');
-      const validateEstadoStandBy    = pkToDelete.every((ot:any) => ot["estado_id"] === 25);
+      const validateEstadoStandBy    = pkToDelete.some((ot:any) => ot["estado_id"] === 25);
       // const validateUsuario          = pkToDelete.every((ot:any) => ot["usuario_id"] === User.id);
       const validateProyecto         = pkToDelete.every((ot:any) => ot["proyecto_codigo"] === pkToDelete[0]["proyecto_codigo"]);
       const validateEstadoImpresion  = pkToDelete.every((ot:any) => ot["estado_impresion"] === '1');

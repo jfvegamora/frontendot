@@ -947,17 +947,13 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
         if(title === 'Ot' || title === 'Othistorica'){
           title = "Sistema Gestión de OT"
         }
-
         document.title = title;
       }else{
         document.title = titleSearch.value
       }
-    },[titleSearch.value])
-    
-  console.log(cristalDescritpion[3]
+    },[titleSearch.value, switchAtrasadas.value])
 
 
-  )
     return (
       <form className="primaryKeyContainer !items-center relative !text-[2vw]">
         {renderInputs()}
