@@ -685,9 +685,9 @@ useEffect(()=>{
 
   
     return (
-        <form className=" w-screen bg-red-300  mx-auto px-6 !overflow-x-hidden form-container-reserva" onSubmit={handleSubmit((data)=> handleSaveChange(data))}>
+        <form className=" w-screen  mx-auto px-6 !overflow-x-hidden form-container-reserva" onSubmit={handleSubmit((data)=> handleSaveChange(data))}>
 
-          <div className=" mt-[20vh] !mx-auto bg-blue-500">
+          <div className=" mt-[20vh] !mx-auto">
 
             {isOnline.value === false && isDataLocal.value === true && (
               <Button className='absolute top-20 right-0 text-base z-30 ' onClick={()=>handleUploadata()}>Subir Reservas</Button>
