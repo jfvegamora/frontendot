@@ -409,7 +409,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
             switch (casoEjecutar) {
                 case 'ProcesarTB':
                     destino = OTAreas["areaSiguiente"]
-                    estado  = 25
+                    estado  = '25'
                     situacion = '0'
 
                     console.log('ejecutando procesar')
@@ -444,7 +444,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                 case 'conCristales':
                     console.log('ejecutando con cristales')
                     destino = OTAreas["areas"].map((area:any)=>area).filter((areaAuxiliar:any)=>areaAuxiliar[1] === 60)[0][7]
-                    estado  = 30
+                    estado  = '30'
                     situacion = '4'
 
                     console.log('ejecutando procesar')
@@ -479,7 +479,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                 case 'sinCristales':
                     console.log('ejecutando con cristales')
                     destino = OTAreas["areas"].map((area:any)=>area).filter((areaAuxiliar:any)=>areaAuxiliar[1] === 60)[0][7]
-                    estado  = 30
+                    estado  = '30'
                     situacion = '5'
 
                     console.log('ejecutando procesar')

@@ -46,6 +46,7 @@ export enum EnumGrid {
   permiso_bodega_insumo           = 25,
   permiso_taller_biselado_id      = 26,
   permiso_Taller_biselado         = 27,
+
   permiso_taller_montaje_id       = 28,
   permiso_taller_montaje          = 29,
   permiso_bodega_p_terminados_id  = 30,

@@ -103,7 +103,7 @@ const Login: React.FC = React.memo(() => {
 
 
   React.useEffect(()=>{
-    if(userState?.id){
+    if(userState && userState.id){
       navigate('/landing')
     }
   },[])

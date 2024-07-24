@@ -149,7 +149,7 @@ export const fetchListBoxTipos = createAsyncThunk(
           },
         }
       );
-      //    console.log(data)
+      console.log(data);
       return data;
     } catch (error) {
       throw error;

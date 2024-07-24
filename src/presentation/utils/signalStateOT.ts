@@ -1452,7 +1452,7 @@ export const updateOT = async (
   jsonData: any,
   _origen: any,
   _destino: any,
-  _estado: number,
+  _estado: any,
   _formValues: any,
   data: any,
   cristalOri: any,

@@ -180,6 +180,51 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
     //   }
     // })
 
+    const handleIngresoBiselado = async() => {
+      try {
+
+        const filterFolios  = await pkToDelete.filter((OT:any)=>(OT.estado_id === 20)).map((OT:any)=>OT.folio);
+        const validateState = await pkToDelete.some((OT:any)=>OT.estado_id === 20);
+        
+        if(validateState){
+          return toast.error(`Folio: ${filterFolios} Ya se encuentra en Proceso. `,
+          )
+          
+        }
+
+        let estado          = '20';
+        let masivo          = true;
+        let validarBodega   = false;
+
+        await updateOT(
+          [],
+          OTAreas["areaActual"],
+          OTAreas["areaActual"],
+          estado,
+          [],
+          pkToDelete[0],
+          [],
+          [],
+          User.id,
+          "",
+          masivo,
+          '',
+          validarBodega,
+          'Ingresar'
+        ).then(() => {
+          clearAllCheck.value = false;
+          // disabledIndividualCheck.value = true;
+          clearIndividualCheck.value = true;
+          toast.success('Estado cambiado correctamente.',{
+            autoClose: 500
+          })
+          dispatch(fetchOT({OTAreas:OTAreas["areaActual"], searchParams: paramsOT.value}))
+        })
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
     const handleImpresionMasivo = async () => {      
       console.log(pkToDelete)
       if(pkToDelete.length === 0){
@@ -429,14 +474,23 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
 
       console.log(OTAreas["areaActual"])
 
-      let estado = 20
+      let estado = '20'
       if(pkToDelete.length === 0){
         return toast.error('No hay OT seleccionada')
       }
       const validateEstado           = pkToDelete.every((ot:any) => ot["estado_validacion"] === '2');
+      const validateEstadoStandBy    = pkToDelete.every((ot:any) => ot["estado_id"] === 25);
       // const validateUsuario          = pkToDelete.every((ot:any) => ot["usuario_id"] === User.id);
       const validateProyecto         = pkToDelete.every((ot:any) => ot["proyecto_codigo"] === pkToDelete[0]["proyecto_codigo"]);
       const validateEstadoImpresion  = pkToDelete.every((ot:any) => ot["estado_impresion"] === '1');
+
+
+      console.log(validateEstadoStandBy)
+      
+      if(validateEstadoStandBy){
+        return toast.error(`Folio ${folios} se encuentra en Stand-By.`);
+
+      }
 
       // const foliosMensaje = pkToDelete && pkToDelete.map(({folio}:any)=>folio)
       
@@ -486,10 +540,10 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
       const updatePromises = pkToDelete.map(async(ot:any)=>{
         if(OTAreas["areaActual"] === 90 || OTAreas["areaActual"] === 100){
           if(ot.numero_envio !== '0'){
-            estado = 50
+            estado = '50'
           }
           if(ot.numero_reporte_firma !== 0){
-            estado = 20
+            estado = '20'
           }
         }
         await updateOT(
@@ -710,7 +764,17 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
           )}
 
 
-
+{(OTAreas["areaActual"] === 70) && (
+          <Tooltip content={BUTTON_MESSAGES.procesar}>
+          {/* <button className='bg-green-400 mx-4 transition-transform transform hover:scale-110 active:scale-95 w-[10rem] h-[2.5rem]  text-white '  */}
+          <Button  type="submit" className='otActionButton mx-4 bg-blue-500' onClick={()=>{
+            if(pkToDelete.length === 0){
+              return toast.error('No hay OT seleccionada.')
+            }
+            handleIngresoBiselado()
+          }}>Ingresar</Button>
+        </Tooltip>
+        )}
 
 
 
@@ -736,6 +800,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
         )}
 
 
+        
 
 
 
@@ -750,6 +815,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
              }}>Pausar</Button>  
           </Tooltip>
         )}
+
 
         {areaPermissions && areaPermissions[3] === '1' && permisos_usuario_areas !== '0' &&  (OTAreas["areaActual"] !== 60) && (
           <Tooltip content={BUTTON_MESSAGES.procesar}>
