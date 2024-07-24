@@ -31,22 +31,21 @@ export interface InputData {
   correo: string | undefined;
   estado: string | undefined;
 
-
-  permiso_venta: string | undefined;
-  permiso_bodega: string | undefined;
-  permiso_biselado: string | undefined;
-  permiso_montaje: string | undefined;
-  permiso_bodega_prod_term: string | undefined;
-  permiso_empaque: string | undefined;
   permiso_adquisiciones: string | undefined;
   permiso_calculo: string | undefined;
   permiso_control: string | undefined;
   permiso_laboratorio: string | undefined;
+  permiso_venta: string | undefined;
+  permiso_bodega_insumos: string | undefined;
+  permiso_biselado: string | undefined;
+  permiso_montaje: string | undefined;
+  permiso_qa: string | undefined;
+  permiso_bodega_prod_term: string | undefined;
+  permiso_empaque: string | undefined;
 
   permiso_facturacion: string | undefined;
   permiso_post_venta: string | undefined;
   permiso_anulacion: string | undefined;
-
 
   permiso_editar_armazon: string | undefined;
   permiso_editar_estado_impresion: string | undefined;
@@ -75,9 +74,10 @@ const permiso_area = [
   "permiso_calculo",
   'permiso_laboratorio',
   "permiso_venta",
-  "permiso_bodega",
+  "permiso_bodega_insumos",
   "permiso_biselado",
   "permiso_montaje",
+  "permiso_qa",
   "permiso_bodega_prod_term",
   "permiso_empaque",
 ];
@@ -382,7 +382,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
     }, [data])
 
     return (
-      <div className="useFormContainer centered-div w-[80rem]">
+      <div className="useFormContainer centered-div w-[90%]">
         <div className="userFormBtnCloseContainer flex justify-between ">
           <h1 className="userFormLabel mx-auto">{label}</h1>
           <button onClick={closeModal} className="userFormBtnClose mr-4">
@@ -541,10 +541,10 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                           <RadioButtonComponent
                             control={control}
                             label="Bodega Insumos"
-                            name="permiso_bodega"
-                            data={formValues && formValues["Bodega Insumos"] || data && data[EnumGrid.permiso_bodega_insumo]}
+                            name="permiso_bodega_insumos"
+                            data={formValues && formValues["Bodega Insumos"] || data && data[EnumGrid.permiso_bodega_insumos]}
                             options={["Lectura", "Escritura"]}
-                            error={errors.permiso_bodega}
+                            error={errors.permiso_bodega_insumos}
                             horizontal={false}
                             onChange={(e: any) => handleChange(e)}
                             labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.2vw]"}
@@ -558,7 +558,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                             control={control}
                             label="Taller Biselado"
                             name="permiso_biselado"
-                            data={formValues && formValues["Taller Biselado"] || data && data[EnumGrid.permiso_Taller_biselado]}
+                            data={formValues && formValues["Taller Biselado"] || data && data[EnumGrid.permiso_taller_biselado]}
                             options={["Lectura", "Escritura"]}
                             error={errors.permiso_biselado}
                             horizontal={false}
@@ -577,6 +577,22 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                             data={formValues && formValues["Taller Montaje"] || data && data[EnumGrid.permiso_taller_montaje]}
                             options={["Lectura", "Escritura"]}
                             error={errors.permiso_montaje}
+                            horizontal={false}
+                            onChange={(e: any) => handleChange(e)}
+                            labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.2vw]"}
+                            customWidth={"labelInput inputStyles"}
+                          />
+                        </div>
+                      </div>
+                      <div className="input-container items-center rowForm w-[14]">
+                        <div className="w-full">
+                          <RadioButtonComponent
+                            control={control}
+                            label="Control Calidad"
+                            name="permiso_qa"
+                            data={formValues && formValues["Control Calidad"] || data && data[EnumGrid.permiso_qa]}
+                            options={["Lectura", "Escritura"]}
+                            error={errors.permiso_qa}
                             horizontal={false}
                             onChange={(e: any) => handleChange(e)}
                             labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.2vw]"}
