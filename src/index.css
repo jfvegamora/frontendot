@@ -55,23 +55,23 @@ body {
 
 
 .labelInput label{
-  font-size:18px !important;
-  /* transform: translateY(-10px) !important; */
+  font-size:20px !important;
 }
 
 .labelStyles{
-  font-size:  18px !important;
+  font-size:  20px !important;
   font-weight: bold;
 }
 
 .labelInput0{
-  font-size: 18px !important;
+  font-size: 20px !important;
   margin: 0px;
   padding: 0px;
 }
 .labelInput{
   font-size: 20px !important;
-  /* padding-top:1.7rem; */
+  /* background: red;
+  color: blue; */
 }
 .labelInputx2{
   font-size: 32px !important;

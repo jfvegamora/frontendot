@@ -116,7 +116,7 @@ const MAccesoriosKardex: React.FC = () => {
                 _p1: "02"
               },
               
-              { name: "_p1", label: "Código (?)", type: "text", styles:{
+              { name: "_p1", label: "Código", type: "text", styles:{
                 styles:"labelInput inputStyles",
                 container:"!w-[13vw] -translate-x-[34vw] translate-y-[0.3vw]", 
                 labelProps: "labelInput"

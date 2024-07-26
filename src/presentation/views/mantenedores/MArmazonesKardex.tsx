@@ -12,6 +12,7 @@ import { useEntityUtils, usePermission } from "../../hooks";
 import FArmazonesKardexIN from "../forms/FArmazonesKardexIN";
 import FArmazonesKardexOUT from "../forms/FArmazonesKardexOUT";
 import { TITLES, table_head_kardex } from "../../utils";
+import { toast } from "react-toastify";
 
 export enum EnumGrid {
   fecha = 1,
@@ -83,6 +84,15 @@ const MArmazonesKardex: React.FC = () => {
     setPkToDelete([`${strParamsToDelete}=[${combinedPks}]`]);
   }, [selectedRows]);
 
+  useEffect(() => {
+    const strMsg = `${<div>
+    Línea 1<br />
+    Línea 2<br />
+    Línea 3
+  </div>}`;     
+    toast.error(strMsg);
+  }, []);
+
   return (
     <div className="mantenedorContainer">
       <div className="mantenedorHead width100 h-[9.5rem]">
@@ -99,9 +109,9 @@ const MArmazonesKardex: React.FC = () => {
                 type: "select",
                 selectUrl: "/api/kardexmotivos/", 
                 styles: { 
-                  styles:"labelInput inputStyles w-[20vw]",
+                  styles:"w-[22vw]",
                   container:"ml-[1vw] translate-x-[-1vw] translate-y-[5.5vw] ", 
-                  labelProps: "labelInput"
+                  labelProps: "labelInput inputStyles"
                 },
                 _p1: "01"
               },
@@ -111,17 +121,17 @@ const MArmazonesKardex: React.FC = () => {
                 type: "select",
                 selectUrl: "/api/kardexmotivos/", 
                 styles: { 
-                  styles:"labelInput inputStyles w-[20vw]",
+                  styles:"labelInput inputStyles w-[22vw]",
                   container:"ml-[1vw] -translate-x-[-2vw] translate-y-[5.5vw] ", 
-                  labelProps: "labelInput"
+                  labelProps: ""
                 },
                 _p1: "02"
               },
               
-              { name: "_p1", label: "Código (?)", type: "text", styles:{
+              { name: "_p1", label: "Código", type: "text", styles:{
                 styles:"labelInput inputStyles",
                 container:"!w-[13vw] -translate-x-[34vw] translate-y-[0.3vw]", 
-                labelProps: "labelInput"
+                labelProps: "labelInput inputStyles"
               } },
               
               {
