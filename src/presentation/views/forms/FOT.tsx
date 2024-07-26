@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Suspense, lazy } from 'react';
+import React, { useEffect, useState, Suspense, lazy, useCallback } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { AppStore, useAppDispatch, useAppSelector } from '../../../redux/store';
@@ -14,27 +14,21 @@ import {
   a1_armazon,
   a1_oi_ad,
   a2_armazon,
-  // a1_od_ad, a1_od_cil, a1_od_eje, a1_od_esf, 
-  a2_od_cil, a2_od_eje, a2_od_esf, a2_oi_cil, a2_oi_eje, a2_oi_esf, a3_armazon, armazonesJSONsignal, changeCodigoCristal_A1, changeCodigoCristal_A2, clearArmazonesData, clearDioptrias,
+  a2_od_cil, a2_od_eje, a2_od_esf, a2_oi_cil, a2_oi_eje, a2_oi_esf, a3_armazon, armazonesJSONsignal, clearArmazonesData, clearDioptrias,
   clearGrupos,
   clearSelectInput,
   codigoProyecto,
   cristalesJSONsignal,
   dioptrias_receta,
   fecha_atencion_signal,
-  // clearDioptriasA2,  dioptriasHabilitadas, 
   fecha_despacho, fecha_entrega_cliente, fecha_entrega_taller,
   getDatosOT,
-  getGrupoCristales_A1,
-  getGrupoCristales_A2,
   inputChangeActions,
   isExistClient,
   motivo_ot,
   numero_receta,
   oftalmologo_id,
-  // procesarRender, 
   punto_venta,
-  // reiniciarA2DioptriasReceta, 
   reiniciarDioptriasReceta, reiniciarValidationNivel1, reiniciarValidationNivel2, reiniciarValidationNivel3, secondProcessBodega, tipo_de_anteojo, updateOT, validacionIncompleta, validarNumeroDocumento, validar_parametrizacion, validationNivel1
 } from '../../utils';
 import { validationCliente, validationClienteComuna, validationClienteNombre, validationClienteSexo, validationClienteTelefono, validationClienteTipo, validationEstablecimientos, validationFechaAtencion, validationFechaDespacho, validationFechaEntregaCliente, validationFechaEntregaTaller, validationProyectos, validationPuntoVenta, validationTipoAnteojos, validation_A1_ALT, validation_A1_DP, validation_A1_OD_AD, validation_A1_OD_CILL, validation_A1_OD_EJE, validation_A1_OD_ESF, validation_A1_OI_AD, validation_A1_OI_CIL, validation_A1_OI_EJE, validation_A1_OI_ESF, validation_A1_armazon, validation_A2_DP, validation_A2_OD_CIL, validation_A2_OD_EJE, validation_A2_OD_ESF, validation_A2_OI_CIL, validation_A2_OI_EJE, validation_A2_OI_ESF, validation_A2_armazon, validation_Cristal1_color, validation_Cristal1_diametro, validation_Cristal1_diseño, validation_Cristal1_indice, validation_Cristal1_marca, validation_Cristal1_material, validation_Cristal1_od, validation_Cristal1_oi, validation_Cristal1_tratamiento, validation_Cristal2_color, validation_Cristal2_diametro, validation_Cristal2_diseño, validation_Cristal2_indice, validation_Cristal2_material, validation_Cristal2_od, validation_Cristal2_oi, validation_Cristal2_tratamiento, validation_cristal2_marca } from '../../utils/validationOT';
@@ -51,6 +45,7 @@ import { usePermission } from '../../hooks';
 import { useModal } from '../../hooks/useModal';
 import { paramsOT } from '../mantenedores/MOT';
 import { EnumAreas } from '../../components/OTPrimaryButtons';
+import { changeCodigoCristal_A1, changeCodigoCristal_A2, CR1_OD_LAB, CR1_OI_LAB, CR2_OD_LAB, CR2_OI_LAB, getGrupoCristales_A1, getGrupoCristales_A2, isToggleMontajeValidation } from '../../utils/FOTCristales_utils';
 // import { EnumAreas } from '../../components/OTPrimaryButtons';
 // import { usePermissionOT } from '../../hooks/usePermissionOT';
 // import { EnumAreas } from '../../components/OTPrimaryButtons';
@@ -96,6 +91,7 @@ export const onlyReadReceta = signal(false);
 export const a1Grupo = signal(0);
 export const tipo_lejos_cerca = signal(false);
 export const keepForm = signal(false);
+export const isNotFetching = signal(false);
 
 
 const FOT: React.FC<IFOTProps> = ({
@@ -152,7 +148,6 @@ const FOT: React.FC<IFOTProps> = ({
   let OTAreaActual = OTAreas["areaActual"]
 
   const permissions = (area: number) => OTAreaActual && OTAreas["areas"].find((permiso: any) => permiso[1] === area)
-  console.log(permissions(50))
 
   //PERMISOS DE CAMPOS
   const permisosCampos = useAppSelector((store: AppStore) => store.user?.permisos_campos);
@@ -197,8 +192,11 @@ const FOT: React.FC<IFOTProps> = ({
   }
 
 
-  console.log(permiso_area_worktraking)
+  console.log(permiso_usuario_grupo_dioptria)
 
+  React.useEffect(()=>{
+    isNotFetching.value = permiso_usuario_grupo_dioptria
+  },[permiso_usuario_grupo_dioptria])
 
   // console.log(permiso)
   const permisosAreasUsuario = useAppSelector((store: AppStore) => store.user?.permisos_areas);
@@ -234,6 +232,8 @@ const FOT: React.FC<IFOTProps> = ({
     setOTPermissions(permiso && permiso[5])
   }, [OTAreaActual])
 
+
+  
 
   React.useEffect(() => {
     dispatch(clearCodigos())
@@ -333,7 +333,7 @@ const FOT: React.FC<IFOTProps> = ({
     reiniciarValidationNivel1(keepForm);
     reiniciarValidationNivel3();
     clearGrupos(keepForm);
-    dispatch(clearCodigos())
+    dispatch(clearCodigos());
     clearAllInputsOT(clearCliente)
     clearSelectInput.value = false;
     toast.success(message)
@@ -374,7 +374,7 @@ const FOT: React.FC<IFOTProps> = ({
 
 
 
-    let _p1 = `${motivo},${_destino},${estado},"${estado_impresion}","${validar_parametrizacion_id}", "${jsonData.proyecto_codigo || codigoProyecto.value}",${jsonData.establecimiento_id || 1},"${jsonData.cliente_rut.trim() || formValues.cliente.cliente_rut.trim()}" ,${oftalmologo_id.value || 0} ,"${jsonData.fecha_atencion || fecha_atencion_signal.value}","${jsonData.fecha_entrega_taller || fecha_entrega_taller.value}","${jsonData.fecha_despacho || fecha_despacho.value}","${jsonData.fecha_entrega_cliente || fecha_entrega_cliente.value}",${punto_venta.value || 0},${numero_receta.value && numero_receta.value.trim() !== '' ? numero_receta.value : 0},"${formValues?.receta.fecha_receta ?? ""}",${jsonData.tipo_anteojo_id ?? 0},${typeof dioptrias_receta.value.a1_od.esf === 'string' && !Number.isNaN(dioptrias_receta.value.a1_od.esf) ? dioptrias_receta.value.a1_od.esf : 0},${typeof dioptrias_receta.value.a1_od.cil === 'string' && !Number.isNaN(dioptrias_receta.value.a1_od.cil) ? dioptrias_receta.value.a1_od.cil : 0},${typeof dioptrias_receta.value.a1_od.eje === 'string' && !Number.isNaN(dioptrias_receta.value.a1_od.eje) ? dioptrias_receta.value.a1_od.eje : 0},"${(typeof dioptrias_receta.value.a1_od.ad === 'string' && !Number.isNaN(dioptrias_receta.value.a1_od.ad)) ? dioptrias_receta.value.a1_od.ad : 0}",${typeof dioptrias_receta.value.a1_oi.esf === 'string' && !Number.isNaN(dioptrias_receta.value.a1_oi.esf) ? dioptrias_receta.value.a1_oi.esf : 0},${typeof dioptrias_receta.value.a1_oi.cil === 'string' && !Number.isNaN(dioptrias_receta.value.a1_oi.cil) ? dioptrias_receta.value.a1_oi.cil : 0},${typeof dioptrias_receta.value.a1_oi.eje === 'string' && !Number.isNaN(dioptrias_receta.value.a1_oi.eje) ? dioptrias_receta.value.a1_oi.eje : 0},"${typeof dioptrias_receta.value.a1_oi.ad !== 'string' && !Number.isNaN(dioptrias_receta.value.a1_oi.ad) ? dioptrias_receta.value.a1_oi.ad : 0}",${A1_DP.value !== '' ? A1_DP.value : 0},${formValues["receta"]["a1_alt"] > 0 ? formValues["receta"]["a1_alt"] : 0}, "${A1_GRUPO_OD.value.trim()}" ,"${A1_GRUPO_OI.value.trim()}" ,"${typeof a2_od_esf.value === 'string' ? a2_od_esf.value : 0}","${typeof a2_od_cil.value === 'string' ? a2_od_cil.value : 0}","${typeof a2_od_eje.value === 'string' ? a2_od_eje.value : 0}","${typeof a2_oi_esf.value === 'string' ? a2_oi_esf.value : 0}","${typeof a2_oi_cil.value === 'string' ? a2_oi_cil.value : 0}","${typeof a2_oi_eje.value === 'string' ? a2_oi_eje.value : 0}",${A2_DP.value.trim() || 0},"${A2_GRUPO_OD.value.trim()}","${A2_GRUPO_OI.value.trim()}" ,"${a1_armazon.value.trim() ?? 0}","${a2_armazon.value.trim() ?? 0}","${a3_armazon.value.trim() ?? 0}",${jsonData.cristal1_marca_id || 0},${jsonData.cristal1_diseno_id || 0},${jsonData.cristal1_indice_id || 0},${jsonData.cristal1_material_id || 0},${jsonData.cristal1_tratamiento_id || 0},${jsonData.cristal1_color_id || 0},${(typeof A1_Diametro.value === 'string' && A1_Diametro.value.trim() !== "") ? A1_Diametro.value : 0},"${A1_CR_OD.value.trim() ?? ""}","${A1_CR_OI.value.trim() ?? ""}",${jsonData.cristal1_tratamiento_adicional_id || 0},${jsonData.cristal2_marca_id || 0},${jsonData.cristal2_diseno_id || 0},${jsonData.cristal2_indice_id || 0},${jsonData.cristal2_material_id || 0},${jsonData.cristal2_tratamiento_id || 0},${jsonData.cristal2_color_id || 0},${(typeof A2_Diametro.value === 'string' && A2_Diametro.value.trim() !== "") ? A2_Diametro.value : 0},"${typeof A2_CR_OD.value === 'string' ? A2_CR_OD.value.trim() : ""}","${typeof A2_CR_OI.value === 'string' ? A2_CR_OI.value.trim() : " "}",${jsonData.cristal2_tratamiento_adicional_id || 0},${jsonData.motivo_garantia_id || 0},${jsonData.folio_asociado || 0},${isEditting ? 0 : jsonData.resolucion_garantia_id === 'Aceptada' ? '1' : '2'},"${jsonData.worktracking || 0}","${jsonData.nota_venta || 0}",${jsonData.numero_reporte_firma || 0},"${jsonData.numero_reporte_atencion || 0}","${jsonData.numero_orden_compra || 0}",${jsonData.numero_guia || 0},${jsonData.numero_factura || 0},"${jsonData.folio_interno_mandante || 0}","${jsonData.reporte_interno_mandante || 0}","${jsonData.numero_envio || 0}" ,${jsonData.total || 0},"${formValues?.receta.observaciones || ""}",${rbd_ubicacion},${rbd_cantidad}, ${rep_cantidad},"${estado_validacion}"`
+    let _p1 = `${motivo},${_destino},${estado},"${estado_impresion}","${validar_parametrizacion_id}", "${jsonData.proyecto_codigo || codigoProyecto.value}",${jsonData.establecimiento_id || 1},"${jsonData.cliente_rut.trim() || formValues.cliente.cliente_rut.trim()}" ,${oftalmologo_id.value || 0} ,"${jsonData.fecha_atencion || fecha_atencion_signal.value}","${jsonData.fecha_entrega_taller || fecha_entrega_taller.value}","${jsonData.fecha_despacho || fecha_despacho.value}","${jsonData.fecha_entrega_cliente || fecha_entrega_cliente.value}",${punto_venta.value || 0},${numero_receta.value && numero_receta.value.trim() !== '' ? numero_receta.value : 0},"${formValues?.receta.fecha_receta ?? ""}",${jsonData.tipo_anteojo_id ?? 0},${typeof dioptrias_receta.value.a1_od.esf === 'string' && !Number.isNaN(dioptrias_receta.value.a1_od.esf) ? dioptrias_receta.value.a1_od.esf : 0},${typeof dioptrias_receta.value.a1_od.cil === 'string' && !Number.isNaN(dioptrias_receta.value.a1_od.cil) ? dioptrias_receta.value.a1_od.cil : 0},${typeof dioptrias_receta.value.a1_od.eje === 'string' && !Number.isNaN(dioptrias_receta.value.a1_od.eje) ? dioptrias_receta.value.a1_od.eje : 0},"${(typeof dioptrias_receta.value.a1_od.ad === 'string' && !Number.isNaN(dioptrias_receta.value.a1_od.ad)) ? dioptrias_receta.value.a1_od.ad : 0}",${typeof dioptrias_receta.value.a1_oi.esf === 'string' && !Number.isNaN(dioptrias_receta.value.a1_oi.esf) ? dioptrias_receta.value.a1_oi.esf : 0},${typeof dioptrias_receta.value.a1_oi.cil === 'string' && !Number.isNaN(dioptrias_receta.value.a1_oi.cil) ? dioptrias_receta.value.a1_oi.cil : 0},${typeof dioptrias_receta.value.a1_oi.eje === 'string' && !Number.isNaN(dioptrias_receta.value.a1_oi.eje) ? dioptrias_receta.value.a1_oi.eje : 0},"${typeof dioptrias_receta.value.a1_oi.ad !== 'string' && !Number.isNaN(dioptrias_receta.value.a1_oi.ad) ? dioptrias_receta.value.a1_oi.ad : 0}",${A1_DP.value !== '' ? A1_DP.value : 0},${formValues["receta"]["a1_alt"] > 0 ? formValues["receta"]["a1_alt"] : 0}, "${A1_GRUPO_OD.value.trim()}" ,"${A1_GRUPO_OI.value.trim()}" ,"${typeof a2_od_esf.value === 'string' ? a2_od_esf.value : 0}","${typeof a2_od_cil.value === 'string' ? a2_od_cil.value : 0}","${typeof a2_od_eje.value === 'string' ? a2_od_eje.value : 0}","${typeof a2_oi_esf.value === 'string' ? a2_oi_esf.value : 0}","${typeof a2_oi_cil.value === 'string' ? a2_oi_cil.value : 0}","${typeof a2_oi_eje.value === 'string' ? a2_oi_eje.value : 0}",${A2_DP.value.trim() || 0},"${A2_GRUPO_OD.value.trim()}","${A2_GRUPO_OI.value.trim()}" ,"${a1_armazon.value.trim() ?? 0}","${a2_armazon.value.trim() ?? 0}","${a3_armazon.value.trim() ?? 0}",${jsonData.cristal1_marca_id || 0},${jsonData.cristal1_diseno_id || 0},${jsonData.cristal1_indice_id || 0},${jsonData.cristal1_material_id || 0},${jsonData.cristal1_tratamiento_id || 0},${jsonData.cristal1_color_id || 0},${(typeof A1_Diametro.value === 'string' && A1_Diametro.value.trim() !== "") ? A1_Diametro.value : 0},"${A1_CR_OD.value.trim() ?? ""}","${A1_CR_OI.value.trim() ?? ""}",${jsonData.cristal1_tratamiento_adicional_id || 0},${jsonData.cristal2_marca_id || 0},${jsonData.cristal2_diseno_id || 0},${jsonData.cristal2_indice_id || 0},${jsonData.cristal2_material_id || 0},${jsonData.cristal2_tratamiento_id || 0},${jsonData.cristal2_color_id || 0},${(typeof A2_Diametro.value === 'string' && A2_Diametro.value.trim() !== "") ? A2_Diametro.value : 0},"${typeof A2_CR_OD.value === 'string' ? A2_CR_OD.value.trim() : ""}","${typeof A2_CR_OI.value === 'string' ? A2_CR_OI.value.trim() : " "}",${jsonData.cristal2_tratamiento_adicional_id || 0},${jsonData.motivo_garantia_id || 0},${jsonData.folio_asociado || 0},${isEditting ? 0 : jsonData.resolucion_garantia_id === 'Aceptada' ? '1' : '2'},"${jsonData.worktracking || 0}","${jsonData.nota_venta || 0}",${jsonData.numero_reporte_firma || 0},"${jsonData.numero_reporte_atencion || 0}","${jsonData.numero_orden_compra || 0}",${jsonData.numero_guia || 0},${jsonData.numero_factura || 0},"${jsonData.folio_interno_mandante || 0}","${jsonData.reporte_interno_mandante || 0}","${jsonData.numero_envio || 0}" ,${jsonData.total || 0},"${formValues?.receta.observaciones || ""}",${rbd_ubicacion},${rbd_cantidad}, ${rep_cantidad},"${estado_validacion}", "${isToggleMontajeValidation.value === true ? '1' : '0'}, "${CR1_OD_LAB.value === true ? 2 : 1}" ,"${CR1_OI_LAB.value === true ? 2 : 1}" ,"${CR2_OD_LAB.value === true ? 2 : 1}" ,"${CR2_OI_LAB.value === true ? 2 : 1}" ,       `
 
 
     let dataJSON = [{
@@ -440,7 +440,7 @@ const FOT: React.FC<IFOTProps> = ({
   }
   const sumatoriaNivel1 = validationNivel1.value.reduce((index, objeto) => index + objeto.valor, 0);
 
-  const clearAllInputsOT = (clearCliente?: boolean) => {
+  const clearAllInputsOT = (clearCliente?: boolean, clearOptiLabl?:boolean) => {
     //? A1-OJO-DERECHO
     dioptrias_receta.value.a1_od.esf = " ";
     dioptrias_receta.value.a1_od.cil = " ";
@@ -586,6 +586,14 @@ const FOT: React.FC<IFOTProps> = ({
     validation_A2_OI_EJE(undefined);
 
     validation_A2_DP(undefined);
+
+    // if(clearOptiLabl){
+    //   console.log('render')
+    //   reiniciarValidationNivel1(true, false);
+    // }else{
+    //   reiniciarValidationNivel1(true, true);
+    // }
+
   }
 
 
@@ -594,10 +602,10 @@ const FOT: React.FC<IFOTProps> = ({
   const onSubmit: SubmitHandler<any> = async (jsonData, _type?: any) => {
     //? ========================================
     const cristales = [
-      { codigo: `${A1_CR_OD.value}` },
-      { codigo: `${A1_CR_OI.value}` },
-      { codigo: `${A2_CR_OD.value}` },
-      { codigo: `${A2_CR_OI.value}` }
+      { codigo: `${A1_CR_OD.value}`, opcion_vta: '1' },
+      { codigo: `${A1_CR_OI.value}`, opcion_vta: '1' },
+      { codigo: `${A2_CR_OD.value}`, opcion_vta: '1' },
+      { codigo: `${A2_CR_OI.value}`, opcion_vta: '1' }
     ]
       .map(item => {
         const numero = parseFloat(item.codigo);
@@ -682,8 +690,9 @@ const FOT: React.FC<IFOTProps> = ({
     setChangeboolean((prev) => !prev);
     let clearCliente = false
     const key = Object.keys(dataForm)[0]
-    if (key === 'tipo_anteojo_id') {
-      clearAllInputsOT(clearCliente)
+    if (key === 'tipo_anteojo_id' || key === 'proyecto_codigo') {
+      console.log('render')
+      clearAllInputsOT(clearCliente, true)
     }
 
     setFormValues((prevFormValues: any) => ({

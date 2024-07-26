@@ -59,6 +59,10 @@ export interface InputData {
 }
 function insertarElementoEnPosicion(arreglo: any, nuevoElemento: any, posicion: any) {
   const nuevoArreglo = arreglo.slice(0, posicion) + nuevoElemento + arreglo.slice(posicion)
+  console.log(nuevoArreglo)
+  console.log(arreglo)
+  console.log(nuevoArreglo.substring(0, 4) + '0' + nuevoArreglo.substring(5))
+
   return nuevoArreglo.substring(0, 4) + '0' + nuevoArreglo.substring(5);
 }
 

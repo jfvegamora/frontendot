@@ -150,6 +150,7 @@ export const validationOTlevel1 = (name: string, value: any) => {
       validationTipoAnteojos(value);
       break;
     case "punto_venta_id":
+      console.log(value);
       validationPuntoVenta(value);
       break;
     default:
@@ -1002,18 +1003,20 @@ export const validation_A1_opcion_venta = (value: string | any) => {
 };
 
 export const validation_A1_armazon = (value: string | any) => {
+  const item = validationNivel1.value.find(
+    (item) => item.campo === "a1_armazon_id"
+  );
+
+  // if (tipo_de_anteojo.value !== "3") {
+  //   return;
+  // }
+
   if (value !== "") {
-    const item = validationNivel1.value.find(
-      (item) => item.campo === "a1_armazon_id"
-    );
     if (item) {
       item.valor = 1;
     }
   }
   if (value == "") {
-    const item = validationNivel1.value.find(
-      (item) => item.campo === "a1_armazon_id"
-    );
     if (item) {
       item.valor = 0;
     }
@@ -1044,9 +1047,9 @@ export const validation_A2_armazon = (value: string | any) => {
     (item) => item.campo === "a2_armazon_id"
   );
 
-  if (tipo_de_anteojo.value !== "3") {
-    return;
-  }
+  // if (tipo_de_anteojo.value !== "3") {
+  //   return;
+  // }
 
   if (value !== "") {
     if (item) {
@@ -1058,6 +1061,9 @@ export const validation_A2_armazon = (value: string | any) => {
       item.valor = 0;
     }
   }
+
+  console.log(item);
+  console.log(value);
 };
 
 export const validation_A2_DP = (value: string | any) => {

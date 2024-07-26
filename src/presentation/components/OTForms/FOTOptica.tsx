@@ -4,8 +4,8 @@ import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
 // import { Switch , switchButton} from "@material-tailwind/react";
 import Switch from "react-switch";
 import axios from 'axios';
-import { validationFechaAtencion, validationOTlevel1, validationOTlevel2, validationPuntoVenta } from '../../utils/validationOT';
-import { codigoProyecto, fecha_atencion_signal, fecha_despacho, fecha_entrega_cliente, fecha_entrega_taller, fetchFechas, isToggleImpression, isToggleValidation, punto_venta, validar_parametrizacion } from '../../utils';
+import { validation_A1_armazon, validation_A2_armazon, validationFechaAtencion, validationOTlevel1, validationOTlevel2, validationPuntoVenta } from '../../utils/validationOT';
+import { codigoProyecto, EmpresaAdjudicadaOT_ID, fecha_atencion_signal, fecha_despacho, fecha_entrega_cliente, fecha_entrega_taller, fetchFechas, isToggleImpression, isToggleValidation, punto_venta, validar_parametrizacion } from '../../utils';
 import SelectInputTiposComponent from '../forms/SelectInputTiposComponent';
 import { AppStore, useAppSelector } from '../../../redux/store';
 import { URLBackend } from '../../hooks/useCrud';
@@ -13,6 +13,7 @@ import { toast } from 'react-toastify';
 import TextInputInteractive from '../forms/TextInputInteractive';
 import { EnumAreas } from '../OTPrimaryButtons';
 import { inputOnlyReadReserva } from '../../utils/FReservaArmazones_utils';
+import { isToggleMontajeValidation, resetOptiLabSwitchs } from '../../utils/FOTCristales_utils';
 
 interface IOptica {
     control:any,
@@ -56,15 +57,12 @@ const FOTOptica:React.FC<IOptica> = ({
     const strUrl = `${URLBackend}/api/ot/listado`
     const [_motivo, setMotivo] = useState(false)
     const [strCodigoProyecto, setStrCodigoProyecto] = useState("");
-    const userID:any = useAppSelector((store: AppStore) => store.user?.id);
-    const User:any = useAppSelector((store: AppStore) => store.user);
-    const _origen:any = useAppSelector((store: AppStore) => store.OTAreas.areaActual);
+    const userID:any         = useAppSelector((store: AppStore) => store.user?.id);
+    const User:any           = useAppSelector((store: AppStore) => store.user);
+    const _origen:any        = useAppSelector((store: AppStore) => store.OTAreas.areaActual);
+    const proyectoRedux      = useAppSelector((store: AppStore) => store.listBox);
     const _estado = data && data[EnumGrid.estado_id]
     const permisos_usuario_areas = User.permisos_areas[EnumAreas[_origen]] === '1' ? true : false
-
-    console.log(EnumAreas[_origen])
-    console.log(User.permisos_areas)
-    console.log(permisos_usuario_areas)
 
     const [inputsRef] = useState({
         firstInputRef : React.useRef<HTMLInputElement>(null),
@@ -76,11 +74,31 @@ const FOTOptica:React.FC<IOptica> = ({
     const handleInputChange = (e:any) => {
         const { name, value } = e;
        
-        // console.log(name)   
-        // console.log(value)
+        console.log(name)   
+        console.log(value)
         
         
         if(name === "proyecto_codigo"){
+            EmpresaAdjudicadaOT_ID.value = proyectoRedux["Nombre Proyecto"].find((proyecto:any)=> proyecto[0] === value)[2];
+            // if(EmpresaAdjudicadaOT_ID.value !== 3){
+            //     console.log('render')
+            //     resetOptiLabSwitchs()
+            // }else{
+            //     console.log('render')
+            //     validation_A1_armazon('32')
+            //     validation_A2_armazon('32')
+            // }
+
+            if(EmpresaAdjudicadaOT_ID.value === 3){
+                validation_A1_armazon('32')
+                validation_A2_armazon('32')
+            }else{
+                validation_A1_armazon('')
+                validation_A2_armazon('')
+            }
+
+
+            resetOptiLabSwitchs()
             setStrCodigoProyecto(value)
         }
 
@@ -198,6 +216,7 @@ React.useEffect(()=>{
 },[])
 
 
+
 return (
     <form action="" onKeyDown={handleKeyDown} className='  h-[85vh]'>
         <div className='frameOTForm !h-[85vh]'>
@@ -231,20 +250,53 @@ return (
                 
                 {isEditting && !onlyRead && (
                     <>
-                        <div className="w-[15vw]  ml-4 px-[1vw] text-[1.3vw]  " >
+                
+                        <div className="w-[20vw]  ml-4 px-[1vw] text-[1.3vw]  " >
                             <div className=" items-center flex inputStyles">
-                                <Switch onChange={(e)=>handleSwitchValidation(e)} checked={isToggleValidation.value} disabled={!(permiso_usuario_estado_validacion && permiso_areas_estado_validacion)}/>
+                                {/* <Switch onChange={(e)=>handleSwitchValidation(e)} checked={isToggleValidation.value} disabled={!(permiso_usuario_estado_validacion && permiso_areas_estado_validacion)}/> */}
+                                <Switch onChange={(e)=>handleSwitchValidation(e)} checked={isToggleValidation.value}/>
                                 <label className='ml-2'>Validar Parametrización</label>
                             </div>
                         </div>
                 
-                        <div className="w-[15vw] px-[1vw] text-[1.5vw] ">
+
+                        <div className="w-[20vw] px-[1vw] text-[1.5vw] ">
                             <div className=" items-center flex inputStyles">
-                                <Switch onChange={(e)=>handleSwitchImpresion(e)} checked={isToggleImpression.value} disabled={!(permiso_usuario_estado_impresion && permisos_areas_estado_immpresion)}/>
+                                <Switch onChange={(e)=>handleSwitchImpresion(e)} checked={isToggleImpression.value}/>
                                 <label className='ml-2'>OT Impresa</label>
                             </div>
                         </div>
+                
                     </>
+                )}
+
+
+
+
+
+
+                {EmpresaAdjudicadaOT_ID.value === 3 && (
+                    <div className="w-[20vw] px-[1vw] text-[1.5vw] ">
+                        <div className=" items-center flex inputStyles">
+                            <Switch onChange={()=>{
+                                isToggleMontajeValidation.value = !isToggleMontajeValidation.value
+                                if(isToggleMontajeValidation.value === true){
+                                    validation_A1_armazon('')
+                                    validation_A2_armazon('')
+                                    console.log('render')
+                                    onDataChange({ ['montaje_validacion']: isToggleMontajeValidation.value });        
+                                }else{
+                                    validation_A1_armazon('32')
+                                    
+                                    validation_A2_armazon('32')
+                                    onDataChange({ ['montaje_validacion']: isToggleMontajeValidation.value });        
+                                }
+                            }} 
+                            checked={isToggleMontajeValidation.value}/>
+                            <label className='ml-2'>{isToggleMontajeValidation.value ? 'Con Montaje' : 'Sin Montaje'}</label>
+                        </div>
+                    </div>
+
                 )}
             </div>
 

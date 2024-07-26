@@ -8,7 +8,7 @@ import React, { useState, useEffect } from 'react';
 
 //@ts-ignore
 import Quagga from 'quagga';
-import { Button } from '@material-tailwind/react';
+import { Button, Tooltip } from '@material-tailwind/react';
 import { signal } from '@preact/signals-react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -22,6 +22,8 @@ import { fetchReservaArmazones, getLocalArmazones, isDataLocal, isOnline, respon
 import { clearBaseDatos, getArmazones, getBeneficiarios, isExistArmazon, isExistBeneficiario, openDatabase, setArmazones, setReservaBeneficiario, validateLocalArmazon } from '../../utils/indexedDB';
 // import { useNavigate } from 'react-router-dom';
 import { clearRutCliente } from '../../utils/FOTClientes_utils';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 // import { useNavigate } from 'react-router-dom';
 // import { focusFirstInput } from '../../components/OTForms/FOTValidarBodega';
@@ -311,26 +313,38 @@ const FReservarArmazones = () => {
         console.log(dataValidateArmazon)
 
         await openDatabase().then(async(db:IDBDatabase)=>{
-          const resultValidateArmazon:any = await validateLocalArmazon(db, dataValidateArmazon);
-          console.log(resultValidateArmazon)
-          if(!resultValidateArmazon["diametroEfectivo"]){
-            toast.error('Armazon no esta correctamente validado.')
-            clearInputsArmazones(armazon)
-          }else{
-            switch (armazon) {
-              case 'Armazon1':
-                codArmazon1.value = resultValidateArmazon["cod_armazon"]
-                break;
-              case 'Armazon2':
-                codArmazon2.value = resultValidateArmazon["cod_armazon"]
-                break;
-              case 'Armazon3':
-                codArmazon3.value = resultValidateArmazon["cod_armazon"]
-                break;
-              default:
-                break;
+          try {
+            const resultValidateArmazon:any = await validateLocalArmazon(db, dataValidateArmazon).catch(()=>console.log('render'));
+            console.log(resultValidateArmazon)
+            if(resultValidateArmazon["armazonEnMuestrario"] && (resultValidateArmazon["armazonEnMuestrario"] === false)){
+                toast.error('Armazon no se encuentra en el muestrario.')
+                clearInputsArmazones(armazon)
+            }else if(resultValidateArmazon["diametroEfectivo"] && (resultValidateArmazon["diametroEfectivo"] === false)){
+                toast.error('Armazon no esta correctamente validado.')
+                clearInputsArmazones(armazon)
+            }else{
+              switch (armazon) {
+                case 'Armazon1':
+                  codArmazon1.value = resultValidateArmazon["cod_armazon"]
+                  break;
+                case 'Armazon2':
+                  codArmazon2.value = resultValidateArmazon["cod_armazon"]
+                  break;
+                case 'Armazon3':
+                  codArmazon3.value = resultValidateArmazon["cod_armazon"]
+                  break;
+                default:
+                  break;
+              }
             }
+            
+          } catch (error) {
+            console.log('render')
+            console.log(error)
           }
+
+
+          
 
         })
       }}
@@ -566,6 +580,11 @@ const handleUploadata = async() => {
     console.log(armazonesData)
     console.log(beneficiarioData)
 
+    if(beneficiarioData.length === 0){
+      return toast.error('No hay Reservas para Subir', {
+        autoClose: 500
+      })
+    }
 
     console.log('click')
 
@@ -681,22 +700,42 @@ useEffect(()=>{
     setValue('rut_beneficiario', '')
   },[clearRutCliente])
 
-
-
   
     return (
-        <form className=" w-screen  mx-auto px-6 !overflow-x-hidden form-container-reserva" onSubmit={handleSubmit((data)=> handleSaveChange(data))}>
+        <form className=" w-screen bg-red-300  mx-auto px-6 !overflow-x-hidden form-container-reserva" onSubmit={handleSubmit((data)=> handleSaveChange(data))}>
 
-          <div className=" mt-[20vh] !mx-auto">
+          <div className="translate-y-[30vw] h-screen !mx-auto bg-blue-500">
 
             {isOnline.value === false && isDataLocal.value === true && (
-              <Button className='absolute top-20 right-0 text-base z-30 ' onClick={()=>handleUploadata()}>Subir Reservas</Button>
+              <Button className='absolute -top-14 left-1 text-base z-30 ' onClick={()=>handleUploadata()}>Subir Reservas</Button>
+            )}
+
+            {isOnline.value === false && isDataLocal.value === true && (
+              <Tooltip content="Borrar Reservas">
+                 <FontAwesomeIcon 
+                icon={faTrash} 
+                className=" absolute -top-14 right-4   w-12 h-12 text-base z-30 hover:!text-[#f8b179]"
+                onClick={async()=>{
+                  console.log('click')
+                  toast.loading('Borrando...')
+                  await openDatabase().then(async(db:IDBDatabase)=>{
+                      await clearBaseDatos(db).then(()=>{
+                        isOnline.value = false;
+                        isDataLocal.value = false;
+                        responseArmazones.value = [[],[]]
+                      })
+                  })
+                  toast.dismiss()
+                  // handleFocusReservaArmazones(name)
+              }} />
+                {/* <Button className='absolute -top-14 right-1 text-base z-30 ' onClick={()=>handleUploadata()}></Button> */}
+              </Tooltip>
             )}
 
 
             {isOnline.value === false && isDataLocal.value === false && (responseArmazones.value.length > 0) && (
               // <Button className='relative bottom-4 right-0 text-base' color='green' onClick={()=>fetchReservaArmazones(punto_venta.value, codProyecto.value,userID,false).then(isDataLocal.value = false as any)}>Descargar Muestrario</Button>
-              <Button className='relative bottom-4 right-0 text-base' color='green' onClick={()=>getLocalArmazones(reservaJSON)}>Descargar Muestrario</Button>
+              <Button className='absolute -top-14 left-1 text-base z-30' color='green' onClick={()=>getLocalArmazones(reservaJSON)}>Descargar Muestrario</Button>
             )}
             <div className="w-full h-[150vh] overflow-scroll">
               <div className="w-full !mb-5 rowForm ">

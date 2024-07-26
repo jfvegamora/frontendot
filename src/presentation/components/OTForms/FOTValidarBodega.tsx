@@ -444,7 +444,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                 case 'conCristales':
                     console.log('ejecutando con cristales')
                     destino = OTAreas["areas"].map((area:any)=>area).filter((areaAuxiliar:any)=>areaAuxiliar[1] === 60)[0][7]
-                    estado  = '30'
+                    estado  = '25'
                     situacion = '4'
 
                     console.log('ejecutando procesar')
@@ -479,7 +479,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                 case 'sinCristales':
                     console.log('ejecutando con cristales')
                     destino = OTAreas["areas"].map((area:any)=>area).filter((areaAuxiliar:any)=>areaAuxiliar[1] === 60)[0][7]
-                    estado  = '30'
+                    estado  = '25'
                     situacion = '5'
 
                     console.log('ejecutando procesar')

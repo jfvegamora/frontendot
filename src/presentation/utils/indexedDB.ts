@@ -279,6 +279,7 @@ export const validateLocalArmazon = (db: IDBDatabase, data: any) => {
         (OT: any) => OT.cod_armazon.slice(-5) === data["codArmazon"]
       );
       console.log(resultArmazon);
+      console.log(result);
 
       console.log(
         resultArmazon.filter(
@@ -288,26 +289,35 @@ export const validateLocalArmazon = (db: IDBDatabase, data: any) => {
 
       if (resultArmazon.length === 0) {
         console.log("error");
-        reject("error");
+        resolve({
+          armazonEnMuestrario: false,
+          cod_armazon: "",
+        });
       }
 
-      if (
-        resultArmazon &&
-        resultArmazon[0] &&
-        resultArmazon[0]?.cod_armazon !== ""
-      ) {
-        console.log(resultArmazon);
-        const diametroEfectivo =
-          resultArmazon[0]["aro"] +
-            resultArmazon[0]["puente"] +
-            resultArmazon[0]["diagonal"] -
-            parseInt(data["dp"]) +
-            2 <=
-          65;
+      try {
+        if (
+          resultArmazon &&
+          resultArmazon[0] &&
+          resultArmazon[0]?.cod_armazon !== ""
+        ) {
+          console.log(resultArmazon);
+          const diametroEfectivo =
+            resultArmazon[0]["aro"] +
+              resultArmazon[0]["puente"] +
+              resultArmazon[0]["diagonal"] -
+              parseInt(data["dp"]) +
+              2 <=
+            65;
 
-        resolve({
-          diametroEfectivo,
-          cod_armazon: resultArmazon[0]["cod_armazon"],
+          resolve({
+            diametroEfectivo,
+            cod_armazon: resultArmazon[0]["cod_armazon"],
+          });
+        }
+      } catch (error) {
+        reject({
+          diametroEfectivo: false,
         });
       }
     };
