@@ -121,7 +121,10 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
          }
        })
 
-      
+       if(name === 'proyecto_codigo'){
+        console.log(data)
+       }
+
 
       if(label === 'Punto de Venta' || label === 'Operativo'){
         if(data && data[0]){
@@ -143,6 +146,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
         [label]:data
       }
 
+      console.log(payload)
 
       dispatch(setDataListbox(payload))
       setEntities(data)
@@ -208,10 +212,15 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
                 tabIndex={tabIndex || 1}
                 value={strSelectedName}
                 onChange={(e) => {
+                  console.log(e.target.value)
                   setStrSelectedName(e.target.value)
                   setState && setState(e.target.value);
                   field.onChange(e);
+                  
                   if(isOT){
+                    console.log(data)
+                    console.log(strSelectedName)
+                    
                     handleSelectChange &&  handleSelectChange(e.target)
                   }
                   if (setHandleSearch) {

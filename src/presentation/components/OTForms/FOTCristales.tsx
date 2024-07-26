@@ -1,10 +1,12 @@
 import React from 'react'
 import { SelectInputComponent } from '..';
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
-import { validationOTlevel2, validationOTlevel3,  } from '../../utils/validationOT';
+import { validation_Cristal1_od, validation_Cristal1_oi, validationOTlevel2, validationOTlevel3,  } from '../../utils/validationOT';
 import SelectInputTiposComponent from '../forms/SelectInputTiposComponent';
-import { A1_CR_OD, A1_CR_OI, A1_GRUPO_OD, A1_GRUPO_OI, A2_CR_OD, A2_CR_OI, A2_Diametro, A2_GRUPO_OD, A2_GRUPO_OI, codigoProyecto, inputOnlyReadBodegaProcesado, tipo_de_anteojo, validacionIncompleta, validar_cristal1_od, validar_cristal1_oi, validar_cristal2_od, validar_cristal2_oi } from '../../utils';
+import { A1_CR_OD, A1_CR_OI, A1_GRUPO_OD, A1_GRUPO_OI, A2_CR_OD, A2_CR_OI, A2_Diametro, A2_GRUPO_OD, A2_GRUPO_OI, codigoProyecto, EmpresaAdjudicadaOT_ID, inputOnlyReadBodegaProcesado, tipo_de_anteojo, validacionIncompleta, validar_cristal1_od, validar_cristal1_oi, validar_cristal2_od, validar_cristal2_oi } from '../../utils';
 import TextInputInteractive from '../forms/TextInputInteractive';
+import { Checkbox, Switch } from '@material-tailwind/react';
+import { CR1_OD_LAB, CR1_OI_LAB, CR2_OD_LAB, CR2_OI_LAB } from '../../utils/FOTCristales_utils';
 // import { OTTextInputComponent } from '.';
 // import { validationNivel3 } from '../../views/forms/FOT';
 // import { AppStore, useAppSelector } from '../../../redux/store';
@@ -133,6 +135,11 @@ const FOTCristales: React.FC<ICristales> = ({
             </div>)
       }
 
+    
+    
+    // const renderCristales = (grupo:string) =>{
+
+    // }
 
 
     const handleKeyDown: any = React.useCallback((e:KeyboardEvent) => {
@@ -157,9 +164,42 @@ const FOTCristales: React.FC<ICristales> = ({
         }
     },[])
 
+    const handleCR1_OD_LABChange = (event:any) => {
+        console.log('render')
+        const {checked} = event;
+        console.log(checked)
+        if(checked === true){
+            A1_CR_OD.value = '';
+            A1_GRUPO_OD.value = '';
+            validation_Cristal1_od('32')
+            console.log('render')
+        }
+
+        CR1_OD_LAB.value = checked;
+    };
+
+    // Maneja el cambio de estado para CR1_OI_LAB
+    const handleCR1_OI_LABChange = (event:any) => {
+        console.log('render')
+        const {checked} = event;
+
+        console.log(checked)
+
+        if(checked === true){
+            A1_CR_OI.value = '';
+            A1_GRUPO_OI.value = '';
+            validation_Cristal1_oi('32')
+        }
+        
+
+        CR1_OI_LAB.value = checked;
+        // console.log(CR1_OI_LAB.value);
+
+        
+        // Lógica adicional si es necesario
+    };
 
 
-    console.log(data && data[EnumGrid.cristal1_marca_id])
 
     return (
         <form onKeyDown={handleKeyDown}>
@@ -170,6 +210,28 @@ const FOTCristales: React.FC<ICristales> = ({
                         <div className="mx-auto !mt-6 w-[50vw] !h-full ">
                             <h1 className='absolute z-10 top-[-6%] text-3xl font-bold w-[30%] translate-x-[2vw]  text-center !text-[#f8b179] left-[34%]'>ANTEOJO 1</h1>
                             <div className="w-full">
+                            {(EmpresaAdjudicadaOT_ID.value === 3 ) ||
+                             (permiso_usuario_cristales && permiso_areas_cristales) &&
+                              (
+
+                                    <div className='rowForm'>
+                                        <div className=" absolute z-20 flex items-center justify-between  -translate-y-14 w-[45vw] px-[1vw] text-[1.5vw] ">
+
+                                            <div className=" items-center flex inputStyles">
+                                                <Checkbox label="Laboratorio" color="orange" onChange={(e)=>handleCR1_OD_LABChange(e.target)} checked={ CR1_OD_LAB.value} />                                           
+                                            </div>
+
+                                            <div className=" items-center flex inputStyles">
+                                                {/* <Checkbox label='LAB' color="orange" onChange={(e)=>handleCR1_OD_LABChange(e.target)} checked={ CR1_OD_LAB.value} /> */}
+                                                <Checkbox label="Laboratorio" color="orange" onChange={(e)=>handleCR1_OI_LABChange(e.target)} checked={ CR1_OI_LAB.value} />
+                                                {/* <label className='labelInput'>LAB</label> */}
+                                            </div>
+                                        
+                                        </div>
+                                    </div> 
+                                    )}
+
+
                                 <div className="w-full flex mt-6 rowForm justify-center ">
                                     <div className=" w-[22vw] my-2 labelInput   ">
                                         <SelectInputComponent
@@ -342,7 +404,8 @@ const FOTCristales: React.FC<ICristales> = ({
                                             data={A1_CR_OD.value || data && data[EnumGrid.cristal1_od]}
                                             control={control}
                                             isOT={true}
-                                            onlyRead={!(isEditting && (permiso_areas_cristales && permiso_usuario_cristales))}
+                                            // onlyRead={!(isEditting && (permiso_areas_cristales && permiso_usuario_cristales))}
+                                            onlyRead={true}
                                             // onlyRead={!(!isEditting || (permiso_areas_cristales && permiso_usuario_cristales))  || inputOnlyReadBodegaProcesado.value}
                                             textAlign="text-center"
                                             className={`!text-xl custom-input !w-[16rem]  ${validacionIncompleta.value.a1_od === true ? "!bg-red-600 opacity-60" : ""} `}
@@ -350,6 +413,8 @@ const FOTCristales: React.FC<ICristales> = ({
                                             customWidth={"labelInputx2 inputStyles"}
                                         />
                                     </div>
+
+                                  
                                     <div className="!w-[48%] !pr-[1rem] ml-1 !translate-y-4">
                                         <TextInputInteractive
                                             type="text"
@@ -359,7 +424,8 @@ const FOTCristales: React.FC<ICristales> = ({
                                             handleChange={handleInputChange}
                                             data={A1_CR_OI.value || data && data[EnumGrid.cristal1_oi]}
                                             control={control}
-                                            onlyRead={!(isEditting && (permiso_areas_cristales && permiso_usuario_cristales))}
+                                            // onlyRead={!(isEditting && (permiso_areas_cristales && permiso_usuario_cristales))}
+                                            onlyRead={true}
                                             textAlign="text-center"
                                             className={` custom-input !w-[15rem]  ${validacionIncompleta.value.a1_oi === true ? "!bg-red-600 opacity-60" : ""} `}
                                             customWidth={"labelInputx2 inputStyles"}
@@ -574,6 +640,14 @@ const FOTCristales: React.FC<ICristales> = ({
                                 </div>
 
                                 <div className="w-full flex mt-6 rowForm ">
+                                    {EmpresaAdjudicadaOT_ID.value === 3 && (
+                                        <div className=" absolute z-20  -translate-y-6 w-[20vw]  px-[1vw] text-[1.5vw] ">
+                                            <div className=" items-center flex inputStyles">
+                                                <Switch name='CR2_OD_LAB' onChange={()=>CR2_OD_LAB.value = !CR1_OI_LAB.value} checked={CR2_OD_LAB.value}/>
+                                                <label className='ml-2'>{CR2_OD_LAB.value ? 'Lab' : 'Lab'}</label>
+                                            </div>
+                                        </div>
+                                     )}
                                     <div className="!w-[50%] !pr-[1rem] !translate-y-4">
                                         <TextInputInteractive
                                             type="text"
@@ -583,12 +657,21 @@ const FOTCristales: React.FC<ICristales> = ({
                                             data={A2_CR_OD.value || data && data[EnumGrid.cristal2_od] }
                                             control={control}
                                             isOT={true}
-                                            onlyRead={!((isEditting && tipo_de_anteojo.value === '3') && (isEditting && permiso_areas_cristales && permiso_usuario_cristales && tipo_de_anteojo.value === '3'))}
+                                            // onlyRead={!((isEditting && tipo_de_anteojo.value === '3') && (isEditting && permiso_areas_cristales && permiso_usuario_cristales && tipo_de_anteojo.value === '3'))}
+                                            onlyRead={true}
                                             textAlign="text-center"
                                             className={`!text-xl custom-input !w-[17rem]  ${validacionIncompleta.value.a2_od === true ? "!bg-red-600 opacity-60" : ""} `}
                                             customWidth={"labelInputx2 inputStyles"}
                                             />
                                     </div>
+                                    {EmpresaAdjudicadaOT_ID.value === 3 && (
+                                        <div className=" absolute z-20  -translate-y-6 w-[20vw] translate-x-[35vw] px-[1vw] text-[1.5vw] ">
+                                            <div className=" items-center flex inputStyles">
+                                                <Switch name='CR2_OI_LAB' onChange={()=>CR2_OI_LAB.value = !CR1_OI_LAB.value} checked={CR2_OI_LAB.value}/>
+                                                <label className='ml-2'>{CR2_OI_LAB.value ? 'Lab' : 'Lab'}</label>
+                                            </div>
+                                        </div>
+                                     )}
                                     <div className="!w-[49%] !pr-[1rem] !ml-[-1rem] !translate-y-4">
                                         <TextInputInteractive
                                             type="text"
@@ -598,7 +681,8 @@ const FOTCristales: React.FC<ICristales> = ({
                                             data={A2_CR_OI.value ||  data && data[EnumGrid.cristal2_oi]}
                                             control={control}
                                             isOT={true}
-                                            onlyRead={!((isEditting && tipo_de_anteojo.value === '3') && (isEditting && permiso_areas_cristales && permiso_usuario_cristales && tipo_de_anteojo.value === '3'))}
+                                            // onlyRead={!((isEditting && tipo_de_anteojo.value === '3') && (isEditting && permiso_areas_cristales && permiso_usuario_cristales && tipo_de_anteojo.value === '3'))}
+                                            onlyRead={true}
                                             textAlign="text-center"
                                             className={`!text-xl custom-input !w-[17rem]  ${validacionIncompleta.value.a2_oi === true ? "!bg-red-600 opacity-60" : ""} `}
                                             customWidth={"labelInputx2 inputStyles"}

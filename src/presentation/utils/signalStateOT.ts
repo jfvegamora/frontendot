@@ -106,6 +106,8 @@ export const isExistClient = signal(false);
 export const isToggleImpression = signal<any>(false);
 export const isToggleValidation = signal<any>(false);
 
+export const EmpresaAdjudicadaOT_ID = signal(0);
+
 //VALIDACIONES
 
 export const validar_armazon1 = signal("");
@@ -647,27 +649,50 @@ export const reiniciarValidationNivel2 = (keepForm?: boolean) => {
   }
 };
 
-export const reiniciarValidationNivel1 = (keepForm?: boolean) => {
+export const reiniciarValidationNivel1 = (
+  keepForm?: boolean,
+  keepArmazon?: boolean
+) => {
   validationNivel1.value.forEach((item) => {
     item.valor = 0;
   });
 
   if (keepForm) {
-    const notClearCampos = new Set([
-      "proyecto",
-      "fecha_atencion",
-      "punto_venta_id",
-      "fecha_entrega_taller",
-      "fecha_despacho",
-      "fecha_entrega_cliente",
-    ]);
+    if (keepArmazon) {
+      const notClearCampos = new Set([
+        "proyecto",
+        "fecha_atencion",
+        "punto_venta_id",
+        "fecha_entrega_taller",
+        "fecha_despacho",
+        "fecha_entrega_cliente",
+        "a1_armazon_id",
+        "a2_armazon_id",
+      ]);
 
-    validationNivel1.value.forEach((item) => {
-      if (notClearCampos.has(item.campo)) {
-        item.valor = 1;
-      }
-    });
-    return;
+      validationNivel1.value.forEach((item) => {
+        if (notClearCampos.has(item.campo)) {
+          item.valor = 1;
+        }
+      });
+      return;
+    } else {
+      const notClearCampos = new Set([
+        "proyecto",
+        "fecha_atencion",
+        "punto_venta_id",
+        "fecha_entrega_taller",
+        "fecha_despacho",
+        "fecha_entrega_cliente",
+      ]);
+
+      validationNivel1.value.forEach((item) => {
+        if (notClearCampos.has(item.campo)) {
+          item.valor = 1;
+        }
+      });
+      return;
+    }
   }
 
   // console.log(validationNivel1)
@@ -845,14 +870,6 @@ export const validarNumeroDocumento = (data: any) => {
 //       return false
 //     }
 // }
-
-const clearValidacionIncompleta = () => {
-  validacionIncompleta.value.check = false;
-  validacionIncompleta.value.a1_od = false;
-  validacionIncompleta.value.a1_oi = false;
-  validacionIncompleta.value.a2_od = false;
-  validacionIncompleta.value.a2_oi = false;
-};
 
 export const clearDioptrias = (closeForm?: boolean) => {
   (a1_od_esf.value = undefined),
@@ -1073,380 +1090,6 @@ export const inputChangeActions: InputChangeActions = {
 };
 
 //TODO:  ESTRUCTURA PARA TRAER CODIGOS DE CRISTALES + GRUPO DE ANTEOJO 1
-export const changeCodigoCristal_A1: any = {
-  cristal1_marca_id: true,
-  cristal1_diseno_id: true,
-  cristal1_indice_id: true,
-  cristal1_material_id: true,
-  cristal1_color_id: true,
-  cristal1_tratamiento_id: true,
-  cristal1_diametro: true,
-  a1_od_esf: true,
-  a1_od_cil: true,
-  a1_oi_esf: true,
-  a1_oi_cil: true,
-};
-
-//TODO:  ESTRUCTURA PARA TRAER CODIGOS DE CRISTALES + GRUPO DE ANTEOJO 2
-export const changeCodigoCristal_A2: any = {
-  cristal2_marca_id: true,
-  cristal2_diseno_id: true,
-  cristal2_indice_id: true,
-  cristal2_material_id: true,
-  cristal2_color_id: true,
-  cristal2_tratamiento_id: true,
-  cristal2_diametro: true,
-  // a1_od_esf:true,
-  // a1_od_cil:true,
-  // a1_oi_esf:true,
-  // a1_oi_cil:true,
-
-  a2_od_esf: true,
-  a2_od_cil: true,
-  a2_oi_esf: true,
-  a2_oi_cil: true,
-};
-
-export const getGrupoCristales_A1 = async (
-  formValue: any,
-  data: any,
-  setErrorGrupoDioptriaA1: any,
-  setChangeboolean: any,
-  isEditting: boolean,
-  setErrorGrupoDioptriaA2: any
-) => {
-  const {
-    cristal1_marca_id,
-    cristal1_diseno_id,
-    cristal1_indice_id,
-    cristal1_color_id,
-    cristal1_material_id,
-    cristal1_tratamiento_id,
-  } = formValue;
-
-  if (
-    (cristal1_marca_id !== undefined ||
-      data?.[EnumGrid.cristal1_marca_id] !== undefined) &&
-    (cristal1_diseno_id !== undefined ||
-      data?.[EnumGrid.cristal1_diseno_id] !== undefined) &&
-    (cristal1_indice_id !== undefined ||
-      data?.[EnumGrid.cristal1_indice_id] !== undefined) &&
-    (cristal1_color_id !== undefined ||
-      data?.[EnumGrid.cristal1_color_id] !== undefined) &&
-    (cristal1_material_id !== undefined ||
-      data?.[EnumGrid.cristal1_material_id] !== undefined) &&
-    (cristal1_tratamiento_id !== undefined ||
-      data?.[EnumGrid.cristal1_tratamiento_id] !== undefined) &&
-    A1_Diametro.value.toString().trim() !== "" &&
-    dioptrias_receta.value.a1_od.esf !== " " &&
-    dioptrias_receta.value.a1_od.cil !== " " &&
-    dioptrias_receta.value.a1_oi.esf !== " " &&
-    dioptrias_receta.value.a1_oi.cil !== " "
-  ) {
-    // console.log('ejecutando llamada...')
-    // console.log('ejecutando llamada...')
-
-    if (
-      dioptrias_receta.value.a1_od.cil > 0 ||
-      dioptrias_receta.value.a1_oi.cil > 0
-    ) {
-      return;
-    }
-
-    const _pkToDelete1_od = {
-      marca: cristal1_marca_id || data?.[EnumGrid.cristal1_marca_id],
-      diseno: cristal1_diseno_id || data?.[EnumGrid.cristal1_diseno_id],
-      indice: cristal1_indice_id || data?.[EnumGrid.cristal1_indice_id],
-      material: cristal1_material_id || data?.[EnumGrid.cristal1_material_id],
-      color: cristal1_color_id || data?.[EnumGrid.cristal1_color_id],
-      tratamiento:
-        cristal1_tratamiento_id || data?.[EnumGrid.cristal1_tratamiento_id],
-      diametro: A1_Diametro.value,
-      esferico: dioptrias_receta.value.a1_od.esf ?? 0,
-      cilindrico: dioptrias_receta.value.a1_od.cil ?? 0,
-      punto_venta: punto_venta.value,
-
-      armazon_material: 0,
-      cliente_sexo: 0,
-      cliente_fecha_nac: new Date(),
-    };
-
-    //  console.log(_pkToDelete1_od)
-
-    const _pkToDelete1_oi = {
-      marca: cristal1_marca_id || data?.[EnumGrid.cristal1_marca_id],
-      diseno: cristal1_diseno_id || data?.[EnumGrid.cristal1_diseno_id],
-      indice: cristal1_indice_id || data?.[EnumGrid.cristal1_indice_id],
-      material: cristal1_material_id || data?.[EnumGrid.cristal1_material_id],
-      color: cristal1_color_id || data?.[EnumGrid.cristal1_color_id],
-      tratamiento:
-        cristal1_tratamiento_id || data?.[EnumGrid.cristal1_tratamiento_id],
-      diametro: A1_Diametro.value,
-      esferico: dioptrias_receta.value.a1_oi.esf ?? 0,
-      cilindrico: dioptrias_receta.value.a1_oi.cil ?? 0,
-      punto_venta: punto_venta.value,
-
-      armazon_material: 0,
-      cliente_sexo: 0,
-      cliente_fecha_nac: new Date(),
-    };
-
-    // console.log(_pkToDelete1_oi)
-
-    try {
-      const pkJSON = JSON.stringify([_pkToDelete1_od, _pkToDelete1_oi]);
-      const encodedJSON = encodeURIComponent(pkJSON);
-
-      // console.log(encodedJSON)
-
-      const { data: cristalesDataOD } = await axios(
-        `${URLBackend}/api/proyectogrupos/listado/?query=06&_p2=${codigoProyecto.value}&_pkToDelete=${encodedJSON}`
-      );
-
-      const cristalesDATA = JSON.parse(cristalesDataOD[0][0]);
-      // console.log(cristalesDATA)
-      if (tipo_de_anteojo.value === "3" && isEditting) {
-        getGrupoCristales_A2(
-          formValue,
-          data,
-          setErrorGrupoDioptriaA2,
-          setChangeboolean
-        );
-      }
-
-      console.log(cristalesDATA && cristalesDATA);
-      if (cristalesDATA && cristalesDATA["ERROR"] !== "") {
-        console.log(cristalesDATA["ERROR"]);
-
-        if (cristalesDATA["MSG"].includes("STOCK")) {
-          A1_CR_OD.value = cristalesDATA["CR_OD"].trim() || "   ";
-          A1_CR_OI.value = cristalesDATA["CR_OI"].trim() || "   ";
-          // A1_GRUPO.value = cristalesDATA["GRUPO"]
-
-          A1_GRUPO_OD.value = cristalesDATA["GRUPO_OD"].trim() || "  ";
-          A1_GRUPO_OI.value = cristalesDATA["GRUPO_OI"].trim() || "  ";
-
-          validation_Cristal1_od(cristalesDATA["CR_OD"]);
-          validation_Cristal1_oi(cristalesDATA["CR_OI"]);
-          setChangeboolean((prev: any) => ({
-            ...prev,
-            setChangeboolean: prev.setChangeboolean,
-          }));
-          toast.error(cristalesDATA["MSG"]);
-          // validacionIncompleta.value = true;
-          validacionIncompleta.value.check = true;
-
-          switch (cristalesDATA["ERROR"]) {
-            case "ODOI":
-              validacionIncompleta.value.a1_od = true;
-              validacionIncompleta.value.a1_oi = true;
-              break;
-            case "OI":
-              validacionIncompleta.value.a1_od = false;
-              validacionIncompleta.value.a1_oi = true;
-              break;
-            case "OD":
-              validacionIncompleta.value.a1_od = true;
-              validacionIncompleta.value.a1_oi = false;
-              break;
-            default:
-              break;
-          }
-          return;
-        }
-
-        setErrorGrupoDioptriaA1(cristalesDATA["MSG"]);
-
-        A1_CR_OD.value = " ";
-        A1_CR_OI.value = " ";
-
-        A1_GRUPO_OD.value = " ";
-        A1_GRUPO_OI.value = " ";
-        validacionIncompleta.value.check = true;
-        // validacionIncompleta2
-
-        validation_Cristal1_od("");
-        validation_Cristal1_oi("");
-        // setErrorGrupoDioptriaA1("")
-        // setErrorGrupoDioptriaA1('')
-      } else {
-        // console.log(cristalesDATA)
-        clearValidacionIncompleta();
-        A1_CR_OD.value = cristalesDATA["CR_OD"].trim() || "   ";
-        A1_CR_OI.value = cristalesDATA["CR_OI"].trim() || "   ";
-        // A1_GRUPO.value = cristalesDATA["GRUPO"]
-
-        A1_GRUPO_OD.value = cristalesDATA["GRUPO_OD"].trim() || "  ";
-        A1_GRUPO_OI.value = cristalesDATA["GRUPO_OI"].trim() || "  ";
-
-        if (cristalesDATA["CR_OD"] === "") {
-          validation_Cristal1_od("32");
-          validation_Cristal1_oi("32");
-        } else {
-          validation_Cristal1_od(cristalesDATA["CR_OD"]);
-          validation_Cristal1_oi(cristalesDATA["CR_OI"]);
-        }
-
-        setChangeboolean((prev: boolean) => !prev);
-
-        // console.log(key)
-      }
-    } catch (error) {
-      // console.log(error)
-      throw error;
-    }
-  }
-};
-
-export const getGrupoCristales_A2 = async (
-  formValue: any,
-  data: any,
-  setErrorGrupoDioptriaA2: any,
-  setChangeboolean: any
-) => {
-  const {
-    cristal2_marca_id,
-    cristal2_diseno_id,
-    cristal2_indice_id,
-    cristal2_color_id,
-    cristal2_material_id,
-    cristal2_tratamiento_id,
-  } = formValue;
-
-  if (
-    (cristal2_marca_id !== undefined ||
-      data?.[EnumGrid.cristal2_marca_id] !== undefined) &&
-    (cristal2_diseno_id !== undefined ||
-      data?.[EnumGrid.cristal2_diseno_id] !== undefined) &&
-    (cristal2_indice_id !== undefined ||
-      data?.[EnumGrid.cristal2_indice_id] !== undefined) &&
-    (cristal2_color_id !== undefined ||
-      data?.[EnumGrid.cristal2_color_id] !== undefined) &&
-    (cristal2_material_id !== undefined ||
-      data?.[EnumGrid.cristal2_material_id] !== undefined) &&
-    (cristal2_tratamiento_id !== undefined ||
-      data?.[EnumGrid.cristal2_tratamiento_id] !== undefined) &&
-    A2_Diametro.value.toString().trim() !== "" &&
-    dioptrias_receta.value.a2_od.esf !== "  " &&
-    dioptrias_receta.value.a2_od.cil !== "  "
-    // (a2_od_esf.value                          !== '  ')        &&
-    // (a2_od_cil.value                          !== '  ')
-  ) {
-    // console.log('ejecutando llamada.....')
-    const _pkToDelete1_od = {
-      marca: cristal2_marca_id || data?.[EnumGrid.cristal2_marca_id],
-      diseno: cristal2_diseno_id || data?.[EnumGrid.cristal2_diseno_id],
-      indice: cristal2_indice_id || data?.[EnumGrid.cristal2_indice_id],
-      material: cristal2_material_id || data?.[EnumGrid.cristal2_material_id],
-      color: cristal2_color_id || data?.[EnumGrid.cristal2_color_id],
-      tratamiento:
-        cristal2_tratamiento_id || data?.[EnumGrid.cristal2_tratamiento_id],
-      diametro: A2_Diametro.value,
-      esferico: a2_od_esf.value ?? 0,
-      cilindrico: a2_od_cil.value ?? 0,
-      punto_venta: punto_venta.value,
-
-      armazon_material: 0,
-      cliente_sexo: 0,
-      cliente_fecha_nac: new Date(),
-    };
-
-    // console.log(_pkToDelete1_od)
-    // console.log(dioptrias_receta.value.a2_od.esf)
-    const _pkToDelete1_oi = {
-      marca: cristal2_marca_id || data?.[EnumGrid.cristal2_marca_id],
-      diseno: cristal2_diseno_id || data?.[EnumGrid.cristal2_diseno_id],
-      indice: cristal2_indice_id || data?.[EnumGrid.cristal2_indice_id],
-      material: cristal2_material_id || data?.[EnumGrid.cristal2_material_id],
-      color: cristal2_color_id || data?.[EnumGrid.cristal2_color_id],
-      tratamiento:
-        cristal2_tratamiento_id || data?.[EnumGrid.cristal2_tratamiento_id],
-      diametro: A2_Diametro.value,
-      esferico: a2_oi_esf.value ?? 0,
-      cilindrico: a2_oi_cil.value ?? 0,
-      punto_venta: punto_venta.value,
-
-      armazon_material: 0,
-      cliente_sexo: 0,
-      cliente_fecha_nac: new Date(),
-    };
-
-    // console.log(_pkToDelete1_oi)
-
-    try {
-      const pkJSON = JSON.stringify([_pkToDelete1_od, _pkToDelete1_oi]);
-      const encodedJSON = encodeURIComponent(pkJSON);
-
-      const { data: cristalesDataOI } = await axios(
-        `${URLBackend}/api/proyectogrupos/listado/?query=06&_p2=${codigoProyecto.value}&_pkToDelete=${encodedJSON}`
-      );
-
-      const cristalesDATA = JSON.parse(cristalesDataOI[0][0]);
-      console.log(cristalesDATA);
-
-      if (cristalesDATA && cristalesDATA["ERROR"] !== "") {
-        console.log("render");
-
-        if (cristalesDATA["MSG"].includes("STOCK")) {
-          A2_CR_OD.value = cristalesDATA["CR_OD"].trim() || " ";
-          A2_CR_OI.value = cristalesDATA["CR_OI"].trim() || " ";
-
-          A2_GRUPO_OD.value = cristalesDATA["GRUPO_OD"].trim() || " ";
-          A2_GRUPO_OI.value = cristalesDATA["GRUPO_OI"].trim() || " ";
-
-          validation_Cristal2_od(cristalesDATA["CR_OD"]);
-          validation_Cristal2_oi(cristalesDATA["CR_OI"]);
-          toast.error(cristalesDATA["MSG"]);
-          validacionIncompleta.value.check = true;
-
-          switch (cristalesDATA["ERROR"]) {
-            case "ODOI":
-              validacionIncompleta.value.a2_od = true;
-              validacionIncompleta.value.a2_oi = true;
-              break;
-            case "OD":
-              validacionIncompleta.value.a2_od = true;
-              validacionIncompleta.value.a2_oi = false;
-              break;
-            case "OI":
-              validacionIncompleta.value.a2_od = false;
-              validacionIncompleta.value.a2_oi = true;
-              break;
-            default:
-              break;
-          }
-          return;
-        }
-
-        setErrorGrupoDioptriaA2(cristalesDATA["ERROR"]);
-      } else {
-        console.log("render");
-
-        validacionIncompleta.value.a2_od = false;
-        validacionIncompleta.value.a2_oi = false;
-
-        A2_CR_OD.value = cristalesDATA["CR_OD"].trim();
-        A2_CR_OI.value = cristalesDATA["CR_OI"].trim();
-
-        A2_GRUPO_OD.value = cristalesDATA["GRUPO_OD"];
-        A2_GRUPO_OI.value = cristalesDATA["GRUPO_OI"];
-
-        if (cristalesDATA["CR_OD"] === "") {
-          validation_Cristal2_od("32");
-          validation_Cristal2_oi("32");
-        } else {
-          validation_Cristal2_od(cristalesDATA["CR_OD"]);
-          validation_Cristal2_oi(cristalesDATA["CR_OI"]);
-        }
-
-        setChangeboolean((prev: boolean) => !prev);
-      }
-    } catch (error) {
-      // console.log(error)
-      throw error;
-    }
-  }
-};
 
 export const updateOT = async (
   jsonData: any,
@@ -1504,6 +1147,7 @@ export const updateOT = async (
       _usuario: `${user}`,
       _situacion: situacion || "0",
       _obs: _obs || "",
+
       _cristalJSONOri: isValidateBodega
         ? JSON.stringify(cristalOri)
         : JSON.stringify(data.cristales),
@@ -1519,6 +1163,7 @@ export const updateOT = async (
       _armazonJSONNew: isValidateBodega
         ? JSON.stringify(armazonOri)
         : JSON.stringify(data.armazones),
+
       _motivo: `${motivo}`,
     };
 

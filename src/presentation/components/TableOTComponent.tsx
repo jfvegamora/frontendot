@@ -5,7 +5,6 @@ import { PencilIcon } from "@heroicons/react/24/solid";
 import { usePermission } from "../hooks";
 import { BUTTON_MESSAGES, clearAllCheck, clearIndividualCheck, disabledIndividualCheck } from "../utils";
 import { AppStore, useAppSelector } from "../../redux/store";
-import { FixedSizeList as List } from "react-window";
 import { OTGrillaEnum } from "../Enums";
 
 const OTGrillaButtons = React.lazy(() => import("./OTGrillaButtons"));
@@ -143,7 +142,6 @@ const TableOTComponent: React.FC<ITableComponentProps<any>> = React.memo(
             </Tooltip>
           )}
 
-          <Suspense>
             <OTGrillaButtons
               areaPermissions={OTPermissions}
               id={id}
@@ -153,55 +151,62 @@ const TableOTComponent: React.FC<ITableComponentProps<any>> = React.memo(
               historica={entidad === 'Orden de Trabajo Histórico' ? true : false}
               estado={estado}
             />
-          </Suspense>
         </>
       );
     };
 
-    const TableGrid = ({ index, style }: { index: number; style: React.CSSProperties }) => {
-      const rowData = data[index];
-      const folio = rowData[1];
-      const estado = rowData[4];
-       
-      console.log(rowData)
-      return (
-        <tr style={style} className="flex">
-          {rowData.map((row: any, col: number) => {
-            console.log(row)
-            const visible = tableHead?.[col]?.visible || false;
-            const alignment = tableHead?.[col]?.alignment || "";
-            const color2 = tableHead?.[col]?.color || false;
-            const backgroundAtrasadas = tableHead?.[col]?.background || false;
-            const color = (
-              (rowData[OTGrillaEnum.por_vencer] === 'S' &&
-                (rowData[OTGrillaEnum.estado_id] === 10 ||
-                  rowData[OTGrillaEnum.estado_id] === 20 ||
-                  rowData[OTGrillaEnum.estado_id] === 30 ||
-                  rowData[OTGrillaEnum.estado_id] === 40
-                ))
-                ? "bg-black" : ""
-            );
-            const type = color === 'bg-black' ? 1 : 0;
+    const TableGrid = () => {
+      // Verifica que data y rowData estén definidos
+      if (!data || !data.length) return null;
+        data.slice(0,200)
 
+      return (
+        <>
+          {data.map((rowData: any, rowIndex: number) => {
+            // Asume que rowData es un array de valores para una fila
             return (
-              visible && (
-                <td
-                  key={col}
-                  className={`gridTableData ${backgroundAtrasadas && color} ${alignment}`}
-                  style={{
-                    backgroundColor: (color2 ? (handleColorEstado(rowData[5], 'background')) : ""),
-                  }}
-                >
-                  {col === 0
-                    ? renderCheckboxCell(index, folio, estado)
-                    : renderTextCell(row, '', type, color2, rowData, backgroundAtrasadas, color, lowArmazonesStock)}
-                </td>
-              )
+              <tr key={rowIndex} className="">
+                {rowData.map((cellData: any, colIndex: number) => {
+                  const columnConfig = tableHead?.[colIndex];
+                  const visible = columnConfig?.visible || false;
+                  const alignment = columnConfig?.alignment || "";
+                  const color2 = columnConfig?.color || false;
+                  const backgroundAtrasadas = columnConfig?.background || false;
+    
+                  const color = (
+                    rowData[OTGrillaEnum.por_vencer] === 'S' &&
+                    (rowData[OTGrillaEnum.estado_id] === 10 ||
+                      rowData[OTGrillaEnum.estado_id] === 20 ||
+                      rowData[OTGrillaEnum.estado_id] === 30 ||
+                      rowData[OTGrillaEnum.estado_id] === 40
+                    )
+                  ) ? "bg-black" : "";
+    
+                  const type = color === 'bg-black' ? 1 : 0;
+    
+                  return (
+                    visible && (
+                      <td
+                        key={colIndex}
+                        className={`gridTableData ${backgroundAtrasadas && color} ${alignment}`}
+                        style={{
+                          backgroundColor: color2 ? handleColorEstado(rowData[5], 'background') : "",
+                        }}
+                      >
+                        {colIndex === 0
+                          ? renderCheckboxCell(rowData[0], rowData[1], rowData[4])
+                          : renderTextCell(cellData, '', type, color2, rowData, backgroundAtrasadas, color, lowArmazonesStock)}
+                      </td>
+                    )
+                  );
+                })}
+              </tr>
             );
           })}
-        </tr>
+        </>
       );
     };
+    
 
     return (
       <div className="gridContainer">
@@ -233,14 +238,9 @@ const TableOTComponent: React.FC<ITableComponentProps<any>> = React.memo(
             </tr>
           </thead>
           <tbody className="gridData">
-          <List
-            height={600} // Altura del contenedor
-            itemCount={data.length}
-            itemSize={35} // Altura de cada fila
-            width="100%"
-          >
-            {TableGrid}
-          </List>
+                
+            {TableGrid()}
+  
           </tbody>
         </table>
 

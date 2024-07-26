@@ -96,6 +96,8 @@ export const getLocalArmazones = async (reservaJSON: any) => {
         "No se encontraron Armazones disponibles en Bodega OFFLINE."
       );
     }
+    console.log(responseArmazones.value.length);
+    console.log(responseArmazones.value);
 
     let armazonesLocal: any = [];
 
@@ -125,10 +127,10 @@ export const getLocalArmazones = async (reservaJSON: any) => {
         await openDatabase().then(async (db: IDBDatabase) => {
           await setArmazones(db, data, reservaJSON, firstTime);
           isDataLocal.value = true;
+          toast.success("Muestrario Cargado Correctamente.");
           db.close();
         });
       });
-      toast.success("Muestrario Cargado Correctamente.");
       isDataLocal.value = true;
     } else {
       console.log("ya hay datos previos, retornando");

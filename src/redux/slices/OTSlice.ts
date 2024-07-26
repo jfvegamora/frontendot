@@ -44,8 +44,6 @@ const limit = 0;
 
 export const fetchOT = createAsyncThunk("ot/fetchOT", async (params: any) => {
   const { OTAreas, searchParams, historica } = params;
-
-  console.log(params);
   const OTUrl = searchParams
     ? historica
       ? `${URLBackend}/api/othistorica/listado/?query=14&${searchParams}&_limit=${limit}`
@@ -55,8 +53,6 @@ export const fetchOT = createAsyncThunk("ot/fetchOT", async (params: any) => {
     : OTAreas
     ? `${URLBackend}/api/ot/listado/?query=14&_origen=${OTAreas}&_limit=${limit}`
     : `${URLBackend}/api/ot/listado/?query=14&${searchParams}&_limit=${limit}`;
-
-  console.log(OTUrl);
 
   try {
     let retryCount = 0;
@@ -94,7 +90,6 @@ export const fetchOTByID = createAsyncThunk(
           ? `${URLBackend}/api/ot/listado/?query=01&_p1="${folio}"&_estado=${estado}&_p2=0`
           : `${URLBackend}/api/othistorica/listado/?query=01&_p1="${folio}"&_estado=${estado}&_p2=0`;
 
-      console.log(endpoint);
       const response = await axios.get(endpoint);
       return response.data[0];
     } catch (error) {
@@ -108,11 +103,9 @@ export const fetchOTImpresionByID = createAsyncThunk(
   async (params: any) => {
     try {
       const { folio, OTAreas } = params;
-      console.log(folio);
       const response2 = await axios.get(
         `${URLBackend}/api/ot/imprimir/?query=02&_origen=${OTAreas}&_p1=${folio}&_p2=1`
       );
-      console.log(response2?.data);
 
       // const response = await axios.get(
       //   `${URLBackend}/api/ot/imprimir/?query=01&_origen=${OTAreas}&_folio=${folio}`
@@ -250,8 +243,6 @@ const OTSlice = createSlice({
       const reduce = action.payload.reduce((acc: any, ot: any) => {
         let estado_ot = ot[OTGrillaEnum.estado];
         let por_vencer = ot[OTGrillaEnum.por_vencer];
-
-        console.log(ot);
 
         // Manejar el caso de por_vencer
         if (por_vencer === "S") {

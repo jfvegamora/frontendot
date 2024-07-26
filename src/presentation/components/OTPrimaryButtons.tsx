@@ -117,7 +117,7 @@ const focusFirstInput = (strInputName: string, ref: React.RefObject<any>) => {
   }
 };
 
-const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
+const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
     areaPermissions,
     handleAddPerson,
     params,
@@ -611,7 +611,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
         console.log(dataOT)
 
 
-        if(dataOT.length === 0){
+        if(dataOT.length === 0){ 
           // setValueConfirmOT('')
           valueConfirmOT.value = ''
           setIsFOTValidarBodega(false)
@@ -639,9 +639,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
     }
 
 
-    console.log(permisos_usuario_areas)
-
-    console.log(areaPermissions)
+    console.log('render')
 
     return (
     <div className='flex items-center   ml-[4rem] !w-full'>
@@ -949,7 +947,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
                   }
                 }} 
               />
-              <label htmlFor="procesar_tb" className=''>Procesar TB</label>
+              <label htmlFor="procesar_tb" className=''>Procesar</label>
             </div>
 
           <div className="flex">
@@ -1044,6 +1042,6 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = ({
             
   
     </div>
-)}
+)})
 
 export default OTPrimaryButtons;

@@ -149,16 +149,15 @@ const useCrud = (
     try {
       let strUrl = ''
       let response:any = {}
-      let limit = 50000
       
       if(customExport && query){
         strUrl ='/otros/?query=01'
-        response = await axiosInstance.get(`${URLBackend}/api/otros/excel/?query=01&_limit=${limit}`,{
+        response = await axiosInstance.get(`${URLBackend}/api/otros/excel/?query=01`,{
           responseType: 'blob'
         })
 
       }else if (jsonData){
-        strUrl = `/excelindividual/?query=06&_pkToDelete=${jsonData}&_limit=${limit}`
+        strUrl = `/excelindividual/?query=06&_pkToDelete=${jsonData}`
   
         response = await axiosInstance.get(strUrl,{
           responseType: 'blob'
@@ -167,12 +166,12 @@ const useCrud = (
         //CASO DE USO 1
         if(strEntidad?.includes('Orden')){
           strUrl = primaryKey
-            ? OTAreas ? `/excel/?${query ?  query : "query=14"}&_origen=${OTAreas}&${primaryKey}&_limit=${limit}` :  `/excel/?${query ?  query : "query=14"}&${primaryKey}&_limit=${limit}`
-            : OTAreas ?  `/excel/?${query ? query : "query=14"}&_origen=${OTAreas}&_limit=${limit}`               :  `/excel/?${query ? query : "query=14"}&_limit=${limit}`;
+            ? OTAreas ? `/excel/?${query ?  query : "query=14"}&_origen=${OTAreas}&${primaryKey}` :  `/excel/?${query ?  query : "query=14"}&${primaryKey}`
+            : OTAreas ?  `/excel/?${query ? query : "query=14"}&_origen=${OTAreas}`               :  `/excel/?${query ? query : "query=14"}`;
         }else{
           strUrl = primaryKey
-            ? `/excel/?${query ?  query : "query=01"}&${primaryKey}&_limit=${limit}`
-            : `/excel/?${query ? query : "query=01"}&_limit=${limit}`;
+            ? `/excel/?${query ?  query : "query=01"}&${primaryKey}`
+            : `/excel/?${query ? query : "query=01"}`;
         }
         response = await axiosInstance.get(strUrl, {
           responseType: "blob",
