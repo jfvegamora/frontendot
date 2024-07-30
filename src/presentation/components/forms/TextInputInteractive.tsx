@@ -107,7 +107,9 @@ const TextInputInteractive: React.FC<ITextInputProps> = ({
   };
   
   useEffect(()=>{
+    console.log(name)
     if (data === "") {
+      console.log(name)
       console.log('render')
       setDefaultValue("");
       setValue("");

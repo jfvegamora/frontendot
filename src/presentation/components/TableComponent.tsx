@@ -122,10 +122,16 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
 
   
 
+    console.log(OTColores)
 
     const handleColorEstado = useCallback((rowData:any, background?:string) => {
       try {
+        console.log(rowData)
+        console.log(background)
+
+
         if(OTColores[rowData]){
+          console.log(background ? `${OTColores[rowData][1]}` : `${OTColores[rowData][0]}`)
           return background ? `${OTColores[rowData][1]}` : `${OTColores[rowData][0]}`
         }
         return  background ? `black` : 'red'
@@ -143,10 +149,11 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
         color: isOT ? (rowData &&  handleColorEstado(rowData[5])) : (rowData &&  handleColorEstado(rowData[1], 'background  ')),
       }
 
+      console.log(cellStyle)
       return(
         // <Text variant="small" color="blue-gray" className={`gridText h-[2.7rem]  py-2  ${(backgroundAtrasadas && color || lowArmazonesStock && color2) ? '!text-white ' : 'text-black'} ${(type === 1 && color2) ? '': ( type === 1 ? ''  :'text-black')} `} style={ color2 ? cellStyl} >
         <Text // Combina estilos inline y de objeto
-        variant="small" color="blue-gray" style={{ ...cellStyle }}  className={`gridText h-[2.7rem]  py-2  ${(backgroundAtrasadas && color || lowArmazonesStock && color2) ? '!text-white ' : 'text-black'} ${(type === 1 && color2) ? '': ( type === 1 ? '!text-black'  :'text-black')} ` }  >
+          variant="small" color="blue-gray" style={{ ...cellStyle }}  className={`gridText h-[2.7rem]  py-2  ${(backgroundAtrasadas && color || lowArmazonesStock && color2) ? '!text-white ' : 'text-black'} ${(type === 1 && color2) ? '': ( type === 1 ? '!text-black'  :'text-black')} ` }  >
           {text !== null && text !== undefined ? text.toString() : ""}
         </Text>
       )

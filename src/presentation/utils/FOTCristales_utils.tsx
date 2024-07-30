@@ -83,6 +83,12 @@ export const changeCodigoCristal_A1: any = {
     isEditting: boolean,
     setErrorGrupoDioptriaA2: any
   ) => {
+    if(CR1_OD_LAB.value === true || CR1_OI_LAB.value === true ){
+      return;
+    }
+
+
+
     const {
       cristal1_marca_id,
       cristal1_diseno_id,
