@@ -57,14 +57,14 @@ export interface InputData {
   permiso_editar_validar_armazones: string | undefined;
 
 }
-function insertarElementoEnPosicion(arreglo: any, nuevoElemento: any, posicion: any) {
-  const nuevoArreglo = arreglo.slice(0, posicion) + nuevoElemento + arreglo.slice(posicion)
-  console.log(nuevoArreglo)
-  console.log(arreglo)
-  console.log(nuevoArreglo.substring(0, 4) + '0' + nuevoArreglo.substring(5))
+// function insertarElementoEnPosicion(arreglo: any, nuevoElemento: any, posicion: any) {
+//   const nuevoArreglo = arreglo.slice(0, posicion) + nuevoElemento + arreglo.slice(posicion)
+//   console.log(nuevoArreglo)
+//   console.log(arreglo)
+//   console.log(nuevoArreglo.substring(0, 4) + '0' + nuevoArreglo.substring(5))
 
-  return nuevoArreglo.substring(0, 4) + '0' + nuevoArreglo.substring(5);
-}
+//   return nuevoArreglo.substring(0, 4) + '0' + nuevoArreglo.substring(5);
+// }
 
 interface OutputData {
   query: string;
@@ -147,7 +147,7 @@ export function transformUpdateQuery(
     `estado               = ${jsonData.estado === "Activo" ? 1 : 2}`,
     `cargo                = ${jsonData.cargo}`,
     `permisos_archivo_ot  = "${permiso_archivoOT.map((permiso) => jsonData[permiso] === 'Lectura' ? "0" : "1").join('')}"`,
-    `permisos_campos      = "${insertarElementoEnPosicion(permiso_campo.map((permiso) => jsonData[permiso] === 'Lectura' ? "0" : "1").join(''), '0', 1)}"`,
+    `permisos_campos      = "${permiso_campo.map((permiso) => jsonData[permiso] === 'Lectura' ? "0" : "1").join(''), '0', 1}"`,
     `permisos_areas       = "${permiso_area.map((permiso) => jsonData[permiso] === 'Procesar' ? "2" : (jsonData[permiso] === 'Lectura' ? '0' : '1')).join('')}"`,
   ];
 

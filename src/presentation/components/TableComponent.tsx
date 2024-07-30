@@ -126,10 +126,6 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
 
     const handleColorEstado = useCallback((rowData:any, background?:string) => {
       try {
-        console.log(rowData)
-        console.log(background)
-
-
         if(OTColores[rowData]){
           console.log(background ? `${OTColores[rowData][1]}` : `${OTColores[rowData][0]}`)
           return background ? `${OTColores[rowData][1]}` : `${OTColores[rowData][0]}`
@@ -149,7 +145,17 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
         color: isOT ? (rowData &&  handleColorEstado(rowData[5])) : (rowData &&  handleColorEstado(rowData[1], 'background  ')),
       }
 
-      console.log(cellStyle)
+
+      // console.log(backgroundAtrasadas)
+
+      // console.log(color)
+      // console.log(color2)
+  
+
+
+
+      console.log((backgroundAtrasadas && color || lowArmazonesStock && color2) ? '!text-white ' : 'text-black')
+
       return(
         // <Text variant="small" color="blue-gray" className={`gridText h-[2.7rem]  py-2  ${(backgroundAtrasadas && color || lowArmazonesStock && color2) ? '!text-white ' : 'text-black'} ${(type === 1 && color2) ? '': ( type === 1 ? ''  :'text-black')} `} style={ color2 ? cellStyl} >
         <Text // Combina estilos inline y de objeto
@@ -254,12 +260,14 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                     )}
                   </th>
                 );
+
               })}
           </tr>
         </thead>
         <tbody className="gridData">
           {data && data.length > 0 ? (data.map((rowData: any, rowIndex: number) => {
             let excelIndividual = false
+            console.log(rowData)
               if((params && params["_p5"] !== '')  ||  params && params[0] === ''){
                 let stockDisponibe    = parseInt(rowData[enumGird.stock_disponible])
                 let stockMinimo       = parseInt(rowData[enumGird.stock_minimo])
@@ -272,6 +280,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
               let estado              = ""
               if(isOT){
                 estado                = rowData[4]
+                console.log(estado)
               }
 
               if(entidad === 'Documentación del Proyecto ' && (rowData[enumGird.tipo_doc_id] === 1 || rowData[enumGird.tipo_doc_id] === 2)){
@@ -294,8 +303,8 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                                                             rowData[OTGrillaEnum.estado_id] !== 40
                                                           )) 
                                                       ? "bg-black" : "" : "");
+
                     const type                  = color === 'bg-black' ? 1 : 0
-                    
                     return (
                       visible && (
                         <td
