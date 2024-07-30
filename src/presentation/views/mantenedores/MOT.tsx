@@ -140,7 +140,7 @@ const MOT: React.FC = () => {
 
   
   useEffect(() => {
-
+    console.log('render')
     const newPkToDelete = selectedRows?.map((row: number) => ({
       folio: OTs.data[row] && OTs.data[row][OTGrillaEnum.folio],
       estado_id: OTs.data[row] && OTs.data[row][OTGrillaEnum.estado_id],
@@ -177,6 +177,10 @@ const MOT: React.FC = () => {
       }
       return acc
     },0)
+
+
+    console.log('render')
+
 
   }, [selectedRows]);
 

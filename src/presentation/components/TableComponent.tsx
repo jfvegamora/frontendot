@@ -85,6 +85,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
     const OTColores:any = useAppSelector((store: AppStore) => store.OTS.derivacionColores) || JSON.parse(localStorage.getItem('OTColores') as string);
     const areaActual = OTAreas["areaActual"] 
     const permissions = (area:number) => areaActual &&  OTAreas["areas"].find((permiso:any)=>permiso[1] === area)
+
     
     let enumGird:any = useMemo(() => {
       switch (entidad) {

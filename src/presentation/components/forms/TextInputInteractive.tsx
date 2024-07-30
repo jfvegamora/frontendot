@@ -112,13 +112,17 @@ const TextInputInteractive: React.FC<ITextInputProps> = ({
       setDefaultValue("");
       setValue("");
       armazonInput = ''
-
+      console.log(name)
       if(name === 'a1_armazon'){
+        setValue("")
+        setRender(prev => !prev);
+      }
+      if(name === 'cristal1_od'){
         console.log('render')
         setValue("")
         setRender(prev => !prev);
-
       }
+
   } else {
       setDefaultValue(data);
       setValue(data);

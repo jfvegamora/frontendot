@@ -149,8 +149,6 @@ export const setLocalArmazones = async (response: any) => {
 export const fetchReservaBeneficiario = async (rut: string) => {
   const loadingToast = toast.loading("Cargando....");
   try {
-    console.log(rut);
-
     const response = await axios(
       `${URLBackend}/api/otreservaarmazones/listado/?query=01&_p1=${rut}`
     );
@@ -158,7 +156,6 @@ export const fetchReservaBeneficiario = async (rut: string) => {
     // console.log(response)
 
     if (response["data"].length > 0) {
-      console.log("hay data");
       const proyecto_codigo =
         response["data"][0][ReservaArmazonesEnum["proyecto"]];
       validationProyectos(
@@ -181,8 +178,6 @@ export const fetchReservaBeneficiario = async (rut: string) => {
       toast.dismiss(loadingToast);
       alert(mensaje);
 
-      console.log(response["data"][0][ReservaArmazonesEnum["cod_armazon1"]]);
-
       codigoProyecto.value = proyecto_codigo;
       punto_venta.value =
         response["data"][0][ReservaArmazonesEnum["punto_venta_id"]];
@@ -199,6 +194,7 @@ export const fetchReservaBeneficiario = async (rut: string) => {
         response["data"][0][ReservaArmazonesEnum["tipo_anteojo_id"]].toString()
       );
 
+      console.log(tipo_de_anteojo.value);
       //?ARMAZON 1:
       a1_armazon.value =
         response["data"][0][ReservaArmazonesEnum["cod_armazon1"]];
@@ -207,11 +203,15 @@ export const fetchReservaBeneficiario = async (rut: string) => {
       );
 
       //?ARMAZON 2:
-      a2_armazon.value =
-        response["data"][0][ReservaArmazonesEnum["cod_armazon2"]];
-      validation_A2_armazon(
-        response["data"][0][ReservaArmazonesEnum["cod_armazon2"]]
-      );
+      if (tipo_de_anteojo.value === "3") {
+        a2_armazon.value =
+          response["data"][0][ReservaArmazonesEnum["cod_armazon2"]];
+        validation_A2_armazon(
+          response["data"][0][ReservaArmazonesEnum["cod_armazon2"]]
+        );
+      } else {
+        validation_A2_armazon("32");
+      }
 
       //?ARMAZON 3:
       a3_armazon.value =

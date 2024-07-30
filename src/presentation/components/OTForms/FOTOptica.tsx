@@ -292,7 +292,7 @@ return (
                                 }
                             }} 
                             checked={isToggleMontajeValidation.value}/>
-                            <label className='ml-2'>{isToggleMontajeValidation.value ? 'Con Montaje' : 'Sin Montaje'}</label>
+                            <label className='ml-2'>{'Con Montaje'}</label>
                         </div>
                     </div>
 
