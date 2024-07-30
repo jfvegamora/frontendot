@@ -3801,13 +3801,13 @@ export const table_head_usuarios = [
     visible: false,
   },
   {
-    cell: "editar_cristal_id",
-    key: "permiso_cristal_id",
+    cell: "opcion_montaje_id",
+    key: "permiso_opcion_montaje_id",
     visible: false,
   },
   {
-    cell: "editar_cristal",
-    key: "permiso_cristal",
+    cell: "opcion_montaje",
+    key: "permiso_opcion_montaje",
     visible: false,
   },
   {

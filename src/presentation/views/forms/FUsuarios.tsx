@@ -48,6 +48,7 @@ export interface InputData {
   permiso_anulacion: string | undefined;
 
   permiso_editar_armazon: string | undefined;
+  permiso_opcion_montaje: string | undefined;
   permiso_editar_estado_impresion: string | undefined;
   permiso_editar_validar_parametrizacion: string | undefined;
   // permiso_editar_resolucion_garantia: string | undefined;
@@ -55,8 +56,8 @@ export interface InputData {
   permiso_editar_receta: string | undefined;
   permiso_editar_validar_insumos: string | undefined;
   permiso_editar_validar_armazones: string | undefined;
-
 }
+
 // function insertarElementoEnPosicion(arreglo: any, nuevoElemento: any, posicion: any) {
 //   const nuevoArreglo = arreglo.slice(0, posicion) + nuevoElemento + arreglo.slice(posicion)
 //   console.log(nuevoArreglo)
@@ -88,6 +89,7 @@ const permiso_area = [
 
 const permiso_campo = [
   "permiso_editar_armazon",
+  "permiso_opcion_montaje",
   "permiso_editar_estado_impresion",
   "permiso_editar_validar_parametrizacion",
   "permiso_editar_resolucion_garantia",
@@ -108,10 +110,10 @@ export function transformInsertQuery(jsonData: any): any | null {
   // const permisos_areas      = permiso_area.map((permiso:any)=>jsonData[permiso] === 'Lectura' ? "0" : "1").join('');
   const permisos_areas = permiso_area.map((permiso: any) => jsonData[permiso] === 'Procesar' ? "2" : (jsonData[permiso] === 'Lectura' ? '0' : '1')).join('');
 
-  const permisos_campos = permiso_campo.map((permiso: any) => jsonData[permiso] === 'Lectura' ? "0" : "1").join('');
+  const permisos_campos = permiso_campo.map((permiso: any) => jsonData[permiso] === 'Lectura' || jsonData[permiso] === 'No' ? "0" : "1").join('');
   const permisos_archivoOT = permiso_archivoOT.map((permiso: any) => jsonData[permiso] === 'Lectura' ? "0" : "1").join('');
 
-  console.log(permisos_areas)
+  // console.log(permisos_areas)
 
 
   let _p1 = ` "${jsonData.nombre}", 
@@ -147,7 +149,8 @@ export function transformUpdateQuery(
     `estado               = ${jsonData.estado === "Activo" ? 1 : 2}`,
     `cargo                = ${jsonData.cargo}`,
     `permisos_archivo_ot  = "${permiso_archivoOT.map((permiso) => jsonData[permiso] === 'Lectura' ? "0" : "1").join('')}"`,
-    `permisos_campos      = "${permiso_campo.map((permiso) => jsonData[permiso] === 'Lectura' ? "0" : "1").join(''), '0', 1}"`,
+    `permisos_campos      = "${permiso_campo.map((permiso) => (jsonData[permiso] === 'Lectura' || jsonData[permiso] === 'No') ? "0" : "1").join('')}"`,    
+    // `permisos_campos      = "${permiso_campo.map((permiso) => jsonData[permiso] === 'Lectura' ? "0" : "1").join(''), '0', 1}"`,
     `permisos_areas       = "${permiso_area.map((permiso) => jsonData[permiso] === 'Procesar' ? "2" : (jsonData[permiso] === 'Lectura' ? '0' : '1')).join('')}"`,
   ];
 
@@ -170,7 +173,7 @@ export function transformUpdateQuery(
     _p3: ""
   };
 
-  console.log(query)
+  console.log('USER: ', query)
   return query;
 }
 
@@ -217,7 +220,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
       setValue("nombre", "");
       setValue("telefono", "");
       setValue("correo", "");
-      setValue('permiso_post_venta', '');
+      // setValue('permiso_post_venta', '');
       if (firstInputRef.current) {
         const firstInput = firstInputRef.current.querySelector(
           'input[name="nombre"]'
@@ -373,8 +376,9 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
 
     useEffect(() => {
       if (data) {
-        setValue('permiso_editar_estado_impresion', data[EnumGrid.permiso_editar_estado_impresion])
         setValue('permiso_editar_armazon', data[EnumGrid.permiso_editar_armazon])
+        setValue('permiso_opcion_montaje', data[EnumGrid.permiso_opcion_montaje])
+        setValue('permiso_editar_estado_impresion', data[EnumGrid.permiso_editar_estado_impresion])
         setValue('permiso_editar_validar_parametrizacion', data[EnumGrid.permiso_editar_armazon])
         setValue('permiso_editar_resolucion_garantia', data[EnumGrid.permiso_editar_resolucion_garantia])
         setValue('permiso_editar_grupo_dioptria', data[EnumGrid.permiso_editar_grupo_dioptria])
@@ -520,7 +524,6 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
               </TabList>
 
               <TabPanel>
-
                 <div className="frameOTForm">
                   <div className="w-full items-center !mt-7 !mb-4  !h-[10rem] ">
                     <div className="w-full items-center flex justify-evenly  input-container">
@@ -621,8 +624,8 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                         </div>
                       </div>
                     </div>
-
                   </div>
+
                   <div className="w-full items-center  !mb-4  !h-[8rem]">
                     <div className="w-full items-center flex justify-evenly  input-container">
                       <div className="input-container items-center rowForm  w-[14%]">
@@ -713,11 +716,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
 
               <TabPanel>
                 <div className="frameOTForm">
-
                   <div className="w-full items-center !mt-7  !mb-4  !h-[10rem] ">
-
-
-
                     <div className="w-full items-center flex justify-evenly  input-container">
                       <div className="input-container items-center rowForm  w-[15%]">
                         <div className="w-full">
@@ -768,6 +767,20 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                         </div>
                       </div>
                       <div className="input-container items-center rowForm w-[15%]">
+                        <div className="w-full">
+                          <RadioButtonComponent
+                            control={control}
+                            label="Opción Montaje"
+                            name="permiso_opcion_montaje"
+                            data={formValues && formValues["Opción Montaje"] || data && data[EnumGrid.permiso_opcion_montaje]}
+                            options={["Si", "No"]}
+                            error={errors.permiso_opcion_montaje}
+                            horizontal={false}
+                            onChange={(e: any) => handleChange(e)}
+                            labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.2vw]"}
+                            customWidth={"!h-[2.5vw] text-[1vw]"}
+                          />
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -832,15 +845,15 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
           </div>
 
           <div className="flex items-center mt-10 mb-10" style={{ display: 'inline' }}>
-          <div className="w-full flex !-mt-6">
-          {isEditting && (
-              <div className="!w-[8rem] !flex mx-auto">
-                <Button type="button" tabIndex={1} onClick={handlePermisos} 
-                  className="absolute !w-[20%] left-50 userFormBtnSubmit userFormBtnCopiarPermisos"
-                > COPIAR PERMISOS
-                </Button>
-              </div>
-            )}
+            <div className="w-full flex !-mt-6">
+              {isEditting && (
+                <div className="!w-[8rem] !flex mx-auto">
+                  <Button type="button" tabIndex={1} onClick={handlePermisos}
+                    className="absolute !w-[20%] left-50 userFormBtnSubmit userFormBtnCopiarPermisos"
+                  > COPIAR PERMISOS
+                  </Button>
+                </div>
+              )}
 
               <div className="mx-auto w-[20%]">
                 {escritura_lectura && (

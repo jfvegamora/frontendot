@@ -630,6 +630,7 @@ export const validationUsusariosSchema = () =>
     permiso_anulacion: yup.string().required(`${msg}`),
 
     permiso_editar_armazon: yup.string().required(`${msg}`),
+    permiso_opcion_montaje: yup.string().default("No"),
     permiso_editar_estado_impresion: yup.string().required(`${msg}`),
     permiso_editar_validar_parametrizacion: yup.string().required(`${msg}`),
     permiso_editar_resolucion_garantia: yup.string().default("Lectura"),
