@@ -215,7 +215,7 @@ React.useEffect(()=>{
     }
 },[])
 
-
+console.log('isToggleMontajeValidation:', isToggleMontajeValidation.value)
 
 return (
     <form action="" onKeyDown={handleKeyDown} className='  h-[85vh]'>
@@ -291,7 +291,7 @@ return (
                                     onDataChange({ ['montaje_validacion']: isToggleMontajeValidation.value });        
                                 }
                             }} 
-                            checked={isToggleMontajeValidation.value}/>
+                            checked={!isToggleMontajeValidation.value}/>
                             <label className='ml-2'>{'Con Montaje'}</label>
                         </div>
                     </div>

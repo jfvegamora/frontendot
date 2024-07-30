@@ -10,7 +10,7 @@ import { useCallback } from "react";
 
 
 
-export const isToggleMontajeValidation = signal<any>(false);
+export const isToggleMontajeValidation = signal<any>(true);
 
 export const CR1_OD_LAB = signal<any>(false);
 export const CR1_OI_LAB = signal<any>(false);

@@ -256,6 +256,13 @@ export const table_head_OT_diaria2 = [
     alignment: "text-left",
     width: "w-[6rem]"
   },
+  {
+    cell: "Opción Montaje",
+    key: "opcion_montaje",
+    visible: true,
+    alignment: "text-left",
+    width: "w-[6rem]"
+  },
 ];
 
 export const table_head_OT_historica = [
