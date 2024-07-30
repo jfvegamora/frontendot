@@ -111,6 +111,14 @@ const TextInputInteractive: React.FC<ITextInputProps> = ({
       console.log('render')
       setDefaultValue("");
       setValue("");
+      armazonInput = ''
+
+      if(name === 'a1_armazon'){
+        console.log('render')
+        setValue("")
+        setRender(prev => !prev);
+
+      }
   } else {
       setDefaultValue(data);
       setValue(data);
@@ -133,7 +141,17 @@ const TextInputInteractive: React.FC<ITextInputProps> = ({
   }
 }
 
+
   },[data])
+
+
+
+  React.useEffect(()=>{
+    if(name === 'a1_armazon'){
+      console.log(data)
+      console.log(value)
+    }
+  },[value])
 
   
 React.useEffect(()=>{
@@ -147,7 +165,19 @@ React.useEffect(()=>{
 },[clearRutCliente.value])
 
 
+//fotvalidar bodega, limpiar inputs cuando no sean correctos
+React.useEffect(()=>{
+  if(name === 'a1_armazon'){
+    if(data === ''){
+      setValue('')
+    }
+  }
+},[value])
 
+if(name === 'a1_armazon'){
+  console.log(data)
+  console.log(value)
+}
 
 
 
@@ -156,7 +186,7 @@ return (
     <Controller
       name={name}
       control={control}
-      defaultValue={value}
+      // defaultValue={value}
       render={({ field }) => (
         <div className={` inputStyles relative ${error ? '!border-red-500' : 'border-gray-500'}`}>
           {/* <label htmlFor={label} className={` ${labelProps ? labelProps : ""} absolute !z-20 translate-y-[-0.5vw] text-[1.2vw] !font-[1.2vw] translate-x-3`}>
@@ -195,7 +225,8 @@ return (
                    style: {
                      color: "grey",
                      fontWeight: "bold",
-                     fontSize: "16px"
+                     fontSize: "16px",
+                     height: '7vh',
                   },
                 }}
           />

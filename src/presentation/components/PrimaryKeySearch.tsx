@@ -61,7 +61,6 @@ export const changeFilterSearchTitle = (e:any, label:any, typeInput?:any) => {
 
 interface PrimaryKeySearchProps {
   setEntities: any;
-  setParams?: any;
   strQuery?:any;
   primaryKeyInputs: {
     label: string;
@@ -87,6 +86,45 @@ export const filterTextValue = signal('')
 
 const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
   ({ setEntities, primaryKeyInputs, updateParams, description, otHistorica, baseUrl,classNameSearchButton }) => {
+    
+    console.log('render')
+    React.useEffect(()=>{
+      console.log('render')
+    },[description])
+    
+    React.useEffect(()=>{
+      console.log('render')
+    },[setEntities])
+    
+    React.useEffect(()=>{
+      console.log('render')
+    },[setEntities])
+    
+    React.useEffect(()=>{
+      console.log('render')
+    },[primaryKeyInputs])
+    
+    React.useEffect(()=>{
+      console.log('render')
+    },[updateParams])
+    
+    React.useEffect(()=>{
+      console.log('render')
+    },[otHistorica])
+    
+    React.useEffect(()=>{
+      console.log('render')
+    },[baseUrl])
+    
+    React.useEffect(()=>{
+      console.log('render')
+    },[classNameSearchButton])
+    
+    
+    
+    
+    
+    
     const [cilindrico, setCilindrico] = useState();
     const { control, handleSubmit, setValue } = useForm<IPrimaryKeyState>();
     const [inputValues, setInputValues] = useState<IPrimaryKeyState>({});
@@ -102,7 +140,8 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
     }, [description]);
 
 
-    const handleRefresh = () => {
+    const handleRefresh = React.useCallback(() => {
+      console.log('render')
       titleSearch.value = ""
         const mapping = primaryKeyInputs.reduce((acc:any, filtroBusqueda:any) => {
           acc[filtroBusqueda.name]= '';
@@ -117,7 +156,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
         setTimeout(()=>{
           resetFilters.value = false
         },1000)  
-    }
+    },[])
 
 
 
@@ -125,6 +164,8 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
         .map((key) => `${key}=${inputValues[key]}`)
         .join('&');
     
+      console.log(updatedParams)
+      
     const handleInputChange = (name: string, value: string) => {
         setInputValues((prev) => ({ ...prev, [name]: value }));
         updateParams(inputValues)
@@ -226,7 +267,9 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
       [handleSubmit, handleSearch]
     );
 
-    const renderInputs = () => {
+    console.log('render')
+    const renderInputs = React.useCallback(() => {
+      console.log('render')
       const inputGroups = [];
       for (let i = 0; i < primaryKeyInputs.length; i += 6) {
         inputGroups.push(primaryKeyInputs.slice(i, i + 6));
@@ -453,7 +496,8 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
           ))}
         </div>
       ));
-    };
+    },[primaryKeyInputs, className, control, inputValues, handleInputChange, changeFilterSearchTitle, handleKeyDown, handleSearch, handleSelectChange, cilindrico, setCilindrico]);
+
 
 
     React.useEffect(()=>{

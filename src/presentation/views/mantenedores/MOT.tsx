@@ -5,12 +5,15 @@ import React, {
   Suspense,
   useEffect, useState,
 } from "react";
+import { signal } from "@preact/signals-react";
+
 
 import {
   PrimaryButtonsComponent,
   PrimaryKeySearch,
   TableComponent,
 } from "../../components";
+
 import { useEntityUtils, usePermission } from "../../hooks";
 import { TITLES, table_head_OT_diaria2 } from "../../utils";
 // import FOT from "../forms/FOT";
@@ -21,11 +24,12 @@ import {
   useAppSelector
 } from "../../../redux/store";
 import { filterToggle } from "../../components/FilterButton";
-import { clearData, fetchColores, fetchOT } from "../../../redux/slices/OTSlice";
 // import StateCountBarOT from "../../components/StateCountBarOT";
-import { signal } from "@preact/signals-react";
+
+import { clearData, fetchColores, fetchOT } from "../../../redux/slices/OTSlice";
 import { updateActualArea } from "../../../redux/slices/OTAreasSlice";
 import { fetchDioptriaParametros } from "../../../redux/slices/utilsSlice";
+
 import { OTGrillaEnum } from "../../Enums";
 // import { OTGrillaEnum } from "../../Enums";
 // import axios from "axios";
@@ -60,12 +64,12 @@ export const totoalTrabajosSeleccionados = signal(0);
 
 
 
-const strEntidad = " ";
-const strBaseUrl = "/api/ot/";
-const strQuery = "14";
+
 // const idMenu = 1;
-export const paramsOT     = signal('');
+export const paramsOT      = signal('');
+export const paramsURLOT   = signal<any>([])
 export const switchFetchOT = signal(true);
+export const OTPkToDelete   = signal<any>([])
 
 
 const FOT               = React.lazy(()=>import('../forms/FOT'))
@@ -77,15 +81,35 @@ const MOT: React.FC = () => {
   const { lectura } = usePermission(28);
   const dispatch = useAppDispatch()
   const [params, setParams] = useState([]);
-  const {token}:any = useAppSelector((store: AppStore) => store.user);
+  const params2 = React.useRef([]);
+
+  const token:any = (useAppSelector((store: AppStore) => store.user.token)) ?? '';
   const areaActualOT:any = useAppSelector((store: AppStore) => store.OTAreas.areaActual);
-  const OTs:any = useAppSelector((store: AppStore) => store.OTS);
-  const [_estadosOT, setEstadosOT] = useState()
-  const [pktoDelete, setPkToDelete] = useState([]);
+  const OTs:any = (useAppSelector((store: AppStore) => store.OTS)) ?? [];
   
-  const updateParams = (newParams: Record<string, never>) => {
+  const memoParams        = React.useMemo(()=>'',[])
+  
+  const updateParams = React.useCallback((newParams: Record<string, never>) => {
+    
+    params2.current   = (Object.keys(newParams).map((key) => newParams[key]))
+
+    
     setParams(Object.keys(newParams).map((key) => newParams[key]));
-  };
+  },[]);
+
+
+  console.log(params)
+  console.log(memoParams)
+  console.log(params2.current)
+
+  const strEntidad = React.useMemo(()=>" ",[]);
+  const strBaseUrl = React.useMemo(()=>"/api/ot/",[]);
+  const strQuery   = React.useMemo( ()=> "14",[]);
+  const showAddButton = React.useMemo(()=>true,[]);
+  const iSshowExportButton = React.useMemo(()=>true,[]);
+  const showDeleteButton = React.useMemo(()=>true,[]);
+  const showForwardButton = React.useMemo(()=>false,[]);
+  const isOT = React.useMemo(()=>true,[]);
   
   const {
     //entities state
@@ -139,7 +163,7 @@ const MOT: React.FC = () => {
       ot_ubicacion: OTs.data[row] && OTs.data[row][OTGrillaEnum.ubicacion]
     }));
 
-    setPkToDelete(newPkToDelete as any)
+    OTPkToDelete.value = newPkToDelete
 
     checkCount.value = newPkToDelete.length
     
@@ -182,13 +206,43 @@ const MOT: React.FC = () => {
     }
   }, [])
 
-  useEffect(() => {
-    setEstadosOT(OTs.estadosOT)
-  }, [OTs.estadosOT])
-
-  // console.log(estadosOT)
 
 
+console.log(params)
+
+  const primaryKeyInputs = React.useMemo(()=>[
+    { name: "_folio", label: "Folio", type: "text", 
+      styles:{
+        with: "labelInput inputStyles w-full",
+        container:"w-[10vw] !h-[6vh] translate-x-[-2vw]", 
+        labelProps: "labelInput"
+      } },
+    { name: "_rut", label: "Rut", type: "text", 
+      styles:{
+        with: "labelInput inputStyles w-full",
+        container: "w-[10vw] !h-[6vh]    translate-x-[-6vw]",
+        labelProps: "labelInput"
+      } },
+    
+    { name: "_fecha_desde", label: "Atención Desde", type: "date", styles: {styles:"labelInput inputStyles",container:"w-[11vw] translate-x-[-2.5vw]" } },
+    { name: "_fecha_hasta", label: "Atención Hasta", type: "date", styles: {styles:"labelInput inputStyles", container:"w-[11vw] translate-x-[-6vw]" } },
+    { name: "_usuario", label: "Digitador/a", type: "select",selectUrl: "/api/usuarios/", styles: { styles: "!w-[24vw] inputStyles labelInput", container: " !w-[24vw] !z-30 text-[1vw] translate-x-[0.7vw] " } },
+    
+    { name: "_estado", label: "Estado", type: "select",selectUrl: "/api/tipos/", tipos: "OTEstadosFiltro", styles: { styles: "!w-[20vw] labelInput inputStyles", container:" !w-[20vw] translate-x-[8.5vw] !h-[3vw] !z-30 text-[1vw] translate-y-[-0.3rem]",labelProps: "labelInput" }},
+    { name: "_nombre", label: "Nombre", type: "text" , styles:{with: "labelInput inputStyles w-full",container:"!w-[29vw]   translate-x-[-6vw]",labelProps: "labelInput" } },
+    { name: "_p1", label: "RBD", type: "text" , styles:{ with:"labelInput inputStyles !w-[8vw]", container:"w-[8vw] translate-x-[-7vw] ml-14", labelProps: "labelInput" } },
+    
+    { name: "_proyecto", label: "Proyecto", type: "select", selectUrl: "/api/proyectos/", styles: { styles: "!w-[20vw] labelInput inputStyles", container: "!w-[20vw]  translate-x-[-6vw] !text-[1vw] " }},
+    { name: "_motivo", label: "Motivo", type: "select", selectUrl: "/api/tipos/", tipos: "OTMotivo", styles: { styles: "!w-[20vw] labelInput inputStyles", container:"w-[20vw] translate-x-[-1vw] text-[1vw] !h-[3vw] translate-y-[-0.3rem] z-30",labelProps: "labelInput" }},
+    
+    { name: "_p2", label: "Tipo Doc", type: "select", selectUrl: "/api/tipos/", tipos: "OTNumDoc", styles:{styles: "!w-[20vw] labelInput inputStyles", container: "w-[20.4vw] translate-x-[13.5vw] text-[1vw] !h-[3vw] !z-30 translate-y-[-0.3rem]",labelProps: "labelInput"}},
+    { name: "_p3", label: "Número Doc", type: "text", styles: {   with: "labelInput inputStyles w-full", container:"translate-x-[18.5vw] !w-[23vw] !z-30 text-[1vw]  translate-y-[-0.5vw]",labelProps: "labelInput" }},
+    
+    { name: "_establecimiento", label: "Establecimiento", type: "select", selectUrl: "/api/establecimientos/", styles: { styles: "!w-[20vw] labelInput inputStyles", container: "!w-[25vw] translate-x-[4vw] !z-30  !text-[1vw] !translate-y-[0.3rem]",labelProps: "labelInput" }},
+    { name: "_punto_venta", label: "Punto de Venta", type: "select", selectUrl: "/api/puntosventa/", styles: { styles: "!w-[20vw] labelInput inputStyles", container:" !w-[25vw] !translate-x-[-10.5vw] !z-30 !text-[1vw] translate-y-[5.5vw]",labelProps: "labelInput" }},
+    { name: "_ubicacion", label: "Ubicación", type: "text" , styles:{ with:"labelInput inputStyles !w-[8vw]", container:"!relative w-[8vw] translate-y-[-5.7vw] translate-x-[-12vw] ml-14", labelProps: "labelInput" } },
+
+  ],[])
 
   return (
     <div className="mantenedorContainer °bg-yellow-500">
@@ -208,17 +262,16 @@ const MOT: React.FC = () => {
           params={params}
           // pkToDelete={pkToDelete}
           // strEntidad={strEntidadExcel}
-          entities={OTs.data}
           strBaseUrl={strBaseUrl}
-          showAddButton={true}
-          showExportButton={true}
-          showDeleteButton={true}
-          showForwardButton={false}
-          pkToDelete={pktoDelete}
+          showAddButton={showAddButton}
+          showExportButton={iSshowExportButton}
+          showDeleteButton={showDeleteButton}
+          showForwardButton={showForwardButton}
+
           showRefreshButton={true}
           showImportCsv={true}
           idMenu={28}
-          isOT={true}
+          isOT={isOT}
         />
 
       </div>
@@ -227,48 +280,15 @@ const MOT: React.FC = () => {
         {Number.isInteger(areaActualOT) && (areaActualOT !== 200) && (
           <FilterButton
             className="top-[11.6rem] left-[3rem]"
-            isOT={true}
+            isOT={isOT}
           >
 
             <PrimaryKeySearch
               baseUrl={strBaseUrl}
-              setParams={setParams}
               updateParams={updateParams}
               strQuery={strQuery}
               setEntities={setEntities}
-              primaryKeyInputs={[
-                { name: "_folio", label: "Folio", type: "text", 
-                  styles:{
-                    with: "labelInput inputStyles w-full",
-                    container:"w-[10vw] !h-[6vh] translate-x-[-2vw]", 
-                    labelProps: "labelInput"
-                  } },
-                { name: "_rut", label: "Rut", type: "text", 
-                  styles:{
-                    with: "labelInput inputStyles w-full",
-                    container: "w-[10vw] !h-[6vh]    translate-x-[-6vw]",
-                    labelProps: "labelInput"
-                  } },
-                
-                { name: "_fecha_desde", label: "Atención Desde", type: "date", styles: {styles:"labelInput inputStyles",container:"w-[11vw] translate-x-[-2.5vw]" } },
-                { name: "_fecha_hasta", label: "Atención Hasta", type: "date", styles: {styles:"labelInput inputStyles", container:"w-[11vw] translate-x-[-6vw]" } },
-                { name: "_usuario", label: "Digitador/a", type: "select",selectUrl: "/api/usuarios/", styles: { styles: "!w-[24vw] inputStyles labelInput", container: " !w-[24vw] !z-30 text-[1vw] translate-x-[0.7vw] " } },
-                
-                { name: "_estado", label: "Estado", type: "select",selectUrl: "/api/tipos/", tipos: "OTEstadosFiltro", styles: { styles: "!w-[20vw] labelInput inputStyles", container:" !w-[20vw] translate-x-[8.5vw] !h-[3vw] !z-30 text-[1vw] translate-y-[-0.3rem]",labelProps: "labelInput" }},
-                { name: "_nombre", label: "Nombre", type: "text" , styles:{with: "labelInput inputStyles w-full",container:"!w-[29vw]   translate-x-[-6vw]",labelProps: "labelInput" } },
-                { name: "_p1", label: "RBD", type: "text" , styles:{ with:"labelInput inputStyles !w-[8vw]", container:"w-[8vw] translate-x-[-7vw] ml-14", labelProps: "labelInput" } },
-                
-                { name: "_proyecto", label: "Proyecto", type: "select", selectUrl: "/api/proyectos/", styles: { styles: "!w-[20vw] labelInput inputStyles", container: "!w-[20vw]  translate-x-[-6vw] !text-[1vw] " }},
-                { name: "_motivo", label: "Motivo", type: "select", selectUrl: "/api/tipos/", tipos: "OTMotivo", styles: { styles: "!w-[20vw] labelInput inputStyles", container:"w-[20vw] translate-x-[-1vw] text-[1vw] !h-[3vw] translate-y-[-0.3rem] z-30",labelProps: "labelInput" }},
-                
-                { name: "_p2", label: "Tipo Doc", type: "select", selectUrl: "/api/tipos/", tipos: "OTNumDoc", styles:{styles: "!w-[20vw] labelInput inputStyles", container: "w-[20.4vw] translate-x-[13.5vw] text-[1vw] !h-[3vw] !z-30 translate-y-[-0.3rem]",labelProps: "labelInput"}},
-                { name: "_p3", label: "Número Doc", type: "text", styles: {   with: "labelInput inputStyles w-full", container:"translate-x-[18.5vw] !w-[23vw] !z-30 text-[1vw]  translate-y-[-0.5vw]",labelProps: "labelInput" }},
-                
-                { name: "_establecimiento", label: "Establecimiento", type: "select", selectUrl: "/api/establecimientos/", styles: { styles: "!w-[20vw] labelInput inputStyles", container: "!w-[25vw] translate-x-[4vw] !z-30  !text-[1vw] !translate-y-[0.3rem]",labelProps: "labelInput" }},
-                { name: "_punto_venta", label: "Punto de Venta", type: "select", selectUrl: "/api/puntosventa/", styles: { styles: "!w-[20vw] labelInput inputStyles", container:" !w-[25vw] !translate-x-[-10.5vw] !z-30 !text-[1vw] translate-y-[5.5vw]",labelProps: "labelInput" }},
-                { name: "_ubicacion", label: "Ubicación", type: "text" , styles:{ with:"labelInput inputStyles !w-[8vw]", container:"!relative w-[8vw] translate-y-[-5.7vw] translate-x-[-12vw] ml-14", labelProps: "labelInput" } },
-
-              ]}
+              primaryKeyInputs={primaryKeyInputs}
             />
 
           </FilterButton>
@@ -284,7 +304,7 @@ const MOT: React.FC = () => {
           handleSelectedCheckedAll={handleSelectedAll}
           toggleEditModal={toggleEditModal}
           toggleEditOTModal={toggleEditOTModal}
-          pkToDelete={pktoDelete}
+          pkToDelete={OTPkToDelete}
           handleDeleteSelected={handleDeleteSelected}
           selectedRows={selectedRows}
           // pkToDelete={pkToDelete}
@@ -295,43 +315,10 @@ const MOT: React.FC = () => {
           showEditButton={true}
           showDeleteButton={false}
           idMenu={28}
-          isOT={true}
+          isOT={isOT}
         />
       </div>
 
-      {/* 
-      <div className="w-[80%] bg-white absolute bottom-[2%] flex">
-        {Object.keys(OTs.estadosOT).map((estadoID, index) => {
-          const estadoNombre = estadoIDNombre[estadoID];
-          const derivacionColor = OTs.derivacionColores[estadoNombre];
-
-          if (derivacionColor) {
-            const backgroundColor = derivacionColor[1];
-            const textColor = derivacionColor[0];
-
-            return (
-              <div className="flex" key={index}>
-                <p style={{ backgroundColor, color: textColor }} className="mx-2 w-[6rem] text-center">
-                  {estadoNombre}:
-                </p>
-                <label className="w-8 text-center">{OTs.estadosOT[estadoID]}</label>
-                {estadoNombre === 'Por Vencer' && (
-                <h1>hola</h1>
-                )}
-              </div>
-            );
-          }
-
-          return null; 
-        })}
-        
-        {OTs.estadosOT.hasOwnProperty(99) && (
-          <div className="w-[8rem]  flex bg-black">
-              <p className="text-center mx-auto text-white">Por vencer: </p> <label className="text-center text-white">{OTs.estadosOT[99]}</label>        
-          </div>
-        )}
-
-    </div> */}
 
         <Suspense>
           {OTs?.data.length >= 1 && (

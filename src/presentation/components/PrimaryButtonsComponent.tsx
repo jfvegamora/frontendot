@@ -53,7 +53,6 @@ interface IPrimaryButtonProps {
   comilla?: boolean;
   strBaseUrl?: string;
   params?: never[];
-  entities?:any;
   strEntidad?: string;
   pkToDelete?: any;
   idMenu: number;
@@ -77,12 +76,9 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
   ({
     handleDeleteSelected,
     handleTraspaso,
-    // handlePageSize,
     handleAddPerson,
     handleCopiar,
-    // handleRefresh,
     toggleEditModal,
-    // showForwardButton
     showCustomExportButton,
     customExporTooltip,
     showAddButton,
@@ -100,24 +96,134 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
     pkToDelete,
     comilla,
     idMenu,
-    entities,
     bln_egreso,
     isOT,
     showCopiar,
     setSelectedRows,
     classname
   }) => {
+
+    React.useEffect(()=>{
+      console.log('render')
+    },[handleDeleteSelected])
+
+    React.useEffect(()=>{
+      console.log('render')
+    },[handleTraspaso])
+
+    React.useEffect(()=>{
+      console.log('render')
+    },[handleAddPerson])
+
+    React.useEffect(()=>{
+      console.log('render')
+    },[handleCopiar])
+
+    React.useEffect(()=>{
+      console.log('render')
+    },[toggleEditModal])
+
+    React.useEffect(()=>{
+      console.log('render')
+    },[showCustomExportButton])
+
+    React.useEffect(()=>{
+      console.log('render')
+    },[customExporTooltip])
+
+    React.useEffect(()=>{
+      console.log('render')
+    },[showAddButton])
+
+    React.useEffect(()=>{
+      console.log('render')
+    },[showTraspasoButton])
+
+    React.useEffect(()=>{
+      console.log('render')
+    },[showDeleteButton])
+
+    React.useEffect(()=>{
+      console.log('render')
+    },[showExcelRepFirma])
+
+    React.useEffect(()=>{
+      console.log('render')
+    },[showPDFButton])
+
+    React.useEffect(()=>{
+      console.log('render')
+    },[showExcelRepEntrega])
+
+    React.useEffect(()=>{
+      console.log('render')
+    },[strBaseUrl])
+
+    React.useEffect(()=>{
+      console.log('render')
+    },[showExportButton])
+
+    React.useEffect(()=>{
+      console.log('render')
+    },[params])
+
+    React.useEffect(()=>{
+      console.log('render')
+    },[strEntidad])
+
+    React.useEffect(()=>{
+      console.log('render')
+    },[pkToDelete])
+
+    React.useEffect(()=>{
+      console.log('render')
+    },[idMenu])
+
+    React.useEffect(()=>{
+      console.log('render')
+    },[bln_egreso])
+
+    React.useEffect(()=>{
+      console.log('render')
+    },[isOT])
+
+    React.useEffect(()=>{
+      console.log('render')
+    },[showCopiar])
+    React.useEffect(()=>{
+      console.log('render')
+    },[setSelectedRows])
+    React.useEffect(()=>{
+      console.log('render')
+    },[classname])
+
+
+
+    
+    
+    
+    
+
+    
     const { escritura_lectura } = usePermission(idMenu);
     const { CustomModal, showModal } = useModal();
     const [OTPermissions, setOTPermissions] = useState("");
 
     const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas);
     const User:any = useAppSelector((store: AppStore) => store.user);
+    
+    React.useEffect(()=>{
+      console.log(OTAreas)
+    },[OTAreas])
 
+    
+    console.log(OTAreas)
+
+    
     const areaActual = OTAreas["areaActual"]
 
 
-    const handleDownloadMacro = async(entidad:string) => {
+    const handleDownloadMacro = React.useCallback(async(entidad:string) => {
       try {
         const url = `${URLBackend}/api/downloadexcel/`;
         const formData = new FormData();
@@ -146,7 +252,7 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
         // console.log(error)
         throw error;
       }
-    };
+    },[User.token]);
   
 
     // console.log(areaActual)
@@ -189,8 +295,6 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
             areaActual={areaActual}  
             handleAddPerson={handleAddPerson}
             params={params}
-            pkToDelete={pkToDelete}
-            entities={entities}
             setSelectedRows={setSelectedRows}
             
           />
@@ -199,7 +303,6 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
     }
     
     
-console.log(pkToDelete.length === 0)
 
     return (
       <div className={`primaryBtnContainer ${classname ? classname : ""}`}>

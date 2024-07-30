@@ -14,7 +14,7 @@ import { clearImpression, fetchOT, fetchOTImpresionByID} from '../../redux/slice
 import axios from 'axios';
 import { URLBackend } from '../hooks/useCrud';
 import { useReactToPrint } from 'react-to-print';
-import { checkCount, paramsOT } from '../views/mantenedores/MOT';
+import { checkCount, OTPkToDelete, paramsOT } from '../views/mantenedores/MOT';
 import { signal } from '@preact/signals-react';
 import { setEstadoImpresion } from './OTGrillaButtons';
 import { SocialIcon } from 'react-social-icons';
@@ -33,8 +33,6 @@ type AreaButtonsProps ={
     params:any;
     areaActual:string;
     handleAddPerson?: () => void;
-    pkToDelete?: any;
-    entities?:any;
     setSelectedRows?:any
   }
   
@@ -121,8 +119,6 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
     areaPermissions,
     handleAddPerson,
     params,
-    pkToDelete,
-    entities,
     setSelectedRows
 }) => {
     const dispatch                                    = useAppDispatch();
@@ -155,7 +151,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
 
     const permisos_usuario_areas = User.permisos_areas[EnumAreas[OTAreas["areaActual"]]]
 	  
-    const folios = pkToDelete && pkToDelete.map(({folio}:any)=>folio)
+    const folios = OTPkToDelete && OTPkToDelete?.value.map(({folio}:any)=>folio)
 
 
     const handlePrint = useReactToPrint({
@@ -184,8 +180,8 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
     const handleIngresoBiselado = async() => {
       try {
 
-        const filterFolios  = await pkToDelete.filter((OT:any)=>(OT.estado_id === 20)).map((OT:any)=>OT.folio);
-        const validateState = await pkToDelete.some((OT:any)=>OT.estado_id === 20);
+        const filterFolios  = await OTPkToDelete.value.filter((OT:any)=>(OT.estado_id === 20)).map((OT:any)=>OT.folio);
+        const validateState = await OTPkToDelete.value.some((OT:any)=>OT.estado_id === 20);
         
         if(validateState){
           return toast.error(`Folio: ${filterFolios} Ya se encuentra en Proceso. `,
@@ -197,7 +193,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
         let masivo          = true;
         let validarBodega   = false;
 
-        await pkToDelete.map(async(OT:any)=>{
+        await OTPkToDelete.value.map(async(OT:any)=>{
           await updateOT(
             [],
             OTAreas["areaActual"],
@@ -231,16 +227,15 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
     }
 
     const handleImpresionMasivo = async () => {      
-      console.log(pkToDelete)
-      if(pkToDelete.length === 0){
+      if(OTPkToDelete.value.length === 0){
         return toast.error('No hay OTs Seleccionadas.')
       }
       disabledIndividualCheck.value = true;        
       const toastLoading = toast.loading('Imprimiendo OT´s.')
-      const primerProyectoCodigo = pkToDelete[0].proyecto_codigo;
-      const todosIguales          = pkToDelete.slice(1).every((ot:any) => ot.proyecto_codigo === primerProyectoCodigo);
-      // const impresaAnteriormente  = pkToDelete.every((ot:any) => ot.estado_impresion === '0');
-      const validateUsuario       = pkToDelete.every((ot:any) => ot["usuario_id"] === User.id);
+      const primerProyectoCodigo = OTPkToDelete.value[0].proyecto_codigo;
+      const todosIguales          = OTPkToDelete.value.slice(1).every((ot:any) => ot.proyecto_codigo === primerProyectoCodigo);
+      // const impresaAnteriormente  = OTPkToDelete.value.every((ot:any) => ot.estado_impresion === '0');
+      const validateUsuario       = OTPkToDelete.value.every((ot:any) => ot["usuario_id"] === User.id);
       const listaFolios = folios.map((num:number) => `${num}`).join(',')
       // console.log(listaFolios)
       
@@ -253,7 +248,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
         toast.error(`OT ${folios} no pertenece al Usuario ${User.nombre}`);
         return;
       }
-      // console.log(pkToDelete)
+      // console.log(OTPkToDelete.value)
       // console.log(impresaAnteriormente)
       
       // if(!impresaAnteriormente){
@@ -261,7 +256,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
       //   disabledIndividualCheck.value = false;
       //   clearAllCheck.value = false;
       //   setSelectedRows([])        
-      //   return toast.error(`La OT con folio: ${pkToDelete.filter((ot:any)=> ot.estado_impresion === '1').map((ot:any)=>ot.folio)}, ya fueron impresas anteriormente.`)
+      //   return toast.error(`La OT con folio: ${OTPkToDelete.value.filter((ot:any)=> ot.estado_impresion === '1').map((ot:any)=>ot.folio)}, ya fueron impresas anteriormente.`)
         
       // }
 
@@ -283,7 +278,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
 
 
       try {
-        setEstadoImpresion(pkToDelete,OTAreas["areaActual"], true, User).then(()=>{
+        setEstadoImpresion(OTPkToDelete.value,OTAreas["areaActual"], true, User).then(()=>{
           dispatch(fetchOT({ OTAreas: OTAreas["areaActual"], searchParams: paramsOT.value })).then(()=>{
             toast.dismiss(toastLoading)
             disabledIndividualCheck.value = false; 
@@ -312,9 +307,9 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
 
     React.useEffect(()=>{
       if(isFinishImpression.value === true){
-        if(pkToDelete.length > 1){
+        if(OTPkToDelete.value.length > 1){
           let masivo = true
-            setEstadoImpresion(pkToDelete, OTAreas["areaActual"], masivo, User).then(()=>{
+            setEstadoImpresion(OTPkToDelete.value, OTAreas["areaActual"], masivo, User).then(()=>{
             clearIndividualCheck.value = true;
 
             dispatch(fetchOT({OTAreas:OTAreas["areaActual"],searchParams: paramsOT.value}))
@@ -322,7 +317,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
             clearAllCheck.value = false;
             isFinishImpression.value = false;
           // const loadingToast = toast.load ing('Cargando...')
-          // pkToDelete.map((ot:any)=>{
+          // OTPkToDelete.value.map((ot:any)=>{
           //   try {
           //         setEstadoImpresion(ot.folio,1,User,OTAreas["areaActual"],masivo).then(()=>{
           //         clearIndividualCheck.value = true;
@@ -367,7 +362,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
     // const imprimirComprobanteRetiro = async() => {
     //   const loadingToast = toast.loading('Imprimiendo Comprobante Retiro...');
 
-    //   pkToDelete.map(async(OT:any)=>{
+    //   OTPkToDelete.value.map(async(OT:any)=>{
     //     try {
     //         const {data, status} = await axios.get(`${URLBackend}/api/ot/listado/?query=01&_origen=${OTAreas['areaActual']}&_folio=${OT.folio}`,{
     //           headers: {
@@ -402,7 +397,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
       if(folio === ''){
         return;
       }
-      const resultIndex = entities.findIndex((OT: any) => OT[1] === parseInt(folio));
+      const resultIndex = OTData.findIndex((OT: any) => OT[1] === parseInt(folio));
 
       if(resultIndex !== -1){
         setSelectedRows((prev:any)=>[...prev, resultIndex])
@@ -476,14 +471,14 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
 
     const handleProcesarMasivo = async() => {
       let estado = '20'
-      if(pkToDelete.length === 0){
+      if(OTPkToDelete.value.length === 0){
         return toast.error('No hay OT seleccionada')
       }
-      const validateEstado           = pkToDelete.every((ot:any) => ot["estado_validacion"] === '2');
-      const validateEstadoStandBy    = pkToDelete.some((ot:any) => ot["estado_id"] === 25);
-      // const validateUsuario          = pkToDelete.every((ot:any) => ot["usuario_id"] === User.id);
-      const validateProyecto         = pkToDelete.every((ot:any) => ot["proyecto_codigo"] === pkToDelete[0]["proyecto_codigo"]);
-      const validateEstadoImpresion  = pkToDelete.every((ot:any) => ot["estado_impresion"] === '1');
+      const validateEstado           = OTPkToDelete.value.every((ot:any) => ot["estado_validacion"] === '2');
+      const validateEstadoStandBy    = OTPkToDelete.value.some((ot:any) => ot["estado_id"] === 25);
+      // const validateUsuario          = OTPkToDelete.value.every((ot:any) => ot["usuario_id"] === User.id);
+      const validateProyecto         = OTPkToDelete.value.every((ot:any) => ot["proyecto_codigo"] === OTPkToDelete.value[0]["proyecto_codigo"]);
+      const validateEstadoImpresion  = OTPkToDelete.value.every((ot:any) => ot["estado_impresion"] === '1');
 
 
       console.log(validateEstadoStandBy)
@@ -493,7 +488,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
 
       }
 
-      // const foliosMensaje = pkToDelete && pkToDelete.map(({folio}:any)=>folio)
+      // const foliosMensaje = OTPkToDelete.value && OTPkToDelete.value.map(({folio}:any)=>folio)
       
       if(!validateEstado){
         return toast.error(`Folio ${folios} no está validado correctamente`);
@@ -510,15 +505,15 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
       }
       
       if(!validateEstadoImpresion){
-        return toast.error(`OT ${pkToDelete.filter((ot:any)=> ot.estado_impresion === '0').map((ot:any)=>ot.folio)} no ha sido impresa.`) 
+        return toast.error(`OT ${OTPkToDelete.value.filter((ot:any)=> ot.estado_impresion === '0').map((ot:any)=>ot.folio)} no ha sido impresa.`) 
       }
 
 
 
 
       if(OTAreas["areaActual"] === 90){
-        const filterPkToDeleteFirmaEnvio = pkToDelete.filter((OT:any)=> (OT.numero_envio === '0' || OT.numero_envio === null) && (OT.numero_reporte_firma === 0))
-        const filterPkToDeleteGuia       = pkToDelete.filter((OT:any)=> OT.numero_guia === 0)
+        const filterPkToDeleteFirmaEnvio = OTPkToDelete.value.filter((OT:any)=> (OT.numero_envio === '0' || OT.numero_envio === null) && (OT.numero_reporte_firma === 0))
+        const filterPkToDeleteGuia       = OTPkToDelete.value.filter((OT:any)=> OT.numero_guia === 0)
   
         if(filterPkToDeleteFirmaEnvio.length > 0){
           const folios = filterPkToDeleteFirmaEnvio.map((OT:any) => OT.folio)
@@ -538,7 +533,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
       }
       const toastLoading = toast.loading('Cargando...');
 
-      const updatePromises = pkToDelete.map(async(ot:any)=>{
+      const updatePromises = OTPkToDelete.value.map(async(ot:any)=>{
         if(OTAreas["areaActual"] === 90 || OTAreas["areaActual"] === 100){
           if(ot.numero_envio !== '0'){
             estado = '50'
@@ -584,7 +579,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
     }
 
     const handleValidarEmpaque = async() => {
-      if(pkToDelete.length === 0){
+      if(OTPkToDelete.value.length === 0){
         return toast.error('No hay OT seleccionada')
       }
 
@@ -593,7 +588,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
 
 
     const handleUbicacion = async() => {
-      if(pkToDelete.length === 0){
+      if(OTPkToDelete.value.length === 0){
         return toast.error('No hay OT seleccionada')
       }
       
@@ -756,7 +751,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
         {areaPermissions && areaPermissions[12] === "1" && permisos_usuario_areas !== '0' && (
           <Tooltip content='Generar Número de Guía'>
               <Button className='otActionButton mr-4'  onClick={()=>{
-                if(pkToDelete.length === 0){
+                if(OTPkToDelete.value.length === 0){
                   toast.error('No hay OT seleccionada')
                 }else{
                   setIsFOTGuia((prev)=>!prev)
@@ -770,7 +765,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
           <Tooltip content={BUTTON_MESSAGES.procesar}>
           {/* <button className='bg-green-400 mx-4 transition-transform transform hover:scale-110 active:scale-95 w-[10rem] h-[2.5rem]  text-white '  */}
           <Button  type="submit" className='otActionButton mx-4 bg-blue-500' onClick={()=>{
-            if(pkToDelete.length === 0){
+            if(OTPkToDelete.value.length === 0){
               return toast.error('No hay OT seleccionada.')
             }
             handleIngresoBiselado()
@@ -810,10 +805,10 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
         {areaPermissions && areaPermissions[3] === '1' && permisos_usuario_areas !== '0' && (OTAreas["areaActual"] !== 60) &&  (
           <Tooltip content={BUTTON_MESSAGES.procesar}>
              <Button  type="submit" className='otActionButton mx-4 bg-yellow-700' onClick={()=>{
-              if(pkToDelete.length === 0){
+              if(OTPkToDelete.value.length === 0){
                 return toast.error('No hay OT seleccionada.')
               }
-              if(pkToDelete.some((OT:any)=> OT.estado_id === 25)){
+              if(OTPkToDelete.value.some((OT:any)=> OT.estado_id === 25)){
                 return  toast.error(`Folio ${folios} se encuentra en Stand-By.`);
               }
               setisFOTPendiente(true)
@@ -826,11 +821,11 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
           <Tooltip content={BUTTON_MESSAGES.procesar}>
               {/* <button className='bg-green-400 mx-4 transition-transform transform hover:scale-110 active:scale-95 w-[10rem] h-[2.5rem]  text-white '  */}
               <Button  type="submit" className='otActionButton mx-4 bg-red-900' onClick={()=>{
-                if(pkToDelete.length === 0){
+                if(OTPkToDelete.value.length === 0){
                   return toast.error('No hay OT seleccionada.')
                 }
 
-                if(pkToDelete.some((OT:any)=> OT.estado_id === 25)){
+                if(OTPkToDelete.value.some((OT:any)=> OT.estado_id === 25)){
                   return  toast.error(`Folio ${folios} se encuentra en Stand-By.`);
                 }
   
@@ -863,7 +858,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
 
         <Suspense>
         {isFOTValidarBodega && (
-            <FOTValidarBodega pkToDelete={pkToDelete}  handleClose={()=>setIsFOTValidarBodega(false)}/>
+            <FOTValidarBodega pkToDelete={OTPkToDelete.value}  handleClose={()=>setIsFOTValidarBodega(false)}/>
           )}
         </Suspense>
 
@@ -998,43 +993,43 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
 
           <Suspense>
             {isFOTEmpaque && (
-              <FOTEmpaque closeModal={()=>setIsFOTEmpaque(false)} setSelectedRows={setSelectedRows}  pktoDelete={pkToDelete} params={params}/>
+              <FOTEmpaque closeModal={()=>setIsFOTEmpaque(false)} setSelectedRows={setSelectedRows}  pktoDelete={OTPkToDelete.value} params={params}/>
             )}
           </Suspense>
 
           <Suspense>
             {isFOTGuia && (
-              <FOTGuiaDespacho closeModal={()=>setIsFOTGuia(false)} setSelectedRows={setSelectedRows} pktoDelete={pkToDelete} params={params} />
+              <FOTGuiaDespacho closeModal={()=>setIsFOTGuia(false)} setSelectedRows={setSelectedRows} pktoDelete={OTPkToDelete.value} params={params} />
             )}
           </Suspense>
 
           <Suspense>
             {isFOTReporteFirma && (
-              <FOTReporteFirma closeModal={()=>setIsFOTReporeFirma(false)} setSelectedRows={setSelectedRows} pkToDelete={pkToDelete} />
+              <FOTReporteFirma closeModal={()=>setIsFOTReporeFirma(false)} setSelectedRows={setSelectedRows} pkToDelete={OTPkToDelete.value} />
             )}
           </Suspense>
 
           <Suspense>
             {isFOTPendiente && (
-              <FOTPendiente data={pkToDelete} onClose={()=>setisFOTPendiente(false)} isMasivo={true} />
+              <FOTPendiente data={OTPkToDelete.value} onClose={()=>setisFOTPendiente(false)} isMasivo={true} />
             )}
           </Suspense>
 
           <Suspense>
             {isFOTDerivacion && (
-              <FOTDerivacion data={pkToDelete} onClose={()=>setisFOTDerivacion(false)} isMasivo={true}/>
+              <FOTDerivacion data={OTPkToDelete.value} onClose={()=>setisFOTDerivacion(false)} isMasivo={true}/>
             )}
           </Suspense>
 
           <Suspense>
             {isFOTValidarEmpaque && (
-              <FOTValidarEmpaque setSelectedRows={setSelectedRows}  pkToDelete={pkToDelete} onClose={()=>setIsFOTValidarEmpaque(false)} />
+              <FOTValidarEmpaque setSelectedRows={setSelectedRows}  pkToDelete={OTPkToDelete.value} onClose={()=>setIsFOTValidarEmpaque(false)} />
             )}
           </Suspense>
 
           <Suspense>
             {isFOTUbicacion && (
-              <FOTUbicacion setSelectedRows={setSelectedRows} pkToDelete={pkToDelete} closeModal={()=>setIsFOTUbicacion(false)}/>
+              <FOTUbicacion setSelectedRows={setSelectedRows} pkToDelete={OTPkToDelete.value} closeModal={()=>setIsFOTUbicacion(false)}/>
             )}
           </Suspense>
             

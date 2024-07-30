@@ -199,6 +199,11 @@ const FOTCristales: React.FC<ICristales> = ({
         // Lógica adicional si es necesario
     };
 
+    console.log(permiso_areas_cristales)
+    console.log(permiso_usuario_cristales)
+
+    console.log(EmpresaAdjudicadaOT_ID.value)
+
 
 
     return (
@@ -210,7 +215,7 @@ const FOTCristales: React.FC<ICristales> = ({
                         <div className="mx-auto !mt-6 w-[50vw] !h-full ">
                             <h1 className='absolute z-10 top-[-6%] text-3xl font-bold w-[30%] translate-x-[2vw]  text-center !text-[#f8b179] left-[34%]'>ANTEOJO 1</h1>
                             <div className="w-full">
-                            {(EmpresaAdjudicadaOT_ID.value === 3 ) ||
+                            {(EmpresaAdjudicadaOT_ID.value === 3 ) &&
                              (permiso_usuario_cristales && permiso_areas_cristales) &&
                               (
 

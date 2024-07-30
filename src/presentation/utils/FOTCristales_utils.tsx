@@ -6,6 +6,7 @@ import { validation_Cristal1_od, validation_Cristal1_oi, validation_Cristal2_od,
 import axios from "axios";
 import { signal } from "@preact/signals-react";
 import { isNotFetching } from "../views/forms/FOT";
+import { useCallback } from "react";
 
 
 

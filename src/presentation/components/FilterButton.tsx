@@ -45,6 +45,8 @@ const FilterButton: React.FC<IProps> = ({
     };
   }, []);
 
+  console.log('render')
+
 
   return (
     <div className={`fixed ${className ? className : "top-[4rem] left-5"} z-[13] items-center h-[30vh] transition-all duration-500`}>

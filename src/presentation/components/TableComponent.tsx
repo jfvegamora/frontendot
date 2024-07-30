@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect, Suspense, useMemo, useCallback } from "react";
-import { IconButton, Tooltip, Typography } from "@material-tailwind/react";
+import { IconButton, Tooltip } from "@material-tailwind/react";
 import { PencilIcon } from "@heroicons/react/24/solid";
 import { BsFillXSquareFill } from "react-icons/bs";
 import { BsPersonLock } from "react-icons/bs";
@@ -9,6 +9,9 @@ import { BUTTON_MESSAGES, clearAllCheck, clearIndividualCheck, disabledIndividua
 import { AppStore, useAppSelector } from "../../redux/store";
 
 import { CristalesEnum, AccesoriosEnum, ArmazonesEnum, ProyectosDocumEnum, ProyectosDestinosEnum, OTGrillaEnum } from "../Enums";
+
+import { Text } from '@chakra-ui/react'
+
 
 const OTGrillaButtons = React.lazy(()=>import("./OTGrillaButtons"));
 const ExportToPDF     = React.lazy(()=>import("./ExportToPDF"));
@@ -134,15 +137,17 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
     
 
     const renderTextCell = useCallback((text: string, alignment?:string, type?:number, color2?:boolean, rowData?:any, backgroundAtrasadas?:boolean, color?:any, lowArmazonesStock?:any) => {
-      const cellStyle = {
+      const cellStyle:any = {
         textAlign:alignment,
         color: isOT ? (rowData &&  handleColorEstado(rowData[5])) : (rowData &&  handleColorEstado(rowData[1], 'background  ')),
       }
 
       return(
-        <Typography variant="small" color="blue-gray" className={`gridText h-[2.7rem]  py-2  ${(backgroundAtrasadas && color || lowArmazonesStock && color2) ? '!text-white ' : 'text-black'} ${(type === 1 && color2) ? '': ( type === 1 ? ''  :'text-black')} `} style={ color2 ? cellStyle : null}>
+        // <Text variant="small" color="blue-gray" className={`gridText h-[2.7rem]  py-2  ${(backgroundAtrasadas && color || lowArmazonesStock && color2) ? '!text-white ' : 'text-black'} ${(type === 1 && color2) ? '': ( type === 1 ? ''  :'text-black')} `} style={ color2 ? cellStyl} >
+        <Text // Combina estilos inline y de objeto
+        variant="small" color="blue-gray" style={{ ...cellStyle }}  className={`gridText h-[2.7rem]  py-2  ${(backgroundAtrasadas && color || lowArmazonesStock && color2) ? '!text-white ' : 'text-black'} ${(type === 1 && color2) ? '': ( type === 1 ? '!text-black'  :'text-black')} ` }  >
           {text !== null && text !== undefined ? text.toString() : ""}
-        </Typography>
+        </Text>
       )
     },[handleColorEstado, isOT]);
 

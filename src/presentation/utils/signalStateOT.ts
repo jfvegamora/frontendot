@@ -6,10 +6,6 @@ import {
   validationFechaDespacho,
   validationFechaEntregaCliente,
   validationFechaEntregaTaller,
-  validation_Cristal1_od,
-  validation_Cristal1_oi,
-  validation_Cristal2_od,
-  validation_Cristal2_oi,
 } from "./validationOT";
 import { EnumGrid } from "../views/mantenedores/MOTHistorica";
 import { toast } from "react-toastify";
@@ -778,6 +774,7 @@ export const clearGrupos = (keepForm?: boolean) => {
   inputOnlyReadReserva.value = false;
   validar_parametrizacion.value = "1";
   numero_receta.value = "";
+  EmpresaAdjudicadaOT_ID.value = 0;
 
   if (keepForm === true) {
     codigoProyecto.value = codigoProyecto.value;
@@ -1147,16 +1144,15 @@ export const updateOT = async (
       _usuario: `${user}`,
       _situacion: situacion || "0",
       _obs: _obs || "",
-
+      _punto_venta: isValidateBodega
+        ? `${data[OTGrillaEnum.punto_venta]}`
+        : `${data.punto_venta}`,
       _cristalJSONOri: isValidateBodega
         ? JSON.stringify(cristalOri)
         : JSON.stringify(data.cristales),
       _armazonJSONOri: isValidateBodega
         ? JSON.stringify(armazonOri)
         : JSON.stringify(data.armazones),
-      _punto_venta: isValidateBodega
-        ? `${data[OTGrillaEnum.punto_venta]}`
-        : `${data.punto_venta}`,
       _cristalJSONNew: isValidateBodega
         ? JSON.stringify(cristalOri)
         : JSON.stringify(data.cristales),
@@ -1677,6 +1673,8 @@ export const updateOT = async (
 
   console.log(_p1);
 
+  console.log(armazonOri);
+  console.log(cristalOri);
   const query = {
     query: "04",
     _p1,

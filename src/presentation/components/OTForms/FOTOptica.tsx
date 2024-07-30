@@ -253,8 +253,7 @@ return (
                 
                         <div className="w-[20vw]  ml-4 px-[1vw] text-[1.3vw]  " >
                             <div className=" items-center flex inputStyles">
-                                {/* <Switch onChange={(e)=>handleSwitchValidation(e)} checked={isToggleValidation.value} disabled={!(permiso_usuario_estado_validacion && permiso_areas_estado_validacion)}/> */}
-                                <Switch onChange={(e)=>handleSwitchValidation(e)} checked={isToggleValidation.value}/>
+                                <Switch onChange={(e)=>handleSwitchValidation(e)} checked={isToggleValidation.value} disabled={!(permiso_usuario_estado_validacion && permiso_areas_estado_validacion)}/>
                                 <label className='ml-2'>Validar Parametrización</label>
                             </div>
                         </div>
@@ -262,7 +261,7 @@ return (
 
                         <div className="w-[20vw] px-[1vw] text-[1.5vw] ">
                             <div className=" items-center flex inputStyles">
-                                <Switch onChange={(e)=>handleSwitchImpresion(e)} checked={isToggleImpression.value}/>
+                                <Switch onChange={(e)=>handleSwitchImpresion(e)} checked={isToggleImpression.value} disabled={!(permiso_usuario_estado_impresion && permisos_areas_estado_immpresion)}/>
                                 <label className='ml-2'>OT Impresa</label>
                             </div>
                         </div>

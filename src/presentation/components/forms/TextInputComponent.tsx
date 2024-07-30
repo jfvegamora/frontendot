@@ -100,8 +100,7 @@ return (
             error={error ? true : false}
             label={label}
             id={label}
-            labelProps={{className:"-top-[0.2rem] !h-auto"}}
-            type={type}
+           type={type}
             color="orange"
             // defaultValue={defaultValue}
             readOnly={onlyRead}
@@ -114,6 +113,14 @@ return (
             placeholder={type === 'date' ? "dd-mm-yyyy" : ""}
             autoComplete="off"
             step={step ? step : 1 } 
+            labelProps={{
+              style: {
+                color: "grey",
+                fontWeight: "bold",
+                fontSize: "16px",
+                height: '8vh',
+             },
+           }}
           />
           {error && (
             <p className="absolute top-0 right-[50%] labelErr">
