@@ -63,7 +63,7 @@ const TableComponent2: React.FC<ITableComponentProps<any>> = React.memo(
     isOT,
   }) => {
     const { escritura_lectura, lectura} = usePermission(idMenu || 0 );
-    const [ OTPermissions, setOTPermissions] = useState("");
+    const [ _OTPermissions, setOTPermissions] = useState("");
     const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas || JSON.parse(localStorage.getItem('OTAreas') as any));
     const OTAreaActual:any = React.useCallback(useAppSelector((store: AppStore) => store.OTAreas["areaActual"] || JSON.parse(localStorage.getItem('areaActual') as string)),[OTAreas])
     const OTColores:any = useAppSelector((store: AppStore) => store.OTS.derivacionColores) || JSON.parse(localStorage.getItem('OTColores') as string);

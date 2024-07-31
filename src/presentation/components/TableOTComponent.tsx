@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState, useEffect, Suspense, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { IconButton, Tooltip, Typography } from "@material-tailwind/react";
 import { PencilIcon } from "@heroicons/react/24/solid";
 import { usePermission } from "../hooks";
@@ -55,7 +55,7 @@ const TableOTComponent: React.FC<ITableComponentProps<any>> = React.memo(
   }) => {
     const { escritura_lectura, lectura } = usePermission(idMenu || 0);
     const [rowIds, setRowIds] = useState<number[]>([]);
-    const [OTPermissions, setOTPermissions] = useState("");
+    const [_OTPermissions, setOTPermissions] = useState("");
     const OTAreas: any = useAppSelector((store: AppStore) => store.OTAreas);
     const data: any = useAppSelector((store: AppStore) => store.OTS.data);
     const OTColores: any = useAppSelector((store: AppStore) => store.OTS.derivacionColores) || JSON.parse(localStorage.getItem('OTColores') as string);
@@ -143,7 +143,6 @@ const TableOTComponent: React.FC<ITableComponentProps<any>> = React.memo(
           )}
 
             <OTGrillaButtons
-              areaPermissions={OTPermissions}
               id={id}
               folio={folio}
               toggleEditOTModal={toggleEditOTModal}

@@ -54,24 +54,23 @@ const FOTReceta:React.FC<IReceta> = ({
         let {name, value} = e;
         console.log(name)
         setDioptriasReceta(name, value)
-        onDataChange({[name]:value})
         
         validationOTlevel1(name, value)
         validationOTlevel2(name, value)
-        onDataChange({[name]:value})
         
         combinaciones_validas()
-
-
+        
+        
         if(name === 'a1_od_cil' || name === 'a1_od_eje' || name === 'a1_od_ad'){
             transponer('a1_od_esf', 'a1_od_cil', 'a1_od_eje', 'a1_od',firstInputRef)
             onDataChange({[name]:value})
         }
-
+        
         if(name === 'a1_oi_cil' || name === 'a1_oi_eje' || name === 'a1_oi_ad'){
             transponer('a1_oi_esf', 'a1_oi_cil', 'a1_oi_eje', 'a1_oi', secondInputRef)
             onDataChange({[name]:value})
         }
+        onDataChange({[name]:value})
     }
 
     React.useEffect(()=>{

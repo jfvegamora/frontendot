@@ -300,6 +300,30 @@ export const validationOTlevel2 = (name: string, value: any) => {
   }
 };
 
+export const validatePestañaCristales = () => {
+  validation_Cristal1_marca("32");
+  validation_Cristal1_diseño("32");
+  validation_Cristal1_indice("32");
+  validation_Cristal1_material("32");
+  validation_Cristal1_tratamiento("32");
+  validation_Cristal1_color("32");
+  validation_Cristal1_diametro("32");
+  validation_Cristal1_od("32");
+  validation_Cristal1_oi("32");
+
+  if (tipo_de_anteojo.value === "3") {
+    validation_cristal2_marca("32");
+    validation_Cristal2_diseño("32");
+    validation_Cristal2_indice("32");
+    validation_Cristal2_material("32");
+    validation_Cristal2_tratamiento("32");
+    validation_Cristal2_color("32");
+    validation_Cristal2_diametro("32");
+    validation_Cristal2_od("32");
+    validation_Cristal2_oi("32");
+  }
+};
+
 export const validationOTlevel3 = (name: string, value: any) => {
   console.log(name);
 

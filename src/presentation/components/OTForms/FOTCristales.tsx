@@ -1,11 +1,11 @@
 import React from 'react'
 import { SelectInputComponent } from '..';
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
-import { validation_Cristal1_od, validation_Cristal1_oi, validationOTlevel2, validationOTlevel3,  } from '../../utils/validationOT';
+import { validation_Cristal1_color, validation_Cristal1_diametro, validation_Cristal1_diseño, validation_Cristal1_indice, validation_Cristal1_marca, validation_Cristal1_material, validation_Cristal1_od, validation_Cristal1_oi, validation_Cristal1_tratamiento, validation_Cristal2_color, validation_Cristal2_diametro, validation_Cristal2_diseño, validation_Cristal2_indice, validation_cristal2_marca, validation_Cristal2_material, validation_Cristal2_od, validation_Cristal2_oi, validation_Cristal2_tratamiento, validationOTlevel2, validationOTlevel3,  } from '../../utils/validationOT';
 import SelectInputTiposComponent from '../forms/SelectInputTiposComponent';
 import { A1_CR_OD, A1_CR_OI, A1_GRUPO_OD, A1_GRUPO_OI, A2_CR_OD, A2_CR_OI, A2_Diametro, A2_GRUPO_OD, A2_GRUPO_OI, codigoProyecto, EmpresaAdjudicadaOT_ID, inputOnlyReadBodegaProcesado, tipo_de_anteojo, validacionIncompleta, validar_cristal1_od, validar_cristal1_oi, validar_cristal2_od, validar_cristal2_oi } from '../../utils';
 import TextInputInteractive from '../forms/TextInputInteractive';
-import { Checkbox, Switch } from '@material-tailwind/react';
+import { Checkbox } from '@material-tailwind/react';
 import { CR1_OD_LAB, CR1_OI_LAB, CR2_OD_LAB, CR2_OI_LAB } from '../../utils/FOTCristales_utils';
 // import { OTTextInputComponent } from '.';
 // import { validationNivel3 } from '../../views/forms/FOT';
@@ -113,21 +113,47 @@ const FOTCristales: React.FC<ICristales> = ({
     const CodigosCristales:any = {
         "A1_CR_OD": () => {
             return{
-                name:"cristal1_oi",
+                name:"cristal1_od",
+                label:"Código Cristal OD",
+                data: A1_CR_OD.value
+            }
+        },
+        "A1_CR_OI": () => {
+            return{
+                name:"cristal1_oI",
                 label:"Código Cristal OI",
-                data: A1_CR_OI.value || (data && data[EnumGrid.cristal1_oi])
+                data: A1_CR_OI.value
             }
         }
     }
 
 
-    // const renderInputCristal = (cristal:string) => {
-    //     const {label, name, data} = CodigosCristales[grupo]()
+    const renderInputCristal = (cristal:string) => {
+        const {label, name, data} = CodigosCristales[cristal]()
 
+        console.log(data)
 
+        return (
+            <div className="!w-[48%] !pr-[1rem] ml-1 !translate-y-4">
+                <TextInputInteractive
+                    type="text"
+                    label={label}
+                    name={name}
+                    isOT={true}
+                    handleChange={handleInputChange}
+                    data={data}
+                    control={control}
+                    // onlyRead={!(isEditting && (permiso_areas_cristales && permiso_usuario_cristales))}
+                    onlyRead={true}
+                    textAlign="text-center"
+                    className={` custom-input !w-[15rem]  ${validacionIncompleta.value.a1_oi === true ? "!bg-red-600 opacity-60" : ""} `}
+                    customWidth={"labelInputx2 inputStyles"}
+                />
+        </div>
+        )
 
         
-    // }   
+    }   
 
 
 
@@ -197,6 +223,32 @@ const FOTCristales: React.FC<ICristales> = ({
 
         CR1_OD_LAB.value = checked;
     };
+    const handleCR2_OD_LABChange = (event:any) => {
+        console.log('render')
+        const {checked} = event;
+        console.log(checked)
+        if(checked === true){
+            A2_CR_OD.value = '';
+            A2_GRUPO_OD.value = '';
+            validation_Cristal2_od('32')
+            console.log('render')
+        }
+
+        CR2_OD_LAB.value = checked;
+    };
+    const handleCR2_OI_LABChange = (event:any) => {
+        console.log('render')
+        const {checked} = event;
+        console.log(checked)
+        if(checked === true){
+            A2_CR_OI.value = '';
+            A2_GRUPO_OI.value = '';
+            validation_Cristal2_oi('32')
+            console.log('render')
+        }
+
+        CR2_OI_LAB.value = checked;
+    };
 
     // Maneja el cambio de estado para CR1_OI_LAB
     const handleCR1_OI_LABChange = (event:any) => {
@@ -220,6 +272,49 @@ const FOTCristales: React.FC<ICristales> = ({
     };
 
 
+
+    React.useEffect(()=>{
+        console.log('render')
+        if(CR1_OD_LAB.value === true && CR1_OI_LAB.value === true){
+            console.log('render')
+            // validatePestañaCristales()
+            validation_Cristal1_marca("32");
+            validation_Cristal1_diseño("32");
+            validation_Cristal1_indice("32");
+            validation_Cristal1_material("32");
+            validation_Cristal1_tratamiento("32");
+            validation_Cristal1_color("32");
+            validation_Cristal1_diametro("32");
+            validation_Cristal1_od("32");
+            validation_Cristal1_oi("32");
+        }    
+
+        if(CR2_OD_LAB.value === true && CR2_OI_LAB.value === true){
+            if (tipo_de_anteojo.value === "3") {
+                validation_cristal2_marca("32");
+                validation_Cristal2_diseño("32");
+                validation_Cristal2_indice("32");
+                validation_Cristal2_material("32");
+                validation_Cristal2_tratamiento("32");
+                validation_Cristal2_color("32");
+                validation_Cristal2_diametro("32");
+                validation_Cristal2_od("32");
+                validation_Cristal2_oi("32");
+              }
+        }
+        
+        onDataChange({ ['']: '' })
+
+    },[CR1_OD_LAB.value, CR1_OI_LAB.value, CR2_OD_LAB.value, CR2_OI_LAB.value ])
+
+
+
+
+    console.log(permiso_usuario_cristales)
+    
+    console.log(permiso_areas_cristales)
+
+    console.log(EmpresaAdjudicadaOT_ID.value)
 
     return (
         <form onKeyDown={handleKeyDown}>
@@ -415,7 +510,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                 </div>
 
                                 <div className="w-full flex mt-6 rowForm ml-3">
-                                    <div className="!w-[47%] !pr-[1rem] !translate-y-4">
+                                    {/* <div className="!w-[47%] !pr-[1rem] !translate-y-4">
                                         <TextInputInteractive
                                             type="text"
                                             label="Código Cristal OD"
@@ -432,10 +527,10 @@ const FOTCristales: React.FC<ICristales> = ({
                                             error={true}
                                             customWidth={"labelInputx2 inputStyles"}
                                         />
-                                    </div>
+                                    </div> */}
 
                                   
-                                    <div className="!w-[48%] !pr-[1rem] ml-1 !translate-y-4">
+                                    {/* <div className="!w-[48%] !pr-[1rem] ml-1 !translate-y-4">
                                         <TextInputInteractive
                                             type="text"
                                             label="Código Cristal OI"
@@ -450,7 +545,10 @@ const FOTCristales: React.FC<ICristales> = ({
                                             className={` custom-input !w-[15rem]  ${validacionIncompleta.value.a1_oi === true ? "!bg-red-600 opacity-60" : ""} `}
                                             customWidth={"labelInputx2 inputStyles"}
                                         />
-                                    </div>
+                                    </div> */}
+
+                                    {renderInputCristal('A1_CR_OD')}
+                                    {renderInputCristal('A1_CR_OI')}
                                 </div>
 
                                 <div className="w-full flex mt-6 rowForm translate-y-10 ml-3">
@@ -492,6 +590,26 @@ const FOTCristales: React.FC<ICristales> = ({
                             <h1 className='absolute z-10 top-[-6%] left-[35%] text-3xl font-bold w-[30%] text-center !text-[#f8b179]'>ANTEOJO 2</h1>
                             <div className="w-[45vw] !-mt-4 !ml-[1rem]">
                                 <div className=" flex mt-6 rowForm  justify-center">
+                                { EmpresaAdjudicadaOT_ID.value === 3  &&
+                                  (permiso_usuario_cristales && permiso_areas_cristales) &&
+                                  (tipo_de_anteojo.value === '3') && 
+                                    (
+                                    <div className='rowForm'>
+                                        <div className=" absolute z-20 flex items-center justify-between  -translate-y-14 w-[45vw] px-[1vw] text-[1.5vw] ">
+
+                                            <div className=" items-center flex inputStyles">
+                                                <Checkbox label="Laboratorio" color="orange" onChange={(e)=>handleCR2_OD_LABChange(e.target)} checked={ CR2_OD_LAB.value} />                                           
+                                            </div>
+
+                                            <div className=" items-center flex inputStyles">
+                                                {/* <Checkbox label='LAB' color="orange" onChange={(e)=>handleCR1_OD_LABChange(e.target)} checked={ CR1_OD_LAB.value} /> */}
+                                                <Checkbox label="Laboratorio" color="orange" onChange={(e)=>handleCR2_OI_LABChange(e.target)} checked={ CR2_OI_LAB.value} />
+                                                {/* <label className='labelInput'>LAB</label> */}
+                                            </div>
+                                        
+                                        </div>
+                                    </div> 
+                                    )}
                                     <div className=" w-[22vw] my-2 labelInput">
                                         <SelectInputComponent
                                             label="Marca"
@@ -660,14 +778,6 @@ const FOTCristales: React.FC<ICristales> = ({
                                 </div>
 
                                 <div className="w-full flex mt-6 rowForm ">
-                                    {EmpresaAdjudicadaOT_ID.value === 3 && (
-                                        <div className=" absolute z-20  -translate-y-6 w-[20vw]  px-[1vw] text-[1.5vw] ">
-                                            <div className=" items-center flex inputStyles">
-                                                <Switch name='CR2_OD_LAB' onChange={()=>CR2_OD_LAB.value = !CR1_OI_LAB.value} checked={CR2_OD_LAB.value}/>
-                                                <label className='ml-2'>{CR2_OD_LAB.value ? 'Lab' : 'Lab'}</label>
-                                            </div>
-                                        </div>
-                                     )}
                                     <div className="!w-[50%] !pr-[1rem] !translate-y-4">
                                         <TextInputInteractive
                                             type="text"
@@ -684,14 +794,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                             customWidth={"labelInputx2 inputStyles"}
                                             />
                                     </div>
-                                    {EmpresaAdjudicadaOT_ID.value === 3 && (
-                                        <div className=" absolute z-20  -translate-y-6 w-[20vw] translate-x-[35vw] px-[1vw] text-[1.5vw] ">
-                                            <div className=" items-center flex inputStyles">
-                                                <Switch name='CR2_OI_LAB' onChange={()=>CR2_OI_LAB.value = !CR1_OI_LAB.value} checked={CR2_OI_LAB.value}/>
-                                                <label className='ml-2'>{CR2_OI_LAB.value ? 'Lab' : 'Lab'}</label>
-                                            </div>
-                                        </div>
-                                     )}
+                                 
                                     <div className="!w-[49%] !pr-[1rem] !ml-[-1rem] !translate-y-4">
                                         <TextInputInteractive
                                             type="text"

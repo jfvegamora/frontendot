@@ -11,7 +11,6 @@ import { signal } from "@preact/signals-react";
 import {
   PrimaryButtonsComponent,
   PrimaryKeySearch,
-  TableComponent,
 } from "../../components";
 
 import { useEntityUtils, usePermission } from "../../hooks";
@@ -88,7 +87,6 @@ const MOT: React.FC = () => {
   const areaActualOT:any = useAppSelector((store: AppStore) => store.OTAreas.areaActual);
   const OTs:any = (useAppSelector((store: AppStore) => store.OTS)) ?? [];
   
-  const memoParams        = React.useMemo(()=>'',[])
   
   const updateParams = React.useCallback((newParams: Record<string, never>) => {
     

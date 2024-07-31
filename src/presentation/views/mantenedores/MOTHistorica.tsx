@@ -205,18 +205,25 @@ export enum EnumGrid {
   usuario_id           = 129,
   
   ot_ubicacion                      = 130,
+  opcion_montaje                    = 131,
 
-  ubicacion_armazon_1               = 131,
-  ubicacion_armazon_2               = 132,
-  ubicacion_cristal_1_od            = 133,
-  ubicacion_cristal_1_oi            = 134,
-  ubicacion_cristal_2_od            = 135,
-  ubicacion_cristal_2_oi            = 136,
-  cant_rbd                          = 137,
-  rbd_ubicacion                     = 138,
+  cristal1_od_opcion_vta            = 132,
+  cristal1_oi_opcion_vta            = 133,
+  cristal2_od_opcion_vta            = 134,
+  crsital2_oi_opcion_vta            = 135,
 
 
-  imagen_logo                       = 139
+
+  //impresion:
+  ubicacion_armazon_1               = 136,
+  ubicacion_armazon_2               = 137,
+  ubicacion_cristal_1_od            = 138,
+  ubicacion_cristal_1_oi            = 139,
+  ubicacion_cristal_2_od            = 140,
+  ubicacion_cristal_2_oi            = 141,
+  cant_rbd                          = 142,
+  rbd_ubicacion                     = 143,
+  imagen_logo                       = 144
 }
 
 

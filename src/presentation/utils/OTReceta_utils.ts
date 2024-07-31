@@ -1,6 +1,7 @@
 import { signal } from "@preact/signals-react";
 import {
   DioptriasReceta,
+  EmpresaAdjudicadaOT_ID,
   buscarCampo,
   buscarCampoNivel3,
   clearDioptriasA2,
@@ -10,6 +11,7 @@ import {
   tipo_de_anteojo,
   validationNivel1,
 } from ".";
+import { validation_A1_armazon, validation_A2_armazon } from "./validationOT";
 
 export const deshabilitarCampo = signal({
   a1_ad: true,
@@ -66,7 +68,7 @@ export const validation_tipo_anteojo = () => {
     "cristal2_tratamiento_id",
     "cristal2_od",
     "cristal2_oi",
-    "a2_armazon_id",
+    // "a2_armazon_id",
   ];
 
   const tipoDeAnteojo = tipo_de_anteojo.value;
@@ -314,6 +316,12 @@ export const validation_tipo_anteojo = () => {
   };
 
   const mappedValues = mapping[tipoDeAnteojo] || {};
+
+  if (EmpresaAdjudicadaOT_ID.value === 3 && tipo_de_anteojo.value === "3") {
+    validation_A2_armazon("32");
+    validation_A1_armazon("32");
+    console.log("render");
+  }
 
   camposAValidar.forEach((campo) => {
     const campoObj = buscarCampo(campo);
