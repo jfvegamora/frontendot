@@ -21,7 +21,7 @@ export const CR2_OI_LAB = signal<any>(false);
 
 
 export const resetOptiLabSwitchs = () => {
-    isToggleMontajeValidation.value = false;
+    isToggleMontajeValidation.value = true;
     CR1_OD_LAB.value = false;
     CR1_OI_LAB.value = false;
     CR2_OD_LAB.value = false;

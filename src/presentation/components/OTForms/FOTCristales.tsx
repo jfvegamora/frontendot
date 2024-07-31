@@ -110,6 +110,26 @@ const FOTCristales: React.FC<ICristales> = ({
         }
     }
 
+    const CodigosCristales:any = {
+        "A1_CR_OD": () => {
+            return{
+                name:"cristal1_oi",
+                label:"Código Cristal OI",
+                data: A1_CR_OI.value || (data && data[EnumGrid.cristal1_oi])
+            }
+        }
+    }
+
+
+    // const renderInputCristal = (cristal:string) => {
+    //     const {label, name, data} = CodigosCristales[grupo]()
+
+
+
+        
+    // }   
+
+
 
     const renderGrupo1 = (grupo: string) => {
 
@@ -198,11 +218,6 @@ const FOTCristales: React.FC<ICristales> = ({
         
         // Lógica adicional si es necesario
     };
-
-    console.log(permiso_areas_cristales)
-    console.log(permiso_usuario_cristales)
-
-    console.log(EmpresaAdjudicadaOT_ID.value)
 
 
 

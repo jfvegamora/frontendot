@@ -76,7 +76,6 @@ const MCristales: React.FC = () => {
           <div className="w-[95%] mx-auto h-[35vh] ">
             <PrimaryKeySearch
               baseUrl={strBaseUrl}
-              setParams={setParams}
               updateParams={updateParams}
               setEntities={setEntities}
               primaryKeyInputs={[

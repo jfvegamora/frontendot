@@ -3,7 +3,7 @@
 import { Input } from "@material-tailwind/react";
 import React, {useEffect, useState} from "react";
 import { Controller } from "react-hook-form";
-import { A1_DP } from "../../utils";
+import { A1_CR_OI, A1_DP } from "../../utils";
 import { toast } from "react-toastify";
 import { faTrash, faCamera } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -108,6 +108,18 @@ const TextInputInteractive: React.FC<ITextInputProps> = ({
   
   useEffect(()=>{
     console.log(name)
+    
+    if(name === 'cristal1_oi'){
+      console.log(data)
+      if(data === undefined){
+        setValue('')
+        A1_CR_OI.value = ''
+      }
+      console.log(value)
+      setRender((prev)=>!prev)
+
+    }
+    
     if (data === "") {
       console.log(name)
       console.log('render')
@@ -115,11 +127,17 @@ const TextInputInteractive: React.FC<ITextInputProps> = ({
       setValue("");
       armazonInput = ''
       console.log(name)
+      
       if(name === 'a1_armazon'){
         setValue("")
         setRender(prev => !prev);
       }
       if(name === 'cristal1_od'){
+        console.log('render')
+        setValue("")
+        setRender(prev => !prev);
+      }
+      if(name === 'cristal1_oi'){
         console.log('render')
         setValue("")
         setRender(prev => !prev);
@@ -180,7 +198,7 @@ React.useEffect(()=>{
   }
 },[value])
 
-if(name === 'a1_armazon'){
+if(name === 'cristal1_oi'){
   console.log(data)
   console.log(value)
 }
@@ -192,7 +210,7 @@ return (
     <Controller
       name={name}
       control={control}
-      // defaultValue={value}
+      defaultValue={value}
       render={({ field }) => (
         <div className={` inputStyles relative ${error ? '!border-red-500' : 'border-gray-500'}`}>
           {/* <label htmlFor={label} className={` ${labelProps ? labelProps : ""} absolute !z-20 translate-y-[-0.5vw] text-[1.2vw] !font-[1.2vw] translate-x-3`}>

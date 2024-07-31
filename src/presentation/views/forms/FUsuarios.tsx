@@ -401,7 +401,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
         <form onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer !w-full">
             <div className="w-full items-center flex !mb-4">
-              <div className="input-container items-center rowForm w-full">
+              <div className="input-container items-center  rowForm w-full">
                 <div className="labelInputDiv">
                   <TextInputComponent
                     type="text"
@@ -471,7 +471,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                     options={["Activo", "Suspendido"]}
                     error={errors.estado}
                     horizontal={false}
-                    labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.4vw]"}
+                    labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.2vw]"}
                     customWidth={"labelInput inputStyles"}
                   />
                 </div>
@@ -484,8 +484,9 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                     options={["Lectura", "Escritura"]}
                     error={errors.permiso_facturacion}
                     horizontal={false}
-                    labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.4vw]"}
+                    labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.2vw]"}
                     customWidth={"labelInput inputStyles"}
+                    
                   />
                 </div>
                 <div className="w-[11rem] ml-[2%]">
@@ -497,7 +498,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                     options={["Lectura", "Escritura"]}
                     error={errors.permiso_post_venta}
                     horizontal={false}
-                    labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.4vw]"}
+                    labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.2vw]"}
                     customWidth={"labelInput inputStyles"}
                   />
                 </div>
@@ -510,7 +511,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                     options={["Lectura", "Escritura"]}
                     error={errors.permiso_post_venta}
                     horizontal={false}
-                    labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.4vw]"}
+                    labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.2vw]"}
                     customWidth={"labelInput inputStyles"}
                   />
                 </div>

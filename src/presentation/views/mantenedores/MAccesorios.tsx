@@ -78,7 +78,6 @@ const MAccesorios: React.FC = () => {
         <div className="w-[65%] absolute -mt-12">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
-            setParams={setParams}
             updateParams={updateParams}
             setEntities={setEntities}
             primaryKeyInputs={[

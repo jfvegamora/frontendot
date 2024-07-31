@@ -75,7 +75,6 @@ const MCargos: React.FC = () => {
             <PrimaryKeySearch
               baseUrl={strBaseUrl}
               updateParams={updateParams}
-              setParams={setParams}
               setEntities={setEntities}
               primaryKeyInputs={[
                 { name: "_p1", label: "Cargo", type: "text", 

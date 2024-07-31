@@ -80,11 +80,27 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
   }) => {
     const { escritura_lectura, lectura} = usePermission(idMenu || 0 );
     const [rowIds, setRowIds] = useState<number[]>([]);
-    const [ OTPermissions, setOTPermissions] = useState("");
-    const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas);
+    const [ _OTPermissions, setOTPermissions] = useState("");
+    const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas || JSON.parse(localStorage.getItem('OTAreas') as any));
     const OTColores:any = useAppSelector((store: AppStore) => store.OTS.derivacionColores) || JSON.parse(localStorage.getItem('OTColores') as string);
     const areaActual = OTAreas["areaActual"] 
     const permissions = (area:number) => areaActual &&  OTAreas["areas"].find((permiso:any)=>permiso[1] === area)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     
     let enumGird:any = useMemo(() => {
@@ -122,12 +138,11 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
 
   
 
-    console.log(OTColores)
 
     const handleColorEstado = useCallback((rowData:any, background?:string) => {
+      console.log('handleColorEstado')
       try {
         if(OTColores[rowData]){
-          console.log(background ? `${OTColores[rowData][1]}` : `${OTColores[rowData][0]}`)
           return background ? `${OTColores[rowData][1]}` : `${OTColores[rowData][0]}`
         }
         return  background ? `black` : 'red'
@@ -140,26 +155,16 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
     
 
     const renderTextCell = useCallback((text: string, alignment?:string, type?:number, color2?:boolean, rowData?:any, backgroundAtrasadas?:boolean, color?:any, lowArmazonesStock?:any) => {
+      console.log('renderTextCell')
       const cellStyle:any = {
         textAlign:alignment,
-        color: isOT ? (rowData &&  handleColorEstado(rowData[5])) : (rowData &&  handleColorEstado(rowData[1], 'background  ')),
+        color: isOT ? (rowData &&  color2 &&  handleColorEstado(rowData[5])) : (rowData &&  handleColorEstado(rowData[1], 'background  ')),
       }
-
-
-      // console.log(backgroundAtrasadas)
-
-      // console.log(color)
-      // console.log(color2)
-  
-
-
-
-      console.log((backgroundAtrasadas && color || lowArmazonesStock && color2) ? '!text-white ' : 'text-black')
 
       return(
         // <Text variant="small" color="blue-gray" className={`gridText h-[2.7rem]  py-2  ${(backgroundAtrasadas && color || lowArmazonesStock && color2) ? '!text-white ' : 'text-black'} ${(type === 1 && color2) ? '': ( type === 1 ? ''  :'text-black')} `} style={ color2 ? cellStyl} >
         <Text // Combina estilos inline y de objeto
-          variant="small" color="blue-gray" style={{ ...cellStyle }}  className={`gridText h-[2.7rem]  py-2  ${(backgroundAtrasadas && color || lowArmazonesStock && color2) ? '!text-white ' : 'text-black'} ${(type === 1 && color2) ? '': ( type === 1 ? '!text-black'  :'text-black')} ` }  >
+          variant="small" color="blue-gray" style={{ ...cellStyle }}  className={` gridText h-[2.7rem]  py-2  ${(backgroundAtrasadas && color || lowArmazonesStock && color2) ? '!text-white ' : 'text-black'} ${(type === 1 && color2) ? '': ( type === 1 ? '!text-black'  :'text-black')} ` }  >
           {text !== null && text !== undefined ? text.toString() : ""}
         </Text>
       )
@@ -215,7 +220,6 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
           {isOT && (
             <Suspense>
               <OTGrillaButtons
-                areaPermissions={OTPermissions}
                 id={id}
                 folio={folio}
                 toggleEditOTModal={toggleEditOTModal}
@@ -267,7 +271,6 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
         <tbody className="gridData">
           {data && data.length > 0 ? (data.map((rowData: any, rowIndex: number) => {
             let excelIndividual = false
-            console.log(rowData)
               if((params && params["_p5"] !== '')  ||  params && params[0] === ''){
                 let stockDisponibe    = parseInt(rowData[enumGird.stock_disponible])
                 let stockMinimo       = parseInt(rowData[enumGird.stock_minimo])
@@ -280,16 +283,16 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
               let estado              = ""
               if(isOT){
                 estado                = rowData[4]
-                console.log(estado)
               }
 
               if(entidad === 'Documentación del Proyecto ' && (rowData[enumGird.tipo_doc_id] === 1 || rowData[enumGird.tipo_doc_id] === 2)){
                 excelIndividual = true
               }  
-  
+              console.log(rowData)
               return (
                 <tr key={rowIndex} className="overflow-hidden">
                   {rowData.map((row: any, col: number) => {
+                    console.log(row)
                     const visible               = tableHead?.[col]?.visible         || false;
                     const alignment             = tableHead?.[col]?.alignment       || "";
                     const color2                = tableHead?.[col]?.color           || false;
@@ -305,6 +308,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                                                       ? "bg-black" : "" : "");
 
                     const type                  = color === 'bg-black' ? 1 : 0
+                                                          
                     return (
                       visible && (
                         <td
@@ -312,7 +316,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                           key={col}
                           id={tableHead[col].key}
                           style={{
-                            backgroundColor: isOT ? (color2 ? ( handleColorEstado( rowData[5], 'background') ): "") : ( lowArmazonesStock && color2 ? (handleColorEstado(rowData[1])) : ""),
+                            backgroundColor: isOT ? (color2 ? ( handleColorEstado( rowData[5], 'background') ): "!bg-black") : ( lowArmazonesStock && color2 ? (handleColorEstado(rowData[1])) : ""),
                           }}
                         >
                           {col === 0

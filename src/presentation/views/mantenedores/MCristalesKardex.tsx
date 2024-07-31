@@ -96,7 +96,6 @@ const MCristalesKardex: React.FC = () => {
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
             description={kardexDescription}
-            setParams={setParams}
             updateParams={updateParams}
             setEntities={setEntities}
             primaryKeyInputs={[

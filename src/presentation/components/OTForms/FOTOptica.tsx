@@ -215,7 +215,7 @@ React.useEffect(()=>{
     }
 },[])
 
-console.log('isToggleMontajeValidation:', isToggleMontajeValidation.value)
+
 
 return (
     <form action="" onKeyDown={handleKeyDown} className='  h-[85vh]'>
@@ -280,18 +280,19 @@ return (
                             <Switch onChange={()=>{
                                 isToggleMontajeValidation.value = !isToggleMontajeValidation.value
                                 if(isToggleMontajeValidation.value === true){
-                                    validation_A1_armazon('')
-                                    validation_A2_armazon('')
-                                    console.log('render')
-                                    onDataChange({ ['montaje_validacion']: isToggleMontajeValidation.value });        
-                                }else{
                                     validation_A1_armazon('32')
                                     
                                     validation_A2_armazon('32')
                                     onDataChange({ ['montaje_validacion']: isToggleMontajeValidation.value });        
+                                    
+                                }else{
+                                    validation_A1_armazon('')
+                                    validation_A2_armazon('')
+                                    console.log('render')
+                                    onDataChange({ ['montaje_validacion']: isToggleMontajeValidation.value }); 
                                 }
                             }} 
-                            checked={!isToggleMontajeValidation.value}/>
+                            checked={isToggleMontajeValidation.value}/>
                             <label className='ml-2'>{'Con Montaje'}</label>
                         </div>
                     </div>

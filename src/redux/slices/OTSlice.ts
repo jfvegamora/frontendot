@@ -15,6 +15,8 @@ export interface DataState {
   data: any[];
   dataHistorica: any[];
   ot: any[];
+  indicesOT: any[];
+  rowFoliosOT: any[];
   impresionOT: any[];
 }
 
@@ -23,6 +25,8 @@ const initialState: DataState = {
   cristales: [],
   armazones: [],
   data: [],
+  rowFoliosOT: [],
+  indicesOT: [],
   dataHistorica: [],
   ot: [],
   impresionOT: [],
@@ -56,15 +60,11 @@ export const fetchOT = createAsyncThunk("ot/fetchOT", async (params: any) => {
 
   try {
     let retryCount = 0;
-    const maxRetries = 3;
+    const maxRetries = 2;
 
     while (retryCount < maxRetries) {
       try {
-        const { data } = await axios(OTUrl, {
-          // headers: {
-          //     'Authorization' : `${token}`
-          // }
-        });
+        const { data } = await axios(OTUrl, {});
         return data;
       } catch (error) {
         if (retryCount >= maxRetries - 1) {
@@ -208,7 +208,6 @@ const OTSlice = createSlice({
         },
         { S: 0 }
       );
-
       const reduce = filterAtrasadas.reduce((acc: any, ot: any) => {
         let estado_ot = ot[OTGrillaEnum.estado];
         let por_vencer = ot[OTGrillaEnum.por_vencer];

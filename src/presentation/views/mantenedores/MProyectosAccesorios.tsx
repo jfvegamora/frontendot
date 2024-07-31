@@ -82,7 +82,6 @@ const MProyectosAccesorios: React.FC = () => {
         <div className="w-[75%]">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
-            setParams={setParams}
             updateParams={updateParams}
             setEntities={setEntities}
             primaryKeyInputs={[

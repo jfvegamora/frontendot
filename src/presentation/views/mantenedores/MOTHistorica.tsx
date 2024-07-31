@@ -507,7 +507,6 @@ const MOTHistorica: React.FC = () => {
         >
             <PrimaryKeySearch
               baseUrl={strBaseUrl}
-              setParams={setParams}
               updateParams={updateParams}
               strQuery={strQuery}
               setEntities={setEntities}

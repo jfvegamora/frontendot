@@ -70,7 +70,6 @@ const MMuestrarios: React.FC = () => {
         <div className="w-[70%]">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
-            setParams={setParams}
             updateParams={updateParams}
             setEntities={setEntities}
             primaryKeyInputs={[

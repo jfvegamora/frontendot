@@ -76,7 +76,6 @@ const MEmpresas: React.FC = () => {
         <div className="w-[50%]">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
-            setParams={setParams}
             updateParams={updateParams}
             setEntities={setEntities}
             primaryKeyInputs={[

@@ -31,6 +31,7 @@ import { updateActualArea } from "../../../redux/slices/OTAreasSlice";
 import { fetchDioptriaParametros } from "../../../redux/slices/utilsSlice";
 
 import { OTGrillaEnum } from "../../Enums";
+import TableComponent2 from "../../components/TableComponent2";
 // import { OTGrillaEnum } from "../../Enums";
 // import axios from "axios";
 // import { updateActualArea } from "../../../redux/slices/OTAreasSlice";
@@ -98,9 +99,6 @@ const MOT: React.FC = () => {
   },[]);
 
 
-  console.log(params)
-  console.log(memoParams)
-  console.log(params2.current)
 
   const strEntidad = React.useMemo(()=>" ",[]);
   const strBaseUrl = React.useMemo(()=>"/api/ot/",[]);
@@ -179,7 +177,6 @@ const MOT: React.FC = () => {
     },0)
 
 
-    console.log('render')
 
 
   }, [selectedRows]);
@@ -303,18 +300,17 @@ console.log(params)
 
       <div className={`width100 scroll ${filterToggle.value ? "!mt-[13rem] !h-[25rem]" : "!mt-[1rem] !h-[61vh]"} `}>
       
-        <TableComponent
+        <TableComponent2
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
           toggleEditModal={toggleEditModal}
           toggleEditOTModal={toggleEditOTModal}
           pkToDelete={OTPkToDelete}
-          handleDeleteSelected={handleDeleteSelected}
           selectedRows={selectedRows}
+          handleDeleteSelected={handleDeleteSelected}
           // pkToDelete={pkToDelete}
           setSelectedRows={setSelectedRows}
           entidad={strEntidad}
-          data={OTs.data}
           tableHead={table_head_OT_diaria2}
           showEditButton={true}
           showDeleteButton={false}
@@ -325,9 +321,7 @@ console.log(params)
 
 
         <Suspense>
-          {OTs?.data.length >= 1 && (
             <StateCountBarOT  checkCount={checkCount}/>
-          )}
         </Suspense>
  
       <Suspense>

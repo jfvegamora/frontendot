@@ -87,7 +87,6 @@ const MEstablecimientos: React.FC = () => {
         <div className="w-[70%] mt-[-5vw] ">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
-            setParams={setParams}
             updateParams={updateParams}
             setEntities={setEntities}
             primaryKeyInputs={[

@@ -147,7 +147,6 @@ const MUsuarios: React.FC = () => {
         <div className="w-[85%]">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
-            setParams={setParams}
             updateParams={updateParams}
             setEntities={setEntities}
             primaryKeyInputs={[

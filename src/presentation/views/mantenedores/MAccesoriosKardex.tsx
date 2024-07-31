@@ -87,7 +87,6 @@ const MAccesoriosKardex: React.FC = () => {
         <div className="w-[82%] translate-y-[-2.8vw]">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
-            setParams={setParams}
             updateParams={updateParams}
             setEntities={setEntities}
             primaryKeyInputs={[

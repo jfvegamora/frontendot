@@ -70,7 +70,6 @@ const MCargos: React.FC = () => {
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
             updateParams={updateParams}
-            setParams={setParams}
             setEntities={setEntities}
             primaryKeyInputs={[
               { name: "_p1", label: "Funcionalidad", type: "text", 

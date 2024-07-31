@@ -75,7 +75,6 @@ const MMotivosOTAnulada: React.FC = () => {
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
             updateParams={updateParams}
-            setParams={setParams}
             setEntities={setEntities}
             primaryKeyInputs={[{ name: "_p1", label: "Descripción", type: "text", styles:{
               with: "labelInput inputStyles w-full",

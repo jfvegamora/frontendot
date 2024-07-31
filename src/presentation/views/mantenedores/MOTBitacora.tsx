@@ -86,7 +86,6 @@ const MOTBitacora: React.FC = () => {
           <div className="w-[85%] -mt-[4rem] ">
             <PrimaryKeySearch
               baseUrl={strBaseUrl}
-              setParams={setParams}
               updateParams={updateParams}
               setEntities={setEntities}
               primaryKeyInputs={[

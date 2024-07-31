@@ -44,6 +44,8 @@ const funcionalidadesSlice = createSlice({
   reducers: {
     updateActualArea: (state, action: any) => {
       if (state) {
+        localStorage.setItem("areaActual", JSON.stringify(action.payload));
+
         return {
           ...state,
           areaActual: action.payload,

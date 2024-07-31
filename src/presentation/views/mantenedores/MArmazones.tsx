@@ -74,7 +74,6 @@ const MArmazones: React.FC = () => {
       <div className="w-[80%] translate-y-[-3vw] ">
         <PrimaryKeySearch
           baseUrl={strBaseUrl}
-          setParams={setParams}
           updateParams={updateParams}
           setEntities={setEntities}
           primaryKeyInputs={[

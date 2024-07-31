@@ -75,7 +75,6 @@ const MProyectosDocum: React.FC = () => {
           <div className="w-[75%] h-[3.5vw]">
             <PrimaryKeySearch
               baseUrl={strBaseUrl}
-              setParams={setParams}
               updateParams={updateParams}
               setEntities={setEntities}
               primaryKeyInputs={[

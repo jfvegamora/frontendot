@@ -75,7 +75,6 @@ const MPerfiles: React.FC = () => {
         <div className="w-[60%]">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
-            setParams={setParams}
             updateParams={updateParams}
             setEntities={setEntities}
             primaryKeyInputs={[
