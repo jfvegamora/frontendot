@@ -13,6 +13,12 @@ import { validation_tipo_anteojo } from "./OTReceta_utils";
 // import { areaActualOT } from "../components/OTAreasButtons";
 import { inputOnlyReadReserva } from "./FReservaArmazones_utils";
 import { OTGrillaEnum } from "../Enums";
+import {
+  CR1_OD_LAB,
+  CR1_OI_LAB,
+  CR2_OD_LAB,
+  CR2_OI_LAB,
+} from "./FOTCristales_utils";
 
 export const dioptrias: any = signal<any>({
   ESF: [""],
@@ -554,7 +560,18 @@ export function reiniciarA2DioptriasReceta() {
 }
 
 export const getDatosOT = (data: any) => {
-  console.log(data);
+  console.log(data[EnumGrid.cristal1_od_opcion_vta]);
+  console.log(data[EnumGrid.cristal1_oi_opcion_vta]);
+
+  CR1_OD_LAB.value =
+    data[EnumGrid.cristal1_od_opcion_vta] === "2" ? true : false;
+  CR1_OI_LAB.value =
+    data[EnumGrid.cristal1_oi_opcion_vta] === "2" ? true : false;
+  CR2_OD_LAB.value =
+    data[EnumGrid.cristal2_od_opcion_vta] === "2" ? true : false;
+  CR2_OI_LAB.value =
+    data[EnumGrid.crsital2_oi_opcion_vta] === "2" ? true : false;
+
   codigoProyecto.value = data[EnumGrid.proyecto_codigo];
   punto_venta.value = data[EnumGrid.punto_venta_id];
 

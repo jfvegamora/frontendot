@@ -310,12 +310,6 @@ const FOTCristales: React.FC<ICristales> = ({
 
 
 
-    console.log(permiso_usuario_cristales)
-    
-    console.log(permiso_areas_cristales)
-
-    console.log(EmpresaAdjudicadaOT_ID.value)
-
     return (
         <form onKeyDown={handleKeyDown}>
             <div className='flex frameOTForm h-[85vh] '>
@@ -325,29 +319,35 @@ const FOTCristales: React.FC<ICristales> = ({
                         <div className="mx-auto !mt-6 w-[50vw] !h-full ">
                             <h1 className='absolute z-10 top-[-6%] text-3xl font-bold w-[30%] translate-x-[2vw]  text-center !text-[#f8b179] left-[34%]'>ANTEOJO 1</h1>
                             <div className="w-full">
-                            {(EmpresaAdjudicadaOT_ID.value === 3 ) &&
-                             (permiso_usuario_cristales && permiso_areas_cristales) &&
+                        
+
+
+                                <div className="w-full flex !-mt-4   rowForm justify-center ">
+                                    
+                                {(EmpresaAdjudicadaOT_ID.value === 3  || isEditting) &&
+                                (permiso_usuario_cristales && permiso_areas_cristales) &&
                               (
 
                                     <div className='rowForm'>
-                                        <div className=" absolute z-20 flex items-center justify-between  -translate-y-14 w-[45vw] px-[1vw] text-[1.5vw] ">
+                                        <div className="  z-20 flex items-center justify-between   w-[43vw]  text-[1.5vw] ">
 
                                             <div className=" items-center flex inputStyles">
-                                                <Checkbox label="Laboratorio" color="orange" onChange={(e)=>handleCR1_OD_LABChange(e.target)} checked={ CR1_OD_LAB.value} />                                           
+                                                <Checkbox label="Laboratorio" color="orange" onChange={(e)=>handleCR1_OD_LABChange(e.target)} checked={ CR1_OD_LAB.value} disabled={isEditting} />                                           
                                             </div>
 
-                                            <div className=" items-center flex inputStyles">
+                                            <div className=" items-center flex inputStyles !mr-10">
                                                 {/* <Checkbox label='LAB' color="orange" onChange={(e)=>handleCR1_OD_LABChange(e.target)} checked={ CR1_OD_LAB.value} /> */}
-                                                <Checkbox label="Laboratorio" color="orange" onChange={(e)=>handleCR1_OI_LABChange(e.target)} checked={ CR1_OI_LAB.value} />
+                                                <Checkbox label="Laboratorio" color="orange" onChange={(e)=>handleCR1_OI_LABChange(e.target)} checked={ CR1_OI_LAB.value} disabled={isEditting} />
                                                 {/* <label className='labelInput'>LAB</label> */}
                                             </div>
                                         
                                         </div>
                                     </div> 
                                     )}
-
-
+                                </div>
                                 <div className="w-full flex mt-6 rowForm justify-center ">
+                                    
+                         
                                     <div className=" w-[22vw] my-2 labelInput   ">
                                         <SelectInputComponent
                                             label="Marca"
