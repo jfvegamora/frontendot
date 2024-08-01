@@ -12,7 +12,6 @@ import { useEntityUtils, usePermission } from "../../hooks";
 import FArmazonesKardexIN from "../forms/FArmazonesKardexIN";
 import FArmazonesKardexOUT from "../forms/FArmazonesKardexOUT";
 import { TITLES, table_head_kardex } from "../../utils";
-import { toast } from "react-toastify";
 
 export enum EnumGrid {
   fecha = 1,
@@ -84,14 +83,7 @@ const MArmazonesKardex: React.FC = () => {
     setPkToDelete([`${strParamsToDelete}=[${combinedPks}]`]);
   }, [selectedRows]);
 
-  useEffect(() => {
-    const strMsg = `${<div>
-    Línea 1<br />
-    Línea 2<br />
-    Línea 3
-  </div>}`;     
-    toast.error(strMsg);
-  }, []);
+
 
   return (
     <div className="mantenedorContainer">
@@ -108,7 +100,7 @@ const MArmazonesKardex: React.FC = () => {
                 type: "select",
                 selectUrl: "/api/kardexmotivos/", 
                 styles: { 
-                  styles:"w-[22vw]",
+                  styles:"labelInput inputStyles w-[22vw]",
                   container:"ml-[1vw] translate-x-[-1vw] translate-y-[5.5vw] ", 
                   labelProps: "labelInput inputStyles"
                 },
@@ -122,8 +114,7 @@ const MArmazonesKardex: React.FC = () => {
                 styles: { 
                   styles:"labelInput inputStyles w-[22vw]",
                   container:"ml-[1vw] -translate-x-[-2vw] translate-y-[5.5vw] ", 
-                  labelProps: ""
-                },
+                  labelProps: "labelInput inputStyles"                },
                 _p1: "02"
               },
               

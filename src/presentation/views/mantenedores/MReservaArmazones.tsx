@@ -135,7 +135,7 @@ const MReservaArmazones: React.FC = () => {
                   }},
 
               ]}
-              classNameSearchButton=" translate-x-[-24vw] translate-y-[4.8vw]"
+              classNameSearchButton=" translate-x-[-24vw] translate-y-[4.8vw]  z-30"
               />
           </div>
   
@@ -156,7 +156,7 @@ const MReservaArmazones: React.FC = () => {
                     showForwardButton={false}
                     showRefreshButton={true}
                     idMenu={idMenu}
-                    classname={"translate-x-[17vw] !w-[10vw] "}
+                    classname={"translate-x-[17vw] !w-[10vw]  "}
 
                 />
 

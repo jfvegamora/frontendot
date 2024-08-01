@@ -216,7 +216,6 @@ React.useEffect(()=>{
 },[])
 
 
-
 return (
     <form action="" onKeyDown={handleKeyDown} className='  h-[85vh]'>
         <div className='frameOTForm !h-[85vh]'>
@@ -274,7 +273,7 @@ return (
 
 
 
-                {EmpresaAdjudicadaOT_ID.value === 3 && (
+                {(EmpresaAdjudicadaOT_ID.value === 3 || isEditting) && (
                     <div className="w-[20vw] px-[1vw] text-[1.5vw] ">
                         <div className=" items-center flex inputStyles">
                             <Switch onChange={()=>{
@@ -291,8 +290,10 @@ return (
                                     console.log('render')
                                     onDataChange({ ['montaje_validacion']: isToggleMontajeValidation.value }); 
                                 }
-                            }} 
+                            }}
+                            disabled={isEditting} 
                             checked={isToggleMontajeValidation.value}/>
+                            
                             <label className='ml-2'>{'Con Montaje'}</label>
                         </div>
                     </div>
