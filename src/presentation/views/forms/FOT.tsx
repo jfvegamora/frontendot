@@ -104,6 +104,7 @@ const FOT: React.FC<IFOTProps> = ({
 }) => {
   //Estados locales
   const { control, handleSubmit, setValue, register, getValues } = useForm<any>();
+
   const [formValues, setFormValues] = useState<any>({});
 
   const [_changeboolean, setChangeboolean] = useState(false)
@@ -166,7 +167,6 @@ const FOT: React.FC<IFOTProps> = ({
   let permiso_usuario_workTracking = permisosCampos && permisosCampos[9] === "1" ? true : false;
 
 
-  console.log('BODEGA PROCESADO:', data && data[EnumGrid.bodega_procesado])
   
 
 

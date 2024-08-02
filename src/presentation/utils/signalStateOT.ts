@@ -43,6 +43,7 @@ export const validacionIncompleta = signal({
 });
 
 export const codigoProyecto = signal("");
+export const tipo_anteojo_title = signal("");
 
 export const a1_od_esf = signal<any | undefined>(undefined);
 export const a1_od_cil = signal<any | undefined>(undefined);
@@ -1092,6 +1093,7 @@ export const inputChangeActions: InputChangeActions = {
   },
   tipo_anteojo_id: (data: any) => {
     tipo_de_anteojo.value = Object.values(data)[0] as string;
+    tipo_anteojo_title.value = Object.values(data)[1] as string;
     // clearInputDioptrias()
     validation_tipo_anteojo();
   },

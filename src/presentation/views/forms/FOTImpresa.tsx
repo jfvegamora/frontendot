@@ -81,8 +81,9 @@ export enum EnumImpresion  {
   rbd_cantidad              = 68,
   rep_cantidad              = 69,
   direccion_despacho        = 70,
+  opcion_montaje            = 71,
 
-  imagen_logo               = 71
+  imagen_logo               = 72
 
 }
 

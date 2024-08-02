@@ -5,6 +5,7 @@ import { EnumGrid } from '../../views/mantenedores/MOTHistorica'
 import {A1_ALT, A1_DP, A2_DP, a1_od_ad, a1_od_eje, a1_od_esf, a1_oi_ad, a1_oi_esf, a2_od_cil, a2_od_eje, a2_od_esf, a2_oi_cil, a2_oi_eje, a2_oi_esf,
     dioptrias_receta,
     oftalmologo_id,
+    tipo_anteojo_title,
     tipo_de_anteojo, 
     // dioptrias_receta, 
     // tipo_de_anteojo 
@@ -59,6 +60,8 @@ const FOTReceta:React.FC<IReceta> = ({
         validationOTlevel2(name, value)
         
         combinaciones_validas()
+
+
         
         
         if(name === 'a1_od_cil' || name === 'a1_od_eje' || name === 'a1_od_ad'){
@@ -98,9 +101,7 @@ const FOTReceta:React.FC<IReceta> = ({
     },[])
 
     
- console.log('permiso_usuario_receta:',permiso_usuario_receta)
- console.log('permiso_areas_receta:', permiso_areas_receta)
-
+console.log('tipo_anteojo_title:',tipo_anteojo_title.value)
   return (
     <form onKeyDown={handleKeyDown}>     
         <div className="frameOTForm h-[85vh]">
@@ -179,8 +180,8 @@ const FOTReceta:React.FC<IReceta> = ({
 
 
 
-            <div className="w-full flex items-center rowForm !h-[9vw] relative  translate-y-11 ">
-                <label className='labelAnteojo !text-[1.9vw] -translate-y-11'>ANTEOJO 1</label>
+            <div className={`w-full flex items-center rowForm !h-[9vw] relative ${tipo_de_anteojo.value === '3' ? 'translate-y-11' : 'translate-y-32'}  `}>
+                <label className='labelAnteojo !text-[1.9vw] -translate-y-11'>ANTEOJO {tipo_anteojo_title.value}</label>
                 <div className=" w-[43vw] items-center rowForm  !h-[8rem]  ">
                     <div className="w-[90%] mx-auto flex items-center h-[9rem] relative labelForm  rounded-lg border radioComponent">
                         <label className='labelForm w-[40%] absolute z-10 text-center -top-14 left-[30%] text-[2vw]'>OD</label>
@@ -348,131 +349,135 @@ const FOTReceta:React.FC<IReceta> = ({
                 </div>
             </div>
 
-            <div className="w-full flex items-center rowForm translate-y-32 !h-[9vw] relative">
-                <label className='absolute z-10 top-[-10%] w-[15%] left-[36%] text-center text-[2vw] -translate-y-8'>ANTEOJO 2</label>
-                <div className=" w-[43%] items-center  !h-[8rem] rowForm ">
-                    <div className="w-[90%] mx-auto flex items-center  !h-[8rem] relative labelForm  rounded-lg border radioComponent">
-                    <label className='labelForm w-[40%] absolute z-10 text-center -top-14 left-[30%] text-[2vw]'>OD</label>
-                    <div className="w-[25%] labelInput">
-                            <OTTextInputComponent
-                                type="text"
-                                label="ESF"
-                                name="a2_od_esf"
-                                handleChange={handleInputChange}
-                                otData={ a2_od_esf.value || data && data[EnumGrid.a2_od_esf]}
-                                control={control}
-                                onlyRead={true}
-                                textAlign="text-center"
-                                customWidth={"labelInput inputStyles"}
 
-                                
-                                />
-                        </div>
+            {tipo_de_anteojo.value === '3' && (
+                <div className="w-full flex items-center rowForm translate-y-32 !h-[9vw] relative">
+                    <label className='absolute z-10 top-[-10%] w-[15%] left-[36%] text-center text-[2vw] -translate-y-8'>ANTEOJO 2</label>
+                    <div className=" w-[43%] items-center  !h-[8rem] rowForm ">
+                        <div className="w-[90%] mx-auto flex items-center  !h-[8rem] relative labelForm  rounded-lg border radioComponent">
+                        <label className='labelForm w-[40%] absolute z-10 text-center -top-14 left-[30%] text-[2vw]'>OD</label>
                         <div className="w-[25%] labelInput">
-                            <OTTextInputComponent
-                                type="text"
-                                label="CIL"
-                                name="a2_od_cil"
-                                handleChange={handleInputChange}
-                                otData={a2_od_cil ? a2_od_cil : data && data[EnumGrid.a2_od_cil]}
-                                control={control}
-                                onlyRead={true}
-                                textAlign="text-center"
-                                customWidth={"labelInput inputStyles"}
+                                <OTTextInputComponent
+                                    type="text"
+                                    label="ESF"
+                                    name="a2_od_esf"
+                                    handleChange={handleInputChange}
+                                    otData={ a2_od_esf.value || data && data[EnumGrid.a2_od_esf]}
+                                    control={control}
+                                    onlyRead={true}
+                                    textAlign="text-center"
+                                    customWidth={"labelInput inputStyles"}
 
-                                />
-                        </div>
-                        <div className="w-[25%]">
-                            <OTTextInputComponent
-                                type="text"
-                                label="EJE"
-                                name="a2_od_eje"
-                                handleChange={handleInputChange}
-                                otData={a2_od_eje ? a2_od_eje : data && data[EnumGrid.a2_od_eje]}
-                                onlyRead={true}
-                                control={control}
-                                textAlign="text-center"
-                                customWidth={"labelInput inputStyles"}
+                                    
+                                    />
+                            </div>
+                            <div className="w-[25%] labelInput">
+                                <OTTextInputComponent
+                                    type="text"
+                                    label="CIL"
+                                    name="a2_od_cil"
+                                    handleChange={handleInputChange}
+                                    otData={a2_od_cil ? a2_od_cil : data && data[EnumGrid.a2_od_cil]}
+                                    control={control}
+                                    onlyRead={true}
+                                    textAlign="text-center"
+                                    customWidth={"labelInput inputStyles"}
 
-                                />
-                        </div>
-                       
-                    </div>    
-                </div>
+                                    />
+                            </div>
+                            <div className="w-[25%]">
+                                <OTTextInputComponent
+                                    type="text"
+                                    label="EJE"
+                                    name="a2_od_eje"
+                                    handleChange={handleInputChange}
+                                    otData={a2_od_eje ? a2_od_eje : data && data[EnumGrid.a2_od_eje]}
+                                    onlyRead={true}
+                                    control={control}
+                                    textAlign="text-center"
+                                    customWidth={"labelInput inputStyles"}
 
-                <div className=" w-[43%] items-center rowForm !h-[8rem]">
-                <div className="w-[100%] mx-auto flex items-center h-[8rem] relative labelForm   rounded-lg border radioComponent">
-                        <label className='labelForm w-[40%] absolute z-10 text-center -top-10 left-[30%] text-2xl'>OI</label>
-                        <div className="w-[25%] labelInput">
-                            <OTTextInputComponent
-                                type="text"
-                                label="ESF"
-                                name="a2_oi_esf"
-                                handleChange={handleInputChange}
-                                otData={a2_oi_esf.value || data && data[EnumGrid.a2_oi_esf]}
-                                control={control}
-                                // isOT={true}
-                                onlyRead={true}
-                                textAlign="text-center"
-                                customWidth={"labelInput inputStyles"}
-
-                                />
-                        </div>
-                        <div className="w-[25%] labelInput">
-                            <OTTextInputComponent
-                                type="text"
-                                label="CIL"
-                                name="a2_oi_cil"
-                                handleChange={handleInputChange}
-                                otData={a2_oi_cil.value ||  data && data[EnumGrid.a2_oi_cil]}
-                                control={control}
-                                // isOT={true}
-                                onlyRead={true}
-                                textAlign="text-center"
-                                customWidth={"labelInput inputStyles"}
-
-                                />
-                        </div>
-                        <div className="w-[25%]">
-                            <OTTextInputComponent
-                                type="text"
-                                label="EJE"
-                                name="a2_oi_eje"
-                                handleChange={handleInputChange}
-                                otData={a2_oi_eje.value || data && data[EnumGrid.a2_oi_eje]}
-                                control={control}
-                                // isOT={true}
-                                onlyRead={true}
-                                textAlign="text-center"
-                                customWidth={"labelInput inputStyles"}
-
-                                />
-                        </div>
+                                    />
+                            </div>
                         
-                </div>    
-                </div>
+                        </div>    
+                    </div>
 
-                <div className="w-[14%] items-center ">
-                    <div className="w-[70%] mx-auto labelInput">
-                            <TextInputInteractive
-                                type="number"
-                                label="DP"
-                                name="a2_dp"
-                                handleChange={handleInputChange}
-                                data={A2_DP.value ? A2_DP.value :  data && data[EnumGrid.a2_dp]}
-                                control={control}
-                                isOT={true}
-                                textAlign="text-center"
-                                // onlyRead={!(deshabilitarCampo.value.a2_dp && (!isEditting || (permiso_usuario_receta && permiso_areas_receta)) )}
-                                onlyRead={!(deshabilitarCampo.value.a2_dp && (!isEditting || (permiso_usuario_receta && permiso_areas_receta)))}
-                                customWidth={"!h-[3vw]  labelInput"}
-                                // error={errors.fecha_nacimiento}
-                            />
+                    <div className=" w-[43%] items-center rowForm !h-[8rem]">
+                    <div className="w-[100%] mx-auto flex items-center h-[8rem] relative labelForm   rounded-lg border radioComponent">
+                            <label className='labelForm w-[40%] absolute z-10 text-center -top-10 left-[30%] text-2xl'>OI</label>
+                            <div className="w-[25%] labelInput">
+                                <OTTextInputComponent
+                                    type="text"
+                                    label="ESF"
+                                    name="a2_oi_esf"
+                                    handleChange={handleInputChange}
+                                    otData={a2_oi_esf.value || data && data[EnumGrid.a2_oi_esf]}
+                                    control={control}
+                                    // isOT={true}
+                                    onlyRead={true}
+                                    textAlign="text-center"
+                                    customWidth={"labelInput inputStyles"}
+
+                                    />
+                            </div>
+                            <div className="w-[25%] labelInput">
+                                <OTTextInputComponent
+                                    type="text"
+                                    label="CIL"
+                                    name="a2_oi_cil"
+                                    handleChange={handleInputChange}
+                                    otData={a2_oi_cil.value ||  data && data[EnumGrid.a2_oi_cil]}
+                                    control={control}
+                                    // isOT={true}
+                                    onlyRead={true}
+                                    textAlign="text-center"
+                                    customWidth={"labelInput inputStyles"}
+
+                                    />
+                            </div>
+                            <div className="w-[25%]">
+                                <OTTextInputComponent
+                                    type="text"
+                                    label="EJE"
+                                    name="a2_oi_eje"
+                                    handleChange={handleInputChange}
+                                    otData={a2_oi_eje.value || data && data[EnumGrid.a2_oi_eje]}
+                                    control={control}
+                                    // isOT={true}
+                                    onlyRead={true}
+                                    textAlign="text-center"
+                                    customWidth={"labelInput inputStyles"}
+
+                                    />
+                            </div>
+                            
+                    </div>    
+                    </div>
+
+                    <div className="w-[14%] items-center ">
+                        <div className="w-[70%] mx-auto labelInput">
+                                <TextInputInteractive
+                                    type="number"
+                                    label="DP"
+                                    name="a2_dp"
+                                    handleChange={handleInputChange}
+                                    data={A2_DP.value ? A2_DP.value :  data && data[EnumGrid.a2_dp]}
+                                    control={control}
+                                    isOT={true}
+                                    textAlign="text-center"
+                                    // onlyRead={!(deshabilitarCampo.value.a2_dp && (!isEditting || (permiso_usuario_receta && permiso_areas_receta)) )}
+                                    onlyRead={!(deshabilitarCampo.value.a2_dp && (!isEditting || (permiso_usuario_receta && permiso_areas_receta)))}
+                                    customWidth={"!h-[3vw]  labelInput"}
+                                    // error={errors.fecha_nacimiento}
+                                />
+                        </div>
                     </div>
                 </div>
-            </div>
+            )}
 
-            <div className="w-full flex items-center rowForm !h-[3rem] relative  translate-y-40">
+
+            <div className={`w-full flex   items-center rowForm !h-[3rem] relative  ${tipo_de_anteojo.value === '3' ? 'translate-y-40':'translate-y-80'}`}>
                 <div className="w-[104%] ml-2 labelInput">
                     <TextInputInteractive
                         type="text"
