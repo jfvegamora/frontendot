@@ -718,6 +718,9 @@ const FOT: React.FC<IFOTProps> = ({
     //TODO: inputChangeAction 
     if (inputChangeActions[key]) {
       inputChangeActions[key](dataForm);
+      // if(name === 'tipo_anteojo_id'){
+      //   console.log('tipo_anteojo_title:', dataForm)
+      // }
     }
 
 

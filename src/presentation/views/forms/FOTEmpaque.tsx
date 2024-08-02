@@ -40,6 +40,7 @@ const FOTEmpaque: React.FC<IFOTEmpaque> = ({
     const dispatch = useAppDispatch();
 
     const onSubmit: SubmitHandler<any> = async (jsonData) => {
+        console.log(pktoDelete)
 
         if (pktoDelete.length < 1) {
             return toast.error('No Hay OT Seleccionada')

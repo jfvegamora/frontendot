@@ -30,7 +30,7 @@ import { fetchDioptriaParametros } from "../../../redux/slices/utilsSlice";
 
 import { OTGrillaEnum } from "../../Enums";
 import TableComponent2 from "../../components/TableComponent2";
-import OTPrimaryButtons from "../../components/OTPrimaryButtons";
+// import OTPrimaryButtons from "../../components/OTPrimaryButtons";
 // import { OTGrillaEnum } from "../../Enums";
 // import axios from "axios";
 // import { updateActualArea } from "../../../redux/slices/OTAreasSlice";
@@ -76,7 +76,8 @@ export const permissionsOT    = signal<any>('')
 const FOT               = React.lazy(()=>import('../forms/FOT'))
 const FilterButton      = React.lazy(()=>import('../../components/FilterButton')) 
 const StateCountBarOT   = React.lazy(()=>import('../../components/StateCountBarOT')) 
-const OTAreasButtons    = React.lazy(()=>import('../../components/OTAreasButtons')) 
+const OTAreasButtons    = React.lazy(()=>import('../../components/OTAreasButtons'))
+const OTPrimaryButtons  = React.lazy(()=>import('../../components/OTPrimaryButtons'))
 
 const MOT: React.FC = () => {
   const { lectura } = usePermission(28);
@@ -167,7 +168,7 @@ const MOT: React.FC = () => {
 
     checkCount.value = newPkToDelete.length
     
-
+    console.log(OTPkToDelete.value)
 
     totoalTrabajosSeleccionados.value = newPkToDelete?.reduce((acc:any,ot:any)=>{
       if(ot["tipo_anteojo"] === 3){
@@ -275,8 +276,7 @@ const MOT: React.FC = () => {
           idMenu={28}
           isOT={isOT}
         /> */}
-
-
+      <Suspense>
         <OTPrimaryButtons
            areaName={"name"} 
            areaPermissions={permissionsOT.value} 
@@ -285,6 +285,8 @@ const MOT: React.FC = () => {
            params={params}
            setSelectedRows={setSelectedRows}
         />
+      </Suspense>
+
 
       </div>
 

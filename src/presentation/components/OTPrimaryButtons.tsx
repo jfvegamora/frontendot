@@ -153,6 +153,9 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
 	  
     const folios = OTPkToDelete && OTPkToDelete?.value.map(({folio}:any)=>folio)
 
+    const foliosStandBy = OTPkToDelete.value.filter((ot:any)=>ot.estado_id === 15).map((ot:any)=>ot.folio)
+    const isEstadoStandBy = OTPkToDelete?.value.some((ot:any)=>ot.estado_id === 15)
+
 
     const handlePrint = useReactToPrint({
       content: () => componentRef.current, 
@@ -231,7 +234,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
         return toast.error('No hay OTs Seleccionadas.')
       }
       disabledIndividualCheck.value = true;        
-      const toastLoading = toast.loading('Imprimiendo OT´s.')
+      const toastLoading = toast.loading('Imprimiendo OTs.')
       const primerProyectoCodigo = OTPkToDelete.value[0].proyecto_codigo;
       const todosIguales          = OTPkToDelete.value.slice(1).every((ot:any) => ot.proyecto_codigo === primerProyectoCodigo);
       // const impresaAnteriormente  = OTPkToDelete.value.every((ot:any) => ot.estado_impresion === '0');
@@ -483,11 +486,9 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
 
       console.log(validateEstadoStandBy)
       
-      if(validateEstadoStandBy){
-        return toast.error(`Folio ${folios} se encuentra en Stand-By.`);
-
+      if(isEstadoStandBy){
+        return toast.error(`FOLIO: ${foliosStandBy}  No se encuentra en Proceso`)
       }
-
       // const foliosMensaje = OTPkToDelete.value && OTPkToDelete.value.map(({folio}:any)=>folio)
       
       if(!validateEstado){
@@ -539,7 +540,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
             estado = '50'
           }
           if(ot.numero_reporte_firma !== 0){
-            estado = '20'
+            estado = '15'
           }
         }
         await updateOT(
@@ -579,6 +580,11 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
     }
 
     const handleValidarEmpaque = async() => {
+      
+      if(isEstadoStandBy){
+        return toast.error(`FOLIO: ${foliosStandBy}  No se encuentra en Proceso`)
+      }
+      
       if(OTPkToDelete.value.length === 0){
         return toast.error('No hay OT seleccionada')
       }
@@ -638,15 +644,17 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
 
     return (
     <div className='flex items-center   ml-[4rem] !w-full'>
-        
-        { (areaPermissions && areaPermissions[0] === "1" ) && (permisos_usuario_areas !== '0') && (
-          renderButton(
-            <SiAddthis className="primaryBtnIcon " />,
-            handleAddPerson!,
-            BUTTON_MESSAGES.add
+        <Suspense>
+          { (areaPermissions && areaPermissions[0] === "1" ) && (permisos_usuario_areas !== '0') && (
+            renderButton(
+              <SiAddthis className="primaryBtnIcon " />,
+              handleAddPerson!,
+              BUTTON_MESSAGES.add
+            )
           )
-        )
         }
+
+        </Suspense>
 
           <Suspense>
             {areaPermissions && areaPermissions[4] === "1" && permisos_usuario_areas !== '0' && (
@@ -711,15 +719,27 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
             >
               <PiMicrosoftExcelLogoFill className='primaryBtnIcon' onClick={()=>handleDownloadMacro()} />
 
-            </IconButton>
+            </IconButton>    
             {/* <Button color="green" className='otActionButton mx-4' >Macro Excel</Button> */}
-          </Tooltip>
+          </Tooltip>        
         )}
      
 
        
  
 
+              {areaPermissions && areaPermissions[3] === '1' && permisos_usuario_areas !== '0' && ((OTAreas["areaActual"] !== 60) && (OTAreas["areaActual"] !== 50))  &&  (
+                    <Tooltip content={BUTTON_MESSAGES.procesar}>
+                    {/* <button className='bg-green-400 mx-4 transition-transform transform hover:scale-110 active:scale-95 w-[10rem] h-[2.5rem]  text-white '  */}
+                    <Button  type="submit" className='otActionButton mx-4 bg-blue-500' onClick={()=>{
+                      if(OTPkToDelete.value.length === 0){
+                        return toast.error('No hay OT seleccionada.')
+                      }
+                      handleIngresoBiselado()
+                    }}>Ingresar</Button>
+                  </Tooltip>
+                  )}
+    
 
    
 
@@ -737,20 +757,41 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
    
         {areaPermissions && areaPermissions[12] === "1" && permisos_usuario_areas !== '0' && (
           <Tooltip content='Generar Número de Envío'>
-              <Button className='otActionButton ml-4'  onClick={()=>setIsFOTEmpaque((prev)=>!prev)}>N° de Envio</Button>
+              <Button className='otActionButton ml-4'  onClick={()=>{
+                if(OTPkToDelete.value.length === 0){
+                  return toast.error('No hay OT seleccionada.')
+                }
+
+                if(isEstadoStandBy){
+                  return toast.error(`FOLIO: ${foliosStandBy}  No se encuentra en Proceso`)
+                }
+                
+                setIsFOTEmpaque((prev)=>!prev)
+                }}>N° de Envio</Button>
           </Tooltip>
           )}
 
 
         {areaPermissions && areaPermissions[14] === '1' && permisos_usuario_areas !== '0' && (
           <Tooltip content={'Generar Reporte de Firmas'}>
-            <Button className='otActionButton mt-3 mx-5 'onClick={() => setIsFOTReporeFirma((prev)=>!prev)}>N° Rep. Firma</Button>  
+            <Button className='otActionButton mt-3 mx-5 'onClick={() => {
+                if(OTPkToDelete.value.length === 0){
+                  return toast.error('No hay OT seleccionada.')
+                }
+                if(isEstadoStandBy){
+                  return toast.error(`FOLIO: ${foliosStandBy}  No se encuentra en Proceso`)
+                }
+              setIsFOTReporeFirma((prev)=>!prev)
+              }}>N° Rep. Firma</Button>  
           </Tooltip>
         )}
 
         {areaPermissions && areaPermissions[12] === "1" && permisos_usuario_areas !== '0' && (
           <Tooltip content='Generar Número de Guía'>
               <Button className='otActionButton mr-4'  onClick={()=>{
+                 if(isEstadoStandBy){
+                  return toast.error(`FOLIO: ${foliosStandBy}  No se encuentra en Proceso`)
+                }
                 if(OTPkToDelete.value.length === 0){
                   toast.error('No hay OT seleccionada')
                 }else{
@@ -760,18 +801,6 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
           </Tooltip>
           )}
 
-
-    {areaPermissions && areaPermissions[3] === '1' && permisos_usuario_areas !== '0' && ((OTAreas["areaActual"] !== 60) && (OTAreas["areaActual"] !== 50))  &&  (
-          <Tooltip content={BUTTON_MESSAGES.procesar}>
-          {/* <button className='bg-green-400 mx-4 transition-transform transform hover:scale-110 active:scale-95 w-[10rem] h-[2.5rem]  text-white '  */}
-          <Button  type="submit" className='otActionButton mx-4 bg-blue-500' onClick={()=>{
-            if(OTPkToDelete.value.length === 0){
-              return toast.error('No hay OT seleccionada.')
-            }
-            handleIngresoBiselado()
-          }}>Ingresar</Button>
-        </Tooltip>
-        )}
 
 
 

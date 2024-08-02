@@ -42,7 +42,7 @@ const FOTValidarEmpaque:React.FC<IFOTValidarEmpaque> = ({
     console.log('click')
     console.log(jsonData)
     console.log(pkToDelete)
-    let estado = 20;
+    let estado = '50';
     const toastLoading = toast.loading('Cargando....')
     const observaciones = `Retirado por ${jsonData?.nombre_beneficiario}`
 
@@ -106,7 +106,7 @@ const FOTValidarEmpaque:React.FC<IFOTValidarEmpaque> = ({
   return (
     <div className=" bg-[#676f9d] mx-auto xl:w-[90%] xl:left-[35rem]  absolute top-[10vw] left-auto right-auto rounded-xl shadow-md overflow-hidden lg:left-[18rem]     sm:w-[25rem]    md:max-w-[35rem] z-40">
         <div className="absolute right-0 userFormBtnCloseContainer">
-          <h1 className='text-center text-2xl text-white mr-[10rem] mb-7'>Valiar Empaque</h1>
+          <h1 className='userFormLabel text-center text-2xl text-white mr-[10rem] mb-7'>Valdiar Empaque</h1>
           <button onClick={onClose} className="userFormBtnClose mr-4">
             X
           </button>

@@ -20,7 +20,8 @@ import { signal } from "@preact/signals-react";
 import { useModal } from "../../hooks/useModal";
 import { filterToggle } from "../../components/FilterButton";
 import { totoalTrabajosSeleccionados } from "./MOT";
-import TableOTComponent from "../../components/TableOTComponent";
+// import TableOTComponent from "../../components/TableOTComponent";
+import TableComponent2 from "../../components/TableComponent2";
 
 
 
@@ -366,19 +367,15 @@ const MOTHistorica: React.FC = () => {
   useEffect(() => {
     const newPkToDelete = selectedRows.map((row: number) => ({
       folio             : OTs.data[row] && OTs.data[row][1],
-      proyecto          : OTs.data[row] && OTs.data[row][13],
-      proyecto_codigo   : OTs.data[row] && OTs.data[row][6],
+      proyecto          : OTs.data[row] && OTs.data[row][14],
+      proyecto_codigo   : OTs.data[row] && OTs.data[row][5],
       estado            : OTs.data[row] && OTs.data[row][4],
       reporte_firma     : OTs.data[row] && OTs.data[row][8],
       reporte_atencion  : OTs.data[row] && OTs.data[row][9],
       orden_compra      : OTs.data[row] && OTs.data[row][10],
       numero_guia       : OTs.data[row] && OTs.data[row][11],
-      numero_factura    : OTs.data[row] && OTs.data[row][12]
-      
-
-
-      
-
+      numero_factura    : OTs.data[row] && OTs.data[row][12],
+      area              : OTs.data[row] && OTs.data[row][6],
     })
   
   
@@ -503,6 +500,13 @@ const MOTHistorica: React.FC = () => {
     dispatch(clearData())
   },[])
 
+
+
+  const validateAreaArchivo = pktoDelete.some((ot:any)=>ot.area !== "Archivo");
+  // const folioNotArchivo = pktoDelete.filter((ot:any)=>ot.area === "Archivo").map((ot:any)=>ot.folio)
+
+  // console.log(validateAreaArchivo)
+
   return (
     <div className="mantenedorContainer">
 
@@ -621,6 +625,11 @@ const MOTHistorica: React.FC = () => {
               if(pktoDelete.length < 1){
                 return toast.error('No hay OT Seleccionada')
               }
+
+              if(validateAreaArchivo){
+                return toast.error(`OT no se encuentra en OT Archivo`)
+              }
+
               setShowRepEntrega((prev)=>!prev)
             }} >N° Rep. Entrega</Button>
           )}  
@@ -633,6 +642,10 @@ const MOTHistorica: React.FC = () => {
               if(pktoDelete.length < 1){
                 return toast.error('No hay OT Seleccionada')
               }
+              if(validateAreaArchivo){
+                return toast.error(`OT no se encuentra en OT Archivo`)
+              }
+
               setShowOrdenCompra((prev) => !prev)}
             }>N° OC</Button>
           )}
@@ -646,6 +659,9 @@ const MOTHistorica: React.FC = () => {
               if(pktoDelete.length < 1){
                 return toast.error('No hay OT Seleccionada')
               }
+              if(validateAreaArchivo){
+                return toast.error(`OT no se encuentra en OT Archivo`)
+              }
               setShowGuia((prev) => !prev)
             }}>N° Guía</Button>
           )}
@@ -657,6 +673,9 @@ const MOTHistorica: React.FC = () => {
             <Button className='otActionButton mt-3 mx-5'  onClick={() => {
               if(pktoDelete.length < 1){
                 return toast.error('No hay OT Seleccionada')
+              }
+              if(validateAreaArchivo){
+                return toast.error(`OT no se encuentra en OT Archivo`)
               }
               setShowFactura((prev) => !prev)
             }}>N° Factura</Button>
@@ -677,17 +696,17 @@ const MOTHistorica: React.FC = () => {
 
 
       <div className={`width100 scroll ${filterToggle.value ? "!mt-[16rem] !h-[25rem]" : "!mt-[1em] !h-[40rem]"} `}>
-        <TableOTComponent
+        <TableComponent2
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
           toggleEditModal={toggleEditModal}
           toggleEditOTModal={toggleEditOTModal}
           handleDeleteSelected={handleDeleteSelected}
           selectedRows={selectedRows}
-          pkToDelete={pktoDelete}
+          // pkToDelete={pktoDelete}
           setSelectedRows={setSelectedRows}
           entidad={strEntidad}
-          data={OTs.data}
+          // data={OTs.data}
           tableHead={table_head_OT_historica}
           showEditButton={true}
           showDeleteButton={false}
