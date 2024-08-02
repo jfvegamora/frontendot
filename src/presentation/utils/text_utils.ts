@@ -28,6 +28,9 @@ export const BUTTON_MESSAGES = {
   Whatsapp: "Whatsapp",
   procesar: "Procesar",
   traspasar: "Traspasar Inventario",
+  derivar: "Derivar",
+  pausar: "Pausar",
+  stand_by: "Stand-by",
 };
 
 export const TITLES = {

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { Suspense, useCallback, useEffect, useState } from "react";
+import React, { Suspense, useCallback } from "react";
 // import { AiOutlineForward, AiFillDelete } from "react-icons/ai";
 import { IconButton, Tooltip } from "@material-tailwind/react";
 // import { SiAddthis } from "react-icons/si";
@@ -65,7 +65,7 @@ interface IPrimaryButtonProps {
 
 
 
-const OTPrimaryButtons  = React.lazy(()=>import("./OTPrimaryButtons"));
+// const OTPrimaryButtons  = React.lazy(()=>import("./OTPrimaryButtons"));
 const ExportCustomCSV   = React.lazy(()=>import('./ExportCustomToCsv'))
 const ExportToCsv       = React.lazy(()=>import('./ExportToCsv'))
 const ImportToCsv       = React.lazy(()=>import('./ImportToCsv'))
@@ -97,105 +97,9 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
     comilla,
     idMenu,
     bln_egreso,
-    isOT,
     showCopiar,
-    setSelectedRows,
     classname
   }) => {
-
-    React.useEffect(()=>{
-      console.log('render')
-    },[handleDeleteSelected])
-
-    React.useEffect(()=>{
-      console.log('render')
-    },[handleTraspaso])
-
-    React.useEffect(()=>{
-      console.log('render')
-    },[handleAddPerson])
-
-    React.useEffect(()=>{
-      console.log('render')
-    },[handleCopiar])
-
-    React.useEffect(()=>{
-      console.log('render')
-    },[toggleEditModal])
-
-    React.useEffect(()=>{
-      console.log('render')
-    },[showCustomExportButton])
-
-    React.useEffect(()=>{
-      console.log('render')
-    },[customExporTooltip])
-
-    React.useEffect(()=>{
-      console.log('render')
-    },[showAddButton])
-
-    React.useEffect(()=>{
-      console.log('render')
-    },[showTraspasoButton])
-
-    React.useEffect(()=>{
-      console.log('render')
-    },[showDeleteButton])
-
-    React.useEffect(()=>{
-      console.log('render')
-    },[showExcelRepFirma])
-
-    React.useEffect(()=>{
-      console.log('render')
-    },[showPDFButton])
-
-    React.useEffect(()=>{
-      console.log('render')
-    },[showExcelRepEntrega])
-
-    React.useEffect(()=>{
-      console.log('render')
-    },[strBaseUrl])
-
-    React.useEffect(()=>{
-      console.log('render')
-    },[showExportButton])
-
-    React.useEffect(()=>{
-      console.log('render')
-    },[params])
-
-    React.useEffect(()=>{
-      console.log('render')
-    },[strEntidad])
-
-    React.useEffect(()=>{
-      console.log('render')
-    },[pkToDelete])
-
-    React.useEffect(()=>{
-      console.log('render')
-    },[idMenu])
-
-    React.useEffect(()=>{
-      console.log('render')
-    },[bln_egreso])
-
-    React.useEffect(()=>{
-      console.log('render')
-    },[isOT])
-
-    React.useEffect(()=>{
-      console.log('render')
-    },[showCopiar])
-    React.useEffect(()=>{
-      console.log('render')
-    },[setSelectedRows])
-    React.useEffect(()=>{
-      console.log('render')
-    },[classname])
 
 
 
@@ -207,20 +111,12 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
     
     const { escritura_lectura } = usePermission(idMenu);
     const { CustomModal, showModal } = useModal();
-    const [OTPermissions, setOTPermissions] = useState("");
+    // const [OTPermissions, setOTPermissions] = useState("");
 
-    const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas);
     const User:any = useAppSelector((store: AppStore) => store.user);
-    
-    React.useEffect(()=>{
-      console.log(OTAreas)
-    },[OTAreas])
 
     
-    console.log(OTAreas)
-
-    
-    const areaActual = OTAreas["areaActual"]
+    // const areaActual = OTAreas["areaActual"]
 
 
     const handleDownloadMacro = React.useCallback(async(entidad:string) => {
@@ -258,14 +154,14 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
     // console.log(areaActual)
     // console.log(OTAreas.areas)
 
-    const permissions = (area:number) => areaActual && OTAreas["areas"].find((permiso:any)=>permiso[1] === area)
+    // const permissions = (area:number) => areaActual && OTAreas["areas"].find((permiso:any)=>permiso[1] === area)
   
-    useEffect(()=>{
-      // console.log('render')
-      const permiso = areaActual && permissions(areaActual)
-          // console.log(permiso)
-      setOTPermissions(permiso && permiso[5])
-    },[areaActual])
+    // useEffect(()=>{
+    //   // console.log('render')
+    //   const permiso = areaActual && permissions(areaActual)
+    //       // console.log(permiso)
+    //   setOTPermissions(permiso && permiso[5])
+    // },[areaActual])
 
     const renderButton = useCallback(
       (icon: React.ReactNode, handle: () => void, tooltip: string) => (
@@ -286,21 +182,21 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
     );
 
 
-    if(isOT){
-      return (
-        <Suspense>
-          <OTPrimaryButtons 
-            areaName={"name"} 
-            areaPermissions={OTPermissions} 
-            areaActual={areaActual}  
-            handleAddPerson={handleAddPerson}
-            params={params}
-            setSelectedRows={setSelectedRows}
+    // if(isOT){
+    //   return (
+    //     <Suspense>
+    //       <OTPrimaryButtons 
+    //         areaName={"name"} 
+    //         areaPermissions={OTPermissions} 
+    //         areaActual={areaActual}  
+    //         handleAddPerson={handleAddPerson}
+    //         params={params}
+    //         setSelectedRows={setSelectedRows}
             
-          />
-        </Suspense>
-      )
-    }
+    //       />
+    //     </Suspense>
+    //   )
+    // }
     
     
 

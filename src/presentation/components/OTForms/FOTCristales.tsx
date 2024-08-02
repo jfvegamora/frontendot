@@ -325,7 +325,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                 <div className="w-full flex !-mt-4   rowForm justify-center ">
                                     
                                 {(EmpresaAdjudicadaOT_ID.value === 3  || isEditting) &&
-                                (permiso_usuario_cristales && permiso_areas_cristales) &&
+                                // (permiso_usuario_cristales && permiso_areas_cristales) &&
                               (
 
                                     <div className='rowForm'>

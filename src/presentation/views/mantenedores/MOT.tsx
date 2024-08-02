@@ -9,7 +9,6 @@ import { signal } from "@preact/signals-react";
 
 
 import {
-  PrimaryButtonsComponent,
   PrimaryKeySearch,
 } from "../../components";
 
@@ -31,6 +30,7 @@ import { fetchDioptriaParametros } from "../../../redux/slices/utilsSlice";
 
 import { OTGrillaEnum } from "../../Enums";
 import TableComponent2 from "../../components/TableComponent2";
+import OTPrimaryButtons from "../../components/OTPrimaryButtons";
 // import { OTGrillaEnum } from "../../Enums";
 // import axios from "axios";
 // import { updateActualArea } from "../../../redux/slices/OTAreasSlice";
@@ -69,7 +69,8 @@ export const totoalTrabajosSeleccionados = signal(0);
 export const paramsOT      = signal('');
 export const paramsURLOT   = signal<any>([])
 export const switchFetchOT = signal(true);
-export const OTPkToDelete   = signal<any>([])
+export const OTPkToDelete   = signal<any>([]);
+export const permissionsOT    = signal<any>('')
 
 
 const FOT               = React.lazy(()=>import('../forms/FOT'))
@@ -85,6 +86,7 @@ const MOT: React.FC = () => {
 
   const token:any = (useAppSelector((store: AppStore) => store.user.token)) ?? '';
   const areaActualOT:any = useAppSelector((store: AppStore) => store.OTAreas.areaActual);
+  const areas = useAppSelector((store: AppStore) => store.OTAreas.areas);
   const OTs:any = (useAppSelector((store: AppStore) => store.OTS)) ?? [];
   
   
@@ -101,10 +103,6 @@ const MOT: React.FC = () => {
   const strEntidad = React.useMemo(()=>" ",[]);
   const strBaseUrl = React.useMemo(()=>"/api/ot/",[]);
   const strQuery   = React.useMemo( ()=> "14",[]);
-  const showAddButton = React.useMemo(()=>true,[]);
-  const iSshowExportButton = React.useMemo(()=>true,[]);
-  const showDeleteButton = React.useMemo(()=>true,[]);
-  const showForwardButton = React.useMemo(()=>false,[]);
   const isOT = React.useMemo(()=>true,[]);
   
   const {
@@ -126,7 +124,6 @@ const MOT: React.FC = () => {
     handleSelectedAll,
     //primary buttons methods
     handleDeleteSelected,
-    resetEntities
   } = useEntityUtils(strBaseUrl, strQuery);
   // console.log("entities:", entities);
 
@@ -134,7 +131,14 @@ const MOT: React.FC = () => {
   // console.log(entity)
 
 
-  
+  const permissions = (area:number) => areas && areas?.find((permiso:any)=>permiso[1] === area)
+  useEffect(()=>{
+    // console.log('render')
+    const permiso = areaActualOT && permissions(areaActualOT)
+        // console.log(permiso)
+      permissionsOT.value = (permiso && permiso[5])
+  },[areaActualOT])
+
   useEffect(() => {
     console.log('render')
     const newPkToDelete = selectedRows?.map((row: number) => ({
@@ -207,7 +211,6 @@ const MOT: React.FC = () => {
 
 
 
-console.log(params)
 
   const primaryKeyInputs = React.useMemo(()=>[
     { name: "_folio", label: "Folio", type: "text", 
@@ -253,7 +256,7 @@ console.log(params)
       </div>
 
       <div className="mantenedorHeadOT width100 !h-[4rem]  items-center ">
-        <PrimaryButtonsComponent
+        {/* <PrimaryButtonsComponent
           handleAddPerson={openModal}
           handleDeleteSelected={handleDeleteSelected}
           handleRefresh={resetEntities}
@@ -271,6 +274,16 @@ console.log(params)
           showImportCsv={true}
           idMenu={28}
           isOT={isOT}
+        /> */}
+
+
+        <OTPrimaryButtons
+           areaName={"name"} 
+           areaPermissions={permissionsOT.value} 
+           areaActual={areaActualOT}  
+           handleAddPerson={openModal}
+           params={params}
+           setSelectedRows={setSelectedRows}
         />
 
       </div>

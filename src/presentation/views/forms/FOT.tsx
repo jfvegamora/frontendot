@@ -306,8 +306,8 @@ const FOT: React.FC<IFOTProps> = ({
         data && data[EnumGrid.a1_od_eje]
       )
 
+      validation_A2_armazon('32')
       if (data && data[EnumGrid.tipo_anteojo_id] === 3) {
-        validation_A2_armazon(data && data[EnumGrid.a2_armazon_id])
 
         validation_cristal2_marca(data && data[EnumGrid.cristal2_marca_id])
         validation_Cristal2_diseño(data && data[EnumGrid.cristal2_diseno_id])
@@ -975,7 +975,9 @@ const FOT: React.FC<IFOTProps> = ({
               </div>
             )}
           </Tab>
-          <Tab className="custom-tab ">BITÁCORA</Tab>
+          {isEditting && (
+            <Tab className="custom-tab ">BITÁCORA</Tab>
+          )}
           {isEditting && (
             <h1 className='tabFolioNumber'>Folio OT: {data && data[EnumGrid.folio]}</h1>
           )}
