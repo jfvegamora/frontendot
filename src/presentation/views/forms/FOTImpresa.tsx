@@ -200,7 +200,7 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                       <div className="px-6 my-2 w-[21rem] mx-auto items-center relative">
                         <div className="flex justify-around">
                           {/* <h1 className=' text-4xl'>G A R A N T Í A</h1> */}
-                          <h1 className=' text-4xl'>P O S T V E N T A</h1>
+                          <h1 className=' text-3xl'>P O S T - V E N T A</h1>
                         </div>
                       </div>
                     )}
@@ -208,8 +208,7 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                     {ot[EnumImpresion.opcion_montaje] === '0' && (
                       <div className="px-4 my-2 w-[21rem] mx-auto items-center relative">
                         <div className="flex justify-around">
-                          {/* <h1 className=' text-4xl'>G A R A N T Í A</h1> */}
-                          <h1 className=' text-4xl'>S I N M O N T A J E</h1>
+                          <h1 className=' text-3xl'>S I N&nbsp;&nbsp;M O N T A J E</h1>
                         </div>
                       </div>
                     )}

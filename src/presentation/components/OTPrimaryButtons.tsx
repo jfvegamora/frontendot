@@ -737,14 +737,14 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
    
         {areaPermissions && areaPermissions[12] === "1" && permisos_usuario_areas !== '0' && (
           <Tooltip content='Generar Número de Envío'>
-              <Button className='otActionButton ml-4'  onClick={()=>setIsFOTEmpaque((prev)=>!prev)}>N° de Envio</Button>
+              <Button className='otActionButton ml-4'  onClick={()=>setIsFOTEmpaque((prev)=>!prev)}>N° Envío</Button>
           </Tooltip>
           )}
 
 
         {areaPermissions && areaPermissions[14] === '1' && permisos_usuario_areas !== '0' && (
           <Tooltip content={'Generar Reporte de Firmas'}>
-            <Button className='otActionButton mt-3 mx-5 'onClick={() => setIsFOTReporeFirma((prev)=>!prev)}>N° Rep. Firma</Button>  
+            <Button className='otActionButton mt-3 mx-5 'onClick={() => setIsFOTReporeFirma((prev)=>!prev)}>Rep. Firma</Button>  
           </Tooltip>
         )}
 
@@ -756,7 +756,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
                 }else{
                   setIsFOTGuia((prev)=>!prev)
                 }
-              }}>N° de Guía</Button>
+              }}>N° Guía</Button>
           </Tooltip>
           )}
 
