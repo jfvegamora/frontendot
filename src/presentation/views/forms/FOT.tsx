@@ -187,7 +187,6 @@ const FOT: React.FC<IFOTProps> = ({
 
   if (!isMOT) {
     const permisosAreas = OTAreaActual && permissions(OTAreaActual)[6] as any
-    console.log(permisosAreas)
     permiso_areas_armazones = permisosAreas && permisosAreas[0] === '1' ? true : false;
     permiso_areas_cristales = permisosAreas && permisosAreas[1] === '1' ? true : false;
     permiso_areas_estado_impresion = permisosAreas && permisosAreas[2] === '1' ? true : false;
@@ -201,7 +200,6 @@ const FOT: React.FC<IFOTProps> = ({
   }
 
 
-  console.log(permiso_usuario_grupo_dioptria)
 
   React.useEffect(()=>{
     isNotFetching.value = permiso_usuario_grupo_dioptria
@@ -936,6 +934,7 @@ const FOT: React.FC<IFOTProps> = ({
                 <Checkbox color="green" defaultChecked className="text-sm" />
               </div>
             )}
+          
           </Tab>
           <Tab className="custom-tab items-center flex relative" tabIndex={"-1"}>
             <span className='text-[1vw]'>
@@ -987,9 +986,7 @@ const FOT: React.FC<IFOTProps> = ({
               </div>
             )}
           </Tab>
-          {isEditting && (
-            <Tab className="custom-tab ">BITÁCORA</Tab>
-          )}
+          <Tab className="custom-tab ">BITÁCORA</Tab>
           {isEditting && (
             <h1 className='tabFolioNumber'>Folio OT: {data && data[EnumGrid.folio]}</h1>
           )}
