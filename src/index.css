@@ -1107,14 +1107,25 @@ input[type="text"] {
 }
 
 .otActionButton{
-  box-shadow: 0 0 10px  rgb(66 71 105 / 0.9);
+  /* box-shadow: 0 0 10px  rgb(66 71 105 / 0.9); */
   font-size: medium;
   padding: 15px 25px 15px 25px !important;
   border-radius: 0.25rem;
   margin-top: 20px;
   margin-bottom: 20px;
+
+  box-shadow:
+  -6px -6px 8px rgba(0, 0, 0, 0.1) inset,
+  1px 2px 6px rgba(255, 255, 255, 0.5) inset,
+  6px 6px 12px rgba(255, 255, 255, 0.2) inset;
 }
 
+.otActionButtonForm{
+  box-shadow:
+  -6px -6px 8px rgba(0, 0, 0, 0.1) inset,
+  1px 2px 6px rgba(255, 255, 255, 0.5) inset,
+  6px 6px 12px rgba(255, 255, 255, 0.2) inset;
+}
 .otCod{
   font-size: 1rem;
   line-height: 1.3rem;
