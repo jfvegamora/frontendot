@@ -237,7 +237,7 @@ const MOT: React.FC = () => {
     { name: "_proyecto", label: "Proyecto", type: "select", selectUrl: "/api/proyectos/", styles: { styles: "!w-[20vw] labelInput inputStyles", container: "!w-[20vw]  translate-x-[-6vw] !text-[1vw] " }},
     { name: "_motivo", label: "Motivo", type: "select", selectUrl: "/api/tipos/", tipos: "OTMotivo", styles: { styles: "!w-[20vw] labelInput inputStyles", container:"w-[20vw] translate-x-[-1vw] text-[1vw] !h-[3vw] translate-y-[-0.3rem] z-30",labelProps: "labelInput" }},
     
-    { name: "_p2", label: "Tipo Doc", type: "select", selectUrl: "/api/tipos/", tipos: "OTNumDoc", styles:{styles: "!w-[20vw] labelInput inputStyles", container: "w-[20.4vw] translate-x-[13.5vw] text-[1vw] !h-[3vw] !z-30 translate-y-[-0.3rem]",labelProps: "labelInput"}},
+    { name: "_p2", label: "Tipo Doc", type: "select", selectUrl: "/api/tipos/", tipos: "TipoDoc", styles:{styles: "!w-[20vw] labelInput inputStyles", container: "w-[20.4vw] translate-x-[13.5vw] text-[1vw] !h-[3vw] !z-30 translate-y-[-0.3rem]",labelProps: "labelInput"}},
     { name: "_p3", label: "Número Doc", type: "text", styles: {   with: "labelInput inputStyles w-full", container:"translate-x-[18.5vw] !w-[23vw] !z-30 text-[1vw]  translate-y-[-0.5vw]",labelProps: "labelInput" }},
     
     { name: "_establecimiento", label: "Establecimiento", type: "select", selectUrl: "/api/establecimientos/", styles: { styles: "!w-[20vw] labelInput inputStyles", container: "!w-[25vw] translate-x-[4vw] !z-30  !text-[1vw] !translate-y-[0.3rem]",labelProps: "labelInput" }},

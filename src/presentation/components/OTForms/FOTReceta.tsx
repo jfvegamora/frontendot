@@ -97,9 +97,12 @@ const FOTReceta:React.FC<IReceta> = ({
         }
     },[])
 
+    
+ console.log('permiso_usuario_receta:',permiso_usuario_receta)
+ console.log('permiso_areas_receta:', permiso_areas_receta)
 
   return (
-    <form onKeyDown={handleKeyDown}>
+    <form onKeyDown={handleKeyDown}>     
         <div className="frameOTForm h-[85vh]">
             <div className="w-full flex  items-center rowForm !h-[6vw] ">
                 <div className="w-[23vw] labelInput !ml-[2rem] mt-2">

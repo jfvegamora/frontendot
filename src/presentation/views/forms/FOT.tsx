@@ -152,15 +152,24 @@ const FOT: React.FC<IFOTProps> = ({
   //PERMISOS DE CAMPOS
   const permisosCampos = useAppSelector((store: AppStore) => store.user?.permisos_campos);
 
-  let permiso_usuario_armazones = permisosCampos && isEditting ? data && data[EnumGrid.bodega_procesado] === 0 ? (permisosCampos[0] === "1" ? true : false) : (OTAreaActual === 10 ? true : false) : (permisosCampos[0] === "1" ? true : false)
+  let permiso_usuario_grupo_dioptria   = permisosCampos && isEditting ? (permisosCampos[5] === "1" ? true : false) : false;
   let permiso_usuario_cristales = permisosCampos && permisosCampos[1] === "1" ? true : false;
   let permiso_usuario_estado_impresion = permisosCampos && permisosCampos[2] === "1" ? true : false;
   let permiso_usuario_estado_validacion = permisosCampos && permisosCampos[3] === "1" ? true : false;
   let permiso_usuario_resolucion_garantia = permisosCampos && permisosCampos[4] === "1" ? true : false;
-  let permiso_usuario_grupo_dioptria = permisosCampos && isEditting ? data && data[EnumGrid.bodega_procesado] === 0 ? (permisosCampos[5] === "1" ? true : false) : (OTAreaActual === 10 ? true : false) : (permisosCampos[5] === "1" ? true : false)
-  let permiso_usuario_receta = permisosCampos && isEditting ? data && data[EnumGrid.bodega_procesado] === 0 ? (permisosCampos[6] === "1" ? true : false) : (OTAreaActual === 10 ? true : false) : (permisosCampos[5] === "1" ? true : false)
+  let permiso_usuario_armazones      = permisosCampos && isEditting ? (permisosCampos[0] === "1" ? true : false) : false
+  // let permiso_usuario_armazones      = permisosCampos && isEditting ? (data && data[EnumGrid.bodega_procesado] === 0  && permisosCampos[0] === "1" ? true : false) : false
+  let permiso_usuario_receta = permisosCampos && isEditting ? (data && permisosCampos[6] === "1" ? true : false ) : false;
+  // let permiso_usuario_receta          = permisosCampos && isEditting ? (data && data[EnumGrid.bodega_procesado] === 0 && permisosCampos[6] === "1" ? true : false ) : false;
+  // let permiso_usuario_receta = permisosCampos && isEditting ? data && data[EnumGrid.bodega_procesado] === 0 ? (permisosCampos[6] === "1" ? true : false) : (OTAreaActual === 10 ? true : false) : (permisosCampos[5] === "1" ? true : false)
   let permiso_usuario_verificar_cristal = permisosCampos && permisosCampos[7] === "1" ? true : false;
   let permiso_usuario_workTracking = permisosCampos && permisosCampos[9] === "1" ? true : false;
+
+
+  console.log('BODEGA PROCESADO:', data && data[EnumGrid.bodega_procesado])
+  
+
+
 
   //? VARIABLE QUE DETECTA SI LA OT YA SE HA PROCESADO 1 VEC DESDE BODEGAINSUMO
   secondProcessBodega.value = (data && data[EnumGrid.bodega_procesado] === 1) ? true : false;
@@ -1089,7 +1098,7 @@ const FOT: React.FC<IFOTProps> = ({
               // isMotivo    &&  (
               (
                 <div className="mx-auto">
-                  <Button className='w-[12rem] text-[1.3rem] bg-green-500  hover:bg-green-400' onClick={() => {
+                  <Button className='w-[12rem] text-[1.3rem] bg-green-500 otActionButtonForm  hover:bg-green-400' onClick={() => {
                     setFOTBooleanStates(prev => ({
                       ...prev,
                       showGarantia: !prev.showGarantia
@@ -1133,7 +1142,7 @@ const FOT: React.FC<IFOTProps> = ({
               User.permisos_areas[EnumAreas[OTAreaActual]] !== "0" &&
               (
                 <div className="mx-auto">
-                  <Button className='w-[12rem] text-[1.3rem] bg-yellow-700 hover:bg-yellow-600' onClick={() => {
+                  <Button className='w-[12rem] text-[1.3rem] otActionButtonForm bg-yellow-700 hover:bg-yellow-600' onClick={() => {
                     setFOTBooleanStates((prev) => ({
                       ...prev,
                       showPendiente: !prev.showPendiente
@@ -1153,7 +1162,7 @@ const FOT: React.FC<IFOTProps> = ({
               User.permisos_areas[EnumAreas[OTAreaActual]] !== "0" &&
               data && data[EnumGrid.estado_id] > 1 && (
                 <div className="mx-auto">
-                  <Button className='w-[12rem] text-[1.3rem] bg-red-700 hover:bg-red-400' onClick={() => {
+                  <Button className='w-[12rem] text-[1.3rem] otActionButtonForm bg-red-700 hover:bg-red-400' onClick={() => {
                     setFOTBooleanStates((prev) => ({
                       ...prev,
                       showDerivacion: !prev.showDerivacion
@@ -1173,7 +1182,7 @@ const FOT: React.FC<IFOTProps> = ({
               (
                 // <Button className=' translate-y-[-2.7vw] text-[1vw] w-[10vw] bg-black' onClick={()=>{
                 <div className="mx-auto">
-                  <Button className='w-[12rem] text-[1.3rem] bg-black hover:bg-gray-800' onClick={() => {
+                  <Button className='w-[12rem] text-[1.3rem] bg-black otActionButtonForm hover:bg-gray-800' onClick={() => {
                     setFOTBooleanStates((prev) => ({
                       ...prev,
                       showAnulacion: !prev.showAnulacion
@@ -1193,7 +1202,7 @@ const FOT: React.FC<IFOTProps> = ({
               sumatoriaNivel1 === validationNivel1.value.length &&
               (
                 <div className="mx-auto">
-                  <Button className='w-[12rem] text-[1.3rem] bg-blue-500  hover:bg-blue-400' onClick={handleIngresarClick}>
+                  <Button className='w-[12rem] text-[1.3rem] bg-blue-500 otActionButtonForm  hover:bg-blue-400' onClick={handleIngresarClick}>
                     Ingresar</Button>
                 </div>
               )

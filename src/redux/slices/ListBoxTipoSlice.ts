@@ -20,6 +20,7 @@ export interface ITiposListbox {
   OTEstados: [] | null;
   OTMotivo: [] | null;
   OTMotivoGarantia: [] | null;
+  OTEstadosFiltro: [] | null;
   // OTTratamientoAdicional : [] | null;
   PuntosVentaTipos: [] | null;
   ClientesTipos: [] | null;
@@ -104,6 +105,9 @@ const initialState: ITiposListbox | null = {
     : null,
   OTEstados: localStorage.getItem("ListBoxTipos.OTEstados")
     ? JSON.parse(localStorage.getItem("ListBoxTipos.OTEstados") as string)
+    : null,
+  OTEstadosFiltro: localStorage.getItem("ListBoxTipos.OTEstadosFiltro")
+    ? JSON.parse(localStorage.getItem("ListBoxTipos.OTEstadosFiltro") as string)
     : null,
   OTMotivo: localStorage.getItem("ListBoxTipos.OTMotivo")
     ? JSON.parse(localStorage.getItem("ListBoxTipos.OTMotivo") as string)
