@@ -199,7 +199,17 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                     {ot[EnumImpresion.motivo] === 'Garantía' && (
                       <div className="px-8 my-2 w-[21rem] mx-auto items-center relative">
                         <div className="flex justify-around">
-                          <h1 className=' text-4xl'>G A R A N T Í A</h1>
+                          {/* <h1 className=' text-4xl'>G A R A N T Í A</h1> */}
+                          <h1 className=' text-4xl'>P O S T V E N T A</h1>
+                        </div>
+                      </div>
+                    )}
+                    {/*************** M O N T A J E ***************/}
+                    {ot[EnumImpresion.opcion_montaje] === '0' && (
+                      <div className="px-8 my-2 w-[21rem] mx-auto items-center relative">
+                        <div className="flex justify-around">
+                          {/* <h1 className=' text-4xl'>G A R A N T Í A</h1> */}
+                          <h1 className=' text-4xl'>SIN MONTAJE</h1>
                         </div>
                       </div>
                     )}
