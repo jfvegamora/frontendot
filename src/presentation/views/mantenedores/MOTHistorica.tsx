@@ -5,7 +5,6 @@ import React, { Suspense, useEffect, useState } from "react";
 
 import {
   PrimaryKeySearch,
-  TableComponent,
 } from "../../components";
 import { useEntityUtils } from "../../hooks";
 // import FUsuarios from "../forms/FUsuarios";
@@ -21,6 +20,7 @@ import { signal } from "@preact/signals-react";
 import { useModal } from "../../hooks/useModal";
 import { filterToggle } from "../../components/FilterButton";
 import { totoalTrabajosSeleccionados } from "./MOT";
+import TableOTComponent from "../../components/TableOTComponent";
 
 
 
@@ -582,20 +582,20 @@ const MOTHistorica: React.FC = () => {
                       container:"!w-[20vw]  translate-x-[13.5vw] ", 
                       labelProps: "labelInput"
                     }},
-          
-                { name: "_p1", label: "RBD", type: "text", 
-                  styles: { 
-                    with: "labelInput inputStyles w-full",
-                    container:"!w-[20vw]  text-[1vw] translate-x-[15vw] translate-y-[-5vw] ", 
-                    labelProps: "labelInput"
+                    { name: "_p3", label: "Número Doc", type: "text",  
+                      styles: { 
+                        with: "labelInput inputStyles w-full",
+                        container:"!w-[20vw]  text-[1vw] translate-x-[15vw] translate-y-[-5vw] ", 
+                        labelProps: "labelInput"
+                      }},
+                      
+                      
+                      { name: "_p1", label: "RBD", type: "text", 
+                        styles: { 
+                          with: "labelInput inputStyles w-full",
+                          container:"!w-[16vw]  text-[1vw] translate-x-[-1vw] ", 
+                          labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
                   } },
-                  { name: "_p3", label: "Número Doc", type: "text",  
-                    styles: { 
-                      with: "labelInput inputStyles w-full",
-                      container:"!w-[16vw]  text-[1vw] translate-x-[-1vw] ", 
-                    labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
-                    }},
-      
               
     
               ]}
@@ -677,7 +677,7 @@ const MOTHistorica: React.FC = () => {
 
 
       <div className={`width100 scroll ${filterToggle.value ? "!mt-[16rem] !h-[25rem]" : "!mt-[1em] !h-[40rem]"} `}>
-        <TableComponent
+        <TableOTComponent
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
           toggleEditModal={toggleEditModal}

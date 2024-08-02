@@ -17,7 +17,7 @@ export const filterToggle    = signal(false);
 export const isHovered       = signal(false);
 export const switchAtrasadas:any = signal(false);
 
-const FilterButton: React.FC<IProps> = ({
+const FilterButton: React.FC<IProps> = React.memo(({
   children,
   isOT,
   className
@@ -45,7 +45,6 @@ const FilterButton: React.FC<IProps> = ({
     };
   }, []);
 
-  console.log('render')
 
 
   return (
@@ -89,6 +88,6 @@ const FilterButton: React.FC<IProps> = ({
       )}
     </div>
   );
-};
+});
 
 export default FilterButton;

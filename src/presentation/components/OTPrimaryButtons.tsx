@@ -470,12 +470,12 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
 
 
     const handleProcesarMasivo = async() => {
-      let estado = '20'
+      let estado = '15'
       if(OTPkToDelete.value.length === 0){
         return toast.error('No hay OT seleccionada')
       }
       const validateEstado           = OTPkToDelete.value.every((ot:any) => ot["estado_validacion"] === '2');
-      const validateEstadoStandBy    = OTPkToDelete.value.some((ot:any) => ot["estado_id"] === 25);
+      const validateEstadoStandBy    = OTPkToDelete.value.some((ot:any) => ot["estado_id"] === 15);
       // const validateUsuario          = OTPkToDelete.value.every((ot:any) => ot["usuario_id"] === User.id);
       const validateProyecto         = OTPkToDelete.value.every((ot:any) => ot["proyecto_codigo"] === OTPkToDelete.value[0]["proyecto_codigo"]);
       const validateEstadoImpresion  = OTPkToDelete.value.every((ot:any) => ot["estado_impresion"] === '1');
@@ -761,7 +761,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
           )}
 
 
-{(OTAreas["areaActual"] === 70) && (
+    {areaPermissions && areaPermissions[3] === '1' && permisos_usuario_areas !== '0' && ((OTAreas["areaActual"] !== 60) && (OTAreas["areaActual"] !== 50))  &&  (
           <Tooltip content={BUTTON_MESSAGES.procesar}>
           {/* <button className='bg-green-400 mx-4 transition-transform transform hover:scale-110 active:scale-95 w-[10rem] h-[2.5rem]  text-white '  */}
           <Button  type="submit" className='otActionButton mx-4 bg-blue-500' onClick={()=>{
@@ -803,7 +803,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
 
 
         {areaPermissions && areaPermissions[3] === '1' && permisos_usuario_areas !== '0' && (OTAreas["areaActual"] !== 60) &&  (
-          <Tooltip content={BUTTON_MESSAGES.procesar}>
+          <Tooltip content={BUTTON_MESSAGES.pausar}>
              <Button  type="submit" className='otActionButton mx-4 bg-yellow-700' onClick={()=>{
               if(OTPkToDelete.value.length === 0){
                 return toast.error('No hay OT seleccionada.')
@@ -818,7 +818,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
 
 
         {areaPermissions && areaPermissions[3] === '1' && permisos_usuario_areas !== '0' &&  (OTAreas["areaActual"] !== 60) && (
-          <Tooltip content={BUTTON_MESSAGES.procesar}>
+          <Tooltip content={BUTTON_MESSAGES.derivar}>
               {/* <button className='bg-green-400 mx-4 transition-transform transform hover:scale-110 active:scale-95 w-[10rem] h-[2.5rem]  text-white '  */}
               <Button  type="submit" className='otActionButton mx-4 bg-red-900' onClick={()=>{
                 if(OTPkToDelete.value.length === 0){

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { IconButton, Tooltip, Typography } from "@material-tailwind/react";
 import { PencilIcon } from "@heroicons/react/24/solid";
 import { usePermission } from "../hooks";
@@ -76,8 +76,10 @@ const TableOTComponent: React.FC<ITableComponentProps<any>> = React.memo(
       }
     }, [data]);
 
-    const handleColorEstado = useCallback((rowData: any, background?: string) => {
+
+    const handleColorEstado = React.useMemo(()=>(rowData: any, background?: string) => {
       try {
+
         if (OTColores[rowData]) {
           return background ? `${OTColores[rowData][1]}` : `${OTColores[rowData][0]}`;
         }
@@ -85,22 +87,20 @@ const TableOTComponent: React.FC<ITableComponentProps<any>> = React.memo(
       } catch (error) {
         throw error;
       }
-    }, [OTColores]);
+    }, []);
 
-    const renderTextCell = useCallback((text: string, alignment?: string, type?: number, color2?: boolean, rowData?: any, backgroundAtrasadas?: boolean, color?: any, lowArmazonesStock?: any) => {
+    const renderTextCell = React.useMemo(()=>(text: string, alignment?: string, type?: number, color2?: boolean, rowData?: any, backgroundAtrasadas?: boolean, color?: any) => {
       const cellStyle = {
         textAlign: alignment,
         color: (rowData && handleColorEstado(rowData[5])),
       };
-
       return (
-        <Typography variant="small" color="blue-gray" className={`gridText h-[2.7rem] py-2 ${(backgroundAtrasadas && color || lowArmazonesStock && color2) ? '!text-white ' : 'text-black'} ${(type === 1 && color2) ? '' : (type === 1 ? '' : 'text-black')}`} style={color2 ? cellStyle : null}>
+        <Typography variant="small" color="blue-gray" className={`gridText h-[2.7rem] py-2 ${(backgroundAtrasadas && color) ? '!text-white ' : 'text-black'} ${(type === 1 && color2) ? '' : (type === 1 ? '' : 'text-black')}`} style={color2 ? cellStyle : null}>
           {text !== null && text !== undefined ? text.toString() : ""}
         </Typography>
       );
-    }, [handleColorEstado]);
+    }, []);
 
-    let lowArmazonesStock = false;
 
     useEffect(() => {
       if (clearIndividualCheck.value === true) {
@@ -194,7 +194,7 @@ const TableOTComponent: React.FC<ITableComponentProps<any>> = React.memo(
                       >
                         {colIndex === 0
                           ? renderCheckboxCell(rowData[0], rowData[1], rowData[4])
-                          : renderTextCell(cellData, '', type, color2, rowData, backgroundAtrasadas, color, lowArmazonesStock)}
+                          : renderTextCell(cellData, '', type, color2, rowData, backgroundAtrasadas, color)}
                       </td>
                     )
                   );

@@ -90,7 +90,7 @@ export  const setEstadoImpresion = async(pkToDelete?:any, origen?:any, masivo?:b
     }
 }
 
-const OTGrillaButtons:React.FC<AreaButtonsProps> = ({  toggleEditOTModal,folio, historica,estado }) => {
+const OTGrillaButtons:React.FC<AreaButtonsProps> = React.memo(({  toggleEditOTModal,folio, historica,estado }) => {
     const dispatch:any                   = useAppDispatch();
     const componentRef                   = useRef<any>(null);
     const SecondcomponentRef             = useRef<any>(null);
@@ -102,8 +102,10 @@ const OTGrillaButtons:React.FC<AreaButtonsProps> = ({  toggleEditOTModal,folio, 
     const user:any                       = useAppSelector((store: AppStore) => store.user);
     
     const permiso = React.useCallback(()=>{
-        console.log('render')
-        return OTAreas["areas"].find((permiso:any)=>permiso[1] === OTAreaActual)[5]
+        if(!historica){
+            console.log('render')
+            return OTAreas["areas"].find((permiso:any)=>permiso[1] === OTAreaActual)[5]
+        }
     },[OTAreaActual, OTAreas])
     
     let areaPermissions = permiso()
@@ -357,6 +359,6 @@ const imprimirComprobanteRetiro = async(tipoComprobante?:string) => {
 
 
     );
-};
+});
 
 export default OTGrillaButtons;
