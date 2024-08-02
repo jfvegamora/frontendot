@@ -797,7 +797,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
                 }else{
                   setIsFOTGuia((prev)=>!prev)
                 }
-              }}>N° de Guía</Button>
+              }}>N° Guía</Button>
           </Tooltip>
           )}
 

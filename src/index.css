@@ -402,13 +402,14 @@ select::-ms-expand {
 .mantenedorHeadOT {
   display: flex;
   align-items: center;
-  background-color: rgb(255 255 255 / 0);
-  border-color: #f9b17a;
-  border-width: 1px;
-  border-radius: 10px;
-  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
-  padding: 10px 10px 10px 10px;
+  /* background-color: rgb(255 255 255 / 0); */
+  /* border-color: #f9b17a; */
+  /* border-width: 1px; */
+  /* border-radius: 10px; */
+  /* box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3); */
+  padding: 10px 10px 0 10px;
   margin: 0 auto;
+  /* margin-top: 10px !important; */
   margin-bottom: 10px !important;
 }
 
@@ -1109,7 +1110,7 @@ input[type="text"] {
 .otActionButton{
   /* box-shadow: 0 0 10px  rgb(66 71 105 / 0.9); */
   font-size: medium;
-  padding: 15px 25px 15px 25px !important;
+  padding: 15px 23px 15px 23px !important;
   border-radius: 0.25rem;
   margin-top: 20px;
   margin-bottom: 20px;
