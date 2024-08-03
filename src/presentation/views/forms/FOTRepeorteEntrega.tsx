@@ -87,7 +87,6 @@ const FOTReporteEntrega: React.FC<Interface> = ({
 
     const onSubmit: SubmitHandler<any> = async (jsonData) => {
 
-
         if (pktoDelete.length < 1) {
             return toast.error('No Hay OT Seleccionada')
         }

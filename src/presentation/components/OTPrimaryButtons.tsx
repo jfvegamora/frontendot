@@ -535,18 +535,22 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
       const toastLoading = toast.loading('Cargando...');
 
       const updatePromises = OTPkToDelete.value.map(async(ot:any)=>{
+        let areaSiguiente = OTAreas["areaSiguiente"]
         if(OTAreas["areaActual"] === 90 || OTAreas["areaActual"] === 100){
           if(ot.numero_envio !== '0'){
             estado = '50'
+            areaSiguiente = '110';
           }
           if(ot.numero_reporte_firma !== 0){
             estado = '15'
           }
         }
+
+
         await updateOT(
             [],
             OTAreas["areaActual"],
-            OTAreas["areaSiguiente"],
+            areaSiguiente,
             estado,
             [],
             ot,

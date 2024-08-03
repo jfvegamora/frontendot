@@ -367,14 +367,15 @@ const MOTHistorica: React.FC = () => {
   useEffect(() => {
     const newPkToDelete = selectedRows.map((row: number) => ({
       folio             : OTs.data[row] && OTs.data[row][1],
+      estado            : OTs.data[row] && OTs.data[row][5],
+      proyecto_codigo   : OTs.data[row] && OTs.data[row][7],
       proyecto          : OTs.data[row] && OTs.data[row][14],
-      proyecto_codigo   : OTs.data[row] && OTs.data[row][5],
-      estado            : OTs.data[row] && OTs.data[row][4],
-      reporte_firma     : OTs.data[row] && OTs.data[row][8],
-      reporte_atencion  : OTs.data[row] && OTs.data[row][9],
-      orden_compra      : OTs.data[row] && OTs.data[row][10],
-      numero_guia       : OTs.data[row] && OTs.data[row][11],
-      numero_factura    : OTs.data[row] && OTs.data[row][12],
+      reporte_firma     : OTs.data[row] && OTs.data[row][9],
+      reporte_atencion  : OTs.data[row] && OTs.data[row][10],
+      orden_compra      : OTs.data[row] && OTs.data[row][11],
+      numero_guia       : OTs.data[row] && OTs.data[row][12],
+      numero_factura    : OTs.data[row] && OTs.data[row][13],
+
       area              : OTs.data[row] && OTs.data[row][6],
     })
   
@@ -503,6 +504,8 @@ const MOTHistorica: React.FC = () => {
 
 
   const validateAreaArchivo = pktoDelete.some((ot:any)=>ot.area !== "Archivo");
+  console.log(pktoDelete)
+  console.log(validateAreaArchivo)
   // const folioNotArchivo = pktoDelete.filter((ot:any)=>ot.area === "Archivo").map((ot:any)=>ot.folio)
 
   // console.log(validateAreaArchivo)
