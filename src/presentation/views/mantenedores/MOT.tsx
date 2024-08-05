@@ -142,13 +142,31 @@ const MOT: React.FC = () => {
 
   useEffect(() => {
     console.log('render')
+    let cristalStock = '1';
+
     const newPkToDelete = selectedRows?.map((row: number) => ({
       folio: OTs.data[row] && OTs.data[row][OTGrillaEnum.folio],
       estado_id: OTs.data[row] && OTs.data[row][OTGrillaEnum.estado_id],
       estado: OTs.data[row] && OTs.data[row][OTGrillaEnum.estado],
       estado_impresion: OTs.data[row] && OTs.data[row][OTGrillaEnum.estado_impresion],
       armazones: [{ codigo: OTs.data[row] && OTs.data[row][OTGrillaEnum.a1_armazon_id] }, { codigo: OTs.data[row] && OTs.data[row][OTGrillaEnum.a2_armazon_id] }],
-      cristales: [{ codigo: OTs.data[row] && OTs.data[row][OTGrillaEnum.cr1_od] }, { codigo: OTs.data[row] && OTs.data[row][OTGrillaEnum.cr1_oi] }, { codigo: OTs.data[row] && OTs.data[row][OTGrillaEnum.cr2_od] }, { codigo: OTs.data[row] && OTs.data[row][OTGrillaEnum.cr2_oi] }],
+      cristales: [
+        { 
+          codigo: OTs.data[row] && OTs.data[row][OTGrillaEnum.cr1_od], 
+          opcion_vta: cristalStock
+        }, 
+        { 
+          codigo: OTs.data[row] && OTs.data[row][OTGrillaEnum.cr1_oi], 
+          opcion_vta: cristalStock
+        }, 
+        { 
+          codigo: OTs.data[row] && OTs.data[row][OTGrillaEnum.cr2_od],
+          opcion_vta: cristalStock
+        }, 
+        { 
+          codigo: OTs.data[row] && OTs.data[row][OTGrillaEnum.cr2_oi],
+          opcion_vta: cristalStock 
+        }],
       proyecto_codigo: OTs.data[row] && OTs.data[row][OTGrillaEnum.proyecto_titulo],
       proyecto: OTs.data[row] && OTs.data[row][OTGrillaEnum.proyecto],
       punto_venta: OTs.data[row] && OTs.data[row][OTGrillaEnum.punto_venta],

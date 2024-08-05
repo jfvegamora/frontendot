@@ -23,6 +23,7 @@ export const focusFirstInput = (strInputName: string, ref: React.RefObject<any>)
         console.log(strInputName)
         console.log(ref)
       const firstInput = ref.current.querySelector(`input[name=${strInputName}]`);
+      console.log(firstInput)
       if (firstInput) {
         (firstInput as HTMLInputElement).focus();
       }
@@ -33,6 +34,10 @@ export const focusFirstInput = (strInputName: string, ref: React.RefObject<any>)
 const cr1_od_signal = signal("");
 const validationA1_armazon = signal('');
 const validationA2_armazon = signal('');
+// const validation_cristal1_od = signal('');
+// const validation_cristal1_oi = signal('');
+// const validation_cristal2_od = signal('');
+// const validation_cristal2_oi = signal('');
 
 
 interface IFOTValidarBodega{
@@ -109,6 +114,17 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
         }
     }
 
+    // const inputCristalProps:any = {
+    //     "a1_od": () => {
+    //         return{
+    //             label:'OD',
+    //             labelCristal: OT[OTGrillaEnum.cr1_od],
+    //             name: 'a1_od',
+    //             data: validation_cristal1_od, 
+    //         }
+    //     }
+    // }
+
 
     const resnderInputArmazon = (armazon:string) =>{
         const {label, name, data, labelArmazon} = inputArmazonProps[armazon]()
@@ -125,7 +141,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                     data={data}
                     control={control}
                     textAlign='text-left'
-                    customWidth={"labelInput inputStyles w-[27.9vw]"}
+                    customWidth={"labelInput inputStyles w-[26vw]"}
                     inputRef={inputsRef as any}
                     validarBodega={true}
                 />
@@ -694,7 +710,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
     console.log(CR1_OD_LAB.value)
 
     return (
-        <div className={` bg-[#676f9d] mx-auto xl:w-[90%] xl:left-[35rem]  absolute  ${OT && OT[OTGrillaEnum.tipo_anteojo_id] === 3  ? "top-[6vw] !left-[30vw]" : "top-[6vw] !left-[30vw]" } right-auto rounded-xl shadow-md overflow-hidden lg:left-[18rem]     sm:w-[25rem]    md:max-w-[35rem] z-40`}>
+        <div className={` bg-[#676f9d] mx-auto xl:w-[80%] xl:left-[35rem]  absolute  ${OT && OT[OTGrillaEnum.tipo_anteojo_id] === 3  ? "top-[6vw] !left-[30vw]" : "top-[6vw] !left-[30vw]" } right-auto rounded-xl shadow-md overflow-hidden lg:left-[18rem]     sm:w-[25rem]    md:max-w-[35rem] z-40`}>
          <div className="absolute right-0 userFormBtnCloseContainer">
           <h1 className='text-center text-4xl text-white  mb-5 translate-x-[-10vw]'>Folio: <span className='text-orange-300'>{ OT && OT[OTGrillaEnum.folio]}</span></h1>
           <button onClick={handleClose} className="userFormBtnClose mr-4">
@@ -739,13 +755,13 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                             label='OD'
                             name='a1_od'
                             handleChange={handleInputChange}
-                            handleFocus={handleInputChange}
+                            // handleFocus={handleInputChange}
                             control={control}
                             isOT={true}
                             // defaultValue={}
                             data={formValues && formValues["a1_od"]}
                             textAlign='text-left'
-                            customWidth={"labelInput inputStyles  w-[27.9vw]"}
+                            customWidth={"labelInput inputStyles  w-[26vw]"}
                             error={errors.a1_od}
                             inputRef={inputsRef.a1_od}
                             // validarBodega={true}
@@ -753,7 +769,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                         />
 
                         {casoEjecutar === 'ProcesarTB' && (
-                            <div className="absolute top-10 -right-4 items-center flex inputStyles">
+                            <div className="absolute top-10 -right-2 items-center flex inputStyles">
                                 <Checkbox  label="LAB" color="orange" onChange={(e)=>handleCR1_OD_LABChange(e.target)} checked={ CR1_OD_LAB.value} />                                           
                             </div>
                         )}
@@ -772,7 +788,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                             isOT={true}
                             data={formValues && formValues["a1_oi"]}
                             textAlign='text-left'
-                            customWidth={"labelInput inputStyles  w-[28vw]"}
+                            customWidth={"labelInput inputStyles  w-[26vw]"}
                             error={errors.a1_oi}
                             inputRef={inputsRef.a1_oi}
                             validarBodega={true}
@@ -780,7 +796,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                         />
 
                         {casoEjecutar === 'ProcesarTB' && (
-                          <div className="absolute top-10 -right-4 items-center flex inputStyles">
+                          <div className="absolute top-10 -right-2 items-center flex inputStyles">
                             <Checkbox  label="LAB" color="orange" onChange={(e)=>handleCR1_OI_LABChange(e.target)} checked={ CR1_OI_LAB.value} />                                           
                         </div>
                         )}

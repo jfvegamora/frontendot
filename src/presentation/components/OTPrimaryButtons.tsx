@@ -18,6 +18,9 @@ import { checkCount, OTPkToDelete, paramsOT } from '../views/mantenedores/MOT';
 import { signal } from '@preact/signals-react';
 import { setEstadoImpresion } from './OTGrillaButtons';
 import { SocialIcon } from 'react-social-icons';
+// import { OTAreasEnum } from '../Enums/OTAreasEnum';
+// import { OTGrillaEnum } from '../Enums';
+// import { CR1_OD_LAB, CR1_OI_LAB, CR2_OD_LAB, CR2_OI_LAB } from '../utils/FOTCristales_utils';
 // import WhastappForm from '../components/WhastappForm'
 
 
@@ -473,7 +476,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
 
 
     const handleProcesarMasivo = async() => {
-      let estado = '15'
+      let estado = OTAreas["areaActual"] === 50 ? '20' : '15'
       if(OTPkToDelete.value.length === 0){
         return toast.error('No hay OT seleccionada')
       }
@@ -544,6 +547,9 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
           }
         }
 
+        let cristales:any =ot.cristales || []
+        let armazones = ot.armazones || []
+
 
         await updateOT(
             [],
@@ -552,8 +558,8 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
             estado,
             [],
             ot,
-            [],
-            [],
+            cristales.filter((ot:any)=>ot.codigo !== ' '),
+            armazones.filter((ot:any)=>ot.codigo !== ' '),
             User["id"],
             "",
             true,
@@ -561,12 +567,12 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
             false,
             'Procesada'
         )
-        //.then(()=>{
-        //   dispatch(fetchOT({OTAreas:OTAreas["areaActual"],searchParams: paramsOT.value}))
-        //   setSelectedRows([])
-        //   checkCount.value = 0;
-        //   clearAllCheck.value = false;
-        // })
+        .then(()=>{
+          dispatch(fetchOT({OTAreas:OTAreas["areaActual"],searchParams: paramsOT.value}))
+          setSelectedRows([])
+          checkCount.value = 0;
+          clearAllCheck.value = false;
+        })
       })
 
       await Promise.all(updatePromises);
@@ -805,6 +811,23 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
 
 
 
+        {OTAreas["areaActual"] === 60 && (
+          <Tooltip content={BUTTON_MESSAGES.procesar}>
+          {/* <button className='bg-green-400 mx-4 transition-transform transform hover:scale-110 active:scale-95 w-[10rem] h-[2.5rem]  text-white '  */}
+          
+         
+            <Button 
+              color="green" 
+              className='otActionButton mx-4'
+              onClick={handleProcesarMasivo}
+              >
+                Procesar
+            </Button>
+          
+      </Tooltip>
+        )}
+
+
 
         {
           areaPermissions && areaPermissions[6] === '1' && 
@@ -839,7 +862,8 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
               if(OTPkToDelete.value.length === 0){
                 return toast.error('No hay OT seleccionada.')
               }
-              if(OTPkToDelete.value.some((OT:any)=> OT.estado_id === 25)){
+
+              if(OTPkToDelete.value.some((OT:any)=> OT.estado_id !== 25)){
                 return  toast.error(`Folio ${folios} se encuentra en Stand-By.`);
               }
               setisFOTPendiente(true)
@@ -856,7 +880,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
                   return toast.error('No hay OT seleccionada.')
                 }
 
-                if(OTPkToDelete.value.some((OT:any)=> OT.estado_id === 25)){
+                if(OTPkToDelete.value.some((OT:any)=> OT.estado_id !== 25)){
                   return  toast.error(`Folio ${folios} se encuentra en Stand-By.`);
                 }
   

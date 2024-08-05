@@ -883,7 +883,7 @@ const FOT: React.FC<IFOTProps> = ({
 
 
   
-
+  console.log(data && data[EnumGrid.estado_id])
 
   console.log(validationNivel1.value)
 
@@ -1143,6 +1143,9 @@ const FOT: React.FC<IFOTProps> = ({
               (
                 <div className="mx-auto">
                   <Button className='w-[12rem] text-[1.3rem] otActionButtonForm bg-yellow-700 hover:bg-yellow-600' onClick={() => {
+                    if(data && data[EnumGrid.estado_id] === 15){
+                      return toast.error(`Folio ${data[EnumGrid.folio]} se encuentra en Stand-By.`);
+                    }
                     setFOTBooleanStates((prev) => ({
                       ...prev,
                       showPendiente: !prev.showPendiente
@@ -1163,6 +1166,9 @@ const FOT: React.FC<IFOTProps> = ({
               data && data[EnumGrid.estado_id] > 1 && (
                 <div className="mx-auto">
                   <Button className='w-[12rem] text-[1.3rem] otActionButtonForm bg-red-700 hover:bg-red-400' onClick={() => {
+                    if(data && data[EnumGrid.estado_id] === 15){
+                      return toast.error(`Folio ${data[EnumGrid.folio]} se encuentra en Stand-By.`);
+                    }
                     setFOTBooleanStates((prev) => ({
                       ...prev,
                       showDerivacion: !prev.showDerivacion

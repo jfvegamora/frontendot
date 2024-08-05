@@ -1143,6 +1143,9 @@ export const updateOT = async (
 
   //TODO: INICIO PROCESAR MASIVO
   if (isMasivo) {
+    const amrazones =
+      data.tipo_anteojo === 3 ? data.armazones : data.armazones.shift();
+
     const query = {
       query: "04",
       _p1: `area="${_destino}", estado="${_estado}"`,
@@ -1168,19 +1171,19 @@ export const updateOT = async (
         : `${data.punto_venta}`,
       _cristalJSONOri: isValidateBodega
         ? JSON.stringify(cristalOri)
-        : JSON.stringify(data.cristales),
+        : JSON.stringify(data.cristales.filter((ot: any) => ot.codigo !== " ")),
       _armazonJSONOri: isValidateBodega
         ? JSON.stringify(armazonOri)
-        : JSON.stringify(data.armazones),
-      _cristalJSONNew: isValidateBodega
-        ? JSON.stringify(cristalOri)
-        : JSON.stringify(data.cristales),
-      _armazonJSONNew: isValidateBodega
-        ? JSON.stringify(armazonOri)
-        : JSON.stringify(data.armazones),
-
+        : JSON.stringify(amrazones),
+      // _cristalJSONNew: [],
+      // _cristalJSONNew: isValidateBodega
+      //   ? JSON.stringify(cristalOri)
+      //   : JSON.stringify(data.cristales.filter((ot: any) => ot.codigo !== " ")),
+      // _armazonJSONNew: [],
       _motivo: `${motivo}`,
     };
+
+    console.log(query);
 
     try {
       const response = await axios.post(`${URLBackend}/api/ot/editar/`, query);
