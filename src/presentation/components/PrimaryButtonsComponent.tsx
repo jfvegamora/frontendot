@@ -271,6 +271,7 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
               strEntidad={strEntidad}
               params={params}
               strBaseUrl={strBaseUrl}
+              primaryButton={true}
             />
           )}
         </Suspense>

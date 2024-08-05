@@ -392,8 +392,9 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                               <ExportToCsv
                                 strEntidad={entidad}
                                 strBaseUrl={strBaseUrl}
-                                query={'aasasa'}
+                                query={'7'}
                                 entity={rowData}
+                                primaryButton={false}
                               />
                             </div>
                           )}

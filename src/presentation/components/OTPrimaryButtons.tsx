@@ -712,6 +712,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
               params={params}
               strBaseUrl={strBaseUrl}
               OTAreas={OTAreas["areaActual"]}
+              primaryButton={true}
             />
             </div>
           )}
