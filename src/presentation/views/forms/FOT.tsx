@@ -29,7 +29,7 @@ import {
   numero_receta,
   oftalmologo_id,
   punto_venta,
-  reiniciarDioptriasReceta, reiniciarValidationNivel1, reiniciarValidationNivel2, reiniciarValidationNivel3, secondProcessBodega, tipo_de_anteojo, updateOT, validacionIncompleta, validarNumeroDocumento, validar_parametrizacion, validationNivel1
+  reiniciarDioptriasReceta, reiniciarValidationNivel1, reiniciarValidationNivel2, reiniciarValidationNivel3, secondProcessBodega, tipo_anteojo_title, tipo_anteojo_title_cristal2, tipo_de_anteojo, updateOT, validacionIncompleta, validarNumeroDocumento, validar_parametrizacion, validationNivel1
 } from '../../utils';
 import { validationCliente, validationClienteComuna, validationClienteNombre, validationClienteSexo, validationClienteTelefono, validationClienteTipo, validationEstablecimientos, validationFechaAtencion, validationFechaDespacho, validationFechaEntregaCliente, validationFechaEntregaTaller, validationProyectos, validationPuntoVenta, validationTipoAnteojos, validation_A1_ALT, validation_A1_DP, validation_A1_OD_AD, validation_A1_OD_CILL, validation_A1_OD_EJE, validation_A1_OD_ESF, validation_A1_OI_AD, validation_A1_OI_CIL, validation_A1_OI_EJE, validation_A1_OI_ESF, validation_A1_armazon, validation_A2_DP, validation_A2_OD_CIL, validation_A2_OD_EJE, validation_A2_OD_ESF, validation_A2_OI_CIL, validation_A2_OI_EJE, validation_A2_OI_ESF, validation_A2_armazon, validation_Cristal1_color, validation_Cristal1_diametro, validation_Cristal1_diseño, validation_Cristal1_indice, validation_Cristal1_marca, validation_Cristal1_material, validation_Cristal1_od, validation_Cristal1_oi, validation_Cristal1_tratamiento, validation_Cristal2_color, validation_Cristal2_diametro, validation_Cristal2_diseño, validation_Cristal2_indice, validation_Cristal2_material, validation_Cristal2_od, validation_Cristal2_oi, validation_Cristal2_tratamiento, validation_cristal2_marca } from '../../utils/validationOT';
 // import { inputName } from '../../components/OTForms/Otprueba';
@@ -138,6 +138,7 @@ const FOT: React.FC<IFOTProps> = ({
   const OTAreas: any = useAppSelector((store: AppStore) => store.OTAreas);
   const OTSlice: any = useAppSelector((store: AppStore) => store.OTS)
   const User: any = useAppSelector((store: AppStore) => store.user);
+  const tipo_anteojo_array:any = useAppSelector((store:AppStore)=>store.listBoxTipos.OTTipoAnteojo) || [];
   const dispatch = useAppDispatch()
 
 
@@ -701,8 +702,21 @@ const FOT: React.FC<IFOTProps> = ({
     setChangeboolean((prev) => !prev);
     let clearCliente = false
     const key = Object.keys(dataForm)[0]
+
+  
     if (key === 'tipo_anteojo_id' || key === 'proyecto_codigo') {
       console.log('render')
+      const value = Object.values(dataForm)[0]
+
+      console.log(value)
+      if(value === '3'){
+        tipo_anteojo_title.value = 'Lejos'
+        tipo_anteojo_title_cristal2.value = 'Cerca'
+      }else{
+        const filteredTipo = tipo_anteojo_array.filter((tipo: any) => tipo[0].toString() === value);
+        tipo_anteojo_title.value = filteredTipo.length > 0 ? filteredTipo[0][1] : '';
+      }      
+
       clearAllInputsOT(clearCliente, true)
     }
 
@@ -882,10 +896,8 @@ const FOT: React.FC<IFOTProps> = ({
 
 
 
-  
-  console.log(data && data[EnumGrid.estado_id])
+  console.log(validationNivel1.value)  
 
-  console.log(validationNivel1.value)
 
   const camposRequeridosCliente = ['cliente_rut', 'cliente_nombre', 'cliente_tipo', 'cliente_sexo', 'cliente_telefono', 'cliente_comuna', 'establecimiento_id'];
   const camposRequeridosReceta = ['tipo_anteojo_id', 'a1_od_esf', 'a1_od_cil', 'a1_od_eje', 'a1_od_ad', 'a1_oi_ad', 'a1_oi_esf', 'a1_oi_cil', 'a1_oi_eje', 'a1_dp', 'a1_alt', 'a2_od_esf', 'a2_od_cil', 'a2_od_eje', 'a2_oi_esf', 'a2_oi_cil', 'a2_oi_eje', 'a2_dp'];

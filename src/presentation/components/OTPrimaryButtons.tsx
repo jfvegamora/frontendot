@@ -216,10 +216,10 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
             validarBodega,
             'Ingresar'
           ).then(() => {
+            dispatch(fetchOT({OTAreas:OTAreas["areaActual"], searchParams: paramsOT.value}))
             clearAllCheck.value = false;
             // disabledIndividualCheck.value = true;
             clearIndividualCheck.value = true;
-            dispatch(fetchOT({OTAreas:OTAreas["areaActual"], searchParams: paramsOT.value}))
             
         })    
       })
@@ -647,8 +647,8 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
 
     }
 
-
-    console.log('render')
+    
+    console.log(OTPkToDelete.value)
 
     return (
     <div className='flex items-center   ml-[4rem] !w-full'>
@@ -863,7 +863,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
                 return toast.error('No hay OT seleccionada.')
               }
 
-              if(OTPkToDelete.value.some((OT:any)=> OT.estado_id !== 25)){
+              if(OTPkToDelete.value.some((OT:any)=> OT.estado_id === 15)){
                 return  toast.error(`Folio ${folios} se encuentra en Stand-By.`);
               }
               setisFOTPendiente(true)
@@ -880,7 +880,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
                   return toast.error('No hay OT seleccionada.')
                 }
 
-                if(OTPkToDelete.value.some((OT:any)=> OT.estado_id !== 25)){
+                if(OTPkToDelete.value.some((OT:any)=> OT.estado_id === 25)){
                   return  toast.error(`Folio ${folios} se encuentra en Stand-By.`);
                 }
   

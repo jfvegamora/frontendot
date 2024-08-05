@@ -195,7 +195,7 @@ const FOTAnulacion:React.FC<IAnulacion> = ({
                             label="Observaciones"
                             name="observaciones"
                             control={control}
-                            customWidth={"labelInput inputStyles w-[38vw]"}
+                            customWidth={"labelInput inputStyles !w-[38.5vw]"}
                             isOptional={true}
                             />
                     </div>

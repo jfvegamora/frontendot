@@ -121,24 +121,23 @@ const TextInputInteractive: React.FC<ITextInputProps> = ({
     }
     
     if (data === "") {
-      console.log(name)
-      console.log('render')
       setDefaultValue("");
       setValue("");
       armazonInput = ''
-      console.log(name)
       
       if(name === 'a1_armazon'){
         setValue("")
         setRender(prev => !prev);
       }
+      if(name === 'a2_armazon'){
+        setValue("")
+        setRender(prev => !prev);
+      }
       if(name === 'cristal1_od'){
-        console.log('render')
         setValue("")
         setRender(prev => !prev);
       }
       if(name === 'cristal1_oi'){
-        console.log('render')
         setValue("")
         setRender(prev => !prev);
       }
@@ -170,12 +169,6 @@ const TextInputInteractive: React.FC<ITextInputProps> = ({
 
 
 
-  React.useEffect(()=>{
-    if(name === 'a1_armazon'){
-      console.log(data)
-      console.log(value)
-    }
-  },[value])
 
   
 React.useEffect(()=>{
@@ -196,12 +189,13 @@ React.useEffect(()=>{
       setValue('')
     }
   }
-},[value])
 
-if(name === 'cristal1_oi'){
-  console.log(data)
-  console.log(value)
-}
+  if(name === 'a2_armazon'){
+    if(data === ''){
+      setValue('')
+    }
+  }
+},[value])
 
 
 

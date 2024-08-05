@@ -6,6 +6,7 @@ import {A1_ALT, A1_DP, A2_DP, a1_od_ad, a1_od_eje, a1_od_esf, a1_oi_ad, a1_oi_es
     dioptrias_receta,
     oftalmologo_id,
     tipo_anteojo_title,
+    tipo_anteojo_title_cristal2,
     tipo_de_anteojo, 
     // dioptrias_receta, 
     // tipo_de_anteojo 
@@ -41,6 +42,7 @@ const FOTReceta:React.FC<IReceta> = ({
 }) => {
 
     const [_isRender, setIsRender] = useState(false);
+
 
     const firstInputRef   = useRef<HTMLInputElement | null>(null);
     const secondInputRef  = useRef<HTMLInputElement | null>(null);
@@ -100,8 +102,6 @@ const FOTReceta:React.FC<IReceta> = ({
         }
     },[])
 
-    
-console.log('tipo_anteojo_title:',tipo_anteojo_title.value)
   return (
     <form onKeyDown={handleKeyDown}>     
         <div className="frameOTForm h-[85vh]">
@@ -181,7 +181,9 @@ console.log('tipo_anteojo_title:',tipo_anteojo_title.value)
 
 
             <div className={`w-full flex items-center rowForm !h-[9vw] relative ${tipo_de_anteojo.value === '3' ? 'translate-y-11' : 'translate-y-32'}  `}>
-                <label className='labelAnteojo !text-[1.9vw] -translate-y-11'>ANTEOJO {tipo_anteojo_title.value}</label>
+                {tipo_anteojo_title.value !== '' && (
+                    <label className='labelAnteojo !text-[1.9vw] flex  !w-[25vw] translate-x-[-2vw] -translate-y-11'>ANTEOJO {tipo_anteojo_title.value.toUpperCase()}</label>
+                )}
                 <div className=" w-[43vw] items-center rowForm  !h-[8rem]  ">
                     <div className="w-[90%] mx-auto flex items-center h-[9rem] relative labelForm  rounded-lg border radioComponent">
                         <label className='labelForm w-[40%] absolute z-10 text-center -top-14 left-[30%] text-[2vw]'>OD</label>
@@ -352,7 +354,9 @@ console.log('tipo_anteojo_title:',tipo_anteojo_title.value)
 
             {tipo_de_anteojo.value === '3' && (
                 <div className="w-full flex items-center rowForm translate-y-32 !h-[9vw] relative">
-                    <label className='absolute z-10 top-[-10%] w-[15%] left-[36%] text-center text-[2vw] -translate-y-8'>ANTEOJO 2</label>
+                    {tipo_anteojo_title_cristal2.value !== '' && (
+                        <label className='absolute z-10 top-[-10%] left-[36%] text-center text-[2vw] !w-[25vw] translate-x-[-6vw] -translate-y-11'>ANTEOJO {tipo_anteojo_title_cristal2.value.toUpperCase()}</label>
+                    )}
                     <div className=" w-[43%] items-center  !h-[8rem] rowForm ">
                         <div className="w-[90%] mx-auto flex items-center  !h-[8rem] relative labelForm  rounded-lg border radioComponent">
                         <label className='labelForm w-[40%] absolute z-10 text-center -top-14 left-[30%] text-[2vw]'>OD</label>

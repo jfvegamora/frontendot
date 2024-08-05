@@ -146,6 +146,8 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
         [label]:data
       }
 
+
+
       console.log(payload)
 
       dispatch(setDataListbox(payload))

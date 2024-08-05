@@ -68,12 +68,10 @@ export const validation_tipo_anteojo = () => {
     "cristal2_tratamiento_id",
     "cristal2_od",
     "cristal2_oi",
-    // "a2_armazon_id",
+    "a2_armazon_id",
   ];
 
   const tipoDeAnteojo = tipo_de_anteojo.value;
-
-  console.log(tipoDeAnteojo);
 
   const camposValidarNivel3 = [
     "validar_cristal1_od",
