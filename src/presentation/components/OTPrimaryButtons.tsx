@@ -543,6 +543,8 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
             estado = '15'
           }
         }
+
+
         await updateOT(
             [],
             OTAreas["areaActual"],

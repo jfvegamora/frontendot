@@ -103,8 +103,8 @@ const OTGrillaButtons:React.FC<AreaButtonsProps> = React.memo(({  toggleEditOTMo
     
     const permiso = React.useCallback(()=>{
         if(!historica){
-            console.log('render')
-            return OTAreas["areas"].find((permiso:any)=>permiso[1] === OTAreaActual)[5]
+            const permisoString = OTAreas["areas"].find((permiso:any)=>permiso[1] === (OTAreaActual === 200 ? 50 : OTAreaActual))
+            return permisoString && permisoString[5]
         }
     },[OTAreaActual, OTAreas])
     

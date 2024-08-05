@@ -96,7 +96,6 @@ const TableComponent2: React.FC<ITableComponentProps<any>> = React.memo(
 
 
     const handleColorEstado = useCallback((rowData:any, background?:string) => {
-      console.log('handleColorEstado')
       try {
         if(OTColores[rowData]){
           return background ? `${OTColores[rowData][1]}` : `${OTColores[rowData][0]}`
@@ -113,7 +112,6 @@ const TableComponent2: React.FC<ITableComponentProps<any>> = React.memo(
     
 
     const renderTextCell = useCallback((text: string, alignment?:string, type?:number, color2?:boolean, rowData?:any, backgroundAtrasadas?:boolean, color?:any, lowArmazonesStock?:any) => {
-      console.log('renderTextCell')
       const cellStyle:any = {
         textAlign:alignment,
         color: (rowData &&  color2 &&  handleColorEstado(rowData[5]))
