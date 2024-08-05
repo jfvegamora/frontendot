@@ -535,7 +535,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                             label="Venta/Post Venta"
                             name="permiso_venta"
                             data={formValues && formValues["Venta/Post Venta"] || data && data[EnumGrid.permiso_venta]}
-                            options={["Lectura", "Ingreso", "Procesar"]}
+                            options={["Lectura", "Digitación", "Procesar"]}
                             error={errors.permiso_venta}
                             horizontal={false}
                             onChange={(e: any) => handleChange(e)}

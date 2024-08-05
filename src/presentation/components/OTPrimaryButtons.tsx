@@ -767,7 +767,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
                 }
                 
                 setIsFOTEmpaque((prev)=>!prev)
-                }}>N° de Envio</Button>
+                }}>N° Envío</Button>
           </Tooltip>
           )}
 
@@ -782,7 +782,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
                   return toast.error(`FOLIO: ${foliosStandBy}  No se encuentra en Proceso`)
                 }
               setIsFOTReporeFirma((prev)=>!prev)
-              }}>N° Rep. Firma</Button>  
+              }}>Rep. Firma</Button>  
           </Tooltip>
         )}
 
