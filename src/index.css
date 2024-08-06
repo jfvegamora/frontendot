@@ -14,18 +14,10 @@ MTO
 #2698bd
 */
 
-/* * {
-  transition: all 0.3s ease;
-  
-} */
-
  .btnAreas{
-  /* background-color: transparent; */
   color: #676f9d;
   border-color: #676f9d;
-  /* border-color: #f9b17a; */
   border-width: 1px;
-  /* box-shadow: 0 6px 8px rgba(0, 0, 0, 0.1); */
 
   box-shadow:
   -6px -6px 8px rgba(0, 0, 0, 0.1) inset,
@@ -37,12 +29,7 @@ MTO
 .btnAreas:hover{
   border-color: #f9b17a;
   background-color: rgb(249 177 122 / 1) ;
-  /* background-color: rgb(103 111 157 / 0.3) ; */
-  /* box-shadow: 
-  -6px -6px 8px rgba(0, 0, 0, 0.1) inset,
-  1px 2px 6px rgba(255, 255, 255, 1) inset,
-  6px 6px 12px rgba(255, 255, 255, 0.2) inset; */
-  
+ 
   transition: transform 0.4s ease-in-out;
   transform: translateY(2px) scale(1.07); 
 } 
@@ -50,13 +37,11 @@ MTO
 .btnPresionado {
   transition: transform 0.2s ease-in-out;
   transform: translateY(0) scale(0.95); 
-  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); */
   box-shadow: 
   -6px -6px 8px rgba(0, 0, 0, 0.2) inset,
   1px 2px 6px rgba(255, 255, 255, 1) inset,
   6px 6px 12px rgba(255, 255, 255, 0.2) inset;
 }
-
 
 
 body {
@@ -86,8 +71,6 @@ body {
 }
 .labelInput{
   font-size: 20px !important;
-  /* background: red;
-  color: blue; */
 }
 .labelInputx2{
   font-size: 32px !important;
@@ -122,7 +105,6 @@ body {
 
 .FOTArmazonesInfo{
   font-size: 24px;
-  /* font-weight: bold; */
 }
 
 
@@ -186,17 +168,6 @@ select::-ms-expand {
   font-style: italic;
   color: red;
 }
-/* .labelSelect{
-  font-size: medium;
-  color: #424769; 
-  top: 5px;
-} */
-
-/* .labelSelectReg{
-  font-size: medium;
-  color: #424769; 
-  top: 0px;
-} */
 
 /* Custom Select wrapper */
 .custom-select, .custom-select-reg {
@@ -210,10 +181,7 @@ select::-ms-expand {
 .custom-select select:focus,
 .custom-select input:focus {
   border-width: 3px;
-  /* border-color: #f39c12 !important; */
   border: 2px solid #f39c12 !important;
-
-  /* outline: none !important;  */
 }
 
 /* Arrow */
@@ -335,7 +303,6 @@ select::-ms-expand {
 .custom-optional-with-color {
   background-color: rgba(255, 255, 255, 0.213);
   color: rgba(62, 62, 62, 0.75); 
-   /* Tu nuevo color para el texto en estilo custom-optional */
 }
 
 .custom-input.error {
@@ -402,14 +369,8 @@ select::-ms-expand {
 .mantenedorHeadOT {
   display: flex;
   align-items: center;
-  /* background-color: rgb(255 255 255 / 0); */
-  /* border-color: #f9b17a; */
-  /* border-width: 1px; */
-  /* border-radius: 10px; */
-  /* box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3); */
   padding: 10px 10px 0 10px;
   margin: 0 auto;
-  /* margin-top: 10px !important; */
   margin-bottom: 10px !important;
 }
 
@@ -426,16 +387,6 @@ select::-ms-expand {
   width: 70%;
   margin: 0 auto;
 }
-
-/* Estilos para la grilla y elementos de la lista */
-/* .tableContainer {
-  background-color: #ffffff; 
-  border-radius: 10px; 
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
-  overflow: hidden; 
-  margin-top: 20px; 
-  height: 90%;
-} */
 
 /* Estilo para filas alternadas en la grilla */
 .tableRow:nth-child(even) {
@@ -480,7 +431,6 @@ select::-ms-expand {
 
 .primaryKeyIconButton {
   color: orangered;
-  /* width: 15rem; */
   z-index: 20;
 }
 
@@ -521,8 +471,9 @@ select::-ms-expand {
   transform: scale(1.2); 
 }
 
-.userFormBtnSubmit:hover, .otActionButton:hover{
+.userFormBtnSubmit:hover, .otActionButton:hover {
   transform: scale(1.05); 
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3) !important;
 }
 
 .scroll {
@@ -575,14 +526,10 @@ select::-ms-expand {
 
 .gridHead {
   border-top-width: 1px;
-  /* width: 100%; */
   border-bottom-width: 1px;
   --tw-border-opacity: 1;
   border-color: rgb(207 216 220 / var(--tw-border-opacity));
-  /*background-color: rgb(236 239 241 / 1);*/
-  /* background-color: #424769; */
   height: 1px;
-  /* padding: 1rem; */
   border-width: 1px;
 }
 
@@ -619,7 +566,6 @@ table{
 
 th, td{
   background-color: #ffffff33;
-  /* padding: 15px; */
   color:#fff;
 }
 
@@ -639,13 +585,9 @@ tbody td{
 tbody td:hover:before{
   content: "" !important;
   position: absolute !important;
-  /* background-color: rgb(0 0 0 / 0.1) !important; */
   background-color: blue !important;
   left: 0; 
   right: 0;
-  /* top: -9999px; */
-  /* bottom: -9999px; */
-  /* z-index: 10 !important; */
 }
 
 
@@ -653,10 +595,6 @@ tbody td:hover:before{
   border-bottom-width: 2px;
   padding-left: 1rem;
   padding-right: 1rem;
-  /* height: 4rem; */
-  /* white-space: nowrap; */
-  /*padding-top: 0.5rem;
-  padding-bottom: 0.5rem;*/
 }
 
 .gridIcons {
@@ -761,12 +699,6 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 
-/*
-#676f9d rgb(103 111 157 / 0.9)
-#424769 rgb(66 71 105 / 0.9)
-#2d3250 rgb(45 50 80 / 0.9)
-#f9b17a rgb(249 177 122 / 0.9) 
-*/
 
 /*========CLASSES TABS=========*/
 .custom-tab {
@@ -776,7 +708,6 @@ input:checked + .slider:before {
   text-align: center;
   width: 12%;
   background-color: rgb(249 177 122 / 0.6); 
-  /* border: 1px solid; */
   border-color: white;
   border-top-right-radius: 20px;
   padding: 10px 20px;
@@ -788,9 +719,6 @@ input:checked + .slider:before {
   6px 6px 12px rgba(255, 255, 255, 0.2) inset;
 }
 
-/* .custom-tab:focus{  
-  background-color: #f9b17a; 
-} */
 .custom-tab.react-tabs__tab--selected {
   background-color: #f9b17a; 
   color: #424769; 
@@ -848,10 +776,6 @@ color: white !important;
   font-size:larger;
   color: #f9b17a; 
   margin-left: 1rem;
-  /*676f9d rgb(103 111 157 / 0.9)
-  #424769 rgb(66 71 105 / 0.9)
-  #2d3250 rgb(45 50 80 / 0.9)
-  #f9b17a rgb(249 177 122 / 0.9)  */
 }
 
 .textArmazonOTDetalle{
@@ -870,11 +794,6 @@ color: white !important;
 }
 
 
-
-/* .input-element{
-  margin-top: 0.5rem !important;
-} */
-
 .rowForm{
   height: auto;
 }
@@ -892,7 +811,6 @@ color: white !important;
 rowForm .custom-input:focus {
   border-width: 1px;
   border-color: #f39c12 !important; /* Cambia el color del borde a azul (#007bff) cuando obtiene el foco */
-  /* outline: none !important; Elimina el contorno predeterminado que algunos navegadores aplican al enfocar */
 } 
 
 .centertDIV {
@@ -900,10 +818,6 @@ rowForm .custom-input:focus {
   justify-content: center; /* Centra horizontalmente */
   align-items: center; /* Centra verticalmente */
 }
-
-/* input[type="text"]{
-  border: none !important;
-} */
 
 .textInput{
   top: 0px !important;
@@ -924,12 +838,7 @@ rowForm .custom-input:focus {
 .useFormContainer {
   --tw-bg-opacity: 1;
   background-color: rgb(103 111 157 / 1);
-  /* padding-left: 1rem; */
-  /* padding-right: 1rem; */
-  /* margin-left: auto; */
-  /* margin-right: auto; */
   position: absolute;
-  /* display: block; */
   z-index: 50 !important;
   border-radius: 0.5rem;
   --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.5),
@@ -959,9 +868,6 @@ rowForm .custom-input:focus {
 .useFormDerivacion {
   background-color: #676f9d;
 }
-/* #676f9d rgb(103 111 157 / 0.9)
-#424769 rgb(66 71 105 / 0.9)
-#2d3250 rgb(45 50 80 / 0.9) */
 
 
 .loginFormContainer {
@@ -1068,12 +974,6 @@ rowForm .custom-input:focus {
   flex-grow: 1; /* Hace que los elementos se ajusten automáticamente */
 }
 
-/* input[type="number"] {
-  text-align: right;
-  font-size:medium;
-  border-radius: 0.3rem;
-}
-
 input[type="text"] {
   text-align: left;
   font-size:medium;
@@ -1086,15 +986,17 @@ input[type="text"] {
 }
 .flex-col div {
   min-width: auto !important;
-} /*ancho del Input para datos pequeños*/
+} 
+
+/*ancho del Input para datos pequeños*/
 .flex-col label {
   font-size: 16px;
-} /*color del label del input*/
+} 
 
+/*color del label del input*/
 .userFormBtnSubmit {
   width: 100%;
   --tw-bg-opacity: 1;
-  /* background-color: rgb(251 140 0 / var(--tw-bg-opacity)); */
   background-color: #f9b17a;
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
@@ -1113,7 +1015,6 @@ input[type="text"] {
 }
 
 .otActionButton{
-  /* box-shadow: 0 0 10px  rgb(66 71 105 / 0.9); */
   font-size: medium;
   padding: 15px 20px 15px 20px !important;
   border-radius: 0.25rem;
@@ -1192,21 +1093,19 @@ input[type="text"] {
       width: 40rem;
       border-width: 1px;
       border-style: solid;
-      border-color: black; /* Color azul correspondiente al código Tailwind border-blue-500 */
+      border-color: black; 
       margin-left: auto;
       margin-right: auto;
       margin-bottom: 2rem;
       margin-top: 2rem;
       height: 20rem;
-    /* Agrega cualquier estilo adicional que desees aplicar en la impresión */
   }
 
 }
 
-/* Estilos CSS para el fondo del modal */
 .modal-overlay {
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 9999; /* Asegura que el fondo esté por encima de otros elementos */
+  z-index: 9999; 
 }
 
 .custom-draggable {
@@ -1216,19 +1115,18 @@ input[type="text"] {
   padding: 20px;
 }
 
-/* Estilos para WebKit (Safari, Chrome) */
 ::-webkit-scrollbar {
-  width: 8px; /* Ancho del scrollbar vertical */
-  height: 8px; /* Alto del scrollbar horizontal */
+  width: 8px; 
+  height: 8px; 
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #888; /* Color del thumb (barra de desplazamiento) */
-  border-radius: 4px; /* Borde redondeado del thumb */
+  background-color: #888; 
+  border-radius: 4px; 
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #555; /* Color del thumb en hover */
+  background-color: #555; 
 }
 
 @media (max-width: 539px) {
@@ -1251,12 +1149,3 @@ input[type="text"] {
   overflow-y: auto; 
   overflow-x: hidden; 
 }
-
-/* Estilos para COMPONENTES FORMULARIO */
-
-
-/* Estos estilos también se aplicarán a algunos navegadores basados en Chrome */
-/* Nota: Algunas propiedades no son soportadas en Firefox, pero no generan conflictos */
-/* Recomendación: Utiliza estilos específicos para Firefox si es necesario */
-/* scrollbar-color: #888 #f0f0f0; Color del thumb y el track (respectivamente) */
-/* scrollbar-width: thin; Ancho del scrollbar vertical y horizontal */
