@@ -19,6 +19,10 @@ import {Howl} from 'howler';
 import soundError from '../../../assets/error-call-to-attention-129258.mp3';
 
 export const focusFirstInput = (strInputName: string, ref: React.RefObject<any>) => {
+    
+    console.log(strInputName)
+    console.log(ref)
+    
     if (ref.current) {
         console.log(strInputName)
         console.log(ref)
@@ -31,11 +35,10 @@ export const focusFirstInput = (strInputName: string, ref: React.RefObject<any>)
   };
 
 
-const cr1_od_signal = signal("");
 const validationA1_armazon = signal('');
 const validationA2_armazon = signal('');
-// const validation_cristal1_od = signal('');
-// const validation_cristal1_oi = signal('');
+const validation_cristal1_od = signal('');
+const validation_cristal1_oi = signal('');
 // const validation_cristal2_od = signal('');
 // const validation_cristal2_oi = signal('');
 
@@ -63,6 +66,8 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
         CR2_OI_LAB.value = false;
         validationA1_armazon.value = ''
         validationA2_armazon.value = ''
+        validation_cristal1_od.value = ''
+        validation_cristal1_oi.value = ''
         resetField('a1_od')
         resetField('a1_oi')
         resetField('a1_armazon')
@@ -100,7 +105,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                 labelArmazon: OT[OTGrillaEnum.a1_armazon_id],
                 name: 'a1_armazon',
                 data: validationA1_armazon.value,
-                inputRef: inputsRef.a1_armazon
+                inputRefArmazon: inputsRef.a1_armazon
             }
         },
         "a2_armazon": () =>{
@@ -109,25 +114,71 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                 labelArmazon: OT[OTGrillaEnum.a2_armazon_id],
                 name:'a2_armazon',
                 data: validationA2_armazon.value,
-                inputsRef:inputsRef.a2_armazon
+                inputsRefArmazon:inputsRef.a2_armazon
             }
         }
     }
 
-    // const inputCristalProps:any = {
-    //     "a1_od": () => {
-    //         return{
-    //             label:'OD',
-    //             labelCristal: OT[OTGrillaEnum.cr1_od],
-    //             name: 'a1_od',
-    //             data: validation_cristal1_od, 
-    //         }
-    //     }
-    // }
+    const inputCristalProps:any = {
+        "a1_od": () => {
+            return{
+                label:'OD',
+                labelCristal: OT[OTGrillaEnum.cr1_od],
+                name: 'a1_od',
+                data: validation_cristal1_od.value,
+                inputsRefCristal: inputsRef.a1_od,
+                onChangeCheckLab:(e:any)=>handleCR1_OD_LABChange(e.target),
+                checkedVariable: CR1_OD_LAB.value
+            }
+        },
+        "a1_oi": () =>{
+            return{
+                label: 'OI',
+                labelCristal: OT[OTGrillaEnum.cr1_oi],
+                name: 'a1_oi',
+                data: validation_cristal1_oi.value,
+                inputsRefCristal: inputsRef.a1_oi,
+                onChangeCheckLab:(e:any)=>handleCR1_OI_LABChange(e.target),
+                checkedVariable: CR1_OI_LAB.value
 
+            }
+        }
+    }
+
+    const renderInputCristal = (cristal:string) =>{
+        const {label, name, data, labelCristal, onChangeCheckLab, checkedVariable,inputsRefCristal} = inputCristalProps[cristal]()
+
+        return(
+            <div className='rowForm !h-[5rem] relative mb-4'>
+                <label className='labelInput  ml-4'>{labelCristal}</label>      
+                <TextInputInteractive
+                    type='text'
+                    label={label}
+                    name={name}
+                    handleChange={handleInputChange}
+                    isOT={true}
+                    data={data}
+                    control={control}
+                    textAlign='text-left'
+                    customWidth={"labelInput inputStyles w-[26vw]"}
+                    inputRef={inputsRefCristal}
+                    validarBodega={true}
+                    onlyRead={checkedVariable}
+                />
+
+                {casoEjecutar === 'ProcesarTB' && (
+                    <div className="absolute top-10 -right-2 items-center flex inputStyles">
+                        <Checkbox  label="LAB" color="orange" onChange={(e)=>onChangeCheckLab(e)} checked={checkedVariable} />                                           
+                    </div>
+                )}
+        </div>
+        )
+
+
+    }
 
     const resnderInputArmazon = (armazon:string) =>{
-        const {label, name, data, labelArmazon} = inputArmazonProps[armazon]()
+        const {label, name, data, labelArmazon,inputsRefArmazon} = inputArmazonProps[armazon]()
         console.log(data)
         return (
             <div className='rowForm !h-[5rem] relative mb-4'>
@@ -142,7 +193,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                     control={control}
                     textAlign='text-left'
                     customWidth={"labelInput inputStyles w-[26vw]"}
-                    inputRef={inputsRef as any}
+                    inputRef={inputsRefArmazon}
                     validarBodega={true}
                 />
         </div>
@@ -195,14 +246,11 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
             return;
         }
         
-        console.log(value)
         if(value && value.length >= 12){
             const regex = /^0+/;
             formatValue = value.replace(regex, "")
 
         }
-        
-        console.log(name)
         
             if(name === 'a1_od'){
                 console.log(formatValue)
@@ -212,27 +260,24 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                 
                 if((OT && OT[OTGrillaEnum.cr1_od] === formatValue) && value.length >= 11){
                     console.log('render')
+                    validation_cristal1_od.value = value
                     validationCodigoCristal1_od(formatValue,alreadyValidate)
                     focusFirstInput('a1_oi',inputsRef["a1_oi"] )
                 }else{
                     if(value.length <= 11){
                         return;
                     }else{
-                        validationCodigoCristal1_od('')
+                        console.log('render')
+                        validation_cristal1_od.value = '';
                         errorSound.play()
+                        validationCodigoCristal1_od('')
+                        toast.error('Código Cristal OD no corresponde.')
                         resetField('a1_od')
                         setFormValues({[name]:''} as any)
-                        toast.error('Código Cristal OD no corresponde.')
-                        inputsRef.a1_od.current = ''
-                        cr1_od_signal.value = ''
-                        value = ''
+                        
                     } 
 
-                    // toast.error('Anteojo 1, Código cristal OD no son iguales')
-                    // setFormValues({[name]: ''} as any)
                 }
-                
-                console.log(formValues)
             }
     
             if(name === 'a1_oi'){
@@ -241,12 +286,20 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                 }
                 if(OT && OT[OTGrillaEnum.cr1_oi] === value && value.length >= 11){
                     validationCodigoCristal1_oi(value, alreadyValidate)
+                    validation_cristal1_oi.value = value
                     focusFirstInput('a2_armazon', inputsRef["a2_armazon"])
                 }else{
-                    if(value.length <= 11)return;
-                    validationCodigoCristal1_oi('')
+                    if(value.length <= 11){
+                        return;
+                    }else{
+                        validation_cristal1_oi.value = ''
+                        errorSound.play();
+                        validationCodigoCristal1_oi('')
+                        toast.error('Código Cristal OI no correspsonde.')
+                        resetField('a1_oi')
+                        setFormValues({[name]: ''} as any)
+                    }
                     // toast.error('Anteojo 1, Código cristal OI no son iguales')
-                    setFormValues({[name]: ''} as any)
                 }
             }
     
@@ -258,7 +311,9 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                 if((OT && OT[OTGrillaEnum.a1_armazon_id] === value) && value.length >= 11){  
                     validationCodigoArmazon_1(value, alreadyValidate)
                     validationA1_armazon.value = value
+                    console.log(inputsRef)
                     focusFirstInput('a1_od', inputsRef["a1_od"])
+                    console.log('render')
                 }else{
                     if(value.lenght <= 11 ){
                         console.log(value)
@@ -506,7 +561,9 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
         const handleKeyDown = (event: KeyboardEvent) => {
           if (event.key === "Escape") {
             resetFields()
+            
             handleClose();
+            
           }
         };
         window.addEventListener("keydown", handleKeyDown);
@@ -735,7 +792,10 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
         <div className={` bg-[#676f9d] mx-auto xl:w-[80%] xl:left-[35rem]  absolute  ${OT && OT[OTGrillaEnum.tipo_anteojo_id] === 3  ? "top-[-1vw] !left-[30vw]" : "top-[6vw] !left-[30vw]" } right-auto rounded-xl shadow-md overflow-hidden lg:left-[18rem]     sm:w-[25rem]    md:max-w-[35rem] z-40`}>
          <div className="absolute right-0 userFormBtnCloseContainer">
           <h1 className='text-center text-4xl text-white  mb-5 translate-x-[-10vw]'>Folio: <span className='text-orange-300'>{ OT && OT[OTGrillaEnum.folio]}</span></h1>
-          <button onClick={handleClose} className="userFormBtnClose mr-4">
+          <button onClick={()=>{
+                        resetFields()
+                        handleClose()
+          }} className="userFormBtnClose mr-4">
             X
           </button>
         </div>
@@ -770,59 +830,62 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                 {resnderInputArmazon('a1_armazon')}
                
                 {casoEjecutar !== 'sinCristales' && (OT[OTGrillaEnum.cr1_od] !== '') &&  (
-                    <div className='rowForm  !h-[5rem] relative mb-4'>
-                        <label className='labelInput ml-4 '>{OT[OTGrillaEnum.cr1_od]}</label>
-                        <TextInputInteractive
-                            type='text'
-                            label='OD'
-                            name='a1_od'
-                            handleChange={handleInputChange}
-                            // handleFocus={handleInputChange}
-                            control={control}
-                            isOT={true}
-                            // defaultValue={}
-                            data={formValues && formValues["a1_od"]}
-                            textAlign='text-left'
-                            customWidth={"labelInput inputStyles  w-[26vw]"}
-                            error={errors.a1_od}
-                            inputRef={inputsRef.a1_od}
-                            // validarBodega={true}
-                            onlyRead={CR1_OD_LAB.value}
-                        />
+                    // <div className='rowForm  !h-[5rem] relative mb-4'>
+                    //     <label className='labelInput ml-4 '>{OT[OTGrillaEnum.cr1_od]}</label>
+                    //     <TextInputInteractive
+                    //         type='text'
+                    //         label='OD'
+                    //         name='a1_od'
+                    //         handleChange={handleInputChange}
+                    //         // handleFocus={handleInputChange}
+                    //         control={control}
+                    //         isOT={true}
+                    //         // defaultValue={}
+                    //         data={validation_cristal1_od.value || formValues && formValues["a1_od"]}
+                    //         textAlign='text-left'
+                    //         customWidth={"labelInput inputStyles  w-[26vw]"}
+                    //         error={errors.a1_od}
+                    //         inputRef={inputsRef.a1_od}
+                    //         // validarBodega={true}
+                    //         onlyRead={CR1_OD_LAB.value}
+                    //     />
 
-                        {casoEjecutar === 'ProcesarTB' && (
-                            <div className="absolute top-10 -right-2 items-center flex inputStyles">
-                                <Checkbox  label="LAB" color="orange" onChange={(e)=>handleCR1_OD_LABChange(e.target)} checked={ CR1_OD_LAB.value} />                                           
-                            </div>
-                        )}
-                    </div>
+                    //     {casoEjecutar === 'ProcesarTB' && (
+                    //         <div className="absolute top-10 -right-2 items-center flex inputStyles">
+                    //             <Checkbox  label="LAB" color="orange" onChange={(e)=>handleCR1_OD_LABChange(e.target)} checked={ CR1_OD_LAB.value} />                                           
+                    //         </div>
+                    //     )}
+                    // </div>
+                    renderInputCristal('a1_od')
                 )}
 
                 {casoEjecutar !== 'sinCristales' && (OT[OTGrillaEnum.cr1_oi] !== '') &&(
-                    <div className=' relative rowForm  !h-[5rem]'>
-                        <label className='labelInput ml-4 '>{OT[OTGrillaEnum.cr1_oi]}</label>    
-                        <TextInputInteractive
-                            type='text'
-                            label='OI'
-                            name='a1_oi'
-                            handleChange={handleInputChange}
-                            control={control}
-                            isOT={true}
-                            data={formValues && formValues["a1_oi"]}
-                            textAlign='text-left'
-                            customWidth={"labelInput inputStyles  w-[26vw]"}
-                            error={errors.a1_oi}
-                            inputRef={inputsRef.a1_oi}
-                            validarBodega={true}
-                            onlyRead={CR1_OI_LAB.value}
-                        />
+                    // <div className=' relative rowForm  !h-[5rem]'>
+                    //     <label className='labelInput ml-4 '>{OT[OTGrillaEnum.cr1_oi]}</label>    
+                    //     <TextInputInteractive
+                    //         type='text'
+                    //         label='OI'
+                    //         name='a1_oi'
+                    //         handleChange={handleInputChange}
+                    //         control={control}
+                    //         isOT={true}
+                    //         data={formValues && formValues["a1_oi"]}
+                    //         textAlign='text-left'
+                    //         customWidth={"labelInput inputStyles  w-[26vw]"}
+                    //         error={errors.a1_oi}
+                    //         inputRef={inputsRef.a1_oi}
+                    //         validarBodega={true}
+                    //         onlyRead={CR1_OI_LAB.value}
+                    //     />
 
-                        {casoEjecutar === 'ProcesarTB' && (
-                          <div className="absolute top-10 -right-2 items-center flex inputStyles">
-                            <Checkbox  label="LAB" color="orange" onChange={(e)=>handleCR1_OI_LABChange(e.target)} checked={ CR1_OI_LAB.value} />                                           
-                        </div>
-                        )}
-                    </div>
+                    //     {casoEjecutar === 'ProcesarTB' && (
+                    //       <div className="absolute top-10 -right-2 items-center flex inputStyles">
+                    //         <Checkbox  label="LAB" color="orange" onChange={(e)=>handleCR1_OI_LABChange(e.target)} checked={ CR1_OI_LAB.value} />                                           
+                    //     </div>
+                    //     )}
+                    // </div>
+
+                    renderInputCristal('a1_oi')
                 )}
             </div>
         )}

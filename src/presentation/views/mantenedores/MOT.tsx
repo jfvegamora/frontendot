@@ -85,6 +85,8 @@ const MOT: React.FC = () => {
   const [params, setParams] = useState([]);
   const params2 = React.useRef([]);
 
+  const [pkToDelete, setPkToDelete] = useState<any>([]);
+
   const token:any = (useAppSelector((store: AppStore) => store.user.token)) ?? '';
   const areaActualOT:any = useAppSelector((store: AppStore) => store.OTAreas.areaActual);
   const areas = useAppSelector((store: AppStore) => store.OTAreas.areas);
@@ -183,6 +185,7 @@ const MOT: React.FC = () => {
     }));
 
     OTPkToDelete.value = newPkToDelete
+    setPkToDelete(newPkToDelete)
 
     checkCount.value = newPkToDelete.length
     
@@ -197,10 +200,16 @@ const MOT: React.FC = () => {
       return acc
     },0)
 
-
-
-
   }, [selectedRows]);
+
+
+  useEffect(()=>{
+    console.log(pkToDelete)
+    OTPkToDelete.value = pkToDelete
+  },[pkToDelete])
+
+
+
 
   useEffect(() => {
    const interval = setInterval(() => {

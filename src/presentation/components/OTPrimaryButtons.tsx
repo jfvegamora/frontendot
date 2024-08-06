@@ -18,6 +18,7 @@ import { checkCount, OTPkToDelete, paramsOT } from '../views/mantenedores/MOT';
 import { signal } from '@preact/signals-react';
 import { setEstadoImpresion } from './OTGrillaButtons';
 import { SocialIcon } from 'react-social-icons';
+import { handleActionOTButtons } from '../utils/FOTPendiente_utils';
 // import { OTAreasEnum } from '../Enums/OTAreasEnum';
 // import { OTGrillaEnum } from '../Enums';
 // import { CR1_OD_LAB, CR1_OI_LAB, CR2_OD_LAB, CR2_OI_LAB } from '../utils/FOTCristales_utils';
@@ -183,49 +184,73 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
     //   }
     // })
 
-    const handleIngresoBiselado = async() => {
+    const handleIngresoMasivo = async() => {
       try {
 
-        const filterFolios  = await OTPkToDelete.value.filter((OT:any)=>(OT.estado_id === 20)).map((OT:any)=>OT.folio);
+        const filterFoliosValidateState  = await OTPkToDelete.value.filter((OT:any)=>(OT.estado_id === 20)).map((OT:any)=>OT.folio);
+        const filterFoliosJSON  = await OTPkToDelete.value.map((OT:any)=>OT.folio).join(',');
         const validateState = await OTPkToDelete.value.some((OT:any)=>OT.estado_id === 20);
         
+        console.log(filterFoliosJSON)
+
         if(validateState){
-          return toast.error(`Folio: ${filterFolios} Ya se encuentra en Proceso. `,
+          return toast.error(`Folio: ${filterFoliosValidateState} Ya se encuentra en Proceso. `,
           )
           
         }
 
         let estado          = '20';
-        let masivo          = true;
-        let validarBodega   = false;
+        // let masivo          = true;
+        // let validarBodega   = false;
+        let situacion       = '0'
+        let observaciones   = '';
 
-        await OTPkToDelete.value.map(async(OT:any)=>{
-          await updateOT(
-            [],
-            OTAreas["areaActual"],
-            OTAreas["areaActual"],
-            estado,
-            [],
-            OT,
-            [],
-            [],
-            User.id,
-            "",
-            masivo,
-            '',
-            validarBodega,
-            'Ingresar'
-          ).then(() => {
-            dispatch(fetchOT({OTAreas:OTAreas["areaActual"], searchParams: paramsOT.value}))
-            clearAllCheck.value = false;
-            // disabledIndividualCheck.value = true;
-            clearIndividualCheck.value = true;
+        
+        const response:any = await handleActionOTButtons(
+          filterFoliosJSON,
+          estado,
+          situacion,
+          OTAreas["areaActual"],
+          OTAreas["areaActual"],
+          observaciones,
+          User.id
+        )
+
+        if(response?.status === 200){
+          dispatch(fetchOT({OTAreas:OTAreas["areaActual"],searchParams: paramsOT.value}))
+          setSelectedRows([])
+          checkCount.value = 0;
+          clearAllCheck.value = false;
+        }
+
+
+      //   await OTPkToDelete.value.map(async(OT:any)=>{
+      //     await updateOT(
+      //       [],
+      //       OTAreas["areaActual"],
+      //       OTAreas["areaActual"],
+      //       estado,
+      //       [],
+      //       OT,
+      //       [],
+      //       [],
+      //       User.id,
+      //       "",
+      //       masivo,
+      //       '',
+      //       validarBodega,
+      //       'Ingresar'
+      //     ).then(() => {
+      //       dispatch(fetchOT({OTAreas:OTAreas["areaActual"], searchParams: paramsOT.value}))
+      //       clearAllCheck.value = false;
+      //       // disabledIndividualCheck.value = true;
+      //       clearIndividualCheck.value = true;
             
-        })    
-      })
-      toast.success('Estado cambiado correctamente.',{
-        autoClose: 500
-      })
+      //   })    
+      // })
+      // toast.success('Estado cambiado correctamente.',{
+      //   autoClose: 500
+      // })
       
       } catch (error) {
         console.log(error)
@@ -476,18 +501,25 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
 
 
     const handleProcesarMasivo = async() => {
-      let estado = OTAreas["areaActual"] === 50 ? '20' : '15'
       if(OTPkToDelete.value.length === 0){
         return toast.error('No hay OT seleccionada')
       }
+      
+      let estado = OTAreas["areaActual"] === 50 ? '20' : '15'
+      let observaciones = ''
+      let situacion = '0';
+
+
       const validateEstado           = OTPkToDelete.value.every((ot:any) => ot["estado_validacion"] === '2');
-      const validateEstadoStandBy    = OTPkToDelete.value.some((ot:any) => ot["estado_id"] === 15);
+      // const validateEstadoStandBy    = OTPkToDelete.value.some((ot:any) => ot["estado_id"] === 15);
       // const validateUsuario          = OTPkToDelete.value.every((ot:any) => ot["usuario_id"] === User.id);
       const validateProyecto         = OTPkToDelete.value.every((ot:any) => ot["proyecto_codigo"] === OTPkToDelete.value[0]["proyecto_codigo"]);
       const validateEstadoImpresion  = OTPkToDelete.value.every((ot:any) => ot["estado_impresion"] === '1');
 
+      const filterFoliosJSON  =   await OTPkToDelete.value.map((OT:any)=>OT.folio).join(',');
 
-      console.log(validateEstadoStandBy)
+
+
       
       if(isEstadoStandBy){
         return toast.error(`FOLIO: ${foliosStandBy}  No se encuentra en Proceso`)
@@ -513,78 +545,108 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
       }
 
 
+      //? !== 50-90-100
 
-
-      if(OTAreas["areaActual"] === 90){
-        const filterPkToDeleteFirmaEnvio = OTPkToDelete.value.filter((OT:any)=> (OT.numero_envio === '0' || OT.numero_envio === null) && (OT.numero_reporte_firma === 0))
-        const filterPkToDeleteGuia       = OTPkToDelete.value.filter((OT:any)=> OT.numero_guia === 0)
-  
-        if(filterPkToDeleteFirmaEnvio.length > 0){
-          const folios = filterPkToDeleteFirmaEnvio.map((OT:any) => OT.folio)
-          const resultFirmaEnvio = confirm('Los siguientes folios no tienen Número de envío o Reporte de fírmas: ' + "\n" +folios + "\n¿Desea Continuar?");
-          if(!resultFirmaEnvio){
-            return;
-          }
-        }
-
-        if(filterPkToDeleteGuia.length > 0){
-          const folios = filterPkToDeleteGuia.map((OT:any)=>OT.folio)
-          const resultFirmaEnvio = confirm('Los siguientes folios no tienen Número de Guía: '+ "\n" + folios + "\n¿Desea Continuar?");
-          if(!resultFirmaEnvio){
-            return;
-          }
-        }
-      }
-      const toastLoading = toast.loading('Cargando...');
-
-      const updatePromises = OTPkToDelete.value.map(async(ot:any)=>{
-        if(OTAreas["areaActual"] === 90 || OTAreas["areaActual"] === 100){
-          if(ot.numero_envio !== '0'){
-            estado = '50'
-          }
-          if(ot.numero_reporte_firma !== 0){
-            estado = '15'
-          }
-        }
-
-        let cristales:any =ot.cristales || []
-        let armazones = ot.armazones || []
-
-
-        await updateOT(
-            [],
-            OTAreas["areaActual"],
-            OTAreas["areaSiguiente"],
-            estado,
-            [],
-            ot,
-            cristales.filter((ot:any)=>ot.codigo !== ' '),
-            armazones.filter((ot:any)=>ot.codigo !== ' '),
-            User["id"],
-            "",
-            true,
-            0,
-            false,
-            'Procesada'
-        )
-        .then(()=>{
+      if(
+        (OTAreas["areaActual"] !== 50) &&
+        (OTAreas["areaActual"] !== 60) &&
+        (OTAreas["areaActual"] !== 90) &&
+        (OTAreas["areaActual"] !== 100)
+      ){
+        return await handleActionOTButtons(
+          filterFoliosJSON,
+          estado,
+          situacion,
+          OTAreas["areaActual"],
+          OTAreas["areaSiguiente"],
+          observaciones,
+          User.id
+        ).then(()=>{
           dispatch(fetchOT({OTAreas:OTAreas["areaActual"],searchParams: paramsOT.value}))
           setSelectedRows([])
           checkCount.value = 0;
           clearAllCheck.value = false;
+        }).catch(()=>{
+          toast.error('Error al Ejecutar el proceso.')
         })
-      })
+      }else{
+        try {
+          if(OTAreas["areaActual"] === 90){
+            const filterPkToDeleteFirmaEnvio = OTPkToDelete.value.filter((OT:any)=> (OT.numero_envio === '0' || OT.numero_envio === null) && (OT.numero_reporte_firma === 0))
+            const filterPkToDeleteGuia       = OTPkToDelete.value.filter((OT:any)=> OT.numero_guia === 0)
+      
+            if(filterPkToDeleteFirmaEnvio.length > 0){
+              const folios = filterPkToDeleteFirmaEnvio.map((OT:any) => OT.folio)
+              const resultFirmaEnvio = confirm('Los siguientes folios no tienen Número de envío o Reporte de fírmas: ' + "\n" +folios + "\n¿Desea Continuar?");
+              if(!resultFirmaEnvio){
+                return;
+              }
+            }
+    
+            if(filterPkToDeleteGuia.length > 0){
+              const folios = filterPkToDeleteGuia.map((OT:any)=>OT.folio)
+              const resultFirmaEnvio = confirm('Los siguientes folios no tienen Número de Guía: '+ "\n" + folios + "\n¿Desea Continuar?");
+              if(!resultFirmaEnvio){
+                return;
+              }
+            }
+          }
+          const toastLoading = toast.loading('Cargando...');
+    
+          const updatePromises = OTPkToDelete.value.map(async(ot:any)=>{
+            if(OTAreas["areaActual"] === 90 || OTAreas["areaActual"] === 100){
+              if(ot.numero_envio !== '0'){
+                estado = '50'
+              }
+              if(ot.numero_reporte_firma !== 0){
+                estado = '15'
+              }
+            }
+    
+            let cristales:any =ot.cristales || []
+            let armazones = ot.armazones || []
+    
+    
+            await updateOT(
+                [],
+                OTAreas["areaActual"],
+                OTAreas["areaSiguiente"],
+                estado,
+                [],
+                ot,
+                cristales.filter((ot:any)=>ot.codigo !== ' '),
+                armazones.filter((ot:any)=>ot.codigo !== ' '),
+                User["id"],
+                "",
+                true,
+                0,
+                false,
+                'Procesada'
+            )
+            .then(()=>{
+              // dispatch(fetchOT({OTAreas:OTAreas["areaActual"],searchParams: paramsOT.value}))
+              setSelectedRows([])
+              checkCount.value = 0;
+              clearAllCheck.value = false;
+            })
+          })
+    
+          await Promise.all(updatePromises);
+    
+          dispatch(fetchOT({OTAreas:OTAreas["areaActual"],searchParams: paramsOT.value}))
+          setSelectedRows([])
+          checkCount.value = 0;
+          clearAllCheck.value = false;
+          toast.dismiss(toastLoading);
+          toast.success('OTs Procesadas Correctamente',{
+             autoClose: 900
+          });   
 
-      await Promise.all(updatePromises);
 
-      dispatch(fetchOT({OTAreas:OTAreas["areaActual"],searchParams: paramsOT.value}))
-      setSelectedRows([])
-      checkCount.value = 0;
-      clearAllCheck.value = false;
-      toast.dismiss(toastLoading);
-      toast.success('OTs Procesadas Correctamente',{
-         autoClose: 900
-      });
+        } catch (error:any) {
+          return toast.error(error)
+        }
+      }
     }
 
     const handleValidarEmpaque = async() => {
@@ -744,7 +806,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
                       if(OTPkToDelete.value.length === 0){
                         return toast.error('No hay OT seleccionada.')
                       }
-                      handleIngresoBiselado()
+                      handleIngresoMasivo()
                     }}>Ingresar</Button>
                   </Tooltip>
                   )}
@@ -852,7 +914,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
         )}
 
 
-        
+
 
 
 
@@ -881,7 +943,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
                   return toast.error('No hay OT seleccionada.')
                 }
 
-                if(OTPkToDelete.value.some((OT:any)=> OT.estado_id === 25)){
+                if(OTPkToDelete.value.some((OT:any)=> OT.estado_id === 15)){
                   return  toast.error(`Folio ${folios} se encuentra en Stand-By.`);
                 }
   

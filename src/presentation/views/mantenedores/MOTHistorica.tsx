@@ -688,7 +688,7 @@ const MOTHistorica: React.FC = () => {
           </Suspense>
 
           <Suspense>
-            <ExportCSV strEntidad={strEntidad} params={params} strBaseUrl={strBaseUrl}/>  
+            <ExportCSV strEntidad={strEntidad} params={params} strBaseUrl={strBaseUrl} primaryButton={true}/>  
           </Suspense>
         </div>
       </div>

@@ -95,7 +95,7 @@ const FOTPendiente: React.FC<IPendiente> = ({
                 OTAreas["areaActual"],
                 OTAreas["areaActual"],
                 jsonData?.observaciones,
-                usuarioID
+                usuarioID,
             )
             if (response?.status === 200) {
                 onClose()
