@@ -974,13 +974,6 @@ rowForm .custom-input:focus {
   flex-grow: 1; /* Hace que los elementos se ajusten automáticamente */
 }
 
-input[type="text"] {
-  text-align: left;
-  font-size:medium;
-  border-radius: 0.3rem;
-} */
-
-
 .flex-col {
   width: 100%;
 }
