@@ -87,13 +87,9 @@ const TextInputInteractive: React.FC<ITextInputProps> = ({
   }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e)
     if (handleChange) {
-      console.log(e.target)
-      console.log(armazonInput)
       if(isOT){
         handleChange(e.target)
-        console.log(e.target)
         setRender((prev)=>!prev)
       }else{
         handleChange(e.target.value)
@@ -107,15 +103,11 @@ const TextInputInteractive: React.FC<ITextInputProps> = ({
   };
   
   useEffect(()=>{
-    console.log(name)
-    
     if(name === 'cristal1_oi'){
-      console.log(data)
       if(data === undefined){
         setValue('')
         A1_CR_OI.value = ''
       }
-      console.log(value)
       setRender((prev)=>!prev)
 
     }
@@ -138,6 +130,10 @@ const TextInputInteractive: React.FC<ITextInputProps> = ({
         setRender(prev => !prev);
       }
       if(name === 'cristal1_oi'){
+        setValue("")
+        setRender(prev => !prev);
+      }
+      if(name === 'a1_od'){
         setValue("")
         setRender(prev => !prev);
       }
@@ -173,9 +169,7 @@ const TextInputInteractive: React.FC<ITextInputProps> = ({
   
 React.useEffect(()=>{
   if(name === 'cliente_rut' || name === 'rut_beneficiario'){
-    console.log(data)
     if(data === ''){
-      console.log(data)
       setValue("")
     }
   }
@@ -191,6 +185,27 @@ React.useEffect(()=>{
   }
 
   if(name === 'a2_armazon'){
+    if(data === ''){
+      setValue('')
+    }
+  }
+
+  if(name === 'a1_od'){
+    if(data === ''){
+      setValue('')
+    }
+  }
+  if(name === 'a1_oi'){
+    if(data === ''){
+      setValue('')
+    }
+  }
+  if(name === 'a2_od'){
+    if(data === ''){
+      setValue('')
+    }
+  }
+  if(name === 'a2_oi'){
     if(data === ''){
       setValue('')
     }

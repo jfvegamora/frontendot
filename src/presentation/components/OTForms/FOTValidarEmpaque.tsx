@@ -106,11 +106,11 @@ const FOTValidarEmpaque:React.FC<IFOTValidarEmpaque> = ({
   return (
     <div className=" bg-[#676f9d] mx-auto xl:w-[90%] xl:left-[35rem]  absolute top-[10vw] left-auto right-auto rounded-xl shadow-md overflow-hidden lg:left-[18rem]     sm:w-[25rem]    md:max-w-[35rem] z-40">
         <div className="absolute right-0 userFormBtnCloseContainer">
-          <h1 className='userFormLabel text-center text-2xl text-white mr-[10rem] mb-7'>Valdiar Empaque</h1>
+          <h1 className='userFormLabel text-center text-2xl text-white mr-[10rem] mb-7'>Entrega de Anteojos</h1>
           <button onClick={onClose} className="userFormBtnClose mr-4">
             X
           </button>
-        </div>
+        </div> 
         
         <form
             className='mt-14'
@@ -120,7 +120,7 @@ const FOTValidarEmpaque:React.FC<IFOTValidarEmpaque> = ({
             <div className=' rowForm px-3 py-3'>
                 <TextInputComponent
                         type='text'
-                        label='Nombre'
+                        label='Nombre quien retira'
                         name='nombre_beneficiario'
                         // handleChange={handleInputChange}
                         isOT={true}

@@ -9,7 +9,7 @@ export const handleActionOTButtons = async(
     origen:any,
     destino:any,
     observaciones:any,
-    usuarioID: string
+    usuarioID: string,
 ) => {
     try {
         const query = {
@@ -26,7 +26,9 @@ export const handleActionOTButtons = async(
 
         const response = await axios.post(`${URLBackend}/api/ot/editar/`, query)
 
-        toast.success('Pendientes Correctamente.')
+        toast.success('Proceso Ejecutado.',{
+            autoClose: 500
+        })
         return response
     } catch (error) {
         console.log(error)
