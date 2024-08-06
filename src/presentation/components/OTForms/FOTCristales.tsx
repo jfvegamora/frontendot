@@ -188,6 +188,12 @@ const FOTCristales: React.FC<ICristales> = ({
     // }
 
 
+    console.log(A2_GRUPO_OD.value)
+    console.log(A2_GRUPO_OI.value)
+    console.log(A1_GRUPO_OD.value)
+    console.log(A1_GRUPO_OI.value)
+
+
     const handleKeyDown: any = React.useCallback((e:KeyboardEvent) => {
 
         const focusedElement = document.activeElement;
