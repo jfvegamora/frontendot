@@ -1125,7 +1125,8 @@ export const updateOT = async (
   situacion?: any,
   isValidateBodega?: boolean,
   tipo_evento?: string,
-  validation_Complete?: boolean
+  validation_Complete?: boolean,
+  p1?: any
 ) => {
   // let usuarioData =
   //   tipo_evento === "Procesada"
@@ -1146,12 +1147,19 @@ export const updateOT = async (
 
   //TODO: INICIO PROCESAR MASIVO
   if (isMasivo) {
+    console.log(p1);
+    console.log(data && data.proyecto_codigo);
+
     const amrazones =
       data.tipo_anteojo === 3 ? data.armazones : data.armazones.shift();
 
     const query = {
       query: "04",
-      _p1: `area="${_destino}", estado="${_estado}"`,
+      _p1: `${
+        p1 === "" || p1 === undefined
+          ? `area="${_destino}", estado="${_estado}"`
+          : `area="${_destino}", estado="${_estado}", ${p1}`
+      }`,
       _p2: isValidateBodega
         ? `${data[OTGrillaEnum.tipo_anteojo_id]}`
         : data && data.tipo_anteojo.toString(),

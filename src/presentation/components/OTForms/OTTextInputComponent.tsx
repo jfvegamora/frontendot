@@ -415,7 +415,7 @@ return (
           // tabIndex  ={onlyRead ? 0 : (tabIndex || 1)}
           step      ={step}
           readOnly  = {onlyRead}
-          className={`${customWidth ? customWidth : "custom-input"}  ${onlyRead ? "custom-onlyread cursor-not-allowed" : isOptional ? "custom-optional" : "custom-required"} ${textAlign && textAlign}`}
+          className={`${customWidth ? customWidth : "custom-input"} ${onlyRead ? "custom-onlyread cursor-not-allowed" : isOptional ? "custom-optional" : "custom-required"} ${textAlign && textAlign}`}
         />
       </div>
     )}

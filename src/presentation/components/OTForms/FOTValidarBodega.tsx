@@ -19,15 +19,8 @@ import {Howl} from 'howler';
 import soundError from '../../../assets/error-call-to-attention-129258.mp3';
 
 export const focusFirstInput = (strInputName: string, ref: React.RefObject<any>) => {
-    
-    console.log(strInputName)
-    console.log(ref)
-    
     if (ref.current) {
-        console.log(strInputName)
-        console.log(ref)
       const firstInput = ref.current.querySelector(`input[name=${strInputName}]`);
-      console.log(firstInput)
       if (firstInput) {
         (firstInput as HTMLInputElement).focus();
       }
@@ -39,8 +32,8 @@ const validationA1_armazon = signal('');
 const validationA2_armazon = signal('');
 const validation_cristal1_od = signal('');
 const validation_cristal1_oi = signal('');
-// const validation_cristal2_od = signal('');
-// const validation_cristal2_oi = signal('');
+const validation_cristal2_od = signal('');
+const validation_cristal2_oi = signal('');
 
 
 interface IFOTValidarBodega{
@@ -68,6 +61,8 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
         validationA2_armazon.value = ''
         validation_cristal1_od.value = ''
         validation_cristal1_oi.value = ''
+        validation_cristal2_od.value = '';
+        validation_cristal2_oi.value = '';
         resetField('a1_od')
         resetField('a1_oi')
         resetField('a1_armazon')
@@ -142,7 +137,29 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                 checkedVariable: CR1_OI_LAB.value
 
             }
-        }
+        },
+        "a2_od": () => {
+            return{
+                label:'OD',
+                labelCristal: OT[OTGrillaEnum.cr2_od],
+                name: 'a2_od',
+                data: validation_cristal2_od.value,
+                inputsRefCristal: inputsRef.a2_od,
+                onChangeCheckLab:(e:any)=>handleCR2_OD_LABChange(e.target),
+                checkedVariable: CR2_OD_LAB.value
+            }
+        },
+        "a2_oi": () => {
+            return{
+                label:'OI',
+                labelCristal: OT[OTGrillaEnum.cr2_oi],
+                name: 'a2_oi',
+                data: validation_cristal2_oi.value,
+                inputsRefCristal: inputsRef.a2_oi,
+                onChangeCheckLab:(e:any)=>handleCR2_OI_LABChange(e.target),
+                checkedVariable: CR2_OI_LAB.value
+            }
+        },
     }
 
     const renderInputCristal = (cristal:string) =>{
@@ -229,7 +246,6 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
 
     const {
         control,
-        formState: { errors },
         resetField      
       } = useForm({
         resolver: yupResolver(schema),
@@ -253,7 +269,6 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
         }
         
             if(name === 'a1_od'){
-                console.log(formatValue)
                 if(formatValue === ''){
                     validationCodigoCristal1_od('')
                 }
@@ -271,7 +286,9 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                         validation_cristal1_od.value = '';
                         errorSound.play()
                         validationCodigoCristal1_od('')
-                        toast.error('Código Cristal OD no corresponde.')
+                        toast.error('Código Cristal OD no corresponde.',{
+                            autoClose: 500
+                        })
                         resetField('a1_od')
                         setFormValues({[name]:''} as any)
                         
@@ -284,7 +301,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                 if(value.trim() === ''){
                     validationCodigoCristal1_oi('')
                 }
-                if(OT && OT[OTGrillaEnum.cr1_oi] === value && value.length >= 11){
+                if((OT && OT[OTGrillaEnum.cr1_oi] === formatValue) && value.length >= 11){
                     validationCodigoCristal1_oi(value, alreadyValidate)
                     validation_cristal1_oi.value = value
                     focusFirstInput('a2_armazon', inputsRef["a2_armazon"])
@@ -295,7 +312,9 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                         validation_cristal1_oi.value = ''
                         errorSound.play();
                         validationCodigoCristal1_oi('')
-                        toast.error('Código Cristal OI no correspsonde.')
+                        toast.error('Código Cristal OI no correspsonde.',{
+                            autoClose: 500
+                        })
                         resetField('a1_oi')
                         setFormValues({[name]: ''} as any)
                     }
@@ -308,7 +327,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                     validationCodigoArmazon_1('')
                 }
                 console.log(value)
-                if((OT && OT[OTGrillaEnum.a1_armazon_id] === value) && value.length >= 11){  
+                if((OT && OT[OTGrillaEnum.a1_armazon_id] === formatValue) && value.length >= 11){  
                     validationCodigoArmazon_1(value, alreadyValidate)
                     validationA1_armazon.value = value
                     console.log(inputsRef)
@@ -322,7 +341,9 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                         validationA1_armazon.value = ''
                         errorSound.play()
                         validationCodigoArmazon_1('')
-                        toast.error('Código Armazon 1 no corresponde.')
+                        toast.error('Código Armazon 1 no corresponde.',{
+                            autoClose: 500
+                        })
                         resetField('a1_armazon')
                         setFormValues({[name]:''} as any)
                     }
@@ -334,14 +355,24 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                 if(value.trim() === ''){
                     validationCodigoCristal2_od('')
                 }
-                if((OT && OT[OTGrillaEnum.cr2_od] === value) && value.length >= 11){
+                console.log(OT && OT[OTGrillaEnum.cr2_od])
+                if((OT && OT[OTGrillaEnum.cr2_od] === formatValue) && value.length >= 11){
+                    validation_cristal2_od.value = value
                     validationCodigoCristal2_od(value,alreadyValidate)
                     focusFirstInput('a2_oi',inputsRef["a2_oi"] )
                 }else{
-                    if(value.length <= 11) return;
-                    validationCodigoCristal2_od('')
-                    // toast.error('Anteojo 2, Código cristal OD no son iguales')
-                    setFormValues({[name]: ''} as any)
+                    if(value.length <= 11){
+                        return;
+                    }else{
+                        validation_cristal2_od.value = '';
+                        errorSound.play();
+                        validationCodigoCristal2_od('')
+                        toast.error('Codigo Cristal 2 OD no corresponde.',{
+                            autoClose: 500
+                        })
+                        resetField('a2_od')
+                        setFormValues({[name]: ''} as any)
+                    }
                 }  
             }
 
@@ -349,14 +380,24 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                 if(value.trim() === ''){
                     validationCodigoCristal2_oi('')
                 }
-                if((OT && OT[OTGrillaEnum.cr2_oi] === value) && value.length >= 11){
+                if((OT && OT[OTGrillaEnum.cr2_oi] === formatValue) && value.length >= 11){
+                    validation_cristal2_oi.value = value
                     validationCodigoCristal2_oi(value, alreadyValidate)
                     // focusFirstInput('a2_armazon', inputsRef["a2_armazon"])
                 }else{
-                    if(value.length <= 11)return;
-                    validationCodigoCristal2_oi('')
+                    if(value.length <= 11){
+                        return;
+                    }else{
+                        validation_cristal2_oi.value = '';
+                        errorSound.play()
+                        validationCodigoCristal2_oi('')
+                        toast.error('Código de Cristal 2 OI no corresponde.',{
+                            autoClose: 500
+                        })
+                        resetField('a2_oi')
+                        setFormValues({[name]: ''} as any)
+                    }
                     // toast.error('Anteojo 2, Código cristal OI no son iguales')
-                    setFormValues({[name]: ''} as any)
                 }
 
             }
@@ -365,7 +406,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                 if(value.trim() === ''){
                     validationCodigoArmazon_2('')
                 }
-                if((OT && OT[OTGrillaEnum.a2_armazon_id] === value) && value.length >= 11){
+                if((OT && OT[OTGrillaEnum.a2_armazon_id] === formatValue) && value.length >= 11){
                     validationCodigoArmazon_2(value, alreadyValidate)
                     validationA2_armazon.value = value
                     focusFirstInput('a2_od', inputsRef["a2_od"])
@@ -584,6 +625,9 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
     },[dataOTSignal.value])
 
 
+    console.log(OT)
+    console.log(validationNivel3.value)
+
     React.useEffect(()=>{
         if(sumatoriaNivel3 === validationNivel3.value.length){
             //VALIDA QUE HAYA DATA EN TODOS LOS CAMPOS SINO RETORNA
@@ -593,21 +637,52 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
 
             let jsondata:any   = [];
             let origen         = OTAreas["areaActual"]
-            let data           = OT
             let cristalOri     = cristales
             let armazonOri     = armazones
             let user           = UsuarioID
-            let validarBodega  = true
+            let validarBodega  = false
             let isMasivo       = true;
+            let cristalStock   = '1'
             
             let destino;
             let estado:any
-    
-    
+            
+            
             let observaciones;
             let situacion;
+            let data           = {
+                folio: OT[OTGrillaEnum.folio],
+                tipo_anteojo : parseInt(OT[OTGrillaEnum.tipo_anteojo_id]),
+                proyecto_codigo : OT[OTGrillaEnum.proyecto_titulo],
+                punto_venta     : OT[OTGrillaEnum.punto_venta],
+                cristales       : [
+                    { 
+                      codigo: OT[OTGrillaEnum.cr1_od], 
+                      opcion_vta: cristalStock
+                    }, 
+                    { 
+                      codigo: OT[OTGrillaEnum.cr1_oi], 
+                      opcion_vta: cristalStock
+                    }, 
+                    { 
+                      codigo: OT[OTGrillaEnum.cr2_od],
+                      opcion_vta: cristalStock
+                    }, 
+                    { 
+                      codigo: OT[OTGrillaEnum.cr2_oi],
+                      opcion_vta: cristalStock 
+                    }],
+                armazones: [{ codigo: OT[OTGrillaEnum.a1_armazon_id] }, { codigo: OT[OTGrillaEnum.a2_armazon_id] }],
+
+            }
             
 
+
+            // const dataP1 = `cristales1_od_opcion_vta="${CR1_OD_LAB.value === true ? 2 : 1}",cristales1_oi_opcion_vta="${CR1_OI_LAB.value === true ? 2 : 1}",cristales2_od_opcion_vta="${CR2_OD_LAB.value === true ? 2 : 1}",cristales2_oi_opcion_vta="${CR2_OI_LAB.value === true ? 2 : 1}",cristales1_od="${CR1_OD_LAB.value === true ? '' : OT[OTGrillaEnum.cr1_od].trim()}",cristales1_oi="${CR1_OI_LAB.value === true ? '' : OT[OTGrillaEnum.cr1_oi].trim()}",cristales2_od="${CR2_OD_LAB.value === true ? '' : OT[OTGrillaEnum.cr2_od].trim()}", cristales2_oi="${CR2_OI_LAB.value === true ? '' : OT[OTGrillaEnum.cr2_oi].trim()}" ${CR2_OI_LAB.value === true ? ', a1_grupo_od=""' : ''}`                    
+            // const dataP1 = `"${CR1_OD_LAB.value === true ? ',cristales1_od_opcion_vta="2"' : ""}" "${CR1_OI_LAB.value === true ? ',cristales1_oi_opcion_vta="2"' : ""}" "${CR2_OD_LAB.value === true ? ',cristales2_od_opcion_vta="2"': ""} "${CR2_OI_LAB.value === true ? ',cristales2_oi_opcion_vta="2"' : ""}" "${CR1_OD_LAB.value === true ? ',cristales1_od=""' : ""}" "${CR1_OI_LAB.value === true ? ',cristales1_oi=""' : ""}" "${CR2_OD_LAB.value === true ? ',cristales2_od=""' : ""}" ${CR2_OI_LAB.value === true ? ',cristales2_oi=""' : ""}" ${CR2_OI_LAB.value === true ? ',a1_grupo_od=""' : ''}`                    
+            const dataP1 = `${CR1_OD_LAB.value === true ? 'cristales1_od_opcion_vta="2", a1_grupo_od="",cristales1_od="",' : 'cristales1_od_opcion_vta = "1",' } ${CR1_OI_LAB.value === true ? 'cristales1_oi_opcion_vta="2",a1_grupo_oi="",cristales1_oi="",' : 'cristales1_oi_opcion_vta = "1",'} ${CR2_OD_LAB.value === true ? 'cristales2_od_opcion_vta="2",a2_grupo_od="",cristales2_od=""' : 'cristales2_od_opcion_vta = "1",'} ${CR2_OI_LAB.value === true ? 'cristales2_oi_opcion_vta="2", a2_grupo_oi="",cristales2_oi=""' : 'cristales2_oi_opcion_vta = "1"'} `                    
+
+           console.log(dataP1)
             const toastLoading = toast.loading('Cargando...')
             
             switch (casoEjecutar) {
@@ -634,7 +709,10 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                         observaciones,
                         isMasivo,
                         situacion,
-                        validarBodega
+                        validarBodega,
+                        '',
+                        false,
+                        dataP1
                     ).then(()=>{
                         handleClose()
                         toast.dismiss(toastLoading)
@@ -738,6 +816,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
 
         if(checked === true){
             A1_CR_OD.value = '';
+            validation_cristal1_od.value = ''
             validationCodigoCristal1_od('32', true)
         }else{
             validationCodigoCristal1_od('')
@@ -750,6 +829,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
         const {checked} = event;
         if(checked === true){
             A1_CR_OI.value = '';
+            validation_cristal1_oi.value = ''
             validationCodigoCristal1_oi('32', true)
         }else{
             validationCodigoCristal1_oi('')
@@ -763,6 +843,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
         const {checked} = event;
         if(checked === true){
             A2_CR_OD.value = '';
+            validation_cristal2_od.value = ''
             validationCodigoCristal2_od('32', true)
         }else{
             validationCodigoCristal2_od('')
@@ -778,6 +859,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
 
         if(checked === true){
             A2_CR_OI.value = '';
+            validation_cristal2_oi.value = ''
             validationCodigoCristal2_oi('32', true)
         }else{
             validationCodigoCristal2_oi('')
@@ -785,6 +867,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
 
         CR2_OI_LAB.value = checked;
     },[CR2_OI_LAB.value])
+
 
 
 
@@ -916,58 +999,61 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                 {resnderInputArmazon('a2_armazon')}
                 
                 {casoEjecutar !== 'sinCristales' && (OT[OTGrillaEnum.cr2_od] !== '') && (
-                    <div className='rowForm !h-[5rem] relative'>
-                    <label className='labelInput ml-4'>{OT[OTGrillaEnum.cr2_od]}</label>    
-                    <TextInputInteractive
-                        type='text'
-                        label='OD'
-                        name='a2_od'
-                        handleChange={handleInputChange}
-                        isOT={true}
-                        data={formValues && formValues["a2_od"]}
-                        control={control}
-                        textAlign='text-left'
-                        error={errors.a2_od}
-                        inputRef={inputsRef.a2_od}
-                        customWidth={"labelInput inputStyles w-[26vw]"}
-                        validarBodega={true}
-                        onlyRead={OT && OT[OTGrillaEnum.tipo_anteojo_id] === 3 ? false : true}
-                    />
+                    // <div className='rowForm !h-[5rem] relative'>
+                    // <label className='labelInput ml-4'>{OT[OTGrillaEnum.cr2_od]}</label>    
+                    // <TextInputInteractive
+                    //     type='text'
+                    //     label='OD'
+                    //     name='a2_od'
+                    //     handleChange={handleInputChange}
+                    //     isOT={true}
+                    //     data={formValues && formValues["a2_od"]}
+                    //     control={control}
+                    //     textAlign='text-left'
+                    //     error={errors.a2_od}
+                    //     inputRef={inputsRef.a2_od}
+                    //     customWidth={"labelInput inputStyles w-[26vw]"}
+                    //     validarBodega={true}
+                    //     onlyRead={OT && OT[OTGrillaEnum.tipo_anteojo_id] === 3 ? false : true}
+                    // />
 
-                        {casoEjecutar === 'ProcesarTB' && (
-                            <div className="absolute top-10 -right-2 items-center flex inputStyles">
-                                <Checkbox  label="LAB" color="orange" onChange={(e)=>handleCR2_OD_LABChange(e.target)} checked={ CR2_OD_LAB.value} />                                           
-                            </div>
-                        )}
+                    //     {casoEjecutar === 'ProcesarTB' && (
+                    //         <div className="absolute top-10 -right-2 items-center flex inputStyles">
+                    //             <Checkbox  label="LAB" color="orange" onChange={(e)=>handleCR2_OD_LABChange(e.target)} checked={ CR2_OD_LAB.value} />                                           
+                    //         </div>
+                    //     )}
                     
-                    </div>
+                    // </div>
+                    renderInputCristal('a2_od')
                 )}
                 {casoEjecutar !== 'sinCristales' && (OT[OTGrillaEnum.cr2_oi] !== '') && (
-                    <div className='rowForm !h-[5rem] relative  '>
-                    <label className='labelInput ml-4'>{OT[OTGrillaEnum.cr2_oi]}</label>    
-                    <TextInputInteractive
-                        type='text'
-                        label='OI'
-                        name='a2_oi'
-                        handleChange={handleInputChange}
-                        isOT={true}
-                        data={formValues && formValues["a2_oi"]}
-                        control={control}
-                        textAlign='text-left'
-                        customWidth={"labelInput inputStyles w-[26vw]"}
-                        error={errors.a2_oi}
-                        inputRef={inputsRef.a2_oi}
-                        validarBodega={true}
-                        onlyRead={OT && OT[OTGrillaEnum.tipo_anteojo_id] === 3 ? false : true}
-                    />
+                    // <div className='rowForm !h-[5rem] relative  '>
+                    // <label className='labelInput ml-4'>{OT[OTGrillaEnum.cr2_oi]}</label>    
+                    // <TextInputInteractive
+                    //     type='text'
+                    //     label='OI'
+                    //     name='a2_oi'
+                    //     handleChange={handleInputChange}
+                    //     isOT={true}
+                    //     data={formValues && formValues["a2_oi"]}
+                    //     control={control}
+                    //     textAlign='text-left'
+                    //     customWidth={"labelInput inputStyles w-[26vw]"}
+                    //     error={errors.a2_oi}
+                    //     inputRef={inputsRef.a2_oi}
+                    //     validarBodega={true}
+                    //     onlyRead={OT && OT[OTGrillaEnum.tipo_anteojo_id] === 3 ? false : true}
+                    // />
 
                     
-                    {casoEjecutar === 'ProcesarTB' && (
-                            <div className="absolute top-10 -right-2 items-center flex inputStyles">
-                                <Checkbox  label="LAB" color="orange" onChange={(e)=>handleCR2_OI_LABChange(e.target)} checked={ CR2_OI_LAB.value} />                                           
-                            </div>
-                        )}
-                    </div>
+                    // {casoEjecutar === 'ProcesarTB' && (
+                    //         <div className="absolute top-10 -right-2 items-center flex inputStyles">
+                    //             <Checkbox  label="LAB" color="orange" onChange={(e)=>handleCR2_OI_LABChange(e.target)} checked={ CR2_OI_LAB.value} />                                           
+                    //         </div>
+                    //     )}
+                    // </div>
+
+                    renderInputCristal('a2_oi')
                 )}
                 
               
