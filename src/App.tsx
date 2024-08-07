@@ -47,6 +47,8 @@ const validarExpirationToken = (token:string) => {
 
 
 function App() {
+  // const strBaseUrl = "/api/usuarios/";
+    
   const userState = useAppSelector((store: AppStore) => store.user);
   const navigate = useNavigate();
   const dispatch = useAppDispatch()

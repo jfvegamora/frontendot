@@ -1,5 +1,6 @@
 //? CREANDO BASE DE DATOS LOCAL PARA RESERVA DE ARMAZONES
 
+import { codPuntoVenta } from "../views/forms/FReservarArmazones";
 import { punto_venta } from "./signalStateOT";
 
 const dbName = "ReservaArmazones";
@@ -83,7 +84,9 @@ export const setReservaBeneficiario = (
       }
       const data = {
         proyecto: jsonData.proyecto,
-        punto_venta: `${punto_venta.value}`,
+        punto_venta: `${
+          punto_venta.value === "" ? codPuntoVenta.value : punto_venta.value
+        }`,
         rut_beneficiario: jsonData.rut_beneficiario,
         tipo_anteojo: jsonData.tipo_anteojo,
         dp: jsonData.dp,
@@ -174,10 +177,6 @@ export const setArmazones = (
         };
 
         updateRequest.onerror = function (event: Event) {
-          console.log(
-            "Error al actualizar datos",
-            (event.target as IDBRequest).error
-          );
           reject((event.target as IDBRequest).error);
         };
       } else {
@@ -200,20 +199,13 @@ export const setArmazones = (
           const addRequest: IDBRequest<IDBValidKey> = objectStore.add(newData);
 
           addRequest.onsuccess = function (_event: Event) {
-            console.log("Datos agregados a la base de datos correctamente");
             resolve("Datos agregados a la base de datos correctamente");
           };
 
           addRequest.onerror = function (event: Event) {
-            console.log(event);
-            console.error(
-              "Error al agregar datos:",
-              (event.target as IDBRequest).error
-            );
             reject((event.target as IDBRequest).error);
           };
         }
-        console.log(`No existe datos para el armazon:${data.codArmazon}`);
         reject(`No existe datos para el armazon:${data.codArmazon}`);
       }
     };
@@ -241,7 +233,6 @@ export const getArmazones = (db: IDBDatabase): Promise<any[]> => {
 
     request.onsuccess = function (event: Event) {
       const data: any[] = (event.target as IDBRequest).result;
-      console.log("Datos obtenidos", data);
       resolve(data);
     };
 
@@ -273,18 +264,14 @@ export const validateLocalArmazon = (db: IDBDatabase, data: any) => {
     //   data["codArmazon"]
     // );
 
+    if (data["codArmazon"].length > 7) {
+      return;
+    }
+
     request.onsuccess = function (event: Event) {
       const result: any = (event.target as IDBRequest).result;
       const resultArmazon = result.filter(
         (OT: any) => OT.cod_armazon.slice(-5) === data["codArmazon"]
-      );
-      console.log(resultArmazon);
-      console.log(result);
-
-      console.log(
-        resultArmazon.filter(
-          (OT: any) => OT.cod_armazon.slice(-5) === data["codArmazon"]
-        )
       );
 
       if (resultArmazon.length === 0) {
@@ -342,8 +329,6 @@ export const getBeneficiarios = (db: IDBDatabase): Promise<any[]> => {
       "reserva_armazones_beneficiarios"
     );
     const request: IDBRequest<IDBValidKey[]> = objectStore.getAll();
-
-    console.log(request);
 
     request.onsuccess = function (event: Event) {
       const dataBeneficiario: any[] = (event.target as IDBRequest).result;
@@ -412,10 +397,6 @@ export const isExistArmazon = (
 
     request.onsuccess = function (event: Event) {
       const data: any[] = (event.target as IDBRequest).result;
-
-      console.log(data);
-      console.log(codArmazon);
-
       const validateExist = codArmazon
         .filter((codigo) => codigo !== "")
         .every((codigo) => data.some((item) => item.cod_armazon === codigo));
@@ -485,19 +466,12 @@ export const isExistBeneficiario = (
     );
     const request: IDBRequest<IDBValidKey> = objectStore.get(rut_beneficiario);
 
-    console.log(request);
-
     request.onsuccess = function (event: Event) {
       const data = (event.target as IDBRequest).result;
 
-      console.log(data);
-      console.log(data !== undefined);
-
       if (data !== undefined) {
-        console.log(true);
         resolve(true);
       } else {
-        console.log(false);
         resolve(false);
       }
 

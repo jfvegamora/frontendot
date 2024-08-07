@@ -213,7 +213,8 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
           OTAreas["areaActual"],
           OTAreas["areaActual"],
           observaciones,
-          User.id
+          User.id,
+          'Ingresar'
         )
 
         if(response?.status === 200){
@@ -560,7 +561,8 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
           OTAreas["areaActual"],
           OTAreas["areaSiguiente"],
           observaciones,
-          User.id
+          User.id,
+          'Procesar'
         ).then(()=>{
           dispatch(fetchOT({OTAreas:OTAreas["areaActual"],searchParams: paramsOT.value}))
           setSelectedRows([])
@@ -800,7 +802,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
  
 
               {areaPermissions && areaPermissions[3] === '1' && permisos_usuario_areas !== '0' && ((OTAreas["areaActual"] !== 60) && (OTAreas["areaActual"] !== 50))  &&  (
-                    <Tooltip content={BUTTON_MESSAGES.procesar}>
+                    <Tooltip content={BUTTON_MESSAGES.bln_ingreso}>
                     {/* <button className='bg-green-400 mx-4 transition-transform transform hover:scale-110 active:scale-95 w-[10rem] h-[2.5rem]  text-white '  */}
                     <Button  type="submit" className='otActionButton mx-4 bg-blue-500' onClick={()=>{
                       if(OTPkToDelete.value.length === 0){
@@ -980,6 +982,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
           )}
         </Suspense>
 
+        {OTAreas["areaActual"] !== 200 && (
           <div className='ml-2'>
             <Input 
               type="number" 
@@ -1007,6 +1010,8 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
                 valueSearchOT.value = e.target.value
               }} />
           </div>
+
+        )}
 
           {areaPermissions && areaPermissions[15] === '1' && permisos_usuario_areas !== '0' && (
             <div className="ml-2">

@@ -39,6 +39,7 @@ export const codArmazon3      = signal('');
 export const diametro_cristal = signal('')
 
 const focusInput  = signal('');
+const isLoadingArmazon = signal(false);
 
 
 
@@ -133,7 +134,6 @@ const Scanner:React.FC<any> = ({setIsScanning}) => {
 
 const FReservarArmazones = () => {
   const [isScanning, setIsScanning]   = useState(false);
-  const [isLoading, setisLoading]     = React.useState<boolean>(false);
   const schema                        = validationReservaArmazonesSchema();
   const userID:any                    = useAppSelector((store: AppStore) => store.user?.id);
   // const userAgent = navigator.userAgent
@@ -189,7 +189,7 @@ const FReservarArmazones = () => {
   }
 
   const fetchValidateArmazon = async(armazon:string, codArmazon:string) => {
-      setisLoading(true)
+      isLoadingArmazon.value = true;
       const urlbase  = `${URLBackend}/api/armazones/listado/?query=02`;
       // const urlbase2 = `${URLBackend}/api/armazones/listado/?query=02`;
 
@@ -275,11 +275,10 @@ const FReservarArmazones = () => {
             const result = await axios(fetchURL)
             if(result.data && result.data[0] && result.data[0][19] !== ''){
               toast.error(result.data[0][19])
-              setisLoading(false);
+              isLoadingArmazon.value = false;
               clearInputsArmazones(armazon)
             }
             
-            console.log(result)
             switch (armazon) {
               case 'Armazon1':
                 codArmazon1.value = result.data[0][0]
@@ -293,9 +292,9 @@ const FReservarArmazones = () => {
               default:
                 break;
             }
-            setisLoading(false);
+            isLoadingArmazon.value = true;
           } catch (error) {
-              setisLoading(false);
+              isLoadingArmazon.value = false;
               clearInputsArmazones(armazon);
               toast.error('Error al validar Armazón.')
           }
@@ -310,6 +309,7 @@ const FReservarArmazones = () => {
         }
         console.log(codPuntoVenta.value)
         console.log(punto_venta.value)
+        isLoadingArmazon.value = true;
         console.log(dataValidateArmazon)
 
         await openDatabase().then(async(db:IDBDatabase)=>{
@@ -338,15 +338,16 @@ const FReservarArmazones = () => {
               }
             }
             
+            // setisLoading(true)
+            isLoadingArmazon.value = true;
           } catch (error) {
             console.log('render')
             console.log(error)
           }
-
-
-          
-
+          // setisLoading(true)
+          isLoadingArmazon.value = true;
         })
+
       }}
 
 
@@ -466,7 +467,8 @@ const FReservarArmazones = () => {
                   
 
                   jsonData["proyecto"]        = codProyecto.value
-                  jsonData["punto_venta_id"]  = punto_venta.value;
+                  jsonData["punto_venta_id"]  = codPuntoVenta.value === '' ? punto_venta.value : codPuntoVenta.value;
+                  console.log(codPuntoVenta.value)
                   console.log(jsonData)
                   const resultBeneficiario = await setReservaBeneficiario(db, jsonData, userID);
                   console.log(resultBeneficiario)
@@ -700,11 +702,12 @@ useEffect(()=>{
     setValue('rut_beneficiario', '')
   },[clearRutCliente])
 
-  
-    return (
-        <form className=" w-screen bg-red-300  mx-auto px-6 !overflow-x-hidden form-container-reserva" onSubmit={handleSubmit((data)=> handleSaveChange(data))}>
 
-          <div className="translate-y-[30vw] h-screen !mx-auto bg-blue-500">
+
+    return (
+        <form className=" w-screen mx-auto px-6 !overflow-x-hidden form-container-reserva" onSubmit={handleSubmit((data)=> handleSaveChange(data))}>
+
+          <div className="translate-y-[30vw] h-screen !mx-auto ">
 
             {isOnline.value === false && isDataLocal.value === true && (
               <Button className='absolute -top-14 left-1 text-base z-30 ' onClick={()=>handleUploadata()}>Subir Reservas</Button>
@@ -923,7 +926,7 @@ useEffect(()=>{
                     tipo_de_anteojo.value === '3' 
                       ? (codArmazon1.value !== '' && codArmazon2.value !== '') 
                       : (codArmazon1.value !== '')
-                  ) && !isLoading && (
+                  ) && isLoadingArmazon.value && (
                     <div className="w-full">
                       <Button color='orange' type='submit'>Reservar</Button>
                     </div>

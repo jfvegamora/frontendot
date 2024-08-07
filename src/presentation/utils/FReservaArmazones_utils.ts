@@ -96,8 +96,6 @@ export const getLocalArmazones = async (reservaJSON: any) => {
         "No se encontraron Armazones disponibles en Bodega OFFLINE."
       );
     }
-    console.log(responseArmazones.value.length);
-    console.log(responseArmazones.value);
 
     let armazonesLocal: any = [];
 
@@ -194,7 +192,6 @@ export const fetchReservaBeneficiario = async (rut: string) => {
         response["data"][0][ReservaArmazonesEnum["tipo_anteojo_id"]].toString()
       );
 
-      console.log(tipo_de_anteojo.value);
       //?ARMAZON 1:
       a1_armazon.value =
         response["data"][0][ReservaArmazonesEnum["cod_armazon1"]];

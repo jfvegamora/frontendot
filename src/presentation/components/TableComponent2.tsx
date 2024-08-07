@@ -80,14 +80,12 @@ const TableComponent2: React.FC<ITableComponentProps<any>> = React.memo(
 
     
     useEffect(()=>{
-        console.log('render')
       const permiso = permissions(OTAreaActual)
       setOTPermissions( permiso && permiso[5])
     },[OTAreaActual, OTAreas, permissions])
 
     
     useEffect(() => {
-        console.log('render')
         indicesOT.value = Array.from(data, (_, index) => index);
     }, [data]);
 
@@ -244,7 +242,8 @@ const TableComponent2: React.FC<ITableComponentProps<any>> = React.memo(
                         >
                           {col === 0
                             ? renderCheckboxCell(rowIndex, folio, estado)
-                            : renderTextCell(row, '', type, color2, rowData,backgroundAtrasadas, color)}
+                            : renderTextCell(row, '', type, color2, rowData,backgroundAtrasadas, color)
+                          }
                         </td>
                       )
                     );

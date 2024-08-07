@@ -760,6 +760,11 @@ export const clearGrupos = (keepForm?: boolean) => {
   A2_DP.value = "";
   A1_ALT.value = "";
 
+  CR1_OD_LAB.value = false;
+  CR1_OI_LAB.value = false;
+  CR2_OD_LAB.value = false;
+  CR2_OI_LAB.value = false;
+
   validar_armazon1.value = "";
   validar_armazon2.value = "";
   validar_cristal1_od.value = "";
@@ -1147,19 +1152,23 @@ export const updateOT = async (
 
   //TODO: INICIO PROCESAR MASIVO
   if (isMasivo) {
-    console.log(p1);
-    console.log(data && data.proyecto_codigo);
-
     const amrazones =
       data.tipo_anteojo === 3 ? data.armazones : data.armazones.shift();
 
+    console.log(_origen);
+    const strP1 =
+      tipo_evento === "Derivar"
+        ? `area="${_destino}", estado="${_estado}",ubicacion=""`
+        : `area="${_destino}", estado="${_estado}"`;
+
     const query = {
       query: "04",
-      _p1: `${
-        p1 === "" || p1 === undefined
-          ? `area="${_destino}", estado="${_estado}"`
-          : `area="${_destino}", estado="${_estado}", ${p1}`
-      }`,
+      _p1: `${p1 === "" || p1 === undefined ? strP1 : `${strP1}, ${p1}`}`,
+      // _p1: `${
+      //   p1 === "" || p1 === undefined
+      //     ? `area="${_destino}", estado="${_estado}",ubicacion=""`
+      //     : `area="${_destino}", estado="${_estado}",ubicacion="", ${p1}`
+      // }`,
       _p2: isValidateBodega
         ? `${data[OTGrillaEnum.tipo_anteojo_id]}`
         : data && data.tipo_anteojo.toString(),
@@ -1637,6 +1646,9 @@ export const updateOT = async (
         : data && data[EnumGrid.observaciones]
     }"`,
     `estado_validacion="${estado_validacion}"`,
+    `ubicacion="${
+      tipo_evento === "Derivar" ? "" : data && data[EnumGrid.ot_ubicacion]
+    }"`,
   ];
 
   const cristales = [

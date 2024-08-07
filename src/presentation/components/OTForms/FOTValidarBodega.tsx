@@ -184,7 +184,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                 />
 
                 {casoEjecutar === 'ProcesarTB' && (
-                    <div className="absolute top-10 -right-2 items-center flex inputStyles">
+                    <div className="absolute top-10 right-[2vw] items-center flex inputStyles">
                         <Checkbox  label="LAB" color="orange" onChange={(e)=>onChangeCheckLab(e)} checked={checkedVariable} />                                           
                     </div>
                 )}
@@ -326,13 +326,18 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                 if(value.trim() === ''){
                     validationCodigoArmazon_1('')
                 }
-                console.log(value)
                 if((OT && OT[OTGrillaEnum.a1_armazon_id] === formatValue) && value.length >= 11){  
                     validationCodigoArmazon_1(value, alreadyValidate)
                     validationA1_armazon.value = value
-                    console.log(inputsRef)
-                    focusFirstInput('a1_od', inputsRef["a1_od"])
-                    console.log('render')
+                    if(CR1_OD_LAB.value === true){
+                        if(CR1_OI_LAB.value === true){
+                            focusFirstInput('a2_armazon', inputsRef["a2_armazon"])
+                        }else{
+                            focusFirstInput('a1_oi', inputsRef["a1_oi"])
+                        }
+                    }else{
+                        focusFirstInput('a1_od', inputsRef["a1_od"])
+                    }
                 }else{
                     if(value.lenght <= 11 ){
                         console.log(value)
@@ -409,7 +414,16 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                 if((OT && OT[OTGrillaEnum.a2_armazon_id] === formatValue) && value.length >= 11){
                     validationCodigoArmazon_2(value, alreadyValidate)
                     validationA2_armazon.value = value
-                    focusFirstInput('a2_od', inputsRef["a2_od"])
+                    if(CR2_OD_LAB.value === true){
+                        if(CR2_OI_LAB.value === true){
+                            return;
+                        }else{
+                            focusFirstInput('a2_oi', inputsRef["a2_oi"])
+                        }
+                    }else{
+                        focusFirstInput('a2_od', inputsRef["a2_od"])
+                    }
+
                     
                 }else{
                     if(value.lenght <= 11){
@@ -680,7 +694,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
 
             // const dataP1 = `cristales1_od_opcion_vta="${CR1_OD_LAB.value === true ? 2 : 1}",cristales1_oi_opcion_vta="${CR1_OI_LAB.value === true ? 2 : 1}",cristales2_od_opcion_vta="${CR2_OD_LAB.value === true ? 2 : 1}",cristales2_oi_opcion_vta="${CR2_OI_LAB.value === true ? 2 : 1}",cristales1_od="${CR1_OD_LAB.value === true ? '' : OT[OTGrillaEnum.cr1_od].trim()}",cristales1_oi="${CR1_OI_LAB.value === true ? '' : OT[OTGrillaEnum.cr1_oi].trim()}",cristales2_od="${CR2_OD_LAB.value === true ? '' : OT[OTGrillaEnum.cr2_od].trim()}", cristales2_oi="${CR2_OI_LAB.value === true ? '' : OT[OTGrillaEnum.cr2_oi].trim()}" ${CR2_OI_LAB.value === true ? ', a1_grupo_od=""' : ''}`                    
             // const dataP1 = `"${CR1_OD_LAB.value === true ? ',cristales1_od_opcion_vta="2"' : ""}" "${CR1_OI_LAB.value === true ? ',cristales1_oi_opcion_vta="2"' : ""}" "${CR2_OD_LAB.value === true ? ',cristales2_od_opcion_vta="2"': ""} "${CR2_OI_LAB.value === true ? ',cristales2_oi_opcion_vta="2"' : ""}" "${CR1_OD_LAB.value === true ? ',cristales1_od=""' : ""}" "${CR1_OI_LAB.value === true ? ',cristales1_oi=""' : ""}" "${CR2_OD_LAB.value === true ? ',cristales2_od=""' : ""}" ${CR2_OI_LAB.value === true ? ',cristales2_oi=""' : ""}" ${CR2_OI_LAB.value === true ? ',a1_grupo_od=""' : ''}`                    
-            const dataP1 = `${CR1_OD_LAB.value === true ? 'cristales1_od_opcion_vta="2", a1_grupo_od="",cristales1_od="",' : 'cristales1_od_opcion_vta = "1",' } ${CR1_OI_LAB.value === true ? 'cristales1_oi_opcion_vta="2",a1_grupo_oi="",cristales1_oi="",' : 'cristales1_oi_opcion_vta = "1",'} ${CR2_OD_LAB.value === true ? 'cristales2_od_opcion_vta="2",a2_grupo_od="",cristales2_od=""' : 'cristales2_od_opcion_vta = "1",'} ${CR2_OI_LAB.value === true ? 'cristales2_oi_opcion_vta="2", a2_grupo_oi="",cristales2_oi=""' : 'cristales2_oi_opcion_vta = "1"'} `                    
+            const dataP1 = `${CR1_OD_LAB.value === true ? 'cristales1_od_opcion_vta="2", a1_grupo_od="",cristales1_od="",' : 'cristales1_od_opcion_vta = "1",' } ${CR1_OI_LAB.value === true ? 'cristales1_oi_opcion_vta="2",a1_grupo_oi="",cristales1_oi="",' : 'cristales1_oi_opcion_vta = "1",'} ${CR2_OD_LAB.value === true ? 'cristales2_od_opcion_vta="2",a2_grupo_od="",cristales2_od="",' : 'cristales2_od_opcion_vta = "1",'} ${CR2_OI_LAB.value === true ? 'cristales2_oi_opcion_vta="2", a2_grupo_oi="",cristales2_oi=""' : 'cristales2_oi_opcion_vta = "1"'} `                    
 
            console.log(dataP1)
             const toastLoading = toast.loading('Cargando...')
@@ -747,7 +761,10 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                         observaciones,
                         isMasivo,
                         situacion,
-                        validarBodega
+                        validarBodega,
+                        '',
+                        false,
+                        dataP1
                     ).then(()=>{
                         handleClose()
                         toast.dismiss(toastLoading)
@@ -782,7 +799,10 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
                         observaciones,
                         isMasivo,
                         situacion,
-                        validarBodega
+                        validarBodega,
+                        '',
+                        false,
+                        dataP1
                     ).then(()=>{
                         handleClose()
                         toast.dismiss(toastLoading)
@@ -872,7 +892,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
 
 
     return (
-        <div className={` bg-[#676f9d] mx-auto xl:w-[80%] xl:left-[35rem]  absolute  ${OT && OT[OTGrillaEnum.tipo_anteojo_id] === 3  ? "top-[-1vw] !left-[30vw]" : "top-[6vw] !left-[30vw]" } right-auto rounded-xl shadow-md overflow-hidden lg:left-[18rem]     sm:w-[25rem]    md:max-w-[35rem] z-40`}>
+        <div className={` bg-[#676f9d] mx-auto xl:w-[50vw] xl:left-[35rem]  absolute  ${OT && OT[OTGrillaEnum.tipo_anteojo_id] === 3  ? "top-[-1vw] !left-[30vw]" : "top-[6vw] !left-[30vw]" } right-auto rounded-xl shadow-md overflow-hidden lg:left-[18rem]     sm:w-[25rem]    md:max-w-[35rem] z-40`}>
          <div className="absolute right-0 userFormBtnCloseContainer">
           <h1 className='text-center text-4xl text-white  mb-5 translate-x-[-10vw]'>Folio: <span className='text-orange-300'>{ OT && OT[OTGrillaEnum.folio]}</span></h1>
           <button onClick={()=>{
@@ -890,7 +910,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
             // onSubmit={handleSubmit(onSubmit)}
           >
         {OT && (
-                <div className="">
+                <div className="!w-[34vw]">
                 <h1 className='text-center text-white text-2xl'>Anteojo {OT && OT[OTGrillaEnum.tipo_anteojo_id] === 3 ? 'Lejos': (OT && OT[OTGrillaEnum.tipo_anteojo])}</h1>
                 {/* <div className='rowForm !h-[5rem] relative mb-4'>
                     <TextInputInteractive
@@ -975,7 +995,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
 
 
             {OT && OT[OTGrillaEnum.tipo_anteojo_id] === 3 && (
-                <div className="">
+                <div className="!w-[34vw]">
                 <h1 className='text-center text-2xl text-white '>Anteojo Cerca</h1>
                 {/* <div className='rowForm !h-[5rem] '>
                 <label className='labelInput  !translate-y-[3rem] ml-4'>{OT[OTGrillaEnum.a2_armazon_id]}</label>    
@@ -1060,13 +1080,11 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
             </div>
             )}
             
-            
 {/* 
                 {sumatoriaNivel3 === validationNivel3.value.length && (
                     <Button className='translate-x-8' color='green' type='submit'  onClick={(e) =>onSubmit(e, 'Procesar')}>Procesar</Button>
                 )} */}
               
-
             <div>
             </div>
             <div>

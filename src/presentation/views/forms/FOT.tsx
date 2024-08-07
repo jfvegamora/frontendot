@@ -313,7 +313,8 @@ const FOT: React.FC<IFOTProps> = ({
         data && data[EnumGrid.a1_od_cil],
         data && data[EnumGrid.a1_od_eje]
       )
-
+      
+      tipo_anteojo_title.value = data && data[EnumGrid.tipo_anteojo]
       validation_A2_armazon('32')
       if (data && data[EnumGrid.tipo_anteojo_id] === 3) {
 
@@ -326,9 +327,27 @@ const FOT: React.FC<IFOTProps> = ({
         validation_Cristal2_diametro(data && data[EnumGrid.cristal2_diametro])
         validation_Cristal2_od(data && data[EnumGrid.cristal2_od])
         validation_Cristal2_oi(data && data[EnumGrid.cristal2_oi])
+        tipo_anteojo_title_cristal2.value = 'Cerca';
+        tipo_anteojo_title.value = 'Lejos'
+        if(CR2_OD_LAB.value === true){
+          validation_Cristal2_od('32')
+        }
+        if(CR2_OI_LAB.value === true){
+          validation_Cristal2_oi('32')
+        }
       }
 
-      getGrupoCristales_A1({}, data, setErrorGrupoDioptriaA1, setFOTBooleanStates, isEditting, setErrorGrupoDioptriaA2)
+      // console.log(data && data[EnumGrid.tipo_anteojo])
+
+      // getGrupoCristales_A1({}, data, setErrorGrupoDioptriaA1, setFOTBooleanStates, isEditting, setErrorGrupoDioptriaA2)
+      if(CR1_OD_LAB.value === true){
+        validation_Cristal1_od('32')
+      }
+      if(CR1_OI_LAB.value === true){
+        validation_Cristal1_oi('32')
+      }
+
+
 
     }
   }, [])
@@ -794,9 +813,10 @@ const FOT: React.FC<IFOTProps> = ({
       validation_A2_OI_CIL(a2_oi_cil.value)
       validation_A2_OI_EJE(a2_oi_eje.value)
     }
-
+    console.log(changeCodigoCristal_A1[key])
     // ? CODIGO CRISTALES Y GRUPO ANTEOJO 1: 
     if (changeCodigoCristal_A1[key]) {
+      console.log('render')
       const formValue = getValues()
       getGrupoCristales_A1(formValue, data, setErrorGrupoDioptriaA1, setChangeboolean, isEditting, setErrorGrupoDioptriaA2)
     }

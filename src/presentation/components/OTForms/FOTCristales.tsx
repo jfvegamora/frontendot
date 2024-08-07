@@ -35,8 +35,8 @@ const FOTCristales: React.FC<ICristales> = ({
     onDataChange,
     formValues,
     data,
-    permiso_usuario_cristales,
-    permiso_areas_cristales,
+    // permiso_usuario_cristales,
+    // permiso_areas_cristales,
     permiso_areas_grupo_dioptria,
     permiso_usuario_grupo_dioptria,
     // permiso_usuario_verificar_cristal,
@@ -351,9 +351,8 @@ const FOTCristales: React.FC<ICristales> = ({
                                     </div> 
                                     )}
                                 </div>
+
                                 <div className="w-full flex mt-6 rowForm justify-center ">
-                                    
-                         
                                     <div className=" w-[22vw] my-2 labelInput   ">
                                         <SelectInputComponent
                                             label="Marca"
@@ -599,27 +598,28 @@ const FOTCristales: React.FC<ICristales> = ({
                                  {/* <h1 className='absolute z-10 top-[-6%] left-[35%] text-3xl font-bold w-[30%] text-center !text-[#f8b179]'>ANTEOJO 2</h1> */}
                                  <h1 className={`absolute z-10 top-[-6%] text-3xl font-bold  w-[30vw] translate-x-[-8vw]  text-center !text-[#f8b179] left-[34%] `}>ANTEOJO {tipo_anteojo_title_cristal2.value.toUpperCase()}</h1>
                                  <div className="w-[45vw] !-mt-4 !ml-[1rem]">
-                                     <div className=" flex mt-6 rowForm  justify-center">
-                                     { EmpresaAdjudicadaOT_ID.value === 3  &&
-                                       (permiso_usuario_cristales && permiso_areas_cristales) &&
-                                       (tipo_de_anteojo.value === '3') && 
+                                    
+                                 <div className="w-full flex !-mt-4   rowForm justify-center ">
+                                 {(EmpresaAdjudicadaOT_ID.value === 3 || isEditting) &&
                                          (
                                          <div className='rowForm'>
-                                             <div className=" absolute z-20 flex items-center justify-between  -translate-y-14 w-[45vw] px-[1vw] text-[1.5vw] ">
+                                        <div className="  z-20 flex items-center justify-between   w-[43vw]  text-[1.5vw] ">
      
-                                                 <div className=" items-center flex inputStyles">
-                                                     <Checkbox label="Laboratorio" color="orange" onChange={(e)=>handleCR2_OD_LABChange(e.target)} checked={ CR2_OD_LAB.value} />                                           
+                                                 <div className=" items-center flex inputStyles mt-2">
+                                                     <Checkbox label="Laboratorio" color="orange" onChange={(e)=>handleCR2_OD_LABChange(e.target)} checked={ CR2_OD_LAB.value} disabled={isEditting}/>                                           
                                                  </div>
      
                                                  <div className=" items-center flex inputStyles">
                                                      {/* <Checkbox label='LAB' color="orange" onChange={(e)=>handleCR1_OD_LABChange(e.target)} checked={ CR1_OD_LAB.value} /> */}
-                                                     <Checkbox label="Laboratorio" color="orange" onChange={(e)=>handleCR2_OI_LABChange(e.target)} checked={ CR2_OI_LAB.value} />
+                                                     <Checkbox label="Laboratorio" color="orange" onChange={(e)=>handleCR2_OI_LABChange(e.target)} checked={ CR2_OI_LAB.value} disabled={isEditting}/>
                                                      {/* <label className='labelInput'>LAB</label> */}
                                                  </div>
                                              
                                              </div>
                                          </div> 
-                                         )}
+                                    )}
+                                     </div>
+                                     <div className=" flex -mt-1 rowForm  justify-center">
                                          <div className=" w-[22vw] my-2 labelInput">
                                              <SelectInputComponent
                                                  label="Marca"

@@ -91,7 +91,8 @@ const FOTDerivacion: React.FC<IDerivacion> = ({
                 OTAreas["areaActual"],
                 jsonData.area_hasta.toString() as any,
                 jsonData?.observaciones,
-                usuarioID
+                usuarioID,
+                'Derivar'
             )
 
             if (response?.status === 200) {
