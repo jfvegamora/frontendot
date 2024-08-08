@@ -187,7 +187,7 @@ const MCristalesKardex: React.FC = () => {
 
       </div>
 
-      <div className="width100 scroll">
+      <div className="width100 !h-4/6  scroll">
         <TableComponent
           handleSelectChecked     ={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}

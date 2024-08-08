@@ -3,6 +3,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 
+
 import {
   PrimaryButtonsComponent,
   PrimaryKeySearch,
@@ -114,14 +115,15 @@ const MArmazonesKardex: React.FC = () => {
                 styles: { 
                   styles:"labelInput inputStyles w-[22vw]",
                   container:"ml-[1vw] -translate-x-[-2vw] translate-y-[5.5vw] ", 
-                  labelProps: "labelInput inputStyles"                },
+                  labelProps: "labelInput "
+                },
                 _p1: "02"
               },
               
               { name: "_p1", label: "Código", type: "text", styles:{
                 styles:"labelInput inputStyles",
                 container:"!w-[13vw] -translate-x-[34vw] translate-y-[0.3vw]", 
-                labelProps: "labelInput inputStyles"
+                labelProps: "labelInput"
               } },
               
               {
@@ -180,7 +182,7 @@ const MArmazonesKardex: React.FC = () => {
             </div>
       </div>
 
-      <div className="width100 !h-auto scroll">
+      <div className="width100 !h-4/6  scroll">
         <TableComponent
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}

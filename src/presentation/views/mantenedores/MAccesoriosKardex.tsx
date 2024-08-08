@@ -176,7 +176,7 @@ const MAccesoriosKardex: React.FC = () => {
 
       </div>
 
-      <div className="width100 scroll">
+      <div className="width100 scroll !h-4/6 ">
         <TableComponent
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}

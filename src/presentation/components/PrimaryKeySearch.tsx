@@ -3,12 +3,12 @@
 
 import React, { useState, useEffect, Suspense } from "react";
 import { useForm, Controller } from "react-hook-form";
-import { IconButton, Input, Tooltip } from "@material-tailwind/react";
+import { IconButton, Input, Switch, Tooltip } from "@material-tailwind/react";
 // import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowsRotate, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-import { useAppDispatch } from "../../redux/store";
-import { fetchOT } from "../../redux/slices/OTSlice";
+import { AppStore, useAppDispatch, useAppSelector } from "../../redux/store";
+import { fetchOT, filterOtAtrasadas } from "../../redux/slices/OTSlice";
 import { useCrud } from "../hooks";
 import { toast } from "react-toastify";
 import { paramsOT } from "../views/mantenedores/MOT";
@@ -39,7 +39,7 @@ export const changeFilterSearchTitle = (e:any, label:any, typeInput?:any) => {
   
   const newValueFilterSearch    = typeInput === 'Select' 
                                                     ? e.target.options[e.target.selectedIndex].text
-                                                    : e.target.value  
+                                                    : (e.target.value === 'on' ? 'Atrasadas' : e.target.value)  
 
   const updatedValue            = newValueFilterSearch === ''
                                                         ? Object.keys(filterSearchTitle.value).reduce((acc:any, key:any) => {
@@ -52,10 +52,7 @@ export const changeFilterSearchTitle = (e:any, label:any, typeInput?:any) => {
   
   filterSearchTitle.value       = updatedValue;
   titleSearch.value  = Object.values(filterSearchTitle.value).join(' | ');
-
-
-  console.log(titleSearch.value)
-
+ 
 }
 
 
@@ -87,44 +84,7 @@ export const filterTextValue = signal('')
 const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
   ({ setEntities, primaryKeyInputs, updateParams, description, otHistorica, baseUrl,classNameSearchButton }) => {
     
-    console.log('render')
-    React.useEffect(()=>{
-      console.log('render')
-    },[description])
-    
-    React.useEffect(()=>{
-      console.log('render')
-    },[setEntities])
-    
-    React.useEffect(()=>{
-      console.log('render')
-    },[setEntities])
-    
-    React.useEffect(()=>{
-      console.log('render')
-    },[primaryKeyInputs])
-    
-    React.useEffect(()=>{
-      console.log('render')
-    },[updateParams])
-    
-    React.useEffect(()=>{
-      console.log('render')
-    },[otHistorica])
-    
-    React.useEffect(()=>{
-      console.log('render')
-    },[baseUrl])
-    
-    React.useEffect(()=>{
-      console.log('render')
-    },[classNameSearchButton])
-    
-    
-    
-    
-    
-    
+    const OTAreaActual = useAppSelector((store:AppStore)=>store.OTAreas.areaActual);  
     const [cilindrico, setCilindrico] = useState();
     const { control, handleSubmit, setValue } = useForm<IPrimaryKeyState>();
     const [inputValues, setInputValues] = useState<IPrimaryKeyState>({});
@@ -164,7 +124,6 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
         .map((key) => `${key}=${inputValues[key]}`)
         .join('&');
     
-      console.log(updatedParams)
       
     const handleInputChange = (name: string, value: string) => {
         setInputValues((prev) => ({ ...prev, [name]: value }));
@@ -267,9 +226,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
       [handleSubmit, handleSearch]
     );
 
-    console.log('render')
-    const renderInputs = React.useCallback(() => {
-      console.log('render')
+    const renderInputs = React.useMemo(() => {
       const inputGroups = [];
       for (let i = 0; i < primaryKeyInputs.length; i += 6) {
         inputGroups.push(primaryKeyInputs.slice(i, i + 6));
@@ -451,6 +408,29 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                     )}
                   />
                 </div>
+              ) : input.type === "switch" ?    (
+                <div className={`input-container  ${input.styles?.container}`}>
+                      <Suspense>
+                      <label className='text-[#f39c12] labelStyles mr-4'>{input?.label}</label>
+                      <Switch
+                          color='orange'
+                          name={input.name}
+                          checked={switchAtrasadas}
+                          onChange={(e)=>{
+                            changeFilterSearchTitle(e, input?.label, input?.type)
+                            if(e.target.checked){
+                              switchAtrasadas.value = true;
+                              dispatch(filterOtAtrasadas())
+                            }else{
+                              switchAtrasadas.value = false;
+                              titleSearch.value = 'Sistema Gestión OT' 
+                              document.title = 'Sistema Gestión OT'
+                              dispatch(fetchOT({ OTAreas: OTAreaActual, searchParams: paramsOT.value }));
+                            }
+                          }}
+                        />
+                      </Suspense>
+                  </div>
               ) : (
                 // Otros tipos de entrada
               <div className={` -mt-3
@@ -521,7 +501,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
 
     return (
       <form className="primaryKeyContainer !items-center relative !text-[2vw]">
-        {renderInputs()}
+        {renderInputs}
         <div className={`h-auto !items-center w-[9vw] flex ${classNameSearchButton}  ${(baseUrl === '/api/ot/' || baseUrl === '/api/othistorica/' ) ? 'absolute left-[89vw] top-0 flex flex-col !py-6 !my-4 !w-[4vw] ' : ''} `}>
           <Tooltip content="Buscar">
               <IconButton
@@ -560,7 +540,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
         </div>
 
         {description && (
-            <span className="mx-8 h-auto  w-[28rem] text-base border-none absolute bottom-[-5rem] left-[35rem]">{cristalDescritpion && cristalDescritpion[3]}</span>
+            <span className="mx-8 h-auto  w-[28rem] text-base border-none absolute bottom-[-5rem] left-[40vw]">{cristalDescritpion && cristalDescritpion[3]}</span>
             
         
         )}

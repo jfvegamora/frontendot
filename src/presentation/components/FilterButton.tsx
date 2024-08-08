@@ -2,10 +2,6 @@ import { signal } from '@preact/signals-react';
 import React, { ReactNode, useEffect } from 'react';
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { RxDoubleArrowLeft } from "react-icons/rx";
-import { Switch } from '@material-tailwind/react';
-import { AppStore, useAppDispatch, useAppSelector } from '../../redux/store';
-import { fetchOT, filterOtAtrasadas } from '../../redux/slices/OTSlice';
-import { paramsOT } from '../views/mantenedores/MOT';
 
 interface IProps {
   children: ReactNode;
@@ -22,9 +18,6 @@ const FilterButton: React.FC<IProps> = React.memo(({
   isOT,
   className
 }) => {
-  const OTAreas: any = useAppSelector((store: AppStore) => store.OTAreas);
-
-  const dispatch  = useAppDispatch();
 
   const handleMouseEnter = () => {
     isHovered.value      =  !isHovered.value
@@ -66,7 +59,7 @@ const FilterButton: React.FC<IProps> = React.memo(({
       )}
 
 
-      {isOT && filterToggle.value  && (
+      {/* {isOT && filterToggle.value  && (
         <div
                 className={` labelInput inputStyles ${isOT ? "top-[10rem] " : "top-[10rem] "}  w-[4rem]  h-[4rem] ${isOT ? "translate-x-[84vw] translate-y-[-7em]" : "translate-x-[90vw] translate-y-[-5rem]"} `}
         >
@@ -85,7 +78,7 @@ const FilterButton: React.FC<IProps> = React.memo(({
             }}
           />
         </div>
-      )}
+      )} */}
     </div>
   );
 });
