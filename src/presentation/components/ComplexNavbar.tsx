@@ -365,8 +365,7 @@ const navListMenuSistema = [
   },
 ];
 
-
-function NavListMenuOT({ userPermission }: { userPermission: string[] }) {
+const NavListMenuOT = React.memo(function NavListMenuOT({ userPermission }: { userPermission: string[] }) {
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
@@ -376,9 +375,9 @@ function NavListMenuOT({ userPermission }: { userPermission: string[] }) {
   // };
 
 
-  const toggleMenu = () => {
+  const toggleMenu = React.useCallback(() => {
     setIsMenuOpen(!isMenuOpen);
-  };
+  },[]);
 
   const renderItems = navListMenuOT.map(({ title, link, id }) => {
     const hasPermission = userPermission.includes(id as any);
@@ -446,7 +445,9 @@ function NavListMenuOT({ userPermission }: { userPermission: string[] }) {
       </ul>
     </div>
   );
-}
+})
+
+
 
 function NavListMenuBodega({ userPermission }: { userPermission: string[] }) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -965,14 +966,17 @@ function NavListMenuSistema({ userPermission }: { userPermission: string[] }) {
   );
 }
 
-function NavList() {
+
+const NavList = React.memo(function NavList() {
   const [userPermission, setUserPermission] = React.useState<string[]>([]);
   const userState = useAppSelector((store: AppStore) => store.user);
 
   React.useEffect(() => {
-    const permisosKey = userState?.permisos
+    const permisosKey = ()=>{
+      return userState?.permisos
       ? JSON.parse(userState?.permisos).map((permiso:any)=>permiso.id.toString())
       : [];
+    }
     // const numbersPermission = permisosKey.map((str) => parseInt(str, 10));
     setUserPermission(permisosKey);
   }, [userState]);
@@ -986,7 +990,9 @@ function NavList() {
       <NavListMenuSistema userPermission={userPermission} />
     </ul>
   );
-}
+})
+
+
 
 export default function ComplexNavbar() {
   const userState = useAppSelector((store: AppStore) => store.user);
@@ -997,7 +1003,7 @@ export default function ComplexNavbar() {
   const navigate = useNavigate();
 
 
-  const toggleIsNavOpen = () => setIsNavOpen((cur) => !cur);
+  const toggleIsNavOpen = React.useCallback(() => setIsNavOpen((cur) => !cur),[]);
 
   React.useEffect(() => {
     window.addEventListener(

@@ -6,9 +6,7 @@ import {
   disabledIndividualCheck,
   isToggleImpression,
 } from "./signalStateOT";
-import { URLBackend } from "../hooks/useCrud";
-
-const strUrl = `${URLBackend}/api/ot/listado`;
+import { URLBackend } from "./config";
 
 export const setEstadoImpresion = async (
   pkToDelete?: any,
@@ -16,6 +14,7 @@ export const setEstadoImpresion = async (
   masivo?: boolean,
   usuario?: any
 ) => {
+  const strUrl = `${URLBackend}/api/ot/listado`;
   const loadingToast = toast.loading("Cargando...");
   let estado_impresion = 1;
   try {

@@ -10,10 +10,10 @@ import { EXCEL, handleAxiosError} from "../utils";
 import useCustomToast from "../hooks/useCustomToast";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDownload } from '@fortawesome/free-solid-svg-icons';
-import { URLBackend } from "../hooks/useCrud";
 import axios from "axios";
 import { AppStore, useAppSelector } from "../../redux/store";
 import { ProyectosDocumEnum } from "../Enums";
+import { URLBackend } from "../utils/config";
 // import axios from "axios";
 
 // import { URLBackend } from "../hooks/useCrud";

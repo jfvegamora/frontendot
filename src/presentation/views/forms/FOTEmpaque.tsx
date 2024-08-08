@@ -5,12 +5,12 @@ import { fetchOT } from '../../../redux/slices/OTSlice';
 import { TextInputComponent } from '../../components';
 import { MODAL, TITLES, clearAllCheck, validationOTNumeroEnvio } from "../../utils";
 import { toast } from 'react-toastify';
-import { URLBackend } from '../../hooks/useCrud';
 import axios from 'axios';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useModal } from '../../hooks/useModal';
 import { paramsOT } from '../mantenedores/MOT';
 import { Button } from "@material-tailwind/react";
+import { URLBackend } from '../../utils/config';
 
 
 interface IFOTEmpaque {
@@ -23,7 +23,6 @@ interface IFOTEmpaque {
     params?: string[]
 }
 
-const strUrl = `${URLBackend}/api/proyectodocum/listado`
 
 
 const FOTEmpaque: React.FC<IFOTEmpaque> = ({
@@ -31,6 +30,7 @@ const FOTEmpaque: React.FC<IFOTEmpaque> = ({
     closeModal,
     pktoDelete
 }) => {
+    const strUrl = `${URLBackend}/api/proyectodocum/listado`
     const { control, handleSubmit, formState: { errors } } = useForm<any>({ resolver: yupResolver(validationOTNumeroEnvio()), })
     const [fechaHoraActual, _setFechaHoraActual] = useState(new Date());
     const { showModal, CustomModal } = useModal();
@@ -61,7 +61,6 @@ const FOTEmpaque: React.FC<IFOTEmpaque> = ({
         // if(parseInt(pktoDelete[0]["numero_reporte_firma"]) !== 0){
         //     return toast.error(`OT ${pktoDelete[0]["folio"]} ya tiene un reporte de firma asignado `)
         // }
-        console.log(pktoDelete)
 
         if (parseInt(pktoDelete[0]["numero_envio"]) !== 0) {
             const result = await showModal(
@@ -76,19 +75,25 @@ const FOTEmpaque: React.FC<IFOTEmpaque> = ({
             }
         }
 
-        console.log(pktoDelete)
-
 
 
         const toastLoading = toast.loading('Cargando...');
-
+        let tipo_documento = 8;
         try {
             const query07 = {
-                _p1: `"${pktoDelete[0]["proyecto_codigo"]}", ${8}, "${jsonData["numero_doc"]}", "${jsonData["fecha_doc"]}", ${0}, ${0}, ${0}, ${UsuarioID}, "${jsonData["observaciones"]}"`,
+                _p1: `"${pktoDelete[0]["proyecto_codigo"]}", ${tipo_documento}, "${jsonData["numero_doc"]}", "${jsonData["fecha_doc"]}", ${0}, ${0}, ${0}, ${UsuarioID}, "${jsonData["observaciones"]}"`,
                 _p2: jsonData["numero_doc"],
                 _p3: pktoDelete[0]["proyecto_codigo"],
                 _id: 8,
-                _pkToDelete: JSON.stringify(pktoDelete.map((folioOT: any) => ({ folio: folioOT["folio"] })))
+                _pkToDelete: JSON.stringify(pktoDelete.map((folioOT: any) => (
+                    { 
+                        folio: folioOT["folio"],
+                        usuario: UsuarioID,
+                        origen: OTAreas,
+                        estado: `${folioOT.estado_id}`,
+                        obs: `Asigna N° Envío: ${jsonData["numero_doc"]}` 
+                    }
+                )))
             };
             let queryURL07 = `?query=07&_p1=${query07["_p1"]}&_p2=${query07["_p2"]}&_p3=${query07["_p3"]}&_pkToDelete=${query07["_pkToDelete"]}&_id=${query07["_id"]}`
             const resultQuery07 = await axios(`${strUrl}/${queryURL07}`)

@@ -16,7 +16,6 @@ import { codigoProyecto, punto_venta, tipo_de_anteojo, validateRut, validationRe
 import { SelectInputComponent, TextInputComponent } from '../../components';
 import { AppStore, useAppSelector } from '../../../redux/store';
 import { toast } from 'react-toastify';
-import { URLBackend } from '../../hooks/useCrud';
 import axios from 'axios';
 import { fetchReservaArmazones, getLocalArmazones, isDataLocal, isOnline, responseArmazones } from '../../utils/FReservaArmazones_utils';
 import { clearBaseDatos, getArmazones, getBeneficiarios, isExistArmazon, isExistBeneficiario, openDatabase, setArmazones, setReservaBeneficiario, validateLocalArmazon } from '../../utils/indexedDB';
@@ -24,6 +23,7 @@ import { clearBaseDatos, getArmazones, getBeneficiarios, isExistArmazon, isExist
 import { clearRutCliente } from '../../utils/FOTClientes_utils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { URLBackend } from '../../utils/config';
 
 // import { useNavigate } from 'react-router-dom';
 // import { focusFirstInput } from '../../components/OTForms/FOTValidarBodega';

@@ -19,7 +19,7 @@ import { faPlus, faClone, faTrash, faArrowRightToBracket, faArrowRightFromBracke
 const PiMicrosoftExcelLogoFill:any = React.lazy(() => import('react-icons/pi').then(module => ({ default: module.PiMicrosoftExcelLogoFill })));
 
 import axios from "axios";
-import { URLBackend } from "../hooks/useCrud";
+import { URLBackend } from "../utils/config";
 
 // import ExportToCsv from "./ExportToCsv";
 

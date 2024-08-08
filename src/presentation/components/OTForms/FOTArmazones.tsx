@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react'
 import axios from 'axios';
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
 import { validationOTlevel2, validation_A1_armazon, validation_A2_armazon, validation_Cristal1_od, validation_Cristal1_oi, validation_Cristal2_od, validation_Cristal2_oi } from '../../utils/validationOT';
-import { URLBackend } from '../../hooks/useCrud';
 import { toast } from 'react-toastify';
 import { A1_CR_OD, A1_CR_OI, A1_DP, A1_Diametro, A1_GRUPO_OD, A1_GRUPO_OI, A2_CR_OD, A2_CR_OI, A2_DP, A2_Diametro, A2_GRUPO_OD, A2_GRUPO_OI, a1_armazon, a2_armazon, a2_od_cil, a2_od_esf, a2_oi_cil, a2_oi_esf, a3_armazon, codigoProyecto, dioptrias_receta, punto_venta, tipo_de_anteojo, validacionIncompleta, validar_parametrizacion } from '../../utils';
 // import TextInputInteractive from '../forms/TextInputInteractive';
@@ -11,6 +10,7 @@ import { OTTextInputComponent } from '.';
 import { inputOnlyReadReserva } from '../../utils/FReservaArmazones_utils';
 import { signal } from '@preact/signals-react';
 import { areaActualOT } from '../OTAreasButtons';
+import { URLBackend } from '../../utils/config';
 
 interface IArmazones {
     control:any;

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { URLBackend } from "../hooks/useCrud";
+import { URLBackend } from "./config";
 
 //Guardar datos en local Storage
 export const persistLocalStorage = <T,>(key:string, value:T) => {

@@ -7,10 +7,10 @@ import { AppStore, useAppDispatch, useAppSelector } from '../../../redux/store';
 import { Button } from '@material-tailwind/react';
 import { toast } from 'react-toastify';
 import axios from 'axios';
-import { URLBackend } from '../../hooks/useCrud';
 import { A1_CR_OD, A1_CR_OI, A2_CR_OD, A2_CR_OI, a1_armazon, a2_armazon, codigoProyecto, punto_venta } from '../../utils';
 import { paramsOT } from '../../views/mantenedores/MOT';
 import { fetchOT } from '../../../redux/slices/OTSlice';
+import { URLBackend } from '../../utils/config';
 
 
 interface IAnulacion {

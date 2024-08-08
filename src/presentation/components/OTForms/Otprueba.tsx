@@ -1,7 +1,7 @@
 import { signal } from '@preact/signals-react';
 import axios from 'axios';
 import React, { useState, useEffect, useRef } from 'react';
-import { URLBackend } from '../../hooks/useCrud';
+import { URLBackend } from '../../utils/config';
 
 export const inputName = signal(0);
 export const entities = signal([]);

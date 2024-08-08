@@ -4,7 +4,6 @@ import { useCrud } from '../hooks';
 import {toast} from 'react-toastify';
 // import { TfiImport } from "react-icons/tfi";
 import { IconButton, Tooltip } from '@material-tailwind/react';
-import { URLBackend } from '../hooks/useCrud';
 import { signal } from '@preact/signals-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUpload } from '@fortawesome/free-solid-svg-icons';
@@ -15,6 +14,7 @@ import axios from 'axios';
 // import { excelOTValidationStructure } from '../utils';
 
 import {executeFetchImportOT, handleFileUpload} from '../utils/validationCSVFile';
+import { URLBackend } from '../utils/config';
 
 
 const ModalImport = React.lazy(()=>import("./ModalImpor"));

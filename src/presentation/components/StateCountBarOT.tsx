@@ -28,7 +28,7 @@ let ot_atrasadas = 'S'
 let width = 'w-[6vw]'
 
 
-const StateCountBarOT:React.FC<IStateCountBar> = ({checkCount,isMotHistorica}) => {
+const StateCountBarOT:React.FC<IStateCountBar> = React.memo(({checkCount,isMotHistorica}) => {
     const OTs:any = useAppSelector((store: AppStore) => store.OTS);
     const[stateCheckCount, setStateCheckCount] = React.useState(checkCount.value);
     const[newCountAnteojos, setNewCountAnteojos] = React.useState(0);
@@ -51,7 +51,6 @@ const StateCountBarOT:React.FC<IStateCountBar> = ({checkCount,isMotHistorica}) =
     setNewCountAnteojos(newCount)
   },[OTs.data])
 
-  console.log(totoalTrabajosSeleccionados)
 
 
   return (
@@ -148,6 +147,6 @@ const StateCountBarOT:React.FC<IStateCountBar> = ({checkCount,isMotHistorica}) =
     </div>
     </>
   )
-}
+})
 
 export default StateCountBarOT

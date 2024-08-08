@@ -6,12 +6,12 @@ import { EnumGrid as EnumClientes } from '../../views/mantenedores/MClientes';
 import axios from 'axios';
 import { validationClienteComuna, validationClienteNombre, validationClienteSexo, validationClienteTelefono, validationClienteTipo, validationOTlevel1, validationOTlevel2 } from '../../utils/validationOT';
 import RegProCom from '../RegProCom';
-import { URLBackend } from '../../hooks/useCrud';
 
 import TextInputInteractive from '../forms/TextInputInteractive';
 import { toast } from 'react-toastify';
 import { fetchReservaBeneficiario } from '../../utils/FReservaArmazones_utils';
 import { clearRutCliente } from '../../utils/FOTClientes_utils';
+import { URLBackend } from '../../utils/config';
 // import { useModal } from '../../hooks/useModal';
 
 interface IClientes {

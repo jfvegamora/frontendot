@@ -6,12 +6,12 @@ import { TextInputComponent } from '../../components';
 import { clearAllCheck, MODAL, TITLES } from "../../utils";
 import { toast } from 'react-toastify';
 import axios from 'axios';
-import { URLBackend } from '../../hooks/useCrud';
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationFOTOrdenCompra } from "../../utils/validationFormSchemas";
 import { useModal } from '../../hooks/useModal';
 import { paramsOT } from '../mantenedores/MOT';
 import { Button } from "@material-tailwind/react";
+import { URLBackend } from '../../utils/config';
 
 
 interface IDerivacion {
@@ -25,7 +25,6 @@ interface IDerivacion {
 
 }
 
-const strUrl = `${URLBackend}/api/proyectodocum/listado`;
 // const strUrlOT = `${URLBackend}/api/othistorica/listado`;
 
 
@@ -35,6 +34,7 @@ const FOTOrdenCompra: React.FC<IDerivacion> = ({
     setSelectedRows,
     otArchivo
 }) => {
+    const strUrl = `${URLBackend}/api/proyectodocum/listado`;
     const { control, handleSubmit, formState: { errors } } = useForm<any>({ resolver: yupResolver(validationFOTOrdenCompra()), });
     const [fechaHoraActual, _setFechaHoraActual] = useState(new Date());
     const UsuarioID: any = useAppSelector((store: AppStore) => store.user?.id);
@@ -110,16 +110,25 @@ const FOTOrdenCompra: React.FC<IDerivacion> = ({
         }
 
 
+        console.log(pktoDelete.map((folioOT:any)=>folioOT))
 
         const toastLoading = toast.loading('Cargando...');
-
+        let tipo_documento = 3;
         try {
             const query07 = {
-                _p1: `"${pktoDelete[0]["proyecto_codigo"]}", ${3}, "${jsonData["numero_doc"]}", "${jsonData["fecha_doc"]}", ${jsonData["valor_neto"]}, ${0}, ${0}, ${UsuarioID}, "${jsonData["observaciones"]}"`,
+                _p1: `"${pktoDelete[0]["proyecto_codigo"]}", ${tipo_documento}, "${jsonData["numero_doc"]}", "${jsonData["fecha_doc"]}", ${jsonData["valor_neto"]}, ${0}, ${0}, ${UsuarioID}, "${jsonData["observaciones"]}"`,
                 _p2: jsonData["numero_doc"],
                 _p3: pktoDelete[0]["proyecto_codigo"],
                 _id: 3,
-                _pkToDelete: JSON.stringify(pktoDelete.map((folioOT: any) => ({ folio: folioOT["folio"] })))
+                _pkToDelete: JSON.stringify(pktoDelete.map((folioOT: any) => (
+                    { 
+                        folio: folioOT["folio"], 
+                        usuario: UsuarioID,
+                        origen: OTAreas,
+                        estado: `${folioOT.estado_id}`,
+                        obs: `Asigna N° OC: ${jsonData["numero_doc"]}` 
+                    }
+                )))
 
             }
             let queryURL07 = `?query=07&_p1=${query07["_p1"]}&_p2=${query07["_p2"]}&_p3=${query07["_p3"]}&_pkToDelete=${query07["_pkToDelete"]}&_id=${query07["_id"]}`

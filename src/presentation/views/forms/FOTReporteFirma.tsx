@@ -5,13 +5,13 @@ import { fetchOT } from '../../../redux/slices/OTSlice';
 import { TextInputComponent } from '../../components';
 import { MODAL, TITLES, clearAllCheck } from "../../utils";
 import { toast } from 'react-toastify';
-import { URLBackend } from '../../hooks/useCrud';
 import axios from 'axios';
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationOTGuiaSchema } from "../../utils/validationFormSchemas";
 import { useModal } from '../../hooks/useModal';
 import { paramsOT } from '../mantenedores/MOT';
 import { Button } from "@material-tailwind/react";
+import { URLBackend } from '../../utils/config';
 
 
 interface Interface {
@@ -23,7 +23,6 @@ interface Interface {
     setSelectedRows?: any
 }
 
-const strUrl = `${URLBackend}/api/proyectodocum/listado`
 
 
 const FOTReporteFirma: React.FC<Interface> = ({
@@ -31,6 +30,7 @@ const FOTReporteFirma: React.FC<Interface> = ({
     pkToDelete,
     setSelectedRows
 }) => {
+    const strUrl = `${URLBackend}/api/proyectodocum/listado`
     const { control, handleSubmit, formState: { errors }, setValue } = useForm<any>({ resolver: yupResolver(validationOTGuiaSchema()), });
     const [fechaHoraActual, _setFechaHoraActual] = useState(new Date());
 
@@ -127,16 +127,24 @@ const FOTReporteFirma: React.FC<Interface> = ({
         }
 
         try {
+            let tipo_documento = 2;
 
             const query07 = {
-                _p1: `"${pkToDelete[0]["proyecto_codigo"]}", ${2}, "${jsonData["numero_doc"]}", "${jsonData["fecha_doc"]}", ${0}, ${0}, ${0}, ${UsuarioID}, "${jsonData["observaciones"]}"`,
+                _p1: `"${pkToDelete[0]["proyecto_codigo"]}", ${tipo_documento}, "${jsonData["numero_doc"]}", "${jsonData["fecha_doc"]}", ${0}, ${0}, ${0}, ${UsuarioID}, "${jsonData["observaciones"]}"`,
                 _p2: jsonData["numero_doc"],
                 _p3: pkToDelete[0]["proyecto_codigo"],
                 _id: 2,
-                _pkToDelete: JSON.stringify(pkToDelete.map((folioOT: any) => ({ folio: folioOT["folio"] })))
+                _pkToDelete: JSON.stringify(pkToDelete.map((folioOT: any) => (
+                    { 
+                        folio: folioOT["folio"],
+                        usuario: UsuarioID,
+                        origen: OTAreas,
+                        estado: `${folioOT.estado_id}`,
+                        obs: `Asigna Reporte Firma: ${jsonData["numero_doc"]}` 
+                    }
+                )))
             };
 
-            console.log(query07)
             let queryURL07 = `?query=07&_p1=${query07["_p1"]}&_p2=${query07["_p2"]}&_p3=${query07["_p3"]}&_pkToDelete=${query07["_pkToDelete"]}&_id=${query07["_id"]}`
             const resultQuery07 = await axios(`${strUrl}/${queryURL07}`)
 

@@ -2,7 +2,6 @@ import axios from "axios";
 import { signal } from "@preact/signals-react";
 
 import { getArmazones, openDatabase, setArmazones } from "./indexedDB";
-import { URLBackend } from "../hooks/useCrud";
 import { toast } from "react-toastify";
 import {
   A1_DP,
@@ -27,6 +26,7 @@ import {
 import { validation_tipo_anteojo } from "./OTReceta_utils";
 
 import { ReservaArmazonesEnum } from "../Enums";
+import { URLBackend } from "./config";
 
 //?VARIABLES GLOBLAES
 export const isOnline = signal(false);

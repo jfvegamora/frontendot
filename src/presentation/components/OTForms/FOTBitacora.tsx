@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { TableComponent } from '..'
 import { table_head_OT_bitacora } from '../../utils'
 import axios from 'axios'
-import { URLBackend } from '../../hooks/useCrud';
 import { EnumGrid } from '../../views/mantenedores/MOTHistorica';
+import { URLBackend } from '../../utils/config';
 
 // const strQuery = "01&_p2=126"
 

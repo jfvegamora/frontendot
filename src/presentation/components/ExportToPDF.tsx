@@ -2,8 +2,9 @@ import React from 'react'
 import { IconButton, Tooltip } from '@material-tailwind/react';
 import { FaRegFileLines } from "react-icons/fa6";
 import axios from 'axios';
-import { URLBackend } from '../hooks/useCrud';
+// import { URLBackend } from '../hooks/useCrud';
 import { Document, Page, StyleSheet, View, Text, PDFDownloadLink } from '@react-pdf/renderer';
+import { URLBackend } from '../utils/config';
 
 
 interface IExportToPdf{

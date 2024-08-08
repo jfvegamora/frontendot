@@ -13,13 +13,13 @@ import { useCrud, useEntityUtils } from "../../hooks";
 import { AppStore, useAppDispatch, useAppSelector } from "../../../redux/store";
 import axios from "axios";
 import { setDataListbox } from "../../../redux/slices/listBoxSlice";
-import { URLBackend } from "../../hooks/useCrud";
 import { clearSelectInput, codigoProyecto, punto_venta } from "../../utils";
 
 import { retry } from 'async';
 import { changeFilterSearchTitle, filterSearchTitle, filterTextValue, resetFilters } from "../PrimaryKeySearch";
 import { inputName } from "../OTForms/Otprueba";
 import { codPuntoVenta } from "../../views/forms/FReservarArmazones";
+import { URLBackend } from "../../utils/config";
 // import Select from "react-select";
 
 interface ISelectInputProps {

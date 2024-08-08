@@ -2,7 +2,7 @@ import React from 'react'
 import { TextInputComponent } from '../forms'
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { updateOT, validationEmpaqueSchema } from '../../utils';
+import { clearAllCheck, clearIndividualCheck, updateOT, validationEmpaqueSchema } from '../../utils';
 import { Button } from '@material-tailwind/react';
 import { AppStore, useAppDispatch, useAppSelector } from '../../../redux/store';
 import { toast } from 'react-toastify';
@@ -66,6 +66,8 @@ const FOTValidarEmpaque:React.FC<IFOTValidarEmpaque> = ({
             ).then(()=>{
                 dispatch(fetchOT({OTAreas:OTAreas["areaActual"],searchParams: paramsOT.value}))
                 checkCount.value = 0;
+                clearAllCheck .value = false;
+                clearIndividualCheck.value = true;
                 // toast.success('OTs Procesadas Correctamente',{
                 //     autoClose: 900
                 //  });

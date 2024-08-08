@@ -1,9 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { URLBackend } from "../../presentation/hooks/useCrud";
 import { EnumGrid } from "../../presentation/views/mantenedores/MOTHistorica";
 import { validarImpresion } from "../../presentation/utils";
 import { OTGrillaEnum } from "../../presentation/Enums";
+import { URLBackend } from "../../presentation/utils/config";
 // import { OTGrillaEnum } from "../../presentation/Enums";
 // import { toast } from "react-toastify";
 

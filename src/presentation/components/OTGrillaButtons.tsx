@@ -14,7 +14,6 @@ import { clearImpression, fetchOT, fetchOTImpresionByID } from '../../redux/slic
 // import FOTImpresa from '../views/forms/FOTImpresa';
 import { toast } from 'react-toastify';
 // import FOTTicketImpresion from '../views/forms/FOTTicketImpresion';
-import { URLBackend } from '../hooks/useCrud';
 import axios from 'axios';
 import { EnumGrid } from '../views/mantenedores/MOTHistorica';
 // import { validationStateOT } from './OTPrimaryButtons';
@@ -24,6 +23,7 @@ import { EnumAreas } from './OTPrimaryButtons';
 import { paramsOT } from '../views/mantenedores/MOT';
 import { signal } from '@preact/signals-react';
 import { PiPrinterFill } from 'react-icons/pi';
+import { URLBackend } from '../utils/config';
 // import ReactDOM from 'react-dom';
 
 

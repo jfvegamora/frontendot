@@ -5,13 +5,13 @@ import { fetchOT } from '../../../redux/slices/OTSlice';
 import { TextInputComponent } from '../../components';
 import { clearAllCheck, MODAL, TITLES } from "../../utils";
 import { toast } from 'react-toastify';
-import { URLBackend } from '../../hooks/useCrud';
 import axios from 'axios';
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationOTFacturaSchema } from "../../utils/validationFormSchemas";
 import { useModal } from '../../hooks/useModal';
 import { paramsOT } from '../mantenedores/MOT';
 import { Button } from "@material-tailwind/react";
+import { URLBackend } from '../../utils/config';
 
 
 interface IDerivacion {
@@ -25,7 +25,6 @@ interface IDerivacion {
 
 }
 
-const strUrl = `${URLBackend}/api/proyectodocum/listado`;
 // const strUrlOT = `${URLBackend}/api/othistorica/listado`;
 
 const FOTFactura: React.FC<IDerivacion> = ({
@@ -34,6 +33,7 @@ const FOTFactura: React.FC<IDerivacion> = ({
     pktoDelete,
     otArchivo
 }) => {
+    const strUrl = `${URLBackend}/api/proyectodocum/listado`;
     const { control, handleSubmit, formState: { errors } } = useForm<any>({ resolver: yupResolver(validationOTFacturaSchema()), });
     const [fechaHoraActual, _setFechaHoraActual] = useState(new Date());
     const { showModal, CustomModal } = useModal();
@@ -103,15 +103,23 @@ const FOTFactura: React.FC<IDerivacion> = ({
         }
 
 
-        console.log(jsonData)
         const toastLoading = toast.loading('Cargando...');
+        let tipo_documento = 5;
         try {
             const query07 = {
-                _p1: `"${pktoDelete[0]["proyecto_codigo"]}", ${5}, "${jsonData["numero_doc"]}", "${jsonData["fecha_doc"]}", ${jsonData["valor_neto"]}, ${0}, ${0}, ${UsuarioID}, "${jsonData["observaciones"]}"`,
+                _p1: `"${pktoDelete[0]["proyecto_codigo"]}", ${tipo_documento}, "${jsonData["numero_doc"]}", "${jsonData["fecha_doc"]}", ${jsonData["valor_neto"]}, ${0}, ${0}, ${UsuarioID}, "${jsonData["observaciones"]}"`,
                 _p2: jsonData["numero_doc"],
                 _p3: pktoDelete[0]["proyecto_codigo"],
                 _id: 5,
-                _pkToDelete: JSON.stringify(pktoDelete.map((folioOT: any) => ({ folio: folioOT["folio"] })))
+                _pkToDelete: JSON.stringify(pktoDelete.map((folioOT: any) => (
+                    { 
+                        folio: folioOT["folio"],
+                        usuario: UsuarioID,
+                        origen: OTAreas,
+                        estado: jsonData["numero_doc"] === 0 ? 60 : 70,
+                        obs: `Asigna N° Factura: ${jsonData["numero_doc"]}` 
+                    }
+                )))
 
             }
             let queryURL07 = `?query=07&_p1=${query07["_p1"]}&_p2=${query07["_p2"]}&_p3=${query07["_p3"]}&_pkToDelete=${query07["_pkToDelete"]}&_id=${query07["_id"]}`

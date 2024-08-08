@@ -22,6 +22,7 @@ import { filterToggle } from "../../components/FilterButton";
 import { totoalTrabajosSeleccionados } from "./MOT";
 // import TableOTComponent from "../../components/TableOTComponent";
 import TableComponent2 from "../../components/TableComponent2";
+import { updateActualArea } from "../../../redux/slices/OTAreasSlice";
 
 
 
@@ -368,6 +369,7 @@ const MOTHistorica: React.FC = () => {
     const newPkToDelete = selectedRows.map((row: number) => ({
       folio             : OTs.data[row] && OTs.data[row][1],
       estado            : OTs.data[row] && OTs.data[row][5],
+      estado_id         : OTs.data[row] && OTs.data[row][4],
       proyecto_codigo   : OTs.data[row] && OTs.data[row][7],
       proyecto          : OTs.data[row] && OTs.data[row][14],
       reporte_firma     : OTs.data[row] && OTs.data[row][9],
@@ -499,13 +501,13 @@ const MOTHistorica: React.FC = () => {
 
   useEffect(()=>{
     dispatch(clearData())
+    dispatch(updateActualArea(110 as any))
+
   },[])
 
 
 
   const validateAreaArchivo = pktoDelete.some((ot:any)=>ot.area !== "Archivo");
-  console.log(pktoDelete)
-  console.log(validateAreaArchivo)
   // const folioNotArchivo = pktoDelete.filter((ot:any)=>ot.area === "Archivo").map((ot:any)=>ot.folio)
 
   // console.log(validateAreaArchivo)

@@ -11,8 +11,8 @@ import bcrypt from "bcryptjs-react";
 import { TextInputComponent } from "../components";
 import { validationResetPasswordSchema } from "../utils";
 import axios from "axios";
-import { URLBackend } from "../hooks/useCrud";
 import { Button } from "@material-tailwind/react";
+import { URLBackend } from "../utils/config";
 
 interface InputData {
   password: string;

@@ -4,14 +4,15 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 import { useRef } from "react";
 import axios, { AxiosInstance } from "axios";
-import { signal } from "@preact/signals-react";
+// import { signal } from "@preact/signals-react";
 import { AppStore, useAppSelector } from "../../redux/store";
+import { URLBackend } from "../utils/config";
 
 // PRODUCCION
 //  export const URLBackend = signal('https://gestionprod.mtoopticos.cl');
 
 // DESARROLLO
-export const URLBackend = signal('https://gestiondev.mtoopticos.cl');
+// export const URLBackend = signal('https://gestiondev.mtoopticos.cl');
 
 
 //CAPACITACION

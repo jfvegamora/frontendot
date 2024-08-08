@@ -639,9 +639,6 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
     },[dataOTSignal.value])
 
 
-    console.log(OT)
-    console.log(validationNivel3.value)
-
     React.useEffect(()=>{
         if(sumatoriaNivel3 === validationNivel3.value.length){
             //VALIDA QUE HAYA DATA EN TODOS LOS CAMPOS SINO RETORNA
@@ -892,7 +889,7 @@ const FOTValidarBodega:React.FC<IFOTValidarBodega> = ({
 
 
     return (
-        <div className={` bg-[#676f9d] mx-auto xl:w-[50vw] xl:left-[35rem]  absolute  ${OT && OT[OTGrillaEnum.tipo_anteojo_id] === 3  ? "top-[-1vw] !left-[30vw]" : "top-[6vw] !left-[30vw]" } right-auto rounded-xl shadow-md overflow-hidden lg:left-[18rem]     sm:w-[25rem]    md:max-w-[35rem] z-40`}>
+        <div className={` bg-[#676f9d] w-[35vw] mx-auto  xl:left-[35rem]  absolute  ${OT && OT[OTGrillaEnum.tipo_anteojo_id] === 3  ? "top-[-1vw] !left-[30vw]" : "top-[6vw] !left-[30vw]" } right-auto rounded-xl shadow-md overflow-hidden lg:left-[18rem]  z-40`}>
          <div className="absolute right-0 userFormBtnCloseContainer">
           <h1 className='text-center text-4xl text-white  mb-5 translate-x-[-10vw]'>Folio: <span className='text-orange-300'>{ OT && OT[OTGrillaEnum.folio]}</span></h1>
           <button onClick={()=>{

@@ -143,7 +143,6 @@ const MOT: React.FC = () => {
   },[areaActualOT])
 
   useEffect(() => {
-    console.log('render')
     let cristalStock = '1';
 
     const newPkToDelete = selectedRows?.map((row: number) => ({
@@ -189,8 +188,6 @@ const MOT: React.FC = () => {
 
     checkCount.value = newPkToDelete.length
     
-    console.log(OTPkToDelete.value)
-
     totoalTrabajosSeleccionados.value = newPkToDelete?.reduce((acc:any,ot:any)=>{
       if(ot["tipo_anteojo"] === 3){
         acc = acc + 2
@@ -204,7 +201,6 @@ const MOT: React.FC = () => {
 
 
   useEffect(()=>{
-    console.log(pkToDelete)
     OTPkToDelete.value = pkToDelete
   },[pkToDelete])
 
@@ -230,6 +226,7 @@ const MOT: React.FC = () => {
   useEffect(() => {
     dispatch(clearData())
     // dispatch(clearOTColores())
+    paramsOT.value = '';
     dispatch(fetchColores(token))
     dispatch(updateActualArea(200 as any))
     if(!localStorage.getItem('dioptrias')){

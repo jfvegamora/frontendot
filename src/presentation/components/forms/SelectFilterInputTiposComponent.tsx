@@ -9,10 +9,10 @@ import { Controller } from "react-hook-form";
 import { FiRefreshCw } from "react-icons/fi";
 import axios from "axios";
 import { AppStore, useAppDispatch, useAppSelector } from "../../../redux/store";
-import { URLBackend } from "../../hooks/useCrud";
 import { clearSelectInput } from "../../utils";
 import { changeFilterSearchTitle, resetFilters } from "../PrimaryKeySearch";
 import { updateDataForKey } from "../../../redux/slices/ListBoxTipoSlice";
+import { URLBackend } from "../../utils/config";
 // import { handleError } from "../../utils/jwt_utils";
 
 interface ISelectInputProps {

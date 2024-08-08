@@ -8,12 +8,12 @@ import { validation_A1_armazon, validation_A2_armazon, validationFechaAtencion, 
 import { codigoProyecto, EmpresaAdjudicadaOT_ID, fecha_atencion_signal, fecha_despacho, fecha_entrega_cliente, fecha_entrega_taller, fetchFechas, isToggleImpression, isToggleValidation, punto_venta, validar_parametrizacion } from '../../utils';
 import SelectInputTiposComponent from '../forms/SelectInputTiposComponent';
 import { AppStore, useAppSelector } from '../../../redux/store';
-import { URLBackend } from '../../hooks/useCrud';
 import { toast } from 'react-toastify';
 import TextInputInteractive from '../forms/TextInputInteractive';
 import { EnumAreas } from '../OTPrimaryButtons';
 import { inputOnlyReadReserva } from '../../utils/FReservaArmazones_utils';
 import { isToggleMontajeValidation, resetOptiLabSwitchs } from '../../utils/FOTCristales_utils';
+import { URLBackend } from '../../utils/config';
 
 interface IOptica {
     control:any,

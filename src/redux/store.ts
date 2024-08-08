@@ -1,19 +1,27 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { useSelector } from "react-redux";
 import { TypedUseSelectorHook, useDispatch } from "react-redux";
-import { userReducer, funcionaliddadesReducer,ORReuder, OTAreasReducer, listBoxTiposReducer, listboxReuder, Utils } from "./slices";
+import {
+  userReducer,
+  funcionaliddadesReducer,
+  ORReuder,
+  OTAreasReducer,
+  listBoxTiposReducer,
+  listboxReuder,
+  Utils,
+} from "./slices";
 import { IFuncionalidad } from "./slices/funcionalidadesSlice";
 import { IOTAreas } from "./slices/OTAreasSlice";
 import { ITiposListbox } from "./slices/ListBoxTipoSlice";
 
 export interface AppStore {
   user: any | null;
-  funcionalidades: IFuncionalidad  | null ;
+  funcionalidades: IFuncionalidad | null;
   OTAreas: IOTAreas;
   OTS: any;
   listBoxTipos: ITiposListbox;
   listBox: any;
-  utils: any
+  utils: any;
 }
 
 export const store = configureStore<AppStore>({
@@ -23,16 +31,14 @@ export const store = configureStore<AppStore>({
     OTAreas: OTAreasReducer,
     listBoxTipos: listBoxTiposReducer,
     listBox: listboxReuder,
-    OTS: ORReuder || (()=>null),
-    utils: Utils
+    OTS: ORReuder ?? (() => null),
+    utils: Utils,
   },
 });
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
-
 //HOOKS
 export const useAppDispatch: () => AppDispatch = useDispatch;
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
-

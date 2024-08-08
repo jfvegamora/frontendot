@@ -1,5 +1,4 @@
 import axios from "axios";
-import { URLBackend } from "../hooks/useCrud";
 
 import { Signal, signal } from "@preact/signals-react";
 import {
@@ -19,6 +18,7 @@ import {
   CR2_OD_LAB,
   CR2_OI_LAB,
 } from "./FOTCristales_utils";
+import { URLBackend } from "./config";
 
 export const dioptrias: any = signal<any>({
   ESF: [""],

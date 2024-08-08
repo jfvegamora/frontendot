@@ -12,13 +12,13 @@ import { clearImpression, fetchOT, fetchOTImpresionByID} from '../../redux/slice
 
 
 import axios from 'axios';
-import { URLBackend } from '../hooks/useCrud';
 import { useReactToPrint } from 'react-to-print';
 import { checkCount, OTPkToDelete, paramsOT } from '../views/mantenedores/MOT';
 import { signal } from '@preact/signals-react';
 import { setEstadoImpresion } from './OTGrillaButtons';
 import { SocialIcon } from 'react-social-icons';
 import { handleActionOTButtons } from '../utils/FOTPendiente_utils';
+import { URLBackend } from '../utils/config';
 // import { OTAreasEnum } from '../Enums/OTAreasEnum';
 // import { OTGrillaEnum } from '../Enums';
 // import { CR1_OD_LAB, CR1_OI_LAB, CR2_OD_LAB, CR2_OI_LAB } from '../utils/FOTCristales_utils';
@@ -185,13 +185,13 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
     // })
 
     const handleIngresoMasivo = async() => {
+      const toastLoading = toast.loading('Cargando....')
       try {
 
         const filterFoliosValidateState  = await OTPkToDelete.value.filter((OT:any)=>(OT.estado_id === 20)).map((OT:any)=>OT.folio);
         const filterFoliosJSON  = await OTPkToDelete.value.map((OT:any)=>OT.folio).join(',');
         const validateState = await OTPkToDelete.value.some((OT:any)=>OT.estado_id === 20);
         
-        console.log(filterFoliosJSON)
 
         if(validateState){
           return toast.error(`Folio: ${filterFoliosValidateState} Ya se encuentra en Proceso. `,
@@ -216,12 +216,13 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
           User.id,
           'Ingresar'
         )
-
+        console.log(response)
         if(response?.status === 200){
           dispatch(fetchOT({OTAreas:OTAreas["areaActual"],searchParams: paramsOT.value}))
           setSelectedRows([])
           checkCount.value = 0;
           clearAllCheck.value = false;
+          toast.dismiss(toastLoading)
         }
 
 
@@ -252,8 +253,11 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
       // toast.success('Estado cambiado correctamente.',{
       //   autoClose: 500
       // })
-      
-      } catch (error) {
+      toast.dismiss(toastLoading)
+
+      } catch (error:any) {
+        toast.dismiss(toastLoading)
+        toast.error(error)
         console.log(error)
       }
     }
@@ -712,7 +716,6 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
     }
 
     
-    console.log(OTPkToDelete.value)
 
     return (
     <div className='flex items-center   ml-[4rem] !w-full'>

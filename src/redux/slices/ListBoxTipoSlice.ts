@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { URLBackend } from "../../presentation/hooks/useCrud";
+import { URLBackend } from "../../presentation/utils/config";
 
 export interface ITiposListbox {
   CristalesDisenos: [] | null;

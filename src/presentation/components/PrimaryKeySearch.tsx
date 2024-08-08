@@ -496,7 +496,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
           ))}
         </div>
       ));
-    },[primaryKeyInputs, className, control, inputValues, handleInputChange, changeFilterSearchTitle, handleKeyDown, handleSearch, handleSelectChange, cilindrico, setCilindrico]);
+    },[]);
 
 
 

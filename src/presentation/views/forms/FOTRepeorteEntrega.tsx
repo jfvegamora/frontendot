@@ -5,13 +5,13 @@ import { fetchOT } from '../../../redux/slices/OTSlice';
 import { TextInputComponent } from '../../components';
 import { clearAllCheck, MODAL, TITLES } from "../../utils";
 import { toast } from 'react-toastify';
-import { URLBackend } from '../../hooks/useCrud';
 import axios from 'axios';
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationOTGuiaSchema } from "../../utils/validationFormSchemas";
 import { useModal } from '../../hooks/useModal';
 import { paramsOT } from '../mantenedores/MOT';
 import { Button } from "@material-tailwind/react";
+import { URLBackend } from '../../utils/config';
 // import { validationStateOT } from '../../components/OTPrimaryButtons';
 
 
@@ -27,7 +27,6 @@ interface Interface {
 }
 
 
-const strUrl = `${URLBackend}/api/proyectodocum/listado`;
 // const strUrlOT = `${URLBackend}/api/othistorica/listado`;
 
 
@@ -39,6 +38,7 @@ const FOTReporteEntrega: React.FC<Interface> = ({
     setSelectedRows,
     otArchivo
 }) => {
+    const strUrl = `${URLBackend}/api/proyectodocum/listado`;
     const { control, handleSubmit, formState: { errors }, setValue } = useForm<any>({ resolver: yupResolver(validationOTGuiaSchema()), });
     const [fechaHoraActual, _setFechaHoraActual] = useState(new Date());
 
@@ -115,13 +115,23 @@ const FOTReporteEntrega: React.FC<Interface> = ({
 
         const toastLoading = toast.loading('Cargando...');
         console.log(jsonData["numero_doc"])
+        let tipo_documento = 1;
+
         try {
             const query07 = {
-                _p1: `"${pktoDelete[0]["proyecto_codigo"]}", ${1}, "${jsonData["numero_doc"]}", "${jsonData["fecha_doc"]}", ${0}, ${0}, ${0}, ${UsuarioID}, "${jsonData["observaciones"]}"`,
+                _p1: `"${pktoDelete[0]["proyecto_codigo"]}", ${tipo_documento}, "${jsonData["numero_doc"]}", "${jsonData["fecha_doc"]}", ${0}, ${0}, ${0}, ${UsuarioID}, "${jsonData["observaciones"]}"`,
                 _p2: jsonData["numero_doc"],
                 _p3: pktoDelete[0]["proyecto_codigo"],
                 _id: 1,
-                _pkToDelete: JSON.stringify(pktoDelete.map((folioOT: any) => ({ folio: folioOT["folio"] })))
+                _pkToDelete: JSON.stringify(pktoDelete.map((folioOT: any) => (
+                    { 
+                        folio: folioOT["folio"],
+                        usuario: UsuarioID,
+                        origen: OTAreas,
+                        estado: jsonData["numero_doc"] === 0 ? 50 : 60,
+                        obs: `Asigna N° Rep Entrega: ${jsonData["numero_doc"]}` 
+                    }
+                )))
 
             }
 

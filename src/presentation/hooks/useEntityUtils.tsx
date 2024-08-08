@@ -11,10 +11,11 @@ import { toast } from "react-toastify";
 
 import { useCrud } from ".";
 import { useModal } from "./useModal";
-import { URLBackend, baseURL } from "./useCrud";
+import { baseURL } from "./useCrud";
 import { AppStore, useAppDispatch, useAppSelector } from "../../redux/store";
 import { fetchOTByID } from "../../redux/slices/OTSlice";
 import axios from "axios";
+import { URLBackend } from "../utils/config";
 
 
 export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {

@@ -9,10 +9,10 @@ import { Controller } from "react-hook-form";
 import { FiRefreshCw } from "react-icons/fi";
 import axios from "axios";
 import { AppStore, useAppDispatch, useAppSelector } from "../../../redux/store";
-import { URLBackend } from "../../hooks/useCrud";
 import { clearSelectInput } from "../../utils";
 import { changeFilterSearchTitle, resetFilters } from "../PrimaryKeySearch";
 import { updateDataForKey } from "../../../redux/slices/ListBoxTipoSlice";
+import { URLBackend } from "../../utils/config";
 // import { handleError } from "../../utils/jwt_utils";
 
 interface ISelectInputProps {
@@ -68,7 +68,6 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
     const nameInputInRedux = typeof entidad === 'string' ? entidad : entidad[0];
 
     const stateListBox = useAppSelector((store: AppStore) => store.listBoxTipos[nameInputInRedux]);
-    const stateListBox2 = useAppSelector((store: AppStore) => store.listBoxTipos);
     const [entities, setEntities] = useState(stateListBox|| []);
     const [strSelectedName, setStrSelectedName] = useState(data  || undefined);
     const inputRef = useRef(null); 
@@ -79,7 +78,6 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
 
     const fetchData = async () => {
       try {
-        console.log(stateListBox)
         if (true) {
           const { data } = await axios(`${URLBackend}/api/tipos/listado/?query=02&_p1=${params}`,{
             headers: {
@@ -87,10 +85,6 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
              }
        });
 
-
-       
-
-       console.log(data)
         dispatch(updateDataForKey({nameInputInRedux, data}))
           
         }
@@ -120,15 +114,6 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
     },[resetFilters.value])
 
 
-
-    console.log(stateListBox)
-    console.log(entidad)
-    console.log(typeof entidad === 'string' ? entidad : entidad[0])
-    console.log(stateListBox2)
-
-
-    console.log(params)
-    
     const renderInput = () => (
       <Controller
           name={name}

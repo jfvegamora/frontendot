@@ -20,8 +20,8 @@ import useCustomToast from "../../hooks/useCustomToast";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { signal } from "@preact/signals-react";
-import { URLBackend } from "../../hooks/useCrud";
 import { Button } from "@material-tailwind/react";
+import { URLBackend } from "../../utils/config";
 
 const strBaseUrl = "/api/vitrinasarmazones/";
 const strEntidad = "Parametrización de Vitrinas ";

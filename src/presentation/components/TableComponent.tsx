@@ -140,7 +140,6 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
 
 
     const handleColorEstado = useCallback((rowData:any, background?:string) => {
-      console.log('handleColorEstado')
       try {
         if(OTColores[rowData]){
           return background ? `${OTColores[rowData][1]}` : `${OTColores[rowData][0]}`
@@ -155,7 +154,6 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
     
 
     const renderTextCell = useCallback((text: string, alignment?:string, type?:number, color2?:boolean, rowData?:any, backgroundAtrasadas?:boolean, color?:any, lowArmazonesStock?:any) => {
-      console.log('renderTextCell')
       const cellStyle:any = {
         textAlign:alignment,
         color: isOT ? (rowData &&  color2 &&  handleColorEstado(rowData[5])) : (rowData &&  handleColorEstado(rowData[1], 'background  ')),
@@ -288,11 +286,9 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
               if(entidad === 'Documentación del Proyecto ' && (rowData[enumGird.tipo_doc_id] === 1 || rowData[enumGird.tipo_doc_id] === 2)){
                 excelIndividual = true
               }  
-              console.log(rowData)
               return (
                 <tr key={rowIndex} className="overflow-hidden">
                   {rowData.map((row: any, col: number) => {
-                    console.log(row)
                     const visible               = tableHead?.[col]?.visible         || false;
                     const alignment             = tableHead?.[col]?.alignment       || "";
                     const color2                = tableHead?.[col]?.color           || false;

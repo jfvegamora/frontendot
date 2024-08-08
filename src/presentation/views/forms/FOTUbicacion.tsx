@@ -8,11 +8,11 @@ import { TextInputComponent } from '../../components';
 import { useModal } from '../../hooks/useModal';
 import { clearAllCheck, MODAL, TITLES, validationUbicacionSchema } from '../../utils';
 import { AppStore, useAppDispatch, useAppSelector } from '../../../redux/store';
-import { URLBackend } from '../../hooks/useCrud';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { paramsOT } from '../mantenedores/MOT';
 import { fetchOT } from '../../../redux/slices/OTSlice';
+import { URLBackend } from '../../utils/config';
 
 
 interface IFOTUbicacion {

@@ -1,11 +1,11 @@
 import { toast } from "react-toastify";
 import { OTFormsEnum } from "../Enums";
-import { URLBackend } from "../hooks/useCrud";
 import { A1_CR_OD, A1_CR_OI, A1_Diametro, A1_GRUPO_OD, A1_GRUPO_OI, A2_CR_OD, A2_CR_OI, A2_Diametro, A2_GRUPO_OD, A2_GRUPO_OI, a2_od_cil, a2_od_esf, a2_oi_cil, a2_oi_esf, codigoProyecto, dioptrias_receta, inputOnlyReadBodegaProcesado, punto_venta, tipo_de_anteojo, validacionIncompleta } from "./signalStateOT";
 import { validation_Cristal1_od, validation_Cristal1_oi, validation_Cristal2_od, validation_Cristal2_oi } from "./validationOT";
 import axios from "axios";
 import { signal } from "@preact/signals-react";
 import { isNotFetching } from "../views/forms/FOT";
+import { URLBackend } from "./config";
 
 
 

@@ -1,6 +1,6 @@
 import axios from "axios"
-import { URLBackend } from "../hooks/useCrud"
 import { toast } from "react-toastify"
+import { URLBackend } from "./config";
 
 export const handleActionOTButtons = async(
     folios:any,

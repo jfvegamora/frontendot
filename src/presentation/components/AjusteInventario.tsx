@@ -1,5 +1,4 @@
 import React from 'react'
-import { URLBackend } from '../hooks/useCrud'
 import { TextInputComponent } from '.'
 import { useForm } from "react-hook-form";
 import axios from 'axios';
@@ -7,6 +6,7 @@ import { toast } from 'react-toastify';
 import { signal } from '@preact/signals-react';
 import { AppStore, useAppSelector } from '../../redux/store';
 import { handleAxiosError } from '../utils';
+import { URLBackend } from '../utils/config';
 
 
 export const ajuste_inventario_autorizacion = signal(false)

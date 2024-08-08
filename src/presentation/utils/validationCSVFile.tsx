@@ -1,7 +1,7 @@
 import * as XLSX from 'xlsx';
 import moment from 'moment';
-import { URLBackend } from '../hooks/useCrud';
 import axios from 'axios';
+import { URLBackend } from './config';
 
 export function validateExcelData(data:any, validationStructure:any) {
   const validationErrors = [];

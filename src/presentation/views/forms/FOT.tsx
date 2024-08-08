@@ -34,7 +34,6 @@ import {
 import { validationCliente, validationClienteComuna, validationClienteNombre, validationClienteSexo, validationClienteTelefono, validationClienteTipo, validationEstablecimientos, validationFechaAtencion, validationFechaDespacho, validationFechaEntregaCliente, validationFechaEntregaTaller, validationProyectos, validationPuntoVenta, validationTipoAnteojos, validation_A1_ALT, validation_A1_DP, validation_A1_OD_AD, validation_A1_OD_CILL, validation_A1_OD_EJE, validation_A1_OD_ESF, validation_A1_OI_AD, validation_A1_OI_CIL, validation_A1_OI_EJE, validation_A1_OI_ESF, validation_A1_armazon, validation_A2_DP, validation_A2_OD_CIL, validation_A2_OD_EJE, validation_A2_OD_ESF, validation_A2_OI_CIL, validation_A2_OI_EJE, validation_A2_OI_ESF, validation_A2_armazon, validation_Cristal1_color, validation_Cristal1_diametro, validation_Cristal1_diseño, validation_Cristal1_indice, validation_Cristal1_marca, validation_Cristal1_material, validation_Cristal1_od, validation_Cristal1_oi, validation_Cristal1_tratamiento, validation_Cristal2_color, validation_Cristal2_diametro, validation_Cristal2_diseño, validation_Cristal2_indice, validation_Cristal2_material, validation_Cristal2_od, validation_Cristal2_oi, validation_Cristal2_tratamiento, validation_cristal2_marca } from '../../utils/validationOT';
 // import { inputName } from '../../components/OTForms/Otprueba';
 // import { verificaCampos } from '../../utils/OTReceta_utils';
-import { URLBackend } from '../../hooks/useCrud';
 // import {transponer, transponer_a2 } from '../../utils/FOTReceta_utils';
 import { Spinner } from '@material-tailwind/react';
 import { toast } from 'react-toastify';
@@ -46,6 +45,7 @@ import { useModal } from '../../hooks/useModal';
 import { paramsOT } from '../mantenedores/MOT';
 import { EnumAreas } from '../../components/OTPrimaryButtons';
 import { changeCodigoCristal_A1, changeCodigoCristal_A2, CR1_OD_LAB, CR1_OI_LAB, CR2_OD_LAB, CR2_OI_LAB, getGrupoCristales_A1, getGrupoCristales_A2, isToggleMontajeValidation } from '../../utils/FOTCristales_utils';
+import { URLBackend } from '../../utils/config';
 // import { EnumAreas } from '../../components/OTPrimaryButtons';
 // import { usePermissionOT } from '../../hooks/usePermissionOT';
 // import { EnumAreas } from '../../components/OTPrimaryButtons';
