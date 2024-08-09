@@ -579,7 +579,7 @@ const MOTHistorica: React.FC = () => {
                     labelProps: "labelInput"
                   }},
     
-                { name: "_p2", label: "Tipo Doc", type: "select", selectUrl: "/api/tipos/", tipos: "TipoDoc", 
+                { name: "_p2", label: "Tipo Doc", type: "select", selectUrl: "/api/tipos/", tipos: "OTNumDoc", 
                   styles: {
                     styles:"labelInput inputStyles",
                     container:"!w-[22.5vw]  translate-x-[-2.5vw] ", 
@@ -690,7 +690,7 @@ const MOTHistorica: React.FC = () => {
           </Suspense>
 
           <Suspense>
-            <ExportCSV strEntidad={strEntidad} params={params} strBaseUrl={strBaseUrl} primaryButton={true}/>  
+            <ExportCSV strEntidad={strEntidad} params={params} strBaseUrl={strBaseUrl} primaryButton={true} idMenu={idMenu}/>  
           </Suspense>
         </div>
       </div>

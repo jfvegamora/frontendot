@@ -42,7 +42,8 @@ const useCrud = (
     query?:string,
     jsonData?:any,
     customExport?:boolean,
-    OTAreas?:any
+    OTAreas?:any,
+    idMenu?:any
   ) => Promise<any | undefined>;
   ListEntity: (primaryKeys: any, query: string) => Promise<any | undefined>;
   firstInputRef: any;
@@ -145,11 +146,13 @@ const useCrud = (
     query?:string,
     jsonData?:any,
     customExport?:boolean,
-    OTAreas?:any
+    OTAreas?:any,
+    idMenu?:any
   ): Promise<void> => {
     try {
       let strUrl = ''
       let response:any = {}
+      let limit = 100000;
       
       if(customExport && query){
         strUrl ='/otros/?query=01'
@@ -165,11 +168,16 @@ const useCrud = (
         })
       }else{
         //CASO DE USO 1
-        if(strEntidad?.includes('Orden')){
+        
+        if((idMenu === 28) || (idMenu === 1) ){
           strUrl = primaryKey
-            ? OTAreas ? `/excel/?${query ?  query : "query=14"}&_origen=${OTAreas}&${primaryKey}` :  `/excel/?${query ?  query : "query=14"}&${primaryKey}`
-            : OTAreas ?  `/excel/?${query ? query : "query=14"}&_origen=${OTAreas}`               :  `/excel/?${query ? query : "query=14"}`;
-        }else{
+            ? OTAreas ? `/excel/?${query ?  query : "query=14"}&_origen=${OTAreas}&${primaryKey}&_limit=${limit}` :  `/excel/?${query ?  query : "query=14"}&${primaryKey}&_limit=${limit}`
+            : OTAreas ?  `/excel/?${query ? query : "query=14"}&_origen=${OTAreas}&_limit=${limit}`               :  `/excel/?${query ? query : "query=14"}&_limit=${limit}`;
+        }else if(strEntidad?.includes('Mantenedor de Armazzones')){
+          strUrl = primaryKey
+          ? `/excel/?${query ?  query : "query=100"}&${primaryKey}`
+          : `/excel/?${query ? query : "query=100"}`;
+      }else{
           strUrl = primaryKey
             ? `/excel/?${query ?  query : "query=01"}&${primaryKey}`
             : `/excel/?${query ? query : "query=01"}`;

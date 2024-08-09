@@ -26,6 +26,7 @@ type Props = {
   query?:string;
   entity?:any;
   OTAreas?:any;
+  idMenu?:any;
   primaryButton?:boolean //si es falso signficia que es el boton de la grilla
 };
 
@@ -54,7 +55,8 @@ const ExportToCsv: React.FC<Props> = ({
   entity,
   customExport,
   OTAreas,
-  primaryButton
+  primaryButton,
+  idMenu
 }) => {
   const [exportAll, setExportAll] = useState(false);
   const [exportTable, setExportTable] = useState(false);
@@ -108,7 +110,7 @@ const ExportToCsv: React.FC<Props> = ({
 
 
   const exportExcel = (primaryKey:string, nombreExcel?:string,jsonData?:any) => {
-    return exportEntity(primaryKey, nombreExcel, query, jsonData, customExport,OTAreas)
+    return exportEntity(primaryKey, nombreExcel, query, jsonData, customExport,OTAreas, idMenu)
               .then(() => {
                 show({
                   message: EXCEL.download,
@@ -123,8 +125,6 @@ const ExportToCsv: React.FC<Props> = ({
   useEffect(() => {
     if(exportAll || exportTable){
       const primarykey = exportAll ? "" : params; 
-      console.log(exportAll)
-      console.log(exportTable)
       exportExcel(primarykey, strEntidad)
       // handleClear()
     }
@@ -214,15 +214,12 @@ const ExportToCsv: React.FC<Props> = ({
     }
   }
 
-  // console.log(query)
-  console.log(primaryButton)
   return (
     <>
       <Tooltip content="Exportar">
         <IconButton variant="text" tabIndex={1} color="blue-gray" className="mx-2 primaryBtnIconButton">
         <FontAwesomeIcon icon={faDownload} className={` ${query ? "gridIcons" : "primaryBtnIcon"}`}
               onClick={() => {
-                console.log(strEntidad)
                 if(primaryButton === true){
                   handleExport(true)
                   console.log('click')

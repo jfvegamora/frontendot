@@ -25,7 +25,7 @@ export interface ITiposListbox {
   PuntosVentaTipos: [] | null;
   ClientesTipos: [] | null;
 
-  OTEnumDoc: [] | null;
+  // OTNumDoc: [] | null;|
 
   [key: string]: any | undefined;
 }
@@ -124,9 +124,9 @@ const initialState: ITiposListbox | null = {
         localStorage.getItem("ListBoxTipos.OTTratamientoAdicional") as string
       )
     : null,
-  OTEnumDoc: localStorage.getItem("ListBoxTipos.OTEnumDoc")
-    ? JSON.parse(localStorage.getItem("ListBoxTipos.OTEnumDoc") as string)
-    : null,
+  // OTNumDoc: localStorage.getItem("ListBoxTipos.OTEnumDoc")
+  //   ? JSON.parse(localStorage.getItem("ListBoxTipos.OTEnumDoc") as string)
+  //   : null,
 
   PuntosVentaTipos: localStorage.getItem("ListBoxTipos.PuntosVentaTipos")
     ? JSON.parse(
@@ -153,7 +153,6 @@ export const fetchListBoxTipos = createAsyncThunk(
           },
         }
       );
-      console.log(data);
       return data;
     } catch (error) {
       throw error;
@@ -177,14 +176,15 @@ const listBoxTiposSlice = createSlice({
   reducers: {
     updateDataForKey: (state, action) => {
       const { data, nameInputInRedux } = action.payload;
-
-      console.log({ nameInputInRedux, data });
-      console.log(state);
-      if (!state.hasOwnProperty(nameInputInRedux)) {
+      if (
+        !state.hasOwnProperty(nameInputInRedux) ||
+        state[nameInputInRedux].length === 0
+      ) {
         state[nameInputInRedux] = data;
       }
-      console.log(state);
+      return state;
     },
+
     clearLocalStorage: (_state) => {
       Object.keys(localStorage).forEach((key) => {
         if (key.startsWith("ListBoxTipos.")) {
@@ -194,6 +194,7 @@ const listBoxTiposSlice = createSlice({
       });
     },
   },
+
   extraReducers: (builder) => {
     builder.addCase(fetchListBoxTipos.fulfilled, (state, action) => {
       const data = action.payload;

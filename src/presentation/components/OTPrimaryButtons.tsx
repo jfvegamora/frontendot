@@ -38,6 +38,7 @@ type AreaButtonsProps ={
     areaActual:string;
     handleAddPerson?: () => void;
     setSelectedRows?:any
+    idMenu?:any
   }
   
 export const dataOTSignal       = signal([]);
@@ -123,7 +124,8 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
     areaPermissions,
     handleAddPerson,
     params,
-    setSelectedRows
+    setSelectedRows,
+    idMenu,
 }) => {
     const dispatch                                    = useAppDispatch();
     const OTAreas:any                                 = useAppSelector((store: AppStore) => store.OTAreas)
@@ -780,6 +782,7 @@ const OTPrimaryButtons:React.FC<AreaButtonsProps> = React.memo(({
               strBaseUrl={strBaseUrl}
               OTAreas={OTAreas["areaActual"]}
               primaryButton={true}
+              idMenu={idMenu}
             />
             </div>
           )}

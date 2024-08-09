@@ -85,6 +85,7 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
              }
        });
 
+       console.log(data)
         dispatch(updateDataForKey({nameInputInRedux, data}))
           
         }
