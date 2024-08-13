@@ -14,19 +14,19 @@ import FOTValidateCristales from "../views/forms/FOTValidateCristales";
 // import { toast } from "react-toastify";
 // import { useIndexedDB } from "../hooks/useIndexedDB";
 
-export const handleContainerClick = (event:React.MouseEvent<HTMLDivElement>) => {
+export const handleContainerClick = (
+  event: React.MouseEvent<HTMLDivElement>
+) => {
   if (event.target instanceof Element) {
     if (event.target.classList.contains("mantenedorContainer")) {
-      filterToggle.value = false
+      filterToggle.value = false;
     }
   }
-}
-
+};
 
 const LandingPage: React.FC = () => {
   // const navigate = useNavigate();
   // const { db, addToStore, getAllFromStore, deleteFromStore } = useIndexedDB('mi_base_de_datos', 1, 'mi_tienda');
-
 
   // const handleAdd = () => {
   //   const item = {
@@ -35,10 +35,9 @@ const LandingPage: React.FC = () => {
   //     stockReservado: 5,
   //     nuevoItem:'22'
   //   };
-    
+
   //   addToStore(item)
   // };
-
 
   // const handleGet = () => {
   //   console.log(navigator.onLine)
@@ -46,7 +45,6 @@ const LandingPage: React.FC = () => {
   //     console.log(item)
   //   })
   // };
-
 
   // React.useEffect(()=>{
   //   if(navigator.onLine){
@@ -70,30 +68,28 @@ const LandingPage: React.FC = () => {
   //           navigate('/login');
   //       }
   //     })
-      
-   
+
   //     //todo true = aun no expirado por ende pasar
   //   }
   // },[])
 
   // useEffect(()=>{
   //   const localStorageUser = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user") as string) : [];
-    
+
   //   if(!localStorageUser){
   //       toast.error('Sesion Expirada')
   //       navigate('/login');
   //   }
-    
-  // // },[])
 
+  // // },[])
 
   return (
     <div className="mantenedorContainer !h-[80rem]">
       <div className="mt-8 h-full w-fullpt-20">
-      {/* <button onClick={()=>handleAdd()}>Agregar</button> */}
-      {/* <button onClick={()=>handleGet()}>GET DATOS</button> */}
-      {/* <Link to={"google.com"}>Link</Link> */}
-      {/* <div className="w-1/4 h-1/4 my-auto mx-auto bg-gray-400 px-10">
+        {/* <button onClick={()=>handleAdd()}>Agregar</button> */}
+        {/* <button onClick={()=>handleGet()}>GET DATOS</button> */}
+        {/* <Link to={"google.com"}>Link</Link> */}
+        {/* <div className="w-1/4 h-1/4 my-auto mx-auto bg-gray-400 px-10">
       <h1>Mensaje a mandar:</h1>
       <textarea name="" id="" onChange={(e)=>setText(e.target.value)}></textarea>
       <div>
@@ -127,15 +123,9 @@ const LandingPage: React.FC = () => {
 
       </div>  */}
 
-       {/* <WhastappForm/> */}
+        {/* <WhastappForm/> */}
 
-
-
-        <FOTValidateCristales/>
-
-
-
-   
+        {/* <FOTValidateCristales/> */}
       </div>
     </div>
   );
