@@ -969,7 +969,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
             </Tooltip>
           )}
 
-        {OTAreas["areaActual"] === 60 && (
+        {OTAreas["areaActual"] === 60 && User.cargo === 1 && (
           <Tooltip content={BUTTON_MESSAGES.procesar}>
             {/* <button className='bg-green-400 mx-4 transition-transform transform hover:scale-110 active:scale-95 w-[10rem] h-[2.5rem]  text-white '  */}
 
@@ -1181,7 +1181,28 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
                   }}
                 />
                 <label htmlFor="procesar_tb" className="">
-                  Procesar
+                  Procesar TB1
+                </label>
+              </div>
+
+              <div className="flex">
+                <input
+                  type="radio"
+                  id="procesar_tb"
+                  name="radioGroup"
+                  className=" mx-2 h-[1.5rem] w-[1.5rem]"
+                  value="procesar_tb"
+                  checked={resultValidarBodega.value.ProcesarTB}
+                  onChange={(e) => {
+                    resultValidarBodega.value = {
+                      ProcesarTB: e.target.checked,
+                      conCristales: false,
+                      sinCristales: false,
+                    };
+                  }}
+                />
+                <label htmlFor="procesar_tb" className="">
+                  Procesar TB2
                 </label>
               </div>
 

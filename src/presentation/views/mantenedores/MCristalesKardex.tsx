@@ -1,12 +1,12 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 
 import {
   PrimaryButtonsComponent,
   PrimaryKeySearch,
-  TableComponent, 
+  TableComponent,
 } from "../../components";
 import { useEntityUtils, usePermission } from "../../hooks";
 import FCristalesKardexIN from "../forms/FCristalesKardexIN";
@@ -38,14 +38,20 @@ const strEntidad = "Kardex de Cristal ";
 const strEntidadExcel = "CristalesKardex";
 const strBaseUrl = "/api/cristaleskardex/";
 const strQuery = "01";
-const idMenu = 8;
-
-
+// const idMenu = 8;
 
 const MCristalesKardex: React.FC = () => {
+  const idMenu = React.useMemo(() => 8, []);
+
   const [params, setParams] = useState([]);
+
   const [kardexDescription, setKardexDescription] = useState("");
-  const { escritura_lectura} = usePermission(idMenu || 0 );
+  // const { escritura_lectura} = usePermission(idMenu || 0 );
+  const getPermissions = useCallback(
+    () => usePermission(idMenu || 0),
+    [idMenu]
+  );
+  const { escritura_lectura } = getPermissions();
 
   const updateParams = (newParams: Record<string, never>) => {
     setParams(Object.keys(newParams).map((key) => newParams[key]));
@@ -72,13 +78,17 @@ const MCristalesKardex: React.FC = () => {
     resetEntities,
   } = useEntityUtils(strBaseUrl, strQuery);
 
-  const [pkToDelete, setPkToDelete] = useState<string[]>([])
-  const strParamsToDelete = '_pkToDelete' // _p3/_p1/_pkToDelete
-  
-  useEffect(() => {    
-    const newPkToDelete = selectedRows.map((row: number) => 
-     `{"pk1":"${entities[row][EnumGrid.insumo]}", "pk2":"${entities[row][EnumGrid.fecha]}"}`);
-    const combinedPks = newPkToDelete.join(',');
+  const [pkToDelete, setPkToDelete] = useState<string[]>([]);
+  const strParamsToDelete = "_pkToDelete"; // _p3/_p1/_pkToDelete
+
+  useEffect(() => {
+    const newPkToDelete = selectedRows.map(
+      (row: number) =>
+        `{"pk1":"${entities[row][EnumGrid.insumo]}", "pk2":"${
+          entities[row][EnumGrid.fecha]
+        }"}`
+    );
+    const combinedPks = newPkToDelete.join(",");
 
     setPkToDelete([`${strParamsToDelete}=[${combinedPks}]`]);
   }, [selectedRows]);
@@ -88,6 +98,20 @@ const MCristalesKardex: React.FC = () => {
       setKardexDescription(entities[0]);
     }
   }, [entities]);
+
+  const newTableHead = useMemo(() => {
+    return table_head_kardex
+      .map((column: any) => {
+        if (
+          !escritura_lectura &&
+          ["valor_neto", "factura", "proveedor"].includes(column.key)
+        ) {
+          return { ...column, visible: false };
+        }
+        return column;
+      })
+      .filter((col) => col.visible);
+  }, [escritura_lectura]);
 
   return (
     <div className="mantenedorContainer">
@@ -103,62 +127,80 @@ const MCristalesKardex: React.FC = () => {
                 name: "_p5",
                 label: "Motivo Ingreso",
                 type: "select",
-                selectUrl: "/api/kardexmotivos/", 
-                styles: { 
-                  styles:"labelInput inputStyles w-[20vw]",
-                  container:"ml-[1vw] translate-x-[-1vw]  translate-y-[5.5vw] ", 
-                  labelProps: "labelInput "
+                selectUrl: "/api/kardexmotivos/",
+                styles: {
+                  styles: "labelInput inputStyles w-[20vw]",
+                  container:
+                    "ml-[1vw] translate-x-[-1vw]  translate-y-[5.5vw] ",
+                  labelProps: "labelInput ",
                 },
-                _p1: "01"
+                _p1: "01",
               },
               {
                 name: "_p6",
                 label: "Motivo Egreso",
                 type: "select",
-                selectUrl: "/api/kardexmotivos/", 
-                styles: { 
-                  styles:"labelInput inputStyles w-[20vw]",
-                  container:"ml-[1vw] -translate-x-[-2vw] translate-y-[5.5vw] ", 
-                  labelProps: "labelInput"
+                selectUrl: "/api/kardexmotivos/",
+                styles: {
+                  styles: "labelInput inputStyles w-[20vw]",
+                  container:
+                    "ml-[1vw] -translate-x-[-2vw] translate-y-[5.5vw] ",
+                  labelProps: "labelInput",
                 },
-                _p1: "02"
+                _p1: "02",
               },
-              
-              { name: "_p1", label: "Código", type: "text", styles:{
-                styles:"labelInput inputStyles",
-                container:"!w-[13vw] -translate-x-[34vw] translate-y-[0.3vw]", 
-                labelProps: "labelInput"
-              } },
-              
+
+              {
+                name: "_p1",
+                label: "Código",
+                type: "text",
+                styles: {
+                  styles: "labelInput inputStyles",
+                  container:
+                    "!w-[13vw] -translate-x-[34vw] translate-y-[0.3vw]",
+                  labelProps: "labelInput",
+                },
+              },
+
               {
                 name: "_p4",
                 label: "Almacenes",
                 type: "select",
-                selectUrl: "/api/almacenes/", 
-                styles:{
-                  styles:"labelInput inputStyles",
-                  container:"!w-[40vw] -translate-x-[32vw] translate-y-[0.3vw] ", 
-                  labelProps: "labelInput"
+                selectUrl: "/api/almacenes/",
+                styles: {
+                  styles: "labelInput inputStyles",
+                  container:
+                    "!w-[40vw] -translate-x-[32vw] translate-y-[0.3vw] ",
+                  labelProps: "labelInput",
                 },
-                _p1: "1"
+                _p1: "1",
               },
-              { name: "_p2", label: "Desde", type: "date", styles:{
-                styles:"labelInput inputStyles",
-                container:"!w-[12vw] -translate-x-[22vw]  translate-y-[0.3vw] ", 
-                labelProps: "labelInput"
-              } },
-              { name: "_p3", label: "Hasta", type: "date", styles:
-                {
-                  styles:"labelInput inputStyles",
-                  container:"!w-[12vw] -translate-x-[20vw] translate-y-[0.3vw]", 
-                  labelProps: "labelInput"
-                }},
-
+              {
+                name: "_p2",
+                label: "Desde",
+                type: "date",
+                styles: {
+                  styles: "labelInput inputStyles",
+                  container:
+                    "!w-[12vw] -translate-x-[22vw]  translate-y-[0.3vw] ",
+                  labelProps: "labelInput",
+                },
+              },
+              {
+                name: "_p3",
+                label: "Hasta",
+                type: "date",
+                styles: {
+                  styles: "labelInput inputStyles",
+                  container:
+                    "!w-[12vw] -translate-x-[20vw] translate-y-[0.3vw]",
+                  labelProps: "labelInput",
+                },
+              },
             ]}
             classNameSearchButton=" translate-x-[-13vw]  !translate-y-[5.5vw]"
           />
         </div>
-
 
         <div className="w-[15%]">
           <PrimaryButtonsComponent
@@ -180,33 +222,29 @@ const MCristalesKardex: React.FC = () => {
             idMenu={idMenu}
             bln_egreso={true}
             classname={"translate-x-[-1vw]  !w-[19vw] translate-y-[2.5vw]"}
-
           />
-
         </div>
-
       </div>
 
       <div className="width100 !h-4/6  scroll">
         <TableComponent
-          handleSelectChecked     ={handleSelect}
+          handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
-          toggleEditModal         ={toggleEditModal}
-          handleDeleteSelected    ={handleDeleteSelected}
-          selectedRows            ={selectedRows}
-          pkToDelete              ={pkToDelete}
-          setSelectedRows         ={setSelectedRows}
-          entidad                 ={strEntidad}
-          data                    ={entities}
-          tableHead               ={table_head_kardex}
-          showEditButton          ={false}
-          showDeleteButton        ={false}
-          idMenu                  ={idMenu}
+          toggleEditModal={toggleEditModal}
+          handleDeleteSelected={handleDeleteSelected}
+          selectedRows={selectedRows}
+          pkToDelete={pkToDelete}
+          setSelectedRows={setSelectedRows}
+          entidad={strEntidad}
+          data={entities}
+          tableHead={newTableHead}
+          showEditButton={false}
+          showDeleteButton={false}
+          idMenu={idMenu}
           leftEdit={true}
         />
       </div>
 
-    
       {isModalInsert && (
         <FCristalesKardexIN
           label={`${TITLES.ingreso} ${strEntidad}`}

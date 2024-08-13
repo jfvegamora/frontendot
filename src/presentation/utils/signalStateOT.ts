@@ -1229,9 +1229,9 @@ export const updateOT = async (
   }
   //TODO: FIN PROCESAR MASIVO
 
-  let estado_impresion = data && data[EnumGrid.estado_impresion_id];
-  let validar_parametrizacion =
-    data && data[EnumGrid.validar_parametrizacion_id];
+  // let estado_impresion = data && data[EnumGrid.estado_impresion_id];
+  // let validar_parametrizacion =
+  //   data && data[EnumGrid.validar_parametrizacion_id];
 
   let estado_validacion = validation_Complete === true ? 2 : 1;
 
@@ -1265,15 +1265,9 @@ export const updateOT = async (
     `area=${_destino}`,
     `estado=${_estado}`,
     `validar_parametrizacion="${
-      _estado === 40
-        ? isToggleValidation.value
-          ? 1
-          : 0
-        : validar_parametrizacion
+      isToggleValidation.value === true ? "1" : "0"
     }"`,
-    `estado_impresion="${
-      _estado === 40 ? (isToggleImpression.value ? 1 : 0) : estado_impresion
-    }"`,
+    `estado_impresion="${isToggleImpression.value === true ? "1" : "0"}"`,
     `proyecto="${
       jsonData.proyecto_codigo !== undefined
         ? jsonData.proyecto_codigo

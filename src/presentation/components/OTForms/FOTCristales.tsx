@@ -267,68 +267,49 @@ const FOTCristales: React.FC<ICristales> = ({
   }, []);
 
   const handleCR1_OD_LABChange = (event: any) => {
-    console.log("render");
     const { checked } = event;
-    console.log(checked);
     if (checked === true) {
       A1_CR_OD.value = "";
       A1_GRUPO_OD.value = "";
       validation_Cristal1_od("32");
-      console.log("render");
     }
 
     CR1_OD_LAB.value = checked;
   };
   const handleCR2_OD_LABChange = (event: any) => {
-    console.log("render");
     const { checked } = event;
-    console.log(checked);
     if (checked === true) {
       A2_CR_OD.value = "";
       A2_GRUPO_OD.value = "";
       validation_Cristal2_od("32");
-      console.log("render");
     }
 
     CR2_OD_LAB.value = checked;
   };
   const handleCR2_OI_LABChange = (event: any) => {
-    console.log("render");
     const { checked } = event;
-    console.log(checked);
     if (checked === true) {
       A2_CR_OI.value = "";
       A2_GRUPO_OI.value = "";
       validation_Cristal2_oi("32");
-      console.log("render");
     }
 
     CR2_OI_LAB.value = checked;
   };
 
-  // Maneja el cambio de estado para CR1_OI_LAB
   const handleCR1_OI_LABChange = (event: any) => {
-    console.log("render");
     const { checked } = event;
-
-    console.log(checked);
-
     if (checked === true) {
       A1_CR_OI.value = "";
       A1_GRUPO_OI.value = "";
       validation_Cristal1_oi("32");
     }
-
     CR1_OI_LAB.value = checked;
-    // console.log(CR1_OI_LAB.value);
-
-    // Lógica adicional si es necesario
   };
 
   React.useEffect(() => {
     console.log("render");
     if (CR1_OD_LAB.value === true && CR1_OI_LAB.value === true) {
-      console.log("render");
       // validatePestañaCristales()
       validation_Cristal1_marca("32");
       validation_Cristal1_diseño("32");
@@ -368,14 +349,6 @@ const FOTCristales: React.FC<ICristales> = ({
       (EmpresaAdjudicadaOT_ID.value === 3 ||
         EmpresaAdjudicadaOT_ID.value === 2))
   );
-
-  console.log(EmpresaAdjudicadaOT_ID.value);
-
-  console.log(permiso_areas_cristales);
-  console.log(permiso_usuario_cristales);
-  console.log(isEditting);
-
-  console.log(checkDisabled);
 
   return (
     <form onKeyDown={handleKeyDown}>
