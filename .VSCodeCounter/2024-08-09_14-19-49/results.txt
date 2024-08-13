@@ -1,0 +1,275 @@
+Date : 2024-08-09 14:19:49
+Directory : c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src
+Total : 229 files,  51549 codes, 6565 comments, 8271 blanks, all 66385 lines
+
+Languages
++----------------+------------+------------+------------+------------+------------+
+| language       | files      | code       | comment    | blank      | total      |
++----------------+------------+------------+------------+------------+------------+
+| TypeScript JSX |        182 |     44,695 |      5,814 |      7,359 |     57,868 |
+| TypeScript     |         44 |      5,916 |        713 |        733 |      7,362 |
+| CSS            |          2 |        937 |         38 |        179 |      1,154 |
+| XML            |          1 |          1 |          0 |          0 |          1 |
++----------------+------------+------------+------------+------------+------------+
+
+Directories
++-------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                                          | files      | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                                             |        229 |     51,549 |      6,565 |      8,271 |     66,385 |
+| . (Files)                                                                                                                     |          5 |      1,073 |         58 |        217 |      1,348 |
+| assets                                                                                                                        |          1 |          1 |          0 |          0 |          1 |
+| interfaces                                                                                                                    |          2 |        462 |         34 |         20 |        516 |
+| presentation                                                                                                                  |        212 |     49,248 |      6,421 |      7,937 |     63,606 |
+| presentation\Enums                                                                                                            |         10 |        306 |          4 |         25 |        335 |
+| presentation\components                                                                                                       |         52 |     11,410 |      1,594 |      2,269 |     15,273 |
+| presentation\components (Files)                                                                                               |         27 |      5,140 |        672 |      1,153 |      6,965 |
+| presentation\components\OTForms                                                                                               |         16 |      4,826 |        749 |        849 |      6,424 |
+| presentation\components\forms                                                                                                 |          9 |      1,444 |        173 |        267 |      1,884 |
+| presentation\guards                                                                                                           |          2 |         37 |         16 |         17 |         70 |
+| presentation\hooks                                                                                                            |         10 |        657 |         36 |        136 |        829 |
+| presentation\pages                                                                                                            |          8 |        594 |        115 |        127 |        836 |
+| presentation\utils                                                                                                            |         19 |      8,993 |        798 |        837 |     10,628 |
+| presentation\views                                                                                                            |        111 |     27,251 |      3,858 |      4,526 |     35,635 |
+| presentation\views\forms                                                                                                      |         67 |     20,183 |      2,785 |      3,316 |     26,284 |
+| presentation\views\mantenedores                                                                                               |         44 |      7,068 |      1,073 |      1,210 |      9,351 |
+| redux                                                                                                                         |          9 |        765 |         52 |         97 |        914 |
+| redux (Files)                                                                                                                 |          1 |         39 |          1 |          5 |         45 |
+| redux\slices                                                                                                                  |          8 |        726 |         51 |         92 |        869 |
++-------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-------------------------------------------------------------------------------------------------------------------------------+----------------+------------+------------+------------+------------+
+| filename                                                                                                                      | language       | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------------------------------------------+----------------+------------+------------+------------+------------+
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\App.css                                                           | CSS            |          5 |          0 |          4 |          9 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\App.tsx                                                           | TypeScript JSX |        118 |         19 |         33 |        170 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\assets\react.svg                                                  | XML            |          1 |          0 |          0 |          1 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\index.css                                                         | CSS            |        932 |         38 |        175 |      1,145 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\interfaces\Routes_interface.ts                                    | TypeScript     |        461 |         34 |         19 |        514 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\interfaces\index.ts                                               | TypeScript     |          1 |          0 |          1 |          2 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\main.tsx                                                          | TypeScript JSX |         18 |          0 |          4 |         22 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\Enums\AccesoriosEnum.ts                              | TypeScript     |         13 |          0 |          1 |         14 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\Enums\ArmazonesEnum.ts                               | TypeScript     |         26 |          0 |          1 |         27 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\Enums\CristalesEnum.ts                               | TypeScript     |         28 |          0 |          1 |         29 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\Enums\OTAreasEnum.ts                                 | TypeScript     |         13 |          0 |          1 |         14 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\Enums\OTFormsEnum.ts                                 | TypeScript     |        141 |          3 |         16 |        160 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\Enums\OTGrillaEnum.ts                                | TypeScript     |         36 |          1 |          1 |         38 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\Enums\ProyectosDestinosEnum.ts                       | TypeScript     |          9 |          0 |          1 |         10 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\Enums\ProyectosDocumEnum.ts                          | TypeScript     |         16 |          0 |          1 |         17 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\Enums\ReservaArmazonesEnum.ts                        | TypeScript     |         16 |          0 |          1 |         17 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\Enums\index.ts                                       | TypeScript     |          8 |          0 |          1 |          9 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\components\AjusteInventario.tsx                      | TypeScript JSX |         69 |          4 |         14 |         87 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\components\ComplexNavbar.tsx                         | TypeScript JSX |        933 |         34 |        112 |      1,079 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\components\ContactComponent.tsx                      | TypeScript JSX |         76 |          0 |          9 |         85 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\components\ErrorOTModal.tsx                          | TypeScript JSX |         56 |          8 |         18 |         82 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\components\ExportCustomToCsv.tsx                     | TypeScript JSX |         55 |          4 |         19 |         78 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\components\ExportToCsv.tsx                           | TypeScript JSX |        130 |        107 |         45 |        282 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\components\ExportToPDF.tsx                           | TypeScript JSX |        165 |         50 |         56 |        271 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\components\FilterButton.tsx                          | TypeScript JSX |         53 |         20 |         14 |         87 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\components\FrameComponent.tsx                        | TypeScript JSX |         21 |          0 |          3 |         24 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\components\ImportToCsv.tsx                           | TypeScript JSX |        217 |        119 |         77 |        413 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\components\LogoImagenImpresion.tsx                   | TypeScript JSX |         12 |          0 |          4 |         16 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\components\ModalImpor.tsx                            | TypeScript JSX |        120 |         19 |         40 |        179 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\components\OTAreasButtons.tsx                        | TypeScript JSX |         69 |          0 |         10 |         79 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\components\OTForms\FOTAnulacion.tsx                  | TypeScript JSX |        177 |          5 |         31 |        213 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\components\OTForms\FOTArmazones.tsx                  | TypeScript JSX |        742 |        248 |        167 |      1,157 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\components\OTForms\FOTBitacora.tsx                   | TypeScript JSX |         37 |          1 |         13 |         51 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\components\OTForms\FOTClientes.tsx                   | TypeScript JSX |        361 |         14 |         62 |        437 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\components\OTForms\FOTCristales.tsx                  | TypeScript JSX |        618 |        172 |        111 |        901 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\components\OTForms\FOTDerivacion.tsx                 | TypeScript JSX |        238 |          4 |         39 |        281 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\components\OTForms\FOTGarantia.tsx                   | TypeScript JSX |        139 |          1 |         18 |        158 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\components\OTForms\FOTOptica.tsx                     | TypeScript JSX |        566 |         30 |         81 |        677 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\components\OTForms\FOTPendiente.tsx                  | TypeScript JSX |        211 |          3 |         38 |        252 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\components\OTForms\FOTReceta.tsx                     | TypeScript JSX |        434 |         14 |         57 |        505 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\components\OTForms\FOTValidarBodega.tsx              | TypeScript JSX |        712 |        230 |        152 |      1,094 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\components\OTForms\FOTValidarEmpaque.tsx             | TypeScript JSX |        119 |          7 |         27 |        153 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\components\OTForms\OTSelectInputComponent.tsx        | TypeScript JSX |         31 |          0 |          8 |         39 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\components\OTForms\OTTextInputComponent.tsx          | TypeScript JSX |        385 |         15 |         32 |        432 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\components\OTForms\Otprueba.tsx                      | TypeScript JSX |         46 |          4 |         12 |         62 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\components\OTForms\index.ts                          | TypeScript     |         10 |          1 |          1 |         12 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\components\OTGrillaButtons.tsx                       | TypeScript JSX |        262 |         39 |         64 |        365 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\components\OTPrimaryButtons.tsx                      | TypeScript JSX |        802 |        135 |        234 |      1,171 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\components\PrimaryButtonsComponent.tsx               | TypeScript JSX |        278 |         53 |         66 |        397 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\components\PrimaryKeySearch.tsx                      | TypeScript JSX |        477 |         14 |         62 |        553 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\components\ProyectoComponent.tsx                     | TypeScript JSX |        102 |          0 |         12 |        114 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\components\QrScannerInput.tsx                        | TypeScript JSX |         10 |          1 |          2 |         13 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\components\RegProCom.tsx                             | TypeScript JSX |        174 |         12 |         29 |        215 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\components\StateCountBarOT.tsx                       | TypeScript JSX |        106 |          1 |         45 |        152 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\components\TableComponent.tsx                        | TypeScript JSX |        344 |         36 |         83 |        463 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\components\TableComponent2.tsx                       | TypeScript JSX |        209 |          2 |         61 |        272 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\components\TableOTComponent.tsx                      | TypeScript JSX |        223 |          3 |         27 |        253 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\components\ToastNotification.tsx                     | TypeScript JSX |         21 |          1 |          6 |         28 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\components\WhastappForm.tsx                          | TypeScript JSX |        150 |         10 |         40 |        200 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\components\forms\RadioButtonComponent.tsx            | TypeScript JSX |         97 |          0 |         11 |        108 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\components\forms\RegProComponent.tsx                 | TypeScript JSX |        164 |         33 |         26 |        223 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\components\forms\SelectFilterInputComponent.tsx      | TypeScript JSX |        227 |         26 |         53 |        306 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\components\forms\SelectFilterInputTiposComponent.tsx | TypeScript JSX |        178 |         27 |         26 |        231 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\components\forms\SelectInputComponent.tsx            | TypeScript JSX |        233 |         26 |         53 |        312 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\components\forms\SelectInputTiposComponent.tsx       | TypeScript JSX |        179 |         28 |         28 |        235 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\components\forms\TextInputComponent.tsx              | TypeScript JSX |        110 |          6 |         23 |        139 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\components\forms\TextInputInteractive.tsx            | TypeScript JSX |        253 |         27 |         46 |        326 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\components\forms\index.ts                            | TypeScript     |          3 |          0 |          1 |          4 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\components\index.ts                                  | TypeScript     |          6 |          0 |          1 |          7 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\guards\auth_guard.tsx                                | TypeScript JSX |         36 |         15 |         16 |         67 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\guards\index.ts                                      | TypeScript     |          1 |          1 |          1 |          3 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\hooks\index.ts                                       | TypeScript     |          4 |          0 |          1 |          5 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\hooks\useCrud.tsx                                    | TypeScript JSX |        251 |         13 |         43 |        307 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\hooks\useCustomToast.ts                              | TypeScript     |         18 |          0 |          5 |         23 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\hooks\useEntityUtils.tsx                             | TypeScript JSX |        195 |         14 |         30 |        239 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\hooks\useIndexedDB.tsx                               | TypeScript JSX |         46 |          0 |         16 |         62 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\hooks\useLoginModal.ts                               | TypeScript     |         12 |          0 |          5 |         17 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\hooks\useModal.tsx                                   | TypeScript JSX |         98 |          5 |         16 |        119 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\hooks\usePermission.ts                               | TypeScript     |         14 |          0 |          6 |         20 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\hooks\usePermissionOT.ts                             | TypeScript     |          5 |          4 |         10 |         19 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\hooks\utils_fetcher.tsx                              | TypeScript JSX |         14 |          0 |          4 |         18 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\pages\ForgotPassword.tsx                             | TypeScript JSX |         78 |          1 |         15 |         94 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\pages\Home.tsx                                       | TypeScript JSX |         43 |          0 |         10 |         53 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\pages\LandingPage.tsx                                | TypeScript JSX |         18 |         94 |         32 |        144 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\pages\Login.tsx                                      | TypeScript JSX |        139 |         15 |         21 |        175 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\pages\MovilReservaArmazones.tsx                      | TypeScript JSX |         25 |          0 |          5 |         30 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\pages\ProfileUser.tsx                                | TypeScript JSX |        180 |          0 |         24 |        204 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\pages\ResetPassword.tsx                              | TypeScript JSX |        109 |          5 |         19 |        133 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\pages\index.ts                                       | TypeScript     |          2 |          0 |          1 |          3 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\utils\FOTClientes_utils.tsx                          | TypeScript JSX |          2 |          0 |          2 |          4 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\utils\FOTCristales_utils.tsx                         | TypeScript JSX |        329 |         57 |         88 |        474 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\utils\FOTPendiente_utils.tsx                         | TypeScript JSX |         39 |          0 |          5 |         44 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\utils\FOTReceta_utils.tsx                            | TypeScript JSX |        105 |          5 |         31 |        141 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\utils\FReservaArmazones_utils.ts                     | TypeScript     |        189 |          8 |         27 |        224 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\utils\Impresion_utils.ts                             | TypeScript     |         54 |          2 |          6 |         62 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\utils\OTReceta_utils.ts                              | TypeScript     |        416 |         15 |         31 |        462 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\utils\RoutesWithNotFound_utils.tsx                   | TypeScript JSX |         13 |          0 |          8 |         21 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\utils\config.ts                                      | TypeScript     |          2 |          5 |          4 |         11 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\utils\index.ts                                       | TypeScript     |          7 |          1 |          0 |          8 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\utils\indexedDB.ts                                   | TypeScript     |        391 |         31 |         66 |        488 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\utils\jwt_utils.ts                                   | TypeScript     |         14 |          1 |          7 |         22 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\utils\localStorage_utils.tsx                         | TypeScript JSX |         64 |          2 |         24 |         90 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\utils\signalStateOT.ts                               | TypeScript     |      1,282 |        437 |        202 |      1,921 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\utils\table_head_utils.tsx                           | TypeScript JSX |      3,897 |         35 |         19 |      3,951 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\utils\text_utils.ts                                  | TypeScript     |         94 |          0 |         11 |        105 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\utils\validationCSVFile.tsx                          | TypeScript JSX |        240 |         83 |        103 |        426 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\utils\validationFormSchemas.ts                       | TypeScript     |        584 |         62 |         70 |        716 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\utils\validationOT.ts                                | TypeScript     |      1,271 |         54 |        133 |      1,458 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FAccesorios.tsx                          | TypeScript JSX |        360 |          7 |         40 |        407 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FAccesoriosKardexIN.tsx                  | TypeScript JSX |        437 |         16 |         55 |        508 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FAccesoriosKardexOUT.tsx                 | TypeScript JSX |        403 |         10 |         54 |        467 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FAlmacenes.tsx                           | TypeScript JSX |        272 |          6 |         38 |        316 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FArmazones copy.tsx                      | TypeScript JSX |        471 |          7 |         59 |        537 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FArmazones.tsx                           | TypeScript JSX |        506 |          7 |         57 |        570 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FArmazonesKardexIN.tsx                   | TypeScript JSX |        455 |         12 |         64 |        531 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FArmazonesKardexOUT.tsx                  | TypeScript JSX |        423 |         10 |         57 |        490 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FCargos.tsx                              | TypeScript JSX |        225 |          7 |         35 |        267 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FClientes copy.tsx                       | TypeScript JSX |        385 |         26 |         49 |        460 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FClientes.tsx                            | TypeScript JSX |        385 |         26 |         49 |        460 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FCristales.tsx                           | TypeScript JSX |        549 |         12 |         57 |        618 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FCristalesKardexIN.tsx                   | TypeScript JSX |        443 |         17 |         60 |        520 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FCristalesKardexOUT.tsx                  | TypeScript JSX |        413 |         10 |         59 |        482 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FEmpresas.tsx                            | TypeScript JSX |        369 |          6 |         47 |        422 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FEstablecimientos.tsx                    | TypeScript JSX |        313 |          9 |         47 |        369 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FFuncionalidades.tsx                     | TypeScript JSX |        209 |          4 |         31 |        244 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FMandantes.tsx                           | TypeScript JSX |        288 |          6 |         45 |        339 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FMarcas.tsx                              | TypeScript JSX |        256 |          9 |         40 |        305 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FMotivosOTAnulada.tsx                    | TypeScript JSX |        242 |          6 |         30 |        278 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FMotivosOTDerivada.tsx                   | TypeScript JSX |        244 |          6 |         33 |        283 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FMotivosOTGarantia.tsx                   | TypeScript JSX |        242 |          6 |         31 |        279 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FMotivosOTPendiente.tsx                  | TypeScript JSX |        244 |          6 |         33 |        283 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FMuestrarios.tsx                         | TypeScript JSX |        244 |          8 |         37 |        289 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FMuestrariosArmazones.tsx                | TypeScript JSX |        295 |          9 |         45 |        349 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FMuestrariosArmazonesCopiar.tsx          | TypeScript JSX |        217 |         22 |         33 |        272 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FMuestrariosArmazonesTraspaso.tsx        | TypeScript JSX |        242 |         15 |         39 |        296 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FOT.tsx                                  | TypeScript JSX |        949 |         84 |        225 |      1,258 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FOTEmpaque.tsx                           | TypeScript JSX |        187 |          4 |         29 |        220 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FOTFactura.tsx                           | TypeScript JSX |        220 |         18 |         46 |        284 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FOTGuiaDespacho.tsx                      | TypeScript JSX |        218 |         21 |         47 |        286 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FOTImpresa.tsx                           | TypeScript JSX |        413 |        135 |         98 |        646 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FOTOrdenCompra.tsx                       | TypeScript JSX |        233 |         12 |         49 |        294 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FOTRepeorteEntrega.tsx                   | TypeScript JSX |        222 |         20 |         52 |        294 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FOTReporteFirma.tsx                      | TypeScript JSX |        219 |          6 |         56 |        281 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FOTTicketImpresion.tsx                   | TypeScript JSX |         48 |          2 |         14 |         64 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FOTTicketQRImpresion.tsx                 | TypeScript JSX |         30 |          5 |         14 |         49 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FOTUbicacion.tsx                         | TypeScript JSX |        120 |          2 |         33 |        155 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FOftalmologos.tsx                        | TypeScript JSX |        304 |          6 |         44 |        354 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FPerfiles.tsx                            | TypeScript JSX |        247 |         10 |         37 |        294 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FPermisos.tsx                            | TypeScript JSX |        242 |          9 |         35 |        286 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FProveedores.tsx                         | TypeScript JSX |        322 |          7 |         45 |        374 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FProyectos.tsx                           | TypeScript JSX |        795 |         13 |         75 |        883 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FProyectosAccesorios.tsx                 | TypeScript JSX |        315 |          7 |         42 |        364 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FProyectosAccesoriosCopiar.tsx           | TypeScript JSX |        223 |         24 |         36 |        283 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FProyectosAtenciones.tsx                 | TypeScript JSX |          0 |        580 |         61 |        641 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FProyectosCristalesCopiar.tsx            | TypeScript JSX |        218 |         27 |         37 |        282 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FProyectosDestinos.tsx                   | TypeScript JSX |        322 |          7 |         47 |        376 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FProyectosDirecciones.tsx                | TypeScript JSX |          0 |        332 |         43 |        375 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FProyectosDireccionesCopiar.tsx          | TypeScript JSX |        221 |         27 |         37 |        285 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FProyectosDocum.tsx                      | TypeScript JSX |        363 |         15 |         51 |        429 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FProyectosFirmas.tsx                     | TypeScript JSX |          0 |        300 |         47 |        347 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FProyectosGrupos.tsx                     | TypeScript JSX |        585 |         37 |         75 |        697 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FProyectosMuestrarios.tsx                | TypeScript JSX |          0 |        317 |         48 |        365 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FProyectosPuntosVenta.tsx                | TypeScript JSX |        235 |         30 |         42 |        307 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FProyectosPuntosVentaCopiar.tsx          | TypeScript JSX |        221 |         27 |         37 |        285 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FProyectosTratamAdic.tsx                 | TypeScript JSX |        261 |         31 |         48 |        340 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FProyectosUsuarios.tsx                   | TypeScript JSX |        283 |         31 |         48 |        362 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FProyectosUsuariosCopiar.tsx             | TypeScript JSX |        221 |         27 |         38 |        286 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FPuntosVenta.tsx                         | TypeScript JSX |        364 |          8 |         42 |        414 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FReporteAtencion.tsx                     | TypeScript JSX |          0 |        171 |         27 |        198 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FReservarArmazones.tsx                   | TypeScript JSX |        713 |         77 |        158 |        948 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FUsuarios.tsx                            | TypeScript JSX |        781 |         23 |         76 |        880 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FUsuariosOT.tsx                          | TypeScript JSX |        202 |          6 |         37 |        245 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FVitrinas.tsx                            | TypeScript JSX |        244 |          6 |         36 |        286 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FVitrinasArmazones.tsx                   | TypeScript JSX |        293 |          9 |         45 |        347 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\forms\FVitrinasArmazonesCopiar.tsx             | TypeScript JSX |        217 |         27 |         35 |        279 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\mantenedores\MAccesorios.tsx                   | TypeScript JSX |        174 |         15 |         30 |        219 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\mantenedores\MAccesoriosKardex.tsx             | TypeScript JSX |        198 |          7 |         24 |        229 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\mantenedores\MAlmacenes.tsx                    | TypeScript JSX |        162 |          7 |         22 |        191 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\mantenedores\MArmazones.tsx                    | TypeScript JSX |        194 |          8 |         26 |        228 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\mantenedores\MArmazonesKardex.tsx              | TypeScript JSX |        199 |          7 |         29 |        235 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\mantenedores\MCargos.tsx                       | TypeScript JSX |        131 |          6 |         28 |        165 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\mantenedores\MClientes.tsx                     | TypeScript JSX |        189 |          7 |         28 |        224 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\mantenedores\MCristales.tsx                    | TypeScript JSX |        244 |          9 |         35 |        288 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\mantenedores\MCristalesKardex.tsx              | TypeScript JSX |        207 |          7 |         27 |        241 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\mantenedores\MEmpresas.tsx                     | TypeScript JSX |        143 |          7 |         22 |        172 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\mantenedores\MEstablecimientos.tsx             | TypeScript JSX |        203 |         13 |         20 |        236 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\mantenedores\MFuncionalidades.tsx              | TypeScript JSX |        130 |          8 |         19 |        157 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\mantenedores\MMandantes.tsx                    | TypeScript JSX |        144 |          7 |         18 |        169 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\mantenedores\MMarcas.tsx                       | TypeScript JSX |        158 |          7 |         19 |        184 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\mantenedores\MMotivosOTAnulada.tsx             | TypeScript JSX |        129 |          6 |         29 |        164 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\mantenedores\MMotivosOTDerivada.tsx            | TypeScript JSX |        131 |          6 |         28 |        165 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\mantenedores\MMotivosOTGarantia.tsx            | TypeScript JSX |        129 |          6 |         26 |        161 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\mantenedores\MMotivosOTPendiente.tsx           | TypeScript JSX |        128 |          6 |         24 |        158 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\mantenedores\MMuestrarios.tsx                  | TypeScript JSX |        145 |          7 |         20 |        172 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\mantenedores\MMuestrariosArmazones.tsx         | TypeScript JSX |        199 |         11 |         26 |        236 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\mantenedores\MOT.tsx                           | TypeScript JSX |        282 |         45 |         82 |        409 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\mantenedores\MOTBitacora.tsx                   | TypeScript JSX |        173 |         38 |         23 |        234 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\mantenedores\MOTHistorica.tsx                  | TypeScript JSX |        450 |        184 |        138 |        772 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\mantenedores\MOftalmologos.tsx                 | TypeScript JSX |        140 |          7 |         19 |        166 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\mantenedores\MPerfiles.tsx                     | TypeScript JSX |        152 |          8 |         19 |        179 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\mantenedores\MPermisos.tsx                     | TypeScript JSX |        151 |          7 |         19 |        177 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\mantenedores\MProveedores.tsx                  | TypeScript JSX |        140 |          7 |         21 |        168 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\mantenedores\MProyectos.tsx                    | TypeScript JSX |        211 |          7 |         32 |        250 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\mantenedores\MProyectosAccesorios.tsx          | TypeScript JSX |        167 |          8 |         27 |        202 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\mantenedores\MProyectosAtenciones.tsx          | TypeScript JSX |          0 |        163 |         19 |        182 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\mantenedores\MProyectosCristales.tsx           | TypeScript JSX |        190 |          8 |         30 |        228 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\mantenedores\MProyectosDestinos.tsx            | TypeScript JSX |        155 |         28 |         27 |        210 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\mantenedores\MProyectosDirecciones.tsx         | TypeScript JSX |          0 |        163 |         19 |        182 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\mantenedores\MProyectosDocum.tsx               | TypeScript JSX |        161 |         11 |         25 |        197 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\mantenedores\MProyectosFirmas.tsx              | TypeScript JSX |          0 |        149 |         20 |        169 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\mantenedores\MProyectosPuntosVenta.tsx         | TypeScript JSX |        150 |         11 |         20 |        181 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\mantenedores\MProyectosTratamAdic.tsx          | TypeScript JSX |        152 |          7 |         23 |        182 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\mantenedores\MProyectosUsuarios.tsx            | TypeScript JSX |        179 |          9 |         28 |        216 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\mantenedores\MPuntosVenta.tsx                  | TypeScript JSX |        168 |          7 |         20 |        195 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\mantenedores\MReservaArmazones.tsx             | TypeScript JSX |        156 |         15 |         24 |        195 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\mantenedores\MUsuarios.tsx                     | TypeScript JSX |        226 |         15 |         26 |        267 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\mantenedores\MVitrinas.tsx                     | TypeScript JSX |        144 |          7 |         22 |        173 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\mantenedores\MVitrinasArmazones.tsx            | TypeScript JSX |        180 |         12 |         26 |        218 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\presentation\views\mantenedores\index.ts                          | TypeScript     |          4 |          0 |          1 |          5 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\redux\slices\ListBoxTipoSlice.ts                                  | TypeScript     |        195 |         18 |         18 |        231 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\redux\slices\OTAreasSlice.ts                                      | TypeScript     |         71 |          0 |          8 |         79 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\redux\slices\OTSlice.ts                                           | TypeScript     |        238 |         27 |         33 |        298 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\redux\slices\funcionalidadesSlice.ts                              | TypeScript     |         44 |          0 |          6 |         50 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\redux\slices\index.ts                                             | TypeScript     |          9 |          0 |          0 |          9 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\redux\slices\listBoxSlice.ts                                      | TypeScript     |         15 |          1 |          8 |         24 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\redux\slices\userSlice.ts                                         | TypeScript     |         43 |          0 |          5 |         48 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\redux\slices\utilsSlice.ts                                        | TypeScript     |        111 |          5 |         14 |        130 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\redux\store.ts                                                    | TypeScript     |         39 |          1 |          5 |         45 |
+| c:\Users\basti\OneDrive\Escritorio\GestionOT\frontendot\src\vite-env.d.ts                                                     | TypeScript     |          0 |          1 |          1 |          2 |
+| Total                                                                                                                         |                |     51,549 |      6,565 |      8,271 |     66,385 |
++-------------------------------------------------------------------------------------------------------------------------------+----------------+------------+------------+------------+------------+
