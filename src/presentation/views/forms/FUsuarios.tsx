@@ -35,9 +35,11 @@ export interface InputData {
   permiso_calculo: string | undefined;
   permiso_control: string | undefined;
   permiso_laboratorio: string | undefined;
-  permiso_venta: string | undefined;
+  permiso_digitacion: string | undefined;
+  permiso_ingreso: string | undefined;
   permiso_bodega_insumos: string | undefined;
-  permiso_biselado: string | undefined;
+  permiso_biselado_1: string | undefined;
+  permiso_biselado_2: string | undefined;
   permiso_montaje: string | undefined;
   permiso_qa: string | undefined;
   permiso_bodega_prod_term: string | undefined;
@@ -48,14 +50,15 @@ export interface InputData {
   permiso_anulacion: string | undefined;
 
   permiso_editar_armazon: string | undefined;
-  permiso_opcion_montaje: string | undefined;
+  permiso_editar_cristal_opcion_vta: string | undefined;
   permiso_editar_estado_impresion: string | undefined;
   permiso_editar_validar_parametrizacion: string | undefined;
-  // permiso_editar_resolucion_garantia: string | undefined;
+  permiso_editar_opcion_montaje: string | undefined;
   permiso_editar_grupo_dioptria: string | undefined;
   permiso_editar_receta: string | undefined;
-  permiso_editar_validar_insumos: string | undefined;
+  permiso_editar_validar_cristales: string | undefined;
   permiso_editar_validar_armazones: string | undefined;
+  permiso_editar_worktracking: string | undefined;
 }
 
 // function insertarElementoEnPosicion(arreglo: any, nuevoElemento: any, posicion: any) {
@@ -78,9 +81,11 @@ const permiso_area = [
   "permiso_adquisiciones",
   "permiso_calculo",
   "permiso_laboratorio",
-  "permiso_venta",
+  "permiso_digitacion",
+  "permiso_ingreso",
   "permiso_bodega_insumos",
-  "permiso_biselado",
+  "permiso_biselado_1",
+  "permiso_biselado_2",
   "permiso_montaje",
   "permiso_qa",
   "permiso_bodega_prod_term",
@@ -89,14 +94,14 @@ const permiso_area = [
 
 const permiso_campo = [
   "permiso_editar_armazon",
-  "permiso_cristal_opcion_vta",
+  "permiso_editar_cristal_opcion_vta",
   "permiso_editar_estado_impresion",
   "permiso_editar_validar_parametrizacion",
-  "permiso_opcion_montaje",
+  "permiso_editar_opcion_montaje",
   "permiso_editar_grupo_dioptria",
   "permiso_editar_receta",
-  "permiso_verificar_cristales",
-  "permiso_verificar_armazones",
+  "permiso_editar_validar_cristales",
+  "permiso_editar_validar_armazones",
   "permiso_editar_worktracking",
 ];
 
@@ -110,9 +115,7 @@ export function transformInsertQuery(jsonData: any): any | null {
   // const permisos_areas      = permiso_area.map((permiso:any)=>jsonData[permiso] === 'Lectura' ? "0" : "1").join('');
   const permisos_areas = permiso_area
     .map((permiso: any) =>
-      jsonData[permiso] === "Procesar"
-        ? "2"
-        : jsonData[permiso] === "Lectura"
+      jsonData[permiso] === "Lectura"
         ? "0"
         : "1"
     )
@@ -120,11 +123,12 @@ export function transformInsertQuery(jsonData: any): any | null {
 
   const permisos_campos = permiso_campo
     .map((permiso: any) =>
-      jsonData[permiso] === "Lectura" || jsonData[permiso] === "No" ? "0" : "1"
+      jsonData[permiso] === "Lectura" ? "0" : "1"
+    // jsonData[permiso] === "Lectura" || jsonData[permiso] === "No" ? "0" : "1"
     )
     .join("");
   const permisos_archivoOT = permiso_archivoOT
-    .map((permiso: any) => (jsonData[permiso] === "Lectura" ? "0" : "1"))
+  .map((permiso: any) => (jsonData[permiso] === "Lectura" ? "0" : "1"))
     .join("");
 
   // console.log(permisos_areas)
@@ -164,7 +168,8 @@ export function transformUpdateQuery(
       .join("")}"`,
     `permisos_campos      = "${permiso_campo
       .map((permiso) =>
-        jsonData[permiso] === "Lectura" || jsonData[permiso] === "No"
+        jsonData[permiso] === "Lectura"
+      // jsonData[permiso] === "Lectura" || jsonData[permiso] === "No"
           ? "0"
           : "1"
       )
@@ -172,9 +177,7 @@ export function transformUpdateQuery(
     // `permisos_campos      = "${permiso_campo.map((permiso) => jsonData[permiso] === 'Lectura' ? "0" : "1").join(''), '0', 1}"`,
     `permisos_areas       = "${permiso_area
       .map((permiso) =>
-        jsonData[permiso] === "Procesar"
-          ? "2"
-          : jsonData[permiso] === "Lectura"
+        jsonData[permiso] === "Lectura"
           ? "0"
           : "1"
       )
@@ -333,9 +336,9 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
       };
     }, [closeModal]);
 
-    React.useEffect(() => {
-      setValue("permiso_editar_resolucion_garantia", "Lectura");
-    }, []);
+    // React.useEffect(() => {
+    //   setValue("permiso_editar_resolucion_garantia", "Lectura");
+    // }, []);
 
     const handleSaveChange = React.useCallback(
       async (data: InputData, isEditting: boolean) => {
@@ -396,37 +399,16 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
 
     useEffect(() => {
       if (data) {
-        setValue(
-          "permiso_editar_armazon",
-          data[EnumGrid.permiso_editar_armazon]
-        );
-        setValue(
-          "permiso_opcion_montaje",
-          data[EnumGrid.permiso_opcion_montaje]
-        );
-        setValue(
-          "permiso_editar_estado_impresion",
-          data[EnumGrid.permiso_editar_estado_impresion]
-        );
-        setValue(
-          "permiso_editar_validar_parametrizacion",
-          data[EnumGrid.permiso_editar_armazon]
-        );
-        setValue(
-          "permiso_editar_resolucion_garantia",
-          data[EnumGrid.permiso_editar_resolucion_garantia]
-        );
-        setValue(
-          "permiso_editar_grupo_dioptria",
-          data[EnumGrid.permiso_editar_grupo_dioptria]
-        );
+        setValue("permiso_editar_armazon", data[EnumGrid.permiso_editar_armazon]);
+        setValue("permiso_editar_cristal_opcion_vta", data[EnumGrid.permiso_editar_cristal_opcion_vta]);
+        setValue("permiso_editar_estado_impresion", data[EnumGrid.permiso_editar_estado_impresion]);
+        setValue("permiso_editar_validar_parametrizacion", data[EnumGrid.permiso_editar_validar_parametrizacion]);
+        setValue("permiso_editar_opcion_montaje", data[EnumGrid.permiso_editar_opcion_montaje]);
+        setValue("permiso_editar_grupo_dioptria", data[EnumGrid.permiso_editar_grupo_dioptria]);
         setValue("permiso_editar_receta", data[EnumGrid.permiso_editar_receta]);
-        setValue(
-          "permiso_editar_worktracking",
-          data[EnumGrid.permiso_editar_worktracking]
-        );
-        // setValue('permiso_editar_validar_insumos', data[EnumGrid.permiso_editar_validar_cristales])
-        // setValue('permiso_editar_validar_armazones', data[EnumGrid.permiso_editar_validar_armazones])
+        setValue("permiso_editar_validar_cristales", data[EnumGrid.permiso_editar_validar_cristales]);
+        setValue("permiso_editar_validar_armazones", data[EnumGrid.permiso_editar_validar_armazones]);
+        setValue("permiso_editar_worktracking", data[EnumGrid.permiso_editar_worktracking]);
       }
     }, [data]);
 
@@ -592,17 +574,17 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                   <div className="w-full items-center !mt-7 !mb-4  !h-[10rem] ">
                     <div className="w-full items-center flex justify-evenly  input-container">
                       <div className="input-container items-center rowForm  w-[14%]">
-                        <div className="w-full translate-y-[-1vw]">
+                        <div className="w-full">
                           <RadioButtonComponent
                             control={control}
-                            label="Venta/Post Venta"
-                            name="permiso_venta"
+                            label="Digitación"
+                            name="permiso_digitacion"
                             data={
-                              (formValues && formValues["Venta/Post Venta"]) ||
-                              (data && data[EnumGrid.permiso_venta])
+                              (formValues && formValues["Digitación"]) ||
+                              (data && data[EnumGrid.permiso_digitacion])
                             }
-                            options={["Lectura", "Digitación", "Procesar"]}
-                            error={errors.permiso_venta}
+                            options={["Lectura", "Escritura"]}
+                            error={errors.permiso_digitacion}
                             horizontal={false}
                             onChange={(e: any) => handleChange(e)}
                             labelProps={
@@ -612,6 +594,29 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                           />
                         </div>
                       </div>
+
+                      <div className="input-container items-center rowForm  w-[14%]">
+                        <div className="w-full">
+                          <RadioButtonComponent
+                            control={control}
+                            label="Ingreso"
+                            name="permiso_ingreso"
+                            data={
+                              (formValues && formValues["Ingreso"]) ||
+                              (data && data[EnumGrid.permiso_ingreso])
+                            }
+                            options={["Lectura", "Escritura"]}
+                            error={errors.permiso_digitacion}
+                            horizontal={false}
+                            onChange={(e: any) => handleChange(e)}
+                            labelProps={
+                              "!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.2vw]"
+                            }
+                            customWidth={"labelInput inputStyles"}
+                          />
+                        </div>
+                      </div>
+
                       <div className="input-container items-center rowForm w-[14%]">
                         <div className="w-full">
                           <RadioButtonComponent
@@ -633,18 +638,19 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                           />
                         </div>
                       </div>
+
                       <div className="input-container items-center rowForm w-[14%]">
                         <div className="w-full">
                           <RadioButtonComponent
                             control={control}
-                            label="Taller Biselado"
-                            name="permiso_biselado"
+                            label="Taller Biselado 1"
+                            name="permiso_biselado_1"
                             data={
-                              (formValues && formValues["Taller Biselado"]) ||
-                              (data && data[EnumGrid.permiso_taller_biselado])
+                              (formValues && formValues["Taller Biselado 1"]) ||
+                              (data && data[EnumGrid.permiso_biselado_1])
                             }
                             options={["Lectura", "Escritura"]}
-                            error={errors.permiso_biselado}
+                            error={errors.permiso_biselado_1}
                             horizontal={false}
                             onChange={(e: any) => handleChange(e)}
                             labelProps={
@@ -654,6 +660,29 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                           />
                         </div>
                       </div>
+
+                      <div className="input-container items-center rowForm w-[14%]">
+                        <div className="w-full">
+                          <RadioButtonComponent
+                            control={control}
+                            label="Taller Biselado 2"
+                            name="permiso_biselado_2"
+                            data={
+                              (formValues && formValues["Taller Biselado 2"]) ||
+                              (data && data[EnumGrid.permiso_biselado_2])
+                            }
+                            options={["Lectura", "Escritura"]}
+                            error={errors.permiso_biselado_2}
+                            horizontal={false}
+                            onChange={(e: any) => handleChange(e)}
+                            labelProps={
+                              "!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.2vw]"
+                            }
+                            customWidth={"labelInput inputStyles"}
+                          />
+                        </div>
+                      </div>
+
                       <div className="input-container items-center rowForm w-[14]">
                         <div className="w-full">
                           <RadioButtonComponent
@@ -675,6 +704,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                           />
                         </div>
                       </div>
+
                       <div className="input-container items-center rowForm w-[14]">
                         <div className="w-full">
                           <RadioButtonComponent
@@ -696,6 +726,11 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                           />
                         </div>
                       </div>
+                    </div>
+                  </div>
+
+                  <div className="w-full items-center  !mb-4  !h-[8rem]">
+                    <div className="w-full items-center flex justify-evenly  input-container">
                       <div className="input-container items-center rowForm w-[14%]">
                         <div className="w-full">
                           <RadioButtonComponent
@@ -718,11 +753,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                           />
                         </div>
                       </div>
-                    </div>
-                  </div>
 
-                  <div className="w-full items-center  !mb-4  !h-[8rem]">
-                    <div className="w-full items-center flex justify-evenly  input-container">
                       <div className="input-container items-center rowForm  w-[14%]">
                         <div className="w-full">
                           <RadioButtonComponent
@@ -858,6 +889,29 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                           />
                         </div>
                       </div>
+
+                      <div className="input-container items-center rowForm  w-[15%]">
+                        <div className="w-full">
+                          <RadioButtonComponent
+                            control={control}
+                            label="Opcion Vta. Cristal"
+                            name="permiso_editar_cristal_opcion_vta"
+                            data={
+                              (formValues && formValues["Opcion Vta. Cristal"]) ||
+                              (data && data[EnumGrid.permiso_editar_cristal_opcion_vta])
+                            }
+                            options={["Lectura", "Escritura"]}
+                            error={errors.permiso_editar_cristal_opcion_vta}
+                            horizontal={false}
+                            onChange={(e: any) => handleChange(e)}
+                            labelProps={
+                              "!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.2vw]"
+                            }
+                            customWidth={"!h-[2.5vw] text-[1vw]"}
+                          />
+                        </div>
+                      </div>
+
                       <div className="input-container items-center rowForm w-[15%]">
                         <div className="w-full">
                           <RadioButtonComponent
@@ -880,6 +934,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                           />
                         </div>
                       </div>
+
                       <div className="input-container items-center rowForm w-[15%]">
                         <div className="w-full">
                           <RadioButtonComponent
@@ -889,10 +944,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                             data={
                               (formValues && formValues["Validar Param."]) ||
                               (data &&
-                                data[
-                                  EnumGrid
-                                    .permiso_editar_validar_parametrizacion
-                                ])
+                                data[EnumGrid.permiso_editar_validar_parametrizacion])
                             }
                             options={["Lectura", "Escritura"]}
                             error={
@@ -907,18 +959,19 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                           />
                         </div>
                       </div>
+
                       <div className="input-container items-center rowForm w-[15%]">
                         <div className="w-full">
                           <RadioButtonComponent
                             control={control}
                             label="Opción Montaje"
-                            name="permiso_opcion_montaje"
+                            name="permiso_editar_opcion_montaje"
                             data={
                               (formValues && formValues["Opción Montaje"]) ||
-                              (data && data[EnumGrid.permiso_opcion_montaje])
+                              (data && data[EnumGrid.permiso_editar_opcion_montaje])
                             }
-                            options={["Si", "No"]}
-                            error={errors.permiso_opcion_montaje}
+                            options={["Lectura", "Escritura"]}
+                            error={errors.permiso_editar_opcion_montaje}
                             horizontal={false}
                             onChange={(e: any) => handleChange(e)}
                             labelProps={
@@ -955,6 +1008,7 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                           />
                         </div>
                       </div>
+
                       <div className="input-container items-center rowForm w-[15%]">
                         <div className="w-full">
                           <RadioButtonComponent
@@ -976,6 +1030,49 @@ const FUsuarios: React.FC<IUserFormPrps> = React.memo(
                           />
                         </div>
                       </div>
+
+                      <div className="input-container items-center rowForm  w-[15%]">
+                        <div className="w-full">
+                          <RadioButtonComponent
+                            control={control}
+                            label="Validar Cristales"
+                            name="permiso_editar_validar_cristales"
+                            data={
+                              (formValues && formValues["Validar Cristales"]) ||
+                              (data &&
+                                data[EnumGrid.permiso_editar_validar_cristales])
+                            }
+                            options={["Lectura", "Escritura"]}
+                            error={errors.permiso_editar_validar_cristales}
+                            horizontal={false}
+                            onChange={(e: any) => handleChange(e)}
+                            labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.2vw]"}
+                            customWidth={"!h-[2.5vw] text-[1vw]"}
+                          />
+                        </div>
+                      </div>
+
+                      <div className="input-container items-center rowForm  w-[15%]">
+                        <div className="w-full">
+                          <RadioButtonComponent
+                            control={control}
+                            label="Validar Armazones"
+                            name="permiso_editar_validar_armazones"
+                            data={
+                              (formValues && formValues["Validar Armazones"]) ||
+                              (data &&
+                                data[EnumGrid.permiso_editar_validar_armazones])
+                            }
+                            options={["Lectura", "Escritura"]}
+                            error={errors.permiso_editar_validar_armazones}
+                            horizontal={false}
+                            onChange={(e: any) => handleChange(e)}
+                            labelProps={"!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.2vw]"}
+                            customWidth={"!h-[2.5vw] text-[1vw]"}
+                          />
+                        </div>
+                      </div>
+
                       <div className="input-container items-center rowForm w-[15%]">
                         <div className="w-full">
                           <RadioButtonComponent
