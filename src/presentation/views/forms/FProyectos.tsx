@@ -65,6 +65,7 @@ interface InputData {
   observaciones: string | undefined;
   imprime_qr: string | undefined;
   imprime_ticket: string | undefined;
+  permite_aproximar: string | undefined;
 }
 
 
@@ -134,7 +135,8 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
        ${jsonData.oftalmologo || 0},
       "${jsonData.observaciones || ""}",
        ${jsonData.imprime_qr === "Si" ? 1 : 0},
-       ${jsonData.imprime_ticket === "Si" ? 1 : 0}`;
+       ${jsonData.imprime_ticket === "Si" ? 1 : 0}
+       ${jsonData.permite_aproximar === "Si" ? 1 : 0}`;
 
   _p2 = _p2.replace(/'/g, '!');
 
@@ -183,6 +185,7 @@ export function transformUpdateQuery(
     `observaciones              = "${jsonData.observaciones}"`,
     `imprime_qr                 =  ${jsonData.imprime_qr === "Si" ? 1 : 0}`,
     `imprime_ticket             =  ${jsonData.imprime_ticket === "Si" ? 1 : 0}`,
+    `permite_aproximar          =  ${jsonData.permite_aproximar === "Si" ? 1 : 0}`,
   ];
 
 
@@ -405,7 +408,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
         <form onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
           <div className="userFormularioContainer">
             <div className="w-full flex items-center">
-              <div className="input-container items-center rowForm w-[25%]">
+              <div className="input-container items-center rowForm w-[20%]">
                 <div className="selectInputDiv">
                   <SelectInputComponent
                     label="Adjudicante"
@@ -420,7 +423,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                 </div>
               </div>
 
-              <div className="input-container items-center rowForm w-[25%]">
+              <div className="input-container items-center rowForm w-[20%]">
                 <div className="selectInputDiv">
                   <SelectInputComponent
                     label="Mandante"
@@ -435,7 +438,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                 </div>
               </div>
 
-              <div className="input-container items-center rowForm w-[25%]">
+              <div className="input-container items-center rowForm w-[20%]">
                 <div className="selectInputDiv">
                   <SelectInputComponent
                     label="Ejecutivo/a"
@@ -475,6 +478,22 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                     data={data && data[EnumGrid.IMPRIME_TICKET]}
                     options={["Si", "No"]}
                     error={errors.imprime_ticket}
+                    horizontal={true}
+                    labelProps={"frame2Options"}
+                    customWidth={"labelInput inputStyles"}
+                  />
+                </div>
+              </div>
+
+              <div className="input-container items-center rowForm w-[15%]">
+                <div className="labelInputDiv">
+                  <RadioButtonComponent
+                    control={control}
+                    label="Permite Aproximar"
+                    name="permite_aproximar"
+                    data={data && data[EnumGrid.PERMITE_APROXIMAR]}
+                    options={["Si", "No"]}
+                    error={errors.permite_aproximar}
                     horizontal={true}
                     labelProps={"frame2Options"}
                     customWidth={"labelInput inputStyles"}

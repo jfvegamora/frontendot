@@ -68,6 +68,7 @@ export enum EnumGrid {
   OBSERVACIONES                   = 46,
   IMPRIME_QR                      = 47,
   IMPRIME_TICKET                  = 48,
+  PERMITE_APROXIMAR               = 49,
 }
 
 

@@ -372,6 +372,7 @@ export const validationProyectosSchema = () =>
 
     imprime_qr: yup.string().required(`${msg}`),
     imprime_ticket: yup.string().required(`${msg}`),
+    permite_aproximar: yup.string().required(`${msg}`),
   });
 
 // Schema MUESTRARIOS
