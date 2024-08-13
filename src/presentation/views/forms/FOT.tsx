@@ -1236,12 +1236,12 @@ const FOT: React.FC<IFOTProps> = ({
               !isEditting &&
               // (!isEditting || (data && data[EnumGrid.area_id] === 40 && data && data[EnumGrid.motivo_garantia_id] === 2 ) )  &&
               escritura_lectura &&
-              OTPermissions[10] === "1" &&
+              // OTPermissions[10] === "1" &&
               sumatoriaNivel1 === validationNivel1.value.length &&
               (
                 <div className="mx-auto">
                   <Button className='w-[12rem] text-[1.3rem] bg-blue-500 otActionButtonForm  hover:bg-blue-400' onClick={handleIngresarClick}>
-                    Ingresar</Button>
+                    Guardar</Button>
                 </div>
               )
             }

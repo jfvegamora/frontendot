@@ -641,6 +641,10 @@ export const getDatosOT = (data: any) => {
   A1_CR_OI.value = data[EnumGrid.cristal1_oi];
   A2_CR_OD.value = data[EnumGrid.cristal2_od];
   A2_CR_OI.value = data[EnumGrid.cristal2_oi];
+
+  console.log(data && data[EnumGrid.empresa_adjudicada_id]);
+
+  EmpresaAdjudicadaOT_ID.value = data[EnumGrid.empresa_adjudicada_id];
 };
 
 export const reiniciarValidationNivel2 = (keepForm?: boolean) => {
@@ -1550,14 +1554,14 @@ export const updateOT = async (
     }"`,
     `cristales2_od="${
       A2_CR_OD.value.trim() === ""
-        ? data?.[EnumGrid.cristal2_od]
+        ? ""
         : A2_CR_OD.value.trim() ||
           (_formValues["cristales"] &&
             parseInt(_formValues["cristales"]["cristal2_od"]))
     }"`,
     `cristales2_oi="${
       A2_CR_OI.value.trim() === ""
-        ? data?.[EnumGrid.cristal2_oi]
+        ? ""
         : A2_CR_OI.value.trim() ||
           (_formValues["cristales"] &&
             parseInt(_formValues["cristales"]["cristal2_oi"]))
@@ -1646,6 +1650,10 @@ export const updateOT = async (
         : data && data[EnumGrid.observaciones]
     }"`,
     `estado_validacion="${estado_validacion}"`,
+    `cristales1_od_opcion_vta="${CR1_OD_LAB.value === true ? "2" : "1"}"`,
+    `cristales1_oi_opcion_vta="${CR1_OI_LAB.value === true ? "2" : "1"}"`,
+    `cristales2_od_opcion_vta="${CR2_OD_LAB.value === true ? "2" : "1"}"`,
+    `cristales2_oi_opcion_vta="${CR2_OI_LAB.value === true ? "2" : "1"}"`,
     `ubicacion="${
       tipo_evento === "Derivar" ? "" : data && data[EnumGrid.ot_ubicacion]
     }"`,

@@ -85,6 +85,39 @@ const MArmazonesKardex: React.FC = () => {
   }, [selectedRows]);
 
 
+  console.log(table_head_kardex)
+
+  const newTableHead = table_head_kardex.map((cell:any)=>{
+    console.log(cell)
+    console.log(escritura_lectura)
+    if(escritura_lectura){
+      if(cell.cell === 'Valor Neto'){
+        cell.visible = false
+      }
+    }
+    return cell
+  })
+
+  console.log(newTableHead)
+
+  // const newTableHead = React.useCallback(table_head_kardex.reduce((acc:any, cell:any)=>{
+  //   console.log(escritura_lectura)
+  //   if(!escritura_lectura){
+  //     if(cell.cell === 'Proveedor'){
+  //       cell.visible = false
+  //     }
+  //     if(cell.cell === 'Valor Neto'){
+  //       cell.visible =  false;
+  //     }
+
+  //     if(cell.cell === 'Factura'){
+  //       cell.visible = false;
+  //     }
+  //   }
+  //   acc.push(cell)
+  //   return acc
+  // },[]),[escritura_lectura])
+
 
   return (
     <div className="mantenedorContainer">

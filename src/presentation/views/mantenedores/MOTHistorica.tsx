@@ -3,9 +3,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { Suspense, useEffect, useState } from "react";
 
-import {
-  PrimaryKeySearch,
-} from "../../components";
+import { PrimaryKeySearch } from "../../components";
 import { useEntityUtils } from "../../hooks";
 // import FUsuarios from "../forms/FUsuarios";
 import { TITLES, table_head_OT_historica } from "../../utils";
@@ -24,10 +22,7 @@ import { totoalTrabajosSeleccionados } from "./MOT";
 import TableComponent2 from "../../components/TableComponent2";
 import { updateActualArea } from "../../../redux/slices/OTAreasSlice";
 
-
-
 // import ExportCSV  from "../../components/ExportToCsv";
-
 
 // import StateCountBarOT from "../../components/StateCountBarOT";
 // import FOT from "../forms/FOT";
@@ -36,21 +31,18 @@ import { updateActualArea } from "../../../redux/slices/OTAreasSlice";
 // import FOTOrdenCompra from "../forms/FOTOrdenCompra";
 // import FOTReporteEntrega from "../forms/FOTRepeorteEntrega";
 
-
-
-const StateCountBarOT   = React.lazy(()=>import("../../components/StateCountBarOT"));
-const FOT               = React.lazy(()=>import("../forms/FOT"));
-const FOTFactura        = React.lazy(()=>import("../forms/FOTFactura"));
-const FOTGuiaDespacho   = React.lazy(()=>import("../forms/FOTGuiaDespacho"));
-const FOTOrdenCompra    = React.lazy(()=>import("../forms/FOTOrdenCompra"));
-const FOTReporteEntrega = React.lazy(()=>import("../forms/FOTRepeorteEntrega"));
-const ExportCSV         = React.lazy(()=>import("../../components/ExportToCsv"));
-const FilterButton      = React.lazy(()=>import('../../components/FilterButton'));
-
-
-
-
-
+const StateCountBarOT = React.lazy(
+  () => import("../../components/StateCountBarOT")
+);
+const FOT = React.lazy(() => import("../forms/FOT"));
+const FOTFactura = React.lazy(() => import("../forms/FOTFactura"));
+const FOTGuiaDespacho = React.lazy(() => import("../forms/FOTGuiaDespacho"));
+const FOTOrdenCompra = React.lazy(() => import("../forms/FOTOrdenCompra"));
+const FOTReporteEntrega = React.lazy(
+  () => import("../forms/FOTRepeorteEntrega")
+);
+const ExportCSV = React.lazy(() => import("../../components/ExportToCsv"));
+const FilterButton = React.lazy(() => import("../../components/FilterButton"));
 
 export enum EnumGrid {
   folio = 1,
@@ -67,7 +59,6 @@ export enum EnumGrid {
   proyecto_titulo = 12,
   establecimiento_id = 13,
   establecimiento = 14,
-
 
   cliente_rut = 15,
   cliente_nomnbre = 16,
@@ -118,23 +109,17 @@ export enum EnumGrid {
   a2_grupo_od = 60,
   a2_grupo_oi = 61,
 
-
-  
   a1_armazon_id = 62,
   a1_armazon = 63,
-  
 
   a2_armazon_id = 64,
   a2_armazon = 65,
-  
 
   a3_armazon_id = 66,
   a3_armazon = 67,
 
-
-
   //CRISTALES ANTEOJO 1
-  
+
   cristal1_marca_id = 68,
   cristal1_marca = 69,
   cristal1_diseno_id = 70,
@@ -151,12 +136,11 @@ export enum EnumGrid {
   cristal1_od = 81,
   cristal1_oi = 82,
 
-
   cristal1_tratamiento_adicional_id = 83,
   cristal1_tratamiento_adicional = 84,
 
   //CRISTALES ANTEOJO 2
-  
+
   cristal2_marca_id = 85,
   cristal2_marca = 86,
   cristal2_diseno_id = 87,
@@ -191,7 +175,7 @@ export enum EnumGrid {
   numero_factura = 113,
   folio_interno_mandante = 114,
   reporte_interno_mandante = 115,
-  numero_envio   = 116,
+  numero_envio = 116,
   total = 117,
   observaciones = 118,
   nombre_logo = 119,
@@ -200,34 +184,33 @@ export enum EnumGrid {
   titulo1_ticket = 122,
   titulo2_ticket = 123,
   titulo3_ticket = 124,
-  lugar_despacho       = 125,
-  estado_validacion    = 126,
-  rbd_establecimiento  = 127,
-  bodega_procesado     = 128,
-  usuario_id           = 129,
-  
-  ot_ubicacion                      = 130,
-  opcion_montaje                    = 131,
+  lugar_despacho = 125,
+  estado_validacion = 126,
+  rbd_establecimiento = 127,
+  bodega_procesado = 128,
+  usuario_id = 129,
 
-  cristal1_od_opcion_vta            = 132,
-  cristal1_oi_opcion_vta            = 133,
-  cristal2_od_opcion_vta            = 134,
-  crsital2_oi_opcion_vta            = 135,
+  ot_ubicacion = 130,
+  opcion_montaje = 131,
 
+  cristal1_od_opcion_vta = 132,
+  cristal1_oi_opcion_vta = 133,
+  cristal2_od_opcion_vta = 134,
+  crsital2_oi_opcion_vta = 135,
 
+  empresa_adjudicada_id = 136,
 
   //impresion:
-  ubicacion_armazon_1               = 136,
-  ubicacion_armazon_2               = 137,
-  ubicacion_cristal_1_od            = 138,
-  ubicacion_cristal_1_oi            = 139,
-  ubicacion_cristal_2_od            = 140,
-  ubicacion_cristal_2_oi            = 141,
-  cant_rbd                          = 142,
-  rbd_ubicacion                     = 143,
-  imagen_logo                       = 144
+  ubicacion_armazon_1 = 137,
+  ubicacion_armazon_2 = 138,
+  ubicacion_cristal_1_od = 139,
+  ubicacion_cristal_1_oi = 140,
+  ubicacion_cristal_2_od = 141,
+  ubicacion_cristal_2_oi = 142,
+  cant_rbd = 143,
+  rbd_ubicacion = 144,
+  imagen_logo = 145,
 }
-
 
 const strEntidad = "Orden de Trabajo Histórico";
 // const strUrl = `${URLBackend}/api/ot/listado`
@@ -241,11 +224,10 @@ const idMenu = 1;
 //   if(pktoDelete.length < 1){
 //     return;
 //   }
-  
+
 //   console.log(pktoDelete)
 //   const resultadoFiltrado = OTs.data && OTs.data.filter((elemento:any) => folios.includes(elemento[1]));
 
-  
 //   //TODO: TIPO 1 REPORTE DE ATENCION
 //   if(type === 1){
 //     //? VALIDACIONES DEL METODO
@@ -259,7 +241,7 @@ const idMenu = 1;
 //       }
 
 //     })
-//   //TODO: TIPO 2 REPORTE FIRMA 
+//   //TODO: TIPO 2 REPORTE FIRMA
 //   }else if (type === 2){
 //     resultadoFiltrado.map((ot:any)=>{
 //       const estadoCOL = ot[4]
@@ -271,7 +253,7 @@ const idMenu = 1;
 //       }
 //     })
 //   }
-  
+
 //   const areAllSameType = resultBoton.every((item:any) => item[1] === true);
 
 //   if(!areAllSameType){
@@ -279,9 +261,9 @@ const idMenu = 1;
 //         if(typeof ot[1] === 'string'){
 //           toast.error(`Error: folio ${ot[0]}  | ${ot[1]}`);
 //         }
-//       } 
-//     ) 
-//   }else{  
+//       }
+//     )
+//   }else{
 //       const toastLoading = toast.loading('Cargando...');
 //     try {
 //       const query = {
@@ -291,16 +273,15 @@ const idMenu = 1;
 //         _usuario    :   userState["id"]
 //       }
 
-
 //       const strUrl      = `${URLBackend}/api/proyectodocum/listado`
 //       const queryURL    = `?query=06&_p2=${query["_proyecto"]}&_id=${query["_id"]}&_pkToDelete=${query["_pkToDelete"]}&_p4=${query["_usuario"]}`
 //       const result      = await axios(`${strUrl}/${queryURL}`);
-//       // console.log(result)        
+//       // console.log(result)
 //       if(result.status === 200){
-//         const successMessage = type === 2  
+//         const successMessage = type === 2
 //                                        ? `Reporte firma generado: ${result.data[0][0]}`
 //                                        : `Reporte de atencion generado: ${result.data[0][0]}`
-        
+
 //         dispatch(fetchOT({historica:true, searchParams: `_proyecto=${query["_proyecto"]}`}))
 //         setSelectedRows([])
 //         toast.dismiss(toastLoading)
@@ -314,29 +295,28 @@ const idMenu = 1;
 //   }
 // }
 
-
-
 const MOTHistorica: React.FC = () => {
   const [showOrdenCompra, setShowOrdenCompra] = useState(false);
   const [showGuia, setShowGuia] = useState(false);
   const [showFactura, setShowFactura] = useState(false);
   const [showRepEntrega, setShowRepEntrega] = useState(false);
-  const [ pktoDelete, setPkToDelete] = useState([]);
-  const {  CustomModal } = useModal();
-  
-  const dispatch       = useAppDispatch();
+  const [pktoDelete, setPkToDelete] = useState([]);
+  const { CustomModal } = useModal();
+
+  const dispatch = useAppDispatch();
 
   const [params, setParams] = useState([]);
-  const OTs:any = useAppSelector((store: AppStore) => store.OTS);
-  const user:any = useAppSelector((store: AppStore) => store.user);
-  console.log(user)
+  const OTs: any = useAppSelector((store: AppStore) => store.OTS);
+  const user: any = useAppSelector((store: AppStore) => store.user);
+  console.log(user);
 
-  let permiso_documentacion  = user.permisos_archivo_ot[0] === '1' ? true : false; 
-  let permiso_post_venta     = user.permisos_archivo_ot[1] === '1' ? true : false;
-  let permiso_anular         = user.permisos_archivo_ot[2] === '1' ? true : false;  
+  let permiso_documentacion =
+    user.permisos_archivo_ot[0] === "1" ? true : false;
+  let permiso_post_venta = user.permisos_archivo_ot[1] === "1" ? true : false;
+  let permiso_anular = user.permisos_archivo_ot[2] === "1" ? true : false;
   // let permiso_post_venta    = user.permisos_archivo_ot[1] === '1' ? true : false;
 
-  console.log(permiso_documentacion)
+  console.log(permiso_documentacion);
   // const userState: any = useAppSelector((store: AppStore) => store.user);
 
   // const {escritura_lectura} = usePermission(idMenu)
@@ -367,40 +347,39 @@ const MOTHistorica: React.FC = () => {
   // console.log("params:", params);
   useEffect(() => {
     const newPkToDelete = selectedRows.map((row: number) => ({
-      folio             : OTs.data[row] && OTs.data[row][1],
-      estado            : OTs.data[row] && OTs.data[row][5],
-      estado_id         : OTs.data[row] && OTs.data[row][4],
-      proyecto_codigo   : OTs.data[row] && OTs.data[row][7],
-      proyecto          : OTs.data[row] && OTs.data[row][14],
-      reporte_firma     : OTs.data[row] && OTs.data[row][9],
-      reporte_atencion  : OTs.data[row] && OTs.data[row][10],
-      orden_compra      : OTs.data[row] && OTs.data[row][11],
-      numero_guia       : OTs.data[row] && OTs.data[row][12],
-      numero_factura    : OTs.data[row] && OTs.data[row][13],
+      folio: OTs.data[row] && OTs.data[row][1],
+      estado: OTs.data[row] && OTs.data[row][5],
+      estado_id: OTs.data[row] && OTs.data[row][4],
+      proyecto_codigo: OTs.data[row] && OTs.data[row][7],
+      proyecto: OTs.data[row] && OTs.data[row][14],
+      reporte_firma: OTs.data[row] && OTs.data[row][9],
+      reporte_atencion: OTs.data[row] && OTs.data[row][10],
+      orden_compra: OTs.data[row] && OTs.data[row][11],
+      numero_guia: OTs.data[row] && OTs.data[row][12],
+      numero_factura: OTs.data[row] && OTs.data[row][13],
 
-      area              : OTs.data[row] && OTs.data[row][6],
-    })
-  
-  
-  ); 
-  totoalTrabajosSeleccionados.value = newPkToDelete?.reduce((acc:any,ot:any)=>{
-    if(ot["tipo_anteojo"] === 3){
-      console.log('render')
-      acc = acc + 2
-    }else{
-      acc++
-    }
-    return acc
-  },0)
+      area: OTs.data[row] && OTs.data[row][6],
+    }));
+    totoalTrabajosSeleccionados.value = newPkToDelete?.reduce(
+      (acc: any, ot: any) => {
+        if (ot["tipo_anteojo"] === 3) {
+          console.log("render");
+          acc = acc + 2;
+        } else {
+          acc++;
+        }
+        return acc;
+      },
+      0
+    );
     // console.log(OTs.data)
     // console.log('newPkToDelete:',newPkToDelete)
-    setPkToDelete(newPkToDelete as any)
+    setPkToDelete(newPkToDelete as any);
   }, [selectedRows]);
 
-  const checkCount = signal(pktoDelete.length)
+  const checkCount = signal(pktoDelete.length);
   // const folios = pktoDelete && pktoDelete.map(({folio}:any)=>folio)
 
-  
   //TODO: ==== METODO REPORTE DE FIRMA Y ATENCION============
   // const handleReporte = async(type:number) => {
   //   let resultBoton:any = []
@@ -409,16 +388,15 @@ const MOTHistorica: React.FC = () => {
   //     return toast.error('No Hay OT Seleccionada')
   //   }
 
-  //   console.log(params[0])                               
+  //   console.log(params[0])
 
-    
-  //   console.log(pktoDelete) 
+  //   console.log(pktoDelete)
   //   const resultadoFiltrado = OTs.data && OTs.data.filter((elemento:any) => folios.includes(elemento[1]));
-    
+
   //   if(parseInt(pktoDelete[0]["reporte_atencion"]) !== 0){
   //     const result = await showModal(
   //         `OT: ${pktoDelete[0]["folio"]} Tiene Reporte de atención asignado, ¿Desea agregar uno nuevo? `,
-  //         '', 
+  //         '',
   //         MODAL.keepYes,
   //         MODAL.kepNo
   //       );
@@ -428,8 +406,6 @@ const MOTHistorica: React.FC = () => {
   //     }
   // }
 
-
-    
   //   //TODO: TIPO 1 REPORTE DE ATENCION
   //   if(type === 1){
   //     //? VALIDACIONES DEL METODO
@@ -443,7 +419,7 @@ const MOTHistorica: React.FC = () => {
   //       }
 
   //     })
-  //   //TODO: TIPO 2 REPORTE FIRMA 
+  //   //TODO: TIPO 2 REPORTE FIRMA
   //   }else if (type === 2){
   //     resultadoFiltrado.map((ot:any)=>{
   //       const estadoCOL = ot[4]
@@ -455,7 +431,7 @@ const MOTHistorica: React.FC = () => {
   //       }
   //     })
   //   }
-    
+
   //   const areAllSameType = resultBoton.every((item:any) => item[1] === true);
 
   //   if(!areAllSameType){
@@ -463,9 +439,9 @@ const MOTHistorica: React.FC = () => {
   //         if(typeof ot[1] === 'string'){
   //           toast.error(`Error: folio ${ot[0]}  | ${ot[1]}`);
   //         }
-  //       } 
-  //     ) 
-  //   }else{  
+  //       }
+  //     )
+  //   }else{
   //       const toastLoading = toast.loading('Cargando...');
   //     try {
   //       const query = {
@@ -474,17 +450,15 @@ const MOTHistorica: React.FC = () => {
   //         _id         :   type,
   //         _usuario    :   userState["id"]
   //       }
-  
-  
+
   //       const strUrl      = `${URLBackend}/api/proyectodocum/listado`
   //       const queryURL    = `?query=06&_p2=${query["_proyecto"]}&_id=${query["_id"]}&_pkToDelete=${query["_pkToDelete"]}&_p4=${query["_usuario"]}`
   //       const result      = await axios(`${strUrl}/${queryURL}`);
-  //       // console.log(result)        
+  //       // console.log(result)
   //       if(result.status === 200){
-  //         const successMessage = type === 2  
+  //         const successMessage = type === 2
   //                                        ? `Reporte firma generado: ${result.data[0][0]}`
   //                                        : `Reporte de atencion generado: ${result.data[0][0]}`
-          
 
   //         dispatch(fetchOT({historica:true, searchParams: params[0] }))
   //         setSelectedRows([])
@@ -499,208 +473,314 @@ const MOTHistorica: React.FC = () => {
   //   }
   // }
 
-  useEffect(()=>{
-    dispatch(clearData())
-    dispatch(updateActualArea(110 as any))
+  useEffect(() => {
+    dispatch(clearData());
+    dispatch(updateActualArea(110 as any));
+  }, []);
 
-  },[])
-
-
-
-  const validateAreaArchivo = pktoDelete.some((ot:any)=>ot.area !== "Archivo");
+  const validateAreaArchivo = pktoDelete.some(
+    (ot: any) => ot.area !== "Archivo"
+  );
   // const folioNotArchivo = pktoDelete.filter((ot:any)=>ot.area === "Archivo").map((ot:any)=>ot.folio)
 
   // console.log(validateAreaArchivo)
 
   return (
     <div className="mantenedorContainer">
-
       <Suspense>
-        <FilterButton
-          isOT={true}
-          className="top-[10rem] left-[3rem]"
+        <FilterButton isOT={true} className="top-[10rem] left-[3rem]">
+          <PrimaryKeySearch
+            baseUrl={strBaseUrl}
+            updateParams={updateParams}
+            strQuery={strQuery}
+            setEntities={setEntities}
+            otHistorica={true}
+            primaryKeyInputs={[
+              {
+                name: "_folio",
+                label: "Folio",
+                type: "text",
+                styles: {
+                  with: "labelInput inputStyles w-full",
+                  container: "w-[10vw] !h-[6vh] translate-x-[-2vw]",
+                  labelProps: "labelInput",
+                },
+              },
+              {
+                name: "_rut",
+                label: "Rut",
+                type: "text",
+                styles: {
+                  with: "labelInput inputStyles w-full",
+                  container: "w-[10vw] !h-[6vh]    translate-x-[-6vw]",
+                  labelProps: "labelInput",
+                },
+              },
+              {
+                name: "_fecha_desde",
+                label: "Atención Desde",
+                type: "date",
+                styles: {
+                  styles: "labelInput inputStyles",
+                  container: "w-[11vw] translate-x-[-2vw]",
+                },
+              },
+              {
+                name: "_fecha_hasta",
+                label: "Atención Hasta",
+                type: "date",
+                styles: {
+                  styles: "labelInput inputStyles",
+                  container: "w-[11vw] translate-x-[-5.5vw]",
+                },
+              },
 
-        >
-            <PrimaryKeySearch
-              baseUrl={strBaseUrl}
-              updateParams={updateParams}
-              strQuery={strQuery}
-              setEntities={setEntities}
-              otHistorica={true}
-              primaryKeyInputs={[
-                { name: "_folio", label: "Folio", type: "text", 
-                  styles: { 
-                    with: "labelInput inputStyles w-full",
-                    container:"w-[10vw] !h-[6vh] translate-x-[-2vw]", 
-                    labelProps: "labelInput"
-                  } },
-                { name: "_rut", label: "Rut", type: "text", 
-                  styles: { 
-                    with: "labelInput inputStyles w-full",
-                    container: "w-[10vw] !h-[6vh]    translate-x-[-6vw]",
-                    labelProps: "labelInput"
-                  } },
-                  { name: "_fecha_desde", label: "Atención Desde", type: "date", styles: {styles:"labelInput inputStyles",container:"w-[11vw] translate-x-[-2vw]" } },
-                  { name: "_fecha_hasta", label: "Atención Hasta", type: "date", styles: {styles:"labelInput inputStyles", container:"w-[11vw] translate-x-[-5.5vw]" } },
-    
-                { name: "_estado", label: "Estado", type: "select", selectUrl: "/api/tipos/", tipos: "OTEstadosFiltro", 
-                  styles: { 
-                    styles:"labelInput inputStyles w-[25vw]",
-                    container:"!w-[25vw] -translate-x-[-0.5vw] translate-y-[18%] ml-2 ", 
-                    labelProps: "labelInput"
-                  }},
+              {
+                name: "_estado",
+                label: "Estado",
+                type: "select",
+                selectUrl: "/api/tipos/",
+                tipos: "OTEstadosFiltro",
+                styles: {
+                  styles: "labelInput inputStyles w-[25vw]",
+                  container:
+                    "!w-[25vw] -translate-x-[-0.5vw] translate-y-[18%] ml-2 ",
+                  labelProps: "labelInput",
+                },
+              },
 
+              {
+                name: "_establecimiento",
+                label: "Establecimiento",
+                type: "select",
+                selectUrl: "/api/establecimientos/",
+                styles: {
+                  styles: "labelInput inputStyles",
+                  container:
+                    "!w-[20vw]  text-[1vw] translate-x-[9.5vw] translate-y-[18%] ",
+                  labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]",
+                },
+              },
 
-                { name: "_establecimiento", label: "Establecimiento", type: "select", selectUrl: "/api/establecimientos/", 
-                  styles: { 
-                    styles:"labelInput inputStyles",
-                    container:"!w-[20vw]  text-[1vw] translate-x-[9.5vw] translate-y-[18%] ", 
-                  labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
-                  }},
-    
-                { name: "_nombre", label: "Nombre", type: "text", 
-                  styles: { 
-                    with: "labelInput inputStyles w-full",
-                    container:"!w-[20vw]  text-[1vw] translate-x-[-6vw] ", 
-                  labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]" 
-                  } },
-                { name: "_ubicacion", label: "Ubicacion", type: "text", 
-                  styles: { 
-                    with: "labelInput inputStyles w-full",
-                    container:"!w-[16vw]  text-[1vw] translate-x-[-3vw] ", 
-                  labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]" 
-                  } },
+              {
+                name: "_nombre",
+                label: "Nombre",
+                type: "text",
+                styles: {
+                  with: "labelInput inputStyles w-full",
+                  container: "!w-[20vw]  text-[1vw] translate-x-[-6vw] ",
+                  labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]",
+                },
+              },
+              {
+                name: "_ubicacion",
+                label: "Ubicacion",
+                type: "text",
+                styles: {
+                  with: "labelInput inputStyles w-full",
+                  container: "!w-[16vw]  text-[1vw] translate-x-[-3vw] ",
+                  labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]",
+                },
+              },
 
+              {
+                name: "_motivo",
+                label: "Motivo",
+                type: "select",
+                selectUrl: "/api/tipos/",
+                tipos: "OTMotivo",
+                styles: {
+                  styles: "labelInput inputStyles !w-[19.5vw]",
+                  container: "!w-[19.5vw]  text-[1vw] translate-x-[-6vw] ",
+                  labelProps: "labelInput",
+                },
+              },
 
-                { name: "_motivo", label: "Motivo", type: "select", selectUrl: "/api/tipos/", tipos: "OTMotivo", 
-                  styles: {
-                    styles:"labelInput inputStyles !w-[19.5vw]",
-                    container:"!w-[19.5vw]  text-[1vw] translate-x-[-6vw] ", 
-                    labelProps: "labelInput"
-                  }},
-    
-                { name: "_p2", label: "Tipo Doc", type: "select", selectUrl: "/api/tipos/", tipos: "OTNumDoc", 
-                  styles: {
-                    styles:"labelInput inputStyles",
-                    container:"!w-[22.5vw]  translate-x-[-2.5vw] ", 
-                  labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
-                  }},
-                  { name: "_proyecto", label: "Proyecto", type: "select", selectUrl: "/api/proyectos/", 
-                    styles: { 
-                      styles:"labelInput inputStyles",
-                      container:"!w-[20vw]  translate-x-[13.5vw] ", 
-                      labelProps: "labelInput"
-                    }},
-                    { name: "_p3", label: "Número Doc", type: "text",  
-                      styles: { 
-                        with: "labelInput inputStyles w-full",
-                        container:"!w-[20vw]  text-[1vw] translate-x-[15vw] translate-y-[-5vw] ", 
-                        labelProps: "labelInput"
-                      }},
-                      
-                      
-                      { name: "_p1", label: "RBD", type: "text", 
-                        styles: { 
-                          with: "labelInput inputStyles w-full",
-                          container:"!w-[16vw]  text-[1vw] translate-x-[-1vw] ", 
-                          labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
-                  } },
-              
-    
-              ]}
-            />
+              {
+                name: "_p2",
+                label: "Tipo Doc",
+                type: "select",
+                selectUrl: "/api/tipos/",
+                tipos: "OTNumDoc",
+                styles: {
+                  styles: "labelInput inputStyles",
+                  container: "!w-[22.5vw]  translate-x-[-2.5vw] ",
+                  labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]",
+                },
+              },
+              {
+                name: "_proyecto",
+                label: "Proyecto",
+                type: "select",
+                selectUrl: "/api/proyectos/",
+                styles: {
+                  styles: "labelInput inputStyles",
+                  container: "!w-[20vw]  translate-x-[13.5vw] ",
+                  labelProps: "labelInput",
+                },
+              },
+              {
+                name: "_p3",
+                label: "Número Doc",
+                type: "text",
+                styles: {
+                  with: "labelInput inputStyles w-full",
+                  container:
+                    "!w-[20vw]  text-[1vw] translate-x-[15vw] translate-y-[-5vw] ",
+                  labelProps: "labelInput",
+                },
+              },
 
+              {
+                name: "_p1",
+                label: "RBD",
+                type: "text",
+                styles: {
+                  with: "labelInput inputStyles w-full",
+                  container: "!w-[16vw]  text-[1vw] translate-x-[-1vw] ",
+                  labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]",
+                },
+              },
+            ]}
+          />
         </FilterButton>
       </Suspense>
 
-
-
-
       {/* //TODO: BOTONES SECCION PROYECTO REPORTE ATENCION/FIRMA */}
-
 
       <div className="mantenedorHeadOT width100 !h-[4rem] !mt-8 mr-8 items-center ">
         <div className="mx-auto">
-
           {/* <Button className='otActionButton mt-3 mx-5' style={{ backgroundColor: '#676f9d' }} onClick={() => handleReporte(2)}>N° Rep. Firma</Button> */}
           {/* <Button className='otActionButton mt-3 mx-5'  onClick={() => handleReporte(1)} >N° Rep. Entrega</Button> */}
 
           {permiso_documentacion && (
-            <Button className='otActionButton mt-3 mx-5'  onClick={() => {
-              if(pktoDelete.length < 1){
-                return toast.error('No hay OT Seleccionada')
-              }
+            <Button
+              className="otActionButton mt-3 mx-5"
+              onClick={() => {
+                if (pktoDelete.length < 1) {
+                  return toast.error("No hay OT Seleccionada");
+                }
 
-              if(validateAreaArchivo){
-                return toast.error(`OT no se encuentra en OT Archivo`)
-              }
+                if (validateAreaArchivo) {
+                  return toast.error(`OT no se encuentra en OT Archivo`);
+                }
 
-              setShowRepEntrega((prev)=>!prev)
-            }} >N° Rep. Entrega</Button>
-          )}  
+                setShowRepEntrega((prev) => !prev);
+              }}
+            >
+              N° Rep. Entrega
+            </Button>
+          )}
           <Suspense>
-            {showRepEntrega && <FOTReporteEntrega otArchivo={true} pktoDelete={pktoDelete} setSelectedRows={setSelectedRows} closeModal={()=>setShowRepEntrega(false)} />}
+            {showRepEntrega && (
+              <FOTReporteEntrega
+                otArchivo={true}
+                pktoDelete={pktoDelete}
+                setSelectedRows={setSelectedRows}
+                closeModal={() => setShowRepEntrega(false)}
+              />
+            )}
           </Suspense>
 
           {permiso_documentacion && (
-            <Button className='otActionButton mt-3 mx-5'  onClick={() => {
-              if(pktoDelete.length < 1){
-                return toast.error('No hay OT Seleccionada')
-              }
-              if(validateAreaArchivo){
-                return toast.error(`OT no se encuentra en OT Archivo`)
-              }
+            <Button
+              className="otActionButton mt-3 mx-5"
+              onClick={() => {
+                if (pktoDelete.length < 1) {
+                  return toast.error("No hay OT Seleccionada");
+                }
+                if (validateAreaArchivo) {
+                  return toast.error(`OT no se encuentra en OT Archivo`);
+                }
 
-              setShowOrdenCompra((prev) => !prev)}
-            }>N° OC</Button>
+                setShowOrdenCompra((prev) => !prev);
+              }}
+            >
+              N° OC
+            </Button>
           )}
           <Suspense>
-             {showOrdenCompra  && <FOTOrdenCompra otArchivo={true} pktoDelete={pktoDelete}  setSelectedRows={setSelectedRows} closeModal={() => setShowOrdenCompra(false)} />}
-          </Suspense>
-
-
-          {permiso_documentacion && (
-            <Button className='otActionButton mt-3 mx-5'  onClick={() => {
-              if(pktoDelete.length < 1){
-                return toast.error('No hay OT Seleccionada')
-              }
-              if(validateAreaArchivo){
-                return toast.error(`OT no se encuentra en OT Archivo`)
-              }
-              setShowGuia((prev) => !prev)
-            }}>N° Guía</Button>
-          )}
-          <Suspense>
-            {showGuia && <FOTGuiaDespacho  pktoDelete={pktoDelete } setSelectedRows={setSelectedRows} closeModal={() => setShowGuia(false)} otArchivo={true} />}
+            {showOrdenCompra && (
+              <FOTOrdenCompra
+                otArchivo={true}
+                pktoDelete={pktoDelete}
+                setSelectedRows={setSelectedRows}
+                closeModal={() => setShowOrdenCompra(false)}
+              />
+            )}
           </Suspense>
 
           {permiso_documentacion && (
-            <Button className='otActionButton mt-3 mx-5'  onClick={() => {
-              if(pktoDelete.length < 1){
-                return toast.error('No hay OT Seleccionada')
-              }
-              if(validateAreaArchivo){
-                return toast.error(`OT no se encuentra en OT Archivo`)
-              }
-              setShowFactura((prev) => !prev)
-            }}>N° Factura</Button>
+            <Button
+              className="otActionButton mt-3 mx-5"
+              onClick={() => {
+                if (pktoDelete.length < 1) {
+                  return toast.error("No hay OT Seleccionada");
+                }
+                if (validateAreaArchivo) {
+                  return toast.error(`OT no se encuentra en OT Archivo`);
+                }
+                setShowGuia((prev) => !prev);
+              }}
+            >
+              N° Guía
+            </Button>
           )}
           <Suspense>
-            {showFactura      && <FOTFactura  otArchivo={true}     pktoDelete={pktoDelete}  setSelectedRows={setSelectedRows} closeModal={() => setShowFactura(false)} />}
+            {showGuia && (
+              <FOTGuiaDespacho
+                pktoDelete={pktoDelete}
+                setSelectedRows={setSelectedRows}
+                closeModal={() => setShowGuia(false)}
+                otArchivo={true}
+              />
+            )}
+          </Suspense>
+
+          {permiso_documentacion && (
+            <Button
+              className="otActionButton mt-3 mx-5"
+              onClick={() => {
+                if (pktoDelete.length < 1) {
+                  return toast.error("No hay OT Seleccionada");
+                }
+                if (validateAreaArchivo) {
+                  return toast.error(`OT no se encuentra en OT Archivo`);
+                }
+                setShowFactura((prev) => !prev);
+              }}
+            >
+              N° Factura
+            </Button>
+          )}
+          <Suspense>
+            {showFactura && (
+              <FOTFactura
+                otArchivo={true}
+                pktoDelete={pktoDelete}
+                setSelectedRows={setSelectedRows}
+                closeModal={() => setShowFactura(false)}
+              />
+            )}
           </Suspense>
 
           <Suspense>
-            <ExportCSV strEntidad={strEntidad} params={params} strBaseUrl={strBaseUrl} primaryButton={true} idMenu={idMenu}/>  
+            <ExportCSV
+              strEntidad={strEntidad}
+              params={params}
+              strBaseUrl={strBaseUrl}
+              primaryButton={true}
+              idMenu={idMenu}
+            />
           </Suspense>
         </div>
       </div>
 
-
-
-
-
-
-      <div className={`width100 scroll ${filterToggle.value ? "!mt-[16rem] !h-[25rem]" : "!mt-[1em] !h-[40rem]"} `}>
+      <div
+        className={`width100 scroll ${
+          filterToggle.value ? "!mt-[16rem] !h-[25rem]" : "!mt-[1em] !h-[40rem]"
+        } `}
+      >
         <TableComponent2
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
@@ -720,9 +800,8 @@ const MOTHistorica: React.FC = () => {
         />
       </div>
       <Suspense>
-        <StateCountBarOT checkCount={checkCount} isMotHistorica={true}/>
-      </Suspense>  
-        
+        <StateCountBarOT checkCount={checkCount} isMotHistorica={true} />
+      </Suspense>
 
       <Suspense>
         {isModalInsert && (
@@ -737,7 +816,7 @@ const MOTHistorica: React.FC = () => {
             permisos_ot_historica={{
               permiso_documentacion,
               permiso_post_venta,
-              permiso_anular
+              permiso_anular,
             }}
           />
         )}
@@ -755,11 +834,11 @@ const MOTHistorica: React.FC = () => {
             permisos_ot_historica={{
               permiso_documentacion,
               permiso_post_venta,
-              permiso_anular
+              permiso_anular,
             }}
           />
         )}
-      </Suspense>  
+      </Suspense>
 
       <Suspense>
         <CustomModal />

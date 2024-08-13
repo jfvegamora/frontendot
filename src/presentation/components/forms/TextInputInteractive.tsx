@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Input } from "@material-tailwind/react";
-import React, {useEffect, useState} from "react";
+import React, {ComponentProps, useEffect, useState} from "react";
 import { Controller } from "react-hook-form";
 import { A1_CR_OI, A1_DP } from "../../utils";
 import { toast } from "react-toastify";
@@ -13,7 +13,7 @@ import { clearRutCliente } from "../../utils/FOTClientes_utils";
 // import debounce from "lodash/debounce"
 // import debounce from 'lodash/debounce'
 
-interface ITextInputProps {
+type ITextInputProps = ComponentProps<'input'> &{
   label: string;
   name: string;
   defaultValue?: any;
@@ -36,6 +36,8 @@ interface ITextInputProps {
   handleFocus?:any
   reservaArmazones?:boolean;
   handleFocusReservaArmazones?:any;
+  onPaste?:any
+  onKeyDown?:any
 }
 
 const TextInputInteractive: React.FC<ITextInputProps> = ({
@@ -58,7 +60,9 @@ const TextInputInteractive: React.FC<ITextInputProps> = ({
   validarBodega,
   handleFocus,
   reservaArmazones,
-  handleFocusReservaArmazones
+  handleFocusReservaArmazones,
+  onPaste,
+  onKeyDown
 }) => {
   const [_defaultValue, setDefaultValue] = useState<any>(data || " "); 
   const[_render, setRender] = useState(false);
@@ -261,7 +265,10 @@ return (
                      fontSize: "16px",
                      height: '7vh',
                   },
-                }}
+            }}
+          onPaste={onPaste && onPaste}
+          onKeyDown={onKeyDown && onKeyDown}
+
           />
 
           {error && (
