@@ -29,6 +29,7 @@ import { setEstadoImpresion } from "./OTGrillaButtons";
 import { SocialIcon } from "react-social-icons";
 import { handleActionOTButtons } from "../utils/FOTPendiente_utils";
 import { URLBackend } from "../utils/config";
+import FOTValidateCristales from "../views/forms/FOTValidateCristales";
 // import { OTAreasEnum } from '../Enums/OTAreasEnum';
 // import { OTGrillaEnum } from '../Enums';
 // import { CR1_OD_LAB, CR1_OI_LAB, CR2_OD_LAB, CR2_OI_LAB } from '../utils/FOTCristales_utils';
@@ -49,7 +50,8 @@ export const isFinishImpression = signal(false);
 export const barCodeSignal = signal("");
 
 export const resultValidarBodega = signal<any>({
-  ProcesarTB: true,
+  ProcesarTB_1: true,
+  ProcesarTB_2: false,
   conCristales: false,
   sinCristales: false,
 });
@@ -151,6 +153,8 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
     const [isFOTDerivacion, setisFOTDerivacion] = useState(false);
     const [isFOTValidarEmpaque, setIsFOTValidarEmpaque] = useState(false);
     const [isFOTUbicacion, setIsFOTUbicacion] = useState(false);
+    const [isFOTValidateBodegaCristales, setisFOTValidateBodegaCristales] =
+      useState(false);
     // const [barCode, setBarCode]                       = useState('')
     const [dataOT, setDataOT] = useState();
     // const [valueSearchOT, setValueSearchOT]           = useState<any>();
@@ -778,6 +782,33 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
       }
     };
 
+    const handleProcesarBodegaCristales = async (
+      folio: any,
+      toastLoading?: any
+    ) => {
+      {
+        try {
+          const dataOT = OTData.map((ot: any) => ot).filter(
+            (filterot: any) => filterot[1] === folio
+          );
+          if (dataOT.length === 0) {
+            valueConfirmOT.value = "";
+            setisFOTValidateBodegaCristales(false);
+            toast.dismiss(toastLoading);
+            return toast.error(`OT ${folio}: No se encuentra en esta área.`);
+          }
+
+          toast.dismiss(toastLoading);
+          dataOTSignal.value = dataOT;
+          setisFOTValidateBodegaCristales(true);
+        } catch (error) {
+          console.log(error);
+          setisFOTValidateBodegaCristales(false);
+          return toast.error(error as string);
+        }
+      }
+    };
+
     return (
       <div className="flex items-center   ml-[4rem] !w-full">
         <Suspense>
@@ -1090,7 +1121,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
         </Suspense>
 
         {OTAreas["areaActual"] !== 200 && (
-          <div className="ml-2">
+          <div className="ml-2 w-[10vw]">
             <Input
               type="number"
               label="Seleccionar OT"
@@ -1122,11 +1153,51 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
         {areaPermissions &&
           areaPermissions[15] === "1" &&
           permisos_usuario_areas !== "0" && (
-            <div className="ml-2">
+            <div className="ml-2 w-[10vw]">
               <Input
                 ref={refFocusInput}
                 type="number"
-                label="Validar OT"
+                label="Validar Cristales"
+                name="ProcesarOT"
+                className="text-xl"
+                color="orange"
+                // value={valueConfirmOT.value as any}
+                value={valueConfirmOT.value as any}
+                onChange={async (e: any) => {
+                  if (e.target.value !== "") {
+                    let validateValue = e.target.value;
+                    clearIndividualCheck.value = true;
+                    if (validateValue.length >= 10) {
+                      console.log(validateValue);
+                      const regex = /^0+/;
+                      valueConfirmOT.value = validateValue.replace(regex, "");
+
+                      const toastLoading: any = toast.loading("cargando...");
+                      await handleProcesarBodegaCristales(
+                        parseInt(valueConfirmOT.value),
+                        toastLoading
+                      ).then(() => {
+                        toast.dismiss(toastLoading);
+                        //  valueConfirmOT.value = "";
+                      });
+                    }
+                  }
+                  valueConfirmOT.value =
+                    e.target.value === ""
+                      ? e.target.value
+                      : parseInt(e.target.value);
+                }}
+              />
+            </div>
+          )}
+        {areaPermissions &&
+          areaPermissions[15] === "1" &&
+          permisos_usuario_areas !== "0" && (
+            <div className="ml-2 w-[10vw]">
+              <Input
+                ref={refFocusInput}
+                type="number"
+                label="Validar Armazones"
                 name="ProcesarOT"
                 className="text-xl"
                 color="orange"
@@ -1167,14 +1238,15 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
               <div className="flex">
                 <input
                   type="radio"
-                  id="procesar_tb"
+                  id="procesar_tb1"
                   name="radioGroup"
                   className=" mx-2 h-[1.5rem] w-[1.5rem]"
-                  value="procesar_tb"
-                  checked={resultValidarBodega.value.ProcesarTB}
+                  value="procesar_tb1"
+                  checked={resultValidarBodega.value.ProcesarTB_1}
                   onChange={(e) => {
                     resultValidarBodega.value = {
-                      ProcesarTB: e.target.checked,
+                      ProcesarTB_1: e.target.checked,
+                      ProcesarTB_2: false,
                       conCristales: false,
                       sinCristales: false,
                     };
@@ -1188,14 +1260,15 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
               <div className="flex">
                 <input
                   type="radio"
-                  id="procesar_tb"
+                  id="procesar_tb2"
                   name="radioGroup"
                   className=" mx-2 h-[1.5rem] w-[1.5rem]"
                   value="procesar_tb"
-                  checked={resultValidarBodega.value.ProcesarTB}
+                  checked={resultValidarBodega.value.ProcesarTB_2}
                   onChange={(e) => {
                     resultValidarBodega.value = {
-                      ProcesarTB: e.target.checked,
+                      ProcesarTB_1: false,
+                      ProcesarTB_2: e.target.checked,
                       conCristales: false,
                       sinCristales: false,
                     };
@@ -1216,7 +1289,8 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
                   checked={resultValidarBodega.value.conCristales}
                   onChange={(e) => {
                     resultValidarBodega.value = {
-                      ProcesarTB: false,
+                      ProcesarTB_1: false,
+                      ProcesarTB_2: false,
                       conCristales: e.target.checked,
                       sinCristales: false,
                     };
@@ -1235,7 +1309,8 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
                   checked={resultValidarBodega.value.sinCristales}
                   onChange={(e) => {
                     resultValidarBodega.value = {
-                      ProcesarTB: false,
+                      ProcesarTB_1: false,
+                      ProcesarTB_2: false,
                       conCristales: false,
                       sinCristales: e.target.checked,
                     };
@@ -1316,6 +1391,10 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
               onClose={() => setIsFOTValidarEmpaque(false)}
             />
           )}
+        </Suspense>
+
+        <Suspense>
+          {isFOTValidateBodegaCristales && <FOTValidateCristales />}
         </Suspense>
 
         <Suspense>
