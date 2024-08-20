@@ -451,6 +451,26 @@ const FUsuarios2: React.FC<IUserFormPrps> = React.memo(
           "permiso_editar_worktracking",
           data[EnumGrid.permiso_editar_worktracking]
         );
+
+        setValue("permiso_nguia", data[EnumGrid.permiso_nguia]);
+        setValue("permiso_nenvio", data[EnumGrid.permiso_nenvio]);
+        setValue("permiso_nfirma", data[EnumGrid.permiso_nfirma]);
+        setValue(
+          "permiso_nreporte_entrega",
+          data[EnumGrid.permiso_nreporte_entrega]
+        );
+        setValue("permiso_noc", data[EnumGrid.permiso_noc]);
+        setValue(
+          "permiso_confirmar_entrega",
+          data[EnumGrid.permiso_confirmar_entrega]
+        );
+        setValue("permiso_pre_facturar", data[EnumGrid.permiso_pre_facturar]);
+        setValue("permiso_vb", data[EnumGrid.permiso_vb]);
+        setValue("permiso_facturar", data[EnumGrid.permiso_facturar]);
+        setValue(
+          "permiso_confirmar_pago",
+          data[EnumGrid.permiso_confirmar_pago]
+        );
       }
     }, [data]);
 
@@ -544,7 +564,7 @@ const FUsuarios2: React.FC<IUserFormPrps> = React.memo(
                     customWidth={"labelInput inputStyles"}
                   />
                 </div>
-                <div className="w-[11rem] ml-[2%]">
+                {/* <div className="w-[11rem] ml-[2%]">
                   <RadioButtonComponent
                     control={control}
                     label="Documentación"
@@ -597,7 +617,7 @@ const FUsuarios2: React.FC<IUserFormPrps> = React.memo(
                     }
                     customWidth={"labelInput inputStyles"}
                   />
-                </div>
+                </div> */}
               </div>
             </div>
 
@@ -826,10 +846,10 @@ const FUsuarios2: React.FC<IUserFormPrps> = React.memo(
                         <div className="w-full">
                           <RadioButtonComponent
                             control={control}
-                            label="Adquisiciones"
+                            label="Compras"
                             name="permiso_adquisiciones"
                             data={
-                              (formValues && formValues["Adquisiciones"]) ||
+                              (formValues && formValues["Compras"]) ||
                               (data && data[EnumGrid.permiso_adquisiciones])
                             }
                             options={["Lectura", "Escritura"]}

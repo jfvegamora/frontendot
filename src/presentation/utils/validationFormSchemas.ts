@@ -629,9 +629,16 @@ export const validationUsusariosSchema = () =>
     permiso_bodega_prod_term: yup.string().required(`${msg}`),
     permiso_empaque: yup.string().required(`${msg}`),
 
-    permiso_facturacion: yup.string().required(`${msg}`),
-    permiso_post_venta: yup.string().required(`${msg}`),
-    permiso_anulacion: yup.string().required(`${msg}`),
+    permiso_editar_armazon: yup.string().required(`${msg}`),
+    permiso_editar_cristal_opcion_vta: yup.string().required(`${msg}`),
+    permiso_editar_estado_impresion: yup.string().required(`${msg}`),
+    permiso_editar_validar_parametrizacion: yup.string().required(`${msg}`),
+    permiso_editar_opcion_montaje: yup.string().required(`${msg}`),
+    permiso_editar_grupo_dioptria: yup.string().required(`${msg}`),
+    permiso_editar_receta: yup.string().required(`${msg}`),
+    permiso_editar_validar_cristales: yup.string().required(`${msg}`),
+    permiso_editar_validar_armazones: yup.string().required(`${msg}`),
+    permiso_editar_worktracking: yup.string().required(`${msg}`),
 
     permiso_nguia: yup.string().required(`${msg}`),
     permiso_nenvio: yup.string().required(`${msg}`),
@@ -643,18 +650,6 @@ export const validationUsusariosSchema = () =>
     permiso_vb: yup.string().required(`${msg}`),
     permiso_facturar: yup.string().required(`${msg}`),
     permiso_confirmar_pago: yup.string().required(`${msg}`),
-
-
-    permiso_editar_armazon: yup.string().required(`${msg}`),
-    permiso_editar_cristal_opcion_vta: yup.string().required(`${msg}`),
-    permiso_editar_estado_impresion: yup.string().required(`${msg}`),
-    permiso_editar_validar_parametrizacion: yup.string().required(`${msg}`),
-    permiso_editar_opcion_montaje: yup.string().required(`${msg}`),
-    permiso_editar_grupo_dioptria: yup.string().required(`${msg}`),
-    permiso_editar_receta: yup.string().required(`${msg}`),
-    permiso_editar_validar_cristales: yup.string().required(`${msg}`),
-    permiso_editar_validar_armazones: yup.string().required(`${msg}`),
-    permiso_editar_worktracking: yup.string().required(`${msg}`),
 
   });
 

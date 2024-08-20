@@ -3652,150 +3652,46 @@ export const table_head_usuarios = [
     width: "w-[10rem]",
   },
   {
-    cell: "OT PERMISO DOC ID",
-    key: "ot_permiso_doc_id",
-    visible: false,
+    cell: "OT PERMISO DOC", key: "ot_permiso_doc", visible: false,
   },
   {
-    cell: "OT PERMISO DOC",
-    key: "ot_permiso_doc",
-    visible: false,
+    cell: "OT PERMISO POST VENTA", key: "ot_permiso_post_venta", visible: false,
   },
   {
-    cell: "OT PERMISO POST VENTA ID",
-    key: "ot_permiso_post_venta_id",
-    visible: false,
+    cell: "OT PERMISO ANULAR", key: "ot_permiso_anular", visible: false,
   },
   {
-    cell: "OT PERMISO POST VENTA",
-    key: "ot_permiso_post_venta",
-    visible: false,
+    cell: "RES", key: "permiso_resolucion", visible: false,
   },
   {
-    cell: "OT PERMISO ANULAR ID",
-    key: "ot_permiso_anular_id",
-    visible: false,
+    cell: "ADQ", key: "permiso_adq", visible: false,
   },
   {
-    cell: "OT PERMISO ANULAR",
-    key: "ot_permiso_anular",
-    visible: false,
+    cell: "CAL", key: "permiso_cal", visible: false,
   },
   {
-    cell: "RES_ID",
-    key: "permiso_resolucion_id",
-    visible: false,
+    cell: "LAB", key: "permiso_lab", visible: false,
   },
   {
-    cell: "RES",
-    key: "permiso_resolucion",
-    visible: false,
+    cell: "ING", key: "permiso_ing", visible: false,
   },
   {
-    cell: "ADQ_ID",
-    key: "permiso_adq_id",
-    visible: false,
+    cell: "CON_PROD", key: "permiso_con_prod", visible: false,
   },
   {
-    cell: "ADQ",
-    key: "permiso_adq",
-    visible: false,
+    cell: "BI", key: "permiso_bi", visible: false,
   },
   {
-    cell: "CAL_ID",
-    key: "permiso_cal_id",
-    visible: false,
+    cell: "TB1", key: "permiso_tb1", visible: false,
   },
   {
-    cell: "CAL",
-    key: "permiso_cal",
-    visible: false,
+    cell: "TB2", key: "permiso_tb2", visible: false,
   },
   {
-    cell: "LAB_ID",
-    key: "permiso_lab_id",
-    visible: false,
+    cell: "TM", key: "permiso_tm", visible: false,
   },
   {
-    cell: "LAB",
-    key: "permiso_lab",
-    visible: false,
-  },
-  {
-    cell: "ING_ID",
-    key: "permiso_ing_id",
-    visible: false,
-  },
-  {
-    cell: "ING",
-    key: "permiso_ing",
-    visible: false,
-  },
-  {
-    cell: "CON_PROD_ID",
-    key: "permiso_con_prod_id",
-    visible: false,
-  },
-  {
-    cell: "CON_PROD",
-    key: "permiso_con_prod",
-    visible: false,
-  },
-  {
-    cell: "BI_ID",
-    key: "permiso_bi_id",
-    visible: false,
-  },
-  {
-    cell: "BI",
-    key: "permiso_bi",
-    visible: false,
-  },
-  {
-    cell: "TB1_ID",
-    key: "permiso_tb1_id",
-    visible: false,
-  },
-  {
-    cell: "TB1",
-    key: "permiso_tb1",
-    visible: false,
-  },
-  {
-    cell: "TB2_ID",
-    key: "permiso_tb2_id",
-    visible: false,
-  },
-  {
-    cell: "TB2",
-    key: "permiso_tb2",
-    visible: false,
-  },
-  {
-    cell: "TM_ID",
-    key: "permiso_tm_id",
-    visible: false,
-  },
-  {
-    cell: "TM",
-    key: "permiso_tm",
-    visible: false,
-  },
-  {
-    cell: "QA_ID",
-    key: "permiso_qa_id",
-    visible: false,
-  },
-  {
-    cell: "QA",
-    key: "permiso_qa",
-    visible: false,
-  },
-
-  {
-    cell: "BPT_ID",
-    key: "permiso_bpt_id",
-    visible: false,
+    cell: "QA", key: "permiso_qa", visible: false,
   },
   {
     cell: "BPT",
@@ -3803,125 +3699,76 @@ export const table_head_usuarios = [
     visible: false,
   },
   {
-    cell: "EMP_ID",
-    key: "permiso_emp_id",
-    visible: false,
+    cell: "EMP", key: "permiso_emp", visible: false,
   },
   {
-    cell: "EMP",
-    key: "permiso_emp",
-    visible: false,
+    cell: "permiso_editar_armazon", key: "permiso_editar_armazon", visible: false,
   },
   {
-    cell: "permiso_editar_armazon_id",
-    key: "permiso_editar_armazon_id",
-    visible: false,
+    cell: "permiso_editar_cristal_opcion_vta", key: "permiso_editar_cristal_opcion_vta", visible: false,
   },
   {
-    cell: "permiso_editar_armazon",
-    key: "permiso_editar_armazon",
-    visible: false,
+    cell: "permiso_editar_estado_impresion", key: "permiso_editar_estado_impresion", visible: false,
   },
   {
-    cell: "permiso_editar_cristal_opcion_vta_id",
-    key: "permiso_editar_cristal_opcion_vta_id",
-    visible: false,
+    cell: "permiso_editar_validar_parametrizacion", key: "permiso_editar_validar_parametrizacion", visible: false,
   },
   {
-    cell: "permiso_editar_cristal_opcion_vta",
-    key: "permiso_editar_cristal_opcion_vta",
-    visible: false,
+    cell: "permiso_editar_opcion_montaje", key: "permiso_editar_opcion_montaje", visible: false,
   },
   {
-    cell: "permiso_editar_estado_impresion_id",
-    key: "permiso_editar_estado_impresion_id",
-    visible: false,
+    cell: "permiso_editar_grupo_dioptria", key: "permiso_editar_grupo_dioptria", visible: false,
   },
   {
-    cell: "permiso_editar_estado_impresion",
-    key: "permiso_editar_estado_impresion",
-    visible: false,
+    cell: "permiso_editar_receta", key: "permiso_editar_receta", visible: false,
   },
   {
-    cell: "permiso_editar_validar_parametrizacion_id",
-    key: "permiso_editar_validar_parametrizacion_id",
-    visible: false,
+    cell: "permiso_editar_validar_cristales", key: "permiso_editar_validar_cristales", visible: false,
   },
   {
-    cell: "permiso_editar_validar_parametrizacion",
-    key: "permiso_editar_validar_parametrizacion",
-    visible: false,
+    cell: "permiso_editar_validar_armazones", key: "permiso_editar_validar_armazones", visible: false,
   },
   {
-    cell: "permiso_editar_opcion_montaje_id",
-    key: "permiso_editar_opcion_montaje_id",
-    visible: false,
-  },
-  {
-    cell: "permiso_editar_opcion_montaje",
-    key: "permiso_editar_opcion_montaje",
-    visible: false,
-  },
-  {
-    cell: "permiso_editar_grupo_dioptria_id",
-    key: "permiso_editar_grupo_dioptria_id",
-    visible: false,
-  },
-  {
-    cell: "permiso_editar_grupo_dioptria",
-    key: "permiso_editar_grupo_dioptria",
-    visible: false,
-  },
-  {
-    cell: "permiso_editar_receta_id",
-    key: "permiso_editar_receta_id",
-    visible: false,
-  },
-  {
-    cell: "permiso_editar_receta",
-    key: "permiso_editar_receta",
-    visible: false,
-  },
-  {
-    cell: "permiso_editar_validar_cristales_id",
-    key: "permiso_editar_validar_cristales_id",
-    visible: false,
-  },
-  {
-    cell: "permiso_editar_validar_cristales",
-    key: "permiso_editar_validar_cristales",
-    visible: false,
-  },
-  {
-    cell: "permiso_editar_validar_armazones_id",
-    key: "permiso_editar_validar_armazones_id",
-    visible: false,
-  },
-  {
-    cell: "permiso_editar_validar_armazones",
-    key: "permiso_editar_validar_armazones",
-    visible: false,
-  },
-  {
-    cell: "permiso_editar_worktracking_id",
-    key: "permiso_editar_worktracking_id",
-    visible: false,
+    cell: "permiso_editar_worktracking", key: "permiso_editar_worktracking", visible: false,
   },
 
+
+// PERMISOS BOTONES
   {
-    cell: "permiso_editar_worktracking",
-    key: "permiso_editar_worktracking",
-    visible: false,
+    cell: "permiso_agregar", key: "permiso_agregar", visible: false,
   },
   {
-    cell: "permiso_nguia_id",
-    key: "permiso_nguia_id",
-    visible: false,
+    cell: "permiso_editar", key: "permiso_editar", visible: false,
   },
   {
-    cell: "permiso_nguia",
-    key: "permiso_nguia",
-    visible: false,
+    cell: "permiso_imprimir", key: "permiso_imprimir", visible: false,
+  },
+  {
+    cell: "permiso_exportar", key: "permiso_exportar", visible: false,
+  },
+  {
+    cell: "permiso_importar", key: "permiso_importar", visible: false,
+  },
+  {
+    cell: "permiso_whatsapp", key: "permiso_whatsapp", visible: false,
+  },
+  {
+    cell: "permiso_procesar", key: "permiso_procesar", visible: false,
+  },
+  {
+    cell: "permiso_pausar", key: "permiso_pausar", visible: false,
+  },
+  {
+    cell: "permiso_derivar", key: "permiso_derivar", visible: false,
+  },
+  {
+    cell: "permiso_anular", key: "permiso_anular", visible: false,
+  },
+  {
+    cell: "permiso_ingresar", key: "permiso_ingresar", visible: false,
+  },
+  {
+    cell: "permiso_post_vta", key: "permiso_post_vta", visible: false,
   },
   {
     cell: "permiso_nenvio_id",
@@ -3929,19 +3776,10 @@ export const table_head_usuarios = [
     visible: false,
   },
   {
-    cell: "permiso_nenvio",
-    key: "permiso_nenvio",
-    visible: false,
+    cell: "permiso_nenvio", key: "permiso_nenvio", visible: false,
   },
   {
-    cell: "permiso_nfirma_id",
-    key: "permiso_nfirma_id",
-    visible: false,
-  },
-  {
-    cell: "permiso_nfirma",
-    key: "permiso_nfirma",
-    visible: false,
+    cell: "permiso_macro_excel", key: "permiso_macro_excel", visible: false,
   },
   {
     cell: "permiso_nreporte_entrega_id",
@@ -3949,9 +3787,16 @@ export const table_head_usuarios = [
     visible: false,
   },
   {
-    cell: "permiso_nreporte_entrega",
-    key: "permiso_nreporte_entrega",
-    visible: false,
+    cell: "permiso_validar_armazon", key: "permiso_validar_armazon", visible: false,
+  },
+  {
+    cell: "permiso_validar_cristal", key: "permiso_validar_cristal", visible: false,
+  },
+  {
+    cell: "permiso_ubicar", key: "permiso_ubicar", visible: false,
+  },
+  {
+    cell: "permiso_opciones_bod_ins", key: "permiso_opciones_bod_ins", visible: false,
   },
   {
     cell: "permiso_noc_id",
@@ -3959,59 +3804,22 @@ export const table_head_usuarios = [
     visible: false,
   },
   {
-    cell: "permiso_noc",
-    key: "permiso_noc",
-    visible: false,
+    cell: "permiso_noc", key: "permiso_noc", visible: false,
   },
   {
-    cell: "permiso_confirmar_entrega_id",
-    key: "permiso_confirmar_entrega_id",
-    visible: false,
+    cell: "permiso_confirmar_entrega", key: "permiso_confirmar_entrega", visible: false,
   },
   {
-    cell: "permiso_confirmar_entrega",
-    key: "permiso_confirmar_entrega",
-    visible: false,
+    cell: "permiso_pre_facturar", key: "permiso_pre_facturar", visible: false,
   },
   {
-    cell: "permiso_pre_facturar_id",
-    key: "permiso_pre_facturar_id",
-    visible: false,
+    cell: "permiso_vb", key: "permiso_vb", visible: false,
   },
   {
-    cell: "permiso_pre_facturar",
-    key: "permiso_pre_facturar",
-    visible: false,
+    cell: "permiso_facturar", key: "permiso_facturar", visible: false,
   },
   {
-    cell: "permiso_vb_id",
-    key: "permiso_vb_id",
-    visible: false,
-  },
-  {
-    cell: "permiso_vb",
-    key: "permiso_vb",
-    visible: false,
-  },
-  {
-    cell: "permiso_facturar_id",
-    key: "permiso_facturar_id",
-    visible: false,
-  },
-  {
-    cell: "permiso_facturar",
-    key: "permiso_facturar",
-    visible: false,
-  },
-  {
-    cell: "permiso_confirmar_pago_id",
-    key: "permiso_confirmar_pago_id",
-    visible: false,
-  },
-  {
-    cell: "permiso_confirmar_pago",
-    key: "permiso_confirmar_pago",
-    visible: false,
+    cell: "permiso_confirmar_pago", key: "permiso_confirmar_pago", visible: false,
   },
   {
     cell: "",
