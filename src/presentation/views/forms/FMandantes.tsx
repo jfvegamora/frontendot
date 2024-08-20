@@ -38,7 +38,7 @@ interface OutputData {
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
   let _p1 = `${jsonData.codigo},"${jsonData.rut}","${jsonData.nombre}","${jsonData.comuna}"`;
 
-  _p1 = _p1.replace(/'/g, '!');
+  _p1 = _p1.replace(/'/g, "!");
 
   const query: OutputData = {
     query: "03",
@@ -59,7 +59,6 @@ export function transformUpdateQuery(
     `comuna = ${jsonData.comuna}`,
   ];
 
-
   const filteredFields = fields.filter(
     (field) => field !== null && field !== ""
   );
@@ -69,7 +68,7 @@ export function transformUpdateQuery(
   }
   let _p1 = filteredFields.join(",");
 
-  _p1 = _p1.replace(/'/g, '!');
+  _p1 = _p1.replace(/'/g, "!");
 
   const query: OutputData = {
     query: "04",
@@ -78,7 +77,6 @@ export function transformUpdateQuery(
   };
   console.log("query04", query);
   return query;
-
 }
 
 interface IUserFormPrps {
@@ -93,11 +91,18 @@ interface IUserFormPrps {
 }
 
 const FMandantes: React.FC<IUserFormPrps> = React.memo(
-  ({ closeModal, setEntities, params, label, data, isEditting, escritura_lectura }) => {
+  ({
+    closeModal,
+    setEntities,
+    params,
+    label,
+    data,
+    isEditting,
+    escritura_lectura,
+  }) => {
     const schema = validationMandantesSchema();
     const { showModal, CustomModal } = useModal();
     const { show } = useCustomToast();
-
 
     const {
       editEntity,
@@ -113,7 +118,7 @@ const FMandantes: React.FC<IUserFormPrps> = React.memo(
       handleSubmit,
       formState: { errors },
       setValue,
-      register
+      register,
     } = useForm({
       resolver: yupResolver(schema),
     });
@@ -151,7 +156,7 @@ const FMandantes: React.FC<IUserFormPrps> = React.memo(
         if (response.code === "ERR_BAD_RESPONSE" || response.stack) {
           const errorMessage = isEditting
             ? strEntidad.concat(": " + response.message)
-            : strEntidad.concat(": " + response.message)
+            : strEntidad.concat(": " + response.message);
           show({
             message: errorMessage ? errorMessage : response.code,
             type: "error",
@@ -159,14 +164,14 @@ const FMandantes: React.FC<IUserFormPrps> = React.memo(
 
           return;
         }
-        if (response.mensaje.includes('Creado')) {
+        if (response.mensaje.includes("Creado")) {
           toastSuccess(isEditting);
         }
 
         if (!blnKeep && !isEditting) {
           const result = await showModal(
             MODAL.keep,
-            '',
+            "",
             MODAL.keepYes,
             MODAL.kepNo
           );
@@ -210,17 +215,15 @@ const FMandantes: React.FC<IUserFormPrps> = React.memo(
 
     const handleSaveChange = React.useCallback(
       async (data: InputData, isEditting: boolean) => {
-
-
-        if (data["rut"]?.trim() !== '') {
+        if (data["rut"]?.trim() !== "") {
           const response = validateRut(data["rut"]?.trim());
           if (!response) {
-            toast.error('Rut no válido')
+            toast.error("Rut no válido");
             return setValue("rut", "");
           }
         }
 
-        const toastLoading = toast.loading('Cargando...');
+        const toastLoading = toast.loading("Cargando...");
         try {
           const transformedData = isEditting
             ? transformUpdateQuery(data, intId.toString())
@@ -230,9 +233,9 @@ const FMandantes: React.FC<IUserFormPrps> = React.memo(
             ? await editEntity(transformedData)
             : await createdEntity(transformedData);
           handleApiResponse(response, isEditting);
-          toast.dismiss(toastLoading)
+          toast.dismiss(toastLoading);
         } catch (error: any) {
-          toast.dismiss(toastLoading)
+          toast.dismiss(toastLoading);
           show({
             message: error,
             type: "error",
@@ -256,7 +259,9 @@ const FMandantes: React.FC<IUserFormPrps> = React.memo(
         </div>
 
         <form
-          onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
+          onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))}
+          className="userFormulario"
+        >
           <div className="userFormularioContainer">
             <div className="input-container items-center rowForm">
               <div className="labelInputDiv">
@@ -321,7 +326,11 @@ const FMandantes: React.FC<IUserFormPrps> = React.memo(
           <div className="w-full !mt-5 !mb-5">
             <div className="w-[50%] mx-auto">
               {escritura_lectura && (
-                <Button type="submit" tabIndex={1} className="userFormBtnSubmit">
+                <Button
+                  type="submit"
+                  tabIndex={1}
+                  className="userFormBtnSubmit"
+                >
                   {`${TITLES.guardar}`}
                 </Button>
               )}

@@ -5,9 +5,11 @@ export enum OTAreasEnum {
   "Laboratorio" = 40,
   "Ventas" = 50,
   "Bodega Insumos" = 60,
-  "Taller Biselado" = 70,
+  "Taller Biselado 1" = 70,
+  "Taller Biselado 2" = 75,
   "Taller Montaje" = 80,
   "Control Calidad" = 85,
   "Bod. Prod. Terminados" = 90,
   "Empaque" = 100,
+  "Archivo" = 110,
 }

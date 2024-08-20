@@ -5,7 +5,7 @@ export const table_head_OT_diaria2 = [
     key: "checkbox",
     visible: true,
     width: "w-[9rem]",
-    alignment: "flex justify-center items-center"
+    alignment: "flex justify-center items-center",
   },
   //************ ÓPTICA */
   {
@@ -14,7 +14,7 @@ export const table_head_OT_diaria2 = [
     visible: true,
     alignment: "text-center",
     width: "w-[5rem]",
-    background: true
+    background: true,
   },
   {
     cell: "Ubicación",
@@ -29,7 +29,7 @@ export const table_head_OT_diaria2 = [
     key: "motivo",
     visible: true,
     alignment: "text-center",
-    width: "w-[6rem]"
+    width: "w-[6rem]",
   },
   {
     cell: "Estado ID",
@@ -37,7 +37,7 @@ export const table_head_OT_diaria2 = [
     visible: false,
     alignment: "text-center",
     width: "w-[8rem]",
-    color: true
+    color: true,
   },
   {
     cell: "Estado",
@@ -45,43 +45,43 @@ export const table_head_OT_diaria2 = [
     visible: true,
     alignment: "text-center",
     width: "w-[8rem]",
-    color: true
+    color: true,
   },
-  
+
   {
     cell: "Estado Impresion",
     key: "estado_impresion",
     visible: false,
     alignment: "text-left",
-    width: "w-[12rem]"
+    width: "w-[12rem]",
   },
   {
     cell: "Punto Venta",
     key: "punto_venta",
     visible: false,
     alignment: "text-left",
-    width: "w-[12rem]"
+    width: "w-[12rem]",
   },
   {
     cell: "Codigo Proyecto",
     key: "codigo_proyecto",
     visible: false,
     alignment: "text-left",
-    width: "w-[12rem]"
+    width: "w-[12rem]",
   },
   {
     cell: "Título Proyecto",
     key: "proyecto",
     visible: true,
     alignment: "text-left",
-    width: "w-[12rem]"
+    width: "w-[12rem]",
   },
   {
     cell: "Establecimiento",
     key: "establecimiento",
     visible: true,
     alignment: "text-left",
-    width: "w-[10rem]"
+    width: "w-[10rem]",
   },
   //************ CLIENTE */
   {
@@ -89,57 +89,57 @@ export const table_head_OT_diaria2 = [
     key: "cliente_rut",
     visible: true,
     alignment: "text-center",
-    width: "w-[8rem]"
+    width: "w-[8rem]",
   },
   {
     cell: "Nombre",
     key: "cliente_nombre",
     visible: true,
     alignment: "text-left",
-    width: "w-[14rem]"
+    width: "w-[14rem]",
   },
- //************ RECETA */
+  //************ RECETA */
   {
     cell: "Fecha Atención",
     key: "fecha_atencion",
     visible: true,
     alignment: "text-left",
-    width: "w-[8rem]"
+    width: "w-[8rem]",
   },
   {
     cell: "Tipo Anteojo ID ",
     key: "tipo_anteojo_id",
     visible: false,
     alignment: "text-center",
-    width: "w-[8rem]"
+    width: "w-[8rem]",
   },
   {
     cell: "Tipo Anteojo ",
     key: "tipo_anteojo",
     visible: true,
     alignment: "text-center",
-    width: "w-[8rem]"
+    width: "w-[8rem]",
   },
   {
     cell: "A1 Armazón Código",
     key: "a1_armazon_codigo",
     visible: true,
     alignment: "text-center",
-    width: "w-[10rem]"
+    width: "w-[10rem]",
   },
   {
     cell: "A2 Armazón Código",
     key: "a2_armazon_codigo",
     visible: true,
     alignment: "text-center",
-    width: "w-[10rem]"
+    width: "w-[10rem]",
   },
   {
     cell: "A3 Armazón Código",
     key: "a3_armazon_codigo",
     visible: false,
     alignment: "text-center",
-    width: "w-[10rem]"
+    width: "w-[10rem]",
   },
 
   {
@@ -147,14 +147,14 @@ export const table_head_OT_diaria2 = [
     key: "cr1_od_codigo",
     visible: true,
     alignment: "text-center",
-    width: "w-[10rem]"
+    width: "w-[10rem]",
   },
   {
     cell: "CRISTAL 1 OI Código",
     key: "cr1_oi_codigo",
     visible: true,
     alignment: "text-center",
-    width: "w-[10rem]"
+    width: "w-[10rem]",
   },
 
   // ************** CRISTAL ANTEOJO 2
@@ -163,105 +163,105 @@ export const table_head_OT_diaria2 = [
     key: "cr2_od_codigo",
     visible: true,
     alignment: "text-center",
-    width: "w-[10rem]"
+    width: "w-[10rem]",
   },
   {
     cell: "CRISTAL 2 OI Código",
     key: "cr2_oi_codigo",
     visible: true,
     alignment: "text-center",
-    width: "w-[10rem]"
+    width: "w-[10rem]",
   },
   {
     cell: "E V",
     key: "estado_validacion",
     visible: false,
     alignment: "text-center",
-    width: "w-[10trem]"
+    width: "w-[10trem]",
   },
   {
     cell: "N° Envío",
     key: "num_envio",
     visible: true,
     alignment: "text-left",
-    width: "w-[6rem]"
+    width: "w-[6rem]",
   },
   {
     cell: "N° Rep. Firma",
     key: "num_rep_firma",
     visible: true,
     alignment: "text-left",
-    width: "w-[6rem]"
+    width: "w-[6rem]",
   },
   {
     cell: "N° Rep. Atención",
     key: "num_rep_atencion",
     visible: false,
     alignment: "text-left",
-    width: "w-[6rem]"
+    width: "w-[6rem]",
   },
   {
     cell: "POR VENCER",
     key: "por_vencer",
     visible: false,
     alignment: "text-center",
-    width: "w-[10trem]"
+    width: "w-[10trem]",
   },
   {
     cell: "N° OC",
     key: "num_oc",
     visible: false,
     alignment: "text-left",
-    width: "w-[6rem]"
+    width: "w-[6rem]",
   },
   {
     cell: "N° Guía",
     key: "num_guia",
     visible: true,
     alignment: "text-left",
-    width: "w-[6rem]"
+    width: "w-[6rem]",
   },
   {
     cell: "N° Factura",
     key: "num_factura",
     visible: false,
     alignment: "text-left",
-    width: "w-[6rem]"
+    width: "w-[6rem]",
   },
   {
     cell: "IMPRIMRI QR",
     key: "imprimir_qr",
     visible: false,
     alignment: "text-left",
-    width: "w-[6rem]"
+    width: "w-[6rem]",
   },
   {
     cell: "IMRIMIR TICKET",
     key: "imprimir_tiquet",
     visible: false,
     alignment: "text-left",
-    width: "w-[6rem]"
+    width: "w-[6rem]",
   },
   {
     cell: "USUARIO ID",
     key: "usuario id",
     visible: false,
     alignment: "text-left",
-    width: "w-[6rem]"
+    width: "w-[6rem]",
   },
   {
     cell: "ESTADO WHASTAPP",
     key: "estado_wsp",
     visible: false,
     alignment: "text-left",
-    width: "w-[6rem]"
+    width: "w-[6rem]",
   },
   {
     cell: "Opción Montaje",
     key: "opcion_montaje",
     visible: true,
     alignment: "text-left",
-    width: "w-[6rem]"
+    width: "w-[6rem]",
   },
 ];
 
@@ -271,7 +271,7 @@ export const table_head_OT_historica = [
     key: "checkbox",
     visible: true,
     width: "w-[9rem]",
-    alignment: "flex justify-center items-center"
+    alignment: "flex justify-center items-center",
   },
   //************ ÓPTICA */
   {
@@ -280,7 +280,7 @@ export const table_head_OT_historica = [
     visible: true,
     alignment: "text-center",
     width: "w-[10rem]",
-    background: true
+    background: true,
   },
   {
     cell: "Ubicación",
@@ -295,14 +295,14 @@ export const table_head_OT_historica = [
     key: "motivo",
     visible: true,
     alignment: "text-center",
-    width: "w-[6rem]"
+    width: "w-[6rem]",
   },
   {
     cell: "Estado_id",
     key: "estado_id",
     visible: false,
     alignment: "text-center",
-    width: "w-[8rem]"
+    width: "w-[8rem]",
   },
   {
     cell: "Estado",
@@ -310,77 +310,77 @@ export const table_head_OT_historica = [
     visible: true,
     alignment: "text-center",
     width: "w-[8rem]",
-    color: true
+    color: true,
   },
   {
     cell: "Área",
     key: "area",
     visible: true,
     alignment: "text-center",
-    width: "w-[6rem]"
+    width: "w-[6rem]",
   },
   {
     cell: "Codigo Proyecto",
     key: "codigo_proyecto",
     visible: false,
     alignment: "text-left",
-    width: "w-[12rem]"
+    width: "w-[12rem]",
   },
   {
     cell: "N° Envío",
     key: "num_envio",
     visible: true,
     alignment: "text-center",
-    width: "w-[6rem]"
+    width: "w-[6rem]",
   },
   {
     cell: "N° Rep. Firma",
     key: "num_rep_firma",
     visible: true,
     alignment: "text-center",
-    width: "w-[6rem]"
+    width: "w-[6rem]",
   },
   {
     cell: "N° Rep. Entrega",
     key: "num_rep_entrega",
     visible: true,
     alignment: "text-center",
-    width: "w-[6rem]"
+    width: "w-[6rem]",
   },
   {
     cell: "N° OC",
     key: "num_oc",
     visible: true,
     alignment: "text-center",
-    width: "w-[6rem]"
+    width: "w-[6rem]",
   },
   {
     cell: "N° Guía",
     key: "num_guia",
     visible: true,
     alignment: "text-center",
-    width: "w-[6rem]"
+    width: "w-[6rem]",
   },
   {
     cell: "N° Factura",
     key: "num_factura",
     visible: true,
     alignment: "text-center",
-    width: "w-[6rem]"
+    width: "w-[6rem]",
   },
   {
     cell: "Título Proyecto",
     key: "proyecto",
     visible: true,
     alignment: "text-left",
-    width: "w-[12rem]"
+    width: "w-[12rem]",
   },
   {
     cell: "Establecimiento",
     key: "establecimiento",
     visible: true,
     alignment: "text-left",
-    width: "w-[10rem]"
+    width: "w-[10rem]",
   },
   //************ CLIENTE */
   {
@@ -388,29 +388,29 @@ export const table_head_OT_historica = [
     key: "cliente_rut",
     visible: true,
     alignment: "text-center",
-    width: "w-[8rem]"
+    width: "w-[8rem]",
   },
   {
     cell: "Nombre",
     key: "cliente_nombre",
     visible: true,
     alignment: "text-left",
-    width: "w-[14rem]"
+    width: "w-[14rem]",
   },
- //************ RECETA */
+  //************ RECETA */
   {
     cell: "Fecha Atención",
     key: "fecha_atencion",
     visible: true,
     alignment: "text-left",
-    width: "w-[8rem]"
+    width: "w-[8rem]",
   },
   {
     cell: "Tipo Anteojo ",
     key: "tipo_anteojo",
     visible: true,
     alignment: "text-center",
-    width: "w-[8rem]"
+    width: "w-[8rem]",
   },
   //************ ARMAZONES */
   {
@@ -418,21 +418,21 @@ export const table_head_OT_historica = [
     key: "a1_armazon_codigo",
     visible: true,
     alignment: "text-center",
-    width: "w-[10rem]"
+    width: "w-[10rem]",
   },
   {
     cell: "A2 Armazón Código",
     key: "a2_armazon_codigo",
     visible: true,
     alignment: "text-center",
-    width: "w-[10rem]"
+    width: "w-[10rem]",
   },
   {
     cell: "A3 Armazón Código",
     key: "a3_armazon_codigo",
     visible: false,
     alignment: "text-center",
-    width: "w-[10rem]"
+    width: "w-[10rem]",
   },
 
   // ************** CRISTAL ANTEOJO 1
@@ -441,14 +441,14 @@ export const table_head_OT_historica = [
     key: "cr1_od_codigo",
     visible: true,
     alignment: "text-center",
-    width: "w-[10rem]"
+    width: "w-[10rem]",
   },
   {
     cell: "CRISTAL 1 OI Código",
     key: "cr1_oi_codigo",
     visible: true,
     alignment: "text-center",
-    width: "w-[10rem]"
+    width: "w-[10rem]",
   },
 
   // ************** CRISTAL ANTEOJO 2
@@ -457,14 +457,14 @@ export const table_head_OT_historica = [
     key: "cr2_od_codigo",
     visible: true,
     alignment: "text-center",
-    width: "w-[10rem]"
+    width: "w-[10rem]",
   },
   {
     cell: "CRISTAL 2 OI Código",
     key: "cr2_oi_codigo",
     visible: true,
     alignment: "text-center",
-    width: "w-[10rem]"
+    width: "w-[10rem]",
   },
   {
     cell: "POR VENCER",
@@ -476,7 +476,7 @@ export const table_head_OT_historica = [
     key: "estado_validacion",
     visible: false,
     alignment: "text-center",
-    width: "w-[10trem]"
+    width: "w-[10trem]",
   },
 ];
 
@@ -486,13 +486,13 @@ export const table_head_OT_bitacora = [
     key: "checkbox",
     visible: true,
     width: "w-[3rem]",
-    alignment: "flex justify-center items-center"
+    alignment: "flex justify-center items-center",
   },
   {
     cell: "Fecha/Hora",
     key: "date",
     visible: true,
-    width: "w-[12rem]"
+    width: "w-[12rem]",
   },
   {
     cell: "USUARIO ID",
@@ -504,7 +504,7 @@ export const table_head_OT_bitacora = [
     key: "usuario",
     visible: true,
     alignment: "text-left",
-    width: "w-[10rem]"
+    width: "w-[10rem]",
   },
   {
     cell: "ORIGEN_ID",
@@ -516,7 +516,7 @@ export const table_head_OT_bitacora = [
     key: "origen",
     visible: true,
     alignment: "text-center",
-    width: "w-[10rem]"
+    width: "w-[10rem]",
   },
   {
     cell: "DESTINO_ID",
@@ -528,7 +528,7 @@ export const table_head_OT_bitacora = [
     key: "destino",
     visible: true,
     alignment: "text-center",
-    width: "w-[10rem]"
+    width: "w-[10rem]",
   },
   {
     cell: "ESTADO ID",
@@ -540,7 +540,7 @@ export const table_head_OT_bitacora = [
     key: "estado",
     visible: true,
     alignment: "text-center",
-    width: "w-[8rem]"
+    width: "w-[8rem]",
   },
   {
     cell: "SITUACION ID",
@@ -552,21 +552,21 @@ export const table_head_OT_bitacora = [
     key: "situacion",
     visible: true,
     alignment: "text-left",
-    width: "w-[10rem]"
+    width: "w-[10rem]",
   },
   {
     cell: "Observaciones",
     key: "observaciones",
     visible: true,
     alignment: "text-left",
-    width: "w-[12rem]"
+    width: "w-[12rem]",
   },
   {
     cell: "",
     key: "opciones",
     visible: true,
     width: "w-[1rem]",
-    alignment: "items-center"
+    alignment: "items-center",
   },
 ];
 export const table_head_clientes = [
@@ -575,7 +575,7 @@ export const table_head_clientes = [
     key: "checkbox",
     visible: true,
     width: "w-[5rem]",
-    alignment: "flex justify-center  items-center"
+    alignment: "flex justify-center  items-center",
   },
   {
     cell: "RUT",
@@ -694,62 +694,62 @@ export const table_head_OT_bitacora_consulta = [
     key: "checkbox",
     visible: true,
     width: "w-[4rem]",
-    alignment: "flex justify-center items-center"
+    alignment: "flex justify-center items-center",
   },
   {
     cell: "Fecha/Hora",
     key: "date",
     visible: true,
-    width: "w-[12rem]"
+    width: "w-[12rem]",
   },
   {
     cell: "Usuario",
     key: "usuario",
     visible: true,
     alignment: "text-left",
-    width: "w-[14rem]"
+    width: "w-[14rem]",
   },
   {
     cell: "Origen",
     key: "origen",
     visible: true,
     alignment: "text-center",
-    width: "w-[10rem]"
+    width: "w-[10rem]",
   },
   {
     cell: "Destino",
     key: "destino",
     visible: true,
     alignment: "text-center",
-    width: "w-[10rem]"
+    width: "w-[10rem]",
   },
   {
     cell: "Folio",
     key: "folio",
     visible: true,
     alignment: "text-center",
-    width: "w-[8rem]"
+    width: "w-[8rem]",
   },
   {
     cell: "Estado",
     key: "estado",
     visible: true,
     alignment: "text-center",
-    width: "w-[8rem]"
+    width: "w-[8rem]",
   },
   {
     cell: "Situación",
     key: "situacion",
     visible: true,
     alignment: "text-left",
-    width: "w-[10rem]"
+    width: "w-[10rem]",
   },
   {
     cell: "Observaciones",
     key: "observaciones",
     visible: true,
     alignment: "text-left",
-    width: "w-[12rem]"
+    width: "w-[12rem]",
   },
 ];
 
@@ -760,7 +760,7 @@ export const table_head_almacenes = [
     key: "checkbox",
     visible: true,
     width: "w-[5rem]",
-    alignment: "flex justify-center items-center"
+    alignment: "flex justify-center items-center",
   },
   {
     cell: "ID",
@@ -784,13 +784,13 @@ export const table_head_almacenes = [
     cell: "Tipo Almacén",
     key: "tipo_almacen",
     visible: true,
-    alignment: "text-left"
+    alignment: "text-left",
   },
   {
     cell: "Categoria_id",
     key: "categoria_id",
     visible: false,
-    alignment: "text-left"
+    alignment: "text-left",
   },
   {
     cell: "Categoría",
@@ -824,7 +824,7 @@ export const table_head_armazones = [
     key: "checkbox",
     visible: true,
     width: "w-[5rem]",
-    alignment: "flex justify-center items-center"
+    alignment: "flex justify-center items-center",
   },
   {
     cell: "Código",
@@ -833,7 +833,7 @@ export const table_head_armazones = [
     visible: true,
     width: "w-[10rem]",
     color: true,
-    background:true
+    background: true,
   },
   {
     cell: "Uso Interno",
@@ -1001,7 +1001,7 @@ export const table_head_cristales = [
     key: "checkbox",
     visible: true,
     width: "w-[5rem]",
-    alignment: "flex justify-center items-center"
+    alignment: "flex justify-center items-center",
   },
   {
     cell: "Código",
@@ -1009,7 +1009,7 @@ export const table_head_cristales = [
     visible: true,
     alignment: "text-left",
     width: "w-[10rem]",
-    color:true
+    color: true,
   },
   {
     cell: "Uso Interno",
@@ -1177,7 +1177,7 @@ export const table_head_accesorios = [
     key: "checkbox",
     visible: true,
     width: "w-[5rem]",
-    alignment: "flex justify-center items-center"
+    alignment: "flex justify-center items-center",
   },
   {
     cell: "Código",
@@ -1185,13 +1185,13 @@ export const table_head_accesorios = [
     visible: true,
     alignment: "text-left",
     width: "w-[10rem]",
-    color:true
+    color: true,
   },
   {
     cell: "Descripción",
     key: "descripcion",
     visible: true,
-    alignment: "text-left"
+    alignment: "text-left",
   },
   {
     cell: "Uso Interno",
@@ -1230,7 +1230,7 @@ export const table_head_accesorios = [
     cell: "Marca",
     key: "marca",
     visible: true,
-    alignment: "text-left"
+    alignment: "text-left",
   },
   {
     cell: "Proveedor Id",
@@ -1241,7 +1241,7 @@ export const table_head_accesorios = [
     cell: "Proveedor",
     key: "proveedor",
     visible: true,
-    alignment: "text-left"
+    alignment: "text-left",
   },
   {
     cell: "Precio Neto",
@@ -1263,7 +1263,7 @@ export const table_head_marcas = [
     key: "checkbox",
     visible: true,
     width: "w-[5rem]",
-    alignment: "flex justify-center items-center"
+    alignment: "flex justify-center items-center",
   },
   {
     cell: "ID",
@@ -1291,7 +1291,7 @@ export const table_head_marcas = [
     cell: "Categoria_id",
     key: "categoria_id",
     visible: false,
-    alignment: "text-left"
+    alignment: "text-left",
   },
   {
     cell: "Categoría",
@@ -1313,7 +1313,7 @@ export const table_head_proveedores = [
     key: "checkbox",
     visible: true,
     width: "w-[5rem]",
-    alignment: "flex justify-center items-center"
+    alignment: "flex justify-center items-center",
   },
   {
     cell: "ID",
@@ -1369,7 +1369,7 @@ export const table_head_kardex = [
     key: "checkbox",
     visible: true,
     width: "w-[5rem]",
-    alignment: "flex justify-center items-center"
+    alignment: "flex justify-center items-center",
   },
   {
     cell: "Fecha/Hora",
@@ -1507,7 +1507,7 @@ export const table_head_proyectos_accesorios = [
     key: "checkbox",
     visible: true,
     width: "w-[3rem]",
-    alignment: "flex justify-center items-center"
+    alignment: "flex justify-center items-center",
   },
   {
     cell: "Código Proyecto",
@@ -1595,7 +1595,7 @@ export const table_head_muestrarios_armazones = [
     key: "checkbox",
     visible: true,
     width: "w-[5rem]",
-    alignment: "flex justify-center items-center"
+    alignment: "flex justify-center items-center",
   },
   {
     cell: "Muestrario ID",
@@ -1761,7 +1761,7 @@ export const table_head_vitrinas_armazones = [
     key: "checkbox",
     visible: true,
     width: "w-[5rem]",
-    alignment: "flex justify-center items-center"
+    alignment: "flex justify-center items-center",
   },
   {
     cell: "Vitrina ID",
@@ -1929,21 +1929,21 @@ export const table_head_mandantes = [
     key: "checkbox",
     visible: true,
     width: "w-[5rem]",
-    alignment: "flex justify-center items-center"
+    alignment: "flex justify-center items-center",
   },
   {
     cell: "Cod. Mercado Público",
     key: "codigo",
     visible: true,
     alignment: "text-center",
-    width: "w-[6rem]"
+    width: "w-[6rem]",
   },
   {
     cell: "RUT",
     key: "rut",
     visible: true,
     alignment: "text-center",
-    width: "w-[8rem]"
+    width: "w-[8rem]",
   },
   {
     cell: "Nombre",
@@ -2001,7 +2001,7 @@ export const table_head_proyectos = [
     key: "checkbox",
     visible: true,
     width: "w-[5rem]",
-    alignment: "flex justify-center items-center"
+    alignment: "flex justify-center items-center",
   },
   {
     cell: "Código",
@@ -2131,7 +2131,7 @@ export const table_head_proyectos = [
     visible: true,
     alignment: "text-right",
     width: "w-[9rem]",
-  },  
+  },
   {
     cell: "% Ing",
     key: "porc_ingresado",
@@ -2152,7 +2152,7 @@ export const table_head_proyectos = [
     visible: true,
     alignment: "text-right",
     width: "w-[9rem]",
-  },  
+  },
   {
     cell: "% x Fact",
     key: "porc_por_facturar",
@@ -2349,7 +2349,7 @@ export const table_head_proyectos_docum = [
     key: "checkbox",
     visible: true,
     width: "w-[5rem]",
-    alignment: "flex justify-center items-center"
+    alignment: "flex justify-center items-center",
   },
   {
     cell: "Proyecto",
@@ -2361,7 +2361,7 @@ export const table_head_proyectos_docum = [
     key: "titulo",
     visible: true,
     width: "w-[10rem]",
-    alignment: "text-left"
+    alignment: "text-left",
   },
   {
     cell: "Fecha/Hora",
@@ -2374,7 +2374,7 @@ export const table_head_proyectos_docum = [
     cell: "TipoDocID",
     key: "tipo_doc_id",
     visible: false,
-    excelIndividual:true
+    excelIndividual: true,
   },
   {
     cell: "Tipo Doc",
@@ -2455,7 +2455,7 @@ export const table_head_proyectos_tratam_adic = [
     key: "checkbox",
     visible: true,
     width: "w-[5rem]",
-    alignment: "flex justify-center items-center"
+    alignment: "flex justify-center items-center",
   },
   {
     cell: "proyecto ID",
@@ -2488,15 +2488,14 @@ export const table_head_proyectos_tratam_adic = [
     visible: true,
     width: "w-[4rem]",
   },
-
-]
+];
 export const table_head_empresas = [
   {
     cell: <input type="checkbox" />,
     key: "checkbox",
     visible: true,
     width: "w-[5rem]",
-    alignment: "flex justify-center items-center"
+    alignment: "flex justify-center items-center",
   },
   {
     cell: "ID",
@@ -2572,7 +2571,7 @@ export const table_head_oftalmologos = [
     key: "checkbox",
     visible: true,
     width: "w-[5rem]",
-    alignment: "flex justify-center items-center"
+    alignment: "flex justify-center items-center",
   },
   {
     cell: "ID",
@@ -2627,14 +2626,14 @@ export const table_head_reserva_armazones = [
     key: "checkbox",
     visible: true,
     width: "w-[4rem]",
-    alignment: "flex justify-center items-center"
+    alignment: "flex justify-center items-center",
   },
   {
     cell: "RUT",
     key: "rut",
     visible: true,
     width: "w-[8rem]",
-    alignment: "text-left"
+    alignment: "text-left",
   },
   {
     cell: "Proyecto",
@@ -2646,7 +2645,7 @@ export const table_head_reserva_armazones = [
     key: "titulo",
     visible: true,
     width: "w-[18rem]",
-    alignment: "text-left"
+    alignment: "text-left",
   },
   {
     cell: "Punto venta id",
@@ -2658,7 +2657,7 @@ export const table_head_reserva_armazones = [
     key: "punto_venta",
     visible: true,
     width: "w-[16rem]",
-    alignment: "text-left"
+    alignment: "text-left",
   },
   {
     cell: "Tipo Anteojo id",
@@ -2670,7 +2669,7 @@ export const table_head_reserva_armazones = [
     key: "tipo_anteojo",
     visible: true,
     width: "w-[8rem]",
-    alignment: "text-left"
+    alignment: "text-left",
   },
   {
     cell: "DP",
@@ -2690,14 +2689,14 @@ export const table_head_reserva_armazones = [
     key: "cod_armazon_2",
     visible: true,
     width: "w-[10rem]",
-    alignment: "text-left"
+    alignment: "text-left",
   },
   {
     cell: "Armazon 3",
     key: "cod_armazon_3",
     visible: true,
     width: "w-[10rem]",
-    alignment: "text-left"
+    alignment: "text-left",
   },
   {
     cell: "Usuario ID",
@@ -2709,18 +2708,16 @@ export const table_head_reserva_armazones = [
     key: "usuario",
     visible: true,
     width: "w-[10rem]",
-    alignment: "text-left"
+    alignment: "text-left",
   },
   {
     cell: "Fecha/Hora",
     key: "fecha_hora",
     visible: true,
     width: "w-[12rem]",
-    alignment: "text-left"
+    alignment: "text-left",
   },
-
-
-]
+];
 
 /************ PROYECTOS -> MOTIVOS DE OT ************/
 export const table_head_motivos_ot = [
@@ -2729,7 +2726,7 @@ export const table_head_motivos_ot = [
     key: "checkbox",
     visible: true,
     width: "w-[5rem]",
-    alignment: "flex justify-center items-center"
+    alignment: "flex justify-center items-center",
   },
   {
     cell: "ID",
@@ -2741,28 +2738,28 @@ export const table_head_motivos_ot = [
     key: "descripcion",
     visible: true,
     width: "w-[18rem]",
-    alignment: "text-left"
+    alignment: "text-left",
   },
   {
     cell: "ID Area",
     key: "id_area",
     visible: false,
     width: "w-[9rem]",
-    alignment: "text-left"
+    alignment: "text-left",
   },
   {
     cell: "Área Exclusiva",
     key: "area",
     visible: true,
     width: "w-[12rem]",
-    alignment: "text-left"
+    alignment: "text-left",
   },
   {
     cell: "",
     key: "opciones",
     visible: true,
     width: "w-[4rem]",
-    alignment: "items-center"
+    alignment: "items-center",
   },
 ];
 
@@ -2773,7 +2770,7 @@ export const table_head_proyectos_grupos = [
     key: "checkbox",
     visible: true,
     width: "w-[5rem]",
-    alignment: "flex justify-center items-center"
+    alignment: "flex justify-center items-center",
   },
   {
     cell: "Código Proyecto",
@@ -2922,7 +2919,7 @@ export const table_head_proyectos_grupos = [
     visible: true,
     alignment: "text-right",
     width: "w-[6rem]",
-  }, 	
+  },
   {
     cell: "Armazon Material ID",
     key: "armazon_material_id",
@@ -2964,7 +2961,7 @@ export const table_head_proyectos_grupos = [
     visible: true,
     alignment: "text-right",
     width: "w-[6rem]",
-  }, 	
+  },
   {
     cell: "Observaciones",
     key: "observaciones",
@@ -2973,11 +2970,11 @@ export const table_head_proyectos_grupos = [
     width: "w-[12rem]",
   },
   {
-  cell: "",
-  key: "opciones",
-  visible: true,
-  width: "w-[4rem]",
-},
+    cell: "",
+    key: "opciones",
+    visible: true,
+    width: "w-[4rem]",
+  },
 ];
 export const table_head_proyectos_puntos_venta = [
   {
@@ -2985,7 +2982,7 @@ export const table_head_proyectos_puntos_venta = [
     key: "checkbox",
     visible: true,
     width: "w-[3rem]",
-    alignment: "flex justify-center items-center"
+    alignment: "flex justify-center items-center",
   },
   {
     cell: "Punto Venta ID",
@@ -3026,7 +3023,7 @@ export const table_head_proyectos_destinos = [
     key: "checkbox",
     visible: true,
     width: "w-[5rem]",
-    alignment: "flex justify-center items-center"
+    alignment: "flex justify-center items-center",
   },
   {
     cell: "ID",
@@ -3080,7 +3077,7 @@ export const table_head_proyectos_destinos = [
     key: "titulo",
     visible: true,
     width: "w-[10rem]",
-    alignment: "text-left"
+    alignment: "text-left",
   },
   {
     cell: "Observaciones",
@@ -3102,7 +3099,7 @@ export const table_head_puntos_venta = [
     key: "checkbox",
     visible: true,
     width: "w-[5rem]",
-    alignment: "flex justify-center items-center"
+    alignment: "flex justify-center items-center",
   },
   {
     cell: "Id",
@@ -3210,7 +3207,7 @@ export const table_head_establecimientos = [
     key: "checkbox",
     visible: true,
     width: "w-[5rem]",
-    alignment: "flex justify-center items-center"
+    alignment: "flex justify-center items-center",
   },
   {
     cell: "ID",
@@ -3323,7 +3320,7 @@ export const table_head_proyectos_usuarios = [
     key: "checkbox",
     visible: true,
     width: "w-[5rem]",
-    alignment: "flex justify-center items-center"
+    alignment: "flex justify-center items-center",
   },
   {
     cell: "Código Proyecto",
@@ -3383,7 +3380,7 @@ export const table_head_muestrarios = [
     key: "checkbox",
     visible: true,
     width: "w-[5rem]",
-    alignment: "flex justify-center items-center"
+    alignment: "flex justify-center items-center",
   },
   {
     cell: "ID",
@@ -3394,7 +3391,7 @@ export const table_head_muestrarios = [
     cell: "Descripción",
     key: "descripcion",
     visible: true,
-    alignment: "text-left"
+    alignment: "text-left",
   },
   {
     cell: "Punto Venta ID",
@@ -3405,7 +3402,7 @@ export const table_head_muestrarios = [
     cell: "Punto Venta",
     key: "punto_venta",
     visible: true,
-    alignment: "text-left"
+    alignment: "text-left",
   },
   {
     cell: "",
@@ -3420,7 +3417,7 @@ export const table_head_vitrinas = [
     key: "checkbox",
     visible: true,
     width: "w-[5rem]",
-    alignment: "flex justify-center items-center"
+    alignment: "flex justify-center items-center",
   },
   {
     cell: "ID",
@@ -3431,7 +3428,7 @@ export const table_head_vitrinas = [
     cell: "Descripción",
     key: "descripcion",
     visible: true,
-    alignment: "text-left"
+    alignment: "text-left",
   },
   {
     cell: "Punto Venta ID",
@@ -3442,7 +3439,7 @@ export const table_head_vitrinas = [
     cell: "Punto Venta",
     key: "punto_venta",
     visible: true,
-    alignment: "text-left"
+    alignment: "text-left",
   },
   {
     cell: "",
@@ -3459,7 +3456,7 @@ export const table_head_cargos = [
     key: "checkbox",
     visible: true,
     width: "w-[5rem]",
-    alignment: "flex justify-center items-center"
+    alignment: "flex justify-center items-center",
   },
   {
     cell: "ID",
@@ -3493,7 +3490,7 @@ export const table_head_funcionalidades = [
     key: "checkbox",
     visible: true,
     width: "w-[5rem]",
-    alignment: "flex justify-center items-center"
+    alignment: "flex justify-center items-center",
   },
   {
     cell: "ID",
@@ -3519,7 +3516,7 @@ export const table_head_permisos = [
     key: "checkbox",
     visible: true,
     width: "w-[5rem]",
-    alignment: "flex justify-center items-center"
+    alignment: "flex justify-center items-center",
   },
   {
     cell: "ID_USUARIO",
@@ -3563,7 +3560,7 @@ export const table_head_perfiles = [
     key: "checkbox",
     visible: true,
     width: "w-[5rem]",
-    alignment: "flex justify-center items-center"
+    alignment: "flex justify-center items-center",
   },
   {
     cell: "ID_CARGO",
@@ -3607,7 +3604,7 @@ export const table_head_usuarios = [
     key: "checkbox",
     visible: true,
     width: "w-[5rem]",
-    alignment: "flex justify-center items-center"
+    alignment: "flex justify-center items-center",
   },
   {
     cell: "ID",
@@ -3732,7 +3729,7 @@ export const table_head_usuarios = [
   {
     cell: "DIG",
     key: "permiso_dig",
-    visible:false,
+    visible: false,
   },
   {
     cell: "ING_ID",
@@ -3742,7 +3739,7 @@ export const table_head_usuarios = [
   {
     cell: "ING",
     key: "permiso_ing",
-    visible:false,
+    visible: false,
   },
   {
     cell: "BI_ID",
@@ -3910,6 +3907,7 @@ export const table_head_usuarios = [
     key: "permiso_editar_worktracking_id",
     visible: false,
   },
+
   {
     cell: "permiso_editar_worktracking",
     key: "permiso_editar_worktracking",
@@ -3927,7 +3925,7 @@ export const table_head_funcionalidades_ot = [
     cell: <input type="checkbox" />,
     key: "checkbox",
     visible: true,
-    alignment: "flex justify-center items-center"
+    alignment: "flex justify-center items-center",
   },
   {
     cell: "ID",
@@ -3953,7 +3951,7 @@ export const table_head_errors = [
     key: "checkbox",
     visible: false,
     width: "w-[6rem]",
-    alignment: "flex justify-center items-center"
+    alignment: "flex justify-center items-center",
   },
   {
     cell: "ID",
@@ -3965,7 +3963,7 @@ export const table_head_errors = [
     key: "errores",
     visible: true,
     width: "w-full",
-    alignment: "text-left"
+    alignment: "text-left",
   },
   {
     cell: "",

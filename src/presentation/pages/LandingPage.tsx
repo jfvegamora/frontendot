@@ -125,7 +125,7 @@ const LandingPage: React.FC = () => {
 
         {/* <WhastappForm/> */}
 
-        {/* <FOTValidateCristales/> */}
+        <FOTValidateCristales />
       </div>
     </div>
   );

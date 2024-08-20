@@ -464,6 +464,17 @@ export const validationNivel3 = signal([
   { campo: "validar_armazon2", valor: 0 },
 ]);
 
+export const validationBodegaCristales = signal([
+  { campo: "validar_cristal1_od", valor: 0 },
+  { campo: "validar_cristal1_oi", valor: 0 },
+  { campo: "validar_cristal2_od", valor: 0 },
+  { campo: "validar_cristal2_oi", valor: 0 },
+]);
+export const validationBodegaArmazones = signal([
+  { campo: "validar_armazon1", valor: 0 },
+  { campo: "validar_armazon2", valor: 0 },
+]);
+
 export const sumatoriaLevel1 = validationNivel1.value.reduce(
   (index, objeto) => index + objeto.valor,
   0
