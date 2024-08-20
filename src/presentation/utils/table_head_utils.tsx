@@ -3682,13 +3682,13 @@ export const table_head_usuarios = [
     visible: false,
   },
   {
-    cell: "CON_ID",
-    key: "permiso_con_id",
+    cell: "RES_ID",
+    key: "permiso_resolucion_id",
     visible: false,
   },
   {
-    cell: "CON",
-    key: "permiso_con",
+    cell: "RES",
+    key: "permiso_resolucion",
     visible: false,
   },
   {
@@ -3722,16 +3722,6 @@ export const table_head_usuarios = [
     visible: false,
   },
   {
-    cell: "DIG_ID",
-    key: "permiso_dig_id",
-    visible: false,
-  },
-  {
-    cell: "DIG",
-    key: "permiso_dig",
-    visible: false,
-  },
-  {
     cell: "ING_ID",
     key: "permiso_ing_id",
     visible: false,
@@ -3739,6 +3729,16 @@ export const table_head_usuarios = [
   {
     cell: "ING",
     key: "permiso_ing",
+    visible: false,
+  },
+  {
+    cell: "CON_PROD_ID",
+    key: "permiso_con_prod_id",
+    visible: false,
+  },
+  {
+    cell: "CON_PROD",
+    key: "permiso_con_prod",
     visible: false,
   },
   {
@@ -3911,6 +3911,106 @@ export const table_head_usuarios = [
   {
     cell: "permiso_editar_worktracking",
     key: "permiso_editar_worktracking",
+    visible: false,
+  },
+  {
+    cell: "permiso_nguia_id",
+    key: "permiso_nguia_id",
+    visible: false,
+  },
+  {
+    cell: "permiso_nguia",
+    key: "permiso_nguia",
+    visible: false,
+  },
+  {
+    cell: "permiso_nenvio_id",
+    key: "permiso_nenvio_id",
+    visible: false,
+  },
+  {
+    cell: "permiso_nenvio",
+    key: "permiso_nenvio",
+    visible: false,
+  },
+  {
+    cell: "permiso_nfirma_id",
+    key: "permiso_nfirma_id",
+    visible: false,
+  },
+  {
+    cell: "permiso_nfirma",
+    key: "permiso_nfirma",
+    visible: false,
+  },
+  {
+    cell: "permiso_nreporte_entrega_id",
+    key: "permiso_nreporte_entrega_id",
+    visible: false,
+  },
+  {
+    cell: "permiso_nreporte_entrega",
+    key: "permiso_nreporte_entrega",
+    visible: false,
+  },
+  {
+    cell: "permiso_noc_id",
+    key: "permiso_noc_id",
+    visible: false,
+  },
+  {
+    cell: "permiso_noc",
+    key: "permiso_noc",
+    visible: false,
+  },
+  {
+    cell: "permiso_confirmar_entrega_id",
+    key: "permiso_confirmar_entrega_id",
+    visible: false,
+  },
+  {
+    cell: "permiso_confirmar_entrega",
+    key: "permiso_confirmar_entrega",
+    visible: false,
+  },
+  {
+    cell: "permiso_pre_facturar_id",
+    key: "permiso_pre_facturar_id",
+    visible: false,
+  },
+  {
+    cell: "permiso_pre_facturar",
+    key: "permiso_pre_facturar",
+    visible: false,
+  },
+  {
+    cell: "permiso_vb_id",
+    key: "permiso_vb_id",
+    visible: false,
+  },
+  {
+    cell: "permiso_vb",
+    key: "permiso_vb",
+    visible: false,
+  },
+  {
+    cell: "permiso_facturar_id",
+    key: "permiso_facturar_id",
+    visible: false,
+  },
+  {
+    cell: "permiso_facturar",
+    key: "permiso_facturar",
+    visible: false,
+  },
+  {
+    cell: "permiso_confirmar_pago_id",
+    key: "permiso_confirmar_pago_id",
+    visible: false,
+  },
+  {
+    cell: "permiso_confirmar_pago",
+    key: "permiso_confirmar_pago",
     visible: false,
   },
   {

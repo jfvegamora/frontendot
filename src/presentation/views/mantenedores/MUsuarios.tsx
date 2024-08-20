@@ -9,7 +9,7 @@ import {
   TableComponent,
 } from "../../components";
 import { useEntityUtils, usePermission } from "../../hooks";
-import FUsuarios from "../forms/FUsuarios";
+import FUsuarios from "../forms/FUsuarios2";
 import FUsuariosOT from "../forms/FUsuariosOT";
 import { TITLES, table_head_usuarios } from "../../utils";
 
@@ -32,18 +32,18 @@ export enum EnumGrid {
   permiso_anular                  = 13,
 
   //? PERMISOS AREAS
-  permiso_control_id              = 14,
-  permiso_control                 = 15,
+  permiso_resolucion_id           = 14,
+  permiso_resolucion              = 15,
   permiso_adquisiciones_id        = 16,
   permiso_adquisiciones           = 17,
   permiso_calculo_id              = 18,
   permiso_calculo                 = 19,
   permiso_laboratorio_id          = 20,
   permiso_laboratorio             = 21,
-  permiso_digitacion_id           = 22,
-  permiso_digitacion              = 23,
-  permiso_ingreso_id              = 24,
-  permiso_ingreso                 = 25,
+  permiso_ingreso_id              = 22,
+  permiso_ingreso                 = 23,
+  permiso_control_produccion_id   = 24,
+  permiso_control_produccion      = 25,
   permiso_bodega_insumos_id       = 26,
   permiso_bodega_insumos          = 27,
   permiso_biselado_1_id           = 28,
@@ -80,6 +80,28 @@ export enum EnumGrid {
   permiso_editar_validar_armazones           = 57,
   permiso_editar_worktracking_id             = 58,
   permiso_editar_worktracking                = 59,
+
+  permiso_nguia_id              = 60,
+  permiso_nguia                 = 61,
+  permiso_nenvio_id             = 62,
+  permiso_nenvio                = 63,
+  permiso_nfirma_id             = 64,
+  permiso_nfirma                = 65,
+  permiso_nreporte_entrega_id   = 66,
+  permiso_nreporte_entrega      = 67,
+  permiso_noc_id                = 68,
+  permiso_noc                   = 69,
+  permiso_confirmar_entrega_id  = 70,
+  permiso_confirmar_entrega     = 71,
+  permiso_pre_facturar_id       = 72,
+  permiso_pre_facturar          = 73,
+  permiso_vb_id                 = 74,
+  permiso_vb                    = 75,
+  permiso_facturar_id           = 76,
+  permiso_facturar              = 77,
+  permiso_confirmar_pago_id     = 78,
+  permiso_confirmar_pago        = 79,
+
 }
 
 

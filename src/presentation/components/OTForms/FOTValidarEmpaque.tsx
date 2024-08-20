@@ -122,7 +122,7 @@ const FOTValidarEmpaque:React.FC<IFOTValidarEmpaque> = ({
             <div className=' rowForm px-3 py-3'>
                 <TextInputComponent
                         type='text'
-                        label='Nombre quien retira'
+                        label='RUT y Nombre quien retira'
                         name='nombre_beneficiario'
                         // handleChange={handleInputChange}
                         isOT={true}
