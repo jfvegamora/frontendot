@@ -153,6 +153,7 @@ import {
   isToggleMontajeValidation,
 } from "../../utils/FOTCristales_utils";
 import { URLBackend } from "../../utils/config";
+import { PermisosBotones } from "../../Enums";
 // import { EnumAreas } from '../../components/OTPrimaryButtons';
 // import { usePermissionOT } from '../../hooks/usePermissionOT';
 // import { EnumAreas } from '../../components/OTPrimaryButtons';
@@ -1761,7 +1762,7 @@ const FOT: React.FC<IFOTProps> = ({
               !isMOT &&
               isEditting &&
               escritura_lectura &&
-              OTPermissions[7] === "1" &&
+              OTPermissions[PermisosBotones.pausar] === "1" &&
               User.permisos_areas[EnumAreas[OTAreaActual]] !== "0" && (
                 <div className="mx-auto">
                   <Button
@@ -1790,7 +1791,7 @@ const FOT: React.FC<IFOTProps> = ({
               !isMOT &&
               isEditting &&
               escritura_lectura &&
-              OTPermissions[8] === "1" &&
+              OTPermissions[PermisosBotones.derivar] === "1" &&
               // sumatoriaNivel1  === validationNivel1.value.length &&
               User.permisos_areas[EnumAreas[OTAreaActual]] !== "0" &&
               data &&
@@ -1823,7 +1824,7 @@ const FOT: React.FC<IFOTProps> = ({
                 ? permisos_ot_historica.permiso_anular &&
                   data?.[EnumGrid.area_id] === 110
                 : permiso_anular_usuario === true &&
-                  OTPermissions[9] === "1") &&
+                  OTPermissions[PermisosBotones.anular] === "1") &&
               sumatoriaNivel1 === validationNivel1.value.length && (
                 // (data && data[EnumGrid.estado_id] === 30 || data && data[EnumGrid.estado_id] === 40 ) &&
                 // <Button className=' translate-y-[-2.7vw] text-[1vw] w-[10vw] bg-black' onClick={()=>{

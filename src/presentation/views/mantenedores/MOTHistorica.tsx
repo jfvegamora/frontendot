@@ -17,10 +17,11 @@ import { clearData } from "../../../redux/slices/OTSlice";
 import { signal } from "@preact/signals-react";
 import { useModal } from "../../hooks/useModal";
 import { filterToggle } from "../../components/FilterButton";
-import { totoalTrabajosSeleccionados } from "./MOT";
+import { OTPkToDelete, totoalTrabajosSeleccionados } from "./MOT";
 // import TableOTComponent from "../../components/TableOTComponent";
 import TableComponent2 from "../../components/TableComponent2";
 import { updateActualArea } from "../../../redux/slices/OTAreasSlice";
+import OTPrimaryButtons from "../../components/OTPrimaryButtons";
 
 // import ExportCSV  from "../../components/ExportToCsv";
 
@@ -217,6 +218,7 @@ const strEntidad = "Orden de Trabajo Histórico";
 const strBaseUrl = "/api/othistorica/";
 const strQuery = "14";
 const idMenu = 1;
+const permissionsOTArchivo = signal<any>("");
 
 // export const handleReporte = async(type:number, pktoDelete:any, OTs:any, folios:any) => {
 //   let resultBoton:any = []
@@ -308,7 +310,19 @@ const MOTHistorica: React.FC = () => {
   const [params, setParams] = useState([]);
   const OTs: any = useAppSelector((store: AppStore) => store.OTS);
   const user: any = useAppSelector((store: AppStore) => store.user);
-  console.log(user);
+  const areas: any = useAppSelector((store: AppStore) => store.OTAreas.areas);
+  const areaActual: any = useAppSelector(
+    (store: AppStore) => store.OTAreas.areaActual
+  );
+
+  const permissions = (area: number) =>
+    areas && areas?.find((permiso: any) => permiso[1] === area);
+
+  useEffect(() => {
+    dispatch(updateActualArea(110 as any));
+    const permiso = areaActual && permissions(areaActual);
+    permissionsOTArchivo.value = permiso && permiso[5];
+  }, []);
 
   let permiso_documentacion =
     user.permisos_archivo_ot[0] === "1" ? true : false;
@@ -316,7 +330,6 @@ const MOTHistorica: React.FC = () => {
   let permiso_anular = user.permisos_archivo_ot[2] === "1" ? true : false;
   // let permiso_post_venta    = user.permisos_archivo_ot[1] === '1' ? true : false;
 
-  console.log(permiso_documentacion);
   // const userState: any = useAppSelector((store: AppStore) => store.user);
 
   // const {escritura_lectura} = usePermission(idMenu)
@@ -375,6 +388,7 @@ const MOTHistorica: React.FC = () => {
     // console.log(OTs.data)
     // console.log('newPkToDelete:',newPkToDelete)
     setPkToDelete(newPkToDelete as any);
+    OTPkToDelete.value = newPkToDelete;
   }, [selectedRows]);
 
   const checkCount = signal(pktoDelete.length);
@@ -484,6 +498,8 @@ const MOTHistorica: React.FC = () => {
   // const folioNotArchivo = pktoDelete.filter((ot:any)=>ot.area === "Archivo").map((ot:any)=>ot.folio)
 
   // console.log(validateAreaArchivo)
+
+  console.log(permissionsOTArchivo.value);
 
   return (
     <div className="mantenedorContainer">
@@ -648,11 +664,8 @@ const MOTHistorica: React.FC = () => {
 
       {/* //TODO: BOTONES SECCION PROYECTO REPORTE ATENCION/FIRMA */}
 
-      <div className="mantenedorHeadOT width100 !h-[4rem] !mt-8 mr-8 items-center ">
+      {/* <div className="mantenedorHeadOT width100 !h-[4rem] !mt-8 mr-8 items-center ">
         <div className="mx-auto">
-          {/* <Button className='otActionButton mt-3 mx-5' style={{ backgroundColor: '#676f9d' }} onClick={() => handleReporte(2)}>N° Rep. Firma</Button> */}
-          {/* <Button className='otActionButton mt-3 mx-5'  onClick={() => handleReporte(1)} >N° Rep. Entrega</Button> */}
-
           {permiso_documentacion && (
             <Button
               className="otActionButton mt-3 mx-5"
@@ -774,6 +787,19 @@ const MOTHistorica: React.FC = () => {
             />
           </Suspense>
         </div>
+      </div> */}
+
+      <div className="mantenedorHeadOT width100 !h-[4rem] !mt-8 mr-8 items-center ">
+        <OTPrimaryButtons
+          areaName="name"
+          areaPermissions={permissionsOTArchivo.value}
+          areaActual={areaActual}
+          params={params}
+          setSelectedRows={setSelectedRows}
+          idMenu={idMenu}
+          isMOTArchivo={true}
+          // pktoDelete={pktoDelete}
+        />
       </div>
 
       <div

@@ -30,6 +30,10 @@ import { SocialIcon } from "react-social-icons";
 import { handleActionOTButtons } from "../utils/FOTPendiente_utils";
 import { URLBackend } from "../utils/config";
 import FOTValidateCristales from "../views/forms/FOTValidateCristales";
+import { PermisosBotones } from "../Enums";
+import FOTReporteEntrega from "../views/forms/FOTRepeorteEntrega";
+import FOTOrdenCompra from "../views/forms/FOTOrdenCompra";
+import FOTFactura from "../views/forms/FOTFactura";
 // import { OTAreasEnum } from '../Enums/OTAreasEnum';
 // import { OTGrillaEnum } from '../Enums';
 // import { CR1_OD_LAB, CR1_OI_LAB, CR2_OD_LAB, CR2_OI_LAB } from '../utils/FOTCristales_utils';
@@ -43,6 +47,8 @@ type AreaButtonsProps = {
   handleAddPerson?: () => void;
   setSelectedRows?: any;
   idMenu?: any;
+  pktoDelete?: any;
+  isMOTArchivo?: any;
 };
 
 export const dataOTSignal = signal([]);
@@ -132,7 +138,15 @@ const focusFirstInput = (strInputName: string, ref: React.RefObject<any>) => {
 };
 
 const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
-  ({ areaPermissions, handleAddPerson, params, setSelectedRows, idMenu }) => {
+  ({
+    areaPermissions,
+    handleAddPerson,
+    params,
+    setSelectedRows,
+    idMenu,
+    isMOTArchivo,
+    pktoDelete,
+  }) => {
     const dispatch = useAppDispatch();
     const OTAreas: any = useAppSelector((store: AppStore) => store.OTAreas);
     const OTData: any = useAppSelector((store: AppStore) => store.OTS.data);
@@ -155,6 +169,14 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
     const [isFOTUbicacion, setIsFOTUbicacion] = useState(false);
     const [isFOTValidateBodegaCristales, setisFOTValidateBodegaCristales] =
       useState(false);
+
+    const [isFOTReporteEntrega, setIsFOTReporteEntrega] = useState(false);
+    const [isFOTOrdenCompra, setIsFOTOrdenCompra] = useState(false);
+    const [isFOTGuiaDespacho, setIsFOTGuiaDespeacho] = useState(false);
+    const [isFOTFactura, setIsFOTFactura] = useState(false);
+
+    // const [];
+
     // const [barCode, setBarCode]                       = useState('')
     const [dataOT, setDataOT] = useState();
     // const [valueSearchOT, setValueSearchOT]           = useState<any>();
@@ -809,11 +831,14 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
       }
     };
 
+    console.log(pktoDelete);
+    console.log(OTPkToDelete.value);
+
     return (
       <div className="flex items-center   ml-[4rem] !w-full">
         <Suspense>
           {areaPermissions &&
-            areaPermissions[0] === "1" &&
+            areaPermissions[PermisosBotones.nuevo] === "1" &&
             permisos_usuario_areas !== "0" &&
             renderButton(
               <SiAddthis className="primaryBtnIcon " />,
@@ -824,7 +849,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
 
         <Suspense>
           {areaPermissions &&
-            areaPermissions[4] === "1" &&
+            areaPermissions[PermisosBotones.importar] === "1" &&
             permisos_usuario_areas !== "0" && (
               <Suspense>
                 <ImportToCsv
@@ -837,7 +862,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
         </Suspense>
 
         {areaPermissions &&
-          areaPermissions[2] === "1" &&
+          areaPermissions[PermisosBotones.imprimir] === "1" &&
           permisos_usuario_areas !== "0" &&
           renderButton(
             <PiPrinterFill className="primaryBtnIcon" />,
@@ -855,7 +880,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
         } */}
 
         {areaPermissions &&
-          areaPermissions[3] === "1" &&
+          areaPermissions[PermisosBotones.ubicacion] === "1" &&
           permisos_usuario_areas === "1" &&
           renderButton(
             <LuBox className="primaryBtnIcon " />,
@@ -864,22 +889,23 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
           )}
 
         <Suspense>
-          {areaPermissions && areaPermissions[3] === "1" && (
-            <div className="mr-2">
-              <ExportCSV
-                strEntidad={strEntidad}
-                params={params}
-                strBaseUrl={strBaseUrl}
-                OTAreas={OTAreas["areaActual"]}
-                primaryButton={true}
-                idMenu={idMenu}
-              />
-            </div>
-          )}
+          {areaPermissions &&
+            areaPermissions[PermisosBotones.exportar] === "1" && (
+              <div className="mr-2">
+                <ExportCSV
+                  strEntidad={strEntidad}
+                  params={params}
+                  strBaseUrl={strBaseUrl}
+                  OTAreas={OTAreas["areaActual"]}
+                  primaryButton={true}
+                  idMenu={idMenu}
+                />
+              </div>
+            )}
         </Suspense>
 
         {areaPermissions &&
-          areaPermissions[13] === "1" &&
+          areaPermissions[PermisosBotones.macroExcel] === "1" &&
           permisos_usuario_areas !== "0" && (
             <Tooltip content={"Descargar Plantilla Excel"}>
               <IconButton
@@ -897,7 +923,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
           )}
 
         {areaPermissions &&
-          areaPermissions[10] === "1" &&
+          areaPermissions[PermisosBotones.ingresar] === "1" &&
           permisos_usuario_areas !== "0" && (
             <Tooltip content={BUTTON_MESSAGES.bln_ingreso}>
               {/* <button className='bg-green-400 mx-4 transition-transform transform hover:scale-110 active:scale-95 w-[10rem] h-[2.5rem]  text-white '  */}
@@ -917,7 +943,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
           )}
 
         {areaPermissions &&
-          areaPermissions[5] === "1" &&
+          areaPermissions[PermisosBotones.whatsapp] === "1" &&
           permisos_usuario_areas !== "0" &&
           renderButton(
             <SocialIcon
@@ -929,7 +955,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
           )}
 
         {areaPermissions &&
-          areaPermissions[12] === "1" &&
+          areaPermissions[PermisosBotones.numeroEnvio] === "1" &&
           permisos_usuario_areas !== "0" && (
             <Tooltip content="Generar Número de Envío">
               <Button
@@ -954,7 +980,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
           )}
 
         {areaPermissions &&
-          areaPermissions[14] === "1" &&
+          areaPermissions[PermisosBotones.numeroFirma] === "1" &&
           permisos_usuario_areas !== "0" && (
             <Tooltip content={"Generar Reporte de Firmas"}>
               <Button
@@ -976,8 +1002,8 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
             </Tooltip>
           )}
 
-        {areaPermissions &&
-          areaPermissions[11] === "1" &&
+        {/* {areaPermissions &&
+          areaPermissions[PermisosBotones.guiaDespacho] === "1" &&
           permisos_usuario_areas !== "0" && (
             <Tooltip content="Generar Número de Guía">
               <Button
@@ -998,7 +1024,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
                 N° Guía
               </Button>
             </Tooltip>
-          )}
+          )} */}
 
         {OTAreas["areaActual"] === 60 && User.cargo === 1 && (
           <Tooltip content={BUTTON_MESSAGES.procesar}>
@@ -1015,7 +1041,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
         )}
 
         {areaPermissions &&
-          areaPermissions[6] === "1" &&
+          areaPermissions[PermisosBotones.procesar] === "1" &&
           ((permisos_usuario_areas === "1" && OTAreas["areaActual"] !== 50) ||
             (permisos_usuario_areas === "2" &&
               OTAreas["areaActual"] === 50)) && (
@@ -1038,7 +1064,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
           )}
 
         {areaPermissions &&
-          areaPermissions[3] === "1" &&
+          areaPermissions[PermisosBotones.pausar] === "1" &&
           permisos_usuario_areas !== "0" &&
           OTAreas["areaActual"] !== 60 && (
             <Tooltip content={BUTTON_MESSAGES.pausar}>
@@ -1066,7 +1092,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
           )}
 
         {areaPermissions &&
-          areaPermissions[3] === "1" &&
+          areaPermissions[PermisosBotones.derivar] === "1" &&
           permisos_usuario_areas !== "0" &&
           OTAreas["areaActual"] !== 60 && (
             <Tooltip content={BUTTON_MESSAGES.derivar}>
@@ -1095,32 +1121,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
             </Tooltip>
           )}
 
-        <Suspense>
-          {isWhastApp && <FOTWhastApp onClose={() => setIsWhastApp(false)} />}
-        </Suspense>
-
-        <Suspense>
-          {isFotTicketRetiro && <FOTTicketImpresion ref={SecondcomponentRef} />}
-        </Suspense>
-
-        <Suspense>
-          {isFOTImpresa && (
-            <div className="hidden">
-              <FOTImpresa ref={componentRef} masivo={true} />
-            </div>
-          )}
-        </Suspense>
-
-        <Suspense>
-          {isFOTValidarBodega && (
-            <FOTValidarBodega
-              pkToDelete={OTPkToDelete.value}
-              handleClose={() => setIsFOTValidarBodega(false)}
-            />
-          )}
-        </Suspense>
-
-        {OTAreas["areaActual"] !== 200 && (
+        {OTAreas["areaActual"] !== 200 && !isMOTArchivo && (
           <div className="ml-2 w-[10vw]">
             <Input
               type="number"
@@ -1151,8 +1152,9 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
         )}
 
         {areaPermissions &&
-          areaPermissions[15] === "1" &&
-          permisos_usuario_areas !== "0" && (
+          areaPermissions[PermisosBotones.validarCristales] === "1" &&
+          permisos_usuario_areas !== "0" &&
+          !isMOTArchivo && (
             <div className="ml-2 w-[10vw]">
               <Input
                 ref={refFocusInput}
@@ -1191,8 +1193,9 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
             </div>
           )}
         {areaPermissions &&
-          areaPermissions[15] === "1" &&
-          permisos_usuario_areas !== "0" && (
+          areaPermissions[PermisosBotones.validarArmazones] === "1" &&
+          permisos_usuario_areas !== "0" &&
+          !isMOTArchivo && (
             <div className="ml-2 w-[10vw]">
               <Input
                 ref={refFocusInput}
@@ -1232,8 +1235,9 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
           )}
 
         {areaPermissions &&
-          areaPermissions[15] === "1" &&
-          permisos_usuario_areas !== "0" && (
+          areaPermissions[PermisosBotones.opcionBodegaInsumos] === "1" &&
+          permisos_usuario_areas !== "0" &&
+          !isMOTArchivo && (
             <div className="mx-6 my-2  translate-y-[0.2rem] flex">
               <div className="flex">
                 <input
@@ -1320,6 +1324,161 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
               </div>
             </div>
           )}
+
+        {areaPermissions &&
+          areaPermissions[PermisosBotones.reporteEntrega] === "1" &&
+          permisos_usuario_areas !== "0" && (
+            <Button
+              className="otActionButton mt-3 mx-5"
+              onClick={() => {
+                if (OTPkToDelete.value.length < 1) {
+                  return toast.error("No hay OT Seleccionada");
+                } else {
+                  setIsFOTReporteEntrega((prev) => !prev);
+                }
+              }}
+            >
+              N° Rep. Entrega
+            </Button>
+          )}
+
+        {areaPermissions &&
+          areaPermissions[PermisosBotones.reporteEntrega] === "1" &&
+          permisos_usuario_areas !== "0" && (
+            <Button
+              className="otActionButton mt-3 mx-5"
+              onClick={() => {
+                if (pktoDelete.length < 1) {
+                  return toast.error("No hay OT Seleccionada");
+                }
+
+                if (OTPkToDelete.value.length === 0) {
+                  toast.error("No hay OT seleccionada");
+                } else {
+                  setIsFOTOrdenCompra((prev) => !prev);
+                }
+
+                // setIsFOTOrdenCompra((prev) => !prev);
+              }}
+            >
+              N° OC
+            </Button>
+          )}
+
+        {areaPermissions &&
+          areaPermissions[PermisosBotones.guiaDespacho] === "1" &&
+          permisos_usuario_areas !== "0" && (
+            <Button
+              className="otActionButton mt-3 mx-5"
+              onClick={() => {
+                if (pktoDelete.length < 1) {
+                  return toast.error("No hay OT Seleccionada");
+                }
+                // if (validateAreaArchivo) {
+                //   return toast.error(`OT no se encuentra en OT Archivo`);
+                // }
+
+                if (OTPkToDelete.value.length === 0) {
+                  toast.error("No hay OT seleccionada");
+                } else {
+                  setIsFOTGuiaDespeacho((prev) => !prev);
+                }
+                // setIsFOTGuiaDespeacho((prev) => !prev);
+              }}
+            >
+              N° Guía
+            </Button>
+          )}
+
+        {areaPermissions &&
+          areaPermissions[PermisosBotones.numeroFactura] === "1" &&
+          permisos_usuario_areas !== "0" && (
+            <Button
+              className="otActionButton mt-3 mx-5"
+              onClick={() => {
+                if (pktoDelete.length < 1) {
+                  return toast.error("No hay OT Seleccionada");
+                }
+                if (OTPkToDelete.value.length === 0) {
+                  toast.error("No hay OT seleccionada");
+                } else {
+                  setIsFOTFactura((prev) => !prev);
+                }
+                // setShowFactura((prev) => !prev);
+              }}
+            >
+              N° Factura
+            </Button>
+          )}
+
+        <Suspense>
+          {isFOTFactura && (
+            <FOTFactura
+              otArchivo={isMOTArchivo}
+              pktoDelete={OTPkToDelete.value || pktoDelete}
+              setSelectedRows={setSelectedRows}
+              closeModal={() => setIsFOTFactura(false)}
+            />
+          )}
+        </Suspense>
+
+        <Suspense>
+          {isFOTGuiaDespacho && (
+            <FOTGuiaDespacho
+              pktoDelete={OTPkToDelete.value || pktoDelete}
+              setSelectedRows={setSelectedRows}
+              closeModal={() => setIsFOTGuiaDespeacho(false)}
+              otArchivo={isMOTArchivo}
+            />
+          )}
+        </Suspense>
+
+        <Suspense>
+          {isFOTOrdenCompra && (
+            <FOTOrdenCompra
+              otArchivo={true}
+              pktoDelete={OTPkToDelete.value || pktoDelete}
+              setSelectedRows={setSelectedRows}
+              closeModal={() => setIsFOTOrdenCompra(false)}
+            />
+          )}
+        </Suspense>
+
+        <Suspense>
+          {isFOTReporteEntrega && (
+            <FOTReporteEntrega
+              otArchivo={true}
+              pktoDelete={OTPkToDelete.value || pktoDelete}
+              setSelectedRows={setSelectedRows}
+              closeModal={() => setIsFOTReporteEntrega(false)}
+            />
+          )}
+        </Suspense>
+
+        <Suspense>
+          {isWhastApp && <FOTWhastApp onClose={() => setIsWhastApp(false)} />}
+        </Suspense>
+
+        <Suspense>
+          {isFotTicketRetiro && <FOTTicketImpresion ref={SecondcomponentRef} />}
+        </Suspense>
+
+        <Suspense>
+          {isFOTImpresa && (
+            <div className="hidden">
+              <FOTImpresa ref={componentRef} masivo={true} />
+            </div>
+          )}
+        </Suspense>
+
+        <Suspense>
+          {isFOTValidarBodega && (
+            <FOTValidarBodega
+              pkToDelete={OTPkToDelete.value}
+              handleClose={() => setIsFOTValidarBodega(false)}
+            />
+          )}
+        </Suspense>
 
         <Suspense>
           {isShowErrorOTModal && (

@@ -128,11 +128,14 @@ const MOT: React.FC = () => {
   // console.log(entity)
 
   const permissions = (area: number) =>
-    areas && areas?.find((permiso: any) => permiso[1] === area);
+    areas &&
+    areas?.find((permiso: any) => {
+      return permiso[1] === area;
+    });
   useEffect(() => {
     // console.log('render')
     const permiso = areaActualOT && permissions(areaActualOT);
-    // console.log(permiso)
+
     permissionsOT.value = permiso && permiso[5];
   }, [areaActualOT]);
 

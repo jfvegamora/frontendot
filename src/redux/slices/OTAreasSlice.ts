@@ -12,7 +12,7 @@ const initialState: IOTAreas | null = {
   areas: localStorage.getItem("OTAreas")
     ? JSON.parse(localStorage.getItem("OTAreas") as string)
     : [],
-  areaActual: 200,
+  areaActual: 110,
   areaSiguiente: localStorage.getItem("areaSiguiente")
     ? JSON.parse(localStorage.getItem("areaSiguiente") as string)
     : 50,
