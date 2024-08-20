@@ -14,93 +14,68 @@ import FUsuariosOT from "../forms/FUsuariosOT";
 import { TITLES, table_head_usuarios } from "../../utils";
 
 export enum EnumGrid {
-  id                              = 1,
-  nombre                          = 2,
-  telefono                        = 3,
-  correo                          = 4,
-  estado                          = 5,
-  cargo_id                        = 6,
-  cargo                           = 7,
-
-  
-   //? PERMISOS ARCHIVO OT - OT HISTORICA
-  permiso_documentacion_id        = 8,
-  permiso_documentacion           = 9,
-  permiso_post_venta_id           = 10,
-  permiso_post_venta              = 11,
-  permiso_anular_id               = 12,
-  permiso_anular                  = 13,
+  id = 1,
+  nombre = 2,
+  telefono = 3,
+  correo = 4,
+  estado = 5,
+  cargo_id = 6,
+  cargo = 7,
 
   //? PERMISOS AREAS
-  permiso_resolucion_id           = 14,
-  permiso_resolucion              = 15,
-  permiso_adquisiciones_id        = 16,
-  permiso_adquisiciones           = 17,
-  permiso_calculo_id              = 18,
-  permiso_calculo                 = 19,
-  permiso_laboratorio_id          = 20,
-  permiso_laboratorio             = 21,
-  permiso_ingreso_id              = 22,
-  permiso_ingreso                 = 23,
-  permiso_control_produccion_id   = 24,
-  permiso_control_produccion      = 25,
-  permiso_bodega_insumos_id       = 26,
-  permiso_bodega_insumos          = 27,
-  permiso_biselado_1_id           = 28,
-  permiso_biselado_1              = 29,
-  permiso_biselado_2_id           = 30,
-  permiso_biselado_2              = 31,
-  permiso_taller_montaje_id       = 32,
-  permiso_taller_montaje          = 33,
-  permiso_qa_id                   = 34,
-  permiso_qa                      = 35,
-  permiso_bodega_p_terminados_id  = 36,
-  permiso_bodega_p_terminados     = 37,
-  permiso_empaque_id              = 38,
-  permiso_empaque                 = 39,
+  permiso_resolucion = 8,
+  permiso_adquisiciones = 9,
+  permiso_calculo = 10,
+  permiso_laboratorio = 11,
+  permiso_ingreso = 12,
+  permiso_control_produccion = 13,
+  permiso_bodega_insumos = 14,
+  permiso_biselado_1 = 15,
+  permiso_biselado_2 = 16,
+  permiso_taller_montaje = 17,
+  permiso_qa = 18,
+  permiso_bodega_p_terminados = 19,
+  permiso_empaque = 20,
 
-    //? PERMISOS CAMPOS - EDITAR CAMPOS OT
-  permiso_editar_armazon_id                  = 40,
-  permiso_editar_armazon                     = 41,
-  permiso_editar_cristal_opcion_vta_id       = 42,
-  permiso_editar_cristal_opcion_vta          = 43,
-  permiso_editar_estado_impresion_id         = 44,
-  permiso_editar_estado_impresion            = 45,
-  permiso_editar_validar_parametrizacion_id  = 46,
-  permiso_editar_validar_parametrizacion     = 47,
-  permiso_editar_opcion_montaje_id           = 48,
-  permiso_editar_opcion_montaje              = 49,
-  permiso_editar_grupo_dioptria_id           = 50,
-  permiso_editar_grupo_dioptria              = 51,
-  permiso_editar_receta_id                   = 52,
-  permiso_editar_receta                      = 53,
-  permiso_editar_validar_cristales_id        = 54,
-  permiso_editar_validar_cristales           = 55,
-  permiso_editar_validar_armazones_id        = 56,
-  permiso_editar_validar_armazones           = 57,
-  permiso_editar_worktracking_id             = 58,
-  permiso_editar_worktracking                = 59,
+  //? PERMISOS CAMPOS - EDITAR CAMPOS OT
+  permiso_editar_armazon = 21,
+  permiso_editar_cristal_opcion_vta = 22,
+  permiso_editar_estado_impresion = 23,
+  permiso_editar_validar_parametrizacion = 24,
+  permiso_editar_opcion_montaje = 25,
+  permiso_editar_grupo_dioptria = 26,
+  permiso_editar_receta = 27,
+  permiso_editar_validar_cristales = 28,
+  permiso_editar_validar_armazones = 29,
+  permiso_editar_worktracking = 30,
 
-  permiso_nguia_id              = 60,
-  permiso_nguia                 = 61,
-  permiso_nenvio_id             = 62,
-  permiso_nenvio                = 63,
-  permiso_nfirma_id             = 64,
-  permiso_nfirma                = 65,
-  permiso_nreporte_entrega_id   = 66,
-  permiso_nreporte_entrega      = 67,
-  permiso_noc_id                = 68,
-  permiso_noc                   = 69,
-  permiso_confirmar_entrega_id  = 70,
-  permiso_confirmar_entrega     = 71,
-  permiso_pre_facturar_id       = 72,
-  permiso_pre_facturar          = 73,
-  permiso_vb_id                 = 74,
-  permiso_vb                    = 75,
-  permiso_facturar_id           = 76,
-  permiso_facturar              = 77,
-  permiso_confirmar_pago_id     = 78,
-  permiso_confirmar_pago        = 79,
+  permiso_agregar = 31,
+  permiso_editar = 32,
+  permiso_imprimir = 33,
+  permiso_exportar = 34,
+  permiso_importar = 35,
+  permiso_whatsapp = 36,
+  permiso_procesar = 37,
+  permiso_pausar = 38,
+  permiso_derivar = 39,
+  permiso_anular = 40,
+  permiso_ingresar = 41,
+  permiso_post_vta = 42,
+  permiso_nguia = 43,
+  permiso_nenvio = 44,
+  permiso_macro_excel = 45,
+  permiso_nfirma = 46,
+  permiso_validar_armazon = 47,
+  permiso_validar_cristal = 48,
+  permiso_ubicar = 49,
+  permiso_opciones_bod_ins = 50,
+  permiso_nreporte_entrega = 51,
+  permiso_noc = 52,
+  permiso_confirmar_entrega = 53,
+  permiso_pre_facturar = 54,
+  permiso_vb = 55,
+  permiso_facturar = 56,
+  permiso_confirmar_pago = 57,
 
 }
 
@@ -116,7 +91,7 @@ const MUsuarios: React.FC = () => {
   const [params, setParams] = useState([]);
   const [totalRowIndex, _setTotalRowIndex] = useState([]);
   const [shotRow, _setShotRow] = useState(undefined)
-  const { escritura_lectura} = usePermission(idMenu || 0 );
+  const { escritura_lectura } = usePermission(idMenu || 0);
 
   const updateParams = (newParams: Record<string, never>) => {
     setParams(Object.keys(newParams).map((key) => newParams[key]));
@@ -146,21 +121,21 @@ const MUsuarios: React.FC = () => {
   } = useEntityUtils(strBaseUrl, strQuery);
 
 
-  useEffect(()=>{
-    totalRowIndex.map((row)=>{
-      if(row === shotRow){
-        setSelectedRows((prev)=>[...prev, row])
+  useEffect(() => {
+    totalRowIndex.map((row) => {
+      if (row === shotRow) {
+        setSelectedRows((prev) => [...prev, row])
       }
     })
-    if( shotRow !== undefined &&!totalRowIndex.includes(shotRow)){
+    if (shotRow !== undefined && !totalRowIndex.includes(shotRow)) {
       alert('no esta')
     }
-  },[shotRow,totalRowIndex])
-  
+  }, [shotRow, totalRowIndex])
+
   const [pkToDelete, setPkToDelete] = useState<string[]>([])
   const strParamsToDelete = '_p1' // _p3/_p1/_pkToDelete
-  
-  useEffect(() => {    
+
+  useEffect(() => {
     const newPkToDelete = selectedRows.map((row: number) => `${entities[row][EnumGrid.id]}`);
     const combinedPks = newPkToDelete.join(',');
 
@@ -176,25 +151,26 @@ const MUsuarios: React.FC = () => {
             updateParams={updateParams}
             setEntities={setEntities}
             primaryKeyInputs={[
-              { name: "_p1", 
-                label: "Nombre", 
+              {
+                name: "_p1",
+                label: "Nombre",
                 type: "text",
-                styles:{
+                styles: {
                   with: "labelInput inputStyles w-full",
-                  container:"w-[35vw] !text-[2vw] translate-y-[-0.2vw]", 
+                  container: "w-[35vw] !text-[2vw] translate-y-[-0.2vw]",
                   // labelProps: "!translate-y-[0.1vw] !text-[1.2vw] !font-[2vw] !z-30"
                   labelProps: "labelInput"
-                }  
+                }
               },
               {
                 name: "_p2",
                 label: "Cargos",
                 type: "select",
                 selectUrl: "/api/cargos/",
-                styles:{
+                styles: {
                   with: "",
-                  styles:"labelInput inputStyles w-full",
-                  container:"!w-[35vw]  text-[1vw] translate-x-[2vw]", 
+                  styles: "labelInput inputStyles w-full",
+                  container: "!w-[35vw]  text-[1vw] translate-x-[2vw]",
                   // labelProps: "!translate-y-[-2vh] !text-[1.2vw] !font-[2vw]"
                   labelProps: "labelInput"
 
@@ -205,23 +181,23 @@ const MUsuarios: React.FC = () => {
           />
         </div>
         <div className="w-[15vw]">
-        <PrimaryButtonsComponent
-          handleAddPerson={openModal}
-          handleDeleteSelected={handleDeleteSelected}
-          handleRefresh={resetEntities}
-          params={params}
-          pkToDelete={pkToDelete}
-          strEntidad={strEntidadExcel}
-          strBaseUrl={strBaseUrl}
-          showAddButton={true}
-          showExportButton={true}
-          showDeleteButton={true}
-          showForwardButton={false}
-          showRefreshButton={true}
-          showImportCsv={true}
-          idMenu={idMenu}
-          classname={"translate-x-[-4vw] !w-[15vw]"}
-        />
+          <PrimaryButtonsComponent
+            handleAddPerson={openModal}
+            handleDeleteSelected={handleDeleteSelected}
+            handleRefresh={resetEntities}
+            params={params}
+            pkToDelete={pkToDelete}
+            strEntidad={strEntidadExcel}
+            strBaseUrl={strBaseUrl}
+            showAddButton={true}
+            showExportButton={true}
+            showDeleteButton={true}
+            showForwardButton={false}
+            showRefreshButton={true}
+            showImportCsv={true}
+            idMenu={idMenu}
+            classname={"translate-x-[-4vw] !w-[15vw]"}
+          />
         </div>
       </div>
 
@@ -239,16 +215,16 @@ const MUsuarios: React.FC = () => {
           tableHead={table_head_usuarios}
           showEditButton={true}
           showDeleteButton={false}
-          showPermisoOTButton={false}  
+          showPermisoOTButton={false}
           idMenu={idMenu}
           leftEdit={true}
           togglePermisoOTModal={togglePermisoOTModal}
-          // setTotalRowIndex={setTotalRowIndex}
+        // setTotalRowIndex={setTotalRowIndex}
         />
       </div>
 
 
-  
+
       {isModalInsert && (
         <FUsuarios
           label={`${TITLES.ingreso} ${strEntidad}`}
@@ -269,10 +245,10 @@ const MUsuarios: React.FC = () => {
           data={entity}
           closeModal={closeModal}
           isEditting={true}
-          // escritura_lectura={escritura_lectura}
+        // escritura_lectura={escritura_lectura}
         />
       )}
- 
+
       {isModalPermisoOT && (
         <FUsuariosOT
           label={`${TITLES.edicion} ${strEntidad}`}
