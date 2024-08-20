@@ -322,7 +322,7 @@ const MOTHistorica: React.FC = () => {
     dispatch(updateActualArea(110 as any));
     const permiso = areaActual && permissions(areaActual);
     permissionsOTArchivo.value = permiso && permiso[5];
-  }, []);
+  }, [permissionsOTArchivo.value]);
 
   let permiso_documentacion =
     user.permisos_archivo_ot[0] === "1" ? true : false;

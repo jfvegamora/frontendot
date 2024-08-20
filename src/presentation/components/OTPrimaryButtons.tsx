@@ -34,6 +34,7 @@ import { PermisosBotones } from "../Enums";
 import FOTReporteEntrega from "../views/forms/FOTRepeorteEntrega";
 import FOTOrdenCompra from "../views/forms/FOTOrdenCompra";
 import FOTFactura from "../views/forms/FOTFactura";
+import { usePermissionBotonesUser } from "../hooks/usePermissionBotonesUser";
 // import { OTAreasEnum } from '../Enums/OTAreasEnum';
 // import { OTGrillaEnum } from '../Enums';
 // import { CR1_OD_LAB, CR1_OI_LAB, CR2_OD_LAB, CR2_OI_LAB } from '../utils/FOTCristales_utils';
@@ -174,6 +175,35 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
     const [isFOTOrdenCompra, setIsFOTOrdenCompra] = useState(false);
     const [isFOTGuiaDespacho, setIsFOTGuiaDespeacho] = useState(false);
     const [isFOTFactura, setIsFOTFactura] = useState(false);
+
+    const {
+      permiso_usuario_btn_nuevo,
+      // permiso_usuario_btn_editar,
+      permiso_usaurio_btn_impresion,
+      permiso_usuario_btn_exportar,
+      permiso_usuario_btn_importar,
+      permiso_usuario_btn_whatsapp,
+      permiso_usuario_btn_procesar,
+      permiso_usuario_btn_pausar,
+      permiso_usuario_btn_derivar,
+      // permiso_usuario_btn_anular,
+      permiso_usuario_btn_ingresar,
+      // permiso_usuario_btn_postVenta,
+      permiso_usuario_btn_guiaDespacho,
+      permiso_usuario_btn_numerEnvio,
+      permiso_usuario_btn_macroExcel,
+      permiso_usuario_btn_validarArmazones,
+      permiso_usuario_btn_validarCristales,
+      permiso_usuario_btn_ubicacion,
+      permiso_usuario_btn_opcionBodegaInsumos,
+      permiso_usuario_btn_reporteEntrega,
+      permiso_usuario_btn_numeroOC,
+      // permiso_usuario_btn_confirmarEntrega,
+      permiso_usuario_btn_preFacturar,
+      permiso_usuario_btn_vistoBueno,
+      permiso_usuario_btn_numeroFactura,
+      permiso_usuario_btn_confirmaPago,
+    } = usePermissionBotonesUser();
 
     // const [];
 
@@ -831,15 +861,13 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
       }
     };
 
-    console.log(pktoDelete);
-    console.log(OTPkToDelete.value);
-
     return (
       <div className="flex items-center   ml-[4rem] !w-full">
         <Suspense>
           {areaPermissions &&
             areaPermissions[PermisosBotones.nuevo] === "1" &&
             permisos_usuario_areas !== "0" &&
+            permiso_usuario_btn_nuevo &&
             renderButton(
               <SiAddthis className="primaryBtnIcon " />,
               handleAddPerson!,
@@ -850,7 +878,8 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
         <Suspense>
           {areaPermissions &&
             areaPermissions[PermisosBotones.importar] === "1" &&
-            permisos_usuario_areas !== "0" && (
+            permisos_usuario_areas !== "0" &&
+            permiso_usuario_btn_importar && (
               <Suspense>
                 <ImportToCsv
                   strEntidad={strEntidad}
@@ -864,6 +893,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
         {areaPermissions &&
           areaPermissions[PermisosBotones.imprimir] === "1" &&
           permisos_usuario_areas !== "0" &&
+          permiso_usaurio_btn_impresion &&
           renderButton(
             <PiPrinterFill className="primaryBtnIcon" />,
             handleImpresionMasivo!,
@@ -882,6 +912,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
         {areaPermissions &&
           areaPermissions[PermisosBotones.ubicacion] === "1" &&
           permisos_usuario_areas === "1" &&
+          permiso_usuario_btn_ubicacion &&
           renderButton(
             <LuBox className="primaryBtnIcon " />,
             handleUbicacion!,
@@ -890,7 +921,8 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
 
         <Suspense>
           {areaPermissions &&
-            areaPermissions[PermisosBotones.exportar] === "1" && (
+            areaPermissions[PermisosBotones.exportar] === "1" &&
+            permiso_usuario_btn_exportar && (
               <div className="mr-2">
                 <ExportCSV
                   strEntidad={strEntidad}
@@ -906,7 +938,8 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
 
         {areaPermissions &&
           areaPermissions[PermisosBotones.macroExcel] === "1" &&
-          permisos_usuario_areas !== "0" && (
+          permisos_usuario_areas !== "0" &&
+          permiso_usuario_btn_macroExcel && (
             <Tooltip content={"Descargar Plantilla Excel"}>
               <IconButton
                 className="primaryBtnIconButton"
@@ -924,7 +957,8 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
 
         {areaPermissions &&
           areaPermissions[PermisosBotones.ingresar] === "1" &&
-          permisos_usuario_areas !== "0" && (
+          permisos_usuario_areas !== "0" &&
+          permiso_usuario_btn_ingresar && (
             <Tooltip content={BUTTON_MESSAGES.bln_ingreso}>
               {/* <button className='bg-green-400 mx-4 transition-transform transform hover:scale-110 active:scale-95 w-[10rem] h-[2.5rem]  text-white '  */}
               <Button
@@ -945,6 +979,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
         {areaPermissions &&
           areaPermissions[PermisosBotones.whatsapp] === "1" &&
           permisos_usuario_areas !== "0" &&
+          permiso_usuario_btn_whatsapp &&
           renderButton(
             <SocialIcon
               onClick={(e) => e.preventDefault()}
@@ -956,7 +991,8 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
 
         {areaPermissions &&
           areaPermissions[PermisosBotones.numeroEnvio] === "1" &&
-          permisos_usuario_areas !== "0" && (
+          permisos_usuario_areas !== "0" &&
+          permiso_usuario_btn_numerEnvio && (
             <Tooltip content="Generar Número de Envío">
               <Button
                 className="otActionButton ml-4"
@@ -1044,6 +1080,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
           areaPermissions[PermisosBotones.procesar] === "1" &&
           ((permisos_usuario_areas === "1" && OTAreas["areaActual"] !== 50) ||
             (permisos_usuario_areas === "2" &&
+              permiso_usuario_btn_procesar &&
               OTAreas["areaActual"] === 50)) && (
             // (permisos_usuario_areas !== '0') && (
             <Tooltip content={BUTTON_MESSAGES.procesar}>
@@ -1066,7 +1103,8 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
         {areaPermissions &&
           areaPermissions[PermisosBotones.pausar] === "1" &&
           permisos_usuario_areas !== "0" &&
-          OTAreas["areaActual"] !== 60 && (
+          OTAreas["areaActual"] !== 60 &&
+          permiso_usuario_btn_pausar && (
             <Tooltip content={BUTTON_MESSAGES.pausar}>
               <Button
                 type="submit"
@@ -1094,7 +1132,8 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
         {areaPermissions &&
           areaPermissions[PermisosBotones.derivar] === "1" &&
           permisos_usuario_areas !== "0" &&
-          OTAreas["areaActual"] !== 60 && (
+          OTAreas["areaActual"] !== 60 &&
+          permiso_usuario_btn_derivar && (
             <Tooltip content={BUTTON_MESSAGES.derivar}>
               {/* <button className='bg-green-400 mx-4 transition-transform transform hover:scale-110 active:scale-95 w-[10rem] h-[2.5rem]  text-white '  */}
               <Button
@@ -1154,7 +1193,8 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
         {areaPermissions &&
           areaPermissions[PermisosBotones.validarCristales] === "1" &&
           permisos_usuario_areas !== "0" &&
-          !isMOTArchivo && (
+          !isMOTArchivo &&
+          permiso_usuario_btn_validarCristales && (
             <div className="ml-2 w-[10vw]">
               <Input
                 ref={refFocusInput}
@@ -1195,7 +1235,8 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
         {areaPermissions &&
           areaPermissions[PermisosBotones.validarArmazones] === "1" &&
           permisos_usuario_areas !== "0" &&
-          !isMOTArchivo && (
+          !isMOTArchivo &&
+          permiso_usuario_btn_validarArmazones && (
             <div className="ml-2 w-[10vw]">
               <Input
                 ref={refFocusInput}
@@ -1237,7 +1278,8 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
         {areaPermissions &&
           areaPermissions[PermisosBotones.opcionBodegaInsumos] === "1" &&
           permisos_usuario_areas !== "0" &&
-          !isMOTArchivo && (
+          !isMOTArchivo &&
+          permiso_usuario_btn_opcionBodegaInsumos && (
             <div className="mx-6 my-2  translate-y-[0.2rem] flex">
               <div className="flex">
                 <input
@@ -1327,7 +1369,8 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
 
         {areaPermissions &&
           areaPermissions[PermisosBotones.reporteEntrega] === "1" &&
-          permisos_usuario_areas !== "0" && (
+          permisos_usuario_areas !== "0" &&
+          permiso_usuario_btn_reporteEntrega && (
             <Button
               className="otActionButton mt-3 mx-5"
               onClick={() => {
@@ -1344,7 +1387,8 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
 
         {areaPermissions &&
           areaPermissions[PermisosBotones.reporteEntrega] === "1" &&
-          permisos_usuario_areas !== "0" && (
+          permisos_usuario_areas !== "0" &&
+          permiso_usuario_btn_numeroOC && (
             <Button
               className="otActionButton mt-3 mx-5"
               onClick={() => {
@@ -1367,7 +1411,8 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
 
         {areaPermissions &&
           areaPermissions[PermisosBotones.guiaDespacho] === "1" &&
-          permisos_usuario_areas !== "0" && (
+          permisos_usuario_areas !== "0" &&
+          permiso_usuario_btn_guiaDespacho && (
             <Button
               className="otActionButton mt-3 mx-5"
               onClick={() => {

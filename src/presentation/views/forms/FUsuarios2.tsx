@@ -20,6 +20,7 @@ import useCustomToast from "../../hooks/useCustomToast";
 import { toast } from "react-toastify";
 import { Button } from "@material-tailwind/react";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
+import { PermisosBotones } from "../../Enums";
 
 const strBaseUrl = "/api/usuarios/";
 const strEntidad = "Usuario ";
@@ -44,10 +45,6 @@ export interface InputData {
   permiso_qa: string | undefined;
   permiso_bodega_prod_term: string | undefined;
   permiso_empaque: string | undefined;
-
-  permiso_facturacion: string | undefined;
-  permiso_post_venta: string | undefined;
-  permiso_anulacion: string | undefined;
 
   permiso_editar_armazon: string | undefined;
   permiso_editar_cristal_opcion_vta: string | undefined;
@@ -127,38 +124,55 @@ const permiso_campo = [
   "permiso_editar_worktracking",
 ];
 
-const permiso_archivoOT = [
-  "permiso_facturacion",
-  "permiso_post_venta",
-  "permiso_anulacion",
+const permisos_botones = [
+  "permiso_nguia", // index 12
+  "permiso_nenvio", // index 13
+  "permiso_nfirma", // index 15
+  "permiso_nreporte_entrega", // index 20
+  "permiso_noc", // index 21
+  "permiso_confirmar_entrega", // index 22
+  "permiso_pre_facturar", // index 23
+  "permiso_vb", // index 24
+  "permiso_facturar", // index 25
+  "permiso_confirmar_pago", // index 26
 ];
 
+const editablesIndices = [12, 13, 15, 20, 21, 22, 23, 24, 25, 26];
+
+function generatePermisosBotonesString(jsonData: any): string {
+  return Object.values(PermisosBotones)
+    .filter((value) => typeof value === "number")
+    .map((index: number) => {
+      if (editablesIndices.includes(index)) {
+        const permisoClave = permisos_botones[editablesIndices.indexOf(index)];
+        return permisoClave && jsonData[permisoClave] === "Lectura" ? "0" : "1";
+      }
+      return "1"; // Predeterminado a "1" para los no editables
+    })
+    .join("");
+}
+
 export function transformInsertQuery(jsonData: any): any | null {
-  // const permisos_areas      = permiso_area.map((permiso:any)=>jsonData[permiso] === 'Lectura' ? "0" : "1").join('');
   const permisos_areas = permiso_area
     .map((permiso: any) => (jsonData[permiso] === "Lectura" ? "0" : "1"))
     .join("");
 
   const permisos_campos = permiso_campo
-    .map(
-      (permiso: any) => (jsonData[permiso] === "Lectura" ? "0" : "1")
-      // jsonData[permiso] === "Lectura" || jsonData[permiso] === "No" ? "0" : "1"
-    )
-    .join("");
-  const permisos_archivoOT = permiso_archivoOT
     .map((permiso: any) => (jsonData[permiso] === "Lectura" ? "0" : "1"))
     .join("");
 
-  // console.log(permisos_areas)
+  const permisos_botonesOT = generatePermisosBotonesString(jsonData);
+
+  console.log(permisos_botonesOT);
 
   let _p1 = ` "${jsonData.nombre}", 
               ${jsonData.cargo}, 
               "${jsonData.telefono}", 
               "${jsonData.correo}", 
               ${jsonData.estado === "Activo" ? 1 : 2},
-              "${permisos_archivoOT}",
               "${permisos_campos}",
-              "${permisos_areas}"
+              "${permisos_areas}",
+              "${permisos_botonesOT}"
 `;
   _p1 = _p1.replace(/'/g, "!");
   const query: OutputData = {
@@ -175,16 +189,15 @@ export function transformUpdateQuery(
   jsonData: any,
   primaryKey: string
 ): OutputData | null {
-  console.log(jsonData);
+  const permisos_botonesOT = generatePermisosBotonesString(jsonData);
+
   const fields = [
     `nombre               ="${jsonData.nombre}"`,
     `telefono             ="${jsonData.telefono}"`,
     `correo               ="${jsonData.correo}"`,
     `estado               = ${jsonData.estado === "Activo" ? 1 : 2}`,
     `cargo                = ${jsonData.cargo}`,
-    `permisos_archivo_ot  = "${permiso_archivoOT
-      .map((permiso) => (jsonData[permiso] === "Lectura" ? "0" : "1"))
-      .join("")}"`,
+    `permisos_botones     = "${permisos_botonesOT}"`,
     `permisos_campos      = "${permiso_campo
       .map((permiso) =>
         jsonData[permiso] === "Lectura"
@@ -217,7 +230,6 @@ export function transformUpdateQuery(
     _p3: "",
   };
 
-  console.log("USER: ", query);
   return query;
 }
 
