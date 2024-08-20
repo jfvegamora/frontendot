@@ -47,7 +47,7 @@ export const table_head_OT_diaria2 = [
     width: "w-[8rem]",
     color: true
   },
-  
+
   {
     cell: "Estado Impresion",
     key: "estado_impresion",
@@ -98,7 +98,7 @@ export const table_head_OT_diaria2 = [
     alignment: "text-left",
     width: "w-[14rem]"
   },
- //************ RECETA */
+  //************ RECETA */
   {
     cell: "Fecha Atención",
     key: "fecha_atencion",
@@ -397,7 +397,7 @@ export const table_head_OT_historica = [
     alignment: "text-left",
     width: "w-[14rem]"
   },
- //************ RECETA */
+  //************ RECETA */
   {
     cell: "Fecha Atención",
     key: "fecha_atencion",
@@ -833,7 +833,7 @@ export const table_head_armazones = [
     visible: true,
     width: "w-[10rem]",
     color: true,
-    background:true
+    background: true
   },
   {
     cell: "Uso Interno",
@@ -1009,7 +1009,7 @@ export const table_head_cristales = [
     visible: true,
     alignment: "text-left",
     width: "w-[10rem]",
-    color:true
+    color: true
   },
   {
     cell: "Uso Interno",
@@ -1185,7 +1185,7 @@ export const table_head_accesorios = [
     visible: true,
     alignment: "text-left",
     width: "w-[10rem]",
-    color:true
+    color: true
   },
   {
     cell: "Descripción",
@@ -2131,7 +2131,7 @@ export const table_head_proyectos = [
     visible: true,
     alignment: "text-right",
     width: "w-[9rem]",
-  },  
+  },
   {
     cell: "% Ing",
     key: "porc_ingresado",
@@ -2152,7 +2152,7 @@ export const table_head_proyectos = [
     visible: true,
     alignment: "text-right",
     width: "w-[9rem]",
-  },  
+  },
   {
     cell: "% x Fact",
     key: "porc_por_facturar",
@@ -2374,7 +2374,7 @@ export const table_head_proyectos_docum = [
     cell: "TipoDocID",
     key: "tipo_doc_id",
     visible: false,
-    excelIndividual:true
+    excelIndividual: true
   },
   {
     cell: "Tipo Doc",
@@ -2922,7 +2922,7 @@ export const table_head_proyectos_grupos = [
     visible: true,
     alignment: "text-right",
     width: "w-[6rem]",
-  }, 	
+  },
   {
     cell: "Armazon Material ID",
     key: "armazon_material_id",
@@ -2964,7 +2964,7 @@ export const table_head_proyectos_grupos = [
     visible: true,
     alignment: "text-right",
     width: "w-[6rem]",
-  }, 	
+  },
   {
     cell: "Observaciones",
     key: "observaciones",
@@ -2973,11 +2973,11 @@ export const table_head_proyectos_grupos = [
     width: "w-[12rem]",
   },
   {
-  cell: "",
-  key: "opciones",
-  visible: true,
-  width: "w-[4rem]",
-},
+    cell: "",
+    key: "opciones",
+    visible: true,
+    width: "w-[4rem]",
+  },
 ];
 export const table_head_proyectos_puntos_venta = [
   {
@@ -3655,265 +3655,221 @@ export const table_head_usuarios = [
     width: "w-[10rem]",
   },
   {
-    cell: "OT PERMISO DOC ID",
-    key: "ot_permiso_doc_id",
-    visible: false,
+    cell: "OT PERMISO DOC ID", key: "ot_permiso_doc_id", visible: false,
   },
   {
-    cell: "OT PERMISO DOC",
-    key: "ot_permiso_doc",
-    visible: false,
+    cell: "OT PERMISO DOC", key: "ot_permiso_doc", visible: false,
   },
   {
-    cell: "OT PERMISO POST VENTA ID",
-    key: "ot_permiso_post_venta_id",
-    visible: false,
+    cell: "OT PERMISO POST VENTA ID", key: "ot_permiso_post_venta_id", visible: false,
   },
   {
-    cell: "OT PERMISO POST VENTA",
-    key: "ot_permiso_post_venta",
-    visible: false,
+    cell: "OT PERMISO POST VENTA", key: "ot_permiso_post_venta", visible: false,
   },
   {
-    cell: "OT PERMISO ANULAR ID",
-    key: "ot_permiso_anular_id",
-    visible: false,
+    cell: "OT PERMISO ANULAR ID", key: "ot_permiso_anular_id", visible: false,
   },
   {
-    cell: "OT PERMISO ANULAR",
-    key: "ot_permiso_anular",
-    visible: false,
+    cell: "OT PERMISO ANULAR", key: "ot_permiso_anular", visible: false,
   },
   {
-    cell: "CON_ID",
-    key: "permiso_con_id",
-    visible: false,
+    cell: "RES_ID", key: "permiso_resolucion_id", visible: false,
   },
   {
-    cell: "CON",
-    key: "permiso_con",
-    visible: false,
+    cell: "RES", key: "permiso_resolucion", visible: false,
   },
   {
-    cell: "ADQ_ID",
-    key: "permiso_adq_id",
-    visible: false,
+    cell: "ADQ_ID", key: "permiso_adq_id", visible: false,
   },
   {
-    cell: "ADQ",
-    key: "permiso_adq",
-    visible: false,
+    cell: "ADQ", key: "permiso_adq", visible: false,
   },
   {
-    cell: "CAL_ID",
-    key: "permiso_cal_id",
-    visible: false,
+    cell: "CAL_ID", key: "permiso_cal_id", visible: false,
   },
   {
-    cell: "CAL",
-    key: "permiso_cal",
-    visible: false,
+    cell: "CAL", key: "permiso_cal", visible: false,
   },
   {
-    cell: "LAB_ID",
-    key: "permiso_lab_id",
-    visible: false,
+    cell: "LAB_ID", key: "permiso_lab_id", visible: false,
   },
   {
-    cell: "LAB",
-    key: "permiso_lab",
-    visible: false,
+    cell: "LAB", key: "permiso_lab", visible: false,
   },
   {
-    cell: "DIG_ID",
-    key: "permiso_dig_id",
-    visible: false,
+    cell: "ING_ID", key: "permiso_ing_id", visible: false,
   },
   {
-    cell: "DIG",
-    key: "permiso_dig",
-    visible:false,
+    cell: "ING", key: "permiso_ing", visible: false,
   },
   {
-    cell: "ING_ID",
-    key: "permiso_ing_id",
-    visible: false,
+    cell: "CON_PROD_ID", key: "permiso_con_prod_id", visible: false,
   },
   {
-    cell: "ING",
-    key: "permiso_ing",
-    visible:false,
+    cell: "CON_PROD", key: "permiso_con_prod", visible: false,
   },
   {
-    cell: "BI_ID",
-    key: "permiso_bi_id",
-    visible: false,
+    cell: "BI_ID", key: "permiso_bi_id", visible: false,
   },
   {
-    cell: "BI",
-    key: "permiso_bi",
-    visible: false,
+    cell: "BI", key: "permiso_bi", visible: false,
   },
   {
-    cell: "TB1_ID",
-    key: "permiso_tb1_id",
-    visible: false,
+    cell: "TB1_ID", key: "permiso_tb1_id", visible: false,
   },
   {
-    cell: "TB1",
-    key: "permiso_tb1",
-    visible: false,
+    cell: "TB1", key: "permiso_tb1", visible: false,
   },
   {
-    cell: "TB2_ID",
-    key: "permiso_tb2_id",
-    visible: false,
+    cell: "TB2_ID", key: "permiso_tb2_id", visible: false,
   },
   {
-    cell: "TB2",
-    key: "permiso_tb2",
-    visible: false,
+    cell: "TB2", key: "permiso_tb2", visible: false,
   },
   {
-    cell: "TM_ID",
-    key: "permiso_tm_id",
-    visible: false,
+    cell: "TM_ID", key: "permiso_tm_id", visible: false,
   },
   {
-    cell: "TM",
-    key: "permiso_tm",
-    visible: false,
+    cell: "TM", key: "permiso_tm", visible: false,
   },
   {
-    cell: "QA_ID",
-    key: "permiso_qa_id",
-    visible: false,
+    cell: "QA_ID", key: "permiso_qa_id", visible: false,
   },
   {
-    cell: "QA",
-    key: "permiso_qa",
-    visible: false,
+    cell: "QA", key: "permiso_qa", visible: false,
   },
 
   {
-    cell: "BPT_ID",
-    key: "permiso_bpt_id",
-    visible: false,
+    cell: "BPT_ID", key: "permiso_bpt_id", visible: false,
   },
   {
-    cell: "BPT",
-    key: "permiso_bpt",
-    visible: false,
+    cell: "BPT", key: "permiso_bpt", visible: false,
   },
   {
-    cell: "EMP_ID",
-    key: "permiso_emp_id",
-    visible: false,
+    cell: "EMP_ID", key: "permiso_emp_id", visible: false,
   },
   {
-    cell: "EMP",
-    key: "permiso_emp",
-    visible: false,
+    cell: "EMP", key: "permiso_emp", visible: false,
   },
   {
-    cell: "permiso_editar_armazon_id",
-    key: "permiso_editar_armazon_id",
-    visible: false,
+    cell: "permiso_editar_armazon_id", key: "permiso_editar_armazon_id", visible: false,
   },
   {
-    cell: "permiso_editar_armazon",
-    key: "permiso_editar_armazon",
-    visible: false,
+    cell: "permiso_editar_armazon", key: "permiso_editar_armazon", visible: false,
   },
   {
-    cell: "permiso_editar_cristal_opcion_vta_id",
-    key: "permiso_editar_cristal_opcion_vta_id",
-    visible: false,
+    cell: "permiso_editar_cristal_opcion_vta_id", key: "permiso_editar_cristal_opcion_vta_id", visible: false,
   },
   {
-    cell: "permiso_editar_cristal_opcion_vta",
-    key: "permiso_editar_cristal_opcion_vta",
-    visible: false,
+    cell: "permiso_editar_cristal_opcion_vta", key: "permiso_editar_cristal_opcion_vta", visible: false,
   },
   {
-    cell: "permiso_editar_estado_impresion_id",
-    key: "permiso_editar_estado_impresion_id",
-    visible: false,
+    cell: "permiso_editar_estado_impresion_id", key: "permiso_editar_estado_impresion_id", visible: false,
   },
   {
-    cell: "permiso_editar_estado_impresion",
-    key: "permiso_editar_estado_impresion",
-    visible: false,
+    cell: "permiso_editar_estado_impresion", key: "permiso_editar_estado_impresion", visible: false,
   },
   {
-    cell: "permiso_editar_validar_parametrizacion_id",
-    key: "permiso_editar_validar_parametrizacion_id",
-    visible: false,
+    cell: "permiso_editar_validar_parametrizacion_id", key: "permiso_editar_validar_parametrizacion_id", visible: false,
   },
   {
-    cell: "permiso_editar_validar_parametrizacion",
-    key: "permiso_editar_validar_parametrizacion",
-    visible: false,
+    cell: "permiso_editar_validar_parametrizacion", key: "permiso_editar_validar_parametrizacion", visible: false,
   },
   {
-    cell: "permiso_editar_opcion_montaje_id",
-    key: "permiso_editar_opcion_montaje_id",
-    visible: false,
+    cell: "permiso_editar_opcion_montaje_id", key: "permiso_editar_opcion_montaje_id", visible: false,
   },
   {
-    cell: "permiso_editar_opcion_montaje",
-    key: "permiso_editar_opcion_montaje",
-    visible: false,
+    cell: "permiso_editar_opcion_montaje", key: "permiso_editar_opcion_montaje", visible: false,
   },
   {
-    cell: "permiso_editar_grupo_dioptria_id",
-    key: "permiso_editar_grupo_dioptria_id",
-    visible: false,
+    cell: "permiso_editar_grupo_dioptria_id", key: "permiso_editar_grupo_dioptria_id", visible: false,
   },
   {
-    cell: "permiso_editar_grupo_dioptria",
-    key: "permiso_editar_grupo_dioptria",
-    visible: false,
+    cell: "permiso_editar_grupo_dioptria", key: "permiso_editar_grupo_dioptria", visible: false,
   },
   {
-    cell: "permiso_editar_receta_id",
-    key: "permiso_editar_receta_id",
-    visible: false,
+    cell: "permiso_editar_receta_id", key: "permiso_editar_receta_id", visible: false,
   },
   {
-    cell: "permiso_editar_receta",
-    key: "permiso_editar_receta",
-    visible: false,
+    cell: "permiso_editar_receta", key: "permiso_editar_receta", visible: false,
   },
   {
-    cell: "permiso_editar_validar_cristales_id",
-    key: "permiso_editar_validar_cristales_id",
-    visible: false,
+    cell: "permiso_editar_validar_cristales_id", key: "permiso_editar_validar_cristales_id", visible: false,
   },
   {
-    cell: "permiso_editar_validar_cristales",
-    key: "permiso_editar_validar_cristales",
-    visible: false,
+    cell: "permiso_editar_validar_cristales", key: "permiso_editar_validar_cristales", visible: false,
   },
   {
-    cell: "permiso_editar_validar_armazones_id",
-    key: "permiso_editar_validar_armazones_id",
-    visible: false,
+    cell: "permiso_editar_validar_armazones_id", key: "permiso_editar_validar_armazones_id", visible: false,
   },
   {
-    cell: "permiso_editar_validar_armazones",
-    key: "permiso_editar_validar_armazones",
-    visible: false,
+    cell: "permiso_editar_validar_armazones", key: "permiso_editar_validar_armazones", visible: false,
   },
   {
-    cell: "permiso_editar_worktracking_id",
-    key: "permiso_editar_worktracking_id",
-    visible: false,
+    cell: "permiso_editar_worktracking_id", key: "permiso_editar_worktracking_id", visible: false,
   },
   {
-    cell: "permiso_editar_worktracking",
-    key: "permiso_editar_worktracking",
-    visible: false,
+    cell: "permiso_editar_worktracking", key: "permiso_editar_worktracking", visible: false,
+  },
+  {
+    cell: "permiso_nguia_id", key: "permiso_nguia_id", visible: false,
+  },
+  {
+    cell: "permiso_nguia", key: "permiso_nguia", visible: false,
+  },
+  {
+    cell: "permiso_nenvio_id", key: "permiso_nenvio_id", visible: false,
+  },
+  {
+    cell: "permiso_nenvio", key: "permiso_nenvio", visible: false,
+  },
+  {
+    cell: "permiso_nfirma_id", key: "permiso_nfirma_id", visible: false,
+  },
+  {
+    cell: "permiso_nfirma", key: "permiso_nfirma", visible: false,
+  },
+  {
+    cell: "permiso_nreporte_entrega_id", key: "permiso_nreporte_entrega_id", visible: false,
+  },
+  {
+    cell: "permiso_nreporte_entrega", key: "permiso_nreporte_entrega", visible: false,
+  },
+  {
+    cell: "permiso_noc_id", key: "permiso_noc_id", visible: false,
+  },
+  {
+    cell: "permiso_noc", key: "permiso_noc", visible: false,
+  },
+  {
+    cell: "permiso_confirmar_entrega_id", key: "permiso_confirmar_entrega_id", visible: false,
+  },
+  {
+    cell: "permiso_confirmar_entrega", key: "permiso_confirmar_entrega", visible: false,
+  },
+  {
+    cell: "permiso_pre_facturar_id", key: "permiso_pre_facturar_id", visible: false,
+  },
+  {
+    cell: "permiso_pre_facturar", key: "permiso_pre_facturar", visible: false,
+  },
+  {
+    cell: "permiso_vb_id", key: "permiso_vb_id", visible: false,
+  },
+  {
+    cell: "permiso_vb", key: "permiso_vb", visible: false,
+  },
+  {
+    cell: "permiso_facturar_id", key: "permiso_facturar_id", visible: false,
+  },
+  {
+    cell: "permiso_facturar", key: "permiso_facturar", visible: false,
+  },
+  {
+    cell: "permiso_confirmar_pago_id", key: "permiso_confirmar_pago_id", visible: false,
+  },
+  {
+    cell: "permiso_confirmar_pago", key: "permiso_confirmar_pago", visible: false,
   },
   {
     cell: "",

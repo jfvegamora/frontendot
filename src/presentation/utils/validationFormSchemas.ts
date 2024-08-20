@@ -373,6 +373,7 @@ export const validationProyectosSchema = () =>
     imprime_qr: yup.string().required(`${msg}`),
     imprime_ticket: yup.string().required(`${msg}`),
     permite_aproximar: yup.string().required(`${msg}`),
+    requiere_guia: yup.string().required(`${msg}`),
   });
 
 // Schema MUESTRARIOS
@@ -614,12 +615,12 @@ export const validationUsusariosSchema = () =>
     correo: yup.string().required(`${msg}`),
     estado: yup.string().required(`${msg}`),
 
+    permiso_resolucion: yup.string().required(`${msg}`),
     permiso_adquisiciones: yup.string().required(`${msg}`),
     permiso_calculo: yup.string().required(`${msg}`),
-    permiso_control: yup.string().required(`${msg}`),
     permiso_laboratorio: yup.string().required(`${msg}`),
-    permiso_digitacion: yup.string().required(`${msg}`),
     permiso_ingreso: yup.string().required(`${msg}`),
+    permiso_control_produccion: yup.string().required(`${msg}`),
     permiso_bodega_insumos: yup.string().required(`${msg}`),
     permiso_biselado_1: yup.string().required(`${msg}`),
     permiso_biselado_2: yup.string().required(`${msg}`),
@@ -632,6 +633,18 @@ export const validationUsusariosSchema = () =>
     permiso_post_venta: yup.string().required(`${msg}`),
     permiso_anulacion: yup.string().required(`${msg}`),
 
+    permiso_nguia: yup.string().required(`${msg}`),
+    permiso_nenvio: yup.string().required(`${msg}`),
+    permiso_nfirma: yup.string().required(`${msg}`),
+    permiso_nreporte_entrega: yup.string().required(`${msg}`),
+    permiso_noc: yup.string().required(`${msg}`),
+    permiso_confirmar_entrega: yup.string().required(`${msg}`),
+    permiso_pre_facturar: yup.string().required(`${msg}`),
+    permiso_vb: yup.string().required(`${msg}`),
+    permiso_facturar: yup.string().required(`${msg}`),
+    permiso_confirmar_pago: yup.string().required(`${msg}`),
+
+
     permiso_editar_armazon: yup.string().required(`${msg}`),
     permiso_editar_cristal_opcion_vta: yup.string().required(`${msg}`),
     permiso_editar_estado_impresion: yup.string().required(`${msg}`),
@@ -642,7 +655,7 @@ export const validationUsusariosSchema = () =>
     permiso_editar_validar_cristales: yup.string().required(`${msg}`),
     permiso_editar_validar_armazones: yup.string().required(`${msg}`),
     permiso_editar_worktracking: yup.string().required(`${msg}`),
-    // permiso_editar_opcion_vta: yup.string().default("Lectura"),
+
   });
 
 export const validationProfileUserSchema = () =>
