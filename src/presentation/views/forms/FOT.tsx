@@ -1414,6 +1414,13 @@ const FOT: React.FC<IFOTProps> = ({
     return campoEncontrado && campoEncontrado.valor === 1;
   });
 
+  console.log(permisos_ot_historica);
+  console.log(data?.[EnumGrid.area_id]);
+  console.log(data?.[EnumGrid.area_id] === 110);
+  console.log(isMOT);
+  console.log(escritura_lectura);
+  console.log(permisos_ot_historica.permisoPostVenta);
+
   return (
     <div className="useFormContainerOT top-[0%]  w-full h-[100%] !z-40">
       <Tabs
@@ -1718,7 +1725,7 @@ const FOT: React.FC<IFOTProps> = ({
               data?.[EnumGrid.area_id] === 110 &&
               isMOT &&
               escritura_lectura &&
-              permisos_ot_historica.permiso_post_venta && (
+              permisos_ot_historica.permisoPostVenta && (
                 // isMotivo    &&  (
                 <div className="mx-auto">
                   <Button
@@ -1821,11 +1828,11 @@ const FOT: React.FC<IFOTProps> = ({
             {/*************** BOTON ANULAR ***************/}
             {escritura_lectura &&
               (isMOT
-                ? permisos_ot_historica.permiso_anular &&
+                ? permisos_ot_historica.permisoAnular &&
                   data?.[EnumGrid.area_id] === 110
                 : permiso_anular_usuario === true &&
-                  OTPermissions[PermisosBotones.anular] === "1") &&
-              sumatoriaNivel1 === validationNivel1.value.length && (
+                  OTPermissions[PermisosBotones.anular] === "1") && (
+                // sumatoriaNivel1 === validationNivel1.value.length && (
                 // (data && data[EnumGrid.estado_id] === 30 || data && data[EnumGrid.estado_id] === 40 ) &&
                 // <Button className=' translate-y-[-2.7vw] text-[1vw] w-[10vw] bg-black' onClick={()=>{
                 <div className="mx-auto">

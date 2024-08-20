@@ -176,6 +176,11 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
     const [isFOTGuiaDespacho, setIsFOTGuiaDespeacho] = useState(false);
     const [isFOTFactura, setIsFOTFactura] = useState(false);
 
+    const [isFOTPreFactura, setIsFOTPreFactura] = useState(false);
+    const [isFOTVistoBueno, setIsFOTVistoBueno] = useState(false);
+    const [isFOTNumeroFactura, setIsFOTNumeroFactura] = useState(false);
+    const [isFOTConfirmaPago, setIsFOTConfirmaPago] = useState(false);
+
     const {
       permiso_usuario_btn_nuevo,
       // permiso_usuario_btn_editar,
@@ -198,7 +203,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
       permiso_usuario_btn_opcionBodegaInsumos,
       permiso_usuario_btn_reporteEntrega,
       permiso_usuario_btn_numeroOC,
-      // permiso_usuario_btn_confirmarEntrega,
+      permiso_usuario_btn_confirmarEntrega,
       permiso_usuario_btn_preFacturar,
       permiso_usuario_btn_vistoBueno,
       permiso_usuario_btn_numeroFactura,
@@ -875,21 +880,6 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
             )}
         </Suspense>
 
-        <Suspense>
-          {areaPermissions &&
-            areaPermissions[PermisosBotones.importar] === "1" &&
-            permisos_usuario_areas !== "0" &&
-            permiso_usuario_btn_importar && (
-              <Suspense>
-                <ImportToCsv
-                  strEntidad={strEntidad}
-                  //  params={params}
-                  //  strBaseUrl={strBaseUrl}
-                />
-              </Suspense>
-            )}
-        </Suspense>
-
         {areaPermissions &&
           areaPermissions[PermisosBotones.imprimir] === "1" &&
           permisos_usuario_areas !== "0" &&
@@ -909,16 +899,6 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
         )
         } */}
 
-        {areaPermissions &&
-          areaPermissions[PermisosBotones.ubicacion] === "1" &&
-          permisos_usuario_areas === "1" &&
-          permiso_usuario_btn_ubicacion &&
-          renderButton(
-            <LuBox className="primaryBtnIcon " />,
-            handleUbicacion!,
-            BUTTON_MESSAGES.ubicacion
-          )}
-
         <Suspense>
           {areaPermissions &&
             areaPermissions[PermisosBotones.exportar] === "1" &&
@@ -936,45 +916,20 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
             )}
         </Suspense>
 
-        {areaPermissions &&
-          areaPermissions[PermisosBotones.macroExcel] === "1" &&
-          permisos_usuario_areas !== "0" &&
-          permiso_usuario_btn_macroExcel && (
-            <Tooltip content={"Descargar Plantilla Excel"}>
-              <IconButton
-                className="primaryBtnIconButton"
-                variant="text"
-                color="blue-gray"
-              >
-                <PiMicrosoftExcelLogoFill
-                  className="primaryBtnIcon"
-                  onClick={() => handleDownloadMacro()}
+        <Suspense>
+          {areaPermissions &&
+            areaPermissions[PermisosBotones.importar] === "1" &&
+            permisos_usuario_areas !== "0" &&
+            permiso_usuario_btn_importar && (
+              <Suspense>
+                <ImportToCsv
+                  strEntidad={strEntidad}
+                  //  params={params}
+                  //  strBaseUrl={strBaseUrl}
                 />
-              </IconButton>
-              {/* <Button color="green" className='otActionButton mx-4' >Macro Excel</Button> */}
-            </Tooltip>
-          )}
-
-        {areaPermissions &&
-          areaPermissions[PermisosBotones.ingresar] === "1" &&
-          permisos_usuario_areas !== "0" &&
-          permiso_usuario_btn_ingresar && (
-            <Tooltip content={BUTTON_MESSAGES.bln_ingreso}>
-              {/* <button className='bg-green-400 mx-4 transition-transform transform hover:scale-110 active:scale-95 w-[10rem] h-[2.5rem]  text-white '  */}
-              <Button
-                type="submit"
-                className="otActionButton mx-4 bg-blue-500"
-                onClick={() => {
-                  if (OTPkToDelete.value.length === 0) {
-                    return toast.error("No hay OT seleccionada.");
-                  }
-                  handleIngresoMasivo();
-                }}
-              >
-                Ingresar
-              </Button>
-            </Tooltip>
-          )}
+              </Suspense>
+            )}
+        </Suspense>
 
         {areaPermissions &&
           areaPermissions[PermisosBotones.whatsapp] === "1" &&
@@ -988,79 +943,6 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
             handleWhatsappMasivo!,
             BUTTON_MESSAGES.Whatsapp
           )}
-
-        {areaPermissions &&
-          areaPermissions[PermisosBotones.numeroEnvio] === "1" &&
-          permisos_usuario_areas !== "0" &&
-          permiso_usuario_btn_numerEnvio && (
-            <Tooltip content="Generar Número de Envío">
-              <Button
-                className="otActionButton ml-4"
-                onClick={() => {
-                  if (OTPkToDelete.value.length === 0) {
-                    return toast.error("No hay OT seleccionada.");
-                  }
-
-                  if (isEstadoStandBy) {
-                    return toast.error(
-                      `FOLIO: ${foliosStandBy}  No se encuentra en Proceso`
-                    );
-                  }
-
-                  setIsFOTEmpaque((prev) => !prev);
-                }}
-              >
-                N° Envío
-              </Button>
-            </Tooltip>
-          )}
-
-        {areaPermissions &&
-          areaPermissions[PermisosBotones.numeroFirma] === "1" &&
-          permisos_usuario_areas !== "0" && (
-            <Tooltip content={"Generar Reporte de Firmas"}>
-              <Button
-                className="otActionButton mt-3 mx-5 "
-                onClick={() => {
-                  if (OTPkToDelete.value.length === 0) {
-                    return toast.error("No hay OT seleccionada.");
-                  }
-                  if (isEstadoStandBy) {
-                    return toast.error(
-                      `FOLIO: ${foliosStandBy}  No se encuentra en Proceso`
-                    );
-                  }
-                  setIsFOTReporeFirma((prev) => !prev);
-                }}
-              >
-                Rep. Firma
-              </Button>
-            </Tooltip>
-          )}
-
-        {/* {areaPermissions &&
-          areaPermissions[PermisosBotones.guiaDespacho] === "1" &&
-          permisos_usuario_areas !== "0" && (
-            <Tooltip content="Generar Número de Guía">
-              <Button
-                className="otActionButton mr-4"
-                onClick={() => {
-                  if (isEstadoStandBy) {
-                    return toast.error(
-                      `FOLIO: ${foliosStandBy}  No se encuentra en Proceso`
-                    );
-                  }
-                  if (OTPkToDelete.value.length === 0) {
-                    toast.error("No hay OT seleccionada");
-                  } else {
-                    setIsFOTGuia((prev) => !prev);
-                  }
-                }}
-              >
-                N° Guía
-              </Button>
-            </Tooltip>
-          )} */}
 
         {OTAreas["areaActual"] === 60 && User.cargo === 1 && (
           <Tooltip content={BUTTON_MESSAGES.procesar}>
@@ -1160,82 +1042,99 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
             </Tooltip>
           )}
 
-        {OTAreas["areaActual"] !== 200 && !isMOTArchivo && (
-          <div className="ml-2 w-[10vw]">
-            <Input
-              type="number"
-              label="Seleccionar OT"
-              name="searchOT"
-              className="text-xl"
-              color="orange"
-              ref={searchOTRef}
-              value={valueSearchOT.value as any}
-              onChange={async (e: any) => {
-                if (e.target.value !== "") {
-                  let searchValue = e.target.value;
-
-                  if (searchValue.length >= 10) {
-                    console.log(searchValue);
-                    const regex = /^0+/;
-                    valueSearchOT.value = searchValue.replace(regex, "");
-                    const toastLoading: any = toast.loading("cargando...");
-                    await handleChecked(valueSearchOT.value).then(() => {
-                      toast.dismiss(toastLoading);
-                    });
+        {areaPermissions &&
+          areaPermissions[PermisosBotones.ingresar] === "1" &&
+          permisos_usuario_areas !== "0" &&
+          permiso_usuario_btn_ingresar && (
+            <Tooltip content={BUTTON_MESSAGES.bln_ingreso}>
+              {/* <button className='bg-green-400 mx-4 transition-transform transform hover:scale-110 active:scale-95 w-[10rem] h-[2.5rem]  text-white '  */}
+              <Button
+                type="submit"
+                className="otActionButton mx-4 bg-blue-500"
+                onClick={() => {
+                  if (OTPkToDelete.value.length === 0) {
+                    return toast.error("No hay OT seleccionada.");
                   }
-                }
-                valueSearchOT.value = e.target.value;
-              }}
-            />
-          </div>
-        )}
+                  handleIngresoMasivo();
+                }}
+              >
+                Ingresar
+              </Button>
+            </Tooltip>
+          )}
 
         {areaPermissions &&
-          areaPermissions[PermisosBotones.validarCristales] === "1" &&
+          areaPermissions[PermisosBotones.numeroEnvio] === "1" &&
           permisos_usuario_areas !== "0" &&
-          !isMOTArchivo &&
-          permiso_usuario_btn_validarCristales && (
-            <div className="ml-2 w-[10vw]">
-              <Input
-                ref={refFocusInput}
-                type="number"
-                label="Validar Cristales"
-                name="ProcesarOT"
-                className="text-xl"
-                color="orange"
-                // value={valueConfirmOT.value as any}
-                value={valueConfirmOT.value as any}
-                onChange={async (e: any) => {
-                  if (e.target.value !== "") {
-                    let validateValue = e.target.value;
-                    clearIndividualCheck.value = true;
-                    if (validateValue.length >= 10) {
-                      console.log(validateValue);
-                      const regex = /^0+/;
-                      valueConfirmOT.value = validateValue.replace(regex, "");
-
-                      const toastLoading: any = toast.loading("cargando...");
-                      await handleProcesarBodegaCristales(
-                        parseInt(valueConfirmOT.value),
-                        toastLoading
-                      ).then(() => {
-                        toast.dismiss(toastLoading);
-                        //  valueConfirmOT.value = "";
-                      });
-                    }
+          permiso_usuario_btn_numerEnvio && (
+            <Tooltip content="Generar Número de Envío">
+              <Button
+                className="otActionButton ml-4"
+                onClick={() => {
+                  if (OTPkToDelete.value.length === 0) {
+                    return toast.error("No hay OT seleccionada.");
                   }
-                  valueConfirmOT.value =
-                    e.target.value === ""
-                      ? e.target.value
-                      : parseInt(e.target.value);
+
+                  if (isEstadoStandBy) {
+                    return toast.error(
+                      `FOLIO: ${foliosStandBy}  No se encuentra en Proceso`
+                    );
+                  }
+
+                  setIsFOTEmpaque((prev) => !prev);
                 }}
-              />
-            </div>
+              >
+                N° Envío
+              </Button>
+            </Tooltip>
           )}
+
+        {areaPermissions &&
+          areaPermissions[PermisosBotones.macroExcel] === "1" &&
+          permisos_usuario_areas !== "0" &&
+          permiso_usuario_btn_macroExcel && (
+            <Tooltip content={"Descargar Plantilla Excel"}>
+              <IconButton
+                className="primaryBtnIconButton"
+                variant="text"
+                color="blue-gray"
+              >
+                <PiMicrosoftExcelLogoFill
+                  className="primaryBtnIcon"
+                  onClick={() => handleDownloadMacro()}
+                />
+              </IconButton>
+              {/* <Button color="green" className='otActionButton mx-4' >Macro Excel</Button> */}
+            </Tooltip>
+          )}
+
+        {areaPermissions &&
+          areaPermissions[PermisosBotones.numeroFirma] === "1" &&
+          permisos_usuario_areas !== "0" && (
+            <Tooltip content={"Generar Reporte de Firmas"}>
+              <Button
+                className="otActionButton mt-3 mx-5 "
+                onClick={() => {
+                  if (OTPkToDelete.value.length === 0) {
+                    return toast.error("No hay OT seleccionada.");
+                  }
+                  if (isEstadoStandBy) {
+                    return toast.error(
+                      `FOLIO: ${foliosStandBy}  No se encuentra en Proceso`
+                    );
+                  }
+                  setIsFOTReporeFirma((prev) => !prev);
+                }}
+              >
+                Rep. Firma
+              </Button>
+            </Tooltip>
+          )}
+
         {areaPermissions &&
           areaPermissions[PermisosBotones.validarArmazones] === "1" &&
           permisos_usuario_areas !== "0" &&
-          !isMOTArchivo &&
+          // !isMOTArchivo &&
           permiso_usuario_btn_validarArmazones && (
             <div className="ml-2 w-[10vw]">
               <Input
@@ -1276,9 +1175,62 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
           )}
 
         {areaPermissions &&
+          areaPermissions[PermisosBotones.validarCristales] === "1" &&
+          permisos_usuario_areas !== "0" &&
+          // !isMOTArchivo &&
+          permiso_usuario_btn_validarCristales && (
+            <div className="ml-2 w-[10vw]">
+              <Input
+                ref={refFocusInput}
+                type="number"
+                label="Validar Cristales"
+                name="ProcesarOT"
+                className="text-xl"
+                color="orange"
+                // value={valueConfirmOT.value as any}
+                value={valueConfirmOT.value as any}
+                onChange={async (e: any) => {
+                  if (e.target.value !== "") {
+                    let validateValue = e.target.value;
+                    clearIndividualCheck.value = true;
+                    if (validateValue.length >= 10) {
+                      console.log(validateValue);
+                      const regex = /^0+/;
+                      valueConfirmOT.value = validateValue.replace(regex, "");
+
+                      const toastLoading: any = toast.loading("cargando...");
+                      await handleProcesarBodegaCristales(
+                        parseInt(valueConfirmOT.value),
+                        toastLoading
+                      ).then(() => {
+                        toast.dismiss(toastLoading);
+                        //  valueConfirmOT.value = "";
+                      });
+                    }
+                  }
+                  valueConfirmOT.value =
+                    e.target.value === ""
+                      ? e.target.value
+                      : parseInt(e.target.value);
+                }}
+              />
+            </div>
+          )}
+
+        {areaPermissions &&
+          areaPermissions[PermisosBotones.ubicacion] === "1" &&
+          permisos_usuario_areas !== "0" &&
+          permiso_usuario_btn_ubicacion &&
+          renderButton(
+            <LuBox className="primaryBtnIcon " />,
+            handleUbicacion!,
+            BUTTON_MESSAGES.ubicacion
+          )}
+
+        {areaPermissions &&
           areaPermissions[PermisosBotones.opcionBodegaInsumos] === "1" &&
           permisos_usuario_areas !== "0" &&
-          !isMOTArchivo &&
+          // !isMOTArchivo &&
           permiso_usuario_btn_opcionBodegaInsumos && (
             <div className="mx-6 my-2  translate-y-[0.2rem] flex">
               <div className="flex">
@@ -1367,6 +1319,60 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
             </div>
           )}
 
+        {/* {areaPermissions &&
+          areaPermissions[PermisosBotones.guiaDespacho] === "1" &&
+          permisos_usuario_areas !== "0" && (
+            <Tooltip content="Generar Número de Guía">
+              <Button
+                className="otActionButton mr-4"
+                onClick={() => {
+                  if (isEstadoStandBy) {
+                    return toast.error(
+                      `FOLIO: ${foliosStandBy}  No se encuentra en Proceso`
+                    );
+                  }
+                  if (OTPkToDelete.value.length === 0) {
+                    toast.error("No hay OT seleccionada");
+                  } else {
+                    setIsFOTGuia((prev) => !prev);
+                  }
+                }}
+              >
+                N° Guía
+              </Button>
+            </Tooltip>
+          )} */}
+
+        {OTAreas["areaActual"] !== 200 && !isMOTArchivo && (
+          <div className="ml-2 w-[10vw]">
+            <Input
+              type="number"
+              label="Seleccionar OT"
+              name="searchOT"
+              className="text-xl"
+              color="orange"
+              ref={searchOTRef}
+              value={valueSearchOT.value as any}
+              onChange={async (e: any) => {
+                if (e.target.value !== "") {
+                  let searchValue = e.target.value;
+
+                  if (searchValue.length >= 10) {
+                    console.log(searchValue);
+                    const regex = /^0+/;
+                    valueSearchOT.value = searchValue.replace(regex, "");
+                    const toastLoading: any = toast.loading("cargando...");
+                    await handleChecked(valueSearchOT.value).then(() => {
+                      toast.dismiss(toastLoading);
+                    });
+                  }
+                }
+                valueSearchOT.value = e.target.value;
+              }}
+            />
+          </div>
+        )}
+
         {areaPermissions &&
           areaPermissions[PermisosBotones.reporteEntrega] === "1" &&
           permisos_usuario_areas !== "0" &&
@@ -1386,7 +1392,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
           )}
 
         {areaPermissions &&
-          areaPermissions[PermisosBotones.reporteEntrega] === "1" &&
+          areaPermissions[PermisosBotones.numeroOC] === "1" &&
           permisos_usuario_areas !== "0" &&
           permiso_usuario_btn_numeroOC && (
             <Button
@@ -1436,6 +1442,60 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
           )}
 
         {areaPermissions &&
+          areaPermissions[PermisosBotones.confirmarEntrega] === "1" &&
+          permisos_usuario_areas !== "0" &&
+          permiso_usuario_btn_confirmarEntrega && (
+            <Button
+              className="otActionButton mt-3 mx-5"
+              onClick={() => {
+                if (OTPkToDelete.value.length < 1) {
+                  return toast.error("No hay OT Seleccionada");
+                } else {
+                  // setIsFOTReporteEntrega((prev) => !prev);
+                }
+              }}
+            >
+              Confirmar Entrega
+            </Button>
+          )}
+
+        {areaPermissions &&
+          areaPermissions[PermisosBotones.preFacturar] === "1" &&
+          permisos_usuario_areas !== "0" &&
+          permiso_usuario_btn_preFacturar && (
+            <Button
+              className="otActionButton mt-3 mx-5"
+              onClick={() => {
+                if (OTPkToDelete.value.length < 1) {
+                  return toast.error("No hay OT Seleccionada");
+                } else {
+                  // setIsFOTReporteEntrega((prev) => !prev);
+                }
+              }}
+            >
+              Pre Factura
+            </Button>
+          )}
+
+        {areaPermissions &&
+          areaPermissions[PermisosBotones.vistoBueno] === "1" &&
+          permisos_usuario_areas !== "0" &&
+          permiso_usuario_btn_vistoBueno && (
+            <Button
+              className="otActionButton mt-3 mx-5"
+              onClick={() => {
+                if (OTPkToDelete.value.length < 1) {
+                  return toast.error("No hay OT Seleccionada");
+                } else {
+                  // setIsFOTReporteEntrega((prev) => !prev);
+                }
+              }}
+            >
+              V°B°
+            </Button>
+          )}
+
+        {areaPermissions &&
           areaPermissions[PermisosBotones.numeroFactura] === "1" &&
           permisos_usuario_areas !== "0" && (
             <Button
@@ -1453,6 +1513,24 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
               }}
             >
               N° Factura
+            </Button>
+          )}
+
+        {areaPermissions &&
+          areaPermissions[PermisosBotones.confirmaPago] === "1" &&
+          permisos_usuario_areas !== "0" &&
+          permiso_usuario_btn_confirmaPago && (
+            <Button
+              className="otActionButton mt-3 mx-5"
+              onClick={() => {
+                if (OTPkToDelete.value.length < 1) {
+                  return toast.error("No hay OT Seleccionada");
+                } else {
+                  // setIsFOTReporteEntrega((prev) => !prev);
+                }
+              }}
+            >
+              Confirmar Pago
             </Button>
           )}
 

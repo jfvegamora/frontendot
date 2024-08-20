@@ -22,6 +22,7 @@ import { OTPkToDelete, totoalTrabajosSeleccionados } from "./MOT";
 import TableComponent2 from "../../components/TableComponent2";
 import { updateActualArea } from "../../../redux/slices/OTAreasSlice";
 import OTPrimaryButtons from "../../components/OTPrimaryButtons";
+import { PermisosBotones } from "../../Enums";
 
 // import ExportCSV  from "../../components/ExportToCsv";
 
@@ -321,13 +322,13 @@ const MOTHistorica: React.FC = () => {
   useEffect(() => {
     dispatch(updateActualArea(110 as any));
     const permiso = areaActual && permissions(areaActual);
-    permissionsOTArchivo.value = permiso && permiso[5];
+    permissionsOTArchivo.value = permiso && permiso[6];
   }, [permissionsOTArchivo.value]);
 
-  let permiso_documentacion =
-    user.permisos_archivo_ot[0] === "1" ? true : false;
-  let permiso_post_venta = user.permisos_archivo_ot[1] === "1" ? true : false;
-  let permiso_anular = user.permisos_archivo_ot[2] === "1" ? true : false;
+  // let permiso_documentacion =
+  //   user.permisos_archivo_ot[0] === "1" ? true : false;
+  // let permiso_post_venta = user.permisos_archivo_ot[1] === "1" ? true : false;
+  // let permiso_anular = user.permisos_archivo_ot[2] === "1" ? true : false;
   // let permiso_post_venta    = user.permisos_archivo_ot[1] === '1' ? true : false;
 
   // const userState: any = useAppSelector((store: AppStore) => store.user);
@@ -499,7 +500,8 @@ const MOTHistorica: React.FC = () => {
 
   // console.log(validateAreaArchivo)
 
-  console.log(permissionsOTArchivo.value);
+  console.log(permissionsOTArchivo.value[PermisosBotones.anular]);
+  console.log(permissionsOTArchivo.value[PermisosBotones.postVenta]);
 
   return (
     <div className="mantenedorContainer">
@@ -839,11 +841,11 @@ const MOTHistorica: React.FC = () => {
             params={params}
             isEditting={false}
             isMOT={false}
-            permisos_ot_historica={{
-              permiso_documentacion,
-              permiso_post_venta,
-              permiso_anular,
-            }}
+            // permisos_ot_historica={{
+            //   permiso_documentacion,
+            //   permiso_post_venta,
+            //   permiso_anular,
+            // }}
           />
         )}
 
@@ -858,9 +860,17 @@ const MOTHistorica: React.FC = () => {
             isEditting={true}
             isMOT={true}
             permisos_ot_historica={{
-              permiso_documentacion,
-              permiso_post_venta,
-              permiso_anular,
+              permisoPostVenta:
+                permissionsOTArchivo.value[PermisosBotones.postVenta] === "1"
+                  ? true
+                  : false,
+              permisoAnular:
+                permissionsOTArchivo.value[PermisosBotones.anular] === "1"
+                  ? true
+                  : false,
+              // permissionsOTArchivo.value[PermisosBotones.postVenta],
+              // permissionsOTArchivo-value[PermisosBotones.anular],
+              // permiso_anular,
             }}
           />
         )}

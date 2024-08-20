@@ -136,7 +136,7 @@ const MOT: React.FC = () => {
     // console.log('render')
     const permiso = areaActualOT && permissions(areaActualOT);
 
-    permissionsOT.value = permiso && permiso[5];
+    permissionsOT.value = permiso && permiso[6];
   }, [areaActualOT]);
 
   useEffect(() => {

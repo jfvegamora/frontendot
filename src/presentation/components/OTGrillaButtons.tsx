@@ -1,4 +1,4 @@
-import React, { Suspense, useRef } from "react";
+import React, { Suspense, useEffect, useRef, useState } from "react";
 import { IconButton, Tooltip } from "@material-tailwind/react";
 import { PencilIcon } from "@heroicons/react/24/solid";
 // import { PiPrinterFill } from "react-icons/pi";
@@ -35,6 +35,7 @@ import { signal } from "@preact/signals-react";
 import { PiPrinterFill } from "react-icons/pi";
 import { URLBackend } from "../utils/config";
 import { PermisosBotones } from "../Enums";
+import { usePermissionBotonesUser } from "../hooks/usePermissionBotonesUser";
 // import ReactDOM from 'react-dom';
 
 type AreaButtonsProps = {
@@ -124,18 +125,20 @@ const OTGrillaButtons: React.FC<AreaButtonsProps> = React.memo(
     );
     const OTdata: any = useAppSelector((store: AppStore) => store.OTS.data);
     const user: any = useAppSelector((store: AppStore) => store.user);
+    const areas: any = useAppSelector((store: AppStore) => store.OTAreas.areas);
 
-    const permiso = React.useCallback(() => {
-      if (!historica) {
-        const permisoString = OTAreas["areas"].find(
-          (permiso: any) =>
-            permiso[1] === (OTAreaActual === 200 ? 50 : OTAreaActual)
-        );
-        return permisoString && permisoString[5];
-      }
-    }, [OTAreaActual, OTAreas]);
+    const [areaPermissions, setAreaPermissions] = useState<any>("");
+    // const permiso = React.useCallback(() => {
+    //   if (!historica) {
+    //     const permisoString = OTAreas["areas"].find(
+    //       (permiso: any) =>
+    //         permiso[1] === (OTAreaActual === 200 ? 50 : OTAreaActual)
+    //     );
+    //     return permisoString && permisoString[6];
+    //   }
+    // }, [OTAreaActual, OTAreas]);
 
-    let areaPermissions = permiso();
+    // let areaPermissions = permiso();
     const permisos_usuario_areas =
       user?.permisos_areas[EnumAreas[OTAreas["areaActual"]]] || 40;
 
@@ -151,6 +154,13 @@ const OTGrillaButtons: React.FC<AreaButtonsProps> = React.memo(
       setisFotTicketQR(false);
       setisFotTicketRetiro(false);
     };
+
+    const permissions = (area: number) =>
+      area && areas?.find((permiso: any) => permiso[1] === area);
+
+    useEffect(() => {
+      setAreaPermissions(OTAreaActual && permissions(OTAreaActual)[6]);
+    }, []);
 
     const handlePrint = useReactToPrint({
       content: () => componentRef.current,
@@ -310,31 +320,38 @@ const OTGrillaButtons: React.FC<AreaButtonsProps> = React.memo(
       }
     };
 
+    const { permiso_usuario_btn_editar, permiso_usaurio_btn_impresion } =
+      usePermissionBotonesUser();
+
     return (
       <div className="flex items-center">
         {/* { historica || (areaPermissions && areaPermissions[1] === '1')  && */}
         {/* { historica || */}
-        {areaPermissions && areaPermissions[PermisosBotones.editar] === "1" && (
-          <Tooltip content={BUTTON_MESSAGES.edit.concat(strEntidad)}>
-            <IconButton
-              variant="text"
-              color="blue-gray"
-              onClick={() => {
-                const loadingToast = toast.loading("Cargando...");
-                new Promise((_resolve) => {
-                  toggleEditOTModal(folio, historica, estado).finally(() => {
-                    toast.dismiss(loadingToast);
+        {areaPermissions &&
+          areaPermissions[PermisosBotones.editar] === "1" &&
+          permisos_usuario_areas !== "0" &&
+          permiso_usuario_btn_editar && (
+            <Tooltip content={BUTTON_MESSAGES.edit.concat(strEntidad)}>
+              <IconButton
+                variant="text"
+                color="blue-gray"
+                onClick={() => {
+                  const loadingToast = toast.loading("Cargando...");
+                  new Promise((_resolve) => {
+                    toggleEditOTModal(folio, historica, estado).finally(() => {
+                      toast.dismiss(loadingToast);
+                    });
                   });
-                });
-              }}
-            >
-              <PencilIcon className="gridIcons" />
-            </IconButton>
-          </Tooltip>
-        )}
+                }}
+              >
+                <PencilIcon className="gridIcons" />
+              </IconButton>
+            </Tooltip>
+          )}
         {areaPermissions &&
           areaPermissions[PermisosBotones.imprimir] === "1" &&
-          permisos_usuario_areas !== "0" && (
+          permisos_usuario_areas !== "0" &&
+          permiso_usaurio_btn_impresion && (
             <Tooltip content={BUTTON_MESSAGES.imprimir.concat(strEntidad)}>
               <IconButton
                 variant="text"

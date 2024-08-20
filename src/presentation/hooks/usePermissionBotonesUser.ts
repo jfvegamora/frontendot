@@ -123,7 +123,10 @@ export function usePermissionBotonesUser() {
       ? true
       : false;
 
-  console.log(permiso_usuario_btn_nuevo);
+  //011100011110000000100000000
+  //010100000101100000001111111
+  //111111111111111111111111111
+
   return {
     permiso_usuario_btn_nuevo,
     permiso_usuario_btn_editar,
