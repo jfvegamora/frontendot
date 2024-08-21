@@ -320,34 +320,30 @@ const OTGrillaButtons: React.FC<AreaButtonsProps> = React.memo(
       }
     };
 
-    const { permiso_usuario_btn_editar, permiso_usaurio_btn_impresion } =
-      usePermissionBotonesUser();
+    const { permiso_usaurio_btn_impresion } = usePermissionBotonesUser();
 
     return (
       <div className="flex items-center">
         {/* { historica || (areaPermissions && areaPermissions[1] === '1')  && */}
         {/* { historica || */}
-        {areaPermissions &&
-          areaPermissions[PermisosBotones.editar] === "1" &&
-          permisos_usuario_areas !== "0" &&
-          permiso_usuario_btn_editar && (
-            <Tooltip content={BUTTON_MESSAGES.edit.concat(strEntidad)}>
-              <IconButton
-                variant="text"
-                color="blue-gray"
-                onClick={() => {
-                  const loadingToast = toast.loading("Cargando...");
-                  new Promise((_resolve) => {
-                    toggleEditOTModal(folio, historica, estado).finally(() => {
-                      toast.dismiss(loadingToast);
-                    });
+        {permisos_usuario_areas !== "0" && (
+          <Tooltip content={BUTTON_MESSAGES.edit.concat(strEntidad)}>
+            <IconButton
+              variant="text"
+              color="blue-gray"
+              onClick={() => {
+                const loadingToast = toast.loading("Cargando...");
+                new Promise((_resolve) => {
+                  toggleEditOTModal(folio, historica, estado).finally(() => {
+                    toast.dismiss(loadingToast);
                   });
-                }}
-              >
-                <PencilIcon className="gridIcons" />
-              </IconButton>
-            </Tooltip>
-          )}
+                });
+              }}
+            >
+              <PencilIcon className="gridIcons" />
+            </IconButton>
+          </Tooltip>
+        )}
         {areaPermissions &&
           areaPermissions[PermisosBotones.imprimir] === "1" &&
           permisos_usuario_areas !== "0" &&

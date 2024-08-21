@@ -5,14 +5,14 @@ export function usePermissionBotonesUser() {
   const permisosBotones = useAppSelector(
     (store: AppStore) => store.user?.permisos_botones
   );
-  console.log(permisosBotones);
+
   let permiso_usuario_btn_nuevo =
     permisosBotones && permisosBotones[PermisosBotonesEnum.nuevo] === "1"
       ? true
       : false;
 
-  let permiso_usuario_btn_editar =
-    permisosBotones && permisosBotones[PermisosBotonesEnum.editar] === "1"
+  let permiso_usuario_btn_check =
+    permisosBotones && permisosBotones[PermisosBotonesEnum.check] === "1"
       ? true
       : false;
 
@@ -72,6 +72,11 @@ export function usePermissionBotonesUser() {
     permisosBotones && permisosBotones[PermisosBotonesEnum.macroExcel] === "1"
       ? true
       : false;
+
+  let permiso_usuario_btn_numeroFirma =
+    permisosBotones && permisosBotones[PermisosBotonesEnum.numeroFirma] === "1"
+      ? true
+      : false;
   let permiso_usuario_btn_validarArmazones =
     permisosBotones &&
     permisosBotones[PermisosBotonesEnum.validarArmazones] === "1"
@@ -129,7 +134,7 @@ export function usePermissionBotonesUser() {
 
   return {
     permiso_usuario_btn_nuevo,
-    permiso_usuario_btn_editar,
+    permiso_usuario_btn_check,
     permiso_usaurio_btn_impresion,
     permiso_usuario_btn_exportar,
     permiso_usuario_btn_importar,
@@ -143,6 +148,7 @@ export function usePermissionBotonesUser() {
     permiso_usuario_btn_guiaDespacho,
     permiso_usuario_btn_numerEnvio,
     permiso_usuario_btn_macroExcel,
+    permiso_usuario_btn_numeroFirma,
     permiso_usuario_btn_validarArmazones,
     permiso_usuario_btn_validarCristales,
     permiso_usuario_btn_ubicacion,

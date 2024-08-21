@@ -1,6 +1,6 @@
 export enum PermisosBotones {
   nuevo = 0,
-  editar = 1,
+  check = 1,
   imprimir = 2,
   exportar = 3,
   importar = 4,

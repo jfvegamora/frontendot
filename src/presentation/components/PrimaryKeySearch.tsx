@@ -302,7 +302,6 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                               label={input.label}
                               value={esferico}
                               onChange={(e) => {
-                                console.log(e.target.value);
                                 field.onChange(e);
                                 handleInputChange("_pEsferico", e.target.value);
                                 changeFilterSearchTitle(e, input.label);
@@ -335,7 +334,6 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                               label="Cilíndrico"
                               value={cilindrico}
                               onChange={(e) => {
-                                console.log(e.target.value);
                                 field.onChange(e);
                                 handleInputChange(
                                   "_pCilindrico",

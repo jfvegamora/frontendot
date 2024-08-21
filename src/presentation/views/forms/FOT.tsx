@@ -154,6 +154,7 @@ import {
 } from "../../utils/FOTCristales_utils";
 import { URLBackend } from "../../utils/config";
 import { PermisosBotones } from "../../Enums";
+import { usePermissionBotonesUser } from "../../hooks/usePermissionBotonesUser";
 // import { EnumAreas } from '../../components/OTPrimaryButtons';
 // import { usePermissionOT } from '../../hooks/usePermissionOT';
 // import { EnumAreas } from '../../components/OTPrimaryButtons';
@@ -260,6 +261,13 @@ const FOT: React.FC<IFOTProps> = ({
   // const OT:any = useAppSelector((store: AppStore) => store.OTS.ot);
 
   let OTAreaActual = OTAreas["areaActual"];
+
+  const {
+    permiso_usuario_btn_pausar,
+    permiso_usuario_btn_derivar,
+    permiso_usuario_btn_anular,
+    permiso_usuario_btn_postVenta,
+  } = usePermissionBotonesUser();
 
   const permissions = (area: number) =>
     OTAreaActual &&
@@ -378,7 +386,7 @@ const FOT: React.FC<IFOTProps> = ({
     validar_parametrizacion.value =
       (data && data[EnumGrid.validar_parametrizacion_id]) || "1";
     const permiso = OTAreaActual && permissions(OTAreaActual);
-    setOTPermissions(permiso && permiso[5]);
+    setOTPermissions(permiso && permiso[6]);
   }, [OTAreaActual]);
 
   React.useEffect(() => {
@@ -1414,12 +1422,10 @@ const FOT: React.FC<IFOTProps> = ({
     return campoEncontrado && campoEncontrado.valor === 1;
   });
 
-  console.log(permisos_ot_historica);
-  console.log(data?.[EnumGrid.area_id]);
-  console.log(data?.[EnumGrid.area_id] === 110);
-  console.log(isMOT);
-  console.log(escritura_lectura);
-  console.log(permisos_ot_historica.permisoPostVenta);
+  console.log(OTPermissions[PermisosBotones.anular] === "1");
+  console.log(permiso_anular_usuario);
+
+  console.log(OTPermissions);
 
   return (
     <div className="useFormContainerOT top-[0%]  w-full h-[100%] !z-40">
@@ -1723,6 +1729,7 @@ const FOT: React.FC<IFOTProps> = ({
           <div className="flex items-center mx-auto !mt-3 !mb-5">
             {isEditting &&
               data?.[EnumGrid.area_id] === 110 &&
+              permiso_usuario_btn_postVenta &&
               isMOT &&
               escritura_lectura &&
               permisos_ot_historica.permisoPostVenta && (
@@ -1770,7 +1777,7 @@ const FOT: React.FC<IFOTProps> = ({
               isEditting &&
               escritura_lectura &&
               OTPermissions[PermisosBotones.pausar] === "1" &&
-              User.permisos_areas[EnumAreas[OTAreaActual]] !== "0" && (
+              permiso_usuario_btn_pausar && (
                 <div className="mx-auto">
                   <Button
                     className="w-[12rem] text-[1.3rem] otActionButtonForm bg-yellow-700 hover:bg-yellow-600"
@@ -1800,7 +1807,7 @@ const FOT: React.FC<IFOTProps> = ({
               escritura_lectura &&
               OTPermissions[PermisosBotones.derivar] === "1" &&
               // sumatoriaNivel1  === validationNivel1.value.length &&
-              User.permisos_areas[EnumAreas[OTAreaActual]] !== "0" &&
+              permiso_usuario_btn_derivar &&
               data &&
               data[EnumGrid.estado_id] > 1 && (
                 <div className="mx-auto">
@@ -1829,8 +1836,9 @@ const FOT: React.FC<IFOTProps> = ({
             {escritura_lectura &&
               (isMOT
                 ? permisos_ot_historica.permisoAnular &&
-                  data?.[EnumGrid.area_id] === 110
-                : permiso_anular_usuario === true &&
+                  data?.[EnumGrid.area_id] === 110 &&
+                  permiso_usuario_btn_anular
+                : permiso_usuario_btn_anular &&
                   OTPermissions[PermisosBotones.anular] === "1") && (
                 // sumatoriaNivel1 === validationNivel1.value.length && (
                 // (data && data[EnumGrid.estado_id] === 30 || data && data[EnumGrid.estado_id] === 40 ) &&

@@ -197,6 +197,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
       permiso_usuario_btn_guiaDespacho,
       permiso_usuario_btn_numerEnvio,
       permiso_usuario_btn_macroExcel,
+      permiso_usuario_btn_numeroFirma,
       permiso_usuario_btn_validarArmazones,
       permiso_usuario_btn_validarCristales,
       permiso_usuario_btn_ubicacion,
@@ -866,6 +867,10 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
       }
     };
 
+    console.log(areaPermissions && areaPermissions[PermisosBotones.procesar]);
+
+    console.log(permiso_usuario_btn_numeroFirma);
+
     return (
       <div className="flex items-center   ml-[4rem] !w-full">
         <Suspense>
@@ -960,10 +965,11 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
 
         {areaPermissions &&
           areaPermissions[PermisosBotones.procesar] === "1" &&
-          ((permisos_usuario_areas === "1" && OTAreas["areaActual"] !== 50) ||
-            (permisos_usuario_areas === "2" &&
-              permiso_usuario_btn_procesar &&
-              OTAreas["areaActual"] === 50)) && (
+          // ((permisos_usuario_areas === "1" && OTAreas["areaActual"] !== 50) ||
+          //   (permisos_usuario_areas === "2" &&
+          //     permiso_usuario_btn_procesar &&
+          //     OTAreas["areaActual"] === 50))
+          permiso_usuario_btn_procesar && (
             // (permisos_usuario_areas !== '0') && (
             <Tooltip content={BUTTON_MESSAGES.procesar}>
               {/* <button className='bg-green-400 mx-4 transition-transform transform hover:scale-110 active:scale-95 w-[10rem] h-[2.5rem]  text-white '  */}
@@ -1110,7 +1116,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
 
         {areaPermissions &&
           areaPermissions[PermisosBotones.numeroFirma] === "1" &&
-          permisos_usuario_areas !== "0" && (
+          permiso_usuario_btn_numeroFirma && (
             <Tooltip content={"Generar Reporte de Firmas"}>
               <Button
                 className="otActionButton mt-3 mx-5 "
@@ -1479,7 +1485,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
 
         {areaPermissions &&
           areaPermissions[PermisosBotones.vistoBueno] === "1" &&
-          permisos_usuario_areas !== "0" &&
+          permiso_usuario_btn_procesar &&
           permiso_usuario_btn_vistoBueno && (
             <Button
               className="otActionButton mt-3 mx-5"
@@ -1497,7 +1503,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
 
         {areaPermissions &&
           areaPermissions[PermisosBotones.numeroFactura] === "1" &&
-          permisos_usuario_areas !== "0" && (
+          permiso_usuario_btn_numeroFactura && (
             <Button
               className="otActionButton mt-3 mx-5"
               onClick={() => {
@@ -1518,7 +1524,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
 
         {areaPermissions &&
           areaPermissions[PermisosBotones.confirmaPago] === "1" &&
-          permisos_usuario_areas !== "0" &&
+          permiso_usuario_btn_procesar &&
           permiso_usuario_btn_confirmaPago && (
             <Button
               className="otActionButton mt-3 mx-5"

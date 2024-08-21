@@ -366,6 +366,7 @@ const MOTHistorica: React.FC = () => {
       estado_id: OTs.data[row] && OTs.data[row][4],
       proyecto_codigo: OTs.data[row] && OTs.data[row][7],
       proyecto: OTs.data[row] && OTs.data[row][14],
+
       reporte_firma: OTs.data[row] && OTs.data[row][9],
       reporte_atencion: OTs.data[row] && OTs.data[row][10],
       orden_compra: OTs.data[row] && OTs.data[row][11],
@@ -493,15 +494,12 @@ const MOTHistorica: React.FC = () => {
     dispatch(updateActualArea(110 as any));
   }, []);
 
-  const validateAreaArchivo = pktoDelete.some(
-    (ot: any) => ot.area !== "Archivo"
-  );
+  // const validateAreaArchivo = pktoDelete.some(
+  //   (ot: any) => ot.area !== "Archivo"
+  // );
   // const folioNotArchivo = pktoDelete.filter((ot:any)=>ot.area === "Archivo").map((ot:any)=>ot.folio)
 
   // console.log(validateAreaArchivo)
-
-  console.log(permissionsOTArchivo.value[PermisosBotones.anular]);
-  console.log(permissionsOTArchivo.value[PermisosBotones.postVenta]);
 
   return (
     <div className="mantenedorContainer">

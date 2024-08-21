@@ -26,12 +26,16 @@ export enum OTGrillaEnum {
   numero_envio = 24,
   numero_reporte_firma = 25,
   numero_reporte_atencion = 26,
+
   por_vencer = 27,
   numero_oc = 28,
+
   numero_guia = 29,
   numero_factura = 30,
+
   imprime_qr = 31,
   imprime_ticket = 32,
+
   usuario = 33,
   estado_wsp = 34,
 }

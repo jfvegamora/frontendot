@@ -435,17 +435,6 @@ const MOT: React.FC = () => {
           labelProps: "labelInput",
         },
       },
-      {
-        name: "_ubicacion",
-        label: "Ubicación",
-        type: "text",
-        styles: {
-          with: "labelInput inputStyles !w-[8vw]",
-          container:
-            "!relative w-[8vw] translate-y-[-5.7vw] translate-x-[-12vw] ml-14",
-          labelProps: "labelInput",
-        },
-      },
 
       {
         name: "atrasadas",

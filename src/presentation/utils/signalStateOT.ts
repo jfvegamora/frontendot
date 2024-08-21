@@ -573,9 +573,6 @@ export function reiniciarA2DioptriasReceta() {
 }
 
 export const getDatosOT = (data: any) => {
-  console.log(data[EnumGrid.cristal1_od_opcion_vta]);
-  console.log(data[EnumGrid.cristal1_oi_opcion_vta]);
-
   CR1_OD_LAB.value =
     data[EnumGrid.cristal1_od_opcion_vta] === "2" ? true : false;
   CR1_OI_LAB.value =
@@ -592,7 +589,8 @@ export const getDatosOT = (data: any) => {
     data[EnumGrid.estado_impresion_id] === "1" ? true : false;
   isToggleValidation.value =
     data[EnumGrid.validar_parametrizacion_id] === "1" ? true : false;
-  tipo_de_anteojo.value = data[EnumGrid.tipo_anteojo_id].toString();
+  tipo_de_anteojo.value =
+    data[EnumGrid.tipo_anteojo_id] && data[EnumGrid.tipo_anteojo_id].toString();
 
   fecha_atencion_signal.value = data[EnumGrid.fecha_atencion];
   fecha_entrega_taller.value = data[EnumGrid.fecha_entrega_taller];
@@ -652,8 +650,6 @@ export const getDatosOT = (data: any) => {
   A1_CR_OI.value = data[EnumGrid.cristal1_oi];
   A2_CR_OD.value = data[EnumGrid.cristal2_od];
   A2_CR_OI.value = data[EnumGrid.cristal2_oi];
-
-  console.log(data && data[EnumGrid.empresa_adjudicada_id]);
 
   EmpresaAdjudicadaOT_ID.value = data[EnumGrid.empresa_adjudicada_id];
 };
