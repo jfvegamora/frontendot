@@ -450,6 +450,8 @@ const MOT: React.FC = () => {
     []
   );
 
+  console.log(OTPkToDelete.value);
+
   return (
     <div className="mantenedorContainer °bg-yellow-500">
       <div className="mt-4">

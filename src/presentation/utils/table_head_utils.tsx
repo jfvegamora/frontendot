@@ -182,14 +182,14 @@ export const table_head_OT_diaria2 = [
   {
     cell: "N° Envío",
     key: "num_envio",
-    visible: true,
+    visible: false,
     alignment: "text-left",
     width: "w-[6rem]",
   },
   {
     cell: "N° Rep. Firma",
     key: "num_rep_firma",
-    visible: true,
+    visible: false,
     alignment: "text-left",
     width: "w-[6rem]",
   },
@@ -217,7 +217,7 @@ export const table_head_OT_diaria2 = [
   {
     cell: "N° Guía",
     key: "num_guia",
-    visible: true,
+    visible: false,
     alignment: "text-left",
     width: "w-[6rem]",
   },
