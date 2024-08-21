@@ -24,7 +24,7 @@ export enum EnumGrid {
 
   //? PERMISOS AREAS
   permiso_resolucion = 8,
-  permiso_adquisiciones = 9,
+  permiso_compras = 9,
   permiso_calculo = 10,
   permiso_laboratorio = 11,
   permiso_ingreso = 12,
@@ -49,6 +49,7 @@ export enum EnumGrid {
   permiso_editar_validar_armazones = 29,
   permiso_editar_worktracking = 30,
 
+  // PERMISOS BOTONES
   permiso_agregar = 31,
   permiso_editar = 32,
   permiso_imprimir = 33,
