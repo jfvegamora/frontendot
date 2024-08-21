@@ -3651,56 +3651,47 @@ export const table_head_usuarios = [
     alignment: "text-left",
     width: "w-[10rem]",
   },
+  // PERMISO DE ÁREAS
   {
-    cell: "OT PERMISO DOC", key: "ot_permiso_doc", visible: false,
+    cell: "permiso_resolucion", key: "permiso_resolucion", visible: false,
   },
   {
-    cell: "OT PERMISO POST VENTA", key: "ot_permiso_post_venta", visible: false,
+    cell: "permiso_compras", key: "permiso_compras", visible: false,
   },
   {
-    cell: "OT PERMISO ANULAR", key: "ot_permiso_anular", visible: false,
+    cell: "permiso_calculo", key: "permiso_calculo", visible: false,
   },
   {
-    cell: "RES", key: "permiso_resolucion", visible: false,
+    cell: "permiso_laboratorio", key: "permiso_laboratorio", visible: false,
   },
   {
-    cell: "ADQ", key: "permiso_adq", visible: false,
+    cell: "permiso_ingreso", key: "permiso_ingreso", visible: false,
   },
   {
-    cell: "CAL", key: "permiso_cal", visible: false,
+    cell: "permiso_control_produccion", key: "permiso_control_produccion", visible: false,
   },
   {
-    cell: "LAB", key: "permiso_lab", visible: false,
+    cell: "permiso_bodega_insumos", key: "permiso_bodega_insumos", visible: false,
   },
   {
-    cell: "ING", key: "permiso_ing", visible: false,
+    cell: "permiso_biselado_1", key: "permiso_biselado_1", visible: false,
   },
   {
-    cell: "CON_PROD", key: "permiso_con_prod", visible: false,
+    cell: "permiso_biselado_2", key: "permiso_biselado_2", visible: false,
   },
   {
-    cell: "BI", key: "permiso_bi", visible: false,
+    cell: "permiso_montaje", key: "permiso_montaje", visible: false,
   },
   {
-    cell: "TB1", key: "permiso_tb1", visible: false,
+    cell: "permiso_qa", key: "permiso_qa", visible: false,
   },
   {
-    cell: "TB2", key: "permiso_tb2", visible: false,
+    cell: "permiso_bodega_prod_term", key: "permiso_bodega_prod_term", visible: false,
   },
   {
-    cell: "TM", key: "permiso_tm", visible: false,
+    cell: "permiso_empaque", key: "permiso_empaque", visible: false,
   },
-  {
-    cell: "QA", key: "permiso_qa", visible: false,
-  },
-  {
-    cell: "BPT",
-    key: "permiso_bpt",
-    visible: false,
-  },
-  {
-    cell: "EMP", key: "permiso_emp", visible: false,
-  },
+  // PERMISOS DE EDICIÓN CAMPOS
   {
     cell: "permiso_editar_armazon", key: "permiso_editar_armazon", visible: false,
   },
@@ -3732,8 +3723,7 @@ export const table_head_usuarios = [
     cell: "permiso_editar_worktracking", key: "permiso_editar_worktracking", visible: false,
   },
 
-
-// PERMISOS BOTONES
+  // PERMISOS BOTONES
   {
     cell: "permiso_agregar", key: "permiso_agregar", visible: false,
   },
@@ -3771,9 +3761,7 @@ export const table_head_usuarios = [
     cell: "permiso_post_vta", key: "permiso_post_vta", visible: false,
   },
   {
-    cell: "permiso_nenvio_id",
-    key: "permiso_nenvio_id",
-    visible: false,
+    cell: "permiso_nenvio_id", key: "permiso_nenvio_id", visible: false,
   },
   {
     cell: "permiso_nenvio", key: "permiso_nenvio", visible: false,
@@ -3782,9 +3770,7 @@ export const table_head_usuarios = [
     cell: "permiso_macro_excel", key: "permiso_macro_excel", visible: false,
   },
   {
-    cell: "permiso_nreporte_entrega_id",
-    key: "permiso_nreporte_entrega_id",
-    visible: false,
+    cell: "permiso_nreporte_entrega_id", key: "permiso_nreporte_entrega_id", visible: false,
   },
   {
     cell: "permiso_validar_armazon", key: "permiso_validar_armazon", visible: false,
@@ -3799,9 +3785,7 @@ export const table_head_usuarios = [
     cell: "permiso_opciones_bod_ins", key: "permiso_opciones_bod_ins", visible: false,
   },
   {
-    cell: "permiso_noc_id",
-    key: "permiso_noc_id",
-    visible: false,
+    cell: "permiso_noc_id", key: "permiso_noc_id", visible: false,
   },
   {
     cell: "permiso_noc", key: "permiso_noc", visible: false,
